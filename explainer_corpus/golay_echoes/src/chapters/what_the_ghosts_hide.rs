@@ -54,6 +54,10 @@ const QUIET_Y: f64 = 1.3;
 const COPY_Y: f64 = 1.3;
 /// The line of a row held above the main one.
 const ABOVE_Y: f64 = 0.55;
+/// Seconds of scene time each "precisely" card stays fully visible once it
+/// is in: 02_9's before 02_10 begins, 02_10's before the chapter fades. Its
+/// own line and the narrator's gap count toward it.
+const CARD_DWELL_S: f64 = 10.0;
 
 fn main_place() -> Place {
     Place::slabs(CHART_Y, SHIFTS_02)
@@ -357,6 +361,9 @@ impl SceneConstruct for WhatTheGhostsHide {
         flash_all(stage, &lit, 0.5)?;
         let exact = precisely(&kit, stage, &exact_claim()?)?;
         fade_in_all(stage, &[exact], 0.4)?;
+        // the card stays over the sum it makes exact until it can be read
+        let shown = stage.scene().time().to_f64();
+        wait_until(stage, shown + CARD_DWELL_S)?;
 
         // 02_10: the wrong pair, A sent twice: the quiet one stays hidden
         let line = say(&kit, stage, "02_10")?;
@@ -365,6 +372,7 @@ impl SceneConstruct for WhatTheGhostsHide {
         fade_out_all(stage, &leaving, 0.4)?;
         let card = precisely(&kit, stage, &wrong_pair_claim()?)?;
         swap(stage, &[exact], &[card], 0.3)?;
+        let card_shown = stage.scene().time().to_f64();
         let mut above = Chart::new(stage, above_place());
         let top_name = kit.text_left(stage, PATTERN_A, 22.0, palette::pattern_a(), name_at(ABOVE_Y))?;
         let bottom_name = kit.text_left(stage, PATTERN_A, 22.0, palette::pattern_a(), name_at(CHART_Y))?;
@@ -387,6 +395,7 @@ impl SceneConstruct for WhatTheGhostsHide {
         let end = line.start + line.len;
         wait_until(stage, end)?;
         pause(stage, 0.5)?;
+        wait_until(stage, card_shown + CARD_DWELL_S)?;
 
         fade_all(stage, 0.6)?;
         kit.finish(stage)?;

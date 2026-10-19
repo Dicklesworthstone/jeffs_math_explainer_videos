@@ -49,6 +49,11 @@ const SCENE_UNIT: f64 = 0.3;
 const REC_Y: f64 = 1.85;
 /// The countdown, right of the rows and under the shelf.
 const THINK_AT: [f64; 2] = [4.9, 0.5];
+/// Seconds of scene time 04_9's scope card stays fully visible once it is
+/// in, before 04_10 begins; the rest of 04_9 and the narrator's gap count
+/// toward it. It leaves with the identity as the noise arrives, never over
+/// the noise demonstration.
+const SCOPE_DWELL_S: f64 = 12.0;
 /// The identity (04_9), and where h₁ and h₂ stand beside the sends.
 const IDENTITY_AT: [f64; 2] = [0.0, 0.45];
 const H_X: f64 = 0.4;
@@ -287,6 +292,8 @@ impl SceneConstruct for WhenItBreaks {
         line.wait_for(stage, "whatever changed")?;
         let scope = precisely(&kit, stage, &scope_claim()?)?;
         swap(stage, &[card], &[scope], 0.3)?;
+        let shown = stage.scene().time().to_f64();
+        wait_until(stage, shown + SCOPE_DWELL_S)?;
 
         // 04_10: a noise blip is scored; the peak survives. The total stands
         // again, the same scene in both sends, still "both rows added"; the

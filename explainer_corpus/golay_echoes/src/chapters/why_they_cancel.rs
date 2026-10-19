@@ -53,6 +53,10 @@ const COPY_DROP: f64 = 0.85;
 const ARC_RISE: f64 = 0.3;
 /// Where a crossing pair's two blocks meet when they cancel (03_9).
 const MEET_Y: f64 = (TOP_Y + BOT_Y) / 2.0;
+/// Seconds of scene time 03_9's "precisely" card stays fully visible once
+/// it is in, before 03_10 begins; the rest of 03_9 and the narrator's gap
+/// count toward it.
+const CARD_DWELL_S: f64 = 10.0;
 /// The countdown, right of the rows.
 const THINK_AT: [f64; 2] = [4.8, 1.5];
 /// The old pair's numbers (03_8), right of the column.
@@ -420,6 +424,9 @@ impl SceneConstruct for WhyTheyCancel {
         line.wait_for(stage, "twice as long")?;
         let reach = precisely(&kit, stage, &reach_claim()?)?;
         fade_in_all(stage, &[reach], 0.4)?;
+        // the card stays over the identity it qualifies until it can be read
+        let shown = stage.scene().time().to_f64();
+        wait_until(stage, shown + CARD_DWELL_S)?;
 
         // 03_10: leave out the flip: the crossing products add
         let line = say(&kit, stage, "03_10")?;
