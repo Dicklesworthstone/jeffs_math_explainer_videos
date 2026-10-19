@@ -63,6 +63,12 @@ GROUPS = [
     ("01_4", "01_5", "01_6"),
     # the answer, why it must agree, and what the walker is not
     ("01_7", "01_8"),
+    # 02: the circuit's balance at the left junction, derived to the average
+    ("02_1", "02_2", "02_3", "02_4"),
+    # the walker's first step: the prediction question, ending its take
+    ("02_5",),
+    # the answer, the first-step average, and the general rule
+    ("02_6", "02_7", "02_8"),
 ]
 
 

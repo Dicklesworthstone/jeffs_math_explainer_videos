@@ -1,14 +1,18 @@
 //! Every number the video shows or says, computed from [`crate::model`] and
 //! printed for [`oracle.py`](../oracle.py) (`./x resistor_random_walk
-//! facts-check`): the rows of docs/fact-sheet.md. R-F rows are what the
-//! opening shows and says, R-X rows the edges of its always/never
-//! sentences, R-P rows the primary source's own worked examples.
+//! facts-check`): the rows of docs/fact-sheet.md. R-F1 to R-F3 rows are what
+//! the opening shows and says, R-F4 to R-F6 chapter 02's derivation, R-X rows
+//! the edges of the always/never sentences, R-P rows the primary source's own
+//! worked examples.
 
 use std::collections::BTreeSet;
 
 use explainer_kit::Facts;
 
-use crate::model::{self, BOTTOM, LEFT, Network, Q, RIGHT, ROUTE, TOP, csv};
+use crate::model::{self, BOTTOM, LEFT, Network, Q, RIGHT, ROUTE, TOP, Walk, csv};
+
+/// The left junction's far junctions, in the order chapter 02 names them.
+pub const LEFT_LINKS: [usize; 3] = [TOP, RIGHT, BOTTOM];
 
 /// How many steps of "still walking" the opening's exact version lists.
 pub const STILL_STEPS: usize = 3;
@@ -73,6 +77,40 @@ pub fn side_by_side() -> Result<i128, String> {
 /// each of its first [`STILL_STEPS`] steps.
 pub fn still_walking() -> Result<Vec<Q>, String> {
     network()?.still_walking(LEFT, STILL_STEPS)
+}
+
+/// The fractions added.
+pub fn sum(values: &[Q]) -> Q {
+    values.iter().fold(Q::ZERO, |s, &q| s + q)
+}
+
+/// Chapter 02: the voltage drop towards the left junction along each of
+/// its four identical wires, in the order they are drawn.
+pub fn drops() -> Result<Vec<Q>, String> {
+    let net = network()?;
+    net.drops_into(&net.kirchhoff(Q::ONE, Q::ZERO)?, LEFT)
+}
+
+/// Chapter 02: the left junction's wires that lead to the top, and all of
+/// its wires (the walker's first step up is the one over the other).
+pub fn first_step_up() -> Result<(usize, usize), String> {
+    let ends = network()?.far_ends(LEFT)?;
+    Ok((ends.iter().filter(|&&y| y == TOP).count(), ends.len()))
+}
+
+/// Chapter 02: the conductance of each link at the left junction, side-by-
+/// side wires added, in [`LEFT_LINKS`] order.
+pub fn left_conductances() -> Result<Vec<Q>, String> {
+    let net = network()?;
+    Ok(LEFT_LINKS.iter().map(|&y| net.between(LEFT, y)).collect())
+}
+
+/// Chapter 02's edge, the pair counted as one wire: the walker's chance of
+/// a first step up, the voltages, and the chances of reaching the top first.
+pub fn single_pair() -> Result<(Q, Vec<Q>, Vec<Q>), String> {
+    let one = model::single_pair()?;
+    let up = one.between(LEFT, TOP) / one.total(LEFT);
+    Ok((up, one.kirchhoff(Q::ONE, Q::ZERO)?, one.walk()?.top))
 }
 
 /// A junction's name, as the facts print it.
@@ -159,6 +197,7 @@ pub fn facts() -> Result<Facts, String> {
         "R-X2.island.refused",
         island.kirchhoff(Q::ONE, Q::ZERO).is_err() && island.walk().is_err(),
     )?;
+    chapter_02(&mut f, &net, &v, &walk)?;
     family(&mut f)?;
 
     // the primary source's own numbers
@@ -199,6 +238,92 @@ pub fn facts() -> Result<Facts, String> {
     )?;
     f.self_check()?;
     Ok(f)
+}
+
+/// Chapter 02's numbers: the balance at the left junction wire by wire
+/// (which way each current flows, what flows in and out, the coefficient
+/// the unknown gathers), the walker's first step over the same four wires,
+/// the conductance weights both pictures share, and the pair counted once.
+fn chapter_02(f: &mut Facts, net: &Network, v: &[Q], walk: &Walk) -> Result<(), String> {
+    let drops = drops()?;
+    if drops.iter().any(|d| d.is_zero()) {
+        return Err(format!("a wire at the left junction carries no current: {drops:?}"));
+    }
+    let flow: Vec<&str> = drops
+        .iter()
+        .map(|d| if d.is_positive() { "in" } else { "out" })
+        .collect();
+    let into: Vec<Q> = drops.iter().copied().filter(|d| d.is_positive()).collect();
+    let out: Vec<Q> = drops.iter().filter(|d| !d.is_positive()).map(|&d| -d).collect();
+    if sum(&into) != sum(&out) || !sum(&drops).is_zero() {
+        return Err(format!("the left junction's drops {drops:?} do not balance"));
+    }
+    f.add("R-F4.drops_into", csv(&drops))?;
+    f.add("R-F4.flow", flow.join(","))?;
+    f.add("R-F4.in", csv(&into))?;
+    f.add("R-F4.out", csv(&out))?;
+    f.add("R-F4.in_total", sum(&into))?;
+    f.add("R-F4.out_total", sum(&out))?;
+    f.add("R-F4.net", sum(&drops))?;
+    // the drop along each link the way its current flows, from high to low
+    for y in LEFT_LINKS {
+        let d = v[y] - v[LEFT];
+        f.add(&format!("R-F4.drop.{}", name(y)), if d.is_positive() { d } else { -d })?;
+    }
+    // each wire's drop is its far end minus the unknown, so the unknown
+    // gathers one minus sign per wire
+    f.add("R-F4.coefficient", drops.len())?;
+
+    // the walker's first step: four wires, each equally likely
+    let (up, wires) = first_step_up()?;
+    let to_top = Q::int(up as i128) / Q::int(wires as i128);
+    if to_top != net.between(LEFT, TOP) / net.total(LEFT) {
+        return Err(format!(
+            "counting wires gives {to_top} for a first step up, conductances another"
+        ));
+    }
+    f.add("R-F5.top_wires", up)?;
+    f.add("R-F5.to_top", to_top)?;
+    let ends = net.far_ends(LEFT)?;
+    let neighbours: BTreeSet<usize> = ends.iter().copied().collect();
+    f.add("R-F5.neighbours", neighbours.len())?;
+    f.add("R-F5.trap", Q::ONE / Q::int(neighbours.len() as i128))?;
+    let each = Q::ONE / Q::int(wires as i128);
+    let terms: Vec<Q> = ends.iter().map(|&y| each * walk.top[y]).collect();
+    if sum(&terms) != walk.top[LEFT] {
+        return Err(format!(
+            "the first-step terms {terms:?} do not add to the left's chance"
+        ));
+    }
+    f.add("R-F5.terms", csv(&terms))?;
+    f.add("R-F5.sum", sum(&terms))?;
+
+    // the general rule: each link's conductance over the junction's total,
+    // and the same weights from counting identical wires
+    let links = left_conductances()?;
+    let weights: Vec<Q> = links.iter().map(|&c| c / net.total(LEFT)).collect();
+    let counted: Vec<Q> = LEFT_LINKS
+        .iter()
+        .map(|&y| Q::int(ends.iter().filter(|&&e| e == y).count() as i128) * each)
+        .collect();
+    f.add("R-F6.left.conductances", csv(&links))?;
+    f.add("R-F6.left.total", net.total(LEFT))?;
+    f.add("R-F6.left.weights", csv(&weights))?;
+    f.add("R-F6.pair_adds", counted == weights)?;
+    // the general rule's domain: at the top the same weighted average is
+    // not the top's value, so the rule is stated for middle junctions only
+    let top_average = net.average(v, TOP).ok_or("the top has no wires")?;
+    if top_average == v[TOP] {
+        return Err(format!("the top's weighted average {top_average} equals its value"));
+    }
+    f.add("R-X5.top_average", top_average)?;
+
+    // the edge: the pair counted as one wire is another network
+    let (one_up, one_v, one_p) = single_pair()?;
+    f.add("R-X4.single.to_top", one_up)?;
+    f.add("R-X4.single.voltages", csv(&one_v))?;
+    f.add("R-X4.single.chances", csv(&one_p))?;
+    Ok(())
 }
 
 /// Every network of the opening's family (the six possible links each
@@ -277,6 +402,23 @@ mod tests {
             ("R-P1.current_cd", "1/8"),
             ("R-P1.steps_from_c", "1/4,1/4,1/2"),
             ("R-P2.line5", "0,1/5,2/5,3/5,4/5,1"),
+            ("R-F4.drops_into", "2/5,2/5,-1/5,-3/5"),
+            ("R-F4.flow", "in,in,out,out"),
+            ("R-F4.in_total", "4/5"),
+            ("R-F4.out_total", "4/5"),
+            ("R-F4.net", "0"),
+            ("R-F4.coefficient", "4"),
+            ("R-F5.to_top", "1/2"),
+            ("R-F5.trap", "1/3"),
+            ("R-F5.terms", "1/4,1/4,1/10,0"),
+            ("R-F5.sum", "3/5"),
+            ("R-F6.left.conductances", "2,1,1"),
+            ("R-F6.left.weights", "1/2,1/4,1/4"),
+            ("R-F6.pair_adds", "true"),
+            ("R-X4.single.to_top", "1/3"),
+            ("R-X4.single.voltages", "1,5/11,4/11,0"),
+            ("R-X4.single.chances", "1,5/11,4/11,0"),
+            ("R-X5.top_average", "8/15"),
         ] {
             assert_eq!(f.get(key), Some(value), "{key}");
         }

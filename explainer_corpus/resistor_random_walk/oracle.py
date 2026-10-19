@@ -213,6 +213,52 @@ def opening():
     return Net(4, LINKS, TOP, BOTTOM)
 
 
+def chapter_02(net, v, h):
+    """Chapter 02 at the left junction: the drops along its four wires from
+    the forest voltages, the walker's first step by counting wires, its
+    first-step terms from the Cramer chances, the conductance weights, and
+    the pair counted once (its own forests and Cramer solve)."""
+    ends = far_ends(LEFT)
+    drops = [v[y] - v[LEFT] for y in ends]
+    emit("R-F4.drops_into", csv(drops))
+    emit("R-F4.flow", ",".join("in" if d > 0 else "out" for d in drops))
+    inflow = [d for d in drops if d > 0]
+    outflow = [-d for d in drops if d < 0]
+    emit("R-F4.in", csv(inflow))
+    emit("R-F4.out", csv(outflow))
+    emit("R-F4.in_total", sum(inflow))
+    emit("R-F4.out_total", sum(outflow))
+    emit("R-F4.net", sum(drops))
+    for y in (TOP, RIGHT, BOTTOM):
+        emit(f"R-F4.drop.{NAMES[y]}", abs(v[y] - v[LEFT]))
+    emit("R-F4.coefficient", len(ends))
+
+    up = ends.count(TOP)
+    emit("R-F5.top_wires", up)
+    emit("R-F5.to_top", Fraction(up, len(ends)))
+    emit("R-F5.neighbours", len(set(ends)))
+    emit("R-F5.trap", Fraction(1, len(set(ends))))
+    terms = [Fraction(1, len(ends)) * h[y] for y in ends]
+    emit("R-F5.terms", csv(terms))
+    emit("R-F5.sum", sum(terms))
+
+    links = [net.c(LEFT, y) for y in (TOP, RIGHT, BOTTOM)]
+    emit("R-F6.left.conductances", csv(links))
+    emit("R-F6.left.total", net.at(LEFT))
+    weights = [c / net.at(LEFT) for c in links]
+    emit("R-F6.left.weights", csv(weights))
+    counted = [Fraction(ends.count(y), len(ends)) for y in (TOP, RIGHT, BOTTOM)]
+    emit("R-F6.pair_adds", flag(counted == weights))
+    # the general rule holds at middle junctions only: the top's own
+    # weighted average is not its value
+    emit("R-X5.top_average", sum(net.c(TOP, y) * v[y] for y in range(net.size)) / net.at(TOP))
+
+    single = Net(4, [(a, b, 1 if (a, b) == (TOP, LEFT) else k) for a, b, k in LINKS], TOP, BOTTOM)
+    emit("R-X4.single.to_top", single.c(LEFT, TOP) / single.at(LEFT))
+    emit("R-X4.single.voltages", csv(forest_voltages(single)))
+    emit("R-X4.single.chances", csv(cramer_walk(single, TOP)))
+
+
 def facts():
     net = opening()
     v = forest_voltages(net)
@@ -265,6 +311,8 @@ def facts():
     assert steps_ok and ends_ok, "the drawn route is not a walk"
     emit("R-F3.route", ",".join(NAMES[x] for x in ROUTE))
     emit("R-F3.same", flag(h == v))
+
+    chapter_02(net, v, h)
 
     # 01_7: one solution, and its edge
     d = det(balance(net))
@@ -353,6 +401,14 @@ def cross_checks(net, v, h):
     # stays in the middle has chance 1/4, so n of them have 1/4**n
     sw = still_walking(net, LEFT, 8)
     check("still walking after n = 1..8 steps is 1/4**n", sw == [Fraction(1, 4**n) for n in range(1, 9)])
+
+    # chapter 02: the drops balance, and counting wires agrees with the
+    # conductance weights the walk uses
+    drops = [v[y] - v[LEFT] for y in far_ends(LEFT)]
+    check("the four drops into the left junction add to zero", sum(drops) == 0)
+    check("two of four wires up is the conductance weight 2/4", Fraction(far_ends(LEFT).count(TOP), 4) == p(LEFT, TOP))
+    # the derivation's equation: 4v = 1 + 1 + 2/5 + 0 at v = the left voltage
+    check("4 times the left voltage is the far ends' sum", 4 * v[LEFT] == sum(v[y] for y in far_ends(LEFT)))
 
     # the averaging rule, each middle junction against its neighbours
     for x in net.middle:

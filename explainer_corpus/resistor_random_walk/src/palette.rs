@@ -31,6 +31,12 @@ pub fn walker() -> Srgb {
     Palette::green()
 }
 
+/// A current (chapter 02): a wire's drop and the arrow of its flow. Text
+/// and strokes only.
+pub fn current() -> Srgb {
+    Palette::teal()
+}
+
 /// Wires and the battery.
 pub fn wire() -> Srgb {
     Palette::dim()
@@ -51,6 +57,7 @@ mod tests {
             top(),
             bottom(),
             walker(),
+            current(),
             wire(),
             unknown(),
             Palette::hero(),

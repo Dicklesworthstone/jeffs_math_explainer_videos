@@ -7,3 +7,11 @@
 01_6	From the top the chance is one, and from the bottom it's zero. So what is it from the left junction?
 01_7	Three fifths again. One rule, the same top and bottom, and only one solution. So the voltage and the chance must agree.
 01_8	The walker is a model, not a claim about electrons. The two numbers agree because they solve the same equations.
+02_1	At the left junction, each wire's current is its voltage drop divided by the wires' shared resistance.
+02_2	Each wire of the pair drops two fifths of a volt. Then one fifth to the right, three fifths to the bottom.
+02_3	Current in equals current out, so the drops balance too. Two fifths and two fifths in, one fifth and three fifths out.
+02_4	With the voltage unknown, the balance says four times it equals one plus one plus two fifths plus zero. So it's their average.
+02_5	Now the walker picks one of the four wires, each equally likely. What's the chance its first step reaches the top?
+02_6	One half, not one third. The pair is two of the four wires, so it counts twice, like its two currents.
+02_7	Up, it has reached the top. Right, its chance is the right junction's. Down, it's zero. A quarter of each, added, is the same average.
+02_8	With unequal wires, weight each far end by its wire's conductance, and the walker chooses wires in that proportion. The same rule.

@@ -592,6 +592,14 @@ impl Network {
             .fold(Q::ZERO, |s, q| s + q)
     }
 
+    /// The voltage drop towards junction `x` along each of its identical
+    /// wires, in `far_ends` order: the far end's voltage minus `x`'s.
+    /// Positive where current flows in; each wire's current is its drop
+    /// over the wires' common resistance (Ohm's law).
+    pub fn drops_into(&self, v: &[Q], x: usize) -> Result<Vec<Q>, String> {
+        Ok(self.far_ends(x)?.into_iter().map(|y| v[y] - v[x]).collect())
+    }
+
     /// The chance that a walker from middle junction `from` has reached
     /// neither end after each of its first `steps` steps.
     pub fn still_walking(&self, from: usize, steps: usize) -> Result<Vec<Q>, String> {
@@ -668,6 +676,21 @@ pub fn opening() -> Result<Network, String> {
             a,
             b,
             conductance: Q::int(k),
+        })
+        .collect();
+    Network::new(JUNCTIONS, wires, TOP, BOTTOM)
+}
+
+/// The opening network with the pair from the top to the left counted as
+/// one wire (chapter 02's edge: a different network, with its own numbers,
+/// still the same in both pictures).
+pub fn single_pair() -> Result<Network, String> {
+    let wires = LINKS
+        .iter()
+        .map(|&(a, b, k)| Wire {
+            a,
+            b,
+            conductance: Q::int(if (a, b) == (TOP, LEFT) { 1 } else { k }),
         })
         .collect();
     Network::new(JUNCTIONS, wires, TOP, BOTTOM)
@@ -809,6 +832,30 @@ mod tests {
             let plain = ends.iter().fold(Q::ZERO, |s, &y| s + v[y]) / Q::int(4);
             assert_eq!(plain, v[x]);
         }
+    }
+
+    /// Chapter 02's balance, wire by wire: the pair carries two equal drops
+    /// in, the other two wires carry drops out, and they cancel. Counting
+    /// the pair as one wire is another network, the same in both pictures.
+    #[test]
+    fn the_drops_balance_and_the_pair_counts_twice() {
+        let net = opening().unwrap();
+        let v = net.kirchhoff(Q::ONE, Q::ZERO).unwrap();
+        let drops = net.drops_into(&v, LEFT).unwrap();
+        assert_eq!(drops, [q(2, 5), q(2, 5), q(-1, 5), q(-3, 5)]);
+        assert!(drops.iter().fold(Q::ZERO, |s, &d| s + d).is_zero());
+        // the junction's own balance, as net_out counts it, is the same
+        assert_eq!(net.net_out(&v, LEFT), Q::ZERO);
+        let one = single_pair().unwrap();
+        let v1 = one.kirchhoff(Q::ONE, Q::ZERO).unwrap();
+        assert_eq!(v1, [Q::ONE, q(5, 11), q(4, 11), Q::ZERO]);
+        assert_eq!(one.walk().unwrap().top, v1);
+        assert_eq!(one.between(LEFT, TOP) / one.total(LEFT), q(1, 3));
+        assert_eq!(net.between(LEFT, TOP) / net.total(LEFT), q(1, 2));
+        // a drop is refused where the wires cannot be drawn as identical ones
+        let halves = Network::new(3, vec![wire(0, 1, q(1, 2)), wire(1, 2, Q::ONE)], 0, 2).unwrap();
+        let vh = halves.kirchhoff(Q::ONE, Q::ZERO).unwrap();
+        assert!(halves.drops_into(&vh, 1).is_err());
     }
 
     /// The solvers refuse what they cannot solve and say why.

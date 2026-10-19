@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "9d2c7c311acf46b380b3c08df957284caf5a25f4c75fb89aad2183985e2c6d16",
+  "script_sha256": "2f02421658b15389df6b75e519ef26264f0d8f4a33d7d1fd92c0ed96bfc3adca",
   "units": [
     {
       "id": "01u1",
@@ -27,6 +27,32 @@
         "01_8"
       ],
       "text": "Three fifths again. One rule, the same top and bottom, and only one solution. So the voltage and the chance must agree. The walker is a model, not a claim about electrons. The two numbers agree because they solve the same equations."
+    },
+    {
+      "id": "02u1",
+      "line_ids": [
+        "02_1",
+        "02_2",
+        "02_3",
+        "02_4"
+      ],
+      "text": "At the left junction, each wire's current is its voltage drop divided by the wires' shared resistance. Each wire of the pair drops two fifths of a volt. Then one fifth to the right, three fifths to the bottom. Current in equals current out, so the drops balance too. Two fifths and two fifths in, one fifth and three fifths out. With the voltage unknown, the balance says four times it equals one plus one plus two fifths plus zero. So it's their average."
+    },
+    {
+      "id": "02u2",
+      "line_ids": [
+        "02_5"
+      ],
+      "text": "Now the walker picks one of the four wires, each equally likely. What's the chance its first step reaches the top?"
+    },
+    {
+      "id": "02u3",
+      "line_ids": [
+        "02_6",
+        "02_7",
+        "02_8"
+      ],
+      "text": "One half, not one third. The pair is two of the four wires, so it counts twice, like its two currents. Up, it has reached the top. Right, its chance is the right junction's. Down, it's zero. A quarter of each, added, is the same average. With unequal wires, weight each far end by its wire's conductance, and the walker chooses wires in that proportion. The same rule."
     }
   ]
 }

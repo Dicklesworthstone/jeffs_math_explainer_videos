@@ -22,8 +22,9 @@ previews the whole payoff; the later chapters earn each step.
 
 | Chapter | Spine | Status |
 |---|---|---|
-| `01_the_same_number` | the circuit: current in equals current out, so each middle junction is the average of its wires' far ends (3/5 and 2/5 pass); the walker on the same wires: one step ahead, its chance is the same average; prediction; the same number, because one rule with the same top and bottom has only one solution; the walker is a model of the equations, not of electrons | source written by SandyMountain for `mx-video-program-program-87do.18.1`; not compiled, rendered or narrated in the lane (central batch pending) |
-| later chapters (not yet boarded) | why the averaging rule holds in each picture (Ohm and Kirchhoff; first-step analysis); finding the values by repeated averaging; why there is only one solution (the maximum principle, and the island where it fails); every route added up for this network (a geometric series) against the rule that needs no routes; the current as the walker's net crossings (Doyle and Snell §1.3.3) | proposals only |
+| `01_the_same_number` | the circuit: current in equals current out, so each middle junction is the average of its wires' far ends (3/5 and 2/5 pass); the walker on the same wires: one step ahead, its chance is the same average; prediction; the same number, because one rule with the same top and bottom has only one solution; the walker is a model of the equations, not of electrons | source at 38e52c0 (`mx-video-program-program-87do.18.1`); root's central05 batch passed fmt, strict release clippy, 32 tests, the release build, the 47-fact oracle comparison, the glyph probe and a silent scratch render of the opening, and root viewed its final and prediction frames and the three glyph pages; no audio, music or full-video acceptance; the task's closure is root's, pending its receipt |
+| `02_why_an_average` | at the left junction, wire by wire: each wire's current is its voltage drop over the same resistance; the pair's two drops of 2/5 flow in, 1/5 and 3/5 flow out, and they balance; with the voltage unknown the balance is 4v = 1 + 1 + 2/5 + 0, the average; the walker's first step over the same four wires, up with chance 1/2, not 1/3 (prediction); the first-step equation gives each wire the same quarter; the general rule weights each far end by its wire's conductance, and the walker chooses wires in that proportion | source by SandyMountain for `mx-video-program-program-87do.18.2`, corrected after review 3798; root's central10 batch passed fmt, strict release all-target clippy, 38 tests, the release build and the 72/72 fact comparison with the independent oracle (12 checks, numpy included); its silent scratch render draft04 ran 2448 frames, 81.6 s, with an empty layout lint, and root viewed the corrected 02_1, 02_3, 02_7 and 02_8 frames and all eight glyph pages (59 sources); an independent Opus review (3827) accepted the corrected source; accepted as source, native checks and sampled visuals only, with no audio, music or full-video acceptance |
+| later chapters (not yet boarded) | finding the values by repeated averaging; why there is only one solution (the maximum principle, and the island where it fails); every route added up for this network (a geometric series) against the rule that needs no routes; the current as the walker's net crossings (Doyle and Snell §1.3.3) | proposals only |
 
 ## Vocabulary (one word per idea)
 
@@ -36,7 +37,11 @@ end); **the top** and **the bottom** (the two junctions held fixed; never
 voice; "chance of reaching the top first" is the walk's number); **average**
 (the plain average over a junction's wires, so a doubled pair counts its far
 end twice); **rule** (every middle junction is the average of its wires' far
-ends); **solution** (a set of values that keeps the rule).
+ends); **solution** (a set of values that keeps the rule); **drop** (the
+voltage difference across one wire, in volts; never "potential difference"
+in the voice); **pair** (the two wires side by side from the top to the
+left); **conductance** (chapter 02 on: how easily a wire carries current,
+one over its resistance).
 
 ## Color roles
 
@@ -49,6 +54,8 @@ ends); **solution** (a set of values that keeps the rule).
 | the walker | green `#83C167` |
 | wires and the battery | `dim` |
 | the unknown in the prediction | `hero` `#FFD866`, the "?" only |
+| a current: a wire's drop and the arrow of its flow (chapter 02) | teal `#5CD0B3`, text and strokes only |
+| a wire not under discussion | `faint` |
 | the pictures' names, units and notes | `dim`; values in `ink` |
 
 ## 01_the_same_number: The same number, twice (~84 s)
@@ -97,3 +104,56 @@ ends); **solution** (a set of values that keeps the rule).
   battery." (the picture changes) and before 01_8 (the caveat is its own
   thought). These are directions for the central narration lane, which must
   follow the current owner amendment before any synthesis.
+
+## 02_why_an_average: Why each junction is an average (~82 s; silent draft 81.6 s)
+
+The circuit stands where chapter 01 left it, on the left; the derivation
+builds on the right, row by row, every number from `R-F4` to `R-F6`.
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 02_1 | At the left junction, each wire's current is its voltage drop divided by the wires' shared resistance. | The circuit from chapter 01 (1 volt, 0 volts, 3/5, 2/5, the battery, "voltage" over it). The three wires away from the left junction fade to faint; the left junction's four wires flash. A "precisely" lower-third: Ohm's law, for ideal resistors with steady currents, current = drop ÷ resistance; identical wires share one resistance | highlight, lower-third | |
+| 02_2 | Each wire of the pair drops two fifths of a volt. Then one fifth to the right, three fifths to the bottom. | The card goes. Beside each wire of the pair, "2/5" in the current's teal, and on the wire a teal arrowhead pointing into the junction; then "1/5" and "3/5" beside the wires to the right and to the bottom, their arrowheads pointing out | values beside wires, arrows | |
+| 02_3 | Current in equals current out, so the drops balance too. Two fifths and two fifths in, one fifth and three fifths out. | On the right, the first rows of the derivation, labelled as drops in volts, not currents: "drops in: 2/5 + 2/5 = 4/5 V", then "drops out: 1/5 + 3/5 = 4/5 V". A "precisely" lower-third: Kirchhoff's current law; each current is its drop over the same resistance, so the drops balance as the currents do | equation, lower-third | |
+| 02_4 | With the voltage unknown, the balance says four times it equals one plus one plus two fifths plus zero. So it's their average. | The card goes. The left label 3/5 becomes v. Rows: (1 − v) + (1 − v) + (2/5 − v) + (0 − v) = 0; then 4v = 1 + 1 + 2/5 + 0; then v = (1 + 1 + 2/5 + 0)/4 = 3/5. The drops, arrows and earlier rows go; v's equation rises to the top row | equation, derivation, formula | |
+| 02_5 | Now the walker picks one of the four wires, each equally likely. What's the chance its first step reaches the top? ⟨predict⟩ | The battery, its units and "voltage" go; "chance of reaching the top first" names the same picture; the top reads 1, the bottom 0, the right 2/5, the left "?". The walker appears at the left junction and its four wires flash. Nothing shows a step's chance: the countdown runs in the panel | prediction pause, think time | |
+| 02_6 | One half, not one third. The pair is two of the four wires, so it counts twice, like its two currents. | "1/4" beside each of the four wires in the walker's green; the pair's two quarters slide together into "1/2" by the pair. A row: "first step up: 2/4 = 1/2". A "precisely" lower-third: counting the pair as one wire makes another network, where the first step goes up with chance 1/3 and the left junction sits at 5/11, as a voltage and as a chance | values beside wires, merge, equation, lower-third | |
+| 02_7 | Up, it has reached the top. Right, its chance is the right junction's. Down, it's zero. A quarter of each, added, is the same average. | The card goes. The far ends' chances replace the quarters (1, 1, 2/5, 0). On "Right, its chance" the right junction's label flashes and a row names where its number comes from: p(right) = 2/5, found in chapter 01. Then rows under v's: p = ¼·1 + ¼·1 + ¼·2/5 + ¼·0, then p = (1 + 1 + 2/5 + 0)/4 = 3/5, the same fraction as v's, and both rows flash; the left's "?" becomes 3/5. A "precisely" lower-third: after its first step the walker starts afresh from where it landed, with no memory of how it got there, so its chance from there is that junction's | equation, highlight, lower-third | |
+| 02_8 | With unequal wires, weight each far end by its wire's conductance, and the walker chooses wires in that proportion. The same rule. | The card goes. The left junction's links are labelled with their conductances (2 for the pair, 1 and 1) and its weights 2/4, 1/4, 1/4. The rows below give way to the general forms, v(x) = Σ (c(x,y) / c(x)) v(y) and p(x) = Σ (c(x,y) / c(x)) p(y), one under the other, with their domain in a dim three-line note: x is any middle junction (the top and the bottom stay fixed); y runs over the junctions wired to x, c(x, y) being their wires' conductance, positive, one over the resistance, wires side by side added; c(x) is their sum at x. *(Not displayed: at the top the same average would be 8/15, not 1; that edge is a fact and a test, `R-X5.top_average`, not on screen)* | formula, equation | |
+
+### Notes for 02
+
+- The derivation is the left junction's own: Ohm's law per identical wire,
+  then the balance, then the unknown gathered. The right junction's value
+  (2/5) is used as known; chapter 01 showed both values keep the rule, and
+  why the pair of averages has only one solution. In the walk, 02_7 names
+  the right's chance on screen as chapter 01's before it is substituted, so
+  the step is a check of the rule, not a circular solve.
+- The general rule (02_8) holds at middle junctions only, summing over the
+  junctions wired to x (every c(x, y) there is positive); the top and the
+  bottom are fixed, and the same average at the top would be 8/15, not 1
+  (`R-X5.top_average`, a fact and a test; the screen shows only the domain,
+  not this number).
+- The panel's flow rows add drops in volts, labelled as drops; a current is
+  a drop over the shared resistance, and 02_3 says so ("so the drops
+  balance too").
+- Signs: a drop is the far end's voltage minus the junction's, positive
+  where current flows in (`R-F4.drops_into` is 2/5, 2/5, −1/5, −3/5, adding to
+  0); the spoken drops are their sizes along the flow (`R-F4.drop.*`).
+- Units and scope: drops are in volts; a current is its drop over the
+  wires' common resistance, so it is never given a number without that
+  resistance. Ideal resistors, steady currents, an ideal battery; Ohm's law
+  and Kirchhoff's current law are the only physics claimed.
+- Prediction (02_5): the tempting answer is 1/3 (three junctions); the
+  answer is 1/2 because the walker picks among wires, and the pair is two
+  of them (`R-F5`). Nothing on screen gives a step's chance until the
+  countdown ends; the quarters arrive with 02_6.
+- The pair matters (`R-X4`): counted as one wire, the network changes to
+  left 5/11 and right 4/11 in both pictures, and the first step up has chance
+  1/3. Parallel wires are two wires, not one; their conductances add
+  (`R-F6.pair_adds`).
+- Pauses for the narration (no audio exists): one prediction hold after
+  02_5; a reveal pause after "One half, not one third."; completed-thought
+  pauses before 02_5 (the picture changes from circuit to walk) and before
+  02_8 (the general rule). Directions only; no synthesis under the current
+  owner amendment.

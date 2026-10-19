@@ -7,19 +7,32 @@ and walks until it reaches the top or the bottom. Its chance of reaching the
 top first is 3/5 too. Both numbers obey one averaging rule with the same top
 and bottom, and that rule has only one solution.
 
-**Status (revision `v1-michael-20261019`, task
-`mx-video-program-program-87do.18.1`):** the first slice is source only.
-The model, facts, oracle, chapter 01's scene and its storyboard and script
-are written; the oracle runs and agrees with the values the Rust tests pin.
-This lane compiles, tests, renders and narrates nothing; the central lane
-runs those. Its first native batch (BlueSalmon, Mail 3745) reported build,
-strict clippy, 30 tests, 47/47 facts, glyphs and a 540p silent opening with
-no lint finding, on the source before the independent-review repairs (the
-uniqueness card's hypothesis, the source note, checked fraction arithmetic,
-the oracle's still-walking route); those await its rerun. No audio exists. The
-owner's 2026-10-19 rejection of the first-wave narration (`AGENTS.md`) holds
-for this video too: `narration_units.json` is a script grouping, not a
-synthesis instruction.
+**Status (revision `v1-michael-20261019`):** this lane writes source only;
+it compiles, tests, renders and narrates nothing, and the central lane runs
+those. No audio or music exists, and none is accepted.
+
+- **Chapter 01** (`01_the_same_number`, task `.18.1`) is at commit 38e52c0.
+  Root's central05 batch (BlueSalmon, Mail 3763) passed fmt, strict release
+  clippy, 32 tests, the release build, the 47-fact oracle comparison, the
+  glyph probe and a silent scratch render of the opening. Root then viewed
+  its final and prediction frames and the three glyph pages (Mail 3772).
+  That accepts source and the visual opening only. The task's receipt block
+  stays open, and closing it is root's.
+- **Chapter 02** (`02_why_an_average`, task `.18.2`) was corrected after
+  review 3798. Root's central10 batch (BlueSalmon, Mail 3832) passed fmt,
+  strict release all-target clippy, 38 tests, the release build and the
+  72/72 fact comparison with the independent oracle (12 checks, numpy
+  included). Its silent scratch render draft04 ran 2448 frames, 81.6 s, with
+  an empty layout lint. Root viewed the corrected 02_1, 02_3, 02_7 and 02_8
+  frames and all eight glyph pages (59 sources), and an independent Opus
+  review (3827) accepted the corrected source. That accepts source, native
+  checks and sampled visuals only. It adds a scene, its facts (`R-F4` to
+  `R-F6`, `R-X4`, `R-X5`, 72 fact keys in all) and their oracle rows. The
+  task's commit and closure are root's.
+
+The owner's 2026-10-19 rejection of the first-wave narration (`AGENTS.md`)
+holds for this video too: `narration_units.json` is a script grouping, not
+a synthesis instruction.
 
 | File | What it holds |
 |---|---|
@@ -27,13 +40,14 @@ synthesis instruction.
 | `src/facts.rs` | every number the video shows or says, and Doyle and Snell's own worked example pinned |
 | `oracle.py` | the same numbers computed independently: spanning-forest counts, Cramer's rule, permutation determinants; cross-checks on stderr |
 | `src/chapters/the_same_number.rs` | chapter 01's scene |
-| `src/chapters/draw.rs` | the network picture (side-by-side wires, the battery, values that travel along wires), playback, line timing and the countdown |
+| `src/chapters/why_an_average.rs` | chapter 02's scene: the current balance at the left junction wire by wire, derived to the average; the walker's first step over the same four wires; the general conductance-weighted rule |
+| `src/chapters/draw.rs` | the network picture (side-by-side wires, the battery, values beside wires, arrowheads of flow), playback, line timing and the countdown |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`) |
-| `narration_units.json` | the script's lines grouped into three whole-thought units; written and checked by `narration_units.py` |
+| `narration_units.json` | the script's lines grouped into whole-thought units (three per chapter); written and checked by `narration_units.py` |
 | `docs/fact-sheet.md`, `docs/brief.md`, `docs/protected.tsv` | every number's source, the brief, the words every revision keeps |
 
 ```bash
-python3 -I -B oracle.py                               # every number; 9 cross-checks on stderr (numpy optional)
+python3 -I -B oracle.py                               # every number; 12 cross-checks on stderr (numpy optional)
 python3 -I ../../tools/storyboard.py --check resistor_random_walk
 python3 -I ../../tools/lint_script.py script.tsv
 python3 -I -B narration_units.py --check
@@ -122,7 +136,14 @@ to check by hand.
   steady currents). No physical claim beyond Ohm's law and Kirchhoff's
   current law.
 - Chapter 01 is close to the 85 s cap by the scratch-voice estimate (about
-  84 s); its real length is measured by the central draft.
-- Not yet established: a successful build, clippy and test run; glyphs for
-  the on-screen text (the "?" and the fractions); the layout lint and frame
-  review of an actual render; any narration.
+  84 s). Chapter 02 is 173 words; its estimate is about 82 s, and root's
+  silent scratch draft04 measured 81.6 s (2448 frames). Neither chapter has
+  been timed with a real voice.
+- Chapter 02 derives the rule at the left junction only, using the right
+  junction's known 2/5; why the two averages together have one solution is
+  chapter 01's (and a later chapter's) argument. A current is written as
+  its drop over the wires' common resistance, never as a bare number of
+  amperes.
+- Not yet established: any narration or music for either chapter; a
+  continuous review of a chapter's every frame (root sampled the frames
+  named above); the whole video.

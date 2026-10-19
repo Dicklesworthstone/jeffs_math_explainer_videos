@@ -50,6 +50,10 @@ pub const BATTERY_X: f64 = 3.1;
 /// the centre line.
 const PLATE_HALF: [f64; 2] = [0.3, 0.15];
 const PLATE_Y: f64 = 0.14;
+/// An arrowhead's length, and where it sits along its wire from the
+/// junction (a fraction of the wire).
+const ARROW: f64 = 0.16;
+const ARROW_T: f64 = 0.3;
 /// A picture's name, above its top junction; its equation and notes, below
 /// its bottom junction.
 pub const NAME_DY: f64 = 2.8;
@@ -315,6 +319,19 @@ pub fn tokens(
     x: usize,
     texts: &[(String, Srgb)],
 ) -> fmn::Result<Vec<Mob>> {
+    tokens_at(kit, stage, pic, x, texts, 0.62)
+}
+
+/// As [`tokens`], each value a fraction `t` of the way along its wire from
+/// `x` (chapter 02 writes a wire's drop at its middle).
+pub fn tokens_at(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    pic: &Picture,
+    x: usize,
+    texts: &[(String, Srgb)],
+    t: f64,
+) -> fmn::Result<Vec<Mob>> {
     let strands = pic.strands_at(x);
     if strands.len() != texts.len() {
         return Err(fail(format!(
@@ -325,9 +342,62 @@ pub fn tokens(
     }
     let mut out = Vec::with_capacity(texts.len());
     for (s, (src, color)) in strands.iter().zip(texts) {
-        out.push(kit.tex(stage, src, TOKEN_SIZE, *color, &[], pic.beside(s, x, 0.62))?);
+        out.push(kit.tex(stage, src, TOKEN_SIZE, *color, &[], pic.beside(s, x, t))?);
     }
     Ok(out)
+}
+
+/// An arrowhead on each wire at junction `x`, a fraction `t` along it from
+/// `x`, pointing into `x` where `inward[i]` holds and away from it
+/// otherwise (the way each wire's current flows). Stroke-only chevrons, in
+/// `color`. Detached.
+pub fn arrowheads(
+    stage: &mut Stage<'_>,
+    pic: &Picture,
+    x: usize,
+    inward: &[bool],
+    color: Srgb,
+) -> fmn::Result<Vec<Mob>> {
+    let strands = pic.strands_at(x);
+    if strands.len() != inward.len() {
+        return Err(fail(format!(
+            "junction {x} has {} wires but {} directions",
+            strands.len(),
+            inward.len()
+        )));
+    }
+    let mut out = Vec::with_capacity(strands.len());
+    for (s, &towards_x) in strands.iter().zip(inward) {
+        // on the first half of the wire, from the junction to the bow
+        let (p, m) = (pic.spot(x), pic.mid(s));
+        let at = v(
+            p[0] + (m[0] - p[0]) * 2.0 * ARROW_T,
+            p[1] + (m[1] - p[1]) * 2.0 * ARROW_T,
+        );
+        let len = (m[0] - p[0]).hypot(m[1] - p[1]).max(1e-9);
+        let sign = if towards_x { -1.0 } else { 1.0 };
+        let (dx, dy) = (sign * (m[0] - p[0]) / len, sign * (m[1] - p[1]) / len);
+        let tip = v(at[0] + dx * ARROW / 2.0, at[1] + dy * ARROW / 2.0);
+        let back = |side: f64| {
+            v(
+                tip[0] - dx * ARROW - side * dy * ARROW * 0.6,
+                tip[1] - dy * ARROW + side * dx * ARROW * 0.6,
+            )
+        };
+        let chevron = polyline(vec![back(1.0), tip, back(-1.0)])
+            .style(line_style(color, WIRE_W))
+            .build();
+        out.push(stage.arena_mut().add(chevron));
+    }
+    Ok(out)
+}
+
+/// The point beside the link joining junctions `a` and `b` (a lone wire or
+/// a pair side by side), `gap` from its straight middle, on its left seen
+/// from `a` (a negative `gap` puts it on the right).
+pub fn link_spot(pic: &Picture, a: usize, b: usize, gap: f64) -> Vec3 {
+    let (p, q, n) = (pic.spot(a), pic.spot(b), normal(a, b));
+    v((p[0] + q[0]) / 2.0 + gap * n[0], (p[1] + q[1]) / 2.0 + gap * n[1])
 }
 
 /// The values `values` as tokens (each in its value's color).

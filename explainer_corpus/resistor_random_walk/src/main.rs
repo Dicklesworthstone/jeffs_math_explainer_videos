@@ -83,6 +83,28 @@ mod tests {
         ("01_7", "Three fifths again", "R-F2.left", "3/5"),
         ("01_7", "only one solution", "R-X1.solutions", "1"),
         ("01_8", "The two numbers agree", "R-F3.same", "true"),
+        ("02_2", "Each wire of the pair", "R-F1.side_by_side", "2"),
+        ("02_2", "drops two fifths of a volt", "R-F4.drop.top", "2/5"),
+        ("02_2", "one fifth to the right", "R-F4.drop.right", "1/5"),
+        ("02_2", "three fifths to the bottom", "R-F4.drop.bottom", "3/5"),
+        ("02_3", "Two fifths and two fifths in", "R-F4.in", "2/5,2/5"),
+        ("02_3", "one fifth and three fifths out", "R-F4.out", "1/5,3/5"),
+        ("02_4", "four times it", "R-F4.coefficient", "4"),
+        (
+            "02_4",
+            "one plus one plus two fifths plus zero",
+            "R-F2.left.far_ends",
+            "1,1,2/5,0",
+        ),
+        ("02_5", "one of the four wires", "R-F1.wires_at_middle", "4"),
+        ("02_6", "One half", "R-F5.to_top", "1/2"),
+        ("02_6", "not one third", "R-F5.trap", "1/3"),
+        ("02_6", "two of the four wires", "R-F5.top_wires", "2"),
+        ("02_6", "two of the four wires", "R-F1.wires_at_middle", "4"),
+        ("02_6", "counts twice", "R-F1.side_by_side", "2"),
+        ("02_6", "its two currents", "R-F5.top_wires", "2"),
+        ("02_7", "Down, it's zero", "R-F3.bottom_chance", "0"),
+        ("02_7", "A quarter of each", "R-F3.wire_chance", "1/4"),
     ];
 
     #[test]
@@ -96,7 +118,8 @@ mod tests {
         }
         // and no line carries a number word the table above does not know
         let numbers = [
-            "zero", "one", "two", "three", "four", "five", "fifths", "half", "quarter", "twice", "doubled", "once",
+            "zero", "one", "two", "three", "four", "five", "fifth", "fifths", "third", "half", "quarter", "twice",
+            "doubled", "once",
         ];
         for (id, text) in script.lines() {
             let lower = text.to_lowercase();
@@ -141,16 +164,25 @@ mod tests {
         check_script_owners(&script, &keys(), None).unwrap();
     }
 
-    /// The one prediction is the chapter's walk question, and its answer is
-    /// the next line's first words.
+    /// Each chapter asks one prediction, its walk question, and the next
+    /// line's first words answer it: the opening's chance from the left
+    /// junction, chapter 02's chance of a first step up.
     #[test]
     fn the_prediction_is_asked_once_and_answered_next() {
         let boards = explainer_kit::storyboard::parse(STORYBOARD).unwrap();
-        let beats: Vec<_> = boards.iter().flat_map(|c| c.beats.iter()).collect();
-        let asked: Vec<usize> = (0..beats.len()).filter(|&i| beats[i].predict()).collect();
-        assert_eq!(asked.len(), 1, "one prediction in the opening");
-        let (question, answer) = (beats[asked[0]], beats[asked[0] + 1]);
-        assert!(question.spoken().unwrap().ends_with("left junction?"));
-        assert!(answer.spoken().unwrap().starts_with("Three fifths"));
+        let expected = [
+            ("01_the_same_number", "left junction?", "Three fifths"),
+            ("02_why_an_average", "reaches the top?", "One half"),
+        ];
+        assert_eq!(boards.len(), expected.len());
+        for (board, (key, asks, answers)) in boards.iter().zip(expected) {
+            assert_eq!(board.key, key);
+            let beats = &board.beats;
+            let asked: Vec<usize> = (0..beats.len()).filter(|&i| beats[i].predict()).collect();
+            assert_eq!(asked.len(), 1, "one prediction in {key}");
+            let (question, answer) = (&beats[asked[0]], &beats[asked[0] + 1]);
+            assert!(question.spoken().unwrap().ends_with(asks), "{key}");
+            assert!(answer.spoken().unwrap().starts_with(answers), "{key}");
+        }
     }
 }
