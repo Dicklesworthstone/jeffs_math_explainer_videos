@@ -33,9 +33,10 @@ pub struct WaterThroughTheGrid {
     pub kit: Kit,
 }
 
-// the chapter's fixed words (numbers are built from facts)
-const TO_SEND: &str = "to send";
-const TO_DRAIN: &str = "to drain";
+// the chapter's fixed words (numbers are built from facts); the plumbing's
+// words, layout and drawing are chapter 03's too
+pub(crate) const TO_SEND: &str = "to send";
+pub(crate) const TO_DRAIN: &str = "to drain";
 const TAP_LINE: &str = "tap: lets out its row's count";
 const DRAIN_LINE: &str = "drain: holds at most its column's count";
 const FITS_LINE: &str = "every unit through: a picture that fits";
@@ -44,20 +45,20 @@ const PROGRAMMERS: &str = "for programmers:";
 
 /// The grid's pitch and centre: on the left, the right half kept for words,
 /// the think ring and the gallery.
-const CELL: f64 = 0.62;
-const AT: [f64; 2] = [-3.4, 0.45];
+pub(crate) const CELL: f64 = 0.62;
+pub(crate) const AT: [f64; 2] = [-3.4, 0.45];
 /// How far a tap's counter stands left of the grid; a route starts this far
 /// left of the grid and ends this far below it.
-const TAP_GAP: f64 = 0.55;
+pub(crate) const TAP_GAP: f64 = 0.55;
 const INLET: f64 = 0.2;
 const OUTLET: f64 = 0.2;
 /// Where the words on the right start, and their lines.
-const TEXT_X: f64 = -0.9;
+pub(crate) const TEXT_X: f64 = -0.9;
 const LEGEND_Y: [f64; 4] = [2.1, 1.5, 0.9, 0.3];
-const THROUGH_Y: f64 = -0.6;
+pub(crate) const THROUGH_Y: f64 = -0.6;
 const WITHOUT_Y: f64 = -1.2;
-/// The think ring's centre (02_5).
-const THINK_AT: [f64; 2] = [3.0, 0.5];
+/// The think ring's centre (02_5, 03_2).
+pub(crate) const THINK_AT: [f64; 2] = [3.0, 0.5];
 /// A drop of water, and how many seconds it takes to run one scene unit.
 const DROP_R: f64 = 0.1;
 const SLOW: f64 = 0.45;
@@ -69,7 +70,7 @@ fn square_line() -> String {
     format!("square: carries at most {} unit", model::SQUARE)
 }
 
-fn through_text(through: usize, total: usize) -> String {
+pub(crate) fn through_text(through: usize, total: usize) -> String {
     format!("through: {through} of {total}")
 }
 
@@ -100,7 +101,7 @@ fn found_label(count: usize) -> String {
 }
 
 /// Where row `r`'s tap counter stands.
-fn tap_at(board: &Board, r: usize) -> Vec3 {
+pub(crate) fn tap_at(board: &Board, r: usize) -> Vec3 {
     v(board.left() - TAP_GAP, board.at(r, 0)[1])
 }
 
@@ -144,18 +145,33 @@ fn run(stage: &mut Stage<'_>, unit: Mob, from: Vec3, to: Vec3) -> fmn::Result<()
 /// still takes) and the units through (shown from 02_3). A tap counts down
 /// when a drawn unit leaves it; its drain and the units through count when
 /// that unit arrives. In between, the unit in transit is its drop or route.
-struct Water {
-    board: Board,
-    wet: HashMap<(usize, usize), Mob>,
-    taps: Vec<Mob>,
+pub(crate) struct Water {
+    pub(crate) board: Board,
+    pub(crate) wet: HashMap<(usize, usize), Mob>,
+    pub(crate) taps: Vec<Mob>,
     tap_left: Vec<usize>,
-    drains: Vec<Mob>,
+    pub(crate) drains: Vec<Mob>,
     drain_left: Vec<usize>,
-    through: Option<Mob>,
+    pub(crate) through: Option<Mob>,
     through_count: usize,
 }
 
 impl Water {
+    /// No water yet: `taps` and `drains` are the counters already drawn for
+    /// shadows `s`, and nothing is through.
+    pub(crate) fn new(board: Board, taps: Vec<Mob>, drains: Vec<Mob>, s: &Shadows) -> Self {
+        Self {
+            board,
+            wet: HashMap::new(),
+            taps,
+            tap_left: s.rows.clone(),
+            drains,
+            drain_left: s.cols.clone(),
+            through: None,
+            through_count: 0,
+        }
+    }
+
     /// Count square (`r`, `c`) as wet and return its square, detached; the
     /// caller brings it in.
     fn place(&mut self, stage: &mut Stage<'_>, r: usize, c: usize) -> fmn::Result<Mob> {
@@ -269,7 +285,7 @@ impl Water {
 /// squares wet (or dry, for water taken back), the route goes as its drain
 /// and the units through count, and everything drawn is checked against the
 /// replayed state.
-fn send_quick(
+pub(crate) fn send_quick(
     kit: &Kit,
     stage: &mut Stage<'_>,
     water: &mut Water,
@@ -353,16 +369,7 @@ impl SceneConstruct for WaterThroughTheGrid {
         )?;
         fade_in_lagged(stage, &drains, 0.8, 0.3)?;
         fade_in_all(stage, &[drain_label], 0.3)?;
-        let mut water = Water {
-            board,
-            wet: HashMap::new(),
-            taps,
-            tap_left: s.rows.clone(),
-            drains,
-            drain_left: s.cols.clone(),
-            through: None,
-            through_count: 0,
-        };
+        let mut water = Water::new(board, taps, drains, &s);
         let first = paths[0].steps();
         let &[(r0, c0, true)] = first.as_slice() else {
             return Err(fail(format!(

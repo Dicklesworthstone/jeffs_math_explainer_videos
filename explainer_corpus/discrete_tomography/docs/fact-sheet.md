@@ -69,6 +69,25 @@ state with its own bookkeeping.
 | X2 | 4 × 4 pairs of shadows some picture casts; how many have all their pictures joined by switches | the card (01_8): Ryser's Theorem 3.1 | same | `DT-X2.shadow_pairs`, `.connected` | `16145`; `16145` | computed (edge test) |
 | X3 | 4 × 4 pictures alone with their shadows; with no switch; disagreements | chapter 04's statement | same | `DT-X3.alone`, `.no_switch`, `.disagree` | `6902`; `6902`; `0` | computed (edge test) |
 
+### Chapter 03 (the face's rows with columns 5, 1, 1, 1, 1; where the water stops)
+
+The stop is the one `model::max_flow` reaches on these shadows, replayed by
+`model::replay`; the cut is `Flow::cut` (the rows and columns its labeling
+still reaches when no path is left); the table is `model::gale_table`. The
+oracle derives its own trace, finds the reach with its own search from the
+final state, lists every cut to find the smallest source side, and builds
+the table from Gale's dual sequence.
+
+| id | quantity | shown / said | computed in | oracle key | value | source |
+|---|---|---|---|---|---|---|
+| F9 | the no-fit flow: paths, rows and columns in order, paths that take back, units through | the eight units (03_1); "eight of nine" (03_2) | `facts::no_fit_flow` | `DT-F9.paths`, `.trace`, `.takebacks`, `.flow` | `8`; `r0c0,r0c1,r1c0,r1c2,r3c0,r3c3,r4c0,r4c4`; `0`; `8` | computed |
+| F9 | the row left with water, and how much | the bottom tap's 1 (03_2) | the last replayed state | `DT-F9.left.row`, `.left.units` | `4`; `1` | computed |
+| F9 | the first column: wet squares, what it asks; rows with water | "needs five", "only four rows have water" (03_3); "asks 5" | same; `NO_FIT_COLS` | `DT-F9.first.wet`, `.first.needs`, `.rows_with_water` | `4`; `5`; `4` | computed |
+| F9 | where the water can still go, taking back included | the teal rows and columns (03_4) | `Flow::cut` | `DT-F9.reached.rows`, `.reached.cols` | `0,1,3,4`; `1,2,3,4` | computed; the oracle's own search and its listed cuts agree |
+| F9 | the cut: unreached taps, pipes into the cut-off column, reached drains, in all | "Four into the first column, four out of the other drains. Eight is all that can pass" (03_4) | same | `DT-F9.cut.unreached_taps`, `.cut.into_unreached`, `.cut.reached_drains`, `DT-F9.cut` | `0`; `4`; `4`; `8` | computed |
+| F9 | Gale's table: columns largest first, what the k largest ask, what the rows can give, the sizes that fail | the table (03_5, 03_6), the red first size, the green last (03_7) | `model::gale_table` | `DT-F9.sorted`, `.asks`, `.gives`, `.failing` | `5,1,1,1,1`; `5,6,7,8,9`; `4,8,9,9,9`; `1` | computed; the oracle by the dual sequence |
+| F9 | the same for the face's shadows | the green table (03_8) | same | `DT-F9.face.sorted`, `.face.asks`, `.face.gives`, `.face.failing` | `3,3,1,1,1`; `3,6,7,8,9`; `4,8,9,9,9`; `none` | computed |
+
 `oracle.py` also checks, on stderr: the count of fits by a memoized count over
 columns; that every one of the 64 has a switch and every two of them are at
 most 3 switches apart; both flow methods and the listed cuts agree; Gale's
@@ -86,7 +105,16 @@ its column, the take-back path on its own, and the cyclic walk source, row 0,
 column 0, row 0, column 1, sink) and accepts the real one, and that with its
 no-repeat rule switched off the same checker accepts the cyclic walk (so that
 rule alone refuses it); and that on every 3 × 3 pair of shadows with equal
-totals its trace replays and reaches the smallest cut.
+totals its trace replays and reaches the smallest cut. For chapter 03 it
+checks that one row is left with water and one column cut off; that its own
+search from the final state reaches exactly the smallest cut's source side;
+that the flow equals the smallest cut by both cut methods; that the cut-off
+column asks for more than the dual sequence lets the rows give; that rows
+2, 2 with columns 1, 1 pass every size of the table, have unequal totals and
+fit nothing; that on every 3 × 3 pair of shadows with equal totals the water
+stops short exactly when the table fails, and then the columns its search
+cannot reach ask too much; and that every group of columns of every 4 × 4
+picture holds at most what the rows can give.
 
 ## Non-numeric claims
 
@@ -95,7 +123,12 @@ totals its trace replays and reaches the smallest cut.
 | A switch changes a picture and neither shadow | 01_6, 01_7 | X1; `model` test on every switch of every 4 × 4 picture; Ryser 1957 §3 ("the resulting matrix A* has row sum vector R and column sum vector S") |
 | Any two pictures with the same row and column counts are joined by a chain of switches | the 01_8 card | Ryser 1957, Theorem 3.1, p. 373 (read); X2 |
 | A picture is the only one with its shadows exactly when it has no switch | chapter 04 (planned) | Batenburg 2006, Theorem 2 (citing Ryser's 1963 monograph, not read); follows from Theorem 3.1; X3 |
-| A picture fits exactly when the totals agree and every k columns ask for at most what the rows can give k columns | chapter 03 (planned) | Gale 1957, p. 1080 (read: the dual sequence, the theorem, and the flow into k columns, Σ min(a_i, k)); Ryser 1957, Theorem 2.1 and its "added in proof" note crediting Gale |
+| A picture fits exactly when the totals agree and every k columns ask for at most what the rows can give k columns | 03_6, 03_7 and the 03_7 card | Gale 1957, p. 1080 (read: the dual sequence, the theorem, and the flow into k columns, Σ min(a_i, k)); Ryser 1957, Theorem 2.1 and its "added in proof" note crediting Gale; `model` test on every 4 × 4 equal-total pair; the oracle on all 390,625 pairs of 4 × 4 shadows |
+| A row gives a group of k columns at most min(its count, k) | 03_5 | at most one square a column and at most its count; `model` test on every group of every 4 × 4 picture; the oracle the same |
+| Checking the k largest columns checks every group of k | 03_6 | for fixed k the rows give the same to any k columns; the k largest ask the most |
+| Equal totals are needed | 03_7, the card | rows 2, 2 with columns 1, 1 pass every size and fit nothing (`model` test; the oracle) |
+| Taking water back cannot get past the cut where the water stops | 03_2 to 03_4 | Ford and Fulkerson 1957, Lemma 2 (read: the labeled nodes give a minimal cut of the flow's value); `Flow::cut` equals the flow on every 4 × 4 equal-total pair (`model` test); the oracle's own search and its listed cuts agree |
+| When the water stops short (equal totals), the columns it cannot reach ask for more than the rows can give them | 03_7 | the cut's value is the flow, which is less than the total, so the cut-off columns ask more than the unreached taps plus the pipes into them, which is at least Σ min(r, k); `model` test on every 4 × 4 equal-total pair; the oracle on every 3 × 3 pair |
 | A full flow in Gale's network is a picture that fits; a picture that fits is a full flow | 02_3 ("Get every unit through, and the wet squares are a picture that fits"), the 02_9 card | Gale 1957, pp. 1079–1080 (read); Batenburg 2006, §2.2 (read) |
 | Sending whole units along paths with room, taking back where needed, ends at a largest flow | 02_9 ("Water finds a picture whenever one exists") and its card | Ford and Fulkerson 1957, pp. 212–213 (read: the labeling method on the room matrix, termination because each step sends a positive whole number, Lemma 1 that the result is a flow, Lemma 2 that it is a largest one); with Gale's equivalence, a picture exists exactly when both shadows share one total and that flow reaches it (rows 1, 1 with columns 2, 1 reach their row total and fit nothing) |
 | Without taking back, this fill stops one unit short | 02_7 | after the first eight paths no row with water left has a dry square into a drain with room (`DT-F8.before.forward_room` = false; `model` test; the oracle's own check) |

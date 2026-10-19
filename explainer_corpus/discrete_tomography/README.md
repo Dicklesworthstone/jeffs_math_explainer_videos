@@ -13,34 +13,43 @@ that a picture is the only one exactly when it has no switch (Ryser, 1957).
 **Status (2026-10-19, revision `v1-michael-20261019`):** chapter 01
 (`01_same_shadows`, `.9.1`) is source and silent visuals verified by root at
 6bae9ea (strict clippy, tests, oracle facts, glyph probe, a 540p30 silent
-draft and its frames); no audio is claimed. Chapter 02
-(`02_water_through_the_grid`, `.9.2`: the scene, the recorded flow trace and
-its replay checker, the facts, the oracle and the tests) is source and silent
-visuals verified by root: fmt, strict clippy, 35 tests, a release build and
-73/73 facts against the oracle; a silent 960x540 draft of 81.73 s
-(scratch-voice timing) with no layout findings, whose cue ends, unit-transit,
-prediction and reveal frames and glyph pages root read. This lane compiled,
-rendered and synthesized nothing. Neither chapter has narration, and no
-continuous audio or whole-video acceptance is claimed. Chapters 03 to 05 are
-planned in the storyboard's arc, not written. No narration exists, and the owner's
-2026-10-19 rejection of the first-wave narration applies: the narration units
-are a proposed text grouping only.
+draft and its frames). Chapter 02 (`02_water_through_the_grid`, `.9.2`: the
+scene, the recorded flow trace and its replay checker, the facts, the oracle
+and the tests) is source and silent visuals verified by root at fa6fd0f:
+fmt, strict clippy, 35 tests, a release build and 73/73 facts against the
+oracle; a silent 960x540 draft of 81.73 s (scratch-voice timing) with no
+layout findings, whose cue ends, unit-transit, prediction and reveal frames
+and glyph pages root read. Chapter 03 (`03_where_the_water_stops`, `.9.3`:
+the scene, the cut and Gale's table from the model, the facts, the oracle
+and the tests) is source and silent visuals verified by root: fmt, strict
+clippy, all 43 tests then present and 96/96 facts against the oracle;
+after the scene repairs, a build, its 4 changed tests and 68 glyph sources
+without failure; a silent draft of 86.37 s (scratch-voice timing) with no
+layout findings, whose reach-stroke and theorem-card frames root and an
+independent reviewer read. It runs 1.37 s past the 85 s target because the
+Gale card now stands whole 11.93 s, a readability repair root accepted.
+This lane compiled, rendered and synthesized nothing. No chapter has narration, and no continuous audio or
+whole-video acceptance is claimed; the owner's 2026-10-19 rejection of the
+first-wave narration applies, and the narration units are a proposed text
+grouping only. Chapters 04 and 05 are planned in the storyboard's arc, not
+written.
 
 | File | What it holds |
 |---|---|
-| `src/model.rs` | the mathematics: pictures, shadows, switches, every picture that fits, walks by switches, Gale's network and its largest flow with every augmenting path it sends, the replay that rebuilds the water path by path, refusing a path that repeats a row or column or breaks a capacity (row and column balance asserted as an invariant), Gale's test, the bottleneck |
+| `src/model.rs` | the mathematics: pictures, shadows, switches, every picture that fits, walks by switches, Gale's network and its largest flow with every augmenting path it sends, the replay that rebuilds the water path by path, refusing a path that repeats a row or column or breaks a capacity (row and column balance asserted as an invariant), the cut where the water stops, Gale's table and test, the bottleneck |
 | `src/facts.rs` | every number the video shows or says, and the edge checks on every 4 × 4 picture |
-| `oracle.py` | the same numbers computed independently (standard library only), and 31 cross-checks |
+| `oracle.py` | the same numbers computed independently (standard library only), and 38 cross-checks |
 | `src/chapters/same_shadows.rs` | chapter 01's scene |
-| `src/chapters/water.rs` | chapter 02's scene: the real trace, drawn from replayed states only |
+| `src/chapters/water.rs` | chapter 02's scene: the real trace, drawn from replayed states only; its plumbing (counters, units in transit) is chapter 03's too |
+| `src/chapters/stops.rs` | chapter 03's scene: where the no-fit water stops, the cut there, and Gale's table |
 | `src/chapters/draw.rs` | the grid, its squares and counts, switches, thumbnails, the think ring, line timing |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`), the arc of the planned chapters |
-| `narration_units.json` | the script's lines grouped into four whole thoughts for a future take, each the exact text of its lines |
+| `narration_units.json` | the script's lines grouped into whole thoughts for a future take (four a chapter), each the exact text of its lines |
 | `docs/fact-sheet.md` | every number's source and every non-numeric claim's evidence |
 | `docs/brief.md`, `docs/protected.tsv` | the brief; the words every revision must keep |
 
 ```bash
-python3 -I -B oracle.py                                   # every number, 31 cross-checks on stderr
+python3 -I -B oracle.py                                   # every number, 38 cross-checks on stderr
 python3 -I ../../tools/storyboard.py --check discrete_tomography
 python3 -I ../../tools/lint_script.py script.tsv
 ./x discrete_tomography protected                        # docs/protected.tsv against the script
@@ -90,11 +99,16 @@ python3 -I ../../tools/lint_script.py script.tsv
 - **Scope.** Two directions, exact counts, filled-or-empty squares. Real
   tomography is continuous, noisy and many-angled; the NP-hardness claim for
   three or more directions is known here only through Batenburg's citation.
-- **Review.** Both chapters' silent drafts were rendered and read by root
-  (layout lint empty for both; chapter 02's two cards legible in two lines);
-  nothing was compiled or rendered in this lane. The drafts use the scratch voice: real timing, the
-  02_4 run of units against 02_4's words, and every question and reveal
-  against a voice remain unmeasured.
+- **Review.** The silent drafts of chapters 01, 02 and 03 were rendered and
+  read by root (layout lint empty for all three; chapter 02's two cards
+  legible in two lines). Chapter 03's first draft failed review three ways:
+  teal reach strokes crossed the cut-off first column, the reach label was
+  cut short, and the 218-character Gale card stood whole only 7.27 s. All
+  three were repaired (strokes over the reached columns only, the full
+  label, a 176-character card held for reading) and read again in the next
+  draft. Nothing was compiled or rendered in this lane. The drafts use the scratch voice: real
+  timing, the runs of units against their words, and every question and
+  reveal against a voice remain unmeasured.
 - **Narration.** Not synthesized. The pacing notes in the storyboard (the
   think window at 01_3, the question and answer at 01_8, the closing
   questions) are direction for a take, not evidence of one.

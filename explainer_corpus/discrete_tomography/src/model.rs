@@ -495,9 +495,65 @@ pub struct Flow {
     /// capacity. The columns it cannot reach are the sink's side of the
     /// minimum cut with the smallest source side.
     pub reached: Vec<bool>,
+    /// For each row, whether the water can still reach it: the labeled rows
+    /// when the method stops ([`Flow::cut`]).
+    pub reached_rows: Vec<bool>,
     /// Every augmenting path, in the order they were sent ([`replay`]
     /// rebuilds and checks the flow from them).
     pub paths: Vec<Augmenting>,
+}
+
+/// Where the water stops: the cut that Ford and Fulkerson's labeling leaves
+/// when no path is left (their Lemma 2: it is a smallest cut, and its value
+/// is the flow's). The water can still reach the rows and columns on the
+/// source's side; every unit that gets through crosses the cut, by one of
+/// three ways: out of a tap the water cannot reach, through a pipe from a
+/// reached row into a column it cannot reach, or out of a reached column's
+/// drain.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Cut {
+    /// The rows and the columns the water can still reach.
+    pub rows: Vec<usize>,
+    pub cols: Vec<usize>,
+    /// The columns it cannot reach.
+    pub cut_off: Vec<usize>,
+    /// What can cross each way: the counts of the taps it cannot reach; one
+    /// unit a pipe from each reached row into each cut-off column; the
+    /// counts of the reached columns' drains.
+    pub unreached_taps: usize,
+    pub pipes: usize,
+    pub reached_drains: usize,
+}
+
+impl Cut {
+    /// The most water that can cross the cut.
+    pub fn value(&self) -> usize {
+        self.unreached_taps + self.pipes + self.reached_drains
+    }
+}
+
+impl Flow {
+    /// The cut the method stopped at, on the shadows it ran on.
+    pub fn cut(&self, s: &Shadows) -> Cut {
+        let rows: Vec<usize> = (0..s.rows.len()).filter(|&i| self.reached_rows[i]).collect();
+        let cols: Vec<usize> = (0..s.cols.len()).filter(|&j| self.reached[j]).collect();
+        let cut_off: Vec<usize> = (0..s.cols.len()).filter(|&j| !self.reached[j]).collect();
+        let unreached_taps = (0..s.rows.len())
+            .filter(|&i| !self.reached_rows[i])
+            .map(|i| s.rows[i])
+            .sum();
+        // each pipe carries one unit at most ([`SQUARE`])
+        let pipes = rows.len() * cut_off.len();
+        let reached_drains = cols.iter().map(|&j| s.cols[j]).sum();
+        Cut {
+            rows,
+            cols,
+            cut_off,
+            unreached_taps,
+            pipes,
+            reached_drains,
+        }
+    }
 }
 
 /// [`Flow`] by Ford and Fulkerson's labeling method (Canadian Journal of
@@ -558,10 +614,12 @@ pub fn max_flow(s: &Shadows) -> Flow {
                 }
             }
             let reached = (0..n).map(|j| came_from[1 + m + j] != usize::MAX).collect();
+            let reached_rows = (0..m).map(|i| came_from[1 + i] != usize::MAX).collect();
             return Flow {
                 value,
                 carried,
                 reached,
+                reached_rows,
                 paths,
             };
         }
@@ -743,21 +801,28 @@ pub fn bottleneck(s: &Shadows) -> Option<Vec<usize>> {
         .find(|set| set.iter().map(|&j| s.cols[j]).sum::<usize>() > can_give(&s.rows, set.len()))
 }
 
-/// Gale's test (1957; Ryser's Theorem 2.1 in other words): a picture fits
-/// exactly when the totals agree and, for every k, the k largest columns ask
-/// for at most what the rows can give k columns.
-pub fn gale_ryser(s: &Shadows) -> bool {
-    if s.row_total() != s.col_total() {
-        return false;
-    }
+/// Gale's table: for k = 1 to the number of columns, what the k largest
+/// columns ask for together, and what the rows can give any k columns
+/// ([`can_give`]).
+pub fn gale_table(s: &Shadows) -> Vec<(usize, usize)> {
     let mut cols = s.cols.clone();
     cols.sort_unstable();
     cols.reverse();
     let mut asked = 0;
-    cols.iter().enumerate().all(|(i, &c)| {
-        asked += c;
-        asked <= can_give(&s.rows, i + 1)
-    })
+    cols.iter()
+        .enumerate()
+        .map(|(i, &c)| {
+            asked += c;
+            (asked, can_give(&s.rows, i + 1))
+        })
+        .collect()
+}
+
+/// Gale's test (1957; Ryser's Theorem 2.1 in other words): a picture fits
+/// exactly when the totals agree and, for every k, the k largest columns ask
+/// for at most what the rows can give k columns.
+pub fn gale_ryser(s: &Shadows) -> bool {
+    s.row_total() == s.col_total() && gale_table(s).iter().all(|&(asks, gives)| asks <= gives)
 }
 
 #[cfg(test)]
@@ -1133,5 +1198,89 @@ mod tests {
             let e = replay(&s, &paths).unwrap_err();
             assert!(e.contains(why), "{why}: {e}");
         }
+    }
+
+    /// "Each row gives it at most one square per column, and no more than
+    /// its count": on every 4x4 picture, every group of columns holds at most
+    /// the sum over rows of min(row count, group size).
+    #[test]
+    fn a_group_of_columns_gets_at_most_min_count_k_from_each_row() {
+        for p in all_pictures(4, 4) {
+            let (rows, cols) = (p.row_counts(), p.col_counts());
+            for mask in 1u32..1 << 4 {
+                let group: Vec<usize> = (0..4).filter(|&j| (mask >> j) & 1 == 1).collect();
+                let holds: usize = group.iter().map(|&j| cols[j]).sum();
+                assert!(holds <= can_give(&rows, group.len()), "{} {group:?}", p.pattern());
+            }
+        }
+    }
+
+    /// Where the method stops is a cut of exactly the flow's size (Ford and
+    /// Fulkerson's Lemma 2), on every 4x4 pair of shadows with equal totals;
+    /// it stops short exactly when Gale's table fails at some size, and then
+    /// the columns it cannot reach ask for more than the rows can give them.
+    #[test]
+    fn the_method_stops_at_a_cut_of_its_own_size() {
+        let counts: Vec<Vec<usize>> = (0..625usize)
+            .map(|k| (0..4u32).map(|i| k / 5usize.pow(i) % 5).collect())
+            .collect();
+        let mut short = 0;
+        for rows in &counts {
+            for cols in &counts {
+                let s = Shadows::new(rows, cols);
+                if s.row_total() != s.col_total() {
+                    continue;
+                }
+                let flow = max_flow(&s);
+                let cut = flow.cut(&s);
+                assert_eq!(cut.value(), flow.value, "{s:?}");
+                let stops_short = flow.value < s.row_total();
+                let fails = gale_table(&s).iter().any(|&(asks, gives)| asks > gives);
+                assert_eq!(stops_short, fails, "{s:?}");
+                if stops_short {
+                    let asks: usize = cut.cut_off.iter().map(|&j| s.cols[j]).sum();
+                    assert!(asks > can_give(&s.rows, cut.cut_off.len()), "{s:?}: {cut:?}");
+                    short += 1;
+                }
+            }
+        }
+        assert!(short > 0);
+    }
+
+    /// Chapter 03's example: the face's rows with columns 5, 1, 1, 1, 1. Eight
+    /// units go straight down and the method stops; the water still reaches
+    /// rows 0, 1, 3, 4 and columns 1 to 4, never the first column; the cut
+    /// is four pipes into that column and the four other drains. Gale's
+    /// table fails only for the single largest column; the face's columns
+    /// pass every size.
+    #[test]
+    fn the_no_fit_flow_stops_at_the_first_column() {
+        let face = face();
+        let s = Shadows::new(&face.row_counts(), &NO_FIT_COLS);
+        let flow = max_flow(&s);
+        assert_eq!(flow.value, 8);
+        assert_eq!(flow.paths.len(), 8);
+        assert!(flow.paths.iter().all(|p| !p.takes_back()));
+        let cut = flow.cut(&s);
+        assert_eq!(
+            cut,
+            Cut {
+                rows: vec![0, 1, 3, 4],
+                cols: vec![1, 2, 3, 4],
+                cut_off: vec![0],
+                unreached_taps: 0,
+                pipes: 4,
+                reached_drains: 4,
+            }
+        );
+        assert_eq!(gale_table(&s), [(5, 4), (6, 8), (7, 9), (8, 9), (9, 9)]);
+        assert_eq!(gale_table(&face.shadows()), [(3, 4), (6, 8), (7, 9), (8, 9), (9, 9)]);
+        assert!(gale_ryser(&face.shadows()) && !gale_ryser(&s));
+        // equal totals matter: rows 2, 2 with columns 1, 1 pass every size of
+        // the table, yet their totals are 4 and 2 and nothing fits
+        let unequal = Shadows::new(&[2, 2], &[1, 1]);
+        assert!(gale_table(&unequal).iter().all(|&(asks, gives)| asks <= gives));
+        assert_ne!(unequal.row_total(), unequal.col_total());
+        assert!(!gale_ryser(&unequal) && fits(&unequal).is_empty());
     }
 }

@@ -19,3 +19,11 @@
 02_7	The top row sends that unit to the fourth column, which still needs one. Without taking back, this fill would have stopped one unit short.
 02_8	The wet squares cast the face's shadows, but they aren't the face. They're one of the sixty-four.
 02_9	Water finds a picture whenever one exists. It never says whether that's the only one.
+03_1	Back to the shadows no picture fits. The face's rows, and columns asking for five, one, one, one and one.
+03_2	The water stops at eight of nine. Could taking water back get the ninth through?
+03_3	No. The first column needs five, but each row sends it at most one, and only four rows have water.
+03_4	Taking back just moves water between pipes. Four into the first column, four out of the other drains. Eight is all that can pass.
+03_5	Count any group of columns this way. Each row gives it at most one square per column, and no more than its count.
+03_6	If the group asks for more than the rows can give, no picture fits. Checking the hungriest group of each size is enough.
+03_7	With equal totals, that test never misses. When water stops short, the columns it can't reach always form a group that asks too much.
+03_8	The face's shadows pass, and sixty-four pictures fit them. The test says that one fits, not which, and not whether only one.

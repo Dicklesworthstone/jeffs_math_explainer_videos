@@ -10,7 +10,7 @@ use std::fmt::Display;
 use explainer_kit::Facts;
 
 use crate::chapters::same_shadows::QUESTIONS;
-use crate::model::{self, Augmenting, FlowState, Node, Picture, Reconstruction, Shadows, Switch};
+use crate::model::{self, Augmenting, Flow, FlowState, Node, Picture, Reconstruction, Shadows, Switch};
 
 /// The year of Ryser's paper, shown on chapter 01's "precisely" card: H. J.
 /// Ryser, "Combinatorial properties of matrices of zeros and ones",
@@ -110,6 +110,42 @@ pub fn face_flow() -> Result<(Vec<Augmenting>, Vec<FlowState>), String> {
     match states.last() {
         Some(last) if last.wet == flow.carried && last.through() == flow.value => Ok((flow.paths, states)),
         _ => Err("the replayed water is not the flow's".into()),
+    }
+}
+
+/// Chapter 03: the flow through the no-fit shadows (it stops short), and the
+/// water after each of its paths (checked by [`model::replay`]).
+pub fn no_fit_flow() -> Result<(Flow, Vec<FlowState>), String> {
+    let s = no_fit();
+    let flow = model::max_flow(&s);
+    let states = model::replay(&s, &flow.paths)?;
+    match states.last() {
+        Some(last) if last.wet == flow.carried && last.through() == flow.value => Ok((flow, states)),
+        _ => Err("the replayed water is not the no-fit flow's".into()),
+    }
+}
+
+/// Column counts from largest to smallest, as Gale's table takes them.
+pub fn largest_first(cols: &[usize]) -> Vec<usize> {
+    let mut sorted = cols.to_vec();
+    sorted.sort_unstable();
+    sorted.reverse();
+    sorted
+}
+
+/// The sizes k at which Gale's table fails (the k largest columns ask for
+/// more than the rows can give), or "none".
+fn failing_sizes(table: &[(usize, usize)]) -> String {
+    let sizes: Vec<usize> = table
+        .iter()
+        .zip(1..)
+        .filter(|((asks, gives), _)| asks > gives)
+        .map(|(_, k)| k)
+        .collect();
+    if sizes.is_empty() {
+        "none".to_string()
+    } else {
+        csv(&sizes)
     }
 }
 
@@ -337,6 +373,56 @@ pub fn facts() -> Result<Facts, String> {
     f.add("DT-F8.built.only_one", flag(fit.len() == 1))?;
     f.add("DT-F8.built.from_face", from_face)?;
 
+    // chapter 03: where the water stops on the no-fit shadows
+    let (stop, stop_states) = no_fit_flow()?;
+    let cut = stop.cut(&no_fit);
+    if cut.value() != stop.value {
+        return Err(format!("the cut {} is not the flow {}", cut.value(), stop.value));
+    }
+    if Some(&cut.cut_off) != model::bottleneck(&no_fit).as_ref() {
+        return Err(format!(
+            "the columns cut off, {:?}, are not the bottleneck",
+            cut.cut_off
+        ));
+    }
+    let end = stop_states.last().ok_or("the no-fit flow sends nothing")?;
+    let left: Vec<usize> = (0..no_fit.rows.len())
+        .filter(|&r| end.sent[r] < no_fit.rows[r])
+        .collect();
+    let (&[left_row], &[first]) = (left.as_slice(), cut.cut_off.as_slice()) else {
+        return Err(format!(
+            "not one row left with water and one column cut off: {left:?}, {cut:?}"
+        ));
+    };
+    let stop_trace: Vec<String> = stop.paths.iter().map(path_text).collect();
+    f.add("DT-F9.paths", stop.paths.len())?;
+    f.add("DT-F9.trace", stop_trace.join(","))?;
+    f.add("DT-F9.takebacks", stop.paths.iter().filter(|p| p.takes_back()).count())?;
+    f.add("DT-F9.flow", stop.value)?;
+    f.add("DT-F9.left.row", left_row)?;
+    f.add("DT-F9.left.units", no_fit.rows[left_row] - end.sent[left_row])?;
+    f.add(
+        "DT-F9.first.wet",
+        (0..no_fit.rows.len()).filter(|&r| end.wet.get(r, first)).count(),
+    )?;
+    f.add("DT-F9.first.needs", no_fit.cols[first])?;
+    f.add("DT-F9.rows_with_water", no_fit.rows.iter().filter(|&&r| r > 0).count())?;
+    f.add("DT-F9.reached.rows", csv(&cut.rows))?;
+    f.add("DT-F9.reached.cols", csv(&cut.cols))?;
+    f.add("DT-F9.cut.unreached_taps", cut.unreached_taps)?;
+    f.add("DT-F9.cut.into_unreached", cut.pipes)?;
+    f.add("DT-F9.cut.reached_drains", cut.reached_drains)?;
+    f.add("DT-F9.cut", cut.value())?;
+    for (key, s) in [("DT-F9", &no_fit), ("DT-F9.face", &shadows)] {
+        let table = model::gale_table(s);
+        let asks: Vec<usize> = table.iter().map(|&(asks, _)| asks).collect();
+        let gives: Vec<usize> = table.iter().map(|&(_, gives)| gives).collect();
+        f.add(&format!("{key}.sorted"), csv(&largest_first(&s.cols)))?;
+        f.add(&format!("{key}.asks"), csv(&asks))?;
+        f.add(&format!("{key}.gives"), csv(&gives))?;
+        f.add(&format!("{key}.failing"), failing_sizes(&table))?;
+    }
+
     f.add("DT-F7.questions", QUESTIONS.len())?;
     f.pin(
         "DT-S1.ryser",
@@ -435,6 +521,31 @@ mod tests {
             assert!(st.drained.iter().zip(&s.cols).all(|(a, b)| a <= b));
             assert_eq!(st.sent, st.wet.row_counts());
             assert_eq!(st.drained, st.wet.col_counts());
+        }
+    }
+
+    /// Chapter 03's numbers: the stop is the cut, worth the flow; the cut
+    /// cuts off exactly the bottleneck column; Gale's table fails only at
+    /// the first size for these shadows, and nowhere for the face's.
+    #[test]
+    fn the_stop_facts_hold() {
+        let f = facts().unwrap();
+        assert_eq!(f.get("DT-F9.flow"), f.get("DT-F4.flow"));
+        assert_eq!(f.get("DT-F9.cut"), f.get("DT-F9.flow"));
+        assert_eq!(f.get("DT-F9.trace"), Some("r0c0,r0c1,r1c0,r1c2,r3c0,r3c3,r4c0,r4c4"));
+        assert_eq!(f.get("DT-F9.reached.rows"), Some("0,1,3,4"));
+        assert_eq!(f.get("DT-F9.reached.cols"), Some("1,2,3,4"));
+        assert_eq!(f.get("DT-F9.asks"), Some("5,6,7,8,9"));
+        assert_eq!(f.get("DT-F9.gives"), Some("4,8,9,9,9"));
+        assert_eq!(f.get("DT-F9.failing"), Some("1"));
+        assert_eq!(f.get("DT-F9.face.failing"), Some("none"));
+        assert_eq!(f.get("DT-F9.first.wet"), f.get("DT-F9.cut.into_unreached"));
+        // every state of the no-fit flow keeps each row and column in count
+        let (_, states) = no_fit_flow().unwrap();
+        let s = no_fit();
+        for st in &states {
+            assert!(st.sent.iter().zip(&s.rows).all(|(a, b)| a <= b));
+            assert!(st.drained.iter().zip(&s.cols).all(|(a, b)| a <= b));
         }
     }
 

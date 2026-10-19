@@ -243,10 +243,11 @@ def max_flow_dfs(rows, cols):
         flow += 1
 
 
-def smallest_cut_sink_cols(rows, cols):
-    """The columns on the sink's side of the minimum cut with the smallest
-    source side (the intersection of every minimum cut's source side): list
-    every cut (rows X and columns Z with the source) and keep the cheapest."""
+def smallest_cut(rows, cols):
+    """The minimum cut with the smallest source side (the intersection of
+    every minimum cut's source side): list every cut (rows X and columns Z
+    with the source), keep the cheapest. Returns its value and the rows and
+    columns on the source's side."""
     m, n = len(rows), len(cols)
     best, sides = None, []
     for xs in product((0, 1), repeat=m):
@@ -259,8 +260,9 @@ def smallest_cut_sink_cols(rows, cols):
                 best, sides = value, []
             if value == best:
                 sides.append(({i for i in range(m) if xs[i]}, {j for j in range(n) if zs[j]}))
+    source_rows = set.intersection(*(x for x, _ in sides))
     source_cols = set.intersection(*(z for _, z in sides))
-    return best, [j for j in range(n) if j not in source_cols]
+    return best, sorted(source_rows), sorted(source_cols)
 
 
 def bottleneck(rows, cols):
@@ -334,7 +336,8 @@ def facts():
 
     no_cols = NO_FIT_COLS
     flow = max_flow_cut(rows, no_cols)
-    cut_flow, cut_cols = smallest_cut_sink_cols(rows, no_cols)
+    cut_flow, _, source_cols = smallest_cut(rows, no_cols)
+    cut_cols = [j for j in range(len(no_cols)) if j not in source_cols]
     emit("DT-F4.cols", csv(no_cols))
     emit("DT-F4.totals", csv((sum(rows), sum(no_cols))))
     emit("DT-F4.fits", len(fits(rows, no_cols)))
@@ -639,9 +642,138 @@ def chapter_02(rows, cols, every, from_face):
     check("chapter 02: every 3x3 trace replays and reaches the smallest cut", bad == 0)
 
 
+# ------------------------------------------------- chapter 03, the stop
+
+
+def still_reaches(rows, cols, state):
+    """The rows and columns the water can still reach after a flow, taking
+    back included: a tap with water left leads into its row, a row through a
+    dry square into that square's column, a column back through a wet square
+    into that square's row. Returns them sorted."""
+    wet, sent, _ = state
+    m, n = len(rows), len(cols)
+    seen_rows = {i for i in range(m) if sent[i] < rows[i]}
+    seen_cols = set()
+    queue = deque(("r", i) for i in sorted(seen_rows))
+    while queue:
+        kind, k = queue.popleft()
+        if kind == "r":
+            for j in range(n):
+                if (k, j) not in wet and j not in seen_cols:
+                    seen_cols.add(j)
+                    queue.append(("c", j))
+        else:
+            for i in range(m):
+                if (i, k) in wet and i not in seen_rows:
+                    seen_rows.add(i)
+                    queue.append(("r", i))
+    return sorted(seen_rows), sorted(seen_cols)
+
+
+def gale_rows(rows, cols):
+    """Gale's table by his dual sequence: the k largest columns' asks, and
+    the first k terms of the rows' dual sequence summed (what the rows can
+    give any k columns), for k = 1 to the number of columns."""
+    b = sorted(cols, reverse=True)
+    s = dual(rows, len(b))
+    asks = [sum(b[:k]) for k in range(1, len(b) + 1)]
+    gives = [sum(s[:k]) for k in range(1, len(b) + 1)]
+    return b, asks, gives
+
+
+def chapter_03(rows, face_cols):
+    m, cols = len(rows), NO_FIT_COLS
+    n = len(cols)
+    paths = water_trace(rows, cols)
+    states = water_states(rows, cols, paths)
+    end = states[-1]
+    wet, sent, drained = end
+    flow = sum(drained)
+    best, source_rows, source_cols = smallest_cut(rows, cols)
+    cut_off = [j for j in range(n) if j not in source_cols]
+    left = [i for i in range(m) if sent[i] < rows[i]]
+    first = cut_off[0]
+    pipes = len(source_rows) * len(cut_off)
+    reached_drains = sum(cols[j] for j in source_cols)
+    emit("DT-F9.paths", len(paths))
+    emit("DT-F9.trace", ",".join(path_text(p) for p, _ in paths))
+    emit("DT-F9.takebacks", sum(1 for p, _ in paths if len(p) > 4))
+    emit("DT-F9.flow", flow)
+    emit("DT-F9.left.row", left[0])
+    emit("DT-F9.left.units", rows[left[0]] - sent[left[0]])
+    emit("DT-F9.first.wet", sum(1 for i in range(m) if (i, first) in wet))
+    emit("DT-F9.first.needs", cols[first])
+    emit("DT-F9.rows_with_water", sum(1 for r in rows if r > 0))
+    emit("DT-F9.reached.rows", csv(source_rows))
+    emit("DT-F9.reached.cols", csv(source_cols))
+    emit("DT-F9.cut.unreached_taps", sum(r for i, r in enumerate(rows) if i not in source_rows))
+    emit("DT-F9.cut.into_unreached", pipes)
+    emit("DT-F9.cut.reached_drains", reached_drains)
+    emit("DT-F9.cut", best)
+    for key, cs in (("DT-F9", cols), ("DT-F9.face", face_cols)):
+        b, asks, gives = gale_rows(rows, cs)
+        failing = [k for k in range(1, len(b) + 1) if asks[k - 1] > gives[k - 1]]
+        emit(f"{key}.sorted", csv(b))
+        emit(f"{key}.asks", csv(asks))
+        emit(f"{key}.gives", csv(gives))
+        emit(f"{key}.failing", csv(failing) if failing else "none")
+
+    check("chapter 03: one row is left with water and one column cut off", len(left) == 1 and len(cut_off) == 1)
+    check(
+        "chapter 03: the water's own search reaches exactly the smallest cut's source side",
+        still_reaches(rows, cols, end) == (source_rows, source_cols),
+    )
+    check("chapter 03: the flow equals the smallest cut, by both cut methods", flow == best == max_flow_cut(rows, cols))
+    check(
+        "chapter 03: the cut-off columns ask for more than the dual sequence lets the rows give them",
+        sum(cols[j] for j in cut_off) > sum(dual(rows, n)[: len(cut_off)]),
+    )
+    # equal totals matter: these pass every size of the table and fit nothing
+    _, asks, gives = gale_rows((2, 2), (1, 1))
+    check(
+        "chapter 03: rows 2, 2 with columns 1, 1 pass every size, have unequal totals, and fit nothing",
+        all(a <= g for a, g in zip(asks, gives)) and not gale_feasible((2, 2), (1, 1)) and not fits((2, 2), (1, 1)),
+    )
+
+    # on every 3x3 pair of shadows with equal totals, the water stops short
+    # exactly when the table fails, and then the columns its own search
+    # cannot reach ask for more than the rows can give them
+    bad = 0
+    for r in product(range(4), repeat=3):
+        for c in product(range(4), repeat=3):
+            if sum(r) != sum(c):
+                continue
+            got = water_states(r, c, water_trace(r, c))
+            final = got[-1] if got else (frozenset(), [0] * 3, [0] * 3)
+            short = sum(final[2]) < sum(r)
+            _, a, g = gale_rows(r, c)
+            if short != any(x > y for x, y in zip(a, g)):
+                bad += 1
+            elif short:
+                _, reached = still_reaches(r, c, final)
+                off = [j for j in range(3) if j not in reached]
+                if not off or sum(c[j] for j in off) <= sum(dual(r, 3)[: len(off)]):
+                    bad += 1
+    check("chapter 03: on every 3x3 equal-total pair, short exactly when the table fails, cut off asks too much", bad == 0)
+
+    # "each row gives a group at most one square per column, and no more than
+    # its count": every group of columns of every 4x4 picture
+    bad = 0
+    for mask in range(1 << 16):
+        cells = frozenset((i // 4, i % 4) for i in range(16) if (mask >> i) & 1)
+        r, c = shadows(cells, 4, 4)
+        s = dual(r, 4)
+        for k in range(1, 5):
+            for group in combinations(range(4), k):
+                if sum(c[j] for j in group) > sum(s[:k]):
+                    bad += 1
+    check("chapter 03: every group of columns of every 4x4 picture holds at most what the rows can give", bad == 0)
+
+
 def main():
     rows, cols = facts()
     chapter_02(rows, cols, fits(rows, cols), distances(parse(FACE)))
+    chapter_03(rows, cols)
     edges()
     print(f"# {_CHECKS[0] - len(_FAILED)}/{_CHECKS[0]} cross-checks passed", file=sys.stderr)
     return 1 if _FAILED else 0

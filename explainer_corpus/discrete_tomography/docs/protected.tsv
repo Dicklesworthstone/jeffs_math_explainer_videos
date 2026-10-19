@@ -10,3 +10,6 @@ is it the only one?	script	uniqueness, kept apart from feasibility
 take back the unit the top row sent there	script	the take-back move: why the water never gets stuck when a picture exists (DT-F8.takebacks)
 but they aren't the face	script	the flow finds a picture, not the face (DT-F8.built.is_face)
 It never says whether that's the only one	script	feasibility from the flow, kept apart from uniqueness (DT-F8.built.only_one)
+Could taking water back get the ninth through?	script	the prediction: taking back cannot beat the cut (DT-F9.cut)
+With equal totals, that test never misses	script	Gale's condition needs equal totals; without them the table can pass and nothing fit
+not whether only one	script	the test decides feasibility, not uniqueness (DT-F3.fits)

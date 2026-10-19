@@ -88,7 +88,38 @@ mod tests {
         ("02_8", "sixty-four", "DT-F3.fits", "64"),
         ("02_9", "whenever one exists", "DT-F8.built.fits", "true"),
         ("02_9", "the only one", "DT-F8.built.only_one", "false"),
+        ("03_1", "five, one, one, one and one", "DT-F4.cols", "5,1,1,1,1"),
+        ("03_2", "eight of nine", "DT-F9.flow", "8"),
+        ("03_2", "the ninth through", "DT-F4.totals", "9,9"),
+        ("03_3", "The first column", "DT-F4.bottleneck", "0"),
+        ("03_3", "needs five", "DT-F9.first.needs", "5"),
+        ("03_3", "at most one", "DT-F8.square", "1"),
+        ("03_3", "only four rows", "DT-F9.rows_with_water", "4"),
+        ("03_4", "Four into the first column", "DT-F9.cut.into_unreached", "4"),
+        ("03_4", "four out of the other drains", "DT-F9.cut.reached_drains", "4"),
+        ("03_4", "Eight is all", "DT-F9.cut", "8"),
+        ("03_5", "at most one square per column", "DT-F8.square", "1"),
+        ("03_8", "sixty-four", "DT-F3.fits", "64"),
+        ("03_8", "not whether only one", "DT-F8.built.only_one", "false"),
     ];
+
+    /// The column counts 03_1 reads out are the ones the chapter draws.
+    #[test]
+    fn the_spoken_column_counts_are_the_drawn_ones() {
+        let script = Script::parse(SCRIPT).unwrap();
+        let text = script.text("03_1").unwrap();
+        let words = text.split("asking for ").nth(1).unwrap().trim_end_matches('.');
+        let counts: Vec<usize> = words
+            .split([',', ' '])
+            .filter(|w| !w.is_empty() && *w != "and")
+            .map(|w| match w {
+                "one" => 1,
+                "five" => 5,
+                other => panic!("an unexpected count word {other:?}"),
+            })
+            .collect();
+        assert_eq!(counts, model::NO_FIT_COLS);
+    }
 
     #[test]
     fn every_spoken_number_is_the_fact_it_speaks_for() {
@@ -114,7 +145,7 @@ mod tests {
         // and no line carries a number word the table above does not know
         let numbers = [
             "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "sixty", "half",
-            "twice", "hundred", "first", "second", "third", "fourth", "fifth",
+            "twice", "hundred", "first", "second", "third", "fourth", "fifth", "sixth", "seventh", "eighth", "ninth",
         ];
         for (id, text) in script.lines() {
             let lower = text.to_lowercase();

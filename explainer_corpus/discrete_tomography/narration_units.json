@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "d3707b9e9a28cdc4f83846f846531e25f7a3a23b596bba1d459822be3acce97c",
+  "script_sha256": "a5a74cc5f92142d02fd96864c3e4e619d1840886616f5546813134e8d471fb3b",
   "units": [
     {
       "id": "01u1",
@@ -69,6 +69,38 @@
         "02_9"
       ],
       "text": "The wet squares cast the face's shadows, but they aren't the face. They're one of the sixty-four. Water finds a picture whenever one exists. It never says whether that's the only one."
+    },
+    {
+      "id": "03u1",
+      "line_ids": [
+        "03_1",
+        "03_2"
+      ],
+      "text": "Back to the shadows no picture fits. The face's rows, and columns asking for five, one, one, one and one. The water stops at eight of nine. Could taking water back get the ninth through?"
+    },
+    {
+      "id": "03u2",
+      "line_ids": [
+        "03_3",
+        "03_4"
+      ],
+      "text": "No. The first column needs five, but each row sends it at most one, and only four rows have water. Taking back just moves water between pipes. Four into the first column, four out of the other drains. Eight is all that can pass."
+    },
+    {
+      "id": "03u3",
+      "line_ids": [
+        "03_5",
+        "03_6",
+        "03_7"
+      ],
+      "text": "Count any group of columns this way. Each row gives it at most one square per column, and no more than its count. If the group asks for more than the rows can give, no picture fits. Checking the hungriest group of each size is enough. With equal totals, that test never misses. When water stops short, the columns it can't reach always form a group that asks too much."
+    },
+    {
+      "id": "03u4",
+      "line_ids": [
+        "03_8"
+      ],
+      "text": "The face's shadows pass, and sixty-four pictures fit them. The test says that one fits, not which, and not whether only one."
     }
   ]
 }

@@ -26,7 +26,7 @@ on.
 |---|---|---|
 | `01_same_shadows` | the face and its two shadows; hidden, could another picture cast them? (prediction); the other picture differs at a rectangle's alternating corners, and swapping filled and empty there keeps every count: a switch; 64 pictures fit, each within 3 switches of the face (Ryser's theorem on the card); the face's rows with columns 5, 1, 1, 1, 1 fit nothing, because that column needs a square in every row and the middle row is empty; the two questions | source and silent visuals verified by root on 2026-10-19 at 6bae9ea (`.9.1`: strict clippy, tests, 48/48 oracle facts, glyph probe, a 540p30 silent draft with no layout findings, cue-end and question/reveal frames read); no narration or audio exists or is claimed |
 | `02_water_through_the_grid` | Gale's network drawn on the grid itself: each row a tap that lets out its count, each square a pipe carrying at most one unit down into its column, each column a drain holding at most its count; the method's real augmenting paths, one unit each (`model::max_flow` records them, `model::replay` rebuilds and checks every state); eight go straight down, then the bottom row is stuck without taking back (prediction); the ninth unit takes the top row's unit back out of the first column, and the top row sends it to the fourth; every unit through, a picture with the face's shadows that is not the face, one of the 64; the water finds a picture whenever one exists and never says whether it is the only one | source and silent visuals verified by root on 2026-10-19 (`.9.2`): fmt, strict release all-target clippy, 35 tests, release build, 73/73 facts against the oracle's 31 checks; a silent 960x540 30 fps draft, 2,452 frames, 81.73 s by scratch-voice timing, no layout findings; all 9 cue ends, 12 frames of the first and ninth units in transit (counters leave and arrive correctly, the fourth column's unit in transit before "through: 9 of 9"), 6 prediction and reveal frames (the answer held back through the hold) and all 5 glyph pages read; the take-back trace and counters independently reviewed; no narration or audio exists or is claimed |
-| 03 *(planned)* where the water stops | the no-fit shadows: the flow stops at 8 of 9; the cut names the first column, which can get at most one square from each nonempty row (Gale's count, min(r, k) per row for k columns); Gale's test for every k; feasible is decided, uniqueness is not (`model::bottleneck`, `model::gale_ryser`) | not written |
+| `03_where_the_water_stops` | the face's rows with columns 5, 1, 1, 1, 1: the method's real units, eight straight down, then the stop (prediction: could taking water back get the ninth through?); no: the first column needs five, each row sends it at most one, only four rows have water; everywhere the water can still go, taking back included, misses that column, and the cut there lets four units into it and four out of the other drains, eight in all (`facts::no_fit_flow`, `Flow::cut`); any k columns get at most min(count, k) from a row; Gale's table, the k largest columns against what the rows can give (`model::gale_table`); with equal totals the test is complete, because the columns the water cannot reach always ask too much; the face's shadows pass and 64 pictures fit: the test decides feasibility, not uniqueness | source and silent visuals verified by root on 2026-10-19 (`.9.3`). First native run: fmt, strict clippy, 43 tests, 96/96 facts against the oracle's 38 checks, 69 glyph sources. An independent image review of the first draft found three faults: teal reach strokes crossing the cut-off first column, a reach label cut short ("taking back") and the 218-character Gale card whole for only 7.27 s, mostly under speech. All three were repaired in this lane. After the repairs: fmt, strict clippy, a build, the 4 changed scene tests (the other 40 unchanged) and 68 glyph sources without failure. Silent draft06: 2,591 frames at 30 fps, 86.37 s by scratch-voice timing (sha256 `dd54be19d333…`), empty layout lint; the reach and theorem frames were read, and the 176-character card stands whole 11.93 s. It runs 1.37 s past 85 s for that reading hold, by root's decision. No narration or audio exists or is claimed |
 | 04 *(planned)* the only picture | Ryser: any two pictures with the same shadows are joined by switches, so a picture with no switch is the only one; the tree; checking the picture the flow built for a switch settles uniqueness (`model::switches`, `model::reachable`) | not written |
 | 05 *(planned)* more shadows, and the limits | a third direction can tell some of the 64 apart, but reconstruction from three or more directions is NP-hard in general (Gardner, Gritzmann and Prangenberg 1999, as cited by Batenburg 2006); real CT scanners measure continuous densities along many angles, not counts of filled squares | not written; sources for the complexity claim not yet read in the original |
 
@@ -187,3 +187,76 @@ from a tap to a drain), **room** (what a pipe can still carry), **take back**
   the water cannot say (02u4). Generation boundaries are not frozen; they may
   change after an actual listening comparison. The owner's 2026-10-19
   rejection of the first-wave narration applies, and nothing is synthesized.
+
+## 03_where_the_water_stops: Where the water stops (~83 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 03_1 | Back to the shadows no picture fits. The face's rows, and columns asking for five, one, one, one and one. | Chapter 02's plumbing: the empty grid, the taps 2, 2, 0, 2, 3 *(face.rows)*; on "and columns asking", the drains 5, 1, 1, 1, 1 *(no_fit.cols)* and "through: 0 of 9"; then the method's real units, eight, each route coming in as its tap counts down, its square filling, its drain and "through" counting as it arrives *(no-fit trace)* | lagged reveal, highlight | |
+| 03_2 | The water stops at eight of nine. ⟨predict⟩ Could taking water back get the ninth through? | On "stops at eight", "through: 8 of 9", the bottom tap's 1 and the first drain's 1 flash *(flow, left)*; the think ring, four seconds, the voice silent, nothing moving | highlight, tracker | |
+| 03_3 | No. The first column needs five, but each row sends it at most one, and only four rows have water. | The ring goes; on "The first column", a red outline round it and "asks 5" under its drain *(first.needs)*; on "each row sends", a ring on each of its five squares, one per row; on "only four rows", a red cross on the middle row's square there, and that row's 0 flashes *(rows_with_water)* | highlight | |
+| 03_4 | Taking back just moves water between pipes. Four into the first column, four out of the other drains. Eight is all that can pass. | Teal strokes along every row and column the water can still reach, taking back included: every row with water and every column but the first *(reached)*, each row's stroke running over the reached columns only and stopping clear of the first column's red outline, "where the water can still go, taking back included"; on "Four into", the four wet squares in the first column flash, "4 pipes into the first column" *(cut.into_unreached)*; on "four out of", the other four drains flash, "4 out of the other drains" *(cut.reached_drains)*; on "Eight is all", "4 + 4 = 8, all that can pass" *(cut)* | highlight | |
+| 03_5 | Count any group of columns this way. Each row gives it at most one square per column, and no more than its count. | The strokes and words go; on the right, Gale's table: "k" 1 to 5 and "rows can give"; on "Each row gives", "a row gives k columns at most min(its count, k)" and the row of what the rows can give, 4, 8, 9, 9, 9 *(gives)* | table, lagged reveal | |
+| 03_6 | If the group asks for more than the rows can give, no picture fits. Checking the hungriest group of each size is enough. | "largest columns first", 5, 1, 1, 1, 1 *(sorted)*, and "the k largest ask", 5, 6, 7, 8, 9 *(asks)*; on "no picture fits", the first size's 5 and 4 turn red *(failing)*; on "the hungriest", the largest-first row flashes | table, highlight | |
+| 03_7 | With equal totals, that test never misses. When water stops short, the columns it can't reach always form a group that asks too much. | The last size's 9 and 9 turn green, "equal totals" over them *(totals)*; on "When water stops short", a "precisely" lower-third (a picture fits exactly when row and column totals match and, for every k, the k largest columns ask for at most the sum over rows of min(row count, k); Gale, 1957; Ryser, 1957) *(gale, ryser)*, and the red first column, its "asks 5" and the red 5 and 4 flash together; the card stands whole, the line finished, until 11.7 s after its fade-in (176 characters at 15 a second) | lower-third, highlight | |
+| 03_8 | The face's shadows pass, and sixty-four pictures fit them. The test says that one fits, not which, and not whether only one. | The water, marks and card clear; the taps and drains become the face's, 2, 2, 0, 2, 3 and 1, 3, 1, 3, 1, and the table its columns, 3, 3, 1, 1, 1, asking 3, 6, 7, 8, 9 against 4, 8, 9, 9, 9, all green *(face.sorted, face.asks, face.gives)*; on "sixty-four", "64 pictures fit these shadows" *(fits)*; on "The test says", "it says one fits, not which, not whether only one"; a held beat, the fade | table, highlight | |
+
+### Notes for 03
+
+- **The stop and the cut are the method's own.** The eight units are the
+  paths `model::max_flow` sent on these shadows (`facts::no_fit_flow`,
+  replayed by `model::replay`); none takes water back. When no path is left,
+  the rows and columns the labeling still reaches, taking back included,
+  are rows 0, 1, 3, 4 and columns 1 to 4 (`Flow::cut`; Ford and Fulkerson's
+  Lemma 2). Every unit that gets through crosses that cut: into the
+  unreached first column through one of the four reached rows' pipes, or
+  out of one of the four reached drains. So no flow, whatever it takes
+  back, gets past 4 + 4 = 8 (`DT-F9.cut`), the flow the method found.
+- **Prediction (03_2).** The question ends unit 03u1; the think ring drains
+  for four seconds with the voice silent and nothing on the board moving;
+  "No." opens 03u2.
+- **The general count (03_5).** A row of count r gives a group of k columns
+  at most one square each and at most r in all: min(r, k). Tested on every
+  group of columns of every 4 × 4 picture (`model` test) and by the oracle.
+- **Largest first (03_6).** For a fixed size k the rows can give the same,
+  Σ min(r, k), whichever k columns are chosen; the k largest ask the most,
+  so checking them checks every group of that size.
+- **Equal totals (03_7).** Rows 2, 2 with columns 1, 1 pass every size of
+  the table, yet their totals are 4 and 2 and nothing fits (`model` test):
+  the totals condition is separate, and the card states it.
+- **The card (03_7).** It keeps every condition: row and column totals
+  match; every k; the k largest columns (the sorted condition: the first k
+  of the counts sorted largest first, the table's second line); at most the
+  sum over rows of min(row count, k); Gale and Ryser. The first wording,
+  218 characters, stood whole only 7.27 s, mostly under speech (root's
+  draft, 2026-10-19). The card now has 176 characters on two lines, with
+  "min(row count, k)" never split. It holds until 176 / 15 = 11.7 s after
+  its fade-in, past the line's end; in root's draft06 it stands whole
+  11.93 s. Fifteen characters a second is the
+  corpus's provisional scene convention, not a listening measure.
+- **Why the test never misses (03_7).** With equal totals, if the water
+  stops short at flow F, the cut is worth F: the counts of the taps it
+  cannot reach, plus one unit for each pipe from a reached row into a
+  cut-off column, plus the counts of the reached drains. Since F is less
+  than the total, the cut-off columns ask for more than the unreached taps
+  plus those pipes, and that is at least Σ min(r, k) for k cut-off columns.
+  So the columns the water cannot reach always form a group asking too
+  much; checked on every 4 × 4 pair of shadows with equal totals (`model`
+  test) and on every 3 × 3 pair by the oracle.
+- **Feasible, not unique (03_8).** The face's shadows pass every size and 64
+  pictures fit them (`DT-F3.fits`). The test says a picture exists, not
+  which or how many; chapter 04 answers uniqueness with switches.
+- **Sources.** Gale 1957, p. 1080 (read: the dual sequence, the theorem, and
+  the flow into k columns, Σ min(a_i, k)); Ryser 1957, Theorem 2.1 (read: the
+  same condition as majorization); Ford and Fulkerson 1957, Lemma 2 (read:
+  the labeled nodes at termination give a minimal cut of the flow's value).
+- **Budget.** 172 spoken words, 8 lines: about 83 s by the Golay measures.
+  The eight units take about 3.1 s inside 03_1. The card's reading hold
+  adds silence after 03_7. Root's silent draft06 runs 86.37 s by
+  scratch-voice timing, 1.37 s past 85 s; root's direction (2026-10-19)
+  is that a slightly longer chapter is better than a rushed card. No
+  voice has measured it.
+- **Narration units.** 03u1 to 03u4 are a proposed grouping: the setup and
+  the question (03u1), the answer and the cut (03u2), the general count and
+  why it is complete (03u3), feasibility against uniqueness (03u4).
+  Boundaries are not frozen and nothing is synthesized.
