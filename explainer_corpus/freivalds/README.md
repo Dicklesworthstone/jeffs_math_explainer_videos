@@ -9,11 +9,12 @@ answer passes at most half the tosses, and fresh tosses multiply that down.
 
 **Status.** The exact model (`src/model.rs`), every number
 (`src/facts.rs`), an independent oracle (`oracle.py`), and the scenes of
-chapters 01 (`src/chapters/check_with_coins.rs`) and 02
-(`src/chapters/never_more_than_half.rs`), with their words and pictures
+chapters 01 (`src/chapters/check_with_coins.rs`), 02
+(`src/chapters/never_more_than_half.rs`) and 03
+(`src/chapters/toss_again.rs`), with their words and pictures
 (`docs/storyboard.md`, the generated `script.tsv`, and `narration_units.json`,
-an unqualified and unfrozen grouping proposal). Chapters 03 and 04 are named
-in the storyboard's arc and not written yet.
+an unqualified and unfrozen grouping proposal). Chapter 04 is named in the
+storyboard's arc and not written yet.
 
 - **Chapter 01:** source and silent visual checkpoint accepted by root at
   `94988fd`, on root's evidence, not this lane's. Root's central06 ran fmt,
@@ -35,6 +36,22 @@ in the storyboard's arc and not written yet.
     found no blocking defect. Root accepted its three cosmetic notes with no
     change.
   - Not accepted: audio, continuous playback, or the full video.
+  - After the `.23.3` wording change to 02_3 ("by the same amount"),
+    root's central22 re-rendered it: 2,529 frames (84.30 s), SHA-256
+    `121366125aded0259b0cc8666a8d8db3815f6f8adcacec2a796b7459d8a72d0b`.
+- **Chapter 03:** source, native checks and sampled visuals accepted by
+  root for `.23.3`, on root's evidence, not this lane's.
+  - Root's central22 passed fmt, strict release all-target clippy, 48
+    native tests and the release build. All 177 native and oracle fact
+    rows are equal, and the 108 glyph sources show zero failures.
+  - Chapter 03 is 2,371 frames (79.033333 s), SHA-256
+    `2911f66ee1d759fa2cd56d4ac636862c664a63eda97f997dc6d30f8ba84d9d9d`.
+    Root read the actual cue, reveal and card frames, and the new glyph
+    pages.
+  - FuchsiaHawk (Mail 3997) independently verified the final source, the
+    decoded pixels and how long the cards stay up.
+  - Not accepted: audio, continuous motion, the full video, or
+    publication.
 
 The lane that writes the code never compiles, renders or narrates it. No
 narration is requested: after the owner's 2026-10-19 rejection of the
@@ -78,8 +95,9 @@ no audio of this video has been generated or accepted.
     every row (F-F6).
   - The edges of its always-sentences (F-X5): two of one sign in a row hide
     only from tails on both their coins (18 sign and size cases); one too
-    big and one too small hide exactly when their coins agree (6); one wrong
-    entry per row and column hides only from all tails (384 patterns).
+    big and one too small by the same amount hide exactly when their coins
+    agree (6); one wrong entry per row and column hides only from all tails
+    (384 patterns).
   - Being wrong in every column is not enough for that last one: the
     1, 1, −1 row is wrong in every column and hides from three tosses.
   - On the actual tosses (F-F8), coin 1's four pairs each move row 2's sum
@@ -92,6 +110,26 @@ no audio of this video has been generated or accepted.
     moves and two of the four pairs hide twice (2, 2, 0, 0). The model's
     test checks the same for every three by three mistake with a right
     column.
+- Chapter 03 keeps the example and the theorem apart, and shows each half
+  of "fresh" failing:
+  - Two fresh tosses: 16 of the 64 ordered ways both miss the slip, the
+    misses of the first toss times those of the second (F-F5.two, F-F9).
+    That quarter is this slip's, exactly. For any fixed wrong C the bound is
+    the theorem's per-toss bound squared, at most a quarter
+    (F-F9.two.bound), and 1/2^k for k tosses on the card.
+  - One toss reused for both checks is the grid's diagonal: 4 of 8, still
+    half, above the bound for two fresh tosses
+    (F-F9.same_toss.above_two_bound).
+  - A toss seen before C is written can always be beaten. The oracle finds
+    a wrong C for each of the eight by search (F-X3.known_toss.fooled), and
+    the chapter shows `model::blind_spot`'s: one wrong entry under a tails
+    coin, or under all heads 1 and −1 in one row. Each is passed by its own
+    toss in the check itself (`facts::blind_spots`).
+  - The edges in size: at two by two every toss can be beaten too
+    (F-X3.n2.fooled, by search in the oracle); at one by one a heads coin
+    cannot (F-X3.n1.heads_fooled), so the card says "from two by two up".
+  - Each of those wrong Cs is still a fixed wrong C, and fresh tosses catch
+    it 4 of 8 times (F-X3.blind_spot.fresh_catches).
 - **Not claimed:** anything about floating point. In IEEE doubles (`F-X4`,
   `model::ROUNDED_*`), a right answer fails one toss of four and a wrong one
   passes all four, so the exact bound does not transfer; a tolerance makes a
@@ -151,13 +189,14 @@ lookup and probe (`lexicon.json`).
 Cheap, no compilation (run in this lane):
 
 ```bash
-python3 -I -B oracle.py                                   # from this folder: the facts, and 20 cross-checks
+python3 -I -B oracle.py                                   # from this folder: the facts, and 22 cross-checks
 python3 -I tools/storyboard.py --check freivalds          # from the repo root: G2, script.tsv current
-python3 -I tools/lint_script.py explainer_corpus/freivalds/script.tsv --chapters 01_check_with_coins,02_never_more_than_half
+python3 -I tools/lint_script.py explainer_corpus/freivalds/script.tsv --chapters 01_check_with_coins,02_never_more_than_half,03_toss_again
 ```
 
 The oracle ran 11 cross-checks in the first slice and 17 at `94988fd`. The
-three chapter 02 checks bring it to 20.
+three chapter 02 checks brought it to 20 at `ca4f677`, and the two chapter
+03 checks bring it to 22.
 
 Native, root's batch: `./x freivalds facts-check`, the crate's fmt, clippy
 and tests, the glyph probe, and a 540p scratch-voice draft with the layout

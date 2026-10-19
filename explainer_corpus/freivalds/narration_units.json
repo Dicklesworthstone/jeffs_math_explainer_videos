@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "5f3cf7ba4717cc355d3865cf42d9e440ef88f2e7721a61bf8293ef3f8d4eb455",
+  "script_sha256": "2ebeb9124922501cc6ff9aad4e14fe96360ab78420a2b23079a80b0d9848a9ca",
   "units": [
     {
       "id": "01u1",
@@ -61,7 +61,7 @@
         "02_2",
         "02_3"
       ],
-      "text": "Two in one row, both one too big, hide only when both coins land tails. Two of eight. But one too big and one too small hide whenever their coins agree. Four of eight, half again."
+      "text": "Two in one row, both one too big, hide only when both coins land tails. Two of eight. But one too big and one too small by the same amount hide whenever their coins agree. Four of eight, half again."
     },
     {
       "id": "02u3",
@@ -98,6 +98,56 @@
         "02_9"
       ],
       "text": "Pairs cover every toss once, so at most half of all tosses miss, for matrices of any size."
+    },
+    {
+      "id": "03u1",
+      "line_ids": [
+        "03_1",
+        "03_2"
+      ],
+      "text": "One toss misses the slip half the time. So toss again, with fresh coins. Two tosses can land sixty-four ways. How many of them miss both times?"
+    },
+    {
+      "id": "03u2",
+      "line_ids": [
+        "03_3"
+      ],
+      "text": "Sixteen, exactly a quarter. Both must miss, four ways for the first toss times four for the second."
+    },
+    {
+      "id": "03u3",
+      "line_ids": [
+        "03_4"
+      ],
+      "text": "For this slip, that quarter is exact. Any wrong C gets past two fresh tosses at most a quarter of the time."
+    },
+    {
+      "id": "03u4",
+      "line_ids": [
+        "03_5"
+      ],
+      "text": "But reuse one toss for both checks, and nothing changes. Four of the eight still miss, half."
+    },
+    {
+      "id": "03u5",
+      "line_ids": [
+        "03_6"
+      ],
+      "text": "Fresh also means tossed after C is handed over. Someone who sees your toss first can write a wrong C it misses."
+    },
+    {
+      "id": "03u6",
+      "line_ids": [
+        "03_7"
+      ],
+      "text": "Put one wrong entry under a tails coin, and the toss never looks at it. Against all heads, put one entry too big and one too small by the same amount in one row, and they cancel."
+    },
+    {
+      "id": "03u7",
+      "line_ids": [
+        "03_8"
+      ],
+      "text": "So every one of the eight tosses can be beaten. Yet against fresh tosses, each of these wrong answers is caught half the time."
     }
   ]
 }

@@ -92,7 +92,7 @@ mod tests {
         ("02_2", "of eight", "F-F4.tosses", "8"),
         (
             "02_3",
-            "one too big and one too small",
+            "one too big and one too small by the same amount",
             "F-F7.cancelling.wrong_values",
             "1,-1",
         ),
@@ -125,6 +125,48 @@ mod tests {
         ("02_8", "At most one of each pair", "F-F8.misses_per_pair_bound", "1"),
         ("02_9", "every toss once", "F-F8.partners_per_toss", "1"),
         ("02_9", "at most half of all tosses", "F-F8.pairs_over_tosses", "1/2"),
+        ("03_1", "One toss", "F-F3.tried", "1"),
+        ("03_1", "misses the slip half the time", "F-F4.miss_fraction", "1/2"),
+        ("03_2", "Two tosses", "F-F9.tosses", "2"),
+        ("03_2", "sixty-four ways", "F-F5.two.pairs", "64"),
+        ("03_3", "Sixteen", "F-F5.two.both_miss", "16"),
+        ("03_3", "exactly a quarter", "F-F5.two.fraction", "1/4"),
+        ("03_3", "four ways for the first toss", "F-F9.first.misses", "4"),
+        ("03_3", "times four for the second", "F-F9.second.misses", "4"),
+        // this slip's quarter, and the theorem's, kept apart
+        (
+            "03_4",
+            "For this slip, that quarter is exact",
+            "F-F9.two.example_meets_bound",
+            "true",
+        ),
+        ("03_4", "two fresh tosses", "F-F9.tosses", "2"),
+        ("03_4", "at most a quarter", "F-F9.two.bound", "1/4"),
+        ("03_5", "reuse one toss", "F-F3.tried", "1"),
+        ("03_5", "Four of the eight", "F-F5.same_toss_twice.misses", "4"),
+        ("03_5", "of the eight", "F-F9.same_toss.ways", "8"),
+        ("03_5", "still miss, half", "F-F5.same_toss_twice.fraction", "1/2"),
+        (
+            "03_7",
+            "Put one wrong entry",
+            "F-X3.blind_spot.tails.wrong_entries",
+            "1",
+        ),
+        // equal and opposite: what cancelling needs
+        (
+            "03_7",
+            "one entry too big and one too small by the same amount",
+            "F-X3.blind_spot.all_heads.values",
+            "1,-1",
+        ),
+        ("03_8", "every one of the eight tosses", "F-X3.known_toss.fooled", "8"),
+        ("03_8", "of the eight tosses", "F-X3.known_toss.tosses", "8"),
+        (
+            "03_8",
+            "caught half the time",
+            "F-X3.blind_spot.fresh_catch_share",
+            "1/2",
+        ),
         (
             "01_10",
             "once in a million",
@@ -145,7 +187,7 @@ mod tests {
         // and no line carries a number word the table above does not know
         let numbers = [
             "one", "single", "two", "three", "four", "seven", "eight", "nine", "twenty", "thousand", "million",
-            "billion", "half", "once", "minus",
+            "billion", "half", "once", "minus", "sixteen", "sixty", "quarter",
         ];
         for (id, text) in script.lines() {
             let lower = text.to_lowercase();

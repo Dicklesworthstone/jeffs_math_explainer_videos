@@ -444,13 +444,25 @@ fn bracket(centre: Vec3, rows: usize, cols: usize, side: f64) -> VMobject {
 /// The numbers `values`, row by row, as a grid centred at `centre` in
 /// `color`, its brackets dim. Detached.
 pub fn grid(kit: &Kit, stage: &mut Stage<'_>, values: Vec<Vec<i64>>, centre: Vec3, color: Srgb) -> fmn::Result<Grid> {
+    grid_colored(kit, stage, values, centre, |_| color)
+}
+
+/// As [`grid`], each entry in the color `color_of` gives its value (a
+/// mistake's zeros quiet, its wrong entries plain). Detached.
+pub fn grid_colored(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    values: Vec<Vec<i64>>,
+    centre: Vec3,
+    color_of: impl Fn(i64) -> Srgb,
+) -> fmn::Result<Grid> {
     let rows = values.len();
     let cols = values.first().map_or(0, Vec::len);
     let mut entries = Vec::with_capacity(rows);
     for (i, row) in values.iter().enumerate() {
         let mut texts = Vec::with_capacity(cols);
         for (j, &x) in row.iter().enumerate() {
-            texts.push(kit.text(stage, &num(x), ENTRY_SIZE, color, cell(centre, rows, cols, i, j))?);
+            texts.push(kit.text(stage, &num(x), ENTRY_SIZE, color_of(x), cell(centre, rows, cols, i, j))?);
         }
         entries.push(texts);
     }

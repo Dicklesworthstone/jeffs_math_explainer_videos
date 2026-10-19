@@ -22,8 +22,8 @@ top of every chapter: A = (1 2 1 / 0 3 1 / 3 2 0), B = (2 1 0 / 1 0 2 /
 | Chapter | Spine | Status |
 |---|---|---|
 | `01_check_with_coins` | someone hands over C; redoing it is nine entries of three multiplications, a billion at a thousand rows; one spot check misses a single wrong entry eight times in nine; a coin for each column: add C's heads columns, add B's and multiply by A (nine multiplications); they must match if C is right, and do not; of the eight tosses, how many miss? Four, exactly the tails ones over the wrong entry's column; no wrong answer hides from more than half, so toss again: twenty fresh tosses all miss less than once in a million | source and silent visual checkpoint accepted by root at `94988fd`, on root's evidence, not this lane's: central06 ran fmt, strict release clippy, 32 tests, the release build and the 92 native/oracle facts with 17 oracle checks; root read all six glyph pages and the changed and prediction frames of draft02 (2,524 frames, empty layout lint); central07 reran the changed SPOKEN test. Narration not generated; no audio accepted |
-| `02_never_more_than_half` | the mistake on its own, C − AB: the check misses exactly when its heads columns add up to zero in every row (C·r − A(B·r) = (C − AB)·r); on the same A and B (`model::SHAPES`), two in one row, both one too big, hide only from tails on both coins (2 of 8); one too big and one too small hide whenever their coins agree (4 of 8, a second equality case); one, one and minus one in a row hide from three (a prediction; not a power of two); one wrong entry per row and column hides only from all tails (1 of 8); the proof: pair the tosses that differ only in the coin of a column where C is wrong (with three coins, coin 1 pairs each toss with the one under it); across a pair that row's sum moves by the wrong entry, so at most one of each pair hides it; the pairs cover every toss once, at any size. The 19,682 and 624 small mistakes are a finite check, labelled as one | source, native checks and sampled silent visuals accepted by root for `.23.2`, on root's evidence, not this lane's: central14 passed fmt, strict release all-target clippy, 42 tests and the build, with 150 native/oracle fact rows equal, 20 oracle checks and 81 glyph sources with zero failures; root read the final changed source, all eight glyph pages, nine cue-end frames and twelve pairing and prediction frames of draft04 (chapter 02: 2,483 frames, 82.766667 s, silent 960 × 540 at 30 fps, empty layout lint, SHA-256 `8dd755a7…d5bd8fd`); EmeraldLeopard's independent image review (Mail 3894) found no blocker. Narration not generated; no audio, continuous playback or full-video acceptance |
-| `03_toss_again` | two independent tosses: 16 of the 64 pairs both miss, a quarter exactly; the same toss twice is still half; a toss whoever wrote C saw first can be beaten (every one of the eight has a wrong answer it lets through, `model::blind_spot`); so the coins must be fresh: independent, and tossed after C is fixed | named, not storyboarded |
+| `02_never_more_than_half` | the mistake on its own, C − AB: the check misses exactly when its heads columns add up to zero in every row (C·r − A(B·r) = (C − AB)·r); on the same A and B (`model::SHAPES`), two in one row, both one too big, hide only from tails on both coins (2 of 8); one too big and one too small by the same amount hide whenever their coins agree (4 of 8, a second equality case); one, one and minus one in a row hide from three (a prediction; not a power of two); one wrong entry per row and column hides only from all tails (1 of 8); the proof: pair the tosses that differ only in the coin of a column where C is wrong (with three coins, coin 1 pairs each toss with the one under it); across a pair that row's sum moves by the wrong entry, so at most one of each pair hides it; the pairs cover every toss once, at any size. The 19,682 and 624 small mistakes are a finite check, labelled as one | source, native checks and sampled silent visuals accepted by root for `.23.2`, on root's evidence, not this lane's: central14 passed fmt, strict release all-target clippy, 42 tests and the build, with 150 native/oracle fact rows equal, 20 oracle checks and 81 glyph sources with zero failures; root read the final changed source, all eight glyph pages, nine cue-end frames and twelve pairing and prediction frames of draft04 (chapter 02: 2,483 frames, 82.766667 s, silent 960 × 540 at 30 fps, empty layout lint, SHA-256 `8dd755a7…d5bd8fd`); EmeraldLeopard's independent image review (Mail 3894) found no blocker. After `.23.3`'s 02_3 wording change ("by the same amount"), root's central22 re-rendered it: 2,529 frames, 84.30 s, SHA-256 `12136612…d72d0b`. Narration not generated; no audio, continuous playback or full-video acceptance |
+| `03_toss_again` | two fresh tosses: 16 of the 64 ways they can land both miss the slip, exactly a quarter for this slip (four misses of the first toss times four of the second), and for any wrong C at most a quarter (the theorem's bound squared, kept apart from the example); one toss reused for both checks is the grid's diagonal, still half; a toss whoever wrote C saw first can be beaten (each of the eight has a wrong C it lets through, `model::blind_spot`: one wrong entry under a tails coin, or under all heads a cancelling pair in one row), while fresh tosses catch each of those wrong Cs half the time; so fresh means new coins for every check, tossed after C is fixed | source, native checks and sampled visuals accepted by root for `.23.3`, on root's evidence, not this lane's: central22 passed fmt, strict release all-target clippy, 48 native tests and the release build, with 177 native/oracle fact rows equal and 108 glyph sources with zero failures; chapter 03 is 2,371 frames, 79.033333 s, SHA-256 `2911f66e…84d9d9d`; root read the actual cue, reveal and card frames and the new glyph pages; FuchsiaHawk (Mail 3997) independently verified the final source, decoded pixels and card dwell. Narration not generated; no audio, continuous motion, full-video or publication acceptance |
 | `04_exact_and_rounded` | the cost at scale (twenty checks at a thousand rows: a fiftieth of the multiplications of redoing it); the theorem is about exact arithmetic: in doubles a right answer fails a toss and a wrong one passes all four (`model::ROUNDED_*`), so a tolerance turns it into a different question; the ending: the rigorous form of the opening picture | named, not storyboarded |
 
 ## Vocabulary (one word per idea)
@@ -41,7 +41,10 @@ check** (recompute one entry); **fresh** (tossed independently, after C is
 fixed; "independently" in the exact version); **the mistake** (C minus the true
 product, entry by entry; "C − AB" on screen); **hide** (the mistake's side
 of a miss: a mistake hides from a toss that misses it); **pair** (two
-tosses that differ only in one coin; each toss's **partner**).
+tosses that differ only in one coin; each toss's **partner**); **way** (one
+landing of the coins: "the eight ways three coins can land", and in
+chapter 03 "the sixty-four ways two tosses can land"; never "pair", which
+is chapter 02's); **reuse** (one toss used for more than one check).
 
 ## Color roles
 
@@ -54,7 +57,7 @@ tosses that differ only in one coin; each toss's **partner**).
 | a tails coin | `faint`, its face `dim` |
 | a toss that catches the mistake, and the verdict | green `#83C167` |
 | the mistake: the wrong entry's column, its true value, a toss that misses it, the ladder's chance bars | red `#FC6255` |
-| the think ring and "?"; in chapter 02 a pair's link, its change, and the ring on the paired coin | `hero` `#FFD866` |
+| the think ring and "?"; in chapter 02 a pair's link, its change, and the ring on the paired coin; in chapter 03 the diagonal of one toss reused, and the row where all heads cancels | `hero` `#FFD866` |
 | entries, brackets, signs | `ink`, `dim` |
 
 ## Sources and scope
@@ -130,7 +133,7 @@ the F-X4 facts.
 |---|---|---|---|---|
 | 02_1 | Look at the mistake on its own, C minus the true product. The check misses exactly when its heads columns add up to zero in every row. | The mistake grid of chapter 01's slip (zeros, and a 1 outlined in red), "C − AB" under it in red. On "The check misses" chapter 01's first toss lands over its columns (heads, heads, tails), the heads columns are outlined in teal, and their sum appears beside it, (0, 1, 0), with the identity C r − A(B r) = (C − AB) r above and "not all zero: caught" in green. The tally, top right, starts with "the slip (1): 4 of 8" | grid from the model, highlight boxes, TeX identity | |
 | 02_2 | Two in one row, both one too big, hide only when both coins land tails. Two of eight. | The aids clear; the grid becomes 0, 1, 1 in row 2, its two wrong entries outlined. All eight tosses come in, in counting order, two rows of four, and under each its row-2 sum, red where it is zero (000 and 100). On "Two of eight" the tally adds "1, 1 in one row: 2 of 8" | grid swap, lagged reveal, sums from the model | |
-| 02_3 | But one too big and one too small hide whenever their coins agree. Four of eight, half again. | The grid becomes 1, −1 in row 2 and the sums change with it; the zeros (000, 011, 100, 111) turn red. On "Four of eight" the tally adds "1, −1 in one row: 4 of 8" | grid swap, sums from the model | |
+| 02_3 | But one too big and one too small by the same amount hide whenever their coins agree. Four of eight, half again. | The grid becomes 1, −1 in row 2 and the sums change with it; the zeros (000, 011, 100, 111) turn red. On "Four of eight" the tally adds "1, −1 in one row: 4 of 8" | grid swap, sums from the model | |
 | 02_4 | Now one, one and minus one in a row. How many tosses does it hide from? ⟨predict⟩ | The grid becomes 1, 1, −1 in row 2; the sums go. On "How many tosses" the question on screen, "How many of these 8 tosses does it hide from?"; four seconds of silence with the gold countdown ring and "pause for more time", no sum on screen | think countdown | |
 | 02_5 | Three. Not half, and not a power of two. | The ? and the question go; the sums come in (0, −1, 1, 0 over 1, 0, 2, 1), three of them red; the tally adds "1, 1, −1 in one row: 3 of 8" | lagged reveal from the model | |
 | 02_6 | Put one wrong entry in each row and column, and it hides only from all tails. | The grid becomes one 1 in each row and each column; with more than one wrong row there is no single row sum, so under each toss its verdict, "miss" only under 000 and "caught" under the rest. On "only from all tails" the tally adds "1 per row and column: 1 of 8" | grid swap, verdicts from the model | |
@@ -162,8 +165,8 @@ the F-X4 facts.
   too small) are separate facts from the bound.
 - Edge tests behind the always-sentences (F-X5): two of one sign in a row
   hide only from tails on both their coins (18 sign and size cases from −3
-  to 3); one too big and one too small hide exactly when their coins agree
-  (6 cases); one wrong entry per row and column hides only from all tails
+  to 3); one too big and one too small by the same amount hide exactly when
+  their coins agree (6 cases); one wrong entry per row and column hides only from all tails
   (384 patterns, entries ±1 and ±2). "Wrong in every column" alone is not
   enough: the 1, 1, −1 row is wrong in every column and hides from three
   (`F-X5.three_in_a_row.wrong_in_every_column`), so 02_6 says per row and
@@ -172,7 +175,8 @@ the F-X4 facts.
   one above the other (the scene refuses to draw them otherwise).
 - Narration units: the same unqualified, unfrozen proposal as chapter 01's,
   waiting on root's question-to-answer experiment. 02_4's question ends its
-  unit and 02_5's answer opens the next. Seven units of 16 to 36 words;
+  unit and 02_5's answer opens the next. Seven units of 16 to 40 words
+  (02u2, with 02_3's "by the same amount", is the longest);
   the only line splits inside a unit fall before "But" (02_3) and "Put"
   (02_6), and the proof's two lines (02_7, 02_8) are separate units.
 - Pause targets, for listening, not rules: after "Why never more than
@@ -180,3 +184,58 @@ the F-X4 facts.
   "But", "Put" and "Because", a turn of about 0.85 s.
 - Pronunciation to probe: "minus one" in 02_4, and the letter C as a name
   ("C minus the true product", "where C is wrong").
+
+## 03_toss_again: Toss again (~80 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 03_1 | One toss misses the slip half the time. So toss again, with fresh coins. | The slip's mistake, C − AB, at the top left (its zeros dim, its 1 outlined in red). The eight tosses written as their coins, 000 to 111, in a column in counting order, each red if it misses the slip and green if it catches it; at the right "one toss: 4 of 8 miss". On "So toss again" the column sorts, the four misses moving to the top, and a copy of it turns to run along the top: "first toss" beside the column, "second toss" over the row | labels from the model, moves | |
+| 03_2 | Two tosses can land sixty-four ways. How many of them miss both times? ⟨predict⟩ | The grid of the 64 ways fills in, a faint square for each first toss and second toss. On "How many of them" the question at the right, "How many of these 64 ways miss both times?"; four seconds of silence with the gold countdown ring and "pause for more time"; no square is red | grid of squares, think countdown | |
+| 03_3 | Sixteen, exactly a quarter. Both must miss, four ways for the first toss times four for the second. | The ? and the question go; the 16 squares where both tosses miss turn red, filling the top-left corner, and the answer "16 of 64 ways miss both times". On "four ways for the first toss" the four rows of the first toss's misses are outlined in red; on "times four for the second" the four columns of the second toss's misses; "4 × 4 = 16" | lagged reveal from the model, highlight | |
+| 03_4 | For this slip, that quarter is exact. Any wrong C gets past two fresh tosses at most a quarter of the time. | The outlines go. At the right "this slip: 16/64 = 1/4". On "Any wrong C" a second line, "any wrong C: ≤ 1/2 · 1/2 = 1/4", and a "precisely" lower-third: with fair coins, all independent and tossed after C is fixed, k tosses all miss any fixed wrong C with chance at most 1/2^k, in exact arithmetic | TeX from facts, lower-third | |
+| 03_5 | But reuse one toss for both checks, and nothing changes. Four of the eight still miss, half. | The diagonal, the eight ways that use one toss twice, is outlined in gold and the rest of the grid dims. On "Four of the eight" its four red squares flash, and at the right "same toss twice: 4 of 8, still 1/2" | highlight, dim | |
+| 03_6 | Fresh also means tossed after C is handed over. Someone who sees your toss first can write a wrong C it misses. | The grid, its labels and the slip clear, and the card gives way to a second "precisely" lower-third: from two by two up, any toss seen first can be beaten, one wrong entry under a tails coin, or under all heads a cancelling pair in one row. The eight tosses come back as coins, two rows of four. On "can write a wrong C" a little grid fills under each: the mistake of the wrong C written for that toss (`model::blind_spot`), its zeros dim and its wrong entries outlined in red, and under it "miss" in red. At the right, under where the tally will stand, "each grid shows" over C − AB in red names them as mistakes, not Cs, and stays to the end | coins, grids from the model, lower-third | |
+| 03_7 | Put one wrong entry under a tails coin, and the toss never looks at it. Against all heads, put one entry too big and one too small by the same amount in one row, and they cancel. | In the seven tosses with a tails coin, the tails coin over the wrong entry is ringed in red. On "Against all heads" the first row of 111's grid is outlined in gold, and beside it "1 + (−1) = 0" | rings, highlight | |
+| 03_8 | So every one of the eight tosses can be beaten. Yet against fresh tosses, each of these wrong answers is caught half the time. | The eight "miss" verdicts flash, and at the top right "8 of 8 tosses beaten when seen first". On "Yet against fresh tosses" a green line along the bottom, "fresh tosses catch each of these wrong Cs: 4 of 8". It stands until the card has had time to be read, then the chapter fades | flash, text from facts | |
+
+### Notes for 03
+
+- Prediction (03_2): the question is on screen from "How many of them",
+  before the question's last word; four seconds of silence with the
+  countdown; no red square until 03_3 starts. The answer is spoken first
+  ("Sixteen") and the squares turn red with it.
+- The example and the theorem are kept apart. "Exactly a quarter" is this
+  slip's count, 16 of the 64 ways (F-F5.two, F-F9.two.example_meets_bound).
+  "At most a quarter" for any wrong C is the theorem's per-toss bound
+  squared (F-F9.two.bound, from `facts::theorem_bound`, the pairing
+  proof's), and the card gives 1/2^k for k tosses. Neither is derived from
+  the other.
+- Fresh has two halves, and the chapter shows each failing.
+  - Independent across checks (03_5): one toss reused is the grid's
+    diagonal, 4 of 8, above the two fresh tosses' bound
+    (F-F9.same_toss.above_two_bound).
+  - Tossed after C is fixed (03_6 to 03_8): every toss seen first is
+    beaten. F-X3.known_toss.fooled finds all 8 by search; the wrong Cs
+    shown are `model::blind_spot`'s, each passed by its own toss in the
+    check itself (`facts::blind_spots` refuses otherwise).
+  - The edges in size: at two by two every toss has a blind spot too
+    (F-X3.n2.fooled, found by search in the oracle); at one by one a heads
+    coin has none (F-X3.n1.heads_fooled), hence the card's "from two by two
+    up".
+- Each of those wrong Cs is still a fixed wrong C: fresh tosses catch it 4
+  of 8 times (F-X3.blind_spot.fresh_catches), so the defence is freshness,
+  not the toss.
+- The grid lists the tosses misses first (000, 001, 100, 101, then 010,
+  011, 110, 111; F-F9.order), so the 16 squares where both miss fill one
+  corner (F-F9.both_miss_fill_the_corner; the scene refuses to draw it
+  otherwise). The same order on both sides keeps the reused toss on the
+  diagonal.
+- Narration units: the same unqualified, unfrozen proposal as chapters 01
+  and 02's. 03_1 and 03_2 share a unit that ends on the question, and 03_3's
+  answer opens the next. Seven units of 17 to 37 words; the longest, 03u6
+  (03_7), says the two opposite errors are the same amount, which is what
+  makes them cancel.
+- Pause targets, for listening, not rules: before "But reuse", "Fresh
+  also" and "Yet against", a turn of about 0.85 s.
+- Pronunciation to probe: "sixty-four", and the letter C as a name ("Any
+  wrong C", "after C is handed over").

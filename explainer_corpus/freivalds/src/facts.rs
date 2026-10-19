@@ -39,6 +39,9 @@ pub const CHAPTER_02_SHAPES: [&str; 5] = [
 /// The mistake chapter 02 pairs the tosses of, to show the proof's step.
 pub const PROOF_SHAPE: &str = "three_in_a_row";
 
+/// Chapter 03's two fresh tosses, as its grid of ways names its axes.
+pub const TOSS_NAMES: [&str; 2] = ["first toss", "second toss"];
+
 /// A mistake shape by its name in `model::SHAPES`.
 pub fn shape(name: &str) -> Result<Matrix<SIDE>, String> {
     SHAPES
@@ -79,6 +82,34 @@ pub fn first_check() -> Check<SIDE> {
 /// Every toss with its check, in counting order (01_7 to 01_9).
 pub fn all_checks() -> Vec<(Toss<SIDE>, Check<SIDE>)> {
     model::checks(&A, &B, &C)
+}
+
+/// The tosses in the order chapter 03's grid of two tosses lists them: the
+/// ones that miss the slip first, then the ones that catch it, each in
+/// counting order, so the ways both tosses miss fill one corner.
+pub fn miss_first() -> Vec<Toss<SIDE>> {
+    let checks = all_checks();
+    let misses = checks.iter().filter(|(_, ch)| ch.passes()).map(|(t, _)| *t);
+    let catches = checks.iter().filter(|(_, ch)| !ch.passes()).map(|(t, _)| *t);
+    misses.chain(catches).collect()
+}
+
+/// For each toss, in counting order, the wrong C that someone who saw it
+/// first could write (`model::blind_spot`), as its mistake. An error if a
+/// toss has none, or catches it.
+pub fn blind_spots() -> Result<Vec<(Toss<SIDE>, Matrix<SIDE>)>, String> {
+    let ab = true_product();
+    model::tosses::<SIDE>()
+        .into_iter()
+        .map(|t| {
+            let text = model::toss_text(&t);
+            let d = model::blind_spot(&t).ok_or_else(|| format!("toss {text} has no blind spot"))?;
+            if !model::check(&A, &B, &model::plus(&ab, &d), &t).passes() {
+                return Err(format!("toss {text} catches its own blind spot"));
+            }
+            Ok((t, d))
+        })
+        .collect()
 }
 
 /// The one wrong entry of `c`, (row, column) counted from 0, or an error
@@ -392,6 +423,114 @@ fn chapter_02(f: &mut Facts, ab: &Matrix<SIDE>) -> Result<(), String> {
     Ok(())
 }
 
+/// Chapter 03's facts: two fresh tosses (the example's exact quarter and
+/// the theorem's bound, kept apart), one toss reused, and a toss seen
+/// before C is written.
+fn chapter_03(f: &mut Facts, ab: &Matrix<SIDE>) -> Result<(), String> {
+    let tosses = model::tosses::<SIDE>();
+    let misses = model::passing(&A, &B, &C).len();
+
+    // 03_1 to 03_3: two fresh tosses; the ways both miss are the misses of
+    // the first times the misses of the second
+    let order = miss_first();
+    let texts: Vec<String> = order.iter().map(model::toss_text).collect();
+    f.add("F-F9.tosses", TOSS_NAMES.len())?;
+    f.add("F-F9.order", texts.join(","))?;
+    f.add("F-F9.first.misses", misses)?;
+    f.add("F-F9.second.misses", misses)?;
+    let (both, ways) = model::both_pass(&A, &B, &C);
+    f.add("F-F9.both_miss_is_product", both == misses * misses)?;
+    let passes: Vec<bool> = order.iter().map(|t| model::check(&A, &B, &C, t).passes()).collect();
+    let corner =
+        (0..order.len()).all(|i| (0..order.len()).all(|j| (passes[i] && passes[j]) == (i < misses && j < misses)));
+    f.add("F-F9.both_miss_fill_the_corner", corner)?;
+
+    // 03_4: this slip meets the theorem's bound for two tosses exactly; the
+    // bound is the per-toss bound squared, for any fixed wrong C
+    let (num, den) = theorem_bound()?;
+    let k = TOSS_NAMES.len() as u32;
+    let (two_num, two_den) = (num.pow(k), den.pow(k));
+    let two_bound = ratio(two_num as i64, two_den as i64)?;
+    f.add("F-F9.two.bound", &two_bound)?;
+    f.add(
+        "F-F9.two.example_meets_bound",
+        both as u64 * two_den == two_num * ways as u64,
+    )?;
+
+    // 03_5: one toss used for both checks, the grid's diagonal: still half,
+    // more than the two fresh tosses' bound
+    let (reused, diagonal) = model::same_toss_twice(&A, &B, &C);
+    f.add("F-F9.same_toss.ways", diagonal)?;
+    f.add(
+        "F-F9.same_toss.above_two_bound",
+        reused as u64 * two_den > two_num * diagonal as u64,
+    )?;
+
+    // 03_6 to 03_8: a toss seen before C is written, beaten by the wrong C
+    // its blind spot gives; each of those is a fixed wrong C, and fresh
+    // tosses catch it
+    let spots = blind_spots()?;
+    for (t, d) in &spots {
+        f.add(
+            &format!("F-X3.blind_spot.{}.mistake", model::toss_text(t)),
+            matrix_text(d),
+        )?;
+    }
+    let with_tails: Vec<&(Toss<SIDE>, Matrix<SIDE>)> = spots.iter().filter(|(t, _)| t.contains(&false)).collect();
+    let tails_counts: BTreeSet<usize> = with_tails.iter().map(|(_, d)| model::wrong_entries(d).len()).collect();
+    f.add(
+        "F-X3.blind_spot.tails.wrong_entries",
+        csv(&tails_counts.into_iter().collect::<Vec<_>>()),
+    )?;
+    f.add(
+        "F-X3.blind_spot.tails.under_tails",
+        with_tails
+            .iter()
+            .all(|(t, d)| model::wrong_entries(d).iter().all(|&(_, j)| !t[j])),
+    )?;
+    let all_heads = spots
+        .iter()
+        .find(|(t, _)| !t.contains(&false))
+        .map(|(_, d)| *d)
+        .ok_or("no toss is all heads")?;
+    let heads_wrong = model::wrong_entries(&all_heads);
+    let values: Vec<i64> = heads_wrong.iter().map(|&(i, j)| all_heads[i][j]).collect();
+    f.add("F-X3.blind_spot.all_heads.values", csv(&values))?;
+    let heads_rows: BTreeSet<usize> = heads_wrong.iter().map(|&(i, _)| i).collect();
+    f.add("F-X3.blind_spot.all_heads.one_row", heads_rows.len() == 1)?;
+    let catches: Vec<usize> = spots
+        .iter()
+        .map(|(_, d)| tosses.len() - model::passing(&A, &B, &model::plus(ab, d)).len())
+        .collect();
+    f.add("F-X3.blind_spot.fresh_catches", csv(&catches))?;
+    let shares: BTreeSet<String> = catches
+        .iter()
+        .map(|&c| ratio(c as i64, tosses.len() as i64))
+        .collect::<Result<_, _>>()?;
+    f.add(
+        "F-X3.blind_spot.fresh_catch_share",
+        shares.into_iter().collect::<Vec<_>>().join(","),
+    )?;
+    // the edge in size: two by two, every toss has a blind spot too; one by
+    // one, a heads coin has none (a nonzero 1 × 1 mistake never sums to 0)
+    let ab2 = model::product(&A2, &B2).0;
+    let small = model::tosses::<2>();
+    let fooled2 = small
+        .iter()
+        .filter(|&t| model::blind_spot(t).is_some_and(|d| model::check(&A2, &B2, &model::plus(&ab2, &d), t).passes()))
+        .count();
+    f.add("F-X3.n2.fooled", fooled2)?;
+    f.add("F-X3.n2.tosses", small.len())?;
+    f.add(
+        "F-X3.n1.heads_fooled",
+        (-3..=3i64).filter(|&x| x != 0).any(|x| model::hides(&[[x]], &[true])),
+    )?;
+    if spots.len() != tosses.len() || fooled2 != small.len() || catches.iter().any(|&c| 2 * c < tosses.len()) {
+        return Err("a chapter 03 claim about seen tosses fails".into());
+    }
+    Ok(())
+}
+
 pub fn facts() -> Result<Facts, String> {
     let mut f = Facts::new();
     let ab = true_product();
@@ -568,6 +707,7 @@ pub fn facts() -> Result<Facts, String> {
     )?;
 
     chapter_02(&mut f, &ab)?;
+    chapter_03(&mut f, &ab)?;
     f.self_check()?;
     Ok(f)
 }
@@ -669,6 +809,29 @@ mod tests {
             ("F-X5.right_column.column", "1"),
             ("F-X5.right_column.misses_per_pair", "2,2,0,0"),
             ("F-X5.right_column.changes", "0,0,0,0"),
+            ("F-F9.tosses", "2"),
+            ("F-F9.order", "000,001,100,101,010,011,110,111"),
+            ("F-F9.first.misses", "4"),
+            ("F-F9.second.misses", "4"),
+            ("F-F9.both_miss_is_product", "true"),
+            ("F-F9.both_miss_fill_the_corner", "true"),
+            ("F-F9.two.bound", "1/4"),
+            ("F-F9.two.example_meets_bound", "true"),
+            ("F-F9.same_toss.ways", "8"),
+            ("F-F9.same_toss.above_two_bound", "true"),
+            ("F-X3.blind_spot.000.mistake", "1,0,0;0,0,0;0,0,0"),
+            ("F-X3.blind_spot.100.mistake", "0,1,0;0,0,0;0,0,0"),
+            ("F-X3.blind_spot.110.mistake", "0,0,1;0,0,0;0,0,0"),
+            ("F-X3.blind_spot.111.mistake", "1,-1,0;0,0,0;0,0,0"),
+            ("F-X3.blind_spot.tails.wrong_entries", "1"),
+            ("F-X3.blind_spot.tails.under_tails", "true"),
+            ("F-X3.blind_spot.all_heads.values", "1,-1"),
+            ("F-X3.blind_spot.all_heads.one_row", "true"),
+            ("F-X3.blind_spot.fresh_catches", "4,4,4,4,4,4,4,4"),
+            ("F-X3.blind_spot.fresh_catch_share", "1/2"),
+            ("F-X3.n2.fooled", "4"),
+            ("F-X3.n2.tosses", "4"),
+            ("F-X3.n1.heads_fooled", "false"),
         ] {
             assert_eq!(f.get(key), Some(value), "{key}");
         }

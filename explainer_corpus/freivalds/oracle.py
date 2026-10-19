@@ -28,7 +28,11 @@ heads columns of B and C and multiplies A by that column, entry by entry):
     is a separate fact);
   * "a known toss can be fooled" by brute-force search for a nonzero D with
     D·r = 0 among all 3 × 3 mistakes with entries −1, 0, 1 (the Rust
-    constructs one);
+    constructs one), and the same search at 2 × 2 and 1 × 1; chapter 03's
+    blind spots shown on screen follow the Rust's construction (it is a
+    choice of counterexample) and are checked here by multiplying;
+  * two tosses as all 64 ordered ways, each checked twice by multiplying,
+    not as a product of shares;
   * fractions with fractions.Fraction, whose str() is the format the video
     prints;
   * doubles with an explicit left-to-right loop: Python's sum() of floats is
@@ -319,6 +323,7 @@ def facts():
     emit("F-X4.pass.exact_passes", sum(1 for t in two if apply(a, apply(b, t)) == apply(c, t)))
     emit("F-X4.pass.rounded_passes", sum(1 for t in two if rounded_passes(a, b, c, t)))
     chapter_02(ab)
+    chapter_03(ab, passing)
     return ab, d, passing
 
 
@@ -418,6 +423,76 @@ def chapter_02(ab):
     emit("F-X5.right_column.changes", csv(apply(slip, u)[slip_row] - apply(slip, t)[slip_row] for t, u in right_pairs))
     check("chapter 02: paired by a column where C is right, a pair misses twice",
           max(right_misses) > MISSES_PER_PAIR)
+
+
+TOSS_NAMES = ("first toss", "second toss")
+
+
+def passes(c, t):
+    """The check of c on toss t, by multiplying: A(B r) = C r."""
+    return apply(A, apply(B, t)) == apply(c, t)
+
+
+def chapter_03(ab, passing):
+    """Chapter 03's facts: two tosses as every ordered way, one toss reused,
+    and the blind spot of every toss."""
+    n = len(A)
+    all_tosses = tosses(n)
+    misses = [t for t in all_tosses if t in passing]
+    order = misses + [t for t in all_tosses if t not in passing]
+    emit("F-F9.tosses", len(TOSS_NAMES))
+    emit("F-F9.order", ",".join(toss_text(t) for t in order))
+    emit("F-F9.first.misses", len(misses))
+    emit("F-F9.second.misses", len(misses))
+    ways = list(product(all_tosses, repeat=len(TOSS_NAMES)))
+    both = {w for w in ways if all(passes(C, t) for t in w)}
+    emit("F-F9.both_miss_is_product", len(both) == len(misses) ** 2)
+    m = len(misses)
+    emit("F-F9.both_miss_fill_the_corner",
+         all(((s, t) in both) == (i < m and j < m) for i, s in enumerate(order) for j, t in enumerate(order)))
+    two_bound = PAIRING_BOUND ** len(TOSS_NAMES)
+    emit("F-F9.two.bound", two_bound)
+    emit("F-F9.two.example_meets_bound", Fraction(len(both), len(ways)) == two_bound)
+    diagonal = [(t, t) for t in all_tosses]
+    reused = sum(1 for w in diagonal if w in both)
+    emit("F-F9.same_toss.ways", len(diagonal))
+    emit("F-F9.same_toss.above_two_bound", Fraction(reused, len(diagonal)) > two_bound)
+
+    # the blind spot of each toss: a 1 in row 1 under the first tails coin,
+    # and under all heads a 1 and a -1 in row 1 (the Rust's construction)
+    spots = []
+    for t in all_tosses:
+        dd = [[0] * n for _ in range(n)]
+        if 0 in t:
+            dd[0][t.index(0)] = 1
+        else:
+            dd[0][0], dd[0][1] = 1, -1
+        spots.append((t, tuple(tuple(row) for row in dd)))
+    for t, dd in spots:
+        emit(f"F-X3.blind_spot.{toss_text(t)}.mistake", matrix_text(dd))
+    with_tails = [(t, dd) for t, dd in spots if 0 in t]
+    emit("F-X3.blind_spot.tails.wrong_entries",
+         csv(sorted({sum(1 for row in dd for x in row if x) for _, dd in with_tails})))
+    emit("F-X3.blind_spot.tails.under_tails",
+         all(t[j] == 0 for t, dd in with_tails for row in dd for j in range(n) if row[j]))
+    heads = next(dd for t, dd in spots if 0 not in t)
+    emit("F-X3.blind_spot.all_heads.values", csv(x for row in heads for x in row if x))
+    emit("F-X3.blind_spot.all_heads.one_row", len({i for i in range(n) for j in range(n) if heads[i][j]}) == 1)
+    catches = [sum(1 for s in all_tosses if not passes(plus(ab, dd), s)) for _, dd in spots]
+    emit("F-X3.blind_spot.fresh_catches", csv(catches))
+    emit("F-X3.blind_spot.fresh_catch_share", ",".join(sorted({str(Fraction(c, len(all_tosses))) for c in catches})))
+    # the edge in size: search every small mistake at 2 × 2, and at 1 × 1
+    two = tosses(2)
+    small2 = [dd for dd in product(product((-1, 0, 1), repeat=2), repeat=2) if any(x for row in dd for x in row)]
+    emit("F-X3.n2.fooled", sum(1 for t in two if any(all(x == 0 for x in apply(dd, t)) for dd in small2)))
+    emit("F-X3.n2.tosses", len(two))
+    emit("F-X3.n1.heads_fooled", any(apply(((x,),), (1,)) == (0,) for x in range(-3, 4) if x))
+    check("chapter 03: both tosses miss in exactly the misses of each, and two fresh tosses meet (1/2)^2",
+          len(both) == m * m and Fraction(len(both), len(ways)) == two_bound and reused == m)
+    # the shown counterexamples, exactly: each caught by exactly half the
+    # fresh tosses (the general at-most-half bound is the pairing checks')
+    check("chapter 03: every toss lets its blind spot through, and fresh tosses catch each exactly half the time",
+          all(passes(plus(ab, dd), t) for t, dd in spots) and all(2 * c == len(all_tosses) for c in catches))
 
 
 def cross_checks(ab, d, passing):
