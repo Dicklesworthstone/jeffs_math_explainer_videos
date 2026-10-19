@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "script_sha256": "4d57d93423c053713b70fccfafea5ea0d7d60cef7e60ff356a56ea356d3189c8",
+  "units": [
+    {
+      "id": "01u1",
+      "line_ids": [
+        "01_1",
+        "01_2",
+        "01_3"
+      ],
+      "text": "Here is a little face on a grid of squares. Count the filled squares in each row, and in each column. Those counts are the picture's two shadows. Hide the picture and keep the shadows. Could a different picture cast the same shadows?"
+    },
+    {
+      "id": "01u2",
+      "line_ids": [
+        "01_4",
+        "01_5",
+        "01_6",
+        "01_7"
+      ],
+      "text": "It can. Every row count matches, and every column count matches. They differ in four squares, the corners of a rectangle, with filled and empty corners alternating. Swap filled and empty at those corners. Each of their rows and columns loses one square and gains one. That move is a switch. It changes the picture, but neither shadow."
+    },
+    {
+      "id": "01u3",
+      "line_ids": [
+        "01_8"
+      ],
+      "text": "How many pictures cast these shadows? Sixty-four, and each is at most three switches from the face."
+    },
+    {
+      "id": "01u4",
+      "line_ids": [
+        "01_9",
+        "01_10",
+        "01_11"
+      ],
+      "text": "Change the column counts but keep their total, and no picture fits at all. This column needs a square in every row, but the middle row is empty. So shadows raise two questions. Does any picture fit? And is it the only one?"
+    }
+  ]
+}

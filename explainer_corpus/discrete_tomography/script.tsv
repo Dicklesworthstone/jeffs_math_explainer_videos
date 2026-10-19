@@ -1,0 +1,12 @@
+# discrete_tomography: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	Here is a little face on a grid of squares.
+01_2	Count the filled squares in each row, and in each column. Those counts are the picture's two shadows.
+01_3	Hide the picture and keep the shadows. Could a different picture cast the same shadows?
+01_4	It can. Every row count matches, and every column count matches.
+01_5	They differ in four squares, the corners of a rectangle, with filled and empty corners alternating.
+01_6	Swap filled and empty at those corners. Each of their rows and columns loses one square and gains one.
+01_7	That move is a switch. It changes the picture, but neither shadow.
+01_8	How many pictures cast these shadows? Sixty-four, and each is at most three switches from the face.
+01_9	Change the column counts but keep their total, and no picture fits at all.
+01_10	This column needs a square in every row, but the middle row is empty.
+01_11	So shadows raise two questions. Does any picture fit? And is it the only one?

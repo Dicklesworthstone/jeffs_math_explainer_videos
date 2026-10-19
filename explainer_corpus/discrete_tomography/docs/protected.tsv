@@ -1,0 +1,9 @@
+# Protected facts: the words every revision must keep (./x discrete_tomography protected checks they are still there).
+# One per line: <phrase> TAB <where> TAB <why>. <where> is a comma list of script, captions,
+# description, title, or empty for "anywhere".
+Could a different picture cast the same shadows?	script	the hook: the shadows may not determine the picture (DT-F3.fits)
+It changes the picture, but neither shadow	script	what a switch is, true of every switch (DT-X1)
+Sixty-four	script	the face's shadows fit 64 pictures (DT-F3.fits)
+keep their total	script	equal totals are not enough for a picture to fit (DT-F4.totals, DT-F4.fits)
+Does any picture fit?	script	feasibility, kept apart from uniqueness
+is it the only one?	script	uniqueness, kept apart from feasibility

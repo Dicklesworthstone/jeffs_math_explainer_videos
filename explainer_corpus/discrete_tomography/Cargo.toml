@@ -1,0 +1,17 @@
+[package]
+name = "discrete_tomography"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "Two Shadows Can Lie: pictures of filled squares with the same row and column counts, the switch between them, and why a picture that fits is not always the only one; a 3Blue1Brown-style explainer rendered by franken_manim"
+
+[[bin]]
+name = "tomography"
+path = "src/main.rs"
+
+# franken_manim's pin, its reviewed patches and the release profile come from
+# the corpus workspace (the root Cargo.toml).
+[dependencies]
+fmn.workspace = true
+explainer_kit.workspace = true
+explainer_score.workspace = true
