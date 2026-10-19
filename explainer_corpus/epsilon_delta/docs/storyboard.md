@@ -25,7 +25,7 @@ closer is not a guarantee until that order is fixed.
 |---|---|---|
 | I. A limit that jumps | 01 a limit that jumps (built); 02 the shrinking region (built) | unbroken curves x^n on [0, 1], a limit that is 0 then 1; a fixed point waits a finite time, the moving point x_n = 2^(−1/n) keeps a gap of 1/2; a thin region is not an empty one |
 | II. The guarantee | 03 what the old objection was about (built), 04 the challenge game (built), 05 why written proofs hide the search (built) | a nonzero increment divided out, then set to zero, against a limit that never uses zero; the tolerance band chosen first, then the input band whose whole image fits; δ may depend on ε and the point, never on the x the challenger picks next |
-| III. Making δ | 06 Sprague's recentring, 07 Davis's bound, 08 fixed or moving, precisely | δ = √(4 + ε) − 2 for x² at 2, the simpler δ = min(1, ε/5), the cubic's C = 22; the naive ε/4 fails at ε = 1 with h = 6/25; pointwise against uniform as an order of choices |
+| III. Making δ | 06 Sprague's recentring (built), 07 Davis's bound, 08 fixed or moving, precisely | δ = √(4 + ε) − 2 for x² at 2, the simpler δ = min(1, ε/5), the cubic's C = 22; the naive ε/4 fails at ε = 1 with h = 6/25; pointwise against uniform as an order of choices |
 | IV. Repair and other languages | 09 the three-piece bridge, 10 sequences and bounds, 11 preimages, 12 what the definition does not supply | uniform convergence repairs the opening; one bad sequence refutes continuity; open sets pull back to open sets; completeness is a separate assumption |
 
 One picture runs through act I: the plot of [0, 1] with the curves, the gold
@@ -155,7 +155,34 @@ After chapter 05 the picture rests on the plot (x², the band within 1/10
 of 1/4, the base point, the window found and the widest window's outline,
 the edge where the curve leaves the band), the finished proof lit, the
 search's six rows, the two comparison rows and "next: making that search
-systematic".
+systematic". Chapter 06 opens on it:
+
+- **06_sprague_recentring**: built (its beats are below, task
+  mx-video-program-program-87do.58.6). It rebuilds chapter 05's last
+  picture with chapter 05's own builders (`hidden_search::end_picture`),
+  then changes the setting on screen: a number line shows chapter 05's
+  domain [0, 1] and point 1/2, then every real number and the point 2.
+  - Its example is Sprague's: x² on all real numbers at a = 2, where it is
+    4, shown magnified near (2, 4).
+  - Recentred, h = x − 2, the change is exactly h² + 4h, and on either side
+    of 2 its size is at most |h|² + 4|h|.
+  - The prediction: near 2 the curve is nearly straight, slope 4, so try
+    δ = ε/4, 1/40 against 1/10; does every h in it pass? No, but almost:
+    0.0249 moves x² by 0.10022 (`slope_window_miss`). The slope alone loses
+    at every tolerance, since at its edge the change is ε + ε²/16.
+  - Both terms share the budget: adding 4 completes the square,
+    (|h| + 2)² < 4 + ε, so δ = √(4 + ε) − 2, positive for every ε > 0, and
+    every h with |h| < δ, either sign or h = 0, keeps |x² − 4| below ε.
+  - At 1/10, δ ≈ 0.0248456731. The usual cap, |h| < 1, keeps |x + 2| < 5
+    and gives δ = min(1, ε/5) = 0.02; both work.
+  - It names Sprague, from his note as read (the README's sources), and
+    leaves the general bound for any polynomial, Davis's, to chapter 07.
+
+After chapter 06 the picture rests on the number line (every real number,
+the point 2), the magnified square with its band within 1/10 of 4,
+Sprague's window filled, the capped window's outline and the red ring
+where the slope's window lost; the right column's eleven rows; the note's
+citation and "next: a bound for any polynomial".
 
 ## 3 Color roles
 
@@ -183,6 +210,9 @@ data colour.
 | the hole filled with a value (chapter 04) | green, as the graph |
 | chapter 05's finished proof: bright when shown or read, dim while the search runs; the search's rows | ink, the proof dimmed to `dim`; the found δ in lavender, as the window |
 | the widest window (chapter 05), an outline only, and where the curve leaves the band | lavender stroke; the edge ringed in `hero` |
+| chapter 06's domain on the number line, and its point | blue, as the curve; the point teal, as the base point |
+| chapter 06's windows: the slope's (dashed edges), Sprague's (filled), the capped one (outline) | lavender, as the window |
+| where the slope's window loses (chapter 06), and its row | red, as the step that fails |
 | axes and their numbers | `dim` |
 | the prediction ring, the title, the trace of an unbroken curve, a glow | `hero` gold `#FFD866` |
 
@@ -233,6 +263,10 @@ and the **proof** (the same argument, written forward from δ). It adds
 the widest window that works. It never calls the found δ best or optimal,
 and it never derives the widest one.
 
+Chapter 06 adds the **budget** (the tolerance ε, shared by the terms of
+the change) and the **cap** (the usual first step, keeping h within 1). It
+says "the size of h" for |h|, and "on either side" for both signs of h.
+
 Numbers: decimals are said digit by digit after "point" as the screen
 writes them ("point seven two nine" for 0.729); one half is said "one half"
 and shown 1/2; zero and one are the interval's ends and the limit's two
@@ -261,6 +295,9 @@ values.
 | "a written proof shows how δ was found" | 05_1 to 05_5: the proof opens with δ = (2/3)ε; the search that found it runs the other way, from the goal |
 | "δ must be the widest window" | 05_6 to 05_7: at ε = 1/10 the widest is about 0.092; 1/15 is smaller and still works; a window only has to work for every input |
 | "bounding a factor needs the factor near the point" | 05_4: the bound 3/2 holds on the whole domain [0, 1]; it is generous on purpose, and still enough |
+| "near the point the curve is straight, so the slope alone sets δ" | 06_4 to 06_5: δ = ε/4 loses, by a hair, at 0.0249; h² is tiny, not zero, and the window must hold for every input |
+| "without an interval, nothing bounds x + 2, so no δ can work on all real numbers" | 06_6 to 06_7: solving the budget gives δ = √(4 + ε) − 2 > 0 for every ε, with no cap |
+| "Sprague's δ only works for small tolerances" | 06_7: it is positive for every ε > 0; at ε = 5 it is 1, at ε = 21 it is 3 (tests, not said) |
 
 ## Narration units and timing
 
@@ -324,6 +361,18 @@ Chapter 05's units:
 The question 05_6 is followed by the same 4 s think window, its answer
 ("About point zero nine two") hidden until the window ends. The chapter
 ends on a hold.
+
+Chapter 06's units:
+- **06u1** (06_1 to 06_4, 76 words): the new setting, h, the bound, and
+  the slope's guess, ending on the question.
+- **06u2** (06_5 to 06_7, 70 words): the answer, the budget for both
+  terms, and δ for every ε.
+- **06u3** (06_8, 06_9, 54 words): the value at one tenth, the cap's δ,
+  and what comes next.
+
+The question 06_4 is followed by the same 4 s think window, its answer
+("No, but almost") hidden until the window ends. The chapter ends on a
+hold.
 
 **Hold (2026-10-19):** the owner rejected the first wave's narrated cuts
 and withdrew them; the rejected narration method must not be carried into
@@ -399,5 +448,19 @@ qualified method, not an instruction to synthesize. No take exists.
 | 05_7 | About point zero nine two, where the curve leaves the band. One fifteenth is smaller, and still enough. A window only has to work for every input, not be the widest. *(C5.widest.3dp, C5.delta)* | The "?" goes. At "About point zero nine two", the answer: a lavender outline of the widest symmetric window, ≈ 0.092 either side of 1/2, and, dim: widest window: δ ≈ 0.092. At "where the curve leaves the band", a hero ring there, on the right (x² = 0.35 exactly there, so not within), and a glow on it. At "One fifteenth is smaller", a glow at the window found's row. The widest is measured from the curve and certified (`widest_window_rounded`), not derived | plot; highlight | |
 | 05_8 | Now read the proof forward, as it is written. Given epsilon, take delta as two thirds of epsilon. For every x in the domain and in the window, the gap is below three halves of delta, which is epsilon. *(C5.ratio, C5.bound)* | The proof's lines light again one at a time, each with a glow: at "Given epsilon" its first, at "For every x in the domain and in the window" its second (x ∈ [0, 1] and \|x − 1/2\| < δ), at "the gap is below" its third | highlight; derivation | |
 | 05_9 | The search ran backward from the goal. The proof runs forward, and hides it. Next, ways to make that search systematic. | At "The search ran backward", glows at the search's goal, then at its δ; at "The proof runs forward", glows at the proof's δ, then at its last line, ε. At "Next, ways", centred under everything, dim: "next: making that search systematic" | highlight | hold |
+
+## 06_sprague_recentring: Sprague's recentring (~85 s at the kit's scratch rate)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 06_1 | Leave the interval. Take x squared on all real numbers, at two, where it is four. *(C3.power, C6.a, C6.value; C1.domain.left, C1.domain.right, C5.a on screen)* | Chapter 05's last picture, rebuilt by its own builders, goes. Top left, a number line from −1 to 3, with 0, 1 and 2 under it: its stretch [0, 1] lit blue, a teal dot at 1/2, and top right, dim: was: x ∈ [0, 1], a = 1/2. At "on all real numbers", the whole line lights, its ends opened by chevrons, and the dot moves to 2; under it: now: x ∈ ℝ, a = 2, a² = 4 (the value at the point; x itself ranges over every real number). At "where it is four", under the line, "magnified near x = 2" over the square across a stretch of x one tenth wide, with 2 and 4 on its axes and the teal point (2, 4) | plot; highlight | |
+| 06_2 | Let h be x minus two. x squared minus four is h squared plus four h. *(C6.a, C3.power, C6.value, C6.slope)* | At "Let h be": h = x − 2. At "x squared minus four is", beside it: x² − 4 = h² + 4h | derivation | |
+| 06_3 | On either side, its size is at most h squared plus four times the size of h. *(C3.power, C6.slope)* | At "its size is at most": \|x² − 4\| = \|h² + 4h\| ≤ \|h\|² + 4\|h\| | derivation | |
+| 06_4 | ⟨predict⟩ Near two the curve is nearly straight, slope four. Try delta as epsilon over four, one fortieth against one tenth. Does every h in that window pass? *(C6.a, C6.slope, C6.naive.delta, S.eps)* | At "nearly straight", a glow at (2, 4). At "Try delta", two dashed lavender lines at 2 ± 1/40, labelled ε/4. At "against one tenth", the gold band \|y − 4\| < 1/10, labelled ε = 1/10, and in lavender: slope only: δ = ε/4 = 1/40. At "Does every h", a "?" in the think ring in the right column's empty lower half, which drains for 4 s with "pause for more time" under it. No input is shown losing until it ends: the curve leaves the band 0.00015 inside the dashed edge, about 2 pixels at 4K | predict pause | think 4 s, the answer hidden until it ends |
+| 06_5 | No, but almost. h equal to point zero two four nine moves x squared by point one zero zero two two. *(C6.naive.h, C3.power, C6.naive.change.5dp)* | The "?" goes. At "No, but almost", a red ring where the curve crosses the band's top at x = 2.0249, inside the dashed edge, with a glow. At "moves x squared by", in red: h = 0.0249: \|x² − 4\| ≈ 0.10022 > 1/10 (exactly 0.10022001; `slope_window_miss`) | highlight | |
+| 06_6 | Budget both terms. Adding four completes a square, the size of h plus two, squared, below four plus epsilon. *(C6.added, C6.half_slope, C3.power)* | At "Budget both terms", a glow at \|h\|² + 4\|h\|. At "completes a square": \|h\|² + 4\|h\| + 4 = (\|h\| + 2)² < 4 + ε | derivation; highlight | |
+| 06_7 | So delta is the square root of four plus epsilon, minus two, positive for every epsilon. Every h within delta of zero, on either side, keeps the gap below epsilon. *(C6.added, C6.half_slope, C6.h.at_a)* | At "So delta is the square root", in lavender: δ = √(4 + ε) − 2 > 0 for every ε > 0, with a glow at "positive for every epsilon". At "Every h within delta": 0 ≤ \|h\| < δ ⇒ \|x² − 4\| ≤ \|h\|² + 4\|h\| < δ² + 4δ = ε; on the plot the dashed lines go and the window \|x − 2\| < δ fills in lavender, labelled δ, the red ring just outside it | derivation; plot | |
+| 06_8 | Against one tenth, about point zero two four eight. The usual way first keeps h within one, so x plus two stays below five. Delta is the smaller of one and epsilon over five, point zero two. *(S.eps, C6.delta.4dp, C6.cap, C6.a, C6.cap.factor, S.delta_simple.decimal; S.delta_sprague.10dp on screen)* | At "about point zero two four eight", in lavender: ε = 1/10: δ ≈ 0.0248456731. At "The usual way": \|h\| < 1 ⇒ \|x + 2\| < 5: δ = min(1, ε/5) = 0.02, and on the plot that window's lavender outline, labelled min(1, ε/5) under the curve. At "the smaller of one", a glow on its δ | derivation; plot; highlight | |
+| 06_9 | Both work. Sprague's note solves the budget instead of capping it. Next, a bound for any polynomial. | At "Both work", glows on the two δ rows. At "Sprague's note", under the plot, dim, the note as read: A. H. Sprague, A Note on δ and ε, Amer. Math. Monthly 67 (1960), p. 780 (C6.note.volume, C6.note.year, C6.note.page). At "Next, a bound", centred under everything, dim: "next: a bound for any polynomial" | highlight | hold |
 
 

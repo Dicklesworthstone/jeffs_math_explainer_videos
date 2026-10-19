@@ -161,6 +161,39 @@ mod tests {
         ("05_7", "One fifteenth", "C5.delta", "1/15"),
         ("05_8", "two thirds of epsilon", "C5.ratio", "2/3"),
         ("05_8", "three halves of delta", "C5.bound", "3/2"),
+        ("06_1", "x squared", "C3.power", "2"),
+        ("06_1", "at two,", "C6.a", "2"),
+        ("06_1", "it is four", "C6.value", "4"),
+        ("06_2", "x minus two", "C6.a", "2"),
+        ("06_2", "x squared", "C3.power", "2"),
+        ("06_2", "minus four", "C6.value", "4"),
+        ("06_2", "h squared", "C3.power", "2"),
+        ("06_2", "plus four h", "C6.slope", "4"),
+        ("06_3", "h squared", "C3.power", "2"),
+        ("06_3", "four times", "C6.slope", "4"),
+        ("06_4", "Near two", "C6.a", "2"),
+        ("06_4", "slope four", "C6.slope", "4"),
+        ("06_4", "over four", "C6.slope", "4"),
+        ("06_4", "one fortieth", "C6.naive.delta", "1/40"),
+        ("06_4", "one tenth", "S.eps", "1/10"),
+        ("06_5", "point zero two four nine", "C6.naive.h", "0.0249"),
+        ("06_5", "x squared", "C3.power", "2"),
+        ("06_5", "point one zero zero two two", "C6.naive.change.5dp", "0.10022"),
+        ("06_6", "Adding four", "C6.added", "4"),
+        ("06_6", "plus two,", "C6.half_slope", "2"),
+        ("06_6", "squared, below", "C3.power", "2"),
+        ("06_6", "below four", "C6.added", "4"),
+        ("06_7", "root of four", "C6.added", "4"),
+        ("06_7", "minus two", "C6.half_slope", "2"),
+        ("06_7", "delta of zero", "C6.h.at_a", "0"),
+        ("06_8", "Against one tenth", "S.eps", "1/10"),
+        ("06_8", "point zero two four eight", "C6.delta.4dp", "0.0248"),
+        ("06_8", "within one", "C6.cap", "1"),
+        ("06_8", "x plus two", "C6.a", "2"),
+        ("06_8", "below five", "C6.cap.factor", "5"),
+        ("06_8", "smaller of one", "C6.cap", "1"),
+        ("06_8", "over five", "C6.cap.factor", "5"),
+        ("06_8", "point zero two.", "S.delta_simple.decimal", "0.02"),
     ];
 
     /// The words that carry a number in this script.
@@ -185,6 +218,7 @@ mod tests {
         "thirds",
         "halves",
         "fifteenth",
+        "fortieth",
         "square",
         "squared",
         "seventeen",
@@ -195,7 +229,11 @@ mod tests {
     ];
 
     /// Number words used as plain language, not as a quantity a fact holds.
-    const PLAIN: &[(&str, &str)] = &[("01_3", "Pin one point")];
+    const PLAIN: &[(&str, &str)] = &[
+        ("01_3", "Pin one point"),
+        ("06_6", "completes a square"),
+        ("06_7", "the square root"),
+    ];
 
     /// Each word of `text` and the byte it starts at.
     fn words(text: &str) -> Vec<(usize, &str)> {
@@ -248,8 +286,10 @@ mod tests {
     /// The historical names the narration says, the only lines that say
     /// each, and the reference those lines' storyboard rows carry: the
     /// passage read at page level (the README's sources).
-    const NAMED: &[(&str, &[&str], &str)] =
-        &[("berkeley", &["03_1", "03_3", "03_8"], "The Analyst §§XIII–XIV, pp. 5–6")];
+    const NAMED: &[(&str, &[&str], &str)] = &[
+        ("berkeley", &["03_1", "03_3", "03_8"], "The Analyst §§XIII–XIV, pp. 5–6"),
+        ("sprague", &["06_9"], "A Note on δ and ε"),
+    ];
 
     /// What no line says: names whose attribution was not read at page level
     /// (brief), and priority claims.

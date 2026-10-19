@@ -43,3 +43,12 @@
 05_7	About point zero nine two, where the curve leaves the band. One fifteenth is smaller, and still enough. A window only has to work for every input, not be the widest.
 05_8	Now read the proof forward, as it is written. Given epsilon, take delta as two thirds of epsilon. For every x in the domain and in the window, the gap is below three halves of delta, which is epsilon.
 05_9	The search ran backward from the goal. The proof runs forward, and hides it. Next, ways to make that search systematic.
+06_1	Leave the interval. Take x squared on all real numbers, at two, where it is four.
+06_2	Let h be x minus two. x squared minus four is h squared plus four h.
+06_3	On either side, its size is at most h squared plus four times the size of h.
+06_4	Near two the curve is nearly straight, slope four. Try delta as epsilon over four, one fortieth against one tenth. Does every h in that window pass?
+06_5	No, but almost. h equal to point zero two four nine moves x squared by point one zero zero two two.
+06_6	Budget both terms. Adding four completes a square, the size of h plus two, squared, below four plus epsilon.
+06_7	So delta is the square root of four plus epsilon, minus two, positive for every epsilon. Every h within delta of zero, on either side, keeps the gap below epsilon.
+06_8	Against one tenth, about point zero two four eight. The usual way first keeps h within one, so x plus two stays below five. Delta is the smaller of one and epsilon over five, point zero two.
+06_9	Both work. Sprague's note solves the budget instead of capping it. Next, a bound for any polynomial.

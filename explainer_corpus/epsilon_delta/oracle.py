@@ -12,9 +12,9 @@ compares the two outputs key by key. Standard library only.
 
 Exit 1 if any cross-check fails. The inputs the video chooses (the powers drawn,
 the fixed point 9/10, the tolerance 1/2, the waits' points, chapter 03's point
-1/2, increments and tolerances, ε = 1/10, the two polynomials of Davis's note)
-and chapter 03's page references are restated here; everything else is
-computed.
+1/2, increments and tolerances, ε = 1/10, the two polynomials of Davis's note,
+chapter 06's point a = 2 and its cap 1 on h) and chapter 03's page references
+are restated here; everything else is computed.
 """
 import math
 import sys
@@ -495,6 +495,68 @@ emit("N.naive.h", frac(h))
 moved = change(square, h)
 check(abs(h) < naive and moved > eps_naive, f"the naive δ fails: h = {frac(h)} moves x² by {frac(moved)}")
 emit("N.naive.change", frac(moved))
+
+# ---------------------------------------------------------------- chapter 06
+
+# x² on all real numbers at a = 2 (Sprague's example), recentred by
+# evaluating (2 + h)² − 4 at h = −1, 0, 1, not by the recentring above
+A6 = 2
+
+
+def change6(h):
+    return (A6 + h) ** 2 - A6**2
+
+
+lin6 = Fraction(change6(1) - change6(-1), 2)
+quad6 = Fraction(change6(1) + change6(-1), 2) - change6(0)
+check(change6(0) == 0 and quad6 == 1 and all(change6(Fraction(n, 7)) == Fraction(n, 7) ** 2 + lin6 * Fraction(n, 7)
+                                              for n in range(-30, 31)), "(2 + h)² − 4 = h² + 4h")
+emit("C6.a", A6)
+emit("C6.h.at_a", A6 - A6)
+emit("C6.value", A6**2)
+emit("C6.slope", int(lin6))
+half6 = lin6 / 2
+check(all((t + half6) ** 2 == t * t + lin6 * t + half6**2 for t in [Fraction(n, 9) for n in range(40)]),
+      "|h|² + 4|h| + 4 = (|h| + 2)²")
+emit("C6.half_slope", int(half6))
+emit("C6.added", int(half6**2))
+naive6 = EPS / lin6
+emit("C6.naive.delta", frac(naive6))
+# the first four-place h > 0 where h² + 4h reaches ε, scanned from zero
+k6 = next(k for k in range(1, 10**4) if change6(Fraction(k, 10**4)) >= EPS)
+h6 = Fraction(k6, 10**4)
+check(h6 < naive6 and change6(h6) > EPS and change6(h6 - Fraction(1, 10**4)) < EPS,
+      f"h = {plain(to_decimal(h6))} is inside ε/4 = {frac(naive6)} and moves x² by {plain(to_decimal(change6(h6)))} > ε")
+emit("C6.naive.h", rounded(to_decimal(h6), PLACES))
+emit("C6.naive.change.5dp", rounded(to_decimal(change6(h6)), PLACES + 1))
+check(Decimal(rounded(to_decimal(change6(h6)), PLACES + 1)) > to_decimal(EPS), "  and still reads past ε at five places")
+emit("C6.delta.4dp", rounded(sprague, PLACES))
+check(Fraction(sprague) < h6, "the loss lies past Sprague's δ")
+# the note cited, as read: the owner's scan of its page (title, author, the
+# expansion and δ) and Crossref's record for DOI 10.2307/2308663 (The
+# American Mathematical Monthly 67(8), October 1960, p. 780)
+emit("C6.note.volume", 67)
+emit("C6.note.year", 1960)
+emit("C6.note.page", 780)
+emit("C6.cap", 1)
+cap_factor = 2 * A6 + 1
+check(all(abs(A6 + Fraction(m, 1000) + A6) < cap_factor for m in range(-999, 1000)),
+      f"|h| < 1 keeps |x + 2| below {cap_factor}")
+emit("C6.cap.factor", cap_factor)
+check(min(Fraction(1), EPS / cap_factor) == simple, "the cap's δ = min(1, ε/5) is the simple δ")
+# every tolerance, not only one tenth: Sprague's δ is positive and every h
+# strictly inside it passes, either sign and zero; the slope's ε/4 is wider;
+# the cap's δ is never wider
+for eps6 in [Fraction(1, 1000), EPS, Fraction(1), Fraction(5), Fraction(21), Fraction(1000)]:
+    with localcontext() as ctx:
+        ctx.prec = 60
+        d6 = Fraction((Decimal(4) + to_decimal(eps6)).sqrt() - 2)
+    below = d6 * Fraction(999_999, 1_000_000)
+    inside = [below * Fraction(m, 50) for m in range(-50, 51)]
+    capped6 = min(Fraction(1), eps6 / cap_factor)
+    check(d6 > 0 and all(abs(change6(h)) < eps6 for h in inside) and eps6 / lin6 > d6
+          and capped6**2 + lin6 * capped6 <= eps6,
+          f"ε = {frac(eps6)}: Sprague's δ ≈ {float(d6):.6g} > 0 works for every h inside, either sign or zero")
 
 print("\n".join(out))
 if failures:

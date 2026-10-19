@@ -1,5 +1,5 @@
 //! One scene per chapter, in storyboard order (`docs/storyboard.md`).
-//! Chapters 01 to 05 are built; the continuation is written out in the
+//! Chapters 01 to 06 are built; the continuation is written out in the
 //! storyboard.
 
 pub mod challenge_game;
@@ -8,6 +8,7 @@ pub mod glyphs;
 pub mod hidden_search;
 pub mod limit_that_jumps;
 pub mod old_objection;
+pub mod recentring;
 pub mod shrinking_region;
 
 use explainer_kit::Chapter;
@@ -37,5 +38,6 @@ pub fn registry() -> Vec<Chapter> {
             0.4,
             hidden_search::TheHiddenSearch
         ),
+        scene!("06_sprague_recentring", 0.4, recentring::SpragueRecentring),
     ]
 }

@@ -22,15 +22,15 @@ use explainer_kit::layout::TEXT_MARGIN;
 use explainer_kit::{Facts, Kit, Palette, rect, v};
 use fmn::prelude::*;
 
-use super::challenge_game::end_picture;
+use super::challenge_game;
 use super::draw::{
-    NUMBER_DROP, PLOT, fact, fade_in_all, fade_in_lagged, fade_out_all, fail, fixed, flat, limit_color, line_style,
-    moving, say, think_pause,
+    BRIGHT_W, NUMBER_DROP, PLOT, curve_color, curve_label, fact, fade_in_all, fade_in_lagged, fade_out_all, fail,
+    fixed, flat, limit_color, line_style, moving, say, think_pause,
 };
 use super::old_objection::{RIGHT_X, swap, tex_frac};
 use super::shrinking_region::glow;
 use crate::facts::facts;
-use crate::model::{BASE, SEARCH_EPS, found_window};
+use crate::model::{BASE, SEARCH_EPS, SQUARE, found_window};
 
 pub struct TheHiddenSearch {
     pub kit: Kit,
@@ -167,6 +167,194 @@ fn along(stage: &Stage<'_>, line: Mob, y: f64, share: f64) -> Vec3 {
     v(RIGHT_X + stage.get_width(line) * share, y)
 }
 
+/// The search's rows, from the goal (0) down to δ (5), each in its size,
+/// colour and place, detached.
+fn search_row(kit: &Kit, stage: &mut Stage<'_>, f: &Facts, i: usize) -> fmn::Result<Mob> {
+    let half = tex_frac(&fact(f, "C5.a")?);
+    let quarter = tex_frac(&fact(f, "C5.value")?);
+    let bound = tex_frac(&fact(f, "C5.bound")?);
+    let ratio = tex_frac(&fact(f, "C5.ratio")?);
+    let n = fact(f, "C3.power")?;
+    let domain = format!("[{}, {}]", fact(f, "C1.domain.left")?, fact(f, "C1.domain.right")?);
+    let (src, size, color) = match i {
+        0 => (
+            format!(r"{GOAL}|x^{{{n}}} - {quarter}| < \varepsilon"),
+            26.0,
+            Palette::ink(),
+        ),
+        1 => (
+            format!(r"|x^{{{n}}} - {quarter}| = |x - {half}| \cdot |x + {half}|"),
+            26.0,
+            Palette::ink(),
+        ),
+        2 => (
+            format!(r"x \in {domain} \Rightarrow |x + {half}| \le {bound}"),
+            26.0,
+            Palette::ink(),
+        ),
+        3 => (
+            format!(r"{NEAR}{half}{ONLY_ABOUT}{}", fact(f, "C5.near")?),
+            22.0,
+            Palette::dim(),
+        ),
+        4 => (
+            format!(r"{bound}|x - {half}| < \varepsilon{WHEN}|x - {half}| < {ratio}\varepsilon"),
+            26.0,
+            Palette::ink(),
+        ),
+        5 => (format!(r"\delta = {ratio}\varepsilon"), 30.0, moving()),
+        _ => return Err(fail(format!("the search has no row {i}"))),
+    };
+    row(kit, stage, &src, size, color, SEARCH_Y[i])
+}
+
+/// The comparison rows at 1/10: the window found (0) and the widest (1),
+/// detached.
+fn compare_row(kit: &Kit, stage: &mut Stage<'_>, f: &Facts, i: usize) -> fmn::Result<Mob> {
+    let (src, size, color) = match i {
+        0 => (
+            format!(
+                r"\varepsilon = {}:\ \delta = {} \approx {}",
+                tex_frac(&fact(f, "C5.eps")?),
+                tex_frac(&fact(f, "C5.delta")?),
+                fact(f, "C5.delta.3dp")?
+            ),
+            26.0,
+            moving(),
+        ),
+        1 => (format!("{WIDEST}{}", fact(f, "C5.widest.3dp")?), 24.0, Palette::dim()),
+        _ => return Err(fail(format!("the comparison has no row {i}"))),
+    };
+    row(kit, stage, &src, size, color, COMPARE_Y[i])
+}
+
+/// The band |y − 1/4| < 1/10 on the plot, detached.
+fn search_band(stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+    let a = BASE.f64();
+    plot_band(stage, a * a, SEARCH_EPS.f64())
+}
+
+/// The band's label once the tolerance is a number, ε = 1/10, detached.
+fn band_label_at_tenth(kit: &Kit, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<Mob> {
+    kit.tex_left(
+        stage,
+        &format!(r"\varepsilon = {}", tex_frac(&fact(f, "C5.eps")?)),
+        22.0,
+        limit_color(),
+        &[],
+        PLOT.p(BAND_LABEL.0, BAND_LABEL.1),
+    )
+}
+
+/// The dashed guide from the axis up to the base point (1/2, 1/4), detached.
+fn base_guide(stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+    let a = BASE.f64();
+    PLOT.dashed(stage, (a, 0.0), (a, a * a), fixed())
+}
+
+/// The base point's 1/2 under the axis, detached.
+fn base_mark(kit: &Kit, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<Mob> {
+    let foot = PLOT.p(BASE.f64(), 0.0);
+    let half = tex_frac(&fact(f, "C5.a")?);
+    kit.tex(stage, &half, 26.0, fixed(), &[], v(foot[0], foot[1] - NUMBER_DROP))
+}
+
+/// The base point (1/2, 1/4), detached.
+fn base_point(stage: &mut Stage<'_>) -> Mob {
+    let a = BASE.f64();
+    PLOT.dot(stage, a, a * a, fixed())
+}
+
+/// The window found, |x − 1/2| < 1/15, filled, detached.
+fn found_window_on_plot(stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+    let delta = found_window(BASE, SEARCH_EPS).map_err(fail)?.f64();
+    plot_window(stage, BASE.f64(), delta, flat(moving(), 0.22))
+}
+
+/// The window's label once δ is found, δ = (2/3)ε, detached.
+fn window_label(kit: &Kit, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<Mob> {
+    kit.tex(
+        stage,
+        &format!(r"\delta = {}\varepsilon", tex_frac(&fact(f, "C5.ratio")?)),
+        26.0,
+        moving(),
+        &[],
+        PLOT.p(BASE.f64(), WINDOW_LABEL_Y),
+    )
+}
+
+/// The widest symmetric window at 1/10, an outline, detached.
+fn widest_outline(stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<Mob> {
+    let widest_at: f64 = fact(f, "C5.widest.3dp")?
+        .parse()
+        .map_err(|_| fail("C5.widest.3dp is not a decimal".to_owned()))?;
+    plot_window(stage, BASE.f64(), widest_at, line_style(moving(), 2.5))
+}
+
+/// Where the curve leaves the band on the right: x² = 1/4 + 1/10.
+fn edge_at() -> Vec3 {
+    let top = BASE.f64() * BASE.f64() + SEARCH_EPS.f64();
+    PLOT.p(top.sqrt(), top)
+}
+
+/// The hollow ring at [`edge_at`], detached.
+fn edge_ring(stage: &mut Stage<'_>) -> Mob {
+    let edge = Circle::new()
+        .radius(EDGE_R)
+        .arc_center(edge_at())
+        .style(line_style(Palette::hero(), 3.0))
+        .build();
+    stage.arena_mut().add(edge)
+}
+
+/// "next:", centred under everything, detached.
+fn next_line(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+    kit.text(stage, NEXT, 22.0, Palette::dim(), v(0.0, NEXT_Y))
+}
+
+/// This chapter's last picture, for the chapter after it.
+pub(super) struct End {
+    /// Everything on screen: the plot (its axes, the square and its label),
+    /// the base point's marks, the band and its label, the window found and
+    /// its label, the widest outline and the edge ring, the search's rows,
+    /// the comparison rows, the lit proof and the "next:" line.
+    pub clear: Vec<Mob>,
+}
+
+/// This chapter's last picture, rebuilt with its own builders in the state
+/// 05_9 leaves it, back to front as the chapter adds what stays: the plot;
+/// the goal, the band, the guide and the 1/2 under the axis; the window
+/// found, then the base point in front of it; the other search rows; the
+/// window's label and δ; the band's label and the window found's row; the
+/// widest outline and row; the edge ring; the proof, lit; "next:".
+pub(super) fn end_picture(kit: &Kit, stage: &mut Stage<'_>, f: &Facts) -> fmn::Result<End> {
+    let mut clear = PLOT.axes(kit, stage)?;
+    clear.push(PLOT.curve(stage, SQUARE, curve_color(), BRIGHT_W)?);
+    clear.push(curve_label(kit, stage, SQUARE)?);
+    clear.push(search_row(kit, stage, f, 0)?);
+    clear.push(search_band(stage)?);
+    clear.push(base_guide(stage)?);
+    clear.push(base_mark(kit, stage, f)?);
+    clear.push(found_window_on_plot(stage)?);
+    clear.push(base_point(stage));
+    for i in 1..=4 {
+        clear.push(search_row(kit, stage, f, i)?);
+    }
+    clear.push(window_label(kit, stage, f)?);
+    clear.push(search_row(kit, stage, f, 5)?);
+    clear.push(band_label_at_tenth(kit, stage, f)?);
+    clear.push(compare_row(kit, stage, f, 0)?);
+    clear.push(widest_outline(stage, f)?);
+    clear.push(compare_row(kit, stage, f, 1)?);
+    clear.push(edge_ring(stage));
+    clear.extend(proof_lines(kit, stage, f, Palette::ink())?);
+    clear.push(next_line(kit, stage)?);
+    for &m in &clear {
+        stage.add_to_scene(m)?;
+    }
+    Ok(End { clear })
+}
+
 impl SceneConstruct for TheHiddenSearch {
     fn name(&self) -> &str {
         "05_why_written_proofs_hide_the_search"
@@ -175,17 +363,9 @@ impl SceneConstruct for TheHiddenSearch {
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
         let f = facts().map_err(fail)?;
-        let end = end_picture(&kit, stage, &f)?;
-        let half = tex_frac(&fact(&f, "C5.a")?);
+        // chapter 04's last picture, rebuilt by chapter 04's own builders
+        let end = challenge_game::end_picture(&kit, stage, &f)?;
         let quarter = tex_frac(&fact(&f, "C5.value")?);
-        let bound = tex_frac(&fact(&f, "C5.bound")?);
-        let ratio = tex_frac(&fact(&f, "C5.ratio")?);
-        let n = fact(&f, "C3.power")?;
-        let domain = format!("[{}, {}]", fact(&f, "C1.domain.left")?, fact(&f, "C1.domain.right")?);
-        let a = BASE.f64();
-        let level = a * a;
-        let eps = SEARCH_EPS.f64();
-        let delta = found_window(BASE, SEARCH_EPS).map_err(fail)?.f64();
 
         // 05_1: chapter 04's picture goes; a finished proof, its δ unexplained
         let line = say(&kit, stage, "05_1")?;
@@ -204,15 +384,8 @@ impl SceneConstruct for TheHiddenSearch {
         // a window of unknown width
         let line = say(&kit, stage, "05_2")?;
         line.wait_for(stage, DEMANDS_AT)?;
-        let goal = row(
-            &kit,
-            stage,
-            &format!(r"{GOAL}|x^{{{n}}} - {quarter}| < \varepsilon"),
-            26.0,
-            Palette::ink(),
-            SEARCH_Y[0],
-        )?;
-        let band = plot_band(stage, level, eps)?;
+        let goal = search_row(&kit, stage, &f, 0)?;
+        let band = search_band(stage)?;
         let band_label = kit.tex_left(
             stage,
             &format!("{WITHIN}{quarter}"),
@@ -221,83 +394,47 @@ impl SceneConstruct for TheHiddenSearch {
             &[],
             PLOT.p(BAND_LABEL.0, BAND_LABEL.1),
         )?;
-        let guide = PLOT.dashed(stage, (a, 0.0), (a, level), fixed())?;
-        let foot = PLOT.p(a, 0.0);
-        let half_mark = kit.tex(stage, &half, 26.0, fixed(), &[], v(foot[0], foot[1] - NUMBER_DROP))?;
-        let point = PLOT.dot(stage, a, level, fixed());
+        let guide = base_guide(stage)?;
+        let half_mark = base_mark(&kit, stage, &f)?;
+        let point = base_point(stage);
         fade_in_lagged(stage, &[goal, band, band_label, guide, half_mark, point], 1.0, 0.2)?;
         line.wait_for(stage, NEAR_AT)?;
-        let window = plot_window(stage, a, delta, flat(moving(), 0.22))?;
-        let unknown = kit.tex(stage, r"\delta = ?", 26.0, moving(), &[], PLOT.p(a, WINDOW_LABEL_Y))?;
+        let window = found_window_on_plot(stage)?;
+        let unknown = kit.tex(
+            stage,
+            r"\delta = ?",
+            26.0,
+            moving(),
+            &[],
+            PLOT.p(BASE.f64(), WINDOW_LABEL_Y),
+        )?;
         fade_in_all(stage, &[window, unknown], 0.5)?;
         stage.scene_mut().bring_to_front(&[point])?;
 
         // 05_3: the gap factors
         say(&kit, stage, "05_3")?;
-        let factored = row(
-            &kit,
-            stage,
-            &format!(r"|x^{{{n}}} - {quarter}| = |x - {half}| \cdot |x + {half}|"),
-            26.0,
-            Palette::ink(),
-            SEARCH_Y[1],
-        )?;
+        let factored = search_row(&kit, stage, &f, 1)?;
         fade_in_all(stage, &[factored], 0.6)?;
 
         // 05_4: on the domain the second factor is at most 3/2, largest at
         // x = 1; near 1/2 it is only about 1: generous on purpose
         let line = say(&kit, stage, "05_4")?;
         line.wait_for(stage, DOMAIN_AT)?;
-        let bounded = row(
-            &kit,
-            stage,
-            &format!(r"x \in {domain} \Rightarrow |x + {half}| \le {bound}"),
-            26.0,
-            Palette::ink(),
-            SEARCH_Y[2],
-        )?;
+        let bounded = search_row(&kit, stage, &f, 2)?;
         fade_in_all(stage, &[bounded], 0.5)?;
         glow(&kit, stage, PLOT.p(1.0, 0.0), 0.2)?;
         line.wait_for(stage, GENEROUS_AT)?;
-        let generous = row(
-            &kit,
-            stage,
-            &format!(r"{NEAR}{half}{ONLY_ABOUT}{}", fact(&f, "C5.near")?),
-            22.0,
-            Palette::dim(),
-            SEARCH_Y[3],
-        )?;
+        let generous = search_row(&kit, stage, &f, 3)?;
         fade_in_all(stage, &[generous], 0.5)?;
 
         // 05_5: a distance below (2/3)ε is enough; that is δ
         let line = say(&kit, stage, "05_5")?;
         line.wait_for(stage, ENOUGH_AT)?;
-        let enough = row(
-            &kit,
-            stage,
-            &format!(r"{bound}|x - {half}| < \varepsilon{WHEN}|x - {half}| < {ratio}\varepsilon"),
-            26.0,
-            Palette::ink(),
-            SEARCH_Y[4],
-        )?;
+        let enough = search_row(&kit, stage, &f, 4)?;
         fade_in_all(stage, &[enough], 0.5)?;
         line.wait_for(stage, CAME_AT)?;
-        let found = row(
-            &kit,
-            stage,
-            &format!(r"\delta = {ratio}\varepsilon"),
-            30.0,
-            moving(),
-            SEARCH_Y[5],
-        )?;
-        let named = kit.tex(
-            stage,
-            &format!(r"\delta = {ratio}\varepsilon"),
-            26.0,
-            moving(),
-            &[],
-            PLOT.p(a, WINDOW_LABEL_Y),
-        )?;
+        let found = search_row(&kit, stage, &f, 5)?;
+        let named = window_label(&kit, stage, &f)?;
         let mut anims = swap(stage, &[unknown], &[named], 0.6)?;
         anims.extend(swap(stage, &[], &[found], 0.6)?);
         stage.play_prepared(anims)?;
@@ -308,27 +445,8 @@ impl SceneConstruct for TheHiddenSearch {
         // no widest outline or number until the ring has drained
         let line = say(&kit, stage, "05_6")?;
         line.wait_for(stage, TENTH_AT)?;
-        let tenth = tex_frac(&fact(&f, "C5.eps")?);
-        let numbered = kit.tex_left(
-            stage,
-            &format!(r"\varepsilon = {tenth}"),
-            22.0,
-            limit_color(),
-            &[],
-            PLOT.p(BAND_LABEL.0, BAND_LABEL.1),
-        )?;
-        let ours = row(
-            &kit,
-            stage,
-            &format!(
-                r"\varepsilon = {tenth}:\ \delta = {} \approx {}",
-                tex_frac(&fact(&f, "C5.delta")?),
-                fact(&f, "C5.delta.3dp")?
-            ),
-            26.0,
-            moving(),
-            COMPARE_Y[0],
-        )?;
+        let numbered = band_label_at_tenth(&kit, stage, &f)?;
+        let ours = compare_row(&kit, stage, &f, 0)?;
         let mut anims = swap(stage, &[band_label], &[numbered], 0.6)?;
         anims.extend(swap(stage, &[], &[ours], 0.6)?);
         stage.play_prepared(anims)?;
@@ -343,29 +461,13 @@ impl SceneConstruct for TheHiddenSearch {
         let line = say(&kit, stage, "05_7")?;
         fade_out_all(stage, &[ask], 0.3)?;
         line.wait_for(stage, ANSWER_AT)?;
-        let widest_at: f64 = fact(&f, "C5.widest.3dp")?
-            .parse()
-            .map_err(|_| fail("C5.widest.3dp is not a decimal".to_owned()))?;
-        let widest = plot_window(stage, a, widest_at, line_style(moving(), 2.5))?;
-        let widest_row = row(
-            &kit,
-            stage,
-            &format!("{WIDEST}{}", fact(&f, "C5.widest.3dp")?),
-            24.0,
-            Palette::dim(),
-            COMPARE_Y[1],
-        )?;
+        let widest = widest_outline(stage, &f)?;
+        let widest_row = compare_row(&kit, stage, &f, 1)?;
         fade_in_lagged(stage, &[widest, widest_row], 0.8, 0.3)?;
         line.wait_for(stage, LEAVES_AT)?;
-        let edge_at = PLOT.p((level + eps).sqrt(), level + eps);
-        let edge = Circle::new()
-            .radius(EDGE_R)
-            .arc_center(edge_at)
-            .style(line_style(Palette::hero(), 3.0))
-            .build();
-        let edge = stage.arena_mut().add(edge);
+        let edge = edge_ring(stage);
         fade_in_all(stage, &[edge], 0.3)?;
-        glow(&kit, stage, edge_at, 0.2)?;
+        glow(&kit, stage, edge_at(), 0.2)?;
         line.wait_for(stage, SMALLER_AT)?;
         let at = along(stage, ours, COMPARE_Y[0], 0.5);
         glow(&kit, stage, at, 0.25)?;
@@ -395,7 +497,7 @@ impl SceneConstruct for TheHiddenSearch {
             glow(&kit, stage, at, 0.25)?;
         }
         line.wait_for(stage, NEXT_AT)?;
-        let next = kit.text(stage, NEXT, 22.0, Palette::dim(), v(0.0, NEXT_Y))?;
+        let next = next_line(&kit, stage)?;
         fade_in_all(stage, &[next], 0.6)?;
         kit.hold(stage)?;
         kit.music_breath(stage, 0.8)?;

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "37cde31592e33da68dff935c51ed98bb0e4294cdbaabd66c71b69c955fe41b36",
+  "script_sha256": "6e2d5acca45c71cff03263b8f9b3884a6e7951d6124a0059e360f874bcdaee2e",
   "units": [
     {
       "id": "01u1",
@@ -135,6 +135,33 @@
         "05_9"
       ],
       "text": "About point zero nine two, where the curve leaves the band. One fifteenth is smaller, and still enough. A window only has to work for every input, not be the widest. Now read the proof forward, as it is written. Given epsilon, take delta as two thirds of epsilon. For every x in the domain and in the window, the gap is below three halves of delta, which is epsilon. The search ran backward from the goal. The proof runs forward, and hides it. Next, ways to make that search systematic."
+    },
+    {
+      "id": "06u1",
+      "line_ids": [
+        "06_1",
+        "06_2",
+        "06_3",
+        "06_4"
+      ],
+      "text": "Leave the interval. Take x squared on all real numbers, at two, where it is four. Let h be x minus two. x squared minus four is h squared plus four h. On either side, its size is at most h squared plus four times the size of h. Near two the curve is nearly straight, slope four. Try delta as epsilon over four, one fortieth against one tenth. Does every h in that window pass?"
+    },
+    {
+      "id": "06u2",
+      "line_ids": [
+        "06_5",
+        "06_6",
+        "06_7"
+      ],
+      "text": "No, but almost. h equal to point zero two four nine moves x squared by point one zero zero two two. Budget both terms. Adding four completes a square, the size of h plus two, squared, below four plus epsilon. So delta is the square root of four plus epsilon, minus two, positive for every epsilon. Every h within delta of zero, on either side, keeps the gap below epsilon."
+    },
+    {
+      "id": "06u3",
+      "line_ids": [
+        "06_8",
+        "06_9"
+      ],
+      "text": "Against one tenth, about point zero two four eight. The usual way first keeps h within one, so x plus two stays below five. Delta is the smaller of one and epsilon over five, point zero two. Both work. Sprague's note solves the budget instead of capping it. Next, a bound for any polynomial."
     }
   ]
 }

@@ -17,11 +17,11 @@ use fmn::core::constants::FRAME_WIDTH;
 
 use crate::chapters::draw::{LENS_H, LENS_HEIGHTS, LENS_W, PLOT};
 use crate::model::{
-    BASE, CHALLENGE, FILLS, Frac, HALF, LUCKY, MORE_POWERS, NUDGES, PICKS, POWERS, Ratio, SEARCH_EPS, SQUARE,
-    TOLERANCES, WIDE, ZOOMS, above_half, blind_window, change_at, chord_formula, chord_limit, chord_slope, davis_delta,
-    decimal_power, factor_bound, fill_failure, first_within, found_window, gap, half_height_rounded, limit,
-    local_bound, reach, recenter, round_half_up, sprague_delta_rounded, square_change, widest_window_rounded,
-    width_rounded, window, window_failure,
+    BASE, CAP, CHALLENGE, FILLS, Frac, HALF, LUCKY, MORE_POWERS, NUDGES, PICKS, POWERS, RECENTRE_AT, Ratio, SEARCH_EPS,
+    SPRAGUE_EPS, SQUARE, SQUARE_POLY, TOLERANCES, WIDE, ZOOMS, above_half, blind_window, change_at, chord_formula,
+    chord_limit, chord_slope, davis_delta, decimal_power, factor_bound, fill_failure, first_within, found_window, gap,
+    half_height_rounded, limit, local_bound, reach, recenter, round_half_up, slope_window, slope_window_miss,
+    sprague_delta_rounded, square_change, widest_window_rounded, width_rounded, window, window_failure,
 };
 
 /// The point chapter 01 pins, a/10^k: nine tenths.
@@ -48,6 +48,18 @@ const ANALYST_YEAR: u32 = 1734;
 const ANALYST_EDITION: u32 = 2002;
 const ANALYST_PAGES: (u32, u32) = (5, 6);
 const QUOTE_PAGE: u32 = 6;
+
+/// The note chapter 06 cites, A. H. Sprague, "A Note on δ and ε", as read
+/// (2026-10-19) in two places. The owner's scan of its page (brief, owner
+/// intake) gives the title, the author, the expansion x² − 4 = (x − 2)² +
+/// 4(x − 2), the bound, completing the square and δ = √(ε + 4) − 2, beside
+/// the route it sets aside (x between 1 and 3, so |x + 2| < 5). Crossref's
+/// record for DOI 10.2307/2308663 gives The American Mathematical Monthly 67
+/// (8), October 1960, page 780. Restated here and in the oracle, not
+/// computed.
+const NOTE_VOLUME: u32 = 67;
+const NOTE_YEAR: u32 = 1960;
+const NOTE_PAGE: u32 = 780;
 
 /// a/10^k as an exact point of [0, 1].
 pub fn decimal_point((a, k): (u32, u32)) -> Result<Ratio, String> {
@@ -93,6 +105,7 @@ pub fn facts() -> Result<Facts, String> {
     game(&mut f)?;
     search(&mut f)?;
     continuation(&mut f)?;
+    recentring(&mut f)?;
     Ok(f)
 }
 
@@ -440,7 +453,7 @@ fn opening(f: &mut Facts) -> Result<(), String> {
 /// The continuation (brief §3–4): Sprague's δ, the simpler δ, Davis's
 /// bounds, and the naive guess that fails.
 fn continuation(f: &mut Facts) -> Result<(), String> {
-    let eps = Ratio::tolerance(1, 10)?;
+    let eps = Ratio::tolerance(SPRAGUE_EPS.num, SPRAGUE_EPS.den)?;
     f.add("S.eps", eps)?;
     f.pin(
         "S.delta_sprague.10dp",
@@ -448,7 +461,7 @@ fn continuation(f: &mut Facts) -> Result<(), String> {
         "0.0248456731",
         BRIEF,
     )?;
-    let square = recenter(&[0, 0, 1], 2)?;
+    let square = recenter(&SQUARE_POLY, RECENTRE_AT)?;
     f.add("S.square_at_2", list(&square))?;
     let (sn, sd) = davis_delta(local_bound(&square), eps);
     f.add("S.delta_simple", format!("{sn}/{sd}"))?;
@@ -480,6 +493,84 @@ fn continuation(f: &mut Facts) -> Result<(), String> {
         return Err(format!("the naive δ's witness moves x² by {cn}/{cd}, not more than 1"));
     }
     f.add("N.naive.change", format!("{cn}/{cd}"))?;
+    Ok(())
+}
+
+/// Chapter 06: x² on all real numbers, recentred at a = 2 (brief §3,
+/// Sprague's note). Its value and slope there, the square it completes, the
+/// window the slope alone suggests and the first four-place input where that
+/// window loses, Sprague's δ at four places, and the usual cap on h with the
+/// bound it gives the factor x + 2. The tolerance is the continuation's.
+fn recentring(f: &mut Facts) -> Result<(), String> {
+    let shifted = recenter(&SQUARE_POLY, RECENTRE_AT)?;
+    let [value, slope, lead] = shifted[..] else {
+        return Err(format!("x² recentred at {RECENTRE_AT} has coefficients {shifted:?}"));
+    };
+    // (|h| + slope/2)² = |h|² + slope·|h| + (slope/2)² needs a monic square
+    // and an even slope
+    if lead != 1 || slope % 2 != 0 {
+        return Err(format!(
+            "{lead}h² + {slope}h does not complete to a square of |h| + a whole number"
+        ));
+    }
+    f.add("C6.a", RECENTRE_AT)?;
+    // h = x − a at the point itself
+    let a = Frac::whole(RECENTRE_AT);
+    f.add("C6.h.at_a", a.minus(a)?)?;
+    f.add("C6.value", value)?;
+    f.add("C6.slope", slope)?;
+    let half = slope / 2;
+    f.add("C6.half_slope", half)?;
+    f.add("C6.added", half * half)?;
+
+    let tolerance = Ratio::tolerance(SPRAGUE_EPS.num, SPRAGUE_EPS.den)?;
+    let eps = Frac::whole(i64::from(tolerance.num)).over(Frac::whole(i64::from(tolerance.den)))?;
+    let naive = slope_window(RECENTRE_AT, eps)?;
+    if naive != eps.over(Frac::whole(i64::try_from(slope).map_err(|_| "the slope is too large")?))? {
+        return Err(format!("the slope-only window {naive} is not ε over the slope {slope}"));
+    }
+    f.add("C6.naive.delta", naive)?;
+    let (h, change) = slope_window_miss(RECENTRE_AT, eps, PLACES)?;
+    let shown = rounded_below_one(change, PLACES + 1)?;
+    // the change as shown still reads past ε: 0.10022 > 0.1
+    let digits: i64 = shown[2..]
+        .parse()
+        .map_err(|_| format!("the change prints as {shown}"))?;
+    let scale = 10i64.pow(PLACES + 1);
+    if Frac::whole(digits).over(Frac::whole(scale))? <= eps {
+        return Err(format!("the change {change} prints as {shown}, not past ε = {eps}"));
+    }
+    f.add("C6.naive.h", rounded_below_one(h, PLACES)?)?;
+    f.add("C6.naive.change.5dp", shown)?;
+    let delta = sprague_delta_rounded(tolerance, PLACES)?;
+    // the loss lies past Sprague's δ: above the rounding's certified upper
+    // end (D + ½)/10^p
+    let d: i64 = delta[2..]
+        .parse()
+        .map_err(|_| format!("Sprague's δ prints as {delta}"))?;
+    if h <= Frac::whole(2 * d + 1).over(Frac::whole(2 * 10i64.pow(PLACES)))? {
+        return Err(format!("the loss at {h} is not past Sprague's δ, {delta}"));
+    }
+    f.add("C6.delta.4dp", delta)?;
+
+    f.add("C6.note.volume", NOTE_VOLUME)?;
+    f.add("C6.note.year", NOTE_YEAR)?;
+    f.add("C6.note.page", NOTE_PAGE)?;
+
+    f.add("C6.cap", CAP)?;
+    let factor = 2 * RECENTRE_AT + CAP;
+    f.add("C6.cap.factor", factor)?;
+    // the cap's δ, min(1, ε/5), is the continuation's simple δ
+    let capped = eps.over(Frac::whole(factor))?.min(Frac::whole(CAP));
+    let (sn, sd) = davis_delta(local_bound(&shifted), tolerance);
+    let whole = |n: u128| {
+        i64::try_from(n)
+            .map(Frac::whole)
+            .map_err(|_| format!("{n} is too large"))
+    };
+    if capped != whole(sn)?.over(whole(sd)?)? {
+        return Err(format!("the capped δ {capped} is not the simple δ {sn}/{sd}"));
+    }
     Ok(())
 }
 
@@ -637,6 +728,43 @@ mod tests {
         assert!(rounded_below_one(Frac::whole(1), 3).is_err());
         let near_one = Frac::whole(9999).over(Frac::whole(10000)).unwrap();
         assert!(rounded_below_one(near_one, 3).is_err(), "would print 1.000");
+    }
+
+    /// The numbers chapter 06 puts on screen or says, as they will read:
+    /// x² at 2 is 4 with slope 4; completing the square adds (4/2)² = 4; the
+    /// slope alone gives 1/40, and 0.0249 inside it moves x² by 0.10022;
+    /// Sprague's δ at four places and ten; the cap 1 and the factor's bound 5,
+    /// whose δ is the continuation's 1/50.
+    #[test]
+    fn the_recentring_numbers_read_as_shown() {
+        let f = facts().unwrap();
+        let get = |k: &str| f.get(k).unwrap_or_else(|| panic!("no fact {k}"));
+        assert_eq!(
+            (get("C6.a"), get("C6.h.at_a"), get("C6.value"), get("C6.slope")),
+            ("2", "0", "4", "4")
+        );
+        assert_eq!((get("C6.half_slope"), get("C6.added")), ("2", "4"));
+        assert_eq!(
+            (get("C6.naive.delta"), get("C6.naive.h"), get("C6.naive.change.5dp")),
+            ("1/40", "0.0249", "0.10022")
+        );
+        assert_eq!(
+            (get("C6.delta.4dp"), get("S.delta_sprague.10dp")),
+            ("0.0248", "0.0248456731")
+        );
+        assert!(
+            get("S.delta_sprague.10dp").starts_with(get("C6.delta.4dp")),
+            "the four places agree with the ten"
+        );
+        assert_eq!(
+            (get("C6.cap"), get("C6.cap.factor"), get("S.delta_simple")),
+            ("1", "5", "1/50")
+        );
+        assert_eq!(get("S.eps"), "1/10");
+        assert_eq!(
+            (get("C6.note.volume"), get("C6.note.year"), get("C6.note.page")),
+            ("67", "1960", "780")
+        );
     }
 
     #[test]

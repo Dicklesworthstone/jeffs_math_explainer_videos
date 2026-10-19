@@ -476,11 +476,15 @@ fn gcd(a: u128, b: u128) -> u128 {
 }
 
 /// Sprague's delta for x² at a = 2 (brief §3): the t ≥ 0 with t² + 4t = ε,
-/// that is √(4 + ε) − 2, for ε below 5 (so δ < 1), rounded half up to
-/// `places` places (1 to 12) and certified: (D − ½)/10^p ≤ δ < (D + ½)/10^p,
-/// so a δ exactly halfway rounds up, which for the increasing
-/// g(t) = t² + 4t is g((D − ½)/10^p) ≤ ε < g((D + ½)/10^p), in exact
-/// integers. For |h| < δ, |x² − 4| = |h² + 4h| ≤ |h|² + 4|h| < δ² + 4δ = ε.
+/// that is √(4 + ε) − 2, rounded half up to `places` places (1 to 12) and
+/// certified: (D − ½)/10^p ≤ δ < (D + ½)/10^p, so a δ exactly halfway rounds
+/// up, which for the increasing g(t) = t² + 4t is
+/// g((D − ½)/10^p) ≤ ε < g((D + ½)/10^p), in exact integers. For |h| < δ,
+/// |x² − 4| = |h² + 4h| ≤ |h|² + 4|h| < δ² + 4δ = ε.
+///
+/// The theorem holds for every ε > 0: √(4 + ε) > 2, so δ > 0. Only this
+/// display is bounded. It prints 0.D…D, so it refuses ε ≥ 5, where δ ≥ 1
+/// (chapter 06's tests check larger tolerances exactly, without it).
 pub fn sprague_delta_rounded(eps: Ratio, places: u32) -> Result<String, String> {
     let eps = Ratio::tolerance(eps.num, eps.den)?;
     if eps.num >= 5 * eps.den {
@@ -967,6 +971,65 @@ pub fn widest_window_rounded(a: Frac, eps: Frac, places: u32) -> Result<String, 
         }
     }
     Err(format!("no certified rounding of the widest window near {guess}"))
+}
+
+// --------------------------------- chapter 06: the square, recentred at 2
+
+/// Chapter 06's point: x² on all real numbers, with no interval, at a = 2
+/// (brief §3, Sprague's example).
+pub const RECENTRE_AT: i64 = 2;
+/// x² as coefficients, lowest first, for [`recenter`].
+pub const SQUARE_POLY: [i64; 3] = [0, 0, 1];
+/// Chapter 06's tolerance (fact `S.eps`): the continuation's one tenth.
+pub const SPRAGUE_EPS: Ratio = Ratio { num: 1, den: 10 };
+/// The usual cap on h, the route Sprague's note sets aside: |h| < 1 keeps
+/// 1 < x < 3, so |x + 2| = |4 + h| < 4 + 1.
+pub const CAP: i64 = 1;
+
+/// The window the slope alone suggests for x² at a > 0: δ = ε/(2a). It
+/// budgets only the linear term of (a + h)² − a² = h² + 2a·h.
+pub fn slope_window(a: i64, eps: Frac) -> Result<Frac, String> {
+    if a <= 0 {
+        return Err(format!("the slope-only window needs a positive slope, not 2·{a}"));
+    }
+    window(eps)?.over(Frac::whole(2 * a))
+}
+
+/// The first input on the `places`-place grid (1 to 6) where the slope-only
+/// window loses: the least h = k/10^p > 0 with h² + 2a·h ≥ ε, returned with
+/// that change. It must lie inside the window, h < ε/(2a), or this refuses.
+/// For h > 0 the change is h² + 2a·h itself, so x = a + h really leaves the
+/// band. The least such h is the first grid point at or past
+/// √(a² + ε) − a, which is always below ε/(2a): squaring,
+/// a² + ε < (a + ε/(2a))² = a² + ε + ε²/(4a²).
+pub fn slope_window_miss(a: i64, eps: Frac, places: u32) -> Result<(Frac, Frac), String> {
+    let edge = slope_window(a, eps)?;
+    if !(1..=6).contains(&places) {
+        return Err(format!("{places} places: show 1 to 6"));
+    }
+    let scale = 10i64.pow(places);
+    let at = |k: i64| -> Result<(Frac, Frac), String> {
+        let h = Frac::whole(k).over(Frac::whole(scale))?;
+        Ok((h, h.times(h)?.plus(Frac::whole(2 * a).times(h)?)?))
+    };
+    // start just below the root the floats give, then step exactly
+    let root = ((a * a) as f64 + eps.f64()).sqrt() - a as f64;
+    let mut k = ((root * scale as f64).floor() as i64 - 2).max(0);
+    while k > 0 && at(k)?.1 >= eps {
+        k -= 1;
+    }
+    loop {
+        k += 1;
+        let (h, change) = at(k)?;
+        if h >= edge {
+            return Err(format!(
+                "no {places}-place input inside δ = {edge} leaves the band at ε = {eps}"
+            ));
+        }
+        if change >= eps {
+            return Ok((h, change));
+        }
+    }
 }
 
 #[cfg(test)]
@@ -1685,5 +1748,140 @@ mod tests {
         assert_eq!(half_height_vs(898, 1295, 1296), Ordering::Greater);
         assert_eq!(half_height_vs(897, 1295, 1296), Ordering::Less);
         assert!(width(898).unwrap() < 1.0 / 1296.0 && width(897).unwrap() > 1.0 / 1296.0);
+    }
+
+    /// |x² − 4| at x = 2 + h, exactly.
+    fn gap_at_two(h: Frac) -> Frac {
+        let x = Frac::whole(RECENTRE_AT).plus(h).unwrap();
+        let d = x.times(x).unwrap().minus(q(4, 1)).unwrap();
+        if d < q(0, 1) { d.negated().unwrap() } else { d }
+    }
+
+    /// The budget t² + 4t at t = |h| ≥ 0.
+    fn budget(t: Frac) -> Frac {
+        t.times(t).unwrap().plus(q(4, 1).times(t).unwrap()).unwrap()
+    }
+
+    /// The square recentred at 2: (2 + h)² − 4 = h² + 4h exactly, for h of
+    /// both signs and h = 0, and its size is at most |h|² + 4|h|.
+    #[test]
+    fn the_square_recentred_at_two() {
+        let shifted = recenter(&SQUARE_POLY, RECENTRE_AT).unwrap();
+        assert_eq!(shifted, [4, 4, 1]);
+        for h in [q(-7, 3), q(-1, 40), q(0, 1), q(249, 10_000), q(5, 2)] {
+            let x = Frac::whole(RECENTRE_AT).plus(h).unwrap();
+            let change = x.times(x).unwrap().minus(q(4, 1)).unwrap();
+            assert_eq!(
+                change,
+                h.times(h).unwrap().plus(q(4, 1).times(h).unwrap()).unwrap(),
+                "h = {h}"
+            );
+            let size = if h < q(0, 1) { h.negated().unwrap() } else { h };
+            assert!(gap_at_two(h) <= budget(size), "h = {h}");
+        }
+    }
+
+    /// The slope alone says δ = ε/4 = 1/40 at ε = 1/10. The first four-place
+    /// input past Sprague's δ, 0.0249, is inside that window and leaves the
+    /// band: 0.0249² + 4·0.0249 = 0.10022001 > 1/10. One step back, 0.0248,
+    /// passes. Sprague's δ rounds to 0.0248, and 0.0249 lies past the
+    /// rounding's upper end, 0.02485.
+    #[test]
+    fn the_slope_alone_loses_just_past_spragues_delta() {
+        let eps = q(1, 10);
+        let edge = slope_window(RECENTRE_AT, eps).unwrap();
+        assert_eq!(edge, q(1, 40));
+        let (h, change) = slope_window_miss(RECENTRE_AT, eps, 4).unwrap();
+        assert_eq!((h, change), (q(249, 10_000), q(10_022_001, 100_000_000)));
+        assert!(h < edge && change > eps && gap_at_two(h) == change);
+        assert!(budget(q(248, 10_000)) < eps);
+        assert_eq!(sprague_delta_rounded(r(1, 10), 4).unwrap(), "0.0248");
+        assert!(h > q(2485, 100_000));
+        // two places are too coarse: the first loss there, 0.03, is outside
+        assert!(slope_window_miss(RECENTRE_AT, eps, 2).is_err());
+        assert!(slope_window(0, eps).is_err() && slope_window(RECENTRE_AT, q(0, 1)).is_err());
+        assert!(slope_window_miss(RECENTRE_AT, eps, 0).is_err() && slope_window_miss(RECENTRE_AT, eps, 7).is_err());
+    }
+
+    /// The slope-only window loses at every tolerance, not just one tenth: at
+    /// its edge the change is ε + ε²/16, so inputs inside and close enough to
+    /// the edge give h² + 4h ≥ ε. Checked exactly from a tiny tolerance to
+    /// large ones.
+    #[test]
+    fn the_slope_alone_loses_at_every_tolerance() {
+        for eps in [q(1, 1000), q(1, 10), q(1, 1), q(5, 1), q(21, 1), q(1000, 1)] {
+            let edge = slope_window(RECENTRE_AT, eps).unwrap();
+            // h = edge·(1 − 2^−k), inside the window
+            let lost = (1..=40)
+                .map(|k| edge.times(q((1i64 << k) - 1, 1i64 << k)).unwrap())
+                .find(|&h| budget(h) >= eps)
+                .unwrap_or_else(|| panic!("no loss inside ε/4 at ε = {eps}"));
+            assert!(
+                q(0, 1) < lost && lost < edge && gap_at_two(lost) >= eps,
+                "ε = {eps}: h = {lost}"
+            );
+        }
+    }
+
+    /// Sprague's δ = √(4 + ε) − 2 works at every tolerance, checked exactly
+    /// on a grid from a tiny tolerance to large ones, without the four-place
+    /// display (which stops at ε = 5). It is positive: the grid has a point
+    /// inside it. The last grid point inside passes, as do its half, its
+    /// negatives and h = 0; the next grid point out on the right leaves the
+    /// band. At ε = 5 and 21, δ is exactly 1 and 3, and h = δ itself gives
+    /// exactly ε, so the window must be open.
+    #[test]
+    fn spragues_delta_works_at_every_tolerance() {
+        let cases = [
+            (q(1, 1000), 1_000_000),
+            (q(1, 10), 1_000_000),
+            (q(1, 1), 10_000),
+            (q(5, 1), 10_000),
+            (q(21, 1), 1000),
+            (q(1000, 1), 1000),
+        ];
+        for (eps, grid) in cases {
+            let delta = (4.0 + eps.f64()).sqrt() - 2.0;
+            let mut k = (delta * grid as f64).floor() as i64 + 1;
+            while budget(q(k, grid)) >= eps {
+                k -= 1;
+            }
+            assert!(k >= 1, "ε = {eps}: δ is positive");
+            assert!(budget(q(k + 1, grid)) >= eps, "ε = {eps}: the last grid point inside");
+            for h in [q(k, grid), q(-k, grid), q(k, 2 * grid), q(-k, 2 * grid), q(0, 1)] {
+                assert!(gap_at_two(h) < eps, "ε = {eps}: h = {h}");
+            }
+            assert!(gap_at_two(q(k + 1, grid)) >= eps, "ε = {eps}: no wider on the right");
+        }
+        for (eps, delta) in [(q(5, 1), q(1, 1)), (q(21, 1), q(3, 1))] {
+            assert_eq!((budget(delta), gap_at_two(delta)), (eps, eps));
+            let inside = delta.minus(q(1, 1000)).unwrap();
+            assert!(gap_at_two(inside) < eps && gap_at_two(inside.negated().unwrap()) < eps);
+        }
+    }
+
+    /// The usual cap gives δ = min(1, ε/5): |h| < 1 keeps |x + 2| < 5, so
+    /// |x² − 4| = |h|·|x + 2| ≤ 5|h| < ε, and h = 0 gives 0. It is never
+    /// wider than Sprague's δ, and equals it at ε = 5, where both are 1.
+    #[test]
+    fn the_capped_window_also_works() {
+        let factor = Frac::whole(2 * RECENTRE_AT + CAP);
+        assert_eq!(factor, q(5, 1));
+        for eps in [q(1, 1000), q(1, 10), q(1, 1), q(5, 1), q(21, 1), q(1000, 1)] {
+            let capped = eps.over(factor).unwrap().min(Frac::whole(CAP));
+            assert!(budget(capped) <= eps, "ε = {eps}: no wider than Sprague's δ");
+            for m in -1000..=1000 {
+                let h = capped.times(q(m, 1001)).unwrap();
+                let x = Frac::whole(RECENTRE_AT).plus(h).unwrap();
+                assert!(
+                    x.plus(Frac::whole(RECENTRE_AT))
+                        .unwrap()
+                        .within(q(0, 1), factor)
+                        .unwrap()
+                );
+                assert!(gap_at_two(h) < eps, "ε = {eps}, h = {h}");
+            }
+        }
+        assert_eq!(budget(Frac::whole(CAP)), q(5, 1), "at ε = 5 both windows are 1");
     }
 }

@@ -210,6 +210,22 @@ notes the owner supplied) and the open-set picture behind topology.
     were source-level (oracle, storyboard, lint, units, rustfmt, ubs, and a
     Python emulation of the script-facing tests), and it inspected no
     image.
+- **Chapter 06** (`06_sprague_recentring`, task `.58.6`) is written in
+  source and not yet built: no native build, test, render or frame has
+  checked it. It opens on chapter 05's last picture, rebuilt by chapter 05's
+  own builders (`hidden_search::end_picture`).
+  - Chapter 05's scene changed only in that the mobs it leaves on screen are
+    now built by functions both chapters share, with the same text, sizes,
+    places, colours and order. A rebuilt chapter 05 should match draft13
+    (SHA 5b05ee1f…); root has not compared it yet.
+  - Root's source finding (Mail 4270) caught a duplicate `end_picture` name
+    in `hidden_search.rs`; chapter 05 now calls chapter 04's helper by its
+    module path.
+  - Its checks so far are the lane's own and source-level: the oracle (157
+    keys), the storyboard, lint, units, rustfmt, ubs, and a Python emulation
+    of the script-facing tests. Root's native build, tests, facts-check,
+    glyphs, render and frames, and the independent review, are still to
+    come.
 
 **Limits.** Both silent scratch drafts run longer than the ~85 s chapter
 target: the opening at 93.17 s, chapter 02 at 87.27 s. Root's decision is to
@@ -218,7 +234,9 @@ keep the prediction time and not speed anything up. Chapter 03's draft runs
 keep the mathematics readable (Mail 4001). Chapter 04's draft10 runs
 93.03 s against a storyboard estimate of 84.7 s. Chapter 05's draft13 runs
 93.30 s against a storyboard estimate of 84.5 s. Draft11, before the
-prediction repair added seven words, ran 90.97 s against 82.3 s.
+prediction repair added seven words, ran 90.97 s against 82.3 s. Chapter
+06's storyboard estimate is 84.5 s; the lane's scratch estimate of its
+silent scene is about 93 s, unmeasured.
 Narration pacing and the full audiovisual cut are not qualified. Whole-video,
 audio and continuous-playback acceptance are not claimed for any chapter.
 The continuation is outlined in [`docs/storyboard.md`](docs/storyboard.md)
@@ -227,20 +245,21 @@ oracle-checked.
 
 | File | What it holds |
 |---|---|
-| `src/model.rs` | the mathematics: the curves, the limit, the moving point, the strip and its width, exact big-integer certificates for every printed decimal, chapter 03's exact chord slopes (refused at h = 0) and their limit, chapter 04's exact witnesses (the pick that beats a wide window, the pick that beats every window for a misfilled hole, the window too narrow to hold a seen pick), chapter 05's window found by bounding a factor on the domain and the widest window's certified rounding, the constructive deltas and the naive one that fails |
-| `src/facts.rs` | every number shown or said, computed from the model, pinned where a source prints it; chapter 03's page references |
+| `src/model.rs` | the mathematics: the curves, the limit, the moving point, the strip and its width, exact big-integer certificates for every printed decimal, chapter 03's exact chord slopes (refused at h = 0) and their limit, chapter 04's exact witnesses (the pick that beats a wide window, the pick that beats every window for a misfilled hole, the window too narrow to hold a seen pick), chapter 05's window found by bounding a factor on the domain and the widest window's certified rounding, chapter 06's slope-only window and the first input where it loses, the constructive deltas and the naive one that fails |
+| `src/facts.rs` | every number shown or said, computed from the model, pinned where a source prints it; chapter 03's page references and chapter 06's citation |
 | `oracle.py` | the same keys computed independently (Python decimal and fractions, binomial sums; standard library only) |
 | `src/chapters/limit_that_jumps.rs` | chapter 01's scene, and the builders chapter 02 rebuilds its last picture with |
 | `src/chapters/shrinking_region.rs` | chapter 02's scene: the zoom window, the two strips, the narrowing; and its resting picture, rebuilt for chapter 03 |
 | `src/chapters/old_objection.rs` | chapter 03's scene: the step on the square, 0/0 at h = 0, the slope panel, the tolerance and window; and its last picture, rebuilt for chapter 04 |
 | `src/chapters/challenge_game.rs` | chapter 04's scene: the turns, the honest and the wide window, limit against continuity, the blind window, continuity of x² at the end of [0, 1]; and its last picture, rebuilt for chapter 05 |
-| `src/chapters/hidden_search.rs` | chapter 05's scene: the finished proof, the search backward from the goal, the generous bound on the domain, the window found against the widest, the proof read forward |
+| `src/chapters/hidden_search.rs` | chapter 05's scene: the finished proof, the search backward from the goal, the generous bound on the domain, the window found against the widest, the proof read forward; and its last picture, rebuilt for chapter 06 |
+| `src/chapters/recentring.rs` | chapter 06's scene: the domain changed to every real number, x² recentred at 2, the slope-only window that loses, the square completed, Sprague's δ for every ε, the capped δ |
 | `src/chapters/draw.rs` | the plot, the bright curve's morph, the colour roles, phrase timing, the think ring |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`), colour roles, vocabulary, narration units and timing |
 | `narration_units.json` | the script grouped into coherent narration units, bound to `script.tsv`'s bytes |
 
 ```bash
-python3 -I -B oracle.py                          # 142 keys, cross-checks on stderr
+python3 -I -B oracle.py                          # 157 keys, cross-checks on stderr
 python3 -I tools/storyboard.py --check epsilon_delta
 python3 -I tools/lint_script.py explainer_corpus/epsilon_delta/script.tsv
 ./x epsilon_delta facts-check                    # the Rust facts against the oracle (builds)
@@ -281,9 +300,37 @@ Read for this chapter (2026-10-19):
   a = 1/2. That chapter reads no new source and attributes nothing.
 - **Sprague (1960) and Davis (1961)**, American Mathematical Monthly: their
   bibliographic identity and displayed mathematics come from the brief,
-  which read the owner's screenshots and JSTOR's issue records. They were
-  not re-read in this pass. `model.rs` reproduces the brief's arithmetic
-  independently: δ = √(4 + ε) − 2 = 0.0248456731 at ε = 1/10, C = 22 and 187.
+  which read the owner's screenshots and JSTOR's issue records. `model.rs`
+  reproduces the brief's arithmetic independently: δ = √(4 + ε) − 2 =
+  0.0248456731 at ε = 1/10, C = 22 and 187. Davis's note was not re-read
+  in this pass.
+- **Atherton H. Sprague, "A Note on δ and ε"**, read for chapter 06
+  (2026-10-19) in two places:
+  - the owner's screenshot of its page (the brief's `IMG_1439.PNG`, whose
+    SHA-256 matched the brief's). The scan is cropped at its foot, below the
+    start of the note's cubic example. It is a private file, and is not
+    committed;
+  - Crossref's record for its DOI,
+    [10.2307/2308663](https://doi.org/10.2307/2308663): *The American
+    Mathematical Monthly* 67(8), October 1960, p. 780.
+
+  What the scan shows, and the chapter uses:
+  - Sprague sets aside the usual route: write |x² − 4| = |x − 2|·|x + 2|
+    and restrict x to values between 1 and 3, so that |x + 2| < 5. He says
+    "this leaves me cold". That route's δ, min(1, ε/5), is the chapter's
+    capped window.
+  - "The whole trick is to expand x² − 4 in powers of x − 2": x² − 4 =
+    (x − 2)² + 4(x − 2), so |x² − 4| ≤ |x − 2|² + 4|x − 2|.
+  - "(completing the square)": |x − 2|² + 4|x − 2| + 4 < ε + 4, so
+    |x − 2| + 2 < √(ε + 4), giving δ = √(ε + 4) − 2.
+  - He states the limit form, 0 < |x − 2| < δ. The chapter proves
+    continuity at 2, |h| < δ, which adds only h = 0, where the gap is 0.
+  - The scan's later paragraphs (x³ at 2, the n-th root for xⁿ, 5x², a
+    general polynomial) are not used. The general bound is chapter 07's.
+
+  The chapter names Sprague once (06_9), for the method its scan shows.
+  It quotes nothing on screen or in the narration, and it gives no claim
+  about him beyond the note.
 
 Read for chapter 03 (2026-10-19, the brief's links; page numbers are the
 printed ones, with the PDF's 1-based page in parentheses):
@@ -632,6 +679,82 @@ The checks are samples and demonstrations, not proofs:
   - The chapter runs about 93 s silent by the same estimate, over the ~85 s
     target as the others do. Draft13 measured 93.30 s; draft11, before the
     repair, measured 90.97 s against an estimate of 90.8 s.
+
+## Scope limits kept in chapter 06
+
+- The setting changes on screen before anything is computed. A number line
+  shows chapter 05's domain [0, 1] and point 1/2, then every real number
+  (both ends opened) and the point 2. The rows say "was: x ∈ [0, 1],
+  a = 1/2" and "now: x ∈ ℝ, a = 2, a² = 4". The value is written at the
+  point, a² = 4, since x ranges over every real number (root, Mail 4284).
+  There is no interval from here on, so nothing bounds x + 2 for free.
+- The plot is a magnified stretch near (2, 4), one tenth wide in x, and the
+  caption says "magnified near x = 2". Its axes carry only 2 and 4 (facts).
+  Near 2 the square looks straight. That is true of the picture, and it is
+  the trap the prediction sets.
+- The argument for every input is algebra, shown as rows:
+  - h = x − 2, and x² − 4 = h² + 4h exactly;
+  - |x² − 4| = |h² + 4h| ≤ |h|² + 4|h|, the triangle inequality, for h of
+    either sign;
+  - |h|² + 4|h| + 4 = (|h| + 2)² < 4 + ε exactly when
+    |h| < δ = √(4 + ε) − 2, since t ↦ t² + 4t is increasing for t ≥ 0;
+  - δ > 0 for every ε > 0, because √(4 + ε) > 2;
+  - 0 ≤ |h| < δ ⇒ |x² − 4| ≤ |h|² + 4|h| < δ² + 4δ = ε. The last step is
+    strict for every such h, h = 0 included (0 < ε), and either sign.
+- The theorem has no bound on ε. The model's `sprague_delta_rounded` prints
+  only δ < 1, so it refuses ε ≥ 5. That is a decimal-display limit, and
+  its doc says so. The model's tests check ε = 1/1000, 1/10, 1, 5, 21 and
+  1000 exactly, without it:
+  - a grid point inside δ exists, so δ > 0;
+  - the last grid point inside passes on both sides and at 0;
+  - the next one out on the right fails;
+  - at ε = 5 and 21, δ is exactly 1 and 3, and h = δ gives exactly ε, so
+    the window must be open.
+- The prediction asks whether the slope alone, δ = ε/4, works.
+  - The answer, "No, but almost", is ringed on the plot only after the
+    think window: h = 0.0249 is inside 1/40 = 0.025, and moves x² by
+    0.10022001 > 1/10. A test holds that no line before 06_5 says either
+    number.
+  - Before the answer, the dashed edge at 2.025 and the point where the
+    curve leaves the band, 2.02485, are 0.00015 apart. That is about
+    2 pixels at 4K, so the picture cannot give it away.
+  - It loses at every tolerance, not only one tenth: at the window's edge
+    the change is ε + ε²/16 > ε. Equivalently √(4 + ε) − 2 < ε/4 always.
+    The model's test finds a losing input inside ε/4 at all six tolerances
+    above.
+  - For h > 0 the bound is the change itself, so this is a real loss, not
+    a loose bound.
+- The capped window is the route Sprague's note sets aside:
+  - |h| < 1 keeps 1 < x < 3, so |x + 2| < 5;
+  - then |x² − 4| = |h|·|x + 2| ≤ 5|h| < ε when |h| < min(1, ε/5), with
+    h = 0 giving 0;
+  - at 1/10 it is 0.02, the continuation's fact `S.delta_simple`.
+  - It is never wider than Sprague's δ, and equals it at ε = 5, where both
+    are 1 (test and oracle).
+  - The chapter says "both work". It does not call either one the best.
+- At 1/10, Sprague's δ ≈ 0.0248456731 is certified to ten places. The
+  narration says "about point zero two four eight", its four-place rounding
+  (`C6.delta.4dp`).
+- No Davis method appears (chapter 07): no coefficient sum and no general
+  polynomial. The cap's 5 is derived as |4 + h| < 4 + 1, the factor route,
+  and the facts check that it equals the continuation's simple δ. "Next, a
+  bound for any polynomial" points ahead without naming it.
+- Names: Sprague is said once, in 06_9, and a test ties that line to his
+  note (the storyboard row cites "A Note on δ and ε"). The citation on
+  screen gives the journal, volume, year and page (facts restated from
+  Crossref). The narration quotes nothing. Before narration, his name
+  needs a lexicon entry, like every name.
+- Reading time, estimated from source at the scratch rate (root measures
+  the render):
+  - from the question's end to "No, but almost": about 5.1 s (hold and the
+    4 s ring);
+  - the slope-only row stands about 8 s before the answer;
+  - the guarantee row stands about 30 s to the end;
+  - the citation about 7 s;
+  - "next:" about 3.4 s, for 33 characters.
+  - The chapter runs about 93 s silent by the same estimate, over the
+    ~85 s target as chapters 03 to 05 do. The storyboard estimate is
+    84.5 s.
 
 ## Narration
 
