@@ -20,11 +20,12 @@
 > **A note on tense.** Like franken_manim's README, this one describes the
 > *method* in the present tense, because the method is fixed and every video
 > follows it. What exists today is stated separately and plainly: see
-> [The corpus](#the-corpus) and [Status](#status). All four videos now have a
-> 4K60 master in the `michael` voice that passes the strict verify, and all
-> four are published on YouTube (the links are in [The corpus](#the-corpus)).
-> Seven more, videos 5 to 11, follow: the Fair Coin (5), Mental Math Tricks (6) and the
-> matrix exponential (10) are published too, and the other four have verified 4K60 masters, not yet published.
+> [The canonical video catalog](docs/video-program/README.md). Eleven selected
+> Michael cuts were public at the 2026-10-15 audit. The catalog preserves their
+> publication records, earlier cuts and all known future proposals; Beads owns
+> the work graph. Older build-status prose below is historical and does not
+> supersede those dated records. Proposed narration improvements are research,
+> not claims that the current audio has passed new listening tests.
 
 ---
 
@@ -233,6 +234,12 @@ The newer videos run through the driver, which wraps the same binaries
   committed (see the explainer's README).
 - Producing narration uses the owner's FrankenTTS narration skills, referenced
   by path rather than vendored here.
+- `x narrate` now requires FTTS generation receipts: the effective seed, voice and
+  model hashes must match, and the model must have reached EOS. Cache schema 2
+  retains older takes but does not reuse their weaker receipts. Use the verified
+  build selected by local `project.env`; an older same-version binary without
+  receipts is refused. This checks termination and provenance, not Michael's accent
+  or perceptual acceptance. See [the N10 native checks](narration_lab/provenance-20261017/RESULTS.md).
 
 The sound engine and its A/B on the Hoeffding narration (the demo reads the
 explainer's timeline pass, run with the v5 narration WAVs; see the example's

@@ -1,0 +1,64 @@
+# square_packing: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	Five equal square tiles have to fit in a square box. How small can the box be?
+01_2	Four fit in a box two wide. The fifth has nowhere to go.
+01_3	The obvious box is three wide, with room for four more.
+01_4	Every tile lines up with the walls. Could turning one tile make the box smaller?
+01_5	Turn the middle tile. Its corners stay on a circle that only touches its neighbours, so nothing collides.
+01_6	Now squeeze. The corner tiles slide in, and no two tiles ever overlap.
+01_7	They stop when each inner corner touches the middle of a side of the turned tile.
+01_8	Across the square gap, opposite inner corners are now one tile apart.
+01_9	A square's diagonal is its side times the square root of two. So the gap is one over the square root of two, and the box is two plus that, about two point seven one.
+01_10	Any further, and the corners bite in.
+01_11	This shows five tiles fit. It can't show that nothing smaller fits. That needs a proof.
+02_1	Why do straight tiles need a box three wide? Take a narrower box, and mark its floor a third and two thirds of the way along.
+02_2	The marks cut the floor into three equal pieces, and each is shorter than one tile.
+02_3	So a straight tile's shadow on the floor can't fit inside one piece. A mark always lands strictly inside it, away from its ends.
+02_4	Mark the left wall the same way. Then every straight tile has one of these four pins strictly inside it.
+02_5	Two tiles can't share a pin, because their insides never overlap. So how many straight tiles fit?
+02_6	Four at most, one per pin. So five straight tiles need a box at least three wide.
+02_7	At exactly three, each piece is a whole tile long. Tiles can then touch the marks with their edges only, and five fit.
+02_8	But this only counts straight tiles. In the turned packing, no pin is inside the turned tile, so the pins can't rule out its smaller box.
+03_1	The pins miss the turned tile, but something still holds it. Fix the box, the corner tiles and the middle tile's centre.
+03_2	Each corner it touches sits half a tile from that centre, on the circle that just fits inside the middle tile.
+03_3	Now turn the middle tile just a little. Do the corners still only touch it?
+03_4	No. The circle turns in place, but the sides now meet it elsewhere, so every corner on it ends up inside the tile.
+03_5	Here is one corner, magnified forty four times. Turn twice as far, and it sinks almost four times deeper.
+03_6	A circle leaves its tangent slowly, so the bite grows like the square of the turn. It is tiny, but never zero.
+03_7	In the box of three, the corners sat on the outer circle, and the tile turned freely. Held here, it cannot turn at all.
+03_8	This shows only that this one turn is blocked. Whether any arrangement fits a smaller box needs a proof about all of them.
+04_1	To rule out a smaller box, we need points no tile can dodge. Start with a tile in a corner.
+04_2	If its centre is within one tile of both walls, it always covers this point, one tile across and one tile up.
+04_3	A turned tile casts a wider shadow on the floor. So could a turned tile slip past the point?
+04_4	No. The walls keep its centre at least half a shadow out, so across and up, the point is at most one minus half a shadow away.
+04_5	Along the tile's own sides, that is at most the shadow times one minus half the shadow, which never passes one half.
+04_6	Half a tile is how far a tile reaches, so the point stays inside. Only a straight tile resting on a wall just touches it.
+04_7	Let the centre stray past one tile, or drop a wall, and the point can escape.
+04_8	In our box, about two point seven one wide, this settles centres near the corners. The edges and the middle come next.
+05_1	Near a side, one point is not enough, so take two. A tile centred between them, within a tile of the floor, covers one.
+05_2	Turned an eighth, its top is a narrow corner. Could it slip up between the points?
+05_3	No. The points are at most half a tile above its centre, and a tile reaches that far straight up.
+05_4	Dodging both, its cut on their line must fit between them. Lower is narrower, so rest it on the floor.
+05_5	Resting, it stands one shadow tall. Split its corner above their line into two right triangles, whose bases add to the cut. It is shorter than the gap only when the points stand higher than this.
+05_6	That height bends down, so it is lowest at an end, exactly one when straight. The points stand at one, so nothing slips through.
+05_7	Drop the floor, raise the points, or widen the gap, and a tile slips through.
+05_8	Turned to every side, this settles centres near a side. Only the middle is left.
+06_1	The middle is the square the four points bound. Cut it along its diagonal, one tile long.
+06_2	Each triangle's sides are at most one. Must a tile centred in one cover a corner of it?
+06_3	Suppose a tile missed all three corners. Then each corner would lie past one of the tile's four sides.
+06_4	If two lay past opposite sides, they would be over a tile apart, so the triangle would have a side longer than one.
+06_5	Otherwise they lie past two neighbouring sides only. Crossing the diagonal between those would take a corner past one of the other two, so all stay beyond it, and the triangle misses the centre.
+06_6	With sides at most one and the centre in the triangle, neither can happen. So the tile covers a corner, perhaps only on its edge.
+06_7	So every tile in the box covers a point. But where five tiles fit, each point sits on the edges of two tiles, and counting needs one more step.
+07_1	Our box is exactly two plus one over the square root of two wide. Suppose five tiles fit a narrower one.
+07_2	Enlarge everything until that box is as wide as ours. Each tile grows by the same factor, still not overlapping.
+07_3	Inside each grown tile, keep a unit tile with the same centre. Does it cover one of the four points?
+07_4	Yes. It lies in our box, so it covers a point, at worst on its edge.
+07_5	The grown tile reaches further on every side, so that point is strictly inside it, by at least half the growth.
+07_6	Five tiles, each holding a point strictly inside, and no two can share one without overlapping. Four points are not enough.
+07_7	So no narrower box holds five, and the turned packing fits this one. It is the smallest.
+07_8	Here nothing grew, so its points can sit on edges, shared by two tiles, as they do.
+08_1	Ten tiles fit a box three plus one over the square root of two wide, nine straight and one turned, as in the middle of five.
+08_2	Eleven fit a box about three point eight eight wide, five of them turned about forty degrees. Does this picture prove that box is the smallest?
+08_3	No. Checked exactly, every tile is a true unit square, none overlap, and all are inside. That shows the box is big enough, nothing more.
+08_4	Proving that no smaller box works takes an argument about every arrangement, like the one we built for five.
+08_5	For five tiles we have both, the turned packing and the proof. The smallest box is exactly two plus one over the square root of two.

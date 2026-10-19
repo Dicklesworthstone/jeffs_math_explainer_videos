@@ -1,0 +1,3311 @@
+//! The mathematics of the five-tile video: exact numbers of the form
+//! a + b√2, unit tiles as poses, the box, and the one test everything else
+//! rests on: do two tiles overlap, touch or stand apart, and is a tile inside
+//! the box.
+//!
+//! The video keeps three questions apart, and this file answers only the
+//! first two:
+//! - **Does it fit?** A packing (a box side and five poses) is checked
+//!   exactly: every pair of tiles by the separating-axis test
+//!   ([`clearance`]), every tile against the four walls
+//!   ([`wall_clearance`]), in exact arithmetic on [`Surd`]s, so a contact is
+//!   exactly zero and a clearance exactly positive, never "within 1e-12".
+//!   [`five_turned`] fits; each [`planted`] failure overlaps or escapes, and
+//!   the check says which tiles.
+//! - **Can it move there?** The chapter's two motions, the middle tile
+//!   turning in the box of three ([`turning`]) and the squeeze ([`squeezed`]),
+//!   are checked frame by frame in f64 by the tests below, and each doc says
+//!   why the frames between the samples are packings too.
+//! - **Could a smaller box work?** Not answered here. A packing that fits is
+//!   an upper bound only; that no box narrower than [`turned_side`] holds five
+//!   tiles is Göbel's theorem (1979; fact sheet §Sources), which this file
+//!   does not prove.
+//!
+//! A tile's index in every packing: 0 lower left, 1 lower right, 2 upper
+//! left, 3 upper right (the corner tiles, always straight), 4 the middle.
+
+use std::cmp::Ordering;
+use std::fmt;
+use std::ops::{Add, Mul, Neg, Sub};
+
+/// How many tiles the video packs.
+pub const TILES: u32 = 5;
+
+/// The middle tile's index.
+pub const MIDDLE: usize = 4;
+
+/// Of each corner tile, the corner nearest the box's centre (its inner
+/// corner), as an index into [`Tile::corners`].
+pub const INNER: [usize; 4] = [2, 3, 1, 0];
+
+// ------------------------------------------------------------ exact numbers
+
+const fn gcd(mut a: u128, mut b: u128) -> u128 {
+    while b != 0 {
+        let t = a % b;
+        a = b;
+        b = t;
+    }
+    a
+}
+
+fn times(a: i128, b: i128) -> i128 {
+    a.checked_mul(b).expect("exact arithmetic overflows i128")
+}
+
+fn plus(a: i128, b: i128) -> i128 {
+    a.checked_add(b).expect("exact arithmetic overflows i128")
+}
+
+/// A rational number in lowest terms, its denominator positive.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub struct Ratio {
+    num: i128,
+    den: i128,
+}
+
+impl Ratio {
+    pub const ZERO: Self = Self { num: 0, den: 1 };
+    pub const ONE: Self = Self { num: 1, den: 1 };
+
+    /// `num / den` in lowest terms.
+    ///
+    /// # Panics
+    /// If `den` is zero.
+    pub fn new(num: i128, den: i128) -> Self {
+        assert!(den != 0, "a ratio with a zero denominator");
+        let g = i128::try_from(gcd(num.unsigned_abs(), den.unsigned_abs())).expect("a divisor fits i128");
+        let (num, den) = (num / g, den / g);
+        if den < 0 {
+            Self { num: -num, den: -den }
+        } else {
+            Self { num, den }
+        }
+    }
+
+    pub fn int(n: i64) -> Self {
+        Self::new(n.into(), 1)
+    }
+
+    pub fn signum(self) -> i32 {
+        self.num.signum() as i32
+    }
+
+    pub fn to_f64(self) -> f64 {
+        self.num as f64 / self.den as f64
+    }
+
+    /// 1 / self.
+    ///
+    /// # Panics
+    /// If self is zero.
+    pub fn recip(self) -> Self {
+        Self::new(self.den, self.num)
+    }
+}
+
+impl Add for Ratio {
+    type Output = Self;
+    /// Over the least common denominator, so that adding numbers with the
+    /// same denominator (cos² + sin² of an exact turn) never squares it.
+    fn add(self, o: Self) -> Self {
+        let g = i128::try_from(gcd(self.den.unsigned_abs(), o.den.unsigned_abs())).expect("a divisor fits i128");
+        let (left, right) = (self.den / g, o.den / g);
+        Self::new(plus(times(self.num, right), times(o.num, left)), times(self.den, right))
+    }
+}
+
+impl Sub for Ratio {
+    type Output = Self;
+    fn sub(self, o: Self) -> Self {
+        self + -o
+    }
+}
+
+impl Mul for Ratio {
+    type Output = Self;
+    fn mul(self, o: Self) -> Self {
+        Self::new(times(self.num, o.num), times(self.den, o.den))
+    }
+}
+
+impl Neg for Ratio {
+    type Output = Self;
+    fn neg(self) -> Self {
+        Self {
+            num: -self.num,
+            den: self.den,
+        }
+    }
+}
+
+impl Ord for Ratio {
+    fn cmp(&self, o: &Self) -> Ordering {
+        times(self.num, o.den).cmp(&times(o.num, self.den))
+    }
+}
+
+impl PartialOrd for Ratio {
+    fn partial_cmp(&self, o: &Self) -> Option<Ordering> {
+        Some(self.cmp(o))
+    }
+}
+
+impl fmt::Display for Ratio {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        if self.den == 1 {
+            write!(f, "{}", self.num)
+        } else {
+            write!(f, "{}/{}", self.num, self.den)
+        }
+    }
+}
+
+/// An exact number a + b√2, a and b rational: every coordinate of the
+/// five-tile packing and of its planted failures is one, and so is every
+/// clearance the checks compute from them.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
+pub struct Surd {
+    pub a: Ratio,
+    pub b: Ratio,
+}
+
+impl Surd {
+    pub const ZERO: Self = Self {
+        a: Ratio::ZERO,
+        b: Ratio::ZERO,
+    };
+
+    pub fn int(n: i64) -> Self {
+        Self {
+            a: Ratio::int(n),
+            b: Ratio::ZERO,
+        }
+    }
+
+    pub fn ratio(p: i64, q: i64) -> Self {
+        Self {
+            a: Ratio::new(p.into(), q.into()),
+            b: Ratio::ZERO,
+        }
+    }
+
+    /// √2.
+    pub fn sqrt2() -> Self {
+        Self {
+            a: Ratio::ZERO,
+            b: Ratio::ONE,
+        }
+    }
+
+    /// The sign, exactly: when a and b differ in sign, a + b√2 has the sign
+    /// of a if a² > 2b² and of b otherwise (a² = 2b² only when both are 0,
+    /// since √2 is irrational).
+    pub fn signum(self) -> i32 {
+        let (sa, sb) = (self.a.signum(), self.b.signum());
+        if sa >= 0 && sb >= 0 {
+            return i32::from(sa > 0 || sb > 0);
+        }
+        if sa <= 0 && sb <= 0 {
+            return -1;
+        }
+        let d = self.a * self.a - Ratio::int(2) * self.b * self.b;
+        if d.signum() > 0 { sa } else { sb }
+    }
+
+    pub fn to_f64(self) -> f64 {
+        self.a.to_f64() + self.b.to_f64() * std::f64::consts::SQRT_2
+    }
+
+    /// 1 / self, exactly: (a − b√2) / (a² − 2b²), whose denominator is
+    /// rational and nonzero unless self is zero (√2 is irrational).
+    ///
+    /// # Panics
+    /// If self is zero.
+    pub fn recip(self) -> Self {
+        let norm = (self.a * self.a - Ratio::int(2) * self.b * self.b).recip();
+        Self {
+            a: self.a * norm,
+            b: -self.b * norm,
+        }
+    }
+
+    /// Rounded to `places` decimals, as the screen and the narration give it.
+    pub fn decimals(self, places: usize) -> String {
+        format!("{:.places$}", self.to_f64())
+    }
+}
+
+impl Add for Surd {
+    type Output = Self;
+    fn add(self, o: Self) -> Self {
+        Self {
+            a: self.a + o.a,
+            b: self.b + o.b,
+        }
+    }
+}
+
+impl Sub for Surd {
+    type Output = Self;
+    fn sub(self, o: Self) -> Self {
+        self + -o
+    }
+}
+
+impl Mul for Surd {
+    type Output = Self;
+    fn mul(self, o: Self) -> Self {
+        Self {
+            a: self.a * o.a + Ratio::int(2) * self.b * o.b,
+            b: self.a * o.b + self.b * o.a,
+        }
+    }
+}
+
+impl Neg for Surd {
+    type Output = Self;
+    fn neg(self) -> Self {
+        Self { a: -self.a, b: -self.b }
+    }
+}
+
+impl Ord for Surd {
+    fn cmp(&self, o: &Self) -> Ordering {
+        (*self - *o).signum().cmp(&0)
+    }
+}
+
+impl PartialOrd for Surd {
+    fn partial_cmp(&self, o: &Self) -> Option<Ordering> {
+        Some(self.cmp(o))
+    }
+}
+
+/// `a + b*sqrt(2)` in ASCII, the form the facts print (and `oracle.py`):
+/// `2 + 1/2*sqrt(2)`, `1/2*sqrt(2)`, `1 - 1/4*sqrt(2)`, `3`.
+impl fmt::Display for Surd {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let root = |b: Ratio| {
+            if b == Ratio::ONE {
+                "sqrt(2)".to_owned()
+            } else {
+                format!("{b}*sqrt(2)")
+            }
+        };
+        match (self.a == Ratio::ZERO, self.b.signum()) {
+            (_, 0) => write!(f, "{}", self.a),
+            (true, 1) => write!(f, "{}", root(self.b)),
+            (true, _) => write!(f, "-{}", root(-self.b)),
+            (false, 1) => write!(f, "{} + {}", self.a, root(self.b)),
+            (false, _) => write!(f, "{} - {}", self.a, root(-self.b)),
+        }
+    }
+}
+
+/// The arithmetic the geometry needs, so the same checks run exactly (on
+/// [`Surd`]s, for the facts) and in floating point (on f64, for the frames
+/// the scene draws).
+pub trait Num:
+    Copy + PartialOrd + Add<Output = Self> + Sub<Output = Self> + Mul<Output = Self> + Neg<Output = Self>
+{
+    /// The rational p / q.
+    fn ratio(p: i64, q: i64) -> Self;
+    /// 1 / self (self not zero).
+    fn recip(self) -> Self;
+}
+
+impl Num for f64 {
+    fn ratio(p: i64, q: i64) -> Self {
+        p as f64 / q as f64
+    }
+
+    fn recip(self) -> Self {
+        1.0 / self
+    }
+}
+
+impl Num for Surd {
+    fn ratio(p: i64, q: i64) -> Self {
+        Surd::ratio(p, q)
+    }
+
+    fn recip(self) -> Self {
+        Surd::recip(self)
+    }
+}
+
+fn larger<T: PartialOrd>(a: T, b: T) -> T {
+    if a >= b { a } else { b }
+}
+
+fn smaller<T: PartialOrd>(a: T, b: T) -> T {
+    if a <= b { a } else { b }
+}
+
+// ----------------------------------------------------------------- tiles
+
+pub type Point<T> = (T, T);
+
+/// A unit tile: its centre and its turn, given as the cosine and sine of
+/// the angle it is turned through (exact for every turn the video uses;
+/// cos² + sin² = 1, which [`Packing::check`] confirms for exact tiles).
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Tile<T> {
+    pub centre: Point<T>,
+    pub cos: T,
+    pub sin: T,
+}
+
+impl<T: Num> Tile<T> {
+    /// A tile lined up with the walls.
+    pub fn straight(x: T, y: T) -> Self {
+        Self {
+            centre: (x, y),
+            cos: T::ratio(1, 1),
+            sin: T::ratio(0, 1),
+        }
+    }
+
+    /// Its corners, counter-clockwise, starting from the one that is lower
+    /// left when the tile is straight.
+    pub fn corners(&self) -> [Point<T>; 4] {
+        self.corners_sized(T::ratio(1, 1))
+    }
+
+    /// Its corners were it `side` wide about the same centre, with the same
+    /// turn (chapter 07's grown tiles), in [`Tile::corners`]' order.
+    pub fn corners_sized(&self, side: T) -> [Point<T>; 4] {
+        let h = side * T::ratio(1, 2);
+        let (ux, uy) = (self.cos * h, self.sin * h);
+        let (vx, vy) = (-self.sin * h, self.cos * h);
+        let (cx, cy) = self.centre;
+        [
+            (cx - ux - vx, cy - uy - vy),
+            (cx + ux - vx, cy + uy - vy),
+            (cx + ux + vx, cy + uy + vy),
+            (cx - ux + vx, cy - uy + vy),
+        ]
+    }
+
+    /// The midpoints of its sides: side k runs from corner k to corner k + 1.
+    pub fn midpoints(&self) -> [Point<T>; 4] {
+        let c = self.corners();
+        let h = T::ratio(1, 2);
+        std::array::from_fn(|k| {
+            let (p, q) = (c[k], c[(k + 1) % 4]);
+            ((p.0 + q.0) * h, (p.1 + q.1) * h)
+        })
+    }
+
+    /// The two directions its sides run (unit vectors).
+    pub fn axes(&self) -> [Point<T>; 2] {
+        [(self.cos, self.sin), (-self.sin, self.cos)]
+    }
+}
+
+/// The tile's shadow on a direction: the least and greatest of its corners'
+/// positions along it.
+fn shadow<T: Num>(corners: &[Point<T>; 4], axis: Point<T>) -> (T, T) {
+    let at = |p: Point<T>| p.0 * axis.0 + p.1 * axis.1;
+    let first = at(corners[0]);
+    corners[1..]
+        .iter()
+        .fold((first, first), |(lo, hi), &p| (smaller(lo, at(p)), larger(hi, at(p))))
+}
+
+/// How far apart two tiles stand: the widest gap between their shadows on
+/// the four directions their sides run (the separating-axis test, exact for
+/// convex polygons). Positive: apart, by at least that much. Zero: touching,
+/// with no overlap. Negative: their insides overlap, and minus the value is
+/// the shortest push that would part them.
+pub fn clearance<T: Num>(a: &Tile<T>, b: &Tile<T>) -> T {
+    clearance_sized(a, b, T::ratio(1, 1))
+}
+
+/// [`clearance`] for two tiles each `side` wide (chapter 07's grown tiles).
+pub fn clearance_sized<T: Num>(a: &Tile<T>, b: &Tile<T>, side: T) -> T {
+    let (pa, pb) = (a.corners_sized(side), b.corners_sized(side));
+    let [a1, a2] = a.axes();
+    let [b1, b2] = b.axes();
+    let gap = |axis: Point<T>| {
+        let ((alo, ahi), (blo, bhi)) = (shadow(&pa, axis), shadow(&pb, axis));
+        larger(blo - ahi, alo - bhi)
+    };
+    larger(larger(gap(a1), gap(a2)), larger(gap(b1), gap(b2)))
+}
+
+/// A wall of the box [0, side]².
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Wall {
+    Left,
+    Bottom,
+    Right,
+    Top,
+}
+
+impl Wall {
+    pub const ALL: [Wall; 4] = [Wall::Left, Wall::Bottom, Wall::Right, Wall::Top];
+
+    /// How far `p` is inside this wall (negative: beyond it).
+    fn depth<T: Num>(self, p: Point<T>, side: T) -> T {
+        match self {
+            Wall::Left => p.0,
+            Wall::Bottom => p.1,
+            Wall::Right => side - p.0,
+            Wall::Top => side - p.1,
+        }
+    }
+
+    /// How far tile `t` stands inside this wall: its nearest corner's depth.
+    pub fn clearance<T: Num>(self, t: &Tile<T>, side: T) -> T {
+        let c = t.corners();
+        c[1..]
+            .iter()
+            .fold(self.depth(c[0], side), |m, &p| smaller(m, self.depth(p, side)))
+    }
+}
+
+/// How far a tile stands inside the box [0, side]²: the least distance from
+/// any of its corners to any wall (a tile is convex, so its corners decide).
+/// Positive: inside and clear; zero: touching a wall; negative: a corner is
+/// outside, and the tile has escaped.
+pub fn wall_clearance<T: Num>(t: &Tile<T>, side: T) -> T {
+    Wall::ALL
+        .iter()
+        .map(|w| w.clearance(t, side))
+        .reduce(smaller)
+        .expect("four walls")
+}
+
+/// A clearance read with a tolerance: 0 for exact numbers, a hair for f64.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Contact {
+    Apart,
+    Touching,
+    Overlapping,
+}
+
+pub fn contact<T: Num>(clearance: T, eps: T) -> Contact {
+    if clearance > eps {
+        Contact::Apart
+    } else if clearance < -eps {
+        Contact::Overlapping
+    } else {
+        Contact::Touching
+    }
+}
+
+// ---------------------------------------------------------------- packings
+
+/// Tiles in the box [0, side]².
+#[derive(Clone, Debug, PartialEq)]
+pub struct Packing<T> {
+    pub side: T,
+    pub tiles: Vec<Tile<T>>,
+}
+
+/// What a check of a packing found.
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub struct Verdict {
+    /// Pairs whose insides overlap.
+    pub overlapping: Vec<(usize, usize)>,
+    /// Pairs that touch without overlapping.
+    pub touching: Vec<(usize, usize)>,
+    /// Tiles with a corner outside the box.
+    pub escaped: Vec<usize>,
+    /// Every wall each tile touches.
+    pub walls: Vec<(usize, Wall)>,
+    /// Exact tiles whose cosine and sine are not a turn (cos² + sin² ≠ 1).
+    pub not_turns: Vec<usize>,
+}
+
+impl Verdict {
+    pub fn fits(&self) -> bool {
+        self.overlapping.is_empty() && self.escaped.is_empty() && self.not_turns.is_empty()
+    }
+
+    /// `fits`, or what broke, as the facts print it: `overlap:0-4,1-4`,
+    /// `escape:1,2,3`, or both joined by `;`.
+    pub fn summary(&self) -> String {
+        if self.fits() {
+            return "fits".to_owned();
+        }
+        let mut parts = Vec::new();
+        if !self.overlapping.is_empty() {
+            let pairs: Vec<String> = self.overlapping.iter().map(|(i, j)| format!("{i}-{j}")).collect();
+            parts.push(format!("overlap:{}", pairs.join(",")));
+        }
+        if !self.escaped.is_empty() {
+            let tiles: Vec<String> = self.escaped.iter().map(usize::to_string).collect();
+            parts.push(format!("escape:{}", tiles.join(",")));
+        }
+        if !self.not_turns.is_empty() {
+            let tiles: Vec<String> = self.not_turns.iter().map(usize::to_string).collect();
+            parts.push(format!("not-a-turn:{}", tiles.join(",")));
+        }
+        parts.join(";")
+    }
+
+    /// The touching pairs as the facts print them: `0-4,1-4,2-4,3-4`.
+    pub fn touching_list(&self) -> String {
+        let pairs: Vec<String> = self.touching.iter().map(|(i, j)| format!("{i}-{j}")).collect();
+        pairs.join(",")
+    }
+}
+
+impl<T: Num> Packing<T> {
+    /// Every pair of tiles and every tile against every wall, a clearance
+    /// within `eps` of zero counting as a touch (pass zero for exact tiles).
+    pub fn check(&self, eps: T) -> Verdict {
+        let mut v = Verdict::default();
+        for (i, a) in self.tiles.iter().enumerate() {
+            for (j, b) in self.tiles.iter().enumerate().skip(i + 1) {
+                match contact(clearance(a, b), eps) {
+                    Contact::Overlapping => v.overlapping.push((i, j)),
+                    Contact::Touching => v.touching.push((i, j)),
+                    Contact::Apart => {}
+                }
+            }
+            if wall_clearance(a, self.side) < -eps {
+                v.escaped.push(i);
+            }
+            for w in Wall::ALL {
+                if contact(w.clearance(a, self.side), eps) == Contact::Touching {
+                    v.walls.push((i, w));
+                }
+            }
+        }
+        v
+    }
+
+    /// The least clearance anywhere: between two tiles, or between a tile and
+    /// the walls. Non-negative exactly when the packing fits. The tests read
+    /// it on every sampled frame of the chapter's motions; the scene draws
+    /// those frames and never needs the number.
+    #[cfg(test)]
+    pub fn worst(&self) -> T {
+        let mut worst = wall_clearance(&self.tiles[0], self.side);
+        for (i, a) in self.tiles.iter().enumerate() {
+            worst = smaller(worst, wall_clearance(a, self.side));
+            for b in &self.tiles[i + 1..] {
+                worst = smaller(worst, clearance(a, b));
+            }
+        }
+        worst
+    }
+
+    /// Corner tile `k`'s inner corner (k from 0 to 3).
+    pub fn inner_corner(&self, k: usize) -> Point<T> {
+        self.tiles[k].corners()[INNER[k]]
+    }
+}
+
+impl Packing<Surd> {
+    /// The exact check, which also confirms that every tile's turn is one.
+    pub fn check_exact(&self) -> Verdict {
+        let mut v = self.check(Surd::ZERO);
+        v.not_turns = self
+            .tiles
+            .iter()
+            .enumerate()
+            .filter(|(_, t)| t.cos * t.cos + t.sin * t.sin != Surd::int(1))
+            .map(|(i, _)| i)
+            .collect();
+        v
+    }
+}
+
+/// Four tiles straight in the corners of a box `side` wide, and one in the
+/// middle turned through (`cos`, `sin`): every picture of the chapter.
+pub fn corners_and_middle<T: Num>(side: T, cos: T, sin: T) -> Packing<T> {
+    let h = T::ratio(1, 2);
+    let (lo, hi, mid) = (h, side - h, side * h);
+    Packing {
+        side,
+        tiles: vec![
+            Tile::straight(lo, lo),
+            Tile::straight(hi, lo),
+            Tile::straight(lo, hi),
+            Tile::straight(hi, hi),
+            Tile {
+                centre: (mid, mid),
+                cos,
+                sin,
+            },
+        ],
+    }
+}
+
+/// The side of the box a straight grid needs for `n` tiles: the smallest k
+/// with k² ≥ n.
+pub fn grid_side(n: u32) -> u32 {
+    (1..=n).find(|k| k * k >= n).unwrap_or(n)
+}
+
+/// The largest full straight grid that `n` tiles can make: the largest k
+/// with k² ≤ n.
+pub fn full_grid(n: u32) -> u32 {
+    (1..=n).take_while(|k| k * k <= n).last().unwrap_or(0)
+}
+
+/// The obvious packing: the five tiles straight in the box of three, four in
+/// the corners and one in the middle.
+pub fn five_straight() -> Packing<Surd> {
+    let side = Surd::int(grid_side(TILES).into());
+    corners_and_middle(side, Surd::int(1), Surd::ZERO)
+}
+
+/// An eighth of a turn, 45 degrees: cos = sin = √2/2.
+pub fn eighth_turn() -> (Surd, Surd) {
+    let c = Surd::sqrt2() * Surd::ratio(1, 2);
+    (c, c)
+}
+
+/// The gap between the corner tiles when the squeeze stops, derived as the
+/// narration derives it. The gap is a square. Its diagonal runs between
+/// opposite inner corners, which then touch opposite sides of the turned
+/// tile, and those sides are one tile apart: the diagonal is 1. A square's
+/// diagonal is √2 times its side, so the side is 1/√2 = √2/2.
+pub fn turned_gap() -> Surd {
+    Surd::sqrt2() * Surd::ratio(1, 2)
+}
+
+/// The box the squeeze stops at: a corner tile, the gap and a corner tile,
+/// 2 + √2/2. The tests check that the packing there fits and touches
+/// exactly, and that any narrower box with the same arrangement overlaps.
+pub fn turned_side() -> Surd {
+    Surd::int(2) + turned_gap()
+}
+
+/// The five tiles of the video: four straight in the corners of the box
+/// [`turned_side`] wide, the middle tile an eighth of a turn round.
+pub fn five_turned() -> Packing<Surd> {
+    let (c, s) = eighth_turn();
+    corners_and_middle(turned_side(), c, s)
+}
+
+/// The turn by `a` and then by `b`, each as (cos, sin).
+pub fn compose<T: Num>(a: Point<T>, b: Point<T>) -> Point<T> {
+    (a.0 * b.0 - a.1 * b.1, a.0 * b.1 + a.1 * b.0)
+}
+
+/// A small exact turn, about 5.7 degrees: the angle whose half has tangent
+/// 1/20, so cos = 399/401 and sin = 40/401 (a Pythagorean triple).
+pub fn small_turn() -> (Surd, Surd) {
+    half_angle_turn(20)
+}
+
+/// The exact turn whose half-angle has tangent 1/n: cos = (n² − 1)/(n² + 1),
+/// sin = 2n/(n² + 1), so cos² + sin² = 1 in rationals. Larger n, smaller
+/// turn, as small as one likes with no rounding.
+pub fn half_angle_turn(n: i64) -> (Surd, Surd) {
+    let (sq, den) = (n * n - 1, n * n + 1);
+    (Surd::ratio(sq, den), Surd::ratio(2 * n, den))
+}
+
+// ---------------------------------------------------- the chapter's motions
+
+/// The box the turn happens in: the straight grid's, three wide.
+pub fn turn_box() -> f64 {
+    f64::from(grid_side(TILES))
+}
+
+/// The first motion, frame by frame as the chapter draws it (01_5): in the
+/// box of three ([`turn_box`]), the middle tile turned through
+/// `angle` radians (0 straight, π/4 an eighth of a turn). Every angle gives a
+/// packing: each corner of the middle tile is √2/2 from the box's centre, so
+/// the whole tile lies in the disc of that radius about the centre; the point
+/// of a corner tile nearest the centre is its inner corner, also √2/2 away
+/// (the squared distances are `turn_reach2` and `turn_inner2`). So the disc
+/// meets each corner tile only at its inner corner, and the insides never
+/// overlap. The middle tile touches its neighbours only when it is straight.
+pub fn turning(angle: f64) -> Packing<f64> {
+    corners_and_middle(turn_box(), angle.cos(), angle.sin())
+}
+
+/// The second motion, frame by frame as the chapter draws it (01_6 and
+/// 01_10): the box `side` wide, from 3 down to [`turned_side`],
+/// the corner tiles in its corners and the middle tile an eighth of a turn
+/// round at its centre. Every side in that range gives a packing: the turned
+/// tile is the set where |x − c| + |y − c| ≤ √2/2 (c = side/2), the point
+/// of a corner tile nearest it in that measure is the inner corner, at
+/// side − 2, and side − 2 ≥ √2/2 down to the stop, where it is equal.
+/// Below the stop every frame overlaps: 01_10 shows those in red, as what
+/// fails, never as a packing.
+pub fn squeezed(side: f64) -> Packing<f64> {
+    let c = std::f64::consts::FRAC_1_SQRT_2;
+    corners_and_middle(side, c, c)
+}
+
+/// The squared distance from the middle tile's centre to each of its
+/// corners, at any turn: (1/2)² + (1/2)².
+pub fn turn_reach2() -> Surd {
+    let t = Tile::<Surd>::straight(Surd::ZERO, Surd::ZERO);
+    let (x, y) = t.corners()[0];
+    x * x + y * y
+}
+
+/// The squared distance from the centre of the box of three to each inner
+/// corner.
+pub fn turn_inner2() -> Surd {
+    let p = five_straight();
+    let m = Surd::int(grid_side(TILES).into()) * Surd::ratio(1, 2);
+    let (x, y) = p.inner_corner(0);
+    (x - m) * (x - m) + (y - m) * (y - m)
+}
+
+// ------------------------------------------------------ planted failures
+
+/// The five-tile packing changed by a little; the check must say what broke.
+#[derive(Clone, Debug)]
+pub struct Planted {
+    /// The fact key's last part.
+    pub key: &'static str,
+    pub packing: Packing<Surd>,
+}
+
+/// The planted failures, each of which the exact check and `oracle.py` must
+/// catch:
+/// - `squeeze_further`: the box 1/100 narrower than [`turned_side`], the
+///   same arrangement (the chapter's "one step further");
+/// - `middle_turned_more`: the middle tile turned a further [`small_turn`];
+/// - `middle_shifted`: the middle tile moved 1/100 to the right;
+/// - `box_smaller`: the five tiles where they are, the box's right and top
+///   walls 1/100 nearer;
+/// - `straight_squeezed`: the box 1/100 narrower than three with the middle
+///   tile straight (squeezing without the turn).
+pub fn planted() -> Vec<Planted> {
+    let hundredth = Surd::ratio(1, 100);
+    let (c, s) = eighth_turn();
+    let turned_more = compose((c, s), small_turn());
+    let mut shifted = five_turned();
+    let (x, y) = shifted.tiles[MIDDLE].centre;
+    shifted.tiles[MIDDLE].centre = (x + hundredth, y);
+    let smaller_box = Packing {
+        side: turned_side() - hundredth,
+        tiles: five_turned().tiles,
+    };
+    let three = Surd::int(grid_side(TILES).into());
+    vec![
+        Planted {
+            key: "squeeze_further",
+            packing: corners_and_middle(turned_side() - hundredth, c, s),
+        },
+        Planted {
+            key: "middle_turned_more",
+            packing: corners_and_middle(turned_side(), turned_more.0, turned_more.1),
+        },
+        Planted {
+            key: "middle_shifted",
+            packing: shifted,
+        },
+        Planted {
+            key: "box_smaller",
+            packing: smaller_box,
+        },
+        Planted {
+            key: "straight_squeezed",
+            packing: corners_and_middle(three - hundredth, Surd::int(1), Surd::ZERO),
+        },
+    ]
+}
+
+// ------------------------------------------------- four pins (chapter 02)
+//
+// The theorem: in a square box narrower than 3, at most four straight tiles
+// fit, so five straight tiles need a box at least 3 wide.
+//
+// Proof. Let the box be [0, L]² with L < 3. If L < 1, no tile fits at all.
+// Otherwise mark each side at L/3 and 2L/3. The marks cut [0, L] into three
+// pieces of length L/3 < 1. Take a straight tile; its shadow on the floor is
+// [a, a + 1] ⊆ [0, L]. If no mark were strictly inside, the open interval
+// (a, a + 1), being connected and missing both marks, would lie in one
+// piece; but it is 1 long and every piece is shorter. So a floor mark lies
+// strictly inside (a, a + 1), and likewise a wall mark inside the shadow on
+// the wall: the pin where they cross is in the tile's interior. Two tiles
+// whose insides do not overlap cannot share an interior point, so no pin
+// serves two tiles, and four pins allow at most four tiles. ∎
+//
+// At L = 3 the pieces are exactly 1 long: [1, 2] holds the marks only at its
+// ends, a tile can touch pins with its edges, and five straight tiles fit
+// (`five_straight`). Strictness is the whole argument: with closed
+// intervals every tile "holds" a pin at L = 3 too, and the conclusion would
+// be false (`closed_marks_would_prove_too_much`). The pins say nothing about
+// turned tiles: in the box [`turned_side`] the turned tile holds none.
+//
+// The functions below make each step checkable: [`marks_inside`] is the
+// one-dimensional step for one shadow, [`every_shadow_holds_a_mark`] checks
+// it for every shadow in one box, exactly and completely (the marks inside
+// can change only where a mark meets an end of the shadow, so the critical
+// positions and the midpoints between them stand for all the others), and
+// [`pins_inside`] is the step for any tile, straight or turned.
+
+/// The marks on one side of a box `side` wide: a third and two thirds of
+/// the way along.
+pub fn marks<T: Num>(side: T) -> [T; 2] {
+    [side * T::ratio(1, 3), side * T::ratio(2, 3)]
+}
+
+/// The longest of the three pieces the marks cut a side into (they are
+/// equal: side/3).
+pub fn longest_piece<T: Num>(side: T) -> T {
+    let [lo, hi] = marks(side);
+    larger(larger(lo, hi - lo), side - hi)
+}
+
+/// The four pins, where the floor's marks meet the wall's, in the corner
+/// tiles' order: lower left, lower right, upper left, upper right.
+pub fn pins<T: Num>(side: T) -> [Point<T>; 4] {
+    let [lo, hi] = marks(side);
+    [(lo, lo), (hi, lo), (lo, hi), (hi, hi)]
+}
+
+/// The marks strictly inside the shadow [a, a + 1] (inside, not at an end).
+pub fn marks_inside<T: Num>(a: T, side: T) -> Vec<usize> {
+    let end = a + T::ratio(1, 1);
+    marks(side)
+        .iter()
+        .enumerate()
+        .filter(|&(_, &m)| a < m && m < end)
+        .map(|(i, _)| i)
+        .collect()
+}
+
+/// The marks a closed shadow [a, a + 1] touches, ends included: the wrong
+/// version of the step, kept to show what strictness buys.
+pub fn marks_touched<T: Num>(a: T, side: T) -> Vec<usize> {
+    let end = a + T::ratio(1, 1);
+    marks(side)
+        .iter()
+        .enumerate()
+        .filter(|&(_, &m)| a <= m && m <= end)
+        .map(|(i, _)| i)
+        .collect()
+}
+
+/// Whether point `p` is strictly inside tile `t` (in its interior), for any
+/// turn: along each of the tile's sides, p is less than half a tile from
+/// its centre.
+pub fn holds<T: Num>(t: &Tile<T>, p: Point<T>) -> bool {
+    let h = T::ratio(1, 2);
+    let d = (p.0 - t.centre.0, p.1 - t.centre.1);
+    t.axes().iter().all(|ax| {
+        let s = d.0 * ax.0 + d.1 * ax.1;
+        -h < s && s < h
+    })
+}
+
+/// The pins strictly inside tile `t` in the box `side` wide.
+pub fn pins_inside<T: Num>(t: &Tile<T>, side: T) -> Vec<usize> {
+    pins(side)
+        .iter()
+        .enumerate()
+        .filter(|&(_, &p)| holds(t, p))
+        .map(|(i, _)| i)
+        .collect()
+}
+
+/// Where the shadow [a, a + 1] can start in the box `side` wide (a from 0 to
+/// side − 1) at the positions where the marks inside it can change: its two
+/// extremes and wherever a mark meets one of its ends (a = m or a = m − 1).
+/// Sorted, without repeats.
+pub fn critical_shadows(side: Surd) -> Vec<Surd> {
+    let one = Surd::int(1);
+    let last = side - one;
+    let mut out = vec![Surd::ZERO, last];
+    for m in marks(side) {
+        out.push(m);
+        out.push(m - one);
+    }
+    out.retain(|&a| Surd::ZERO <= a && a <= last);
+    out.sort();
+    out.dedup();
+    out
+}
+
+/// The one-dimensional step, checked for every shadow in the box `side`
+/// wide: whether each [a, a + 1] ⊆ [0, side] has a mark strictly inside.
+/// Between two neighbouring critical positions the marks inside do not
+/// change, so the critical positions and the midpoints between them stand
+/// for every a: an exact, complete check for this box, not a sample. None
+/// when no shadow fits (a box narrower than one tile holds no tile).
+pub fn every_shadow_holds_a_mark(side: Surd) -> Option<bool> {
+    let shadows = all_shadows(side)?;
+    Some(shadows.iter().all(|&a| !marks_inside(a, side).is_empty()))
+}
+
+/// The same check with closed shadows (ends included): true at 3 as well,
+/// which is why the argument needs the strict version.
+pub fn every_closed_shadow_touches_a_mark(side: Surd) -> Option<bool> {
+    let shadows = all_shadows(side)?;
+    Some(shadows.iter().all(|&a| !marks_touched(a, side).is_empty()))
+}
+
+/// The critical positions and the midpoints between neighbours; None when
+/// the box is narrower than one tile.
+fn all_shadows(side: Surd) -> Option<Vec<Surd>> {
+    if side < Surd::int(1) {
+        return None;
+    }
+    let critical = critical_shadows(side);
+    let mut all = critical.clone();
+    for w in critical.windows(2) {
+        all.push((w[0] + w[1]) * Surd::ratio(1, 2));
+    }
+    Some(all)
+}
+
+/// The two-dimensional step for the box `side` wide: every straight tile
+/// in it, at every critical position on both axes and between them, holds a
+/// pin strictly inside (the product of the one-dimensional step). None for a
+/// box narrower than one tile.
+pub fn every_straight_tile_holds_a_pin(side: Surd) -> Option<bool> {
+    let shadows = all_shadows(side)?;
+    let h = Surd::ratio(1, 2);
+    Some(shadows.iter().all(|&a| {
+        shadows
+            .iter()
+            .all(|&b| !pins_inside(&Tile::straight(a + h, b + h), side).is_empty())
+    }))
+}
+
+/// The box width at which the pieces stop being shorter than a tile: the
+/// side is cut into equal pieces, one more than the marks, so a piece is a
+/// whole tile long when the side is that many tiles.
+pub fn pin_threshold() -> Surd {
+    let pieces = marks(Surd::int(1)).len() + 1;
+    Surd::int(pieces as i64)
+}
+
+/// Each tile's pins strictly inside it, for a packing: the pigeonhole. In a
+/// packing that fits, these lists are disjoint (a shared pin would be a
+/// shared interior point).
+pub fn pin_owners(p: &Packing<Surd>) -> Vec<Vec<usize>> {
+    p.tiles.iter().map(|t| pins_inside(t, p.side)).collect()
+}
+
+/// A straight tile's lower left corner wandering through the box `side`
+/// wide (t from 0 to 1, a closed loop from the lower left corner, where
+/// 02_3's sliding tile stops): 02_4's probe. Across the floor once and up
+/// and down twice; every position keeps the tile inside the box.
+pub fn wander(t: f64, side: f64) -> Point<f64> {
+    let room = side - 1.0;
+    let turn = std::f64::consts::TAU * t;
+    (room * 0.5 * (1.0 - turn.cos()), room * 0.5 * (1.0 - (2.0 * turn).cos()))
+}
+
+// --------------------------------------------- a turn by a hair (chapter 03)
+//
+// Hold the box [`turned_side`] wide, the four corner tiles and the middle
+// tile's centre; turn only the middle tile, by a further angle δ from its
+// eighth of a turn. Each held inner corner p is half a tile from the centre:
+// it lies on the circle inscribed in the middle tile, at the middle of a
+// side. In the turned tile's own directions p sits at (½ cos δ, ½ sin δ),
+// so its depth inside the tile, ½ minus the larger of the two, is
+// ½(1 − cos δ) = sin²(δ/2) for |δ| below an eighth of a turn: zero at δ = 0
+// with zero slope there, positive for every other δ, about δ²/4 when δ is
+// small. A point strictly inside the tile has a small disc around it inside
+// the tile, so the corner tile's corner really overlaps it; the overlap is
+// found by clipping one polygon against the other exactly, not inferred from
+// the depth.
+//
+// While |δ| ≤ 30° (|sin δ| ≤ ½) that overlap is the triangle cut off the
+// corner tile's corner by the turned side, of area (1 − cos δ)² / (4 cos 2δ):
+// the side's two ends are the middle tile's corners at (c − ½√2 cos δ,
+// c − ½√2 sin δ) and (c + ½√2 sin δ, c − ½√2 cos δ), c = 1 + ¼√2, so neither
+// has crossed into the corner tile (y ≤ 1, x ≤ 1) until sin δ passes ½ one
+// way or the other. Past 30° a corner of the middle tile is inside and the
+// overlap has four sides: at half-angle tangent 1/3 (sin 3/5) its area is
+// 1/56, not the triangle's 1/28 (`the_triangle_holds_to_thirty_degrees`).
+// The turns the chapter shows, about 5.7° and 11.4°, are well inside.
+//
+// Scope: one motion (a centred turn, the corners held), in one box. This
+// says nothing about turns combined with other motions, nor about any other
+// arrangement, nor about the smallest box. In the box of three the same
+// corners lie on the circle around the tile instead (`turn_inner2`), and the
+// turn is free (`turning`).
+
+/// The turned packing with the middle tile turned a further `extra` (cos,
+/// sin) about its held centre; the box and the corner tiles as they were.
+pub fn hair_turned(extra: Point<Surd>) -> Packing<Surd> {
+    let (c, s) = compose(eighth_turn(), extra);
+    corners_and_middle(turned_side(), c, s)
+}
+
+/// The same in the box of three, where the corners are further out.
+pub fn hair_turned_roomy(extra: Point<Surd>) -> Packing<Surd> {
+    let (c, s) = compose(eighth_turn(), extra);
+    corners_and_middle(Surd::int(grid_side(TILES).into()), c, s)
+}
+
+/// The frames 03 draws: the middle tile turned `delta` radians past its
+/// eighth of a turn, in the box [`turned_side`], everything else held.
+pub fn hair(delta: f64) -> Packing<f64> {
+    let a = std::f64::consts::FRAC_PI_4 + delta;
+    corners_and_middle(turned_side().to_f64(), a.cos(), a.sin())
+}
+
+/// How deep `q` lies inside tile `t`: half a tile minus the larger of its
+/// distances from the centre along the tile's two directions. Positive
+/// strictly inside, zero on an edge, negative outside.
+pub fn depth_inside<T: Num>(t: &Tile<T>, q: Point<T>) -> T {
+    let d = (q.0 - t.centre.0, q.1 - t.centre.1);
+    let [u, v] = t.axes().map(|ax| d.0 * ax.0 + d.1 * ax.1);
+    let reach = larger(larger(u, -u), larger(v, -v));
+    T::ratio(1, 2) - reach
+}
+
+/// The common part of tiles `a` and `b`, exactly: `a` clipped by each side
+/// of `b` in turn (closed half-planes), counter-clockwise; empty when they
+/// are apart, a point or a segment when they only touch.
+pub fn overlap_polygon(a: &Tile<Surd>, b: &Tile<Surd>) -> Vec<Point<Surd>> {
+    let cross = |p: Point<Surd>, q: Point<Surd>, r: Point<Surd>| (q.0 - p.0) * (r.1 - p.1) - (q.1 - p.1) * (r.0 - p.0);
+    let edges = b.corners();
+    let mut out: Vec<Point<Surd>> = a.corners().to_vec();
+    for (i, &p) in edges.iter().enumerate() {
+        let q = edges[(i + 1) % edges.len()];
+        let pts = std::mem::take(&mut out);
+        for (j, &s) in pts.iter().enumerate() {
+            let e = pts[(j + 1) % pts.len()];
+            let (ds, de) = (cross(p, q, s), cross(p, q, e));
+            if ds.signum() >= 0 {
+                out.push(s);
+            }
+            if ds.signum() * de.signum() < 0 {
+                let t = ds * (ds - de).recip();
+                out.push((s.0 + t * (e.0 - s.0), s.1 + t * (e.1 - s.1)));
+            }
+        }
+        if out.is_empty() {
+            break;
+        }
+    }
+    out
+}
+
+/// The depth of a held corner inside the middle tile turned a further
+/// `turn` from contact, worked in the tile's own frame (its centre at the
+/// origin, the corner at the middle of a side, (½, 0)): the same
+/// [`depth_inside`], in numbers small enough for any exact turn.
+pub fn held_corner_depth(turn: Point<Surd>) -> Surd {
+    let tile = Tile {
+        centre: (Surd::ZERO, Surd::ZERO),
+        cos: turn.0,
+        sin: turn.1,
+    };
+    depth_inside(&tile, (Surd::ratio(1, 2), Surd::ZERO))
+}
+
+/// A polygon's area (shoelace; counter-clockwise is positive).
+pub fn polygon_area(pts: &[Point<Surd>]) -> Surd {
+    let mut twice = Surd::ZERO;
+    for (i, &p) in pts.iter().enumerate() {
+        let q = pts[(i + 1) % pts.len()];
+        twice = twice + (p.0 * q.1 - q.0 * p.1);
+    }
+    twice * Surd::ratio(1, 2)
+}
+
+// --------------------------------------------- the corner lemma (chapter 04)
+//
+// Friedman (DS7, Lemma 1): any unit tile inside the first quadrant (x ≥ 0,
+// y ≥ 0) whose centre lies in [0, 1]² contains the point (1, 1), on its edge
+// at least. Friedman's sketch first reduces to a tile touching both axes;
+// the proof here needs no reduction.
+//
+// Proof. A quarter turn gives back the same tile, so take its turn θ in
+// [0°, 90°). Its shadow on either axis is s = cos θ + sin θ, from 1
+// (straight) to √2 (an eighth of a turn). Inside the quadrant its centre
+// (a, b) is at least s/2 from each wall, and a, b ≤ 1, so the point lies
+// 0 ≤ 1 − a ≤ 1 − s/2 across and 0 ≤ 1 − b ≤ 1 − s/2 up. Along the tile's
+// first side (cos θ, sin θ), both of whose parts are ≥ 0, its distance from
+// the centre is (1 − a) cos θ + (1 − b) sin θ, between 0 and
+// (1 − s/2) s = ½ − ½ (s − 1)² ≤ ½. Along the second side (−sin θ, cos θ)
+// it is −(1 − a) sin θ + (1 − b) cos θ, between −(1 − s/2) and 1 − s/2, and
+// 1 − s/2 ≤ ½ because s ≥ 1. A tile reaches half a tile along each of its
+// sides, so the point is in the tile. ∎
+//
+// Equality: the first bound is ½ only when s = 1 (a straight tile) and then
+// a = ½; the second only when s = 1 and b = ½. So the point is on the edge
+// exactly for a straight tile resting on a wall, and strictly inside every
+// other allowed tile; turned, at worst ½ (s − 1)² inside.
+//
+// For one turn the check is also exact and complete, not a sample: the
+// tiles that contain the point are those centred in the tile of the same
+// turn centred at the point (a tile is symmetric about its centre); the
+// depth of the point, ½ minus the larger of two absolute values of affine
+// functions of the centre, is concave in the centre, so its least value over
+// the allowed rectangle [s/2, 1]² is at one of its four corners
+// ([`corner_lemma_margin`]).
+//
+// In the box [`turned_side`] the lemma, applied at each corner, settles every
+// tile whose centre is within one tile of a corner in both directions: it
+// covers the point one tile from both walls of that corner, Friedman's four
+// points. The centres between those corner blocks (the edges and the middle)
+// are not settled here; Theorem 2 needs his Lemmas 2 and 3 for them, and a
+// last step to turn "every tile covers a point" into "five tiles cannot
+// fit", none of which is claimed by this lemma.
+
+/// The width of a tile's shadow on either axis: |cos| + |sin|, 1 straight,
+/// √2 at an eighth of a turn. (Not the private `shadow`, which projects a
+/// tile's corners onto one direction for the separating-axis test.)
+pub fn shadow_width<T: Num>(turn: Point<T>) -> T {
+    larger(turn.0, -turn.0) + larger(turn.1, -turn.1)
+}
+
+/// The proof's bound on the point's distance from the centre along the
+/// tile's first side, for shadow `s`: s (1 − s/2).
+pub fn corner_bound<T: Num>(s: T) -> T {
+    s * (T::ratio(1, 1) - s * T::ratio(1, 2))
+}
+
+/// The point the corner lemma guarantees: one tile from both walls.
+pub fn corner_point<T: Num>() -> Point<T> {
+    (T::ratio(1, 1), T::ratio(1, 1))
+}
+
+/// The four extreme centres a tile turned by `turn` may have under the
+/// lemma's assumptions: the corners of [s/2, 1]².
+pub fn corner_extremes(turn: Point<Surd>) -> [Point<Surd>; 4] {
+    let (lo, hi) = (shadow_width(turn) * Surd::ratio(1, 2), Surd::int(1));
+    [(lo, lo), (hi, lo), (lo, hi), (hi, hi)]
+}
+
+/// The lemma for one turn, exactly and completely: the least depth of the
+/// corner point inside a tile turned by `turn` whose centre is allowed (the
+/// least over the four extreme centres is the least over all of them, see
+/// the section's note). Not negative exactly when the lemma holds for this
+/// turn.
+pub fn corner_lemma_margin(turn: Point<Surd>) -> Surd {
+    corner_extremes(turn)
+        .iter()
+        .map(|&c| {
+            depth_inside(
+                &Tile {
+                    centre: c,
+                    cos: turn.0,
+                    sin: turn.1,
+                },
+                corner_point(),
+            )
+        })
+        .reduce(smaller)
+        .expect("four centres")
+}
+
+/// The turns the lemma is checked at exactly: straight, every half-angle
+/// tangent 1/n from 1/2 to 1/20 and their complements (the same angles past
+/// 45°), and an eighth of a turn.
+pub fn corner_turns() -> Vec<Point<Surd>> {
+    let mut out = vec![(Surd::int(1), Surd::ZERO), eighth_turn()];
+    for n in 2..=20 {
+        let (c, s) = half_angle_turn(n);
+        out.push((c, s));
+        out.push((s, c));
+    }
+    out
+}
+
+/// Whether tile `t` lies inside the first quadrant (every corner at x ≥ 0
+/// and y ≥ 0), the lemma's wall assumption.
+pub fn in_quadrant<T: Num>(t: &Tile<T>) -> bool {
+    let zero = T::ratio(0, 1);
+    t.corners().iter().all(|&(x, y)| x >= zero && y >= zero)
+}
+
+/// Where a tile holds a point: strictly inside, on its edge, or not at all.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Holds {
+    Inside,
+    OnEdge,
+    Outside,
+}
+
+impl Holds {
+    /// From the point's depth inside the tile.
+    pub fn of<T: Num>(depth: T) -> Self {
+        let zero = T::ratio(0, 1);
+        if depth > zero {
+            Holds::Inside
+        } else if depth < zero {
+            Holds::Outside
+        } else {
+            Holds::OnEdge
+        }
+    }
+
+    /// As the facts print it.
+    pub fn word(self) -> &'static str {
+        match self {
+            Holds::Inside => "inside",
+            Holds::OnEdge => "edge",
+            Holds::Outside => "outside",
+        }
+    }
+}
+
+/// Where a tile turned by `turn` and centred at `centre` holds the corner
+/// point.
+pub fn corner_holds(centre: Point<Surd>, turn: Point<Surd>) -> Holds {
+    let t = Tile {
+        centre,
+        cos: turn.0,
+        sin: turn.1,
+    };
+    Holds::of(depth_inside(&t, corner_point()))
+}
+
+/// The tile 04 shows wandering through varied allowed positions (t from 0
+/// to 1): its turn sweeps a quarter of a turn, and its centre roams the
+/// rectangle [s/2, 1]² that turn allows, starting in the corner. A path of
+/// examples, not a sweep of every centre and turn: the proof covers those.
+pub fn corner_wander(t: f64) -> Tile<f64> {
+    let tau = std::f64::consts::TAU;
+    let theta = std::f64::consts::FRAC_PI_2 * 0.5 * (1.0 - (tau * t).cos()) * 0.999;
+    let (c, s) = (theta.cos(), theta.sin());
+    let low = 0.5 * (c + s);
+    let roam = |k: f64| low + (1.0 - low) * 0.5 * (1.0 - (tau * k * t).cos());
+    Tile {
+        centre: (roam(2.0), roam(3.0)),
+        cos: c,
+        sin: s,
+    }
+}
+
+/// A tile turned `theta` radians, pushed into the corner: its centre half
+/// a shadow from both walls, (s/2, s/2), touching both. 04_4 to 04_6 turn it
+/// this way; every frame keeps the lemma's assumptions.
+pub fn corner_pushed(theta: f64) -> Tile<f64> {
+    let (c, s) = (theta.cos(), theta.sin());
+    let half = 0.5 * shadow_width((c, s));
+    Tile {
+        centre: (half, half),
+        cos: c,
+        sin: s,
+    }
+}
+
+/// The centre region of every tile in the box `side` wide: [½, side − ½]²
+/// (a straight tile's; a turned tile's lies inside it). The corner blocks
+/// the lemma settles are its four corners [½, 1]² and their mirror images.
+pub fn centre_region(side: Surd) -> (Surd, Surd) {
+    (Surd::ratio(1, 2), side - Surd::ratio(1, 2))
+}
+
+/// Friedman's four points for the box `side` wide, in his order: one tile
+/// from both walls of each corner.
+pub fn corner_points(side: Surd) -> [Point<Surd>; 4] {
+    let (one, far) = (Surd::int(1), side - Surd::int(1));
+    [(one, one), (one, far), (far, one), (far, far)]
+}
+
+// ---------------------------------------------- the side strip (chapter 05)
+//
+// Friedman (DS7, Lemma 2): let 0 < x ≤ 1, 0 < y ≤ 1 and x + 2y < 2√2. Any
+// unit tile inside the first quadrant whose centre lies in [1, 1 + x] ×
+// [0, y] contains (1, y) or (1 + x, y), on its edge at least. In the box of
+// 2.71 the case is x = the gap, 1/√2, and y = 1: the two of Friedman's four
+// points one tile above the floor.
+//
+// Proof (reconstructed here; Friedman's sketch is below). Only the floor
+// matters: the centre is at least 1 from the left wall, and half a shadow is
+// at most √2/2. Take the turn θ in [0°, 90°), c = cos θ, s = sin θ, the
+// shadow w = c + s and the centre (a, b). The floor keeps b ≥ w/2, so the
+// points' line lies 0 ≤ y − b ≤ 1 − w/2 ≤ ½ above the centre.
+//
+// 1. Straight up. The point t above the centre is t s along the tile's
+//    first side and t c along its second, both at most ½ for 0 ≤ t ≤ ½, so
+//    it is in the tile. The tile cuts the points' line in a segment [l, r]
+//    that contains a, and 1 ≤ a ≤ 1 + x.
+// 2. Dodging is fitting between. If the tile holds neither point, l > 1
+//    (else 1 is in [l, a]) and r < 1 + x (else 1 + x is in [a, r]): the cut
+//    is shorter than x.
+// 3. Lower is narrower. A turned tile's cut along a line d above or below
+//    its centre is 1 / max(c, s) long while |d| ≤ |c − s|/2, and
+//    (w/2 − |d|) / (c s) beyond: never longer farther from the centre. So
+//    lowering the tile onto the floor (b = w/2) only shortens the cut.
+//    There the line is y above the lowest corner, and the cut is
+//    (w − y) / (c s) when the line passes over both side corners, and at
+//    least 1 ≥ x otherwise (a straight tile's is 1).
+// 4. The bound. (w − y) / (c s) < x exactly when y > w − x c s, and
+//    2 c s = w² − 1, so a tile slips between the points only if
+//    y > h(w) = w − x (w² − 1)/2. In w that is a parabola opening downward,
+//    so over [1, √2] it is least at an end: h(1) = 1 (straight) or
+//    h(√2) = √2 − x/2 (an eighth of a turn). y ≤ 1 and x + 2y < 2√2 keep y
+//    at or below both, so no tile dodges both points. ∎
+//
+// Friedman's sketch reaches the same function, f(θ) = cos θ + sin θ −
+// x sin θ cos θ, and says its least value is at 45°. That is false whenever
+// x < 2√2 − 2 ≈ 0.83, the gap included: h(1) = 1 < h(√2) = 3√2/4. The lemma
+// survives because its y ≤ 1 covers the straight end.
+//
+// Equality, for x = 1/√2 and y = 1: h(w) − 1 = (w − 1)(2√2 − 1 − w)/(2√2),
+// zero only straight. A straight tile resting on the floor has a point on
+// its top edge; a turned tile holds one strictly inside (the point above its
+// centre is strictly inside, its cut is longer than the gap, and a
+// horizontal line never runs along a turned tile's edge).
+//
+// For one turn the check is exact and complete, not a sample: steps 1 to 3
+// hold for every centre, so the lemma holds at that turn exactly when the
+// cut of the tile resting on the floor is at least x ([`strip_margin`]); if
+// it is shorter, that tile slid until its cut sits between the points
+// dodges both. This needs the turn to admit a centre at all, w/2 ≤ y: for
+// y = ¼ and an eighth of a turn no tile above the floor has its centre so
+// low, the lemma holds there vacuously, and the floor cut (½, below the
+// gap) is no dodge. With y = 1 every turn admits one.
+//
+// Turned to each side of the box of 2.71, the lemma settles every tile whose
+// centre lies in one of the four strips between the corner blocks (between
+// two points, within one tile of the wall). The middle square of centres is
+// not settled here: that needs Friedman's Lemma 3, and the step from "every
+// tile covers a point" to "five tiles cannot fit" is not claimed either.
+
+/// The two points of the strip for points `x` apart at height `y`: (1, y)
+/// and (1 + x, y).
+pub fn strip_points<T: Num>(x: T, y: T) -> [Point<T>; 2] {
+    let one = T::ratio(1, 1);
+    [(one, y), (one + x, y)]
+}
+
+/// Where tile `t` cuts the line at height `y`: the ends of the segment it
+/// covers there, or None when the line misses it. The tile is two bands,
+/// within ½ of its centre along each of its sides; the line crosses each in
+/// an interval (all of it, or none, for a band that runs along the line).
+pub fn cut_at<T: Num>(t: &Tile<T>, y: T) -> Option<(T, T)> {
+    let (h, zero) = (T::ratio(1, 2), T::ratio(0, 1));
+    let d = y - t.centre.1;
+    let mut ends: Option<(T, T)> = None;
+    for ax in t.axes() {
+        let along = d * ax.1;
+        if ax.0 == zero {
+            if along > h || along < -h {
+                return None;
+            }
+            continue;
+        }
+        let k = ax.0.recip();
+        let (p, q) = ((-h - along) * k, (h - along) * k);
+        let (p, q) = (smaller(p, q), larger(p, q));
+        ends = Some(match ends {
+            None => (p, q),
+            Some((l, r)) => (larger(l, p), smaller(r, q)),
+        });
+    }
+    match ends {
+        Some((l, r)) if l <= r => Some((t.centre.0 + l, t.centre.0 + r)),
+        _ => None,
+    }
+}
+
+/// The length of the cut [`cut_at`]: zero when the line misses the tile.
+pub fn cut_length<T: Num>(t: &Tile<T>, y: T) -> T {
+    cut_at(t, y).map_or(T::ratio(0, 1), |(l, r)| r - l)
+}
+
+/// A tile turned by `turn`, resting on the floor (its lowest corner on it),
+/// its centre `a` across.
+pub fn on_floor<T: Num>(a: T, turn: Point<T>) -> Tile<T> {
+    Tile {
+        centre: (a, shadow_width(turn) * T::ratio(1, 2)),
+        cos: turn.0,
+        sin: turn.1,
+    }
+}
+
+/// The cut a tile turned by `turn` makes on the line `y` up while it rests
+/// on the floor: the shortest over every centre at or below the line (step
+/// 3 of the proof).
+pub fn floor_cut<T: Num>(turn: Point<T>, y: T) -> T {
+    cut_length(&on_floor(T::ratio(0, 1), turn), y)
+}
+
+/// The height the points must pass for a tile of shadow `w`, resting on the
+/// floor, to slip between two points `x` apart: h(w) = w − x (w² − 1)/2
+/// (step 4 of the proof).
+pub fn slip_height<T: Num>(w: T, x: T) -> T {
+    w - x * (w * w - T::ratio(1, 1)) * T::ratio(1, 2)
+}
+
+/// The least slip height over every turn, by the proof: h is a parabola
+/// opening downward in the shadow, so it is least at an end of [1, √2].
+pub fn least_slip_height(x: Surd) -> Surd {
+    smaller(slip_height(Surd::int(1), x), slip_height(Surd::sqrt2(), x))
+}
+
+/// Which end of the shadow's range the slip height is least at, as the
+/// facts print it.
+pub fn least_slip_end(x: Surd) -> &'static str {
+    let (straight, eighth) = (slip_height(Surd::int(1), x), slip_height(Surd::sqrt2(), x));
+    match straight.cmp(&eighth) {
+        Ordering::Less => "straight",
+        Ordering::Greater => "eighth",
+        Ordering::Equal => "both",
+    }
+}
+
+/// The lemma for one turn, exactly and completely (see the section's note),
+/// for x ≤ 1 and y ≤ 1: None when the turn admits no centre at all (half
+/// its shadow is higher than y, so a tile above the floor cannot have its
+/// centre that low: the lemma holds there vacuously, and the floor cut says
+/// nothing); otherwise the cut of the tile resting on the floor less the gap
+/// between the points, not negative exactly when no tile so turned and
+/// centred in the strip dodges both.
+pub fn strip_margin(turn: Point<Surd>, x: Surd, y: Surd) -> Option<Surd> {
+    if shadow_width(turn) * Surd::ratio(1, 2) > y {
+        return None;
+    }
+    Some(floor_cut(turn, y) - x)
+}
+
+/// Where tile `t` holds each of the strip's two points.
+pub fn strip_holds(t: &Tile<Surd>, x: Surd, y: Surd) -> [Holds; 2] {
+    strip_points(x, y).map(|p| Holds::of(depth_inside(t, p)))
+}
+
+/// The assumptions of Lemma 2 that a tile and its strip break, in the
+/// statement's order: `0<x<=1`, `0<y<=1`, `x+2y<2sqrt2`, `quadrant` (the
+/// tile inside the first quadrant), `centre` (centred in the strip).
+pub fn strip_broken(x: Surd, y: Surd, t: &Tile<Surd>) -> Vec<&'static str> {
+    let (zero, one) = (Surd::ZERO, Surd::int(1));
+    let (a, b) = t.centre;
+    [
+        ("0<x<=1", zero < x && x <= one),
+        ("0<y<=1", zero < y && y <= one),
+        ("x+2y<2sqrt2", x + Surd::int(2) * y < Surd::int(2) * Surd::sqrt2()),
+        ("quadrant", in_quadrant(t)),
+        ("centre", (one..=one + x).contains(&a) && (zero..=y).contains(&b)),
+    ]
+    .iter()
+    .filter(|&&(_, kept)| !kept)
+    .map(|&(name, _)| name)
+    .collect()
+}
+
+/// A tile that dodges both points of its strip once one assumption is
+/// dropped (05_7 shows the first three).
+#[derive(Clone, Copy, Debug)]
+pub struct Dodge {
+    /// Its fact key: `strip.fail.<key>`.
+    pub key: &'static str,
+    /// The assumption it breaks, as [`strip_broken`] names it.
+    pub breaks: &'static str,
+    pub x: Surd,
+    pub y: Surd,
+    pub tile: Tile<Surd>,
+}
+
+/// The dodges, each breaking exactly one assumption: an eighth-turned tile
+/// centred between the points but half a tile up, through the floor; the
+/// points raised to 21/20, where x + 2y < 2√2 still holds, so a straight
+/// tile resting on the floor slips under them (Friedman's 45° check alone
+/// would allow it); the gap widened to a whole tile, so x + 2y = 3 and an
+/// eighth-turned tile on the floor slips between; and the gap past a tile,
+/// 6/5 with the points at 3/4, so a straight tile fits between.
+pub fn strip_dodges() -> Vec<Dodge> {
+    let (gap, one, h) = (turned_gap(), Surd::int(1), Surd::ratio(1, 2));
+    let e = eighth_turn();
+    let straight = (one, Surd::ZERO);
+    let mid = one + gap * h;
+    vec![
+        Dodge {
+            key: "floor",
+            breaks: "quadrant",
+            x: gap,
+            y: one,
+            tile: Tile {
+                centre: (mid, h),
+                cos: e.0,
+                sin: e.1,
+            },
+        },
+        Dodge {
+            key: "high",
+            breaks: "0<y<=1",
+            x: gap,
+            y: Surd::ratio(21, 20),
+            tile: on_floor(mid, straight),
+        },
+        Dodge {
+            key: "wide",
+            breaks: "x+2y<2sqrt2",
+            x: one,
+            y: one,
+            tile: on_floor(Surd::ratio(3, 2), e),
+        },
+        Dodge {
+            key: "past",
+            breaks: "0<x<=1",
+            x: Surd::ratio(6, 5),
+            y: Surd::ratio(3, 4),
+            tile: on_floor(Surd::ratio(8, 5), straight),
+        },
+    ]
+}
+
+/// The tile 05 shows wandering through varied allowed positions (t from 0
+/// to 1): its turn sweeps a quarter of a turn and back, its centre roams
+/// the strip [1, 1 + gap] × [s/2, 1] that turn allows, starting where 04's
+/// stray tile stopped, (8/5, ½), and resting on the floor at t = ½. A path
+/// of examples, not a sweep of every centre and turn: the proof covers
+/// those.
+pub fn strip_wander(t: f64) -> Tile<f64> {
+    let tau = std::f64::consts::TAU;
+    let gap = turned_gap().to_f64();
+    let theta = std::f64::consts::FRAC_PI_2 * 0.5 * (1.0 - (tau * t).cos()) * 0.999;
+    let (c, s) = (theta.cos(), theta.sin());
+    let low = 0.5 * (c + s);
+    // the phase that starts the centre 0.6 past the left point
+    let start = (1.0 - 2.0 * 0.6 / gap).acos();
+    let across = 1.0 + gap * 0.5 * (1.0 - (start + tau * 3.0 * t).cos());
+    let up = low + (1.0 - low) * 0.5 * (1.0 - (tau * 2.0 * t).cos());
+    Tile {
+        centre: (across, up),
+        cos: c,
+        sin: s,
+    }
+}
+
+// -------------------------------------------------- the middle (chapter 06)
+//
+// Friedman (DS7, Lemma 3): if the centre of a unit tile lies in a triangle
+// whose sides are each at most 1, the tile contains one of the triangle's
+// corners. Both are closed: the centre may be on the triangle's edge, and
+// the corner on the tile's.
+//
+// Proof (a separating line; Friedman's sketch uses the sectors of the
+// tile's diagonals, whose ties on a diagonal this avoids). Work in the
+// tile's own frame: its centre at the origin, (x, y) along its two sides,
+// so the tile is [−½, ½]². Suppose all three corners are outside it. Each
+// then lies past at least one of its four sides: x > ½ (right), y > ½
+// (top), x < −½ (left) or y < −½ (bottom).
+//
+// 1. Apart. If two corners lie past opposite sides, say x > ½ and x < −½,
+//    they are more than 1 apart along x, so the triangle has a side longer
+//    than 1.
+// 2. Beside. Otherwise the sides passed are at most two neighbouring ones,
+//    say right and top: every corner has x ≥ −½ and y ≥ −½, and x > ½ or
+//    y > ½, so x + y > 0. The whole triangle lies strictly beyond the line
+//    x + y = 0, the tile's diagonal between those sides, through its centre:
+//    it misses the centre, even on its edge.
+//
+// So a triangle with sides at most 1 that holds the centre (on its edge
+// counts) has a corner in the tile. ∎ Degenerate triangles are no
+// exception.
+//
+// Equality: two corners exactly 1 apart can both be on opposite edges of the
+// tile only. The eighth-turned tile centred in the middle square does this
+// with the square's two diagonal corners, and holds the other two on its
+// edges too: covering can be only on the edge.
+//
+// In the box of 2.71 the four points bound the middle square of centres,
+// [1, 1 + gap]², whose diagonal from (1, 1) is gap √2 = 1 long. Cut there, it
+// is two triangles with sides gap, gap and 1; a centre in the square lies in
+// one of them (closed), so its tile covers one of that triangle's corners.
+// With the corner blocks (04) and the side strips (05), every tile in the
+// box covers one of the four points. Covering allows the edge: where five
+// tiles fit, each point lies on the edges of two tiles, so tiles cannot yet
+// be counted against points; that step (a strict version) is not claimed
+// here.
+
+/// A tile's sides, in the order [`past_sides`] and [`reach`] use: along its
+/// first axis, its second, and back.
+pub const SIDES: [&str; 4] = ["right", "top", "left", "bottom"];
+
+/// Point `p` in tile `t`'s own frame: its offsets from the centre along the
+/// tile's two sides.
+pub fn tile_frame<T: Num>(t: &Tile<T>, p: Point<T>) -> Point<T> {
+    let d = (p.0 - t.centre.0, p.1 - t.centre.1);
+    let [u, v] = t.axes();
+    (d.0 * u.0 + d.1 * u.1, d.0 * v.0 + d.1 * v.1)
+}
+
+/// How far point `p` lies out from tile `t`'s centre toward side `k` (in
+/// [`SIDES`]' order); past that side exactly when more than ½.
+pub fn reach<T: Num>(t: &Tile<T>, p: Point<T>, k: usize) -> T {
+    let (x, y) = tile_frame(t, p);
+    [x, y, -x, -y][k]
+}
+
+/// The sides of tile `t` that point `p` lies strictly past, as flags in
+/// [`SIDES`]' order: none exactly when `p` is in the tile (edges included).
+pub fn past_sides<T: Num>(t: &Tile<T>, p: Point<T>) -> [bool; 4] {
+    let h = T::ratio(1, 2);
+    std::array::from_fn(|k| reach(t, p, k) > h)
+}
+
+/// How a tile meets a triangle, by the proof: a corner in it, or the one of
+/// the two ways it can miss all three.
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Meets {
+    /// Corner i is in the tile (the first, in corner order).
+    Holds(usize),
+    /// Corners i and j lie past opposite sides, k and k + 2 (in [`SIDES`]'
+    /// order): more than a tile apart.
+    Apart(usize, usize, usize),
+    /// Every corner lies past sides among k and k + 1 only, so every corner,
+    /// and the whole triangle, is strictly beyond the tile's diagonal between
+    /// them ([`beyond`] > 0): it misses the centre.
+    Beside(usize),
+}
+
+/// How tile `t` meets triangle `tri` ([`Meets`]).
+pub fn meets<T: Num>(t: &Tile<T>, tri: &[Point<T>; 3]) -> Meets {
+    let past = tri.map(|p| past_sides(t, p));
+    if let Some(i) = past.iter().position(|s| s.iter().all(|&b| !b)) {
+        return Meets::Holds(i);
+    }
+    let apart = (0..3)
+        .flat_map(|i| (i + 1..3).map(move |j| (i, j)))
+        .find_map(|(i, j)| (0..4).find(|&k| past[i][k] && past[j][(k + 2) % 4]).map(|k| (i, j, k)));
+    if let Some((i, j, k)) = apart {
+        return Meets::Apart(i, j, k);
+    }
+    // no opposite pair: the sides passed lie among two neighbouring ones
+    let passed: [bool; 4] = std::array::from_fn(|k| past.iter().any(|s| s[k]));
+    let k = (0..4)
+        .find(|&k| (0..4).all(|m| !passed[m] || m == k || m == (k + 1) % 4))
+        .expect("sides passed with no opposite pair lie among two neighbours");
+    Meets::Beside(k)
+}
+
+/// How far point `p` lies beyond the line through tile `t`'s centre along
+/// its diagonal between sides `k` and k + 1, toward the corner they meet at
+/// (√2 times the distance): positive strictly beyond, 0 on the line, which
+/// holds the centre.
+pub fn beyond<T: Num>(t: &Tile<T>, p: Point<T>, k: usize) -> T {
+    reach(t, p, k) + reach(t, p, (k + 1) % 4)
+}
+
+/// Where the closed triangle `tri` holds point `p`, either way round. A
+/// triangle of no area is a segment or a point: it holds `p` only on it, and
+/// then on its edge (it has no inside).
+pub fn triangle_holds<T: Num>(tri: &[Point<T>; 3], p: Point<T>) -> Holds {
+    let zero = T::ratio(0, 1);
+    let cross = |a: Point<T>, b: Point<T>, q: Point<T>| (b.0 - a.0) * (q.1 - a.1) - (b.1 - a.1) * (q.0 - a.0);
+    let area = cross(tri[0], tri[1], tri[2]);
+    if area == zero {
+        // on the segment from a to b: on its line, and not beyond either end
+        let on = |a: Point<T>, b: Point<T>| {
+            cross(a, b, p) == zero && (p.0 - a.0) * (p.0 - b.0) + (p.1 - a.1) * (p.1 - b.1) <= zero
+        };
+        let held = (0..3).any(|k| on(tri[k], tri[(k + 1) % 3]));
+        return if held { Holds::OnEdge } else { Holds::Outside };
+    }
+    let s = [
+        cross(tri[0], tri[1], p),
+        cross(tri[1], tri[2], p),
+        cross(tri[2], tri[0], p),
+    ]
+    .map(|v| if area > zero { v } else { -v });
+    if s.iter().any(|&v| v < zero) {
+        Holds::Outside
+    } else if s.iter().all(|&v| v > zero) {
+        Holds::Inside
+    } else {
+        Holds::OnEdge
+    }
+}
+
+/// The squared lengths of `tri`'s sides, corner 0 to 1, 1 to 2, 2 to 0.
+pub fn sides2<T: Num>(tri: &[Point<T>; 3]) -> [T; 3] {
+    std::array::from_fn(|k| {
+        let (a, b) = (tri[k], tri[(k + 1) % 3]);
+        (b.0 - a.0) * (b.0 - a.0) + (b.1 - a.1) * (b.1 - a.1)
+    })
+}
+
+/// Where tile `t` holds each of `pts`.
+pub fn held<const N: usize>(t: &Tile<Surd>, pts: &[Point<Surd>; N]) -> [Holds; N] {
+    pts.map(|p| Holds::of(depth_inside(t, p)))
+}
+
+/// The middle square of centres cut along its diagonal from (1, 1): the
+/// lower right triangle and the upper left one, counter-clockwise, as
+/// indices into [`corner_points`].
+pub const MIDDLE_TRIANGLES: [[usize; 3]; 2] = [[0, 2, 3], [0, 3, 1]];
+
+/// The two triangles of [`MIDDLE_TRIANGLES`] for the box `side` wide.
+pub fn middle_triangles(side: Surd) -> [[Point<Surd>; 3]; 2] {
+    let p = corner_points(side);
+    MIDDLE_TRIANGLES.map(|tri| tri.map(|i| p[i]))
+}
+
+/// The centres the lemma is checked at, exactly, in each triangle: its
+/// corners, the middles of its sides, and its centroid.
+pub fn triangle_centres(tri: &[Point<Surd>; 3]) -> Vec<Point<Surd>> {
+    let h = Surd::ratio(1, 2);
+    let third = Surd::ratio(1, 3);
+    let mut out = tri.to_vec();
+    for (k, &a) in tri.iter().enumerate() {
+        let b = tri[(k + 1) % 3];
+        out.push(((a.0 + b.0) * h, (a.1 + b.1) * h));
+    }
+    out.push((
+        (tri[0].0 + tri[1].0 + tri[2].0) * third,
+        (tri[0].1 + tri[1].1 + tri[2].1) * third,
+    ));
+    out
+}
+
+/// A middle square too large for the lemma: side 3/4 from (1, 1), so its
+/// diagonal is 3√2/4 > 1; its four corners, in [`corner_points`]' order, and
+/// the eighth-turned tile at its centre, which misses all four.
+pub fn middle_too_large() -> ([Point<Surd>; 4], Tile<Surd>) {
+    let (one, far) = (Surd::int(1), Surd::ratio(7, 4));
+    let mid = Surd::ratio(11, 8);
+    let e = eighth_turn();
+    (
+        [(one, one), (one, far), (far, one), (far, far)],
+        Tile {
+            centre: (mid, mid),
+            cos: e.0,
+            sin: e.1,
+        },
+    )
+}
+
+/// A straight tile centred outside the lower right triangle, in the upper
+/// left one near (1, 1 + gap): it misses the lower right triangle's three
+/// corners and holds (1, 1 + gap), a corner of the other.
+pub fn centre_outside() -> Tile<Surd> {
+    Tile::straight(Surd::ratio(11, 10), Surd::ratio(9, 10) + turned_gap())
+}
+
+/// The tile 06 shows wandering through the lower right triangle (t from 0
+/// to 1), from its centroid, straight, and back: its centre a weighted
+/// middle of the corners, every weight at least 1/3 − 0.3 > 0 before
+/// normalizing, so it stays strictly inside; its turn swinging up to about
+/// 34° either way. A path of examples: the proof covers every centre and
+/// turn.
+pub fn middle_wander(t: f64) -> Tile<f64> {
+    let tau = std::f64::consts::TAU;
+    let [a, b, c] = middle_triangles(turned_side())[0].map(|p| (p.0.to_f64(), p.1.to_f64()));
+    let swing = 0.3 * (std::f64::consts::PI * t).sin();
+    let w: [f64; 3] = std::array::from_fn(|k| 1.0 / 3.0 + swing * (tau * (2.0 * t + k as f64 / 3.0)).cos());
+    let total: f64 = w.iter().sum();
+    let x = (a.0 * w[0] + b.0 * w[1] + c.0 * w[2]) / total;
+    let y = (a.1 * w[0] + b.1 * w[1] + c.1 * w[2]) / total;
+    let theta = 0.6 * (tau * t).sin();
+    Tile {
+        centre: (x, y),
+        cos: theta.cos(),
+        sin: theta.sin(),
+    }
+}
+
+// --------------------------------------- four points, five tiles (chapter 07)
+//
+// The lower bound: no box narrower than B = 2 + 1/√2 holds five unit tiles.
+// Chapters 04 to 06 show that every unit tile in the box B wide covers one
+// of Friedman's four points, but only closed: on its edge at worst, and
+// where five fit at B each point is on two tiles' edges. The strict step:
+//
+// Suppose five unit tiles fit, insides apart, in a box s < B wide. Enlarge
+// the whole picture by λ = B/s > 1 about a corner of the box: the box
+// becomes B wide; every tile becomes λ wide with the same turn, its centre
+// at λ times its own ([`grown`]); a similarity scales every clearance by λ,
+// so the insides still do not overlap. Inside each grown tile keep its core,
+// the unit tile with the same centre and turn: the core lies in the grown
+// tile, so in the box B wide, and so it covers one of the four points: that
+// point is at most ½ from the centre along each of the tile's sides. The
+// grown tile reaches λ/2 > ½ along each, so the point is strictly inside it,
+// at least (λ − 1)/2 deep ([`depth_sized`]). Five grown tiles each hold a
+// point strictly inside; two cannot hold the same one, or their insides
+// would overlap about it; four points cannot serve five tiles. So no
+// narrower box holds five, and the turned packing of chapter 01 fits the box
+// B wide: B is the smallest. ∎
+//
+// At λ = 1 nothing grows, and the depth can be 0: the points may sit on
+// edges, shared, as where five fit. Below 1 the "grown" tile is smaller than
+// its core and may miss the point it covered.
+//
+// Nothing here places five tiles in a box narrower than B: that is the
+// supposition the argument rules out. Chapter 07 grows one real tile with
+// computed geometry ([`scale_core`], by [`GROWTH`]) and draws the count as
+// a schematic.
+
+/// The growth chapter 07 shows, λ = 6/5 (a box 5/6 of B, supposed).
+pub const GROWTH: (i64, i64) = (6, 5);
+
+/// Tile `t` enlarged by `lambda` about the box's corner, the origin: its
+/// centre moves to λ times itself and its turn is kept (it is then λ wide;
+/// the functions taking a `side` say so).
+pub fn grown<T: Num>(t: &Tile<T>, lambda: T) -> Tile<T> {
+    Tile {
+        centre: (t.centre.0 * lambda, t.centre.1 * lambda),
+        cos: t.cos,
+        sin: t.sin,
+    }
+}
+
+/// How deep `q` lies inside tile `t` were it `side` wide (same centre and
+/// turn): half the side less q's larger distance from the centre along the
+/// tile's two sides. Positive strictly inside, zero on an edge.
+pub fn depth_sized<T: Num>(t: &Tile<T>, side: T, q: Point<T>) -> T {
+    let (u, v) = tile_frame(t, q);
+    side * T::ratio(1, 2) - larger(larger(u, -u), larger(v, -v))
+}
+
+/// The core 07 grows, a real unit tile in the box B wide: centred
+/// (7/5, 13/10), turned by cos 4/5, sin 3/5 (about 37°). Of the four points it
+/// holds (1, 1) at the middle of its edge and two others strictly inside.
+pub fn scale_core() -> Tile<Surd> {
+    Tile {
+        centre: (Surd::ratio(7, 5), Surd::ratio(13, 10)),
+        cos: Surd::ratio(4, 5),
+        sin: Surd::ratio(3, 5),
+    }
+}
+
+// ------------------------------------------------- beyond five (chapter 08)
+//
+// Two larger packings, each checked exactly as chapter 01's is ([`Packing::
+// check_exact`]: every tile a true turn, no two overlapping, all inside).
+// A check shows that a box is big enough, and nothing about smaller boxes.
+//
+// Ten tiles (W. Stromquist, "Packing 10 or 11 unit squares in a square",
+// Electron. J. Combin. 10 (2003) #R8, Figure 1, left): the box 3 + h wide,
+// h = 1/√2, the gap of chapter 01; nine straight tiles [x, x + 1] ×
+// [y, y + 1], x in {0, 1, 2 + h}, y in {0, 1 + h, 2 + h}; the tenth turned
+// an eighth and centred in the h-wide gap at (2 + h/2, 1 + h/2), touching
+// four of them at the middles of its sides, as the middle tile of five does.
+// That no narrower box holds ten is that paper's theorem; nothing here
+// proves it.
+//
+// Eleven tiles: an exact member of the family of W. Trump's construction
+// (as reconstructed by Ellsworth), its parameters chosen for exactness,
+// not to be the smallest known: the box T = 1939/500 wide, five tiles turned
+// by cos 105/137, sin 88/137 (about 39.97°, not 40°), six straight. With
+// ρ = 1 − (T − 3)c, η = ((1 + ρ)c − 1)/s, v = c − s,
+// ζ = (T − 1)/s − ρ − (3 + η)c/s and x0 = 1 + 2/c − (T − 2)s/c: the straight
+// tiles A(0, 0), A(T − 1, 0), A(x0, T − 1), A(0, T − 1), A(1, T − 1),
+// A(0, T − 2), with A(x, y) = [x, x + 1] × [y, y + 1], and the turned ones
+// F(A(0, 0)), F(A(η, −1)), F(A(1, v)), F(A(η + 1, v − 1)), F(A(η + 2, −ζ)),
+// where F(x, y) = (1 + c x − s (y − ρ), 1 + s x + c (y − ρ)) turns the
+// plane by (c, s) and shifts it.
+// Nothing is claimed about the smallest box for eleven. The same formulas
+// with an eighth of a turn do not give a packing ([`eleven_with`]'s test).
+
+/// The straight unit tile [x, x + 1] × [y, y + 1].
+fn square_at(x: Surd, y: Surd) -> Tile<Surd> {
+    let h = Surd::ratio(1, 2);
+    Tile::straight(x + h, y + h)
+}
+
+/// Stromquist's ten tiles in the box 3 + 1/√2 wide.
+pub fn ten() -> Packing<Surd> {
+    let (zero, one, h) = (Surd::ZERO, Surd::int(1), turned_gap());
+    let mut tiles = Vec::new();
+    for x in [zero, one, Surd::int(2) + h] {
+        for y in [zero, one + h, Surd::int(2) + h] {
+            tiles.push(square_at(x, y));
+        }
+    }
+    let half = Surd::ratio(1, 2);
+    let (c, s) = eighth_turn();
+    tiles.push(Tile {
+        centre: (Surd::int(2) + h * half, one + h * half),
+        cos: c,
+        sin: s,
+    });
+    Packing {
+        side: Surd::int(3) + h,
+        tiles,
+    }
+}
+
+/// The eleven-tile construction for the box `t` wide and the turn
+/// (`c`, `s`): six straight tiles, then five turned by (c, s).
+pub fn eleven_with(t: Surd, c: Surd, s: Surd) -> Packing<Surd> {
+    let (one, two, three) = (Surd::int(1), Surd::int(2), Surd::int(3));
+    let (ic, is) = (c.recip(), s.recip());
+    let rho = one - (t - three) * c;
+    let eta = ((one + rho) * c - one) * is;
+    let v = c - s;
+    let zeta = (t - one) * is - rho - (three + eta) * c * is;
+    let x0 = one + two * ic - (t - two) * s * ic;
+    let half = Surd::ratio(1, 2);
+    // the turned tile that F makes of A(a, b): centred at F of A's centre
+    let turned_at = |a: Surd, b: Surd| {
+        let (x, y) = (a + half, b + half - rho);
+        Tile {
+            centre: (one + c * x - s * y, one + s * x + c * y),
+            cos: c,
+            sin: s,
+        }
+    };
+    let zero = Surd::ZERO;
+    Packing {
+        side: t,
+        tiles: vec![
+            square_at(zero, zero),
+            square_at(t - one, zero),
+            square_at(x0, t - one),
+            square_at(zero, t - one),
+            square_at(one, t - one),
+            square_at(zero, t - two),
+            turned_at(zero, zero),
+            turned_at(eta, -one),
+            turned_at(one, v),
+            turned_at(eta + one, v - one),
+            turned_at(eta + two, -zeta),
+        ],
+    }
+}
+
+/// The eleven tiles chapter 08 shows: the box 1939/500 = 3.878 wide, the
+/// turn cos 105/137, sin 88/137.
+pub fn eleven() -> Packing<Surd> {
+    eleven_with(Surd::ratio(1939, 500), Surd::ratio(105, 137), Surd::ratio(88, 137))
+}
+
+/// Chapter 08's planted failures, each a packing that must fail its check:
+/// the ten and the eleven in boxes 1/100 narrower (tiles escape), and the
+/// eleven with its first tile doubled (an overlap).
+pub fn beyond_planted() -> Vec<(&'static str, Packing<Surd>)> {
+    let hair = Surd::ratio(1, 100);
+    let narrower = |p: Packing<Surd>| Packing {
+        side: p.side - hair,
+        tiles: p.tiles,
+    };
+    let mut doubled = eleven();
+    doubled.tiles.push(doubled.tiles[0]);
+    vec![
+        ("ten_narrower", narrower(ten())),
+        ("eleven_narrower", narrower(eleven())),
+        ("eleven_doubled", doubled),
+    ]
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    const EPS: f64 = 1e-12;
+
+    fn r2() -> Surd {
+        Surd::sqrt2()
+    }
+
+    #[test]
+    fn exact_arithmetic_and_its_sign() {
+        assert_eq!(r2() * r2(), Surd::int(2));
+        // 3 - 2√2 > 0 (9 > 8); 7/5 - √2 < 0 (49/25 < 2); 0
+        assert_eq!((Surd::int(3) - Surd::int(2) * r2()).signum(), 1);
+        assert_eq!((Surd::ratio(7, 5) - r2()).signum(), -1);
+        assert_eq!((Surd::ratio(-7, 5) + r2()).signum(), 1);
+        assert_eq!((Surd::int(-3) + Surd::int(2) * r2()).signum(), -1);
+        assert_eq!(Surd::ZERO.signum(), 0);
+        assert_eq!((r2() - r2()).signum(), 0);
+        assert!(Surd::ratio(141, 100) < r2() && r2() < Surd::ratio(142, 100));
+        assert_eq!(Ratio::new(6, -4), Ratio::new(-3, 2));
+        assert_eq!(Ratio::new(0, -5), Ratio::ZERO);
+        assert_eq!(turned_side().to_string(), "2 + 1/2*sqrt(2)");
+        assert_eq!(turned_gap().to_string(), "1/2*sqrt(2)");
+        assert_eq!((Surd::int(1) - turned_gap()).to_string(), "1 - 1/2*sqrt(2)");
+        assert_eq!((-r2()).to_string(), "-sqrt(2)");
+        assert_eq!(Surd::ratio(-3, 4).to_string(), "-3/4");
+        assert_eq!(turned_side().decimals(2), "2.71");
+        assert_eq!(turned_side().decimals(5), "2.70711");
+    }
+
+    /// The gap's diagonal is one tile, and the box is a tile, the gap and a
+    /// tile; and at that box the opposite inner corners are exactly one apart.
+    #[test]
+    fn the_box_is_derived_from_the_diagonal() {
+        assert_eq!(turned_gap() * r2(), Surd::int(1));
+        assert_eq!(turned_side(), Surd::int(1) + turned_gap() + Surd::int(1));
+        let p = five_turned();
+        let (a, b) = (p.inner_corner(0), p.inner_corner(3));
+        let d2 = (b.0 - a.0) * (b.0 - a.0) + (b.1 - a.1) * (b.1 - a.1);
+        assert_eq!(d2, Surd::int(1));
+        assert_eq!(b.0 - a.0, turned_gap());
+    }
+
+    #[test]
+    fn the_five_tiles_fit_and_touch_exactly() {
+        let v = five_turned().check_exact();
+        assert!(v.fits(), "{v:?}");
+        assert_eq!(v.summary(), "fits");
+        assert_eq!(v.touching, vec![(0, 4), (1, 4), (2, 4), (3, 4)]);
+        assert_eq!(v.touching_list(), "0-4,1-4,2-4,3-4");
+        // each corner tile against its two walls; the middle tile against none
+        assert_eq!(v.walls.len(), 8);
+        assert!(v.walls.iter().all(|&(i, _)| i != MIDDLE));
+        // each inner corner is the middle of a side of the turned tile
+        let p = five_turned();
+        let mids = p.tiles[MIDDLE].midpoints();
+        for k in 0..4 {
+            assert!(mids.contains(&p.inner_corner(k)), "inner corner {k}");
+        }
+        // the middle tile clears the walls by 1 - √2/4
+        assert_eq!(
+            wall_clearance(&p.tiles[MIDDLE], p.side),
+            Surd::int(1) - r2() * Surd::ratio(1, 4)
+        );
+    }
+
+    #[test]
+    fn the_straight_grid() {
+        assert_eq!(grid_side(TILES), 3);
+        assert_eq!((grid_side(4), grid_side(9), grid_side(10)), (2, 3, 4));
+        assert_eq!(full_grid(TILES), 2);
+        assert_eq!((full_grid(4), full_grid(8), full_grid(9)), (2, 2, 3));
+        let v = five_straight().check_exact();
+        assert!(v.fits(), "{v:?}");
+        // straight, the middle tile touches all four corner tiles at a corner
+        assert_eq!(v.touching, vec![(0, 4), (1, 4), (2, 4), (3, 4)]);
+    }
+
+    /// The separating-axis clearance on cases checked by hand.
+    #[test]
+    fn clearance_by_hand() {
+        let h = Surd::ratio(1, 2);
+        let a = Tile::straight(h, h);
+        let at = |x: Surd| Tile::straight(x, h);
+        assert_eq!(clearance(&a, &at(Surd::ratio(3, 2))), Surd::ZERO);
+        assert_eq!(clearance(&a, &at(Surd::int(2))), h);
+        assert_eq!(clearance(&a, &at(Surd::ratio(5, 4))), Surd::ratio(-1, 4));
+        assert_eq!(clearance(&at(Surd::ratio(5, 4)), &a), Surd::ratio(-1, 4));
+        // a diamond whose side passes through (1, 1) touches the tile there
+        let (c, s) = eighth_turn();
+        let centre = Surd::int(1) + r2() * Surd::ratio(1, 4);
+        let d = Tile {
+            centre: (centre, centre),
+            cos: c,
+            sin: s,
+        };
+        assert_eq!(clearance(&a, &d), Surd::ZERO);
+        assert_eq!(wall_clearance(&a, Surd::int(1)), Surd::ZERO);
+        assert_eq!(wall_clearance(&at(Surd::ratio(3, 4)), Surd::int(1)), Surd::ratio(-1, 4));
+    }
+
+    #[test]
+    fn every_planted_failure_is_caught() {
+        let want = [
+            ("squeeze_further", "overlap:0-4,1-4,2-4,3-4"),
+            ("middle_turned_more", "overlap:0-4,1-4,2-4,3-4"),
+            ("middle_shifted", "overlap:1-4,3-4"),
+            ("box_smaller", "escape:1,2,3"),
+            ("straight_squeezed", "overlap:0-4,1-4,2-4,3-4"),
+        ];
+        let got: Vec<(&str, String)> = planted()
+            .iter()
+            .map(|p| (p.key, p.packing.check_exact().summary()))
+            .collect();
+        let want: Vec<(&str, String)> = want.iter().map(|&(k, s)| (k, s.to_owned())).collect();
+        assert_eq!(got, want);
+        // the extra turn is an exact turn
+        let (c, s) = compose(eighth_turn(), small_turn());
+        assert_eq!(c * c + s * s, Surd::int(1));
+    }
+
+    /// The edges of "it turns without hitting anything": straight (angle 0)
+    /// it touches all four neighbours; at every sampled angle up to an eighth
+    /// of a turn nothing overlaps and nothing escapes; past straight, it
+    /// touches nothing.
+    #[test]
+    fn the_turn_never_collides() {
+        assert_eq!(turn_reach2(), Surd::ratio(1, 2));
+        assert_eq!(turn_inner2(), Surd::ratio(1, 2));
+        let steps = 2000;
+        for k in 0..=steps {
+            let angle = std::f64::consts::FRAC_PI_4 * f64::from(k) / f64::from(steps);
+            let p = turning(angle);
+            assert!(p.worst() >= -EPS, "angle {angle}: {}", p.worst());
+            let v = p.check(EPS);
+            assert!(v.fits(), "angle {angle}: {v:?}");
+            if k == 0 {
+                assert_eq!(v.touching.len(), 4);
+            } else {
+                assert!(v.touching.is_empty(), "angle {angle}: {v:?}");
+            }
+        }
+    }
+
+    /// The edges of "no two tiles ever overlap" in the squeeze: from the box
+    /// of three down to the stop nothing overlaps or escapes, the middle tile
+    /// touches its four neighbours only at the stop, and a hair past the stop
+    /// all four overlap it.
+    #[test]
+    fn the_squeeze_never_collides_and_stops_at_the_touch() {
+        let (from, to) = (turn_box(), turned_side().to_f64());
+        let steps = 2000;
+        for k in 0..=steps {
+            let side = from + (to - from) * f64::from(k) / f64::from(steps);
+            let p = squeezed(side);
+            assert!(p.worst() >= -EPS, "side {side}: {}", p.worst());
+            let v = p.check(EPS);
+            assert!(v.fits(), "side {side}: {v:?}");
+            assert_eq!(v.touching.len(), if k == steps { 4 } else { 0 }, "side {side}");
+        }
+        let past = squeezed(to - 1e-6).check(EPS);
+        assert_eq!(past.overlapping, vec![(0, 4), (1, 4), (2, 4), (3, 4)]);
+    }
+
+    /// Squeezing without the turn fails at once: the straight middle tile
+    /// already touches all four corner tiles in the box of three.
+    #[test]
+    fn a_straight_middle_cannot_be_squeezed() {
+        let p = corners_and_middle(turn_box() - 1e-6, 1.0, 0.0);
+        assert_eq!(p.check(EPS).overlapping.len(), 4);
+    }
+
+    /// Below three each piece is shorter than a tile; at three a piece is a
+    /// whole tile; the pins sit where the marks cross.
+    #[test]
+    fn the_marks_cut_pieces_shorter_than_a_tile_below_three() {
+        let side = turned_side();
+        assert_eq!(longest_piece(side), side * Surd::ratio(1, 3));
+        for s in [side, Surd::ratio(299, 100), Surd::int(2), Surd::int(1)] {
+            assert!(longest_piece(s) < Surd::int(1), "{s}");
+        }
+        assert_eq!(pin_threshold(), Surd::int(3));
+        assert_eq!(longest_piece(pin_threshold()), Surd::int(1));
+        let at3 = pins(pin_threshold());
+        assert_eq!(at3[0], (Surd::int(1), Surd::int(1)));
+        assert_eq!(at3[3], (Surd::int(2), Surd::int(2)));
+    }
+
+    /// The one-dimensional and two-dimensional steps, checked exactly for
+    /// every shadow and every straight tile: true below three (the turned
+    /// packing's box, 2.99, 2, 7/5 and 1), false at 3 and 7/2, and no room at
+    /// all below one tile.
+    #[test]
+    fn every_shadow_holds_a_mark_below_three_and_not_from_three() {
+        for s in [
+            turned_side(),
+            Surd::ratio(299, 100),
+            Surd::int(2),
+            Surd::ratio(7, 5),
+            Surd::int(1),
+        ] {
+            assert_eq!(every_shadow_holds_a_mark(s), Some(true), "{s}");
+            assert_eq!(every_straight_tile_holds_a_pin(s), Some(true), "{s}");
+        }
+        for s in [Surd::int(3), Surd::ratio(7, 2)] {
+            assert_eq!(every_shadow_holds_a_mark(s), Some(false), "{s}");
+            assert_eq!(every_straight_tile_holds_a_pin(s), Some(false), "{s}");
+        }
+        assert_eq!(every_shadow_holds_a_mark(Surd::ratio(1, 2)), None);
+        assert_eq!(every_straight_tile_holds_a_pin(Surd::ratio(99, 100)), None);
+        // at three the shadow [1, 2] has the marks only at its ends
+        assert!(marks_inside(Surd::int(1), Surd::int(3)).is_empty());
+        assert_eq!(marks_touched(Surd::int(1), Surd::int(3)), vec![0, 1]);
+        // the critical positions in the turned packing's box
+        assert_eq!(critical_shadows(turned_side()).len(), 4);
+    }
+
+    /// With ends included the step "holds" at three as well, where five
+    /// straight tiles fit: a proof with closed shadows would prove something
+    /// false.
+    #[test]
+    fn closed_marks_would_prove_too_much() {
+        assert_eq!(every_closed_shadow_touches_a_mark(Surd::int(3)), Some(true));
+        let five = five_straight();
+        assert!(five.check_exact().fits());
+        assert!(pin_owners(&five).iter().all(Vec::is_empty));
+    }
+
+    /// The pigeonhole on the chapter's pictures: in the turned packing's box
+    /// each corner tile holds its own pin, a straight middle tile holds all
+    /// four (and overlaps all four corner tiles), the turned middle tile
+    /// holds none; in a packing that fits no pin serves two tiles.
+    #[test]
+    fn the_pins_and_the_tiles() {
+        let side = turned_side();
+        let straight = corners_and_middle(side, Surd::int(1), Surd::ZERO);
+        let owners = pin_owners(&straight);
+        assert_eq!(owners[..4], [vec![0], vec![1], vec![2], vec![3]]);
+        assert_eq!(owners[MIDDLE], vec![0, 1, 2, 3]);
+        assert_eq!(straight.check_exact().overlapping, vec![(0, 4), (1, 4), (2, 4), (3, 4)]);
+        let turned = pin_owners(&five_turned());
+        assert_eq!(turned[..4], [vec![0], vec![1], vec![2], vec![3]]);
+        assert!(turned[MIDDLE].is_empty());
+        for p in [five_turned(), five_straight()] {
+            assert!(p.check_exact().fits());
+            let mut seen: Vec<usize> = pin_owners(&p).concat();
+            let n = seen.len();
+            seen.sort_unstable();
+            seen.dedup();
+            assert_eq!(seen.len(), n, "a pin serves two tiles");
+        }
+    }
+
+    /// The probe of 02_4 stays in the box and holds a pin at every sampled
+    /// frame (a check of the frames drawn; the proof covers the rest).
+    #[test]
+    fn the_wandering_tile_always_holds_a_pin() {
+        let side = turned_side().to_f64();
+        assert_eq!(wander(0.0, side), (0.0, 0.0));
+        for k in 0..=2000 {
+            let t = f64::from(k) / 2000.0;
+            let (a, b) = wander(t, side);
+            let tile = Tile::straight(a + 0.5, b + 0.5);
+            assert!(wall_clearance(&tile, side) >= -EPS, "{t}");
+            assert!(!pins_inside(&tile, side).is_empty(), "{t}");
+        }
+    }
+
+    fn flip(turn: Point<Surd>) -> Point<Surd> {
+        (turn.0, -turn.1)
+    }
+
+    /// The held corners lie on the circle inside the middle tile (half a
+    /// tile from its centre, squared 1/4) in the box of 2.71, and on the
+    /// circle around it (squared 1/2) in the box of three.
+    #[test]
+    fn the_held_corners_sit_on_the_inner_circle() {
+        let p = five_turned();
+        let c = p.tiles[MIDDLE].centre;
+        let mid = p.tiles[MIDDLE].midpoints()[0];
+        let inradius2 = (mid.0 - c.0) * (mid.0 - c.0) + (mid.1 - c.1) * (mid.1 - c.1);
+        assert_eq!(inradius2, Surd::ratio(1, 4));
+        for k in 0..4 {
+            let q = p.inner_corner(k);
+            let d2 = (q.0 - c.0) * (q.0 - c.0) + (q.1 - c.1) * (q.1 - c.1);
+            assert_eq!(d2, inradius2, "corner {k}");
+            assert_eq!(
+                depth_inside(&p.tiles[MIDDLE], q),
+                Surd::ZERO,
+                "corner {k} is on an edge"
+            );
+        }
+        assert_eq!(turn_inner2(), Surd::ratio(1, 2));
+    }
+
+    /// The exact bite of the small turn, both ways and twice as far: depth
+    /// ½(1 − cos) at every corner, the separating-axis push the same, an
+    /// overlap triangle whose clipped area is the closed form, and a depth
+    /// ratio a little under four.
+    #[test]
+    fn a_turn_by_a_hair_bites_by_its_square() {
+        let one = small_turn();
+        let two = compose(one, one);
+        let half = Surd::ratio(1, 2);
+        for (turn, depth) in [
+            (one, Surd::ratio(1, 401)),
+            (flip(one), Surd::ratio(1, 401)),
+            (two, Surd::ratio(1600, 160801)),
+        ] {
+            assert_eq!((Surd::int(1) - turn.0) * half, depth);
+            let p = hair_turned(turn);
+            assert_eq!(p.check_exact().summary(), "overlap:0-4,1-4,2-4,3-4");
+            let mid = p.tiles[MIDDLE];
+            for k in 0..4 {
+                assert_eq!(depth_inside(&mid, p.inner_corner(k)), depth, "corner {k}");
+                assert_eq!(clearance(&p.tiles[k], &mid), -depth, "corner {k}");
+                let bite = overlap_polygon(&p.tiles[k], &mid);
+                assert_eq!(bite.len(), 3, "corner {k}");
+                let (c, s) = (turn.0, turn.1);
+                let cos2 = c * c - s * s;
+                let closed = (Surd::int(1) - c) * (Surd::int(1) - c) * (Surd::int(4) * cos2).recip();
+                assert_eq!(polygon_area(&bite), closed, "corner {k}");
+            }
+        }
+        let area = polygon_area(&overlap_polygon(
+            &hair_turned(one).tiles[1],
+            &hair_turned(one).tiles[MIDDLE],
+        ));
+        assert_eq!(area, Surd::ratio(1, 157601));
+        let ratio = Surd::ratio(1600, 160801) * Surd::ratio(1, 401).recip();
+        assert_eq!(ratio, Surd::ratio(641600, 160801));
+        assert!(Surd::ratio(39, 10) < ratio && ratio < Surd::int(4));
+    }
+
+    /// Never zero: ever smaller exact turns (half-angle tangent 1/n) still
+    /// push the held corner in, by exactly 1/(n² + 1), in the tile's own
+    /// frame; and the whole packing, worked exactly, overlaps at n = 20 as at
+    /// every frame drawn. The depth is the same in both frames.
+    #[test]
+    fn the_bite_is_never_zero_however_small_the_turn() {
+        for n in [20, 100, 1000, 10_000, 1_000_000] {
+            let turn = half_angle_turn(n);
+            assert_eq!(turn.0 * turn.0 + turn.1 * turn.1, Surd::int(1));
+            assert_eq!(held_corner_depth(turn), Surd::ratio(1, n * n + 1), "n {n}");
+            assert_eq!(held_corner_depth(flip(turn)), Surd::ratio(1, n * n + 1), "n {n}");
+        }
+        assert_eq!(held_corner_depth((Surd::int(1), Surd::ZERO)), Surd::ZERO);
+        let p = hair_turned(small_turn());
+        assert_eq!(
+            depth_inside(&p.tiles[MIDDLE], p.inner_corner(0)),
+            held_corner_depth(small_turn())
+        );
+        assert_eq!(p.check_exact().overlapping.len(), 4);
+    }
+
+    /// The controls: no turn touches without overlapping; in the box of
+    /// three the same turns, either way, fit and touch nothing.
+    #[test]
+    fn no_turn_touches_and_the_roomy_box_turns_freely() {
+        let none = hair_turned((Surd::int(1), Surd::ZERO));
+        assert_eq!(none, five_turned());
+        let v = none.check_exact();
+        assert!(v.fits() && v.touching.len() == 4);
+        for turn in [small_turn(), flip(small_turn())] {
+            let roomy = hair_turned_roomy(turn).check_exact();
+            assert!(roomy.fits(), "{roomy:?}");
+            assert!(roomy.touching.is_empty(), "{roomy:?}");
+        }
+    }
+
+    /// Every sampled frame of the drawn turn, either way up to an eighth of
+    /// a turn, overlaps all four corner tiles (a check of the frames drawn;
+    /// the depth formula covers the rest).
+    #[test]
+    fn every_drawn_hair_frame_overlaps() {
+        for k in 1..=1000 {
+            let delta = std::f64::consts::FRAC_PI_4 * f64::from(k) / 1000.0 * 0.999;
+            for d in [delta, -delta] {
+                let v = hair(d).check(EPS);
+                assert_eq!(v.overlapping.len(), 4, "{d}");
+            }
+        }
+        assert!(hair(0.0).check(EPS).fits());
+    }
+
+    /// The triangle and its area formula hold exactly up to 30°: every
+    /// half-angle tangent 1/n from 1/4 (about 28°) down to 1/20, clipped
+    /// exactly, is a triangle of area (1 − cos)² / (4 cos 2δ). Past 30° a
+    /// corner of the middle tile is inside and the overlap has four sides:
+    /// tangent 1/3 gives 1/56 where the formula says 1/28, tangent 2/5 gives
+    /// 7/328 where it says 16/41. The depth formula holds throughout.
+    #[test]
+    fn the_triangle_holds_to_thirty_degrees() {
+        let formula =
+            |(c, s): Point<Surd>| (Surd::int(1) - c) * (Surd::int(1) - c) * (Surd::int(4) * (c * c - s * s)).recip();
+        for n in 4..=20 {
+            let turn = half_angle_turn(n);
+            assert!(turn.1 <= Surd::ratio(1, 2), "n {n} is within 30 degrees");
+            let p = hair_turned(turn);
+            for k in [0, 1] {
+                let bite = overlap_polygon(&p.tiles[k], &p.tiles[MIDDLE]);
+                assert_eq!(bite.len(), 3, "n {n}, corner {k}");
+                assert_eq!(polygon_area(&bite), formula(turn), "n {n}, corner {k}");
+            }
+        }
+        for (turn, area, triangle) in [
+            (half_angle_turn(3), Surd::ratio(1, 56), Surd::ratio(1, 28)),
+            (
+                (Surd::ratio(21, 29), Surd::ratio(20, 29)),
+                Surd::ratio(7, 328),
+                Surd::ratio(16, 41),
+            ),
+        ] {
+            assert!(turn.1 > Surd::ratio(1, 2));
+            assert_eq!(formula(turn), triangle);
+            let p = hair_turned(turn);
+            let bite = overlap_polygon(&p.tiles[0], &p.tiles[MIDDLE]);
+            assert_eq!(bite.len(), 4);
+            assert_eq!(polygon_area(&bite), area);
+            assert_ne!(area, triangle);
+            assert_eq!(
+                depth_inside(&p.tiles[MIDDLE], p.inner_corner(0)),
+                (Surd::int(1) - turn.0) * Surd::ratio(1, 2)
+            );
+        }
+    }
+
+    /// The proof's bound: s (1 − s/2) = ½ − ½ (s − 1)², at most ½ and ½
+    /// only straight; the shadow runs from 1 (straight) to √2 (an eighth).
+    #[test]
+    fn the_corner_bound_never_passes_a_half() {
+        let (one, half) = (Surd::int(1), Surd::ratio(1, 2));
+        assert_eq!(shadow_width((one, Surd::ZERO)), one);
+        assert_eq!(shadow_width(eighth_turn()), Surd::sqrt2());
+        for turn in corner_turns() {
+            let s = shadow_width(turn);
+            assert!((one..=Surd::sqrt2()).contains(&s), "{turn:?}");
+            assert_eq!(corner_bound(s), half - half * (s - one) * (s - one), "{turn:?}");
+            assert!(corner_bound(s) <= half && one - s * half <= half, "{turn:?}");
+        }
+        assert_eq!(corner_bound(one), half);
+        assert_eq!(corner_bound(Surd::sqrt2()), Surd::sqrt2() - one);
+    }
+
+    /// The lemma for each checked turn, exactly and over every allowed
+    /// centre: the point's least depth is ½ (s − 1)², never negative and
+    /// zero only straight; every extreme centre keeps the tile in the
+    /// quadrant.
+    #[test]
+    fn the_corner_lemma_holds_at_every_checked_turn() {
+        let (one, half) = (Surd::int(1), Surd::ratio(1, 2));
+        for turn in corner_turns() {
+            assert_eq!(turn.0 * turn.0 + turn.1 * turn.1, one);
+            let s = shadow_width(turn);
+            let margin = corner_lemma_margin(turn);
+            assert_eq!(margin, half * (s - one) * (s - one), "{turn:?}");
+            assert!(margin >= Surd::ZERO, "{turn:?}");
+            for c in corner_extremes(turn) {
+                let t = Tile {
+                    centre: c,
+                    cos: turn.0,
+                    sin: turn.1,
+                };
+                assert!(in_quadrant(&t), "{turn:?} at {c:?}");
+            }
+        }
+        assert_eq!(corner_lemma_margin((one, Surd::ZERO)), Surd::ZERO);
+        assert_eq!(corner_lemma_margin(eighth_turn()), Surd::ratio(3, 2) - Surd::sqrt2());
+    }
+
+    /// The edges of the lemma and its assumptions: a straight tile resting
+    /// on a wall has the point on its edge, one clear of the walls and every
+    /// turned tile strictly inside; with the centre past one tile, or a wall
+    /// crossed, the point can be missed.
+    #[test]
+    fn the_corner_lemma_edges_and_failures() {
+        let straight = (Surd::int(1), Surd::ZERO);
+        let h = Surd::ratio(1, 2);
+        assert_eq!(corner_holds((h, h), straight), Holds::OnEdge);
+        assert_eq!(corner_holds((h, Surd::ratio(4, 5)), straight), Holds::OnEdge);
+        assert_eq!(corner_holds((Surd::ratio(4, 5), h), straight), Holds::OnEdge);
+        assert_eq!(
+            corner_holds((Surd::ratio(3, 4), Surd::ratio(3, 4)), straight),
+            Holds::Inside
+        );
+        for turn in corner_turns() {
+            if shadow_width(turn) > Surd::int(1) {
+                for c in corner_extremes(turn) {
+                    assert_eq!(corner_holds(c, turn), Holds::Inside, "{turn:?} at {c:?}");
+                }
+            }
+        }
+        let past = (Surd::ratio(8, 5), h);
+        assert!(in_quadrant(&Tile::straight(past.0, past.1)));
+        assert_eq!(corner_holds(past, straight), Holds::Outside);
+        let e = eighth_turn();
+        let crossing = Tile {
+            centre: (h, h),
+            cos: e.0,
+            sin: e.1,
+        };
+        assert!(!in_quadrant(&crossing));
+        assert_eq!(corner_holds((h, h), e), Holds::Outside);
+    }
+
+    /// Every sampled frame of 04's wandering tile keeps the assumptions and
+    /// holds the point, on its edge at worst (the proof covers the rest).
+    #[test]
+    fn the_wandering_corner_tile_always_holds_the_point() {
+        assert_eq!(corner_wander(0.0).centre, (0.5, 0.5));
+        for k in 0..=2000 {
+            let t = corner_wander(f64::from(k) / 2000.0);
+            assert!(t.corners().iter().all(|&(x, y)| x >= -EPS && y >= -EPS), "{k}");
+            assert!(t.centre.0 <= 1.0 + EPS && t.centre.1 <= 1.0 + EPS, "{k}");
+            assert!(depth_inside(&t, corner_point()) >= -EPS, "{k}");
+        }
+    }
+
+    /// The box of 2.71: its centre region, the four corner blocks the lemma
+    /// settles (each a quarter), what is left (the middle square, the gap
+    /// wide, and four edge strips), and the lemma mirrored at another corner.
+    #[test]
+    fn the_corner_blocks_in_the_box() {
+        let side = turned_side();
+        let (lo, hi) = centre_region(side);
+        assert_eq!(hi - lo, Surd::int(1) + turned_gap());
+        assert_eq!(Surd::int(1) - lo, Surd::ratio(1, 2));
+        let region = (hi - lo) * (hi - lo);
+        assert_eq!(region, Surd::ratio(3, 2) + Surd::sqrt2());
+        assert_eq!(region - Surd::int(1), Surd::ratio(1, 2) + Surd::sqrt2());
+        let far = Surd::int(1) + turned_gap();
+        assert_eq!(corner_points(side)[3], (far, far));
+        assert_eq!(hi - far, Surd::ratio(1, 2), "the far corner block is half a tile wide");
+        // lower right corner: the point one tile from both its walls
+        let point = (far, Surd::int(1));
+        let e = eighth_turn();
+        let half_shadow = shadow_width(e) * Surd::ratio(1, 2);
+        let pushed = Tile {
+            centre: (side - half_shadow, half_shadow),
+            cos: e.0,
+            sin: e.1,
+        };
+        assert_eq!(Holds::of(depth_inside(&pushed, point)), Holds::Inside);
+        let resting = Tile::straight(side - Surd::ratio(1, 2), Surd::ratio(1, 2));
+        assert_eq!(Holds::of(depth_inside(&resting, point)), Holds::OnEdge);
+    }
+
+    /// The tile pushed into the corner, at every sampled turn of a quarter
+    /// turn: inside the walls, touching both, centre within one tile, the
+    /// point held (on the edge only when straight).
+    #[test]
+    fn the_pushed_corner_tile_holds_the_point() {
+        for k in 0..2000 {
+            let theta = std::f64::consts::FRAC_PI_2 * f64::from(k) / 2000.0;
+            let t = corner_pushed(theta);
+            let low = t.corners().iter().fold(f64::INFINITY, |m, c| m.min(c.0.min(c.1)));
+            assert!(low.abs() < EPS, "{theta}: touches both walls");
+            assert!(t.centre.0 <= 1.0 && t.centre.1 <= 1.0, "{theta}");
+            let depth = depth_inside(&t, corner_point());
+            if k == 0 {
+                assert!(depth.abs() < EPS, "straight: on the edge");
+            } else {
+                assert!(depth > 0.0, "{theta}: inside");
+            }
+        }
+    }
+
+    /// The strip's points are two of Friedman's four, and the strip of the
+    /// box keeps every assumption: x + 2y = 2 + √2/2 < 2√2.
+    #[test]
+    fn the_strip_is_two_of_the_four_points() {
+        let (gap, one) = (turned_gap(), Surd::int(1));
+        let four = corner_points(turned_side());
+        assert_eq!(strip_points(gap, one), [four[0], four[2]]);
+        assert!(strip_broken(gap, one, &on_floor(one, (one, Surd::ZERO))).is_empty());
+        assert!(gap + Surd::int(2) < Surd::int(2) * Surd::sqrt2());
+    }
+
+    /// The cut is where the line meets the tile's edges: both ends on an
+    /// edge and its middle inside, exactly, at every checked turn and three
+    /// heights through the tile; a line over the tile misses it.
+    #[test]
+    fn the_cut_ends_on_the_tiles_edges() {
+        let one = Surd::int(1);
+        for turn in corner_turns() {
+            let t = on_floor(one, turn);
+            let w = shadow_width(turn);
+            for y in [Surd::ratio(1, 3), w * Surd::ratio(1, 2), w - Surd::ratio(1, 100)] {
+                let (l, r) = cut_at(&t, y).expect("the line crosses the tile");
+                assert!(l < r, "{turn:?} at {y}");
+                assert_eq!(depth_inside(&t, (l, y)), Surd::ZERO, "{turn:?} at {y}");
+                assert_eq!(depth_inside(&t, (r, y)), Surd::ZERO, "{turn:?} at {y}");
+                let mid = ((l + r) * Surd::ratio(1, 2), y);
+                assert!(depth_inside(&t, mid) > Surd::ZERO, "{turn:?} at {y}");
+            }
+            assert!(cut_at(&t, w + Surd::ratio(1, 100)).is_none(), "{turn:?}");
+        }
+    }
+
+    /// Step 1 of the proof, exactly at the four extreme centres of every
+    /// checked turn: the point of the points' line straight above the
+    /// centre is in the tile, strictly once turned; a straight tile resting
+    /// on the floor has it on its top edge.
+    #[test]
+    fn the_point_straight_above_the_centre_is_held() {
+        let (gap, one, h) = (turned_gap(), Surd::int(1), Surd::ratio(1, 2));
+        for turn in corner_turns() {
+            let low = shadow_width(turn) * h;
+            for (a, b) in [(one, low), (one + gap, low), (one, one), (one + gap, one)] {
+                let t = Tile {
+                    centre: (a, b),
+                    cos: turn.0,
+                    sin: turn.1,
+                };
+                let depth = depth_inside(&t, (a, one));
+                assert!(depth >= Surd::ZERO, "{turn:?} at {a}, {b}");
+                if shadow_width(turn) > one {
+                    assert!(depth > Surd::ZERO, "{turn:?} at {a}, {b}");
+                }
+            }
+        }
+        assert_eq!(depth_inside(&Tile::straight(one, h), (one, one)), Surd::ZERO);
+    }
+
+    /// Step 3, exactly at every checked turn: lifting a tile from the floor
+    /// towards the points' line never shortens its cut there, so the floor
+    /// cut is the shortest.
+    #[test]
+    fn lower_is_narrower() {
+        let one = Surd::int(1);
+        for turn in corner_turns() {
+            let low = shadow_width(turn) * Surd::ratio(1, 2);
+            let cuts: Vec<Surd> = [low, (low + one) * Surd::ratio(1, 2), one]
+                .iter()
+                .map(|&b| {
+                    let t = Tile {
+                        centre: (one, b),
+                        cos: turn.0,
+                        sin: turn.1,
+                    };
+                    cut_length(&t, one)
+                })
+                .collect();
+            assert!(cuts.windows(2).all(|p| p[0] <= p[1]), "{turn:?}: {cuts:?}");
+            assert_eq!(cuts[0], floor_cut(turn, one), "{turn:?}");
+        }
+    }
+
+    /// Steps 3 and 4, exactly at every checked turn: resting on the floor, a
+    /// turned tile's cut one tile up crosses its top corner and is
+    /// (w − 1)/(c s), with 2 c s = w² − 1; it beats the gap by exactly
+    /// (h(w) − 1)/(c s); and h(w) − 1 = (w − 1)(2√2 − 1 − w)/(2√2). A
+    /// straight tile's cut is its top edge, 1.
+    #[test]
+    fn the_floor_cut_is_the_corner_cap() {
+        let (gap, one, two, root) = (turned_gap(), Surd::int(1), Surd::int(2), Surd::sqrt2());
+        for turn in corner_turns() {
+            let (c, s) = turn;
+            let w = shadow_width(turn);
+            let cut = floor_cut(turn, one);
+            assert_eq!(strip_margin(turn, gap, one), Some(cut - gap));
+            let h = slip_height(w, gap);
+            assert_eq!(h - one, (w - one) * (two * root - one - w) * (two * root).recip());
+            if s == Surd::ZERO {
+                assert_eq!(cut, one);
+                continue;
+            }
+            let cs = c * s;
+            assert_eq!(cs + cs, w * w - one);
+            assert!(one > larger(c, s), "{turn:?}: the line passes over both side corners");
+            assert_eq!(cut, (w - one) * cs.recip(), "{turn:?}");
+            assert_eq!((cut - gap) * cs, h - one, "{turn:?}");
+            assert!(h > one && cut > gap, "{turn:?}");
+        }
+    }
+
+    /// The bound's two ends, and the error in Friedman's sketch: for the gap
+    /// the slip height is least straight (1), not at an eighth of a turn
+    /// (3√2/4), so a check at 45° alone misses the straight end, which y ≤ 1
+    /// covers. For a whole-tile gap the eighth is the lower end, and at
+    /// x = 2√2 − 2 they tie: both ends are needed. A parabola opening
+    /// downward lies above its chord, so at every checked turn h is at
+    /// least the lower end.
+    #[test]
+    fn the_slip_height_is_least_at_an_end_not_always_the_eighth() {
+        let (gap, one, root) = (turned_gap(), Surd::int(1), Surd::sqrt2());
+        assert_eq!(slip_height(one, gap), one);
+        assert_eq!(slip_height(root, gap), Surd::ratio(3, 4) * root);
+        assert_eq!(slip_height(root, gap), root - gap * Surd::ratio(1, 2));
+        assert!(slip_height(one, gap) < slip_height(root, gap));
+        assert_eq!(least_slip_height(gap), one);
+        assert_eq!(least_slip_end(gap), "straight");
+        assert_eq!(least_slip_end(one), "eighth");
+        assert_eq!(least_slip_height(one), root - Surd::ratio(1, 2));
+        assert_eq!(least_slip_end(Surd::int(2) * root - Surd::int(2)), "both");
+        for turn in corner_turns() {
+            let w = shadow_width(turn);
+            let chord = one + (w - one) * (slip_height(root, gap) - one) * (root - one).recip();
+            assert!(slip_height(w, gap) >= chord, "{turn:?}");
+            assert!(slip_height(w, gap) >= least_slip_height(gap), "{turn:?}");
+        }
+    }
+
+    /// The lemma at every checked turn, exactly and completely (each turn
+    /// over every centre, by the section's note), and at the four extreme
+    /// centres a point held, strictly inside once turned.
+    #[test]
+    fn the_strip_lemma_holds_at_every_checked_turn() {
+        let (gap, one, h) = (turned_gap(), Surd::int(1), Surd::ratio(1, 2));
+        for turn in corner_turns() {
+            let margin = strip_margin(turn, gap, one);
+            assert!(margin.is_some_and(|m| m >= Surd::ZERO), "{turn:?}: {margin:?}");
+            let w = shadow_width(turn);
+            let low = w * h;
+            for centre in [(one, low), (one + gap, low), (one, one), (one + gap, one)] {
+                let t = Tile {
+                    centre,
+                    cos: turn.0,
+                    sin: turn.1,
+                };
+                assert!(strip_broken(gap, one, &t).is_empty(), "{turn:?} at {centre:?}");
+                let held = strip_holds(&t, gap, one);
+                assert!(held.iter().any(|&k| k != Holds::Outside), "{turn:?} at {centre:?}");
+                if w > one {
+                    assert!(held.contains(&Holds::Inside), "{turn:?} at {centre:?}");
+                }
+            }
+        }
+    }
+
+    /// A turn that admits no centre is vacuous, not a dodge: with the points
+    /// a quarter up, an eighth-turned tile above the floor cannot have its
+    /// centre that low (half its shadow is √2/2), so there is no margin,
+    /// though its floor cut there, ½, is shorter than the gap. A straight
+    /// tile admits none either (half its shadow, ½, is above ¼); with the
+    /// points one up, every turn admits a centre.
+    #[test]
+    fn a_turn_with_no_centre_is_vacuous_not_a_dodge() {
+        let (gap, one, quarter) = (turned_gap(), Surd::int(1), Surd::ratio(1, 4));
+        let e = eighth_turn();
+        assert!(strip_margin(e, gap, quarter).is_none());
+        assert_eq!(floor_cut(e, quarter), Surd::ratio(1, 2));
+        assert!(floor_cut(e, quarter) < gap);
+        let lowest = on_floor(one + gap * Surd::ratio(1, 2), e);
+        assert_eq!(strip_broken(gap, quarter, &lowest), vec!["centre"]);
+        assert!(strip_margin((one, Surd::ZERO), gap, quarter).is_none());
+        assert!(corner_turns().iter().all(|&t| strip_margin(t, gap, one).is_some()));
+    }
+
+    /// Where a straight tile resting on the floor holds the points (on its
+    /// top edge), an eighth-turned one (the left, both, the right), 04's
+    /// stray tile (one point is not enough), and a straight tile off the
+    /// floor (strictly inside).
+    #[test]
+    fn the_strip_edges_and_alternatives() {
+        use Holds::{Inside, OnEdge, Outside};
+        let (gap, one, h) = (turned_gap(), Surd::int(1), Surd::ratio(1, 2));
+        let straight = (one, Surd::ZERO);
+        let e = eighth_turn();
+        let at = |a: Surd, turn: Point<Surd>| strip_holds(&on_floor(a, turn), gap, one);
+        assert_eq!(at(one, straight), [OnEdge, Outside]);
+        assert_eq!(at(one + gap * h, straight), [OnEdge, OnEdge]);
+        assert_eq!(at(one + gap, straight), [Outside, OnEdge]);
+        assert_eq!(at(Surd::ratio(11, 10), e), [Inside, Outside]);
+        assert_eq!(at(one + gap * h, e), [Inside, Inside]);
+        assert_eq!(at(Surd::ratio(9, 10) + gap, e), [Outside, Inside]);
+        let stray = Tile::straight(Surd::ratio(8, 5), h);
+        assert!(strip_broken(gap, one, &stray).is_empty());
+        assert_eq!(strip_holds(&stray, gap, one), [Outside, OnEdge]);
+        let lifted = Tile::straight(Surd::ratio(8, 5), Surd::ratio(3, 4));
+        assert_eq!(strip_holds(&lifted, gap, one), [Outside, Inside]);
+    }
+
+    /// Every dodge breaks exactly its one assumption and misses both points,
+    /// its cut shorter than its gap. The raised points keep x + 2y < 2√2 and
+    /// Friedman's y < √2 − x/2, and the line passes over the straight tile;
+    /// with a whole-tile gap the eighth's floor cut is 2√2 − 2 < 1.
+    #[test]
+    fn every_dodge_breaks_exactly_one_assumption() {
+        let dodges = strip_dodges();
+        assert_eq!(dodges.len(), 4);
+        for d in &dodges {
+            assert_eq!(strip_broken(d.x, d.y, &d.tile), vec![d.breaks], "{}", d.key);
+            assert_eq!(strip_holds(&d.tile, d.x, d.y), [Holds::Outside; 2], "{}", d.key);
+            assert!(cut_length(&d.tile, d.y) < d.x, "{}", d.key);
+        }
+        let high = dodges[1];
+        assert!(high.y < Surd::sqrt2() - high.x * Surd::ratio(1, 2));
+        assert_eq!(cut_length(&high.tile, high.y), Surd::ZERO);
+        let wide = dodges[2];
+        assert_eq!(
+            floor_cut(eighth_turn(), wide.y),
+            Surd::int(2) * Surd::sqrt2() - Surd::int(2)
+        );
+        assert!(least_slip_height(wide.x) < wide.y);
+    }
+
+    /// Every sampled frame of 05's wandering tile keeps the assumptions and
+    /// covers a point, on its edge at worst; it starts at 04's stray tile and
+    /// rests on the floor halfway.
+    #[test]
+    fn the_wandering_strip_tile_always_covers_a_point() {
+        let gap = turned_gap().to_f64();
+        let start = strip_wander(0.0);
+        assert!((start.centre.0 - 1.6).abs() < EPS && (start.centre.1 - 0.5).abs() < EPS);
+        let rest = strip_wander(0.5);
+        assert!((rest.centre.1 - 0.5 * shadow_width((rest.cos, rest.sin))).abs() < EPS);
+        for k in 0..=2000 {
+            let t = strip_wander(f64::from(k) / 2000.0);
+            assert!(t.corners().iter().all(|&(_, y)| y >= -EPS), "{k}");
+            let (a, b) = t.centre;
+            assert!((1.0 - EPS..=1.0 + gap + EPS).contains(&a) && b <= 1.0 + EPS, "{k}");
+            let best = strip_points(gap, 1.0)
+                .iter()
+                .map(|&p| depth_inside(&t, p))
+                .fold(f64::NEG_INFINITY, f64::max);
+            assert!(best >= -EPS, "{k}");
+        }
+    }
+
+    /// The box of 2.71 once the strips are settled too: corner blocks and
+    /// strips cover 1 + √2 of the centre region, leaving the middle square,
+    /// the gap squared; the lemma mirrored to the left wall and the top.
+    #[test]
+    fn the_side_strips_in_the_box() {
+        let side = turned_side();
+        let (gap, one, h) = (turned_gap(), Surd::int(1), Surd::ratio(1, 2));
+        let (lo, hi) = centre_region(side);
+        let block = one - lo;
+        let covered = Surd::int(4) * (block * block + gap * block);
+        assert_eq!(covered, one + Surd::sqrt2());
+        assert_eq!((hi - lo) * (hi - lo) - covered, gap * gap);
+        let far = one + gap;
+        let e = eighth_turn();
+        let left = Tile {
+            centre: (shadow_width(e) * h, one + gap * h),
+            cos: e.0,
+            sin: e.1,
+        };
+        assert_eq!(Holds::of(depth_inside(&left, (one, one))), Holds::Inside);
+        assert_eq!(Holds::of(depth_inside(&left, (one, far))), Holds::Inside);
+        let top = Tile::straight(one + gap * h, side - h);
+        assert_eq!(Holds::of(depth_inside(&top, (one, far))), Holds::OnEdge);
+        assert_eq!(Holds::of(depth_inside(&top, (far, far))), Holds::OnEdge);
+    }
+
+    /// A triangle holds a point inside, on an edge or not, either way round;
+    /// one of no area (a segment, or a point) holds only what is on it, on
+    /// its edge, and nothing on its line beyond its ends.
+    #[test]
+    fn a_triangle_holds_what_its_closed_hull_holds() {
+        let r = |p: i64, q: i64| Surd::ratio(p, q);
+        let tri = [(r(0, 1), r(0, 1)), (r(1, 1), r(0, 1)), (r(0, 1), r(1, 1))];
+        let back = [tri[0], tri[2], tri[1]];
+        for (p, want) in [
+            ((r(1, 4), r(1, 4)), Holds::Inside),
+            ((r(1, 2), r(1, 2)), Holds::OnEdge),
+            ((r(0, 1), r(0, 1)), Holds::OnEdge),
+            ((r(3, 4), r(1, 2)), Holds::Outside),
+        ] {
+            assert_eq!(triangle_holds(&tri, p), want, "{p:?}");
+            assert_eq!(triangle_holds(&back, p), want, "{p:?} the other way round");
+        }
+        let flat = [(r(0, 1), r(0, 1)), (r(1, 2), r(0, 1)), (r(1, 1), r(0, 1))];
+        assert_eq!(
+            triangle_holds(&flat, (r(2, 1), r(0, 1))),
+            Holds::Outside,
+            "beyond its end"
+        );
+        assert_eq!(
+            triangle_holds(&flat, (r(-1, 10), r(0, 1))),
+            Holds::Outside,
+            "beyond its start"
+        );
+        assert_eq!(triangle_holds(&flat, (r(3, 4), r(0, 1))), Holds::OnEdge);
+        assert_eq!(triangle_holds(&flat, (r(1, 1), r(0, 1))), Holds::OnEdge);
+        assert_eq!(
+            triangle_holds(&flat, (r(1, 4), r(1, 10))),
+            Holds::Outside,
+            "off its line"
+        );
+        let dot = [(r(1, 1), r(1, 1)); 3];
+        assert_eq!(triangle_holds(&dot, (r(1, 1), r(1, 1))), Holds::OnEdge);
+        assert_eq!(triangle_holds(&dot, (r(1, 1), r(2, 1))), Holds::Outside);
+    }
+
+    /// The middle square's two triangles: their corners are four points,
+    /// their sides the gap, the gap and the diagonal, 1 long; the box's
+    /// centre is on the edge they share, and their areas make the square.
+    #[test]
+    fn the_middle_square_is_two_short_triangles() {
+        let side = turned_side();
+        let (gap, one, half) = (turned_gap(), Surd::int(1), Surd::ratio(1, 2));
+        let tris = middle_triangles(side);
+        let centre = (side * half, side * half);
+        let mut area = Surd::ZERO;
+        for tri in &tris {
+            let mut s = sides2(tri);
+            s.sort();
+            assert_eq!(s, [half, half, one]);
+            assert_eq!(triangle_holds(tri, centre), Holds::OnEdge);
+            let a = polygon_area(tri);
+            assert!(a > Surd::ZERO, "counter-clockwise");
+            area = area + a;
+        }
+        assert_eq!(area, gap * gap);
+    }
+
+    /// The lemma at every checked turn and centre (each triangle's corners,
+    /// side middles and centroid), exactly: the proof's classification finds
+    /// a corner held, and it is in the tile. Examples: the proof covers
+    /// every centre and turn.
+    #[test]
+    fn every_checked_tile_in_a_middle_triangle_holds_a_corner() {
+        let mut checks = 0;
+        for tri in middle_triangles(turned_side()) {
+            for centre in triangle_centres(&tri) {
+                assert_ne!(triangle_holds(&tri, centre), Holds::Outside);
+                for turn in corner_turns() {
+                    let t = Tile {
+                        centre,
+                        cos: turn.0,
+                        sin: turn.1,
+                    };
+                    match meets(&t, &tri) {
+                        Meets::Holds(i) => assert!(depth_inside(&t, tri[i]) >= Surd::ZERO),
+                        other => panic!("{other:?} at {centre:?} turned {turn:?}"),
+                    }
+                    checks += 1;
+                }
+            }
+        }
+        assert_eq!(checks, 2 * 7 * 40);
+    }
+
+    /// The proof's two ways to miss every corner, each forcing its
+    /// conclusion: the too-large square puts two corners past opposite sides,
+    /// more than a tile apart; the centre outside puts every corner past two
+    /// neighbouring sides, strictly beyond the diagonal between them, so the
+    /// triangle misses the centre. That tile holds a corner of the other
+    /// triangle, which holds its centre.
+    #[test]
+    fn missing_every_corner_needs_a_long_side_or_the_centre_outside() {
+        let half = Surd::ratio(1, 2);
+        let (pts, tile) = middle_too_large();
+        let tri = MIDDLE_TRIANGLES[0].map(|i| pts[i]);
+        assert_eq!(held(&tile, &pts), [Holds::Outside; 4]);
+        assert_eq!(triangle_holds(&tri, tile.centre), Holds::OnEdge);
+        let Meets::Apart(i, j, k) = meets(&tile, &tri) else {
+            panic!("{:?}", meets(&tile, &tri));
+        };
+        assert_eq!((i, j, SIDES[k]), (0, 2, "left"));
+        assert!(reach(&tile, tri[i], k) > half && reach(&tile, tri[j], (k + 2) % 4) > half);
+        let (dx, dy) = (tri[i].0 - tri[j].0, tri[i].1 - tri[j].1);
+        assert!(dx * dx + dy * dy > Surd::int(1));
+        assert_eq!(
+            sides2(&tri),
+            [Surd::ratio(9, 16), Surd::ratio(9, 16), Surd::ratio(9, 8)]
+        );
+        let side = turned_side();
+        let out = centre_outside();
+        let tris = middle_triangles(side);
+        assert_eq!(triangle_holds(&tris[0], out.centre), Holds::Outside);
+        assert_eq!(held(&out, &tris[0]), [Holds::Outside; 3]);
+        assert_eq!(meets(&out, &tris[0]), Meets::Beside(3));
+        assert!(tris[0].iter().all(|&p| beyond(&out, p, 3) > Surd::ZERO));
+        assert_eq!(beyond(&out, out.centre, 3), Surd::ZERO);
+        assert_eq!(triangle_holds(&tris[1], out.centre), Holds::Inside);
+        assert_eq!(Holds::of(depth_inside(&out, corner_points(side)[1])), Holds::Inside);
+    }
+
+    /// Covering is not holding inside: the eighth-turned tile at the box's
+    /// centre (where five fit) has all four points on its edges, two of them
+    /// a tile apart on opposite edges; the straight tile there holds all four
+    /// strictly inside.
+    #[test]
+    fn the_middle_lemma_covers_on_the_edge_not_always_inside() {
+        let side = turned_side();
+        let half = Surd::ratio(1, 2);
+        let pts = corner_points(side);
+        let turned_tile = five_turned().tiles[MIDDLE];
+        assert_eq!(held(&turned_tile, &pts), [Holds::OnEdge; 4]);
+        for tri in middle_triangles(side) {
+            assert!(matches!(meets(&turned_tile, &tri), Meets::Holds(_)));
+        }
+        let (dx, dy) = (pts[3].0 - pts[0].0, pts[3].1 - pts[0].1);
+        assert_eq!(dx * dx + dy * dy, Surd::int(1));
+        assert!((0..4).any(|k| reach(&turned_tile, pts[0], k) == half));
+        assert!((0..4).any(|k| reach(&turned_tile, pts[3], k) == half));
+        let straight = Tile::straight(side * half, side * half);
+        assert_eq!(held(&straight, &pts), [Holds::Inside; 4]);
+    }
+
+    /// The proof does not care where the picture is or how it is turned: the
+    /// tile and triangle turned and shifted together meet the same way,
+    /// corner for corner.
+    #[test]
+    fn the_middle_lemma_is_unmoved_by_turning_and_shifting_everything() {
+        let turn = (Surd::ratio(3, 5), Surd::ratio(4, 5));
+        let shift = (Surd::ratio(-7, 3), Surd::ratio(5, 2));
+        let mv = |p: Point<Surd>| {
+            let q = compose(turn, p);
+            (q.0 + shift.0, q.1 + shift.1)
+        };
+        let mv_tile = |t: Tile<Surd>| {
+            let (cos, sin) = compose(turn, (t.cos, t.sin));
+            Tile {
+                centre: mv(t.centre),
+                cos,
+                sin,
+            }
+        };
+        let side = turned_side();
+        let (pts, large) = middle_too_large();
+        let cases = [
+            (large, MIDDLE_TRIANGLES[0].map(|i| pts[i])),
+            (centre_outside(), middle_triangles(side)[0]),
+            (five_turned().tiles[MIDDLE], middle_triangles(side)[1]),
+        ];
+        for (t, tri) in cases {
+            let (t2, tri2) = (mv_tile(t), tri.map(mv));
+            assert_eq!(meets(&t2, &tri2), meets(&t, &tri));
+            assert_eq!(held(&t2, &tri2), held(&t, &tri));
+            assert_eq!(triangle_holds(&tri2, t2.centre), triangle_holds(&tri, t.centre));
+        }
+    }
+
+    /// Every sampled frame of 06's wandering tile has its centre strictly
+    /// inside the lower right triangle and holds a corner of it, on the edge
+    /// at worst; it starts and ends straight at the centroid.
+    #[test]
+    fn the_wandering_middle_tile_holds_a_corner() {
+        let tri = middle_triangles(turned_side())[0].map(|p| (p.0.to_f64(), p.1.to_f64()));
+        let centroid = (
+            (tri[0].0 + tri[1].0 + tri[2].0) / 3.0,
+            (tri[0].1 + tri[1].1 + tri[2].1) / 3.0,
+        );
+        for t in [middle_wander(0.0), middle_wander(1.0)] {
+            assert!((t.centre.0 - centroid.0).abs() < EPS && (t.centre.1 - centroid.1).abs() < EPS);
+            assert!(t.sin.abs() < EPS);
+        }
+        for k in 0..=2000 {
+            let t = middle_wander(f64::from(k) / 2000.0);
+            assert_eq!(triangle_holds(&tri, t.centre), Holds::Inside, "{k}");
+            let best = tri
+                .iter()
+                .map(|&p| depth_inside(&t, p))
+                .fold(f64::NEG_INFINITY, f64::max);
+            assert!(best >= -EPS, "{k}");
+        }
+    }
+
+    /// With the middle settled, the corner blocks, the side strips and the
+    /// middle square make up the box's whole centre region; where five tiles
+    /// fit, each point is covered by two tiles, a corner tile and the turned
+    /// one, and only on their edges.
+    #[test]
+    fn the_centre_region_is_settled_but_points_are_shared_on_edges() {
+        let side = turned_side();
+        let (gap, one) = (turned_gap(), Surd::int(1));
+        let (lo, hi) = centre_region(side);
+        let block = one - lo;
+        let parts = Surd::int(4) * block * block + Surd::int(4) * gap * block + gap * gap;
+        assert_eq!(parts, (hi - lo) * (hi - lo));
+        let packing = five_turned();
+        for (k, &pt) in corner_points(side).iter().enumerate() {
+            let on: Vec<(usize, Holds)> = packing
+                .tiles
+                .iter()
+                .enumerate()
+                .map(|(i, t)| (i, Holds::of(depth_inside(t, pt))))
+                .filter(|&(_, h)| h != Holds::Outside)
+                .collect();
+            assert_eq!(on.len(), 2, "{k}: {on:?}");
+            assert!(on.iter().all(|&(_, h)| h == Holds::OnEdge), "{k}");
+            assert!(on.iter().any(|&(i, _)| i == MIDDLE), "{k}");
+        }
+    }
+
+    /// The tiles 07 checks the strict step on: every middle-lemma example
+    /// (each triangle's corners, side middles and centroid, at every checked
+    /// turn), and 07's own core.
+    fn covering_cores() -> Vec<Tile<Surd>> {
+        let mut out = vec![scale_core()];
+        for tri in middle_triangles(turned_side()) {
+            for centre in triangle_centres(&tri) {
+                for turn in corner_turns() {
+                    out.push(Tile {
+                        centre,
+                        cos: turn.0,
+                        sin: turn.1,
+                    });
+                }
+            }
+        }
+        out
+    }
+
+    /// The strict step, exactly, for every checked core and every point it
+    /// covers: grown to λ about the same centre, the point is
+    /// (λ − 1)/2 deeper. Above 1 that is strictly inside, at least
+    /// (λ − 1)/2 deep; at 1 an edge point stays on the edge; below 1 an edge
+    /// point falls outside, so claiming strictness there would be false.
+    #[test]
+    fn growing_a_tile_puts_every_covered_point_strictly_inside() {
+        let one = Surd::int(1);
+        let half = Surd::ratio(1, 2);
+        let pts = corner_points(turned_side());
+        let mut edge_cases = 0;
+        for core in covering_cores() {
+            for &p in &pts {
+                let depth = depth_inside(&core, p);
+                assert_eq!(depth_sized(&core, one, p), depth, "side 1 is the unit tile");
+                if depth < Surd::ZERO {
+                    continue;
+                }
+                for lambda in [Surd::ratio(11, 10), Surd::ratio(6, 5), Surd::ratio(3, 2)] {
+                    let grown_depth = depth_sized(&core, lambda, p);
+                    assert_eq!(grown_depth, depth + (lambda - one) * half);
+                    assert!(grown_depth >= (lambda - one) * half && grown_depth > Surd::ZERO);
+                }
+                if depth == Surd::ZERO {
+                    edge_cases += 1;
+                    let below = Surd::ratio(9, 10);
+                    assert!(depth_sized(&core, below, p) < Surd::ZERO, "below 1 the point is lost");
+                }
+            }
+        }
+        assert!(edge_cases > 0, "some core covers a point only on its edge");
+        let core = scale_core();
+        assert_eq!(depth_inside(&core, pts[0]), Surd::ZERO);
+        assert_eq!(
+            depth_sized(&core, Surd::ratio(GROWTH.0, GROWTH.1), pts[0]),
+            Surd::ratio(1, 10)
+        );
+        assert_eq!(depth_sized(&core, Surd::ratio(9, 10), pts[0]), Surd::ratio(-1, 20));
+    }
+
+    /// The depth of a point in a grown tile is unmoved by turning and
+    /// shifting the tile and the point together.
+    #[test]
+    fn the_grown_depth_is_unmoved_by_turning_and_shifting() {
+        let turn = (Surd::ratio(5, 13), Surd::ratio(12, 13));
+        let shift = (Surd::ratio(3, 7), Surd::ratio(-2, 9));
+        let mv = |p: Point<Surd>| {
+            let q = compose(turn, p);
+            (q.0 + shift.0, q.1 + shift.1)
+        };
+        let lambda = Surd::ratio(GROWTH.0, GROWTH.1);
+        for core in covering_cores().into_iter().step_by(37) {
+            let (cos, sin) = compose(turn, (core.cos, core.sin));
+            let moved = Tile {
+                centre: mv(core.centre),
+                cos,
+                sin,
+            };
+            for p in corner_points(turned_side()) {
+                assert_eq!(depth_sized(&moved, lambda, mv(p)), depth_sized(&core, lambda, p));
+            }
+        }
+    }
+
+    /// Enlarging a genuinely valid layout (the five straight tiles in the
+    /// box of three, and the turned five in the box of 2.71; neither is the
+    /// supposed narrower packing) by λ about the box's corner scales every
+    /// clearance, tile to tile and tile to wall, by λ: what was apart stays
+    /// apart, a touch stays a touch, and the grown tiles fit the grown box.
+    #[test]
+    fn enlarging_a_layout_scales_every_clearance() {
+        for lambda in [Surd::ratio(6, 5), Surd::ratio(3, 2)] {
+            for p in [five_straight(), five_turned()] {
+                let box_side = p.side * lambda;
+                for (i, a) in p.tiles.iter().enumerate() {
+                    let ga = grown(a, lambda);
+                    for b in &p.tiles[i + 1..] {
+                        let gb = grown(b, lambda);
+                        assert_eq!(clearance_sized(&ga, &gb, lambda), clearance(a, b) * lambda);
+                        assert!(clearance_sized(&ga, &gb, lambda) >= Surd::ZERO);
+                    }
+                    let walls = Surd::ZERO..=box_side;
+                    for (q, c) in ga.corners_sized(lambda).iter().zip(a.corners()) {
+                        assert_eq!((q.0, q.1), (c.0 * lambda, c.1 * lambda));
+                        assert!(walls.contains(&q.0) && walls.contains(&q.1));
+                    }
+                }
+            }
+        }
+    }
+
+    /// Two tiles cannot share a point strictly inside: where five fit, the
+    /// turned tile and a corner tile share a point on their edges and only
+    /// touch; grown in place, both hold it strictly inside, and their
+    /// insides overlap.
+    #[test]
+    fn tiles_sharing_a_point_strictly_inside_overlap() {
+        let five = five_turned();
+        let point = corner_points(turned_side())[0];
+        let (corner_tile, middle) = (five.tiles[0], five.tiles[MIDDLE]);
+        assert_eq!(depth_inside(&corner_tile, point), Surd::ZERO);
+        assert_eq!(depth_inside(&middle, point), Surd::ZERO);
+        assert_eq!(clearance(&corner_tile, &middle), Surd::ZERO);
+        let lambda = Surd::ratio(GROWTH.0, GROWTH.1);
+        assert!(depth_sized(&corner_tile, lambda, point) > Surd::ZERO);
+        assert!(depth_sized(&middle, lambda, point) > Surd::ZERO);
+        assert!(clearance_sized(&corner_tile, &middle, lambda) < Surd::ZERO);
+    }
+
+    /// 07's core is a unit tile in the box B wide holding (1, 1) on its edge
+    /// and two other points inside; grown by 6/5 it holds all four strictly
+    /// inside and still lies in the box; its smaller original sits in the
+    /// box 5/6 as wide.
+    #[test]
+    fn the_shown_core_and_its_growth() {
+        let side = turned_side();
+        let lambda = Surd::ratio(GROWTH.0, GROWTH.1);
+        let core = scale_core();
+        let pts = corner_points(side);
+        assert_eq!(
+            held(&core, &pts),
+            [Holds::OnEdge, Holds::Outside, Holds::Inside, Holds::Inside]
+        );
+        assert!(in_quadrant(&core) && wall_clearance(&core, side) >= Surd::ZERO);
+        assert!(pts.iter().all(|&p| depth_sized(&core, lambda, p) > Surd::ZERO));
+        let inside_box = |c: &[Point<Surd>; 4], s: Surd| {
+            let walls = Surd::ZERO..=s;
+            c.iter().all(|q| walls.contains(&q.0) && walls.contains(&q.1))
+        };
+        assert!(inside_box(&core.corners_sized(lambda), side));
+        let small_side = side * lambda.recip();
+        let small = grown(&core, lambda.recip());
+        assert!(inside_box(&small.corners(), small_side));
+        assert_eq!(grown(&small, lambda), core);
+    }
+
+    /// Every tile of `p` is a true unit square: its turn is one (cos² + sin²
+    /// = 1), and its corners are a tile apart along sides at right angles.
+    fn all_unit_squares(p: &Packing<Surd>) {
+        for (i, t) in p.tiles.iter().enumerate() {
+            assert_eq!(t.cos * t.cos + t.sin * t.sin, Surd::int(1), "{i}");
+            let c = t.corners();
+            for (k, &a) in c.iter().enumerate() {
+                let (b, d) = (c[(k + 1) % 4], c[(k + 2) % 4]);
+                let (u, w) = ((b.0 - a.0, b.1 - a.1), (d.0 - b.0, d.1 - b.1));
+                assert_eq!(u.0 * u.0 + u.1 * u.1, Surd::int(1), "{i}: side {k}");
+                assert_eq!(u.0 * w.0 + u.1 * w.1, Surd::ZERO, "{i}: corner {k}");
+            }
+        }
+    }
+
+    /// Stromquist's ten fit the box 3 + 1/√2 exactly: ten unit tiles, none
+    /// overlapping, all inside; the turned one's side middles are four of the
+    /// straight tiles' corners, as the middle tile of five touches its
+    /// neighbours.
+    #[test]
+    fn the_ten_fit_exactly() {
+        let p = ten();
+        assert_eq!(p.tiles.len(), 10);
+        assert_eq!(p.side, Surd::int(3) + turned_gap());
+        all_unit_squares(&p);
+        let v = p.check_exact();
+        assert!(v.fits(), "{}", v.summary());
+        assert_eq!(p.tiles.iter().filter(|t| t.sin != Surd::ZERO).count(), 1);
+        let turned_tile = p.tiles[9];
+        let touched = turned_tile
+            .midpoints()
+            .iter()
+            .filter(|&&m| p.tiles[..9].iter().any(|t| t.corners().contains(&m)))
+            .count();
+        assert_eq!(touched, 4);
+        assert!(v.touching.iter().filter(|&&(_, j)| j == 9).count() >= 4);
+    }
+
+    /// The eleven fit the box 1939/500 exactly: eleven unit tiles, five
+    /// turned by cos 105/137, sin 88/137, none overlapping, all inside; every
+    /// corner within the box. The angle shown, "about 40°", is the rounding
+    /// of 39.97°, not 40 itself; the side shown is exactly 3.878.
+    #[test]
+    fn the_eleven_fit_exactly() {
+        let p = eleven();
+        assert_eq!(p.tiles.len(), 11);
+        all_unit_squares(&p);
+        let v = p.check_exact();
+        assert!(v.fits(), "{}", v.summary());
+        let turned: Vec<&Tile<Surd>> = p.tiles.iter().filter(|t| t.sin != Surd::ZERO).collect();
+        assert_eq!(turned.len(), 5);
+        assert!(
+            turned
+                .iter()
+                .all(|t| (t.cos, t.sin) == (Surd::ratio(105, 137), Surd::ratio(88, 137)))
+        );
+        let walls = Surd::ZERO..=p.side;
+        for t in &p.tiles {
+            assert!(t.corners().iter().all(|q| walls.contains(&q.0) && walls.contains(&q.1)));
+        }
+        let degrees = 88f64.atan2(105.0).to_degrees();
+        assert_eq!(format!("{degrees:.0}"), "40");
+        assert_eq!(format!("{degrees:.2}"), "39.97");
+        assert!((degrees - 40.0).abs() > 0.01, "about 40, not 40");
+        assert_eq!(p.side.decimals(3), "3.878");
+        assert_eq!(p.side * Surd::int(500), Surd::int(1939));
+    }
+
+    /// Each planted failure fails its check as planted: the narrower boxes
+    /// let tiles escape, the doubled tile overlaps its twin; and the eleven's
+    /// formulas with an eighth of a turn, in the box 2 + 4√2/3, overlap: they
+    /// are not a family to slide along.
+    #[test]
+    fn beyond_five_planted_failures_fail() {
+        for (key, p) in beyond_planted() {
+            let v = p.check_exact();
+            assert!(!v.fits(), "{key} fits");
+            match key {
+                "ten_narrower" | "eleven_narrower" => {
+                    assert!(
+                        !v.escaped.is_empty() && v.overlapping.is_empty(),
+                        "{key}: {}",
+                        v.summary()
+                    );
+                }
+                "eleven_doubled" => assert_eq!(v.overlapping, vec![(0, 11)], "{key}"),
+                other => panic!("an unknown planted failure {other}"),
+            }
+        }
+        let (c, s) = eighth_turn();
+        let t = Surd::int(2) + Surd::ratio(4, 3) * Surd::sqrt2();
+        let v = eleven_with(t, c, s).check_exact();
+        assert!(!v.overlapping.is_empty(), "{}", v.summary());
+    }
+}

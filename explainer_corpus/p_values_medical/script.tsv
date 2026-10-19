@@ -1,0 +1,57 @@
+# p_values_medical: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	How well do doctors understand p-values? A survey published in two thousand seven tested two hundred and seventy-seven internal medicine residents in Connecticut. Eighty-eight percent felt at least fairly confident.
+01_2	Yet only about fifty-nine percent chose the answer marked correct. And a later paper argued that even that answer was wrong.
+01_4	Your test comes back positive. It gives a false alarm to five percent of people without the disease.
+01_5	So is there a ninety-five percent chance you have it?
+01_6	Count people instead. Ten thousand of them, and one in a hundred has the disease.
+01_7	That's one row of a hundred. Say the test catches ninety.
+01_8	The other nine thousand nine hundred don't have it. Five percent of them still test positive. Four hundred ninety-five false alarms.
+01_9	Now gather everyone who tested positive.
+01_10	Ninety have the disease, and four hundred ninety-five don't. So only about fifteen percent of the positives have it.
+01_11	Five percent was a share of people without the disease. Your question is a share of people who tested positive.
+02_1	Take the same test to a clinic where one person in ten has the disease.
+02_2	The test hasn't changed, so it still catches nine in ten and gives five percent of the rest a false alarm.
+02_3	So will a positive result mean more here, or less?
+02_4	This time, a thousand have the disease, and nine hundred of them test positive.
+02_5	Of the other nine thousand, five percent is four hundred fifty false alarms.
+02_6	Gather the positives. Nine hundred of the thirteen hundred fifty have the disease. That's two in three.
+02_7	So here a positive result means about sixty-seven percent, not fifteen.
+02_8	Why does a positive result mean so much more here? The false alarms barely moved, but the test caught ten times as many people with the disease.
+02_9	Keep the two apart. A false alarm rate is not the chance a positive result is right. And neither one is a p-value.
+02_10	A p-value answers a question about a study instead. To find it, we first build an imaginary world where the treatment does nothing.
+03_1	Here are the twenty pairs again, matched before treatment. In each pair, a fair coin chose who got the treatment.
+03_2	Shorter recovery is better, so we decide in advance. A pair favours the treatment if its treated patient recovered first.
+03_3	Now suppose the treatment changed nobody's recovery. Each patient would have recovered at the same time either way.
+03_4	Here's what happened. In fifteen of the twenty pairs, the treated patient recovered first.
+03_5	If the treatment did nothing, who recovered first stays fixed. Only the coins could have landed differently. Toss them again.
+03_6	And again, and again. Each toss gives its own count.
+03_7	The twenty coins can land in just over a million ways, all equally likely. Count them all.
+03_8	Same patients, coins tossed again. This world assumes the treatment did nothing, so it can't say how likely that is.
+03_9	In this world, how often do fifteen or more pairs favour the treatment?
+04_1	The study found fifteen. We decided in advance that more favouring pairs is better news.
+04_2	So which bars hold an outcome at least as favourable as fifteen?
+04_3	Fifteen itself, and everything above it, up to twenty.
+04_4	Now count ways, not bars. All twenty pairs favouring can happen only one way, every coin picks the patient with the quicker recovery.
+04_5	For nineteen, one pair goes the other way, and any of the twenty can be that pair. Twenty ways.
+04_6	Down to fifteen, the counts grow fast, twenty-one thousand seven hundred in all.
+04_7	Out of just over a million, that's about two percent. And that share has a name. It's the one-sided p-value.
+04_8	Count only exactly fifteen, about one and a half percent. Count only more than fifteen, about six tenths of a percent.
+04_9	Neither is our test. The direction was fixed in advance, so we count this result or anything more favourable.
+04_10	And every one of those ways lives in a world where the treatment did nothing.
+05_1	Two percent is a share of that imaginary world, where no one's recovery changed.
+05_2	So is two percent the chance that the treatment did nothing?
+05_3	No. The two percent was counted inside that world. It can't be the chance that world is true.
+05_4	Nor the chance the study is wrong. Both need more than this count.
+05_5	Now imagine one more pair had gone the other way. Same design, same direction. Fourteen.
+05_6	Fourteen or more is about five point eight percent of the same world.
+05_7	A common convention draws a line at five percent. Fifteen falls under it, fourteen over. That line helps decide, but it doesn't switch the truth.
+05_8	The count also ignored how much sooner anyone recovered. Here are two made-up sets of recovery days.
+05_9	Both have the same fifteen favouring pairs. Among those, the treated patient is typically a day sooner in one, a week in the other.
+05_10	Same signs, same count, same two percent. The test never asked how much sooner. A patient would.
+06_1	Back to the survey. Most residents who answered picked this answer, marked correct. A later paper disputed it.
+06_2	It was written for a p-value above five percent, and it leans on chance alone. Chance of what, counted how?
+06_3	For our study, what did the two percent actually count?
+06_4	If the treatment changed no one's recovery, and the coins were tossed again, fifteen or more pairs would favour it about two percent of the time.
+06_5	That's this study's one-sided p-value. A world assumed, a tail counted.
+06_6	It doesn't say how much sooner, whether that matters to a patient, or how uncertain that difference is.
+06_7	So when you meet a p-value, ask what world it assumed, what it counted, and how big the difference is.

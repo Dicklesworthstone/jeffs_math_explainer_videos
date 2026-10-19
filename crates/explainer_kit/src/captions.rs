@@ -4,8 +4,9 @@
 //! The narration skill's `report.json` lists each line's sentences as they
 //! are displayed (its `sentence`; respellings live only in `tts`) and the
 //! span each was spoken over in its own take (`end − start − pause_cut_s`).
-//! The assembled line WAV joins those spans with gaps it does not record, so
-//! each sentence is found in the line's audio: the voice-activity detector's
+//! Current reports record assembled sample counts and gaps; those measured
+//! spans drive captions directly. For older reports without them, each
+//! sentence is found in the line's audio: the voice-activity detector's
 //! speech regions, grouped so the groups' lengths best fit the sentences'.
 //! The chapters' timelines say where each line starts.
 
@@ -29,6 +30,9 @@ pub const MAX_LINES: usize = 2;
 pub struct Spoken {
     pub text: String,
     pub seconds: f64,
+    /// Recorded start, end of source samples, and end of the following gap,
+    /// in seconds from this cue's start. Absent in legacy reports.
+    pub recorded: Option<(f64, f64, f64)>,
 }
 
 /// One caption on screen.
@@ -45,8 +49,11 @@ fn bad(m: impl Into<String>) -> io::Error {
 
 /// Each line's sentences, from the narration skill's `report.json`.
 pub fn read_report(path: &Path) -> io::Result<HashMap<String, Vec<Spoken>>> {
-    let v: serde_json::Value =
-        serde_json::from_str(&std::fs::read_to_string(path)?).map_err(|e| bad(format!("{}: {e}", path.display())))?;
+    parse_report(&std::fs::read_to_string(path)?)
+}
+
+fn parse_report(json: &str) -> io::Result<HashMap<String, Vec<Spoken>>> {
+    let v: serde_json::Value = serde_json::from_str(json).map_err(|e| bad(format!("report.json: {e}")))?;
     // the narration skill writes {"meta": {..}, "lines": {id: [..]}}; a shipped
     // narration (Hoeffding v5) is the bare {id: [..]}
     let lines = match v.get("lines").and_then(serde_json::Value::as_object) {
@@ -61,6 +68,18 @@ pub fn read_report(path: &Path) -> io::Result<HashMap<String, Vec<Spoken>>> {
             .as_array()
             .ok_or_else(|| bad(format!("report.json: line {id} is not a list")))?;
         let mut spoken = Vec::new();
+        let measured = list
+            .iter()
+            .any(|s| s.get("out_samples").is_some() || s.get("gap_after_samples").is_some());
+        let rate = if measured {
+            v.pointer("/meta/rate")
+                .and_then(serde_json::Value::as_u64)
+                .filter(|&r| r > 0)
+                .ok_or_else(|| bad("sample-timed report requires a positive integer meta.rate"))? as f64
+        } else {
+            1.0
+        };
+        let mut cursor = 0u64;
         for (k, s) in list.iter().enumerate() {
             let field = |name: &str| s.get(name).ok_or_else(|| bad(format!("{id} sentence {k}: no {name}")));
             let num = |name: &str| {
@@ -72,12 +91,35 @@ pub fn read_report(path: &Path) -> io::Result<HashMap<String, Vec<Spoken>>> {
                 .as_str()
                 .ok_or_else(|| bad(format!("{id} sentence {k}: sentence")))?;
             let seconds = num("end")? - num("start")? - num("pause_cut_s")?;
-            if text.trim().is_empty() || seconds <= 0.0 {
+            if text.trim().is_empty() || !seconds.is_finite() || seconds <= 0.0 {
                 return Err(bad(format!("{id} sentence {k}: empty or {seconds} s long")));
             }
+            let recorded = if measured {
+                let samples = |name: &str| {
+                    field(name)?
+                        .as_u64()
+                        .ok_or_else(|| bad(format!("{id} sentence {k}: invalid {name}")))
+                };
+                let count = samples("out_samples")?;
+                if count == 0 {
+                    return Err(bad(format!("{id} sentence {k}: zero samples")));
+                }
+                let end = cursor
+                    .checked_add(count)
+                    .ok_or_else(|| bad("sentence sample count overflow"))?;
+                let after = end
+                    .checked_add(samples("gap_after_samples")?)
+                    .ok_or_else(|| bad("sentence gap overflow"))?;
+                let span = (cursor as f64 / rate, end as f64 / rate, after as f64 / rate);
+                cursor = after;
+                Some(span)
+            } else {
+                None
+            };
             spoken.push(Spoken {
                 text: text.trim().to_owned(),
                 seconds,
+                recorded,
             });
         }
         out.insert(id.clone(), spoken);
@@ -95,6 +137,12 @@ fn speech(audio: &Stereo) -> Vec<(f64, f64)> {
 /// best fit the sentences' spoken lengths. With fewer regions than
 /// sentences, the speech is shared out in proportion to those lengths.
 pub fn sentence_spans(audio: &Stereo, sentences: &[Spoken]) -> Vec<(f64, f64)> {
+    if sentences.iter().all(|s| s.recorded.is_some()) {
+        return sentences
+            .iter()
+            .filter_map(|s| s.recorded.map(|(a, b, _)| (a, b)))
+            .collect();
+    }
     let r = speech(audio);
     let n = sentences.len();
     if n == 0 || r.is_empty() {
@@ -162,6 +210,54 @@ fn weight(lines: &[String]) -> usize {
     lines.iter().map(|l| l.chars().count()).sum()
 }
 
+/// Keep a spoken count together across caption changes: "two hundred"
+/// must not disappear before "seventy-seven" replaces it. Line wrapping
+/// within one caption remains free to use both visible lines.
+fn number_word(word: &str) -> bool {
+    let word = word
+        .trim_matches(|c: char| !c.is_ascii_alphanumeric())
+        .to_ascii_lowercase();
+    !word.is_empty()
+        && word.split('-').all(|part| {
+            matches!(
+                part,
+                "zero"
+                    | "one"
+                    | "two"
+                    | "three"
+                    | "four"
+                    | "five"
+                    | "six"
+                    | "seven"
+                    | "eight"
+                    | "nine"
+                    | "ten"
+                    | "eleven"
+                    | "twelve"
+                    | "thirteen"
+                    | "fourteen"
+                    | "fifteen"
+                    | "sixteen"
+                    | "seventeen"
+                    | "eighteen"
+                    | "nineteen"
+                    | "twenty"
+                    | "thirty"
+                    | "forty"
+                    | "fifty"
+                    | "sixty"
+                    | "seventy"
+                    | "eighty"
+                    | "ninety"
+                    | "hundred"
+                    | "thousand"
+                    | "million"
+                    | "billion"
+                    | "trillion"
+            )
+        })
+}
+
 /// A sentence's words in the fewest captions that hold them, each of at most
 /// [`MAX_LINES`] lines of [`LINE_CHARS`], split where the shortest caption is
 /// as long as the limits allow (then the longest as short as they allow).
@@ -182,6 +278,9 @@ fn balanced_captions(words: &[&str]) -> Vec<Vec<String>> {
     best[0][0] = Some((usize::MAX, 0));
     for k in 1..=count {
         for j in k..=n {
+            if j < n && number_word(words[j - 1]) && number_word(words[j]) {
+                continue;
+            }
             for i in (k - 1)..j {
                 let Some((lo, hi)) = best[k - 1][i] else {
                     continue;
@@ -256,6 +355,15 @@ pub fn video_captions(chapters: &[ChapterTimeline], report: &HashMap<String, Vec
                 .get(&line.id)
                 .ok_or_else(|| bad(format!("{}: line {} is not in the report", ch.chapter, line.id)))?;
             let d = wav::read(&line.wav)?;
+            if let Some((_, _, end)) = sentences.last().and_then(|s| s.recorded) {
+                let duration = d.mono().len() as f64 / f64::from(d.rate);
+                if (end - duration).abs() > 1.0 / f64::from(d.rate) {
+                    return Err(bad(format!(
+                        "{}: recorded captions cover {end:.6} s but WAV has {duration:.6} s",
+                        line.id
+                    )));
+                }
+            }
             let mono = resample(&d.mono(), d.rate, SAMPLE_RATE);
             let spans = sentence_spans(&Stereo::from_mono(&mono), sentences);
             if spans.len() != sentences.len() {
@@ -370,8 +478,38 @@ mod tests {
             .map(|(k, &s)| Spoken {
                 text: format!("Sentence {k}."),
                 seconds: s,
+                recorded: None,
             })
             .collect()
+    }
+
+    #[test]
+    fn recorded_gaps_drive_captions_even_when_vad_would_merge_the_sentences() {
+        let report = parse_report(
+            r#"{"meta":{"rate":24000},"lines":{"01_1":[
+            {"sentence":"First.","start":8,"end":9,"pause_cut_s":0,"out_samples":24000,"gap_after_samples":12000},
+            {"sentence":"Second.","start":9,"end":11,"pause_cut_s":0,"out_samples":48000,"gap_after_samples":0}]}}"#,
+        )
+        .unwrap();
+        // Deliberately continuous speech: VAD cannot locate the authored gap.
+        let spans = sentence_spans(&bursts(&[(0.0, 3.5)], 3.5), &report["01_1"]);
+        assert_eq!(spans, [(0.0, 1.0), (1.5, 3.5)]);
+        assert_eq!(report["01_1"][1].recorded, Some((1.5, 3.5, 3.5)));
+    }
+
+    #[test]
+    fn incomplete_sample_timing_is_rejected_instead_of_silently_guessed() {
+        let complete = r#"{"meta":{"rate":24000},"lines":{"01_1":[
+            {"sentence":"First.","start":0,"end":1,"pause_cut_s":0,"out_samples":24000,"gap_after_samples":0}]}}"#;
+        for invalid in [
+            complete.replace("\"rate\":24000", "\"rate\":0"),
+            complete.replace("\"out_samples\":24000", "\"out_samples\":0"),
+            complete.replace(",\"gap_after_samples\":0", ""),
+        ] {
+            assert!(parse_report(&invalid).is_err(), "{invalid}");
+        }
+        let legacy = r#"{"01_1":[{"sentence":"First.","start":0,"end":1,"pause_cut_s":0}]}"#;
+        assert_eq!(parse_report(legacy).unwrap()["01_1"][0].recorded, None);
     }
 
     #[test]
@@ -407,6 +545,26 @@ mod tests {
         assert!((caps[0].start - 10.0).abs() < 1e-12 && (caps[1].end - 16.0).abs() < 1e-12);
         assert!((caps[0].end - caps[1].start).abs() < 1e-12, "back to back");
         assert!(validate(&caps).is_ok());
+    }
+
+    #[test]
+    fn the_medical_opening_keeps_its_resident_count_in_one_caption() {
+        let text = "A survey published in two thousand seven tested two hundred seventy-seven internal medicine residents in Connecticut.";
+        let caps = sentence_captions(text, 0.6, 6.85);
+        assert_eq!(caps.len(), 2);
+        assert!(validate(&caps).is_ok());
+        assert!(
+            caps.iter()
+                .any(|c| c.lines.join(" ").contains("two hundred seventy-seven"))
+        );
+        assert_eq!(
+            caps.iter()
+                .flat_map(|c| c.lines.iter())
+                .cloned()
+                .collect::<Vec<_>>()
+                .join(" "),
+            text
+        );
     }
 
     /// The four sentences of Video F's final whose last words stood alone on

@@ -84,7 +84,7 @@ commands:
                            joined to OUT/CRATE_master.mp4 without re-encoding the video
   thumbnail                the video's thumbnail scene as one PNG, OUT/CRATE_thumbnail.png, at
                            --res (YouTube: 1280x720)
-  captions                 OUT/CRATE.en.srt and .vtt, sentence by sentence, from the chapters'
+  captions [all|CHAPTER...] OUT/CRATE.en.srt and .vtt, sentence by sentence, from the selected chapters'
                            timelines in OUT and the narration's report.json (--narration DIR)
   help                     show this text
 
@@ -768,7 +768,20 @@ fn captions_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
         .as_ref()
         .ok_or("captions needs --narration DIR (the report.json beside the WAVs)")?;
     let report = captions::read_report(&dir.join("report.json"))?;
-    let chapters = (e.chapters)()
+    let all = (e.chapters)();
+    let wanted: Vec<&Chapter> = if args.targets.is_empty() || args.targets.iter().any(|t| t == "all") {
+        all.iter().collect()
+    } else {
+        args.targets
+            .iter()
+            .map(|t| {
+                all.iter()
+                    .find(|c| c.key == t)
+                    .ok_or_else(|| format!("unknown chapter {t}"))
+            })
+            .collect::<Result<_, _>>()?
+    };
+    let chapters = wanted
         .iter()
         .map(|c| ChapterTimeline::read(&args.out.join(format!("{}.timeline.tsv", c.key))))
         .collect::<io::Result<Vec<_>>>()?;

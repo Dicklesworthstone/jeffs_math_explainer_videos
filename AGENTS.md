@@ -42,7 +42,9 @@ This repository makes narrated, 3Blue1Brown-style 4K math explainer videos that 
 
 Every video is a Rust program written against **franken_manim**'s native `fmn` facade (native TeX, no LaTeX, no Python), narrated by **FrankenTTS** (`ftts`; one preset voice per video, the owner's choice: `michael` for every published cut, chosen for all of them on 2026-10-12. The first cuts of capture_recapture (`matt`), hoeffding_d (`robert`) and raptorq_gf256 (`leo`) are kept as Private comparisons; `./x` still defaults capture_recapture and hoeffding_d to their first voice, and their michael cuts are `VOICE=michael` variants under `variants/michael/`; every other video is `michael` natively) with every take scored by **FrankenWhisper** (`fw`), and scored by this repository's own procedural sound engine. Every number is computed and oracle-checked; every frame is looked at; nothing is announced until it passes its gate.
 
-**The single source of truth for what we are building and why is [`docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md`](docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md)** (revision 2). Read §0, §1, §3, §4 and the section for the video you are working on before touching it. The research behind every number is in `docs/research/`; review round 1 of the plan is in `docs/reviews/plan_r1/`.
+**Start at [`docs/video-program/README.md`](docs/video-program/README.md) for every video, from an unapproved idea to a public cut.** Its `catalog.json` owns stable video identities, editorial decisions, cuts and publication records; `.beads` owns work status, assignees and dependencies. Do not create a second active video backlog. Historical publications do not close independent release or repair tasks, and inclusion in the catalog does not authorize production.
+
+The original production architecture and doctrine remain in [`docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md`](docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md) (revision 2). Read §0, §1, §3, §4 and the section for the video you are working on before touching it. The research behind every number is in `docs/research/`; review round 1 of the plan is in `docs/reviews/plan_r1/`. The next-program research is in `docs/video-program/research-20261016/`; proposed narration methods there are not yet qualified production changes. The owner authorized local catalog/Beads setup and a preserved copy of the production checkout on 2026-10-16; copied per-machine configuration and old gate markers require revalidation before local rendering.
 
 ### What we stand on
 
@@ -69,7 +71,7 @@ These come from the explainer skills and from the incidents that produced them. 
 2. **Every number on screen or in the narration comes from the explainer's `facts`**, computed by the scene from the data it draws and pinned against an independent oracle (`./x <slug> facts-check`). A typed number is a defect.
 3. **Every always/never sentence is tested at its edges before it is voiced.**
 4. **Every name and term is looked up and its pronunciation verified** (lookup, respell, probe against a control and a decoy, lock into `lexicon.json` with sources) before narration. The owner's pronunciation overrides every source.
-5. **One TTS call per sentence.** ftts is deterministic per (text, voice, seed): `--seed 1..N` gives different reads of the same words (seed 0 is the same as none), so a new take keeps the script's text; record the seed with the take (the narration skill's N-63, which corrects N-10). Choose a line's takes together so the joins sound like one reader, and set line-to-line gaps by the thought, never one constant (N-64).
+5. **Choose bounded coherent narration units.** Owner amendment 2026-10-17: use FrankenTTS Michael with his approved English accent, accepted B as the reference, contextual whole-thought takes/repairs and authored semantic pauses. Sentence synthesis remains a comparison route, not a universal requirement. Follow the current canonical narration skill and `docs/video-program/NARRATION-CONSISTENCY.md`. Pin the actual executable, model, voice conditioning, text, seed and emitted generation receipt; seed 0 can equal omitted, while positive seeds produce candidates in tested builds. Neither one request nor a resident proves unbroken context, and replay does not generalize across builds/backends. Transcript, speaker/accent scores and EOS evidence do not establish listening acceptance. Other models primarily support diagnosis.
 6. **Look at every frame:** the layout lint, contact sheets and cue sheets are read as images before a draft counts as reviewed.
 7. **4K60 finals with explicit encoder quality and one encoder for every chapter and segment** (a camera-route segment goes through the same runner-wrapped encoder as the retained route, or the stream-copy join breaks).
 8. **Chapters stay ≤ ~85 s** (editorial pacing; the kit raises the engine's byte caps).
@@ -84,6 +86,29 @@ Work around engine gaps in this repository and record them (§14 of the plan). F
 ---
 
 ## Working in the Swarm (the build host)
+
+### Owner-authorized first production wave — 2026-10-17
+
+The owner authorizes three Claude Code lanes on Opus 5.5, one video per lane,
+starting with Golay echoes, square packing and the medical p-value explanation.
+This authorizes production work, not publication or bypassing proof/audio gates.
+Use the current local canonical checkout. Do not touch older studio/research
+sessions, start remote SSH work, or edit upstream engines. Agent Mail is attempted
+once; if unavailable, use the assigned disjoint paths and exact NTM pane messages.
+The orchestrator owns shared workspace/driver/catalog files and Beads structure.
+
+Run a small code-first wave: each lane owns its topic directory, writes real
+scene/facts code plus independent oracle/tests and a usable spoken/storyboard
+slice, performs cheap syntax/oracle checks, then hands off exact paths and commit.
+Leave its task `in_progress` with a `batch_pending` label/comment; this label is
+an operational handoff, not a newly enforced native status. Only the orchestrator
+runs the combined Rust checks and bounded draft render, reviews the actual frames
+and audio, then closes accepted work with revision-bound evidence. Do not launch
+three redundant full builds or parallel full narration batches. No speculative
+frameworks, placeholder scenes, weakened assertions, self-closes, or claims that
+a commit/fixture/report is a finished video. A failed proof or model screen remains
+visible and cannot close the positive production task. One bounded active task
+per lane; verification before advancing to the next three topics.
 
 The three videos are built in parallel by an NTM swarm on the build host: Claude Code lanes write chapters, narration and music; Codex lanes review. Everyone works in **one checkout** (no git worktrees) and coordinates through **Agent Mail file reservations**. The orchestrator assigns lanes through beads.
 

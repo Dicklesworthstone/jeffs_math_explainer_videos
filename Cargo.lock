@@ -1291,6 +1291,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "37bfe73dc8ec21f54d181e5a60554327ec3f1c600c455a75ccbfc65d2106a6c4"
 
 [[package]]
+name = "golay_echoes"
+version = "0.1.0"
+dependencies = [
+ "explainer_kit",
+ "explainer_score",
+ "fmn",
+]
+
+[[package]]
 name = "half"
 version = "2.7.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1671,6 +1680,15 @@ name = "once_cell_polyfill"
 version = "1.70.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "384b8ab6d37215f3c5301a95a4accb5d64aa607f1fcb26a11b5303878451b4fe"
+
+[[package]]
+name = "p_values_medical_explainer"
+version = "0.1.0"
+dependencies = [
+ "explainer_kit",
+ "explainer_score",
+ "fmn",
+]
 
 [[package]]
 name = "parking"
@@ -2241,6 +2259,15 @@ checksum = "d91ed6c858b01f942cd56b37a94b3e0a1798290327d1236e4d9cf4eaca44d29d"
 dependencies = [
  "base64ct",
  "der",
+]
+
+[[package]]
+name = "square_packing_explainer"
+version = "0.1.0"
+dependencies = [
+ "explainer_kit",
+ "explainer_score",
+ "fmn",
 ]
 
 [[package]]

@@ -1,0 +1,816 @@
+[
+  {
+    "id": "C9xOzbLIARg",
+    "slug": "hoeffding_d",
+    "url": "https://www.youtube.com/watch?v=C9xOzbLIARg",
+    "master_md5": "76f66ca94c83b647a14d5f421c3d1cb2",
+    "srt_md5": "b643a09dc6ef4ae211d8a07e72ebe2c3",
+    "caption_count": 141,
+    "metadata": {
+      "title": "Hoeffding's D: The Ring That Correlation Can't See",
+      "description": "Here is a ring of points. Anyone can see that X and Y are related, yet the three usual correlations each read about zero on it: Pearson's r is −0.012, Spearman's ρ is −0.013 and Kendall's τ is −0.010. Hoeffding's D, from 1948 (Wassily Hoeffding; say it roughly HERF-ding), asks a different question, whether X and Y could be independent at all, and on the same ring it reads 0.0375, where the 99th percentile of D over shuffles of Y is 0.0131. The video builds D from nothing: why a turn takes four points to see, how ranks and one count per point stand in for the 26,010,428,123,750 groups of four among 5,000 points, and a worked example on ten people's heights and weights that comes out to D = 0.4107.\n\nChapters\n0:00 The ring that correlation can't see\n0:47 Six shapes, four measures\n2:17 Why a turn takes four points\n3:23 Ranks\n4:16 The count Q\n5:35 Three sums and one formula\n6:45 What shuffling destroys\n8:18 Recap\n\nNames to search: Hoeffding's D, Hoeffding's test of independence, Pearson's correlation coefficient, Spearman's rank correlation, Kendall's tau, rank statistics, U-statistic, permutation test.\n\nSources\nW. Hoeffding, \"A Non-Parametric Test of Independence\", The Annals of Mathematical Statistics 19(4), 1948, pp. 546–557. doi:10.1214/aoms/1177730150\nJ. Emanuel, \"My Favorite Statistical Measure: Hoeffding's D\", the article whose algorithm and worked example the video follows: https://github.com/Dicklesworthstone/hoeffdings_d_explainer\nSAS Institute, Base SAS 9.4 Procedures Guide: Statistical Procedures, PROC CORR, \"Hoeffding Dependence Coefficient\", for D's scale\n\nThe code that draws the video computes every number in it:\nhttps://github.com/Dicklesworthstone/jeffs_math_explainer_videos/tree/main/explainer_corpus/hoeffding_d\n\nNarration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.",
+      "tags": "Hoeffding's D, correlation, statistics, independence test, Pearson correlation, Spearman rank correlation, Kendall tau, rank statistics, permutation test, U-statistic, nonparametric statistics, math explainer"
+    },
+    "chapters": [
+      {
+        "time": "0:00",
+        "title": "The ring that correlation can't see"
+      },
+      {
+        "time": "0:47",
+        "title": "Six shapes, four measures"
+      },
+      {
+        "time": "2:17",
+        "title": "Why a turn takes four points"
+      },
+      {
+        "time": "3:23",
+        "title": "Ranks"
+      },
+      {
+        "time": "4:16",
+        "title": "The count Q"
+      },
+      {
+        "time": "5:35",
+        "title": "Three sums and one formula"
+      },
+      {
+        "time": "6:45",
+        "title": "What shuffling destroys"
+      },
+      {
+        "time": "8:18",
+        "title": "Recap"
+      }
+    ],
+    "source_urls": [
+      "https://github.com/Dicklesworthstone/hoeffdings_d_explainer",
+      "https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/tree/main/explainer_corpus/hoeffding_d"
+    ]
+  },
+  {
+    "id": "KNxRE255i-o",
+    "slug": "capture_recapture",
+    "url": "https://www.youtube.com/watch?v=KNxRE255i-o",
+    "master_md5": "8a17579a3ad74962464bd2523192f556",
+    "srt_md5": "20620a559b335c080a23f2f9a49eccb2",
+    "caption_count": 284,
+    "metadata": {
+      "title": "How to Count Fish You've Never Seen",
+      "description": "Mark a thousand fish, let them go, and catch a thousand more: the hundred caught twice tell you roughly how many fish no net ever touched. Starting from William Feller's 1950 textbook puzzle, this video builds the four-cell table, the exact best guess, a 95% range that keeps its promise, the ways the method fails, and its uses from Laplace's France to software bugs and the war dead of Kosovo.\n\nChapters\n0:00 The fish nobody caught\n0:59 The marks measure the net\n2:20 Why the marks spread\n3:45 Every possible netful\n5:13 Turning it around\n6:39 Same mountains, two questions\n7:16 Is the score still rising?\n8:40 The table balances\n9:43 Ten thousand lakes\n10:56 Dividing by zero\n11:55 Turning it around again\n12:52 A range that keeps its promise\n14:12 One rule for every failure\n15:35 France and the bugs\n17:05 Kosovo, and the coda\n\nNames to search: capture-recapture (mark-recapture), closed population, the hypergeometric distribution, maximum likelihood, the Lincoln-Petersen estimator, Chapman's estimator, confidence intervals by test inversion, multiple systems estimation.\n\nThe exact version of every simplification, every source, and the code that computes each number and checks it against an independent oracle:\nhttps://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/capture_recapture/docs/description.md\n\nSources\nW. Feller, An Introduction to Probability Theory and Its Applications, Vol. I, 1st ed. (1950), ch. 2 §5, Example (e), pp. 37–38\nSchnabel, \"The Estimation of Total Fish Population of a Lake\", The American Mathematical Monthly 45(6), 1938\nGoudie and Goudie, J. R. Statist. Soc. A 170(3):825–839, 2007, on how the estimator grew from the \"fishing coefficient\"\nLaplace, Essai philosophique sur les probabilités (1840 ed.), pp. 82–83: https://www.gutenberg.org/ebooks/58881\nH. D. Mills, \"On the Statistical Validation of Computer Programs\" (1970)\nBall et al., Killings and Refugee Flow in Kosovo, March–June 1999, a report to the ICTY (2002): https://www.icty.org/x/file/About/OTP/War_Demographics/en/s_milosevic_kosovo_020103.pdf\nSpagat, A Triumph of Remembering: Kosovo Memory Book (2014)\n\nNarration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.",
+      "tags": "capture-recapture, mark and recapture, statistics, probability, estimation, maximum likelihood, hypergeometric distribution, confidence interval, Lincoln-Petersen estimator, William Feller, Laplace, multiple systems estimation, math explainer"
+    },
+    "chapters": [
+      {
+        "time": "0:00",
+        "title": "The fish nobody caught"
+      },
+      {
+        "time": "0:59",
+        "title": "The marks measure the net"
+      },
+      {
+        "time": "2:20",
+        "title": "Why the marks spread"
+      },
+      {
+        "time": "3:45",
+        "title": "Every possible netful"
+      },
+      {
+        "time": "5:13",
+        "title": "Turning it around"
+      },
+      {
+        "time": "6:39",
+        "title": "Same mountains, two questions"
+      },
+      {
+        "time": "7:16",
+        "title": "Is the score still rising?"
+      },
+      {
+        "time": "8:40",
+        "title": "The table balances"
+      },
+      {
+        "time": "9:43",
+        "title": "Ten thousand lakes"
+      },
+      {
+        "time": "10:56",
+        "title": "Dividing by zero"
+      },
+      {
+        "time": "11:55",
+        "title": "Turning it around again"
+      },
+      {
+        "time": "12:52",
+        "title": "A range that keeps its promise"
+      },
+      {
+        "time": "14:12",
+        "title": "One rule for every failure"
+      },
+      {
+        "time": "15:35",
+        "title": "France and the bugs"
+      },
+      {
+        "time": "17:05",
+        "title": "Kosovo, and the coda"
+      }
+    ],
+    "source_urls": [
+      "https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/capture_recapture/docs/description.md",
+      "https://www.gutenberg.org/ebooks/58881",
+      "https://www.icty.org/x/file/About/OTP/War_Demographics/en/s_milosevic_kosovo_020103.pdf"
+    ]
+  },
+  {
+    "id": "uWDPs9JIwEk",
+    "slug": "raptorq_gf256",
+    "url": "https://www.youtube.com/watch?v=uWDPs9JIwEk",
+    "master_md5": "8e0afadf33bee181d59a81447d06fcb8",
+    "srt_md5": "3b8c3ebe65b9e54142bb73bc712a564c",
+    "caption_count": 332,
+    "metadata": {
+      "title": "The Arithmetic Where 3 × 7 = 9",
+      "description": "A server sends one file to a million phones, and every phone loses its own share of the packets. RaptorQ, the fountain code in RFC 6330 and in ATSC 3.0 broadcasting, lets each phone rebuild the file from almost any packets it happens to receive, without asking for anything again. This video builds the arithmetic that makes that work.\n\nEvery packet is an equation: some pieces of the file, mixed with ex-or (XOR). With ex-or alone, a random set of exactly enough equations fails to pin the file down about 71% of the time (model), and almost all of the trouble is in the last few equations. RaptorQ closes those last few with 10 to 16 equations over a byte field of 256 elements, where bytes multiply as polynomials folded by one that cannot be factored. In that field, 3 × 7 = 9.\n\nChapters\n0:00 A million phones\n1:13 Bits and ex-or\n2:27 Packets are equations\n3:50 The cube\n4:34 The ex-or lottery\n5:30 Spares and rings\n6:46 Why not wrap around at 256?\n7:47 Prime clocks\n8:47 Bytes are polynomials\n10:00 The fold\n11:25 The byte clock\n12:50 The times table\n14:11 The byte lottery\n15:30 The price of density\n16:53 Where the danger lives\n18:16 Parking a piece\n19:41 Two packets\n\nWhat the promise averages over\nRFC 6330 says a decoder fails at most 1 time in 100 with exactly enough packets, 1 in 10,000 with one extra and 1 in 1,000,000 with two. Those are averages over packets chosen at random. A phone that receives the originals first and loses random packets gets a different mix, so we measured that case too: with 1,002 pieces, each packet lost with probability 1 in 100, 3 of 5,000,000 simulated phones failed with two packets more than they needed (98 with one extra, 21,186 with none). Numbers marked \"model\" in the video are computed under stated assumptions; measured numbers carry their sample sizes.\n\nThe exact version of every simplification, every source, and the code that computes each number and checks it against an independent oracle:\nhttps://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/raptorq_gf256/docs/description.md\n\nSources\nRFC 6330, \"RaptorQ Forward Error Correction Scheme for Object Delivery\" (Luby, Shokrollahi, Watson, Stockhammer, Minder; IETF, 2011): https://www.rfc-editor.org/rfc/rfc6330\nATSC A/331:2021, \"Signaling, Delivery, Synchronization, and Error Protection\"\nByers, Luby, Mitzenmacher, Rege, \"A Digital Fountain Approach to Reliable Distribution of Bulk Data\", ACM SIGCOMM 1998\nHo, Médard, Koetter, Karger, Effros, Shi, Leong, \"A Random Linear Network Coding Approach to Multicast\", IEEE Trans. Inf. Theory 52(10), 2006\nH. P. Anvin, \"The mathematics of RAID-6\"\nISO/IEC 18004 (QR Code), §6.5.2; FIPS 197 (AES), §4.2\n\nNarration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.",
+      "tags": "RaptorQ, fountain code, erasure code, finite field, Galois field, GF(256), XOR, polynomials, error correction, RFC 6330, Reed-Solomon, network coding, linear algebra, math explainer"
+    },
+    "chapters": [
+      {
+        "time": "0:00",
+        "title": "A million phones"
+      },
+      {
+        "time": "1:13",
+        "title": "Bits and ex-or"
+      },
+      {
+        "time": "2:27",
+        "title": "Packets are equations"
+      },
+      {
+        "time": "3:50",
+        "title": "The cube"
+      },
+      {
+        "time": "4:34",
+        "title": "The ex-or lottery"
+      },
+      {
+        "time": "5:30",
+        "title": "Spares and rings"
+      },
+      {
+        "time": "6:46",
+        "title": "Why not wrap around at 256?"
+      },
+      {
+        "time": "7:47",
+        "title": "Prime clocks"
+      },
+      {
+        "time": "8:47",
+        "title": "Bytes are polynomials"
+      },
+      {
+        "time": "10:00",
+        "title": "The fold"
+      },
+      {
+        "time": "11:25",
+        "title": "The byte clock"
+      },
+      {
+        "time": "12:50",
+        "title": "The times table"
+      },
+      {
+        "time": "14:11",
+        "title": "The byte lottery"
+      },
+      {
+        "time": "15:30",
+        "title": "The price of density"
+      },
+      {
+        "time": "16:53",
+        "title": "Where the danger lives"
+      },
+      {
+        "time": "18:16",
+        "title": "Parking a piece"
+      },
+      {
+        "time": "19:41",
+        "title": "Two packets"
+      }
+    ],
+    "source_urls": [
+      "https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/raptorq_gf256/docs/description.md",
+      "https://www.rfc-editor.org/rfc/rfc6330"
+    ]
+  },
+  {
+    "id": "eXU6NC2fuCw",
+    "slug": "bakery_algorithm",
+    "url": "https://www.youtube.com/watch?v=eXU6NC2fuCw",
+    "master_md5": "9ed06e7d12d38a87d748d8a58806d296",
+    "srt_md5": "522946ba19f6bbd75e973575a1e81870",
+    "caption_count": 252,
+    "metadata": {
+      "title": "The Algorithm Lamport Is Proudest Of",
+      "description": "In 1974 Leslie Lamport published a way for programs to take turns using only memory that each of them writes alone: take a ticket bigger than any you see, break ties by customer number, and raise a flag while you choose. Its proof never trusts a read that overlaps a write, so the algorithm survives memory that returns garbage. This video builds the bakery algorithm, proves it, and shows what it costs on a real computer.\n\nChapters\n0:00 One plus one is one\n1:23 The room\n2:39 Take a number\n4:00 Same number\n5:24 The unwritten ticket\n6:48 Three customers\n7:04 One run\n8:03 Why never two\n9:27 Reading garbage safely\n10:28 The old zero\n11:38 Fair at a price\n13:03 Your CPU\n14:28 Proudest\n\nWhat it costs\nThe customers are fixed in advance, with one flag and one ticket slate each. An uncontended entry reads each other customer's slate twice and her flag once. Waiting means spinning and re-reading. A customer frozen with her choosing flag raised stalls the others after at most one more turn each, and a dead customer's slate stays set until something resets it. Run with plain loads and stores on today's processors, it can fail: use sequentially consistent atomics, or fences placed for your architecture, and 64-bit tickets.\n\nThe measured numbers in the video carry their sample sizes. The exact version of every simplification, every source, and the code that computes each number:\nhttps://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/bakery_algorithm/docs/description.md\n\nSources\nE. W. Dijkstra, \"Solution of a Problem in Concurrent Programming Control\", CACM 8(9):569, 1965\nL. Lamport, \"A New Solution of Dijkstra's Concurrent Programming Problem\", CACM 17(8):453–455, 1974: https://lamport.azurewebsites.net/pubs/bakery.pdf\nL. Lamport, \"The Computer Science of Concurrency: The Early Years\" (Turing lecture), CACM 58(6):71–76, 2015: https://lamport.azurewebsites.net/pubs/turing.pdf\nL. Lamport, publications page, the entry for the 1974 paper: https://lamport.azurewebsites.net/pubs/pubs.html\nOral History of Leslie Lamport, interviewed by Roy Levin, Computer History Museum, 2016\nTrusted Firmware-A, lib/locks/bakery: https://github.com/ARM-software/arm-trusted-firmware\n\nNarration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.",
+      "tags": "bakery algorithm, Leslie Lamport, mutual exclusion, concurrency, concurrent programming, Dijkstra, memory model, atomics, multithreading, critical section, distributed systems, computer science, math explainer"
+    },
+    "chapters": [
+      {
+        "time": "0:00",
+        "title": "One plus one is one"
+      },
+      {
+        "time": "1:23",
+        "title": "The room"
+      },
+      {
+        "time": "2:39",
+        "title": "Take a number"
+      },
+      {
+        "time": "4:00",
+        "title": "Same number"
+      },
+      {
+        "time": "5:24",
+        "title": "The unwritten ticket"
+      },
+      {
+        "time": "6:48",
+        "title": "Three customers"
+      },
+      {
+        "time": "7:04",
+        "title": "One run"
+      },
+      {
+        "time": "8:03",
+        "title": "Why never two"
+      },
+      {
+        "time": "9:27",
+        "title": "Reading garbage safely"
+      },
+      {
+        "time": "10:28",
+        "title": "The old zero"
+      },
+      {
+        "time": "11:38",
+        "title": "Fair at a price"
+      },
+      {
+        "time": "13:03",
+        "title": "Your CPU"
+      },
+      {
+        "time": "14:28",
+        "title": "Proudest"
+      }
+    ],
+    "source_urls": [
+      "https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/bakery_algorithm/docs/description.md",
+      "https://lamport.azurewebsites.net/pubs/bakery.pdf",
+      "https://lamport.azurewebsites.net/pubs/turing.pdf",
+      "https://lamport.azurewebsites.net/pubs/pubs.html",
+      "https://github.com/ARM-software/arm-trusted-firmware"
+    ]
+  },
+  {
+    "id": "f6iskjcSQCQ",
+    "slug": "fair_coin",
+    "url": "https://www.youtube.com/watch?v=f6iskjcSQCQ",
+    "master_md5": "4471f2580e022b41374d61be59c0ce11",
+    "srt_md5": "4b3f28952aafff485dd34f0229afa5e8",
+    "caption_count": 183,
+    "metadata": {
+      "title": "How to Make a Fair Coin Out of an Unfair One",
+      "description": "Toss an unfair coin twice. If the two results match, throw them away and toss two fresh ones. If they differ, heads-then-tails wins for one player and tails-then-heads for the other. The game is exactly fair whatever the coin's chance of heads, and nobody has to know that chance. This video shows why, what it costs, how it breaks, and how the same idea makes a fair die out of a loaded one.\n\nChapters\n00:00 Call it\n00:57 Toss twice\n02:18 Every coin\n03:39 The price\n04:33 Where it breaks\n05:42 Same counts\n07:04 A die from a coin\n07:57 Loaded dice\n08:44 Six orders\n09:53 What is left\n11:00 The fair coin inside\n\nThe exact versions\nCalling it: ignorance alone does not guarantee fairness. An independent 50/50 call does; the extractor is fair over the coin tosses alone.\nThe 80% coin is a model. A coin that is flipped and caught cannot be made to favour a side by weighting it (Gelman and Nolan 2002); a coin that is spun, or allowed to bounce, can.\nFor two independent tosses with the same probability p of heads, P(heads then tails) = p(1 − p) = P(tails then heads), for every p in [0, 1]. A coin that cannot land both ways never produces a differing pair. More generally, it is enough that heads-then-tails and tails-then-heads have equal conditional probability after any discarded pairs.\nA pair differs with probability 2p(1 − p), so the number of pairs is geometric and the expected number of tosses is 1/(p(1 − p)): 6.25 at p = 4/5, 4 at p = 1/2, about 101 at p = 0.99. No rule that always names a winner within a fixed number n of tosses is fair for every coin: at p near 1 the all-heads pattern has nearly all the probability, and it belongs to one player.\nWith chances p₁ then p₂, the two differing pairs have probabilities p₁(1 − p₂) and (1 − p₁)p₂, equal exactly when p₁ = p₂.\nFor a coin that remembers only its last toss, the tosses that come straight after a head are independent with one shared chance, so the trick applied to those alone is exactly fair when played to the end (Samuelson 1968, as described by Elias 1972, who credits the best form of it to John W. Pratt; Samuelson's own pages were not seen for this video).\nFor independent tosses of one coin, a pattern's probability depends only on how many heads it has: p^k (1 − p)^(n−k). So, given the counts, every arrangement is equally likely. For independent rolls of one die, the n! orders of n different values are equally likely, whatever the die's chances.\nThe trick's long-run yield is p(1 − p) fair tosses per toss: 0.16 at p = 4/5 and 0.25 for a fair coin, the \"at most 25 percent\" of the 1951 summary. The ceiling is the binary entropy h(p) = −p log₂ p − (1 − p) log₂(1 − p), 0.7219 at p = 4/5: no rule whose output is exactly fair can average more per toss over a long run (Elias 1972, Theorem 1). Elias's rule on blocks of N tosses and Peres's iterated procedure both approach the ceiling and never reach it.\n\nFor programmers\nFresh tosses for every pair. A sliding window that keeps the second toss of a thrown-away pair and compares it with the next one returns plain heads-or-tails: the unfair coin, unchanged.\nIt is rejection sampling: a retry loop with no upper bound. If you cap the loop, the cap must return \"no result\", never a default winner.\nCoins with memory, using every toss (Blum). Treat \"after a head\" and \"after a tail\" as two coins and run the trick on each. A result must be announced only when the coin is next in the state that produced it; announcing it at once is wrong.\n\nEvery count and chance in the video is computed by the video's own code and checked against an independent script. The exact version of every simplification, the programmer notes in full, the seeds of every simulated run, and every source:\nhttps://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/fair_coin/docs/description.md\n\nNames to search: von Neumann's trick (the von Neumann extractor), randomness extraction, rejection sampling, the binary entropy function, Elias's algorithm, Peres's iterated procedure, Blum's algorithm for Markov chains, composition classes, Pascal's triangle.\n\nSources\nJohn von Neumann, \"Various Techniques Used in Connection With Random Digits\" (1951)\nWassily Hoeffding and Gordon Simons, \"Unbiased Coin Tossing with a Biased Coin\" (1970)\nPeter Elias, \"The Efficient Construction of an Unbiased Random Sequence\" (1972)\nManuel Blum, \"Independent Unbiased Coin Flips From a Correlated Biased Source\" (1986)\nYuval Peres, \"Iterating von Neumann's Procedure for Extracting Random Bits\" (1992)\nAndrew Gelman and Deborah Nolan, \"You Can Load a Die, But You Can't Bias a Coin\" (2002)\nPersi Diaconis, Susan Holmes and Richard Montgomery, \"Dynamical Bias in the Coin Toss\" (2007)\nFrantišek Bartoš and others, \"Fair Coins Tend to Land on the Same Side They Started\" (2025)\nBenjamin Jun and Paul Kocher, \"The Intel Random Number Generator\" (1999)\n\nNarration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.",
+      "tags": "fair coin, unfair coin, biased coin, von Neumann coin, probability, coin flipping, Bernoulli trials, random bits, information theory, John von Neumann, loaded dice, math explainer"
+    },
+    "chapters": [
+      {
+        "time": "0:00",
+        "title": "Call it"
+      },
+      {
+        "time": "0:57",
+        "title": "Toss twice"
+      },
+      {
+        "time": "2:18",
+        "title": "Every coin"
+      },
+      {
+        "time": "3:39",
+        "title": "The price"
+      },
+      {
+        "time": "4:33",
+        "title": "Where it breaks"
+      },
+      {
+        "time": "5:42",
+        "title": "Same counts"
+      },
+      {
+        "time": "7:04",
+        "title": "A die from a coin"
+      },
+      {
+        "time": "7:57",
+        "title": "Loaded dice"
+      },
+      {
+        "time": "8:44",
+        "title": "Six orders"
+      },
+      {
+        "time": "9:53",
+        "title": "What is left"
+      },
+      {
+        "time": "11:00",
+        "title": "The fair coin inside"
+      }
+    ],
+    "source_urls": [
+      "https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/fair_coin/docs/description.md"
+    ]
+  },
+  {
+    "id": "wahnqlfOC84",
+    "slug": "mental_math",
+    "url": "https://www.youtube.com/watch?v=wahnqlfOC84",
+    "master_md5": "766f27760c86c2fa698ddc830699d550",
+    "srt_md5": "dba90d5f7b85f351420880e6a2af669a",
+    "caption_count": 281,
+    "metadata": {
+      "title": "Mental Math Tricks That Actually Work (and Why)",
+      "description": "A handful of mental arithmetic tricks that come up in real life, each with the picture that makes it true, and thirteen \"your turn\" quizzes with a countdown. Pause whenever you want more time. A product is the area of a rectangle: every trick here is one way to cut that rectangle into easy pieces, or to trade it for an equal one.\n\nChapters\n0:00 Eighty-five squared\n0:58 Squares that end in five\n2:05 Your turn\n2:54 Any product, by parts\n4:14 A running total\n5:38 Percents: a tenth, and the swap\n6:55 Round numbers: half and double; round, then fix\n8:22 The middle\n9:39 Feynman, Bethe and forty-eight squared\n10:33 Squares near fifty\n11:47 Your turn\n12:39 Which trick?\n13:18 Nothing to grab\n14:14 Every number is near something you know\n\nThe tricks, exactly\nSquares ending in 5: (10n + 5)² = 100 × n × (n + 1) + 25 for every whole number n from 0 up. It is only as easy as that one product.\nThe picture: slice a strip off the top of a square and stand it against the side. a² = (a − b)(a + b) + b², for every a and every b up to a.\nBy parts: (a + b)(c + d) = ac + ad + bc + bd, the distributive law. Added in a fixed order, every total on the way is a floor.\nPercents: x% of y = x × y ÷ 100 = y% of x, always. It helps only when one of the two is a percent you know as a fraction.\nHalf and double: (a ÷ 2) × (2b) = a × b; it pays when doubling gives a round number. Round, then fix: n × (r − e) = n × r − n × e; it pays when the fix is small.\nThe middle: (a + b)(a − b) = a² − b², for any two numbers.\nNear fifty: (50 ± b)² = 2500 ± 100b + b². The two-digit reading works for 41 to 59 and for no other number from 0 to 100.\n\nThe story of Hans Bethe at Los Alamos is told by Richard Feynman in \"Surely You're Joking, Mr. Feynman!\": Adventures of a Curious Character (W. W. Norton, 1985), in the chapter \"Lucky Numbers\", pages 193 and 194. The video quotes two of its sentences.\n\nFor programmers: the four pieces of a product by parts are schoolbook multiplication. Karatsuba's algorithm gets both strips from one more multiplication of the digit sums: three multiplications instead of four, a good trade for a computer multiplying very long numbers, a bad one for a head.\n\nNot new: three of these tricks are on one page of an American school book of 1844, Pliny E. Chase, The Elements of Arithmetic, Part Second, page 60.\n\nEvery calculation in the video was checked by two independent programs. The exact version of every simplification, every source, and the code that computes each number:\nhttps://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/mental_math/docs/description.md\n\nNames to search: the distributive law; difference of squares; the area model; Karatsuba multiplication.\n\nNarration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.",
+      "tags": "mental math, mental arithmetic, math tricks, multiplication tricks, squaring numbers, difference of squares, distributive law, area model, Richard Feynman, Hans Bethe, Karatsuba multiplication, math explainer"
+    },
+    "chapters": [
+      {
+        "time": "0:00",
+        "title": "Eighty-five squared"
+      },
+      {
+        "time": "0:58",
+        "title": "Squares that end in five"
+      },
+      {
+        "time": "2:05",
+        "title": "Your turn"
+      },
+      {
+        "time": "2:54",
+        "title": "Any product, by parts"
+      },
+      {
+        "time": "4:14",
+        "title": "A running total"
+      },
+      {
+        "time": "5:38",
+        "title": "Percents: a tenth, and the swap"
+      },
+      {
+        "time": "6:55",
+        "title": "Round numbers: half and double; round, then fix"
+      },
+      {
+        "time": "8:22",
+        "title": "The middle"
+      },
+      {
+        "time": "9:39",
+        "title": "Feynman, Bethe and forty-eight squared"
+      },
+      {
+        "time": "10:33",
+        "title": "Squares near fifty"
+      },
+      {
+        "time": "11:47",
+        "title": "Your turn"
+      },
+      {
+        "time": "12:39",
+        "title": "Which trick?"
+      },
+      {
+        "time": "13:18",
+        "title": "Nothing to grab"
+      },
+      {
+        "time": "14:14",
+        "title": "Every number is near something you know"
+      }
+    ],
+    "source_urls": [
+      "https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/mental_math/docs/description.md"
+    ]
+  },
+  {
+    "id": "G9P5aDGMAGU",
+    "slug": "lie_robotics",
+    "url": "https://www.youtube.com/watch?v=G9P5aDGMAGU",
+    "master_md5": "b158f58a24f43878cea07c2c782b6c24",
+    "srt_md5": "52127452b1683a804a80b7ddb46cf4dd",
+    "caption_count": 271,
+    "metadata": {
+      "title": "Why Robot Arms Think in Lie Groups",
+      "description": "Tilt a book a quarter turn, then roll it a quarter turn, then do it in the other order: the book faces a different way. Slide it right then away, or away then right: it lands on the same spot. Positions add; orientations don't. This video follows what a seven-joint robot arm (a KUKA LBR iiwa 14) has to do about that: turns, the one move that makes them add (do the arithmetic on the flat piece that touches the curved space, then wrap the answer back on), screws, a product of seven exponentials, the Jacobian, the directions an arm can lose, its spare joint, and Newton's method on the group of poses in three steps. The last quiz asks what is left over when two small turns are made in two orders, and the answer is the Lie bracket. (Lie is said \"Lee\".)\n\nChapters\n0:00 The book\n1:03 One turn\n2:05 Three angles\n3:26 Halfway\n4:33 Spin\n5:52 The platform\n6:52 Screws\n7:55 Seven screws\n9:07 By hand\n10:08 Velocities add\n11:15 Lost directions\n12:33 The spare joint\n13:22 Steps\n14:27 The steady path\n15:21 Everywhere\n\nThe exact versions\nEuler's theorem: every turn of space fixes an axis, and a product of turns is a turn.\nA spin is an angular velocity. Its exponential is e^{[ω]t} = I + sin t [ω] + (1 − cos t)[ω]² for a unit axis ω and an angle t in radians (Rodrigues' formula); the logarithm goes back, with a branch of its own near a half turn.\nChasles–Mozzi: every rigid displacement is a screw displacement.\nThe arm's pose is a product of exponentials, T(q) = e^{[S₁]q₁} ⋯ e^{[S₇]q₇} M (Lynch and Park, eq. 4.14), which Brockett presented in 1983.\nSingularity is a property of the joint angles, not of the gripper's pose: the same gripper pose can be reached by a singular and by a non-singular set of angles.\nNewton's method on poses: error = log(inverse(T(q)) · T_goal), then q = q + pinv(J_body(q)) · error, until the error is below 0.001 rad and 0.1 mm. From other starts the count of steps differs, and the method can fail.\nThe leftover of two small turns made in two orders follows a rule of its own on the flat piece, the Lie bracket; for turns it is the cross product.\n\nEvery number in the video was computed by code and checked by a second, independent program. The exact version of every simplification, beat by beat, the arm's numbers to test with, every source and what was not verified:\nhttps://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/lie_robotics/docs/description.md\n\nNames to search: Lie group, Lie algebra, SE(3), SO(3), screw theory (twist, wrench), product of exponentials, Chasles–Mozzi theorem, the matrix exponential and logarithm, Rodrigues' formula, the Jacobian (space form, body form), singularities, redundant manipulators and the null space, Newton–Raphson inverse kinematics, gimbal lock.\n\nSources\nK. M. Lynch and F. C. Park, Modern Robotics: Mechanics, Planning, and Control (Cambridge University Press, 2017)\nR. M. Murray, Z. Li and S. S. Sastry, A Mathematical Introduction to Robotic Manipulation (CRC Press, 1994)\nJ. Solà, J. Deray and D. Atchuthan, \"A micro Lie theory for state estimation in robotics\", arXiv:1812.01537\nO. Rodrigues, Journal de Mathématiques Pures et Appliquées 5 (1840), pp. 380–440\nNASA, Apollo 11 Technical Air-to-Ground Voice Transcription; the Apollo flight software Comanche 055 (routine GLOCKMON)\nKUKA, data sheet \"LBR iiwa 14 R820\" (2022)\n\nNarration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.",
+      "tags": "Lie group, Lie algebra, robotics, robot arm, kinematics, inverse kinematics, screw theory, SE(3), SO(3), product of exponentials, Jacobian, gimbal lock, Rodrigues formula, matrix exponential, Newton's method, math explainer"
+    },
+    "chapters": [
+      {
+        "time": "0:00",
+        "title": "The book"
+      },
+      {
+        "time": "1:03",
+        "title": "One turn"
+      },
+      {
+        "time": "2:05",
+        "title": "Three angles"
+      },
+      {
+        "time": "3:26",
+        "title": "Halfway"
+      },
+      {
+        "time": "4:33",
+        "title": "Spin"
+      },
+      {
+        "time": "5:52",
+        "title": "The platform"
+      },
+      {
+        "time": "6:52",
+        "title": "Screws"
+      },
+      {
+        "time": "7:55",
+        "title": "Seven screws"
+      },
+      {
+        "time": "9:07",
+        "title": "By hand"
+      },
+      {
+        "time": "10:08",
+        "title": "Velocities add"
+      },
+      {
+        "time": "11:15",
+        "title": "Lost directions"
+      },
+      {
+        "time": "12:33",
+        "title": "The spare joint"
+      },
+      {
+        "time": "13:22",
+        "title": "Steps"
+      },
+      {
+        "time": "14:27",
+        "title": "The steady path"
+      },
+      {
+        "time": "15:21",
+        "title": "Everywhere"
+      }
+    ],
+    "source_urls": [
+      "https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/lie_robotics/docs/description.md"
+    ]
+  },
+  {
+    "id": "JY88xN-0Jjw",
+    "slug": "bayesian_search",
+    "url": "https://www.youtube.com/watch?v=JY88xN-0Jjw",
+    "master_md5": "797dac61555d252bd544e595149d85af",
+    "srt_md5": "644c9c2935c5af6401fab8ebf14b3ae0",
+    "caption_count": 254,
+    "metadata": {
+      "title": "How to Find a Lost Submarine",
+      "description": "A nuclear submarine has gone missing and time is running out. How do you look for something you cannot see, in an ocean you cannot search all of? The answer is a map of where it could be, a rule for where to look next, and one move that turns \"we found nothing\" into new knowledge. The video builds that move by counting dots, then shows it at work in four real searches: the hydrogen bomb lost at Palomares, the USS Scorpion, Air France 447 and the Coast Guard's search for a lobsterman who fell overboard.\n\nFive \"your turn\" quizzes with a countdown. Pause whenever you want more time.\n\nThe Scorpion was lost on 22 May 1968 with all 99 men aboard. The Navy searched from 27 May to 5 June as if they might still be saved; they could not be. Nothing in the video says otherwise.\n\nChapters\n0:00 The question\n0:20 Ninety-nine\n1:31 A map of chances\n2:48 Ten thousand dots\n4:02 A search can miss\n5:02 Nothing found\n6:10 Bayes' rule\n7:20 Where next\n8:33 The second pass\n9:49 Adrift\n10:48 Twelve hours\n12:03 The silence\n13:19 How well they looked\n14:37 Four maps\n\nThe method, exactly\nOne lost thing, in one of N cells, that stays where it is. Cell i holds it with chance pᵢ, and a search of cell i, if the thing is there, finds it with chance dᵢ, the \"chance of seeing it\".\nThe chance of a find from one search of cell i is pᵢdᵢ: the chance it is there times the chance of seeing it.\nAfter an empty search of cell i: pᵢ′ = pᵢ(1 − dᵢ) ÷ (1 − pᵢdᵢ), and pⱼ′ = pⱼ ÷ (1 − pᵢdᵢ) for every other cell j. This is Bayes' rule, in the form Richardson and Stone printed in 1971.\nThe rule: search the cell with the greatest pᵢdᵢ, after each update. For one thing that does not move, searches that are independent tries with a known, fixed dᵢ, and equal cost per search, no plan has a better chance of having found it after n searches, for every n (Chew 1967).\nThe update never adds: a cell that holds no dots keeps none, whatever is searched. So the first map must leave room for the truth.\n\nWhat the video does not say: that Bayes' rule found the Scorpion, or the H-bomb; that mathematicians proved the beacons of Air France 447 were broken; that the software found John Aldridge.\n\nEvery number in this video is in the code, and each was checked a second way. The exact version of every simplification, the four searches in their sources' own words, the paper's own numbers for chapter 13, and code you can run:\nhttps://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/bayesian_search/docs/description.md\n\nNames to search: Bayesian search theory; Koopman, Search and Screening; Richardson and Stone 1971; Stone, Theory of Optimal Search; SAROPS.\n\nSources\nH. R. Richardson and L. D. Stone, \"Operations Analysis During the Underwater Search for Scorpion\", Naval Research Logistics Quarterly 18(2), 1971, pp. 141-157\nB. O. Koopman, Search and Screening, OEG Report 56, 1946\nL. D. Stone, C. M. Keller, T. M. Kratzke and J. P. Strumpfer, \"Search for the Wreckage of Air France Flight AF 447\", Statistical Science 29(1), 2014, pp. 69-80\nJ. R. Frost and L. D. Stone, Review of Search Theory, USCG report CG-D-15-01, 2001\nDefense Nuclear Agency, Palomares Summary Report, 1975\nPaul Tough, \"A Speck in the Sea\", The New York Times Magazine, 2 January 2014\n\nNarration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.",
+      "tags": "Bayesian search theory, Bayes' rule, probability, search and rescue, USS Scorpion, Air France 447, Palomares, Koopman, search theory, sweep width, SAROPS, Coast Guard, conditional probability, math explainer"
+    },
+    "chapters": [
+      {
+        "time": "0:00",
+        "title": "The question"
+      },
+      {
+        "time": "0:20",
+        "title": "Ninety-nine"
+      },
+      {
+        "time": "1:31",
+        "title": "A map of chances"
+      },
+      {
+        "time": "2:48",
+        "title": "Ten thousand dots"
+      },
+      {
+        "time": "4:02",
+        "title": "A search can miss"
+      },
+      {
+        "time": "5:02",
+        "title": "Nothing found"
+      },
+      {
+        "time": "6:10",
+        "title": "Bayes' rule"
+      },
+      {
+        "time": "7:20",
+        "title": "Where next"
+      },
+      {
+        "time": "8:33",
+        "title": "The second pass"
+      },
+      {
+        "time": "9:49",
+        "title": "Adrift"
+      },
+      {
+        "time": "10:48",
+        "title": "Twelve hours"
+      },
+      {
+        "time": "12:03",
+        "title": "The silence"
+      },
+      {
+        "time": "13:19",
+        "title": "How well they looked"
+      },
+      {
+        "time": "14:37",
+        "title": "Four maps"
+      }
+    ],
+    "source_urls": [
+      "https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/bayesian_search/docs/description.md"
+    ]
+  },
+  {
+    "id": "MCPzPBy_bhM",
+    "slug": "visual_proofs",
+    "url": "https://www.youtube.com/watch?v=MCPzPBy_bhM",
+    "master_md5": "f3c7a03a821b86b9deb4c680670a0cd5",
+    "srt_md5": "02862100af94fa121ac05c9254f5a1cb",
+    "caption_count": 300,
+    "metadata": {
+      "title": "Proofs You Can See",
+      "description": "Eight proofs you can see, and one picture that lies. Each proof is shown at one size and then asked the same question: would the next size fit? The answer is always a picture of the step from one size to the next. At the end the same argument gives nonsense, and the video says what separates the two. Nine of the questions are quizzes with a countdown: pause whenever you want more time.\n\nChapters\n0:00 Cold open\n0:28 Five for five\n1:53 Layers\n3:10 Staircases\n4:13 Slabs\n5:39 Every cube\n7:00 Three stacks\n8:07 The box\n9:03 Every height\n10:07 Halves\n11:19 A third\n12:42 The cut cube\n14:06 Four triangles\n15:38 The missing square\n17:04 What makes a proof\n\nFive for five, the warning at the start: with n points on a circle, every pair joined by a line and no three lines meeting at one point inside, the lines cut the disc into 1, 2, 4, 8 and 16 regions for n = 1 to 5, then 31 for n = 6; six evenly spaced points give only 30, because the three long lines meet in the middle. Five passing tests prove nothing about the sixth.\n\nThe proofs, exactly (each for every whole number n from 1)\nOdd numbers as layers: an L of 2k + 1 tiles turns the k by k square into the (k + 1) by (k + 1) square, so 1 + 3 + … + (2n − 1) = n². The first hundred odd numbers add to 10,000.\nTwo staircases: two copies of the staircase 1 + 2 + … + n lock into a rectangle n wide and n + 1 tall, so the sum is n(n + 1) ÷ 2; a hundred steps make 5,050.\nThe sum of cubes: 1³ + 2³ + … + n³ = (1 + 2 + … + n)², each cube wrapped as an L round the square of the ones before it.\nSiu's three stacks: three stacks of n levels fit a box n by n + 1 by n + ½, so 1² + … + n² = n(n + 1)(2n + 1) ÷ 6.\nHalves and a third: 1/2 + 1/4 + 1/8 + … = 1 and 1/4 + 1/16 + 1/64 + … = 1/3. The gap is never zero, and it goes below every size you name.\nThe cut cube: cut every side of a cube of side a + b once, at a, and the blocks add to (a + b)³; the fourth power is counted, not drawn.\nFour triangles: four copies of a right triangle in a square, slid without turning, show a² + b² = c².\nThe picture that lies: four pieces of 12, 5, 8 and 7 tiles (32 in all) seem to fill a 13 by 5 triangle, which would hold 32½; neither long edge is straight, and the sliver between the two arrangements is exactly one tile.\n\nThe pictures: the sum of cubes with a slab cut in half is Alan Fry's (Mathematics Magazine, 1985); the three stacks are Man-Keung Siu's (Mathematics Magazine, 1984); Warren Page published a picture of the halves in 1981; the quarters are Sunday Ajose and Roger Nelsen's (1994). The circle pattern is in Leo Moser's note \"On the Danger of Induction\" (1949). The missing-square idea is Paul Curry's (1953), according to Martin Gardner. Names to search: proofs without words; Roger B. Nelsen, Proofs Without Words (MAA, 1993).\n\nEvery number in the video is computed by the scenes from the data they draw and checked by an independent program. The exact statement of every proof, who did what and what is deliberately not claimed, notes for programmers, and every source:\nhttps://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/visual_proofs/docs/description.md\n\nNarration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.",
+      "tags": "proofs without words, visual proof, mathematical induction, sum of odd numbers, triangular numbers, sum of cubes, sum of squares, geometric series, Pythagorean theorem, missing square puzzle, binomial theorem, Roger Nelsen, math explainer"
+    },
+    "chapters": [
+      {
+        "time": "0:00",
+        "title": "Cold open"
+      },
+      {
+        "time": "0:28",
+        "title": "Five for five"
+      },
+      {
+        "time": "1:53",
+        "title": "Layers"
+      },
+      {
+        "time": "3:10",
+        "title": "Staircases"
+      },
+      {
+        "time": "4:13",
+        "title": "Slabs"
+      },
+      {
+        "time": "5:39",
+        "title": "Every cube"
+      },
+      {
+        "time": "7:00",
+        "title": "Three stacks"
+      },
+      {
+        "time": "8:07",
+        "title": "The box"
+      },
+      {
+        "time": "9:03",
+        "title": "Every height"
+      },
+      {
+        "time": "10:07",
+        "title": "Halves"
+      },
+      {
+        "time": "11:19",
+        "title": "A third"
+      },
+      {
+        "time": "12:42",
+        "title": "The cut cube"
+      },
+      {
+        "time": "14:06",
+        "title": "Four triangles"
+      },
+      {
+        "time": "15:38",
+        "title": "The missing square"
+      },
+      {
+        "time": "17:04",
+        "title": "What makes a proof"
+      }
+    ],
+    "source_urls": [
+      "https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/visual_proofs/docs/description.md"
+    ]
+  },
+  {
+    "id": "KHcukYSw53E",
+    "slug": "matrix_exponential",
+    "url": "https://www.youtube.com/watch?v=KHcukYSw53E",
+    "master_md5": "b02772d1b9fd044d167b5ff3c72dfc92",
+    "srt_md5": "8e5823f7a27f8531601f85797f296cce",
+    "caption_count": 303,
+    "metadata": {
+      "title": "What Does It Mean to Raise e to a Matrix?",
+      "description": "Put a grid of four numbers, [0, −1; 1, 0], in the exponent of e, and what comes out is a rotation of the plane by one radian, about [0.540, −0.841; 0.841, 0.540]. One picture carries the whole video: the exponential turns a rule for tiny steps into where you end up. Put a number in, and growth comes out; put i in, and turning comes out; put a matrix in, and the motion of a whole linked system comes out.\n\nChapters\n00:00 e to a matrix\n00:48 The obvious guess\n01:39 Growth\n02:52 The series\n04:02 One function\n05:09 Turning\n06:14 A matrix in\n07:23 Does it settle\n08:37 Follow the arrows\n09:49 Two tanks\n10:55 Walks\n12:07 Heat and chance\n13:21 How computers do it\n14:32 Order matters\n15:50 The doorway\n16:59 Where it leads\n\nWhat the video shows\nThe obvious guess, raising e to each entry, fails: it sends the zero matrix to [1, 1; 1, 1], not to the matrix that changes nothing.\nTwo definitions, one function: tiny steps, (I + A/n)^n, and the series of A^k / k! agree for every square matrix, and the series always settles, because its terms shrink for good once k passes the size of A.\nTwo tanks trading salt at 0.1 per minute each way settle toward half and half; walks on a network are counted by the powers of its matrix; heat spreads by e^(−tL), and with −i in front the same equation is Schrödinger's, which never settles.\nHow computers do it: summing the series in 32-bit floats on Moler and Van Loan's test matrix leaves no entry right to two digits; scaling and squaring gets it right. Their own 1978 run was on an IBM 370 in hexadecimal arithmetic and printed two entries with the wrong sign, both in the right-hand column; the video shows the IEEE 32-bit run instead.\nOrder matters: e^(A+B) = e^A e^B when AB = BA, and a loop of four small steps measures the commutator AB − BA, the doorway to Lie groups.\nWhere it leads: the Standard Model's forces are built on SU(3), SU(2) and U(1), with 8 + 3 + 1 = 12 independent tiny steps. Precisely, the group that acts on the known matter is that product modulo a subgroup of Z6 that experiments cannot yet pin down; the Lie algebra, and so the count of 12, is the same either way.\n\nEvery matrix and number in the video is computed by its own code and checked by an independent program. The exact statements, notes for programmers (why the raw series fails in floating point, Padé approximants, the action on one vector) and every source:\nhttps://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/matrix_exponential/docs/description.md\n\nSources\nLeonhard Euler, Introductio in analysin infinitorum, Vol. 1, 1748\nArthur Cayley, \"A Memoir on the Theory of Matrices\", Philosophical Transactions of the Royal Society of London 148, 1858\nCleve Moler and Charles Van Loan, \"Nineteen Dubious Ways to Compute the Exponential of a Matrix\", SIAM Review 20(4), 1978; \"Twenty-Five Years Later\", SIAM Review 45(1), 2003\nNicholas J. Higham, \"The Scaling and Squaring Method for the Matrix Exponential Revisited\", SIAM Journal on Matrix Analysis and Applications 26(4), 2005\nErnesto Estrada and Desmond J. Higham, \"Network Properties Revealed through Matrix Functions\", SIAM Review 52(4), 2010\nJohn C. Baez and John Huerta, \"The Algebra of Grand Unified Theories\", Bulletin of the American Mathematical Society 47(3), 2010\n\nNarration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.",
+      "tags": "matrix exponential, linear algebra, differential equations, Euler's formula, rotation matrix, power series, Lie groups, Lie algebra, commutator, numerical analysis, scaling and squaring, graph Laplacian, math explainer"
+    },
+    "chapters": [
+      {
+        "time": "0:00",
+        "title": "e to a matrix"
+      },
+      {
+        "time": "0:48",
+        "title": "The obvious guess"
+      },
+      {
+        "time": "1:39",
+        "title": "Growth"
+      },
+      {
+        "time": "2:52",
+        "title": "The series"
+      },
+      {
+        "time": "4:02",
+        "title": "One function"
+      },
+      {
+        "time": "5:09",
+        "title": "Turning"
+      },
+      {
+        "time": "6:14",
+        "title": "A matrix in"
+      },
+      {
+        "time": "7:23",
+        "title": "Does it settle"
+      },
+      {
+        "time": "8:37",
+        "title": "Follow the arrows"
+      },
+      {
+        "time": "9:49",
+        "title": "Two tanks"
+      },
+      {
+        "time": "10:55",
+        "title": "Walks"
+      },
+      {
+        "time": "12:07",
+        "title": "Heat and chance"
+      },
+      {
+        "time": "13:21",
+        "title": "How computers do it"
+      },
+      {
+        "time": "14:32",
+        "title": "Order matters"
+      },
+      {
+        "time": "15:50",
+        "title": "The doorway"
+      },
+      {
+        "time": "16:59",
+        "title": "Where it leads"
+      }
+    ],
+    "source_urls": [
+      "https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/matrix_exponential/docs/description.md"
+    ]
+  },
+  {
+    "id": "tBfbz7qU4hU",
+    "slug": "eigen_engineering",
+    "url": "https://www.youtube.com/watch?v=tBfbz7qU4hU",
+    "master_md5": "c17e19ec393fe6886d2107fa0d5f3124",
+    "srt_md5": "e047c9f0d34d791fc854f887bf1fdffb",
+    "caption_count": 223,
+    "metadata": {
+      "title": "The One Idea Behind Bridges, Concert Halls and Economies",
+      "description": "A bridge, the air in a room and an economy have a few special patterns of their own: patterns the system hands back unchanged except for size. Described in those patterns, a tangle of equations in which everything pulls on everything falls apart into separate one-line problems. That one calculation, the eigendecomposition of a table of numbers, tells an engineer how a steel truss sags and sways, which notes a room sings back and whether an economy can feed itself, and it is just as useful to know where it stops.\n\nChapters\n0:00 The bridge that swayed\n0:54 Two carts\n2:03 Own patterns\n3:07 The split\n4:13 A steel truss\n5:21 Twenty-one patterns\n6:36 Every mode a note\n7:35 Two bridges\n8:31 The air in a room\n9:36 Two million modes\n10:30 Where modes rule\n11:32 An economy\n12:33 Can it feed itself\n13:43 One idea\n\nWhat the video shows\nThe Millennium Bridge in London opened on 10 June 2000 and closed two days later. Its measured sideways modes on the centre span were 0.48 and 0.95 Hz, and walkers push sideways at half their walking frequency, about 1.0 Hz. It reopened in 2002 with dampers. Tacoma Narrows failed on 7 November 1940 by torsional flutter, a self-excitation, at 12 twists a minute.\nTwo carts between three springs: the table [2, −1; −1, 2] has the own patterns (1, 1) and (1, −1), and in them the two equations come apart.\nA steel truss (a model Pratt truss, 12 joints and 21 members) has 21 own patterns. Under five equal deck loads the softest one alone gives 99.6% of the sag at the middle; the forces in the members need many more.\nThe air in a room: a bathroom of 2.5 × 1.6 × 2.4 m has nine tones between 60 and 150 Hz; a box the size of Boston Symphony Hall has 1,964,040 modes at or below 1 kHz, which is why halls are designed with statistics.\nAn economy (a model of two industries): its table's largest eigenvalue is 0.7, below 1, so it can feed itself; 24 of each wanted takes 80 of each.\nWhere it stops: a shear has one own direction, a quarter turn none you can draw, and the best plan for a factory is a linear program, not an eigenproblem.\n\nThe truss, the hall, the small rooms and the economy are models built for this video, and the screen says \"a model\" each time. Every number in the video is computed by its code and checked by an independent program. The exact statements, the disputed account of why the bridge swayed, notes for programmers, and every source:\nhttps://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/eigen_engineering/docs/description.md\n\nSources\nP. Dallard et al., \"The London Millennium Footbridge\", The Structural Engineer 79(22), 2001\nS. H. Strogatz et al., \"Crowd synchrony on the Millennium Bridge\", Nature 438, 2005; I. Belykh et al., \"Emergence of the London Millennium Bridge instability without synchronisation\", Nature Communications 12, 2021\nO. H. Ammann, T. von Kármán and G. B. Woodruff, The Failure of the Tacoma Narrows Bridge, Federal Works Agency, 1941\nK. Y. Billah and R. H. Scanlan, \"Resonance, Tacoma Narrows bridge failure, and undergraduate physics textbooks\", American Journal of Physics 59(2), 1991\nW. C. Sabine, Collected Papers on Acoustics, Harvard University Press, 1922\nL. L. Beranek, Concert Halls and Opera Houses, 2nd ed., Springer, 2004\nW. W. Leontief, The Structure of American Economy, 1919–1929, Harvard University Press, 1941\n\nNarration: synthetic speech (FrankenTTS). Animation: franken_manim, a Rust rewrite of manim.",
+      "tags": "eigenvalues, eigenvectors, linear algebra, normal modes, Millennium Bridge, Tacoma Narrows, structural engineering, room acoustics, room modes, concert hall acoustics, Leontief, input-output model, spectral theorem, math explainer"
+    },
+    "chapters": [
+      {
+        "time": "0:00",
+        "title": "The bridge that swayed"
+      },
+      {
+        "time": "0:54",
+        "title": "Two carts"
+      },
+      {
+        "time": "2:03",
+        "title": "Own patterns"
+      },
+      {
+        "time": "3:07",
+        "title": "The split"
+      },
+      {
+        "time": "4:13",
+        "title": "A steel truss"
+      },
+      {
+        "time": "5:21",
+        "title": "Twenty-one patterns"
+      },
+      {
+        "time": "6:36",
+        "title": "Every mode a note"
+      },
+      {
+        "time": "7:35",
+        "title": "Two bridges"
+      },
+      {
+        "time": "8:31",
+        "title": "The air in a room"
+      },
+      {
+        "time": "9:36",
+        "title": "Two million modes"
+      },
+      {
+        "time": "10:30",
+        "title": "Where modes rule"
+      },
+      {
+        "time": "11:32",
+        "title": "An economy"
+      },
+      {
+        "time": "12:33",
+        "title": "Can it feed itself"
+      },
+      {
+        "time": "13:43",
+        "title": "One idea"
+      }
+    ],
+    "source_urls": [
+      "https://github.com/Dicklesworthstone/jeffs_math_explainer_videos/blob/main/explainer_corpus/eigen_engineering/docs/description.md"
+    ]
+  }
+]

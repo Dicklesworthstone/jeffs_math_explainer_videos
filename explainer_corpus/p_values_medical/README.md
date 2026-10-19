@@ -1,0 +1,54 @@
+# Why P-Values Confuse Even Doctors
+
+A survey published in 2007 (run in 2006) found 88% of 277 internal-medicine
+residents in Connecticut at least fairly confident about p-values; about 59% picked the answer
+marked correct, and a later paper argued that answer is wrong too. This
+video makes the trap visible by counting: a positive result from a test
+that falsely alarms five percent of people without the disease, counted out
+of ten thousand people, means the disease about fifteen percent of the
+time; then a treatment study's imaginary world, every one of its 2^20 label
+assignments listed, whose whole tail is the p-value.
+
+**Status (2026-10-18):** chapters 01 (`01_five_percent_of_what`), 02
+(`02_the_same_test`) and 03 (`03_the_imaginary_world`) are code the
+orchestrator accepted as silent drafts, with 04 (`04_count_the_whole_tail`),
+05 (`05_what_two_percent_does_not_say`) and 06 (`06_the_question_again`)
+(e6a446e, a201b4a, b41aa80, b89bd37, 1f99bf2 and 765f081: tests, strict
+clippy and fmt, facts parity, glyph, cue, layout and frame review; 82.2 s,
+74.4 s, 80.5 s, 81.4 s and 61.4 s for chapters 02 to 06): all six chapters
+exist as silent drafts. The thumbnail (`src/chapters/thumbnail.rs`, wired to
+`./x p_values_medical thumbnail`) and the delivery text
+([`docs/description.md`](docs/description.md), every number tagged with its
+fact; [`docs/protected.tsv`](docs/protected.tsv)) were accepted at c64c222.
+Nothing has been narrated yet. The owner approved the narration voice on
+2026-10-18; [`narration_units.json`](narration_units.json) groups the 56
+script lines into 14 takes for the central synthesis. No audio, measured
+timing or chapter timestamps exist yet.
+
+| File | What it holds |
+|---|---|
+| `src/model.rs` | the mathematics: exact fractions, clinics counted person by person, the study's null world listed in full, the tails |
+| `src/facts.rs` | every number the video shows or says, pinned to its source |
+| `oracle.py` | the same numbers computed independently (standard library, and NumPy for the seeded re-tosses) |
+| `src/chapters/five_percent.rs` | chapter 01's scene |
+| `src/chapters/same_test.rs` | chapter 02's scene |
+| `src/chapters/imaginary_world.rs` | chapter 03's scene, and its last picture rebuilt for chapter 04 |
+| `src/chapters/count_tail.rs` | chapter 04's scene, and its last picture rebuilt for chapter 05 |
+| `src/chapters/does_not_say.rs` | chapter 05's scene, and its last picture rebuilt for chapter 06 |
+| `src/chapters/question_again.rs` | chapter 06's scene |
+| `src/chapters/thumbnail.rs` | the thumbnail: the title over chapter 01's block of positives, "5% of what?" |
+| `docs/storyboard.md` | the words and pictures (the source of `script.tsv`) |
+| `narration_units.json` | the script's lines grouped into takes for synthesis, each unit the exact text of its lines; written and checked by `narration_units.py` |
+| `docs/fact-sheet.md` | every number's source, what was read, competing explanations |
+| `docs/description.md` | the delivery description, every number tagged with its fact |
+| `docs/protected.tsv` | the words every revision must keep (sharp null, whole tail, synthetic labels, not a truth probability, survey scope) |
+| `docs/brief.md` | the brief |
+
+```bash
+uv run --no-project --with numpy python3 -I -B oracle.py   # every number, and 62 cross-checks on stderr
+python3 -I ../../tools/storyboard.py --check p_values_medical
+python3 -I narration_units.py --check         # every script line in one take, exact text, at most 100 words
+python3 -I test_narration_units.py            # the same rules, each shown to fail when broken
+./x p_values_medical facts-check              # the Rust facts against the oracle (builds)
+python3 -I ../../tools/description_numbers.py p_values_medical   # every number of the description is a fact
+```

@@ -1,0 +1,164 @@
+{
+  "schema_version": 1,
+  "script_sha256": "e718677121b0302b673e9ea11544213d249dbd606c8ba93d430998f59b3cb201",
+  "units": [
+    {
+      "id": "01u1",
+      "line_ids": [
+        "01_1",
+        "01_2"
+      ],
+      "text": "How well do doctors understand p-values? A survey published in two thousand seven tested two hundred and seventy-seven internal medicine residents in Connecticut. Eighty-eight percent felt at least fairly confident. Yet only about fifty-nine percent chose the answer marked correct. And a later paper argued that even that answer was wrong."
+    },
+    {
+      "id": "01u2",
+      "line_ids": [
+        "01_4",
+        "01_5",
+        "01_6",
+        "01_7",
+        "01_8"
+      ],
+      "text": "Your test comes back positive. It gives a false alarm to five percent of people without the disease. So is there a ninety-five percent chance you have it? Count people instead. Ten thousand of them, and one in a hundred has the disease. That's one row of a hundred. Say the test catches ninety. The other nine thousand nine hundred don't have it. Five percent of them still test positive. Four hundred ninety-five false alarms."
+    },
+    {
+      "id": "01u3",
+      "line_ids": [
+        "01_9",
+        "01_10",
+        "01_11"
+      ],
+      "text": "Now gather everyone who tested positive. Ninety have the disease, and four hundred ninety-five don't. So only about fifteen percent of the positives have it. Five percent was a share of people without the disease. Your question is a share of people who tested positive."
+    },
+    {
+      "id": "02u1",
+      "line_ids": [
+        "02_1",
+        "02_2",
+        "02_3",
+        "02_4",
+        "02_5",
+        "02_6"
+      ],
+      "text": "Take the same test to a clinic where one person in ten has the disease. The test hasn't changed, so it still catches nine in ten and gives five percent of the rest a false alarm. So will a positive result mean more here, or less? This time, a thousand have the disease, and nine hundred of them test positive. Of the other nine thousand, five percent is four hundred fifty false alarms. Gather the positives. Nine hundred of the thirteen hundred fifty have the disease. That's two in three."
+    },
+    {
+      "id": "02u2",
+      "line_ids": [
+        "02_7",
+        "02_8",
+        "02_9",
+        "02_10"
+      ],
+      "text": "So here a positive result means about sixty-seven percent, not fifteen. Why does a positive result mean so much more here? The false alarms barely moved, but the test caught ten times as many people with the disease. Keep the two apart. A false alarm rate is not the chance a positive result is right. And neither one is a p-value. A p-value answers a question about a study instead. To find it, we first build an imaginary world where the treatment does nothing."
+    },
+    {
+      "id": "03u1",
+      "line_ids": [
+        "03_1",
+        "03_2",
+        "03_3",
+        "03_4"
+      ],
+      "text": "Here are the twenty pairs again, matched before treatment. In each pair, a fair coin chose who got the treatment. Shorter recovery is better, so we decide in advance. A pair favours the treatment if its treated patient recovered first. Now suppose the treatment changed nobody's recovery. Each patient would have recovered at the same time either way. Here's what happened. In fifteen of the twenty pairs, the treated patient recovered first."
+    },
+    {
+      "id": "03u2",
+      "line_ids": [
+        "03_5",
+        "03_6",
+        "03_7",
+        "03_8",
+        "03_9"
+      ],
+      "text": "If the treatment did nothing, who recovered first stays fixed. Only the coins could have landed differently. Toss them again. And again, and again. Each toss gives its own count. The twenty coins can land in just over a million ways, all equally likely. Count them all. Same patients, coins tossed again. This world assumes the treatment did nothing, so it can't say how likely that is. In this world, how often do fifteen or more pairs favour the treatment?"
+    },
+    {
+      "id": "04u1a",
+      "line_ids": [
+        "04_1",
+        "04_2"
+      ],
+      "text": "The study found fifteen. We decided in advance that more favouring pairs is better news. So which bars hold an outcome at least as favourable as fifteen?"
+    },
+    {
+      "id": "04u1b",
+      "line_ids": [
+        "04_3",
+        "04_4"
+      ],
+      "text": "Fifteen itself, and everything above it, up to twenty. Now count ways, not bars. All twenty pairs favouring can happen only one way, every coin picks the patient with the quicker recovery."
+    },
+    {
+      "id": "04u1c",
+      "line_ids": [
+        "04_5",
+        "04_6"
+      ],
+      "text": "For nineteen, one pair goes the other way, and any of the twenty can be that pair. Twenty ways. Down to fifteen, the counts grow fast, twenty-one thousand seven hundred in all."
+    },
+    {
+      "id": "04u2",
+      "line_ids": [
+        "04_7",
+        "04_8",
+        "04_9",
+        "04_10"
+      ],
+      "text": "Out of just over a million, that's about two percent. And that share has a name. It's the one-sided p-value. Count only exactly fifteen, about one and a half percent. Count only more than fifteen, about six tenths of a percent. Neither is our test. The direction was fixed in advance, so we count this result or anything more favourable. And every one of those ways lives in a world where the treatment did nothing."
+    },
+    {
+      "id": "05u1",
+      "line_ids": [
+        "05_1",
+        "05_2",
+        "05_3",
+        "05_4"
+      ],
+      "text": "Two percent is a share of that imaginary world, where no one's recovery changed. So is two percent the chance that the treatment did nothing? No. The two percent was counted inside that world. It can't be the chance that world is true. Nor the chance the study is wrong. Both need more than this count."
+    },
+    {
+      "id": "05u2a",
+      "line_ids": [
+        "05_5"
+      ],
+      "text": "Now imagine one more pair had gone the other way. Same design, same direction. Fourteen."
+    },
+    {
+      "id": "05u2b",
+      "line_ids": [
+        "05_6",
+        "05_7"
+      ],
+      "text": "Fourteen or more is about five point eight percent of the same world. A common convention draws a line at five percent. Fifteen falls under it, fourteen over. That line helps decide, but it doesn't switch the truth."
+    },
+    {
+      "id": "05u3",
+      "line_ids": [
+        "05_8",
+        "05_9",
+        "05_10"
+      ],
+      "text": "The count also ignored how much sooner anyone recovered. Here are two made-up sets of recovery days. Both have the same fifteen favouring pairs. Among those, the treated patient is typically a day sooner in one, a week in the other. Same signs, same count, same two percent. The test never asked how much sooner. A patient would."
+    },
+    {
+      "id": "06u1",
+      "line_ids": [
+        "06_1",
+        "06_2",
+        "06_3"
+      ],
+      "text": "Back to the survey. Most residents who answered picked this answer, marked correct. A later paper disputed it. It was written for a p-value above five percent, and it leans on chance alone. Chance of what, counted how? For our study, what did the two percent actually count?"
+    },
+    {
+      "id": "06u2",
+      "line_ids": [
+        "06_4",
+        "06_5",
+        "06_6",
+        "06_7"
+      ],
+      "text": "If the treatment changed no one's recovery, and the coins were tossed again, fifteen or more pairs would favour it about two percent of the time. That's this study's one-sided p-value. A world assumed, a tail counted. It doesn't say how much sooner, whether that matters to a patient, or how uncertain that difference is. So when you meet a p-value, ask what world it assumed, what it counted, and how big the difference is."
+    }
+  ]
+}

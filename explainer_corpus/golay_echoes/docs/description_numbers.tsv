@@ -1,0 +1,3 @@
+# golay_echoes: the numbers of docs/description.md that are not a number of a fact (python3 -I tools/description_numbers.py golay_echoes).
+# number	context (a piece of the line it stands in)	kind (year, cited, structural)	reason
+8	in their eq. 8	cited	Chi, Pezeshki and Calderbank, eq. 8: the phase factor on the second transmission's response (docs/brief.md, References; fact sheet C13)

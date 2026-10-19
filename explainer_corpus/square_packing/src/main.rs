@@ -1,0 +1,112 @@
+//! Why Turning a Square Can Make the Whole Box Smaller: five equal tiles,
+//! the obvious box three wide, and the turn of the middle tile that lets a
+//! squeeze reach 2 + 1/√2; what a packing that fits shows, and what it
+//! cannot. Rendered by franken_manim's native Rust front door and the
+//! corpus's shared kit.
+//!
+//! ```text
+//! squares facts                         # every number the video shows or says (key<TAB>value)
+//! squares script                        # the narration (generated from docs/storyboard.md)
+//! squares render all|<chapter>... [--res 960x540] [--scratch-voice] [--out DIR] ...
+//! squares help                          # the full option list
+//! ```
+//!
+//! The geometry is `model` (exact on numbers a + b√2), checked by `oracle.py`
+//! along another route; every chapter draws the model's packings.
+
+mod chapters;
+mod facts;
+mod model;
+mod score;
+
+use explainer_kit::Explainer;
+
+/// The narration, generated from the storyboard by `tools/storyboard.py`.
+const SCRIPT: &str = include_str!("../script.tsv");
+/// The storyboard: words, pictures and windows per beat (the tests check
+/// the registry and the script against it).
+#[cfg(test)]
+pub(crate) const STORYBOARD: &str = include_str!("../docs/storyboard.md");
+
+const EXPLAINER: Explainer = Explainer {
+    crate_name: "square_packing",
+    script: SCRIPT,
+    chapters: chapters::registry,
+    facts: facts::facts,
+    glyph_text: chapters::glyphs::TEXT,
+    glyph_tex: chapters::glyphs::TEX,
+    glyph_mono: chapters::glyphs::MONO,
+    identity: score::identity,
+    narration_gain_db: explainer_kit::narration::GAIN_DB,
+    line_gaps: explainer_kit::narration::LineGaps::Thought,
+    line_owner: None,
+    thumbnail: Some(chapters::thumbnail::make),
+};
+
+fn main() {
+    std::process::exit(explainer_kit::cli::run(&EXPLAINER, std::env::args().skip(1)));
+}
+
+#[cfg(test)]
+mod tests {
+    use explainer_kit::Script;
+    use explainer_kit::cli::check_script_owners;
+
+    use super::*;
+
+    fn keys() -> Vec<&'static str> {
+        chapters::registry().iter().map(|c| c.key).collect()
+    }
+
+    #[test]
+    fn the_storyboard_the_registry_and_the_script_agree() {
+        explainer_kit::storyboard::check_video(STORYBOARD, SCRIPT, &keys()).unwrap();
+        let script = Script::parse(SCRIPT).unwrap();
+        check_script_owners(&script, &keys(), None).unwrap();
+    }
+
+    /// Each chapter's one prediction beat is the think window its scene
+    /// opens, and it lasts what the storyboard says.
+    #[test]
+    fn every_think_window_is_the_storyboard_s() {
+        let board = explainer_kit::storyboard::parse(STORYBOARD).unwrap();
+        let asks: Vec<(String, Option<f64>)> = board
+            .iter()
+            .flat_map(|c| &c.beats)
+            .filter(|b| b.predict())
+            .map(|b| (b.id.clone(), b.listen_s()))
+            .collect();
+        let think = Some(chapters::the_turned_tile::THINK_S);
+        let want = vec![
+            (chapters::the_turned_tile::LINES[3].to_owned(), think),
+            (chapters::four_pins::LINES[4].to_owned(), think),
+            (chapters::a_turn_by_a_hair::LINES[2].to_owned(), think),
+            (chapters::the_corner_lemma::LINES[2].to_owned(), think),
+            (chapters::near_a_side::LINES[1].to_owned(), think),
+            (chapters::a_triangle_of_points::LINES[1].to_owned(), think),
+            (chapters::four_points_five_tiles::LINES[2].to_owned(), think),
+            (chapters::what_is_proved::LINES[1].to_owned(), think),
+        ];
+        assert_eq!(asks, want);
+    }
+
+    /// Played end to end, no chapter opens on the sentence the chapter
+    /// before it closed on (06 once opened "Only the middle is left, …"
+    /// just after 05 closed on "Only the middle is left.").
+    #[test]
+    fn no_chapter_opens_on_the_words_the_last_one_closed_on() {
+        let script = Script::parse(SCRIPT).unwrap();
+        let chapter = |id: &str| id.split_once('_').map(|(c, _)| c.to_owned());
+        let mut joins = 0;
+        for pair in script.lines().windows(2) {
+            let ((was, closing), (now, opening)) = (&pair[0], &pair[1]);
+            if chapter(was) == chapter(now) {
+                continue;
+            }
+            let last = closing.split_terminator(['.', '?']).next_back().unwrap().trim();
+            assert!(!opening.starts_with(last), "{was} closes and {now} opens on \"{last}\"");
+            joins += 1;
+        }
+        assert_eq!(joins, keys().len() - 1);
+    }
+}

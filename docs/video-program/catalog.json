@@ -1,0 +1,3309 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-10-18",
+  "work_tracker": ".beads",
+  "consumer": "Channel owner and video producers",
+  "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
+  "videos": [
+    {
+      "video_id": "hoeffding_d",
+      "working_title": "Hoeffding's D: The Ring That Correlation Can't See",
+      "work_epic": "mx-e-w3-y3g",
+      "production_approval": "historical_granted",
+      "decisions": [
+        {
+          "on": "2026-10-12",
+          "decision": "published",
+          "by": "owner and publisher receipts",
+          "reason": "Selected public Michael cut. Earlier private comparisons preserved; existing work epics may include another venue.",
+          "source_refs": [
+            "docs/publish/MANIFEST.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/publish/MANIFEST.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "legacy-savJOtXm7AQ",
+          "label": "Hoeffding robert (original)",
+          "voice": "robert",
+          "master": {
+            "path": "explainer_corpus/hoeffding_d/renders/final/hoeffding_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "016f42a28ff497065dd9eb2a18a6f0a1"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Earlier private comparison or superseded cut; preserve private. No new upload authority."
+        },
+        {
+          "revision_id": "legacy-C9xOzbLIARg",
+          "label": "Hoeffding michael v2",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/hoeffding_d/variants/michael/renders/final/hoeffding_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "76f66ca94c83b647a14d5f421c3d1cb2"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Selected published cut; preserve."
+        },
+        {
+          "revision_id": "legacy-unuploaded-michael-v1",
+          "label": "Hoeffding Michael v1",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/hoeffding_d/variants/michael/renders/final_v1/hoeffding_master.mp4",
+            "digest": null,
+            "evidence_state": "historical_record",
+            "historical_digest_prefix": "6898620c"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Do not upload: superseded by v2.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "legacy-unuploaded-rejected-firstrework",
+          "label": "Hoeffding first rework",
+          "voice": "unknown",
+          "master": {
+            "path": "explainer_corpus/hoeffding_d/renders/previous/hoeffding_master.mp4.112410",
+            "digest": {
+              "algorithm": "md5",
+              "value": "62c48a13695960bcba3c8ddde0187092"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Preserved, never to be uploaded; superseded.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "savJOtXm7AQ",
+          "url": "https://www.youtube.com/watch?v=savJOtXm7AQ",
+          "revision_id": "legacy-savJOtXm7AQ",
+          "visibility": "private",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "C9xOzbLIARg",
+          "url": "https://www.youtube.com/watch?v=C9xOzbLIARg",
+          "revision_id": "legacy-C9xOzbLIARg",
+          "visibility": "public",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        }
+      ]
+    },
+    {
+      "video_id": "capture_recapture",
+      "working_title": "How to Count Fish You've Never Seen",
+      "work_epic": "mx-e-a-8y5",
+      "production_approval": "historical_granted",
+      "decisions": [
+        {
+          "on": "2026-10-12",
+          "decision": "published",
+          "by": "owner and publisher receipts",
+          "reason": "Selected public Michael cut. Earlier private comparisons preserved; existing work epics may include another venue.",
+          "source_refs": [
+            "docs/publish/MANIFEST.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/publish/MANIFEST.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "legacy-fUXsjbWsgNg",
+          "label": "fish matt (original)",
+          "voice": "matt",
+          "master": {
+            "path": "explainer_corpus/capture_recapture/renders/final/capture_recapture_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "528918af361165d6f73862d5fc5b9107"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Earlier private comparison or superseded cut; preserve private. No new upload authority."
+        },
+        {
+          "revision_id": "legacy-VhWA7q6mTHw",
+          "label": "fish michael v3",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/capture_recapture/variants/michael/renders/final_v3/capture_recapture_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "a6a990f53e0935f5a96d0441a647f216"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Earlier private comparison or superseded cut; preserve private. No new upload authority."
+        },
+        {
+          "revision_id": "legacy-KNxRE255i-o",
+          "label": "fish michael v4",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/capture_recapture/variants/michael/renders/final/capture_recapture_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "8a17579a3ad74962464bd2523192f556"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Selected published cut; preserve."
+        },
+        {
+          "revision_id": "legacy-unuploaded-michael-v1",
+          "label": "Fish Michael v1",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/capture_recapture/variants/michael/renders/final_v1/capture_recapture_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "3476fd0d155af2322d8f3597a0b66cfa"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Do not upload: missing endings; superseded.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "legacy-unuploaded-michael-v2-hold",
+          "label": "Fish Michael v2 HOLD",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/capture_recapture/variants/michael/renders/final_v2/capture_recapture_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "2296eb1379ffccd5228a84668a112ac8"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Do not upload: HOLD for narration defects; superseded.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "legacy-unuploaded-rejected-matt",
+          "label": "Fish rejected old narration",
+          "voice": "matt",
+          "master": {
+            "path": "explainer_corpus/capture_recapture/renders/previous/capture_recapture_master.mp4.1012-154255",
+            "digest": {
+              "algorithm": "md5",
+              "value": "503dd043c44b3478aaf71f033f623e67"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Preserved, never to be uploaded; narration owner rejected.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "fUXsjbWsgNg",
+          "url": "https://www.youtube.com/watch?v=fUXsjbWsgNg",
+          "revision_id": "legacy-fUXsjbWsgNg",
+          "visibility": "private",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "VhWA7q6mTHw",
+          "url": "https://www.youtube.com/watch?v=VhWA7q6mTHw",
+          "revision_id": "legacy-VhWA7q6mTHw",
+          "visibility": "private",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "KNxRE255i-o",
+          "url": "https://www.youtube.com/watch?v=KNxRE255i-o",
+          "revision_id": "legacy-KNxRE255i-o",
+          "visibility": "public",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        }
+      ]
+    },
+    {
+      "video_id": "raptorq_gf256",
+      "working_title": "The Arithmetic Where 3 × 7 = 9",
+      "work_epic": "mx-e-b-qyy",
+      "production_approval": "historical_granted",
+      "decisions": [
+        {
+          "on": "2026-10-12",
+          "decision": "published",
+          "by": "owner and publisher receipts",
+          "reason": "Selected public Michael cut. Earlier private comparisons preserved; existing work epics may include another venue.",
+          "source_refs": [
+            "docs/publish/MANIFEST.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/publish/MANIFEST.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "legacy-LXbcbfee_WE",
+          "label": "RaptorQ michael, review 1",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/raptorq_gf256/renders/final_review1/raptorq_gf256_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "16867253aba700f7f8602ef753cb49bb"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Earlier private comparison or superseded cut; preserve private. No new upload authority."
+        },
+        {
+          "revision_id": "legacy-uWDPs9JIwEk",
+          "label": "RaptorQ michael, repair 12",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/raptorq_gf256/renders/final/raptorq_gf256_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "8e0afadf33bee181d59a81447d06fcb8"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Selected published cut; preserve."
+        },
+        {
+          "revision_id": "legacy-unuploaded-leo-comparison",
+          "label": "RaptorQ leo comparison",
+          "voice": "leo",
+          "master": {
+            "path": "explainer_corpus/raptorq_gf256/variants/leo/renders/final/raptorq_gf256_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "130493a0d35ce4e4f61eeb39047b6b73"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Owner chose Michael; upload only if owner asks for comparison.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "legacy-unuploaded-michael-review2",
+          "label": "RaptorQ review 2",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/raptorq_gf256/renders/final_review2d/raptorq_gf256_master.mp4",
+            "digest": null,
+            "evidence_state": "historical_record",
+            "historical_digest_prefix": "eda64ed9"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Do not upload: superseded by repair 12.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "legacy-unuploaded-michael-review2-first",
+          "label": "RaptorQ first review 2 run",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/raptorq_gf256/renders/final_review2_93da69d/raptorq_gf256_master.mp4",
+            "digest": null,
+            "evidence_state": "historical_record",
+            "historical_digest_prefix": "f581a5de"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Do not upload: superseded.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "legacy-unuploaded-rejected-leo",
+          "label": "RaptorQ rejected old narration",
+          "voice": "leo",
+          "master": {
+            "path": "explainer_corpus/raptorq_gf256/renders/previous/raptorq_gf256_master.mp4.1012-154306",
+            "digest": {
+              "algorithm": "md5",
+              "value": "d0f036f20f9d9201192bde2232f4dee8"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Preserved, never to be uploaded; narration owner rejected.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "LXbcbfee_WE",
+          "url": "https://www.youtube.com/watch?v=LXbcbfee_WE",
+          "revision_id": "legacy-LXbcbfee_WE",
+          "visibility": "private",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "uWDPs9JIwEk",
+          "url": "https://www.youtube.com/watch?v=uWDPs9JIwEk",
+          "revision_id": "legacy-uWDPs9JIwEk",
+          "visibility": "public",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        }
+      ]
+    },
+    {
+      "video_id": "bakery_algorithm",
+      "working_title": "The Algorithm Lamport Is Proudest Of",
+      "work_epic": "mx-e-c-7v0",
+      "production_approval": "historical_granted",
+      "decisions": [
+        {
+          "on": "2026-10-12",
+          "decision": "published",
+          "by": "owner and publisher receipts",
+          "reason": "Selected public Michael cut. Earlier private comparisons preserved; existing work epics may include another venue.",
+          "source_refs": [
+            "docs/publish/MANIFEST.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/publish/MANIFEST.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "legacy-PpmO9Gato2w",
+          "label": "bakery michael, review 1",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/bakery_algorithm/renders/final_review1/bakery_algorithm_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "19f2e859c0ee1a0841c0115ac69ab656"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Earlier private comparison or superseded cut; preserve private. No new upload authority."
+        },
+        {
+          "revision_id": "legacy-eXU6NC2fuCw",
+          "label": "bakery michael, review 3",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/bakery_algorithm/renders/final/bakery_algorithm_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "9ed06e7d12d38a87d748d8a58806d296"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Selected published cut; preserve."
+        },
+        {
+          "revision_id": "legacy-unuploaded-michael-review2",
+          "label": "Bakery review 2",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/bakery_algorithm/renders/final_review2/bakery_algorithm_master.mp4",
+            "digest": null,
+            "evidence_state": "historical_record",
+            "historical_digest_prefix": "7df3679f"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Do not upload: superseded by review 3.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "legacy-unuploaded-rejected-prefinal",
+          "label": "Bakery rejected pre-final narration",
+          "voice": "unknown",
+          "master": {
+            "path": "explainer_corpus/bakery_algorithm/renders/previous/bakery_algorithm_master.mp4.065600",
+            "digest": {
+              "algorithm": "md5",
+              "value": "1defb58a302f07dcae069bcbe5402b05"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Preserved, never to be uploaded; narration owner rejected.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "legacy-unuploaded-rejected-firstrework",
+          "label": "Bakery first rework",
+          "voice": "unknown",
+          "master": {
+            "path": "explainer_corpus/bakery_algorithm/renders/previous/bakery_algorithm_master.mp4.112412",
+            "digest": {
+              "algorithm": "md5",
+              "value": "395800dc9cce1bcb82f5cf4e006e98ea"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Preserved, never to be uploaded; superseded.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "PpmO9Gato2w",
+          "url": "https://www.youtube.com/watch?v=PpmO9Gato2w",
+          "revision_id": "legacy-PpmO9Gato2w",
+          "visibility": "private",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "eXU6NC2fuCw",
+          "url": "https://www.youtube.com/watch?v=eXU6NC2fuCw",
+          "revision_id": "legacy-eXU6NC2fuCw",
+          "visibility": "public",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        }
+      ]
+    },
+    {
+      "video_id": "fair_coin",
+      "working_title": "How to Make a Fair Coin Out of an Unfair One",
+      "work_epic": "mx-e-a-e-e-k23",
+      "production_approval": "historical_granted",
+      "decisions": [
+        {
+          "on": "2026-10-14",
+          "decision": "published",
+          "by": "owner and publisher receipts",
+          "reason": "Selected public Michael cut. Earlier private comparisons preserved; existing work epics may include another venue.",
+          "source_refs": [
+            "docs/publish/MANIFEST.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/publish/MANIFEST.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "legacy-R33HrxUyMKg",
+          "label": "Video E, Fair Coin, michael v2 (29d168c)",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/fair_coin/renders/final_v2/fair_coin_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "ab9b2cfc71f4600c74a02abb74d804ef"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Earlier private comparison or superseded cut; preserve private. No new upload authority."
+        },
+        {
+          "revision_id": "legacy-f6iskjcSQCQ",
+          "label": "Video E, Fair Coin, michael v3 (9ea6f85)",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/fair_coin/renders/final/fair_coin_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "4471f2580e022b41374d61be59c0ce11"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Selected published cut; preserve."
+        },
+        {
+          "revision_id": "legacy-unuploaded-michael-v1",
+          "label": "Fair Coin fbe959c cut",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/fair_coin/renders/final_v1/fair_coin_master.mp4",
+            "digest": null,
+            "evidence_state": "historical_record",
+            "historical_digest_prefix": "a5805f30"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Do not upload: soundless listen windows; superseded.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "R33HrxUyMKg",
+          "url": "https://www.youtube.com/watch?v=R33HrxUyMKg",
+          "revision_id": "legacy-R33HrxUyMKg",
+          "visibility": "private",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "f6iskjcSQCQ",
+          "url": "https://www.youtube.com/watch?v=f6iskjcSQCQ",
+          "revision_id": "legacy-f6iskjcSQCQ",
+          "visibility": "public",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        }
+      ]
+    },
+    {
+      "video_id": "mental_math",
+      "working_title": "Mental Math Tricks That Actually Work (and Why)",
+      "work_epic": "mx-e-a-f-ms4",
+      "production_approval": "historical_granted",
+      "decisions": [
+        {
+          "on": "2026-10-14",
+          "decision": "published",
+          "by": "owner and publisher receipts",
+          "reason": "Selected public Michael cut. Earlier private comparisons preserved; existing work epics may include another venue.",
+          "source_refs": [
+            "docs/publish/MANIFEST.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/publish/MANIFEST.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "legacy-wahnqlfOC84",
+          "label": "Video F, Mental Math Tricks, michael v2 (0720552)",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/mental_math/renders/final/mental_math_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "766f27760c86c2fa698ddc830699d550"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Selected published cut; preserve."
+        },
+        {
+          "revision_id": "legacy-unuploaded-michael-v1",
+          "label": "Mental Math v1",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/mental_math/renders/final_v1/mental_math_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "ccc684b23c200d6ed09094509d02d73b"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Do not upload: orphan captions and old chapter times.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "wahnqlfOC84",
+          "url": "https://www.youtube.com/watch?v=wahnqlfOC84",
+          "revision_id": "legacy-wahnqlfOC84",
+          "visibility": "public",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        }
+      ]
+    },
+    {
+      "video_id": "lie_robotics",
+      "working_title": "Why Robot Arms Think in Lie Groups",
+      "work_epic": "mx-e-a-suh",
+      "production_approval": "historical_granted",
+      "decisions": [
+        {
+          "on": "2026-10-15",
+          "decision": "published",
+          "by": "owner and publisher receipts",
+          "reason": "Selected public Michael cut. Earlier private comparisons preserved; existing work epics may include another venue.",
+          "source_refs": [
+            "docs/publish/MANIFEST.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/publish/MANIFEST.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "legacy-G9P5aDGMAGU",
+          "label": "Video G, Why Robot Arms Think in Lie Groups, michael v2 (8086fe4)",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/lie_robotics/renders/final/lie_robotics_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "b158f58a24f43878cea07c2c782b6c24"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Selected published cut; preserve."
+        },
+        {
+          "revision_id": "legacy-unuploaded-michael-v1",
+          "label": "Lie Robotics fbe959c cut",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/lie_robotics/renders/final_v1/lie_robotics_master.mp4",
+            "digest": null,
+            "evidence_state": "historical_record",
+            "historical_digest_prefix": "c4cd3fca"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Do not upload: superseded chapter 11 plot notes. Manifest records another copy under final_v2.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "G9P5aDGMAGU",
+          "url": "https://www.youtube.com/watch?v=G9P5aDGMAGU",
+          "revision_id": "legacy-G9P5aDGMAGU",
+          "visibility": "public",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        }
+      ]
+    },
+    {
+      "video_id": "bayesian_search",
+      "working_title": "How to Find a Lost Submarine",
+      "work_epic": "mx-e-a-h-6ix2",
+      "production_approval": "historical_granted",
+      "decisions": [
+        {
+          "on": "2026-10-15",
+          "decision": "published",
+          "by": "owner and publisher receipts",
+          "reason": "Selected public Michael cut. Earlier private comparisons preserved; existing work epics may include another venue.",
+          "source_refs": [
+            "docs/publish/MANIFEST.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/publish/MANIFEST.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "legacy-JY88xN-0Jjw",
+          "label": "Video H, How to Find a Lost Submarine, michael v2 (ab6c734)",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/bayesian_search/renders/final/bayesian_search_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "797dac61555d252bd544e595149d85af"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Selected published cut; preserve."
+        },
+        {
+          "revision_id": "legacy-unuploaded-michael-v1",
+          "label": "Lost Submarine fbe959c cut",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/bayesian_search/renders/final_v1_fbe959c/bayesian_search_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "bdcc3dcbf92a6d39ff94ced91d540ada"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Do not upload: superseded band dwell and closing score.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "JY88xN-0Jjw",
+          "url": "https://www.youtube.com/watch?v=JY88xN-0Jjw",
+          "revision_id": "legacy-JY88xN-0Jjw",
+          "visibility": "public",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        }
+      ]
+    },
+    {
+      "video_id": "visual_proofs",
+      "working_title": "Proofs You Can See",
+      "work_epic": "mx-e-a-dza",
+      "production_approval": "historical_granted",
+      "decisions": [
+        {
+          "on": "2026-10-15",
+          "decision": "published",
+          "by": "owner and publisher receipts",
+          "reason": "Selected public Michael cut. Earlier private comparisons preserved; existing work epics may include another venue.",
+          "source_refs": [
+            "docs/publish/MANIFEST.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/publish/MANIFEST.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "legacy-MCPzPBy_bhM",
+          "label": "Video I, Proofs You Can See, michael v3 (a305d08)",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/visual_proofs/renders/final/visual_proofs_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "f3c7a03a821b86b9deb4c680670a0cd5"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Selected published cut; preserve."
+        },
+        {
+          "revision_id": "legacy-unuploaded-michael-v2",
+          "label": "Visual Proofs v2",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/visual_proofs/renders/final_v1/visual_proofs_master.mp4",
+            "digest": null,
+            "evidence_state": "historical_record",
+            "historical_digest_prefix": "5a08f714"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Do not upload: aside held only 1.47 seconds; superseded.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "MCPzPBy_bhM",
+          "url": "https://www.youtube.com/watch?v=MCPzPBy_bhM",
+          "revision_id": "legacy-MCPzPBy_bhM",
+          "visibility": "public",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        }
+      ]
+    },
+    {
+      "video_id": "matrix_exponential",
+      "working_title": "What Does It Mean to Raise e to a Matrix?",
+      "work_epic": "mx-e-a-j-8yq7",
+      "production_approval": "historical_granted",
+      "decisions": [
+        {
+          "on": "2026-10-14",
+          "decision": "published",
+          "by": "owner and publisher receipts",
+          "reason": "Selected public Michael cut. Earlier private comparisons preserved; existing work epics may include another venue.",
+          "source_refs": [
+            "docs/publish/MANIFEST.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/publish/MANIFEST.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "legacy-KHcukYSw53E",
+          "label": "Video J, What Does It Mean to Raise e to a Matrix?, michael v3 (4937137)",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/matrix_exponential/renders/final/matrix_exponential_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "b02772d1b9fd044d167b5ff3c72dfc92"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Selected published cut; preserve."
+        },
+        {
+          "revision_id": "legacy-unuploaded-michael-v2",
+          "label": "Matrix Exponential v2",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/matrix_exponential/renders/final_v1/matrix_exponential_master.mp4",
+            "digest": null,
+            "evidence_state": "historical_record",
+            "historical_digest_prefix": "0d08270c"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Do not upload: never uploaded; superseded t/growth reads. Historical source describes differing locations across copies.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "legacy-unuploaded-michael-ab6c734",
+          "label": "Matrix Exponential ab6c734 cut",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/matrix_exponential/renders/final_v1_ab6c734/matrix_exponential_master.mp4",
+            "digest": null,
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Do not upload: earlier superseded cut; hash not recorded here.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "KHcukYSw53E",
+          "url": "https://www.youtube.com/watch?v=KHcukYSw53E",
+          "revision_id": "legacy-KHcukYSw53E",
+          "visibility": "public",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        }
+      ]
+    },
+    {
+      "video_id": "eigen_engineering",
+      "working_title": "The One Idea Behind Bridges, Concert Halls and Economies",
+      "work_epic": "mx-e-a-e-k-oq4",
+      "production_approval": "historical_granted",
+      "decisions": [
+        {
+          "on": "2026-10-15",
+          "decision": "published",
+          "by": "owner and publisher receipts",
+          "reason": "Selected public Michael cut. Earlier private comparisons preserved; existing work epics may include another venue.",
+          "source_refs": [
+            "docs/publish/MANIFEST.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/publish/MANIFEST.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "legacy-tBfbz7qU4hU",
+          "label": "Video K, The One Idea Behind Bridges, Concert Halls and Economies, michael v4 (755ce71)",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/eigen_engineering/renders/final/eigen_engineering_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "c17e19ec393fe6886d2107fa0d5f3124"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ],
+          "disposition": "Selected published cut; preserve."
+        },
+        {
+          "revision_id": "legacy-unuploaded-michael-v3",
+          "label": "Eigen Engineering v3",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/eigen_engineering/renders/final_v1/eigen_engineering_master.mp4",
+            "digest": {
+              "algorithm": "md5",
+              "value": "0b48efb063f65a63cb128b6dd841f688"
+            },
+            "evidence_state": "historical_record"
+          },
+          "generation_provenance": "unknown",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "disposition": "Do not upload: owner selected v4 music fix.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-15",
+              "evidence_state": "historical_record",
+              "evidence_refs": [
+                "docs/publish/MANIFEST.md"
+              ]
+            }
+          ]
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "tBfbz7qU4hU",
+          "url": "https://www.youtube.com/watch?v=tBfbz7qU4hU",
+          "revision_id": "legacy-tBfbz7qU4hU",
+          "visibility": "public",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md"
+          ],
+          "evidence_state": "historical_record",
+          "recorded_as_of": "2026-10-15"
+        }
+      ]
+    },
+    {
+      "video_id": "square_packing",
+      "working_title": "Why turning a square can make the whole box smaller",
+      "pitch": "Five unit squares; construct a side `2 + √2/2` container, distinguish a feasible construction from a lower bound, then explain why local motion and global optimality differ. Contacts and forbidden regions, not a gallery of records.",
+      "work_epic": "mx-video-program-program-87do.5",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "shortlisted",
+          "by": "planning intake; owner response where stated",
+          "reason": "Top five. Owner interest plus visual-proof fit. Recent larger-count claims need a separate audit.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
+            "https://x.com/ojoshe/status/2110944570704015547",
+            "https://x.com/doodlestein/status/2110955463453843549"
+          ]
+        },
+        {
+          "on": "2026-10-17",
+          "decision": "selected",
+          "by": "owner delegated production selection; orchestrator SageBasin",
+          "reason": "Owner explicitly requested three Opus 5.5 production lanes on the strongest ideas. Selected for the first wave from the existing shortlist; publication and quality gates remain separate.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/research-20261016/SLATE.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
+        "https://x.com/ojoshe/status/2110944570704015547",
+        "https://x.com/doodlestein/status/2110955463453843549"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "v1-michael-20261017",
+          "label": "First production revision",
+          "voice": "michael",
+          "generation_provenance": "Native silent assembly of 8 centrally accepted chapter drafts, 613.1 seconds at 960x540/30fps; current bytes and absence of audio rechecked 2026-10-18. Chapter acceptance and assembly evidence are in the referenced Beads. Complete rendering input lineage has not been reconstructed: the empty recorded inputs list is missing provenance, not a claim that the assembly had no inputs. No dry voice, integrated mix or master is generated for this cut. Michael is the intended narrator; accepted B is an identity reference, not approval of new narration.",
+          "evidence_refs": [
+            "AGENTS.md",
+            "docs/video-program/NARRATION-CONSISTENCY.md",
+            "explainer_corpus/square_packing/renders/central-20261018T0431/full-draft.mp4",
+            "mx-video-program-program-87do.5.8",
+            "mx-video-program-program-87do.5"
+          ],
+          "disposition": "Silent visual draft recorded; scoped chapter checks and sampled frame reviews are complete. Continuous full-cut review, narration/listening, integrated mix and final master gates remain open. Native thumbnail and delivery description have separate bounded acceptance at 67982869033bb70501d3d606238e7f525a53a429 in mx-video-program-program-87do.5.9.",
+          "milestones": [],
+          "artifact_refs": {
+            "scene": [
+              "square_packing.silent-20261018.4271647521fc"
+            ]
+          }
+        },
+        {
+          "revision_id": "narrated-draft-20261018-v1",
+          "label": "Narrated production preview, voice only",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "3126b0aad59de0f07542802463d5b164f03529b2228e15473ea32b78747664de"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Actual full narrated 960x540/30fps preview: 14801 frames, 493.366667s. All chapter soundtracks replayed bit for bit through the native mixer; master frame, timestamp and AV-duration gates passed. Each selected original Michael take has exact request/EOS/sample provenance in the bound cue assembly and referenced receipts. Full captions exactly preserve canonical words. Root inspected actual rendered pixels at every cue; this is sampled visual inspection. The catalog does not yet enumerate the complete input graph: empty artifact inputs mean incomplete recorded lineage, not no inputs.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.5.10",
+            "narration_lab/production-20261018/square_packing/full-v1/assembly.json",
+            "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.srt",
+            "docs/video-program/NARRATION-CONSISTENCY.md"
+          ],
+          "disposition": "Provisional local preview with original takes retained. Known ending/boundary repairs are being evaluated in the referenced Bead; this cut precedes those repairs. Music, continuous full-cut listening/review and final 4K60 delivery are pending. Owner approved the separate coherent comparison passage, not this entire cut. No publication.",
+          "milestones": [],
+          "artifact_refs": {
+            "script": [
+              "square_packing.narrated-draft-20261018.script.d415e5e9103b"
+            ],
+            "cue": [
+              "square_packing.narrated-draft-20261018.cue.3674ea4ffb90"
+            ],
+            "master": [
+              "square_packing.narrated-draft-20261018.master.3126b0aad59d"
+            ],
+            "package": [
+              "square_packing.narrated-draft-20261018.package.574305f28a1c",
+              "square_packing.narrated-draft-20261018.package.3444f26e4548"
+            ]
+          }
+        }
+      ],
+      "publications": []
+    },
+    {
+      "video_id": "golay_echoes",
+      "working_title": "Two bad echoes can make one perfect measurement",
+      "pitch": "Golay complementary pairs; aperiodic autocorrelation, exact sidelobe cancellation, recursive construction, and the stationary-channel assumption that makes the cancellation useful.",
+      "work_epic": "mx-video-program-program-87do.6",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "shortlisted",
+          "by": "planning intake; owner response where stated",
+          "reason": "Top five. Strong tiny example and real mechanism; specialist competition remains incompletely mapped.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
+            "https://x.com/modkin_mp/status/2110804114301124779"
+          ]
+        },
+        {
+          "on": "2026-10-17",
+          "decision": "selected",
+          "by": "owner delegated production selection; orchestrator SageBasin",
+          "reason": "Owner explicitly requested three Opus 5.5 production lanes on the strongest ideas. Selected for the first wave from the existing shortlist; publication and quality gates remain separate.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/research-20261016/SLATE.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
+        "https://x.com/modkin_mp/status/2110804114301124779"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "v1-michael-20261017",
+          "label": "First production revision",
+          "voice": "michael",
+          "generation_provenance": "Native silent assembly of 4 centrally accepted chapter drafts, 320.0 seconds at 960x540/30fps; current bytes and absence of audio rechecked 2026-10-18. Chapter acceptance and assembly evidence are in the referenced Beads. Complete rendering input lineage has not been reconstructed: the empty recorded inputs list is missing provenance, not a claim that the assembly had no inputs. No dry voice, integrated mix or master is generated for this cut. Michael is the intended narrator; accepted B is an identity reference, not approval of new narration. Chapter 03 opening context repaired at f9d256e4f0b0bb662b9cc4d417bb7c804217c843 with unchanged cue timing; all 9600 decoded frames of this assembly match its four chapter inputs. The previous silent assembly is retained.",
+          "evidence_refs": [
+            "AGENTS.md",
+            "docs/video-program/NARRATION-CONSISTENCY.md",
+            "explainer_corpus/golay_echoes/renders/central-20261018T0240/full-draft.mp4",
+            "mx-video-program-program-87do.6.4",
+            "mx-video-program-program-87do.6.5",
+            "explainer_corpus/golay_echoes/renders/central-20261018T0454/full-draft.mp4",
+            "mx-video-program-program-87do.6.6"
+          ],
+          "disposition": "Silent visual draft recorded; scoped chapter checks and sampled frame reviews are complete. Continuous full-cut review, narration/listening, integrated mix and final master gates remain open. Native thumbnail and delivery description have separate bounded acceptance in the referenced Bead.",
+          "milestones": [],
+          "artifact_refs": {
+            "scene": [
+              "golay_echoes.silent-20261018.f7f12b0ec5ec"
+            ]
+          }
+        },
+        {
+          "revision_id": "narrated-draft-20261018-v1",
+          "label": "Narrated production preview, voice only",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "d32140c9f01b9759b20838549ccc964419b2b8110394c426280e962cf41a877b"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Actual full narrated 960x540/60fps preview: 15010 frames, 250.166667s. All chapter soundtracks replayed bit for bit through the native mixer; master frame, timestamp and AV-duration gates passed. Each selected original Michael take has exact request/EOS/sample provenance in the bound cue assembly and referenced receipts. Full captions exactly preserve canonical words. Root inspected actual rendered pixels at every cue; this is sampled visual inspection. The catalog does not yet enumerate the complete input graph: empty artifact inputs mean incomplete recorded lineage, not no inputs.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.6.7",
+            "narration_lab/production-20261018/golay_echoes/full-v1/assembly.json",
+            "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.srt",
+            "docs/video-program/NARRATION-CONSISTENCY.md"
+          ],
+          "disposition": "Provisional local preview with original takes retained. Known ending/boundary repairs are being evaluated in the referenced Bead; this cut precedes those repairs. Music, continuous full-cut listening/review and final 4K60 delivery are pending. Owner approved the separate coherent comparison passage, not this entire cut. No publication.",
+          "milestones": [],
+          "artifact_refs": {
+            "script": [
+              "golay_echoes.narrated-draft-20261018.script.697b1146768b"
+            ],
+            "cue": [
+              "golay_echoes.narrated-draft-20261018.cue.1ebfc2c16daf"
+            ],
+            "master": [
+              "golay_echoes.narrated-draft-20261018.master.d32140c9f01b"
+            ],
+            "package": [
+              "golay_echoes.narrated-draft-20261018.package.34bc32a3d842",
+              "golay_echoes.narrated-draft-20261018.package.0fbbfd60647f"
+            ]
+          }
+        }
+      ],
+      "publications": []
+    },
+    {
+      "video_id": "p_values_medical",
+      "working_title": "Why P-Values Confuse Even Doctors",
+      "pitch": "Doctors-survey opening; medical natural frequencies explain conditional reversal; derive a study null-tail probability. Optional stopping is a possible sequel.",
+      "work_epic": "mx-video-program-program-87do.7",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "shortlisted",
+          "by": "planning intake; owner response where stated",
+          "reason": "Owner requested this medical framing on 2026-10-16. Development interest, not full-production approval.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
+            "https://x.com/cdilga/status/2110846290578080154",
+            "docs/video-program/research-20261016/evidence/pvalues-medical-opening.md"
+          ]
+        },
+        {
+          "on": "2026-10-17",
+          "decision": "selected",
+          "by": "owner delegated production selection; orchestrator SageBasin",
+          "reason": "Owner explicitly requested three Opus 5.5 production lanes on the strongest ideas. Selected for the first wave from the existing shortlist; publication and quality gates remain separate.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/research-20261016/SLATE.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
+        "https://x.com/cdilga/status/2110846290578080154",
+        "docs/video-program/research-20261016/evidence/pvalues-medical-opening.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [
+        {
+          "revision_id": "v1-michael-20261017",
+          "label": "First production revision",
+          "voice": "michael",
+          "generation_provenance": "Native silent assembly of 6 centrally accepted chapter drafts, 463.066667 seconds at 960x540/30fps; current bytes and absence of audio rechecked 2026-10-18. Chapter acceptance and assembly evidence are in the referenced Beads. Complete rendering input lineage has not been reconstructed: the empty recorded inputs list is missing provenance, not a claim that the assembly had no inputs. No dry voice, integrated mix or master is generated for this cut. Michael is the intended narrator; accepted B is an identity reference, not approval of new narration.",
+          "evidence_refs": [
+            "AGENTS.md",
+            "docs/video-program/NARRATION-CONSISTENCY.md",
+            "explainer_corpus/p_values_medical/renders/central-20261018T0323/full-draft.mp4",
+            "mx-video-program-program-87do.7.6",
+            "mx-video-program-program-87do.7.7"
+          ],
+          "disposition": "Silent visual draft recorded; scoped chapter checks and sampled frame reviews are complete. Continuous full-cut review, narration/listening, integrated mix and final master gates remain open. Native thumbnail and delivery description have separate bounded acceptance in the referenced Bead.",
+          "milestones": [],
+          "artifact_refs": {
+            "scene": [
+              "p_values_medical.silent-20261018.76bfa23e55c1"
+            ]
+          }
+        },
+        {
+          "revision_id": "narrated-draft-20261018-v1",
+          "label": "Narrated production preview, voice only",
+          "voice": "michael",
+          "master": {
+            "path": "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "b1073a93c52836d0fe46565f17acd56ca4133e414e1672c9ede864da900b0203"
+            },
+            "evidence_state": "fail"
+          },
+          "generation_provenance": "Actual full narrated 960x540/60fps preview: 21878 frames, 364.633333s. All chapter soundtracks replayed bit for bit through the native mixer; master frame, timestamp and AV-duration gates passed. Each selected original Michael take has exact request/EOS/sample provenance in the bound cue assembly and referenced receipts. Full captions exactly preserve canonical words. Root inspected actual rendered pixels at every cue; this is sampled visual inspection. The catalog does not yet enumerate the complete input graph: empty artifact inputs mean incomplete recorded lineage, not no inputs.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.7.8",
+            "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
+            "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
+            "docs/video-program/NARRATION-CONSISTENCY.md"
+          ],
+          "disposition": "Owner listened on 2026-10-18 and rejected this exact cut: \"the cadence, pauses, prosody, etc. are still very poor and unnatural.\" Retained as a failed production rendition for diagnosis; technical integrity checks do not override this listening judgment. Whole-thought performance and semantic pacing repair are required before production promotion. The separate 25.23-second coherent comparison remains approved only in its exact scope. No publication.",
+          "milestones": [],
+          "artifact_refs": {
+            "script": [
+              "p_values_medical.narrated-draft-20261018.script.8395f9c6bf9e"
+            ],
+            "cue": [
+              "p_values_medical.narrated-draft-20261018.cue.fd4790f4cafa"
+            ],
+            "master": [
+              "p_values_medical.narrated-draft-20261018.master.b1073a93c528"
+            ],
+            "package": [
+              "p_values_medical.narrated-draft-20261018.package.c1de7c7f1bd0",
+              "p_values_medical.narrated-draft-20261018.package.2e328f20ca35"
+            ]
+          }
+        }
+      ],
+      "publications": []
+    },
+    {
+      "video_id": "randomized_response",
+      "working_title": "How to learn a secret about a crowd without learning each person's answer",
+      "pitch": "Randomized response; a coin-operated channel, unbiased aggregate inversion, variance cost, bounded likelihood ratios, and repeated-answer leakage.",
+      "work_epic": "mx-video-program-program-87do.8",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "shortlisted",
+          "by": "planning intake; owner response where stated",
+          "reason": "Top five. Fish-like inference story with a distinct privacy theorem.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "discrete_tomography",
+      "working_title": "Two shadows can lie—even when every number is right",
+      "pitch": "Binary discrete tomography; identical row/column sums, 2×2 switching components, flow reconstruction, feasibility versus uniqueness.",
+      "work_epic": "mx-video-program-program-87do.9",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "shortlisted",
+          "by": "planning intake; owner response where stated",
+          "reason": "Top five. Visual puzzle that becomes a practical inverse-problem lesson.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "group_testing",
+      "working_title": "Find the bad samples without testing them all",
+      "pitch": "Dorfman pooling and adaptive splitting; derive expected tests, optimize a pool, show dilution/noise as model breaks.",
+      "work_epic": "mx-video-program-program-87do.10",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "parked",
+          "by": "planning intake; owner response where stated",
+          "reason": "Downgraded after search: an unusually close animated explainer already covers this arc.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "good_turing",
+      "working_title": "How much of the next sample will be something you've never seen?",
+      "pitch": "Good–Turing missing mass from singleton counts; distinguish probability mass from number of unseen species. Animate a frequency-of-frequencies table.",
+      "work_epic": "mx-video-program-program-87do.11",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Reserve. Closest to the fish success pattern, but potentially too much of a sequel.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "german_tank",
+      "working_title": "How many machines were built, from a handful of serial numbers?",
+      "pitch": "German-tank inference via order statistics and the gaps around the sample maximum; sampling bias can dominate the arithmetic.",
+      "work_epic": "mx-video-program-program-87do.12",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Reserve. Strong owner curation needed; historical hook alone is familiar.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "inspection_paradox",
+      "working_title": "Why the average passenger waits longer than half the average gap",
+      "pitch": "Renewal reward and length-biased sampling; turn a timeline into the area under residual-wait triangles.",
+      "work_epic": "mx-video-program-program-87do.13",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Reserve. Good bridge from school averages to a real theorem; crowded paradox territory.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "bus_bunching",
+      "working_title": "Why buses bunch even when every driver tries to stay on time",
+      "pitch": "A specified boarding/headway dynamical model; linear instability and a feedback rule. Animate a perturbation growing around a ring.",
+      "work_epic": "mx-video-program-program-87do.14",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Research. Distinct from C09: this explains dynamics, not sampling bias. Avoid universal claims about transit systems.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "parrondo",
+      "working_title": "Two losing games, one winning schedule",
+      "pitch": "Parrondo's paradox; track probability mass among capital residue classes and derive long-run drift from the stationary distribution.",
+      "work_epic": "mx-video-program-program-87do.15",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Reserve. Require the losing/winning calculations, not a gambling montage.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "braess",
+      "working_title": "The road that makes everybody slower",
+      "pitch": "Braess paradox; solve a tiny Wardrop equilibrium and compare system optimum. Route flows visibly change travel times.",
+      "work_epic": "mx-video-program-program-87do.16",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "parked",
+          "by": "planning intake; owner response where stated",
+          "reason": "Park for competition. Familiar topic; worthwhile only with an unusually revealing extension.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "abelian_sandpile",
+      "working_title": "Why this avalanche ignores the order of the falling grains",
+      "pitch": "Abelian sandpiles; termination with a sink, legal topplings, order independence, and a small recurrent-state group.",
+      "work_epic": "mx-video-program-program-87do.17",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Reserve. The theorem must lead; fractal pictures alone are already familiar.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "resistor_random_walk",
+      "working_title": "A resistor network is secretly answering a probability question",
+      "pitch": "Harmonic voltage equals a random walk's hitting probability; solve the same boundary-value problem two ways.",
+      "work_epic": "mx-video-program-program-87do.18",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Strong alternate. Keep electrical and probabilistic models explicit; no claim about physical electrons taking those walks.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "rotor_router",
+      "working_title": "How arrows can imitate randomness without a random number",
+      "pitch": "Rotor-router networks; local cyclic routing, conservation/discrepancy, and a small asynchronous calculation.",
+      "work_epic": "mx-video-program-program-87do.19",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Strong alternate. Prove a bounded toy result; do not generalize a lattice theorem to arbitrary graphs.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "planar_rigidity",
+      "working_title": "How many bars stop a framework from folding? Counting alone is not enough",
+      "pitch": "Generic planar rigidity and Laman sparsity; redundant bars in one region cannot brace a floppy region elsewhere. Pebble-game animation.",
+      "work_epic": "mx-video-program-program-87do.20",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Strong alternate. Qualify generic position and the two-dimensional scope.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "maxwell_cremona",
+      "working_title": "The second drawing that tells you whether a structure can hold itself up",
+      "pitch": "Maxwell–Cremona reciprocal diagrams: equilibrium force polygons, a dual graph, and a lifted surface.",
+      "work_epic": "mx-video-program-program-87do.21",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Research. Distinct from the existing eigenvalue video: static self-stress, not vibration modes.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "crofton",
+      "working_title": "Measure a curve by throwing lines at it",
+      "pitch": "Cauchy–Crofton through projection and intersection counts; define the distribution of lines before averaging.",
+      "work_epic": "mx-video-program-program-87do.22",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Reserve. A satisfying exact theorem; generic “random needles find π” would be too familiar.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "freivalds",
+      "working_title": "Check a giant matrix product without doing the product again",
+      "pitch": "Freivalds verification; errors survive a random vector projection with bounded probability, and independent repetitions amplify confidence.",
+      "work_epic": "mx-video-program-program-87do.23",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Reserve. Strong programmer fit, but exact arithmetic and floating-point verification must be separated.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "distinct_streaming",
+      "working_title": "Remember almost nothing, yet count a river of different things",
+      "pitch": "A distinct-elements sketch from hashed observations; distribution of extrema/order statistics, merging, uncertainty, adversarial inputs.",
+      "work_epic": "mx-video-program-program-87do.24",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Research. Requires choosing one estimator, not a survey of streaming algorithms.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "random_min_cut",
+      "working_title": "Why one random cut can solve a problem that looks global",
+      "pitch": "Randomized minimum cut; contract edges, preserve a target cut with a computable survival probability, repeat.",
+      "work_epic": "mx-video-program-program-87do.25",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Research. The small proof is attractive; production needs a competition check against algorithm courses.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "discrepancy",
+      "working_title": "How to balance many overlapping demands at once",
+      "pitch": "Discrepancy theory in a bounded-incidence toy system; fractional assignments become integral while controlling error.",
+      "work_epic": "mx-video-program-program-87do.26",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Research. Full general results may be too technical; a theorem must be selected before greenlight.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "benford",
+      "working_title": "The first-digit fraud detector that can accuse an innocent ledger",
+      "pitch": "Benford via mantissas on a logarithmic circle; construct both compliant and noncompliant innocent datasets.",
+      "work_epic": "mx-video-program-program-87do.27",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "parked",
+          "by": "planning intake; owner response where stated",
+          "reason": "Park. Owner/viewer suggestion, but generic Benford coverage is crowded and real fraud allegations are excluded.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "steiner_tree",
+      "working_title": "Why the shortest connecting network adds a point nobody asked for",
+      "pitch": "Steiner trees; derive the 120° junction by local length variation, then show topology choices and local/global distinction.",
+      "work_epic": "mx-video-program-program-87do.28",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Reserve. Must go beyond the standard three-village picture.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "stable_matching",
+      "working_title": "The matching that is stable—and still rewards someone for lying",
+      "pitch": "Deferred acceptance, stability, proposer advantage, and a concrete manipulation example under stated roles.",
+      "work_epic": "mx-video-program-program-87do.29",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "parked",
+          "by": "planning intake; owner response where stated",
+          "reason": "Park. Strong mechanism; extensive existing matching coverage and theorem boundaries require care.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "apportionment",
+      "working_title": "How adding a seat can make a state lose one",
+      "pitch": "Apportionment: a fully worked Alabama paradox, quotas versus divisor methods, and precisely stated incompatible fairness requirements.",
+      "work_epic": "mx-video-program-program-87do.30",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Reserve. Avoid a broad political explainer; the rounding mechanism is the story.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "necklace_splitting",
+      "working_title": "Can one cut be fair when everyone wants different pieces?",
+      "pitch": "A specific two-color necklace division problem; cut locations encode a continuous balancing argument.",
+      "work_epic": "mx-video-program-program-87do.31",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Research. Exact scope and proof must fit; do not imply every fair-division theorem has a simple cutting algorithm.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "moment_of_inertia",
+      "working_title": "Two objects with the same mass can be radically different to turn",
+      "pitch": "Second moments, parallel-axis theorem, inertia tensor and its principal axes; redistribute visible mass while keeping total fixed.",
+      "work_epic": "mx-video-program-program-87do.32",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Reserve. Connect to the moments suggestion while differentiating from the existing eigenvalue video.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "belt_trick",
+      "working_title": "Why a full turn can leave something untwisted only after another full turn",
+      "pitch": "Belt trick, `SO(3)` versus `SU(2)`, paths and double cover; clearly distinguish orientation from the history of rotations.",
+      "work_epic": "mx-video-program-program-87do.33",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "parked",
+          "by": "planning intake; owner response where stated",
+          "reason": "Park. High prerequisite and competition risk; no quantum-spin claim based on a belt alone.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "argument_principle",
+      "working_title": "Count hidden roots without finding any of them",
+      "pitch": "Argument principle: the winding of `f(z)` along a boundary counts zeros minus poles; earn complex angle change from a moving pointer.",
+      "work_epic": "mx-video-program-program-87do.34",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Strong alternate. Specific complex-analysis payoff; the boundary/nonzero and multiplicity conditions are essential.",
+          "source_refs": [
+            "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "fertility_eigenvalues",
+      "working_title": "Relative fertility, replacement and eigenvalues",
+      "pitch": "Choose a narrow demographic model; distinguish from the existing eigenvalue video.",
+      "work_epic": "mx-video-program-program-87do.35",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Choose a narrow demographic model; distinguish from the existing eigenvalue video.",
+          "source_refs": [
+            "https://x.com/mathtick/status/2110975291124269464"
+          ]
+        }
+      ],
+      "source_refs": [
+        "https://x.com/mathtick/status/2110975291124269464"
+      ],
+      "related_video_ids": [
+        "eigen_engineering"
+      ],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "probability_paradoxes",
+      "working_title": "Monty Hall, boy/girl and St Petersburg puzzles",
+      "pitch": "An intake bundle needing one precise question. Birthday and Benford have their own records. Extensive existing coverage.",
+      "work_epic": "mx-video-program-program-87do.36",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "parked",
+          "by": "planning intake; owner response where stated",
+          "reason": "An intake bundle needing one precise question. Birthday and Benford have their own records. Extensive existing coverage.",
+          "source_refs": [
+            "https://x.com/PiotrDzikowski3/status/2110816097301602432"
+          ]
+        }
+      ],
+      "source_refs": [
+        "https://x.com/PiotrDzikowski3/status/2110816097301602432"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "fourier_fft",
+      "working_title": "Fourier, FFT and linear algebra",
+      "pitch": "Needs a distinct mechanism beyond established introductory explanations.",
+      "work_epic": "mx-video-program-program-87do.37",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "parked",
+          "by": "planning intake; owner response where stated",
+          "reason": "Needs a distinct mechanism beyond established introductory explanations.",
+          "source_refs": [
+            "https://x.com/MattmreM/status/2110864149185987039",
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "https://x.com/MattmreM/status/2110864149185987039",
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "game_theory",
+      "working_title": "Game theory, prisoners dilemma and Nash equilibrium",
+      "pitch": "Broad suggestion; no distinctive theorem or scope yet.",
+      "work_epic": "mx-video-program-program-87do.38",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "parked",
+          "by": "planning intake; owner response where stated",
+          "reason": "Broad suggestion; no distinctive theorem or scope yet.",
+          "source_refs": [
+            "https://x.com/fromsimple1/status/2110890125349515276"
+          ]
+        }
+      ],
+      "source_refs": [
+        "https://x.com/fromsimple1/status/2110890125349515276"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "complex_analysis",
+      "working_title": "Visual complex analysis",
+      "pitch": "Broad intake; argument principle is a separate focused candidate.",
+      "work_epic": "mx-video-program-program-87do.39",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Broad intake; argument principle is a separate focused candidate.",
+          "source_refs": [
+            "https://x.com/buzhang923/status/2111155507922931861"
+          ]
+        }
+      ],
+      "source_refs": [
+        "https://x.com/buzhang923/status/2111155507922931861"
+      ],
+      "related_video_ids": [
+        "argument_principle"
+      ],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "hopf_fibration",
+      "working_title": "Hopf fibration, spinors and fibre bundles",
+      "pitch": "High prerequisite and visualization risk; distinct from the specific belt-trick candidate.",
+      "work_epic": "mx-video-program-program-87do.40",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "parked",
+          "by": "planning intake; owner response where stated",
+          "reason": "High prerequisite and visualization risk; distinct from the specific belt-trick candidate.",
+          "source_refs": [
+            "https://x.com/wellwelwellwell/status/2110865168439656550"
+          ]
+        }
+      ],
+      "source_refs": [
+        "https://x.com/wellwelwellwell/status/2110865168439656550"
+      ],
+      "related_video_ids": [
+        "belt_trick"
+      ],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "negative_times_negative",
+      "working_title": "Why negative times negative is positive",
+      "pitch": "Needs an unusually strong angle to fit the channel.",
+      "work_epic": "mx-video-program-program-87do.41",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "parked",
+          "by": "planning intake; owner response where stated",
+          "reason": "Needs an unusually strong angle to fit the channel.",
+          "source_refs": [
+            "https://x.com/ngoquangthanh97/status/2110858324787011699"
+          ]
+        }
+      ],
+      "source_refs": [
+        "https://x.com/ngoquangthanh97/status/2110858324787011699"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "math_invented_discovered",
+      "working_title": "Is mathematics invented or discovered?",
+      "pitch": "Vague philosophical proposal; no bounded visual proof spine.",
+      "work_epic": "mx-video-program-program-87do.42",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "parked",
+          "by": "planning intake; owner response where stated",
+          "reason": "Vague philosophical proposal; no bounded visual proof spine.",
+          "source_refs": [
+            "https://x.com/eldorastudio/status/2110833950620819487"
+          ]
+        }
+      ],
+      "source_refs": [
+        "https://x.com/eldorastudio/status/2110833950620819487"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "recent_ai_math",
+      "working_title": "Recent AI mathematical solves",
+      "pitch": "Owner rejected the broad recent-solves proposal as too complex for this treatment.",
+      "work_epic": "mx-video-program-program-87do.43",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "declined",
+          "by": "planning intake; owner response where stated",
+          "reason": "Owner rejected the broad recent-solves proposal as too complex for this treatment.",
+          "source_refs": [
+            "https://x.com/Darbybailey/status/2110851812999799241"
+          ]
+        }
+      ],
+      "source_refs": [
+        "https://x.com/Darbybailey/status/2110851812999799241"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "visual_proofs_more",
+      "working_title": "More proofs you can see",
+      "pitch": "Positive viewer request for a sequel; select a distinct theorem before approval.",
+      "work_epic": "mx-video-program-program-87do.44",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Positive viewer request for a sequel; select a distinct theorem before approval.",
+          "source_refs": [
+            "https://x.com/artale93/status/2110823877676847413"
+          ]
+        }
+      ],
+      "source_refs": [
+        "https://x.com/artale93/status/2110823877676847413"
+      ],
+      "related_video_ids": [
+        "visual_proofs"
+      ],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "mh370_inference",
+      "working_title": "What inference can and cannot say about MH370",
+      "pitch": "High evidentiary burden; no unsupported location claims.",
+      "work_epic": "mx-video-program-program-87do.45",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "parked",
+          "by": "planning intake; owner response where stated",
+          "reason": "High evidentiary burden; no unsupported location claims.",
+          "source_refs": [
+            "https://x.com/OderintMetuant/status/2109837420934173109"
+          ]
+        }
+      ],
+      "source_refs": [
+        "https://x.com/OderintMetuant/status/2109837420934173109"
+      ],
+      "related_video_ids": [
+        "bayesian_search"
+      ],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "shamir_secret_sharing",
+      "working_title": "Shamir secret sharing",
+      "pitch": "Threshold reconstruction and exact privacy assumptions.",
+      "work_epic": "mx-video-program-program-87do.46",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Imported future-corpus idea, not selected. Threshold reconstruction and exact privacy assumptions.",
+          "source_refs": [
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "reed_solomon_qr",
+      "working_title": "Reed–Solomon and QR codes",
+      "pitch": "Error correction and an honest code-capacity example.",
+      "work_epic": "mx-video-program-program-87do.47",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Imported future-corpus idea, not selected. Error correction and an honest code-capacity example.",
+          "source_refs": [
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "logical_clocks",
+      "working_title": "Lamport clocks and vector clocks",
+      "pitch": "Order events without a shared physical clock.",
+      "work_epic": "mx-video-program-program-87do.48",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Imported future-corpus idea, not selected. Order events without a shared physical clock.",
+          "source_refs": [
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "paxos",
+      "working_title": "Paxos",
+      "pitch": "Agreement under stated failure and communication assumptions.",
+      "work_epic": "mx-video-program-program-87do.49",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Imported future-corpus idea, not selected. Agreement under stated failure and communication assumptions.",
+          "source_refs": [
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "bloom_filters",
+      "working_title": "Bloom filters",
+      "pitch": "Membership queries and the conditions behind no false negatives.",
+      "work_epic": "mx-video-program-program-87do.50",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Imported future-corpus idea, not selected. Membership queries and the conditions behind no false negatives.",
+          "source_refs": [
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "birthday_hash_collisions",
+      "working_title": "Birthday paradox and hash collisions",
+      "pitch": "Collision probability under independent uniform hashing.",
+      "work_epic": "mx-video-program-program-87do.51",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Imported future-corpus idea, not selected. Collision probability under independent uniform hashing.",
+          "source_refs": [
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "secretary_problem",
+      "working_title": "The secretary problem",
+      "pitch": "Optimal stopping under exact sampling assumptions.",
+      "work_epic": "mx-video-program-program-87do.52",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Imported future-corpus idea, not selected. Optimal stopping under exact sampling assumptions.",
+          "source_refs": [
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "kalman_filter",
+      "working_title": "The Kalman filter",
+      "pitch": "Estimation with explicit process and measurement uncertainty.",
+      "work_epic": "mx-video-program-program-87do.53",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Imported future-corpus idea, not selected. Estimation with explicit process and measurement uncertainty.",
+          "source_refs": [
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "pagerank",
+      "working_title": "PageRank and Markov chains",
+      "pitch": "A random-surfer model and stationary distribution.",
+      "work_epic": "mx-video-program-program-87do.54",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Imported future-corpus idea, not selected. A random-surfer model and stationary distribution.",
+          "source_refs": [
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "huffman_entropy",
+      "working_title": "Huffman coding and entropy",
+      "pitch": "Prefix-code optimality and a worked source distribution.",
+      "work_epic": "mx-video-program-program-87do.55",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Imported future-corpus idea, not selected. Prefix-code optimality and a worked source distribution.",
+          "source_refs": [
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "diffie_hellman",
+      "working_title": "Diffie–Hellman",
+      "pitch": "Public key exchange, hardness assumptions and authentication limits.",
+      "work_epic": "mx-video-program-program-87do.56",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Imported future-corpus idea, not selected. Public key exchange, hardness assumptions and authentication limits.",
+          "source_refs": [
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "merkle_trees",
+      "working_title": "Merkle trees",
+      "pitch": "A small membership proof, exact hash count and trusted-root assumptions.",
+      "work_epic": "mx-video-program-program-87do.57",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-16",
+          "decision": "inbox",
+          "by": "planning intake; owner response where stated",
+          "reason": "Imported future-corpus idea, not selected. A small membership proof, exact hash count and trusted-root assumptions.",
+          "source_refs": [
+            "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+      ],
+      "related_video_ids": [],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "epsilon_delta",
+      "working_title": "Epsilon and Delta: Why Getting Closer Wasn't Enough",
+      "pitch": "Continuous curves with a discontinuous limit motivate precise quantifier dependencies; Sprague and Davis make delta constructive; sequences and open-set preimages explain alternative views, with historically careful foundations.",
+      "work_epic": "mx-video-program-program-87do.58",
+      "production_approval": "not_requested",
+      "decisions": [
+        {
+          "on": "2026-10-17",
+          "decision": "shortlisted",
+          "by": "owner suggestion; Codex editorial intake",
+          "reason": "Owner explicitly proposed an informative video using the two supplied notes, calculus foundations and topology. Promoted to the provisional editorial shortlist for qualification; this does not record full-production approval or a finished competition/history audit.",
+          "source_refs": [
+            "docs/video-program/briefs/epsilon-delta.md#owner-intake"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/briefs/epsilon-delta.md",
+        "https://doi.org/10.2307/2308663",
+        "https://doi.org/10.2307/2311156"
+      ],
+      "related_video_ids": [
+        "visual_proofs"
+      ],
+      "revisions": [],
+      "publications": []
+    }
+  ],
+  "coverage": {
+    "as_of": "2026-10-17",
+    "video_identities": "11 public topics, 30 independent Codex topic candidates, 11 additional X suggestions, 12 additional prior-plan proposals, and one owner-requested epsilon-delta candidate; overlaps linked, not duplicated.",
+    "revision_import": "17 uploaded cuts and 20 other explicitly documented master cuts from the publishing manifest. This is not an enumeration of every intermediate render, chapter or take.",
+    "historical_limits": "Historical hashes and paths are records, not fresh local media verification. Missing/partial provenance remains unknown. Original manifest retains richer receipts and copy-location details."
+  },
+  "artifacts": [
+    {
+      "artifact_id": "golay_echoes.silent-20261018.104aa4b4e2d7",
+      "kind": "scene",
+      "path": "explainer_corpus/golay_echoes/renders/central-20261018T0240/full-draft.mp4",
+      "sha256": "104aa4b4e2d7513fddf386f565e6767b231a933f610a3ec20c6936407f4651fb",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.4",
+        "mx-video-program-program-87do.6.5",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.silent-20261018.4271647521fc",
+      "kind": "scene",
+      "path": "explainer_corpus/square_packing/renders/central-20261018T0431/full-draft.mp4",
+      "sha256": "4271647521fc861b78812721006f5a66902b40dbbb2998dc1ee6875cf061ccad",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.8",
+        "mx-video-program-program-87do.5",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.silent-20261018.76bfa23e55c1",
+      "kind": "scene",
+      "path": "explainer_corpus/p_values_medical/renders/central-20261018T0323/full-draft.mp4",
+      "sha256": "76bfa23e55c11c17c393380bbe7773a19826cbef0ad9dac5f46aeeb427f7ff44",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.6",
+        "mx-video-program-program-87do.7.7",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.silent-20261018.f7f12b0ec5ec",
+      "kind": "scene",
+      "path": "explainer_corpus/golay_echoes/renders/central-20261018T0454/full-draft.mp4",
+      "sha256": "f7f12b0ec5ec72bbb467c28c10d406be43446c4ff81c5d02fc610b1ca74607d5",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.6",
+        "mx-video-program-program-87do.6.5",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.narrated-draft-20261018.script.d415e5e9103b",
+      "kind": "script",
+      "path": "narration_lab/production-20261018/square_packing/inputs/script.tsv",
+      "sha256": "d415e5e9103b05a9fe46ccefdfd0baa4b61cca3dbea0848ab35d0b286dcf2a10",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "narration_lab/production-20261018/square_packing/full-v1/assembly.json",
+        "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.narrated-draft-20261018.cue.3674ea4ffb90",
+      "kind": "cue",
+      "path": "narration_lab/production-20261018/square_packing/full-v1/assembly.json",
+      "sha256": "3674ea4ffb906a9898579da0cf1761984565640afce9987994cba04c84aaea94",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "narration_lab/production-20261018/square_packing/full-v1/assembly.json",
+        "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.narrated-draft-20261018.master.3126b0aad59d",
+      "kind": "master",
+      "path": "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing_master.mp4",
+      "sha256": "3126b0aad59de0f07542802463d5b164f03529b2228e15473ea32b78747664de",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "narration_lab/production-20261018/square_packing/full-v1/assembly.json",
+        "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.narrated-draft-20261018.package.574305f28a1c",
+      "kind": "package",
+      "path": "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.srt",
+      "sha256": "574305f28a1c75c5f828ee33c2eb915ac39cd2e13049e953a939a285d1ca3dcf",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "narration_lab/production-20261018/square_packing/full-v1/assembly.json",
+        "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "square_packing.narrated-draft-20261018.package.3444f26e4548",
+      "kind": "package",
+      "path": "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.vtt",
+      "sha256": "3444f26e4548feec02c035e4607d84fc06aa2e55e974e8096259c62e97fa7595",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.5.10",
+        "narration_lab/production-20261018/square_packing/full-v1/assembly.json",
+        "explainer_corpus/square_packing/renders/narrated-full-20261018T1825/square_packing.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.narrated-draft-20261018.script.697b1146768b",
+      "kind": "script",
+      "path": "narration_lab/production-20261018/golay_echoes/inputs/script.tsv",
+      "sha256": "697b1146768b52a747be293bc2bf7b4f99de34cdd30c46a90988e5dd2f4d1df4",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "narration_lab/production-20261018/golay_echoes/full-v1/assembly.json",
+        "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.narrated-draft-20261018.cue.1ebfc2c16daf",
+      "kind": "cue",
+      "path": "narration_lab/production-20261018/golay_echoes/full-v1/assembly.json",
+      "sha256": "1ebfc2c16daf50a5f4c41b2aeb2a1e94d748ada3bb8b7d8c6fde402ffe468760",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "narration_lab/production-20261018/golay_echoes/full-v1/assembly.json",
+        "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.narrated-draft-20261018.master.d32140c9f01b",
+      "kind": "master",
+      "path": "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes_master.mp4",
+      "sha256": "d32140c9f01b9759b20838549ccc964419b2b8110394c426280e962cf41a877b",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "narration_lab/production-20261018/golay_echoes/full-v1/assembly.json",
+        "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.narrated-draft-20261018.package.34bc32a3d842",
+      "kind": "package",
+      "path": "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.srt",
+      "sha256": "34bc32a3d8425d34ba6fa2fd8d87ca42b5cf9661630aef7ee3a4dac095fd5f6e",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "narration_lab/production-20261018/golay_echoes/full-v1/assembly.json",
+        "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "golay_echoes.narrated-draft-20261018.package.0fbbfd60647f",
+      "kind": "package",
+      "path": "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.vtt",
+      "sha256": "0fbbfd60647f82d55777e8c02a4ff852890d13abe37feb762c1c249b7650cf0c",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.6.7",
+        "narration_lab/production-20261018/golay_echoes/full-v1/assembly.json",
+        "explainer_corpus/golay_echoes/renders/narrated-full-20261018T1834/golay_echoes.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.narrated-draft-20261018.script.8395f9c6bf9e",
+      "kind": "script",
+      "path": "narration_lab/production-20261018/p_values_medical/inputs/script.tsv",
+      "sha256": "8395f9c6bf9e90078f93f53187ea781b09e05053c797fe3f4d16ce1c8d199be5",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.8",
+        "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
+        "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.narrated-draft-20261018.cue.fd4790f4cafa",
+      "kind": "cue",
+      "path": "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
+      "sha256": "fd4790f4cafa640748dc3f45f780874b5c480c164dae539d3ce1f55e85954970",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.8",
+        "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
+        "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.narrated-draft-20261018.master.b1073a93c528",
+      "kind": "master",
+      "path": "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical_master.mp4",
+      "sha256": "b1073a93c52836d0fe46565f17acd56ca4133e414e1672c9ede864da900b0203",
+      "inputs": [],
+      "evidence_state": "fail",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.8",
+        "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
+        "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.narrated-draft-20261018.package.c1de7c7f1bd0",
+      "kind": "package",
+      "path": "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
+      "sha256": "c1de7c7f1bd0aa1a70a7521375d15af88719df754bee71199d984a2cdcfee985",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.8",
+        "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
+        "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    },
+    {
+      "artifact_id": "p_values_medical.narrated-draft-20261018.package.2e328f20ca35",
+      "kind": "package",
+      "path": "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.vtt",
+      "sha256": "2e328f20ca35bc10ede82ea53bc221414ce36518a6aa4254c3cd16f6be565b7c",
+      "inputs": [],
+      "evidence_state": "unknown",
+      "evidence_refs": [
+        "mx-video-program-program-87do.7.8",
+        "narration_lab/production-20261018/p_values_medical/full-v1/assembly.json",
+        "explainer_corpus/p_values_medical/renders/narrated-full-20261018T1837/p_values_medical.en.srt",
+        "docs/video-program/NARRATION-CONSISTENCY.md"
+      ]
+    }
+  ]
+}

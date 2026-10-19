@@ -1,0 +1,42 @@
+# golay_echoes: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	Send out four pulses. Up, up, up, down. Something bounces them back.
+01_2	Slide a copy along what came back, and multiply the pulses that line up.
+01_3	Pulses pointing the same way agree, and add a block. Opposite ways disagree, and take one away.
+01_4	Lined up exactly, all four agree. A score of four, at the echo.
+01_5	One step off, three pairs line up. Two agree, one disagrees. A score of one, where nothing is.
+01_6	Slide all the way, and ghosts appear on both sides, a quarter the echo's size.
+01_7	With more than one pulse, every pattern leaves ghosts. So send a second. Up, up, down, up.
+01_8	Its ghosts are the same size, at the same shifts. What if we add the two rows?
+01_9	Every ghost meets its opposite and cancels. Only the echo is left, twice as tall. Two bad echoes, and not a single ghost.
+01_10	But the guarantee needs the same scene for both sends. Move the echo one step between them, and ghosts return.
+02_1	Now two things echo back. A loud one, and a quiet one three steps farther.
+02_2	Pattern A's two echoes overlap, and the receiver records their sum.
+02_3	Score it as before. The loud one stands tall at zero. At three steps, where the quiet one is, the score is zero.
+02_4	Zero is not empty. Each echo brings its own row of scores, and at three steps they collide.
+02_5	The loud one's ghost there is minus four. The quiet one's peak is plus four. They cancel.
+02_6	One step either side of the loud echo, its ghosts stand four tall, as tall as the quiet echo.
+02_7	Pattern B's ghosts have the other sign. What will B score at three steps?
+02_8	Eight. Its ghost lands on the quiet echo instead of erasing it, and doubles it.
+02_9	Add the two rows. Thirty-two at zero, eight at three, zero everywhere else. The scene, eight times over.
+02_10	Sending pattern A twice just doubles its ghosts, and the quiet one stays hidden.
+03_1	Where do pairs like these come from? Start with one pulse, paired with itself.
+03_2	Now double it. Write the first, then the other. Then the first again, and the other flipped.
+03_3	Double again, and out come patterns A and B.
+03_4	Why do their ghosts cancel? Slide each copy one step, and look at the pairs that line up.
+03_5	Inside a half, B matches A, or has both pulses flipped. Those products don't change.
+03_6	A pair across the halves has exactly one flipped pulse, so its product changes sign.
+03_7	So what's left when we add A's and B's products here?
+03_8	The crossing products cancel in pairs. The rest is twice the old pair's rows, whose ghosts already cancel.
+03_9	This split works at every shift, for every doubling. Each doubling of a cancelling pair gives a new one, twice as long.
+03_10	Leave out the flip, and the crossing products add instead. The ghosts come back.
+04_1	Back to the clean case. Both sends meet the same scene, and every ghost cancels.
+04_2	Now let the echo move one step between the sends.
+04_3	B's row slides with it, and its ghosts miss their opposites.
+04_4	The echo splits into three and five, with ghosts at six shifts.
+04_5	Now keep it in place, and let the second send's echo come back upside down.
+04_6	Compared with the first send, it is the same echo at the same distance, only flipped. In radar, half a turn of phase does this.
+04_7	What happens to the true echo when we add?
+04_8	Cancelled out, and every ghost doubles instead.
+04_9	In general, with no added noise, our four-pulse pair sums to eight times the second scene, plus pattern A's row of whatever changed.
+04_10	Noise is scored too. A stray blip gets its own little row, and nothing guarantees it cancels.
+04_11	So two bad echoes make one perfect measurement, but only in the ideal case, when both sends meet the same echoes and no noise is added.

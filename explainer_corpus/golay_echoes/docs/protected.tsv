@@ -1,0 +1,8 @@
+# Protected facts: the words every revision must keep (./x golay_echoes protected checks they are still there).
+# One per line: <phrase> TAB <where> TAB <why>. <where> is a comma list of script, captions,
+# description, title, or empty for "anywhere".
+Up, up, up, down	script	pattern A, the one tiny example the whole video keeps (G-F1.code_a)
+Up, up, down, up	script	pattern B, its partner (G-F1.code_b)
+With more than one pulse	script	the scope of "every pattern leaves ghosts": a single pulse has none (G-X1)
+twice as tall	script	the added echo is 8 against one row's 4 (G-F3.peak_ratio)
+the same scene for both sends	script	the guarantee's assumption, stated in the central argument (C5)
