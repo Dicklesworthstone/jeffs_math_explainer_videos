@@ -21,7 +21,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     card, chip, disease, disease_dark, fade_in_all, fade_in_lagged, fade_out_all, fail, flat, group, healthy,
-    healthy_dark, line_style, person, say, survey, think_pause, vacated, warn,
+    healthy_dark, line_style, person, say, survey, think_pause, vacated, wait_until, warn,
 };
 use super::glyphs::TITLE;
 use crate::facts::{GRID_COLS, cited};
@@ -71,6 +71,10 @@ const DISPUTE_AT: &str = "even that answer";
 pub const TITLE_S: f64 = 2.0;
 /// The listen label of the title card, the score's open motif.
 pub const TITLE_LABEL: &str = "01_five_percent_of_what:01_3";
+/// Seconds of scene time 01_11's "precisely" card stays fully visible once
+/// it is in, before it fades at the chapter's end: the rest of 01_11, the
+/// hold and the music's breath count toward it.
+const CARD_DWELL_S: f64 = 8.0;
 
 // --- layout (scene units; the frame is 14.2 by 8)
 
@@ -693,8 +697,10 @@ impl SceneConstruct for FivePercentOfWhat {
             anims.push(stage.prepare(a.rt(0.6))?);
         }
         stage.play_prepared(anims)?;
+        let shown = stage.scene().time().to_f64();
         kit.hold(stage)?;
         kit.music_breath(stage, 0.8)?;
+        wait_until(stage, shown + CARD_DWELL_S)?;
         // chapter 02 opens on this picture as it rests: only the lower-third goes
         fade_out_all(stage, &[lower], 0.4)?;
         kit.finish(stage)

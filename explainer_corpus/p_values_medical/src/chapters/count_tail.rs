@@ -17,7 +17,7 @@ use explainer_kit::props::{histogram, precisely};
 use explainer_kit::{Frame2, Kit, Palette, Timed, stroke_style, thousands, tween, v};
 use fmn::prelude::*;
 
-use super::draw::{fade_in_all, fade_in_lagged, fade_out_all, line_style, say, think_pause, treated, warn};
+use super::draw::{fade_in_all, fade_in_lagged, fade_out_all, line_style, say, think_pause, treated, wait_until, warn};
 use super::five_percent::outline;
 use super::imaginary_world::{
     Closing, SHOWN_Y, SMALL_AT, closing_frame, disc_at, hist_bars, hist_frame, hist_furniture, hist_marks, lit_box,
@@ -51,6 +51,11 @@ const SET_BY: &str = "set by the data: the tail starts at this result,";
 // the words 04_6's total lands on (the test below holds it to the line)
 const TOTAL_AT: &str = "twenty-one thousand seven hundred";
 const DENOMINATOR: &str = "every one of them in the world where the treatment changed no one's recovery";
+/// Seconds of scene time 04_7's "precisely" card stays fully visible once it
+/// is in, before it leaves and 04_8 begins: the rest of 04_7 and the
+/// narrator's gap count toward it, and it is gone before 04_8's red outlines
+/// arrive under it.
+const CARD_DWELL_S: f64 = 9.0;
 
 /// The pairs 04_5 turns over, one at a time: three of the twenty single-pair
 /// assignments that give nineteen.
@@ -501,11 +506,12 @@ impl SceneConstruct for CountTheWholeTail {
         let name = kit.text(stage, P_NAME, 26.0, treated(), v(SMALL_AT[0], P_NAME_Y))?;
         let lower = precisely(&kit, stage, &precise_text(&world, k))?;
         fade_in_all(stage, &[name, lower], 0.6)?;
+        let shown = stage.scene().time().to_f64();
+        wait_until(stage, shown + CARD_DWELL_S)?;
+        fade_out_all(stage, &[lower], 0.3)?;
 
         // 04_8: exactly fifteen, then more than fifteen: other sets, other numbers
         let line = say(&kit, stage, "04_8")?;
-        line.wait_for(stage, "exactly fifteen")?;
-        fade_out_all(stage, &[lower], 0.3)?;
         let mut wrong = Vec::new();
         for (n, (which, word, phrase)) in [
             (Tail::Exactly, EXACTLY, "exactly fifteen"),
