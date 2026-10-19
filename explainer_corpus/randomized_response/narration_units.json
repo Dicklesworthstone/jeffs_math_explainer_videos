@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "5c7664b3388c5af9bb59c9343a46f199327d5e99b9c67171a56c73efb6f7c9e3",
+  "script_sha256": "7558140bbc1417b532c1aa181e5a85ea28f28ac94237f66fad33298e7bd2cb03",
   "units": [
     {
       "id": "01u1",
@@ -59,6 +59,40 @@
         "02_11"
       ],
       "text": "A yes lifts the chance from one in five to three in seven. A no drops it to one in thirteen. The coin fixes the three times. Where the chance ends up depends on the class. An answer is deniable, but not meaningless. How well the survey counts is a separate question."
+    },
+    {
+      "id": "03u1",
+      "line_ids": [
+        "03_1",
+        "03_2"
+      ],
+      "text": "Real coins don't land on average. Ask the class eight times with fresh coins. Their estimates run from minus four to fourteen. Only one lands on four."
+    },
+    {
+      "id": "03u2",
+      "line_ids": [
+        "03_3",
+        "03_4",
+        "03_5"
+      ],
+      "text": "Now count every way the coins can land. Four to the twentieth, over a trillion, all equally likely. The estimates pile up around four, the true count. How often does a class land exactly on four?"
+    },
+    {
+      "id": "03u3",
+      "line_ids": [
+        "03_6",
+        "03_7"
+      ],
+      "text": "About one class in five. And about one in eleven goes below zero. Below zero means fewer yeses than the second coin alone gives on average. Rounding those up to zero would push the average above four."
+    },
+    {
+      "id": "03u4",
+      "line_ids": [
+        "03_8",
+        "03_9",
+        "03_10"
+      ],
+      "text": "Every answer wobbles the same, whoever gives it. Twenty of them, doubled, miss by about four people. That's for this fixed class. Sample twenty from a big school instead, and who gets picked adds its own scatter. If one in five copied, matching a direct question's precision takes almost six times as many people."
     }
   ]
 }

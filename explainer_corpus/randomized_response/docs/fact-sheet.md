@@ -72,6 +72,34 @@ Pinned rows also match a literal from the named primary source.
 | Deniable, but not meaningless | 02_11 | a yes leaves 4/7 that the giver did not copy, yet moves the chance from 1/5 to 3/7 |
 | Privacy and accuracy are separate questions | 02_11 | the factor of three is per answer (`R-F5`); the count's scatter is `R-F7`, `R-F8` (planned chapter 03) |
 
+## Chapter 03: numbers
+
+| key | value | where | how it is obtained |
+|---|---|---|---|
+| `R-F13.seed`, `R-F13.runs` | 3, 8 | 03_1 "eight times"; the 03_2 card "seed 3" | `facts::SEED`, `facts::RUNS`: the chapter's number, fixed before any draw was seen |
+| `R-F13.yes`, `R-F13.estimates` | 3,5,12,10,9,7,4,8; −4,0,14,10,8,4,−2,6 | the eight rows and their columns | one raw draw a class (`Data::new(3).raw()`), two bits a student (`model::coins_from_bits`), tallied; the oracle replays NumPy's `PCG64DXSM(3).random_raw()` |
+| `R-F13.lowest`, `.highest`, `.on_four`, `.below_zero` | −4, 14, 1, 2 | 03_2 "from minus four to fourteen", "Only one lands on four" | the eight estimates |
+| `R-F7.outcomes`, `R-F14.outcomes_trillions` | 1,099,511,627,776; 1 | 03_3 "Four to the twentieth, over a trillion"; TeX 4²⁰ = …; the 03_6 card | 4²⁰ |
+| `R-F7.p_exactly_right`, `R-F7.percent.exactly_right`, `R-F14.one_in.exactly` | 14028881103/68719476736, 20, 5 | 03_6 "About one class in five"; "exactly 4: about 1 class in 5 (20%)" | the exact distribution at 7 yeses; one in round(1/p) |
+| `R-F7.p_negative`, `R-F7.percent.negative`, `R-F14.one_in.negative` | 25556466249/274877906944, 9, 11 | 03_6 "about one in eleven goes below zero"; "below 0 (under 5 yeses): about 1 in 11 (9%)" | under 5 yeses |
+| `R-F4.forced_yes` | 5 | the 03_6 note "under 5 yeses"; 03_7 "fewer yeses than the second coin alone gives on average" | the second coin's yeses on average |
+| `R-F14.estimate_mean` | 4 | 03_4 "around four", 03_2, 03_7 "above four"; the gold line | the distribution's mean estimate, checked equal to the copiers |
+| `R-F14.clamped_mean`, `R-F14.clamped_mean_2dp` | 584948368349/137438953472, 4.26 | 03_7 "push the average above four"; the note and card "4.26" | the mean of max(estimate, 0) |
+| `R-F14.answer_variance` | 3/16 | 03_8 "Every answer wobbles the same"; TeX 3/16 × 20 | p(1 − p) at 3/4 and at 1/4, checked equal |
+| `R-F7.var_yes`, `R-F7.var_estimate`, `R-F7.sd_estimate`, `R-F14.sd_rounded` | 15/4, 15, 3.87, 4 | TeX 15/4, 15/4 × 4 = 15, √15 ≈ 3.87; the bracket; 03_8 "miss by about four people" | the distribution's variance, checked to be 20 answers of 3/16, times 4 |
+| `R-F7.coin_variance_per_person` | 3/4 | TeX 3/(4n) | the share's coin term |
+| `R-F8.cost`, `R-F8.cost_2dp`, `R-F14.cost_rounded` | 91/16, 5.69, 6 | 03_10 "almost six times as many people"; TeX 91/16 ≈ 5.69; the card | independent draws at p = 1/5, direct answers assumed truthful; checked just under 6 |
+| `R-F1.copied_share` | 1/5 | 03_10 "If one in five copied"; the card's "p = 1/5" | as before |
+
+## Chapter 03: claims
+
+| claim | where | evidence |
+|---|---|---|
+| The estimate is right on average for any class, and only if negatives stay | 03_4, 03_7 and the card | `the_estimate_is_right_on_average_only_if_negatives_stay`: for every number of copiers 0 to 20 the mean is the truth and the clamped mean is above it |
+| A fixed class's scatter is the coins' alone, the same whoever copied | 03_8 | the variance is 3n/4 for every number of copiers (`the_estimate_is_unbiased_with_variance_three_quarters_per_person`); each answer's 3/16 for both truths |
+| A sample adds who gets picked | 03_9, 03_10 | `sampling_variance` = `direct_variance` + 3/(4n) for independent draws (`the_coins_add_three_quarters_over_n_to_the_sampling_variance`); without replacement from the whole class that term is 0 |
+| The eight classes are real, not chosen | 03_1, 03_2 and the card | seed 3, the first eight draws; the oracle replays them with NumPy |
+
 ## Planned chapters (computed now)
 
 | keys | values | for |

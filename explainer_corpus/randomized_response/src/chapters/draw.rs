@@ -128,6 +128,35 @@ pub fn arc(stage: &mut Stage<'_>, from: Vec3, to: Vec3, height: f64, color: Srgb
     stage.arena_mut().add(a)
 }
 
+/// One bar of a distribution (chapter 03): a flat bar `w` wide and `h` tall
+/// standing on `base_y`, centred on `x`. Detached.
+pub fn bar(stage: &mut Stage<'_>, color: Srgb, x: f64, base_y: f64, w: f64, h: f64) -> fmn::Result<Mob> {
+    let b = explainer_kit::rect(v(x - w / 2.0, base_y), w, h, flat(color, 0.9))?;
+    Ok(stage.arena_mut().add(b))
+}
+
+/// A thin ring of radius `r` in `color` (chapter 03's small rings around
+/// the students who copied), centred at `at`. Detached.
+pub fn outline(stage: &mut Stage<'_>, color: Srgb, at: Vec3, r: f64) -> Mob {
+    let o = Circle::new()
+        .radius(r)
+        .style(line_style(color, 2.0))
+        .build()
+        .moved_to(at);
+    stage.arena_mut().add(o)
+}
+
+/// An exact fraction in TeX: `\frac{a}{b}`, or `\tfrac` when `small`; a
+/// whole number plainly.
+pub fn tex_q(q: crate::model::Q, small: bool) -> String {
+    if q.den() == 1 {
+        q.num().to_string()
+    } else {
+        let cmd = if small { r"\tfrac" } else { r"\frac" };
+        format!("{cmd}{{{}}}{{{}}}", q.num(), q.den())
+    }
+}
+
 /// A coin's face as the grids write it.
 pub fn face(c: crate::model::Coin) -> &'static str {
     match c {
@@ -173,6 +202,22 @@ pub fn fade_in_lagged(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64, lag: f64) ->
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
     for &m in mobs {
         let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a)?);
+    }
+    let g = AnimationGroup::with_lag_ratio(stage.arena_mut(), anims, lag)?.with_run_time(rt);
+    stage.play(g)?;
+    Ok(())
+}
+
+/// Grow detached mobjects out of their `edge` (bars from the axis: `DOWN`),
+/// one after another, the whole taking `rt`.
+pub fn grow_lagged(stage: &mut Stage<'_>, mobs: &[Mob], edge: Vec3, rt: f64, lag: f64) -> fmn::Result<()> {
+    if mobs.is_empty() {
+        return Ok(());
+    }
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in mobs {
+        let a = fmn::animation::grow_from_edge(stage.arena_mut(), m, edge, None)?;
         anims.push(stage.prepare(a)?);
     }
     let g = AnimationGroup::with_lag_ratio(stage.arena_mut(), anims, lag)?.with_run_time(rt);

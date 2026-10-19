@@ -3,9 +3,9 @@
 Person's Answer".
 
 Run from this folder (`./x randomized_response facts-check` does, with numpy
-through uv):
+through uv; chapter 03's eight classes need numpy):
 
-    python3 -I -B oracle.py
+    uv run --no-project --with numpy python3 -I -B oracle.py
 
 stdout: one `KEY<TAB>VALUE` line per fact, the same keys `survey facts` prints
 (src/facts.rs), in the rows of docs/fact-sheet.md: R-F (computed), R-X (the
@@ -31,7 +31,11 @@ coin outcomes for repeated asks):
   * repeated asks by itertools.product over every coin outcome of every ask,
     and RAPPOR's 75-of-100 example by exact binomial likelihoods (big
     integers: 4^100 is no obstacle here);
-  * numpy.random parity is not needed: nothing in this video is sampled.
+  * chapter 03's eight real classes by numpy's own PCG64DXSM(3).random_raw(),
+    two bits a student looked up in the written-out rule table (the Rust side
+    draws through franken_manim's port of the same generator);
+  * the estimate's mean, its mean rounded up at zero, and the "one in k"
+    readings straight from the person-by-person distribution.
 """
 import math
 import sys
@@ -52,6 +56,9 @@ ASKS = 3
 RAPPOR = (75, 100)
 WORST_LISTED = 5
 MAX_ASKS = 10
+# Chapter 03's real classes: seed 3 (the chapter's number), eight draws.
+SEED = 3
+RUNS = 8
 
 # The rule, written out: (first coin, second coin) -> answer for someone who
 # copied, answer for someone who didn't; and what decided it.
@@ -385,6 +392,46 @@ def main():
     big_p = channel(t)[0]
     emit("R-F8.warner_extra", big_p * (1 - big_p) / (2 * big_p - 1) ** 2)
     check("coins = direct + Warner's term", coins_var == direct + big_p * (1 - big_p) / (2 * big_p - 1) ** 2)
+
+    # R-F13: chapter 03's eight real classes, replayed with numpy
+    import numpy as np
+    bits = np.random.PCG64DXSM(SEED)
+    yeses = []
+    for _ in range(RUNS):
+        raw = int(bits.random_raw())
+        yeses.append(sum(says(seat in COPIED_SEATS, OUTCOMES[(raw >> (2 * seat)) & 3]) for seat in range(n)))
+    estimates = [estimate(y, n, t) for y in yeses]
+    emit("R-F13.seed", SEED)
+    emit("R-F13.runs", RUNS)
+    emit("R-F13.yes", csv(yeses))
+    emit("R-F13.estimates", csv(estimates))
+    emit("R-F13.lowest", min(estimates))
+    emit("R-F13.highest", max(estimates))
+    emit("R-F13.on_four", sum(e == copiers for e in estimates))
+    emit("R-F13.below_zero", sum(e < 0 for e in estimates))
+
+    # R-F14: the exact distribution, read for chapter 03
+    est_of = lambda y: estimate(y, n, t)
+    mean_est = sum(p * est_of(y) for y, p in enumerate(dist))
+    check("the estimate averages the true count", mean_est == copiers)
+    emit("R-F14.estimate_mean", mean_est)
+    emit("R-F14.outcomes_trillions", total // 10 ** 12)
+    nearest = lambda q: math.floor(Fraction(q) + Fraction(1, 2))
+    emit("R-F14.one_in.exactly", nearest(1 / exactly))
+    emit("R-F14.one_in.negative", nearest(1 / negative))
+    clamped = sum(p * max(est_of(y), 0) for y, p in enumerate(dist))
+    check("rounding negatives up raises the average", clamped > mean_est)
+    emit("R-F14.clamp_at", 0)
+    emit("R-F14.clamped_mean", clamped)
+    emit("R-F14.clamped_mean_2dp", f"{float(clamped):.2f}")
+    answer_var = p_yes(True) * (1 - p_yes(True))
+    check("both truths' answers vary alike", answer_var == p_yes(False) * (1 - p_yes(False)))
+    check("twenty answers make the count's variance", answer_var * n == var)
+    emit("R-F14.answer_variance", answer_var)
+    emit("R-F14.sd_rounded", round(math.sqrt(est_var)))
+    cost = coins_var / direct
+    check("almost six: just under its nearest whole number", nearest(cost) > cost)
+    emit("R-F14.cost_rounded", nearest(cost))
 
     # R-F9: asking again
     rep = repeated(ASKS)

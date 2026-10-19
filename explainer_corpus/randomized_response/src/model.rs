@@ -337,6 +337,15 @@ impl Channel {
         (p * (Q::ONE - p)).checked_div(self.truth * self.truth)
     }
 
+    /// The variance of one person's answer (1 for yes, 0 for no) when their
+    /// true answer is `copied`: p(1 − p) for their chance p of a yes. It is
+    /// the same for both truths, (1 − t²)/4 (the tests check), which is why a
+    /// fixed class's scatter does not depend on who copied.
+    pub fn answer_variance(self, copied: bool) -> Q {
+        let p = self.p_said(copied, true);
+        p * (Q::ONE - p)
+    }
+
     /// Warner's 1965 extra variance term, P(1 − P)/(2P − 1)², for the spinner
     /// chance P that gives this rule's answer chances (P = the chance of a
     /// yes from someone who copied); the formula as the secondary sources in
@@ -561,6 +570,36 @@ pub fn variance(dist: &[Q]) -> Q {
         .fold(Q::ZERO, |m, (y, &p)| m + Q::int((y * y) as i128) * p);
     let m = mean(dist);
     square - m * m
+}
+
+/// The estimate's mean over a distribution of yes counts for a class of
+/// `dist.len() − 1`: each count's [`undo`] estimate, weighted by its chance.
+pub fn estimate_mean(dist: &[Q]) -> Q {
+    let n = dist.len().saturating_sub(1);
+    dist.iter()
+        .enumerate()
+        .fold(Q::ZERO, |m, (y, &p)| m + undo(y, n)[2] * p)
+}
+
+/// The same mean with every negative estimate rounded up to 0: what a
+/// survey that "fixed" impossible counts would report on average. It is
+/// above [`estimate_mean`] whenever a negative estimate can happen.
+pub fn clamped_mean(dist: &[Q]) -> Q {
+    let n = dist.len().saturating_sub(1);
+    dist.iter()
+        .enumerate()
+        .fold(Q::ZERO, |m, (y, &p)| m + undo(y, n)[2].max(Q::ZERO) * p)
+}
+
+/// One class's coins read from one raw 64-bit draw of a seeded generator:
+/// student i's two coins are bits 2i and 2i + 1, read as an index into
+/// [`COIN_PAIRS`], so each of the four outcomes has chance 1/4 when the
+/// bits are fair. At most 32 students fit in one draw.
+pub fn coins_from_bits(raw: u64, n: usize) -> Result<Vec<(Coin, Coin)>, String> {
+    if n > 32 {
+        return Err(format!("{n} students need {} bits, a draw has 64", 2 * n));
+    }
+    Ok((0..n).map(|i| COIN_PAIRS[((raw >> (2 * i)) & 3) as usize]).collect())
 }
 
 /// The chance that the estimate from a class of `n` (2 · yes − n/2) is
@@ -965,6 +1004,52 @@ mod tests {
         assert_eq!(odds(Q::new(1, 5)), Some(Q::new(1, 4)));
         assert_eq!(odds(Q::new(3, 7)), Some(Q::new(3, 4)));
         assert_eq!(odds(Q::ONE), None);
+    }
+
+    /// Chapter 03's readings of the exact distribution: the estimate is right
+    /// on average for every number of copiers, and rounding its negatives up
+    /// to 0 pushes the average above the truth every time (a class can always
+    /// say no to everything); in the video's class, to 584948368349/
+    /// 137438953472, about 4.26. Each answer's variance is the same for both
+    /// truths, and over the truth's share squared it is the coins' variance.
+    #[test]
+    fn the_estimate_is_right_on_average_only_if_negatives_stay() {
+        for copiers in 0..=CLASS_SIZE {
+            let dist = yes_count_distribution(CLASS_SIZE, copiers).unwrap();
+            let truth = Q::int(copiers as i128);
+            assert_eq!(estimate_mean(&dist), truth, "{copiers} copied");
+            assert!(clamped_mean(&dist) > truth, "{copiers} copied");
+            assert!(p_negative_estimate(&dist) > Q::ZERO);
+        }
+        let dist = yes_count_distribution(CLASS_SIZE, COPIERS.len()).unwrap();
+        assert_eq!(clamped_mean(&dist), Q::new(584948368349, 137438953472));
+        // nobody to count: the only outcome is 0, nothing to round
+        let empty = yes_count_distribution(0, 0).unwrap();
+        assert_eq!((estimate_mean(&empty), clamped_mean(&empty)), (Q::ZERO, Q::ZERO));
+        for t in [(1, 4), (1, 2), (3, 4), (1, 1)] {
+            let c = Channel::new(Q::new(t.0, t.1)).unwrap();
+            assert_eq!(c.answer_variance(true), c.answer_variance(false));
+            let t = c.truth();
+            assert_eq!(c.answer_variance(true), (Q::ONE - t * t) / Q::int(4));
+            assert_eq!(c.coin_variance(), Some(c.answer_variance(true) / (t * t)));
+        }
+        assert_eq!(Channel::two_coins().answer_variance(true), Q::new(3, 16));
+    }
+
+    /// A raw draw's bits become coins two at a time, each pair an index into
+    /// the four outcomes; a class too big for one draw is refused.
+    #[test]
+    fn a_raw_draw_gives_each_student_two_bits() {
+        assert_eq!(coins_from_bits(0, 3).unwrap(), vec![COIN_PAIRS[0]; 3]);
+        assert_eq!(coins_from_bits(u64::MAX, 2).unwrap(), vec![COIN_PAIRS[3]; 2]);
+        // student i gets index i mod 4: bits 00, 01, 10, 11, 00, ...
+        let raw = (0..32u64).fold(0, |r, i| r | ((i % 4) << (2 * i)));
+        let coins = coins_from_bits(raw, 32).unwrap();
+        for (i, c) in coins.iter().enumerate() {
+            assert_eq!(*c, COIN_PAIRS[i % 4], "student {i}");
+        }
+        assert!(coins_from_bits(0, 33).is_err());
+        assert!(coins_from_bits(7, 0).unwrap().is_empty());
     }
 
     /// Planted negative: a prior that is not a chance is refused before it

@@ -31,8 +31,29 @@ not three in four; a no, one in thirteen; before any answer, one in five.
   It was independently source-reviewed (TanElm, Mail 3802; the two layout
   and domain repairs were then re-reviewed with no remaining findings, Mails
   3827 and 3829). This acceptance does not cover narration or the full video.
-- Chapters 03 to 05 are planned (the storyboard's arc); their numbers are
-  already computed and oracle-checked.
+- Chapter 03 (`03_the_price_of_the_coin`, Beads `.8.3`) is accepted by root
+  provisionally, for its source and visual criteria only (Mail 3932). It is
+  not fully accepted: a readability concern is still being measured (Mail
+  3934). The sample card is placed late in 03_10 and stays only until the
+  line ends plus 2 s. The acceptance rests on these native checks:
+  - central17 (Mail 3916): fmt, strict release all-target Clippy, 44 tests,
+    the build, 123 facts against the oracle (31 checks) and 105 glyph
+    sources with no failures;
+  - central18, after the row names moved inside the title-safe edge (Mail
+    3932): fmt, strict Clippy, the layout test, the build and a rerender of
+    this chapter, a silent draft of 2,338 frames (77.93 s) with no layout
+    findings and cues byte-identical to the draft before;
+  - frames viewed: the 10 cue ends, the prediction and its reveal (the
+    answer hidden until 35.2 s), the 10 glyph pages, then the moved labels
+    (22.5 s) and the closing card (77.0 s).
+
+  It was independently reviewed by FuchsiaHawk: the source in Mail 3899,
+  which reconstructed the seeded draws and the exact distribution and found
+  one card defect (fixed), and the rendered images in Mail 3926. This
+  acceptance does not cover narration, audio, continuous playback, 4K or the
+  full video.
+- Chapters 04 and 05 are planned (the storyboard's arc); chapter 04's numbers
+  are already computed and oracle-checked.
 
 The owner rejected the first wave's narration on 2026-10-19 (AGENTS.md,
 "Owner rejection and withdrawal"): `narration_units.json` and the pause plans
@@ -41,18 +62,19 @@ rejected method. No audio or full-video acceptance exists.
 
 | File | What it holds |
 |---|---|
-| `src/model.rs` | the mathematics: exact fractions, the coin rule, the class on average, every student's outcomes and the shares they give, odds, the yes count's exact distribution, sampling variance, repeated and memoized answers |
-| `src/facts.rs` | every number the video shows or says (105 keys), three pinned to their sources |
-| `oracle.py` | the same numbers by independent methods (standard library only), 26 cross-checks |
+| `src/model.rs` | the mathematics: exact fractions, the coin rule, the class on average, every student's outcomes and the shares they give, odds, the yes count's exact distribution and the estimate's mean with and without rounding negatives up, a class's coins from one seeded draw, sampling variance, repeated and memoized answers |
+| `src/facts.rs` | every number the video shows or says (123 keys), three pinned to their sources; chapter 03's eight seeded classes (`runs`) |
+| `oracle.py` | the same numbers by independent methods (the standard library, and NumPy to replay the seeded classes), 31 cross-checks |
 | `src/chapters/the_coin.rs` | chapter 01's scene |
 | `src/chapters/what_a_yes_says.rs` | chapter 02's scene |
+| `src/chapters/the_price_of_the_coin.rs` | chapter 03's scene |
 | `src/chapters/draw.rs` | the video's shapes, playback, line timing and think time |
 | `docs/storyboard.md` | the words and pictures (the source of `script.tsv`), with each chapter's semantic pause plan |
 | `narration_units.json` | the lines in coherent takes for a later synthesis (text only for now) |
 | `docs/fact-sheet.md`, `docs/brief.md`, `docs/protected.tsv` | each number's source; the brief; the words every revision keeps |
 
 ```bash
-python3 -I -B oracle.py                                  # every number, and 26 cross-checks on stderr
+uv run --no-project --with numpy python3 -I -B oracle.py # every number, and 31 cross-checks on stderr
 python3 -I ../../tools/storyboard.py --check randomized_response
 python3 -I ../../tools/lint_script.py script.tsv
 ./x randomized_response facts-check                      # the Rust facts against the oracle (builds)
@@ -135,6 +157,15 @@ no vacant niche is claimed.
   adds the ordinary sampling term: n·p(1 − p) for the count, p(1 − p)/n for
   the share (`R-F8`). Drawing all N = n people without replacement adds
   nothing, which is the fixed class again. The two stay apart.
+- Chapter 03's eight classes are real draws, not a selection: one raw draw
+  each from `PCG64DXSM(3)`. Seed 3 is the chapter's number, fixed before any
+  draw was seen and the only seed tried. Two of the eight fall below zero,
+  more than the exact 9%; eight are too few to show rates, and the chapter
+  says so. Its chances come from the exact distribution over all 4²⁰
+  configurations, not from those draws.
+- Negative estimates are kept. The estimate is right on average only
+  because it can go below zero; rounding negatives up to 0 would raise its
+  average from 4 to 4.26 (`R-F14`).
 - Chapter 02's chances (3/7 after a yes, 1/13 after a no) belong to this
   class, where one in five copied. The factor of three is the rule's alone;
   the chance it leads to depends on the class: 0 if nobody copied, 3/4 if half

@@ -21,3 +21,13 @@
 02_9	A yes lifts the chance from one in five to three in seven. A no drops it to one in thirteen.
 02_10	The coin fixes the three times. Where the chance ends up depends on the class.
 02_11	An answer is deniable, but not meaningless. How well the survey counts is a separate question.
+03_1	Real coins don't land on average. Ask the class eight times with fresh coins.
+03_2	Their estimates run from minus four to fourteen. Only one lands on four.
+03_3	Now count every way the coins can land. Four to the twentieth, over a trillion, all equally likely.
+03_4	The estimates pile up around four, the true count.
+03_5	How often does a class land exactly on four?
+03_6	About one class in five. And about one in eleven goes below zero.
+03_7	Below zero means fewer yeses than the second coin alone gives on average. Rounding those up to zero would push the average above four.
+03_8	Every answer wobbles the same, whoever gives it. Twenty of them, doubled, miss by about four people.
+03_9	That's for this fixed class. Sample twenty from a big school instead, and who gets picked adds its own scatter.
+03_10	If one in five copied, matching a direct question's precision takes almost six times as many people.

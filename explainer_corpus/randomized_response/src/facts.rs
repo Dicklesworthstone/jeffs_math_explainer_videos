@@ -2,11 +2,13 @@
 //! printed for [`oracle.py`](../oracle.py) (`./x randomized_response
 //! facts-check`): the rows of docs/fact-sheet.md. R-F rows are computed,
 //! R-X rows are the edges of the always/never sentences. Rows R-F1 to R-F5
-//! are chapter 01's, R-F6, R-F11, R-F12 and R-X5 chapter 02's; R-F7 to R-F10
-//! belong to the planned chapters 03 and 04 (storyboard, "The arc"), computed
-//! now so the earlier chapters' promises are checked against them.
+//! are chapter 01's, R-F6, R-F11, R-F12 and R-X5 chapter 02's, R-F7, R-F8,
+//! R-F13 and R-F14 chapter 03's; R-F9 and R-F10 belong to the planned
+//! chapter 04 (storyboard, "The arc"), computed now so the earlier
+//! chapters' promises are checked against them.
 
 use explainer_kit::Facts;
+use explainer_kit::stats::Data;
 
 use crate::model::{
     self, ASKED_AGAIN, COIN_PAIRS, Channel, Class, Coin, MAX_ASKS, Q, Route, Tally, by_yeses, csv, likelihood_ratio,
@@ -18,6 +20,34 @@ const WORST_LISTED: u32 = 5;
 
 /// RAPPOR's example (its section 1): yeses out of answers, from an even prior.
 const RAPPOR_EXAMPLE: (u32, u32) = (75, 100);
+
+/// Chapter 03's real classes: the seed (the chapter's number, fixed before
+/// any draw was looked at, the only one tried) and how many classes.
+pub const SEED: u64 = 3;
+pub const RUNS: usize = 8;
+
+/// Chapter 03's eight classes, asked with fresh coins: one raw draw each
+/// from the seeded generator (NumPy's `PCG64DXSM(3).random_raw()`, which the
+/// oracle replays), read two bits a student.
+pub fn runs() -> Result<Vec<Vec<(Coin, Coin)>>, String> {
+    let mut data = Data::new(SEED);
+    (0..RUNS)
+        .map(|_| model::coins_from_bits(data.raw(), model::CLASS_SIZE))
+        .collect()
+}
+
+/// The nearest whole number to `q`, halves up: floor(q + 1/2) =
+/// floor((2q + 1) / 2), in exact arithmetic.
+fn nearest(q: Q) -> i128 {
+    let twice = Q::int(2) * q + Q::ONE;
+    twice.num().div_euclid(2 * twice.den())
+}
+
+/// The nearest whole "one in k" to a chance `p`: k = round(1/p).
+fn one_in(p: Q) -> Result<i128, String> {
+    let k = Q::ONE.checked_div(p).ok_or("a chance of 0 is not one in anything")?;
+    Ok(nearest(k))
+}
 
 /// The class's prior share of people who copied, as chapter 02 uses it.
 fn prior(class: &Class) -> Q {
@@ -238,7 +268,7 @@ pub fn facts() -> Result<Facts, String> {
     f.add("R-X5.posterior.yes_none_copied", none)?;
     f.add("R-X5.posterior.no_all_copied", all)?;
 
-    // chapter 03 (planned): how a real class of twenty scatters
+    // chapter 03: how a real class of twenty scatters
     let dist = model::yes_count_distribution(n, copiers)?;
     let (mean, var) = (model::mean(&dist), model::variance(&dist));
     f.add("R-F7.outcomes", (COIN_PAIRS.len() as i128).pow(n as u32))?;
@@ -263,7 +293,7 @@ pub fn facts() -> Result<Facts, String> {
     f.add("R-F7.p_negative", negative)?;
     f.add("R-F7.percent.negative", negative.percent())?;
 
-    // chapter 03 (planned): independent draws (with replacement, or from a
+    // chapter 03: independent draws (with replacement, or from a
     // large population) at the class's share
     let coins = model::sampling_variance(Channel::two_coins(), share, 1).ok_or("no sampling variance")?;
     let direct = model::direct_variance(share, 1);
@@ -282,6 +312,61 @@ pub fn facts() -> Result<Facts, String> {
         "R-F8.warner_extra",
         Channel::two_coins().warner_extra_variance().ok_or("no Warner term")?,
     )?;
+
+    // 03_1, 03_2: the class asked eight times, fresh coins from the seed
+    let mut yeses = Vec::with_capacity(RUNS);
+    for drawn in runs()? {
+        yeses.push(Tally::of(&a.class, &drawn)?.answers(true));
+    }
+    let estimates: Vec<Q> = yeses.iter().map(|&y| model::undo(y, n)[2]).collect();
+    f.add("R-F13.seed", SEED)?;
+    f.add("R-F13.runs", RUNS)?;
+    f.add("R-F13.yes", csv(&yeses))?;
+    f.add("R-F13.estimates", csv(&estimates))?;
+    let lowest = estimates.iter().copied().min().ok_or("no runs")?;
+    let highest = estimates.iter().copied().max().ok_or("no runs")?;
+    f.add("R-F13.lowest", lowest)?;
+    f.add("R-F13.highest", highest)?;
+    let truth = Q::int(copiers as i128);
+    f.add("R-F13.on_four", estimates.iter().filter(|&&e| e == truth).count())?;
+    f.add("R-F13.below_zero", estimates.iter().filter(|&&e| e < Q::ZERO).count())?;
+
+    // 03_3 to 03_10: the exact distribution read for the scene
+    let estimate_mean = model::estimate_mean(&dist);
+    if estimate_mean != truth {
+        return Err(format!(
+            "the estimate averages {estimate_mean}, not the {truth} who copied"
+        ));
+    }
+    f.add("R-F14.estimate_mean", estimate_mean)?;
+    let configurations = (COIN_PAIRS.len() as i128).pow(n as u32);
+    f.add("R-F14.outcomes_trillions", configurations / 10i128.pow(12))?;
+    f.add("R-F14.one_in.exactly", one_in(exactly)?)?;
+    f.add("R-F14.one_in.negative", one_in(negative)?)?;
+    let clamped = model::clamped_mean(&dist);
+    if clamped <= estimate_mean {
+        return Err(format!("rounding negatives up leaves the average at {clamped}"));
+    }
+    f.add("R-F14.clamp_at", Q::ZERO)?;
+    f.add("R-F14.clamped_mean", clamped)?;
+    f.add("R-F14.clamped_mean_2dp", format!("{:.2}", clamped.to_f64()))?;
+    let answer_variance = Channel::two_coins().answer_variance(true);
+    if answer_variance != Channel::two_coins().answer_variance(false) || answer_variance * Q::int(n as i128) != var {
+        return Err(format!(
+            "{answer_variance} an answer does not add up to the count's {var}"
+        ));
+    }
+    f.add("R-F14.answer_variance", answer_variance)?;
+    let sd = var_estimate.to_f64().sqrt();
+    f.add("R-F14.sd_rounded", sd.round())?;
+    // "almost six times as many people": the total cost, just under its
+    // nearest whole number
+    let cost = coins / direct;
+    let rounded = nearest(cost);
+    if Q::int(rounded) <= cost {
+        return Err(format!("{cost} is not just under {rounded}"));
+    }
+    f.add("R-F14.cost_rounded", rounded)?;
 
     // chapter 04 (planned): one person asked three times, fresh coins
     let asks = ASKED_AGAIN;
@@ -441,6 +526,24 @@ mod tests {
             ("R-F8.cost_2dp", "5.69"),
             ("R-F8.added_cost", "75/16"),
             ("R-F8.warner_extra", "3/4"),
+            ("R-F13.seed", "3"),
+            ("R-F13.runs", "8"),
+            ("R-F13.yes", "3,5,12,10,9,7,4,8"),
+            ("R-F13.estimates", "-4,0,14,10,8,4,-2,6"),
+            ("R-F13.lowest", "-4"),
+            ("R-F13.highest", "14"),
+            ("R-F13.on_four", "1"),
+            ("R-F13.below_zero", "2"),
+            ("R-F14.estimate_mean", "4"),
+            ("R-F14.outcomes_trillions", "1"),
+            ("R-F14.one_in.exactly", "5"),
+            ("R-F14.one_in.negative", "11"),
+            ("R-F14.clamp_at", "0"),
+            ("R-F14.clamped_mean", "584948368349/137438953472"),
+            ("R-F14.clamped_mean_2dp", "4.26"),
+            ("R-F14.answer_variance", "3/16"),
+            ("R-F14.sd_rounded", "4"),
+            ("R-F14.cost_rounded", "6"),
             ("R-F9.outcomes", "64"),
             ("R-F9.by_yeses.didnt", "27,27,9,1"),
             ("R-F9.by_yeses.copied", "1,9,27,27"),

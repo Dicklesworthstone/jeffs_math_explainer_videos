@@ -17,7 +17,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     arc, disc, face, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, lane, pause, ring, say, square, swap,
-    think,
+    tex_q, think,
 };
 use crate::facts::{self, Average};
 use crate::model::{self, COIN_PAIRS, Q};
@@ -96,17 +96,6 @@ fn row_y(r: usize) -> f64 {
 /// Where a chance `q` sits on the chance line.
 fn chance_x(q: Q) -> f64 {
     LINE_X0 + LINE_W * q.to_f64()
-}
-
-/// An exact fraction in TeX: `\frac{a}{b}`, or `\tfrac` when `small`; a
-/// whole number plainly.
-fn tex_q(q: Q, small: bool) -> String {
-    if q.den() == 1 {
-        q.num().to_string()
-    } else {
-        let cmd = if small { r"\tfrac" } else { r"\frac" };
-        format!("{cmd}{{{}}}{{{}}}", q.num(), q.den())
-    }
 }
 
 /// A ratio as odds are written, "1 : 4".
