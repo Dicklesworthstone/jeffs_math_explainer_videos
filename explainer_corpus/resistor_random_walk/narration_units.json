@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "script_sha256": "9d2c7c311acf46b380b3c08df957284caf5a25f4c75fb89aad2183985e2c6d16",
+  "units": [
+    {
+      "id": "01u1",
+      "line_ids": [
+        "01_1",
+        "01_2",
+        "01_3"
+      ],
+      "text": "Identical wires join four junctions, doubled in two places. A battery holds the top at one volt and the bottom at zero. Current in equals current out, so a middle junction's voltage is the average of the voltages at the far ends of its four wires. On the left, one, one, two fifths and zero average to three fifths."
+    },
+    {
+      "id": "01u2",
+      "line_ids": [
+        "01_4",
+        "01_5",
+        "01_6"
+      ],
+      "text": "Now forget the battery. A walker at the left junction picks one of its four wires at random, and walks on until it reaches the top or the bottom. Its routes never run out, so look one step ahead. Its chance of reaching the top first is the average of its chances from the far ends of its four wires. From the top the chance is one, and from the bottom it's zero. So what is it from the left junction?"
+    },
+    {
+      "id": "01u3",
+      "line_ids": [
+        "01_7",
+        "01_8"
+      ],
+      "text": "Three fifths again. One rule, the same top and bottom, and only one solution. So the voltage and the chance must agree. The walker is a model, not a claim about electrons. The two numbers agree because they solve the same equations."
+    }
+  ]
+}

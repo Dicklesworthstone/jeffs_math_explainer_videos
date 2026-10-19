@@ -1,0 +1,9 @@
+# Protected facts: the words every revision must keep (./x resistor_random_walk protected checks they are still there).
+# One per line: <phrase> TAB <where> TAB <why>. <where> is a comma list of script, captions,
+# description, title, or empty for "anywhere".
+doubled in two places	script	the one tiny network the whole video keeps: identical wires, a pair side by side twice (R-F1.doubled)
+the average of the voltages at the far ends of its four wires	script	the electrical rule, Ohm's law and Kirchhoff's current law at a middle junction (R-F2)
+one, one, two fifths and zero average to three fifths	script	the worked check on the drawn network (R-F2.left.far_ends, R-F2.left.average)
+the average of its chances from the far ends of its four wires	script	the same rule in the walk, by its first step (R-F3.left.far_ends)
+only one solution	script	why the voltage and the chance must agree: uniqueness, not coincidence (R-X1, R-X2)
+The walker is a model, not a claim about electrons	script	the slate's scope limit: the walk models the equations, not charge in a wire

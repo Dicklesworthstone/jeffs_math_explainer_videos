@@ -1,0 +1,17 @@
+[package]
+name = "resistor_random_walk"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "A Resistor Network Is Secretly Answering a Probability Question: a 3Blue1Brown-style explainer rendered end to end by franken_manim and narrated by FrankenTTS"
+
+[[bin]]
+name = "resistor"
+path = "src/main.rs"
+
+# franken_manim's pin, its reviewed patches and the release profile come from
+# the corpus workspace (the root Cargo.toml).
+[dependencies]
+fmn.workspace = true
+explainer_kit.workspace = true
+explainer_score.workspace = true

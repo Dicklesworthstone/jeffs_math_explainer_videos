@@ -1,0 +1,28 @@
+# Brief — A Resistor Network Is Secretly Answering a Probability Question
+
+Values I chose without the owner are marked `(default)`.
+
+| Field | Value |
+|---|---|
+| Topic (owner's words) | "A resistor network is secretly answering a probability question" (slate C14, `docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md`; selected 2026-10-19 under the owner's delegated next-five selection; catalog `resistor_random_walk`, revision `v1-michael-20261019`) |
+| One-sentence takeaway | Hold the top of a resistor network at one volt and the bottom at zero, and every junction's voltage equals the chance that a random walker starting there, choosing wires in proportion to their conductance, reaches the top before the bottom, because both numbers obey the same averaging rule with the same ends, and that rule has only one solution. |
+| The promise | In the first 20 seconds: a small circuit with a battery, then the same wires with a walker. Two different questions, one about electricity and one about chance, and the same answer for a reason you can see. |
+| Vocabulary (one word per idea) | junction, wire, far end, the top / the bottom, middle junction, voltage / volt, current, walker, chance, average, rule, solution (storyboard, "Vocabulary") |
+| Protected facts | `docs/protected.tsv` |
+| The hook (where the obvious tool fails) | Following the walker's routes: there is no end to them, since it can bounce between the middle junctions for as long as it likes (still going after n steps with chance 1/4ⁿ, `R-F3.still_walking`). The rule one step ahead needs no routes. On the electrical side, after combining the side-by-side pairs the network is a Wheatstone bridge, which the school series-and-parallel shortcut cannot reduce; a later chapter, not the opening, may show that `(default)`. |
+| The one picture | The same diamond of junctions twice: values slide along a junction's wires into it and average to its own value, in the circuit and in the walk, with the same numbers. |
+| Worked example | Identical wires: two from the top to the left, one top to right, one left to right, one left to bottom, two right to bottom. Left = (1 + 1 + right + 0)/4 and right = (1 + left + 0 + 0)/4, so left = 3/5, right = 2/5, both as voltages and as chances (`R-F2`, `R-F3`). |
+| Audience | a curious 14-year-old with school algebra; a programmer who could implement it afterwards; a mathematician who finds nothing wrong (default, plan §1.2) |
+| Length target | every chapter at most 85 s. Chapter 01: 179 words; `tools/storyboard.py` estimates 74.7 s; the scratch-voice measure (2.6 words a second, 0.4 s a line, 0.82 s thought gaps, a 5 s think window, 1.8 s tail) gives about 84 s. Not rendered or narrated in this lane; the central draft measures it |
+| Format | 3840×2160 @ 60 fps, H.264, AAC 256k, −16 LUFS target with a −1.0 dBTP ceiling; quieter when the ceiling binds, never loudnormed (default) |
+| Voice | FrankenTTS `michael` with the owner's English accent, as for every published cut; no audio exists for this revision. The owner rejected the first-wave narration on 2026-10-19 (AGENTS.md): its method is not carried into synthesis for this video until the central narration lane is requalified |
+| Look | 3Blue1Brown: dark background, role colors, continuous motion (default) |
+| References | Doyle and Snell, *Random Walks and Electric Networks* (arXiv math/0001057, version 3.02; text extracted 2026-10-19 UTC; statements and page anchors in `README.md`, "Sources"). Kakutani 1944, Kirchhoff 1847, Nash-Williams and Lyons and Peres: **not read** for this slice |
+| Competing explanations | Four web searches on 2026-10-19 UTC found written treatments (lecture slides and notes) and one YouTube lecture on 2-D recurrence by its title only; no video was watched and YouTube's own search was not used (`README.md`, "Competing treatments"). Whether a close animated treatment exists is **unknown** |
+| Owner script supplied? | no |
+| Oracle(s) | `oracle.py`: voltages by Kirchhoff's spanning-forest count, chances and determinants by Cramer's rule and permutation sums, still-walking chances as the product along the one route that stays in the middle; cross-checks on stderr (that product against the closed form 1/4ⁿ, (forests against Cramer on 300 random networks, the opening's route sum as a geometric series, a seeded simulation of 200,000 walkers, numpy's float solve) |
+| Pronunciations | no chapter-01 line says a name or a term of art; `lexicon.json` is empty on purpose and lists the names a later chapter would need to look up |
+| Render host | the build host (`project.env`); BlueSalmon (Beads actor SageBasin) runs the combined native build, tests and bounded draft for the second wave; this lane compiled nothing |
+| franken_manim | the workspace pin (`Cargo.toml`, `FRANKEN_MANIM.pin`); not compiled by this lane |
+| Out of scope | infinite networks and Pólya's recurrence theorem, effective resistance and escape probabilities, the probabilistic reading of current (Doyle and Snell §1.3.3), Rayleigh monotonicity, continuous Brownian motion and the Dirichlet problem (Kakutani), any claim about how charge moves in a metal |
+| Assumptions | (1) Ideal circuit: each wire a resistor of the same conductance, an ideal battery, steady currents; two wires side by side are two resistors in parallel (default). (2) The walker steps along a wire chosen with chance proportional to its conductance, here uniformly over identical wires, and both ends absorb it (Doyle and Snell §1.3.1). (3) "Only one solution" is claimed for finite networks of positive conductances whose middle junctions all reach the top or the bottom by wires; the island (`R-X2`) is the counterexample when that fails |

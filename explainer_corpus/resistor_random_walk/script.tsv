@@ -1,0 +1,9 @@
+# resistor_random_walk: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	Identical wires join four junctions, doubled in two places. A battery holds the top at one volt and the bottom at zero.
+01_2	Current in equals current out, so a middle junction's voltage is the average of the voltages at the far ends of its four wires.
+01_3	On the left, one, one, two fifths and zero average to three fifths.
+01_4	Now forget the battery. A walker at the left junction picks one of its four wires at random, and walks on until it reaches the top or the bottom.
+01_5	Its routes never run out, so look one step ahead. Its chance of reaching the top first is the average of its chances from the far ends of its four wires.
+01_6	From the top the chance is one, and from the bottom it's zero. So what is it from the left junction?
+01_7	Three fifths again. One rule, the same top and bottom, and only one solution. So the voltage and the chance must agree.
+01_8	The walker is a model, not a claim about electrons. The two numbers agree because they solve the same equations.

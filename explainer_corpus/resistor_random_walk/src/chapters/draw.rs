@@ -1,0 +1,724 @@
+//! The video's look, shared by its chapters (storyboard, color roles): the
+//! network drawn as junctions and identical wires (a link of conductance k
+//! is k wires side by side), the battery, values that travel along wires,
+//! the think-time countdown, and line timing.
+//!
+//! Builders return detached mobjects (in the arena, not yet in the scene),
+//! like `Kit::text`: bring them in with an animation. Engine rules
+//! (`explainer_kit::kit`): one flat fill per mobject, no outline on filled
+//! shapes, short strokes.
+//!
+//! The playback and line-timing helpers are the Golay chapters' (accepted
+//! centrally), kept to the ones this video uses.
+
+use explainer_kit::narration::{frames_covering, wait_frames};
+use explainer_kit::{Kit, Palette, Script, Timed, v};
+use fmn::prelude::*;
+
+use crate::model::{BOTTOM, JUNCTIONS, LEFT, Network, Q, RIGHT, TOP};
+use crate::palette;
+
+/// A scene error carrying `message` (a missing phrase, a broken invariant).
+pub fn fail(message: String) -> fmn::Error {
+    fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(
+        message.into_boxed_str(),
+    )))
+}
+
+// ----------------------------------------------------------------- geometry
+
+/// Where each junction of the opening network sits, from its picture's
+/// centre, in the model's order (top, left, right, bottom): a diamond, the
+/// top above the bottom, the left and the right between them.
+pub const SPOTS: [[f64; 2]; JUNCTIONS] = [[0.0, 2.0], [-1.7, 0.0], [1.7, 0.0], [0.0, -2.0]];
+/// A junction's radius.
+pub const JUNCTION_R: f64 = 0.17;
+/// How far apart two wires side by side bow at their middle.
+pub const SPREAD: f64 = 0.2;
+/// A wire's stroke width.
+const WIRE_W: f64 = 4.0;
+/// How far a travelling value sits from its wire: a fraction's half height
+/// at [`TOKEN_SIZE`] and a margin, so the wire never crosses it.
+pub const TOKEN_GAP: f64 = 0.32;
+/// How far a middle junction's value sits from it, sideways.
+pub const LABEL_GAP: f64 = 0.55;
+/// How far the top's and the bottom's labels sit to their left.
+pub const END_LABEL_GAP: f64 = 0.95;
+/// The battery's wire, right of the picture's centre.
+pub const BATTERY_X: f64 = 3.1;
+/// Half the battery plates' widths, long and short, and their height off
+/// the centre line.
+const PLATE_HALF: [f64; 2] = [0.3, 0.15];
+const PLATE_Y: f64 = 0.14;
+/// A picture's name, above its top junction; its equation and notes, below
+/// its bottom junction.
+pub const NAME_DY: f64 = 2.8;
+pub const EQUATION_DY: f64 = -2.75;
+
+/// The text sizes: a junction's value, a value travelling along a wire, an
+/// averaging equation.
+pub const LABEL_SIZE: f64 = 38.0;
+pub const TOKEN_SIZE: f64 = 30.0;
+pub const EQUATION_SIZE: f64 = 40.0;
+
+// ------------------------------------------------------------------ styles
+
+/// A flat fill and no outline.
+pub fn flat(c: Srgb, o: f64) -> Style {
+    Style::default().fill(c, o).stroke(c, 0.0, 0.0)
+}
+
+/// A stroke and no fill.
+pub fn line_style(c: Srgb, w: f64) -> Style {
+    Style::default().fill(c, 0.0).stroke(c, w, 1.0)
+}
+
+/// A value as TeX: `\frac{3}{5}`, or the whole number.
+pub fn tex(q: Q) -> String {
+    match q.whole() {
+        Some(n) => n.to_string(),
+        None if q.numer() < 0 => format!(r"-\frac{{{}}}{{{}}}", -q.numer(), q.denom()),
+        None => format!(r"\frac{{{}}}{{{}}}", q.numer(), q.denom()),
+    }
+}
+
+/// A value as TeX inside a larger fraction: `\tfrac{2}{5}`.
+pub fn small_tex(q: Q) -> String {
+    tex(q).replace(r"\frac", r"\tfrac")
+}
+
+/// The averaging rule at one junction as TeX: its wires' far-end values
+/// over their count, equal to its value.
+pub fn equation(ends: &[Q], value: Q) -> String {
+    let terms: Vec<String> = ends.iter().map(|&q| small_tex(q)).collect();
+    format!(r"\frac{{{}}}{{{}}} = {}", terms.join(" + "), ends.len(), tex(value))
+}
+
+/// "1 volt", "0 volts".
+pub fn volts_text(q: Q) -> String {
+    if q == Q::ONE {
+        format!("{q} volt")
+    } else {
+        format!("{q} volts")
+    }
+}
+
+// --------------------------------------------------------------- the network
+
+/// One identical wire: the junctions it joins and the side it bows to (0
+/// for a wire alone; ±1, in half-spreads, for a pair side by side).
+pub struct Strand {
+    pub mob: Mob,
+    pub a: usize,
+    pub b: usize,
+    pub side: f64,
+}
+
+/// The network drawn around `centre`: its junctions (by index) and its
+/// identical wires, in the order `Network::far_ends` lists them.
+pub struct Picture {
+    pub centre: [f64; 2],
+    pub junctions: Vec<Mob>,
+    pub strands: Vec<Strand>,
+}
+
+/// The unit normal to the left of the straight line from junction `a` to
+/// junction `b`.
+fn normal(a: usize, b: usize) -> [f64; 2] {
+    let (dx, dy) = (SPOTS[b][0] - SPOTS[a][0], SPOTS[b][1] - SPOTS[a][1]);
+    let len = dx.hypot(dy).max(1e-9);
+    [-dy / len, dx / len]
+}
+
+/// `p` moved `r` towards `q`.
+fn towards(p: Vec3, q: Vec3, r: f64) -> Vec3 {
+    let (dx, dy) = (q[0] - p[0], q[1] - p[1]);
+    let len = dx.hypot(dy).max(1e-9);
+    v(p[0] + r * dx / len, p[1] + r * dy / len)
+}
+
+impl Picture {
+    /// Junction `x`'s centre.
+    pub fn spot(&self, x: usize) -> Vec3 {
+        v(self.centre[0] + SPOTS[x][0], self.centre[1] + SPOTS[x][1])
+    }
+
+    /// The middle of a strand, bowed to its side.
+    pub fn mid(&self, s: &Strand) -> Vec3 {
+        self.bowed_mid(s.a, s.b, s.side)
+    }
+
+    /// The middle of a wire from `a` to `b` bowed `side` half-spreads to
+    /// the left of that direction.
+    fn bowed_mid(&self, a: usize, b: usize, side: f64) -> Vec3 {
+        let (p, q, n) = (self.spot(a), self.spot(b), normal(a, b));
+        let bow = side * SPREAD / 2.0;
+        v((p[0] + q[0]) / 2.0 + bow * n[0], (p[1] + q[1]) / 2.0 + bow * n[1])
+    }
+
+    /// The strands at junction `x`, in the order `Network::far_ends(x)`
+    /// lists their far ends.
+    pub fn strands_at(&self, x: usize) -> Vec<&Strand> {
+        self.strands.iter().filter(|s| s.a == x || s.b == x).collect()
+    }
+
+    /// The wires at junction `x`.
+    pub fn wires_at(&self, x: usize) -> Vec<Mob> {
+        self.strands_at(x).iter().map(|s| s.mob).collect()
+    }
+
+    /// The wires that run side by side with another.
+    pub fn doubled(&self) -> Vec<Mob> {
+        self.strands.iter().filter(|s| s.side != 0.0).map(|s| s.mob).collect()
+    }
+
+    /// The first wire joining `x` and `y`.
+    pub fn strand_between(&self, x: usize, y: usize) -> fmn::Result<&Strand> {
+        self.strands
+            .iter()
+            .find(|s| (s.a, s.b) == (x, y) || (s.a, s.b) == (y, x))
+            .ok_or_else(|| fail(format!("no wire joins junctions {x} and {y}")))
+    }
+
+    /// The point beside strand `s` a fraction `t` of the way from junction
+    /// `from` to its far end, on the side the strand bows to (a wire alone:
+    /// its left, seen from `a` to `b`).
+    pub fn beside(&self, s: &Strand, from: usize, t: f64) -> Vec3 {
+        let to = if s.a == from { s.b } else { s.a };
+        let (p, m, q) = (self.spot(from), self.mid(s), self.spot(to));
+        let (a, b, u) = if t <= 0.5 {
+            (p, m, 2.0 * t)
+        } else {
+            (m, q, 2.0 * t - 1.0)
+        };
+        let n = normal(s.a, s.b);
+        let side = if s.side == 0.0 { 1.0 } else { s.side.signum() };
+        v(
+            a[0] + (b[0] - a[0]) * u + side * TOKEN_GAP * n[0],
+            a[1] + (b[1] - a[1]) * u + side * TOKEN_GAP * n[1],
+        )
+    }
+
+    /// Where junction `x`'s value is written: beside a middle junction, on
+    /// its outer side; left of the top and the bottom, `gap` away.
+    pub fn label_spot(&self, x: usize, gap: f64) -> Vec3 {
+        let p = self.spot(x);
+        match x {
+            LEFT => v(p[0] - LABEL_GAP, p[1]),
+            RIGHT => v(p[0] + LABEL_GAP, p[1]),
+            _ => v(p[0] - gap, p[1] + 0.05),
+        }
+    }
+
+    /// Where the picture's name goes.
+    pub fn name_spot(&self) -> Vec3 {
+        v(self.centre[0], self.centre[1] + NAME_DY)
+    }
+
+    /// Where the picture's averaging equation and notes go.
+    pub fn equation_spot(&self) -> Vec3 {
+        v(self.centre[0], self.centre[1] + EQUATION_DY)
+    }
+
+    /// The junctions and the wires, to move or fade together.
+    pub fn mobs(&self) -> Vec<Mob> {
+        let mut all: Vec<Mob> = self.strands.iter().map(|s| s.mob).collect();
+        all.extend(&self.junctions);
+        all
+    }
+}
+
+/// The network drawn around `centre`, junction `x` filled with `colors[x]`;
+/// a wire of whole conductance k is k identical wires side by side.
+/// Detached.
+pub fn picture(stage: &mut Stage<'_>, net: &Network, centre: [f64; 2], colors: &[Srgb]) -> fmn::Result<Picture> {
+    if net.size() != JUNCTIONS || colors.len() != JUNCTIONS {
+        return Err(fail(format!(
+            "the picture draws {JUNCTIONS} junctions, not {} with {} colors",
+            net.size(),
+            colors.len()
+        )));
+    }
+    let mut pic = Picture {
+        centre,
+        junctions: Vec::with_capacity(JUNCTIONS),
+        strands: Vec::new(),
+    };
+    for w in net.wires() {
+        let k = w
+            .conductance
+            .whole()
+            .filter(|&k| k > 0)
+            .ok_or_else(|| fail(format!("the wire {}-{} is not a whole number of wires", w.a, w.b)))?;
+        for j in 0..k {
+            let side = (2 * j - (k - 1)) as f64;
+            let mid = pic.bowed_mid(w.a, w.b, side);
+            let (p, q) = (pic.spot(w.a), pic.spot(w.b));
+            let path = vec![towards(p, mid, JUNCTION_R), mid, towards(q, mid, JUNCTION_R)];
+            let mob = stage
+                .arena_mut()
+                .add(polyline(path).style(line_style(palette::wire(), WIRE_W)).build());
+            pic.strands.push(Strand {
+                mob,
+                a: w.a,
+                b: w.b,
+                side,
+            });
+        }
+    }
+    for (x, &color) in colors.iter().enumerate() {
+        let dot = Circle::new()
+            .radius(JUNCTION_R)
+            .style(flat(color, 1.0))
+            .build()
+            .moved_to(pic.spot(x));
+        pic.junctions.push(stage.arena_mut().add(dot));
+    }
+    Ok(pic)
+}
+
+/// The battery beside a picture: a wire from the top round to the right,
+/// down through the two plates (the long one, positive, towards the top),
+/// and back to the bottom. Detached.
+pub fn battery(stage: &mut Stage<'_>, centre: [f64; 2]) -> fmn::Result<Vec<Mob>> {
+    let at = |x: f64, y: f64| v(centre[0] + x, centre[1] + y);
+    let (top, bottom) = (SPOTS[TOP][1], SPOTS[BOTTOM][1]);
+    let paths = [
+        vec![at(JUNCTION_R, top), at(BATTERY_X, top), at(BATTERY_X, PLATE_Y)],
+        vec![
+            at(BATTERY_X - PLATE_HALF[0], PLATE_Y),
+            at(BATTERY_X + PLATE_HALF[0], PLATE_Y),
+        ],
+        vec![
+            at(BATTERY_X - PLATE_HALF[1], -PLATE_Y),
+            at(BATTERY_X + PLATE_HALF[1], -PLATE_Y),
+        ],
+        vec![at(BATTERY_X, -PLATE_Y), at(BATTERY_X, bottom), at(JUNCTION_R, bottom)],
+    ];
+    Ok(paths
+        .into_iter()
+        .map(|path| {
+            stage
+                .arena_mut()
+                .add(polyline(path).style(line_style(palette::wire(), WIRE_W)).build())
+        })
+        .collect())
+}
+
+/// One value per wire at junction `x` (`texts[i]` beside its `i`th wire,
+/// in that wire's far end's color), a little past the wire's middle from
+/// `x`. Detached.
+pub fn tokens(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    pic: &Picture,
+    x: usize,
+    texts: &[(String, Srgb)],
+) -> fmn::Result<Vec<Mob>> {
+    let strands = pic.strands_at(x);
+    if strands.len() != texts.len() {
+        return Err(fail(format!(
+            "junction {x} has {} wires but {} values",
+            strands.len(),
+            texts.len()
+        )));
+    }
+    let mut out = Vec::with_capacity(texts.len());
+    for (s, (src, color)) in strands.iter().zip(texts) {
+        out.push(kit.tex(stage, src, TOKEN_SIZE, *color, &[], pic.beside(s, x, 0.62))?);
+    }
+    Ok(out)
+}
+
+/// The values `values` as tokens (each in its value's color).
+pub fn value_texts(values: &[Q]) -> Vec<(String, Srgb)> {
+    values.iter().map(|&q| (tex(q), palette::value(q))).collect()
+}
+
+// --------------------------------------------------------------- playback
+
+/// Bring several detached mobjects in together with a fade, `rt` seconds.
+pub fn fade_in_all(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64) -> fmn::Result<()> {
+    if mobs.is_empty() {
+        return Ok(());
+    }
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in mobs {
+        let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a.rt(rt))?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
+/// Bring detached mobjects in one after another, the whole taking `rt`.
+pub fn fade_in_lagged(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64, lag: f64) -> fmn::Result<()> {
+    if mobs.is_empty() {
+        return Ok(());
+    }
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in mobs {
+        let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a)?);
+    }
+    let g = AnimationGroup::with_lag_ratio(stage.arena_mut(), anims, lag)?.with_run_time(rt);
+    stage.play(g)?;
+    Ok(())
+}
+
+/// Fade several mobjects out together, `rt` seconds.
+pub fn fade_out_all(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64) -> fmn::Result<()> {
+    if mobs.is_empty() {
+        return Ok(());
+    }
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in mobs {
+        stage.clear_updaters(m, true);
+        let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a.rt(rt))?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
+/// Flash several mobjects (the highlight role), together.
+pub fn flash_all(stage: &mut Stage<'_>, mobs: &[Mob], rt: f64) -> fmn::Result<()> {
+    if mobs.is_empty() {
+        return Ok(());
+    }
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in mobs {
+        let a = fmn::animation::indicate(stage.arena_mut(), m, 1.25, None)?;
+        anims.push(stage.prepare(a.rt(rt))?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
+/// Move several mobjects together by `(dx, dy)` over `rt` seconds.
+pub fn shift_all(stage: &mut Stage<'_>, mobs: &[Mob], dx: f64, dy: f64, rt: f64) -> fmn::Result<()> {
+    if mobs.is_empty() {
+        return Ok(());
+    }
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in mobs {
+        let a = m
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(rt),
+                ..AnimateArgs::default()
+            })?
+            .shift(v(dx, dy))?;
+        anims.push(stage.prepare(a)?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
+/// Move each mobject to its point, together, over `rt` seconds.
+pub fn move_all(stage: &mut Stage<'_>, moves: &[(Mob, Vec3)], rt: f64) -> fmn::Result<()> {
+    if moves.is_empty() {
+        return Ok(());
+    }
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &(m, to) in moves {
+        let a = m
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(rt),
+                ..AnimateArgs::default()
+            })?
+            .move_to(to, ORIGIN)?;
+        anims.push(stage.prepare(a)?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
+/// Turn each mobject to its color, together, over `rt` seconds.
+pub fn recolor(stage: &mut Stage<'_>, mobs: &[(Mob, Srgb)], rt: f64) -> fmn::Result<()> {
+    if mobs.is_empty() {
+        return Ok(());
+    }
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &(m, color) in mobs {
+        let a = m
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(rt),
+                ..AnimateArgs::default()
+            })?
+            .set_color(color)?;
+        anims.push(stage.prepare(a)?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
+/// Fade `old` out and the detached `new` in, in one move.
+pub fn swap(stage: &mut Stage<'_>, old: &[Mob], new: &[Mob], rt: f64) -> fmn::Result<()> {
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in old {
+        stage.clear_updaters(m, true);
+        let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a.rt(rt))?);
+    }
+    for &m in new {
+        let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a.rt(rt))?);
+    }
+    if anims.is_empty() {
+        return Ok(());
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
+/// Slide travelling values into junction `to` and let them vanish there.
+pub fn slide_in(stage: &mut Stage<'_>, tokens: &[Mob], to: Vec3, rt: f64) -> fmn::Result<()> {
+    let moves: Vec<(Mob, Vec3)> = tokens.iter().map(|&m| (m, to)).collect();
+    move_all(stage, &moves, rt)?;
+    fade_out_all(stage, tokens, 0.2)
+}
+
+/// Wait `seconds` (a beat of stillness after a reveal).
+pub fn pause(stage: &mut Stage<'_>, seconds: f64) -> fmn::Result<()> {
+    let fps = stage.scene().time().fps();
+    wait_frames(stage, frames_covering(seconds, fps))
+}
+
+/// Wait (if need be) until scene time `t`.
+pub fn wait_until(stage: &mut Stage<'_>, t: f64) -> fmn::Result<()> {
+    let now = stage.scene().time().to_f64();
+    if t > now {
+        let fps = stage.scene().time().fps();
+        wait_frames(stage, frames_covering(t - now, fps))?;
+    }
+    Ok(())
+}
+
+// ------------------------------------------------------------ line timing
+
+/// Words a second for a line with no narrator (visual-only renders), as the
+/// kit's scratch voice estimates them.
+const SILENT_WPS: f64 = 2.6;
+
+/// A line being spoken: when it began, how long it runs and where its
+/// sentences start, so a picture can land on the phrase it illustrates. A
+/// phrase's moment is its sentence's start, as the narrator measured it,
+/// plus its share of that sentence's characters (the voice reads at a
+/// nearly even rate inside a sentence; the pauses fall between them); the
+/// narrated draft's cue sheets check the result.
+pub struct Spoken {
+    pub id: String,
+    pub start: f64,
+    pub len: f64,
+    text: String,
+    /// Each sentence's first character and its start, seconds into the line.
+    sentences: Vec<(usize, f64)>,
+}
+
+/// The character each sentence of `text` starts at: after a `.`, `?` or
+/// `!` and its space, as the narrator splits a line.
+fn sentence_offsets(text: &str) -> Vec<usize> {
+    let chars: Vec<char> = text.chars().collect();
+    let mut out = vec![0];
+    for (i, pair) in chars.windows(2).enumerate() {
+        if matches!(pair[0], '.' | '?' | '!') && pair[1] == ' ' && i + 2 < chars.len() {
+            out.push(i + 2);
+        }
+    }
+    out
+}
+
+/// Line `id`'s sentences, each with its start in seconds into the line:
+/// the narrator's `measured` onsets, one per sentence, or with no narrator
+/// (an empty list) each sentence's share of `len` by characters. A
+/// narrator that splits the line differently is an error, never a guess.
+fn timed_sentences(id: &str, text: &str, len: f64, measured: &[f64]) -> fmn::Result<Vec<(usize, f64)>> {
+    let offsets = sentence_offsets(text);
+    if measured.is_empty() {
+        let all = text.chars().count().max(1) as f64;
+        return Ok(offsets.into_iter().map(|at| (at, len * at as f64 / all)).collect());
+    }
+    if measured.len() != offsets.len() {
+        return Err(fail(format!(
+            "line {id} has {} sentences, but the narrator timed {}",
+            offsets.len(),
+            measured.len()
+        )));
+    }
+    Ok(offsets.into_iter().zip(measured.iter().copied()).collect())
+}
+
+/// Speak line `id` now (after the previous line), as `Kit::say`.
+pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
+    kit.say(stage, id)?;
+    let script = Script::parse(crate::SCRIPT).map_err(fail)?;
+    let text = script
+        .text(id)
+        .ok_or_else(|| fail(format!("narration line {id} is not in script.tsv")))?
+        .to_owned();
+    let words = text.split_whitespace().count() as f64;
+    let len = kit
+        .narrator
+        .as_ref()
+        .and_then(|n| n.length(id))
+        .unwrap_or(words / SILENT_WPS + 0.4);
+    let sentences = timed_sentences(id, &text, len, &kit.sentence_starts(id))?;
+    Ok(Spoken {
+        id: id.to_owned(),
+        start: stage.scene().time().to_f64(),
+        len,
+        text,
+        sentences,
+    })
+}
+
+impl Spoken {
+    /// When `phrase` begins (scene seconds).
+    pub fn at(&self, phrase: &str) -> fmn::Result<f64> {
+        let byte = self
+            .text
+            .find(phrase)
+            .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
+        let i = self.text[..byte].chars().count();
+        let all = self.text.chars().count().max(1);
+        let j = self.sentences.iter().rposition(|&(at, _)| at <= i).unwrap_or(0);
+        let (from, t0) = self.sentences[j];
+        let (to, t1) = self.sentences.get(j + 1).copied().unwrap_or((all, self.len));
+        let share = (i - from) as f64 / (to - from).max(1) as f64;
+        Ok(self.start + t0 + (t1 - t0) * share)
+    }
+
+    /// Wait (if need be) until `phrase` begins.
+    pub fn wait_for(&self, stage: &mut Stage<'_>, phrase: &str) -> fmn::Result<()> {
+        let t = self.at(phrase)?;
+        wait_until(stage, t)
+    }
+}
+
+// --------------------------------------------------------------- think time
+
+/// How long the viewer gets to think after a ⟨predict⟩ question, the
+/// narration silent (the owner's quiz rule: 4 to 6 s, with a visible
+/// countdown and "pause for more time").
+pub const THINK_S: f64 = 4.0;
+pub const THINK_R: f64 = 0.62;
+pub const PAUSE_NOTE: &str = "pause for more time";
+
+/// The prediction pause: let the question finish, mark the moment for the
+/// score, bring in a large "?" at `at` inside a gold ring that drains over
+/// [`THINK_S`] with "pause for more time" under it; at zero the ring and the
+/// note go. Returns the "?", which the scene clears with the answer.
+pub fn think(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
+    kit.hold(stage)?;
+    kit.mark(stage, "predict");
+    let q = kit.text(stage, "?", 80.0, Palette::hero(), at)?;
+    let note = kit.text(stage, PAUSE_NOTE, 18.0, Palette::dim(), v(at[0], at[1] - THINK_R - 0.3))?;
+    // the ring: what is left of the think time, clockwise from the top
+    let arc = move |f: f64| -> Vec<Vec3> {
+        let f = f.clamp(0.002, 1.0);
+        let n = (96.0 * f).ceil() as usize + 2;
+        (0..n)
+            .map(|i| {
+                let a = std::f64::consts::FRAC_PI_2 - std::f64::consts::TAU * f * i as f64 / (n - 1) as f64;
+                v(at[0] + THINK_R * a.cos(), at[1] + THINK_R * a.sin())
+            })
+            .collect()
+    };
+    let left = stage.add_value_tracker(1.0);
+    let ring = stage
+        .arena_mut()
+        .add(polyline(arc(1.0)).style(line_style(Palette::hero(), 4.0)).build());
+    let anchor = stage.arena_mut().add(VMobject::new());
+    let mut last = None;
+    stage.add_updater(
+        anchor,
+        move |s, _| {
+            let f = s.tracker_value(left).unwrap_or(0.0);
+            if last == Some(f) {
+                return;
+            }
+            let _ = s.set_points(ring, polyline(arc(f)).build().points());
+            last = Some(f);
+        },
+        true,
+    )?;
+    fade_in_all(stage, &[anchor, ring, q, note], 0.2)?;
+    let drain = left
+        .animate()
+        .set_anim_args(AnimateArgs {
+            run_time: Some(THINK_S),
+            rate_func: Some(fmn::core::rate::linear),
+            ..AnimateArgs::default()
+        })?
+        .set_value(0.0)?;
+    stage.play(drain)?;
+    fade_out_all(stage, &[anchor, ring, note], 0.2)?;
+    Ok(q)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::model;
+
+    #[test]
+    fn values_print_as_tex() {
+        assert_eq!(tex(Q::new(3, 5)), r"\frac{3}{5}");
+        assert_eq!(tex(Q::ONE), "1");
+        assert_eq!(tex(Q::new(-1, 2)), r"-\frac{1}{2}");
+        assert_eq!(small_tex(Q::new(2, 5)), r"\tfrac{2}{5}");
+        assert_eq!(volts_text(Q::ONE), "1 volt");
+        assert_eq!(volts_text(Q::ZERO), "0 volts");
+    }
+
+    /// The drawn order of a junction's wires is the order the model lists
+    /// their far ends in, so a value slides along the wire it belongs to.
+    #[test]
+    fn the_strands_follow_the_model_order() {
+        let net = model::opening().unwrap();
+        let mut order = Vec::new();
+        for w in net.wires() {
+            for _ in 0..w.conductance.whole().unwrap() {
+                order.push((w.a, w.b));
+            }
+        }
+        for x in net.middle() {
+            let drawn: Vec<usize> = order
+                .iter()
+                .filter(|&&(a, b)| a == x || b == x)
+                .map(|&(a, b)| if a == x { b } else { a })
+                .collect();
+            assert_eq!(drawn, net.far_ends(x).unwrap(), "junction {x}");
+        }
+    }
+
+    /// Two wires side by side bow apart, and every wire's ends sit outside
+    /// both junctions it joins.
+    #[test]
+    fn the_diamond_keeps_its_wires_apart() {
+        // the spots follow the model's junction order
+        assert!(SPOTS[TOP][1] > SPOTS[LEFT][1] && SPOTS[LEFT][1] > SPOTS[BOTTOM][1]);
+        assert!(SPOTS[LEFT][0] < SPOTS[TOP][0] && SPOTS[TOP][0] < SPOTS[RIGHT][0]);
+        let d = |p: [f64; 2], q: [f64; 2]| (p[0] - q[0]).hypot(p[1] - q[1]);
+        for (a, b) in [(TOP, LEFT), (LEFT, RIGHT), (RIGHT, BOTTOM)] {
+            assert!(d(SPOTS[a], SPOTS[b]) > 4.0 * JUNCTION_R + SPREAD);
+            let n = normal(a, b);
+            assert!((n[0].hypot(n[1]) - 1.0).abs() < 1e-12);
+        }
+        // a value beside a wire clears the wire next to it in a pair
+        const { assert!(TOKEN_GAP > SPREAD / 2.0 + 0.1) };
+        // the battery's plates clear the right junction's value
+        const { assert!(BATTERY_X - PLATE_HALF[0] > 1.7 + LABEL_GAP + 0.5) };
+    }
+
+    #[test]
+    fn sentences_split_like_the_narrator() {
+        assert_eq!(sentence_offsets("One. Two? Three."), [0, 5, 10]);
+        let timed = timed_sentences("x", "Ab. Cd.", 7.0, &[]).unwrap();
+        assert_eq!(timed[0], (0, 0.0));
+        assert!(timed_sentences("x", "Ab. Cd.", 7.0, &[0.0]).is_err());
+    }
+}
