@@ -83,6 +83,33 @@ mod tests {
         ("01_10", "double them", "R-F4.factor", "2"),
         ("01_10", "Four.", "R-F4.estimate", "4"),
         ("01_11", "three times as often", "R-F5.ratio.yes", "3"),
+        ("02_1", "all four coin outcomes", "R-F2.coin_outcomes", "4"),
+        ("02_1", "Twenty students", "R-F1.class", "20"),
+        ("02_1", "eighty outcomes", "R-F11.class_outcomes", "80"),
+        ("02_2", "three of their four", "R-F2.yes_outcomes.copied", "3"),
+        ("02_2", "of their four", "R-F2.coin_outcomes", "4"),
+        ("02_2", "in one", "R-F2.yes_outcomes.didnt", "1"),
+        ("02_2", "Three times as likely", "R-F5.ratio.yes", "3"),
+        ("02_3", "three times again", "R-F5.ratio.no", "3"),
+        ("02_5", "The four who copied", "R-F1.copied", "4"),
+        ("02_5", "have twelve", "R-F11.yes.copied", "12"),
+        ("02_5", "the sixteen others", "R-F11.others", "16"),
+        ("02_5", "others sixteen", "R-F11.yes.didnt", "16"),
+        ("02_6", "Twelve of", "R-F11.yes.copied", "12"),
+        ("02_6", "of twenty-eight", "R-F11.yes", "28"),
+        ("02_6", "three of the seven", "R-F11.average.yes.copied", "3"),
+        ("02_6", "the seven yeses", "R-F11.average.yes", "7"),
+        ("02_6", "Three in seven", "R-F11.posterior.yes", "3/7"),
+        ("02_6", "not three in four", "R-F2.p_yes.copied", "3/4"),
+        ("02_7", "three times the yeses", "R-F5.ratio.yes", "3"),
+        ("02_7", "four to one", "R-F11.outnumber", "4"),
+        ("02_8", "Four of the", "R-F11.no.copied", "4"),
+        ("02_8", "fifty-two no outcomes", "R-F11.no", "52"),
+        ("02_8", "one in thirteen", "R-F11.posterior.no", "1/13"),
+        ("02_9", "one in five", "R-F1.copied_share", "1/5"),
+        ("02_9", "three in seven", "R-F11.posterior.yes", "3/7"),
+        ("02_9", "one in thirteen", "R-F11.posterior.no", "1/13"),
+        ("02_10", "the three times", "R-F5.worst_ratio", "3"),
     ];
 
     #[test]
@@ -96,8 +123,8 @@ mod tests {
         }
         // and no line carries a number word the table above does not know
         let numbers = [
-            "one", "two", "three", "four", "five", "seven", "eight", "ten", "thirteen", "twenty", "half", "quarter",
-            "double", "twice", "second", "times",
+            "one", "two", "three", "four", "five", "seven", "eight", "ten", "twelve", "thirteen", "sixteen", "twenty",
+            "fifty", "eighty", "half", "quarter", "double", "twice", "second", "times",
         ];
         for (id, text) in script.lines() {
             let lower = text.to_lowercase();

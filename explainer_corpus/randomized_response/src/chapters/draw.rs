@@ -99,6 +99,43 @@ pub fn place(stage: &mut Stage<'_>, at: Vec3, w: f64, h: f64) -> fmn::Result<Mob
     Ok(stage.arena_mut().add(p))
 }
 
+/// One student's coin outcome (chapter 02): a flat square of side `side` in
+/// `color`, centred at `at`. Detached.
+pub fn square(stage: &mut Stage<'_>, color: Srgb, at: Vec3, side: f64) -> fmn::Result<Mob> {
+    let s = Rectangle::new()
+        .width(side)
+        .height(side)
+        .corner_radius(0.05)
+        .style(flat(color, 0.9))
+        .build()?
+        .moved_to(at);
+    Ok(stage.arena_mut().add(s))
+}
+
+/// An open arc from `from` to `to`, rising `height` at its middle, in
+/// `color` (a chance moving along chapter 02's line). Detached.
+pub fn arc(stage: &mut Stage<'_>, from: Vec3, to: Vec3, height: f64, color: Srgb) -> Mob {
+    let points: Vec<Vec3> = (0..=24)
+        .map(|i| {
+            let t = f64::from(i) / 24.0;
+            v(
+                from[0] + (to[0] - from[0]) * t,
+                from[1] + (to[1] - from[1]) * t + height * 4.0 * t * (1.0 - t),
+            )
+        })
+        .collect();
+    let a = polyline(points).style(line_style(color, 3.0)).build();
+    stage.arena_mut().add(a)
+}
+
+/// A coin's face as the grids write it.
+pub fn face(c: crate::model::Coin) -> &'static str {
+    match c {
+        crate::model::Coin::Heads => "H",
+        crate::model::Coin::Tails => "T",
+    }
+}
+
 /// One cell of the coin-outcome grid: a flat panel tinted by `color`.
 /// Detached.
 pub fn cell(stage: &mut Stage<'_>, color: Srgb, at: Vec3, w: f64, h: f64) -> fmn::Result<Mob> {

@@ -7,33 +7,52 @@ On average the survey hears seven yes and thirteen no from a class in which
 four copied, and gets back to four by taking away the second coin's yeses (a
 quarter of the class) and doubling what is left. Yet no answer is harmless:
 a yes is three times as likely from someone who copied, and asking the same
-person again with fresh coins multiplies that.
+person again with fresh coins multiplies that. Counted over every student's
+four coin outcomes, a yes means the giver copied with chance three in seven,
+not three in four; a no, one in thirteen; before any answer, one in five.
 
-**Status (2026-10-19, revision `v1-michael-20261019`, Beads
-`mx-video-program-program-87do.8.1`):** chapter 01 (`01_the_coin`) is written
-as source: facts, model, the independent oracle, the scene, its storyboard,
-script and narration units. Nothing in this crate has been compiled, tested,
-rendered, narrated or listened to by its lane; the orchestrator's combined
-native batch and frame review are pending. Chapters 02 to 05 are planned (the
-storyboard's arc); their numbers are already computed and oracle-checked.
+**Status (2026-10-19, revision `v1-michael-20261019`):**
+- Chapter 01 (`01_the_coin`, Beads `.8.1`) is committed at eb81fbc. Root
+  verified it (Mail 3759): fmt, strict Clippy, the tests, the release build,
+  facts against the oracle, glyph pages, and a silent 540p30 scratch draft of
+  81.1 s with zero layout findings, with the cue-end and question/reveal
+  frames viewed. It was also source-reviewed (Mail 3741; four low findings,
+  fixed). That verification covers the source, native checks and visuals;
+  root's Beads receipt for it is separate.
+- Chapter 02 (`02_what_a_yes_says`, Beads `.8.2`) is accepted by root for its
+  source, native and sampled-visual criteria only (Mail 3831):
+  - native checks: fmt, strict release all-target Clippy, 37 tests, the
+    build, and 105/105 facts exactly matching the oracle (26 checks);
+  - a silent draft of 2,531 frames (84.37 s) with no layout findings;
+  - frames viewed: all 11 cue ends, 7 glyph pages, the prediction and its
+    reveal, and both corrected cards (two lines, legible, clear of the
+    chance line's caption).
+
+  It was independently source-reviewed (TanElm, Mail 3802; the two layout
+  and domain repairs were then re-reviewed with no remaining findings, Mails
+  3827 and 3829). This acceptance does not cover narration or the full video.
+- Chapters 03 to 05 are planned (the storyboard's arc); their numbers are
+  already computed and oracle-checked.
+
 The owner rejected the first wave's narration on 2026-10-19 (AGENTS.md,
-"Owner rejection and withdrawal"): `narration_units.json` and the pause plan
+"Owner rejection and withdrawal"): `narration_units.json` and the pause plans
 are text inputs only, and nothing here is to be synthesized with the
-rejected method.
+rejected method. No audio or full-video acceptance exists.
 
 | File | What it holds |
 |---|---|
-| `src/model.rs` | the mathematics: exact fractions, the coin rule, the class on average, the yes count's exact distribution, sampling variance, repeated and memoized answers |
-| `src/facts.rs` | every number the video shows or says (83 keys), three pinned to their sources |
-| `oracle.py` | the same numbers by independent methods (standard library only), 21 cross-checks |
+| `src/model.rs` | the mathematics: exact fractions, the coin rule, the class on average, every student's outcomes and the shares they give, odds, the yes count's exact distribution, sampling variance, repeated and memoized answers |
+| `src/facts.rs` | every number the video shows or says (105 keys), three pinned to their sources |
+| `oracle.py` | the same numbers by independent methods (standard library only), 26 cross-checks |
 | `src/chapters/the_coin.rs` | chapter 01's scene |
+| `src/chapters/what_a_yes_says.rs` | chapter 02's scene |
 | `src/chapters/draw.rs` | the video's shapes, playback, line timing and think time |
-| `docs/storyboard.md` | the words and pictures (the source of `script.tsv`), with chapter 01's semantic pause plan |
-| `narration_units.json` | chapter 01's lines in three coherent takes for the central synthesis |
+| `docs/storyboard.md` | the words and pictures (the source of `script.tsv`), with each chapter's semantic pause plan |
+| `narration_units.json` | the lines in coherent takes for a later synthesis (text only for now) |
 | `docs/fact-sheet.md`, `docs/brief.md`, `docs/protected.tsv` | each number's source; the brief; the words every revision keeps |
 
 ```bash
-python3 -I -B oracle.py                                  # every number, and 21 cross-checks on stderr
+python3 -I -B oracle.py                                  # every number, and 26 cross-checks on stderr
 python3 -I ../../tools/storyboard.py --check randomized_response
 python3 -I ../../tools/lint_script.py script.tsv
 ./x randomized_response facts-check                      # the Rust facts against the oracle (builds)
@@ -116,6 +135,11 @@ no vacant niche is claimed.
   adds the ordinary sampling term: n·p(1 − p) for the count, p(1 − p)/n for
   the share (`R-F8`). Drawing all N = n people without replacement adds
   nothing, which is the fixed class again. The two stay apart.
+- Chapter 02's chances (3/7 after a yes, 1/13 after a no) belong to this
+  class, where one in five copied. The factor of three is the rule's alone;
+  the chance it leads to depends on the class: 0 if nobody copied, 3/4 if half
+  the class did (`R-F12`, `R-X5`). The likelihood ratio (3) and the chance
+  (3/7) are kept apart on screen.
 - "Three times, never more" is about what one answer says about its own
   giver under this rule. Fresh coins on each repeat multiply the worst ratio
   (3, 9, 27, …); a memoized answer does not, while the truth stays put.

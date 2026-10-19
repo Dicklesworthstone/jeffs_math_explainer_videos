@@ -42,11 +42,41 @@ Pinned rows also match a literal from the named primary source.
 | A yes is three times as likely from someone who copied, a no three times as likely from someone who didn't, never more | 01_11 and its card | `every_answer_is_at_most_three_times_likelier_and_the_dial_has_two_edges`: the edges are the direct question (no bound, `R-X1.direct.worst_ratio` unbounded) and a pure coin (no information, no estimate, `R-X1.pure_coin.*`) |
 | No answer is a confession | 01_11 | both answers happen under both truths (every ratio finite and positive); this is not "no information": the same line says three times |
 
+## Chapter 02: numbers
+
+| key | value | where | how it is obtained |
+|---|---|---|---|
+| `R-F2.coin_outcomes`, `R-F1.class` | 4, 20 | 02_1 "all four coin outcomes", "Twenty students" | as in chapter 01 |
+| `R-F11.class_outcomes` | 80 | 02_1 "eighty outcomes"; TeX 20 × 4 = 80 | every student with every coin outcome (`model::class_outcomes`), counted |
+| `R-F2.yes_outcomes.copied`, `.didnt` | 3, 1 | 02_2 "three of their four", "in one"; "yes: 3 of 4", "yes: 1 of 4"; 02_7 "3 each", "1 each" | the rule on each outcome |
+| `R-F5.ratio.yes`, `R-F5.ratio.no` | 3, 3 | 02_2 "Three times as likely", 02_3 "three times again", 02_7; "× 3" | as in chapter 01; **pinned**: claim 3.5 |
+| `R-F11.yes.copied`, `.yes.didnt`, `.yes` | 12, 16, 28 | 02_5 "twelve", "sixteen"; 02_6 "Twelve of twenty-eight"; TeX 12/28 | counted over the class's outcomes, checked against the drawn squares |
+| `R-F11.others`, `R-F11.outnumber` | 16, 4 | 02_5 "the sixteen others"; 02_7 "four to one"; "16 didn't copy" | the class |
+| `R-F11.posterior.yes` | 3/7 | 02_6 "Three in seven", 02_9; TeX = 3/7; the chance line | 12/28, checked equal to the average tally (`R-F6`) and to Bayes (`model::posterior`) |
+| `R-F2.p_yes.copied` | 3/4 | 02_6 "not three in four"; "3/4 is a copier's chance of saying yes" | the tempting answer, a likelihood, not a chance of having copied |
+| `R-F11.average.yes`, `.average.yes.copied` | 7, 3 | 02_6 "three of the seven yeses"; the note beside 3/7 | a quarter of 28 and 12: chapter 01's class on average, checked against its tally |
+| `R-F11.no.copied`, `.no.didnt`, `.no`, `.posterior.no` | 4, 48, 52, 1/13 | 02_8 "Four of the fifty-two", "one in thirteen"; TeX 4/52 = 1/13; the chance line | counted, checked as for a yes |
+| `R-F11.average.no`, `.average.no.copied` | 13, 1 | the storyboard's notes (not on screen) | a quarter of 52 and 4 |
+| `R-F1.copied_share` | 1/5 | 02_9 "one in five"; the gold mark, "the class: 4 of 20" | 4 of 20 |
+| `R-F12.odds.prior`, `.odds.yes`, `.odds.no` | 1/4, 3/4, 1/12 | 02_10 card "1 : 4 becomes 3 : 4 or 1 : 12" (their chances are the line's marks) | odds of the chances, checked to be the prior's times 3 and over 3 |
+| `R-F12.half_class`, `R-F12.posterior.yes_at_half` | 10, 3/4 | 02_6 card "It would be 3/4 only if half the class, 10, had copied" | a class of 20 with 10 who copied, counted |
+| `R-X5.posterior.yes_none_copied`, `.no_all_copied` | 0, 1 | 02_10 card "If nobody copied, a yes would mean 0" | the edges of "depends on the class": classes where nobody, or everybody, copied |
+| `R-F5.worst_ratio` | 3 | 02_10 "The coin fixes the three times" | as in chapter 01 |
+
+## Chapter 02: claims
+
+| claim | where | evidence |
+|---|---|---|
+| The ratio of three belongs to the coin, the chance to the class | 02_10 and its card | `counting_every_students_outcomes_gives_the_posteriors`: for every class of 20 (0 to 20 copiers) the counted share equals the closed form at that prior; the ratio stays 3 throughout |
+| 3/7, not 3/4 | 02_6 and its card | 3/4 = P(yes \| copied) is read off one copier's four outcomes; 3/7 = P(copied \| yes) needs the whole class's outcomes; the two are equal only at a prior of 1/2 (`R-F12.posterior.yes_at_half`) |
+| Deniable, but not meaningless | 02_11 | a yes leaves 4/7 that the giver did not copy, yet moves the chance from 1/5 to 3/7 |
+| Privacy and accuracy are separate questions | 02_11 | the factor of three is per answer (`R-F5`); the count's scatter is `R-F7`, `R-F8` (planned chapter 03) |
+
 ## Planned chapters (computed now)
 
 | keys | values | for |
 |---|---|---|
-| `R-F6.*` | among the 7 yeses on average 3 copied (3/7, 43%); among the 13 noes 1 (1/13, 8%); the class's share 1/5 (20%) | 02, what a yes says; counted and checked against Bayes (`model::posterior`) |
+| `R-F6.*` | among the 7 yeses on average 3 copied (3/7, 43%); among the 13 noes 1 (1/13, 8%); the class's share 1/5 (20%) | chapter 02 (above) counts them over outcomes; these are the same shares from chapter 01's average tally, checked against Bayes |
 | `R-F7.*` | 4²⁰ = 1,099,511,627,776 coin outcomes; yes count mean 7, variance 15/4; estimate variance 15 (3/4 a person), standard deviation 3.87; exactly 4 with chance 14028881103/68719476736 (20%); below zero with chance 25556466249/274877906944 (9%) | 03, the price of the coin |
 | `R-F8.*` | independent draws (with replacement, or from a large population) at a share of 1/5: one person's variance 4/25 asked directly, 91/100 with the coins, 91/16 ≈ 5.69 times in total; the coins' added 3/4 alone is 75/16 times (`R-F8.added_cost`); that term is Warner's P(1 − P)/(2P − 1)² at P = 3/4. Without replacement from N = n the sampling part is 0 (the fixed class) | 03, sampling from a population |
 | `R-F9.*`, `R-F10.*` | asked 3 times, 64 outcomes; by yeses 1, 9, 27, 27 (copied) against 27, 27, 9, 1; ratios 1/27, 1/3, 3, 27; three yeses leave 27/31 (87%); a majority is right 27/32 (84%); the worst ratio after 1 to 5 fresh asks 3, 9, 27, 81, 243; a memoized answer stays at 3 | 04, asking again |

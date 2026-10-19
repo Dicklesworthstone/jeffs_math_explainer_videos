@@ -1,10 +1,10 @@
 //! Every number the video shows or says, computed from [`crate::model`] and
 //! printed for [`oracle.py`](../oracle.py) (`./x randomized_response
 //! facts-check`): the rows of docs/fact-sheet.md. R-F rows are computed,
-//! R-X rows are the edges of the always/never sentences. Rows R-F6 to R-F10
-//! belong to the planned chapters 02 to 04 (storyboard, "The arc"); the
-//! model computes them now so the opening's promises are checked against
-//! them.
+//! R-X rows are the edges of the always/never sentences. Rows R-F1 to R-F5
+//! are chapter 01's, R-F6, R-F11, R-F12 and R-X5 chapter 02's; R-F7 to R-F10
+//! belong to the planned chapters 03 and 04 (storyboard, "The arc"), computed
+//! now so the earlier chapters' promises are checked against them.
 
 use explainer_kit::Facts;
 
@@ -19,7 +19,7 @@ const WORST_LISTED: u32 = 5;
 /// RAPPOR's example (its section 1): yeses out of answers, from an even prior.
 const RAPPOR_EXAMPLE: (u32, u32) = (75, 100);
 
-/// The class's prior share of people who copied, as chapter 02 will use it.
+/// The class's prior share of people who copied, as chapter 02 uses it.
 fn prior(class: &Class) -> Q {
     Q::new(class.copiers() as i128, class.size() as i128)
 }
@@ -161,7 +161,7 @@ pub fn facts() -> Result<Facts, String> {
         dwork_roth,
     )?;
 
-    // chapter 02 (planned): who the yeses and the noes are, on average
+    // chapter 02: who the yeses and the noes are, on average
     f.add("R-F6.yes.copied", t.said(true, true))?;
     f.add("R-F6.no.copied", t.said(true, false))?;
     let given_yes = Q::new(t.said(true, true) as i128, yes as i128);
@@ -177,6 +177,66 @@ pub fn facts() -> Result<Facts, String> {
     f.add("R-F6.percent.prior", share.percent())?;
     f.add("R-F6.percent.yes", given_yes.percent())?;
     f.add("R-F6.percent.no", given_no.percent())?;
+
+    // 02_1 to 02_8: every student with every coin outcome, counted
+    let c = model::class_outcomes(&a.class);
+    let outcomes = COIN_PAIRS.len() as u64;
+    let others = n - copiers;
+    f.add("R-F11.class_outcomes", c.iter().flatten().sum::<u64>())?;
+    f.add("R-F11.others", others)?;
+    f.add("R-F11.outnumber", Q::new(others as i128, copiers as i128))?;
+    for (said, name) in [(true, "yes"), (false, "no")] {
+        let [didnt, copied] = c[usize::from(said)];
+        f.add(&format!("R-F11.{name}.copied"), copied)?;
+        f.add(&format!("R-F11.{name}.didnt"), didnt)?;
+        f.add(&format!("R-F11.{name}"), didnt + copied)?;
+        let counted = model::share_who_copied(&c, said).ok_or("an answer no outcome gives")?;
+        let tallied = if said { given_yes } else { given_no };
+        let bayes = model::posterior(share, u32::from(said), 1);
+        if counted != tallied || counted != bayes {
+            return Err(format!(
+                "a {name}: counted {counted}, on average {tallied}, Bayes {bayes}"
+            ));
+        }
+        f.add(&format!("R-F11.posterior.{name}"), counted)?;
+        // the same outcomes on average: a quarter of them, one per outcome
+        if !copied.is_multiple_of(outcomes) || !(didnt + copied).is_multiple_of(outcomes) {
+            return Err(format!("the {name} outcomes do not divide into {outcomes}"));
+        }
+        let (on_average, from_copiers) = ((didnt + copied) / outcomes, copied / outcomes);
+        if on_average as usize != t.answers(said) || from_copiers as usize != t.said(true, said) {
+            return Err(format!(
+                "the {name} outcomes over {outcomes} are not the class on average"
+            ));
+        }
+        f.add(&format!("R-F11.average.{name}"), on_average)?;
+        f.add(&format!("R-F11.average.{name}.copied"), from_copiers)?;
+    }
+
+    // 02_9, 02_10: the odds the coin multiplies, and where they start
+    let prior_odds = model::odds(share).ok_or("everyone copied")?;
+    let yes_odds = model::odds(given_yes).ok_or("a yes is certain")?;
+    let no_odds = model::odds(given_no).ok_or("a no is certain")?;
+    if yes_odds != prior_odds * likelihood_ratio(true) || no_odds != prior_odds / likelihood_ratio(false) {
+        return Err(format!(
+            "odds {prior_odds} do not become {yes_odds} and {no_odds} by the ratios"
+        ));
+    }
+    f.add("R-F12.odds.prior", prior_odds)?;
+    f.add("R-F12.odds.yes", yes_odds)?;
+    f.add("R-F12.odds.no", no_odds)?;
+    // a class where half copied: there a yes means the copier's own chance
+    let half = n / 2;
+    let half_class = Class::new(n, &(0..half).collect::<Vec<usize>>())?;
+    let at_half = model::share_who_copied(&model::class_outcomes(&half_class), true).ok_or("no yes outcome")?;
+    f.add("R-F12.half_class", half)?;
+    f.add("R-F12.posterior.yes_at_half", at_half)?;
+    // the edges of "where the chance ends up depends on the class"
+    let none = model::share_who_copied(&model::class_outcomes(&Class::new(n, &[])?), true).ok_or("no yes")?;
+    let all_seats: Vec<usize> = (0..n).collect();
+    let all = model::share_who_copied(&model::class_outcomes(&Class::new(n, &all_seats)?), false).ok_or("no no")?;
+    f.add("R-X5.posterior.yes_none_copied", none)?;
+    f.add("R-X5.posterior.no_all_copied", all)?;
 
     // chapter 03 (planned): how a real class of twenty scatters
     let dist = model::yes_count_distribution(n, copiers)?;
@@ -343,6 +403,28 @@ mod tests {
             ("R-F6.posterior.no", "1/13"),
             ("R-F6.percent.yes", "43"),
             ("R-F6.percent.no", "8"),
+            ("R-F11.class_outcomes", "80"),
+            ("R-F11.others", "16"),
+            ("R-F11.outnumber", "4"),
+            ("R-F11.yes.copied", "12"),
+            ("R-F11.yes.didnt", "16"),
+            ("R-F11.yes", "28"),
+            ("R-F11.posterior.yes", "3/7"),
+            ("R-F11.average.yes", "7"),
+            ("R-F11.average.yes.copied", "3"),
+            ("R-F11.no.copied", "4"),
+            ("R-F11.no.didnt", "48"),
+            ("R-F11.no", "52"),
+            ("R-F11.posterior.no", "1/13"),
+            ("R-F11.average.no", "13"),
+            ("R-F11.average.no.copied", "1"),
+            ("R-F12.odds.prior", "1/4"),
+            ("R-F12.odds.yes", "3/4"),
+            ("R-F12.odds.no", "1/12"),
+            ("R-F12.half_class", "10"),
+            ("R-F12.posterior.yes_at_half", "3/4"),
+            ("R-X5.posterior.yes_none_copied", "0"),
+            ("R-X5.posterior.no_all_copied", "1"),
             ("R-F7.outcomes", "1099511627776"),
             ("R-F7.mean_yes", "7"),
             ("R-F7.var_yes", "15/4"),

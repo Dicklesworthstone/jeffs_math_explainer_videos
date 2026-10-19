@@ -14,14 +14,15 @@ more time") before the next beat answers it.
 ## The arc
 
 One invented class runs through the whole video: twenty students, four of
-whom copied homework, and one coin rule defined before any formula. Only
-chapter 01 is storyboarded and built; the rest is the plan its facts and
-model already compute (`src/model.rs`, `src/facts.rs`, `oracle.py`).
+whom copied homework, and one coin rule defined before any formula.
+Chapters 01 and 02 are storyboarded and built; the rest is the plan their
+facts and model already compute (`src/model.rs`, `src/facts.rs`,
+`oracle.py`).
 
 | Chapter | Spine | Status |
 |---|---|---|
-| `01_the_coin` | a direct question exposes whoever says yes; the coin rule (heads, the truth; tails, a second coin answers); the class routed through it on average: half tells the truth (two yes, eight no), the second coin answers the other ten (five and five); the survey sees seven yes and thirteen no; take away the second coin's yeses on average, a quarter of the class, and double what is left: four; but a yes is three times as likely from someone who copied | source written 2026-10-19 (EmeraldTern, `.8.1`); not compiled, rendered, narrated or reviewed |
-| `02_what_a_yes_says` *(planned)* | both answers' ratios, three for a yes and three for a no, counted from the four coin outcomes; among the seven yeses, on average three copied (3/7 against the class's 1/5), among the thirteen noes one (1/13); deniable is not meaningless | facts and model only |
+| `01_the_coin` | a direct question exposes whoever says yes; the coin rule (heads, the truth; tails, a second coin answers); the class routed through it on average: half tells the truth (two yes, eight no), the second coin answers the other ten (five and five); the survey sees seven yes and thirteen no; take away the second coin's yeses on average, a quarter of the class, and double what is left: four; but a yes is three times as likely from someone who copied | committed at eb81fbc (`.8.1`). Root verified it on 2026-10-19 (Mail 3759): fmt, strict Clippy, 30 tests, release build, facts against the oracle, glyph pages, and a silent 540p30 scratch draft of 81.1 s with zero layout findings, all 11 cue-end frames viewed and the prediction answer hidden through its hold. Source reviewed (Mail 3741, four low findings fixed). Not narrated; no audio or full-video acceptance |
+| `02_what_a_yes_says` | every student with all four coin outcomes, eighty in all; both answers' ratios of three counted from them; the prediction "a student says yes: what's the chance they copied?"; twelve of the twenty-eight yes outcomes are a copier's, three in seven (on average three of chapter 01's seven yeses), not three in four; why: copiers have three times the yeses but are outnumbered four to one; a no, four of fifty-two, one in thirteen; the chance moves from one in five, the coin fixing only the factor of three; deniable but not meaningless, and the count's accuracy is a separate question | `.8.2`, accepted by root on 2026-10-19 for source, native and sampled-visual criteria only (Mail 3831): fmt, strict release Clippy, 37 tests, the build and 105/105 facts against the oracle; a silent draft of 2,531 frames (84.37 s) with no layout findings; the 11 cue-end frames, 7 glyph pages, prediction and reveal, and both corrected cards viewed. Independently reviewed (TanElm, Mail 3802; repairs re-reviewed with no remaining findings, Mails 3827 and 3829). Not narrated; no audio or full-video acceptance |
 | `03_the_price_of_the_coin` *(planned)* | the yes count of a real class scatters: its exact distribution over the 4²⁰ coin outcomes; the estimate's standard deviation √15 ≈ 3.87 people, exactly four only about one class in five, negative about one in eleven; for independent draws, with replacement or from a large population, the coins add 3/(4n) to the share's sampling variance p(1 − p)/n: at one fifth the added part alone is 75/16 times the direct question's variance and the total 91/16 times; drawing the whole class without replacement leaves only the coins' part | facts and model only |
 | `04_asking_again` *(planned)* | one person asked three times with fresh coins: all 64 coin outcomes counted, three yeses 27 times likelier from someone who copied (posterior 27/31); a majority vote right 27 times in 32; each fresh answer multiplies the worst ratio by three; repeating one memoized answer keeps it at three (RAPPOR's permanent randomized response) | facts and model only |
 | `05_the_dial` *(planned)* | a truth chance t instead of a fair first coin: ratio (1 + t)/(1 − t), coin variance (1 − t²)/(4t²); the edges, the direct question (no bound) and a pure coin (no estimate) | model only |
@@ -34,8 +35,14 @@ voice); **copied** (the secret, the true answer; "copied homework");
 **heads** and **tails**; **tell the truth** (what heads means); **answer**
 (what someone says, yes or no); **the survey** (who sees only the answers);
 **on average** (every coin outcome equally often; never "expected" in the
-voice). "Randomized response", "likelihood ratio" and "differential privacy"
-are not said in chapter 01.
+voice); **outcome** (one of the four equally likely ways the two coins land,
+from chapter 02); **the chance** (that a particular student copied, given
+what is known: "one in five" before an answer, "three in seven" after a yes;
+never "probability" or "posterior" in the voice); **three times as likely**
+(an answer's ratio between the two truths; never "likelihood ratio" in the
+voice). "Randomized response", "likelihood ratio", "posterior" and
+"differential privacy" are not said; 02_11's "names to search" card shows
+them. "Odds" appears only on the 02_10 card.
 
 ## Color roles
 
@@ -49,6 +56,8 @@ are not said in chapter 01.
 | a student before answering, the question, and the first coin | `ink` |
 | the places answers land in, and the second coin's yeses once taken away (01_9) | `faint` |
 | students we infer but cannot see (01_10's doubled count) | a hollow outline in the yes blue |
+| an outcome before its answer is drawn, and an outcome set aside while the other answer is counted (chapter 02) | `faint` |
+| the class's share who copied, one in five, on chapter 02's chance line | `hero` gold, a marker's stroke |
 
 ## 01_the_coin: The coin (~82 s)
 
@@ -123,3 +132,80 @@ cleanly before the countdown), 01u3 the answer and the turn (01_9 to 01_11).
 They are text inputs only: the owner rejected the first wave's narration on
 2026-10-19 (AGENTS.md), and nothing here is to be synthesized with that
 method until it is requalified.
+
+## 02_what_a_yes_says: What a yes says (~82 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 02_1 | Give every student all four coin outcomes, equally likely. Twenty students, eighty outcomes. | Chapter 01's twenty students as a row of discs across the top: the four who copied first, ringed in gold under "copied", then after a gap the sixteen others under "didn't copy". Under each disc a column of four faint squares appears, lagged row by row, one per coin outcome, rows labelled H H, H T, T H, T T on the left. On "Twenty students", 20 × 4 = 80 (TeX) on the right | grid built from the rule, lagged | |
+| 02_2 | Someone who copied says yes in three of their four. Someone who didn't, in one. Three times as likely. | On "Someone who copied" each copier's squares take their answers' colours, the rule run on each outcome: three blue, one violet; "yes: 3 of 4" under the copiers. On "Someone who didn't", the others' squares: one blue, three violet each; "yes: 1 of 4" under them. On "Three times as likely", "× 3" at the right | grid built from the rule, highlight | |
+| 02_3 | For a no, it's the reverse, three times again. | The labels become "no: 1 of 4" and "no: 3 of 4"; the violet squares flash, one per copier, three per other; the "× 3" flashes | highlight | |
+| 02_4 | ⟨predict⟩ So a student says yes. What's the chance they copied? | The labels go back to the yes counts per student; a "?" with the think ring and "pause for more time" right of the grid, the countdown. No total of yes squares is on screen | predict pause | |
+| 02_5 | Count the yes outcomes. The four who copied have twelve, the sixteen others sixteen. | The "?" goes and every violet square dims to faint. On "have twelve" the copiers' blue squares flash and "12" replaces their label; on "the sixteen others" the others' blue squares flash and "16" replaces theirs | highlight, counts | |
+| 02_6 | Twelve of twenty-eight. On average, three of the seven yeses. Three in seven, not three in four. | Under the grid, 12/28 (TeX); on "On average", "= 3/7" and, beside it, "a quarter of the outcomes: 3 of chapter 1's 7 yes answers"; on "not three in four", on the right "3/4 is a copier's chance of saying yes". A "precisely" lower-third: 3/7 is the chance that someone who said yes copied, given this class; it would be 3/4 only if half the class had copied | TeX derivation, lower-third | |
+| 02_7 | Each copier has three times the yeses, but the others outnumber them four to one. | The derivation and card stay; the copiers' column labels flash "3 each", the others' "1 each"; then the two groups of discs flash, "4" and "16" over them | highlight | |
+| 02_8 | A no works the same way. Four of the fifty-two no outcomes are a copier's, one in thirteen. | The labels and derivation go; the blue squares dim and the violet ones light again. On "Four of the fifty-two" the copiers' violet squares flash with "4" under them and "48" under the others'; 4/52 = 1/13 (TeX) under the grid | highlight, TeX derivation | |
+| 02_9 | A yes lifts the chance from one in five to three in seven. A no drops it to one in thirteen. | The derivation goes. A chance line from 0 to 1 under the grid: a gold mark at 1/5, "the class: 4 of 20"; on "three in seven" a blue mark at 3/7 and a blue arc from 1/5 to it; on "one in thirteen" a violet mark at 1/13 and a violet arc | number line, motion | |
+| 02_10 | The coin fixes the three times. Where the chance ends up depends on the class. | The arcs flash. A "precisely" lower-third: an answer multiplies the odds by 3 for a yes, 1/3 for a no; here 1 : 4 becomes 3 : 4 or 1 : 12. If nobody copied, a yes would mean 0. (The chances 3/7 and 1/13 those odds give are the marks already on the line, and 02_6's card has the half-class 3/4; the card stays two lines at every wrap the band can fall back to, 92 down to 72) | lower-third, highlight | |
+| 02_11 | An answer is deniable, but not meaningless. How well the survey counts is a separate question. | The marks stay. On "deniable" the 3/7 mark flashes (far from 1); on "not meaningless" the blue arc flashes (far from 1/5). On "How well the survey counts", a "names to search" lower-third: likelihood ratio, posterior probability, randomized response, differential privacy. The picture holds 2 s after the line | lower-third, highlight | hold |
+
+### Notes for 02
+
+- Every square is the rule run on one student and one outcome
+  (`model::class_outcomes`); its colour is that answer. The counts drawn
+  are checked against the facts (`R-F11`) before they are labelled.
+- The likelihood ratio is shown before the posterior and kept apart from
+  it: 02_2 and 02_3 compare one student's four outcomes per truth (3 of 4
+  against 1 of 4, both answers), while 02_5 to 02_9 compare the whole class's
+  outcomes per answer. The ratio is the coin's; the chance needs the class.
+- Prediction (02_4): the tempting answer is 3/4, read straight off a copier's
+  column. Nothing on screen totals the yes squares before 02_5, and 3/7 first
+  appears with 02_6. The question is a plain falling wh-question, then the
+  four-second countdown.
+- The average-count reading (02_6, `R-F11.average.*`): the class's 80
+  outcomes are 20 students times every outcome once, so a quarter of each
+  count is chapter 01's class on average: 28/4 = 7 yes answers, 12/4 = 3 of
+  them from copiers; 52/4 = 13 noes, 4/4 = 1 from a copier.
+- Exact versions kept on screen: 02_6 (3/7 is the chance given this class; 3/4
+  would be right only at half the class, `R-F12.posterior.yes_at_half`),
+  02_10 (odds 1 : 4 → 3 : 4 or 1 : 12, their chances being the line's marks;
+  the edge, nobody copying, `R-X5`). Both cards stay two lines at every
+  wrap the lower-third can narrow to, 92 down to 72 characters
+  (`the_cards_are_two_lines`).
+- 02_11 keeps privacy and accuracy apart: the factor of three is what one
+  answer can say about its own giver; how close the class count comes is
+  the planned chapter 03 (`R-F7`, `R-F8`). Neither is said to imply the other.
+- Budget: 163 words at 2.6 a second plus 0.4 s a line, thought gaps 0.82 s,
+  the think window 5.2 s, a 2 s hold and tail: about 84 s before animation
+  waits. Root's silent draft measured 84.37 s (2,531 frames, Mail 3831),
+  0.63 s under the cap. Any line or wait added later must be paid for:
+  first shorten the scene's own waits (02_1's lagged squares, 02_7's
+  flashes), then fold 02_3 into 02_2; 02_7's "why" stays.
+
+### Pauses for 02 (semantic timing)
+
+Targets are total silence, as for chapter 01.
+
+| where | kind | target |
+|---|---|---|
+| at 02_1 "equally likely. \| Twenty students" | continuation | 0.55 s |
+| at 02_2 "three of their four. \| Someone who didn't" | contrast | 0.5 s |
+| at 02_2 "in one. \| Three times as likely" | conclusion | 0.6 s |
+| at 02_4 "says yes. \| What's the chance" | set-up, then the question | 0.45 s |
+| at 02_4 after "they copied?" | **prediction hold**: a plain falling wh-question, then the countdown; no added rise | the kit's breath + the countdown |
+| at 02_5 "the yes outcomes. \| The four who copied" | continuation | 0.5 s |
+| at 02_6 "twenty-eight. \| On average" | continuation | 0.55 s |
+| at 02_6 "seven yeses. \| Three in seven" | **reveal**, and its contrast "not three in four" kept in the same breath | 0.8 s |
+| at 02_8 "the same way. \| Four of the" | continuation | 0.5 s |
+| at 02_9 "three in seven. \| A no drops it" | contrast | 0.6 s |
+| at 02_10 "the three times. \| Where the chance" | contrast | 0.6 s |
+| at 02_11 "not meaningless. \| How well" | turn to a separate question | 0.8 s |
+
+Units: 02u1 is the outcomes, both ratios and the question (02_1 to 02_4,
+ending on the question); 02u2 the count, the answer and the no (02_5 to
+02_8); 02u3 the chance line and the turn (02_9 to 02_11). Text inputs only,
+as for chapter 01, and unqualified proposals until there is listening
+evidence. Two choices remain open questions rather than settled
+segmentation. One is the request boundary between the prediction question
+(end of 02u1) and its answer (start of 02u2). The other is 02u2's length,
+64 words (TanElm, Mail 3802). Neither is changed without auditory evidence.

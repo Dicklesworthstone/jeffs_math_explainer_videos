@@ -5,3 +5,4 @@ Heads, tell the truth	script	the rule is defined before any number is derived (0
 let it answer. Heads for yes, tails for no	script	the second coin's half of the rule (01_4)
 On average	script	the opening's counts are average counts, not what every class gets (R-F3; the 01_5 card)
 three times as often	script	a yes is not harmless: 3/4 against 1/4 (R-F5.ratio.yes); the brief's kill criterion
+Three in seven, not three in four.	script	a yes-sayer's chance (3/7, R-F11.posterior.yes) is not a copier's chance of saying yes (3/4); the chapter 02 distinction between ratio and chance

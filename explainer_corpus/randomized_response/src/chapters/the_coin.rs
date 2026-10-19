@@ -16,8 +16,8 @@ use explainer_kit::{Kit, Palette, add, fade_all, signed_thousands, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    cell, coin, disc, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, hollow, lane, move_all, pause, place,
-    ring, say, swap, think,
+    cell, coin, disc, face, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, hollow, lane, move_all, pause,
+    place, ring, say, swap, think,
 };
 use crate::facts::{self, Average};
 use crate::model::{self, CLASS_COLUMNS, COIN_PAIRS, Channel, Coin, Q, Route};
@@ -145,14 +145,6 @@ fn cluster(k: usize) -> Vec3 {
         CLUSTER * ((k % SLOTS_PER_ROW) as f64 - 2.0),
         CLUSTER * ((k / SLOTS_PER_ROW) as f64 - 0.5),
     )
-}
-
-/// A coin's face as the grid heads write it.
-fn face(c: Coin) -> &'static str {
-    match c {
-        Coin::Heads => "H",
-        Coin::Tails => "T",
-    }
 }
 
 /// A whole number as the chapter writes it ("−10" with a typographic minus).

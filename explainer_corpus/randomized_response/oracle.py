@@ -297,6 +297,48 @@ def main():
     emit("R-F6.percent.yes", percent(given_yes))
     emit("R-F6.percent.no", percent(given_no))
 
+    # R-F11: chapter 02's eighty outcomes, tallied pair by pair
+    emit("R-F11.class_outcomes", len(pairs))
+    emit("R-F11.others", n - copiers)
+    emit("R-F11.outnumber", Fraction(n - copiers, copiers))
+    for said, name, chosen in ((True, "yes", yes_pairs), (False, "no", no_pairs)):
+        emit(f"R-F11.{name}.copied", sum(chosen))
+        emit(f"R-F11.{name}.didnt", len(chosen) - sum(chosen))
+        emit(f"R-F11.{name}", len(chosen))
+        share_said = Fraction(sum(chosen), len(chosen))
+        # Bayes from the rule table's likelihoods, not from the pairs
+        like_c = Fraction(sum(says(True, o) == said for o in OUTCOMES), len(OUTCOMES))
+        like_d = Fraction(sum(says(False, o) == said for o in OUTCOMES), len(OUTCOMES))
+        check(f"a {name}: pairs = Bayes", share_said == share * like_c / (share * like_c + (1 - share) * like_d))
+        emit(f"R-F11.posterior.{name}", share_said)
+        emit(f"R-F11.average.{name}", Fraction(len(chosen), len(OUTCOMES)))
+        emit(f"R-F11.average.{name}.copied", Fraction(sum(chosen), len(OUTCOMES)))
+    check("on average the pairs are chapter 01's class", Fraction(len(yes_pairs), len(OUTCOMES)) == yes)
+
+    # R-F12: odds, and a class where half copied (odd seats this time)
+    def odds(q):
+        return q / (1 - q)
+    emit("R-F12.odds.prior", odds(share))
+    emit("R-F12.odds.yes", odds(given_yes))
+    emit("R-F12.odds.no", odds(given_no))
+    check("a yes triples the odds, a no divides them by three",
+          odds(given_yes) == 3 * odds(share) and odds(given_no) * 3 == odds(share))
+
+    def yes_share(seats):
+        chosen = [seat in seats for seat in range(n) for o in OUTCOMES if says(seat in seats, o)]
+        return Fraction(sum(chosen), len(chosen))
+
+    def no_share(seats):
+        chosen = [seat in seats for seat in range(n) for o in OUTCOMES if not says(seat in seats, o)]
+        return Fraction(sum(chosen), len(chosen))
+
+    half = set(range(1, n, 2))
+    emit("R-F12.half_class", len(half))
+    emit("R-F12.posterior.yes_at_half", yes_share(half))
+    check("at half the class a yes means the copier's own 3/4", yes_share(half) == p_yes(True))
+    emit("R-X5.posterior.yes_none_copied", yes_share(set()))
+    emit("R-X5.posterior.no_all_copied", no_share(set(range(n))))
+
     # R-F7: the scatter of a real class of twenty
     people = [seat in COPIED_SEATS for seat in range(n)]
     dist, total = yes_distribution(people)

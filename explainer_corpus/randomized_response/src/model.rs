@@ -67,6 +67,16 @@ impl Q {
         Q { num: n, den: 1 }
     }
 
+    /// The numerator in lowest terms (its sign is the fraction's).
+    pub const fn num(self) -> i128 {
+        self.num
+    }
+
+    /// The denominator in lowest terms, always positive.
+    pub const fn den(self) -> i128 {
+        self.den
+    }
+
     /// The whole number this fraction is, if it is one.
     pub fn integer(self) -> Option<i128> {
         (self.den == 1).then_some(self.num)
@@ -471,6 +481,36 @@ pub fn undo(yes: usize, n: usize) -> [Q; 3] {
     [forced, left, left / truth]
 }
 
+// ---------------------------------------------------- what one answer says
+
+/// Every student of `class` with every one of the four coin outcomes, all
+/// n × 4 equally likely: how many give each answer, as
+/// `counts[said][copied]` (index 1 is yes, and copied). Counted by running
+/// the rule on each student and outcome, not from the chances.
+pub fn class_outcomes(class: &Class) -> [[u64; 2]; 2] {
+    let mut counts = [[0u64; 2]; 2];
+    for i in 0..class.size() {
+        let copied = class.copied(i);
+        for &(first, second) in &COIN_PAIRS {
+            counts[usize::from(answer(copied, first, second))][usize::from(copied)] += 1;
+        }
+    }
+    counts
+}
+
+/// The chance that someone who said `said` copied, read off the counted
+/// outcomes: the copiers' share of the outcomes giving that answer. `None`
+/// when no outcome gives it.
+pub fn share_who_copied(counts: &[[u64; 2]; 2], said: bool) -> Option<Q> {
+    let [didnt, copied] = counts[usize::from(said)];
+    Q::int(i128::from(copied)).checked_div(Q::int(i128::from(didnt + copied)))
+}
+
+/// The odds of a chance `q`, q : (1 − q) as one number; `None` at q = 1.
+pub fn odds(q: Q) -> Option<Q> {
+    q.checked_div(Q::ONE - q)
+}
+
 // ------------------------------------------------------- the estimate's scatter
 
 /// The largest class [`yes_count_distribution`] takes: its chances share the
@@ -614,16 +654,30 @@ pub fn majority_right(asks: u32) -> Result<Q, String> {
 }
 
 /// The chance that someone who said yes `yes` times out of `asks` copied,
-/// from the prior share `prior`: the closed form, the ratio of one pattern
-/// being 3^(2·yes − asks) (the tests check it against the counted outcomes).
+/// from the prior share `prior` (0 to 1, both ends included): the closed
+/// form, one pattern being 3^yes ways in 4^asks for someone who copied and
+/// 3^(asks − yes) for anyone else (the tests check it against the counted
+/// outcomes). Its ratio is 3^(2·yes − asks).
+///
+/// # Panics
+/// - If `yes` exceeds `asks`.
+/// - If `prior` is outside 0 to 1. It is then no chance at all, and it can
+///   make the denominator zero: 3/2 with no yes in one ask gives
+///   3/2 · 1 + (1 − 3/2) · 3 = 0.
+/// - If the exact arithmetic leaves `i128`. 3^yes and 3^(asks − yes) are
+///   computed whole and then cross-multiplied by the prior's denominator, so
+///   3^max(yes, asks − yes) times the square of that denominator must stay
+///   under about 1.7 × 10³⁸ (3^80 alone fits, 3^81 does not); beyond it the
+///   checked fractions panic rather than wrap. RAPPOR's 75 of 100 from an
+///   even prior needs 3^75 · 4 ≈ 2.4 × 10³⁶, every chapter far less.
 pub fn posterior(prior: Q, yes: u32, asks: u32) -> Q {
-    let ratio = if 2 * yes >= asks {
-        Q::int(3).pow(2 * yes - asks)
-    } else {
-        Q::new(1, 3).pow(asks - 2 * yes)
-    };
-    let odds = prior / (Q::ONE - prior) * ratio;
-    odds / (Q::ONE + odds)
+    assert!(
+        (Q::ZERO..=Q::ONE).contains(&prior),
+        "a prior chance outside 0 to 1: {prior}"
+    );
+    let noes = asks.checked_sub(yes).expect("more yeses than answers");
+    let with = prior * Q::int(3).pow(yes);
+    with / (with + (Q::ONE - prior) * Q::int(3).pow(noes))
 }
 
 /// One person asked `asks` times who flips once and repeats that answer
@@ -872,6 +926,60 @@ mod tests {
         }
         assert!(repeated_answers(0).is_err());
         assert!(repeated_answers(MAX_ASKS + 1).is_err());
+    }
+
+    /// Chapter 02's count: the class's 80 equally likely outcomes; 12 of the
+    /// 28 yes outcomes are a copier's and 4 of the 52 no outcomes. The
+    /// shares are the closed-form posterior from the same prior for every
+    /// class of twenty, from nobody copying (a yes then means 0) to everybody
+    /// (1); at half the class a yes means 3/4, the chance a copier says yes.
+    #[test]
+    fn counting_every_students_outcomes_gives_the_posteriors() {
+        let c = class_outcomes(&Class::video().unwrap());
+        assert_eq!(c, [[48, 4], [16, 12]]);
+        assert_eq!(share_who_copied(&c, true), Some(Q::new(3, 7)));
+        assert_eq!(share_who_copied(&c, false), Some(Q::new(1, 13)));
+        for copiers in 0..=CLASS_SIZE {
+            let seats: Vec<usize> = (0..copiers).collect();
+            let c = class_outcomes(&Class::new(CLASS_SIZE, &seats).unwrap());
+            let prior = Q::new(copiers as i128, CLASS_SIZE as i128);
+            assert_eq!(
+                share_who_copied(&c, true),
+                Some(posterior(prior, 1, 1)),
+                "{copiers} copied"
+            );
+            assert_eq!(
+                share_who_copied(&c, false),
+                Some(posterior(prior, 0, 1)),
+                "{copiers} copied"
+            );
+        }
+        assert_eq!(posterior(Q::ZERO, 1, 1), Q::ZERO);
+        assert_eq!(posterior(Q::ONE, 0, 1), Q::ONE);
+        assert_eq!(posterior(Q::new(1, 2), 1, 1), p_said(true, true));
+        // no outcome gives any answer in an empty class
+        assert_eq!(
+            share_who_copied(&class_outcomes(&Class::new(0, &[]).unwrap()), true),
+            None
+        );
+        assert_eq!(odds(Q::new(1, 5)), Some(Q::new(1, 4)));
+        assert_eq!(odds(Q::new(3, 7)), Some(Q::new(3, 4)));
+        assert_eq!(odds(Q::ONE), None);
+    }
+
+    /// Planted negative: a prior that is not a chance is refused before it
+    /// can zero the denominator (3/2, no yes in one ask).
+    #[test]
+    #[should_panic(expected = "a prior chance outside 0 to 1")]
+    fn a_prior_outside_zero_to_one_is_refused() {
+        posterior(Q::new(3, 2), 0, 1);
+    }
+
+    /// Planted negative: more yeses than answers is refused.
+    #[test]
+    #[should_panic(expected = "more yeses than answers")]
+    fn more_yeses_than_asks_is_refused() {
+        posterior(Q::new(1, 5), 2, 1);
     }
 
     /// Three asks: of 64 outcomes, 27 make a copier say yes three times, one
