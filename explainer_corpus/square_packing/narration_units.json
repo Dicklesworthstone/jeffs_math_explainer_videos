@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "f67dd919769d15caabfe014d2db5cb51236ed00aeda471f3ae58db006fcba162",
+  "script_sha256": "a8fb0570f423ebe21f07d4f4ae16144ddee6da4c0fa184a36b3b6242f92c77ed",
   "units": [
     {
       "id": "01u1a",
@@ -53,12 +53,12 @@
       "text": "Why do straight tiles need a box three wide? Take a narrower box, and mark its floor a third and two thirds of the way along. The marks cut the floor into three equal pieces, and each is shorter than one tile. So a straight tile's shadow on the floor can't fit inside one piece. A mark always lands strictly inside it, away from its ends."
     },
     {
-      "id": "02u2",
+      "id": "02u2m",
       "line_ids": [
         "02_4",
         "02_5"
       ],
-      "text": "Mark the left wall the same way. Then every straight tile has one of these four pins strictly inside it. Two tiles can't share a pin, because their insides never overlap. So how many straight tiles fit?"
+      "text": "Mark the left wall the same way. Every straight tile now has one of these four pins strictly inside it. Two tiles can't share a pin, because their insides never overlap. So how many straight tiles fit?"
     },
     {
       "id": "02u3",
@@ -79,13 +79,13 @@
       "text": "The pins miss the turned tile, but something still holds it. Fix the box, the corner tiles and the middle tile's centre. Each corner it touches sits half a tile from that centre, on the circle that just fits inside the middle tile. Now turn the middle tile just a little. Do the corners still only touch it?"
     },
     {
-      "id": "03u2",
+      "id": "03u2m",
       "line_ids": [
         "03_4",
         "03_5",
         "03_6"
       ],
-      "text": "No. The circle turns in place, but the sides now meet it elsewhere, so every corner on it ends up inside the tile. Here is one corner, magnified forty four times. Turn twice as far, and it sinks almost four times deeper. A circle leaves its tangent slowly, so the bite grows like the square of the turn. It is tiny, but never zero."
+      "text": "No. The circle turns in place, but the sides now touch it at other points. Every corner on the circle ends up inside the tile. Here is one corner, magnified forty four times. Turn twice as far, and it sinks almost four times deeper. A circle leaves its tangent slowly, so the bite grows like the square of the turn. It is tiny, but never zero."
     },
     {
       "id": "03u3",
@@ -111,7 +111,7 @@
         "04_5",
         "04_6"
       ],
-      "text": "No. Its centre has to stay at least half a shadow from each wall. So the point is at most one minus half a shadow away, both across and up. Now measure along the tile's own sides. There, the point is at most the shadow times one minus half a shadow away. And that never passes one half. Half a tile is how far a tile reaches, so the point stays inside. Only a straight tile resting on a wall just touches it."
+      "text": "No. Its centre has to stay at least half a shadow from each wall. So the point is at most one minus half a shadow away, both across and up. Now measure along the tile's own sides. The point is at most the shadow times one minus half a shadow away. And that never passes one half. Half a tile is how far a tile reaches, so the point stays inside. Only a straight tile resting on a wall just touches it."
     },
     {
       "id": "04u3",
@@ -122,30 +122,36 @@
       "text": "Let the centre stray past one tile, or drop a wall, and the point can escape. In our box, about two point seven one wide, this settles centres near the corners. The edges and the middle come next."
     },
     {
-      "id": "05u1",
+      "id": "05u1m",
       "line_ids": [
         "05_1",
         "05_2"
       ],
-      "text": "Near a side, one point is not enough, so take two. A tile centred between them, within a tile of the floor, covers one. Turned an eighth, its top is a narrow corner. Could it slip up between the points?"
+      "text": "Near a side, one point is not enough, so take two. A tile centred between them, within a tile of the floor, always covers one of them. Turned an eighth, its top is a narrow corner. Could it slip up between the points?"
     },
     {
-      "id": "05u2",
+      "id": "05u2m",
       "line_ids": [
         "05_3",
         "05_4"
       ],
-      "text": "No. The points are at most half a tile above its centre, and a tile reaches that far straight up. Dodging both, its cut on their line must fit between them. Lower is narrower, so rest it on the floor."
+      "text": "No. The points are at most half a tile above its centre, and a tile reaches that far straight up. The tile always reaches their line. Its cut on their line must fit between them, or it covers a point. Lower is narrower, so rest it on the floor."
     },
     {
-      "id": "05u3",
+      "id": "05u3m",
       "line_ids": [
         "05_5",
-        "05_6",
+        "05_6"
+      ],
+      "text": "Resting, it stands one shadow tall. Split its corner above their line into two right triangles. Their bases add to the cut. The cut is shorter than the gap only when the points stand higher than this. That height bends down, so it is lowest at an end. It is exactly one for a straight tile. The points stand at one, so nothing slips through."
+    },
+    {
+      "id": "05u4m",
+      "line_ids": [
         "05_7",
         "05_8"
       ],
-      "text": "Resting, it stands one shadow tall. Split its corner above their line into two right triangles, whose bases add to the cut. It is shorter than the gap only when the points stand higher than this. That height bends down, so it is lowest at an end, exactly one when straight. The points stand at one, so nothing slips through. Drop the floor, raise the points, or widen the gap, and a tile slips through. Turned to every side, this settles centres near a side. Only the middle is left."
+      "text": "Drop the floor, raise the points, or widen the gap, and a tile slips through. Turned to every side, this settles centres near a side. Only the middle is left."
     },
     {
       "id": "06u1",
@@ -156,13 +162,13 @@
       "text": "The middle is the square the four points bound. Cut it along its diagonal, one tile long. Each triangle's sides are at most one. Must a tile centred in one cover a corner of it?"
     },
     {
-      "id": "06u2",
+      "id": "06u2m",
       "line_ids": [
         "06_3",
         "06_4",
         "06_5"
       ],
-      "text": "Suppose a tile missed all three corners. Then each corner would lie past one of the tile's four sides. If two lay past opposite sides, they would be over a tile apart, so the triangle would have a side longer than one. Otherwise they lie past two neighbouring sides only. Crossing the diagonal between those would take a corner past one of the other two, so all stay beyond it, and the triangle misses the centre."
+      "text": "Suppose a tile missed all three corners. Then each corner would lie past one of the tile's four sides. If two lay past opposite sides, they would be over a tile apart. The triangle would then have a side longer than one. Otherwise they lie past two neighbouring sides only. Crossing the diagonal between those would take a corner past one of the other two sides. All three then stay beyond that diagonal, and the triangle misses the centre."
     },
     {
       "id": "06u3",
@@ -182,12 +188,12 @@
       "text": "Our box is exactly two plus one over the square root of two wide. Suppose five tiles fit a narrower one. Enlarge everything until that box is as wide as ours. Each tile grows by the same factor, still not overlapping. Inside each grown tile, keep a unit tile with the same centre. Does it cover one of the four points?"
     },
     {
-      "id": "07u2",
+      "id": "07u2m",
       "line_ids": [
         "07_4",
         "07_5"
       ],
-      "text": "Yes. It lies in our box, so it covers a point, at worst on its edge. The grown tile reaches further on every side, so that point is strictly inside it, by at least half the growth."
+      "text": "Yes. It lies in our box, so it covers a point, at worst on its edge. The grown tile reaches further on every side. That point is now strictly inside it, by at least half the growth."
     },
     {
       "id": "07u3",
