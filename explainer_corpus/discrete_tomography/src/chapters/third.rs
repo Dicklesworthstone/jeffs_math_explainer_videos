@@ -227,7 +227,8 @@ impl SceneConstruct for AThirdShadow {
             )?);
         }
         let old: Vec<Mob> = changed.iter().map(|&k| face_diagonals[k]).collect();
-        swap(stage, &old, &red, 0.4)?;
+        fade_out_all(stage, &old, 0.2)?;
+        fade_in_all(stage, &red, 0.2)?;
         line.wait_for(stage, "This one takes")?;
         flash_all(stage, &red, 0.6)?;
 
@@ -250,7 +251,8 @@ impl SceneConstruct for AThirdShadow {
                 )
             })
             .collect::<fmn::Result<_>>()?;
-        swap(stage, &red, &restored, 0.4)?;
+        fade_out_all(stage, &red, 0.2)?;
+        fade_in_all(stage, &restored, 0.2)?;
         for (&k, &m) in changed.iter().zip(&restored) {
             face_diagonals[k] = m;
         }
@@ -302,7 +304,8 @@ impl SceneConstruct for AThirdShadow {
             Palette::ink(),
             v(GALLERY[0], top),
         )?;
-        swap(stage, &[caption], &[passed], 0.3)?;
+        fade_out_all(stage, &[caption], 0.15)?;
+        fade_in_all(stage, &[passed], 0.15)?;
         line.wait_for(stage, "one other picture")?;
         let mut leaving: Vec<Mob> = thumbs
             .iter()

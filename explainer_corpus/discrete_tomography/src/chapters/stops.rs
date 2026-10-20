@@ -472,7 +472,8 @@ impl SceneConstruct for WhereTheWaterStops {
         new.extend(&face_sorted);
         new.extend(&face_ask_line);
         new.extend(&face_give_line);
-        swap(stage, &old, &new, 0.6)?;
+        fade_out_all(stage, &old, 0.3)?;
+        fade_in_all(stage, &new, 0.3)?;
         line.wait_for(stage, "sixty-four")?;
         let count = facts::gallery().len();
         let fits = kit.text_left(stage, &fits_text(count), 26.0, Palette::ink(), v(TEXT_X, CLOSING_Y[0]))?;

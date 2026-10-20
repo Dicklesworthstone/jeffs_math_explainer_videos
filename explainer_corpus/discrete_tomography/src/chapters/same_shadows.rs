@@ -18,6 +18,7 @@ use super::draw::{
     Board, COUNT_SIZE, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, pause, say, segment, shift_all,
     swap, think, thumb,
 };
+use super::stops::read_s;
 use crate::facts::{self, RYSER_YEAR};
 use crate::model::{self, Picture, Switch};
 use crate::palette;
@@ -407,7 +408,8 @@ impl SceneConstruct for SameShadows {
             Palette::ink(),
             v(GALLERY[0], top),
         )?;
-        swap(stage, &[count], &[caption], 0.3)?;
+        fade_out_all(stage, &[count], 0.15)?;
+        fade_in_all(stage, &[caption], 0.15)?;
         let (chain, end) = facts::walk().map_err(fail)?;
         if chain.len() != farthest {
             return Err(fail(format!("the walk takes {} switches, not {farthest}", chain.len())));
@@ -430,8 +432,10 @@ impl SceneConstruct for SameShadows {
                 end.pattern()
             )));
         }
-        let card = precisely(&kit, stage, &chain_claim())?;
+        let claim = chain_claim();
+        let card = precisely(&kit, stage, &claim)?;
         fade_in_all(stage, &[card], 0.4)?;
+        pause(stage, read_s(&claim))?;
 
         // 01_9: the face's rows, other column counts with the same total;
         // no picture fits
@@ -447,7 +451,8 @@ impl SceneConstruct for SameShadows {
             ));
         }
         let new_cols = counts(&kit, stage, &no_fit.cols, Palette::ink(), |c| board.col_count_at(c))?;
-        swap(stage, &col_counts, &new_cols, 0.6)?;
+        fade_out_all(stage, &col_counts, 0.3)?;
+        fade_in_all(stage, &new_cols, 0.3)?;
         col_counts = new_cols;
         line.wait_for(stage, "keep their total")?;
         let totals = kit.text_left(

@@ -22,9 +22,10 @@ use fmn::prelude::*;
 
 use super::draw::{
     Board, COUNT_SIZE, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, flat, path_line, pause, say,
-    shift_all, swap, think, thumb,
+    shift_all, swap, think, thumb, wait_until,
 };
 use super::same_shadows::{THUMB_CELL, gallery_at};
+use super::stops::read_s;
 use crate::facts::{self, FORD_FULKERSON_YEAR, GALE_YEAR};
 use crate::model::{self, Augmenting, FlowState, Shadows};
 use crate::palette;
@@ -208,7 +209,8 @@ impl Water {
         )?;
         let mut new = vec![m];
         new.extend_from_slice(appearing);
-        swap(stage, &[self.taps[r]], &new, rt)?;
+        fade_out_all(stage, &[self.taps[r]], rt / 2.0)?;
+        fade_in_all(stage, &new, rt / 2.0)?;
         (self.taps[r], self.tap_left[r]) = (m, left);
         Ok(())
     }
@@ -251,7 +253,8 @@ impl Water {
             new.push(n);
             self.through = Some(n);
         }
-        swap(stage, &old, &new, rt)?;
+        fade_out_all(stage, &old, rt / 2.0)?;
+        fade_in_all(stage, &new, rt / 2.0)?;
         (self.drains[c], self.drain_left[c]) = (m, left);
         Ok(())
     }
@@ -413,12 +416,15 @@ impl SceneConstruct for WaterThroughTheGrid {
         // 02_4: the next units, as the method sent them, one at a time; the
         // method for programmers
         let line = say(&kit, stage, "02_4")?;
-        let code = lower_third(&kit, stage, PROGRAMMERS, &method_text())?;
+        let method = method_text();
+        let code = lower_third(&kit, stage, PROGRAMMERS, &method)?;
         swap(stage, &[tap_line, square_text, drain_line, fits_line], &[code], 0.4)?;
+        let code_up = stage.scene().time().to_f64();
         for (path, state) in paths[1..k].iter().zip(&states[1..k]) {
             send_quick(&kit, stage, &mut water, &s, path, state)?;
         }
         line.wait_to_end(stage)?;
+        wait_until(stage, code_up + read_s(&method))?;
 
         // 02_5: stuck without taking back: the bottom row has water left,
         // and each of its dry squares leads to a full drain
@@ -517,7 +523,8 @@ impl SceneConstruct for WaterThroughTheGrid {
         }
         let mut counters = water.taps.clone();
         counters.extend(&water.drains);
-        swap(stage, &counters, &shadows, 0.5)?;
+        fade_out_all(stage, &counters, 0.25)?;
+        fade_in_all(stage, &shadows, 0.25)?;
         line.wait_for(stage, "but they aren't")?;
         let rings: Vec<Mob> = face
             .filled()
@@ -564,12 +571,15 @@ impl SceneConstruct for WaterThroughTheGrid {
         // 02_9: water finds a picture whenever one exists, and never says
         // whether it is the only one
         let line = say(&kit, stage, "02_9")?;
-        let card = precisely(&kit, stage, &flow_claim())?;
+        let claim = flow_claim();
+        let card = precisely(&kit, stage, &claim)?;
         fade_in_all(stage, &[card], 0.4)?;
+        let card_up = stage.scene().time().to_f64();
         line.wait_for(stage, "It never says")?;
         flash_all(stage, &thumbs, 0.6)?;
         line.wait_to_end(stage)?;
         pause(stage, 1.2)?;
+        wait_until(stage, card_up + read_s(&claim))?;
 
         fade_all(stage, 0.6)?;
         kit.finish(stage)?;

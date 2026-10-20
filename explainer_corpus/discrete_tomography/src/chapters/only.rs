@@ -237,7 +237,8 @@ impl SceneConstruct for TheOnlyPicture {
             Palette::dim(),
             v(board.centre[0], board.top() + 0.4),
         )?;
-        swap(stage, &[label], &[second_label], 0.4)?;
+        fade_out_all(stage, &[label], 0.2)?;
+        fade_in_all(stage, &[second_label], 0.2)?;
 
         // 04_3: the tree's shadows only, as taps and drains; the method's
         // real units build a picture, the last one taking water back
@@ -300,7 +301,8 @@ impl SceneConstruct for TheOnlyPicture {
         old.extend(&water.drains);
         let mut new = tree_rows.clone();
         new.extend(&tree_cols);
-        swap(stage, &old, &new, 0.5)?;
+        fade_out_all(stage, &old, 0.25)?;
+        fade_in_all(stage, &new, 0.25)?;
         let mut going = vec![send_label, drain_label];
         going.extend(water.through);
         fade_out_all(stage, &going, 0.3)?;
