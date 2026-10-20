@@ -21,7 +21,8 @@ use explainer_kit::{Kit, Palette, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    Board, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, path_line, pause, say, swap, think, wait_until,
+    Board, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, path_line, pause, say, swap, think, thumb,
+    wait_until,
 };
 use super::same_shadows::{QUESTIONS, counts, place, run_switch};
 use super::stops::read_s;
@@ -29,7 +30,7 @@ use super::water::{
     AT, CELL, TAP_GAP, TEXT_X, THINK_AT, THROUGH_Y, TO_DRAIN, TO_SEND, Water, send_quick, tap_at, through_text,
 };
 use crate::facts::{self, RYSER_YEAR};
-use crate::model::{self, Picture};
+use crate::model::{self, Picture, Switch};
 use crate::palette;
 
 pub struct TheOnlyPicture {
@@ -52,6 +53,15 @@ const ANSWERS: [&str; 2] = [
 const TOP_Y: f64 = 2.0;
 const NEXT_Y: f64 = 1.4;
 const ALONE_Y: f64 = 0.8;
+/// The water's picture's switches (04_2): one small copy each, in rows of
+/// [`SWITCH_COLS`] under their count on the right; a copy's square, the
+/// distance between copies across and down, the top of the first row, and
+/// how far the frame round the switch being swapped stands outside its copy.
+const SWITCH_COLS: usize = 4;
+const SWITCH_CELL: f64 = 0.22;
+const SWITCH_PITCH: [f64; 2] = [1.45, 1.35];
+const SWITCH_TOP: f64 = 1.55;
+const PICKED_GAP: f64 = 0.1;
 /// The small copy of chapter 02's picture (04_5): its centre and pitch, and
 /// its words on its right.
 const SMALL_AT: [f64; 2] = [0.9, 0.55];
@@ -83,6 +93,40 @@ fn chain_claim() -> String {
         "any two pictures of filled and empty squares on one grid with the same row counts and the same \
          column counts are joined by a finite chain of switches (Ryser, {RYSER_YEAR})"
     )
+}
+
+/// Where the `k`th switch's copy of a `rows` by `cols` picture stands (04_2).
+fn switch_at(k: usize, rows: usize, cols: usize) -> [f64; 2] {
+    let (w, h) = (SWITCH_CELL * cols as f64, SWITCH_CELL * rows as f64);
+    let (row, col) = (k / SWITCH_COLS, k % SWITCH_COLS);
+    [
+        TEXT_X + w / 2.0 + SWITCH_PITCH[0] * col as f64,
+        SWITCH_TOP - h / 2.0 - SWITCH_PITCH[1] * row as f64,
+    ]
+}
+
+/// A small copy of `p` at `at`, switch `s`'s four corners ringed: one of its
+/// switches, apart from the others (04_2). Detached.
+fn switch_copy(stage: &mut Stage<'_>, p: &Picture, s: Switch, at: [f64; 2]) -> fmn::Result<Vec<Mob>> {
+    let mut out = thumb(stage, p, v(at[0], at[1]), SWITCH_CELL, Palette::faint())?;
+    let small = Board::new(at, SWITCH_CELL, p.rows(), p.cols());
+    out.extend(s.corners().map(|(r, c)| small.ring(stage, r, c, palette::switch())));
+    Ok(out)
+}
+
+/// A frame round the copy at `at` of a `rows` by `cols` picture, outside its
+/// own: the switch being swapped on the grid (04_2). Detached.
+fn picked_frame(stage: &mut Stage<'_>, at: [f64; 2], rows: usize, cols: usize) -> Mob {
+    let half_w = SWITCH_CELL * cols as f64 / 2.0 + PICKED_GAP;
+    let half_h = SWITCH_CELL * rows as f64 / 2.0 + PICKED_GAP;
+    let corners = [
+        v(at[0] - half_w, at[1] + half_h),
+        v(at[0] + half_w, at[1] + half_h),
+        v(at[0] + half_w, at[1] - half_h),
+        v(at[0] - half_w, at[1] - half_h),
+        v(at[0] - half_w, at[1] + half_h),
+    ];
+    path_line(stage, &corners, palette::switch(), 3.0)
 }
 
 /// The squares row `r` of `p` holds, as one run of columns, first to last;
@@ -182,14 +226,11 @@ impl SceneConstruct for TheOnlyPicture {
         fade_in_lagged(stage, &ordered, 0.9, 0.3)?;
         fade_in_all(stage, &[label], 0.3)?;
 
-        // 04_2: its twelve switches; the first swapped; every count stays,
-        // and a second picture fits
+        // 04_2: its twelve switches, counted as they are spoken, each on a
+        // small copy of its own on the right; the first swapped on the grid,
+        // its copy framed; every count stays, and a second picture fits
         let line = say(&kit, stage, "04_2")?;
-        line.wait_for(stage, "twelve switches")?;
-        let rects: Vec<Mob> = found
-            .iter()
-            .map(|&s| board.rectangle(stage, s, palette::switch()))
-            .collect();
+        line.wait_for(stage, "This one has")?;
         let how_many = kit.text_left(
             stage,
             &switches_text(found.len()),
@@ -197,12 +238,26 @@ impl SceneConstruct for TheOnlyPicture {
             palette::switch(),
             v(TEXT_X, TOP_Y),
         )?;
-        fade_in_lagged(stage, &rects, 1.2, 0.3)?;
+        let copies: Vec<Vec<Mob>> = found
+            .iter()
+            .enumerate()
+            .map(|(k, &s)| switch_copy(stage, &built, s, switch_at(k, built.rows(), built.cols())))
+            .collect::<fmn::Result<_>>()?;
         fade_in_all(stage, &[how_many], 0.3)?;
+        for one in &copies {
+            fade_in_all(stage, one, 0.1)?;
+        }
         line.wait_for(stage, "Swap the corners")?;
-        fade_out_all(stage, &rects[1..], 0.3)?;
+        let picked = picked_frame(
+            stage,
+            switch_at(0, built.rows(), built.cols()),
+            built.rows(),
+            built.cols(),
+        );
         let rings = first.corners().map(|(r, c)| board.ring(stage, r, c, palette::switch()));
-        fade_in_all(stage, &rings, 0.3)?;
+        let mut marked = rings.to_vec();
+        marked.push(picked);
+        fade_in_all(stage, &marked, 0.3)?;
         let second = run_switch(stage, &board, &mut squares, &built, first, 0.6)?;
         if second.shadows() != face_shadows || second == built {
             return Err(fail(format!(
@@ -239,16 +294,20 @@ impl SceneConstruct for TheOnlyPicture {
         )?;
         fade_out_all(stage, &[label], 0.2)?;
         fade_in_all(stage, &[second_label], 0.2)?;
+        let second_up = stage.scene().time().to_f64();
 
-        // 04_3: the tree's shadows only, as taps and drains; the method's
-        // real units build a picture, the last one taking water back
+        // 04_3: the second picture, its name and the switches stay into the
+        // line's opening until the name can be read, then go; the tree's
+        // shadows only, as taps and drains; the method's real units build a
+        // picture, the last one taking water back
         let line = say(&kit, stage, "04_3")?;
         let mut leaving: Vec<Mob> = std::mem::take(&mut squares).into_values().collect();
-        leaving.extend(rings);
-        leaving.push(rects[0]);
+        leaving.extend(marked);
+        leaving.extend(copies.into_iter().flatten());
         leaving.extend(&same_rows);
         leaving.extend(&same_cols);
         leaving.extend([second_label, how_many]);
+        wait_until(stage, second_up + read_s(SECOND_PICTURE))?;
         fade_out_all(stage, &leaving, 0.4)?;
         line.wait_for(stage, "Rows of")?;
         let taps = counts(&kit, stage, &tree_shadows.rows, Palette::ink(), |r| tap_at(&board, r))?;
@@ -349,13 +408,12 @@ impl SceneConstruct for TheOnlyPicture {
         }
         fade_in_all(stage, &corner_rings, 0.4)?;
         fade_in_all(stage, &words, 0.4)?;
+        let words_up = stage.scene().time().to_f64();
 
-        // 04_6: the tree's rows nest, shortest first; no switch among its
-        // rectangles
+        // 04_6: the tree's rows nest, shortest first, while the switch's copy
+        // and words stay on the right until read; then they go, and the
+        // nesting's words take their place; no switch among its rectangles
         let line = say(&kit, stage, "04_6")?;
-        copy.extend(corner_rings);
-        copy.extend(words);
-        fade_out_all(stage, &copy, 0.4)?;
         line.wait_for(stage, "of any two rows")?;
         let mut order: Vec<usize> = (0..tree.rows()).collect();
         order.sort_by_key(|&r| (runs[r].1 - runs[r].0, r));
@@ -365,6 +423,10 @@ impl SceneConstruct for TheOnlyPicture {
             .collect();
         let nested = kit.text_left(stage, NESTED, 24.0, Palette::ink(), v(TEXT_X, TOP_Y))?;
         fade_in_lagged(stage, &outlines, 1.2, 0.3)?;
+        copy.extend(corner_rings);
+        copy.extend(words);
+        wait_until(stage, words_up + read_s(&EACH_ROW.join(" ")))?;
+        fade_out_all(stage, &copy, 0.4)?;
         fade_in_all(stage, &[nested], 0.3)?;
         line.wait_for(stage, "no switch")?;
         let none = kit.text_left(
@@ -429,7 +491,7 @@ mod tests {
         let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
         for (id, phrase) in [
             ("04_1", "builds one picture"),
-            ("04_2", "twelve switches"),
+            ("04_2", "This one has"),
             ("04_2", "Swap the corners"),
             ("04_2", "every count stays"),
             ("04_2", "A second picture"),
@@ -521,6 +583,25 @@ mod tests {
         assert!(ends(TEXT_X, ANSWERS[0], 22.0) < safe_x);
         assert!(ends(TEXT_X, ANSWERS[1], 22.0) < safe_x);
         assert!(ends(TEXT_X, &none_among_text(0, 100), 26.0) < safe_x);
+        // the switches' copies (04_2): under their count, right of the grid,
+        // apart with room for the frame round one, and inside
+        let switches: usize = facts::facts()
+            .unwrap()
+            .get("DT-F10.face.switches")
+            .unwrap()
+            .parse()
+            .unwrap();
+        let (w, h) = (SWITCH_CELL * 5.0, SWITCH_CELL * 5.0);
+        let first = switch_at(0, 5, 5);
+        assert!(first[1] + h / 2.0 + PICKED_GAP + 0.15 < TOP_Y - 0.15, "under the count");
+        assert!(first[0] - w / 2.0 - PICKED_GAP > board.right() + 0.5);
+        assert!(SWITCH_PITCH[0] - w > 2.0 * PICKED_GAP + 0.1);
+        assert!(SWITCH_PITCH[1] - h > 2.0 * PICKED_GAP);
+        for k in 0..switches {
+            let at = switch_at(k, 5, 5);
+            assert!(at[0] + w / 2.0 + PICKED_GAP < safe_x, "{k}");
+            assert!(at[1] - h / 2.0 - PICKED_GAP > -safe_y, "{k}");
+        }
         // the small copy stands right of the grid, its words right of it
         assert!(small.left() > board.right() + 0.5);
         assert!(SMALL_TEXT_X > small.right() + 0.2);

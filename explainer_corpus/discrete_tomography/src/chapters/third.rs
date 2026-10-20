@@ -33,6 +33,8 @@ pub struct AThirdShadow {
 
 // the chapter's fixed words (numbers are built from facts)
 const THE_FACE: &str = "the face";
+/// The face's name while the opening switch has changed it (05_2).
+const ONE_SWITCH_AWAY: &str = "one switch away";
 const ANOTHER: &str = "another picture";
 const DIAGONAL_SHADOW: &str = "diagonal shadow";
 const THROUGH_THEM: &str = "each row, column and diagonal through them: −1 +1";
@@ -54,6 +56,12 @@ const BOTTOM_Y: f64 = -2.45;
 /// The closing questions and answers (05_7), and where they start.
 const CLOSING_X: f64 = -1.0;
 const CLOSING_Y: [f64; 4] = [2.0, 1.45, 0.6, 0.05];
+/// A stroke along a diagonal starts this many pitches before its lower-left
+/// square's centre; a beam (05_1) ends this far past its upper-right one's,
+/// a guide (05_1 to 05_3) far enough to point at its count, short of it.
+const BEFORE: f64 = 0.6;
+const BEAM_REACH: f64 = 0.3;
+const GUIDE_REACH: f64 = 0.7;
 
 fn gallery_label(count: usize) -> String {
     format!("{count} pictures with the face's rows and columns")
@@ -96,22 +104,40 @@ fn diagonal_count_at(board: &Board, k: usize) -> Vec3 {
     v(p[0] + board.cell, p[1] + board.cell)
 }
 
-/// A beam along diagonal `k`, from before its lower-left square to its
-/// upper-right one. Detached.
-fn diagonal_beam(stage: &mut Stage<'_>, board: &Board, k: usize) -> fmn::Result<Mob> {
+/// Where a stroke along diagonal `k` starts and ends: [`BEFORE`] of a pitch
+/// before its lower-left square's centre, `reach` of a pitch past its
+/// upper-right one's.
+fn diagonal_ends(board: &Board, k: usize, reach: f64) -> fmn::Result<(Vec3, Vec3)> {
     let squares = diagonal_squares(board, k);
     let (Some(&(r0, c0)), Some(&(r1, c1))) = (squares.first(), squares.last()) else {
         return Err(fail(format!("diagonal {k} has no square")));
     };
     let (a, b) = (board.at(r0, c0), board.at(r1, c1));
-    let (before, after) = (board.cell * 0.6, board.cell * 0.3);
-    Ok(segment(
-        stage,
-        v(a[0] - before, a[1] - before),
-        v(b[0] + after, b[1] + after),
-        palette::beam(),
-        3.0,
-    ))
+    let (before, after) = (board.cell * BEFORE, board.cell * reach);
+    Ok((v(a[0] - before, a[1] - before), v(b[0] + after, b[1] + after)))
+}
+
+/// A stroke along diagonal `k` (see [`diagonal_ends`]). Detached.
+fn diagonal_line(
+    stage: &mut Stage<'_>,
+    board: &Board,
+    k: usize,
+    reach: f64,
+    color: Srgb,
+    width: f64,
+) -> fmn::Result<Mob> {
+    let (a, b) = diagonal_ends(board, k, reach)?;
+    Ok(segment(stage, a, b, color, width))
+}
+
+/// Root detached `mobs` behind everything on screen, for a fade to bring in:
+/// a diagonal's stroke under the picture's squares, so it never covers one.
+fn behind(stage: &mut Stage<'_>, mobs: &[Mob]) -> fmn::Result<()> {
+    for &m in mobs {
+        stage.add_to_scene(m)?;
+    }
+    stage.scene_mut().bring_to_back(mobs)?;
+    Ok(())
 }
 
 /// A picture's three shadows as counts on `board`, in `color`: rows left of
@@ -163,7 +189,8 @@ impl SceneConstruct for AThirdShadow {
         let right = Board::new(RIGHT, CELL, face.rows(), face.cols());
 
         // 05_1: the face and its two shadows; a beam along each diagonal
-        // leaves its count
+        // leaves its count and a faint guide under the squares, which ties
+        // the count to its diagonal until the switch is undone (05_3)
         let line = say(&kit, stage, "05_1")?;
         let grid = left.lines(stage);
         let mut squares = place(stage, &left, &face)?;
@@ -183,10 +210,16 @@ impl SceneConstruct for AThirdShadow {
         fade_in_all(stage, &arriving, 0.6)?;
         line.wait_for(stage, "along each diagonal")?;
         let beams: Vec<Mob> = (0..face_diagonal.len())
-            .map(|k| diagonal_beam(stage, &left, k))
+            .map(|k| diagonal_line(stage, &left, k, BEAM_REACH, palette::beam(), 3.0))
             .collect::<fmn::Result<_>>()?;
         fade_in_lagged(stage, &beams, 1.2, 0.3)?;
-        swap(stage, &beams, &face_diagonals, 0.4)?;
+        let mut guides: Vec<Mob> = (0..face_diagonal.len())
+            .map(|k| diagonal_line(stage, &left, k, GUIDE_REACH, Palette::faint(), 2.0))
+            .collect::<fmn::Result<_>>()?;
+        behind(stage, &guides)?;
+        let mut left_by_beams = face_diagonals.clone();
+        left_by_beams.extend(&guides);
+        swap(stage, &beams, &left_by_beams, 0.4)?;
         let label = kit.text(
             stage,
             DIAGONAL_SHADOW,
@@ -197,7 +230,9 @@ impl SceneConstruct for AThirdShadow {
         fade_in_all(stage, &[label], 0.3)?;
 
         // 05_2: the opening switch keeps the rows and columns, and changes
-        // three diagonal counts
+        // three diagonal counts; the switched picture is named for what it
+        // is; its three diagonals light up through its corners, the two that
+        // each lose a square, then the one that gains both
         let line = say(&kit, stage, "05_2")?;
         line.wait_for(stage, "A switch keeps")?;
         let s = model::OPENING;
@@ -208,6 +243,15 @@ impl SceneConstruct for AThirdShadow {
         if twin != facts::twin().map_err(fail)? {
             return Err(fail(format!("the opening switch made {}", twin.pattern())));
         }
+        let away_name = kit.text(
+            stage,
+            ONE_SWITCH_AWAY,
+            24.0,
+            Palette::dim(),
+            v(left.centre[0], left.top() + NAME_DY),
+        )?;
+        fade_out_all(stage, &[face_name], 0.15)?;
+        fade_in_all(stage, &[away_name], 0.15)?;
         let mut kept = face_rows.clone();
         kept.extend(&face_cols);
         flash_all(stage, &kept, 0.5)?;
@@ -229,11 +273,47 @@ impl SceneConstruct for AThirdShadow {
         let old: Vec<Mob> = changed.iter().map(|&k| face_diagonals[k]).collect();
         fade_out_all(stage, &old, 0.2)?;
         fade_in_all(stage, &red, 0.2)?;
-        line.wait_for(stage, "This one takes")?;
-        flash_all(stage, &red, 0.6)?;
+        let lose: Vec<usize> = changed
+            .iter()
+            .copied()
+            .filter(|&k| twin_diagonal[k] < face_diagonal[k])
+            .collect();
+        let gain: Vec<usize> = changed
+            .iter()
+            .copied()
+            .filter(|&k| twin_diagonal[k] > face_diagonal[k])
+            .collect();
+        if lose.len() != 2
+            || gain.len() != 1
+            || lose.iter().any(|&k| face_diagonal[k] - twin_diagonal[k] != 1)
+            || gain.iter().any(|&k| twin_diagonal[k] - face_diagonal[k] != 2)
+        {
+            return Err(fail(format!(
+                "the opening switch takes from diagonals {lose:?} and gives to {gain:?}"
+            )));
+        }
+        for (phrase, lit_up) in [("This one takes", &lose), ("gives both", &gain)] {
+            line.wait_for(stage, phrase)?;
+            let lit: Vec<Mob> = lit_up
+                .iter()
+                .map(|&k| diagonal_line(stage, &left, k, GUIDE_REACH, palette::beam(), 4.0))
+                .collect::<fmn::Result<_>>()?;
+            behind(stage, &lit)?;
+            let faint: Vec<Mob> = lit_up.iter().map(|&k| guides[k]).collect();
+            swap(stage, &faint, &lit, 0.3)?;
+            for (&k, &m) in lit_up.iter().zip(&lit) {
+                guides[k] = m;
+            }
+            let their_counts: Vec<Mob> = lit_up
+                .iter()
+                .filter_map(|&k| changed.iter().position(|&j| j == k).map(|i| red[i]))
+                .collect();
+            flash_all(stage, &their_counts, 0.6)?;
+        }
 
-        // 05_3: the switch undone; the 64 on the right; none of the
-        // fourteen one switch away can pass; the question, the think time
+        // 05_3: the switch undone, the face named again, the counts and the
+        // guides done with; the 64 on the right; none of the fourteen one
+        // switch away can pass; the question, the think time
         let line = say(&kit, stage, "05_3")?;
         let back = run_switch(stage, &left, &mut squares, &twin, s, 0.5)?;
         if back != face {
@@ -251,12 +331,25 @@ impl SceneConstruct for AThirdShadow {
                 )
             })
             .collect::<fmn::Result<_>>()?;
-        fade_out_all(stage, &red, 0.2)?;
-        fade_in_all(stage, &restored, 0.2)?;
+        let face_again = kit.text(
+            stage,
+            THE_FACE,
+            24.0,
+            Palette::dim(),
+            v(left.centre[0], left.top() + NAME_DY),
+        )?;
+        let mut going = red;
+        going.push(away_name);
+        let mut coming = restored.clone();
+        coming.push(face_again);
+        fade_out_all(stage, &going, 0.2)?;
+        fade_in_all(stage, &coming, 0.2)?;
         for (&k, &m) in changed.iter().zip(&restored) {
             face_diagonals[k] = m;
         }
-        fade_out_all(stage, &marks, 0.3)?;
+        let mut done = marks;
+        done.extend(&guides);
+        fade_out_all(stage, &done, 0.3)?;
         let mut thumbs: Vec<Vec<Mob>> = Vec::with_capacity(gallery.len());
         for (k, (p, d)) in gallery.iter().enumerate() {
             let frame = if *d == 0 { Palette::ink() } else { Palette::faint() };
@@ -447,6 +540,7 @@ mod tests {
             ("05_2", "A switch keeps"),
             ("05_2", "always changes"),
             ("05_2", "This one takes"),
+            ("05_2", "gives both"),
             ("05_3", "none of the fourteen"),
             ("05_3", "all sixty-four"),
             ("05_4", "Sixty-two fail"),
@@ -502,7 +596,8 @@ mod tests {
     /// The diagonals: every square on exactly one, nine on a 5 x 5 grid,
     /// each listed lower left to upper right with its row and column adding
     /// to its number; its count stands one square on along it, outside the
-    /// grid.
+    /// grid, and its guide leaves the grid towards the count and stops short
+    /// of it.
     #[test]
     fn the_diagonals_cover_the_grid_once() {
         let board = Board::new(LEFT, CELL, 5, 5);
@@ -514,9 +609,20 @@ mod tests {
                 assert_eq!((w[1].0 + 1, w[1].1), (w[0].0, w[0].1 + 1), "{k}: {squares:?}");
             }
             assert!(squares.iter().all(|&(r, c)| r + c == k));
+            let (r1, c1) = squares[squares.len() - 1];
+            let last = board.at(r1, c1);
             seen.extend(squares);
             let at = diagonal_count_at(&board, k);
             assert!(at[0] > board.right() || at[1] > board.top(), "{k}");
+            let (_, end) = diagonal_ends(&board, k, GUIDE_REACH).unwrap();
+            assert!(
+                end[0] - last[0] > board.cell / 2.0,
+                "{k}: the guide stops inside the grid"
+            );
+            assert!(
+                at[0] - end[0] > 0.15 && at[1] - end[1] > 0.15,
+                "{k}: the guide runs into its count"
+            );
         }
         seen.sort_unstable();
         seen.dedup();
@@ -550,6 +656,9 @@ mod tests {
         assert!(RIGHT[0] + result_half < safe_x);
         let label_end = left.right() + left.cell * 0.5 + width(DIAGONAL_SHADOW, 22.0) / 2.0;
         assert!(RIGHT[0] - result_half > label_end + 0.2);
+        // the switched face's name, over it, clears "diagonal shadow"
+        let label_start = left.right() + left.cell * 0.5 - width(DIAGONAL_SHADOW, 22.0) / 2.0;
+        assert!(left.centre[0] + width(ONE_SWITCH_AWAY, 24.0) / 2.0 + 0.1 < label_start);
         // the think ring and its note sit between the face and the gallery
         let gallery_left = gallery_at(0, 64)[0] - THUMB_CELL * 2.5 - 0.03;
         assert!(THINK_AT[0] - 0.62 > left_reach - 0.1);

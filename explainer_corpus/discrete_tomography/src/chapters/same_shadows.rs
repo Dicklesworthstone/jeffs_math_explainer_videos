@@ -32,6 +32,8 @@ const ROW_SHADOW: &str = "row shadow";
 const COLUMN_SHADOW: &str = "column shadow";
 const THE_FACE: &str = "the face";
 const ANOTHER: &str = "another picture";
+/// The other picture's name once the swap has made it the face (01_6).
+const NOW_THE_FACE: &str = "now the face";
 const SWITCH: &str = "switch";
 const LOSES_AND_GAINS: &str = "−1 +1";
 const NO_PICTURE: &str = "no picture fits";
@@ -62,7 +64,7 @@ const SWITCH_DX: f64 = 1.3;
 /// The exact version of 01_8's walk, kept on screen: Ryser's theorem.
 fn chain_claim() -> String {
     format!(
-        "any two pictures with the same row and column counts are joined by a chain of switches (H. J. Ryser, {RYSER_YEAR})"
+        "any two pictures with the same row and column counts are joined by a chain of switches (Ryser, {RYSER_YEAR})"
     )
 }
 
@@ -309,6 +311,16 @@ impl SceneConstruct for SameShadows {
         if switched != face {
             return Err(fail(format!("the switch made {}, not the face", switched.pattern())));
         }
+        // its name says what it now is (the old name clears first)
+        let now_name = kit.text(
+            stage,
+            NOW_THE_FACE,
+            24.0,
+            Palette::dim(),
+            v(right.centre[0], right.top() + 0.4),
+        )?;
+        fade_out_all(stage, &[other_name], 0.15)?;
+        fade_in_all(stage, &[now_name], 0.15)?;
         line.wait_for(stage, "loses one square")?;
         let mut tags = Vec::with_capacity(4);
         let mut touched = Vec::with_capacity(4);
@@ -364,7 +376,7 @@ impl SceneConstruct for SameShadows {
         leaving.extend(right_squares.values().copied());
         leaving.extend(&twin_rows);
         leaving.extend(&twin_cols);
-        leaving.extend([other_name, face_name, word]);
+        leaving.extend([now_name, face_name, word]);
         leaving.extend(marked);
         fade_out_all(stage, &leaving, 0.4)?;
         let gallery = facts::gallery();
