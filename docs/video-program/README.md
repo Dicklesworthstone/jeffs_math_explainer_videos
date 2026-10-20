@@ -2,9 +2,25 @@
 
 This is the canonical entry point for the channel owner and producers. [catalog.json](catalog.json) records every known video identity, editorial disposition, documented cut and upload. The repository's `.beads` owns task status, assignee, priority and dependencies. [BEADS_INDEX.md](BEADS_INDEX.md) maps plan keys to actual issues; [HANDOFF.md](HANDOFF.md) records migration checks and bounded limitations. There is no second editable task board.
 
-On **2026-10-19**, the owner rejected all three new cuts for accent drift,
+On **2026-10-19**, after delivery of the complete measured revised cuts, the owner
+explicitly requested full-resolution rendering and replacement YouTube uploads.
+All three native 3840×2160p60 masters are complete, with narration PCM, cue timing
+and revised captions preserved exactly. Native replay and complete software and
+VideoToolbox decodes passed. [Packing](https://www.youtube.com/watch?v=UZ4Eqb9atgE)
+and [Golay](https://www.youtube.com/watch?v=6LdOikGUhj4) passed independent visual
+review. The [medical replacement](https://www.youtube.com/watch?v=KI2CzpbyTUQ) also
+completed independent visual checks; reviewer quota interrupted the final package
+check, which the orchestrator completed against the saved artifacts and YouTube
+settings. No final independent package verdict is claimed for medical.
+All three are public with 2160p60 playback and English captions. The catalog binds
+the new URLs to exact master hashes.
+Publication authority does not supply a listening verdict; acoustic acceptance
+remains unrecorded. New-video production remains deferred. All previous cuts,
+including the three rejected private uploads, are preserved.
+
+Earlier on **2026-10-19**, the owner rejected all three new cuts for accent drift,
 multiple-speaker sound, mispronunciation, rushed/clipped timing and poor
-cadence/prosody. All three are now **PRIVATE**, verified in YouTube Studio.
+cadence/prosody. Those three earlier uploads remain **PRIVATE**, verified in YouTube Studio.
 The orchestrator published without completing continuous listening. Technical
 checks did not qualify the audio. Independent Opus 5.5 review is required;
 these cuts must not be republished without a new explicit owner instruction.

@@ -1528,6 +1528,17 @@
             "AGENTS.md",
             "docs/video-program/research-20261016/SLATE.md"
           ]
+        },
+        {
+          "on": "2026-10-19",
+          "decision": "published",
+          "by": "owner explicit full-resolution replacement instruction; orchestrator SageBasin",
+          "reason": "Owner requested native full-resolution renders of the three delivered revised cuts and replacement YouTube uploads. The measured-native-4k60-20261019 revision is public at a new URL after technical and independent visual checks; original rejected uploads remain private. Publication does not assert a listening verdict. Detailed review scopes are recorded in the publication receipt.",
+          "source_refs": [
+            "mx-video-program-program-87do",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/square_packing/publication.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/youtube-three-revised-public-20261020.ax.txt"
+          ]
         }
       ],
       "source_refs": [
@@ -1671,6 +1682,49 @@
               "square_packing.directed-4k60-20261019-v3.package.1ba1d5b473fb"
             ]
           }
+        },
+        {
+          "revision_id": "measured-native-4k60-20261019",
+          "label": "Measured revised cut, native 4K60",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261019/measured-redo-central/final4k-20261019/square_packing/square_packing_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "5c90eb15602a7efdc7ecc42edf6af48b5a598b842250e64bbd80a05823626771"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Native 3840x2160p60 H.264 BT.709 CRF16 slow render from source 0a1c8b279d057ed871b715a2a453d4f6baa67f82 and the exact delivered packing-cut-04 narration/timing. 32312 frames, 538.533333s. All chapter timelines, cues and captured soundtracks match the revised review inputs; native soundtrack replay passes. Master PCM SHA256 22f8f67e57cd2a7f21ce4b67b94e9af9eebbec6e355e1598a2ceeeb577a02196 is byte-identical to the delivered 1080p review. Revised SRT/VTT are unchanged. Full software and VideoToolbox decodes passed with zero errors. No new synthesis, rate changes or script changes. Native input pin manifests retain detailed lineage; this entry does not claim a complete catalog artifact graph.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.5",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/square_packing/native/completed.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/square_packing/native/inputs.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/square_packing/native/full-verify.log",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/square_packing/square_packing.en.srt",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/square_packing/chapters.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/square_packing/publication.json"
+          ],
+          "disposition": "Published with the owner's explicit 2026-10-19 instruction to render the revised cuts at full resolution and replace the YouTube uploads. Independent resolution-delta review passed (Agent Mail 4479). YouTube 2160p60 and uploaded English captions verified. Publication authority is recorded separately from audio acceptance: no naturalness, accent, pronunciation or listening verdict is inferred. Earlier rejected uploads remain private and every prior cut is preserved. The master evidence_state remains unknown for full perceptual acceptance; technical checks passed.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-19",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261019/measured-redo-central/final4k-20261019/square_packing/native/completed.json"
+              ]
+            },
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-19",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "https://www.youtube.com/watch?v=UZ4Eqb9atgE",
+                "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/square_packing/publication.json"
+              ]
+            }
+          ]
         }
       ],
       "publications": [
@@ -1687,6 +1741,20 @@
             "narration_lab/production-20261018/youtube-three-public-20261019.jpg",
             "narration_lab/production-20261018/youtube-three-private-20261019.jpg",
             "mx-video-program-program-87do.5.10"
+          ]
+        },
+        {
+          "venue": "youtube",
+          "external_id": "UZ4Eqb9atgE",
+          "url": "https://www.youtube.com/watch?v=UZ4Eqb9atgE",
+          "revision_id": "measured-native-4k60-20261019",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-19",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "https://www.youtube.com/watch?v=UZ4Eqb9atgE",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/square_packing/publication.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/youtube-three-revised-public-20261020.ax.txt"
           ]
         }
       ]
@@ -1716,6 +1784,17 @@
           "source_refs": [
             "AGENTS.md",
             "docs/video-program/research-20261016/SLATE.md"
+          ]
+        },
+        {
+          "on": "2026-10-19",
+          "decision": "published",
+          "by": "owner explicit full-resolution replacement instruction; orchestrator SageBasin",
+          "reason": "Owner requested native full-resolution renders of the three delivered revised cuts and replacement YouTube uploads. The measured-native-4k60-20261019 revision is public at a new URL after technical and independent visual checks; original rejected uploads remain private. Publication does not assert a listening verdict. Detailed review scopes are recorded in the publication receipt.",
+          "source_refs": [
+            "mx-video-program-program-87do",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/golay_echoes/publication.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/youtube-three-revised-public-20261020.ax.txt"
           ]
         }
       ],
@@ -1899,6 +1978,49 @@
               "golay_echoes.directed-4k60-20261019-v4.package.edc49a70dfc8"
             ]
           }
+        },
+        {
+          "revision_id": "measured-native-4k60-20261019",
+          "label": "Measured revised cut, native 4K60",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261019/measured-redo-central/final4k-20261019/golay_echoes/golay_echoes_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "2268b64ed441ef1634dc8632efef143600e0b7c6097ba3bda92344e8d94e5579"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Native 3840x2160p60 H.264 BT.709 CRF16 slow render from source 0a1c8b279d057ed871b715a2a453d4f6baa67f82 and the exact delivered golay-cut-02 narration/timing. 18545 frames, 309.083333s. All chapter timelines, cues and captured soundtracks match the revised review inputs; native soundtrack replay passes. Master PCM SHA256 22aea6e6a062902ed2948c63f2ed9ea5c4d7eb97d6fad103e6f0b44243ccc925 is byte-identical to the delivered 1080p review. Revised SRT/VTT are unchanged. Full software and VideoToolbox decodes passed with zero errors. No new synthesis, rate changes or script changes. Native input pin manifests retain detailed lineage; this entry does not claim a complete catalog artifact graph.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.6",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/golay_echoes/native/completed.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/golay_echoes/native/inputs.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/golay_echoes/native/full-verify.log",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/golay_echoes/golay_echoes.en.srt",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/golay_echoes/chapters.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/golay_echoes/publication.json"
+          ],
+          "disposition": "Published with the owner's explicit 2026-10-19 instruction to render the revised cuts at full resolution and replace the YouTube uploads. Independent resolution-delta review passed (Agent Mail 4492). YouTube 2160p60 and uploaded English captions verified. Publication authority is recorded separately from audio acceptance: no naturalness, accent, pronunciation or listening verdict is inferred. Earlier rejected uploads remain private and every prior cut is preserved. The master evidence_state remains unknown for full perceptual acceptance; technical checks passed.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-19",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261019/measured-redo-central/final4k-20261019/golay_echoes/native/completed.json"
+              ]
+            },
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-19",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "https://www.youtube.com/watch?v=6LdOikGUhj4",
+                "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/golay_echoes/publication.json"
+              ]
+            }
+          ]
         }
       ],
       "publications": [
@@ -1915,6 +2037,20 @@
             "narration_lab/production-20261018/youtube-three-public-20261019.jpg",
             "narration_lab/production-20261018/youtube-three-private-20261019.jpg",
             "mx-video-program-program-87do.6.7"
+          ]
+        },
+        {
+          "venue": "youtube",
+          "external_id": "6LdOikGUhj4",
+          "url": "https://www.youtube.com/watch?v=6LdOikGUhj4",
+          "revision_id": "measured-native-4k60-20261019",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-19",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "https://www.youtube.com/watch?v=6LdOikGUhj4",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/golay_echoes/publication.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/youtube-three-revised-public-20261020.ax.txt"
           ]
         }
       ]
@@ -1945,6 +2081,17 @@
           "source_refs": [
             "AGENTS.md",
             "docs/video-program/research-20261016/SLATE.md"
+          ]
+        },
+        {
+          "on": "2026-10-19",
+          "decision": "published",
+          "by": "owner explicit full-resolution replacement instruction; orchestrator SageBasin",
+          "reason": "Owner requested native full-resolution renders of the three delivered revised cuts and replacement YouTube uploads. The measured-native-4k60-20261019 revision is public at a new URL after technical and independent visual checks; original rejected uploads remain private. Publication does not assert a listening verdict. Detailed review scopes are recorded in the publication receipt.",
+          "source_refs": [
+            "mx-video-program-program-87do",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/p_values_medical/publication.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/youtube-three-revised-public-20261020.ax.txt"
           ]
         }
       ],
@@ -2052,6 +2199,53 @@
               "p_values_medical.directed-4k60-20261019-v4.package.faa1ff4b3238"
             ]
           }
+        },
+        {
+          "revision_id": "measured-native-4k60-20261019",
+          "label": "Measured revised cut, native 4K60",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261019/measured-redo-central/final4k-20261019/p_values_medical/p_values_medical_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "66301b2fefdb23f2be60ab9539f78c9fd440aa3d2c7957b318eab0eee36fb286"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Native 3840x2160p60 H.264 BT.709 CRF16 slow render from source 0a1c8b279d057ed871b715a2a453d4f6baa67f82 and the exact delivered medical-cut-02 narration/timing. 25425 frames, 423.750000s. All chapter timelines, cues and captured soundtracks match the revised review inputs; native soundtrack replay passes. Master PCM SHA256 73373be5260ea8dbbc175e43d80536b542da64676f867da02c9c8bf4c371a890 is byte-identical to the delivered 1080p review. Revised SRT/VTT are unchanged. Full software and VideoToolbox decodes passed with zero errors. No new synthesis, rate changes or script changes. Native input pin manifests retain detailed lineage; this entry does not claim a complete catalog artifact graph.",
+          "evidence_refs": [
+            "mx-video-program-program-87do.7",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/p_values_medical/native/completed.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/p_values_medical/native/inputs.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/p_values_medical/native/full-verify.log",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/p_values_medical/p_values_medical.en.srt",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/p_values_medical/chapters.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/p_values_medical/upload-private.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/p_values_medical/publication.json",
+            "narration_lab/production-20261018/independent-opus-review-20261019/final4k-p_values_medical",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/p_values_medical/native/fuchsia-review-pane-20261020.txt"
+          ],
+          "disposition": "Published under the owner's explicit full-resolution replacement instruction. FuchsiaHawk completed independent visual checks of the actual native 4K output: sampled frame comparisons, dense text, card holds, all six rings, five joins and ending; no visual defect reported. Weekly quota interrupted the final package check and overall verdict, and TanElm handoff4499 was also quota-limited. Root completed the package check against exact revised captions, native chapter times, original thumbnail and saved YouTube metadata. No final independent package verdict is claimed. YouTube Public/Published, 2160p60, English captions and no notices verified. Publication authority is separate from audio acceptance: no naturalness, accent, pronunciation or listening verdict is inferred. Earlier rejected uploads remain private; all cuts are preserved. Master evidence_state remains unknown for full perceptual acceptance; technical checks passed.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-19",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261019/measured-redo-central/final4k-20261019/p_values_medical/native/completed.json"
+              ]
+            },
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-19",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "https://www.youtube.com/watch?v=KI2CzpbyTUQ",
+                "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/p_values_medical/upload-private.json",
+                "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/p_values_medical/publication.json"
+              ]
+            }
+          ]
         }
       ],
       "publications": [
@@ -2068,6 +2262,21 @@
             "narration_lab/production-20261018/youtube-three-public-20261019.jpg",
             "narration_lab/production-20261018/youtube-three-private-20261019.jpg",
             "mx-video-program-program-87do.7.8"
+          ]
+        },
+        {
+          "venue": "youtube",
+          "external_id": "KI2CzpbyTUQ",
+          "url": "https://www.youtube.com/watch?v=KI2CzpbyTUQ",
+          "revision_id": "measured-native-4k60-20261019",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-19",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "https://www.youtube.com/watch?v=KI2CzpbyTUQ",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/p_values_medical/upload-private.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/p_values_medical/publication.json",
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/youtube-three-revised-public-20261020.ax.txt"
           ]
         }
       ]
