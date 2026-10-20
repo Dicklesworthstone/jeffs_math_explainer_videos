@@ -84,8 +84,10 @@ class LifecycleTests(unittest.TestCase):
             self.close()
         self.assert_open()
         self.native_blocked()
-        row = life.status(self.root, "hoeffding_d", "replacement")["revisions"][0]
+        result = life.status(self.root, "hoeffding_d", "replacement")
+        row = result["revisions"][0]
         self.assertIn("current bytes differ", row["next_blocker"])
+        self.assertEqual(result["next_blocker"], row["next_blocker"])
 
     def test_updated_catalog_hash_still_stales_receipt(self):
         self.fx.mutate("take")
@@ -178,6 +180,27 @@ class LifecycleTests(unittest.TestCase):
         result = life.status(self.root, "hoeffding_d", "legacy")
         self.assertEqual(result["revisions"][0]["state"], "blocked")
         self.assertIn("historical markers", result["revisions"][0]["next_blocker"])
+        self.assertEqual(result["next_blocker"], result["revisions"][0]["next_blocker"])
+
+    def test_status_summary_respects_revision_selection(self):
+        result = life.status(self.root, "hoeffding_d")
+        self.assertIn("historical markers", result["next_blocker"])
+        current = life.status(self.root, "hoeffding_d", "replacement")
+        self.assertEqual(current["revisions"][0]["state"], "receipts_current")
+        self.assertIsNone(current["next_blocker"])
+        self.assert_open()
+
+    def test_status_summary_for_video_without_cuts(self):
+        video = self.fx.data["videos"][0]
+        video["revisions"] = []
+        video["publications"] = []
+        self.policy["bindings"] = []
+        self.save()
+        result = life.status(self.root, "hoeffding_d")
+        self.assertEqual(result["revisions"], [])
+        self.assertIn("No cut recorded", result["next_blocker"])
+        with self.assertRaisesRegex(ValueError, "no cut matches"):
+            life.status(self.root, "hoeffding_d", "replacement")
 
     def test_reservation_inherits_and_excludes_second_producer(self):
         probe = self.root / "lock_probe.py"

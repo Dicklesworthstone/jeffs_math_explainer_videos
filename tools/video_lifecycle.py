@@ -55,7 +55,7 @@ def br(root, *args):
     for key in ("BEADS_DB", "BEADS_JSONL"):
         env.pop(key, None)
     env["BEADS_DIR"] = str(tracker)
-    result = subprocess.run(["br", *args, "--json", "--actor", PROVIDER], cwd=root,
+    result = subprocess.run(["br", "--no-auto-import", "--no-auto-flush", *args, "--json", "--actor", PROVIDER], cwd=root,
                             env=env, capture_output=True, text=True, timeout=45)
     if result.returncode:
         raise ValueError(f"br {' '.join(args[:2])}: {result.stdout.strip()} {result.stderr.strip()}")
@@ -158,8 +158,9 @@ def status(root, video_id, revision_id=None, voice=None):
                      "next_blocker": blocker,
                      "publications": [{"venue": p["venue"], "external_id": p["external_id"]}
                                       for p in video["publications"] if p["revision_id"] == rid]})
-    return {"video_id": video_id, "revisions": rows,
-            "next_blocker": None if rows else "No cut recorded; select and record a revision before producing evidence.",
+    blocker = next((row["next_blocker"] for row in rows if row["next_blocker"]), None) if rows else (
+        "No cut recorded; select and record a revision before producing evidence.")
+    return {"video_id": video_id, "revisions": rows, "next_blocker": blocker,
             "authority": "Current exact-cut receipts only; historical publication and task closure are not new-cut approval."}
 
 
