@@ -481,9 +481,11 @@ impl SceneConstruct for ThePriceOfTheCoin {
             ],
             Palette::ink(),
         );
+        // the bracket runs one deviation either side of the truth, so its
+        // label is a ± (review PinkDuck F4)
         let bracket_label = kit.tex(
             stage,
-            &format!(r"\sqrt{{{estimate}}} \approx {:.2}", spread),
+            &format!(r"\pm\sqrt{{{estimate}}} \approx \pm{:.2}", spread),
             30.0,
             Palette::ink(),
             &[],

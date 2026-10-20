@@ -374,9 +374,11 @@ impl SceneConstruct for WhatAYesSays {
             return Err(fail(format!("{share} drawn, {given_yes} counted")));
         }
         let raw = format!(r"\frac{{{yes_copied}}}{{{}}}", yes_copied + yes_didnt);
-        let frac = kit.tex(stage, &raw, 40.0, Palette::ink(), &[], v(DERIVE_X, DERIVE_Y))?;
-        fade_in_all(stage, &[frac], 0.4)?;
-        line.wait_for(stage, "On average")?;
+        // 12/28 first, then "= 3/7" beside it. The whole line is built now,
+        // so the lone fraction can stand exactly where the line's own will
+        // (the same TeX and size, their left edges together); the line then
+        // fades in over it and the lone copy goes unseen, so the fraction is
+        // never drawn twice side by side (review PinkDuck F3).
         let full = kit.tex(
             stage,
             &format!("{raw} = {}", tex_q(given_yes, false)),
@@ -385,6 +387,11 @@ impl SceneConstruct for WhatAYesSays {
             &[],
             v(DERIVE_X, DERIVE_Y),
         )?;
+        let frac = kit.tex(stage, &raw, 40.0, Palette::ink(), &[], v(DERIVE_X, DERIVE_Y))?;
+        let edge = stage.get_left(full);
+        stage.move_to(frac, edge, LEFT);
+        fade_in_all(stage, &[frac], 0.4)?;
+        line.wait_for(stage, "On average")?;
         let avg = kit.text_left(
             stage,
             &average_note(&counted),
@@ -392,7 +399,8 @@ impl SceneConstruct for WhatAYesSays {
             Palette::ink(),
             v(NOTE_X, DERIVE_Y + NOTE_DY),
         )?;
-        swap(stage, &[frac], &[full, avg], 0.4)?;
+        fade_in_all(stage, &[full, avg], 0.4)?;
+        stage.remove_from_scene(frac);
         line.wait_for(stage, "not three in four")?;
         let tempt = kit.text_left(
             stage,

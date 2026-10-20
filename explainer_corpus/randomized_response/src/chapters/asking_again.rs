@@ -166,7 +166,7 @@ fn prior_card(after: Q, copiers: usize, n: usize, at_half: Q, none: Q) -> String
 /// 04_9's exact version: what a memoized answer is, and how far the chapter
 /// claims it.
 fn memo_card() -> String {
-    "memoized: one flip for this secret, its answer resent each ask, so repeats add no evidence; only for one \
+    "memoized: one flip for this secret, its answer re-sent each ask, so repeats add no evidence; only for one \
      unchanged secret, under this rule"
         .to_owned()
 }

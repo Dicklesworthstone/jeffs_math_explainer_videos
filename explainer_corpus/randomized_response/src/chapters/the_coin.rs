@@ -114,6 +114,13 @@ fn place_at(route: Route, said: bool) -> Vec3 {
     v(x, y)
 }
 
+/// The centre of the answer `said`'s cluster once the survey's view leaves
+/// only the answers (01_7 on): the upper place's, so the truthful keep the
+/// slots they landed in and the second coin's students join them.
+fn answers_at(said: bool) -> Vec3 {
+    place_at(Route::Truth, said)
+}
+
 /// The places in the order the tally lists them: the truth's yes and no,
 /// then the second coin's.
 fn cell_index(route: Route, said: bool) -> usize {
@@ -145,6 +152,18 @@ fn cluster(k: usize) -> Vec3 {
         CLUSTER * ((k % SLOTS_PER_ROW) as f64 - 2.0),
         CLUSTER * ((k / SLOTS_PER_ROW) as f64 - 0.5),
     )
+}
+
+/// Pair the points `from` with the slots `to`, both taken left to right and
+/// then bottom to top. Slots and points here share the same five x
+/// positions, so each student then moves straight up or down and no two
+/// paths cross. Each index into `from` comes with its slot.
+fn matched(from: &[Vec3], mut to: Vec<Vec3>) -> Vec<(usize, Vec3)> {
+    let order = |a: &Vec3, b: &Vec3| a[0].total_cmp(&b[0]).then(a[1].total_cmp(&b[1]));
+    let mut which: Vec<usize> = (0..from.len()).collect();
+    which.sort_by(|&a, &b| order(&from[a], &from[b]));
+    to.sort_by(order);
+    which.into_iter().zip(to).collect()
 }
 
 /// A whole number as the chapter writes it ("−10" with a typographic minus).
@@ -229,6 +248,43 @@ fn travel(stage: &mut Stage<'_>, students: &mut [Student], which: &[usize], path
         }
         move_all(stage, &moves, rt)?;
     }
+    Ok(())
+}
+
+/// Send the students `which` to the slots `to`, paired by [`matched`], and
+/// record where each one lands. Returns the moves.
+fn regroup(students: &mut [Student], which: &[usize], to: Vec<Vec3>) -> Vec<(Mob, Vec3)> {
+    let from: Vec<Vec3> = which.iter().map(|&i| students[i].at).collect();
+    matched(&from, to)
+        .into_iter()
+        .map(|(j, at)| {
+            let s = &mut students[which[j]];
+            s.at = at;
+            (s.disc, at)
+        })
+        .collect()
+}
+
+/// Fade `out` while the moves run, all together in `rt` seconds (the draw
+/// helpers play one kind of animation at a time).
+fn fade_out_moving(stage: &mut Stage<'_>, out: &[Mob], moves: &[(Mob, Vec3)], rt: f64) -> fmn::Result<()> {
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in out {
+        stage.clear_updaters(m, true);
+        let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a.rt(rt))?);
+    }
+    for &(m, to) in moves {
+        let a = m
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(rt),
+                ..AnimateArgs::default()
+            })?
+            .move_to(to, ORIGIN)?;
+        anims.push(stage.prepare(a)?);
+    }
+    stage.play_prepared(anims)?;
     Ok(())
 }
 
@@ -490,7 +546,30 @@ impl SceneConstruct for TheCoin {
         for s in &mut students {
             hidden.extend(s.ring.take());
         }
-        fade_out_all(stage, &hidden, 0.8)?;
+        // What the survey sees: one cluster of yeses and one of noes, with
+        // nothing left to tell which way anyone went. As the tree fades, the
+        // second coin's students rise into the free slots of their answer's
+        // cluster, after the truthful (review PinkDuck F1).
+        let mut gather = Vec::new();
+        for said in [true, false] {
+            let risers: Vec<usize> = (0..n)
+                .filter(|&i| students[i].route() != Route::Truth && students[i].said() == said)
+                .collect();
+            let first = filled[cell_index(Route::Truth, said)];
+            if first + risers.len() != tally.answers(said) {
+                return Err(fail(format!(
+                    "the {} cluster holds {}, the tally {}",
+                    if said { YES } else { NO },
+                    first + risers.len(),
+                    tally.answers(said)
+                )));
+            }
+            let slots = (first..first + risers.len())
+                .map(|k| slot(answers_at(said), k))
+                .collect();
+            gather.extend(regroup(&mut students, &risers, slots));
+        }
+        fade_out_moving(stage, &hidden, &gather, 0.8)?;
 
         // 01_8: the survey's question, and the think time
         let line = say(&kit, stage, "01_8")?;
@@ -509,6 +588,21 @@ impl SceneConstruct for TheCoin {
             s.disc = f;
         }
         swap(stage, &old, &faint, 0.5)?;
+        // The faint ones step down to the row under the yeses that are left,
+        // so 01_10's doubling lands beside those yeses.
+        let kept = filled[cell_index(Route::Truth, true)];
+        let doubled = estimate - left;
+        let extra = doubled
+            .integer()
+            .and_then(|d| usize::try_from(d).ok())
+            .ok_or_else(|| fail(format!("doubling adds {doubled} students")))?;
+        let below = (kept + extra).div_ceil(SLOTS_PER_ROW) * SLOTS_PER_ROW;
+        let dimmed: Vec<usize> = (0..n).filter(|&i| students[i].route() == Route::ForcedYes).collect();
+        let slots = (below..below + dimmed.len())
+            .map(|k| slot(answers_at(true), k))
+            .collect();
+        let down = regroup(&mut students, &dimmed, slots);
+        move_all(stage, &down, 0.4)?;
         line.wait_for(stage, "On average that's five")?;
         let quarter = whole_text(Q::int(n as i128) / forced)?;
         let quarter_tex = kit.tex(
@@ -540,16 +634,12 @@ impl SceneConstruct for TheCoin {
         // 01_10: double them; four, and the rings come back
         let line = say(&kit, stage, "01_10")?;
         line.wait_for(stage, "So double them")?;
-        // the copiers among the other half, whom the second coin hid
-        let doubled = estimate - left;
-        let extra = doubled
-            .integer()
-            .and_then(|d| usize::try_from(d).ok())
-            .ok_or_else(|| fail(format!("doubling adds {doubled} students")))?;
-        let first_free = filled[cell_index(Route::Truth, true)];
+        // the copiers among the other half, whom the second coin hid: beside
+        // the yeses that are left, in the slots the faint ones cleared, with
+        // the factor at the end of that row
         let mut ghosts = Vec::new();
-        for k in first_free..first_free + extra {
-            ghosts.push(hollow(stage, palette::yes(), slot(place_at(Route::Truth, true), k)));
+        for k in kept..kept + extra {
+            ghosts.push(hollow(stage, palette::yes(), slot(answers_at(true), k)));
         }
         ghosts.push(kit.tex(
             stage,
@@ -557,7 +647,7 @@ impl SceneConstruct for TheCoin {
             30.0,
             Palette::ink(),
             &[],
-            count_at(place_at(Route::Truth, true)),
+            v(count_at(answers_at(true))[0], slot(answers_at(true), kept)[1]),
         )?);
         fade_in_lagged(stage, &ghosts, 0.8, 0.4)?;
         line.wait_for(stage, "Four.")?;
@@ -723,6 +813,39 @@ mod tests {
         assert_eq!(filled[0] + filled[2], a.tally.answers(true));
         assert_eq!(filled[1] + filled[3], a.tally.answers(false));
         const { assert!(GRID_X.len() == COIN_PAIRS.len(), "one grid column per coin outcome") };
+    }
+
+    /// The survey's view keeps no trace of the routes (review PinkDuck F1).
+    /// Each answer becomes one cluster holding its total, and every one of the
+    /// second coin's students rises straight up into it. The doubling (01_10)
+    /// then fits in the row of the yeses that are left.
+    #[test]
+    fn the_answers_gather_into_one_cluster_each() {
+        let a = facts::average().unwrap();
+        let mut filled = [0usize; 4];
+        let mut risers: [Vec<Vec3>; 2] = [Vec::new(), Vec::new()];
+        for (i, &(first, second)) in a.coins.iter().enumerate() {
+            let route = model::route(first, second);
+            let said = model::answer(a.class.copied(i), first, second);
+            let c = cell_index(route, said);
+            let at = slot(place_at(route, said), filled[c]);
+            filled[c] += 1;
+            if route != Route::Truth {
+                risers[usize::from(!said)].push(at);
+            }
+        }
+        for (said, from) in [true, false].into_iter().zip(&risers) {
+            let first = filled[cell_index(Route::Truth, said)];
+            assert_eq!(first + from.len(), a.tally.answers(said));
+            let to: Vec<Vec3> = (first..first + from.len()).map(|k| slot(answers_at(said), k)).collect();
+            for (j, at) in matched(from, to) {
+                assert!((at[0] - from[j][0]).abs() < 1e-9, "a riser moves sideways");
+                assert!(at[1] > from[j][1], "a riser does not rise");
+            }
+        }
+        let [_, left, estimate] = facts::undo(&a).unwrap();
+        let extra = usize::try_from((estimate - left).integer().unwrap()).unwrap();
+        assert!(filled[cell_index(Route::Truth, true)] + extra <= SLOTS_PER_ROW);
     }
 
     /// The layout keeps its pieces apart and inside the frame.

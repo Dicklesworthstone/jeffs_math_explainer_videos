@@ -533,16 +533,19 @@ impl SceneConstruct for TheDial {
         fade_in_all(stage, &misses[2..], 0.3)?;
         flash_all(stage, &[misses[0], misses[2]], 0.6)?;
 
-        // 05_8: all the way up, the direct question
+        // 05_8: all the way up, the direct question. The spinner, its rows
+        // and the table row follow the knob at once, as at every other
+        // setting; card 4 replaces card 3 only once card 3 has been read
+        // (review PinkDuck F2).
         let _line = say(&kit, stage, "05_8")?;
         move_all(stage, &[(marker, v(dial_x(top.truth()), DIAL_Y))], 0.6)?;
         let top_cells = table_row(&kit, stage, top_row, top)?;
+        left = left.turn(&kit, stage, top_k, true, &[], &top_cells)?;
         let card4_text = edges_card();
         let card4 = precisely(&kit, stage, &card4_text)?;
-        let mut coming = top_cells.to_vec();
-        coming.push(card4);
         wait_until(stage, card3_read)?;
-        left = left.turn(&kit, stage, top_k, true, &[card3], &coming)?;
+        fade_out_all(stage, &[card3], 0.2)?;
+        fade_in_all(stage, &[card4], 0.2)?;
         let card4_read = read_by(stage, &card4_text);
 
         // 05_9: all the way down, a pure coin
