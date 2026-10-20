@@ -403,7 +403,8 @@ impl SceneConstruct for AskingAgain {
             .map(|c| model::pattern_ratio(c).ok_or_else(|| fail("a pattern no one who didn't copy gives".into())))
             .collect::<fmn::Result<_>>()?;
         let card2 = precisely(&kit, stage, &ratios_card(&ratios, &fact("R-F9.worst_ratio_by_asks")?))?;
-        swap(stage, &[card], &[power, card2], 0.4)?;
+        fade_out_all(stage, &[card], 0.2)?;
+        fade_in_all(stage, &[power, card2], 0.2)?;
         line.wait_for(stage, "Three noes")?;
         let all_no = |o: &Outcome| o.yeses() == 0;
         recolor(stage, &mut outcomes, all_no, |_| palette::no(), 0.4)?;
@@ -435,7 +436,8 @@ impl SceneConstruct for AskingAgain {
         let mut leaving = vec![total_tex, ratio_tex, power];
         leaving.extend(no_labels);
         leaving.extend(names);
-        swap(stage, &leaving, &named, 0.4)?;
+        fade_out_all(stage, &leaving, 0.2)?;
+        fade_in_all(stage, &named, 0.2)?;
         names = named;
         recolor(stage, &mut outcomes, all_no, |_| palette::ghost(), 0.3)?;
         let class_yes = [others as u64 * yes_didnt, copiers as u64 * yes_copied];
@@ -496,7 +498,8 @@ impl SceneConstruct for AskingAgain {
                 model::posterior(Q::ZERO, ASKED_AGAIN, ASKED_AGAIN),
             ),
         )?;
-        swap(stage, &[card2], &[chance, card3], 0.4)?;
+        fade_out_all(stage, &[card2], 0.2)?;
+        fade_in_all(stage, &[chance, card3], 0.2)?;
         line.wait_for(stage, "After one")?;
         let one_yes = kit.text(
             stage,
@@ -513,7 +516,8 @@ impl SceneConstruct for AskingAgain {
         let mut leaving = products.to_vec();
         leaving.extend(yes_labels);
         leaving.extend(names);
-        swap(stage, &leaving, &plain, 0.4)?;
+        fade_out_all(stage, &leaving, 0.2)?;
+        fade_in_all(stage, &plain, 0.2)?;
         names = plain;
         let majority = |o: &Outcome| {
             if o.copied {
@@ -608,7 +612,8 @@ impl SceneConstruct for AskingAgain {
         leaving.extend([majority_tex, chance, one_yes, card3]);
         let mut shown = memo;
         shown.push(card4);
-        swap(stage, &leaving, &shown, 0.5)?;
+        fade_out_all(stage, &leaving, 0.25)?;
+        fade_in_all(stage, &shown, 0.25)?;
 
         // 04_10: three yeses still three times as likely; repeats add nothing
         let line = say(&kit, stage, "04_10")?;
