@@ -15,7 +15,7 @@ settings. No final independent package verdict is claimed for medical.
 All three are public with 2160p60 playback and English captions. The catalog binds
 the new URLs to exact master hashes.
 Publication authority does not supply a listening verdict; acoustic acceptance
-remains unrecorded. New-video production remains deferred. All previous cuts,
+remains unrecorded. All previous cuts,
 including the three rejected private uploads, are preserved.
 
 Earlier on **2026-10-19**, the owner rejected all three new cuts for accent drift,
@@ -35,8 +35,8 @@ The catalog binds each upload to its exact local revision. Technical and sampled
 visual QC passed; continuous audiovisual listening and full-cut perceptual
 acceptance remain open. Publication is recorded separately from those gates.
 
-The five Opus 5.5 lanes remain limited to mathematical and source work after
-the withdrawal, with narration and publication deferred. Their topics are
+The owner subsequently requested resuming the existing next five videos with
+NTM, superseding their earlier production deferral. Their topics are
 **epsilon–delta, randomized response, discrete tomography, resistor networks and
 random walks, and Freivalds' matrix verification**. These reuse existing catalog
 identities and Beads epics. Epsilon–delta follows the owner's requested notes and
@@ -45,9 +45,60 @@ inference tradeoff; tomography turns two matching shadows into a reconstruction
 puzzle; resistor networks connect one boundary-value problem to two physical and
 probabilistic pictures; Freivalds shows why checking a calculation can be much
 cheaper than repeating it. The choice favors distinct visual mechanisms and
-checkable proofs over another broad survey. Each starts with source/proof
-qualification and a real opening scene, with one central build/render/TTS lane.
-See the current [owner amendment](../../AGENTS.md) for scope and ownership.
+checkable proofs over another broad survey. The five original Opus 5.5 xhigh
+panes each received one identity-verified continuation on 2026-10-20 at 02:07–02:08 UTC,
+then immediately hit weekly quota. They have been preserved without repeated
+sends, restarts or account changes. Root continued from the saved handoffs in
+one serial local build/render/TTS lane.
+
+On **2026-10-20**, all five complete narrated 1080p60 review cuts were delivered:
+
+| Review cut | Length | Chapters | English captions |
+|---|---:|---:|---:|
+| [Epsilon–delta](../../narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-review01.mp4) |14:46|12|256|
+| [Randomized response](../../narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-review01.mp4) |6:27|5|97|
+| [Discrete tomography](../../narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-review01.mp4) |5:59|5|92|
+| [Resistor networks and random walks](../../narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-review01.mp4) |5:55|4|79|
+| [Freivalds](../../narration_lab/production-20261020/second-wave-central/owner-review/freivalds-review01.mp4) |4:49|4|75|
+
+Matching `.en.srt` and `.en.vtt` files accompany every cut. The catalog records
+their exact hashes and links each topic's `review-cut01/verification.json` and
+input receipts. Native soundtrack replay, full master decode and caption timing
+checks passed. Root inspected actual rendered frames and chapter boundaries and
+repaired measured layout or reading-time defects. Epsilon–delta includes the
+full 12-chapter arc through sequences, open sets and completeness.
+
+These are narration-only review cuts. Independent review and continuous full-cut
+listening remain open; technical checks and ASR do not establish voice identity,
+accent, pronunciation, cadence or prosody. Recognition ambiguities are retained
+in the receipts. No new publication is authorized or recorded for these five.
+The initial source/draft revisions and every earlier variant remain preserved.
+
+The same five cuts now also have **complete scored 1080p60 comparisons**, using
+each topic's implemented procedural music and the exact existing narration cues
+and scene timing:
+
+| Scored comparison | Length |
+|---|---:|
+| [Epsilon–delta](../../narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-scored-review01.mp4) |14:46|
+| [Randomized response](../../narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-scored-review01.mp4) |6:27|
+| [Discrete tomography](../../narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-scored-review01.mp4) |5:59|
+| [Resistor networks and random walks](../../narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-scored-review01.mp4) |5:55|
+| [Freivalds](../../narration_lab/production-20261020/second-wave-central/owner-review/freivalds-scored-review01.mp4) |4:49|
+
+All 30 chapter score checks, native mixed-soundtrack replays and complete master
+decodes passed. The English SRT/VTT captions are byte-identical to the
+narration-only versions. Root inspected 165 actual chapter/join frames plus
+each cut's lowest-similarity original/scored frame pair. Full decoded-frame
+comparisons found small differences consistent with the changed preview
+encoding; pixel identity is not claimed. The exact hashes, input pins, score
+checks and inspection scope are linked from the catalog's
+`scored-review01-20261020` revisions. These remain local comparisons awaiting
+independent continuous visual review and listening. No auditory acceptance,
+final 4K qualification or publication is inferred from the technical checks.
+
+The direct owner resumption above supersedes older deferral text in the dated
+[owner amendments](../../AGENTS.md); scope and ownership restrictions otherwise remain.
 
 As of 2026-10-17: **65 video identities, 37 documented master cuts, 17 upload records, 11 selected public videos.** The 54 proposed topics include ideas that are unapproved, parked or declined. They are not a commitment to produce 54 videos. Publication observations come from the 2026-10-15 audit and historical [publishing manifest](../publish/MANIFEST.md), not a new browser audit. Earlier private and unuploaded cuts retain their dispositions. A public video may still have open work for another venue or a future revision.
 
@@ -67,13 +118,13 @@ The [v1 schema](catalog.schema.json) and [read-only validator](../../tools/video
 
 ## What to tackle next
 
-The useful next lanes are N1's approved Michael reference/baseline pack, enrolling genuinely qualified cut checks through A4, and S1's source/competition qualification. The bounded antecedent experiment has fresh audio and a blind review page in `narration_lab/michael-antecedent-20261017/listen.html`; its technical checks do not supply a human listening verdict. N12's accent/speaker triage can proceed after labels exist but does not block N5/N7's human listening experiment. N13–N16 remain bounded experiments with their own prerequisites, not an instruction to download every model or train one.
+The current next step is independent review and owner listening to the five complete cuts above. Address concrete defects against those exact files; do not regenerate unchanged narration or repeat completed native checks. The earlier bounded antecedent experiment remains in `narration_lab/michael-antecedent-20261017/listen.html`; its technical evidence does not supply a human listening verdict. N12's accent/speaker triage still requires labels. N13–N16 remain bounded experiments with their own prerequisites, not an instruction to download every model or train one.
 
 The owner authorized a first production wave on 2026-10-17 and delegated selection: **Golay echo cancellation, square packing and the medical p-value explanation**. Each has a `v1-michael-20261017` revision and one first-chapter task, respectively `mx-video-program-program-87do.6.1`, `.5.1` and `.7.1`. The three Claude Code Opus 5.5 lanes own disjoint corpus directories; central verification precedes task closure. This authorizes development, not publication or invented audio/visual passes. See the scoped amendment in [AGENTS.md](../../AGENTS.md).
 
 The fresh launch reached the actual Opus 5.5 prompt in all three panes, but every first assignment returned Claude's weekly limit. The three chapter tasks are blocked in Beads; no implementation or acoustic credit was claimed. The owned NTM session retains its assignments for provider recovery. Consult live Beads rather than treating this dated launch record as current capacity.
 
-The [slate](research-20261016/SLATE.md) explains the hooks and rejection criteria. The [p-value brief](research-20261016/evidence/pvalues-medical-opening.md) preserves the doctors-survey hook but corrects the population and answer-key claims. The owner-requested [epsilon–delta candidate](briefs/epsilon-delta.md) is the leading next-slot candidate: continuous curves with a discontinuous limit, constructive delta choices from the supplied Sprague/Davis notes, and the neighborhood idea behind topology. Its historical attribution and full competition review remain qualification work. Randomized response and discrete tomography remain reserves.
+The [slate](research-20261016/SLATE.md) explains the original hooks and rejection criteria. The [p-value brief](research-20261016/evidence/pvalues-medical-opening.md) preserves the doctors-survey hook but corrects the population and answer-key claims. The owner-requested [epsilon–delta brief](briefs/epsilon-delta.md) led to the complete preview above: continuous curves with a discontinuous limit, constructive delta choices from the supplied Sprague/Davis notes, sequences, topology and completeness. Randomized response and discrete tomography are also now complete review cuts. Editorial qualification and perceptual acceptance remain distinct.
 
 For narration, start with the [current continuity and cadence handoff](NARRATION-CONSISTENCY.md), which records owner feedback through the contextual pickup repair and links the revised canonical skill. The owner has heard improvements from manual pauses and contextual repair; this does not yet qualify a whole chapter or identify a universal method. The [original voice ideas](research-20261016/VOICE_IDEA_WIZARD.md) and [model matrix](research-20261016/evidence/voice-model-matrix.md) remain dated research, not automatic next steps. Speaker, accent, cadence, gaps and lexical correctness remain separate judgments.
 
@@ -81,7 +132,7 @@ The requested independent Claude/Codex duel remains incomplete: fresh Claude ret
 
 ## Dated catalog view
 
-The following tables are a 2026-10-17 rendering of `catalog.json`, not a second place to edit status. Rebuild them from that file after intake changes. Use Beads for current task state. Publication observations retain their original dates.
+The following tables began as a 2026-10-17 rendering of `catalog.json`; the five resumed-production rows were updated on 2026-10-20. They are not a second place to edit status. Use Beads for current task state and the catalog for exact revisions/publications. Historical publication observations retain their original dates.
 
 ### Public topics
 
@@ -106,9 +157,11 @@ The following tables are a 2026-10-17 rendering of `catalog.json`, not a second 
 | `square_packing` | Why turning a square can make the whole box smaller | selected for production | `mx-video-program-program-87do.5` |
 | `golay_echoes` | Two bad echoes can make one perfect measurement | selected for production | `mx-video-program-program-87do.6` |
 | `p_values_medical` | Why P-Values Confuse Even Doctors | selected for production | `mx-video-program-program-87do.7` |
-| `randomized_response` | How to learn a secret about a crowd without learning each person's answer | shortlisted | `mx-video-program-program-87do.8` |
-| `discrete_tomography` | Two shadows can lie—even when every number is right | shortlisted | `mx-video-program-program-87do.9` |
-| `epsilon_delta` | Epsilon and Delta: Why Getting Closer Wasn't Enough | shortlisted | `mx-video-program-program-87do.58` |
+| `randomized_response` | How to learn a secret about a crowd without learning each person's answer | complete narrated review cut; acceptance pending | `mx-video-program-program-87do.8` |
+| `discrete_tomography` | Two shadows can lie—even when every number is right | complete narrated review cut; acceptance pending | `mx-video-program-program-87do.9` |
+| `epsilon_delta` | Epsilon and Delta: Why Getting Closer Wasn't Enough | complete narrated review cut; acceptance pending | `mx-video-program-program-87do.58` |
+| `resistor_random_walk` | A resistor network is secretly answering a probability question | complete narrated review cut; acceptance pending | `mx-video-program-program-87do.18` |
+| `freivalds` | Check a giant matrix product without doing the product again | complete narrated review cut; acceptance pending | `mx-video-program-program-87do.23` |
 
 ### Other ideas, including parked and declined
 
@@ -122,12 +175,10 @@ The following tables are a 2026-10-17 rendering of `catalog.json`, not a second 
 | `parrondo` | Two losing games, one winning schedule | inbox | `mx-video-program-program-87do.15` |
 | `braess` | The road that makes everybody slower | parked | `mx-video-program-program-87do.16` |
 | `abelian_sandpile` | Why this avalanche ignores the order of the falling grains | inbox | `mx-video-program-program-87do.17` |
-| `resistor_random_walk` | A resistor network is secretly answering a probability question | inbox | `mx-video-program-program-87do.18` |
 | `rotor_router` | How arrows can imitate randomness without a random number | inbox | `mx-video-program-program-87do.19` |
 | `planar_rigidity` | How many bars stop a framework from folding? Counting alone is not enough | inbox | `mx-video-program-program-87do.20` |
 | `maxwell_cremona` | The second drawing that tells you whether a structure can hold itself up | inbox | `mx-video-program-program-87do.21` |
 | `crofton` | Measure a curve by throwing lines at it | inbox | `mx-video-program-program-87do.22` |
-| `freivalds` | Check a giant matrix product without doing the product again | inbox | `mx-video-program-program-87do.23` |
 | `distinct_streaming` | Remember almost nothing, yet count a river of different things | inbox | `mx-video-program-program-87do.24` |
 | `random_min_cut` | Why one random cut can solve a problem that looks global | inbox | `mx-video-program-program-87do.25` |
 | `discrepancy` | How to balance many overlapping demands at once | inbox | `mx-video-program-program-87do.26` |

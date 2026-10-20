@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-10-19",
+  "updated_on": "2026-10-20",
   "work_tracker": ".beads",
   "consumer": "Channel owner and video producers",
   "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
@@ -2326,6 +2326,72 @@
           ],
           "disposition": "Source/proof qualification and opening-scene implementation beginning. Script, narration, storyboard, rendered-draft and final-master acceptance remain open.",
           "milestones": []
+        },
+        {
+          "revision_id": "narrated-review01-20261020",
+          "label": "Complete narrated 1080p60 review cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "1e76744b222e9aa519c60f8b9d36407e9af24c8f6cf0b4083fef6c8d8a1953a7"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Complete native 1920x1080p60 narrated review cut: 23237 frames, 387.283333s, 5 chapters, 97 timed captions covering 92 sentences. Existing Michael-reference route with selected original takes and sample-preserving cue assembly; exact source and narration lineage is in the input and chapter receipts. Every captured chapter soundtrack replayed bit for bit through the native mixer; full master decode passed. Caption text and native timing were verified, with at most 1ms rounding difference. Root viewed actual chapter frames and master opening/join/ending samples. These are sampled visual and technical checks. The catalog does not enumerate the full artifact graph; detailed lineage remains in the pinned receipts.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/randomized-response-01/review-cut01/verification.json",
+            "narration_lab/production-20261020/second-wave-central/randomized-response-01/review-cut01/inputs.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-review01.en.vtt",
+            "mx-video-program-program-87do.8"
+          ],
+          "disposition": "Owner explicitly resumed the existing next-five production work with NTM after the earlier three revised videos were published. Original worker sessions reached weekly quota immediately on resumption; root continued serially from their preserved handoffs. Complete narration-only local review cut delivered with English SRT/VTT. Independent visual review, continuous full-cut listening and perceptual acceptance remain open; ASR ambiguities are not audible verdicts. No score stem or final 4K release qualification, no publication authorization or upload for this revision. All earlier variants and failures are preserved.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-20",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/randomized-response-01/review-cut01/verification.json"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "scored-review01-20261020",
+          "label": "Complete narrated and scored 1080p60 comparison cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-scored-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "75961c149f39328f857d182a6e5a8b00a4c9841a2725475b20509292bf03c428"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Native 1920x1080p60 comparison export: 23237 frames, 387.283333s, 5 chapters. Connected this topic's implemented procedural score to the exact delivered narration cue WAVs, gains, placements and scene timelines. No TTS, script or scene change. All chapter score QA and captured narration-plus-music PCM replays passed; complete master decode passed. English captions are byte-identical to narrated-review01-20261020. The final master applies the native common gain recorded in the receipt. Root viewed 27 chapter/join samples and the lowest-SSIM original/scored pair. Every decoded video frame was compared; preview encoding differs, so pixel identity is not claimed. Exact input pins and complete lineage are retained in local receipts; the catalog does not enumerate the full artifact graph.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/randomized-response-01/score-review01/verification.json",
+            "narration_lab/production-20261020/second-wave-central/randomized-response-01/score-review01/inputs.json",
+            "narration_lab/production-20261020/second-wave-central/randomized-response-01/score-review01/timeline-equivalence.json",
+            "narration_lab/production-20261020/second-wave-central/randomized-response-01/score-review01/actual-frames/extraction.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-scored-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-scored-review01.en.vtt",
+            "mx-video-program-program-87do.8.8"
+          ],
+          "disposition": "Local scored comparison delivered beside the preserved narration-only cut. Independent continuous visual review, owner listening and perceptual acceptance remain open. Score QA, ASR, hashes and sampled pixels do not establish audible quality or acceptance. Final native 4K qualification and publication authority remain outstanding. No upload or public-release verdict for this revision; all variants and failures retained.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-20",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/randomized-response-01/score-review01/verification.json"
+              ]
+            }
+          ]
         }
       ],
       "publications": []
@@ -2375,6 +2441,72 @@
           ],
           "disposition": "Source/proof qualification and opening-scene implementation beginning. Script, narration, storyboard, rendered-draft and final-master acceptance remain open.",
           "milestones": []
+        },
+        {
+          "revision_id": "narrated-review01-20261020",
+          "label": "Complete narrated 1080p60 review cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "7f9f4eb5f2f762646dfd2d3d3acaafb4112bf5a48292ee3f7433ae2edb20f89f"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Complete native 1920x1080p60 narrated review cut: 21530 frames, 358.833333s, 5 chapters, 92 timed captions covering 87 sentences. Existing Michael-reference route with selected original takes and sample-preserving cue assembly; exact source and narration lineage is in the input and chapter receipts. Every captured chapter soundtrack replayed bit for bit through the native mixer; full master decode passed. Caption text and native timing were verified, with at most 1ms rounding difference. Root viewed actual chapter frames and master opening/join/ending samples. These are sampled visual and technical checks. The catalog does not enumerate the full artifact graph; detailed lineage remains in the pinned receipts.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/discrete-tomography-01/review-cut01/verification.json",
+            "narration_lab/production-20261020/second-wave-central/discrete-tomography-01/review-cut01/inputs.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-review01.en.vtt",
+            "mx-video-program-program-87do.9"
+          ],
+          "disposition": "Owner explicitly resumed the existing next-five production work with NTM after the earlier three revised videos were published. Original worker sessions reached weekly quota immediately on resumption; root continued serially from their preserved handoffs. Complete narration-only local review cut delivered with English SRT/VTT. Independent visual review, continuous full-cut listening and perceptual acceptance remain open; ASR ambiguities are not audible verdicts. No score stem or final 4K release qualification, no publication authorization or upload for this revision. All earlier variants and failures are preserved.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-20",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/discrete-tomography-01/review-cut01/verification.json"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "scored-review01-20261020",
+          "label": "Complete narrated and scored 1080p60 comparison cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-scored-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "e9a3ae50d06fed768551f4cef1e4fb467215dd95b81fdf8efef924847c2754ba"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Native 1920x1080p60 comparison export: 21530 frames, 358.833333s, 5 chapters. Connected this topic's implemented procedural score to the exact delivered narration cue WAVs, gains, placements and scene timelines. No TTS, script or scene change. All chapter score QA and captured narration-plus-music PCM replays passed; complete master decode passed. English captions are byte-identical to narrated-review01-20261020. The final master applies the native common gain recorded in the receipt. Root viewed 27 chapter/join samples and the lowest-SSIM original/scored pair. Every decoded video frame was compared; preview encoding differs, so pixel identity is not claimed. Exact input pins and complete lineage are retained in local receipts; the catalog does not enumerate the full artifact graph.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/discrete-tomography-01/score-review01/verification.json",
+            "narration_lab/production-20261020/second-wave-central/discrete-tomography-01/score-review01/inputs.json",
+            "narration_lab/production-20261020/second-wave-central/discrete-tomography-01/score-review01/timeline-equivalence.json",
+            "narration_lab/production-20261020/second-wave-central/discrete-tomography-01/score-review01/actual-frames/extraction.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-scored-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-scored-review01.en.vtt",
+            "mx-video-program-program-87do.9.7"
+          ],
+          "disposition": "Local scored comparison delivered beside the preserved narration-only cut. Independent continuous visual review, owner listening and perceptual acceptance remain open. Score QA, ASR, hashes and sampled pixels do not establish audible quality or acceptance. Final native 4K qualification and publication authority remain outstanding. No upload or public-release verdict for this revision; all variants and failures retained.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-20",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/discrete-tomography-01/score-review01/verification.json"
+              ]
+            }
+          ]
         }
       ],
       "publications": []
@@ -2618,6 +2750,72 @@
           ],
           "disposition": "Source/proof qualification and opening-scene implementation beginning. Script, narration, storyboard, rendered-draft and final-master acceptance remain open.",
           "milestones": []
+        },
+        {
+          "revision_id": "narrated-review01-20261020",
+          "label": "Complete narrated 1080p60 review cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "9ba5cce48c750a7ea7c1c58eef93b0cb9a093296389d2ff9f96805aaeaf8d38c"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Complete native 1920x1080p60 narrated review cut: 21306 frames, 355.100000s, 4 chapters, 79 timed captions covering 67 sentences. Existing Michael-reference route with selected original takes and sample-preserving cue assembly; exact source and narration lineage is in the input and chapter receipts. Every captured chapter soundtrack replayed bit for bit through the native mixer; full master decode passed. Caption text and native timing were verified, with at most 1ms rounding difference. Root viewed actual chapter frames and master opening/join/ending samples. These are sampled visual and technical checks. The catalog does not enumerate the full artifact graph; detailed lineage remains in the pinned receipts.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/resistor-random-walk-01/review-cut01/verification.json",
+            "narration_lab/production-20261020/second-wave-central/resistor-random-walk-01/review-cut01/inputs.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-review01.en.vtt",
+            "mx-video-program-program-87do.18"
+          ],
+          "disposition": "Owner explicitly resumed the existing next-five production work with NTM after the earlier three revised videos were published. Original worker sessions reached weekly quota immediately on resumption; root continued serially from their preserved handoffs. Complete narration-only local review cut delivered with English SRT/VTT. Independent visual review, continuous full-cut listening and perceptual acceptance remain open; ASR ambiguities are not audible verdicts. No score stem or final 4K release qualification, no publication authorization or upload for this revision. All earlier variants and failures are preserved.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-20",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/resistor-random-walk-01/review-cut01/verification.json"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "scored-review01-20261020",
+          "label": "Complete narrated and scored 1080p60 comparison cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-scored-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "bfaac1b78eafbcf99a1d24c5f1e4bba899a89b996f4ca44bb682080825818a73"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Native 1920x1080p60 comparison export: 21306 frames, 355.100000s, 4 chapters. Connected this topic's implemented procedural score to the exact delivered narration cue WAVs, gains, placements and scene timelines. No TTS, script or scene change. All chapter score QA and captured narration-plus-music PCM replays passed; complete master decode passed. English captions are byte-identical to narrated-review01-20261020. The final master applies the native common gain recorded in the receipt. Root viewed 21 chapter/join samples and the lowest-SSIM original/scored pair. Every decoded video frame was compared; preview encoding differs, so pixel identity is not claimed. Exact input pins and complete lineage are retained in local receipts; the catalog does not enumerate the full artifact graph.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/resistor-random-walk-01/score-review01/verification.json",
+            "narration_lab/production-20261020/second-wave-central/resistor-random-walk-01/score-review01/inputs.json",
+            "narration_lab/production-20261020/second-wave-central/resistor-random-walk-01/score-review01/timeline-equivalence.json",
+            "narration_lab/production-20261020/second-wave-central/resistor-random-walk-01/score-review01/actual-frames/extraction.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-scored-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-scored-review01.en.vtt",
+            "mx-video-program-program-87do.18.6"
+          ],
+          "disposition": "Local scored comparison delivered beside the preserved narration-only cut. Independent continuous visual review, owner listening and perceptual acceptance remain open. Score QA, ASR, hashes and sampled pixels do not establish audible quality or acceptance. Final native 4K qualification and publication authority remain outstanding. No upload or public-release verdict for this revision; all variants and failures retained.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-20",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/resistor-random-walk-01/score-review01/verification.json"
+              ]
+            }
+          ]
         }
       ],
       "publications": []
@@ -2763,6 +2961,72 @@
           ],
           "disposition": "Source/proof qualification and opening-scene implementation beginning. Script, narration, storyboard, rendered-draft and final-master acceptance remain open.",
           "milestones": []
+        },
+        {
+          "revision_id": "narrated-review01-20261020",
+          "label": "Complete narrated 1080p60 review cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "6f67608b6211a7b7e533b9967977d0a62ab28931b663e1e49fc04882d3842ab1"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Complete native 1920x1080p60 narrated review cut: 17310 frames, 288.500000s, 4 chapters, 75 timed captions covering 66 sentences. Existing Michael-reference route with selected original takes and sample-preserving cue assembly; exact source and narration lineage is in the input and chapter receipts. Every captured chapter soundtrack replayed bit for bit through the native mixer; full master decode passed. Caption text and native timing were verified, with at most 1ms rounding difference. Root viewed actual chapter frames and master opening/join/ending samples. These are sampled visual and technical checks. The catalog does not enumerate the full artifact graph; detailed lineage remains in the pinned receipts.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/freivalds-01/review-cut01/verification.json",
+            "narration_lab/production-20261020/second-wave-central/freivalds-01/review-cut01/inputs.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-review01.en.vtt",
+            "mx-video-program-program-87do.23"
+          ],
+          "disposition": "Owner explicitly resumed the existing next-five production work with NTM after the earlier three revised videos were published. Original worker sessions reached weekly quota immediately on resumption; root continued serially from their preserved handoffs. Complete narration-only local review cut delivered with English SRT/VTT. Independent visual review, continuous full-cut listening and perceptual acceptance remain open; ASR ambiguities are not audible verdicts. No score stem or final 4K release qualification, no publication authorization or upload for this revision. All earlier variants and failures are preserved.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-20",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/freivalds-01/review-cut01/verification.json"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "scored-review01-20261020",
+          "label": "Complete narrated and scored 1080p60 comparison cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-scored-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "985490181b418e364cdeab7d3e3b6673fbec27fd291a87d2de015543c57ddeb7"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Native 1920x1080p60 comparison export: 17310 frames, 288.500000s, 4 chapters. Connected this topic's implemented procedural score to the exact delivered narration cue WAVs, gains, placements and scene timelines. No TTS, script or scene change. All chapter score QA and captured narration-plus-music PCM replays passed; complete master decode passed. English captions are byte-identical to narrated-review01-20261020. The final master applies the native common gain recorded in the receipt. Root viewed 21 chapter/join samples and the lowest-SSIM original/scored pair. Every decoded video frame was compared; preview encoding differs, so pixel identity is not claimed. Exact input pins and complete lineage are retained in local receipts; the catalog does not enumerate the full artifact graph.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/freivalds-01/score-review02/verification.json",
+            "narration_lab/production-20261020/second-wave-central/freivalds-01/score-review02/inputs.json",
+            "narration_lab/production-20261020/second-wave-central/freivalds-01/score-review02/timeline-equivalence.json",
+            "narration_lab/production-20261020/second-wave-central/freivalds-01/score-review02/actual-frames/extraction.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-scored-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-scored-review01.en.vtt",
+            "mx-video-program-program-87do.23.6"
+          ],
+          "disposition": "Local scored comparison delivered beside the preserved narration-only cut. Independent continuous visual review, owner listening and perceptual acceptance remain open. Score QA, ASR, hashes and sampled pixels do not establish audible quality or acceptance. Final native 4K qualification and publication authority remain outstanding. No upload or public-release verdict for this revision; all variants and failures retained.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-20",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/freivalds-01/score-review02/verification.json"
+              ]
+            }
+          ]
         }
       ],
       "publications": []
@@ -3648,6 +3912,74 @@
           ],
           "disposition": "Source/proof qualification and opening-scene implementation beginning. Script, narration, storyboard, rendered-draft and final-master acceptance remain open.",
           "milestones": []
+        },
+        {
+          "revision_id": "narrated-review01-20261020",
+          "label": "Complete narrated 1080p60 review cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "44d523e53ad7829a147ccce1675167a895c0e23da61627f48992020d6587a3e5"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Complete native 1920x1080p60 narrated review cut: 53185 frames, 886.416667s, 12 chapters, 256 timed captions covering 233 sentences. Existing Michael-reference route with selected original takes and sample-preserving cue assembly; exact source and narration lineage is in the input and chapter receipts. Every captured chapter soundtrack replayed bit for bit through the native mixer; full master decode passed. Caption text and native timing were verified, with at most 1ms rounding difference. Root viewed actual chapter frames and master opening/join/ending samples. These are sampled visual and technical checks. The catalog does not enumerate the full artifact graph; detailed lineage remains in the pinned receipts. The 12-chapter cut uses 36 seed 2 first takes, all actual EOS, without pickups. Three cue-boundary repairs retain all source samples exactly once. Chapter 12 has a measured six-second reading-hold repair; other 11 rendered chapter files are copied exactly. Native mark-to-answer prediction intervals range 4.55–5.05s. 91/108 normalized assembled-cue ASR checks match; 17 recognition ambiguities remain documented.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/review-cut01/verification.json",
+            "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/review-cut01/inputs.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-review01.en.vtt",
+            "mx-video-program-program-87do.58",
+            "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/native02/verification.json",
+            "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/cue-asr-02/limitations.json"
+          ],
+          "disposition": "Owner explicitly resumed the existing next-five production work with NTM after the earlier three revised videos were published. Original worker sessions reached weekly quota immediately on resumption; root continued serially from their preserved handoffs. Complete narration-only local review cut delivered with English SRT/VTT. Independent visual review, continuous full-cut listening and perceptual acceptance remain open; ASR ambiguities are not audible verdicts. No score stem or final 4K release qualification, no publication authorization or upload for this revision. All earlier variants and failures are preserved.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-20",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/review-cut01/verification.json"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "scored-review01-20261020",
+          "label": "Complete narrated and scored 1080p60 comparison cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-scored-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "84fff37f065832eb7e8b9814f0106e3ea6c7a270d4956cfbe2b8260582c8ec3a"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Native 1920x1080p60 comparison export: 53185 frames, 886.416667s, 12 chapters. Connected this topic's implemented procedural score to the exact delivered narration cue WAVs, gains, placements and scene timelines. No TTS, script or scene change. All chapter score QA and captured narration-plus-music PCM replays passed; complete master decode passed. English captions are byte-identical to narrated-review01-20261020. The final master applies the native common gain recorded in the receipt. Root viewed 69 chapter/join samples and the lowest-SSIM original/scored pair. Every decoded video frame was compared; preview encoding differs, so pixel identity is not claimed. Exact input pins and complete lineage are retained in local receipts; the catalog does not enumerate the full artifact graph.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/score-review01/verification.json",
+            "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/score-review01/inputs.json",
+            "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/score-review01/timeline-equivalence.json",
+            "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/score-review01/actual-frames/extraction.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-scored-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-scored-review01.en.vtt",
+            "mx-video-program-program-87do.58.13"
+          ],
+          "disposition": "Local scored comparison delivered beside the preserved narration-only cut. Independent continuous visual review, owner listening and perceptual acceptance remain open. Score QA, ASR, hashes and sampled pixels do not establish audible quality or acceptance. Final native 4K qualification and publication authority remain outstanding. No upload or public-release verdict for this revision; all variants and failures retained.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-20",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/score-review01/verification.json"
+              ]
+            }
+          ]
         }
       ],
       "publications": []
