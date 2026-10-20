@@ -558,6 +558,63 @@ for eps6 in [Fraction(1, 1000), EPS, Fraction(1), Fraction(5), Fraction(21), Fra
           and capped6**2 + lin6 * capped6 <= eps6,
           f"ε = {frac(eps6)}: Sprague's δ ≈ {float(d6):.6g} > 0 works for every h inside, either sign or zero")
 
+# Chapter 07: same cubic as Davis's scan before subtracting its value.
+# Recenter uses independent binomial sums, unlike the Rust synthetic division.
+p7 = [0, 0, 5, 1]
+c7 = recenter(p7, 1)
+emit("C7.a", 1)
+emit("C7.value", c7[0])
+emit("C7.degree", len(p7) - 1)
+emit("C7.quadratic", p7[2])
+emit("C7.linear", c7[1])
+emit("C7.square", c7[2])
+emit("C7.cube", c7[3])
+emit("C7.power2", 2)
+emit("C7.note.volume", 68)
+emit("C7.note.year", 1961)
+emit("C7.note.first", 567)
+emit("C7.note.last", 568)
+check(c7 == [6, 13, 8, 1], "chapter07: the source polynomial at 1 has value 6 and change coefficients 13,8,1")
+check(c7[1:] == cubic[1:], "subtracting the value changes only the constant term")
+
+emit("C8.second_x", str(Decimal(99) / Decimal(100)))
+
+bridge_nodes = ["f(x)", "f_N(x)", "f_N(a)", "f(a)"]
+emit("C9.pieces", len(bridge_nodes) - 1)
+emit("C9.share", Fraction(1, len(bridge_nodes) - 1))
+
+for n in [1,2,4,8]:
+    emit(f"C10.n{n}.x", str(Fraction(n-1,n)))
+for n in [2,4,8]:
+    emit(f"C10.root{n}.x", frac(Fraction(1,n*n)))
+    emit(f"C10.root{n}.y", frac(Fraction(1,n)))
+    emit(f"C10.root{n}.ratio", str(Fraction(n)))
+
+emit("C11.lower",1**2)
+emit("C11.upper",3**2)
+emit("C11.parts",2)
+emit("C11.roots","-3,-1,1,3")
+for k in range(-160,161):
+    x=Fraction(k,40)
+    check((1<x*x<9)==(-3<x<-1 or 1<x<3),"square preimage membership")
+# Chapter12: direct rational bisection, signs and width are exact.
+emit("C12.radicand",2)
+emit("C12.left",1)
+emit("C12.right",2)
+emit("C12.sign.left",1**2-2)
+emit("C12.sign.right",2**2-2)
+emit("C12.bound",2+2)
+emit("C12.bisection",2)
+for steps in [0,2,4,6]:
+    left,right=Fraction(1),Fraction(2)
+    for _ in range(steps):
+        midpoint=(left+right)/2
+        if midpoint**2<2: left=midpoint
+        else: right=midpoint
+    check(left**2<2<right**2 and right-left==Fraction(1,2**steps),"chapter12 strict bracketing and width")
+    emit(f"C12.bracket{steps}.lo",str(left))
+    emit(f"C12.bracket{steps}.hi",str(right))
+    emit(f"C12.bracket{steps}.width",str(right-left))
 print("\n".join(out))
 if failures:
     print(f"{len(failures)} cross-check(s) failed", file=sys.stderr)

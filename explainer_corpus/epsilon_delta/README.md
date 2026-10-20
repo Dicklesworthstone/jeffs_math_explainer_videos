@@ -9,7 +9,7 @@ video turns that difference, who chooses the point and when, into epsilon
 and delta, then into constructive choices of delta (the Sprague and Davis
 notes the owner supplied) and the open-set picture behind topology.
 
-**Status (2026-10-19, revision `v1-michael-20261019`):**
+**Status (2026-10-20, revision `v1-michael-20261019`):**
 
 - **Chapter 01** (`01_a_limit_that_jumps`, task
   `mx-video-program-program-87do.58.1`) landed in commit 520dff7. The
@@ -210,22 +210,32 @@ notes the owner supplied) and the open-set picture behind topology.
     were source-level (oracle, storyboard, lint, units, rustfmt, ubs, and a
     Python emulation of the script-facing tests), and it inspected no
     image.
-- **Chapter 06** (`06_sprague_recentring`, task `.58.6`) is written in
-  source and not yet built: no native build, test, render or frame has
-  checked it. It opens on chapter 05's last picture, rebuilt by chapter 05's
-  own builders (`hidden_search::end_picture`).
-  - Chapter 05's scene changed only in that the mobs it leaves on screen are
-    now built by functions both chapters share, with the same text, sizes,
-    places, colours and order. A rebuilt chapter 05 should match draft13
-    (SHA 5b05ee1f…); root has not compared it yet.
-  - Root's source finding (Mail 4270) caught a duplicate `end_picture` name
-    in `hidden_search.rs`; chapter 05 now calls chapter 04's helper by its
-    module path.
-  - Its checks so far are the lane's own and source-level: the oracle (157
-    keys), the storyboard, lint, units, rustfmt, ubs, and a Python emulation
-    of the script-facing tests. Root's native build, tests, facts-check,
-    glyphs, render and frames, and the independent review, are still to
-    come.
+- **Chapter 06** (`06_sprague_recentring`, task `.58.6`) passed root's
+  native verification in `narration_lab/production-20261020/second-wave-central/epsilon06-native-01`:
+  fmt, strict release Clippy, 75 tests, 157 oracle values and 196 glyph
+  sources. Rebuilt chapter 05 is byte-identical to draft13. Chapter 06 is
+  2,805 frames, 93.5 s at 960×540p30, with empty layout lint. Root viewed
+  11 actual frames and glyph pages 15–18; the prediction answer remains
+  hidden until its reveal. Independent review is quota-blocked.
+- **Chapter 07** (`07_the_polynomial_bound`, task `.58.7`) passed root's
+  native verification in `narration_lab/production-20261020/second-wave-central/epsilon07-native-01`:
+  fmt, strict release all-target Clippy, 78 tests, 169 oracle values,
+  223 glyph sources with zero failures, and full decode. Its first scratch
+  render is 2,417 frames, 80.566667 s at 960×540p30, with empty layout lint.
+  Root viewed 12 actual frames spanning the algebra, prediction, reveal,
+  general bound and ending, plus glyph pages 18–20. No independent visual
+  or listening verdict is claimed.
+
+- **Chapter 08** (`08_fixed_or_moving`, task `.58.8`) passed root's
+  first native checks: 80 tests, 170 oracle values and 246 glyph sources.
+  The first render exposed a title-safe margin warning. Lowering the title
+  by 0.1 scene units cleared it; all cue times stayed byte-identical.
+  Final `epsilon08-native-02` passes fmt, strict release all-target Clippy,
+  two affected mathematical tests, build and full decode. It is 2,373
+  frames, 79.1 s at 960×540p30. Root viewed 10 baseline and six final
+  frames. UBS reports zero critical issues. Independent review remains
+  quota-blocked. Both definitions include every later n; the counterexample
+  takes n = N, using the same checked moving point as the opening.
 
 **Limits.** Both silent scratch drafts run longer than the ~85 s chapter
 target: the opening at 93.17 s, chapter 02 at 87.27 s. Root's decision is to
@@ -235,8 +245,7 @@ keep the mathematics readable (Mail 4001). Chapter 04's draft10 runs
 93.03 s against a storyboard estimate of 84.7 s. Chapter 05's draft13 runs
 93.30 s against a storyboard estimate of 84.5 s. Draft11, before the
 prediction repair added seven words, ran 90.97 s against 82.3 s. Chapter
-06's storyboard estimate is 84.5 s; the lane's scratch estimate of its
-silent scene is about 93 s, unmeasured.
+06's measured scratch duration is 93.5 s. Chapter 07 is 80.566667 s.
 Narration pacing and the full audiovisual cut are not qualified. Whole-video,
 audio and continuous-playback acceptance are not claimed for any chapter.
 The continuation is outlined in [`docs/storyboard.md`](docs/storyboard.md)
@@ -756,9 +765,93 @@ The checks are samples and demonstrations, not proofs:
     ~85 s target as chapters 03 to 05 do. The storyboard estimate is
     84.5 s.
 
+## Scope limits kept in chapter 07
+
+The owner's scan `IMG_1440.PNG` (SHA-256
+`a81690f93493f80b2de65382cd7d32ff55aa90913d0d4ef0cc105aec10c3da39`)
+was read directly on 2026-10-20. Allan Davis's “A Further Note on δ and ε”,
+Monthly 68 (1961), pp. 567–568, uses x³ + 5x² at 1, where its value is 6.
+Recentring gives h³ + 8h² + 13h. The pictured bars at |h| = 1/2 are
+computed illustrations; the inequalities supply the proof for every h.
+For |h| < 1, the absolute change is at most (1 + 8 + 13)|h| = 22|h|.
+Our sufficient choice δ = min(1, ε/22) uses the strict input condition
+|h| < δ to obtain a strict final error below ε. It is not claimed to be
+the largest possible window. The source instead phrases its restrictions
+as strict inequalities for δ.
+
+For a general finite polynomial expansion, C is the sum of the absolute
+values of its nonconstant coefficients. When C > 0, δ = min(1, ε/C)
+works by the same argument. When C = 0, the polynomial is constant and
+any positive δ works; no division by zero occurs. The coefficient sum
+and its bar appear only after the prediction window. No derivative or
+infinite-series claim is made.
+
 ## Narration
 
-- Narration is on hold. The owner rejected the first wave's narrated cuts on
-  2026-10-19, and the rejected method must not carry into new synthesis. The
-  units and semantic gaps in the storyboard are a proposal for the next
-  qualified method; no take exists.
+The owner resumed these five videos on 2026-10-20. Use the established
+Michael reference and whole-thought narration route with measured semantic
+pauses. All twelve chapters have root-checked scratch visual renders.
+Initial chapter 01 takes are being generated from the frozen 108-cue,
+36-unit script in `second-wave-central/epsilon-narrated-01`. Complete
+narrated review, independent verification and listening remain outstanding.
+
+## Chapter 09 native review (2026-10-20)
+
+The three-piece uniform-limit proof is implemented. The root native run in
+`narration_lab/production-20261020/second-wave-central/epsilon09-native-01`
+passed fmt, strict release all-target Clippy, 80 tests, 172 oracle values
+and 269 glyph sources (zero failures). Its scratch render is 2,430 frames,
+81 seconds at 960×540p30, with empty layout lint and a successful full
+decode. Root viewed 11 actual frames spanning the hypotheses, three
+budgets, hidden answer, full inequality and final choice order. UBS passed
+with zero critical findings; the 212 warnings are triaged in the receipt.
+The first failed Clippy log is retained. Independent and listening review
+remain outstanding.
+
+The proof follows [MIT lecture 21, Theorem 1](https://ocw.mit.edu/courses/18-100b-real-analysis-spring-2025/mit18_100b_s25_lec21.pdf).
+The diagram is a schematic detour among four values; its edge lengths are
+not measured errors. Each allocated bound is strictly epsilon/3. Uniform
+convergence is sufficient, not necessary: continuous triangular spikes
+max(0, 1−|nx−1|) on [0,1] converge pointwise to the continuous zero function
+but retain supremum one, so they do not converge uniformly.
+
+## Chapter 10 native review (2026-10-20)
+
+`epsilon10-native-02` is 2,327 frames, 77.566667 seconds at 960×540p30.
+The baseline passed 82 tests, 185 oracle values and 294 glyph sources.
+Root inspected ten baseline frames and three final frames after aligning
+the table columns. Final fmt, strict Clippy, affected tests, native render,
+full decode and empty layout lint passed; cues were unchanged. Failures
+and the first render are retained. The [sequential criterion](https://www.jirka.org/ra/html/sec_metcont.html)
+is Proposition 7.5.2. Exact rational samples illustrate the countersequence
+and square-root error ratios; the formulas, rather than a finite table,
+prove the general statements. Independent and listening review remain open.
+
+
+## Chapters 11–12 native review (2026-10-20)
+
+Chapter 11 presents the preimage criterion in both directions, with
+openness relative to the domain. The square example uses two disjoint
+open intervals; the step function and square-root domain show why
+endpoints and the domain matter. The root inspected nine baseline frames,
+found overlapping plain-text endpoint numerals, and replaced those four
+labels with native TeX. Three corrected frames show separate labels; the
+cue file is byte-identical. The corrected scratch render is 2,481 frames,
+82.7 seconds at 960×540p30.
+
+Chapter 12 uses exact rational bisection for q²−2 on Q intersect [1,2].
+The factor-four estimate proves continuity in that domain; irrationality
+of sqrt(2) prevents a zero there. Nested closed intervals and real
+completeness supply the separate existence step on [1,2] in R. This follows
+[Jirka, Section 3.3](https://www.jirka.org/ra/html/sec_minmaxint.html),
+Lemma 3.3.7 and Theorem 3.3.8, with the rational counterexample explained
+explicitly. Fourteen actual frames were inspected, including all displayed
+brackets, the hidden answer and the closing cards. The scratch render is
+2,578 frames, 85.933333 seconds at 960×540p30.
+
+The final native run passed fmt, strict release all-target Clippy, 85 tests,
+208 exact oracle values, and 366 glyph sources with zero failures. Both
+renders have empty layout lint and successful full decodes. Receipts in
+`epsilon11-native-02` and `epsilon12-native-01` retain hashes, source pins,
+inspection times and UBS triage. These are root technical and sampled
+visual checks; independent review and listening remain pending.

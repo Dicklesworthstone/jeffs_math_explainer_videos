@@ -106,7 +106,68 @@ pub fn facts() -> Result<Facts, String> {
     search(&mut f)?;
     continuation(&mut f)?;
     recentring(&mut f)?;
+    polynomial_bound(&mut f)?;
+    let parts = crate::chapters::error_bridge::TERMS.len();
+    f.add("C9.pieces", parts)?;
+    f.add("C9.share", Ratio::new(1, parts as u32)?)?;
+    f.add("C8.second_x", decimal_power(WAITS[1].0, WAITS[1].1, 1)?)?;
+    for n in crate::chapters::sequences::STAGES {
+        f.add(&format!("C10.n{n}.x"), crate::chapters::sequences::approaching(n)?)?;
+    }
+    for n in [2, 4, 8] {
+        let (x, y, r) = crate::chapters::sequences::root_sample(n)?;
+        f.add(&format!("C10.root{n}.x"), x)?;
+        f.add(&format!("C10.root{n}.y"), y)?;
+        f.add(&format!("C10.root{n}.ratio"), r)?;
+    }
+    let roots = crate::chapters::preimages::ROOTS;
+    let bounds = crate::chapters::preimages::output_bounds();
+    f.add("C11.lower", bounds[0])?;
+    f.add("C11.upper", bounds[1])?;
+    f.add("C11.parts", roots.len())?;
+    f.add(
+        "C11.roots",
+        format!("{},{},{},{}", -roots[1], -roots[0], roots[0], roots[1]),
+    )?;
+    use crate::chapters::completeness::{BISECTION_FACTOR, ENDS, RADICAND, SHOWN_STEPS, bracket, value};
+    f.add("C12.radicand", RADICAND)?;
+    f.add("C12.left", ENDS[0])?;
+    f.add("C12.right", ENDS[1])?;
+    f.add("C12.sign.left", value(Frac::whole(ENDS[0]))?)?;
+    f.add("C12.sign.right", value(Frac::whole(ENDS[1]))?)?;
+    f.add("C12.bound", 2 * ENDS[1])?;
+    f.add("C12.bisection", BISECTION_FACTOR)?;
+    for n in SHOWN_STEPS {
+        let (lo, hi) = bracket(n)?;
+        f.add(&format!("C12.bracket{n}.lo"), lo)?;
+        f.add(&format!("C12.bracket{n}.hi"), hi)?;
+        f.add(&format!("C12.bracket{n}.width"), hi.minus(lo)?)?;
+    }
     Ok(f)
+}
+
+/// Chapter 07 uses Davis's first example, read in the owner's scan
+/// IMG_1440.PNG (SHA a81690f9...), A Further Note on δ and ε, Monthly 68
+/// (1961), pp. 567–568. Its polynomial is x³ + 5x², with value 6 at 1.
+/// The existing D1 keys describe its change after subtracting that value.
+/// Bibliographic values are transcribed; all mathematical values computed.
+fn polynomial_bound(f: &mut Facts) -> Result<(), String> {
+    let polynomial = [0, 0, 5, 1];
+    let at = 1;
+    let shifted = recenter(&polynomial, at)?;
+    f.add("C7.a", at)?;
+    f.add("C7.value", shifted[0])?;
+    f.add("C7.degree", polynomial.len() - 1)?;
+    f.add("C7.quadratic", polynomial[2])?;
+    f.add("C7.linear", shifted[1])?;
+    f.add("C7.square", shifted[2])?;
+    f.add("C7.cube", shifted[3])?;
+    f.add("C7.power2", 2)?;
+    f.add("C7.note.volume", 68)?;
+    f.add("C7.note.year", 1961)?;
+    f.add("C7.note.first", 567)?;
+    f.add("C7.note.last", 568)?;
+    Ok(())
 }
 
 /// A fraction strictly between 0 and 1, rounded half up to `places` places

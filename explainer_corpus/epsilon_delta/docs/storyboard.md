@@ -464,3 +464,88 @@ qualified method, not an instruction to synthesize. No take exists.
 | 06_9 | Both work. Sprague's note solves the budget instead of capping it. Next, a bound for any polynomial. | At "Both work", glows on the two δ rows. At "Sprague's note", under the plot, dim, the note as read: A. H. Sprague, A Note on δ and ε, Amer. Math. Monthly 67 (1960), p. 780 (C6.note.volume, C6.note.year, C6.note.page). At "Next, a bound", centred under everything, dim: "next: a bound for any polynomial" | highlight | hold |
 
 
+
+## 07_the_polynomial_bound: A reusable error budget
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 07_1 | Take x cubed plus five x squared near one, where it is six. Put h equal to x minus one. | New chapter view: P(x)=x³+5x², P(1)=6, then h=x−1 and t=\|h\|. C7.degree, C7.quadratic, C7.power2, C7.a, C7.value. | formula |  |
+| 07_2 | The change is h cubed plus eight h squared plus thirteen h. Bound its size by adding the three sizes. | Expansion across the top. Three colored term bars at t=1/2, explicitly labelled illustration. Their lengths are t³,8t²,13t on one common scale. C7.square, C7.linear; source: Allan Davis, A Further Note on δ and ε, owner scan IMG_1440.PNG. | derivation; bars |  |
+| 07_3 | Keep the size of h below one. Each higher power is then at most the size of h. | 0≤t<1 and t^k≤t for k≥1. Reveal outlines bounding each bar by t,8t,13t, on the same scale. No total yet. | lagged reveal; inequality |  |
+| 07_4 | ⟨predict⟩ What single multiple of the size of h covers all three terms? | Question mark in the empty right panel, four-second draining ring. No 22 or total budget visible until the answer. | predict pause | think 4 s |
+| 07_5 | Twenty two. One, eight and thirteen add to twenty two. So choose delta as the smaller of one and epsilon over twenty two. | Reveal (1+8+13)t=22t and a stacked bar with the three bound widths. Then δ=min(1,ε/22). D1.bound. | bars; derivation |  |
+| 07_6 | Every h inside delta keeps the change below epsilon. The bound works on either side. | 0≤t<δ and the full inequality \|P(1+h)−P(1)\|≤22t<22δ≤ε. Unspoken example ε=1/10,δ=1/220 remains for at least3s; D1.delta. | formula | hold |
+| 07_7 | For any polynomial, expand around the point. Add the absolute values of all nonconstant coefficients. | Clear concrete panel before reusing positions. General expansion P(a+h)−P(a)=c₁h+…+c_m h^m, followed by C=\|c₁\|+…+\|c_m\|. | derivation |  |
+| 07_8 | If C is positive, use the smaller of one and epsilon over C. If zero, the polynomial is constant. Any positive delta works. | C>0: δ=min(1,ε/C), with the full strict inequality for every \|h\|<δ. Then C=0: all nonconstant coefficients vanish, any δ>0. | formula |  |
+| 07_9 | Davis's note supplies a reusable bound, without derivatives. Now return to the curves whose limit jumps. | Source credit: Allan Davis, A Further Note on δ and ε, Monthly68(1961),pp567–568, from the supplied scan. Finite polynomial expansion, no Taylor convergence claim. Next: fixed and moving choices. | highlight | hold |
+
+## 08_fixed_or_moving: The order of the choices
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 08_1 | Return to x to the n, on zero to one. Each fixed point approaches the broken limit. | The original x^n plot and its gold pointwise limit return. Right: f_n(x) = x^n on [0, 1], with f(x) = 0 below 1 and f(1) = 1. | plot |  |
+| 08_2 | Fix x, then choose a tolerance. Beyond some stage, every later curve meets it there. The stage may depend on x. | Pointwise convergence. Point → tolerance → stage; N = N(x, epsilon). Lower rows show all x, all epsilon > 0, exists N, all n >= N, and error < epsilon. | formula; card |  |
+| 08_3 | For one half, nine tenths needs stage seven. Point nine nine needs sixty nine. Near the endpoint, the wait grows. | At epsilon = 1/2, show the exact first stages for x = 0.9, 0.99, 0.999: 7, 69, 693 (C1.wait keys). The pointwise rule stays visible. | table | hold |
+| 08_4 | Uniform convergence asks for a stage that works at every point, for every later curve. Choose it before the point. | Clear the pointwise panel before revealing uniform convergence. Tolerance → stage → every point; N depends only on epsilon. The lower formula explicitly quantifies all n >= N and all x in [0,1]. | formula; card |  |
+| 08_5 | ⟨predict⟩ For these powers, can a late enough stage meet that stronger promise? | Question and draining think ring; no witness, answer or half-gap formula until the pause ends. | predict pause | think 4 s |
+| 08_6 | No. At any proposed stage, choose its half height crossing. Below one the limit is zero, so the gap is one half. | Set n = N = 7. Show the half-height witness x_N = 2^(-1/N) < 1 and its vertical error bar. The error equals 1/2 and therefore fails the strict half tolerance. Taking n = N is enough to refute the uniform promise. | plot; formula |  |
+| 08_7 | The point moves with the stage. This defeats uniform convergence, while each fixed point still converges. | Morph the curve and its witness to N = 69, then 693. Each sampled red gap is the same half height. Algebra gives the witness for every positive N; samples illustrate it. | morph that keeps identity |  |
+| 08_8 | Pointwise allows a separate wait for each point. Uniform requires a shared wait for the whole domain. | Clear the plot; compare both complete quantifier rows, with the shared strict error inequality. Pointwise places x before N; uniform places x after N. | formula; card | hold |
+| 08_9 | That control can preserve continuity through the limit. Next, split the error into manageable pieces. | Keep both definitions readable, then announce the continuity proof. No historical priority claim. Source: MIT 18.100B Spring 2025 lecture 20, pages 2–3, read 2026-10-20. | card |  |
+
+## 09_the_error_bridge: The three-piece proof
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 09_1 | Suppose continuous functions approach a limit uniformly. Fix a point a in the domain and a positive error tolerance. | Title and hypotheses; a in I and epsilon > 0. I is the common interval domain. | card |  |
+| 09_2 | Compare the limit at x and a by taking a detour through a single approximating curve. There are three gaps. | A schematic path from f(x), through f_N(x) and f_N(a), to f(a). Each edge carries its absolute difference. The drawing allocates error budgets, not numerical distances. | diagram; formula |  |
+| 09_3 | Choose a stage whose curve is within a third of the tolerance everywhere. This controls both outer gaps. | Blue outer budgets below epsilon/3. Choose N once so the bound holds for every y in I, including x and a. | formula; highlight |  |
+| 09_4 | Freeze that curve. Its continuity supplies a window keeping the middle gap below a third, for every x in that window. | Teal middle budget. For x in I with distance from a less than delta, the middle difference is strictly below epsilon/3. | formula; highlight |  |
+| 09_5 | ⟨predict⟩ Each gap has its budget. Can the total error still reach the full tolerance? | Think ring under the three budgets. The combined triangle inequality and conclusion remain hidden. | predict pause | think 4 s |
+| 09_6 | No. The triangle inequality adds the gaps, each strictly below a third. Their sum is below the full tolerance. | Reveal the full error bridge inequality, with the sum strictly below epsilon. Preserve all hypotheses and component bounds. | formula | hold |
+| 09_7 | The limit is continuous at a. Since a was arbitrary, it is continuous throughout the domain. | Keep the full proof visible and add its conclusion. Source: MIT 18.100B Spring 2025 lecture 21, Theorem 1, page 1, read 2026-10-20. | card |  |
+| 09_8 | The order mattered. Uniform convergence chose the curve before x. Then continuity chose the window. Our original powers lacked that shared stage. | Clear the proof, then tolerance → fixed curve → input window → every nearby input, matching epsilon → N → delta → x in I. | card |  |
+| 09_9 | Uniform convergence is sufficient, not necessary for every continuous limit. Next, test continuity by approaching along sequences. | State the scope, then point to sequences. No claim that failure of uniform convergence alone forces a discontinuous limit. | card |  |
+
+## 10_approaching_along_sequences: Tests and quantitative bounds
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 10_1 | Continuity at a sends every sequence approaching a to outputs approaching f of a. | Sequential criterion on a real domain D. All sequence terms belong to D. | formula |  |
+| 10_2 | For our broken limit, choose one minus one over n. These inputs approach one from below. | Computed points for n=1,2,4,8 appear along the input number line; values0,1/2,3/4,7/8. C10 facts. | number line; lagged reveal |  |
+| 10_3 | Every output is zero, but the endpoint value is one. This sequence exposes the discontinuity. | Show f(x_n)=0 not approaching f(1)=1. | formula |  |
+| 10_4 | ⟨predict⟩ Can checking several good sequences establish continuity? | Question and native four-second draining ring; answer remains hidden. | predict pause | think 4 s |
+| 10_5 | No. Every sequence must work. If continuity fails, some tolerance defeats every window. | Full failure quantifiers, with distance less than delta and error at least epsilon0. | formula |  |
+| 10_6 | Use windows of radius one over n. Choose a failing input in each. Inputs approach a; output errors stay at least that tolerance. | Construct the bad sequence using delta=1/n. Both inequalities and conclusion hold at least10s. Source Jiri Lebl, Basic Analysis, Proposition7.5.2. | derivation |  |
+| 10_7 | Continuity need not give a linear error bound. The square root is continuous at zero: delta equal to epsilon squared works. | g(x)=sqrt(x) on x>=0, at0. 0<=x<epsilon² implies sqrt(x)<epsilon. | formula |  |
+| 10_8 | At one over n squared, the output is one over n. Divide output error by input error. | Exact table at n=2,4,8: inputs1/4,1/16,1/64; outputs1/2,1/4,1/8; ratios2,4,8. | table; lagged reveal |  |
+| 10_9 | The ratio is n, growing without bound. No fixed linear bound works near zero, although continuity holds. | Full ratio identity=n tending to infinity. This refutes local Lipschitz continuity at0, not continuity. | formula |  |
+| 10_10 | Next, express continuity using whole sets of inputs. | Transition to preimages of open sets. | card |  |
+
+## 11_pull_back_open_sets: The domain matters
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 11_1 | A preimage collects every input landing in a chosen output set. No inverse function is needed. | Define f^{-1}(U) for inputs in D; preimage does not assume injectivity. | formula |  |
+| 11_2 | Take x squared on the real line. Select outputs strictly between one and nine. | Output interval with hollow endpoints1,9, computed as squares of1,3. | number line; formula |  |
+| 11_3 | ⟨predict⟩ Must those inputs form a single piece? | Four-second draining ring; input intervals and answer remain hidden. | predict pause | think 4 s |
+| 11_4 | No. Two open intervals work, one negative and one positive. Their endpoints are excluded. | Input intervals(-3,-1) and(1,3), computed from ROOTS and oracle; no inverse function. | number line; lagged reveal |  |
+| 11_5 | For continuity, every open output set has an open preimage. Around each output, choose a small neighborhood inside the set. Continuity supplies an input neighborhood. | Arbitrary a in preimage; epsilon ball about f(a) inside U, delta ball intersect D inside preimage. | formula |  |
+| 11_6 | Conversely, take an epsilon neighborhood of f of a. Its open preimage contains a whole input window around a. That window gives delta. | Both directions on real domain D; open means open in D. Keep converse formulas fully readable at least10s. | derivation |  |
+| 11_7 | A jump fails. For this step function, the selected preimage includes zero but no negative inputs. It is not open in the real line. | s=0 for x<0,1 for x>=0; preimage of(1/2,3/2) is[0,infinity). Closed dot at0 and right half-line. | number line; formula |  |
+| 11_8 | The domain matters. For square root on nonnegative inputs, this preimage is open within its domain, though not in the real line. | sqrt on D=[0,infinity),preimage(-1,1)=[0,1)=D intersect(-1,1). Relative openness. | formula |  |
+| 11_9 | Open sets express the same continuity promise. Finally, what does that promise leave unanswered? | Continuity means all open preimages open. Transition to existence and completeness. Source University of Toronto MAT237 Section1.2, open-set theorem and relative-domain remark. | card |  |
+
+## 12_what_the_definition_does_not_supply: What the definition does not supply (~85 s)
+
+| id | draft words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 12_1 | A definition of continuity does not promise that every desired value exists. Consider q squared minus two, using only rational inputs between one and two, including both ends. | D is rational numbers intersect [1,2], h(q)=q²−2. These inputs, not a discrete set of drawn dots, define the domain. | formula | |
+| 12_2 | The endpoint values have opposite signs: minus one, and two. | Compute h(1)=−1, h(2)=2 from the same exact function. | equation | |
+| 12_3 | This function is continuous. The output difference is at most four times the input difference, so epsilon divided by four supplies delta. | Factor difference, bound q+r by 4, show full input implication. | derivation | hold |
+| 12_4 | ⟨predict⟩ Must a zero exist in this rational domain? | Question and 4s ring; no root answer yet. | predict pause | think 4s |
+| 12_5 | No. Its positive zero would be the square root of two, which is irrational. A fraction in lowest terms would force both its numerator and denominator to be even. | p²=2q² implies p even, then q even. Spell out contradiction, keep proof fully readable for 12s. | derivation | hold |
+| 12_6 | Bisection keeps rational endpoints on opposite sides and halves their distance. They approach the same real number, but that number is missing from our domain. | Exact rational brackets after 0,2,4,6 steps; widths and endpoints computed. Convergence arrows refer to real limits. | number line; live values | hold |
+| 12_7 | On a closed real interval, completeness supplies the missing point. Continuity then makes its function value zero. | Distinguish existence from preservation of limit. Nested closed intervals with vanishing widths have a common real point. Jirka Basic Analysis Section3.3 Lemma3.3.7 and Theorem3.3.8. | formula; card | hold |
+| 12_8 | Definitions specify the challenge. Estimates build a response. Existence needs its own hypotheses. | Three separate claims, each stated explicitly. | card | |
+| 12_9 | Ask who chooses what, and when. Getting closer is useful. Knowing exactly what it promises is stronger. | End on choice order and the precise promise. | closing card | hold |
