@@ -390,7 +390,9 @@ impl SceneConstruct for TheSameNumber {
         line.wait_for(stage, "only one solution")?;
         let unique_text = unique_card().map_err(fail)?;
         let unique = precisely(&kit, stage, &unique_text)?;
-        swap(stage, &[circuit_rule, walk_rule], &[unique], 0.4)?;
+        // the card covers the equations' place: out, then in, never both
+        fade_out_all(stage, &[circuit_rule, walk_rule], 0.2)?;
+        fade_in_all(stage, &[unique], 0.2)?;
         let unique_read_until = stage.scene().time().to_f64() + unique_text.chars().count() as f64 / 15.0;
         line.wait_for(stage, "must agree")?;
         flash_all(stage, &[left_label, walk_left], 0.5)?;
@@ -402,7 +404,9 @@ impl SceneConstruct for TheSameNumber {
         let at = walk.equation_spot();
         let model_note = kit.text(stage, MODEL_NOTE, 22.0, Palette::dim(), at)?;
         let source_note = kit.text(stage, SOURCE_NOTE, 18.0, Palette::dim(), v(at[0], at[1] - 0.4))?;
-        swap(stage, &[unique, dot_back], &[model_note, source_note], 0.4)?;
+        // the notes stand where the card stood: out, then in
+        fade_out_all(stage, &[unique, dot_back], 0.2)?;
+        fade_in_all(stage, &[model_note, source_note], 0.2)?;
         line.wait_for(stage, "The two numbers agree")?;
         flash_all(stage, &[left_label, walk_left], 0.5)?;
         wait_until(stage, line.start + line.len)?;

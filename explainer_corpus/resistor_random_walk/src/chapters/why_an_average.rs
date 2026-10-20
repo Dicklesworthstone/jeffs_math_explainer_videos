@@ -62,10 +62,12 @@ const GENERAL_NOTE: [&str; 3] = [
 const NOTE_LEADING: f64 = 0.32;
 
 /// Where the picture stands (where chapter 01 leaves the circuit), and the
-/// derivation's rows on the right.
+/// derivation's rows on the right, spaced for what 02_8 stacks there: the
+/// two averages and the two sums stand about 0.9 tall, the weights about
+/// 0.45, and each pair of neighbours keeps about 0.2 between them.
 const PICTURE_AT: [f64; 2] = [-4.0, 0.3];
 const PANEL_X: f64 = 3.2;
-const ROW_Y: [f64; 6] = [2.55, 1.75, 0.95, 0.15, -0.65, -1.45];
+const ROW_Y: [f64; 6] = [3.0, 1.96, 1.13, 0.29, -0.81, -1.55];
 const ROW_SIZE: f64 = 34.0;
 /// The prediction's countdown, in the panel under the voltage's row.
 const THINK_AT: [f64; 2] = [3.2, 0.2];
@@ -555,7 +557,8 @@ mod tests {
     }
 
     /// The panel's rows stay right of the picture's battery, inside the
-    /// title-safe area, and above a three-line lower-third.
+    /// title-safe area, and above a three-line lower-third, and its tall
+    /// rows never touch.
     #[test]
     fn the_panel_keeps_clear_of_the_picture_and_the_card() {
         use crate::chapters::draw::{BATTERY_X, THINK_R};
@@ -568,6 +571,10 @@ mod tests {
         // though no lower-third is shown while the note is
         const { assert!(ROW_Y[0] + 0.45 < FRAME_Y_RADIUS - 0.15) };
         const { assert!(ROW_Y[5] - 2.0 * NOTE_LEADING - 0.15 > -FRAME_Y_RADIUS + 1.58) };
+        // the two averages (rows 0 and 1) and the two sums (rows 3 and 4)
+        // each reach about 0.45 from their centre: a gap stays between them
+        const { assert!(ROW_Y[0] - ROW_Y[1] > 2.0 * 0.45 + 0.1) };
+        const { assert!(ROW_Y[3] - ROW_Y[4] > 2.0 * 0.45 + 0.1) };
         // the countdown sits under the top row, right of the battery
         const { assert!(THINK_AT[1] + THINK_R + 0.4 < ROW_Y[0]) };
         const { assert!(THINK_AT[0] - THINK_R > PICTURE_AT[0] + BATTERY_X + 0.3) };

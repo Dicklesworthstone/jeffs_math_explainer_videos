@@ -2,11 +2,11 @@
 //! at both middle junctions, and a table of rounds (03_1); the rule for a
 //! round, every middle junction at once from the previous round's values
 //! (03_2); round one, the far ends' old values sliding in (03_3); rounds two
-//! to four (03_4); the bigger gap shrinks to a quarter a round, because one
-//! wire at each junction leads to an unknown (03_5); the prediction (03_6);
-//! never exactly, though within a thousandth after five rounds (03_7); the
-//! limit (03_8); why the ends stay fixed: averaged too, every value drifts to
-//! one number (03_9).
+//! and three (03_4); round four without words, then the bigger gap shrinks to
+//! a quarter a round, because one wire at each junction leads to an unknown
+//! (03_5); the prediction (03_6); never exactly, though within a thousandth
+//! after five rounds (03_7); the limit (03_8); why the ends stay fixed:
+//! averaged too, every value drifts to one number (03_9).
 
 use explainer_kit::props::precisely;
 use explainer_kit::{Kit, Palette, fade_all, v};
@@ -42,15 +42,16 @@ const CELL_SIZE: f64 = 30.0;
 const HEADER_SIZE: f64 = 22.0;
 /// The prediction's countdown, under the table's first five rows.
 const THINK_AT: [f64; 2] = [3.2, -1.35];
-/// How long a round takes once the rule is shown (03_4's third and fourth,
-/// 03_7's fifth), and a round of the ends' drift (03_9).
+/// How long a round takes once the rule is shown (03_4's third, 03_5's
+/// fourth, 03_7's fifth), and a round of the ends' drift (03_9).
 const QUICK: f64 = 0.35;
 const DRIFT: f64 = 0.35;
 /// A lower-third's fade in and out, the gap column's arrival before 03_5's
-/// card, and the beat after the last line.
+/// card (quick: round four comes first, and the card still needs its
+/// reading time), and the beat after the last line.
 const CARD_IN: f64 = 0.4;
 const CARD_OUT: f64 = 0.3;
-const GAP_COLUMN_IN: f64 = 1.2;
+const GAP_COLUMN_IN: f64 = 0.6;
 const END_BEAT: f64 = 0.6;
 
 /// Seconds a lower-third needs on screen to be read: fifteen characters a
@@ -311,8 +312,8 @@ impl SceneConstruct for RoundAfterRound {
         table.push(round_row(&kit, stage, 1, &rounds[1])?);
         fade_in_all(stage, &table[1], 0.3)?;
 
-        // 03_4: round two, both junctions together from round one; rounds
-        // three and four without tokens
+        // 03_4: round two, both junctions together from round one; round
+        // three without tokens, its values standing while they are said
         wait_until(stage, rule_read)?;
         let line = say(&kit, stage, "03_4")?;
         let left_in = tokens(
@@ -340,17 +341,23 @@ impl SceneConstruct for RoundAfterRound {
         table.push(round_row(&kit, stage, 2, &rounds[2])?);
         fade_in_all(stage, &table[2], 0.3)?;
         line.wait_for(stage, "Then nineteen")?;
-        for (n, values) in rounds.iter().enumerate().take(ROUNDS).skip(3) {
+        for (n, values) in rounds.iter().enumerate().take(BEFORE_PREDICTION).skip(3) {
             relabel(&kit, stage, &pic, &mut labels, &[LEFT, RIGHT], values, QUICK)?;
             let row = round_row(&kit, stage, n, values)?;
             fade_in_all(stage, &row, QUICK)?;
             table.push(row);
         }
 
-        // 03_5: the bigger gap, a quarter of the last every round, its card
-        // in with the column; the one wire at each junction that leads to an
-        // unknown
+        // 03_5: round four lands without words, after 03_4 has said round
+        // three's values; then the bigger gap, a quarter of the last every
+        // round, its card in with the column; the one wire at each junction
+        // that leads to an unknown
         let line = say(&kit, stage, "03_5")?;
+        let fourth = &rounds[BEFORE_PREDICTION];
+        relabel(&kit, stage, &pic, &mut labels, &[LEFT, RIGHT], fourth, QUICK)?;
+        let row = round_row(&kit, stage, BEFORE_PREDICTION, fourth)?;
+        fade_in_all(stage, &row, QUICK)?;
+        table.push(row);
         let mut gap_column =
             vec![kit.text(stage, GAP_HEADER, HEADER_SIZE, Palette::dim(), v(COLUMN_X[3], HEADER_Y))?];
         for (n, &g) in gaps.iter().enumerate().take(ROUNDS) {
@@ -587,10 +594,11 @@ mod tests {
                 jacobi_card().unwrap(),
                 after("03_2", "using the values") - CARD_IN + gap("03_2", "03_3") + len("03_3") + gap("03_3", "03_4"),
             ),
-            // in after the gap column, out as the question ends
+            // in after round four (its labels and its row) and the gap
+            // column, out as the question ends
             (
                 gap_card().unwrap(),
-                len("03_5") - GAP_COLUMN_IN - CARD_IN + gap("03_5", "03_6") + len("03_6") - CARD_OUT,
+                len("03_5") - 3.0 * QUICK - GAP_COLUMN_IN - CARD_IN + gap("03_5", "03_6") + len("03_6") - CARD_OUT,
             ),
             // in with the answer, up over the limit, out as 03_9 begins
             (
