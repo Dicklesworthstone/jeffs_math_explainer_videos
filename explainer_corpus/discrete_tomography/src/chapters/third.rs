@@ -311,8 +311,8 @@ impl SceneConstruct for AThirdShadow {
             .flat_map(|(t, _)| t.iter().copied())
             .collect();
         leaving.push(passed);
-        // the result moves over the other picture in the same fade, and
-        // stays there until 05_6's words take its place
+        // Clear the old caption before revealing its replacement so the
+        // words cannot overlap. Keep the original 0.4-second total.
         let result = kit.text(
             stage,
             &passed_label(survivors.len(), gallery.len()),
@@ -320,7 +320,8 @@ impl SceneConstruct for AThirdShadow {
             Palette::ink(),
             v(RIGHT[0], RESULT_Y),
         )?;
-        swap(stage, &leaving, &[result], 0.4)?;
+        fade_out_all(stage, &leaving, 0.2)?;
+        fade_in_all(stage, &[result], 0.2)?;
         let mut on_right = right.lines(stage);
         let other_squares = place(stage, &right, other)?;
         on_right.extend(other_squares.values().copied());

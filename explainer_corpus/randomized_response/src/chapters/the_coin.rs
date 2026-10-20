@@ -17,7 +17,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     cell, coin, disc, face, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, hollow, lane, move_all, pause,
-    place, ring, say, swap, think,
+    place, ring, say, swap, think, wait_until,
 };
 use crate::facts::{self, Average};
 use crate::model::{self, CLASS_COLUMNS, COIN_PAIRS, Channel, Coin, Q, Route};
@@ -574,10 +574,14 @@ impl SceneConstruct for TheCoin {
             back.push(ring(stage, s.at));
         }
         fade_in_all(stage, &back, 0.5)?;
-        let code = lower_third(&kit, stage, PROGRAMMERS, &code_card(n)?)?;
+        let code_text = code_card(n)?;
+        let code = lower_third(&kit, stage, PROGRAMMERS, &code_text)?;
         fade_in_all(stage, &[code], 0.4)?;
+        // As in chapter 05, count reading time from the fully visible card.
+        let code_read_by = stage.scene().time().to_f64() + code_text.chars().count() as f64 / 15.0;
         line.wait_end(stage)?;
         pause(stage, 1.5)?;
+        wait_until(stage, code_read_by)?;
 
         // 01_11: no answer is a confession, but a yes is three times likelier
         let line = say(&kit, stage, "01_11")?;
@@ -607,10 +611,12 @@ impl SceneConstruct for TheCoin {
         }
         fade_in_lagged(stage, &grid, 1.4, 0.08)?;
         line.wait_for(stage, "But someone who copied")?;
-        let note = precisely(&kit, stage, &ratio_note()?)?;
+        let ratio_text = ratio_note()?;
+        let note = precisely(&kit, stage, &ratio_text)?;
         let share = |copied: bool| format!("{} of {}", model::outcomes_saying(copied, true), COIN_PAIRS.len());
         let copied_share = kit.text(stage, &share(true), 28.0, palette::yes(), v(SHARE_X, GRID_ROW_Y[0]))?;
         fade_in_all(stage, &[copied_share, note], 0.4)?;
+        let ratio_read_by = stage.scene().time().to_f64() + ratio_text.chars().count() as f64 / 15.0;
         flash_all(stage, &yes_cells[0], 0.6)?;
         line.wait_for(stage, "as someone who didn't")?;
         let didnt_share = kit.text(stage, &share(false), 28.0, palette::yes(), v(SHARE_X, GRID_ROW_Y[1]))?;
@@ -627,6 +633,7 @@ impl SceneConstruct for TheCoin {
         fade_in_all(stage, &[times], 0.4)?;
         line.wait_end(stage)?;
         pause(stage, 2.0)?;
+        wait_until(stage, ratio_read_by)?;
 
         fade_all(stage, 0.6)?;
         kit.finish(stage)?;
