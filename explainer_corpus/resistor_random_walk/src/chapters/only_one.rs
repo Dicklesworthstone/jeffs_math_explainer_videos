@@ -17,7 +17,7 @@ use fmn::prelude::*;
 use super::draw::{
     END_LABEL_GAP, EQUATION_SIZE, JUNCTION_R, LABEL_GAP, LABEL_SIZE, Picture, SPOTS, TOKEN_SIZE, WIRE_W, battery,
     equation, fade_in_all, fade_out_all, fail, flash_all, flat, line_style, move_all, pause, picture, recolor, say,
-    swap, tex, think, tokens, volts_text, wait_until,
+    tex, think, tokens, volts_text, wait_until,
 };
 use crate::facts;
 use crate::model::{BOTTOM, LEFT, Network, Q, RIGHT, TOP};
@@ -68,8 +68,9 @@ const THINK_AT: [f64; 2] = [3.9, -1.45];
 const WALKER_R: f64 = 0.11;
 const STEP_S: f64 = 0.5;
 const WALKER_STEPS: usize = 4;
-/// How long the island holds each equal pair (04_7).
-const LEVEL_S: f64 = 0.3;
+/// Hold each unspoken equal-pair equation for at least two seconds once
+/// visible, including the preceding recolor (04_7).
+const LEVEL_S: f64 = 1.7;
 /// A lower-third's fade in and out, and the beat after the last line.
 const CARD_IN: f64 = 0.4;
 const CARD_OUT: f64 = 0.3;
@@ -363,12 +364,8 @@ impl SceneConstruct for OnlyOne {
             label(&kit, stage, &copy, TOP, &tex(top_gap), Palette::ink())?,
             label(&kit, stage, &copy, BOTTOM, &tex(bottom_gap), Palette::ink())?,
         ];
-        swap(
-            stage,
-            &[copy_name, copy_labels[TOP], copy_labels[BOTTOM]],
-            &[diff_name, zero_ends[0], zero_ends[1]],
-            0.5,
-        )?;
+        fade_out_all(stage, &[copy_name, copy_labels[TOP], copy_labels[BOTTOM]], 0.25)?;
+        fade_in_all(stage, &[diff_name, zero_ends[0], zero_ends[1]], 0.25)?;
         [copy_labels[TOP], copy_labels[BOTTOM]] = zero_ends;
         recolor(
             stage,
@@ -392,7 +389,8 @@ impl SceneConstruct for OnlyOne {
         // it; the far ends it averages, none larger
         let line = say(&kit, stage, "04_3")?;
         let peak = label(&kit, stage, &copy, LEFT, PEAK, Palette::hero())?;
-        swap(stage, &[copy_labels[LEFT]], &[peak], 0.4)?;
+        fade_out_all(stage, &[copy_labels[LEFT]], 0.2)?;
+        fade_in_all(stage, &[peak], 0.2)?;
         copy_labels[LEFT] = peak;
         recolor(stage, &[(copy.junctions[LEFT], Palette::hero())], 0.4)?;
         line.wait_for(stage, "If above zero")?;
@@ -409,11 +407,12 @@ impl SceneConstruct for OnlyOne {
 
         // 04_4: the maximum principle's card; every part must be the peak,
         // which travels along every wire, and along the path to the top
+        wait_until(stage, rule_read)?;
         let line = say(&kit, stage, "04_4")?;
         let peak_text = peak_card().map_err(fail)?;
         let max_card = precisely(&kit, stage, &peak_text)?;
-        wait_until(stage, rule_read)?;
-        swap(stage, &[rule_card], &[max_card], CARD_OUT)?;
+        fade_out_all(stage, &[rule_card], CARD_OUT / 2.0)?;
+        fade_in_all(stage, &[max_card], CARD_OUT / 2.0)?;
         let peak_read = stage.scene().time().to_f64() + read_s(&peak_text);
         line.wait_for(stage, "every part equals it")?;
         let forced_texts: Vec<(String, Srgb)> = parts.iter().map(|_| (PEAK.to_owned(), Palette::hero())).collect();
@@ -478,7 +477,8 @@ impl SceneConstruct for OnlyOne {
             label(&kit, stage, &copy, LEFT, &tex(difference[LEFT]), Palette::ink())?,
             label(&kit, stage, &copy, RIGHT, &tex(difference[RIGHT]), Palette::ink())?,
         ];
-        swap(stage, &[copy_labels[LEFT], copy_labels[RIGHT]], &zeros, 0.4)?;
+        fade_out_all(stage, &[copy_labels[LEFT], copy_labels[RIGHT]], 0.2)?;
+        fade_in_all(stage, &zeros, 0.2)?;
         [copy_labels[LEFT], copy_labels[RIGHT]] = zeros;
         recolor(
             stage,
@@ -502,7 +502,8 @@ impl SceneConstruct for OnlyOne {
         old.extend(copy_labels);
         let mut new = vec![same_name];
         new.extend(same_labels);
-        swap(stage, &old, &new, 0.5)?;
+        fade_out_all(stage, &old, 0.25)?;
+        fade_in_all(stage, &new, 0.25)?;
         let back: Vec<(Mob, Srgb)> = (0..net.size())
             .map(|x| (copy.junctions[x], palette::value(volts[x])))
             .collect();
@@ -552,7 +553,8 @@ impl SceneConstruct for OnlyOne {
         // equal pair keeps its rule, the circuit unchanged
         let line = say(&kit, stage, "04_7")?;
         let first_peak = kit.tex(stage, PEAK, LABEL_SIZE, Palette::hero(), &[], Island::label_spot(0))?;
-        swap(stage, &[countdown, island_values[0]], &[first_peak], 0.3)?;
+        fade_out_all(stage, &[countdown, island_values[0]], 0.15)?;
+        fade_in_all(stage, &[first_peak], 0.15)?;
         island_values[0] = first_peak;
         recolor(stage, &[(island.junctions[0], Palette::hero())], 0.3)?;
         line.wait_for(stage, "crosses its one wire")?;
@@ -588,7 +590,8 @@ impl SceneConstruct for OnlyOne {
             )?;
             let mut old = island_values.to_vec();
             old.extend(&rule_row);
-            swap(stage, &old, &[next[0], next[1], row], 0.3)?;
+            fade_out_all(stage, &old, 0.15)?;
+            fade_in_all(stage, &[next[0], next[1], row], 0.15)?;
             recolor(
                 stage,
                 &[
@@ -632,11 +635,13 @@ impl SceneConstruct for OnlyOne {
         )?;
         let mut old = vec![no_wire];
         old.extend(&rule_row);
-        swap(stage, &old, &[chance], 0.4)?;
+        fade_out_all(stage, &old, 0.2)?;
+        fade_in_all(stage, &[chance], 0.2)?;
         line.wait_for(stage, "voltage is left free")?;
         let free = island_labels(&kit, stage, FREE, Palette::ink())?;
         let voltage = kit.text(stage, VOLTAGE_NOTE, NOTE_SIZE, Palette::dim(), Island::under(NOTE_Y[1]))?;
-        swap(stage, &island_values, &[free[0], free[1], voltage], 0.4)?;
+        fade_out_all(stage, &island_values, 0.2)?;
+        fade_in_all(stage, &[free[0], free[1], voltage], 0.2)?;
         recolor(
             stage,
             &[

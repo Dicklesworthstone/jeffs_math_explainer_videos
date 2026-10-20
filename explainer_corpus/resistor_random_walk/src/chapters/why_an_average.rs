@@ -237,9 +237,11 @@ impl SceneConstruct for WhyAnAverage {
         line.wait_for(stage, "shared resistance")?;
         let ohm = precisely(&kit, stage, OHM)?;
         fade_in_all(stage, &[ohm], 0.4)?;
+        let ohm_read_until = stage.scene().time().to_f64() + OHM.chars().count() as f64 / 15.0;
 
         // 02_2: each wire's drop, and the way its current flows: in down the
         // pair, out to the right and to the bottom
+        wait_until(stage, ohm_read_until)?;
         let line = say(&kit, stage, "02_2")?;
         fade_out_all(stage, &[ohm], 0.3)?;
         let sizes: Vec<(String, Srgb)> = drops
@@ -266,6 +268,7 @@ impl SceneConstruct for WhyAnAverage {
         let out: Vec<Q> = drops.iter().filter(|d| !d.is_positive()).map(|&d| -d).collect();
         let kirchhoff = precisely(&kit, stage, KIRCHHOFF)?;
         fade_in_all(stage, &[kirchhoff], 0.4)?;
+        let kirchhoff_read_until = stage.scene().time().to_f64() + KIRCHHOFF.chars().count() as f64 / 15.0;
         line.wait_for(stage, "Two fifths and two fifths in")?;
         let in_row = row(&kit, stage, &flow_row("in", &into), 0)?;
         fade_in_all(stage, &[in_row], 0.4)?;
@@ -275,9 +278,11 @@ impl SceneConstruct for WhyAnAverage {
 
         // 02_4: the voltage unknown; the balance, the unknown gathered, the
         // average; the working goes and v's equation rises to the top row
+        wait_until(stage, kirchhoff_read_until)?;
         let line = say(&kit, stage, "02_4")?;
         let unknown_v = value_label(&kit, stage, &pic, LEFT, VOLTAGE_SYMBOL, Palette::ink())?;
-        swap(stage, &[kirchhoff, left_value], &[unknown_v], 0.3)?;
+        fade_out_all(stage, &[kirchhoff, left_value], 0.15)?;
+        fade_in_all(stage, &[unknown_v], 0.15)?;
         let balanced = row(&kit, stage, &balance_row(&volt_ends), 2)?;
         fade_in_all(stage, &[balanced], 0.4)?;
         line.wait_for(stage, "four times it")?;
@@ -317,7 +322,8 @@ impl SceneConstruct for WhyAnAverage {
         let left_q = value_label(&kit, stage, &pic, LEFT, UNKNOWN, Palette::hero())?;
         let mut leaving = cell;
         leaving.extend([circuit_name, unknown_v]);
-        swap(stage, &leaving, &[walk_name, top_chance, bottom_chance, left_q], 0.5)?;
+        fade_out_all(stage, &leaving, 0.25)?;
+        fade_in_all(stage, &[walk_name, top_chance, bottom_chance, left_q], 0.25)?;
         recolor(stage, &[(pic.junctions[LEFT], palette::unknown())], 0.3)?;
         let dot = Circle::new()
             .radius(WALKER_R)
@@ -343,24 +349,30 @@ impl SceneConstruct for WhyAnAverage {
         move_all(stage, &moves, 0.5)?;
         let half = kit.tex(stage, &small_tex(to_top), 30.0, palette::walker(), &[], pair_spot)?;
         let up_line = row(&kit, stage, &up_row(up, wires, to_top), 1)?;
-        swap(stage, &pair_quarters, &[half, up_line], 0.3)?;
+        fade_out_all(stage, &pair_quarters, 0.15)?;
+        fade_in_all(stage, &[half, up_line], 0.15)?;
         line.wait_for(stage, "like its two currents")?;
-        let pair_note = precisely(&kit, stage, &pair_card().map_err(fail)?)?;
+        let pair_text = pair_card().map_err(fail)?;
+        let pair_note = precisely(&kit, stage, &pair_text)?;
         fade_in_all(stage, &[pair_note], 0.4)?;
+        let pair_read_until = stage.scene().time().to_f64() + pair_text.chars().count() as f64 / 15.0;
 
         // 02_7: the far ends' chances; the walker starts afresh; a quarter of
         // each, added, the same average as v's
+        wait_until(stage, pair_read_until)?;
         let line = say(&kit, stage, "02_7")?;
         let far_chances = tokens(&kit, stage, &pic, LEFT, &value_texts(&chance_ends))?;
         let mut gone = vec![pair_note, half];
         for y in [RIGHT, BOTTOM] {
             gone.extend(where_end(&ends, &quarters, y));
         }
-        swap(stage, &gone, &far_chances, 0.4)?;
+        fade_out_all(stage, &gone, 0.2)?;
+        fade_in_all(stage, &far_chances, 0.2)?;
         line.wait_for(stage, "Right, its chance")?;
         let fresh = precisely(&kit, stage, FRESH)?;
         let known = row(&kit, stage, &known_row(chances[RIGHT]), 2)?;
         fade_in_all(stage, &[fresh, known], 0.4)?;
+        let fresh_read_until = stage.scene().time().to_f64() + FRESH.chars().count() as f64 / 15.0;
         flash_all(stage, &[right_value], 0.5)?;
         line.wait_for(stage, "A quarter of each")?;
         let expanded = row(&kit, stage, &expand_row(&chance_ends), 3)?;
@@ -372,12 +384,14 @@ impl SceneConstruct for WhyAnAverage {
             4,
         )?;
         let left_p = value_label(&kit, stage, &pic, LEFT, &tex(chances[LEFT]), Palette::ink())?;
-        swap(stage, &[left_q], &[p_line, left_p], 0.4)?;
+        fade_out_all(stage, &[left_q], 0.2)?;
+        fade_in_all(stage, &[p_line, left_p], 0.2)?;
         recolor(stage, &[(pic.junctions[LEFT], palette::value(chances[LEFT]))], 0.3)?;
         flash_all(stage, &[solved, p_line], 0.6)?;
 
         // 02_8: conductances on the left's links, their weights, and the rule
         // for any positive conductances, in both pictures
+        wait_until(stage, fresh_read_until)?;
         let line = say(&kit, stage, "02_8")?;
         let conductances = facts::left_conductances().map_err(fail)?;
         let mut labels = Vec::new();
@@ -398,7 +412,8 @@ impl SceneConstruct for WhyAnAverage {
         let mut clearing = vec![fresh, up_line, known, expanded];
         clearing.extend(&far_chances);
         clearing.push(dot);
-        swap(stage, &clearing, &labels, 0.4)?;
+        fade_out_all(stage, &clearing, 0.2)?;
+        fade_in_all(stage, &labels, 0.2)?;
         move_all(stage, &[(p_line, v(PANEL_X, ROW_Y[1]))], 0.5)?;
         let weights = row(&kit, stage, &weights_row(&conductances, net.total(LEFT)), 2)?;
         let general_v = row(&kit, stage, GENERAL_V, 3)?;
@@ -412,10 +427,13 @@ impl SceneConstruct for WhyAnAverage {
         fade_in_all(stage, &[weights], 0.4)?;
         line.wait_for(stage, "the walker chooses")?;
         fade_in_lagged(stage, &general, 0.9, 0.4)?;
+        let general_read_until = stage.scene().time().to_f64()
+            + GENERAL_NOTE.iter().map(|text| text.chars().count()).sum::<usize>() as f64 / 15.0;
         line.wait_for(stage, "The same rule")?;
         flash_all(stage, &[general_v, general_p], 0.6)?;
         wait_until(stage, line.start + line.len)?;
         pause(stage, 0.6)?;
+        wait_until(stage, general_read_until)?;
 
         fade_all(stage, 0.6)?;
         kit.finish(stage)?;

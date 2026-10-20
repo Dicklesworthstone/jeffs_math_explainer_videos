@@ -109,7 +109,8 @@ fn relabel(
         labels[i] = next;
         colours.push((pic.junctions[x], palette::value(values[x])));
     }
-    swap(stage, &old, &new, rt)?;
+    fade_out_all(stage, &old, rt / 2.0)?;
+    fade_in_all(stage, &new, rt / 2.0)?;
     recolor(stage, &colours, rt)
 }
 
@@ -312,6 +313,7 @@ impl SceneConstruct for RoundAfterRound {
 
         // 03_4: round two, both junctions together from round one; rounds
         // three and four without tokens
+        wait_until(stage, rule_read)?;
         let line = say(&kit, stage, "03_4")?;
         let left_in = tokens(
             &kit,
@@ -329,7 +331,6 @@ impl SceneConstruct for RoundAfterRound {
         )?;
         let mut both = left_in.clone();
         both.extend(&right_in);
-        wait_until(stage, rule_read)?;
         swap(stage, &[rule], &both, CARD_OUT)?;
         let mut moves: Vec<(Mob, Vec3)> = left_in.iter().map(|&m| (m, pic.spot(LEFT))).collect();
         moves.extend(right_in.iter().map(|&m| (m, pic.spot(RIGHT))));
@@ -417,7 +418,8 @@ impl SceneConstruct for RoundAfterRound {
                 .chain(&last_row)
                 .chain(&limit_row),
         );
-        swap(stage, &going, &[lost], CARD_OUT)?;
+        fade_out_all(stage, &going, CARD_OUT / 2.0)?;
+        fade_in_all(stage, &[lost], CARD_OUT / 2.0)?;
         let lost_read = stage.scene().time().to_f64() + read_s(&lost_text);
         line_ends.wait_for(stage, "Average them too")?;
         let mut leaving = cell_mobs;

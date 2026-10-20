@@ -214,9 +214,11 @@ impl SceneConstruct for TheSameNumber {
         line.wait_for(stage, "the average")?;
         let ohm = precisely(&kit, stage, OHM)?;
         fade_in_all(stage, &[ohm], 0.4)?;
+        let ohm_read_until = stage.scene().time().to_f64() + OHM.chars().count() as f64 / 15.0;
 
         // 01_3: the right junction's value; the left's four far ends slide in
         // and average to its value; then the right's check, without words
+        wait_until(stage, ohm_read_until)?;
         let line = say(&kit, stage, "01_3")?;
         let right_label = value_label(&kit, stage, &circuit, RIGHT, volts[RIGHT])?;
         swap(stage, &[ohm], &[right_label], 0.3)?;
@@ -251,8 +253,10 @@ impl SceneConstruct for TheSameNumber {
             &[],
             circuit.equation_spot(),
         )?;
-        swap(stage, &[left_rule], &[right_rule], 0.25)?;
+        fade_out_all(stage, &[left_rule], 0.125)?;
+        fade_in_all(stage, &[right_rule], 0.125)?;
         flash_all(stage, &[right_label], 0.35)?;
+        pause(stage, 3.0)?;
 
         // 01_4: the circuit moves aside; the same wires again with a walker
         // instead of a battery, and one route it might take
@@ -288,8 +292,10 @@ impl SceneConstruct for TheSameNumber {
         let line = say(&kit, stage, "01_5")?;
         let dot_back = walker(stage, walk.spot(LEFT));
         swap(stage, &[dot], &[dot_back], 0.4)?;
-        let stops = precisely(&kit, stage, &stops_card().map_err(fail)?)?;
+        let stops_text = stops_card().map_err(fail)?;
+        let stops = precisely(&kit, stage, &stops_text)?;
         fade_in_all(stage, &[stops], 0.4)?;
+        let stops_read_until = stage.scene().time().to_f64() + stops_text.chars().count() as f64 / 15.0;
         line.wait_for(stage, "look one step ahead")?;
         flash_all(stage, &walk.wires_at(LEFT), 0.6)?;
         let unknowns = vec![(UNKNOWN.to_owned(), Palette::hero()); far_ends.len()];
@@ -299,6 +305,7 @@ impl SceneConstruct for TheSameNumber {
 
         // 01_6: the top's far ends become one and the bottom's zero; the
         // middle junctions carry "?"; the question, and the countdown
+        wait_until(stage, stops_read_until)?;
         let line = say(&kit, stage, "01_6")?;
         fade_out_all(stage, &[stops], 0.3)?;
         let known = tokens(&kit, stage, &walk, LEFT, &value_texts(&chance_ends))?;
@@ -320,7 +327,8 @@ impl SceneConstruct for TheSameNumber {
             )?;
             let mut arriving = new;
             arriving.push(label);
-            swap(stage, &old, &arriving, 0.4)?;
+            fade_out_all(stage, &old, 0.2)?;
+            fade_in_all(stage, &arriving, 0.2)?;
         }
         line.wait_for(stage, "So what is it")?;
         let left_q = unknown_label(&kit, stage, &walk, LEFT)?;
@@ -334,7 +342,8 @@ impl SceneConstruct for TheSameNumber {
         let line = say(&kit, stage, "01_7")?;
         let walk_left = value_label(&kit, stage, &walk, LEFT, chances[LEFT])?;
         let walk_right = value_label(&kit, stage, &walk, RIGHT, chances[RIGHT])?;
-        swap(stage, &[countdown, left_q, right_q], &[walk_left, walk_right], 0.3)?;
+        fade_out_all(stage, &[countdown, left_q, right_q], 0.15)?;
+        fade_in_all(stage, &[walk_left, walk_right], 0.15)?;
         recolor(
             stage,
             &[
@@ -355,7 +364,8 @@ impl SceneConstruct for TheSameNumber {
             .filter(|&(&y, _)| y == RIGHT)
             .map(|(_, &k)| k)
             .collect();
-        swap(stage, &right_asked, &right_known, 0.3)?;
+        fade_out_all(stage, &right_asked, 0.15)?;
+        fade_in_all(stage, &right_known, 0.15)?;
         slide_in(stage, &known, walk.spot(LEFT), 0.7)?;
         let walk_rule = kit.tex(
             stage,
@@ -378,13 +388,16 @@ impl SceneConstruct for TheSameNumber {
         fade_in_all(stage, &[circuit_rule], 0.4)?;
         flash_all(stage, &[left_label, walk_left], 0.6)?;
         line.wait_for(stage, "only one solution")?;
-        let unique = precisely(&kit, stage, &unique_card().map_err(fail)?)?;
+        let unique_text = unique_card().map_err(fail)?;
+        let unique = precisely(&kit, stage, &unique_text)?;
         swap(stage, &[circuit_rule, walk_rule], &[unique], 0.4)?;
+        let unique_read_until = stage.scene().time().to_f64() + unique_text.chars().count() as f64 / 15.0;
         line.wait_for(stage, "must agree")?;
         flash_all(stage, &[left_label, walk_left], 0.5)?;
 
         // 01_8: the walker is a model of the equations; it leaves, and the
         // two pictures stand with their equal numbers
+        wait_until(stage, unique_read_until)?;
         let line = say(&kit, stage, "01_8")?;
         let at = walk.equation_spot();
         let model_note = kit.text(stage, MODEL_NOTE, 22.0, Palette::dim(), at)?;
