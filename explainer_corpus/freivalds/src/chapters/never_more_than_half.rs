@@ -388,7 +388,9 @@ impl SceneConstruct for NeverMoreThanHalf {
         let checked = lower_third(&kit, stage, CHECKED, &checked_card().map_err(fail)?)?;
         fade_in_all(stage, &[checked], 0.4)?;
         line.wait_for(stage, "Pick a column")?;
-        let picked = column_box(stage, &d_now.grid, column, palette::mistake())?;
+        // the column in the gold of its coins' rings, apart from the red of
+        // the wrong row it meets at 02_8
+        let picked = column_box(stage, &d_now.grid, column, Palette::hero())?;
         let mut rings: Vec<Mob> = tosses
             .iter()
             .map(|coins| ring(stage, coins[column].at, COIN_R + 0.07, Palette::hero()))
@@ -415,8 +417,17 @@ impl SceneConstruct for NeverMoreThanHalf {
         // 02_8: across a pair the row's sum moves by the wrong entry, so at
         // most one of the pair hides it
         let line = say(&kit, stage, "02_8")?;
+        // the row's one outline takes over from its entries' own (the same
+        // red, the same height), so no outlines stack in it
         let the_row = row_box(stage, &d_now.grid, row, palette::mistake())?;
-        let mut changes = vec![the_row];
+        let in_row: Vec<Mob> = model::wrong_entries(&proof)
+            .iter()
+            .zip(&d_now.boxes)
+            .filter(|&(&(i, _), _)| i == row)
+            .map(|(_, &m)| m)
+            .collect();
+        swap(stage, &in_row, &[the_row], 0.3)?;
+        let mut changes = Vec::with_capacity(pairs.len());
         for ((tails, _), change) in pairs.iter().zip(model::pair_changes(&proof, row, column)) {
             let (x, _) = toss_place(index(tails));
             changes.push(kit.text_left(

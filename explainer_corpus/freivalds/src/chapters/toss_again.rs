@@ -65,9 +65,14 @@ const SECOND_TITLE_AT: Vec3 = [WAYS_X, WAYS_Y + WAYS_HALF + TOP_LABEL_DY + 0.42,
 const BAND_PAD: f64 = 0.03;
 /// The squares off the diagonal, dimmed while one toss is reused (03_5).
 const DIMMED: f64 = 0.25;
-/// The words at the right of the grid, one line a step, and the think ring.
+/// The words at the right of the grid, one line a step, and the think ring;
+/// the two stacked fraction lines (03_4) a little farther apart.
 const PANEL_X: f64 = 1.55;
-const PANEL_YS: [f64; 6] = [1.6, 1.05, 0.5, -0.05, -0.6, -1.15];
+const PANEL_YS: [f64; 6] = [1.6, 1.05, 0.5, -0.05, -0.7, -1.25];
+/// Over the one-toss line (03_1 to 03_5), the toss labels' colors in words.
+const KEY_NOTE: &str = "toss labels:";
+const KEY_Y: f64 = 2.1;
+const KEY_GAP: f64 = 0.25;
 const PANEL_SIZE: f64 = 24.0;
 const PANEL_TEX: f64 = 28.0;
 const QUESTION_SIZE: f64 = 26.0;
@@ -186,8 +191,8 @@ fn panel() -> Result<Panel, String> {
 fn again_card() -> Result<String, String> {
     let (num, den) = facts::theorem_bound()?;
     Ok(format!(
-        "with fair coins, all independent and tossed after C is fixed, k tosses all miss any fixed wrong C with \
-         chance at most {num}/{den}^k, in exact arithmetic."
+        "in exact arithmetic, with fair coins, all independent and tossed after C is fixed, k tosses all miss any \
+         fixed wrong C with chance at most {num}/{den} to the k."
     ))
 }
 
@@ -295,6 +300,24 @@ fn toss_label(kit: &Kit, stage: &mut Stage<'_>, t: &Toss<SIDE>, at: Vec3) -> fmn
     kit.text(stage, &model::toss_text(t), LABEL_SIZE, color, at)
 }
 
+/// The key to [`toss_label`]'s colors, left to right from the panel's edge:
+/// "toss labels:", then "miss" in the miss color and "caught" in the catch
+/// color, so color is not the only sign. Detached.
+fn label_key(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+    let mut x = PANEL_X;
+    let mut key = Vec::with_capacity(3);
+    for (word, color) in [
+        (KEY_NOTE, Palette::dim()),
+        (MISS, palette::mistake()),
+        (CAUGHT, palette::caught()),
+    ] {
+        let m = kit.text_left(stage, word, NOTE_SIZE, color, v(x, KEY_Y))?;
+        x += stage.get_width(m) + KEY_GAP;
+        key.push(m);
+    }
+    Ok(key)
+}
+
 /// A square of side `side` centred at `at`. Detached.
 fn square(stage: &mut Stage<'_>, at: Vec3, side: f64, style: Style) -> fmn::Result<Mob> {
     let r = rect(v(at[0] - side / 2.0, at[1] - side / 2.0), side, side, style)?;
@@ -352,7 +375,10 @@ impl SceneConstruct for TossAgain {
             Palette::ink(),
             v(PANEL_X, PANEL_YS[0]),
         )?;
-        fade_in_all(stage, &[one_toss], 0.3)?;
+        let key = label_key(&kit, stage)?;
+        let mut top_lines = vec![one_toss];
+        top_lines.extend(&key);
+        fade_in_all(stage, &top_lines, 0.3)?;
         line.wait_for(stage, "So toss again")?;
         // the column sorts, misses first, and a copy turns to run along the top
         let rank = |t: &Toss<SIDE>| order.iter().position(|u| u == t).unwrap_or(0);
@@ -558,6 +584,7 @@ impl SceneConstruct for TossAgain {
         leaving.extend(red);
         leaving.extend(outlines);
         leaving.extend([one_toss, answer, product, this_slip, any_wrong, reused_text]);
+        leaving.extend(key);
         fade_out_all(stage, &leaving, 0.5)?;
         fade_out_all(stage, &[again], 0.2)?;
         fade_in_all(stage, &[seen], 0.2)?;
@@ -701,9 +728,11 @@ mod tests {
         let again = again_card().unwrap();
         assert_eq!(
             again,
-            "with fair coins, all independent and tossed after C is fixed, k tosses all miss any fixed wrong C \
-             with chance at most 1/2^k, in exact arithmetic."
+            "in exact arithmetic, with fair coins, all independent and tossed after C is fixed, k tosses all miss \
+             any fixed wrong C with chance at most 1/2 to the k."
         );
+        // a power is written in words: the card's face has no superscripts
+        assert!(!again.contains('^'), "{again}");
         let spots = facts::blind_spots().unwrap();
         assert_eq!(
             seen_card(&spots).unwrap(),
@@ -826,6 +855,14 @@ mod tests {
         const { assert!(3.0 * 0.11 < WAY - WAY_GAP, "labels apart") };
         // the panel and the think ring right of the grid
         const { assert!(PANEL_X > WAYS_X + WAYS_HALF + 0.5, "panel right of the grid") };
+        // the panel's last line over a two-line card
+        const { assert!(PANEL_YS[5] - 0.15 > CARD_2, "panel over the card") };
+        // the labels' key over the one-toss line, under the top edge, and
+        // inside the right edge (about 0.12 a character at 20 pt)
+        const { assert!(KEY_Y - 0.15 > PANEL_YS[0] + 0.2, "key over the one-toss line") };
+        const { assert!(KEY_Y + 0.15 < FRAME_Y_RADIUS - 0.15, "key under the top edge") };
+        const KEY_W: f64 = (KEY_NOTE.len() + MISS.len() + CAUGHT.len()) as f64 * 0.12 + 2.0 * KEY_GAP;
+        const { assert!(PANEL_X + KEY_W < FRAME_X_RADIUS - 0.15, "key inside the right edge") };
         const { assert!(THINK_AT[0] - 0.62 > WAYS_X + WAYS_HALF + 0.3, "ring right of the grid") };
         // the tosses seen first: coins, grids and verdicts apart and inside
         const {

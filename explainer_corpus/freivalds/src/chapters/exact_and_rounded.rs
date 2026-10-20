@@ -226,8 +226,8 @@ fn near_n() -> Result<NearN, String> {
             format!(r"({plus}) - {} = {left} \text{{ in doubles}}", n_tex(BIG)),
         ],
         card: format!(
-            "a double has {bits} significant bits, so above 2^{bits} doubles are at least {gap} apart. {plus} is \
-             halfway between the doubles {at} and {next}; the tie goes to {at}."
+            "a double has {bits} significant bits, so above 2 to the {bits}, doubles are at least {gap} apart. \
+             {plus} is halfway between doubles {at} and {next}; the tie goes to {at}."
         ),
     })
 }
@@ -360,8 +360,8 @@ fn promise() -> Result<([String; 4], String), String> {
             BOTH_FAIL.to_owned(),
         ],
         format!(
-            "with fair coins, all independent and tossed after C is fixed, k tosses all miss any fixed wrong C with \
-             chance at most {num}/{den}^k, in exact arithmetic."
+            "in exact arithmetic, with fair coins, all independent and tossed after C is fixed, k tosses all miss \
+             any fixed wrong C with chance at most {num}/{den} to the k."
         ),
     ))
 }
@@ -471,6 +471,11 @@ impl SceneConstruct for ExactAndRounded {
         let cost_card = lower_third(&kit, stage, PROGRAMMERS, COST_NOTE)?;
         fade_in_all(stage, &[cost_card], 0.4)?;
         let cost_up = now(stage);
+        // the card's whole read time from when it is in (the end of 04_1
+        // counted once), then it clears before the doubles begin, so it never
+        // stands through the question
+        wait_until(stage, cost_up + read_s(COST_NOTE))?;
+        fade_out_all(stage, &[cost_card], 0.3)?;
 
         // 04_2: doubles skip whole numbers; what is N + 1 in doubles? The
         // think time, with no double marked
@@ -528,9 +533,7 @@ impl SceneConstruct for ExactAndRounded {
             v(line_x(near.gap) / 2.0, LINE_Y + GAP_LABEL_DY),
         )?);
         fade_in_all(stage, &marks, 0.5)?;
-        wait_until(stage, cost_up + read_s(COST_NOTE))?;
         let gap_card = precisely(&kit, stage, &near.card)?;
-        fade_out_all(stage, &[cost_card], 0.2)?;
         fade_in_all(stage, &[gap_card], 0.2)?;
         let gap_up = now(stage);
         line.wait_for(stage, "so the one is lost")?;
@@ -792,14 +795,14 @@ mod tests {
         assert_eq!(lines[2], r"k \text{ fresh tosses all miss: } \le \frac{1}{2^k}");
         assert_eq!(
             last,
-            "with fair coins, all independent and tossed after C is fixed, k tosses all miss any fixed wrong C \
-             with chance at most 1/2^k, in exact arithmetic."
+            "in exact arithmetic, with fair coins, all independent and tossed after C is fixed, k tosses all miss \
+             any fixed wrong C with chance at most 1/2 to the k."
         );
         let n = near_n().unwrap();
         assert_eq!(
             n.card,
-            "a double has 53 significant bits, so above 2^53 doubles are at least 2 apart. N + 1 is halfway \
-             between the doubles N and N + 2; the tie goes to N."
+            "a double has 53 significant bits, so above 2 to the 53, doubles are at least 2 apart. N + 1 is \
+             halfway between doubles N and N + 2; the tie goes to N."
         );
         let t = tolerance().unwrap();
         assert_eq!(
@@ -809,6 +812,8 @@ mod tests {
         );
         assert!(COST_NOTE.contains("not time"), "{COST_NOTE}");
         for text in [COST_NOTE, n.card.as_str(), t.card.as_str(), last.as_str()] {
+            // a power is written in words: the card's face has no superscripts
+            assert!(!text.contains('^'), "{text}");
             for width in [80, 76] {
                 let lines = explainer_kit::animatic::wrap(text, width, 3);
                 assert!(lines.len() <= 2, "{} lines at {width}: {text}", lines.len());

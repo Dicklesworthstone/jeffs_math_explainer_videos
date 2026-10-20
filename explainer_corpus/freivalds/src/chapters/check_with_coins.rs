@@ -151,6 +151,18 @@ fn entry_tex() -> String {
     format!("{} = {value}", terms.join(" + "))
 }
 
+/// The label 01_9 puts on the slip's row: the wrong entry's value and the
+/// true one, "2 should be 1", so it cannot read as a correction of the
+/// entry beside it. Refused unless C really differs from AB there.
+fn correction() -> Result<String, String> {
+    let (i, j) = facts::wrong_entry()?;
+    let right = facts::true_product()[i][j];
+    if C[i][j] == right {
+        return Err(format!("C's entry ({i}, {j}) is right, not the slip"));
+    }
+    Ok(format!("{} should be {}", num(C[i][j]), num(right)))
+}
+
 /// The exact version of 01_10: the conditions the chances need (fair coins,
 /// all independent, within a toss and across repeats, and tossed after C is
 /// fixed), the bound, and exact arithmetic. Refused unless the theorem's
@@ -294,7 +306,6 @@ impl SceneConstruct for CheckWithCoins {
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
         let kit = self.kit.clone();
-        let ab = facts::true_product();
         let first = facts::first_check();
         let (wrong_row, wrong_col) = facts::wrong_entry().map_err(fail)?;
 
@@ -578,17 +589,20 @@ impl SceneConstruct for CheckWithCoins {
         fade_out_all(stage, &[question], 0.2)?;
         fade_in_all(stage, &[answer], 0.2)?;
 
-        // 01_9: the wrong entry, and its column's coin in every toss
+        // 01_9: the wrong entry, outlined on its own and named by its value
+        // beside its row, inside its column (picked out in gold), whose coin
+        // decides every toss
         let line = say(&kit, stage, "01_9")?;
-        let wrong_box = column_box(stage, &c, wrong_col, palette::mistake())?;
+        let wrong_box = column_box(stage, &c, wrong_col, Palette::hero())?;
+        let wrong_cell = cell_box(stage, &c, wrong_row, wrong_col, palette::mistake())?;
         let should = kit.text_left(
             stage,
-            &format!("should be {}", num(ab[wrong_row][wrong_col])),
+            &correction().map_err(fail)?,
             22.0,
             palette::mistake(),
             v(C_X + c.half_width() + 0.3, c.at(wrong_row, wrong_col)[1]),
         )?;
-        fade_in_all(stage, &[wrong_box, should], 0.4)?;
+        fade_in_all(stage, &[wrong_box, wrong_cell, should], 0.4)?;
         line.wait_for(stage, "leaves out the column")?;
         let mut rings = Vec::with_capacity(checks.len());
         for (coins, (_, check)) in tosses.iter().zip(&checks) {
@@ -683,6 +697,8 @@ mod tests {
     #[test]
     fn the_screen_words_are_built_from_the_model() {
         assert_eq!(entry_tex(), r"1\cdot 0 + 2\cdot 2 + 1\cdot 3 = 7");
+        // the slip's label names its own value, not the 9 beside it
+        assert_eq!(correction().unwrap(), "2 should be 1");
         // the exact version keeps the bound, its arithmetic and the
         // repetition caveat; it claims no number the ladder does not show
         let claim = again_claim().unwrap();
