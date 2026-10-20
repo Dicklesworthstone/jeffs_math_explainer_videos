@@ -17,7 +17,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     arc, disc, face, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, lane, pause, ring, say, square, swap,
-    tex_q, think,
+    tex_q, think, wait_until,
 };
 use crate::facts::{self, Average};
 use crate::model::{self, COIN_PAIRS, Q};
@@ -401,8 +401,10 @@ impl SceneConstruct for WhatAYesSays {
             Palette::dim(),
             v(NOTE_X, DERIVE_Y - NOTE_DY),
         )?;
-        let card = precisely(&kit, stage, &posterior_card(&counted, n, copiers)?)?;
+        let posterior_text = posterior_card(&counted, n, copiers)?;
+        let card = precisely(&kit, stage, &posterior_text)?;
         fade_in_all(stage, &[tempt, card], 0.4)?;
+        let posterior_read_until = stage.scene().time().to_f64() + posterior_text.chars().count() as f64 / 15.0;
 
         // 02_7: three times the yeses each, but outnumbered four to one
         let line = say(&kit, stage, "02_7")?;
@@ -446,6 +448,8 @@ impl SceneConstruct for WhatAYesSays {
         flash_all(stage, &groups[0], 0.5)?;
 
         // 02_8: a no, four of fifty-two, one in thirteen
+        // Keep the explanation readable through the narrated comparison.
+        wait_until(stage, posterior_read_until)?;
         let line = say(&kit, stage, "02_8")?;
         let mut leaving = vec![full, avg, tempt, card, twelve, sixteen];
         leaving.extend(each);
@@ -535,10 +539,13 @@ impl SceneConstruct for WhatAYesSays {
         // 02_10: the coin fixes the factor; the class, where it starts
         let _line = say(&kit, stage, "02_10")?;
         flash_all(stage, &[yes_arc, no_arc], 0.6)?;
-        let card = precisely(&kit, stage, &odds_card(prior, given_yes, given_no, n)?)?;
+        let odds_text = odds_card(prior, given_yes, given_no, n)?;
+        let card = precisely(&kit, stage, &odds_text)?;
         fade_in_all(stage, &[card], 0.4)?;
+        let odds_read_until = stage.scene().time().to_f64() + odds_text.chars().count() as f64 / 15.0;
 
         // 02_11: deniable, not meaningless; accuracy is another question
+        wait_until(stage, odds_read_until)?;
         let line = say(&kit, stage, "02_11")?;
         line.wait_for(stage, "deniable")?;
         flash_all(stage, &yes_mark, 0.5)?;
@@ -546,7 +553,9 @@ impl SceneConstruct for WhatAYesSays {
         flash_all(stage, &[yes_arc], 0.5)?;
         line.wait_for(stage, "How well")?;
         let names = names_to_search(&kit, stage, &NAMES)?;
-        swap(stage, &[card], &[names], 0.4)?;
+        // Separate the two texts without changing the transition's duration.
+        fade_out_all(stage, &[card], 0.2)?;
+        fade_in_all(stage, &[names], 0.2)?;
         line.wait_end(stage)?;
         pause(stage, 2.0)?;
 
