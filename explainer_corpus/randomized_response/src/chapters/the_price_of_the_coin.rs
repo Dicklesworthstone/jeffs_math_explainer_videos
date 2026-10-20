@@ -18,7 +18,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     bar, coin, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, grow_lagged, lane, outline, pause, say,
-    swap, tex_q, think,
+    swap, tex_q, think, wait_until,
 };
 use crate::facts::{self, Average, RUNS, SEED};
 use crate::model::{self, COIN_PAIRS, Channel, Q, Tally};
@@ -231,7 +231,8 @@ impl SceneConstruct for ThePriceOfTheCoin {
 
         // 03_2: their estimates, from the lowest to the highest
         let line = say(&kit, stage, "03_2")?;
-        let card = precisely(&kit, stage, &runs_card())?;
+        let runs_text = runs_card();
+        let card = precisely(&kit, stage, &runs_text)?;
         let mut est_texts = Vec::with_capacity(RUNS);
         for (r, &e) in estimates.iter().enumerate() {
             let y = RUN_Y0 - RUN_DY * r as f64;
@@ -240,6 +241,7 @@ impl SceneConstruct for ThePriceOfTheCoin {
         let mut shown = est_texts.clone();
         shown.push(card);
         fade_in_lagged(stage, &shown, 1.2, 0.2)?;
+        let runs_read_until = stage.scene().time().to_f64() + runs_text.chars().count() as f64 / 15.0;
         panel.extend(est_texts.iter().copied());
         let lowest = estimates
             .iter()
@@ -269,6 +271,7 @@ impl SceneConstruct for ThePriceOfTheCoin {
         flash_all(stage, &on_truth, 0.6)?;
 
         // 03_3: every way the coins can land; the distribution rises
+        wait_until(stage, runs_read_until)?;
         let line = say(&kit, stage, "03_3")?;
         panel.push(card);
         fade_out_all(stage, &panel, 0.5)?;
@@ -407,11 +410,14 @@ impl SceneConstruct for ThePriceOfTheCoin {
             v(NOTE_X, NOTE_Y[1]),
         )?;
         new.push(note_negative);
-        let card = precisely(&kit, stage, &rates_card(configurations, truth, exactly, negative))?;
+        let rates_text = rates_card(configurations, truth, exactly, negative);
+        let card = precisely(&kit, stage, &rates_text)?;
         new.push(card);
         swap(stage, &old, &new, 0.4)?;
+        let rates_read_until = stage.scene().time().to_f64() + rates_text.chars().count() as f64 / 15.0;
 
         // 03_7: below zero, honestly; rounding up would push the average up
+        wait_until(stage, rates_read_until)?;
         let line = say(&kit, stage, "03_7")?;
         let red: Vec<Mob> = bars_now
             .iter()
@@ -431,10 +437,14 @@ impl SceneConstruct for ThePriceOfTheCoin {
             Palette::dim(),
             v(NOTE_X, NOTE_Y[2]),
         )?;
-        let clamp = precisely(&kit, stage, &clamp_card(n, mean, clamped))?;
-        swap(stage, &[card], &[note_clamped, clamp], 0.4)?;
+        let clamp_text = clamp_card(n, mean, clamped);
+        let clamp = precisely(&kit, stage, &clamp_text)?;
+        fade_out_all(stage, &[card], 0.2)?;
+        fade_in_all(stage, &[note_clamped, clamp], 0.2)?;
+        let clamp_read_until = stage.scene().time().to_f64() + clamp_text.chars().count() as f64 / 15.0;
 
         // 03_8: every answer wobbles the same; twenty, doubled: √15
+        wait_until(stage, clamp_read_until)?;
         let line = say(&kit, stage, "03_8")?;
         let answer = Channel::two_coins().answer_variance(true);
         let count = model::variance(&dist);
@@ -443,8 +453,11 @@ impl SceneConstruct for ThePriceOfTheCoin {
         if answer * Q::int(n as i128) != count {
             return Err(fail(format!("{n} answers of {answer} do not make {count}")));
         }
-        let sd = precisely(&kit, stage, &sd_card(n, answer, count, estimate))?;
-        swap(stage, &[note_exactly, note_negative, note_clamped, clamp], &[sd], 0.4)?;
+        let sd_text = sd_card(n, answer, count, estimate);
+        let sd = precisely(&kit, stage, &sd_text)?;
+        fade_out_all(stage, &[note_exactly, note_negative, note_clamped, clamp], 0.2)?;
+        fade_in_all(stage, &[sd], 0.2)?;
+        let sd_read_until = stage.scene().time().to_f64() + sd_text.chars().count() as f64 / 15.0;
         let steps = [
             format!(r"{} \times {n} = {}", tex_q(answer, true), tex_q(count, true)),
             format!(r"{} \times {} = {estimate}", tex_q(count, true), factor * factor),
@@ -480,6 +493,7 @@ impl SceneConstruct for ThePriceOfTheCoin {
 
         // 03_9: a sample from a big school adds who gets picked; the fixed
         // class's card goes, and the sample's assumptions stay to the end
+        wait_until(stage, sd_read_until)?;
         let line = say(&kit, stage, "03_9")?;
         let share = Q::new(copiers as i128, n as i128);
         let with_coins = model::sampling_variance(Channel::two_coins(), share, 1)
@@ -513,7 +527,8 @@ impl SceneConstruct for ThePriceOfTheCoin {
         let sample = precisely(&kit, stage, &sample_card(share, cost))?;
         let mut fixed_class = derivation;
         fixed_class.push(sd);
-        swap(stage, &fixed_class, &[share_label, formula, picked, sample], 0.4)?;
+        fade_out_all(stage, &fixed_class, 0.2)?;
+        fade_in_all(stage, &[share_label, formula, picked, sample], 0.2)?;
 
         // 03_10: at one in five, almost six times the people
         let line = say(&kit, stage, "03_10")?;
