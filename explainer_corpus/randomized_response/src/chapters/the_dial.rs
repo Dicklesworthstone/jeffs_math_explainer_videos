@@ -26,8 +26,8 @@ use explainer_kit::{Kit, Palette, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    bar, coin, face, fade_in_all, fade_in_lagged, fail, flash_all, lane, move_all, pause, say, square, swap, tex_q,
-    think, wait_until,
+    bar, coin, face, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, lane, move_all, pause, say, square,
+    tex_q, think, wait_until,
 };
 use crate::facts::{self, DIAL, SLICES};
 use crate::model::{self, Channel, Coin, Q};
@@ -368,7 +368,8 @@ impl Spinner {
         going.extend(self.counts);
         coming.extend(next.rows.iter().copied());
         coming.extend(next.counts.iter().copied());
-        swap(stage, &going, &coming, 0.4)?;
+        fade_out_all(stage, &going, 0.2)?;
+        fade_in_all(stage, &coming, 0.2)?;
         Ok(next)
     }
 }
@@ -510,7 +511,8 @@ impl SceneConstruct for TheDial {
         wait_until(stage, card2_read)?;
         let mut coming = vec![up_wobble, general_wobble, card3, title];
         coming.extend(misses.iter().copied());
-        swap(stage, &[card2], &coming, 0.4)?;
+        fade_out_all(stage, &[card2], 0.2)?;
+        fade_in_all(stage, &coming, 0.2)?;
         let card3_read = read_by(stage, &card3_text);
         flash_all(stage, &misses, 0.6)?;
 
@@ -554,7 +556,8 @@ impl SceneConstruct for TheDial {
         let card5_text = scope_card();
         let card5 = precisely(&kit, stage, &card5_text)?;
         wait_until(stage, card4_read)?;
-        swap(stage, &[card4], &[card5], 0.4)?;
+        fade_out_all(stage, &[card4], 0.2)?;
+        fade_in_all(stage, &[card5], 0.2)?;
         let card5_read = read_by(stage, &card5_text);
         move_all(stage, &[(marker, v(dial_x(ours.truth()), DIAL_Y))], 0.6)?;
         let _left = left.turn(&kit, stage, ours_k, true, &[], &[])?;
