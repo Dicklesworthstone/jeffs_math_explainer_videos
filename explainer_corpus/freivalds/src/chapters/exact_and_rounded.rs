@@ -16,7 +16,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     cell_box, coin_mobs, fade_in_all, fade_in_lagged, fade_out_all, fade_to, fail, flat, fly, grid_colored, line_style,
-    matrix_grid, ring, say, stand, swap, tex_grid, think, together, toss_coins, wait_until,
+    matrix_grid, ring, say, stand, tex_grid, think, together, toss_coins, wait_until,
 };
 use crate::facts::{self, AGAIN, BIG_SIDE, RoundedToss};
 use crate::model::{self, A, B, BIG, C, Matrix, ROUNDED_PASSES, ROUNDED_REJECTS, SIDE};
@@ -511,7 +511,8 @@ impl SceneConstruct for ExactAndRounded {
             )?,
         ];
         fade_out_all(stage, &[q], 0.2)?;
-        swap(stage, &[question], &answer, 0.4)?;
+        fade_out_all(stage, &[question], 0.2)?;
+        fade_in_all(stage, &answer, 0.2)?;
         line.wait_for(stage, "Doubles there are two apart")?;
         let mut marks: Vec<Mob> = near
             .doubles
@@ -529,7 +530,8 @@ impl SceneConstruct for ExactAndRounded {
         fade_in_all(stage, &marks, 0.5)?;
         wait_until(stage, cost_up + read_s(COST_NOTE))?;
         let gap_card = precisely(&kit, stage, &near.card)?;
-        swap(stage, &[cost_card], &[gap_card], 0.4)?;
+        fade_out_all(stage, &[cost_card], 0.2)?;
+        fade_in_all(stage, &[gap_card], 0.2)?;
         let gap_up = now(stage);
         line.wait_for(stage, "so the one is lost")?;
         let lost = dot(stage, v(line_x(PLUS), LINE_Y), palette::mistake());
@@ -603,7 +605,8 @@ impl SceneConstruct for ExactAndRounded {
         old.push(shown);
         old.extend(work);
         old.push(gap_card);
-        swap(stage, &old, &next_grids, 0.5)?;
+        fade_out_all(stage, &old, 0.25)?;
+        fade_in_all(stage, &next_grids, 0.25)?;
         line.wait_for(stage, "This C is too small by one")?;
         let exact_row = verdict_row(&kit, stage, &pass.exact, pass.right, ROW_YS[0])?;
         fade_in_lagged(stage, &exact_row, 0.8, 0.2)?;
@@ -676,7 +679,8 @@ impl SceneConstruct for ExactAndRounded {
         fade_in_lagged(stage, &rest, 1.0, 0.4)?;
         wait_until(stage, tol_up + read_s(&tol.card))?;
         let last = precisely(&kit, stage, &last_card)?;
-        swap(stage, &[tol_card], &[last], 0.4)?;
+        fade_out_all(stage, &[tol_card], 0.2)?;
+        fade_in_all(stage, &[last], 0.2)?;
         let card_up = now(stage);
         stand(&kit, stage, card_up)?;
         wait_until(stage, card_up + read_s(&last_card))?;

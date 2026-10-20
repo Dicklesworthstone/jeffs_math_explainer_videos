@@ -19,7 +19,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     COIN_R, Coin, Grid, cell, cell_box, coin_mobs, fade_in_all, fade_in_lagged, fade_out_all, fade_to, fail, flash_all,
-    flat, fly, grid_colored, line_style, num, ring, row_box, say, stand, swap, think, together, toss_coins, wait_until,
+    flat, fly, grid_colored, line_style, num, ring, row_box, say, stand, think, together, toss_coins, wait_until,
 };
 use crate::facts::{self, TOSS_NAMES};
 use crate::model::{self, A, A2, B, B2, C, Matrix, SIDE, Toss};
@@ -450,7 +450,8 @@ impl SceneConstruct for TossAgain {
             palette::mistake(),
             v(PANEL_X, PANEL_YS[1]),
         )?;
-        swap(stage, &question, &[answer], 0.4)?;
+        fade_out_all(stage, &question, 0.2)?;
+        fade_in_all(stage, &[answer], 0.2)?;
         line.wait_for(stage, "four ways for the first toss")?;
         let side = 2.0 * WAYS_HALF + 2.0 * BAND_PAD;
         let corner = misses as f64 * WAY + 2.0 * BAND_PAD;
@@ -558,7 +559,8 @@ impl SceneConstruct for TossAgain {
         leaving.extend(outlines);
         leaving.extend([one_toss, answer, product, this_slip, any_wrong, reused_text]);
         fade_out_all(stage, &leaving, 0.5)?;
-        swap(stage, &[again], &[seen], 0.4)?;
+        fade_out_all(stage, &[again], 0.2)?;
+        fade_in_all(stage, &[seen], 0.2)?;
         let card_up = stage.scene().time().to_f64();
         let mut coin_sets: Vec<Vec<Coin>> = Vec::with_capacity(spots.len());
         for (k, (t, _)) in spots.iter().enumerate() {

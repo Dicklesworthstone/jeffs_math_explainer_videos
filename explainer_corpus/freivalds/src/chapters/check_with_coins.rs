@@ -575,7 +575,8 @@ impl SceneConstruct for CheckWithCoins {
             Palette::ink(),
             v(QUESTION_X, QUESTION_Y),
         )?;
-        swap(stage, &[question], &[answer], 0.4)?;
+        fade_out_all(stage, &[question], 0.2)?;
+        fade_in_all(stage, &[answer], 0.2)?;
 
         // 01_9: the wrong entry, and its column's coin in every toss
         let line = say(&kit, stage, "01_9")?;

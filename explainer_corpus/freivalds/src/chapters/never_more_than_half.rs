@@ -451,7 +451,8 @@ impl SceneConstruct for NeverMoreThanHalf {
         let line = say(&kit, stage, "02_9")?;
         let claim = exact_card().map_err(fail)?;
         let exact = precisely(&kit, stage, claim)?;
-        swap(stage, &[checked], &[exact], 0.4)?;
+        fade_out_all(stage, &[checked], 0.2)?;
+        fade_in_all(stage, &[exact], 0.2)?;
         let card_up = stage.scene().time().to_f64();
         let texts = count_texts(&model::misses_per_pair(&proof, column), all.len()).map_err(fail)?;
         let colors = [Palette::ink(), Palette::ink(), palette::mistake()];
