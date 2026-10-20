@@ -152,7 +152,10 @@ impl SceneConstruct for Preimages {
             -0.45,
             26.0,
         )?;
-        fade_in_lagged(stage, &[title2, first, ball, pull, all], 0.7, 0.1)?;
+        // what B means, at its first use, under the proof; it stays for the
+        // converse, which uses it again
+        let key = tex(&kit, stage, r"B_r(c)=(c-r,\,c+r),\quad r>0", -1.9, 28.0, Palette::dim())?;
+        fade_in_lagged(stage, &[title2, first, ball, pull, all, key], 0.7, 0.1)?;
         let read = stage.scene().time().to_f64() + 9.0;
         wait_until(stage, read)?;
         kit.hold(stage)?;

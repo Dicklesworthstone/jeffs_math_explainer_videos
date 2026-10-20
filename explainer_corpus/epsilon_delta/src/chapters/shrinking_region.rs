@@ -22,9 +22,10 @@ use fmn::prelude::*;
 use super::draw::{
     BRIGHT_W, Bright, END_R, GHOST_W, LENS_H, LENS_W, PLOT, Plot, curve_color, curve_label, fact, fade_in_all,
     fade_in_lagged, fade_out_all, fail, flat, gap_color, ghost, line_style, move_to, moving, say, step, think_pause,
+    wait_until,
 };
 use super::limit_that_jumps::{
-    card_fix_first, card_move_with, fixed_back, gap_note, gap_span, half_line, witness_at, witness_formula,
+    card_fix_first, card_move_with, fixed_back, gap_note, gap_span, half_line, read_s, witness_at, witness_formula,
     witness_head, witness_row,
 };
 use crate::facts::facts;
@@ -210,8 +211,16 @@ impl View {
     }
 
     /// Prepared animations that turn this view into `next` over `rt`
-    /// seconds: shapes morph, marks morph or come and go, labels swap.
-    fn morph_to(self, stage: &mut Stage<'_>, next: &Self, rt: f64) -> fmn::Result<Vec<Box<dyn Animation>>> {
+    /// seconds: shapes morph, marks morph or come and go, labels swap. With
+    /// `in_turn` the labels swap one after the other (see [`swap_in_turn`]),
+    /// for a morph whose labels' texts change in place.
+    fn morph_to(
+        self,
+        stage: &mut Stage<'_>,
+        next: &Self,
+        rt: f64,
+        in_turn: bool,
+    ) -> fmn::Result<Vec<Box<dyn Animation>>> {
         let mut anims: Vec<Box<dyn Animation>> = Vec::new();
         for (a, b) in self.shapes.into_iter().zip(next.shapes) {
             anims.push(stage.prepare(fmn::animation::replacement_transform(a, b).rt(rt))?);
@@ -236,6 +245,10 @@ impl View {
             }
             (None, None) => {}
         }
+        if in_turn {
+            anims.push(swap_in_turn(stage, &self.labels, &next.labels, rt)?);
+            return Ok(anims);
+        }
         for m in self.labels {
             let out = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
             anims.push(stage.prepare(out.rt(rt * 0.5))?);
@@ -246,6 +259,34 @@ impl View {
         }
         Ok(anims)
     }
+}
+
+/// One prepared animation, `rt` seconds, that fades `from` out over the
+/// first half and only then `to` in over the second, so texts that replace
+/// each other in place are never both half shown (draft review: "n = 1000"
+/// into "n = 10" and "0.999" into "0.9" read garbled mid-fade). Play it with
+/// the morphs it belongs to; the total time is unchanged.
+pub(super) fn swap_in_turn(
+    stage: &mut Stage<'_>,
+    from: &[Mob],
+    to: &[Mob],
+    rt: f64,
+) -> fmn::Result<Box<dyn Animation>> {
+    let mut outs: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in from {
+        let out = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        outs.push(stage.prepare(out)?);
+    }
+    let mut ins: Vec<Box<dyn Animation>> = Vec::new();
+    for &m in to {
+        let inn = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        ins.push(stage.prepare(inn)?);
+    }
+    // two halves of equal length, the second starting as the first ends
+    let first: Box<dyn Animation> = Box::new(AnimationGroup::new(stage.arena_mut(), outs)?);
+    let second: Box<dyn Animation> = Box::new(AnimationGroup::new(stage.arena_mut(), ins)?);
+    let both = AnimationGroup::with_lag_ratio(stage.arena_mut(), vec![first, second], 1.0)?.with_run_time(rt);
+    Ok(Box::new(both))
 }
 
 /// The magnifier on the main plot for a stretch of m, detached: the box
@@ -543,7 +584,7 @@ impl SceneConstruct for TheShrinkingRegion {
             let next = View::build(&kit, stage, &f, n, zoom)?;
             let next_strip = main_strip(stage, n)?;
             let next_readout = width_readout(&kit, stage, &f, n)?;
-            let mut with = view.morph_to(stage, &next, 0.6)?;
+            let mut with = view.morph_to(stage, &next, 0.6, false)?;
             with.push(stage.prepare(move_to(dot, PLOT.p(x, top), 0.6)?)?);
             with.push(stage.prepare(move_to(bar, PLOT.p(x, f64::midpoint(floor, top)), 0.6)?)?);
             with.push(stage.prepare(fmn::animation::replacement_transform(on_main, next_strip).rt(0.6))?);
@@ -593,7 +634,7 @@ impl SceneConstruct for TheShrinkingRegion {
             line.wait_for(stage, at)?;
             let next = View::build(&kit, stage, &f, b.n, m)?;
             let next_glass = magnifier(stage, m)?;
-            let mut anims = view.morph_to(stage, &next, 0.8)?;
+            let mut anims = view.morph_to(stage, &next, 0.8, false)?;
             anims.extend(magnify(stage, glass, next_glass, 0.8)?);
             stage.play_prepared(anims)?;
             view = next;
@@ -621,7 +662,9 @@ impl SceneConstruct for TheShrinkingRegion {
                 Palette::ink(),
                 v(READ_X, READ_Y[i]),
             )?;
-            let mut anims = view.morph_to(stage, &next, 0.7)?;
+            // the inset's title and end label change text in place: one
+            // after the other, never both half shown
+            let mut anims = view.morph_to(stage, &next, 0.7, true)?;
             let inn = fade_in(stage.arena_mut(), row, ORIGIN, 1.0)?;
             anims.push(stage.prepare(inn.rt(0.5))?);
             stage.play_prepared(anims)?;
@@ -629,27 +672,32 @@ impl SceneConstruct for TheShrinkingRegion {
             rows.push(row);
         }
         line.wait_for(stage, SHRINKS_AT)?;
-        // short enough to read in 02_7's last sentence: the exact width, that
-        // it is never zero, and the limit (the two-sided bounds behind it are
-        // in model.rs, oracle.py and the README, not on screen)
+        // the exact width, that it is never zero, and the limit (the
+        // two-sided bounds behind it are in model.rs, oracle.py and the
+        // README, not on screen); too long for 02_7's last sentence alone, it
+        // stays through 02_8
         let exact = format!(
             "w(n) = 1 − 2^(−1/n) > 0; n·w(n) → ln 2 ≈ {}. This is a limit, not a finite equality.",
             fact(&f, "C2.ln2.4dp")?
         );
         let lower = precisely(&kit, stage, &exact)?;
         fade_in_all(stage, &[lower], 0.6)?;
+        let lower_up = stage.scene().time().to_f64();
 
         // 02_8: the moving point stays inside the gap strip, at its left end
         let line = say(&kit, stage, "02_8")?;
-        fade_out_all(stage, &[lower], 0.4)?;
         line.wait_for(stage, INSIDE_AT)?;
         let x = half_height(b.n).map_err(fail)?;
         let plot = lens(zoom);
         glow(&kit, stage, plot.p(x, 0.5), 0.2)?;
         glow(&kit, stage, v(plot.p(x, 0.0)[0], GAP_Y), 0.15)?;
 
-        // 02_9: a picture cannot settle it; a guarantee for every point can
+        // 02_9: a picture cannot settle it; a guarantee for every point can.
+        // The lower-third goes once read (counted from its fade-in, 02_8
+        // included), after 02_9 has begun, so the voice never waits on it
         let line = say(&kit, stage, "02_9")?;
+        wait_until(stage, lower_up + read_s(&exact))?;
+        fade_out_all(stage, &[lower], 0.4)?;
         line.wait_for(stage, NEED_AT)?;
         let summary = [
             kit.text_left(stage, EVERY_POINT, 26.0, Palette::ink(), v(READ_X, READ_Y[0]))?,

@@ -109,10 +109,11 @@ impl SceneConstruct for Completeness {
             35.0,
             Palette::gold(),
         )?;
+        // the fraction is m/n: q is the domain's variable on the line above
         let fraction = tex(
             &kit,
             stage,
-            &format!(r"\sqrt{{{RADICAND}}}=p/q\quad\text{{in lowest terms}},\qquad p^2={RADICAND}q^2"),
+            &format!(r"\sqrt{{{RADICAND}}}=m/n\quad\text{{in lowest terms}},\qquad m^2={RADICAND}n^2"),
             0.8,
             32.0,
             Palette::ink(),
@@ -120,12 +121,12 @@ impl SceneConstruct for Completeness {
         let even = tex(
             &kit,
             stage,
-            &format!(r"p={RADICAND}k\quad\Longrightarrow\quad q^2={RADICAND}k^2"),
+            &format!(r"m={RADICAND}k\quad\Longrightarrow\quad n^2={RADICAND}k^2"),
             -0.3,
             34.0,
             Palette::blue(),
         )?;
-        let contradiction = text(&kit, stage, "both p and q even contradict lowest terms", -1.5, 28.0)?;
+        let contradiction = text(&kit, stage, "both m and n even contradict lowest terms", -1.5, 28.0)?;
         fade_in_lagged(stage, &[absent, root, fraction, even, contradiction], 0.7, 0.1)?;
         wait_until(stage, stage.scene().time().to_f64() + 12.0)?;
         kit.hold(stage)?;

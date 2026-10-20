@@ -32,7 +32,7 @@ use super::draw::{
     fail, fails, flat, limit_color, line_style, move_to, moving, say, slope_color, think_pause,
 };
 use super::old_objection::{NEXT_Y, READ_Y, RIGHT_X, SLOPES, final_picture, shown, swap, tex_frac};
-use super::shrinking_region::glow;
+use super::shrinking_region::{glow, swap_in_turn};
 use crate::facts::facts;
 use crate::model::{
     BASE, CHALLENGE, FILLS, Frac, LUCKY, PICKS, SQUARE, WIDE, blind_window, chord_limit, chord_slope, fill_failure,
@@ -419,7 +419,7 @@ impl SceneConstruct for TheChallengeGame {
         )?;
         let card_text = format!(
             "a limit at a checks only the domain's points other than a, and needs some in every window; continuity \
-             at a point a of the domain checks a too, against f(a). Here g(h) = {} for h ≠ {zero}, and g({zero}) is \
+             at a point a of the domain checks a too, against f(a). Here g(h) = {} for nonzero h, and g({zero}) is \
              the filled value.",
             fact(&f, "C3.quotient")?
         );
@@ -529,14 +529,18 @@ impl SceneConstruct for TheChallengeGame {
                 Palette::dim(),
             )?,
         ];
-        let mut anims =
-            vec![stage.prepare(fmn::animation::replacement_transform(window_now, blind_window_now).rt(0.7))?];
-        anims.extend(swap(
-            stage,
-            &[window_tag, shown_now, ring, argument[0], argument[1]],
-            &[blind_tag, hidden, note[0], note[1]],
-            0.7,
-        )?);
+        // the window morphs as before; its tag, the readout and the notes
+        // over it are replaced in place, so the old ones go before the new
+        // ones come, in the same 0.7 s (draft review: overlapping mid-fade)
+        let anims = vec![
+            stage.prepare(fmn::animation::replacement_transform(window_now, blind_window_now).rt(0.7))?,
+            swap_in_turn(
+                stage,
+                &[window_tag, shown_now, ring, argument[0], argument[1]],
+                &[blind_tag, hidden, note[0], note[1]],
+                0.7,
+            )?,
+        ];
         stage.play_prepared(anims)?;
         line.wait_for(stage, DEPEND_AT)?;
         let rule = kit.tex(stage, DEPENDS, 24.0, Palette::ink(), &[], v(0.0, RULE_LINE_Y))?;

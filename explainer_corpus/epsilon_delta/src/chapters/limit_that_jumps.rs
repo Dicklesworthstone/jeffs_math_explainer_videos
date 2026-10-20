@@ -19,7 +19,7 @@ use fmn::prelude::*;
 
 use super::draw::{
     BRIGHT_W, Bright, GHOST_W, PLOT, curve_color, curve_label, fact, fade_in_all, fade_in_lagged, fade_out_all, fail,
-    fixed, gap_color, ghost, limit_color, line_style, move_to, moving, say, step, think_pause,
+    fixed, gap_color, ghost, limit_color, line_style, move_to, moving, say, step, think_pause, wait_until,
 };
 use super::glyphs::{SUBTITLE, TITLE};
 use crate::facts::{EXACT_UP_TO, FIXED, PLACES, WAITS, decimal_point, facts};
@@ -84,6 +84,14 @@ const CARD_Y: [f64; 2] = [2.9, 0.5];
 const CARD_STEP: f64 = 0.42;
 /// The jump's marker sits this far right of x = 1.
 const JUMP_DX: f64 = 0.18;
+/// Characters a second a viewer reads a lower-third at (chapter 03's rate).
+const READ_CPS: f64 = 15.0;
+
+/// How long `text` needs on screen to be read at [`READ_CPS`], counted in
+/// characters (not bytes: "−" and "≈" are one each).
+pub(super) fn read_s(text: &str) -> f64 {
+    text.chars().count() as f64 / READ_CPS
+}
 
 // the notes, the ring and the cards stay inside the frame and above a
 // three-line lower-third (its top at -2.42); the cards do not touch; the
@@ -504,8 +512,14 @@ impl ALimitThatJumps {
         let mut ins = card_b.to_vec();
         ins.push(lower);
         fade_in_lagged(stage, &ins, 1.2, 0.2)?;
+        // the lower-third is the last in, so it is fully shown from here
+        let lower_up = stage.scene().time().to_f64();
         kit.hold(stage)?;
         kit.music_breath(stage, 0.8)?;
+        // it stays until read, counted once from its fade-in: 01_11's last
+        // words, the hold and the breath are part of that time, not added to
+        // it (draft review: 3.4 s was too short for its 184 characters)
+        wait_until(stage, lower_up + read_s(&exact))?;
         // chapter 02 opens on this picture as it rests: only the lower-third goes
         fade_out_all(stage, &[lower], 0.4)
     }
