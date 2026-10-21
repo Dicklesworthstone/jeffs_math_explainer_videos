@@ -140,6 +140,16 @@ The [v1 schema](catalog.schema.json) and [read-only validator](../../tools/video
 
 ## What to tackle next
 
+**Owner direction, 2026-10-21:** revise the five expanded cuts for unnatural
+pauses, rushed explanations and insufficient setup. Twenty minutes or longer is
+acceptable when it improves teaching. Establish a concrete motivating problem,
+define unfamiliar objects/terms before relying on them, and return to the same
+example as abstraction increases. This applies to all new videos. Automate
+cadence triage with an authored director map, FrankenWhisper word times, waveform
+evidence and actual cue/scene timing; see [the updated narration direction](NARRATION-CONSISTENCY.md).
+The five expanded files above are preserved comparison baselines, not accepted
+finals. This instruction supersedes the earlier idle waiting step below.
+
 The current next step is independent review and owner listening to the five complete cuts above. Address concrete defects against those exact files; do not regenerate unchanged narration or repeat completed native checks. The earlier bounded antecedent experiment remains in `narration_lab/michael-antecedent-20261017/listen.html`; its technical evidence does not supply a human listening verdict. N12's accent/speaker triage still requires labels. N13–N16 remain bounded experiments with their own prerequisites, not an instruction to download every model or train one.
 
 The owner authorized a first production wave on 2026-10-17 and delegated selection: **Golay echo cancellation, square packing and the medical p-value explanation**. Each has a `v1-michael-20261017` revision and one first-chapter task, respectively `mx-video-program-program-87do.6.1`, `.5.1` and `.7.1`. The three Claude Code Opus 5.5 lanes own disjoint corpus directories; central verification precedes task closure. This authorizes development, not publication or invented audio/visual passes. See the scoped amendment in [AGENTS.md](../../AGENTS.md).

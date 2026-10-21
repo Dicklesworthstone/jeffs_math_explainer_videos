@@ -4,6 +4,32 @@ This is the current narration handoff, not a second task board. Beads owns statu
 
 ## Latest owner direction and evidence
 
+**2026-10-21 — expanded five-cut feedback and automated direction:** The owner
+reports “unnatural pauses and rushed parts” and accepts “even 20 minutes or more”
+when better pacing improves the video. The affected review set is the five
+`expanded-review01-20261021` revisions in the catalog; no passage-specific times
+were supplied. This is feedback on the batch, not a listening verdict identifying
+each individual boundary. The owner also asks for a concrete motivating setup,
+definitions before specialist terms or metaphors, and an example to return to
+throughout the explanation. Apply these requirements to all new videos.
+
+The owner explicitly requests automation: use FrankenWhisper word timestamps
+and compare actual pauses with where a professional, subject-fluent narrator
+would pause to teach the material. Implement a script-first director map with
+reasons and proposed ranges for questions, contrasts, definitions, worked steps,
+and visual/prediction holds; identify phrases that should stay connected. Compare
+that map with source audio and the assembled cue timeline. Separate measured
+timing discrepancies from editorial hypotheses and listening judgments. ASR can
+absorb silence into a word, so check waveform evidence around candidate breaks;
+never automatically cut a low-energy consonant or breath. Use local articulation
+and concept density to prioritize rushed explanations, not a universal words-per-
+minute pass score. Reuse existing prosody measurements and exact-sample editors.
+
+The old 10–15 minute target is superseded as a ceiling. All five delivered files
+remain preserved comparison baselines. Full-cut audio acceptance and publication
+remain open. The current work is tracked under the existing narration program;
+the dated earlier waiting/production-order directions below do not cancel it.
+
 **2026-10-19 priority and listening feedback — supersedes the earlier production sequence:** The owner directs us to redo the narration for square packing, medical p-values and Golay before working on new videos, and to deliver the **complete revised cuts** for their own review before anything is published again. On the packing sample, the owner said it is “sort of OK, but it's too rushed” and asked for “a more measured pace” when discussing technical material. This authorizes further repair; it does not accept the sample's voice, pronunciation, cadence or a complete cut. The earlier request to wait for another sample verdict is superseded. Existing tasks `.5.10`, `.6.7` and `.7.8` own this work; new-video work is deferred with its files preserved.
 
 Apply the feedback to the explanation itself: clearer complete thoughts, deliberate space between technical steps and visual observations, and contextual rereadings where articulation within a phrase is rushed. Extra silence after a question alone does not repair a hurried explanation. Count recorded silence and scene delay once; preserve intentional prediction windows. Do not time-stretch, alter pitch, impose a uniform pause after every sentence, or infer audible improvement from ASR or timing measurements. Retain the exact accepted Michael and medical-opening excerpts and all rejected variants. The agents cannot hear audio; technical checks and the owner's listening verdict are separate.

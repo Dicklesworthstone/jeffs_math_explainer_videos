@@ -172,6 +172,27 @@ The three videos are built in parallel by an NTM swarm on the build host: Claude
 
 ## Pedagogy Rules (from §5 of the plan; binding on scripts and storyboards)
 
+### Owner amendment — 2026-10-21
+
+The owner reports unnatural pauses and rushed passages in the five expanded
+review cuts and prioritizes natural teaching over runtime: twenty minutes or
+longer is acceptable when it improves understanding. The earlier 10–15 minute
+target is no longer a ceiling. Apply this direction to all new videos.
+
+Establish a motivated concrete situation, define the objects and unfamiliar
+terms in the picture, and give the viewer a recurring example before abstract
+notation or a metaphor carries the explanation. Return to that example at major
+transitions and at the payoff. A hook alone does not supply prerequisites.
+
+Automate cadence triage using a script-first director's pause map, FrankenWhisper
+word timestamps, source-waveform evidence and the actual assembled timeline.
+Distinguish unwanted breaks inside a thought, missing thinking time, rushed
+articulation and intentional prediction/visual holds. Count recorded quiet and
+scene delays once. Author desired boundaries for meaning before examining their
+measured durations; label heuristic defaults and unreviewed proposals. Timing
+scores propose repairs; they do not establish professional delivery or listening
+acceptance. Preserve previous cuts and repair in new revision paths.
+
 - A situation before an abstraction; the hook is an honest failure of the obvious approach on honest data.
 - Preview the payoff early; end on the rigorous form of the opening picture.
 - Show, then name. Numbers before letters. One word per idea (each brief lists its vocabulary).
