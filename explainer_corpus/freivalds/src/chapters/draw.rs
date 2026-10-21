@@ -10,10 +10,10 @@
 //! digit is painted over it.
 
 use explainer_kit::narration::{frames_covering, wait_frames};
-use explainer_kit::{BACKGROUND, Kit, Palette, Script, Timed, hex, signed_thousands, v};
+use explainer_kit::{BACKGROUND, Kit, Palette, Script, Timed, hex, signed_thousands, thousands, v};
 use fmn::prelude::*;
 
-use crate::model::{Column, Matrix};
+use crate::model::{A, B, Column, Matrix, SIDE};
 use crate::palette;
 
 /// A scene error carrying `message` (a missing phrase, a broken invariant).
@@ -30,9 +30,14 @@ pub const DX: f64 = 0.62;
 pub const DY: f64 = 0.56;
 /// The size an entry is set in.
 pub const ENTRY_SIZE: f64 = 30.0;
-/// How far a bracket stands outside the outer entries' cells, and its serifs.
-const BRACKET_GAP: f64 = 0.05;
+/// How far a bracket stands outside the outer entries' cells, and its
+/// serifs. An outline spans exactly its cells (`CELL_SHARE` of a step), so
+/// the gap keeps every outline off the bracket's stroke and serifs (review
+/// F5: the row and column boxes once ran over them).
+pub const BRACKET_GAP: f64 = 0.08;
 const SERIF: f64 = 0.12;
+/// An outline's share of a cell's step, across and down.
+const CELL_SHARE: f64 = 0.86;
 /// A coin's radius and the size of its face.
 pub const COIN_R: f64 = 0.19;
 const COIN_FACE: f64 = 20.0;
@@ -60,6 +65,31 @@ pub fn line_style(c: Srgb, w: f64) -> Style {
 /// typographic minus).
 pub fn num(x: i64) -> String {
     signed_thousands(i128::from(x))
+}
+
+/// A number with thousands separators, as TeX writes them.
+pub fn tex_thousands(n: u64) -> String {
+    thousands(n).replace(',', "{,}")
+}
+
+/// A ratio as `facts::ratio` prints it, "1/50", as TeX.
+pub fn tex_of(ratio: &str) -> String {
+    match ratio.split_once('/') {
+        Some((top, bottom)) => format!(r"\frac{{{top}}}{{{bottom}}}"),
+        None => ratio.to_owned(),
+    }
+}
+
+/// Seconds a card needs on screen to be read: fifteen characters a second,
+/// a quick reader (the video can be paused), counted from its completed
+/// fade-in.
+pub fn read_s(text: &str) -> f64 {
+    text.chars().count() as f64 / 15.0
+}
+
+/// Scene time now.
+pub fn now(stage: &Stage<'_>) -> f64 {
+    stage.scene().time().to_f64()
 }
 
 // --------------------------------------------------------------- playback
@@ -540,21 +570,27 @@ fn outline(stage: &mut Stage<'_>, w: f64, h: f64, at: Vec3, color: Srgb) -> fmn:
     Ok(stage.arena_mut().add(r))
 }
 
-/// An outline around column `j` of `g`. Detached.
-pub fn column_box(stage: &mut Stage<'_>, g: &Grid, j: usize, color: Srgb) -> fmn::Result<Mob> {
-    let at = v(g.at(0, j)[0], g.centre[1]);
-    outline(stage, DX * 0.86, DY * g.rows as f64 + 0.06, at, color)
+/// The outline across `n` cells a step `step` apart: from the first cell's
+/// edge to the last one's.
+fn span(n: usize, step: f64) -> f64 {
+    step * (n.max(1) as f64 - 1.0) + step * CELL_SHARE
 }
 
-/// An outline around row `i` of `g`. Detached.
+/// An outline around column `j` of `g`, exactly its cells. Detached.
+pub fn column_box(stage: &mut Stage<'_>, g: &Grid, j: usize, color: Srgb) -> fmn::Result<Mob> {
+    let at = v(g.at(0, j)[0], g.centre[1]);
+    outline(stage, DX * CELL_SHARE, span(g.rows, DY), at, color)
+}
+
+/// An outline around row `i` of `g`, exactly its cells. Detached.
 pub fn row_box(stage: &mut Stage<'_>, g: &Grid, i: usize, color: Srgb) -> fmn::Result<Mob> {
     let at = v(g.centre[0], g.at(i, 0)[1]);
-    outline(stage, DX * g.cols as f64 + 0.06, DY * 0.86, at, color)
+    outline(stage, span(g.cols, DX), DY * CELL_SHARE, at, color)
 }
 
 /// An outline around entry (`i`, `j`) of `g`. Detached.
 pub fn cell_box(stage: &mut Stage<'_>, g: &Grid, i: usize, j: usize, color: Srgb) -> fmn::Result<Mob> {
-    outline(stage, DX * 0.86, DY * 0.86, g.at(i, j), color)
+    outline(stage, DX * CELL_SHARE, DY * CELL_SHARE, g.at(i, j), color)
 }
 
 // -------------------------------------------------------------------- coins
@@ -604,6 +640,108 @@ pub fn coin_mobs(coins: &[Coin]) -> Vec<Mob> {
     coins.iter().flat_map(Coin::mobs).collect()
 }
 
+/// A coin not yet tossed: a faint disc marked "?". Detached.
+pub fn blank_coin(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Coin> {
+    let disc = Circle::new()
+        .radius(COIN_R)
+        .arc_center(at)
+        .style(flat(Palette::faint(), 1.0))
+        .build();
+    let disc = stage.arena_mut().add(disc);
+    let face = kit.text(stage, "?", COIN_FACE, Palette::hero(), at)?;
+    Ok(Coin { at, disc, face })
+}
+
+// --------------------------------------------------------------- the opening
+
+/// The opening picture (01_3), returned to in chapters 02, 03, 04 and 11:
+/// A, B and C in a row, their names under them, × and = between.
+pub const OPEN_Y: f64 = 2.2;
+pub const OPEN_XS: [f64; 3] = [-5.0, -1.95, 1.1];
+pub const OPEN_NAME_Y: f64 = 0.95;
+pub const OPEN_NAME_SIZE: f64 = 34.0;
+pub const OPEN_TIMES_X: f64 = -3.47;
+pub const OPEN_EQUALS_X: f64 = -0.42;
+
+/// The opening picture, detached.
+pub struct Opening {
+    pub a: Grid,
+    pub b: Grid,
+    pub c: Grid,
+    /// The names A, B and C, in their colors.
+    pub names: [Mob; 3],
+    pub times: Mob,
+    pub equals: Mob,
+}
+
+impl Opening {
+    /// Everything, to fade or move together.
+    pub fn mobs(&self) -> Vec<Mob> {
+        let mut all = self.a.mobs();
+        all.extend(self.b.mobs());
+        all.extend(self.c.mobs());
+        all.extend(self.names);
+        all.extend([self.times, self.equals]);
+        all
+    }
+}
+
+/// The opening picture with the claim `c`: A, B and `c` as grids, their
+/// names, × and =. Detached.
+pub fn opening(kit: &Kit, stage: &mut Stage<'_>, c: &Matrix<SIDE>) -> fmn::Result<Opening> {
+    let [ax, bx, cx] = OPEN_XS;
+    let a = matrix_grid(kit, stage, &A, v(ax, OPEN_Y), Palette::ink())?;
+    let b = matrix_grid(kit, stage, &B, v(bx, OPEN_Y), Palette::ink())?;
+    let c = matrix_grid(kit, stage, c, v(cx, OPEN_Y), Palette::ink())?;
+    let colors = [palette::matrix_a(), palette::matrix_b(), palette::claim()];
+    let mut names = Vec::with_capacity(3);
+    for ((name, color), x) in ["A", "B", "C"].into_iter().zip(colors).zip(OPEN_XS) {
+        names.push(kit.tex(stage, name, OPEN_NAME_SIZE, color, &[], v(x, OPEN_NAME_Y))?);
+    }
+    let times = kit.tex(stage, r"\times", 36.0, Palette::dim(), &[], v(OPEN_TIMES_X, OPEN_Y))?;
+    let equals = kit.tex(stage, "=", 36.0, Palette::dim(), &[], v(OPEN_EQUALS_X, OPEN_Y))?;
+    Ok(Opening {
+        a,
+        b,
+        c,
+        names: [names[0], names[1], names[2]],
+        times,
+        equals,
+    })
+}
+
+/// A square of faint lines standing for a matrix too big to print: its
+/// outline in `color` and `lines` cells each way, `side` across about
+/// `centre`. Detached.
+pub fn texture(stage: &mut Stage<'_>, centre: Vec3, side: f64, lines: usize, color: Srgb) -> fmn::Result<Vec<Mob>> {
+    let half = side / 2.0;
+    let border = Rectangle::new()
+        .width(side)
+        .height(side)
+        .style(line_style(color, 3.0))
+        .build()?
+        .moved_to(centre);
+    let mut all = vec![stage.arena_mut().add(border)];
+    for k in 1..lines {
+        let t = -half + side * k as f64 / lines as f64;
+        let across = polyline(vec![
+            v(centre[0] - half, centre[1] + t),
+            v(centre[0] + half, centre[1] + t),
+        ])
+        .style(line_style(Palette::faint(), 1.5))
+        .build();
+        let down = polyline(vec![
+            v(centre[0] + t, centre[1] - half),
+            v(centre[0] + t, centre[1] + half),
+        ])
+        .style(line_style(Palette::faint(), 1.5))
+        .build();
+        all.push(stage.arena_mut().add(across));
+        all.push(stage.arena_mut().add(down));
+    }
+    Ok(all)
+}
+
 /// A ring of radius `r` about `at` (a coin picked out). Detached.
 pub fn ring(stage: &mut Stage<'_>, at: Vec3, r: f64, color: Srgb) -> Mob {
     stage.arena_mut().add(
@@ -638,6 +776,43 @@ mod tests {
         assert!(close("two", 10.0 + 4.0 * 4.0 / 9.0));
         assert!(line.at("five").is_err());
         assert!(timed_sentences("x", text, 6.0, &[0.0]).is_err());
+    }
+
+    /// Review F5: a row, column or entry outline spans exactly its cells and
+    /// stays off the brackets: inside the vertical stroke, and below and
+    /// inside the serifs at the top and bottom, for a matrix and a column.
+    #[test]
+    fn outlines_stay_off_the_brackets() {
+        for (rows, cols) in [(3usize, 3usize), (3, 1), (2, 2)] {
+            let stroke_x = DX * cols as f64 / 2.0 + BRACKET_GAP;
+            let serif_x = stroke_x - SERIF;
+            let serif_y = DY * rows as f64 / 2.0;
+            // a row box's half width and a column box's half height
+            let row_half = span(cols, DX) / 2.0;
+            let column_half = span(rows, DY) / 2.0;
+            // the outer cell's outline edge, across and down
+            let cell_x = DX * (cols as f64 - 1.0) / 2.0 + DX * CELL_SHARE / 2.0;
+            let cell_y = DY * (rows as f64 - 1.0) / 2.0 + DY * CELL_SHARE / 2.0;
+            assert!(row_half <= stroke_x - 0.1, "{rows}x{cols}: row box on the stroke");
+            assert!((row_half - cell_x).abs() < 1e-12, "{rows}x{cols}: row box is its cells");
+            assert!(
+                (column_half - cell_y).abs() < 1e-12,
+                "{rows}x{cols}: column box is its cells"
+            );
+            assert!(
+                column_half <= serif_y - 0.03,
+                "{rows}x{cols}: column box up to the serifs"
+            );
+            assert!(cell_x < serif_x, "{rows}x{cols}: outline inside the serifs");
+        }
+    }
+
+    #[test]
+    fn numbers_and_ratios_as_tex() {
+        assert_eq!(tex_thousands(1_000_000_000), "1{,}000{,}000{,}000");
+        assert_eq!(tex_of("1/50"), r"\frac{1}{50}");
+        assert_eq!(tex_of("7"), "7");
+        assert!((read_s("fifteen chars..") - 1.0).abs() < 1e-12);
     }
 
     /// A grid's cells are a step apart about its centre, and a column of

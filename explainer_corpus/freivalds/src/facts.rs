@@ -39,8 +39,20 @@ pub const CHAPTER_02_SHAPES: [&str; 5] = [
 /// The mistake chapter 02 pairs the tosses of, to show the proof's step.
 pub const PROOF_SHAPE: &str = "three_in_a_row";
 
-/// Chapter 03's two fresh tosses, as its grid of ways names its axes.
+/// Chapter 07's two fresh tosses, as its grid of ways names its axes.
 pub const TOSS_NAMES: [&str; 2] = ["first toss", "second toss"];
+
+/// Every coin heads: the sum of every column, chapter 02's cheaper idea
+/// before any coin is named.
+pub const ALL_HEADS: Toss<SIDE> = [true; SIDE];
+
+/// A fair coin's chance of heads, and the unfair coin chapter 04 asks about
+/// (heads one time in ten), as (num, den).
+pub const FAIR: (u64, u64) = (1, 2);
+pub const UNFAIR: (u64, u64) = (1, 10);
+
+/// The odds chapter 11 asks fresh checks to beat: one in a billion.
+pub const BILLION: u64 = 1_000_000_000;
 
 /// A mistake shape by its name in `model::SHAPES`.
 pub fn shape(name: &str) -> Result<Matrix<SIDE>, String> {
@@ -127,9 +139,103 @@ pub fn wrong_entry() -> Result<(usize, usize), String> {
     one_wrong_entry(&C)
 }
 
-/// The products of the entry 01_2 works out by hand, in order.
+/// The products of the entry 01_4 works out by hand, in order.
 pub fn spot_products() -> Vec<i64> {
     model::products_at(&A, &B, SPOT.0, SPOT.1)
+}
+
+/// The sum of every column (02_7 to 02_9): the all-heads toss's check of C,
+/// C's columns added, B's, and A times that.
+pub fn all_columns_check() -> Check<SIDE> {
+    model::check(&A, &B, &C, &ALL_HEADS)
+}
+
+/// The claim with a cancelling pair (03_1, 03_2): the true product plus
+/// `model::SHAPES`' cancelling mistake, the slip with the entry beside it one
+/// too small. Returns it and the one entry, (row, column) from 0, where it
+/// differs from C. Refused unless it differs from C in exactly one entry,
+/// has two wrong entries, and passes the sum of every column.
+pub fn cancelling_claim() -> Result<(Matrix<SIDE>, (usize, usize)), String> {
+    let ab = true_product();
+    let claim = model::plus(&ab, &shape("cancelling")?);
+    let changed: Vec<(usize, usize)> = (0..SIDE)
+        .flat_map(|i| (0..SIDE).map(move |j| (i, j)))
+        .filter(|&(i, j)| claim[i][j] != C[i][j])
+        .collect();
+    let [one] = changed[..] else {
+        return Err(format!("the cancelling claim differs from C at {changed:?}"));
+    };
+    if model::wrong_entries(&model::mistake(&claim, &ab)).len() != 2 {
+        return Err("the cancelling claim must have two wrong entries".into());
+    }
+    if !model::check(&A, &B, &claim, &ALL_HEADS).passes() {
+        return Err("the cancelling claim must pass the sum of every column".into());
+    }
+    Ok((claim, one))
+}
+
+/// Spot checks of an `n` × `n` product (02_3 to 02_5): its entries, the
+/// fewest different entries, picked at random, that catch one wrong entry at
+/// least half the time (k of the n² entries catch it with chance k / n²),
+/// and the multiplications they take, a row times a column each.
+pub fn spot_half(n: u64) -> (u64, u64, u64) {
+    let entries = n * n;
+    let picks = entries.div_ceil(2);
+    (entries, picks, picks * n)
+}
+
+/// The chance of each toss, in counting order, when coin `j` lands heads
+/// with chance `heads[j]` = (num, den), every coin on its own: as
+/// (numerator, denominator), over the product of the denominators.
+pub fn toss_weights(heads: [(u64, u64); SIDE]) -> Vec<(u64, u64)> {
+    let den: u64 = heads.iter().map(|&(_, d)| d).product();
+    model::tosses::<SIDE>()
+        .iter()
+        .map(|t| {
+            let num = t
+                .iter()
+                .zip(&heads)
+                .map(|(&x, &(h, d))| if x { h } else { d - h })
+                .product::<u64>();
+            (num, den)
+        })
+        .collect()
+}
+
+/// How often `c` gets past one toss when coin `j` lands heads with chance
+/// `heads[j]`, as (num, den): the chances of the tosses that miss it, added.
+pub fn pass_chance(c: &Matrix<SIDE>, heads: [(u64, u64); SIDE]) -> (u64, u64) {
+    let weights = toss_weights(heads);
+    let num: u64 = model::tosses::<SIDE>()
+        .iter()
+        .zip(&weights)
+        .filter(|(t, _)| model::check(&A, &B, c, t).passes())
+        .map(|(_, &(w, _))| w)
+        .sum();
+    (num, weights.first().map_or(1, |&(_, d)| d))
+}
+
+/// How many checks of n × n matrices take as many multiplications as the
+/// product, row by column: n³ / n² = n.
+pub fn break_even(n: u64) -> u64 {
+    model::product_multiplications(n) / model::check_multiplications(n)
+}
+
+/// The fewest fresh checks whose bound beats one in `odds`: the least k with
+/// the theorem's per-toss bound to the k under 1/odds (per^k > odds), and
+/// that per^k.
+pub fn checks_below(odds: u64) -> Result<(u32, u64), String> {
+    match theorem_bound()? {
+        (1, per) if per > 1 => {
+            let (mut k, mut power) = (0u32, 1u64);
+            while power <= odds {
+                power = power.checked_mul(per).ok_or("the odds overflow")?;
+                k += 1;
+            }
+            Ok((k, power))
+        }
+        (num, den) => Err(format!("a per-toss bound of {num}/{den} is not one in a whole number")),
+    }
 }
 
 /// The pairing proof's step, for any ring and any n (UIUC CS 473, Fall
@@ -698,6 +804,253 @@ fn chapter_04(f: &mut Facts) -> Result<(), String> {
     Ok(())
 }
 
+/// The pair chapter 06 walks through (06_3 to 06_5): the proof's pair whose
+/// other coins, left to right, are tails, then heads.
+pub const WALK_OTHERS: [bool; SIDE - 1] = [false, true];
+
+/// The proof's pair, by coin of [`proof_entry`]'s column, whose other coins
+/// are [`WALK_OTHERS`]: (the toss with that coin tails, its partner).
+pub fn walk_pair() -> Result<(Toss<SIDE>, Toss<SIDE>), String> {
+    let (_, column) = proof_entry()?;
+    model::coin_pairs::<SIDE>(column)
+        .into_iter()
+        .find(|(t, _)| {
+            let others: Vec<bool> = t
+                .iter()
+                .enumerate()
+                .filter(|&(j, _)| j != column)
+                .map(|(_, &x)| x)
+                .collect();
+            others == WALK_OTHERS
+        })
+        .ok_or_else(|| "no pair has its other coins tails, then heads".to_owned())
+}
+
+/// The toss chapter 11 ends on (11_7): the proof's mistake hides from it,
+/// and flipping the coin over its chosen nonzero entry catches it.
+pub const HIDING_TOSS: Toss<SIDE> = [false, true, true];
+
+/// The cheap checks of chapters 02 and 03: spot checks at scale, the sum of
+/// every column, and the claim with a cancelling pair that passes it.
+fn cheap_checks(f: &mut Facts, ab: &Matrix<SIDE>) -> Result<(), String> {
+    // 02_3 to 02_5: one pick among a million entries, and half a million
+    let (entries, picks, mults) = spot_half(BIG_SIDE);
+    f.add("F-F11.big.entries", entries)?;
+    f.add(
+        "F-F11.big.one_pick_misses",
+        ratio((entries - 1) as i64, entries as i64)?,
+    )?;
+    f.add("F-F11.big.entries_for_half", picks)?;
+    f.add("F-F11.big.catch_chance", ratio(picks as i64, entries as i64)?)?;
+    f.add("F-F11.big.multiplications_for_half", mults)?;
+    f.add(
+        "F-F11.big.share_of_product",
+        ratio(mults as i64, model::product_multiplications(BIG_SIDE) as i64)?,
+    )?;
+    let (small_entries, small_picks, _) = spot_half(SIDE as u64);
+    f.add("F-F11.small.entries_for_half", format!("{small_picks}/{small_entries}"))?;
+    // the fewest: one pick fewer catches it less than half the time
+    if 2 * picks < entries || 2 * (picks - 1) >= entries {
+        return Err(format!("{picks} of {entries} picks is not the fewest for half"));
+    }
+
+    // 02_7 to 02_9: the sum of every column catches the slip, in row 2
+    let all = all_columns_check();
+    f.add("F-F10.c_sums", csv(&all.cr))?;
+    f.add("F-F10.b_sums", csv(&all.br))?;
+    f.add("F-F10.a_b_sums", csv(&all.a_br))?;
+    let rows: Vec<usize> = all.disagreements().iter().map(|i| i + 1).collect();
+    f.add("F-F10.disagree_rows", csv(&rows))?;
+    f.add("F-F10.multiplications", all.multiplications)?;
+    if all.passes() {
+        return Err("the sum of every column must catch the slip".into());
+    }
+
+    // 03_1, 03_2: the cancelling claim passes it
+    let (claim, (i, j)) = cancelling_claim()?;
+    f.add("F-F10.cancelling.c", matrix_text(&claim))?;
+    f.add("F-F10.cancelling.changed", csv(&[i + 1, j + 1]))?;
+    f.add("F-F10.cancelling.claimed", claim[i][j])?;
+    f.add("F-F10.cancelling.true", ab[i][j])?;
+    f.add(
+        "F-F10.cancelling.wrong_count",
+        model::wrong_entries(&model::mistake(&claim, ab)).len(),
+    )?;
+    let sums = model::check(&A, &B, &claim, &ALL_HEADS);
+    f.add("F-F10.cancelling.c_sums", csv(&sums.cr))?;
+    f.add("F-F10.cancelling.passes_all_heads", sums.passes())?;
+    let passing: Vec<String> = model::passing(&A, &B, &claim).iter().map(model::toss_text).collect();
+    f.add("F-F10.cancelling.passing", passing.join(","))?;
+    Ok(())
+}
+
+/// Chapter 04's chances: a count of tosses is a chance with fair coins; with
+/// coins heads one time in ten the slip gets past nine times in ten; and the
+/// half needs only the slip's column's coin fair (why the line says "when").
+fn fair_coins(f: &mut Facts) -> Result<(), String> {
+    let (_, col) = wrong_entry()?;
+    let fair = pass_chance(&C, [FAIR; SIDE]);
+    let unfair = pass_chance(&C, [UNFAIR; SIDE]);
+    let mut only = [UNFAIR; SIDE];
+    only[col] = FAIR;
+    let one_fair = pass_chance(&C, only);
+    f.add("F-F12.heads", ratio(UNFAIR.0 as i64, UNFAIR.1 as i64)?)?;
+    f.add("F-F12.fair_slip_passes", ratio(fair.0 as i64, fair.1 as i64)?)?;
+    f.add("F-F12.slip_passes", ratio(unfair.0 as i64, unfair.1 as i64)?)?;
+    let weights = toss_weights([UNFAIR; SIDE]);
+    let passing: Vec<String> = model::tosses::<SIDE>()
+        .iter()
+        .zip(&weights)
+        .filter(|(t, _)| model::check(&A, &B, &C, t).passes())
+        .map(|(_, &(w, d))| ratio(w as i64, d as i64))
+        .collect::<Result<_, _>>()?;
+    f.add("F-F12.passing_weights", passing.join(","))?;
+    f.add(
+        "F-F12.only_slip_coin_fair",
+        ratio(one_fair.0 as i64, one_fair.1 as i64)?,
+    )?;
+    Ok(())
+}
+
+/// Chapters 09 and 11's costs: the break-even at three by three, one check's
+/// share at a thousand rows, and the fresh checks a billion needs.
+fn costs(f: &mut Facts) -> Result<(), String> {
+    let side = SIDE as u64;
+    if break_even(side) != side {
+        return Err("checks equal to the product must number the rows".into());
+    }
+    f.add("F-F13.small.break_even", break_even(side))?;
+    f.add(
+        "F-F13.big.one_check_share",
+        ratio(
+            model::check_multiplications(BIG_SIDE) as i64,
+            model::product_multiplications(BIG_SIDE) as i64,
+        )?,
+    )?;
+    let (k, odds) = checks_below(BILLION)?;
+    let per = match theorem_bound()? {
+        (1, per) => per,
+        (num, den) => return Err(format!("a per-toss bound of {num}/{den}")),
+    };
+    let mults = u64::from(k) * model::check_multiplications(BIG_SIDE);
+    f.add("F-F13.target", BILLION)?;
+    f.add("F-F13.target.checks", k)?;
+    f.add("F-F13.target.odds", odds)?;
+    f.add("F-F13.target.one_fewer_odds", odds / per)?;
+    f.add("F-F13.target.just_over", odds > BILLION && odds < 2 * BILLION)?;
+    f.add("F-F13.target.multiplications", mults)?;
+    f.add(
+        "F-F13.target.share",
+        ratio(mults as i64, model::product_multiplications(BIG_SIDE) as i64)?,
+    )?;
+    Ok(())
+}
+
+/// Chapter 06's walk through one pair, and chapter 11's last picture.
+fn proof_walk(f: &mut Facts) -> Result<(), String> {
+    let three = shape(PROOF_SHAPE)?;
+    let (row, column) = proof_entry()?;
+    let (tails, heads) = walk_pair()?;
+    let others: String = WALK_OTHERS.iter().map(|&x| if x { '1' } else { '0' }).collect();
+    let sums = [
+        model::kept_sum(&three, &tails)[row],
+        model::kept_sum(&three, &heads)[row],
+    ];
+    f.add(
+        "F-F14.pair",
+        format!("{}-{}", model::toss_text(&tails), model::toss_text(&heads)),
+    )?;
+    f.add("F-F14.others", others)?;
+    f.add("F-F14.row_sums", csv(&sums))?;
+    f.add("F-F14.change", sums[1] - sums[0])?;
+    f.add(
+        "F-F14.hides",
+        csv(&[model::hides(&three, &tails), model::hides(&three, &heads)]),
+    )?;
+    if sums[1] - sums[0] != three[row][column] || !model::hides(&three, &heads) {
+        return Err("the walked pair must move row 2 by the chosen entry, onto a miss".into());
+    }
+
+    // 11_7: a toss the mistake hides from, and the coin over the chosen
+    // entry flipped
+    let mut flipped = HIDING_TOSS;
+    flipped[column] = !flipped[column];
+    f.add("F-F15.toss", model::toss_text(&HIDING_TOSS))?;
+    f.add("F-F15.hides", model::hides(&three, &HIDING_TOSS))?;
+    f.add("F-F15.row_sums", csv(&model::kept_sum(&three, &HIDING_TOSS)))?;
+    f.add("F-F15.flipped", model::toss_text(&flipped))?;
+    f.add("F-F15.flipped_row_sums", csv(&model::kept_sum(&three, &flipped)))?;
+    f.add("F-F15.flipped_caught", !model::hides(&three, &flipped))?;
+    if !model::hides(&three, &HIDING_TOSS) || model::hides(&three, &flipped) {
+        return Err("chapter 11's toss must hide the mistake, and its flip catch it".into());
+    }
+    Ok(())
+}
+
+/// Edges of two new sentences: a caught toss names a wrong row (03_7), and
+/// a toss cannot see a single wrong entry under its tails coin, while it sees
+/// every one under its heads coins (08_3).
+fn caught_rows_and_blind_columns(f: &mut Facts, ab: &Matrix<SIDE>) -> Result<(), String> {
+    let tosses = model::tosses::<SIDE>();
+    let (mut cases, mut bad) = (0usize, 0usize);
+    for code in 0..SWEEP_3.len().pow((SIDE * SIDE) as u32) {
+        let mut rest = code;
+        let mut d = [[0i64; SIDE]; SIDE];
+        for x in d.iter_mut().flatten() {
+            *x = SWEEP_3[rest % SWEEP_3.len()];
+            rest /= SWEEP_3.len();
+        }
+        if d.iter().flatten().all(|&x| x == 0) {
+            continue;
+        }
+        let c = model::plus(ab, &d);
+        for t in &tosses {
+            let ch = model::check(&A, &B, &c, t);
+            cases += 1;
+            bad += ch
+                .disagreements()
+                .iter()
+                .filter(|&&i| d[i].iter().all(|&x| x == 0))
+                .count();
+        }
+    }
+    f.add("F-X6.cases", cases)?;
+    f.add("F-X6.violations", bad)?;
+
+    let toss = FIRST_TOSS;
+    let tails: Vec<usize> = (0..SIDE).filter(|&j| !toss[j]).collect();
+    let [column] = tails[..] else {
+        return Err("chapter 08's toss must have one tails coin".into());
+    };
+    let (mut tails_cases, mut tails_hiding, mut heads_cases, mut heads_hiding) = (0usize, 0usize, 0usize, 0usize);
+    for i in 0..SIDE {
+        for (j, &heads) in toss.iter().enumerate() {
+            for value in [-1i64, 1] {
+                let mut d = [[0i64; SIDE]; SIDE];
+                d[i][j] = value;
+                let hides = usize::from(model::hides(&d, &toss));
+                if heads {
+                    heads_cases += 1;
+                    heads_hiding += hides;
+                } else {
+                    tails_cases += 1;
+                    tails_hiding += hides;
+                }
+            }
+        }
+    }
+    f.add("F-X7.toss", model::toss_text(&toss))?;
+    f.add("F-X7.tails_column", column + 1)?;
+    f.add("F-X7.tails_column.single_entries", tails_cases)?;
+    f.add("F-X7.tails_column.hiding", tails_hiding)?;
+    f.add("F-X7.heads_columns.single_entries", heads_cases)?;
+    f.add("F-X7.heads_columns.hiding", heads_hiding)?;
+    if bad != 0 || tails_hiding != tails_cases || heads_hiding != 0 {
+        return Err("a caught row or a blind column sentence fails at its edges".into());
+    }
+    Ok(())
+}
+
 pub fn facts() -> Result<Facts, String> {
     let mut f = Facts::new();
     let ab = true_product();
@@ -876,6 +1229,11 @@ pub fn facts() -> Result<Facts, String> {
     chapter_02(&mut f, &ab)?;
     chapter_03(&mut f, &ab)?;
     chapter_04(&mut f)?;
+    cheap_checks(&mut f, &ab)?;
+    fair_coins(&mut f)?;
+    costs(&mut f)?;
+    proof_walk(&mut f)?;
+    caught_rows_and_blind_columns(&mut f, &ab)?;
     f.self_check()?;
     Ok(f)
 }
@@ -1030,9 +1388,86 @@ mod tests {
             ("F-X4.tolerance.right_passes", "4"),
             ("F-X4.tolerance.wrong_residuals", "0,0,1,1"),
             ("F-X4.tolerance.wrong_passes", "4"),
+            ("F-F10.c_sums", "15,16,15"),
+            ("F-F10.b_sums", "3,3,6"),
+            ("F-F10.a_b_sums", "15,15,15"),
+            ("F-F10.disagree_rows", "2"),
+            ("F-F10.multiplications", "9"),
+            ("F-F10.cancelling.c", "6,2,7;5,2,8;8,3,4"),
+            ("F-F10.cancelling.changed", "2,3"),
+            ("F-F10.cancelling.claimed", "8"),
+            ("F-F10.cancelling.true", "9"),
+            ("F-F10.cancelling.wrong_count", "2"),
+            ("F-F10.cancelling.c_sums", "15,15,15"),
+            ("F-F10.cancelling.passes_all_heads", "true"),
+            ("F-F10.cancelling.passing", "000,011,100,111"),
+            ("F-F11.big.entries", "1000000"),
+            ("F-F11.big.one_pick_misses", "999999/1000000"),
+            ("F-F11.big.entries_for_half", "500000"),
+            ("F-F11.big.catch_chance", "1/2"),
+            ("F-F11.big.multiplications_for_half", "500000000"),
+            ("F-F11.big.share_of_product", "1/2"),
+            ("F-F11.small.entries_for_half", "5/9"),
+            ("F-F12.heads", "1/10"),
+            ("F-F12.fair_slip_passes", "1/2"),
+            ("F-F12.slip_passes", "9/10"),
+            ("F-F12.passing_weights", "729/1000,81/1000,81/1000,9/1000"),
+            ("F-F12.only_slip_coin_fair", "1/2"),
+            ("F-F13.small.break_even", "3"),
+            ("F-F13.big.one_check_share", "1/1000"),
+            ("F-F13.target", "1000000000"),
+            ("F-F13.target.checks", "30"),
+            ("F-F13.target.odds", "1073741824"),
+            ("F-F13.target.one_fewer_odds", "536870912"),
+            ("F-F13.target.just_over", "true"),
+            ("F-F13.target.multiplications", "30000000"),
+            ("F-F13.target.share", "3/100"),
+            ("F-F14.pair", "001-101"),
+            ("F-F14.others", "01"),
+            ("F-F14.row_sums", "-1,0"),
+            ("F-F14.change", "1"),
+            ("F-F14.hides", "false,true"),
+            ("F-F15.toss", "011"),
+            ("F-F15.hides", "true"),
+            ("F-F15.row_sums", "0,0,0"),
+            ("F-F15.flipped", "111"),
+            ("F-F15.flipped_row_sums", "0,1,0"),
+            ("F-F15.flipped_caught", "true"),
+            ("F-X6.cases", "157456"),
+            ("F-X6.violations", "0"),
+            ("F-X7.toss", "110"),
+            ("F-X7.tails_column", "3"),
+            ("F-X7.tails_column.single_entries", "6"),
+            ("F-X7.tails_column.hiding", "6"),
+            ("F-X7.heads_columns.single_entries", "12"),
+            ("F-X7.heads_columns.hiding", "0"),
         ] {
             assert_eq!(f.get(key), Some(value), "{key}");
         }
+    }
+
+    /// The new sentences' numbers at their edges: half a million picks is
+    /// the fewest for half, the cancelling claim fools only the sum of every
+    /// column's kind of toss, the half needs only the slip's coin fair, and
+    /// thirty checks is the fewest for a billion.
+    #[test]
+    fn the_expansion_numbers_hold_at_their_edges() {
+        let (entries, picks, _) = spot_half(BIG_SIDE);
+        assert!(2 * picks >= entries && 2 * (picks - 1) < entries);
+        assert_eq!(spot_half(SIDE as u64), (9, 5, 15));
+        let (claim, at) = cancelling_claim().unwrap();
+        assert_eq!(at, (1, 2));
+        assert!(model::check(&A, &B, &claim, &ALL_HEADS).passes());
+        assert!(!all_columns_check().passes());
+        assert_eq!(pass_chance(&C, [FAIR; SIDE]), (4, 8));
+        assert_eq!(pass_chance(&C, [UNFAIR; SIDE]), (900, 1000));
+        let weights = toss_weights([UNFAIR; SIDE]);
+        assert_eq!(weights.iter().map(|&(w, _)| w).sum::<u64>(), 1000);
+        assert_eq!(break_even(3), 3);
+        assert_eq!(break_even(BIG_SIDE), BIG_SIDE);
+        assert_eq!(checks_below(BILLION), Ok((30, 1 << 30)));
+        assert_eq!(checks_below(MILLION), Ok((AGAIN, 1 << AGAIN)));
+        assert_eq!(walk_pair(), Ok(([false, false, true], [true, false, true])));
     }
 
     /// The theorem's bound is the pairing proof's one half. The finite edge

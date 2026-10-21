@@ -9,53 +9,75 @@ Words are spoken exactly as written, one thought at a time: no colons,
 semicolons, dashes or parentheses in them. `*(…)*` is an annotation, never
 spoken. `⟨predict⟩` opens a prediction question; the beat ends with the
 question and the picture holds (a visible four-second countdown, "pause for
-more time") before the next beat answers it.
+more time") before the next beat answers it. Nothing that answers a question
+is on screen before its answer beat starts.
 
 ## The arc
 
-One tiny example runs through the whole video: A = (1 2 1 / 0 3 1 /
-3 2 0), B = (2 1 0 / 1 0 2 / 2 1 3), and the claim C, their product with
-one slip (row 2, column 2 says 2; the product has 1). The true product's
-nine entries are the digits 1 to 9, each once. It is chapter 01's opening
-picture; chapters 02 and 03 work on its mistake, C − AB, and its tosses
-(chapter 03 sets it aside for the tosses seen first); chapter 04 leaves it
-for the cost at scale and two 2 × 2 examples with N = 10¹⁶ in them, and its
-last beat brings the opening picture back.
+The complete episode (revision of 2026-10-20, eleven chapters; the editorial
+candidate root accepted for source implementation is preserved with its
+audit in the narration lab). One tiny example runs through the whole video:
+A = (1 2 1 / 0 3 1 / 3 2 0), B = (2 1 0 / 1 0 2 / 2 1 3), and the claim C,
+their product with one slip (row 2, column 2 says 2; the product has 1). The
+true product's nine entries are the digits 1 to 9, each once.
+
+- Act I (01 to 04): someone hands over C; redoing it costs as much as doing
+  it; two cheap checks fail honestly (spot checks at scale, and a fixed sum of
+  every column fooled by a cancelling pair); coins choose the columns, and one
+  toss catches the slip for certain; all eight tosses, half miss, and why; the
+  half needs fair coins.
+- Act II (05, 06): mistakes of other shapes, a finite check that is not a
+  proof, and the pairing proof on one concrete pair, with a nonzero entry of
+  the mistake D = C − AB, and its failure over a column where D is all zero.
+- Act III (07, 08): fresh tosses multiply and reuse does not; what the chance
+  means and what it does not; the name; a toss seen first can be beaten.
+- Act IV (09 to 11): the cost counted honestly (per check, twenty checks, the
+  break-even at three by three, the loop a programmer writes); doubles break
+  both promises; the exact promise on the opening picture, how many checks a
+  billion needs, and why the check works.
 
 | Chapter | Spine | Status |
 |---|---|---|
-| `01_check_with_coins` | someone hands over C; redoing it is nine entries of three multiplications, a billion at a thousand rows; one spot check misses a single wrong entry eight times in nine; a coin for each column: add C's heads columns, add B's and multiply by A (nine multiplications); they must match if C is right, and do not; of the eight tosses, how many miss? Four, exactly the tails ones over the wrong entry's column; no wrong answer hides from more than half, so toss again: twenty fresh tosses all miss less than once in a million | source and silent visual checkpoint accepted by root at `94988fd`, on root's evidence, not this lane's: central06 ran fmt, strict release clippy, 32 tests, the release build and the 92 native/oracle facts with 17 oracle checks; root read all six glyph pages and the changed and prediction frames of draft02 (2,524 frames, empty layout lint); central07 reran the changed SPOKEN test. Narration not generated; no audio accepted |
-| `02_never_more_than_half` | the mistake on its own, C − AB: the check misses exactly when its heads columns add up to zero in every row (C·r − A(B·r) = (C − AB)·r); on the same A and B (`model::SHAPES`), two in one row, both one too big, hide only from tails on both coins (2 of 8); one too big and one too small by the same amount hide whenever their coins agree (4 of 8, a second equality case); one, one and minus one in a row hide from three (a prediction; not a power of two); one wrong entry per row and column hides only from all tails (1 of 8); the proof: pair the tosses that differ only in the coin of a column where C is wrong (with three coins, coin 1 pairs each toss with the one under it); across a pair that row's sum moves by the wrong entry, so at most one of each pair hides it; the pairs cover every toss once, at any size. The 19,682 and 624 small mistakes are a finite check, labelled as one | source, native checks and sampled silent visuals accepted by root for `.23.2`, on root's evidence, not this lane's: central14 passed fmt, strict release all-target clippy, 42 tests and the build, with 150 native/oracle fact rows equal, 20 oracle checks and 81 glyph sources with zero failures; root read the final changed source, all eight glyph pages, nine cue-end frames and twelve pairing and prediction frames of draft04 (chapter 02: 2,483 frames, 82.766667 s, silent 960 × 540 at 30 fps, empty layout lint, SHA-256 `8dd755a7…d5bd8fd`); EmeraldLeopard's independent image review (Mail 3894) found no blocker. After `.23.3`'s 02_3 wording change ("by the same amount"), root's central22 re-rendered it: 2,529 frames, 84.30 s, SHA-256 `12136612…d72d0b`. Narration not generated; no audio, continuous playback or full-video acceptance |
-| `03_toss_again` | two fresh tosses: 16 of the 64 ways they can land both miss the slip, exactly a quarter for this slip (four misses of the first toss times four of the second), and for any wrong C at most a quarter (the theorem's bound squared, kept apart from the example); one toss reused for both checks is the grid's diagonal, still half; a toss whoever wrote C saw first can be beaten (each of the eight has a wrong C it lets through, `model::blind_spot`: one wrong entry under a tails coin, or under all heads a cancelling pair in one row), while fresh tosses catch each of those wrong Cs half the time; so fresh means new coins for every check, tossed after C is fixed | source, native checks and sampled visuals accepted by root for `.23.3`, on root's evidence, not this lane's: central22 passed fmt, strict release all-target clippy, 48 native tests and the release build, with 177 native/oracle fact rows equal and 108 glyph sources with zero failures; chapter 03 is 2,371 frames, 79.033333 s, SHA-256 `2911f66e…84d9d9d`; root read the actual cue, reveal and card frames and the new glyph pages; FuchsiaHawk (Mail 3997) independently verified the final source, decoded pixels and card dwell. Narration not generated; no audio, continuous motion, full-video or publication acceptance |
-| `04_exact_and_rounded` | the cost at scale, counted in multiplications and not in seconds (twenty checks at a thousand rows: twenty million against a billion, a fiftieth); the theorem is about exact arithmetic: in doubles 10^16 + 1 is stored as 10^16 (a prediction; computed, the doubles there two apart), so a right answer is caught on one toss and a wrong one by one passes all four (`model::ROUNDED_*`, every sum left to right as the loops run); a tolerance lets the right one through, but then a wrong C inside it passes every toss, a different test with no half guarantee; the ending: the opening picture with the exact promise, fair independent coins tossed after C is fixed, in exact arithmetic | source, native checks and sampled silent visuals accepted by root for `.23.4`, on root's and FuchsiaHawk's evidence, not this lane's: central36 passed fmt, strict Clippy, 55 tests with script coverage, 146 glyph sources with zero failures, build and render without input drift (207 native/oracle fact rows equal at central32, facts unchanged since); draft11's chapter 04 is 2,372 frames, 79.066667 s, 960 × 540 at 30 fps, empty layout lint, no audio stream, SHA-256 `7faf2967…5636b9`; root read six final frames, and FuchsiaHawk (Mail 4089) measured the decoded pixels: the 04_3 answer readable 6.0 s, the prediction hold and the dot's move kept, the schoolbook label fitting, the equality rows dimmed. Narration not generated; no audio, continuous motion, full-video or publication acceptance |
+| `01_handed_an_answer` | cold open with the payoff, the title; the tiny example; row times column said aloud; a billion multiplications at a thousand rows (a prediction); why anyone checks | source written 2026-10-20 (`handed_an_answer.rs`), uncompiled, no native check, no render, no narration |
+| `02_cheap_checks` | one random entry misses a single slip eight times in nine; at a million entries, half a million picks for a coin flip's chance (a prediction); the sum of every column costs nine multiplications and catches this slip; the slip named | source written 2026-10-20 (`cheap_checks.rs`), uncompiled, no native check, no render, no narration |
+| `03_coins_choose` | the sum of every column passes a C with a cancelling pair; with three columns every fixed choice can be fooled, so coins choose; heads, heads, tails (a prediction: do the columns match?); a mismatch proves C wrong and names a wrong row | source written 2026-10-20 (`check_with_coins.rs`, from the accepted chapter 01 scenes), uncompiled, no native check |
+| `04_eight_tosses` | all eight tosses (a prediction), half miss, the misses leave out the slip's column; the mistake on its own; a count becomes a chance with fair coins; coins heads one time in ten (a prediction) | source written 2026-10-20 (`check_with_coins.rs` and the accepted chapter 02 opening), uncompiled, no native check |
+| `05_shapes_of_mistakes` | two of one sign, a cancelling pair (the sum of every column again), one, one and minus one (a prediction), one per row and column; two wrong entries can hide as often as one; 19,682 nonzero small mistakes checked, not a proof | source written 2026-10-20 (`never_more_than_half.rs`, from the accepted chapter 02 scenes), uncompiled, no native check |
+| `06_never_more_than_half` | pick a nonzero entry of the mistake; pair the tosses by its column's coin; one pair walked through (a prediction); every pair, at most one miss; the pairing fails over a column where the mistake is all zero; any size | source written 2026-10-20 (`never_more_than_half.rs`), uncompiled, no native check |
+| `07_toss_again` | two fresh tosses (a prediction), a quarter; reuse gains nothing; twenty fresh tosses; what the chance means; one-sided; the name | source written 2026-10-20 (`toss_again.rs`, from the accepted chapter 03 scenes and the chapter 01 ladder), uncompiled, no native check |
+| `08_seen_first` | a toss seen first can be beaten (a prediction: where to hide a wrong entry from heads, heads, tails); all heads is the sum of every column; fresh tosses still catch each of those wrong Cs half the time; what a programmer must do | source written 2026-10-20 (`toss_again.rs`), uncompiled, no native check |
+| `09_what_it_costs` | one check a thousandth of the product, twenty a fiftieth, counted in multiplications; at three by three three checks cost as much (a prediction); the loop | source written 2026-10-20 (`exact_and_rounded.rs`), uncompiled, no native check |
+| `10_exact_and_rounded` | the proof needs exact sums; ten to the sixteen plus one in doubles (a prediction); a right C caught, a wrong C passing every toss; a tolerance has no half guarantee | source written 2026-10-20 (`exact_and_rounded.rs`, the accepted chapter 04 scenes), uncompiled, no native check |
+| `11_the_promise` | the exact promise and its assumptions on the opening picture; back to the start; thirty fresh checks for one in a billion (a prediction); why a mistake cannot hide; names to search and receipts | source written 2026-10-20 (`exact_and_rounded.rs`), uncompiled, no native check |
+
+Every chapter's narration, render, native timing, listening and audiovisual
+acceptance is open. The earlier four-chapter cut (288.5 s) and its accepted
+source are preserved; nothing here claims they still describe the video.
 
 ## Vocabulary (one word per idea)
 
 **matrix** (a grid of numbers: A, B and the claim C; "grid" only on first
-sight); **entry**; **product** (A times B, row times column; "the schoolbook
-method" in the exact version); **answer** or **claim** (C, what someone
-handed over); **coin** (one per column); **heads** keeps a column, **tails**
-leaves it out; **toss** (one landing of every coin: on screen the coins, and
-`r` in the formulas, never "vector" in the voice); **check** (add B's heads
-columns, multiply by A, compare with C's heads columns added); **match**;
-**miss** (a toss that lets a wrong C through; never "false positive" in the
-voice); **caught** (the columns disagree, so C is wrong for certain); **spot
-check** (recompute one entry); **fresh** (tossed independently, after C is
-fixed; "independently" in the exact version); **the mistake** (C minus the true
-product, entry by entry; "C − AB" on screen); **hide** (the mistake's side
-of a miss: a mistake hides from a toss that misses it); **pair** (two
-tosses that differ only in one coin; each toss's **partner**); **way** (one
-landing of the coins: "the eight ways three coins can land", and in
-chapter 03 "the sixty-four ways two tosses can land"; never "pair", which
-is chapter 02's); **reuse** (one toss used for more than one check);
-**slip** (the claim's one wrong entry, row 2, column 2, and so its
-mistake: C − AB is a single 1 there; chapter 01's voice calls it "a single
-wrong entry" and "the wrong entry", the screen calls it "the slip" from
-chapter 02, and chapter 03's voice does too); **double** (the 64-bit
-numbers many programs compute with; "IEEE double"
-in the exact version; the voice never says "floating point" or
-"rounding", the screen shows it); **tolerance** (a gap the check lets
-pass instead of exact equality).
+sight); **entry**; **product** (A times B, row times column; "row by column"
+names the counting convention, "the schoolbook method" only in an exact
+version); **answer** or **claim** (C, what someone handed over); **spot
+check** (recompute one entry); **the sum of every column** (all three columns
+of a matrix added into one column, the all-heads toss); **coin** (one per
+column); **heads** keeps a column, **tails** leaves it out; **toss** (one
+landing of every coin: on screen the coins, and `r` in the formulas, never
+"vector" in the voice); **heads columns** (the columns a toss keeps);
+**check** (add B's heads columns, multiply by A, compare with C's heads
+columns added); **match**; **miss** (a toss that lets a wrong C through;
+never "false positive" in the voice); **caught** (the columns disagree, so C
+is wrong for certain); **slip** (the claim's one wrong entry, row 2, column 2,
+named in 02_10); **the mistake** (C minus the true product, entry by entry;
+"C − AB" on screen, always red and drawn apart from C); **a nonzero entry of
+the mistake** (what the proof picks; never "a wrong entry is not zero", since
+C itself may wrongly hold a zero); **hide** (the mistake's side of a miss);
+**pair** (two tosses that differ only in one coin); **way** (one landing of
+the coins; "the sixty-four ways two tosses can land"); **fresh** (tossed
+independently, after C is fixed); **reuse**; **double** (the 64-bit numbers
+many programs compute with; the voice never says "floating point",
+"rounding", "decimal", "precision" or "approximate"); **tolerance**.
 
 ## Color roles
 
@@ -67,243 +89,338 @@ pass instead of exact equality).
 | a heads coin, and the columns it keeps | teal `#5CD0B3` |
 | a tails coin | `faint`, its face `dim` |
 | a toss that catches the mistake, and the verdict | green `#83C167` |
-| the mistake: the wrong entry's column, its true value, a toss that misses it, the ladder's chance bars | red `#FC6255` |
-| the think ring and "?"; in chapter 02 a pair's link, its change, and the ring on the paired coin; in chapter 03 the diagonal of one toss reused, and the row where all heads cancels | `hero` `#FFD866` |
+| the mistake: C − AB, its nonzero entries, a toss that misses it, the ladder's chance bars | red `#FC6255` |
+| the think ring and "?"; a picked column, a pair's link and its change; the diagonal of one toss reused; the row where all heads cancels | `hero` `#FFD866` |
 | entries, brackets, signs | `ink`, `dim` |
+
+Outlines enclose their cells and stay off the brackets: a row, column or
+entry box spans exactly its cells, and the brackets stand a little farther
+out (`draw::BRACKET_GAP`), so no box crosses a bracket's stroke or serif
+(review F5). Every N near 10^16 is set upright, in the text face of TeX,
+the same N the cards print (review F8).
 
 ## Sources and scope
 
 The statements the video makes, where they were checked, and what was not
 read or watched, are in the crate's [README](../README.md). The video claims
-only the exact theorem; the floating-point boundary is chapter 04's, built on
-the F-X4 facts.
+only the exact theorem; the floating-point boundary is chapter 10's, built
+on the F-X4 facts. Counts of work are multiplications in the row-by-column
+convention, never times, and no claim is made about every known method of
+multiplying.
 
-## 01_check_with_coins: A check with coins (~82 s)
+## 01_handed_an_answer: Someone hands you C (~78 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 01_1 | Someone multiplied two matrices, A and B, and handed you the answer, C. Is C really A times B? You could multiply them again. | A and B appear as grids of numbers between brackets, a dim × between them, their names in blue and violet under them; on "and handed you" a dim = and the claim C, its name in gold. On "Is C really" a gold ? over the =. On "You could multiply" row 1 of A, column 3 of B and entry (1, 3) of C are outlined, and the right-hand panel works that entry by hand: 1·0 + 2·2 + 1·3 = 7 | grids built from the model, highlight boxes, TeX built from the drawn entries | |
-| 01_2 | Nine entries, three multiplications each, twenty-seven in all. With a thousand rows and columns, a billion. | The panel adds 9 × 3 = 27, "multiplications to redo the product"; on "With a thousand" 1000³ = 1,000,000,000, "for a thousand rows and columns", and a "precisely" lower-third: the schoolbook count, and that faster methods exist but none is known to need only about n² steps (it stays until the coins arrive in 01_4) | TeX built from facts, lower-third | |
-| 01_3 | Checking one entry at random is cheap, but it misses a single wrong entry eight times in nine. | The counts go; the worked entry stays: "one entry: 3 multiplications". On "but it misses": "an entry picked at random", then in red "misses a single wrong one", "8 times in 9" (a fixed entry would always or never catch it) | panel from facts | |
-| 01_4 | Here is a better check. Toss a coin for each column of C, and add up the columns that land heads. | The panel and outlines clear. On "a coin for each column" three coins land over C's columns: heads, heads, tails (teal discs marked 1, a faint disc marked 0), "heads keeps a column". On "add up the columns" C's two heads columns are outlined in teal and its tails column dims; copies of the kept entries fly down side by side with plus signs, and become their sums, C·r = (8, 7, 11), named in gold | coins, highlight, copies fly, column addition | |
-| 01_5 | Do the same to B, then multiply by A. That takes nine multiplications, not twenty-seven. | The same toss lands over B's columns; its heads columns add into B·r = (3, 1, 3), named in violet, quicker than the first time. On "then multiply by A" a "for programmers" lower-third (B·r and C·r only add columns, A·(B·r) is n² multiplications against n³), and each row of A flashes with B·r while A·(B·r) = (8, 6, 11) fills in under A, row by row, named in blue. On "That takes" the panel: "this check: 9 multiplications", "redoing it: 27" | coins, column addition, lagged reveal, lower-third | |
-| 01_6 | Both columns must match if C is right. They don't, so C is wrong, for certain. | B's coins and B·r clear. A·(B·r) slides to stand beside C·r; the panel gives the reason, A(B r) = (AB) r, "so a right C gives two equal columns". On "They don't" =, ≠, = appear between the rows; the middle pair, 6 and 7, is outlined in red. On "so C is wrong" a green verdict box: "C is wrong" | TeX identity, signs from the model, verdict box | |
-| 01_7 | But that was one toss. Of the eight ways three coins can land, how many miss the wrong entry? ⟨predict⟩ | The columns, reason and verdict clear; the toss's coins stay over C on "But that was one toss". On "Of the eight ways" they go, and all eight tosses appear in two rows of four, in counting order (000 to 111), no verdicts; the question on screen, "How many of these 8 tosses miss the wrong entry?". Four seconds of silence with the gold countdown ring and "pause for more time" | lagged reveal, think countdown | |
-| 01_8 | Check all eight. Four of them miss, exactly half. | The ? goes; each toss gets its verdict in turn, "miss" in red or "caught" in green (the left two of each row miss). On "Four of them" the question becomes "4 of 8 miss: exactly half" | lagged reveal from the model's checks | |
-| 01_9 | Because every miss leaves out the column that holds the wrong entry. | C's column 2 is outlined in gold, the wrong cell alone in red, and "2 should be 1" beside its row. On "leaves out the column" every toss's middle coin is ringed: red around the tails coin of each miss, green around the heads coin of each catch | highlight, rings | |
-| 01_10 | But no wrong answer hides from more than half the tosses. So toss again. Twenty fresh tosses all miss less than once in a million. | The tosses clear. A "precisely" lower-third, with the line's first sentence: with fair coins, all independent and tossed after C is fixed, each toss misses any fixed wrong C with chance at most half, in exact arithmetic. A ladder of the theorem's bound, one half a toss, a faint track for a chance of one with a red bar to scale: "1 toss" ≤ 1/2; on "So toss again" "2 tosses" ≤ 1/4; on "Twenty fresh tosses" "20 tosses" ≤ 1/1,048,576 < 1/1,000,000, and no bar: its track says "too small to see" (to scale it would be about a thousandth of a pixel). It stands until the card has had time to be read, then the chapter fades | bars from the bound, TeX fractions, lower-third | |
+| 01_1 | Someone hands you the product of two giant matrices. Can you check it without redoing all that work? | Cold open: two large faint grids standing for a thousand by a thousand, A in blue and B in violet outline, a dim × between them, "1000 × 1000" under them; on "hands you" a dim = and a gold grid, C. On "Can you check it" a gold ? over the = | grids drawn as texture, TeX labels | |
+| 01_2 | With coin tosses, you can. For a thousand rows and columns, twenty checks need a fiftieth of the multiplications that redoing it takes. Right answers always pass, and a wrong one gets through less than once in a million. | A row of coins lands over C. On "twenty checks" two bars to scale under the grids: "redo the product, row by column: 1,000,000,000" full, "20 checks: 20,000,000" a fiftieth of it. On "Right answers" two lines, "a right C: always passes" and "a wrong C passes all 20 with chance ≤ 1/1,048,576"; a "precisely" card (K01). Then everything clears and the title card stands | bars to scale from facts, lower-third, title card | hold |
+| 01_3 | Start small. Here are two matrices, A and B, and the answer someone handed you, C. Is C really A times B? | The opening picture: A and B as grids of numbers between brackets, names in blue and violet under them, a dim ×; on "the answer someone handed you" a dim = and C, its name in gold. On "Is C really" a gold ? over the = | grids built from the model | |
+| 01_4 | Each entry of the product is a row of A times a column of B. Multiply them in pairs, then add. Row one times column three gives zero, plus four, plus three. Seven. | On "a row of A" row 1 of A, column 3 of B and entry (1, 3) of C are outlined. On "Multiply them in pairs" the panel shows 1·0 + 2·2 + 1·3, built from the drawn entries; on "gives zero" the line = 0 + 4 + 3 = 7 | highlight boxes, TeX from the model | |
+| 01_5 | C has seven there too, so that entry is right. But the product has nine entries, three multiplications each, twenty-seven in all. | C's 7 is outlined in green. On "But the product" the panel adds 9 × 3 = 27, "multiplications to redo the product" | TeX from facts | |
+| 01_6 | Now make it a thousand rows and a thousand columns. How many multiplications does that take, row by column? ⟨predict⟩ | The outlines and the 3 × 3 sums clear; the panel shows "n = 1000". On "How many" the question on screen, "How many multiplications, row by column, for a 1000 × 1000 product?"; four seconds of silence with the gold countdown ring and "pause for more time"; no count on screen | think countdown | |
+| 01_7 | One billion. That's a million entries, a thousand multiplications each. And checking it by redoing it costs another billion. | The ? and the question go; the answer 1,000,000 entries × 1,000 = 1,000,000,000 (TeX from facts) and a "precisely" card (K02): the baseline is row-by-column multiplication, n cubed multiplications, and the video compares the check with that count only. On "another billion" the line "redo it to check: another 1,000,000,000" | TeX from facts, lower-third | |
+| 01_8 | It might come from a fast library, a rented machine or a student. You'd like to trust it without paying twice. | The panel's answer stays; nothing new is drawn for the three sources. The card stands its reading time from its completed fade-in, then the chapter fades | lower-third read | |
 
 ### Notes for 01
 
-- Prediction (01_7): the question is on screen by the narrator's "Of the
-  eight ways", well before the question's last word; four seconds of silence
-  with the countdown; no verdict, count or ring is on screen until 01_8
-  starts. The answer lands on "Four of them", after the verdicts.
-- Exact versions kept on screen: 01_2 (the schoolbook count; faster methods
-  exist, none is known to need only about n² steps), 01_5 (for programmers:
-  only additions for B·r and C·r, n² multiplications against n³), 01_6 (why
-  a right C must match: A(Br) = (AB)r, exactly), 01_10 (fair coins, all
-  independent and tossed after C is fixed; at most half a toss for any
-  fixed wrong C; exact arithmetic; the ladder is the theorem's bound, and
-  the example meeting it exactly is the separate 01_8 fact). 01_3 says the
-  spot check picks its entry at random. All three are two lines. The closing
-  card is held for its length at fifteen characters a second; the other two
-  stay through the following line, which the draft's cue sheets should
-  confirm is long enough to read them.
-- The scene refuses to render if a spoken claim stops being true: the
-  example must have exactly one wrong entry, exactly half the tosses must
-  miss, and twenty tosses must beat a million (`facts::wrong_entry`, the
-  01_8 guard, `ladder_tex`). The bound itself is checked on every small
-  mistake each time the facts are built.
-- Narration units (`narration_units.json`): an **unqualified proposal, not
-  frozen**. The coherent route is under independent review after the
-  owner's 2026-10-19 rejection, and no take has been requested or generated
-  for this video. Six units of 21 to 36 words. Two boundaries are open
-  questions, not decisions: the think question ends 01u4 and its answer
-  opens 01u5, which is the question-to-answer request boundary root's
-  current experiment is testing; and the in-unit line splits (01_2|01_3,
-  01_4|01_5, 01_6|01_7, 01_8|01_9) need their seams measured once takes
-  exist. Regroup the units by that experiment's disposition, not by this
-  note. What the grouping was written for: shorter requests (speech sped up
-  inside longer ones), the rhetorical question in the same line as its
-  answer (01_1), line splits before stop consonants ("Checking", "Do",
-  "But", "Because"), and unit ends on a vowel or a nasal ("again", "nine",
-  "twenty-seven", "entry", "entry", "million").
-- Pause targets, for listening, not rules: after "Is C really A times B?"
-  about one second before the answer; before "Here is a better check" and
-  before each "But", a turn of about 0.85 s; after "exactly half", about
-  0.7 s before its reason. The think window is the scene's own countdown.
-- Pronunciation to probe before any synthesis: the letter names A, B and C
-  as matrix names (A must not be read as the article; "by A" ends a
-  sentence). No proper name is spoken in this chapter; "Freivalds" waits
-  for a later chapter and its own lookup.
+- Prediction (01_6): the question is on screen from "How many", before the
+  question's last word; four seconds of silence with the countdown; no count
+  until 01_7 starts, and the count is written as it is said.
+- Exact versions: K01 (01_2) and K02 (01_7). K02 replaces the earlier
+  SCHOOLBOOK card, which claimed that no known method needs only about n
+  squared steps; the video makes no claim about every known method. The
+  cold open's "a fiftieth" names its example (a thousand rows and columns)
+  and its unit (multiplications, row by column).
+- The bars are drawn to scale from `model::product_multiplications` and
+  `check_multiplications`; the scene refuses to draw if twenty checks are not
+  a fiftieth or 2^−20 does not beat a million.
+- Pause targets, for listening, not rules: after "Can you check it without
+  redoing all that work?" about one second before its answer; before "It
+  might come", a turn of about 0.85 s.
+- Pronunciation to probe: the letter names A, B and C as matrix names (A must
+  not be read as the article).
 
-## 02_never_more_than_half: Never more than half (~80 s)
+## 02_cheap_checks: Two cheap checks (~83 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 02_1 | Look at the mistake on its own, C minus the true product. The check misses exactly when its heads columns add up to zero in every row. | The mistake grid of chapter 01's slip (zeros, and a 1 outlined in red), "C − AB" under it in red. On "The check misses" chapter 01's first toss lands over its columns (heads, heads, tails), the heads columns are outlined in teal, and their sum appears beside it, (0, 1, 0), with the identity C r − A(B r) = (C − AB) r above and "not all zero: caught" in green. The tally, top right, starts with "the slip (1): 4 of 8" | grid from the model, highlight boxes, TeX identity | |
-| 02_2 | Two in one row, both one too big, hide only when both coins land tails. Two of eight. | The aids clear; the grid becomes 0, 1, 1 in row 2, its two wrong entries outlined. All eight tosses come in, in counting order, two rows of four, and under each its row-2 sum, red where it is zero (000 and 100). On "Two of eight" the tally adds "1, 1 in one row: 2 of 8" | grid swap, lagged reveal, sums from the model | |
-| 02_3 | But one too big and one too small by the same amount hide whenever their coins agree. Four of eight, half again. | The grid becomes 1, −1 in row 2 and the sums change with it; the zeros (000, 011, 100, 111) turn red. On "Four of eight" the tally adds "1, −1 in one row: 4 of 8" | grid swap, sums from the model | |
-| 02_4 | Now one, one and minus one in a row. How many tosses does it hide from? ⟨predict⟩ | The grid becomes 1, 1, −1 in row 2; the sums go. On "How many tosses" the question on screen, "How many of these 8 tosses does it hide from?"; four seconds of silence with the gold countdown ring and "pause for more time", no sum on screen | think countdown | |
-| 02_5 | Three. Not half, and not a power of two. | The ? and the question go; the sums come in (0, −1, 1, 0 over 1, 0, 2, 1), three of them red; the tally adds "1, 1, −1 in one row: 3 of 8" | lagged reveal from the model | |
-| 02_6 | Put one wrong entry in each row and column, and it hides only from all tails. | The grid becomes one 1 in each row and each column; with more than one wrong row there is no single row sum, so under each toss its verdict, "miss" only under 000 and "caught" under the rest. On "only from all tails" the tally adds "1 per row and column: 1 of 8" | grid swap, verdicts from the model | |
-| 02_7 | Why never more than half? Pick a column where C is wrong. Pair the tosses that differ only in its coin. | The grid returns to 1, 1, −1 and the sums with it. A "checked" lower-third: all 19,682 three by three mistakes with entries −1, 0 or 1 hide from at most half the tosses; a finite check, and the pairing proves every size. On "Pick a column" column 1 of the grid is outlined in gold and the first coin of every toss is ringed in gold. On "Pair the tosses" a gold link joins each top toss to the one under it, its partner | lower-third, highlight, rings, links | |
-| 02_8 | Because that row's sum changes across a pair by the wrong entry, both can't be zero. At most one of each pair misses. | The individual entry boxes in row 2 give way to one red row outline, with the gold column outline distinct; beside each link its change, "+1", the wrong entry. On "At most one" the three zero sums are ringed in red and flash: one in each of three pairs, none in the fourth | highlight, labels from the model | |
-| 02_9 | Pairs cover every toss once, so at most half of all tosses miss, for matrices of any size. | The "checked" card gives way to a "precisely" lower-third: exact arithmetic, flips move row sums by the wrong entry; with fair coins, all independent and tossed after C is fixed, a toss misses with chance at most half. At the right, one after another: "8 tosses, 4 pairs", "at most 1 miss in each pair", "at most 4 of 8"; on "for matrices of any size" the TeX 2ⁿ tosses, 2ⁿ⁻¹ pairs. It stands until the card has had time to be read, then the chapter fades | lagged reveal, TeX, lower-third | |
+| 02_1 | The obvious shortcut is to check a few entries. Pick one at random, and redo just that one. Three multiplications. | The opening picture returns (A, B and C, names, × and =). On "Pick one at random" entry (1, 3) of C is outlined in gold, with row 1 of A and column 3 of B; the panel: "one entry: 3 multiplications" | highlight boxes | |
+| 02_2 | Suppose C has a single wrong entry. One random pick finds it one time in nine. Eight times in nine, it misses. | The panel adds "an entry picked at random", then in red "misses a single wrong one" and "8 times in 9". Where the wrong entry is, is not shown | panel from facts | |
+| 02_3 | At a thousand rows there are a million entries, and one pick misses a single wrong one almost every time. | The 3 × 3 picture clears. A large square of faint lines, "1,000,000 entries", holds one small red cell; a gold dot, the pick, lands elsewhere, and "one pick misses it 999,999 times in 1,000,000" | texture grid, moves | |
+| 02_4 | How many different entries would you have to check to catch it at least half the time? ⟨predict⟩ | The question on screen, "How many different entries for at least half the time?"; four seconds of silence with the countdown; no shading | think countdown | |
+| 02_5 | Half a million. At a thousand multiplications each, that's five hundred million, half the cost of redoing the product. | The left half of the square shades gold; "500,000 entries × 1,000 = 500,000,000", then "half of 1,000,000,000"; a "precisely" card (K03): k different entries picked at random catch one wrong entry with chance k / n squared | TeX from facts, lower-third | |
+| 02_6 | Spot checks only see the entries they pick, and one wrong entry can be anywhere. | The red cell, outside the shaded half, flashes | flash | |
+| 02_7 | Here is a cheaper idea. Add up all three columns of C into one column. That takes only additions. | The square clears and the opening picture returns. C's three columns are outlined in teal; copies of their entries fly down side by side with plus signs and become one column, 15, 16, 15, named "C's columns added" in gold | copies fly, column addition | |
+| 02_8 | If C is right, each of its columns is A times the same column of B. So the sum of C's columns must be A times the sum of B's. | The panel: "if C = AB:", "each column of C = A × that column of B", "C's column sum = A × B's column sum". B's three columns add into 3, 3, 6 in violet, quicker; each row of A flashes with it while 15, 15, 15 fills in under A, named "A × B's column sum" in blue | column addition, lagged reveal | |
+| 02_9 | That takes nine multiplications, not twenty-seven. And in row two, C's sum says sixteen, while the other side says fifteen. So C is wrong. | The panel: "this check: 9 multiplications", "redoing it: 27". A's column slides beside C's; =, ≠, = appear between the rows, and 16 and 15 are outlined in red; on "So C is wrong" a green verdict box | signs from the model, verdict box | |
+| 02_10 | In fact, the two in the middle of that row should be one. Call it the slip. | C's entry (2, 2) gets its own red box, "2 should be 1" beside its row (built by `correction()` from the model), and "the slip" under it. It stands, then the chapter fades | highlight box, label from the model | |
 
 ### Notes for 02
 
-- Prediction (02_4): the question is on screen from "How many tosses", before
-  the question's last word; four seconds of silence with the countdown; no
-  sum, ring or tally line for the new mistake until 02_5 starts. The answer
-  is spoken first ("Three.") and the sums come in with it.
-- The proof and the checks are kept apart. The pairing (02_7 to 02_9) is the
-  argument for every size: with coin j of a column where C is wrong, the
-  tosses fall into pairs that differ only in coin j, and across a pair the
-  row's sum moves by exactly that wrong entry, so at most one of the pair
-  can be zero. The 19,682 and 624 small mistakes are said on screen to be a
-  finite check (`facts::check_bound` and the F-X1 rows), not the proof.
-  The 02_9 count's "at most 1 miss in each pair" is the proof's constant
-  (`facts::MISSES_PER_PAIR`); the example's pairs are checked against it
-  and the scene refuses to draw if one holds more. The column must be one
-  where C is wrong: paired by coin 1, over a column the slip is right in,
-  its row sum never moves and two pairs miss twice (F-X5.right_column).
-- Counts and chances are kept apart too: the voice gives counts of tosses
-  ("Two of eight", "at most half of all tosses"); the chance, and the fair,
-  independent, after-C and exact-arithmetic conditions it needs, is the
-  02_9 lower-third. The equality cases (the slip, and one too big with one
-  too small) are separate facts from the bound.
-- Edge tests behind the always-sentences (F-X5): two of one sign in a row
-  hide only from tails on both their coins (18 sign and size cases from −3
-  to 3); one too big and one too small by the same amount hide exactly when
-  their coins agree (6 cases); one wrong entry per row and column hides only from all tails
-  (384 patterns, entries ±1 and ±2). "Wrong in every column" alone is not
-  enough: the 1, 1, −1 row is wrong in every column and hides from three
-  (`F-X5.three_in_a_row.wrong_in_every_column`), so 02_6 says per row and
-  column.
-- With three coins the first coin is the grid row, so coin 1's pairs stand
-  one above the other (the scene refuses to draw them otherwise).
-- Narration units: the same unqualified, unfrozen proposal as chapter 01's,
-  waiting on root's question-to-answer experiment. 02_4's question ends its
-  unit and 02_5's answer opens the next. Seven units of 16 to 40 words
-  (02u2, with 02_3's "by the same amount", is the longest);
-  the only line splits inside a unit fall before "But" (02_3) and "Put"
-  (02_6), and the proof's two lines (02_7, 02_8) are separate units.
-- Pause targets, for listening, not rules: after "Why never more than
-  half?", about one second before its answer in the same line; before each
-  "But", "Put" and "Because", a turn of about 0.85 s.
-- Pronunciation to probe: "minus one" in 02_4, and the letter C as a name
-  ("C minus the true product", "where C is wrong").
+- Prediction (02_4): the question is on screen from "How many different
+  entries" before its last word; four seconds of silence; no shading until
+  02_5, which says the count as the square shades.
+- The scale-up is computed (`facts::spot_half`): with a million entries, k
+  different entries picked at random catch one wrong entry with chance
+  k / 1,000,000, and k = 500,000 is the least that reaches one half; at a
+  thousand multiplications each, that is half the product's billion. K03 is
+  the exact version.
+- The sum of every column is the all-heads toss, before any coin is named:
+  C's sums 15, 16, 15, B's 3, 3, 6 and A times that 15, 15, 15
+  (`facts::all_columns_check`); it catches this slip in row 2.
+- The label "2 should be 1" names the boxed entry's own value (review F2).
+- Pause targets: before "Here is a cheaper idea", a turn of about 0.85 s.
 
-## 03_toss_again: Toss again (~80 s)
+## 03_coins_choose: Coins choose the columns (~70 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 03_1 | One toss misses the slip half the time. So toss again, with fresh coins. | The slip's mistake, C − AB, at the top left (its zeros dim, its 1 outlined in red). The eight tosses written as their coins, 000 to 111, in a column in counting order, each red if it misses the slip and green if it catches it; at the right "one toss: 4 of 8 miss", with a small "toss labels: miss caught" key above it, using the corresponding red and green colors. On "So toss again" the column sorts, the four misses moving to the top, and a copy of it turns to run along the top: "first toss" beside the column, "second toss" over the row | labels from the model, moves | |
-| 03_2 | Two tosses can land sixty-four ways. How many of them miss both times? ⟨predict⟩ | The grid of the 64 ways fills in, a faint square for each first toss and second toss. On "How many of them" the question at the right, "How many of these 64 ways miss both times?"; four seconds of silence with the gold countdown ring and "pause for more time"; no square is red | grid of squares, think countdown | |
-| 03_3 | Sixteen, exactly a quarter. Both must miss, four ways for the first toss times four for the second. | The ? and the question go; the 16 squares where both tosses miss turn red, filling the top-left corner, and the answer "16 of 64 ways miss both times". On "four ways for the first toss" the four rows of the first toss's misses are outlined in red; on "times four for the second" the four columns of the second toss's misses; "4 × 4 = 16" | lagged reveal from the model, highlight | |
-| 03_4 | For this slip, that quarter is exact. Any wrong C gets past two fresh tosses at most a quarter of the time. | The outlines go. At the right "this slip: 16/64 = 1/4". On "Any wrong C" a second line, with extra vertical clearance between the stacked fractions, "any wrong C: ≤ 1/2 · 1/2 = 1/4", and a "precisely" lower-third: in exact arithmetic, with fair coins, all independent and tossed after C is fixed, k tosses all miss any fixed wrong C with chance at most 1/2 to the k | TeX from facts, lower-third | |
-| 03_5 | But reuse one toss for both checks, and nothing changes. Four of the eight still miss, half. | The diagonal, the eight ways that use one toss twice, is outlined in gold and the rest of the grid dims. On "Four of the eight" its four red squares flash, and at the right "same toss twice: 4 of 8, still 1/2" | highlight, dim | |
-| 03_6 | Fresh also means tossed after C is handed over. Someone who sees your toss first can write a wrong C it misses. | The grid, its labels, the toss-label key and the slip clear, and the card gives way to a second "precisely" lower-third: from two by two up, any toss seen first can be beaten, one wrong entry under a tails coin, or under all heads a cancelling pair in one row. The eight tosses come back as coins, two rows of four. On "can write a wrong C" a little grid fills under each: the mistake of the wrong C written for that toss (`model::blind_spot`), its zeros dim and its wrong entries outlined in red, and under it "miss" in red. At the right, under where the tally will stand, "each grid shows" over C − AB in red names them as mistakes, not Cs, and stays to the end | coins, grids from the model, lower-third | |
-| 03_7 | Put one wrong entry under a tails coin, and the toss never looks at it. Against all heads, put one entry too big and one too small by the same amount in one row, and they cancel. | In the seven tosses with a tails coin, the tails coin over the wrong entry is ringed in red. On "Against all heads" the first row of 111's grid is outlined in gold, and beside it "1 + (−1) = 0" | rings, highlight | |
-| 03_8 | So every one of the eight tosses can be beaten. Yet against fresh tosses, each of these wrong answers is caught half the time. | The eight "miss" verdicts flash, and at the top right "8 of 8 tosses beaten when seen first". On "Yet against fresh tosses" a green line along the bottom, "fresh tosses catch each of these wrong Cs: 4 of 8". It stands until the card has had time to be read, then the chapter fades | flash, text from facts | |
+| 03_1 | But suppose the nine beside the slip were written as eight. Now row two adds up to fifteen, the same as the other side. | The opening picture with the slip boxed in red. On "were written as eight" C's 9 beside the slip turns into an 8 (gold flash) and gets a red box too. On "Now row two" C's column sum, 15, 15, 15, stands beside A × B's column sum, 15, 15, 15, with = in every row | grid edit, column sums from the model | |
+| 03_2 | The extra one and the missing one cancel, and this check passes a wrong answer. | "+1" under the slip and "−1" under the 8, and "+1 + (−1) = 0"; a red verdict box, "passes a wrong C" | labels from the model, verdict box | |
+| 03_3 | With three columns, every fixed choice of columns has wrong answers it can't see. So don't fix it in advance. Let coins choose the columns, after C is handed over. | A "precisely" card (K04): from two by two up, every fixed choice of columns misses some wrong C; with a single column, heads checks the product exactly. On "Let coins choose" three blank coins, each marked ?, appear over C's columns | lower-third, coins | |
+| 03_4 | Back to the C with one slip. Toss a coin for each column. Heads keeps a column, and tails leaves it out. | The 8 turns back into 9 and its box, the sums and the cancelling labels go. On "Toss a coin" the blank coins land: heads, heads, tails; "heads keeps a column" | coins, highlight | |
+| 03_5 | Say they land heads, heads, tails. Add up C's heads columns, then B's, and multiply B's by A, still nine multiplications. Will the two columns match? ⟨predict⟩ | C's heads columns are outlined in teal, its tails column dims, and copies fly down and add: C r = (8, 7, 11) in gold. The same toss over B, quicker: B r = (3, 1, 3) in violet; a "for programmers" card: B r and C r only add columns, A(B r) takes n squared multiplications. Each row of A flashes with B r while A(B r) = (8, 6, 11) fills in under A, in blue; "still 9 multiplications". On "Will the two columns" the question on screen; four seconds of silence; no sign, outline or verdict between the columns | copies fly, column addition, lagged reveal, think countdown | |
+| 03_6 | No. If C were right, they would, for the same reason as before. But in row two, C says seven and the other side says six. | A(B r) slides to stand beside C r; the reason, A(B r) = (AB) r, "so a right C gives two equal columns". On "But in row two" =, ≠, = appear between the rows, and 6 and 7 are outlined in red | TeX identity, signs from the model | |
+| 03_7 | So C is wrong, for certain, and row two holds a wrong entry. Show anyone this toss, and nine multiplications let them see it too. | A green verdict box, "C is wrong", and "row 2 holds a wrong entry". On "Show anyone this toss" a small card: "toss 110: row 2 gives 6 ≠ 7", "anyone can recheck: 9 multiplications". It stands, then the chapter fades | verdict box, text from facts | |
 
 ### Notes for 03
 
-- Prediction (03_2): the question is on screen from "How many of them",
-  before the question's last word; four seconds of silence with the
-  countdown; no red square until 03_3 starts. The answer is spoken first
-  ("Sixteen") and the squares turn red with it.
-- The example and the theorem are kept apart. "Exactly a quarter" is this
-  slip's count, 16 of the 64 ways (F-F5.two, F-F9.two.example_meets_bound).
-  "At most a quarter" for any wrong C is the theorem's per-toss bound
-  squared (F-F9.two.bound, from `facts::theorem_bound`, the pairing
-  proof's), and the card gives 1/2^k for k tosses. Neither is derived from
-  the other.
-- Fresh has two halves, and the chapter shows each failing.
-  - Independent across checks (03_5): one toss reused is the grid's
-    diagonal, 4 of 8, above the two fresh tosses' bound
-    (F-F9.same_toss.above_two_bound).
-  - Tossed after C is fixed (03_6 to 03_8): every toss seen first is
-    beaten. F-X3.known_toss.fooled finds all 8 by search; the wrong Cs
-    shown are `model::blind_spot`'s, each passed by its own toss in the
-    check itself (`facts::blind_spots` refuses otherwise).
-  - The edges in size: at two by two every toss has a blind spot too
-    (F-X3.n2.fooled, found by search in the oracle); at one by one a heads
-    coin has none (F-X3.n1.heads_fooled), hence the card's "from two by two
-    up".
-- Each of those wrong Cs is still a fixed wrong C: fresh tosses catch it 4
-  of 8 times (F-X3.blind_spot.fresh_catches), so the defence is freshness,
-  not the toss.
-- The grid lists the tosses misses first (000, 001, 100, 101, then 010,
-  011, 110, 111; F-F9.order), so the 16 squares where both miss fill one
-  corner (F-F9.both_miss_fill_the_corner; the scene refuses to draw it
-  otherwise). The same order on both sides keeps the reused toss on the
-  diagonal.
-- Narration units: the same unqualified, unfrozen proposal as chapters 01
-  and 02's. 03_1 and 03_2 share a unit that ends on the question, and 03_3's
-  answer opens the next. Seven units of 17 to 37 words; the longest, 03u6
-  (03_7), says the two opposite errors are the same amount, which is what
-  makes them cancel.
-- Pause targets, for listening, not rules: before "But reuse", "Fresh
-  also" and "Yet against", a turn of about 0.85 s.
-- Pronunciation to probe: "sixty-four", and the letter C as a name ("Any
-  wrong C", "after C is handed over").
+- Prediction (03_5): the question is on screen from "Will the two columns",
+  before its last word; no =, ≠, outline or verdict until 03_6, which answers
+  "No" as the signs come in.
+- The cancelling C is the slip plus the 9 beside it written as 8
+  (`facts::cancelling_claim`, F-F10.cancelling rows): it differs from C only
+  at row 2, column 3, its column sums are 15, 15, 15, and it passes the sum of
+  every column. Against all eight tosses it hides from four (000, 011, 100,
+  111; F-F10.cancelling.passing) and is caught by the other four.
+- K04 keeps 03_3's claim scoped: the voice says "With three columns"; the
+  card gives the edges (F-X3.n2.fooled 4 of 4, F-X3.n1.heads_fooled false).
+- A caught toss names a wrong row: every disagreeing row of A(B r) and C r is
+  a nonzero row of the mistake (F-X6, over all 19,682 small mistakes and
+  every toss). The converse is not claimed.
+- Pause targets: before "But suppose" and "Back to the C", about 0.85 s.
 
-## 04_exact_and_rounded: Exact and rounded (~80 s)
+## 04_eight_tosses: All eight tosses (~74 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 04_1 | At a thousand rows, twenty fresh checks take twenty million multiplications, a fiftieth of the billion to redo the product. That counts work, not seconds. | n = 1000 at the top. A faint track and a full bar for redoing the product, "redo the product (schoolbook): n³ = 1,000,000,000", the schoolbook count of 01_2 and not a bound on every method. On "twenty fresh checks" a second track, "20 fresh checks: 20 × n² = 20,000,000", and a blue bar to scale, a fiftieth of the first. On "a fiftieth" the ratio, 20,000,000 / 1,000,000,000 = 1/50. On "That counts work" a "for programmers" lower-third: these count multiplications, not time; adding up the heads columns of B and C still takes additions, and every entry is read from memory. The card stays for its characters / 15 seconds from its completed fade-in, then fades out before 04_2 starts | bars to scale from facts, TeX, lower-third | |
-| 04_2 | But many programs compute with doubles, which skip some whole numbers. What is ten to the sixteen plus one in doubles? ⟨predict⟩ | The cost clears. "N = 10¹⁶" at the top left, and a number line with the whole numbers N − 2 to N + 2. On "What is ten to the sixteen" the question, "What is N + 1 in doubles?"; four seconds of silence with the gold countdown ring and "pause for more time"; no double is marked yet | number line, think countdown | |
-| 04_3 | Ten to the sixteen. Doubles there are two apart, so the one is lost. | The ? goes, and as the answer is said the question becomes "N + 1 → N" over "(N + 1) − N = 0 in doubles", both computed in doubles; they stand through the whole line. On "Doubles there are two apart" the doubles near N are marked in teal (N − 2, N, N + 2, computed), "2 apart" between two of them, and a "precisely" lower-third: a double has 53 significant bits, so above 2 to the 53, doubles are at least 2 apart; N + 1 is halfway between the doubles N and N + 2, and the tie goes to N. On "so the one is lost" a red dot at N + 1 moves to N | dots from the computed doubles, moves, lower-third | |
-| 04_4 | So a right answer can get caught. This C is A times B, but with both coins heads, two lost ones make the columns differ. | The line clears. A, B and C, two by two, with N in their entries, and the mistake C − AB beside them, all zeros. The four tosses of two coins. On "This C is A times B" the exact row: "match" under every toss. On "with both coins heads" the doubles row, "match, match, match, no match" (the last in red), the toss 11 ringed in gold, and under it, both computed: exact B r = (N + 1, −N + 1) and A(B r) = (2, 0) = C r; in doubles B r = (N, −N) and A(B r) = (0, 0) ≠ (2, 0) = C r | grids from the model, verdicts computed both ways, TeX | |
-| 04_5 | And a wrong answer can pass every toss. This C is too small by one, yet in doubles all four tosses miss it. | The second example replaces the first: C − AB has −1 in its corner, outlined in red. On "This C is too small by one" the exact row: match, match, then "no match" in green twice, caught. On "all four tosses miss it" the doubles row, "match" under every toss in red, the toss 10 ringed, and exact A(B r) = (N + 1, 0) ≠ (N, 0) = C r against doubles A(B r) = (N, 0) = C r | grids from the model, verdicts computed both ways, TeX | |
-| 04_6 | A tolerance would let the right one through, but then a wrong C inside it passes every toss, with no half guarantee. | The computations go. On "but then a wrong C inside it" the exact and doubles rows above, the test of equality, dim, and under them a check with a tolerance, \|A(B r) − C r\| ≤ 2 in every row, the tolerance computed as the right C's largest gap in doubles (toss 11: (0, 0) against (2, 0)), and "the right C passes 4 of 4 in doubles; this wrong C, 4 of 4 in exact sums", computed; a "precisely" lower-third: tolerance 2, the right C's largest gap in doubles, lets it through, but then this wrong C passes all 4 tosses in exact sums: no half bound | TeX, text from facts, lower-third | |
-| 04_7 | So the promise is for exact arithmetic. A right C matches every toss, and a wrong one gets past each fresh toss at most half the time. | Everything clears but the card. The opening picture returns, A × B = C with the slip outlined in red. On "A right C matches every toss" the first line, "a right C: every toss matches"; on "a wrong one gets past" "a wrong C: each fresh toss misses at most half the time", and k fresh tosses all miss ≤ 1/2^k, with "in doubles, both can fail" dim under them. The card gives way to the exact guarantee: in exact arithmetic, with fair coins, all independent and tossed after C is fixed, k tosses all miss any fixed wrong C with chance at most 1/2 to the k. It stands until it has had time to be read, then the video fades | TeX from the bound, lower-third | |
+| 04_1 | But that was one toss. Of the eight ways three coins can land, how many miss the slip? ⟨predict⟩ | A, B and C at the top, the slip boxed. On "Of the eight ways" all eight tosses appear under them in two rows of four, in counting order (000 to 111), no verdicts; the question, "How many of these 8 tosses miss the slip?"; four seconds of silence with the countdown | lagged reveal, think countdown | |
+| 04_2 | Check all eight. Four of them miss, exactly half. | The ? goes; each toss gets its verdict in turn, "miss" in red or "caught" in green. On "Four of them" the question becomes "4 of 8 miss: exactly half" | lagged reveal from the model's checks | |
+| 04_3 | Every miss leaves out the middle column, the one that holds the slip. When that coin lands heads, the slip's extra one lands in row two, and nothing there cancels it. | C's column 2 is outlined in gold, the slip alone in red, "2 should be 1" beside its row. On "leaves out" every toss's middle coin is ringed: red around the tails coin of each miss, green around the heads coin of each catch. On "When that coin lands heads" the green rings flash with the slip | highlight, rings, flash | |
+| 04_4 | So look at the mistake on its own, C minus the true product. For the slip, it's a single one. | Everything clears. The mistake grid, its zeros dim and its 1 outlined in red, "C − AB" in red under it, alone on the left | grid from the model | |
+| 04_5 | The two columns the check compares always differ by the mistake's heads columns, added up. So the check misses exactly when those add up to zero in every row. | Heads, heads, tails lands over the mistake's columns, its heads columns outlined in teal, and their sum (0, 1, 0) appears beside it, with C r − A(B r) = (C − AB) r above and "not all zero: caught" in green | grid, highlight, TeX identity | |
+| 04_6 | Four of eight becomes a chance of one half when every toss is equally likely. Fair coins, each tossed on its own, give exactly that. | The eight tosses return in two rows of four, each with its chance under it, 1/8, red under the four misses; "misses: 4 × 1/8 = 1/2". A "precisely" card (K06): this half guarantee assumes fair coins, independent of each other, drawn after C is fixed | TeX fractions from facts, lower-third | |
+| 04_7 | Suppose each coin landed heads only one time in ten. How often would the slip get past? ⟨predict⟩ | The individual chances and their old fair-coin total go blank; "heads: 1 time in 10" over the tosses; the question, "Heads 1 time in 10: how often does the slip get past?"; four seconds of silence | think countdown | |
+| 04_8 | Nine times in ten, whenever the middle coin lands tails. Our half guarantee uses fair coins. | Each toss's chance appears, computed: 729/1000, 81/1000 and so on, red under the misses; "misses: (729 + 81 + 81 + 9) / 1000 = 9/10". On "Our half guarantee" the line "fair coins: 1/2" | TeX fractions from facts | |
 
 ### Notes for 04
 
-- Prediction (04_2): the question is on screen from "What is ten to the
-  sixteen", before its last word; four seconds of silence with the
-  countdown; no double is marked until 04_3 starts. The answer is spoken
-  first ("Ten to the sixteen") and written with it: the question gives way
-  to the two answer lines at the start of 04_3, so they stand through the
-  whole line (about six seconds) while the doubles and the moving dot show
-  why, instead of arriving at its end.
-- At 04_6 the equality rows (exact and doubles) dim when the tolerant test
-  comes in under them, so their "no match" cannot be read against its
-  "4 of 4": they answer a different question.
-- Everything about doubles is computed, not drawn. The scene and the facts
-  run the same left-to-right sums as `model::rounded_passes`
-  (`model::rounded_times`), and the oracle repeats them in Python with an
-  explicit loop. The doubles near N, their spacing (`f64::next_up`), N + 1
-  in doubles, both examples' columns and their verdicts are all F-X4 facts.
-  The scene refuses to draw if the right C does not fail exactly one toss,
-  if the wrong C does not pass all four, or if the lost ones are not two.
-- The cost is a count of multiplications (`model::check_multiplications`,
-  `product_multiplications`), never a time. The programmers' card says that
-  the column sums still take additions and memory reads.
-- The tolerance is shown, not argued, and computed, not chosen. It is the
-  right C's largest gap in doubles, 2 on toss 11 (`facts::right_tolerance`,
-  F-X4.tolerance.right_residuals 0, 0, 0, 2), the smallest that lets the
-  right one through as the voice says (a tolerance of 1 would still catch
-  it). With it the wrong C passes all four tosses even in exact sums
-  (F-X4.tolerance.wrong_residuals 0, 0, 1, 1). The voice says only that the
-  half guarantee does not come with it.
-- The voice never says "floating point", "rounding", "decimal",
-  "precision" or "approximate" (the narration test in `main.rs`): it says
-  "doubles" and "the one is lost". The screen and the cards show the
-  rounding.
-- The final card is the exact guarantee in chapter 03's words. The panel
-  over it adds that a right C matches every toss and that in doubles both
-  can fail, as the two examples showed.
-- Narration units: the same unqualified, unfrozen proposal; 04_2's question
-  ends its unit and 04_3's answer opens the next, in the same unit as 04_4.
-  Six units of 21 to 39 words.
-- Pause targets, for listening, not rules: before "But many programs",
-  "So a right answer", "And a wrong answer" and "So the promise", a turn
-  of about 0.85 s.
-- Pronunciation to probe: "doubles", "ten to the sixteen", "fiftieth", and
-  the letters A, B and C as names.
+- Predictions (04_1, 04_7): each question on screen before its last word;
+  four seconds of silence; no verdict, ring or chance until the answer beat.
+  At 04_7 the fair-coin total leaves with the individual chances (root
+  review, 2026-10-20); the biased total comes in only with 04_8's answer.
+- The misses are the tosses with tails over the slip's column
+  (F-F4.misses_are_tails_on_wrong_column); the scene refuses to mark them
+  otherwise.
+- The mistake is drawn alone, red and named "C − AB", apart from C (D stays
+  distinct from C).
+- Chances are exact fractions (`facts::toss_weights`, F-F12): with heads one
+  time in ten, the slip passes 9/10; with only the slip's column's coin fair,
+  still 1/2 (F-F12.only_slip_coin_fair), which is why 04_6 says "when" and
+  04_8 says the guarantee "uses" fair coins, not that fairness is needed for
+  every construction.
+- Pause targets: before "So look at the mistake" and "Four of eight
+  becomes", about 0.85 s.
+
+## 05_shapes_of_mistakes: Mistakes of other shapes (~78 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 05_1 | Is half special to this slip? Try mistakes of other shapes, with the same A and B. | The slip's mistake grid, "C − AB" in red under it; the tally, top right, starts with "the slip (1): 4 of 8" | grid from the model, tally | |
+| 05_2 | Two in one row, both one too big, hide only when both coins land tails. Two of eight. | The grid becomes 0, 1, 1 in row 2; all eight tosses come in, two rows of four, and under each its row-2 sum, red where it is zero (000 and 100). On "Two of eight" the tally adds "1, 1 in one row: 2 of 8" | grid swap, lagged reveal, sums from the model | |
+| 05_3 | But one too big and one too small by the same amount hide whenever their coins agree. Four of eight, half again. | The grid becomes 1, −1 in row 2 and the sums change with it; the zeros (000, 011, 100, 111) turn red. On "Four of eight" the tally adds "1, −1 in one row: 4 of 8" | grid swap, sums from the model | |
+| 05_4 | That's the pair that fooled the sum of every column, which is just the toss with all heads. | Toss 111's zero is ringed in gold, and "all heads = the sum of every column" stands under the tosses | ring, text | |
+| 05_5 | Now one, one and minus one in a row. How many tosses does it hide from? ⟨predict⟩ | The ring and its words go; the grid becomes 1, 1, −1 in row 2; the sums go. On "How many tosses" the question, "How many of these 8 tosses does it hide from?"; four seconds of silence with the countdown; no sum on screen | think countdown | |
+| 05_6 | Three. Not half, and not a power of two. | The ? and the question go; the sums come in (0, −1, 1, 0 over 1, 0, 2, 1), three of them red; the tally adds "1, 1, −1 in one row: 3 of 8" | lagged reveal from the model | |
+| 05_7 | Put one wrong entry in each row and column, and it hides only from all tails. One of eight. | The grid becomes one 1 in each row and each column; under each toss its verdict, "miss" only under 000; the tally adds "1 per row and column: 1 of 8" | grid swap, verdicts from the model | |
+| 05_8 | So two wrong entries can hide as often as one. What matters is whether they can cancel. | The tally's two "4 of 8" lines flash together, then its "2 of 8" and "1 of 8" lines | flash | |
+| 05_9 | Try every nonzero three by three mistake with entries of minus one, zero or one. All nineteen thousand, six hundred eighty-two of them hide from at most half the tosses. | A "checked" card: all 19,682 nonzero three by three mistakes with entries −1, 0 or 1 hide from at most half the tosses; a finite check, the pairing proves every size. Under the tosses "19,682 checked: most misses 4 of 8" | lower-third, text from facts | |
+| 05_10 | But trying cases is not a proof. Mistakes can hold any whole numbers, at any size. We need a reason. | The count dims; a gold ? and "any size, any whole numbers" beside it. It stands until the card has been read, then the chapter fades | text | |
+
+### Notes for 05
+
+- Prediction (05_5): the question is on screen from "How many tosses"; four
+  seconds of silence; no sum, ring or tally line for the new mistake until
+  05_6, which says "Three" first.
+- The count 19,682 is of nonzero mistakes (the zero matrix is no mistake):
+  3^9 − 1 (F-X1.n3.wrong); the card says "nonzero", as the voice does.
+- Edge tests behind the always-sentences (F-X5): 18 sign and size cases, 6
+  cancelling cases, 384 one-per-row-and-column patterns.
+- "Two wrong entries can hide as often as one": the cancelling pair and the
+  slip each hide from 4 of 8 (F-X2.cancelling.misses, F-X2.one_entry.misses).
+- Pause targets: before "But one too big", "Try every" and "But trying
+  cases", about 0.85 s.
+
+## 06_never_more_than_half: Never more than half (~81 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 06_1 | Why never more than half? Pick any entry where the mistake isn't zero. In the one, one, minus one mistake, take row two, column one. | The 1, 1, −1 mistake, red "C − AB" under it, its nonzero entries outlined in red; the eight tosses below, with no sums. On "take row two, column one" that entry's box flashes and column 1 is outlined in gold | grid from the model, highlight | |
+| 06_2 | Pair up the tosses that differ only in that column's coin. With three coins, that makes four pairs. | The first coin of every toss is ringed in gold; a gold link joins each top toss to the one under it, its partner; "4 pairs" | rings, links | |
+| 06_3 | Fix the other two coins, say tails, then heads. With the first coin tails, row two's heads columns add up to minus one. | Every pair but 001 and 101 dims. Coins 2 and 3 of both are ringed in gold, "fixed: tails, heads". On "With the first coin tails" the top toss's row-2 sum, −1, appears under it | dim, rings, label from the model | |
+| 06_4 | Flip the first coin to heads. How much does row two's sum change? ⟨predict⟩ | The question, "Coin 1 flips to heads: how much does row 2's sum change?"; four seconds of silence with the countdown; the bottom toss's sum is not shown | think countdown | |
+| 06_5 | By the mistake's entry there, one, exactly. Minus one becomes zero. Flipping that coin adds just that one entry of the mistake to row two's sum. | The ? and the question go; "+1" beside the link; the bottom toss's sum appears, 0, in red; the chosen entry's box flashes with it | labels from the model, flash | |
+| 06_6 | In every pair, row two's sums differ by the chosen entry of the mistake. That entry isn't zero, so both sums can't be zero. At most one toss of each pair misses. | All pairs light again; every sum comes in, and "+1" beside every link. The entry boxes in row 2 give way to one red row outline, the gold column outline distinct. On "At most one" the three zero sums are ringed in red and flash, one in each of three pairs and none in the fourth | lagged reveal, highlight, labels from the model | |
+| 06_7 | The column matters. Pair the slip's tosses by the first coin, a column where its mistake is all zeros, and its row sum never moves. Two of those pairs miss twice. | The slip's mistake replaces it (one red 1 at row 2, column 2); its column 1 is outlined dim, "all zeros"; beside every link "+0"; the sums 0, 0, 1, 1 over 0, 0, 1, 1 come in, and pairs 000 and 100, 001 and 101 have both their sums ringed in red | grid swap, labels and rings from the model | |
+| 06_8 | Pairs cover every toss exactly once. So at most half of all tosses miss, for matrices of any size. | Clear the zero-column counterexample, its +0 labels and double-miss rings. Restore the 1, 1, −1 mistake, gold nonzero column, red row, its eight sums, +1 labels and three single-miss rings before the summary. A "precisely" card (K08): pick an entry where the mistake is not 0; flipping its column's coin moves its row's sum by that entry, so a pair holds at most 1 miss. At the right, one after another: "8 tosses, 4 pairs", "at most 1 miss in each pair", "at most 4 of 8"; on "for matrices of any size" 2ⁿ tosses, 2ⁿ⁻¹ pairs. It stands until the card has been read, then the chapter fades | lagged reveal, TeX, lower-third | |
+
+### Notes for 06
+
+- Prediction (06_4): the question is on screen from "How much", before its
+  last word; the bottom toss's sum, the change and every other sum stay off
+  until 06_5 and 06_6.
+- The proof picks a nonzero entry of the mistake (review correction of
+  2026-10-20): "a wrong entry" is not used for this step, since a wrong entry
+  of C could itself be 0. The entry is `facts::proof_entry()`, row 2, column 1
+  of the 1, 1, −1 mistake; its pairs and sums are the F-F8 rows, the
+  walk-through pair the F-F14 rows.
+- The count's "at most 1 miss in each pair" is the proof's constant
+  (`facts::MISSES_PER_PAIR`); the scene refuses a pair above it.
+- The column matters (06_7): paired by coin 1, over a column where the slip's
+  mistake is all zero, the row sum never moves (+0) and two pairs miss twice
+  (F-X5.right_column, 2, 2, 0, 0). 06_8 clears it and brings the proof's
+  picture back (misses per pair 1, 1, 0, 1) before the bound is stated
+  (root review, 2026-10-20).
+- Pause targets: after "Why never more than half?" about one second;
+  before "The column matters", about 0.85 s.
+
+## 07_toss_again: Toss again (~70 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 07_1 | One toss misses the slip half the time. So toss again, with fresh coins. | The slip's mistake, C − AB, top left. The eight tosses written as their coins, 000 to 111, in a column, red if it misses the slip and green if it catches it; "one toss: 4 of 8 miss" with the key "toss labels: miss caught". On "So toss again" the column sorts, misses first, and a copy turns to run along the top: "first toss", "second toss" | labels from the model, moves | |
+| 07_2 | Two tosses can land sixty-four ways. How many of them miss both times? ⟨predict⟩ | The grid of the 64 ways fills in, a faint square for each first and second toss. On "How many of them" the question at the right; four seconds of silence with the countdown; no square is red | grid of squares, think countdown | |
+| 07_3 | Sixteen, exactly a quarter. Both must miss, four ways for the first toss times four for the second. | The 16 squares where both miss turn red, filling the top-left corner; "16 of 64 ways miss both times". On "four ways for the first toss" the first toss's four miss rows are outlined; on "times four for the second" the four miss columns; "4 × 4 = 16" | lagged reveal from the model, highlight | |
+| 07_4 | For this slip, that quarter is exact. Any wrong C gets past two fresh tosses at most a quarter of the time. | "this slip: 16/64 = 1/4"; on "Any wrong C" "any wrong C: ≤ 1/2 · 1/2 = 1/4", with extra clearance between the stacked fractions, and a "precisely" card: in exact arithmetic, with fair coins, all independent and tossed after C is fixed, k tosses all miss any fixed wrong C with chance at most 1/2 to the k | TeX from facts, lower-third | |
+| 07_5 | But reuse one toss for both checks, and nothing changes. Four of the eight still miss, half. | The diagonal is outlined in gold and the rest of the grid dims; on "Four of the eight" its four red squares flash; "same toss twice: 4 of 8, still 1/2" | highlight, dim | |
+| 07_6 | Each fresh toss at least halves the chance again. Twenty fresh tosses all miss less than once in a million. | The grid and the panel clear. A ladder of the theorem's bound, a faint track for a chance of one and a red bar to scale: "1 toss" ≤ 1/2, "2 tosses" ≤ 1/4, and on "Twenty fresh tosses" "20 tosses" ≤ 1/1,048,576 < 1/1,000,000, no bar, "too small to see" | bars from the bound, TeX fractions | |
+| 07_7 | That's a chance about your coins, for a C that's already fixed. It doesn't say how likely C was to be wrong before you checked. | The ladder dims. Two lines: "a chance over the coins, for this fixed C" in ink, and "not: the chance that C is wrong after passing", dim and struck through. A "precisely" card (K10) replaces the promise card once that has been read | text, lower-third | |
+| 07_8 | And the check only errs one way. Once a toss catches C, it's wrong for certain, and a right C matches every toss. | Two lines under them: "C right: every toss matches", "C wrong: a caught toss proves it; a miss proves nothing" | text | |
+| 07_9 | This check is known as Freivalds' algorithm. | "Freivalds' algorithm" large at the centre, and a "names to search" card: Freivalds' algorithm, randomized algorithm, one-sided error. It stands until read, then the chapter fades | names to search card | |
+
+### Notes for 07
+
+- Prediction (07_2): as accepted in the earlier chapter 03.
+- The example and the theorem are kept apart (F-F5.two, F-F9.two.bound).
+- 07_7 defuses the misreading of the ladder as a chance that C is right after
+  passing: the bound is over the coins, for a fixed C. 07_8 is one-sided
+  error, the formal term only on the card.
+- Pronunciation obligation (07_9): "Freivalds" (Latvian; Rūsiņš Mārtiņš
+  Freivalds) must be looked up, respelled, probed against a control and a
+  decoy, and locked into `lexicon.json` with its sources before this line is
+  synthesized; the owner's pronunciation overrides every source. Root
+  performs the bounded route probe. No date or biography is spoken; the 1977
+  paper has not been read.
+- Pause targets: before "But reuse" and "That's a chance about your coins",
+  about 0.85 s.
+
+## 08_seen_first: A toss seen first (~64 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 08_1 | Fresh also means tossed after C is handed over. Someone who sees your toss first can write a wrong C it misses. | The eight tosses come in as coins, two rows of four. The exact card and its solution are withheld until after 08_2's prediction | coins | |
+| 08_2 | Say they see heads, heads, tails. Where could they put a wrong entry this toss can't see? ⟨predict⟩ | Toss 110 is ringed in gold, and an empty mistake, all zeros dim, appears under it. The question, "Where can a wrong entry hide from heads, heads, tails?"; four seconds of silence; no entry is marked | ring, grid, think countdown | |
+| 08_3 | Anywhere in the third column, under the tails coin. The toss never looks there. | After the prediction, with the answer: the empty mistake's third column fills red, "any nonzero entry here", the tails coin is ringed in red, and in the same fade the "precisely" card appears: from two by two up, any toss seen first can be beaten, one wrong entry under a tails coin, or under all heads a cancelling pair in one row. Its reading clock starts after that fade. Then the eight little grids fill in under the tosses, each the mistake of the wrong C written for that toss, zeros dim and wrong entries outlined in red, with "miss" under each, and "each grid shows C − AB" at the right; in the seven tosses with a tails coin, the tails coin over the wrong entry is ringed in red | lower-third, grids from the model, rings | |
+| 08_4 | Against all heads, put one entry too big and one too small by the same amount in one row, and they cancel. That's the sum of every column again. | The first row of 111's grid is outlined in gold, and beside it "1 + (−1) = 0"; on "That's the sum of every column again" "all heads = the sum of every column" | highlight, text | |
+| 08_5 | So every one of the eight tosses can be beaten. Yet against fresh tosses, each of these wrong answers is caught half the time. | The eight "miss" verdicts flash, "8 of 8 tosses beaten when seen first"; on "Yet against fresh tosses" a green line, "fresh tosses catch each of these wrong Cs: 4 of 8" | flash, text from facts | |
+| 08_6 | The protection was never in any one toss. It's that whoever wrote C couldn't know which toss was coming. | Every toss's coins dim and a gold ? stands over each | dim, text | |
+| 08_7 | For programmers, that means drawing the coins after C is fixed, from a source its maker can't predict, and new ones for every check. | A "for programmers" card (K12): the coins must not depend on C, drawn after C is fixed, from a source its maker cannot predict, fair, and new for every check. It stands until read, then the chapter fades | lower-third | |
+
+### Notes for 08
+
+- Prediction (08_2): the question is on screen from "Where could they";
+  only toss 110's empty mistake is shown, and no grid holds a wrong entry,
+  until 08_3. The "precisely" card names the answer, so it too waits for
+  08_3 (root review, 2026-10-20).
+- Every single nonzero entry in toss 110's third column hides from it, and
+  none in its heads columns does (F-X7); the shown blind spots are
+  `model::blind_spot`'s (F-X3).
+- Pause targets: before "Against all heads" and "The protection", about
+  0.85 s.
+
+## 09_what_it_costs: What it costs (~59 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 09_1 | Now the cost. At a thousand rows, one check takes a million multiplications, a thousandth of the billion for the product. | "n = 1000" at the top. A faint track and a full bar, "redo the product, row by column: n³ = 1,000,000,000"; on "one check takes" a second track, "1 check: n² = 1,000,000", its bar to scale, a thousandth, and the ratio 1,000,000 / 1,000,000,000 = 1/1000; a "for programmers" card (K13): multiplications counted row by column, n cubed for the product and n squared per check; time also needs additions and memory traffic | bars to scale from facts, TeX, lower-third | |
+| 09_2 | So twenty fresh checks take twenty million, a fiftieth. That counts work, not seconds. | A third track, "20 fresh checks: 20 × n² = 20,000,000", a blue bar to scale, a fiftieth; the ratio becomes 20,000,000 / 1,000,000,000 = 1/50 | bars to scale, TeX | |
+| 09_3 | The work also includes additions, and moving numbers in and out of memory. | No new picture: the card is read with the line; it fades once its reading time has passed | lower-third read | |
+| 09_4 | For three by three matrices, how many checks cost as much as redoing the product? ⟨predict⟩ | The thousand-row bars clear. "n = 3": a full bar, "redo: 27", and "1 check: 9", a third of it. The question; four seconds of silence; nothing stacked | bars from facts, think countdown | |
+| 09_5 | Three. Nine multiplications each, twenty-seven in all. For matrices that small, just multiply. The bigger the matrices, the smaller each check's share. | Three bars of 9 stack end to end under the 27, "3 × 9 = 27". On "The bigger the matrices" k checks: k·n² / n³ = k / n, and 3/3 = 1, 20/1000 = 1/50 | bars, TeX from facts | |
+| 09_6 | For programmers, the whole check is a short loop. Draw fresh coins. Add B's heads columns, multiply by A, and add C's heads columns. | The bars clear. A "for programmers" code panel slides in, six lines of code in the typewriter face, and the lines for the coins, B r, A(B r) and C r flash as they are said | code panel | |
+| 09_7 | Compare row by row, and stop as soon as a toss catches C. Otherwise, repeat with new coins, twenty times in all. | The compare and stop lines flash, then the loop's first line. It stands, then the chapter fades | code panel, flash | |
+
+### Notes for 09
+
+- Prediction (09_4): the question is on screen before its last word; the
+  stacked bars and "3 × 9 = 27" only in 09_5.
+- K13 replaces the earlier COST_NOTE, which said every entry is read from
+  memory; a selected-column check need not read the tails columns of B and
+  C. The convention is stated: multiplications counted row by column.
+- Break-even: k checks cost k·n² against n³, equal at k = n (F-F13). Three
+  checks at three by three cost 27, the product's own count.
+- The code is ASCII only (the typewriter face): no ·, × or ≠.
+- Pause targets: before "For three by three" and "For programmers", about
+  0.85 s.
+
+## 10_exact_and_rounded: Exact and rounded (~58 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 10_1 | Every sum so far has been exact, and the pairing proof needs that. | The pairing's step as a line: "two sums that differ by a nonzero entry are not both 0", and under it in gold, "with exact sums" | text | |
+| 10_2 | But many programs compute with doubles, which skip some whole numbers. What is ten to the sixteen plus one in doubles? ⟨predict⟩ | The step clears. "N = 10¹⁶" at the top left and a number line with the whole numbers N − 2 to N + 2. On "What is ten to the sixteen" the question, "What is N + 1 in doubles?", typeset with the same upright N; four seconds of silence with the countdown; no double is marked | number line, think countdown | |
+| 10_3 | Ten to the sixteen. Doubles there are two apart, so the one is lost. | The question becomes "N + 1 → N" over "(N + 1) − N = 0 in doubles", both computed, standing through the line. On "Doubles there are two apart" the doubles near N are marked in teal, "2 apart" between two of them, and a "precisely" card: a double has 53 significant bits, so above 2 to the 53, doubles are at least 2 apart; N + 1 is halfway between doubles N and N + 2, and the tie goes to N. On "so the one is lost" a red dot at N + 1 moves to N | dots from the computed doubles, moves, lower-third | |
+| 10_4 | So a right answer can get caught. This C is A times B, but with both coins heads, two lost ones make the columns differ. | A, B and C two by two with N in their entries, and the mistake C − AB, all zeros. The four tosses of two coins. On "This C is A times B" the exact row, "match" under every toss; on "with both coins heads" the doubles row, the last "no match" in red, toss 11 ringed in gold, and under it both computed: exact B r = (N + 1, −N + 1) and A(B r) = (2, 0) = C r; in doubles B r = (N, −N) and A(B r) = (0, 0) ≠ (2, 0) = C r | grids from the model, verdicts computed both ways, TeX | |
+| 10_5 | And a wrong answer can pass every toss. This C is too small by one, yet in doubles all four tosses miss it. | The second example replaces the first: C − AB has −1 in its corner, outlined in red. On "This C is too small by one" the exact row: match, match, then "no match" in green twice. On "all four tosses miss it" the doubles row, "match" under every toss in red, toss 10 ringed, exact A(B r) = (N + 1, 0) ≠ (N, 0) = C r against doubles A(B r) = (N, 0) = C r | grids from the model, verdicts computed both ways, TeX | |
+| 10_6 | A tolerance would let the right one through, but then a wrong C inside it passes every toss, with no half guarantee. | The computations go. On "but then a wrong C inside it" the equality rows dim, and under them the check with a tolerance, A(B r) − C r at most 2 in every row, the tolerance computed as the right C's largest gap in doubles; "the right C passes 4 of 4 in doubles; this wrong C, 4 of 4 in exact sums"; a "precisely" card: tolerance 2 lets the right C through, but then this wrong C passes all 4 tosses in exact sums: no half bound. It stands until read, then the chapter fades | TeX, text from facts, lower-third | |
+
+### Notes for 10
+
+- Prediction (10_2): as accepted in the earlier chapter 04: the answer is
+  written as it is said and stands through 10_3.
+- Every N is upright (`n_tex`: `\text{N}`), the same N as the question and
+  the cards (review F8).
+- Everything about doubles is computed (F-X4), as accepted.
+- The sentence-initial "A" of 10_6 ("A tolerance") is kept verbatim from the
+  accepted line; probing it is a pronunciation obligation (A must be read as
+  the article here, not as the matrix name).
+- Pause targets: before "But many programs", "So a right answer" and "And a
+  wrong answer", about 0.85 s.
+
+## 11_the_promise: The promise (~73 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 11_1 | So the promise is for exact arithmetic. Right answers match every toss, and a wrong one gets past each fresh toss at most half the time. | The opening picture returns, A × B = C with the slip outlined in red. On "Right answers" "a right C: every toss matches"; on "a wrong one gets past" "a wrong C: each fresh toss misses at most half the time", k fresh tosses all miss ≤ 1/2^k, and "in doubles, both can fail" dim; the promise card: in exact arithmetic, with fair coins, all independent and tossed after C is fixed, k tosses all miss any fixed wrong C with chance at most 1/2 to the k | TeX from the bound, lower-third | |
+| 11_2 | It assumes fair coins, tossed after C is fixed, and new ones for every check. | At the right, one after another in gold: "fair coins", "tossed after C is fixed", "new coins for every check" | lagged reveal | |
+| 11_3 | Back to the start. Redoing this product took twenty-seven multiplications. One toss took nine, and caught the slip in row two. | The promise lines and the assumptions go once the card has been read. At the right: "redoing it: 27 multiplications"; heads, heads, tails lands over C, its kept columns outlined in teal, and "one toss: 9, caught in row 2" in green | coins, highlight, text from facts | |
+| 11_4 | At a thousand rows, twenty fresh checks take a fiftieth of the multiplications, and a wrong answer passes them all less than once in a million. | Under the picture: "n = 1000: 20 checks, 20,000,000 of 1,000,000,000 multiplications" and "a wrong C passes all 20: ≤ 1/1,048,576 < 1/1,000,000" | TeX from facts | |
+| 11_5 | How many fresh checks would push that below one in a billion? ⟨predict⟩ | The question, "How many fresh checks for below 1 in 1,000,000,000?"; four seconds of silence with the countdown; no count | think countdown | |
+| 11_6 | Thirty. Two to the thirty is just over a billion, and at a thousand rows thirty checks still take only three hundredths of the multiplications. | The ? goes; 2³⁰ = 1,073,741,824 > 1,000,000,000, then 30 × n² = 30,000,000, 3/100 of n³ | TeX from facts | |
+| 11_7 | So a mistake hides only when its heads columns add up to zero in every row. Flipping the coin over any nonzero entry of the mistake breaks that. | Everything clears. The 1, 1, −1 mistake with toss 011 over it: its row sums 0, 0, 0, "hides". On "Flipping the coin" coin 1 flips to heads, row 2's sum becomes 1 in green, "caught". Then the names to search (Schwartz–Zippel lemma, polynomial identity testing) and the receipts card stand, and the video fades | coins, sums from the model, receipts card | hold |
+
+### Notes for 11
+
+- Prediction (11_5): the question is on screen before its last word; the
+  count, 2³⁰ and the cost only in 11_6.
+- Thirty is the least k with 2^k above a billion (F-F13.target: 2²⁹ =
+  536,870,912 is not); thirty checks at a thousand rows take 30,000,000
+  multiplications, 3/100 of the product's.
+- 11_2 states the assumptions the bound uses, not a claim that nothing else
+  could work (review correction of 2026-10-20).
+- 11_7: toss 011 hides the 1, 1, −1 mistake, and 111, one coin away, catches
+  it (F-F7.three_in_a_row.hides_from).
+- The receipts card names the repository; the names to search follow UIUC
+  CS 473 lecture 12's outline (Schwartz–Zippel, polynomial identity testing).
+- Pause targets: before "Back to the start" and "So a mistake hides", about
+  0.85 s.

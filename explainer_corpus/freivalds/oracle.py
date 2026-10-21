@@ -44,7 +44,7 @@ heads columns of B and C and multiplies A by that column, entry by entry):
 import math
 import sys
 from fractions import Fraction
-from itertools import permutations, product
+from itertools import combinations, permutations, product
 
 _EMITTED = {}
 _FAILED = []
@@ -329,6 +329,7 @@ def facts():
     chapter_02(ab)
     chapter_03(ab, passing)
     chapter_04()
+    expansion(ab)
     return ab, d, passing
 
 
@@ -576,6 +577,184 @@ def chapter_04():
           int(near + 1.0) == big and len(failing) == 1 and doubled.count("true") == len(two)
           and all(apply(ROUNDED_REJECTS[0], apply(ROUNDED_REJECTS[1], t)) == apply(ROUNDED_REJECTS[2], t) for t in two)
           and exact.count("true") * 2 <= len(two))
+
+
+def bools(values):
+    """Booleans joined as the Rust prints them: "false,true"."""
+    return ",".join("true" if v else "false" for v in values)
+
+
+def expansion(ab):
+    """The eleven-chapter episode's new numbers (2026-10-20), each by
+    multiplying, enumerating or exact fractions, never by the Rust's
+    formulas: the sum of every column and the cancelling claim (02, 03),
+    spot checks at scale (02), unfair coins (04), costs and the billion (09,
+    11), the walked pair (06) and the last picture (11), and two edges (03,
+    08)."""
+    n = len(A)
+    all_tosses = tosses(n)
+    zero = (0,) * n
+    shapes = dict(SHAPES)
+    ones = (1,) * n
+
+    # 02_7 to 02_9: the sum of every column, by multiplying by (1, 1, 1)
+    br, cr = apply(B, ones), apply(C, ones)
+    a_br = apply(A, br)
+    emit("F-F10.c_sums", csv(cr))
+    emit("F-F10.b_sums", csv(br))
+    emit("F-F10.a_b_sums", csv(a_br))
+    emit("F-F10.disagree_rows", csv(i + 1 for i in range(n) if a_br[i] != cr[i]))
+    emit("F-F10.multiplications", sum(len(row) for row in A))
+    # 03_1, 03_2: the slip with the entry beside it one too small
+    claim = plus(ab, shapes["cancelling"])
+    changed = [(i, j) for i in range(n) for j in range(n) if claim[i][j] != C[i][j]]
+    (ci, cj), = changed
+    emit("F-F10.cancelling.c", matrix_text(claim))
+    emit("F-F10.cancelling.changed", csv((ci + 1, cj + 1)))
+    emit("F-F10.cancelling.claimed", claim[ci][cj])
+    emit("F-F10.cancelling.true", ab[ci][cj])
+    emit("F-F10.cancelling.wrong_count", sum(1 for i in range(n) for j in range(n) if claim[i][j] != ab[i][j]))
+    emit("F-F10.cancelling.c_sums", csv(apply(claim, ones)))
+    emit("F-F10.cancelling.passes_all_heads", apply(claim, ones) == a_br)
+    claim_passing = [t for t in all_tosses if apply(A, apply(B, t)) == apply(claim, t)]
+    emit("F-F10.cancelling.passing", ",".join(toss_text(t) for t in claim_passing))
+    check("chapters 02, 03: the sum of every column catches the slip and passes the cancelling claim, which fresh "
+          "tosses still catch half the time",
+          a_br != cr and apply(claim, ones) == a_br and 2 * len(claim_passing) == len(all_tosses))
+
+    # 02_3 to 02_5: k different random entries catch one wrong entry with
+    # chance k / n^2; the fewest k for one half, found by search
+    entries = BIG_SIDE**2
+    emit("F-F11.big.entries", entries)
+    emit("F-F11.big.one_pick_misses", Fraction(entries - 1, entries))
+    lo, hi = 0, entries
+    while lo < hi:
+        mid = (lo + hi) // 2
+        if Fraction(mid, entries) >= Fraction(1, 2):
+            hi = mid
+        else:
+            lo = mid + 1
+    picks = lo
+    emit("F-F11.big.entries_for_half", picks)
+    emit("F-F11.big.catch_chance", Fraction(picks, entries))
+    emit("F-F11.big.multiplications_for_half", picks * BIG_SIDE)
+    emit("F-F11.big.share_of_product", Fraction(picks * BIG_SIDE, BIG_SIDE**3))
+    # at three by three by enumerating every set of k entries
+    cells = [(i, j) for i in range(n) for j in range(n)]
+    (slip,) = [(i, j) for i, j in cells if C[i][j] != ab[i][j]]
+
+    def catch(k):
+        sets = list(combinations(cells, k))
+        return Fraction(sum(1 for s in sets if slip in s), len(sets))
+
+    small = next(k for k in range(1, n * n + 1) if catch(k) >= Fraction(1, 2))
+    emit("F-F11.small.entries_for_half", f"{small}/{n * n}")
+    check("chapter 02: k random entries catch one slip with chance k/9, and five is the fewest for half",
+          all(catch(k) == Fraction(k, n * n) for k in range(1, n * n + 1)) and catch(small - 1) < Fraction(1, 2))
+
+    # 04_6 to 04_8: the chances of the tosses, with fair and unfair coins
+    def chance(c, heads):
+        total = Fraction(0)
+        for t in all_tosses:
+            if apply(A, apply(B, t)) == apply(c, t):
+                w = Fraction(1)
+                for coin, p in zip(t, heads):
+                    w *= p if coin else 1 - p
+                total += w
+        return total
+
+    fair, unfair = Fraction(1, 2), Fraction(1, 10)
+    (_, wj), = [(i, j) for i, j in cells if C[i][j] != ab[i][j]]
+    emit("F-F12.heads", unfair)
+    emit("F-F12.fair_slip_passes", chance(C, [fair] * n))
+    emit("F-F12.slip_passes", chance(C, [unfair] * n))
+    weights = []
+    for t in all_tosses:
+        if apply(A, apply(B, t)) == apply(C, t):
+            w = Fraction(1)
+            for coin in t:
+                w *= unfair if coin else 1 - unfair
+            weights.append(w)
+    emit("F-F12.passing_weights", csv(weights))
+    only = [unfair] * n
+    only[wj] = fair
+    emit("F-F12.only_slip_coin_fair", chance(C, only))
+    check("chapter 04: heads one time in ten lets the slip past nine times in ten, and the half needs only its "
+          "column's coin fair",
+          chance(C, [unfair] * n) == Fraction(9, 10) and chance(C, only) == fair and sum(weights) == Fraction(9, 10))
+
+    # 09_4, 09_5: k checks of n^2 multiplications against n^3, by counting
+    product_count = len(list(product(range(n), repeat=3)))
+    check_count = len(list(product(range(n), repeat=2)))
+    emit("F-F13.small.break_even", next(k for k in range(1, 100) if k * check_count == product_count))
+    emit("F-F13.big.one_check_share", Fraction(BIG_SIDE**2, BIG_SIDE**3))
+    # 11_5, 11_6: the fewest fresh checks whose bound is under one in a billion
+    billion = 10**9
+    k = next(k for k in range(1, 100) if PAIRING_BOUND**k < Fraction(1, billion))
+    emit("F-F13.target", billion)
+    emit("F-F13.target.checks", k)
+    emit("F-F13.target.odds", (1 / PAIRING_BOUND) ** k)
+    emit("F-F13.target.one_fewer_odds", (1 / PAIRING_BOUND) ** (k - 1))
+    emit("F-F13.target.just_over", billion < (1 / PAIRING_BOUND) ** k < 2 * billion)
+    emit("F-F13.target.multiplications", k * BIG_SIDE**2)
+    emit("F-F13.target.share", Fraction(k * BIG_SIDE**2, BIG_SIDE**3))
+    check("chapter 11: thirty fresh checks beat a billion and twenty-nine do not",
+          k == 30 and PAIRING_BOUND**29 >= Fraction(1, billion))
+
+    # 06_3 to 06_5: the proof's pair whose other coins are tails, then heads
+    three = shapes[PROOF_SHAPE]
+    row, column = next((i, j) for i in range(n) for j in range(n) if three[i][j])
+    others = (0, 1)
+    (tails, heads), = [(t, t[:column] + (1,) + t[column + 1:]) for t in all_tosses
+                       if t[column] == 0 and tuple(x for j, x in enumerate(t) if j != column) == others]
+    sums = (apply(three, tails)[row], apply(three, heads)[row])
+    emit("F-F14.pair", f"{toss_text(tails)}-{toss_text(heads)}")
+    emit("F-F14.others", "".join(str(x) for x in others))
+    emit("F-F14.row_sums", csv(sums))
+    emit("F-F14.change", sums[1] - sums[0])
+    emit("F-F14.hides", bools((apply(three, tails) == zero, apply(three, heads) == zero)))
+    # 11_7: toss 011 hides the proof's mistake; its coin 1 flipped catches it
+    hiding = (0, 1, 1)
+    flipped = hiding[:column] + (1 - hiding[column],) + hiding[column + 1:]
+    emit("F-F15.toss", toss_text(hiding))
+    emit("F-F15.hides", apply(three, hiding) == zero)
+    emit("F-F15.row_sums", csv(apply(three, hiding)))
+    emit("F-F15.flipped", toss_text(flipped))
+    emit("F-F15.flipped_row_sums", csv(apply(three, flipped)))
+    emit("F-F15.flipped_caught", apply(three, flipped) != zero)
+
+    # edges: a caught toss names a wrong row (03_7), and a single wrong entry
+    # hides from a toss exactly when its coin is tails (08_3)
+    cases = bad = 0
+    for dd in product(product((-1, 0, 1), repeat=n), repeat=n):
+        if not any(x for row_ in dd for x in row_):
+            continue
+        c = plus(ab, dd)
+        for t in all_tosses:
+            cases += 1
+            lhs, rhs = apply(A, apply(B, t)), apply(c, t)
+            bad += sum(1 for i in range(n) if lhs[i] != rhs[i] and not any(dd[i]))
+    emit("F-X6.cases", cases)
+    emit("F-X6.violations", bad)
+    toss = FIRST_TOSS
+    (tails_column,) = [j for j in range(n) if toss[j] == 0]
+    singles = [(i, j, value) for i in range(n) for j in range(n) for value in (-1, 1)]
+
+    def single(i, j, value):
+        return tuple(tuple(value if (p, q) == (i, j) else 0 for q in range(n)) for p in range(n))
+
+    in_tails = [s for s in singles if toss[s[1]] == 0]
+    in_heads = [s for s in singles if toss[s[1]] == 1]
+    emit("F-X7.toss", toss_text(toss))
+    emit("F-X7.tails_column", tails_column + 1)
+    emit("F-X7.tails_column.single_entries", len(in_tails))
+    emit("F-X7.tails_column.hiding", sum(1 for s in in_tails if apply(single(*s), toss) == zero))
+    emit("F-X7.heads_columns.single_entries", len(in_heads))
+    emit("F-X7.heads_columns.hiding", sum(1 for s in in_heads if apply(single(*s), toss) == zero))
+    check("chapters 03, 08: a caught row is always a wrong row, and toss 110 sees every single wrong entry but "
+          "those under its tails coin",
+          bad == 0 and all(apply(single(*s), toss) == zero for s in in_tails)
+          and not any(apply(single(*s), toss) == zero for s in in_heads))
 
 
 def cross_checks(ab, d, passing):

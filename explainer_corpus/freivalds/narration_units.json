@@ -1,103 +1,84 @@
 {
   "schema_version": 1,
-  "script_sha256": "33d8899b79e068f162faa465708bf68f40c051594cd8d49fcf0c0b92624a9e76",
+  "script_sha256": "1f788115f1c1387e5c2d4ca9da4be75fec12595cd2b08e38162d99ff1780fbf5",
   "units": [
     {
       "id": "01u1",
       "line_ids": [
-        "01_1"
+        "01_1",
+        "01_2"
       ],
-      "text": "Someone multiplied two matrices, A and B, and handed you the answer, C. Is C really A times B? You could multiply them again."
+      "text": "Someone hands you the product of two giant matrices. Can you check it without redoing all that work? With coin tosses, you can. For a thousand rows and columns, twenty checks need a fiftieth of the multiplications that redoing it takes. Right answers always pass, and a wrong one gets through less than once in a million."
     },
     {
       "id": "01u2",
       "line_ids": [
-        "01_2",
         "01_3"
       ],
-      "text": "Nine entries, three multiplications each, twenty-seven in all. With a thousand rows and columns, a billion. Checking one entry at random is cheap, but it misses a single wrong entry eight times in nine."
+      "text": "Start small. Here are two matrices, A and B, and the answer someone handed you, C. Is C really A times B?"
     },
     {
       "id": "01u3",
       "line_ids": [
-        "01_4",
-        "01_5"
+        "01_4"
       ],
-      "text": "Here is a better check. Toss a coin for each column of C, and add up the columns that land heads. Do the same to B, then multiply by A. That takes nine multiplications, not twenty-seven."
+      "text": "Each entry of the product is a row of A times a column of B. Multiply them in pairs, then add. Row one times column three gives zero, plus four, plus three. Seven."
     },
     {
       "id": "01u4",
       "line_ids": [
-        "01_6",
-        "01_7"
+        "01_5",
+        "01_6"
       ],
-      "text": "Both columns must match if C is right. They don't, so C is wrong, for certain. But that was one toss. Of the eight ways three coins can land, how many miss the wrong entry?"
+      "text": "C has seven there too, so that entry is right. But the product has nine entries, three multiplications each, twenty-seven in all. Now make it a thousand rows and a thousand columns. How many multiplications does that take, row by column?"
     },
     {
       "id": "01u5",
       "line_ids": [
-        "01_8",
-        "01_9"
+        "01_7",
+        "01_8"
       ],
-      "text": "Check all eight. Four of them miss, exactly half. Because every miss leaves out the column that holds the wrong entry."
-    },
-    {
-      "id": "01u6",
-      "line_ids": [
-        "01_10"
-      ],
-      "text": "But no wrong answer hides from more than half the tosses. So toss again. Twenty fresh tosses all miss less than once in a million."
+      "text": "One billion. That's a million entries, a thousand multiplications each. And checking it by redoing it costs another billion. It might come from a fast library, a rented machine or a student. You'd like to trust it without paying twice."
     },
     {
       "id": "02u1",
       "line_ids": [
-        "02_1"
+        "02_1",
+        "02_2"
       ],
-      "text": "Look at the mistake on its own, C minus the true product. The check misses exactly when its heads columns add up to zero in every row."
+      "text": "The obvious shortcut is to check a few entries. Pick one at random, and redo just that one. Three multiplications. Suppose C has a single wrong entry. One random pick finds it one time in nine. Eight times in nine, it misses."
     },
     {
       "id": "02u2",
       "line_ids": [
-        "02_2",
-        "02_3"
+        "02_3",
+        "02_4"
       ],
-      "text": "Two in one row, both one too big, hide only when both coins land tails. Two of eight. But one too big and one too small by the same amount hide whenever their coins agree. Four of eight, half again."
+      "text": "At a thousand rows there are a million entries, and one pick misses a single wrong one almost every time. How many different entries would you have to check to catch it at least half the time?"
     },
     {
       "id": "02u3",
       "line_ids": [
-        "02_4"
+        "02_5",
+        "02_6"
       ],
-      "text": "Now one, one and minus one in a row. How many tosses does it hide from?"
+      "text": "Half a million. At a thousand multiplications each, that's five hundred million, half the cost of redoing the product. Spot checks only see the entries they pick, and one wrong entry can be anywhere."
     },
     {
       "id": "02u4",
       "line_ids": [
-        "02_5",
-        "02_6"
+        "02_7",
+        "02_8"
       ],
-      "text": "Three. Not half, and not a power of two. Put one wrong entry in each row and column, and it hides only from all tails."
+      "text": "Here is a cheaper idea. Add up all three columns of C into one column. That takes only additions. If C is right, each of its columns is A times the same column of B. So the sum of C's columns must be A times the sum of B's."
     },
     {
       "id": "02u5",
       "line_ids": [
-        "02_7"
+        "02_9",
+        "02_10"
       ],
-      "text": "Why never more than half? Pick a column where C is wrong. Pair the tosses that differ only in its coin."
-    },
-    {
-      "id": "02u6",
-      "line_ids": [
-        "02_8"
-      ],
-      "text": "Because that row's sum changes across a pair by the wrong entry, both can't be zero. At most one of each pair misses."
-    },
-    {
-      "id": "02u7",
-      "line_ids": [
-        "02_9"
-      ],
-      "text": "Pairs cover every toss once, so at most half of all tosses miss, for matrices of any size."
+      "text": "That takes nine multiplications, not twenty-seven. And in row two, C's sum says sixteen, while the other side says fifteen. So C is wrong. In fact, the two in the middle of that row should be one. Call it the slip."
     },
     {
       "id": "03u1",
@@ -105,92 +86,290 @@
         "03_1",
         "03_2"
       ],
-      "text": "One toss misses the slip half the time. So toss again, with fresh coins. Two tosses can land sixty-four ways. How many of them miss both times?"
+      "text": "But suppose the nine beside the slip were written as eight. Now row two adds up to fifteen, the same as the other side. The extra one and the missing one cancel, and this check passes a wrong answer."
     },
     {
       "id": "03u2",
       "line_ids": [
         "03_3"
       ],
-      "text": "Sixteen, exactly a quarter. Both must miss, four ways for the first toss times four for the second."
+      "text": "With three columns, every fixed choice of columns has wrong answers it can't see. So don't fix it in advance. Let coins choose the columns, after C is handed over."
     },
     {
       "id": "03u3",
       "line_ids": [
-        "03_4"
+        "03_4",
+        "03_5"
       ],
-      "text": "For this slip, that quarter is exact. Any wrong C gets past two fresh tosses at most a quarter of the time."
+      "text": "Back to the C with one slip. Toss a coin for each column. Heads keeps a column, and tails leaves it out. Say they land heads, heads, tails. Add up C's heads columns, then B's, and multiply B's by A, still nine multiplications. Will the two columns match?"
     },
     {
       "id": "03u4",
       "line_ids": [
-        "03_5"
-      ],
-      "text": "But reuse one toss for both checks, and nothing changes. Four of the eight still miss, half."
-    },
-    {
-      "id": "03u5",
-      "line_ids": [
-        "03_6"
-      ],
-      "text": "Fresh also means tossed after C is handed over. Someone who sees your toss first can write a wrong C it misses."
-    },
-    {
-      "id": "03u6",
-      "line_ids": [
+        "03_6",
         "03_7"
       ],
-      "text": "Put one wrong entry under a tails coin, and the toss never looks at it. Against all heads, put one entry too big and one too small by the same amount in one row, and they cancel."
-    },
-    {
-      "id": "03u7",
-      "line_ids": [
-        "03_8"
-      ],
-      "text": "So every one of the eight tosses can be beaten. Yet against fresh tosses, each of these wrong answers is caught half the time."
+      "text": "No. If C were right, they would, for the same reason as before. But in row two, C says seven and the other side says six. So C is wrong, for certain, and row two holds a wrong entry. Show anyone this toss, and nine multiplications let them see it too."
     },
     {
       "id": "04u1",
       "line_ids": [
         "04_1"
       ],
-      "text": "At a thousand rows, twenty fresh checks take twenty million multiplications, a fiftieth of the billion to redo the product. That counts work, not seconds."
+      "text": "But that was one toss. Of the eight ways three coins can land, how many miss the slip?"
     },
     {
       "id": "04u2",
       "line_ids": [
-        "04_2"
+        "04_2",
+        "04_3"
       ],
-      "text": "But many programs compute with doubles, which skip some whole numbers. What is ten to the sixteen plus one in doubles?"
+      "text": "Check all eight. Four of them miss, exactly half. Every miss leaves out the middle column, the one that holds the slip. When that coin lands heads, the slip's extra one lands in row two, and nothing there cancels it."
     },
     {
       "id": "04u3",
       "line_ids": [
-        "04_3",
-        "04_4"
+        "04_4",
+        "04_5"
       ],
-      "text": "Ten to the sixteen. Doubles there are two apart, so the one is lost. So a right answer can get caught. This C is A times B, but with both coins heads, two lost ones make the columns differ."
+      "text": "So look at the mistake on its own, C minus the true product. For the slip, it's a single one. The two columns the check compares always differ by the mistake's heads columns, added up. So the check misses exactly when those add up to zero in every row."
     },
     {
       "id": "04u4",
       "line_ids": [
-        "04_5"
+        "04_6",
+        "04_7"
       ],
-      "text": "And a wrong answer can pass every toss. This C is too small by one, yet in doubles all four tosses miss it."
+      "text": "Four of eight becomes a chance of one half when every toss is equally likely. Fair coins, each tossed on its own, give exactly that. Suppose each coin landed heads only one time in ten. How often would the slip get past?"
     },
     {
       "id": "04u5",
       "line_ids": [
-        "04_6"
+        "04_8"
       ],
-      "text": "A tolerance would let the right one through, but then a wrong C inside it passes every toss, with no half guarantee."
+      "text": "Nine times in ten, whenever the middle coin lands tails. Our half guarantee uses fair coins."
     },
     {
-      "id": "04u6",
+      "id": "05u1",
       "line_ids": [
-        "04_7"
+        "05_1",
+        "05_2"
       ],
-      "text": "So the promise is for exact arithmetic. A right C matches every toss, and a wrong one gets past each fresh toss at most half the time."
+      "text": "Is half special to this slip? Try mistakes of other shapes, with the same A and B. Two in one row, both one too big, hide only when both coins land tails. Two of eight."
+    },
+    {
+      "id": "05u2",
+      "line_ids": [
+        "05_3",
+        "05_4"
+      ],
+      "text": "But one too big and one too small by the same amount hide whenever their coins agree. Four of eight, half again. That's the pair that fooled the sum of every column, which is just the toss with all heads."
+    },
+    {
+      "id": "05u3",
+      "line_ids": [
+        "05_5"
+      ],
+      "text": "Now one, one and minus one in a row. How many tosses does it hide from?"
+    },
+    {
+      "id": "05u4",
+      "line_ids": [
+        "05_6",
+        "05_7",
+        "05_8"
+      ],
+      "text": "Three. Not half, and not a power of two. Put one wrong entry in each row and column, and it hides only from all tails. One of eight. So two wrong entries can hide as often as one. What matters is whether they can cancel."
+    },
+    {
+      "id": "05u5",
+      "line_ids": [
+        "05_9",
+        "05_10"
+      ],
+      "text": "Try every nonzero three by three mistake with entries of minus one, zero or one. All nineteen thousand, six hundred eighty-two of them hide from at most half the tosses. But trying cases is not a proof. Mistakes can hold any whole numbers, at any size. We need a reason."
+    },
+    {
+      "id": "06u1",
+      "line_ids": [
+        "06_1",
+        "06_2"
+      ],
+      "text": "Why never more than half? Pick any entry where the mistake isn't zero. In the one, one, minus one mistake, take row two, column one. Pair up the tosses that differ only in that column's coin. With three coins, that makes four pairs."
+    },
+    {
+      "id": "06u2",
+      "line_ids": [
+        "06_3",
+        "06_4"
+      ],
+      "text": "Fix the other two coins, say tails, then heads. With the first coin tails, row two's heads columns add up to minus one. Flip the first coin to heads. How much does row two's sum change?"
+    },
+    {
+      "id": "06u3",
+      "line_ids": [
+        "06_5",
+        "06_6"
+      ],
+      "text": "By the mistake's entry there, one, exactly. Minus one becomes zero. Flipping that coin adds just that one entry of the mistake to row two's sum. In every pair, row two's sums differ by the chosen entry of the mistake. That entry isn't zero, so both sums can't be zero. At most one toss of each pair misses."
+    },
+    {
+      "id": "06u4",
+      "line_ids": [
+        "06_7",
+        "06_8"
+      ],
+      "text": "The column matters. Pair the slip's tosses by the first coin, a column where its mistake is all zeros, and its row sum never moves. Two of those pairs miss twice. Pairs cover every toss exactly once. So at most half of all tosses miss, for matrices of any size."
+    },
+    {
+      "id": "07u1",
+      "line_ids": [
+        "07_1",
+        "07_2"
+      ],
+      "text": "One toss misses the slip half the time. So toss again, with fresh coins. Two tosses can land sixty-four ways. How many of them miss both times?"
+    },
+    {
+      "id": "07u2",
+      "line_ids": [
+        "07_3",
+        "07_4"
+      ],
+      "text": "Sixteen, exactly a quarter. Both must miss, four ways for the first toss times four for the second. For this slip, that quarter is exact. Any wrong C gets past two fresh tosses at most a quarter of the time."
+    },
+    {
+      "id": "07u3",
+      "line_ids": [
+        "07_5",
+        "07_6"
+      ],
+      "text": "But reuse one toss for both checks, and nothing changes. Four of the eight still miss, half. Each fresh toss at least halves the chance again. Twenty fresh tosses all miss less than once in a million."
+    },
+    {
+      "id": "07u4",
+      "line_ids": [
+        "07_7",
+        "07_8",
+        "07_9"
+      ],
+      "text": "That's a chance about your coins, for a C that's already fixed. It doesn't say how likely C was to be wrong before you checked. And the check only errs one way. Once a toss catches C, it's wrong for certain, and a right C matches every toss. This check is known as Freivalds' algorithm."
+    },
+    {
+      "id": "08u1",
+      "line_ids": [
+        "08_1",
+        "08_2"
+      ],
+      "text": "Fresh also means tossed after C is handed over. Someone who sees your toss first can write a wrong C it misses. Say they see heads, heads, tails. Where could they put a wrong entry this toss can't see?"
+    },
+    {
+      "id": "08u2",
+      "line_ids": [
+        "08_3",
+        "08_4"
+      ],
+      "text": "Anywhere in the third column, under the tails coin. The toss never looks there. Against all heads, put one entry too big and one too small by the same amount in one row, and they cancel. That's the sum of every column again."
+    },
+    {
+      "id": "08u3",
+      "line_ids": [
+        "08_5",
+        "08_6"
+      ],
+      "text": "So every one of the eight tosses can be beaten. Yet against fresh tosses, each of these wrong answers is caught half the time. The protection was never in any one toss. It's that whoever wrote C couldn't know which toss was coming."
+    },
+    {
+      "id": "08u4",
+      "line_ids": [
+        "08_7"
+      ],
+      "text": "For programmers, that means drawing the coins after C is fixed, from a source its maker can't predict, and new ones for every check."
+    },
+    {
+      "id": "09u1",
+      "line_ids": [
+        "09_1",
+        "09_2",
+        "09_3"
+      ],
+      "text": "Now the cost. At a thousand rows, one check takes a million multiplications, a thousandth of the billion for the product. So twenty fresh checks take twenty million, a fiftieth. That counts work, not seconds. The work also includes additions, and moving numbers in and out of memory."
+    },
+    {
+      "id": "09u2",
+      "line_ids": [
+        "09_4"
+      ],
+      "text": "For three by three matrices, how many checks cost as much as redoing the product?"
+    },
+    {
+      "id": "09u3",
+      "line_ids": [
+        "09_5"
+      ],
+      "text": "Three. Nine multiplications each, twenty-seven in all. For matrices that small, just multiply. The bigger the matrices, the smaller each check's share."
+    },
+    {
+      "id": "09u4",
+      "line_ids": [
+        "09_6",
+        "09_7"
+      ],
+      "text": "For programmers, the whole check is a short loop. Draw fresh coins. Add B's heads columns, multiply by A, and add C's heads columns. Compare row by row, and stop as soon as a toss catches C. Otherwise, repeat with new coins, twenty times in all."
+    },
+    {
+      "id": "10u1",
+      "line_ids": [
+        "10_1",
+        "10_2"
+      ],
+      "text": "Every sum so far has been exact, and the pairing proof needs that. But many programs compute with doubles, which skip some whole numbers. What is ten to the sixteen plus one in doubles?"
+    },
+    {
+      "id": "10u2",
+      "line_ids": [
+        "10_3",
+        "10_4"
+      ],
+      "text": "Ten to the sixteen. Doubles there are two apart, so the one is lost. So a right answer can get caught. This C is A times B, but with both coins heads, two lost ones make the columns differ."
+    },
+    {
+      "id": "10u3",
+      "line_ids": [
+        "10_5",
+        "10_6"
+      ],
+      "text": "And a wrong answer can pass every toss. This C is too small by one, yet in doubles all four tosses miss it. A tolerance would let the right one through, but then a wrong C inside it passes every toss, with no half guarantee."
+    },
+    {
+      "id": "11u1",
+      "line_ids": [
+        "11_1",
+        "11_2"
+      ],
+      "text": "So the promise is for exact arithmetic. Right answers match every toss, and a wrong one gets past each fresh toss at most half the time. It assumes fair coins, tossed after C is fixed, and new ones for every check."
+    },
+    {
+      "id": "11u2",
+      "line_ids": [
+        "11_3",
+        "11_4"
+      ],
+      "text": "Back to the start. Redoing this product took twenty-seven multiplications. One toss took nine, and caught the slip in row two. At a thousand rows, twenty fresh checks take a fiftieth of the multiplications, and a wrong answer passes them all less than once in a million."
+    },
+    {
+      "id": "11u3",
+      "line_ids": [
+        "11_5"
+      ],
+      "text": "How many fresh checks would push that below one in a billion?"
+    },
+    {
+      "id": "11u4",
+      "line_ids": [
+        "11_6",
+        "11_7"
+      ],
+      "text": "Thirty. Two to the thirty is just over a billion, and at a thousand rows thirty checks still take only three hundredths of the multiplications. So a mistake hides only when its heads columns add up to zero in every row. Flipping the coin over any nonzero entry of the mistake breaks that."
     }
   ]
 }

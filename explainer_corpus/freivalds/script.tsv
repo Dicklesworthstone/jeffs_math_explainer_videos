@@ -1,35 +1,88 @@
 # freivalds: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
-01_1	Someone multiplied two matrices, A and B, and handed you the answer, C. Is C really A times B? You could multiply them again.
-01_2	Nine entries, three multiplications each, twenty-seven in all. With a thousand rows and columns, a billion.
-01_3	Checking one entry at random is cheap, but it misses a single wrong entry eight times in nine.
-01_4	Here is a better check. Toss a coin for each column of C, and add up the columns that land heads.
-01_5	Do the same to B, then multiply by A. That takes nine multiplications, not twenty-seven.
-01_6	Both columns must match if C is right. They don't, so C is wrong, for certain.
-01_7	But that was one toss. Of the eight ways three coins can land, how many miss the wrong entry?
-01_8	Check all eight. Four of them miss, exactly half.
-01_9	Because every miss leaves out the column that holds the wrong entry.
-01_10	But no wrong answer hides from more than half the tosses. So toss again. Twenty fresh tosses all miss less than once in a million.
-02_1	Look at the mistake on its own, C minus the true product. The check misses exactly when its heads columns add up to zero in every row.
-02_2	Two in one row, both one too big, hide only when both coins land tails. Two of eight.
-02_3	But one too big and one too small by the same amount hide whenever their coins agree. Four of eight, half again.
-02_4	Now one, one and minus one in a row. How many tosses does it hide from?
-02_5	Three. Not half, and not a power of two.
-02_6	Put one wrong entry in each row and column, and it hides only from all tails.
-02_7	Why never more than half? Pick a column where C is wrong. Pair the tosses that differ only in its coin.
-02_8	Because that row's sum changes across a pair by the wrong entry, both can't be zero. At most one of each pair misses.
-02_9	Pairs cover every toss once, so at most half of all tosses miss, for matrices of any size.
-03_1	One toss misses the slip half the time. So toss again, with fresh coins.
-03_2	Two tosses can land sixty-four ways. How many of them miss both times?
-03_3	Sixteen, exactly a quarter. Both must miss, four ways for the first toss times four for the second.
-03_4	For this slip, that quarter is exact. Any wrong C gets past two fresh tosses at most a quarter of the time.
-03_5	But reuse one toss for both checks, and nothing changes. Four of the eight still miss, half.
-03_6	Fresh also means tossed after C is handed over. Someone who sees your toss first can write a wrong C it misses.
-03_7	Put one wrong entry under a tails coin, and the toss never looks at it. Against all heads, put one entry too big and one too small by the same amount in one row, and they cancel.
-03_8	So every one of the eight tosses can be beaten. Yet against fresh tosses, each of these wrong answers is caught half the time.
-04_1	At a thousand rows, twenty fresh checks take twenty million multiplications, a fiftieth of the billion to redo the product. That counts work, not seconds.
-04_2	But many programs compute with doubles, which skip some whole numbers. What is ten to the sixteen plus one in doubles?
-04_3	Ten to the sixteen. Doubles there are two apart, so the one is lost.
-04_4	So a right answer can get caught. This C is A times B, but with both coins heads, two lost ones make the columns differ.
-04_5	And a wrong answer can pass every toss. This C is too small by one, yet in doubles all four tosses miss it.
-04_6	A tolerance would let the right one through, but then a wrong C inside it passes every toss, with no half guarantee.
-04_7	So the promise is for exact arithmetic. A right C matches every toss, and a wrong one gets past each fresh toss at most half the time.
+01_1	Someone hands you the product of two giant matrices. Can you check it without redoing all that work?
+01_2	With coin tosses, you can. For a thousand rows and columns, twenty checks need a fiftieth of the multiplications that redoing it takes. Right answers always pass, and a wrong one gets through less than once in a million.
+01_3	Start small. Here are two matrices, A and B, and the answer someone handed you, C. Is C really A times B?
+01_4	Each entry of the product is a row of A times a column of B. Multiply them in pairs, then add. Row one times column three gives zero, plus four, plus three. Seven.
+01_5	C has seven there too, so that entry is right. But the product has nine entries, three multiplications each, twenty-seven in all.
+01_6	Now make it a thousand rows and a thousand columns. How many multiplications does that take, row by column?
+01_7	One billion. That's a million entries, a thousand multiplications each. And checking it by redoing it costs another billion.
+01_8	It might come from a fast library, a rented machine or a student. You'd like to trust it without paying twice.
+02_1	The obvious shortcut is to check a few entries. Pick one at random, and redo just that one. Three multiplications.
+02_2	Suppose C has a single wrong entry. One random pick finds it one time in nine. Eight times in nine, it misses.
+02_3	At a thousand rows there are a million entries, and one pick misses a single wrong one almost every time.
+02_4	How many different entries would you have to check to catch it at least half the time?
+02_5	Half a million. At a thousand multiplications each, that's five hundred million, half the cost of redoing the product.
+02_6	Spot checks only see the entries they pick, and one wrong entry can be anywhere.
+02_7	Here is a cheaper idea. Add up all three columns of C into one column. That takes only additions.
+02_8	If C is right, each of its columns is A times the same column of B. So the sum of C's columns must be A times the sum of B's.
+02_9	That takes nine multiplications, not twenty-seven. And in row two, C's sum says sixteen, while the other side says fifteen. So C is wrong.
+02_10	In fact, the two in the middle of that row should be one. Call it the slip.
+03_1	But suppose the nine beside the slip were written as eight. Now row two adds up to fifteen, the same as the other side.
+03_2	The extra one and the missing one cancel, and this check passes a wrong answer.
+03_3	With three columns, every fixed choice of columns has wrong answers it can't see. So don't fix it in advance. Let coins choose the columns, after C is handed over.
+03_4	Back to the C with one slip. Toss a coin for each column. Heads keeps a column, and tails leaves it out.
+03_5	Say they land heads, heads, tails. Add up C's heads columns, then B's, and multiply B's by A, still nine multiplications. Will the two columns match?
+03_6	No. If C were right, they would, for the same reason as before. But in row two, C says seven and the other side says six.
+03_7	So C is wrong, for certain, and row two holds a wrong entry. Show anyone this toss, and nine multiplications let them see it too.
+04_1	But that was one toss. Of the eight ways three coins can land, how many miss the slip?
+04_2	Check all eight. Four of them miss, exactly half.
+04_3	Every miss leaves out the middle column, the one that holds the slip. When that coin lands heads, the slip's extra one lands in row two, and nothing there cancels it.
+04_4	So look at the mistake on its own, C minus the true product. For the slip, it's a single one.
+04_5	The two columns the check compares always differ by the mistake's heads columns, added up. So the check misses exactly when those add up to zero in every row.
+04_6	Four of eight becomes a chance of one half when every toss is equally likely. Fair coins, each tossed on its own, give exactly that.
+04_7	Suppose each coin landed heads only one time in ten. How often would the slip get past?
+04_8	Nine times in ten, whenever the middle coin lands tails. Our half guarantee uses fair coins.
+05_1	Is half special to this slip? Try mistakes of other shapes, with the same A and B.
+05_2	Two in one row, both one too big, hide only when both coins land tails. Two of eight.
+05_3	But one too big and one too small by the same amount hide whenever their coins agree. Four of eight, half again.
+05_4	That's the pair that fooled the sum of every column, which is just the toss with all heads.
+05_5	Now one, one and minus one in a row. How many tosses does it hide from?
+05_6	Three. Not half, and not a power of two.
+05_7	Put one wrong entry in each row and column, and it hides only from all tails. One of eight.
+05_8	So two wrong entries can hide as often as one. What matters is whether they can cancel.
+05_9	Try every nonzero three by three mistake with entries of minus one, zero or one. All nineteen thousand, six hundred eighty-two of them hide from at most half the tosses.
+05_10	But trying cases is not a proof. Mistakes can hold any whole numbers, at any size. We need a reason.
+06_1	Why never more than half? Pick any entry where the mistake isn't zero. In the one, one, minus one mistake, take row two, column one.
+06_2	Pair up the tosses that differ only in that column's coin. With three coins, that makes four pairs.
+06_3	Fix the other two coins, say tails, then heads. With the first coin tails, row two's heads columns add up to minus one.
+06_4	Flip the first coin to heads. How much does row two's sum change?
+06_5	By the mistake's entry there, one, exactly. Minus one becomes zero. Flipping that coin adds just that one entry of the mistake to row two's sum.
+06_6	In every pair, row two's sums differ by the chosen entry of the mistake. That entry isn't zero, so both sums can't be zero. At most one toss of each pair misses.
+06_7	The column matters. Pair the slip's tosses by the first coin, a column where its mistake is all zeros, and its row sum never moves. Two of those pairs miss twice.
+06_8	Pairs cover every toss exactly once. So at most half of all tosses miss, for matrices of any size.
+07_1	One toss misses the slip half the time. So toss again, with fresh coins.
+07_2	Two tosses can land sixty-four ways. How many of them miss both times?
+07_3	Sixteen, exactly a quarter. Both must miss, four ways for the first toss times four for the second.
+07_4	For this slip, that quarter is exact. Any wrong C gets past two fresh tosses at most a quarter of the time.
+07_5	But reuse one toss for both checks, and nothing changes. Four of the eight still miss, half.
+07_6	Each fresh toss at least halves the chance again. Twenty fresh tosses all miss less than once in a million.
+07_7	That's a chance about your coins, for a C that's already fixed. It doesn't say how likely C was to be wrong before you checked.
+07_8	And the check only errs one way. Once a toss catches C, it's wrong for certain, and a right C matches every toss.
+07_9	This check is known as Freivalds' algorithm.
+08_1	Fresh also means tossed after C is handed over. Someone who sees your toss first can write a wrong C it misses.
+08_2	Say they see heads, heads, tails. Where could they put a wrong entry this toss can't see?
+08_3	Anywhere in the third column, under the tails coin. The toss never looks there.
+08_4	Against all heads, put one entry too big and one too small by the same amount in one row, and they cancel. That's the sum of every column again.
+08_5	So every one of the eight tosses can be beaten. Yet against fresh tosses, each of these wrong answers is caught half the time.
+08_6	The protection was never in any one toss. It's that whoever wrote C couldn't know which toss was coming.
+08_7	For programmers, that means drawing the coins after C is fixed, from a source its maker can't predict, and new ones for every check.
+09_1	Now the cost. At a thousand rows, one check takes a million multiplications, a thousandth of the billion for the product.
+09_2	So twenty fresh checks take twenty million, a fiftieth. That counts work, not seconds.
+09_3	The work also includes additions, and moving numbers in and out of memory.
+09_4	For three by three matrices, how many checks cost as much as redoing the product?
+09_5	Three. Nine multiplications each, twenty-seven in all. For matrices that small, just multiply. The bigger the matrices, the smaller each check's share.
+09_6	For programmers, the whole check is a short loop. Draw fresh coins. Add B's heads columns, multiply by A, and add C's heads columns.
+09_7	Compare row by row, and stop as soon as a toss catches C. Otherwise, repeat with new coins, twenty times in all.
+10_1	Every sum so far has been exact, and the pairing proof needs that.
+10_2	But many programs compute with doubles, which skip some whole numbers. What is ten to the sixteen plus one in doubles?
+10_3	Ten to the sixteen. Doubles there are two apart, so the one is lost.
+10_4	So a right answer can get caught. This C is A times B, but with both coins heads, two lost ones make the columns differ.
+10_5	And a wrong answer can pass every toss. This C is too small by one, yet in doubles all four tosses miss it.
+10_6	A tolerance would let the right one through, but then a wrong C inside it passes every toss, with no half guarantee.
+11_1	So the promise is for exact arithmetic. Right answers match every toss, and a wrong one gets past each fresh toss at most half the time.
+11_2	It assumes fair coins, tossed after C is fixed, and new ones for every check.
+11_3	Back to the start. Redoing this product took twenty-seven multiplications. One toss took nine, and caught the slip in row two.
+11_4	At a thousand rows, twenty fresh checks take a fiftieth of the multiplications, and a wrong answer passes them all less than once in a million.
+11_5	How many fresh checks would push that below one in a billion?
+11_6	Thirty. Two to the thirty is just over a billion, and at a thousand rows thirty checks still take only three hundredths of the multiplications.
+11_7	So a mistake hides only when its heads columns add up to zero in every row. Flipping the coin over any nonzero entry of the mistake breaks that.
