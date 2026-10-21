@@ -97,6 +97,28 @@ checks and inspection scope are linked from the catalog's
 independent continuous visual review and listening. No auditory acceptance,
 final 4K qualification or publication is inferred from the technical checks.
 
+The **expanded review cuts delivered on 2026-10-21** now meet the owner's
+10–15 minute target with worked examples, mathematical explanations and prediction
+exercises. These are the current complete narrated-and-scored 1080p60 review files:
+
+| Expanded review cut | Measured length | Narration cues | English captions |
+|---|---:|---:|---:|
+| [Epsilon–delta](../../narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-expanded-review01.mp4) |14:45|106|252|
+| [Randomized response](../../narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-expanded-review01.mp4) |12:25|99|207|
+| [Discrete tomography](../../narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-expanded-review01.mp4) |12:30|92|207|
+| [Resistor networks and random walks](../../narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-expanded-review01.mp4) |12:11|81|191|
+| [Freivalds](../../narration_lab/production-20261020/second-wave-central/owner-review/freivalds-expanded-review01.mp4) |12:06|87|202|
+
+Matching English SRT/VTT sidecars accompany every file. The exact source, narration,
+native timing, score, captured soundtrack replay, full decode and sampled visual
+receipts are linked by each `expanded-review01-20261021` catalog revision. Normal
+playback speed and substantive content produce these durations; no padding or
+time stretching was used. Root reviewed actual cue, prediction and chapter-join
+frames and corrected concrete visual defects. This is sampled review, not a claim
+of continuous viewing or listening. Owner listening and full audiovisual acceptance
+remain open. The older cuts and failure variants above are preserved. No new
+publication or final 4K release is recorded.
+
 The direct owner resumption above supersedes older deferral text in the dated
 [owner amendments](../../AGENTS.md); scope and ownership restrictions otherwise remain.
 

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-10-20",
+  "updated_on": "2026-10-21",
   "work_tracker": ".beads",
   "consumer": "Channel owner and video producers",
   "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
@@ -2392,6 +2392,40 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "expanded-review01-20261021",
+          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-expanded-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "0156768babf4f6441291859761d54d1949aa3a7603b371d741a7f71ce504b09f"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Native 1920x1080p60 export: 44695 frames, 744.916667s, 99 narration cues and 207 caption entries. Source and exact narration inputs are bound by the technical receipt. Expanded worked reasoning, assumptions and prediction exercises use the established Michael reference route, seed 2, complete thought units and actual EOS. Epsilon retains only separately provenance-verified unchanged takes; its changed units and all four other episodes use new complete takes. No playback-rate change or padding was used. Individual native chapter selections preserve measured cue timing. Score QA, captured native soundtrack replay, caption sentence coverage and timing, frame count and full master decoding passed. Root inspected actual rendered cue, prediction and chapter-join samples; the visual receipt specifies coverage and any exact reused chapter evidence. All prior cuts, variants and failures remain preserved. ASR ambiguities are retained and do not establish pronunciation or listening acceptance.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/randomized_response-delivery01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/randomized_response/native02/verification.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/randomized_response/native02/visual01/review.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-expanded-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-expanded-review01.en.vtt"
+          ],
+          "disposition": "Complete local review cut delivered for owner viewing and listening. Sampled visual and technical checks passed; continuous audiovisual review, listening acceptance, final 4K qualification and publication remain open. No upload or public-release verdict.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-21",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/randomized_response-delivery01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/randomized_response/native02/verification.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/randomized_response/native02/visual01/review.json"
+              ]
+            }
+          ]
         }
       ],
       "publications": []
@@ -2504,6 +2538,40 @@
               "evidence_state": "pass",
               "evidence_refs": [
                 "narration_lab/production-20261020/second-wave-central/discrete-tomography-01/score-review01/verification.json"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "expanded-review01-20261021",
+          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-expanded-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "d36fd4371f4faf495c6625f27eb4317cb9985f3c57d1d623678d0eedf4b3ca58"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Native 1920x1080p60 export: 45003 frames, 750.050000s, 92 narration cues and 207 caption entries. Source and exact narration inputs are bound by the technical receipt. Expanded worked reasoning, assumptions and prediction exercises use the established Michael reference route, seed 2, complete thought units and actual EOS. Epsilon retains only separately provenance-verified unchanged takes; its changed units and all four other episodes use new complete takes. No playback-rate change or padding was used. Individual native chapter selections preserve measured cue timing. Score QA, captured native soundtrack replay, caption sentence coverage and timing, frame count and full master decoding passed. Root inspected actual rendered cue, prediction and chapter-join samples; the visual receipt specifies coverage and any exact reused chapter evidence. All prior cuts, variants and failures remain preserved. ASR ambiguities are retained and do not establish pronunciation or listening acceptance.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/discrete_tomography-delivery01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/discrete_tomography/native01/verification.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/discrete_tomography/native01/visual01/review.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-expanded-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-expanded-review01.en.vtt"
+          ],
+          "disposition": "Complete local review cut delivered for owner viewing and listening. Sampled visual and technical checks passed; continuous audiovisual review, listening acceptance, final 4K qualification and publication remain open. No upload or public-release verdict.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-21",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/discrete_tomography-delivery01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/discrete_tomography/native01/verification.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/discrete_tomography/native01/visual01/review.json"
               ]
             }
           ]
@@ -2816,6 +2884,40 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "expanded-review01-20261021",
+          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-expanded-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "8e85bb801108a30a45dd04879ea5e695d555ec146867717a592f98f1801a019a"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Native 1920x1080p60 export: 43874 frames, 731.233333s, 81 narration cues and 191 caption entries. Source and exact narration inputs are bound by the technical receipt. Expanded worked reasoning, assumptions and prediction exercises use the established Michael reference route, seed 2, complete thought units and actual EOS. Epsilon retains only separately provenance-verified unchanged takes; its changed units and all four other episodes use new complete takes. No playback-rate change or padding was used. Individual native chapter selections preserve measured cue timing. Score QA, captured native soundtrack replay, caption sentence coverage and timing, frame count and full master decoding passed. Root inspected actual rendered cue, prediction and chapter-join samples; the visual receipt specifies coverage and any exact reused chapter evidence. All prior cuts, variants and failures remain preserved. ASR ambiguities are retained and do not establish pronunciation or listening acceptance.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/resistor_random_walk-delivery01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/resistor_random_walk/native01/verification.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/resistor_random_walk/native01/visual01/review.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-expanded-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-expanded-review01.en.vtt"
+          ],
+          "disposition": "Complete local review cut delivered for owner viewing and listening. Sampled visual and technical checks passed; continuous audiovisual review, listening acceptance, final 4K qualification and publication remain open. No upload or public-release verdict.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-21",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/resistor_random_walk-delivery01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/resistor_random_walk/native01/verification.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/resistor_random_walk/native01/visual01/review.json"
+              ]
+            }
+          ]
         }
       ],
       "publications": []
@@ -3024,6 +3126,40 @@
               "evidence_state": "pass",
               "evidence_refs": [
                 "narration_lab/production-20261020/second-wave-central/freivalds-01/score-review02/verification.json"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "expanded-review01-20261021",
+          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-expanded-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "eed3d28ea6c477e9113a46c4b575c53cee631e524b61a9b310925be3a380d96e"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Native 1920x1080p60 export: 43543 frames, 725.716667s, 87 narration cues and 202 caption entries. Source and exact narration inputs are bound by the technical receipt. Expanded worked reasoning, assumptions and prediction exercises use the established Michael reference route, seed 2, complete thought units and actual EOS. Epsilon retains only separately provenance-verified unchanged takes; its changed units and all four other episodes use new complete takes. No playback-rate change or padding was used. Individual native chapter selections preserve measured cue timing. Score QA, captured native soundtrack replay, caption sentence coverage and timing, frame count and full master decoding passed. Root inspected actual rendered cue, prediction and chapter-join samples; the visual receipt specifies coverage and any exact reused chapter evidence. All prior cuts, variants and failures remain preserved. ASR ambiguities are retained and do not establish pronunciation or listening acceptance.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/freivalds-delivery01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/freivalds/native05/verification.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/freivalds/native05/visual01/review.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-expanded-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-expanded-review01.en.vtt"
+          ],
+          "disposition": "Complete local review cut delivered for owner viewing and listening. Sampled visual and technical checks passed; continuous audiovisual review, listening acceptance, final 4K qualification and publication remain open. No upload or public-release verdict.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-21",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/freivalds-delivery01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/freivalds/native05/verification.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/freivalds/native05/visual01/review.json"
               ]
             }
           ]
@@ -3977,6 +4113,40 @@
               "evidence_state": "pass",
               "evidence_refs": [
                 "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/score-review01/verification.json"
+              ]
+            }
+          ]
+        },
+        {
+          "revision_id": "expanded-review01-20261021",
+          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-expanded-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "c15a5c8e8793b1d4159538119e3d60a69c8eb5c930848ff49387bc8266527d57"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Native 1920x1080p60 export: 53090 frames, 884.833333s, 106 narration cues and 252 caption entries. Source and exact narration inputs are bound by the technical receipt. Expanded worked reasoning, assumptions and prediction exercises use the established Michael reference route, seed 2, complete thought units and actual EOS. Epsilon retains only separately provenance-verified unchanged takes; its changed units and all four other episodes use new complete takes. No playback-rate change or padding was used. Individual native chapter selections preserve measured cue timing. Score QA, captured native soundtrack replay, caption sentence coverage and timing, frame count and full master decoding passed. Root inspected actual rendered cue, prediction and chapter-join samples; the visual receipt specifies coverage and any exact reused chapter evidence. All prior cuts, variants and failures remain preserved. ASR ambiguities are retained and do not establish pronunciation or listening acceptance.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/epsilon-delivery01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/epsilon_delta/native02/verification.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/epsilon_delta/native02/visual01/review.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-expanded-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-expanded-review01.en.vtt"
+          ],
+          "disposition": "Complete local review cut delivered for owner viewing and listening. Sampled visual and technical checks passed; continuous audiovisual review, listening acceptance, final 4K qualification and publication remain open. No upload or public-release verdict.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-21",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/epsilon-delivery01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/epsilon_delta/native02/verification.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/expanded-review-01/epsilon_delta/native02/visual01/review.json"
               ]
             }
           ]
