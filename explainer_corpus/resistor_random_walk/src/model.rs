@@ -697,6 +697,51 @@ impl Network {
         !before.is_empty() && steps_ok && self.is_end(last) && before.iter().all(|&x| !self.is_end(x))
     }
 
+    /// The junctions wired to `x`, each once however many wires join them,
+    /// in wire order: the links a school shortcut sees once each pair of
+    /// wires side by side is merged (chapter 03).
+    pub fn neighbours(&self, x: usize) -> Vec<usize> {
+        let mut out: Vec<usize> = Vec::new();
+        for y in self.wires.iter().filter_map(|w| w.far(x)) {
+            if !out.contains(&y) {
+                out.push(y);
+            }
+        }
+        out
+    }
+
+    /// Two runs of repeated averaging (chapter 11), the top held at one and
+    /// the bottom at zero in both: one from every middle junction at zero,
+    /// one from every middle junction at one, each round every middle
+    /// junction at once from the round before. The low run's rounds and
+    /// the high run's, round 0 first. With positive weights a round keeps
+    /// the order of two guesses, so the true values stay between the runs,
+    /// and their gap at a junction is the chance that a walker from there is
+    /// still walking after that many steps.
+    pub fn two_runs(&self, rounds: usize) -> Result<(Vec<Vec<Q>>, Vec<Vec<Q>>), String> {
+        let start = |middle: Q| -> Vec<Q> {
+            (0..self.size)
+                .map(|x| {
+                    if x == self.top {
+                        Q::ONE
+                    } else if x == self.bottom {
+                        Q::ZERO
+                    } else {
+                        middle
+                    }
+                })
+                .collect()
+        };
+        let (mut low, mut high) = (vec![start(Q::ZERO)], vec![start(Q::ONE)]);
+        for _ in 0..rounds {
+            let next_low = self.averaging_round(low.last().ok_or("no round to start from")?)?;
+            let next_high = self.averaging_round(high.last().ok_or("no round to start from")?)?;
+            low.push(next_low);
+            high.push(next_high);
+        }
+        Ok((low, high))
+    }
+
     /// The fewest wires from `from` to `to`, as the junctions along the way
     /// (both included), passing on only through middle junctions: the path
     /// a peak at `from` spreads along to `to` (chapter 04). `None` when no
@@ -832,14 +877,58 @@ pub fn single_pair() -> Result<Network, String> {
 /// The opening network and two more junctions joined only to each other:
 /// the edge of "exactly one solution".
 pub fn with_island() -> Result<Network, String> {
-    let open = opening()?;
-    let mut wires = open.wires().to_vec();
+    beside_island(&opening()?)
+}
+
+/// `net` and two more junctions, numbered after its own, joined by one wire
+/// to each other and to nothing else (chapter 09's island beside the
+/// bridge, chapter 11's beside the unequal wires).
+pub fn beside_island(net: &Network) -> Result<Network, String> {
+    let mut wires = net.wires().to_vec();
     wires.push(Wire {
-        a: JUNCTIONS,
-        b: JUNCTIONS + 1,
+        a: net.size(),
+        b: net.size() + 1,
         conductance: Q::ONE,
     });
-    Network::new(JUNCTIONS + 2, wires, TOP, BOTTOM)
+    Network::new(net.size() + 2, wires, net.top(), net.bottom())
+}
+
+/// The line of chapters 01 and 02: five identical wires, the six junctions
+/// numbered from the bottom (0) to the top (5). Doyle and Snell's walk
+/// along a five-block street (§1.1.1).
+pub const LINE_WIRES: usize = 5;
+/// Where the line's walker starts: one wire above the bottom.
+pub const LINE_START: usize = 1;
+/// The route the line's walker is drawn taking (01_3): up, down, up, up,
+/// up and up, to the top. One route among endlessly many.
+pub const LINE_ROUTE: [usize; 7] = [1, 2, 1, 2, 3, 4, 5];
+/// The ghost walker's route (01_3, drawn without words): its first step
+/// down, and it has stopped at the bottom.
+pub const LINE_GHOST: [usize; 2] = [1, 0];
+
+/// Doyle and Snell's unequal example (§1.3.1 to §1.3.2) drawn on the
+/// opening's shape (chapter 10): their a, b, c, d as the top, the bottom,
+/// the left and the right. Each link's conductance; a link of conductance 2
+/// is one wire, drawn heavier, not two.
+pub const UNEQUAL_LINKS: [(usize, usize, i128); 5] = [
+    (TOP, LEFT, 1),
+    (TOP, RIGHT, 1),
+    (LEFT, RIGHT, 2),
+    (LEFT, BOTTOM, 1),
+    (RIGHT, BOTTOM, 2),
+];
+
+/// The unequal network, in the opening's junction order.
+pub fn unequal() -> Result<Network, String> {
+    let wires = UNEQUAL_LINKS
+        .iter()
+        .map(|&(a, b, k)| Wire {
+            a,
+            b,
+            conductance: Q::int(k),
+        })
+        .collect();
+    Network::new(JUNCTIONS, wires, TOP, BOTTOM)
 }
 
 /// Doyle and Snell's worked example (§1.3.1 to §1.3.2, figures 13 to 18):
@@ -1218,6 +1307,122 @@ mod tests {
             assert_eq!(v, want, "{n} wires");
             assert_eq!(net.walk().unwrap().top, want, "{n} wires");
         }
+    }
+
+    /// Chapter 01's line: from one wire above the bottom the walker reaches
+    /// the top first with chance 1/5; every chance is halfway between its
+    /// neighbours'; the drawn route and the ghost's are walks; the halfway
+    /// rule with both ends at zero leaves only zero, and the chance of still
+    /// walking shrinks towards it, never reaching it, so the two ends'
+    /// chances add to one.
+    #[test]
+    fn the_line_walk_climbs_in_equal_steps_and_stops_with_chance_one() {
+        let row = line(LINE_WIRES).unwrap();
+        let walk = row.walk().unwrap();
+        let want: Vec<Q> = (0..=LINE_WIRES).map(|x| q(x as i128, LINE_WIRES as i128)).collect();
+        assert_eq!(walk.top, want);
+        assert_eq!(walk.top[LINE_START], q(1, 5));
+        for x in row.middle() {
+            assert_eq!(walk.top[x] - walk.top[x - 1], walk.top[x + 1] - walk.top[x]);
+            assert_eq!(row.far_ends(x).unwrap().len(), 2);
+            assert_eq!(walk.top[x] + walk.bottom[x], Q::ONE);
+        }
+        assert!(row.is_route(&LINE_ROUTE));
+        assert!(row.is_route(&LINE_GHOST));
+        assert!(row.kirchhoff(Q::ZERO, Q::ZERO).unwrap().iter().all(|v| v.is_zero()));
+        let still = row.still_walking(LINE_START, 60).unwrap();
+        assert!(still.iter().all(|s| s.is_positive()));
+        assert!(still.windows(2).all(|w| w[1] <= w[0]));
+        assert!(still[59] < q(1, 1000));
+    }
+
+    /// Chapter 03's dead end: with each pair of wires side by side merged,
+    /// no two links join the same two junctions and three links meet at each
+    /// middle junction, so neither school shortcut applies. On a line each
+    /// middle junction meets two: its wires are in a row.
+    #[test]
+    fn the_bridge_leaves_no_shortcut() {
+        let net = opening().unwrap();
+        let mut pairs: Vec<(usize, usize)> = net.wires().iter().map(|w| (w.a.min(w.b), w.a.max(w.b))).collect();
+        pairs.sort_unstable();
+        pairs.dedup();
+        assert_eq!(pairs.len(), net.wires().len());
+        for x in net.middle() {
+            assert_eq!(net.neighbours(x).len(), 3);
+        }
+        assert_eq!(net.neighbours(LEFT), [TOP, RIGHT, BOTTOM]);
+        assert_eq!(line(2).unwrap().neighbours(1), [0, 2]);
+    }
+
+    /// Chapter 10's unequal wires are Doyle and Snell's example relabelled:
+    /// their a, b, c, d as the top, the bottom, the left and the right, the
+    /// same totals and the same voltages, and the walk agrees.
+    #[test]
+    fn the_unequal_network_is_doyle_and_snells() {
+        let drawn = unequal().unwrap();
+        let theirs = doyle_snell().unwrap();
+        let v = drawn.kirchhoff(Q::ONE, Q::ZERO).unwrap();
+        let w = theirs.kirchhoff(Q::ONE, Q::ZERO).unwrap();
+        assert_eq!([v[TOP], v[BOTTOM], v[LEFT], v[RIGHT]], [w[0], w[1], w[2], w[3]]);
+        assert_eq!((v[LEFT], v[RIGHT]), (q(7, 16), q(3, 8)));
+        assert_eq!(drawn.walk().unwrap().top, v);
+        for (x, y) in [(TOP, 0), (BOTTOM, 1), (LEFT, 2), (RIGHT, 3)] {
+            assert_eq!(drawn.total(x), theirs.total(y));
+        }
+        assert_eq!(drawn.between(LEFT, RIGHT), theirs.between(2, 3));
+    }
+
+    /// Chapter 11's bracket, on the bridge and on the unequal wires: the
+    /// top stays 1 and the bottom 0 in both runs, the run from zeros only
+    /// rises, the run from ones only falls, the solution stays between
+    /// them, and their gap is exactly the chance of still walking. The
+    /// unequal wires' runs first come within a thousandth of each other
+    /// after round 9; beside an island the island's runs never move. (Twenty
+    /// rounds on the bridge: comparing two of its rounds' fractions past
+    /// that would overflow i128, which panics.)
+    #[test]
+    fn two_runs_bracket_the_answer_and_their_gap_is_the_walk_still_going() {
+        for net in [opening().unwrap(), unequal().unwrap()] {
+            let v = net.kirchhoff(Q::ONE, Q::ZERO).unwrap();
+            let (low, high) = net.two_runs(20).unwrap();
+            for n in 0..=20 {
+                for x in 0..net.size() {
+                    assert!(low[n][x] <= v[x] && v[x] <= high[n][x], "round {n} junction {x}");
+                    if n > 0 {
+                        assert!(low[n][x] >= low[n - 1][x] && high[n][x] <= high[n - 1][x], "round {n}");
+                    }
+                }
+                assert_eq!(
+                    (low[n][TOP], high[n][TOP], low[n][BOTTOM], high[n][BOTTOM]),
+                    (Q::ONE, Q::ONE, Q::ZERO, Q::ZERO)
+                );
+            }
+            for x in net.middle() {
+                let still = net.still_walking(x, 12).unwrap();
+                for n in 1..=12 {
+                    assert_eq!(high[n][x] - low[n][x], still[n - 1], "junction {x} round {n}");
+                }
+            }
+        }
+        let (low, high) = unequal().unwrap().two_runs(12).unwrap();
+        let widest = |n: usize| (high[n][LEFT] - low[n][LEFT]).max(high[n][RIGHT] - low[n][RIGHT]);
+        assert_eq!((widest(8), widest(9)), (q(1, 625), q(1, 1250)));
+        assert_eq!((1..=12).find(|&n| widest(n) < q(1, 1000)), Some(9));
+        let island = beside_island(&unequal().unwrap()).unwrap();
+        assert_eq!(island.cut_off(), [4, 5]);
+        let (low, high) = island.two_runs(40).unwrap();
+        for n in 0..=40 {
+            assert_eq!(
+                (low[n][4], low[n][5], high[n][4], high[n][5]),
+                (Q::ZERO, Q::ZERO, Q::ONE, Q::ONE),
+                "round {n}"
+            );
+        }
+        assert_eq!(high[9][LEFT] - low[9][LEFT], q(1, 1250));
+        // with_island is the bridge beside an island
+        let bridge_island = with_island().unwrap();
+        assert_eq!(bridge_island.size(), JUNCTIONS + 2);
+        assert_eq!(bridge_island.cut_off(), [JUNCTIONS, JUNCTIONS + 1]);
     }
 
     /// With conductances that are not whole numbers the rule weights each

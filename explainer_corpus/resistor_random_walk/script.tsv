@@ -1,35 +1,82 @@
 # resistor_random_walk: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
-01_1	Identical wires join four junctions, doubled in two places. A battery holds the top at one volt and the bottom at zero.
-01_2	Current in equals current out, so a middle junction's voltage is the average of the voltages at the far ends of its four wires.
-01_3	On the left, one, one, two fifths and zero average to three fifths.
-01_4	Now forget the battery. A walker at the left junction picks one of its four wires at random, and walks on until it reaches the top or the bottom.
-01_5	Its routes never run out, so look one step ahead. Its chance of reaching the top first is the average of its chances from the far ends of its four wires.
-01_6	From the top the chance is one, and from the bottom it's zero. So what is it from the left junction?
-01_7	Three fifths again. One rule, the same top and bottom, and only one solution. So the voltage and the chance must agree.
-01_8	The walker is a model, not a claim about electrons. The two numbers agree because they solve the same equations.
-02_1	At the left junction, each wire's current is its voltage drop divided by the wires' shared resistance.
-02_2	Each wire of the pair drops two fifths of a volt. Then one fifth to the right, three fifths to the bottom.
-02_3	Current in equals current out, so the drops balance too. Two fifths and two fifths in, one fifth and three fifths out.
-02_4	With the voltage unknown, the balance says four times it equals one plus one plus two fifths plus zero. So it's their average.
-02_5	Now the walker picks one of the four wires, each equally likely. What's the chance its first step reaches the top?
-02_6	One half, not one third. The pair is two of the four wires, so it counts twice, like its two currents.
-02_7	Up, it has reached the top. Right, its chance is the right junction's. Down, it's zero. A quarter of each, added, is the same average.
-02_8	With unequal wires, weight each far end by its wire's conductance, and the walker chooses wires in that proportion. The same rule.
-03_1	Here's a way to find the middle voltages without solving anything. Guess zero for both, then average.
-03_2	Each round, every middle junction takes the average of the far ends of its four wires, using the values from the round before.
-03_3	Round one. The left averages one, one, zero and zero to one half. The right averages one and three zeros to one quarter.
-03_4	Round two uses those. Nine sixteenths and three eighths. Then nineteen thirty-seconds and twenty-five sixty-fourths.
-03_5	The bigger gap to the answer shrinks to a quarter every round, because only one wire at each junction leads to an unknown.
-03_6	So after how many rounds is the left exactly three fifths?
-03_7	Never. Each round makes halves, quarters, eighths and so on, and three fifths is none of them. But after five rounds both are within a thousandth.
-03_8	The values close in on three fifths and two fifths, the only pair that keeps every average.
-03_9	The top and bottom must stay fixed. Average them too, and every junction drifts to the same number.
-04_1	Here's why there is only one solution. Suppose another set of values keeps the rule, with the same top and bottom.
-04_2	Subtract them. The difference is zero at the top and bottom, and it keeps the rule too.
-04_3	Take its largest value. If above zero, it sits at a middle junction, an average of far ends no larger.
-04_4	An average reaches its largest part only if every part equals it. So the peak spreads along wires to the top, which is zero.
-04_5	So the peak is zero, and likewise the lowest value. Both solutions are the same.
-04_6	Now add an island, two junctions wired only to each other. Is there still only one solution?
-04_7	No. The island's peak crosses its one wire and stops, never reaching the top or bottom. Any equal pair keeps the rule.
-04_8	So the proof needs every middle junction to reach the top or the bottom along wires.
-04_9	A walker on the island never reaches the top. Its chance is zero, but the island's voltage is left free.
+01_1	Five identical wires join six junctions in a line. A walker starts one wire above the bottom.
+01_2	At each middle junction it picks one of its two wires at random, and it stops if it reaches the top or the bottom.
+01_3	Here's one route. Up, down, up, up, up and up.
+01_4	So what's its chance of reaching the top first? It's the fraction of very many walkers that do.
+01_5	Its routes never run out, so look one step ahead. Half the time it lands one wire up and half the time one wire down, and from there it starts afresh.
+01_6	So its chance is the average of the chances at those two far ends. And an average of two numbers sits halfway between them.
+01_7	From the top the chance is one, and from the bottom it's zero. So what is it one wire above the bottom?
+01_8	One fifth. Halfway at every middle junction means equal steps, and five equal steps climb from zero to one.
+01_9	And its chance of walking for ever is zero. That chance keeps the same halfway rule, with zero at both ends, and equal steps from zero to zero stay at zero.
+02_1	Now forget the walker. A battery holds the top of the same line at one volt and the bottom at zero.
+02_2	Current flows down through the wires. Nothing piles up at a middle junction, so the current in equals the current out.
+02_3	So every wire carries the same current. And a wire's current is its voltage drop divided by its resistance, so identical wires have equal drops.
+02_4	Five equal drops share the one volt. So what's the voltage one wire above the bottom?
+02_5	One fifth of a volt, the walker's chance from there. Junction by junction, the voltages and the chances agree.
+02_6	Is that luck? At a middle junction, the current in from above equals the current out below, so the drop above equals the drop below.
+02_7	Equal drops put its voltage halfway between the voltages at the far ends of its two wires. That's the walker's rule.
+02_8	The same rule, the same top and bottom, and on a line the rule allows only equal steps. So the two answers had to agree.
+03_1	Identical wires join four junctions, doubled in two places. A battery holds the top at one volt and the bottom at zero.
+03_2	Current in equals current out, so a middle junction's voltage is the average of the voltages at the far ends of its four wires.
+03_3	Its middle voltages will turn out to be three fifths and two fifths. On the left, one, one, two fifths and zero average to three fifths.
+03_4	Where do those come from? Not from the school shortcuts for wires.
+03_5	Two wires side by side act as one that carries current twice as easily. Two in a row, with nothing else at the junction between them, act as one twice as hard to push through.
+03_6	Merge each pair, and five wires remain. Which two can you merge next?
+03_7	None. No two join the same two junctions, and three wires meet at each middle junction, so no two are in a row.
+03_8	The wire from the left to the right, a bridge across the middle, blocks both. The voltages must come from the rule at both junctions at once.
+04_1	Now forget the battery. A walker at the left junction picks one of its four wires at random, and walks on until it reaches the top or the bottom.
+04_2	Its routes never run out, so look one step ahead. Its chance of reaching the top first is the average of its chances from the far ends of its four wires.
+04_3	From the top the chance is one, and from the bottom it's zero. So what is it from the left junction?
+04_4	Three fifths again. One rule, the same top and bottom, and only one solution. So the voltage and the chance must agree.
+04_5	The walker is a model, not a claim about electrons. The two numbers agree because they solve the same equations.
+05_1	At the left junction, each wire's current is its voltage drop divided by the wires' shared resistance.
+05_2	Each wire of the pair drops two fifths of a volt. Then one fifth to the right, three fifths to the bottom.
+05_3	Current in equals current out, so the drops balance too. Two fifths and two fifths in, one fifth and three fifths out.
+05_4	Now hide both middle voltages and call them left and right. The balance at the left says four times the left equals one plus one plus the right plus zero.
+05_5	So the left is the average of its far ends, whatever the right turns out to be. The pair is two wires, so the top's one counts twice.
+05_6	Now the right junction. One wire goes up, one to the left, and two go down. What does four times the right equal?
+05_7	One plus the left plus zero plus zero. So the right is the average of its far ends too.
+06_1	Now the walker picks one of the four wires, each equally likely. What's the chance its first step reaches the top?
+06_2	One half, not one third. The pair is two of the four wires, so it counts twice, like its two currents.
+06_3	Up, it has reached the top. Right, its chance is the right junction's. Down, it's zero. A quarter of each, added, is the same average.
+06_4	From the right junction it steps up with chance a quarter, left with a quarter and down with a half. So its chance is a quarter of one, plus a quarter of the left's, plus a half of zero.
+06_5	Times four, the walker's equations say four times the left is two plus the right, and four times the right is one plus the left.
+06_6	Those are the circuit's two balances, letter for letter. Whatever solves one pair solves the other.
+07_1	So solve them once. The first says the left is two plus the right, over four. Put that into the second and multiply by four.
+07_2	Sixteen times the right equals four plus two plus the right. So fifteen times the right is six, and the right is two fifths.
+07_3	Then the left is two and two fifths, over four, which is three fifths. And because fifteen isn't zero, no other pair of values keeps both balances.
+07_4	Now check the walker by its routes alone. From the left, it reaches the top without coming back with chance one half plus one sixteenth.
+07_5	Straight up the pair, or across and then up. It comes back to the left with chance one sixteenth, and then it starts the same walk again.
+07_6	So its chance is nine sixteenths plus a sixteenth of itself. Fifteen sixteenths of it is nine sixteenths, which makes it three fifths.
+07_7	That worked so neatly because every detour here is the same trip across and back. Bigger networks have detours of every shape.
+07_8	One more. From the left, what's the walker's chance of reaching the bottom first?
+07_9	Two fifths. It reaches one end or the other with chance one, so the two chances add to one.
+08_1	Here's a way to find the middle voltages without solving anything. Guess zero for both, then average.
+08_2	Each round, every middle junction takes the average of the far ends of its four wires, using the values from the round before.
+08_3	Round one. The left averages one, one, zero and zero to one half. The right averages one and three zeros to one quarter.
+08_4	Round two uses those. Nine sixteenths and three eighths. Then nineteen thirty-seconds and twenty-five sixty-fourths.
+08_5	The bigger gap to the answer shrinks to a quarter every round, because only one wire at each junction leads to an unknown.
+08_6	So after how many rounds is the left exactly three fifths?
+08_7	Never. Each round makes halves, quarters, eighths and so on, and three fifths is none of them. But after five rounds both are within a thousandth.
+08_8	The values close in on three fifths and two fifths, the only pair that keeps every average.
+08_9	The top and bottom must stay fixed. Average them too, and every junction drifts to the same number.
+09_1	Here's why there is only one solution. Suppose another set of values keeps the rule, with the same top and bottom.
+09_2	Subtract them. The difference is zero at the top and bottom, and it keeps the rule too.
+09_3	Take its largest value. If above zero, it sits at a middle junction, an average of far ends no larger.
+09_4	An average reaches its largest part only if every part equals it. So the peak spreads along wires to the top, which is zero.
+09_5	So the peak is zero, and likewise the lowest value. Both solutions are the same.
+09_6	Now add an island, two junctions wired only to each other. Is there still only one solution?
+09_7	No. The island's peak crosses its one wire and stops, never reaching the top or bottom. Any equal pair keeps the rule.
+09_8	So the proof needs every middle junction to reach the top or the bottom along wires.
+09_9	A walker on the island never reaches the top. Its chance is zero, but the island's voltage is left free.
+10_1	With unequal wires, weight each far end by its wire's conductance, and the walker chooses wires in that proportion. The same rule.
+10_2	Here's the same shape with unequal wires, from the book this video follows. At the left, the conductances are one up, two across and one down.
+10_3	So where will a walker at the left most likely step first?
+10_4	Across, with chance two in four, one half. So the left is a quarter, plus half the right. At the right, the same reasoning gives a fifth, plus two fifths of the left.
+10_5	Solved, they give seven sixteenths and three eighths, as voltages and as chances.
+11_1	For programmers, the method is that weighted averaging, round after round, each round from the one before.
+11_2	To know when to stop, run it twice, from all zeros and from all ones. Averaging never swaps the order of two guesses, so the true values stay between the two runs.
+11_3	Here the two runs come within a thousandth of each other after nine rounds, and the answer lies between them.
+11_4	Now run both beside the island. What happens to the two runs there?
+11_5	They never move. The island's junctions only average each other, so its zeros stay zeros and its ones stay ones, the sign that its voltage isn't unique.
+11_6	So on any finite network whose middle junctions all reach the top or the bottom, the voltage is the walker's chance. One rule, the same top and bottom, one solution.

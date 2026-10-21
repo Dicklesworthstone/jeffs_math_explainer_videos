@@ -495,6 +495,230 @@ def chapter_02(net, v, h):
     emit("R-X4.single.chances", csv(cramer_walk(single, TOP)))
 
 
+LINE_WIRES, LINE_START = 5, 1
+LINE_ROUTE = (1, 2, 1, 2, 3, 4, 5)
+LINE_GHOST = (1, 0)
+# Doyle and Snell's unequal wires on the bridge's shape: their a, b, c, d
+# as the top, the bottom, the left and the right
+UNEQUAL = ((TOP, LEFT, 1), (TOP, RIGHT, 1), (LEFT, RIGHT, 2), (LEFT, BOTTOM, 1), (RIGHT, BOTTOM, 2))
+RUN_CHECK_ROUNDS, RUN_ROWS, STILL_CHECK = 20, (0, 1, 2, 8, 9), 12
+
+
+def line_net(n):
+    """n identical wires in a line, junction 0 the bottom and n the top."""
+    return Net(n + 1, [(x, x + 1, 1) for x in range(n)], n, 0)
+
+
+def pushed(net, start, steps):
+    """The walker's chance of standing at each junction after 1..steps
+    steps, pushed a step at a time over links; the ends keep what reaches
+    them."""
+    at = [Fraction(0)] * net.size
+    at[start] = Fraction(1)
+    out = []
+    for _ in range(steps):
+        nxt = [Fraction(0)] * net.size
+        for x, p in enumerate(at):
+            if p == 0:
+                continue
+            if x in (net.top, net.bottom):
+                nxt[x] += p
+                continue
+            for y in range(net.size):
+                if net.c(x, y):
+                    nxt[y] += p * net.c(x, y) / net.at(x)
+        at = nxt
+        out.append(list(at))
+    return out
+
+
+def weighted_round(net, values):
+    """Every middle junction the conductance-weighted average of its
+    neighbours' values from `values`, all at once; the ends keep theirs."""
+    return [values[x] if x in (net.top, net.bottom) else
+            sum(net.c(x, y) * values[y] for y in range(net.size)) / net.at(x)
+            for x in range(net.size)]
+
+
+def runs(net, rounds):
+    """The low run (middle junctions from 0) and the high run (from 1), the
+    top at 1 and the bottom at 0 in both."""
+    start = lambda m: [Fraction(1) if x == net.top else Fraction(0) if x == net.bottom else Fraction(m)
+                       for x in range(net.size)]
+    low, high = [start(0)], [start(1)]
+    for _ in range(rounds):
+        low.append(weighted_round(net, low[-1]))
+        high.append(weighted_round(net, high[-1]))
+    return low, high
+
+
+def long_form(net, v, h, hb):
+    """The long form's added chapters: the line walk and its circuit (01,
+    02), the bridge's dead end for the school shortcuts (03), both balances
+    and their solve (05 to 07), the routes (07), the unequal wires (10) and
+    the two runs (11)."""
+    # 01: the walker on a line of five identical wires, its chances by
+    # Cramer's rule, checked against the closed form x/N
+    ln = line_net(LINE_WIRES)
+    lh = cramer_walk(ln, ln.top)
+    lb = cramer_walk(ln, ln.bottom)
+    assert lh == [Fraction(x, LINE_WIRES) for x in range(LINE_WIRES + 1)]
+    emit("R-F10.junctions", ln.size)
+    emit("R-F10.wires", len(ln.links))
+    emit("R-F10.start", LINE_START)
+    wires = {sum(1 for a, b, _ in ln.links if x in (a, b)) for x in ln.middle}
+    assert len(wires) == 1
+    k = wires.pop()
+    emit("R-F10.wires_at_middle", k)
+    emit("R-F10.step", Fraction(1, k))
+    emit("R-F10.top_chance", lh[ln.top])
+    emit("R-F10.bottom_chance", lh[ln.bottom])
+    for route in (LINE_ROUTE, LINE_GHOST):
+        assert all(abs(a - b) == 1 for a, b in zip(route, route[1:]))
+        assert route[-1] in (ln.top, ln.bottom) and all(x in ln.middle for x in route[:-1])
+    emit("R-F10.route", csv(LINE_ROUTE))
+    emit("R-F10.moves", ",".join("up" if b > a else "down" for a, b in zip(LINE_ROUTE, LINE_ROUTE[1:])))
+    emit("R-F10.ghost", csv(LINE_GHOST))
+    emit("R-F10.chances", csv(lh))
+    emit("R-F10.answer", lh[LINE_START])
+    emit("R-F10.halfway", flag(all(lh[x] == (lh[x - 1] + lh[x + 1]) / 2 for x in ln.middle)))
+    rises = {b - a for a, b in zip(lh, lh[1:])}
+    assert len(rises) == 1
+    emit("R-F10.step_size", rises.pop())
+    never = [Fraction(0)] * ln.size
+    for x, value in zip(ln.middle, cramer(balance(ln), [Fraction(0)] * len(ln.middle))):
+        never[x] = value
+    emit("R-F10.forever", csv(never))
+    emit("R-F10.stops", csv(lh[x] + lb[x] for x in ln.middle))
+
+    # 02: the same line with the battery, by the forest count; every wire
+    # carries one current, so each drops a fifth of the volt
+    lv = forest_voltages(ln)
+    emit("R-F11.top_volts", lv[ln.top])
+    emit("R-F11.bottom_volts", lv[ln.bottom])
+    currents = {(lv[a] - lv[b]) * c for a, b, c in ln.links}
+    assert len(currents) == 1
+    emit("R-F11.same_current", flag(True))
+    drops = [lv[b] - lv[a] for a, b, _ in ln.links]
+    emit("R-F11.drops", csv(drops))
+    emit("R-F11.drop_count", len(drops))
+    assert len(set(drops)) == 1
+    emit("R-F11.drop", drops[0])
+    emit("R-F11.volts", csv(lv))
+    emit("R-F11.answer", lv[LINE_START])
+    emit("R-F11.same", flag(lv == lh))
+
+    # 03: the bridge with each pair merged into one link
+    merged = [(min(a, b), max(a, b)) for a, b, _ in LINKS]
+    emit("R-F12.links", len(merged))
+    emit("R-F12.side_by_side", len(merged) - len(set(merged)))
+    meets = {x: len({b if a == x else a for a, b, _ in LINKS if x in (a, b)}) for x in net.middle}
+    emit("R-F12.meeting", csv(meets[x] for x in (LEFT, RIGHT)))
+    emit("R-F12.in_a_row", sum(1 for x in net.middle if meets[x] == 2))
+    emit("R-F12.bridge", ",".join(f"{NAMES[a]}-{NAMES[b]}" for a, b in combinations(net.middle, 2) if net.c(a, b)))
+    emit("R-F12.pair_conductance", net.c(TOP, LEFT))
+    # in a row the resistances add: two wires of resistance 1 are one of 2
+    emit("R-F12.row_conductance", 1 / (Fraction(1) + Fraction(1)))
+
+    # 05 to 07: the balances, each times its wires, a x = c + cross x'
+    emit("R-F13.right.far_ends", ",".join(NAMES[y] for y in far_ends(RIGHT)))
+    emit("R-F13.right.steps", csv(net.c(RIGHT, y) / net.at(RIGHT) for y in (TOP, LEFT, BOTTOM)))
+    a, cross = net.at(LEFT), net.c(LEFT, RIGHT)
+    cl, cr = net.c(LEFT, TOP), net.c(RIGHT, TOP)
+    emit("R-F13.left_constant", cl)
+    emit("R-F13.right_constant", cr)
+    keeps = lambda w: a * w[LEFT] == cl + cross * w[RIGHT] and a * w[RIGHT] == cr + cross * w[LEFT]
+    emit("R-F13.walk_same", flag(keeps(v) and keeps(h)))
+    # the spoken solve, against Cramer's rule on the 2x2 balance
+    right, left = cramer([[a, -cross], [-cross, a]], [cl, cr])[::-1]
+    assert (left, right) == (v[LEFT], v[RIGHT])
+    assert a * a - cross * cross == det(balance(net))
+    emit("R-F13.sixteen", a * a)
+    emit("R-F13.four", a * cr)
+    emit("R-F13.fifteen", a * a - cross * cross)
+    emit("R-F13.six", a * cr + cross * cl)
+    emit("R-F13.right", (a * cr + cross * cl) / (a * a - cross * cross))
+    emit("R-F13.left_sum", cl + cross * right)
+    emit("R-F13.left", (cl + cross * right) / a)
+
+    # 07: the routes from the left until a stop or a return, and the
+    # chance of the top first as a geometric series in the return
+    p = lambda x, y: net.c(x, y) / net.at(x)
+    outs = dict(up_now=p(LEFT, TOP), across_up=p(LEFT, RIGHT) * p(RIGHT, TOP), back=p(LEFT, RIGHT) * p(RIGHT, LEFT),
+                down_now=p(LEFT, BOTTOM), across_down=p(LEFT, RIGHT) * p(RIGHT, BOTTOM))
+    for key in ("up_now", "across_up", "back", "down_now", "across_down"):
+        emit(f"R-F14.{key}", outs[key])
+    emit("R-F14.outcomes", sum(outs.values()))
+    exit_top = outs["up_now"] + outs["across_up"]
+    emit("R-F14.exit_top", exit_top)
+    emit("R-F14.kept", 1 - outs["back"])
+    series = sum(exit_top * outs["back"] ** k for k in range(60))
+    assert abs(series - h[LEFT]) < Fraction(1, 10**30)
+    emit("R-F14.sum", exit_top / (1 - outs["back"]))
+    emit("R-F14.bottom_first", csv([hb[LEFT], hb[RIGHT]]))
+    emit("R-F14.bottom_first.left", hb[LEFT])
+    emit("R-F14.bottom_by_routes", (outs["down_now"] + outs["across_down"]) / (1 - outs["back"]))
+
+    # 10: the unequal wires, by the forest count and Cramer's rule
+    un = Net(4, UNEQUAL, TOP, BOTTOM)
+    emit("R-F15.conductances", csv(c for _, _, c in UNEQUAL))
+    for x, other in ((LEFT, RIGHT), (RIGHT, LEFT)):
+        to = (TOP, other, BOTTOM)
+        emit(f"R-F15.{NAMES[x]}.conductances", csv(un.c(x, y) for y in to))
+        emit(f"R-F15.{NAMES[x]}.total", un.at(x))
+        emit(f"R-F15.{NAMES[x]}.steps", csv(un.c(x, y) / un.at(x) for y in to))
+    left_steps = [un.c(LEFT, y) / un.at(LEFT) for y in (TOP, RIGHT, BOTTOM)]
+    assert left_steps.count(max(left_steps)) == 1
+    emit("R-F15.most_likely", ("up", "across", "down")[left_steps.index(max(left_steps))])
+    uv = forest_voltages(un)
+    uh = cramer_walk(un, TOP)
+    emit("R-F15.voltages", csv([uv[LEFT], uv[RIGHT]]))
+    emit("R-F15.chances", csv([uh[LEFT], uh[RIGHT]]))
+    emit("R-F15.same", flag(uv == uh))
+
+    # 11: the two runs on the unequal wires; their gap against the walker
+    # pushed step by step
+    low, high = runs(un, RUN_CHECK_ROUNDS)
+    emit("R-F16.starts", csv([low[0][LEFT], high[0][LEFT]]))
+    emit("R-F16.ends_held", flag(all((r[TOP], r[BOTTOM]) == (1, 0) for r in low + high)))
+    # one at a time instead (the newest values) would differ in round 1
+    seq = list(low[0])
+    for x in un.middle:
+        seq[x] = sum(un.c(x, y) * seq[y] for y in range(un.size)) / un.at(x)
+    emit("R-F16.simultaneous", flag(seq != low[1]))
+    bigger = []
+    for n in RUN_ROWS:
+        emit(f"R-F16.low.round{n}", csv([low[n][LEFT], low[n][RIGHT]]))
+        emit(f"R-F16.high.round{n}", csv([high[n][LEFT], high[n][RIGHT]]))
+        gaps = [high[n][x] - low[n][x] for x in (LEFT, RIGHT)]
+        emit(f"R-F16.width.round{n}", csv(gaps))
+        bigger.append(max(gaps))
+    emit("R-F16.bigger_width", csv(bigger))
+    emit("R-F16.first_within", next(n for n in range(len(low))
+                                    if all(high[n][x] - low[n][x] < TOLERANCE for x in un.middle)))
+    emit("R-F16.monotone", flag(all(low[n][x] >= low[n - 1][x] and high[n][x] <= high[n - 1][x]
+                                    for n in range(1, len(low)) for x in un.middle)))
+    emit("R-F16.between", flag(all(low[n][x] <= uv[x] <= high[n][x] for n in range(len(low)) for x in un.middle)))
+    still_ok = all(high[n][x] - low[n][x] == sum(s[y] for y in un.middle)
+                   for x in un.middle for n, s in zip(range(1, STILL_CHECK + 1), pushed(un, x, STILL_CHECK)))
+    emit("R-F16.width_is_still_walking", flag(still_ok))
+
+    # beside an island: junctions 4 and 5 joined only to each other
+    isl = Net(6, UNEQUAL + ((4, 5, 1),), TOP, BOTTOM)
+    cut = cut_off(isl)
+    emit("R-X9.island.junctions", len(cut))
+    ilow, ihigh = runs(isl, RUN_CHECK_ROUNDS)
+    emit("R-X9.island.low", max(r[x] for r in ilow for x in cut))
+    emit("R-X9.island.high", min(r[x] for r in ihigh for x in cut))
+    moved = any(r[x] != 0 for r in ilow for x in cut) or any(r[x] != 1 for r in ihigh for x in cut)
+    emit("R-X9.island.moves", flag(moved))
+    emit("R-X9.island.width", min(ihigh[n][x] - ilow[n][x] for n in range(len(ilow)) for x in cut))
+    emit("R-X9.island.within", flag(any(all(ihigh[n][x] - ilow[n][x] < TOLERANCE for x in cut) for n in range(len(ilow)))))
+    emit("R-X9.network.within", next(n for n in range(len(ilow))
+                                     if all(ihigh[n][x] - ilow[n][x] < TOLERANCE for x in (LEFT, RIGHT))))
+    emit("R-X9.determinant", det(balance(isl)))
+
+
 def facts():
     net = opening()
     v = forest_voltages(net)
@@ -599,6 +823,7 @@ def facts():
     emit("R-P1.steps_from_c", csv(ds.c(2, y) / ds.at(2) for y in (0, 1, 3)))
     ln = Net(6, [(x, x + 1, 1) for x in range(5)], 5, 0)
     emit("R-P2.line5", csv(forest_voltages(ln)))
+    long_form(net, v, h, hb)
     return net, v, h
 
 
@@ -688,6 +913,29 @@ def cross_checks(net, v, h):
     for x in net.middle:
         avg = sum(net.c(x, y) * v[y] for y in range(4)) / net.at(x)
         check(f"the {NAMES[x]} junction's voltage is its conductance-weighted average", avg == v[x])
+
+    # the long form's mechanisms on other networks than the ones shown:
+    # lines of 1 to 8 wires climb in equal steps x/N, by the forest count
+    # and by Cramer's rule
+    lines_ok = all(forest_voltages(line_net(n)) == cramer_walk(line_net(n), n) == [Fraction(x, n) for x in range(n + 1)]
+                   for n in range(1, 9))
+    check("lines of 1 to 8 identical wires: voltage = chance = x/N", lines_ok)
+    # the bracket on the bridge too: the gap is the chance of still walking,
+    # 1/4 to the n, and both runs hold the solution between them
+    low, high = runs(net, STILL_CHECK)
+    bridge_ok = all(high[n][x] - low[n][x] == Fraction(1, 4**n) and low[n][x] <= v[x] <= high[n][x]
+                    for n in range(STILL_CHECK + 1) for x in net.middle)
+    check("on the bridge the two runs bracket the voltages, their gap 1/4**n", bridge_ok)
+    # the route sum from the right as well: up 1/4 or across then up 1/4 *
+    # 1/2, returning across and back with 1/16
+    p = lambda x, y: net.c(x, y) / net.at(x)
+    from_right = (p(RIGHT, TOP) + p(RIGHT, LEFT) * p(LEFT, TOP)) / (1 - p(RIGHT, LEFT) * p(LEFT, RIGHT))
+    check("the routes from the right give its chance 2/5", from_right == h[RIGHT] == Fraction(2, 5))
+    # beside the bridge's island the island's runs never move either
+    isl = Net(6, LINKS + ((4, 5, 1),), TOP, BOTTOM)
+    ilow, ihigh = runs(isl, 10)
+    check("beside the bridge, the island's runs stay at 0 and 1",
+          all(ilow[n][x] == 0 and ihigh[n][x] == 1 for n in range(11) for x in (4, 5)))
 
     # a seeded simulation of 200 000 walkers from the left (a float check)
     sim = random.Random(7)

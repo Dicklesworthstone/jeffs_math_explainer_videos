@@ -1,14 +1,14 @@
-//! Chapter 04, only one solution: the circuit beside a supposed second
-//! solution with the same top and bottom (04_1); their difference, 0 at
-//! both ends and keeping the rule (04_2); its largest value, which above
-//! zero sits at a middle junction averaging far ends no larger (04_3); the
-//! peak spreads along wires to the top, where the difference is 0 (04_4);
+//! Chapter 09, only one solution: the circuit beside a supposed second
+//! solution with the same top and bottom (09_1); their difference, 0 at
+//! both ends and keeping the rule (09_2); its largest value, which above
+//! zero sits at a middle junction averaging far ends no larger (09_3); the
+//! peak spreads along wires to the top, where the difference is 0 (09_4);
 //! so it is 0, and the lowest value too, and the two solutions are the same
-//! (04_5); an island of two junctions wired only to each other, and the
-//! prediction (04_6); its peak crosses its one wire and stops, so any equal
-//! pair keeps its rule (04_7); the hypothesis (04_8); a walker on the island
+//! (09_5); an island of two junctions wired only to each other, and the
+//! prediction (09_6); its peak crosses its one wire and stops, so any equal
+//! pair keeps its rule (09_7); the hypothesis (09_8); a walker on the island
 //! never reaches the top, a chance of 0, while the island's voltage is left
-//! free (04_9).
+//! free (09_9).
 
 use explainer_kit::props::precisely;
 use explainer_kit::{Kit, Palette, fade_all, v};
@@ -43,7 +43,7 @@ const PEAK: &str = "M";
 const AT_MOST_PEAK: &str = r"\le M";
 const FREE: &str = "c";
 
-/// Where the circuit stands (as chapter 03 had it), and the second copy.
+/// Where the circuit stands (as chapter 08 had it), and the second copy.
 const CIRCUIT_AT: [f64; 2] = [-4.0, 0.3];
 const COPY_AT: [f64; 2] = [3.9, 0.3];
 const NAME_SIZE: f64 = 26.0;
@@ -69,7 +69,7 @@ const WALKER_R: f64 = 0.11;
 const STEP_S: f64 = 0.5;
 const WALKER_STEPS: usize = 4;
 /// Hold each unspoken equal-pair equation for at least two seconds once
-/// visible, including the preceding recolor (04_7).
+/// visible, including the preceding recolor (09_7).
 const LEVEL_S: f64 = 1.7;
 /// A lower-third's fade in and out, and the beat after the last line.
 const CARD_IN: f64 = 0.4;
@@ -83,7 +83,7 @@ fn read_s(text: &str) -> f64 {
     text.chars().count() as f64 / 15.0
 }
 
-/// 04_2's exact version: why the difference keeps the rule, and its value
+/// 09_2's exact version: why the difference keeps the rule, and its value
 /// at the top and the bottom (each of the circuit's ends less itself).
 fn difference_card() -> Result<String, String> {
     let v = facts::voltages()?;
@@ -99,7 +99,7 @@ fn difference_card() -> Result<String, String> {
     ))
 }
 
-/// 04_4's exact version: the maximum principle with positive weights; the
+/// 09_4's exact version: the maximum principle with positive weights; the
 /// peak's path is this example's, here to the top, where the difference is
 /// 0.
 fn peak_card() -> Result<String, String> {
@@ -111,7 +111,7 @@ fn peak_card() -> Result<String, String> {
     ))
 }
 
-/// 04_8's exact version: the hypothesis the argument needs, and what the
+/// 09_8's exact version: the hypothesis the argument needs, and what the
 /// island does without it. The maximum and minimum argument proves at most
 /// one solution; the circuit's own voltages are one. Built only when the
 /// model finds no path of wires from the island to either end, and every
@@ -136,7 +136,7 @@ fn hypothesis_card() -> Result<String, String> {
     )
 }
 
-/// 04_9's note: the walker's chance, from the island, of reaching the top
+/// 09_9's note: the walker's chance, from the island, of reaching the top
 /// first. No path of wires leads from the island to the top or the bottom,
 /// and a walker moves only along wires, so it is never there after any
 /// number of steps: that is the proof, for all time. The steps followed
@@ -283,7 +283,7 @@ fn island_labels(kit: &Kit, stage: &mut Stage<'_>, src: &str, color: Srgb) -> fm
 
 impl SceneConstruct for OnlyOne {
     fn name(&self) -> &str {
-        "04_only_one"
+        "09_only_one"
     }
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
@@ -295,9 +295,9 @@ impl SceneConstruct for OnlyOne {
         // leaves the difference
         let difference = net.kirchhoff(top_gap, bottom_gap).map_err(fail)?;
 
-        // 04_1: the circuit and its values; a second copy with the same top
+        // 09_1: the circuit and its values; a second copy with the same top
         // and bottom and unknown middle junctions
-        let line = say(&kit, stage, "04_1")?;
+        let line = say(&kit, stage, "09_1")?;
         let colors: Vec<Srgb> = volts.iter().map(|&q| palette::value(q)).collect();
         let circuit = picture(stage, &net, CIRCUIT_AT, &colors)?;
         let mut held = battery(stage, circuit.centre)?;
@@ -357,8 +357,8 @@ impl SceneConstruct for OnlyOne {
             0.6,
         )?;
 
-        // 04_2: the copy becomes the difference, 0 at both ends; its card
-        let line = say(&kit, stage, "04_2")?;
+        // 09_2: the copy becomes the difference, 0 at both ends; its card
+        let line = say(&kit, stage, "09_2")?;
         let diff_name = kit.text(stage, DIFFERENCE, NAME_SIZE, Palette::dim(), copy.name_spot())?;
         let zero_ends = [
             label(&kit, stage, &copy, TOP, &tex(top_gap), Palette::ink())?,
@@ -385,9 +385,9 @@ impl SceneConstruct for OnlyOne {
         let copy_wires: Vec<Mob> = copy.strands.iter().map(|s| s.mob).collect();
         flash_all(stage, &copy_wires, 0.6)?;
 
-        // 04_3: its largest value, at the left junction; the ends cannot hold
+        // 09_3: its largest value, at the left junction; the ends cannot hold
         // it; the far ends it averages, none larger
-        let line = say(&kit, stage, "04_3")?;
+        let line = say(&kit, stage, "09_3")?;
         let peak = label(&kit, stage, &copy, LEFT, PEAK, Palette::hero())?;
         fade_out_all(stage, &[copy_labels[LEFT]], 0.2)?;
         fade_in_all(stage, &[peak], 0.2)?;
@@ -405,10 +405,10 @@ impl SceneConstruct for OnlyOne {
         )?;
         fade_in_all(stage, &parts, 0.4)?;
 
-        // 04_4: the maximum principle's card; every part must be the peak,
+        // 09_4: the maximum principle's card; every part must be the peak,
         // which travels along every wire, and along the path to the top
         wait_until(stage, rule_read)?;
-        let line = say(&kit, stage, "04_4")?;
+        let line = say(&kit, stage, "09_4")?;
         let peak_text = peak_card().map_err(fail)?;
         let max_card = precisely(&kit, stage, &peak_text)?;
         fade_out_all(stage, &[rule_card], CARD_OUT / 2.0)?;
@@ -470,9 +470,9 @@ impl SceneConstruct for OnlyOne {
         flash_all(stage, &clash, 0.6)?;
         fade_out_all(stage, &marks, 0.3)?;
 
-        // 04_5: the peak is 0, the lowest value too: the difference is 0
+        // 09_5: the peak is 0, the lowest value too: the difference is 0
         // everywhere, and the second solution is the first
-        let line = say(&kit, stage, "04_5")?;
+        let line = say(&kit, stage, "09_5")?;
         let zeros = [
             label(&kit, stage, &copy, LEFT, &tex(difference[LEFT]), Palette::ink())?,
             label(&kit, stage, &copy, RIGHT, &tex(difference[RIGHT]), Palette::ink())?,
@@ -519,10 +519,10 @@ impl SceneConstruct for OnlyOne {
             0.6,
         )?;
 
-        // 04_6: the copy goes; an island beside the circuit; the card stays
+        // 09_6: the copy goes; an island beside the circuit; the card stays
         // while the question is asked and goes as it ends, so the island's
         // "?" and the countdown are all that change
-        let question = say(&kit, stage, "04_6")?;
+        let question = say(&kit, stage, "09_6")?;
         let mut going = copy.mobs();
         going.extend(same_labels);
         going.push(same_name);
@@ -549,9 +549,9 @@ impl SceneConstruct for OnlyOne {
         fade_out_all(stage, &[max_card], CARD_OUT)?;
         let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;
 
-        // 04_7: no; the island's peak crosses its one wire and stops; any
+        // 09_7: no; the island's peak crosses its one wire and stops; any
         // equal pair keeps its rule, the circuit unchanged
-        let line = say(&kit, stage, "04_7")?;
+        let line = say(&kit, stage, "09_7")?;
         let first_peak = kit.tex(stage, PEAK, LABEL_SIZE, Palette::hero(), &[], Island::label_spot(0))?;
         fade_out_all(stage, &[countdown, island_values[0]], 0.15)?;
         fade_in_all(stage, &[first_peak], 0.15)?;
@@ -605,9 +605,9 @@ impl SceneConstruct for OnlyOne {
             rule_row = vec![row];
         }
 
-        // 04_8: the hypothesis' card; the circuit's wires reach the top and
+        // 09_8: the hypothesis' card; the circuit's wires reach the top and
         // the bottom, the island's do not
-        let line = say(&kit, stage, "04_8")?;
+        let line = say(&kit, stage, "09_8")?;
         let hypothesis_text = hypothesis_card().map_err(fail)?;
         let hypothesis = precisely(&kit, stage, &hypothesis_text)?;
         fade_in_all(stage, &[hypothesis], CARD_IN)?;
@@ -617,9 +617,9 @@ impl SceneConstruct for OnlyOne {
         flash_all(stage, &circuit_wires, 0.6)?;
         flash_all(stage, &[island.wire], 0.6)?;
 
-        // 04_9: a walker on the island, never at an end; its chance of
+        // 09_9: a walker on the island, never at an end; its chance of
         // reaching the top first is 0, while the island's voltage is free
-        let line = say(&kit, stage, "04_9")?;
+        let line = say(&kit, stage, "09_9")?;
         let walker = dot(stage, Island::spot(0), WALKER_R, palette::walker());
         fade_in_all(stage, &[walker], 0.3)?;
         for k in 1..=WALKER_STEPS {
@@ -671,24 +671,24 @@ mod tests {
     fn every_phrase_the_scene_waits_for_is_in_its_line() {
         let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
         for (id, phrase) in [
-            ("04_1", "Suppose another"),
-            ("04_1", "the same top and bottom"),
-            ("04_2", "The difference is zero"),
-            ("04_2", "keeps the rule too"),
-            ("04_3", "If above zero"),
-            ("04_3", "an average of far ends"),
-            ("04_4", "every part equals it"),
-            ("04_4", "So the peak spreads"),
-            ("04_4", "which is zero"),
-            ("04_5", "likewise the lowest"),
-            ("04_5", "Both solutions are the same"),
-            ("04_6", "two junctions wired"),
-            ("04_7", "crosses its one wire"),
-            ("04_7", "never reaching"),
-            ("04_7", "Any equal pair"),
-            ("04_8", "along wires"),
-            ("04_9", "Its chance is zero"),
-            ("04_9", "voltage is left free"),
+            ("09_1", "Suppose another"),
+            ("09_1", "the same top and bottom"),
+            ("09_2", "The difference is zero"),
+            ("09_2", "keeps the rule too"),
+            ("09_3", "If above zero"),
+            ("09_3", "an average of far ends"),
+            ("09_4", "every part equals it"),
+            ("09_4", "So the peak spreads"),
+            ("09_4", "which is zero"),
+            ("09_5", "likewise the lowest"),
+            ("09_5", "Both solutions are the same"),
+            ("09_6", "two junctions wired"),
+            ("09_7", "crosses its one wire"),
+            ("09_7", "never reaching"),
+            ("09_7", "Any equal pair"),
+            ("09_8", "along wires"),
+            ("09_9", "Its chance is zero"),
+            ("09_9", "voltage is left free"),
         ] {
             let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
             assert_eq!(text.matches(phrase).count(), 1, "{id} must say {phrase:?} once: {text}");
@@ -827,24 +827,24 @@ mod tests {
             len(id) * (1.0 - at / text.chars().count() as f64)
         };
         let windows = [
-            // in at "The difference is zero", up over 04_3, out as 04_4 begins
+            // in at "The difference is zero", up over 09_3, out as 09_4 begins
             (
                 difference_card().unwrap(),
-                after("04_2", "The difference is zero") - CARD_IN
-                    + gap("04_2", "04_3")
-                    + len("04_3")
-                    + gap("04_3", "04_4"),
+                after("09_2", "The difference is zero") - CARD_IN
+                    + gap("09_2", "09_3")
+                    + len("09_3")
+                    + gap("09_3", "09_4"),
             ),
-            // in as 04_4 begins, out as the 04_6 question ends
+            // in as 09_4 begins, out as the 09_6 question ends
             (
                 peak_card().unwrap(),
-                len("04_4") - CARD_OUT + gap("04_4", "04_5") + len("04_5") + gap("04_5", "04_6") + len("04_6")
+                len("09_4") - CARD_OUT + gap("09_4", "09_5") + len("09_5") + gap("09_5", "09_6") + len("09_6")
                     - CARD_OUT,
             ),
-            // in as 04_8 begins, up to the beat after 04_9
+            // in as 09_8 begins, up to the beat after 09_9
             (
                 hypothesis_card().unwrap(),
-                len("04_8") - CARD_IN + gap("04_8", "04_9") + len("04_9") + END_BEAT,
+                len("09_8") - CARD_IN + gap("09_8", "09_9") + len("09_9") + END_BEAT,
             ),
         ];
         for (text, up) in windows {

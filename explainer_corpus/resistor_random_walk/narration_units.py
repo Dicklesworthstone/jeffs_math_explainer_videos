@@ -28,17 +28,24 @@ The rules (`problems` checks each one):
   * script_sha256 is the hash of script.tsv as it is on disk.
 
 GROUPS is where the units are chosen: one complete thought each, broken where
-the picture changes its subject. Chapter 01 has three: the circuit and its
-averaging rule (01u1); the walk on the same wires, ending on the prediction
-question, so the take ends on the question and the countdown follows it
-(01u2); the answer, the reason and the model's scope (01u3). The checker in
-the p-values crate's test file (test_narration_units.py) exercises these
-same rules; this copy keeps only the grouping and the check.
+the picture changes its subject, and a prediction question always ends its
+unit, so the take ends on the question and the countdown follows it. The
+long form's eleven chapters have 31 units. Chapter 01 has three: the line,
+the walker's rule and its route (01u1); what a chance is, one step ahead,
+the halfway rule and the prediction question (01u2); the answer and the
+chance of walking for ever (01u3). Chapter 07 ends on two short units, its
+question (07u3) and its answer (07u4). The checker in the p-values crate's
+test file (test_narration_units.py) exercises these same rules; this copy
+keeps only the grouping and the check.
 
-No take has been synthesized from this file. The owner rejected the
-first-wave narration on 2026-10-19 (AGENTS.md), and that method is not to be
-carried into new synthesis; the grouping is a script structure for whatever
-qualified route the central lane adopts.
+The four-chapter review cut of 2026-10-20 was voiced from this file's
+earlier groups (twelve units over 34 lines); those historical takes belong
+to that script and its contexts. The long form's units here have not been
+synthesized, and no earlier take is to be reused in a new unit's context on
+the strength of the same words. The owner rejected the first-wave narration
+on 2026-10-19 (AGENTS.md), and that method is not to be carried into new
+synthesis; the grouping is a script structure for whatever qualified route
+the central lane adopts.
 """
 import hashlib
 import json
@@ -57,31 +64,70 @@ KEYS = {"schema_version", "script_sha256", "units"}
 UNIT_KEYS = {"id", "line_ids", "text"}
 
 GROUPS = [
-    # 01: the circuit, its rule, and the left junction's check
+    # 01: the line, the walker's rule, and one route
     ("01_1", "01_2", "01_3"),
-    # the walk on the same wires, its rule, and the prediction question
-    ("01_4", "01_5", "01_6"),
-    # the answer, why it must agree, and what the walker is not
-    ("01_7", "01_8"),
-    # 02: the circuit's balance at the left junction, derived to the average
+    # what its chance is, one step ahead, halfway, and the prediction
+    # question, ending its take
+    ("01_4", "01_5", "01_6", "01_7"),
+    # the answer, equal steps, and the chance of walking for ever
+    ("01_8", "01_9"),
+    # 02: the battery, one current, equal drops, and the question
     ("02_1", "02_2", "02_3", "02_4"),
-    # the walker's first step: the prediction question, ending its take
-    ("02_5",),
-    # the answer, the first-step average, and the general rule
-    ("02_6", "02_7", "02_8"),
-    # 03: the guess, the rule for a round, and the first rounds
-    ("03_1", "03_2", "03_3", "03_4"),
-    # the gap's quarter, and the prediction question, ending its take
-    ("03_5", "03_6"),
-    # never exactly, the limit, and why the ends stay fixed
-    ("03_7", "03_8", "03_9"),
-    # 04: the supposed second solution, the difference, and its peak
+    # the answer, the agreement, and why: the walker's rule
+    ("02_5", "02_6", "02_7", "02_8"),
+    # 03: the bridge network, its rule, and the left junction's check
+    ("03_1", "03_2", "03_3"),
+    # the school shortcuts, and the question
+    ("03_4", "03_5", "03_6"),
+    # none applies: the bridge
+    ("03_7", "03_8"),
+    # 04: the walk on the same wires, its rule, and the question
     ("04_1", "04_2", "04_3"),
+    # the answer, why it must agree, and what the walker is not
+    ("04_4", "04_5"),
+    # 05: the left junction's drops, with the previewed numbers
+    ("05_1", "05_2", "05_3"),
+    # both voltages unknown, the left's balance, and the right's question
+    ("05_4", "05_5", "05_6"),
+    # the right's balance
+    ("05_7",),
+    # 06: the walker's first step: the prediction question, ending its take
+    ("06_1",),
+    # the answer, and the left's first-step equation
+    ("06_2", "06_3"),
+    # the right's, times four, the circuit's two balances
+    ("06_4", "06_5", "06_6"),
+    # 07: the solve
+    ("07_1", "07_2", "07_3"),
+    # the walker by its routes, and why that worked here
+    ("07_4", "07_5", "07_6", "07_7"),
+    # the bottom first: the prediction question, ending its take
+    ("07_8",),
+    # its answer
+    ("07_9",),
+    # 08: the guess, the rule for a round, and the first rounds
+    ("08_1", "08_2", "08_3", "08_4"),
+    # the gap's quarter, and the prediction question, ending its take
+    ("08_5", "08_6"),
+    # never exactly, the limit, and why the ends stay fixed
+    ("08_7", "08_8", "08_9"),
+    # 09: the supposed second solution, the difference, and its peak
+    ("09_1", "09_2", "09_3"),
     # the peak spreads to the top, so one solution; the island's question,
     # ending its take
-    ("04_4", "04_5", "04_6"),
+    ("09_4", "09_5", "09_6"),
     # the island's peak stops short, the hypothesis, and the walker there
-    ("04_7", "04_8", "04_9"),
+    ("09_7", "09_8", "09_9"),
+    # 10: the weighted rule, unequal wires, and the question
+    ("10_1", "10_2", "10_3"),
+    # the answer, the two equations, and their solution
+    ("10_4", "10_5"),
+    # 11: the method, the two runs, and when they meet
+    ("11_1", "11_2", "11_3"),
+    # beside the island: the prediction question, ending its take
+    ("11_4",),
+    # the answer, and the theorem with its hypotheses
+    ("11_5", "11_6"),
 ]
 
 

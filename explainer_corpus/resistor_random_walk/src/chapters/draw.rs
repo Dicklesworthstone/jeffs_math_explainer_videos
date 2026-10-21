@@ -309,6 +309,209 @@ pub fn battery(stage: &mut Stage<'_>, centre: [f64; 2]) -> fmn::Result<Vec<Mob>>
         .collect())
 }
 
+/// One straight wire from junction `a` to junction `b` of `pic`, `width`
+/// wide: a link drawn as one heavier wire (chapter 03's merged pairs,
+/// chapter 10's unequal wires). Detached.
+pub fn heavy_link(stage: &mut Stage<'_>, pic: &Picture, a: usize, b: usize, width: f64) -> Mob {
+    let (p, q) = (pic.spot(a), pic.spot(b));
+    let path = vec![towards(p, q, JUNCTION_R), towards(q, p, JUNCTION_R)];
+    stage
+        .arena_mut()
+        .add(polyline(path).style(line_style(palette::wire(), width)).build())
+}
+
+/// The opening's shape with each link of `net` drawn as one wire, its
+/// stroke heavier in proportion to its conductance (chapters 10 and 11),
+/// junction `x` filled with `colors[x]`. Its strands are its links, one
+/// each, in wire order. Detached.
+pub fn weighted_picture(
+    stage: &mut Stage<'_>,
+    net: &Network,
+    centre: [f64; 2],
+    colors: &[Srgb],
+) -> fmn::Result<Picture> {
+    if net.size() != JUNCTIONS || colors.len() != JUNCTIONS {
+        return Err(fail(format!(
+            "the picture draws {JUNCTIONS} junctions, not {} with {} colors",
+            net.size(),
+            colors.len()
+        )));
+    }
+    let mut pic = Picture {
+        centre,
+        junctions: Vec::with_capacity(JUNCTIONS),
+        strands: Vec::new(),
+    };
+    for w in net.wires() {
+        let mob = heavy_link(stage, &pic, w.a, w.b, WIRE_W * w.conductance.f64());
+        pic.strands.push(Strand {
+            mob,
+            a: w.a,
+            b: w.b,
+            side: 0.0,
+        });
+    }
+    for (x, &color) in colors.iter().enumerate() {
+        let dot = Circle::new()
+            .radius(JUNCTION_R)
+            .style(flat(color, 1.0))
+            .build()
+            .moved_to(pic.spot(x));
+        pic.junctions.push(stage.arena_mut().add(dot));
+    }
+    Ok(pic)
+}
+
+// ---------------------------------------------------------------- the line
+
+/// The line of chapters 01 and 02, standing up: how far apart its junctions
+/// are, how far left of a junction its value is written, and how far right
+/// its battery's wire runs.
+pub const LINE_STEP: f64 = 0.95;
+pub const LINE_LABEL_GAP: f64 = 0.6;
+pub const LINE_BATTERY_X: f64 = 1.5;
+
+/// A line of identical wires drawn around `centre`, junction 0 (the
+/// bottom) at the foot and the last (the top) at the head.
+pub struct LinePicture {
+    pub centre: [f64; 2],
+    pub size: usize,
+    pub junctions: Vec<Mob>,
+    /// The wire from junction `i` up to junction `i + 1`.
+    pub wires: Vec<Mob>,
+}
+
+impl LinePicture {
+    /// Junction `x`'s centre.
+    pub fn spot(&self, x: usize) -> Vec3 {
+        line_spot(self.centre, self.size, x)
+    }
+
+    /// Where junction `x`'s value is written, left of it.
+    pub fn label_spot(&self, x: usize) -> Vec3 {
+        let p = self.spot(x);
+        v(p[0] - LINE_LABEL_GAP, p[1])
+    }
+
+    /// The middle of the wire from junction `i` up to `i + 1`, moved `dx`
+    /// to the right.
+    pub fn wire_mid(&self, i: usize, dx: f64) -> Vec3 {
+        let (p, q) = (self.spot(i), self.spot(i + 1));
+        v((p[0] + q[0]) / 2.0 + dx, (p[1] + q[1]) / 2.0)
+    }
+
+    /// The wires at junction `x`: the one below it, then the one above it.
+    pub fn wires_at(&self, x: usize) -> Vec<Mob> {
+        let mut out = Vec::new();
+        if x > 0 {
+            out.push(self.wires[x - 1]);
+        }
+        if x < self.wires.len() {
+            out.push(self.wires[x]);
+        }
+        out
+    }
+
+    /// Where the line's name goes, above its top.
+    pub fn name_spot(&self) -> Vec3 {
+        let top = self.spot(self.size - 1);
+        v(top[0], top[1] + 0.6)
+    }
+
+    /// The junctions and the wires, to move or fade together.
+    pub fn mobs(&self) -> Vec<Mob> {
+        let mut all = self.wires.clone();
+        all.extend(&self.junctions);
+        all
+    }
+}
+
+/// Junction `x`'s centre on a line of `size` junctions around `centre`.
+pub fn line_spot(centre: [f64; 2], size: usize, x: usize) -> Vec3 {
+    let half = size.saturating_sub(1) as f64 / 2.0;
+    v(centre[0], centre[1] + LINE_STEP * (x as f64 - half))
+}
+
+/// The line `net` (junction `x` joined to `x + 1` by one identical wire
+/// each) drawn around `centre`, junction `x` filled with `colors[x]`.
+/// Detached.
+pub fn line_picture(
+    stage: &mut Stage<'_>,
+    net: &Network,
+    centre: [f64; 2],
+    colors: &[Srgb],
+) -> fmn::Result<LinePicture> {
+    let is_line = net.wires().len() + 1 == net.size()
+        && net
+            .wires()
+            .iter()
+            .enumerate()
+            .all(|(i, w)| (w.a, w.b) == (i, i + 1) && w.conductance == Q::ONE);
+    if !is_line || colors.len() != net.size() {
+        return Err(fail(format!(
+            "a line of {} junctions with {} colors is not one identical wire from each junction to the next",
+            net.size(),
+            colors.len()
+        )));
+    }
+    let mut pic = LinePicture {
+        centre,
+        size: net.size(),
+        junctions: Vec::with_capacity(net.size()),
+        wires: Vec::with_capacity(net.wires().len()),
+    };
+    for i in 0..net.wires().len() {
+        let (p, q) = (pic.spot(i), pic.spot(i + 1));
+        let path = vec![v(p[0], p[1] + JUNCTION_R), v(q[0], q[1] - JUNCTION_R)];
+        let mob = stage
+            .arena_mut()
+            .add(polyline(path).style(line_style(palette::wire(), WIRE_W)).build());
+        pic.wires.push(mob);
+    }
+    for (x, &color) in colors.iter().enumerate() {
+        let dot = Circle::new()
+            .radius(JUNCTION_R)
+            .style(flat(color, 1.0))
+            .build()
+            .moved_to(pic.spot(x));
+        pic.junctions.push(stage.arena_mut().add(dot));
+    }
+    Ok(pic)
+}
+
+/// The battery beside a line: a wire from the top out to the right, down
+/// through the two plates at the line's middle height (the long one,
+/// positive, towards the top), and back in to the bottom. Detached.
+pub fn line_battery(stage: &mut Stage<'_>, pic: &LinePicture) -> fmn::Result<Vec<Mob>> {
+    let (top, bottom) = (pic.spot(pic.size - 1), pic.spot(0));
+    let (x, y) = (pic.centre[0] + LINE_BATTERY_X, pic.centre[1]);
+    let paths = [
+        vec![v(top[0] + JUNCTION_R, top[1]), v(x, top[1]), v(x, y + PLATE_Y)],
+        vec![v(x - PLATE_HALF[0], y + PLATE_Y), v(x + PLATE_HALF[0], y + PLATE_Y)],
+        vec![v(x - PLATE_HALF[1], y - PLATE_Y), v(x + PLATE_HALF[1], y - PLATE_Y)],
+        vec![v(x, y - PLATE_Y), v(x, bottom[1]), v(bottom[0] + JUNCTION_R, bottom[1])],
+    ];
+    Ok(paths
+        .into_iter()
+        .map(|path| {
+            stage
+                .arena_mut()
+                .add(polyline(path).style(line_style(palette::wire(), WIRE_W)).build())
+        })
+        .collect())
+}
+
+/// The walker as a dot of radius `r` at `at`, at `opacity` (a ghost is
+/// faint). Detached.
+pub fn walker_dot(stage: &mut Stage<'_>, at: Vec3, r: f64, opacity: f64) -> Mob {
+    let dot = Circle::new()
+        .radius(r)
+        .style(flat(palette::walker(), opacity))
+        .build()
+        .moved_to(at);
+    stage.arena_mut().add(dot)
+}
+
 /// One value per wire at junction `x` (`texts[i]` beside its `i`th wire,
 /// in that wire's far end's color), a little past the wire's middle from
 /// `x`. Detached.
@@ -398,6 +601,17 @@ pub fn arrowheads(
 pub fn link_spot(pic: &Picture, a: usize, b: usize, gap: f64) -> Vec3 {
     let (p, q, n) = (pic.spot(a), pic.spot(b), normal(a, b));
     v((p[0] + q[0]) / 2.0 + gap * n[0], (p[1] + q[1]) / 2.0 + gap * n[1])
+}
+
+/// Where a label for the link joining `a` and `b` goes: `gap` beside its
+/// straight middle, on the side away from the picture's centre (a link
+/// through the centre: its left, seen from `a`).
+pub fn outside_link_spot(pic: &Picture, a: usize, b: usize, gap: f64) -> Vec3 {
+    let (p, q) = (pic.spot(a), pic.spot(b));
+    let (mx, my) = ((p[0] + q[0]) / 2.0 - pic.centre[0], (p[1] + q[1]) / 2.0 - pic.centre[1]);
+    let (dx, dy) = (q[0] - p[0], q[1] - p[1]);
+    let outward = -dy * mx + dx * my >= 0.0;
+    link_spot(pic, a, b, if outward { gap } else { -gap })
 }
 
 /// The values `values` as tokens (each in its value's color).
@@ -782,6 +996,21 @@ mod tests {
         const { assert!(TOKEN_GAP > SPREAD / 2.0 + 0.1) };
         // the battery's plates clear the right junction's value
         const { assert!(BATTERY_X - PLATE_HALF[0] > 1.7 + LABEL_GAP + 0.5) };
+    }
+
+    /// A link's outside label sits further from the picture's centre than
+    /// the link's middle, for every link of the diamond off the centre.
+    #[test]
+    fn outside_labels_sit_outside() {
+        for (a, b) in [(TOP, LEFT), (TOP, RIGHT), (LEFT, BOTTOM), (RIGHT, BOTTOM)] {
+            let (p, q) = (SPOTS[a], SPOTS[b]);
+            let (mx, my) = ((p[0] + q[0]) / 2.0, (p[1] + q[1]) / 2.0);
+            let (dx, dy) = (q[0] - p[0], q[1] - p[1]);
+            let n = normal(a, b);
+            let sign = if -dy * mx + dx * my >= 0.0 { 1.0 } else { -1.0 };
+            let at = (mx + sign * 0.35 * n[0], my + sign * 0.35 * n[1]);
+            assert!(at.0.hypot(at.1) > mx.hypot(my), "the {a}-{b} label sits inside");
+        }
     }
 
     #[test]

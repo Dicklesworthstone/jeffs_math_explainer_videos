@@ -1,12 +1,12 @@
-//! Chapter 03, average and average again: the circuit with a guess of zero
-//! at both middle junctions, and a table of rounds (03_1); the rule for a
+//! Chapter 08, average and average again: the circuit with a guess of zero
+//! at both middle junctions, and a table of rounds (08_1); the rule for a
 //! round, every middle junction at once from the previous round's values
-//! (03_2); round one, the far ends' old values sliding in (03_3); rounds two
-//! and three (03_4); round four without words, then the bigger gap shrinks to
+//! (08_2); round one, the far ends' old values sliding in (08_3); rounds two
+//! and three (08_4); round four without words, then the bigger gap shrinks to
 //! a quarter a round, because one wire at each junction leads to an unknown
-//! (03_5); the prediction (03_6); never exactly, though within a thousandth
-//! after five rounds (03_7); the limit (03_8); why the ends stay fixed:
-//! averaged too, every value drifts to one number (03_9).
+//! (08_5); the prediction (08_6); never exactly, though within a thousandth
+//! after five rounds (08_7); the limit (08_8); why the ends stay fixed:
+//! averaged too, every value drifts to one number (08_9).
 
 use explainer_kit::props::precisely;
 use explainer_kit::{Kit, Palette, fade_all, v};
@@ -29,7 +29,7 @@ const HEADERS: [&str; 3] = ["round", "left", "right"];
 const GAP_HEADER: &str = "bigger gap";
 const LIMIT: &str = "limit";
 
-/// Where the circuit stands (as chapter 02 had it), and the table: its
+/// Where the circuit stands (as chapter 07 had it), and the table: its
 /// columns (round, left, right, bigger gap), its header, its rows and the
 /// limit row set apart under them.
 const PICTURE_AT: [f64; 2] = [-4.0, 0.3];
@@ -42,11 +42,11 @@ const CELL_SIZE: f64 = 30.0;
 const HEADER_SIZE: f64 = 22.0;
 /// The prediction's countdown, under the table's first five rows.
 const THINK_AT: [f64; 2] = [3.2, -1.35];
-/// How long a round takes once the rule is shown (03_4's third, 03_5's
-/// fourth, 03_7's fifth), and a round of the ends' drift (03_9).
+/// How long a round takes once the rule is shown (08_4's third, 08_5's
+/// fourth, 08_7's fifth), and a round of the ends' drift (08_9).
 const QUICK: f64 = 0.35;
 const DRIFT: f64 = 0.35;
-/// A lower-third's fade in and out, the gap column's arrival before 03_5's
+/// A lower-third's fade in and out, the gap column's arrival before 08_5's
 /// card (quick: round four comes first, and the card still needs its
 /// reading time), and the beat after the last line.
 const CARD_IN: f64 = 0.4;
@@ -115,7 +115,7 @@ fn relabel(
     recolor(stage, &colours, rt)
 }
 
-/// 03_2's exact version: which updates this chapter uses, and the other
+/// 08_2's exact version: which updates this chapter uses, and the other
 /// kind for comparison (from the facts).
 fn jacobi_card() -> Result<String, String> {
     let seq = facts::sequential_rounds(8)?;
@@ -127,12 +127,12 @@ fn jacobi_card() -> Result<String, String> {
     ))
 }
 
-/// The last round the table shows before the prediction: the 03_5 card
+/// The last round the table shows before the prediction: the 08_5 card
 /// stops there, so round 5 is revealed only after the countdown, and the
-/// 03_7 card cites nothing later.
+/// 08_7 card cites nothing later.
 const BEFORE_PREDICTION: usize = ROUNDS - 1;
 
-/// 03_5's exact version: why the bigger gap shrinks to exactly a quarter
+/// 08_5's exact version: why the bigger gap shrinks to exactly a quarter
 /// on this network (every far end but the other junction is the top or the
 /// bottom, which never change), with the gaps of the rounds already on
 /// screen.
@@ -153,7 +153,7 @@ fn gap_card() -> Result<String, String> {
     ))
 }
 
-/// 03_7's exact version: why no round reaches the answer, and what does.
+/// 08_7's exact version: why no round reaches the answer, and what does.
 /// Each new value is the other junction's previous value plus the whole
 /// number its fixed far ends add to, divided by its four wires; from the
 /// guess of 0 every value stays over a power of 2. Its examples are rows
@@ -174,7 +174,7 @@ fn never_card() -> Result<String, String> {
     ))
 }
 
-/// 03_9's exact version: what would happen were the top and the bottom
+/// 08_9's exact version: what would happen were the top and the bottom
 /// averaged too, from the solved values: every value drifts to their mean,
 /// each junction counted by its wires (within [`facts::tolerance`] after
 /// the rounds the picture plays).
@@ -199,7 +199,7 @@ fn drift_card() -> Result<String, String> {
 
 impl SceneConstruct for RoundAfterRound {
     fn name(&self) -> &str {
-        "03_round_after_round"
+        "08_round_after_round"
     }
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
@@ -209,8 +209,8 @@ impl SceneConstruct for RoundAfterRound {
         let rounds = facts::rounds(ROUNDS).map_err(fail)?;
         let gaps = facts::gaps(&rounds).map_err(fail)?;
 
-        // 03_1: the circuit, the guess of zero, and the table's first row
-        let line = say(&kit, stage, "03_1")?;
+        // 08_1: the circuit, the guess of zero, and the table's first row
+        let line = say(&kit, stage, "08_1")?;
         let guess = &rounds[0];
         let colors: Vec<Srgb> = (0..net.size())
             .map(|x| match x {
@@ -269,10 +269,10 @@ impl SceneConstruct for RoundAfterRound {
         zeros.extend(&first_row[1..]);
         flash_all(stage, &zeros, 0.6)?;
 
-        // 03_2: the rule for a round, every junction at once from the round
+        // 08_2: the rule for a round, every junction at once from the round
         // before; the other kind of update, for comparison (its card stays
         // over round one, which shows it, until it has been read)
-        let line = say(&kit, stage, "03_2")?;
+        let line = say(&kit, stage, "08_2")?;
         flash_all(stage, &pic.wires_at(LEFT), 0.5)?;
         flash_all(stage, &pic.wires_at(RIGHT), 0.5)?;
         line.wait_for(stage, "using the values")?;
@@ -281,10 +281,10 @@ impl SceneConstruct for RoundAfterRound {
         fade_in_all(stage, &[rule], CARD_IN)?;
         let rule_read = stage.scene().time().to_f64() + read_s(&rule_text);
 
-        // 03_3: round one; both junctions' far ends read from round 0, at
+        // 08_3: round one; both junctions' far ends read from round 0, at
         // once; the left takes its average, then the right, whose token from
         // the left still reads the old value
-        let line = say(&kit, stage, "03_3")?;
+        let line = say(&kit, stage, "08_3")?;
         let left_in = tokens(
             &kit,
             stage,
@@ -312,10 +312,10 @@ impl SceneConstruct for RoundAfterRound {
         table.push(round_row(&kit, stage, 1, &rounds[1])?);
         fade_in_all(stage, &table[1], 0.3)?;
 
-        // 03_4: round two, both junctions together from round one; round
+        // 08_4: round two, both junctions together from round one; round
         // three without tokens, its values standing while they are said
         wait_until(stage, rule_read)?;
-        let line = say(&kit, stage, "03_4")?;
+        let line = say(&kit, stage, "08_4")?;
         let left_in = tokens(
             &kit,
             stage,
@@ -348,11 +348,11 @@ impl SceneConstruct for RoundAfterRound {
             table.push(row);
         }
 
-        // 03_5: round four lands without words, after 03_4 has said round
+        // 08_5: round four lands without words, after 08_4 has said round
         // three's values; then the bigger gap, a quarter of the last every
         // round, its card in with the column; the one wire at each junction
         // that leads to an unknown
-        let line = say(&kit, stage, "03_5")?;
+        let line = say(&kit, stage, "08_5")?;
         let fourth = &rounds[BEFORE_PREDICTION];
         relabel(&kit, stage, &pic, &mut labels, &[LEFT, RIGHT], fourth, QUICK)?;
         let row = round_row(&kit, stage, BEFORE_PREDICTION, fourth)?;
@@ -372,17 +372,17 @@ impl SceneConstruct for RoundAfterRound {
         let unknown_wire = pic.strand_between(LEFT, RIGHT)?.mob;
         flash_all(stage, &[unknown_wire], 0.6)?;
 
-        // 03_6: the prediction; the card stays while the question is asked
+        // 08_6: the prediction; the card stays while the question is asked
         // and goes as it ends, so the table holds rounds 0 to 4 and nothing
         // else through the countdown
-        let question = say(&kit, stage, "03_6")?;
+        let question = say(&kit, stage, "08_6")?;
         wait_until(stage, bound_read.max(question.start + question.len - CARD_OUT))?;
         fade_out_all(stage, &[bound], CARD_OUT)?;
         let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;
 
-        // 03_7: never exactly, and why (its card stays over the limit, 03_8);
+        // 08_7: never exactly, and why (its card stays over the limit, 08_8);
         // but round five is within a thousandth
-        let line_never = say(&kit, stage, "03_7")?;
+        let line_never = say(&kit, stage, "08_7")?;
         let never_text = never_card().map_err(fail)?;
         let never = precisely(&kit, stage, &never_text)?;
         swap(stage, &[countdown], &[never], CARD_OUT)?;
@@ -395,8 +395,8 @@ impl SceneConstruct for RoundAfterRound {
         relabel(&kit, stage, &pic, &mut labels, &[LEFT, RIGHT], &rounds[ROUNDS], QUICK)?;
         flash_all(stage, &[last_gap], 0.6)?;
 
-        // 03_8: where the rounds go, set apart from them
-        let line_limit = say(&kit, stage, "03_8")?;
+        // 08_8: where the rounds go, set apart from them
+        let line_limit = say(&kit, stage, "08_8")?;
         line_limit.wait_for(stage, "three fifths and two fifths")?;
         let limit_row = vec![
             kit.text(stage, LIMIT, HEADER_SIZE, Palette::dim(), v(COLUMN_X[0], LIMIT_Y))?,
@@ -407,12 +407,12 @@ impl SceneConstruct for RoundAfterRound {
         fade_in_all(stage, &limit_row, 0.4)?;
         flash_all(stage, &limit_row[1..3], 0.6)?;
 
-        // 03_9: the ends averaged too. The battery-held table (its rounds and
+        // 08_9: the ends averaged too. The battery-held table (its rounds and
         // its limit) goes as the counterfactual's card comes, so no number
         // left on screen belongs to the battery-free network but the card's;
         // then the battery and the labels go, and the four colours run
         // together round by round
-        let line_ends = say(&kit, stage, "03_9")?;
+        let line_ends = say(&kit, stage, "08_9")?;
         wait_until(stage, never_read)?;
         let lost_text = drift_card().map_err(fail)?;
         let lost = precisely(&kit, stage, &lost_text)?;
@@ -460,15 +460,15 @@ mod tests {
     fn every_phrase_the_scene_waits_for_is_in_its_line() {
         let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
         for (id, phrase) in [
-            ("03_1", "Guess zero"),
-            ("03_2", "using the values"),
-            ("03_3", "The left averages"),
-            ("03_3", "The right averages"),
-            ("03_4", "Then nineteen"),
-            ("03_5", "only one wire"),
-            ("03_7", "But after five rounds"),
-            ("03_8", "three fifths and two fifths"),
-            ("03_9", "Average them too"),
+            ("08_1", "Guess zero"),
+            ("08_2", "using the values"),
+            ("08_3", "The left averages"),
+            ("08_3", "The right averages"),
+            ("08_4", "Then nineteen"),
+            ("08_5", "only one wire"),
+            ("08_7", "But after five rounds"),
+            ("08_8", "three fifths and two fifths"),
+            ("08_9", "Average them too"),
         ] {
             let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
             assert_eq!(text.matches(phrase).count(), 1, "{id} must say {phrase:?} once: {text}");
@@ -589,24 +589,24 @@ mod tests {
             len(id) * (1.0 - at / text.chars().count() as f64)
         };
         let windows = [
-            // in at "using the values", up over round one, out as 03_4 begins
+            // in at "using the values", up over round one, out as 08_4 begins
             (
                 jacobi_card().unwrap(),
-                after("03_2", "using the values") - CARD_IN + gap("03_2", "03_3") + len("03_3") + gap("03_3", "03_4"),
+                after("08_2", "using the values") - CARD_IN + gap("08_2", "08_3") + len("08_3") + gap("08_3", "08_4"),
             ),
             // in after round four (its labels and its row) and the gap
             // column, out as the question ends
             (
                 gap_card().unwrap(),
-                len("03_5") - 3.0 * QUICK - GAP_COLUMN_IN - CARD_IN + gap("03_5", "03_6") + len("03_6") - CARD_OUT,
+                len("08_5") - 3.0 * QUICK - GAP_COLUMN_IN - CARD_IN + gap("08_5", "08_6") + len("08_6") - CARD_OUT,
             ),
-            // in with the answer, up over the limit, out as 03_9 begins
+            // in with the answer, up over the limit, out as 08_9 begins
             (
                 never_card().unwrap(),
-                len("03_7") - CARD_OUT + gap("03_7", "03_8") + len("03_8") + gap("03_8", "03_9"),
+                len("08_7") - CARD_OUT + gap("08_7", "08_8") + len("08_8") + gap("08_8", "08_9"),
             ),
-            // in as 03_9 begins, up to the beat after it
-            (drift_card().unwrap(), len("03_9") - CARD_OUT + END_BEAT),
+            // in as 08_9 begins, up to the beat after it
+            (drift_card().unwrap(), len("08_9") - CARD_OUT + END_BEAT),
         ];
         for (text, up) in windows {
             let need = read_s(&text);

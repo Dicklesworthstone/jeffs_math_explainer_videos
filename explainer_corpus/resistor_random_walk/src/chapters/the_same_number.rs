@@ -1,14 +1,13 @@
-//! Chapter 01, the same number: identical wires join four junctions, the
-//! top held at one volt and the bottom at zero (01_1); current in equals
-//! current out, so each middle junction is the average of its wires' far
-//! ends (01_2); the left junction's four far ends slide in and average to
-//! its value, and the right's check follows without words (01_3); the same
+//! Chapter 04, the same number twice: the circuit as chapter 03 leaves it
+//! (alone, its battery, the middle junctions at their values); the same
 //! wires again with a walker instead of a battery, and one route it might
-//! take (01_4); its chance of reaching the top first is the same average,
-//! one step ahead (01_5); the top and the bottom as one and zero, and the
-//! prediction (01_6); the same values and the same equation, and why they
-//! must agree: one rule with one solution (01_7); the walker is a model of
-//! the equations, not of electrons (01_8).
+//! take (04_1); its chance of reaching the top first is the same average,
+//! one step ahead (04_2); the top and the bottom as one and zero, and the
+//! prediction (04_3); the same values and the same equation, and why they
+//! must agree: one rule with one solution (04_4); the walker is a model of
+//! the equations, not of electrons (04_5). The lines are production
+//! chapter 01's 01_4 to 01_8, their pictures and frozen timing kept; the
+//! network's first three lines are chapter 03's.
 
 use explainer_kit::props::precisely;
 use explainer_kit::{Kit, Palette, fade_all, v};
@@ -38,12 +37,6 @@ const MODEL_NOTE: &str = "a model of the equations, not of electrons";
 /// current, and is not attributed on screen.
 const SOURCE_NOTE: &str = "voltage equals chance: Doyle and Snell, section 1.3.2";
 
-/// 01_2's exact version: Ohm's law and Kirchhoff's current law make the
-/// voltage the conductance-weighted average.
-const OHM: &str = "each wire carries its conductance times the voltage across it (Ohm's law), and at a \
-                   middle junction these currents add to zero (Kirchhoff). So its voltage is the \
-                   conductance-weighted average; wires side by side add their conductances.";
-
 /// Where the circuit stands while it is alone, and where it moves when the
 /// walk joins it; where the walk stands.
 const CIRCUIT_ALONE: [f64; 2] = [-0.5, 0.3];
@@ -64,7 +57,7 @@ fn and_list(items: &[String]) -> String {
     }
 }
 
-/// 01_5's exact version, built from the facts: the walk from the left is
+/// 04_2's exact version, built from the facts: the walk from the left is
 /// still going after one, two and three steps with chances that are never
 /// zero but shrink towards it, so it stops with chance one.
 fn stops_card() -> Result<String, String> {
@@ -88,12 +81,11 @@ fn stops_card() -> Result<String, String> {
     ))
 }
 
-/// 01_7's exact version: why one rule with fixed ends has one solution (the
-/// maximum principle, Doyle and Snell §1.1.5), with the hypothesis it needs
-/// stated first: every middle junction is wired to the top or the bottom.
-/// The card says so of the drawn network only after the model confirms it;
-/// two junctions wired only to each other (`model::with_island`) have no
-/// unique solution.
+/// 04_4's exact version (cut X1 of the long form): the hypothesis that
+/// makes the solution unique, stated for the drawn network only after the
+/// model confirms it; the argument (the maximum principle, Doyle and Snell
+/// §1.1.5) is chapter 09's. Two junctions wired only to each other
+/// (`model::with_island`) have no unique solution.
 fn unique_card() -> Result<String, String> {
     let cut = facts::network()?.cut_off();
     if !cut.is_empty() {
@@ -101,12 +93,11 @@ fn unique_card() -> Result<String, String> {
             "junctions {cut:?} are wired to neither the top nor the bottom: the solution is not unique"
         ));
     }
-    Ok(format!(
-        "here every middle junction is wired to the top or bottom. Two solutions with the same top and bottom \
-         differ by a solution which is {z} at both. Its largest value spreads along wires to them, so it is {z}, \
-         as is its smallest.",
-        z = Q::ZERO
-    ))
+    Ok(
+        "here every middle junction is wired to the top or bottom, which is what makes the solution unique \
+         (proved later in the video)."
+            .to_owned(),
+    )
 }
 
 /// The fill of each junction before its value is shown: the top and the
@@ -166,7 +157,7 @@ fn walk_route(stage: &mut Stage<'_>, pic: &Picture, dot: Mob, route: &[usize]) -
 
 impl SceneConstruct for TheSameNumber {
     fn name(&self) -> &str {
-        "01_the_same_number"
+        "04_the_same_number"
     }
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
@@ -180,15 +171,10 @@ impl SceneConstruct for TheSameNumber {
             facts::far_values(&chances, LEFT).map_err(fail)?,
         );
 
-        // 01_1: the junctions, the wires, the doubled pairs, the battery
-        let line = say(&kit, stage, "01_1")?;
-        let mut circuit = picture(stage, &net, CIRCUIT_ALONE, &first_colors(&net))?;
-        fade_in_lagged(stage, &circuit.junctions, 0.8, 0.3)?;
-        let wires: Vec<Mob> = circuit.strands.iter().map(|s| s.mob).collect();
-        fade_in_lagged(stage, &wires, 1.0, 0.15)?;
-        line.wait_for(stage, "doubled")?;
-        flash_all(stage, &circuit.doubled(), 0.6)?;
-        line.wait_for(stage, "A battery")?;
+        // the circuit as chapter 03 leaves it: alone, its battery holding the
+        // top and the bottom, the middle junctions at their values, coloured
+        let colors: Vec<Srgb> = volts.iter().map(|&q| palette::value(q)).collect();
+        let mut circuit = picture(stage, &net, CIRCUIT_ALONE, &colors)?;
         let mut cell = battery(stage, circuit.centre)?;
         let top_volts = kit.text(
             stage,
@@ -205,63 +191,16 @@ impl SceneConstruct for TheSameNumber {
             circuit.label_spot(BOTTOM, END_LABEL_GAP),
         )?;
         cell.extend([top_volts, bottom_volts]);
-        fade_in_all(stage, &cell, 0.6)?;
-
-        // 01_2: each middle junction's four wires, and the exact version
-        let line = say(&kit, stage, "01_2")?;
-        flash_all(stage, &circuit.wires_at(LEFT), 0.6)?;
-        flash_all(stage, &circuit.wires_at(RIGHT), 0.6)?;
-        line.wait_for(stage, "the average")?;
-        let ohm = precisely(&kit, stage, OHM)?;
-        fade_in_all(stage, &[ohm], 0.4)?;
-        let ohm_read_until = stage.scene().time().to_f64() + OHM.chars().count() as f64 / 15.0;
-
-        // 01_3: the right junction's value; the left's four far ends slide in
-        // and average to its value; then the right's check, without words
-        wait_until(stage, ohm_read_until)?;
-        let line = say(&kit, stage, "01_3")?;
-        let right_label = value_label(&kit, stage, &circuit, RIGHT, volts[RIGHT])?;
-        swap(stage, &[ohm], &[right_label], 0.3)?;
-        recolor(stage, &[(circuit.junctions[RIGHT], palette::value(volts[RIGHT]))], 0.3)?;
-        let arriving = tokens(&kit, stage, &circuit, LEFT, &value_texts(&volt_ends))?;
-        line.wait_for(stage, "one, one")?;
-        fade_in_lagged(stage, &arriving, 0.8, 0.4)?;
-        slide_in(stage, &arriving, circuit.spot(LEFT), 0.7)?;
-        line.wait_for(stage, "average to")?;
-        let left_rule = kit.tex(
-            stage,
-            &equation(&volt_ends, volts[LEFT]),
-            EQUATION_SIZE,
-            Palette::ink(),
-            &[],
-            circuit.equation_spot(),
-        )?;
-        fade_in_all(stage, &[left_rule], 0.4)?;
-        line.wait_for(stage, "three fifths")?;
         let left_label = value_label(&kit, stage, &circuit, LEFT, volts[LEFT])?;
-        fade_in_all(stage, &[left_label], 0.3)?;
-        recolor(stage, &[(circuit.junctions[LEFT], palette::value(volts[LEFT]))], 0.3)?;
-        let right_ends = facts::far_values(&volts, RIGHT).map_err(fail)?;
-        let checking = tokens(&kit, stage, &circuit, RIGHT, &value_texts(&right_ends))?;
-        fade_in_all(stage, &checking, 0.2)?;
-        slide_in(stage, &checking, circuit.spot(RIGHT), 0.45)?;
-        let right_rule = kit.tex(
-            stage,
-            &equation(&right_ends, volts[RIGHT]),
-            EQUATION_SIZE,
-            Palette::ink(),
-            &[],
-            circuit.equation_spot(),
-        )?;
-        fade_out_all(stage, &[left_rule], 0.125)?;
-        fade_in_all(stage, &[right_rule], 0.125)?;
-        flash_all(stage, &[right_label], 0.35)?;
-        pause(stage, 3.0)?;
+        let right_label = value_label(&kit, stage, &circuit, RIGHT, volts[RIGHT])?;
+        let mut arriving = circuit.mobs();
+        arriving.extend(&cell);
+        arriving.extend([left_label, right_label]);
+        fade_in_all(stage, &arriving, 0.6)?;
 
-        // 01_4: the circuit moves aside; the same wires again with a walker
+        // 04_1: the circuit moves aside; the same wires again with a walker
         // instead of a battery, and one route it might take
-        let line = say(&kit, stage, "01_4")?;
-        fade_out_all(stage, &[right_rule], 0.3)?;
+        let line = say(&kit, stage, "04_1")?;
         let mut moving = circuit.mobs();
         moving.extend(&cell);
         moving.extend([left_label, right_label]);
@@ -287,9 +226,9 @@ impl SceneConstruct for TheSameNumber {
         let end = *ROUTE.last().ok_or_else(|| fail("the drawn route is empty".into()))?;
         flash_all(stage, &[walk.junctions[end]], 0.5)?;
 
-        // 01_5: back at the left junction; the walk stops with chance one;
+        // 04_2: back at the left junction; the walk stops with chance one;
         // one step ahead, a "?" at each far end
-        let line = say(&kit, stage, "01_5")?;
+        let line = say(&kit, stage, "04_2")?;
         let dot_back = walker(stage, walk.spot(LEFT));
         swap(stage, &[dot], &[dot_back], 0.4)?;
         let stops_text = stops_card().map_err(fail)?;
@@ -303,10 +242,10 @@ impl SceneConstruct for TheSameNumber {
         line.wait_for(stage, "the average")?;
         fade_in_lagged(stage, &asked, 0.6, 0.3)?;
 
-        // 01_6: the top's far ends become one and the bottom's zero; the
+        // 04_3: the top's far ends become one and the bottom's zero; the
         // middle junctions carry "?"; the question, and the countdown
         wait_until(stage, stops_read_until)?;
-        let line = say(&kit, stage, "01_6")?;
+        let line = say(&kit, stage, "04_3")?;
         fade_out_all(stage, &[stops], 0.3)?;
         let known = tokens(&kit, stage, &walk, LEFT, &value_texts(&chance_ends))?;
         for (end, phrase) in [(TOP, "From the top"), (BOTTOM, "from the bottom")] {
@@ -336,10 +275,10 @@ impl SceneConstruct for TheSameNumber {
         fade_in_all(stage, &[left_q, right_q], 0.3)?;
         let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;
 
-        // 01_7: the answer; the same four values slide in and the same
+        // 04_4: the answer; the same four values slide in and the same
         // equation forms; both pictures' equations side by side; then why
         // the two must agree
-        let line = say(&kit, stage, "01_7")?;
+        let line = say(&kit, stage, "04_4")?;
         let walk_left = value_label(&kit, stage, &walk, LEFT, chances[LEFT])?;
         let walk_right = value_label(&kit, stage, &walk, RIGHT, chances[RIGHT])?;
         fade_out_all(stage, &[countdown, left_q, right_q], 0.15)?;
@@ -397,10 +336,10 @@ impl SceneConstruct for TheSameNumber {
         line.wait_for(stage, "must agree")?;
         flash_all(stage, &[left_label, walk_left], 0.5)?;
 
-        // 01_8: the walker is a model of the equations; it leaves, and the
+        // 04_5: the walker is a model of the equations; it leaves, and the
         // two pictures stand with their equal numbers
         wait_until(stage, unique_read_until)?;
-        let line = say(&kit, stage, "01_8")?;
+        let line = say(&kit, stage, "04_5")?;
         let at = walk.equation_spot();
         let model_note = kit.text(stage, MODEL_NOTE, 22.0, Palette::dim(), at)?;
         let source_note = kit.text(stage, SOURCE_NOTE, 18.0, Palette::dim(), v(at[0], at[1] - 0.4))?;
@@ -431,24 +370,18 @@ mod tests {
     fn every_phrase_the_scene_waits_for_is_in_its_line() {
         let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
         for (id, phrase) in [
-            ("01_1", "doubled"),
-            ("01_1", "A battery"),
-            ("01_2", "the average"),
-            ("01_3", "one, one"),
-            ("01_3", "average to"),
-            ("01_3", "three fifths"),
-            ("01_4", "A walker"),
-            ("01_4", "at random"),
-            ("01_4", "walks on"),
-            ("01_5", "look one step ahead"),
-            ("01_5", "the average"),
-            ("01_6", "From the top"),
-            ("01_6", "from the bottom"),
-            ("01_6", "So what is it"),
-            ("01_7", "One rule"),
-            ("01_7", "only one solution"),
-            ("01_7", "must agree"),
-            ("01_8", "The two numbers agree"),
+            ("04_1", "A walker"),
+            ("04_1", "at random"),
+            ("04_1", "walks on"),
+            ("04_2", "look one step ahead"),
+            ("04_2", "the average"),
+            ("04_3", "From the top"),
+            ("04_3", "from the bottom"),
+            ("04_3", "So what is it"),
+            ("04_4", "One rule"),
+            ("04_4", "only one solution"),
+            ("04_4", "must agree"),
+            ("04_5", "The two numbers agree"),
         ] {
             let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
             assert_eq!(text.matches(phrase).count(), 1, "{id} must say {phrase:?} once: {text}");
@@ -467,13 +400,14 @@ mod tests {
         );
         assert!(stops.contains("stops with chance 1."), "{stops}");
         let unique = unique_card().unwrap();
-        assert!(unique.contains("which is 0 at both"), "{unique}");
-        // the hypothesis comes before the argument that needs it
-        let wired = unique
-            .find("every middle junction is wired to the top or bottom")
-            .unwrap_or_else(|| panic!("no hypothesis: {unique}"));
-        assert!(wired < unique.find("Its largest value").unwrap(), "{unique}");
-        for text in [OHM.to_string(), stops, unique] {
+        // the hypothesis, and that it is what makes the answer unique; the
+        // argument is chapter 09's
+        assert!(
+            unique.starts_with("here every middle junction is wired to the top or bottom, which is what makes"),
+            "{unique}"
+        );
+        assert!(unique.ends_with("(proved later in the video)."), "{unique}");
+        for text in [stops, unique] {
             let lines = explainer_kit::animatic::wrap(&text, 84, 10);
             assert!(lines.len() <= 3, "{} lines: {text}", lines.len());
         }

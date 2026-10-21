@@ -1,10 +1,14 @@
 //! Every number the video shows or says, computed from [`crate::model`] and
 //! printed for [`oracle.py`](../oracle.py) (`./x resistor_random_walk
-//! facts-check`): the rows of docs/fact-sheet.md. R-F1 to R-F3 rows are what
-//! the opening shows and says, R-F4 to R-F6 chapter 02's derivation, R-F7
-//! and R-F8 chapter 03's rounds, R-F9 chapter 04's difference argument, R-X
-//! rows the edges of the always/never sentences, R-P rows the primary
-//! source's own worked examples.
+//! facts-check`): the rows of docs/fact-sheet.md. R-F10 and R-F11 are the
+//! line of chapters 01 and 02; R-F1 to R-F3 the bridge network and its walk
+//! (chapters 03 and 04), R-F12 chapter 03's school shortcuts; R-F4 to R-F6
+//! and R-F13 the balances and the walker's equations (chapters 05 and 06)
+//! and their solve (07), R-F14 chapter 07's routes; R-F7 and R-F8 chapter
+//! 08's rounds, R-F9 chapter 09's difference argument; R-F15 chapter 10's
+//! unequal wires and R-F16 chapter 11's two runs. R-X rows are the edges of
+//! the always/never sentences, R-P rows the primary source's own worked
+//! examples.
 
 use std::collections::BTreeSet;
 
@@ -309,6 +313,62 @@ fn name(x: usize) -> &'static str {
     ["top", "left", "right", "bottom"].get(x).copied().unwrap_or("?")
 }
 
+/// Chapters 01 and 02: the line of identical wires, junction 0 the bottom
+/// and its last the top.
+pub fn line() -> Result<Network, String> {
+    model::line(model::LINE_WIRES)
+}
+
+/// Each step of a route along the line, "up" or "down".
+pub fn moves(route: &[usize]) -> Vec<&'static str> {
+    route
+        .windows(2)
+        .map(|s| if s[1] > s[0] { "up" } else { "down" })
+        .collect()
+}
+
+/// Chapters 10 and 11: Doyle and Snell's unequal wires, on the opening's
+/// shape.
+pub fn unequal() -> Result<Network, String> {
+    model::unequal()
+}
+
+/// The far junctions chapter 10 names at a middle junction, in the order
+/// it says them: up, across, down.
+pub fn across_links(x: usize) -> [usize; 3] {
+    [TOP, if x == LEFT { RIGHT } else { LEFT }, BOTTOM]
+}
+
+/// The walker's first-step chances from middle junction `x` of `net` to
+/// each of the junctions `to`: each link's conductance over the total.
+pub fn steps(net: &Network, x: usize, to: &[usize]) -> Vec<Q> {
+    to.iter().map(|&y| net.between(x, y) / net.total(x)).collect()
+}
+
+/// Chapter 11: how many rounds the two runs are checked over (on the
+/// unequal wires and beside the island), and the rounds its table shows.
+pub const RUN_CHECK_ROUNDS: usize = 20;
+pub const RUN_ROWS: [usize; 5] = [0, 1, 2, 8, 9];
+
+/// The two runs' gap at each of the junctions `at` in round `n`.
+pub fn widths(low: &[Vec<Q>], high: &[Vec<Q>], n: usize, at: &[usize]) -> Vec<Q> {
+    at.iter().map(|&x| high[n][x] - low[n][x]).collect()
+}
+
+/// The first round in which the two runs are within [`tolerance`] of each
+/// other at every one of the junctions `at`, if any is.
+pub fn runs_within(low: &[Vec<Q>], high: &[Vec<Q>], at: &[usize]) -> Option<usize> {
+    (0..low.len().min(high.len())).find(|&n| widths(low, high, n, at).iter().all(|&w| w < tolerance()))
+}
+
+/// The one value in `values`, or an error naming `what`.
+fn only<T: Ord + Copy + std::fmt::Debug>(values: &BTreeSet<T>, what: &str) -> Result<T, String> {
+    match (values.first(), values.len()) {
+        (Some(&k), 1) => Ok(k),
+        _ => Err(format!("{what}: {values:?}, not one value")),
+    }
+}
+
 pub fn facts() -> Result<Facts, String> {
     let mut f = Facts::new();
     let net = network()?;
@@ -392,6 +452,13 @@ pub fn facts() -> Result<Facts, String> {
     chapter_03(&mut f, &net, &v)?;
     family(&mut f)?;
     chapter_04(&mut f, &net)?;
+    line_walk(&mut f)?;
+    line_circuit(&mut f)?;
+    shortcuts(&mut f, &net)?;
+    balances(&mut f, &net, &v, &walk)?;
+    routes(&mut f, &net, &walk)?;
+    unequal_wires(&mut f)?;
+    bracket_runs(&mut f)?;
 
     // the primary source's own numbers
     let ds = model::doyle_snell()?;
@@ -737,6 +804,395 @@ fn chapter_04(f: &mut Facts, net: &Network) -> Result<(), String> {
     f.add("R-X8.family.only_zero", only_zero)?;
     Ok(())
 }
+
+/// Chapter 01's numbers (R-F10): the line of five identical wires, the
+/// walker one wire above the bottom, its drawn route and the ghost's first
+/// step down, each middle junction's two wires picked half the time, the
+/// chances climbing in equal steps of a fifth, and the halfway rule with
+/// both ends at zero leaving only zero (its chance of walking for ever).
+fn line_walk(f: &mut Facts) -> Result<(), String> {
+    let row = line()?;
+    let walk = row.walk()?;
+    let start = model::LINE_START;
+    f.add("R-F10.junctions", row.size())?;
+    f.add("R-F10.wires", row.wires().len())?;
+    f.add("R-F10.start", start)?;
+    let counts: BTreeSet<usize> = row
+        .middle()
+        .iter()
+        .map(|&x| row.far_ends(x).map(|ends| ends.len()))
+        .collect::<Result<_, _>>()?;
+    let wires = only(&counts, "the line's middle junctions' wires")?;
+    f.add("R-F10.wires_at_middle", wires)?;
+    f.add("R-F10.step", Q::ONE / Q::int(wires as i128))?;
+    f.add("R-F10.top_chance", walk.top[row.top()])?;
+    f.add("R-F10.bottom_chance", walk.top[row.bottom()])?;
+    if !row.is_route(&model::LINE_ROUTE) || !row.is_route(&model::LINE_GHOST) {
+        return Err("the line's drawn routes are not walks on it".into());
+    }
+    f.add("R-F10.route", model::LINE_ROUTE.map(|x| x.to_string()).join(","))?;
+    f.add("R-F10.moves", moves(&model::LINE_ROUTE).join(","))?;
+    f.add("R-F10.ghost", model::LINE_GHOST.map(|x| x.to_string()).join(","))?;
+    f.add("R-F10.chances", csv(&walk.top))?;
+    f.add("R-F10.answer", walk.top[start])?;
+    let halfway = row
+        .middle()
+        .iter()
+        .all(|&x| (walk.top[x - 1] + walk.top[x + 1]) / Q::int(2) == walk.top[x]);
+    f.add("R-F10.halfway", halfway)?;
+    let rises: BTreeSet<Q> = walk.top.windows(2).map(|w| w[1] - w[0]).collect();
+    f.add("R-F10.step_size", only(&rises, "the line's chances rise by")?)?;
+    f.add("R-F10.forever", csv(&row.kirchhoff(Q::ZERO, Q::ZERO)?))?;
+    let stops: Vec<Q> = row.middle().iter().map(|&x| walk.top[x] + walk.bottom[x]).collect();
+    f.add("R-F10.stops", csv(&stops))?;
+    Ok(())
+}
+
+/// Chapter 02's numbers (R-F11): the same line with the battery, every
+/// wire the same current, so equal drops of a fifth of a volt, the
+/// voltages junction by junction, and the walker's chances equal to them.
+fn line_circuit(f: &mut Facts) -> Result<(), String> {
+    let row = line()?;
+    let v = row.kirchhoff(BATTERY[0], BATTERY[1])?;
+    f.add("R-F11.top_volts", v[row.top()])?;
+    f.add("R-F11.bottom_volts", v[row.bottom()])?;
+    let currents: BTreeSet<Q> = row.currents(&v).into_iter().collect();
+    only(&currents, "the line's wires' currents")?;
+    f.add("R-F11.same_current", true)?;
+    // each wire's drop, from its upper junction to its lower one
+    let drops: Vec<Q> = row.wires().iter().map(|w| v[w.b] - v[w.a]).collect();
+    f.add("R-F11.drops", csv(&drops))?;
+    f.add("R-F11.drop_count", drops.len())?;
+    let sizes: BTreeSet<Q> = drops.iter().copied().collect();
+    f.add("R-F11.drop", only(&sizes, "the line's drops")?)?;
+    f.add("R-F11.volts", csv(&v))?;
+    f.add("R-F11.answer", v[model::LINE_START])?;
+    f.add("R-F11.same", v == row.walk()?.top)?;
+    Ok(())
+}
+
+/// Chapter 03's dead end (R-F12): with each pair of wires side by side
+/// merged, how many links remain, how many pairs of them still join the
+/// same two junctions, how many links meet at each middle junction and at
+/// how many middle junctions exactly two meet (in a row), the bridge
+/// between the two middle junctions; and what the two shortcuts do,
+/// side by side (conductances add) and in a row (half as easy).
+fn shortcuts(f: &mut Facts, net: &Network) -> Result<(), String> {
+    let mut pairs: Vec<(usize, usize)> = net.wires().iter().map(|w| (w.a.min(w.b), w.a.max(w.b))).collect();
+    f.add("R-F12.links", pairs.len())?;
+    pairs.sort_unstable();
+    f.add("R-F12.side_by_side", pairs.windows(2).filter(|p| p[0] == p[1]).count())?;
+    let meeting: Vec<String> = [LEFT, RIGHT]
+        .iter()
+        .map(|&x| net.neighbours(x).len().to_string())
+        .collect();
+    f.add("R-F12.meeting", meeting.join(","))?;
+    let in_a_row = net.middle().iter().filter(|&&x| net.neighbours(x).len() == 2).count();
+    f.add("R-F12.in_a_row", in_a_row)?;
+    let middle = net.middle();
+    let bridges: Vec<String> = middle
+        .iter()
+        .flat_map(|&x| middle.iter().filter(move |&&y| y > x).map(move |&y| (x, y)))
+        .filter(|&(x, y)| !net.between(x, y).is_zero())
+        .map(|(x, y)| format!("{}-{}", name(x), name(y)))
+        .collect();
+    f.add("R-F12.bridge", bridges.join(","))?;
+    f.add("R-F12.pair_conductance", net.between(TOP, LEFT))?;
+    // two identical wires in a row with one volt across: the current they
+    // pass is the conductance of the one wire they act as
+    let two = model::line(2)?;
+    let v2 = two.kirchhoff(Q::ONE, Q::ZERO)?;
+    f.add("R-F12.row_conductance", (v2[2] - v2[1]) * two.between(2, 1))?;
+    Ok(())
+}
+
+/// Chapter 07's solve of the two balances, as the narration speaks it:
+/// each balance times its wires is `a x = c + cross x'`; the left is
+/// (c_left + cross right)/a, put into the right's and multiplied by a, so
+/// a² right = a c_right + c_left + cross right, (a² − cross²) right = six.
+pub struct Solve {
+    /// The wires at each middle junction (both carry the same number).
+    pub a: Q,
+    /// The bridge's wires between the two.
+    pub cross: Q,
+    /// Each balance's fixed far ends added: the left's and the right's.
+    pub left_constant: Q,
+    pub right_constant: Q,
+    /// a², a times the right's constant, a² − cross² (the balance's
+    /// determinant), and a c_right + cross c_left.
+    pub sixteen: Q,
+    pub four: Q,
+    pub fifteen: Q,
+    pub six: Q,
+    /// The right, then the left's numerator over a, and the left.
+    pub right: Q,
+    pub left_sum: Q,
+    pub left: Q,
+}
+
+/// The solve of `net`'s two balances with the battery's top and bottom;
+/// refused unless the two middle junctions carry the same wires, a² − cross²
+/// is the balance's determinant, and the result is the circuit's `v`.
+pub fn solve(net: &Network, v: &[Q]) -> Result<Solve, String> {
+    let a = net.total(LEFT);
+    if net.total(RIGHT) != a {
+        return Err(format!("the middle junctions carry {} and {} wires", a, net.total(RIGHT)));
+    }
+    let cross = net.between(LEFT, RIGHT);
+    let fixed = |x: usize| net.between(x, TOP) * BATTERY[0] + net.between(x, BOTTOM) * BATTERY[1];
+    let (left_constant, right_constant) = (fixed(LEFT), fixed(RIGHT));
+    let sixteen = a * a;
+    let four = a * right_constant;
+    let fifteen = sixteen - cross * cross;
+    let six = four + cross * left_constant;
+    if fifteen != net.middle_determinant() {
+        return Err(format!(
+            "{fifteen} is not the balance's determinant {}",
+            net.middle_determinant()
+        ));
+    }
+    let right = six / fifteen;
+    let left_sum = left_constant + cross * right;
+    let left = left_sum / a;
+    if [left, right] != [v[LEFT], v[RIGHT]] {
+        return Err(format!(
+            "the spoken solve gives {left} and {right}, the circuit {} and {}",
+            v[LEFT], v[RIGHT]
+        ));
+    }
+    Ok(Solve {
+        a,
+        cross,
+        left_constant,
+        right_constant,
+        sixteen,
+        four,
+        fifteen,
+        six,
+        right,
+        left_sum,
+        left,
+    })
+}
+
+/// Chapter 07's routes from the left junction of `net`, until the walker
+/// stops or first comes back: straight up, across then up, across and back,
+/// straight down, across then down; the chance of the top first as the
+/// first two over the chance of not coming back, and of the bottom first.
+pub struct Routes {
+    pub up_now: Q,
+    pub across_up: Q,
+    pub back: Q,
+    pub down_now: Q,
+    pub across_down: Q,
+    pub exit_top: Q,
+    pub kept: Q,
+    pub sum: Q,
+    pub bottom_by_routes: Q,
+}
+
+/// The routes from the left of `net`; refused unless they add to one and
+/// give the walk's own chances.
+pub fn routes_from_left(net: &Network, walk: &Walk) -> Result<Routes, String> {
+    let p = |x: usize, y: usize| net.between(x, y) / net.total(x);
+    let (up_now, across_up, back) = (
+        p(LEFT, TOP),
+        p(LEFT, RIGHT) * p(RIGHT, TOP),
+        p(LEFT, RIGHT) * p(RIGHT, LEFT),
+    );
+    let (down_now, across_down) = (p(LEFT, BOTTOM), p(LEFT, RIGHT) * p(RIGHT, BOTTOM));
+    let outcomes = up_now + across_up + back + down_now + across_down;
+    if outcomes != Q::ONE {
+        return Err(format!("the left's first outcomes add to {outcomes}, not 1"));
+    }
+    let exit_top = up_now + across_up;
+    let kept = Q::ONE - back;
+    let sum = exit_top / kept;
+    let bottom_by_routes = (down_now + across_down) / kept;
+    if sum != walk.top[LEFT] || bottom_by_routes != walk.bottom[LEFT] {
+        return Err(format!(
+            "the routes give {sum} and {bottom_by_routes}, the walk {} and {}",
+            walk.top[LEFT], walk.bottom[LEFT]
+        ));
+    }
+    Ok(Routes {
+        up_now,
+        across_up,
+        back,
+        down_now,
+        across_down,
+        exit_top,
+        kept,
+        sum,
+        bottom_by_routes,
+    })
+}
+
+/// Chapters 05 to 07's numbers (R-F13): the right junction's far ends and
+/// first-step chances, each balance's fixed far ends added, the walker's
+/// equations the circuit's, and the solve the narration speaks: the left is
+/// (2 + right)/4, put into 4 right = 1 + left and multiplied by 4, so
+/// 16 right = 4 + 2 + right, 15 right = 6, and the left (2 + 2/5)/4.
+fn balances(f: &mut Facts, net: &Network, v: &[Q], walk: &Walk) -> Result<(), String> {
+    let ends: Vec<&str> = net.far_ends(RIGHT)?.into_iter().map(name).collect();
+    f.add("R-F13.right.far_ends", ends.join(","))?;
+    f.add("R-F13.right.steps", csv(&steps(net, RIGHT, &[TOP, LEFT, BOTTOM])))?;
+    let s = solve(net, v)?;
+    f.add("R-F13.left_constant", s.left_constant)?;
+    f.add("R-F13.right_constant", s.right_constant)?;
+    // both pictures' values keep a x = c + cross x' at both junctions
+    let keeps = |values: &[Q]| {
+        s.a * values[LEFT] == s.left_constant + s.cross * values[RIGHT]
+            && s.a * values[RIGHT] == s.right_constant + s.cross * values[LEFT]
+    };
+    f.add("R-F13.walk_same", keeps(v) && keeps(&walk.top))?;
+    f.add("R-F13.sixteen", s.sixteen)?;
+    f.add("R-F13.four", s.four)?;
+    f.add("R-F13.fifteen", s.fifteen)?;
+    f.add("R-F13.six", s.six)?;
+    f.add("R-F13.right", s.right)?;
+    f.add("R-F13.left_sum", s.left_sum)?;
+    f.add("R-F13.left", s.left)?;
+    Ok(())
+}
+
+/// Chapter 07's routes (R-F14): from the left, until the walker stops or
+/// first comes back (the five outcomes add to one); the chance of reaching
+/// the top first as nine sixteenths over the fifteen sixteenths that do not
+/// come back; and the chance of reaching the bottom first, by the walk and
+/// by the routes.
+fn routes(f: &mut Facts, net: &Network, walk: &Walk) -> Result<(), String> {
+    let r = routes_from_left(net, walk)?;
+    f.add("R-F14.up_now", r.up_now)?;
+    f.add("R-F14.across_up", r.across_up)?;
+    f.add("R-F14.back", r.back)?;
+    f.add("R-F14.down_now", r.down_now)?;
+    f.add("R-F14.across_down", r.across_down)?;
+    f.add(
+        "R-F14.outcomes",
+        r.up_now + r.across_up + r.back + r.down_now + r.across_down,
+    )?;
+    f.add("R-F14.exit_top", r.exit_top)?;
+    f.add("R-F14.kept", r.kept)?;
+    f.add("R-F14.sum", r.sum)?;
+    f.add("R-F14.bottom_first", pair(&walk.bottom))?;
+    f.add("R-F14.bottom_first.left", walk.bottom[LEFT])?;
+    f.add("R-F14.bottom_by_routes", r.bottom_by_routes)?;
+    Ok(())
+}
+
+/// Chapter 10's numbers (R-F15): Doyle and Snell's unequal wires on the
+/// opening's shape, each middle junction's links up, across and down, their
+/// total and the walker's first-step chances, the left's likeliest step,
+/// and the voltages and chances (their 7/16 and 3/8, `R-P1`).
+fn unequal_wires(f: &mut Facts) -> Result<(), String> {
+    let net = unequal()?;
+    let all: Vec<Q> = net.wires().iter().map(|w| w.conductance).collect();
+    f.add("R-F15.conductances", csv(&all))?;
+    for x in [LEFT, RIGHT] {
+        let to = across_links(x);
+        let c: Vec<Q> = to.iter().map(|&y| net.between(x, y)).collect();
+        f.add(&format!("R-F15.{}.conductances", name(x)), csv(&c))?;
+        f.add(&format!("R-F15.{}.total", name(x)), net.total(x))?;
+        f.add(&format!("R-F15.{}.steps", name(x)), csv(&steps(&net, x, &to)))?;
+    }
+    let left = steps(&net, LEFT, &across_links(LEFT));
+    let most = left.iter().copied().max().ok_or("the left has no wire")?;
+    let likeliest: Vec<usize> = (0..left.len()).filter(|&i| left[i] == most).collect();
+    if likeliest.len() != 1 {
+        return Err(format!("the left's likeliest steps are {likeliest:?}, not one"));
+    }
+    f.add("R-F15.most_likely", ["up", "across", "down"][likeliest[0]])?;
+    let v = net.kirchhoff(BATTERY[0], BATTERY[1])?;
+    let p = net.walk()?.top;
+    let theirs = model::doyle_snell()?.kirchhoff(Q::ONE, Q::ZERO)?;
+    if [v[LEFT], v[RIGHT]] != [theirs[2], theirs[3]] {
+        return Err(format!("the drawn wires give {} and {}, not Doyle and Snell's", v[LEFT], v[RIGHT]));
+    }
+    f.add("R-F15.voltages", pair(&v))?;
+    f.add("R-F15.chances", pair(&p))?;
+    f.add("R-F15.same", v == p)?;
+    Ok(())
+}
+
+/// Chapter 11's numbers (R-F16, R-X9): the two runs on the unequal wires,
+/// the top held at 1 and the bottom at 0 in both, from all zeros and from
+/// all ones at the middle junctions, every junction at once from the round
+/// before; the table's rounds and their gaps; the first round both gaps
+/// are under a thousandth; the order kept, the answer between, and the gap
+/// the chance of still walking. Beside an island: the island's runs never
+/// move, a gap of 1 for ever, while the unequal wires' own still close.
+fn bracket_runs(f: &mut Facts) -> Result<(), String> {
+    let net = unequal()?;
+    let v = net.kirchhoff(BATTERY[0], BATTERY[1])?;
+    let middle = net.middle();
+    let (low, high) = net.two_runs(RUN_CHECK_ROUNDS)?;
+    f.add("R-F16.starts", csv(&[low[0][LEFT], high[0][LEFT]]))?;
+    let held = low
+        .iter()
+        .chain(&high)
+        .all(|r| [r[TOP], r[BOTTOM]] == BATTERY);
+    f.add("R-F16.ends_held", held)?;
+    // every junction at once from the round before, not one at a time
+    let simultaneous = (1..low.len()).all(|n| net.averaging_round(&low[n - 1]).is_ok_and(|r| r == low[n]))
+        && net.sequential_round(&low[0])? != low[1];
+    f.add("R-F16.simultaneous", simultaneous)?;
+    let mut bigger = Vec::new();
+    for n in RUN_ROWS {
+        f.add(&format!("R-F16.low.round{n}"), pair(&low[n]))?;
+        f.add(&format!("R-F16.high.round{n}"), pair(&high[n]))?;
+        let gaps = widths(&low, &high, n, &[LEFT, RIGHT]);
+        f.add(&format!("R-F16.width.round{n}"), csv(&gaps))?;
+        bigger.push(gaps.iter().copied().max().ok_or("no gap")?);
+    }
+    f.add("R-F16.bigger_width", csv(&bigger))?;
+    let within = runs_within(&low, &high, &middle).ok_or("the two runs never come within the tolerance")?;
+    f.add("R-F16.first_within", within)?;
+    let monotone = (1..low.len()).all(|n| middle.iter().all(|&x| low[n][x] >= low[n - 1][x] && high[n][x] <= high[n - 1][x]));
+    let between = (0..low.len()).all(|n| middle.iter().all(|&x| low[n][x] <= v[x] && v[x] <= high[n][x]));
+    f.add("R-F16.monotone", monotone)?;
+    f.add("R-F16.between", between)?;
+    let mut walking = true;
+    for &x in &middle {
+        let still = net.still_walking(x, STILL_CHECK)?;
+        walking &= (1..=STILL_CHECK).all(|n| high[n][x] - low[n][x] == still[n - 1]);
+    }
+    f.add("R-F16.width_is_still_walking", walking)?;
+
+    // beside an island: the island's runs stay at 0 and 1, so its gap is 1
+    // for ever, and the unequal wires' junctions close as before
+    let island = model::beside_island(&net)?;
+    let cut = island.cut_off();
+    f.add("R-X9.island.junctions", cut.len())?;
+    let (ilow, ihigh) = island.two_runs(RUN_CHECK_ROUNDS)?;
+    let most_low = ilow
+        .iter()
+        .flat_map(|r| cut.iter().map(move |&x| r[x]))
+        .max()
+        .ok_or("no island junction")?;
+    let least_high = ihigh
+        .iter()
+        .flat_map(|r| cut.iter().map(move |&x| r[x]))
+        .min()
+        .ok_or("no island junction")?;
+    let least_width = (0..ilow.len())
+        .flat_map(|n| widths(&ilow, &ihigh, n, &cut))
+        .min()
+        .ok_or("no island junction")?;
+    f.add("R-X9.island.low", most_low)?;
+    f.add("R-X9.island.high", least_high)?;
+    f.add("R-X9.island.moves", most_low != Q::ZERO || least_high != Q::ONE)?;
+    f.add("R-X9.island.width", least_width)?;
+    f.add("R-X9.island.within", runs_within(&ilow, &ihigh, &cut).is_some())?;
+    let own = runs_within(&ilow, &ihigh, &middle).ok_or("the unequal wires never close beside the island")?;
+    f.add("R-X9.network.within", own)?;
+    f.add("R-X9.determinant", island.middle_determinant())?;
+    Ok(())
+}
+
+/// How many steps chapter 11's gap is checked against the chance of
+/// still walking.
+const STILL_CHECK: usize = 12;
 
 #[cfg(test)]
 mod tests {
