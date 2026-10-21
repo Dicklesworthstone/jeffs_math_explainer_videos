@@ -11,6 +11,7 @@ use super::draw::{
     moving, say, think_pause, wait_until,
 };
 use super::limit_that_jumps::{half_line, witness_at};
+use super::old_objection::tex_frac;
 use crate::{facts, model};
 
 pub struct FixedOrMoving {
@@ -32,6 +33,9 @@ const POINT_RULE: &str = r"\forall x\in[0,1]\ \forall\varepsilon>0\ \exists N\ \
 const UNIFORM_RULE: &str = r"\forall\varepsilon>0\ \exists N\ \forall n\ge N\ \forall x\in[0,1]";
 const ERROR_RULE: &str = r"|f_n(x)-f(x)|<\varepsilon";
 const X: f64 = 3.1;
+/// The tolerance 08_5 keeps sits at the foot, level with the error rule and
+/// right of it, under the think ring and its note.
+const TOLERANCE_Y: f64 = -3.35;
 const READ_S: f64 = 8.0;
 
 fn text(kit: &Kit, stage: &mut Stage<'_>, s: &str, y: f64, size: f64, color: Srgb) -> fmn::Result<Mob> {
@@ -146,6 +150,17 @@ impl SceneConstruct for FixedOrMoving {
         let uniform_read = stage.scene().time().to_f64() + READ_S;
 
         let _question = say(&kit, stage, "08_5")?;
+        // the tolerance the question keeps, beside the error rule at the
+        // foot, clear of the think ring
+        let tolerance = kit.tex(
+            stage,
+            &format!(r"\varepsilon={}", tex_frac(&fact(&f, "C1.wait.tolerance")?)),
+            28.0,
+            moving(),
+            &[],
+            v(X, TOLERANCE_Y),
+        )?;
+        fade_in_all(stage, &[tolerance], 0.3)?;
         let ask = text(&kit, stage, "?", -1.25, 52.0, Palette::hero())?;
         fade_in_all(stage, &[ask], 0.25)?;
         think_pause(&kit, stage, v(X, -1.25), 0.5)?;
@@ -168,10 +183,14 @@ impl SceneConstruct for FixedOrMoving {
         let crossing = math(&kit, stage, r"x_N=2^{-1/N}<1", -1.35, 29.0, moving())?;
         fade_in_all(stage, &[label, crossing], 0.4)?;
         line.wait_for(stage, "Below one")?;
+        // the gap is the tolerance itself, and the promise is strict
         let miss = math(
             &kit,
             stage,
-            r"|f_N(x_N)-f(x_N)|=\varepsilon=\tfrac12",
+            &format!(
+                r"|f_N(x_N)-f(x_N)|={}=\varepsilon,\quad\text{{not }}<\varepsilon",
+                tex_frac(&fact(&f, "C1.witness.gap")?)
+            ),
             -2.0,
             24.0,
             gap_color(),

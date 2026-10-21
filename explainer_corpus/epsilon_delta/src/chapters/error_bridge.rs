@@ -9,6 +9,7 @@ use fmn::prelude::*;
 use super::draw::{
     fact, fade_in_all, fade_in_lagged, fade_out_all, fail, flat, line_style, say, think_pause, wait_until,
 };
+use super::limit_that_jumps::read_s;
 use crate::facts;
 
 pub struct ErrorBridge {
@@ -23,6 +24,9 @@ const TITLE: &str = "Carry continuity through the limit";
 const ASSUMPTION: &str = "continuous functions, uniform convergence";
 const BUDGETS: &str = "three error budgets";
 const ORDER: &str = "tolerance → one fixed curve → input window → every nearby input";
+const SCOPE: &str = "uniform convergence is sufficient";
+const CAVEAT: &str = "a continuous limit need not arise uniformly";
+const NEXT: &str = "next: approaching along sequences";
 const READ_S: f64 = 10.0;
 
 fn ink() -> Srgb {
@@ -159,28 +163,15 @@ impl SceneConstruct for ErrorBridge {
         )?;
         fade_in_lagged(stage, &[order_title, order, before_x], 0.7, 0.1)?;
         let _line = say(&kit, stage, "09_9")?;
-        let scope = kit.text(
-            stage,
-            "uniform convergence is sufficient",
-            30.0,
-            Palette::gold(),
-            v(0.0, -0.7),
-        )?;
-        let caveat = kit.text(
-            stage,
-            "a continuous limit need not arise uniformly",
-            26.0,
-            ink(),
-            v(0.0, -1.45),
-        )?;
-        let next = kit.text(
-            stage,
-            "next: approaching along sequences",
-            25.0,
-            Palette::dim(),
-            v(0.0, -2.6),
-        )?;
+        let scope = kit.text(stage, SCOPE, 30.0, Palette::gold(), v(0.0, -0.7))?;
+        let caveat = kit.text(stage, CAVEAT, 26.0, ink(), v(0.0, -1.45))?;
+        let next = kit.text(stage, NEXT, 25.0, Palette::dim(), v(0.0, -2.6))?;
         fade_in_lagged(stage, &[scope, caveat, next], 0.7, 0.1)?;
+        // they stay until read, counted once from their completed fade; with
+        // 09_8 as short as it is, this reading, not the voice, can end the
+        // chapter
+        let tail_up = stage.scene().time().to_f64();
+        wait_until(stage, tail_up + read_s(SCOPE) + read_s(CAVEAT) + read_s(NEXT))?;
         kit.hold(stage)?;
         fade_all(stage, 0.6)?;
         kit.finish(stage)

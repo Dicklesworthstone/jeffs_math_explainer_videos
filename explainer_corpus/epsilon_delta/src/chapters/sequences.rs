@@ -1,14 +1,43 @@
-//! Sequential continuity on a real domain, then a nonlinear error budget.
-use explainer_kit::{Kit, Palette, fade_all, v};
+//! Sequential continuity on a real domain, then the square root's window:
+//! continuous at 0, yet its widest window is ε², so halving the tolerance
+//! quarters the window and no fixed fraction of ε works for every tolerance.
+use explainer_kit::{BACKGROUND, Kit, Palette, Timed, fade_all, hex, rect, v};
 use fmn::prelude::*;
 
-use super::draw::{fade_in_all, fade_in_lagged, fade_out_all, fail, flat, line_style, say, think_pause, wait_until};
+use super::draw::{
+    BRIGHT_W, NUMBER_DROP, PLOT, curve_color, fade_in_all, fade_in_lagged, fade_out_all, fail, flat, limit_color,
+    line_style, moving, pieces, say, think_pause, wait_until,
+};
+use super::old_objection::{RIGHT_X, tex_frac};
+use super::shrinking_region::swap_in_turn;
 use crate::model::Frac;
 
 pub struct Sequences {
     pub kit: Kit,
 }
 pub const STAGES: [i64; 4] = [1, 2, 4, 8];
+/// The two tolerances the plot shows, as samples of [`root_sample`]: n = 2
+/// is the tolerance 1/2 with its widest window 1/4; n = 4 is half that
+/// tolerance, with a quarter of that window.
+pub const PLOTTED: [i64; 2] = [2, 4];
+
+// the root's fixed words (its numbers are built from the model)
+const ROOT_TITLE: &str = "No fixed fraction of ε is enough";
+const ROOT_RULE: &str = r"g(x)=\sqrt{x},\quad x\ge0,\quad a=0";
+const ROOT_WINDOW: &str =
+    r"\varepsilon>0,\ \ \delta=\varepsilon^2:\quad 0\le x<\delta\ \Longrightarrow\ \sqrt{x}<\varepsilon";
+const NEXT: &str = "next: continuity through open sets";
+// what the pictures wait for, each in the line the test below holds it to
+const WIDEST_AT: &str = "widest window";
+const HALVE_AT: &str = "Halve the tolerance";
+const FRACTION_AT: &str = "no fixed fraction";
+/// Samples of √x along a stretch of the plot (a multiple of the drawn
+/// curves' piece length), denser near 0, where the root is steep.
+const ROOT_SAMPLES: usize = 60;
+/// The end marks' radius, as chapters 02 and 04 draw them.
+const MARK_R: f64 = 0.07;
+/// The right column's rows (scene units).
+const ROW_Y: [f64; 3] = [2.5, 1.7, 0.75];
 
 /// An exact countersequence for the opening limit at its endpoint.
 pub fn approaching(n: i64) -> Result<Frac, String> {
@@ -26,6 +55,84 @@ pub fn root_sample(n: i64) -> Result<(Frac, Frac, Frac), String> {
     let y = Frac::whole(1).over(Frac::whole(n))?;
     let x = y.times(y)?;
     Ok((x, y, y.over(x)?))
+}
+
+/// The square root's widest window at 0 on [0, ∞) for a tolerance ε > 0:
+/// √x < ε exactly when 0 ≤ x < ε², so the window's radius is ε². A
+/// tolerance that is not positive is refused.
+pub fn widest_root_window(eps: Frac) -> Result<Frac, String> {
+    if eps <= Frac::whole(0) {
+        return Err(format!("the tolerance {eps} is not positive"));
+    }
+    eps.times(eps)
+}
+
+/// √x on the plot from 0 to `to`, sampled at x = to·(k/n)², detached.
+fn root_curve(stage: &mut Stage<'_>, to: f64, color: Srgb, width: f64) -> fmn::Result<Mob> {
+    let pts: Vec<Vec3> = (0..=ROOT_SAMPLES)
+        .map(|k| {
+            let s = k as f64 / ROOT_SAMPLES as f64;
+            let x = to * s * s;
+            PLOT.p(x, x.sqrt())
+        })
+        .collect();
+    Ok(stage.arena_mut().add(pieces(&pts, color, width)))
+}
+
+/// What the plot shows for one tolerance ε, detached: the band 0 ≤ y < ε,
+/// the curve's piece over the window, the window [0, δ) on the input axis
+/// (its radius from a = 0; only x ≥ 0 exists) and its hollow end at δ = ε²,
+/// where √x = ε exactly; the tags ε and δ; and the row "ε = …: δ = …". The
+/// filled end at 0 belongs to every window and is drawn once.
+struct RootWindow {
+    shapes: [Mob; 4],
+    tags: [Mob; 2],
+    row: Mob,
+}
+
+impl RootWindow {
+    fn new(kit: &Kit, stage: &mut Stage<'_>, eps: Frac) -> fmn::Result<Self> {
+        let delta = widest_root_window(eps).map_err(fail)?;
+        let (o, top, end) = (PLOT.p(0.0, 0.0), PLOT.p(1.0, eps.f64()), PLOT.p(delta.f64(), 0.0));
+        let band = rect(o, top[0] - o[0], top[1] - o[1], flat(limit_color(), 0.22))?;
+        let band = stage.arena_mut().add(band);
+        let piece = root_curve(stage, delta.f64(), Palette::hero(), 7.0)?;
+        let window = Line::new(o, end).style(line_style(moving(), 9.0)).build()?;
+        let window = stage.arena_mut().add(window);
+        let hollow = Circle::new()
+            .radius(MARK_R)
+            .arc_center(end)
+            .style(Style::default().fill(hex(BACKGROUND), 1.0).stroke(moving(), 3.0, 1.0))
+            .build();
+        let hollow = stage.arena_mut().add(hollow);
+        let eps_tag = kit.tex(stage, r"\varepsilon", 28.0, limit_color(), &[], v(top[0] + 0.3, top[1]))?;
+        // under the axis's numbers, so the tag stays clear of them as δ shrinks
+        let delta_tag = kit.tex(
+            stage,
+            r"\delta",
+            28.0,
+            moving(),
+            &[],
+            v(end[0], o[1] - 2.0 * NUMBER_DROP),
+        )?;
+        let row = kit.tex_left(
+            stage,
+            &format!(
+                r"\varepsilon={}:\quad\delta={}",
+                tex_frac(&eps.to_string()),
+                tex_frac(&delta.to_string())
+            ),
+            30.0,
+            moving(),
+            &[],
+            v(RIGHT_X, ROW_Y[2]),
+        )?;
+        Ok(Self {
+            shapes: [band, piece, window, hollow],
+            tags: [eps_tag, delta_tag],
+            row,
+        })
+    }
 }
 
 fn tex(kit: &Kit, s: &mut Stage<'_>, text: &str, y: f64, size: f64, c: Srgb) -> fmn::Result<Mob> {
@@ -156,55 +263,50 @@ impl SceneConstruct for Sequences {
         kit.hold(stage)?;
         fade_all(stage, 0.5)?;
 
-        let _line = say(&kit, stage, "10_7")?;
-        let title2 = label(&kit, stage, "Continuity need not give a linear budget", 3.45, 33.0)?;
-        let sqrt = tex(
-            &kit,
-            stage,
-            r"g(x)=\sqrt{x},\quad x\ge0,\quad a=0",
-            2.4,
-            36.0,
-            Palette::teal(),
-        )?;
-        let delta = tex(
-            &kit,
-            stage,
-            r"\delta=\varepsilon^2:\quad 0\le x<\delta\ \Longrightarrow\ \sqrt{x}<\varepsilon",
-            1.4,
-            33.0,
-            Palette::ink(),
-        )?;
-        fade_in_lagged(stage, &[title2, sqrt, delta], 0.7, 0.1)?;
-        let _line = say(&kit, stage, "10_8")?;
-        let columns = [-3.1, -1.15, 1.2, 3.5];
-        let headers = [r"n", r"x=1/n^2", r"\sqrt{x}=1/n", r"\sqrt{x}/x"];
-        let mut heading = Vec::new();
-        for (x, value) in columns.iter().zip(headers) {
-            heading.push(kit.tex(stage, value, 28.0, Palette::ink(), &[], v(*x, 0.2))?);
+        // 10_7: the square root on [0, ∞) at 0, its widest window for 1/2
+        let line = say(&kit, stage, "10_7")?;
+        let title2 = label(&kit, stage, ROOT_TITLE, 3.45, 33.0)?;
+        let rule = kit.tex_left(stage, ROOT_RULE, 32.0, Palette::teal(), &[], v(RIGHT_X, ROW_Y[0]))?;
+        let window_rule = kit.tex_left(stage, ROOT_WINDOW, 26.0, Palette::ink(), &[], v(RIGHT_X, ROW_Y[1]))?;
+        let mut picture = vec![title2, rule, window_rule];
+        picture.extend(PLOT.axes(&kit, stage)?);
+        picture.push(root_curve(stage, 1.0, curve_color(), BRIGHT_W)?);
+        fade_in_lagged(stage, &picture, 0.9, 0.05)?;
+        let tolerances = PLOTTED
+            .iter()
+            .map(|&n| root_sample(n).map(|(_, eps, _)| eps).map_err(fail))
+            .collect::<fmn::Result<Vec<Frac>>>()?;
+        line.wait_for(stage, WIDEST_AT)?;
+        let wide = RootWindow::new(&kit, stage, tolerances[0])?;
+        let zero = Dot::new()
+            .point(PLOT.p(0.0, 0.0))
+            .radius(MARK_R)
+            .style(flat(moving(), 1.0))
+            .build();
+        let mut first = wide.shapes.to_vec();
+        first.push(stage.arena_mut().add(zero));
+        first.extend(wide.tags);
+        first.push(wide.row);
+        fade_in_all(stage, &first, 0.6)?;
+
+        // 10_8: half the tolerance, a quarter of the window; the shapes and
+        // tags morph, the row is replaced in turn
+        let line = say(&kit, stage, "10_8")?;
+        line.wait_for(stage, HALVE_AT)?;
+        let narrow = RootWindow::new(&kit, stage, tolerances[1])?;
+        let mut anims = Vec::new();
+        for (&from, &to) in wide
+            .shapes
+            .iter()
+            .chain(&wide.tags)
+            .zip(narrow.shapes.iter().chain(&narrow.tags))
+        {
+            anims.push(stage.prepare(fmn::animation::replacement_transform(from, to).rt(0.8))?);
         }
-        fade_in_all(stage, &heading, 0.4)?;
-        for (i, n) in [2, 4, 8].into_iter().enumerate() {
-            let (x, y, r) = root_sample(n).map_err(fail)?;
-            let values = [n.to_string(), x.to_string(), y.to_string(), r.to_string()];
-            let mut row = Vec::new();
-            for (at, value) in columns.iter().zip(&values) {
-                row.push(kit.tex(stage, value, 30.0, Palette::blue(), &[], v(*at, -0.7 - i as f64 * 0.65))?);
-            }
-            fade_in_all(stage, &row, 0.4)?;
-            stage.wait(0.65)?;
-        }
-        let _line = say(&kit, stage, "10_9")?;
-        let ratio = tex(
-            &kit,
-            stage,
-            r"\frac{|g(1/n^2)-g(0)|}{|1/n^2-0|}=n\to\infty",
-            -2.8,
-            32.0,
-            Palette::gold(),
-        )?;
-        fade_in_all(stage, &[ratio], 0.5)?;
-        let _line = say(&kit, stage, "10_10")?;
-        let next = label(&kit, stage, "next: continuity through open sets", -3.5, 24.0)?;
+        anims.push(swap_in_turn(stage, &[wide.row], &[narrow.row], 0.8)?);
+        stage.play_prepared(anims)?;
+        line.wait_for(stage, FRACTION_AT)?;
+        let next = label(&kit, stage, NEXT, -3.5, 24.0)?;
         fade_in_all(stage, &[next], 0.4)?;
         kit.hold(stage)?;
         fade_all(stage, 0.6)?;
@@ -239,5 +341,42 @@ mod tests {
             last = y;
         }
         assert!(root_sample(0).is_err());
+    }
+    /// The widest window is the tolerance squared: halving the tolerance
+    /// quarters it, and a fixed fraction c of the tolerance is too wide once
+    /// the tolerance is below c (its window holds ε², whose root is ε).
+    #[test]
+    fn the_widest_root_window_is_the_tolerance_squared() {
+        for k in 1..=64 {
+            for j in [1, 2, 3, 5] {
+                let eps = Frac::new(j, k).unwrap();
+                let w = widest_root_window(eps).unwrap();
+                assert_eq!(w, eps.times(eps).unwrap());
+                let half = widest_root_window(eps.over(Frac::whole(2)).unwrap()).unwrap();
+                assert_eq!(half.times(Frac::whole(4)).unwrap(), w);
+            }
+        }
+        for c in [Frac::whole(1), Frac::new(1, 10).unwrap(), Frac::new(1, 22).unwrap()] {
+            let eps = c.over(Frac::whole(2)).unwrap();
+            assert!(widest_root_window(eps).unwrap() < c.times(eps).unwrap());
+        }
+        assert!(widest_root_window(Frac::whole(0)).is_err());
+        assert!(widest_root_window(Frac::whole(-1)).is_err());
+        let (x2, y2, _) = root_sample(PLOTTED[0]).unwrap();
+        let (x4, y4, _) = root_sample(PLOTTED[1]).unwrap();
+        assert_eq!(
+            (widest_root_window(y2).unwrap(), widest_root_window(y4).unwrap()),
+            (x2, x4)
+        );
+    }
+    /// Every phrase a picture waits for is said once, in its line; the
+    /// table's lines are gone.
+    #[test]
+    fn the_pictures_wait_on_words_the_script_says() {
+        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
+        for (id, phrase) in [("10_7", WIDEST_AT), ("10_8", HALVE_AT), ("10_8", FRACTION_AT)] {
+            assert_eq!(script.text(id).unwrap().matches(phrase).count(), 1, "{id}: {phrase}");
+        }
+        assert!(script.text("10_9").is_none() && script.text("10_10").is_none());
     }
 }

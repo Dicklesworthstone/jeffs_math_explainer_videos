@@ -120,6 +120,17 @@ pub fn facts() -> Result<Facts, String> {
         f.add(&format!("C10.root{n}.y"), y)?;
         f.add(&format!("C10.root{n}.ratio"), r)?;
     }
+    // chapter 10's plot: the tolerance 1/2, then half of it (the samples
+    // n = 2 and n = 4, whose output 1/n is the tolerance and whose input 1/n²
+    // must be its widest window); halving the tolerance quarters the window
+    use crate::chapters::sequences::{PLOTTED, widest_root_window};
+    let (wide, tol, _) = crate::chapters::sequences::root_sample(PLOTTED[0])?;
+    let (narrow, half_tol, _) = crate::chapters::sequences::root_sample(PLOTTED[1])?;
+    if widest_root_window(tol)? != wide || widest_root_window(half_tol)? != narrow {
+        return Err("chapter 10's plotted windows are not the widest ones".to_owned());
+    }
+    f.add("C10.halve", half_tol.over(tol)?)?;
+    f.add("C10.window_ratio", narrow.over(wide)?)?;
     let roots = crate::chapters::preimages::ROOTS;
     let bounds = crate::chapters::preimages::output_bounds();
     f.add("C11.lower", bounds[0])?;
@@ -826,6 +837,35 @@ mod tests {
             (get("C6.note.volume"), get("C6.note.year"), get("C6.note.page")),
             ("67", "1960", "780")
         );
+    }
+
+    /// Chapter 10's plot and 04_7's excluded end, as said and shown: the
+    /// tolerance halves from 1/2 to 1/4 and its widest window quarters from
+    /// 1/4 to 1/16; at the end, 1 minus the level is the tolerance itself.
+    #[test]
+    fn the_root_windows_and_the_excluded_end_relate_exactly() {
+        let f = facts().unwrap();
+        let get = |k: &str| f.get(k).unwrap_or_else(|| panic!("no fact {k}"));
+        let frac = |k: &str| {
+            let (n, d) = get(k).split_once('/').unwrap();
+            Frac::whole(n.parse().unwrap())
+                .over(Frac::whole(d.parse().unwrap()))
+                .unwrap()
+        };
+        assert_eq!((get("C10.halve"), get("C10.window_ratio")), ("1/2", "1/4"));
+        assert_eq!(
+            frac("C10.root4.y").over(frac("C10.root2.y")).unwrap(),
+            frac("C10.halve")
+        );
+        assert_eq!(
+            frac("C10.root4.x").over(frac("C10.root2.x")).unwrap(),
+            frac("C10.window_ratio")
+        );
+        assert_eq!(
+            frac("C10.halve").times(frac("C10.halve")).unwrap(),
+            frac("C10.window_ratio")
+        );
+        assert_eq!(Frac::whole(1).minus(frac("C4.end.level")).unwrap(), frac("C4.end.eps"));
     }
 
     #[test]

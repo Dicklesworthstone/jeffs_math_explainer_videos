@@ -307,6 +307,50 @@ Read for this chapter (2026-10-19):
   window at x = 1 keeps x ∈ [0, 1], and its strict inequalities are the
   page's. Chapter 05's proof is the continuity form with S = [0, 1] and
   a = 1/2. That chapter reads no new source and attributes nothing.
+- **Toronto MAT237, re-read 2026-10-20 for chapter 11** (the same §1.2
+  page, and §1.1,
+  [page](https://www.math.utoronto.ca/courses/mat237y1/20199/notes/Chapter1/S1.1.html)).
+  - §1.2's subsection "Continuous functions and open sets" states the
+    equivalence for f: ℝⁿ → ℝᵏ: f is continuous exactly when "for every
+    open set U ⊆ ℝᵏ, the set f⁻¹(U) = {x ∈ ℝⁿ : f(x) ∈ U} is open", and
+    adds "The function f does not need to be invertible for this to make
+    sense!".
+  - The page's learning objectives call this Theorem 5; its problem 17
+    cites "part of Theorem 6", an inconsistency in the source.
+  - It warns that the domain matters, with the square root on [0, ∞): the
+    preimage of (−1, 1) is [0, 1), "not open in ℝ", and "while [0,1) is
+    not open in ℝ, it is open in [0,∞)". Chapter 11's 11_8 keeps that
+    qualification.
+  - §1.1 defines an open set as one equal to its interior, and lists among
+    its equivalent forms "∀x ∈ S ∃ε > 0 such that B(x; ε) ⊆ S", with
+    B(a; r) = {x : |x − a| < r}. 11_5's spoken "every point has a little
+    interval around it inside the set" is that form on the line.
+  - The square's preimage drawn under its curve, the strip in 11_5 and the
+    interval around zero in 11_7 are our pictures of these statements, not
+    examples from the notes.
+- **Jiří Lebl, *Basic Analysis I & II*** (the online HTML; accessed
+  2026-10-20; the pages show no edition or version number, so none is
+  given).
+  - Section 7.5, "Continuous functions", Proposition 7.5.2
+    ([page](https://www.jirka.org/ra/html/sec_metcont.html)): for metric
+    spaces (X, d_X) and (Y, d_Y), f: X → Y is continuous at c ∈ X if and
+    only if for every sequence {x_n} in X converging to c, the sequence
+    {f(x_n)} converges to f(c). Chapter 10's sequential criterion (10_1)
+    and its converse construction (10_5, 10_6) are this proposition on a
+    real domain.
+  - Section 3.3, "Extreme and intermediate value theorems"
+    ([page](https://www.jirka.org/ra/html/sec_minmaxint.html)):
+    - Lemma 3.3.7: for continuous f: [a, b] → ℝ with f(a) < 0 and
+      f(b) > 0, there is c ∈ (a, b) with f(c) = 0. Its proof bisects:
+      monotone ends a_n ↑ and b_n ↓ with widths 2^(1−n)(b − a) → 0 meet at
+      c, and continuity gives f(c) ≤ 0 and f(c) ≥ 0.
+    - Theorem 3.3.8 is Bolzano's intermediate value theorem.
+    - Chapter 12's 12_6 and 12_7 follow the lemma's bisection on the
+      rational domain, where it fails, and on [1, 2] in ℝ, where
+      completeness supplies c.
+  - Chapter 10's square-root plot (the widest window ε², halving ε
+    quarters it, no fixed fraction of ε works for every ε) is our own
+    arithmetic (oracle-checked), not a result from these sections.
 - **Sprague (1960) and Davis (1961)**, American Mathematical Monthly: their
   bibliographic identity and displayed mathematics come from the brief,
   which read the owner's screenshots and JSTOR's issue records. `model.rs`
@@ -855,3 +899,37 @@ renders have empty layout lint and successful full decodes. Receipts in
 `epsilon11-native-02` and `epsilon12-native-01` retain hashes, source pins,
 inspection times and UBS triage. These are root technical and sampled
 visual checks; independent review and listening remain pending.
+
+## Editorial pass (2026-10-20, root's accepted Plan A)
+
+The owner asked for a complete 10–15 minute episode. This pass keeps the
+twelve chapters, every prediction window and every frozen visual repair. It
+changes 21 lines (19 reworded, 10_9 and 10_10 cut; 106 lines, 2,137 words).
+The changes:
+- 04_7's strict excluded end, in root's words: "With tolerance one half,
+  exclude the half height crossing, where the gap is exactly one half.
+  Every x beyond it, up to and including one, passes."
+- 08_5 and 08_6: the half tolerance restated, and "exactly one half, which
+  is not below one half".
+- Chapter 11: "open" defined before the theorem uses it, the ends' reason,
+  band and window instead of "neighborhood", and why zero fails. The
+  square's preimage is drawn under its curve.
+- Chapter 10's square root: a plot of its widest window, which quarters as
+  the tolerance halves (new facts C10.halve and C10.window_ratio), in place
+  of the ratio table.
+- The three voice-rule fixes (10_6, 10_7, 12_2).
+- The end stacks of 07_9, 09_9 and 12_7: tightened where they read too
+  fast, and held for their characters / 15 s from their completed fade.
+- 11_7's 8 s card wait anchored at the card's fade.
+- Vocabulary: C named in 07_7, "sizes", and "epsilon over four" in 12_3.
+
+The editorial audit and budget are in the program's
+`duration-and-storage-20261020` notes (not in this repository's tracked
+files).
+
+This source is **uncompiled and unrendered**. Its checks were text-only:
+the oracle, `tools/storyboard.py`, the narration-unit check, and Python
+mirrors of the spoken-number, name and phrase tests. `tools/storyboard.py`
+estimates chapter 04 at 86.9 s against its 85 s heuristic; root accepted
+that. Native tests, Clippy, facts-check, the glyph probe, renders, frame
+reads, narration and listening are root's, and none is claimed here.

@@ -2,6 +2,7 @@
 //! Exact bisection illustrates the missing limit; real completeness is
 //! the separate existence ingredient, not a consequence of the definition.
 use super::draw::{fade_in_all, fade_in_lagged, fade_out_all, fail, flat, line_style, say, think_pause, wait_until};
+use super::limit_that_jumps::read_s;
 use crate::model::Frac;
 use explainer_kit::{Kit, Palette, fade_all, v};
 use fmn::prelude::*;
@@ -13,6 +14,13 @@ pub const RADICAND: i64 = 2;
 pub const BISECTION_FACTOR: i64 = 2;
 pub const ENDS: [i64; 2] = [1, 2];
 pub const SHOWN_STEPS: [usize; 4] = [0, 2, 4, 6];
+// 12_7's rows, short so that they can be read in the time they stand
+const COMPLETE: &str = "Completeness supplies a real point";
+const NESTED: &str = "nested closed intervals; widths tend to zero";
+const COMMON: &str = "one common point";
+const VALUE_ZERO: &str = "continuity makes its value zero";
+/// 12_7's card stood 9 s from its fade; it keeps at least that.
+const EXISTENCE_HOLD_S: f64 = 9.0;
 pub fn value(x: Frac) -> Result<Frac, String> {
     x.times(x)?.minus(Frac::whole(RADICAND))
 }
@@ -163,7 +171,8 @@ impl SceneConstruct for Completeness {
             let endpoints = tex(
                 &kit,
                 stage,
-                &format!(r"\text{{lower}}={lo},\qquad\text{{upper}}={hi}"),
+                // the ends after k bisections, named as the limit row names them
+                &format!(r"a_{{{steps}}}={lo},\qquad b_{{{steps}}}={hi}"),
                 0.25,
                 31.0,
                 Palette::ink(),
@@ -188,7 +197,8 @@ impl SceneConstruct for Completeness {
             &kit,
             stage,
             &format!(
-                r"a_n\uparrow\sqrt{{{RADICAND}}},\qquad b_n\downarrow\sqrt{{{RADICAND}}}\quad\text{{in }}\mathbb{{R}}"
+                // j, not n (12_5's denominator) or k (its half of m)
+                r"a_j\uparrow\sqrt{{{RADICAND}}},\qquad b_j\downarrow\sqrt{{{RADICAND}}}\quad\text{{in }}\mathbb{{R}}"
             ),
             -2.0,
             34.0,
@@ -203,13 +213,7 @@ impl SceneConstruct for Completeness {
 
         fade_all(stage, 0.5)?;
         let _line = say(&kit, stage, "12_7")?;
-        let complete = text(
-            &kit,
-            stage,
-            "Completeness supplies the missing existence step",
-            3.3,
-            32.0,
-        )?;
+        let complete = text(&kit, stage, COMPLETE, 3.3, 32.0)?;
         let real = tex(
             &kit,
             stage,
@@ -218,17 +222,19 @@ impl SceneConstruct for Completeness {
             36.0,
             Palette::teal(),
         )?;
-        let nested_limit = text(
-            &kit,
-            stage,
-            "nested closed intervals with widths tending to zero",
-            0.75,
-            27.0,
-        )?;
-        let exists = text(&kit, stage, "a common real point exists", -0.1, 30.0)?;
-        let ivt = text(&kit, stage, "continuity then gives the intermediate value", -1.1, 28.0)?;
+        let nested_limit = text(&kit, stage, NESTED, 0.75, 27.0)?;
+        let exists = text(&kit, stage, COMMON, -0.1, 30.0)?;
+        let ivt = text(&kit, stage, VALUE_ZERO, -1.1, 28.0)?;
         fade_in_lagged(stage, &[complete, real, nested_limit, exists, ivt], 0.7, 0.1)?;
-        wait_until(stage, stage.scene().time().to_f64() + 9.0)?;
+        // the card stays until read, counted once from its completed fade
+        // (the real-domain row counted as it reads), and at least the 9 s it
+        // had; the line and the hold are inside that time
+        let real_read = format!("D = [{a}, {b}] ⊂ ℝ, h(√{RADICAND}) = 0");
+        let read: f64 = [COMPLETE, real_read.as_str(), NESTED, COMMON, VALUE_ZERO]
+            .into_iter()
+            .map(read_s)
+            .sum();
+        wait_until(stage, stage.scene().time().to_f64() + read.max(EXISTENCE_HOLD_S))?;
         kit.hold(stage)?;
         fade_all(stage, 0.5)?;
 

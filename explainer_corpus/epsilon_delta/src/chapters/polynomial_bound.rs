@@ -9,6 +9,7 @@ use fmn::prelude::*;
 use super::draw::{
     fact, fade_in_all, fade_in_lagged, fade_out_all, fail, flat, line_style, moving, say, think_pause, wait_until,
 };
+use super::limit_that_jumps::read_s;
 use super::old_objection::tex_frac;
 use super::shrinking_region::glow;
 use crate::{facts, model};
@@ -21,7 +22,7 @@ const TITLE: &str = "One budget for every term";
 const GENERAL: &str = "Any polynomial, near any point";
 const SAMPLE: &str = "illustration at t = 1/2";
 const NEXT: &str = "next: fixed and moving choices";
-const FINITE: &str = "a finite expansion; no derivatives needed";
+const FINITE: &str = "a finite expansion, no derivatives";
 const BAR_X: f64 = -5.9;
 const BAR_W: f64 = 5.2;
 const BAR_H: f64 = 0.24;
@@ -34,7 +35,7 @@ const WAIT_FOR: &[(&str, &str)] = &[
     ("07_3", "Each higher power"),
     ("07_5", "So choose delta"),
     ("07_6", "Every h inside"),
-    ("07_7", "Add the absolute values"),
+    ("07_7", "Add the sizes"),
     ("07_8", "If zero"),
     ("07_9", "Now return"),
 ];
@@ -79,7 +80,9 @@ impl Rows {
             delta: format!(r"\delta=\min(1,\varepsilon/{bound})"),
             guarantee: format!(r"|P({a}+h)-P({a})|\le {bound}t<{bound}\delta\le\varepsilon"),
             note: format!(
-                "Allan Davis, A Further Note on δ and ε, Monthly {} ({}), pp. {}–{}",
+                // the short credit; the full title and author are in the
+                // storyboard row and the README's sources
+                "Davis, Monthly {} ({}), pp. {}–{}",
                 fact(f, "C7.note.volume")?,
                 fact(f, "C7.note.year")?,
                 fact(f, "C7.note.first")?,
@@ -144,11 +147,17 @@ impl SceneConstruct for PolynomialBound {
         line.wait_for(stage, "Bound its size")?;
         let (actual, caps) = bar_shares(SAMPLE_T)?;
         let mut bounds = Vec::new();
+        // the sample at t = 1/2 (its bars, their outlines and its label) has
+        // done its job once the stacked bar holds the total: it goes as 07_6
+        // begins, before the guarantee comes in; the terms and caps stay
+        let mut sample_parts = Vec::new();
+        let mut cap_texts = Vec::new();
         for i in 0..ROW_Y.len() {
             let term = kit.tex_left(stage, &rows.sizes[i], 27.0, colors[i], &[], v(BAR_X, ROW_Y[i]))?;
             let filled = bar(stage, BAR_X, ROW_Y[i] - 0.35, BAR_W * actual[i], flat(colors[i], 0.9))?;
             fade_in_all(stage, &[term, filled], 0.3)?;
-            body.extend([term, filled]);
+            body.push(term);
+            sample_parts.push(filled);
             let cap = kit.tex_left(stage, &rows.caps[i], 27.0, ink, &[], v(-3.95, ROW_Y[i]))?;
             let outline = bar(
                 stage,
@@ -158,10 +167,12 @@ impl SceneConstruct for PolynomialBound {
                 line_style(colors[i], 2.0),
             )?;
             bounds.extend([cap, outline]);
+            cap_texts.push(cap);
+            sample_parts.push(outline);
         }
         let sample = kit.text(stage, SAMPLE, 20.0, Palette::dim(), v(-3.3, -1.65))?;
         fade_in_all(stage, &[sample], 0.3)?;
-        body.push(sample);
+        sample_parts.push(sample);
 
         let line = say(&kit, stage, "07_3")?;
         let unit = math(&kit, stage, r"0\le t<1", v(3.1, 0.6), 32.0, ink)?;
@@ -172,7 +183,7 @@ impl SceneConstruct for PolynomialBound {
         fade_in_all(stage, &[powers], 0.4)?;
         body.push(powers);
         fade_in_lagged(stage, &bounds, 0.8, 0.15)?;
-        body.extend(bounds);
+        body.extend(cap_texts);
 
         let _question = say(&kit, stage, "07_4")?;
         let ask = kit.text(stage, "?", 60.0, Palette::hero(), v(3.1, -1.25))?;
@@ -197,9 +208,10 @@ impl SceneConstruct for PolynomialBound {
         body.push(delta);
 
         let line = say(&kit, stage, "07_6")?;
+        fade_out_all(stage, &sample_parts, 0.3)?;
         line.wait_for(stage, "Every h inside")?;
         let inside = math(&kit, stage, r"0\le t<\delta", v(3.1, -1.7), 28.0, moving())?;
-        let proof = math(&kit, stage, &rows.guarantee, v(3.1, -2.3), 23.0, ink)?;
+        let proof = math(&kit, stage, &rows.guarantee, v(3.1, -2.3), 26.0, ink)?;
         fade_in_lagged(stage, &[inside, proof], 0.7, 0.15)?;
         body.extend([inside, proof]);
         // This example is visible but not recited; leave at least 3 s.
@@ -235,7 +247,7 @@ impl SceneConstruct for PolynomialBound {
             ink,
         )?;
         fade_in_lagged(stage, &[general, expansion], 0.7, 0.1)?;
-        line.wait_for(stage, "Add the absolute values")?;
+        line.wait_for(stage, "Add the sizes")?;
         let sum = math(
             &kit,
             stage,
@@ -279,12 +291,18 @@ impl SceneConstruct for PolynomialBound {
         let finite = kit.text(stage, FINITE, 24.0, Palette::dim(), v(0.0, -2.25))?;
         let note = kit.text(stage, &rows.note, 19.0, Palette::dim(), v(0.0, -2.9))?;
         fade_in_lagged(stage, &[finite, note], 0.7, 0.1)?;
+        let notes_up = stage.scene().time().to_f64();
         line.wait_for(stage, "Now return")?;
         let next = kit.text(stage, NEXT, 23.0, ink, v(0.0, -3.45))?;
         fade_in_all(stage, &[next], 0.4)?;
+        let next_up = stage.scene().time().to_f64();
         glow(&kit, stage, v(0.0, 1.25), 0.4)?;
         kit.hold(stage)?;
-        wait_until(stage, stage.scene().time().to_f64() + 1.0)?;
+        // each stays until read, counted once from its completed fade: the
+        // line, the glow, the hold and the rest that follows are part of that
+        // time, not added to it
+        let read = (notes_up + read_s(FINITE) + read_s(&rows.note)).max(next_up + read_s(NEXT));
+        wait_until(stage, read.max(stage.scene().time().to_f64() + 1.0))?;
         fade_all(stage, 0.6)?;
         kit.finish(stage)
     }

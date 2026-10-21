@@ -313,8 +313,8 @@ const PIECE: usize = 20;
 pub const WINDOW_SEGMENTS: usize = 120;
 
 /// A polyline through `pts` cut into pieces of [`PIECE`] segments sharing
-/// their ends, as one group.
-fn pieces(pts: &[Vec3], color: Srgb, width: f64) -> VMobject {
+/// their ends, as one group (chapter 10 draws the square root with it).
+pub(super) fn pieces(pts: &[Vec3], color: Srgb, width: f64) -> VMobject {
     v_group(
         pts.windows(PIECE + 1)
             .step_by(PIECE)

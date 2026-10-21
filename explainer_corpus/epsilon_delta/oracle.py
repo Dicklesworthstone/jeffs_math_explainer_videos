@@ -13,8 +13,9 @@ compares the two outputs key by key. Standard library only.
 Exit 1 if any cross-check fails. The inputs the video chooses (the powers drawn,
 the fixed point 9/10, the tolerance 1/2, the waits' points, chapter 03's point
 1/2, increments and tolerances, ε = 1/10, the two polynomials of Davis's note,
-chapter 06's point a = 2 and its cap 1 on h) and chapter 03's page references
-are restated here; everything else is computed.
+chapter 06's point a = 2 and its cap 1 on h, chapter 10's plotted tolerances
+1/2 and 1/4) and chapter 03's page references are restated here; everything
+else is computed.
 """
 import math
 import sys
@@ -385,6 +386,10 @@ emit("C4.end.x", 1)
 emit("C4.end.power", 2)
 emit("C4.end.eps", frac(HALF))
 emit("C4.end.level", fr(1 - HALF))
+# 04_7 says the excluded end's gap is exactly the tolerance: there x^2 is the
+# level, and 1 - level is the tolerance itself, so the strict band leaves it out
+level, tolerance = Fraction(fr(1 - HALF)), Fraction(frac(HALF))
+check(1 - level == tolerance and not abs(level - 1) < tolerance, "C4: 1 - C4.end.level = C4.end.eps, not within")
 with localcontext() as ctx:
     ctx.prec = 60
     edge = Decimal(2).sqrt() / 2
@@ -589,6 +594,39 @@ for n in [2,4,8]:
     emit(f"C10.root{n}.x", frac(Fraction(1,n*n)))
     emit(f"C10.root{n}.y", frac(Fraction(1,n)))
     emit(f"C10.root{n}.ratio", str(Fraction(n)))
+
+# chapter 10's plot: on [0, inf) and for eps > 0, sqrt(x) < eps exactly when
+# x < eps^2, so the widest window (its radius from 0) is eps^2. Checked here
+# with 60-digit roots, not by squaring: below eps^2 every sampled x passes, at
+# eps^2 the root is eps itself (not within), above it every sample fails.
+with localcontext() as ctx:
+    ctx.prec = 60
+    for e in [Fraction(1, k) for k in range(1, 41)] + [Fraction(3, 7), Fraction(5, 2)]:
+        widest, root_e = e * e, to_decimal(e)
+        wrong = []
+        for j in range(0, 81):
+            x = widest * Fraction(j, 40)
+            root_x = to_decimal(x).sqrt()
+            # equal to 50 digits counts as equal: that is x = eps^2 exactly
+            within = root_x < root_e and root_e - root_x > Decimal("1e-50")
+            if within != (x < widest):
+                wrong.append(x)
+        check(not wrong, f"C10: sqrt(x) < {e} exactly when 0 <= x < {widest} ({len(wrong)} samples disagree)")
+# the plot's two tolerances are C10.root2.y and C10.root4.y, their widest
+# windows C10.root2.x and C10.root4.x: halving the tolerance quarters it
+wide_tol, half_tol = Fraction(1, 2), Fraction(1, 4)
+emit("C10.halve", frac(half_tol / wide_tol))
+emit("C10.window_ratio", frac(half_tol**2 / wide_tol**2))
+check(half_tol / wide_tol == Fraction(1, 2) and half_tol**2 / wide_tol**2 == (half_tol / wide_tol) ** 2
+      and Fraction(1, 16) / Fraction(1, 4) == half_tol**2 / wide_tol**2, "C10.window_ratio = C10.halve^2 = root4.x/root2.x")
+# no fixed fraction c*eps of eps is a small enough window for every eps: once
+# eps < c, the window [0, c*eps) holds x = eps^2, whose root is eps, not within
+for c in [Fraction(1), Fraction(1, 10), Fraction(1, 22), Fraction(2, 3)]:
+    e = c / 2
+    with localcontext() as ctx:
+        ctx.prec = 60
+        root_at_edge = to_decimal(e * e).sqrt()
+    check(e * e < c * e and abs(root_at_edge - to_decimal(e)) < Decimal("1e-50"), f"delta = {c}*eps fails at eps = {e}")
 
 emit("C11.lower",1**2)
 emit("C11.upper",3**2)

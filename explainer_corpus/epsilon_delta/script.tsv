@@ -32,7 +32,7 @@
 04_4	A limit leaves zero out. Continuity puts zero in and aims at the value there. Fill the hole with one, and it is continuous. Fill it with one and a half, and no window works.
 04_5	But if the defender could see h first, could this broken graph still win?
 04_6	Yes, always, with a window too narrow to hold it. So the window may depend on the tolerance, the point and the curve, never on the later h.
-04_7	Continuity at x equals one, where the square's domain ends. Against one half, the window starts where x squared is one half, and every x from there to one passes.
+04_7	Continuity at x equals one, where the square's domain ends. With tolerance one half, exclude the half height crossing, where the gap is exactly one half. Every x beyond it, up to and including one, passes.
 04_8	A winning answer covers every input in its window. Finding them is a search that written proofs hide.
 05_1	A finished proof opens with a choice like delta equals two thirds of epsilon, and never says where it came from. Here is the search.
 05_2	Start from what the challenger demands. x squared must be within epsilon of a quarter, for every x near one half.
@@ -57,50 +57,48 @@
 07_3	Keep the size of h below one. Each higher power is then at most the size of h.
 07_4	What single multiple of the size of h covers all three terms?
 07_5	Twenty two. One, eight and thirteen add to twenty two. So choose delta as the smaller of one and epsilon over twenty two.
-07_6	Every h inside delta keeps the change below epsilon. The bound works on either side.
-07_7	For any polynomial, expand around the point. Add the absolute values of all nonconstant coefficients.
+07_6	Every h inside delta, on either side, keeps the change below epsilon.
+07_7	For any polynomial, expand around the point. Add the sizes of its nonconstant coefficients, and call that C.
 07_8	If C is positive, use the smaller of one and epsilon over C. If zero, the polynomial is constant. Any positive delta works.
 07_9	Davis's note supplies a reusable bound, without derivatives. Now return to the curves whose limit jumps.
 08_1	Return to x to the n, on zero to one. Each fixed point approaches the broken limit.
 08_2	Fix x, then choose a tolerance. Beyond some stage, every later curve meets it there. The stage may depend on x.
 08_3	For one half, nine tenths needs stage seven. Point nine nine needs sixty nine. Near the endpoint, the wait grows.
 08_4	Uniform convergence asks for a stage that works at every point, for every later curve. Choose it before the point.
-08_5	For these powers, can a late enough stage meet that stronger promise?
-08_6	No. At any proposed stage, choose its half height crossing. Below one the limit is zero, so the gap is one half.
+08_5	Keep the tolerance at one half. Can any stage, however late, meet that stronger promise?
+08_6	No. At any proposed stage, choose its half height crossing. Below one the limit is zero, so the gap is exactly one half, which is not below one half.
 08_7	The point moves with the stage. This defeats uniform convergence, while each fixed point still converges.
 08_8	Pointwise allows a separate wait for each point. Uniform requires a shared wait for the whole domain.
-08_9	That control can preserve continuity through the limit. Next, split the error into manageable pieces.
-09_1	Suppose continuous functions approach a limit uniformly. Fix a point a in the domain and a positive error tolerance.
+08_9	Next, that shared wait carries continuity through the limit.
+09_1	Suppose continuous functions approach a limit uniformly. Fix a point a and a tolerance.
 09_2	Compare the limit at x and a by taking a detour through a single approximating curve. There are three gaps.
 09_3	Choose a stage whose curve is within a third of the tolerance everywhere. This controls both outer gaps.
 09_4	Freeze that curve. Its continuity supplies a window keeping the middle gap below a third, for every x in that window.
 09_5	Each gap has its budget. Can the total error still reach the full tolerance?
 09_6	No. The triangle inequality adds the gaps, each strictly below a third. Their sum is below the full tolerance.
 09_7	The limit is continuous at a. Since a was arbitrary, it is continuous throughout the domain.
-09_8	The order mattered. Uniform convergence chose the curve before x. Then continuity chose the window. Our original powers lacked that shared stage.
+09_8	Uniform convergence chose the curve before x, then continuity chose the window.
 09_9	Uniform convergence is sufficient, not necessary for every continuous limit. Next, test continuity by approaching along sequences.
 10_1	Continuity at a sends every sequence approaching a to outputs approaching f of a.
 10_2	For our broken limit, choose one minus one over n. These inputs approach one from below.
 10_3	Every output is zero, but the endpoint value is one. This sequence exposes the discontinuity.
 10_4	Can checking several good sequences establish continuity?
 10_5	No. Every sequence must work. If continuity fails, some tolerance defeats every window.
-10_6	Use windows of radius one over n. Choose a failing input in each. Inputs approach a; output errors stay at least that tolerance.
-10_7	Continuity need not give a linear error bound. The square root is continuous at zero: delta equal to epsilon squared works.
-10_8	At one over n squared, the output is one over n. Divide output error by input error.
-10_9	The ratio is n, growing without bound. No fixed linear bound works near zero, although continuity holds.
-10_10	Next, express continuity using whole sets of inputs.
-11_1	A preimage collects every input landing in a chosen output set. No inverse function is needed.
+10_6	Use windows of radius one over n. Choose a failing input in each. Inputs approach a, and output errors stay at least that tolerance.
+10_7	A caution about windows. The square root is continuous at zero, yet its widest window is epsilon squared.
+10_8	Halve the tolerance, and that window shrinks to a quarter, so no fixed fraction of epsilon works for every tolerance.
+11_1	Now take a whole set of outputs. Its preimage collects every input landing in it. No inverse function is needed.
 11_2	Take x squared on the real line. Select outputs strictly between one and nine.
 11_3	Must those inputs form a single piece?
-11_4	No. Two open intervals work, one negative and one positive. Their endpoints are excluded.
-11_5	For continuity, every open output set has an open preimage. Around each output, choose a small neighborhood inside the set. Continuity supplies an input neighborhood.
-11_6	Conversely, take an epsilon neighborhood of f of a. Its open preimage contains a whole input window around a. That window gives delta.
-11_7	A jump fails. For this step function, the selected preimage includes zero but no negative inputs. It is not open in the real line.
+11_4	No. Two open intervals, one negative and one positive. Their ends square to exactly one or nine, so they are left out.
+11_5	Open means every point has a little interval around it inside the set. For continuity, every open output set has an open preimage. Around each output, fit a band inside the set. Continuity supplies a window around its input, inside the preimage.
+11_6	Conversely, take the band within epsilon of f of a. Its open preimage contains a whole window around a. That window gives delta.
+11_7	A jump fails. The preimage starts at zero, but every interval around zero holds negative inputs, which land outside. So it is not open.
 11_8	The domain matters. For square root on nonnegative inputs, this preimage is open within its domain, though not in the real line.
 11_9	Open sets express the same continuity promise. Finally, what does that promise leave unanswered?
-12_1	A definition of continuity does not promise that every desired value exists. Consider q squared minus two, using only rational inputs between one and two, including both ends.
-12_2	The endpoint values have opposite signs: minus one, and two.
-12_3	This function is continuous. The output difference is at most four times the input difference, so epsilon divided by four supplies delta.
+12_1	Continuity cannot promise that every value you want exists. Take q squared minus two, on the rational numbers from one to two, ends included.
+12_2	The endpoint values have opposite signs, minus one and two.
+12_3	This function is continuous. The output difference is at most four times the input difference, so epsilon over four works as delta.
 12_4	Must a zero exist in this rational domain?
 12_5	No. Its positive zero would be the square root of two, which is irrational. A fraction in lowest terms would force both its numerator and denominator to be even.
 12_6	Bisection keeps rational endpoints on opposite sides and halves their distance. They approach the same real number, but that number is missing from our domain.

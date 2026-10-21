@@ -75,9 +75,11 @@ const FILL_HALF_AT: &str = "one and a half";
 const NARROW_AT: &str = "too narrow";
 const DEPEND_AT: &str = "So the window may depend";
 const END_AT: &str = "x equals one";
-const HALF_AT: &str = "Against one half";
-const STARTS_AT: &str = "the window starts";
-const PASSES_AT: &str = "every x from there";
+const HALF_AT: &str = "With tolerance one half";
+const EXCLUDE_AT: &str = "exclude the half height crossing";
+const EXACT_AT: &str = "exactly one half";
+const BEYOND_AT: &str = "Every x beyond it";
+const INCLUDING_AT: &str = "including one";
 const COVERS_AT: &str = "covers every input";
 const SEARCH_AT: &str = "Finding them";
 
@@ -589,16 +591,21 @@ impl SceneConstruct for TheChallengeGame {
             v(RIGHT_X, END_ROWS[1]),
         )?;
         fade_in_all(stage, &[band_at_end, end_eps], 0.5)?;
-        line.wait_for(stage, STARTS_AT)?;
+        // the half height crossing is left out (its gap is the tolerance
+        // itself), one is put in: the words name both ends the marks draw
+        line.wait_for(stage, EXCLUDE_AT)?;
         let edge = half_height(SQUARE).map_err(fail)?;
         let window_at_end = end_window(&kit, stage, &f)?;
         fade_in_all(stage, &window_at_end, 0.6)?;
-        line.wait_for(stage, PASSES_AT)?;
-        let piece = passing_piece(stage, edge)?;
+        glow(&kit, stage, PLOT.p(edge, 0.0), 0.2)?;
+        line.wait_for(stage, EXACT_AT)?;
         let rows = end_rows(&kit, stage, &f)?;
-        let mut ins = vec![piece];
-        ins.extend(rows);
-        fade_in_lagged(stage, &ins, 1.2, 0.25)?;
+        fade_in_all(stage, &[rows[2]], 0.4)?;
+        line.wait_for(stage, BEYOND_AT)?;
+        let piece = passing_piece(stage, edge)?;
+        fade_in_lagged(stage, &[piece, rows[0], rows[1], rows[3]], 1.2, 0.25)?;
+        line.wait_for(stage, INCLUDING_AT)?;
+        glow(&kit, stage, PLOT.p(1.0, 0.0), 0.2)?;
 
         // 04_8: every answer covers every input of its window; finding one is
         // the next chapter's search
@@ -799,8 +806,10 @@ mod tests {
             ("04_6", DEPEND_AT),
             ("04_7", END_AT),
             ("04_7", HALF_AT),
-            ("04_7", STARTS_AT),
-            ("04_7", PASSES_AT),
+            ("04_7", EXCLUDE_AT),
+            ("04_7", EXACT_AT),
+            ("04_7", BEYOND_AT),
+            ("04_7", INCLUDING_AT),
             ("04_8", COVERS_AT),
             ("04_8", SEARCH_AT),
         ];
