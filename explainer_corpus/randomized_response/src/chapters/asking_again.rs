@@ -1,32 +1,43 @@
-//! Chapter 04, asking again: one student asked three times with fresh coins
-//! (04_1); every one of the 64 equally likely ways the six coins can land,
-//! for each truth (04_2); the prediction, how many times as likely three
-//! yeses are from someone who copied (04_3), and its answer, 27, counted
-//! (04_4); each fresh answer can multiply it by three, and three noes do the
-//! same the other way (04_5); the class's three-yes outcomes, 108 and 16, so
-//! twenty-seven in thirty-one against one yes's three in seven (04_6, 04_7);
-//! the majority right 27 times in 32 for either truth (04_8); one flip whose
-//! answer is repeated, three yeses still three times as likely (04_9,
-//! 04_10), for one unchanged secret under this rule only (04_11).
+//! Chapter 10, asking again: one student asked three times with fresh coins
+//! (10_1); every one of the 64 equally likely ways the six coins can land,
+//! for each truth (10_2); the prediction, how many times as likely three
+//! yeses are from someone who copied (10_3), and its answer, 27, counted
+//! (10_4); each fresh answer can multiply it by three, and three noes do the
+//! same the other way (10_5); the class's three-yes outcomes, 108 and 16, so
+//! twenty-seven in thirty-one against one yes's three in seven (10_6, 10_7);
+//! the majority right 27 times in 32 for either truth (10_8).
+//!
+//! Chapter 11, one flip: a hundred fresh answers about one secret that never
+//! changes, seventy-five yes (11_1, 11_2), leave 3⁵⁰ and, from even odds,
+//! twenty-three zeros after the point (11_3); the prediction, one flip whose
+//! answer is repeated (11_4), and its answer, three yeses still three times
+//! as likely (11_5), for one unchanged secret under this rule only (11_6);
+//! what RAPPOR does (11_7). The memoized columns stay faint, and its card
+//! waits, until 11_5: nothing answers the prediction during its hold.
 //!
 //! Every square is `model::answer` run on one truth and one outcome of the
 //! asks' coins; the drawn squares are tallied against
 //! `model::repeated_answers` and `model::memoized_answers` before any count
-//! is labelled.
+//! is labelled. Chapter 11's numbers are `model::posterior` and the ratio
+//! three, raised to the yeses and divided by the noes (`R-F22`).
 
 use explainer_kit::props::precisely;
-use explainer_kit::{Kit, Palette, fade_all, v};
+use explainer_kit::{Kit, Palette, fade_all, thousands, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    coin, disc, face, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, pause, place, say, square, swap,
-    tex_q, think,
+    coin, disc, face, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, lane, pause, place, read_by, say,
+    square, swap, tex_q, think, wait_until,
 };
-use crate::facts::{self, Average};
+use crate::facts::{self, Average, RAPPOR_EXAMPLE};
 use crate::model::{self, ASKED_AGAIN, COIN_PAIRS, Q};
 use crate::palette;
 
 pub struct AskingAgain {
+    pub kit: Kit,
+}
+
+pub struct OneFlip {
     pub kit: Kit,
 }
 
@@ -39,6 +50,10 @@ const NO: &str = "no";
 const MAJORITY: &str = "majority right";
 const ONE_YES: &str = "after one yes";
 const FRESH: &str = "fresh coins";
+const EVERY_DAY: &str = "the same secret, fresh coins every day";
+const EVEN_ODDS: &str = "from even odds, the chance they didn't copy:";
+const REMEMBERED: &str = "a value: randomized once, remembered";
+const AGAIN: &str = "every report: randomized again";
 
 /// How many times the student is asked, as the grids draw it.
 const ASKS: usize = ASKED_AGAIN as usize;
@@ -47,7 +62,7 @@ const _: () = assert!(ASKS == 3, "the grids draw exactly three asks");
 
 // ------------------------------------------------------------------ layout
 
-/// 04_1: the student, and the three asks to its right, each a place with its
+/// 10_1: the student, and the three asks to its right, each a place with its
 /// own two coins and its name under it.
 const STUDENT_X: f64 = -3.4;
 const ASK_X0: f64 = -1.8;
@@ -74,7 +89,7 @@ const CLASS_Y: f64 = -1.55;
 const RIGHT_X: f64 = 4.3;
 const RIGHT_Y: [f64; 4] = [2.6, 1.5, 0.45, -0.65];
 const THINK_Y: f64 = 1.2;
-/// The memoized answer (04_9): per truth, one column per outcome of the one
+/// The memoized answer (11_4): per truth, one column per outcome of the one
 /// flip, its faces above, three squares (the asks) of the one answer.
 const MEMO_DX: f64 = 0.55;
 const MEMO_Y0: f64 = 1.9;
@@ -82,6 +97,46 @@ const MEMO_DY: f64 = 0.4;
 const MEMO_SIDE: f64 = 0.3;
 const MEMO_FACE_Y: f64 = 2.45;
 const MEMO_LABEL_Y: f64 = 0.5;
+/// Chapter 11's hundred days: one student over a 10 × 10 strip of squares
+/// at the left, its caption over the student, the tally under the strip;
+/// the mathematics in a column at the right.
+const STRIP_X: f64 = -4.65;
+const STRIP_COLUMNS: usize = 10;
+const STRIP_Y0: f64 = 2.15;
+const DAY_DX: f64 = 0.3;
+const DAY_SIDE: f64 = 0.22;
+const STUDENT_Y: f64 = 2.75;
+const CAPTION_Y: f64 = 3.25;
+const TALLY_Y: f64 = -1.05;
+const MATH_X: f64 = 2.6;
+const MATH_Y: [f64; 7] = [2.85, 2.05, 1.55, 0.9, 0.3, -0.35, -0.85];
+/// Chapter 11's closing diagram: two boxes, an arrow between them.
+const BOX_X: f64 = 3.0;
+const BOX_Y: f64 = 0.9;
+const BOX_W: f64 = 4.6;
+const BOX_H: f64 = 1.0;
+
+/// Where day `d` of the strip sits: rows of ten from the top left.
+fn day_at(d: usize) -> Vec3 {
+    let (row, col) = (d / STRIP_COLUMNS, d % STRIP_COLUMNS);
+    v(
+        STRIP_X + DAY_DX * (col as f64 - (STRIP_COLUMNS as f64 - 1.0) / 2.0),
+        STRIP_Y0 - DAY_DX * row as f64,
+    )
+}
+
+/// 11_2's exact version: everything the hundred answers' arithmetic assumes.
+fn odds_card() -> String {
+    "assumes fresh coins each day, one secret that never changes, the rule followed, and even odds at the start"
+        .to_owned()
+}
+
+/// 11_7's exact version: what RAPPOR does, and that it is not this rule.
+fn rappor_card() -> String {
+    "RAPPOR: a randomized answer memoized per value, then randomized again on each report; many bits per report, \
+     not this one-bit rule"
+        .to_owned()
+}
 
 /// The coin pairs of outcome `o`, one per ask, the first ask's first: the
 /// base-4 digits of `o`, most significant first.
@@ -132,7 +187,7 @@ fn count_label(what: &str, count: u64, of: usize) -> String {
     format!("{what}: {count} of {of}")
 }
 
-/// 04_2's exact version: what a square is, and how the grid is laid out.
+/// 10_2's exact version: what a square is, and how the grid is laid out.
 fn grid_card(total: usize) -> String {
     format!(
         "each square is one way all {} coins can land, {total} equally likely. Block: the first answer's coins; \
@@ -141,7 +196,7 @@ fn grid_card(total: usize) -> String {
     )
 }
 
-/// 04_5's exact version: every pattern's ratio by its yeses, and the most
+/// 10_5's exact version: every pattern's ratio by its yeses, and the most
 /// after each number of fresh answers (`worst`, as the facts list it).
 fn ratios_card(ratios: &[Q], worst: &str) -> String {
     let listed: Vec<String> = ratios.iter().map(Q::to_string).collect();
@@ -153,7 +208,7 @@ fn ratios_card(ratios: &[Q], worst: &str) -> String {
     )
 }
 
-/// 04_7's exact version: the chance is the class's (`copiers` of `n`); from
+/// 10_7's exact version: the chance is the class's (`copiers` of `n`); from
 /// an even start, and from a class where nobody copied, the same yeses leave
 /// `at_half` and `none`.
 fn prior_card(after: Q, copiers: usize, n: usize, at_half: Q, none: Q) -> String {
@@ -163,8 +218,8 @@ fn prior_card(after: Q, copiers: usize, n: usize, at_half: Q, none: Q) -> String
     )
 }
 
-/// 04_9's exact version: what a memoized answer is, and how far the chapter
-/// claims it.
+/// 11_5's exact version (the old 04_9's, shown only once the prediction is
+/// answered): what a memoized answer is, and how far the chapter claims it.
 fn memo_card() -> String {
     "memoized: one flip for this secret, its answer re-sent each ask, so repeats add no evidence; only for one \
      unchanged secret, under this rule"
@@ -240,7 +295,7 @@ fn grid_name(kit: &Kit, stage: &mut Stage<'_>, p: usize, who: Option<usize>) -> 
 
 impl SceneConstruct for AskingAgain {
     fn name(&self) -> &str {
-        "04_asking_again"
+        "10_asking_again"
     }
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
@@ -257,8 +312,8 @@ impl SceneConstruct for AskingAgain {
                 .ok_or_else(|| fail(format!("no fact {key}")))
         };
 
-        // 04_1: one student, asked three times, fresh coins each time
-        let line = say(&kit, stage, "04_1")?;
+        // 10_1: one student, asked three times, fresh coins each time
+        let line = say(&kit, stage, "10_1")?;
         let student = disc(stage, palette::student(), v(STUDENT_X, ASK_Y));
         fade_in_all(stage, &[student], 0.3)?;
         let mut strip = vec![student];
@@ -287,8 +342,8 @@ impl SceneConstruct for AskingAgain {
         fade_in_lagged(stage, &coins, 0.9, 0.2)?;
         strip.extend(coins);
 
-        // 04_2: every way the six coins can land, for each truth
-        let line = say(&kit, stage, "04_2")?;
+        // 10_2: every way the six coins can land, for each truth
+        let line = say(&kit, stage, "10_2")?;
         let mut names = [grid_name(&kit, stage, 0, None)?, grid_name(&kit, stage, 1, None)?];
         let card = precisely(&kit, stage, &grid_card(total))?;
         let mut shown = names.to_vec();
@@ -326,12 +381,12 @@ impl SceneConstruct for AskingAgain {
         )?;
         fade_in_all(stage, &[total_tex], 0.4)?;
 
-        // 04_3: the prediction; no square is coloured, no yes counted
-        let _line = say(&kit, stage, "04_3")?;
+        // 10_3: the prediction; no square is coloured, no yes counted
+        let _line = say(&kit, stage, "10_3")?;
         let q = think(&kit, stage, v(RIGHT_X, THINK_Y))?;
 
-        // 04_4: twenty-seven outcomes against one
-        let line = say(&kit, stage, "04_4")?;
+        // 10_4: twenty-seven outcomes against one
+        let line = say(&kit, stage, "10_4")?;
         fade_out_all(stage, &[q], 0.2)?;
         let all_yes = |o: &Outcome| o.yeses() == ASKS;
         recolor(
@@ -383,8 +438,8 @@ impl SceneConstruct for AskingAgain {
         )?;
         fade_in_all(stage, &[yes_labels[1], ratio_tex], 0.4)?;
 
-        // 04_5: each fresh answer can multiply it by three; three noes back
-        let line = say(&kit, stage, "04_5")?;
+        // 10_5: each fresh answer can multiply it by three; three noes back
+        let line = say(&kit, stage, "10_5")?;
         let each = model::likelihood_ratio(true);
         if each.pow(ASKED_AGAIN) != ratio {
             return Err(fail(format!("{ratio} is not {each} to the power {ASKS}")));
@@ -427,8 +482,8 @@ impl SceneConstruct for AskingAgain {
         ];
         fade_in_all(stage, &no_labels, 0.3)?;
 
-        // 04_6: the class's three-yes outcomes, 108 and 16
-        let line = say(&kit, stage, "04_6")?;
+        // 10_6: the class's three-yes outcomes, 108 and 16
+        let line = say(&kit, stage, "10_6")?;
         let named = [
             grid_name(&kit, stage, 0, Some(copiers))?,
             grid_name(&kit, stage, 1, Some(others))?,
@@ -466,8 +521,8 @@ impl SceneConstruct for AskingAgain {
         flash_all(stage, &squares(&outcomes, |o| !o.copied && all_yes(o)), 0.5)?;
         fade_in_all(stage, &products[1..], 0.3)?;
 
-        // 04_7: twenty-seven in thirty-one; after one yes, three in seven
-        let line = say(&kit, stage, "04_7")?;
+        // 10_7: twenty-seven in thirty-one; after one yes, three in seven
+        let line = say(&kit, stage, "10_7")?;
         let after = Q::int(i128::from(class_yes[1])) / Q::int(i128::from(class_yes[0] + class_yes[1]));
         if after != model::posterior(prior, ASKED_AGAIN, ASKED_AGAIN) {
             return Err(fail(format!("{after} counted, unlike the closed form")));
@@ -510,15 +565,14 @@ impl SceneConstruct for AskingAgain {
         )?;
         fade_in_all(stage, &[one_yes], 0.3)?;
 
-        // 04_8: the majority, right twenty-seven times in thirty-two either way
-        let line = say(&kit, stage, "04_8")?;
+        // 10_8: the majority, right twenty-seven times in thirty-two either way
+        let line = say(&kit, stage, "10_8")?;
         let plain = [grid_name(&kit, stage, 0, None)?, grid_name(&kit, stage, 1, None)?];
         let mut leaving = products.to_vec();
         leaving.extend(yes_labels);
         leaving.extend(names);
         fade_out_all(stage, &leaving, 0.2)?;
         fade_in_all(stage, &plain, 0.2)?;
-        names = plain;
         let majority = |o: &Outcome| {
             if o.copied {
                 2 * o.yeses() > ASKS
@@ -582,15 +636,161 @@ impl SceneConstruct for AskingAgain {
         line.wait_for(stage, "whichever the truth")?;
         flash_all(stage, &majority_labels, 0.5)?;
 
-        // 04_9: one flip, its answer repeated
-        let line = say(&kit, stage, "04_9")?;
+        line.wait_end(stage)?;
+        pause(stage, 1.5)?;
+
+        fade_all(stage, 0.6)?;
+        kit.finish(stage)?;
+        Ok(())
+    }
+}
+
+impl SceneConstruct for OneFlip {
+    fn name(&self) -> &str {
+        "11_one_flip"
+    }
+
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        let kit = self.kit.clone();
+        let (many_yes, many_asks) = RAPPOR_EXAMPLE;
+        let many_no = many_asks - many_yes;
+        let three = model::likelihood_ratio(true);
+        if model::likelihood_ratio(false) != three {
+            return Err(fail("a yes and a no carry different ratios".into()));
+        }
+        // each yes multiplies the evidence by three, each no divides it
+        let ratio = three.pow(many_yes) / three.pow(many_no);
+        let no_chance = Q::ONE - model::posterior(Q::new(1, 2), many_yes, many_asks);
+        if Q::ONE / (ratio + Q::ONE) != no_chance {
+            return Err(fail(format!("{no_chance} is not 1/({ratio} + 1)")));
+        }
+        let zeros = model::zeros_after_point(no_chance).map_err(fail)?;
+
+        // 11_1: one student, asked every day with fresh coins, one secret
+        let _line = say(&kit, stage, "11_1")?;
+        let student = disc(stage, palette::student(), v(STRIP_X, STUDENT_Y));
+        let caption = kit.text(stage, EVERY_DAY, 20.0, Palette::dim(), v(STRIP_X, CAPTION_Y))?;
+        fade_in_all(stage, &[student, caption], 0.4)?;
+        let days = many_asks as usize;
+        let mut strip = Vec::with_capacity(days);
+        for d in 0..days {
+            strip.push(square(stage, palette::ghost(), day_at(d), DAY_SIDE)?);
+        }
+        fade_in_lagged(stage, &strip, 1.5, 0.01)?;
+
+        // 11_2: seventy-five yes, twenty-five no; fifty threes multiplied
+        let line = say(&kit, stage, "11_2")?;
+        let mut answered = Vec::with_capacity(days);
+        for d in 0..days {
+            answered.push(square(
+                stage,
+                palette::answer(d < many_yes as usize),
+                day_at(d),
+                DAY_SIDE,
+            )?);
+        }
+        let tally = kit.text(
+            stage,
+            &format!("{many_yes} yes, {many_no} no"),
+            20.0,
+            Palette::ink(),
+            v(STRIP_X, TALLY_Y),
+        )?;
+        let mut coming = answered.clone();
+        coming.push(tally);
+        swap(stage, &strip, &coming, 0.5)?;
+        line.wait_for(stage, "Each yes")?;
+        let digits = ratio.num().to_string().len();
+        let evidence = [
+            kit.tex(
+                stage,
+                &format!(
+                    r"\frac{{3^{{{many_yes}}}}}{{3^{{{many_no}}}}} = 3^{{{}}}",
+                    many_yes - many_no
+                ),
+                34.0,
+                Palette::ink(),
+                &[],
+                v(MATH_X, MATH_Y[0]),
+            )?,
+            kit.tex(
+                stage,
+                &format!(
+                    r"3^{{{}}} = {}",
+                    many_yes - many_no,
+                    thousands(ratio.num().unsigned_abs()).replace(',', "{,}")
+                ),
+                24.0,
+                Palette::ink(),
+                &[],
+                v(MATH_X, MATH_Y[1]),
+            )?,
+            kit.text(
+                stage,
+                &format!("{digits} digits"),
+                20.0,
+                Palette::dim(),
+                v(MATH_X, MATH_Y[2]),
+            )?,
+        ];
+        let odds_text = odds_card();
+        let odds = precisely(&kit, stage, &odds_text)?;
+        fade_in_lagged(stage, &evidence, 1.2, 0.5)?;
+        fade_in_all(stage, &[odds], 0.4)?;
+        let odds_read = read_by(stage, &odds_text);
+
+        // 11_3: from even odds, twenty-three zeros after the decimal point
+        let line = say(&kit, stage, "11_3")?;
+        let sig = format!("{:.2e}", no_chance.to_f64());
+        let mantissa: String = sig.split('e').next().unwrap_or("").replace('.', "");
+        let decimal = format!("0.{}{mantissa}", "0".repeat(zeros as usize));
+        let chance = [
+            kit.text(stage, EVEN_ODDS, 20.0, Palette::dim(), v(MATH_X, MATH_Y[3]))?,
+            kit.tex(
+                stage,
+                &format!(
+                    r"\frac{{1}}{{3^{{{}}} + 1}} \approx {} \times 10^{{{}}}",
+                    many_yes - many_no,
+                    &sig[..4],
+                    sig.split('e').nth(1).unwrap_or("")
+                ),
+                30.0,
+                Palette::ink(),
+                &[],
+                v(MATH_X, MATH_Y[4]),
+            )?,
+            kit.text(stage, &decimal, 24.0, Palette::ink(), v(MATH_X, MATH_Y[5]))?,
+            kit.text(
+                stage,
+                &format!("{zeros} zeros after the point"),
+                20.0,
+                palette::copied(),
+                v(MATH_X, MATH_Y[6]),
+            )?,
+        ];
+        line.wait_for(stage, "the chance they didn't")?;
+        fade_in_lagged(stage, &chance, 1.2, 0.4)?;
+        line.wait_end(stage)?;
+        // the decimal stands a moment (a named hold)
+        pause(stage, 1.5)?;
+
+        // 11_4: one flip repeated: the prediction; the columns faint, no card
+        let line = say(&kit, stage, "11_4")?;
         line.wait_for(stage, "flips only once")?;
-        let mut memo = Vec::new();
+        wait_until(stage, odds_read)?;
+        let mut leaving = vec![student, caption, tally, odds];
+        leaving.extend(answered);
+        leaving.extend(evidence);
+        leaving.extend(chance);
+        fade_out_all(stage, &leaving, 0.3)?;
+        let names = [grid_name(&kit, stage, 0, None)?, grid_name(&kit, stage, 1, None)?];
+        let mut faces = Vec::with_capacity(2 * COIN_PAIRS.len());
+        let mut columns = Vec::new();
         let mut memo_said = vec![[0u64; 2]; 1 << ASKS];
         for (p, copied) in [(0, true), (1, false)] {
             for (k, &(first, second)) in COIN_PAIRS.iter().enumerate() {
                 let said = model::answer(copied, first, second);
-                memo.push(kit.text(
+                faces.push(kit.text(
                     stage,
                     &format!("{} {}", face(first), face(second)),
                     20.0,
@@ -598,7 +798,8 @@ impl SceneConstruct for AskingAgain {
                     v(memo_at(p, k, 0)[0], MEMO_FACE_Y),
                 )?);
                 for j in 0..ASKS {
-                    memo.push(square(stage, palette::answer(said), memo_at(p, k, j), MEMO_SIDE)?);
+                    let at = memo_at(p, k, j);
+                    columns.push((square(stage, palette::ghost(), at, MEMO_SIDE)?, at, said));
                 }
                 memo_said[if said { (1 << ASKS) - 1 } else { 0 }][usize::from(copied)] += 1;
             }
@@ -606,24 +807,28 @@ impl SceneConstruct for AskingAgain {
         if memo_said != model::memoized_answers(ASKED_AGAIN).map_err(fail)? {
             return Err(fail(format!("the drawn flips count {memo_said:?}, unlike the model")));
         }
-        let card4 = precisely(&kit, stage, &memo_card())?;
-        let mut leaving = squares(&outcomes, |_| true);
-        leaving.extend(majority_labels);
-        leaving.extend([majority_tex, chance, one_yes, card3]);
-        let mut shown = memo;
-        shown.push(card4);
-        fade_out_all(stage, &leaving, 0.25)?;
-        fade_in_all(stage, &shown, 0.25)?;
+        let mut faint = names.to_vec();
+        faint.extend(faces.iter().copied());
+        faint.extend(columns.iter().map(|&(blank, _, _)| blank));
+        fade_in_all(stage, &faint, 0.3)?;
+        let q = think(&kit, stage, v(RIGHT_X, THINK_Y))?;
 
-        // 04_10: three yeses still three times as likely; repeats add nothing
-        let line = say(&kit, stage, "04_10")?;
+        // 11_5: three times as likely, the same as one; the columns and card now
+        let line = say(&kit, stage, "11_5")?;
         let [memo_didnt, memo_copied] = memo_said[(1 << ASKS) - 1];
         let memo_ratio = Q::int(i128::from(memo_copied)) / Q::int(i128::from(memo_didnt));
-        if memo_ratio != model::likelihood_ratio(true) {
+        if memo_ratio != three {
             return Err(fail(format!(
                 "a memoized three yeses give {memo_ratio}, unlike one yes"
             )));
         }
+        let mut old = vec![q];
+        let mut coloured = Vec::with_capacity(columns.len());
+        for &(blank, at, said) in &columns {
+            old.push(blank);
+            coloured.push(square(stage, palette::answer(said), at, MEMO_SIDE)?);
+        }
+        let three_yes = format!("{ASKS} {YES}");
         let flips = COIN_PAIRS.len();
         let memo_labels = [
             kit.text(
@@ -649,26 +854,62 @@ impl SceneConstruct for AskingAgain {
             &[],
             v(RIGHT_X, RIGHT_Y[1]),
         )?;
-        let mut shown = memo_labels.to_vec();
-        shown.push(memo_tex);
-        fade_in_all(stage, &shown, 0.4)?;
+        let memo_text = memo_card();
+        let card = precisely(&kit, stage, &memo_text)?;
+        let mut new = coloured.clone();
+        new.extend(memo_labels);
+        new.extend([memo_tex, card]);
+        swap(stage, &old, &new, 0.4)?;
+        let memo_read = read_by(stage, &memo_text);
         line.wait_for(stage, "the same as one")?;
         flash_all(stage, &[memo_tex], 0.5)?;
+        let fresh_ratio = three.pow(ASKED_AGAIN);
         let fresh = kit.text(
             stage,
-            &format!("{FRESH}: {ratio}"),
+            &format!("{FRESH}: {fresh_ratio}"),
             20.0,
             Palette::dim(),
             v(RIGHT_X, RIGHT_Y[2]),
         )?;
         fade_in_all(stage, &[fresh], 0.3)?;
 
-        // 04_11: for one unchanged secret, under this rule
-        let line = say(&kit, stage, "04_11")?;
+        // 11_6: for one unchanged secret, under this rule
+        let line = say(&kit, stage, "11_6")?;
         line.wait_for(stage, "the secret")?;
         flash_all(stage, &names, 0.5)?;
+
+        // 11_7: a 2014 design builds on this: remembered, then randomized again
+        let line = say(&kit, stage, "11_7")?;
+        let mut leaving = coloured;
+        leaving.extend(memo_labels);
+        leaving.extend([memo_tex, fresh]);
+        leaving.extend(names);
+        leaving.extend(faces);
+        fade_out_all(stage, &leaving, 0.3)?;
+        line.wait_for(stage, "builds on this")?;
+        let diagram = [
+            place(stage, v(-BOX_X, BOX_Y), BOX_W, BOX_H)?,
+            kit.text(stage, REMEMBERED, 20.0, Palette::ink(), v(-BOX_X, BOX_Y))?,
+            lane(
+                stage,
+                vec![
+                    v(-BOX_X + BOX_W / 2.0 + 0.1, BOX_Y),
+                    v(BOX_X - BOX_W / 2.0 - 0.1, BOX_Y),
+                ],
+                Palette::dim(),
+            ),
+            place(stage, v(BOX_X, BOX_Y), BOX_W, BOX_H)?,
+            kit.text(stage, AGAIN, 20.0, Palette::ink(), v(BOX_X, BOX_Y))?,
+        ];
+        fade_in_lagged(stage, &diagram, 1.0, 0.3)?;
+        let rappor_text = rappor_card();
+        let rappor = precisely(&kit, stage, &rappor_text)?;
+        wait_until(stage, memo_read)?;
+        swap(stage, &[card], &[rappor], 0.4)?;
+        let rappor_read = read_by(stage, &rappor_text);
         line.wait_end(stage)?;
-        pause(stage, 2.0)?;
+        pause(stage, 1.0)?;
+        wait_until(stage, rappor_read)?;
 
         fade_all(stage, 0.6)?;
         kit.finish(stage)?;
@@ -690,20 +931,23 @@ mod tests {
     fn every_phrase_the_scene_waits_for_is_in_its_line() {
         let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
         for (id, phrase) in [
-            ("04_1", "three times"),
-            ("04_1", "fresh coins"),
-            ("04_2", "sixty-four"),
-            ("04_4", "anyone else in one"),
-            ("04_5", "Three noes"),
-            ("04_6", "a hundred and eight"),
-            ("04_6", "the sixteen others"),
-            ("04_7", "twenty-seven in thirty-one"),
-            ("04_7", "After one"),
-            ("04_8", "twenty-seven times"),
-            ("04_8", "whichever the truth"),
-            ("04_9", "flips only once"),
-            ("04_10", "the same as one"),
-            ("04_11", "the secret"),
+            ("10_1", "three times"),
+            ("10_1", "fresh coins"),
+            ("10_2", "sixty-four"),
+            ("10_4", "anyone else in one"),
+            ("10_5", "Three noes"),
+            ("10_6", "a hundred and eight"),
+            ("10_6", "the sixteen others"),
+            ("10_7", "twenty-seven in thirty-one"),
+            ("10_7", "After one"),
+            ("10_8", "twenty-seven times"),
+            ("10_8", "whichever the truth"),
+            ("11_2", "Each yes"),
+            ("11_3", "the chance they didn't"),
+            ("11_4", "flips only once"),
+            ("11_5", "the same as one"),
+            ("11_6", "the secret"),
+            ("11_7", "builds on this"),
         ] {
             let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
             assert!(text.contains(phrase), "{id} has no {phrase:?}: {text}");
@@ -814,12 +1058,43 @@ mod tests {
             ratios_card(&ratios, "3,9,27,81,243"),
             prior_card(after, 4, 20, Q::new(27, 28), Q::ZERO),
             memo_card(),
+            odds_card(),
+            rappor_card(),
         ] {
             for width in (72..=92).rev().step_by(4) {
                 let lines = explainer_kit::animatic::wrap(&text, width, 3);
                 assert!(lines.len() <= 2, "{} lines at {width}: {text}", lines.len());
             }
         }
+    }
+
+    /// Chapter 11's numbers are the facts': 75 yes and 25 no leave 3⁵⁰, a
+    /// 24-digit number; from even odds the chance of no copying is
+    /// 1/(3⁵⁰ + 1), with 23 zeros after the point (RAPPOR's 1.39e-24); and
+    /// the hundred days sit in a 10 × 10 strip.
+    #[test]
+    fn a_hundred_answers_are_the_facts() {
+        let f = facts::facts().unwrap();
+        let (yes, asks) = RAPPOR_EXAMPLE;
+        let ratio = model::likelihood_ratio(true).pow(yes) / model::likelihood_ratio(false).pow(asks - yes);
+        assert_eq!(f.get("R-F22.ratio"), Some(ratio.to_string().as_str()));
+        assert_eq!(
+            f.get("R-F22.ratio_digits"),
+            Some(ratio.num().to_string().len().to_string().as_str())
+        );
+        let no = Q::ONE - model::posterior(Q::new(1, 2), yes, asks);
+        assert_eq!(f.get("R-F22.posterior_no"), Some(no.to_string().as_str()));
+        assert_eq!(
+            f.get("R-F22.zeros"),
+            Some(model::zeros_after_point(no).unwrap().to_string().as_str())
+        );
+        assert_eq!(
+            f.get("R-X3.rappor.no_after_75_of_100"),
+            Some(format!("{:.2e}", no.to_f64()).as_str())
+        );
+        assert_eq!(asks as usize, STRIP_COLUMNS * STRIP_COLUMNS);
+        assert!(rappor_card().ends_with("not this one-bit rule"));
+        assert_eq!(f.get("R-X7.rappor.memoized"), Some("Permanent randomized response"));
     }
 
     /// The layout keeps its pieces apart and inside the frame.
@@ -915,5 +1190,29 @@ mod tests {
                 "the counts under the columns"
             )
         };
+        // chapter 11's strip: inside the left edge, under the student and its
+        // caption, over the tally, the tally over the band
+        let (first, last) = (day_at(0), day_at(STRIP_COLUMNS * STRIP_COLUMNS - 1));
+        assert!(first[0] - DAY_SIDE / 2.0 > -FRAME_X_RADIUS + 0.25);
+        assert!(first[1] + DAY_SIDE / 2.0 < STUDENT_Y - DISC_R - 0.15);
+        assert!(last[1] - DAY_SIDE / 2.0 > TALLY_Y + 0.25);
+        const { assert!(TALLY_Y - 0.15 > BAND_TOP + 0.2, "the tally over the band") };
+        const { assert!(CAPTION_Y + 0.15 < FRAME_Y_RADIUS - 0.25, "the caption inside the top") };
+        const { assert!(CAPTION_Y - 0.15 > STUDENT_Y + DISC_R, "the caption over the student") };
+        const { assert!(DAY_DX > DAY_SIDE + 0.05, "the days apart") };
+        // the mathematics at the right: its rows apart, the last over the band;
+        // the 24-digit number (about 7.8 wide at 24 points) inside the frame,
+        // right of the strip
+        for pair in MATH_Y.windows(2) {
+            assert!(pair[0] - pair[1] >= 0.45, "{pair:?}");
+        }
+        const { assert!(MATH_Y[0] + 0.4 < FRAME_Y_RADIUS - 0.25, "the fraction inside the top") };
+        const { assert!(MATH_Y[6] - 0.15 > BAND_TOP + 0.2, "the zeros' words over the band") };
+        assert!(MATH_X + 3.9 < FRAME_X_RADIUS - 0.25);
+        assert!(MATH_X - 3.9 > last[0] + DAY_SIDE / 2.0 + 0.2);
+        // the closing diagram's boxes inside the frame, apart, over the band
+        const { assert!(BOX_X + BOX_W / 2.0 < FRAME_X_RADIUS - 0.25, "the boxes inside") };
+        const { assert!(BOX_X - BOX_W / 2.0 > 0.3, "the boxes apart") };
+        const { assert!(BOX_Y - BOX_H / 2.0 > BAND_TOP + 0.3, "the boxes over the band") };
     }
 }

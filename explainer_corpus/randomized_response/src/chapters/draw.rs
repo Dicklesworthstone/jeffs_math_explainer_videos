@@ -1,6 +1,7 @@
 //! The video's look, shared by its chapters (storyboard, color roles):
 //! students and rings, coins and lanes, the places answers land in, the
-//! think-time countdown, and line timing.
+//! chart of average yeses (chapters 01 and 04), the think-time countdown,
+//! card reading time, and line timing.
 //!
 //! Builders return detached mobjects (in the arena, not yet in the scene),
 //! like `Kit::text`: bring them in with an animation. Engine rules
@@ -16,6 +17,7 @@ use explainer_kit::narration::{frames_covering, wait_frames};
 use explainer_kit::{Kit, Palette, Script, Timed, v};
 use fmn::prelude::*;
 
+use crate::model::Q;
 use crate::palette;
 
 /// A scene error carrying `message` (a missing phrase, a broken invariant).
@@ -309,6 +311,114 @@ pub fn wait_until(stage: &mut Stage<'_>, t: f64) -> fmn::Result<()> {
     }
     Ok(())
 }
+
+/// Characters a second a lower-third is read at (the video can be paused):
+/// every card stays up at least its characters over this, from the moment it
+/// is fully in.
+pub const READ_CPS: f64 = 15.0;
+
+/// When a card whose text is `text`, fully in now, has been read.
+pub fn read_by(stage: &Stage<'_>, text: &str) -> f64 {
+    stage.scene().time().to_f64() + text.chars().count() as f64 / READ_CPS
+}
+
+// ------------------------------------------------------------------- chart
+
+/// Chapters 01 and 04's chart: how many copied, 0 to `n`, along the bottom,
+/// yes answers on average, 0 to `n`, up the side; the bottom left corner at
+/// (`x0`, `y0`), `w` wide and `h` tall.
+pub struct YesChart {
+    pub n: usize,
+    pub x0: f64,
+    pub y0: f64,
+    pub w: f64,
+    pub h: f64,
+}
+
+/// The chart's tick values and names: their offsets from the axes, and
+/// their sizes.
+const CHART_TICK_DX: f64 = 0.3;
+const CHART_TICK_DY: f64 = 0.3;
+const CHART_NAME_DY: f64 = 0.62;
+const CHART_UP_DY: f64 = 0.38;
+
+impl YesChart {
+    /// The point for `k` copied and `yes` answers.
+    pub fn p(&self, k: Q, yes: Q) -> Vec3 {
+        let n = self.n as f64;
+        v(self.x0 + self.w * k.to_f64() / n, self.y0 + self.h * yes.to_f64() / n)
+    }
+
+    /// Where the bottom axis's name sits (its centre).
+    pub fn across_name_at(&self) -> Vec3 {
+        v(self.x0 + self.w / 2.0, self.y0 - CHART_NAME_DY)
+    }
+
+    /// Where the side axis's name starts (its left edge), over the axis.
+    pub fn up_name_at(&self) -> Vec3 {
+        v(self.x0 - CHART_TICK_DX, self.y0 + self.h + CHART_UP_DY)
+    }
+
+    /// The two axes, their values at 0, half and all of n, and their names
+    /// `across` and `up`. Detached.
+    pub fn axes(&self, kit: &Kit, stage: &mut Stage<'_>, across: &str, up: &str) -> fmn::Result<Vec<Mob>> {
+        let corner = v(self.x0, self.y0);
+        let mut out = vec![
+            lane(stage, vec![corner, v(self.x0 + self.w, self.y0)], Palette::dim()),
+            lane(stage, vec![corner, v(self.x0, self.y0 + self.h)], Palette::dim()),
+        ];
+        for at in [0, self.n / 2, self.n] {
+            let q = Q::int(at as i128);
+            let x = self.p(q, Q::ZERO)[0];
+            let y = self.p(Q::ZERO, q)[1];
+            out.push(kit.text(
+                stage,
+                &at.to_string(),
+                18.0,
+                Palette::dim(),
+                v(x, self.y0 - CHART_TICK_DY),
+            )?);
+            out.push(kit.text(
+                stage,
+                &at.to_string(),
+                18.0,
+                Palette::dim(),
+                v(self.x0 - CHART_TICK_DX, y),
+            )?);
+        }
+        out.push(kit.text(stage, across, 20.0, Palette::dim(), self.across_name_at())?);
+        out.push(kit.text_left(stage, up, 20.0, Palette::dim(), self.up_name_at())?);
+        Ok(out)
+    }
+
+    /// A straight line on the chart between two (copied, yes) points, in
+    /// `color`. Detached.
+    pub fn line(&self, stage: &mut Stage<'_>, from: (Q, Q), to: (Q, Q), color: Srgb) -> Mob {
+        lane(stage, vec![self.p(from.0, from.1), self.p(to.0, to.1)], color)
+    }
+
+    /// The same line drawn as `dashes` short pieces with gaps between.
+    /// Detached.
+    pub fn dashed(&self, stage: &mut Stage<'_>, from: (Q, Q), to: (Q, Q), color: Srgb, dashes: usize) -> Vec<Mob> {
+        let (a, b) = (self.p(from.0, from.1), self.p(to.0, to.1));
+        let at = |t: f64| v(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t);
+        let pieces = (2 * dashes).saturating_sub(1).max(1) as f64;
+        let mut out = Vec::with_capacity(dashes);
+        for i in 0..dashes {
+            let (s, e) = ((2 * i) as f64 / pieces, (2 * i + 1) as f64 / pieces);
+            out.push(lane(stage, vec![at(s), at(e)], color));
+        }
+        out
+    }
+
+    /// A point on the chart: a small disc in `color`. Detached.
+    pub fn point(&self, stage: &mut Stage<'_>, k: Q, yes: Q, color: Srgb) -> Mob {
+        coin(stage, color, self.p(k, yes), CHART_POINT_R)
+    }
+}
+
+/// A chart point's radius.
+const CHART_POINT_R: f64 = 0.09;
 
 // ------------------------------------------------------------ line timing
 

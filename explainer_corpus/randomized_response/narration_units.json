@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "f3783241084a979596bd5b2c94408967d6992987602fa7a4fd48a8211c7cdc65",
+  "script_sha256": "ccb86dc80561833ec273df9a538c1f2eeea30590a0de702c71cef6275ddcecaf",
   "units": [
     {
       "id": "01u1",
@@ -10,26 +10,25 @@
         "01_3",
         "01_4"
       ],
-      "text": "Ask a class of twenty if they've ever copied homework. Anyone who did has a reason to say no. Only we can see the truth. Four of them did. So everyone flips a coin where nobody can see. Heads, tell the truth. Tails, flip a second coin, and let it answer. Heads for yes, tails for no."
+      "text": "Ask a class of twenty if they've ever copied homework. Anyone who did has a reason to say no. Only we can see the truth. Four of them did. Suppose they all answer honestly anyway. Then every yes is a confession. Whether people would answer honestly is a separate question. Ours is what each answer gives away."
     },
     {
       "id": "01u2",
       "line_ids": [
         "01_5",
-        "01_6",
-        "01_7",
-        "01_8"
+        "01_6"
       ],
-      "text": "On average, half the class tells the truth. Two of our four say yes. The other ten get the second coin. Five yes, five no, whatever the truth. Seven yes, thirteen no. That's all the survey sees. From those two numbers, how could the survey get back to four?"
+      "text": "So try the opposite. Everyone just flips a coin. Heads yes, tails no. Now the survey counts the yeses. What do they tell it about how many copied?"
     },
     {
       "id": "01u3",
       "line_ids": [
+        "01_7",
+        "01_8",
         "01_9",
-        "01_10",
-        "01_11"
+        "01_10"
       ],
-      "text": "Take away the second coin's yeses. On average that's five, a quarter of the class. Two are left. Those two came from the half who told the truth. So double them. Four. No answer is a confession. But someone who copied says yes three times as often as someone who didn't."
+      "text": "Nothing. Four copiers or none, the coin gives ten yeses on average. So honest answers give the count, but every yes exposes the person who gave it. A private coin alone reveals nothing about whether anyone copied, and counts nothing. What we want sits in between. A coin the survey never sees, following a rule it knows. The survey can still estimate the count, and no single answer is a confession."
     },
     {
       "id": "02u1",
@@ -39,7 +38,7 @@
         "02_3",
         "02_4"
       ],
-      "text": "Give every student all four coin outcomes, equally likely. Twenty students, eighty outcomes. Someone who copied says yes in three of their four. Someone who didn't, in one. Three times as likely. For a no, it's the reverse, three times again. So a student says yes. What's the chance they copied?"
+      "text": "Here is the rule. Everyone flips a fair coin where nobody can see. Heads, tell the truth. Tails, flip a second fair coin, independent of the first, and let it answer. Heads for yes, tails for no. Follow a student who copied. Heads first, either way, they tell the truth, yes. Tails then heads, the second coin says yes. Tails then tails, no. Three yeses in four. Now someone who didn't copy. How many of the four give a yes?"
     },
     {
       "id": "02u2",
@@ -49,85 +48,51 @@
         "02_7",
         "02_8"
       ],
-      "text": "Count the yes outcomes. The four who copied have twelve, the sixteen others sixteen. Twelve of twenty-eight. On average, three of the seven yeses. Three in seven, not three in four. Each copier has three times the yeses, but the others outnumber them four to one. A no works the same way. Four of the fifty-two no outcomes are a copier's, one in thirteen."
-    },
-    {
-      "id": "02u3",
-      "line_ids": [
-        "02_9",
-        "02_10",
-        "02_11"
-      ],
-      "text": "A yes lifts the chance from one in five to three in seven. A no drops it to one in thirteen. The coin fixes the three times. Where the chance ends up depends on the class. An answer is deniable, but not meaningless. How well the survey counts is a separate question."
+      "text": "One. Heads first gives the truth, no. Only tails then heads says yes. No answer is a confession. But someone who copied says yes three times as often as someone who didn't. For a no, it's the reverse. So under this rule, no answer is more than three times as likely from one truth as the other, whatever the survey believed. That needs private coins. Seeing heads first, a survey would know the yes was true."
     },
     {
       "id": "03u1",
       "line_ids": [
         "03_1",
-        "03_2"
+        "03_2",
+        "03_3",
+        "03_4"
       ],
-      "text": "Real coins don't land on average. Ask the class eight times with fresh coins. Their estimates run from minus four to fourteen. Only one lands on four."
+      "text": "On average, half the class tells the truth. Two of our four say yes. The other ten get the second coin. Five yes, five no, whatever the truth. Seven yes, thirteen no. That's all the survey sees. From those two numbers, how could the survey get back to four?"
     },
     {
       "id": "03u2",
       "line_ids": [
-        "03_3",
-        "03_4",
-        "03_5"
+        "03_5",
+        "03_6"
       ],
-      "text": "Now count every way the coins can land. Four to the twentieth, over a trillion, all equally likely. The estimates pile up around four, the true count. How often does a class land exactly on four?"
-    },
-    {
-      "id": "03u3",
-      "line_ids": [
-        "03_6",
-        "03_7"
-      ],
-      "text": "About one class in five. And about one in eleven goes below zero. Below zero means fewer yeses than the second coin alone gives on average. Rounding those up to zero would push the average above four."
-    },
-    {
-      "id": "03u4",
-      "line_ids": [
-        "03_8",
-        "03_9",
-        "03_10"
-      ],
-      "text": "Every answer wobbles the same, whoever gives it. Twenty of them, doubled, miss by about four people. That's for this fixed class. Sample twenty from a big school instead, and who gets picked adds its own scatter. If one in five copied, matching a direct question's precision takes almost six times as many people."
+      "text": "Take away the second coin's yeses. On average that's five, a quarter of the class. Two are left. Those two came from the half who told the truth. So double them. Four."
     },
     {
       "id": "04u1",
       "line_ids": [
         "04_1",
         "04_2",
-        "04_3"
+        "04_3",
+        "04_4"
       ],
-      "text": "Ask one student the same question three times, with fresh coins each time. Four coin outcomes for each answer make sixty-four for all three, all equally likely. How many times as likely are three yeses from someone who copied?"
+      "text": "A real survey has no rings to check. So take a class of n, where k copied. On average, half the k copiers tell the truth and say yes, and the second coin says yes for a quarter of the class. So the yeses average half of k plus a quarter of n. For us, two plus five, seven. Run that backwards. Take away a quarter of the class, double what's left, and the average gives back k exactly."
     },
     {
       "id": "04u2",
       "line_ids": [
-        "04_4",
-        "04_5"
+        "04_5",
+        "04_6"
       ],
-      "text": "Twenty-seven. Someone who copied says yes three times in twenty-seven outcomes, anyone else in one. Each fresh answer can multiply it by three. Three noes do the same the other way."
+      "text": "But a survey hears a single count, not the average. The same steps turn it into an estimate of k, right on average, and able to miss. A class of forty says yes eighteen times. What does the survey estimate?"
     },
     {
       "id": "04u3",
       "line_ids": [
-        "04_6",
         "04_7",
         "04_8"
       ],
-      "text": "In our class, one in five copied. Those four have a hundred and eight such outcomes, the sixteen others sixteen. So after three yeses, the chance they copied is twenty-seven in thirty-one. After one, three in seven. The majority of three answers is right twenty-seven times in thirty-two, whichever the truth."
-    },
-    {
-      "id": "04u4",
-      "line_ids": [
-        "04_9",
-        "04_10",
-        "04_11"
-      ],
-      "text": "But suppose the student flips only once, and repeats that answer. Then three yeses are three times as likely, the same as one. The repeats add nothing. That holds only while the secret stays the same, under this rule."
+      "text": "Sixteen. A quarter of forty is ten. Eighteen take away ten is eight, and double eight is sixteen. An estimate, not a count. The doubling undoes the first coin. The quarter is the second coin's yeses."
     },
     {
       "id": "05u1",
@@ -136,32 +101,215 @@
         "05_2",
         "05_3"
       ],
-      "text": "Make the first coin a dial, the chance of telling the truth. Ours sits at one half. Set it to three quarters, a spinner of four slices, three saying tell the truth. At three quarters, how many times as likely is a yes from someone who copied?"
+      "text": "Give every student all four coin outcomes, equally likely. Twenty students, eighty outcomes. Each copier has three yes outcomes, everyone else one. So a student says yes. What's the chance they copied?"
     },
     {
       "id": "05u2",
       "line_ids": [
         "05_4",
         "05_5",
-        "05_6"
+        "05_6",
+        "05_7"
       ],
-      "text": "Seven. Of the eight outcomes, someone who copied says yes in seven, anyone else in one. Turning the dial up makes every answer say more. But the count gets sharper. Our class of twenty would miss by about two people, not four."
+      "text": "Count the yes outcomes. The four who copied have twelve, the sixteen others sixteen. Twelve of twenty-eight. On average, three of the seven yeses. Three in seven, not three in four. Each copier has three times the yeses, but the others outnumber them four to one. A no works the same way. Four of the fifty-two no outcomes are a copier's, one in thirteen."
     },
     {
       "id": "05u3",
       "line_ids": [
-        "05_7",
         "05_8",
-        "05_9"
-      ],
-      "text": "Down at a quarter, a yes is under twice as likely, but the class would miss by about nine. All the way up is the direct question, no wobble and no limit on what a yes reveals. All the way down, the second coin answers for everyone. Nothing is revealed, and nothing can be counted."
-    },
-    {
-      "id": "05u4",
-      "line_ids": [
+        "05_9",
         "05_10"
       ],
+      "text": "A yes lifts the chance from one in five to three in seven. A no drops it to one in thirteen. The coin fixes the three times. Where the chance ends up depends on the class. An answer is deniable, but not meaningless. How well the survey counts is a separate question."
+    },
+    {
+      "id": "06u1",
+      "line_ids": [
+        "06_1",
+        "06_2"
+      ],
+      "text": "Real coins don't land on average. Ask the class eight times with fresh coins. Their estimates run from minus four to fourteen. Only one lands on four."
+    },
+    {
+      "id": "06u2",
+      "line_ids": [
+        "06_3",
+        "06_4",
+        "06_5"
+      ],
+      "text": "Now count every way the coins can land. Four to the twentieth, over a trillion, all equally likely. The estimates pile up around four, the true count. How often does a class land exactly on four?"
+    },
+    {
+      "id": "06u3",
+      "line_ids": [
+        "06_6",
+        "06_7"
+      ],
+      "text": "About one class in five. And about one in eleven goes below zero. Below zero means fewer yeses than the second coin alone gives on average. Rounding those up to zero would push the average above four."
+    },
+    {
+      "id": "07u1",
+      "line_ids": [
+        "07_1",
+        "07_2",
+        "07_3"
+      ],
+      "text": "Why so much scatter? A copier says yes three times in four, anyone else once in four. Those are mirror images, just as hard to predict. Every answer wobbles the same, whoever gives it. Twenty of them, doubled, miss by about four people."
+    },
+    {
+      "id": "07u2",
+      "line_ids": [
+        "07_4",
+        "07_5",
+        "07_6"
+      ],
+      "text": "That's a typical miss. Square each class's miss, average over every way the coins land, and take the square root, here of fifteen. It's typical, not a limit. More than two classes in five miss by four or more. Now ask three hundred students, same coins. Does the estimate miss by more people than in our class, or fewer?"
+    },
+    {
+      "id": "07u3",
+      "line_ids": [
+        "07_7",
+        "07_8"
+      ],
+      "text": "More. About fifteen, the square root of three quarters of three hundred. But that's one in twenty of them. Our miss of four was about one in five. In people, the miss grows. As a share, it shrinks."
+    },
+    {
+      "id": "08u1",
+      "line_ids": [
+        "08_1",
+        "08_2",
+        "08_3"
+      ],
+      "text": "That's for this fixed class. Sample twenty from a big school instead, and who gets picked adds its own scatter. Say one in five in the school copied. Twenty direct, truthful answers would miss that twenty percent by about nine percentage points. Twenty coin answers, by about twenty-one. How many coin answers would it take to miss by only nine points?"
+    },
+    {
+      "id": "08u2",
+      "line_ids": [
+        "08_4"
+      ],
+      "text": "About a hundred and fourteen. If one in five copied, matching a direct question's precision takes almost six times as many people. That's the price of the coin."
+    },
+    {
+      "id": "09u1",
+      "line_ids": [
+        "09_1",
+        "09_2"
+      ],
+      "text": "Everything so far assumed that everyone lets the coins decide. Suppose the four who copied always say no, whatever their coins. On average, what does the survey estimate?"
+    },
+    {
+      "id": "09u2",
+      "line_ids": [
+        "09_3",
+        "09_4",
+        "09_5",
+        "09_6"
+      ],
+      "text": "Minus two. The sixteen others give four yeses on average. Double four is eight, take away ten, minus two. The truth is four. That isn't scatter. Here the average itself is pulled down, and asking more people won't fix it. A negative estimate is a hint, not proof. Our class, following the rule, goes below zero about one time in eleven. The designers of a system for collecting such answers call absolute compliance an assumption that may not hold for human subjects."
+    },
+    {
+      "id": "10u1",
+      "line_ids": [
+        "10_1",
+        "10_2",
+        "10_3"
+      ],
+      "text": "Ask one student the same question three times, with fresh coins each time. Four coin outcomes for each answer make sixty-four for all three, all equally likely. How many times as likely are three yeses from someone who copied?"
+    },
+    {
+      "id": "10u2",
+      "line_ids": [
+        "10_4",
+        "10_5"
+      ],
+      "text": "Twenty-seven. Someone who copied says yes three times in twenty-seven outcomes, anyone else in one. Each fresh answer can multiply it by three. Three noes do the same the other way."
+    },
+    {
+      "id": "10u3",
+      "line_ids": [
+        "10_6",
+        "10_7",
+        "10_8"
+      ],
+      "text": "In our class, one in five copied. Those four have a hundred and eight such outcomes, the sixteen others sixteen. So after three yeses, the chance they copied is twenty-seven in thirty-one. After one, three in seven. The majority of three answers is right twenty-seven times in thirty-two, whichever the truth."
+    },
+    {
+      "id": "11u1",
+      "line_ids": [
+        "11_1",
+        "11_2",
+        "11_3"
+      ],
+      "text": "Now picture a program asking the same student every day, with fresh coins, about a secret that never changes. After a hundred answers, seventy-five yes and twenty-five no. Each yes multiplies the evidence by three and each no divides it, leaving fifty threes multiplied together. From even odds, and with the rule followed, the chance they didn't copy now starts with twenty-three zeros after the decimal point."
+    },
+    {
+      "id": "11u2",
+      "line_ids": [
+        "11_4"
+      ],
+      "text": "But suppose the student flips only once, and repeats that answer. How many times as likely are three yeses now?"
+    },
+    {
+      "id": "11u3",
+      "line_ids": [
+        "11_5",
+        "11_6",
+        "11_7"
+      ],
+      "text": "Then three yeses are three times as likely, the same as one. The repeats add nothing. That holds only while the secret stays the same, under this rule. A design published in twenty fourteen and tried in Google's Chrome browser builds on this. It remembers a randomized answer, then randomizes every report of it again."
+    },
+    {
+      "id": "12u1",
+      "line_ids": [
+        "12_1",
+        "12_2",
+        "12_3"
+      ],
+      "text": "Make the first coin a dial, the chance of telling the truth. Ours sits at one half. Set it to three quarters, a spinner of four slices, three saying tell the truth. At three quarters, how many times as likely is a yes from someone who copied?"
+    },
+    {
+      "id": "12u2",
+      "line_ids": [
+        "12_4",
+        "12_5",
+        "12_6"
+      ],
+      "text": "Seven. Of the eight outcomes, someone who copied says yes in seven, anyone else in one. Turning the dial up makes every answer say more. But the count gets sharper. Our class of twenty would miss by about two people, not four."
+    },
+    {
+      "id": "12u3",
+      "line_ids": [
+        "12_7",
+        "12_8",
+        "12_9"
+      ],
+      "text": "Down at a quarter, a yes is under twice as likely, but the class would miss by about nine. All the way up is the direct question we started with, no wobble and no limit on what a yes reveals. All the way down, the second coin answers for everyone. Nothing is revealed, and nothing can be counted."
+    },
+    {
+      "id": "12u4",
+      "line_ids": [
+        "12_10"
+      ],
       "text": "In between, a survey counts a secret while every answer stays deniable, if each person answers once."
+    },
+    {
+      "id": "13u1",
+      "line_ids": [
+        "13_1",
+        "13_2",
+        "13_3",
+        "13_4",
+        "13_5"
+      ],
+      "text": "For programmers, here is the whole survey. Publish the rule and the recipe before anyone answers. Each person flips the coins privately and sends only yes or no, once. Take away a quarter of the class from the yeses, double what's left, and keep negative results. Its typical miss, the square root of three quarters of the class, doesn't depend on who copied, so it can be stated in advance. What do the private coins protect, and what does keeping the negatives protect?"
+    },
+    {
+      "id": "13u2",
+      "line_ids": [
+        "13_6",
+        "13_7"
+      ],
+      "text": "The private coins limit what each answer reveals. Keeping the negatives keeps the average right. Answering once keeps the three times from multiplying. We began with a yes that was a confession. Now no answer is, and the count can still be estimated."
     }
   ]
 }

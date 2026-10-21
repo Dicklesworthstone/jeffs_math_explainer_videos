@@ -42,6 +42,26 @@ coin outcomes for repeated asks):
     not read from it; the coins' variance as the variance of one person's
     share over those outcomes; the fixed class's miss as the square root of
     20 times it, rounded to the nearest whole by an integer square root.
+
+The 13-chapter video's added rows, by the same independent means:
+  * R-F17, chapter 01's chart: each person's yes chance from the weighted
+    routes (`channel`), summed seat by seat for every number of copiers;
+  * R-F18, the class of forty: solving E[yes] = n(1 - t)/2 + k t for k;
+    and the person-by-person distribution for every k at twenty;
+  * R-F19, the misses: tails of the person-by-person distribution; three
+    hundred people by the same dynamic program (big integers), at 60 and at
+    0 copiers;
+  * R-F20, the sampled share: one person's enumerated joint distribution,
+    and the smallest number of coin answers found by counting upward;
+  * R-F21, copiers who always say no: the dynamic program with those seats
+    answering yes in none of the four outcomes, and one person's share
+    contribution enumerated for the share's average;
+  * R-F22, a hundred answers: exact binomial likelihoods, and the zeros
+    after the point counted by multiplying by ten;
+  * R-F23: the dynamic program's estimate variance at each checked size and
+    every number of copiers;
+  * R-X6 to R-X8: RAPPOR's words typed here from the paper (arXiv
+    1407.6981v2, read 2026-10-20), not from the Rust constants.
 """
 import math
 import sys
@@ -69,6 +89,14 @@ RUNS = 8
 # how many slices say "tell the truth" (the rest hand over to the second coin).
 SLICES = 4
 DIAL = (("pure", 0), ("down", 1), ("ours", 2), ("up", 3), ("direct", 4))
+# Chapter 04's class of forty and its yeses; the seeded class it shows (the
+# fifth of chapter 03's eight, counted from zero).
+FORTY = (40, 18)
+SHOWN_RUN = 4
+# Chapter 07's three hundred; chapter 09's class sizes; chapter 13's sizes.
+BIG_CLASS = 300
+ASKED = (20, 100, 300)
+CHECKED_SIZES = (1, 2, 7, 20, 24)
 
 # The rule, written out: (first coin, second coin) -> answer for someone who
 # copied, answer for someone who didn't; and what decided it.
@@ -171,11 +199,12 @@ def cells(seats):
 
 # ------------------------------------------------------------ scatter
 
-def yes_distribution(people):
-    """ways[y] over all 4^len(people) coin outcomes, one person at a time."""
+def yes_distribution(people, copiers_say_no=False):
+    """ways[y] over all 4^len(people) coin outcomes, one person at a time; with
+    copiers_say_no, those who copied answer yes in none of their outcomes."""
     ways = [1]
     for copied in people:
-        yes_ways = sum(says(copied, o) for o in OUTCOMES)
+        yes_ways = 0 if copied and copiers_say_no else sum(says(copied, o) for o in OUTCOMES)
         no_ways = len(OUTCOMES) - yes_ways
         nxt = [0] * (len(ways) + 1)
         for y, w in enumerate(ways):
@@ -586,6 +615,134 @@ def main():
     check("a fixed class's count: n people's coins, chapter 03's estimate variance", n * wobbles["ours"] == est_var)
     emit("R-F16.class.share_variance", wobbles["ours"] / n)
 
+    # R-F17: chapter 01's chart, each seat's yes chance from the weighted routes
+    def average_yes(truth, k):
+        yc, yd = channel(truth)
+        return sum(yc if seat < k else yd for seat in range(n))
+    alone = {average_yes(Fraction(0), k) for k in range(n + 1)}
+    check("a coin alone gives the same yeses whoever copied", len(alone) == 1)
+    emit("R-F17.coin_alone.average_yes", alone.pop())
+    emit("R-F17.direct.average_yes", average_yes(Fraction(1), copiers))
+    emit("R-F17.rule.average_yes", average_yes(t, copiers))
+    check("the rule's line at the class is chapter 01's seven", average_yes(t, copiers) == yes)
+    emit("R-F17.rule.at_none", average_yes(t, 0))
+    emit("R-F17.rule.at_all", average_yes(t, n))
+
+    # R-F18: the class of forty, solved; the recipe unbiased for every k
+    forty, forty_yes = FORTY
+    emit("R-F18.class", forty)
+    emit("R-F18.yes", forty_yes)
+    emit("R-F18.forced_yes", forty * (1 - t) / 2)
+    emit("R-F18.left", forty_yes - forty * (1 - t) / 2)
+    emit("R-F18.estimate", estimate(forty_yes, forty, t))
+    unbiased = all(moments(yes_distribution([True] * k + [False] * (n - k))[0],
+                           lambda y: estimate(y, n, t))[0] == k for k in range(n + 1))
+    emit("R-F18.unbiased_every_k", "true" if unbiased else "false")
+    emit("R-F18.shown.yes", yeses[SHOWN_RUN])
+    emit("R-F18.shown.estimate", estimates[SHOWN_RUN])
+    check("the shown class misses, inside 0 to n", estimates[SHOWN_RUN] != copiers and 0 <= estimates[SHOWN_RUN] <= n)
+
+    # R-F19: the misses, read from the person-by-person distribution
+    miss_by = round(math.sqrt(est_var))
+    def p_miss(by):
+        return sum(p for y, p in enumerate(dist) if abs(estimate(y, n, t) - copiers) >= by)
+    emit("R-F19.miss_by", miss_by)
+    emit("R-F19.miss_at_least", p_miss(miss_by))
+    emit("R-F19.miss_at_least.over", Fraction(2, 5))
+    check("more than two in five miss by four or more, fewer than half",
+          Fraction(2, 5) < p_miss(miss_by) < Fraction(1, 2))
+    emit("R-F19.percent.miss_at_least", percent(p_miss(miss_by)))
+    emit("R-F19.miss_at_least_twice", p_miss(2 * miss_by))
+    emit("R-F19.one_in.miss_at_least_twice", nearest(1 / p_miss(2 * miss_by)))
+    check("estimates are even, so missing by more than sqrt(15) is missing by 4 or more",
+          p_miss(Fraction(387, 100)) == p_miss(miss_by))
+    big_copied = BIG_CLASS * share
+    big_vars = set()
+    for k in (int(big_copied), 0):
+        big_dist, _ = yes_distribution([True] * k + [False] * (BIG_CLASS - k))
+        m, v = moments(big_dist, lambda y: 2 * y - Fraction(BIG_CLASS, 2))
+        check(f"three hundred with {k} copiers: right on average", m == k)
+        big_vars.add(v)
+    check("three hundred's estimate variance is the same whoever copied", len(big_vars) == 1)
+    big_var = big_vars.pop()
+    big_miss = math.isqrt(big_var.numerator)
+    check("three hundred's variance is a whole square", big_var.denominator == 1 and big_miss ** 2 == big_var)
+    emit("R-F19.big.class", BIG_CLASS)
+    emit("R-F19.big.copied", big_copied)
+    emit("R-F19.big.variance", big_var)
+    emit("R-F19.big.miss", big_miss)
+    emit("R-F19.big.miss_share", Fraction(big_miss, BIG_CLASS))
+    emit("R-F19.big.percent.miss_share", percent(Fraction(big_miss, BIG_CLASS)))
+    class_share = math.sqrt(est_var) / n
+    emit("R-F19.class.miss_share_2dp", f"{class_share:.2f}")
+    emit("R-F19.class.percent.miss_share", f"{100 * class_share:.0f}")
+    emit("R-F19.class.one_in.miss_share", round(1 / class_share))
+
+    # R-F20: twenty drawn from a big school; the share in percentage points
+    direct_n = direct / n
+    emit("R-F20.direct.points_2dp", f"{100 * math.sqrt(direct_n):.2f}")
+    emit("R-F20.direct.points", round(100 * math.sqrt(direct_n)))
+    emit("R-F20.coins.points_2dp", f"{100 * math.sqrt(coins_var / n):.2f}")
+    emit("R-F20.coins.points", round(100 * math.sqrt(coins_var / n)))
+    m = 1
+    while coins_var / m > direct_n:
+        m += 1
+    emit("R-F20.match.exact", coins_var / direct_n)
+    emit("R-F20.match", m)
+    emit("R-F20.match.points_2dp", f"{100 * math.sqrt(coins_var / m):.2f}")
+    check("the matching count over twenty is the cost", Fraction(coins_var / direct_n) / n == coins_var / direct)
+
+    # R-F21: the four who copied always say no; the others follow the rule
+    broken, _ = yes_distribution(people, copiers_say_no=True)
+    broken_yes, _ = moments(broken, lambda y: y)
+    broken_est, _ = moments(broken, lambda y: estimate(y, n, t))
+    emit("R-F21.average_yes", broken_yes)
+    emit("R-F21.twice_yes", broken_yes / t)
+    emit("R-F21.average_estimate", broken_est)
+    emit("R-F21.bias", broken_est - copiers)
+    # one random person's contribution to the estimated share, enumerated
+    contribution = Fraction(0)
+    for copied, w in ((True, share), (False, 1 - share)):
+        for o in OUTCOMES:
+            said = False if copied else says(False, o)
+            contribution += w * Fraction(1, len(OUTCOMES)) * (int(said) - (1 - t) / 2) / t
+    emit("R-F21.share_mean", contribution)
+    check("the share's average is the class's over n", contribution * n == broken_est)
+    for size in ASKED:
+        k = int(size * share)
+        d, _ = yes_distribution([True] * k + [False] * (size - k), copiers_say_no=True)
+        mean_est, _ = moments(d, lambda y: estimate(y, size, t))
+        check(f"{size} asked: the estimated share still averages {contribution}", mean_est / size == contribution)
+    emit("R-F21.asked", csv(ASKED))
+
+    # R-F22: a hundred fresh answers, seventy-five yes, from even odds
+    ry, rn = RAPPOR
+    like_c = Fraction(3, 4) ** ry * Fraction(1, 4) ** (rn - ry)
+    like_d = Fraction(1, 4) ** ry * Fraction(3, 4) ** (rn - ry)
+    ratio_many = like_c / like_d
+    no_many = like_d / (like_c + like_d)
+    emit("R-F22.asks", rn)
+    emit("R-F22.yes", ry)
+    emit("R-F22.no", rn - ry)
+    emit("R-F22.excess", ry - (rn - ry))
+    emit("R-F22.ratio", ratio_many)
+    emit("R-F22.ratio_digits", len(str(ratio_many)))
+    emit("R-F22.posterior_no", no_many)
+    zeros, x = 0, no_many
+    while x * 10 < 1:
+        x *= 10
+        zeros += 1
+    emit("R-F22.zeros", zeros)
+    check("the decimal: 23 zeros, then 139", f"{float(no_many):.30f}".startswith("0." + "0" * zeros + "139"))
+
+    # R-F23: a fixed class's estimate variance is 3n/4 for every n and every k
+    every = all(moments(yes_distribution([True] * k + [False] * (size - k))[0],
+                        lambda y: 2 * y - Fraction(size, 2))[1] == Fraction(3 * size, 4)
+                for size in CHECKED_SIZES for k in range(size + 1))
+    check("variance 3n/4 at every checked size and every number of copiers", every)
+    emit("R-F23.per_person", per_person)
+    emit("R-F23.checked_sizes", csv(CHECKED_SIZES))
+
     # R-X: the edges
     emit("R-X1.direct.worst_ratio", "unbounded" if worst_ratio(Fraction(1)) is None else worst_ratio(Fraction(1)))
     emit("R-X1.pure_coin.worst_ratio", worst_ratio(Fraction(0)))
@@ -600,6 +757,13 @@ def main():
     no_after = Fraction(like_no, like_yes + like_no)
     emit("R-X3.rappor.no_after_75_of_100", f"{float(no_after):.2e}")
     check("RAPPOR 1: No after 75 of 100 is 1/(3^50 + 1)", no_after == Fraction(1, 3 ** 50 + 1))
+    # RAPPOR's own words, typed from arXiv 1407.6981v2 (read 2026-10-20)
+    emit("R-X6.rappor.compliance", "an assumption that may not hold for human subjects")
+    emit("R-X7.rappor.year", 2014)
+    emit("R-X7.rappor.memoized", "Permanent randomized response")
+    emit("R-X7.rappor.each_report", "Instantaneous randomized response")
+    emit("R-X7.rappor.deployment", "limited deployment in Google's Chrome Web browser")
+    emit("R-X8.rappor.prior", "irrespective of any attacker's prior knowledge")
 
     print(f"# {_CHECKS[0]} checks, {len(_FAILED)} failed", file=sys.stderr)
     return 1 if _FAILED else 0

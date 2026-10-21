@@ -1,18 +1,19 @@
-//! Chapter 05, the dial: the first coin becomes a dial, the chance t of
-//! telling the truth, ours at one half (05_1); three quarters, a spinner of
-//! four slices over eight equally likely outcomes (05_2); the prediction,
-//! how many times as likely a yes is from someone who copied (05_3), and
-//! its answer, seven, counted (05_4); every answer says more as the dial
-//! turns up (05_5) while the count gets sharper, our class of twenty
-//! missing by about two people, not four (05_6); at a quarter, under twice
-//! as likely and a miss of about nine (05_7); the edges, the direct
-//! question (05_8) and a pure coin (05_9); the promise for one answer each,
-//! everyone following the rule (05_10).
+//! Chapter 12, the dial: the first coin becomes a dial, the chance t of
+//! telling the truth, ours at one half (12_1); three quarters, a spinner of
+//! four slices over eight equally likely outcomes (12_2); the prediction,
+//! how many times as likely a yes is from someone who copied (12_3), and
+//! its answer, seven, counted (12_4); every answer says more as the dial
+//! turns up (12_5) while the count gets sharper, our class of twenty
+//! missing by about two people, not four (12_6); at a quarter, under twice
+//! as likely and a miss of about nine (12_7); the edges, the direct
+//! question chapter 01 started with (12_8) and a pure coin (12_9); the
+//! promise for one answer each, everyone following the rule (12_10).
 //!
-//! The voice's misses are 03_8's: how far the fixed class's count usually
-//! strays, the square root of its variance, n times each person's estimate
-//! variance that the table shows. That is the coins' variance in a person's
-//! part of the estimate, an answer's variance (03_8's 3/16) times (1/t)²:
+//! The voice's misses are chapter 07's typical misses: how far the fixed
+//! class's count usually strays, the square root of its variance, n times
+//! each person's estimate variance that the table shows. That is the coins'
+//! variance in a person's part of the estimate, an answer's variance (07_2's
+//! 3/16) times (1/t)²:
 //! 4 × 3/16 = 3/4 for ours. Every card stays up at least its reading time.
 //!
 //! Every setting is `model::Channel` at k/4, the spinner's slice standing in
@@ -151,7 +152,7 @@ fn count_text(yes: u64) -> String {
     format!("{YES}: {yes} of {OUTCOMES}")
 }
 
-/// 05_2's exact version: the spinner and its outcomes, at `k` truthful
+/// 12_2's exact version: the spinner and its outcomes, at `k` truthful
 /// slices.
 fn spinner_card(k: i128) -> String {
     format!(
@@ -161,7 +162,7 @@ fn spinner_card(k: i128) -> String {
     )
 }
 
-/// 05_4's exact version: both answers' chances at the setting `c`, and the
+/// 12_4's exact version: both answers' chances at the setting `c`, and the
 /// one ratio they share.
 fn ratio_card(c: Channel) -> Result<String, String> {
     let (copied, didnt) = (yes_count(true, k_of(c)?)?, yes_count(false, k_of(c)?)?);
@@ -183,11 +184,11 @@ fn k_of(c: Channel) -> Result<i128, String> {
         .ok_or_else(|| format!("{} is not a whole number of slices", c.truth()))
 }
 
-/// 05_6's exact version: the table's variance is one person's part of the
-/// estimate, not of their answer (chapter 03's 3/16): at our setting `c`,
+/// 12_6's exact version: the table's variance is one person's part of the
+/// estimate, not of their answer (chapter 07's 3/16): at our setting `c`,
 /// the answer's variance times (1/t)², 4 × 3/16 = 3/4. A fixed class of `n`
 /// has n times it, whose square root is the miss on screen, and its share
-/// 1/n of it; a sample adds more (chapter 03, review 4137).
+/// 1/n of it; a sample adds more (chapter 08, review 4137).
 fn variance_card(c: Channel, n: usize) -> Result<String, String> {
     let answer = c.answer_variance(true);
     let per = c
@@ -208,7 +209,7 @@ fn variance_card(c: Channel, n: usize) -> Result<String, String> {
     ))
 }
 
-/// The title over the misses (05_6), for a class of `n`.
+/// The title over the misses (12_6), for a class of `n`.
 fn miss_title(n: usize) -> String {
     format!("our class of {n} misses by")
 }
@@ -238,19 +239,19 @@ fn read_by(stage: &Stage<'_>, text: &str) -> f64 {
     stage.scene().time().to_f64() + read_s(text)
 }
 
-/// 05_8's exact version: the two edges.
+/// 12_8's exact version: the two edges.
 fn edges_card() -> String {
     "at 1 nobody who didn't copy says yes, so nothing bounds what a yes reveals; at 0 everyone says yes half the time, \
      so no estimate exists"
         .to_owned()
 }
 
-/// 05_10's exact version: every condition the promise rests on, and
-/// chapter 04's warning. It comes in at the line's start and holds its
+/// 12_10's exact version: every condition the promise rests on, and
+/// chapter 10's warning. It comes in at the line's start and holds its
 /// reading time.
 fn scope_card() -> String {
     "if everyone follows the rule, with fair, private coins, once each; fresh coins on each repeat multiply the ratio \
-     (chapter 4)"
+     (chapter 10)"
         .to_owned()
 }
 
@@ -376,7 +377,7 @@ impl Spinner {
 
 impl SceneConstruct for TheDial {
     fn name(&self) -> &str {
-        "05_the_dial"
+        "12_the_dial"
     }
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
@@ -395,8 +396,8 @@ impl SceneConstruct for TheDial {
         let (top_row, top_k, top) = setting("direct").map_err(fail)?;
         let (pure_row, pure_k, pure) = setting("pure").map_err(fail)?;
 
-        // 05_1: the dial, ours at one half
-        let line = say(&kit, stage, "05_1")?;
+        // 12_1: the dial, ours at one half
+        let line = say(&kit, stage, "12_1")?;
         let mut dial = vec![
             lane(
                 stage,
@@ -455,8 +456,8 @@ impl SceneConstruct for TheDial {
         table.extend(ours_cells);
         fade_in_all(stage, &table, 0.4)?;
 
-        // 05_2: three quarters; the outcomes go faint, the row waits
-        let line = say(&kit, stage, "05_2")?;
+        // 12_2: three quarters; the outcomes go faint, the row waits
+        let line = say(&kit, stage, "12_2")?;
         line.wait_for(stage, "three quarters")?;
         move_all(stage, &[(marker, v(dial_x(up.truth()), DIAL_Y))], 0.6)?;
         let up_t = cell(&kit, stage, 0, row_y(up_row), Cell::Tex(tex_q(up.truth(), true)))?;
@@ -467,12 +468,12 @@ impl SceneConstruct for TheDial {
         fade_in_all(stage, &[card], 0.4)?;
         let card_read = read_by(stage, &card_text);
 
-        // 05_3: the prediction; no 3/4 ratio and no coloured outcome yet
-        let _line = say(&kit, stage, "05_3")?;
+        // 12_3: the prediction; no 3/4 ratio and no coloured outcome yet
+        let _line = say(&kit, stage, "12_3")?;
         let q = think(&kit, stage, v(THINK_X, THINK_Y))?;
 
-        // 05_4: seven, counted, for both answers
-        let _line = say(&kit, stage, "05_4")?;
+        // 12_4: seven, counted, for both answers
+        let _line = say(&kit, stage, "12_4")?;
         let up_ratio = cell(&kit, stage, 1, row_y(up_row), ratio_cell(up))?;
         let card2_text = ratio_card(up).map_err(fail)?;
         let card2 = precisely(&kit, stage, &card2_text)?;
@@ -480,8 +481,8 @@ impl SceneConstruct for TheDial {
         left = left.turn(&kit, stage, up_k, true, &[q, card], &[up_ratio, card2])?;
         let card2_read = read_by(stage, &card2_text);
 
-        // 05_5: turning up, every answer says more
-        let _line = say(&kit, stage, "05_5")?;
+        // 12_5: turning up, every answer says more
+        let _line = say(&kit, stage, "12_5")?;
         let general = [
             cell(&kit, stage, 0, GENERAL_Y, Cell::Tex(T_TEX.into()))?,
             kit.tex(stage, RATIO_TEX, 30.0, Palette::ink(), &[], v(COL_X[1], GENERAL_Y))?,
@@ -489,8 +490,8 @@ impl SceneConstruct for TheDial {
         fade_in_all(stage, &general, 0.4)?;
         flash_all(stage, &[ours_cells[1], up_ratio], 0.6)?;
 
-        // 05_6: the count gets sharper: our class misses by about two, not four
-        let line = say(&kit, stage, "05_6")?;
+        // 12_6: the count gets sharper: our class misses by about two, not four
+        let line = say(&kit, stage, "12_6")?;
         line.wait_for(stage, "miss by about two")?;
         let up_wobble = cell(&kit, stage, 2, row_y(up_row), wobble_cell(up))?;
         let general_wobble = kit.tex(stage, WOBBLE_TEX, 30.0, Palette::ink(), &[], v(COL_X[2], GENERAL_Y))?;
@@ -516,8 +517,8 @@ impl SceneConstruct for TheDial {
         let card3_read = read_by(stage, &card3_text);
         flash_all(stage, &misses, 0.6)?;
 
-        // 05_7: down at a quarter: under twice as likely, a miss of about nine
-        let line = say(&kit, stage, "05_7")?;
+        // 12_7: down at a quarter: under twice as likely, a miss of about nine
+        let line = say(&kit, stage, "12_7")?;
         move_all(stage, &[(marker, v(dial_x(down.truth()), DIAL_Y))], 0.6)?;
         let down_cells = table_row(&kit, stage, down_row, down)?;
         left = left.turn(&kit, stage, down_k, true, &[], &down_cells)?;
@@ -533,11 +534,11 @@ impl SceneConstruct for TheDial {
         fade_in_all(stage, &misses[2..], 0.3)?;
         flash_all(stage, &[misses[0], misses[2]], 0.6)?;
 
-        // 05_8: all the way up, the direct question. The spinner, its rows
+        // 12_8: all the way up, the direct question. The spinner, its rows
         // and the table row follow the knob at once, as at every other
         // setting; card 4 replaces card 3 only once card 3 has been read
         // (review PinkDuck F2).
-        let _line = say(&kit, stage, "05_8")?;
+        let _line = say(&kit, stage, "12_8")?;
         move_all(stage, &[(marker, v(dial_x(top.truth()), DIAL_Y))], 0.6)?;
         let top_cells = table_row(&kit, stage, top_row, top)?;
         left = left.turn(&kit, stage, top_k, true, &[], &top_cells)?;
@@ -548,14 +549,14 @@ impl SceneConstruct for TheDial {
         fade_in_all(stage, &[card4], 0.2)?;
         let card4_read = read_by(stage, &card4_text);
 
-        // 05_9: all the way down, a pure coin
-        let _line = say(&kit, stage, "05_9")?;
+        // 12_9: all the way down, a pure coin
+        let _line = say(&kit, stage, "12_9")?;
         move_all(stage, &[(marker, v(dial_x(pure.truth()), DIAL_Y))], 0.6)?;
         let pure_cells = table_row(&kit, stage, pure_row, pure)?;
         left = left.turn(&kit, stage, pure_k, true, &[], &pure_cells)?;
 
-        // 05_10: in between, the promise for one answer each; its card first
-        let line = say(&kit, stage, "05_10")?;
+        // 12_10: in between, the promise for one answer each; its card first
+        let line = say(&kit, stage, "12_10")?;
         let card5_text = scope_card();
         let card5 = precisely(&kit, stage, &card5_text)?;
         wait_until(stage, card4_read)?;
@@ -590,11 +591,11 @@ mod tests {
     fn every_phrase_the_scene_waits_for_is_in_its_line() {
         let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
         for (id, phrase) in [
-            ("05_1", "Ours sits"),
-            ("05_2", "three quarters"),
-            ("05_2", "a spinner"),
-            ("05_6", "miss by about two"),
-            ("05_7", "about nine"),
+            ("12_1", "Ours sits"),
+            ("12_2", "three quarters"),
+            ("12_2", "a spinner"),
+            ("12_6", "miss by about two"),
+            ("12_7", "about nine"),
         ] {
             let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
             assert!(text.contains(phrase), "{id} has no {phrase:?}: {text}");
@@ -691,7 +692,7 @@ mod tests {
         // where nobody tells the truth there is no estimate to give a variance
         let (_, _, pure) = setting("pure").unwrap();
         assert!(variance_card(pure, 20).is_err());
-        // the misses on screen are the facts' (03_8's for ours), to two places
+        // the misses on screen are the facts' (07_3's for ours), to two places
         let (_, _, down) = setting("down").unwrap();
         assert_eq!(miss_title(20), "our class of 20 misses by");
         assert_eq!(
@@ -728,7 +729,7 @@ mod tests {
         assert_eq!(
             scope_card(),
             "if everyone follows the rule, with fair, private coins, once each; fresh coins on each repeat multiply \
-             the ratio (chapter 4)"
+             the ratio (chapter 10)"
         );
         assert_eq!(count_text(7), "yes: 7 of 8");
         // fifteen characters a second

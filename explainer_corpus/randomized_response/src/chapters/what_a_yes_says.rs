@@ -1,11 +1,12 @@
-//! Chapter 02, what a yes says: every student with all four coin outcomes,
-//! eighty equally likely (02_1); one student's four outcomes for each truth
-//! give both answers' ratio of three (02_2, 02_3); the prediction, a
-//! yes-sayer's chance of having copied (02_4); the class's yes outcomes
-//! counted, twelve of twenty-eight, three in seven and not three in four
-//! (02_5, 02_6), and why (02_7); a no, four of fifty-two (02_8); the chance
-//! moving from one in five along a line (02_9, 02_10); deniable but not
-//! meaningless, and the count's accuracy a separate question (02_11).
+//! Chapter 05, what a yes says: every student with all four coin outcomes,
+//! eighty equally likely (05_1); each copier's three yes outcomes against
+//! everyone else's one (05_2; chapter 02 counted both answers' ratios); the
+//! prediction, a yes-sayer's chance of having copied (05_3); the class's yes
+//! outcomes counted, twelve of twenty-eight, three in seven and not three in
+//! four (05_4, 05_5), and why (05_6); a no, four of fifty-two (05_7); the
+//! chance moving from one in five along a line (05_8, 05_9); deniable but
+//! not meaningless, and the count's accuracy a separate question (05_10).
+//! The chances are for a student picked at random from this class.
 //!
 //! Every square is `model::answer` run on one student and one coin outcome;
 //! every count drawn is checked against `model::class_outcomes` before it is
@@ -66,7 +67,7 @@ const DERIVE_X: f64 = -2.3;
 const DERIVE_Y: f64 = -1.0;
 const NOTE_X: f64 = 0.8;
 const NOTE_DY: f64 = 0.25;
-/// The chance line (02_9): 0 at `LINE_X0`, 1 at `LINE_X0 + LINE_W`; marks,
+/// The chance line (05_8): 0 at `LINE_X0`, 1 at `LINE_X0 + LINE_W`; marks,
 /// their fractions below, the class's caption under its mark.
 const LINE_X0: f64 = -4.5;
 const LINE_W: f64 = 9.0;
@@ -123,23 +124,24 @@ fn group_labels(kit: &Kit, stage: &mut Stage<'_>, said: bool, xs: [f64; 2]) -> f
     ])
 }
 
-/// 02_6's note beside the fraction: the same count on average.
+/// 05_5's note beside the fraction: the same count on average (chapter 03's
+/// class on average).
 fn average_note(c: &[[u64; 2]; 2]) -> String {
     let per = COIN_PAIRS.len() as u64;
     let [didnt, copied] = c[1];
     format!(
-        "a quarter of the outcomes: {} of chapter 1's {} yes answers",
+        "a quarter of the outcomes: {} of chapter 3's {} yes answers",
         copied / per,
         (didnt + copied) / per
     )
 }
 
-/// 02_6's note: where the tempting answer comes from.
+/// 05_5's note: where the tempting answer comes from.
 fn tempting_note() -> String {
     format!("{} is a copier's chance of saying yes", model::p_said(true, true))
 }
 
-/// 02_6's exact version: the chance is the class's, and when 3/4 would be
+/// 05_5's exact version: the chance is the class's, and when 3/4 would be
 /// right.
 fn posterior_card(c: &[[u64; 2]; 2], n: usize, copiers: usize) -> fmn::Result<String> {
     let yes = model::share_who_copied(c, true).ok_or_else(|| fail("no outcome says yes".into()))?;
@@ -154,7 +156,7 @@ fn posterior_card(c: &[[u64; 2]; 2], n: usize, copiers: usize) -> fmn::Result<St
     ))
 }
 
-/// 02_10's exact version: the coin multiplies the odds; the class sets them
+/// 05_9's exact version: the coin multiplies the odds; the class sets them
 /// (and in a class of `n` where nobody copied, a yes means nothing to fear).
 /// The chances `yes` and `no` themselves are already marked on the chance
 /// line, so the card gives only their odds; it stays two lines however far
@@ -229,7 +231,7 @@ fn mark(kit: &Kit, stage: &mut Stage<'_>, q: Q, color: Srgb) -> fmn::Result<[Mob
 
 impl SceneConstruct for WhatAYesSays {
     fn name(&self) -> &str {
-        "02_what_a_yes_says"
+        "05_what_a_yes_says"
     }
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
@@ -249,8 +251,8 @@ impl SceneConstruct for WhatAYesSays {
         let copier_x = group_x(0, copiers, copiers);
         let others_x = group_x(copiers, n, copiers);
 
-        // 02_1: every student with every outcome, eighty in all
-        let line = say(&kit, stage, "02_1")?;
+        // 05_1: every student with every outcome, eighty in all
+        let line = say(&kit, stage, "05_1")?;
         let mut top = vec![
             kit.text(stage, COPIED, 24.0, palette::copied(), v(copier_x, GROUP_Y))?,
             kit.text(stage, DIDNT, 24.0, palette::student(), v(others_x, GROUP_Y))?,
@@ -300,16 +302,15 @@ impl SceneConstruct for WhatAYesSays {
         )?;
         fade_in_all(stage, &[total], 0.4)?;
 
-        // 02_2: one student's four outcomes, for each truth
-        let line = say(&kit, stage, "02_2")?;
+        // 05_2: each copier's three yes outcomes, everyone else's one
+        let line = say(&kit, stage, "05_2")?;
         recolor(stage, &mut outcomes, |o| o.copied, |o| palette::answer(o.said), 0.5)?;
         let xs = [copier_x, others_x];
         let yes_labels = group_labels(&kit, stage, true, xs)?;
         fade_in_all(stage, &yes_labels[..1], 0.4)?;
-        line.wait_for(stage, "Someone who didn't")?;
+        line.wait_for(stage, "everyone else")?;
         recolor(stage, &mut outcomes, |o| !o.copied, |o| palette::answer(o.said), 0.5)?;
         fade_in_all(stage, &yes_labels[1..], 0.4)?;
-        line.wait_for(stage, "Three times as likely")?;
         let times = kit.tex(
             stage,
             &format!(r"\times {}", model::likelihood_ratio(true)),
@@ -320,27 +321,13 @@ impl SceneConstruct for WhatAYesSays {
         )?;
         fade_in_all(stage, &[times], 0.4)?;
 
-        // 02_3: a no, the reverse, three times again
-        let _line = say(&kit, stage, "02_3")?;
-        let no_labels = group_labels(&kit, stage, false, xs)?;
-        swap(stage, &yes_labels, &no_labels, 0.4)?;
-        flash_all(stage, &squares(&outcomes, |o| !o.said), 0.6)?;
-        if model::likelihood_ratio(false) != model::likelihood_ratio(true) {
-            return Err(fail(
-                "the two answers' ratios differ; the shared × label would be wrong".into(),
-            ));
-        }
-        flash_all(stage, &[times], 0.4)?;
-
-        // 02_4: the prediction; nothing totals the yes outcomes yet
-        let _line = say(&kit, stage, "02_4")?;
-        let yes_labels = group_labels(&kit, stage, true, xs)?;
-        swap(stage, &no_labels, &yes_labels, 0.3)?;
+        // 05_3: the prediction; nothing totals the yes outcomes yet
+        let _line = say(&kit, stage, "05_3")?;
         fade_out_all(stage, &[total], 0.3)?;
         let q = think(&kit, stage, v(RIGHT_X, THINK_Y))?;
 
-        // 02_5: count the yes outcomes, twelve and sixteen
-        let line = say(&kit, stage, "02_5")?;
+        // 05_4: count the yes outcomes, twelve and sixteen
+        let line = say(&kit, stage, "05_4")?;
         fade_out_all(stage, &[q], 0.2)?;
         recolor(stage, &mut outcomes, |o| !o.said, |_| palette::ghost(), 0.5)?;
         let drawn_counts = tally(&outcomes);
@@ -366,8 +353,8 @@ impl SceneConstruct for WhatAYesSays {
         )?;
         swap(stage, &yes_labels[1..], &[sixteen], 0.3)?;
 
-        // 02_6: twelve of twenty-eight; three in seven, not three in four
-        let line = say(&kit, stage, "02_6")?;
+        // 05_5: twelve of twenty-eight; three in seven, not three in four
+        let line = say(&kit, stage, "05_5")?;
         let yes_total = Q::int(i128::from(yes_copied + yes_didnt));
         let share = Q::int(i128::from(yes_copied)) / yes_total;
         if share != given_yes {
@@ -414,8 +401,8 @@ impl SceneConstruct for WhatAYesSays {
         fade_in_all(stage, &[tempt, card], 0.4)?;
         let posterior_read_until = stage.scene().time().to_f64() + posterior_text.chars().count() as f64 / 15.0;
 
-        // 02_7: three times the yeses each, but outnumbered four to one
-        let line = say(&kit, stage, "02_7")?;
+        // 05_6: three times the yeses each, but outnumbered four to one
+        let line = say(&kit, stage, "05_6")?;
         let each = [
             kit.text(
                 stage,
@@ -455,10 +442,10 @@ impl SceneConstruct for WhatAYesSays {
         flash_all(stage, &groups[1], 0.4)?;
         flash_all(stage, &groups[0], 0.5)?;
 
-        // 02_8: a no, four of fifty-two, one in thirteen
+        // 05_7: a no, four of fifty-two, one in thirteen
         // Keep the explanation readable through the narrated comparison.
         wait_until(stage, posterior_read_until)?;
-        let line = say(&kit, stage, "02_8")?;
+        let line = say(&kit, stage, "05_7")?;
         let mut leaving = vec![full, avg, tempt, card, twelve, sixteen];
         leaving.extend(each);
         fade_out_all(stage, &leaving, 0.4)?;
@@ -491,8 +478,8 @@ impl SceneConstruct for WhatAYesSays {
         shown.push(no_frac);
         fade_in_all(stage, &shown, 0.4)?;
 
-        // 02_9: the chance line, from one in five
-        let line = say(&kit, stage, "02_9")?;
+        // 05_8: the chance line, from one in five
+        let line = say(&kit, stage, "05_8")?;
         fade_out_all(stage, &shown, 0.3)?;
         let axis = lane(
             stage,
@@ -544,17 +531,17 @@ impl SceneConstruct for WhatAYesSays {
         );
         fade_in_all(stage, &[no_arc, no_mark[0], no_mark[1]], 0.5)?;
 
-        // 02_10: the coin fixes the factor; the class, where it starts
-        let _line = say(&kit, stage, "02_10")?;
+        // 05_9: the coin fixes the factor; the class, where it starts
+        let _line = say(&kit, stage, "05_9")?;
         flash_all(stage, &[yes_arc, no_arc], 0.6)?;
         let odds_text = odds_card(prior, given_yes, given_no, n)?;
         let card = precisely(&kit, stage, &odds_text)?;
         fade_in_all(stage, &[card], 0.4)?;
         let odds_read_until = stage.scene().time().to_f64() + odds_text.chars().count() as f64 / 15.0;
 
-        // 02_11: deniable, not meaningless; accuracy is another question
+        // 05_10: deniable, not meaningless; accuracy is another question
         wait_until(stage, odds_read_until)?;
-        let line = say(&kit, stage, "02_11")?;
+        let line = say(&kit, stage, "05_10")?;
         line.wait_for(stage, "deniable")?;
         flash_all(stage, &yes_mark, 0.5)?;
         line.wait_for(stage, "not meaningless")?;
@@ -584,20 +571,19 @@ mod tests {
     fn every_phrase_the_scene_waits_for_is_in_its_line() {
         let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
         for (id, phrase) in [
-            ("02_1", "Twenty students"),
-            ("02_2", "Someone who didn't"),
-            ("02_2", "Three times as likely"),
-            ("02_5", "have twelve"),
-            ("02_5", "the sixteen others"),
-            ("02_6", "On average"),
-            ("02_6", "not three in four"),
-            ("02_7", "outnumber"),
-            ("02_8", "Four of the fifty-two"),
-            ("02_9", "three in seven"),
-            ("02_9", "one in thirteen"),
-            ("02_11", "deniable"),
-            ("02_11", "not meaningless"),
-            ("02_11", "How well"),
+            ("05_1", "Twenty students"),
+            ("05_2", "everyone else"),
+            ("05_4", "have twelve"),
+            ("05_4", "the sixteen others"),
+            ("05_5", "On average"),
+            ("05_5", "not three in four"),
+            ("05_6", "outnumber"),
+            ("05_7", "Four of the fifty-two"),
+            ("05_8", "three in seven"),
+            ("05_8", "one in thirteen"),
+            ("05_10", "deniable"),
+            ("05_10", "not meaningless"),
+            ("05_10", "How well"),
         ] {
             let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
             assert!(text.contains(phrase), "{id} has no {phrase:?}: {text}");
@@ -617,7 +603,7 @@ mod tests {
         let c = model::class_outcomes(&a.class);
         assert_eq!(
             average_note(&c),
-            "a quarter of the outcomes: 3 of chapter 1's 7 yes answers"
+            "a quarter of the outcomes: 3 of chapter 3's 7 yes answers"
         );
         assert_eq!(tempting_note(), "3/4 is a copier's chance of saying yes");
         let card = posterior_card(&c, 20, 4).unwrap();

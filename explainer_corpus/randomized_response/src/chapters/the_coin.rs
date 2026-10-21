@@ -1,35 +1,37 @@
-//! Chapter 01, the coin: a direct question exposes whoever says yes (01_1);
-//! only we can see who copied (01_2); the coin rule, drawn before any number
-//! is derived (01_3, 01_4); the class routed through it on average, half to
-//! the truth and half to the second coin (01_5, 01_6); the survey sees seven
-//! yes and thirteen no (01_7) and is asked how it could get back to four
-//! (01_8, a prediction); take away the second coin's yeses, a quarter of the
-//! class, and double what is left (01_9, 01_10); but a yes is three times as
-//! likely from someone who copied (01_11).
+//! Chapter 03, the class on average: the class routed through the coin rule
+//! on average, half to the truth and half to the second coin (03_1, 03_2);
+//! the survey sees seven yes and thirteen no (03_3) and is asked how it could
+//! get back to four (03_4, a prediction); take away the second coin's yeses,
+//! a quarter of the class, and double what is left (03_5, 03_6).
+//!
+//! The chapter opens on the picture chapter 02 ends its rule in (the class,
+//! its rings and key, the coin, both lanes and the four places), rebuilt by
+//! [`RulePicture`] and faded in; chapters 01 and 02 share the class's layout
+//! and that picture from here.
 //!
 //! Every student is routed by `model::route` and answers by `model::answer`
 //! with the coins `Class::average_coins` gives it; every count drawn is
 //! checked against the facts' tally before the survey's view is shown.
 
 use explainer_kit::props::{lower_third, precisely};
-use explainer_kit::{Kit, Palette, add, fade_all, signed_thousands, v};
+use explainer_kit::{Kit, Palette, Timed, add, fade_all, signed_thousands, v};
 use fmn::prelude::*;
 
 use super::draw::{
-    cell, coin, disc, face, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, hollow, lane, move_all, pause,
-    place, ring, say, swap, think, wait_until,
+    coin, disc, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, hollow, lane, move_all, pause, place, ring,
+    say, swap, think, wait_until,
 };
 use crate::facts::{self, Average};
 use crate::model::{self, CLASS_COLUMNS, COIN_PAIRS, Channel, Coin, Q, Route};
 use crate::palette;
 
-pub struct TheCoin {
+pub struct TheClassOnAverage {
     pub kit: Kit,
 }
 
 // the chapter's fixed words (numbers are built from facts)
-const QUESTION: &str = "Have you ever copied homework?";
-const KEY: &str = "copied: only we can see this";
+pub(super) const QUESTION: &str = "Have you ever copied homework?";
+pub(super) const KEY: &str = "copied: only we can see this";
 const COIN_WORD: &str = "coin";
 const HEADS_TRUTH: &str = "heads: the truth";
 const TAILS: &str = "tails";
@@ -37,9 +39,6 @@ const SECOND_COIN: &str = "second coin";
 const HEADS: &str = "heads";
 const YES: &str = "yes";
 const NO: &str = "no";
-const TWO_COINS: &str = "the two coins:";
-const COPIED: &str = "copied";
-const DIDNT: &str = "didn't";
 const PROGRAMMERS: &str = "for programmers:";
 
 // ------------------------------------------------------------------ layout
@@ -49,10 +48,12 @@ const SEAT_X0: f64 = -6.35;
 const SEAT_Y0: f64 = 0.75;
 const SEAT_DX: f64 = 0.5;
 /// The question across the top.
-const QUESTION_Y: f64 = 3.35;
+pub(super) const QUESTION_Y: f64 = 3.35;
 /// The key under the class: a ring and its words.
-const KEY_X: f64 = -6.45;
-const KEY_Y: f64 = -2.3;
+pub(super) const KEY_X: f64 = -6.45;
+pub(super) const KEY_Y: f64 = -2.3;
+/// The key's words start this far right of its ring.
+pub(super) const KEY_DX: f64 = 0.32;
 /// The first coin, its word to its right; the lanes leave it straight up
 /// and straight down, then turn right along their rows.
 const COIN_X: f64 = -3.1;
@@ -88,19 +89,9 @@ const DERIVE_X: f64 = -3.5;
 const DERIVE_Y: [f64; 3] = [1.3, 0.3, -0.7];
 const THINK_X: f64 = -3.3;
 const THINK_Y: f64 = 0.6;
-/// 01_11's grid of the four coin outcomes: one column each, a row for
-/// someone who copied and a row for someone who didn't.
-const GRID_X: [f64; 4] = [-1.95, -0.65, 0.65, 1.95];
-const GRID_HEAD_Y: f64 = 1.75;
-const GRID_ROW_Y: [f64; 2] = [0.8, -0.35];
-const GRID_W: f64 = 1.1;
-const GRID_H: f64 = 0.75;
-const GRID_LABEL_X: f64 = -4.6;
-const SHARE_X: f64 = 3.35;
-const TIMES_X: f64 = 4.75;
 
 /// Seat `i` of the class.
-fn seat_at(i: usize) -> Vec3 {
+pub(super) fn seat_at(i: usize) -> Vec3 {
     v(
         SEAT_X0 + SEAT_DX * (i % CLASS_COLUMNS) as f64,
         SEAT_Y0 - SEAT_DX * (i / CLASS_COLUMNS) as f64,
@@ -115,7 +106,7 @@ fn place_at(route: Route, said: bool) -> Vec3 {
 }
 
 /// The centre of the answer `said`'s cluster once the survey's view leaves
-/// only the answers (01_7 on): the upper place's, so the truthful keep the
+/// only the answers (03_3 on): the upper place's, so the truthful keep the
 /// slots they landed in and the second coin's students join them.
 fn answers_at(said: bool) -> Vec3 {
     place_at(Route::Truth, said)
@@ -173,7 +164,7 @@ fn whole_text(q: Q) -> fmn::Result<String> {
         .ok_or_else(|| fail(format!("{q} is not a whole number")))
 }
 
-/// 01_5's exact version: what "on average" means here.
+/// 03_1's exact version: what "on average" means here.
 fn average_note() -> String {
     format!(
         "fair coins, flipped in private. These are the average counts, each of the {} coin outcomes equally \
@@ -182,7 +173,7 @@ fn average_note() -> String {
     )
 }
 
-/// 01_10's code card: the estimate, and its edges for a class of `n`.
+/// 03_6's code card: the estimate, and its edges for a class of `n`.
 fn code_card(n: usize) -> fmn::Result<String> {
     let factor = Q::ONE / Channel::two_coins().truth();
     let [_, _, lowest] = model::undo(0, n);
@@ -195,21 +186,170 @@ fn code_card(n: usize) -> fmn::Result<String> {
     ))
 }
 
-/// 01_11's exact version: both answers' ratios, and the bound.
-fn ratio_note() -> fmn::Result<String> {
-    let worst = Channel::two_coins()
-        .worst_ratio()
-        .ok_or_else(|| fail("the two coins leave a ratio unbounded".into()))?;
-    Ok(format!(
-        "a yes comes from {} of the {} coin outcomes if you copied, {} of {} if you didn't: {} times as likely, \
-         never more. A no is {} times as likely if you didn't copy",
-        model::outcomes_saying(true, true),
-        COIN_PAIRS.len(),
-        model::outcomes_saying(false, true),
-        COIN_PAIRS.len(),
-        worst,
-        model::likelihood_ratio(false)
-    ))
+/// The coin rule as chapter 02 draws it and chapter 03 opens on: the
+/// question, the key, the first coin and its truth lane, the column heads,
+/// the tails lane through the second coin, the four places and the two
+/// words in the lower places. Every part is detached; a chapter brings in
+/// the parts it needs when it needs them.
+pub(super) struct RulePicture {
+    pub question: Mob,
+    pub key_ring: Mob,
+    pub key_text: Mob,
+    pub first_coin: Mob,
+    pub coin_label: Mob,
+    pub truth_lane: Mob,
+    pub truth_label: Mob,
+    pub yes_head: Mob,
+    pub no_head: Mob,
+    pub truth_places: [Mob; 2],
+    pub tails_lane: Mob,
+    pub tails_label: Mob,
+    pub second: Mob,
+    pub second_label: Mob,
+    pub coin_lane: Mob,
+    pub coin_places: [Mob; 2],
+    pub heads_word: Mob,
+    pub tails_word: Mob,
+}
+
+impl RulePicture {
+    /// Every part, detached.
+    pub(super) fn build(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<RulePicture> {
+        let question = kit.text(stage, QUESTION, 34.0, palette::student(), v(0.0, QUESTION_Y))?;
+        let key_ring = ring(stage, v(KEY_X, KEY_Y));
+        let key_text = kit.text_left(stage, KEY, 20.0, Palette::dim(), v(KEY_X + KEY_DX, KEY_Y))?;
+        let first_coin = coin(stage, palette::student(), v(COIN_X, 0.0), COIN_R);
+        let coin_label = kit.text_left(stage, COIN_WORD, 20.0, Palette::dim(), v(COIN_X + COIN_R + 0.12, 0.0))?;
+        let truth_lane = lane(
+            stage,
+            vec![v(COIN_X, COIN_R), v(COIN_X, TRUTH_Y), v(LANE_END_X, TRUTH_Y)],
+            palette::truth(),
+        );
+        let truth_label = kit.text_left(
+            stage,
+            HEADS_TRUTH,
+            22.0,
+            palette::truth(),
+            v(COIN_X + 0.15, TRUTH_Y + 0.32),
+        )?;
+        let yes_head = kit.text(stage, YES, 30.0, palette::yes(), v(YES_X, HEAD_Y))?;
+        let no_head = kit.text(stage, NO, 30.0, palette::no(), v(NO_X, HEAD_Y))?;
+        let truth_places = [
+            place(stage, place_at(Route::Truth, true), CELL_W, CELL_H)?,
+            place(stage, place_at(Route::Truth, false), CELL_W, CELL_H)?,
+        ];
+        let tails_lane = lane(
+            stage,
+            vec![
+                v(COIN_X, -COIN_R),
+                v(COIN_X, COIN_ROW_Y),
+                v(SECOND_X - SECOND_R, COIN_ROW_Y),
+            ],
+            palette::forced(),
+        );
+        let tails_label = kit.text_left(stage, TAILS, 22.0, palette::forced(), v(COIN_X + 0.15, TAILS_Y))?;
+        let second = coin(stage, palette::forced(), v(SECOND_X, COIN_ROW_Y), SECOND_R);
+        let second_label = kit.text(
+            stage,
+            SECOND_COIN,
+            20.0,
+            palette::forced(),
+            v(SECOND_X, COIN_ROW_Y - SECOND_R - 0.24),
+        )?;
+        let coin_lane = lane(
+            stage,
+            vec![v(SECOND_X + SECOND_R, COIN_ROW_Y), v(LANE_END_X, COIN_ROW_Y)],
+            palette::forced(),
+        );
+        let coin_places = [
+            place(stage, place_at(Route::ForcedYes, true), CELL_W, CELL_H)?,
+            place(stage, place_at(Route::ForcedNo, false), CELL_W, CELL_H)?,
+        ];
+        let heads_word = kit.text_left(
+            stage,
+            HEADS,
+            18.0,
+            palette::forced(),
+            word_at(place_at(Route::ForcedYes, true)),
+        )?;
+        let tails_word = kit.text_left(
+            stage,
+            TAILS,
+            18.0,
+            palette::forced(),
+            word_at(place_at(Route::ForcedNo, false)),
+        )?;
+        Ok(RulePicture {
+            question,
+            key_ring,
+            key_text,
+            first_coin,
+            coin_label,
+            truth_lane,
+            truth_label,
+            yes_head,
+            no_head,
+            truth_places,
+            tails_lane,
+            tails_label,
+            second,
+            second_label,
+            coin_lane,
+            coin_places,
+            heads_word,
+            tails_word,
+        })
+    }
+
+    /// "Heads, tell the truth": the truth lane, its words, the column heads
+    /// and the upper places.
+    pub(super) fn truth_parts(&self) -> Vec<Mob> {
+        let mut out = vec![self.truth_lane, self.truth_label, self.yes_head, self.no_head];
+        out.extend(self.truth_places);
+        out
+    }
+
+    /// "Tails, flip a second coin": the tails lane through the second coin,
+    /// their words and the lower places.
+    pub(super) fn tails_parts(&self) -> Vec<Mob> {
+        let mut out = vec![
+            self.tails_lane,
+            self.tails_label,
+            self.second,
+            self.second_label,
+            self.coin_lane,
+        ];
+        out.extend(self.coin_places);
+        out
+    }
+
+    /// The rule's routes, which the survey never sees: everything but the
+    /// question, the key and the column heads.
+    pub(super) fn routes(&self) -> Vec<Mob> {
+        let mut out = vec![
+            self.first_coin,
+            self.coin_label,
+            self.truth_lane,
+            self.truth_label,
+            self.tails_lane,
+            self.tails_label,
+            self.second,
+            self.second_label,
+            self.coin_lane,
+            self.heads_word,
+            self.tails_word,
+        ];
+        out.extend(self.truth_places);
+        out.extend(self.coin_places);
+        out
+    }
+
+    /// Every part.
+    pub(super) fn all(&self) -> Vec<Mob> {
+        let mut out = vec![self.question, self.key_ring, self.key_text, self.yes_head, self.no_head];
+        out.extend(self.routes());
+        out
+    }
 }
 
 /// One student as the scene moves them: their truth and coins, what is
@@ -347,9 +487,9 @@ fn row_counts(kit: &Kit, stage: &mut Stage<'_>, filled: &[usize; 4], route: Rout
     Ok(out)
 }
 
-impl SceneConstruct for TheCoin {
+impl SceneConstruct for TheClassOnAverage {
     fn name(&self) -> &str {
-        "01_the_coin"
+        "03_the_class_on_average"
     }
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
@@ -360,124 +500,35 @@ impl SceneConstruct for TheCoin {
         let (yes, no) = (tally.answers(true), tally.answers(false));
         let factor = Q::ONE / Channel::two_coins().truth();
 
-        // 01_1: the question and the class
-        let _line = say(&kit, stage, "01_1")?;
-        let question = kit.text(stage, QUESTION, 34.0, palette::student(), v(0.0, QUESTION_Y))?;
-        fade_in_all(stage, &[question], 0.5)?;
+        // the picture chapter 02 left its rule in: the class with its rings
+        // and key, the question, the coin, both lanes and the four places
+        let rule = RulePicture::build(&kit, stage)?;
         let mut students = Vec::with_capacity(n);
         for (i, &coins) in a.coins.iter().enumerate() {
             let at = seat_at(i);
+            let copied = a.class.copied(i);
+            let seated = disc(stage, palette::student(), at);
+            let ringed = if copied { Some(ring(stage, at)) } else { None };
             students.push(Student {
-                copied: a.class.copied(i),
+                copied,
                 coins,
-                disc: disc(stage, palette::student(), at),
-                ring: None,
+                disc: seated,
+                ring: ringed,
                 at,
             });
         }
-        let discs: Vec<Mob> = students.iter().map(|s| s.disc).collect();
-        fade_in_lagged(stage, &discs, 2.2, 0.15)?;
-
-        // 01_2: only we can see who copied
-        let line = say(&kit, stage, "01_2")?;
-        line.wait_for(stage, "Four of them")?;
-        let mut rings = Vec::new();
-        for s in students.iter_mut().filter(|s| s.copied) {
-            let r = ring(stage, s.at);
-            s.ring = Some(r);
-            rings.push(r);
+        if students.iter().filter(|s| s.ring.is_some()).count() != a.class.copiers() {
+            return Err(fail("a ring for every copier, and no other".into()));
         }
-        if rings.len() != a.class.copiers() {
-            return Err(fail(format!("{} rings for {} copiers", rings.len(), a.class.copiers())));
+        let mut opening = rule.all();
+        for s in &students {
+            opening.push(s.disc);
+            opening.extend(s.ring);
         }
-        fade_in_lagged(stage, &rings, 0.9, 0.4)?;
-        let key_ring = ring(stage, v(KEY_X, KEY_Y));
-        let key_text = kit.text_left(stage, KEY, 20.0, Palette::dim(), v(KEY_X + 0.32, KEY_Y))?;
-        fade_in_all(stage, &[key_ring, key_text], 0.4)?;
 
-        // 01_3: a coin; heads, the truth
-        let line = say(&kit, stage, "01_3")?;
-        let first_coin = coin(stage, palette::student(), v(COIN_X, 0.0), COIN_R);
-        let coin_label = kit.text_left(stage, COIN_WORD, 20.0, Palette::dim(), v(COIN_X + COIN_R + 0.12, 0.0))?;
-        fade_in_all(stage, &[first_coin, coin_label], 0.4)?;
-        line.wait_for(stage, "Heads, tell")?;
-        let truth_lane = lane(
-            stage,
-            vec![v(COIN_X, COIN_R), v(COIN_X, TRUTH_Y), v(LANE_END_X, TRUTH_Y)],
-            palette::truth(),
-        );
-        let truth_label = kit.text_left(
-            stage,
-            HEADS_TRUTH,
-            22.0,
-            palette::truth(),
-            v(COIN_X + 0.15, TRUTH_Y + 0.32),
-        )?;
-        let yes_head = kit.text(stage, YES, 30.0, palette::yes(), v(YES_X, HEAD_Y))?;
-        let no_head = kit.text(stage, NO, 30.0, palette::no(), v(NO_X, HEAD_Y))?;
-        let truth_places = [
-            place(stage, place_at(Route::Truth, true), CELL_W, CELL_H)?,
-            place(stage, place_at(Route::Truth, false), CELL_W, CELL_H)?,
-        ];
-        let mut shown = vec![truth_lane, truth_label, yes_head, no_head];
-        shown.extend(truth_places);
-        fade_in_all(stage, &shown, 0.6)?;
-
-        // 01_4: tails, the second coin answers: heads yes, tails no
-        let line = say(&kit, stage, "01_4")?;
-        let tails_lane = lane(
-            stage,
-            vec![
-                v(COIN_X, -COIN_R),
-                v(COIN_X, COIN_ROW_Y),
-                v(SECOND_X - SECOND_R, COIN_ROW_Y),
-            ],
-            palette::forced(),
-        );
-        let tails_label = kit.text_left(stage, TAILS, 22.0, palette::forced(), v(COIN_X + 0.15, TAILS_Y))?;
-        let second = coin(stage, palette::forced(), v(SECOND_X, COIN_ROW_Y), SECOND_R);
-        let second_label = kit.text(
-            stage,
-            SECOND_COIN,
-            20.0,
-            palette::forced(),
-            v(SECOND_X, COIN_ROW_Y - SECOND_R - 0.24),
-        )?;
-        let coin_lane = lane(
-            stage,
-            vec![v(SECOND_X + SECOND_R, COIN_ROW_Y), v(LANE_END_X, COIN_ROW_Y)],
-            palette::forced(),
-        );
-        let coin_places = [
-            place(stage, place_at(Route::ForcedYes, true), CELL_W, CELL_H)?,
-            place(stage, place_at(Route::ForcedNo, false), CELL_W, CELL_H)?,
-        ];
-        let mut shown = vec![tails_lane, tails_label, second, second_label, coin_lane];
-        shown.extend(coin_places);
-        fade_in_all(stage, &shown, 0.6)?;
-        line.wait_for(stage, "Heads for yes")?;
-        let heads_word = kit.text_left(
-            stage,
-            HEADS,
-            18.0,
-            palette::forced(),
-            word_at(place_at(Route::ForcedYes, true)),
-        )?;
-        fade_in_all(stage, &[heads_word], 0.3)?;
-        flash_all(stage, &[yes_head, heads_word], 0.5)?;
-        line.wait_for(stage, "tails for no")?;
-        let tails_word = kit.text_left(
-            stage,
-            TAILS,
-            18.0,
-            palette::forced(),
-            word_at(place_at(Route::ForcedNo, false)),
-        )?;
-        fade_in_all(stage, &[tails_word], 0.3)?;
-        flash_all(stage, &[no_head, tails_word], 0.5)?;
-
-        // 01_5: heads, half the class, tells the truth
-        let line = say(&kit, stage, "01_5")?;
+        // 03_1: heads, half the class, tells the truth
+        let line = say(&kit, stage, "03_1")?;
+        fade_in_all(stage, &opening, 0.5)?;
         let note = precisely(&kit, stage, &average_note())?;
         fade_in_all(stage, &[note], 0.4)?;
         let mut filled = [0usize; 4];
@@ -491,8 +542,8 @@ impl SceneConstruct for TheCoin {
         let mut counts = row_counts(&kit, stage, &filled, Route::Truth)?;
         fade_in_all(stage, &counts, 0.3)?;
 
-        // 01_6: tails, the other half, through the second coin
-        let line = say(&kit, stage, "01_6")?;
+        // 03_2: tails, the other half, through the second coin
+        let line = say(&kit, stage, "03_2")?;
         let tails: Vec<usize> = (0..n).filter(|&i| students[i].route() != Route::Truth).collect();
         let lit: Vec<Mob> = tails.iter().map(|&i| students[i].disc).collect();
         flash_all(stage, &lit, 0.5)?;
@@ -518,30 +569,15 @@ impl SceneConstruct for TheCoin {
             return Err(fail(format!("the places hold {filled:?}, the tally {want:?}")));
         }
 
-        // 01_7: the totals, and the survey's view
-        let line = say(&kit, stage, "01_7")?;
-        fade_out_all(stage, &[note, question], 0.3)?;
+        // 03_3: the totals, and the survey's view
+        let line = say(&kit, stage, "03_3")?;
+        fade_out_all(stage, &[note, rule.question], 0.3)?;
         let yes_total = kit.text(stage, &yes.to_string(), 44.0, palette::yes(), v(YES_X, TOTAL_Y))?;
         let no_total = kit.text(stage, &no.to_string(), 44.0, palette::no(), v(NO_X, TOTAL_Y))?;
         fade_in_all(stage, &[yes_total, no_total], 0.5)?;
         line.wait_for(stage, "That's all")?;
-        let mut hidden = vec![
-            first_coin,
-            coin_label,
-            truth_lane,
-            truth_label,
-            tails_lane,
-            tails_label,
-            second,
-            second_label,
-            coin_lane,
-            heads_word,
-            tails_word,
-            key_ring,
-            key_text,
-        ];
-        hidden.extend(truth_places);
-        hidden.extend(coin_places);
+        let mut hidden = rule.routes();
+        hidden.extend([rule.key_ring, rule.key_text]);
         hidden.extend(counts);
         for s in &mut students {
             hidden.extend(s.ring.take());
@@ -571,14 +607,14 @@ impl SceneConstruct for TheCoin {
         }
         fade_out_moving(stage, &hidden, &gather, 0.8)?;
 
-        // 01_8: the survey's question, and the think time
-        let line = say(&kit, stage, "01_8")?;
+        // 03_4: the survey's question, and the think time
+        let line = say(&kit, stage, "03_4")?;
         line.wait_for(stage, "two numbers")?;
         flash_all(stage, &[yes_total, no_total], 0.6)?;
         let q = think(&kit, stage, v(THINK_X, THINK_Y))?;
 
-        // 01_9: take away the second coin's yeses, a quarter of the class
-        let line = say(&kit, stage, "01_9")?;
+        // 03_5: take away the second coin's yeses, a quarter of the class
+        let line = say(&kit, stage, "03_5")?;
         fade_out_all(stage, &[q], 0.2)?;
         let (mut old, mut faint) = (Vec::new(), Vec::new());
         for s in students.iter_mut().filter(|s| s.route() == Route::ForcedYes) {
@@ -589,7 +625,7 @@ impl SceneConstruct for TheCoin {
         }
         swap(stage, &old, &faint, 0.5)?;
         // The faint ones step down to the row under the yeses that are left,
-        // so 01_10's doubling lands beside those yeses.
+        // so 03_6's doubling lands beside those yeses.
         let kept = filled[cell_index(Route::Truth, true)];
         let doubled = estimate - left;
         let extra = doubled
@@ -631,8 +667,8 @@ impl SceneConstruct for TheCoin {
             .collect();
         flash_all(stage, &truthful_yes, 0.6)?;
 
-        // 01_10: double them; four, and the rings come back
-        let line = say(&kit, stage, "01_10")?;
+        // 03_6: double them; four, and the rings come back
+        let line = say(&kit, stage, "03_6")?;
         line.wait_for(stage, "So double them")?;
         // the copiers among the other half, whom the second coin hid: beside
         // the yeses that are left, in the slots the faint ones cleared, with
@@ -667,63 +703,11 @@ impl SceneConstruct for TheCoin {
         let code_text = code_card(n)?;
         let code = lower_third(&kit, stage, PROGRAMMERS, &code_text)?;
         fade_in_all(stage, &[code], 0.4)?;
-        // As in chapter 05, count reading time from the fully visible card.
+        // count reading time from the fully visible card
         let code_read_by = stage.scene().time().to_f64() + code_text.chars().count() as f64 / 15.0;
         line.wait_end(stage)?;
         pause(stage, 1.5)?;
         wait_until(stage, code_read_by)?;
-
-        // 01_11: no answer is a confession, but a yes is three times likelier
-        let line = say(&kit, stage, "01_11")?;
-        fade_all(stage, 0.6)?;
-        let mut grid = vec![kit.text_left(stage, TWO_COINS, 22.0, Palette::dim(), v(GRID_LABEL_X, GRID_HEAD_Y))?];
-        for (&(first, second), &x) in COIN_PAIRS.iter().zip(&GRID_X) {
-            let faces = format!("{} {}", face(first), face(second));
-            grid.push(kit.text(stage, &faces, 24.0, Palette::dim(), v(x, GRID_HEAD_Y))?);
-        }
-        let mut yes_cells: [Vec<Mob>; 2] = [Vec::new(), Vec::new()];
-        for (row, (&copied, &y)) in [true, false].iter().zip(&GRID_ROW_Y).enumerate() {
-            let (word, color) = if copied {
-                (COPIED, palette::copied())
-            } else {
-                (DIDNT, palette::student())
-            };
-            grid.push(kit.text_left(stage, word, 26.0, color, v(GRID_LABEL_X, y))?);
-            for (&(first, second), &x) in COIN_PAIRS.iter().zip(&GRID_X) {
-                let said = model::answer(copied, first, second);
-                let c = cell(stage, palette::answer(said), v(x, y), GRID_W, GRID_H)?;
-                let w = kit.text(stage, if said { YES } else { NO }, 24.0, palette::answer(said), v(x, y))?;
-                grid.extend([c, w]);
-                if said {
-                    yes_cells[row].extend([c, w]);
-                }
-            }
-        }
-        fade_in_lagged(stage, &grid, 1.4, 0.08)?;
-        line.wait_for(stage, "But someone who copied")?;
-        let ratio_text = ratio_note()?;
-        let note = precisely(&kit, stage, &ratio_text)?;
-        let share = |copied: bool| format!("{} of {}", model::outcomes_saying(copied, true), COIN_PAIRS.len());
-        let copied_share = kit.text(stage, &share(true), 28.0, palette::yes(), v(SHARE_X, GRID_ROW_Y[0]))?;
-        fade_in_all(stage, &[copied_share, note], 0.4)?;
-        let ratio_read_by = stage.scene().time().to_f64() + ratio_text.chars().count() as f64 / 15.0;
-        flash_all(stage, &yes_cells[0], 0.6)?;
-        line.wait_for(stage, "as someone who didn't")?;
-        let didnt_share = kit.text(stage, &share(false), 28.0, palette::yes(), v(SHARE_X, GRID_ROW_Y[1]))?;
-        fade_in_all(stage, &[didnt_share], 0.3)?;
-        flash_all(stage, &yes_cells[1], 0.5)?;
-        let times = kit.tex(
-            stage,
-            &format!(r"\times {}", model::likelihood_ratio(true)),
-            40.0,
-            Palette::ink(),
-            &[],
-            v(TIMES_X, (GRID_ROW_Y[0] + GRID_ROW_Y[1]) / 2.0),
-        )?;
-        fade_in_all(stage, &[times], 0.4)?;
-        line.wait_end(stage)?;
-        pause(stage, 2.0)?;
-        wait_until(stage, ratio_read_by)?;
 
         fade_all(stage, 0.6)?;
         kit.finish(stage)?;
@@ -743,20 +727,14 @@ mod tests {
     fn every_phrase_the_scene_waits_for_is_in_its_line() {
         let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
         for (id, phrase) in [
-            ("01_2", "Four of them"),
-            ("01_3", "Heads, tell"),
-            ("01_4", "Heads for yes"),
-            ("01_4", "tails for no"),
-            ("01_5", "Two of our four"),
-            ("01_6", "Five yes"),
-            ("01_7", "That's all"),
-            ("01_8", "two numbers"),
-            ("01_9", "On average that's five"),
-            ("01_9", "Two are left"),
-            ("01_10", "So double them"),
-            ("01_10", "Four."),
-            ("01_11", "But someone who copied"),
-            ("01_11", "as someone who didn't"),
+            ("03_1", "Two of our four"),
+            ("03_2", "Five yes"),
+            ("03_3", "That's all"),
+            ("03_4", "two numbers"),
+            ("03_5", "On average that's five"),
+            ("03_5", "Two are left"),
+            ("03_6", "So double them"),
+            ("03_6", "Four."),
         ] {
             let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
             assert!(text.contains(phrase), "{id} has no {phrase:?}: {text}");
@@ -764,8 +742,7 @@ mod tests {
     }
 
     /// The words on screen say what the facts say: the average is named as
-    /// one, both answers' ratios are given, and the code card's edges are
-    /// the facts' (−10 and 30 for the class).
+    /// one, and the code card's edges are the facts' (−10 and 30).
     #[test]
     fn the_exact_versions_are_built_from_the_facts() {
         let avg = average_note();
@@ -773,13 +750,6 @@ mod tests {
             avg.contains("average counts") && avg.contains("A real class strays"),
             "{avg}"
         );
-        let ratio = ratio_note().unwrap();
-        assert!(
-            ratio.contains("3 of the 4 coin outcomes if you copied, 1 of 4"),
-            "{ratio}"
-        );
-        assert!(ratio.contains("3 times as likely, never more"), "{ratio}");
-        assert!(ratio.contains("A no is 3 times as likely"), "{ratio}");
         let code = code_card(20).unwrap();
         assert!(code.starts_with("estimate = 2 * yes - n / 2"), "{code}");
         assert!(code.contains("no yeses give \u{2212}10, 20 give 30"), "{code}");
@@ -788,13 +758,15 @@ mod tests {
         assert_eq!(f.get("R-X2.estimate.all_yes"), Some("30"));
     }
 
-    /// The cards stay two lines at the lower-third's width, so the band
-    /// clears the lower row of places.
+    /// The cards stay two lines at every wrap the lower-third can narrow to,
+    /// so the band clears the lower row of places.
     #[test]
     fn the_cards_are_two_lines() {
-        for text in [average_note(), ratio_note().unwrap(), code_card(20).unwrap()] {
-            let lines = explainer_kit::animatic::wrap(&text, 92, 3);
-            assert!(lines.len() <= 2, "{} lines: {text}", lines.len());
+        for text in [average_note(), code_card(20).unwrap()] {
+            for width in (72..=92).rev().step_by(4) {
+                let lines = explainer_kit::animatic::wrap(&text, width, 3);
+                assert!(lines.len() <= 2, "{} lines at {width}: {text}", lines.len());
+            }
         }
     }
 
@@ -812,12 +784,11 @@ mod tests {
         assert_eq!(filled, [2, 8, 5, 5]);
         assert_eq!(filled[0] + filled[2], a.tally.answers(true));
         assert_eq!(filled[1] + filled[3], a.tally.answers(false));
-        const { assert!(GRID_X.len() == COIN_PAIRS.len(), "one grid column per coin outcome") };
     }
 
     /// The survey's view keeps no trace of the routes (review PinkDuck F1).
     /// Each answer becomes one cluster holding its total, and every one of the
-    /// second coin's students rises straight up into it. The doubling (01_10)
+    /// second coin's students rises straight up into it. The doubling (03_6)
     /// then fits in the row of the yeses that are left.
     #[test]
     fn the_answers_gather_into_one_cluster_each() {
@@ -858,9 +829,10 @@ mod tests {
         let (first, last) = (seat_at(0), seat_at(model::CLASS_SIZE - 1));
         assert!(first[0] - RING_R > -FRAME_X_RADIUS + 0.15 && first[1] + RING_R < FRAME_Y_RADIUS - 0.15);
         assert!(last[0] + RING_R < COIN_X - COIN_R - 0.3);
-        // the key below the class and clear of the lower lane
+        // the key below the class and clear of the lower lane and the band
         assert!(KEY_Y < last[1] - RING_R - 0.3);
         const { assert!(KEY_Y < COIN_ROW_Y - 0.3, "the key clears the lower lane") };
+        const { assert!(KEY_Y - 0.15 > BAND_TOP, "the key over the band") };
         // the places fit the frame, apart, under their heads, clear of the band
         const { assert!(NO_X + CELL_W / 2.0 < FRAME_X_RADIUS - 0.15, "inside the safe area") };
         const { assert!(YES_X + CELL_W / 2.0 < NO_X - CELL_W / 2.0, "the columns apart") };
@@ -887,17 +859,5 @@ mod tests {
             word_at(centre)[1] - 0.09 > slot(centre, 0)[1] + RING_R,
             "the word clears a ring"
         );
-        // the grid's cells sit apart, between its labels and its shares
-        for pair in GRID_X.windows(2) {
-            assert!(pair[1] - pair[0] > GRID_W + 0.1);
-        }
-        const {
-            assert!(
-                GRID_X[0] - GRID_W / 2.0 > GRID_LABEL_X + 1.6,
-                "the row labels clear the grid"
-            )
-        };
-        const { assert!(GRID_X[3] + GRID_W / 2.0 < SHARE_X - 0.6, "the shares clear the grid") };
-        const { assert!(GRID_ROW_Y[1] - GRID_H / 2.0 > BAND_TOP + 0.3, "the grid over the band") };
     }
 }

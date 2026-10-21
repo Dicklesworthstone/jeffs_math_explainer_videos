@@ -520,6 +520,87 @@ pub fn odds(q: Q) -> Option<Q> {
     q.checked_div(Q::ONE - q)
 }
 
+/// How many yeses a class of `n`, `copiers` of whom copied, gives on average
+/// under `channel`: every person's chance of a yes, added up. The direct
+/// question (truth 1) gives the copiers themselves, a coin alone (truth 0)
+/// half the class whoever copied, and the two coins k/2 + n/4 (chapter 01's
+/// chart).
+pub fn average_yes(channel: Channel, n: usize, copiers: usize) -> Q {
+    let others = n.saturating_sub(copiers);
+    Q::int(copiers as i128) * channel.p_said(true, true) + Q::int(others as i128) * channel.p_said(false, true)
+}
+
+/// The smallest whole number of people at least `q` (q ≥ 0): the ceiling, in
+/// exact arithmetic.
+pub fn at_least(q: Q) -> i128 {
+    let whole = q.num().div_euclid(q.den());
+    if Q::int(whole) == q { whole } else { whole + 1 }
+}
+
+/// The zeros between the decimal point and the first digit that is not zero,
+/// for a chance strictly between 0 and 1: 1/(3⁵⁰ + 1) has 23.
+pub fn zeros_after_point(q: Q) -> Result<u32, String> {
+    if q <= Q::ZERO || q >= Q::ONE {
+        return Err(format!("{q} is not strictly between 0 and 1"));
+    }
+    let (mut x, mut zeros) = (q, 0);
+    while x * Q::int(10) < Q::ONE {
+        x = x * Q::int(10);
+        zeros += 1;
+    }
+    Ok(zeros)
+}
+
+// ---------------------------------------------------- when the rule is broken
+
+/// The chance of each yes count, 0 to n, when the `copiers` ignore their
+/// coins and always say no while everyone else follows the rule (chapter
+/// 09's one pattern of noncompliance): the others' yeses alone, a yes in one
+/// of the four outcomes each, over their 4^(n − copiers) equally likely coin
+/// outcomes. The list runs to n so the estimate reads it as any class of n.
+pub fn yes_count_distribution_copiers_say_no(n: usize, copiers: usize) -> Result<Vec<Q>, String> {
+    if copiers > n {
+        return Err(format!("{copiers} copiers in a class of {n}"));
+    }
+    let others = n - copiers;
+    if others > MAX_EXACT_CLASS {
+        return Err(format!(
+            "{others} rule-followers are past the exact limit of {MAX_EXACT_CLASS}"
+        ));
+    }
+    let all = 4i128.pow(others as u32);
+    Ok((0..=n)
+        .map(|y| {
+            if y > others {
+                return Q::ZERO;
+            }
+            let ways = choose(others as u64, y as u64) as i128 * 3i128.pow((others - y) as u32);
+            Q::new(ways, all)
+        })
+        .collect())
+}
+
+/// The estimated share's average when a share `p` copied, every one of them
+/// says no whatever their coins, and everyone else follows `channel`: the
+/// yes share is the others' (1 − p) times their chance of a yes, and the
+/// estimate undoes the rule as if everyone had followed it. `None` when
+/// nobody tells the truth.
+pub fn share_mean_copiers_say_no(channel: Channel, p: Q) -> Option<Q> {
+    let yes_share = (Q::ONE - p) * channel.p_said(false, true);
+    let forced = (Q::ONE - channel.truth()) / Q::int(2);
+    (yes_share - forced).checked_div(channel.truth())
+}
+
+/// The chance that a class's estimate misses the `truth` by `by` or more,
+/// over a distribution of yes counts for a class of `dist.len() − 1`.
+pub fn p_miss_at_least(dist: &[Q], truth: Q, by: Q) -> Q {
+    let n = dist.len().saturating_sub(1);
+    dist.iter().enumerate().fold(Q::ZERO, |s, (y, &p)| {
+        let miss = undo(y, n)[2] - truth;
+        if miss >= by || miss <= Q::ZERO - by { s + p } else { s }
+    })
+}
+
 // ------------------------------------------------------- the estimate's scatter
 
 /// The largest class [`yes_count_distribution`] takes: its chances share the
@@ -1108,5 +1189,97 @@ mod tests {
         let no = Q::ONE - posterior(Q::new(1, 2), 75, 100);
         assert_eq!(no, Q::new(1, 3i128.pow(50) + 1));
         assert_eq!(format!("{:.2e}", no.to_f64()), "1.39e-24");
+        // 3⁵⁰ has 24 digits; the chance starts with 23 zeros after the point
+        assert_eq!(3i128.pow(50).to_string().len(), 24);
+        assert_eq!(zeros_after_point(no), Ok(23));
+        assert_eq!(zeros_after_point(Q::new(1, 10)), Ok(0));
+        assert_eq!(zeros_after_point(Q::new(1, 101)), Ok(2));
+        assert!(zeros_after_point(Q::ZERO).is_err());
+        assert!(zeros_after_point(Q::ONE).is_err());
+    }
+
+    /// Chapter 01's chart: on average the direct question gives the copiers
+    /// themselves, a coin alone half the class whoever copied, and the two
+    /// coins k/2 + n/4, for every number of copiers.
+    #[test]
+    fn the_average_yeses_are_the_charts_three_lines() {
+        let (direct, alone) = (Channel::new(Q::ONE).unwrap(), Channel::new(Q::ZERO).unwrap());
+        for k in 0..=CLASS_SIZE {
+            assert_eq!(average_yes(direct, CLASS_SIZE, k), Q::int(k as i128));
+            assert_eq!(average_yes(alone, CLASS_SIZE, k), Q::int(10));
+            let rule = average_yes(Channel::two_coins(), CLASS_SIZE, k);
+            assert_eq!(rule, Q::new(k as i128, 2) + Q::new(CLASS_SIZE as i128, 4));
+            // and the counted distribution's mean agrees
+            assert_eq!(mean(&yes_count_distribution(CLASS_SIZE, k).unwrap()), rule);
+        }
+    }
+
+    #[test]
+    fn at_least_is_the_ceiling() {
+        assert_eq!(at_least(Q::new(455, 4)), 114);
+        assert_eq!(at_least(Q::int(7)), 7);
+        assert_eq!(at_least(Q::new(1, 3)), 1);
+        assert_eq!(at_least(Q::ZERO), 0);
+    }
+
+    /// Chapter 09: when the four who copied always say no, the yeses are the
+    /// sixteen others' alone. Brute force over a class small enough to list
+    /// every coin outcome agrees, the estimate averages minus half the
+    /// copiers whatever the class's size, and the share's average is −p/2.
+    #[test]
+    fn copiers_who_always_say_no_pull_the_average_down() {
+        // brute force: 5 seats, seats 1 and 3 copied and always say no
+        let mut ways = [0i128; 6];
+        for outcome in 0..(1u32 << 10) {
+            let yes = (0..5)
+                .filter(|&i| {
+                    let (a, b) = COIN_PAIRS[((outcome >> (2 * i)) & 3) as usize];
+                    i != 1 && i != 3 && answer(false, a, b)
+                })
+                .count();
+            ways[yes] += 1;
+        }
+        let want: Vec<Q> = ways.iter().map(|&w| Q::new(w, 1024)).collect();
+        assert_eq!(yes_count_distribution_copiers_say_no(5, 2).unwrap(), want);
+        for (n, copiers) in [(20, 4), (20, 0), (28, 8), (24, 24)] {
+            let dist = yes_count_distribution_copiers_say_no(n, copiers).unwrap();
+            assert_eq!(dist.iter().fold(Q::ZERO, |s, &p| s + p), Q::ONE);
+            assert_eq!(estimate_mean(&dist), Q::new(-(copiers as i128), 2), "{n} {copiers}");
+        }
+        let dist = yes_count_distribution_copiers_say_no(20, 4).unwrap();
+        assert_eq!(mean(&dist), Q::int(4));
+        assert_eq!(estimate_mean(&dist), Q::int(-2));
+        for p in [Q::new(1, 5), Q::new(1, 2), Q::ZERO] {
+            assert_eq!(
+                share_mean_copiers_say_no(Channel::two_coins(), p),
+                Some(Q::ZERO - p / Q::int(2))
+            );
+        }
+        assert_eq!(
+            share_mean_copiers_say_no(Channel::new(Q::ZERO).unwrap(), Q::new(1, 5)),
+            None
+        );
+        assert!(yes_count_distribution_copiers_say_no(4, 5).is_err());
+    }
+
+    /// Chapter 07: the class of twenty misses by 4 or more in
+    /// 239955963659/549755813888 of its coin outcomes (more than two in
+    /// five), by 8 or more in 73349641357/1099511627776 (about one in 15).
+    /// The estimates are even numbers, so missing by more than √15 is
+    /// missing by 4 or more.
+    #[test]
+    fn the_class_misses_by_four_or_more_more_than_two_times_in_five() {
+        let dist = yes_count_distribution(CLASS_SIZE, COPIERS.len()).unwrap();
+        let truth = Q::int(COPIERS.len() as i128);
+        let four = p_miss_at_least(&dist, truth, Q::int(4));
+        assert_eq!(four, Q::new(239955963659, 549755813888));
+        assert!(four > Q::new(2, 5) && four < Q::new(1, 2));
+        assert_eq!(
+            p_miss_at_least(&dist, truth, Q::int(8)),
+            Q::new(73349641357, 1099511627776)
+        );
+        assert_eq!(p_miss_at_least(&dist, truth, Q::ZERO), Q::ONE);
+        // a miss of more than √15 ≈ 3.87 is a miss of 4 or more
+        assert_eq!(p_miss_at_least(&dist, truth, Q::new(387, 100)), four);
     }
 }

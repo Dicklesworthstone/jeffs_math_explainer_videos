@@ -1,9 +1,13 @@
 //! Every number the video shows or says, computed from [`crate::model`] and
 //! printed for [`oracle.py`](../oracle.py) (`./x randomized_response
 //! facts-check`): the rows of docs/fact-sheet.md. R-F rows are computed,
-//! R-X rows are the edges of the always/never sentences. Rows R-F1 to R-F5
-//! are chapter 01's, R-F6, R-F11, R-F12 and R-X5 chapter 02's, R-F7, R-F8,
-//! R-F13 and R-F14 chapter 03's, R-F9, R-F10 and R-F15 chapter 04's.
+//! R-X rows are the edges of the always/never sentences and the primary
+//! sources' own words. In the 13-chapter video: R-F1 to R-F5 and R-F17 serve
+//! chapters 01 to 03, R-F18 chapter 04, R-F6, R-F11, R-F12 and R-X5 chapter
+//! 05, R-F7, R-F13, R-F14 and R-F19 chapters 06 and 07, R-F8 and R-F20
+//! chapter 08, R-F21 and R-X6 chapter 09, R-F9 and R-F15 chapter 10, R-F10,
+//! R-F22, R-X3 and R-X7 chapter 11, R-F16 chapter 12, R-F23 chapter 13, and
+//! R-X8 chapter 02.
 
 use explainer_kit::Facts;
 use explainer_kit::stats::Data;
@@ -16,8 +20,36 @@ use crate::model::{
 /// How many asks R-F9.worst_ratio_by_asks lists.
 const WORST_LISTED: u32 = 5;
 
-/// RAPPOR's example (its section 1): yeses out of answers, from an even prior.
-const RAPPOR_EXAMPLE: (u32, u32) = (75, 100);
+/// RAPPOR's example (its section 1.3): yeses out of answers, from an even
+/// prior; chapter 11 speaks it.
+pub const RAPPOR_EXAMPLE: (u32, u32) = (75, 100);
+
+/// RAPPOR (Erlingsson, Pihur and Korolova, arXiv 1407.6981v2, CCS 2014),
+/// in its own words, as chapters 09 and 11 quote it (read 2026-10-20).
+pub const RAPPOR_COMPLIANCE: &str = "an assumption that may not hold for human subjects";
+pub const RAPPOR_YEAR: u32 = 2014;
+const RAPPOR_MEMOIZED: &str = "Permanent randomized response";
+const RAPPOR_EACH_REPORT: &str = "Instantaneous randomized response";
+const RAPPOR_DEPLOYMENT: &str = "limited deployment in Google's Chrome Web browser";
+const RAPPOR_PRIOR: &str = "irrespective of any attacker's prior knowledge";
+
+/// Chapter 04's worked example, invented: a class of forty that says yes
+/// eighteen times.
+pub const FORTY: (usize, usize) = (40, 18);
+
+/// Chapter 04's one real class: the fifth of chapter 03's seeded classes
+/// (9 yeses, an estimate of 8 against the 4 who copied), a miss that stays
+/// inside 0 to n (the tests check).
+pub const SHOWN_RUN: usize = 4;
+
+/// Chapter 07's bigger group, with the same coins; and chapter 09's sizes
+/// for "asking more people won't fix it".
+pub const BIG_CLASS: usize = 300;
+pub const ASKED: [usize; 3] = [model::CLASS_SIZE, 100, BIG_CLASS];
+
+/// Chapter 13's check that a fixed class's estimate variance is 3n/4 for
+/// every number of copiers: these sizes, every k (the exact limit last).
+const CHECKED_SIZES: [usize; 5] = [1, 2, 7, model::CLASS_SIZE, model::MAX_EXACT_CLASS];
 
 /// Chapter 03's real classes: the seed (the chapter's number, fixed before
 /// any draw was looked at, the only one tried) and how many classes.
@@ -574,6 +606,176 @@ pub fn facts() -> Result<Facts, String> {
     f.add("R-F16.class.count_variance", class_count)?;
     f.add("R-F16.class.share_variance", wobble(ours)? / Q::int(n as i128))?;
 
+    // chapter 01's chart: each person's chance of a yes, added up, for the
+    // direct question, a coin alone and the rule
+    let coin_alone = Channel::new(Q::ZERO)?;
+    let alone: Vec<Q> = (0..=n).map(|k| model::average_yes(coin_alone, n, k)).collect();
+    if alone.iter().any(|&y| y != alone[0]) {
+        return Err(format!("a coin alone's yeses move with the copiers: {}", csv(&alone)));
+    }
+    f.add("R-F17.coin_alone.average_yes", alone[0])?;
+    f.add(
+        "R-F17.direct.average_yes",
+        model::average_yes(Channel::new(Q::ONE)?, n, copiers),
+    )?;
+    let rule_line = model::average_yes(Channel::two_coins(), n, copiers);
+    if rule_line != Q::int(yes as i128) {
+        return Err(format!(
+            "the rule's line gives {rule_line} yeses, the class on average {yes}"
+        ));
+    }
+    f.add("R-F17.rule.average_yes", rule_line)?;
+    f.add("R-F17.rule.at_none", model::average_yes(Channel::two_coins(), n, 0))?;
+    f.add("R-F17.rule.at_all", model::average_yes(Channel::two_coins(), n, n))?;
+
+    // chapter 04: a class of forty that says yes eighteen times, and the
+    // recipe right on average for every number of copiers in our class
+    let (forty, forty_yes) = FORTY;
+    let [forty_forced, forty_left, forty_estimate] = model::undo(forty_yes, forty);
+    f.add("R-F18.class", forty)?;
+    f.add("R-F18.yes", forty_yes)?;
+    f.add("R-F18.forced_yes", whole(forty_forced, "a quarter of forty")?)?;
+    f.add("R-F18.left", whole(forty_left, "the yeses left")?)?;
+    f.add(
+        "R-F18.estimate",
+        whole(forty_estimate, "the class of forty's estimate")?,
+    )?;
+    for k in 0..=n {
+        let d = model::yes_count_distribution(n, k)?;
+        if model::estimate_mean(&d) != Q::int(k as i128) {
+            return Err(format!("with {k} copiers the estimate does not average {k}"));
+        }
+    }
+    f.add("R-F18.unbiased_every_k", true)?;
+    let shown = Tally::of(&a.class, &runs()?[SHOWN_RUN])?.answers(true);
+    let shown_estimate = model::undo(shown, n)[2];
+    if shown_estimate == truth || shown_estimate < Q::ZERO || shown_estimate > Q::int(n as i128) {
+        return Err(format!(
+            "the shown class's estimate {shown_estimate} is not a miss inside 0 to {n}"
+        ));
+    }
+    f.add("R-F18.shown.yes", shown)?;
+    f.add("R-F18.shown.estimate", shown_estimate)?;
+
+    // chapter 07: how far one survey misses. "Miss by about four" is the
+    // standard deviation (the root of the average squared miss); a typical
+    // size, not a limit
+    let miss_by = Q::int(nearest_root(var_estimate));
+    let p_miss = model::p_miss_at_least(&dist, truth, miss_by);
+    let two_fifths = Q::new(2, 5);
+    if !(p_miss > two_fifths && p_miss < Q::new(1, 2)) {
+        return Err(format!(
+            "{p_miss} of classes miss by {miss_by} or more, not just over two in five"
+        ));
+    }
+    f.add("R-F19.miss_by", miss_by)?;
+    f.add("R-F19.miss_at_least", p_miss)?;
+    f.add("R-F19.miss_at_least.over", two_fifths)?;
+    f.add("R-F19.percent.miss_at_least", p_miss.percent())?;
+    let p_miss_twice = model::p_miss_at_least(&dist, truth, Q::int(2) * miss_by);
+    f.add("R-F19.miss_at_least_twice", p_miss_twice)?;
+    f.add("R-F19.one_in.miss_at_least_twice", one_in(p_miss_twice)?)?;
+    // three hundred with the same coins: the count's variance is n times one
+    // person's whoever copied (chapter 13 checks it at every exact size)
+    let big_var = setting_class(Channel::two_coins(), BIG_CLASS).ok_or("no variance for the big class")?;
+    let big_miss = nearest_root(big_var);
+    if Q::int(big_miss * big_miss) != big_var {
+        return Err(format!("{big_var} is not a whole square"));
+    }
+    f.add("R-F19.big.class", BIG_CLASS)?;
+    f.add("R-F19.big.copied", Q::int(BIG_CLASS as i128) * share)?;
+    f.add("R-F19.big.variance", big_var)?;
+    f.add("R-F19.big.miss", big_miss)?;
+    let big_share = Q::new(big_miss, BIG_CLASS as i128);
+    f.add("R-F19.big.miss_share", big_share)?;
+    f.add("R-F19.big.percent.miss_share", big_share.percent())?;
+    let class_share = sd / n as f64;
+    f.add("R-F19.class.miss_share_2dp", format!("{class_share:.2}"))?;
+    f.add("R-F19.class.percent.miss_share", format!("{:.0}", 100.0 * class_share))?;
+    f.add("R-F19.class.one_in.miss_share", (1.0 / class_share).round())?;
+
+    // chapter 08: a sample of twenty from a big school, in the share's
+    // percentage points; and how many coin answers match twenty direct ones
+    let direct_n = model::direct_variance(share, n as i128);
+    let sampled = |m: i128| model::sampling_variance(Channel::two_coins(), share, m).ok_or("no sampling variance");
+    let points = |v: Q| 100.0 * v.to_f64().sqrt();
+    f.add("R-F20.direct.points_2dp", format!("{:.2}", points(direct_n)))?;
+    f.add("R-F20.direct.points", points(direct_n).round())?;
+    f.add("R-F20.coins.points_2dp", format!("{:.2}", points(sampled(n as i128)?)))?;
+    f.add("R-F20.coins.points", points(sampled(n as i128)?).round())?;
+    let match_exact = coins / direct_n;
+    let match_n = model::at_least(match_exact);
+    if sampled(match_n)? > direct_n || sampled(match_n - 1)? <= direct_n {
+        return Err(format!(
+            "{match_n} coin answers are not the fewest to match {n} direct ones"
+        ));
+    }
+    if match_exact / Q::int(n as i128) != cost {
+        return Err(format!("{match_exact} people over {n} is not the cost {cost}"));
+    }
+    f.add("R-F20.match.exact", match_exact)?;
+    f.add("R-F20.match", match_n)?;
+    f.add("R-F20.match.points_2dp", format!("{:.2}", points(sampled(match_n)?)))?;
+
+    // chapter 09: the four who copied always say no, the others follow the
+    // rule (one pattern of noncompliance; others push either way or cancel)
+    let broken = model::yes_count_distribution_copiers_say_no(n, copiers)?;
+    let broken_yes = model::mean(&broken);
+    let broken_estimate = model::estimate_mean(&broken);
+    if broken_estimate != Q::ZERO - truth / Q::int(2) {
+        return Err(format!(
+            "the broken rule averages {broken_estimate}, not minus half of {truth}"
+        ));
+    }
+    f.add("R-F21.average_yes", broken_yes)?;
+    f.add("R-F21.twice_yes", factor * broken_yes)?;
+    f.add("R-F21.average_estimate", broken_estimate)?;
+    f.add("R-F21.bias", broken_estimate - truth)?;
+    let share_mean = model::share_mean_copiers_say_no(Channel::two_coins(), share).ok_or("no share estimate")?;
+    if share_mean * Q::int(n as i128) != broken_estimate {
+        return Err(format!(
+            "the share's average {share_mean} is not the class's {broken_estimate} over {n}"
+        ));
+    }
+    f.add("R-F21.share_mean", share_mean)?;
+    f.add("R-F21.asked", csv(&ASKED))?;
+
+    // chapter 11: a hundred fresh answers, seventy-five yes, from even odds
+    let (many_yes, many_asks) = RAPPOR_EXAMPLE;
+    let many_no = many_asks - many_yes;
+    let no_many = Q::ONE - model::posterior(Q::new(1, 2), many_yes, many_asks);
+    // each yes multiplies the evidence by three, each no divides it by three
+    let ratio_many = likelihood_ratio(true).pow(many_yes) / likelihood_ratio(false).pow(many_no);
+    if ratio_many != Q::int(3).pow(many_yes - many_no) || Q::ONE / (ratio_many + Q::ONE) != no_many {
+        return Err(format!(
+            "{many_yes} yes in {many_asks} do not give 3 to the {}",
+            many_yes - many_no
+        ));
+    }
+    f.add("R-F22.asks", many_asks)?;
+    f.add("R-F22.yes", many_yes)?;
+    f.add("R-F22.no", many_no)?;
+    f.add("R-F22.excess", many_yes - many_no)?;
+    f.add("R-F22.ratio", ratio_many)?;
+    f.add("R-F22.ratio_digits", ratio_many.num().to_string().len())?;
+    f.add("R-F22.posterior_no", no_many)?;
+    f.add("R-F22.zeros", model::zeros_after_point(no_many)?)?;
+
+    // chapter 13: a fixed class's estimate variance is 3n/4 for every n and
+    // every number of copiers, so its typical miss can be stated in advance
+    for size in CHECKED_SIZES {
+        for k in 0..=size {
+            let d = model::yes_count_distribution(size, k)?;
+            if factor * factor * model::variance(&d) != per_person * Q::int(size as i128) {
+                return Err(format!(
+                    "a class of {size} with {k} copiers does not have variance 3n/4"
+                ));
+            }
+        }
+    }
+    f.add("R-F23.per_person", per_person)?;
+    f.add("R-F23.checked_sizes", csv(&CHECKED_SIZES))?;
+
     // the edges of "three times, never more", "on average" and "four"
     let direct_question = Channel::new(Q::ONE)?;
     f.add(
@@ -605,6 +807,44 @@ pub fn facts() -> Result<Facts, String> {
         format!("{:.2e}", no_after.to_f64()),
         "1.39e-24",
         rappor,
+    )?;
+    // RAPPOR's own words, as the cards and chapter 11's voice use them
+    let read = "Erlingsson, Pihur and Korolova, RAPPOR, arXiv 1407.6981v2 (CCS 2014), read 2026-10-20";
+    f.pin(
+        "R-X6.rappor.compliance",
+        RAPPOR_COMPLIANCE,
+        "an assumption that may not hold for human subjects",
+        &format!("{read}, section 1"),
+    )?;
+    f.pin(
+        "R-X7.rappor.year",
+        RAPPOR_YEAR,
+        "2014",
+        &format!("{read}, page 1: CCS'14, November 3-7, 2014"),
+    )?;
+    f.pin(
+        "R-X7.rappor.memoized",
+        RAPPOR_MEMOIZED,
+        "Permanent randomized response",
+        &format!("{read}, sections 1.3 and 2"),
+    )?;
+    f.pin(
+        "R-X7.rappor.each_report",
+        RAPPOR_EACH_REPORT,
+        "Instantaneous randomized response",
+        &format!("{read}, sections 1.3 and 2"),
+    )?;
+    f.pin(
+        "R-X7.rappor.deployment",
+        RAPPOR_DEPLOYMENT,
+        "limited deployment in Google's Chrome Web browser",
+        &format!("{read}, section 1.1"),
+    )?;
+    f.pin(
+        "R-X8.rappor.prior",
+        RAPPOR_PRIOR,
+        "irrespective of any attacker's prior knowledge",
+        &format!("{read}, section 1"),
     )?;
     let memo_max = (1..=MAX_ASKS)
         .map(|k| model::memoized_answers(k).map(|m| pattern_ratio(m[(1 << k) - 1])))
@@ -807,6 +1047,69 @@ mod tests {
             ("R-X2.estimate.no_yes", "-10"),
             ("R-X2.estimate.all_yes", "30"),
             ("R-X3.rappor.no_after_75_of_100", "1.39e-24"),
+            ("R-F17.coin_alone.average_yes", "10"),
+            ("R-F17.direct.average_yes", "4"),
+            ("R-F17.rule.average_yes", "7"),
+            ("R-F17.rule.at_none", "5"),
+            ("R-F17.rule.at_all", "15"),
+            ("R-F18.class", "40"),
+            ("R-F18.yes", "18"),
+            ("R-F18.forced_yes", "10"),
+            ("R-F18.left", "8"),
+            ("R-F18.estimate", "16"),
+            ("R-F18.unbiased_every_k", "true"),
+            ("R-F18.shown.yes", "9"),
+            ("R-F18.shown.estimate", "8"),
+            ("R-F19.miss_by", "4"),
+            ("R-F19.miss_at_least", "239955963659/549755813888"),
+            ("R-F19.miss_at_least.over", "2/5"),
+            ("R-F19.percent.miss_at_least", "44"),
+            ("R-F19.miss_at_least_twice", "73349641357/1099511627776"),
+            ("R-F19.one_in.miss_at_least_twice", "15"),
+            ("R-F19.big.class", "300"),
+            ("R-F19.big.copied", "60"),
+            ("R-F19.big.variance", "225"),
+            ("R-F19.big.miss", "15"),
+            ("R-F19.big.miss_share", "1/20"),
+            ("R-F19.big.percent.miss_share", "5"),
+            ("R-F19.class.miss_share_2dp", "0.19"),
+            ("R-F19.class.percent.miss_share", "19"),
+            ("R-F19.class.one_in.miss_share", "5"),
+            ("R-F20.direct.points_2dp", "8.94"),
+            ("R-F20.direct.points", "9"),
+            ("R-F20.coins.points_2dp", "21.33"),
+            ("R-F20.coins.points", "21"),
+            ("R-F20.match.exact", "455/4"),
+            ("R-F20.match", "114"),
+            ("R-F20.match.points_2dp", "8.93"),
+            ("R-F21.average_yes", "4"),
+            ("R-F21.twice_yes", "8"),
+            ("R-F21.average_estimate", "-2"),
+            ("R-F21.bias", "-6"),
+            ("R-F21.share_mean", "-1/10"),
+            ("R-F21.asked", "20,100,300"),
+            ("R-F22.asks", "100"),
+            ("R-F22.yes", "75"),
+            ("R-F22.no", "25"),
+            ("R-F22.excess", "50"),
+            ("R-F22.ratio", "717897987691852588770249"),
+            ("R-F22.ratio_digits", "24"),
+            ("R-F22.posterior_no", "1/717897987691852588770250"),
+            ("R-F22.zeros", "23"),
+            ("R-F23.per_person", "3/4"),
+            ("R-F23.checked_sizes", "1,2,7,20,24"),
+            (
+                "R-X6.rappor.compliance",
+                "an assumption that may not hold for human subjects",
+            ),
+            ("R-X7.rappor.year", "2014"),
+            ("R-X7.rappor.memoized", "Permanent randomized response"),
+            ("R-X7.rappor.each_report", "Instantaneous randomized response"),
+            (
+                "R-X7.rappor.deployment",
+                "limited deployment in Google's Chrome Web browser",
+            ),
+            ("R-X8.rappor.prior", "irrespective of any attacker's prior knowledge"),
         ] {
             assert_eq!(f.get(key), Some(value), "{key}");
         }

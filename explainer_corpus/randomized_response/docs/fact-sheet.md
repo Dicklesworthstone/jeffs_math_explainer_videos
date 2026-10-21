@@ -6,6 +6,45 @@ computes each from `src/model.rs`; `oracle.py` recomputes each by its own
 method; `./x randomized_response facts-check` compares them key by key.
 Pinned rows also match a literal from the named primary source.
 
+## Line ids: the five-chapter arc in the thirteen-chapter video
+
+The sections after this one were written for the five-chapter arc, and their
+"where" cells use its line ids. The thirteen-chapter video (grant 2246) moves
+those lines as follows:
+
+| five-chapter ids | thirteen-chapter ids |
+|---|---|
+| 01_1, 01_2 | 01_1, 01_2 |
+| 01_3, 01_4 | 02_1, 02_2 (reworded: "a fair coin", "a second fair coin, independent of the first") |
+| 01_5 to 01_10 | 03_1 to 03_6 |
+| 01_11 and its card | 02_6 and its card |
+| 02_1, 02_2 | 05_1, 05_2 (02_2 shortened) |
+| 02_3 | 02_7 (redrafted) |
+| 02_4 to 02_11 | 05_3 to 05_10 |
+| 03_1 to 03_7 | 06_1 to 06_7 |
+| 03_8 | 07_2 and 07_3 (split) |
+| 03_9, 03_10 | 08_1, 08_4 |
+| 04_1 to 04_8 | 10_1 to 10_8 |
+| 04_9 to 04_11 | 11_4 to 11_6 (the memo card arrives at 11_5) |
+| 05_1 to 05_10 | 12_1 to 12_10 (12_8 redrafted to point back to chapter 01) |
+
+## The thirteen-chapter video's new facts
+
+| key | value | where | how it is obtained |
+|---|---|---|---|
+| `R-F17.direct.average_yes`, `.coin_alone.average_yes`, `.rule.average_yes`, `.rule.at_none`, `.rule.at_all` | 4, 10, 7, 5, 15 | chapter 01's chart: the direct question's line, a coin alone's, the rule's | each person's chance of a yes, summed (`model::average_yes`) |
+| `R-F18.class`, `.yes`, `.forced_yes`, `.left`, `.estimate` | 40, 18, 10, 8, 16 | 04_6, 04_7 and their working | `model::undo(18, 40)` |
+| `R-F18.unbiased_every_k`; `.shown.yes`, `.shown.estimate` | true; 9, 8 | 04_5 "right on average"; the shown run's 9 yes, estimate 8 | the mean over every copier count 0 to 20; run 4 of the seeded runs |
+| `R-F19.miss_by`, `.miss_at_least`, `.percent.miss_at_least`, `.miss_at_least_twice`, `.one_in.miss_at_least_twice` | 4, 239955963659/549755813888, 44, 73349641357/1099511627776, 15 | chapter 07's bound card ("not a bound") | the exact yes-count distribution's tails (`model::p_miss_at_least`) |
+| `R-F19.big.class`, `.big.copied`, `.big.variance`, `.big.miss`, `.big.miss_share`; `R-F19.class.miss_share_2dp` | 300, 60, 225, 15, 1/20; 0.19 | 07_7's mean marker at 60 with its ±15 bracket and share bars; the sizes card | 3n/4 at n = 300; the share is the miss over n |
+| `R-F20.direct.points`, `.coins.points`, `.match.exact`, `.match` | 9, 21, 455/4, 114 | 08_2 "nine percentage points", "twenty-one"; 08_3, 08_4 | the share's standard deviation at 1/5 for twenty direct and twenty coin answers; coin answers matching twenty direct ones |
+| `R-F21.average_yes`, `.twice_yes`, `.average_estimate`, `.bias`, `.share_mean`, `.asked` | 4, 8, −2, −6, −1/10, 20,100,300 | chapter 09: the four always say no; the −2 line; the small chart | `model::yes_count_distribution_copiers_say_no`, brute-forced at (20,4), (20,0), (28,8), (24,24) |
+| `R-F22.asks`, `.yes`, `.no`, `.ratio`, `.ratio_digits`, `.posterior_no`, `.zeros` | 100, 75, 25, 3⁵⁰, 24, 1/(3⁵⁰ + 1), 23 | 11_2, 11_3 "twenty-three zeros after the decimal point" | each yes multiplies the odds by 3, each no divides by 3; from even odds |
+| `R-F23.per_person`, `.checked_sizes` | 3/4, 1,2,7,20,24 | 13_4 "the square root of three quarters of the class" | the estimate variance is 3n/4 for every copier count, checked exactly at those sizes |
+| `R-X6.rappor.compliance` | "an assumption that may not hold for human subjects" | 09_6 and its card | **pinned**: RAPPOR (arXiv 1407.6981v2, CCS 2014) §1 |
+| `R-X7.rappor.year`, `.memoized`, `.each_report`, `.deployment` | 2014; "Permanent randomized response"; "Instantaneous randomized response"; "limited deployment in Google's Chrome Web browser" | 11_7 and its card | **pinned**: RAPPOR page 1, §1.1, §1.3, §2 |
+| `R-X8.rappor.prior` | "irrespective of any attacker's prior knowledge" | 02_8's scope | **pinned**: RAPPOR §1 |
+
 ## Chapter 01: numbers
 
 | key | value | where | how it is obtained |
