@@ -483,7 +483,8 @@ impl SceneConstruct for CoinsChoose {
         // the card that stood since 03_3 has been read before the next one
         wait_until(stage, fixed_up + read_s(FIXED_CARD))?;
         fade_out_all(stage, &[fixed], 0.3)?;
-        let c_kept = keep_columns(stage, &open.c, &FIRST_TOSS, 1.0)?;
+        // C's kept-column outlines stay to the end; the chapter's fade clears them
+        keep_columns(stage, &open.c, &FIRST_TOSS, 1.0)?;
         let cr = add_heads(&kit, stage, &open.c, &FIRST_TOSS, &first.cr, palette::claim(), 1.0)?;
         let name_cr = kit.tex(stage, NAME_CR, NAME_SIZE, palette::claim(), &[], v(C_X, WORK_NAME_Y))?;
         fade_in_all(stage, &[name_cr], 0.3)?;
@@ -747,7 +748,7 @@ impl SceneConstruct for EightTosses {
         fade_in_all(stage, &[caught], 0.4)?;
 
         // 04_6: a count is a chance when every toss is equally likely
-        let line = say(&kit, stage, "04_6")?;
+        say(&kit, stage, "04_6")?;
         let mut leaving = coin_mobs(&coins);
         leaving.extend(kept);
         leaving.extend(sum.mobs());
