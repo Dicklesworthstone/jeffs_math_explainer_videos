@@ -18,17 +18,33 @@ One tiny example runs through the video: **the face**, a 5 × 5 picture
 (rows 01010, 01010, 00000, 10001, 01110), whose row counts 2, 2, 0, 2, 3 and
 column counts 1, 3, 1, 3, 1 fit 64 pictures. The same row counts with column
 counts 5, 1, 1, 1, 1 (same total) fit none. A tree (row counts 1, 3, 5, 1, 1;
-column counts 1, 2, 5, 2, 1) fits exactly one. So the two questions, *does any
+column counts 1, 2, 5, 2, 1) fits exactly one, and reasoning one row or column
+at a time rebuilds it; on the face's shadows the same reasoning settles only
+the empty row. Rows and columns 4, 4, 1, 1, 1 fit nothing although no row or
+column settles a square and each column alone has room: the two columns of four
+ask for eight, the rows can give them seven. So the two questions, *does any
 picture fit?* and *is it the only one?*, are kept apart from the first chapter
-on.
+on, and the video ends on what a program can promise from two shadows.
+
+The owner's 2026-10-20 direction is a complete episode of 10 to 15 minutes;
+this storyboard is the accepted eleven-chapter expansion
+(`narration_lab/.../duration-and-storage-20261020/PinkDuck/EXPANSION.md`,
+root's decisions of 2026-10-20). Chapter lengths below are estimates, not
+measurements; no narration of the new lines exists.
 
 | Chapter | Spine | Status |
 |---|---|---|
-| `01_same_shadows` | the face and its two shadows; hidden, could another picture cast them? (prediction); the other picture differs at a rectangle's alternating corners, and swapping filled and empty there keeps every count: a switch; 64 pictures fit, each within 3 switches of the face (Ryser's theorem on the card); the face's rows with columns 5, 1, 1, 1, 1 fit nothing, because that column needs a square in every row and the middle row is empty; the two questions | source and silent visuals verified by root on 2026-10-19 at 6bae9ea (`.9.1`: strict clippy, tests, 48/48 oracle facts, glyph probe, a 540p30 silent draft with no layout findings, cue-end and question/reveal frames read); no narration or audio exists or is claimed |
-| `02_water_through_the_grid` | Gale's network drawn on the grid itself: each row a tap that lets out its count, each square a pipe carrying at most one unit down into its column, each column a drain holding at most its count; the method's real augmenting paths, one unit each (`model::max_flow` records them, `model::replay` rebuilds and checks every state); eight go straight down, then the bottom row is stuck without taking back (prediction); the ninth unit takes the top row's unit back out of the first column, and the top row sends it to the fourth; every unit through, a picture with the face's shadows that is not the face, one of the 64; the water finds a picture whenever one exists and never says whether it is the only one | source and silent visuals verified by root on 2026-10-19 (`.9.2`): fmt, strict release all-target clippy, 35 tests, release build, 73/73 facts against the oracle's 31 checks; a silent 960x540 30 fps draft, 2,452 frames, 81.73 s by scratch-voice timing, no layout findings; all 9 cue ends, 12 frames of the first and ninth units in transit (counters leave and arrive correctly, the fourth column's unit in transit before "through: 9 of 9"), 6 prediction and reveal frames (the answer held back through the hold) and all 5 glyph pages read; the take-back trace and counters independently reviewed; no narration or audio exists or is claimed |
-| `03_where_the_water_stops` | the face's rows with columns 5, 1, 1, 1, 1: the method's real units, eight straight down, then the stop (prediction: could taking water back get the ninth through?); no: the first column needs five, each row sends it at most one, only four rows have water; everywhere the water can still go, taking back included, misses that column, and the cut there lets four units into it and four out of the other drains, eight in all (`facts::no_fit_flow`, `Flow::cut`); any k columns get at most min(count, k) from a row; Gale's table, the k largest columns against what the rows can give (`model::gale_table`); with equal totals the test is complete, because the columns the water cannot reach always ask too much; the face's shadows pass and 64 pictures fit: the test decides feasibility, not uniqueness | source and silent visuals verified by root on 2026-10-19 (`.9.3`). First native run: fmt, strict clippy, 43 tests, 96/96 facts against the oracle's 38 checks, 69 glyph sources. An independent image review of the first draft found three faults: teal reach strokes crossing the cut-off first column, a reach label cut short ("taking back") and the 218-character Gale card whole for only 7.27 s, mostly under speech. All three were repaired in this lane. After the repairs: fmt, strict clippy, a build, the 4 changed scene tests (the other 40 unchanged) and 68 glyph sources without failure. Silent draft06: 2,591 frames at 30 fps, 86.37 s by scratch-voice timing (sha256 `dd54be19d333…`), empty layout lint; the reach and theorem frames were read, and the 176-character card stands whole 11.93 s. It runs 1.37 s past 85 s for that reading hold, by root's decision. No narration or audio exists or is claimed |
-| `04_the_only_picture` | the water's picture for the face's shadows (chapter 02's) has twelve switches; swapping one's corners keeps every count, so a second picture fits; the tree's shadows only, and the method's real units build the tree itself (prediction: could another picture cast them?); no: a switch needs two rows that each have a filled square where the other is empty, and of any two of the tree's rows one has every square of the other, so the tree has no switch; any two pictures with the same shadows are joined by a chain of switches (Ryser 1957, Theorem 3.1, scoped on the card), and from the tree none can start, so it is the only one; the water answers whether any picture fits, a switch in its picture whether it is the only one (`model::switches`, `model::rows_nested`, `model::built_switches`, `facts::tree_flow`) | source and silent visuals verified by root on 2026-10-19 (`.9.4`, committed at fb90763): fmt, strict all-target clippy, 53 tests, 114/114 facts against the oracle, 93 glyph sources without failure and a build; silent draft07, 2,470 frames at 30 fps, 82.33 s by scratch-voice timing, empty layout lint, six frames and all nine glyph pages read by root; an independent frame review passed with no repairs (the tree's real rerouting, no answer during the prediction's hold, the 12 switches recounted, the nesting; the Ryser card whole 11.03 s, the closing questions with their answers 11.93 s and 9.13 s); no narration or audio exists or is claimed |
-| `05_a_third_shadow` | back to the face's 64 pictures and a third shadow: the counts along the diagonals that run from lower left to upper right; a switch keeps every row and column count but always changes a diagonal count (the opening switch takes a square from two diagonals and gives both to a third); every one of the 64 tested against the face's diagonal counts (prediction: how many pass?); two pass, the face and one other picture, six squares apart, every row, column and diagonal through them losing one square and gaining one; here even three shadows lie; the two questions kept apart, inside a bounded model (`model::diagonal_counts`, `facts::diagonal_survivors`). No complexity claim and no comparison with real scanners: the complexity paper (Gardner, Gritzmann and Prangenberg 1999) could not be read in the original | source and silent visuals verified by root on 2026-10-19 (`.9.5`): fmt, strict clippy, 59 tests, a build, 136/136 facts and 102 glyph sources without failure, the 20 pinned inputs unchanged; an independent source and mathematics review passed (an independent recount of the 64, the diagonals, the survivors and the six squares). Draft09's frames passed except the "2 of 64" caption, readable about 0.45 s; after that repair and the card's "one diagonal direction", fmt, strict clippy, the 4 changed scene tests, a build and a render passed. Silent draft10: 2,116 frames at 30 fps, 70.53 s by scratch-voice timing (sha256 `be0a3f0f29d0…`), empty layout lint, eight frames read by root; the independent frame review measured the caption readable about 18.6 s with the right-hand picture's timing unchanged and no answer before the hold ends (a five-frame overlap of the caption's two copies as it moves is a known cosmetic note). No narration or audio exists or is claimed |
+| `01_same_shadows` | the face and its two shadows; hidden, could another picture cast them? (prediction); the switch; 64 pictures within 3 switches (Ryser's theorem on the card); the face's rows with columns 5, 1, 1, 1, 1 fit nothing; the two questions | unchanged since root's verification (`.9.1`, 6bae9ea) and the F2/F6 repair (`ec5eb74`); narrated in review01 (unaccepted) |
+| `02_square_by_square` | why shadows (Batenburg's nanocrystal motivation, scoped); the title; reasoning one row or column at a time settles every square of the tree; on the face it settles the empty row and nothing else (prediction); twenty squares filled in some of the 64 and empty in others | new source, 2026-10-20, uncompiled |
+| `03_water_through_the_grid` | trying every picture (prediction: how many?) does not scale; the plumbing; both directions of the water's promise; one unit at a time, slowed so each is followed | 02_1 to 02_4's source kept; new beats uncompiled |
+| `04_taking_water_back` | stuck at eight (prediction); take back; it keeps every count; in the picture one square empties and two fill; the water always finishes; one of the 64; never says whether the only one | 02_5 to 02_9's source kept; new beats uncompiled |
+| `05_where_the_water_stops` | the face's rows with 5, 1, 1, 1, 1: stops at eight (prediction); where the water can still reach; every unit must leave it through four pipes or four drains; one column asks too much | 03_1 to 03_3's source kept; new beats uncompiled |
+| `06_a_group_that_asks_too_much` | 4, 4, 1, 1, 1: no square forced, each column alone has room (prediction: does a picture fit?); the two columns of four ask eight, the rows can give seven; the water stops at ten and cuts off exactly that pair; Gale's table; why the hungriest group of each size suffices | new source, uncompiled |
+| `07_why_the_test_never_misses` | the cut argument on 06's numbers, 3 + 4 + 3; whenever the water stops short; the Gale card; equal totals (prediction: rows 2, 2 with columns 1, 1); the face passes | 03_7, 03_8's words kept; new source, uncompiled |
+| `08_the_only_picture` | twelve switches; the tree's water (prediction, a callback to 02); nesting; a switch is what stopped the reasoning; about one 4 × 4 picture in ten is alone | 04_1 to 04_6's source kept (F3, F5); new beats uncompiled |
+| `09_chains_of_switches` | two 3 × 3 pictures six squares apart (prediction: one switch?); two switches; Ryser's theorem as the tree's missing step; the 64 reached by switches, a way to list them | new source, uncompiled |
+| `10_more_shadows` | the diagonal shadow (05_1 to 05_6, F1/F2); 48 of the 64 alone with three shadows, not the face; the mirror and the other diagonals; both diagonals single out the face, this picture only | 05_1 to 05_6's source kept; new beats uncompiled |
+| `11_what_two_shadows_promise` | four steps a program can follow; the face (prediction: what does it report?); what no program can say; the two questions, the bounded model | new source, uncompiled |
 
 ## Vocabulary (one word per idea)
 
@@ -41,13 +57,21 @@ voice); **count** (how many filled squares one row or column holds); **shadow**
 rows, two columns, corners alternating filled and empty, swapped; the
 literature's "interchange" or "switching component" is named in the
 description, not the video); **total** (all the squares one shadow counts).
-From chapter 02: **tap** (where a row's water comes in; never "source"),
+From chapter 02: **reasoning** (settling a square from one row's or one
+column's count alone), **sure** and **decided** and **settle** (a square every
+picture that fits agrees on), **guess** (a choice the shadows do not force).
+From chapter 03: **tap** (where a row's water comes in; never "source"),
 **pipe** (a square seen as plumbing), **drain** (where a column's water
 leaves; never "sink"), **unit** (one unit of water: one filled square),
 **wet** and **dry** (a pipe carrying a unit or not), **path** (one unit's way
 from a tap to a drain), **room** (what a pipe can still carry), **take back**
 (water pushed back out of a pipe; the literature's "reverse edge" or
-"residual capacity" is named in the description, not the video).
+"residual capacity" is named in the description, not the video), **search**
+(one breadth-first look for a path). From chapter 05: **area** (everywhere the
+water can still reach, drawn in teal). From chapter 06: **group** and **pair**
+(columns taken together). From chapter 09: **chain** (switches one after
+another). From chapter 10: **mirror** (the face reversed left to right). From
+chapter 11: **program** (any procedure that sees only the shadows).
 
 ## Color roles
 
@@ -55,12 +79,12 @@ from a tap to a drain), **room** (what a pipe can still carry), **take back**
 |---|---|
 | a filled square, in every picture and every thumbnail | blue `#58C4DD` |
 | a switch: its rectangle, its corners' rings, its word | `hero` gold `#FFD866`, strokes and words only |
-| a route along rows and columns: a beam counting (01), a unit of water's path (02) | teal `#5CD0B3`, strokes only |
-| water taken back out of a square, and the way it goes back (02) | purple `#9A72AC` |
-| a count that matches the face's | green `#83C167` |
+| a route along rows and columns: a beam counting (01, 02), a unit of water's path (03 on), where the water can still reach (05, 06) | teal `#5CD0B3`, strokes only |
+| water taken back out of a square, and the way it goes back (04) | purple `#9A72AC` |
+| a count that matches the face's, a line reasoning has settled (02) | green `#83C167` |
 | what no picture can do: the count it fails, the cross, "no picture fits" | red `#FC6255` |
 | counts, questions | `ink` |
-| grid lines, labels, tags | `faint` and `dim` |
+| grid lines, labels, tags, squares reasoning has emptied (02) | `faint` and `dim` |
 
 ## 01_same_shadows: The same shadows (~83 s)
 
@@ -114,298 +138,385 @@ from a tap to a drain), **room** (what a pipe can still carry), **take back**
   selects no synthesis route: the owner rejected the first-wave narration on
   2026-10-19, and nothing from this lane has been synthesized.
 
-## 02_water_through_the_grid: Water through the grid (~83 s)
+## 02_square_by_square: Square by square (~76 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 02_1 | Turn the grid into pipes. Each row's tap lets out its count in units of water. | The empty five by five grid on the left; on "Each row's tap", a counter left of each row, 2, 2, 0, 2, 3 *(face.rows)*, under the dim label "to send"; on the right, "tap: lets out its row's count" | lagged reveal, grid | |
-| 02_2 | A unit runs along its row, turns down through a square, and drains out of that column. | A counter under each column, 1, 3, 1, 3, 1 *(face.cols)*, label "to drain"; the method's first real unit *(trace, path 1: top row, first column)*: a blue drop appears at the top row's tap as its counter drops to 1, runs in along the top row, the first square fills on "turns down", and on "drains out" the drop falls into the first drain, whose counter drops to 0 as it arrives | lagged reveal, motion | |
-| 02_3 | A square carries at most one unit, and each drain holds at most its count. Get every unit through, and the wet squares are a picture that fits. | The wet square flashes, "square: carries at most 1 unit" *(square)*; on "each drain holds", the drain counters flash, "drain: holds at most its column's count"; on "Get every unit through", "every unit through: a picture that fits" and the counter "through: 1 of 9" | highlight | |
-| 02_4 | Send one unit at a time, along any path with room. | The legend gives way to a "for programmers" lower-third (each unit takes a path found breadth first: in from a tap with water left, forward into dry squares, back out of wet ones, down into a drain with room); units 2 to 8 of the real trace, quickly: each route comes in teal as its tap counts down, its square fills, and the route goes as its drain counts down and "through" counts up *(trace, paths 2 to 8)* | lower-third (code), highlight | |
-| 02_5 | Eight are through. The bottom row has one left, but its dry squares lead to full drains. ⟨predict⟩ Is the water stuck? | The card goes; "through: 8 of 9" *(before.through)*; on "The bottom row", its tap's 1 flashes *(stuck.left)*; on "its dry squares", teal routes from the bottom tap through its three dry squares to their drains, all at 0, which flash *(stuck.dry_full)*; the think ring, four seconds, the voice silent | highlight, tracker | |
-| 02_6 | No. Send it into the first column anyway, and take back the unit the top row sent there. | The ring goes; on "Send it into", a drop leaves the bottom tap, whose counter drops to 0, runs in along the bottom row and waits at the bottom-left square; on "take back", in one move, that square fills, a purple route runs up the first column, and the top row's square there empties into a purple drop: the top row's unit, taken back *(trace, path 9; takeback.column, takeback.row)* | motion, highlight | |
-| 02_7 | The top row sends that unit to the fourth column, which still needs one. Without taking back, this fill would have stopped one unit short. | On "sends that unit", the purple drop runs along the top row to the fourth square, which fills, and falls into the fourth drain, whose counter drops to 0 as it arrives: every counter reads 0, "through: 9 of 9" *(takeback.to_column, takeback.to_needs, through)*; on "Without taking back", dim "without taking back: 8 of 9" *(short)* | motion | |
-| 02_8 | The wet squares cast the face's shadows, but they aren't the face. They're one of the sixty-four. | The counters become the wet picture's counts, green: 2, 2, 0, 2, 3 and 1, 3, 1, 3, 1; on "but they aren't", white outlines on the face's nine squares over the water's picture, "outlined: the face" *(built.is_face)*; on "They're one of", chapter 01's gallery of 64 on the right, the face's frame white, the water's picture's frame green and flashing, "the water's picture is one of 64" *(built, built.fits, built.from_face)* | lagged reveal, highlight | |
-| 02_9 | Water finds a picture whenever one exists. It never says whether that's the only one. | A "precisely" lower-third: the water ends at a largest flow (Ford and Fulkerson, 1957); a picture fits exactly when both shadows share one total and the flow reaches it (Gale, 1957) *(ford_fulkerson, gale)*; on "It never says", the whole gallery flashes; a held beat, the fade | lower-third, highlight | |
+| 02_1 | This puzzle has a serious side. One reason people study it is rebuilding tiny crystals from counts of atoms along lines, often taken from only a few directions. | The title "Two Shadows Can Lie" at the top as an empty five by five grid fades in; teal beams sweep three rows and two columns, as in 01_2, and leave no counts (counting, not a scanner); on "tiny crystals", the title goes and a "precisely" lower-third: counting atoms along columns through a nanocrystal from few images (Batenburg, 2006, section 1.9.1), here flat grids and exact counts, no microscope *(batenburg)*; it stands its characters / 15 seconds from its fade-in, into 02_2. No picture of a crystal | lagged reveal, lower-third, grid | |
+| 02_2 | How would you rebuild a picture from its shadows? Start with the squares you can be sure of. | The card stays; on "squares you can be sure of", a legend on the right: a blue square "sure: filled", a small dim dot "sure: empty" | | |
+| 02_3 | Take the shadows of a tree. Rows of one, three, five, one and one, columns of one, two, five, two and one. | The card goes once read; on "Rows of", 1, 3, 5, 1, 1 right of the rows *(tree.rows)*; on "columns of", 1, 2, 5, 2, 1 under the columns *(tree.cols)*; every square undecided | lagged reveal | |
+| 02_4 | The row of five must be full, and so must the column of five. | On "The row of five", the middle row's five squares fill left to right and its 5 turns green; on "the column of five", the middle column's other four fill top to bottom and its 5 turns green *(reason.tree.full)* | lagged reveal, highlight | |
+| 02_5 | That already gives the first and last columns their one square, and the rows of one theirs. Everything else in them stays empty. | On "the first and last columns", their 1s turn green and dim dots fall on their other four squares; on "the rows of one", the three 1s turn green and dots fall on their remaining squares *(reason.tree.met)* | lagged reveal, highlight | |
+| 02_6 | The second row needs two more, and exactly two squares are left open. Every square is decided, and the picture is the tree. | On "exactly two squares", the second row's two open squares ring white, then fill; every count green; on "the picture is the tree", "every square decided" above the grid *(reason.tree.last, reason.tree.solved)* | highlight | |
+| 02_7 | Now the face's shadows. Its empty row is easy. All five squares there are empty. | The tree clears; the face's counts 2, 2, 0, 2, 3 and 1, 3, 1, 3, 1 round the empty grid *(face.rows, face.cols)*; on "Its empty row", the 0 turns green and dots fall on the middle row's five squares *(reason.face.steps)* | highlight | |
+| 02_8 | Then what? ⟨predict⟩ Can you be sure of any other square? | The think ring, four seconds, the voice silent, nothing moving | tracker | |
+| 02_9 | No. Every other square is filled in some of the sixty-four pictures, and empty in others. | The ring goes; on "Every other square", each of the twenty undecided squares shows how many of the 64 have it filled, shaded by that share: 12, 46, 12, 46, 12 in the first, second and fourth rows, 28, 54, 28, 54, 28 in the bottom row; "filled in how many of the 64" on the right *(reason.face.filled_in, reason.face.free)* | highlight | |
+| 02_10 | So reasoning row by row and column by column gets stuck here. Whatever you guess next, some of the sixty-four agree. | On "Whatever you guess", the top-left square rings white; on the right "filled: 12 of 64" and "empty: 52 of 64" *(reason.face.guess)*; a held beat, the fade | highlight | |
 
 ### Notes for 02
 
-- **The trace is the real one.** `model::max_flow` records every augmenting
-  path it sends (Ford and Fulkerson's labeling, breadth first; nodes scanned
-  in the order source, rows top to bottom, columns left to right, sink);
-  `model::replay` rebuilds the water from those paths alone and refuses any
-  path that visits a row or a column twice, wets a wet square, takes water
-  back from a dry one, overdraws a tap or overfills a drain. Those rules keep
-  every row and column balanced; the replay asserts that balance after every
-  path as an invariant they imply, not as a separately tested way to fail.
-  The scene draws only replayed states and, after every path, checks its wet
-  squares and every counter against them. `oracle.py` derives the same nine
-  paths with its own residual bookkeeping, checks each state with its own
-  rules, and shows its checker refuses broken paths, among them the cyclic
-  walk source, row 0, column 0, row 0, column 1, sink, which only the
-  no-repeat rule catches.
-- **Mid-path.** Between paths every drawn state is a flow (capacities kept,
-  every row and column balanced). A tap counts down when a drawn unit leaves
-  it; its drain and "through" count when that unit arrives; in between, the
-  unit in transit is its drop (02_2, 02_6, 02_7) or its route (02_4), so the
-  bottom tap reads 0 while its third unit is on its way. Inside the ninth
-  path the unit in transit is a drop: the blue
-  drop waits at the bottom-left square until "take back", when that square
-  fills and the top row's square in the same column empties in one move;
-  from then until the fourth square fills, the top row's two units are its
-  wet square and the purple drop; once it fills, the top row's two units are
-  its two wet squares, and the drop falling down the fourth column is that
-  column's unit in transit (three wet squares, two drained) until it reaches
-  the drain.
-- **Prediction (02_5).** The question ends unit 02u2; the think ring drains
-  for four seconds, the voice silent; "No." opens 02u3. Nothing moves the
-  ninth unit before "No."
-- **Feasible, not unique.** The water's picture fits (`DT-F8.built.fits`) and
-  is not the face (`DT-F8.built.is_face`); it is 3 switches from the face,
-  as far as any of the 64 (`DT-F8.built.from_face`). 02_9 says the method
-  never decides uniqueness; chapter 04 does, with switches.
-- **"Without taking back."** Exact for this fill: after the first eight
-  paths no row with water left has a dry square into a drain with room
-  (`DT-F8.before.forward_room` = false), so a fill that never takes back
-  stops at 8 of 9 (`DT-F8.short`).
-- **Sources.** Gale 1957 (the network and the equivalence with filling the
-  grid); Ford and Fulkerson 1957, Canad. J. Math. 9, 210–218 (read: the
-  labeling method on a matrix of room "diminished by the flow from P_i to P_j
-  and increased by the flow from P_j to P_i", its termination for whole-number
-  capacities, Lemma 1 that the result is a flow and Lemma 2 that it is a
-  largest one, with the labeled nodes giving a minimal cut). Breadth-first
-  labeling is the choice Edmonds and Karp (1972) analysed; that paper was
-  not read here, and the video does not name it.
-- **Budget.** 169 spoken words, 9 lines: about 83 s by the Golay measures
-  (2.6 words a second plus 0.4 s a line, thought gaps about 0.82 s, a think
-  window about 5.2 s, a tail of 2 s). Units 2 to 8 take about 2.7 s of
-  02_4's 4.6 s (0.39 s each: departure, square, arrival). Root's silent
-  draft, at scratch-voice timing, runs 81.73 s.
-- **Narration units.** 02u1 to 02u4 are a proposed grouping into whole
-  thoughts: the setup (02u1), the run of units ending on the prediction
-  question (02u2), the answer and the take-back (02u3), the picture and what
-  the water cannot say (02u4). Generation boundaries are not frozen; they may
-  change after an actual listening comparison. The owner's 2026-10-19
-  rejection of the first-wave narration applies, and nothing is synthesized.
+- **The reasoning is the model's own.** `model::line_solve` sweeps the rows
+  top to bottom and then the columns left to right, applying to each line
+  the first of two rules that fires (a count its filled squares already meet
+  empties the line's undecided squares; a count that needs every undecided
+  square fills them), until a whole sweep settles nothing; it stops at a
+  line whose count cannot be met. On the tree it makes eight deductions,
+  `r2+5, c0-4, c2+4, c4-4, r0-2, r1+2, r3-2, r4-2` (`DT-F12.tree.steps`), and
+  settles every square. The scene voices them grouped (the two full lines;
+  the lines whose count is met; the last row) and checks with
+  `model::deduce` that each, in that order, is the same deduction.
+- **The face.** The same rules settle only the middle row (`r2-5`,
+  `DT-F12.face.steps`), with no contradiction. By enumeration the only
+  squares alike in all 64 pictures are those five (`DT-F12.face.forced`), so
+  "Every other square is filled in some … and empty in others" is exact;
+  each of the twenty is filled in 12 to 54 of the 64 (`DT-F12.face.filled_in`)
+  and empty in at least 10, so any one next guess agrees with some of the 64.
+  Nothing is claimed about a run of guesses, nor about reasoning in general.
+- **Prediction (02_8).** The question ends unit 02u3; the think ring drains
+  for four seconds, the voice silent; "No." opens 02u4. No number appears
+  before "No."
+- **02_1's source.** Batenburg 2006, §1.9.1, pp. 31–32 (read 2026-10-20 by
+  PinkDuck; verified by root): a technique "made it possible to count the
+  number of atoms in each projected column of a nanocrystal", rebuilding the
+  atoms' positions from such counts was "one of the main envisioned
+  applications", and "recording many images is often impossible". The line
+  claims only that; the card keeps the video's exact-grid scope. The card
+  writes "section" (no "§" glyph is probed).
+- **The title.** "Two Shadows Can Lie" stands from the chapter's first frame
+  until the card replaces it on "tiny crystals"; it adds no time.
+- **Narration units.** 02u1 (02_1, 02_2), 02u2 (02_3 to 02_6), 02u3 (02_7,
+  02_8), 02u4 (02_9, 02_10). A text plan; nothing is synthesized.
 
-## 03_where_the_water_stops: Where the water stops (~83 s)
+## 03_water_through_the_grid: Water through the grid (~62 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 03_1 | Back to the shadows no picture fits. The face's rows, and columns asking for five, one, one, one and one. | Chapter 02's plumbing: the empty grid, the taps 2, 2, 0, 2, 3 *(face.rows)*; on "and columns asking", the drains 5, 1, 1, 1, 1 *(no_fit.cols)* and "through: 0 of 9"; then the method's real units, eight, each route coming in as its tap counts down, its square filling, its drain and "through" counting as it arrives *(no-fit trace)* | lagged reveal, highlight | |
-| 03_2 | The water stops at eight of nine. ⟨predict⟩ Could taking water back get the ninth through? | On "stops at eight", "through: 8 of 9", the bottom tap's 1 and the first drain's 1 flash *(flow, left)*; the think ring, four seconds, the voice silent, nothing moving | highlight, tracker | |
-| 03_3 | No. The first column needs five, but each row sends it at most one, and only four rows have water. | The ring goes; on "The first column", a red outline round it and "asks 5" under its drain *(first.needs)*; on "each row sends", a ring on each of its five squares, one per row; on "only four rows", a red cross on the middle row's square there, and that row's 0 flashes *(rows_with_water)* | highlight | |
-| 03_4 | Taking back just moves water between pipes. Four into the first column, four out of the other drains. Eight is all that can pass. | Teal strokes along every row and column the water can still reach, taking back included: every row with water and every column but the first *(reached)*, each row's stroke running over the reached columns only and stopping clear of the first column's red outline, "where the water can still go, taking back included"; on "Four into", the four wet squares in the first column flash, "4 pipes into the first column" *(cut.into_unreached)*; on "four out of", the other four drains flash, "4 out of the other drains" *(cut.reached_drains)*; on "Eight is all", "4 + 4 = 8, all that can pass" *(cut)* | highlight | |
-| 03_5 | Count any group of columns this way. Each row gives it at most one square per column, and no more than its count. | The strokes and words go; on the right, Gale's table: "k" 1 to 5 and "rows can give"; on "Each row gives", "a row gives k columns at most min(its count, k)" and the row of what the rows can give, 4, 8, 9, 9, 9 *(gives)* | table, lagged reveal | |
-| 03_6 | If the group asks for more than the rows can give, no picture fits. Checking the hungriest group of each size is enough. | "largest columns first", 5, 1, 1, 1, 1 *(sorted)*, and "the k largest ask", 5, 6, 7, 8, 9 *(asks)*; on "no picture fits", the first size's 5 and 4 turn red *(failing)*; on "the hungriest", the largest-first row flashes | table, highlight | |
-| 03_7 | With equal totals, that test never misses. When water stops short, the columns it can't reach always form a group that asks too much. | The last size's 9 and 9 turn green, "equal totals" over them *(totals)*; on "When water stops short", a "precisely" lower-third (a picture fits exactly when row and column totals match and, for every k, the k largest columns ask for at most the sum over rows of min(row count, k); Gale, 1957; Ryser, 1957) *(gale, ryser)*, and the red first column, its "asks 5" and the red 5 and 4 flash together; the card stands whole, the line finished, until 11.7 s after its fade-in (176 characters at 15 a second) | lower-third, highlight | |
-| 03_8 | The face's shadows pass, and sixty-four pictures fit them. The test says that one fits, not which, and not whether only one. | The water, marks and card clear; the taps and drains become the face's, 2, 2, 0, 2, 3 and 1, 3, 1, 3, 1, and the table its columns, 3, 3, 1, 1, 1, asking 3, 6, 7, 8, 9 against 4, 8, 9, 9, 9, all green *(face.sorted, face.asks, face.gives)*; on "sixty-four", "64 pictures fit these shadows" *(fits)*; on "The test says", "it says one fits, not which, not whether only one"; a held beat, the fade | table, highlight | |
+| 03_1 | Why not try every picture? Each square is filled or empty. ⟨predict⟩ How many pictures does this grid have? | The empty five by five grid on the left; on "Each square is filled", one square fills and empties again; the think ring, four seconds, the voice silent | tracker | |
+| 03_2 | Two choices for each of twenty-five squares, over thirty-three million. On a twenty by twenty grid, the count has a hundred and twenty-one digits. Trying every picture doesn't scale. | The ring goes; on "Two choices", "2 choices for each of 25 squares" on the right; on "over thirty-three million", "33,554,432 pictures" *(count.pictures)*; on "twenty by twenty", "20 by 20: a count 121 digits long" *(count.big)* | | |
+| 03_3 | Here's a method that never guesses. Turn the grid into pipes. Each row's tap lets out its count in units of water. | On "Turn the grid", the words go; on "Each row's tap", a counter left of each row, 2, 2, 0, 2, 3 *(face.rows)*, under the dim label "to send"; on the right, "tap: lets out its row's count" | lagged reveal, grid | |
+| 03_4 | A unit runs along its row, turns down through a square, and drains out of that column. | storyboard 02_2 of the five-chapter cut: the drain counters 1, 3, 1, 3, 1 *(face.cols)*, "to drain"; the method's first real unit *(trace, path 1)*: a drop leaves the top row's tap, runs in, the square fills on "turns down", and on "drains out" it falls into the first drain | lagged reveal, motion | |
+| 03_5 | A square carries at most one unit, and each drain holds at most its count. Get every unit through, and the wet squares are a picture that fits. | as before: the wet square flashes, "square: carries at most 1 unit" *(square)*; on "each drain holds", the drains flash, "drain: holds at most its column's count"; on "Get every unit through", "every unit through: a picture that fits" and "through: 1 of 9" | highlight | |
+| 03_6 | It works the other way too. Any picture that fits gets every unit through, one down each filled square. | The legend goes; on the right a small copy of the face drawn as plumbing, its own taps 2, 2, 0, 2, 3 and drains 1, 3, 1, 3, 1; on "one down each filled square", nine drops run at once, each along its row to one of the face's squares and down; its taps and drains read 0; "the face: every unit through" *(face)* | motion | |
+| 03_7 | So asking whether any picture fits is asking whether every unit can get through. | The copy goes; on the right "Does any picture fit?" and under it "Can every unit get through?", joined by a green "the same question" | highlight | |
+| 03_8 | Send one unit at a time, along any path with room. | The words give way to the "for programmers" lower-third (each unit takes a path found breadth first: in from a tap with water left, forward into dry squares, back out of wet ones, down into a drain with room); units 2 to 8 of the real trace at about 0.7 s each, so each can be followed *(trace, paths 2 to 8)*; the card stands until read, then the fade | lower-third (code), highlight | |
 
 ### Notes for 03
 
-- **The stop and the cut are the method's own.** The eight units are the
-  paths `model::max_flow` sent on these shadows (`facts::no_fit_flow`,
-  replayed by `model::replay`); none takes water back. When no path is left,
-  the rows and columns the labeling still reaches, taking back included,
-  are rows 0, 1, 3, 4 and columns 1 to 4 (`Flow::cut`; Ford and Fulkerson's
-  Lemma 2). Every unit that gets through crosses that cut: into the
-  unreached first column through one of the four reached rows' pipes, or
-  out of one of the four reached drains. So no flow, whatever it takes
-  back, gets past 4 + 4 = 8 (`DT-F9.cut`), the flow the method found.
-- **Prediction (03_2).** The question ends unit 03u1; the think ring drains
-  for four seconds with the voice silent and nothing on the board moving;
-  "No." opens 03u2.
-- **The general count (03_5).** A row of count r gives a group of k columns
-  at most one square each and at most r in all: min(r, k). Tested on every
-  group of columns of every 4 × 4 picture (`model` test) and by the oracle.
-- **Largest first (03_6).** For a fixed size k the rows can give the same,
-  Σ min(r, k), whichever k columns are chosen; the k largest ask the most,
-  so checking them checks every group of that size.
-- **Equal totals (03_7).** Rows 2, 2 with columns 1, 1 pass every size of
-  the table, yet their totals are 4 and 2 and nothing fits (`model` test):
-  the totals condition is separate, and the card states it.
-- **The card (03_7).** It keeps every condition: row and column totals
-  match; every k; the k largest columns (the sorted condition: the first k
-  of the counts sorted largest first, the table's second line); at most the
-  sum over rows of min(row count, k); Gale and Ryser. The first wording,
-  218 characters, stood whole only 7.27 s, mostly under speech (root's
-  draft, 2026-10-19). The card now has 176 characters on two lines, with
-  "min(row count, k)" never split. It holds until 176 / 15 = 11.7 s after
-  its fade-in, past the line's end; in root's draft06 it stands whole
-  11.93 s. Fifteen characters a second is the
-  corpus's provisional scene convention, not a listening measure.
-- **Why the test never misses (03_7).** With equal totals, if the water
-  stops short at flow F, the cut is worth F: the counts of the taps it
-  cannot reach, plus one unit for each pipe from a reached row into a
-  cut-off column, plus the counts of the reached drains. Since F is less
-  than the total, the cut-off columns ask for more than the unreached taps
-  plus those pipes, and that is at least Σ min(r, k) for k cut-off columns.
-  So the columns the water cannot reach always form a group asking too
-  much; checked on every 4 × 4 pair of shadows with equal totals (`model`
-  test) and on every 3 × 3 pair by the oracle.
-- **Feasible, not unique (03_8).** The face's shadows pass every size and 64
-  pictures fit them (`DT-F3.fits`). The test says a picture exists, not
-  which or how many; chapter 04 answers uniqueness with switches.
-- **Sources.** Gale 1957, p. 1080 (read: the dual sequence, the theorem, and
-  the flow into k columns, Σ min(a_i, k)); Ryser 1957, Theorem 2.1 (read: the
-  same condition as majorization); Ford and Fulkerson 1957, Lemma 2 (read:
-  the labeled nodes at termination give a minimal cut of the flow's value).
-- **Budget.** 172 spoken words, 8 lines: about 83 s by the Golay measures.
-  The eight units take about 3.1 s inside 03_1. The card's reading hold
-  adds silence after 03_7. Root's silent draft06 runs 86.37 s by
-  scratch-voice timing, 1.37 s past 85 s; root's direction (2026-10-19)
-  is that a slightly longer chapter is better than a rushed card. No
-  voice has measured it.
-- **Narration units.** 03u1 to 03u4 are a proposed grouping: the setup and
-  the question (03u1), the answer and the cut (03u2), the general count and
-  why it is complete (03u3), feasibility against uniqueness (03u4).
-  Boundaries are not frozen and nothing is synthesized.
+- **The count (03_1, 03_2).** A square is filled or empty (two choices,
+  `DT-F13.choices`), the grid has 25 squares, so 2^25 = 33,554,432 pictures
+  (`DT-F13.pictures`; "over thirty-three million", `DT-F13.millions`); a 20
+  by 20 grid has 2^400, a number 121 digits long (`DT-F13.big.digits`,
+  computed exactly by repeated doubling). "Doesn't scale" is the claim, not
+  "cannot be done": a computer can try 33 million pictures.
+- **Prediction (03_1).** The viewer can answer by the counting rule: two
+  choices, twenty-five times over. The question ends unit 03u1; "Two
+  choices" opens 03u2; no number appears before it.
+- **Both directions (03_5, 03_6).** A full flow's wet squares are a picture
+  that fits; any picture that fits is a full flow, one unit down each filled
+  square (Gale 1957, pp. 1079–1080, read; the fact sheet's non-numeric
+  claims). So "does any picture fit?" is "can every unit get through?".
+- **The units (03_8).** `send_paced` runs the real paths at a pace of 1.8
+  (about 0.7 s a unit); chapters 05, 06 and 08 keep the quick pace.
+- **The trace is the real one** (unchanged from the five-chapter cut's
+  chapter 02): `model::max_flow` records every augmenting path,
+  `model::replay` rebuilds and checks every state; the oracle derives the
+  same paths with its own bookkeeping.
+- **Narration units.** 03u1 (03_1), 03u2 (03_2, 03_3), 03u3 (03_4, 03_5),
+  03u4 (03_6, 03_7), 03u5 (03_8).
 
-## 04_the_only_picture: The only picture (~83 s)
+## 04_taking_water_back: Taking water back (~76 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 04_1 | Water builds one picture. Can that picture alone tell us whether it is the only one? | Chapter 02's grid on the left, the face's counts 2, 2, 0, 2, 3 left of the rows and 1, 3, 1, 3, 1 under the columns *(face.rows, face.cols)*; on "builds one picture", the water's picture from chapter 02, 01010/01100/00000/01010/10011, square by square, "the water's picture" above it *(built)* | lagged reveal, grid | |
-| 04_2 | It can. This one has twelve switches. Swap the corners of any of them, and every count stays. A second picture fits. | On "This one has", "12 switches" in gold and twelve separate thumbnails in a 4 by 3 grid, each with one computed switch's four corners ringed *(face.switches)*; on "Swap the corners", thumbnail 0 gets a gold frame and the main grid gets rings on that switch's corners, without a connector; all twelve thumbnails remain, and its filled corners empty as its empty corners fill *(face.first, face.second)*; on "every count stays", its two rows' and two columns' counts flash and every count turns green; on "A second picture", "a second picture, the same shadows" above the grid *(face.second.fits)* | highlight | |
-| 04_3 | Now the shadows of a tree. Rows of one, three, five, one and one, columns of one, two, five, two and one. The water builds a picture. | The second picture, its label, counts and switch thumbnails stay until the label has stood fully visible for its characters / 15 seconds, then fade together; on "Rows of", taps 1, 3, 5, 1, 1 left of the rows under "to send" *(tree.rows)*; on "columns of", drains 1, 2, 5, 2, 1 under the columns, "to drain", and "through: 0 of 11" *(tree.cols, tree.total)*; on "The water builds", the method's real units, eleven, each route coming in as its tap counts down and going as its drain and "through" count; the last takes the top row's unit back out of the first column and the top row sends it on to the middle one *(tree.trace, tree.takebacks)* | lagged reveal, motion | |
-| 04_4 | It is the tree itself. ⟨predict⟩ Could another picture cast the same shadows? | The counters, all 0, become the tree's counts, green; "through: 11 of 11" and the labels go; on "the tree itself", the wet squares flash and "the water's picture" stands above them *(tree.built.is_tree)*; the think ring, four seconds, the voice silent | highlight, tracker | |
-| 04_5 | No. A switch needs two rows that each have a filled square where the other is empty. | The ring goes; on "A switch needs", on the right a small copy of the face's water picture from 04_1 with its first switch's gold rectangle *(built, face.first)*; on "each have a filled square", gold rings on the switch's two filled corners, each in a column where the other row is empty, and "each row has a filled square" over "where the other row is empty", held into 04_6 for their full reading interval | highlight | |
-| 04_6 | But of any two rows in the tree, one has every square the other has. So the tree has no switch. | The small copy and its words stay on the right while, on "of any two rows", an outline round each tree row's squares, shortest first, each run inside the columns of every longer one *(tree.nested)*; once the small copy's words have stood fully visible for their characters / 15 seconds, they fade with the copy and "of any two rows, one has all the other's squares" appears; on "no switch", "0 switches among 100 rectangles" in gold *(tree.built.switches, tree.rectangles)* | lagged reveal, highlight | |
-| 04_7 | Any two pictures with the same shadows are joined by a chain of switches. From the tree, no chain can start, so no other picture fits. | A "precisely" lower-third: any two pictures of filled and empty squares on one grid with the same row counts and the same column counts are joined by a finite chain of switches (Ryser, 1957) *(ryser)*, held whole until it can be read; on "no other picture fits", "1 picture fits these shadows" in green *(tree.fits)* | lower-third, highlight | |
-| 04_8 | So the water answers whether any picture fits. A switch in the water's picture answers whether it's the only one. | The card, the outlines and the words go; on the right, chapter 01's two questions, each with its answer as it is spoken: "Does any picture fit?", "yes, exactly when the totals match and every unit gets through"; "Is it the only one?", "yes, exactly when the water's picture has no switch" *(questions)*; held until they can be read, then the fade | highlight | |
+| 04_1 | Eight are through. The bottom row has one left, but its dry squares lead to full drains. ⟨predict⟩ Is the water stuck? | Chapter 03's last state fades in: the eight wet squares, every counter, "to send", "to drain", "through: 8 of 9" *(before.through)*; on "The bottom row", its tap's 1 flashes *(stuck.left)*; on "its dry squares", teal routes from the bottom tap through its three dry squares to their drains, all at 0, which flash *(stuck.dry_full)*; the think ring, four seconds, the voice silent | highlight, tracker | |
+| 04_2 | No. Send it into the first column anyway, and take back the unit the top row sent there. | as before: on "Send it into", a drop leaves the bottom tap and waits at the bottom-left square; on "take back", in one move, that square fills, a purple route runs up the first column, and the top row's square there empties into a purple drop *(trace, path 9; takeback.column, takeback.row)* | motion, highlight | |
+| 04_3 | The top row sends that unit to the fourth column, which still needs one. Without taking back, this fill would have stopped one unit short. | as before: the purple drop runs to the fourth square, which fills, and falls into the fourth drain; every counter 0, "through: 9 of 9"; on "Without taking back", dim "without taking back: 8 of 9" *(takeback.to_column, takeback.to_needs, through, short)* | motion | |
+| 04_4 | Taking back breaks no count. The top row still sends two, the first column still drains one, and the fourth column gets the unit it was missing. | On "The top row still sends two", "top row: sends 2" on the right, green, as the top tap flashes; on "the first column still drains one", "first column: drains 1", as its drain flashes; on "the fourth column gets", "fourth column: 2 then 3", as its drain flashes *(reroute.counts)* | highlight | |
+| 04_5 | In the picture, one square emptied and two filled. The bottom row took over the first column, and the top row moved to the fourth. | On "one square emptied", a purple ring on the top-left square; on "two filled", blue rings on the bottom-left square and the top row's fourth *(reroute.emptied, reroute.filled)*; on "took over", a short teal route from the bottom tap to the first column; on "moved to the fourth", one from the top tap to the fourth column | highlight | |
+| 04_6 | Every search that finds a path sends one more unit, and there are only nine to send. So the water always finishes. | The rings, routes and words go; "through: 9 of 9" flashes; a "for programmers" lower-third: every path sends one unit; at most 9 send water (Ford and Fulkerson, 1957) *(paths, ford_fulkerson)*, standing its characters / 15 seconds from its fade-in | lower-third (code), highlight | |
+| 04_7 | The wet squares cast the face's shadows, but they aren't the face. They're one of the sixty-four. | as before: the counters become the wet picture's counts, green; on "but they aren't", white outlines on the face's squares, "outlined: the face" *(built.is_face)*; on "They're one of", chapter 01's gallery, the water's picture framed green, "the water's picture is one of 64" *(built, built.fits)* | lagged reveal, highlight | |
+| 04_8 | Water finds a picture whenever one exists. It never says whether that's the only one. | as before: the "precisely" card (Ford and Fulkerson, 1957; Gale, 1957) *(ford_fulkerson, gale)*; on "It never says", the gallery flashes; a held beat, the fade | lower-third, highlight | |
 
 ### Notes for 04
 
-- **The pictures are the method's own.** 04_1's picture is chapter 02's
-  water (`facts::face_flow`, replayed by `model::replay`), not a picture
-  chosen for the chapter; its 12 switches are `model::switches` of it, and
-  the one swapped is the first in order, rows 0 and 1 with columns 2 and 3
-  (`DT-F10.face.first`). The second picture differs from it in those four
-  squares and is one of the 64. The tree's picture is built by the method's
-  real eleven units on the tree's shadows (`facts::tree_flow`), the last
-  one taking water back; it is the tree itself (`DT-F10.tree.built`).
-- **One switch is enough (04_2).** A switch takes one square from each of
-  its two rows and two columns and gives one back (`DT-X1`, every switch of
-  every 4 × 4 picture), so it makes a different picture with the same
-  shadows: the water's picture is not the only one.
-- **Prediction (04_4).** The question ends unit 04u2; the think ring drains
-  for four seconds with the voice silent and nothing moving; "No." opens
-  04u3. A viewer who looks for an alternating rectangle in the tree finds
-  none.
-- **Why the tree has no switch (04_5, 04_6).** A switch needs two rows and
-  two columns with the corners alternating: each of the two rows has a
-  filled square in a column where the other is empty. If one row holds
-  every square the other holds, that cannot happen. So a picture has no
-  switch exactly when, of any two rows, one holds every square of the
-  other (`model::rows_nested`; `DT-X5` on every 4 × 4 picture, a `model`
-  test on every 4 × 4 and 3 × 5 picture). The tree's rows hold {2},
-  {1, 2, 3}, {0, …, 4}, {2} and {2}: nested. None of its 100 rectangles
-  alternates (the oracle reads every one corner by corner).
-- **The theorem, scoped (04_7).** Ryser 1957, Theorem 3.1: two m by n
-  matrices of 0s and 1s with equal row sum vectors and equal column sum
-  vectors are transformable into each other by a finite number of
-  interchanges. The card says it in the video's words, for pictures of
-  filled and empty squares on one grid with the same row counts and the
-  same column counts. A chain from the tree to another picture would start
-  with a switch of the tree; there is none, so the tree is the only picture
-  with its shadows (`DT-F6.tree.fits` = 1, by enumeration). The theorem
-  joins pictures by chains, not always by one switch: two 3 × 3 pictures
-  with one square in each row and column, six squares apart, are two
-  switches apart (`model` test; the oracle). It says nothing about more
-  than two directions, counts with noise, or continuous densities.
-- **The water's picture settles it (04_8).** Any picture that fits would
-  do; the water's is the one at hand. On every pair of 4 × 4 shadows some
-  picture casts, the flow's picture has no switch exactly when it is the
-  only one (`DT-X4`; `model::built_switches` and its test). Feasibility
-  (chapters 02 and 03: equal totals and the water getting every unit
-  through) and uniqueness (this chapter: no switch) are two questions with
-  two tests; chapter 05 takes up more shadows and the limits.
-- **Reading holds.** The card stands whole at least its characters / 15
-  seconds after its fade-in, and the closing questions and answers at least
-  theirs after the first fades in (the corpus's provisional scene
-  convention, not a listening measure).
-- **Sources.** Ryser 1957, Theorem 3.1 (read). Batenburg 2006, Theorem 2
-  (read; it cites Ryser's 1963 monograph, not read here) states the same
-  uniqueness criterion with switching components; here it is derived from
-  Theorem 3.1 directly, as above.
-- **Budget.** 161 spoken words, 8 lines: about 78 s by the Golay measures.
-  The eleven units run about 2.5 s past 04_3's last word, the card's hold
-  about 0.9 s past 04_7's and the closing hold about 2.7 s past 04_8's, so
-  about 84 s in all, near the 85 s limit; no voice has measured it.
-- **Narration units.** 04u1 to 04u4 are a proposed grouping: the question
-  and the switch (04u1), the tree and the prediction (04u2), the answer and
-  why (04u3), the two questions answered (04u4). Boundaries are not frozen
-  and nothing is synthesized.
+- **Taking back keeps every count (04_4, 04_5).** Before the ninth path the
+  wet squares are 11000/01100/00000/01010/00011 (`DT-F8.before.wet`); after
+  it, 01010/01100/00000/01010/10011 (`DT-F8.built`). Square (0, 0) empties,
+  (0, 3) and (4, 0) fill (`DT-F14.emptied`, `DT-F14.filled`); the top row
+  sends 2 before and after, the first column drains 1, the fourth goes from
+  2 to 3 (`DT-F14.*`). "Took over" and "moved to" describe exactly those
+  three squares.
+- **The water always finishes (04_6).** Each search that finds a path sends
+  one unit (`DT-F8.room`), and there are only as many units as the total
+  (9 here): at most nine searches send water and one more finds none
+  (`DT-F14.searches` = 10). Ford and Fulkerson 1957, pp. 212–213 (read:
+  termination because each step sends a positive whole number). The card
+  carries the short form root chose; the proof is in these notes and the
+  facts.
+- **Prediction (04_1).** The question ends unit 04u1; "No." opens 04u2.
+  Nothing moves the ninth unit before "No."
+- **The opening state.** The chapter opens on the replayed state after
+  eight paths (`model::replay`), drawn from the facts, not carried over
+  from chapter 03's frames.
+- **Narration units.** 04u1 (04_1), 04u2 (04_2, 04_3; the five-chapter cut's
+  02u3), 04u3 (04_4 to 04_6), 04u4 (04_7, 04_8; the old 02u4).
 
-## 05_a_third_shadow: A third shadow (~71 s)
+## 05_where_the_water_stops: Where the water stops (~60 s)
 
 | id | words | picture | features | hold/listen |
 |---|---|---|---|---|
-| 05_1 | Back to the face's sixty-four pictures. Take one more shadow and count the filled squares along each diagonal. | The face on the left, "the face" above it, its counts 2, 2, 0, 2, 3 left of the rows and 1, 3, 1, 3, 1 under the columns *(face.rows, face.cols)*; on "along each diagonal", teal beams run along the nine diagonals from lower left to upper right, one after another, and each leaves a faint diagonal guide behind the squares plus its count one step past its upper-right end: 0, 1, 1, 2, 1, 1, 1, 2, 0 *(face.diag)*, and the dim label "diagonal shadow" | lagged reveal, grid | |
-| 05_2 | A switch keeps every row and column count, but always changes a diagonal count. This one takes a square from two diagonals and gives both to a third. | On "A switch keeps", chapter 01's opening switch, its gold rectangle and rings; its filled corners empty as its empty corners fill, its label changes to "one switch away", and the row and column counts flash, unchanged *(switch)*; on "always changes", the diagonal counts it changes become the other picture's, red: 0, 3 and 1 *(twin.diag, twin.lose, twin.gain)*; on "This one takes", the two losing diagonals light teal behind their squares and their red counts flash; on "gives both", the gaining diagonal and its count do the same | highlight | |
-| 05_3 | So none of the fourteen pictures one switch from the face can pass. ⟨predict⟩ How many of all sixty-four do? | The switch is undone, "the face" label and its diagonal counts return, and the guides fade with the switch marks; chapter 01's gallery of 64 on the right, the face's frame white, "64 pictures with the face's rows and columns" above it *(fits)*; on "none of the fourteen", the fourteen thumbnails one switch from the face fade *(one_switch, one_switch.pass)*; on "all sixty-four", the face's diagonal counts flash; the think ring, four seconds, the voice silent, nothing moving | lagged reveal, tracker | |
-| 05_4 | Two. Sixty-two fail, but one other picture casts all three of the face's shadows. | The ring goes; on "Sixty-two fail", the other forty-eight that fail fade, and the caption becomes "2 of 64 cast the face's diagonal shadow too" *(survivors, dropped)*; on "one other picture", the gallery goes as that caption moves over the right side, where it stays, and the other picture stands on the right, "another picture" above it, its row, column and diagonal counts all green *(other)* | highlight | |
-| 05_5 | They differ in six squares. Each row, column and diagonal through them loses one square and gains one, so all three shadows stay the same. | On "six squares", gold rings on the six squares in both pictures *(other.differ)*; on "Each row", the three rows', three columns' and three diagonals' counts through them flash on the right, and "each row, column and diagonal through them: −1 +1" *(other.lines, other.loses, other.gains)*; on "all three shadows", every count on screen flashes | highlight | |
-| 05_6 | Two shadows left sixty-four pictures. A third still leaves two, so here even three shadows lie. | On "A third still leaves two", the "2 of 64" caption goes and "3 shadows, 2 pictures" stands above the two pictures *(shadows, survivors)* | highlight | |
-| 05_7 | So keep the two questions apart. Does any picture fit? And is it the only one? | The other picture, its counts and marks go; a "precisely" lower-third bounding the model: everything in this video is about 5 by 5 pictures of filled and empty squares, counted exactly along rows, columns and here one diagonal direction *(size)*; on the right, chapter 01's two questions, each with its answer for these three shadows as it is asked: "Does any picture fit?", "yes: the face, and one more"; "Is it the only one?", "no: 2 pictures cast all 3 shadows" *(questions, survivors, only_one)*; held until they can be read, then the fade | lower-third, highlight | |
+| 05_1 | Back to the shadows no picture fits. The face's rows, and columns asking for five, one, one, one and one. | as before: the empty grid, the taps 2, 2, 0, 2, 3 *(face.rows)*; on "and columns asking", the drains 5, 1, 1, 1, 1 *(no_fit.cols)* and "through: 0 of 9"; the method's real units, eight *(no-fit trace)* | lagged reveal, highlight | |
+| 05_2 | The water stops at eight of nine. ⟨predict⟩ Could taking water back get the ninth through? | as before: on "stops at eight", "through: 8 of 9", the bottom tap's 1 and the first drain's 1 flash *(flow, left)*; the think ring, four seconds, the voice silent, nothing moving | highlight, tracker | |
+| 05_3 | No. The first column needs five, but each row sends it at most one, and only four rows have water. | as before: a red outline round the first column and "asks 5" *(first.needs)*; a ring on each of its five squares; a red cross on the middle row's square there *(rows_with_water)* | highlight | |
+| 05_4 | Look at everywhere the water can still reach, taking back included. Every row with water, and every column but the first. | The rings go; on "Look at everywhere", teal strokes along every reached row (over the reached columns only, clear of the red outline) and every reached column, "where the water can still reach, taking back included" *(reached)* | highlight | |
+| 05_5 | Every unit that gets through must leave that area somewhere. Down a pipe into the first column, or out through one of the other drains. | On "must leave that area", the teal strokes flash; on "Down a pipe", the four wet squares in the first column flash *(cut.into_unreached)*; on "out through", the four other drains flash *(cut.reached_drains)* | highlight | |
+| 05_6 | Four pipes lead into the first column, and the other drains hold four. Taking back only moves water around inside, so eight is all that can pass. | On "Four pipes", "4 pipes into the first column"; on "the other drains", "4 out of the other drains"; on "eight is all", "4 + 4 = 8, all that can pass" *(cut)* | highlight | |
+| 05_7 | Here, the reason was a single column asking too much. | The strokes and words go; the red outline, "asks 5" and a new "rows with water: 4" flash *(first.needs, rows_with_water)*; a held beat, the fade | highlight | |
 
 ### Notes for 05
 
-- **The 64 are chapter 01's.** The pictures tested are exactly the ones
-  that fit the face's row and column counts (`facts::gallery`, the same 64
-  `model::fits` enumerates); the third shadow is `model::diagonal_counts`,
-  the squares on each diagonal from lower left to upper right (diagonal k:
-  row plus column equals k, nine of them on a 5 × 5 grid). The survivors
-  are `facts::diagonal_survivors`: the face and 01010/01100/00000/00011/11010,
-  two switches from the face.
-- **A switch always changes a diagonal count (05_2).** Its four corners
-  stand on three or four diagonals. The diagonal through its top-left
-  corner holds no other corner: rows r0 < r1 and columns c0 < c1 give
-  r0 + c0 less than each of r0 + c1, r1 + c0 and r1 + c1. So that diagonal
-  gains or loses a square, whichever way the switch goes (`DT-X6`: no switch
-  of any 4 × 4 picture keeps the diagonal shadow; a `model` test; none of
-  the face's 14 switches, `DT-F11.face.switches.keeping`). The opening
-  switch empties squares on diagonals 1 and 7 and fills two on diagonal 4.
-- **Prediction (05_3).** Because a single switch always changes a
-  diagonal count, none of the 14 pictures one switch from the face can pass
-  (`DT-F11.one_switch.pass` = 0); the viewer can reason that far. The
-  question ends unit 05u1; the think ring drains for four seconds with the
-  voice silent and nothing moving; "Two." opens 05u2. Nothing on screen
-  shows which of the other 50 pass before then.
-- **Six squares, every line balanced (05_5).** The face holds (1, 3),
-  (3, 0) and (4, 2); the other picture holds (1, 2), (3, 3) and (4, 0)
-  instead. Rows 1, 3 and 4, columns 0, 2 and 3 and diagonals 3, 4 and 6
-  each hold one square of each, so each loses one and gains one
-  (`facts::line_changes`; the oracle walks every line). It plays the part a
-  switch plays for two shadows; no general claim is made about such moves.
-- **What is and is not claimed (05_6, 05_7).** Only this example: with
-  rows, columns and these diagonals, two pictures fit the face's counts.
-  The video does not say that a third direction, or any number of
-  directions, settles uniqueness or fails to; it makes no claim about how
-  hard reconstruction is in general. For the notes only, this example
-  again: the other diagonal direction alone also leaves two of the 64, and
-  both diagonal directions together leave the face alone (the oracle).
-- **The complexity claim is omitted.** The planned line said
-  reconstruction from three or more directions is NP-hard in general
-  (Gardner, Gritzmann and Prangenberg, Discrete Mathematics 202 (1999)
-  45–71). On 2026-10-19 the original could not be read: the publisher's
-  page and its PDF returned 403 to this lane's fetches, and the two
-  university repositories found answered with a bot challenge, which was not
-  bypassed. Abstracts and secondary citations are not used as proof, so the
-  video says nothing about it; it can return if the paper is read and its
-  exact problem, directions and data assumptions are recorded.
-- **No scanner comparison.** The card bounds the model to the video's own
-  pictures and counts; nothing is said about real tomography.
-- **Reading holds.** The card stands whole at least its characters / 15
-  seconds after its fade-in, the closing questions and answers at least
-  theirs after the first fades in (the provisional scene convention). The
-  "2 of 64" result was first readable for only about 0.45 s in draft09
-  (independent frame review, 2026-10-19); it now stays over the other
-  picture from "one other picture" until 05_6's words replace it, without
-  delaying that picture.
-- **Budget.** 136 spoken words, 7 lines: about 67 s by the Golay measures,
-  about 71 s with the closing hold; no voice has measured it.
-- **Narration units.** 05u1 to 05u4 are a proposed grouping: the new shadow
-  and the question (05u1), the answer and the six squares (05u2), the
-  conclusion (05u3), the two questions (05u4). Boundaries are not frozen and
-  nothing is synthesized.
+- **The stop and the cut are the method's own** (as in the five-chapter
+  cut's chapter 03): the eight units are `facts::no_fit_flow`'s paths; the
+  rows and columns the labeling still reaches are rows 0, 1, 3, 4 and
+  columns 1 to 4 (`Flow::cut`; Ford and Fulkerson's Lemma 2). The only tap
+  the water cannot reach is the middle row's, count 0
+  (`DT-F9.cut.unreached_taps`), so every unit leaves the reach through one of
+  the four pipes into the first column or one of the four reached drains:
+  "Down a pipe … or out through one of the other drains" is exact here.
+- **Prediction (05_2).** The question ends unit 05u1; "No." opens 05u2.
+- **Narration units.** 05u1 (05_1, 05_2; the old 03u1), 05u2 (05_3), 05u3
+  (05_4 to 05_6), 05u4 (05_7).
+
+## 06_a_group_that_asks_too_much: A group that asks too much (~80 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 06_1 | Is checking each column on its own always enough? Try rows of four, four, one, one and one, and columns the same. | The plumbing again, empty; on "rows of four", taps 4, 4, 1, 1, 1 under "to send"; on "columns the same", drains 4, 4, 1, 1, 1 under "to drain", and "through: 0 of 11" *(stall.rows, stall.cols, stall.total)* | lagged reveal, grid | |
+| 06_2 | No count is zero or five, so no row or column forces a single square. And each column of four has five rows with water. ⟨predict⟩ Does any picture fit? | On "No count", "every count is between 1 and 4" on the right *(stall.counts)*; on "each column of four", "each column of 4: 5 rows with water", green *(stall.rows_with_water)*; the think ring, four seconds, nothing moving | highlight, tracker | |
+| 06_3 | No. Take the two columns of four together. They ask for eight squares. | The ring goes; one red outline around the first two columns together, "ask 8" under them *(stall.pair, stall.pair.asks)* | highlight | |
+| 06_4 | A row of four can give that pair at most two, one in each column. A row of one gives at most one. Two, two, one, one and one make seven. | On "A row of four", rings on the two squares of each row of four inside the pair and "2" beside those rows; on "A row of one", "1" beside each of the last three rows; on "make seven", "2 + 2 + 1 + 1 + 1 = 7, they ask 8" *(stall.pair.by_row, stall.pair.gives)* | highlight | |
+| 06_5 | Eight asked, seven possible. No picture fits, and those single-row and single-column checks didn't catch it. | "no picture fits" in red *(stall.fits)* | highlight | |
+| 06_6 | The water agrees. It stops at ten of eleven, and the columns it can't reach are exactly those two. | The rings and row numbers go; the method's real ten units, none taking water back *(stall.trace)*, "through: 10 of 11"; on "can't reach", teal strokes along the reached rows (the top two, over the last three columns) and the reached columns, the red outline flashing *(stall.reached, stall.cut_off)* | motion, highlight | |
+| 06_7 | Count any group of columns this way. Each row gives it at most one square per column, and no more than its count. | The words go; on the right Gale's table for these shadows: "k" 1 to 5 and "rows can give"; on "Each row gives", "a row gives k columns at most min(its count, k)" and 5, 7, 9, 11, 11 *(stall.gives)* | table, lagged reveal | |
+| 06_8 | If the group asks for more than the rows can give, no picture fits. Checking the hungriest group of each size is enough. | "largest columns first", 4, 4, 1, 1, 1, and "the k largest ask", 4, 8, 9, 10, 11 *(stall.sorted, stall.asks)*; on "no picture fits", size 2's 8 and 7 turn red *(stall.failing)*; on "the hungriest", the largest-first line flashes | table, highlight | |
+| 06_9 | For a given size, the rows can give every group the same. So the hungriest group is the one to check. | On "every group the same", two other pairs light in turn under the table, the first and third columns ("ask 5, rows can give 7") and the third and fourth ("ask 2, rows can give 7") *(stall.other_pairs)*; on "the hungriest", the largest-first line flashes; a held beat, the fade | table, highlight | |
+
+### Notes for 06
+
+- **The example (`model::STALL_ROWS`, `STALL_COLS`).** Rows and columns 4,
+  4, 1, 1, 1, both totals 11. Every count is between 1 and 4
+  (`DT-F15.counts`), so neither of chapter 02's rules fires on any line
+  (`DT-F15.settled` = 0, no contradiction): "no row or column forces a single
+  square" is exact. Each column of four has 5 rows with water, so each
+  column alone passes the single-column check. Nothing fits (`DT-F15.fits` =
+  0, enumeration). The first two columns ask 8; a row gives that pair at
+  most min(count, 2): 2, 2, 1, 1, 1, so 7 (`DT-F15.pair.*`). Gale's table
+  fails only at size 2 (`DT-F15.failing`).
+- **06_5, scoped.** "those single-row and single-column checks didn't catch
+  it" names the two checks the viewer has run (chapter 02's rules, and each
+  column against the rows with water); it is not a claim about every
+  possible method (root's wording, 2026-10-20).
+- **The water's stop is the method's own.** `facts::stall_flow` replays the
+  paths `model::max_flow` sends on these shadows: ten units, none taking back
+  (`DT-F15.trace`; the oracle derives its own). The rows and columns it still
+  reaches are rows 0, 1 and columns 2, 3, 4 (`Flow::cut`), so the columns cut
+  off are exactly the first two (`DT-F15.cut_off`), the bottleneck. The scene
+  draws whatever trace the model computes and checks the cut against the
+  bottleneck; the reach does not depend on the paths taken.
+- **06_9.** For a fixed size k the rows can give any k columns the same,
+  Σ min(r, k); for pairs, 7. The pairs shown, columns {0, 2} and {2, 3}, ask
+  5 and 2 (`DT-F15.other_pairs`); so the hungriest pair, the two largest
+  columns, is the one to check.
+- **Prediction (06_2).** The viewer has two honest checks that both pass;
+  the answer needs the new idea. The question ends unit 06u1; "No." opens
+  06u2.
+- **Narration units.** 06u1 (06_1, 06_2), 06u2 (06_3 to 06_5), 06u3 (06_6),
+  06u4 (06_7 to 06_9).
+
+## 07_why_the_test_never_misses: Why the test never misses (~74 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 07_1 | With equal totals, that test never misses. When water stops short, the columns it can't reach always form a group that asks too much. | Chapter 06's stopped water fades in: ten wet squares, the counters, "through: 10 of 11", the reach strokes and the red outline round the first two columns *(stall)*; on "the columns it can't reach", the outline flashes | highlight | |
+| 07_2 | Here's why, with the shadows we just tried. Those two columns can only be fed from the rows the water can't reach, which hold three units. Or through the four pipes into them from the rows it can. | On "the rows the water can't reach", the last three taps flash and "rows it can't reach: 3 units" on the right; on "the four pipes", white rings on the four squares where the top two rows meet the first two columns, "pipes into the pair: 4" *(stall.cut.unreached_taps, stall.cut.pipes)* | highlight | |
+| 07_3 | The water used every one of those, and the three drains it can reach, and still came up one short. So those columns ask for more than three plus four. | On "used every one", "through: 10 = 3 + 4 + 3" as the three reached drains flash; on "one short", "one short of 11"; on "more than three plus four", "they ask 11 − 3 = 8, more than 3 + 4 = 7" *(stall.cut, stall.short)* | highlight | |
+| 07_4 | That count works whenever the water stops short, on any shadows with equal totals. | On "whenever", the "precisely" lower-third: a picture fits exactly when row and column totals match and, for every k, the k largest columns ask for at most the sum over rows of min(row count, k) (Gale, 1957; Ryser, 1957) *(gale, ryser)*, standing its characters / 15 seconds from its fade-in | lower-third, highlight | |
+| 07_5 | Equal totals matter. Rows of two and two, with columns of one and one, pass every size of the test. ⟨predict⟩ Does a picture fit? | The card and the board go; a two by two grid with taps 2, 2 and drains 1, 1 *(unequal.rows, unequal.cols)*; on "pass every size", its table on the right, "the k largest ask" 1, 2 against "rows can give" 2, 4, both green *(unequal.failing)*; the think ring, four seconds | table, tracker | |
+| 07_6 | No. Together the rows ask for four squares, and the columns only two. | The ring goes; on "four squares", "rows: 4, columns: 2" in red under the table, "nothing fits" *(unequal.totals, unequal.fits)* | highlight | |
+| 07_7 | The face's shadows pass, and sixty-four pictures fit them. The test says that one fits, not which, and not whether only one. | The small grid and its table go; the face's taps and drains on the five by five grid and its table, all green: 3, 3, 1, 1, 1; 3, 6, 7, 8, 9; 4, 8, 9, 9, 9 *(face.sorted, face.asks, face.gives)*; on "sixty-four", "64 pictures fit these shadows" *(fits)*; on "The test says", "it says one fits, not which, not whether only one"; a held beat, the fade | table, highlight | |
+
+### Notes for 07
+
+- **Why the test never misses (07_2 to 07_4).** When the water stops, every
+  tap it cannot reach, every pipe from a reached row into a cut-off column
+  and every reached drain is full, and together they carry the flow (Ford
+  and Fulkerson's Lemma 2, read): 3 + 4 + 3 = 10 (`DT-F15.cut.*`). The total
+  is 11, so the cut-off columns ask 11 − 3 = 8, more than 3 + 4 = 7. And 7
+  bounds what any picture could put in those columns: a row the water cannot
+  reach gives at most its count, a reached row at most one a column. In
+  general the cut-off columns ask (total − reached drains), more than
+  (unreached taps + pipes), which is at least Σ min(r, k): checked on every
+  4 × 4 equal-total pair (`model` test) and on every 3 × 3 pair (oracle).
+- **Equal totals (07_5, 07_6).** Rows 2, 2 and columns 1, 1 pass both sizes
+  of the table, their totals are 4 and 2, and nothing fits (`DT-F16.*`; the
+  model test and the oracle check of the five-chapter cut, now facts).
+- **Prediction (07_5).** The viewer has just seen that the test needs equal
+  totals; the question ends unit 07u2, "No." opens 07u3.
+- **The card (07_4)** is the five-chapter cut's 176-character Gale card,
+  now after the argument instead of inside it; it stands its characters / 15
+  seconds (11.7 s) from its fade-in.
+- **Narration units.** 07u1 (07_1 to 07_4), 07u2 (07_5), 07u3 (07_6), 07u4
+  (07_7; the old 03u4).
+
+## 08_the_only_picture: The only picture (~66 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 08_1 | Water builds one picture. Can that picture alone tell us whether it is the only one? | as before (storyboard 04_1 of the five-chapter cut): the grid, the face's counts; on "builds one picture", the water's picture, 01010/01100/00000/01010/10011, square by square, "the water's picture" *(built)* | lagged reveal, grid | |
+| 08_2 | It can. This one has twelve switches. Swap the corners of any of them, and every count stays. A second picture fits. | as before (F3): on "This one has", "12 switches" and twelve thumbnails in a 4 by 3 grid, each with one computed switch's corners ringed *(face.switches)*; on "Swap the corners", thumbnail 0 framed gold and the grid's rings on that switch's corners; its filled corners empty as its empty corners fill *(face.first, face.second)*; on "every count stays", the counts flash and turn green; on "A second picture", "a second picture, the same shadows" *(face.second.fits)* | highlight | |
+| 08_3 | Now the tree's shadows from before. The water builds a picture. | The second picture, its label, counts and thumbnails stay until the label has stood its characters / 15 seconds (F5), then fade together; on "from before", once they are gone, the taps 1, 3, 5, 1, 1 and drains 1, 2, 5, 2, 1, "to send", "to drain", "through: 0 of 11" *(tree.rows, tree.cols, tree.total)*; on "The water builds", the method's real eleven units, the last taking the top row's unit back *(tree.trace, tree.takebacks)* | lagged reveal, motion | |
+| 08_4 | It is the tree itself. ⟨predict⟩ Could another picture cast the same shadows? | as before: the counters become the tree's counts, green; on "the tree itself", the wet squares flash, "the water's picture" *(tree.built.is_tree)*; the think ring, four seconds | highlight, tracker | |
+| 08_5 | No. A switch needs two rows that each have a filled square where the other is empty. | as before (F5): a small copy of the water's picture from 08_1 with its first switch's rectangle, "the switch from before"; on "each have a filled square", rings on its two filled corners and "each row has a filled square" over "where the other row is empty" | highlight | |
+| 08_6 | But of any two rows in the tree, one has every square the other has. So the tree has no switch. | as before (F5): on "of any two rows", an outline round each tree row's squares, shortest first *(tree.nested)*; once read, the small copy's words go and "of any two rows, one has all the other's squares"; on "no switch", "0 switches among 100 rectangles" *(tree.built.switches, tree.rectangles)* | lagged reveal, highlight | |
+| 08_7 | And a switch is what stopped reasoning on the face. No reasoning can settle a square that some switch changes. | The words on the right go; a small copy of the face, chapter 02's twenty undecided squares shaded behind its squares, one of its fourteen switches' corners ringed gold *(face.switches, reason.face.free)*; "20 squares some switch changes" and "the shadows cannot settle them" beside it | highlight | |
+| 08_8 | How common is a single answer? On a four by four grid, only about one picture in ten is the only one with its shadows. | The copy and its words go; "4 by 4 grids: 65,536 pictures" on the right; on "only about one", "6,902 are the only picture with their shadows, about 1 in 10" *(X3.alone, X3.pictures)*; a held beat, the fade | highlight | |
+
+### Notes for 08
+
+- **The pictures are the method's own** (the five-chapter cut's chapter 04):
+  08_1's picture is chapter 03's water (`facts::face_flow`), its 12 switches
+  `model::switches` of it; the tree's picture is built by the method's real
+  eleven units (`facts::tree_flow`), the last one taking water back.
+- **08_3 and F5.** The tree's counts were read aloud in chapter 02, so the
+  line does not repeat them; the anchors "Rows of" and "columns of" are gone.
+  F5's hold (the second picture's label stands until its characters / 15
+  seconds have passed from its fade-in) still ends before the taps and drains
+  come in: the scene waits for the later of that hold and "from before".
+- **Prediction (08_4), a callback.** Chapter 02 settled every square of the
+  tree, so a viewer can answer "no" from memory; the new content is *why*.
+  The question and the protected phrase are unchanged (root, 2026-10-20).
+- **08_7, exact.** A square some switch changes is filled in one picture
+  that fits and empty in another, so no reasoning from the shadows can settle
+  it. On the face those are the twenty squares outside the middle row
+  (`DT-F12.face.free`; every one of the 64 is reached by switches,
+  `DT-F3.connected`). No general claim about reasoning is voiced.
+- **08_8.** 6,902 of the 65,536 pictures on a 4 × 4 grid are the only one
+  with their shadows (`DT-X3.alone`, `DT-X3.pictures`, every 4 × 4 picture);
+  10.5 %, "about one in ten" (`DT-X3.alone.tenths` = 1, the share rounded to
+  tenths), the screen showing both numbers.
+- **Narration units.** 08u1 (08_1, 08_2; the old 04u1), 08u2 (08_3, 08_4),
+  08u3 (08_5 to 08_7), 08u4 (08_8).
+
+## 09_chains_of_switches: Chains of switches (~78 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 09_1 | One worry remains. These two pictures cast the same shadows, one square in every row and column. ⟨predict⟩ Can a single switch turn one into the other? | Two three by three pictures, 100/010/001 on the left and 010/001/100 on the right, each with row and column counts 1, 1, 1 in green *(perm.left, perm.right, perm.per_line)*; the think ring, four seconds | tracker | |
+| 09_2 | No. They differ in six squares, and a switch changes only four. | The ring goes; on "six squares", gold rings on the six squares where they differ, in both *(perm.differ)*; on "only four", "a switch changes 4 squares" *(twin.differ)* | highlight | |
+| 09_3 | But two switches do it. First this rectangle, then this one. | On "First this rectangle", the left picture's switch on rows 0, 1 and columns 0, 1 flashes gold and its corners swap: 010/100/001; on "then this one", the switch on rows 1, 2 and columns 0, 2 swaps: the right-hand picture *(perm.chain, perm.distance)*; "2 switches" | highlight | |
+| 09_4 | Any two pictures with the same shadows are joined by a chain of switches. | The "precisely" lower-third: any two pictures of filled and empty squares on one grid with the same row counts and the same column counts are joined by a finite chain of switches (Ryser, 1957) *(ryser, X2)*, standing its characters / 15 seconds from its fade-in | lower-third | |
+| 09_5 | That's the step the tree needed. If another picture cast its shadows, a chain of switches would lead there, and the chain's first step would be a switch of the tree. | The three by three pictures go; the tree on the left with its counts; on the right a faint empty grid with a large "?"; on "a chain of switches", three short arrows from the tree to the "?", the first gold *(tree)* | highlight | |
+| 09_6 | From the tree, no chain can start, so no other picture fits. | The first arrow turns red and the chain and the "?" go; "1 picture fits these shadows" in green *(tree.fits)* | highlight | |
+| 09_7 | The same chains tie the face's sixty-four together, each at most three switches from the face. Start from any picture that fits, try every switch, and every switch of what you find, and you reach them all. | The tree goes; chapter 01's gallery in its four waves from the face, 1, 14, 33, 16 *(rings)*; on "Start from any picture", the water's picture's frame turns green and the thumbnails light out from it switch by switch, 1, 12, 37, 14, until all 64 have lit *(perm.rings_from_built, connected)*; a "for programmers" lower-third: list every picture that fits: start from one, apply every switch, keep each new picture, repeat until nothing is new (Ryser, 1957: this reaches them all) | lagged reveal, lower-third (code), highlight | |
+| 09_8 | So the water answers whether any picture fits. A switch in the water's picture answers whether it's the only one. | The gallery and card go; chapter 01's two questions, each with its answer as it is spoken: "Does any picture fit?", "yes, exactly when the totals match and every unit gets through"; "Is it the only one?", "yes, exactly when the water's picture has no switch" *(questions)*; held until read, then the fade | highlight | |
+
+### Notes for 09
+
+- **Where the theorem is used (09_5, 09_6).** "No switch" alone rules out
+  only a second picture four squares away; 09_1 to 09_3 show that pictures
+  with the same shadows can be farther apart (six squares, two switches:
+  `DT-F17.perm.*`, the chain `DT-F17.chain` found by `model::walk`). Ryser
+  1957, Theorem 3.1 (read) joins any two pictures with the same shadows by a
+  chain of switches; from the tree, which has no switch, no chain can start,
+  so it is the only picture with its shadows (`DT-F6.tree.fits` = 1, by
+  enumeration). Checked on every 4 × 4 pair of shadows (`DT-X2.disconnected`
+  = 0).
+- **Listing every picture (09_7).** From the water's picture, switches reach
+  all 64 in rings of 1, 12, 37, 14 (`DT-F17.rings_from_built`); the listing
+  is correct because of Theorem 3.1. No running time is claimed.
+- **Prediction (09_1).** The question ends unit 09u1; "No." opens 09u2.
+- **The card (09_4)** is the five-chapter cut's 04_7 card (scoped to the
+  theorem: two directions, filled-or-empty squares, one grid).
+- **Narration units.** 09u1 (09_1), 09u2 (09_2, 09_3), 09u3 (09_4 to 09_6),
+  09u4 (09_7), 09u5 (09_8; the old 04u4).
+
+## 10_more_shadows: A third shadow, and a fourth (~80 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 10_1 | Back to the face's sixty-four pictures. Take one more shadow and count the filled squares along each diagonal. | as before (storyboard 05_1, F1): the face, its counts; on "along each diagonal", teal beams along the nine diagonals leave faint guides behind the squares and the counts 0, 1, 1, 2, 1, 1, 1, 2, 0 *(face.diag)*, "diagonal shadow" | lagged reveal, grid | |
+| 10_2 | A switch keeps every row and column count, but always changes a diagonal count. This one takes a square from two diagonals and gives both to a third. | as before (F1, F2): the opening switch, "one switch away", the changed counts red, the two losing diagonals lit on "This one takes", the gaining one on "gives both" *(twin.diag, twin.lose, twin.gain)* | highlight | |
+| 10_3 | So none of the fourteen pictures one switch from the face can pass. ⟨predict⟩ How many of all sixty-four do? | as before: the switch undone; the gallery of 64; the fourteen one switch away fade *(one_switch.pass)*; the think ring | lagged reveal, tracker | |
+| 10_4 | Two. Sixty-two fail, but one other picture casts all three of the face's shadows. | as before: the others fade, "2 of 64 cast the face's diagonal shadow too" *(survivors, dropped)*, the other picture on the right, all its counts green *(other)* | highlight | |
+| 10_5 | They differ in six squares. Each row, column and diagonal through them loses one square and gains one, so all three shadows stay the same. | as before: gold rings on the six squares, the nine lines' counts flash, "each row, column and diagonal through them: −1 +1" *(other.differ, other.lines)* | highlight | |
+| 10_6 | Two shadows left sixty-four pictures. A third still leaves two, so here even three shadows lie. | as before: "3 shadows, 2 pictures" *(shadows, survivors)* | highlight | |
+| 10_7 | Was the face unlucky? Forty-eight of the sixty-four are the only picture with all three of their own shadows. The face is not one of them. | The other picture and the marks go; on the right the 64 thumbnails, grouped by their diagonal counts: the 48 alone framed green, then the six pairs and the group of four in dim frames *(more.groups, more.alone)*; on "not one of them", the face and its partner flash | lagged reveal, highlight | |
+| 10_8 | The face looks the same in a mirror. So along the other diagonals its counts are the first ones mirrored, and the picture that survives them is this one's mirror image. | The gallery goes; on the right a copy of the face; on "the other diagonals", teal beams from upper left to lower right leave its counts past their upper-left ends, the first counts in mirror order *(more.falling)*; on "mirror image", two thumbnails under the pictures, the other survivor of chapter 10's first test and the survivor of the other diagonals, a dim mirror line between them *(more.falling.other)* | highlight | |
+| 10_9 | Count both diagonal shadows, and only the face is left. That's this picture, not a rule. | The thumbnails go; on "only the face", "4 shadows, 1 picture" above *(more.both)*; on "not a rule", "this face only", dim; a held beat, the fade | highlight | |
+
+### Notes for 10
+
+- **10_1 to 10_6** are the five-chapter cut's chapter 05 lines 05_1 to 05_6,
+  unchanged with F1 and F2 (`ec5eb74`); their notes stand: the diagonal
+  shadow `model::diagonal_counts`, `DT-X6`, the survivors
+  `facts::diagonal_survivors`, the six squares `facts::line_changes`.
+- **10_7.** All 64 share the face's rows and columns, so one of them is the
+  only picture with its three shadows exactly when no other of the 64 has
+  its diagonal counts. Grouped by diagonal counts there are 55 groups, 48 of
+  one picture, six of two and one of four (`DT-F18.*`); the face's group has
+  two. An enumeration over these 64, not a claim about other pictures.
+- **10_8.** The face is its own mirror image (`DT-F18.face.mirror`), so its
+  counts along the other diagonals (`model::falling_counts`, upper left to
+  lower right) are its first diagonals' counts in mirror order: 0, 2, 1, 1, 1,
+  2, 1, 1, 0 from the bottom-left corner (`DT-F18.falling`) against 0, 1, 1,
+  2, 1, 1, 1, 2, 0 from the top-left (`DT-F11.face.diag`). (The editorial
+  candidate wrote "count the same"; that holds only in mirror order, found
+  while pinning the facts on 2026-10-20, and the line now says so.) The other diagonals alone
+  leave the face and 01010/00110/00000/11000/01011, the mirror image of
+  `DT-F11.other`, also two switches and six squares from the face.
+- **10_9.** Rows, columns and both diagonal directions leave only the face
+  (`DT-F18.both`). "That's this picture, not a rule": nothing is claimed
+  about how many directions settle a picture in general, nor about how hard
+  reconstruction is (the Gardner, Gritzmann and Prangenberg claim stays
+  omitted: its paper was not read).
+- **The right-hand copy (10_8)** shows only the other diagonals' counts, so
+  they never stand where the face's row counts or first diagonal counts do.
+- **Narration units.** 10u1 (10_1 to 10_3; the old 05u1), 10u2 (10_4, 10_5;
+  the old 05u2), 10u3 (10_6; the old 05u3), 10u4 (10_7 to 10_9).
+
+## 11_what_two_shadows_promise: What two shadows can promise (~70 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 11_1 | So here's what a program can promise from two shadows. Check that the totals match, and send the water. | The face's counts round an empty grid on the left; on the right, "for programmers:" and a list that builds as it is spoken: on "Check that the totals match", "1. do both totals match?"; on "send the water", "2. send the water" *(steps)* | lagged reveal | |
+| 11_2 | If every unit gets through, the wet squares are a picture that fits. If not, where the water stops names a group of columns asking too much. | On "If every unit", "3. every unit through? a picture that fits"; on "If not", under it "otherwise the columns it can't reach ask too much" | | |
+| 11_3 | Then look for a switch in that picture. None means it's the only one. Any switch means there are others, and switches reach every one of them. | On "look for a switch", "4. no switch? the only one"; on "Any switch", under it "a switch? others, and switches reach them all" | | |
+| 11_4 | Try the four steps on the face's shadows. ⟨predict⟩ What does the program report? | On "the face's shadows", the face's counts flash; the think ring, four seconds | tracker | |
+| 11_5 | Every unit gets through, but the water's picture has twelve switches. So it reports a picture that fits, and that it isn't the only one. | The ring and the list go; on "Every unit", the water's picture square by square on the grid, "every unit through: 9 of 9"; on "twelve switches", "the water's picture: 12 switches", gold; on "So it reports", "a picture that fits, not the only one" *(through, face.switches, built.only_one)* | lagged reveal, highlight | |
+| 11_6 | What no program can say is which of the sixty-four was really there. Two of the face's own squares are filled in only twelve of them. | On "which of the sixty-four", "which of the 64 was there? the shadows don't say"; on "Two of the face's own squares", the grid shows the face and two of its squares ring white, "each filled in only 12 of 64" *(reason.face.rarest)* | highlight | |
+| 11_7 | So keep the two questions apart. Does any picture fit? And is it the only one? | The grid and words go; a "precisely" lower-third bounding the model: every picture in this video is a small grid of filled and empty squares, counted exactly along rows, columns and, for the face, diagonals; nothing here models a scanner *(size)*; on the right, chapter 01's two questions, each with its answer as it is asked: "Does any picture fit?", "the water says, when the totals match"; "Is it the only one?", "with rows and columns, a switch says; these four shadows singled out the face" *(questions)*; held until read, then the fade | lower-third, highlight | |
+
+### Notes for 11
+
+- **The four steps (11_1 to 11_3)** are exact for two directions: Gale 1957
+  and Ford and Fulkerson 1957 for steps 1 to 3, Ryser 1957 Theorem 3.1 for
+  step 4 (all read). The list's length is `DT-F19.steps`, read from the
+  scene's source. Nothing is said about three or more directions.
+- **Prediction (11_4), a transfer.** The viewer runs the four steps on the
+  face's shadows: the totals match, every unit gets through
+  (`DT-F8.through` = 9), the water's picture has twelve switches
+  (`DT-F10.face.switches`), so it is not the only one
+  (`DT-F8.built.only_one` = false). The question ends unit 11u2; "Every unit
+  gets through" opens 11u3.
+- **What no program can say (11_6).** Every picture that fits casts the same
+  shadows, so nothing computed from the shadows alone can tell them apart: a
+  matter of information, not of computing power. Squares (3, 0) and (3, 4)
+  are filled in the face and in only 12 of the 64 (`DT-F12.face.rarest`,
+  `.rarest.count` = 2): the picture that was there need not look typical.
+- **The closing card and answers (11_7)** replace the five-chapter cut's
+  05_7 versions: the scope now covers every grid the video shows, and the
+  answers are the whole video's ("these four shadows singled out the face",
+  root's wording, makes no claim about other directions). Both need their
+  characters / 15 read holds, measured from their fade-ins.
+- **Narration units.** 11u1 (11_1 to 11_3), 11u2 (11_4), 11u3 (11_5, 11_6),
+  11u4 (11_7; the old 05u4).

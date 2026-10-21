@@ -1,18 +1,30 @@
-//! Chapter 02, water through the grid: the face's shadows as plumbing, each
-//! row a tap that lets out its count, each square a pipe for at most one
-//! unit, each column a drain that holds at most its count (02_1 to 02_3);
-//! the flow's real augmenting paths, one unit each, sent in the order the
-//! method found them (02_2, 02_4); after eight units the bottom row is stuck
-//! without taking water back (02_5, a prediction); the ninth unit takes the
+//! Chapters 03 and 04, the face's shadows as plumbing.
+//!
+//! Chapter 03, water through the grid: why not try every picture? Each
+//! square is filled or empty (03_1, a prediction: how many pictures?); two
+//! choices for each of twenty-five squares, over thirty-three million, and a
+//! twenty by twenty grid's count has a hundred and twenty-one digits (03_2);
+//! a method that never guesses: each row a tap that lets out its count, each
+//! square a pipe for at most one unit, each column a drain that holds at most
+//! its count (03_3 to 03_5); any picture that fits gets every unit through
+//! too, so the two questions are one (03_6, 03_7); the flow's real
+//! augmenting paths, one unit each, slowed so each can be followed (03_8).
+//!
+//! Chapter 04, taking water back: after eight units the bottom row is stuck
+//! without taking water back (04_1, a prediction); the ninth unit takes the
 //! top row's unit back out of the first column and the top row sends it on
-//! to the fourth (02_6, 02_7); the wet squares cast the face's shadows and
-//! are not the face, one of the sixty-four (02_8); water finds a picture
-//! whenever one exists and never says whether it is the only one (02_9).
+//! to the fourth (04_2, 04_3); taking back breaks no count (04_4); in the
+//! picture one square empties and two fill (04_5); every search that finds a
+//! path sends one more unit, so the water always finishes (04_6); the wet
+//! squares cast the face's shadows and are not the face, one of the
+//! sixty-four (04_7); water finds a picture whenever one exists and never
+//! says whether it is the only one (04_8).
 //!
 //! Every square, counter and route drawn comes from `facts::face_flow`: the
 //! paths `model::max_flow` actually sent, replayed and checked by
 //! `model::replay`; after each path the drawn wet squares are compared with
-//! the replayed state.
+//! the replayed state, and chapter 04 opens on the replayed state after
+//! eight paths.
 
 use std::collections::HashMap;
 
@@ -22,11 +34,11 @@ use fmn::prelude::*;
 
 use super::draw::{
     Board, COUNT_SIZE, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, flat, path_line, pause, say,
-    shift_all, swap, think, thumb, wait_until,
+    shift_all, shift_each, swap, think, thumb, wait_until,
 };
-use super::same_shadows::{THUMB_CELL, gallery_at};
+use super::same_shadows::{QUESTIONS, THUMB_CELL, gallery_at};
 use super::stops::read_s;
-use crate::facts::{self, FORD_FULKERSON_YEAR, GALE_YEAR};
+use crate::facts::{self, BIG_SIDE, FORD_FULKERSON_YEAR, GALE_YEAR};
 use crate::model::{self, Augmenting, FlowState, Shadows};
 use crate::palette;
 
@@ -34,15 +46,23 @@ pub struct WaterThroughTheGrid {
     pub kit: Kit,
 }
 
-// the chapter's fixed words (numbers are built from facts); the plumbing's
-// words, layout and drawing are chapter 03's too
+pub struct TakingWaterBack {
+    pub kit: Kit,
+}
+
+// the chapters' fixed words (numbers are built from facts); the plumbing's
+// words, layout and drawing are chapters 05 to 08's too
 pub(crate) const TO_SEND: &str = "to send";
 pub(crate) const TO_DRAIN: &str = "to drain";
 const TAP_LINE: &str = "tap: lets out its row's count";
 const DRAIN_LINE: &str = "drain: holds at most its column's count";
 const FITS_LINE: &str = "every unit through: a picture that fits";
+const EVERY_UNIT: &str = "the face: every unit through";
+/// The question 03_7 sets beside chapter 01's first.
+const UNITS_QUESTION: &str = "Can every unit get through?";
+const SAME_QUESTION: &str = "the same question";
 const OUTLINED: &str = "outlined: the face";
-const PROGRAMMERS: &str = "for programmers:";
+pub(crate) const PROGRAMMERS: &str = "for programmers:";
 
 /// The grid's pitch and centre: on the left, the right half kept for words,
 /// the think ring and the gallery.
@@ -58,13 +78,25 @@ pub(crate) const TEXT_X: f64 = -0.9;
 const LEGEND_Y: [f64; 4] = [2.1, 1.5, 0.9, 0.3];
 pub(crate) const THROUGH_Y: f64 = -0.6;
 const WITHOUT_Y: f64 = -1.2;
-/// The think ring's centre (02_5, 03_2).
+/// The two questions 03_7 sets side by side, and the note between them.
+const QUESTION_Y: [f64; 3] = [1.6, 1.0, 0.4];
+/// The think ring's centre (03_1, 04_1, 05_2).
 pub(crate) const THINK_AT: [f64; 2] = [3.0, 0.5];
 /// A drop of water, and how many seconds it takes to run one scene unit.
 const DROP_R: f64 = 0.1;
 const SLOW: f64 = 0.45;
+/// How much slower than [`send_quick`] 03_8 sends its units, so each can be
+/// followed (about 0.7 s a unit).
+const UNIT_PACE: f64 = 1.8;
 /// The gallery's thumbnails (chapter 01's layout).
 const GALLERY_COUNT_Y: f64 = 0.65;
+/// The small copy of the face as plumbing (03_6): its centre and pitch, how
+/// far its counters stand from it, and its label under it.
+const SMALL_AT: [f64; 2] = [3.4, 1.0];
+const SMALL_CELL: f64 = 0.36;
+const SMALL_GAP: f64 = 0.35;
+const SMALL_SIZE: f64 = 22.0;
+const SMALL_LABEL_DY: f64 = 0.85;
 
 /// A pipe's capacity, as the legend writes it.
 fn square_line() -> String {
@@ -79,14 +111,60 @@ fn without_text(through: usize, total: usize) -> String {
     format!("without taking back: {through} of {total}")
 }
 
-/// The "for programmers" lower-third (02_4): the path each unit takes.
+/// 03_2's words: the choices a square has and how many squares.
+fn choices_text(choices: usize, squares: usize) -> String {
+    format!("{choices} choices for each of {squares} squares")
+}
+
+/// A whole number with commas between its thousands: "33,554,432".
+fn grouped(n: u64) -> String {
+    let digits = n.to_string();
+    let mut out = String::with_capacity(digits.len() + digits.len() / 3);
+    for (i, ch) in digits.chars().enumerate() {
+        if i > 0 && (digits.len() - i) % 3 == 0 {
+            out.push(',');
+        }
+        out.push(ch);
+    }
+    out
+}
+
+fn pictures_text(pictures: u64) -> String {
+    format!("{} pictures", grouped(pictures))
+}
+
+fn big_text(side: usize, digits: usize) -> String {
+    format!("{side} by {side}: a count {digits} digits long")
+}
+
+/// The "for programmers" lower-third (03_8): the path each unit takes.
 fn method_text() -> String {
     "each unit takes a path found breadth first: in from a tap with water left, forward into dry squares, \
      back out of wet ones, down into a drain with room"
         .to_string()
 }
 
-/// The exact version of 02_9, kept on screen: the method ends at a largest
+/// The "for programmers" lower-third (04_6), short, as root chose: the
+/// proof that the water finishes (each path sends one unit, and there are
+/// only so many) stays in the storyboard's notes and the facts.
+fn finishes_text(paths: usize) -> String {
+    format!("every path sends one unit; at most {paths} send water (Ford and Fulkerson, {FORD_FULKERSON_YEAR})")
+}
+
+/// 04_4's words: what each count does across the take-back.
+fn sends_text(sent: usize) -> String {
+    format!("top row: sends {sent}")
+}
+
+fn first_drains_text(drained: usize) -> String {
+    format!("first column: drains {drained}")
+}
+
+fn fourth_text(before: usize, after: usize) -> String {
+    format!("fourth column: {before} then {after}")
+}
+
+/// The exact version of 04_8, kept on screen: the method ends at a largest
 /// flow, and a picture fits exactly when both shadows count the same total
 /// and that flow reaches it (rows 1, 1 with columns 2, 1 reach their row
 /// total and fit nothing: their totals differ).
@@ -106,11 +184,33 @@ pub(crate) fn tap_at(board: &Board, r: usize) -> Vec3 {
     v(board.left() - TAP_GAP, board.at(r, 0)[1])
 }
 
+/// The "to send" label over the taps. Detached.
+pub(crate) fn send_label(kit: &Kit, stage: &mut Stage<'_>, board: &Board) -> fmn::Result<Mob> {
+    kit.text(
+        stage,
+        TO_SEND,
+        22.0,
+        Palette::dim(),
+        v(board.left() - TAP_GAP, board.top() + 0.4),
+    )
+}
+
+/// The "to drain" label beside the drains. Detached.
+pub(crate) fn drain_label(kit: &Kit, stage: &mut Stage<'_>, board: &Board) -> fmn::Result<Mob> {
+    kit.text(
+        stage,
+        TO_DRAIN,
+        22.0,
+        Palette::dim(),
+        v(board.left() - 1.0, board.col_count_at(0)[1]),
+    )
+}
+
 /// The route a path's unit runs on the board: in from its row's tap, through
 /// the centre of each square it wets or takes water back from (along a row
 /// into a square, along a column back up or down to the next), and down out
 /// of its last column into the drain. Every leg is along a row or a column.
-fn route_points(board: &Board, steps: &[(usize, usize, bool)]) -> Vec<Vec3> {
+pub(crate) fn route_points(board: &Board, steps: &[(usize, usize, bool)]) -> Vec<Vec3> {
     let mut points = Vec::with_capacity(steps.len() + 2);
     if let Some(&(r, _, _)) = steps.first() {
         points.push(v(board.left() - INLET, board.at(r, 0)[1]));
@@ -143,7 +243,7 @@ fn run(stage: &mut Stage<'_>, unit: Mob, from: Vec3, to: Vec3) -> fmn::Result<()
 
 /// The water drawn on the board: the wet squares by place, each row's tap
 /// counter (what it has left to send), each column's drain counter (what it
-/// still takes) and the units through (shown from 02_3). A tap counts down
+/// still takes) and the units through (shown from 03_5). A tap counts down
 /// when a drawn unit leaves it; its drain and the units through count when
 /// that unit arrives. In between, the unit in transit is its drop or route.
 pub(crate) struct Water {
@@ -261,7 +361,7 @@ impl Water {
 
     /// After a whole path: the wet squares drawn, every tap's and drain's
     /// counter and the units through are exactly the replayed state's.
-    fn settled(&self, s: &Shadows, state: &FlowState) -> fmn::Result<()> {
+    pub(crate) fn settled(&self, s: &Shadows, state: &FlowState) -> fmn::Result<()> {
         let mut drawn: Vec<(usize, usize)> = self.wet.keys().copied().collect();
         drawn.sort_unstable();
         let taps: Vec<usize> = s.rows.iter().zip(&state.sent).map(|(n, sent)| n - sent).collect();
@@ -284,6 +384,60 @@ impl Water {
     }
 }
 
+/// The water as `state` left it on shadows `s`, drawn on `board`: the grid,
+/// the wet squares, each tap's and drain's counter, the units through, and
+/// the "to send" and "to drain" labels, all detached for the caller to bring
+/// in together (a chapter that opens where another stopped). Returns the
+/// water, everything drawn, and the two labels.
+pub(crate) fn water_at(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    board: Board,
+    s: &Shadows,
+    state: &FlowState,
+) -> fmn::Result<(Water, Vec<Mob>, [Mob; 2])> {
+    let tap_left: Vec<usize> = s.rows.iter().zip(&state.sent).map(|(n, sent)| n - sent).collect();
+    let drain_left: Vec<usize> = s.cols.iter().zip(&state.drained).map(|(n, took)| n - took).collect();
+    let taps = tap_left
+        .iter()
+        .enumerate()
+        .map(|(r, n)| kit.text(stage, &n.to_string(), COUNT_SIZE, Palette::ink(), tap_at(&board, r)))
+        .collect::<fmn::Result<Vec<Mob>>>()?;
+    let drains = drain_left
+        .iter()
+        .enumerate()
+        .map(|(c, n)| kit.text(stage, &n.to_string(), COUNT_SIZE, Palette::ink(), board.col_count_at(c)))
+        .collect::<fmn::Result<Vec<Mob>>>()?;
+    let labels = [send_label(kit, stage, &board)?, drain_label(kit, stage, &board)?];
+    let counter = kit.text_left(
+        stage,
+        &through_text(state.through(), s.row_total()),
+        26.0,
+        Palette::ink(),
+        v(TEXT_X, THROUGH_Y),
+    )?;
+    let mut drawn = board.lines(stage);
+    drawn.extend(&taps);
+    drawn.extend(&drains);
+    drawn.extend(labels);
+    drawn.push(counter);
+    let mut water = Water {
+        board,
+        wet: HashMap::new(),
+        taps,
+        tap_left,
+        drains,
+        drain_left,
+        through: Some(counter),
+        through_count: state.through(),
+    };
+    for (r, c) in state.wet.filled() {
+        drawn.push(water.place(stage, r, c)?);
+    }
+    water.settled(s, state)?;
+    Ok((water, drawn, labels))
+}
+
 /// Send a path quickly: its route comes in as its tap counts down, its
 /// squares wet (or dry, for water taken back), the route goes as its drain
 /// and the units through count, and everything drawn is checked against the
@@ -296,27 +450,57 @@ pub(crate) fn send_quick(
     path: &Augmenting,
     state: &FlowState,
 ) -> fmn::Result<()> {
+    send_paced(kit, stage, water, s, path, state, 1.0)
+}
+
+/// [`send_quick`], every move `pace` times as long.
+pub(crate) fn send_paced(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    water: &mut Water,
+    s: &Shadows,
+    path: &Augmenting,
+    state: &FlowState,
+    pace: f64,
+) -> fmn::Result<()> {
     let steps = path.steps();
     let (Some(&(tap, _, _)), Some(&(_, drain, _))) = (steps.first(), steps.last()) else {
         return Err(fail(format!("a path through no square: {:?}", path.nodes)));
     };
     let route = path_line(stage, &route_points(&water.board, &steps), palette::beam(), 4.0);
-    water.depart(kit, stage, tap, &[route], 0.12)?;
+    water.depart(kit, stage, tap, &[route], 0.12 * pace)?;
     for &(r, c, wets) in &steps {
         if wets {
-            water.wet(stage, r, c, 0.15)?;
+            water.wet(stage, r, c, 0.15 * pace)?;
         } else {
             let m = water.take(r, c)?;
-            fade_out_all(stage, &[m], 0.15)?;
+            fade_out_all(stage, &[m], 0.15 * pace)?;
         }
     }
-    water.arrive(kit, stage, drain, s.row_total(), &[route], 0.12)?;
+    water.arrive(kit, stage, drain, s.row_total(), &[route], 0.12 * pace)?;
     water.settled(s, state)
+}
+
+/// The face's flow, checked to be the chapters' shape: one unit shown
+/// slowly, a run of units straight down, then the last unit, which takes
+/// water back. Returns its paths, the state after each, and the take-back's
+/// index.
+fn face_trace() -> fmn::Result<(Vec<Augmenting>, Vec<FlowState>, usize)> {
+    let (paths, states) = facts::face_flow().map_err(fail)?;
+    let k = facts::first_takeback(&paths).map_err(fail)?;
+    let straight = paths[..k].iter().all(|p| p.steps().len() == 1);
+    if k < 2 || k + 1 != paths.len() || !straight {
+        return Err(fail(format!(
+            "the face's flow is not straight units and then one take-back: {k} of {}",
+            paths.len()
+        )));
+    }
+    Ok((paths, states, k))
 }
 
 impl SceneConstruct for WaterThroughTheGrid {
     fn name(&self) -> &str {
-        "02_water_through_the_grid"
+        "03_water_through_the_grid"
     }
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
@@ -324,54 +508,77 @@ impl SceneConstruct for WaterThroughTheGrid {
         let face = model::face();
         let s = face.shadows();
         let total = s.row_total();
-        let (paths, states) = facts::face_flow().map_err(fail)?;
-        let k = facts::first_takeback(&paths).map_err(fail)?;
-        // the chapter's shape: one unit shown slowly, a run of units straight
-        // down, then the last unit, which takes water back
-        let straight = paths[..k].iter().all(|p| p.steps().len() == 1);
-        if k < 2 || k + 1 != paths.len() || !straight {
-            return Err(fail(format!(
-                "the face's flow is not straight units and then one take-back: {k} of {}",
-                paths.len()
-            )));
-        }
+        let (paths, states, k) = face_trace()?;
         let board = Board::new(AT, CELL, face.rows(), face.cols());
 
-        // 02_1: the grid, and a tap for each row with its count
-        let line = say(&kit, stage, "02_1")?;
+        // 03_1: the empty grid; a square is filled or empty; the question,
+        // and the think time (no count shows before "Two choices")
+        let line = say(&kit, stage, "03_1")?;
         let grid = board.lines(stage);
         fade_in_all(stage, &grid, 0.6)?;
+        line.wait_for(stage, "Each square is filled")?;
+        let middle = board.rows / 2;
+        let one = board.square(stage, middle, middle, palette::filled())?;
+        fade_in_all(stage, &[one], 0.3)?;
+        fade_out_all(stage, &[one], 0.3)?;
+        let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;
+
+        // 03_2: two choices for each of twenty-five squares, the count, and
+        // a twenty by twenty grid's count's digits
+        let line = say(&kit, stage, "03_2")?;
+        fade_out_all(stage, &[q], 0.3)?;
+        let squares = board.rows * board.cols;
+        let pictures = u32::try_from(squares)
+            .ok()
+            .and_then(|n| 1u64.checked_shl(n))
+            .ok_or_else(|| fail(format!("{squares} squares are too many to count")))?;
+        let choices = [false, true].len();
+        line.wait_for(stage, "Two choices")?;
+        let choice_line = kit.text_left(
+            stage,
+            &choices_text(choices, squares),
+            26.0,
+            Palette::ink(),
+            v(TEXT_X, LEGEND_Y[0]),
+        )?;
+        fade_in_all(stage, &[choice_line], 0.3)?;
+        line.wait_for(stage, "over thirty-three million")?;
+        let count_line = kit.text_left(stage, &pictures_text(pictures), 26.0, Palette::ink(), v(TEXT_X, LEGEND_Y[1]))?;
+        fade_in_all(stage, &[count_line], 0.3)?;
+        line.wait_for(stage, "twenty by twenty")?;
+        let digits = facts::power_of_two_digits(BIG_SIDE * BIG_SIDE);
+        let big_line = kit.text_left(
+            stage,
+            &big_text(BIG_SIDE, digits),
+            26.0,
+            Palette::ink(),
+            v(TEXT_X, LEGEND_Y[2]),
+        )?;
+        fade_in_all(stage, &[big_line], 0.3)?;
+
+        // 03_3: a method that never guesses; a tap for each row with its count
+        let line = say(&kit, stage, "03_3")?;
+        line.wait_for(stage, "Turn the grid")?;
+        fade_out_all(stage, &[choice_line, count_line, big_line], 0.3)?;
         line.wait_for(stage, "Each row's tap")?;
         let mut taps = Vec::with_capacity(board.rows);
         for (r, n) in s.rows.iter().enumerate() {
             taps.push(kit.text(stage, &n.to_string(), COUNT_SIZE, Palette::ink(), tap_at(&board, r))?);
         }
-        let send_label = kit.text(
-            stage,
-            TO_SEND,
-            22.0,
-            Palette::dim(),
-            v(board.left() - TAP_GAP, board.top() + 0.4),
-        )?;
+        let to_send = send_label(&kit, stage, &board)?;
         fade_in_lagged(stage, &taps, 0.9, 0.3)?;
         let tap_line = kit.text_left(stage, TAP_LINE, 26.0, Palette::dim(), v(TEXT_X, LEGEND_Y[0]))?;
-        fade_in_all(stage, &[send_label, tap_line], 0.4)?;
+        fade_in_all(stage, &[to_send, tap_line], 0.4)?;
 
-        // 02_2: a drain under each column; the first real unit, slowly
-        let line = say(&kit, stage, "02_2")?;
+        // 03_4: a drain under each column; the first real unit, slowly
+        let line = say(&kit, stage, "03_4")?;
         let mut drains = Vec::with_capacity(board.cols);
         for (c, n) in s.cols.iter().enumerate() {
             drains.push(kit.text(stage, &n.to_string(), COUNT_SIZE, Palette::ink(), board.col_count_at(c))?);
         }
-        let drain_label = kit.text(
-            stage,
-            TO_DRAIN,
-            22.0,
-            Palette::dim(),
-            v(board.left() - 1.0, board.col_count_at(0)[1]),
-        )?;
+        let to_drain = drain_label(&kit, stage, &board)?;
         fade_in_lagged(stage, &drains, 0.8, 0.3)?;
-        fade_in_all(stage, &[drain_label], 0.3)?;
+        fade_in_all(stage, &[to_drain], 0.3)?;
         let mut water = Water::new(board, taps, drains, &s);
         let first = paths[0].steps();
         let &[(r0, c0, true)] = first.as_slice() else {
@@ -390,9 +597,9 @@ impl SceneConstruct for WaterThroughTheGrid {
         water.arrive(&kit, stage, c0, total, &[unit], 0.3)?;
         water.settled(&s, &states[0])?;
 
-        // 02_3: a square carries at most one unit, a drain at most its
+        // 03_5: a square carries at most one unit, a drain at most its
         // count; every unit through makes a picture that fits
-        let line = say(&kit, stage, "02_3")?;
+        let line = say(&kit, stage, "03_5")?;
         let one = water.wet[&(r0, c0)];
         let square_text = kit.text_left(stage, &square_line(), 26.0, Palette::dim(), v(TEXT_X, LEGEND_Y[1]))?;
         flash_all(stage, &[one], 0.5)?;
@@ -413,30 +620,143 @@ impl SceneConstruct for WaterThroughTheGrid {
         fade_in_all(stage, &[fits_line, counter], 0.4)?;
         water.through = Some(counter);
 
-        // 02_4: the next units, as the method sent them, one at a time; the
-        // method for programmers
-        let line = say(&kit, stage, "02_4")?;
+        // 03_6: the other way round: the face itself as plumbing on the
+        // right, one unit down each of its filled squares, every counter to 0
+        let line = say(&kit, stage, "03_6")?;
+        fade_out_all(stage, &[tap_line, square_text, drain_line, fits_line], 0.3)?;
+        let small = Board::new(SMALL_AT, SMALL_CELL, face.rows(), face.cols());
+        let small_tap = |r: usize| v(small.left() - SMALL_GAP, small.at(r, 0)[1]);
+        let small_drain = |c: usize| v(small.at(0, c)[0], small.bottom() - SMALL_GAP);
+        let mut copy = small.lines(stage);
+        let mut small_counts = Vec::with_capacity(small.rows + small.cols);
+        for (r, n) in s.rows.iter().enumerate() {
+            small_counts.push(kit.text(stage, &n.to_string(), SMALL_SIZE, Palette::ink(), small_tap(r))?);
+        }
+        for (c, n) in s.cols.iter().enumerate() {
+            small_counts.push(kit.text(stage, &n.to_string(), SMALL_SIZE, Palette::ink(), small_drain(c))?);
+        }
+        let mut arriving = copy.clone();
+        arriving.extend(&small_counts);
+        fade_in_all(stage, &arriving, 0.4)?;
+        line.wait_for(stage, "one down each filled square")?;
+        let filled = face.filled();
+        let starts: Vec<Vec3> = filled
+            .iter()
+            .map(|&(r, _)| v(small.left() - 0.12, small.at(r, 0)[1]))
+            .collect();
+        let drops: Vec<Mob> = starts.iter().map(|&at| drop_at(stage, at, palette::filled())).collect();
+        fade_in_all(stage, &drops, 0.2)?;
+        let along: Vec<(Mob, f64, f64)> = drops
+            .iter()
+            .zip(&filled)
+            .zip(&starts)
+            .map(|((&d, &(r, c)), at)| (d, small.at(r, c)[0] - at[0], 0.0))
+            .collect();
+        shift_each(stage, &along, 0.5)?;
+        let wet = filled
+            .iter()
+            .map(|&(r, c)| small.square(stage, r, c, palette::filled()))
+            .collect::<fmn::Result<Vec<Mob>>>()?;
+        fade_in_all(stage, &wet, 0.2)?;
+        let down: Vec<(Mob, f64, f64)> = drops
+            .iter()
+            .zip(&filled)
+            .map(|(&d, &(r, _))| (d, 0.0, small.bottom() - 0.12 - small.at(r, 0)[1]))
+            .collect();
+        shift_each(stage, &down, 0.5)?;
+        let mut zeros = Vec::with_capacity(small_counts.len());
+        for r in 0..small.rows {
+            zeros.push(kit.text(stage, "0", SMALL_SIZE, palette::matches(), small_tap(r))?);
+        }
+        for c in 0..small.cols {
+            zeros.push(kit.text(stage, "0", SMALL_SIZE, palette::matches(), small_drain(c))?);
+        }
+        let every_unit = kit.text(
+            stage,
+            EVERY_UNIT,
+            22.0,
+            Palette::ink(),
+            v(small.centre[0], small.bottom() - SMALL_LABEL_DY),
+        )?;
+        let mut old = small_counts;
+        old.extend(&drops);
+        let mut new = zeros.clone();
+        new.push(every_unit);
+        swap(stage, &old, &new, 0.3)?;
+        copy.extend(wet);
+        copy.extend(zeros);
+        copy.push(every_unit);
+
+        // 03_7: so the two questions are one
+        let line = say(&kit, stage, "03_7")?;
+        fade_out_all(stage, &copy, 0.3)?;
+        let any_fit = kit.text_left(stage, QUESTIONS[0], 28.0, Palette::ink(), v(TEXT_X, QUESTION_Y[0]))?;
+        let same = kit.text_left(
+            stage,
+            SAME_QUESTION,
+            22.0,
+            palette::matches(),
+            v(TEXT_X + 0.4, QUESTION_Y[1]),
+        )?;
+        let units = kit.text_left(stage, UNITS_QUESTION, 28.0, Palette::ink(), v(TEXT_X, QUESTION_Y[2]))?;
+        fade_in_all(stage, &[any_fit], 0.3)?;
+        line.wait_for(stage, "is asking whether")?;
+        fade_in_all(stage, &[same, units], 0.4)?;
+
+        // 03_8: the next units, as the method sent them, one at a time and
+        // slowly enough to follow; the method for programmers
+        let line = say(&kit, stage, "03_8")?;
         let method = method_text();
         let code = lower_third(&kit, stage, PROGRAMMERS, &method)?;
-        swap(stage, &[tap_line, square_text, drain_line, fits_line], &[code], 0.4)?;
+        swap(stage, &[any_fit, same, units], &[code], 0.4)?;
         let code_up = stage.scene().time().to_f64();
         for (path, state) in paths[1..k].iter().zip(&states[1..k]) {
-            send_quick(&kit, stage, &mut water, &s, path, state)?;
+            send_paced(&kit, stage, &mut water, &s, path, state, UNIT_PACE)?;
         }
         line.wait_to_end(stage)?;
         wait_until(stage, code_up + read_s(&method))?;
+        pause(stage, 0.6)?;
 
-        // 02_5: stuck without taking back: the bottom row has water left,
-        // and each of its dry squares leads to a full drain
-        let line = say(&kit, stage, "02_5")?;
-        fade_out_all(stage, &[code], 0.3)?;
+        fade_all(stage, 0.6)?;
+        kit.finish(stage)?;
+        Ok(())
+    }
+}
+
+impl SceneConstruct for TakingWaterBack {
+    fn name(&self) -> &str {
+        "04_taking_water_back"
+    }
+
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        let kit = self.kit.clone();
+        let face = model::face();
+        let s = face.shadows();
+        let total = s.row_total();
+        let (paths, states, k) = face_trace()?;
+        let board = Board::new(AT, CELL, face.rows(), face.cols());
         let before = &states[k - 1];
+        let after = &states[k];
+
+        // 04_1: chapter 03's last state, replayed; stuck without taking
+        // back: the bottom row has water left, and each of its dry squares
+        // leads to a full drain
+        let line = say(&kit, stage, "04_1")?;
+        let (mut water, drawn, [to_send, to_drain]) = water_at(&kit, stage, board, &s, before)?;
+        fade_in_all(stage, &drawn, 0.5)?;
         let steps = paths[k].steps();
         let &[(stuck, into, true), (from_row, back, false), (_, onto, true)] = steps.as_slice() else {
             return Err(fail(format!("the last unit is not in, back and on: {steps:?}")));
         };
         if back != into || stuck + 1 != board.rows || model::forward_room(&s, before) {
             return Err(fail("the last unit does not start stuck in the bottom row".into()));
+        }
+        // the words name these: the top row, the first column, the fourth
+        if (from_row, into, onto) != (0, 0, 3) {
+            return Err(fail(format!(
+                "the take-back is row {from_row}, column {into} on to {onto}, not the top row, the first \
+                 column and the fourth"
+            )));
         }
         line.wait_for(stage, "The bottom row")?;
         flash_all(stage, &[water.taps[stuck]], 0.5)?;
@@ -458,11 +778,11 @@ impl SceneConstruct for WaterThroughTheGrid {
         fade_out_all(stage, &routes, 0.3)?;
         let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;
 
-        // 02_6: the unit runs into the first column anyway and waits at its
+        // 04_2: the unit runs into the first column anyway and waits at its
         // square; on "take back", in one move, that square fills and the top
         // row's unit is taken back up out of the same column (every row and
         // column stays balanced, the taken-back unit in transit as a drop)
-        let line = say(&kit, stage, "02_6")?;
+        let line = say(&kit, stage, "04_2")?;
         fade_out_all(stage, &[q], 0.3)?;
         let points = route_points(&board, &steps);
         line.wait_for(stage, "Send it into")?;
@@ -476,15 +796,15 @@ impl SceneConstruct for WaterThroughTheGrid {
         let returned = drop_at(stage, points[2], palette::taken_back());
         swap(stage, &[unit, taken], &[filled, back_route, returned], 0.5)?;
 
-        // 02_7: the top row sends it on to the fourth column, which still
+        // 04_3: the top row sends it on to the fourth column, which still
         // needs one; every drain full. Without taking back, one unit short
-        let line = say(&kit, stage, "02_7")?;
+        let line = say(&kit, stage, "04_3")?;
         line.wait_for(stage, "sends that unit")?;
         run(stage, returned, points[2], points[3])?;
         water.wet(stage, from_row, onto, 0.3)?;
         run(stage, returned, points[3], points[4])?;
         water.arrive(&kit, stage, onto, total, &[returned, back_route], 0.3)?;
-        water.settled(&s, &states[k])?;
+        water.settled(&s, after)?;
         line.wait_for(stage, "Without taking back")?;
         let without = kit.text_left(
             stage,
@@ -495,10 +815,108 @@ impl SceneConstruct for WaterThroughTheGrid {
         )?;
         fade_in_all(stage, &[without], 0.4)?;
 
-        // 02_8: the counters become the water's picture's shadows, the
-        // face's; outlined, the face is another picture; one of the gallery
-        let line = say(&kit, stage, "02_8")?;
-        let built = states[k].wet.clone();
+        // 04_4: taking back breaks no count: the top row still sends two,
+        // the first column still drains one, the fourth gets its missing unit
+        let line = say(&kit, stage, "04_4")?;
+        if before.sent[from_row] != after.sent[from_row] || before.drained[into] != after.drained[into] {
+            return Err(fail("the take-back changed the top row's or the first column's count".into()));
+        }
+        line.wait_for(stage, "The top row still sends")?;
+        let sends = kit.text_left(
+            stage,
+            &sends_text(after.sent[from_row]),
+            24.0,
+            palette::matches(),
+            v(TEXT_X, LEGEND_Y[0]),
+        )?;
+        flash_all(stage, &[water.taps[from_row]], 0.4)?;
+        fade_in_all(stage, &[sends], 0.3)?;
+        line.wait_for(stage, "the first column still drains")?;
+        let first_drains = kit.text_left(
+            stage,
+            &first_drains_text(after.drained[into]),
+            24.0,
+            palette::matches(),
+            v(TEXT_X, LEGEND_Y[1]),
+        )?;
+        flash_all(stage, &[water.drains[into]], 0.4)?;
+        fade_in_all(stage, &[first_drains], 0.3)?;
+        line.wait_for(stage, "the fourth column gets")?;
+        let fourth = kit.text_left(
+            stage,
+            &fourth_text(before.drained[onto], after.drained[onto]),
+            24.0,
+            palette::matches(),
+            v(TEXT_X, LEGEND_Y[2]),
+        )?;
+        flash_all(stage, &[water.drains[onto]], 0.4)?;
+        fade_in_all(stage, &[fourth], 0.3)?;
+
+        // 04_5: in the picture, one square emptied and two filled: the
+        // bottom row took over the first column, the top row moved on
+        let line = say(&kit, stage, "04_5")?;
+        let changed = before.wet.differences(&after.wet);
+        let emptied: Vec<(usize, usize)> = changed.iter().copied().filter(|&(r, c)| before.wet.get(r, c)).collect();
+        let refilled: Vec<(usize, usize)> = changed.iter().copied().filter(|&(r, c)| after.wet.get(r, c)).collect();
+        if emptied != [(from_row, into)] || refilled.len() != 2 {
+            return Err(fail(format!(
+                "the take-back emptied {emptied:?} and filled {refilled:?}, not one square and two"
+            )));
+        }
+        line.wait_for(stage, "one square emptied")?;
+        let out_rings: Vec<Mob> = emptied
+            .iter()
+            .map(|&(r, c)| board.ring(stage, r, c, palette::taken_back()))
+            .collect();
+        fade_in_all(stage, &out_rings, 0.3)?;
+        line.wait_for(stage, "two filled")?;
+        let in_rings: Vec<Mob> = refilled
+            .iter()
+            .map(|&(r, c)| board.ring(stage, r, c, palette::filled()))
+            .collect();
+        fade_in_all(stage, &in_rings, 0.3)?;
+        line.wait_for(stage, "took over")?;
+        let over = path_line(
+            stage,
+            &route_points(&board, &[(stuck, into, true)])[..2],
+            palette::beam(),
+            4.0,
+        );
+        fade_in_all(stage, &[over], 0.3)?;
+        line.wait_for(stage, "moved to the fourth")?;
+        let moved = path_line(
+            stage,
+            &route_points(&board, &[(from_row, onto, true)])[..2],
+            palette::beam(),
+            4.0,
+        );
+        fade_in_all(stage, &[moved], 0.3)?;
+
+        // 04_6: every search that finds a path sends one unit, and there
+        // are only so many: the water always finishes
+        let line = say(&kit, stage, "04_6")?;
+        let mut going = out_rings;
+        going.extend(in_rings);
+        going.extend([over, moved, sends, first_drains, fourth]);
+        fade_out_all(stage, &going, 0.3)?;
+        if paths.iter().any(|p| p.room != model::SQUARE) || paths.len() != total {
+            return Err(fail(format!("{} paths do not each send one of {total} units", paths.len())));
+        }
+        let finishes = finishes_text(paths.len());
+        let code = lower_third(&kit, stage, PROGRAMMERS, &finishes)?;
+        fade_in_all(stage, &[code], 0.4)?;
+        let code_up = stage.scene().time().to_f64();
+        line.wait_for(stage, "only nine to send")?;
+        let through: Vec<Mob> = water.through.into_iter().collect();
+        flash_all(stage, &through, 0.5)?;
+
+        // 04_7: the card once read; the counters become the water's
+        // picture's shadows, the face's; outlined, the face is another
+        // picture; one of the gallery
+        let line = say(&kit, stage, "04_7")?;
+        wait_until(stage, code_up + read_s(&finishes))?;
+        fade_out_all(stage, &[code], 0.3)?;
+        let built = after.wet.clone();
         if built.shadows() != s || built == face {
             return Err(fail(format!(
                 "{} is not another picture with the face's shadows",
@@ -506,7 +924,7 @@ impl SceneConstruct for WaterThroughTheGrid {
             )));
         }
         let mut leaving: Vec<Mob> = water.through.into_iter().collect();
-        leaving.extend([without, send_label, drain_label]);
+        leaving.extend([without, to_send, to_drain]);
         fade_out_all(stage, &leaving, 0.3)?;
         let mut shadows = Vec::with_capacity(board.rows + board.cols);
         for (r, n) in built.row_counts().iter().enumerate() {
@@ -568,9 +986,9 @@ impl SceneConstruct for WaterThroughTheGrid {
         fade_in_all(stage, &[caption], 0.3)?;
         flash_all(stage, &found, 0.5)?;
 
-        // 02_9: water finds a picture whenever one exists, and never says
+        // 04_8: water finds a picture whenever one exists, and never says
         // whether it is the only one
-        let line = say(&kit, stage, "02_9")?;
+        let line = say(&kit, stage, "04_8")?;
         let claim = flow_claim();
         let card = precisely(&kit, stage, &claim)?;
         fade_in_all(stage, &[card], 0.4)?;
@@ -598,49 +1016,83 @@ mod tests {
     /// narrower while a line would run past its label's room.
     const NARROWEST_WRAP: usize = 80;
 
-    /// Every phrase the scene waits for is in its line of script.tsv.
+    /// Every phrase the scenes wait for is in its line of script.tsv.
     #[test]
     fn every_phrase_the_scene_waits_for_is_in_its_line() {
         let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
         for (id, phrase) in [
-            ("02_1", "Each row's tap"),
-            ("02_2", "turns down"),
-            ("02_2", "drains out"),
-            ("02_3", "each drain holds"),
-            ("02_3", "Get every unit through"),
-            ("02_5", "The bottom row"),
-            ("02_5", "its dry squares"),
-            ("02_6", "Send it into"),
-            ("02_6", "take back"),
-            ("02_7", "sends that unit"),
-            ("02_7", "Without taking back"),
-            ("02_8", "but they aren't"),
-            ("02_8", "They're one of"),
-            ("02_9", "It never says"),
+            ("03_1", "Each square is filled"),
+            ("03_2", "Two choices"),
+            ("03_2", "over thirty-three million"),
+            ("03_2", "twenty by twenty"),
+            ("03_3", "Turn the grid"),
+            ("03_3", "Each row's tap"),
+            ("03_4", "turns down"),
+            ("03_4", "drains out"),
+            ("03_5", "each drain holds"),
+            ("03_5", "Get every unit through"),
+            ("03_6", "one down each filled square"),
+            ("03_7", "is asking whether"),
+            ("04_1", "The bottom row"),
+            ("04_1", "its dry squares"),
+            ("04_2", "Send it into"),
+            ("04_2", "take back"),
+            ("04_3", "sends that unit"),
+            ("04_3", "Without taking back"),
+            ("04_4", "The top row still sends"),
+            ("04_4", "the first column still drains"),
+            ("04_4", "the fourth column gets"),
+            ("04_5", "one square emptied"),
+            ("04_5", "two filled"),
+            ("04_5", "took over"),
+            ("04_5", "moved to the fourth"),
+            ("04_6", "only nine to send"),
+            ("04_7", "but they aren't"),
+            ("04_7", "They're one of"),
+            ("04_8", "It never says"),
         ] {
             let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
             assert!(text.contains(phrase), "{id} has no {phrase:?}: {text}");
         }
     }
 
-    /// The words on screen are built from the facts, and the two cards fit
-    /// in two lines.
+    /// The words on screen are built from the facts, and the cards fit in
+    /// two lines.
     #[test]
     fn the_words_on_screen_are_built_from_the_facts() {
         let f = facts::facts().unwrap();
+        let get = |key: &str| -> usize { f.get(key).unwrap().parse().unwrap() };
         assert_eq!(
             square_line(),
             format!("square: carries at most {} unit", f.get("DT-F8.square").unwrap())
         );
-        let total = f.get("DT-F8.through").unwrap();
-        let before = f.get("DT-F8.before.through").unwrap();
         assert_eq!(
-            without_text(before.parse().unwrap(), total.parse().unwrap()),
+            without_text(get("DT-F8.before.through"), get("DT-F8.through")),
             "without taking back: 8 of 9"
         );
+        assert_eq!(found_label(get("DT-F3.fits")), "the water's picture is one of 64");
         assert_eq!(
-            found_label(f.get("DT-F3.fits").unwrap().parse().unwrap()),
-            "the water's picture is one of 64"
+            choices_text(get("DT-F13.choices"), get("DT-F13.squares")),
+            "2 choices for each of 25 squares"
+        );
+        assert_eq!(
+            pictures_text(f.get("DT-F13.pictures").unwrap().parse().unwrap()),
+            "33,554,432 pictures"
+        );
+        assert_eq!(
+            big_text(get("DT-F13.big.side"), get("DT-F13.big.digits")),
+            "20 by 20: a count 121 digits long"
+        );
+        assert_eq!(grouped(0), "0");
+        assert_eq!(grouped(999), "999");
+        assert_eq!(grouped(1000), "1,000");
+        assert_eq!(sends_text(get("DT-F14.top_row.sends")), "top row: sends 2");
+        assert_eq!(first_drains_text(get("DT-F14.first_col.drains")), "first column: drains 1");
+        assert_eq!(fourth_text(2, 3), "fourth column: 2 then 3");
+        assert_eq!(f.get("DT-F14.to_col.drains"), Some("2,3"));
+        assert_eq!(
+            finishes_text(get("DT-F8.paths")),
+            "every path sends one unit; at most 9 send water (Ford and Fulkerson, 1957)"
         );
         let claim = flow_claim();
         assert!(
@@ -656,7 +1108,7 @@ mod tests {
         );
     }
 
-    /// Both cards keep two whole lines at every width the band may narrow
+    /// The cards keep two whole lines at every width the band may narrow
     /// them to, down to [`NARROWEST_WRAP`]; and by the corpus's estimate of
     /// a character's width (bayesian_search's 0.0045 scene units a point, an
     /// estimate the layout lint and the frames check), neither label leaves
@@ -664,7 +1116,7 @@ mod tests {
     #[test]
     fn the_cards_stay_two_lines_when_the_band_narrows() {
         use explainer_kit::animatic::wrap;
-        for card in [flow_claim(), method_text()] {
+        for card in [flow_claim(), method_text(), finishes_text(9)] {
             for width in (NARROWEST_WRAP..=92).step_by(4) {
                 let lines = wrap(&card, width, 3);
                 assert!(
@@ -700,24 +1152,41 @@ mod tests {
         }
     }
 
-    /// The chapter's layout keeps its pieces apart and inside the
-    /// title-safe area (text 0.25 in from the frame's edge).
+    /// The chapters' layout keeps its pieces apart and inside the title-safe
+    /// area (text 0.25 in from the frame's edge; about 0.0045 units a point a
+    /// character).
     #[test]
     fn the_layout_keeps_its_pieces_apart() {
         let board = Board::new(AT, CELL, 5, 5);
+        let small = Board::new(SMALL_AT, SMALL_CELL, 5, 5);
         let safe_x = FRAME_X_RADIUS - 0.25;
         let safe_y = FRAME_Y_RADIUS - 0.25;
+        let ends = |x: f64, text: &str, size: f64| x + text.chars().count() as f64 * size * 0.0045;
         // the taps and their label, the drains' label
         assert!(tap_at(&board, 0)[0] - 0.5 > -safe_x);
         assert!(board.left() - 1.0 - 0.7 > -safe_x, "the drains' label");
         assert!(board.top() + 0.4 < safe_y);
-        // the words on the right clear the grid, and the gallery clears both
+        // the words on the right clear the grid, end inside, and the gallery
+        // clears both
         assert!(TEXT_X > board.right() + 0.5);
+        assert!(ends(TEXT_X, &big_text(20, 121), 26.0) < safe_x);
+        assert!(ends(TEXT_X, DRAIN_LINE, 26.0) < safe_x);
+        assert!(ends(TEXT_X, UNITS_QUESTION, 28.0) < safe_x);
         let half = THUMB_CELL * 5.0 / 2.0 + 0.03;
         assert!(gallery_at(0, 64)[0] - half > board.right() + 0.5);
         // the think ring's note (about 2.2 wide, centred under the ring)
         // clears the units-through counter (about 2 wide) on its left
         const { assert!(THINK_AT[0] - 1.1 > TEXT_X + 2.0, "the think note clears the counter") };
+        // the small copy (03_6): its taps and its label clear the
+        // units-through counter on their left, its label stays under its
+        // drains and inside
+        let counter_end = ends(TEXT_X, &through_text(9, 9), 26.0);
+        let label_half = EVERY_UNIT.chars().count() as f64 * 22.0 * 0.0045 / 2.0;
+        assert!(small.left() - SMALL_GAP - 0.2 > counter_end);
+        assert!(small.centre[0] - label_half > counter_end + 0.2);
+        assert!(small.centre[0] + label_half < safe_x);
+        assert!(small.bottom() - SMALL_LABEL_DY + 0.15 < small.bottom() - SMALL_GAP - 0.15);
+        assert!(small.top() + 0.2 < safe_y);
         // the outlined label and the drains stay over a two-line lower-third
         assert!(board.bottom() - 1.05 - 0.2 > -FRAME_Y_RADIUS + 1.25);
         assert!(board.col_count_at(0)[1] - 0.2 > -FRAME_Y_RADIUS + 1.25);

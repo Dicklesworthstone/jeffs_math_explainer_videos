@@ -1,22 +1,23 @@
-//! Chapter 04, the only picture: the water builds one picture; can it alone
-//! say whether it is the only one? (04_1); it can: chapter 02's picture has
+//! Chapter 08, the only picture: the water builds one picture; can it alone
+//! say whether it is the only one? (08_1); it can: chapter 03's picture has
 //! twelve switches, and swapping one's corners keeps every count, so a
-//! second picture fits (04_2); the tree's shadows only, and the method's
-//! real units build the tree itself (04_3, 04_4, a prediction: could another
-//! picture cast them?); no: a switch needs two rows that each have a filled
-//! square where the other is empty (04_5), and of any two of the tree's rows
-//! one has every square of the other, so it has no switch (04_6); any two
-//! pictures with the same shadows are joined by a chain of switches, and
-//! from the tree none can start, so it is the only one (04_7); the water
-//! answers whether any picture fits, a switch in its picture whether it is
-//! the only one (04_8).
+//! second picture fits (08_2); the tree's shadows from before, and the
+//! method's real units build the tree itself (08_3, 08_4, a prediction:
+//! could another picture cast them? a callback to chapter 02); no: a switch
+//! needs two rows that each have a filled square where the other is empty
+//! (08_5), and of any two of the tree's rows one has every square of the
+//! other, so it has no switch (08_6); a switch is what stopped reasoning on
+//! the face: no reasoning can settle a square a switch changes (08_7); on a
+//! four by four grid only about one picture in ten is the only one with its
+//! shadows (08_8).
 //!
-//! Every picture comes from the method: chapter 02's water
+//! Every picture comes from the method: chapter 03's water
 //! (`facts::face_flow`) and the tree's (`facts::tree_flow`), each replayed
 //! by `model::replay`; switches from `model::switches`, nesting from
-//! `model::rows_nested`.
+//! `model::rows_nested`; the undecided squares from `model::line_solve`; the
+//! four by four count from `facts::edges`. Ryser's chain theorem, which the
+//! tree's uniqueness rests on, is chapter 09's.
 
-use explainer_kit::props::precisely;
 use explainer_kit::{Kit, Palette, fade_all, v};
 use fmn::prelude::*;
 
@@ -24,12 +25,12 @@ use super::draw::{
     Board, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, path_line, pause, say, swap, think, thumb,
     wait_until,
 };
-use super::same_shadows::{QUESTIONS, counts, place, run_switch};
+use super::same_shadows::{counts, place, run_switch};
 use super::stops::read_s;
 use super::water::{
-    AT, CELL, TAP_GAP, TEXT_X, THINK_AT, THROUGH_Y, TO_DRAIN, TO_SEND, Water, send_quick, tap_at, through_text,
+    AT, CELL, TEXT_X, THINK_AT, THROUGH_Y, Water, drain_label, send_label, send_quick, tap_at, through_text,
 };
-use crate::facts::{self, RYSER_YEAR};
+use crate::facts::{self, EDGE_SIDE, RYSER_YEAR};
 use crate::model::{self, Picture, Switch};
 use crate::palette;
 
@@ -43,8 +44,9 @@ const SECOND_PICTURE: &str = "a second picture, the same shadows";
 const FROM_BEFORE: &str = "the switch from before";
 const EACH_ROW: [&str; 2] = ["each row has a filled square", "where the other row is empty"];
 const NESTED: &str = "of any two rows, one has all the other's squares";
-/// The answers 04_8 gives chapter 01's two questions, in their order.
-const ANSWERS: [&str; 2] = [
+const STUCK: [&str; 2] = ["squares some switch changes", "the shadows cannot settle them"];
+/// The answers 09_8 gives chapter 01's two questions, in their order.
+pub(crate) const ANSWERS: [&str; 2] = [
     "yes, exactly when the totals match and every unit gets through",
     "yes, exactly when the water's picture has no switch",
 ];
@@ -52,8 +54,8 @@ const ANSWERS: [&str; 2] = [
 /// The words on the right: the first line, and the next ones down.
 const TOP_Y: f64 = 2.0;
 const NEXT_Y: f64 = 1.4;
-const ALONE_Y: f64 = 0.8;
-/// The water's picture's switches (04_2): one small copy each, in rows of
+pub(crate) const ALONE_Y: f64 = 0.8;
+/// The water's picture's switches (08_2): one small copy each, in rows of
 /// [`SWITCH_COLS`] under their count on the right; a copy's square, the
 /// distance between copies across and down, the top of the first row, and
 /// how far the frame round the switch being swapped stands outside its copy.
@@ -62,16 +64,16 @@ const SWITCH_CELL: f64 = 0.22;
 const SWITCH_PITCH: [f64; 2] = [1.45, 1.35];
 const SWITCH_TOP: f64 = 1.55;
 const PICKED_GAP: f64 = 0.1;
-/// The small copy of chapter 02's picture (04_5): its centre and pitch, and
+/// The small copy of chapter 03's picture (08_5, 08_7): its centre and pitch, and
 /// its words on its right.
 const SMALL_AT: [f64; 2] = [0.9, 0.55];
 const SMALL_CELL: f64 = 0.34;
 const SMALL_TEXT_X: f64 = 2.1;
 const SMALL_TEXT_Y: [f64; 2] = [0.85, 0.3];
-/// The closing questions and their answers (04_8), top to bottom.
-const CLOSING_Y: [f64; 4] = [2.0, 1.45, 0.6, 0.05];
+/// The closing questions and their answers (09_8), top to bottom.
+pub(crate) const CLOSING_Y: [f64; 4] = [2.0, 1.45, 0.6, 0.05];
 /// How far a row's outline stands from its squares' centres, as a share of
-/// the pitch: outside the squares, inside the grid's lines (04_6).
+/// the pitch: outside the squares, inside the grid's lines (08_6).
 const RUN_HALF: f64 = 0.47;
 
 fn switches_text(n: usize) -> String {
@@ -82,20 +84,50 @@ fn none_among_text(found: usize, rectangles: usize) -> String {
     format!("{found} switches among {rectangles} rectangles")
 }
 
-fn alone_text(count: usize) -> String {
+pub(crate) fn alone_text(count: usize) -> String {
     format!("{count} picture fits these shadows")
 }
 
-/// The exact version of 04_7, kept on screen until it can be read
+/// 08_7's count of the face's squares a switch can change.
+fn stuck_text(free: usize) -> String {
+    format!("{free} {}", STUCK[0])
+}
+
+/// 08_8's words: every 4 by 4 picture, and how many are alone.
+fn grids_text(side: usize, pictures: usize) -> String {
+    format!("{side} by {side} grids: {} pictures", grouped(pictures))
+}
+
+fn common_text(alone: usize, tenths: usize) -> String {
+    format!(
+        "{} are the only picture with their shadows, about {tenths} in 10",
+        grouped(alone)
+    )
+}
+
+/// A whole number with commas between its thousands: "65,536".
+fn grouped(n: usize) -> String {
+    let digits = n.to_string();
+    let mut out = String::with_capacity(digits.len() + digits.len() / 3);
+    for (i, ch) in digits.chars().enumerate() {
+        if i > 0 && (digits.len() - i) % 3 == 0 {
+            out.push(',');
+        }
+        out.push(ch);
+    }
+    out
+}
+
+/// The exact version of 09_4, kept on screen until it can be read
 /// (`read_s`): Ryser's Theorem 3.1 for the video's pictures.
-fn chain_claim() -> String {
+pub(crate) fn chain_claim() -> String {
     format!(
         "any two pictures of filled and empty squares on one grid with the same row counts and the same \
          column counts are joined by a finite chain of switches (Ryser, {RYSER_YEAR})"
     )
 }
 
-/// Where the `k`th switch's copy of a `rows` by `cols` picture stands (04_2).
+/// Where the `k`th switch's copy of a `rows` by `cols` picture stands (08_2).
 fn switch_at(k: usize, rows: usize, cols: usize) -> [f64; 2] {
     let (w, h) = (SWITCH_CELL * cols as f64, SWITCH_CELL * rows as f64);
     let (row, col) = (k / SWITCH_COLS, k % SWITCH_COLS);
@@ -106,7 +138,7 @@ fn switch_at(k: usize, rows: usize, cols: usize) -> [f64; 2] {
 }
 
 /// A small copy of `p` at `at`, switch `s`'s four corners ringed: one of its
-/// switches, apart from the others (04_2). Detached.
+/// switches, apart from the others (08_2). Detached.
 fn switch_copy(stage: &mut Stage<'_>, p: &Picture, s: Switch, at: [f64; 2]) -> fmn::Result<Vec<Mob>> {
     let mut out = thumb(stage, p, v(at[0], at[1]), SWITCH_CELL, Palette::faint())?;
     let small = Board::new(at, SWITCH_CELL, p.rows(), p.cols());
@@ -115,7 +147,7 @@ fn switch_copy(stage: &mut Stage<'_>, p: &Picture, s: Switch, at: [f64; 2]) -> f
 }
 
 /// A frame round the copy at `at` of a `rows` by `cols` picture, outside its
-/// own: the switch being swapped on the grid (04_2). Detached.
+/// own: the switch being swapped on the grid (08_2). Detached.
 fn picked_frame(stage: &mut Stage<'_>, at: [f64; 2], rows: usize, cols: usize) -> Mob {
     let half_w = SWITCH_CELL * cols as f64 / 2.0 + PICKED_GAP;
     let half_h = SWITCH_CELL * rows as f64 / 2.0 + PICKED_GAP;
@@ -155,7 +187,7 @@ fn run_outline(stage: &mut Stage<'_>, board: &Board, r: usize, (first, last): (u
 
 impl SceneConstruct for TheOnlyPicture {
     fn name(&self) -> &str {
-        "04_the_only_picture"
+        "08_the_only_picture"
     }
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
@@ -201,9 +233,9 @@ impl SceneConstruct for TheOnlyPicture {
             .ok_or_else(|| fail("a row of the tree is not one run of squares".into()))?;
         let board = Board::new(AT, CELL, built.rows(), built.cols());
 
-        // 04_1: chapter 02's grid with the face's counts; the water's
+        // 08_1: chapter 02's grid with the face's counts; the water's
         // picture, square by square
-        let line = say(&kit, stage, "04_1")?;
+        let line = say(&kit, stage, "08_1")?;
         let grid = board.lines(stage);
         let row_counts = counts(&kit, stage, &face_shadows.rows, Palette::ink(), |r| tap_at(&board, r))?;
         let col_counts = counts(&kit, stage, &face_shadows.cols, Palette::ink(), |c| {
@@ -226,10 +258,10 @@ impl SceneConstruct for TheOnlyPicture {
         fade_in_lagged(stage, &ordered, 0.9, 0.3)?;
         fade_in_all(stage, &[label], 0.3)?;
 
-        // 04_2: its twelve switches, counted as they are spoken, each on a
+        // 08_2: its twelve switches, counted as they are spoken, each on a
         // small copy of its own on the right; the first swapped on the grid,
         // its copy framed; every count stays, and a second picture fits
-        let line = say(&kit, stage, "04_2")?;
+        let line = say(&kit, stage, "08_2")?;
         line.wait_for(stage, "This one has")?;
         let how_many = kit.text_left(
             stage,
@@ -296,11 +328,12 @@ impl SceneConstruct for TheOnlyPicture {
         fade_in_all(stage, &[second_label], 0.2)?;
         let second_up = stage.scene().time().to_f64();
 
-        // 04_3: the second picture, its name and the switches stay into the
-        // line's opening until the name can be read, then go; the tree's
-        // shadows only, as taps and drains; the method's real units build a
-        // picture, the last one taking water back
-        let line = say(&kit, stage, "04_3")?;
+        // 08_3: the second picture, its name and the switches stay into the
+        // line's opening until the name can be read (F5), then go; on "from
+        // before", once they have gone, the tree's shadows as taps and
+        // drains; the method's real units build a picture, the last one
+        // taking water back
+        let line = say(&kit, stage, "08_3")?;
         let mut leaving: Vec<Mob> = std::mem::take(&mut squares).into_values().collect();
         leaving.extend(marked);
         leaving.extend(copies.into_iter().flatten());
@@ -309,28 +342,13 @@ impl SceneConstruct for TheOnlyPicture {
         leaving.extend([second_label, how_many]);
         wait_until(stage, second_up + read_s(SECOND_PICTURE))?;
         fade_out_all(stage, &leaving, 0.4)?;
-        line.wait_for(stage, "Rows of")?;
+        line.wait_for(stage, "from before")?;
         let taps = counts(&kit, stage, &tree_shadows.rows, Palette::ink(), |r| tap_at(&board, r))?;
-        let send_label = kit.text(
-            stage,
-            TO_SEND,
-            22.0,
-            Palette::dim(),
-            v(board.left() - TAP_GAP, board.top() + 0.4),
-        )?;
-        fade_in_lagged(stage, &taps, 0.8, 0.3)?;
-        fade_in_all(stage, &[send_label], 0.3)?;
-        line.wait_for(stage, "columns of")?;
         let drains = counts(&kit, stage, &tree_shadows.cols, Palette::ink(), |c| {
             board.col_count_at(c)
         })?;
-        let drain_label = kit.text(
-            stage,
-            TO_DRAIN,
-            22.0,
-            Palette::dim(),
-            v(board.left() - 1.0, board.col_count_at(0)[1]),
-        )?;
+        let to_send = send_label(&kit, stage, &board)?;
+        let to_drain = drain_label(&kit, stage, &board)?;
         let counter = kit.text_left(
             stage,
             &through_text(0, tree_shadows.row_total()),
@@ -338,8 +356,9 @@ impl SceneConstruct for TheOnlyPicture {
             Palette::ink(),
             v(TEXT_X, THROUGH_Y),
         )?;
-        fade_in_lagged(stage, &drains, 0.8, 0.3)?;
-        fade_in_all(stage, &[drain_label, counter], 0.3)?;
+        fade_in_lagged(stage, &taps, 0.6, 0.3)?;
+        fade_in_lagged(stage, &drains, 0.6, 0.3)?;
+        fade_in_all(stage, &[to_send, to_drain, counter], 0.3)?;
         line.wait_for(stage, "The water builds")?;
         let mut water = Water::new(board, taps, drains, &tree_shadows);
         water.through = Some(counter);
@@ -347,9 +366,9 @@ impl SceneConstruct for TheOnlyPicture {
             send_quick(&kit, stage, &mut water, &tree_shadows, path, state)?;
         }
 
-        // 04_4: the counters become the tree's counts; the water built the
+        // 08_4: the counters become the tree's counts; the water built the
         // tree itself; the question, and the think time (nothing moves)
-        let line = say(&kit, stage, "04_4")?;
+        let line = say(&kit, stage, "08_4")?;
         let tree_rows = counts(&kit, stage, &tree.row_counts(), palette::matches(), |r| {
             tap_at(&board, r)
         })?;
@@ -362,7 +381,7 @@ impl SceneConstruct for TheOnlyPicture {
         new.extend(&tree_cols);
         fade_out_all(stage, &old, 0.25)?;
         fade_in_all(stage, &new, 0.25)?;
-        let mut going = vec![send_label, drain_label];
+        let mut going = vec![to_send, to_drain];
         going.extend(water.through);
         fade_out_all(stage, &going, 0.3)?;
         line.wait_for(stage, "the tree itself")?;
@@ -383,9 +402,9 @@ impl SceneConstruct for TheOnlyPicture {
         fade_in_all(stage, &[tree_label], 0.3)?;
         let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;
 
-        // 04_5: what a switch needs, on the switch from 04_2: each of its
+        // 08_5: what a switch needs, on the switch from 08_2: each of its
         // rows has a filled square where the other is empty
-        let line = say(&kit, stage, "04_5")?;
+        let line = say(&kit, stage, "08_5")?;
         fade_out_all(stage, &[q], 0.3)?;
         line.wait_for(stage, "A switch needs")?;
         let small = Board::new(SMALL_AT, SMALL_CELL, built.rows(), built.cols());
@@ -410,10 +429,10 @@ impl SceneConstruct for TheOnlyPicture {
         fade_in_all(stage, &words, 0.4)?;
         let words_up = stage.scene().time().to_f64();
 
-        // 04_6: the tree's rows nest, shortest first, while the switch's copy
+        // 08_6: the tree's rows nest, shortest first, while the switch's copy
         // and words stay on the right until read; then they go, and the
         // nesting's words take their place; no switch among its rectangles
-        let line = say(&kit, stage, "04_6")?;
+        let line = say(&kit, stage, "08_6")?;
         line.wait_for(stage, "of any two rows")?;
         let mut order: Vec<usize> = (0..tree.rows()).collect();
         order.sort_by_key(|&r| (runs[r].1 - runs[r].0, r));
@@ -438,38 +457,64 @@ impl SceneConstruct for TheOnlyPicture {
         )?;
         fade_in_all(stage, &[none], 0.4)?;
 
-        // 04_7: Ryser's theorem, scoped, held until it can be read; from the
-        // tree no chain can start: one picture fits
-        let line = say(&kit, stage, "04_7")?;
-        let claim = chain_claim();
-        let card = precisely(&kit, stage, &claim)?;
-        fade_in_all(stage, &[card], 0.4)?;
-        let card_up = stage.scene().time().to_f64();
-        line.wait_for(stage, "no other picture fits")?;
-        let alone = kit.text_left(stage, &alone_text(only), 26.0, palette::matches(), v(TEXT_X, ALONE_Y))?;
-        fade_in_all(stage, &[alone], 0.4)?;
-        line.wait_to_end(stage)?;
-        wait_until(stage, card_up + read_s(&claim))?;
-
-        // 04_8: chapter 01's two questions, each with its answer as it is
-        // spoken; held until they can be read, then the fade
-        let line = say(&kit, stage, "04_8")?;
-        let mut leaving = outlines;
-        leaving.extend([card, nested, none, alone]);
-        fade_out_all(stage, &leaving, 0.4)?;
-        let mut closing = Vec::with_capacity(4);
-        for (i, (question, answer)) in QUESTIONS.iter().zip(ANSWERS).enumerate() {
-            closing.push(kit.text_left(stage, question, 28.0, Palette::ink(), v(TEXT_X, CLOSING_Y[2 * i]))?);
-            closing.push(kit.text_left(stage, answer, 22.0, Palette::ink(), v(TEXT_X, CLOSING_Y[2 * i + 1]))?);
+        // 08_7: a switch is what stopped reasoning on the face: a small copy
+        // of the face, the squares reasoning left undecided shaded behind its
+        // squares, one of its switches' corners ringed
+        let line = say(&kit, stage, "08_7")?;
+        let face = model::face();
+        let face_solve = model::line_solve(&face.shadows());
+        let undecided: Vec<(usize, usize)> = (0..face.rows())
+            .flat_map(|r| (0..face.cols()).map(move |c| (r, c)))
+            .filter(|&(r, c)| face_solve.grid[r][c].is_none())
+            .collect();
+        let face_switches = model::switches(&face);
+        let &face_first = face_switches
+            .first()
+            .ok_or_else(|| fail("the face has no switch".into()))?;
+        if face_first.corners().iter().any(|rc| !undecided.contains(rc)) {
+            return Err(fail("a corner of the face's switch is a square reasoning settled".into()));
         }
-        line.wait_for(stage, "the water answers")?;
-        fade_in_all(stage, &closing[..2], 0.4)?;
-        let shown = stage.scene().time().to_f64();
-        line.wait_for(stage, "A switch in")?;
-        fade_in_all(stage, &closing[2..], 0.4)?;
+        fade_out_all(stage, &[nested, none], 0.3)?;
+        let small = Board::new(SMALL_AT, SMALL_CELL, face.rows(), face.cols());
+        let mut copy = small.lines(stage);
+        for &(r, c) in &undecided {
+            copy.push(small.shade(stage, r, c, Palette::dim(), 0.35)?);
+        }
+        copy.extend(place(stage, &small, &face)?.into_values());
+        copy.extend(face_first.corners().map(|(r, c)| small.ring(stage, r, c, palette::switch())));
+        let stuck_words = [stuck_text(undecided.len()), STUCK[1].to_string()];
+        let mut stuck = Vec::with_capacity(stuck_words.len());
+        for (text, y) in stuck_words.iter().zip(SMALL_TEXT_Y) {
+            stuck.push(kit.text_left(stage, text, 24.0, Palette::ink(), v(SMALL_TEXT_X, y))?);
+        }
+        fade_in_all(stage, &copy, 0.5)?;
+        line.wait_for(stage, "No reasoning can settle")?;
+        fade_in_all(stage, &stuck, 0.4)?;
+        let stuck_up = stage.scene().time().to_f64();
+
+        // 08_8: how common a single answer is, on every 4 by 4 picture
+        let line = say(&kit, stage, "08_8")?;
+        let edges = facts::edges();
+        let tenths = (10 * edges.alone + edges.pictures / 2) / edges.pictures;
+        wait_until(stage, stuck_up + read_s(&stuck_words.join(" ")))?;
+        let mut going = copy;
+        going.extend(stuck);
+        fade_out_all(stage, &going, 0.4)?;
+        let grids = kit.text_left(
+            stage,
+            &grids_text(EDGE_SIDE, edges.pictures),
+            24.0,
+            Palette::ink(),
+            v(TEXT_X, TOP_Y),
+        )?;
+        fade_in_all(stage, &[grids], 0.3)?;
+        line.wait_for(stage, "only about one")?;
+        let common = common_text(edges.alone, tenths);
+        let common_line = kit.text_left(stage, &common, 22.0, Palette::ink(), v(TEXT_X, NEXT_Y))?;
+        fade_in_all(stage, &[common_line], 0.4)?;
+        let common_up = stage.scene().time().to_f64();
         line.wait_to_end(stage)?;
-        let all_words = [QUESTIONS[0], ANSWERS[0], QUESTIONS[1], ANSWERS[1]].join(" ");
-        wait_until(stage, shown + read_s(&all_words))?;
+        wait_until(stage, common_up + read_s(&common))?;
         pause(stage, 1.2)?;
 
         fade_all(stage, 0.6)?;
@@ -490,22 +535,20 @@ mod tests {
     fn every_phrase_the_scene_waits_for_is_in_its_line() {
         let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
         for (id, phrase) in [
-            ("04_1", "builds one picture"),
-            ("04_2", "This one has"),
-            ("04_2", "Swap the corners"),
-            ("04_2", "every count stays"),
-            ("04_2", "A second picture"),
-            ("04_3", "Rows of"),
-            ("04_3", "columns of"),
-            ("04_3", "The water builds"),
-            ("04_4", "the tree itself"),
-            ("04_5", "A switch needs"),
-            ("04_5", "each have a filled square"),
-            ("04_6", "of any two rows"),
-            ("04_6", "no switch"),
-            ("04_7", "no other picture fits"),
-            ("04_8", "the water answers"),
-            ("04_8", "A switch in"),
+            ("08_1", "builds one picture"),
+            ("08_2", "This one has"),
+            ("08_2", "Swap the corners"),
+            ("08_2", "every count stays"),
+            ("08_2", "A second picture"),
+            ("08_3", "from before"),
+            ("08_3", "The water builds"),
+            ("08_4", "the tree itself"),
+            ("08_5", "A switch needs"),
+            ("08_5", "each have a filled square"),
+            ("08_6", "of any two rows"),
+            ("08_6", "no switch"),
+            ("08_7", "No reasoning can settle"),
+            ("08_8", "only about one"),
         ] {
             let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
             assert!(text.contains(phrase), "{id} has no {phrase:?}: {text}");
@@ -513,11 +556,12 @@ mod tests {
     }
 
     /// The words on screen are the facts': the water's picture's switches,
-    /// none among the tree's rectangles, the one picture that fits. The card
-    /// states Ryser's theorem within its scope, keeps to two whole lines at
-    /// the band's width and to three at every width it may narrow to; it
-    /// and the closing words are held long enough to read and under twelve
-    /// seconds each.
+    /// none among the tree's rectangles, the one picture that fits, the
+    /// face's undecided squares, the four by four count. The card (chapter
+    /// 09's) states Ryser's theorem within its scope, keeps to two whole
+    /// lines at the band's width and to three at every width it may narrow
+    /// to; it and the closing words are held long enough to read and under
+    /// twelve seconds each.
     #[test]
     fn the_words_on_screen_are_built_from_the_facts() {
         let f = facts::facts().unwrap();
@@ -542,10 +586,23 @@ mod tests {
             let lines = wrap(&claim, width, 3);
             assert!(!lines.iter().any(|l| l.ends_with('…')), "{width}: {lines:?}");
         }
-        let all_words = [QUESTIONS[0], ANSWERS[0], QUESTIONS[1], ANSWERS[1]].join(" ");
+        let questions = crate::chapters::same_shadows::QUESTIONS;
+        let all_words = [questions[0], ANSWERS[0], questions[1], ANSWERS[1]].join(" ");
         for text in [claim.as_str(), all_words.as_str()] {
             assert!(read_s(text) < 12.0, "{text}");
         }
+        assert_eq!(stuck_text(get("DT-F12.face.free")), "20 squares some switch changes");
+        assert_eq!(
+            grids_text(EDGE_SIDE, get("DT-X3.pictures")),
+            "4 by 4 grids: 65,536 pictures"
+        );
+        assert_eq!(f.get("DT-X3.grid"), Some("4,4"));
+        assert_eq!(
+            common_text(get("DT-X3.alone"), get("DT-X3.alone.tenths")),
+            "6,902 are the only picture with their shadows, about 1 in 10"
+        );
+        assert_eq!(grouped(0), "0");
+        assert_eq!(grouped(65536), "65,536");
     }
 
     /// A row's run is its squares first to last, and only when they have no
@@ -583,7 +640,7 @@ mod tests {
         assert!(ends(TEXT_X, ANSWERS[0], 22.0) < safe_x);
         assert!(ends(TEXT_X, ANSWERS[1], 22.0) < safe_x);
         assert!(ends(TEXT_X, &none_among_text(0, 100), 26.0) < safe_x);
-        // the switches' copies (04_2): under their count, right of the grid,
+        // the switches' copies (08_2): under their count, right of the grid,
         // apart with room for the frame round one, and inside
         let switches: usize = facts::facts()
             .unwrap()
@@ -608,6 +665,12 @@ mod tests {
         for text in EACH_ROW {
             assert!(ends(SMALL_TEXT_X, text, 24.0) < safe_x, "{text}");
         }
+        for text in [stuck_text(20).as_str(), STUCK[1]] {
+            assert!(ends(SMALL_TEXT_X, text, 24.0) < safe_x, "{text}");
+        }
+        // 08_8's words end inside
+        assert!(ends(TEXT_X, &common_text(6902, 1), 22.0) < safe_x);
+        assert!(ends(TEXT_X, &grids_text(4, 65536), 24.0) < safe_x);
         assert!(small.top() + 0.3 + 0.2 < safe_y);
         // the labels above the grid stay inside and clear the taps' label
         assert!(board.top() + 0.4 + 0.2 < safe_y);

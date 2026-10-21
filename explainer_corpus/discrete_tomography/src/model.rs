@@ -31,6 +31,13 @@ pub const OPENING: Switch = Switch {
 /// and still fit no picture (chapter 01's last example).
 pub const NO_FIT_COLS: [usize; 5] = [5, 1, 1, 1, 1];
 
+/// Chapter 06's shadows: every count is between one and four, so reasoning
+/// one row or column at a time settles no square, and each column of four
+/// has five rows with water; yet the two columns of four ask for eight
+/// squares and the rows can give them seven, so no picture fits.
+pub const STALL_ROWS: [usize; 5] = [4, 4, 1, 1, 1];
+pub const STALL_COLS: [usize; 5] = [4, 4, 1, 1, 1];
+
 // ------------------------------------------------------------------ pictures
 
 /// A picture: `rows` × `cols` squares, filled or empty, stored row by row.
@@ -422,6 +429,26 @@ pub fn diagonal_counts(p: &Picture) -> Vec<usize> {
     out
 }
 
+/// The other diagonals' counts (chapter 10): from upper left to lower right,
+/// diagonal `k` the squares whose column plus `rows − 1` minus their row is
+/// `k`, from 0 (the bottom-left corner) to rows + cols − 2 (the top-right).
+pub fn falling_counts(p: &Picture) -> Vec<usize> {
+    let mut out = vec![0; (p.rows + p.cols).saturating_sub(1)];
+    for (r, c) in p.filled() {
+        out[c + p.rows - 1 - r] += 1;
+    }
+    out
+}
+
+/// `p` reversed left to right (its mirror image).
+pub fn mirrored(p: &Picture) -> Picture {
+    let mut q = Picture::empty(p.rows, p.cols);
+    for (r, c) in p.filled() {
+        q.flip(r, p.cols - 1 - c);
+    }
+    q
+}
+
 /// How many rectangles `p` has, two rows times two columns: every place a
 /// switch could be.
 pub fn rectangles(p: &Picture) -> usize {
@@ -462,6 +489,197 @@ pub fn walk(from: &Picture, to: &Picture) -> Option<Vec<Switch>> {
         }
     }
     None
+}
+
+// ------------------------------------------- reasoning one line at a time
+
+/// A row or a column of the grid.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
+pub enum Line {
+    Row(usize),
+    Col(usize),
+}
+
+impl Line {
+    /// Its squares in order along it: a row left to right, a column top to
+    /// bottom, on a `rows` × `cols` grid.
+    pub fn squares(self, rows: usize, cols: usize) -> Vec<(usize, usize)> {
+        match self {
+            Line::Row(r) => (0..cols).map(|c| (r, c)).collect(),
+            Line::Col(c) => (0..rows).map(|r| (r, c)).collect(),
+        }
+    }
+
+    /// Its count in shadows `s`.
+    pub fn count(self, s: &Shadows) -> usize {
+        match self {
+            Line::Row(r) => s.rows[r],
+            Line::Col(c) => s.cols[c],
+        }
+    }
+
+    /// How many squares it has on a `rows` × `cols` grid.
+    pub fn size(self, rows: usize, cols: usize) -> usize {
+        match self {
+            Line::Row(_) => cols,
+            Line::Col(_) => rows,
+        }
+    }
+
+    /// "r2" or "c0", as the facts print it.
+    pub fn label(self) -> String {
+        match self {
+            Line::Row(r) => format!("r{r}"),
+            Line::Col(c) => format!("c{c}"),
+        }
+    }
+}
+
+/// One step of reasoning one line at a time: a line whose filled squares
+/// already meet its count has its undecided squares emptied; a line that
+/// needs every undecided square has them filled.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Deduction {
+    pub line: Line,
+    pub fill: bool,
+    pub squares: Vec<(usize, usize)>,
+}
+
+impl Deduction {
+    /// "r2+5" (five squares filled) or "c0-4" (four emptied), as the facts
+    /// print it.
+    pub fn label(&self) -> String {
+        let sign = if self.fill { '+' } else { '-' };
+        format!("{}{sign}{}", self.line.label(), self.squares.len())
+    }
+}
+
+/// What reasoning has settled so far, row by row: `Some(true)` filled,
+/// `Some(false)` empty, `None` undecided.
+pub type Settled = Vec<Vec<Option<bool>>>;
+
+/// What one line allows on a grid of settled squares.
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub enum Verdict {
+    /// Nothing new: no square of it is undecided, or its count leaves a
+    /// choice.
+    Nothing,
+    Step(Deduction),
+    /// Its count cannot be met: it holds more filled squares than its count,
+    /// or too few filled and undecided ones to reach it.
+    Contradiction,
+}
+
+/// The rule for `line` on `grid`, for shadows `s`: a contradiction, else the
+/// deduction its count forces, else nothing.
+pub fn deduce(s: &Shadows, grid: &Settled, line: Line) -> Verdict {
+    let squares = line.squares(s.rows.len(), s.cols.len());
+    let need = line.count(s);
+    let filled = squares.iter().filter(|&&(r, c)| grid[r][c] == Some(true)).count();
+    let open: Vec<(usize, usize)> = squares.into_iter().filter(|&(r, c)| grid[r][c].is_none()).collect();
+    if filled > need || filled + open.len() < need {
+        return Verdict::Contradiction;
+    }
+    if open.is_empty() {
+        return Verdict::Nothing;
+    }
+    if filled == need {
+        Verdict::Step(Deduction {
+            line,
+            fill: false,
+            squares: open,
+        })
+    } else if filled + open.len() == need {
+        Verdict::Step(Deduction {
+            line,
+            fill: true,
+            squares: open,
+        })
+    } else {
+        Verdict::Nothing
+    }
+}
+
+/// Settle `step`'s squares on `grid`.
+pub fn settle(grid: &mut Settled, step: &Deduction) {
+    for &(r, c) in &step.squares {
+        grid[r][c] = Some(step.fill);
+    }
+}
+
+/// What reasoning one row or column at a time settles (chapter 02).
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct LineSolve {
+    /// Every square: settled filled, settled empty, or undecided.
+    pub grid: Settled,
+    /// Its deductions, in the order it made them.
+    pub steps: Vec<Deduction>,
+    /// The first line whose count could not be met, if any.
+    pub contradiction: Option<Line>,
+}
+
+impl LineSolve {
+    /// How many squares it settled.
+    pub fn settled(&self) -> usize {
+        self.grid.iter().flatten().filter(|square| square.is_some()).count()
+    }
+
+    /// The picture, when every square is settled and no line contradicts.
+    pub fn solved(&self) -> Option<Picture> {
+        if self.contradiction.is_some() {
+            return None;
+        }
+        let rows: Vec<String> = self
+            .grid
+            .iter()
+            .map(|row| {
+                row.iter()
+                    .map(|square| square.map(|filled| if filled { '1' } else { '0' }))
+                    .collect::<Option<String>>()
+            })
+            .collect::<Option<_>>()?;
+        let rows: Vec<&str> = rows.iter().map(String::as_str).collect();
+        Picture::parse(&rows).ok()
+    }
+}
+
+/// Reason one row or column at a time: sweep the rows top to bottom, then
+/// the columns left to right, applying each line's rule ([`deduce`]) as it
+/// comes; sweep again until a whole sweep settles nothing, and stop at the
+/// first line whose count cannot be met. Every square it settles is the same
+/// in every picture that fits (each step is forced by one line's count).
+pub fn line_solve(s: &Shadows) -> LineSolve {
+    let (rows, cols) = (s.rows.len(), s.cols.len());
+    let mut grid: Settled = vec![vec![None; cols]; rows];
+    let lines: Vec<Line> = (0..rows).map(Line::Row).chain((0..cols).map(Line::Col)).collect();
+    let mut steps = Vec::new();
+    loop {
+        let mut changed = false;
+        for &line in &lines {
+            match deduce(s, &grid, line) {
+                Verdict::Nothing => {}
+                Verdict::Step(step) => {
+                    settle(&mut grid, &step);
+                    steps.push(step);
+                    changed = true;
+                }
+                Verdict::Contradiction => {
+                    return LineSolve {
+                        grid,
+                        steps,
+                        contradiction: Some(line),
+                    };
+                }
+            }
+        }
+        if !changed {
+            return LineSolve {
+                grid,
+                steps,
+                contradiction: None,
+            };
+        }
+    }
 }
 
 // ---------------------------------------------------------------- the flow
@@ -1400,5 +1618,109 @@ mod tests {
         assert!(gale_table(&unequal).iter().all(|&(asks, gives)| asks <= gives));
         assert_ne!(unequal.row_total(), unequal.col_total());
         assert!(!gale_ryser(&unequal) && fits(&unequal).is_empty());
+    }
+
+    fn labels(solve: &LineSolve) -> Vec<String> {
+        solve.steps.iter().map(Deduction::label).collect()
+    }
+
+    /// Chapter 02: reasoning one row or column at a time settles every
+    /// square of the tree in eight steps, settles only the face's empty
+    /// middle row, and meets a contradiction in the first column of the
+    /// face's rows with columns 5, 1, 1, 1, 1; on chapter 06's shadows it
+    /// settles nothing and finds no contradiction.
+    #[test]
+    fn reasoning_one_line_at_a_time() {
+        let tree_solve = line_solve(&tree().shadows());
+        assert_eq!(
+            labels(&tree_solve),
+            ["r2+5", "c0-4", "c2+4", "c4-4", "r0-2", "r1+2", "r3-2", "r4-2"]
+        );
+        assert_eq!(tree_solve.solved(), Some(tree()));
+        assert_eq!(tree_solve.settled(), 25);
+        let face_solve = line_solve(&face().shadows());
+        assert_eq!(labels(&face_solve), ["r2-5"]);
+        assert_eq!((face_solve.settled(), face_solve.contradiction), (5, None));
+        assert_eq!(face_solve.solved(), None);
+        let no_fit = line_solve(&Shadows::new(&face().row_counts(), &NO_FIT_COLS));
+        assert_eq!(no_fit.contradiction, Some(Line::Col(0)));
+        let stall = line_solve(&Shadows::new(&STALL_ROWS, &STALL_COLS));
+        assert_eq!((stall.settled(), stall.contradiction), (0, None));
+        assert!(stall.steps.is_empty());
+    }
+
+    /// Each deduction is forced: on every pair of shadows some 4x4 picture
+    /// casts, reasoning one line at a time meets no contradiction, and every
+    /// square it settles is the same in every picture that fits.
+    #[test]
+    fn every_square_reasoning_settles_is_the_same_in_every_picture() {
+        for (s, group) in by_shadows(4, 4) {
+            let solve = line_solve(&s);
+            assert_eq!(solve.contradiction, None, "{s:?}");
+            for (r, row) in solve.grid.iter().enumerate() {
+                for (c, square) in row.iter().enumerate() {
+                    if let Some(filled) = *square {
+                        assert!(group.iter().all(|p| p.get(r, c) == filled), "{s:?} at ({r}, {c})");
+                    }
+                }
+            }
+            if let Some(p) = solve.solved() {
+                assert_eq!(group, vec![p], "{s:?}");
+            }
+        }
+    }
+
+    /// A line's rule: its count met empties the rest, a count that needs
+    /// every undecided square fills them, too many or too few is a
+    /// contradiction, and a choice left is nothing.
+    #[test]
+    fn a_lines_rule_fires_only_when_its_count_forces_it() {
+        let s = Shadows::new(&[1, 2], &[1, 2]);
+        let mut grid: Settled = vec![vec![None; 2]; 2];
+        assert_eq!(deduce(&s, &grid, Line::Row(0)), Verdict::Nothing);
+        let full = deduce(&s, &grid, Line::Row(1));
+        assert_eq!(
+            full,
+            Verdict::Step(Deduction {
+                line: Line::Row(1),
+                fill: true,
+                squares: vec![(1, 0), (1, 1)],
+            })
+        );
+        let Verdict::Step(step) = full else { unreachable!() };
+        settle(&mut grid, &step);
+        assert_eq!(
+            deduce(&s, &grid, Line::Col(0)),
+            Verdict::Step(Deduction {
+                line: Line::Col(0),
+                fill: false,
+                squares: vec![(0, 0)],
+            })
+        );
+        grid[0][0] = Some(true);
+        assert_eq!(deduce(&s, &grid, Line::Col(0)), Verdict::Contradiction);
+        assert_eq!(Line::Row(2).label(), "r2");
+        assert_eq!(Line::Col(0).size(5, 4), 5);
+    }
+
+    /// Chapter 10: each square stands on exactly one of the other diagonals,
+    /// and a mirror turns the first diagonals into the other ones, read from
+    /// the far end; the face is its own mirror image, so its counts along
+    /// the other diagonals are the first ones in mirror order.
+    #[test]
+    fn the_other_diagonals_count_every_square_once() {
+        for p in all_pictures(3, 4) {
+            assert_eq!(falling_counts(&p).iter().sum::<usize>(), p.count());
+            assert_eq!(mirrored(&mirrored(&p)), p);
+            let mut reversed = diagonal_counts(&p);
+            reversed.reverse();
+            assert_eq!(falling_counts(&mirrored(&p)), reversed);
+        }
+        let face = face();
+        assert_eq!(mirrored(&face), face);
+        assert_eq!(falling_counts(&face), [0, 2, 1, 1, 1, 2, 1, 1, 0]);
+        let mut reversed = diagonal_counts(&face);
+        reversed.reverse();
+        assert_eq!(falling_counts(&face), reversed);
     }
 }

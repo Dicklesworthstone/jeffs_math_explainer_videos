@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "script_sha256": "1356340e78e69fbbc45cd0e237f7016095aefa30ad77ce4160708cf4dbdd74c2",
+  "script_sha256": "46422806f3e951496b034ad554aa86c4ba59262b1cf979d253aa7a6edd2eef32",
   "units": [
     {
       "id": "01u1",
@@ -41,127 +41,332 @@
       "id": "02u1",
       "line_ids": [
         "02_1",
-        "02_2",
-        "02_3"
+        "02_2"
       ],
-      "text": "Turn the grid into pipes. Each row's tap lets out its count in units of water. A unit runs along its row, turns down through a square, and drains out of that column. A square carries at most one unit, and each drain holds at most its count. Get every unit through, and the wet squares are a picture that fits."
+      "text": "This puzzle has a serious side. One reason people study it is rebuilding tiny crystals from counts of atoms along lines, often taken from only a few directions. How would you rebuild a picture from its shadows? Start with the squares you can be sure of."
     },
     {
       "id": "02u2",
       "line_ids": [
+        "02_3",
         "02_4",
-        "02_5"
+        "02_5",
+        "02_6"
       ],
-      "text": "Send one unit at a time, along any path with room. Eight are through. The bottom row has one left, but its dry squares lead to full drains. Is the water stuck?"
+      "text": "Take the shadows of a tree. Rows of one, three, five, one and one, columns of one, two, five, two and one. The row of five must be full, and so must the column of five. That already gives the first and last columns their one square, and the rows of one theirs. Everything else in them stays empty. The second row needs two more, and exactly two squares are left open. Every square is decided, and the picture is the tree."
     },
     {
       "id": "02u3",
       "line_ids": [
-        "02_6",
-        "02_7"
+        "02_7",
+        "02_8"
       ],
-      "text": "No. Send it into the first column anyway, and take back the unit the top row sent there. The top row sends that unit to the fourth column, which still needs one. Without taking back, this fill would have stopped one unit short."
+      "text": "Now the face's shadows. Its empty row is easy. All five squares there are empty. Then what? Can you be sure of any other square?"
     },
     {
       "id": "02u4",
       "line_ids": [
-        "02_8",
-        "02_9"
+        "02_9",
+        "02_10"
       ],
-      "text": "The wet squares cast the face's shadows, but they aren't the face. They're one of the sixty-four. Water finds a picture whenever one exists. It never says whether that's the only one."
+      "text": "No. Every other square is filled in some of the sixty-four pictures, and empty in others. So reasoning row by row and column by column gets stuck here. Whatever you guess next, some of the sixty-four agree."
     },
     {
       "id": "03u1",
       "line_ids": [
-        "03_1",
-        "03_2"
+        "03_1"
       ],
-      "text": "Back to the shadows no picture fits. The face's rows, and columns asking for five, one, one, one and one. The water stops at eight of nine. Could taking water back get the ninth through?"
+      "text": "Why not try every picture? Each square is filled or empty. How many pictures does this grid have?"
     },
     {
       "id": "03u2",
       "line_ids": [
-        "03_3",
-        "03_4"
+        "03_2",
+        "03_3"
       ],
-      "text": "No. The first column needs five, but each row sends it at most one, and only four rows have water. Taking back just moves water between pipes. Four into the first column, four out of the other drains. Eight is all that can pass."
+      "text": "Two choices for each of twenty-five squares, over thirty-three million. On a twenty by twenty grid, the count has a hundred and twenty-one digits. Trying every picture doesn't scale. Here's a method that never guesses. Turn the grid into pipes. Each row's tap lets out its count in units of water."
     },
     {
       "id": "03u3",
       "line_ids": [
-        "03_5",
-        "03_6",
-        "03_7"
+        "03_4",
+        "03_5"
       ],
-      "text": "Count any group of columns this way. Each row gives it at most one square per column, and no more than its count. If the group asks for more than the rows can give, no picture fits. Checking the hungriest group of each size is enough. With equal totals, that test never misses. When water stops short, the columns it can't reach always form a group that asks too much."
+      "text": "A unit runs along its row, turns down through a square, and drains out of that column. A square carries at most one unit, and each drain holds at most its count. Get every unit through, and the wet squares are a picture that fits."
     },
     {
       "id": "03u4",
       "line_ids": [
+        "03_6",
+        "03_7"
+      ],
+      "text": "It works the other way too. Any picture that fits gets every unit through, one down each filled square. So asking whether any picture fits is asking whether every unit can get through."
+    },
+    {
+      "id": "03u5",
+      "line_ids": [
         "03_8"
       ],
-      "text": "The face's shadows pass, and sixty-four pictures fit them. The test says that one fits, not which, and not whether only one."
+      "text": "Send one unit at a time, along any path with room."
     },
     {
       "id": "04u1",
       "line_ids": [
-        "04_1",
-        "04_2"
+        "04_1"
       ],
-      "text": "Water builds one picture. Can that picture alone tell us whether it is the only one? It can. This one has twelve switches. Swap the corners of any of them, and every count stays. A second picture fits."
+      "text": "Eight are through. The bottom row has one left, but its dry squares lead to full drains. Is the water stuck?"
     },
     {
       "id": "04u2",
       "line_ids": [
-        "04_3",
-        "04_4"
+        "04_2",
+        "04_3"
       ],
-      "text": "Now the shadows of a tree. Rows of one, three, five, one and one, columns of one, two, five, two and one. The water builds a picture. It is the tree itself. Could another picture cast the same shadows?"
+      "text": "No. Send it into the first column anyway, and take back the unit the top row sent there. The top row sends that unit to the fourth column, which still needs one. Without taking back, this fill would have stopped one unit short."
     },
     {
       "id": "04u3",
       "line_ids": [
+        "04_4",
         "04_5",
-        "04_6",
-        "04_7"
+        "04_6"
       ],
-      "text": "No. A switch needs two rows that each have a filled square where the other is empty. But of any two rows in the tree, one has every square the other has. So the tree has no switch. Any two pictures with the same shadows are joined by a chain of switches. From the tree, no chain can start, so no other picture fits."
+      "text": "Taking back breaks no count. The top row still sends two, the first column still drains one, and the fourth column gets the unit it was missing. In the picture, one square emptied and two filled. The bottom row took over the first column, and the top row moved to the fourth. Every search that finds a path sends one more unit, and there are only nine to send. So the water always finishes."
     },
     {
       "id": "04u4",
       "line_ids": [
+        "04_7",
         "04_8"
       ],
-      "text": "So the water answers whether any picture fits. A switch in the water's picture answers whether it's the only one."
+      "text": "The wet squares cast the face's shadows, but they aren't the face. They're one of the sixty-four. Water finds a picture whenever one exists. It never says whether that's the only one."
     },
     {
       "id": "05u1",
       "line_ids": [
         "05_1",
-        "05_2",
-        "05_3"
+        "05_2"
       ],
-      "text": "Back to the face's sixty-four pictures. Take one more shadow and count the filled squares along each diagonal. A switch keeps every row and column count, but always changes a diagonal count. This one takes a square from two diagonals and gives both to a third. So none of the fourteen pictures one switch from the face can pass. How many of all sixty-four do?"
+      "text": "Back to the shadows no picture fits. The face's rows, and columns asking for five, one, one, one and one. The water stops at eight of nine. Could taking water back get the ninth through?"
     },
     {
       "id": "05u2",
       "line_ids": [
-        "05_4",
-        "05_5"
+        "05_3"
       ],
-      "text": "Two. Sixty-two fail, but one other picture casts all three of the face's shadows. They differ in six squares. Each row, column and diagonal through them loses one square and gains one, so all three shadows stay the same."
+      "text": "No. The first column needs five, but each row sends it at most one, and only four rows have water."
     },
     {
       "id": "05u3",
       "line_ids": [
+        "05_4",
+        "05_5",
         "05_6"
       ],
-      "text": "Two shadows left sixty-four pictures. A third still leaves two, so here even three shadows lie."
+      "text": "Look at everywhere the water can still reach, taking back included. Every row with water, and every column but the first. Every unit that gets through must leave that area somewhere. Down a pipe into the first column, or out through one of the other drains. Four pipes lead into the first column, and the other drains hold four. Taking back only moves water around inside, so eight is all that can pass."
     },
     {
       "id": "05u4",
       "line_ids": [
         "05_7"
+      ],
+      "text": "Here, the reason was a single column asking too much."
+    },
+    {
+      "id": "06u1",
+      "line_ids": [
+        "06_1",
+        "06_2"
+      ],
+      "text": "Is checking each column on its own always enough? Try rows of four, four, one, one and one, and columns the same. No count is zero or five, so no row or column forces a single square. And each column of four has five rows with water. Does any picture fit?"
+    },
+    {
+      "id": "06u2",
+      "line_ids": [
+        "06_3",
+        "06_4",
+        "06_5"
+      ],
+      "text": "No. Take the two columns of four together. They ask for eight squares. A row of four can give that pair at most two, one in each column. A row of one gives at most one. Two, two, one, one and one make seven. Eight asked, seven possible. No picture fits, and those single-row and single-column checks didn't catch it."
+    },
+    {
+      "id": "06u3",
+      "line_ids": [
+        "06_6"
+      ],
+      "text": "The water agrees. It stops at ten of eleven, and the columns it can't reach are exactly those two."
+    },
+    {
+      "id": "06u4",
+      "line_ids": [
+        "06_7",
+        "06_8",
+        "06_9"
+      ],
+      "text": "Count any group of columns this way. Each row gives it at most one square per column, and no more than its count. If the group asks for more than the rows can give, no picture fits. Checking the hungriest group of each size is enough. For a given size, the rows can give every group the same. So the hungriest group is the one to check."
+    },
+    {
+      "id": "07u1",
+      "line_ids": [
+        "07_1",
+        "07_2",
+        "07_3",
+        "07_4"
+      ],
+      "text": "With equal totals, that test never misses. When water stops short, the columns it can't reach always form a group that asks too much. Here's why, with the shadows we just tried. Those two columns can only be fed from the rows the water can't reach, which hold three units. Or through the four pipes into them from the rows it can. The water used every one of those, and the three drains it can reach, and still came up one short. So those columns ask for more than three plus four. That count works whenever the water stops short, on any shadows with equal totals."
+    },
+    {
+      "id": "07u2",
+      "line_ids": [
+        "07_5"
+      ],
+      "text": "Equal totals matter. Rows of two and two, with columns of one and one, pass every size of the test. Does a picture fit?"
+    },
+    {
+      "id": "07u3",
+      "line_ids": [
+        "07_6"
+      ],
+      "text": "No. Together the rows ask for four squares, and the columns only two."
+    },
+    {
+      "id": "07u4",
+      "line_ids": [
+        "07_7"
+      ],
+      "text": "The face's shadows pass, and sixty-four pictures fit them. The test says that one fits, not which, and not whether only one."
+    },
+    {
+      "id": "08u1",
+      "line_ids": [
+        "08_1",
+        "08_2"
+      ],
+      "text": "Water builds one picture. Can that picture alone tell us whether it is the only one? It can. This one has twelve switches. Swap the corners of any of them, and every count stays. A second picture fits."
+    },
+    {
+      "id": "08u2",
+      "line_ids": [
+        "08_3",
+        "08_4"
+      ],
+      "text": "Now the tree's shadows from before. The water builds a picture. It is the tree itself. Could another picture cast the same shadows?"
+    },
+    {
+      "id": "08u3",
+      "line_ids": [
+        "08_5",
+        "08_6",
+        "08_7"
+      ],
+      "text": "No. A switch needs two rows that each have a filled square where the other is empty. But of any two rows in the tree, one has every square the other has. So the tree has no switch. And a switch is what stopped reasoning on the face. No reasoning can settle a square that some switch changes."
+    },
+    {
+      "id": "08u4",
+      "line_ids": [
+        "08_8"
+      ],
+      "text": "How common is a single answer? On a four by four grid, only about one picture in ten is the only one with its shadows."
+    },
+    {
+      "id": "09u1",
+      "line_ids": [
+        "09_1"
+      ],
+      "text": "One worry remains. These two pictures cast the same shadows, one square in every row and column. Can a single switch turn one into the other?"
+    },
+    {
+      "id": "09u2",
+      "line_ids": [
+        "09_2",
+        "09_3"
+      ],
+      "text": "No. They differ in six squares, and a switch changes only four. But two switches do it. First this rectangle, then this one."
+    },
+    {
+      "id": "09u3",
+      "line_ids": [
+        "09_4",
+        "09_5",
+        "09_6"
+      ],
+      "text": "Any two pictures with the same shadows are joined by a chain of switches. That's the step the tree needed. If another picture cast its shadows, a chain of switches would lead there, and the chain's first step would be a switch of the tree. From the tree, no chain can start, so no other picture fits."
+    },
+    {
+      "id": "09u4",
+      "line_ids": [
+        "09_7"
+      ],
+      "text": "The same chains tie the face's sixty-four together, each at most three switches from the face. Start from any picture that fits, try every switch, and every switch of what you find, and you reach them all."
+    },
+    {
+      "id": "09u5",
+      "line_ids": [
+        "09_8"
+      ],
+      "text": "So the water answers whether any picture fits. A switch in the water's picture answers whether it's the only one."
+    },
+    {
+      "id": "10u1",
+      "line_ids": [
+        "10_1",
+        "10_2",
+        "10_3"
+      ],
+      "text": "Back to the face's sixty-four pictures. Take one more shadow and count the filled squares along each diagonal. A switch keeps every row and column count, but always changes a diagonal count. This one takes a square from two diagonals and gives both to a third. So none of the fourteen pictures one switch from the face can pass. How many of all sixty-four do?"
+    },
+    {
+      "id": "10u2",
+      "line_ids": [
+        "10_4",
+        "10_5"
+      ],
+      "text": "Two. Sixty-two fail, but one other picture casts all three of the face's shadows. They differ in six squares. Each row, column and diagonal through them loses one square and gains one, so all three shadows stay the same."
+    },
+    {
+      "id": "10u3",
+      "line_ids": [
+        "10_6"
+      ],
+      "text": "Two shadows left sixty-four pictures. A third still leaves two, so here even three shadows lie."
+    },
+    {
+      "id": "10u4",
+      "line_ids": [
+        "10_7",
+        "10_8",
+        "10_9"
+      ],
+      "text": "Was the face unlucky? Forty-eight of the sixty-four are the only picture with all three of their own shadows. The face is not one of them. The face looks the same in a mirror. So along the other diagonals its counts are the first ones mirrored, and the picture that survives them is this one's mirror image. Count both diagonal shadows, and only the face is left. That's this picture, not a rule."
+    },
+    {
+      "id": "11u1",
+      "line_ids": [
+        "11_1",
+        "11_2",
+        "11_3"
+      ],
+      "text": "So here's what a program can promise from two shadows. Check that the totals match, and send the water. If every unit gets through, the wet squares are a picture that fits. If not, where the water stops names a group of columns asking too much. Then look for a switch in that picture. None means it's the only one. Any switch means there are others, and switches reach every one of them."
+    },
+    {
+      "id": "11u2",
+      "line_ids": [
+        "11_4"
+      ],
+      "text": "Try the four steps on the face's shadows. What does the program report?"
+    },
+    {
+      "id": "11u3",
+      "line_ids": [
+        "11_5",
+        "11_6"
+      ],
+      "text": "Every unit gets through, but the water's picture has twelve switches. So it reports a picture that fits, and that it isn't the only one. What no program can say is which of the sixty-four was really there. Two of the face's own squares are filled in only twelve of them."
+    },
+    {
+      "id": "11u4",
+      "line_ids": [
+        "11_7"
       ],
       "text": "So keep the two questions apart. Does any picture fit? And is it the only one?"
     }

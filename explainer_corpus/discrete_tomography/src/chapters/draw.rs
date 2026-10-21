@@ -127,6 +127,24 @@ pub fn shift_all(stage: &mut Stage<'_>, mobs: &[Mob], dx: f64, dy: f64, rt: f64)
     Ok(())
 }
 
+/// Move each of several mobjects by its own `(dx, dy)`, together, over `rt`
+/// seconds.
+pub fn shift_each(stage: &mut Stage<'_>, moves: &[(Mob, f64, f64)], rt: f64) -> fmn::Result<()> {
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &(m, dx, dy) in moves {
+        let a = m
+            .animate()
+            .set_anim_args(AnimateArgs {
+                run_time: Some(rt),
+                ..AnimateArgs::default()
+            })?
+            .shift(v(dx, dy))?;
+        anims.push(stage.prepare(a)?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
 /// Fade `old` out and the detached `new` in, in one move.
 pub fn swap(stage: &mut Stage<'_>, old: &[Mob], new: &[Mob], rt: f64) -> fmn::Result<()> {
     let mut anims: Vec<Box<dyn Animation>> = Vec::new();
@@ -434,6 +452,32 @@ impl Board {
             .build()?
             .moved_to(self.at(r, c));
         Ok(stage.arena_mut().add(square))
+    }
+
+    /// A square at (`r`, `c`) shaded `color` at `opacity` (0 to 1): how
+    /// often a square is filled, drawn as how strongly it is tinted.
+    /// Detached.
+    pub fn shade(&self, stage: &mut Stage<'_>, r: usize, c: usize, color: Srgb, opacity: f64) -> fmn::Result<Mob> {
+        let side = self.cell * FILL;
+        let square = Rectangle::new()
+            .width(side)
+            .height(side)
+            .corner_radius(0.05)
+            .style(flat(color, opacity.clamp(0.0, 1.0)))
+            .build()?
+            .moved_to(self.at(r, c));
+        Ok(stage.arena_mut().add(square))
+    }
+
+    /// A small dot in square (`r`, `c`): a square reasoning has settled
+    /// empty. Detached.
+    pub fn dot(&self, stage: &mut Stage<'_>, r: usize, c: usize, color: Srgb) -> Mob {
+        let dot = Circle::new()
+            .radius(self.cell * 0.08)
+            .style(flat(color, 1.0))
+            .build()
+            .moved_to(self.at(r, c));
+        stage.arena_mut().add(dot)
     }
 
     /// A ring around square (`r`, `c`): a closed stroke just outside a

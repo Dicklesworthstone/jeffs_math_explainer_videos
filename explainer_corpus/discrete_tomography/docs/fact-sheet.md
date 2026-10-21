@@ -7,6 +7,14 @@ rows also carry a literal checked at startup. Pictures are written row by row
 from the top, `1` filled and `0` empty, rows joined by `/`; squares are
 (row, column) from 0.
 
+**Chapter numbers (2026-10-20).** The video now has eleven chapters. The
+section headings below that name chapters 02 to 05 are the five-chapter cut's
+numbering: its chapter 02 is now chapters 03 and 04, its 03 is 05 (and 06's
+table, 07's card), its 04 is 08 (and 09's card and closing), and its 05 is
+10. The line ids in the "shown / said" columns of those sections are the
+old ones; `src/main.rs`'s SPOKEN table holds the current ids. The new
+sections at the end cover the expansion.
+
 The oracle shares no code with the model: it generates pictures column by
 column (the model row by row), finds switches from pairs of filled squares
 (the model from pairs of rows times pairs of columns), takes the largest flow
@@ -175,6 +183,89 @@ there are 64 pictures to test; and, for the notes only, that the other
 diagonal direction alone also leaves two of the 64 and both directions
 together leave the face alone. Its edge rows add every switch of every
 4 × 4 picture against the diagonal shadow (`DT-X6`).
+
+### Chapter 02 (square by square)
+
+`model::line_solve` reasons one row or column at a time: sweep the rows top
+to bottom, then the columns left to right; a line whose filled squares meet
+its count empties its undecided squares, a line that needs every undecided
+square fills them; sweep again until nothing changes, and stop at a line
+whose count cannot be met. `facts::tree_reasoning` checks the order the
+chapter tells (the full lines, then the met lines columns first, then the
+rest) with `model::deduce`, step by step. The oracle reasons with its own
+dictionary of settled squares and replays the told order itself.
+
+| id | quantity | shown / said | computed in | oracle key | value | source |
+|---|---|---|---|---|---|---|
+| F12 | the tree's deductions, as swept and as told | 02_4 to 02_6 | `model::line_solve`, `facts::tree_reasoning` | `DT-F12.tree.steps`, `.tree.told` | `r2+5,c0-4,c2+4,c4-4,r0-2,r1+2,r3-2,r4-2`; `r2+5,c2+4,c0-4,c4-4,r0-2,r3-2,r4-2,r1+2` | computed |
+| F12 | settled the tree; the full lines and their count | "Every square is decided, and the picture is the tree" (02_6); "The row of five … the column of five" (02_4) | same | `DT-F12.tree.solved`, `.tree.full.lines`, `.tree.full` | `true`; `r2,c2`; `5` | computed |
+| F12 | the met lines and their count | "the first and last columns their one square, and the rows of one theirs" (02_5) | same | `DT-F12.tree.met.cols`, `.tree.met.rows`, `.tree.met.count` | `0,4`; `0,3,4`; `1` | computed |
+| F12 | the last row, what it needs, its open squares | "The second row needs two more, and exactly two squares are left open" (02_6) | same | `DT-F12.tree.last.row`, `.tree.last.needs`, `.tree.last.open` | `1`; `2`; `2` | computed |
+| F12 | the face's deductions; squares settled; contradiction | "Its empty row is easy. All five squares there are empty" (02_7) | `model::line_solve` | `DT-F12.face.steps`, `.face.settled`, `.face.contradiction` | `r2-5`; `5`; `none` | computed |
+| F12 | squares alike in all 64; the others | "Every other square is filled in some of the sixty-four pictures, and empty in others" (02_9) | `facts::filled_in` | `DT-F12.face.forced`, `.face.free` | `5`; `20` | computed by enumeration |
+| F12 | how many of the 64 have each square filled | the numbers in the squares (02_9) | `facts::filled_in` | `DT-F12.face.filled_in` | `12,46,12,46,12/12,46,12,46,12/0,0,0,0,0/12,46,12,46,12/28,54,28,54,28` | computed |
+| F12 | the top-left square, filled and empty; the least, either way, of a free square | "filled: 12 of 64", "empty: 52 of 64" (02_10); "Whatever you guess next, some of the sixty-four agree" | same | `DT-F12.face.guess`, `.face.free.least` | `12,52`; `12,10` | computed |
+| F12 | the face's own squares filled least often; how many; where | "Two of the face's own squares are filled in only twelve of them" (11_6) | same | `DT-F12.face.rarest`, `.face.rarest.count`, `.face.rarest.squares` | `12`; `2`; `3,0;3,4` | computed |
+
+### Chapter 03 (why not try every picture)
+
+| id | quantity | shown / said | computed in | oracle key | value | source |
+|---|---|---|---|---|---|---|
+| F13 | choices a square has | "Two choices" (03_2) | a square is filled or empty | `DT-F13.choices` | `2` | pinned |
+| F13 | the grid's squares; its pictures; in millions | "twenty-five squares, over thirty-three million" (03_2); "33,554,432 pictures" | rows × columns; 2^25 | `DT-F13.squares`, `.pictures`, `.millions` | `25`; `33554432`; `33` | computed |
+| F13 | the larger grid's side; the digits of its count | "On a twenty by twenty grid, the count has a hundred and twenty-one digits" (03_2) | `facts::BIG_SIDE`; `facts::power_of_two_digits` (exact doubling) | `DT-F13.big.side`, `.big.digits` | `20`; `121` | computed; the oracle by the length of 2^400's digits |
+
+### Chapter 04 (what the take-back did)
+
+| id | quantity | shown / said | computed in | oracle key | value | source |
+|---|---|---|---|---|---|---|
+| F14 | squares the ninth path emptied and filled | "one square emptied and two filled" (04_5) | `DT-F8.before.wet` against `DT-F8.built` | `DT-F14.emptied`, `.emptied.cells`, `.filled`, `.filled.cells` | `1`; `0,0`; `2`; `0,3;4,0` | computed |
+| F14 | the top row sends, the first column drains, the fourth before and after | "The top row still sends two, the first column still drains one, and the fourth column gets the unit it was missing" (04_4) | the replayed states before and after | `DT-F14.top_row.sends`, `.first_col.drains`, `.to_col.drains` | `2`; `1`; `2,3` | computed |
+| F14 | searches: those that send water, and the last that finds none | "Every search that finds a path sends one more unit, and there are only nine to send" (04_6); the card's "at most 9" is `DT-F8.paths` | `Flow::paths` + 1 | `DT-F14.searches` | `10` | computed (Ford and Fulkerson 1957, termination) |
+
+### Chapters 06 and 07 (rows and columns 4, 4, 1, 1, 1; equal totals)
+
+`facts::stall_flow` is the flow `model::max_flow` sends on
+`model::STALL_ROWS` and `STALL_COLS`, replayed by `model::replay`; the cut is
+`Flow::cut`. The oracle derives its own trace, its own reach, and lists every
+cut.
+
+| id | quantity | shown / said | computed in | oracle key | value | source |
+|---|---|---|---|---|---|---|
+| F15 | the rows, the columns, both totals, the least and largest count | "rows of four, four, one, one and one, and columns the same" (06_1); "No count is zero or five" (06_2) | `model::STALL_*` | `DT-F15.rows`, `.cols`, `.totals`, `.counts` | `4,4,1,1,1`; `4,4,1,1,1`; `11,11`; `1,4` | pinned input; counts computed |
+| F15 | squares line reasoning settles; its contradiction | "no row or column forces a single square" (06_2) | `model::line_solve` | `DT-F15.settled`, `.contradiction` | `0`; `none` | computed |
+| F15 | rows with water; the largest column | "each column of four has five rows with water" (06_2) | counts | `DT-F15.rows_with_water`, `.largest` | `5`; `4` | computed |
+| F15 | pictures that fit | "No picture fits" (06_5) | `model::fits` | `DT-F15.fits` | `0` | computed by enumeration |
+| F15 | the pair, what it asks, each row's most for it, what the rows can give | "the two columns of four … eight squares" (06_3); "Two, two, one, one and one make seven" (06_4) | `model::bottleneck`, `can_give` | `DT-F15.pair`, `.pair.asks`, `.pair.by_row`, `.pair.gives` | `0,1`; `8`; `2,2,1,1,1`; `7` | computed |
+| F15 | Gale's table | the table (06_7, 06_8) | `model::gale_table` | `DT-F15.sorted`, `.asks`, `.gives`, `.failing` | `4,4,1,1,1`; `4,8,9,10,11`; `5,7,9,11,11`; `2` | computed; the oracle by the dual sequence |
+| F15 | the water: paths, trace, take-backs, flow, the row left | "It stops at ten of eleven" (06_6) | `facts::stall_flow` | `DT-F15.paths`, `.trace`, `.takebacks`, `.flow`, `.left.row`, `.left.units` | `10`; `r0c0,r0c1,r0c2,r0c3,r1c0,r1c1,r1c4,r2c0,r3c0,r4c1`; `0`; `10`; `1`; `1` | computed |
+| F15 | where it can still reach; the columns cut off | "the columns it can't reach are exactly those two" (06_6) | `Flow::cut` | `DT-F15.reached.rows`, `.reached.cols`, `.cut_off` | `0,1`; `2,3,4`; `0,1` | computed; the oracle's own search and its listed cuts agree |
+| F15 | the cut's parts and value; how short | "which hold three units … the four pipes" (07_2); "the three drains it can reach, and still came up one short" (07_3) | same | `DT-F15.cut.unreached_taps`, `.cut.pipes`, `.cut.reached_drains`, `.cut`, `.short` | `3`; `4`; `3`; `10`; `1` | computed |
+| F15 | two other pairs, what they ask, what the rows can give them | "the rows can give every group the same" (06_9) | `facts::OTHER_PAIRS` | `DT-F15.other_pairs`, `.other_pairs.asks`, `.other_pairs.gives` | `0,2;2,3`; `5,2`; `7,7` | computed |
+| F16 | rows 2, 2 with columns 1, 1: the totals, the sizes that fail, pictures that fit | "pass every size of the test" (07_5); "the rows ask for four squares, and the columns only two" (07_6) | `facts::UNEQUAL_*`, `model::gale_table`, `model::fits` | `DT-F16.rows`, `.cols`, `.totals`, `.failing`, `.fits` | `2,2`; `1,1`; `4,2`; `none`; `0` | computed |
+
+### Chapter 09 (chains of switches)
+
+| id | quantity | shown / said | computed in | oracle key | value | source |
+|---|---|---|---|---|---|---|
+| F17 | the two 3 × 3 pictures; the count on every line | "one square in every row and column" (09_1) | `facts::PERM_*` | `DT-F17.perm.left`, `.perm.right`, `.perm.per_line` | `100/010/001`; `010/001/100`; `1` | pinned input; count computed |
+| F17 | squares apart; one switch apart; switches apart | "Can a single switch turn one into the other?" (09_1); "six squares" (09_2); "two switches do it" (09_3) | `Picture::differences`, `model::switches`, `model::walk` | `DT-F17.perm.differ`, `.perm.one_switch`, `.perm.distance` | `6`; `false`; `2` | computed |
+| F17 | the chain and the picture between | the two rectangles (09_3) | `model::walk` | `DT-F17.chain`, `.chain.middle` | rows 0, 1 × columns 0, 1, then rows 1, 2 × columns 0, 2 (`0,1;0,1` and `1,2;0,2` joined by a bar); `010/100/001` | computed; the oracle by its own breadth-first walk |
+| F17 | rings from the water's picture, switch by switch | "you reach them all" (09_7) | `model::reachable` of `DT-F8.built` | `DT-F17.rings_from_built` | `1,12,37,14` | computed |
+
+### Chapter 10 (the diagonals, both directions)
+
+| id | quantity | shown / said | computed in | oracle key | value | source |
+|---|---|---|---|---|---|---|
+| F18 | the 64 grouped by diagonal counts: groups, alone, pairs, largest | "Forty-eight of the sixty-four are the only picture with all three of their own shadows" (10_7) | `facts::diagonal_groups` | `DT-F18.groups`, `.alone`, `.pairs`, `.largest` | `55`; `48`; `6`; `4` | computed |
+| F18 | the face's group; alone | "The face is not one of them" (10_7) | same | `DT-F18.face.group`, `.face.alone` | `2`; `false` | computed |
+| F18 | the face is its own mirror image; its other diagonal counts | "The face looks the same in a mirror … its counts are the first ones mirrored" (10_8) | `model::mirrored`, `model::falling_counts` (diagonal k: column + 4 − row = k, from the bottom-left corner) | `DT-F18.face.mirror`, `.falling` | `true`; `0,2,1,1,1,2,1,1,0` | computed; the oracle's own `falling` |
+| F18 | the other diagonals' survivors; the other one; switches and squares from the face; the first survivor's mirror | "the picture that survives them is this one's mirror image" (10_8) | `facts::falling_survivors` | `DT-F18.falling.survivors`, `.falling.other`, `.falling.other.from_face`, `.falling.other.differ`, `.falling.other.mirror` | `2`; `01010/00110/00000/11000/01011`; `2`; `6`; `true` | computed |
+| F18 | shadows now; the pictures casting all four; how many | "Count both diagonal shadows, and only the face is left" (10_9) | `facts::both_survivors` | `DT-F18.shadows`, `.both`, `.both.count` | `4`; `01010/01010/00000/10001/01110`; `1` | computed |
+| F19 | the steps a program follows | "Try the four steps" (11_4) | `promise::STEPS` | `DT-F19.steps` | `4` | computed; the oracle reads the scene's source |
+| S4 | Batenburg's year | chapter 02's card | `facts::BATENBURG_YEAR` | `DT-S4.batenburg` | `2006` | pinned: Leiden thesis, §1.9.1, pp. 31–32 (read) |
+| X2 | 4 × 4 pairs of shadows whose pictures switches do not join | "Any two pictures with the same shadows are joined by a chain of switches" (09_4) | `facts::edges` | `DT-X2.disconnected` | `0` | pinned (edge test) |
+| X3 | the edge grid; its pictures; the share alone, rounded to tenths | "On a four by four grid, only about one picture in ten is the only one with its shadows" (08_8) | same | `DT-X3.grid`, `.pictures`, `.alone.tenths` | `4,4`; `65536`; `1` (6,902 of 65,536, 10.5 %) | computed |
 
 ## Non-numeric claims
 

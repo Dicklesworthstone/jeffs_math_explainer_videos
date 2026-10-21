@@ -1,69 +1,63 @@
-//! Chapter 03, where the water stops: the face's row counts with columns 5,
-//! 1, 1, 1, 1 (03_1); the method's real units go through, eight of nine, and
-//! stop (03_2, a prediction: could taking water back get the ninth
+//! Chapter 05, where the water stops: the face's row counts with columns 5,
+//! 1, 1, 1, 1 (05_1); the method's real units go through, eight of nine, and
+//! stop (05_2, a prediction: could taking water back get the ninth
 //! through?); no: the first column needs five, each row sends it at most
-//! one, and only four rows have water (03_3); taking back only moves water
-//! between pipes, and the cut where the water stops lets four units into the
-//! first column and four out of the other drains, eight in all (03_4); the
-//! same count for any group of columns, min(count, k) a row (03_5); Gale's
-//! table, the k largest columns against what the rows can give (03_6);
-//! complete with equal totals, because where the water stops is always such
-//! a group (03_7); the face's shadows pass, and the test says a picture
-//! fits, not which and not whether only one (03_8).
+//! one, and only four rows have water (05_3); everywhere the water can still
+//! reach, taking back included, is every row with water and every column but
+//! the first (05_4); every unit that gets through must leave that area, down
+//! a pipe into the first column or out of one of the other drains (05_5);
+//! four pipes and four drains, and taking back only moves water around
+//! inside, so eight is all that can pass (05_6); here a single column asked
+//! too much (05_7).
 //!
 //! Every square, counter, route and number comes from `facts::no_fit_flow`
-//! (the paths `model::max_flow` sent, replayed by `model::replay`), its
-//! `Flow::cut` and `model::gale_table`.
+//! (the paths `model::max_flow` sent, replayed by `model::replay`) and its
+//! `Flow::cut`. Gale's table, its card and the drawing of reach and columns
+//! here are chapters 06 and 07's too.
 
-use explainer_kit::props::precisely;
 use explainer_kit::{Kit, Palette, fade_all, v};
 use fmn::prelude::*;
 
 use super::draw::{
     Board, COUNT_SIZE, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, path_line, pause, say, segment,
-    swap, think, wait_until,
+    swap, think,
 };
-use super::water::{
-    AT, CELL, TAP_GAP, TEXT_X, THINK_AT, THROUGH_Y, TO_DRAIN, TO_SEND, Water, send_quick, tap_at, through_text,
-};
+use super::water::{AT, CELL, TEXT_X, THINK_AT, THROUGH_Y, Water, drain_label, send_label, send_quick, tap_at, through_text};
 use crate::facts::{self, GALE_YEAR, RYSER_YEAR};
-use crate::model;
+use crate::model::{self, Cut};
 use crate::palette;
 
 pub struct WhereTheWaterStops {
     pub kit: Kit,
 }
 
-// the chapter's fixed words (numbers are built from facts)
-const STILL_REACHES: &str = "where the water can still go, taking back included";
-const K_LABEL: &str = "k";
-const SORTED_LABEL: &str = "largest columns first";
-const ASK_LABEL: &str = "the k largest ask";
-const GIVE_LABEL: &str = "rows can give";
-const GIVE_RULE: &str = "a row gives k columns at most min(its count, k)";
-const EQUAL: &str = "equal totals";
-const NOT_SAID: &str = "it says one fits, not which, not whether only one";
+// the chapter's fixed words (numbers are built from facts); Gale's table's
+// words are chapters 06 and 07's
+pub(crate) const STILL_REACHES: &str = "where the water can still reach, taking back included";
+pub(crate) const K_LABEL: &str = "k";
+pub(crate) const SORTED_LABEL: &str = "largest columns first";
+pub(crate) const ASK_LABEL: &str = "the k largest ask";
+pub(crate) const GIVE_LABEL: &str = "rows can give";
+pub(crate) const GIVE_RULE: &str = "a row gives k columns at most min(its count, k)";
 
 /// Gale's table, on the right: the k labels, then three rows of numbers.
-const TABLE_X0: f64 = 2.9;
-const TABLE_PITCH: f64 = 0.7;
-const K_Y: f64 = 2.4;
-const SORTED_Y: f64 = 1.85;
-const ASK_Y: f64 = 1.3;
-const GIVE_Y: f64 = 0.75;
-const RULE_Y: f64 = 0.15;
-const TABLE_SIZE: f64 = 28.0;
-/// 03_4's words, top right, before the table.
-const CUT_Y: [f64; 3] = [2.2, 1.6, 1.0];
-/// 03_8's words, under the table.
-const CLOSING_Y: [f64; 2] = [-0.45, -1.0];
-/// Where a column's ask stands under its drain (03_3).
-const ASKS_DY: f64 = -0.45;
+pub(crate) const TABLE_X0: f64 = 2.9;
+pub(crate) const TABLE_PITCH: f64 = 0.7;
+pub(crate) const K_Y: f64 = 2.4;
+pub(crate) const SORTED_Y: f64 = 1.85;
+pub(crate) const ASK_Y: f64 = 1.3;
+pub(crate) const GIVE_Y: f64 = 0.75;
+pub(crate) const RULE_Y: f64 = 0.15;
+pub(crate) const TABLE_SIZE: f64 = 28.0;
+/// 05_4 to 05_7's words, top right.
+const CUT_Y: [f64; 4] = [2.2, 1.6, 1.0, 0.4];
+/// Where a column's ask stands under its drain (05_3).
+pub(crate) const ASKS_DY: f64 = -0.45;
 /// How far a reached row's stroke starts inside the reached columns, clear
-/// of the cut-off column's outline (03_4).
+/// of the cut-off column's outline (05_4).
 const REACH_GAP: f64 = 0.1;
 
-/// The cut's count in words (03_4), from its parts.
+/// The cut's count in words (05_6), from its parts.
 fn into_first_text(pipes: usize) -> String {
     format!("{pipes} pipes into the first column")
 }
@@ -76,14 +70,15 @@ fn cut_sum_text(pipes: usize, drains: usize, total: usize) -> String {
     format!("{pipes} + {drains} = {total}, all that can pass")
 }
 
-fn fits_text(count: usize) -> String {
-    format!("{count} pictures fit these shadows")
+fn rows_with_water_text(rows: usize) -> String {
+    format!("rows with water: {rows}")
 }
 
-/// The exact version of 03_6 and 03_7, kept on screen until it can be read
-/// (`read_s`). "The k largest columns" is the sorted condition: the first k
-/// of the column counts sorted largest first, the table's second line.
-fn gale_claim() -> String {
+/// The exact version of chapters 06 and 07's test, kept on screen until it
+/// can be read (`read_s`). "The k largest columns" is the sorted condition:
+/// the first k of the column counts sorted largest first, the table's second
+/// line.
+pub(crate) fn gale_claim() -> String {
     format!(
         "a picture fits exactly when row and column totals match and, for every k, the k largest columns \
          ask for at most the sum over rows of min(row count, k) (Gale, {GALE_YEAR}; Ryser, {RYSER_YEAR})"
@@ -93,18 +88,24 @@ fn gale_claim() -> String {
 /// Seconds a card needs on screen, from its fade-in done, to be read:
 /// fifteen characters a second, a quick reader (the corpus's provisional
 /// scene convention, not a listening measure; the video can be paused).
-/// Chapter 04's card and closing words keep it too.
+/// Every chapter's cards and closing words keep it.
 pub(crate) fn read_s(text: &str) -> f64 {
     text.chars().count() as f64 / 15.0
 }
 
 /// Where the table's entry for size `k` (from 1) stands, on line `y`.
-fn cell_at(k: usize, y: f64) -> Vec3 {
+pub(crate) fn cell_at(k: usize, y: f64) -> Vec3 {
     v(TABLE_X0 + TABLE_PITCH * (k - 1) as f64, y)
 }
 
 /// One line of the table: `values`, the `k`th at its column. Detached.
-fn table_line(kit: &Kit, stage: &mut Stage<'_>, values: &[usize], y: f64, color: Srgb) -> fmn::Result<Vec<Mob>> {
+pub(crate) fn table_line(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    values: &[usize],
+    y: f64,
+    color: Srgb,
+) -> fmn::Result<Vec<Mob>> {
     values
         .iter()
         .zip(1..)
@@ -112,12 +113,23 @@ fn table_line(kit: &Kit, stage: &mut Stage<'_>, values: &[usize], y: f64, color:
         .collect()
 }
 
+/// The table's four labels, left of its lines: "k", "largest columns
+/// first", "the k largest ask", "rows can give". Detached.
+pub(crate) fn table_labels(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<[Mob; 4]> {
+    Ok([
+        kit.text_left(stage, K_LABEL, 22.0, Palette::dim(), v(TEXT_X, K_Y))?,
+        kit.text_left(stage, SORTED_LABEL, 22.0, Palette::dim(), v(TEXT_X, SORTED_Y))?,
+        kit.text_left(stage, ASK_LABEL, 22.0, Palette::dim(), v(TEXT_X, ASK_Y))?,
+        kit.text_left(stage, GIVE_LABEL, 22.0, Palette::dim(), v(TEXT_X, GIVE_Y))?,
+    ])
+}
+
 /// Where a reached row's stroke runs, left to right: over the reached
 /// columns `cols` only, from just inside the first one's left edge to just
 /// past the last one's right edge. `None` when no column is reached, or
 /// when the span would cross a cut-off column (one of `cut_off` between two
 /// reached columns).
-fn row_reach(board: &Board, cols: &[usize], cut_off: &[usize]) -> Option<(f64, f64)> {
+pub(crate) fn row_reach(board: &Board, cols: &[usize], cut_off: &[usize]) -> Option<(f64, f64)> {
     let (&lo, &hi) = (cols.iter().min()?, cols.iter().max()?);
     if cut_off.iter().any(|c| (lo..=hi).contains(c)) {
         return None;
@@ -126,17 +138,52 @@ fn row_reach(board: &Board, cols: &[usize], cut_off: &[usize]) -> Option<(f64, f
     Some((board.at(0, lo)[0] - half + REACH_GAP, board.at(0, hi)[0] + half + 0.1))
 }
 
+/// Teal strokes along every row and column the water can still reach on
+/// `board`, a row's over the reached columns only, so none crosses a
+/// cut-off column. Detached.
+pub(crate) fn reach_strokes(stage: &mut Stage<'_>, board: &Board, cut: &Cut) -> fmn::Result<Vec<Mob>> {
+    let (reach_from, reach_to) = row_reach(board, &cut.cols, &cut.cut_off)
+        .ok_or_else(|| fail(format!("the reached columns are not one run beside the cut: {cut:?}")))?;
+    let mut reach = Vec::with_capacity(cut.rows.len() + cut.cols.len());
+    for &r in &cut.rows {
+        let y = board.at(r, 0)[1];
+        reach.push(segment(stage, v(reach_from, y), v(reach_to, y), palette::beam(), 5.0));
+    }
+    for &c in &cut.cols {
+        let x = board.at(0, c)[0];
+        reach.push(segment(
+            stage,
+            v(x, board.top() + 0.1),
+            v(x, board.bottom() - 0.1),
+            palette::beam(),
+            5.0,
+        ));
+    }
+    Ok(reach)
+}
+
 /// Redraw `old`, the table entry for size `k` on line `y`, as `n` in `color`.
-fn recolor(kit: &Kit, stage: &mut Stage<'_>, old: Mob, n: usize, k: usize, y: f64, color: Srgb) -> fmn::Result<Mob> {
+pub(crate) fn recolor(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    old: Mob,
+    n: usize,
+    k: usize,
+    y: f64,
+    color: Srgb,
+) -> fmn::Result<Mob> {
     let new = kit.text(stage, &n.to_string(), TABLE_SIZE, color, cell_at(k, y))?;
     swap(stage, &[old], &[new], 0.3)?;
     Ok(new)
 }
 
-/// An outline around column `c` of `board`, top to bottom. Detached.
-fn column_outline(stage: &mut Stage<'_>, board: &Board, c: usize, color: Srgb) -> Mob {
-    let x = board.at(0, c)[0];
-    let (l, r) = (x - board.cell / 2.0, x + board.cell / 2.0);
+/// An outline around columns `first` to `last` of `board`, top to bottom.
+/// Detached.
+pub(crate) fn columns_outline(stage: &mut Stage<'_>, board: &Board, first: usize, last: usize, color: Srgb) -> Mob {
+    let (l, r) = (
+        board.at(0, first)[0] - board.cell / 2.0,
+        board.at(0, last)[0] + board.cell / 2.0,
+    );
     let corners = [
         v(l, board.top()),
         v(r, board.top()),
@@ -148,7 +195,12 @@ fn column_outline(stage: &mut Stage<'_>, board: &Board, c: usize, color: Srgb) -
 }
 
 /// Counters for `values` at `at(i)`, in ink. Detached.
-fn counters(kit: &Kit, stage: &mut Stage<'_>, values: &[usize], at: impl Fn(usize) -> Vec3) -> fmn::Result<Vec<Mob>> {
+pub(crate) fn counters(
+    kit: &Kit,
+    stage: &mut Stage<'_>,
+    values: &[usize],
+    at: impl Fn(usize) -> Vec3,
+) -> fmn::Result<Vec<Mob>> {
     values
         .iter()
         .enumerate()
@@ -158,7 +210,7 @@ fn counters(kit: &Kit, stage: &mut Stage<'_>, values: &[usize], at: impl Fn(usiz
 
 impl SceneConstruct for WhereTheWaterStops {
     fn name(&self) -> &str {
-        "03_where_the_water_stops"
+        "05_where_the_water_stops"
     }
 
     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
@@ -192,31 +244,19 @@ impl SceneConstruct for WhereTheWaterStops {
         };
         let board = Board::new(AT, CELL, face.rows(), face.cols());
 
-        // 03_1: the grid, the face's taps, the other columns' drains; the
-        // method's real units go through, as in chapter 02
-        let line = say(&kit, stage, "03_1")?;
+        // 05_1: the grid, the face's taps, the other columns' drains; the
+        // method's real units go through, as in chapter 03
+        let line = say(&kit, stage, "05_1")?;
         let grid = board.lines(stage);
         let taps = counters(&kit, stage, &s.rows, |r| tap_at(&board, r))?;
-        let send_label = kit.text(
-            stage,
-            TO_SEND,
-            22.0,
-            Palette::dim(),
-            v(board.left() - TAP_GAP, board.top() + 0.4),
-        )?;
+        let to_send = send_label(&kit, stage, &board)?;
         let mut arriving = grid.clone();
-        arriving.push(send_label);
+        arriving.push(to_send);
         fade_in_all(stage, &arriving, 0.5)?;
         fade_in_lagged(stage, &taps, 0.8, 0.3)?;
         line.wait_for(stage, "and columns asking")?;
         let drains = counters(&kit, stage, &s.cols, |c| board.col_count_at(c))?;
-        let drain_label = kit.text(
-            stage,
-            TO_DRAIN,
-            22.0,
-            Palette::dim(),
-            v(board.left() - 1.0, board.col_count_at(0)[1]),
-        )?;
+        let to_drain = drain_label(&kit, stage, &board)?;
         fade_in_lagged(stage, &drains, 0.9, 0.3)?;
         let counter = kit.text_left(
             stage,
@@ -225,28 +265,28 @@ impl SceneConstruct for WhereTheWaterStops {
             Palette::ink(),
             v(TEXT_X, THROUGH_Y),
         )?;
-        fade_in_all(stage, &[drain_label, counter], 0.3)?;
+        fade_in_all(stage, &[to_drain, counter], 0.3)?;
         let mut water = Water::new(board, taps, drains, &s);
         water.through = Some(counter);
         for (path, state) in flow.paths.iter().zip(&states) {
             send_quick(&kit, stage, &mut water, &s, path, state)?;
         }
 
-        // 03_2: stopped one short: the row with water left, the column
+        // 05_2: stopped one short: the row with water left, the column
         // still asking; the question, and the think time (nothing moves)
-        let line = say(&kit, stage, "03_2")?;
+        let line = say(&kit, stage, "05_2")?;
         line.wait_for(stage, "stops at eight")?;
         let mut stopped: Vec<Mob> = water.through.into_iter().collect();
         stopped.extend([water.taps[left_row], water.drains[first]]);
         flash_all(stage, &stopped, 0.6)?;
         let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;
 
-        // 03_3: the first column needs five; each row sends it at most one
+        // 05_3: the first column needs five; each row sends it at most one
         // (its one square there); only four rows have water
-        let line = say(&kit, stage, "03_3")?;
+        let line = say(&kit, stage, "05_3")?;
         fade_out_all(stage, &[q], 0.3)?;
         line.wait_for(stage, "The first column")?;
-        let outline = column_outline(stage, &board, first, palette::impossible());
+        let outline = columns_outline(stage, &board, first, first, palette::impossible());
         let asks_label = kit.text(
             stage,
             &format!("asks {}", s.cols[first]),
@@ -270,33 +310,32 @@ impl SceneConstruct for WhereTheWaterStops {
         let empty_taps: Vec<Mob> = dry.iter().map(|&r| water.taps[r]).collect();
         flash_all(stage, &empty_taps, 0.5)?;
 
-        // 03_4: everywhere the water can still go, taking back included,
-        // misses the first column; the cut: four pipes into it, four drains
-        // out of the others, eight in all. A reached row's stroke runs over
-        // the reached columns only, so no teal crosses the red column
-        let line = say(&kit, stage, "03_4")?;
+        // 05_4: everywhere the water can still reach, taking back included:
+        // every row with water and every column but the first. A reached
+        // row's stroke runs over the reached columns only, so no teal
+        // crosses the red column
+        let line = say(&kit, stage, "05_4")?;
         fade_out_all(stage, &rings, 0.3)?;
-        let (reach_from, reach_to) = row_reach(&board, &cut.cols, &cut.cut_off)
-            .ok_or_else(|| fail(format!("the reached columns are not one run beside the cut: {cut:?}")))?;
-        let mut reach = Vec::with_capacity(cut.rows.len() + cut.cols.len());
-        for &r in &cut.rows {
-            let y = board.at(r, 0)[1];
-            reach.push(segment(stage, v(reach_from, y), v(reach_to, y), palette::beam(), 5.0));
+        let with_water: Vec<usize> = (0..s.rows.len()).filter(|&r| s.rows[r] > 0).collect();
+        let others: Vec<usize> = (0..s.cols.len()).filter(|&c| c != first).collect();
+        if cut.rows != with_water || cut.cols != others {
+            return Err(fail(format!(
+                "the water reaches {cut:?}, not every row with water and every column but the first"
+            )));
         }
-        for &c in &cut.cols {
-            let x = board.at(0, c)[0];
-            reach.push(segment(
-                stage,
-                v(x, board.top() + 0.1),
-                v(x, board.bottom() - 0.1),
-                palette::beam(),
-                5.0,
-            ));
-        }
+        line.wait_for(stage, "Look at everywhere")?;
+        let reach = reach_strokes(stage, &board, &cut)?;
         let reach_label = kit.text_left(stage, STILL_REACHES, 24.0, palette::beam(), v(TEXT_X, CUT_Y[0]))?;
         fade_in_lagged(stage, &reach, 1.0, 0.2)?;
         fade_in_all(stage, &[reach_label], 0.3)?;
-        line.wait_for(stage, "Four into")?;
+
+        // 05_5: every unit that gets through must leave that area: down a
+        // pipe into the first column, or out of one of the other drains
+        // (the one tap the water cannot reach has nothing to send)
+        let line = say(&kit, stage, "05_5")?;
+        line.wait_for(stage, "must leave that area")?;
+        flash_all(stage, &reach, 0.6)?;
+        line.wait_for(stage, "Down a pipe")?;
         let pipes: Vec<Mob> = cut
             .rows
             .iter()
@@ -309,6 +348,15 @@ impl SceneConstruct for WhereTheWaterStops {
                 cut.pipes
             )));
         }
+        flash_all(stage, &pipes, 0.6)?;
+        line.wait_for(stage, "out through")?;
+        let other_drains: Vec<Mob> = cut.cols.iter().map(|&c| water.drains[c]).collect();
+        flash_all(stage, &other_drains, 0.6)?;
+
+        // 05_6: four pipes and four drains; taking back only moves water
+        // around inside, so eight is all that can pass
+        let line = say(&kit, stage, "05_6")?;
+        line.wait_for(stage, "Four pipes")?;
         let into_first = kit.text_left(
             stage,
             &into_first_text(cut.pipes),
@@ -316,10 +364,9 @@ impl SceneConstruct for WhereTheWaterStops {
             Palette::ink(),
             v(TEXT_X, CUT_Y[1]),
         )?;
-        flash_all(stage, &pipes, 0.6)?;
+        flash_all(stage, &pipes, 0.4)?;
         fade_in_all(stage, &[into_first], 0.3)?;
-        line.wait_for(stage, "four out of")?;
-        let others: Vec<Mob> = cut.cols.iter().map(|&c| water.drains[c]).collect();
+        line.wait_for(stage, "the other drains hold")?;
         let out_of_others = kit.text_left(
             stage,
             &other_drains_text(cut.reached_drains),
@@ -327,160 +374,33 @@ impl SceneConstruct for WhereTheWaterStops {
             Palette::ink(),
             v(TEXT_X, CUT_Y[2]),
         )?;
-        flash_all(stage, &others, 0.6)?;
+        flash_all(stage, &other_drains, 0.4)?;
         fade_in_all(stage, &[out_of_others], 0.3)?;
-        line.wait_for(stage, "Eight is all")?;
+        line.wait_for(stage, "eight is all")?;
         let sum = kit.text_left(
             stage,
             &cut_sum_text(cut.pipes, cut.reached_drains, cut.value()),
             26.0,
             Palette::ink(),
-            v(TEXT_X, CUT_Y[2] - 0.6),
+            v(TEXT_X, CUT_Y[3]),
         )?;
         fade_in_all(stage, &[sum], 0.4)?;
 
-        // 03_5: the same count for any group of columns: a row gives k
-        // columns at most min(its count, k); what the rows can give, k = 1 to 5
-        let line = say(&kit, stage, "03_5")?;
-        let mut leaving = reach.clone();
+        // 05_7: here a single column asked too much: it asks five, and four
+        // rows have water
+        let line = say(&kit, stage, "05_7")?;
+        let mut leaving = reach;
         leaving.extend([reach_label, into_first, out_of_others, sum]);
         fade_out_all(stage, &leaving, 0.4)?;
-        let table = model::gale_table(&s);
-        let sizes: Vec<usize> = (1..=table.len()).collect();
-        let gives: Vec<usize> = table.iter().map(|&(_, gives)| gives).collect();
-        let k_labels = table_line(&kit, stage, &sizes, K_Y, Palette::dim())?;
-        let mut labels = Vec::with_capacity(4);
-        for (text, y) in [
-            (K_LABEL, K_Y),
-            (SORTED_LABEL, SORTED_Y),
-            (ASK_LABEL, ASK_Y),
-            (GIVE_LABEL, GIVE_Y),
-        ] {
-            labels.push(kit.text_left(stage, text, 22.0, Palette::dim(), v(TEXT_X, y))?);
-        }
-        let mut give_line = table_line(&kit, stage, &gives, GIVE_Y, Palette::ink())?;
-        let mut shown = k_labels.clone();
-        shown.extend([labels[0], labels[3]]);
-        fade_in_all(stage, &shown, 0.4)?;
-        line.wait_for(stage, "Each row gives")?;
-        let rule = kit.text_left(stage, GIVE_RULE, 22.0, Palette::ink(), v(TEXT_X, RULE_Y))?;
-        fade_in_all(stage, &[rule], 0.3)?;
-        fade_in_lagged(stage, &give_line, 0.9, 0.3)?;
-
-        // 03_6: the k largest columns, what they ask; the single largest
-        // already asks too much; the hungriest group of each size is enough
-        let line = say(&kit, stage, "03_6")?;
-        let sorted = facts::largest_first(&s.cols);
-        let asks_now: Vec<usize> = table.iter().map(|&(asks, _)| asks).collect();
-        let mut sorted_line = table_line(&kit, stage, &sorted, SORTED_Y, Palette::ink())?;
-        let mut ask_line = table_line(&kit, stage, &asks_now, ASK_Y, Palette::ink())?;
-        let mut arriving = sorted_line.clone();
-        arriving.extend(&ask_line);
-        arriving.extend([labels[1], labels[2]]);
-        fade_in_lagged(stage, &arriving, 0.9, 0.2)?;
-        line.wait_for(stage, "no picture fits")?;
-        for (i, &(asks, gives)) in table.iter().enumerate() {
-            if asks > gives {
-                ask_line[i] = recolor(&kit, stage, ask_line[i], asks, i + 1, ASK_Y, palette::impossible())?;
-                give_line[i] = recolor(&kit, stage, give_line[i], gives, i + 1, GIVE_Y, palette::impossible())?;
-            }
-        }
-        line.wait_for(stage, "the hungriest")?;
-        flash_all(stage, &sorted_line, 0.6)?;
-
-        // 03_7: with equal totals the test never misses: where the water
-        // stops is always a group asking too much (here the first column)
-        let line = say(&kit, stage, "03_7")?;
-        let last = table.len();
-        let (all_ask, all_give) = table[last - 1];
-        if all_ask != total || all_give != total {
-            return Err(fail(format!(
-                "the table's last size is not the equal totals: {all_ask}, {all_give}"
-            )));
-        }
-        let equal = kit.text(stage, EQUAL, 20.0, palette::matches(), cell_at(last, K_Y + 0.45))?;
-        fade_in_all(stage, &[equal], 0.3)?;
-        ask_line[last - 1] = recolor(
-            &kit,
+        let rows_with_water = kit.text_left(
             stage,
-            ask_line[last - 1],
-            all_ask,
-            last,
-            ASK_Y,
-            palette::matches(),
+            &rows_with_water_text(with_water.len()),
+            24.0,
+            palette::impossible(),
+            v(TEXT_X, CUT_Y[1]),
         )?;
-        give_line[last - 1] = recolor(
-            &kit,
-            stage,
-            give_line[last - 1],
-            all_give,
-            last,
-            GIVE_Y,
-            palette::matches(),
-        )?;
-        line.wait_for(stage, "When water stops short")?;
-        let claim = gale_claim();
-        let card = precisely(&kit, stage, &claim)?;
-        fade_in_all(stage, &[card], 0.4)?;
-        let card_up = stage.scene().time().to_f64();
-        let failing: Vec<Mob> = table
-            .iter()
-            .zip(ask_line.iter().zip(&give_line))
-            .filter(|((asks, gives), _)| asks > gives)
-            .flat_map(|(_, (a, g))| [*a, *g])
-            .collect();
-        let mut bottleneck = vec![outline, asks_label];
-        bottleneck.extend(&failing);
-        flash_all(stage, &bottleneck, 0.8)?;
-        // the card stands whole, the line finished, until it can be read
-        line.wait_to_end(stage)?;
-        wait_until(stage, card_up + read_s(&claim))?;
-
-        // 03_8: the face's shadows pass every size; sixty-four pictures fit;
-        // the test says that one fits, not which, not whether only one
-        let line = say(&kit, stage, "03_8")?;
-        let face_shadows = face.shadows();
-        let face_table = model::gale_table(&face_shadows);
-        if !model::gale_ryser(&face_shadows) || face_table.iter().any(|&(asks, gives)| asks > gives) {
-            return Err(fail("the face's shadows fail Gale's table".into()));
-        }
-        let mut clearing: Vec<Mob> = std::mem::take(&mut water.wet).into_values().collect();
-        clearing.extend([card, outline, asks_label, equal]);
-        clearing.extend(&crosses);
-        clearing.extend(water.through);
-        fade_out_all(stage, &clearing, 0.4)?;
-        let face_taps = counters(&kit, stage, &face_shadows.rows, |r| tap_at(&board, r))?;
-        let face_drains = counters(&kit, stage, &face_shadows.cols, |c| board.col_count_at(c))?;
-        let face_sorted = table_line(
-            &kit,
-            stage,
-            &facts::largest_first(&face_shadows.cols),
-            SORTED_Y,
-            Palette::ink(),
-        )?;
-        let face_asks: Vec<usize> = face_table.iter().map(|&(asks, _)| asks).collect();
-        let face_gives: Vec<usize> = face_table.iter().map(|&(_, gives)| gives).collect();
-        let face_ask_line = table_line(&kit, stage, &face_asks, ASK_Y, palette::matches())?;
-        let face_give_line = table_line(&kit, stage, &face_gives, GIVE_Y, palette::matches())?;
-        let mut old = water.taps.clone();
-        old.extend(&water.drains);
-        old.append(&mut sorted_line);
-        old.append(&mut ask_line);
-        old.append(&mut give_line);
-        let mut new = face_taps;
-        new.extend(face_drains);
-        new.extend(&face_sorted);
-        new.extend(&face_ask_line);
-        new.extend(&face_give_line);
-        fade_out_all(stage, &old, 0.3)?;
-        fade_in_all(stage, &new, 0.3)?;
-        line.wait_for(stage, "sixty-four")?;
-        let count = facts::gallery().len();
-        let fits = kit.text_left(stage, &fits_text(count), 26.0, Palette::ink(), v(TEXT_X, CLOSING_Y[0]))?;
-        fade_in_all(stage, &[fits], 0.4)?;
-        line.wait_for(stage, "The test says")?;
-        let not_said = kit.text_left(stage, NOT_SAID, 24.0, Palette::dim(), v(TEXT_X, CLOSING_Y[1]))?;
-        fade_in_all(stage, &[not_said], 0.4)?;
+        fade_in_all(stage, &[rows_with_water], 0.3)?;
+        flash_all(stage, &[outline, asks_label, rows_with_water], 0.8)?;
         line.wait_to_end(stage)?;
         pause(stage, 1.2)?;
 
@@ -502,31 +422,29 @@ mod tests {
     fn every_phrase_the_scene_waits_for_is_in_its_line() {
         let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
         for (id, phrase) in [
-            ("03_1", "and columns asking"),
-            ("03_2", "stops at eight"),
-            ("03_3", "The first column"),
-            ("03_3", "each row sends"),
-            ("03_3", "only four rows"),
-            ("03_4", "Four into"),
-            ("03_4", "four out of"),
-            ("03_4", "Eight is all"),
-            ("03_5", "Each row gives"),
-            ("03_6", "no picture fits"),
-            ("03_6", "the hungriest"),
-            ("03_7", "When water stops short"),
-            ("03_8", "sixty-four"),
-            ("03_8", "The test says"),
+            ("05_1", "and columns asking"),
+            ("05_2", "stops at eight"),
+            ("05_3", "The first column"),
+            ("05_3", "each row sends"),
+            ("05_3", "only four rows"),
+            ("05_4", "Look at everywhere"),
+            ("05_5", "must leave that area"),
+            ("05_5", "Down a pipe"),
+            ("05_5", "out through"),
+            ("05_6", "Four pipes"),
+            ("05_6", "the other drains hold"),
+            ("05_6", "eight is all"),
         ] {
             let text = script.text(id).unwrap_or_else(|| panic!("no line {id}"));
             assert!(text.contains(phrase), "{id} has no {phrase:?}: {text}");
         }
     }
 
-    /// The words on screen are the facts': the cut's parts, the count of
-    /// pictures; the card states both of Gale's conditions and keeps to
-    /// three whole lines at every width the band may narrow it to (down to
-    /// 76 characters), never breaking "min(row count, k)" across two; its
-    /// reading hold stays under twelve seconds.
+    /// The words on screen are the facts': the cut's parts, the rows with
+    /// water; the Gale card (chapter 07's) states both of Gale's conditions
+    /// and keeps to three whole lines at every width the band may narrow it
+    /// to (down to 76 characters), never breaking "min(row count, k)"
+    /// across two; its reading hold stays under twelve seconds.
     #[test]
     fn the_words_on_screen_are_built_from_the_facts() {
         let f = facts::facts().unwrap();
@@ -547,7 +465,8 @@ mod tests {
             ),
             "4 + 4 = 8, all that can pass"
         );
-        assert_eq!(fits_text(get("DT-F3.fits")), "64 pictures fit these shadows");
+        assert_eq!(rows_with_water_text(get("DT-F9.rows_with_water")), "rows with water: 4");
+        assert_eq!(f.get("DT-F9.cut.unreached_taps"), Some("0"));
         let claim = gale_claim();
         for part in [
             "fits exactly when",
@@ -570,7 +489,7 @@ mod tests {
         }
     }
 
-    /// 03_4's row strokes, on the real cut, run over the reached columns
+    /// 05_4's row strokes, on the real cut, run over the reached columns
     /// only: they stop clear of the cut-off column's outline and cross
     /// every reached column; a cut-off column inside the run is refused.
     #[test]
@@ -599,20 +518,21 @@ mod tests {
         let board = Board::new(AT, CELL, 5, 5);
         let safe_x = FRAME_X_RADIUS - 0.25;
         let safe_y = FRAME_Y_RADIUS - 0.25;
-        // the table's last entry, and its "equal totals" note, inside
+        // the table's last entry, and a note over it, inside
         assert!(cell_at(5, K_Y)[0] + 0.6 < safe_x);
         assert!(K_Y + 0.45 + 0.2 < safe_y);
         // its first entry clears its widest label (21 characters at 22 pt,
         // about 0.0045 units a point a character)
         assert!(TEXT_X + 21.0 * 22.0 * 0.0045 + 0.3 < cell_at(1, K_Y)[0] - 0.2);
         // the words on the right clear the grid's right edge, and the
-        // longest of 03_4's (24 pt) ends inside
+        // longest of 05_4's (24 pt) ends inside; the lowest stays over the
+        // units-through counter
         assert!(TEXT_X > board.right() + 0.5);
         assert!(TEXT_X + STILL_REACHES.chars().count() as f64 * 24.0 * 0.0045 < safe_x);
+        assert!(CUT_Y[3] - 0.15 > THROUGH_Y + 0.15);
         // a column's ask, under its drain, stays over a three-line card
         // (its top 0.2 + 0.3 + 3 x 0.36 above the frame's bottom)
         let card_top = -FRAME_Y_RADIUS + 0.2 + 0.3 + 3.0 * 0.36;
         assert!(board.col_count_at(0)[1] + ASKS_DY - 0.15 > card_top);
-        assert!(CLOSING_Y[1] - 0.15 > card_top);
     }
 }

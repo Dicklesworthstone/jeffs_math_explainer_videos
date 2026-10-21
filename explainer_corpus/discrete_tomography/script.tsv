@@ -10,35 +10,84 @@
 01_9	Change the column counts but keep their total, and no picture fits at all.
 01_10	This column needs a square in every row, but the middle row is empty.
 01_11	So shadows raise two questions. Does any picture fit? And is it the only one?
-02_1	Turn the grid into pipes. Each row's tap lets out its count in units of water.
-02_2	A unit runs along its row, turns down through a square, and drains out of that column.
-02_3	A square carries at most one unit, and each drain holds at most its count. Get every unit through, and the wet squares are a picture that fits.
-02_4	Send one unit at a time, along any path with room.
-02_5	Eight are through. The bottom row has one left, but its dry squares lead to full drains. Is the water stuck?
-02_6	No. Send it into the first column anyway, and take back the unit the top row sent there.
-02_7	The top row sends that unit to the fourth column, which still needs one. Without taking back, this fill would have stopped one unit short.
-02_8	The wet squares cast the face's shadows, but they aren't the face. They're one of the sixty-four.
-02_9	Water finds a picture whenever one exists. It never says whether that's the only one.
-03_1	Back to the shadows no picture fits. The face's rows, and columns asking for five, one, one, one and one.
-03_2	The water stops at eight of nine. Could taking water back get the ninth through?
-03_3	No. The first column needs five, but each row sends it at most one, and only four rows have water.
-03_4	Taking back just moves water between pipes. Four into the first column, four out of the other drains. Eight is all that can pass.
-03_5	Count any group of columns this way. Each row gives it at most one square per column, and no more than its count.
-03_6	If the group asks for more than the rows can give, no picture fits. Checking the hungriest group of each size is enough.
-03_7	With equal totals, that test never misses. When water stops short, the columns it can't reach always form a group that asks too much.
-03_8	The face's shadows pass, and sixty-four pictures fit them. The test says that one fits, not which, and not whether only one.
-04_1	Water builds one picture. Can that picture alone tell us whether it is the only one?
-04_2	It can. This one has twelve switches. Swap the corners of any of them, and every count stays. A second picture fits.
-04_3	Now the shadows of a tree. Rows of one, three, five, one and one, columns of one, two, five, two and one. The water builds a picture.
-04_4	It is the tree itself. Could another picture cast the same shadows?
-04_5	No. A switch needs two rows that each have a filled square where the other is empty.
-04_6	But of any two rows in the tree, one has every square the other has. So the tree has no switch.
-04_7	Any two pictures with the same shadows are joined by a chain of switches. From the tree, no chain can start, so no other picture fits.
-04_8	So the water answers whether any picture fits. A switch in the water's picture answers whether it's the only one.
-05_1	Back to the face's sixty-four pictures. Take one more shadow and count the filled squares along each diagonal.
-05_2	A switch keeps every row and column count, but always changes a diagonal count. This one takes a square from two diagonals and gives both to a third.
-05_3	So none of the fourteen pictures one switch from the face can pass. How many of all sixty-four do?
-05_4	Two. Sixty-two fail, but one other picture casts all three of the face's shadows.
-05_5	They differ in six squares. Each row, column and diagonal through them loses one square and gains one, so all three shadows stay the same.
-05_6	Two shadows left sixty-four pictures. A third still leaves two, so here even three shadows lie.
-05_7	So keep the two questions apart. Does any picture fit? And is it the only one?
+02_1	This puzzle has a serious side. One reason people study it is rebuilding tiny crystals from counts of atoms along lines, often taken from only a few directions.
+02_2	How would you rebuild a picture from its shadows? Start with the squares you can be sure of.
+02_3	Take the shadows of a tree. Rows of one, three, five, one and one, columns of one, two, five, two and one.
+02_4	The row of five must be full, and so must the column of five.
+02_5	That already gives the first and last columns their one square, and the rows of one theirs. Everything else in them stays empty.
+02_6	The second row needs two more, and exactly two squares are left open. Every square is decided, and the picture is the tree.
+02_7	Now the face's shadows. Its empty row is easy. All five squares there are empty.
+02_8	Then what? Can you be sure of any other square?
+02_9	No. Every other square is filled in some of the sixty-four pictures, and empty in others.
+02_10	So reasoning row by row and column by column gets stuck here. Whatever you guess next, some of the sixty-four agree.
+03_1	Why not try every picture? Each square is filled or empty. How many pictures does this grid have?
+03_2	Two choices for each of twenty-five squares, over thirty-three million. On a twenty by twenty grid, the count has a hundred and twenty-one digits. Trying every picture doesn't scale.
+03_3	Here's a method that never guesses. Turn the grid into pipes. Each row's tap lets out its count in units of water.
+03_4	A unit runs along its row, turns down through a square, and drains out of that column.
+03_5	A square carries at most one unit, and each drain holds at most its count. Get every unit through, and the wet squares are a picture that fits.
+03_6	It works the other way too. Any picture that fits gets every unit through, one down each filled square.
+03_7	So asking whether any picture fits is asking whether every unit can get through.
+03_8	Send one unit at a time, along any path with room.
+04_1	Eight are through. The bottom row has one left, but its dry squares lead to full drains. Is the water stuck?
+04_2	No. Send it into the first column anyway, and take back the unit the top row sent there.
+04_3	The top row sends that unit to the fourth column, which still needs one. Without taking back, this fill would have stopped one unit short.
+04_4	Taking back breaks no count. The top row still sends two, the first column still drains one, and the fourth column gets the unit it was missing.
+04_5	In the picture, one square emptied and two filled. The bottom row took over the first column, and the top row moved to the fourth.
+04_6	Every search that finds a path sends one more unit, and there are only nine to send. So the water always finishes.
+04_7	The wet squares cast the face's shadows, but they aren't the face. They're one of the sixty-four.
+04_8	Water finds a picture whenever one exists. It never says whether that's the only one.
+05_1	Back to the shadows no picture fits. The face's rows, and columns asking for five, one, one, one and one.
+05_2	The water stops at eight of nine. Could taking water back get the ninth through?
+05_3	No. The first column needs five, but each row sends it at most one, and only four rows have water.
+05_4	Look at everywhere the water can still reach, taking back included. Every row with water, and every column but the first.
+05_5	Every unit that gets through must leave that area somewhere. Down a pipe into the first column, or out through one of the other drains.
+05_6	Four pipes lead into the first column, and the other drains hold four. Taking back only moves water around inside, so eight is all that can pass.
+05_7	Here, the reason was a single column asking too much.
+06_1	Is checking each column on its own always enough? Try rows of four, four, one, one and one, and columns the same.
+06_2	No count is zero or five, so no row or column forces a single square. And each column of four has five rows with water. Does any picture fit?
+06_3	No. Take the two columns of four together. They ask for eight squares.
+06_4	A row of four can give that pair at most two, one in each column. A row of one gives at most one. Two, two, one, one and one make seven.
+06_5	Eight asked, seven possible. No picture fits, and those single-row and single-column checks didn't catch it.
+06_6	The water agrees. It stops at ten of eleven, and the columns it can't reach are exactly those two.
+06_7	Count any group of columns this way. Each row gives it at most one square per column, and no more than its count.
+06_8	If the group asks for more than the rows can give, no picture fits. Checking the hungriest group of each size is enough.
+06_9	For a given size, the rows can give every group the same. So the hungriest group is the one to check.
+07_1	With equal totals, that test never misses. When water stops short, the columns it can't reach always form a group that asks too much.
+07_2	Here's why, with the shadows we just tried. Those two columns can only be fed from the rows the water can't reach, which hold three units. Or through the four pipes into them from the rows it can.
+07_3	The water used every one of those, and the three drains it can reach, and still came up one short. So those columns ask for more than three plus four.
+07_4	That count works whenever the water stops short, on any shadows with equal totals.
+07_5	Equal totals matter. Rows of two and two, with columns of one and one, pass every size of the test. Does a picture fit?
+07_6	No. Together the rows ask for four squares, and the columns only two.
+07_7	The face's shadows pass, and sixty-four pictures fit them. The test says that one fits, not which, and not whether only one.
+08_1	Water builds one picture. Can that picture alone tell us whether it is the only one?
+08_2	It can. This one has twelve switches. Swap the corners of any of them, and every count stays. A second picture fits.
+08_3	Now the tree's shadows from before. The water builds a picture.
+08_4	It is the tree itself. Could another picture cast the same shadows?
+08_5	No. A switch needs two rows that each have a filled square where the other is empty.
+08_6	But of any two rows in the tree, one has every square the other has. So the tree has no switch.
+08_7	And a switch is what stopped reasoning on the face. No reasoning can settle a square that some switch changes.
+08_8	How common is a single answer? On a four by four grid, only about one picture in ten is the only one with its shadows.
+09_1	One worry remains. These two pictures cast the same shadows, one square in every row and column. Can a single switch turn one into the other?
+09_2	No. They differ in six squares, and a switch changes only four.
+09_3	But two switches do it. First this rectangle, then this one.
+09_4	Any two pictures with the same shadows are joined by a chain of switches.
+09_5	That's the step the tree needed. If another picture cast its shadows, a chain of switches would lead there, and the chain's first step would be a switch of the tree.
+09_6	From the tree, no chain can start, so no other picture fits.
+09_7	The same chains tie the face's sixty-four together, each at most three switches from the face. Start from any picture that fits, try every switch, and every switch of what you find, and you reach them all.
+09_8	So the water answers whether any picture fits. A switch in the water's picture answers whether it's the only one.
+10_1	Back to the face's sixty-four pictures. Take one more shadow and count the filled squares along each diagonal.
+10_2	A switch keeps every row and column count, but always changes a diagonal count. This one takes a square from two diagonals and gives both to a third.
+10_3	So none of the fourteen pictures one switch from the face can pass. How many of all sixty-four do?
+10_4	Two. Sixty-two fail, but one other picture casts all three of the face's shadows.
+10_5	They differ in six squares. Each row, column and diagonal through them loses one square and gains one, so all three shadows stay the same.
+10_6	Two shadows left sixty-four pictures. A third still leaves two, so here even three shadows lie.
+10_7	Was the face unlucky? Forty-eight of the sixty-four are the only picture with all three of their own shadows. The face is not one of them.
+10_8	The face looks the same in a mirror. So along the other diagonals its counts are the first ones mirrored, and the picture that survives them is this one's mirror image.
+10_9	Count both diagonal shadows, and only the face is left. That's this picture, not a rule.
+11_1	So here's what a program can promise from two shadows. Check that the totals match, and send the water.
+11_2	If every unit gets through, the wet squares are a picture that fits. If not, where the water stops names a group of columns asking too much.
+11_3	Then look for a switch in that picture. None means it's the only one. Any switch means there are others, and switches reach every one of them.
+11_4	Try the four steps on the face's shadows. What does the program report?
+11_5	Every unit gets through, but the water's picture has twelve switches. So it reports a picture that fits, and that it isn't the only one.
+11_6	What no program can say is which of the sixty-four was really there. Two of the face's own squares are filled in only twelve of them.
+11_7	So keep the two questions apart. Does any picture fit? And is it the only one?

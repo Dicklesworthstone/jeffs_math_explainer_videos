@@ -9,13 +9,44 @@ use std::fmt::Display;
 
 use explainer_kit::Facts;
 
+use crate::chapters::promise::STEPS;
 use crate::chapters::same_shadows::QUESTIONS;
-use crate::model::{self, Augmenting, Flow, FlowState, Node, Picture, Reconstruction, Shadows, Switch};
+use crate::model::{
+    self, Augmenting, Deduction, Flow, FlowState, Line, Node, Picture, Reconstruction, Settled, Shadows, Switch,
+    Verdict,
+};
 
 /// The year of Ryser's paper, shown on chapter 01's "precisely" card: H. J.
 /// Ryser, "Combinatorial properties of matrices of zeros and ones",
 /// Canadian Journal of Mathematics 9 (1957) 371–377, Theorem 3.1.
 pub const RYSER_YEAR: u32 = 1957;
+
+/// The year of the thesis on chapter 02's card: K. J. Batenburg, *Network
+/// Flow Algorithms for Discrete Tomography*, PhD thesis, Leiden University,
+/// 2006, §1.9.1, pp. 31–32 (counting the atoms in each projected column of a
+/// nanocrystal, from few images).
+pub const BATENBURG_YEAR: u32 = 2006;
+
+/// Chapter 03's larger grid: 20 by 20 squares.
+pub const BIG_SIDE: usize = 20;
+
+/// The grid the edge facts (rows DT-X) run over: every 4 by 4 picture.
+pub const EDGE_SIDE: usize = 4;
+
+/// Chapter 06's other pairs of columns (06_9): each asks less than the two
+/// largest, and the rows can give each pair the same.
+pub const OTHER_PAIRS: [[usize; 2]; 2] = [[0, 2], [2, 3]];
+
+/// Chapter 07's shadows whose totals differ: they pass every size of Gale's
+/// table and fit nothing.
+pub const UNEQUAL_ROWS: [usize; 2] = [2, 2];
+pub const UNEQUAL_COLS: [usize; 2] = [1, 1];
+
+/// Chapter 09's two 3 by 3 pictures with one square in every row and every
+/// column, the second the first shifted a column: six squares apart, not one
+/// switch apart, two switches apart.
+pub const PERM_LEFT: [&str; 3] = ["100", "010", "001"];
+pub const PERM_RIGHT: [&str; 3] = ["010", "001", "100"];
 
 fn csv<T: Display>(values: &[T]) -> String {
     values.iter().map(ToString::to_string).collect::<Vec<_>>().join(",")
@@ -150,6 +181,166 @@ pub fn diagonal_survivors() -> Vec<Picture> {
     out
 }
 
+/// Chapter 10: the face's 64 pictures that also cast its shadow along the
+/// other diagonals ([`model::falling_counts`]), in increasing order.
+pub fn falling_survivors() -> Vec<Picture> {
+    let target = model::falling_counts(&model::face());
+    let mut out: Vec<Picture> = gallery()
+        .into_iter()
+        .map(|(p, _)| p)
+        .filter(|p| model::falling_counts(p) == target)
+        .collect();
+    out.sort();
+    out
+}
+
+/// Chapter 10: the face's 64 pictures that cast both its diagonal shadows.
+pub fn both_survivors() -> Vec<Picture> {
+    let falling = falling_survivors();
+    diagonal_survivors().into_iter().filter(|p| falling.contains(p)).collect()
+}
+
+/// Chapter 10: the face's 64 pictures grouped by their diagonal counts, each
+/// group in increasing order; the groups smallest first, then in order of
+/// their first picture.
+pub fn diagonal_groups() -> Vec<Vec<Picture>> {
+    let mut by_counts: HashMap<Vec<usize>, Vec<Picture>> = HashMap::new();
+    for (p, _) in gallery() {
+        by_counts.entry(model::diagonal_counts(&p)).or_default().push(p);
+    }
+    let mut groups: Vec<Vec<Picture>> = by_counts.into_values().collect();
+    for g in &mut groups {
+        g.sort();
+    }
+    groups.sort_by(|a, b| a.len().cmp(&b.len()).then_with(|| a.cmp(b)));
+    groups
+}
+
+/// Chapter 02: how many of the face's 64 pictures have each square filled,
+/// row by row.
+pub fn filled_in() -> Vec<Vec<usize>> {
+    let face = model::face();
+    let pictures = gallery();
+    (0..face.rows())
+        .map(|r| {
+            (0..face.cols())
+                .map(|c| pictures.iter().filter(|(p, _)| p.get(r, c)).count())
+                .collect()
+        })
+        .collect()
+}
+
+/// Chapter 02's reasoning on the tree, in the order the chapter tells it:
+/// the lines whose count fills them whole; then the lines whose count is
+/// already met, columns before rows; then the rest. Each is checked to be,
+/// in that order, the deduction its line forces ([`model::deduce`]), and
+/// together they settle the tree.
+pub fn tree_reasoning() -> Result<[Vec<Deduction>; 3], String> {
+    let tree = model::tree();
+    let s = tree.shadows();
+    let (rows, cols) = (s.rows.len(), s.cols.len());
+    let solve = model::line_solve(&s);
+    if solve.solved().as_ref() != Some(&tree) {
+        return Err("reasoning one line at a time does not settle the tree".into());
+    }
+    let whole = |d: &&Deduction| d.fill && d.line.count(&s) == d.line.size(rows, cols);
+    let full: Vec<Deduction> = solve.steps.iter().filter(whole).cloned().collect();
+    let mut met: Vec<Deduction> = solve.steps.iter().filter(|d| !d.fill).cloned().collect();
+    met.sort_by_key(|d| match d.line {
+        Line::Col(c) => (0, c),
+        Line::Row(r) => (1, r),
+    });
+    let rest: Vec<Deduction> = solve
+        .steps
+        .iter()
+        .filter(|d| d.fill && !whole(d))
+        .cloned()
+        .collect();
+    let mut grid: Settled = vec![vec![None; cols]; rows];
+    for step in full.iter().chain(&met).chain(&rest) {
+        match model::deduce(&s, &grid, step.line) {
+            Verdict::Step(d) if d == *step => model::settle(&mut grid, &d),
+            other => {
+                return Err(format!("{} is not forced in the told order: {other:?}", step.label()));
+            }
+        }
+    }
+    if grid != solve.grid {
+        return Err("the told order does not settle what the sweep settles".into());
+    }
+    Ok([full, met, rest])
+}
+
+/// The number of decimal digits of 2^`n`, exactly: a decimal number doubled
+/// `n` times, its digits least significant first.
+pub fn power_of_two_digits(n: usize) -> usize {
+    let mut digits: Vec<u8> = vec![1];
+    for _ in 0..n {
+        let mut carry = 0;
+        for d in &mut digits {
+            let doubled = *d * 2 + carry;
+            *d = doubled % 10;
+            carry = doubled / 10;
+        }
+        if carry > 0 {
+            digits.push(carry);
+        }
+    }
+    digits.len()
+}
+
+/// Chapter 06's shadows ([`model::STALL_ROWS`], [`model::STALL_COLS`]).
+pub fn stall() -> Shadows {
+    Shadows::new(&model::STALL_ROWS, &model::STALL_COLS)
+}
+
+/// Chapter 06: the flow through [`stall`]'s shadows (it stops short), and the
+/// water after each of its paths (checked by [`model::replay`]).
+pub fn stall_flow() -> Result<(Flow, Vec<FlowState>), String> {
+    let s = stall();
+    let flow = model::max_flow(&s);
+    let states = model::replay(&s, &flow.paths)?;
+    match states.last() {
+        Some(last) if last.wet == flow.carried && last.through() == flow.value => Ok((flow, states)),
+        _ => Err("the replayed water is not the stall flow's".into()),
+    }
+}
+
+/// Chapter 07's shadows whose totals differ.
+pub fn unequal() -> Shadows {
+    Shadows::new(&UNEQUAL_ROWS, &UNEQUAL_COLS)
+}
+
+/// Chapter 09's two 3 by 3 pictures.
+pub fn perms() -> Result<(Picture, Picture), String> {
+    Ok((Picture::parse(&PERM_LEFT)?, Picture::parse(&PERM_RIGHT)?))
+}
+
+/// Deductions as their labels, in order: "r2+5,c0-4".
+fn step_labels(steps: &[Deduction]) -> String {
+    steps.iter().map(Deduction::label).collect::<Vec<_>>().join(",")
+}
+
+/// A switch as "rows;columns": "0,1;0,1".
+fn switch_text(s: Switch) -> String {
+    format!("{};{}", csv(&s.rows), csv(&s.cols))
+}
+
+/// Squares as "r,c;r,c".
+fn cells_text(cells: &[(usize, usize)]) -> String {
+    cells.iter().map(|&(r, c)| format!("{r},{c}")).collect::<Vec<_>>().join(";")
+}
+
+/// The one value every item shares, or an error naming `what`.
+fn common<T: Copy + PartialEq + std::fmt::Debug>(items: &[T], what: &str) -> Result<T, String> {
+    let &first = items.first().ok_or_else(|| format!("no {what}"))?;
+    if items.iter().all(|&x| x == first) {
+        Ok(first)
+    } else {
+        Err(format!("the {what} differ: {items:?}"))
+    }
+}
+
 /// What each line through the squares where `a` and `b` differ loses and
 /// gains from `a` to `b`: one (lost, gained) pair for each row, then each
 /// column, then each diagonal that holds any of those squares.
@@ -216,6 +407,8 @@ fn path_text(p: &Augmenting) -> String {
 
 /// The edge checks on every 4x4 picture (rows DT-X).
 pub struct Edges {
+    /// Pictures checked: every [`EDGE_SIDE`] by [`EDGE_SIDE`] picture.
+    pub pictures: usize,
     /// (picture, switch) pairs checked, and how many changed a shadow or
     /// anything but the four corners.
     pub pairs: usize,
@@ -241,7 +434,7 @@ pub struct Edges {
 }
 
 pub fn edges() -> Edges {
-    let pictures = model::all_pictures(4, 4);
+    let pictures = model::all_pictures(EDGE_SIDE, EDGE_SIDE);
     let mut groups: HashMap<Shadows, Vec<&Picture>> = HashMap::new();
     for p in &pictures {
         groups.entry(p.shadows()).or_default().push(p);
@@ -281,6 +474,7 @@ pub fn edges() -> Edges {
         })
         .count();
     Edges {
+        pictures: pictures.len(),
         pairs,
         failed,
         shadow_pairs: groups.len(),
@@ -601,6 +795,307 @@ pub fn facts() -> Result<Facts, String> {
     f.add("DT-F11.other.gains", gains)?;
     f.add("DT-F11.only_one", flag(survivors.len() == 1))?;
 
+    // chapter 02: reasoning one row or column at a time, on the tree's
+    // shadows and on the face's
+    let tree_shadows = tree.shadows();
+    let tree_solve = model::line_solve(&tree_shadows);
+    let [full, met, rest] = tree_reasoning()?;
+    let told: Vec<Deduction> = full.iter().chain(&met).chain(&rest).cloned().collect();
+    let full_counts: Vec<usize> = full.iter().map(|d| d.line.count(&tree_shadows)).collect();
+    let met_counts: Vec<usize> = met.iter().map(|d| d.line.count(&tree_shadows)).collect();
+    let met_cols: Vec<usize> = met
+        .iter()
+        .filter_map(|d| match d.line {
+            Line::Col(c) => Some(c),
+            Line::Row(_) => None,
+        })
+        .collect();
+    let met_rows: Vec<usize> = met
+        .iter()
+        .filter_map(|d| match d.line {
+            Line::Row(r) => Some(r),
+            Line::Col(_) => None,
+        })
+        .collect();
+    let [last_step] = rest.as_slice() else {
+        return Err(format!("the tree's last deductions are {}, not one row", step_labels(&rest)));
+    };
+    let Line::Row(last_row) = last_step.line else {
+        return Err(format!("the tree's last deduction is {}, not a row", last_step.label()));
+    };
+    let filled_before = tree_shadows.rows[last_row] - last_step.squares.len();
+    f.add("DT-F12.tree.steps", step_labels(&tree_solve.steps))?;
+    f.add("DT-F12.tree.told", step_labels(&told))?;
+    f.add("DT-F12.tree.solved", flag(tree_solve.solved().as_ref() == Some(&tree)))?;
+    f.add(
+        "DT-F12.tree.full.lines",
+        full.iter().map(|d| d.line.label()).collect::<Vec<_>>().join(","),
+    )?;
+    f.add("DT-F12.tree.full", common(&full_counts, "full lines' counts")?)?;
+    f.add("DT-F12.tree.met.cols", csv(&met_cols))?;
+    f.add("DT-F12.tree.met.rows", csv(&met_rows))?;
+    f.add("DT-F12.tree.met.count", common(&met_counts, "met lines' counts")?)?;
+    f.add("DT-F12.tree.last.row", last_row)?;
+    f.add("DT-F12.tree.last.needs", tree_shadows.rows[last_row] - filled_before)?;
+    f.add("DT-F12.tree.last.open", last_step.squares.len())?;
+    let face_solve = model::line_solve(&shadows);
+    let filled = filled_in();
+    let total_pictures = gallery.len();
+    let mut forced = 0;
+    let mut free_filled = Vec::new();
+    let mut free_empty = Vec::new();
+    for row in &filled {
+        for &n in row {
+            if n == 0 || n == total_pictures {
+                forced += 1;
+            } else {
+                free_filled.push(n);
+                free_empty.push(total_pictures - n);
+            }
+        }
+    }
+    let on_face: Vec<((usize, usize), usize)> = face.filled().into_iter().map(|(r, c)| ((r, c), filled[r][c])).collect();
+    let rarest = on_face.iter().map(|&(_, k)| k).min().ok_or("the face has no square")?;
+    let rarest_squares: Vec<(usize, usize)> = on_face.iter().filter(|&&(_, k)| k == rarest).map(|&(rc, _)| rc).collect();
+    f.add("DT-F12.face.steps", step_labels(&face_solve.steps))?;
+    f.add("DT-F12.face.settled", face_solve.settled())?;
+    f.add(
+        "DT-F12.face.contradiction",
+        face_solve.contradiction.map_or_else(|| "none".to_string(), Line::label),
+    )?;
+    f.add("DT-F12.face.forced", forced)?;
+    f.add("DT-F12.face.free", free_filled.len())?;
+    f.add(
+        "DT-F12.face.filled_in",
+        filled.iter().map(|row| csv(row.as_slice())).collect::<Vec<_>>().join("/"),
+    )?;
+    f.add("DT-F12.face.guess", csv(&[filled[0][0], total_pictures - filled[0][0]]))?;
+    f.add(
+        "DT-F12.face.free.least",
+        csv(&[
+            free_filled.iter().copied().min().unwrap_or(0),
+            free_empty.iter().copied().min().unwrap_or(0),
+        ]),
+    )?;
+    f.add("DT-F12.face.rarest", rarest)?;
+    f.add("DT-F12.face.rarest.count", rarest_squares.len())?;
+    f.add("DT-F12.face.rarest.squares", cells_text(&rarest_squares))?;
+
+    // chapter 03: how many pictures a grid has
+    let squares = face.rows() * face.cols();
+    let pictures = u32::try_from(squares)
+        .ok()
+        .and_then(|n| 1u64.checked_shl(n))
+        .ok_or("too many squares to count in a u64")?;
+    f.pin("DT-F13.choices", [false, true].len(), "2", "a square is filled or empty")?;
+    f.add("DT-F13.squares", squares)?;
+    f.add("DT-F13.pictures", pictures)?;
+    f.add("DT-F13.millions", pictures / 1_000_000)?;
+    f.add("DT-F13.big.side", BIG_SIDE)?;
+    f.add("DT-F13.big.digits", power_of_two_digits(BIG_SIDE * BIG_SIDE))?;
+
+    // chapter 04: what the take-back did, read off the states before and
+    // after it
+    let after = &states[k];
+    let changed = before.wet.differences(&after.wet);
+    let emptied: Vec<(usize, usize)> = changed.iter().copied().filter(|&(r, c)| before.wet.get(r, c)).collect();
+    let refilled: Vec<(usize, usize)> = changed.iter().copied().filter(|&(r, c)| after.wet.get(r, c)).collect();
+    if before.sent[from_row] != after.sent[from_row] || before.drained[into_col] != after.drained[into_col] {
+        return Err("the take-back changed the top row's or the first column's count".into());
+    }
+    f.add("DT-F14.emptied", emptied.len())?;
+    f.add("DT-F14.emptied.cells", cells_text(&emptied))?;
+    f.add("DT-F14.filled", refilled.len())?;
+    f.add("DT-F14.filled.cells", cells_text(&refilled))?;
+    f.add("DT-F14.top_row.sends", after.sent[from_row])?;
+    f.add("DT-F14.first_col.drains", after.drained[into_col])?;
+    f.add(
+        "DT-F14.to_col.drains",
+        csv(&[before.drained[to_col], after.drained[to_col]]),
+    )?;
+    f.add("DT-F14.searches", paths.len() + 1)?;
+
+    // chapter 06: rows and columns 4, 4, 1, 1, 1
+    let stall = stall();
+    let stall_solve = model::line_solve(&stall);
+    let pair = model::bottleneck(&stall).ok_or("the stall shadows have no bottleneck")?;
+    let pair_asks: usize = pair.iter().map(|&j| stall.cols[j]).sum();
+    let by_row: Vec<usize> = stall.rows.iter().map(|&r| r.min(pair.len())).collect();
+    let all_counts: Vec<usize> = stall.rows.iter().chain(&stall.cols).copied().collect();
+    let (stall_water, stall_states) = stall_flow()?;
+    let stall_cut = stall_water.cut(&stall);
+    if stall_cut.value() != stall_water.value || stall_cut.cut_off != pair {
+        return Err(format!(
+            "the stall flow's cut {stall_cut:?} is not its value or not the bottleneck {pair:?}"
+        ));
+    }
+    let stall_end = stall_states.last().ok_or("the stall flow sends nothing")?;
+    let stall_left: Vec<usize> = (0..stall.rows.len())
+        .filter(|&r| stall_end.sent[r] < stall.rows[r])
+        .collect();
+    let &[stall_left_row] = stall_left.as_slice() else {
+        return Err(format!("not one row left with water: {stall_left:?}"));
+    };
+    let stall_trace: Vec<String> = stall_water.paths.iter().map(path_text).collect();
+    f.add("DT-F15.rows", csv(&stall.rows))?;
+    f.add("DT-F15.cols", csv(&stall.cols))?;
+    f.add("DT-F15.totals", csv(&[stall.row_total(), stall.col_total()]))?;
+    f.add(
+        "DT-F15.counts",
+        csv(&[
+            all_counts.iter().copied().min().unwrap_or(0),
+            all_counts.iter().copied().max().unwrap_or(0),
+        ]),
+    )?;
+    f.add("DT-F15.settled", stall_solve.settled())?;
+    f.add(
+        "DT-F15.contradiction",
+        stall_solve.contradiction.map_or_else(|| "none".to_string(), Line::label),
+    )?;
+    f.add("DT-F15.rows_with_water", stall.rows.iter().filter(|&&r| r > 0).count())?;
+    f.add("DT-F15.largest", stall.cols.iter().copied().max().unwrap_or(0))?;
+    f.add("DT-F15.fits", model::fits(&stall).len())?;
+    f.add("DT-F15.pair", csv(&pair))?;
+    f.add("DT-F15.pair.asks", pair_asks)?;
+    f.add("DT-F15.pair.by_row", csv(&by_row))?;
+    f.add("DT-F15.pair.gives", model::can_give(&stall.rows, pair.len()))?;
+    let stall_table = model::gale_table(&stall);
+    f.add("DT-F15.sorted", csv(&largest_first(&stall.cols)))?;
+    f.add(
+        "DT-F15.asks",
+        csv(&stall_table.iter().map(|&(asks, _)| asks).collect::<Vec<_>>()),
+    )?;
+    f.add(
+        "DT-F15.gives",
+        csv(&stall_table.iter().map(|&(_, gives)| gives).collect::<Vec<_>>()),
+    )?;
+    f.add("DT-F15.failing", failing_sizes(&stall_table))?;
+    f.add("DT-F15.paths", stall_water.paths.len())?;
+    f.add("DT-F15.trace", stall_trace.join(","))?;
+    f.add(
+        "DT-F15.takebacks",
+        stall_water.paths.iter().filter(|p| p.takes_back()).count(),
+    )?;
+    f.add("DT-F15.flow", stall_water.value)?;
+    f.add("DT-F15.left.row", stall_left_row)?;
+    f.add("DT-F15.left.units", stall.rows[stall_left_row] - stall_end.sent[stall_left_row])?;
+    f.add("DT-F15.reached.rows", csv(&stall_cut.rows))?;
+    f.add("DT-F15.reached.cols", csv(&stall_cut.cols))?;
+    f.add("DT-F15.cut_off", csv(&stall_cut.cut_off))?;
+    f.add("DT-F15.cut.unreached_taps", stall_cut.unreached_taps)?;
+    f.add("DT-F15.cut.pipes", stall_cut.pipes)?;
+    f.add("DT-F15.cut.reached_drains", stall_cut.reached_drains)?;
+    f.add("DT-F15.cut", stall_cut.value())?;
+    f.add("DT-F15.short", stall.row_total() - stall_water.value)?;
+    f.add(
+        "DT-F15.other_pairs",
+        OTHER_PAIRS.iter().map(|p| csv(&p[..])).collect::<Vec<_>>().join(";"),
+    )?;
+    f.add(
+        "DT-F15.other_pairs.asks",
+        csv(&OTHER_PAIRS
+            .iter()
+            .map(|p| p.iter().map(|&j| stall.cols[j]).sum::<usize>())
+            .collect::<Vec<_>>()),
+    )?;
+    f.add(
+        "DT-F15.other_pairs.gives",
+        csv(&OTHER_PAIRS
+            .iter()
+            .map(|p| model::can_give(&stall.rows, p.len()))
+            .collect::<Vec<_>>()),
+    )?;
+
+    // chapter 07: equal totals matter
+    let unequal = unequal();
+    f.add("DT-F16.rows", csv(&unequal.rows))?;
+    f.add("DT-F16.cols", csv(&unequal.cols))?;
+    f.add("DT-F16.totals", csv(&[unequal.row_total(), unequal.col_total()]))?;
+    f.add("DT-F16.failing", failing_sizes(&model::gale_table(&unequal)))?;
+    f.add("DT-F16.fits", model::fits(&unequal).len())?;
+
+    // chapter 09: a chain can need more than one switch; the 64 from the
+    // water's picture
+    let (left, right) = perms()?;
+    if left.shadows() != right.shadows() {
+        return Err("chapter 09's two pictures cast different shadows".into());
+    }
+    let per_line: Vec<usize> = left.row_counts().into_iter().chain(left.col_counts()).collect();
+    let chain = model::walk(&left, &right).ok_or("no chain of switches joins chapter 09's pictures")?;
+    let &first_link = chain.first().ok_or("chapter 09's pictures are the same")?;
+    let middle = first_link
+        .apply(&left)
+        .ok_or("the chain's first switch does not apply")?;
+    let one_switch = model::switches(&left).iter().any(|s| s.apply(&left).as_ref() == Some(&right));
+    let from_built = model::reachable(built);
+    let built_far = from_built.iter().map(|(_, d)| *d).max().unwrap_or(0);
+    let built_rings: Vec<usize> = (0..=built_far)
+        .map(|d| from_built.iter().filter(|(_, e)| *e == d).count())
+        .collect();
+    let mut from_built_pictures: Vec<Picture> = from_built.into_iter().map(|(p, _)| p).collect();
+    from_built_pictures.sort();
+    if from_built_pictures != fit {
+        return Err("switches from the water's picture do not reach exactly the 64".into());
+    }
+    f.add("DT-F17.perm.left", left.pattern())?;
+    f.add("DT-F17.perm.right", right.pattern())?;
+    f.add("DT-F17.perm.per_line", common(&per_line, "row and column counts")?)?;
+    f.add("DT-F17.perm.differ", left.differences(&right).len())?;
+    f.add("DT-F17.perm.one_switch", flag(one_switch))?;
+    f.add("DT-F17.perm.distance", chain.len())?;
+    f.add(
+        "DT-F17.chain",
+        chain.iter().map(|&s| switch_text(s)).collect::<Vec<_>>().join("|"),
+    )?;
+    f.add("DT-F17.chain.middle", middle.pattern())?;
+    f.add("DT-F17.rings_from_built", csv(&built_rings))?;
+
+    // chapter 10: the 64 grouped by diagonal counts; the other diagonals
+    let groups = diagonal_groups();
+    let face_group = groups
+        .iter()
+        .find(|g| g.contains(&face))
+        .ok_or("the face is in no group")?;
+    let falling = falling_survivors();
+    let falling_others: Vec<&Picture> = falling.iter().filter(|p| **p != face).collect();
+    let &[falling_other] = falling_others.as_slice() else {
+        return Err(format!(
+            "{} pictures other than the face cast its other diagonal shadow",
+            falling_others.len()
+        ));
+    };
+    let falling_from_face = gallery
+        .iter()
+        .find(|(p, _)| p == falling_other)
+        .map(|(_, d)| *d)
+        .ok_or("the other diagonals' survivor is not among the face's pictures")?;
+    let both = both_survivors();
+    f.add("DT-F18.groups", groups.len())?;
+    f.add("DT-F18.alone", groups.iter().filter(|g| g.len() == 1).count())?;
+    f.add("DT-F18.pairs", groups.iter().filter(|g| g.len() == 2).count())?;
+    f.add("DT-F18.largest", groups.iter().map(Vec::len).max().unwrap_or(0))?;
+    f.add("DT-F18.face.group", face_group.len())?;
+    f.add("DT-F18.face.alone", flag(face_group.len() == 1))?;
+    f.add("DT-F18.face.mirror", flag(model::mirrored(&face) == face))?;
+    f.add("DT-F18.falling", csv(&model::falling_counts(&face)))?;
+    f.add("DT-F18.falling.survivors", falling.len())?;
+    f.add("DT-F18.falling.other", falling_other.pattern())?;
+    f.add("DT-F18.falling.other.from_face", falling_from_face)?;
+    f.add("DT-F18.falling.other.differ", face.differences(falling_other).len())?;
+    f.add(
+        "DT-F18.falling.other.mirror",
+        flag(model::mirrored(other) == *falling_other),
+    )?;
+    f.add("DT-F18.shadows", [rows, cols, &face_diagonal, &model::falling_counts(&face)].len())?;
+    f.add(
+        "DT-F18.both",
+        both.iter().map(Picture::pattern).collect::<Vec<_>>().join(","),
+    )?;
+    f.add("DT-F18.both.count", both.len())?;
+
+    // chapter 11: the steps a program follows
+    f.add("DT-F19.steps", STEPS.len())?;
+
     f.add("DT-F7.questions", QUESTIONS.len())?;
     f.pin(
         "DT-S1.ryser",
@@ -621,12 +1116,29 @@ pub fn facts() -> Result<Facts, String> {
         "D. Gale, Pacific J. Math. 7 (1957) 1073-1082",
     )?;
 
+    f.pin(
+        "DT-S4.batenburg",
+        BATENBURG_YEAR,
+        "2006",
+        "K. J. Batenburg, Network Flow Algorithms for Discrete Tomography, PhD thesis, Leiden 2006, 1.9.1",
+    )?;
+
     let e = edges();
     f.add("DT-X1.pairs", e.pairs)?;
     f.pin("DT-X1.failed", e.failed, "0", "every switch keeps both shadows")?;
     f.add("DT-X2.shadow_pairs", e.shadow_pairs)?;
     f.add("DT-X2.connected", e.connected)?;
+    f.pin(
+        "DT-X2.disconnected",
+        e.shadow_pairs - e.connected,
+        "0",
+        "Ryser's Theorem 3.1 on every 4x4 pair of shadows",
+    )?;
+    f.add("DT-X3.grid", csv(&[EDGE_SIDE, EDGE_SIDE]))?;
+    f.add("DT-X3.pictures", e.pictures)?;
     f.add("DT-X3.alone", e.alone)?;
+    // the share alone, rounded to tenths: "about one picture in ten"
+    f.add("DT-X3.alone.tenths", (10 * e.alone + e.pictures / 2) / e.pictures)?;
     f.add("DT-X3.no_switch", e.no_switch)?;
     f.pin("DT-X3.disagree", e.disagree, "0", "Ryser: alone exactly when no switch")?;
     f.pin(
@@ -817,6 +1329,73 @@ mod tests {
         let changes = line_changes(&face, &twin);
         assert_eq!(changes.len(), 2 + 2 + 3);
         assert!(changes[..4].iter().all(|&lg| lg == (1, 1)));
+    }
+
+    /// The expansion's numbers (chapters 02, 03, 04, 06, 07, 09, 10, 11), as
+    /// `check_candidate.py` computed them independently before the model
+    /// did: the tree settled line by line, the face only in its empty row;
+    /// 2^25 pictures and 121 digits; the take-back's three squares; the
+    /// stall shadows' pair, table, water and cut; the unequal totals; the
+    /// 3x3 chain; the 64 grouped by their diagonals, the other diagonals.
+    #[test]
+    fn the_expansion_facts_hold() {
+        let f = facts().unwrap();
+        let get = |key: &str| f.get(key).unwrap_or_else(|| panic!("no {key}"));
+        assert_eq!(get("DT-F12.tree.steps"), "r2+5,c0-4,c2+4,c4-4,r0-2,r1+2,r3-2,r4-2");
+        assert_eq!(get("DT-F12.tree.told"), "r2+5,c2+4,c0-4,c4-4,r0-2,r3-2,r4-2,r1+2");
+        assert_eq!(get("DT-F12.tree.full.lines"), "r2,c2");
+        assert_eq!(get("DT-F12.tree.full"), "5");
+        assert_eq!(get("DT-F12.tree.met.cols"), "0,4");
+        assert_eq!(get("DT-F12.tree.met.rows"), "0,3,4");
+        assert_eq!(get("DT-F12.tree.met.count"), "1");
+        assert_eq!(get("DT-F12.tree.last.row"), "1");
+        assert_eq!(get("DT-F12.tree.last.needs"), get("DT-F12.tree.last.open"));
+        assert_eq!(get("DT-F12.face.steps"), "r2-5");
+        assert_eq!(get("DT-F12.face.forced"), get("DT-F12.face.settled"));
+        assert_eq!(get("DT-F12.face.free"), "20");
+        assert_eq!(
+            get("DT-F12.face.filled_in"),
+            "12,46,12,46,12/12,46,12,46,12/0,0,0,0,0/12,46,12,46,12/28,54,28,54,28"
+        );
+        assert_eq!(get("DT-F12.face.guess"), "12,52");
+        assert_eq!(get("DT-F12.face.rarest.squares"), "3,0;3,4");
+        assert_eq!(get("DT-F13.pictures"), "33554432");
+        assert_eq!(get("DT-F13.millions"), "33");
+        assert_eq!(get("DT-F13.big.digits"), "121");
+        assert_eq!(power_of_two_digits(10), 4);
+        assert_eq!(power_of_two_digits(0), 1);
+        assert_eq!(get("DT-F14.emptied.cells"), "0,0");
+        assert_eq!(get("DT-F14.filled.cells"), "0,3;4,0");
+        assert_eq!(get("DT-F14.to_col.drains"), "2,3");
+        assert_eq!(get("DT-F14.searches"), "10");
+        assert_eq!(get("DT-F15.settled"), "0");
+        assert_eq!(get("DT-F15.contradiction"), "none");
+        assert_eq!(get("DT-F15.fits"), "0");
+        assert_eq!(get("DT-F15.pair"), "0,1");
+        assert_eq!(get("DT-F15.pair.by_row"), "2,2,1,1,1");
+        assert_eq!(get("DT-F15.failing"), "2");
+        assert_eq!(get("DT-F15.flow"), "10");
+        assert_eq!(get("DT-F15.reached.rows"), "0,1");
+        assert_eq!(get("DT-F15.reached.cols"), "2,3,4");
+        assert_eq!(get("DT-F15.cut_off"), get("DT-F15.pair"));
+        assert_eq!(get("DT-F15.cut"), get("DT-F15.flow"));
+        assert_eq!(get("DT-F16.failing"), "none");
+        assert_eq!(get("DT-F16.fits"), "0");
+        assert_eq!(get("DT-F17.chain"), "0,1;0,1|1,2;0,2");
+        assert_eq!(get("DT-F17.chain.middle"), "010/100/001");
+        assert_eq!(get("DT-F17.rings_from_built"), "1,12,37,14");
+        assert_eq!(get("DT-F18.groups"), "55");
+        assert_eq!(get("DT-F18.alone"), "48");
+        assert_eq!(get("DT-F18.falling.other"), "01010/00110/00000/11000/01011");
+        assert_eq!(get("DT-F18.both"), get("DT-F1.face"));
+        assert_eq!(get("DT-X3.alone.tenths"), "1");
+        // the stall flow keeps every row and column in count
+        let (_, states) = stall_flow().unwrap();
+        let s = stall();
+        for st in &states {
+            assert!(st.sent.iter().zip(&s.rows).all(|(a, b)| a <= b));
+            assert!(st.drained.iter().zip(&s.cols).all(|(a, b)| a <= b));
+        }
     }
 
     /// The gallery is every picture that fits, each exactly once.

@@ -400,10 +400,16 @@ def edges():
     emit("DT-X1.pairs", pairs)
     emit("DT-X1.failed", failed)
     emit("DT-X2.shadow_pairs", len(groups))
-    emit("DT-X2.connected", sum(1 for g in groups.values() if len(distances(g[0])) == len(g)))
+    connected = sum(1 for g in groups.values() if len(distances(g[0])) == len(g))
+    emit("DT-X2.connected", connected)
+    emit("DT-X2.disconnected", len(groups) - connected)
     alone = [len(groups[shadows(p, m, n)]) == 1 for p in pics]
     lonely = [not switches(p) for p in pics]
+    emit("DT-X3.grid", csv((m, n)))
+    emit("DT-X3.pictures", len(pics))
     emit("DT-X3.alone", sum(alone))
+    # the share alone, rounded to tenths ("about one picture in ten")
+    emit("DT-X3.alone.tenths", round(10 * sum(alone) / len(pics)))
     emit("DT-X3.no_switch", sum(lonely))
     emit("DT-X3.disagree", sum(a != b for a, b in zip(alone, lonely)))
     # the water's picture settles uniqueness on every pair of shadows some
@@ -942,12 +948,343 @@ def chapter_05(rows, cols):
     )
 
 
+# ------------------------------------------- the eleven-chapter expansion
+
+# K. J. Batenburg, Network Flow Algorithms for Discrete Tomography, PhD thesis,
+# Leiden University 2006, section 1.9.1 (pp. 31-32)
+BATENBURG_YEAR = 2006
+STALL = ((4, 4, 1, 1, 1), (4, 4, 1, 1, 1))
+UNEQUAL = ((2, 2), (1, 1))
+PERM_LEFT = ("100", "010", "001")
+PERM_RIGHT = ("010", "001", "100")
+OTHER_PAIRS = ((0, 2), (2, 3))
+BIG_SIDE = 20
+
+
+def reason(rows, cols):
+    """Reasoning one row or column at a time, kept as a dictionary of
+    settled squares: sweep the rows top to bottom and then the columns left
+    to right; on each line, if its count is broken (too many filled, or too
+    few filled and open) stop; if its filled squares meet its count, empty
+    the open ones; if it needs every open one, fill them; sweep again until a
+    sweep settles nothing. Returns (settled, steps, broken line or None), a
+    step as (kind, index, fill, squares)."""
+    m, n = len(rows), len(cols)
+    settled = {}
+    steps = []
+    lines = [("r", i, [(i, j) for j in range(n)], rows[i]) for i in range(m)]
+    lines += [("c", j, [(i, j) for i in range(m)], cols[j]) for j in range(n)]
+    changed = True
+    while changed:
+        changed = False
+        for kind, k, squares, need in lines:
+            filled = sum(1 for sq in squares if settled.get(sq) is True)
+            open_ = [sq for sq in squares if sq not in settled]
+            if filled > need or filled + len(open_) < need:
+                return settled, steps, f"{kind}{k}"
+            if open_ and (filled == need or filled + len(open_) == need):
+                fill = filled != need
+                for sq in open_:
+                    settled[sq] = fill
+                steps.append((kind, k, fill, open_))
+                changed = True
+    return settled, steps, None
+
+
+def step_label(step):
+    kind, k, fill, squares = step
+    return f"{kind}{k}{'+' if fill else '-'}{len(squares)}"
+
+
+def walk_chain(a, b):
+    """A shortest chain of switches from a to b, breadth first, each
+    picture's switches taken in order (pairs of rows, then of columns)."""
+    came = {a: None}
+    queue = deque([a])
+    while queue:
+        p = queue.popleft()
+        if p == b:
+            chain = []
+            while came[p] is not None:
+                p, sw = came[p]
+                chain.append(sw)
+            return chain[::-1]
+        for sw in sorted(switches(p)):
+            q = switched(p, sw)
+            if q not in came:
+                came[q] = (p, sw)
+                queue.append(q)
+    return None
+
+
+def mirror(cells, n):
+    """A picture reversed left to right, on a grid of n columns."""
+    return frozenset((r, n - 1 - c) for r, c in cells)
+
+
+def chapter_expansion(rows, cols):
+    m, n = len(rows), len(cols)
+    face = parse(FACE)
+    every = fits(rows, cols)
+    from_face = distances(face)
+
+    # chapter 02: reasoning one row or column at a time
+    tree = parse(TREE)
+    t_rows, t_cols = shadows(tree, m, n)
+    settled, steps, broken = reason(t_rows, t_cols)
+    count_of = {("r", i): t_rows[i] for i in range(m)} | {("c", j): t_cols[j] for j in range(n)}
+    size_of = {"r": n, "c": m}
+    full = [s for s in steps if s[2] and count_of[(s[0], s[1])] == size_of[s[0]]]
+    met = sorted((s for s in steps if not s[2]), key=lambda s: (0 if s[0] == "c" else 1, s[1]))
+    rest = [s for s in steps if s[2] and count_of[(s[0], s[1])] != size_of[s[0]]]
+    told = full + met + rest
+    # the told order must be valid: replay it rule by rule
+    again = {}
+    ok = True
+    for kind, k, fill, squares in told:
+        line = [(k, j) for j in range(n)] if kind == "r" else [(i, k) for i in range(m)]
+        need = count_of[(kind, k)]
+        filled = sum(1 for sq in line if again.get(sq) is True)
+        open_ = [sq for sq in line if sq not in again]
+        if not open_:
+            rule = None
+        elif filled == need:
+            rule = False
+        else:
+            rule = True if filled + len(open_) == need else None
+        ok &= rule == fill and open_ == squares
+        for sq in open_:
+            again[sq] = fill
+    solved = broken is None and len(settled) == m * n and frozenset(sq for sq, f in settled.items() if f) == tree
+    emit("DT-F12.tree.steps", ",".join(step_label(s) for s in steps))
+    emit("DT-F12.tree.told", ",".join(step_label(s) for s in told))
+    emit("DT-F12.tree.solved", flag(solved))
+    emit("DT-F12.tree.full.lines", ",".join(f"{s[0]}{s[1]}" for s in full))
+    emit("DT-F12.tree.full", csv(sorted({count_of[(s[0], s[1])] for s in full})))
+    emit("DT-F12.tree.met.cols", csv(s[1] for s in met if s[0] == "c"))
+    emit("DT-F12.tree.met.rows", csv(s[1] for s in met if s[0] == "r"))
+    emit("DT-F12.tree.met.count", csv(sorted({count_of[(s[0], s[1])] for s in met})))
+    (last_kind, last_row, _, last_squares), = rest
+    emit("DT-F12.tree.last.row", last_row)
+    filled_before = sum(1 for j in range(n) if again.get((last_row, j)) and (last_row, j) not in last_squares)
+    emit("DT-F12.tree.last.needs", t_rows[last_row] - filled_before)
+    emit("DT-F12.tree.last.open", len(last_squares))
+    check("chapter 02: the told order is, step by step, what each line forces", ok and again == settled)
+    check("chapter 02: the tree's last told step is a row", last_kind == "r")
+
+    f_settled, f_steps, f_broken = reason(rows, cols)
+    filled_in = [[sum(1 for p in every if (r, c) in p) for c in range(n)] for r in range(m)]
+    total = len(every)
+    free = [(r, c) for r in range(m) for c in range(n) if 0 < filled_in[r][c] < total]
+    on_face = sorted((filled_in[r][c], (r, c)) for r, c in face)
+    rarest = on_face[0][0]
+    rarest_squares = sorted(rc for k, rc in on_face if k == rarest)
+    emit("DT-F12.face.steps", ",".join(step_label(s) for s in f_steps))
+    emit("DT-F12.face.settled", len(f_settled))
+    emit("DT-F12.face.contradiction", f_broken or "none")
+    emit("DT-F12.face.forced", m * n - len(free))
+    emit("DT-F12.face.free", len(free))
+    emit("DT-F12.face.filled_in", "/".join(csv(row) for row in filled_in))
+    emit("DT-F12.face.guess", csv((filled_in[0][0], total - filled_in[0][0])))
+    least_filled = min(filled_in[r][c] for r, c in free)
+    least_empty = min(total - filled_in[r][c] for r, c in free)
+    emit("DT-F12.face.free.least", csv((least_filled, least_empty)))
+    emit("DT-F12.face.rarest", rarest)
+    emit("DT-F12.face.rarest.count", len(rarest_squares))
+    emit("DT-F12.face.rarest.squares", ";".join(csv(rc) for rc in rarest_squares))
+    check(
+        "chapter 02: the face's reasoning settles exactly the squares alike in all 64",
+        set(f_settled) == {(r, c) for r in range(m) for c in range(n)} - set(free),
+    )
+    # each deduction is forced: on every pair of 4x4 shadows some picture
+    # casts, reasoning meets no contradiction and agrees with every picture
+    groups = {}
+    for mask in range(1 << 16):
+        p = frozenset((i // 4, i % 4) for i in range(16) if (mask >> i) & 1)
+        groups.setdefault(shadows(p, 4, 4), []).append(p)
+    bad = 0
+    for (r4, c4), group in groups.items():
+        got, _, broke = reason(r4, c4)
+        if broke is not None or any(((sq in p) != f) for sq, f in got.items() for p in group):
+            bad += 1
+        elif len(got) == 16 and len(group) != 1:
+            bad += 1
+    check("chapter 02: on every 4x4 pair of shadows, every settled square is the same in every picture", bad == 0)
+
+    # chapter 03: how many pictures
+    squares = m * n
+    emit("DT-F13.choices", len(("filled", "empty")))
+    emit("DT-F13.squares", squares)
+    emit("DT-F13.pictures", 2**squares)
+    emit("DT-F13.millions", 2**squares // 10**6)
+    emit("DT-F13.big.side", BIG_SIDE)
+    emit("DT-F13.big.digits", len(str(2 ** (BIG_SIDE * BIG_SIDE))))
+
+    # chapter 04: what the take-back did, from this oracle's own trace
+    paths = water_trace(rows, cols)
+    states = water_states(rows, cols, paths)
+    k = next(i for i, (nodes, _) in enumerate(paths) if len(nodes) > 4)
+    (b_wet, b_sent, b_drained), (a_wet, a_sent, a_drained) = states[k - 1], states[k]
+    (_, stuck), (_, into), (_, from_row), (_, onto) = paths[k][0][1:-1]
+    emit("DT-F14.emptied", len(b_wet - a_wet))
+    emit("DT-F14.emptied.cells", ";".join(csv(rc) for rc in sorted(b_wet - a_wet)))
+    emit("DT-F14.filled", len(a_wet - b_wet))
+    emit("DT-F14.filled.cells", ";".join(csv(rc) for rc in sorted(a_wet - b_wet)))
+    emit("DT-F14.top_row.sends", a_sent[from_row])
+    emit("DT-F14.first_col.drains", a_drained[into])
+    emit("DT-F14.to_col.drains", csv((b_drained[onto], a_drained[onto])))
+    emit("DT-F14.searches", len(paths) + 1)
+    check(
+        "chapter 04: taking back keeps the top row's and the first column's counts",
+        b_sent[from_row] == a_sent[from_row] and b_drained[into] == a_drained[into],
+    )
+
+    # chapter 06: rows and columns 4, 4, 1, 1, 1
+    s_rows, s_cols = STALL
+    s_settled, _, s_broken = reason(s_rows, s_cols)
+    pair = bottleneck(s_rows, s_cols)
+    s_paths = water_trace(s_rows, s_cols)
+    s_states = water_states(s_rows, s_cols, s_paths)
+    s_wet, s_sent, s_drained = s_states[-1]
+    s_flow = sum(s_drained)
+    s_best, s_reached_rows, s_reached_cols = smallest_cut(s_rows, s_cols)
+    s_cut_off = [j for j in range(len(s_cols)) if j not in s_reached_cols]
+    s_left = [i for i in range(len(s_rows)) if s_sent[i] < s_rows[i]]
+    b, asks, gives = gale_rows(s_rows, s_cols)
+    failing = [k for k in range(1, len(b) + 1) if asks[k - 1] > gives[k - 1]]
+    taps = sum(r for i, r in enumerate(s_rows) if i not in s_reached_rows)
+    pipes = len(s_reached_rows) * len(s_cut_off)
+    drains = sum(s_cols[j] for j in s_reached_cols)
+    emit("DT-F15.rows", csv(s_rows))
+    emit("DT-F15.cols", csv(s_cols))
+    emit("DT-F15.totals", csv((sum(s_rows), sum(s_cols))))
+    emit("DT-F15.counts", csv((min(s_rows + s_cols), max(s_rows + s_cols))))
+    emit("DT-F15.settled", len(s_settled))
+    emit("DT-F15.contradiction", s_broken or "none")
+    emit("DT-F15.rows_with_water", sum(1 for r in s_rows if r > 0))
+    emit("DT-F15.largest", max(s_cols))
+    emit("DT-F15.fits", len(fits(s_rows, s_cols)))
+    emit("DT-F15.pair", csv(pair))
+    emit("DT-F15.pair.asks", sum(s_cols[j] for j in pair))
+    emit("DT-F15.pair.by_row", csv(min(r, len(pair)) for r in s_rows))
+    emit("DT-F15.pair.gives", sum(dual(s_rows, len(s_cols))[: len(pair)]))
+    emit("DT-F15.sorted", csv(b))
+    emit("DT-F15.asks", csv(asks))
+    emit("DT-F15.gives", csv(gives))
+    emit("DT-F15.failing", csv(failing) if failing else "none")
+    emit("DT-F15.paths", len(s_paths))
+    emit("DT-F15.trace", ",".join(path_text(p) for p, _ in s_paths))
+    emit("DT-F15.takebacks", sum(1 for p, _ in s_paths if len(p) > 4))
+    emit("DT-F15.flow", s_flow)
+    emit("DT-F15.left.row", s_left[0])
+    emit("DT-F15.left.units", s_rows[s_left[0]] - s_sent[s_left[0]])
+    emit("DT-F15.reached.rows", csv(s_reached_rows))
+    emit("DT-F15.reached.cols", csv(s_reached_cols))
+    emit("DT-F15.cut_off", csv(s_cut_off))
+    emit("DT-F15.cut.unreached_taps", taps)
+    emit("DT-F15.cut.pipes", pipes)
+    emit("DT-F15.cut.reached_drains", drains)
+    emit("DT-F15.cut", s_best)
+    emit("DT-F15.short", sum(s_rows) - s_flow)
+    emit("DT-F15.other_pairs", ";".join(csv(p) for p in OTHER_PAIRS))
+    emit("DT-F15.other_pairs.asks", csv(sum(s_cols[j] for j in p) for p in OTHER_PAIRS))
+    emit("DT-F15.other_pairs.gives", csv(sum(min(r, len(p)) for r in s_rows) for p in OTHER_PAIRS))
+    check("chapter 06: one row is left with water", len(s_left) == 1)
+    check(
+        "chapter 06: the water's own search reaches exactly the smallest cut's source side",
+        still_reaches(s_rows, s_cols, s_states[-1]) == (s_reached_rows, s_reached_cols),
+    )
+    check(
+        "chapter 06: the flow equals the smallest cut, by both cut methods",
+        s_flow == s_best == max_flow_cut(s_rows, s_cols),
+    )
+    check("chapter 06: the depth-first flow agrees", max_flow_dfs(s_rows, s_cols) == s_flow)
+    check("chapter 06: the columns cut off are the bottleneck", s_cut_off == pair)
+    check(
+        "chapter 06: the count over the columns finds nothing to fit",
+        count_fits(tuple(sorted(s_rows)), s_cols) == 0,
+    )
+    check("chapter 06: Gale's construction gets stuck", gale_build(s_rows, s_cols) is None)
+    check(
+        "chapter 06: each column alone asks no more than the rows with water",
+        max(s_cols) <= sum(1 for r in s_rows if r),
+    )
+
+    # chapter 07: equal totals matter
+    u_rows, u_cols = UNEQUAL
+    _, u_asks, u_gives = gale_rows(u_rows, u_cols)
+    u_failing = [k for k in range(1, len(u_cols) + 1) if u_asks[k - 1] > u_gives[k - 1]]
+    emit("DT-F16.rows", csv(u_rows))
+    emit("DT-F16.cols", csv(u_cols))
+    emit("DT-F16.totals", csv((sum(u_rows), sum(u_cols))))
+    emit("DT-F16.failing", csv(u_failing) if u_failing else "none")
+    emit("DT-F16.fits", len(fits(u_rows, u_cols)))
+
+    # chapter 09: a chain can need more than one switch; the 64 from the
+    # water's picture
+    left, right = parse(PERM_LEFT), parse(PERM_RIGHT)
+    chain = walk_chain(left, right)
+    built = states[-1][0]
+    from_built = distances(built)
+    far = max(from_built.values())
+    emit("DT-F17.perm.left", pattern(left, 3, 3))
+    emit("DT-F17.perm.right", pattern(right, 3, 3))
+    emit("DT-F17.perm.per_line", csv(sorted(set(shadows(left, 3, 3)[0] + shadows(left, 3, 3)[1]))))
+    emit("DT-F17.perm.differ", len(left ^ right))
+    emit("DT-F17.perm.one_switch", flag(any(switched(left, sw) == right for sw in switches(left))))
+    emit("DT-F17.perm.distance", len(chain))
+    emit("DT-F17.chain", "|".join(f"{csv(r)};{csv(c)}" for r, c in chain))
+    emit("DT-F17.chain.middle", pattern(switched(left, chain[0]), 3, 3))
+    emit("DT-F17.rings_from_built", csv(sum(1 for d in from_built.values() if d == j) for j in range(far + 1)))
+    check("chapter 09: the two pictures cast the same shadows", shadows(left, 3, 3) == shadows(right, 3, 3))
+    check("chapter 09: switches from the water's picture reach exactly the 64", set(from_built) == set(every))
+
+    # chapter 10: the 64 grouped by diagonal counts; the other diagonals
+    by_diag = {}
+    for p in every:
+        by_diag.setdefault(diagonal(p, m, n), []).append(p)
+    sizes = sorted(len(g) for g in by_diag.values())
+    face_group = by_diag[diagonal(face, m, n)]
+    down = falling(face, m, n)
+    falling_survivors = sorted((p for p in every if falling(p, m, n) == down), key=lambda p: pattern(p, m, n))
+    falling_other = next(p for p in falling_survivors if p != face)
+    rising_other = next(p for p in every if p != face and diagonal(p, m, n) == diagonal(face, m, n))
+    both = [p for p in falling_survivors if diagonal(p, m, n) == diagonal(face, m, n)]
+    emit("DT-F18.groups", len(by_diag))
+    emit("DT-F18.alone", sizes.count(1))
+    emit("DT-F18.pairs", sizes.count(2))
+    emit("DT-F18.largest", max(sizes))
+    emit("DT-F18.face.group", len(face_group))
+    emit("DT-F18.face.alone", flag(len(face_group) == 1))
+    emit("DT-F18.face.mirror", flag(mirror(face, n) == face))
+    emit("DT-F18.falling", csv(down))
+    emit("DT-F18.falling.survivors", len(falling_survivors))
+    emit("DT-F18.falling.other", pattern(falling_other, m, n))
+    emit("DT-F18.falling.other.from_face", from_face[falling_other])
+    emit("DT-F18.falling.other.differ", len(face ^ falling_other))
+    emit("DT-F18.falling.other.mirror", flag(mirror(rising_other, n) == falling_other))
+    emit("DT-F18.shadows", len((rows, cols, diagonal(face, m, n), down)))
+    emit("DT-F18.both", ",".join(pattern(p, m, n) for p in both))
+    emit("DT-F18.both.count", len(both))
+    check("chapter 10: the groups hold all 64, once each", sum(sizes) == len(every))
+
+    # chapter 11: the steps on screen, read from the scene's source
+    source = (HERE / "src/chapters/promise.rs").read_text(encoding="utf-8")
+    found = re.search(r"pub const STEPS: \[&str; \d+\] = \[(.*?)\];", source, re.S)
+    steps_on_screen = re.findall(r'"([^"]*)"', found.group(1)) if found else []
+    numbers = [s.split(".")[0] for s in steps_on_screen]
+    check("chapter 11: the steps on screen are numbered in order", numbers == [str(i + 1) for i in range(len(numbers))])
+    emit("DT-F19.steps", len(steps_on_screen))
+    emit("DT-S4.batenburg", BATENBURG_YEAR)
+
+
 def main():
     rows, cols = facts()
     chapter_02(rows, cols, fits(rows, cols), distances(parse(FACE)))
     chapter_03(rows, cols)
     chapter_04(rows, cols)
     chapter_05(rows, cols)
+    chapter_expansion(rows, cols)
     edges()
     print(f"# {_CHECKS[0] - len(_FAILED)}/{_CHECKS[0]} cross-checks passed", file=sys.stderr)
     return 1 if _FAILED else 0
