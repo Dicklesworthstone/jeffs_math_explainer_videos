@@ -1,0 +1,11 @@
+{
+  "workflow": {
+    "strict": true,
+    "gates": {
+      "open -> closed": {"require_if": [{"label": "video:exact-cut", "gate": "exact_cut_receipts"}]},
+      "in_progress -> closed": {"require_if": [{"label": "video:exact-cut", "gate": "exact_cut_receipts"}]},
+      "blocked -> closed": {"require_if": [{"label": "video:exact-cut", "gate": "exact_cut_receipts"}]},
+      "deferred -> closed": {"require_if": [{"label": "video:exact-cut", "gate": "exact_cut_receipts"}]}
+    }
+  }
+}
