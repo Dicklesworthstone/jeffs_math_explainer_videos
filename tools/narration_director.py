@@ -115,6 +115,18 @@ def validate_map(manifest, direction):
     ids = [v["id"] for v in manifest["videos"]]
     if len(ids) != len(set(ids)) or any(r["video"] not in ids for r in direction["overrides"]):
         raise ValueError("duplicate video or override for unknown video")
+    seen_holds = set()
+    for hold in direction.get('visual_holds', []):
+        key = (hold['video'], hold['cue'], hold['next_cue'])
+        if hold['video'] not in ids or key in seen_holds or not hold.get('reason'):
+            raise ValueError('invalid or duplicate visual hold')
+        seen_holds.add(key)
+        if digest(hold['evidence']['path']) != hold['evidence']['sha256']:
+            raise ValueError('visual hold evidence changed')
+        video = next(v for v in manifest['videos'] if v['id'] == hold['video'])
+        cues = list(qa.read_tsv(video['script']))
+        if (hold['cue'], hold['next_cue']) not in set(zip(cues,cues[1:])):
+            raise ValueError('visual hold does not name adjacent cues')
     if set(POLICY) - direction["policy"].keys():
         raise ValueError("missing default boundary policy")
     for bounds in [*direction["policy"].values(), *[r["range_s"] for r in direction["overrides"]]]:
@@ -327,6 +339,9 @@ def audit_video(video, direction):
             raise ValueError("cue PCM does not reconstruct from source: " + cue)
         signals[cue] = {rel: quiet_runs(x, sr, rel) for rel in (24, 30)}
     proposed = directions(video["id"], script, direction)
+    holds = {(h['cue'], h['next_cue']): h for h in direction.get('visual_holds',[]) if h['video']==video['id']}
+    for hold in holds.values():
+        inputs.append({k:hold['evidence'][k] for k in ('path','sha256')})
     sequence = [(cue, i) for cue, text in script.items() for i in range(len(tokens(text)))]
     boundaries = []
     for left_key, right_key in zip(sequence, sequence[1:]):
@@ -346,6 +361,10 @@ def audit_video(video, direction):
         time = native[cue]["start"] + left["end"]
         scene = native[nxt]["start"] - native[cue]["start"] - native[cue]["duration"] if cross else 0.0
         protected = cross and any(time - 0.1 <= a <= native[nxt]["start"] + 0.05 for a, _, _ in windows)
+        hold = holds.get((cue,nxt)) if cross else None
+        if hold:
+            protected = True
+            row['visual_hold'] = hold
         estimates, intervals = [], []
         for rel in (24, 30):
             if cross:
@@ -364,6 +383,8 @@ def audit_video(video, direction):
             kind = "overlapping_cues"
         else:
             kind = classify(observed_range, d["range_s"], protected, uncertain)
+            if cross and kind == 'unexpected_pause':
+                kind = 'scene_wait_review'
         deficit = max(0.0, d["range_s"][0] - observed_range[1])
         excess = max(0.0, observed_range[0] - d["range_s"][1])
         severity = max(deficit, excess) * (2 if d["basis"] == "authored" else 1)
@@ -414,22 +435,36 @@ def audit_video(video, direction):
 def review_page(results):
     cards = []
     for video in results:
-        findings = sorted((r for r in video["boundaries"] if r["kind"] in ("missing_pause", "unexpected_pause", "overlapping_cues")),
-                          key=lambda r: r["severity"], reverse=True)[:12]
+        candidates = [r for r in video["boundaries"] if r["kind"] in ("missing_pause", "unexpected_pause", "overlapping_cues", "scene_wait_review")]
+        findings = sorted((r for r in candidates if r['basis'] == 'authored'), key=lambda r:r['severity'],reverse=True)[:8]
+        findings += sorted((r for r in candidates if r['basis'] != 'authored'),key=lambda r:r['severity'],reverse=True)[:4]
         buttons = []
         for row in findings:
             t = max(0, row["time"] - 5)
-            label = f"{int(row['time']//60)}:{int(row['time']%60):02d} · {row['kind']} · {row['cue']}"
+            label = f"{int(row['time']//60)}:{int(row['time']%60):02d} · {row['kind'].replace('_',' ')} · {row['cue']}"
             measured = f"{row['observed_s'][0]:.2f}–{row['observed_s'][1]:.2f}s; proposed {row['range_s'][0]}–{row['range_s'][1]}s"
             buttons.append(f'<li><button data-time="{t:.3f}">{html.escape(label)}</button> '
                 f'{html.escape(measured)}<p>{html.escape(row["left_context"])} <b>|</b> {html.escape(row["right_context"])}</p>'
-                f'<small>{html.escape(row["basis"] + ": " + row["reason"])}</small></li>')
+                f'<small>{html.escape(row["basis"] + ": " + row["reason"])} '
+                f'Assembly wait: {row["scene_added_s"]:.2f}s. '
+                f'{"Fresh master timestamp crosscheck available." if row.get("master_excerpt_checks") else "Projected from source-take ASR."}</small></li>')
+        bursts = []
+        for row in video['pace']:
+            if row['kind'] != 'rushed_technical_candidate':
+                continue
+            label = f"{int(row['time']//60)}:{int(row['time']%60):02d} · {row['cue']} · dense/fast candidate"
+            bursts.append(f'<li><button data-time="{max(0,row["time"]-2):.3f}">{html.escape(label)}</button>'
+                          f'<p>{html.escape(row["text"])}</p><small>{row["relative_to_own_video_median"]:.2f}× this video’s median active-word-rate proxy; {row["technical_tokens"]} technical tokens. This is a triage heuristic, not a speed limit.</small></li>')
+        coverage=video['coverage']
+        coverage_text=f"{video['cue_count']} cues; {coverage['usable_timed_words']} of {coverage['expected_words']} words have usable projected timing. {video['counts'].get('alignment_review',0)} boundaries require alignment review."
         cards.append(f'<section><h2>{html.escape(video["id"])}</h2><video controls preload="metadata" src="{html.escape(Path(video["master"]).as_uri())}"></video>'
-                     f'<p>{html.escape(str(video["counts"]))}</p><ol>{"".join(buttons)}</ol></section>')
+                     f'<p>{coverage_text} <a href="{html.escape(Path(video["master"]).as_uri())}">Open original cut</a></p>'
+                     f'<h3>Pause candidates: semantic direction first, then long gaps</h3><ol>{"".join(buttons)}</ol>'
+                     f'<h3>Dense delivery</h3><ul>{"".join(bursts) if bursts else "<li>No cue met this conservative relative-rate heuristic; this does not certify the pacing.</li>"}</ul></section>')
     return '''<!doctype html><meta charset="utf-8"><title>Narration direction review</title>
-<style>body{font:17px system-ui;max-width:1000px;margin:40px auto;background:#111821;color:#edf1f5;padding:20px}video{width:100%;max-height:480px}section{margin:50px 0}li{margin:25px 0}p{line-height:1.5}button{font:inherit;background:#294662;color:white;border:1px solid #648aad;padding:8px;cursor:pointer}small{color:#acbdce}</style>
+<style>body{font:17px system-ui;max-width:1000px;margin:40px auto;background:#111821;color:#edf1f5;padding:20px}a{color:#9bd3ef}video{width:100%;max-height:480px}section{margin:50px 0}li{margin:25px 0}p{line-height:1.5}button{font:inherit;background:#294662;color:white;border:1px solid #648aad;padding:8px;cursor:pointer}small{color:#acbdce}</style>
 <h1>Narration: measured timing versus intended phrasing</h1>
-<p>Original delivered videos. These are ranked diagnostic candidates, not confirmed audible defects. Pause ranges are editorial proposals. Intentional visual holds are protected. No speech has been changed.</p>''' + "".join(cards) + '''
+<p>Original delivered videos. These are ranked diagnostic candidates, not confirmed audible defects. Pause ranges are editorial proposals. Known visual holds are protected. A scene-wait flag calls for inspecting its visual task; it is not a request to shorten it. No speech has been changed.</p>''' + "".join(cards) + '''
 <script>document.querySelectorAll('button').forEach(b=>b.onclick=()=>{const v=b.closest('section').querySelector('video');document.querySelectorAll('video').forEach(x=>x.pause());v.currentTime=Number(b.dataset.time);v.play();});</script>'''
 
 
@@ -492,9 +527,17 @@ def verify_master_excerpts(manifest, results):
             evidence = {"excerpt": excerpt["excerpt"], "fresh_boundary_edges": fresh,
                         "projected_boundary_edges": prior, "max_edge_shift_s": drift,
                         "status": "timing_stable_within_250ms" if drift <= .25 else "timestamp_context_sensitive"}
+            prior_kind = boundary["kind"]
             boundary.setdefault("master_excerpt_checks", []).append(evidence)
+            if drift > .25 and boundary["cue"] == boundary["next_cue"]:
+                boundary.setdefault("pre_crosscheck_kind", prior_kind)
+                boundary["kind"] = "alignment_review"
+                boundary["uncertainty"] += "; ASR boundary moved over 250 ms with excerpt/mix context; localization requires review"
             checks.append(dict(video=v["id"],cue=boundary["cue"],word_index=boundary["word_index"],
-                               prior_kind=boundary["kind"],**evidence))
+                               prior_kind=prior_kind,**evidence))
+    for result in results:
+        result["counts"] = {kind: sum(r["kind"] == kind for r in result["boundaries"])
+                            for kind in sorted({r["kind"] for r in result["boundaries"]})}
     return {"status": "diagnostic_crosscheck", "receipt_sha256": digest(verification["receipt"]),
             "raw_sha256": digest(raw), "boundaries": checks,
             "claim": "Fresh FW on scored master excerpts checks localization sensitivity; same engine, not listening acceptance."}

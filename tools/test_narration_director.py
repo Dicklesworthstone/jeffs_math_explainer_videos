@@ -127,6 +127,24 @@ class DirectorTests(unittest.TestCase):
             self.assertEqual(result['coverage']['usable_timed_words'], 0)
             self.assertTrue(all(b['kind'] == 'alignment_review' for b in result['boundaries']))
 
+    def test_reading_deadline_protects_scene_wait(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            v, direction = self.fixture(folder)
+            p = Path(v['timeline'])/'01.timeline.tsv'
+            p.write_text(p.read_text().replace('01_2\t120', '01_2\t300').replace('frames\t240','frames\t420'))
+            first = d.audit_video(v, direction)
+            boundary = next(b for b in first['boundaries'] if b['cue'] != b['next_cue'])
+            self.assertEqual(boundary['kind'], 'scene_wait_review')
+            evidence = folder/'reading.txt'
+            evidence.write_text('Fixture reading task deadline applies between the two cues.')
+            direction['visual_holds']=[dict(video='a',cue='01_1',next_cue='01_2',reason='Read the panel',evidence=dict(path=str(evidence),sha256=d.digest(evidence)))]
+            d.validate_map({'videos':[v]}, direction)
+            second = d.audit_video(v, direction)
+            protected = next(b for b in second['boundaries'] if b['cue'] != b['next_cue'])
+            self.assertEqual(protected['kind'], 'protected_visual_hold')
+            self.assertEqual(protected['observed_s'], boundary['observed_s'])
+
     def test_master_crosscheck_rejects_changed_transcription(self):
         with tempfile.TemporaryDirectory() as tmp:
             folder = Path(tmp)
@@ -136,6 +154,23 @@ class DirectorTests(unittest.TestCase):
             receipt.write_text(json.dumps({'exit': 0, 'raw_sha256': 'not-current'}))
             with self.assertRaisesRegex(ValueError, 'verification failed or changed'):
                 d.verify_master_excerpts({'verification': {'receipt': str(receipt), 'raw': str(raw)}}, [])
+
+    def test_changed_asr_context_demotes_pause_candidate(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            folder = Path(tmp)
+            v, direction = self.fixture(folder)
+            direction['overrides'] = [dict(video='a', cue='01_1', after='One', role='step', range_s=[.5,1], reason='Fixture teaching step')]
+            result = d.audit_video(v, direction)
+            self.assertEqual(result['boundaries'][0]['kind'], 'missing_pause')
+            excerpt = folder/'cue1.wav'
+            raw = folder/'fresh.ndjson'
+            segments = [dict(start_sec=a,end_sec=b,text=t) for a,b,t in [(0.1,1,'One'),(1,1.2,'two'),(2.1,2.6,'One'),(2.6,3.1,'two')]]
+            raw.write_text(json.dumps({'input':str(excerpt),'status':'ok','report':{'result':{'segments':segments}}})+'\n')
+            receipt = folder/'fresh-receipt.json'
+            receipt.write_text(json.dumps({'exit':0,'raw_sha256':d.digest(raw),'excerpts':[dict(video='a',master_sha256=v['master_sha256'],excerpt=str(excerpt),excerpt_sha256=d.digest(excerpt),master_start_s=0,duration_s=4)]}))
+            d.verify_master_excerpts({'videos':[v],'verification':{'raw':str(raw),'receipt':str(receipt)}},[result])
+            self.assertEqual(result['boundaries'][0]['kind'], 'alignment_review')
+            self.assertEqual(result['boundaries'][0]['pre_crosscheck_kind'], 'missing_pause')
 
 
 if __name__ == '__main__':
