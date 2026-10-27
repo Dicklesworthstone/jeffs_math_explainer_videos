@@ -178,6 +178,13 @@ class Check(unittest.TestCase):
         self.final = make_cut(self.root, srt=SRT.replace("The end.", "End."))
         self.assertEqual(self.check()[0], [])
 
+    def test_vtt_times_match_srt(self):
+        target = self.final/'alpha.en.vtt'
+        original = vtt(SRT)
+        for old, new in (('00:00:00.500', '00:00:00.501'), ('00:00:02.000', '00:00:02.001')):
+            target.write_text(original.replace(old, new, 1))
+            self.failing("VTT: its cue times are not the SRT's")
+
     def test_the_thumbnail(self):
         thumb = self.root / "explainer_corpus" / "alpha" / "renders" / "alpha_thumbnail.png"
         thumb.write_bytes(png(1280, 719))

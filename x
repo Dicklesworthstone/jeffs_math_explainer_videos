@@ -776,7 +776,7 @@ PY
     "$binary" render all --timeline-only --fps 60 --narration "$narration" --out "$base/renders/timeline"
     unchanged_narration "the score timeline pass"
     # pass 2: the whole video's music from those timelines, sliced per chapter, with QA
-    "$binary" score --timelines "$base/renders/timeline" --out "$base"
+    "$binary" score --narration "$narration" --timelines "$base/renders/timeline" --out "$base"
     unchanged_narration "the music score pass"
     mark score.ok
     echo "x: score used unchanged narration ($score_narration_fingerprint)" ;;
@@ -837,7 +837,12 @@ PY
     [ $# -eq 0 ] || usage
     [ -z "$FMN_LOCAL" ] || die "G8 refuses --fmn-local: masters must build against the pinned franken_manim commit"
     build_binary
-    "$binary" master --out "$finals"
+    case "$slug" in
+      inspection_paradox|german_tank|shamir_secret_sharing|crofton|parrondo)
+        need_narration
+        "$binary" master --narration "$narration" --score "$stems" --out "$finals" ;;
+      *) "$binary" master --out "$finals" ;;
+    esac
     mark master.ok ;;
   captions)
     [ $# -eq 0 ] || usage
@@ -869,7 +874,13 @@ PY
     cd "$clone" || exit 1
     echo "== $(date) $slug in $clone at $(git log -1 --format=%h 2>/dev/null || echo unknown)"
     echo "== final_check"
-    nice -n 15 uv run --quiet --no-project --with numpy python3 -I "$here/tools/final_check.py" "$slug" "$clone" $extra_args
+    case "$slug" in
+      inspection_paradox|german_tank|shamir_secret_sharing|crofton|parrondo)
+        nice -n 15 uv run --quiet --no-project --with numpy python3 -I "$here/tools/final_check.py" "$slug" "$clone" \
+          --narration "${NARRATION:-$clone/explainer_corpus/$slug/narration/out}" \
+          --score "$clone/explainer_corpus/$slug/stems" $extra_args ;;
+      *) nice -n 15 uv run --quiet --no-project --with numpy python3 -I "$here/tools/final_check.py" "$slug" "$clone" $extra_args ;;
+    esac
     fc_code=$?
     echo "final_check exit $fc_code"
     echo "== blank_stretches"
@@ -881,12 +892,21 @@ PY
     echo "== done $(date)"
     exit $fc_code ;;
   publish)
-    exec python3 -I "$here/tools/publish.py" "$slug" "$@" ;;
+    case "$slug" in
+      inspection_paradox|german_tank|shamir_secret_sharing|crofton|parrondo)
+        exec python3 -I "$here/tools/publish.py" "$slug" --narration "$narration" --score "$stems" "$@" ;;
+      *) exec python3 -I "$here/tools/publish.py" "$slug" "$@" ;;
+    esac ;;
   release-fetch)
     exec python3 -I "$here/tools/release.py" fetch "$slug" --finals "$finals" --voice "${voice:-michael}" "$@" ;;
   release-check)
-    exec python3 -I "$here/tools/release.py" check "$slug" --finals "$finals" --voice "${voice:-michael}" \
-      --skills "$SKILLS" "$@" ;;
+    case "$slug" in
+      inspection_paradox|german_tank|shamir_secret_sharing|crofton|parrondo)
+        exec python3 -I "$here/tools/release.py" check "$slug" --finals "$finals" --voice "${voice:-michael}" \
+          --skills "$SKILLS" --narration "$narration" --score "$stems" "$@" ;;
+      *) exec python3 -I "$here/tools/release.py" check "$slug" --finals "$finals" --voice "${voice:-michael}" \
+          --skills "$SKILLS" "$@" ;;
+    esac ;;
   thumbnail)
     [ $# -eq 0 ] || usage
     build_binary

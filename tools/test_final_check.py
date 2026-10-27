@@ -353,6 +353,23 @@ class TestFinalCheck(unittest.TestCase):
         )
         self.assertTrue(any("is over 85" in d for d in defects), f"Expected chapter length defect, got: {defects}")
 
+    def test_vtt_times_must_match_srt_at_millisecond_precision(self):
+        vtt = self.final/f'{self.slug}.en.vtt'
+        for old, new in (('00:00:00.000', '00:00:00.001'), ('00:00:01.000', '00:00:01.001'),
+                         ('00:00:01.000', 'bad-time'), ('WEBVTT', 'WEBBAD')):
+            vtt.write_text(self.vtt_content.replace(old, new, 1))
+            defects = final_check.check_final(self.slug, self.root, loud=False, probe_fn=self.make_probe_fn())
+            self.assertTrue(any('VTT' in d for d in defects), defects)
+
+    def test_legacy_mark_does_not_waive_audio_window(self):
+        (self.crate/'narration/out/01_1.wav').write_bytes(b'metadata fixture')
+        tl = self.final/'01_chap.timeline.tsv'
+        tl.write_text(self.timeline_tsv+'mark\tpredict\t120\n')
+        (self.final/f'{self.slug}.en.srt').write_text(self.srt_content.replace('00:00:01,000', '00:00:10,000', 1))
+        (self.final/f'{self.slug}.en.vtt').write_text(self.vtt_content.replace('00:00:01.000', '00:00:10.000', 1))
+        defects = final_check.check_final(self.slug, self.root, loud=False, probe_fn=self.make_probe_fn())
+        self.assertIn('1 line(s) have captions outside their audio', defects)
+
     def test_chapter_off_timeline(self):
         # Timeline says 30.0 s, but file is 30.5 s
         probe_fn = self.make_probe_fn({"chapter_format": {"duration": "30.500000"}})

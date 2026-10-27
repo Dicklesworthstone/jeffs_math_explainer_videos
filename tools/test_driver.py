@@ -286,10 +286,11 @@ class Driver(unittest.TestCase):
         path.chmod(0o755)
         return path
 
-    def score_dispatch(self, mutate=None, voice=None, override=False, failure=0):
+    def score_dispatch(self, mutate=None, voice=None, override=False, failure=0,
+                       slug="capture_recapture", command="score"):
         # Dispatch unit test only: real PCM WAVs and the real driver/hash check,
         # with a command fixture instead of compiling/rendering the corpus.
-        crate = self.crate("capture_recapture")
+        crate = self.crate(slug)
         (crate / "Cargo.toml").write_text(
             '[package]\nname = "capture_recapture"\n[[bin]]\nname = "video"\n',
             encoding="utf-8",
@@ -312,9 +313,10 @@ class Driver(unittest.TestCase):
         self.dispatch_executable(binary_dir, "cargo", "#!/bin/sh\nexit 0\n")
         self.dispatch_executable(
             target / "release", "video",
-            "#!/usr/bin/env python3\nimport os, sys\nfrom pathlib import Path\n"
+            "#!/usr/bin/env python3\nimport json, os, sys\nfrom pathlib import Path\n"
             f"calls = Path({str(calls)!r})\n"
             "with calls.open('a') as log: log.write(sys.argv[1] + '\\n')\n"
+            "with calls.with_suffix('.jsonl').open('a') as log: log.write(json.dumps(sys.argv[1:]) + '\\n')\n"
             f"stage = {mutate!r}\n"
             "if stage == sys.argv[1] or (stage == 'primary' and sys.argv[1] == 'render'):\n"
             f"    path = Path({str(primary / 'line.wav')!r} if stage == 'primary' else {str(selected / 'line.wav')!r})\n"
@@ -335,8 +337,60 @@ class Driver(unittest.TestCase):
             env["VOICE"] = voice
         if override:
             env["NARRATION"] = str(selected)
-        result = self.run_x("capture_recapture", "score", env=env)
+        result = self.run_x(slug, command, env=env)
         return result, calls.read_text().splitlines(), output
+
+    def test_score_passes_selected_narration_to_native_consumer(self):
+        result, _, _ = self.score_dispatch(override=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        calls = [json.loads(row) for row in (self.root/'score-calls.jsonl').read_text().splitlines()]
+        for args in calls:
+            self.assertEqual(args[args.index('--narration')+1], str(self.root/'custom narration'))
+
+    def test_third_wave_master_passes_narration_and_stems(self):
+        result, calls, _ = self.score_dispatch(slug='inspection_paradox', command='master', override=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(calls, ['master'])
+        args = json.loads((self.root/'score-calls.jsonl').read_text())
+        self.assertEqual(args[args.index('--narration')+1], str(self.root/'custom narration'))
+        self.assertEqual(Path(args[args.index('--score')+1]), self.corpus/'inspection_paradox/stems')
+
+    def test_legacy_master_keeps_existing_arguments(self):
+        result, calls, _ = self.score_dispatch(command='master')
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(calls, ['master'])
+        args = json.loads((self.root/'score-calls.jsonl').read_text())
+        self.assertNotIn('--narration', args)
+        self.assertNotIn('--score', args)
+
+    def test_release_and_bundle_pass_inputs_only_for_contract_topics(self):
+        # Dispatch evidence only; test_release_contract invokes the real verifier.
+        recorder = "import json,sys\nprint(json.dumps(sys.argv[1:]))\n"
+        for name in ('release.py', 'publish.py', 'final_check.py'):
+            (self.root/'tools'/name).write_text(recorder)
+        for name in ('blank_stretches.py', 'band_dwell.py'):
+            (self.root/'tools'/name).write_text('pass\n')
+        dispatch_bin = self.root/'dispatch-bin'
+        dispatch_bin.mkdir()
+        uv = dispatch_bin/'uv'
+        uv.write_text('#!/usr/bin/env python3\nimport os,sys\nargs=sys.argv[1:]\n'
+            f"if any('video_lifecycle.py' in arg for arg in args): os.execv({shutil.which('uv')!r}, ['uv', *args])\n"
+            "index=args.index('python3')\nos.execvp('python3', args[index:])\n")
+        uv.chmod(0o755)
+        for slug in ('inspection_paradox', 'german_tank', 'shamir_secret_sharing', 'crofton', 'parrondo', 'alpha'):
+            self.crate(slug)
+            for command in ('release-check', 'publish', 'final-check'):
+                result = self.run_x(slug, command, env=dict(os.environ,
+                    NARRATION=str(self.root/'selected narration'), SKILLS=str(self.root/'skills'),
+                    PATH=str(dispatch_bin)+':'+os.environ['PATH']))
+                self.assertEqual(result.returncode, 0, result.stderr)
+                args = json.loads(next(line for line in result.stdout.splitlines() if line.startswith('[')))
+                if slug == 'alpha':
+                    self.assertNotIn('--narration', args)
+                    self.assertNotIn('--score', args)
+                else:
+                    self.assertEqual(Path(args[args.index('--narration')+1]), self.root/'selected narration')
+                    self.assertEqual(Path(args[args.index('--score')+1]), self.corpus/slug/'stems')
 
     def test_score_runs_both_passes_with_unchanged_narration(self):
         result, calls, output = self.score_dispatch()

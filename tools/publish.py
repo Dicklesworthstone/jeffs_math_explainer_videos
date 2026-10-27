@@ -241,6 +241,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--version", default="v1", help="Release version suffix (default: v1)")
     parser.add_argument("--master", type=Path, help="Explicit path to verified 4K master MP4")
     parser.add_argument("--out", type=Path, help="Output bundle directory")
+    parser.add_argument("--narration", type=Path, help="Canonical narration assembly for third-wave release checks")
+    parser.add_argument("--score", type=Path, help="Explicitly declared chapter score stems")
     parser.add_argument("--upload", action="store_true", help="Upload release via gh (requires ALLOW_PUBLISH_UPLOAD=1)")
     args = parser.parse_args(argv)
 
@@ -267,9 +269,20 @@ def main(argv: list[str] | None = None) -> int:
         print(f"publish: no master MP4 found for {args.slug} (pass --master or run ./x {args.slug} master)", file=sys.stderr)
         return 2
     finals = master_mp4.parent
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import release  # noqa: PLC0415 (shared standalone release checks)
+
+    if args.slug in release.CONTRACT_TOPICS:
+        bad, _ = release.check(args.slug, finals, root=ROOT,
+                               narration=args.narration, score=args.score)
+        masters = list(finals.glob("*_master.mp4"))
+        if len(masters) != 1 or masters[0].resolve() != master_mp4.resolve():
+            bad.append("selected master is not the final's checked master")
+        if bad:
+            print("publish: release check refused:\n  " + "\n  ".join(bad), file=sys.stderr)
+            return 2
     # the upload text first: a bundle with no package to go with it is no release
     yt_path = ensure_youtube_md(crate, args.slug, finals)
-    import release  # noqa: PLC0415 (beside this file, on the path ensure_youtube_md set)
 
     # the cut MANIFEST records, and no other
     stale = release.manifest_mismatch(ROOT, master_mp4.resolve())
@@ -299,7 +312,13 @@ def main(argv: list[str] | None = None) -> int:
     else:
         build_contact_sheet(master_dst, sheet_dst)
 
-    ensure_captions(crate, finals, bundle, args.slug)
+    if args.slug in release.CONTRACT_TOPICS:
+        # Copy exactly the pair release.check validated. Do not discover older
+        # publish captions or synthesize scratch timing for a production cut.
+        for suffix in ("srt", "vtt"):
+            shutil.copy2(next(finals.glob(f"*.{suffix}")), bundle / f"{args.slug}.en.{suffix}")
+    else:
+        ensure_captions(crate, finals, bundle, args.slug)
 
     thumb_rel = release.thumbnail_rel(crate)
     thumb_row = "none named in publish/youtube.md"

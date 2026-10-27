@@ -1,6 +1,8 @@
 """Check a video's storyboard (gate G2) and write its script from it.
 
-    python3 -I tools/storyboard.py [--check] [SLUG ...]   (default: every video with a storyboard)
+    python3 -I tools/storyboard.py [--check] SLUG ...
+    python3 -I tools/storyboard.py --check              (check every storyboard)
+    python3 -I tools/storyboard.py --all                (explicitly regenerate all)
 
 The storyboard, explainer_corpus/<slug>/docs/storyboard.md, is the hand-edited
 source of the video's words and pictures (from R1 on; plan §9.4, §10.4 and
@@ -8,11 +10,15 @@ source of the video's words and pictures (from R1 on; plan §9.4, §10.4 and
 heading), one row per beat: `| id | words | picture | features | hold/listen |`.
 
 Checks (exit 1 if any fails):
-- every chapter's estimated length is at most 85 s (plan D-05);
 - every beat has a picture (a card may stand in only if the features say so);
 - every chapter has a prediction pause (⟨predict⟩), and a ⟨predict⟩ beat ends
   with its question (the answer is the next beat, so the picture can hold);
 - ids are unique and sit under their own chapter.
+
+Chapter estimates above the former 85 s target produce an editorial advisory,
+not a failure. The owner's 2026-10-24 direction prioritizes useful intuition,
+motivation and inspection time. Split at conceptual boundaries when helpful;
+do not cut explanations or rush narration to meet a word-count estimate.
 
 It writes explainer_corpus/<slug>/script.tsv (id, spoken words) unless
 --check, which instead fails when the file on disk differs from what the
@@ -24,6 +30,7 @@ measured rate: 1,182 words took 440.9 s), plus a 0.6 s breath, plus 2 s for a
 prediction pause, plus the hold (2.5 s) or listen window ("listen N s").
 """
 
+import argparse
 import pathlib
 import re
 import sys
@@ -31,7 +38,7 @@ import sys
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 CORPUS = ROOT / "explainer_corpus"
 WPS, BREATH, PREDICT, HOLD = 2.68, 0.6, 2.0, 2.5
-CAP = 85.0
+REVIEW_AFTER_SECONDS = 85.0
 MARK = "⟨predict⟩"
 
 # the skill's showcase checklist, with the words that show a beat uses it
@@ -115,11 +122,14 @@ def check(slug, chapters):
                 if re.search(pat, r["picture"] + " " + r["features"] + " " + r["hold"], re.I):
                     showcase[name].append(cid)
         total += est
-        if est > CAP:
-            problems.append(f"{slug} {ch['key']}: estimated {est:.1f} s > {CAP:.0f} s")
         if not any(MARK in r["words"] for r in ch["rows"]):
             problems.append(f"{slug} {ch['key']}: no prediction pause")
         report.append(f"  {ch['key']:34} {est:5.1f} s  {len(ch['rows'])} beats")
+        if est > REVIEW_AFTER_SECONDS:
+            report.append(
+                "    ADVISORY: longer chapter; review its conceptual boundary and inspection time. "
+                "Preserve useful explanation; this estimate is not a runtime cap."
+            )
     report.append(f"  total {total / 60:.1f} min over {len(chapters)} chapters")
     for name, _ in SHOWCASE:
         ids = showcase[name]
@@ -138,9 +148,21 @@ def script_text(slug, chapters):
 
 
 def main(argv):
-    check_only = "--check" in argv
-    slugs = [a for a in argv if not a.startswith("--")] or sorted(
-        p.parent.parent.name for p in CORPUS.glob("*/docs/storyboard.md"))
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--check", action="store_true", help="check without writing; defaults to all storyboards")
+    parser.add_argument("--all", action="store_true", help="explicitly select all storyboards")
+    parser.add_argument("slugs", nargs="*", metavar="SLUG", help="video topic(s) to check or regenerate")
+    args = parser.parse_args(argv)
+    if args.all and args.slugs:
+        parser.error("choose SLUG(s) or --all, not both")
+    if not args.slugs and not (args.check or args.all):
+        parser.error("regeneration requires SLUG(s) or explicit --all; use --check for a read-only scan")
+    available = sorted(p.parent.parent.name for p in CORPUS.glob("*/docs/storyboard.md"))
+    unknown = [slug for slug in args.slugs if slug not in available]
+    if unknown:
+        parser.error("unknown storyboard topic(s): " + ", ".join(unknown))
+    check_only = args.check
+    slugs = args.slugs or available
     failed = False
     for slug in slugs:
         board = CORPUS / slug / "docs/storyboard.md"

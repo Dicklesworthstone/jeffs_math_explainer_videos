@@ -7,7 +7,7 @@ CHECKOUT holds explainer_corpus/SLUG/{script.tsv,lexicon.json,renders/final/...}
   1. the files a final must have (chapter MP4s and timelines, the master, the SRT and VTT, the marks)
   2. ffprobe of the master against the EXPECT gates: 3840x2160, 60 fps, BT.709 (primaries, transfer, matrix), A/V delta <= 0.2 s,
      and its own EBU R128 measurement (ffmpeg ebur128, run niced): integrated -16 +-1 LUFS, true peak <= -1.0 dBTP (+0.05)
-  3. every chapter: ffprobe size/fps/codec, duration against its timeline (frames / fps), the sum against the master, and the 85 s limit
+  3. every chapter: ffprobe size/fps/codec, duration against its timeline (frames / fps), the sum against the master, and any caller's chapter limit
   4. the SRT against script.tsv: word for word, in order, line by line (numbers as spelled, names), exact text per line,
      SRT format (indices, stamps, <= 2 lines of <= 42 characters, no overlap), timing inside each line's audio and the master's length,
      the VTT against the SRT
@@ -17,6 +17,7 @@ Exit 0 whatever it finds by default (it is a reader); with --strict, exit 1 if a
 import argparse
 import difflib
 import json
+import math
 import os
 import re
 import subprocess
@@ -67,10 +68,12 @@ def check_final(
     root: Path,
     strict: bool = False,
     loud: bool = True,
-    ch_max: float = 85.0,
+    ch_max: float | None = None,
     skill: Path | None = None,
     probe_fn=None,
     ebur128_fn=None,
+    narration: Path | None = None,
+    score: Path | None = None,
 ) -> list[str]:
     if skill is None:
         skill = default_skill_dir()
@@ -85,6 +88,24 @@ def check_final(
 
     def info(msg: str):
         print("  ", msg)
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import release  # noqa: PLC0415 (same canonical contract as the upload sheet)
+
+    # Third-wave films have no upper runtime target. Retain the historical
+    # default for legacy films, and honor an explicit limit for every topic.
+    if ch_max is None and slug not in release.CONTRACT_TOPICS:
+        ch_max = 85.0
+    if ch_max is not None and (not math.isfinite(ch_max) or ch_max <= 0):
+        defect("chapter limit must be finite and positive")
+        return defects
+
+    verified_holds = []
+    for problem in release.narration_problems(slug, final, root, narration, score,
+                                               prediction_holds=verified_holds):
+        defect(problem)
+    if defects:
+        return defects
 
     def probe(path: Path, entries: str, stream: str | None = None) -> dict:
         if probe_fn:
@@ -235,7 +256,7 @@ def check_final(
             flag.append(f"fps {v.get('r_frame_rate')}")
         if abs(d - want) > 0.1:
             flag.append(f"file {d:.2f} s vs timeline {want:.2f} s")
-        if d > ch_max:
+        if ch_max is not None and d > ch_max:
             flag.append(f"{d:.1f} s is over {ch_max:g}")
         if int(v.get("nb_frames", 0)) not in (tl["frames"], 0):
             flag.append(f"{v.get('nb_frames')} frames vs timeline {tl['frames']}")
@@ -297,13 +318,14 @@ def check_final(
             defect(f"the last cue ends at {cues[-1]['end']:.2f} s, after the master's end {mdur:.2f} s")
 
     report = {}
-    rp = crate / "narration" / "out" / "report.json"
+    narration_dir = narration or crate / "narration" / "out"
+    rp = narration_dir / "report.json"
     if rp.exists():
         report = json.loads(rp.read_text(encoding="utf-8"))
         report = report.get("lines", report)
         info(f"report.json: {len(report)} lines")
     else:
-        defect("no narration/out/report.json: the captions' source is missing")
+        defect(f"no {rp}: the captions' source is missing")
     alts = {}
     ap = crate / "alts.tsv"
     if ap.exists():
@@ -390,15 +412,17 @@ def check_final(
     if digits:
         defect(f"{len(digits)} cue line(s) hold digits (numbers should stand as spelled): {digits[:5]}")
 
-    # timing: each line's cues inside the line's own audio span on the master's timeline
+    # Timing: audio bounds, except the final caption may persist through an
+    # explicitly declared prediction hold to the exact next-cue endpoint.
     offset, bad_t = 0.0, 0
     if tls and cues:
         spans = {}
+        hold_ends = {h['cue']: h['end_ms'] / 1000 for h in verified_holds}
         for tl in tls:
             for l in tl["lines"]:
                 p = Path(l["wav"])
                 if not p.exists():
-                    p = crate / "narration" / "out" / Path(l["wav"]).name
+                    p = narration_dir / Path(l["wav"]).name
                 dur = float(probe(p, "format=duration")["format"]["duration"]) if p.exists() else None
                 spans[l["id"]] = (offset + l["start"] / tl["fps"], dur)
             offset += tl["frames"] / tl["fps"]
@@ -407,7 +431,11 @@ def check_final(
             if not take or i not in spans or spans[i][1] is None:
                 continue
             s0, d = spans[i]
-            if take[0]["start"] < s0 - 0.05 or take[-1]["end"] > s0 + d + 0.05:
+            within_audio = take[-1]["end"] <= s0 + d + 0.05
+            held = (i in hold_ends and abs(take[-1]["end"] - hold_ends[i]) < 1e-6
+                    and take[-1]["start"] <= s0 + d + 0.05
+                    and all(c['end'] <= s0 + d + 0.05 for c in take[:-1]))
+            if take[0]["start"] < s0 - 0.05 or not (within_audio or held):
                 bad_t += 1
                 if bad_t <= 10:
                     print(
@@ -416,19 +444,23 @@ def check_final(
         if bad_t:
             defect(f"{bad_t} line(s) have captions outside their audio")
         else:
-            info("every line's captions stand inside that line's audio on the master's timeline")
+            info("every line's captions stay within its audio or its declared prediction hold")
         short = [c for c in cues if c["end"] - c["start"] < 0.7]
         fast = [c for c in cues if len(" ".join(c["lines"])) / max(1e-6, c["end"] - c["start"]) > 25]
         info(f"cues under 0.7 s: {len(short)}; over 25 characters a second: {len(fast)}")
 
     if vtts and cues:
-        body = [b for b in re.split(r"\n\s*\n", vtts[0].read_text(encoding="utf-8").strip("\n")) if b.strip()][
+        vtt_text = vtts[0].read_text(encoding="utf-8")
+        parsed, problems = release.cues(vtt_text, 'vtt')
+        for problem in problems:
+            defect(problem)
+        body = [b for b in re.split(r"\n\s*\n", vtt_text.strip("\n")) if b.strip()][
             1:
         ]
         vt = [b.split("\n") for b in body]
-        ok = len(vt) == len(cues) and all(v[1:] == c["lines"] for v, c in zip(vt, cues)) and all(
-            v[0].replace(".", ",") == f"{c['start']:.0f}" or True for v, c in zip(vt, cues)
-        )
+        ok = (not problems and len(vt) == len(parsed) == len(cues)
+              and all(v[1:] == c['lines'] for v, c in zip(vt, cues))
+              and all(a == c['start'] and b == c['end'] for (a, b, _), c in zip(parsed, cues)))
         if ok:
             info("the VTT holds the SRT's cues and text")
         else:
@@ -471,9 +503,12 @@ def main(argv: list[str] | None = None, probe_fn=None, ebur128_fn=None) -> int:
     parser.add_argument("--strict", action="store_true", help="Exit 1 if any DEFECT is found")
     parser.add_argument("--no-loudness", action="store_true", help="Skip ffmpeg ebur128 loudness check")
     parser.add_argument(
-        "--chapter-max", type=float, default=85.0, help="Maximum allowed chapter length in seconds (default: 85.0)"
+        "--chapter-max", type=float, default=None,
+        help="Explicit maximum chapter seconds (default: no cap for third-wave films; 85 for legacy films)"
     )
     parser.add_argument("--skill", type=Path, default=None, help="Path to natural-sounding-narration skill scripts directory")
+    parser.add_argument("--narration", type=Path, help="Canonical third-wave narration assembly")
+    parser.add_argument("--score", type=Path, help="Explicitly declared chapter score stems")
     args = parser.parse_args(argv)
 
     root = Path(args.root).resolve()
@@ -486,6 +521,8 @@ def main(argv: list[str] | None = None, probe_fn=None, ebur128_fn=None) -> int:
         skill=args.skill,
         probe_fn=probe_fn,
         ebur128_fn=ebur128_fn,
+        narration=args.narration,
+        score=args.score,
     )
     if args.strict and defects:
         return 1

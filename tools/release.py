@@ -30,6 +30,13 @@ decision for GreenCarp and the owner, and the notes make sure it is taken knowin
   protected_check.py over the script, the SRT and the upload text (`./x SLUG protected`);
 - the thumbnail: a PNG, 1280x720, at most 2 MB;
 - docs/publish/MANIFEST.md: a row naming this master's path carries its md5.
+
+The five third-wave topics additionally require their canonical narration plan,
+required directions and actual timeline/cue-log audio bindings before any upload
+sheet. Pass --narration for a selected assembly and --score for declared stems.
+There is no lab-plan override; this check does not confer listening acceptance.
+Their fetch also preserves cue logs; narration/source receipts must be available
+locally for the check and are not silently replaced during a fetch.
 """
 from __future__ import annotations
 
@@ -53,6 +60,70 @@ THUMB_MAX_BYTES = 2 * 1024 * 1024
 DURATION_TOLERANCE_S = 0.1
 ENDS_SENTENCE = re.compile(r"[.?!…][\"”’')\]]*$")
 STAMP = re.compile(r"^(\d\d):(\d\d):(\d\d)[,.](\d\d\d) --> (\d\d):(\d\d):(\d\d)[,.](\d\d\d)")
+CONTRACT_TOPICS = frozenset({"inspection_paradox", "german_tank", "shamir_secret_sharing", "crofton", "parrondo"})
+
+
+def narration_problems(slug: str, finals: Path, root: Path = ROOT,
+                       narration: Path | None = None, score: Path | None = None,
+                       *, caption_segments: list | None = None,
+                       prediction_holds: list | None = None) -> list[str]:
+    """Apply the canonical master-input contract at Python release boundaries.
+
+    This verifies narration inputs, not the encoded master's sound or listening.
+    The explicit rollout list keeps missing plans from silently opting out.
+    Lab plan overrides are intentionally unavailable here.
+    """
+    if slug not in CONTRACT_TOPICS:
+        return []
+    root = root.resolve()
+    crate = root / "explainer_corpus" / slug
+    try:
+        # Use the same source gain as these five native consumers; refuse a
+        # changed source convention instead of guessing a timeline's gain.
+        if "narration_gain_db: explainer_kit::narration::GAIN_DB," not in (crate / "src/main.rs").read_text():
+            raise ValueError("native narration gain is not the shared GAIN_DB")
+        source = (root / "crates/explainer_kit/src/narration.rs").read_text()
+        gains = re.findall(r"^pub const GAIN_DB: f64 = ([+-]?[0-9]+(?:\.[0-9]+)?);$", source, re.M)
+        if len(gains) != 1:
+            raise ValueError("cannot read the native narration gain")
+        keys = [p.name.removesuffix(".timeline.tsv") for p in sorted(finals.glob("*.timeline.tsv"))]
+        if not keys:
+            raise ValueError("no final chapter timelines")
+        command = [sys.executable, "-I", "-B", str(root / "tools/narration_delivery.py"),
+                   "--topic", str(crate), "--consumer", "master", "--gain-db", gains[0],
+                   "--narration", str(narration or crate / "narration/out"), "--timelines", str(finals)]
+        for key in keys:
+            command += ["--chapter-key", key]
+        if score is not None:
+            command += ["--score", str(score)]
+        result = subprocess.run(command, capture_output=True, text=True, timeout=300)
+        if result.returncode:
+            detail = (result.stderr or result.stdout).strip()
+            raise ValueError(f"canonical narration check failed: {detail}")
+        if caption_segments is not None or prediction_holds is not None:
+            verified = json.loads(result.stdout)
+        if caption_segments is not None:
+            caption_segments.extend(verified['directed_caption_segments'])
+        if prediction_holds is not None:
+            prediction_holds.extend(verified['prediction_holds'])
+    except (OSError, ValueError, KeyError, TypeError, subprocess.SubprocessError) as error:
+        return [f"narration contract: {error}"]
+    return []
+
+
+def directed_tail(previous, current, segments):
+    """An exact whole post-pause segment, not a general short-caption waiver."""
+    a, b, text = current
+    prior = previous[2].split()
+    for segment in segments:
+        preceding = segment['preceding_text'].split()
+        if (text.split() == segment['text'].split() and prior
+                and preceding[-len(prior):] == prior
+                and abs(a * 1000 - segment['start_ms']) < 1e-6
+                and abs(previous[1] * 1000 - segment['start_ms']) < 1e-6
+                and abs(b * 1000 - segment['end_ms']) < 1e-6):
+            return True
+    return False
 
 
 def md5(path: Path) -> str:
@@ -72,10 +143,10 @@ def thumbnail_rel(crate: Path) -> str | None:
     return m.group(1) if m else None
 
 
-def final_files(names: list[str]) -> list[str]:
+def final_files(names: list[str], with_cue_logs: bool = False) -> list[str]:
     """The files of a final the upload needs, by name: the master, captions and timelines."""
     keep = (lambda n: n.endswith("_master.mp4") or n.endswith(".srt") or n.endswith(".vtt")
-            or n.endswith(".timeline.tsv"))
+            or n.endswith(".timeline.tsv") or (with_cue_logs and n.endswith(".cuelog.tsv")))
     return sorted(n for n in names if keep(n))
 
 
@@ -207,7 +278,7 @@ def fetch(slug: str, finals: Path, source: str, host=None, root: Path = ROOT, re
     clone = expand_remote(clone)
     rel = finals.resolve().relative_to(root.resolve()).as_posix()
     remote_final = f"{clone}/{rel}"
-    names = final_files(host.list(remote_final))
+    names = final_files(host.list(remote_final), with_cue_logs=slug in CONTRACT_TOPICS)
     masters = [n for n in names if n.endswith("_master.mp4")]
     if len(masters) != 1 or not any(n.endswith(".timeline.tsv") for n in names):
         raise RuntimeError(f"{remote_final}: no single master with timelines (found {names})")
@@ -216,7 +287,8 @@ def fetch(slug: str, finals: Path, source: str, host=None, root: Path = ROOT, re
         raise RuntimeError(f"{remote_final}: no md5 for {sorted(set(names) - set(want))}")
     log = [f"{slug}: {source} at {host.sha(clone)}, {remote_final}"]
     # anything of the upload's in the local final that is not exactly the host's: the whole cut goes aside
-    local = final_files([p.name for p in finals.iterdir() if p.is_file()]) if finals.is_dir() else []
+    local = final_files([p.name for p in finals.iterdir() if p.is_file()],
+                        with_cue_logs=slug in CONTRACT_TOPICS) if finals.is_dir() else []
     if any(n not in want or md5(finals / n) != want[n] for n in local):
         log.append(f"  preserved the old final as {preserve(finals).name}")
     finals.mkdir(parents=True, exist_ok=True)
@@ -319,10 +391,14 @@ def manifest_mismatch(root: Path, master: Path) -> list[str]:
 
 
 def check(slug: str, finals: Path, voice: str = "michael", root: Path = ROOT, probe=ffprobe,
-          skills: Path | None = None) -> tuple[list[str], list[str]]:
+          skills: Path | None = None, narration: Path | None = None,
+          score: Path | None = None) -> tuple[list[str], list[str]]:
     """(problems, the upload sheet's lines): no problems means the cut and its upload text are ready."""
     crate = root / "explainer_corpus" / slug
-    bad: list[str] = []
+    caption_segments = []
+    bad = narration_problems(slug, finals, root, narration, score, caption_segments=caption_segments)
+    if bad:
+        return bad, []
     rel = lambda p: p.relative_to(root).as_posix() if p.is_relative_to(root) else str(p)  # noqa: E731
     masters = sorted(finals.glob("*_master.mp4"))
     srts, vtts = sorted(finals.glob("*.srt")), sorted(finals.glob("*.vtt"))
@@ -374,7 +450,9 @@ def check(slug: str, finals: Path, voice: str = "michael", root: Path = ROOT, pr
                 bad.append(f"SRT cue {n}: no text")
             # an orphan tail: the last word or two of the sentence the cue before began, alone and brief
             # (F v1 had five, E's first captions nine; the kit's captions fix, 1f44182, makes none)
-            if n > 1 and not ENDS_SENTENCE.search(srt_cues[n - 2][2]) and (len(t.split()) <= 2 or b - a < 1.0):
+            if (n > 1 and not ENDS_SENTENCE.search(srt_cues[n - 2][2])
+                    and (len(t.split()) <= 2 or b - a < 1.0)
+                    and not directed_tail(srt_cues[n - 2], (a, b, t), caption_segments)):
                 bad.append(f"SRT cue {n}: {t!r} ({b - a:.2f} s) is the tail of the sentence cue {n - 1} began "
                            "(rebuild the captions with the kit at or after 1f44182: ./x SLUG captions)")
         if duration is not None and srt_cues and srt_cues[-1][1] > duration + 0.05:
@@ -384,6 +462,8 @@ def check(slug: str, finals: Path, voice: str = "michael", root: Path = ROOT, pr
             bad.extend(problems)
             if [t for _, _, t in vtt_cues] != [t for _, _, t in srt_cues]:
                 bad.append("VTT: its cue texts are not the SRT's")
+            if [(a, b) for a, b, _ in vtt_cues] != [(a, b) for a, b, _ in srt_cues]:
+                bad.append("VTT: its cue times are not the SRT's")
         bad.extend(youtube_package.protected_missing(
             crate / "docs" / "protected.tsv", {"captions": srt_text}, {"captions": srts[0].name}))
         check_py = (skills / "math-explainer-videos-end-to-end-with-franken-manim-frankentts/scripts/protected_check.py"
@@ -424,6 +504,8 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--from", dest="source", help="fetch: HOST:CLONE, a finals clone on the build host")
     ap.add_argument("--skills", type=Path, help="check: the skills directory (protected_check.py)")
     ap.add_argument("--rev", help="fetch: the commit the final was rendered at, when its mark does not say")
+    ap.add_argument("--narration", type=Path, help="check: canonical assembly directory (default: topic/narration/out)")
+    ap.add_argument("--score", type=Path, help="check: explicitly declared chapter score stems")
     args = ap.parse_args(argv)
     finals = args.finals or ROOT / "explainer_corpus" / args.slug / "renders" / "final"
     if args.action == "fetch":
@@ -437,7 +519,8 @@ def main(argv: list[str] | None = None) -> int:
             return 1
         print(f"release-fetch {args.slug}: done; now ./x {args.slug} release-check")
         return 0
-    bad, sheet = check(args.slug, finals, args.voice, skills=args.skills)
+    bad, sheet = check(args.slug, finals, args.voice, skills=args.skills,
+                       narration=args.narration, score=args.score)
     for note in since_cut(args.slug, finals):
         print(f"{note}")
     for b in bad:
