@@ -1,0 +1,2054 @@
+--- a/explainer_corpus/parrondo/docs/storyboard-draft.md
++++ b/explainer_corpus/parrondo/docs/storyboard-draft.md
+@@ -77,8 +77,8 @@
+ | `13_the_half_point` | the published coins restored; B's threshold 37.7 % against its 38.4 %; does the mix survive? (a prediction); the opening's numbers; the source | planned (words and pictures only) |
+ | `14_net_flow` | a test from the coins alone?; the mix's crowd of 1,418 and its paired flows; the viewer counts each edge's surplus, twelve; dollars gained per round (a prediction); why a settled corner forces the same twelve; one seeded real round against the expected numbers; B's balances multiply to equal products | native source written 2026-10-24 (`net_flow.rs`), uncompiled, no render, no narration |
+ | `15_two_products` | the converse built on B's 10, 4, 12, then in letters; the sign from one line with both other factors positive; B fair, not a winner; the mix's products (a prediction); the one line on the 1,418; the published A, B and mix | native source written 2026-10-24 (`two_products.rs`), uncompiled, no render, no narration |
+-| `16_when_switching_fails` | ordinary coins mix to their average; strict alternation (a prediction) loses; AABB wins; A's share between 7.0 % and 84.7 % | planned (words and pictures only) |
+-| `17_what_winning_promises` | the player's B run was ahead at 1,000 rounds; 100 rounds: 51.7 % ahead; 1,000 rounds (a prediction): 68.9 %; the long-run law; not advice | planned (words and pictures only) |
++| `16_when_switching_fails` | does the order matter?; strict alternation (a prediction) loses; the crowd played round by round from B's settled crowd, the dots climbing past B's break-even line; one cycle's refill of corner 0; the averaged-chances shortcut fails; AABB stays below the line; the table; ordinary coins in any order; A's share: the curve, rounded crossings against the exact strict bounds | native source written 2026-10-24 (`when_switching_fails.rs`), uncompiled, no render, no narration |
++| `17_what_winning_promises` | the player's +16 after 1,000 rounds of B, −548 after 100,000; what the exact 100-round distribution is (start at 0, negative dollars, even totals, one bar per total); ahead, behind, level; the crowd's average and the start's cost; 1,000 rounds (a prediction): 68.9 %, the same bars on the same axis; the spread and the square root as a long-run law; B from 7: lucky, not rare; A and B alone; the law with probability one; three meanings; not advice | native source written 2026-10-24 (`what_winning_promises.rs`), uncompiled, no render, no narration |
+ | `18_the_catch` | the puzzle explained; a switching rule that reads the money the other way (a prediction) loses 27.6 cents a round; swapped, it wins; win-win-win against lose-lose-lose; names to search | planned (words and pictures only) |
+ 
+ Every chapter's narration, render, native timing, listening and audiovisual
+@@ -765,56 +765,187 @@
+   "forty-nine sixty-fourths", "three over one hundred sixty", "one
+   hundred forty-seven over sixteen", "Harmer and Abbott".
+ 
+-## 16_when_switching_fails: When switching fails (~72 s)
++## 16_when_switching_fails: When switching fails (~307 s)
+ 
+ | id | words | picture | features | hold/listen |
+ |---|---|---|---|---|
+-| 16_1 | Switching helped here for one reason. Game B's coin reads your money, and game A's rounds move your money around. | Card B's "count your dollars" and A's triangle, side by side; the badge "published coins" | cards | |
+-| 16_2 | Remember the two ordinary coins. Mix two losing ordinary coins and you always get a losing coin, with the average chance. | The 49 % and 48 % coins of 04_2 merge again into 48.5 %, red "loses" (callback) | coins from facts | |
+-| 16_3 | Even these two games don't win under every schedule. What happens if you strictly alternate, A, then B, then A, then B? ⟨predict⟩ | A strip "A B A B A B …"; question; countdown | think countdown | |
+-| 16_4 | It loses, about two thirds of a cent a round. The random mix wins, and the rigid alternation of the same two games loses. Two A's, then two B's, the pattern in the original paper, wins about one and a half cents. | Schedule table (published coins): "random, half and half: +1.57", "A B A B …: −0.67", "A A B B …: +1.47" cents a round | table from facts | |
+-| 16_5 | The share of A matters too. With A on only one round in twenty, the mix loses. With A on nine rounds in ten, it loses again. The mix wins only when A's share is between about seven and eighty-five percent. | A curve: average per round against A's share from 0 to 100 %, zero line, crossings marked 7.0 % and 84.7 %, points at 5 % (−0.23) and 90 % (−0.34). A "precisely" card (K07) | curve from facts | |
+-| 16_6 | So there is no general rule that switching between losing games wins. It works here, with these coins and these schedules, because one game reads the money and the other moves it. | The curve dims; the triangle with B's red corner 0 returns | callback | |
++| 16_1 | Up to now, a fair coin chose the game before every round, and the mix won. But tossing a coin is only one way to switch between two games. Does it matter in what order the games are played, or only how often each one is? | From an empty frame: the filled badge "published coins · 49.5 · 9.5 · 74.5 %"; B's triangle with the gold title "the mix", the mix's chances 29.5, 62, 62 % forward (gold) and 70.5, 38, 38 % back (dim), and the teal puddles at the mix's settled 34.5, 25.4, 40.1 %. At "a fair coin chose the game" the panel's first line, "random: a fair coin picks A or B each round", with a small gold coin; at "Does it matter" a frame round that line while the coin pulses | badge, triangle, puddles | |
++| 16_2 | Here is the simplest fixed order: A, then B, then A, then B, forever. Half the rounds are A and half are B, exactly as in the mix. Only the order has changed. | At "the simplest fixed order" the strip "A B A B A B A B A B A B …" (A blue, B in B's color) and its name "strict alternation", under the random line. The mix's six chances go and the title becomes "A B A B …". At "Half the rounds" a frame round the strip | strip | |
++| 16_3 | Same two games, same coins, the same half and half. So does strict alternation win, like the coin-toss mix? ⟨predict⟩ | "does A B A B … win?" under the strip; the countdown, right of the triangle | think countdown | |
++| 16_4 | It loses, about two thirds of a cent a round. The order alone has turned a win into a loss. To see why, watch the crowd. | The "?" goes; beside the strip's name, "loses: −0.67 cents a round" in red. At "The order alone" a frame round the strip | verdict from facts | |
++| 16_5 | Game A's rounds cost one cent each, wherever the crowd stands, because A's coin never looks at the money. So everything rides on B's rounds, and on the dial from before: the share of the crowd on corner zero when B plays. B breaks even at thirty-seven point seven percent. Below that line B's round wins, and above it B's round loses. | At "cost one cent each" "each A round: −1.00 cent" in blue under the strip. At "the share of the crowd on corner zero" the chart: "corner 0 when B plays" from 30 % to 40 % against "B round" 1 to 12. At "breaks even" its dashed line at 37.7 % labelled "B breaks even: 37.7 %" under the line at the right; at "Below that line" a gold "B wins" under it, at "above it" a red "B loses" above it | chart, line from facts | |
++| 16_6 | Start the crowd where game B alone leaves it, with thirty-eight point four percent on corner zero, and alternate. The first B round meets only thirty point seven percent there, and wins. But each time B comes back, a little more of the crowd is waiting on corner zero. The dots climb past the line and settle at thirty-eight percent, just above it. From then on, every B round loses. | At "where game B alone leaves it" the puddles move to B's settled 38.4, 15.4, 46.2 % ("from game B's settled crowd" under the triangle). A frame steps along the strip as each round is played, the counter "round 1 of 24" counting, and the puddles move round by round (computed: A's coin on A rounds, B's on B rounds). Before every B round a teal dot lands on the chart at corner 0's share. The first, at 30.7 % ("30.7 %" beside it), stands before the next round. The later rounds run faster; the dots climb (34.3, 36.3, 37.2 … %) past the line and settle at 38.0 % ("settles at 38.0 %" above the line). At "every B round loses" a frame round the dots above the line | live counter, computed rounds, dots | |
++| 16_7 | Why does alternating fill corner zero for B? Follow one cycle. B's bad coin knocks most of corner zero back to corner two, and its good coin carries most of corner one forward to corner two. So each B round leaves about sixty-nine percent of the crowd on corner two, one step behind corner zero. Then A plays, and its coin sends just under half of them forward, onto corner zero, while a few step back from corner one. Almost thirty-eight percent are waiting on corner zero when B plays again. | The settled cycle, the strip's frame on a B. At "knocks most of corner zero back" a red stream from corner 0 back to corner 2, at "carries most of corner one forward" a green stream from 1 to 2, and the puddles move to 23.5, 7.6, 68.9 %; "B leaves on corner 2: 68.95 %" in the panel. The frame moves to an A. At "sends just under half of them forward" a blue stream from 2 to 0 and "49.5 % × 68.95 % = 34.13 %"; at "a few step back" a dim stream from 1 to 0 and "50.5 % × 7.59 % = 3.83 %"; at "Almost thirty-eight percent" the puddles move back and "34.13 % + 3.83 % = 37.96 % on corner 0 when B plays", an arrow to the chart's settled dots | streams, sums from facts | |
++| 16_8 | It's tempting to take a shortcut and average the two games' chances at each corner. That gives twenty-nine and a half percent at corner zero and sixty-two percent at the others, exactly the coin-toss mix's coins, so it predicts the mix's win of just over one and a half cents. But alternation never tosses an averaged coin. Every round tosses one game's real coin, and the order decides where the crowd stands when the bad coin comes up. | The streams and sums go. "averaging A's and B's chances at each corner:" "29.5 %, 62 %, 62 %: the coin-toss mix's coins", "predicts +1.57 cents a round"; at "never tosses an averaged coin" a red strike through the prediction and "A B A B … actually: −0.67" in red | strike, values from facts | |
++| 16_9 | Now play two A's, then two B's, the pattern Harmer and Abbott simulated. Two A rounds in a row spread the crowd out again before B returns. So B's first round meets about thirty-six percent on corner zero, and its second only about thirty-three, both below the line. Two and two wins, about one and a half cents a round, a little less than the coin-toss mix. | The control's lines go; the alternation's dots dim. The strip becomes "A A B B A A B B A A B B …", the title "A A B B …". From B's settled crowd again, 24 computed rounds with the frame stepping and the counter; before every B round a gold dot. They stay below the line from the first, alternating near 36.0 % and 33.3 % ("36.0 %" and "33.3 %" beside the settled pair). At "Two and two wins" "wins: +1.47 cents a round" in gold beside the strip | computed rounds, dots | |
++| 16_10 | Put the three side by side, per round played. The coin-toss mix wins one point five seven cents. Strict alternation loses zero point six seven. Two and two wins one point four seven. Same games, same share of each: only the order changed, and with it where the crowd stands when B plays. | The chart and the strip go. A table: "schedule", "corner 0 when B plays", "cents a round"; a row as each is said: "random (a fair coin) 34.5 % +1.57", "A B A B … 38.0 % −0.67", "A A B B … 36.0 %, 33.3 % +1.47", with "per round played, A's rounds included" under it. At "where the crowd stands" a frame round the middle column | table from facts | |
++| 16_11 | Now the control. Replace A and B by the two ordinary coins, forty-nine and forty-eight percent, which never look at the money. Toss for the game, alternate, or play two and two: each loses exactly three cents a round. With coins like these, only how often each is tossed can matter, never the order. | At "Now the control" the triangle and the puddles go. At "the two ordinary coins" two plain dim coins at the right, "49 %" and "48 %", and "ordinary coins (they ignore the money)" over a new column; a cell as each schedule is said: "−3.00", "−3.00", "−3.00". At "never the order" a frame round the new column | table from facts | |
++| 16_12 | The share of each game matters too. Let a biased coin choose A on only one round in twenty, and the mix loses, about a quarter of a cent a round. Choose A on nine rounds in ten, and it loses again, about a third of a cent. | The table and the two coins go. The curve's axes: "A's share of the rounds (chosen at random)" from 0 to 100 %, "cents a round" from −1.2 to +2.0, the zero line; the ends "B alone −0.87" at 0 % and "A alone −1.00" at 100 %, and the coin-toss mix "+1.57" at 50 % in gold. At "one round in twenty" a red point at 5 %, "−0.23"; at "nine rounds in ten" a red point at 90 %, "−0.34" | axes, points from facts | |
++| 16_13 | Compute the mix at every share in between, and the curve rises above zero and comes back down. The mix wins from about seven percent to about eighty-five percent. At each crossing the two products from before are equal, and between the crossings the forward product is the bigger one. | The curve draws from 0 % to 100 %, computed at every half percent, through all five points. At "about seven percent" a tick "≈ 7 %" where it crosses zero, at "about eighty-five" "≈ 85 %". At "between the crossings" a gold band along the zero line between the ticks, "forward product bigger: the mix wins" | curve from the model | hold |
++| 16_14 | Those edges are not round numbers. The crossings sit at seven point zero three and eighty-four point seven one percent, rounded, and the mix wins only strictly between them. At exactly seven percent it still loses, by a hair, and at eighty-five percent it has already stopped winning. | At "seven point zero three" the ticks become "7.03 %" and "84.71 %". At "strictly between them", under the curve, a dim "cents a round:" and the grid's edges: "7.0 %: −0.0034 loses", "7.1 %: +0.0074 wins", "84.7 %: +0.0005 wins", "84.8 %: −0.0058 loses"; at "exactly seven percent" a frame round the first, at "eighty-five percent" round the last. The "precisely" card (K07), held for its reading time | values from facts, lower-third card | |
++| 16_15 | So no general rule says that switching between losing games wins. Here it wins for some orders and some shares, with these coins, because one game reads the money and the other moves it around. | At "no general rule" the curve and all its labels fade. At "some orders and some shares" B's triangle returns with the gold title "the mix", the mix's chances and its settled puddles (34.5, 25.4, 40.1 %); at "one game reads the money" a frame round the red corner 0 | callback | hold |
+ 
+ ### Notes for 16
+ 
+-- The Nature caption's "in any sequence" is false; 16_4 shows the
+-  counterexample. With the round-number coins, AB is exactly fair for every
+-  ρ (Ethier & Lee, Theorem 7); the handicap tips it to losing.
+-- "Two losing coins always mix into a losing coin": a mix of coins that do
+-  not depend on the money is a coin with the averaged chance; tested over a
+-  grid in the oracle.
+-- K07 (16_5): "published coins; the mix wins exactly when A's share is
+-  strictly between 7.0 % and 84.7 % (rounded); AB −0.67, AABB +1.47 cents a
+-  round, per round played".
+-- Pause intentions: after "for one reason" (16_1) a short beat; the
+-  alternation verdict (16_4) gets a completed-thought pause before "Two A's".
+-
+-## 17_what_winning_promises: What winning promises (~76 s)
+-
+-| id | words | picture | features | hold/listen |
+-|---|---|---|---|---|
+-| 17_1 | Look back at the player's run of game B. After a thousand rounds it was sixteen dollars ahead, even though game B loses. | B's thumbnail grows; its first 1,000 rounds outlined; readout "+16 dollars after 1,000 rounds" | plot from facts, highlight | |
+-| 17_2 | Just over one and a half cents a round is an average over the very long run. Over a hundred rounds, luck is much bigger than that. | A histogram of the crowd's dollars after 100 rounds of the mix, from 0 at the start (exact distribution) | histogram | |
+-| 17_3 | Start a crowd at zero dollars and let everyone play the mix for a hundred rounds. Just over half finish ahead, and about two in five finish behind. | The histogram's right side gold "ahead 51.7 %", left red "behind 39.6 %", the middle bar dim "level 8.7 %"; a "precisely" card (K08) | histogram, labels from facts | |
+-| 17_4 | After a thousand rounds, what share of the crowd is ahead? ⟨predict⟩ | Question; countdown; the histogram dims | think countdown | |
+-| 17_5 | A little more than two in three. The average gain grows in step with the number of rounds, while the spread of luck grows only like its square root. | The histogram widens and slides right: "ahead 68.9 %" | histogram morph | |
+-| 17_6 | In the long run, a player's average per round settles on just over one and a half cents, with probability one. Over a thousand rounds of game A or game B alone, most players end up behind. | Two dim rows: "game A alone, 1,000 rounds: behind 61.2 %", "game B alone: behind 63.9 %"; a "precisely" card (K09) | labels from facts, lower-third | |
+-| 17_7 | These are invented games. What they teach is about chances that depend on where you stand, and none of it is advice about real money. | Everything fades but the triangle | | hold |
++- Order (root's direction, ROOT1428-P16): the actual AB evolution (16_6)
++  and its mechanism (16_7) come before the rate table (16_10), and so does
++  AABB's (16_9). The prediction (16_3) is answered at 16_4's first words.
++- The schedules are played round by round, never by averaged chances. The
++  puddles follow `model::evolve_f64` with A's coin on A rounds and B's on B
++  rounds, from B's settled crowd (38.4 % on corner 0); the dots are the
++  computed corner-0 shares before each B round: 30.7, 34.3, 36.3, 37.2,
++  37.7 (37.65), 37.8 (37.82) … to 38.0 % (37.96 exactly in the cycle). The
++  cycle's shares come from `model::cycle` (exact): before A 23.47, 7.59,
++  68.95 %, before B 37.96, 46.43, 15.61 %.
++- Negative control, the tempting shortcut (16_8): averaging the two games'
++  chances at each corner gives 59/200, 31/50, 31/50, which are the random
++  mix's coins exactly, and they predict +1.57 cents; AB's real average is
++  −0.67. Averaged coins describe a coin toss before every round, not a
++  schedule.
++- Edges of the sentences: "each time B comes back, a little more … is
++  waiting" is checked exactly over the first 60 B rounds (strictly
++  increasing). "From then on, every B round loses" holds from the sixth B
++  round: its share is above 49/130, and the oracle shows that the crowd's
++  total-variation distance to the cycle (0.18 points) is smaller than the
++  cycle's margin over the line (0.27 points), and that distance never grows
++  under a round of either game. The visible dots do not separate the fifth
++  (37.65 %) from the line (37.69 %), so the voice names no round.
++- A's rounds cost exactly one cent each whatever the shares (A's coin is
++  the same at every corner); the B round's result is one line in corner
++  0's share, wins below 49/130 = 37.7 % and loses above (12's dial).
++- 16_7's sums are exact values rounded to 0.01 %, and the rounded parts add
++  to the rounded total: 49.5 % × 68.95 % = 34.13 %, 50.5 % × 7.59 % =
++  3.83 %, 34.13 % + 3.83 % = 37.96 % (the oracle checks the printed
++  arithmetic).
++- AABB from B's settled crowd: its B rounds meet 34.74, 34.49 %, then
++  35.78, 33.54 % … to 36.03 and 33.31 % in the cycle; all below the line,
++  from the first. Harmer and Abbott's figure simulates AABB repeated and
++  random switching (brief); the voice attributes nothing more.
++- The table (16_10), per round played: random +1.57 (B rounds meet
++  34.5 %), AB −0.67 (38.0 %), AABB +1.47 (36.0 and 33.3 %), cents a round.
++- The control (16_11): with coins that ignore the money each round's
++  average is 2p − 1 wherever the player stands, so any schedule with half
++  of each loses exactly (−2 − 4)/2 = −3.00 cents; the oracle checks every
++  schedule against its count of each coin.
++- The curve (16_12 to 16_14): the mix with A chosen by an independent coin
++  on a share s of the rounds, `PUBLISHED.mix_share` at every 0.5 % (exact,
++  drawn as floats). The crossings are the two roots of p₀p₁p₂ = q₀q₁q₂ in
++  s (the oracle counts exactly two in (0, 1) by Sturm's theorem): 7.0314 %
++  and 84.7077 %. Rounded crossings are not the exact strict bounds: at the
++  0.1 % grid 7.0 % loses (−0.0034 c), 7.1 % wins, 84.7 % wins (+0.0005 c),
++  84.8 % loses; 85 % loses (−0.018 c). The best share on that grid is
++  40.8 % (+1.66 c), not 50 %; the voice does not say where it peaks.
++- K07 (16_14): "published coins, per round played: with A on a share s of
++  the rounds, the mix wins exactly when s is strictly between 7.03 % and
++  84.71 % (rounded); it loses at 7.0 % and wins from 7.1 % to 84.7 %".
++- The badge stays the filled published badge; the ordinary coins of 16_11
++  are their own labelled pair (as 04's), not the games' coins.
++- Pause intentions: a turn before "But tossing a coin" (16_1); the
++  prediction after 16_3, answered at 16_4's first words; a beat after "and
++  wins" (16_6) while the first dot stands; a beat after "one step behind
++  corner zero" (16_7) before A's round; the shortcut's verdict (16_8) after
++  "an averaged coin"; a beat after each row of 16_10; inspection holds after
++  16_13 (the curve) and 16_14 (the card's reading time); a final hold.
++- Pronunciation: "thirty point seven", "sixty-nine", "twenty-nine and a
++  half", "one point five seven", "zero point six seven", "one point four
++  seven", "seven point zero three", "eighty-four point seven one",
++  "Harmer and Abbott".
++
++## 17_what_winning_promises: What winning promises (~267 s)
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 17_1 | Back to the player. Over the first thousand rounds of its run of game B, the player finished sixteen dollars ahead, even though game B loses. The long run caught up later: by the hundred thousandth round the player was five hundred forty-eight dollars down. | From an empty frame, the filled badge; a window at its own scale, "the player's dollars: the first 1,000 rounds of game B", rounds 0 to 1,000 against dollars −10 to 35 (ticks 0 and 20), the start dashed, "start 7". From "Over the first thousand rounds" the player's teal token rides B's run (the seeded run of 03, every second round drawn) and reaches its end at "sixteen dollars ahead": "+16 dollars after 1,000 rounds" there, and at "even though game B loses" "game B: −0.87 cents a round" under it. At "The long run caught up" a thumbnail of all 100,000 rounds, bottom right, at its own scale, "all 100,000 rounds" over it; at "five hundred forty-eight" "−548 dollars after 100,000" in red under it and a dot at its end | run, token, thumbnail | |
++| 17_2 | So what does a winning average promise over a fixed number of rounds? To answer exactly, start a whole crowd at zero dollars, on corner zero, and let every player play the coin-toss mix for a hundred rounds. Dollars can go below zero: a player with minus one dollar simply stands on corner two. | At "over a fixed number of rounds" the run and the thumbnail go. At "start a whole crowd at zero dollars" the axis "dollars won or lost" from −100 to +140 (ticks −100, −50, 0, +50, +100) and a teal dot at 0, "everyone starts here". At "play the coin-toss mix" "a crowd starts at 0 dollars, on corner 0, and plays the mix" at the top left and "rounds played 100" at the top right. At "Dollars can go below zero" a frame round the −100 and −50 ticks; at "minus one dollar" "−1 dollar stands on corner 2" over the axis, ending just left of the start (no tick: one dollar is a twentieth of a unit here) | axes | |
++| 17_3 | After a hundred rounds the crowd has spread out. Each bar is one possible total, and its height is the share of the crowd that finishes there. Every bar sits on an even number: each round moves a dollar up or down, so after an even number of rounds every total is even. Together the bars hold the whole crowd. The heights rise and fall with the corners: add up the bars on each corner, and you get the mix's settled crowd again, with the most on corner two. | At "spread out" the dot and the notes go and the exact distribution after 100 rounds grows from the axis (teal bars 1 dollar wide on every even total, gaps on the odd ones). At "Each bar is one possible total" "+2 dollars: 10.2 %" beside the tallest bar and a frame round it. At "its height is the share" the axis "share of the crowd" with 0, 5 and 10 %. At "Every bar sits on an even number" "odd totals: no one" and frames round the empty slots at +1 and −1. At "Together the bars hold the whole crowd" "all bars together: 100.0 %". At "rise and fall with the corners" outlines on the bars of corner-2 totals (−4, +2, +8 …); at "add up the bars" "added up by corner:" with "corner 0: 34.5 %", "corner 1: 25.4 %", "corner 2: 40.1 %"; at "the most on corner two" a frame round corner 2's line | histogram from the model, sums from the model | hold |
++| 17_4 | Color them by where each player finished. Ahead of the start: fifty-one point seven percent. Behind: thirty-nine point six. Exactly level, back at zero dollars: eight point seven. | The outlines go after 17_3's hold; at "Color them" the bars' words go. As each is said, its bars take its color (an opaque layer over the teal: right of 0 gold, left red, the bar at 0 dim) and its readout comes up under "rounds played 100": "ahead 51.7 %", "behind 39.6 %", "level 8.7 %". At "Exactly level" the "precisely" card (K08), held for its reading time | colored histogram, labels from facts, lower-third card | |
++| 17_5 | The crowd's average after a hundred rounds is one dollar and twenty-nine cents up. A hundred rounds at the mix's one point five seven cents would make one fifty-seven; starting on corner zero, where B's bad coin waits, costs about twenty-eight cents, once. And that average hides a lot: almost two in five players are behind. | At "The crowd's average" a white line at +1.29 dollars and the readout "average +1.29 dollars". At "would make one fifty-seven" "100 rounds at 1.57 cents = 1.57 dollars" (gold) right of the bars, and at "costs about twenty-eight cents" "starting on corner 0: −0.28 dollars, once" (red) under it (1.57 − 0.28 = 1.29). At "hides a lot" a frame round the red bars; at "almost two in five" a frame round "behind 39.6 %" | line, sums from facts | |
++| 17_6 | Now let the same crowd play a thousand rounds instead of a hundred. Will more of it finish ahead, or less, and how much? ⟨predict⟩ | At "Will more of it finish ahead" the two lines go and "after 1,000 rounds: ahead?" comes up right of the bars; the countdown under the readouts | think countdown | |
++| 17_7 | More. Sixty-eight point nine percent finish ahead after a thousand rounds, more than two in three. Watch the same bars, on the same dollar axis, as the rounds run from a hundred to a thousand. | At "Sixty-eight point nine" the question and the "?" give way to "after 1,000 rounds: ahead 68.9 %" in gold. At "Watch the same bars" the bars run through the exact distributions after 100, 102, 104 … 1,000 rounds, every even number (one exact crowd in every frame, each bar one total on the same axes), over 10 s; "rounds played" counts with them, the readouts "ahead", "behind", "level" and "average" and the average's line follow; the voice ends early and the change runs on silent | computed transformation, live readouts | |
++| 17_8 | Behind: twenty-eight point seven percent. Level: two point four. The crowd's average has kept growing by about one and a half cents a round, to fifteen dollars and forty-two cents. But the spread of the totals has grown more slowly, from about nine dollars to about thirty. | At "Behind" and "Level" frames round their readouts ("behind 28.7 %", "level 2.4 %"). At "kept growing" "900 more rounds: +14.13 dollars, +1.57 cents a round" right of the bars and a frame round "average +15.42 dollars". At "the spread" a bracket one spread either side of the average, over the bars, and "spread: 9.3 dollars at 100 rounds, 29.6 at 1,000" | bracket from the model | |
++| 17_9 | Ten times the rounds, but only about three point one six times the spread. That's close to the square root of ten. For long runs the spread grows like the square root of the number of rounds, while the average grows in step with them. It's a law about the long run, not an exact rule at a hundred or a thousand rounds. | At "Ten times the rounds" the rate line gives way to "10 times the rounds, 3.16 times the spread"; at "close to the square root of ten" "√10 ≈ 3.16" (TeX). At "For long runs" the "precisely" card (K10: the exact 3.1620 against 3.1623, and that the square-root growth is a long-run law), held for its reading time | values from facts, lower-third card | hold |
++| 17_10 | Now the player's sixteen dollars. Start a crowd at seven dollars, where the player started, and let it play game B alone for a thousand rounds. Thirty-four point five percent finish ahead, and fourteen point six percent finish at least sixteen dollars up. The player was lucky, but not rare. | At "the player's sixteen dollars" the mix's bars, the bracket, the readouts and the lines go; a teal dashed mark at +16 on the same axis and "the player: +16 dollars" over it. At "Start a crowd at seven dollars" the setup becomes "a crowd starts at 7 dollars, on corner 1, and plays game B alone". At "play game B alone" game B's exact distribution after 1,000 rounds from 7 dollars grows from the axis, colored as before (ahead gold, behind red, level dim; "rounds played 1,000" stays). At "Thirty-four point five percent" "ahead 34.5 %"; at "at least sixteen dollars up" "at least +16 14.6 %" and a frame round the bars from +16 on; at "lucky, but not rare" a frame round the mark's words | histogram from the model, mark | |
++| 17_11 | Over a thousand rounds from zero dollars, game A alone leaves sixty-one point two percent of its crowd behind, and game B alone sixty-three point nine percent. The coin-toss mix leaves only twenty-eight point seven percent behind. | The histogram goes. "after 1,000 rounds from 0 dollars, behind:"; a red bar grows as each is said (6 units for the whole crowd): "game A alone 61.2 %", "game B alone 63.9 %", "the mix 28.7 %" (names in their games' colors, the mix gold) | bars from facts | |
++| 17_12 | And in the very long run? With probability one, a single player's average per round settles on the mix's one point five seven cents. Not on average over a crowd: almost every run of one player, if it goes on forever. | At "With probability one", under the rows, "one player, playing forever: average per round → +1.57 cents, with probability one" in gold and the "precisely" card (K09), held for its reading time; at "Not on average over a crowd" a frame round the line | words from facts, lower-third card | |
++| 17_13 | So a winning game promises three different things. The crowd's average grows by about one and a half cents a round. The chance of being ahead is just over half after a hundred rounds and more than two in three after a thousand, but it never becomes certain. And one player's own average settles on that cent and a half only in the long run, with probability one. | At "three different things" the rows go. Three lines, each as it is said: "the crowd's average: grows 1.57 cents a round" (gold), "chance of being ahead: 51.7 % after 100 rounds, 68.9 % after 1,000, never certain" (at "never becomes certain" a frame round it), "one player's average per round: → 1.57 cents, with probability one" (teal) | summary from facts | hold |
++| 17_14 | These are invented games. What they teach is about chances that depend on where you stand, and none of it is advice about real money. | At "invented games" the lines go and B's triangle returns with its chances; at "depend on where you stand" a frame round the red corner 0 while it pulses | callback | hold |
+ 
+ ### Notes for 17
+ 
+-- 17_1 is the seeded run's own luck (+16 after 1,000 rounds of B; it ends
+-  −548 after 100,000). The tests assert the +16.
+-- K08: "start at 0 dollars (corner 0); exact distribution of the dollars after
+-  100 rounds of the mix with the published coins: ahead 51.7 %, behind
+-  39.6 %, level 8.7 %".
+-- K09: "with probability one the average per round converges to 223/14200
+-  dollars (strong law of large numbers for these games: Ethier & Lee,
+-  Electron. J. Probab. 14, 2009)".
+-- Pause intentions: a beat after "sixteen dollars ahead" (17_1) before "even
+-  though game B loses"; a thinking beat after "much bigger than that" (17_2);
+-  a hold at the end (17_7).
++- 17_1 keeps the player's +16 after 1,000 rounds of B as a finite-run
++  counterexample: B loses on average (−0.87 cents a round), yet this seeded
++  run was 16 dollars ahead at round 1,000 and −548 at 100,000. The window
++  is at its own scale (rounds 0 to 1,000), not 03's 100,000-round window.
++- Before any long-run language, 17_2 and 17_3 say what the exact
++  distributions are: the whole crowd starts at 0 dollars on corner 0 (so
++  B's first round in it meets the bad coin); negative totals are allowed
++  (−1 leaves remainder 2, K03); after an even number of rounds every total
++  is even (odd mass exactly 0, the oracle checks); each bar is one total, 1
++  dollar wide on a 2-dollar pitch, its height the share of the crowd there;
++  the bars hold the whole crowd (all of it inside the window at 100
++  rounds, all but less than 0.01 % at 1,000).
++- One axis and one meaning for every histogram: dollars won or lost from
++  the start, −100 to +140, and the share of the crowd at that total, 0 to
++  11 %. The transformation (17_7) runs through the exact distributions
++  after every even number of rounds from 100 to 1,000 (451 of them,
++  `model::snapshots` in one pass) with no interpolation: the tracker moves
++  in whole steps of two rounds, so every frame is one exact crowd on even
++  totals, and the counter, the bars, the readouts and the average's line
++  show the same round (a test samples 6,001 times). Every one of the 451
++  holds all but at most 0.005 % of the crowd inside the window, and none
++  has a bar taller than 10.23 % (the axis runs to 11 %).
++- The corners in the bars (17_3): the exact bars after 100 rounds are
++  jagged with a six-dollar pattern, because the corner a total stands on
++  decides its next coin. Added up by corner (total mod 3), the bars give
++  34.51, 25.41, 40.08 % after 100 rounds and after 1,000, the mix's
++  settled crowd at one decimal (34.5, 25.4, 40.1 %, the most on corner 2).
++  Only the sums are claimed: single corner-2 bars are not all taller than
++  their neighbours (after 100 rounds +8, +14, +20, +26 and −22 are not), so
++  the outlines mark which bars are added, not a ranking.
++- Three things kept apart (17_13): the crowd's average (it grows by the
++  mix's 1.57 cents a round, after a one-off cost of 0.28 dollars for
++  starting on corner 0; +1.29 and +15.42 dollars); the chance of being
++  ahead after a fixed number of rounds (51.7 % and 68.9 %, never certain:
++  every finite run can lose every round, and after one round only 29.5 %
++  are ahead, so the voice never says it is always better than even); one
++  player's long-run average, which converges to 223/14200 dollars with
++  probability one (K09).
++- The spread is the standard deviation of the totals: 9.35 and 29.55
++  dollars (shown 9.3 and 29.6). The ratio 3.1620 is close to √10 = 3.1623
++  but not equal; growth like √n is the central limit theorem's long-run
++  scaling (Ethier & Lee 2009), not an exact finite identity (K10).
++- 17_10: from 7 dollars (corner 1, the player's start), game B alone for
++  1,000 rounds: ahead 34.5 %, at least +16 dollars 14.6 % (from 0 it would
++  be 12.7 %). Lucky, not rare: roughly one crowd member in seven did as
++  well.
++- 17_12 draws no run: the seeded mix run of 04 averages +1.748 cents a
++  round over its 100,000 rounds, within its luck of 1.57 but visibly off
++  it, so a run would look like a contradiction of "settles". The claim is
++  K09's theorem.
++- K08 (17_4): "exact distribution, not a simulation: a crowd starting at 0
++  dollars, on corner 0, negative totals allowed, plays the mix with the
++  published coins; after 100 rounds ahead 51.7 %, behind 39.6 %, level
++  8.7 %".
++- K10 (17_9): "spread = standard deviation of the totals: 9.35 dollars at
++  100 rounds, 29.55 at 1,000; ratio 3.1620, square root of 10 = 3.1623;
++  square-root growth is a long-run law (central limit theorem: Ethier &
++  Lee, 2009)".
++- K09 (17_12): "with probability one, one player's average gain per round
++  converges to 223/14200 dollars, about 1.57 cents (strong law of large
++  numbers for these games: Ethier & Lee, Electron. J. Probab. 14, 2009)".
++- Pause intentions: a thought after "even though game B loses." (17_1),
++  so the counterexample lands before "The long run caught up later"; a
++  turn before "So what does a winning average promise", and a thought
++  after its question; a thought after "hold the whole crowd." before the
++  corners; inspection holds after 17_3 (the bars' meaning) and 17_4 (the
++  card); the prediction after 17_6, answered by 17_7's first
++  word; the transformation's own time, the voice silent, after "from a
++  hundred to a thousand"; a hold after 17_9 (the card); a beat after "but
++  not rare" (17_10); holds after 17_13 and at the end.
++- Pronunciation: "fifty-one point seven", "thirty-nine point six", "one
++  fifty-seven", "sixty-eight point nine", "twenty-eight point seven",
++  "three point one six", "thirty-four point five", "fourteen point six",
++  "sixty-one point two", "sixty-three point nine".
+ 
+ ## 18_the_catch: The catch (~83 s)
+ 
+--- a/explainer_corpus/parrondo/docs/storyboard.md
++++ b/explainer_corpus/parrondo/docs/storyboard.md
+@@ -710,3 +710,185 @@
+   over six hundred forty", "sixty-three over six hundred forty",
+   "forty-nine sixty-fourths", "three over one hundred sixty", "one
+   hundred forty-seven over sixteen", "Harmer and Abbott".
++
++## 16_when_switching_fails: When switching fails (~307 s)
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 16_1 | Up to now, a fair coin chose the game before every round, and the mix won. But tossing a coin is only one way to switch between two games. Does it matter in what order the games are played, or only how often each one is? | From an empty frame: the filled badge "published coins · 49.5 · 9.5 · 74.5 %"; B's triangle with the gold title "the mix", the mix's chances 29.5, 62, 62 % forward (gold) and 70.5, 38, 38 % back (dim), and the teal puddles at the mix's settled 34.5, 25.4, 40.1 %. At "a fair coin chose the game" the panel's first line, "random: a fair coin picks A or B each round", with a small gold coin; at "Does it matter" a frame round that line while the coin pulses | badge, triangle, puddles | |
++| 16_2 | Here is the simplest fixed order: A, then B, then A, then B, forever. Half the rounds are A and half are B, exactly as in the mix. Only the order has changed. | At "the simplest fixed order" the strip "A B A B A B A B A B A B …" (A blue, B in B's color) and its name "strict alternation", under the random line. The mix's six chances go and the title becomes "A B A B …". At "Half the rounds" a frame round the strip | strip | |
++| 16_3 | Same two games, same coins, the same half and half. So does strict alternation win, like the coin-toss mix? ⟨predict⟩ | "does A B A B … win?" under the strip; the countdown, right of the triangle | think countdown | |
++| 16_4 | It loses, about two thirds of a cent a round. The order alone has turned a win into a loss. To see why, watch the crowd. | The "?" goes; beside the strip's name, "loses: −0.67 cents a round" in red. At "The order alone" a frame round the strip | verdict from facts | |
++| 16_5 | Game A's rounds cost one cent each, wherever the crowd stands, because A's coin never looks at the money. So everything rides on B's rounds, and on the dial from before: the share of the crowd on corner zero when B plays. B breaks even at thirty-seven point seven percent. Below that line B's round wins, and above it B's round loses. | At "cost one cent each" "each A round: −1.00 cent" in blue under the strip. At "the share of the crowd on corner zero" the chart: "corner 0 when B plays" from 30 % to 40 % against "B round" 1 to 12. At "breaks even" its dashed line at 37.7 % labelled "B breaks even: 37.7 %" under the line at the right; at "Below that line" a gold "B wins" under it, at "above it" a red "B loses" above it | chart, line from facts | |
++| 16_6 | Start the crowd where game B alone leaves it, with thirty-eight point four percent on corner zero, and alternate. The first B round meets only thirty point seven percent there, and wins. But each time B comes back, a little more of the crowd is waiting on corner zero. The dots climb past the line and settle at thirty-eight percent, just above it. From then on, every B round loses. | At "where game B alone leaves it" the puddles move to B's settled 38.4, 15.4, 46.2 % ("from game B's settled crowd" under the triangle). A frame steps along the strip as each round is played, the counter "round 1 of 24" counting, and the puddles move round by round (computed: A's coin on A rounds, B's on B rounds). Before every B round a teal dot lands on the chart at corner 0's share. The first, at 30.7 % ("30.7 %" beside it), stands before the next round. The later rounds run faster; the dots climb (34.3, 36.3, 37.2 … %) past the line and settle at 38.0 % ("settles at 38.0 %" above the line). At "every B round loses" a frame round the dots above the line | live counter, computed rounds, dots | |
++| 16_7 | Why does alternating fill corner zero for B? Follow one cycle. B's bad coin knocks most of corner zero back to corner two, and its good coin carries most of corner one forward to corner two. So each B round leaves about sixty-nine percent of the crowd on corner two, one step behind corner zero. Then A plays, and its coin sends just under half of them forward, onto corner zero, while a few step back from corner one. Almost thirty-eight percent are waiting on corner zero when B plays again. | The settled cycle, the strip's frame on a B. At "knocks most of corner zero back" a red stream from corner 0 back to corner 2, at "carries most of corner one forward" a green stream from 1 to 2, and the puddles move to 23.5, 7.6, 68.9 %; "B leaves on corner 2: 68.95 %" in the panel. The frame moves to an A. At "sends just under half of them forward" a blue stream from 2 to 0 and "49.5 % × 68.95 % = 34.13 %"; at "a few step back" a dim stream from 1 to 0 and "50.5 % × 7.59 % = 3.83 %"; at "Almost thirty-eight percent" the puddles move back and "34.13 % + 3.83 % = 37.96 % on corner 0 when B plays", an arrow to the chart's settled dots | streams, sums from facts | |
++| 16_8 | It's tempting to take a shortcut and average the two games' chances at each corner. That gives twenty-nine and a half percent at corner zero and sixty-two percent at the others, exactly the coin-toss mix's coins, so it predicts the mix's win of just over one and a half cents. But alternation never tosses an averaged coin. Every round tosses one game's real coin, and the order decides where the crowd stands when the bad coin comes up. | The streams and sums go. "averaging A's and B's chances at each corner:" "29.5 %, 62 %, 62 %: the coin-toss mix's coins", "predicts +1.57 cents a round"; at "never tosses an averaged coin" a red strike through the prediction and "A B A B … actually: −0.67" in red | strike, values from facts | |
++| 16_9 | Now play two A's, then two B's, the pattern Harmer and Abbott simulated. Two A rounds in a row spread the crowd out again before B returns. So B's first round meets about thirty-six percent on corner zero, and its second only about thirty-three, both below the line. Two and two wins, about one and a half cents a round, a little less than the coin-toss mix. | The control's lines go; the alternation's dots dim. The strip becomes "A A B B A A B B A A B B …", the title "A A B B …". From B's settled crowd again, 24 computed rounds with the frame stepping and the counter; before every B round a gold dot. They stay below the line from the first, alternating near 36.0 % and 33.3 % ("36.0 %" and "33.3 %" beside the settled pair). At "Two and two wins" "wins: +1.47 cents a round" in gold beside the strip | computed rounds, dots | |
++| 16_10 | Put the three side by side, per round played. The coin-toss mix wins one point five seven cents. Strict alternation loses zero point six seven. Two and two wins one point four seven. Same games, same share of each: only the order changed, and with it where the crowd stands when B plays. | The chart and the strip go. A table: "schedule", "corner 0 when B plays", "cents a round"; a row as each is said: "random (a fair coin) 34.5 % +1.57", "A B A B … 38.0 % −0.67", "A A B B … 36.0 %, 33.3 % +1.47", with "per round played, A's rounds included" under it. At "where the crowd stands" a frame round the middle column | table from facts | |
++| 16_11 | Now the control. Replace A and B by the two ordinary coins, forty-nine and forty-eight percent, which never look at the money. Toss for the game, alternate, or play two and two: each loses exactly three cents a round. With coins like these, only how often each is tossed can matter, never the order. | At "Now the control" the triangle and the puddles go. At "the two ordinary coins" two plain dim coins at the right, "49 %" and "48 %", and "ordinary coins (they ignore the money)" over a new column; a cell as each schedule is said: "−3.00", "−3.00", "−3.00". At "never the order" a frame round the new column | table from facts | |
++| 16_12 | The share of each game matters too. Let a biased coin choose A on only one round in twenty, and the mix loses, about a quarter of a cent a round. Choose A on nine rounds in ten, and it loses again, about a third of a cent. | The table and the two coins go. The curve's axes: "A's share of the rounds (chosen at random)" from 0 to 100 %, "cents a round" from −1.2 to +2.0, the zero line; the ends "B alone −0.87" at 0 % and "A alone −1.00" at 100 %, and the coin-toss mix "+1.57" at 50 % in gold. At "one round in twenty" a red point at 5 %, "−0.23"; at "nine rounds in ten" a red point at 90 %, "−0.34" | axes, points from facts | |
++| 16_13 | Compute the mix at every share in between, and the curve rises above zero and comes back down. The mix wins from about seven percent to about eighty-five percent. At each crossing the two products from before are equal, and between the crossings the forward product is the bigger one. | The curve draws from 0 % to 100 %, computed at every half percent, through all five points. At "about seven percent" a tick "≈ 7 %" where it crosses zero, at "about eighty-five" "≈ 85 %". At "between the crossings" a gold band along the zero line between the ticks, "forward product bigger: the mix wins" | curve from the model | hold |
++| 16_14 | Those edges are not round numbers. The crossings sit at seven point zero three and eighty-four point seven one percent, rounded, and the mix wins only strictly between them. At exactly seven percent it still loses, by a hair, and at eighty-five percent it has already stopped winning. | At "seven point zero three" the ticks become "7.03 %" and "84.71 %". At "strictly between them", under the curve, a dim "cents a round:" and the grid's edges: "7.0 %: −0.0034 loses", "7.1 %: +0.0074 wins", "84.7 %: +0.0005 wins", "84.8 %: −0.0058 loses"; at "exactly seven percent" a frame round the first, at "eighty-five percent" round the last. The "precisely" card (K07), held for its reading time | values from facts, lower-third card | |
++| 16_15 | So no general rule says that switching between losing games wins. Here it wins for some orders and some shares, with these coins, because one game reads the money and the other moves it around. | At "no general rule" the curve and all its labels fade. At "some orders and some shares" B's triangle returns with the gold title "the mix", the mix's chances and its settled puddles (34.5, 25.4, 40.1 %); at "one game reads the money" a frame round the red corner 0 | callback | hold |
++
++### Notes for 16
++
++- Order (root's direction, ROOT1428-P16): the actual AB evolution (16_6)
++  and its mechanism (16_7) come before the rate table (16_10), and so does
++  AABB's (16_9). The prediction (16_3) is answered at 16_4's first words.
++- The schedules are played round by round, never by averaged chances. The
++  puddles follow `model::evolve_f64` with A's coin on A rounds and B's on B
++  rounds, from B's settled crowd (38.4 % on corner 0); the dots are the
++  computed corner-0 shares before each B round: 30.7, 34.3, 36.3, 37.2,
++  37.7 (37.65), 37.8 (37.82) … to 38.0 % (37.96 exactly in the cycle). The
++  cycle's shares come from `model::cycle` (exact): before A 23.47, 7.59,
++  68.95 %, before B 37.96, 46.43, 15.61 %.
++- Negative control, the tempting shortcut (16_8): averaging the two games'
++  chances at each corner gives 59/200, 31/50, 31/50, which are the random
++  mix's coins exactly, and they predict +1.57 cents; AB's real average is
++  −0.67. Averaged coins describe a coin toss before every round, not a
++  schedule.
++- Edges of the sentences: "each time B comes back, a little more … is
++  waiting" is checked exactly over the first 60 B rounds (strictly
++  increasing). "From then on, every B round loses" holds from the sixth B
++  round: its share is above 49/130, and the oracle shows that the crowd's
++  total-variation distance to the cycle (0.18 points) is smaller than the
++  cycle's margin over the line (0.27 points), and that distance never grows
++  under a round of either game. The visible dots do not separate the fifth
++  (37.65 %) from the line (37.69 %), so the voice names no round.
++- A's rounds cost exactly one cent each whatever the shares (A's coin is
++  the same at every corner); the B round's result is one line in corner
++  0's share, wins below 49/130 = 37.7 % and loses above (12's dial).
++- 16_7's sums are exact values rounded to 0.01 %, and the rounded parts add
++  to the rounded total: 49.5 % × 68.95 % = 34.13 %, 50.5 % × 7.59 % =
++  3.83 %, 34.13 % + 3.83 % = 37.96 % (the oracle checks the printed
++  arithmetic).
++- AABB from B's settled crowd: its B rounds meet 34.74, 34.49 %, then
++  35.78, 33.54 % … to 36.03 and 33.31 % in the cycle; all below the line,
++  from the first. Harmer and Abbott's figure simulates AABB repeated and
++  random switching (brief); the voice attributes nothing more.
++- The table (16_10), per round played: random +1.57 (B rounds meet
++  34.5 %), AB −0.67 (38.0 %), AABB +1.47 (36.0 and 33.3 %), cents a round.
++- The control (16_11): with coins that ignore the money each round's
++  average is 2p − 1 wherever the player stands, so any schedule with half
++  of each loses exactly (−2 − 4)/2 = −3.00 cents; the oracle checks every
++  schedule against its count of each coin.
++- The curve (16_12 to 16_14): the mix with A chosen by an independent coin
++  on a share s of the rounds, `PUBLISHED.mix_share` at every 0.5 % (exact,
++  drawn as floats). The crossings are the two roots of p₀p₁p₂ = q₀q₁q₂ in
++  s (the oracle counts exactly two in (0, 1) by Sturm's theorem): 7.0314 %
++  and 84.7077 %. Rounded crossings are not the exact strict bounds: at the
++  0.1 % grid 7.0 % loses (−0.0034 c), 7.1 % wins, 84.7 % wins (+0.0005 c),
++  84.8 % loses; 85 % loses (−0.018 c). The best share on that grid is
++  40.8 % (+1.66 c), not 50 %; the voice does not say where it peaks.
++- K07 (16_14): "published coins, per round played: with A on a share s of
++  the rounds, the mix wins exactly when s is strictly between 7.03 % and
++  84.71 % (rounded); it loses at 7.0 % and wins from 7.1 % to 84.7 %".
++- The badge stays the filled published badge; the ordinary coins of 16_11
++  are their own labelled pair (as 04's), not the games' coins.
++- Pause intentions: a turn before "But tossing a coin" (16_1); the
++  prediction after 16_3, answered at 16_4's first words; a beat after "and
++  wins" (16_6) while the first dot stands; a beat after "one step behind
++  corner zero" (16_7) before A's round; the shortcut's verdict (16_8) after
++  "an averaged coin"; a beat after each row of 16_10; inspection holds after
++  16_13 (the curve) and 16_14 (the card's reading time); a final hold.
++- Pronunciation: "thirty point seven", "sixty-nine", "twenty-nine and a
++  half", "one point five seven", "zero point six seven", "one point four
++  seven", "seven point zero three", "eighty-four point seven one",
++  "Harmer and Abbott".
++
++## 17_what_winning_promises: What winning promises (~267 s)
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 17_1 | Back to the player. Over the first thousand rounds of its run of game B, the player finished sixteen dollars ahead, even though game B loses. The long run caught up later: by the hundred thousandth round the player was five hundred forty-eight dollars down. | From an empty frame, the filled badge; a window at its own scale, "the player's dollars: the first 1,000 rounds of game B", rounds 0 to 1,000 against dollars −10 to 35 (ticks 0 and 20), the start dashed, "start 7". From "Over the first thousand rounds" the player's teal token rides B's run (the seeded run of 03, every second round drawn) and reaches its end at "sixteen dollars ahead": "+16 dollars after 1,000 rounds" there, and at "even though game B loses" "game B: −0.87 cents a round" under it. At "The long run caught up" a thumbnail of all 100,000 rounds, bottom right, at its own scale, "all 100,000 rounds" over it; at "five hundred forty-eight" "−548 dollars after 100,000" in red under it and a dot at its end | run, token, thumbnail | |
++| 17_2 | So what does a winning average promise over a fixed number of rounds? To answer exactly, start a whole crowd at zero dollars, on corner zero, and let every player play the coin-toss mix for a hundred rounds. Dollars can go below zero: a player with minus one dollar simply stands on corner two. | At "over a fixed number of rounds" the run and the thumbnail go. At "start a whole crowd at zero dollars" the axis "dollars won or lost" from −100 to +140 (ticks −100, −50, 0, +50, +100) and a teal dot at 0, "everyone starts here". At "play the coin-toss mix" "a crowd starts at 0 dollars, on corner 0, and plays the mix" at the top left and "rounds played 100" at the top right. At "Dollars can go below zero" a frame round the −100 and −50 ticks; at "minus one dollar" "−1 dollar stands on corner 2" over the axis, ending just left of the start (no tick: one dollar is a twentieth of a unit here) | axes | |
++| 17_3 | After a hundred rounds the crowd has spread out. Each bar is one possible total, and its height is the share of the crowd that finishes there. Every bar sits on an even number: each round moves a dollar up or down, so after an even number of rounds every total is even. Together the bars hold the whole crowd. The heights rise and fall with the corners: add up the bars on each corner, and you get the mix's settled crowd again, with the most on corner two. | At "spread out" the dot and the notes go and the exact distribution after 100 rounds grows from the axis (teal bars 1 dollar wide on every even total, gaps on the odd ones). At "Each bar is one possible total" "+2 dollars: 10.2 %" beside the tallest bar and a frame round it. At "its height is the share" the axis "share of the crowd" with 0, 5 and 10 %. At "Every bar sits on an even number" "odd totals: no one" and frames round the empty slots at +1 and −1. At "Together the bars hold the whole crowd" "all bars together: 100.0 %". At "rise and fall with the corners" outlines on the bars of corner-2 totals (−4, +2, +8 …); at "add up the bars" "added up by corner:" with "corner 0: 34.5 %", "corner 1: 25.4 %", "corner 2: 40.1 %"; at "the most on corner two" a frame round corner 2's line | histogram from the model, sums from the model | hold |
++| 17_4 | Color them by where each player finished. Ahead of the start: fifty-one point seven percent. Behind: thirty-nine point six. Exactly level, back at zero dollars: eight point seven. | The outlines go after 17_3's hold; at "Color them" the bars' words go. As each is said, its bars take its color (an opaque layer over the teal: right of 0 gold, left red, the bar at 0 dim) and its readout comes up under "rounds played 100": "ahead 51.7 %", "behind 39.6 %", "level 8.7 %". At "Exactly level" the "precisely" card (K08), held for its reading time | colored histogram, labels from facts, lower-third card | |
++| 17_5 | The crowd's average after a hundred rounds is one dollar and twenty-nine cents up. A hundred rounds at the mix's one point five seven cents would make one fifty-seven; starting on corner zero, where B's bad coin waits, costs about twenty-eight cents, once. And that average hides a lot: almost two in five players are behind. | At "The crowd's average" a white line at +1.29 dollars and the readout "average +1.29 dollars". At "would make one fifty-seven" "100 rounds at 1.57 cents = 1.57 dollars" (gold) right of the bars, and at "costs about twenty-eight cents" "starting on corner 0: −0.28 dollars, once" (red) under it (1.57 − 0.28 = 1.29). At "hides a lot" a frame round the red bars; at "almost two in five" a frame round "behind 39.6 %" | line, sums from facts | |
++| 17_6 | Now let the same crowd play a thousand rounds instead of a hundred. Will more of it finish ahead, or less, and how much? ⟨predict⟩ | At "Will more of it finish ahead" the two lines go and "after 1,000 rounds: ahead?" comes up right of the bars; the countdown under the readouts | think countdown | |
++| 17_7 | More. Sixty-eight point nine percent finish ahead after a thousand rounds, more than two in three. Watch the same bars, on the same dollar axis, as the rounds run from a hundred to a thousand. | At "Sixty-eight point nine" the question and the "?" give way to "after 1,000 rounds: ahead 68.9 %" in gold. At "Watch the same bars" the bars run through the exact distributions after 100, 102, 104 … 1,000 rounds, every even number (one exact crowd in every frame, each bar one total on the same axes), over 10 s; "rounds played" counts with them, the readouts "ahead", "behind", "level" and "average" and the average's line follow; the voice ends early and the change runs on silent | computed transformation, live readouts | |
++| 17_8 | Behind: twenty-eight point seven percent. Level: two point four. The crowd's average has kept growing by about one and a half cents a round, to fifteen dollars and forty-two cents. But the spread of the totals has grown more slowly, from about nine dollars to about thirty. | At "Behind" and "Level" frames round their readouts ("behind 28.7 %", "level 2.4 %"). At "kept growing" "900 more rounds: +14.13 dollars, +1.57 cents a round" right of the bars and a frame round "average +15.42 dollars". At "the spread" a bracket one spread either side of the average, over the bars, and "spread: 9.3 dollars at 100 rounds, 29.6 at 1,000" | bracket from the model | |
++| 17_9 | Ten times the rounds, but only about three point one six times the spread. That's close to the square root of ten. For long runs the spread grows like the square root of the number of rounds, while the average grows in step with them. It's a law about the long run, not an exact rule at a hundred or a thousand rounds. | At "Ten times the rounds" the rate line gives way to "10 times the rounds, 3.16 times the spread"; at "close to the square root of ten" "√10 ≈ 3.16" (TeX). At "For long runs" the "precisely" card (K10: the exact 3.1620 against 3.1623, and that the square-root growth is a long-run law), held for its reading time | values from facts, lower-third card | hold |
++| 17_10 | Now the player's sixteen dollars. Start a crowd at seven dollars, where the player started, and let it play game B alone for a thousand rounds. Thirty-four point five percent finish ahead, and fourteen point six percent finish at least sixteen dollars up. The player was lucky, but not rare. | At "the player's sixteen dollars" the mix's bars, the bracket, the readouts and the lines go; a teal dashed mark at +16 on the same axis and "the player: +16 dollars" over it. At "Start a crowd at seven dollars" the setup becomes "a crowd starts at 7 dollars, on corner 1, and plays game B alone". At "play game B alone" game B's exact distribution after 1,000 rounds from 7 dollars grows from the axis, colored as before (ahead gold, behind red, level dim; "rounds played 1,000" stays). At "Thirty-four point five percent" "ahead 34.5 %"; at "at least sixteen dollars up" "at least +16 14.6 %" and a frame round the bars from +16 on; at "lucky, but not rare" a frame round the mark's words | histogram from the model, mark | |
++| 17_11 | Over a thousand rounds from zero dollars, game A alone leaves sixty-one point two percent of its crowd behind, and game B alone sixty-three point nine percent. The coin-toss mix leaves only twenty-eight point seven percent behind. | The histogram goes. "after 1,000 rounds from 0 dollars, behind:"; a red bar grows as each is said (6 units for the whole crowd): "game A alone 61.2 %", "game B alone 63.9 %", "the mix 28.7 %" (names in their games' colors, the mix gold) | bars from facts | |
++| 17_12 | And in the very long run? With probability one, a single player's average per round settles on the mix's one point five seven cents. Not on average over a crowd: almost every run of one player, if it goes on forever. | At "With probability one", under the rows, "one player, playing forever: average per round → +1.57 cents, with probability one" in gold and the "precisely" card (K09), held for its reading time; at "Not on average over a crowd" a frame round the line | words from facts, lower-third card | |
++| 17_13 | So a winning game promises three different things. The crowd's average grows by about one and a half cents a round. The chance of being ahead is just over half after a hundred rounds and more than two in three after a thousand, but it never becomes certain. And one player's own average settles on that cent and a half only in the long run, with probability one. | At "three different things" the rows go. Three lines, each as it is said: "the crowd's average: grows 1.57 cents a round" (gold), "chance of being ahead: 51.7 % after 100 rounds, 68.9 % after 1,000, never certain" (at "never becomes certain" a frame round it), "one player's average per round: → 1.57 cents, with probability one" (teal) | summary from facts | hold |
++| 17_14 | These are invented games. What they teach is about chances that depend on where you stand, and none of it is advice about real money. | At "invented games" the lines go and B's triangle returns with its chances; at "depend on where you stand" a frame round the red corner 0 while it pulses | callback | hold |
++
++### Notes for 17
++
++- 17_1 keeps the player's +16 after 1,000 rounds of B as a finite-run
++  counterexample: B loses on average (−0.87 cents a round), yet this seeded
++  run was 16 dollars ahead at round 1,000 and −548 at 100,000. The window
++  is at its own scale (rounds 0 to 1,000), not 03's 100,000-round window.
++- Before any long-run language, 17_2 and 17_3 say what the exact
++  distributions are: the whole crowd starts at 0 dollars on corner 0 (so
++  B's first round in it meets the bad coin); negative totals are allowed
++  (−1 leaves remainder 2, K03); after an even number of rounds every total
++  is even (odd mass exactly 0, the oracle checks); each bar is one total, 1
++  dollar wide on a 2-dollar pitch, its height the share of the crowd there;
++  the bars hold the whole crowd (all of it inside the window at 100
++  rounds, all but less than 0.01 % at 1,000).
++- One axis and one meaning for every histogram: dollars won or lost from
++  the start, −100 to +140, and the share of the crowd at that total, 0 to
++  11 %. The transformation (17_7) runs through the exact distributions
++  after every even number of rounds from 100 to 1,000 (451 of them,
++  `model::snapshots` in one pass) with no interpolation: the tracker moves
++  in whole steps of two rounds, so every frame is one exact crowd on even
++  totals, and the counter, the bars, the readouts and the average's line
++  show the same round (a test samples 6,001 times). Every one of the 451
++  holds all but at most 0.005 % of the crowd inside the window, and none
++  has a bar taller than 10.23 % (the axis runs to 11 %).
++- The corners in the bars (17_3): the exact bars after 100 rounds are
++  jagged with a six-dollar pattern, because the corner a total stands on
++  decides its next coin. Added up by corner (total mod 3), the bars give
++  34.51, 25.41, 40.08 % after 100 rounds and after 1,000, the mix's
++  settled crowd at one decimal (34.5, 25.4, 40.1 %, the most on corner 2).
++  Only the sums are claimed: single corner-2 bars are not all taller than
++  their neighbours (after 100 rounds +8, +14, +20, +26 and −22 are not), so
++  the outlines mark which bars are added, not a ranking.
++- Three things kept apart (17_13): the crowd's average (it grows by the
++  mix's 1.57 cents a round, after a one-off cost of 0.28 dollars for
++  starting on corner 0; +1.29 and +15.42 dollars); the chance of being
++  ahead after a fixed number of rounds (51.7 % and 68.9 %, never certain:
++  every finite run can lose every round, and after one round only 29.5 %
++  are ahead, so the voice never says it is always better than even); one
++  player's long-run average, which converges to 223/14200 dollars with
++  probability one (K09).
++- The spread is the standard deviation of the totals: 9.35 and 29.55
++  dollars (shown 9.3 and 29.6). The ratio 3.1620 is close to √10 = 3.1623
++  but not equal; growth like √n is the central limit theorem's long-run
++  scaling (Ethier & Lee 2009), not an exact finite identity (K10).
++- 17_10: from 7 dollars (corner 1, the player's start), game B alone for
++  1,000 rounds: ahead 34.5 %, at least +16 dollars 14.6 % (from 0 it would
++  be 12.7 %). Lucky, not rare: roughly one crowd member in seven did as
++  well.
++- 17_12 draws no run: the seeded mix run of 04 averages +1.748 cents a
++  round over its 100,000 rounds, within its luck of 1.57 but visibly off
++  it, so a run would look like a contradiction of "settles". The claim is
++  K09's theorem.
++- K08 (17_4): "exact distribution, not a simulation: a crowd starting at 0
++  dollars, on corner 0, negative totals allowed, plays the mix with the
++  published coins; after 100 rounds ahead 51.7 %, behind 39.6 %, level
++  8.7 %".
++- K10 (17_9): "spread = standard deviation of the totals: 9.35 dollars at
++  100 rounds, 29.55 at 1,000; ratio 3.1620, square root of 10 = 3.1623;
++  square-root growth is a long-run law (central limit theorem: Ethier &
++  Lee, 2009)".
++- K09 (17_12): "with probability one, one player's average gain per round
++  converges to 223/14200 dollars, about 1.57 cents (strong law of large
++  numbers for these games: Ethier & Lee, Electron. J. Probab. 14, 2009)".
++- Pause intentions: a thought after "even though game B loses." (17_1),
++  so the counterexample lands before "The long run caught up later"; a
++  turn before "So what does a winning average promise", and a thought
++  after its question; a thought after "hold the whole crowd." before the
++  corners; inspection holds after 17_3 (the bars' meaning) and 17_4 (the
++  card); the prediction after 17_6, answered by 17_7's first
++  word; the transformation's own time, the voice silent, after "from a
++  hundred to a thousand"; a hold after 17_9 (the card); a beat after "but
++  not rare" (17_10); holds after 17_13 and at the end.
++- Pronunciation: "fifty-one point seven", "thirty-nine point six", "one
++  fifty-seven", "sixty-eight point nine", "twenty-eight point seven",
++  "three point one six", "thirty-four point five", "fourteen point six",
++  "sixty-one point two", "sixty-three point nine".
+--- a/explainer_corpus/parrondo/script.tsv
++++ b/explainer_corpus/parrondo/script.tsv
+@@ -130,3 +130,32 @@
+ 15_13	Spread over the players and tripled, the net flow gives the mix's average exactly, just over two and a half cents a round.
+ 15_14	Now shave the half point off again, back to the coins Harmer and Abbott published. Game A's forward product falls below its backward one, so A loses, a cent a round. Game B's falls below as well, so B loses, just under a cent. The mix's forward product stays above, so the mix wins, just over one and a half cents a round. Two products per game decide A, B and the mix.
+ 15_15	Notice what the test never needed. No crowd and no weights, just the three chances forward and the three chances back, each set multiplied together.
++16_1	Up to now, a fair coin chose the game before every round, and the mix won. But tossing a coin is only one way to switch between two games. Does it matter in what order the games are played, or only how often each one is?
++16_2	Here is the simplest fixed order: A, then B, then A, then B, forever. Half the rounds are A and half are B, exactly as in the mix. Only the order has changed.
++16_3	Same two games, same coins, the same half and half. So does strict alternation win, like the coin-toss mix?
++16_4	It loses, about two thirds of a cent a round. The order alone has turned a win into a loss. To see why, watch the crowd.
++16_5	Game A's rounds cost one cent each, wherever the crowd stands, because A's coin never looks at the money. So everything rides on B's rounds, and on the dial from before: the share of the crowd on corner zero when B plays. B breaks even at thirty-seven point seven percent. Below that line B's round wins, and above it B's round loses.
++16_6	Start the crowd where game B alone leaves it, with thirty-eight point four percent on corner zero, and alternate. The first B round meets only thirty point seven percent there, and wins. But each time B comes back, a little more of the crowd is waiting on corner zero. The dots climb past the line and settle at thirty-eight percent, just above it. From then on, every B round loses.
++16_7	Why does alternating fill corner zero for B? Follow one cycle. B's bad coin knocks most of corner zero back to corner two, and its good coin carries most of corner one forward to corner two. So each B round leaves about sixty-nine percent of the crowd on corner two, one step behind corner zero. Then A plays, and its coin sends just under half of them forward, onto corner zero, while a few step back from corner one. Almost thirty-eight percent are waiting on corner zero when B plays again.
++16_8	It's tempting to take a shortcut and average the two games' chances at each corner. That gives twenty-nine and a half percent at corner zero and sixty-two percent at the others, exactly the coin-toss mix's coins, so it predicts the mix's win of just over one and a half cents. But alternation never tosses an averaged coin. Every round tosses one game's real coin, and the order decides where the crowd stands when the bad coin comes up.
++16_9	Now play two A's, then two B's, the pattern Harmer and Abbott simulated. Two A rounds in a row spread the crowd out again before B returns. So B's first round meets about thirty-six percent on corner zero, and its second only about thirty-three, both below the line. Two and two wins, about one and a half cents a round, a little less than the coin-toss mix.
++16_10	Put the three side by side, per round played. The coin-toss mix wins one point five seven cents. Strict alternation loses zero point six seven. Two and two wins one point four seven. Same games, same share of each: only the order changed, and with it where the crowd stands when B plays.
++16_11	Now the control. Replace A and B by the two ordinary coins, forty-nine and forty-eight percent, which never look at the money. Toss for the game, alternate, or play two and two: each loses exactly three cents a round. With coins like these, only how often each is tossed can matter, never the order.
++16_12	The share of each game matters too. Let a biased coin choose A on only one round in twenty, and the mix loses, about a quarter of a cent a round. Choose A on nine rounds in ten, and it loses again, about a third of a cent.
++16_13	Compute the mix at every share in between, and the curve rises above zero and comes back down. The mix wins from about seven percent to about eighty-five percent. At each crossing the two products from before are equal, and between the crossings the forward product is the bigger one.
++16_14	Those edges are not round numbers. The crossings sit at seven point zero three and eighty-four point seven one percent, rounded, and the mix wins only strictly between them. At exactly seven percent it still loses, by a hair, and at eighty-five percent it has already stopped winning.
++16_15	So no general rule says that switching between losing games wins. Here it wins for some orders and some shares, with these coins, because one game reads the money and the other moves it around.
++17_1	Back to the player. Over the first thousand rounds of its run of game B, the player finished sixteen dollars ahead, even though game B loses. The long run caught up later: by the hundred thousandth round the player was five hundred forty-eight dollars down.
++17_2	So what does a winning average promise over a fixed number of rounds? To answer exactly, start a whole crowd at zero dollars, on corner zero, and let every player play the coin-toss mix for a hundred rounds. Dollars can go below zero: a player with minus one dollar simply stands on corner two.
++17_3	After a hundred rounds the crowd has spread out. Each bar is one possible total, and its height is the share of the crowd that finishes there. Every bar sits on an even number: each round moves a dollar up or down, so after an even number of rounds every total is even. Together the bars hold the whole crowd. The heights rise and fall with the corners: add up the bars on each corner, and you get the mix's settled crowd again, with the most on corner two.
++17_4	Color them by where each player finished. Ahead of the start: fifty-one point seven percent. Behind: thirty-nine point six. Exactly level, back at zero dollars: eight point seven.
++17_5	The crowd's average after a hundred rounds is one dollar and twenty-nine cents up. A hundred rounds at the mix's one point five seven cents would make one fifty-seven; starting on corner zero, where B's bad coin waits, costs about twenty-eight cents, once. And that average hides a lot: almost two in five players are behind.
++17_6	Now let the same crowd play a thousand rounds instead of a hundred. Will more of it finish ahead, or less, and how much?
++17_7	More. Sixty-eight point nine percent finish ahead after a thousand rounds, more than two in three. Watch the same bars, on the same dollar axis, as the rounds run from a hundred to a thousand.
++17_8	Behind: twenty-eight point seven percent. Level: two point four. The crowd's average has kept growing by about one and a half cents a round, to fifteen dollars and forty-two cents. But the spread of the totals has grown more slowly, from about nine dollars to about thirty.
++17_9	Ten times the rounds, but only about three point one six times the spread. That's close to the square root of ten. For long runs the spread grows like the square root of the number of rounds, while the average grows in step with them. It's a law about the long run, not an exact rule at a hundred or a thousand rounds.
++17_10	Now the player's sixteen dollars. Start a crowd at seven dollars, where the player started, and let it play game B alone for a thousand rounds. Thirty-four point five percent finish ahead, and fourteen point six percent finish at least sixteen dollars up. The player was lucky, but not rare.
++17_11	Over a thousand rounds from zero dollars, game A alone leaves sixty-one point two percent of its crowd behind, and game B alone sixty-three point nine percent. The coin-toss mix leaves only twenty-eight point seven percent behind.
++17_12	And in the very long run? With probability one, a single player's average per round settles on the mix's one point five seven cents. Not on average over a crowd: almost every run of one player, if it goes on forever.
++17_13	So a winning game promises three different things. The crowd's average grows by about one and a half cents a round. The chance of being ahead is just over half after a hundred rounds and more than two in three after a thousand, but it never becomes certain. And one player's own average settles on that cent and a half only in the long run, with probability one.
++17_14	These are invented games. What they teach is about chances that depend on where you stand, and none of it is advice about real money.
+--- a/explainer_corpus/parrondo/src/chapters/mod.rs
++++ b/explainer_corpus/parrondo/src/chapters/mod.rs
+@@ -21,6 +21,8 @@
+ pub mod the_trap;
+ pub mod three_corners;
+ pub mod two_products;
++pub mod what_winning_promises;
++pub mod when_switching_fails;
+ pub mod where_you_stand;
+ 
+ use explainer_kit::Chapter;
+@@ -56,5 +58,15 @@
+         scene!("13_the_half_point", 0.45, the_half_point::TheHalfPoint),
+         scene!("14_net_flow", 0.45, net_flow::NetFlow),
+         scene!("15_two_products", 0.45, two_products::TwoProducts),
++        scene!(
++            "16_when_switching_fails",
++            0.45,
++            when_switching_fails::WhenSwitchingFails
++        ),
++        scene!(
++            "17_what_winning_promises",
++            0.45,
++            what_winning_promises::WhatWinningPromises
++        ),
+     ]
+ }
+--- a/explainer_corpus/parrondo/src/main.rs
++++ b/explainer_corpus/parrondo/src/main.rs
+@@ -14,7 +14,7 @@
+ //! ```
+ //!
+ //! The registry, `docs/storyboard.md` and `script.tsv` hold only chapters
+-//! with native scenes (today 01–15). The whole planned film is
++//! with native scenes (today 01–17). The whole planned film is
+ //! `docs/storyboard-draft.md`; its facts are all computed here already.
+ 
+ mod chapters;
+@@ -747,6 +747,325 @@
+         ),
+         ("15_15", "the three chances forward", "rules.modulus", "3"),
+         ("15_15", "the three chances back", "rules.modulus", "3"),
++        // 16–17: schedules played round by round, A's share, and what a winning average promises
++        ("16_2", "Half the rounds are A", "sched.a_share", "1/2,1/2,1/2"),
++        ("16_2", "half are B", "sched.a_share", "1/2,1/2,1/2"),
++        ("16_3", "the same half and half", "sched.a_share", "1/2,1/2,1/2"),
++        (
++            "16_4",
++            "about two thirds of a cent a round",
++            "pub.sched.ab.cents",
++            "-0.67",
++        ),
++        ("16_5", "cost one cent each", "pub.a.mean.cents", "-1.00"),
++        (
++            "16_5",
++            "thirty-seven point seven percent",
++            "pub.b.fair_share.pct",
++            "37.7",
++        ),
++        (
++            "16_6",
++            "thirty-eight point four percent on corner zero",
++            "pub.b.weights.pct",
++            "38.4,15.4,46.2",
++        ),
++        (
++            "16_6",
++            "thirty point seven percent",
++            "pub.sched.ab.first.b.at0.pct",
++            "30.7",
++        ),
++        (
++            "16_6",
++            "settle at thirty-eight percent",
++            "pub.sched.ab.cycle.b.pct",
++            "38.0,46.4,15.6",
++        ),
++        (
++            "16_7",
++            "about sixty-nine percent",
++            "pub.sched.ab.cycle.a.pct2",
++            "23.47,7.59,68.95",
++        ),
++        (
++            "16_7",
++            "just under half of them",
++            "coins.published.heads.pct",
++            "49.5,9.5,74.5",
++        ),
++        (
++            "16_7",
++            "Almost thirty-eight percent",
++            "pub.sched.ab.refill.pct2",
++            "34.13,3.83,37.96",
++        ),
++        ("16_8", "twenty-nine and a half percent", "pub.mix.coins.pct", "29.5,62"),
++        (
++            "16_8",
++            "sixty-two percent at the others",
++            "pub.mix.coins.pct",
++            "29.5,62",
++        ),
++        ("16_8", "just over one and a half cents", "pub.mix.mean.cents", "+1.57"),
++        (
++            "16_9",
++            "about thirty-six percent",
++            "pub.sched.aabb.b.at0.pct",
++            "36.0,33.3",
++        ),
++        (
++            "16_9",
++            "only about thirty-three",
++            "pub.sched.aabb.b.at0.pct",
++            "36.0,33.3",
++        ),
++        (
++            "16_9",
++            "about one and a half cents a round",
++            "pub.sched.aabb.cents",
++            "+1.47",
++        ),
++        (
++            "16_10",
++            "wins one point five seven cents",
++            "pub.mix.mean.cents",
++            "+1.57",
++        ),
++        ("16_10", "loses zero point six seven", "pub.sched.ab.cents", "-0.67"),
++        ("16_10", "wins one point four seven", "pub.sched.aabb.cents", "+1.47"),
++        (
++            "16_11",
++            "forty-nine and forty-eight percent",
++            "ordinary.coins.pct",
++            "49,48",
++        ),
++        (
++            "16_11",
++            "exactly three cents a round",
++            "ordinary.sched.cents",
++            "-3.00,-3.00,-3.00",
++        ),
++        ("16_12", "one round in twenty", "pub.share.points", "1/20,9/10"),
++        (
++            "16_12",
++            "about a quarter of a cent a round",
++            "pub.share.1_20.cents",
++            "-0.23",
++        ),
++        ("16_12", "nine rounds in ten", "pub.share.points", "1/20,9/10"),
++        ("16_12", "about a third of a cent", "pub.share.9_10.cents", "-0.34"),
++        ("16_13", "from about seven percent", "pub.share.crossings.whole", "7,85"),
++        (
++            "16_13",
++            "to about eighty-five percent",
++            "pub.share.crossings.whole",
++            "7,85",
++        ),
++        (
++            "16_14",
++            "seven point zero three",
++            "pub.share.crossings.fine",
++            "7.03,84.71",
++        ),
++        (
++            "16_14",
++            "eighty-four point seven one percent",
++            "pub.share.crossings.fine",
++            "7.03,84.71",
++        ),
++        (
++            "16_14",
++            "At exactly seven percent it still loses",
++            "pub.share.whole.cents",
++            "-0.0034,-0.0183",
++        ),
++        (
++            "16_14",
++            "at eighty-five percent it has already stopped winning",
++            "pub.share.whole.cents",
++            "-0.0034,-0.0183",
++        ),
++        ("17_1", "the first thousand rounds", "run.short", "1000"),
++        ("17_1", "sixteen dollars ahead", "run.b.net.short", "16"),
++        ("17_1", "the hundred thousandth round", "run.rounds", "100000"),
++        ("17_1", "five hundred forty-eight dollars down", "run.b.net", "-548"),
++        ("17_2", "start a whole crowd at zero dollars", "horizon.start", "0"),
++        ("17_2", "for a hundred rounds", "horizon.rounds", "100,1000"),
++        (
++            "17_2",
++            "a player with minus one dollar simply stands on corner two",
++            "remainder.examples",
++            "6:0,7:1,8:2,9:0,10:1,600:0,-1:2,-3:0",
++        ),
++        ("17_3", "After a hundred rounds", "horizon.rounds", "100,1000"),
++        (
++            "17_3",
++            "with the most on corner two",
++            "pub.mix.weights.pct",
++            "34.5,25.4,40.1",
++        ),
++        (
++            "17_4",
++            "fifty-one point seven percent",
++            "horizon.short.mix",
++            "51.7,39.6,8.7",
++        ),
++        (
++            "17_4",
++            "Behind: thirty-nine point six",
++            "horizon.short.mix",
++            "51.7,39.6,8.7",
++        ),
++        ("17_4", "eight point seven", "horizon.short.mix", "51.7,39.6,8.7"),
++        (
++            "17_5",
++            "one dollar and twenty-nine cents up",
++            "horizon.mix.mean",
++            "+1.29,+15.42",
++        ),
++        (
++            "17_5",
++            "the mix's one point five seven cents",
++            "pub.mix.mean.cents",
++            "+1.57",
++        ),
++        (
++            "17_5",
++            "would make one fifty-seven",
++            "horizon.mix.at_rate",
++            "1.57,15.70",
++        ),
++        (
++            "17_5",
++            "costs about twenty-eight cents, once",
++            "horizon.mix.start_cost",
++            "0.28",
++        ),
++        (
++            "17_5",
++            "almost two in five players are behind",
++            "horizon.short.mix",
++            "51.7,39.6,8.7",
++        ),
++        (
++            "17_6",
++            "a thousand rounds instead of a hundred",
++            "horizon.rounds",
++            "100,1000",
++        ),
++        (
++            "17_7",
++            "Sixty-eight point nine percent",
++            "horizon.long.mix",
++            "68.9,28.7,2.4",
++        ),
++        ("17_7", "more than two in three", "horizon.long.mix", "68.9,28.7,2.4"),
++        ("17_7", "from a hundred to a thousand", "horizon.rounds", "100,1000"),
++        (
++            "17_8",
++            "Behind: twenty-eight point seven percent",
++            "horizon.long.mix",
++            "68.9,28.7,2.4",
++        ),
++        ("17_8", "Level: two point four", "horizon.long.mix", "68.9,28.7,2.4"),
++        (
++            "17_8",
++            "about one and a half cents a round",
++            "pub.mix.mean.cents",
++            "+1.57",
++        ),
++        (
++            "17_8",
++            "fifteen dollars and forty-two cents",
++            "horizon.mix.mean",
++            "+1.29,+15.42",
++        ),
++        (
++            "17_8",
++            "from about nine dollars to about thirty",
++            "horizon.mix.spread",
++            "9.3,29.6",
++        ),
++        ("17_9", "Ten times the rounds", "horizon.rounds.ratio", "10"),
++        (
++            "17_9",
++            "three point one six times the spread",
++            "horizon.mix.spread.ratio",
++            "3.16",
++        ),
++        ("17_9", "the square root of ten", "horizon.rounds.ratio", "10"),
++        (
++            "17_9",
++            "at a hundred or a thousand rounds",
++            "horizon.rounds",
++            "100,1000",
++        ),
++        ("17_10", "the player's sixteen dollars", "run.b.net.short", "16"),
++        ("17_10", "Start a crowd at seven dollars", "run.start", "7"),
++        ("17_10", "game B alone for a thousand rounds", "run.short", "1000"),
++        (
++            "17_10",
++            "Thirty-four point five percent finish ahead",
++            "horizon.long.b.from_start",
++            "34.5,14.6",
++        ),
++        (
++            "17_10",
++            "fourteen point six percent",
++            "horizon.long.b.from_start",
++            "34.5,14.6",
++        ),
++        ("17_10", "at least sixteen dollars up", "run.b.net.short", "16"),
++        (
++            "17_11",
++            "Over a thousand rounds from zero dollars",
++            "horizon.rounds",
++            "100,1000",
++        ),
++        (
++            "17_11",
++            "sixty-one point two percent",
++            "horizon.long.a.behind.pct",
++            "61.2",
++        ),
++        (
++            "17_11",
++            "sixty-three point nine percent",
++            "horizon.long.b.behind.pct",
++            "63.9",
++        ),
++        (
++            "17_11",
++            "only twenty-eight point seven percent behind",
++            "horizon.long.mix",
++            "68.9,28.7,2.4",
++        ),
++        (
++            "17_12",
++            "the mix's one point five seven cents",
++            "pub.mix.mean.cents",
++            "+1.57",
++        ),
++        (
++            "17_13",
++            "about one and a half cents a round",
++            "pub.mix.mean.cents",
++            "+1.57",
++        ),
++        (
++            "17_13",
++            "just over half after a hundred rounds",
++            "horizon.short.mix",
++            "51.7,39.6,8.7",
++        ),
++        (
++            "17_13",
++            "more than two in three after a thousand",
++            "horizon.long.mix",
++            "68.9,28.7,2.4",
++        ),
++        ("17_13", "that cent and a half", "pub.mix.mean.cents", "+1.57"),
+     ];
+ 
+     /// Words that state a quantity. "One" and "two" are left out: here they
+--- a/explainer_corpus/parrondo/src/facts.rs
++++ b/explainer_corpus/parrondo/src/facts.rs
+@@ -36,6 +36,17 @@
+ pub const REMAINDERS: [i64; 8] = [6, 7, 8, 9, 10, 600, -1, -3];
+ /// The schedules chapter 16 compares (and Ethier & Lee pin).
+ pub const PATTERNS: [&str; 4] = ["AB", "AABB", "ABB", "AAB"];
++/// Chapter 16's rounds of each schedule played one at a time, from game
++/// B's settled crowd.
++pub const PLAYED_ROUNDS: usize = 24;
++/// Shares of A's rounds either side of the curve's crossings, 7.0, 7.1,
++/// 84.7 and 84.8 % (16_14), and the whole percentages nearest them.
++pub const EDGE_SHARES: [(i64, i64); 4] = [(70, 1000), (71, 1000), (847, 1000), (848, 1000)];
++pub const WHOLE_EDGES: [(i64, i64); 2] = [(7, 100), (85, 100)];
++/// Where chapter 17's crowds start, in dollars (on corner 0), and its
++/// window of dollars won or lost, every histogram's.
++pub const CROWD_START: i64 = 0;
++pub const WINDOW: (i64, i64) = (-100, 140);
+ 
+ const HARMER_ABBOTT: &str =
+     "Harmer & Abbott, Nature 402, 864 (1999): p = 1/2 - e, p2 = 1/10 - e, p3 = 3/4 - e, e = 0.005";
+@@ -457,6 +468,168 @@
+         pct_f64(model::horizon(&pub_b, LONG_HORIZON, 0).1),
+     )?;
+ 
++    // 16: what each schedule's rounds meet. A's share of the rounds is a
++    // half in the coin-toss mix, in AB and in AABB alike
++    let half = Ratio::new(1, 2);
++    if (0..3).any(|i| pub_mix.chance(i) != PUBLISHED.mix_share(1, 2).chance(i)) {
++        return Err("16_2 says the coin-toss mix plays A on half the rounds".into());
++    }
++    let a_share = |p: &str| Ratio::new(p.matches('A').count() as i128, p.len() as i128);
++    f.add("sched.a_share", csv([half, a_share("AB"), a_share("AABB")]))?;
++    // 16_6: alternation played round by round from B's settled crowd
++    let ab_played = model::played(&schedule("AB", &PUBLISHED), pb.map(|w| w.to_f64()), PLAYED_ROUNDS);
++    f.add("pub.sched.ab.first.b.at0.pct", pct_f64(ab_played[1][0]))?;
++    // 16_7, 16_9, 16_10: the cycles AB and AABB settle into (exact); each
++    // round's gain at the shares it meets averages to the schedule's
++    let gain = |g: &Game, v: &[Ratio; 3]| Ratio::int(2) * g.win_at(v) - Ratio::ONE;
++    let pct2 = |v: &[Ratio; 3]| csv(v.iter().map(|x| x.pct(2)));
++    let mut cycles = Vec::with_capacity(2);
++    for pattern in ["AB", "AABB"] {
++        let games = schedule(pattern, &PUBLISHED);
++        let phases = model::cycle(&games);
++        let total = games
++            .iter()
++            .zip(&phases)
++            .fold(Ratio::ZERO, |acc, (g, v)| acc + gain(g, v));
++        if total / Ratio::int(games.len() as i64) != periodic(&games).0 {
++            return Err(format!(
++                "{pattern}: its cycle's rounds do not average to the schedule's"
++            ));
++        }
++        cycles.push(phases);
++    }
++    let (ab, aabb) = (&cycles[0], &cycles[1]);
++    f.add("pub.sched.ab.cycle.a.pct2", pct2(&ab[0]))?;
++    f.add("pub.sched.ab.cycle.b.pct2", pct2(&ab[1]))?;
++    f.add("pub.sched.ab.cycle.b.pct", csv(ab[1].map(|x| x.pct(1))))?;
++    f.add("pub.sched.ab.b.cents", gain(&pub_b, &ab[1]).cents(2))?;
++    f.add("pub.sched.aabb.b.at0.pct", csv([aabb[2][0].pct(1), aabb[3][0].pct(1)]))?;
++    f.add(
++        "pub.sched.aabb.b.cents",
++        csv([2, 3].map(|k| gain(&pub_b, &aabb[k]).cents(2))),
++    )?;
++    // 16_7: A's round refills corner 0 from the crowd B's round leaves
++    let (from2, from1) = (a_coin * ab[0][2], (Ratio::ONE - a_coin) * ab[0][1]);
++    if from2 + from1 != ab[1][0] {
++        return Err("16_7 says corner 0 is refilled from corners 2 and 1".into());
++    }
++    f.add(
++        "pub.sched.ab.refill.pct2",
++        csv([from2, from1, ab[1][0]].map(|x| x.pct(2))),
++    )?;
++    // 16_11: two ordinary coins, which ignore the money, in each schedule
++    let plain = Coins {
++        a: ORDINARY[0] * DEN / 100,
++        bad: ORDINARY[1] * DEN / 100,
++        good: ORDINARY[1] * DEN / 100,
++    };
++    let plain_sched = [
++        plain.mix().mean(),
++        periodic(&schedule("AB", &plain)).0,
++        periodic(&schedule("AABB", &plain)).0,
++    ];
++    f.add("ordinary.sched.cents", csv(plain_sched.map(|x| x.cents(2))))?;
++    // 16_12 to 16_14: where A's share stops winning, rounded and exactly
++    f.add(
++        "pub.share.points",
++        csv(SHARES.map(|(n, d)| Ratio::new(n.into(), d.into()))),
++    )?;
++    let (low, high) = (
++        model::crossing(&PUBLISHED, 0.0, 0.5),
++        model::crossing(&PUBLISHED, 0.5, 1.0),
++    );
++    f.add(
++        "pub.share.crossings.fine",
++        format!("{:.2},{:.2}", 100.0 * low, 100.0 * high),
++    )?;
++    f.add(
++        "pub.share.crossings.whole",
++        format!("{:.0},{:.0}", 100.0 * low, 100.0 * high),
++    )?;
++    let edge = EDGE_SHARES.map(|(n, d)| PUBLISHED.mix_share(n, d).mean());
++    f.add(
++        "pub.share.edge.pct",
++        csv(EDGE_SHARES.map(|(n, d)| Ratio::new(n.into(), d.into()).pct(1))),
++    )?;
++    f.add("pub.share.edge.cents", csv(edge.map(|m| m.cents(4))))?;
++    f.add("pub.share.edge.sign", csv(edge.map(|m| m.signum())))?;
++    f.add(
++        "pub.share.whole.cents",
++        csv(WHOLE_EDGES.map(|(n, d)| PUBLISHED.mix_share(n, d).mean().cents(4))),
++    )?;
++
++    // 17: the crowd's exact distributions of dollars won or lost, one
++    // pass per game (floats; the oracle's integer programme agrees to
++    // every printed digit)
++    let rounds = [HORIZON, LONG_HORIZON];
++    f.add("horizon.rounds", csv(rounds))?;
++    f.add("horizon.rounds.ratio", LONG_HORIZON / HORIZON)?;
++    f.add("horizon.start", CROWD_START)?;
++    if CROWD_START.rem_euclid(MODULUS) != 0 {
++        return Err("17_2 starts the crowd on corner 0".into());
++    }
++    f.add("run.short", SHORT)?;
++    let snaps = model::snapshots(&pub_mix, CROWD_START, &rounds);
++    let cats: Vec<_> = snaps.iter().map(|d| model::categories(d, LONG_HORIZON)).collect();
++    let short = model::horizon(&pub_mix, HORIZON, CROWD_START);
++    if [cats[0].0 - short.0, cats[0].1 - short.1, cats[0].2 - short.2]
++        .iter()
++        .any(|d| d.abs() > 1e-12)
++    {
++        return Err("17's bars disagree with the horizon's shares".into());
++    }
++    f.add("horizon.long.mix", csv([cats[1].0, cats[1].1, cats[1].2].map(pct_f64)))?;
++    let (top, tallest) = snaps[0]
++        .iter()
++        .enumerate()
++        .fold((0, 0.0), |best, (k, &w)| if w > best.1 { (k, w) } else { best });
++    let net = |k: usize| k as i64 - LONG_HORIZON as i64;
++    f.add(
++        "horizon.short.mix.tallest",
++        format!("{}:{}", net(top), pct_f64(tallest)),
++    )?;
++    let from_start = model::snapshots(&pub_b, START, &[LONG_HORIZON]).remove(0);
++    let inside = |d: &[f64]| -> f64 {
++        d.iter()
++            .enumerate()
++            .filter(|&(k, _)| (WINDOW.0..=WINDOW.1).contains(&net(k)))
++            .map(|(_, w)| w)
++            .sum()
++    };
++    f.add(
++        "horizon.window.pct",
++        csv([inside(&snaps[0]), inside(&snaps[1]), inside(&from_start)].map(pct_f64)),
++    )?;
++    let moments: Vec<(f64, f64)> = snaps.iter().map(|d| model::moments(d, LONG_HORIZON)).collect();
++    f.add("horizon.mix.mean", csv(moments.iter().map(|m| format!("{:+.2}", m.0))))?;
++    f.add("horizon.mix.spread", csv(moments.iter().map(|m| format!("{:.1}", m.1))))?;
++    f.add(
++        "horizon.mix.spread2",
++        csv(moments.iter().map(|m| format!("{:.2}", m.1))),
++    )?;
++    let ratio = moments[1].1 / moments[0].1;
++    f.add("horizon.mix.spread.ratio", format!("{ratio:.2}"))?;
++    f.add("horizon.mix.spread.ratio.fine", format!("{ratio:.4}"))?;
++    let sqrt = ((LONG_HORIZON / HORIZON) as f64).sqrt();
++    f.add("horizon.rounds.sqrt.fine", format!("{sqrt:.4}"))?;
++    // the crowd's average against rounds × the mix's average: starting on
++    // corner 0 costs the same once, at 100 rounds and at 1,000
++    let at_rate = rounds.map(|n| Ratio::int(n as i64) * pub_mix.mean());
++    f.add("horizon.mix.at_rate", csv(at_rate.map(|x| x.fixed(2))))?;
++    let cost = [0, 1].map(|k| at_rate[k].to_f64() - moments[k].0);
++    if (cost[0] - cost[1]).abs() > 0.005 {
++        return Err("17_5 says starting on corner 0 costs the same, once".into());
++    }
++    f.add("horizon.mix.start_cost", format!("{:.2}", cost[0]))?;
++    // 17_10: the player's start and its 1,000 rounds of game B
++    if SHORT != LONG_HORIZON {
++        return Err("17_10 sets the player's 1,000 rounds against the crowd's".into());
++    }
++    let b_ahead = from_start[LONG_HORIZON + 1..].iter().sum::<f64>();
++    let at_least = usize::try_from(LONG_HORIZON as i64 + runs[1].1.net_after(SHORT)).map_err(|e| e.to_string())?;
++    let b_lucky = from_start[at_least..].iter().sum::<f64>();
++    f.add("horizon.long.b.from_start", csv([b_ahead, b_lucky].map(pct_f64)))?;
++
+     // the closing puzzle (18)
+     let (reverse, swapped) = (PUBLISHED.b_at_zero(), PUBLISHED.a_at_zero());
+     f.add("pub.reverse.mean", reverse.mean())?;
+--- a/explainer_corpus/parrondo/oracle.py
++++ b/explainer_corpus/parrondo/oracle.py
+@@ -42,6 +42,7 @@
+ positive long-run average per round.
+ """
+ import sys
++from decimal import ROUND_HALF_UP, Decimal, localcontext
+ from fractions import Fraction
+ from itertools import product
+ 
+@@ -64,6 +65,15 @@
+ SETTLE_LOOK = 200
+ SHARES = (Fraction(1, 20), Fraction(9, 10))
+ REMAINDERS = (6, 7, 8, 9, 10, 600, -1, -3)
++# chapter 16: rounds of each schedule played one at a time in the checks
++# (the scene shows 24), A's shares either side of the crossings and the
++# whole percentages nearest them; chapter 17's crowds' start (corner 0)
++# and window of dollars won or lost
++PLAYED_CHECK = 120
++CROWD_START = 0
++EDGE_SHARES = ((70, 1000), (71, 1000), (847, 1000), (848, 1000))
++WHOLE_EDGES = ((7, 100), (85, 100))
++WINDOW = (-100, 140)
+ # chapter 08's real crowd: rounds shown one by one, and rounds counted
+ REAL_SHOWN = 8
+ REAL_ROUNDS = 1000
+@@ -135,6 +145,21 @@
+     return csv(Fraction(v) for v in values)
+ 
+ 
++def decimal_sqrt(x):
++    """The square root of a fraction to 60 significant digits."""
++    with localcontext() as ctx:
++        ctx.prec = 60
++        return (Decimal(x.numerator) / Decimal(x.denominator)).sqrt()
++
++
++def dec_fixed(d, places):
++    """A positive Decimal rounded half up to `places` decimals, refused if
++    it is within 1e-12 of a tie (floats on the Rust side then agree)."""
++    if not far_from_boundary(Fraction(d), places, Fraction(1, 10**12)):
++        raise SystemExit(f"oracle: {d} is too close to a rounding boundary at {places} places")
++    return str(d.quantize(Decimal(1).scaleb(-places), rounding=ROUND_HALF_UP))
++
++
+ # -------------------------------------------------------------- the games
+ 
+ def b_game(coins):
+@@ -227,6 +252,34 @@
+     return total / len(games), v == pi
+ 
+ 
++def cycle(games):
++    """Each round's starting shares once the schedule has settled into its
++    cycle, exactly: π of the period's matrix, carried round by round."""
++    m = step_matrix(games[0])
++    for g in games[1:]:
++        m = matmul(m, step_matrix(g))
++    v, out = stationary(m), []
++    for g in games:
++        out.append(v)
++        v = vecmat(v, step_matrix(g))
++    return out
++
++
++def played(games, start, rounds):
++    """The shares before each of `rounds` rounds of the schedule repeated,
++    exactly, from `start`."""
++    out, v = [], list(start)
++    for k in range(rounds):
++        out.append(v)
++        v = vecmat(v, step_matrix(games[k % len(games)]))
++    return out
++
++
++def gain(game, v):
++    """One round's average gain when the crowd's shares are v."""
++    return sum(v[i] * (2 * game[i] - 1) for i in range(3))
++
++
+ def schedule(pattern, coins):
+     return [a_game(coins) if c == "A" else b_game(coins) for c in pattern]
+ 
+@@ -321,6 +374,85 @@
+     return Fraction(ahead, total), Fraction(behind, total), Fraction(level, total), ahead + behind + level == total
+ 
+ 
++def net_distribution(game, rounds, start):
++    """Exact distribution of the dollars won or lost after `rounds`, from
++    `start` dollars, on integer weights scaled by 200 per round (a dict,
++    net -> weight, and its total 200**rounds). Independent of horizon(),
++    which indexes an array of absolute dollars from a start of 0."""
++    up = [int(p * 200) for p in game]
++    if any(Fraction(u, 200) != p for u, p in zip(up, game)):
++        raise SystemExit("oracle: a chance is not a whole number of 200ths")
++    dist = {0: 1}
++    for _ in range(rounds):
++        new = {}
++        for net, w in dist.items():
++            r = (start + net) % MODULUS
++            new[net + 1] = new.get(net + 1, 0) + w * up[r]
++            new[net - 1] = new.get(net - 1, 0) + w * (200 - up[r])
++        dist = new
++    return dist, 200**rounds
++
++
++def categories(dist, total):
++    """Ahead of the start, behind it, level with it."""
++    return (Fraction(sum(w for k, w in dist.items() if k > 0), total),
++            Fraction(sum(w for k, w in dist.items() if k < 0), total),
++            Fraction(dist.get(0, 0), total))
++
++
++def moments(dist, total):
++    """The mean and the variance of the net, exactly."""
++    m = Fraction(sum(k * w for k, w in dist.items()), total)
++    return m, Fraction(sum(k * k * w for k, w in dist.items()), total) - m * m
++
++
++def window_mass(dist, total):
++    lo, hi = WINDOW
++    return Fraction(sum(w for k, w in dist.items() if lo <= k <= hi), total)
++
++
++def poly_mul(a, b):
++    out = [Fraction(0)] * (len(a) + len(b) - 1)
++    for i, x in enumerate(a):
++        for j, y in enumerate(b):
++            out[i + j] += x * y
++    return out
++
++
++def poly_trim(a):
++    a = list(a)
++    while len(a) > 1 and a[-1] == 0:
++        a.pop()
++    return a
++
++
++def poly_rem(a, b):
++    a, b = poly_trim(a), poly_trim(b)
++    while len(a) >= len(b) and any(a):
++        f = a[-1] / b[-1]
++        shift = len(a) - len(b)
++        for i, y in enumerate(b):
++            a[i + shift] -= f * y
++        a = poly_trim(a[:-1]) if len(a) > 1 else [Fraction(0)]
++    return a
++
++
++def poly_at(a, x):
++    return sum(c * x**k for k, c in enumerate(a))
++
++
++def sturm_roots(a, lo, hi):
++    """How many distinct real roots the polynomial a has in (lo, hi]
++    (Sturm's theorem; a has no root at lo)."""
++    seq = [poly_trim(a), poly_trim([k * c for k, c in enumerate(a)][1:])]
++    while any(seq[-1]) and len(seq[-1]) > 1:
++        seq.append([-c for c in poly_rem(seq[-2], seq[-1])])
++    def changes(x):
++        signs = [s for s in ((poly_at(p, x) > 0) - (poly_at(p, x) < 0) for p in seq) if s]
++        return sum(1 for s, t in zip(signs, signs[1:]) if s != t)
++    return changes(lo) - changes(hi)
++
++
+ def bisect(f, lo, hi, steps=60):
+     """A sign change of f in [lo, hi], exactly, to 2^-steps."""
+     flo = f(lo) > 0
+@@ -624,6 +756,42 @@
+         emit(f"pub.share.{s.numerator}_{s.denominator}.cents", cents(mix_mean(s)))
+     out["crossings"] = (low, high, mix_mean)
+ 
++    # 16: what each schedule's rounds meet, played round by round from B's
++    # settled crowd and in the cycle each settles into (exact)
++    emit("sched.a_share", csv([Fraction(1, 2)] + [Fraction(p.count("A"), len(p)) for p in ("AB", "AABB")]))
++    ab_games, aabb_games = schedule("AB", PUBLISHED), schedule("AABB", PUBLISHED)
++    pb = shares(pub_b)
++    ab_played = played(ab_games, pb, PLAYED_CHECK)
++    aabb_played = played(aabb_games, pb, PLAYED_CHECK)
++    emit("pub.sched.ab.first.b.at0.pct", pct(ab_played[1][0]))
++    ab_cycle, aabb_cycle = cycle(ab_games), cycle(aabb_games)
++    emit("pub.sched.ab.cycle.a.pct2", csv(pct(x, 2) for x in ab_cycle[0]))
++    emit("pub.sched.ab.cycle.b.pct2", csv(pct(x, 2) for x in ab_cycle[1]))
++    emit("pub.sched.ab.cycle.b.pct", csv(pct(x) for x in ab_cycle[1]))
++    emit("pub.sched.ab.b.cents", cents(gain(pub_b, ab_cycle[1])))
++    emit("pub.sched.aabb.b.at0.pct", csv(pct(aabb_cycle[k][0]) for k in (2, 3)))
++    emit("pub.sched.aabb.b.cents", csv(cents(gain(pub_b, aabb_cycle[k])) for k in (2, 3)))
++    a_coin = PUBLISHED[0]
++    from2, from1 = a_coin * ab_cycle[0][2], (1 - a_coin) * ab_cycle[0][1]
++    emit("pub.sched.ab.refill.pct2", csv(pct(x, 2) for x in (from2, from1, ab_cycle[1][0])))
++    plain = (ORDINARY[0], ORDINARY[1], ORDINARY[1])
++    plain_sched = (mean(mix_of(a_game(plain), b_game(plain))), periodic(schedule("AB", plain))[0],
++                   periodic(schedule("AABB", plain))[0])
++    emit("ordinary.sched.cents", csv(cents(x) for x in plain_sched))
++    out["schedules"] = (ab_played, aabb_played, ab_cycle, aabb_cycle, (from2, from1), plain_sched)
++    # 16_12 to 16_14: the crossings rounded, and the exact strict bounds
++    emit("pub.share.points", csv(SHARES))
++    emit("pub.share.crossings.fine", csv(pct(x[0], 2) for x in (low, high)))
++    emit("pub.share.crossings.whole", csv(pct(x[0], 0) for x in (low, high)))
++    edges = [Fraction(n, d) for n, d in EDGE_SHARES]
++    edge_means = [mix_mean(s) for s in edges]
++    emit("pub.share.edge.pct", csv(pct(s) for s in edges))
++    emit("pub.share.edge.cents", csv(cents(m, 4) for m in edge_means))
++    emit("pub.share.edge.sign", csv((m > 0) - (m < 0) for m in edge_means))
++    whole_means = [mix_mean(Fraction(n, d)) for n, d in WHOLE_EDGES]
++    emit("pub.share.whole.cents", csv(cents(m, 4) for m in whole_means))
++    out["share_edges"] = (edges, edge_means, whole_means)
++
+     # finite play (17)
+     ahead, behind, level, whole = horizon(pub_mix, HORIZON)
+     emit("horizon.short.mix", csv(pct(x) for x in (ahead, behind, level)))
+@@ -635,6 +803,40 @@
+     emit("horizon.long.b.behind.pct", pct(long_b[1]))
+     out["horizon"] = ((ahead, behind, level, whole), long_mix, long_a, long_b)
+ 
++    # 17: the crowd's exact distributions of dollars won or lost
++    emit("horizon.rounds", csv((HORIZON, LONG_HORIZON)))
++    emit("horizon.rounds.ratio", LONG_HORIZON // HORIZON)
++    emit("horizon.start", CROWD_START)
++    emit("run.short", SHORT)
++    dists = [net_distribution(pub_mix, n, CROWD_START) for n in (HORIZON, LONG_HORIZON)]
++    cats = [categories(d, t) for d, t in dists]
++    emit("horizon.long.mix", csv(pct(x) for x in cats[1]))
++    d100, t100 = dists[0]
++    top = max(d100, key=lambda k: d100[k])
++    emit("horizon.short.mix.tallest", f"{top}:{pct(Fraction(d100[top], t100))}")
++    b7, t7 = net_distribution(pub_b, LONG_HORIZON, START)
++    windows = [window_mass(d, t) for d, t in dists + [(b7, t7)]]
++    emit("horizon.window.pct", csv(pct(x) for x in windows))
++    moms = [moments(d, t) for d, t in dists]
++    emit("horizon.mix.mean", csv(signed(m, 2) for m, _ in moms))
++    sds = [decimal_sqrt(v) for _, v in moms]
++    emit("horizon.mix.spread", csv(dec_fixed(s, 1) for s in sds))
++    emit("horizon.mix.spread2", csv(dec_fixed(s, 2) for s in sds))
++    ratio = decimal_sqrt(moms[1][1] / moms[0][1])
++    emit("horizon.mix.spread.ratio", dec_fixed(ratio, 2))
++    emit("horizon.mix.spread.ratio.fine", dec_fixed(ratio, 4))
++    root10 = decimal_sqrt(Fraction(LONG_HORIZON, HORIZON))
++    emit("horizon.rounds.sqrt.fine", dec_fixed(root10, 4))
++    at_rate = [n * mean(pub_mix) for n in (HORIZON, LONG_HORIZON)]
++    emit("horizon.mix.at_rate", csv(fixed(x, 2) for x in at_rate))
++    costs = [r - m for r, (m, _) in zip(at_rate, moms)]
++    emit("horizon.mix.start_cost", fixed(costs[0], 2))
++    lucky_net = runs["B"][0][SHORT] - START
++    ahead7 = Fraction(sum(w for k, w in b7.items() if k > 0), t7)
++    lucky = Fraction(sum(w for k, w in b7.items() if k >= lucky_net), t7)
++    emit("horizon.long.b.from_start", csv(pct(x) for x in (ahead7, lucky)))
++    out["finite"] = (dists, cats, top, (b7, t7), windows, moms, sds, ratio, root10, costs, ahead7, lucky)
++
+     # the closing puzzle (18): switching by the count, both ways round
+     reverse = (PUBLISHED[1], PUBLISHED[0], PUBLISHED[0])
+     swapped = (PUBLISHED[0], PUBLISHED[2], PUBLISHED[2])
+@@ -827,6 +1029,135 @@
+     check("the crossings are far from a rounding boundary (floats agree)",
+           far_from_boundary(100 * low[0], 1) and far_from_boundary(100 * high[0], 1))
+ 
++    # 16: the schedules, round by round and in their cycles
++    ab_played, aabb_played, ab_cycle, aabb_cycle, (from2, from1), plain_sched = out["schedules"]
++    line = Fraction(49, 130)
++    check("a B round breaks even with 49/130 of the crowd on corner 0, wins below it and loses above, "
++          "however corners 1 and 2 split the rest",
++          all(gain(pub_b, (line, s, 1 - line - s)) == 0 for s in (Fraction(0), Fraction(1, 5), 1 - line))
++          and gain(pub_b, (line - Fraction(1, 100), 0, 1 - line + Fraction(1, 100))) > 0
++          > gain(pub_b, (line + Fraction(1, 100), 0, 1 - line - Fraction(1, 100))))
++    check("an A round loses exactly a cent at any shares (A's coin is the same at every corner)",
++          all(gain(pub_a, v) == Fraction(-1, 100) for v in ab_played[:6] + ab_cycle))
++    for label, sched, phases in (("AB", schedule("AB", PUBLISHED), ab_cycle),
++                                 ("AABB", schedule("AABB", PUBLISHED), aabb_cycle)):
++        returns = vecmat(phases[-1], step_matrix(sched[-1])) == phases[0]
++        moved = all(vecmat(phases[k], step_matrix(sched[k])) == phases[k + 1] for k in range(len(sched) - 1))
++        avg = sum(gain(g, v) for g, v in zip(sched, phases)) / len(sched)
++        check(f"{label}: the cycle's shares come back after a period and its rounds average to the "
++              "schedule's per round played", returns and moved and avg == periodic(sched)[0])
++    ab_b = [v[0] for k, v in enumerate(ab_played) if k % 2 == 1]
++    check(f"16_6: from B's settled crowd, alternation's B rounds meet strictly more of the crowd on corner 0 "
++          f"each time ({len(ab_b)} B rounds), the first {pct(ab_b[0])} %, and all below the cycle's",
++          all(x < y for x, y in zip(ab_b, ab_b[1:])) and all(x < ab_cycle[1][0] for x in ab_b)
++          and far_from_boundary(100 * ab_b[0], 1))
++    check("16_6: the fifth B round meets less than 49/130 and the sixth more (the visible dots do not "
++          "separate the fifth from the line, so the voice names no round)", ab_b[4] < line < ab_b[5])
++    tv = [sum(abs(x - y) for x, y in zip(v, ab_cycle[k % 2])) / 2 for k, v in enumerate(ab_played)]
++    check("16_6: from the sixth B round on every B round loses: the crowd's total-variation distance to the "
++          f"cycle there ({float(100 * tv[11]):.3f} points) is below the cycle's margin over the line "
++          f"({float(100 * (ab_cycle[1][0] - line)):.3f}), and it never grows from round to round",
++          tv[11] < ab_cycle[1][0] - line and all(y <= x for x, y in zip(tv, tv[1:])))
++    aabb_b = [v[0] for k, v in enumerate(aabb_played) if k % 4 in (2, 3)]
++    aabb_tv = [sum(abs(x - y) for x, y in zip(v, aabb_cycle[k % 4])) / 2 for k, v in enumerate(aabb_played)]
++    check("16_9: AABB's B rounds meet less than 49/130 on corner 0 from the first, in the cycle (36.0 and "
++          "33.3 %) and, by the never-growing distance to the cycle, ever after",
++          all(x < line for x in aabb_b) and max(aabb_cycle[2][0], aabb_cycle[3][0]) + aabb_tv[-1] < line
++          and all(y <= x for x, y in zip(aabb_tv, aabb_tv[1:])))
++    check("16_7: B's round leaves the cycle's A shares, and A refills corner 0 with 49.5 % of corner 2 "
++          "and 50.5 % of corner 1",
++          vecmat(ab_cycle[1], step_matrix(pub_b)) == ab_cycle[0] and from2 + from1 == ab_cycle[1][0])
++    shown = [Fraction(x) for x in (pct(ab_cycle[0][2], 2), pct(ab_cycle[0][1], 2), pct(from2, 2), pct(from1, 2),
++                                   pct(ab_cycle[1][0], 2))]
++    check("16_7's printed sums: 49.5 % × 68.95 % rounds to 34.13 %, 50.5 % × 7.59 % to 3.83 %, and 34.13 % + "
++          "3.83 % is 37.96 %",
++          fixed(PUBLISHED[0] * shown[0], 2) == pct(from2, 2) and fixed((1 - PUBLISHED[0]) * shown[1], 2)
++          == pct(from1, 2) and shown[2] + shown[3] == shown[4])
++    averaged = tuple((x + y) / 2 for x, y in zip(pub_a, pub_b))
++    check("control 16_8: averaging AB's two chances at each corner gives the coin-toss mix's coins, which "
++          "predict a win; AB played round by round loses",
++          averaged == pub_mix and mean(averaged) > 0 > periodic(schedule("AB", PUBLISHED))[0])
++    check("16_9, 16_10: two and two wins, a little less than the coin-toss mix",
++          0 < periodic(schedule("AABB", PUBLISHED))[0] < mean(pub_mix))
++    plain_bad = 0
++    for p in (Fraction(k, 100) for k in range(1, 100, 7)):
++        for q in (Fraction(k, 100) for k in range(2, 100, 9)):
++            for pattern in ("AB", "BA", "AABB", "ABB", "AAB", "ABAB"):
++                value, _ = periodic(schedule(pattern, (p, q, q)))
++                want = (pattern.count("A") * (2 * p - 1) + pattern.count("B") * (2 * q - 1)) / len(pattern)
++                plain_bad += value != want
++    check("16_11: with coins that ignore the money every schedule averages its count of each coin, "
++          "whatever the order (a sweep of coins and six patterns), so half and half loses exactly 3 cents",
++          plain_bad == 0 and all(x == Fraction(-3, 100) for x in plain_sched))
++    # 16_12 to 16_14: the curve's two crossings, rounded and exact
++    edges, edge_means, whole_means = out["share_edges"]
++    lin = [(pub_b[i], pub_a[i] - pub_b[i]) for i in range(3)]
++    fwd_poly, back_poly = [Fraction(1)], [Fraction(1)]
++    for c0, c1 in lin:
++        fwd_poly = poly_mul(fwd_poly, [c0, c1])
++        back_poly = poly_mul(back_poly, [1 - c0, -c1])
++    verdict = [x - y for x, y in zip(fwd_poly, back_poly)]
++    check("16_13: the mix's verdict at A's share s, p0 p1 p2 − q0 q1 q2, a cubic in s, has exactly two "
++          "roots between 0 and 1 (Sturm), negative at both ends",
++          sturm_roots(verdict, Fraction(0), Fraction(1)) == 2 and poly_at(verdict, 0) < 0
++          and poly_at(verdict, 1) < 0)
++    check("16_13: the verdict's sign is the mix's sign at every edge share and both points",
++          all((poly_at(verdict, s) > 0) == (mix_mean(s) > 0) for s in edges + list(SHARES)))
++    check("16_14: rounded crossings are not the strict bounds: 7.0 % loses, 7.1 % wins, 84.7 % wins, 84.8 % "
++          "loses, and 7 % and 85 % both lose",
++          [(m > 0) - (m < 0) for m in edge_means] == [-1, 1, 1, -1] and all(m < 0 for m in whole_means))
++    check("16_14: the crossings at two decimals and at none are far from a rounding boundary (floats agree)",
++          all(far_from_boundary(100 * x[0], 2) and far_from_boundary(100 * x[0], 0) for x in (low, high)))
++
++    # 17: what the exact distributions are
++    dists, cats, top, (b7, t7), windows, moms, sds, ratio, root10, costs, ahead7, lucky = out["finite"]
++    check("17_3: after an even number of rounds every total is even (odd mass 0), and each distribution "
++          "holds the whole crowd",
++          all(k % 2 == 0 for d, _ in dists + [(b7, t7)] for k in d)
++          and all(sum(d.values()) == t for d, t in dists + [(b7, t7)]))
++    check("17_3: the window from −100 to +140 dollars holds every total after 100 rounds and all but less "
++          "than 0.01 % after 1,000 (the mix from 0, B from 7)",
++          windows[0] == 1 and all(1 - w < Fraction(1, 10**4) for w in windows[1:]))
++    d100, t100 = dists[0]
++    check(f"17_3: the tallest bar after 100 rounds is unique, at {top} dollars",
++          sum(1 for w in d100.values() if w == d100[top]) == 1)
++    settled = csv(pct(w) for w in shares(pub_mix))
++    sums = [[Fraction(sum(w for k, w in d.items() if (CROWD_START + k) % MODULUS == c), t) for c in range(3)]
++            for d, t in dists]
++    check("17_3: added up by corner, the bars after 100 and after 1,000 rounds are the mix's settled crowd "
++          "at one decimal, the most on corner 2, far from a rounding boundary",
++          all(csv(pct(x) for x in s) == settled and s[2] == max(s) for s in sums)
++          and all(far_from_boundary(100 * x, 1) for s in sums for x in s))
++    corner2 = [k for k in d100 if (CROWD_START + k) % MODULUS == 2 and Fraction(d100[k], t100) > Fraction(1, 500)]
++    check("17_3: single corner-2 bars are not all taller than their neighbours, so only the sums are claimed",
++          any(d100[k] < d100.get(k - 2, 0) or d100[k] < d100.get(k + 2, 0) for k in corner2))
++    old = out["horizon"]
++    check("17_4: two exact programmes agree on ahead, behind and level after 100 and 1,000 rounds of the mix",
++          cats[0] == old[0][:3] and cats[1][0] == old[1][0])
++    check("17_13: neither horizon makes being ahead certain (behind > 0), and after one round only 29.5 % "
++          "are ahead, so 'always better than even' is false",
++          all(c[1] > 0 for c in cats)
++          and categories(*net_distribution(pub_mix, 1, CROWD_START))[0] == pub_mix[0] < Fraction(1, 2))
++    check("17_5: starting on corner 0 costs the crowd the same once, at 100 and at 1,000 rounds (within "
++          "half a cent), and 1.57 − 0.28 = 1.29 as printed",
++          abs(costs[0] - costs[1]) < Fraction(1, 200)
++          and Fraction(fixed(costs[0] + moms[0][0], 2)) - Fraction(fixed(costs[0], 2))
++          == Fraction(fixed(moms[0][0], 2)))
++    check("17_2: the crowd starts on corner 0", CROWD_START % MODULUS == 0)
++    check("17_7: more of the crowd is ahead after 1,000 rounds than after 100, and fewer level",
++          cats[1][0] > cats[0][0] and cats[1][2] < cats[0][2])
++    rate = (moms[1][0] - moms[0][0]) / (LONG_HORIZON - HORIZON)
++    check(f"17_8: from 100 to 1,000 rounds the crowd's average grows by {cents(rate, 4)} cents a round, "
++          "the mix's 1.57 to two decimals", cents(rate) == cents(mean(pub_mix)))
++    check("17_9: the spread's ratio is close to √10 but not equal (the square root is a long-run law)",
++          dec_fixed(ratio, 2) == dec_fixed(root10, 2) and dec_fixed(ratio, 4) != dec_fixed(root10, 4))
++    floats = [(100 * x, 1) for x in list(cats[1]) + windows + [ahead7, lucky, Fraction(d100[top], t100)]]
++    floats += [(m, 2) for m, _ in moms] + [(costs[0], 2), (100 * ab_played[1][0], 1)]
++    check("every new float fact is far from a rounding boundary (Rust's floats print the same digits)",
++          all(far_from_boundary(x, p) for x, p in floats))
++    check(f"17_10: from 7 dollars, B alone for 1,000 rounds: {pct(ahead7)} % ahead, {pct(lucky)} % at "
++          "least +16 (more than one in eight)", Fraction(1, 8) < lucky < ahead7 < Fraction(1, 2))
++
+     # the player's runs: what the voice says about them
+     runs = out["runs"]
+     a_path, a_zero = runs["A"]
+--- a/explainer_corpus/parrondo/src/model.rs
++++ b/explainer_corpus/parrondo/src/model.rs
+@@ -490,6 +490,44 @@
+         .collect()
+ }
+ 
++/// A schedule repeated forever, once it has settled into its cycle: the
++/// shares each of its rounds meets (entry k for game k of the period),
++/// exactly. The period's spanning-tree weights, carried round by round.
++pub fn cycle(games: &[Game]) -> Vec<[Ratio; 3]> {
++    assert!(!games.is_empty(), "an empty schedule");
++    let den = i128::from(games[0].den);
++    assert!(
++        games.iter().all(|g| i128::from(g.den) == den),
++        "a schedule over different denominators"
++    );
++    let steps: Vec<Moves> = games.iter().map(moves).collect();
++    let period = steps[1..].iter().fold(steps[0], |acc, m| compose(&acc, m));
++    let w = chain_weights(&period);
++    let total: i128 = w.iter().sum();
++    let mut u = w;
++    let mut out = Vec::with_capacity(games.len());
++    for (k, m) in steps.iter().enumerate() {
++        let scale = times(total, den.pow(k as u32));
++        out.push(u.map(|x| Ratio::new(x, scale)));
++        u = after(&u, m);
++    }
++    out
++}
++
++/// The crowd's shares before each of `rounds` rounds of `games` repeated,
++/// from `start`, in floats (chapter 16's schedules, one round at a time).
++pub fn played(games: &[Game], start: [f64; 3], rounds: usize) -> Vec<[f64; 3]> {
++    assert!(!games.is_empty(), "an empty schedule");
++    let mut v = start;
++    (0..rounds)
++        .map(|k| {
++            let before = v;
++            v = evolve_f64(&v, &games[k % games.len()]);
++            before
++        })
++        .collect()
++}
++
+ // ------------------------------------------------------------------ the crowd
+ 
+ /// The players going forward and back from each corner when `n` players
+@@ -759,6 +797,55 @@
+     0.5 * (lo + hi)
+ }
+ 
++/// The exact distribution of the dollars won or lost by a crowd that
++/// starts at `start` dollars and plays `g`, after each of `rounds`
++/// (increasing), in floats: entry k of each is the share of the crowd at
++/// net k − last, last the longest of `rounds` (chapter 17's bars).
++pub fn snapshots(g: &Game, start: i64, rounds: &[usize]) -> Vec<Vec<f64>> {
++    assert!(rounds.windows(2).all(|w| w[0] < w[1]), "the rounds increase");
++    let p = g.chances_f64();
++    let last = *rounds.last().expect("at least one number of rounds");
++    let mut dist = vec![0.0f64; 2 * last + 1];
++    dist[last] = 1.0;
++    let mut wanted = rounds.iter().peekable();
++    let mut out = Vec::with_capacity(rounds.len());
++    for step in 0..=last {
++        if wanted.next_if(|&&n| n == step).is_some() {
++            out.push(dist.clone());
++        }
++        if step == last {
++            break;
++        }
++        let mut next = vec![0.0f64; dist.len()];
++        for i in (last - step)..=(last + step) {
++            let w = dist[i];
++            if w == 0.0 {
++                continue;
++            }
++            let r = (start + i as i64 - last as i64).rem_euclid(MODULUS) as usize;
++            next[i + 1] += w * p[r];
++            next[i - 1] += w * (1.0 - p[r]);
++        }
++        dist = next;
++    }
++    out
++}
++
++/// The shares of a distribution from [`snapshots`] ahead of the start,
++/// behind it and level with it.
++pub fn categories(dist: &[f64], last: usize) -> (f64, f64, f64) {
++    (dist[last + 1..].iter().sum(), dist[..last].iter().sum(), dist[last])
++}
++
++/// The mean and the standard deviation of a distribution from
++/// [`snapshots`], in dollars won or lost.
++pub fn moments(dist: &[f64], last: usize) -> (f64, f64) {
++    let at = |k: usize| k as f64 - last as f64;
++    let mean: f64 = dist.iter().enumerate().map(|(k, w)| w * at(k)).sum();
++    let var: f64 = dist.iter().enumerate().map(|(k, w)| w * (at(k) - mean).powi(2)).sum();
++    (mean, var.sqrt())
++}
++
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+--- a/explainer_corpus/parrondo/docs/pause-overrides.json
++++ b/explainer_corpus/parrondo/docs/pause-overrides.json
+@@ -1,5 +1,5 @@
+ {
+-  "_comment": "Authored chapter08\u201315 intentions, not measured speech or listening acceptance. Prediction windows, computed movements and card-reading deadlines remain protected visual tasks. Earlier intentions remain in the storyboard.",
++  "_comment": "Authored chapter08\u201317 intentions, not measured speech or listening acceptance. Prediction windows, computed movements and card-reading deadlines remain protected visual tasks. Earlier intentions remain in the storyboard.",
+   "overrides": [
+     {
+       "video": "parrondo",
+@@ -913,6 +913,534 @@
+         1.0
+       ],
+       "reason": "Give the transfer observation a beat before naming what is absent."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_1",
++      "after": "and the mix won.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Settle the known result before questioning the switching rule."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_1",
++      "after": "only how often each one is?",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Let the order-versus-frequency question register."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_2",
++      "after": "forever.",
++      "role": "clause",
++      "range_s": [
++        0.3,
++        0.6
++      ],
++      "reason": "Let the fixed schedule register before its half-and-half count."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_4",
++      "after": "two thirds of a cent a round.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Let the answer land before its meaning."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_4",
++      "after": "into a loss.",
++      "role": "thought",
++      "range_s": [
++        0.45,
++        0.8
++      ],
++      "reason": "Separate the surprise from the turn to the crowd."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_5",
++      "after": "never looks at the money.",
++      "role": "thought",
++      "range_s": [
++        0.45,
++        0.8
++      ],
++      "reason": "Set A's fixed cost aside before B's rounds."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_5",
++      "after": "when B plays.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Bring back the dial before its break-even line."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_6",
++      "after": "and wins.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Let the first dot stand before the climb."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_6",
++      "after": "just above it.",
++      "role": "thought",
++      "range_s": [
++        0.45,
++        0.8
++      ],
++      "reason": "Let the settled dots register before the verdict."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_7",
++      "after": "Follow one cycle.",
++      "role": "clause",
++      "range_s": [
++        0.3,
++        0.6
++      ],
++      "reason": "Direct attention to one B round."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_7",
++      "after": "one step behind corner zero.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Complete B's round before A's."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_8",
++      "after": "just over one and a half cents.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Let the tempting prediction stand before refuting it."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_8",
++      "after": "an averaged coin.",
++      "role": "thought",
++      "range_s": [
++        0.45,
++        0.8
++      ],
++      "reason": "Let the refutation land before its reason."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_9",
++      "after": "Harmer and Abbott simulated.",
++      "role": "clause",
++      "range_s": [
++        0.3,
++        0.6
++      ],
++      "reason": "Separate the pattern's source from its mechanism."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_9",
++      "after": "both below the line.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Let the dots below the line register before the verdict."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_10",
++      "after": "per round played.",
++      "role": "clause",
++      "range_s": [
++        0.3,
++        0.6
++      ],
++      "reason": "Set the unit before the three rows."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_10",
++      "after": "wins one point five seven cents.",
++      "role": "clause",
++      "range_s": [
++        0.3,
++        0.6
++      ],
++      "reason": "Let each row arrive."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_10",
++      "after": "loses zero point six seven.",
++      "role": "clause",
++      "range_s": [
++        0.3,
++        0.6
++      ],
++      "reason": "Let each row arrive."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_10",
++      "after": "wins one point four seven.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Inspect the table before the conclusion."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_11",
++      "after": "Now the control.",
++      "role": "clause",
++      "range_s": [
++        0.35,
++        0.65
++      ],
++      "reason": "Mark the controlled comparison."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_11",
++      "after": "three cents a round.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Let the equal losses register before the reason."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_12",
++      "after": "a quarter of a cent a round.",
++      "role": "thought",
++      "range_s": [
++        0.45,
++        0.8
++      ],
++      "reason": "Finish the first point before the second."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_13",
++      "after": "comes back down.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Let the computed curve draw before reading its crossings."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_13",
++      "after": "about eighty-five percent.",
++      "role": "thought",
++      "range_s": [
++        0.45,
++        0.8
++      ],
++      "reason": "Let the rounded range register before the products."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_14",
++      "after": "not round numbers.",
++      "role": "thought",
++      "range_s": [
++        0.45,
++        0.8
++      ],
++      "reason": "Introduce precision before the exact crossings."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_14",
++      "after": "strictly between them.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Let the strict bound register before its edge cases."
++    },
++    {
++      "video": "parrondo",
++      "cue": "16_15",
++      "after": "wins.",
++      "role": "thought",
++      "range_s": [
++        0.45,
++        0.8
++      ],
++      "reason": "Separate the general denial from the specific mechanism."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_1",
++      "after": "even though game B loses.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Let the counterexample land before the long run."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_2",
++      "after": "over a fixed number of rounds?",
++      "role": "thought",
++      "range_s": [
++        0.6,
++        1.0
++      ],
++      "reason": "Give the question time before the setup."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_2",
++      "after": "for a hundred rounds.",
++      "role": "thought",
++      "range_s": [
++        0.45,
++        0.8
++      ],
++      "reason": "Complete the setup before negative dollars."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_3",
++      "after": "the crowd has spread out.",
++      "role": "clause",
++      "range_s": [
++        0.35,
++        0.65
++      ],
++      "reason": "Let the bars grow before naming them."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_3",
++      "after": "finishes there.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Let a bar's meaning register before parity."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_3",
++      "after": "every total is even.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Let the gaps register before the whole crowd."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_3",
++      "after": "hold the whole crowd.",
++      "role": "thought",
++      "range_s": [
++        0.45,
++        0.8
++      ],
++      "reason": "Let the whole crowd register before the corners."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_4",
++      "after": "Ahead of the start:",
++      "role": "clause",
++      "range_s": [
++        0.3,
++        0.6
++      ],
++      "reason": "Let the gold bars register before the number."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_5",
++      "after": "twenty-nine cents up.",
++      "role": "thought",
++      "range_s": [
++        0.45,
++        0.8
++      ],
++      "reason": "Let the average register before comparing with the rate."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_5",
++      "after": "twenty-eight cents, once.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Complete the comparison before what the average hides."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_7",
++      "after": "more than two in three.",
++      "role": "thought",
++      "range_s": [
++        0.45,
++        0.8
++      ],
++      "reason": "Answer the prediction before the transformation."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_7",
++      "after": "from a hundred to a thousand.",
++      "role": "thought",
++      "range_s": [
++        0.6,
++        1.0
++      ],
++      "reason": "Leave the voice silent while the bars change."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_8",
++      "after": "Level: two point four.",
++      "role": "thought",
++      "range_s": [
++        0.45,
++        0.8
++      ],
++      "reason": "Finish the categories before the average."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_9",
++      "after": "the square root of ten.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Let the comparison register before the law."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_10",
++      "after": "where the player started,",
++      "role": "clause",
++      "range_s": [
++        0.3,
++        0.6
++      ],
++      "reason": "Mark the changed start before the game."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_10",
++      "after": "but not rare.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Let the verdict on the player's luck land."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_11",
++      "after": "sixty-three point nine percent.",
++      "role": "clause",
++      "range_s": [
++        0.35,
++        0.65
++      ],
++      "reason": "Let both single games register before the mix."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_12",
++      "after": "And in the very long run?",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Turn from fixed rounds to the long run."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_13",
++      "after": "three different things.",
++      "role": "thought",
++      "range_s": [
++        0.45,
++        0.8
++      ],
++      "reason": "Announce the three before listing them."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_13",
++      "after": "it never becomes certain.",
++      "role": "thought",
++      "range_s": [
++        0.5,
++        0.9
++      ],
++      "reason": "Let the second meaning land before the third."
++    },
++    {
++      "video": "parrondo",
++      "cue": "17_14",
++      "after": "invented games.",
++      "role": "clause",
++      "range_s": [
++        0.35,
++        0.65
++      ],
++      "reason": "Mark the scope before the lesson."
+     }
+   ]
+ }

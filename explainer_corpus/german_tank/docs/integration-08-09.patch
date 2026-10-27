@@ -1,0 +1,1067 @@
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/brief.md b/explainer_corpus/german_tank/docs/brief.md
+--- a/explainer_corpus/german_tank/docs/brief.md	2026-10-24 07:34:19.496879861 -0400
++++ b/explainer_corpus/german_tank/docs/brief.md	2026-10-24 07:35:52.893443960 -0400
+@@ -18,10 +18,10 @@
+ | Three ideas kept apart | **unbiased** is a property of the recipe over all handfuls (05 to 07); **uncertainty** is how far one estimate can land and which counts remain plausible (08 and 09: the 71-box company's estimates run from 5 to 84.2, the average miss is about 9, and the one-sided 95% range for our handful is 60 to 107, `G-F9.range`); **the one realised estimate**, 71, is a number, not a count and not a promise (03_10, 08_1, 16) |
+ | Counterexamples (biased sampling) | The friends' own five boxes, bought from a shop that only ever got the first 71 of the 200 made: the recipe still says 71 and averages exactly 71 over every handful that shop could sell, short by 129 (`G-F14.shop_average`, `G-F14.shop_short_by`). Shelves holding only boxes 151 to 200: it averages 230 (`G-F14.late_average`), and a first gap of 157 gives the draw away (`G-F14.late_first_gap`). Equal chances per box without equally likely handfuls (one of two deliveries, boxes 1–5 or 6–10, each box seen half the time): it averages 8, not 10 (`G-F15.deliveries_average`) |
+ | Audience | a curious 14-year-old with school arithmetic; a programmer who could simulate it afterwards; a statistician who finds nothing wrong (default, plan §1.2) |
+-| Length | By `tools/storyboard.py`'s estimate (spoken words at 2.68 words a second plus breaths, prediction pauses and holds): chapters 01 to 07, the production storyboard, 11.5 min (74.8, 84.6, 67.3, 84.7, 77.4, 136.4 and 166.0 s); chapters 08 to 16 (`docs/storyboard-draft.md`) 10.0 min; about 21.6 min in all. Chapters 06 and 07 are long because the swaps and each transformed line are given time to be inspected (root's 06/07 assignment set no runtime cap). These are advisory script estimates, not measured narration; authored pauses are not in the estimate. Root's separately bound silent native previews have their own measured durations in the third-wave review records. No runtime target was set; the owner's direction allows a longer film |
+-| Scope in source | Root's scope correction (Mail 6790): only chapters with a native scene are in `docs/storyboard.md`, `script.tsv` and the chapter registry, now chapters 01 to 07 (02 and 03 integrated by root; 04 and 05 proposed in `docs/integration-04-05.patch`, 06 and 07 in `docs/integration-06-07.patch`, which applies after it). Chapters 08 to 16 are complete words and pictures in the draft; root assigns their scenes |
++| Length | By `tools/storyboard.py`'s estimate (spoken words at 2.68 words a second plus breaths, prediction pauses and holds): chapters 01 to 09, the production storyboard, 16.2 min (74.8, 84.6, 67.3, 84.7, 77.4, 136.4, 166.0, 135.7 and 142.3 s); chapters 10 to 16 (`docs/storyboard-draft.md`) 7.8 min; about 23.9 min in all. Chapters 06 to 09 are long because the swaps, each transformed line, the distribution of estimates and the coverage experiment are given time to be inspected (root's 06/07 and 08/09 assignments set no runtime cap). These are advisory script estimates, not measured narration; authored pauses are not in the estimate. Root's separately bound silent native previews have their own measured durations in the third-wave review records. No runtime target was set; the owner's direction allows a longer film |
++| Scope in source | Root's scope correction (Mail 6790): only chapters with a native scene are in `docs/storyboard.md`, `script.tsv` and the chapter registry, now chapters 01 to 09 (02 and 03 integrated by root, 04 and 05 in the tree from `docs/integration-04-05.patch`; 06 and 07 proposed in `docs/integration-06-07.patch`, 08 and 09 in `docs/integration-08-09.patch`, which applies after it). Chapters 10 to 16 are complete words and pictures in the draft; root assigns their scenes |
+ | Format, voice, look | the program defaults (plan §1; AGENTS.md): 3840×2160 at 60 fps; FrankenTTS under the current narration direction, after root's qualification; 3Blue1Brown look. This lane made no audio |
+-| Protected facts | `docs/protected.tsv`: the phrases of chapters 01 to 07, the chapters in `script.tsv`; a drafted chapter's phrases join when it moves into `storyboard.md` |
++| Protected facts | `docs/protected.tsv`: the phrases of chapters 01 to 09, the chapters in `script.tsv`; a drafted chapter's phrases join when it moves into `storyboard.md` |
+ | Oracle | `oracle.py`: brute-force enumeration (all 13,019,909 handfuls of five from 71), sequential-draw products where enumeration is too large, a triangular solve for the forced unbiased recipe, edge checks of every always/never sentence, negative controls; the Rust model (`src/model.rs`) uses closed forms instead |
+ | Out of scope | Bayesian estimates and priors; sampling with replacement; several factories or several numbering series; serial-number codes that skip or encode dates; confidence intervals beyond the one-sided 95% range; the variance formula; any claim about real production figures |
+ | Evidence boundary | Selection data (`docs/video-program/third-wave-20261024/MOR_CASE.md` and the catalog) supports editorial hypotheses about what may hold attention; it is not a forecast of views and not evidence that this topic causes any outcome |
+@@ -119,15 +119,22 @@
+   "thirty-six" and "seventy-three" in one sentence (07_9), where thirty-six
+   and thirty-seven must stay distinct. Risk: a dropped "and" or a broken
+   hyphen heard as two numbers.
+-- Decimals and halves: "about forty-five to eighty-four point two" (08_2)
+-  and the other point values in 08_5, 10_4, 11_5 and 12_6; "five plus three
++- Decimals and halves: "about forty-five and eighty-four point two" (08_3),
++  "about eleven point seven" (08_8) and the other point values in 10_4, 11_5
++  and 12_6; "five plus three
+   halves, six and a half" (05_4); "and a half" again in 12_3, 13_3 and 15_3.
+ - Lists of small numbers that name boxes, not a count: "one, two, three,
+   four and five" (04_6) and "one, three and four" (05_3); the gap lists
+   "zero, zero and three" (06_2, 06_5), "one, two and zero" (06_2, 06_3) and
+   "three, zero and zero" (06_5), where "zero" must not become "oh". Risk: a
+   list read as one number or with a flat, rushed rhythm. "Five hundred"
+-  (04_1) and "over thirteen million" (05_1) must keep their joins.
++  (04_1) and "over thirteen million" (05_1, 08_4) must keep their joins.
++- Large and close numbers in chapters 08 and 09: "over nine hundred
++  thousand" and "sixty-seven stacks" (08_4); "a hundred and seven" and "a
++  hundred and eight" (09_3, 09_4, 09_8), one count apart and on either side
++  of the cutoff, so a dropped "and" or a blurred "seven"/"eight" changes the
++  claim; "ninety-six times in a hundred" and "ninety-five" (09_6, 09_7);
++  "sixty through seventy-nine" (09_10).
+ - A read-back paced by the picture: "skip one box, take the next, skip two,
+   take the next, and stop" (06_3). Each step fills one square, so a
+   run-together reading leaves the squares behind the words.
+@@ -137,8 +144,9 @@
+   largest minus the size, over the size" (07_10); the pause rows in
+   `docs/pauses.tsv` mark where the grouping breath belongs. "N" is spoken as
+   the letter in chapter 07 only (07_1 to 07_3, 07_6).
+-- Terms: "estimator" (said once, 04_3), "unbiased" (05_7, 07_7; stress on
+-  the second syllable), "sufficient" (once, 11_5), "statisticians" (04_3, 11_5),
++- Terms: "estimator" (said once, 04_3), "unbiased" (05_7, 07_7, 08_9;
++  stress on the second syllable), "standard deviation" (08_8), "confidence"
++  (09_7), "sufficient" (once, 11_5), "statisticians" (04_3, 08_8, 11_5),
+   "analysts" (16_1).
+ - Card-only names, never voiced: Rao–Blackwell, Lehmann–Scheffé, Ruggles,
+   Brodie, Goodman.
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/pauses.tsv b/explainer_corpus/german_tank/docs/pauses.tsv
+--- a/explainer_corpus/german_tank/docs/pauses.tsv	2026-10-24 05:41:10.492747522 -0400
++++ b/explainer_corpus/german_tank/docs/pauses.tsv	2026-10-24 07:27:56.461987474 -0400
+@@ -5,7 +5,9 @@
+ # to a director override {video, cue, after, role, range_s: [min_s, max_s], reason}. Ranges are editorial
+ # hypotheses for total audible silence (existing take margins count toward them); they are not measured, not
+ # listened to, and not acceptance thresholds. Prediction countdowns and the inspection holds of 01_4, 04_5,
+-# 05_2, 06_4, 06_5, 06_8, 07_3, 07_5, 07_6, 07_7 and 07_10 are scene holds, not rows here. The Rust test in src/main.rs checks every phrase against script.tsv or
++# 05_2, 06_4, 06_5, 06_8, 07_3, 07_5, 07_6, 07_7, 07_10, 08_4, 08_7, 08_8, 08_9, 09_4, 09_6, 09_8 and 09_10 are
++# scene holds, not rows here; so are the computed rows that keep landing after 08_2 and 09_5 (protected visual
++# holds before 08_3 and 09_6). The Rust test in src/main.rs checks every phrase against script.tsv or
+ # docs/storyboard-draft.md.
+ 01_2	Five friends who own it would like to know.	thought	0.5	0.9	setup: the stakes follow
+ 01_2	their boxes are rare.	clause	0.2	0.45	contrast: rare, then ordinary
+@@ -50,13 +52,18 @@
+ 07_4	For the friends, that's eleven.	cue_transition	0.5	0.9	visual: the guess's arc lands before the contrast
+ 07_7	so the estimates average the count.	thought	0.4	0.8	conclusion before its name
+ 07_9	It doubles the number and subtracts one.	thought	0.5	0.9	reveal: the prediction's answer, then its reason
+-08_1	not about our seventy-one.	thought	0.5	0.9	contrast: recipe versus this one estimate
+-08_2	drawn by computer.	thought	0.6	1.1	visual: the twenty rows land
+-08_3	Twenty is only twenty.	thought	0.4	0.8	turn: from draws to every handful
+-08_4	but they're lopsided.	thought	0.4	0.8	visual: the bars past seventy-one tint
+-08_7	About one handful in twenty-nine.	thought	0.6	1.0	reveal: the prediction's answer
+-09_3	it's less than five percent.	thought	0.4	0.8	the threshold lands before its reading
+-09_5	That's what ninety-five percent confidence means.	thought	0.4	0.8	name, then the careful reading
++08_1	not about our seventy-one.	thought	0.5	0.9	contrast: the recipe's promise versus this one estimate
++08_4	Twenty is only twenty.	thought	0.4	0.8	turn: from twenty draws to every handful
++08_4	top out at seventy-one.	thought	0.3	0.6	visual: the tallest bar rises before the stacks are named
++08_6	About one handful in twenty-nine.	thought	0.6	1.0	reveal: the prediction's answer, then what it means
++08_7	The bars are lopsided, though.	thought	0.4	0.8	visual: the two sides' halos before their numbers
++08_8	So how far off is a typical estimate?	thought	0.5	0.9	the question stands before the first width
++08_8	the standard deviation.	thought	0.3	0.6	the name lands before its recipe
++09_1	How large could it be?	thought	0.7	1.1	visual: the line's end slides out before the flipped question
++09_3	it keeps falling from there.	thought	0.4	0.8	visual: the rare bars turn faint
++09_6	Nineteen of the twenty ranges cover seventy-one.	thought	0.5	0.9	visual: the covering ranges turn ink before the miss is named
++09_7	That's what ninety-five percent confidence means.	thought	0.4	0.8	name, then the careful reading
++09_10	Narrower.	thought	0.6	1.0	reveal: the prediction's answer, then its reason
+ 10_4	Twenty-eight point six,	clause	0.3	0.6	reveal: let the absurd value register
+ 11_5	Nothing.	thought	0.7	1.1	reveal: the chapter's surprise
+ 12_5	Five, and five.	thought	0.5	0.9	reveal: both averages agree
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/protected.tsv b/explainer_corpus/german_tank/docs/protected.tsv
+--- a/explainer_corpus/german_tank/docs/protected.tsv	2026-10-24 05:41:22.869626100 -0400
++++ b/explainer_corpus/german_tank/docs/protected.tsv	2026-10-24 07:27:56.462194558 -0400
+@@ -1,6 +1,6 @@
+ # Protected facts: the words every revision must keep (./x german_tank protected checks they are still there).
+ # One per line: <phrase> TAB <where> TAB <why>. <where> is a comma list of script, captions,
+-# description, title, or empty for "anywhere". Rows are for the chapters in script.tsv (chapters 01 to 07);
++# description, title, or empty for "anywhere". Rows are for the chapters in script.tsv (chapters 01 to 09);
+ # a drafted chapter's rows join when it moves into docs/storyboard.md and script.tsv (root's scope correction,
+ # Mail 6790).
+ counting up from one	script	the numbering assumption the whole recipe needs, stated before any number (G-F1.first)
+@@ -30,3 +30,12 @@
+ so the estimates average the count	script	unbiased for every count, as the proof's conclusion (G-F7.general_unbiased)
+ as long as the handful is fair	script	the condition is spoken with the general claim
+ It doubles the number and subtracts one	script	the one-box answer, spoken before its arithmetic (G-F7.one_box_recipe)
++a promise about the recipe across all handfuls	script	unbiased is the recipe's property over every handful, not this estimate's (G-F8.average)
++Being right on average doesn't mean being right often	script	unbiased is not usually right: one handful in twenty-nine is exact (G-F8.exactly_right_one_in)
++a single estimate, from a single handful	script	the realised estimate kept apart from the recipe's average and spread
++Their count is a fixed number nobody knows	script	the count is fixed, not random: what the confidence statement needs
++At a hundred and eight it's just under	script	the exact cutoff, from exact chances, not the (60/N)^5 guess (G-F9.first_rare; oracle negative control 109)
++The count stays fixed, and the range changes from handful to handful	script	repeated-sampling meaning: the range is what varies
++not a ninety-five percent chance that the count lies in our range	script	the 95% is never a posterior (oracle negative control: flat priors give 91.8% and 91.2%)
++never fewer than ninety-five	script	coverage holds whatever the count, not only at seventy-one (G-F9.worst_coverage_at_least_95)
++so the range shrinks to sixty through seventy-nine	script	more boxes with the same largest narrow the range (G-F9.ten_boxes_range)
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/storyboard-draft.md b/explainer_corpus/german_tank/docs/storyboard-draft.md
+--- a/explainer_corpus/german_tank/docs/storyboard-draft.md	2026-10-24 05:40:36.288137062 -0400
++++ b/explainer_corpus/german_tank/docs/storyboard-draft.md	2026-10-24 06:49:27.669191569 -0400
+@@ -1,12 +1,12 @@
+-# Storyboard draft — chapters 08 to 16
++# Storyboard draft — chapters 10 to 16
+ 
+ The rest of "How Much Can Five Serial Numbers Reveal?", written in full in
+ the format of `docs/storyboard.md` (read that file first: the arc, the
+-vocabulary, the color roles and chapters 01 to 07 are there). Only chapters
++vocabulary, the color roles and chapters 01 to 09 are there). Only chapters
+ with a native scene in source live in `docs/storyboard.md`, `script.tsv` and
+ the chapter registry (root's scope correction, Mail 6790); a chapter moves
+ there when its scene is implemented, and root assigns that work. Chapters 02
+-to 07 moved there with their scenes. Every number is a
++to 09 moved there with their scenes. Every number is a
+ fact the oracle prints (`oracle.py`; fact group `G-Fn` belongs to chapter
+ `n`). Check this file with the storyboard tool's own functions:
+ 
+@@ -23,75 +23,6 @@
+ five small squares with the two seen squares gold); the **panel** (arithmetic
+ on the right).
+ 
+-## 08_one_estimate: One estimate is not the average (~77 s)
+-
+-First, the line with the friends' boxes and a company of exactly 71 marked
+-by a hero end mark; rows of drawn handfuls stack above it as in chapter 02.
+-Then a histogram over the line: for that company, the estimates of all of
+-its handfuls of five, as bars over the estimate axis (5 to 84.2), built from
+-the exact counts; a balance point marker at 71.
+-
+-| id | words | picture | features | hold/listen |
+-|---|---|---|---|---|
+-| 08_1 | Right on average is a promise about the recipe, not about our seventy-one. Imagine a company that made exactly seventy-one boxes, and friends who could buy five fresh boxes again and again. | A hero end mark at 71; the badge; the green 71 tick dims | number line, badge | |
+-| 08_2 | Here are twenty such handfuls, drawn by computer. Their estimates run from about forty-five to eighty-four point two, and they average about seventy-two. | Twenty drawn rows land one after another (`G-F8.again_handfuls`), each dropping a green estimate tick that stacks over the line; a live running average follows them and ends at 72.32 | computed experiment, live readout | |
+-| 08_3 | Twenty is only twenty. A company of seventy-one boxes has over thirteen million handfuls of five, and we can look at every one. | "count = 71" in the panel; "13,019,909 handfuls" counts up | live count | |
+-| 08_4 | Here they all are. They balance at seventy-one exactly, but they're lopsided. Fifty-eight percent of handfuls overestimate, and the rest underestimate by more. | The stacked ticks dissolve into the exact histogram; a fulcrum slides under it and settles at 71; the bars right of 71 tint and "58%" appears over them | histogram, live value | |
+-| 08_5 | No handful can say more than eighty-four point two. On average, an estimate misses the count by about nine boxes. | A wall at 84.2 on the axis; then a dim band 71 ± 9 under the histogram, labelled "average miss ≈ 9" | histogram, highlight | |
+-| 08_6 | ⟨predict⟩ If the company really made seventy-one boxes, how often would a handful's estimate be exactly seventy-one? | The bar at exactly 71 is hidden behind a hero "?"; the countdown | prediction pause, think time | |
+-| 08_7 | About one handful in twenty-nine. Unbiased doesn't mean usually exact. | The "?" lifts: the single bar at 71 is thin; "1 in 29" beside it | highlight | |
+-| 08_8 | So keep three things apart. The recipe is unbiased. Its estimates spread out. And seventy-one is one estimate, from one handful. | Three dim labels stack in the panel: "unbiased: the balance point", "spread: the width", "71: one draw", each flashing its part of the picture | equation card | |
+-
+-### Notes for 08
+-
+-- The twenty rows: stream 3 of the chapter 02 generator, first twenty drawn
+-  (`G-F8.again_draws` 20), estimates `G-F8.again_estimates`; lowest
+-  `G-F8.again_lowest` 44.6 ("about forty-five", `G-F8.again_lowest_about`),
+-  highest `G-F8.again_highest` 84.2 (which is also the highest any handful
+-  can give, `G-F8.highest_estimate`), average `G-F8.again_average` 1808/25 =
+-  72.32 ("about seventy-two", `G-F8.again_average_about`). The voice claims
+-  nothing about them beyond those three values; the exact statements come
+-  from the full enumeration.
+-- Exact, from all 13,019,909 handfuls (oracle brute force): `G-F8.average` 71;
+-  `G-F8.overestimate_share` 1079771/1859987 ≈ 0.581 (58%);
+-  `G-F8.exactly_right` 65018/1859987 ≈ 1 in 28.6 (`G-F8.exactly_right_one_in`
+-  29); `G-F8.highest_estimate` 84.2; `G-F8.average_miss` 17164752/1859987 ≈
+-  9.23 ("about nine").
+-- "average miss" is the mean absolute error. Card E: "Precisely: average
+-  miss = the average of |estimate − 71| over every handful; its standard
+-  deviation is √(66·72/35) ≈ 11.7."
+-- The prediction answer uses the fixed count 71; the video never says "the
+-  probability that the count is 71" (the count is not random in this model).
+-
+-## 09_how_far_off: How far off could it be? (~66 s)
+-
+-The line again, with the friends' handful; a curve above it: for each
+-possible count N, the chance that a fair handful of five from N tops out at
+-60 or less.
+-
+-| id | words | picture | features | hold/listen |
+-|---|---|---|---|---|
+-| 09_1 | Sixty is certain. For the top end, flip the question around. For each possible count, how often would five fair numbers all be sixty or less? | A teal "≥ 60" at 60; axes appear above the line: count on the horizontal, chance on the vertical; callback to 02_6's shaded stretch | axes, plot, callback | |
+-| 09_2 | With seventy-one boxes, about forty-two percent of the time. With a hundred boxes, about seven percent. | The curve's points at 71 and 100 light up with "42%" and "7%" | plot, highlight | |
+-| 09_3 | From a hundred and eight boxes on, it's less than five percent. Counts that big would rarely produce a handful like ours. | A dashed line at 5%; the curve crosses it between 107 and 108; the region past 108 dims | plot, highlight | |
+-| 09_4 | So the counts from sixty to a hundred and seven make a range. Built this way, such a range holds the true count for at least ninety-five handfuls in a hundred. | A teal bar on the line from 60 to 107, labelled "range"; ghost handfuls each draw their own range, nearly all of them covering a fixed hero marker | bars, lagged reveal | |
+-| 09_5 | That's what ninety-five percent confidence means. It's a promise about the method across handfuls, not a chance that the count lies in this one range. | "95% confidence" in the panel; the ghost ranges fade, leaving ours | equation card | |
+-| 09_6 | ⟨predict⟩ If the friends had ten boxes instead, with the same largest number, would the range get wider or narrower? | Five more gold boxes land on ticks, all below 60; the countdown | prediction pause, think time | |
+-| 09_7 | Narrower. Ten numbers all at sixty or below would be rare from a big company, so the range shrinks to sixty through seventy-nine. | The curve steepens; the teal bar shrinks from 107 to 79 | plot, morph | |
+-
+-### Notes for 09
+-
+-- `G-F9.at_most_60.71` 780216/1859987 (≈ 0.42), `G-F9.at_most_60.100`
+-  32509/448140 (≈ 0.073); `G-F9.range` 60,107 and `G-F9.first_rare` 108 at
+-  level 1/20 (a first guess from (60/N)⁵ ≈ 1/20 gives 109; the exact bound is
+-  107, which is what the voice says); `G-F9.ten_boxes_range` 60,79;
+-  `G-F9.worst_coverage_at_least_95` true for every count 5 to 150.
+-- Card F: "Precisely: a one-sided 95% confidence bound, the largest N with
+-  P(M ≤ 60 | N) ≥ 1/20. It covers the true count with probability at least
+-  0.95 for every N. It is not a probability statement about N."
+-- The ten-box ticks of 09_6 are illustrative; their own values are never
+-  spoken.
+-
+ ## 10_a_rival_recipe: A rival recipe (~56 s)
+ 
+ The line; the panel; the rival's estimates in purple.
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/storyboard.md b/explainer_corpus/german_tank/docs/storyboard.md
+--- a/explainer_corpus/german_tank/docs/storyboard.md	2026-10-24 05:46:30.340922755 -0400
++++ b/explainer_corpus/german_tank/docs/storyboard.md	2026-10-24 07:26:35.965130395 -0400
+@@ -7,7 +7,7 @@
+ `G-Fn` belongs to chapter `n`.
+ 
+ This file holds only the chapters whose native scenes exist in source:
+-chapters 01 to 07. Chapters 08 to 16 are written in full, in the same format,
++chapters 01 to 09. Chapters 10 to 16 are written in full, in the same format,
+ in `docs/storyboard-draft.md`; a chapter moves here when its scene is
+ implemented, so `script.tsv`, the chapter registry and the Rust tests always
+ agree on what can render. The arc below describes the whole film.
+@@ -48,7 +48,8 @@
+ 
+ **Act three, what it can't promise (08 to 13).** Unbiased is a property of
+ the recipe: twenty repeat purchases scatter, all thirteen million handfuls
+-balance at the true count, lopsided, and an estimate is rarely exact (08);
++balance at the true count, lopsided, an estimate is rarely exact and misses
++by about nine on average (08);
+ the range sixty to a hundred and seven and what ninety-five percent
+ confidence means (09); a rival recipe, doubling the average, unbiased and
+ sometimes absurd (10); the largest number carries everything a fair handful
+@@ -72,7 +73,9 @@
+ | `05_every_handful` | too many handfuls to look at; a company of five boxes, two seen; every pair and its exact estimate; the ten balance at five, the largest alone at four; what unbiased means, and that one company is not a proof | words and pictures here; scene in `src/chapters/every_handful.rs` |
+ | `06_gaps_trade_places` | the tiny table's unseen squares become three gaps; pairs and gap lists match exactly, each one in ten; a list read backwards; trading the gaps below and above gives another row; the three columns hold the same numbers and each averages one box; back to the friends, whose sixth gap is the hidden one | words and pictures here; scene in `src/chapters/gaps_trade_places.rs`, with the friends' line and its gaps that chapter 07 opens on |
+ | `07_right_on_average` | the same argument with the count a letter; each gap averages N minus five, over six; the guess, eleven, is one handful's average, and in the tiny company guess and top gap rarely agree but both average one; so the estimates average the count; one box doubles and subtracts one; any handful size | words and pictures here; scene in `src/chapters/right_on_average.rs` |
+-| `08_one_estimate` to `16_five_boxes_again` | see `docs/storyboard-draft.md` | drafted in full; no scene yet |
++| `08_one_estimate` | the promise is about the recipe; a company of exactly seventy-one; twenty computed handfuls and their estimates; every handful counted by its largest number, sixty-seven stacks; how often exactly right, about one in twenty-nine; the balance and the lopsided sides; the average miss and the standard deviation; three ideas kept apart | words and pictures here; scene in `src/chapters/one_estimate.rs` |
++| `09_how_far_off` | the count fixed and unknown; for each count, the chance a fair handful is all sixty or less; just over and just under five percent at a hundred and seven and eight; the range sixty to a hundred and seven; the twenty handfuls build their own ranges, nineteen cover seventy-one; what ninety-five percent confidence means and doesn't; the division behind each bar; ten boxes, sixty to seventy-nine | words and pictures here; scene in `src/chapters/how_far_off.rs` on chapter 08's draws |
++| `10_a_rival_recipe` to `16_five_boxes_again` | see `docs/storyboard-draft.md` | drafted in full; no scene yet |
+ 
+ ## Vocabulary (one word per idea)
+ 
+@@ -95,8 +98,9 @@
+ largest number plus the average gap); **doubling recipe** (twice the
+ average, minus one, from 10); **unbiased** (the estimates average to the true
+ count, whatever that count is); **average miss** (how far an estimate lands
+-from the count, averaged over handfuls); **range** (the counts that could
+-plausibly produce the handful, from 09); **sufficient** (said once, in 11, as
++from the count, averaged over handfuls); **range** (the counts for which a
++handful like the friends' is not rare, from 09); **standard deviation** (said
++once, in 08, as the name of the second width); **sufficient** (said once, in 11, as
+ the name for "the largest number says it all").
+ 
+ ## Color roles
+@@ -104,7 +108,7 @@
+ | Idea | Color |
+ |---|---|
+ | a number someone saw, its box and its tick | gold `#F0AC5F` |
+-| a handful drawn by computer from a company whose count we chose (02, 08) | gold outlines at half strength, never filled |
++| a handful drawn by computer from a company whose count we chose (02, 08, 09) | gold outlines at half strength, never filled |
+ | an unseen number in a gap below the largest, the gap's count, a spacing arrow | blue `#58C4DD` |
+ | the top gap and its "?" | `hero` `#FFD866` (the "?", the dashed bracket and the countdown; in the tiny table of 06 and 07 also the top gap's outlined squares, its column head, its sizes and their average) |
+ | an estimate the gap recipe gives | green `#83C167` |
+@@ -113,6 +117,8 @@
+ | the doubling recipe and its estimates (from 10) | purple |
+ | an unfair draw's pool and its estimate (14, 15) | red |
+ | numbers not under discussion, the line and the boxes' outlines | `faint` and `dim` |
++| a company's count fixed for an experiment (08, 09), a range of counts and a computed range that covers it (09) | `ink` strokes |
++| how many handfuls (08) or how likely a handful this low (09), as bars | green bars for estimates (08); `dim` bars for chances (09), `faint` once rare |
+ 
+ ## 01_five_boxes: Five boxes (~75 s)
+ 
+@@ -506,3 +512,168 @@
+   subtracts one.". The inspection holds after 07_3, 07_5, 07_6, 07_7 and
+   07_10 are scene holds; the one after 07_5 lets the halos round the three
+   agreeing pairs stand, so no pause row adds silence there.
++
++## 08_one_estimate: One estimate is not the average (~136 s)
++
++The friends' line from 1 to 84 as chapter 03 left it: the five boxes on
++their gold ticks, their estimate as a green tick at 71 with its number, and
++the badge. Then a company that made exactly 71 boxes, an upright ink mark at
++71 over the line, and its handfuls: first twenty drawn by computer, each a
++row of five gold rings at half strength (chapter 02's look) whose estimate
++drops as a green dot onto a stack over the line; then all 13,019,909 of them
++as 67 green bars over the same line, one per largest number, each standing
++at that stack's estimate. The bars are built from how many handfuls have
++each largest number, never by listing handfuls. Highlights are halos and
++colour changes are replacements; no typeset text is indicated, recoloured or
++scaled in place. Every number is `G-F1`, `G-F3`, `G-F5` or `G-F8`.
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 08_1 | Right on average is a promise about the recipe across all handfuls, not about our seventy-one. To see what it promises, imagine a company that made exactly seventy-one boxes, and friends who could buy five fresh boxes from it, again and again. | The line opens with the boxes on their ticks, the green tick at 71 with "71" over it and the badge; on "not about our seventy-one" a green halo round that "71"; on "imagine a company" the boxes, their ticks and the green tick fade, the five gold dots give way to plain ones, an upright ink mark rises at 71 and the panel's top line reads "count = 71" (`G-F8.count`); on "buy five fresh boxes" an ink halo round the badge | number line, badge, halo | |
++| 08_2 | Here are twenty such handfuls, drawn by computer. | On "Here are twenty such handfuls" twenty rows drop in one after another at one height over the line (`G-F8.again_handfuls`), five gold rings at half strength each; as each row lands the row before it fades and its estimate drops as a green dot onto a stack over its place on the line (`G-F8.again_estimates`), no stack more than three high; the rows keep landing after the words end, a protected visual task | computed experiment, lagged reveal, number line | |
++| 08_3 | Their estimates land between about forty-five and eighty-four point two, and three of them land exactly on seventy-one. Together they average about seventy-two. | On "Their estimates land between" green halos round the lowest dot and the highest, with "44.6" and "84.2" under the line (`G-F8.again_lowest`, `G-F8.again_highest`); on "three of them land exactly" a green halo round the stack on the mark at 71 (`G-F8.again_exact`); on "Together they average" a short green upright mark under the line at 72.32 with "average 72.32" under it (`G-F8.again_average`) | halo, number line | |
++| 08_4 | Twenty is only twenty. This company has over thirteen million handfuls of five, and we can count them all, because the recipe looks only at the largest number. Just one handful tops out at five. Five handfuls top out at six. Over nine hundred thousand top out at seventy-one. So the handfuls fall into sixty-seven stacks by their largest number, and every handful in a stack gives the same estimate. | On "Twenty is only twenty" the dots, their numbers and the average mark fade; on "over thirteen million" "13,019,909 handfuls of 5" on the panel's second line (`G-F8.handfuls`); on "the recipe looks only at" "estimate = largest + (largest − 5) ÷ 5" on its third line; a table at the upper left under the badge, heads "largest", "handfuls" and "estimate", gains a row on each of the next three sentences: on "Just one handful tops out" 5, 1, 5 (`G-F8.topped_by_smallest`); on "Five handfuls top out" 6, 5, 6.2 (`G-F8.next_largest`, `G-F8.topped_by_next`); on "Over nine hundred thousand" 71, 916,895, 84.2 (`G-F8.topped_by_count`, `G-F8.highest_estimate`), and that stack's bar rises at 84.2, the tallest; on "sixty-seven stacks" the other bars grow left to right, each at its stack's estimate (`G-F8.stacks`), except the stack at exactly 71, whose place stays empty under a hero "?"; held to be inspected | histogram, table, lagged reveal | hold |
++| 08_5 | ⟨predict⟩ Out of all those handfuls, how often do you think the estimate is exactly seventy-one, the true count? | The bars stand with the hero "?" over the empty place at 71; the countdown at the left, under the table; nothing shows that stack's size | histogram, prediction pause, think time | |
++| 08_6 | About one handful in twenty-nine. Three in twenty was lucky. Being right on average doesn't mean being right often. | The countdown and the "?" give way to the bar at 71, rising in green like the others, and an ink halo round it; on "About one handful" "exactly 71: 1 in 29" on the panel's last line (`G-F8.exactly_right_one_in`); on "Three in twenty was lucky" "20 draws: 3 exactly 71" in dim under the table (`G-F8.again_draws`, `G-F8.again_exact`) | histogram, halo | |
++| 08_7 | Yet all the bars together balance at seventy-one exactly, while our twenty draws averaged about seventy-two. The bars are lopsided, though. Fifty-eight percent of handfuls overestimate, by about eight boxes on average, and the estimates that fall short miss by twelve on average. | On "balance at seventy-one exactly" a green fulcrum comes in under the line at 71 with "balance point: 71" left of it (`G-F8.average`); on "our twenty draws averaged" "20 draws: average 72.32" in dim joins the table's foot; on "The bars are lopsided" ink halos round the bars right of 71 and round those left of it, together; on "Fifty-eight percent of handfuls" a dim bracket under the bars right of 71 with "58% too high, by about 8" under it (`G-F8.overestimate_percent`, `G-F8.overshoot_about`); on "the estimates that fall short" a dim bracket under the bars left of 71 with "too low: by 12" (`G-F8.undershoot`); held to be inspected | histogram, highlight, halo | hold |
++| 08_8 | So how far off is a typical estimate? Ignoring the direction, an estimate misses by about nine boxes on average. Statisticians often quote a different width, the standard deviation. It squares each miss before averaging, then takes the square root, so big misses count for more, and here it comes to about eleven point seven. | The brackets and their words go; on "misses by about nine boxes" an ink span under the line from 71 − 9.2 to 71 + 9.2 with "average miss: 9.2" under it (`G-F8.average_miss_decimal`); on "the standard deviation" a dim span under that one from 71 − 11.7 to 71 + 11.7 with "standard deviation: 11.7" (`G-F8.sd_about`); on "It squares each miss" the panel's lines under "count = 71" give way to "average miss = average distance from 71" and "standard deviation = √(average squared miss)"; held to be read | histogram, formula, halo | hold |
++| 08_9 | So keep these ideas apart. The recipe is unbiased, so its estimates balance at the true count. They spread out around it, by about nine boxes on average. And our seventy-one is a single estimate, from a single handful. | On "The recipe is unbiased" a green halo round the fulcrum and its words; on "They spread out around it" an ink halo round the two spans; on "And our seventy-one" "our 71: a single estimate" in green on the panel's last line; card E rises and stays until it can be read | histogram, halo, card | hold |
++
++### Notes for 08
++
++- The company is `G-F8.count` 71, the friends' own estimate (`G-F3.estimate`),
++  so the mark at 71 is where both the true count and our estimate sit; the
++  scene refuses a count that differs from the estimate. Its handfuls of five:
++  `G-F8.handfuls` 13,019,909 (chapter 05's "over thirteen million",
++  `G-F5.millions`).
++- The twenty rows: stream 3 of chapter 02's generator, the first twenty drawn
++  (`G-F8.again_draws`), estimates `G-F8.again_estimates`; lowest
++  `G-F8.again_lowest` 44.6 ("about forty-five", `G-F8.again_lowest_about`),
++  highest `G-F8.again_highest` 84.2 (also the highest any handful can give,
++  `G-F8.highest_estimate`), exactly 71 in `G-F8.again_exact` 3 rows, average
++  `G-F8.again_average` 1808/25 = 72.32 ("about seventy-two",
++  `G-F8.again_average_about`). The voice claims nothing else about them; the
++  exact statements come from every handful. "Three in twenty was lucky": the
++  oracle checks that three or more exact estimates in twenty fair draws has
++  chance under one in twenty.
++- Counting every handful by its largest number: a handful topped by m has its
++  other four below m, so there are C(m − 1, 4) of them, and the recipe gives
++  each the same estimate, m + (m − 5) ÷ 5. Stacks run from m = 5 (one
++  handful, `G-F8.topped_by_smallest`, estimate `G-F8.lowest_estimate` 5)
++  through m = 6 (`G-F8.topped_by_next` 5, estimate 6.2) to m = 71
++  (`G-F8.topped_by_count` 916,895, over `G-F8.topped_by_count_over` 900,000
++  and under a million, estimate 84.2, the tallest bar): `G-F8.stacks` 67
++  stacks, 1.2 apart, summing to every handful (oracle check, and brute force
++  over all 13,019,909 handfuls). Only m = 60 gives exactly 71.
++- Exact, from every handful: `G-F8.average` 71 (unbiased);
++  `G-F8.exactly_right` 65018/1859987, about 1 in 28.6
++  (`G-F8.exactly_right_one_in` 29); `G-F8.overestimate_share`
++  1079771/1859987 (`G-F8.overestimate_percent` 58), overshooting by
++  `G-F8.overshoot` 780216/98161 ≈ 7.95 on average (`G-F8.overshoot_about`
++  8), while those below 71 fall short by exactly `G-F8.undershoot` 12 on
++  average. The negative control: the median estimate is 74.6, not 71, so
++  "balance" is the average and never the middle.
++- The two widths: the average miss `G-F8.average_miss` 17164752/1859987 ≈
++  9.23 (`G-F8.average_miss_decimal` 9.2, "about nine",
++  `G-F8.average_miss_about`), the average distance from 71 ignoring
++  direction; the standard deviation, the square root of `G-F8.variance`
++  4752/35 = (71 − 5)(71 + 1) ÷ (5 × 7) (oracle check of the closed form),
++  ≈ 11.66 (`G-F8.sd_about` 11.7, rounded exactly from the fraction). The
++  negative control: the average miss squared is less than the variance, so
++  the two widths differ for every spread-out recipe.
++- Card E (08_9), built from the facts: "for N = 71 and handfuls of 5, all
++  13,019,909 estimates average exactly N; they miss by 9.2 on average, and
++  their standard deviation is √((N − 5)(N + 1) ÷ 35) ≈ 11.7."
++- Prediction (08_5): the tempting answer is "most of the time", from 07's
++  "right on average". The countdown shows every other stack with the place
++  at 71 empty under its "?"; its size, 1 in 29 and the table's row for it
++  come only with the answer. The video never says "the probability that the
++  count is 71": the count is fixed in this model.
++- Pauses: a thought pause after "not about our seventy-one."; the twenty rows
++  landing after 08_2 are a protected visual hold between 08_2 and 08_3, not a
++  pause row; a turn after "Twenty is only twenty."; a beat after "top out at
++  seventy-one." while the tallest bar rises; a reveal pause after "About one
++  handful in twenty-nine."; a beat after "The bars are lopsided, though."; a
++  thought pause after the question "So how far off is a typical estimate?".
++  The inspection holds after 08_4, 08_7, 08_8 and 08_9 are scene holds.
++
++## 09_how_far_off: How far off could it be? (~142 s)
++
++The friends' line again: their five boxes on gold ticks and the badge. Then
++the line's end slides out to 130 (a layout value, never written or said)
++with the boxes in their row at the left, and over it one dim bar per
++possible count from 60 to 130: the exact chance
++that a fair handful of five from that many boxes would all be 60 or less,
++the handfuls of five from the first 60 boxes divided by all the handfuls of
++five. The range is an ink bar under the line. Then the coverage experiment:
++the count fixed at 71, an upright ink mark there, and chapter 08's twenty
++computed handfuls, each building its own range by the same rule. The voice
++never calls the 95% a chance about the count. Highlights are halos and
++colour changes are replacements. Every number is `G-F1`, `G-F8` or `G-F9`.
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 09_1 | Back to the friends' own boxes. Their count is a fixed number nobody knows, at least sixty. How large could it be? Flip the question around. For each possible count, how often would a fair handful of five all be sixty or less? | The line opens with the boxes on their ticks and the badge; on "a fixed number nobody knows" "count: fixed, unknown" on the panel's top line; on "at least sixty" a teal halo round the box at 60 (`G-F1.at_least`); on "How large could it be" the boxes spread into their row, the line's faded end fills in and the end slides out to 130 under them; on "For each possible count" "chance all 5 are at most 60" on the panel's second line, and dim bars grow left to right, one per count from 60 to 130, each as tall as that chance | number line, zoom out, bars, lagged reveal | |
++| 09_2 | If the count were seventy-one, about forty-two percent of the time. If it were a hundred, about seven percent. The bigger the count, the rarer a handful this low. | On "If the count were seventy-one" "71: 42%" under the line at 71 and an ink halo round the bar there (`G-F9.at_most_60.71.percent`); on "If it were a hundred" "100: 7%" under the line at 100 and a halo round its bar (`G-F9.second_count`, `G-F9.at_most_60.100.percent`); on "The bigger the count" an ink halo round the bars from 100 on | bars, halo | |
++| 09_3 | At a hundred and seven boxes the chance is still just over five percent. At a hundred and eight it's just under, and it keeps falling from there. Counts that big would rarely give a handful like ours. | On "At a hundred and seven boxes" a dashed ink line across the bars at 5%, with "5%" just past the line's end (`G-F9.level`, `G-F9.level_percent`), an ink halo round the bar at 107 and "107 boxes: 5.1%" on the panel's third line (`G-F9.at_most_60.107.percent1`); on "At a hundred and eight" a halo round the bar at 108 and "108 boxes: 4.9%" on the last line (`G-F9.first_rare`, `G-F9.at_most_60.108.percent1`); on "it keeps falling" the bars from 108 on give way to faint ones | bars, highlight, halo | |
++| 09_4 | So keep every count from sixty to a hundred and seven, the counts that give a handful like ours at least five times in a hundred. That's our range. | On "So keep every count" the two chances under the line go, and an ink span under the line from 60 to 107 with a tick at each end and "range: 60 to 107" under it (`G-F9.range`); on "at least five times in a hundred" an ink halo round the dashed line and its "5%"; held to be read | bars, number line, halo | hold |
++| 09_5 | Is a range built this way any good? Test it where we know the answer. Fix the count at seventy-one, and let the twenty handfuls drawn by computer each build their own range the same way. | On "Test it where we know" the bars, the dashed line, the panel's chances, the range, the boxes and their ticks go, and the friends' gold dots turn plain; on "Fix the count at seventy-one" the panel's top line becomes "count = 71" (`G-F8.count`) and an upright ink mark rises at 71; on "each build their own range" twenty rows drop in one after another, bottom to top (`G-F8.again_handfuls`), each a small gold ring at half strength at its handful's largest number and a dim range from there to its top (`G-F9.again_ranges`); the rows keep landing after the words end, a protected visual task | computed experiment, lagged reveal, number line | |
++| 09_6 | Nineteen of the twenty ranges cover seventy-one. The range that misses came from a handful topped by thirty-eight. Over every handful, ranges built this way cover seventy-one about ninety-six times in a hundred, and whatever the count, never fewer than ninety-five. | On "Nineteen of the twenty ranges cover" the nineteen ranges across the mark give way to ink ones (`G-F9.again_cover`); on "The range that misses" an ink halo round the dim range left of the mark, with "largest 38" before its ring (`G-F9.again_miss_largest`); on "Over every handful" "every handful: 96% cover 71" on the panel's second line (`G-F9.cover_71_percent`); on "never fewer than ninety-five" "any count: at least 95%" on its third line (`G-F9.worst_coverage_at_least_95`); held to be inspected | computed experiment, halo, replacement | hold |
++| 09_7 | That's what ninety-five percent confidence means. The count stays fixed, and the range changes from handful to handful. It's a promise about the method, not a ninety-five percent chance that the count lies in our range. | On "ninety-five percent confidence" "95% confidence" on the panel's last line (`G-F9.confidence_percent`); on "The count stays fixed" an ink halo round the mark; on "the range changes" an ink halo round the twenty ranges; on "a promise about the method" an ink halo round "95% confidence"; the screen never writes a chance about the count | equation card, halo | |
++| 09_8 | Behind each bar was a single division. Count the handfuls of five from the first sixty boxes, and divide by all the handfuls of five from the whole company. At a hundred and seven boxes, that's just over five percent. | The rows, the mark and the panel's lines go; the bars, the dashed line and the range come back as 09_4 left them; on "Count the handfuls of five" "chance = handfuls of 5 from 60" on the panel's top line and "÷ handfuls of 5 from N" under it; on "At a hundred and seven boxes" "N = 107: 5,461,512 ÷ 106,308,566 ≈ 5.1%" on its third line (`G-F9.from_largest`, `G-F9.from_range_top`), and an ink halo round the bar at 107; held to be read | formula, bars, halo | hold |
++| 09_9 | ⟨predict⟩ If the friends had ten boxes instead, with the same largest number, would the range get wider or narrower? | The panel's lines give way to "10 boxes, largest still 60" (`G-F9.ten_boxes`); the countdown | prediction pause, think time, bars | |
++| 09_10 | Narrower. Ten numbers all sixty or less would be rare from a big company, so the range shrinks to sixty through seventy-nine. | The countdown goes; on "Ten numbers all sixty or less" the bars give way to the chances for ten, the handfuls of ten from the first 60 boxes over all the handfuls of ten, falling much faster; on "the range shrinks" the range gives way to one from 60 to 79 with "range: 60 to 79" (`G-F9.ten_boxes_range`); card F rises and stays until it can be read | bars, replacement, card | hold |
++
++### Notes for 09
++
++- The chances: `G-F9.at_most_60.71` 780216/1859987 (≈ 0.42, "about forty-two
++  percent"), `G-F9.at_most_60.100` 32509/448140 (≈ 0.073, "about seven"),
++  `G-F9.at_most_60.107` 390108/7593469 ≈ 0.0514 (`…percent1` 5.1) and
++  `G-F9.at_most_60.108` 32509/663507 ≈ 0.0490 (4.9), the first under
++  `G-F9.level` 1/20; the oracle checks every count from 108 to 400 is rare
++  and the chance keeps falling. 107 is `G-F9.range_top` (`G-F9.range` 60,
++  107), and the scene draws each bar from C(60, 5) ÷ C(N, 5) and refuses a
++  range whose top is not where the bars cross 1/20. A first guess from
++  (60/N)⁵ ≈ 1/20 gives 109 (oracle negative control); the exact bound is
++  107, and that is what the voice says.
++- The formula (09_8) is shown only after the bars and the coverage
++  experiment: `G-F9.from_largest` C(60, 5) = 5,461,512 and
++  `G-F9.from_range_top` C(107, 5) = 106,308,566.
++- The coverage experiment: the count is fixed at `G-F8.count` 71 and the
++  twenty handfuls are chapter 08's (`G-F8.again_handfuls`), each range from
++  its largest to `G-F9.again_ranges`; `G-F9.again_cover` 19 cover 71 and
++  `G-F9.again_miss` 1 misses, the handful topped by `G-F9.again_miss_largest`
++  38, range 38 to 67. A range covers 71 exactly when its largest number is
++  40 or more (oracle check), so over every handful it covers 71 with chance
++  `G-F9.cover_71` 1777736/1859987 ≈ 0.956 (`G-F9.cover_71_percent` 96).
++- "Whatever the count, never fewer than ninety-five": a range misses N only
++  when the chance of a handful topped that low is under 1/20 (the bars fall
++  as N grows), so it misses with chance under 1/20 for every N. The oracle
++  also computes the coverage for every count from 5 to 150; its smallest is
++  95.002%, at 144 (`G-F9.worst_coverage_at_least_95`).
++- Negative controls: the range from the largest number to the estimate
++  covers 71 only about 62% of the time, so the estimate is not the range's
++  top; under a flat prior on 60 to 200 or 60 to 1,000 boxes, the posterior
++  chance that the count is at most 107 is 91.8% or 91.2%, so the 95% is no
++  posterior and depends on nothing like a prior. The screen and the voice
++  never write the 95% as a chance about the count.
++- Ten boxes (09_9, 09_10): `G-F9.ten_boxes` 10 with the same largest 60
++  gives `G-F9.ten_boxes_range` 60, 79 (`G-F9.ten_boxes_top`). The five extra
++  boxes are never drawn on the line: no number of theirs is shown or said.
++- Card F (09_10), built from the facts: "range: each N from 60 up where 5
++  fair numbers from 1 to N are all at most 60 at least 5% of the time. For
++  any fixed N, such ranges cover N at least 95% of the time; not a chance
++  about N." Three lines at every width the lower third narrows to.
++- At this scale the bars at 107 and 108 differ in height by under a
++  hundredth of a scene unit, so the cutoff is carried by the panel's two
++  lines and by the bars from 108 on turning faint, not by the bar heights.
++- Prediction (09_9): the tempting answer is "wider, more boxes means more
++  uncertainty". The countdown shows only the new handful size and the old
++  range; the ten-box chances and 79 come with the answer.
++- Pauses: a thought pause after "How large could it be?" while the line's end
++  slides out; a beat after "it keeps falling from there." while the bars past
++  108 fade; the twenty rows landing after 09_5 are a protected visual hold
++  between 09_5 and 09_6; a beat after "Nineteen of the twenty ranges cover
++  seventy-one."; a thought pause after "That's what ninety-five percent
++  confidence means."; a reveal pause after "Narrower.". The inspection holds
++  after 09_4, 09_6, 09_8 and 09_10 are scene holds.
+diff '--color=never' -ruN a/explainer_corpus/german_tank/lexicon.json b/explainer_corpus/german_tank/lexicon.json
+--- a/explainer_corpus/german_tank/lexicon.json	2026-10-24 06:09:47.804137078 -0400
++++ b/explainer_corpus/german_tank/lexicon.json	2026-10-24 07:27:56.462294267 -0400
+@@ -1,5 +1,5 @@
+ {
+-  "_comment": "Narration lexicon (natural-sounding-narration-with-frankentts). Chapters 01 to 07, the chapters in script.tsv, say no proper name. Chapters 04 to 07 say three common terms of art, 'Statisticians' and 'estimator' (04_3) and 'unbiased' (05_7, 07_7); they are dictionary words, so none is respelled before it is heard. Risks recorded for root's qualification, none of them heard (docs/brief.md lists them with their lines): quick runs of hyphenated numbers (01_4; 03_1 to 03_3); runs of small numbers that are lists, 'one, two, three, four and five' (04_6), 'one, three and four' (05_3), and the gap lists 'zero, zero and three' (06_2, 06_5), 'one, two and zero' (06_2, 06_3) and 'three, zero and zero' (06_5); the stepwise read-back 'skip one box, take the next, skip two, take the next, and stop' (06_3); compound numbers whose joins carry the value, 'a hundred and fifty' (02_8), 'fifty-five' (03_4, 04_4, 04_5), 'seventy-one' (03_8, 03_10, 04_1, 04_5, 05_1), 'five hundred' (04_1), 'over thirteen million' (05_1), 'thirty-seven', 'thirty-six' and 'seventy-three' (07_9); decimals and halves from chapter 05 on (05_4, 08_2, 08_5, 10_4, 11_5, 12_3, 12_6, 13_3, 15_3); the meaning-carrying groupings 'the largest, plus the largest minus five, over five' and 'sixty plus fifty-five over five' (04_5), 'half of the largest minus two' (05_3), 'N minus five, over six' (07_3, 07_6) and 'the largest minus the size, over the size' (07_10); the letter 'N' (07_1 to 07_3, 07_6); 'estimator' (04_3), 'unbiased' (05_7, 07_7), 'sufficient' (11_5), 'statisticians' (04_3, 11_5), 'analysts' (16_1). Rao-Blackwell, Lehmann-Scheffe, Ruggles, Brodie and Goodman are card-only and never voiced. Before any voiced name is added, look it up, audition it against a control and a decoy, and lock it here with its sources; the owner's pronunciation overrides every source.",
++  "_comment": "Narration lexicon (natural-sounding-narration-with-frankentts). Chapters 01 to 09, the chapters in script.tsv, say no proper name. Chapters 04 to 09 say five common terms of art, 'Statisticians' (04_3, 08_8), 'estimator' (04_3), 'unbiased' (05_7, 07_7, 08_9), 'standard deviation' (08_8) and 'confidence' (09_7); they are dictionary words, so none is respelled before it is heard. Risks recorded for root's qualification, none of them heard (docs/brief.md lists them with their lines): quick runs of hyphenated numbers (01_4; 03_1 to 03_3); runs of small numbers that are lists, 'one, two, three, four and five' (04_6), 'one, three and four' (05_3), and the gap lists 'zero, zero and three' (06_2, 06_5), 'one, two and zero' (06_2, 06_3) and 'three, zero and zero' (06_5); the stepwise read-back 'skip one box, take the next, skip two, take the next, and stop' (06_3); compound numbers whose joins carry the value, 'a hundred and fifty' (02_8), 'fifty-five' (03_4, 04_4, 04_5), 'seventy-one' (03_8, 03_10, 04_1, 04_5, 05_1), 'five hundred' (04_1), 'over thirteen million' (05_1, 08_4), 'thirty-seven', 'thirty-six' and 'seventy-three' (07_9), 'over nine hundred thousand' and 'sixty-seven stacks' (08_4), 'a hundred and seven' and 'a hundred and eight' (09_3, 09_4, 09_8), which must stay distinct, 'ninety-five' and 'ninety-six' (09_6, 09_7); decimals and halves from chapter 05 on (05_4, 08_3, 08_8, 10_4, 11_5, 12_3, 12_6, 13_3, 15_3); the meaning-carrying groupings 'the largest, plus the largest minus five, over five' and 'sixty plus fifty-five over five' (04_5), 'half of the largest minus two' (05_3), 'N minus five, over six' (07_3, 07_6) and 'the largest minus the size, over the size' (07_10); the letter 'N' (07_1 to 07_3, 07_6); 'estimator' (04_3), 'unbiased' (05_7, 07_7, 08_9), 'standard deviation' (08_8), 'confidence' (09_7), 'sufficient' (11_5), 'statisticians' (04_3, 08_8, 11_5), 'analysts' (16_1). Rao-Blackwell, Lehmann-Scheffe, Ruggles, Brodie and Goodman are card-only and never voiced. Before any voiced name is added, look it up, audition it against a control and a decoy, and lock it here with its sources; the owner's pronunciation overrides every source.",
+   "words": {},
+   "accept": {},
+   "phrases": {}
+diff '--color=never' -ruN a/explainer_corpus/german_tank/oracle.py b/explainer_corpus/german_tank/oracle.py
+--- a/explainer_corpus/german_tank/oracle.py	2026-10-24 05:37:17.038308542 -0400
++++ b/explainer_corpus/german_tank/oracle.py	2026-10-24 06:51:37.621944282 -0400
+@@ -31,7 +31,7 @@
+ import sys
+ from fractions import Fraction as F
+ from itertools import combinations, permutations
+-from math import comb
++from math import comb, isqrt
+ 
+ _EMITTED = {}
+ _FAILED = []
+@@ -89,6 +89,18 @@
+     return f"{tenths // 10}.{tenths % 10}"
+ 
+ 
++def sqrt_about1(x):
++    """The square root of a positive x rounded half up to one decimal place,
++    exactly: the tenths t with ((2t - 1)/20)^2 <= x < ((2t + 1)/20)^2, from
++    the integer square root of 400x (a panel's "≈ 11.7")."""
++    if F(x) < 0:
++        raise SystemExit(f"{x}: sqrt_about1 is for positive values")
++    r = isqrt(int(F(x) * 400))
++    odd = r if r % 2 == 1 else r - 1
++    tenths = (odd + 1) // 2
++    return f"{tenths // 10}.{tenths % 10}"
++
++
+ # ------------------------------------------------------------------ recipes
+ # Each recipe is written from its spoken definition, not from a formula sheet.
+ 
+@@ -534,18 +546,68 @@
+     emit("G-F8.again_highest", decimal1(max(again_est)))
+     emit("G-F8.again_average", q(sum(again_est) / len(again_est)))
+     emit("G-F8.again_average_about", nearest(sum(again_est) / len(again_est)))
++    emit("G-F8.again_exact", sum(1 for e in again_est if e == n71))
++    # 08_3: the handfuls counted by their largest number, from the brute
++    # force: one stack per largest number, the smallest and the next, and
++    # the count itself (said as "over nine hundred thousand")
++    emit("G-F8.stacks", len(by_max))
++    emit("G-F8.topped_by_smallest", by_max[k])
++    emit("G-F8.next_largest", k + 1)
++    emit("G-F8.topped_by_next", by_max[k + 1])
++    emit("G-F8.topped_by_count", by_max[n71])
++    emit("G-F8.topped_by_count_over", 100000 * (by_max[n71] // 100000))
++    # 08_6: how far the two sides of 71 miss on average; 08_7: the spread
++    overs = [(e, c) for e, c in gap_dist.items() if e > n71]
++    unders = [(e, c) for e, c in gap_dist.items() if e < n71]
++    overshoot = sum((e - n71) * c for e, c in overs) / sum(c for _, c in overs)
++    undershoot = sum((n71 - e) * c for e, c in unders) / sum(c for _, c in unders)
++    emit("G-F8.overshoot", q(overshoot))
++    emit("G-F8.overshoot_about", nearest(overshoot))
++    emit("G-F8.undershoot", q(undershoot))
++    emit("G-F8.average_miss_decimal", about1(mae71))
++    var71 = sum((e - n71) ** 2 * c for e, c in gap_dist.items()) / count
++    emit("G-F8.variance", q(var71))
++    emit("G-F8.sd_about", sqrt_about1(var71))
+ 
+     # 09: how sure; the chance a handful of five tops out at 60 or less
+     for n in (71, 100):
+         emit(f"G-F9.at_most_60.{n}", q(all_at_most(m, n, k)))
+         emit(f"G-F9.at_most_60.{n}.percent", nearest(100 * all_at_most(m, n, k)))
++    emit("G-F9.second_count", 100)
+     level = F(1, 20)
+     top5 = upper_bound(m, k, level)
+     emit("G-F9.level", q(level))
++    emit("G-F9.level_percent", nearest(100 * level))
++    emit("G-F9.confidence_percent", nearest(100 * (1 - level)))
+     emit("G-F9.range", csv([m, top5]))
++    emit("G-F9.range_top", top5)
+     emit("G-F9.first_rare", top5 + 1)
+     emit("G-F9.first_rare.percent_below", flag(all_at_most(m, top5 + 1, k) < level))
+-    emit("G-F9.ten_boxes_range", csv([m, upper_bound(m, 10, level)]))
++    # the two counts either side of the cutoff, shown to a tenth of a percent
++    for n in (top5, top5 + 1):
++        emit(f"G-F9.at_most_60.{n}", q(all_at_most(m, n, k)))
++        emit(f"G-F9.at_most_60.{n}.percent1", about1(100 * all_at_most(m, n, k)))
++    # 09_8's division at the range's top: handfuls from the first sixty, and
++    # from the whole count, as counts (not the product above)
++    emit("G-F9.from_largest", comb(m, k))
++    emit("G-F9.from_range_top", comb(top5, k))
++    ten = 10
++    emit("G-F9.ten_boxes", ten)
++    emit("G-F9.ten_boxes_range", csv([m, upper_bound(m, ten, level)]))
++    emit("G-F9.ten_boxes_top", upper_bound(m, ten, level))
++    # 09_5, 09_6: the coverage experiment. With the count fixed at 71, each of
++    # 08's twenty drawn handfuls builds its own range the same way
++    ranges = [(h[-1], upper_bound(h[-1], k, level)) for h in again]
++    covers = [lo <= n71 <= hi for lo, hi in ranges]
++    misses = [lo for (lo, _), c in zip(ranges, covers) if not c]
++    emit("G-F9.again_ranges", ";".join(csv(r) for r in ranges))
++    emit("G-F9.again_cover", sum(covers))
++    emit("G-F9.again_miss", len(misses))
++    emit("G-F9.again_miss_largest", csv(misses))
++    # and over every handful of the 71-box company (the brute-force counts)
++    cover71 = sum(F(c, count) for mm, c in by_max.items() if upper_bound(mm, k, level) >= n71)
++    emit("G-F9.cover_71", q(cover71))
++    emit("G-F9.cover_71_percent", nearest(100 * cover71))
+     # coverage: the range built this way holds the true count in at least
+     # 95 of every 100 handfuls, for every count 5..150
+     worst = None
+@@ -803,6 +865,68 @@
+     check(f"range top {top}: binomial ratio >= 1/20 there and < 1/20 one count later",
+           F(comb(60, 5), comb(top, 5)) >= F(1, 20) > F(comb(60, 5), comb(top + 1, 5)))
+ 
++    # 08's and 09's sentences at their edges
++    est71 = {mm: mm + F(mm - 5, 5) for mm in by_max}
++    check("08: the 71-box estimates are 67 values 6/5 apart, 5 to 84.2, one per largest number",
++          sorted(est71.values()) == [5 + F(6, 5) * j for j in range(67)] and len(set(est71.values())) == 67)
++    check("08: over nine hundred thousand and under a million handfuls top out at 71",
++          900000 < by_max[71] < 1000000)
++    check("08: only the largest 60 gives exactly 71, so the hero bar is one stack",
++          [mm for mm, e in est71.items() if e == 71] == [60])
++    check("08: the variance is (N-k)(N+1)/(k(k+2)) at N=71 (66*72/35), and 11.65 <= its root < 11.75",
++          sum((e - 71) ** 2 * by_max[mm] for mm, e in est71.items()) / count == F(66 * 72, 35)
++          and F(1165, 100) ** 2 <= F(66 * 72, 35) < F(1175, 100) ** 2)
++    check("08: sqrt_about1 at its edges (1.1 exactly; 1.15 rounds up; just under 1.15 rounds down)",
++          sqrt_about1(F(121, 100)) == "1.1" and sqrt_about1(F(529, 400)) == "1.2"
++          and sqrt_about1(F(528, 400)) == "1.1" and sqrt_about1(F(1, 1000)) == "0.0")
++    # 08_6's "Three in twenty was lucky": three or more exact estimates in
++    # twenty fair draws has chance under 1/20 (two or more would not)
++    exact = F(by_max[60], count)
++    at_least = lambda j: 1 - sum(comb(20, i) * exact ** i * (1 - exact) ** (20 - i) for i in range(j))
++    check("08: three or more exactly-71 estimates in twenty draws has chance under 1/20, two or more over it",
++          at_least(3) < F(1, 20) < at_least(2))
++    # NEGATIVE 08: the balance point is the mean, not the middle handful, and
++    # the standard deviation is not the average miss
++    acc, middle = 0, None
++    for mm in sorted(by_max):
++        acc += by_max[mm]
++        if middle is None and 2 * acc >= count:
++            middle = est71[mm]
++    mae = sum(abs(e - 71) * by_max[mm] for mm, e in est71.items()) / count
++    check("NEGATIVE 08: the middle handful's estimate is 74.6, not the balance point 71",
++          middle == F(373, 5) != 71)
++    check("NEGATIVE 08: the average miss squared falls short of the variance (9.23^2 < 135.8)",
++          mae * mae < F(66 * 72, 35))
++    # 09: every count from the cutoff on is rare (the chance only falls), and
++    # 107 and 108 sit just either side of one in twenty
++    p = lambda n, kk=5: all_at_most(60, n, kk)
++    check("09: from 108 to 400 boxes, a handful this low has chance under 1/20, falling",
++          all(p(n) < F(1, 20) and p(n + 1) < p(n) for n in range(108, 400)))
++    check("09: just over 5% at 107 (under 6%), just under at 108 (over 4%)",
++          F(1, 20) < p(107) < F(6, 100) and F(4, 100) < p(108) < F(1, 20))
++    check("09: with ten boxes the range's top is 79: chance >= 1/20 at 79, < 1/20 at 80",
++          p(79, 10) >= F(1, 20) > p(80, 10))
++    check("09: a range covers 71 exactly when its handful's largest is 40 or more",
++          all((upper_bound(mm, 5, F(1, 20)) >= 71) == (mm >= 40) for mm in range(5, 72)))
++    # NEGATIVE 09: a range from the largest to the estimate is not a 95% range
++    # (it covers 71 only when the estimate overshoots or hits it)
++    to_estimate = sum(F(by_max[mm], count) for mm, e in est71.items() if e >= 71)
++    check("NEGATIVE 09: the range from the largest to the estimate covers 71 only about 62% of the time (< 95%)",
++          F(6, 10) < to_estimate < F(62, 100))
++    # NEGATIVE 09: (60/N)^5 is a first guess that puts the cutoff at 109
++    guess_top = max(n for n in range(60, 200) if F(60, n) ** 5 >= F(1, 20))
++    check("NEGATIVE 09: the first guess (60/N)^5 >= 1/20 gives 109, not the exact 107", guess_top == 109 != top)
++    # NEGATIVE 09: the 95% is not a probability about the count. Give the
++    # count a prior (equally likely over 60..200, or over 60..1000) and the
++    # chance that it is at most 107 given this handful changes with the
++    # prior, and is 95% for neither
++    posts = []
++    for last in (200, 1000):
++        like = {n: F(1, comb(n, 5)) for n in range(60, last + 1)}
++        posts.append(sum(w for n, w in like.items() if n <= top) / sum(like.values()))
++    check("NEGATIVE 09: the posterior chance of N <= 107 depends on the prior (91.8% vs 91.2%), never 95%",
++          posts[0] != posts[1] and all(abs(x - F(19, 20)) > F(1, 100) for x in posts))
++
+     # negative controls: these must be detected as wrong
+     no_minus_one = lambda h: max(h) * (1 + F(1, len(h)))
+     check("NEGATIVE: largest*(1+1/k) without the -1 is biased high by exactly 1",
+diff '--color=never' -ruN a/explainer_corpus/german_tank/script.tsv b/explainer_corpus/german_tank/script.tsv
+--- a/explainer_corpus/german_tank/script.tsv	2026-10-24 05:41:30.207144212 -0400
++++ b/explainer_corpus/german_tank/script.tsv	2026-10-24 06:49:49.475960072 -0400
+@@ -62,3 +62,22 @@
+ 07_8	What does the recipe do with a handful of just one box?
+ 07_9	It doubles the number and subtracts one. One box leaves two gaps, and the gap below is the only clue to the gap above. Box thirty-seven has thirty-six boxes below it, so the recipe says seventy-three.
+ 07_10	Nothing in the proof needed five. With any handful size, the numbers cut the unseen boxes into one more gap than there are numbers, all with the same average. So the recipe always adds the largest minus the size, over the size, and it's right on average for every count, as long as the handful is fair.
++08_1	Right on average is a promise about the recipe across all handfuls, not about our seventy-one. To see what it promises, imagine a company that made exactly seventy-one boxes, and friends who could buy five fresh boxes from it, again and again.
++08_2	Here are twenty such handfuls, drawn by computer.
++08_3	Their estimates land between about forty-five and eighty-four point two, and three of them land exactly on seventy-one. Together they average about seventy-two.
++08_4	Twenty is only twenty. This company has over thirteen million handfuls of five, and we can count them all, because the recipe looks only at the largest number. Just one handful tops out at five. Five handfuls top out at six. Over nine hundred thousand top out at seventy-one. So the handfuls fall into sixty-seven stacks by their largest number, and every handful in a stack gives the same estimate.
++08_5	Out of all those handfuls, how often do you think the estimate is exactly seventy-one, the true count?
++08_6	About one handful in twenty-nine. Three in twenty was lucky. Being right on average doesn't mean being right often.
++08_7	Yet all the bars together balance at seventy-one exactly, while our twenty draws averaged about seventy-two. The bars are lopsided, though. Fifty-eight percent of handfuls overestimate, by about eight boxes on average, and the estimates that fall short miss by twelve on average.
++08_8	So how far off is a typical estimate? Ignoring the direction, an estimate misses by about nine boxes on average. Statisticians often quote a different width, the standard deviation. It squares each miss before averaging, then takes the square root, so big misses count for more, and here it comes to about eleven point seven.
++08_9	So keep these ideas apart. The recipe is unbiased, so its estimates balance at the true count. They spread out around it, by about nine boxes on average. And our seventy-one is a single estimate, from a single handful.
++09_1	Back to the friends' own boxes. Their count is a fixed number nobody knows, at least sixty. How large could it be? Flip the question around. For each possible count, how often would a fair handful of five all be sixty or less?
++09_2	If the count were seventy-one, about forty-two percent of the time. If it were a hundred, about seven percent. The bigger the count, the rarer a handful this low.
++09_3	At a hundred and seven boxes the chance is still just over five percent. At a hundred and eight it's just under, and it keeps falling from there. Counts that big would rarely give a handful like ours.
++09_4	So keep every count from sixty to a hundred and seven, the counts that give a handful like ours at least five times in a hundred. That's our range.
++09_5	Is a range built this way any good? Test it where we know the answer. Fix the count at seventy-one, and let the twenty handfuls drawn by computer each build their own range the same way.
++09_6	Nineteen of the twenty ranges cover seventy-one. The range that misses came from a handful topped by thirty-eight. Over every handful, ranges built this way cover seventy-one about ninety-six times in a hundred, and whatever the count, never fewer than ninety-five.
++09_7	That's what ninety-five percent confidence means. The count stays fixed, and the range changes from handful to handful. It's a promise about the method, not a ninety-five percent chance that the count lies in our range.
++09_8	Behind each bar was a single division. Count the handfuls of five from the first sixty boxes, and divide by all the handfuls of five from the whole company. At a hundred and seven boxes, that's just over five percent.
++09_9	If the friends had ten boxes instead, with the same largest number, would the range get wider or narrower?
++09_10	Narrower. Ten numbers all sixty or less would be rare from a big company, so the range shrinks to sixty through seventy-nine.
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/chapters/mod.rs b/explainer_corpus/german_tank/src/chapters/mod.rs
+--- a/explainer_corpus/german_tank/src/chapters/mod.rs	2026-10-24 05:45:05.700894830 -0400
++++ b/explainer_corpus/german_tank/src/chapters/mod.rs	2026-10-24 07:25:08.636451244 -0400
+@@ -1,12 +1,13 @@
+ //! One scene per chapter, in storyboard order, with its score intensity
+ //! (`0.0..=1.0`). Keys are `NN_name`; narration line ids `NN_k` belong to
+ //! the chapter with the same `NN`. Only chapters with a native scene are
+-//! registered: chapters 08 to 16 are written in full in
++//! registered: chapters 10 to 16 are written in full in
+ //! docs/storyboard-draft.md and join this registry, docs/storyboard.md and
+-//! script.tsv together when their scenes exist. Chapters 02 to 04, 06 and
+-//! 07 share one number line, built in [`friends_line`]; chapters 04 to 07
++//! script.tsv together when their scenes exist. Chapters 02 to 04 and 06 to
++//! 09 share one number line, built in [`friends_line`]; chapters 04 to 09
+ //! share the halo, replacement and panel builders of [`what_we_assume`];
+-//! chapter 07 reuses the six-gap line of [`gaps_trade_places`].
++//! chapter 07 reuses the six-gap line of [`gaps_trade_places`], and chapter
++//! 09 the bars, count mark and spans of [`one_estimate`].
+ 
+ pub mod a_thousand_boxes;
+ pub mod counting_the_gaps;
+@@ -16,6 +17,8 @@
+ pub mod friends_line;
+ pub mod gaps_trade_places;
+ pub mod glyphs;
++pub mod how_far_off;
++pub mod one_estimate;
+ pub mod right_on_average;
+ pub mod what_we_assume;
+ 
+@@ -58,5 +61,15 @@
+             make: |kit| Box::new(right_on_average::RightOnAverage { kit }),
+             intensity: 0.6,
+         },
++        Chapter {
++            key: "08_one_estimate",
++            make: |kit| Box::new(one_estimate::OneEstimate { kit }),
++            intensity: 0.55,
++        },
++        Chapter {
++            key: "09_how_far_off",
++            make: |kit| Box::new(how_far_off::HowFarOff { kit }),
++            intensity: 0.6,
++        },
+     ]
+ }
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/facts.rs b/explainer_corpus/german_tank/src/facts.rs
+--- a/explainer_corpus/german_tank/src/facts.rs	2026-10-24 05:45:59.733256339 -0400
++++ b/explainer_corpus/german_tank/src/facts.rs	2026-10-24 06:35:44.547833416 -0400
+@@ -50,6 +50,15 @@
+ pub const LATE_FROM: u64 = 151;
+ pub const LATE: [u64; 5] = [158, 166, 173, 189, 200];
+ 
++/// The round unit 08_3 says the stack topped by the count passes ("over
++/// nine hundred thousand").
++const TOPPED_ROUND: i128 = 100_000;
++
++/// The second count 09_2 tries, and the larger handful of 09's last
++/// prediction.
++const SECOND_COUNT: u64 = 100;
++const TEN: u64 = 10;
++
+ /// The one-in-twenty level of the 95% range.
+ pub fn level() -> Q {
+     Q::new(1, 20)
+@@ -381,22 +390,82 @@
+     f.add("G-F8.again_highest", hi.decimal1()?)?;
+     f.add("G-F8.again_average", again_mean)?;
+     f.add("G-F8.again_average_about", again_mean.nearest())?;
++    f.add("G-F8.again_exact", again_est.iter().filter(|&&e| e == int(n71)).count())?;
++    // 08_3: the handfuls by their largest number: a stack for each largest
++    // number from five to the count, its size C(m − 1, 4)
++    let topped = |mm: u64| model::with_largest(mm, K);
++    f.add("G-F8.stacks", n71 - K + 1)?;
++    f.add("G-F8.topped_by_smallest", topped(K))?;
++    f.add("G-F8.next_largest", K + 1)?;
++    f.add("G-F8.topped_by_next", topped(K + 1))?;
++    let at_count = topped(n71).whole().ok_or("a whole count")?;
++    f.add("G-F8.topped_by_count", at_count)?;
++    f.add("G-F8.topped_by_count_over", at_count / TOPPED_ROUND * TOPPED_ROUND)?;
++    // 08_6: how far each side of 71 misses on average; 08_7: the spread
++    let side = |keep: &dyn Fn(Q) -> bool| {
++        let (miss, many) = (K..=n71)
++            .filter(|&mm| keep(est(mm)))
++            .fold((Q::ZERO, Q::ZERO), |(s, c), mm| {
++                (s + topped(mm) * (est(mm) - int(n71)).abs(), c + topped(mm))
++            });
++        miss / many
++    };
++    let overshoot = side(&|e| e > int(n71));
++    f.add("G-F8.overshoot", overshoot)?;
++    f.add("G-F8.overshoot_about", overshoot.nearest())?;
++    f.add("G-F8.undershoot", side(&|e| e < int(n71)))?;
++    f.add("G-F8.average_miss_decimal", mae71.about1()?)?;
++    let var71 = model::mean_by_largest(n71, K, |mm| (est(mm) - int(n71)) * (est(mm) - int(n71)));
++    f.add("G-F8.variance", var71)?;
++    f.add("G-F8.sd_about", var71.sqrt_about1()?)?;
+ 
+     // 09: how far off; the chance a fair handful tops out at 60 or less
+-    for n in [71, 100] {
++    let counts = [n71, SECOND_COUNT];
++    for n in counts {
+         let p = model::all_at_most(m, n, K);
+         f.add(&format!("G-F9.at_most_60.{n}"), p)?;
+         f.add(&format!("G-F9.at_most_60.{n}.percent"), (Q::int(100) * p).nearest())?;
+     }
++    f.add("G-F9.second_count", SECOND_COUNT)?;
+     let top = model::upper_bound(m, K, level());
+     f.add("G-F9.level", level())?;
++    f.add("G-F9.level_percent", (Q::int(100) * level()).nearest())?;
++    f.add("G-F9.confidence_percent", (Q::int(100) * (Q::ONE - level())).nearest())?;
+     f.add("G-F9.range", csv(&[m, top]))?;
++    f.add("G-F9.range_top", top)?;
+     f.add("G-F9.first_rare", top + 1)?;
+     f.add(
+         "G-F9.first_rare.percent_below",
+         flag(model::all_at_most(m, top + 1, K) < level()),
+     )?;
+-    f.add("G-F9.ten_boxes_range", csv(&[m, model::upper_bound(m, 10, level())]))?;
++    for n in [top, top + 1] {
++        let p = model::all_at_most(m, n, K);
++        f.add(&format!("G-F9.at_most_60.{n}"), p)?;
++        f.add(&format!("G-F9.at_most_60.{n}.percent1"), (Q::int(100) * p).about1()?)?;
++    }
++    f.add("G-F9.from_largest", choose(m, K))?;
++    f.add("G-F9.from_range_top", choose(top, K))?;
++    f.add("G-F9.ten_boxes", TEN)?;
++    f.add("G-F9.ten_boxes_range", csv(&[m, model::upper_bound(m, TEN, level())]))?;
++    f.add("G-F9.ten_boxes_top", model::upper_bound(m, TEN, level()))?;
++    // the coverage experiment: the count fixed at 71, each of 08's twenty
++    // handfuls builds its own range from its largest number
++    let ranges: Vec<[u64; 2]> = again
++        .iter()
++        .map(|h| {
++            let lo = *h.last().expect("a handful has a box");
++            [lo, model::upper_bound(lo, K, level())]
++        })
++        .collect();
++    let misses: Vec<u64> = ranges.iter().filter(|r| r[1] < n71).map(|r| r[0]).collect();
++    let ranges_shown: Vec<String> = ranges.iter().map(|r| csv(r.as_slice())).collect();
++    f.add("G-F9.again_ranges", ranges_shown.join(";"))?;
++    f.add("G-F9.again_cover", ranges.len() - misses.len())?;
++    f.add("G-F9.again_miss", misses.len())?;
++    f.add("G-F9.again_miss_largest", csv(&misses))?;
++    let cover71 = model::share_by_largest(n71, K, |mm| model::upper_bound(mm, K, level()) >= n71);
++    f.add("G-F9.cover_71", cover71)?;
++    f.add("G-F9.cover_71_percent", (Q::int(100) * cover71).nearest())?;
+     f.add(
+         "G-F9.worst_coverage_at_least_95",
+         flag(model::worst_coverage(K, 150, level()) >= Q::new(19, 20)),
+@@ -621,6 +690,6 @@
+     #[test]
+     fn there_is_one_fact_per_oracle_key() {
+         let f = facts().unwrap();
+-        assert_eq!(f.len(), 198);
++        assert_eq!(f.len(), 229);
+     }
+ }
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/main.rs b/explainer_corpus/german_tank/src/main.rs
+--- a/explainer_corpus/german_tank/src/main.rs	2026-10-24 05:42:24.960207137 -0400
++++ b/explainer_corpus/german_tank/src/main.rs	2026-10-24 07:25:29.940585845 -0400
+@@ -2,10 +2,12 @@
+ //! thing their numbers prove, fair handfuls drawn by computer from a
+ //! thousand and from seventy, the gap recipe found by counting the gaps, the
+ //! question and its one assumption made exact, every pair from a company of
+-//! five boxes averaging exactly five, the gaps trading places, and the proof
+-//! that it is right on average for a fair handful of any count; then (in the
+-//! chapters drafted in docs/storyboard-draft.md) what that does not promise,
+-//! and what breaks it, rendered
++//! five boxes averaging exactly five, the gaps trading places, the proof
++//! that it is right on average for a fair handful of any count, how far one
++//! estimate can be from the count, and the range ninety-five percent
++//! confidence gives; then (in the chapters drafted in
++//! docs/storyboard-draft.md) what else it does not promise, and what breaks
++//! it, rendered
+ //! end to end by franken_manim's native Rust front door and the corpus's
+ //! shared kit.
+ //!
+@@ -333,6 +335,173 @@
+         ("07_9", "seventy-three", "G-F7.one_box_estimate", "73"),
+         ("07_10", "needed five", "G-F1.handful", "5"),
+         ("07_10", "one more gap than there are numbers", "G-F3.top_gaps", "1"),
++        // 08: one estimate
++        ("08_1", "not about our seventy-one", "G-F3.estimate", "71"),
++        ("08_1", "made exactly seventy-one boxes", "G-F8.count", "71"),
++        ("08_1", "buy five fresh boxes", "G-F1.handful", "5"),
++        ("08_2", "Here are twenty such handfuls", "G-F8.again_draws", "20"),
++        ("08_3", "about forty-five", "G-F8.again_lowest_about", "45"),
++        ("08_3", "eighty-four point two", "G-F8.again_highest", "84.2"),
++        (
++            "08_3",
++            "three of them land exactly on seventy-one",
++            "G-F8.again_exact",
++            "3",
++        ),
++        ("08_3", "three of them land exactly on seventy-one", "G-F8.count", "71"),
++        ("08_3", "about seventy-two", "G-F8.again_average_about", "72"),
++        ("08_4", "Twenty is only twenty", "G-F8.again_draws", "20"),
++        ("08_4", "over thirteen million handfuls of five", "G-F5.millions", "13"),
++        ("08_4", "over thirteen million handfuls of five", "G-F1.handful", "5"),
++        (
++            "08_4",
++            "Just one handful tops out at five",
++            "G-F8.topped_by_smallest",
++            "1",
++        ),
++        ("08_4", "Just one handful tops out at five", "G-F1.handful", "5"),
++        ("08_4", "Five handfuls top out at six", "G-F8.topped_by_next", "5"),
++        ("08_4", "Five handfuls top out at six", "G-F8.next_largest", "6"),
++        (
++            "08_4",
++            "Over nine hundred thousand top out at seventy-one",
++            "G-F8.topped_by_count_over",
++            "900000",
++        ),
++        (
++            "08_4",
++            "Over nine hundred thousand top out at seventy-one",
++            "G-F8.count",
++            "71",
++        ),
++        ("08_4", "sixty-seven stacks", "G-F8.stacks", "67"),
++        ("08_5", "exactly seventy-one, the true count", "G-F8.count", "71"),
++        (
++            "08_6",
++            "About one handful in twenty-nine",
++            "G-F8.exactly_right_one_in",
++            "29",
++        ),
++        ("08_6", "Three in twenty was lucky", "G-F8.again_exact", "3"),
++        ("08_6", "Three in twenty was lucky", "G-F8.again_draws", "20"),
++        ("08_7", "balance at seventy-one exactly", "G-F8.average", "71"),
++        (
++            "08_7",
++            "our twenty draws averaged about seventy-two",
++            "G-F8.again_draws",
++            "20",
++        ),
++        (
++            "08_7",
++            "our twenty draws averaged about seventy-two",
++            "G-F8.again_average_about",
++            "72",
++        ),
++        ("08_7", "Fifty-eight percent", "G-F8.overestimate_percent", "58"),
++        ("08_7", "by about eight boxes", "G-F8.overshoot_about", "8"),
++        ("08_7", "miss by twelve", "G-F8.undershoot", "12"),
++        ("08_8", "about nine boxes", "G-F8.average_miss_about", "9"),
++        ("08_8", "about eleven point seven", "G-F8.sd_about", "11.7"),
++        ("08_9", "about nine boxes", "G-F8.average_miss_about", "9"),
++        ("08_9", "our seventy-one", "G-F3.estimate", "71"),
++        // 09: how far off
++        ("09_1", "at least sixty", "G-F1.at_least", "60"),
++        (
++            "09_1",
++            "a fair handful of five all be sixty or less",
++            "G-F1.handful",
++            "5",
++        ),
++        (
++            "09_1",
++            "a fair handful of five all be sixty or less",
++            "G-F1.largest",
++            "60",
++        ),
++        ("09_2", "If the count were seventy-one", "G-F8.count", "71"),
++        ("09_2", "about forty-two percent", "G-F9.at_most_60.71.percent", "42"),
++        ("09_2", "If it were a hundred", "G-F9.second_count", "100"),
++        ("09_2", "about seven percent", "G-F9.at_most_60.100.percent", "7"),
++        ("09_3", "At a hundred and seven boxes", "G-F9.range_top", "107"),
++        ("09_3", "just over five percent", "G-F9.level_percent", "5"),
++        ("09_3", "At a hundred and eight", "G-F9.first_rare", "108"),
++        ("09_4", "from sixty to a hundred and seven", "G-F9.range", "60,107"),
++        ("09_4", "at least five times in a hundred", "G-F9.level", "1/20"),
++        ("09_5", "Fix the count at seventy-one", "G-F8.count", "71"),
++        (
++            "09_5",
++            "the twenty handfuls drawn by computer",
++            "G-F8.again_draws",
++            "20",
++        ),
++        (
++            "09_6",
++            "Nineteen of the twenty ranges cover seventy-one",
++            "G-F9.again_cover",
++            "19",
++        ),
++        (
++            "09_6",
++            "Nineteen of the twenty ranges cover seventy-one",
++            "G-F8.again_draws",
++            "20",
++        ),
++        (
++            "09_6",
++            "Nineteen of the twenty ranges cover seventy-one",
++            "G-F8.count",
++            "71",
++        ),
++        ("09_6", "topped by thirty-eight", "G-F9.again_miss_largest", "38"),
++        (
++            "09_6",
++            "this way cover seventy-one about ninety-six times in a hundred",
++            "G-F8.count",
++            "71",
++        ),
++        (
++            "09_6",
++            "this way cover seventy-one about ninety-six times in a hundred",
++            "G-F9.cover_71_percent",
++            "96",
++        ),
++        ("09_6", "never fewer than ninety-five", "G-F9.confidence_percent", "95"),
++        (
++            "09_7",
++            "That's what ninety-five percent confidence means",
++            "G-F9.confidence_percent",
++            "95",
++        ),
++        (
++            "09_7",
++            "not a ninety-five percent chance",
++            "G-F9.confidence_percent",
++            "95",
++        ),
++        (
++            "09_8",
++            "handfuls of five from the first sixty boxes",
++            "G-F1.handful",
++            "5",
++        ),
++        (
++            "09_8",
++            "handfuls of five from the first sixty boxes",
++            "G-F1.largest",
++            "60",
++        ),
++        (
++            "09_8",
++            "all the handfuls of five from the whole company",
++            "G-F1.handful",
++            "5",
++        ),
++        ("09_8", "At a hundred and seven boxes", "G-F9.range_top", "107"),
++        ("09_8", "just over five percent", "G-F9.level_percent", "5"),
++        ("09_9", "had ten boxes instead", "G-F9.ten_boxes", "10"),
++        ("09_10", "Ten numbers all sixty or less", "G-F9.ten_boxes", "10"),
++        ("09_10", "Ten numbers all sixty or less", "G-F1.largest", "60"),
++        ("09_10", "sixty through seventy-nine", "G-F9.ten_boxes_range", "60,79"),
+     ];
+ 
+     /// Sizes said on purpose without a value: the stakes and the unknown
+@@ -482,7 +651,8 @@
+     /// answer it: the one certain thing about the count, where a fair
+     /// handful from a thousand lands, the first estimate, the edge
+     /// handful's estimate, the tiny company's average, where the friends'
+-    /// hidden gap is, and what the recipe does with one box.
++    /// hidden gap is, what the recipe does with one box, how often an
++    /// estimate is exactly right, and what ten boxes do to the range.
+     #[test]
+     fn the_prediction_is_asked_once_and_answered_next() {
+         let boards = explainer_kit::storyboard::parse(STORYBOARD).unwrap();
+@@ -514,6 +684,12 @@
+                 "with a handful of just one box?",
+                 "It doubles the number",
+             ),
++            (
++                "08_one_estimate",
++                "the estimate is exactly seventy-one, the true count?",
++                "About one handful in twenty-nine",
++            ),
++            ("09_how_far_off", "would the range get wider or narrower?", "Narrower"),
+         ];
+         assert_eq!(boards.len(), expected.len());
+         for (board, (key, asks, answers)) in boards.iter().zip(expected) {
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/model.rs b/explainer_corpus/german_tank/src/model.rs
+--- a/explainer_corpus/german_tank/src/model.rs	2026-10-24 02:35:39.696670698 -0400
++++ b/explainer_corpus/german_tank/src/model.rs	2026-10-24 06:34:38.523163290 -0400
+@@ -118,6 +118,21 @@
+         let t = (self * Q::int(10)).nearest();
+         Ok(format!("{}.{}", t / 10, t % 10))
+     }
++
++    /// The square root of a positive value rounded half up to one decimal
++    /// place, found exactly: the tenths t with ((2t − 1)/20)² ≤ self <
++    /// ((2t + 1)/20)², from the integer square root of 400 × self (a
++    /// panel's "≈ 11.7").
++    pub fn sqrt_about1(self) -> Result<String, String> {
++        if self.n < 0 {
++            return Err(format!("{self}: sqrt_about1 is for positive values"));
++        }
++        let floor = u128::try_from(times(self.n, 400).div_euclid(self.d)).expect(OVERFLOW);
++        let r = floor.isqrt();
++        let odd = if r % 2 == 1 { r } else { r.saturating_sub(1) };
++        let t = odd.div_ceil(2);
++        Ok(format!("{}.{}", t / 10, t % 10))
++    }
+ }
+ 
+ /// `n/d`, or `n` when whole: as Python's `str(Fraction)` prints it.
+@@ -511,6 +526,14 @@
+         assert_eq!(Q::new(5, 2).nearest(), 3);
+         assert_eq!(Q::new(-5, 2).nearest(), -3);
+         assert_eq!(Q::new(1808, 25).nearest(), 72);
++        // square roots at their edges: exact, a half rounding up, just under
++        // a half rounding down, and a root under a twentieth
++        assert_eq!(Q::new(121, 100).sqrt_about1().unwrap(), "1.1");
++        assert_eq!(Q::new(529, 400).sqrt_about1().unwrap(), "1.2");
++        assert_eq!(Q::new(528, 400).sqrt_about1().unwrap(), "1.1");
++        assert_eq!(Q::new(1, 1000).sqrt_about1().unwrap(), "0.0");
++        assert_eq!(Q::new(4752, 35).sqrt_about1().unwrap(), "11.7");
++        assert!(Q::new(-1, 2).sqrt_about1().is_err());
+     }
+ 
+     /// The friends' example: gaps 13, 12, 5, 17, 8 and the estimate 71, by

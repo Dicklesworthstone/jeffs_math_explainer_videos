@@ -1,0 +1,693 @@
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/brief.md b/explainer_corpus/german_tank/docs/brief.md
+--- a/explainer_corpus/german_tank/docs/brief.md	2026-10-24 04:40:35.235311152 -0400
++++ b/explainer_corpus/german_tank/docs/brief.md	2026-10-24 05:04:45.629645528 -0400
+@@ -18,10 +18,10 @@
+ | Three ideas kept apart | **unbiased** is a property of the recipe over all handfuls (05 to 07); **uncertainty** is how far one estimate can land and which counts remain plausible (08 and 09: the 71-box company's estimates run from 5 to 84.2, the average miss is about 9, and the one-sided 95% range for our handful is 60 to 107, `G-F9.range`); **the one realised estimate**, 71, is a number, not a count and not a promise (03_10, 08_1, 16) |
+ | Counterexamples (biased sampling) | The friends' own five boxes, bought from a shop that only ever got the first 71 of the 200 made: the recipe still says 71 and averages exactly 71 over every handful that shop could sell, short by 129 (`G-F14.shop_average`, `G-F14.shop_short_by`). Shelves holding only boxes 151 to 200: it averages 230 (`G-F14.late_average`), and a first gap of 157 gives the draw away (`G-F14.late_first_gap`). Equal chances per box without equally likely handfuls (one of two deliveries, boxes 1–5 or 6–10, each box seen half the time): it averages 8, not 10 (`G-F15.deliveries_average`) |
+ | Audience | a curious 14-year-old with school arithmetic; a programmer who could simulate it afterwards; a statistician who finds nothing wrong (default, plan §1.2) |
+-| Length | By `tools/storyboard.py`'s estimate (spoken words at 2.68 words a second plus breaths, prediction pauses and holds): chapter 01, the production storyboard, 74.8 s; chapters 02 to 16 (`docs/storyboard-draft.md`) 17.2 min; about 18.4 min in all. Nothing is measured, synthesized or rendered, and authored pauses are not in that estimate. No runtime target was set; the owner's direction allows a longer film |
+-| Scope in source | Root's scope correction (Mail 6790): only chapter 01 has a native scene, so only chapter 01 is in `docs/storyboard.md`, `script.tsv` and the chapter registry. Chapters 02 to 16 are complete words and pictures in the draft; root assigns their scenes |
++| Length | By `tools/storyboard.py`'s estimate (spoken words at 2.68 words a second plus breaths, prediction pauses and holds): chapters 01 to 05, the production storyboard, 6.5 min (74.8, 84.6, 67.3, 84.7 and 77.4 s); chapters 06 to 16 (`docs/storyboard-draft.md`) 12.4 min; about 18.9 min in all. Nothing is measured, synthesized or rendered, and authored pauses are not in that estimate. No runtime target was set; the owner's direction allows a longer film |
++| Scope in source | Root's scope correction (Mail 6790): only chapters with a native scene are in `docs/storyboard.md`, `script.tsv` and the chapter registry, now chapters 01 to 05 (02 and 03 integrated by root; 04 and 05 proposed in `docs/integration-04-05.patch`). Chapters 06 to 16 are complete words and pictures in the draft; root assigns their scenes |
+ | Format, voice, look | the program defaults (plan §1; AGENTS.md): 3840×2160 at 60 fps; FrankenTTS under the current narration direction, after root's qualification; 3Blue1Brown look. This lane made no audio |
+-| Protected facts | `docs/protected.tsv`: chapter 01's phrases active; chapters 02 and 03's written as comments, uncommented when those chapters move into `storyboard.md` |
++| Protected facts | `docs/protected.tsv`: the phrases of chapters 01 to 05, the chapters in `script.tsv`; a drafted chapter's phrases join when it moves into `storyboard.md` |
+ | Oracle | `oracle.py`: brute-force enumeration (all 13,019,909 handfuls of five from 71), sequential-draw products where enumeration is too large, a triangular solve for the forced unbiased recipe, edge checks of every always/never sentence, negative controls; the Rust model (`src/model.rs`) uses closed forms instead |
+ | Out of scope | Bayesian estimates and priors; sampling with replacement; several factories or several numbering series; serial-number codes that skip or encode dates; confidence intervals beyond the one-sided 95% range; the variance formula; any claim about real production figures |
+ | Evidence boundary | Selection data (`docs/video-program/third-wave-20261024/MOR_CASE.md` and the catalog) supports editorial hypotheses about what may hold attention; it is not a forecast of views and not evidence that this topic causes any outcome |
+@@ -120,10 +120,15 @@
+ - Decimals and halves: "about forty-five to eighty-four point two" (08_2)
+   and the other point values in 08_5, 10_4, 11_5 and 12_6; "five plus three
+   halves, six and a half" (05_4); "and a half" again in 12_3, 13_3 and 15_3.
++- Lists of small numbers that name boxes, not a count: "one, two, three,
++  four and five" (04_6) and "one, three and four" (05_3). Risk: a list read
++  as one number or with a flat, rushed rhythm. "Five hundred" (04_1) and
++  "over thirteen million" (05_1) must keep their joins.
+ - Grouping that carries meaning: "the largest, plus the largest minus five,
+-  over five" (04_5) and "N minus five, over six" (07_3); the pause rows in
+-  `docs/pauses.tsv` mark where the grouping breath belongs. "N" is spoken as
+-  the letter in chapter 07 only.
++  over five" and "sixty plus fifty-five over five" (04_5), "half of the
++  largest minus two" (05_3) and "N minus five, over six" (07_3); the pause
++  rows in `docs/pauses.tsv` mark where the grouping breath belongs. "N" is
++  spoken as the letter in chapter 07 only.
+ - Terms: "estimator" (said once, 04_3), "unbiased" (stress on the second
+   syllable), "sufficient" (once, 11_5), "statisticians" (04_3, 11_5),
+   "analysts" (16_1).
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/pauses.tsv b/explainer_corpus/german_tank/docs/pauses.tsv
+--- a/explainer_corpus/german_tank/docs/pauses.tsv	2026-10-24 04:40:35.235431195 -0400
++++ b/explainer_corpus/german_tank/docs/pauses.tsv	2026-10-24 05:03:46.894586187 -0400
+@@ -4,8 +4,8 @@
+ # <TAB> min_s <TAB> max_s <TAB> reason. Roles are tools/narration_director.py's policy names, so a row converts
+ # to a director override {video, cue, after, role, range_s: [min_s, max_s], reason}. Ranges are editorial
+ # hypotheses for total audible silence (existing take margins count toward them); they are not measured, not
+-# listened to, and not acceptance thresholds. Prediction countdowns and the inspection hold of 01_4 are scene
+-# holds, not rows here. The Rust test in src/main.rs checks every phrase against script.tsv or
++# listened to, and not acceptance thresholds. Prediction countdowns and the inspection holds of 01_4, 04_5 and
++# 05_2 are scene holds, not rows here. The Rust test in src/main.rs checks every phrase against script.tsv or
+ # docs/storyboard-draft.md.
+ 01_2	Five friends who own it would like to know.	thought	0.5	0.9	setup: the stakes follow
+ 01_2	their boxes are rare.	clause	0.2	0.45	contrast: rare, then ordinary
+@@ -33,9 +33,13 @@
+ 03_9	That's a recipe.	thought	0.4	0.8	name, then the rule
+ 03_9	add the average gap.	thought	0.5	0.9	the rule, then its condition
+ 04_1	We don't know it.	thought	0.4	0.8	the unknown is named before the examples
++04_2	are a single handful.	thought	0.4	0.8	visual: the halo round the five comes and goes before the assumption
+ 04_5	the largest, plus the largest minus five,	clause	0.15	0.35	grouping: "over five" divides only the gap total
+ 04_7	Five.	thought	0.5	0.9	reveal: the edge handful's answer
++05_1	far too many to look at.	thought	0.5	0.9	visual: the live count finishes before the company shrinks
++05_5	Some are too low and some too high.	thought	0.4	0.8	inspection: the dots land by the count line before the question
+ 05_6	Exactly five, the true count.	thought	0.6	1.0	reveal: the ten estimates balance
++05_7	A single small company isn't a proof.	thought	0.5	0.9	the limit stands before the question that opens 06
+ 06_3	comes from exactly one pair.	thought	0.5	0.9	the matching sinks in before its consequence
+ 06_5	Each position averages one box.	thought	0.5	0.9	reveal: the column averages
+ 07_3	each gap averages N minus five,	clause	0.15	0.35	grouping: "over six" divides the whole difference
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/protected.tsv b/explainer_corpus/german_tank/docs/protected.tsv
+--- a/explainer_corpus/german_tank/docs/protected.tsv	2026-10-24 04:40:35.235498362 -0400
++++ b/explainer_corpus/german_tank/docs/protected.tsv	2026-10-24 05:04:03.107941732 -0400
+@@ -1,6 +1,6 @@
+ # Protected facts: the words every revision must keep (./x german_tank protected checks they are still there).
+ # One per line: <phrase> TAB <where> TAB <why>. <where> is a comma list of script, captions,
+-# description, title, or empty for "anywhere". Rows are for the chapters in script.tsv (chapters 01 to 03);
++# description, title, or empty for "anywhere". Rows are for the chapters in script.tsv (chapters 01 to 05);
+ # a drafted chapter's rows join when it moves into docs/storyboard.md and script.tsv (root's scope correction,
+ # Mail 6790).
+ counting up from one	script	the numbering assumption the whole recipe needs, stated before any number (G-F1.first)
+@@ -13,3 +13,10 @@
+ About seventy-one	script	the one realised estimate, sixty plus one average gap of eleven (G-F3.average_gap, G-F3.estimate)
+ If the handful is fair, this recipe is right on average	script	the condition is spoken with the first statistical claim (card A)
+ not about seventy-one	script	unbiased is a property of the recipe, not of the one estimate
++every handful of five was equally likely	script	the one assumption, stated as the model every later claim needs (badge; G-F4.ghost_handfuls)
++the recipe never guesses below the largest number it saw	script	the lower bound kept: no estimate under the certain number (oracle cross-check, k<=6, N<=12)
++A single handful can't tell whether a recipe is good	script	one realised estimate is not a judgement of the recipe
++each pair is equally likely	script	the tiny company's fair draw, the condition its average needs (G-F5.pairs)
++Exactly five, the true count	script	unbiased on the tiny company, exactly, not about (G-F5.average)
++A recipe is unbiased if its estimates average to the true count, whatever that count is	script	unbiased defined over every count, not one
++A single small company isn't a proof	script	the example is not the proof; chapters 06 and 07 prove it
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/storyboard-draft.md b/explainer_corpus/german_tank/docs/storyboard-draft.md
+--- a/explainer_corpus/german_tank/docs/storyboard-draft.md	2026-10-24 04:40:35.235561487 -0400
++++ b/explainer_corpus/german_tank/docs/storyboard-draft.md	2026-10-24 05:01:49.625967768 -0400
+@@ -1,12 +1,12 @@
+-# Storyboard draft — chapters 04 to 16
++# Storyboard draft — chapters 06 to 16
+ 
+ The rest of "How Much Can Five Serial Numbers Reveal?", written in full in
+ the format of `docs/storyboard.md` (read that file first: the arc, the
+-vocabulary, the color roles and chapters 01 to 03 are there). Only chapters
++vocabulary, the color roles and chapters 01 to 05 are there). Only chapters
+ with a native scene in source live in `docs/storyboard.md`, `script.tsv` and
+ the chapter registry (root's scope correction, Mail 6790); a chapter moves
+ there when its scene is implemented, and root assigns that work. Chapters 02
+-and 03 moved there with their scenes. Every number is a
++to 05 moved there with their scenes. Every number is a
+ fact the oracle prints (`oracle.py`; fact group `G-Fn` belongs to chapter
+ `n`). Check this file with the storyboard tool's own functions:
+ 
+@@ -23,58 +23,6 @@
+ five small squares with the two seen squares gold); the **panel** (arithmetic
+ on the right).
+ 
+-## 04_what_we_assume: Saying it exactly (~76 s)
+-
+-The line from chapter 03, its top gap green and its estimate gone; the five
+-boxes on their ticks; the badge in the panel's corner.
+-
+-| id | words | picture | features | hold/listen |
+-|---|---|---|---|---|
+-| 04_1 | Let's pin the question down. Call the true number of boxes the count. We don't know it. It might be sixty, seventy-one or five hundred. | The line's end fades; "count = ?" in the panel; on "sixty, seventy-one or five hundred" three faint end markers flash at 60, 71 and, after the line compresses to the left, 500 | number line, highlight | |
+-| 04_2 | The friends' five boxes are one handful. Our one assumption is the bin from before, every possible handful of five equally likely to be theirs. | The five boxes gather into a gold-outlined group labelled "a handful"; the badge flashes; ghost handfuls of five ticks flicker across the line, each as faint as the next | lagged reveal, badge | |
+-| 04_3 | A recipe is any rule that turns a handful into an estimate of the count. Statisticians call it an estimator. | A three-part card: the handful → "recipe" box → an estimate; "estimator" in dim under "recipe" | equation card | |
+-| 04_4 | Ours, the gap recipe, adds the average gap to the largest number. Five gaps sit below the largest, holding the largest minus five unseen boxes. | The gap arcs reappear on the line; the panel writes "average gap = (m − 5)/5" with m the largest number in gold; on "the largest minus five" the arcs flash | equation, highlight | |
+-| 04_5 | So the estimate is the largest, plus the largest minus five, over five. For our friends, sixty plus fifty-five over five, seventy-one. | The panel morphs m + (m − 5)/5 → 60 + 55/5 → 71, the 71 green; the green tick returns to the line | formula, TransformMatchingTex | |
+-| 04_6 | ⟨predict⟩ What would the recipe say if the five numbers were one, two, three, four and five? | The boxes and their ticks slide to 1, 2, 3, 4, 5; the gap arcs shrink to nothing; the countdown | prediction pause, think time | |
+-| 04_7 | Five. There are no gaps, so there's nothing to add. And since gaps are never negative, the recipe never guesses fewer boxes than the largest number it saw. | The panel writes 5 + 0/5 = 5; then, on "never guesses fewer", the panel shows "estimate ≥ largest" in teal | equation | |
+-| 04_8 | One handful can't tell us whether a recipe is good. We'll judge recipes by what they do across every handful the company could have sold. | The boxes return to 14 … 60; the ghost handfuls flicker again, many at once, and dim | lagged reveal | |
+-
+-### Notes for 04
+-
+-- `G-F4.edge_handful` 1,2,3,4,5 → `G-F4.edge_estimate` 5, gaps
+-  `G-F4.edge_gaps` all 0. "Never guesses fewer than the largest" is tested
+-  for every handful, k ≤ 6, N ≤ 12 (oracle cross-check), and it equals the
+-  largest exactly when the handful is 1 to k.
+-- The fair handful was defined physically in 02 (card B); 04_2 restates it
+-  as the one assumption, with the badge on screen.
+-- Pauses: a beat after "We don't know it."; a clause pause after "the
+-  largest, plus the largest minus five," so "over five" groups correctly.
+-
+-## 05_every_handful: Every possible handful (~63 s)
+-
+-The line slides up and dims. The tiny table builds in the middle: ten rows,
+-each five small squares numbered 1 to 5, the seen two gold.
+-
+-| id | words | picture | features | hold/listen |
+-|---|---|---|---|---|
+-| 05_1 | With seventy-odd boxes there are millions of handfuls, so let's shrink the company. Suppose it made just five boxes, and you see two. | The line dims; five small boxes numbered 1 to 5 appear, drawn like the friends' boxes; two of them turn gold | lagged reveal | |
+-| 05_2 | There are ten possible pairs, from one and two up to four and five. In a fair draw, each pair is equally likely. | The tiny table builds row by row, one row per pair in the order 1–2, 1–3, …, 4–5; a dim "each 1/10" beside it | table, lagged reveal | |
+-| 05_3 | With two seen, the gaps below the largest hold the largest minus two boxes, split into two gaps. So the recipe adds half of that. | The panel: m + (m − 2)/2 | equation | |
+-| 05_4 | For one and two, the estimate is two. For two and five, it's five plus three halves, six and a half. | Row 1–2 gets a green "2"; row 2–5 gets 5 + 3/2 = 6.5 in the panel, then a green "6.5" on its row | equation, highlight | |
+-| 05_5 | Here are all ten estimates. Some are too low, some too high. ⟨predict⟩ What do the ten average? | Every row gets its green estimate, cascading down: 2, 3.5, 5, 6.5, 3.5, 5, 6.5, 5, 6.5, 6.5; a vertical line at 5 behind them; the countdown | table, cascade, prediction pause | |
+-| 05_6 | Exactly five, the true count. The largest number on its own averages only four. | The ten estimates slide into one balance bar that settles at 5; then the largest numbers alone, in gold, settle at 4 | bars, highlight | |
+-| 05_7 | A recipe is unbiased if its estimates average to the true count, whatever that count is. One small company isn't a proof. So why does adding the average gap work? | "unbiased" in the panel with its definition in dim; a small "N = 5 ✓" and greyed "N = 6? 7? …" under it | equation card | |
+-
+-### Notes for 05
+-
+-- `G-F5.pairs` 10, `G-F5.estimates` in row order, `G-F5.average` 5,
+-  `G-F5.largest_average` 4; `G-F5.example_low` 2, `G-F5.example_high` 13/2
+-  ("six and a half", `G-F5.example_high_decimal` 6.5).
+-- Prediction (05_5): the tempting answers are "a bit under five" (the
+-  estimates look low on the first rows) or "a bit over" (four of ten are
+-  6.5). Nothing on screen shows the average until the countdown ends.
+-- "millions of handfuls": 13,019,909 handfuls of five from 71 (`G-F8.handfuls`).
+-
+ ## 06_gaps_trade_places: Gaps that can trade places (~68 s)
+ 
+ The tiny table stays; each row's three unseen squares take blue, light-blue
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/storyboard.md b/explainer_corpus/german_tank/docs/storyboard.md
+--- a/explainer_corpus/german_tank/docs/storyboard.md	2026-10-24 04:40:35.235615862 -0400
++++ b/explainer_corpus/german_tank/docs/storyboard.md	2026-10-24 05:01:16.191071570 -0400
+@@ -7,7 +7,7 @@
+ `G-Fn` belongs to chapter `n`.
+ 
+ This file holds only the chapters whose native scenes exist in source:
+-chapters 01 to 03. Chapters 04 to 16 are written in full, in the same format,
++chapters 01 to 05. Chapters 06 to 16 are written in full, in the same format,
+ in `docs/storyboard-draft.md`; a chapter moves here when its scene is
+ implemented, so `script.tsv`, the chapter registry and the Rust tests always
+ agree on what can render. The arc below describes the whole film.
+@@ -68,7 +68,9 @@
+ | `01_five_boxes` | why the count matters; five numbered boxes; boxes become ticks; at least sixty; the unknown tail | words and pictures here; scene in `src/chapters/five_boxes.rs` |
+ | `02_a_thousand_boxes` | the fair handful defined by a bin; computed handfuls from a thousand and from seventy; spacing as the clue; fairness can't be seen | words and pictures here; scene in `src/chapters/a_thousand_boxes.rs` on the shared line of `src/chapters/friends_line.rs` |
+ | `03_counting_the_gaps` | the gaps counted one at a time; the top gap is one more gap; about seventy-one; the recipe and its condition; a promise about the recipe | words and pictures here; scene in `src/chapters/counting_the_gaps.rs` |
+-| `04_what_we_assume` to `16_five_boxes_again` | see `docs/storyboard-draft.md` | drafted in full; no scene yet |
++| `04_what_we_assume` | the count named and unknown; one handful, the one assumption; a recipe and its name; the gap recipe in the largest number alone; the edge handful 1 to 5; never below the largest | words and pictures here; scene in `src/chapters/what_we_assume.rs` on the shared line, with the halo, replacement and panel builders chapter 05 uses |
++| `05_every_handful` | too many handfuls to look at; a company of five boxes, two seen; every pair and its exact estimate; the ten balance at five, the largest alone at four; what unbiased means, and that one company is not a proof | words and pictures here; scene in `src/chapters/every_handful.rs` |
++| `06_gaps_trade_places` to `16_five_boxes_again` | see `docs/storyboard-draft.md` | drafted in full; no scene yet |
+ 
+ ## Vocabulary (one word per idea)
+ 
+@@ -261,3 +263,106 @@
+ - Pauses: the counting holds (03_1 to 03_3 are visual beats with short
+   words); a thought pause after "Five gaps hold fifty-five unseen boxes."; the
+   countdown after 03_7; a reveal pause after "About seventy-one."
++
++## 04_what_we_assume: Saying it exactly (~85 s)
++
++The friends' line from 1 to 84 as chapter 03 drew it, the five boxes on their
++gold ticks, no arcs and no estimate yet; the badge in the panel's corner.
++Highlights are halos: a separate rounded outline comes and goes around what
++the words point at, and the thing itself is untouched. No typeset text is
++indicated or recoloured in place; a panel line that changes is replaced, the
++old line fading as the new one comes in. Every number is `G-F1`, `G-F3` or
++`G-F4`.
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 04_1 | Let's pin the question down. Call the true number of boxes the count. We don't know it. It might be sixty, seventy-one or five hundred. | On "Call the true number" the panel's top line reads "count = ?"; on "sixty", "seventy-one" and "five hundred" each value comes in, dim, in a row after it: 60, 71, 500 (`G-F1.largest`, `G-F3.estimate`, `G-F4.far_count`) | panel, reveal on the word | |
++| 04_2 | The friends' five boxes are a single handful. We assume the bin from before, so every handful of five was equally likely to be theirs. | The three values fade; on "a single handful" a gold halo comes and goes round the five boxes; on "We assume the bin from before" a halo round the badge; on "every handful of five" six rows of gold rings land over the line one row at a time, chapter 02's handful from the bin first and five more from the same computed draw (`G-F4.ghost_handfuls`), every row drawn alike | halo, lagged reveal, callback | |
++| 04_3 | A recipe is any rule that turns a handful into an estimate of the count. Statisticians call it an estimator. | The rows fade; on "turns a handful into an estimate" a picture builds left to right in the panel: "handful" in gold, an arrow, "recipe" in a dim frame, an arrow, "estimate" in green; on "Statisticians call it an estimator" "estimator" in dim under the frame | diagram, lagged reveal | |
++| 04_4 | Ours, the gap recipe, adds the average gap to the largest number. Of the sixty boxes from one to sixty, five are the friends', so the gaps hold sixty minus five, fifty-five. | On "Ours, the gap recipe" the picture is replaced by "estimate = largest + average gap" (estimate green, largest gold, average gap blue); on "Of the sixty boxes" the teal certain bracket from 1 to 60 draws under the line; on "five are the friends'" a gold halo round the five boxes; on "so the gaps hold" the five blue gap arcs draw in turn and the panel writes "gaps: 60 − 5 = 55", gaps and 55 blue, 60 gold | equation, halo, lagged reveal | |
++| 04_5 | With any five numbers, the gaps below the largest hold the largest minus five. So the estimate is the largest, plus the largest minus five, over five. For our friends, sixty plus fifty-five over five, seventy-one. | On "With any five numbers" that line is replaced by "gaps: largest − 5 = 60 − 5 = 55" and the five arcs ripple, their strokes only; on "So the estimate is" the recipe is replaced by "estimate = largest + (largest − 5) ÷ 5"; on "For our friends" "60 + 55 ÷ 5 = 71" builds piece by piece under them, 60 gold, 55 blue, 71 green; on "seventy-one" a green tick at 71 on the line with "71" over it; the panel holds to be read | formula, equation, identity-preserving replacement | hold |
++| 04_6 | ⟨predict⟩ What would the recipe say if the five numbers were one, two, three, four and five? | On "one, two, three, four and five" the arcs, the certain bracket and the green tick fade; gold rings land on the dots 1 to 5 with "1, 2, 3, 4, 5" under them, the friends' boxes staying where they are; the countdown | prediction pause, think time | |
++| 04_7 | Five. There are no gaps, so there's nothing to add. And since gaps are never negative, the recipe never guesses below the largest number it saw. | The countdown and the friends' two lines give way to the edge handful's: "gaps: largest − 5 = 5 − 5 = 0" (the 0 blue) and "5 + 0 ÷ 5 = 5" (the last 5 green), with a green tick at 5 on the line and "5" over it (`G-F4.edge_gaps`, `G-F4.edge_estimate`); on "There are no gaps" a blue halo round the sum's 0; on "never guesses below" "never below the largest" in teal under the line | equation, halo | |
++| 04_8 | A single handful can't tell whether a recipe is good. We'll judge a recipe across every handful the company could have sold. | On "A single handful" a gold halo round the five rings; on "can't tell whether" a halo round "count = ?"; on "We'll judge a recipe" the panel's lines under "count = ?", the rings, their label, the tick and the teal words fade; on "every handful the company" the six rows of rings come back, nearly all at once | halo, lagged reveal, callback | |
++
++### Notes for 04
++
++- 04_1 names three counts the handful allows, each at least the largest:
++  `G-F1.largest` 60, `G-F3.estimate` 71 and the round `G-F4.far_count` 500.
++  None of them is claimed.
++- The six rows are `G-F4.ghost_handfuls`, the first six handfuls of the
++  computed stream behind chapter 02's bin, the first being
++  `G-F2.bin_handful`. They were not chosen. Two of their numbers are a box
++  apart (43 and 44), and a test keeps every ring clear of its neighbours.
++- "With any five numbers, the gaps below the largest hold the largest minus
++  five": the oracle checks it for every handful, k ≤ 5, N ≤ 14. "Never
++  guesses below the largest" is checked for every handful, k ≤ 6, N ≤ 12,
++  with equality exactly at 1 to k (oracle cross-checks). The scene's own test
++  repeats it, with the doubling recipe on `G-F10.silly_handful` as a negative
++  control that does go below.
++- `G-F4.edge_handful` 1, 2, 3, 4, 5 has `G-F4.edge_gaps` all 0 and
++  `G-F4.edge_estimate` 5. The panel shows the empty total without colouring
++  either 5 of "5 − 5", because the two 5s play different roles.
++- Chapter 02 defined the fair handful physically (card B). 04_2 restates it
++  as the one assumption, with a halo on the badge.
++- Prediction (04_6): a viewer may expect the recipe always to add something.
++  With no gaps it adds nothing. The countdown hides every line of the answer.
++- Pauses: a beat after "We don't know it." and after "a single handful."; a
++  clause pause after "the largest, plus the largest minus five," so that
++  "over five" groups correctly; a reveal pause after "Five.". The inspection
++  hold after 04_5 is a scene hold.
++
++## 05_every_handful: Every possible handful (~77 s)
++
++A clear screen. The 71-box company's handfuls are counted, not shown. Then a
++company of five boxes is drawn like the friends' boxes, two of them seen,
++with its table of every pair. Every estimate is the exact fraction the model
++computes, shown exactly (3.5, never rounded). Highlights are halos and
++colour changes are replacements, as in chapter 04. Every number is `G-F5`,
++or `G-F1.handful` for five.
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 05_1 | A company of seventy-one boxes has over thirteen million handfuls of five, far too many to look at. So let's shrink the company. Suppose it made just five boxes, and you see two. | "handfuls of 5 from 71" in dim with a big live count under it at 0; on "over thirteen million" the count runs up to 13,019,909 (`G-F5.handfuls`); on "So let's shrink the company" both fade; on "just five boxes" five small boxes numbered 1 to 5, drawn like the friends' boxes, land at the upper right; on "you see two" the labels 2 and 5 are replaced by gold ones | live count, lagged reveal, replacement | |
++| 05_2 | There are ten possible pairs, from one and two up to four and five. In a fair draw, each pair is equally likely. | On "ten possible pairs" the column numbers 1 to 5 and then the table's ten rows land in turn, each row five small squares with the pair's two squares gold, in the order 1 2, 1 3, …, 4 5 (`G-F5.pair_list`); on "from one and two" a gold halo round the first row; on "up to four and five" round the last; on "each pair is equally likely" "each pair: 1 in 10" in dim under the table; the table holds to be read | table, lagged reveal, halo | hold |
++| 05_3 | Take the pair two and five. Below five, the unseen boxes are one, three and four. That's three boxes, five minus two, in two gaps. So with a pair, the recipe adds half of the largest minus two. | On "Take the pair two and five" a gold halo round its row; on "the unseen boxes are" the small boxes' labels 1, 3 and 4 are replaced by blue ones; on "That's three boxes" blue arcs over the two gaps with their counts, 1 and 2 (`G-F5.example_high_gaps`), and "gaps: 5 − 2 = 3" at the right, gaps and 3 blue, 5 gold; on "So with a pair" "estimate = largest + (largest − 2) ÷ 2" under it | equation, halo, replacement | |
++| 05_4 | For two and five, that's five plus three halves, six and a half. For one and two, there are no gaps, so the estimate is just two. | On "five plus three halves" "5 + 3 ÷ 2 = 6.5" builds piece by piece under the formula, 5 gold, 3 blue, 6.5 green; on "six and a half" the table's "estimate" column head and a green 6.5 in the pair's row; on "For one and two" a gold halo round the first row; on "just two" a green 2 in it | equation, table, halo | |
++| 05_5 | Here are all ten estimates. Some are too low and some too high. ⟨predict⟩ What do the ten average? | The worked example fades: the small boxes, their labels, the arcs and the lines at the right; on "all ten estimates" the other eight estimates cascade down their rows, so the column reads 2, 3.5, 5, 6.5, 3.5, 5, 6.5, 5, 6.5, 6.5 (`G-F5.estimates_shown`); on "Some are too low" a dim vertical line labelled "count = 5" runs through a small plot beside the rows, and each row's estimate lands on it as a green dot; the countdown | table, cascade, prediction pause | |
++| 05_6 | Exactly five, the true count. The largest number on its own averages only four. | The countdown gives way to a dim axis with a tick at each whole number from 1; the ten green dots fly from their rows and stack on it at their values; a green fulcrum under the stacks at 5 with "average = 5" (`G-F5.average`); on "The largest number on its own" a second axis below it, and each pair's larger number flies as a gold dot from its gold square, stacks, and its fulcrum comes in at 4 with "average = 4" (`G-F5.largest_average`) | balance, identity-preserving move | |
++| 05_7 | A recipe is unbiased if its estimates average to the true count, whatever that count is. A single small company isn't a proof. So why does adding the average gap work? | On "A recipe is unbiased" "unbiased: average estimate = count" at the upper right, average estimate green; on "whatever that count is" "count 5: average 5" under it, average 5 green; on "isn't a proof" "every other count: ?" in dim; on "So why does adding" an ink halo round that open question | equation card, halo | |
++
++### Notes for 05
++
++- `G-F5.handfuls` 13,019,909 handfuls of five from `G-F5.company` 71. It is
++  the same count as `G-F8.handfuls`: the oracle counts it as ordered draws of
++  five over the orders of five, and checks that against chapter 08's brute
++  force. The voice says the whole millions, `G-F5.millions` 13, and says
++  there are more (`G-F5.handfuls_over_millions`).
++- `G-F5.pairs` 10 in `G-F5.pair_list` order, from `G-F5.first_pair` 1, 2 to
++  `G-F5.last_pair` 4, 5. `G-F5.estimates` are exact, shown as
++  `G-F5.estimates_shown`; `G-F5.average` 5; `G-F5.largest_average` 4.
++- The worked pairs. `G-F5.example_high_pair` is 2, 5: its unseen boxes are
++  `G-F5.example_high_unseen` 1, 3, 4, which is
++  `G-F5.example_high_unseen_count` 3 boxes in two gaps,
++  `G-F5.example_high_gaps` 1 and 2. Its estimate is `G-F5.example_high`
++  13/2, said "six and a half" (`G-F5.example_high_decimal` 6.5).
++  `G-F5.example_low_pair` 1, 2 has no gaps, so `G-F5.example_low` is 2.
++- The two boxes seen in 05_1 are the worked pair 2 and 5, so the small boxes
++  carry from "you see two" through 05_4.
++- The scene recomputes every estimate from its pair's gaps and refuses a
++  table the facts contradict. As negative controls, the oracle checks that
++  adding the unseen count undivided, or dividing it over three gaps, does not
++  average five.
++- The doubling recipe also averages five on this company
++  (`G-F12.doubling_estimates`). So 05 claims only that the gap recipe
++  averages five here, and nothing about other recipes; chapter 10 makes that
++  comparison.
++- Prediction (05_5): the tempting answers are "a bit under five", because
++  the first rows look low, or "a bit over", because four of the ten are 6.5.
++  The line at the count is drawn before the question so the viewer can weigh
++  the dots. Nothing shows the average until the countdown ends.
++- Pauses: a thought pause after "far too many to look at." while the count
++  finishes; another after "Some are too low and some too high." while the
++  dots land; a reveal pause after "Exactly five, the true count."; a beat
++  after "A single small company isn't a proof." before the question that
++  opens 06. The inspection hold after 05_2 is a scene hold.
+diff '--color=never' -ruN a/explainer_corpus/german_tank/lexicon.json b/explainer_corpus/german_tank/lexicon.json
+--- a/explainer_corpus/german_tank/lexicon.json	2026-10-24 04:40:35.235664654 -0400
++++ b/explainer_corpus/german_tank/lexicon.json	2026-10-24 05:04:16.083090493 -0400
+@@ -1,5 +1,5 @@
+ {
+-  "_comment": "Narration lexicon (natural-sounding-narration-with-frankentts). Chapters 01 to 03, the chapters in script.tsv, say no proper name and no term of art, so nothing is respelled. Risks recorded for root's qualification, none of them heard (docs/brief.md lists them with their lines): quick runs of hyphenated numbers (01_4; 03_1 to 03_3); compound numbers whose joins carry the value, 'a hundred and fifty' (02_8), 'fifty-five' (03_4), 'seventy-one' (03_8, 03_10); decimals and halves from chapter 05 on (05_4, 08_2, 08_5, 10_4, 11_5, 12_3, 12_6, 13_3, 15_3); the meaning-carrying groupings 'the largest, plus the largest minus five, over five' (04_5) and 'N minus five, over six' (07_3); 'estimator' (04_3), 'unbiased', 'sufficient' (11_5), 'statisticians' (04_3, 11_5), 'analysts' (16_1). Rao-Blackwell, Lehmann-Scheffe, Ruggles, Brodie and Goodman are card-only and never voiced. Before any voiced name is added, look it up, audition it against a control and a decoy, and lock it here with its sources; the owner's pronunciation overrides every source.",
++  "_comment": "Narration lexicon (natural-sounding-narration-with-frankentts). Chapters 01 to 05, the chapters in script.tsv, say no proper name. Chapters 04 and 05 say three common terms of art, 'Statisticians' and 'estimator' (04_3) and 'unbiased' (05_7); they are dictionary words, so none is respelled before it is heard. Risks recorded for root's qualification, none of them heard (docs/brief.md lists them with their lines): quick runs of hyphenated numbers (01_4; 03_1 to 03_3); runs of small numbers that are lists, 'one, two, three, four and five' (04_6) and 'one, three and four' (05_3); compound numbers whose joins carry the value, 'a hundred and fifty' (02_8), 'fifty-five' (03_4, 04_4, 04_5), 'seventy-one' (03_8, 03_10, 04_1, 04_5, 05_1), 'five hundred' (04_1), 'over thirteen million' (05_1); decimals and halves from chapter 05 on (05_4, 08_2, 08_5, 10_4, 11_5, 12_3, 12_6, 13_3, 15_3); the meaning-carrying groupings 'the largest, plus the largest minus five, over five' and 'sixty plus fifty-five over five' (04_5), 'half of the largest minus two' (05_3) and 'N minus five, over six' (07_3); 'estimator' (04_3), 'unbiased' (05_7), 'sufficient' (11_5), 'statisticians' (04_3, 11_5), 'analysts' (16_1). Rao-Blackwell, Lehmann-Scheffe, Ruggles, Brodie and Goodman are card-only and never voiced. Before any voiced name is added, look it up, audition it against a control and a decoy, and lock it here with its sources; the owner's pronunciation overrides every source.",
+   "words": {},
+   "accept": {},
+   "phrases": {}
+diff '--color=never' -ruN a/explainer_corpus/german_tank/oracle.py b/explainer_corpus/german_tank/oracle.py
+--- a/explainer_corpus/german_tank/oracle.py	2026-10-24 04:40:35.235713113 -0400
++++ b/explainer_corpus/german_tank/oracle.py	2026-10-24 04:56:29.398493815 -0400
+@@ -345,12 +345,41 @@
+     check("03: the known handful's gaps and its one top gap fill seventy",
+           sum(with_top) + k == small and with_top[-1] == small - first[-1])
+ 
+-    # 04: the edge handful 1..5, and the recipe in numbers
++    # 04: what the count might be (04_1: sixty, seventy-one, five hundred),
++    # the bin's fair handfuls lined up as "every handful of five" (the
++    # chapter 02 stream drawn on past its first handful), the edge handful
++    # 1..5, and the recipe in numbers
++    far = 500
++    emit("G-F4.far_count", far)
++    check("04: each count named is possible, at least the largest, in order", m <= est < far)
++    ghosts = drawn_handfuls(0, 84, k, 6)
++    emit("G-F4.ghost_handfuls", ";".join(csv(h) for h in ghosts))
++    check("04: the rows open with the bin's own handful, six different fair handfuls of the 84 dots",
++          ghosts[0] == drawn_handfuls(0, 84, k, 1)[0] and len(set(ghosts)) == 6
++          and all(len(set(h)) == k and 1 <= h[0] and h[-1] <= 84 for h in ghosts))
+     edge = (1, 2, 3, 4, 5)
+     emit("G-F4.edge_handful", csv(edge))
+     emit("G-F4.edge_estimate", q(gap_recipe(edge)))
+     emit("G-F4.edge_gaps", csv(gaps_of(edge)))
++    # 04_5's sentence, from the gaps' definition: for every handful of five
++    # the gaps below the largest hold the largest minus five
++    check("04: the gaps below the largest hold the largest minus k (k<=5, N<=14)",
++          all(sum(gaps_of(h)) == max(h) - kk for kk in range(1, 6) for n in range(kk, 15) for h in handfuls(n, kk)))
+ 
++    # 05: the 71-box company's handfuls, counted as ordered draws of five
++    # over the orders of five (08's brute force recounts them), the whole
++    # millions 05_1 says and that there are more
++    ordered, orders = 1, 1
++    for i in range(k):
++        ordered *= 71 - i
++        orders *= i + 1
++    all71 = ordered // orders
++    check("05: ordered draws of five divide evenly by the orders of five", ordered % orders == 0)
++    millions = all71 // 10**6
++    emit("G-F5.company", 71)
++    emit("G-F5.handfuls", all71)
++    emit("G-F5.millions", millions)
++    emit("G-F5.handfuls_over_millions", flag(all71 > millions * 10**6))
+     # 05, 06, 07: the tiny company, five boxes, a pair seen
+     tn, tk = 5, 2
+     pairs = list(handfuls(tn, tk))
+@@ -359,12 +388,35 @@
+     emit("G-F5.seen", tk)
+     emit("G-F5.pairs", len(pairs))
+     emit("G-F5.pair_list", ";".join(csv(p) for p in pairs))
++    emit("G-F5.first_pair", csv(pairs[0]))
++    emit("G-F5.last_pair", csv(pairs[-1]))
++    check("05: the pairs run from the two smallest boxes to the two largest",
++          pairs[0] == (1, 2) and pairs[-1] == (tn - 1, tn) and len(pairs) == comb(tn, tk))
+     emit("G-F5.estimates", csv(tiny))
++    # the table shows a whole estimate as it is and a half to one decimal
++    emit("G-F5.estimates_shown", ",".join(q(e) if e.denominator == 1 else decimal1(e) for e in tiny))
+     emit("G-F5.average", q(sum(tiny) / len(tiny)))
+     emit("G-F5.largest_average", q(F(sum(p[-1] for p in pairs), len(pairs))))
+-    emit("G-F5.example_low", q(gap_recipe((1, 2))))
+-    emit("G-F5.example_high", q(gap_recipe((2, 5))))
+-    emit("G-F5.example_high_decimal", decimal1(gap_recipe((2, 5))))
++    # the worked pairs, from the line: what is unseen below the largest
++    low, high = (1, 2), (2, 5)
++    high_unseen = [b for b in range(1, max(high)) if b not in high]
++    emit("G-F5.example_low_pair", csv(low))
++    emit("G-F5.example_low", q(gap_recipe(low)))
++    emit("G-F5.example_high_pair", csv(high))
++    emit("G-F5.example_high_largest", max(high))
++    emit("G-F5.example_high_unseen", csv(high_unseen))
++    emit("G-F5.example_high_unseen_count", len(high_unseen))
++    emit("G-F5.example_high_gaps", csv(gaps_of(high)))
++    emit("G-F5.example_high", q(gap_recipe(high)))
++    emit("G-F5.example_high_decimal", decimal1(gap_recipe(high)))
++    check("05: two and five leave three unseen boxes in two non-empty gaps; one and two leave none",
++          len(high_unseen) == max(high) - tk and all(x > 0 for x in gaps_of(high))
++          and gaps_of(low) == [0, 0] and gap_recipe(low) == max(low))
++    # NEGATIVE: adding the unseen count without dividing by the gaps, or
++    # dividing by the pairs' size plus one, misses the average of five
++    check("NEGATIVE 05: without the share per gap, or over three gaps, the ten don't average five",
++          sum(max(p) + sum(gaps_of(p)) for p in pairs) / len(pairs) != tn
++          and sum(max(p) + F(sum(gaps_of(p)), tk + 1) for p in pairs) / len(pairs) != tn)
+     tiny_gaps = []
+     for p in pairs:
+         gl = gaps_of(p) + [tn - p[-1]]
+@@ -399,6 +451,7 @@
+     by_max, by_sum, count = max_and_sum_counts(n71, k)
+     emit("G-F8.count", n71)
+     emit("G-F8.handfuls", count)
++    check("05: the 71-box handfuls counted as draws equal 08's brute force", all71 == count)
+     gap_dist = {}
+     for mm, c in by_max.items():
+         e = mm + F(mm - k, k)
+diff '--color=never' -ruN a/explainer_corpus/german_tank/script.tsv b/explainer_corpus/german_tank/script.tsv
+--- a/explainer_corpus/german_tank/script.tsv	2026-10-24 04:40:35.235752280 -0400
++++ b/explainer_corpus/german_tank/script.tsv	2026-10-24 05:01:57.493547356 -0400
+@@ -27,3 +27,18 @@
+ 03_8	About seventy-one. Sixty, plus one average gap of eleven.
+ 03_9	That's a recipe. Take the largest number and add the average gap. If the handful is fair, this recipe is right on average.
+ 03_10	Right on average is a promise about the recipe, not about seventy-one. We'll prove it, and then find out what it can't promise.
++04_1	Let's pin the question down. Call the true number of boxes the count. We don't know it. It might be sixty, seventy-one or five hundred.
++04_2	The friends' five boxes are a single handful. We assume the bin from before, so every handful of five was equally likely to be theirs.
++04_3	A recipe is any rule that turns a handful into an estimate of the count. Statisticians call it an estimator.
++04_4	Ours, the gap recipe, adds the average gap to the largest number. Of the sixty boxes from one to sixty, five are the friends', so the gaps hold sixty minus five, fifty-five.
++04_5	With any five numbers, the gaps below the largest hold the largest minus five. So the estimate is the largest, plus the largest minus five, over five. For our friends, sixty plus fifty-five over five, seventy-one.
++04_6	What would the recipe say if the five numbers were one, two, three, four and five?
++04_7	Five. There are no gaps, so there's nothing to add. And since gaps are never negative, the recipe never guesses below the largest number it saw.
++04_8	A single handful can't tell whether a recipe is good. We'll judge a recipe across every handful the company could have sold.
++05_1	A company of seventy-one boxes has over thirteen million handfuls of five, far too many to look at. So let's shrink the company. Suppose it made just five boxes, and you see two.
++05_2	There are ten possible pairs, from one and two up to four and five. In a fair draw, each pair is equally likely.
++05_3	Take the pair two and five. Below five, the unseen boxes are one, three and four. That's three boxes, five minus two, in two gaps. So with a pair, the recipe adds half of the largest minus two.
++05_4	For two and five, that's five plus three halves, six and a half. For one and two, there are no gaps, so the estimate is just two.
++05_5	Here are all ten estimates. Some are too low and some too high. What do the ten average?
++05_6	Exactly five, the true count. The largest number on its own averages only four.
++05_7	A recipe is unbiased if its estimates average to the true count, whatever that count is. A single small company isn't a proof. So why does adding the average gap work?
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/chapters/mod.rs b/explainer_corpus/german_tank/src/chapters/mod.rs
+--- a/explainer_corpus/german_tank/src/chapters/mod.rs	2026-10-24 04:40:35.235806447 -0400
++++ b/explainer_corpus/german_tank/src/chapters/mod.rs	2026-10-24 05:03:13.168164759 -0400
+@@ -1,17 +1,20 @@
+ //! One scene per chapter, in storyboard order, with its score intensity
+ //! (`0.0..=1.0`). Keys are `NN_name`; narration line ids `NN_k` belong to
+ //! the chapter with the same `NN`. Only chapters with a native scene are
+-//! registered: chapters 04 to 16 are written in full in
++//! registered: chapters 06 to 16 are written in full in
+ //! docs/storyboard-draft.md and join this registry, docs/storyboard.md and
+-//! script.tsv together when their scenes exist. Chapters 02 and 03 share
+-//! one number line, built in [`friends_line`].
++//! script.tsv together when their scenes exist. Chapters 02 to 04 share
++//! one number line, built in [`friends_line`]; chapters 04 and 05 share the
++//! halo, replacement and panel builders of [`what_we_assume`].
+ 
+ pub mod a_thousand_boxes;
+ pub mod counting_the_gaps;
+ pub mod draw;
++pub mod every_handful;
+ pub mod five_boxes;
+ pub mod friends_line;
+ pub mod glyphs;
++pub mod what_we_assume;
+ 
+ use explainer_kit::Chapter;
+ 
+@@ -32,5 +35,15 @@
+             make: |kit| Box::new(counting_the_gaps::CountingTheGaps { kit }),
+             intensity: 0.5,
+         },
++        Chapter {
++            key: "04_what_we_assume",
++            make: |kit| Box::new(what_we_assume::WhatWeAssume { kit }),
++            intensity: 0.5,
++        },
++        Chapter {
++            key: "05_every_handful",
++            make: |kit| Box::new(every_handful::EveryHandful { kit }),
++            intensity: 0.55,
++        },
+     ]
+ }
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/facts.rs b/explainer_corpus/german_tank/src/facts.rs
+--- a/explainer_corpus/german_tank/src/facts.rs	2026-10-24 04:40:35.235867947 -0400
++++ b/explainer_corpus/german_tank/src/facts.rs	2026-10-24 04:55:26.765911984 -0400
+@@ -21,9 +21,11 @@
+ /// The handful size throughout.
+ pub const K: u64 = 5;
+ 
+-/// How many handfuls each drawn experiment shows.
++/// How many handfuls each drawn experiment shows, and how many fair
++/// handfuls from chapter 02's bin chapter 04 lines up (the bin's own first).
+ pub const DRAWS: usize = 10;
+ pub const AGAIN_DRAWS: usize = 20;
++pub const GHOSTS: usize = 6;
+ 
+ /// The round numbers chapter 02 says the big company passes: every row's
+ /// largest number reaches past [`OVER`] (02_5), and the average spacing is
+@@ -31,6 +33,9 @@
+ pub const OVER: u64 = 600;
+ pub const SPACING_OVER: u64 = 150;
+ 
++/// The far-off count 04_1 names beside the largest number and the estimate.
++pub const FAR: u64 = 500;
++
+ /// The tiny company of chapters 05, 06, 12 and 13: five boxes, two seen.
+ pub const TINY: u64 = 5;
+ pub const TINY_SEEN: usize = 2;
+@@ -171,13 +176,28 @@
+     // where the top gap can be seen
+     f.add("G-F3.top_gaps", gap_list(known, SMALL).len() - gaps(known).len())?;
+ 
+-    // 04: the edge handful 1..5
++    // 04: a count it might be (04_1), the fair handfuls from chapter 02's
++    // bin that "every handful" lines up (its own first), and the edge
++    // handful 1..5
++    f.add("G-F4.far_count", FAR)?;
++    f.add(
++        "G-F4.ghost_handfuls",
++        rows(&drawn_handfuls(BIN_STREAM, LINE_DOTS, K as usize, GHOSTS)),
++    )?;
+     let edge: Vec<u64> = (1..=K).collect();
+     f.add("G-F4.edge_handful", csv(&edge))?;
+     f.add("G-F4.edge_estimate", gap_recipe(&edge))?;
+     f.add("G-F4.edge_gaps", csv(&gaps(&edge)))?;
+ 
+-    // 05: the tiny company, every pair
++    // 05: the 71-box company's handfuls, too many to look at (05_1 says the
++    // whole millions, and that there are more), then the tiny company,
++    // every pair
++    let all71 = choose(KNOWN, K);
++    let millions = all71 / 1_000_000;
++    f.add("G-F5.company", KNOWN)?;
++    f.add("G-F5.handfuls", all71)?;
++    f.add("G-F5.millions", millions)?;
++    f.add("G-F5.handfuls_over_millions", flag(all71 > millions * 1_000_000))?;
+     let pairs = model::all_handfuls(TINY, TINY_SEEN);
+     let tiny: Vec<Q> = pairs.iter().map(|p| gap_recipe(p)).collect();
+     let ten = Q::int(pairs.len() as i128);
+@@ -185,15 +205,34 @@
+     f.add("G-F5.seen", TINY_SEEN)?;
+     f.add("G-F5.pairs", pairs.len())?;
+     f.add("G-F5.pair_list", rows(&pairs))?;
++    f.add("G-F5.first_pair", csv(&pairs[0]))?;
++    f.add("G-F5.last_pair", csv(&pairs[pairs.len() - 1]))?;
+     f.add("G-F5.estimates", csv(&tiny))?;
++    // the table's column: a whole estimate as it is, a half with its one
++    // decimal
++    let shown: Result<Vec<String>, String> = tiny
++        .iter()
++        .map(|e| e.whole().map_or_else(|| e.decimal1(), |w| Ok(w.to_string())))
++        .collect();
++    f.add("G-F5.estimates_shown", shown?.join(","))?;
+     f.add("G-F5.average", tiny.iter().fold(Q::ZERO, |s, &e| s + e) / ten)?;
+     f.add(
+         "G-F5.largest_average",
+         Q::int(pairs.iter().map(|p| p[1] as i128).sum()) / ten,
+     )?;
+-    f.add("G-F5.example_low", gap_recipe(&[1, 2]))?;
+-    f.add("G-F5.example_high", gap_recipe(&[2, 5]))?;
+-    f.add("G-F5.example_high_decimal", gap_recipe(&[2, 5]).decimal1()?)?;
++    // the worked pairs: one with no gaps, and one whose two gaps differ,
++    // its unseen boxes below the largest named (05_3)
++    let (low, high): ([u64; 2], [u64; 2]) = ([1, 2], [2, 5]);
++    let high_unseen: Vec<u64> = (1..high[1]).filter(|n| !high.contains(n)).collect();
++    f.add("G-F5.example_low_pair", csv(&low))?;
++    f.add("G-F5.example_low", gap_recipe(&low))?;
++    f.add("G-F5.example_high_pair", csv(&high))?;
++    f.add("G-F5.example_high_largest", high[1])?;
++    f.add("G-F5.example_high_unseen", csv(&high_unseen))?;
++    f.add("G-F5.example_high_unseen_count", high_unseen.len())?;
++    f.add("G-F5.example_high_gaps", csv(&gaps(&high)))?;
++    f.add("G-F5.example_high", gap_recipe(&high))?;
++    f.add("G-F5.example_high_decimal", gap_recipe(&high).decimal1()?)?;
+ 
+     // 06: gaps that trade places
+     let lists: Vec<Vec<u64>> = pairs.iter().map(|p| gap_list(p, TINY)).collect();
+@@ -500,6 +539,6 @@
+     #[test]
+     fn there_is_one_fact_per_oracle_key() {
+         let f = facts().unwrap();
+-        assert_eq!(f.len(), 161);
++        assert_eq!(f.len(), 176);
+     }
+ }
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/main.rs b/explainer_corpus/german_tank/src/main.rs
+--- a/explainer_corpus/german_tank/src/main.rs	2026-10-24 04:40:35.236019989 -0400
++++ b/explainer_corpus/german_tank/src/main.rs	2026-10-24 05:03:04.098941552 -0400
+@@ -1,10 +1,12 @@
+ //! How Much Can Five Serial Numbers Reveal?: five board-game boxes, the one
+ //! thing their numbers prove, fair handfuls drawn by computer from a
+-//! thousand and from seventy, and the gap recipe found by counting the gaps;
+-//! then (in the chapters drafted in docs/storyboard-draft.md) why it is right
+-//! on average for a fair handful, what that does not promise, and what
+-//! breaks it, rendered end to end by franken_manim's native Rust front door
+-//! and the corpus's shared kit.
++//! thousand and from seventy, the gap recipe found by counting the gaps, the
++//! question and its one assumption made exact, and every pair from a company
++//! of five boxes averaging exactly five; then (in the chapters drafted in
++//! docs/storyboard-draft.md) why it is right on average for a fair handful
++//! of any count, what that does not promise, and what breaks it, rendered
++//! end to end by franken_manim's native Rust front door and the corpus's
++//! shared kit.
+ //!
+ //! ```text
+ //! tank facts                         # every number the video shows or says (key<TAB>value)
+@@ -152,6 +154,83 @@
+         ("03_8", "plus one average gap", "G-F3.top_gaps", "1"),
+         ("03_8", "of eleven", "G-F3.average_gap", "11"),
+         ("03_10", "not about seventy-one", "G-F3.estimate", "71"),
++        // 04: what we assume
++        ("04_1", "sixty, seventy-one or five hundred", "G-F1.largest", "60"),
++        ("04_1", "sixty, seventy-one or five hundred", "G-F3.estimate", "71"),
++        ("04_1", "sixty, seventy-one or five hundred", "G-F4.far_count", "500"),
++        ("04_2", "friends' five boxes", "G-F1.handful", "5"),
++        ("04_2", "every handful of five", "G-F1.handful", "5"),
++        ("04_4", "Of the sixty boxes", "G-F1.largest", "60"),
++        ("04_4", "from one to sixty", "G-F1.first", "1"),
++        ("04_4", "from one to sixty", "G-F1.largest", "60"),
++        ("04_4", "five are the friends'", "G-F1.handful", "5"),
++        ("04_4", "sixty minus five", "G-F1.largest", "60"),
++        ("04_4", "sixty minus five", "G-F1.handful", "5"),
++        ("04_4", "fifty-five", "G-F3.unseen", "55"),
++        ("04_5", "With any five numbers", "G-F1.handful", "5"),
++        ("04_5", "hold the largest minus five", "G-F1.handful", "5"),
++        ("04_5", "plus the largest minus five, over five", "G-F1.handful", "5"),
++        (
++            "04_5",
++            "sixty plus fifty-five over five, seventy-one",
++            "G-F1.largest",
++            "60",
++        ),
++        (
++            "04_5",
++            "sixty plus fifty-five over five, seventy-one",
++            "G-F3.unseen",
++            "55",
++        ),
++        (
++            "04_5",
++            "sixty plus fifty-five over five, seventy-one",
++            "G-F1.handful",
++            "5",
++        ),
++        (
++            "04_5",
++            "sixty plus fifty-five over five, seventy-one",
++            "G-F3.estimate",
++            "71",
++        ),
++        ("04_6", "if the five numbers were", "G-F1.handful", "5"),
++        (
++            "04_6",
++            "one, two, three, four and five",
++            "G-F4.edge_handful",
++            "1,2,3,4,5",
++        ),
++        ("04_7", "Five. There are no gaps", "G-F4.edge_estimate", "5"),
++        ("04_7", "Five. There are no gaps", "G-F4.edge_gaps", "0,0,0,0,0"),
++        // 05: every handful
++        ("05_1", "A company of seventy-one boxes", "G-F5.company", "71"),
++        ("05_1", "over thirteen million", "G-F5.millions", "13"),
++        ("05_1", "over thirteen million", "G-F5.handfuls_over_millions", "true"),
++        ("05_1", "handfuls of five", "G-F1.handful", "5"),
++        ("05_1", "made just five boxes", "G-F5.boxes", "5"),
++        ("05_1", "you see two", "G-F5.seen", "2"),
++        ("05_2", "ten possible pairs", "G-F5.pairs", "10"),
++        ("05_2", "from one and two", "G-F5.first_pair", "1,2"),
++        ("05_2", "up to four and five", "G-F5.last_pair", "4,5"),
++        ("05_3", "the pair two and five", "G-F5.example_high_pair", "2,5"),
++        ("05_3", "Below five", "G-F5.example_high_largest", "5"),
++        ("05_3", "one, three and four", "G-F5.example_high_unseen", "1,3,4"),
++        ("05_3", "That's three boxes", "G-F5.example_high_unseen_count", "3"),
++        ("05_3", "five minus two", "G-F5.example_high_largest", "5"),
++        ("05_3", "five minus two", "G-F5.seen", "2"),
++        ("05_3", "in two gaps", "G-F5.seen", "2"),
++        ("05_3", "half of the largest minus two", "G-F5.seen", "2"),
++        ("05_4", "For two and five", "G-F5.example_high_pair", "2,5"),
++        ("05_4", "five plus three halves", "G-F5.example_high_largest", "5"),
++        ("05_4", "five plus three halves", "G-F5.example_high_unseen_count", "3"),
++        ("05_4", "six and a half", "G-F5.example_high_decimal", "6.5"),
++        ("05_4", "For one and two", "G-F5.example_low_pair", "1,2"),
++        ("05_4", "just two", "G-F5.example_low", "2"),
++        ("05_5", "all ten estimates", "G-F5.pairs", "10"),
++        ("05_5", "the ten average", "G-F5.pairs", "10"),
++        ("05_6", "Exactly five", "G-F5.average", "5"),
++        ("05_6", "averages only four", "G-F5.largest_average", "4"),
+     ];
+ 
+     /// Sizes said on purpose without a value: the stakes and the unknown
+@@ -299,7 +378,8 @@
+ 
+     /// Each chapter asks one prediction, and the next line's first words
+     /// answer it: the one certain thing about the count, where a fair
+-    /// handful from a thousand lands, and the first estimate.
++    /// handful from a thousand lands, the first estimate, the edge
++    /// handful's estimate and the tiny company's average.
+     #[test]
+     fn the_prediction_is_asked_once_and_answered_next() {
+         let boards = explainer_kit::storyboard::parse(STORYBOARD).unwrap();
+@@ -319,6 +399,12 @@
+                 "how many boxes did the company make?",
+                 "About seventy-one",
+             ),
++            (
++                "04_what_we_assume",
++                "if the five numbers were one, two, three, four and five?",
++                "Five.",
++            ),
++            ("05_every_handful", "What do the ten average?", "Exactly five"),
+         ];
+         assert_eq!(boards.len(), expected.len());
+         for (board, (key, asks, answers)) in boards.iter().zip(expected) {

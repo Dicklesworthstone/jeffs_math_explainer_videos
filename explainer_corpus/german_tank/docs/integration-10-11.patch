@@ -1,0 +1,1231 @@
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/brief.md b/explainer_corpus/german_tank/docs/brief.md
+--- a/explainer_corpus/german_tank/docs/brief.md	2026-10-24 07:55:19.686022954 -0400
++++ b/explainer_corpus/german_tank/docs/brief.md	2026-10-24 09:07:55.517996890 -0400
+@@ -18,10 +18,10 @@
+ | Three ideas kept apart | **unbiased** is a property of the recipe over all handfuls (05 to 07); **uncertainty** is how far one estimate can land and which counts remain plausible (08 and 09: the 71-box company's estimates run from 5 to 84.2, the average miss is about 9, and the one-sided 95% range for our handful is 60 to 107, `G-F9.range`); **the one realised estimate**, 71, is a number, not a count and not a promise (03_10, 08_1, 16) |
+ | Counterexamples (biased sampling) | The friends' own five boxes, bought from a shop that only ever got the first 71 of the 200 made: the recipe still says 71 and averages exactly 71 over every handful that shop could sell, short by 129 (`G-F14.shop_average`, `G-F14.shop_short_by`). Shelves holding only boxes 151 to 200: it averages 230 (`G-F14.late_average`), and a first gap of 157 gives the draw away (`G-F14.late_first_gap`). Equal chances per box without equally likely handfuls (one of two deliveries, boxes 1–5 or 6–10, each box seen half the time): it averages 8, not 10 (`G-F15.deliveries_average`) |
+ | Audience | a curious 14-year-old with school arithmetic; a programmer who could simulate it afterwards; a statistician who finds nothing wrong (default, plan §1.2) |
+-| Length | By `tools/storyboard.py`'s estimate (spoken words at 2.68 words a second plus breaths, prediction pauses and holds): chapters 01 to 09, the production storyboard, 16.2 min (74.8, 84.6, 67.3, 84.7, 77.4, 136.4, 166.0, 135.7 and 142.3 s); chapters 10 to 16 (`docs/storyboard-draft.md`) 7.8 min; about 23.9 min in all. Chapters 06 to 09 are long because the swaps, each transformed line, the distribution of estimates and the coverage experiment are given time to be inspected (root's 06/07 and 08/09 assignments set no runtime cap). These are advisory script estimates, not measured narration; authored pauses are not in the estimate. Root's separately bound silent native previews have their own measured durations in the third-wave review records. No runtime target was set; the owner's direction allows a longer film |
+-| Scope in source | Root's scope correction (Mail 6790): only chapters with a native scene are in `docs/storyboard.md`, `script.tsv` and the chapter registry, now chapters 01 to 09 (02 and 03 integrated by root, 04 and 05 in the tree from `docs/integration-04-05.patch`; 06 and 07 proposed in `docs/integration-06-07.patch`, 08 and 09 in `docs/integration-08-09.patch`, which applies after it). Chapters 10 to 16 are complete words and pictures in the draft; root assigns their scenes |
++| Length | By `tools/storyboard.py`'s estimate (spoken words at 2.68 words a second plus breaths, prediction pauses and holds): chapters 01 to 11, the production storyboard, 21.0 min (74.8, 84.6, 67.3, 84.7, 77.4, 136.4, 166.0, 135.7, 142.3, 149.2 and 142.8 s); chapters 12 to 16 (`docs/storyboard-draft.md`) 5.8 min; about 26.8 min in all. Chapters 06 to 11 are long because the swaps, each transformed line, the distribution of estimates, the coverage experiment, the two recipes' widths and the pairs behind sufficiency are given time to be inspected (root's 06/07, 08/09 and 10/11 assignments set no runtime cap). These are advisory script estimates, not measured narration; authored pauses are not in the estimate. Root's separately bound silent native previews have their own measured durations in the third-wave review records. No runtime target was set; the owner's direction allows a longer film |
++| Scope in source | Root's scope correction (Mail 6790): only chapters with a native scene are in `docs/storyboard.md`, `script.tsv` and the chapter registry, now chapters 01 to 11 (02 and 03 integrated by root, 04 and 05 in the tree from `docs/integration-04-05.patch`; 06 and 07 proposed in `docs/integration-06-07.patch`, 08 and 09 in `docs/integration-08-09.patch`, which applies after it, and 10 and 11 in `docs/integration-10-11.patch`, which applies after that). Chapters 12 to 16 are complete words and pictures in the draft; root assigns their scenes |
+ | Format, voice, look | the program defaults (plan §1; AGENTS.md): 3840×2160 at 60 fps; FrankenTTS under the current narration direction, after root's qualification; 3Blue1Brown look. This lane made no audio |
+-| Protected facts | `docs/protected.tsv`: the phrases of chapters 01 to 09, the chapters in `script.tsv`; a drafted chapter's phrases join when it moves into `storyboard.md` |
++| Protected facts | `docs/protected.tsv`: the phrases of chapters 01 to 11, the chapters in `script.tsv`; a drafted chapter's phrases join when it moves into `storyboard.md` |
+ | Oracle | `oracle.py`: brute-force enumeration (all 13,019,909 handfuls of five from 71), sequential-draw products where enumeration is too large, a triangular solve for the forced unbiased recipe, edge checks of every always/never sentence, negative controls; the Rust model (`src/model.rs`) uses closed forms instead |
+ | Out of scope | Bayesian estimates and priors; sampling with replacement; several factories or several numbering series; serial-number codes that skip or encode dates; confidence intervals beyond the one-sided 95% range; the variance formula; any claim about real production figures |
+ | Evidence boundary | Selection data (`docs/video-program/third-wave-20261024/MOR_CASE.md` and the catalog) supports editorial hypotheses about what may hold attention; it is not a forecast of views and not evidence that this topic causes any outcome |
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/pauses.tsv b/explainer_corpus/german_tank/docs/pauses.tsv
+--- a/explainer_corpus/german_tank/docs/pauses.tsv	2026-10-24 07:55:19.686095913 -0400
++++ b/explainer_corpus/german_tank/docs/pauses.tsv	2026-10-24 09:07:36.665476324 -0400
+@@ -5,10 +5,10 @@
+ # to a director override {video, cue, after, role, range_s: [min_s, max_s], reason}. Ranges are editorial
+ # hypotheses for total audible silence (existing take margins count toward them); they are not measured, not
+ # listened to, and not acceptance thresholds. Prediction countdowns and the inspection holds of 01_4, 04_5,
+-# 05_2, 06_4, 06_5, 06_8, 07_3, 07_5, 07_6, 07_7, 07_10, 08_4, 08_7, 08_8, 08_9, 09_4, 09_6, 09_8 and 09_10 are
+-# scene holds, not rows here; so are the computed rows that keep landing after 08_2 and 09_5 (protected visual
+-# holds before 08_3 and 09_6). The Rust test in src/main.rs checks every phrase against script.tsv or
+-# docs/storyboard-draft.md.
++# 05_2, 06_4, 06_5, 06_8, 07_3, 07_5, 07_6, 07_7, 07_10, 08_4, 08_7, 08_8, 08_9, 09_4, 09_6, 09_8, 09_10, 10_9,
++# 10_10, 11_4 and 11_6 are scene holds, not rows here; so are the computed rows that keep landing after 08_2 and
++# 09_5 (protected visual holds before 08_3 and 09_6); 10_8's zoom out runs inside its first sentence. The Rust
++# test in src/main.rs checks every phrase against script.tsv or docs/storyboard-draft.md.
+ 01_2	Five friends who own it would like to know.	thought	0.5	0.9	setup: the stakes follow
+ 01_2	their boxes are rare.	clause	0.2	0.45	contrast: rare, then ordinary
+ 01_3	counting up from one.	thought	0.5	0.9	visual: the line starts drawing from one
+@@ -64,8 +64,25 @@
+ 09_6	Nineteen of the twenty ranges cover seventy-one.	thought	0.5	0.9	visual: the covering ranges turn ink before the miss is named
+ 09_7	That's what ninety-five percent confidence means.	thought	0.4	0.8	name, then the careful reading
+ 09_10	Narrower.	thought	0.6	1.0	reveal: the prediction's answer, then its reason
+-10_4	Twenty-eight point six,	clause	0.3	0.6	reveal: let the absurd value register
+-11_5	Nothing.	thought	0.7	1.1	reveal: the chapter's surprise
++10_2	Twice the average, minus one.	thought	0.5	0.9	the recipe lands before its name
++10_3	an average of thirty-seven.	thought	0.3	0.6	visual: the average's purple mark lands before the doubling
++10_4	It's unbiased too.	thought	0.4	0.8	claim, then its reason
++10_5	So which recipe should we trust?	question	0.5	0.9	the question stands before the test
++10_6	Twenty-eight point six.	thought	0.6	1.0	reveal: let the absurd value register
++10_7	That's no freak.	thought	0.3	0.6	turn: from one handful to every handful
++10_8	The gap recipe's sixty-seven bars come back.	thought	0.4	0.8	visual: the green bars rise before the purple outline
++10_9	Both balance at seventy-one.	thought	0.4	0.8	visual: the fulcrum lands before the contrast
++10_9	But the purple bars are lower and wider.	thought	0.5	0.9	visual: the halos stand before the widths' numbers
++10_10	beats the recipe that uses all five.	thought	0.5	0.9	the conclusion stands before the chapter's question
++11_1	the largest number is sixty.	thought	0.4	0.8	visual: the four smaller boxes fade
++11_2	Try it on pairs.	thought	0.4	0.8	turn: to the tiny company's pairs
++11_3	Now let the company make six boxes, or eight.	thought	0.4	0.8	visual: two more triangles land
++11_4	It's the same with sixty.	thought	0.4	0.8	turn: back to the friends' sixty
++11_4	Only the chance that sixty is the largest changes.	thought	0.4	0.8	the contrast is named before its numbers
++11_6	Nothing.	thought	0.7	1.1	reveal: the chapter's surprise
++11_6	the largest number is sufficient.	thought	0.4	0.8	the name lands before its meaning
++11_7	needs only the largest number.	thought	0.4	0.8	callback: the boxes and their arcs return
++11_8	All of this needs the handful to be fair.	thought	0.5	0.9	the condition stands alone
+ 12_5	Five, and five.	thought	0.5	0.9	reveal: both averages agree
+ 13_5	Five, forced by the values before it.	thought	0.4	0.8	reveal, then the general step
+ 14_1	Now break it, with the same five boxes.	thought	0.5	0.9	turn: the assumption is broken on purpose
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/protected.tsv b/explainer_corpus/german_tank/docs/protected.tsv
+--- a/explainer_corpus/german_tank/docs/protected.tsv	2026-10-24 07:55:19.686187871 -0400
++++ b/explainer_corpus/german_tank/docs/protected.tsv	2026-10-24 08:21:22.692503139 -0400
+@@ -1,6 +1,6 @@
+ # Protected facts: the words every revision must keep (./x german_tank protected checks they are still there).
+ # One per line: <phrase> TAB <where> TAB <why>. <where> is a comma list of script, captions,
+-# description, title, or empty for "anywhere". Rows are for the chapters in script.tsv (chapters 01 to 09);
++# description, title, or empty for "anywhere". Rows are for the chapters in script.tsv (chapters 01 to 11);
+ # a drafted chapter's rows join when it moves into docs/storyboard.md and script.tsv (root's scope correction,
+ # Mail 6790).
+ counting up from one	script	the numbering assumption the whole recipe needs, stated before any number (G-F1.first)
+@@ -39,3 +39,14 @@
+ not a ninety-five percent chance that the count lies in our range	script	the 95% is never a posterior (oracle negative control: flat priors give 91.8% and 91.2%)
+ never fewer than ninety-five	script	coverage holds whatever the count, not only at seventy-one (G-F9.worst_coverage_at_least_95)
+ so the range shrinks to sixty through seventy-nine	script	more boxes with the same largest narrow the range (G-F9.ten_boxes_range)
++the count is twice the middle, minus one	script	the doubling recipe is earned from the middle number before it is named (G-F10.from_middle)
++That's fewer than the sixty boxes we know were made	script	the unbiased rival can land below a box someone holds (G-F10.silly_doubling, G-F1.at_least)
++as it does for every handful topped by sixty	script	the gap recipe's estimate depends on the largest number alone (G-F10.silly_gap)
++about one handful in five gets a doubling estimate below its own largest number	script	the absurd case is common, not a freak (G-F10.below_largest_71)
++Ignoring direction, doubling misses by fourteen point three boxes on average	script	the average miss is the average distance ignoring direction, never the standard deviation (G-F10.doubling_miss_71_decimal)
++The standard deviation, built from squared misses	script	the second width is named and kept apart from the average miss (G-F10.doubling_sd_about)
++all equally likely, for every count	script	given the largest, every group of four below it has the same chance at every count (G-F11.each_group.60, .71, .1000)
++Only the chance that sixty is the largest changes	script	the count changes how likely the largest is, not which four come with it (G-F11.top_chance.60, .71, .1000)
++Statisticians say the largest number is sufficient	script	the term of art, said once, after the viewer has predicted it
++It holds everything a fair handful can tell you about the count	script	sufficiency stated with its condition, the fair handful
++All of this needs the handful to be fair	script	the fair-sampling assumption kept explicit (oracle negative control: weighted draws shift the others with the count)
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/storyboard-draft.md b/explainer_corpus/german_tank/docs/storyboard-draft.md
+--- a/explainer_corpus/german_tank/docs/storyboard-draft.md	2026-10-24 07:55:19.686270663 -0400
++++ b/explainer_corpus/german_tank/docs/storyboard-draft.md	2026-10-24 08:18:40.014304902 -0400
+@@ -1,12 +1,12 @@
+-# Storyboard draft — chapters 10 to 16
++# Storyboard draft — chapters 12 to 16
+ 
+ The rest of "How Much Can Five Serial Numbers Reveal?", written in full in
+ the format of `docs/storyboard.md` (read that file first: the arc, the
+-vocabulary, the color roles and chapters 01 to 09 are there). Only chapters
++vocabulary, the color roles and chapters 01 to 11 are there). Only chapters
+ with a native scene in source live in `docs/storyboard.md`, `script.tsv` and
+ the chapter registry (root's scope correction, Mail 6790); a chapter moves
+ there when its scene is implemented, and root assigns that work. Chapters 02
+-to 09 moved there with their scenes. Every number is a
++to 11 moved there with their scenes. Every number is a
+ fact the oracle prints (`oracle.py`; fact group `G-Fn` belongs to chapter
+ `n`). Check this file with the storyboard tool's own functions:
+ 
+@@ -23,55 +23,6 @@
+ five small squares with the two seen squares gold); the **panel** (arithmetic
+ on the right).
+ 
+-## 10_a_rival_recipe: A rival recipe (~56 s)
+-
+-The line; the panel; the rival's estimates in purple.
+-
+-| id | words | picture | features | hold/listen |
+-|---|---|---|---|---|
+-| 10_1 | Here's another natural recipe. A fair handful's average should sit near the middle number, the count plus one, over two. So double the average and subtract one. | A purple tick at the five numbers' average, 37, on the line; the panel: (N + 1)/2 → 2·average − 1 | equation | |
+-| 10_2 | Our five average thirty-seven, so doubling says seventy-three. It's unbiased too, since every number in a fair handful averages the middle number. | The panel: 2·37 − 1 = 73; a purple tick at 73 beside the green 71 | equation, highlight | |
+-| 10_3 | So which recipe should we trust? Try a strange handful, two, three, four, five and sixty. ⟨predict⟩ What does doubling say? | Four boxes slide down to 2, 3, 4, 5, the box at 60 stays; the countdown | prediction pause, think time | |
+-| 10_4 | Twenty-eight point six, fewer boxes than the sixty we know exist. The gap recipe says seventy-one, as it does for every handful topped by sixty. | A purple tick at 28.6 lands left of 60 and flashes red; the green 71 stays | highlight | |
+-| 10_5 | Unbiased doesn't stop a recipe from being silly on one handful. And over the seventy-one-box company, doubling misses by about fourteen boxes on average, the gap recipe by about nine. | Chapter 08's histogram returns in green; the doubling recipe's histogram, exact, overlays it in purple, wider; "≈ 14" and "≈ 9" | histogram | |
+-| 10_6 | The gap recipe uses less of the handful, only its largest number, and it does better. Why? | The four smaller boxes dim; the box at 60 stays gold | highlight | |
+-
+-### Notes for 10
+-
+-- `G-F10.average` 37, `G-F10.doubling` 73; `G-F10.silly_doubling` 143/5
+-  (28.6), `G-F10.silly_gap` 71; `G-F10.doubling_miss_71` ≈ 14.35 ("about
+-  fourteen"), `G-F10.gap_miss_71_about` 9; `G-F10.doubling_average_71` 71.
+-- Edge: with a pair the doubling recipe never falls below the largest (oracle
+-  cross-check); the absurd case needs three or more numbers, so the example
+-  uses five.
+-
+-## 11_the_largest_says_it_all: The largest number says it all (~62 s)
+-
+-The line with the friends' handful; two side-by-side panels below it for two
+-hypothetical companies, 71 boxes and 500 boxes.
+-
+-| id | words | picture | features | hold/listen |
+-|---|---|---|---|---|
+-| 11_1 | Suppose all you're told is that the largest of the five is sixty. Then the other four are four different numbers below sixty. | The four smaller boxes fade to outlines; the box at 60 stays gold | highlight | |
+-| 11_2 | Every full handful is equally likely, and the ones topped by sixty are sixty plus any four below it. So all those groups of four are equally likely. | Ghost groups of four flicker below 60, all at the same faintness; the panel: "455,126 groups of four" | lagged reveal, live count | |
+-| 11_3 | That holds whether the company made seventy boxes or seven thousand. The count changes how likely sixty is to be the largest, but not which four come with it. | The two companies' panels show the same flicker pattern below 60; only a "chance the largest is 60" readout differs between them | highlight, coordinated views | |
+-| 11_4 | ⟨predict⟩ So once you know the largest number, how much do the other four tell you about the count? | The countdown | prediction pause, think time | |
+-| 11_5 | Nothing. Their pattern looks the same for every count, so it can't point to one. Statisticians say the largest number is sufficient. | "sufficient" in the panel, in dim, under the gold 60 | equation card | |
+-| 11_6 | That's why the gap recipe only needed how many gaps there were, never their sizes. The other numbers still have one job. They can warn you when the draw wasn't fair. | The gap arcs return; their labels blur while their count, 5, stays sharp; a red outline flashes once on the smallest gap | highlight | |
+-
+-### Notes for 11
+-
+-- `G-F11.others_same_for_every_count` true (enumerated on a smaller copy:
+-  four seen, largest 9, counts 9 to 16), `G-F11.others_sets` 455126 =
+-  C(59, 4).
+-- Card G: "Precisely: P(the other four = S | M = 60) = 1/C(59, 4) for every
+-  N ≥ 60, so M is a sufficient statistic for N."
+-- "seventy boxes or seven thousand" is a statement for every count from 60
+-  up; the companies drawn are 71 and 500 (illustrative).
+-- Chapter 02's spacing clue is consistent with this: the spacing a viewer
+-  sees averages out to the largest number divided by five, so once the
+-  largest is known the spacing adds nothing a fair handful could use.
+-
+ ## 12_averaging_the_wobble: Averaging away the wobble (~58 s)
+ 
+ The tiny table returns, now with the doubling recipe's estimates in purple
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/storyboard.md b/explainer_corpus/german_tank/docs/storyboard.md
+--- a/explainer_corpus/german_tank/docs/storyboard.md	2026-10-24 07:55:19.686333997 -0400
++++ b/explainer_corpus/german_tank/docs/storyboard.md	2026-10-24 09:06:47.435322286 -0400
+@@ -7,7 +7,7 @@
+ `G-Fn` belongs to chapter `n`.
+ 
+ This file holds only the chapters whose native scenes exist in source:
+-chapters 01 to 09. Chapters 10 to 16 are written in full, in the same format,
++chapters 01 to 11. Chapters 12 to 16 are written in full, in the same format,
+ in `docs/storyboard-draft.md`; a chapter moves here when its scene is
+ implemented, so `script.tsv`, the chapter registry and the Rust tests always
+ agree on what can render. The arc below describes the whole film.
+@@ -75,7 +75,9 @@
+ | `07_right_on_average` | the same argument with the count a letter; each gap averages N minus five, over six; the guess, eleven, is one handful's average, and in the tiny company guess and top gap rarely agree but both average one; so the estimates average the count; one box doubles and subtracts one; any handful size | words and pictures here; scene in `src/chapters/right_on_average.rs` |
+ | `08_one_estimate` | the promise is about the recipe; a company of exactly seventy-one; twenty computed handfuls and their estimates; every handful counted by its largest number, sixty-seven stacks; how often exactly right, about one in twenty-nine; the balance and the lopsided sides; the average miss and the standard deviation; three ideas kept apart | words and pictures here; scene in `src/chapters/one_estimate.rs` |
+ | `09_how_far_off` | the count fixed and unknown; for each count, the chance a fair handful is all sixty or less; just over and just under five percent at a hundred and seven and eight; the range sixty to a hundred and seven; the twenty handfuls build their own ranges, nineteen cover seventy-one; what ninety-five percent confidence means and doesn't; the division behind each bar; ten boxes, sixty to seventy-nine | words and pictures here; scene in `src/chapters/how_far_off.rs` on chapter 08's draws |
+-| `10_a_rival_recipe` to `16_five_boxes_again` | see `docs/storyboard-draft.md` | drafted in full; no scene yet |
++| `10_a_rival_recipe` | another recipe from the middle number, twice the average minus one, unbiased too; seventy-three for the friends; a strange handful with sixty gives twenty-eight point six, below a box someone holds; about one handful in five falls below its own largest; every handful of the seventy-one-box company, counted by total; both balance at seventy-one, doubling wider by the average miss and by the standard deviation | words and pictures here; scene in `src/chapters/a_rival_recipe.rs` on chapter 08's bars |
++| `11_the_largest_says_it_all` | told only the largest, sixty; pairs topped by five in companies of five, six and eight, the same four, each one in four; for sixty, every group of four equally likely at every count while the chance of sixty changes; the other four tell nothing, the largest is sufficient; the gaps below sixty always hold fifty-five; all of it needs a fair handful | words and pictures here; scene in `src/chapters/the_largest_says_it_all.rs` |
++| `12_averaging_the_wobble` to `16_five_boxes_again` | see `docs/storyboard-draft.md` | drafted in full; no scene yet |
+ 
+ ## Vocabulary (one word per idea)
+ 
+@@ -98,9 +100,9 @@
+ largest number plus the average gap); **doubling recipe** (twice the
+ average, minus one, from 10); **unbiased** (the estimates average to the true
+ count, whatever that count is); **average miss** (how far an estimate lands
+-from the count, averaged over handfuls); **range** (the counts for which a
+-handful like the friends' is not rare, from 09); **standard deviation** (said
+-once, in 08, as the name of the second width); **sufficient** (said once, in 11, as
++from the count ignoring direction, averaged over handfuls; never the standard deviation); **range** (the counts for which a
++handful like the friends' is not rare, from 09); **standard deviation** (named
++in 08 as the second width, the square root of the average squared miss, and said again in 10 to compare the recipes); **sufficient** (said once, in 11, as
+ the name for "the largest number says it all").
+ 
+ ## Color roles
+@@ -677,3 +679,194 @@
+   seventy-one."; a thought pause after "That's what ninety-five percent
+   confidence means."; a reveal pause after "Narrower.". The inspection holds
+   after 09_4, 09_6, 09_8 and 09_10 are scene holds.
++
++## 10_a_rival_recipe: A rival recipe (~149 s)
++
++The friends' line from 1 to 84 as chapter 08 opened it: the five boxes on
++their gold ticks, the gap recipe's green tick at 71 with its number over the
++line, and the badge. A second recipe is earned from the middle number and
++drawn in purple (the colour table's role for the doubling recipe), its marks
++under the line so they never meet the green ones over it. Then a strange
++handful keeps the box at 60 and swaps the other four for gold rings at half
++strength on 2, 3, 4 and 5, as chapter 04 showed its edge handful. Then the
++71-box company of chapter 08, every handful: the line's end slides out to
++140 (a layout value, never written or said), chapter 08's 67 green bars come
++back narrower at that scale, and the doubling recipe's handfuls, counted by
++the total of their five numbers from a sum-of-subsets table and never by
++listing handfuls, rise as a purple outline over them, stroke only, three
++totals to a step so each step is as wide as a green bar's. Highlights are
++halos and colour changes are replacements; no typeset text is indicated,
++recoloured or scaled in place. Every number is `G-F1`, `G-F3`, `G-F8` or
++`G-F10`.
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 10_1 | Here's another recipe, built on a different idea. A company's numbers run from one up to the count, so they balance at the middle number. With seventy-one boxes the middle is thirty-six, and the count is twice the middle, minus one. | The line opens with the boxes on their ticks, the green tick at 71 with "71" over it and the badge; on "they balance at the middle number" "middle = (count + 1) ÷ 2" on the panel's top line; on "With seventy-one boxes" an ink span under the line from 1 to 71 and a small ink fulcrum under it at 36 with "36" under the fulcrum (`G-F8.count`, `G-F10.middle_71`); on "twice the middle, minus one" "count = 2 × middle − 1" on the panel's second line (`G-F10.from_middle`) | number line, equation | |
++| 10_2 | A fair handful's numbers should spread around the middle too, so let the handful's average stand in for it. Twice the average, minus one. Call it the doubling recipe. | On "let the handful's average stand in" the span, the fulcrum and "36" go; on "Twice the average, minus one" the panel's second line gives way to "doubling recipe = 2 × average − 1", the name purple (`G-F10.recipe`); on "Call it the doubling recipe" a purple halo round that line | equation, halo | |
++| 10_3 | Our five add up to a hundred and eighty-five, an average of thirty-seven. So doubling says seventy-three, just above the gap recipe's seventy-one. | On "add up to" "(14 + 27 + 33 + 51 + 60) ÷ 5 = 37" on the panel's third line (`G-F10.sum`, `G-F10.average`), and a short purple mark under the line at 37 with "37" under it; on "So doubling says seventy-three" "2 × 37 − 1 = 73" on the panel's last line, the 73 purple, and a purple tick under the line at 73 with "73" under it (`G-F10.doubling`), beside the green tick at 71 over the line | equation, number line | |
++| 10_4 | It's unbiased too. In a fair handful each box is just as likely to carry any number from one to the count, so averaged over every handful, the handful's average is the middle number. That makes the doubling recipe average the count, whatever the count is. | On "In a fair handful" an ink halo round the badge; on "the handful's average is the middle number" an ink halo round the panel's top line; on "That makes the doubling recipe average the count" a purple halo round the panel's recipe line | halo, equation | |
++| 10_5 | So which recipe should we trust? Try a strange handful. Keep the box at sixty, and make the other four two, three, four and five. ⟨predict⟩ What does doubling say for this handful? | On "Try a strange handful" the purple marks, their numbers and the panel's last two lines go; on "Keep the box at sixty" a gold halo round the box at 60; on "make the other four" the four smaller boxes, their numbers and their ticks fade and their gold dots turn faint; on "two, three, four and five" gold rings at half strength land on the dots 2, 3, 4 and 5 with "2, 3, 4, 5" under them (`G-F10.silly_others`); the countdown; nothing shows the new average | prediction pause, think time, number line | |
++| 10_6 | Twenty-eight point six. That's fewer than the sixty boxes we know were made. The gap recipe says seventy-one for this handful, as it does for every handful topped by sixty. | The countdown goes; on "Twenty-eight point six" "(2 + 3 + 4 + 5 + 60) ÷ 5 = 14.8" and "2 × 14.8 − 1 = 28.6" on the panel's last two lines, the 28.6 purple (`G-F10.silly_sum`, `G-F10.silly_average_decimal`, `G-F10.silly_doubling_decimal`), and a purple tick under the line at 28.6 with "28.6" under it; on "fewer than the sixty boxes" a teal halo round the box at 60 (`G-F1.at_least`); on "The gap recipe says seventy-one" a green halo round the green tick at 71 and its number (`G-F10.silly_gap`) | equation, halo, number line | |
++| 10_7 | That's no freak. In a company of seventy-one boxes, about one handful in five gets a doubling estimate below its own largest number. The gap recipe never does. | On "about one handful in five" the panel's last two lines give way to "71 boxes: 20.9% of handfuls" and "doubling below their own largest", in purple (`G-F10.below_largest_71_percent1`); on "The gap recipe never does" a green halo round the green tick at 71 | equation, halo | |
++| 10_8 | So put both recipes side by side, over every handful from a company of exactly seventy-one boxes. The gap recipe's sixty-seven bars come back. The doubling recipe looks only at the total of the five numbers, so its handfuls can be counted by total, and its estimates spread from five all the way to a hundred and thirty-seven. | On "put both recipes side by side" the rings and their numbers, the 28.6 tick and its number, the box at 60 with its number and tick, the green tick and its 71 and the panel's lines go, the dot at 60 turns faint as the faded dots even out, and the line's end slides out to 140; on "exactly seventy-one boxes" "count = 71" comes in on the panel's top line and an upright ink mark rises at 71 (`G-F8.count`); on "The gap recipe's sixty-seven bars come back" chapter 08's green bars rise left to right, one per largest number, narrower at this scale (`G-F8.stacks`); on "counted by total" the purple outline rises over them, one step for every three totals, 111 steps, its tallest step at 71 (`G-F10.bars_71`, `G-F10.tallest_bar_71`, `G-F10.tallest_bar_71_at`); on "from five all the way to" "5" and "137" in purple under the line at the outline's two ends (`G-F10.doubling_range_71`) | histogram, number line, zoom out, lagged reveal | |
++| 10_9 | Both balance at seventy-one. But the purple bars are lower and wider. Ignoring direction, doubling misses by fourteen point three boxes on average, the gap recipe by nine point two. The standard deviation, built from squared misses, says seventeen point eight against eleven point seven. By either measure, the gap recipe's estimates spread less. | On "Both balance at seventy-one" an ink fulcrum under the line at 71 with "balance point: 71" left of it (`G-F10.doubling_average_71`, `G-F8.average`); on "lower and wider" a purple halo round the outline and a green halo round the bars, together; on "Ignoring direction" a table on the panel under "count = 71", heads "gap" in green and "doubling" in purple, then the row "average miss", 9.2 and 14.3 (`G-F8.average_miss_decimal`, `G-F10.doubling_miss_71_decimal`); on "The standard deviation" the row "standard deviation", 11.7 and 17.8 (`G-F8.sd_about`, `G-F10.doubling_sd_about`); held to be read | histogram, table, halo | hold |
++| 10_10 | So the gap recipe, which uses only the largest number, beats the recipe that uses all five. What are the other four worth, then? | On "uses only the largest number" a green halo round the bars; on "the recipe that uses all five" a purple halo round the outline; the table stays until it can be read | histogram, halo, table | hold |
++
++### Notes for 10
++
++- Earning the recipe: the numbers 1 to N average (N + 1) ÷ 2, the middle
++  (`G-F10.middle_71` 36 for 71 boxes), so N = 2 × middle − 1
++  (`G-F10.from_middle`, checked by the oracle for every count to 200). A
++  fair handful's average stands in for the middle: `G-F10.recipe` "2 ×
++  average − 1". The friends' five: `G-F10.sum` 185, `G-F10.average` 37,
++  `G-F10.doubling` 73.
++- "It's unbiased too": each box of a fair handful is equally likely to be any
++  number, so over every handful the handful's average averages the middle
++  (`G-F10.average_of_averages_71` 36 over all 13,019,909 handfuls of the
++  71-box company) and the doubling recipe averages the count
++  (`G-F10.doubling_unbiased`, by enumeration for handfuls of 1 to 5 and
++  every count to 16, and `G-F10.doubling_average_71` 71).
++- The strange handful (10_5, 10_6): `G-F10.silly_handful` 2, 3, 4, 5, 60;
++  `G-F10.silly_sum` 74, average `G-F10.silly_average_decimal` 14.8,
++  doubling `G-F10.silly_doubling` 143/5 = 28.6, below the 60 the handful
++  itself proves exist (`G-F1.at_least`); the gap recipe says
++  `G-F10.silly_gap` 71, as for every handful topped by 60. Edges (oracle):
++  doubling is never below the largest for one box or a pair; for handfuls
++  of three to six it is for some handful from every count above the size;
++  at N = k every handful is 1 to N and doubling says N.
++- "About one handful in five" (10_7): at 71 boxes, doubling lands below its
++  handful's own largest number for `G-F10.below_largest_71` 2721678/13019909
++  ≈ 20.9% of handfuls (`G-F10.below_largest_71_percent1`; 1 in 4.78, said
++  as `G-F10.below_largest_71_one_in` 5), from the count of handfuls by
++  largest number and total together; the gap recipe never does (04).
++- The bars (10_8): the green ones are chapter 08's, C(m − 1, 4) handfuls at
++  m + (m − 5) ÷ 5 for m = 5 to 71 (`G-F8.stacks` 67). The doubling recipe
++  depends only on the total s, at 2s ÷ 5 − 1, so its handfuls are counted by
++  total with a sum-of-subsets table; totals run 15 to 345, so estimates run
++  `G-F10.doubling_range_71` 5 to 137. Three totals 3m − 1, 3m and 3m + 1 make
++  one step of the outline, 1.2 wide and centred on the gap recipe's value for
++  largest m, so both sets of bars count handfuls per 1.2 of estimate on one
++  scale: `G-F10.bars_71` 111 steps (m = 5 to 115), the tallest
++  `G-F10.tallest_bar_71` 339,265 handfuls at `G-F10.tallest_bar_71_at` 71,
++  about 0.37 of the green tallest (916,895 at 84.2). The scene builds the
++  steps from the table and refuses them unless they hold every handful
++  once; its tests check the table against a list of every handful for
++  small companies.
++- The widths (10_9), exact over every handful of the 71-box company, the
++  correction of the draft's "misses by about fourteen boxes on average":
++  the average miss, the average distance from 71 ignoring direction, is
++  `G-F10.doubling_miss_71` 934167456/65099545 ≈ 14.35 (shown as
++  `G-F10.doubling_miss_71_decimal` 14.3) against 08's `G-F8.average_miss`
++  ≈ 9.23 (9.2); the standard deviation, the square root of the average
++  squared miss (for an unbiased recipe the spread about the count itself),
++  is √(`G-F10.doubling_variance_71` 1584/5) ≈ 17.80 (`G-F10.doubling_sd_about`
++  17.8) against √(4752/35) ≈ 11.66 (11.7). Doubling is wider by both widths;
++  each recipe's average miss squared is under its variance, so the two
++  widths are different numbers for both (oracle checks). Doubling's average
++  squared miss is (N + 1)(N − 5) ÷ 15, `G-F10.variance_ratio` 7/3 of the
++  gap recipe's (N − 5)(N + 1) ÷ 35 at every count (oracle: (k + 2)/3 by
++  enumeration for handfuls of 1 to 5, equal only for one box or N = k). The
++  voice never says "about fourteen": 14.35 is too close to the rounding
++  edge to round both ways truthfully.
++- "Beats" (10_10) means by both widths at 71; chapter 13 states the general
++  result. No card: the table is the chapter's exact statement, held to be
++  read.
++- Prediction (10_5): the tempting answer is "somewhere near the gap
++  recipe's 71", since both recipes are unbiased. The countdown shows the
++  handful and the recipe only; the average 14.8, the 28.6 and its place on
++  the line come with the answer.
++- Pauses: a thought pause after "Twice the average, minus one." as the
++  recipe lands; a beat after "an average of thirty-seven." while its purple
++  mark lands; a thought pause after "It's unbiased too."; a question pause
++  after "So which recipe should we trust?"; a reveal pause after
++  "Twenty-eight point six."; a turn after "That's no freak."; a beat after
++  "The gap recipe's sixty-seven bars come back." while the green bars rise;
++  a beat after "Both balance at seventy-one." and after "But the purple bars
++  are lower and wider." while the halos stand; a thought pause after "beats
++  the recipe that uses all five." before the chapter's question. The
++  zoom-out runs inside 10_8's first sentence, before "exactly seventy-one
++  boxes" (a director pause is at most 1.4 s, the zoom 2.4 s with the dots
++  evening out; the cue is a draft cue until the line is measured); the
++  inspection holds after 10_9 and 10_10 are scene holds.
++
++## 11_the_largest_says_it_all: The largest number says it all (~143 s)
++
++The friends' line again, the boxes on their ticks and the badge. Then only
++the box at 60 keeps its number, and the other four are any four below it.
++Under the line, the tiny company's pairs as a triangle of dots, one dot per
++pair, its column the pair's larger number and its height the smaller (2 to 5
++across, 1 to 4 up); then the same for companies of 6 and 8 boxes beside it,
++bottom rows level, so the column topped by 5 is four dots high in all three.
++Then a table under the line for three counts, 60, 71 and 1,000. The pairs
++are listed whole (small cases); nothing at the scale of 60 is listed. Every
++number is `G-F1`, `G-F3`, `G-F5`, `G-F8`, `G-F10` or `G-F11`.
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 11_1 | Back to the friends' own five boxes. Suppose all you were told is that the largest number is sixty. Then the other four could be any four different numbers below sixty. | The line opens with the boxes on their ticks and the badge; on "all you were told" the four smaller boxes, their numbers and their ticks fade and their gold dots turn faint, the box at 60 stays, and "largest: 60" comes in on the panel's top line (`G-F1.largest`); on "any four different numbers below sixty" a dim span under the line from 1 to 59 with "any 4 of 1 to 59" under it (`G-F10.others`) | number line, highlight | |
++| 11_2 | Try it on pairs. In the tiny company of five boxes, four of its ten pairs have five as their larger number, and the smaller one is one, two, three or four. A fair draw makes those four pairs equally likely, so each is one time in four. | On "Try it on pairs" the span and its words go; under the line at the left, ten dim dots land in a triangle, one per pair of the tiny company, each in the column of its larger number and at the height of its smaller, with "5 boxes: 10 pairs" under it (`G-F5.boxes`, `G-F5.pairs`); on "four of its ten pairs" the four dots in the column of 5 give way to gold ones, with a gold "5" over that column and "topped by 5: 4 of 10" under the caption (`G-F11.pair_top`, `G-F11.pairs_topped`, `G-F11.pair_shares`); on "the smaller one is one" "1", "2", "3" and "4" in dim at the left of their rows (`G-F11.pair_smaller`); on "so each is one time in four" "each 1 in 4" on the caption's third line (`G-F11.pair_each`) | grid, lagged reveal, replacement | |
++| 11_3 | Now let the company make six boxes, or eight. There are more pairs, fifteen and then twenty-eight, so a larger number of five gets rarer. But the pairs topped by five are still the same four, and each is still one time in four. | On "six boxes, or eight" two more triangles land beside the first, fifteen and twenty-eight dim dots on the same rows, with "6 boxes: 15 pairs" and "8 boxes: 28 pairs" under them (`G-F11.pair_more`, `G-F11.pair_more_pairs`); on "a larger number of five gets rarer" "topped by 5: 4 of 15" and "topped by 5: 4 of 28" under the two new captions (`G-F11.pair_shares`); on "the pairs topped by five" the two new columns of 5 give way to gold dots, with a gold "5" over each, and a gold halo round each of the three gold columns, together; on "each is still one time in four" "each 1 in 4" on the two new captions' third lines (`G-F11.pair_each`, `G-F11.pair_same_for_every_company`) | grid, lagged reveal, halo, coordinated views | |
++| 11_4 | It's the same with sixty. Whatever the count, from sixty boxes up, a handful topped by sixty is sixty plus any four numbers below it. That's over four hundred and fifty thousand groups of four, all equally likely, for every count. Only the chance that sixty is the largest changes. With exactly sixty boxes it's one in twelve, with seventy-one about one in twenty-nine, and with a thousand about one in eighteen million. | On "It's the same with sixty" the triangles and their words go; on "over four hundred and fifty thousand groups" "455,126 groups of 4 below 60" on the panel's second line (`G-F11.others_sets`); on "Only the chance that sixty is the largest changes" a table under the line, heads "count", "largest is 60" and "each group of 4"; a row lands as each count is named: on "With exactly sixty boxes" 60, 1 in 12, 1 in 455,126; on "with seventy-one" 71, ≈ 1 in 29, 1 in 455,126; on "with a thousand" 1,000, ≈ 1 in 18 million, 1 in 455,126 (`G-F11.counts`, `G-F11.top_chance.60`, `G-F11.top_chance.71.one_in`, `G-F11.top_chance.1000.millions`, `G-F11.each_group.60`, `.71`, `.1000`); held to be inspected | table, lagged reveal | hold |
++| 11_5 | ⟨predict⟩ So once you know the largest number, how much can the other four tell you about the count? | The table stands; the countdown | prediction pause, think time, table | |
++| 11_6 | Nothing. Given the largest, their pattern is the same for every count, so it can't favour any count over another. Statisticians say the largest number is sufficient. It holds everything a fair handful can tell you about the count. | The countdown goes; on "their pattern is the same for every count" an ink halo round the table's last column; on "sufficient" "the largest number: sufficient" on the panel's third line; card G rises and stays until it can be read | table, halo, card | hold |
++| 11_7 | That's why the gap recipe needs only the largest number. Whatever the other four are, the gaps below sixty hold fifty-five numbers, sixty minus five. Ours split them fairly evenly, and the strange handful's put nearly all of them in a single gap. | The table, card G and the panel's lower lines go; on "That's why the gap recipe" the four smaller boxes come back on their numbers with their ticks, their dots turn gold again, and the blue gap arcs and counts come in under the boxes (`G-F3.gaps`); on "the gaps below sixty hold" "13 + 12 + 5 + 17 + 8 = 55 = 60 − 5" on the panel's second line, the 55 blue (`G-F3.unseen`); on "the strange handful's put" "2, 3, 4, 5: 1 + 0 + 0 + 0 + 54 = 55" on its third line (`G-F11.silly_gaps`, `G-F11.silly_unseen`) | number line, equation, callback | |
++| 11_8 | All of this needs the handful to be fair. If bigger numbers were likelier to be picked, the other four could shift with the count and carry a clue of their own. With a fair handful they say nothing more about the count, but they can still warn you when a draw doesn't look fair. | On "needs the handful to be fair" an ink halo round the badge; on "they can still warn you" an ink halo round the four smaller boxes | halo | |
++
++### Notes for 11
++
++- Given the largest number m, a fair handful of k from 1 to N is m and k − 1
++  numbers below it, and every such group is equally likely: chance
++  1/C(m − 1, k − 1) for every N ≥ m. For the friends, `G-F11.others_sets`
++  455,126 = C(59, 4) groups ("over four hundred and fifty thousand",
++  `G-F11.others_sets_over` 450,000), each `G-F11.each_group.60`,
++  `.71` and `.1000` 1/455,126, computed at each count as one handful's
++  chance over the chance the largest is 60 (oracle: the same for every
++  count from 60 to 300).
++- The pairs (11_2, 11_3): companies `G-F11.pair_companies` 5, 6 and 8,
++  `G-F5.pairs` 10 and `G-F11.pair_more_pairs` 15 and 28; the pairs topped
++  by `G-F11.pair_top` 5 are the same `G-F11.pairs_topped` 4 in every company
++  (`G-F11.pair_same_for_every_company`), smaller numbers
++  `G-F11.pair_smaller` 1 to 4, each `G-F11.pair_each` 1/4 given the larger;
++  their share of all pairs falls, `G-F11.pair_shares` 2/5, 4/15 and 1/7.
++  The scene lists these pairs whole and refuses a triangle whose column of 5
++  differs between companies.
++- The counts (11_4): the chance the largest is 60 is C(59, 4)/C(N, 5):
++  `G-F11.top_chance.60` 1/12 at the edge N = 60 (where it is 5/60, oracle
++  check), `G-F11.top_chance.71` 65018/1859987 ≈ 1 in 28.6
++  (`G-F11.top_chance.71.one_in` 29, the same number as 08's exact
++  estimate), `G-F11.top_chance.1000` ≈ 1 in 18,127,488
++  (`G-F11.top_chance.1000.millions` 18); it falls at every count from 60 to
++  300 (oracle). The oracle computes these as sequential draws, never as
++  binomials.
++- Card G (11_6), from the facts, the fairness first: "fair handful from
++  any N ≥ 60, given largest 60: each group of 4 below 60 is the others with
++  chance 1/455,126. Only the chance of largest 60 depends on N: the largest
++  is sufficient for N." Three lines at every width the lower third narrows
++  to, with no line break inside a formula; 186 characters, 12.4 s to read
++  at fifteen a second.
++- The callback (11_7): whatever the other four are, the gaps below 60 hold
++  `G-F3.unseen` 55 = 60 − 5 numbers (oracle: every one of the 455,126
++  groups), the friends' `G-F3.gaps` 13, 12, 5, 17 and 8 and the strange
++  handful's `G-F11.silly_gaps` 1, 0, 0, 0 and 54 (`G-F11.silly_unseen` 55).
++  So the gap recipe's estimate is a function of 60 alone.
++- Fairness (11_8): the whole chapter rests on every handful being equally
++  likely. The oracle's negative control draws each box in turn with chance
++  proportional to its number: then the others' chances given the largest
++  are unequal and change with the count (handfuls of 2 with largest 4, and
++  of 3 with largest 6, counts up to three more), while fair draws of the
++  same sizes give equal chances that never change. "Could shift" is said for
++  that reason, not "would". The warning job is chapter 14's: a first gap of
++  157 gives an unfair shelf away.
++- Prediction (11_5): the tempting answer is "something", since the four
++  numbers spread more or less widely. The countdown shows the table, whose
++  last column is the evidence; the word "sufficient" and card G come with
++  the answer.
++- Pauses: a thought pause after "the largest number is sixty." while the
++  four boxes fade; a turn after "Try it on pairs."; a beat after
++  "Now let the company make six boxes, or eight." while the triangles land;
++  a turn after "It's the same with sixty."; a thought pause after "Only the
++  chance that sixty is the largest changes." before its numbers; a reveal
++  pause after "Nothing."; a beat after "the largest number is sufficient.";
++  a thought pause after "needs only the largest number." while the arcs
++  return; a thought pause after "All of this needs the handful to be
++  fair.". The inspection holds after 11_4 and 11_6 are scene holds.
+diff '--color=never' -ruN a/explainer_corpus/german_tank/lexicon.json b/explainer_corpus/german_tank/lexicon.json
+--- a/explainer_corpus/german_tank/lexicon.json	2026-10-24 07:55:19.686395497 -0400
++++ b/explainer_corpus/german_tank/lexicon.json	2026-10-24 09:07:29.532933062 -0400
+@@ -1,5 +1,5 @@
+ {
+-  "_comment": "Narration lexicon (natural-sounding-narration-with-frankentts). Chapters 01 to 09, the chapters in script.tsv, say no proper name. Chapters 04 to 09 say five common terms of art, 'Statisticians' (04_3, 08_8), 'estimator' (04_3), 'unbiased' (05_7, 07_7, 08_9), 'standard deviation' (08_8) and 'confidence' (09_7); they are dictionary words, so none is respelled before it is heard. Risks recorded for root's qualification, none of them heard (docs/brief.md lists them with their lines): quick runs of hyphenated numbers (01_4; 03_1 to 03_3); runs of small numbers that are lists, 'one, two, three, four and five' (04_6), 'one, three and four' (05_3), and the gap lists 'zero, zero and three' (06_2, 06_5), 'one, two and zero' (06_2, 06_3) and 'three, zero and zero' (06_5); the stepwise read-back 'skip one box, take the next, skip two, take the next, and stop' (06_3); compound numbers whose joins carry the value, 'a hundred and fifty' (02_8), 'fifty-five' (03_4, 04_4, 04_5), 'seventy-one' (03_8, 03_10, 04_1, 04_5, 05_1), 'five hundred' (04_1), 'over thirteen million' (05_1, 08_4), 'thirty-seven', 'thirty-six' and 'seventy-three' (07_9), 'over nine hundred thousand' and 'sixty-seven stacks' (08_4), 'a hundred and seven' and 'a hundred and eight' (09_3, 09_4, 09_8), which must stay distinct, 'ninety-five' and 'ninety-six' (09_6, 09_7); decimals and halves from chapter 05 on (05_4, 08_3, 08_8, 10_4, 11_5, 12_3, 12_6, 13_3, 15_3); the meaning-carrying groupings 'the largest, plus the largest minus five, over five' and 'sixty plus fifty-five over five' (04_5), 'half of the largest minus two' (05_3), 'N minus five, over six' (07_3, 07_6) and 'the largest minus the size, over the size' (07_10); the letter 'N' (07_1 to 07_3, 07_6); 'estimator' (04_3), 'unbiased' (05_7, 07_7, 08_9), 'standard deviation' (08_8), 'confidence' (09_7), 'sufficient' (11_5), 'statisticians' (04_3, 08_8, 11_5), 'analysts' (16_1). Rao-Blackwell, Lehmann-Scheffe, Ruggles, Brodie and Goodman are card-only and never voiced. Before any voiced name is added, look it up, audition it against a control and a decoy, and lock it here with its sources; the owner's pronunciation overrides every source.",
++  "_comment": "Narration lexicon (natural-sounding-narration-with-frankentts). Chapters 01 to 11, the chapters in script.tsv, say no proper name. Chapters 04 to 11 say six common terms of art, 'Statisticians' (04_3, 08_8, 11_6), 'estimator' (04_3), 'unbiased' (05_7, 07_7, 08_9, 10_4), 'standard deviation' (08_8, 10_9), 'confidence' (09_7) and 'sufficient' (11_6); they are dictionary words, so none is respelled before it is heard. Risks recorded for root's qualification, none of them heard (docs/brief.md lists them with their lines): quick runs of hyphenated numbers (01_4; 03_1 to 03_3); runs of small numbers that are lists, 'one, two, three, four and five' (04_6), 'one, three and four' (05_3), and the gap lists 'zero, zero and three' (06_2, 06_5), 'one, two and zero' (06_2, 06_3) and 'three, zero and zero' (06_5); the stepwise read-back 'skip one box, take the next, skip two, take the next, and stop' (06_3); compound numbers whose joins carry the value, 'a hundred and fifty' (02_8), 'fifty-five' (03_4, 04_4, 04_5), 'seventy-one' (03_8, 03_10, 04_1, 04_5, 05_1), 'five hundred' (04_1), 'over thirteen million' (05_1, 08_4), 'thirty-seven', 'thirty-six' and 'seventy-three' (07_9), 'over nine hundred thousand' and 'sixty-seven stacks' (08_4), 'a hundred and seven' and 'a hundred and eight' (09_3, 09_4, 09_8), which must stay distinct, 'ninety-five' and 'ninety-six' (09_6, 09_7), 'thirty-six' (10_1), 'a hundred and eighty-five', 'thirty-seven' and 'seventy-three' (10_3), 'sixty-seven' and 'a hundred and thirty-seven' (10_8), 'fifteen' and 'twenty-eight' (11_3), 'over four hundred and fifty thousand', 'twenty-nine' and 'eighteen million' (11_4); decimals and halves from chapter 05 on (05_4, 08_3, 08_8, 10_6, 10_9, 12_3, 12_6, 13_3, 15_3), among them 'twenty-eight point six' (10_6) and the four widths 'fourteen point three', 'nine point two', 'seventeen point eight' and 'eleven point seven' (10_9), which must stay distinct; the meaning-carrying groupings 'the largest, plus the largest minus five, over five' and 'sixty plus fifty-five over five' (04_5), 'half of the largest minus two' (05_3), 'N minus five, over six' (07_3, 07_6) and 'the largest minus the size, over the size' (07_10); the letter 'N' (07_1 to 07_3, 07_6); 'estimator' (04_3), 'unbiased' (05_7, 07_7, 08_9, 10_4), 'standard deviation' (08_8, 10_9), 'confidence' (09_7), 'sufficient' (11_6), 'Statisticians' (04_3, 08_8, 11_6), 'analysts' (16_1, drafted). Rao-Blackwell, Lehmann-Scheffe, Ruggles, Brodie and Goodman are card-only and never voiced. Before any voiced name is added, look it up, audition it against a control and a decoy, and lock it here with its sources; the owner's pronunciation overrides every source.",
+   "words": {},
+   "accept": {},
+   "phrases": {}
+diff '--color=never' -ruN a/explainer_corpus/german_tank/oracle.py b/explainer_corpus/german_tank/oracle.py
+--- a/explainer_corpus/german_tank/oracle.py	2026-10-24 07:55:19.686457414 -0400
++++ b/explainer_corpus/german_tank/oracle.py	2026-10-24 08:18:08.617054158 -0400
+@@ -126,6 +126,11 @@
+     return 2 * F(sum(hand), len(hand)) - 1
+ 
+ 
++def doubling_of_sum(s, k):
++    """The doubling recipe for k numbers that add up to s."""
++    return 2 * F(s, k) - 1
++
++
+ def spread_recipe(hand):
+     """Numbering start unknown: the numbers from smallest to largest, plus one
+     average inner gap at each end."""
+@@ -219,14 +224,16 @@
+ 
+ 
+ def max_and_sum_counts(n, k):
+-    """Brute force: how many handfuls have each largest number, and each sum."""
+-    by_max, by_sum, count = {}, {}, 0
++    """Brute force: how many handfuls have each largest number, each sum, and
++    each pair (largest, sum)."""
++    by_max, by_sum, joint, count = {}, {}, {}, 0
+     for h in handfuls(n, k):
+         m, s = h[-1], sum(h)
+         by_max[m] = by_max.get(m, 0) + 1
+         by_sum[s] = by_sum.get(s, 0) + 1
++        joint[m, s] = joint.get((m, s), 0) + 1
+         count += 1
+-    return by_max, by_sum, count
++    return by_max, by_sum, joint, count
+ 
+ 
+ def all_at_most(m, n, k):
+@@ -513,7 +520,7 @@
+ 
+     # 08: a company of 71 boxes, every handful of five (brute force)
+     n71 = 71
+-    by_max, by_sum, count = max_and_sum_counts(n71, k)
++    by_max, by_sum, joint, count = max_and_sum_counts(n71, k)
+     emit("G-F8.count", n71)
+     emit("G-F8.handfuls", count)
+     check("05: the 71-box handfuls counted as draws equal 08's brute force", all71 == count)
+@@ -616,26 +623,80 @@
+         worst = cover if worst is None or cover < worst else worst
+     emit("G-F9.worst_coverage_at_least_95", flag(worst >= F(19, 20)))
+ 
+-    # 10: the doubling recipe
++    # 10: the doubling recipe, earned from the middle number. The numbers 1
++    # to N balance at their average, the middle; the count read back from
++    # the middle, as a multiple of it (two counts give the slope)
++    middle = lambda n: F(sum(range(1, n + 1)), n)
++    emit("G-F10.middle_71", q(middle(n71)))
++    slope = F(n71 - 70, 1) / (middle(n71) - middle(70))
++    emit("G-F10.from_middle", f"{q(slope)}*middle{q(n71 - slope * middle(n71))}")
++    check("10: every count from 1 to 200 is twice its middle number minus one",
++          all(2 * middle(n) - 1 == n for n in range(1, 201)))
++    # the doubling recipe read as a multiple of the handful's average
++    a1, a2 = (1, 2, 3, 4, 5), (1, 2, 3, 4, 10)
++    avg = lambda h: F(sum(h), len(h))
++    slope = (doubling_recipe(a2) - doubling_recipe(a1)) / (avg(a2) - avg(a1))
++    emit("G-F10.recipe", f"{q(slope)}*average{q(doubling_recipe(a1) - slope * avg(a1))}")
+     total = sum(hand)
+     emit("G-F10.sum", total)
+     emit("G-F10.average", q(F(total, k)))
+     emit("G-F10.doubling", q(doubling_recipe(hand)))
++    # over every handful of the 71-box company (08's brute force), a fair
++    # handful's average averages the middle number
++    emit("G-F10.average_of_averages_71", q(sum(F(s, k) * c for s, c in by_sum.items()) / count))
++    emit("G-F10.doubling_unbiased",
++         flag(all(mean_over(n, kk, doubling_recipe) == n for kk in range(1, 6) for n in range(kk, 17))))
+     silly = (2, 3, 4, 5, 60)
++    emit("G-F10.others", k - 1)
++    emit("G-F10.silly_others", csv(silly[:-1]))
+     emit("G-F10.silly_handful", csv(silly))
++    emit("G-F10.silly_sum", sum(silly))
++    emit("G-F10.silly_average_decimal", decimal1(F(sum(silly), k)))
+     emit("G-F10.silly_doubling", q(doubling_recipe(silly)))
+     emit("G-F10.silly_doubling_decimal", decimal1(doubling_recipe(silly)))
+     emit("G-F10.silly_gap", q(gap_recipe(silly)))
+-    dbl_mean = sum((2 * F(s, k) - 1) * c for s, c in by_sum.items()) / count
+-    dbl_mae = sum(abs(2 * F(s, k) - 1 - n71) * c for s, c in by_sum.items()) / count
++    # how often doubling lands below the handful's own largest number, from
++    # the brute-force count of every (largest, sum) pair
++    below = F(sum(c for (mx, s), c in joint.items() if doubling_of_sum(s, k) < mx), count)
++    emit("G-F10.below_largest_71", q(below))
++    emit("G-F10.below_largest_71_one_in", nearest(1 / below))
++    emit("G-F10.below_largest_71_percent1", about1(100 * below))
++    dbl = {s: doubling_of_sum(s, k) for s in by_sum}
++    emit("G-F10.doubling_range_71", csv([min(dbl.values()), max(dbl.values())]))
++    # 10's purple bars: the handfuls counted by sum, three sums to a bar so
++    # each bar is 1.2 wide like a green one, centred on the gap recipe's
++    # value for largest m (bar m holds the sums nearest 3m)
++    bars = {}
++    for s, c in by_sum.items():
++        bars[nearest(F(s, 3))] = bars.get(nearest(F(s, 3)), 0) + c
++    tallest = max(bars, key=lambda mm: bars[mm])
++    emit("G-F10.bars_71", len(bars))
++    emit("G-F10.tallest_bar_71", bars[tallest])
++    emit("G-F10.tallest_bar_71_at", q(tallest + F(tallest - k, k)))
++    check("10: the purple bars hold every handful once, at 5..115 with no bar empty",
++          sum(bars.values()) == count and sorted(bars) == list(range(5, 116)))
++    dbl_mean = sum(dbl[s] * c for s, c in by_sum.items()) / count
++    dbl_mae = sum(abs(dbl[s] - n71) * c for s, c in by_sum.items()) / count
++    dbl_var = sum((dbl[s] - n71) ** 2 * c for s, c in by_sum.items()) / count
+     emit("G-F10.doubling_average_71", q(dbl_mean))
+     emit("G-F10.doubling_miss_71", q(dbl_mae))
+     emit("G-F10.doubling_miss_71_about", nearest(dbl_mae))
++    emit("G-F10.doubling_miss_71_decimal", about1(dbl_mae))
+     emit("G-F10.gap_miss_71_about", nearest(mae71))
++    emit("G-F10.doubling_variance_71", q(dbl_var))
++    emit("G-F10.doubling_sd_about", sqrt_about1(dbl_var))
++    emit("G-F10.variance_ratio", q(dbl_var / var71))
+     check("08: the doubling recipe averages 71 at 71", dbl_mean == n71)
++    check("10: at 71 doubling misses more by both widths (14.35 > 9.23; 316.8 > 135.8), each average miss "
++          "squared under its variance", dbl_mae > mae71 and dbl_var > var71
++          and dbl_mae ** 2 < dbl_var and mae71 ** 2 < var71)
++    check("10: the variance of doubling is (N+1)(N-5)/15 at 71, 7/3 of the gap recipe's",
++          dbl_var == F(72 * 66, 15) and dbl_var / var71 == F(7, 3))
++    check("NEGATIVE 10: the two widths of doubling differ as shown (14.3 average miss, 17.8 standard deviation)",
++          about1(dbl_mae) == "14.3" and sqrt_about1(dbl_var) == "17.8" != about1(dbl_mae))
+ 
+-    # 11: given the largest is 60, the other four don't depend on the count
+-    # (enumerated on a smaller copy: largest 9 of four seen, counts 9..16)
++    # 11: given the largest, the others don't depend on the count. First on
++    # pairs: companies of 5, 6 and 8 boxes, the pairs topped by 5
+     def others_given(n, kk, top):
+         seen = {}
+         for h in handfuls(n, kk):
+@@ -643,10 +704,57 @@
+                 seen[h[:-1]] = seen.get(h[:-1], 0) + 1
+         tot = sum(seen.values())
+         return {o: F(c, tot) for o, c in seen.items()}
++    pair_top, companies = tn, (tn, 6, 8)
++    topped = {n: others_given(n, tk, pair_top) for n in companies}
++    emit("G-F11.pair_top", pair_top)
++    emit("G-F11.pair_companies", csv(companies))
++    emit("G-F11.pair_more", csv(companies[1:]))
++    emit("G-F11.pair_more_pairs", csv([comb(n, tk) for n in companies[1:]]))
++    emit("G-F11.pairs_topped", len(topped[tn]))
++    emit("G-F11.pair_smaller", csv([o[0] for o in sorted(topped[tn])]))
++    each = set(p for g in topped.values() for p in g.values())
++    emit("G-F11.pair_each", q(each.pop()) if len(each) == 1 else "unequal")
++    emit("G-F11.pair_same_for_every_company", flag(all(g.keys() == topped[tn].keys() for g in topped.values())))
++    emit("G-F11.pair_shares", csv([F(sum(1 for h in handfuls(n, tk) if h[-1] == pair_top), comb(n, tk))
++                                   for n in companies]))
++    # (and on a smaller copy of the friends' case: largest 9 of four seen,
++    # counts 9..16)
+     base = others_given(9, 4, 9)
+     same = all(others_given(n, 4, 9) == base for n in range(9, 17))
+     emit("G-F11.others_same_for_every_count", flag(same))
+     emit("G-F11.others_sets", comb(m - 1, k - 1))
++    emit("G-F11.others_sets_over", 10000 * (comb(m - 1, k - 1) // 10000))
++    # the chance that the largest of a fair handful is 60, at three counts:
++    # all at most 60 minus all at most 59, as sequential draws; and the
++    # chance of one particular group of four given it (one ordered draw of
++    # those five boxes, times the 5! orders, over that chance)
++    counts11 = (m, n71, 1000)
++    emit("G-F11.counts", csv(counts11))
++    top_chance = lambda n: all_at_most(m, n, k) - all_at_most(m - 1, n, k)
++
++    def one_handful(n):
++        p = F(1)
++        for i in range(k):
++            p *= F(i + 1, n - i)
++        return p
++    for n in counts11:
++        emit(f"G-F11.top_chance.{n}", q(top_chance(n)))
++        emit(f"G-F11.each_group.{n}", q(one_handful(n) / top_chance(n)))
++    emit("G-F11.top_chance.60.one_in", nearest(1 / top_chance(m)))
++    emit("G-F11.top_chance.71.one_in", nearest(1 / top_chance(n71)))
++    emit("G-F11.top_chance.1000.millions", nearest(1 / top_chance(1000) / 10 ** 6))
++    check("11: with exactly 60 boxes the largest is 60 with chance 5/60 (the edge count)",
++          top_chance(m) == F(k, m))
++    check("11: given the largest 60, one group of four has chance 1/C(59, 4) at every count 60..300, "
++          "while the chance of the largest 60 falls",
++          {one_handful(n) / top_chance(n) for n in range(m, 301)} == {F(1, comb(m - 1, k - 1))}
++          and all(top_chance(n + 1) < top_chance(n) for n in range(m, 300)))
++    # the gaps below sixty hold 55 numbers whatever the other four are (all
++    # 455,126 groups), the strange handful's among them
++    emit("G-F11.silly_gaps", csv(gaps_of(silly)))
++    emit("G-F11.silly_unseen", sum(gaps_of(silly)))
++    check("11: for every group of four below 60, the gaps below 60 total 55 = 60 - 5",
++          all(sum(gaps_of(g + (m,))) == m - k for g in combinations(range(1, m), k - 1)))
+ 
+     # 12: averaging the doubling recipe within pairs that share a largest
+     groups = {}
+@@ -851,12 +959,58 @@
+             sets = got.keys() if sets is None else sets
+             ok &= set(got.keys()) == set(sets)
+     check("given the largest, the others are uniform below it whatever the count", ok)
++    # NEGATIVE 11: draws that favour bigger numbers (each box drawn in turn
++    # with chance proportional to its number) make the others given the
++    # largest depend on the count, and not uniform; fair draws of the same
++    # sizes do not
++    def weighted(n, kk):
++        out = {}
++        for order in permutations(range(1, n + 1), kk):
++            p, left = F(1), F(n * (n + 1), 2)
++            for x in order:
++                p *= x / left
++                left -= x
++            key = tuple(sorted(order))
++            out[key] = out.get(key, 0) + p
++        return out
++
++    def given(dist, top):
++        sub = {h[:-1]: p for h, p in dist.items() if h[-1] == top}
++        tot = sum(sub.values())
++        return {o: p / tot for o, p in sub.items()}
++    for kk, top in ((2, 4), (3, 6)):
++        w = [given(weighted(n, kk), top) for n in range(top, top + 4)]
++        fair = [given({h: F(1, comb(n, kk)) for h in handfuls(n, kk)}, top) for n in range(top, top + 4)]
++        check(f"NEGATIVE 11: weighted draws (k={kk}, largest {top}): the others' chances change with the count "
++              f"and are unequal; fair draws' never do",
++              all(a != w[0] for a in w[1:]) and len(set(w[0].values())) > 1
++              and all(a == fair[0] for a in fair) and len(set(fair[0].values())) == 1)
++    # 10's always/never sentences at their edges: doubling never falls below
++    # the largest for one box or a pair, and does for some handful of three
++    # or more from a company of 4 or more boxes
++    check("10: doubling is never below the largest for handfuls of 1 or 2 (N<=14)",
++          all(doubling_recipe(h) >= h[-1] for kk in (1, 2) for n in range(kk, 15) for h in handfuls(n, kk)))
++    check("10: doubling falls below the largest for some handful of 3 to 6 from every count above the size",
++          all(any(doubling_recipe(h) < h[-1] for h in handfuls(n, kk)) for kk in range(3, 7) for n in range(kk + 1, 13)))
++    check("10: at the edge N = k every handful is 1..N and doubling says N",
++          all(doubling_recipe(tuple(range(1, n + 1))) == n for n in range(1, 30)))
++    # the two recipes' average squared misses, by enumeration: doubling's is
++    # (N+1)(N-k)/(3k), (k+2)/3 of the gap recipe's, equal for one box and
++    # zero at N = k
++    ratio_ok = True
++    for kk in range(1, 6):
++        for n in range(kk, 14):
++            d, g = mse_over(n, kk, doubling_recipe), mse_over(n, kk, gap_recipe)
++            ratio_ok &= d == F((n + 1) * (n - kk), 3 * kk) and d == F(kk + 2, 3) * g
++            ratio_ok &= (d == g) == (kk == 1 or n == kk)
++    check("10: doubling's average squared miss is (N+1)(N-k)/(3k) = (k+2)/3 of the gap recipe's (k<=5, N<=13)",
++          ratio_ok)
+     # the sequential-draw chance equals enumeration on small cases
+     check("all-at-most product == enumeration (N<=14, k<=4)",
+           all(all_at_most(mm, n, kk) == F(sum(1 for h in handfuls(n, kk) if h[-1] <= mm), comb(n, kk))
+               for kk in range(1, 5) for n in range(kk, 15) for mm in range(0, n + 1)))
+     # the 71-box brute force agrees with the binomial closed form
+-    by_max, by_sum, count = max_and_sum_counts(71, 5)
++    by_max, by_sum, joint, count = max_and_sum_counts(71, 5)
+     check("71 boxes: handfuls by largest == C(m-1, 4)",
+           all(by_max[mm] == comb(mm - 1, 4) for mm in range(5, 72)) and count == comb(71, 5))
+     # one-sided range: the bound found by the product is the last count whose
+diff '--color=never' -ruN a/explainer_corpus/german_tank/script.tsv b/explainer_corpus/german_tank/script.tsv
+--- a/explainer_corpus/german_tank/script.tsv	2026-10-24 07:55:19.686570790 -0400
++++ b/explainer_corpus/german_tank/script.tsv	2026-10-24 08:19:55.469542643 -0400
+@@ -81,3 +81,21 @@
+ 09_8	Behind each bar was a single division. Count the handfuls of five from the first sixty boxes, and divide by all the handfuls of five from the whole company. At a hundred and seven boxes, that's just over five percent.
+ 09_9	If the friends had ten boxes instead, with the same largest number, would the range get wider or narrower?
+ 09_10	Narrower. Ten numbers all sixty or less would be rare from a big company, so the range shrinks to sixty through seventy-nine.
++10_1	Here's another recipe, built on a different idea. A company's numbers run from one up to the count, so they balance at the middle number. With seventy-one boxes the middle is thirty-six, and the count is twice the middle, minus one.
++10_2	A fair handful's numbers should spread around the middle too, so let the handful's average stand in for it. Twice the average, minus one. Call it the doubling recipe.
++10_3	Our five add up to a hundred and eighty-five, an average of thirty-seven. So doubling says seventy-three, just above the gap recipe's seventy-one.
++10_4	It's unbiased too. In a fair handful each box is just as likely to carry any number from one to the count, so averaged over every handful, the handful's average is the middle number. That makes the doubling recipe average the count, whatever the count is.
++10_5	So which recipe should we trust? Try a strange handful. Keep the box at sixty, and make the other four two, three, four and five. What does doubling say for this handful?
++10_6	Twenty-eight point six. That's fewer than the sixty boxes we know were made. The gap recipe says seventy-one for this handful, as it does for every handful topped by sixty.
++10_7	That's no freak. In a company of seventy-one boxes, about one handful in five gets a doubling estimate below its own largest number. The gap recipe never does.
++10_8	So put both recipes side by side, over every handful from a company of exactly seventy-one boxes. The gap recipe's sixty-seven bars come back. The doubling recipe looks only at the total of the five numbers, so its handfuls can be counted by total, and its estimates spread from five all the way to a hundred and thirty-seven.
++10_9	Both balance at seventy-one. But the purple bars are lower and wider. Ignoring direction, doubling misses by fourteen point three boxes on average, the gap recipe by nine point two. The standard deviation, built from squared misses, says seventeen point eight against eleven point seven. By either measure, the gap recipe's estimates spread less.
++10_10	So the gap recipe, which uses only the largest number, beats the recipe that uses all five. What are the other four worth, then?
++11_1	Back to the friends' own five boxes. Suppose all you were told is that the largest number is sixty. Then the other four could be any four different numbers below sixty.
++11_2	Try it on pairs. In the tiny company of five boxes, four of its ten pairs have five as their larger number, and the smaller one is one, two, three or four. A fair draw makes those four pairs equally likely, so each is one time in four.
++11_3	Now let the company make six boxes, or eight. There are more pairs, fifteen and then twenty-eight, so a larger number of five gets rarer. But the pairs topped by five are still the same four, and each is still one time in four.
++11_4	It's the same with sixty. Whatever the count, from sixty boxes up, a handful topped by sixty is sixty plus any four numbers below it. That's over four hundred and fifty thousand groups of four, all equally likely, for every count. Only the chance that sixty is the largest changes. With exactly sixty boxes it's one in twelve, with seventy-one about one in twenty-nine, and with a thousand about one in eighteen million.
++11_5	So once you know the largest number, how much can the other four tell you about the count?
++11_6	Nothing. Given the largest, their pattern is the same for every count, so it can't favour any count over another. Statisticians say the largest number is sufficient. It holds everything a fair handful can tell you about the count.
++11_7	That's why the gap recipe needs only the largest number. Whatever the other four are, the gaps below sixty hold fifty-five numbers, sixty minus five. Ours split them fairly evenly, and the strange handful's put nearly all of them in a single gap.
++11_8	All of this needs the handful to be fair. If bigger numbers were likelier to be picked, the other four could shift with the count and carry a clue of their own. With a fair handful they say nothing more about the count, but they can still warn you when a draw doesn't look fair.
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/chapters/mod.rs b/explainer_corpus/german_tank/src/chapters/mod.rs
+--- a/explainer_corpus/german_tank/src/chapters/mod.rs	2026-10-24 07:55:19.686657915 -0400
++++ b/explainer_corpus/german_tank/src/chapters/mod.rs	2026-10-24 08:21:49.684501882 -0400
+@@ -1,14 +1,15 @@
+ //! One scene per chapter, in storyboard order, with its score intensity
+ //! (`0.0..=1.0`). Keys are `NN_name`; narration line ids `NN_k` belong to
+ //! the chapter with the same `NN`. Only chapters with a native scene are
+-//! registered: chapters 10 to 16 are written in full in
++//! registered: chapters 12 to 16 are written in full in
+ //! docs/storyboard-draft.md and join this registry, docs/storyboard.md and
+ //! script.tsv together when their scenes exist. Chapters 02 to 04 and 06 to
+-//! 09 share one number line, built in [`friends_line`]; chapters 04 to 09
++//! 11 share one number line, built in [`friends_line`]; chapters 04 to 11
+ //! share the halo, replacement and panel builders of [`what_we_assume`];
+-//! chapter 07 reuses the six-gap line of [`gaps_trade_places`], and chapter
+-//! 09 the bars, count mark and spans of [`one_estimate`].
++//! chapters 07 and 11 reuse the gap line of [`gaps_trade_places`], and
++//! chapters 09 and 10 the bars, count mark and spans of [`one_estimate`].
+ 
++pub mod a_rival_recipe;
+ pub mod a_thousand_boxes;
+ pub mod counting_the_gaps;
+ pub mod draw;
+@@ -20,6 +21,7 @@
+ pub mod how_far_off;
+ pub mod one_estimate;
+ pub mod right_on_average;
++pub mod the_largest_says_it_all;
+ pub mod what_we_assume;
+ 
+ use explainer_kit::Chapter;
+@@ -71,5 +73,15 @@
+             make: |kit| Box::new(how_far_off::HowFarOff { kit }),
+             intensity: 0.6,
+         },
++        Chapter {
++            key: "10_a_rival_recipe",
++            make: |kit| Box::new(a_rival_recipe::ARivalRecipe { kit }),
++            intensity: 0.55,
++        },
++        Chapter {
++            key: "11_the_largest_says_it_all",
++            make: |kit| Box::new(the_largest_says_it_all::TheLargestSaysItAll { kit }),
++            intensity: 0.6,
++        },
+     ]
+ }
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/facts.rs b/explainer_corpus/german_tank/src/facts.rs
+--- a/explainer_corpus/german_tank/src/facts.rs	2026-10-24 07:55:19.686721207 -0400
++++ b/explainer_corpus/german_tank/src/facts.rs	2026-10-24 09:00:54.859153630 -0400
+@@ -54,6 +54,16 @@
+ /// nine hundred thousand").
+ const TOPPED_ROUND: i128 = 100_000;
+ 
++/// A doubling estimate moves 2/K for each unit of the sum, a gap estimate
++/// (K + 1)/K for each unit of the largest number: so (K + 1)/2 neighbouring
++/// sums make one of chapter 10's purple bars as wide as a green one.
++pub const SUMS_PER_BAR: u64 = (K + 1) / 2;
++
++/// The larger companies 11_3 tries on pairs, and the round unit 11_4 says
++/// the groups of four pass ("over four hundred and fifty thousand").
++pub const PAIR_MORE: [u64; 2] = [6, 8];
++pub const GROUPS_ROUND: u128 = 10_000;
++
+ /// The second count 09_2 tries, and the larger handful of 09's last
+ /// prediction.
+ const SECOND_COUNT: u64 = 100;
+@@ -97,6 +107,22 @@
+     drawn_handfuls(AGAIN_STREAM, KNOWN, K as usize, AGAIN_DRAWS)
+ }
+ 
++/// Chapter 10's purple bars from the handfuls counted by sum (`ways`, index
++/// = sum): bar m holds the [`SUMS_PER_BAR`] sums nearest SUMS_PER_BAR·m,
++/// whose doubling estimates sit under the green bar of the gap recipe's
++/// value for largest m. Each non-empty bar as (m, handfuls), in order.
++pub fn purple_bars(ways: &[u128]) -> Vec<(u64, u128)> {
++    let mut bars: Vec<(u64, u128)> = Vec::new();
++    for (s, &w) in ways.iter().enumerate().filter(|&(_, &w)| w > 0) {
++        let m = Q::new(s as i128, SUMS_PER_BAR as i128).nearest() as u64;
++        match bars.last_mut() {
++            Some((b, c)) if *b == m => *c += w,
++            _ => bars.push((m, w)),
++        }
++    }
++    bars
++}
++
+ /// A handful's gap list with its top gap, up to a known count `n`.
+ pub fn gap_list(hand: &[u64], n: u64) -> Vec<u64> {
+     let mut g = gaps(hand);
+@@ -471,37 +497,176 @@
+         flag(model::worst_coverage(K, 150, level()) >= Q::new(19, 20)),
+     )?;
+ 
+-    // 10: the doubling recipe
++    // 10: the doubling recipe, earned from the middle number. The numbers 1
++    // to n balance at their middle, n(n + 1)/2 over n; the count read back
++    // from the middle as a multiple of it (neighbouring counts give the
++    // slope)
++    let middle = |n: u64| Q::new((n * (n + 1) / 2) as i128, n as i128);
++    f.add("G-F10.middle_71", middle(n71))?;
++    let slope = Q::ONE / (middle(n71) - middle(n71 - 1));
++    f.add(
++        "G-F10.from_middle",
++        format!("{slope}*middle{}", int(n71) - slope * middle(n71)),
++    )?;
++    // the doubling recipe read as a multiple of the handful's average: sums
++    // K apart are averages one apart
+     let total: u64 = FRIENDS.iter().sum();
++    let average = Q::new(total as i128, K as i128);
++    let slope = doubling_of(total + K, K) - doubling_of(total, K);
++    f.add(
++        "G-F10.recipe",
++        format!("{slope}*average{}", doubling_of(total, K) - slope * average),
++    )?;
+     f.add("G-F10.sum", total)?;
+-    f.add("G-F10.average", Q::new(total as i128, K as i128))?;
++    f.add("G-F10.average", average)?;
+     f.add("G-F10.doubling", doubling_recipe(&FRIENDS))?;
++    // over every handful of the 71-box company, by sum: a fair handful's
++    // average averages the middle number, and doubling averages the count
++    f.add(
++        "G-F10.average_of_averages_71",
++        model::mean_by_sum(n71, K as usize, |s| Q::new(s as i128, K as i128)),
++    )?;
++    let doubling_unbiased = |k: u64, n: u64| model::mean_by_sum(n, k as usize, |s| doubling_of(s, k)) == int(n);
++    f.add(
++        "G-F10.doubling_unbiased",
++        flag((1..=5).all(|k| (k..17).all(|n| doubling_unbiased(k, n)))),
++    )?;
++    f.add("G-F10.others", K - 1)?;
++    f.add("G-F10.silly_others", csv(&SILLY[..SILLY.len() - 1]))?;
+     f.add("G-F10.silly_handful", csv(&SILLY))?;
++    let silly_sum: u64 = SILLY.iter().sum();
++    f.add("G-F10.silly_sum", silly_sum)?;
++    f.add(
++        "G-F10.silly_average_decimal",
++        Q::new(silly_sum as i128, K as i128).decimal1()?,
++    )?;
+     f.add("G-F10.silly_doubling", doubling_recipe(&SILLY))?;
+     f.add("G-F10.silly_doubling_decimal", doubling_recipe(&SILLY).decimal1()?)?;
+     f.add("G-F10.silly_gap", gap_recipe(&SILLY))?;
++    // how often doubling lands below the handful's own largest number,
++    // counted by largest and sum
++    let below = model::share_by_largest_and_sum(n71, K as usize, |mm, s| doubling_of(s, K) < int(mm));
++    f.add("G-F10.below_largest_71", below)?;
++    f.add("G-F10.below_largest_71_one_in", (Q::ONE / below).nearest())?;
++    f.add("G-F10.below_largest_71_percent1", (Q::int(100) * below).about1()?)?;
++    // the handfuls by sum: the doubling estimates' range and 10's purple bars
++    let ways71 = model::handfuls_by_sum(n71, K as usize);
++    let sums: Vec<u64> = ways71
++        .iter()
++        .enumerate()
++        .filter(|&(_, &w)| w > 0)
++        .map(|(s, _)| s as u64)
++        .collect();
++    let (lo_sum, hi_sum) = (sums[0], sums[sums.len() - 1]);
++    f.add(
++        "G-F10.doubling_range_71",
++        csv(&[doubling_of(lo_sum, K), doubling_of(hi_sum, K)]),
++    )?;
++    let bars = purple_bars(&ways71);
++    f.add("G-F10.bars_71", bars.len())?;
++    let &(tallest_at, tallest) = bars.iter().max_by_key(|&&(_, c)| c).ok_or("no purple bars")?;
++    f.add("G-F10.tallest_bar_71", tallest)?;
++    f.add("G-F10.tallest_bar_71_at", gap_of(tallest_at, K))?;
++    // 10_9: both widths of the doubling recipe at 71, beside the gap
++    // recipe's from 08
++    let off = |s: u64| doubling_of(s, K) - int(n71);
+     f.add(
+         "G-F10.doubling_average_71",
+         model::mean_by_sum(n71, K as usize, |s| doubling_of(s, K)),
+     )?;
+-    let dbl_mae = model::mean_by_sum(n71, K as usize, |s| (doubling_of(s, K) - int(n71)).abs());
++    let dbl_mae = model::mean_by_sum(n71, K as usize, |s| off(s).abs());
+     f.add("G-F10.doubling_miss_71", dbl_mae)?;
+     f.add("G-F10.doubling_miss_71_about", dbl_mae.nearest())?;
++    f.add("G-F10.doubling_miss_71_decimal", dbl_mae.about1()?)?;
+     f.add("G-F10.gap_miss_71_about", mae71.nearest())?;
+-
+-    // 11: given the largest, the others are the same for every count
+-    // (a smaller copy, four seen, largest 9, counts 9 to 16, listed whole)
+-    let others = |n: u64| -> Vec<Vec<u64>> {
+-        model::all_handfuls(n, 4)
++    let dbl_var = model::mean_by_sum(n71, K as usize, |s| off(s) * off(s));
++    f.add("G-F10.doubling_variance_71", dbl_var)?;
++    f.add("G-F10.doubling_sd_about", dbl_var.sqrt_about1()?)?;
++    f.add("G-F10.variance_ratio", dbl_var / var71)?;
++
++    // 11: given the largest, the others don't depend on the count. First on
++    // pairs: the tiny company and two larger ones, the pairs topped by five
++    let others_of = |n: u64, k: usize, top: u64| -> Vec<Vec<u64>> {
++        model::all_handfuls(n, k)
+             .into_iter()
+-            .filter(|h| h[3] == 9)
+-            .map(|h| h[..3].to_vec())
++            .filter(|h| h[k - 1] == top)
++            .map(|h| h[..k - 1].to_vec())
+             .collect()
+     };
+-    let base = others(9);
+-    let same = (9..=16).all(|n| others(n) == base) && base.len() as u128 == choose(8, 3);
++    let pair_top = TINY;
++    let companies = [TINY, PAIR_MORE[0], PAIR_MORE[1]];
++    let topped = others_of(pair_top, TINY_SEEN, pair_top);
++    f.add("G-F11.pair_top", pair_top)?;
++    f.add("G-F11.pair_companies", csv(&companies))?;
++    f.add("G-F11.pair_more", csv(&PAIR_MORE))?;
++    f.add(
++        "G-F11.pair_more_pairs",
++        csv(&PAIR_MORE.map(|n| choose(n, TINY_SEEN as u64))),
++    )?;
++    f.add("G-F11.pairs_topped", topped.len())?;
++    f.add(
++        "G-F11.pair_smaller",
++        csv(&topped.iter().map(|o| o[0]).collect::<Vec<u64>>()),
++    )?;
++    // every handful of a fair draw is equally likely, so each pair topped by
++    // five has chance one over how many there are, in every company
++    let chances: Vec<Q> = companies
++        .iter()
++        .map(|&n| Q::ONE / Q::int(others_of(n, TINY_SEEN, pair_top).len() as i128))
++        .collect();
++    f.add(
++        "G-F11.pair_each",
++        if chances.iter().all(|&c| c == chances[0]) {
++            chances[0].to_string()
++        } else {
++            "unequal".into()
++        },
++    )?;
++    f.add(
++        "G-F11.pair_same_for_every_company",
++        flag(companies.iter().all(|&n| others_of(n, TINY_SEEN, pair_top) == topped)),
++    )?;
++    let shares: Vec<Q> = companies
++        .iter()
++        .map(|&n| model::share_by_largest(n, TINY_SEEN as u64, |mm| mm == pair_top))
++        .collect();
++    f.add("G-F11.pair_shares", csv(&shares))?;
++    // (and on a smaller copy of the friends' case: largest 9 of four seen,
++    // counts 9 to 16, listed whole)
++    let base = others_of(9, 4, 9);
++    let same = (9..=16).all(|n| others_of(n, 4, 9) == base) && base.len() as u128 == choose(8, 3);
+     f.add("G-F11.others_same_for_every_count", flag(same))?;
+-    f.add("G-F11.others_sets", choose(m - 1, K - 1))?;
++    let groups = choose(m - 1, K - 1);
++    f.add("G-F11.others_sets", groups)?;
++    f.add("G-F11.others_sets_over", groups / GROUPS_ROUND * GROUPS_ROUND)?;
++    // the chance that the largest of a fair handful is 60, at three counts,
++    // and the chance of one particular group of four given it: one
++    // handful's chance over that
++    let counts = [m, n71, BIG];
++    f.add("G-F11.counts", csv(&counts))?;
++    let top_chance = |n: u64| model::share_by_largest(n, K, |mm| mm == m);
++    for n in counts {
++        f.add(&format!("G-F11.top_chance.{n}"), top_chance(n))?;
++        f.add(
++            &format!("G-F11.each_group.{n}"),
++            Q::ONE / Q::count(choose(n, K)) / top_chance(n),
++        )?;
++    }
++    f.add(
++        &format!("G-F11.top_chance.{m}.one_in"),
++        (Q::ONE / top_chance(m)).nearest(),
++    )?;
++    f.add(
++        &format!("G-F11.top_chance.{n71}.one_in"),
++        (Q::ONE / top_chance(n71)).nearest(),
++    )?;
++    f.add(
++        &format!("G-F11.top_chance.{BIG}.millions"),
++        (Q::ONE / top_chance(BIG) / Q::int(1_000_000)).nearest(),
++    )?;
++    // the gaps below sixty hold 55 numbers whatever the other four are
++    f.add("G-F11.silly_gaps", csv(&gaps(&SILLY)))?;
++    f.add("G-F11.silly_unseen", gaps(&SILLY).iter().sum::<u64>())?;
+ 
+     // 12: averaging the doubling recipe within pairs that share a largest
+     let dbl: Vec<Q> = pairs.iter().map(|p| doubling_recipe(p)).collect();
+@@ -690,6 +855,6 @@
+     #[test]
+     fn there_is_one_fact_per_oracle_key() {
+         let f = facts().unwrap();
+-        assert_eq!(f.len(), 229);
++        assert_eq!(f.len(), 271);
+     }
+ }
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/main.rs b/explainer_corpus/german_tank/src/main.rs
+--- a/explainer_corpus/german_tank/src/main.rs	2026-10-24 07:55:19.686779916 -0400
++++ b/explainer_corpus/german_tank/src/main.rs	2026-10-24 09:05:21.208905717 -0400
+@@ -4,10 +4,11 @@
+ //! question and its one assumption made exact, every pair from a company of
+ //! five boxes averaging exactly five, the gaps trading places, the proof
+ //! that it is right on average for a fair handful of any count, how far one
+-//! estimate can be from the count, and the range ninety-five percent
+-//! confidence gives; then (in the chapters drafted in
+-//! docs/storyboard-draft.md) what else it does not promise, and what breaks
+-//! it, rendered
++//! estimate can be from the count, the range ninety-five percent confidence
++//! gives, a rival recipe that doubles the average, and why the largest
++//! number says everything a fair handful can; then (in the chapters drafted
++//! in docs/storyboard-draft.md) what else it does not promise, and what
++//! breaks it, rendered
+ //! end to end by franken_manim's native Rust front door and the corpus's
+ //! shared kit.
+ //!
+@@ -502,6 +503,127 @@
+         ("09_10", "Ten numbers all sixty or less", "G-F9.ten_boxes", "10"),
+         ("09_10", "Ten numbers all sixty or less", "G-F1.largest", "60"),
+         ("09_10", "sixty through seventy-nine", "G-F9.ten_boxes_range", "60,79"),
++        // 10: a rival recipe
++        ("10_1", "from one up to the count", "G-F1.first", "1"),
++        ("10_1", "With seventy-one boxes", "G-F8.count", "71"),
++        ("10_1", "the middle is thirty-six", "G-F10.middle_71", "36"),
++        ("10_1", "twice the middle, minus one", "G-F10.from_middle", "2*middle-1"),
++        ("10_2", "Twice the average, minus one", "G-F10.recipe", "2*average-1"),
++        ("10_3", "Our five add up", "G-F1.handful", "5"),
++        ("10_3", "a hundred and eighty-five", "G-F10.sum", "185"),
++        ("10_3", "an average of thirty-seven", "G-F10.average", "37"),
++        ("10_3", "doubling says seventy-three", "G-F10.doubling", "73"),
++        ("10_3", "the gap recipe's seventy-one", "G-F3.estimate", "71"),
++        ("10_4", "any number from one to the count", "G-F1.first", "1"),
++        ("10_5", "Keep the box at sixty", "G-F1.largest", "60"),
++        ("10_5", "the other four", "G-F10.others", "4"),
++        ("10_5", "two, three, four and five", "G-F10.silly_others", "2,3,4,5"),
++        ("10_6", "Twenty-eight point six", "G-F10.silly_doubling_decimal", "28.6"),
++        ("10_6", "the sixty boxes we know were made", "G-F1.at_least", "60"),
++        ("10_6", "says seventy-one for this handful", "G-F10.silly_gap", "71"),
++        ("10_6", "topped by sixty", "G-F1.largest", "60"),
++        ("10_7", "a company of seventy-one boxes", "G-F8.count", "71"),
++        (
++            "10_7",
++            "about one handful in five",
++            "G-F10.below_largest_71_one_in",
++            "5",
++        ),
++        ("10_8", "exactly seventy-one boxes", "G-F8.count", "71"),
++        ("10_8", "sixty-seven bars", "G-F8.stacks", "67"),
++        ("10_8", "the total of the five numbers", "G-F1.handful", "5"),
++        (
++            "10_8",
++            "from five all the way to a hundred and thirty-seven",
++            "G-F10.doubling_range_71",
++            "5,137",
++        ),
++        ("10_9", "Both balance at seventy-one", "G-F10.doubling_average_71", "71"),
++        ("10_9", "fourteen point three", "G-F10.doubling_miss_71_decimal", "14.3"),
++        ("10_9", "nine point two", "G-F8.average_miss_decimal", "9.2"),
++        ("10_9", "seventeen point eight", "G-F10.doubling_sd_about", "17.8"),
++        ("10_9", "eleven point seven", "G-F8.sd_about", "11.7"),
++        ("10_10", "uses all five", "G-F1.handful", "5"),
++        ("10_10", "the other four", "G-F10.others", "4"),
++        // 11: the largest number says it all
++        ("11_1", "own five boxes", "G-F1.handful", "5"),
++        ("11_1", "the largest number is sixty", "G-F1.largest", "60"),
++        ("11_1", "the other four", "G-F10.others", "4"),
++        ("11_1", "any four different numbers below sixty", "G-F10.others", "4"),
++        ("11_1", "any four different numbers below sixty", "G-F1.largest", "60"),
++        ("11_2", "the tiny company of five boxes", "G-F5.boxes", "5"),
++        ("11_2", "four of its ten pairs", "G-F11.pairs_topped", "4"),
++        ("11_2", "four of its ten pairs", "G-F5.pairs", "10"),
++        ("11_2", "have five as their larger number", "G-F11.pair_top", "5"),
++        (
++            "11_2",
++            "the smaller one is one, two, three or four",
++            "G-F11.pair_smaller",
++            "1,2,3,4",
++        ),
++        ("11_2", "those four pairs", "G-F11.pairs_topped", "4"),
++        ("11_2", "each is one time in four", "G-F11.pair_each", "1/4"),
++        ("11_3", "six boxes, or eight", "G-F11.pair_more", "6,8"),
++        (
++            "11_3",
++            "fifteen and then twenty-eight",
++            "G-F11.pair_more_pairs",
++            "15,28",
++        ),
++        ("11_3", "a larger number of five", "G-F11.pair_top", "5"),
++        (
++            "11_3",
++            "the pairs topped by five are still the same four",
++            "G-F11.pair_top",
++            "5",
++        ),
++        (
++            "11_3",
++            "the pairs topped by five are still the same four",
++            "G-F11.pairs_topped",
++            "4",
++        ),
++        ("11_3", "each is still one time in four", "G-F11.pair_each", "1/4"),
++        ("11_4", "the same with sixty", "G-F1.largest", "60"),
++        ("11_4", "from sixty boxes up", "G-F1.at_least", "60"),
++        (
++            "11_4",
++            "topped by sixty is sixty plus any four numbers",
++            "G-F1.largest",
++            "60",
++        ),
++        (
++            "11_4",
++            "topped by sixty is sixty plus any four numbers",
++            "G-F10.others",
++            "4",
++        ),
++        (
++            "11_4",
++            "over four hundred and fifty thousand",
++            "G-F11.others_sets_over",
++            "450000",
++        ),
++        ("11_4", "groups of four", "G-F10.others", "4"),
++        ("11_4", "the chance that sixty is the largest", "G-F1.largest", "60"),
++        ("11_4", "exactly sixty boxes", "G-F1.at_least", "60"),
++        ("11_4", "it's one in twelve", "G-F11.top_chance.60", "1/12"),
++        ("11_4", "with seventy-one", "G-F8.count", "71"),
++        ("11_4", "about one in twenty-nine", "G-F11.top_chance.71.one_in", "29"),
++        ("11_4", "with a thousand", "G-F1.thousand", "1000"),
++        (
++            "11_4",
++            "about one in eighteen million",
++            "G-F11.top_chance.1000.millions",
++            "18",
++        ),
++        ("11_5", "the other four", "G-F10.others", "4"),
++        ("11_7", "the other four", "G-F10.others", "4"),
++        ("11_7", "the gaps below sixty", "G-F1.largest", "60"),
++        ("11_7", "hold fifty-five numbers", "G-F3.unseen", "55"),
++        ("11_7", "sixty minus five", "G-F1.largest", "60"),
++        ("11_7", "sixty minus five", "G-F1.handful", "5"),
++        ("11_8", "the other four", "G-F10.others", "4"),
+     ];
+ 
+     /// Sizes said on purpose without a value: the stakes and the unknown
+@@ -652,7 +774,9 @@
+     /// handful from a thousand lands, the first estimate, the edge
+     /// handful's estimate, the tiny company's average, where the friends'
+     /// hidden gap is, what the recipe does with one box, how often an
+-    /// estimate is exactly right, and what ten boxes do to the range.
++    /// estimate is exactly right, what ten boxes do to the range, what the
++    /// doubling recipe says for the strange handful, and what the other four
++    /// numbers add once the largest is known.
+     #[test]
+     fn the_prediction_is_asked_once_and_answered_next() {
+         let boards = explainer_kit::storyboard::parse(STORYBOARD).unwrap();
+@@ -690,6 +814,16 @@
+                 "About one handful in twenty-nine",
+             ),
+             ("09_how_far_off", "would the range get wider or narrower?", "Narrower"),
++            (
++                "10_a_rival_recipe",
++                "What does doubling say for this handful?",
++                "Twenty-eight point six",
++            ),
++            (
++                "11_the_largest_says_it_all",
++                "how much can the other four tell you about the count?",
++                "Nothing",
++            ),
+         ];
+         assert_eq!(boards.len(), expected.len());
+         for (board, (key, asks, answers)) in boards.iter().zip(expected) {
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/model.rs b/explainer_corpus/german_tank/src/model.rs
+--- a/explainer_corpus/german_tank/src/model.rs	2026-10-24 07:55:19.686952042 -0400
++++ b/explainer_corpus/german_tank/src/model.rs	2026-10-24 08:27:25.415623127 -0400
+@@ -7,9 +7,10 @@
+ //! forms, never from enumerating handfuls (the oracle enumerates instead):
+ //! P(largest = m) = C(m − 1, k − 1)/C(N, k); the handfuls with spread s
+ //! (largest minus smallest) number (N − s)·C(s − 1, k − 2); the handfuls of
+-//! each sum come from a sum-of-subsets table. Only the small cases a scene
+-//! shows whole (the tiny company's pairs, the sufficiency check's sets) are
+-//! listed one by one.
++//! each sum come from a sum-of-subsets table, and those of each largest
++//! number and sum from the same table under each largest. Only the small
++//! cases a scene shows whole (the tiny company's pairs, the sufficiency
++//! check's sets) are listed one by one.
+ //!
+ //! The handfuls the video draws "by computer" come from [`SplitMix64`], one
+ //! stream per experiment; `oracle.py` implements the same generator
+@@ -379,6 +380,23 @@
+         / Q::count(total)
+ }
+ 
++/// The share of fair handfuls of k from 1..n whose largest number m and sum
++/// s `keep`: the handfuls topped by m are m with any k − 1 of 1..m − 1,
++/// counted by their sum with the sum-of-subsets table.
++pub fn share_by_largest_and_sum(n: u64, k: usize, keep: impl Fn(u64, u64) -> bool) -> Q {
++    let kept: u128 = (k as u64..=n)
++        .map(|m| {
++            handfuls_by_sum(m - 1, k - 1)
++                .iter()
++                .enumerate()
++                .filter(|&(t, _)| keep(m, m + t as u64))
++                .map(|(_, &w)| w)
++                .sum::<u128>()
++        })
++        .sum();
++    Q::count(kept) / c(n, k as u64)
++}
++
+ /// Average of `f(s)` over the fair handfuls of k from n consecutive numbers,
+ /// by spread s: (n − s)·C(s − 1, k − 2) handfuls have spread s.
+ pub fn mean_by_spread(n: u64, k: u64, f: impl Fn(u64) -> Q) -> Q {
+@@ -576,6 +594,15 @@
+             );
+             let ways = handfuls_by_sum(n, k);
+             assert_eq!(ways.iter().sum::<u128>(), choose(n, k as u64));
++            let below = |m: u64, s: u64| doubling_of(s, k as u64) < Q::int(m as i128);
++            let brute_below = all_handfuls(n, k)
++                .iter()
++                .filter(|h| below(h[k - 1], h.iter().sum()))
++                .count();
++            assert_eq!(
++                share_by_largest_and_sum(n, k, below),
++                Q::new(brute_below as i128, choose(n, k as u64) as i128)
++            );
+             assert_eq!(
+                 mean_by_spread(n, k as u64, |s| spread_of(s, k as u64)),
+                 brute(n, k, |h| spread_of(h[k - 1] - h[0], k as u64))
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/palette.rs b/explainer_corpus/german_tank/src/palette.rs
+--- a/explainer_corpus/german_tank/src/palette.rs	2026-10-24 04:40:35.236097906 -0400
++++ b/explainer_corpus/german_tank/src/palette.rs	2026-10-24 08:24:38.277837460 -0400
+@@ -1,8 +1,7 @@
+ //! The video's color roles (storyboard, "Color roles"): one color per idea
+ //! for the whole video, on top of the corpus's shared roles. Only the roles
+ //! an implemented chapter uses are here; the rest of the storyboard's table
+-//! (the doubling recipe, an unfair pool) joins with the chapters that draw
+-//! them.
++//! (an unfair pool) joins with the chapters that draw it.
+ 
+ use explainer_kit::Palette;
+ use fmn::prelude::Srgb;
+@@ -28,6 +27,11 @@
+     Palette::green()
+ }
+ 
++/// The doubling recipe and its estimates (from 10).
++pub fn doubling() -> Srgb {
++    Palette::purple()
++}
++
+ /// What is certain: the lower bound. Text and strokes only.
+ pub fn certain() -> Srgb {
+     Palette::teal()
+@@ -54,6 +58,7 @@
+             unseen(),
+             top_gap(),
+             estimate(),
++            doubling(),
+             certain(),
+             line(),
+             outline(),

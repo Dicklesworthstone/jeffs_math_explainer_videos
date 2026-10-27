@@ -1,0 +1,1876 @@
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/brief.md b/explainer_corpus/german_tank/docs/brief.md
+--- a/explainer_corpus/german_tank/docs/brief.md	2026-10-24 11:10:17.230800262 -0400
++++ b/explainer_corpus/german_tank/docs/brief.md	2026-10-24 11:10:17.452881933 -0400
+@@ -18,10 +18,10 @@
+ | Three ideas kept apart | **unbiased** is a property of the recipe over all handfuls (05 to 07); **uncertainty** is how far one estimate can land and which counts remain plausible (08 and 09: the 71-box company's estimates run from 5 to 84.2, the average miss is about 9, and the one-sided 95% range for our handful is 60 to 107, `G-F9.range`); **the one realised estimate**, 71, is a number, not a count and not a promise (03_10, 08_1, 16) |
+ | Counterexamples (biased sampling) | The friends' own five boxes, bought from a shop that only ever got the first 71 of the 200 made: the recipe still says 71 and averages exactly 71 over every handful that shop could sell, short by 129 (`G-F14.shop_average`, `G-F14.shop_short_by`). Shelves holding only boxes 151 to 200: it averages 230 (`G-F14.late_average`), and a first gap of 157 gives the draw away (`G-F14.late_first_gap`). Equal chances per box without equally likely handfuls (one of two deliveries, boxes 1–5 or 6–10, each box seen half the time): it averages 8, not 10 (`G-F15.deliveries_average`) |
+ | Audience | a curious 14-year-old with school arithmetic; a programmer who could simulate it afterwards; a statistician who finds nothing wrong (default, plan §1.2) |
+-| Length | By `tools/storyboard.py`'s estimate (spoken words at 2.68 words a second plus breaths, prediction pauses and holds): chapters 01 to 11, the production storyboard, 21.0 min (74.8, 84.6, 67.3, 84.7, 77.4, 136.4, 166.0, 135.7, 142.3, 149.2 and 142.8 s); chapters 12 to 16 (`docs/storyboard-draft.md`) 5.8 min; about 26.8 min in all. Chapters 06 to 11 are long because the swaps, each transformed line, the distribution of estimates, the coverage experiment, the two recipes' widths and the pairs behind sufficiency are given time to be inspected (root's 06/07, 08/09 and 10/11 assignments set no runtime cap). These are advisory script estimates, not measured narration; authored pauses are not in the estimate. Root's separately bound silent native previews have their own measured durations in the third-wave review records. No runtime target was set; the owner's direction allows a longer film |
+-| Scope in source | Root's scope correction (Mail 6790): only chapters with a native scene are in `docs/storyboard.md`, `script.tsv` and the chapter registry, now chapters 01 to 11 (02 and 03 integrated by root, 04 and 05 in the tree from `docs/integration-04-05.patch`; 06 and 07 proposed in `docs/integration-06-07.patch`, 08 and 09 in `docs/integration-08-09.patch`, which applies after it, and 10 and 11 in `docs/integration-10-11.patch`, which applies after that). Chapters 12 to 16 are complete words and pictures in the draft; root assigns their scenes |
++| Length | By `tools/storyboard.py`'s estimate (spoken words at 2.68 words a second plus breaths, prediction pauses and holds): chapters 01 to 13, the production storyboard, 29.4 min (74.8, 84.6, 67.3, 84.7, 77.4, 136.4, 166.0, 135.7, 142.3, 149.2, 142.8, 244.6 and 256.6 s); chapters 14 to 16 (`docs/storyboard-draft.md`) 3.7 min; about 33.1 min in all. Chapters 06 to 13 are long because the swaps, each transformed line, the distribution of estimates, the coverage experiment, the two recipes' widths, the pairs behind sufficiency, the regrouped pairs with their misses as arrows, and the forced staircase with its three recipes compared are given time to be inspected (root's 06/07, 08/09, 10/11 and 12/13 assignments set no runtime cap; the 12/13 assignment says not to shorten motivation or reading time to meet the old draft duration). These are advisory script estimates, not measured narration; authored pauses are not in the estimate. Root's separately bound silent native previews have their own measured durations in the third-wave review records. No runtime target was set; the owner's direction allows a longer film |
++| Scope in source | Root's scope correction (Mail 6790): only chapters with a native scene are in `docs/storyboard.md`, `script.tsv` and the chapter registry, now chapters 01 to 13 (02 and 03 integrated by root, 04 and 05 in the tree from `docs/integration-04-05.patch`; 06 and 07 from `docs/integration-06-07.patch` and 08 and 09 from `docs/integration-08-09.patch`, both integrated by root; 10 and 11 proposed in `docs/integration-10-11.patch`, and 12 and 13 in `docs/integration-12-13.patch`, which applies after it). Chapters 14 to 16 are complete words and pictures in the draft; root assigns their scenes |
+ | Format, voice, look | the program defaults (plan §1; AGENTS.md): 3840×2160 at 60 fps; FrankenTTS under the current narration direction, after root's qualification; 3Blue1Brown look. This lane made no audio |
+-| Protected facts | `docs/protected.tsv`: the phrases of chapters 01 to 11, the chapters in `script.tsv`; a drafted chapter's phrases join when it moves into `storyboard.md` |
++| Protected facts | `docs/protected.tsv`: the phrases of chapters 01 to 13, the chapters in `script.tsv`; a drafted chapter's phrases join when it moves into `storyboard.md` |
+ | Oracle | `oracle.py`: brute-force enumeration (all 13,019,909 handfuls of five from 71), sequential-draw products where enumeration is too large, a triangular solve for the forced unbiased recipe, edge checks of every always/never sentence, negative controls; the Rust model (`src/model.rs`) uses closed forms instead |
+ | Out of scope | Bayesian estimates and priors; sampling with replacement; several factories or several numbering series; serial-number codes that skip or encode dates; confidence intervals beyond the one-sided 95% range; the variance formula; any claim about real production figures |
+ | Evidence boundary | Selection data (`docs/video-program/third-wave-20261024/MOR_CASE.md` and the catalog) supports editorial hypotheses about what may hold attention; it is not a forecast of views and not evidence that this topic causes any outcome |
+@@ -120,9 +120,24 @@
+   and thirty-seven must stay distinct. Risk: a dropped "and" or a broken
+   hyphen heard as two numbers.
+ - Decimals and halves: "about forty-five and eighty-four point two" (08_3),
+-  "about eleven point seven" (08_8) and the other point values in 10_4, 11_5
+-  and 12_6; "five plus three
+-  halves, six and a half" (05_4); "and a half" again in 12_3, 13_3 and 15_3.
++  "about eleven point seven" (08_8) and the other point values in 10_6, 10_9,
++  12_13, 12_15, 13_11 and 13_13; "five plus three
++  halves, six and a half" (05_4); "and a half" again in 12_6, 12_8, 12_12,
++  13_4, 13_6, 13_10 and 15_3.
++- Chapters 12 and 13 put close values side by side, and each pair is the
++  claim: the average misses "one point four" and "one point two" (12_13,
++  13_11) and "two point four" (13_11); the standard deviations "about one
++  point seven" and "exactly one point five" (12_15); "about eight point
++  seven" against "nine point two" (13_13); "sixty-nine", two short of
++  "seventy-one" (13_13). Fractions: "four and a quarter" (12_10), "two and a
++  quarter" and "three quarters" (12_15), "seven sixths" (13_13, 13_14) and
++  "four and five sixths" (13_14), where "sixths" blurred into "six" changes
++  the recipe. Signed and listed values: "minus one, zero and plus one"
++  (12_11), whose signs carry the meaning; "zero, one, two and three"
++  (12_12); "five, six, seven and eight" (12_5); "Three and four average
++  three and a half. Four, five and six average five." (12_6); the staircase
++  "two, three and a half, five, and six and a half" (13_10), where "three
++  and a half, five" must not merge into one number.
+ - Lists of small numbers that name boxes, not a count: "one, two, three,
+   four and five" (04_6) and "one, three and four" (05_3); the gap lists
+   "zero, zero and three" (06_2, 06_5), "one, two and zero" (06_2, 06_3) and
+@@ -141,13 +156,17 @@
+ - Grouping that carries meaning: "the largest, plus the largest minus five,
+   over five" and "sixty plus fifty-five over five" (04_5), "half of the
+   largest minus two" (05_3), "N minus five, over six" (07_3, 07_6) and "the
+-  largest minus the size, over the size" (07_10); the pause rows in
++  largest minus the size, over the size" (07_10), "the handful size over the
++  count" (13_7), "three times the smaller number, minus one" (13_9) and
++  "seven sixths of the largest number, minus one" (13_13), where the one
++  comes off after the multiplying; the pause rows in
+   `docs/pauses.tsv` mark where the grouping breath belongs. "N" is spoken as
+   the letter in chapter 07 only (07_1 to 07_3, 07_6).
+-- Terms: "estimator" (said once, 04_3), "unbiased" (05_7, 07_7, 08_9;
+-  stress on the second syllable), "standard deviation" (08_8), "confidence"
+-  (09_7), "sufficient" (once, 11_5), "statisticians" (04_3, 08_8, 11_5),
+-  "analysts" (16_1).
++- Terms: "estimator" (said once, 04_3), "unbiased" (05_7, 07_7, 08_9, 10_4,
++  12_2, 12_9, 13_1, 13_2, 13_8 to 13_12; stress on the second syllable),
++  "standard deviation" (08_8, 10_9, 12_15), "confidence" (09_7),
++  "sufficient" (once, 11_6), "Statisticians" (04_3, 08_8, 11_6), "analysts"
++  (16_1, drafted).
+ - Card-only names, never voiced: Rao–Blackwell, Lehmann–Scheffé, Ruggles,
+   Brodie, Goodman.
+ 
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/pauses.tsv b/explainer_corpus/german_tank/docs/pauses.tsv
+--- a/explainer_corpus/german_tank/docs/pauses.tsv	2026-10-24 11:10:17.234565530 -0400
++++ b/explainer_corpus/german_tank/docs/pauses.tsv	2026-10-24 11:10:17.453047225 -0400
+@@ -6,9 +6,10 @@
+ # hypotheses for total audible silence (existing take margins count toward them); they are not measured, not
+ # listened to, and not acceptance thresholds. Prediction countdowns and the inspection holds of 01_4, 04_5,
+ # 05_2, 06_4, 06_5, 06_8, 07_3, 07_5, 07_6, 07_7, 07_10, 08_4, 08_7, 08_8, 08_9, 09_4, 09_6, 09_8, 09_10, 10_9,
+-# 10_10, 11_4 and 11_6 are scene holds, not rows here; so are the computed rows that keep landing after 08_2 and
+-# 09_5 (protected visual holds before 08_3 and 09_6); 10_8's zoom out runs inside its first sentence. The Rust
+-# test in src/main.rs checks every phrase against script.tsv or docs/storyboard-draft.md.
++# 10_10, 11_4, 11_6, 12_15, 12_16 and 13_14 are scene holds, not rows here; so are the computed rows that keep
++# landing after 08_2 and 09_5 (protected visual holds before 08_3 and 09_6); 10_8's zoom out and 12_4's regroup
++# run inside their first sentences. The Rust test in src/main.rs checks every phrase against script.tsv or
++# docs/storyboard-draft.md.
+ 01_2	Five friends who own it would like to know.	thought	0.5	0.9	setup: the stakes follow
+ 01_2	their boxes are rare.	clause	0.2	0.45	contrast: rare, then ordinary
+ 01_3	counting up from one.	thought	0.5	0.9	visual: the line starts drawing from one
+@@ -83,8 +84,33 @@
+ 11_6	the largest number is sufficient.	thought	0.4	0.8	the name lands before its meaning
+ 11_7	needs only the largest number.	thought	0.4	0.8	callback: the boxes and their arcs return
+ 11_8	All of this needs the handful to be fair.	thought	0.5	0.9	the condition stands alone
+-12_5	Five, and five.	thought	0.5	0.9	reveal: both averages agree
+-13_5	Five, forced by the values before it.	thought	0.4	0.8	reveal, then the general step
++12_1	Here are its ten pairs again,	clause	0.3	0.6	visual: the ten rows land before their estimates
++12_2	But they wobble,	clause	0.3	0.6	the word lands before the range
++12_3	Where does the wobble come from?	question	0.6	1.0	the question stands before the callback
++12_4	So sort the pairs by their larger number.	thought	0.6	1.0	visual: the rows move, each whole, into their groups
++12_6	Six and a half.	thought	0.6	1.0	reveal: the prediction's answer, then whose it is
++12_7	Averaging inside the groups turns the doubling recipe into the gap recipe.	cue_transition	0.7	1.2	the chapter's first claim stands before the condition behind it
++12_9	Is the averaged recipe still unbiased?	question	0.6	1.0	the question stands before the weights
++12_10	comes back, exactly five.	thought	0.4	0.8	visual: the weighted sum lands before the equal-weight contrast
++12_11	Now the misses.	thought	0.4	0.8	turn: from averages to misses
++12_11	They cancel,	clause	0.2	0.5	visual: the arrows' sum lands
++12_12	Nothing cancels,	clause	0.2	0.5	the contrast with the group before
++12_14	That's a rule, not luck.	thought	0.4	0.8	the claim before the rule
++12_15	the drop, three quarters,	clause	0.2	0.5	visual: the drop lands before what it is
++13_1	Could some cleverer unbiased recipe still beat the gap recipe?	question	0.6	1.0	the chapter's question stands
++13_2	because we never know which count is true.	thought	0.4	0.8	the reason lands before the example
++13_2	So it isn't unbiased.	cue_transition	0.6	1.0	turn: from the definition to pairs
++13_3	and its only pair is one and two.	thought	0.3	0.6	visual: the single dot lands
++13_4	The pair topped by two must still say two.	thought	0.4	0.8	the kept value before the new one
++13_6	Five.	thought	0.6	1.0	reveal: the prediction's answer, then its reason
++13_7	The same step works at every count, for handfuls of any size.	thought	0.4	0.8	turn: from pairs to any handful size
++13_7	They're never missing.	thought	0.4	0.8	the step's key fact stands alone
++13_7	and the step fixes it.	thought	0.3	0.6	the step closes before the friends' share
++13_8	all the way up from the smallest company.	thought	0.4	0.8	the induction lands before its conclusion
++13_11	That's the whole argument.	thought	0.4	0.8	the argument named before it is summed up
++13_12	Best doesn't mean every rival does worse.	thought	0.4	0.8	turn: the claim's limits
++13_13	two short of the count,	clause	0.2	0.5	visual: the halo round the biased average
++13_14	But it doesn't win everywhere.	thought	0.4	0.8	turn: where the biased recipe loses
+ 14_1	Now break it, with the same five boxes.	thought	0.5	0.9	turn: the assumption is broken on purpose
+ 14_5	Too high.	thought	0.5	0.9	reveal: the prediction's answer
+ 14_6	That gap is the clue.	thought	0.4	0.8	the clue is named before the number
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/protected.tsv b/explainer_corpus/german_tank/docs/protected.tsv
+--- a/explainer_corpus/german_tank/docs/protected.tsv	2026-10-24 11:10:17.235222200 -0400
++++ b/explainer_corpus/german_tank/docs/protected.tsv	2026-10-24 11:10:17.453475061 -0400
+@@ -1,6 +1,6 @@
+ # Protected facts: the words every revision must keep (./x german_tank protected checks they are still there).
+ # One per line: <phrase> TAB <where> TAB <why>. <where> is a comma list of script, captions,
+-# description, title, or empty for "anywhere". Rows are for the chapters in script.tsv (chapters 01 to 11);
++# description, title, or empty for "anywhere". Rows are for the chapters in script.tsv (chapters 01 to 13);
+ # a drafted chapter's rows join when it moves into docs/storyboard.md and script.tsv (root's scope correction,
+ # Mail 6790).
+ counting up from one	script	the numbering assumption the whole recipe needs, stated before any number (G-F1.first)
+@@ -50,3 +50,20 @@
+ Statisticians say the largest number is sufficient	script	the term of art, said once, after the viewer has predicted it
+ It holds everything a fair handful can tell you about the count	script	sufficiency stated with its condition, the fair handful
+ All of this needs the handful to be fair	script	the fair-sampling assumption kept explicit (oracle negative control: weighted draws shift the others with the count)
++Each pair keeps its squares and its estimate	script	the regroup keeps every pair whole: the same ten pairs, sorted, not new ones
++every smaller number below it is equally likely, whatever the count	script	chapter 11's fair-sampling sufficiency is why the group averages are free of the count (G-F12.group_average_same_for_every_count)
++a group's chance is its number of pairs in ten	script	the groups are weighted by their true chances, not equally (G-F12.top_group_chance, G-F12.weighted_average)
++Give the four groups equal weight instead, and you'd get four and a quarter	script	the equal-weight negative control is spoken (G-F12.equal_weight_average)
++Ignoring direction, doubling misses by one point four boxes on average	script	the average miss is the average distance, kept apart from squared misses (G-F12.doubling_miss, G-F12.grouped_miss)
++The arrow of an average is never longer than the average length of the arrows	script	the rule shown with arrows before it is stated in general (card H)
++Squared misses tell the same story with different numbers	script	3 against 9/4 are squared misses, not the 1.4 against 1.2 average misses (G-F12.doubling_squared_miss, G-F12.grouped_squared_miss)
++is exactly the wobble inside the groups	script	the squared drop equals the spread inside the groups (G-F12.spread_inside)
++Unbiased has to hold at every count the company could have made	script	unbiased at every possible count N ≥ k, not just the unknown true one (card I)
++and wrong on average at every other count	script	the "always 71" counterexample to unbiasedness at one count (G-F13.always)
++They're never missing	script	the new handfuls' share k ÷ N is never zero, so each step fixes its value (G-F13.share_at_60, G-F13.recurrence_proved)
++So each step has exactly one unknown value, and the step fixes it	script	uniqueness by the recurrence, proved, not enumerated (G-F13.recurrence_proved)
++With a fair draw those averages don't depend on the count	script	the averaged rival is a recipe only because of the fair-sampling sufficiency (G-F11.pair_same_for_every_company)
++So no unbiased recipe misses by less than the gap recipe	script	the claim is "none misses by less", not that every rival misses by more
++Best doesn't mean every rival does worse	script	ties: at the smallest count and for recipes of the largest number alone
++A recipe that accepts a little bias can sometimes miss by less	script	a biased recipe can beat the gap recipe at some counts (G-F13.shrunk_miss_71_shown, G-F13.shrunk_squared_71_shown)
++But it doesn't win everywhere	script	the biased recipe does not dominate: squared misses bigger at counts 5 to 10 (G-F13.shrunk_loses_squared_at)
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/storyboard-draft.md b/explainer_corpus/german_tank/docs/storyboard-draft.md
+--- a/explainer_corpus/german_tank/docs/storyboard-draft.md	2026-10-24 11:10:17.235514910 -0400
++++ b/explainer_corpus/german_tank/docs/storyboard-draft.md	2026-10-24 11:10:17.459738758 -0400
+@@ -1,12 +1,12 @@
+-# Storyboard draft — chapters 12 to 16
++# Storyboard draft — chapters 14 to 16
+ 
+ The rest of "How Much Can Five Serial Numbers Reveal?", written in full in
+ the format of `docs/storyboard.md` (read that file first: the arc, the
+-vocabulary, the color roles and chapters 01 to 11 are there). Only chapters
++vocabulary, the color roles and chapters 01 to 13 are there). Only chapters
+ with a native scene in source live in `docs/storyboard.md`, `script.tsv` and
+ the chapter registry (root's scope correction, Mail 6790); a chapter moves
+ there when its scene is implemented, and root assigns that work. Chapters 02
+-to 11 moved there with their scenes. Every number is a
++to 13 moved there with their scenes. Every number is a
+ fact the oracle prints (`oracle.py`; fact group `G-Fn` belongs to chapter
+ `n`). Check this file with the storyboard tool's own functions:
+ 
+@@ -23,61 +23,6 @@
+ five small squares with the two seen squares gold); the **panel** (arithmetic
+ on the right).
+ 
+-## 12_averaging_the_wobble: Averaging away the wobble (~58 s)
+-
+-The tiny table returns, now with the doubling recipe's estimates in purple
+-beside the green ones; rows grouped by their largest number.
+-
+-| id | words | picture | features | hold/listen |
+-|---|---|---|---|---|
+-| 12_1 | Back to the tiny company, five boxes, two seen. Here are the doubling recipe's ten estimates. They average five, but they're more spread out. | Each row gets a purple estimate: 2, 3, 4, 5, 4, 5, 6, 6, 7, 8; a purple balance bar at 5, wider than the green one | table, bars | |
+-| 12_2 | Group the pairs by their largest number. Four pairs end in five, and doubling says five, six, seven and eight. | The rows regroup into four blocks by their largest number (2, 3, 4, 5); the block ending in 5 highlights | table, morph | |
+-| 12_3 | Their average is six and a half, exactly what the gap recipe says for every pair ending in five. | The four purple values merge into one purple 6.5, which turns green and matches the block's green 6.5 | equation, morph | |
+-| 12_4 | ⟨predict⟩ Pairs ending in four give four, five and six. What's their average, and what does the gap recipe say? | The block ending in 4 highlights; its green values are hidden; the countdown | prediction pause, think time | |
+-| 12_5 | Five, and five. Averaging inside each group turns the doubling recipe into the gap recipe, and the average stays five. | The remaining blocks merge the same way; the purple column becomes the green column | morph | |
+-| 12_6 | Doubling misses by one point four on average. After grouping, the misses average one point two. | Two bars: purple 1.4, green 1.2 | bars | |
+-| 12_7 | That's no accident. The miss of an average is never bigger than the average of the misses, so grouping never makes the average miss worse. | A single block: four purple misses as arrows from 5, their average as one shorter arrow | equation | |
+-
+-### Notes for 12
+-
+-- `G-F12.doubling_estimates`, `G-F12.ends_in_5` 5,6,7,8 → 13/2 (6.5),
+-  `G-F12.ends_in_4` 4,5,6 → 5, `G-F12.grouped_is_gap_recipe` true;
+-  `G-F12.doubling_miss` 1.4 and `G-F12.grouped_miss` 1.2 (mean absolute
+-  error); the squared misses are 3 and 9/4 (card).
+-- Card H: "Precisely: E[2x̄ − 1 | M = m] = m(1 + 1/k) − 1 (Rao–Blackwell), and
+-  |E[T − N | M]| ≤ E[|T − N| | M]; the same holds for squared error."
+-- The general statement of 12_5 and 12_7 is checked for k = 2 to 4 and N ≤ 12
+-  by enumeration (oracle).
+-
+-## 13_nothing_does_better: Nothing unbiased does better (~67 s)
+-
+-The tiny table's blocks; a staircase of forced values builds in the panel.
+-
+-| id | words | picture | features | hold/listen |
+-|---|---|---|---|---|
+-| 13_1 | One more step turns this into a proof. How many unbiased recipes use only the largest number? Stay with pairs. | The panel: "recipes of the largest number, unbiased at every count: how many?" | equation card | |
+-| 13_2 | If the company made two boxes, you see one and two every time. An unbiased recipe must say two when the largest is two. | A company of two boxes: one row, 1–2; the panel's staircase gets its first step: largest 2 → 2 | table, equation | |
+-| 13_3 | With three boxes there are three pairs. To average three, the two pairs ending in three must say three and a half. | Three rows; the panel: (2 + 2·g)/3 = 3, so g = 3.5; the second step | equation, derivation | |
+-| 13_4 | ⟨predict⟩ With four boxes, what must the recipe say for pairs ending in four? | Six rows; the third step hidden behind a hero "?"; the countdown | prediction pause, think time | |
+-| 13_5 | Five, forced by the values before it. Each count forces the next value, and they're the gap recipe's, so there's exactly one such recipe. | The panel: (2 + 7 + 3·g)/6 = 4, so g = 5; the fourth step 6.5 follows; the staircase is labelled "gap recipe" | derivation | |
+-| 13_6 | Now take any unbiased recipe. Grouping turns it into an unbiased recipe of the largest number, which must be the gap recipe, and grouping never raises the average miss. | A diagram: any unbiased recipe → group by the largest → the one unbiased recipe of the largest = gap recipe; "miss: never up" on the arrow | equation card | |
+-| 13_7 | So no unbiased recipe misses by less on average. A recipe that accepts a small bias can. Seven sixths of the largest, minus one, misses less for a company of seventy-one. | "best unbiased" boxed in green; then a dim note: (7/6)·m − 1, "bias −2 at 71, smaller misses" | equation | |
+-
+-### Notes for 13
+-
+-- `G-F13.forced` 2,7/2,5,13/2, `G-F13.forced_is_gap_recipe` (k = 5 up to
+-  N = 40; k = 1 to 4 up to 25 in the oracle cross-checks);
+-  `G-F13.shrunk_factor` 7/6, `G-F13.shrunk_bias_71` −2,
+-  `G-F13.shrunk_misses_less` and `G-F13.shrunk_misses_less_squared` true at
+-  N = 71.
+-- Card I: "Precisely: among recipes unbiased for every N ≥ k, the gap recipe
+-  has the smallest expected loss for every convex loss, absolute and squared
+-  included (Lehmann–Scheffé). Seven unbiased rivals checked by enumeration
+-  miss at least as much."
+-- 13_6 rests on 11 (sufficiency): the group average cannot depend on the
+-  unknown count, so it is a recipe. The voice says "grouping turns it into an
+-  unbiased recipe of the largest number"; the card names why.
+-
+ ## 14_an_unfair_draw: When the handful isn't fair (~80 s)
+ 
+ The line, extended to 200; the five friends' boxes on their ticks; red for
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/storyboard.md b/explainer_corpus/german_tank/docs/storyboard.md
+--- a/explainer_corpus/german_tank/docs/storyboard.md	2026-10-24 11:10:17.236083163 -0400
++++ b/explainer_corpus/german_tank/docs/storyboard.md	2026-10-24 11:10:17.460058843 -0400
+@@ -7,7 +7,7 @@
+ `G-Fn` belongs to chapter `n`.
+ 
+ This file holds only the chapters whose native scenes exist in source:
+-chapters 01 to 11. Chapters 12 to 16 are written in full, in the same format,
++chapters 01 to 13. Chapters 14 to 16 are written in full, in the same format,
+ in `docs/storyboard-draft.md`; a chapter moves here when its scene is
+ implemented, so `script.tsv`, the chapter registry and the Rust tests always
+ agree on what can render. The arc below describes the whole film.
+@@ -77,7 +77,9 @@
+ | `09_how_far_off` | the count fixed and unknown; for each count, the chance a fair handful is all sixty or less; just over and just under five percent at a hundred and seven and eight; the range sixty to a hundred and seven; the twenty handfuls build their own ranges, nineteen cover seventy-one; what ninety-five percent confidence means and doesn't; the division behind each bar; ten boxes, sixty to seventy-nine | words and pictures here; scene in `src/chapters/how_far_off.rs` on chapter 08's draws |
+ | `10_a_rival_recipe` | another recipe from the middle number, twice the average minus one, unbiased too; seventy-three for the friends; a strange handful with sixty gives twenty-eight point six, below a box someone holds; about one handful in five falls below its own largest; every handful of the seventy-one-box company, counted by total; both balance at seventy-one, doubling wider by the average miss and by the standard deviation | words and pictures here; scene in `src/chapters/a_rival_recipe.rs` on chapter 08's bars |
+ | `11_the_largest_says_it_all` | told only the largest, sixty; pairs topped by five in companies of five, six and eight, the same four, each one in four; for sixty, every group of four equally likely at every count while the chance of sixty changes; the other four tell nothing, the largest is sufficient; the gaps below sixty always hold fifty-five; all of it needs a fair handful | words and pictures here; scene in `src/chapters/the_largest_says_it_all.rs` |
+-| `12_averaging_the_wobble` to `16_five_boxes_again` | see `docs/storyboard-draft.md` | drafted in full; no scene yet |
++| `12_averaging_the_wobble` | the tiny company's ten pairs with the doubling recipe, unbiased but wobbling; sorted by their larger number, each pair kept whole; predict the biggest group's average; every group's average is the gap recipe's estimate, the same in any company; weighted by their chances the groups give five, equally weighted four and a quarter; misses as arrows, cancelling in one group and one-sided in another; average miss 1.4 against 1.2, squared 3 against 2.25; averaging never makes misses bigger | words and pictures here; scene in `src/chapters/averaging_the_wobble.rs` |
++| `13_nothing_does_better` | unbiased must hold at every count, not just the true one; for pairs, each company forces the next value of a recipe of the larger number, two, three and a half, five, six and a half; the same step at any count and handful size, never without a new value; so only the gap recipe; any unbiased recipe, even three times the smaller minus one, averages into it; best unbiased, ties allowed; a slightly biased recipe misses less at seventy-one but not at five boxes | words and pictures here; scene in `src/chapters/nothing_does_better.rs` |
++| `14_an_unfair_draw` to `16_five_boxes_again` | see `docs/storyboard-draft.md` | drafted in full; no scene yet |
+ 
+ ## Vocabulary (one word per idea)
+ 
+@@ -103,7 +105,13 @@
+ from the count ignoring direction, averaged over handfuls; never the standard deviation); **range** (the counts for which a
+ handful like the friends' is not rare, from 09); **standard deviation** (named
+ in 08 as the second width, the square root of the average squared miss, and said again in 10 to compare the recipes); **sufficient** (said once, in 11, as
+-the name for "the largest number says it all").
++the name for "the largest number says it all"); **group** (from 12, the pairs
++or handfuls that share a largest number, with their chance as weight; 11's
++"groups of four" are the other four numbers' sets, said only there);
++**squared miss** (an estimate's miss squared, averaged over handfuls, from
++12 always beside the average miss and never instead of it); **staircase**
++(13, the values the only unbiased recipe of the largest number is forced to
++take).
+ 
+ ## Color roles
+ 
+@@ -116,7 +124,9 @@
+ | an estimate the gap recipe gives | green `#83C167` |
+ | what is certain (the lower bound, "at least 60") | teal `#5CD0B3`, text and strokes only |
+ | the condition "if the handful is fair" | `ink` text in a `dim` outline, the same badge every time it appears |
+-| the doubling recipe and its estimates (from 10) | purple |
++| the doubling recipe and its estimates (from 10), and its misses as arrows (12) | purple |
++| a group's average, the gap recipe's estimate, its misses as arrows and the staircase's bars (12, 13) | green |
++| a rival recipe that is neither (13: three times the smaller minus one, seven sixths of the largest minus one) | `ink` |
+ | an unfair draw's pool and its estimate (14, 15) | red |
+ | numbers not under discussion, the line and the boxes' outlines | `faint` and `dim` |
+ | a company's count fixed for an experiment (08, 09), a range of counts and a computed range that covers it (09) | `ink` strokes |
+@@ -870,3 +880,239 @@
+   a thought pause after "needs only the largest number." while the arcs
+   return; a thought pause after "All of this needs the handful to be
+   fair.". The inspection holds after 11_4 and 11_6 are scene holds.
++
++## 12_averaging_the_wobble: Averaging away the wobble (~245 s)
++
++The tiny table again (chapter 05's ten pairs from five boxes, one row each,
++the seen two squares gold), smaller, on the left: each row's doubling
++estimate in purple in a column beside its squares, and a small plot right
++of it, a purple dot at the estimate. The rows then move, each one whole
++(squares, estimate and dot together), into four groups by their larger
++number, and every pair keeps its own row. A green column beside the purple
++one takes each group's average, with a green dot on each row's plot under
++the purple one. Later, an upright dim line at the count 5 through every
++row's plot (drawn only after the rows have stopped moving), and each miss as
++an arrow from it, purple over the row's centre, green under it. The panel
++is on the right, the badge at the top right. Highlights are halos and colour
++changes are replacements; no typeset text is indicated, recoloured or
++scaled in place. Every number is `G-F5`, `G-F10`, `G-F11` or `G-F12`.
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 12_1 | Back to the tiny company of five boxes, where any two are as likely to be seen as any other two. Here are its ten pairs again, now with the doubling recipe's estimates. For a pair, doubling the average just gives the total, so the recipe adds the two numbers and takes away one. | The badge at the top right; on "Here are its ten pairs again" the column numbers 1 to 5 and the ten rows land one after another, the seen squares gold (`G-F5.pair_list`); on "the doubling recipe's estimates" the head "doubling" and each row's purple estimate, 2, 3, 4, 5, 4, 5, 6, 6, 7, 8, with its purple dot on the row's plot (`G-F12.doubling_estimates`); on "doubling the average just gives the total" "doubling: 2 × average − 1" on the panel's first line, "doubling" purple (`G-F10.recipe`); on "adds the two numbers" "for a pair: total − 1" under it (`G-F12.pair_doubling`) | table, lagged reveal, plot, equation | |
++| 12_2 | They average five, so doubling is unbiased here too. But they wobble, from two all the way up to eight. | On "They average five" "average: 5" on the panel's third line (`G-F12.doubling_average`); on "from two all the way up to eight" a purple halo round the estimate 2 and another round the 8, together (`G-F12.doubling_range`) | equation, halo | |
++| 12_3 | Where does the wobble come from? The last chapter showed that once you know the larger number, the smaller carries no news about the count. Doubling listens to it anyway, so the four pairs topped by five get four different estimates. | On "so the four pairs topped by five" an ink halo round each of the four rows topped by 5, with their estimates 5, 6, 7 and 8, together (`G-F11.pairs_topped`, `G-F12.ends_in_5`) | table, halo | |
++| 12_4 | So sort the pairs by their larger number. Each pair keeps its squares and its estimate, and moves next to the pairs that share its larger number. That makes four groups, topped by two, three, four and five, with one, two, three and four pairs. | On "So sort the pairs" the panel's second and third lines go and the ten rows move, each whole, into group order, a little space between the groups; on "That makes four groups" "topped by 2", "topped by 3", "topped by 4" and "topped by 5" come in one after another right of the plots, each at its group's middle (`G-F12.groups`, `G-F12.group_tops`, `G-F12.group_sizes`) | table, morph, lagged reveal | |
++| 12_5 | Look at the biggest group. Doubling says five, six, seven and eight for its pairs. ⟨predict⟩ What's their average? | On "Look at the biggest group" an ink halo round the four rows topped by 5; on "five, six, seven and eight" a purple halo round their four estimates (`G-F12.ends_in_5`); the countdown; nothing shows the average | prediction pause, think time, table | |
++| 12_6 | Six and a half. That's what the gap recipe says for every pair topped by five. The other groups work the same way. Three and four average three and a half. Four, five and six average five. And the lone pair topped by two says two. | The countdown goes; on "Six and a half" the green head "averaged", 6.5 in green beside each of the four estimates topped by 5 with a green dot on each of their plots, and "(5 + 6 + 7 + 8) ÷ 4 = 6.5" on the panel's second line, the 6.5 green (`G-F12.ends_in_5_average_decimal`); on "every pair topped by five" a green halo round the four green values; on "Three and four average" 3.5 beside both pairs topped by 3, with their green dots, and "(3 + 4) ÷ 2 = 3.5" on the third line (`G-F12.ends_in_3`, `G-F12.ends_in_3_average`); on "Four, five and six average five" 5 beside the three topped by 4 and "(4 + 5 + 6) ÷ 3 = 5" on the fourth line (`G-F12.ends_in_4`, `G-F12.ends_in_4_average`); on "the lone pair topped by two" 2 beside it, with its green dot (`G-F12.ends_in_2`) | table, equation, halo, plot | |
++| 12_7 | So every group's average is exactly the gap recipe's estimate. Averaging inside the groups turns the doubling recipe into the gap recipe. | On "the gap recipe's estimate" the panel's second to fourth lines go, "estimate = largest + (largest − 2) ÷ 2" comes in on the second, "estimate" green and "largest" gold (chapter 04's formula for a pair), and a green halo round the green column (`G-F12.group_averages_shown`, `G-F12.grouped_is_gap_recipe`); on "turns the doubling recipe into the gap recipe" "averaged doubling = gap recipe" on the third line, "doubling" purple and "gap recipe" green | formula, halo, table | |
++| 12_8 | And a recipe can use these averages without knowing the count. With a fair draw, once the larger number is known, every smaller number below it is equally likely, whatever the count. So in a company of six boxes, or eight, the pairs topped by five still average six and a half. | On "With a fair draw" an ink halo round the badge; on "a company of six boxes, or eight" "6 boxes: 5, 6, 7, 8 average 6.5" and "8 boxes: 5, 6, 7, 8 average 6.5" on the panel's fourth and fifth lines (`G-F11.pair_more`, `G-F12.group_average_same_for_every_count`) | equation, halo | |
++| 12_9 | Is the averaged recipe still unbiased? The groups aren't equally likely. Each pair is a chance in ten, so a group's chance is its number of pairs in ten, and the biggest group's is four in ten. | On "Is the averaged recipe still unbiased?" the panel's lines go; on "The groups aren't equally likely" an ink halo round the lone pair topped by 2 and another round the four topped by 5, together; on "a group's chance is its number of pairs in ten" "1 in 10", "2 in 10", "3 in 10" and "4 in 10" right of the group labels, each at its group's middle (`G-F5.pairs`, `G-F12.group_sizes`); on "four in ten" an ink halo round "4 in 10" (`G-F12.top_group_chance`) | table, halo | |
++| 12_10 | Weight each group's average by its chance, and the ten pairs' average comes back, exactly five. Give the four groups equal weight instead, and you'd get four and a quarter, because the lone pair would count as much as the biggest group. | On "Weight each group's average by its chance" each chance line goes on to "× 2 = 0.2", "× 3.5 = 0.7", "× 5 = 1.5" and "× 6.5 = 2.6", the averages green; on "comes back, exactly five" "0.2 + 0.7 + 1.5 + 2.6 = 5" under the table on the right (`G-F12.weighted_average`); on "Give the four groups equal weight" "(2 + 3.5 + 5 + 6.5) ÷ 4 = 4.25" under it (`G-F12.equal_weight_average_shown`); on "the lone pair would count as much" an ink halo round the lone pair and another round the biggest group, together | equation, halo, table | |
++| 12_11 | Now the misses. Draw each estimate's miss as an arrow from five, the true count. In the group topped by four, doubling's arrows are minus one, zero and plus one. They cancel, so the group's average misses by nothing at all. | On "Now the misses" the chance lines and sums go; on "an arrow from five" a dim upright line at 5 through every row's plot, "count = 5" over it, and a purple arrow from it to each purple dot (none where the estimate is 5), one after another (`G-F5.boxes`); on "the group topped by four" an ink halo round its three rows; on "minus one, zero and plus one" "−1, 0, +1" in purple right of the label "topped by 4" (`G-F12.cancel_misses`); on "misses by nothing at all" "(−1 + 0 + 1) ÷ 3 = 0" under it, the 0 green: the group's green dots sit on the line | plot, table, lagged reveal, halo, equation | |
++| 12_12 | In the group topped by five, the arrows are zero, one, two and three, all on the same side. Nothing cancels, so the average misses by one and a half, the average length of the arrows. | On "the group topped by five" an ink halo round its four rows; on "zero, one, two and three" "0, +1, +2, +3" in purple right of "topped by 5" (`G-F12.same_side_misses`); on "misses by one and a half" a green arrow from the line to each green dot of the group, all 1.5 long, and "(0 + 1 + 2 + 3) ÷ 4 = 1.5" under the purple misses, the 1.5 green (`G-F12.same_side_average_miss`) | plot, halo, equation | |
++| 12_13 | Add it up over all ten pairs. Ignoring direction, doubling misses by one point four boxes on average, and the gap recipe by one point two. | On "Add it up over all ten pairs" the miss lines go and the green arrows of the groups topped by 2 and 3 come in (the group topped by 4 has none); on "Ignoring direction" a table on the panel, heads "doubling" in purple and "gap recipe" in green; on "doubling misses by one point four" the row "average miss" and 1.4 under "doubling" (`G-F12.doubling_miss`); on "the gap recipe by one point two" 1.2 under "gap recipe" (`G-F12.grouped_miss`) | table, plot | |
++| 12_14 | That's a rule, not luck. The arrow of an average is never longer than the average length of the arrows. It's shorter when they point both ways, and just as long when they all point the same way. So averaging inside the groups can never make the average miss bigger. | On "The arrow of an average" "an average's arrow is never longer" and "than the arrows' average length" on two lines low on the panel; on "It's shorter when they point both ways" a purple halo round the arrows of the group topped by 4; on "just as long when they all point the same way" a purple halo round the arrows of the group topped by 5 | equation, halo, plot | |
++| 12_15 | Squared misses tell the same story with different numbers. Doubling's squared misses average three, the gap recipe's two and a quarter, so the standard deviation falls from about one point seven to exactly one point five. For squares, the drop, three quarters, is exactly the wobble inside the groups. | On "squared misses average three" the table's row "average squared miss", 3 and 2.25 (`G-F12.doubling_squared_miss`, `G-F12.grouped_squared_miss_shown`); on "so the standard deviation falls" the row "standard deviation", ≈ 1.7 and 1.5 (`G-F12.doubling_sd_about`, `G-F12.grouped_sd_decimal`); on "the drop, three quarters" "3 − 2.25 = 0.75: wobble inside groups" under the table (`G-F12.spread_inside`); held to be read | table, equation | hold |
++| 12_16 | So averaging any recipe inside the groups of the largest number keeps its average and never makes its misses bigger, plain or squared. That's why the gap recipe beat the doubling recipe. | On "keeps its average and never makes its misses bigger" card H rises and stays until it can be read; the table stays | card, table | hold |
++
++### Notes for 12
++
++- The pairs and estimates: `G-F5.pair_list` in lexicographic order with
++  `G-F12.doubling_estimates` 2, 3, 4, 5, 4, 5, 6, 6, 7, 8, which for a pair
++  are the total less one (`G-F12.pair_doubling`, from `G-F10.recipe` 2 ×
++  average − 1); they average `G-F12.doubling_average` 5 and run
++  `G-F12.doubling_range` 2 to 8. The scene computes every estimate from its
++  pair and refuses a table the facts contradict.
++- The groups (12_4): `G-F12.groups` 4, topped by `G-F12.group_tops` 2 to 5,
++  sizes `G-F12.group_sizes` 1 to 4 (a group of pairs topped by m has m − 1
++  pairs). The rows move whole; nothing is redrawn, so each pair keeps its
++  squares, estimate and dot through the regrouping. No stroke is on the
++  screen while they move: the count line and the arrows come only in 12_11.
++- The group averages (12_6): `G-F12.ends_in_2` 2; `G-F12.ends_in_3` 3, 4 →
++  `G-F12.ends_in_3_average` 7/2; `G-F12.ends_in_4` 4, 5, 6 →
++  `G-F12.ends_in_4_average` 5; `G-F12.ends_in_5` 5, 6, 7, 8 →
++  `G-F12.ends_in_5_average` 13/2; together `G-F12.group_averages`, shown
++  exactly as `G-F12.group_averages_shown` 2, 3.5, 5, 6.5, the gap recipe's
++  m + (m − 2) ÷ 2 for each top m (`G-F12.grouped_is_gap_recipe`).
++- "Without knowing the count" (12_8) is chapter 11's sufficiency: given the
++  larger number, a fair draw makes every smaller one equally likely at every
++  count, so each group's average is the same in every company from its top
++  up (`G-F12.group_average_same_for_every_count`, checked in every company
++  of pairs up to twelve boxes). The oracle's negative control: draws
++  weighted by the numbers change a group's average with the count (pairs
++  topped by 4, handfuls of three topped by 6).
++- The weights (12_9, 12_10): each pair has chance 1/`G-F5.pairs`, so a
++  group's chance is its size in ten, the biggest `G-F12.top_group_chance`
++  2/5 ("four in ten"). Weighted by those chances the group averages give
++  0.2 + 0.7 + 1.5 + 2.6 = `G-F12.weighted_average` 5, the count; equal
++  weights give `G-F12.equal_weight_average` 17/4 (4.25). The oracle checks
++  both for handfuls of 2 to 4 and every count to 12: weighted always gives
++  the count, equal weights never do once the count exceeds the handful size
++  (equal at N = k, where there is a single group).
++- The arrows (12_11, 12_12): a miss is estimate − 5, so the group topped by
++  `G-F12.cancel_group` 4 has `G-F12.cancel_misses` −1, 0, +1 (average 0,
++  while their average length is 2/3), and the group topped by
++  `G-F12.same_side_group` 5 has `G-F12.same_side_misses` 0, +1, +2, +3,
++  average `G-F12.same_side_average_miss` 3/2, equal to their average length
++  because none points the other way.
++- The widths (12_13 to 12_15), exact over the ten pairs, two different
++  widths kept apart: the average miss, ignoring direction, is
++  `G-F12.doubling_miss` 1.4 for doubling and `G-F12.grouped_miss` 1.2 for the
++  gap recipe; the average squared miss is `G-F12.doubling_squared_miss` 3
++  against `G-F12.grouped_squared_miss` 9/4 (2.25), so the standard deviation
++  (the square root of the average squared miss) is √3 ≈
++  `G-F12.doubling_sd_about` 1.7 against exactly `G-F12.grouped_sd` 3/2
++  (1.5). For squares the drop is exactly the average squared distance of
++  doubling's estimates from their group's average, `G-F12.spread_inside`
++  3/4; for plain misses there is no such identity, only the inequality.
++- The rule (12_14) is the triangle inequality for averages: the length of
++  an average of arrows is at most the average of their lengths, equal only
++  when they all point one way (or are zero). Applied group by group with the
++  groups' true chances it gives the average miss; the oracle checks it,
++  plain and squared, for the doubling recipe and three times the smaller
++  minus one, handfuls of 2 to 4 and every count to 12, and that plain equals
++  only when every group's misses are one-sided.
++- Card H (12_16), its fairness first: "fair handful, any recipe: averaged
++  over each largest M, it becomes a recipe of M alone, free of N. At every
++  N its average stays, and its average miss and squared miss never grow."
++  Three lines at every width the lower third narrows to; 178 characters,
++  11.9 s to read at fifteen a second, counted from its fade-in. It is the
++  general statement after the ten pairs have shown it; "Rao–Blackwell" is
++  the name, kept off the card.
++- Prediction (12_5): the tempting answer is "about five, the count", since
++  the recipe is unbiased. The countdown shows the group's four estimates;
++  the 6.5 and the green column come with the answer.
++- Pauses: a beat after "Here are its ten pairs again," while the rows land;
++  a thought pause after "But they wobble," before the range; a question
++  pause after "Where does the wobble come from?"; a turn after "So sort the
++  pairs by their larger number." while the rows move; a reveal pause after
++  "Six and a half."; a thought pause after "Averaging inside the groups
++  turns the doubling recipe into the gap recipe."; a question pause after
++  "Is the averaged recipe still unbiased?"; a beat after "comes back,
++  exactly five."; a turn after "Now the misses."; a beat after "They
++  cancel," and after "Nothing cancels,"; a thought pause after "That's a
++  rule, not luck."; a beat after "the drop, three quarters," before what it
++  is. The regroup in 12_4 runs inside its first sentence's turn; the
++  inspection holds after 12_15 and 12_16 are scene holds.
++
++## 13_nothing_does_better: Nothing unbiased does better (~257 s)
++
++The panel on the right, the badge at the top left. On the left, a company's
++pairs as a triangle of dots, as in chapter 11: a column per larger number,
++2 to 5 across, gold over its foot, and a row per smaller number, 1 to 4 up,
++dim left of the first column, each coming in with the column that brings its
++row; a company of two boxes has a single dot, and each box more adds a
++column on the right. Under each column a green bar, its height the value a recipe of
++the larger number must give that column, the value over it: the staircase.
++Then a rival recipe's values in ink beside the dots, and at the end a table
++across the frame for the 71-box company. Highlights are halos and colour
++changes are replacements; no typeset text is indicated, recoloured or
++scaled in place. Every number is `G-F1`, `G-F5`, `G-F8`, `G-F12` or
++`G-F13`.
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 13_1 | Averaging turned the doubling recipe into the gap recipe, and shrank its misses. Could some cleverer unbiased recipe still beat the gap recipe? To find out, we need to know every recipe that's unbiased. | The badge; "averaged doubling = gap recipe" on the panel's first line, "doubling" purple and "gap recipe" green (chapter 12's line); on "every recipe that's unbiased" "every unbiased recipe: ?" on its second line | equation | |
++| 13_2 | Unbiased has to hold at every count the company could have made, because we never know which count is true. A recipe that always says seventy-one is right on average if the count is seventy-one, and wrong on average at every other count. So it isn't unbiased. | On "Unbiased has to hold at every count" "unbiased: right on average at every count" on the panel's third line; on "A recipe that always says seventy-one" "always 71: right on average only at 71" on its fourth line (`G-F13.always`); on "So it isn't unbiased" an ink halo round that line | equation, halo | |
++| 13_3 | Start with pairs, and recipes that look only at the larger number. The smallest company with a pair has two boxes, and its only pair is one and two. To average two, the recipe must say two when the larger number is two. | On "Start with pairs" the panel's lines go and "recipe of the larger number: ?" comes in on its first line; on "The smallest company with a pair" a single dot at column 2, row 1 lands with a gold "2" under its column and "2 boxes: 1 pair" under the bars' foot (`G-F13.smallest_company`, `G-F13.company_pairs`); on "To average two" "2 boxes: 1 × ? = 1 × 2" on the panel's second line, small; on "must say two when the larger number is two" it gives way to "2 boxes: 1 × 2 = 1 × 2", the solved 2 green, and a green bar rises under column 2 with "2" over it (`G-F13.forced_at_2`) | grid, equation, bars | |
++| 13_4 | Three boxes make three pairs. The pair topped by two must still say two. The other two are topped by three, and all three estimates must average three, so those two must say three and a half. | On "Three boxes make three pairs" two dots land in a new column 3 with a gold "3" under it, and the caption gives way to "3 boxes: 3 pairs" (`G-F13.next_company`, `G-F13.pairs_from_3`); on "The pair topped by two must still say two" a green halo round the bar at 2; on "all three estimates must average three" "3 boxes: 1 × 2 + 2 × ? = 3 × 3" on the panel's third line (`G-F13.new_pairs.3`); on "those two must say three and a half" it gives way to the solved line, 3.5 green, and the bar under column 3 rises to 3.5 (`G-F13.forced_at_3_decimal`) | grid, equation, bars, halo | |
++| 13_5 | Four boxes make six pairs, and three of them are topped by four. The other three already have their values. ⟨predict⟩ What must the recipe say for the new three? | On "Four boxes make six pairs" three dots land in a new column 4 with a gold "4", and the caption gives way to "4 boxes: 6 pairs" (`G-F13.predict_company`, `G-F13.pairs_from_4`, `G-F13.new_pairs.4`); on "The other three already have their values" a green halo round the bars at 2 and 3.5 and "4 boxes: 1 × 2 + 2 × 3.5 + 3 × ? = 6 × 4" on the panel's fourth line; the countdown, lower right of the panel; nothing shows the answer | prediction pause, think time, grid, equation | |
++| 13_6 | Five. That's the only value that brings all six estimates to an average of four. Take the same step at five boxes, and its four new pairs are forced to six and a half. | The countdown goes; on "Five" the fourth line gives way to the solved line, 5 green, and the bar under column 4 rises to 5 (`G-F13.forced_at_4`); on "the only value" a green halo round that line; on "at five boxes" four dots land in a new column 5 with a gold "5", the caption gives way to "5 boxes: 10 pairs" and "5 boxes: 1 × 2 + 2 × 3.5 + 3 × 5 + 4 × ? = 10 × 5" comes in on the panel's fifth line (`G-F13.last_company`, `G-F13.new_pairs.5`); on "forced to six and a half" it gives way to the solved line, 6.5 green, and the bar under column 5 rises to 6.5 (`G-F13.forced_at_5_decimal`, `G-F13.forced_shown`) | grid, equation, bars | |
++| 13_7 | The same step works at every count, for handfuls of any size. Going up by a box, the only new handfuls are the ones that contain the new top box, and it's always their largest number. They're never missing. Their share is the handful size over the count. So each step has exactly one unknown value, and the step fixes it. With five seen from exactly sixty boxes, that share is one in twelve, as we found before. | On "the only new handfuls" "new handfuls: the ones that contain N" on the panel under the company lines; on "it's always their largest number" "their largest number: always N" under it; on "Their share is the handful size over the count" "their share: k ÷ N, never 0"; on "exactly one unknown value" a green halo round the newest column's dots and bar; on "five seen from exactly sixty boxes" "5 seen, 60 boxes: 5 ÷ 60 = 1 in 12" (`G-F1.handful`, `G-F1.at_least`, `G-F13.share_at_60`, `G-F13.recurrence_proved`) | equation, halo, grid | |
++| 13_8 | Each count fixes the next value, all the way up from the smallest company. So only a single recipe of the largest number is unbiased at every count, and it's the gap recipe. | On "Each count fixes the next value" a green halo round each bar in turn, left to right; on "it's the gap recipe" the four general lines go and "estimate = largest + (largest − k) ÷ k" comes in under the company lines, "estimate" green and "largest" gold (chapter 04's formula), and a green halo round the bars (`G-F13.forced_is_gap_recipe`) | bars, lagged reveal, formula, halo | |
++| 13_9 | Now take any unbiased recipe at all, even a recipe that uses every number. For pairs, try three times the smaller number, minus one. Its estimates swing from two all the way to eleven, yet over the ten pairs they still average five. | On "Now take any unbiased recipe at all" the panel's lines go; on "three times the smaller number, minus one" "3 × smaller − 1" on the panel's first line, and beside each dot its value in ink, 2, 5, 8 or 11 by its row, one after another (`G-F13.smaller_recipe`, `G-F13.smaller_estimates`); on "from two all the way to eleven" an ink halo round the four 2s and another round the 11, together (`G-F13.smaller_range`); on "they still average five" "(2 + 2 + 2 + 2 + 5 + 5 + 5 + 8 + 8 + 11) ÷ 10 = 5" on the second line, small (`G-F13.smaller_average`) | grid, lagged reveal, halo, equation | |
++| 13_10 | Average it inside the groups of the larger number. With a fair draw those averages don't depend on the count, so they make a recipe, and averaging keeps it unbiased at every count. So they have to be the staircase again, two, three and a half, five, and six and a half. | On "Average it inside the groups" "topped by 2: 2 ÷ 1 = 2", "topped by 3: (2 + 5) ÷ 2 = 3.5", "topped by 4: (2 + 5 + 8) ÷ 3 = 5" and "topped by 5: (2 + 5 + 8 + 11) ÷ 4 = 6.5" on the panel's third to sixth lines, one after another, the averages green (`G-F13.smaller_grouped`); on "With a fair draw" an ink halo round the badge; on "So they have to be the staircase again" a green halo round the bars | equation, lagged reveal, halo, bars | |
++| 13_11 | It misses by two point four boxes on average, against the gap recipe's one point two. That's the whole argument. Averaging any unbiased recipe inside the groups gives the gap recipe, and never makes its misses bigger, plain or squared. So no unbiased recipe misses by less than the gap recipe. | On "It misses by two point four" the averaging lines go and "average miss: 3 × smaller − 1 2.4, gap recipe 1.2" on two lines, the 1.2 line green (`G-F13.smaller_miss_decimal`, `G-F12.grouped_miss`); on "Averaging any unbiased recipe" "any unbiased recipe" lower on the panel; on "inside the groups gives the gap recipe" a short down arrow under it with "average in the groups" beside it, and "the gap recipe" under the arrow in green; on "never makes its misses bigger" "misses never bigger, plain or squared" under that; on "So no unbiased recipe misses by less" a green halo round "the gap recipe" | equation, halo | |
++| 13_12 | Best doesn't mean every rival does worse. With exactly as many boxes as the handful holds, there's just a single handful, so every unbiased recipe is exactly right. And a recipe that already uses only the largest number doesn't change when you average it. | On "Best doesn't mean every rival does worse" the panel's lower lines go; on "With exactly as many boxes as the handful holds" an ink halo round the column topped by 2 and its bar, and "2 boxes: every unbiased recipe says 2" low on the panel; on "doesn't change when you average it" "gap recipe, averaged: the gap recipe" under it | grid, halo, equation | |
++| 13_13 | A recipe that accepts a little bias can sometimes miss by less. Take seven sixths of the largest number, minus one. For the friends' five boxes it says sixty-nine. Over every handful from seventy-one boxes it averages sixty-nine, two short of the count, yet its misses average about eight point seven boxes against the gap recipe's nine point two, and its squared misses are smaller too. | On "A recipe that accepts a little bias" everything but the badge goes; on "Take seven sixths of the largest number" a table across the frame, heads "gap recipe" in green and "7/6 × largest − 1" in ink (`G-F13.shrunk_recipe`); on "it says sixty-nine" the row "friends' five", 71 and 69 (`G-F3.estimate`, `G-F13.shrunk_friends`); on "it averages sixty-nine" the row "average, 71 boxes", 71 and 69 (`G-F8.average`, `G-F13.shrunk_average_71`); on "two short of the count" an ink halo round that 69 (`G-F13.shrunk_bias_71`); on "about eight point seven" the row "average miss", ≈ 9.2 and ≈ 8.7 (`G-F8.average_miss_decimal`, `G-F13.shrunk_miss_71_shown`); on "its squared misses are smaller too" the row "average squared miss", ≈ 135.8 and ≈ 132.3 (`G-F13.gap_squared_71_shown`, `G-F13.shrunk_squared_71_shown`) | table, halo | |
++| 13_14 | But it doesn't win everywhere. With exactly five boxes, the gap recipe is always right and seven sixths says four and five sixths, and its squared misses are bigger at every count from five to ten. Among recipes that are right on average at every count, though, none misses by less than the gap recipe, as long as the handful is fair. | On "With exactly five boxes" the row "every handful, 5 boxes", 5 and ≈ 4.8 (`G-F13.edge_count`, `G-F13.gap_at_edge`, `G-F13.shrunk_at_edge_shown`); on "bigger at every count from five to ten" "7/6: squared misses bigger at counts 5 to 10" under the table (`G-F13.shrunk_loses_squared_at`); on "Among recipes that are right on average" card I rises; on "as long as the handful is fair" an ink halo round the badge; card I stays until it can be read | table, card, halo | hold |
++
++### Notes for 13
++
++- Unbiased at every count (13_2): a recipe is unbiased when its average
++  over every fair handful equals the count for every count N ≥ k the company
++  could have made, not just for the true one. "Always 71"
++  (`G-F13.always` 71) averages 71 at every count, right only at N = 71
++  (oracle: enumerated at counts 5 to 12 and at 71).
++- The staircase for pairs (13_3 to 13_6), companies `G-F13.companies` 2 to
++  5 with `G-F13.company_pairs` 1, 3, 6 and 10 pairs, of which
++  `G-F13.new_pairs.3`, `.4` and `.5` 2, 3 and 4 are new (topped by the new
++  box): 1 × g(2) = 1 × 2; 1 × 2 + 2 × g(3) = 3 × 3; 1 × 2 + 2 × 3.5 + 3 ×
++  g(4) = 6 × 4; 1 × 2 + 2 × 3.5 + 3 × 5 + 4 × g(5) = 10 × 5. So
++  `G-F13.forced` 2, 7/2, 5, 13/2 (shown `G-F13.forced_shown` 2, 3.5, 5,
++  6.5), the gap recipe's values (`G-F13.forced_is_gap_recipe`, k = 1 to 5).
++  The scene solves each line exactly and refuses a staircase the facts
++  contradict.
++- The general step (13_7), proved, not enumerated (`G-F13.recurrence_proved`):
++  the handfuls of k from 1 to N are those from 1 to N − 1 and the
++  C(N − 1, k − 1) that contain N, whose largest number is N. Unbiased at
++  N − 1 and at N says C(N − 1, k − 1) g(N) = N C(N, k) − (N − 1) C(N − 1, k),
++  one equation with one unknown, whose coefficient is never zero: the share
++  of new handfuls is k ÷ N. With g(k) = k forced at N = k, induction fixes
++  every value, and the identities k C(N, k) = N C(N − 1, k − 1) and
++  k C(N − 1, k) = (N − k) C(N − 1, k − 1) turn the equation into
++  g(N) = N + (N − k) ÷ k. The oracle checks those identities as polynomials
++  in N for k = 1 to 12 and the last step as a polynomial in N and k; its
++  negative control refuses a wrong final identity. With 5 seen from 60
++  boxes the share is 5 ÷ 60 = `G-F13.share_at_60` 1/12, chapter 11's
++  `G-F11.top_chance.60`.
++- The rival (13_9 to 13_11): `G-F13.smaller_recipe` 3 × smaller − 1, the
++  smaller number's own unbiased recipe for pairs (the smaller averages
++  (N + 1) ÷ 3); over the tiny company's pairs `G-F13.smaller_estimates` 2,
++  2, 2, 2, 5, 5, 5, 8, 8, 11, from `G-F13.smaller_range` 2 to 11, average
++  `G-F13.smaller_average` 5; its group averages `G-F13.smaller_grouped` are
++  the staircase; it misses by `G-F13.smaller_miss` 12/5 (2.4) on average,
++  squared `G-F13.smaller_squared_miss` 9. The oracle checks it unbiased, its
++  group averages the staircase, and its misses at least the gap recipe's,
++  plain and squared, for handfuls of 2 to 5 and every count to 13.
++- 13_11 is Lehmann–Scheffé (the name kept off the card): averaging an
++  unbiased recipe inside the groups gives an unbiased recipe of the largest
++  number (12's sufficiency), which can only be the gap recipe, and 12's rule
++  says the misses never grow. "No unbiased recipe misses by less" is the
++  claim; not that every rival misses by more.
++- Ties (13_12): at N = k every handful is 1 to k, so every unbiased recipe
++  says k and misses by nothing; a recipe of the largest number is its own
++  group average. The oracle's negative controls: a staircase bumped at one
++  value is biased at exactly the counts from that value up; and a recipe
++  that sees only min(largest, 4), forced to 2, 7/2 and 5 by the counts 2 to
++  4, has no new value to choose at five boxes and averages 22/5 there, the
++  step with a zero coefficient.
++- The biased recipe (13_13, 13_14): `G-F13.shrunk_recipe` 7/6 × largest − 1
++  (`G-F13.shrunk_factor` 7/6) says `G-F13.shrunk_friends` 69 for the
++  friends; at 71 boxes it averages `G-F13.shrunk_average_71` 69
++  (`G-F13.shrunk_bias_71` −2; its bias is −(N + 1) ÷ 36 at every count,
++  checked from 5 to 300), misses by `G-F13.shrunk_miss_71` ≈ 8.71
++  (`G-F13.shrunk_miss_71_shown` 8.7) against `G-F8.average_miss` ≈ 9.23, and
++  its average squared miss is `G-F13.shrunk_squared_71` 397/3 ≈ 132.3
++  against 4752/35 ≈ 135.8 (`G-F13.gap_squared_71_shown`), all exact over
++  every handful by the counts of handfuls by largest number. It does not
++  dominate: at `G-F13.edge_count` 5 boxes it always says
++  `G-F13.shrunk_at_edge` 29/6 (≈ 4.8) where the gap recipe says
++  `G-F13.gap_at_edge` 5. For counts 5 to 300 the facts list where it does
++  not miss less: squared at `G-F13.shrunk_loses_squared_at` 5 to 10, each
++  strictly bigger (no ties, so the voice's "bigger" holds), and plain at
++  `G-F13.shrunk_loses_plain_at` 5 and 11, bigger at 5 and an exact tie at
++  11 (12/11 each), so the picture says nothing about plain losses.
++  "Sometimes" is said for that reason.
++- Card I (13_14), its fairness first: "fair handful: a recipe unbiased at
++  every N ≥ k, averaged over each largest M, is the only unbiased recipe of
++  M, M + (M − k) ÷ k. So none has a smaller average miss or squared miss at
++  any N." Three lines at every width the lower third narrows to; 189
++  characters, 12.6 s to read at fifteen a second. Its "≥" is a glyph to
++  qualify (card G has the same sign).
++- Prediction (13_5): the tempting answer is "four, the count", or "four and
++  a half". The countdown shows the equation with its "?", the bars at 2 and
++  3.5 and the three new dots; the 5 comes with the answer.
++- Pauses: a question pause after "Could some cleverer unbiased recipe still
++  beat the gap recipe?"; a thought pause after "because we never know which
++  count is true."; a turn after "So it isn't unbiased."; a beat after "and
++  its only pair is one and two."; a thought pause after "The pair topped by
++  two must still say two."; a reveal pause after "Five."; a turn after "The
++  same step works at every count, for handfuls of any size."; a thought
++  pause after "They're never missing."; a beat after "and the step fixes
++  it."; a thought pause after "all the way up from the smallest company.";
++  a beat after "That's the whole argument."; a turn after "Best doesn't mean
++  every rival does worse."; a beat after "two short of the count,"; a
++  thought pause after "But it doesn't win everywhere.". The inspection
++  hold after 13_14 is a scene hold.
+diff '--color=never' -ruN a/explainer_corpus/german_tank/lexicon.json b/explainer_corpus/german_tank/lexicon.json
+--- a/explainer_corpus/german_tank/lexicon.json	2026-10-24 11:10:17.236199747 -0400
++++ b/explainer_corpus/german_tank/lexicon.json	2026-10-24 11:10:17.460342261 -0400
+@@ -1,5 +1,5 @@
+ {
+-  "_comment": "Narration lexicon (natural-sounding-narration-with-frankentts). Chapters 01 to 11, the chapters in script.tsv, say no proper name. Chapters 04 to 11 say six common terms of art, 'Statisticians' (04_3, 08_8, 11_6), 'estimator' (04_3), 'unbiased' (05_7, 07_7, 08_9, 10_4), 'standard deviation' (08_8, 10_9), 'confidence' (09_7) and 'sufficient' (11_6); they are dictionary words, so none is respelled before it is heard. Risks recorded for root's qualification, none of them heard (docs/brief.md lists them with their lines): quick runs of hyphenated numbers (01_4; 03_1 to 03_3); runs of small numbers that are lists, 'one, two, three, four and five' (04_6), 'one, three and four' (05_3), and the gap lists 'zero, zero and three' (06_2, 06_5), 'one, two and zero' (06_2, 06_3) and 'three, zero and zero' (06_5); the stepwise read-back 'skip one box, take the next, skip two, take the next, and stop' (06_3); compound numbers whose joins carry the value, 'a hundred and fifty' (02_8), 'fifty-five' (03_4, 04_4, 04_5), 'seventy-one' (03_8, 03_10, 04_1, 04_5, 05_1), 'five hundred' (04_1), 'over thirteen million' (05_1, 08_4), 'thirty-seven', 'thirty-six' and 'seventy-three' (07_9), 'over nine hundred thousand' and 'sixty-seven stacks' (08_4), 'a hundred and seven' and 'a hundred and eight' (09_3, 09_4, 09_8), which must stay distinct, 'ninety-five' and 'ninety-six' (09_6, 09_7), 'thirty-six' (10_1), 'a hundred and eighty-five', 'thirty-seven' and 'seventy-three' (10_3), 'sixty-seven' and 'a hundred and thirty-seven' (10_8), 'fifteen' and 'twenty-eight' (11_3), 'over four hundred and fifty thousand', 'twenty-nine' and 'eighteen million' (11_4); decimals and halves from chapter 05 on (05_4, 08_3, 08_8, 10_6, 10_9, 12_3, 12_6, 13_3, 15_3), among them 'twenty-eight point six' (10_6) and the four widths 'fourteen point three', 'nine point two', 'seventeen point eight' and 'eleven point seven' (10_9), which must stay distinct; the meaning-carrying groupings 'the largest, plus the largest minus five, over five' and 'sixty plus fifty-five over five' (04_5), 'half of the largest minus two' (05_3), 'N minus five, over six' (07_3, 07_6) and 'the largest minus the size, over the size' (07_10); the letter 'N' (07_1 to 07_3, 07_6); 'estimator' (04_3), 'unbiased' (05_7, 07_7, 08_9, 10_4), 'standard deviation' (08_8, 10_9), 'confidence' (09_7), 'sufficient' (11_6), 'Statisticians' (04_3, 08_8, 11_6), 'analysts' (16_1, drafted). Rao-Blackwell, Lehmann-Scheffe, Ruggles, Brodie and Goodman are card-only and never voiced. Before any voiced name is added, look it up, audition it against a control and a decoy, and lock it here with its sources; the owner's pronunciation overrides every source.",
++  "_comment": "Narration lexicon (natural-sounding-narration-with-frankentts). Chapters 01 to 13, the chapters in script.tsv, say no proper name. Chapters 04 to 13 say six common terms of art, 'Statisticians' (04_3, 08_8, 11_6), 'estimator' (04_3), 'unbiased' (05_7, 07_7, 08_9, 10_4, 12_2, 12_9, 13_1, 13_2, 13_8 to 13_12), 'standard deviation' (08_8, 10_9, 12_15), 'confidence' (09_7) and 'sufficient' (11_6); they are dictionary words, so none is respelled before it is heard. Risks recorded for root's qualification, none of them heard (docs/brief.md lists them with their lines): quick runs of hyphenated numbers (01_4; 03_1 to 03_3); runs of small numbers that are lists, 'one, two, three, four and five' (04_6), 'one, three and four' (05_3), and the gap lists 'zero, zero and three' (06_2, 06_5), 'one, two and zero' (06_2, 06_3) and 'three, zero and zero' (06_5); the stepwise read-back 'skip one box, take the next, skip two, take the next, and stop' (06_3); compound numbers whose joins carry the value, 'a hundred and fifty' (02_8), 'fifty-five' (03_4, 04_4, 04_5), 'seventy-one' (03_8, 03_10, 04_1, 04_5, 05_1), 'five hundred' (04_1), 'over thirteen million' (05_1, 08_4), 'thirty-seven', 'thirty-six' and 'seventy-three' (07_9), 'over nine hundred thousand' and 'sixty-seven stacks' (08_4), 'a hundred and seven' and 'a hundred and eight' (09_3, 09_4, 09_8), which must stay distinct, 'ninety-five' and 'ninety-six' (09_6, 09_7), 'thirty-six' (10_1), 'a hundred and eighty-five', 'thirty-seven' and 'seventy-three' (10_3), 'sixty-seven' and 'a hundred and thirty-seven' (10_8), 'fifteen' and 'twenty-eight' (11_3), 'over four hundred and fifty thousand', 'twenty-nine' and 'eighteen million' (11_4), 'seventy-one' (13_2, 13_13) and 'sixty-nine' (13_13), two apart, which must stay distinct; decimals and halves from chapter 05 on (05_4, 08_3, 08_8, 10_6, 10_9, 12_6, 12_8, 12_10, 12_12, 12_13, 12_15, 13_4, 13_6, 13_10, 13_11, 13_13, 15_3), among them 'twenty-eight point six' (10_6) and the four widths 'fourteen point three', 'nine point two', 'seventeen point eight' and 'eleven point seven' (10_9), which must stay distinct, as must the average misses 'one point four' and 'one point two' (12_13, 13_11) and 'two point four' (13_11), the standard deviations 'about one point seven' and 'exactly one point five' (12_15), and 'about eight point seven' against 'nine point two' (13_13); the fractions 'four and a quarter' (12_10), 'two and a quarter' and 'three quarters' (12_15), 'seven sixths' (13_13, 13_14) and 'four and five sixths' (13_14), where 'sixths' blurred into 'six' changes the recipe; the signed misses 'minus one, zero and plus one' (12_11), whose signs carry the meaning, and the one-sided 'zero, one, two and three' (12_12); the estimate lists 'five, six, seven and eight' (12_5), 'Three and four average three and a half. Four, five and six average five.' (12_6) and the staircase 'two, three and a half, five, and six and a half' (13_10), where 'three and a half, five' must not merge into one number; the meaning-carrying groupings 'the largest, plus the largest minus five, over five' and 'sixty plus fifty-five over five' (04_5), 'half of the largest minus two' (05_3), 'N minus five, over six' (07_3, 07_6) and 'the largest minus the size, over the size' (07_10), 'the handful size over the count' (13_7), 'three times the smaller number, minus one' (13_9) and 'seven sixths of the largest number, minus one' (13_13), where the one comes off after the multiplying; the letter 'N' (07_1 to 07_3, 07_6); 'estimator' (04_3), 'unbiased' (05_7, 07_7, 08_9, 10_4, 12_2, 12_9, 13_1, 13_2, 13_8 to 13_12), 'standard deviation' (08_8, 10_9, 12_15), 'confidence' (09_7), 'sufficient' (11_6), 'Statisticians' (04_3, 08_8, 11_6), 'analysts' (16_1, drafted). Rao-Blackwell, Lehmann-Scheffe, Ruggles, Brodie and Goodman are card-only and never voiced. Before any voiced name is added, look it up, audition it against a control and a decoy, and lock it here with its sources; the owner's pronunciation overrides every source.",
+   "words": {},
+   "accept": {},
+   "phrases": {}
+diff '--color=never' -ruN a/explainer_corpus/german_tank/oracle.py b/explainer_corpus/german_tank/oracle.py
+--- a/explainer_corpus/german_tank/oracle.py	2026-10-24 11:10:17.236292164 -0400
++++ b/explainer_corpus/german_tank/oracle.py	2026-10-24 11:10:17.460685763 -0400
+@@ -89,6 +89,24 @@
+     return f"{tenths // 10}.{tenths % 10}"
+ 
+ 
++def decimal2(x):
++    """x to two decimal places, only when that is exact (4.25, 2.25)."""
++    x = F(x)
++    if (x * 100).denominator != 1 or x < 0:
++        raise SystemExit(f"{x} has no exact positive two-decimal form")
++    whole, hundredths = divmod(int(x * 100), 100)
++    return f"{whole}.{hundredths:02d}"
++
++
++def exact_sqrt(x):
++    """The square root of a rational that is a perfect square (9/4 -> 3/2)."""
++    x = F(x)
++    a, b = isqrt(x.numerator), isqrt(x.denominator)
++    if a * a != x.numerator or b * b != x.denominator:
++        raise SystemExit(f"{x} is not a perfect square")
++    return F(a, b)
++
++
+ def sqrt_about1(x):
+     """The square root of a positive x rounded half up to one decimal place,
+     exactly: the tenths t with ((2t - 1)/20)^2 <= x < ((2t + 1)/20)^2, from
+@@ -256,6 +274,94 @@
+     return n
+ 
+ 
++def risks_of_largest(n, k, recipe):
++    """(average, average miss, average squared miss) of a recipe of the
++    largest number over the fair k-handfuls from 1..n, with the chance that
++    the largest is m taken as all_at_most(m) - all_at_most(m - 1)."""
++    mean = mae = mse = F(0)
++    below = F(0)
++    for mm in range(k, n + 1):
++        upto = all_at_most(mm, n, k)
++        p, below = upto - below, upto
++        e = recipe(mm)
++        mean += p * e
++        mae += p * abs(e - n)
++        mse += p * (e - n) ** 2
++    return mean, mae, mse
++
++
++# --------------------------------------------------- the staircase, proved
++# Polynomials in the count N and the handful size k, as {(power of N, power
++# of k): coefficient}; an identity of polynomials holds for every N and k.
++
++
++def poly(*terms):
++    out = {}
++    for c, i, j in terms:
++        out[i, j] = out.get((i, j), F(0)) + F(c)
++    return {e: c for e, c in out.items() if c != 0}
++
++
++def padd(a, b, sign=1):
++    out = dict(a)
++    for e, c in b.items():
++        out[e] = out.get(e, F(0)) + sign * c
++    return {e: c for e, c in out.items() if c != 0}
++
++
++def pmul(a, b):
++    out = {}
++    for (i, j), c in a.items():
++        for (u, v), d in b.items():
++            out[i + u, j + v] = out.get((i + u, j + v), F(0)) + c * d
++    return {e: c for e, c in out.items() if c != 0}
++
++
++def falling(top, kk):
++    """top (a polynomial) times (top - 1) ... times (top - kk + 1)."""
++    out = poly((1, 0, 0))
++    for i in range(kk):
++        out = pmul(out, padd(top, poly((-i, 0, 0))))
++    return out
++
++
++def recurrence_proof():
++    """The algebra behind 'every count forces the next value', checked as
++    identities of polynomials, not at sample counts.
++
++    Unbiased at N - 1 and at N, the totals of g over all handfuls are
++    (N - 1) C(N - 1, k) and N C(N, k); the handfuls of N boxes are those of
++    N - 1 boxes plus the C(N - 1, k - 1) handfuls that contain N, whose
++    largest is N. So C(N - 1, k - 1) g(N) = N C(N, k) - (N - 1) C(N - 1, k):
++    g(N) has a coefficient of at least 1 and is fixed by the values below
++    it, and g(k) = k by the single handful of k boxes. Dividing by
++    C(N - 1, k - 1) with
++      (a) k C(N, k) = N C(N - 1, k - 1)        [k! C(N, k) = N (N - 1)...(N - k + 1)]
++      (b) k C(N - 1, k) = (N - k) C(N - 1, k - 1)
++    gives k g(N) = N^2 - (N - 1)(N - k) = (k + 1) N - k        (c)
++    = k (N + (N - k)/k): the gap recipe at largest N             (d)
++    and the share of handfuls containing N, C(N - 1, k - 1)/C(N, k) = k/N by
++    (a). (a) and (b) are checked for k = 1..12 as polynomials in N (their
++    falling factorials, times k!); (c) and (d) in N and k together."""
++    n_ = poly((1, 1, 0))
++    k_ = poly((1, 0, 1))
++    one = poly((1, 0, 0))
++    ok = True
++    for kk in range(1, 13):
++        # k! C(N, k) = falling(N, k); k! C(N - 1, k - 1) = k falling(N - 1, k - 1)
++        n_minus_1 = padd(n_, one, -1)
++        lhs_a = pmul(poly((kk, 0, 0)), falling(n_, kk))
++        rhs_a = pmul(n_, pmul(poly((kk, 0, 0)), falling(n_minus_1, kk - 1)))
++        lhs_b = pmul(poly((kk, 0, 0)), falling(n_minus_1, kk))
++        rhs_b = pmul(padd(n_, poly((kk, 0, 0)), -1), pmul(poly((kk, 0, 0)), falling(n_minus_1, kk - 1)))
++        ok = ok and lhs_a == rhs_a and lhs_b == rhs_b
++    n_sq = pmul(n_, n_)
++    c_lhs = padd(n_sq, pmul(padd(n_, one, -1), padd(n_, k_, -1)), -1)
++    c_rhs = padd(pmul(padd(k_, one), n_), k_, -1)
++    d_rhs = padd(pmul(k_, n_), padd(n_, k_, -1))
++    return ok and c_lhs == c_rhs and c_rhs == d_rhs
++
++
+ def forced_values(k, top):
+     """Solve E[g(M)] = n for n = k, k+1, ..., top, one unknown g(n) at a time:
+     the only recipe of the largest number that is unbiased at every count."""
+@@ -756,41 +862,190 @@
+     check("11: for every group of four below 60, the gaps below 60 total 55 = 60 - 5",
+           all(sum(gaps_of(g + (m,))) == m - k for g in combinations(range(1, m), k - 1)))
+ 
+-    # 12: averaging the doubling recipe within pairs that share a largest
++    # 12: the tiny company's ten pairs again, with the doubling recipe. For a
++    # pair, twice the average is the total: the recipe read as a multiple of
++    # the pair's total (two pairs give the slope)
++    a1, a2 = (1, 2), (1, 5)
++    slope = (doubling_recipe(a2) - doubling_recipe(a1)) / (sum(a2) - sum(a1))
++    emit("G-F12.pair_doubling", f"{q(slope)}*total{q(doubling_recipe(a1) - slope * sum(a1))}")
++    dbl = [doubling_recipe(p) for p in pairs]
++    emit("G-F12.doubling_estimates", csv(dbl))
++    emit("G-F12.doubling_average", q(sum(dbl) / len(dbl)))
++    emit("G-F12.doubling_range", csv([min(dbl), max(dbl)]))
++    # the pairs sorted by their largest number, each group's doubling
++    # estimates and their average
+     groups = {}
+     for p in pairs:
+         groups.setdefault(p[-1], []).append(doubling_recipe(p))
+-    emit("G-F12.doubling_estimates", csv([doubling_recipe(p) for p in pairs]))
+-    emit("G-F12.ends_in_5", csv(groups[5]))
+-    emit("G-F12.ends_in_5_average", q(sum(groups[5]) / len(groups[5])))
+-    emit("G-F12.ends_in_5_average_decimal", decimal1(sum(groups[5]) / len(groups[5])))
+-    emit("G-F12.ends_in_4", csv(groups[4]))
+-    emit("G-F12.ends_in_4_average", q(sum(groups[4]) / len(groups[4])))
+-    grouped = {mm: sum(v) / len(v) for mm, v in groups.items()}
+-    emit("G-F12.grouped_is_gap_recipe", flag(all(grouped[p[-1]] == gap_recipe(p) for p in pairs)))
+-    emit("G-F12.doubling_miss", decimal1(mae_over(tn, tk, doubling_recipe)))
+-    emit("G-F12.grouped_miss", decimal1(mae_over(tn, tk, gap_recipe)))
+-    emit("G-F12.doubling_squared_miss", q(mse_over(tn, tk, doubling_recipe)))
+-    emit("G-F12.grouped_squared_miss", q(mse_over(tn, tk, gap_recipe)))
+-
+-    # 13: the forced values of the only unbiased recipe of the largest (pairs)
++    tops = sorted(groups)
++    avg_of = {t: sum(v) / len(v) for t, v in groups.items()}
++    emit("G-F12.groups", len(tops))
++    emit("G-F12.group_tops", csv(tops))
++    emit("G-F12.group_sizes", csv([len(groups[t]) for t in tops]))
++    for t in tops:
++        emit(f"G-F12.ends_in_{t}", csv(groups[t]))
++    for t in tops[1:]:
++        emit(f"G-F12.ends_in_{t}_average", q(avg_of[t]))
++    emit("G-F12.ends_in_5_average_decimal", decimal1(avg_of[5]))
++    emit("G-F12.group_averages", csv([avg_of[t] for t in tops]))
++    emit("G-F12.group_averages_shown", ",".join(q(avg_of[t]) if avg_of[t].denominator == 1 else decimal1(avg_of[t])
++                                                for t in tops))
++    emit("G-F12.grouped_is_gap_recipe", flag(all(avg_of[p[-1]] == gap_recipe(p) for p in pairs)))
++    # a group's average is the same in every company that could have sold
++    # its pairs (given the largest, the smaller is equally likely to be any
++    # number below it: chapter 11), here for companies of up to 12 boxes
++    def group_mean(n, kk, t, recipe):
++        vals = [F(recipe(h)) for h in handfuls(n, kk) if h[-1] == t]
++        return sum(vals) / len(vals)
++    emit("G-F12.group_average_same_for_every_count",
++         flag(all(group_mean(n, tk, t, doubling_recipe) == avg_of[t] for t in tops for n in range(t, 13))))
++    # each pair is one chance in ten, so a group's chance is its pairs in
++    # ten; weighted by those chances the group averages give the ten pairs'
++    # average back, and weighted equally they do not
++    chance = {t: F(len(groups[t]), len(pairs)) for t in tops}
++    emit("G-F12.top_group_chance", q(chance[tops[-1]]))
++    weighted = sum(chance[t] * avg_of[t] for t in tops)
++    equal = sum(avg_of.values()) / len(tops)
++    emit("G-F12.weighted_average", q(weighted))
++    emit("G-F12.equal_weight_average", q(equal))
++    emit("G-F12.equal_weight_average_shown", decimal2(equal))
++    check("12: the groups weighted by their chances average the ten estimates' 5; weighted equally, 17/4",
++          weighted == sum(dbl) / len(dbl) == tn and equal == F(17, 4) != tn)
++    # the misses as arrows from the count: the one group whose arrows point
++    # both ways, and the largest group whose arrows all point one way
++    signed = {t: [e - tn for e in groups[t]] for t in tops}
++    both = [t for t in tops if min(signed[t]) < 0 < max(signed[t])]
++    one_way = [t for t in tops if len(groups[t]) > 1 and t not in both]
++    emit("G-F12.cancel_group", both[0])
++    emit("G-F12.cancel_misses", csv(signed[both[0]]))
++    emit("G-F12.same_side_group", max(one_way))
++    emit("G-F12.same_side_misses", csv(signed[max(one_way)]))
++    emit("G-F12.same_side_average_miss", q(abs(avg_of[max(one_way)] - tn)))
++    check("12: one group's arrows point both ways (topped by 4: -1, 0, 1, its average misses by 0); the group "
++          "topped by 5's all point one way (its average misses by their average, 3/2)",
++          both == [4] and avg_of[4] == tn
++          and abs(avg_of[5] - tn) == sum(abs(x) for x in signed[5]) / len(signed[5]) == F(3, 2))
++    d_mae, g_mae = mae_over(tn, tk, doubling_recipe), mae_over(tn, tk, gap_recipe)
++    d_mse, g_mse = mse_over(tn, tk, doubling_recipe), mse_over(tn, tk, gap_recipe)
++    emit("G-F12.doubling_miss", decimal1(d_mae))
++    emit("G-F12.grouped_miss", decimal1(g_mae))
++    emit("G-F12.doubling_squared_miss", q(d_mse))
++    emit("G-F12.grouped_squared_miss", q(g_mse))
++    emit("G-F12.grouped_squared_miss_shown", decimal2(g_mse))
++    emit("G-F12.doubling_sd_about", sqrt_about1(d_mse))
++    root = exact_sqrt(g_mse)
++    emit("G-F12.grouped_sd", q(root))
++    emit("G-F12.grouped_sd_decimal", decimal1(root))
++    # for squares, the drop is exactly the spread of the estimates inside
++    # their groups, weighted by the groups' chances
++    inside = sum(chance[t] * sum((e - avg_of[t]) ** 2 for e in groups[t]) / len(groups[t]) for t in tops)
++    emit("G-F12.spread_inside", q(inside))
++    check("12: averaging inside the groups lowers the average squared miss by exactly the spread inside them "
++          "(3 - 9/4 = 3/4), and the average miss from 7/5 to 6/5",
++          d_mse - g_mse == inside == F(3, 4) and (d_mae, g_mae) == (F(7, 5), F(6, 5)))
++
++    # 13: unbiased must hold at every count. A recipe that always says 71 is
++    # exactly right when the count is 71, and biased at every other count
++    always = lambda h: F(n71)
++    emit("G-F13.always", n71)
++    check("13: always saying 71 averages 71 over the 71-box handfuls, and misses the count on average by "
++          "71 - N at every other count (enumerated, counts 5..12)",
++          sum(always(None) * c for c in by_max.values()) / count == n71
++          and all(mean_over(n, k, always) - n == n71 - n != 0 for n in range(k, 13)))
++    # the staircase for pairs: in a company of n boxes, the pairs topped by n
++    # carry the one value no smaller company forces
++    companies = list(range(tk, tn + 1))
++    emit("G-F13.smallest_company", companies[0])
++    emit("G-F13.next_company", companies[1])
++    emit("G-F13.predict_company", companies[2])
++    emit("G-F13.last_company", companies[-1])
++    emit("G-F13.companies", csv(companies))
++    emit("G-F13.company_pairs", csv([comb(n, tk) for n in companies]))
++    emit("G-F13.pairs_from_3", comb(3, tk))
++    emit("G-F13.pairs_from_4", comb(4, tk))
++    for n in companies[1:]:
++        emit(f"G-F13.new_pairs.{n}", sum(1 for h in handfuls(n, tk) if h[-1] == n))
++    new_values = {n: len({h[-1] for h in handfuls(n, tk)} - {h[-1] for h in handfuls(n - 1, tk)}) for n in companies}
++    emit("G-F13.new_values_per_count", new_values[tn] if len(set(new_values.values())) == 1 else "unequal")
+     forced = forced_values(tk, tn)
+     emit("G-F13.forced", csv([forced[mm] for mm in range(tk, tn + 1)]))
++    emit("G-F13.forced_at_2", q(forced[2]))
+     emit("G-F13.forced_at_3_decimal", decimal1(forced[3]))
+     emit("G-F13.forced_at_4", q(forced[4]))
+-    emit("G-F13.pairs_from_3", comb(3, 2))
++    emit("G-F13.forced_at_5", q(forced[5]))
++    emit("G-F13.forced_at_5_decimal", decimal1(forced[5]))
++    emit("G-F13.forced_shown", ",".join(q(forced[mm]) if forced[mm].denominator == 1 else decimal1(forced[mm])
++                                        for mm in range(tk, tn + 1)))
++    emit("G-F13.company_total.4", sum(forced[h[-1]] for h in handfuls(4, tk)))
+     forced5 = forced_values(k, 40)
+     emit("G-F13.forced_is_gap_recipe", flag(all(forced5[mm] == mm + F(mm - k, k) for mm in forced5)))
+-    # a slightly biased recipe of the largest misses less, squared and plain, at 71
+-    shrunk = {mm: F(k + 2, k + 1) * mm - 1 for mm in by_max}
+-    shrunk_mean = sum(shrunk[mm] * c for mm, c in by_max.items()) / count
+-    shrunk_mse = sum((shrunk[mm] - n71) ** 2 * c for mm, c in by_max.items()) / count
+-    shrunk_mae = sum(abs(shrunk[mm] - n71) * c for mm, c in by_max.items()) / count
++    # the share of handfuls topped by the count itself: k/N, never zero (60
++    # boxes, five seen: chapter 11's 1/12)
++    emit("G-F13.share_at_60", q(F(comb(m - 1, k - 1), comb(m, k))))
++    emit("G-F13.recurrence_proved", flag(recurrence_proof()))
++    # any unbiased recipe, even three times the smaller number minus one,
++    # averages inside its groups to the same staircase
++    a1, a2 = (1, 5), (2, 5)
++    slope = smallest_recipe(a2) - smallest_recipe(a1)
++    emit("G-F13.smaller_recipe", f"{q(slope)}*smaller{q(smallest_recipe(a1) - slope * a1[0])}")
++    sm = [smallest_recipe(p) for p in pairs]
++    emit("G-F13.smaller_estimates", csv(sm))
++    emit("G-F13.smaller_range", csv([min(sm), max(sm)]))
++    emit("G-F13.smaller_average", q(sum(sm) / len(sm)))
++    emit("G-F13.smaller_grouped", csv([group_mean(tn, tk, t, smallest_recipe) for t in tops]))
++    emit("G-F13.smaller_miss", q(mae_over(tn, tk, smallest_recipe)))
++    emit("G-F13.smaller_miss_decimal", decimal1(mae_over(tn, tk, smallest_recipe)))
++    emit("G-F13.smaller_squared_miss", q(mse_over(tn, tk, smallest_recipe)))
++    check("13: three times the smaller minus one averages 5 over the ten pairs, and inside its groups gives "
++          "the staircase 2, 7/2, 5, 13/2",
++          sum(sm) / len(sm) == tn
++          and [group_mean(tn, tk, t, smallest_recipe) for t in tops] == [forced[t] for t in tops])
++    # a biased recipe of the largest, seven sixths of it minus one: on the
++    # friends' boxes, and over every handful of the 71-box company (counted
++    # by enumeration above)
++    factor = F(k + 2, k + 1)
++    shrunk = lambda mm: factor * mm - 1
++    emit("G-F13.shrunk_factor", q(factor))
++    emit("G-F13.shrunk_recipe", f"{q(factor)}*largest-1")
++    emit("G-F13.shrunk_friends", q(shrunk(m)))
++    s_mean = sum(shrunk(mm) * c for mm, c in by_max.items()) / count
++    s_mae = sum(abs(shrunk(mm) - n71) * c for mm, c in by_max.items()) / count
++    s_mse = sum((shrunk(mm) - n71) ** 2 * c for mm, c in by_max.items()) / count
+     gap_mse = sum((e - n71) ** 2 * c for e, c in gap_dist.items()) / count
+-    emit("G-F13.shrunk_factor", q(F(k + 2, k + 1)))
+-    emit("G-F13.shrunk_bias_71", q(shrunk_mean - n71))
+-    emit("G-F13.shrunk_misses_less_squared", flag(shrunk_mse < gap_mse))
+-    emit("G-F13.shrunk_misses_less", flag(shrunk_mae < mae71))
++    check("13: the sequential-draw chances of the largest give the 71-box enumeration's averages for the "
++          "7/6 recipe", risks_of_largest(n71, k, shrunk) == (s_mean, s_mae, s_mse))
++    emit("G-F13.shrunk_average_71", q(s_mean))
++    emit("G-F13.shrunk_bias_71", q(s_mean - n71))
++    emit("G-F13.shrunk_miss_71", q(s_mae))
++    emit("G-F13.shrunk_miss_71_shown", about1(s_mae))
++    emit("G-F13.shrunk_squared_71", q(s_mse))
++    emit("G-F13.shrunk_squared_71_shown", about1(s_mse))
++    emit("G-F13.gap_squared_71_shown", about1(gap_mse))
++    emit("G-F13.shrunk_misses_less_squared", flag(s_mse < gap_mse))
++    emit("G-F13.shrunk_misses_less", flag(s_mae < mae71))
++    # where it loses: with exactly k boxes the gap recipe is always right.
++    # Counts 5 to 300 where the 7/6 recipe does not miss less than the gap
++    # recipe, squared or plain, and its bias at each, -(N + 1)/36
++    edge = tuple(range(1, k + 1))
++    emit("G-F13.edge_count", k)
++    emit("G-F13.gap_at_edge", q(gap_recipe(edge)))
++    emit("G-F13.shrunk_at_edge", q(shrunk(k)))
++    emit("G-F13.shrunk_at_edge_shown", about1(shrunk(k)))
++    loses_sq, loses_plain, bias_ok = [], [], True
++    for n in range(k, 301):
++        g_mean_n, g_mae_n, g_mse_n = risks_of_largest(n, k, lambda mm: mm + F(mm - k, k))
++        s_mean_n, s_mae_n, s_mse_n = risks_of_largest(n, k, shrunk)
++        if s_mse_n >= g_mse_n:
++            loses_sq.append(n)
++        if s_mae_n >= g_mae_n:
++            loses_plain.append(n)
++        bias_ok = bias_ok and g_mean_n == n and s_mean_n - n == -F(n + 1, 36)
++    check("13: at every count 5..300 the gap recipe averages the count and the 7/6 recipe misses it on "
++          "average by -(N + 1)/36", bias_ok)
++    check("13: the 7/6 recipe loses at the edge: at 5 boxes it says 29/6 where the gap recipe is exactly 5",
++          shrunk(k) == F(29, 6) and gap_recipe(edge) == k and 5 in loses_sq and 5 in loses_plain)
++    emit("G-F13.shrunk_loses_squared_at", csv(loses_sq))
++    emit("G-F13.shrunk_loses_plain_at", csv(loses_plain))
+ 
+     # 14: unfair draws. The same five boxes, bought at one shop that only ever
+     # received boxes 1 to 71 of the 200 the company made: a fair handful from
+@@ -1005,6 +1260,103 @@
+             ratio_ok &= (d == g) == (kk == 1 or n == kk)
+     check("10: doubling's average squared miss is (N+1)(N-k)/(3k) = (k+2)/3 of the gap recipe's (k<=5, N<=13)",
+           ratio_ok)
++    # 12's sentences at their edges, for the doubling recipe and the rival
++    # three-times-the-smaller recipe, k = 2..4, N = k..12: inside every group
++    # the average's miss is at most the average of the misses, equal exactly
++    # when no two misses point opposite ways; its squared miss falls short of
++    # the average squared miss by exactly the spread inside the group (zero
++    # only when the group's estimates agree); weighted by their chances the
++    # groups give back the overall average, and weighted equally they never
++    # do once N > k
++    def by_top(n, kk, recipe):
++        out = {}
++        for h in handfuls(n, kk):
++            out.setdefault(h[-1], []).append(F(recipe(h)))
++        return out
++    jensen_ok = weights_ok = True
++    for recipe in (doubling_recipe, smallest_recipe):
++        for kk in range(2, 5):
++            for n in range(kk, 13):
++                groups = by_top(n, kk, recipe)
++                for vals in groups.values():
++                    avg, misses = sum(vals) / len(vals), [v - n for v in vals]
++                    plain = sum(abs(x) for x in misses) / len(misses)
++                    squared = sum(x * x for x in misses) / len(misses)
++                    spread = sum((v - avg) ** 2 for v in vals) / len(vals)
++                    one_way = min(misses) >= 0 or max(misses) <= 0
++                    jensen_ok &= abs(avg - n) <= plain and (abs(avg - n) == plain) == one_way
++                    jensen_ok &= squared - (avg - n) ** 2 == spread and (spread == 0) == (len(set(vals)) == 1)
++                weighted_mean = sum(F(len(v), comb(n, kk)) * sum(v) / len(v) for v in groups.values())
++                equal_mean = sum(sum(v) / len(v) for v in groups.values()) / len(groups)
++                weights_ok &= weighted_mean == n and (equal_mean == n) == (n == kk)
++    check("12: inside every group the average misses by at most the average miss (equal exactly when the "
++          "misses are one-sided) and by exactly the spread less squared (doubling and 3*smaller-1, k=2..4, N<=12)",
++          jensen_ok)
++    check("12: groups weighted by their chances average N; weighted equally they miss N whenever N > k", weights_ok)
++    # NEGATIVE 12: averaging does not always help strictly. A recipe of the
++    # largest is unchanged by it, and with a single box or N = k every
++    # recipe of the handful already is one
++    check("NEGATIVE 12: averaging changes nothing for the gap recipe itself (its groups agree), for one box, "
++          "or at N = k (k<=5, N<=12)",
++          all(len(set(v)) == 1 for kk in range(1, 5) for n in range(kk, 13)
++              for v in by_top(n, kk, gap_recipe).values())
++          and all(mae_over(n, 1, doubling_recipe) == mae_over(n, 1, gap_recipe) for n in range(1, 13))
++          and all(mse_over(kk, kk, doubling_recipe) == mse_over(kk, kk, gap_recipe) == 0 for kk in range(1, 6)))
++    # 11 carried into 12: with fair draws a group's average is the same at
++    # every count, so it is a recipe; with draws that favour bigger numbers
++    # (weighted() above) the doubling average given the largest changes with
++    # the count, so "replace it by its group's average" would need N
++    fair_same = all(len({sum(by_top(n, kk, doubling_recipe)[t]) / len(by_top(n, kk, doubling_recipe)[t])
++                         for n in range(t, 13)}) == 1 for kk in range(2, 5) for t in range(kk, 13))
++    check("12: with fair draws each group's doubling average is the same in every company it fits (k=2..4, N<=12)",
++          fair_same)
++    for kk, top in ((2, 4), (3, 6)):
++        avgs = []
++        for n in range(top, top + 4):
++            sub = {h: p for h, p in weighted(n, kk).items() if h[-1] == top}
++            avgs.append(sum(p * doubling_recipe(h) for h, p in sub.items()) / sum(sub.values()))
++        check(f"NEGATIVE 12: weighted draws (k={kk}, largest {top}): the doubling average given the largest "
++              f"changes with the count", len(set(avgs)) == len(avgs))
++    # 13: the staircase. recurrence_proof() checks the algebra as polynomial
++    # identities (every N, every k); the enumerations below are controls
++    check("13: the recurrence and its solution hold as polynomial identities (recurrence_proof)",
++          recurrence_proof())
++    wrong = padd(pmul(poly((1, 1, 0)), poly((1, 1, 0))),
++                 pmul(padd(poly((1, 1, 0)), poly((1, 0, 0)), -1), padd(poly((1, 1, 0)), poly((1, 0, 1)))), -1)
++    check("NEGATIVE 13: the polynomial check refuses a wrong step, N^2 - (N - 1)(N + k) != (k + 1)N - k",
++          wrong != padd(pmul(padd(poly((1, 0, 1)), poly((1, 0, 0))), poly((1, 1, 0))), poly((1, 0, 1)), -1))
++    check("13: the share of handfuls topped by N is k/N, never zero (k<=6, N<=30)",
++          all(F(sum(1 for h in handfuls(n, kk) if h[-1] == n), comb(n, kk)) == F(kk, n) > 0
++              for kk in range(1, 7) for n in range(kk, 31) if comb(n, kk) <= 600000))
++    # control: change the staircase at one value and the recipe is biased at
++    # exactly the counts from that value on
++    perturb_ok = True
++    for kk in (2, 3):
++        base = forced_values(kk, 14)
++        for bump in range(kk, 13):
++            g = dict(base)
++            g[bump] += 1
++            for n in range(kk, 15):
++                biased = mean_over(n, kk, lambda h: g[h[-1]]) != n
++                perturb_ok &= biased == (n >= bump)
++    check("13: raising the staircase at one value biases the recipe at that count and every larger one, and "
++          "at no smaller one (k=2,3, N<=14)", perturb_ok)
++    # NEGATIVE 13: with no new value at a count there is nothing to solve for.
++    # Pairs, the largest capped at 4: forced to 2, 7/2, 5 by counts 2..4, the
++    # count of 5 then averages 22/5, so no unbiased recipe of it exists
++    capped = forced_values(2, 4)
++    check("NEGATIVE 13: a recipe of min(largest, 4) for pairs, forced by counts 2..4, averages 22/5 at 5 boxes",
++          mean_over(5, 2, lambda h: capped[min(h[-1], 4)]) == F(22, 5))
++    rival_ok = True
++    for kk in range(2, 6):
++        for n in range(kk, 14):
++            rival_ok &= mean_over(n, kk, smallest_recipe) == n
++            groups = by_top(n, kk, smallest_recipe)
++            rival_ok &= all(sum(v) / len(v) == t + F(t - kk, kk) for t, v in groups.items())
++            rival_ok &= mae_over(n, kk, gap_recipe) <= mae_over(n, kk, smallest_recipe)
++            rival_ok &= mse_over(n, kk, gap_recipe) <= mse_over(n, kk, smallest_recipe)
++    check("13: (k+1)*smaller - 1 is unbiased, averages inside its groups to the staircase, and misses at least "
++          "as much, plain and squared (k=2..5, N<=13)", rival_ok)
+     # the sequential-draw chance equals enumeration on small cases
+     check("all-at-most product == enumeration (N<=14, k<=4)",
+           all(all_at_most(mm, n, kk) == F(sum(1 for h in handfuls(n, kk) if h[-1] <= mm), comb(n, kk))
+diff '--color=never' -ruN a/explainer_corpus/german_tank/script.tsv b/explainer_corpus/german_tank/script.tsv
+--- a/explainer_corpus/german_tank/script.tsv	2026-10-24 11:10:17.240837311 -0400
++++ b/explainer_corpus/german_tank/script.tsv	2026-10-24 11:10:17.465455119 -0400
+@@ -99,3 +99,33 @@
+ 11_6	Nothing. Given the largest, their pattern is the same for every count, so it can't favour any count over another. Statisticians say the largest number is sufficient. It holds everything a fair handful can tell you about the count.
+ 11_7	That's why the gap recipe needs only the largest number. Whatever the other four are, the gaps below sixty hold fifty-five numbers, sixty minus five. Ours split them fairly evenly, and the strange handful's put nearly all of them in a single gap.
+ 11_8	All of this needs the handful to be fair. If bigger numbers were likelier to be picked, the other four could shift with the count and carry a clue of their own. With a fair handful they say nothing more about the count, but they can still warn you when a draw doesn't look fair.
++12_1	Back to the tiny company of five boxes, where any two are as likely to be seen as any other two. Here are its ten pairs again, now with the doubling recipe's estimates. For a pair, doubling the average just gives the total, so the recipe adds the two numbers and takes away one.
++12_2	They average five, so doubling is unbiased here too. But they wobble, from two all the way up to eight.
++12_3	Where does the wobble come from? The last chapter showed that once you know the larger number, the smaller carries no news about the count. Doubling listens to it anyway, so the four pairs topped by five get four different estimates.
++12_4	So sort the pairs by their larger number. Each pair keeps its squares and its estimate, and moves next to the pairs that share its larger number. That makes four groups, topped by two, three, four and five, with one, two, three and four pairs.
++12_5	Look at the biggest group. Doubling says five, six, seven and eight for its pairs. What's their average?
++12_6	Six and a half. That's what the gap recipe says for every pair topped by five. The other groups work the same way. Three and four average three and a half. Four, five and six average five. And the lone pair topped by two says two.
++12_7	So every group's average is exactly the gap recipe's estimate. Averaging inside the groups turns the doubling recipe into the gap recipe.
++12_8	And a recipe can use these averages without knowing the count. With a fair draw, once the larger number is known, every smaller number below it is equally likely, whatever the count. So in a company of six boxes, or eight, the pairs topped by five still average six and a half.
++12_9	Is the averaged recipe still unbiased? The groups aren't equally likely. Each pair is a chance in ten, so a group's chance is its number of pairs in ten, and the biggest group's is four in ten.
++12_10	Weight each group's average by its chance, and the ten pairs' average comes back, exactly five. Give the four groups equal weight instead, and you'd get four and a quarter, because the lone pair would count as much as the biggest group.
++12_11	Now the misses. Draw each estimate's miss as an arrow from five, the true count. In the group topped by four, doubling's arrows are minus one, zero and plus one. They cancel, so the group's average misses by nothing at all.
++12_12	In the group topped by five, the arrows are zero, one, two and three, all on the same side. Nothing cancels, so the average misses by one and a half, the average length of the arrows.
++12_13	Add it up over all ten pairs. Ignoring direction, doubling misses by one point four boxes on average, and the gap recipe by one point two.
++12_14	That's a rule, not luck. The arrow of an average is never longer than the average length of the arrows. It's shorter when they point both ways, and just as long when they all point the same way. So averaging inside the groups can never make the average miss bigger.
++12_15	Squared misses tell the same story with different numbers. Doubling's squared misses average three, the gap recipe's two and a quarter, so the standard deviation falls from about one point seven to exactly one point five. For squares, the drop, three quarters, is exactly the wobble inside the groups.
++12_16	So averaging any recipe inside the groups of the largest number keeps its average and never makes its misses bigger, plain or squared. That's why the gap recipe beat the doubling recipe.
++13_1	Averaging turned the doubling recipe into the gap recipe, and shrank its misses. Could some cleverer unbiased recipe still beat the gap recipe? To find out, we need to know every recipe that's unbiased.
++13_2	Unbiased has to hold at every count the company could have made, because we never know which count is true. A recipe that always says seventy-one is right on average if the count is seventy-one, and wrong on average at every other count. So it isn't unbiased.
++13_3	Start with pairs, and recipes that look only at the larger number. The smallest company with a pair has two boxes, and its only pair is one and two. To average two, the recipe must say two when the larger number is two.
++13_4	Three boxes make three pairs. The pair topped by two must still say two. The other two are topped by three, and all three estimates must average three, so those two must say three and a half.
++13_5	Four boxes make six pairs, and three of them are topped by four. The other three already have their values. What must the recipe say for the new three?
++13_6	Five. That's the only value that brings all six estimates to an average of four. Take the same step at five boxes, and its four new pairs are forced to six and a half.
++13_7	The same step works at every count, for handfuls of any size. Going up by a box, the only new handfuls are the ones that contain the new top box, and it's always their largest number. They're never missing. Their share is the handful size over the count. So each step has exactly one unknown value, and the step fixes it. With five seen from exactly sixty boxes, that share is one in twelve, as we found before.
++13_8	Each count fixes the next value, all the way up from the smallest company. So only a single recipe of the largest number is unbiased at every count, and it's the gap recipe.
++13_9	Now take any unbiased recipe at all, even a recipe that uses every number. For pairs, try three times the smaller number, minus one. Its estimates swing from two all the way to eleven, yet over the ten pairs they still average five.
++13_10	Average it inside the groups of the larger number. With a fair draw those averages don't depend on the count, so they make a recipe, and averaging keeps it unbiased at every count. So they have to be the staircase again, two, three and a half, five, and six and a half.
++13_11	It misses by two point four boxes on average, against the gap recipe's one point two. That's the whole argument. Averaging any unbiased recipe inside the groups gives the gap recipe, and never makes its misses bigger, plain or squared. So no unbiased recipe misses by less than the gap recipe.
++13_12	Best doesn't mean every rival does worse. With exactly as many boxes as the handful holds, there's just a single handful, so every unbiased recipe is exactly right. And a recipe that already uses only the largest number doesn't change when you average it.
++13_13	A recipe that accepts a little bias can sometimes miss by less. Take seven sixths of the largest number, minus one. For the friends' five boxes it says sixty-nine. Over every handful from seventy-one boxes it averages sixty-nine, two short of the count, yet its misses average about eight point seven boxes against the gap recipe's nine point two, and its squared misses are smaller too.
++13_14	But it doesn't win everywhere. With exactly five boxes, the gap recipe is always right and seven sixths says four and five sixths, and its squared misses are bigger at every count from five to ten. Among recipes that are right on average at every count, though, none misses by less than the gap recipe, as long as the handful is fair.
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/chapters/mod.rs b/explainer_corpus/german_tank/src/chapters/mod.rs
+--- a/explainer_corpus/german_tank/src/chapters/mod.rs	2026-10-24 11:10:17.241047395 -0400
++++ b/explainer_corpus/german_tank/src/chapters/mod.rs	2026-10-24 11:10:17.465671287 -0400
+@@ -1,16 +1,18 @@
+ //! One scene per chapter, in storyboard order, with its score intensity
+ //! (`0.0..=1.0`). Keys are `NN_name`; narration line ids `NN_k` belong to
+ //! the chapter with the same `NN`. Only chapters with a native scene are
+-//! registered: chapters 12 to 16 are written in full in
++//! registered: chapters 14 to 16 are written in full in
+ //! docs/storyboard-draft.md and join this registry, docs/storyboard.md and
+ //! script.tsv together when their scenes exist. Chapters 02 to 04 and 06 to
+-//! 11 share one number line, built in [`friends_line`]; chapters 04 to 11
++//! 11 share one number line, built in [`friends_line`]; chapters 04 to 13
+ //! share the halo, replacement and panel builders of [`what_we_assume`];
+-//! chapters 07 and 11 reuse the gap line of [`gaps_trade_places`], and
+-//! chapters 09 and 10 the bars, count mark and spans of [`one_estimate`].
++//! chapters 07 and 11 to 13 reuse the gap line or the halos of
++//! [`gaps_trade_places`], and chapters 09, 10 and 13 the bars, count mark,
++//! spans or fractions of [`one_estimate`].
+ 
+ pub mod a_rival_recipe;
+ pub mod a_thousand_boxes;
++pub mod averaging_the_wobble;
+ pub mod counting_the_gaps;
+ pub mod draw;
+ pub mod every_handful;
+@@ -19,6 +21,7 @@
+ pub mod gaps_trade_places;
+ pub mod glyphs;
+ pub mod how_far_off;
++pub mod nothing_does_better;
+ pub mod one_estimate;
+ pub mod right_on_average;
+ pub mod the_largest_says_it_all;
+@@ -83,5 +86,15 @@
+             make: |kit| Box::new(the_largest_says_it_all::TheLargestSaysItAll { kit }),
+             intensity: 0.6,
+         },
++        Chapter {
++            key: "12_averaging_the_wobble",
++            make: |kit| Box::new(averaging_the_wobble::AveragingTheWobble { kit }),
++            intensity: 0.55,
++        },
++        Chapter {
++            key: "13_nothing_does_better",
++            make: |kit| Box::new(nothing_does_better::NothingDoesBetter { kit }),
++            intensity: 0.6,
++        },
+     ]
+ }
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/facts.rs b/explainer_corpus/german_tank/src/facts.rs
+--- a/explainer_corpus/german_tank/src/facts.rs	2026-10-24 11:10:17.241536564 -0400
++++ b/explainer_corpus/german_tank/src/facts.rs	2026-10-24 11:10:17.465882288 -0400
+@@ -64,6 +64,13 @@
+ pub const PAIR_MORE: [u64; 2] = [6, 8];
+ pub const GROUPS_ROUND: u128 = 10_000;
+ 
++/// Chapter 12 checks each group's average in every company of pairs up to
++/// [`GROUP_COMPANIES_TO`] boxes; chapter 13 lists the counts up to
++/// [`LOSES_UP_TO`] where the 7/6 recipe does not miss less than the gap
++/// recipe.
++const GROUP_COMPANIES_TO: u64 = 12;
++const LOSES_UP_TO: u64 = 300;
++
+ /// The second count 09_2 tries, and the larger handful of 09's last
+ /// prediction.
+ const SECOND_COUNT: u64 = 100;
+@@ -123,6 +130,30 @@
+     bars
+ }
+ 
++/// The algebra of chapter 13's staircase, as identities of polynomials
++/// checked by the degree bound (a polynomial of degree at most d in N that
++/// is zero at d + 1 counts is zero at every count). For k = 1..=12, (a)
++/// k·C(N, k) = N·C(N − 1, k − 1) and (b) k·C(N − 1, k) = (N − k)·C(N − 1,
++/// k − 1) have degree k in N and are checked at N = 1..=k + 1 (there choose
++/// is the polynomial's value, 0 below j for C(x, j)). Dividing the
++/// recurrence C(N − 1, k − 1)·g(N) = N·C(N, k) − (N − 1)·C(N − 1, k) by
++/// C(N − 1, k − 1) with them gives k·g(N) = N² − (N − 1)(N − k), and (c)
++/// that is (k + 1)N − k, (d) k times the gap recipe N + (N − k)/k: degree 2
++/// in N and 1 in k, checked on N = 0, 1, 2 by k = 0, 1.
++fn staircase_algebra_holds() -> bool {
++    let c = |x: u64, j: u64| Q::count(choose(x, j));
++    let fixed_k = (1..=12u64).all(|k| {
++        (1..=k + 1).all(|n| {
++            let (kq, nq) = (int(k), int(n));
++            kq * c(n, k) == nq * c(n - 1, k - 1) && kq * c(n - 1, k) == (nq - kq) * c(n - 1, k - 1)
++        })
++    });
++    let grid = (0..=2i128).all(|n| {
++        (0..=1i128).all(|k| n * n - (n - 1) * (n - k) == (k + 1) * n - k && k * n + (n - k) == (k + 1) * n - k)
++    });
++    fixed_k && grid
++}
++
+ /// A handful's gap list with its top gap, up to a known count `n`.
+ pub fn gap_list(hand: &[u64], n: u64) -> Vec<u64> {
+     let mut g = gaps(hand);
+@@ -668,16 +699,9 @@
+     f.add("G-F11.silly_gaps", csv(&gaps(&SILLY)))?;
+     f.add("G-F11.silly_unseen", gaps(&SILLY).iter().sum::<u64>())?;
+ 
+-    // 12: averaging the doubling recipe within pairs that share a largest
+-    let dbl: Vec<Q> = pairs.iter().map(|p| doubling_recipe(p)).collect();
+-    let group = |top: u64| -> Vec<Q> {
+-        pairs
+-            .iter()
+-            .zip(&dbl)
+-            .filter(|(p, _)| p[1] == top)
+-            .map(|(_, &d)| d)
+-            .collect()
+-    };
++    // 12: the tiny company's ten pairs again, with the doubling recipe. For a
++    // pair, twice the average is the total: the recipe read as a multiple of
++    // the pair's total (two pairs give the slope)
+     fn mean(v: &[Q]) -> Q {
+         v.iter().fold(Q::ZERO, |s, &x| s + x) / Q::int(v.len() as i128)
+     }
+@@ -687,44 +711,285 @@
+     fn squared(v: &[Q], count: Q) -> Q {
+         mean(&v.iter().map(|&x| (x - count) * (x - count)).collect::<Vec<_>>())
+     }
++    fn total(p: &[u64]) -> Q {
++        int(p.iter().sum())
++    }
++    fn top_of(p: &[u64]) -> u64 {
++        p[TINY_SEEN - 1]
++    }
++    // (k + 1) times the smaller number, minus one (chapter 13's rival)
++    fn smaller(p: &[u64]) -> Q {
++        Q::int((p.len() as i128 + 1) * p[0] as i128) - Q::ONE
++    }
++    // a whole value as it is, a half to one decimal (the table's column)
++    let shown = |x: Q| {
++        if x.whole().is_some() {
++            Ok(x.to_string())
++        } else {
++            x.decimal1()
++        }
++    };
++    let shown_all = |v: &[Q]| -> Result<String, String> {
++        Ok(v.iter().map(|&x| shown(x)).collect::<Result<Vec<_>, _>>()?.join(","))
++    };
++    let (a1, a2): ([u64; 2], [u64; 2]) = ([1, 2], [1, TINY]);
++    let slope = (doubling_recipe(&a2) - doubling_recipe(&a1)) / (total(&a2) - total(&a1));
++    f.add(
++        "G-F12.pair_doubling",
++        format!("{slope}*total{}", doubling_recipe(&a1) - slope * total(&a1)),
++    )?;
++    let dbl: Vec<Q> = pairs.iter().map(|p| doubling_recipe(p)).collect();
+     f.add("G-F12.doubling_estimates", csv(&dbl))?;
+-    f.add("G-F12.ends_in_5", csv(&group(5)))?;
+-    f.add("G-F12.ends_in_5_average", mean(&group(5)))?;
+-    f.add("G-F12.ends_in_5_average_decimal", mean(&group(5)).decimal1()?)?;
+-    f.add("G-F12.ends_in_4", csv(&group(4)))?;
+-    f.add("G-F12.ends_in_4_average", mean(&group(4)))?;
++    f.add("G-F12.doubling_average", mean(&dbl))?;
++    let lowest = *dbl.iter().min().ok_or("no pairs")?;
++    let highest = *dbl.iter().max().ok_or("no pairs")?;
++    f.add("G-F12.doubling_range", csv(&[lowest, highest]))?;
++    // the pairs sorted by their largest number, each group's doubling
++    // estimates and their average
++    let mut tops: Vec<u64> = pairs.iter().map(|p| top_of(p)).collect();
++    tops.sort_unstable();
++    tops.dedup();
++    let group = |top: u64| -> Vec<Q> {
++        pairs
++            .iter()
++            .zip(&dbl)
++            .filter(|(p, _)| top_of(p) == top)
++            .map(|(_, &d)| d)
++            .collect()
++    };
++    let avg_of = |top: u64| mean(&group(top));
++    f.add("G-F12.groups", tops.len())?;
++    f.add("G-F12.group_tops", csv(&tops))?;
++    f.add(
++        "G-F12.group_sizes",
++        csv(&tops.iter().map(|&t| group(t).len()).collect::<Vec<_>>()),
++    )?;
++    for &t in &tops {
++        f.add(&format!("G-F12.ends_in_{t}"), csv(&group(t)))?;
++    }
++    for &t in &tops[1..] {
++        f.add(&format!("G-F12.ends_in_{t}_average"), avg_of(t))?;
++    }
++    f.add("G-F12.ends_in_5_average_decimal", avg_of(TINY).decimal1()?)?;
++    let averages: Vec<Q> = tops.iter().map(|&t| avg_of(t)).collect();
++    f.add("G-F12.group_averages", csv(&averages))?;
++    f.add("G-F12.group_averages_shown", shown_all(&averages)?)?;
+     f.add(
+         "G-F12.grouped_is_gap_recipe",
+-        flag(pairs.iter().all(|p| mean(&group(p[1])) == gap_recipe(p))),
++        flag(pairs.iter().all(|p| avg_of(top_of(p)) == gap_recipe(p))),
+     )?;
++    // a group's average is the same in every company that could have sold
++    // its pairs (given the largest, the smaller is equally likely to be any
++    // number below it: chapter 11)
++    let group_mean = |n: u64, top: u64, recipe: &dyn Fn(&[u64]) -> Q| {
++        mean(
++            &model::all_handfuls(n, TINY_SEEN)
++                .iter()
++                .filter(|h| top_of(h) == top)
++                .map(|h| recipe(h.as_slice()))
++                .collect::<Vec<_>>(),
++        )
++    };
++    f.add(
++        "G-F12.group_average_same_for_every_count",
++        flag(
++            tops.iter()
++                .all(|&t| (t..=GROUP_COMPANIES_TO).all(|n| group_mean(n, t, &doubling_recipe) == avg_of(t))),
++        ),
++    )?;
++    // each pair is one chance in ten, so a group's chance is its pairs in
++    // ten; weighted by those chances the group averages give the ten pairs'
++    // average back, and weighted equally they do not
++    let chance = |t: u64| Q::int(group(t).len() as i128) / ten;
++    f.add("G-F12.top_group_chance", chance(*tops.last().ok_or("no groups")?))?;
++    let equal = mean(&averages);
++    f.add(
++        "G-F12.weighted_average",
++        tops.iter().fold(Q::ZERO, |s, &t| s + chance(t) * avg_of(t)),
++    )?;
++    f.add("G-F12.equal_weight_average", equal)?;
++    f.add("G-F12.equal_weight_average_shown", equal.decimal2()?)?;
++    // the misses as arrows from the count: the one group whose arrows point
++    // both ways, and the largest group whose arrows all point one way
+     let five = int(TINY);
++    let signed = |t: u64| -> Vec<Q> { group(t).iter().map(|&e| e - five).collect() };
++    let both: Vec<u64> = tops
++        .iter()
++        .copied()
++        .filter(|&t| signed(t).iter().any(|&x| x < Q::ZERO) && signed(t).iter().any(|&x| x > Q::ZERO))
++        .collect();
++    let cancel = *both.first().ok_or("no group whose misses point both ways")?;
++    let one_way = tops
++        .iter()
++        .copied()
++        .filter(|&t| group(t).len() > 1 && !both.contains(&t))
++        .max()
++        .ok_or("no group whose misses all point one way")?;
++    f.add("G-F12.cancel_group", cancel)?;
++    f.add("G-F12.cancel_misses", csv(&signed(cancel)))?;
++    f.add("G-F12.same_side_group", one_way)?;
++    f.add("G-F12.same_side_misses", csv(&signed(one_way)))?;
++    f.add("G-F12.same_side_average_miss", (avg_of(one_way) - five).abs())?;
++    let (dbl_sq, gap_sq) = (squared(&dbl, five), squared(&tiny, five));
+     f.add("G-F12.doubling_miss", miss(&dbl, five).decimal1()?)?;
+     f.add("G-F12.grouped_miss", miss(&tiny, five).decimal1()?)?;
+-    f.add("G-F12.doubling_squared_miss", squared(&dbl, five))?;
+-    f.add("G-F12.grouped_squared_miss", squared(&tiny, five))?;
+-
+-    // 13: the forced values, and a biased recipe that misses less
+-    let forced = model::forced_values(TINY_SEEN as u64, TINY);
++    f.add("G-F12.doubling_squared_miss", dbl_sq)?;
++    f.add("G-F12.grouped_squared_miss", gap_sq)?;
++    f.add("G-F12.grouped_squared_miss_shown", gap_sq.decimal2()?)?;
++    f.add("G-F12.doubling_sd_about", dbl_sq.sqrt_about1()?)?;
++    let root = gap_sq
++        .exact_sqrt()
++        .ok_or("the gap recipe's squared miss is not a square")?;
++    f.add("G-F12.grouped_sd", root)?;
++    f.add("G-F12.grouped_sd_decimal", root.decimal1()?)?;
++    // for squares, the drop is exactly the spread of the estimates inside
++    // their groups, weighted by the groups' chances
++    f.add(
++        "G-F12.spread_inside",
++        tops.iter().fold(Q::ZERO, |s, &t| {
++            let a = avg_of(t);
++            s + chance(t) * mean(&group(t).iter().map(|&e| (e - a) * (e - a)).collect::<Vec<_>>())
++        }),
++    )?;
++
++    // 13: unbiased must hold at every count. A recipe that always says 71 is
++    // exactly right on average when the count is 71, and at no other count
++    f.add("G-F13.always", n71)?;
++    // the staircase for pairs: in a company of n boxes, the pairs topped by n
++    // carry the one value no smaller company forces
++    let seen = TINY_SEEN as u64;
++    let companies: Vec<u64> = (seen..=TINY).collect();
++    f.add("G-F13.smallest_company", companies[0])?;
++    f.add("G-F13.next_company", companies[1])?;
++    f.add("G-F13.predict_company", companies[2])?;
++    f.add("G-F13.last_company", companies[companies.len() - 1])?;
++    f.add("G-F13.companies", csv(&companies))?;
++    f.add(
++        "G-F13.company_pairs",
++        csv(&companies.iter().map(|&n| choose(n, seen)).collect::<Vec<_>>()),
++    )?;
++    f.add("G-F13.pairs_from_3", choose(3, seen))?;
++    f.add("G-F13.pairs_from_4", choose(4, seen))?;
++    for &n in &companies[1..] {
++        f.add(
++            &format!("G-F13.new_pairs.{n}"),
++            model::all_handfuls(n, TINY_SEEN)
++                .iter()
++                .filter(|h| top_of(h) == n)
++                .count(),
++        )?;
++    }
++    let largest_values = |n: u64| -> Vec<u64> {
++        let mut v: Vec<u64> = model::all_handfuls(n, TINY_SEEN).iter().map(|h| top_of(h)).collect();
++        v.sort_unstable();
++        v.dedup();
++        v
++    };
++    let new_values: Vec<usize> = companies
++        .iter()
++        .map(|&n| {
++            let before = largest_values(n - 1);
++            largest_values(n).iter().filter(|v| !before.contains(v)).count()
++        })
++        .collect();
++    f.add(
++        "G-F13.new_values_per_count",
++        if new_values.iter().all(|&c| c == new_values[0]) {
++            new_values[0].to_string()
++        } else {
++            "unequal".into()
++        },
++    )?;
++    let forced = model::forced_values(seen, TINY);
++    let at = |mm: u64| forced[(mm - seen) as usize];
+     f.add("G-F13.forced", csv(&forced))?;
+-    f.add("G-F13.forced_at_3_decimal", forced[1].decimal1()?)?;
+-    f.add("G-F13.forced_at_4", forced[2])?;
+-    f.add("G-F13.pairs_from_3", choose(3, 2))?;
++    f.add("G-F13.forced_at_2", at(2))?;
++    f.add("G-F13.forced_at_3_decimal", at(3).decimal1()?)?;
++    f.add("G-F13.forced_at_4", at(4))?;
++    f.add("G-F13.forced_at_5", at(5))?;
++    f.add("G-F13.forced_at_5_decimal", at(5).decimal1()?)?;
++    f.add("G-F13.forced_shown", shown_all(&forced)?)?;
++    f.add(
++        "G-F13.company_total.4",
++        model::all_handfuls(4, TINY_SEEN)
++            .iter()
++            .fold(Q::ZERO, |s, h| s + at(top_of(h))),
++    )?;
+     let forced5 = model::forced_values(K, 40);
+     f.add(
+         "G-F13.forced_is_gap_recipe",
+         flag(forced5.iter().enumerate().all(|(i, &v)| v == gap_of(K + i as u64, K))),
+     )?;
++    // the share of handfuls topped by the count itself: k/N, never zero (60
++    // boxes, five seen: chapter 11's one in twelve)
++    f.add(
++        "G-F13.share_at_60",
++        Q::count(choose(m - 1, K - 1)) / Q::count(choose(m, K)),
++    )?;
++    f.add("G-F13.recurrence_proved", flag(staircase_algebra_holds()))?;
++    // any unbiased recipe, even three times the smaller number minus one,
++    // averages inside its groups to the same staircase
++    let (b1, b2): ([u64; 2], [u64; 2]) = ([1, TINY], [2, TINY]);
++    let rise = smaller(&b2) - smaller(&b1);
++    f.add(
++        "G-F13.smaller_recipe",
++        format!("{rise}*smaller{}", smaller(&b1) - rise * int(b1[0])),
++    )?;
++    let sm: Vec<Q> = pairs.iter().map(|p| smaller(p)).collect();
++    f.add("G-F13.smaller_estimates", csv(&sm))?;
++    let (sm_lo, sm_hi) = (*sm.iter().min().ok_or("no pairs")?, *sm.iter().max().ok_or("no pairs")?);
++    f.add("G-F13.smaller_range", csv(&[sm_lo, sm_hi]))?;
++    f.add("G-F13.smaller_average", mean(&sm))?;
++    f.add(
++        "G-F13.smaller_grouped",
++        csv(&tops.iter().map(|&t| group_mean(TINY, t, &smaller)).collect::<Vec<_>>()),
++    )?;
++    f.add("G-F13.smaller_miss", miss(&sm, five))?;
++    f.add("G-F13.smaller_miss_decimal", miss(&sm, five).decimal1()?)?;
++    f.add("G-F13.smaller_squared_miss", squared(&sm, five))?;
++    // a biased recipe of the largest, seven sixths of it minus one: on the
++    // friends' boxes, and over every handful of the 71-box company
+     let factor = Q::new(K as i128 + 2, K as i128 + 1);
+     let shrunk = |mm: u64| factor * int(mm) - Q::ONE;
++    let risks = |n: u64, r: &dyn Fn(u64) -> Q| {
++        (
++            model::mean_by_largest(n, K, r),
++            model::mean_by_largest(n, K, |mm| (r(mm) - int(n)).abs()),
++            model::mean_by_largest(n, K, |mm| (r(mm) - int(n)) * (r(mm) - int(n))),
++        )
++    };
+     f.add("G-F13.shrunk_factor", factor)?;
+-    f.add(
+-        "G-F13.shrunk_bias_71",
+-        model::mean_by_largest(n71, K, shrunk) - int(n71),
+-    )?;
+-    let sq = |r: &dyn Fn(u64) -> Q| model::mean_by_largest(n71, K, |mm| (r(mm) - int(n71)) * (r(mm) - int(n71)));
+-    let ab = |r: &dyn Fn(u64) -> Q| model::mean_by_largest(n71, K, |mm| (r(mm) - int(n71)).abs());
+-    f.add("G-F13.shrunk_misses_less_squared", flag(sq(&shrunk) < sq(&est)))?;
+-    f.add("G-F13.shrunk_misses_less", flag(ab(&shrunk) < ab(&est)))?;
++    f.add("G-F13.shrunk_recipe", format!("{factor}*largest-1"))?;
++    f.add("G-F13.shrunk_friends", shrunk(m))?;
++    let (s_mean, s_mae, s_mse) = risks(n71, &shrunk);
++    f.add("G-F13.shrunk_average_71", s_mean)?;
++    f.add("G-F13.shrunk_bias_71", s_mean - int(n71))?;
++    f.add("G-F13.shrunk_miss_71", s_mae)?;
++    f.add("G-F13.shrunk_miss_71_shown", s_mae.about1()?)?;
++    f.add("G-F13.shrunk_squared_71", s_mse)?;
++    f.add("G-F13.shrunk_squared_71_shown", s_mse.about1()?)?;
++    f.add("G-F13.gap_squared_71_shown", var71.about1()?)?;
++    f.add("G-F13.shrunk_misses_less_squared", flag(s_mse < var71))?;
++    f.add("G-F13.shrunk_misses_less", flag(s_mae < mae71))?;
++    // where it loses: with exactly K boxes the gap recipe is always right;
++    // and the counts where the 7/6 recipe does not miss less, squared or plain
++    let edge: Vec<u64> = (1..=K).collect();
++    f.add("G-F13.edge_count", K)?;
++    f.add("G-F13.gap_at_edge", gap_recipe(&edge))?;
++    f.add("G-F13.shrunk_at_edge", shrunk(K))?;
++    f.add("G-F13.shrunk_at_edge_shown", shrunk(K).about1()?)?;
++    let (mut loses_squared, mut loses_plain) = (Vec::new(), Vec::new());
++    for n in K..=LOSES_UP_TO {
++        let (gap_risks, shrunk_risks) = (risks(n, &est), risks(n, &shrunk));
++        if shrunk_risks.2 >= gap_risks.2 {
++            loses_squared.push(n);
++        }
++        if shrunk_risks.1 >= gap_risks.1 {
++            loses_plain.push(n);
++        }
++    }
++    f.add("G-F13.shrunk_loses_squared_at", csv(&loses_squared))?;
++    f.add("G-F13.shrunk_loses_plain_at", csv(&loses_plain))?;
+ 
+     // 14: unfair draws. The friends' own five from a shop that only received
+     // boxes 1 to 71 of the 200 made, then a shelf of late boxes
+@@ -855,6 +1120,136 @@
+     #[test]
+     fn there_is_one_fact_per_oracle_key() {
+         let f = facts().unwrap();
+-        assert_eq!(f.len(), 271);
++        assert_eq!(f.len(), 338);
++    }
++
++    /// Chapters 12 and 13's numbers, as the voice and the pictures use them.
++    #[test]
++    fn the_averaging_numbers_are_the_storyboards() {
++        let f = facts().unwrap();
++        for (key, value) in [
++            ("G-F12.doubling_estimates", "2,3,4,5,4,5,6,6,7,8"),
++            ("G-F12.group_sizes", "1,2,3,4"),
++            ("G-F12.group_averages_shown", "2,3.5,5,6.5"),
++            ("G-F12.weighted_average", "5"),
++            ("G-F12.equal_weight_average_shown", "4.25"),
++            ("G-F12.cancel_misses", "-1,0,1"),
++            ("G-F12.same_side_misses", "0,1,2,3"),
++            ("G-F12.doubling_miss", "1.4"),
++            ("G-F12.grouped_miss", "1.2"),
++            ("G-F12.doubling_squared_miss", "3"),
++            ("G-F12.grouped_squared_miss", "9/4"),
++            ("G-F12.grouped_sd_decimal", "1.5"),
++            ("G-F13.forced_shown", "2,3.5,5,6.5"),
++            ("G-F13.company_total.4", "24"),
++            ("G-F13.share_at_60", "1/12"),
++            ("G-F13.recurrence_proved", "true"),
++            ("G-F13.smaller_grouped", "2,7/2,5,13/2"),
++            ("G-F13.shrunk_friends", "69"),
++            ("G-F13.shrunk_bias_71", "-2"),
++            ("G-F13.shrunk_squared_71", "397/3"),
++            ("G-F13.shrunk_at_edge", "29/6"),
++            ("G-F13.shrunk_loses_plain_at", "5,11"),
++        ] {
++            assert_eq!(f.get(key), Some(value), "{key}");
++        }
++    }
++
++    /// Every handful of k from 1..n, grouped by its largest number, with a
++    /// recipe's estimate for each.
++    fn by_top(n: u64, k: usize, recipe: impl Fn(&[u64]) -> Q) -> Vec<Vec<Q>> {
++        let mut groups: Vec<Vec<Q>> = vec![Vec::new(); n as usize + 1];
++        for h in model::all_handfuls(n, k) {
++            groups[h[k - 1] as usize].push(recipe(h.as_slice()));
++        }
++        groups.into_iter().filter(|g| !g.is_empty()).collect()
++    }
++
++    fn mean_of(v: &[Q]) -> Q {
++        v.iter().fold(Q::ZERO, |s, &x| s + x) / Q::int(v.len() as i128)
++    }
++
++    /// Chapter 12's argument at its edges, for the doubling recipe and three
++    /// times the smaller, pairs to fours from up to ten boxes: inside every
++    /// group the average misses by at most the average miss, exactly as much
++    /// when no two misses point opposite ways; its squared miss is less by
++    /// exactly the spread inside the group; and weighted by their chances
++    /// the groups give back the count, weighted equally they never do once
++    /// N > k.
++    #[test]
++    fn averaging_inside_a_group_never_misses_more() {
++        let smaller = |p: &[u64]| Q::int((p.len() as i128 + 1) * p[0] as i128) - Q::ONE;
++        for recipe in [&doubling_recipe as &dyn Fn(&[u64]) -> Q, &smaller] {
++            for k in 2..=4usize {
++                for n in k as u64..=10 {
++                    let count = int(n);
++                    let groups = by_top(n, k, recipe);
++                    for g in &groups {
++                        let avg = mean_of(g);
++                        let misses: Vec<Q> = g.iter().map(|&e| e - count).collect();
++                        let plain = mean_of(&misses.iter().map(|&x| x.abs()).collect::<Vec<_>>());
++                        let sq = mean_of(&misses.iter().map(|&x| x * x).collect::<Vec<_>>());
++                        let spread = mean_of(&g.iter().map(|&e| (e - avg) * (e - avg)).collect::<Vec<_>>());
++                        let one_way = misses.iter().all(|&x| x >= Q::ZERO) || misses.iter().all(|&x| x <= Q::ZERO);
++                        assert!((avg - count).abs() <= plain, "k={k} n={n}");
++                        assert_eq!((avg - count).abs() == plain, one_way, "k={k} n={n}");
++                        assert_eq!(sq - (avg - count) * (avg - count), spread, "k={k} n={n}");
++                    }
++                    let all = Q::count(choose(n, k as u64));
++                    let weighted = groups
++                        .iter()
++                        .fold(Q::ZERO, |s, g| s + Q::int(g.len() as i128) / all * mean_of(g));
++                    let equal = mean_of(&groups.iter().map(|g| mean_of(g)).collect::<Vec<_>>());
++                    assert_eq!(weighted, count, "k={k} n={n}");
++                    assert_eq!(equal == count, n == k as u64, "k={k} n={n}");
++                }
++            }
++        }
++    }
++
++    /// Chapter 13's staircase is forced: raising it at one value biases the
++    /// recipe at that count and every larger one, and at no smaller one; and
++    /// with no new value at a count (the largest capped at 4, for pairs)
++    /// there is nothing to solve for and no unbiased recipe.
++    #[test]
++    fn the_staircase_is_forced_and_needs_a_new_value() {
++        for k in [2u64, 3] {
++            let base = model::forced_values(k, 12);
++            for bump in k..=11 {
++                let mut g = base.clone();
++                g[(bump - k) as usize] = g[(bump - k) as usize] + Q::ONE;
++                for n in k..=12 {
++                    let average = model::mean_by_largest(n, k, |mm| g[(mm - k) as usize]);
++                    assert_eq!(average != int(n), n >= bump, "k={k} bump={bump} n={n}");
++                }
++            }
++        }
++        let capped = model::forced_values(2, 4);
++        let at_five = model::mean_by_largest(5, 2, |mm| capped[(mm.min(4) - 2) as usize]);
++        assert_eq!(at_five, Q::new(22, 5));
++    }
++
++    /// The degree-bound grid of [`staircase_algebra_holds`] catches a wrong
++    /// step: N² − (N − 1)(N + k) is not (k + 1)N − k.
++    #[test]
++    fn the_staircase_algebra_check_can_fail() {
++        assert!(staircase_algebra_holds());
++        let wrong = (0..=2i128).all(|n| (0..=1i128).all(|k| n * n - (n - 1) * (n + k) == (k + 1) * n - k));
++        assert!(!wrong);
++    }
++
++    /// The largest of five averages 5(N + 1)/6, so the 7/6 recipe averages
++    /// 35(N + 1)/36 − 1: its bias is −(N + 1)/36 at every count, unbiased at
++    /// none, while the gap recipe is unbiased at all of them.
++    #[test]
++    fn the_seven_sixths_recipe_is_biased_at_every_count() {
++        let shrunk = |mm: u64| Q::new(7, 6) * int(mm) - Q::ONE;
++        for n in K..=120 {
++            assert_eq!(
++                model::mean_by_largest(n, K, shrunk) - int(n),
++                -Q::new(n as i128 + 1, 36)
++            );
++            assert_eq!(model::mean_by_largest(n, K, |mm| gap_of(mm, K)), int(n));
++        }
+     }
+ }
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/main.rs b/explainer_corpus/german_tank/src/main.rs
+--- a/explainer_corpus/german_tank/src/main.rs	2026-10-24 11:10:17.241768941 -0400
++++ b/explainer_corpus/german_tank/src/main.rs	2026-10-24 11:10:17.466066206 -0400
+@@ -5,10 +5,12 @@
+ //! five boxes averaging exactly five, the gaps trading places, the proof
+ //! that it is right on average for a fair handful of any count, how far one
+ //! estimate can be from the count, the range ninety-five percent confidence
+-//! gives, a rival recipe that doubles the average, and why the largest
+-//! number says everything a fair handful can; then (in the chapters drafted
+-//! in docs/storyboard-draft.md) what else it does not promise, and what
+-//! breaks it, rendered
++//! gives, a rival recipe that doubles the average, why the largest number
++//! says everything a fair handful can, how averaging inside the groups of
++//! the largest number turns the doubling recipe into the gap recipe, and why
++//! no unbiased recipe misses by less; then (in the chapters drafted in
++//! docs/storyboard-draft.md) what breaks it, and what else it does not
++//! promise, rendered
+ //! end to end by franken_manim's native Rust front door and the corpus's
+ //! shared kit.
+ //!
+@@ -624,6 +626,205 @@
+         ("11_7", "sixty minus five", "G-F1.largest", "60"),
+         ("11_7", "sixty minus five", "G-F1.handful", "5"),
+         ("11_8", "the other four", "G-F10.others", "4"),
++        // 12: averaging away the wobble
++        ("12_1", "the tiny company of five boxes", "G-F5.boxes", "5"),
++        (
++            "12_1",
++            "any two are as likely to be seen as any other two",
++            "G-F5.seen",
++            "2",
++        ),
++        ("12_1", "its ten pairs again", "G-F5.pairs", "10"),
++        (
++            "12_1",
++            "adds the two numbers and takes away one",
++            "G-F12.pair_doubling",
++            "1*total-1",
++        ),
++        ("12_1", "adds the two numbers and takes away one", "G-F5.seen", "2"),
++        ("12_2", "They average five", "G-F12.doubling_average", "5"),
++        (
++            "12_2",
++            "from two all the way up to eight",
++            "G-F12.doubling_range",
++            "2,8",
++        ),
++        ("12_3", "the four pairs topped by five", "G-F11.pairs_topped", "4"),
++        ("12_3", "the four pairs topped by five", "G-F11.pair_top", "5"),
++        ("12_3", "get four different estimates", "G-F11.pairs_topped", "4"),
++        ("12_4", "That makes four groups", "G-F12.groups", "4"),
++        (
++            "12_4",
++            "topped by two, three, four and five",
++            "G-F12.group_tops",
++            "2,3,4,5",
++        ),
++        (
++            "12_4",
++            "with one, two, three and four pairs",
++            "G-F12.group_sizes",
++            "1,2,3,4",
++        ),
++        ("12_5", "five, six, seven and eight", "G-F12.ends_in_5", "5,6,7,8"),
++        ("12_6", "Six and a half", "G-F12.ends_in_5_average", "13/2"),
++        ("12_6", "every pair topped by five", "G-F11.pair_top", "5"),
++        ("12_6", "Three and four average", "G-F12.ends_in_3", "3,4"),
++        ("12_6", "average three and a half", "G-F12.ends_in_3_average", "7/2"),
++        ("12_6", "Four, five and six average five", "G-F12.ends_in_4", "4,5,6"),
++        (
++            "12_6",
++            "Four, five and six average five",
++            "G-F12.ends_in_4_average",
++            "5",
++        ),
++        ("12_6", "the lone pair topped by two says two", "G-F12.ends_in_2", "2"),
++        ("12_8", "a company of six boxes, or eight", "G-F11.pair_more", "6,8"),
++        ("12_8", "the pairs topped by five", "G-F11.pair_top", "5"),
++        (
++            "12_8",
++            "still average six and a half",
++            "G-F12.ends_in_5_average",
++            "13/2",
++        ),
++        ("12_9", "a chance in ten", "G-F5.pairs", "10"),
++        ("12_9", "its number of pairs in ten", "G-F5.pairs", "10"),
++        ("12_9", "four in ten", "G-F12.top_group_chance", "2/5"),
++        ("12_10", "the ten pairs' average", "G-F5.pairs", "10"),
++        ("12_10", "comes back, exactly five", "G-F12.weighted_average", "5"),
++        ("12_10", "the four groups", "G-F12.groups", "4"),
++        ("12_10", "four and a quarter", "G-F12.equal_weight_average", "17/4"),
++        ("12_11", "an arrow from five, the true count", "G-F5.boxes", "5"),
++        ("12_11", "the group topped by four", "G-F12.cancel_group", "4"),
++        ("12_11", "minus one, zero and plus one", "G-F12.cancel_misses", "-1,0,1"),
++        ("12_12", "the group topped by five", "G-F12.same_side_group", "5"),
++        ("12_12", "zero, one, two and three", "G-F12.same_side_misses", "0,1,2,3"),
++        (
++            "12_12",
++            "misses by one and a half",
++            "G-F12.same_side_average_miss",
++            "3/2",
++        ),
++        ("12_13", "all ten pairs", "G-F5.pairs", "10"),
++        ("12_13", "one point four", "G-F12.doubling_miss", "1.4"),
++        ("12_13", "one point two", "G-F12.grouped_miss", "1.2"),
++        (
++            "12_15",
++            "squared misses average three",
++            "G-F12.doubling_squared_miss",
++            "3",
++        ),
++        ("12_15", "two and a quarter", "G-F12.grouped_squared_miss", "9/4"),
++        ("12_15", "about one point seven", "G-F12.doubling_sd_about", "1.7"),
++        ("12_15", "exactly one point five", "G-F12.grouped_sd_decimal", "1.5"),
++        ("12_15", "the drop, three quarters", "G-F12.spread_inside", "3/4"),
++        // 13: nothing unbiased does better
++        ("13_2", "always says seventy-one", "G-F13.always", "71"),
++        ("13_2", "if the count is seventy-one", "G-F13.always", "71"),
++        ("13_3", "has two boxes", "G-F13.smallest_company", "2"),
++        ("13_3", "its only pair is one and two", "G-F5.first_pair", "1,2"),
++        ("13_3", "To average two", "G-F13.smallest_company", "2"),
++        (
++            "13_3",
++            "must say two when the larger number is two",
++            "G-F13.forced_at_2",
++            "2",
++        ),
++        (
++            "13_3",
++            "must say two when the larger number is two",
++            "G-F13.smallest_company",
++            "2",
++        ),
++        ("13_4", "Three boxes make three pairs", "G-F13.next_company", "3"),
++        ("13_4", "Three boxes make three pairs", "G-F13.pairs_from_3", "3"),
++        (
++            "13_4",
++            "topped by two must still say two",
++            "G-F13.smallest_company",
++            "2",
++        ),
++        ("13_4", "topped by two must still say two", "G-F13.forced_at_2", "2"),
++        ("13_4", "The other two are topped by three", "G-F13.new_pairs.3", "2"),
++        ("13_4", "The other two are topped by three", "G-F13.next_company", "3"),
++        (
++            "13_4",
++            "all three estimates must average three",
++            "G-F13.pairs_from_3",
++            "3",
++        ),
++        (
++            "13_4",
++            "all three estimates must average three",
++            "G-F13.next_company",
++            "3",
++        ),
++        ("13_4", "those two must say three and a half", "G-F13.new_pairs.3", "2"),
++        (
++            "13_4",
++            "those two must say three and a half",
++            "G-F13.forced_at_3_decimal",
++            "3.5",
++        ),
++        ("13_5", "Four boxes make six pairs", "G-F13.predict_company", "4"),
++        ("13_5", "Four boxes make six pairs", "G-F13.pairs_from_4", "6"),
++        ("13_5", "three of them are topped by four", "G-F13.new_pairs.4", "3"),
++        ("13_5", "three of them are topped by four", "G-F13.predict_company", "4"),
++        ("13_5", "The other three already", "G-F13.pairs_from_3", "3"),
++        ("13_5", "for the new three", "G-F13.new_pairs.4", "3"),
++        ("13_6", "Five. That's the only value", "G-F13.forced_at_4", "5"),
++        ("13_6", "all six estimates", "G-F13.pairs_from_4", "6"),
++        ("13_6", "an average of four", "G-F13.predict_company", "4"),
++        ("13_6", "at five boxes", "G-F13.last_company", "5"),
++        ("13_6", "its four new pairs", "G-F13.new_pairs.5", "4"),
++        ("13_6", "forced to six and a half", "G-F13.forced_at_5", "13/2"),
++        ("13_7", "exactly one unknown value", "G-F13.new_values_per_count", "1"),
++        ("13_7", "five seen from exactly sixty boxes", "G-F1.handful", "5"),
++        ("13_7", "five seen from exactly sixty boxes", "G-F1.at_least", "60"),
++        ("13_7", "one in twelve", "G-F13.share_at_60", "1/12"),
++        (
++            "13_9",
++            "three times the smaller number, minus one",
++            "G-F13.smaller_recipe",
++            "3*smaller-1",
++        ),
++        ("13_9", "from two all the way to eleven", "G-F13.smaller_range", "2,11"),
++        ("13_9", "the ten pairs", "G-F5.pairs", "10"),
++        ("13_9", "still average five", "G-F13.smaller_average", "5"),
++        (
++            "13_10",
++            "two, three and a half, five, and six and a half",
++            "G-F13.smaller_grouped",
++            "2,7/2,5,13/2",
++        ),
++        ("13_11", "two point four", "G-F13.smaller_miss_decimal", "2.4"),
++        (
++            "13_11",
++            "against the gap recipe's one point two",
++            "G-F12.grouped_miss",
++            "1.2",
++        ),
++        (
++            "13_13",
++            "seven sixths of the largest number, minus one",
++            "G-F13.shrunk_recipe",
++            "7/6*largest-1",
++        ),
++        ("13_13", "the friends' five boxes", "G-F1.handful", "5"),
++        ("13_13", "it says sixty-nine", "G-F13.shrunk_friends", "69"),
++        ("13_13", "seventy-one boxes", "G-F8.count", "71"),
++        ("13_13", "it averages sixty-nine", "G-F13.shrunk_average_71", "69"),
++        ("13_13", "two short of the count", "G-F13.shrunk_bias_71", "-2"),
++        ("13_13", "about eight point seven", "G-F13.shrunk_miss_71_shown", "8.7"),
++        ("13_13", "nine point two", "G-F8.average_miss_decimal", "9.2"),
++        ("13_14", "exactly five boxes", "G-F13.edge_count", "5"),
++        ("13_14", "seven sixths says", "G-F13.shrunk_factor", "7/6"),
++        ("13_14", "four and five sixths", "G-F13.shrunk_at_edge", "29/6"),
++        (
++            "13_14",
++            "from five to ten",
++            "G-F13.shrunk_loses_squared_at",
++            "5,6,7,8,9,10",
++        ),
+     ];
+ 
+     /// Sizes said on purpose without a value: the stakes and the unknown
+@@ -775,8 +976,9 @@
+     /// handful's estimate, the tiny company's average, where the friends'
+     /// hidden gap is, what the recipe does with one box, how often an
+     /// estimate is exactly right, what ten boxes do to the range, what the
+-    /// doubling recipe says for the strange handful, and what the other four
+-    /// numbers add once the largest is known.
++    /// doubling recipe says for the strange handful, what the other four
++    /// numbers add once the largest is known, what the biggest group of
++    /// pairs averages, and the value four boxes force.
+     #[test]
+     fn the_prediction_is_asked_once_and_answered_next() {
+         let boards = explainer_kit::storyboard::parse(STORYBOARD).unwrap();
+@@ -824,6 +1026,12 @@
+                 "how much can the other four tell you about the count?",
+                 "Nothing",
+             ),
++            ("12_averaging_the_wobble", "What's their average?", "Six and a half"),
++            (
++                "13_nothing_does_better",
++                "What must the recipe say for the new three?",
++                "Five",
++            ),
+         ];
+         assert_eq!(boards.len(), expected.len());
+         for (board, (key, asks, answers)) in boards.iter().zip(expected) {
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/model.rs b/explainer_corpus/german_tank/src/model.rs
+--- a/explainer_corpus/german_tank/src/model.rs	2026-10-24 11:10:17.241911816 -0400
++++ b/explainer_corpus/german_tank/src/model.rs	2026-10-24 11:10:17.466181415 -0400
+@@ -110,6 +110,25 @@
+         Ok(format!("{sign}{}.{}", t.abs() / 10, t.abs() % 10))
+     }
+ 
++    /// Exactly two decimal places ("4.25"), only when that is exact and the
++    /// value is not negative.
++    pub fn decimal2(self) -> Result<String, String> {
++        let t = (self * Q::int(100))
++            .whole()
++            .filter(|&t| t >= 0)
++            .ok_or_else(|| format!("{self} has no exact positive two-decimal form"))?;
++        Ok(format!("{}.{:02}", t / 100, t % 100))
++    }
++
++    /// The square root, when this is the square of a fraction (9/4 → 3/2).
++    pub fn exact_sqrt(self) -> Option<Q> {
++        let root = |x: i128| {
++            let r = i128::try_from(u128::try_from(x).ok()?.isqrt()).ok()?;
++            (r * r == x).then_some(r)
++        };
++        Some(Q::new(root(self.n)?, root(self.d)?))
++    }
++
+     /// A positive value rounded half up to one decimal place (a panel's
+     /// "≈ 166.8").
+     pub fn about1(self) -> Result<String, String> {
+@@ -552,6 +571,18 @@
+         assert_eq!(Q::new(1, 1000).sqrt_about1().unwrap(), "0.0");
+         assert_eq!(Q::new(4752, 35).sqrt_about1().unwrap(), "11.7");
+         assert!(Q::new(-1, 2).sqrt_about1().is_err());
++        // two decimals only when exact and not negative; square roots only
++        // of squares
++        assert_eq!(Q::new(17, 4).decimal2().unwrap(), "4.25");
++        assert_eq!(Q::new(201, 100).decimal2().unwrap(), "2.01");
++        assert_eq!(Q::int(3).decimal2().unwrap(), "3.00");
++        assert!(Q::new(1, 3).decimal2().is_err());
++        assert!(Q::new(-1, 4).decimal2().is_err());
++        assert_eq!(Q::new(9, 4).exact_sqrt(), Some(Q::new(3, 2)));
++        assert_eq!(Q::ZERO.exact_sqrt(), Some(Q::ZERO));
++        assert_eq!(Q::int(3).exact_sqrt(), None);
++        assert_eq!(Q::new(9, 8).exact_sqrt(), None);
++        assert_eq!(Q::new(-9, 4).exact_sqrt(), None);
+     }
+ 
+     /// The friends' example: gaps 13, 12, 5, 17, 8 and the estimate 71, by

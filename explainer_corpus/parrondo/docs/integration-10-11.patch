@@ -1,0 +1,117 @@
+--- a/explainer_corpus/parrondo/docs/storyboard-draft.md
++++ b/explainer_corpus/parrondo/docs/storyboard-draft.md
+@@ -421,3 +421,3 @@
+ 
+-## 10_the_trap: Why corner zero collects players (~77 s)
++## 10_the_trap: Why corner zero collects players (~102 s)
+ 
+@@ -425,9 +425,10 @@
+ |---|---|---|---|---|
+-| 10_1 | Why does corner zero collect extra players? Follow one who has just arrived there. Where is that player most likely to be one round later? ⟨predict⟩ | The crowd dims; one teal dot at corner 0, outlined. The question on screen; countdown | think countdown | |
+-| 10_2 | At corner two, nine times in ten. The bad coin knocks them back. And from corner two, the good coin usually wins, which carries them forward, around to zero again. | The dot drops to corner 2 ("90 %"), then wins back to 0 ("75 %"), tracing a red-and-green path | path | |
+-| 10_3 | So most of the good coin's wins happen at corner two, and every one of them just brings the player back to zero, where the bad coin waits. | The 0 ↔ 2 path repeats three times, quicker, its trace thickening | path | |
+-| 10_4 | That's the trap in game B. The good coin wins often, but its wins keep getting spent on climbing back to a multiple of three. | The thick 0 ↔ 2 trace glows; corner 0's red tint deepens | glow | |
+-| 10_5 | One change removes the trap. Let a die choose B's coin instead of your money. A one or a two means the bad coin, anything else the good coin. | A die beside the two coins; faces 1, 2 point to the red coin, 3 to 6 to the green coin. The triangle dims: the corners no longer matter | die, arrows | |
+-| 10_6 | Now the bad coin really does get one round in three, wherever you stand, and this game wins fifty-three point three percent of the time. | TeX ⅓ · 10 % + ⅔ · 75 % = 53.3 % (callback), "wins" in green | TeX from facts | |
+-| 10_7 | Same two coins. Only the rule that picks between them changed. Reading your money is what drags game B from fifty-three point three percent down to exactly half. | The die fades; the triangle returns, "count your dollars" outlined; "53.3 % → 50 %" beside it | highlight | |
++| 10_1 | Why does corner zero collect extra players? Follow one who has just arrived there. Where is that player most likely to be one round later? ⟨predict⟩ | 09's picture: B's triangle with the round-number coins' chances, the badge "round-number coins · 50 · 10 · 75 % · no handicap", "players: 26" over the dim "split by the chances (expected numbers)", and the 26 dots at 10, 4, 12. "collect extra players" gives corner 0 a hollow ring while its dots pulse. At "Follow one" the crowd dims, the panel's head leaves and the same player stands out: the teal token on corner 0 with the counter "9" and "9 → remainder 0" (08_1's last move), a hollow ring round the corner. "one round later: which corner?" on screen; countdown | think countdown | |
++| 10_2 | At corner two, nine times in ten. The bad coin knocks them back. And from corner two, the good coin usually wins, which carries them forward, around to zero again. | At "At corner two" the question leaves and the token takes the back arrow 0 → 2 (1.6 s), leaving a red trace over it, while the counter becomes "8" and "8 → remainder 2"; "nine times in ten" outlines the "90 %" label as the trace pulses; "knocks them back" rings corner 0; "usually wins" outlines the "75 %" by 2 → 0; at "around to zero again" the token takes the forward arrow 2 → 0 with a green trace, "9" and "9 → remainder 0" again | token path, traces | |
++| 10_3 | That was one player's likeliest two rounds, not the only way they can go. To see how common it is, go back to the whole crowd, settled at ten, four and twelve. | "illustration: one player's likeliest two rounds" (teal) under the counter, the two traces pulsing. At "go back to the whole crowd" the token, counter and remainder give way to "players: 26" and its label, the dots return to full strength and the traces dim; at "settled at ten, four and twelve" teal "10", "4", "12" beside the corners, every corner ringed and the dots pulsing | labels from facts | |
++| 10_4 | Each round, the good coin wins for three players at corner one and for nine at corner two. So of its twelve wins a round, nine happen at corner two, and every one of them just brings a player back to zero, where the bad coin waits. | "the good coin's wins each round:" (dim); at each phrase its line, "corner 1: 75 % of 4 = 3", then "corner 2: 75 % of 12 = 9", that corner ringed and its winners' dots pulsing; at "nine happen at corner two" "the share of them at corner 2:" over 9/(3 + 9) = 3/4 (green TeX). At "brings a player back" a teal stream, its width ∝ 9 of 26, draws along the 2 → 0 arrow; "where the bad coin waits" rings corner 0 with its dots | TeX from facts, stream | |
++| 10_5 | That's the trap in game B. The good coin wins often, but its wins keep getting spent on climbing back to a multiple of three. | "the trap: 0 → 2 → 0" in red at the foot of the panel; the two traces return to full strength and pulse; "climbing back to a multiple of three" rings corner 0 again with its dots | traces | hold |
++| 10_6 | One change removes the trap. Let a die choose B's coin instead of your money. A one or a two means the bad coin, anything else the good coin. | The traces, the stream, the counts and the wins leave; "game B: your dollars pick the coin" (violet). At "Let a die choose" a dark veil dims the whole triangle (its corners no longer choose) and "die game: a die picks the coin" appears; "instead of your money" outlines B's rule. At "A one or a two" a row: die faces 1 and 2 → the red "bad" coin, "10 %"; at "anything else" a row: faces 3, 4, 5, 6 → the green "good" coin, "75 %" | die faces, coins | |
++| 10_7 | Now the bad coin really does get one round in three, wherever you stand, and this game wins fifty-three point three percent of the time. | "1/3 of rounds" and "2/3 of rounds" beside the coins, the 1 and 2 faces pulsing; "wherever you stand" rings all three corners through the veil; at "this game wins" the TeX 1/3 · 10 % + 2/3 · 75 % ≈ 53.3 % (07_7's sum, now true of a real game) and "the die game wins" in green | TeX from facts | hold |
++| 10_8 | Same two coins. Only the rule that picks between them changed. Reading your money is what drags game B from fifty-three point three percent down to exactly half. | Hollow rings round both coins; "Only the rule" outlines both rules; at "Reading your money" the die, coins and veil leave, the triangle returns and B's rule is outlined; at "down to exactly half" "reading your money: 53.3 % → 50 %", outlined | highlight | |
+ 
+@@ -435,2 +436,14 @@
+ 
++- One player's path is an illustration, not the crowd's claim (Mail 6904):
++  the token's two moves are the likeliest of the four two-round paths from
++  corner 0, 27 times in 40 (9/10 · 3/4), and are labelled as one player's;
++  0 → 2 → 1 (9 in 40), 0 → 1 → 2 (3 in 40) and 0 → 1 → 0 (1 in 40) also
++  happen. The crowd's claim comes after, from the settled split crowd's
++  counts: 75 % of 4 = 3 and 75 % of 12 = 9, so 9 of the good coin's 12 wins
++  a round happen at corner 2 (fact `crowd.good_wins_at2` = 3/4; it prints
++  75.0 % with the published coins too, GoldGate's review, M3, though there
++  it is not exactly 3/4), and every win there is the forward move 2 → 0.
++  Counting the bad coin's one win too would give 9 of 13, not 3/4; the 3/4
++  equals the good coin's 75 % only by these coins' accident (a 70 % good
++  coin gives 97/134).
+ - The die-chosen game is the negative control for "B loses because of where
+@@ -438,13 +451,14 @@
+   give an ordinary coin that wins 8/15 = 53.3 % with the round-number coins
+-  (317/600 = 52.8 % with the published ones), so it wins.
+-- 10_3: in B's settled crowd, 9 of the good coin's 12 wins a round happen
+-  at corner 2 (fact `crowd.good_wins_at2` = 3/4; 75.0 % with the published
+-  coins too, GoldGate's review, M3), and every win there is the forward
+-  move 2 → 0.
+-- Pause intentions: after "nine times in ten" (10_2) a short beat; the trap
+-  sentence (10_4) is a completed thought with a pause after it; "One change
+-  removes the trap" (10_5) starts a new idea after a turn.
+-- Pronunciation: "thirteenths" (watch for "thirtieths").
++  (317/600 = 52.8 % with the published ones), so it wins. As a game on the
++  triangle its crowd sits at equal thirds. 10_7's sum is shown with ≈:
++  8/15 is 53.33… %.
++- Pause intentions: after "nine times in ten" (10_2) a short beat, and a
++  beat after the two rounds; 10_3 turns from one player to the crowd; the
++  trap sentence (10_5) is a completed thought, held; "One change removes the
++  trap" (10_6) starts a new idea after a turn; the die game's verdict (10_7)
++  is held.
++- Pronunciation: "likeliest" (three syllables, unhurried); "die" the cube;
++  "fifty-three point three".
+ 
+-## 11_mix_the_games: Mix the games (~67 s)
++## 11_mix_the_games: Mix the games (~78 s)
+ 
+@@ -452,8 +466,9 @@
+ |---|---|---|---|---|
+-| 11_1 | Now mix the games, as the player did. Before every round, a fair coin decides whether you play A or B. | The gold coin of 04_1 above the triangle, faces "A" and "B"; the badge still "round-number coins" | coin | |
+-| 11_2 | On the triangle, every arrow becomes an average. At corner zero, half the time it's A's fifty percent, half the time B's ten percent. So forward thirty percent in all. | Corner 0's forward arrow: blue "50 %" and violet "10 %" merge into gold "30 %"; the back arrow "70 %" | label morph from facts | |
+-| 11_3 | At corners one and two, halfway between fifty and seventy-five, forward sixty-two and a half percent. | The other forward arrows morph to gold "62.5 %", back "37.5 %" | label morph | |
+-| 11_4 | Start the mix from game B's settled crowd, ten, four and twelve. Which way will the crowd shift? ⟨predict⟩ | B's settled bars (10, 4, 12) return; question; countdown | think countdown | |
+-| 11_5 | Off corner zero. Its share drops at once from thirty-eight point five percent to about thirty-four point six, then sloshes a little above and below that before it settles. Corner one ends up at twenty-five point four percent, up from fifteen point four. | The bars flow under the mix's arrows, one computed round a second from 10, 4, 12, as in 08; live shares (corner 0 / 1 / 2, %): 34.6 / 28.8 / 36.5, 33.7 / 24.1 / 42.3, 35.4 / 25.9 / 38.6, 33.9 / 25.1 / 41.0, 35.1 / 25.5 / 39.4, 34.2 / 25.3 / 40.5, then quicker to the settled 34.6 / 25.4 / 40.1. A dim tick at each settled height shows the bars swinging above and below it; a ghost outline keeps B's old heights; the dim "split by the chances (expected numbers)" under the counts | bars, live numbers | |
+-| 11_6 | Game A's coin ignores the corners, so its rounds keep stirring the crowd toward equal thirds. That shift of weight off corner zero is where the winning comes from. | A dim dashed line at 33.3 % on each bar; corner 0's lost weight glows | glow | hold |
++| 11_1 | Now mix the games, as the player did. Before every round, a fair coin decides whether you play A or B. | 10's crowd: B's triangle with its chances, the badge and the 26 dots at 10, 4, 12. At "Now mix the games" 04's gold coin "A" with "the mix" above it, at 04's own place; "as the player did" rings the coin; at "a fair coin decides" "heads → game A" (blue) and "tails → game B" (violet) beside it | coin | |
++| 11_2 | On the triangle, every arrow becomes an average. At corner zero, half the time it's A's fifty percent, half the time B's ten percent. So forward thirty percent in all. | "every arrow becomes an average": all six arrows pulse. At "A's fifty percent" a blue "50 %" waits past corner 0's forward label, outlined; "B's ten percent" outlines B's "10 %"; at "forward thirty percent in all" both give way to the mix's gold "30 %", the back label "90 %" to "70 %", and the panel shows 1/2 · 50 % + 1/2 · 10 % = 30 % | label swap from facts, TeX | |
++| 11_3 | At corners one and two, halfway between fifty and seventy-five, forward sixty-two and a half percent. | Corners 1 and 2 ringed; at "halfway between" 1/2 · 50 % + 1/2 · 75 % = 62.5 % under the first sum; at "sixty-two and a half percent" the forward labels at corners 1 and 2 become gold "62.5 %", their back labels "37.5 %", and the title "game B" becomes "the mix" in gold | label swap, TeX | |
++| 11_4 | Start the mix from game B's settled crowd, ten, four and twelve, still split exactly by the chances. Which way will the crowd shift? ⟨predict⟩ | At "Start the mix" the coin, rules and sums leave for "round 0", "players: 26" (live total), the dim "split by the chances (expected numbers)", the rows "corner 0", "corner 1", "corner 2" with live bars (length ∝ players) and live one-decimal shares "38.5 %", "15.4 %", "46.2 %", and the dim note "shares shown to one decimal; the total is exactly 26". At "ten, four and twelve" the dots merge into puddles (area ∝ players) and each bar gets a dim ghost outline at B's height, kept to the end; the corners are ringed. "still split exactly by the chances" outlines the label. "which way will the crowd shift?"; countdown. No settled value, tick or line is drawn | think countdown | |
++| 11_5 | Off corner zero. Its share drops at once from thirty-eight point five percent to about thirty-four point six, then sloshes a little above and below that. | At "Off corner zero" the question leaves for a small trace, "share at corner 0, round by round" (axes and "rounds", no numbers), and corner 0 is ringed. At "Its share drops at once" round 1 plays slowly (2.2 s) from 10, 4, 12 under the mix, teal streams on the six arrows (widths ∝ flows): the shares become 34.6, 28.8, 36.5 (corner 1's bar shoots past where it will end); "to about thirty-four point six" outlines corner 0's share. At "then sloshes" rounds 2 to 6 at a second each, with streams: 33.7 / 24.1 / 42.3, 35.4 / 25.9 / 38.6, 33.9 / 25.1 / 41.0, 35.1 / 25.5 / 39.4, 34.2 / 25.3 / 40.5, the trace zigzagging. After the line, rounds 7 to 12 in silence at half a second each, then a beat | bars, live numbers, streams, trace | hold |
++| 11_6 | Round after round the swings shrink, and the crowd settles. Corner zero keeps about thirty-four point six percent, and corner one ends up at twenty-five point four percent, up from fifteen point four. | Rounds 13 to 18 at 0.3 s each; at "the crowd settles" dim ticks across the bars at their settled heights and a dashed line through the trace labelled "34.6 %", the trace's crossings now readable against it. At "Corner zero keeps" corner 0's share becomes a fixed teal "38.5 → 34.6 %", outlined; at "corner one ends up" corners 1 and 2 become "15.4 → 25.4 %" and "46.2 → 40.1 %", corner 1's outlined; "up from fifteen point four" pulses corner 1's ghost | ticks, labels from facts | |
++| 11_7 | Game A's coin ignores the corners, so its rounds keep stirring the crowd toward equal thirds. That shift of weight off corner zero is where the winning comes from. | "ignores the corners" rings all three; at "toward equal thirds" dashed ticks at a third on each bar and a dashed line at "33.3 %" on the trace; at "That shift of weight" a red outline fills the gap between corner 0's bar and its ghost, pulsing, and corner 0 is ringed; "where the winning comes from" outlines "38.5 → 34.6 %" | outline | hold |
+ 
+@@ -461,14 +476,26 @@
+ 
+-- The shift is the reveal: keep B's ghost heights visible beside the mix's
+-  bars through 11_6. The player's own mix run (05_2, 34.5 % with the
+-  published coins) is the same effect seen in one player.
++- The shift is the reveal: B's ghost heights stay beside the mix's bars
++  from 11_4 to the end. The player's own mix run (05_2, 34.5 % with the
++  published coins) is the same effect seen in one player; it is 13_6's
++  callback. 11 draws no 34.5: its numbers are the round-number coins'
++  split-crowd model (34.6 %), not the published run's measurement.
+ - 11_5's rounds are computed (`mixshift.round.1` to `.6`, the split crowd
+   of 26 from 10, 4, 12 under the round-coin mix), not tweened between end
+-  points: corner 0 reaches its settled share within half a point in the
+-  first round and then crosses it five times in six rounds, while corner 1
+-  overshoots to 28.8 % first (GoldGate's review, M2). The tests assert the
+-  first drop, its nearness to the limit and at least two crossings.
++  points: corner 0 reaches its settled share within a tenth of a point in
++  the first round (34.615 % against 34.556 %; both print 34.6) and then
++  crosses it five times in six rounds, while corner 1 overshoots to 28.8 %
++  first (GoldGate's review, M2). Corner 0's swing shrinks every round from
++  round 2, and every readout shows its settled value for good from round
++  18, where the run stops. The tests assert the first drop, its nearness to
++  the limit, the crossings, the overshoot and the settling round.
++- Nothing settled is drawn during the prediction (11_4): the ticks, the
++  dashed lines and the fixed rows wait for "the crowd settles" (11_6).
++- Failed control (tested): halfway between A's equal thirds and B's 38.5 %
++  would be 35.9 %, not 34.6 %.
+ - Pause intentions: after "every arrow becomes an average" (11_2) a short
+-  beat; after the shares (11_5) a held pause so the numbers can be read; a
+-  hold after 11_6 (the reveal).
++  beat; 11_4's question gets its countdown; after 11_5 the silent rounds and
++  a beat, so the sloshing can be watched; 11_6 ends a section; a hold after
++  11_7 (the reveal).
++- Pronunciation: "sloshes"; "thirty-four point six", "twenty-five point
++  four" (each "point" clear).
+ 

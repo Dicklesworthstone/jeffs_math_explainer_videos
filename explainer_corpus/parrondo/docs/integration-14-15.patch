@@ -1,0 +1,1073 @@
+--- a/explainer_corpus/parrondo/docs/storyboard-draft.md
++++ b/explainer_corpus/parrondo/docs/storyboard-draft.md
+@@ -75,8 +75,8 @@
+ | `11_mix_the_games` | the averaged arrows; which way the crowd shifts (a prediction); 38.5 → 34.6 % at corner 0 | planned (words and pictures only) |
+ | `12_one_dial` | A rounds break even; B wins 75 % minus 65 points per unit of share at corner 0; at 34.6 % (a prediction) 52.5 %; the mix +2.54 cents | planned (words and pictures only) |
+ | `13_the_half_point` | the published coins restored; B's threshold 37.7 % against its 38.4 %; does the mix survive? (a prediction); the opening's numbers; the source | planned (words and pictures only) |
+-| `14_net_flow` | the mix's crowd of 1,418; twelve net across each edge; dollars gained per round (a prediction); gain = 3 × flow; balanced edges multiply to equal products | planned (words and pictures only) |
+-| `15_two_products` | the converse: equal products balance every edge; B balanced at 9/160; the mix's products (a prediction); the sign rule | planned (words and pictures only) |
++| `14_net_flow` | a test from the coins alone?; the mix's crowd of 1,418 and its paired flows; the viewer counts each edge's surplus, twelve; dollars gained per round (a prediction); why a settled corner forces the same twelve; one seeded real round against the expected numbers; B's balances multiply to equal products | native source written 2026-10-24 (`net_flow.rs`), uncompiled, no render, no narration |
++| `15_two_products` | the converse built on B's 10, 4, 12, then in letters; the sign from one line with both other factors positive; B fair, not a winner; the mix's products (a prediction); the one line on the 1,418; the published A, B and mix | native source written 2026-10-24 (`two_products.rs`), uncompiled, no render, no narration |
+ | `16_when_switching_fails` | ordinary coins mix to their average; strict alternation (a prediction) loses; AABB wins; A's share between 7.0 % and 84.7 % | planned (words and pictures only) |
+ | `17_what_winning_promises` | the player's B run was ahead at 1,000 rounds; 100 rounds: 51.7 % ahead; 1,000 rounds (a prediction): 68.9 %; the long-run law; not advice | planned (words and pictures only) |
+ | `18_the_catch` | the puzzle explained; a switching rule that reads the money the other way (a prediction) loses 27.6 cents a round; swapped, it wins; win-win-win against lose-lose-lose; names to search | planned (words and pictures only) |
+@@ -120,8 +120,8 @@
+ chances join it at 02_5, once all three coins have been introduced:
+ "published coins · 49.5 · 9.5 · 74.5 %". "round-number coins · 50 · 10 ·
+ 75 % · no handicap" is outlined in hero. The badge changes only on the
+-voice's own cue (02_5, 07_5, 13_1, 15_5) and with the round coins again at
+-14_1.
++voice's own cue (02_5, 07_5, 13_1, 15_14) and with the round coins again at
++14_2.
+ 
+ ## Sources and scope
+ 
+@@ -337,8 +337,8 @@
+   stops; the remainder is 0, 1 or 2, so −1 leaves 2 and −3 leaves 0".
+ - Prediction (07_2) answered at 07_3's first words; the thirds appear with them.
+ - The badge is the label of the explanatory example: outlined "round-number
+-  coins · no handicap" from 07_5 to 12_12 and again in 14; the published
+-  coins return, filled, at 13_1.
++  coins · no handicap" from 07_5 to 12_12 and again from 14_2 to 15_13;
++  the published coins return, filled, at 13_1 and at 15_14.
+ - Pause intentions: "So what decides game B" (07_1) follows without a long
+   gap; a turn after "Put the half point back" (07_5); a thinking beat after
+   "fifty-three point three percent of its rounds" (07_7), held.
+@@ -617,54 +617,153 @@
+   "nineteen ninety-nine", "thirty-seven point seven", "thirty-four and a
+   half".
+ 
+-## 14_net_flow: The crowd circulates (~83 s)
++## 14_net_flow: The crowd circulates (~282 s)
+ 
+ | id | words | picture | features | hold/listen |
+ |---|---|---|---|---|
+-| 14_1 | There's a test that decides any game like these, without finding where the crowd settles. It starts from how a settled crowd moves around the triangle. | The triangle alone, the mix's gold arrows; the badge flips to "round-number coins" | arrows, badge | |
+-| 14_2 | Go back to the round numbers, and take the mix's crowd, scaled up to one thousand four hundred eighteen players so every count is whole. Across each edge, twelve more players go forward than come back. | Corners 490, 360, 568, with "players: 1,418" and under it the dim "split by the chances (expected numbers)"; edge labels forward/back: 147/135, 225/213, 355/343; each edge's net "12" in gold | labels from facts | |
+-| 14_3 | Every forward step wins a dollar and every backward step loses one. So how many dollars does this crowd gain each round? ⟨predict⟩ | Question; countdown | think countdown | |
+-| 14_4 | Thirty-six, twelve for each of the three edges. That's seven hundred twenty-seven winners against six hundred ninety-one losers. | TeX 3 × 12 = 36 = 727 − 691 | TeX from facts | |
+-| 14_5 | In any settled crowd, every edge carries the same net flow, and the gain per round is three times it. A game is fair exactly when that flow is zero. | "gain per round = 3 × net flow"; B's settled 26 return with net 0 on each edge (1 − 1, 3 − 3, 9 − 9) | TeX, labels from facts | |
+-| 14_6 | When is the net flow zero? Then every edge balances on its own, the players going forward across it equal to the players coming back. | Three balance lines, one per edge, in words then symbols: weight₀ · p₀ = weight₁ · q₁, weight₁ · p₁ = weight₂ · q₂, weight₂ · p₂ = weight₀ · q₀ (p forward, q back) | TeX derivation | |
+-| 14_7 | Multiply the three balances together. The weights appear once on each side and cancel. | The three lines multiply into one; each weight is struck out on both sides (TransformMatchingTex) | TransformMatchingTex | |
+-| 14_8 | What's left compares the two ways around. Winning three times in a row, all the way around the triangle, is exactly as likely as losing three times in a row the other way. | p₀ p₁ p₂ = q₀ q₁ q₂ with "win, win, win" and "lose, lose, lose" under each side | TeX | |
++| 14_1 | Here's a new question. Could you tell whether a game like these wins from its coins alone, without first working out where its crowd settles? There is a test, and it comes from watching a settled crowd move around the triangle. | The mix's triangle as 11 left it: B's corners and arrows, the gold title "the mix", the mix's chances forward 30, 62.5, 62.5 % in gold and back 70, 37.5, 37.5 % in dim; the badge still the filled "published coins · 49.5 · 9.5 · 74.5 %" that 13 left. At "There is a test" a frame round the chance labels; at "watching a settled crowd move" every arrow's shaft flashes | triangle and chances from facts | |
++| 14_2 | Go back to the round coins, and take the mix's settled crowd, scaled up to one thousand four hundred eighteen players so that every count is whole. Four hundred ninety stand at corner zero, three hundred sixty at corner one, and five hundred sixty-eight at corner two. That's still thirty-four point six percent at corner zero. | At "Go back to the round coins" the badge becomes the outlined "round-number coins · 50 · 10 · 75 % · no handicap". At "scaled up" the panel: "players: 1,418" over the dim "split by the chances (expected numbers)". As each count is said, its row ("corner 0 490", "corner 1 360", "corner 2 568") and a teal puddle growing at its corner to its share. At "still thirty-four point six percent" the shares 34.6, 25.4, 40.1 % beside the counts, 34.6 % framed | puddles and counts from the model | |
++| 14_3 | Look at one edge at a time. Between corners zero and one, one hundred forty-seven players step forward, thirty percent of the four hundred ninety. And one hundred thirty-five step back, thirty-seven and a half percent of the three hundred sixty. | Edge 0 → 1's two arrows flash. At "one hundred forty-seven players step forward" a teal stream along the forward arrow, as wide as the players it carries, and "30 % × 490 = 147"; at "one hundred thirty-five step back" the back stream and "37.5 % × 360 = 135" | streams from the model | beat |
++| 14_4 | The other two edges work the same way. Two hundred twenty-five forward and two hundred thirteen back between corners one and two. Three hundred fifty-five forward and three hundred forty-three back between corners two and zero. | The two sums give way to a table headed "edge" and "forward − back", its first row "0 → 1 147 − 135". As each edge is said, its two streams and its row: "1 → 2 225 − 213", "2 → 0 355 − 343" | table and streams from the model | |
++| 14_5 | Before going on, count the surplus on each edge, the players going forward minus the players coming back. | A frame on the "forward − back" head, then round all three pairs. Nothing is subtracted on screen: the viewer counts | counting time | hold |
++| 14_6 | Twelve, every time. Twelve more players go forward than come back, on all three edges, so the crowd keeps circulating forward around the triangle. That surplus is the net flow. | "= 12" in gold on each row, one at a time. At "keeps circulating forward" the teal streams go and gold paths run forward along all three edges. At "That surplus is the net flow" the third column is headed "net flow" and the three twelves are framed | paths from the model | |
++| 14_7 | Every forward step wins a dollar, and every backward step loses one. So how many dollars does this whole crowd gain in one round? ⟨predict⟩ | The gold paths flash at "wins a dollar". "how many dollars does this whole crowd gain in one round?" under the table, and the countdown; nothing is summed on screen | think countdown | |
++| 14_8 | Thirty-six dollars, twelve for each of the three edges. Seven hundred twenty-seven players win, and six hundred ninety-one lose. Shared among the one thousand four hundred eighteen players, that's just over two and a half cents a round each, the mix's average once again. | The question and countdown give way to "3 × 12 = 36 = 727 − 691" in gold with "dollars a round", framed at "Seven hundred twenty-seven players win". At "Shared among" "36 dollars / 1,418 ≈ 2.54 cents" with "per player per round", framed at "the mix's average once again" | TeX from the model | hold |
++| 14_9 | Why twelve on every edge? Watch corner one. Across the edge behind it, twelve more players arrive than leave. Across the edge ahead of it, twelve more leave than come back. Twelve in and twelve out, so corner one keeps its three hundred sixty. If the two edges disagreed, the count at corner one would change, and in a settled crowd no count changes. | The sums go; corner 1 is ringed. At "the edge behind it" a frame on row "0 → 1" pointing at its gold path; at "the edge ahead of it" a frame on row "1 → 2" and its path. At "keeps its three hundred sixty" "corner 1: 360 + 12 − 12 = 360" in teal; at "If the two edges disagreed" a frame on corner 1's count | shape emphasis only | beat |
++| 14_10 | Remember, these are expected numbers, the crowd split exactly by the chances. Real players toss real coins. Here is one real round for all one thousand four hundred eighteen, tossed with the video's one fixed seed. Its edges carry seven, four and minus seventeen, and each corner changes by exactly the difference between its two edges. In this round the crowd even lost six dollars. | A frame on the dim "split by the chances (expected numbers)". At "Here is one real round" it gives way to "one real round: real tosses, seeded illustration" in teal, and the table's pairs, nets and gold paths to the real round's pairs "134 − 127", "233 − 229", "339 − 356". At "Its edges carry" "= 7", "= 4", "= −17" in teal. At "each corner changes" the counts become 466, 363, 589 with "−17 − 7 = −24", "7 − 4 = 3", "4 − (−17) = 21" in place of the shares, and the puddles follow. At "lost six dollars" "7 + 4 − 17 = −6 dollars" in red | real tosses from the model's seed | hold |
++| 14_11 | Over a thousand real rounds, though, each edge averages eleven point nine, and the crowd gains thirty-five point eight dollars a round. Real rounds scatter, and in the long run they average out to the expected numbers. | The expected numbers return together: the dim label, the pairs, the gold twelves, the counts, the shares and the puddles. Under them in teal "1,000 real rounds, the same seeded illustration:", then, as each is said, "average net on each edge: 11.9, 11.9, 11.9" and "average gain: 35.8 dollars a round". At "Real rounds scatter" a frame on the expected-numbers label | real tosses from the model's seed | hold |
++| 14_12 | So in any settled crowd, every edge carries the same net flow, and the crowd gains three times it each round. A game is fair exactly when that net flow is zero. Game B's settled twenty-six show it, one and one, three and three, nine and nine. | The thousand-round lines go; a frame on the twelves. At "three times it" "gain per round = 3 × net flow" in gold; at "A game is fair exactly when" "fair ⟺ net flow = 0". At "Game B's settled twenty-six" the mix's title, chances, counts, shares and pairs become game B's: "players: 26", 10, 4, 12 at 38.5, 15.4, 46.2 %, "1 − 1", "3 − 3", "9 − 9", each "= 0", while the puddles move to B's shares; the zeros framed | B's crowd from the model | hold |
++| 14_13 | When the net flow is zero, every edge balances on its own. For game B, ten players times a tenth equals four players times a quarter, one each way. Four times three quarters equals twelve times a quarter, three each way. And twelve times three quarters equals ten times nine tenths, nine each way. | The table's head becomes "each edge balances: forward = back". As each edge is said, its balance as separate pieces, "10 × 1/10 = 4 × 1/4 = 1", "4 × 3/4 = 12 × 1/4 = 3", "12 × 3/4 = 10 × 9/10 = 9" (counts teal, forward chances green, back chances dim), while that edge's two arrows flash | pieces from the model | beat |
++| 14_14 | Multiply the three balances together. Each side then holds the same three counts, ten, four and twelve, once each, so they cancel. What's left is a tenth times three quarters times three quarters, against nine tenths times a quarter times a quarter. Both come to nine over one hundred sixty. | The "= 1", "= 3" and "= 9" go; "×" signs and a rule line make the rows one product. At "the same three counts" a frame on the left counts, then on the right counts; at "so they cancel" each count gets a red stroke and goes. At "What's left" copies of the forward chances fly from their rows into "1/10 · 3/4 · 3/4"; at "against nine tenths" the back chances into "= 9/10 · 1/4 · 1/4". At "Both come to" "9/160 = 9/160" in gold, framed | separate TeX pieces move as wholes | hold |
++| 14_15 | The same cancelling works for any game. Write each corner's weight, its share of the settled crowd, as w, its chance forward as p, and back as q. Every corner holds some of the crowd, so no weight vanishes, and each one cancels. What's left says winning three times in a row, all the way around the triangle, is exactly as likely as losing three times in a row the other way. | B's numbers go. At "Write each corner's weight" the head becomes "w: weight · p: chance forward · q: chance back" and the rows "w₀ p₀ = w₁ q₁", "w₁ p₁ = w₂ q₂", "w₂ p₂ = w₀ q₀". At "no weight vanishes" every corner is ringed; at "each one cancels" every weight gets a red stroke. At "winning three times in a row" "p₀ p₁ p₂" with "win, win, win" and teal paths forward round the triangle; at "the other way" "= q₀ q₁ q₂" with "lose, lose, lose" and dim paths back | TeX pieces, paths | hold |
+ 
+ ### Notes for 14
+ 
+-- "Every edge carries the same net flow" holds for any settled crowd on the
+-  triangle (what enters a corner leaves it); the oracle checks it on 729
+-  games. 14_5's B check: 0→1 carries 1 forward and 1 back, 1→2 3 and 3,
+-  2→0 9 and 9.
+-- 14_6 to 14_8 start the test: zero net flow forces equal products. Chapter
+-  15 opens with the converse, so nothing is concluded from it before 15_1.
+-- Pause intentions: after "come back" (14_2) a beat for the labels.
+-
+-## 15_two_products: Two products decide (~72 s)
++- Order (root's direction, ROOT1232-P14): the crowd of 1,418 and its paired
++  opposing flows come before any symbol. The viewer counts the three
++  surpluses (14_5, held, nothing subtracted on screen) before 14_6 names
++  the net flow, and predicts the crowd's gain (14_7) before 14_8 sums it.
++- 14_9 is why a settled corner forces its two edges to agree. Corner 1
++  receives 147 forward from corner 0 and 213 back from corner 2 (360) and
++  sends 225 forward and 135 back (360): the edge behind it carries
++  147 − 135 = 12 net in and the edge ahead 225 − 213 = 12 net out.
++- Expected against realized: the dim "split by the chances (expected
++  numbers)" is on screen whenever expected counts are. The real round
++  (14_10) has its own teal label, "one real round: real tosses, seeded
++  illustration", and the thousand rounds say "the same seeded
++  illustration". They come from `model::real_crossings` (seed 1999, the
++  players in corner order, a toss below the chance in 200ths steps
++  forward). One illustration, not a typical value or a theorem; a single
++  round can lose (−6 dollars).
++- Negative controls (oracle): the real round's edges disagree (7, 4, −17),
++  so "every round nets twelve" is false, while each corner still changes
++  by net in minus net out; B's 10, 4, 12 under the mix's coins (not
++  settled) has edges that disagree, and its corners change by the same
++  rule; 3 × 12 = 36 = 727 − 691.
++- 14_13 to 14_15 prove one direction only: zero net flow forces equal
++  products. 15 opens with the converse, so nothing is concluded from
++  equal products before 15_6.
++- 14_15's "no weight vanishes" is what lets each weight cancel; with every
++  chance strictly between 0 and 1 every corner holds players (15_1 states
++  the condition).
++- The badge: the filled published badge at 14_1, as 13 left it; the
++  outlined round-number badge from 14_2 ("Go back to the round coins") to
++  15_13.
++- Pause intentions: a short beat after "Here's a new question"; the
++  counting hold after "the players coming back" (14_5); the prediction
++  after 14_7, answered at 14_8's first words; "Twelve, every time." then a
++  short beat; an inspection hold after "the mix's average once again"
++  (14_8); a beat after "no count changes" (14_9); a turn after "Real
++  players toss real coins" (14_10) and an inspection hold after "lost six
++  dollars".
++- Pronunciation: "one thousand four hundred eighteen", "five hundred
++  sixty-eight", "thirty-seven and a half", "minus seventeen", "thirty-five
++  point eight", "nine over one hundred sixty".
++
++## 15_two_products: Two products decide (~293 s)
+ 
+ | id | words | picture | features | hold/listen |
+ |---|---|---|---|---|
+-| 15_1 | The test works the other way too. When every chance is above zero, the first two balances fix the weights, and the third then holds exactly when the two products match. A crowd that balances every edge stays put, and only the settled crowd does, so equal products mean zero net flow. | The three balance lines of 14_6 return. Under the first two, TeX weight₁ = weight₀ · p₀ / q₁ and weight₂ = weight₁ · p₁ / q₂ = weight₀ · p₀ p₁ / (q₁ q₂); substituted into the third, weight₂ · p₂ = weight₀ · q₀ becomes weight₀ · p₀ p₁ p₂ / (q₁ q₂) = weight₀ · q₀, true exactly when p₀ p₁ p₂ = q₀ q₁ q₂ (the line of 14_8 flashes). Then a dim chain: "every edge balanced → stays put → the settled crowd → net flow 0" | TeX derivation | |
+-| 15_2 | For game B without the half point, a tenth times three quarters times three quarters, against nine tenths times a quarter times a quarter. Both come to nine over one hundred sixty. Balanced, so fair. | TeX 1/10 · 3/4 · 3/4 = 9/160 and 9/10 · 1/4 · 1/4 = 9/160 | TeX from facts | |
+-| 15_3 | For the mix, the forward product is thirty percent times sixty-two and a half percent twice over. The backward product is seventy percent times thirty-seven and a half percent twice over. Which is bigger? ⟨predict⟩ | TeX 0.3 · 0.625 · 0.625 vs 0.7 · 0.375 · 0.375, no values; countdown | think countdown | |
+-| 15_4 | Forward, seventy-five over six hundred forty against sixty-three. When the forward product is bigger, the crowd turns forward and the game wins. When it's smaller, the game loses. | 75/640 vs 63/640 in gold; a "precisely" card (K06) | lower-third | |
+-| 15_5 | With the half point shaved off, game B's forward product drops below its backward one, and the mix's stays above. Two products per game decide A, B and the mix. | The badge flips to "published coins". A table, three rows (A, B, the mix): forward and backward products to four digits and the verdict | badge, table from facts | |
++| 15_1 | So when the net flow is zero, the two products match. The test also runs the other way, as long as no coin is certain to win or certain to lose, and none of the coins in this video is. | B's triangle and settled crowd as 14 left them: the outlined round-number badge, B's violet title, its chances, teal puddles at 10, 4 and 12 of 26. At "when the net flow is zero" "net flow = 0 ⇒ p₀ p₁ p₂ = q₀ q₁ q₂"; at "the other way" the reverse claim "p₀ p₁ p₂ = q₀ q₁ q₂ ⇒ net flow = 0" with a "?" in hero. At "no coin is certain" the dim condition "every chance strictly between 0 and 100 %"; at "none of the coins" a frame round the chance labels | claims as TeX | |
++| 15_2 | Try it on game B, whose products match, and pretend we never found its settled crowd. Put ten players at corner zero. A tenth of them step forward, so the first balance needs one player stepping back from corner one, where a quarter step back. That takes four players. Then three of those four step forward, so the second balance needs three stepping back from corner two, and that takes twelve. | A frame on the claim with its "?". At "pretend we never found" the puddles drain. At "ten players" edge 0 → 1's name, the dim "split by the chances (expected numbers)" and "10", while corner 0's puddle fills to ten players. Piece by piece as the words reach them: "× 1/10" (the forward arrow flashes), "= ? × 1/4 = 1" (the back arrow flashes), the "?" becoming "4" at "That takes four players" while corner 1's puddle fills. The second row starts from that 4, carried down from the first: "4 × 3/4 = ? × 1/4 = 3", the "?" becoming 12 and corner 2's puddle filling | each count computed from the one before | |
++| 15_3 | The third balance has nothing left to choose. Twelve times three quarters is nine, and ten times nine tenths is nine, so it holds. And ten, four and twelve is exactly the crowd game B settled into. | Row three: the 12 carried down from row two and the 10 from row one, "12 × 3/4 ? 10 × 9/10"; edge 2 → 0's arrows flash at each "nine". At "so it holds" the "?" becomes "=" and "= 9" appears. At "exactly the crowd game B settled into" a frame on 10, 4 and 12, and all three corners are ringed | pieces from the model | beat |
++| 15_4 | Why did the third balance come out right? Follow the same steps for any game. The first balance gives corner one's weight from corner zero's, and the second gives corner two's from corner one's. Dividing by the back chances is safe, because no coin is certain to win. | A frame on the third row. At "Follow the same steps" the numbers become letters, "w₀ p₀ = w₁ q₁", "w₁ p₁ = w₂ q₂", "w₂ p₂ = w₀ q₀", under "w: weight · p: chance forward · q: chance back". At "corner one's weight" "w₁ = w₀ p₀ / q₁" and a frame on the first balance; at "corner two's" "w₂ = w₁ p₁ / q₂ = w₀ p₀ p₁ / (q₁ q₂)" and a frame on the second; at "is safe" a frame on the condition | TeX derivation | |
++| 15_5 | Put both into the third balance. Corner zero's weight appears on both sides and cancels. Multiply through by the two back chances, and what's left is exactly the two products. So the third balance holds exactly when the products match, as game B's do. | A frame on the third balance; under the steps it becomes "w₀ · p₀ p₁ p₂ / (q₁ q₂) = w₀ · q₀", and at "cancels" both w₀ get a red stroke. At "Multiply through" "p₀ p₁ p₂ = q₀ q₁ q₂" in gold, framed at "holds exactly when the products match" | TeX derivation | hold |
++| 15_6 | A crowd that balances every edge stays put: each corner gets back exactly the players it sends. And only one way of spreading a crowd stays put, the settled one, because players can get from any corner to any other. So matching products mean the net flow is zero, and the game is fair. | The steps go; the products line rises. "every edge balanced → the crowd stays put"; at "gets back exactly" all three corners are ringed. At "only one way" "only the settled crowd stays put: any corner reaches any other"; at "any corner to any other" every arrow's shaft flashes. At "So matching products" "so equal products → net flow 0 → fair", and the reverse claim loses its "?", gold and framed | argument in words | hold |
++| 15_7 | When the products don't match, which way does the crowd turn? Keep the net flow in each balance: forward minus back is the net flow, on every edge. The first balance gives corner one's back flow. Put it into the second, and because each corner's two chances add up to one, the net flow appears just once. Put that into the third, and everything collects into one line. | The chain and the products line go. At "Keep the net flow" the balances become "w₀ p₀ − w₁ q₁ = net", "w₁ p₁ − w₂ q₂ = net", "w₂ p₂ − w₀ q₀ = net". At "back flow" "w₁ q₁ = w₀ p₀ − net" with a frame on the first; at "Put it into the second" "w₂ q₁ q₂ = w₀ p₀ p₁ − net (p₁ + q₁)" with a frame on the second; at "add up to one" it becomes "w₂ q₁ q₂ = w₀ p₀ p₁ − net" beside the dim "p₁ + q₁ = 1". At "one line" "net × (p₂ + q₁ q₂) = w₀ × (p₀ p₁ p₂ − q₀ q₁ q₂)" as separate pieces, framed | TeX derivation | hold |
++| 15_8 | Look at the two sides. The number multiplying the net flow is a chance forward plus two chances back multiplied together, so it's positive. Corner zero's weight is positive too. So the net flow has the same sign as the forward product minus the backward product. When the forward product is bigger, the crowd turns forward and the game wins. When it's smaller, the game loses. | Frames on the line's left side, then its right. At "so it's positive" a green "positive" under "× (p₂ + q₁ q₂)", framed; at "positive too" a green "positive" under "w₀", and corner 0 ringed. At "the same sign" frames on "net", then on the products' difference. At "bigger" "forward product bigger → net flow above 0 → wins" in green, with green paths forward round the triangle; at "smaller" "forward product smaller → net flow below 0 → loses" in red, with red paths back. The two claims at the top give way to one rule, "the net flow has the sign of p₀ p₁ p₂ − q₀ q₁ q₂", framed | TeX, paths | hold |
++| 15_9 | For game B with the round coins, the two products were equal, so B's net flow is zero and B is fair. Averaging B's forward chances would have said fifty-three point three percent, a winner. The products aren't fooled. | The derivation goes; the rule, the condition and the one line stay. "game B" with "1/10 · 3/4 · 3/4 = 9/160 = 9/10 · 1/4 · 1/4"; at "B is fair" "net flow = 0 fair" in gold. At "Averaging" the dim "averaging B's forward chances: 53.3 %, a winner?"; at "aren't fooled" a red stroke through it | TeX from the model | beat |
++| 15_10 | For the mix, the forward product is thirty percent times sixty-two and a half percent twice over. The backward product is seventy percent times thirty-seven and a half percent twice over. Which is bigger? ⟨predict⟩ | B's lines go. B's title and chances become the mix's (forward 30, 62.5, 62.5 % in gold, back 70, 37.5, 37.5 % in dim) while the puddles move to the mix's shares. "forward: 30 % · 62.5 % · 62.5 %" in green with a frame on the forward chances; at "The backward product" "back: 70 % · 37.5 % · 37.5 %" in dim with a frame on the back chances; no values. At "Which is bigger" the countdown | think countdown | |
++| 15_11 | The forward product. Seventy-five over six hundred forty, against sixty-three over six hundred forty. So the mix's crowd turns forward, and the mix wins. | The countdown goes; a frame on the forward product. At "Seventy-five" "= 75/640" in gold after it; at "against sixty-three" "= 63/640" after the backward one. At "turns forward" gold paths forward round the triangle | TeX from the model | beat |
++| 15_12 | And the one line checks out on the mix's crowd of one thousand four hundred eighteen. Its positive number comes to forty-nine sixty-fourths, and its products differ by three over one hundred sixty. Twelve players of net flow times forty-nine sixty-fourths, against four hundred ninety players at corner zero times three over one hundred sixty. Both sides come to one hundred forty-seven over sixteen. | In teal, "the mix's 1,418 players: 490 at corner 0, net flow 12", and a frame on the one line. At "positive number" "p₂ + q₁ q₂ = 62.5 % + 37.5 % · 37.5 % = 49/64"; at "differ" "p₀ p₁ p₂ − q₀ q₁ q₂ = 75/640 − 63/640 = 3/160". At "Twelve players" "12 × 49/64" in teal over "net × (p₂ + q₁ q₂)"; at "against four hundred ninety" "= 490 × 3/160" over the other side. At "Both sides" "= 147/16" in gold, framed | numbers set over their letters | hold |
++| 15_13 | Spread over the players and tripled, the net flow gives the mix's average exactly, just over two and a half cents a round. | The difference gives way to "3 × 12 / 1,418 = 18/709 dollars ≈ 2.54 cents" in gold with "per player per round", framed at "average exactly". At "two and a half cents" the "precisely" card (K06), held for its reading time | lower-third card | |
++| 15_14 | Now shave the half point off again, back to the coins Harmer and Abbott published. Game A's forward product falls below its backward one, so A loses, a cent a round. Game B's falls below as well, so B loses, just under a cent. The mix's forward product stays above, so the mix wins, just over one and a half cents a round. Two products per game decide A, B and the mix. | The mix's numbers go. At "Harmer and Abbott published" the badge becomes the filled "published coins · 49.5 · 9.5 · 74.5 %", the mix's chances become 29.5, 62, 62 % forward and 70.5, 38, 38 % back, and the puddles barely move (34.6 to 34.5 % at corner 0). A table headed "products: forward vs back" and "average", over "average: cents per player per round"; a row as each game is said: "game A 0.1213 < 0.1288 loses −1.00", "game B 0.0527 < 0.0588 loses −0.87", "the mix 0.1134 > 0.1018 wins +1.57". At "Two products per game decide" a frame on the products column | table from facts | hold |
++| 15_15 | Notice what the test never needed. No crowd and no weights, just the three chances forward and the three chances back, each set multiplied together. | A frame on the rule. At "No crowd and no weights" the puddles drain. At "the three chances forward" gold paths forward round the triangle and a frame on the forward chances; at "the three chances back" dim paths back and a frame on the back chances; at "each set multiplied together" a frame on the products column | paths | hold |
+ 
+ ### Notes for 15
+ 
+-- K06: "precisely: average gain per round = 3 (p₀p₁p₂ − q₀q₁q₂) / W, where W
+-  is the sum over the corners of their spanning-tree weights, which is
+-  positive; every chance strictly between 0 and 1". 14_6 to 14_8 show that
+-  zero flow forces equal products; 15_1 shows the converse before 15_2 uses
+-  it (with every chance above zero the first two balances fix the weights,
+-  the third holds exactly when the products match, a crowd that balances
+-  every edge is stationary, and the settled crowd is the only stationary
+-  crowd, the triangle being connected both ways); the formula gives the
+-  sign. The oracle checks the converse's algebra (GoldGate's review, T1).
+-- The table (published coins): A 0.1213 vs 0.1288 (loses), B 0.0527 vs 0.0588
+-  (loses), the mix 0.1134 vs 0.1018 (wins); values from facts.
+-- Pronunciation: "nine over one hundred sixty", "seventy-five over six
+-  hundred forty", "sixty-two and a half".
++- Both directions, every chance strictly between 0 and 1 (root's
++  direction, ROOT1232-P14). The converse is earned on the picture before
++  it is used: 15_2 and 15_3 build game B's crowd from ten players at
++  corner 0, one balance at a time (10, then 4, then 12), and the third
++  balance holds with nothing left to choose. 15_4 and 15_5 do the same
++  steps in letters; w₀ cancels and the third balance holds exactly when
++  the products match. 15_6 says why a crowd that balances every edge is
++  the settled crowd: it stays put, and the settled crowd is the only crowd
++  that stays put, because every corner reaches every other.
++- The sign is earned, not read off the zero case. With the net flow J kept
++  in each balance (the same J on every edge, from 14): w₁q₁ = w₀p₀ − J;
++  then w₂q₁q₂ = w₀p₀p₁ − J(p₁ + q₁) = w₀p₀p₁ − J; then the third balance
++  gives J(p₂ + q₁q₂) = w₀(p₀p₁p₂ − q₀q₁q₂). Both p₂ + q₁q₂ and w₀ are
++  positive, so J has the sign of the difference of the products. The
++  oracle checks the identity, the sign and the converse on all 729 games
++  with chances in tenths.
++- No spanning-tree formula. The weight was named in 09 and is said again
++  in 14_15 ("its share of the settled crowd"); the positive number is
++  described in words in 15_8 ("a chance forward plus two chances back
++  multiplied together") before 15_12 gives its value.
++- K06: "if every chance is strictly between 0 and 1, the average gain per
++  player per round is 3 w0 (p0 p1 p2 − q0 q1 q2) / (p2 + q1 q2), 3 times
++  the net flow per player, where w0 is corner 0's share of the settled
++  crowd". With the mix: 3 × (245/709) × (3/160) / (49/64) = 18/709.
++- Units: the crowd's gain is in dollars a round (14_8); the one line in
++  15_12 counts players on both sides (twelve players of net flow, 490
++  players at corner 0, so 147/16 players); a player's average is in cents
++  per player per round (15_13, the table in 15_14).
++- The condition is what the argument uses: 15_4 divides by the back
++  chances, and 15_6 needs every corner to reach every other. The voice
++  claims the test only under it. Tested at its edge (the oracle sweeps
++  every chance from 0 to 10 tenths): on this triangle the sign rule also
++  survives certain coins, because whenever the products differ both other
++  factors are positive. The one game shape where p₂ + q₁q₂ vanishes (a
++  coin certain to win at corner 1 and one certain to lose at corner 2) has
++  both products 0 and no net flow. So the video never says the test fails
++  without the condition.
++- Negative controls (oracle and the tests): that certain-coin game (50 %
++  at corner 0, 100 % at corner 1, 0 % at corner 2) makes p₂ + q₁q₂ and w₀
++  both 0, so the one line alone decides nothing there; a
++  bigger difference of products need not mean a bigger gain (forward
++  chances 1, 8, 9 tenths: difference 0.054, mean ≈ 0.0775; 4, 4, 8
++  tenths: difference 0.056, mean ≈ 0.0764), so the products give the sign
++  only; B's forward chances average 53.3 %, yet B is fair; when the
++  products differ, a crowd built from the first two balances fails the
++  third and moves.
++- The table (published coins): A 0.1213 against 0.1288 (loses −1.00
++  cents), B 0.0527 against 0.0588 (loses −0.87), the mix 0.1134 against
++  0.1018 (wins +1.57); values from facts. The published mix's crowd sits
++  at 34.5 % at corner 0, so its puddles barely move from the round mix's
++  34.6 %.
++- The badge: outlined round-number coins to 15_13; the filled published
++  badge returns at 15_14, on "the coins Harmer and Abbott published".
++- Pause intentions: a turn before "Try it on game B"; a beat after "so it
++  holds" (15_3); a thinking beat after "Why did the third balance come out
++  right?"; inspection holds after 15_5, 15_6, 15_7 and 15_8, where each
++  step of the argument completes; the prediction after 15_10, answered
++  at 15_11's first words; the card's reading time in 15_13; a final hold.
++- Pronunciation: "nine tenths", "fifty-three point three", "seventy-five
++  over six hundred forty", "sixty-three over six hundred forty",
++  "forty-nine sixty-fourths", "three over one hundred sixty", "one
++  hundred forty-seven over sixteen", "Harmer and Abbott".
+ 
+ ## 16_when_switching_fails: When switching fails (~72 s)
+ 
+--- a/explainer_corpus/parrondo/docs/storyboard.md
++++ b/explainer_corpus/parrondo/docs/storyboard.md
+@@ -66,8 +66,8 @@
+ chances join it at 02_5, once all three coins have been introduced:
+ "published coins · 49.5 · 9.5 · 74.5 %". "round-number coins · 50 · 10 ·
+ 75 % · no handicap" is outlined in hero. The badge changes only on the
+-voice's own cue (02_5, 07_5, 13_1, 15_5) and with the round coins again at
+-14_1.
++voice's own cue (02_5, 07_5, 13_1, 15_14) and with the round coins again at
++14_2.
+ 
+ ## Sources and scope
+ 
+@@ -283,8 +283,8 @@
+   stops; the remainder is 0, 1 or 2, so −1 leaves 2 and −3 leaves 0".
+ - Prediction (07_2) answered at 07_3's first words; the thirds appear with them.
+ - The badge is the label of the explanatory example: outlined "round-number
+-  coins · no handicap" from 07_5 to 12_12 and again in 14; the published
+-  coins return, filled, at 13_1.
++  coins · no handicap" from 07_5 to 12_12 and again from 14_2 to 15_13;
++  the published coins return, filled, at 13_1 and at 15_14.
+ - Pause intentions: "So what decides game B" (07_1) follows without a long
+   gap; a turn after "Put the half point back" (07_5); a thinking beat after
+   "fifty-three point three percent of its rounds" (07_7), held.
+@@ -562,3 +562,151 @@
+ - Pronunciation: Juan Parrondo ("hwahn pah-RON-doh"), Harmer, Abbott,
+   "nineteen ninety-nine", "thirty-seven point seven", "thirty-four and a
+   half".
++
++## 14_net_flow: The crowd circulates (~282 s)
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 14_1 | Here's a new question. Could you tell whether a game like these wins from its coins alone, without first working out where its crowd settles? There is a test, and it comes from watching a settled crowd move around the triangle. | The mix's triangle as 11 left it: B's corners and arrows, the gold title "the mix", the mix's chances forward 30, 62.5, 62.5 % in gold and back 70, 37.5, 37.5 % in dim; the badge still the filled "published coins · 49.5 · 9.5 · 74.5 %" that 13 left. At "There is a test" a frame round the chance labels; at "watching a settled crowd move" every arrow's shaft flashes | triangle and chances from facts | |
++| 14_2 | Go back to the round coins, and take the mix's settled crowd, scaled up to one thousand four hundred eighteen players so that every count is whole. Four hundred ninety stand at corner zero, three hundred sixty at corner one, and five hundred sixty-eight at corner two. That's still thirty-four point six percent at corner zero. | At "Go back to the round coins" the badge becomes the outlined "round-number coins · 50 · 10 · 75 % · no handicap". At "scaled up" the panel: "players: 1,418" over the dim "split by the chances (expected numbers)". As each count is said, its row ("corner 0 490", "corner 1 360", "corner 2 568") and a teal puddle growing at its corner to its share. At "still thirty-four point six percent" the shares 34.6, 25.4, 40.1 % beside the counts, 34.6 % framed | puddles and counts from the model | |
++| 14_3 | Look at one edge at a time. Between corners zero and one, one hundred forty-seven players step forward, thirty percent of the four hundred ninety. And one hundred thirty-five step back, thirty-seven and a half percent of the three hundred sixty. | Edge 0 → 1's two arrows flash. At "one hundred forty-seven players step forward" a teal stream along the forward arrow, as wide as the players it carries, and "30 % × 490 = 147"; at "one hundred thirty-five step back" the back stream and "37.5 % × 360 = 135" | streams from the model | beat |
++| 14_4 | The other two edges work the same way. Two hundred twenty-five forward and two hundred thirteen back between corners one and two. Three hundred fifty-five forward and three hundred forty-three back between corners two and zero. | The two sums give way to a table headed "edge" and "forward − back", its first row "0 → 1 147 − 135". As each edge is said, its two streams and its row: "1 → 2 225 − 213", "2 → 0 355 − 343" | table and streams from the model | |
++| 14_5 | Before going on, count the surplus on each edge, the players going forward minus the players coming back. | A frame on the "forward − back" head, then round all three pairs. Nothing is subtracted on screen: the viewer counts | counting time | hold |
++| 14_6 | Twelve, every time. Twelve more players go forward than come back, on all three edges, so the crowd keeps circulating forward around the triangle. That surplus is the net flow. | "= 12" in gold on each row, one at a time. At "keeps circulating forward" the teal streams go and gold paths run forward along all three edges. At "That surplus is the net flow" the third column is headed "net flow" and the three twelves are framed | paths from the model | |
++| 14_7 | Every forward step wins a dollar, and every backward step loses one. So how many dollars does this whole crowd gain in one round? ⟨predict⟩ | The gold paths flash at "wins a dollar". "how many dollars does this whole crowd gain in one round?" under the table, and the countdown; nothing is summed on screen | think countdown | |
++| 14_8 | Thirty-six dollars, twelve for each of the three edges. Seven hundred twenty-seven players win, and six hundred ninety-one lose. Shared among the one thousand four hundred eighteen players, that's just over two and a half cents a round each, the mix's average once again. | The question and countdown give way to "3 × 12 = 36 = 727 − 691" in gold with "dollars a round", framed at "Seven hundred twenty-seven players win". At "Shared among" "36 dollars / 1,418 ≈ 2.54 cents" with "per player per round", framed at "the mix's average once again" | TeX from the model | hold |
++| 14_9 | Why twelve on every edge? Watch corner one. Across the edge behind it, twelve more players arrive than leave. Across the edge ahead of it, twelve more leave than come back. Twelve in and twelve out, so corner one keeps its three hundred sixty. If the two edges disagreed, the count at corner one would change, and in a settled crowd no count changes. | The sums go; corner 1 is ringed. At "the edge behind it" a frame on row "0 → 1" pointing at its gold path; at "the edge ahead of it" a frame on row "1 → 2" and its path. At "keeps its three hundred sixty" "corner 1: 360 + 12 − 12 = 360" in teal; at "If the two edges disagreed" a frame on corner 1's count | shape emphasis only | beat |
++| 14_10 | Remember, these are expected numbers, the crowd split exactly by the chances. Real players toss real coins. Here is one real round for all one thousand four hundred eighteen, tossed with the video's one fixed seed. Its edges carry seven, four and minus seventeen, and each corner changes by exactly the difference between its two edges. In this round the crowd even lost six dollars. | A frame on the dim "split by the chances (expected numbers)". At "Here is one real round" it gives way to "one real round: real tosses, seeded illustration" in teal, and the table's pairs, nets and gold paths to the real round's pairs "134 − 127", "233 − 229", "339 − 356". At "Its edges carry" "= 7", "= 4", "= −17" in teal. At "each corner changes" the counts become 466, 363, 589 with "−17 − 7 = −24", "7 − 4 = 3", "4 − (−17) = 21" in place of the shares, and the puddles follow. At "lost six dollars" "7 + 4 − 17 = −6 dollars" in red | real tosses from the model's seed | hold |
++| 14_11 | Over a thousand real rounds, though, each edge averages eleven point nine, and the crowd gains thirty-five point eight dollars a round. Real rounds scatter, and in the long run they average out to the expected numbers. | The expected numbers return together: the dim label, the pairs, the gold twelves, the counts, the shares and the puddles. Under them in teal "1,000 real rounds, the same seeded illustration:", then, as each is said, "average net on each edge: 11.9, 11.9, 11.9" and "average gain: 35.8 dollars a round". At "Real rounds scatter" a frame on the expected-numbers label | real tosses from the model's seed | hold |
++| 14_12 | So in any settled crowd, every edge carries the same net flow, and the crowd gains three times it each round. A game is fair exactly when that net flow is zero. Game B's settled twenty-six show it, one and one, three and three, nine and nine. | The thousand-round lines go; a frame on the twelves. At "three times it" "gain per round = 3 × net flow" in gold; at "A game is fair exactly when" "fair ⟺ net flow = 0". At "Game B's settled twenty-six" the mix's title, chances, counts, shares and pairs become game B's: "players: 26", 10, 4, 12 at 38.5, 15.4, 46.2 %, "1 − 1", "3 − 3", "9 − 9", each "= 0", while the puddles move to B's shares; the zeros framed | B's crowd from the model | hold |
++| 14_13 | When the net flow is zero, every edge balances on its own. For game B, ten players times a tenth equals four players times a quarter, one each way. Four times three quarters equals twelve times a quarter, three each way. And twelve times three quarters equals ten times nine tenths, nine each way. | The table's head becomes "each edge balances: forward = back". As each edge is said, its balance as separate pieces, "10 × 1/10 = 4 × 1/4 = 1", "4 × 3/4 = 12 × 1/4 = 3", "12 × 3/4 = 10 × 9/10 = 9" (counts teal, forward chances green, back chances dim), while that edge's two arrows flash | pieces from the model | beat |
++| 14_14 | Multiply the three balances together. Each side then holds the same three counts, ten, four and twelve, once each, so they cancel. What's left is a tenth times three quarters times three quarters, against nine tenths times a quarter times a quarter. Both come to nine over one hundred sixty. | The "= 1", "= 3" and "= 9" go; "×" signs and a rule line make the rows one product. At "the same three counts" a frame on the left counts, then on the right counts; at "so they cancel" each count gets a red stroke and goes. At "What's left" copies of the forward chances fly from their rows into "1/10 · 3/4 · 3/4"; at "against nine tenths" the back chances into "= 9/10 · 1/4 · 1/4". At "Both come to" "9/160 = 9/160" in gold, framed | separate TeX pieces move as wholes | hold |
++| 14_15 | The same cancelling works for any game. Write each corner's weight, its share of the settled crowd, as w, its chance forward as p, and back as q. Every corner holds some of the crowd, so no weight vanishes, and each one cancels. What's left says winning three times in a row, all the way around the triangle, is exactly as likely as losing three times in a row the other way. | B's numbers go. At "Write each corner's weight" the head becomes "w: weight · p: chance forward · q: chance back" and the rows "w₀ p₀ = w₁ q₁", "w₁ p₁ = w₂ q₂", "w₂ p₂ = w₀ q₀". At "no weight vanishes" every corner is ringed; at "each one cancels" every weight gets a red stroke. At "winning three times in a row" "p₀ p₁ p₂" with "win, win, win" and teal paths forward round the triangle; at "the other way" "= q₀ q₁ q₂" with "lose, lose, lose" and dim paths back | TeX pieces, paths | hold |
++
++### Notes for 14
++
++- Order (root's direction, ROOT1232-P14): the crowd of 1,418 and its paired
++  opposing flows come before any symbol. The viewer counts the three
++  surpluses (14_5, held, nothing subtracted on screen) before 14_6 names
++  the net flow, and predicts the crowd's gain (14_7) before 14_8 sums it.
++- 14_9 is why a settled corner forces its two edges to agree. Corner 1
++  receives 147 forward from corner 0 and 213 back from corner 2 (360) and
++  sends 225 forward and 135 back (360): the edge behind it carries
++  147 − 135 = 12 net in and the edge ahead 225 − 213 = 12 net out.
++- Expected against realized: the dim "split by the chances (expected
++  numbers)" is on screen whenever expected counts are. The real round
++  (14_10) has its own teal label, "one real round: real tosses, seeded
++  illustration", and the thousand rounds say "the same seeded
++  illustration". They come from `model::real_crossings` (seed 1999, the
++  players in corner order, a toss below the chance in 200ths steps
++  forward). One illustration, not a typical value or a theorem; a single
++  round can lose (−6 dollars).
++- Negative controls (oracle): the real round's edges disagree (7, 4, −17),
++  so "every round nets twelve" is false, while each corner still changes
++  by net in minus net out; B's 10, 4, 12 under the mix's coins (not
++  settled) has edges that disagree, and its corners change by the same
++  rule; 3 × 12 = 36 = 727 − 691.
++- 14_13 to 14_15 prove one direction only: zero net flow forces equal
++  products. 15 opens with the converse, so nothing is concluded from
++  equal products before 15_6.
++- 14_15's "no weight vanishes" is what lets each weight cancel; with every
++  chance strictly between 0 and 1 every corner holds players (15_1 states
++  the condition).
++- The badge: the filled published badge at 14_1, as 13 left it; the
++  outlined round-number badge from 14_2 ("Go back to the round coins") to
++  15_13.
++- Pause intentions: a short beat after "Here's a new question"; the
++  counting hold after "the players coming back" (14_5); the prediction
++  after 14_7, answered at 14_8's first words; "Twelve, every time." then a
++  short beat; an inspection hold after "the mix's average once again"
++  (14_8); a beat after "no count changes" (14_9); a turn after "Real
++  players toss real coins" (14_10) and an inspection hold after "lost six
++  dollars".
++- Pronunciation: "one thousand four hundred eighteen", "five hundred
++  sixty-eight", "thirty-seven and a half", "minus seventeen", "thirty-five
++  point eight", "nine over one hundred sixty".
++
++## 15_two_products: Two products decide (~293 s)
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 15_1 | So when the net flow is zero, the two products match. The test also runs the other way, as long as no coin is certain to win or certain to lose, and none of the coins in this video is. | B's triangle and settled crowd as 14 left them: the outlined round-number badge, B's violet title, its chances, teal puddles at 10, 4 and 12 of 26. At "when the net flow is zero" "net flow = 0 ⇒ p₀ p₁ p₂ = q₀ q₁ q₂"; at "the other way" the reverse claim "p₀ p₁ p₂ = q₀ q₁ q₂ ⇒ net flow = 0" with a "?" in hero. At "no coin is certain" the dim condition "every chance strictly between 0 and 100 %"; at "none of the coins" a frame round the chance labels | claims as TeX | |
++| 15_2 | Try it on game B, whose products match, and pretend we never found its settled crowd. Put ten players at corner zero. A tenth of them step forward, so the first balance needs one player stepping back from corner one, where a quarter step back. That takes four players. Then three of those four step forward, so the second balance needs three stepping back from corner two, and that takes twelve. | A frame on the claim with its "?". At "pretend we never found" the puddles drain. At "ten players" edge 0 → 1's name, the dim "split by the chances (expected numbers)" and "10", while corner 0's puddle fills to ten players. Piece by piece as the words reach them: "× 1/10" (the forward arrow flashes), "= ? × 1/4 = 1" (the back arrow flashes), the "?" becoming "4" at "That takes four players" while corner 1's puddle fills. The second row starts from that 4, carried down from the first: "4 × 3/4 = ? × 1/4 = 3", the "?" becoming 12 and corner 2's puddle filling | each count computed from the one before | |
++| 15_3 | The third balance has nothing left to choose. Twelve times three quarters is nine, and ten times nine tenths is nine, so it holds. And ten, four and twelve is exactly the crowd game B settled into. | Row three: the 12 carried down from row two and the 10 from row one, "12 × 3/4 ? 10 × 9/10"; edge 2 → 0's arrows flash at each "nine". At "so it holds" the "?" becomes "=" and "= 9" appears. At "exactly the crowd game B settled into" a frame on 10, 4 and 12, and all three corners are ringed | pieces from the model | beat |
++| 15_4 | Why did the third balance come out right? Follow the same steps for any game. The first balance gives corner one's weight from corner zero's, and the second gives corner two's from corner one's. Dividing by the back chances is safe, because no coin is certain to win. | A frame on the third row. At "Follow the same steps" the numbers become letters, "w₀ p₀ = w₁ q₁", "w₁ p₁ = w₂ q₂", "w₂ p₂ = w₀ q₀", under "w: weight · p: chance forward · q: chance back". At "corner one's weight" "w₁ = w₀ p₀ / q₁" and a frame on the first balance; at "corner two's" "w₂ = w₁ p₁ / q₂ = w₀ p₀ p₁ / (q₁ q₂)" and a frame on the second; at "is safe" a frame on the condition | TeX derivation | |
++| 15_5 | Put both into the third balance. Corner zero's weight appears on both sides and cancels. Multiply through by the two back chances, and what's left is exactly the two products. So the third balance holds exactly when the products match, as game B's do. | A frame on the third balance; under the steps it becomes "w₀ · p₀ p₁ p₂ / (q₁ q₂) = w₀ · q₀", and at "cancels" both w₀ get a red stroke. At "Multiply through" "p₀ p₁ p₂ = q₀ q₁ q₂" in gold, framed at "holds exactly when the products match" | TeX derivation | hold |
++| 15_6 | A crowd that balances every edge stays put: each corner gets back exactly the players it sends. And only one way of spreading a crowd stays put, the settled one, because players can get from any corner to any other. So matching products mean the net flow is zero, and the game is fair. | The steps go; the products line rises. "every edge balanced → the crowd stays put"; at "gets back exactly" all three corners are ringed. At "only one way" "only the settled crowd stays put: any corner reaches any other"; at "any corner to any other" every arrow's shaft flashes. At "So matching products" "so equal products → net flow 0 → fair", and the reverse claim loses its "?", gold and framed | argument in words | hold |
++| 15_7 | When the products don't match, which way does the crowd turn? Keep the net flow in each balance: forward minus back is the net flow, on every edge. The first balance gives corner one's back flow. Put it into the second, and because each corner's two chances add up to one, the net flow appears just once. Put that into the third, and everything collects into one line. | The chain and the products line go. At "Keep the net flow" the balances become "w₀ p₀ − w₁ q₁ = net", "w₁ p₁ − w₂ q₂ = net", "w₂ p₂ − w₀ q₀ = net". At "back flow" "w₁ q₁ = w₀ p₀ − net" with a frame on the first; at "Put it into the second" "w₂ q₁ q₂ = w₀ p₀ p₁ − net (p₁ + q₁)" with a frame on the second; at "add up to one" it becomes "w₂ q₁ q₂ = w₀ p₀ p₁ − net" beside the dim "p₁ + q₁ = 1". At "one line" "net × (p₂ + q₁ q₂) = w₀ × (p₀ p₁ p₂ − q₀ q₁ q₂)" as separate pieces, framed | TeX derivation | hold |
++| 15_8 | Look at the two sides. The number multiplying the net flow is a chance forward plus two chances back multiplied together, so it's positive. Corner zero's weight is positive too. So the net flow has the same sign as the forward product minus the backward product. When the forward product is bigger, the crowd turns forward and the game wins. When it's smaller, the game loses. | Frames on the line's left side, then its right. At "so it's positive" a green "positive" under "× (p₂ + q₁ q₂)", framed; at "positive too" a green "positive" under "w₀", and corner 0 ringed. At "the same sign" frames on "net", then on the products' difference. At "bigger" "forward product bigger → net flow above 0 → wins" in green, with green paths forward round the triangle; at "smaller" "forward product smaller → net flow below 0 → loses" in red, with red paths back. The two claims at the top give way to one rule, "the net flow has the sign of p₀ p₁ p₂ − q₀ q₁ q₂", framed | TeX, paths | hold |
++| 15_9 | For game B with the round coins, the two products were equal, so B's net flow is zero and B is fair. Averaging B's forward chances would have said fifty-three point three percent, a winner. The products aren't fooled. | The derivation goes; the rule, the condition and the one line stay. "game B" with "1/10 · 3/4 · 3/4 = 9/160 = 9/10 · 1/4 · 1/4"; at "B is fair" "net flow = 0 fair" in gold. At "Averaging" the dim "averaging B's forward chances: 53.3 %, a winner?"; at "aren't fooled" a red stroke through it | TeX from the model | beat |
++| 15_10 | For the mix, the forward product is thirty percent times sixty-two and a half percent twice over. The backward product is seventy percent times thirty-seven and a half percent twice over. Which is bigger? ⟨predict⟩ | B's lines go. B's title and chances become the mix's (forward 30, 62.5, 62.5 % in gold, back 70, 37.5, 37.5 % in dim) while the puddles move to the mix's shares. "forward: 30 % · 62.5 % · 62.5 %" in green with a frame on the forward chances; at "The backward product" "back: 70 % · 37.5 % · 37.5 %" in dim with a frame on the back chances; no values. At "Which is bigger" the countdown | think countdown | |
++| 15_11 | The forward product. Seventy-five over six hundred forty, against sixty-three over six hundred forty. So the mix's crowd turns forward, and the mix wins. | The countdown goes; a frame on the forward product. At "Seventy-five" "= 75/640" in gold after it; at "against sixty-three" "= 63/640" after the backward one. At "turns forward" gold paths forward round the triangle | TeX from the model | beat |
++| 15_12 | And the one line checks out on the mix's crowd of one thousand four hundred eighteen. Its positive number comes to forty-nine sixty-fourths, and its products differ by three over one hundred sixty. Twelve players of net flow times forty-nine sixty-fourths, against four hundred ninety players at corner zero times three over one hundred sixty. Both sides come to one hundred forty-seven over sixteen. | In teal, "the mix's 1,418 players: 490 at corner 0, net flow 12", and a frame on the one line. At "positive number" "p₂ + q₁ q₂ = 62.5 % + 37.5 % · 37.5 % = 49/64"; at "differ" "p₀ p₁ p₂ − q₀ q₁ q₂ = 75/640 − 63/640 = 3/160". At "Twelve players" "12 × 49/64" in teal over "net × (p₂ + q₁ q₂)"; at "against four hundred ninety" "= 490 × 3/160" over the other side. At "Both sides" "= 147/16" in gold, framed | numbers set over their letters | hold |
++| 15_13 | Spread over the players and tripled, the net flow gives the mix's average exactly, just over two and a half cents a round. | The difference gives way to "3 × 12 / 1,418 = 18/709 dollars ≈ 2.54 cents" in gold with "per player per round", framed at "average exactly". At "two and a half cents" the "precisely" card (K06), held for its reading time | lower-third card | |
++| 15_14 | Now shave the half point off again, back to the coins Harmer and Abbott published. Game A's forward product falls below its backward one, so A loses, a cent a round. Game B's falls below as well, so B loses, just under a cent. The mix's forward product stays above, so the mix wins, just over one and a half cents a round. Two products per game decide A, B and the mix. | The mix's numbers go. At "Harmer and Abbott published" the badge becomes the filled "published coins · 49.5 · 9.5 · 74.5 %", the mix's chances become 29.5, 62, 62 % forward and 70.5, 38, 38 % back, and the puddles barely move (34.6 to 34.5 % at corner 0). A table headed "products: forward vs back" and "average", over "average: cents per player per round"; a row as each game is said: "game A 0.1213 < 0.1288 loses −1.00", "game B 0.0527 < 0.0588 loses −0.87", "the mix 0.1134 > 0.1018 wins +1.57". At "Two products per game decide" a frame on the products column | table from facts | hold |
++| 15_15 | Notice what the test never needed. No crowd and no weights, just the three chances forward and the three chances back, each set multiplied together. | A frame on the rule. At "No crowd and no weights" the puddles drain. At "the three chances forward" gold paths forward round the triangle and a frame on the forward chances; at "the three chances back" dim paths back and a frame on the back chances; at "each set multiplied together" a frame on the products column | paths | hold |
++
++### Notes for 15
++
++- Both directions, every chance strictly between 0 and 1 (root's
++  direction, ROOT1232-P14). The converse is earned on the picture before
++  it is used: 15_2 and 15_3 build game B's crowd from ten players at
++  corner 0, one balance at a time (10, then 4, then 12), and the third
++  balance holds with nothing left to choose. 15_4 and 15_5 do the same
++  steps in letters; w₀ cancels and the third balance holds exactly when
++  the products match. 15_6 says why a crowd that balances every edge is
++  the settled crowd: it stays put, and the settled crowd is the only crowd
++  that stays put, because every corner reaches every other.
++- The sign is earned, not read off the zero case. With the net flow J kept
++  in each balance (the same J on every edge, from 14): w₁q₁ = w₀p₀ − J;
++  then w₂q₁q₂ = w₀p₀p₁ − J(p₁ + q₁) = w₀p₀p₁ − J; then the third balance
++  gives J(p₂ + q₁q₂) = w₀(p₀p₁p₂ − q₀q₁q₂). Both p₂ + q₁q₂ and w₀ are
++  positive, so J has the sign of the difference of the products. The
++  oracle checks the identity, the sign and the converse on all 729 games
++  with chances in tenths.
++- No spanning-tree formula. The weight was named in 09 and is said again
++  in 14_15 ("its share of the settled crowd"); the positive number is
++  described in words in 15_8 ("a chance forward plus two chances back
++  multiplied together") before 15_12 gives its value.
++- K06: "if every chance is strictly between 0 and 1, the average gain per
++  player per round is 3 w0 (p0 p1 p2 − q0 q1 q2) / (p2 + q1 q2), 3 times
++  the net flow per player, where w0 is corner 0's share of the settled
++  crowd". With the mix: 3 × (245/709) × (3/160) / (49/64) = 18/709.
++- Units: the crowd's gain is in dollars a round (14_8); the one line in
++  15_12 counts players on both sides (twelve players of net flow, 490
++  players at corner 0, so 147/16 players); a player's average is in cents
++  per player per round (15_13, the table in 15_14).
++- The condition is what the argument uses: 15_4 divides by the back
++  chances, and 15_6 needs every corner to reach every other. The voice
++  claims the test only under it. Tested at its edge (the oracle sweeps
++  every chance from 0 to 10 tenths): on this triangle the sign rule also
++  survives certain coins, because whenever the products differ both other
++  factors are positive. The one game shape where p₂ + q₁q₂ vanishes (a
++  coin certain to win at corner 1 and one certain to lose at corner 2) has
++  both products 0 and no net flow. So the video never says the test fails
++  without the condition.
++- Negative controls (oracle and the tests): that certain-coin game (50 %
++  at corner 0, 100 % at corner 1, 0 % at corner 2) makes p₂ + q₁q₂ and w₀
++  both 0, so the one line alone decides nothing there; a
++  bigger difference of products need not mean a bigger gain (forward
++  chances 1, 8, 9 tenths: difference 0.054, mean ≈ 0.0775; 4, 4, 8
++  tenths: difference 0.056, mean ≈ 0.0764), so the products give the sign
++  only; B's forward chances average 53.3 %, yet B is fair; when the
++  products differ, a crowd built from the first two balances fails the
++  third and moves.
++- The table (published coins): A 0.1213 against 0.1288 (loses −1.00
++  cents), B 0.0527 against 0.0588 (loses −0.87), the mix 0.1134 against
++  0.1018 (wins +1.57); values from facts. The published mix's crowd sits
++  at 34.5 % at corner 0, so its puddles barely move from the round mix's
++  34.6 %.
++- The badge: outlined round-number coins to 15_13; the filled published
++  badge returns at 15_14, on "the coins Harmer and Abbott published".
++- Pause intentions: a turn before "Try it on game B"; a beat after "so it
++  holds" (15_3); a thinking beat after "Why did the third balance come out
++  right?"; inspection holds after 15_5, 15_6, 15_7 and 15_8, where each
++  step of the argument completes; the prediction after 15_10, answered
++  at 15_11's first words; the card's reading time in 15_13; a final hold.
++- Pronunciation: "nine tenths", "fifty-three point three", "seventy-five
++  over six hundred forty", "sixty-three over six hundred forty",
++  "forty-nine sixty-fourths", "three over one hundred sixty", "one
++  hundred forty-seven over sixteen", "Harmer and Abbott".
+--- a/explainer_corpus/parrondo/script.tsv
++++ b/explainer_corpus/parrondo/script.tsv
+@@ -100,3 +100,33 @@
+ 13_8	The player's own runs showed these same shares: thirty-eight point four percent in game B, and thirty-four and a half in the mix.
+ 13_9	That's every number from the opening. A loses a cent a round, B a little under a cent, and the coin-flip mix of the two wins.
+ 13_10	Harmer and Abbott's paper calls the effect Parrondo's paradox, after its discoverer, Juan Parrondo. It appeared in Nature in nineteen ninety-nine, and it's a single page.
++14_1	Here's a new question. Could you tell whether a game like these wins from its coins alone, without first working out where its crowd settles? There is a test, and it comes from watching a settled crowd move around the triangle.
++14_2	Go back to the round coins, and take the mix's settled crowd, scaled up to one thousand four hundred eighteen players so that every count is whole. Four hundred ninety stand at corner zero, three hundred sixty at corner one, and five hundred sixty-eight at corner two. That's still thirty-four point six percent at corner zero.
++14_3	Look at one edge at a time. Between corners zero and one, one hundred forty-seven players step forward, thirty percent of the four hundred ninety. And one hundred thirty-five step back, thirty-seven and a half percent of the three hundred sixty.
++14_4	The other two edges work the same way. Two hundred twenty-five forward and two hundred thirteen back between corners one and two. Three hundred fifty-five forward and three hundred forty-three back between corners two and zero.
++14_5	Before going on, count the surplus on each edge, the players going forward minus the players coming back.
++14_6	Twelve, every time. Twelve more players go forward than come back, on all three edges, so the crowd keeps circulating forward around the triangle. That surplus is the net flow.
++14_7	Every forward step wins a dollar, and every backward step loses one. So how many dollars does this whole crowd gain in one round?
++14_8	Thirty-six dollars, twelve for each of the three edges. Seven hundred twenty-seven players win, and six hundred ninety-one lose. Shared among the one thousand four hundred eighteen players, that's just over two and a half cents a round each, the mix's average once again.
++14_9	Why twelve on every edge? Watch corner one. Across the edge behind it, twelve more players arrive than leave. Across the edge ahead of it, twelve more leave than come back. Twelve in and twelve out, so corner one keeps its three hundred sixty. If the two edges disagreed, the count at corner one would change, and in a settled crowd no count changes.
++14_10	Remember, these are expected numbers, the crowd split exactly by the chances. Real players toss real coins. Here is one real round for all one thousand four hundred eighteen, tossed with the video's one fixed seed. Its edges carry seven, four and minus seventeen, and each corner changes by exactly the difference between its two edges. In this round the crowd even lost six dollars.
++14_11	Over a thousand real rounds, though, each edge averages eleven point nine, and the crowd gains thirty-five point eight dollars a round. Real rounds scatter, and in the long run they average out to the expected numbers.
++14_12	So in any settled crowd, every edge carries the same net flow, and the crowd gains three times it each round. A game is fair exactly when that net flow is zero. Game B's settled twenty-six show it, one and one, three and three, nine and nine.
++14_13	When the net flow is zero, every edge balances on its own. For game B, ten players times a tenth equals four players times a quarter, one each way. Four times three quarters equals twelve times a quarter, three each way. And twelve times three quarters equals ten times nine tenths, nine each way.
++14_14	Multiply the three balances together. Each side then holds the same three counts, ten, four and twelve, once each, so they cancel. What's left is a tenth times three quarters times three quarters, against nine tenths times a quarter times a quarter. Both come to nine over one hundred sixty.
++14_15	The same cancelling works for any game. Write each corner's weight, its share of the settled crowd, as w, its chance forward as p, and back as q. Every corner holds some of the crowd, so no weight vanishes, and each one cancels. What's left says winning three times in a row, all the way around the triangle, is exactly as likely as losing three times in a row the other way.
++15_1	So when the net flow is zero, the two products match. The test also runs the other way, as long as no coin is certain to win or certain to lose, and none of the coins in this video is.
++15_2	Try it on game B, whose products match, and pretend we never found its settled crowd. Put ten players at corner zero. A tenth of them step forward, so the first balance needs one player stepping back from corner one, where a quarter step back. That takes four players. Then three of those four step forward, so the second balance needs three stepping back from corner two, and that takes twelve.
++15_3	The third balance has nothing left to choose. Twelve times three quarters is nine, and ten times nine tenths is nine, so it holds. And ten, four and twelve is exactly the crowd game B settled into.
++15_4	Why did the third balance come out right? Follow the same steps for any game. The first balance gives corner one's weight from corner zero's, and the second gives corner two's from corner one's. Dividing by the back chances is safe, because no coin is certain to win.
++15_5	Put both into the third balance. Corner zero's weight appears on both sides and cancels. Multiply through by the two back chances, and what's left is exactly the two products. So the third balance holds exactly when the products match, as game B's do.
++15_6	A crowd that balances every edge stays put: each corner gets back exactly the players it sends. And only one way of spreading a crowd stays put, the settled one, because players can get from any corner to any other. So matching products mean the net flow is zero, and the game is fair.
++15_7	When the products don't match, which way does the crowd turn? Keep the net flow in each balance: forward minus back is the net flow, on every edge. The first balance gives corner one's back flow. Put it into the second, and because each corner's two chances add up to one, the net flow appears just once. Put that into the third, and everything collects into one line.
++15_8	Look at the two sides. The number multiplying the net flow is a chance forward plus two chances back multiplied together, so it's positive. Corner zero's weight is positive too. So the net flow has the same sign as the forward product minus the backward product. When the forward product is bigger, the crowd turns forward and the game wins. When it's smaller, the game loses.
++15_9	For game B with the round coins, the two products were equal, so B's net flow is zero and B is fair. Averaging B's forward chances would have said fifty-three point three percent, a winner. The products aren't fooled.
++15_10	For the mix, the forward product is thirty percent times sixty-two and a half percent twice over. The backward product is seventy percent times thirty-seven and a half percent twice over. Which is bigger?
++15_11	The forward product. Seventy-five over six hundred forty, against sixty-three over six hundred forty. So the mix's crowd turns forward, and the mix wins.
++15_12	And the one line checks out on the mix's crowd of one thousand four hundred eighteen. Its positive number comes to forty-nine sixty-fourths, and its products differ by three over one hundred sixty. Twelve players of net flow times forty-nine sixty-fourths, against four hundred ninety players at corner zero times three over one hundred sixty. Both sides come to one hundred forty-seven over sixteen.
++15_13	Spread over the players and tripled, the net flow gives the mix's average exactly, just over two and a half cents a round.
++15_14	Now shave the half point off again, back to the coins Harmer and Abbott published. Game A's forward product falls below its backward one, so A loses, a cent a round. Game B's falls below as well, so B loses, just under a cent. The mix's forward product stays above, so the mix wins, just over one and a half cents a round. Two products per game decide A, B and the mix.
++15_15	Notice what the test never needed. No crowd and no weights, just the three chances forward and the three chances back, each set multiplied together.
+--- a/explainer_corpus/parrondo/src/chapters/mod.rs
++++ b/explainer_corpus/parrondo/src/chapters/mod.rs
+@@ -10,6 +10,7 @@
+ pub mod glyphs;
+ pub mod looks_hopeless;
+ pub mod mix_the_games;
++pub mod net_flow;
+ pub mod one_dial;
+ pub mod one_player_to_a_crowd;
+ pub mod ten_four_twelve;
+@@ -19,6 +20,7 @@
+ pub mod the_rule;
+ pub mod the_trap;
+ pub mod three_corners;
++pub mod two_products;
+ pub mod where_you_stand;
+ 
+ use explainer_kit::Chapter;
+@@ -52,5 +54,7 @@
+         scene!("11_mix_the_games", 0.45, mix_the_games::MixTheGames),
+         scene!("12_one_dial", 0.45, one_dial::OneDial),
+         scene!("13_the_half_point", 0.45, the_half_point::TheHalfPoint),
++        scene!("14_net_flow", 0.45, net_flow::NetFlow),
++        scene!("15_two_products", 0.45, two_products::TwoProducts),
+     ]
+ }
+--- a/explainer_corpus/parrondo/src/main.rs
++++ b/explainer_corpus/parrondo/src/main.rs
+@@ -14,7 +14,7 @@
+ //! ```
+ //!
+ //! The registry, `docs/storyboard.md` and `script.tsv` hold only chapters
+-//! with native scenes (today 01–13). The whole planned film is
++//! with native scenes (today 01–15). The whole planned film is
+ //! `docs/storyboard-draft.md`; its facts are all computed here already.
+ 
+ mod chapters;
+@@ -451,6 +451,303 @@
+         ("13_9", "A loses a cent a round", "pub.a.mean.cents", "-1.00"),
+         ("13_9", "B a little under a cent", "pub.b.mean.cents", "-0.87"),
+         ("13_10", "nineteen ninety-nine", "source.year", "1999"),
++        // 14–15: the 1,418's net flow, real seeded rounds, B's balances and the two products
++        (
++            "14_2",
++            "one thousand four hundred eighteen players",
++            "mixcrowd.size",
++            "1418",
++        ),
++        (
++            "14_2",
++            "Four hundred ninety stand at corner zero",
++            "mixcrowd.counts",
++            "490,360,568",
++        ),
++        (
++            "14_2",
++            "three hundred sixty at corner one",
++            "mixcrowd.counts",
++            "490,360,568",
++        ),
++        (
++            "14_2",
++            "five hundred sixty-eight at corner two",
++            "mixcrowd.counts",
++            "490,360,568",
++        ),
++        (
++            "14_2",
++            "thirty-four point six percent",
++            "round.mix.weights.pct",
++            "34.6,25.4,40.1",
++        ),
++        (
++            "14_3",
++            "one hundred forty-seven players step forward",
++            "mixcrowd.forward",
++            "147,225,355",
++        ),
++        (
++            "14_3",
++            "thirty percent of the four hundred ninety",
++            "round.mix.coins.pct",
++            "30,62.5",
++        ),
++        ("14_3", "of the four hundred ninety", "mixcrowd.counts", "490,360,568"),
++        (
++            "14_3",
++            "one hundred thirty-five step back",
++            "mixcrowd.back",
++            "343,135,213",
++        ),
++        (
++            "14_3",
++            "thirty-seven and a half percent",
++            "round.mix.tails.pct",
++            "70,37.5",
++        ),
++        ("14_3", "of the three hundred sixty", "mixcrowd.counts", "490,360,568"),
++        (
++            "14_4",
++            "Two hundred twenty-five forward",
++            "mixcrowd.forward",
++            "147,225,355",
++        ),
++        ("14_4", "two hundred thirteen back", "mixcrowd.back", "343,135,213"),
++        (
++            "14_4",
++            "Three hundred fifty-five forward",
++            "mixcrowd.forward",
++            "147,225,355",
++        ),
++        ("14_4", "three hundred forty-three back", "mixcrowd.back", "343,135,213"),
++        ("14_6", "Twelve, every time", "mixcrowd.net", "12,12,12"),
++        ("14_6", "Twelve more players go forward", "mixcrowd.net", "12,12,12"),
++        ("14_6", "on all three edges", "rules.modulus", "3"),
++        ("14_8", "Thirty-six dollars", "mixcrowd.gain", "36"),
++        ("14_8", "twelve for each of the three edges", "mixcrowd.net", "12,12,12"),
++        (
++            "14_8",
++            "Seven hundred twenty-seven players win",
++            "mixcrowd.winners",
++            "727",
++        ),
++        ("14_8", "six hundred ninety-one lose", "mixcrowd.losers", "691"),
++        (
++            "14_8",
++            "the one thousand four hundred eighteen players",
++            "mixcrowd.size",
++            "1418",
++        ),
++        (
++            "14_8",
++            "just over two and a half cents a round",
++            "round.mix.mean.cents",
++            "+2.54",
++        ),
++        ("14_9", "Why twelve on every edge", "mixcrowd.net", "12,12,12"),
++        (
++            "14_9",
++            "twelve more players arrive than leave",
++            "mixcrowd.net",
++            "12,12,12",
++        ),
++        (
++            "14_9",
++            "keeps its three hundred sixty",
++            "mixcrowd.counts",
++            "490,360,568",
++        ),
++        (
++            "14_10",
++            "all one thousand four hundred eighteen",
++            "mixcrowd.size",
++            "1418",
++        ),
++        (
++            "14_10",
++            "seven, four and minus seventeen",
++            "realmix.round.1.net",
++            "7,4,-17",
++        ),
++        ("14_10", "lost six dollars", "realmix.round.1.gain", "-6"),
++        ("14_11", "Over a thousand real rounds", "realmix.rounds", "1000"),
++        (
++            "14_11",
++            "each edge averages eleven point nine",
++            "realmix.mean.net",
++            "11.9,11.9,11.9",
++        ),
++        (
++            "14_11",
++            "thirty-five point eight dollars a round",
++            "realmix.mean.gain",
++            "35.8",
++        ),
++        ("14_12", "gains three times it each round", "rules.modulus", "3"),
++        ("14_12", "that net flow is zero", "crowd.net", "0,0,0"),
++        ("14_12", "settled twenty-six", "crowd.size", "26"),
++        (
++            "14_12",
++            "one and one, three and three, nine and nine",
++            "crowd.forward",
++            "1,3,9",
++        ),
++        (
++            "14_12",
++            "one and one, three and three, nine and nine",
++            "crowd.back",
++            "9,1,3",
++        ),
++        ("14_13", "When the net flow is zero", "crowd.net", "0,0,0"),
++        ("14_13", "ten players times a tenth", "crowd.counts", "10,4,12"),
++        (
++            "14_13",
++            "ten players times a tenth",
++            "coins.round.heads.pct",
++            "50,10,75",
++        ),
++        (
++            "14_13",
++            "four players times a quarter",
++            "coins.round.tails.pct",
++            "50,90,25",
++        ),
++        ("14_13", "one each way", "crowd.forward", "1,3,9"),
++        (
++            "14_13",
++            "Four times three quarters",
++            "coins.round.heads.pct",
++            "50,10,75",
++        ),
++        ("14_13", "equals twelve times a quarter", "crowd.counts", "10,4,12"),
++        ("14_13", "three each way", "crowd.forward", "1,3,9"),
++        (
++            "14_13",
++            "equals ten times nine tenths",
++            "coins.round.tails.pct",
++            "50,90,25",
++        ),
++        ("14_13", "nine each way", "crowd.forward", "1,3,9"),
++        ("14_14", "Multiply the three balances", "rules.modulus", "3"),
++        ("14_14", "ten, four and twelve", "crowd.counts", "10,4,12"),
++        (
++            "14_14",
++            "a tenth times three quarters times three quarters",
++            "coins.round.heads.pct",
++            "50,10,75",
++        ),
++        (
++            "14_14",
++            "nine tenths times a quarter times a quarter",
++            "coins.round.tails.pct",
++            "50,90,25",
++        ),
++        (
++            "14_14",
++            "nine over one hundred sixty",
++            "round.products.b",
++            "9/160,9/160",
++        ),
++        ("14_15", "winning three times in a row", "rules.modulus", "3"),
++        ("14_15", "losing three times in a row", "rules.modulus", "3"),
++        ("15_1", "when the net flow is zero", "crowd.net", "0,0,0"),
++        ("15_2", "Put ten players at corner zero", "crowd.counts", "10,4,12"),
++        (
++            "15_2",
++            "A tenth of them step forward",
++            "coins.round.heads.pct",
++            "50,10,75",
++        ),
++        ("15_2", "one player stepping back", "crowd.back", "9,1,3"),
++        ("15_2", "where a quarter step back", "coins.round.tails.pct", "50,90,25"),
++        ("15_2", "That takes four players", "crowd.counts", "10,4,12"),
++        ("15_2", "three of those four step forward", "crowd.forward", "1,3,9"),
++        ("15_2", "needs three stepping back", "crowd.back", "9,1,3"),
++        ("15_2", "that takes twelve", "crowd.counts", "10,4,12"),
++        ("15_3", "Twelve times three quarters is nine", "crowd.forward", "1,3,9"),
++        ("15_3", "ten times nine tenths is nine", "crowd.back", "9,1,3"),
++        ("15_3", "ten, four and twelve", "crowd.counts", "10,4,12"),
++        ("15_4", "from corner zero's", "rules.modulus", "3"),
++        ("15_5", "Corner zero's weight", "rules.modulus", "3"),
++        ("15_6", "the net flow is zero", "crowd.net", "0,0,0"),
++        ("15_7", "Put that into the third", "rules.modulus", "3"),
++        ("15_8", "Corner zero's weight is positive", "rules.modulus", "3"),
++        ("15_9", "B's net flow is zero", "crowd.net", "0,0,0"),
++        (
++            "15_9",
++            "fifty-three point three percent",
++            "round.b.thirds.win.pct",
++            "53.3",
++        ),
++        (
++            "15_10",
++            "thirty percent times sixty-two and a half percent",
++            "round.mix.coins.pct",
++            "30,62.5",
++        ),
++        (
++            "15_10",
++            "seventy percent times thirty-seven and a half percent",
++            "round.mix.tails.pct",
++            "70,37.5",
++        ),
++        (
++            "15_11",
++            "Seventy-five over six hundred forty",
++            "round.products.mix.common",
++            "75/640,63/640",
++        ),
++        (
++            "15_11",
++            "sixty-three over six hundred forty",
++            "round.products.mix.common",
++            "75/640,63/640",
++        ),
++        (
++            "15_12",
++            "crowd of one thousand four hundred eighteen",
++            "mixcrowd.size",
++            "1418",
++        ),
++        ("15_12", "forty-nine sixty-fourths", "round.mix.sign.factor", "49/64"),
++        (
++            "15_12",
++            "differ by three over one hundred sixty",
++            "round.products.mix.diff",
++            "3/160",
++        ),
++        ("15_12", "Twelve players of net flow", "mixcrowd.net", "12,12,12"),
++        (
++            "15_12",
++            "four hundred ninety players at corner zero",
++            "mixcrowd.counts",
++            "490,360,568",
++        ),
++        (
++            "15_12",
++            "one hundred forty-seven over sixteen",
++            "round.mix.sign.sides",
++            "147/16",
++        ),
++        (
++            "15_13",
++            "just over two and a half cents a round",
++            "round.mix.mean.cents",
++            "+2.54",
++        ),
++        ("15_14", "shave the half point off again", "rules.handicap", "1/200"),
++        ("15_14", "so A loses, a cent a round", "pub.a.mean.cents", "-1.00"),
++        ("15_14", "so B loses, just under a cent", "pub.b.mean.cents", "-0.87"),
++        (
++            "15_14",
++            "just over one and a half cents a round",
++            "pub.mix.mean.cents",
++            "+1.57",
++        ),
++        ("15_15", "the three chances forward", "rules.modulus", "3"),
++        ("15_15", "the three chances back", "rules.modulus", "3"),
+     ];
+ 
+     /// Words that state a quantity. "One" and "two" are left out: here they
+--- a/explainer_corpus/parrondo/src/facts.rs
++++ b/explainer_corpus/parrondo/src/facts.rs
+@@ -283,6 +283,8 @@
+     f.add("crowd.counts", csv(counts))?;
+     f.add("crowd.forward", csv(forward))?;
+     f.add("crowd.back", csv(back))?;
++    // 14_12: no edge of B's settled crowd carries a net flow
++    f.add("crowd.net", csv([0usize, 1, 2].map(|i| forward[i] - back[(i + 1) % 3])))?;
+     f.add("crowd.arrivals", csv(arrivals(&forward, &back)))?;
+     f.add("crowd.winners", forward.iter().fold(Ratio::ZERO, |a, &x| a + x))?;
+     f.add("crowd.share0.pct", rb[0].pct(1))?;
+@@ -357,6 +359,27 @@
+     f.add("mixcrowd.winners", sum(&mforward))?;
+     f.add("mixcrowd.losers", sum(&mback))?;
+ 
++    // 14_10, 14_11: 1,418 real players started at 490, 360, 568, tossing
++    // real coins (08_7's stream and player order), counted as crossings
++    let mstart = mcounts.map(|c| usize::try_from(c.num()).expect("whole players"));
++    let crossings = model::real_crossings(&r_mix, mstart, REAL_ROUNDS, SEED);
++    let edge_net = |moved: &[[usize; 3]; 2], e: usize| moved[0][e] as i64 - moved[1][(e + 1) % 3] as i64;
++    let first = &crossings[0];
++    let rnet = [0, 1, 2].map(|e| edge_net(first, e));
++    f.add("realmix.round.1.forward", csv(first[0]))?;
++    f.add("realmix.round.1.back", csv(first[1]))?;
++    f.add("realmix.round.1.net", csv(rnet))?;
++    f.add(
++        "realmix.round.1.after",
++        csv([0, 1, 2].map(|i| first[0][(i + 2) % 3] + first[1][(i + 1) % 3])),
++    )?;
++    f.add("realmix.round.1.gain", rnet.iter().sum::<i64>())?;
++    f.add("realmix.rounds", REAL_ROUNDS)?;
++    let totals = [0, 1, 2].map(|e| crossings.iter().map(|m| edge_net(m, e)).sum::<i64>());
++    let per_round = |t: i64| Ratio::new(t.into(), REAL_ROUNDS as i128).fixed(1);
++    f.add("realmix.mean.net", csv(totals.map(per_round)))?;
++    f.add("realmix.mean.gain", per_round(totals.iter().sum()))?;
++
+     // the two products (15)
+     let (fb, bb) = r_b.products();
+     f.add("round.products.b", csv([fb, bb]))?;
+@@ -371,6 +394,16 @@
+             bm.num() * (common / bm.den())
+         ),
+     )?;
++    // 15_12: the one line on the mix's crowd, net × (p₂ + q₁ q₂) = w₀ ×
++    // (p₀ p₁ p₂ − q₀ q₁ q₂), in players on both sides
++    let factor = r_mix.chance(2) + (Ratio::ONE - r_mix.chance(1)) * (Ratio::ONE - r_mix.chance(2));
++    let sides = net[0] * factor;
++    if sides != mcounts[0] * (fm - bm) {
++        return Err("15_12's one line disagrees on the mix's crowd".into());
++    }
++    f.add("round.mix.sign.factor", factor)?;
++    f.add("round.products.mix.diff", fm - bm)?;
++    f.add("round.mix.sign.sides", sides)?;
+     for (name, game) in [("a", pub_a), ("b", pub_b), ("mix", pub_mix)] {
+         let (fw, bw) = game.products();
+         f.add(&format!("pub.products.{name}"), csv([fw, bw]))?;
+@@ -502,7 +535,7 @@
+ 
+     /// The visible sums check: 2.54 − 0.97 = 1.57 (13_7), ½ · 50 + ½ · 52.54
+     /// = 51.27 (12_9 prints it at one decimal, with ≈), 3 × 12 = 36 = 727 −
+-    /// 691 (14_4), 1 + 3 + 9 = 13 (09_6).
++    /// 691 (14_8), 1 + 3 + 9 = 13 (09_6).
+     #[test]
+     fn the_sums_on_screen_add_up() {
+         let f = facts().unwrap();
+--- a/explainer_corpus/parrondo/oracle.py
++++ b/explainer_corpus/parrondo/oracle.py
+@@ -457,6 +457,8 @@
+     emit("crowd.counts", csv(counts))
+     emit("crowd.forward", csv(forward))
+     emit("crowd.back", csv(back))
++    # 14_12: no edge of B's settled crowd carries a net flow
++    emit("crowd.net", csv(forward[i] - back[(i + 1) % 3] for i in range(3)))
+     # arrivals at each corner by the corner they come from, lowest first
+     arrivals = []
+     for j in range(3):
+@@ -552,6 +554,34 @@
+     emit("mixcrowd.losers", sum(mback))
+     out["mixcrowd"] = (m, mcounts, mforward, mback, net)
+ 
++    # 14_10, 14_11: 1,418 real players started at 490, 360, 568, tossing
++    # real coins (08_7's stream and player order), counted as crossings
++    gen = SplitMix64(SEED)
++    corners = [c for c, k in enumerate(mcounts) for _ in range(int(k))]
++    crossings = []
++    for _ in range(REAL_ROUNDS):
++        moved = ([0, 0, 0], [0, 0, 0])
++        for k, c in enumerate(corners):
++            heads = r_mix[c] * 200
++            if heads.denominator != 1:
++                raise SystemExit("oracle: a chance is not a whole number of 200ths")
++            win = gen.next() % 200 < heads.numerator
++            moved[0 if win else 1][c] += 1
++            corners[k] = (c + 1) % 3 if win else (c - 1) % 3
++        crossings.append((moved, tuple(corners.count(i) for i in range(3))))
++    (real_f, real_b), after = crossings[0]
++    rnet = [real_f[i] - real_b[(i + 1) % 3] for i in range(3)]
++    emit("realmix.round.1.forward", csv(real_f))
++    emit("realmix.round.1.back", csv(real_b))
++    emit("realmix.round.1.net", csv(rnet))
++    emit("realmix.round.1.after", csv(after))
++    emit("realmix.round.1.gain", sum(rnet))
++    emit("realmix.rounds", REAL_ROUNDS)
++    totals = [sum(f[i] - b[(i + 1) % 3] for (f, b), _ in crossings) for i in range(3)]
++    emit("realmix.mean.net", csv(fixed(Fraction(t, REAL_ROUNDS), 1) for t in totals))
++    emit("realmix.mean.gain", fixed(Fraction(sum(totals), REAL_ROUNDS), 1))
++    out["realmix"] = (crossings, rnet)
++
+     # the two products (15)
+     fb, bb = products(r_b)
+     emit("round.products.b", fracs((fb, bb)))
+@@ -561,6 +591,13 @@
+     while common % fm.denominator or common % bm.denominator:
+         common += 1
+     emit("round.products.mix.common", f"{fm * common}/{common},{bm * common}/{common}")
++    # 15_12: the one line on the mix's crowd, net × (p2 + q1 q2) = w0 ×
++    # (p0 p1 p2 − q0 q1 q2), in players on both sides
++    factor = r_mix[2] + (1 - r_mix[1]) * (1 - r_mix[2])
++    emit("round.mix.sign.factor", factor)
++    emit("round.products.mix.diff", fm - bm)
++    emit("round.mix.sign.sides", net[0] * factor)
++    out["sign_line"] = (factor, fm - bm)
+     for name, game in (("a", pub_a), ("b", pub_b), ("mix", pub_mix)):
+         f, b = products(game)
+         emit(f"pub.products.{name}", fracs((f, b)))
+@@ -619,7 +656,7 @@
+ 
+     # every game on the grid of tenths: the Rust model's formulas hold
+     grid = [Fraction(k, 10) for k in range(1, 10)]
+-    tree_bad = flow_bad = sign_bad = fair = converse_bad = 0
++    tree_bad = flow_bad = sign_bad = fair = converse_bad = line_bad = 0
+     for game in product(grid, repeat=3):
+         pi = shares(game)
+         tree_bad += tree_shares(game) != pi
+@@ -637,6 +674,9 @@
+         third = w[2] * p[2] == w[0] * q[0]
+         balanced = [x / sum(w) for x in w]
+         converse_bad += third != (f == b) or (third and (balanced != pi or edge[0] != 0))
++        # 15_7, 15_8: the one line, with both of its other factors positive
++        line_bad += (edge[0] * (p[2] + q[1] * q[2]) != pi[0] * (f - b)
++                     or not (p[2] + q[1] * q[2] > 0 and pi[0] > 0))
+     emit("sign.games", 9**3)
+     emit("sign.violations", sign_bad)
+     emit("sign.fair_games", fair)
+@@ -645,6 +685,29 @@
+           "balanced weights are the settled crowd with zero net flow", converse_bad == 0 and fair > 0)
+     check("729 games: every edge carries the same net flow, and the average is three times it", flow_bad == 0)
+     check("729 games: the average's sign is the sign of forward minus backward product", sign_bad == 0)
++    check("15_7, 729 games: net × (p2 + q1 q2) = w0 × (p0 p1 p2 − q0 q1 q2), with p2 + q1 q2 and w0 "
++          "positive", line_bad == 0)
++    # 15_1's condition at its edge: chances from 0 to 1 in tenths, certain
++    # coins included (the shares by the spanning-tree formula, checked
++    # stationary). The one line still holds; whenever the products differ
++    # both other factors are positive, so the sign rule survives; the
++    # factor vanishes only with both products 0 and no net flow.
++    edge_games = edge_bad = vanishing = 0
++    for game in product([Fraction(k, 10) for k in range(11)], repeat=3):
++        pi = tree_shares(game)
++        p, q = game, [1 - x for x in game]
++        edge = [pi[i] * p[i] - pi[(i + 1) % 3] * q[(i + 1) % 3] for i in range(3)]
++        f, b = products(game)
++        factor = p[2] + q[1] * q[2]
++        edge_games += 1
++        vanishing += factor == 0
++        edge_bad += (vecmat(pi, step_matrix(game)) != pi or not edge[0] == edge[1] == edge[2]
++                     or edge[0] * factor != pi[0] * (f - b)
++                     or (f != b and not (factor > 0 and pi[0] > 0))
++                     or (factor == 0 and not (f == b == 0 and edge[0] == 0)))
++    check(f"15_1's edge, {edge_games} games with certain coins: the one line holds, the sign rule "
++          f"survives, and the {vanishing} games with a vanishing factor have no net flow",
++          edge_bad == 0 and vanishing > 0)
+     check("the sweep has fair games to test the equality case (A's fair coin among them)", fair > 0)
+ 
+     # game A treats every corner alike, whatever its coin
+@@ -695,6 +758,33 @@
+           [mforward[2] + mback[1], mforward[0] + mback[2], mforward[1] + mback[0]] == mcounts
+           and net == [12, 12, 12] and sum(mforward) - sum(mback) == 36 == 3 * net[0])
+     check("the gain per round of the crowd of 1,418 is 1,418 times 18/709", Fraction(36, m) == mean(r_mix))
++    # 14_9's control: B's 10, 4, 12 under the mix's coins is not settled;
++    # its edges disagree and each corner changes by net in minus net out
++    uf = [c * p for c, p in zip(counts, r_mix)]
++    ub = [c * (1 - p) for c, p in zip(counts, r_mix)]
++    unet = [uf[i] - ub[(i + 1) % 3] for i in range(3)]
++    moved = evolve(counts, r_mix)
++    check("control 14_9: an unsettled crowd (B's 10, 4, 12 under the mix) has edges that disagree, "
++          "and each corner changes by net in minus net out",
++          len(set(unet)) > 1 and all(moved[i] - counts[i] == unet[(i - 1) % 3] - unet[i] for i in range(3)))
++    # 14_10, 14_11: real rounds against the split crowd
++    real_moves, rnet = out["realmix"]
++    now = [int(c) for c in mcounts]
++    kept = True
++    for (f, b), corners in real_moves:
++        nets = [f[i] - b[(i + 1) % 3] for i in range(3)]
++        kept = kept and sum(corners) == m and all(
++            corners[i] - now[i] == nets[(i - 1) % 3] - nets[i] for i in range(3))
++        now = list(corners)
++    check("14_10: in every real round each corner changes by net in minus net out, and all 1,418 stay", kept)
++    check("control 14_10: the first real round's edges disagree and it loses dollars; one round is not the "
++          "expected flow", len(set(rnet)) > 1 and sum(rnet) < 0)
++    # 15_12, 15_13: the one line on the mix's crowd, and a player's average
++    factor, diff = out["sign_line"]
++    check("15_12: on the mix's crowd both sides of the one line agree, and three times the net flow per "
++          "player is the mix's average, 3 w0 (P − Q) / (p2 + q1 q2)",
++          net[0] * factor == mcounts[0] * diff and 3 * net[0] / m == mean(r_mix)
++          == 3 * shares(r_mix)[0] * diff / factor)
+     history, counts, settle = out["settle"]
+     check("the crowd keeps all 26 players every round", all(sum(v) == 26 for v in history))
+     worst = [max(abs(x - c) for x, c in zip(history[j - 1], counts)) for j in (settle - 1, settle)]
+--- a/explainer_corpus/parrondo/src/model.rs
++++ b/explainer_corpus/parrondo/src/model.rs
+@@ -576,6 +576,31 @@
+         .collect()
+ }
+ 
++/// The same real crowd as [`real_crowd`], from the same stream in the same
++/// order, counted as crossings: for every round, how many players stepped
++/// forward from each corner (`[0]`) and how many stepped back (`[1]`)
++/// (chapter 14's real round against the split crowd's flows).
++pub fn real_crossings(g: &Game, start: [usize; 3], rounds: usize, seed: u64) -> Vec<[[usize; 3]; 2]> {
++    let mut rng = SplitMix64::new(seed);
++    let mut corners: Vec<usize> = (0..3).flat_map(|i| std::iter::repeat_n(i, start[i])).collect();
++    (0..rounds)
++        .map(|_| {
++            let mut moved = [[0usize; 3]; 2];
++            for c in corners.iter_mut() {
++                let toss = rng.next_u64() % g.den as u64;
++                if toss < g.up[*c] as u64 {
++                    moved[0][*c] += 1;
++                    *c = (*c + 1) % 3;
++                } else {
++                    moved[1][*c] += 1;
++                    *c = (*c + 2) % 3;
++                }
++            }
++            moved
++        })
++        .collect()
++}
++
+ // ----------------------------------------------------------------- the player
+ 
+ /// SplitMix64 (Steele, Lea and Flood, 2014): the video's one simulated
+--- a/explainer_corpus/parrondo/docs/pause-overrides.json
++++ b/explainer_corpus/parrondo/docs/pause-overrides.json
+@@ -1,5 +1,5 @@
+ {
+-  "_comment": "Authored chapter08–11 intentions, not measured speech or listening acceptance. Prediction windows, real-player hops, computed mixing rounds and card-reading deadlines remain separate protected visual tasks. Earlier chapter intentions remain in the storyboard.",
++  "_comment": "Authored chapter08–11 and 14–15 intentions, not measured speech or listening acceptance. Prediction windows, real-player hops, computed mixing rounds and card-reading deadlines remain separate protected visual tasks. Earlier chapter intentions remain in the storyboard.",
+   "overrides": [
+     {"video":"parrondo","cue":"08_1","after":"full of luck","role":"thought","range_s":[0.5,0.9],"reason":"Let the single-player limitation land before imagining copies."},
+     {"video":"parrondo","cue":"08_3","after":"At corner two","role":"thought","range_s":[0.5,0.9],"reason":"Answer the prediction before explaining the two flows."},
+@@ -28,6 +28,42 @@
+     {"video":"parrondo","cue":"11_3","after":"between fifty and seventy-five","role":"clause","range_s":[0.35,0.65],"reason":"Allow mental averaging before announcing sixty-two and a half."},
+     {"video":"parrondo","cue":"11_5","after":"Off corner zero","role":"thought","range_s":[0.5,0.9],"reason":"Answer the direction question before the measured first step."},
+     {"video":"parrondo","cue":"11_6","after":"and the crowd settles","role":"thought","range_s":[0.6,1.0],"reason":"Allow inspection of the settling graph before reading the final shares."},
+-    {"video":"parrondo","cue":"11_7","after":"toward equal thirds","role":"thought","range_s":[0.6,1.0],"reason":"Connect the stirring action to the shift away from the bad corner."}
++    {"video":"parrondo","cue":"11_7","after":"toward equal thirds","role":"thought","range_s":[0.6,1.0],"reason":"Connect the stirring action to the shift away from the bad corner."},
++    {"video":"parrondo","cue":"14_1","after":"Here's a new question.","role":"thought","range_s":[0.45,0.8],"reason":"Turn from the half point to a new question about any game."},
++    {"video":"parrondo","cue":"14_2","after":"so that every count is whole","role":"clause","range_s":[0.3,0.6],"reason":"Let the scaling register before the three counts."},
++    {"video":"parrondo","cue":"14_2","after":"five hundred sixty-eight at corner two","role":"thought","range_s":[0.5,0.9],"reason":"Let all three counts and puddles register before the familiar share."},
++    {"video":"parrondo","cue":"14_3","after":"thirty percent of the four hundred ninety","role":"clause","range_s":[0.3,0.6],"reason":"Separate the forward flow from the opposing back flow."},
++    {"video":"parrondo","cue":"14_6","after":"Twelve, every time.","role":"thought","range_s":[0.5,0.9],"reason":"Let the counted answer land before restating it."},
++    {"video":"parrondo","cue":"14_6","after":"around the triangle","role":"thought","range_s":[0.45,0.8],"reason":"Let the circulation register before naming it."},
++    {"video":"parrondo","cue":"14_8","after":"twelve for each of the three edges","role":"thought","range_s":[0.5,0.9],"reason":"Answer the prediction, then check it by winners and losers."},
++    {"video":"parrondo","cue":"14_8","after":"six hundred ninety-one lose","role":"thought","range_s":[0.45,0.8],"reason":"Separate the crowd's dollars from a player's cents."},
++    {"video":"parrondo","cue":"14_9","after":"Watch corner one.","role":"clause","range_s":[0.35,0.65],"reason":"Direct attention to the ringed corner before its two edges."},
++    {"video":"parrondo","cue":"14_9","after":"keeps its three hundred sixty","role":"thought","range_s":[0.5,0.9],"reason":"Complete the conservation argument before its converse case."},
++    {"video":"parrondo","cue":"14_10","after":"split exactly by the chances","role":"thought","range_s":[0.5,0.9],"reason":"Mark expected numbers as a concept before the real round."},
++    {"video":"parrondo","cue":"14_10","after":"Real players toss real coins.","role":"thought","range_s":[0.45,0.8],"reason":"Separate the claim from the seeded illustration that follows."},
++    {"video":"parrondo","cue":"14_10","after":"minus seventeen","role":"clause","range_s":[0.35,0.65],"reason":"Let the disagreeing edges register before the corner changes."},
++    {"video":"parrondo","cue":"14_11","after":"thirty-five point eight dollars a round","role":"thought","range_s":[0.5,0.9],"reason":"Let both averages register before the lesson about scatter."},
++    {"video":"parrondo","cue":"14_12","after":"gains three times it each round","role":"thought","range_s":[0.45,0.8],"reason":"State the rule, then its fair case."},
++    {"video":"parrondo","cue":"14_13","after":"every edge balances on its own","role":"thought","range_s":[0.5,0.9],"reason":"Name the balance before the three numeric balances."},
++    {"video":"parrondo","cue":"14_14","after":"so they cancel","role":"thought","range_s":[0.5,0.9],"reason":"Let the cancellation register before reading what is left."},
++    {"video":"parrondo","cue":"14_15","after":"and back as q","role":"thought","range_s":[0.5,0.9],"reason":"Let the three letters register before the cancellation."},
++    {"video":"parrondo","cue":"14_15","after":"and each one cancels","role":"thought","range_s":[0.5,0.9],"reason":"Complete the general cancellation before its meaning."},
++    {"video":"parrondo","cue":"15_1","after":"the two products match","role":"thought","range_s":[0.5,0.9],"reason":"Restate what 14 proved before opening the converse."},
++    {"video":"parrondo","cue":"15_2","after":"pretend we never found its settled crowd","role":"thought","range_s":[0.5,0.9],"reason":"Let the puddles drain before rebuilding the crowd."},
++    {"video":"parrondo","cue":"15_2","after":"That takes four players.","role":"thought","range_s":[0.45,0.8],"reason":"Finish the first balance before the second."},
++    {"video":"parrondo","cue":"15_3","after":"nothing left to choose","role":"thought","range_s":[0.5,0.9],"reason":"Let the viewer see the third row is already determined."},
++    {"video":"parrondo","cue":"15_3","after":"so it holds","role":"thought","range_s":[0.5,0.9],"reason":"Let the check land before naming B's settled crowd."},
++    {"video":"parrondo","cue":"15_4","after":"Why did the third balance come out right?","role":"thought","range_s":[0.6,1.0],"reason":"Give a thinking beat before generalizing."},
++    {"video":"parrondo","cue":"15_6","after":"exactly the players it sends","role":"thought","range_s":[0.5,0.9],"reason":"Complete the stays-put step before uniqueness."},
++    {"video":"parrondo","cue":"15_6","after":"from any corner to any other","role":"thought","range_s":[0.5,0.9],"reason":"Complete the uniqueness step before the conclusion."},
++    {"video":"parrondo","cue":"15_7","after":"which way does the crowd turn?","role":"thought","range_s":[0.6,1.0],"reason":"Give the question time before the derivation begins."},
++    {"video":"parrondo","cue":"15_7","after":"the net flow appears just once","role":"thought","range_s":[0.45,0.8],"reason":"Let the simplification register before the last substitution."},
++    {"video":"parrondo","cue":"15_8","after":"so it's positive","role":"thought","range_s":[0.45,0.8],"reason":"Establish the first positive factor before the second."},
++    {"video":"parrondo","cue":"15_8","after":"minus the backward product","role":"thought","range_s":[0.5,0.9],"reason":"State the sign rule before its two cases."},
++    {"video":"parrondo","cue":"15_9","after":"and B is fair","role":"thought","range_s":[0.45,0.8],"reason":"Let the verdict register before the tempting misjudgement."},
++    {"video":"parrondo","cue":"15_11","after":"The forward product.","role":"thought","range_s":[0.45,0.8],"reason":"Answer the prediction before the exact fractions."},
++    {"video":"parrondo","cue":"15_12","after":"differ by three over one hundred sixty","role":"thought","range_s":[0.5,0.9],"reason":"Let both computed factors register before the two sides."},
++    {"video":"parrondo","cue":"15_14","after":"the coins Harmer and Abbott published","role":"thought","range_s":[0.5,0.9],"reason":"Let the badge and chances change before the three verdicts."},
++    {"video":"parrondo","cue":"15_15","after":"what the test never needed","role":"thought","range_s":[0.6,1.0],"reason":"Give the transfer observation a beat before naming what is absent."}
+   ]
+ }

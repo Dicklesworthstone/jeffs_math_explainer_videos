@@ -1,0 +1,738 @@
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/brief.md b/explainer_corpus/german_tank/docs/brief.md
+--- a/explainer_corpus/german_tank/docs/brief.md	2026-10-24 03:53:39.056166929 -0400
++++ b/explainer_corpus/german_tank/docs/brief.md	2026-10-24 04:05:05.631968158 -0400
+@@ -114,6 +114,9 @@
+   "thirteen … twelve more … then five, then seventeen, then eight"
+   (03_1 to 03_3). Risk: run-together hyphenated numbers, "fourteen" versus
+   "forty".
++- Compound numbers whose joins carry the value: "a hundred and fifty" (02_8),
++  "fifty-five" (03_4) and "seventy-one" (03_8, 03_10). Risk: a dropped "and"
++  or a broken hyphen heard as two numbers.
+ - Decimals and halves: "about forty-five to eighty-four point two" (08_2)
+   and the other point values in 08_5, 10_4, 11_5 and 12_6; "five plus three
+   halves, six and a half" (05_4); "and a half" again in 12_3, 13_3 and 15_3.
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/pauses.tsv b/explainer_corpus/german_tank/docs/pauses.tsv
+--- a/explainer_corpus/german_tank/docs/pauses.tsv	2026-10-24 03:53:39.056440806 -0400
++++ b/explainer_corpus/german_tank/docs/pauses.tsv	2026-10-24 04:02:45.855313079 -0400
+@@ -15,7 +15,7 @@
+ 01_8	Above sixty, nobody knows.	thought	0.5	0.9	the unknown tail is named before its extent
+ 01_8	or run on for hundreds more.	cue_transition	0.8	1.4	visual: the zoom out to a thousand finishes
+ 02_1	how the five were chosen.	thought	0.4	0.8	setup: the bin is coming
+-02_1	in one huge bin, shaken well.	cue_transition	0.8	1.3	visual: the dots settle in the bin
++02_1	in a huge bin, shaken well.	cue_transition	0.8	1.3	visual: the dots settle in the bin
+ 02_2	any five are exactly as likely as any other five.	thought	0.4	0.8	the definition lands before its name
+ 02_5	All over the line.	thought	0.6	1.0	reveal: the prediction's answer, then the rows
+ 02_5	drawn by computer.	thought	0.6	1.1	visual: the ten rows land
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/protected.tsv b/explainer_corpus/german_tank/docs/protected.tsv
+--- a/explainer_corpus/german_tank/docs/protected.tsv	2026-10-24 03:53:39.055355508 -0400
++++ b/explainer_corpus/german_tank/docs/protected.tsv	2026-10-24 04:04:23.818286958 -0400
+@@ -1,15 +1,15 @@
+ # Protected facts: the words every revision must keep (./x german_tank protected checks they are still there).
+ # One per line: <phrase> TAB <where> TAB <why>. <where> is a comma list of script, captions,
+-# description, title, or empty for "anywhere". Active rows are for the chapters in script.tsv (chapter 01).
+-# The commented rows belong to chapters 02 and 03 in docs/storyboard-draft.md: each is uncommented when its
+-# chapter moves into docs/storyboard.md and script.tsv (root's scope correction, Mail 6790).
++# description, title, or empty for "anywhere". Rows are for the chapters in script.tsv (chapters 01 to 03);
++# a drafted chapter's rows join when it moves into docs/storyboard.md and script.tsv (root's scope correction,
++# Mail 6790).
+ counting up from one	script	the numbering assumption the whole recipe needs, stated before any number (G-F1.first)
+ It made at least sixty	script	the largest number is a lower bound and only that (G-F1.at_least)
+ Above sixty, nobody knows	script	the unknown tail, named before any estimate exists
+-# any five are exactly as likely as any other five	script	the fair handful defined by the bin, not by equal chances per box (card B; chapter 15 negative control)
+-# drawn by computer	script	the experiment rows are computed draws, said so where they appear (G-F2.seed)
+-# What they can never tell you is whether the handful was fair	script	the limit stated before the recipe exists
+-# Five gaps hold fifty-five unseen boxes	script	the gaps earn the correction (G-F3.gaps, G-F3.unseen)
+-# About seventy-one	script	the one realised estimate, sixty plus one average gap of eleven (G-F3.average_gap, G-F3.estimate)
+-# If the handful is fair, this recipe is right on average	script	the condition is spoken with the first statistical claim (card A)
+-# not about seventy-one	script	unbiased is a property of the recipe, not of the one estimate
++any five are exactly as likely as any other five	script	the fair handful defined by the bin, not by equal chances per box (card B; chapter 15 negative control)
++drawn by computer	script	the experiment rows are computed draws, said so where they appear (G-F2.seed)
++What they can never tell you is whether the handful was fair	script	the limit stated before the recipe exists
++Five gaps hold fifty-five unseen boxes	script	the gaps earn the correction (G-F3.gaps, G-F3.unseen)
++About seventy-one	script	the one realised estimate, sixty plus one average gap of eleven (G-F3.average_gap, G-F3.estimate)
++If the handful is fair, this recipe is right on average	script	the condition is spoken with the first statistical claim (card A)
++not about seventy-one	script	unbiased is a property of the recipe, not of the one estimate
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/storyboard-draft.md b/explainer_corpus/german_tank/docs/storyboard-draft.md
+--- a/explainer_corpus/german_tank/docs/storyboard-draft.md	2026-10-24 03:53:39.056633473 -0400
++++ b/explainer_corpus/german_tank/docs/storyboard-draft.md	2026-10-24 04:03:10.687752015 -0400
+@@ -1,11 +1,12 @@
+-# Storyboard draft — chapters 02 to 16
++# Storyboard draft — chapters 04 to 16
+ 
+ The rest of "How Much Can Five Serial Numbers Reveal?", written in full in
+ the format of `docs/storyboard.md` (read that file first: the arc, the
+-vocabulary, the color roles and chapter 01 are there). Only chapters with a
+-native scene in source live in `docs/storyboard.md`, `script.tsv` and the
+-chapter registry (root's scope correction, Mail 6790); a chapter moves there
+-when its scene is implemented, and root assigns that work. Every number is a
++vocabulary, the color roles and chapters 01 to 03 are there). Only chapters
++with a native scene in source live in `docs/storyboard.md`, `script.tsv` and
++the chapter registry (root's scope correction, Mail 6790); a chapter moves
++there when its scene is implemented, and root assigns that work. Chapters 02
++and 03 moved there with their scenes. Every number is a
+ fact the oracle prints (`oracle.py`; fact group `G-Fn` belongs to chapter
+ `n`). Check this file with the storyboard tool's own functions:
+ 
+@@ -22,97 +23,6 @@
+ five small squares with the two seen squares gold); the **panel** (arithmetic
+ on the right).
+ 
+-## 02_a_thousand_boxes: If there were a thousand (~82 s)
+-
+-The same line, now able to show 1 to 1,000; the friends' five on their ticks
+-at its left; the bin, a large rounded rectangle, in the middle. Rows of drawn
+-handfuls stack above the line, one row per handful, gold outlines at half
+-strength; the friends' row stays full gold. Every number is `G-F2`.
+-
+-| id | words | picture | features | hold/listen |
+-|---|---|---|---|---|
+-| 02_1 | To find out, we need a picture of how the five were chosen. Imagine every box the company made in one huge bin, shaken well. | The line's dots lift and pour into the bin, tumbling into a heap; each dot is still a box | morph, identity-preserving move | |
+-| 02_2 | Five boxes come out blindly, and any five are exactly as likely as any other five. Call that a fair handful. | Five dots rise out of the heap and line up in gold outlines; "fair handful" in the panel; a "precisely" lower-third (card B) | lagged reveal, lower-third | |
+-| 02_3 | Real friends don't shop from a bin, so this is an assumption. Later we'll break it on purpose. | The badge "if the handful is fair" appears in the panel's corner and stays; the dots pour back onto the line | badge | |
+-| 02_4 | ⟨predict⟩ If the company had made a thousand boxes, where would a fair handful's five numbers usually land? | The line shows 1 to 1,000 with marks at 250, 500 and 750; the friends' row huddles at the left; the countdown | prediction pause, think time | |
+-| 02_5 | All over the line. Here are ten fair handfuls from a thousand, drawn by computer. Every one of them reaches past six hundred. | Ten rows drop in one after another from the computed draws (`G-F2.big_handfuls`); each row's largest flashes as it lands; a dim mark at 600 | computed experiment, lagged reveal | |
+-| 02_6 | For all five numbers to be sixty or less, like the friends', happens in fewer than one handful in a million. | The stretch 1 to 60 shades teal under every row; no drawn row fits inside it; the panel: "all five ≤ 60: fewer than 1 in 1,000,000" | highlight, equation | |
+-| 02_7 | Now try a company of seventy. Its handfuls look much more like the friends'. Nearly half of them stay at sixty or below. | The ten rows fade; the line zooms back in to 1 … 84 with an end mark at 70; ten rows from seventy drop in (`G-F2.small_handfuls`); the panel: "all five ≤ 60: 45%" | computed experiment, zoom in | |
+-| 02_8 | Look at the spacing. Numbers from a thousand sit over a hundred and fifty apart, on average. From seventy, about twelve apart, just like the friends' numbers. | Blue spacing arrows run from zero to each number in one row at a time: a row from a thousand (briefly zoomed out), a row from seventy, then the friends' row (14, 13, 6, 18, 9); a live readout gives each row's average spacing, and the panel the exact averages 166.8, 11.8 and 12 | live readout, coordinated views | |
+-| 02_9 | So the numbers can't prove the count, but their spacing is a clue. What they can never tell you is whether the handful was fair. | The drawn rows fade; the friends' row remains with its spacing arrows; the badge flashes | highlight, badge | |
+-
+-### Notes for 02
+-
+-- The draws: SplitMix64 with seed `G-F2.seed` 20261024 plus one stream number
+-  per experiment (1 for a thousand, 2 for seventy), each box drawn uniformly
+-  by rejection, a repeat redrawn, the first ten handfuls shown in the order
+-  drawn and never chosen. `src/model.rs` and `oracle.py` implement the
+-  generator separately and must print the same rows. They are illustrations;
+-  every spoken claim is an exact fact: `G-F2.big_largest_over_600` true
+-  (`G-F2.big_lowest_largest` 750), `G-F2.big_all_at_most_60`
+-  227563/343762135425 ≈ 6.6 × 10⁻⁷ (`…_under_one_in_a_million` true),
+-  `G-F2.small_all_at_most_60.percent` 45 ("nearly half").
+-- Spacing: the average distance from each number to the one before it,
+-  counting from zero, is (N + 1)/6 for a fair handful of five: 1001/6 ≈ 166.8
+-  (`G-F2.big_spacing`, "over a hundred and fifty") and 71/6 ≈ 11.8
+-  (`G-F2.small_spacing`, "about twelve"); the friends' is 60/5 = 12
+-  (`G-F2.friends_spacing`). "Just like" compares those two rounded values,
+-  nothing more.
+-- Card B (02_2): "Precisely: the count N is fixed and unknown; the handful is
+-  random. Every one of the C(N, 5) sets of five numbers from 1 to N has the
+-  same chance: a uniform draw without replacement. Equal chances for each box
+-  are not enough (chapter 15)."
+-- The bin is the owner's "concrete before notation": the fair handful is
+-  defined by a physical action before any formula, and its badge stays in the
+-  panel through chapter 03.
+-- "Real friends don't shop from a bin" states the assumption's status; it is
+-  not a claim about any real market. Chapter 14 breaks it with these same
+-  five boxes.
+-- Pauses: a hold after the bin has settled (02_1), the countdown after 02_4, a
+-  reveal pause after "All over the line.", a thought pause after "Look at the
+-  spacing."
+-
+-## 03_counting_the_gaps: Counting what nobody saw (~68 s)
+-
+-Back to the line from 1 to 84, the friends' boxes on their ticks, the badge
+-in the panel's corner. Gaps are counted dot by dot, each with its own live
+-count. Every number is `G-F3`.
+-
+-| id | words | picture | features | hold/listen |
+-|---|---|---|---|---|
+-| 03_1 | So let's use that clue. Look at the numbers nobody has seen. Below fourteen, there are thirteen. | The dots 1 to 13 turn blue one at a time while a live count over them climbs 1, 2, … 13; then a blue arc closes over them with "13" | live count, one gap at a time | |
+-| 03_2 | Between fourteen and twenty-seven, twelve more. | The dots 15 to 26 count up the same way to "12" | live count | |
+-| 03_3 | Then five, then seventeen, then eight. | The last three gaps count up in turn, a little faster each, "5", "17", "8" | live count, lagged reveal | |
+-| 03_4 | These stretches are the gaps. Five gaps hold fifty-five unseen boxes. That's eleven per gap, on average. | The five arc labels slide to the panel and become 13 + 12 + 5 + 17 + 8 = 55; then 55 ÷ 5 = 11, the 11 in blue | equation, TransformMatchingTex | |
+-| 03_5 | There's one more gap, above sixty. It's the top gap, and nobody can see it. | A dashed hero bracket starts at 61 with a hero "?" and runs into the faded end | bracket | |
+-| 03_6 | In a fair handful, nothing makes the top gap special. It's just one more space between numbers, the one that happens to be out of sight. | A small inset: chapter 02's first row from seventy (`G-F3.known_handful`) with its five gaps in blue and its top gap, up to 70, in hero (`G-F3.known_gaps`, `G-F3.known_top_gap`); because that count is known, its top gap can be seen | inset, callback | |
+-| 03_7 | ⟨predict⟩ If the top gap is about as big as the others, how many boxes did the company make? | The inset fades; the dashed bracket's length is hidden; the countdown | prediction pause, think time | |
+-| 03_8 | About seventy-one. Sixty, plus one average gap of eleven. | The "?" goes; the bracket shortens to cover 61 to 71 and turns green with "11"; the panel writes 60 + 11 = 71 and a green tick at 71 reads "≈ 71" | equation, highlight | |
+-| 03_9 | That's a recipe. Take the largest number and add the average gap. If the handful is fair, this recipe is right on average. | The panel collapses to "estimate = largest + average gap"; on "If the handful is fair" the corner badge slides down and attaches to the claim "right on average" | equation card, badge | |
+-| 03_10 | Right on average is a promise about the recipe, not about seventy-one. We'll prove it, and then find out what it can't promise. | The green 71 dims a step while the recipe card stays bright; a "precisely" lower-third (card A) | lower-third | |
+-
+-### Notes for 03
+-
+-- `G-F3.gaps` 13, 12, 5, 17, 8; `G-F3.unseen` 55; `G-F3.gap_count` 5;
+-  `G-F3.average_gap` 11; `G-F3.estimate` 71. The inset's row is the first
+-  drawn from seventy, (30, 33, 50, 53, 55): gaps 29, 2, 16, 2, 1 and top gap
+-  15. It was not chosen; its top gap is simply visible because we fixed the
+-  count.
+-- 03_6 is the intuition chapters 05 to 07 prove ("the gaps can trade
+-  places"); its claim is about a fair handful only, and the badge is on
+-  screen when it is made.
+-- Card A (03_10): "Precisely: boxes numbered 1 to N with no skips; the five
+-  are different boxes, and every set of five is equally likely (a uniform
+-  draw without replacement). Right on average means the estimates average to
+-  N over all handfuls, for every N of at least 5. 71 is one estimate, not a
+-  count."
+-- Prediction (03_7): the tempting answers are "sixty" (the largest) and "about
+-  double the average, seventy-three" (which returns in chapter 10 as the
+-  rival recipe). The countdown hides the bracket's length and every estimate.
+-- Pauses: the counting holds (03_1 to 03_3 are visual beats with short
+-  words); a thought pause after "Five gaps hold fifty-five unseen boxes."; the
+-  countdown after 03_7; a reveal pause after "About seventy-one."
+-
+ ## 04_what_we_assume: Saying it exactly (~76 s)
+ 
+ The line from chapter 03, its top gap green and its estimate gone; the five
+diff '--color=never' -ruN a/explainer_corpus/german_tank/docs/storyboard.md b/explainer_corpus/german_tank/docs/storyboard.md
+--- a/explainer_corpus/german_tank/docs/storyboard.md	2026-10-24 03:53:39.055112257 -0400
++++ b/explainer_corpus/german_tank/docs/storyboard.md	2026-10-24 04:02:57.099955674 -0400
+@@ -7,8 +7,8 @@
+ `G-Fn` belongs to chapter `n`.
+ 
+ This file holds only the chapters whose native scenes exist in source:
+-chapter 01. Chapters 02 to 16 are written in full, in the same format, in
+-`docs/storyboard-draft.md`; a chapter moves here when its scene is
++chapters 01 to 03. Chapters 04 to 16 are written in full, in the same format,
++in `docs/storyboard-draft.md`; a chapter moves here when its scene is
+ implemented, so `script.tsv`, the chapter registry and the Rust tests always
+ agree on what can render. The arc below describes the whole film.
+ 
+@@ -65,8 +65,10 @@
+ 
+ | Chapter | Spine | Status |
+ |---|---|---|
+-| `01_five_boxes` | why the count matters; five numbered boxes; boxes become ticks; at least sixty; the unknown tail | words and pictures here; scene in `src/chapters/five_boxes.rs` (uncompiled in this lane) |
+-| `02_a_thousand_boxes` to `16_five_boxes_again` | see `docs/storyboard-draft.md` | drafted in full; no scene yet |
++| `01_five_boxes` | why the count matters; five numbered boxes; boxes become ticks; at least sixty; the unknown tail | words and pictures here; scene in `src/chapters/five_boxes.rs` |
++| `02_a_thousand_boxes` | the fair handful defined by a bin; computed handfuls from a thousand and from seventy; spacing as the clue; fairness can't be seen | words and pictures here; scene in `src/chapters/a_thousand_boxes.rs` on the shared line of `src/chapters/friends_line.rs` |
++| `03_counting_the_gaps` | the gaps counted one at a time; the top gap is one more gap; about seventy-one; the recipe and its condition; a promise about the recipe | words and pictures here; scene in `src/chapters/counting_the_gaps.rs` |
++| `04_what_we_assume` to `16_five_boxes_again` | see `docs/storyboard-draft.md` | drafted in full; no scene yet |
+ 
+ ## Vocabulary (one word per idea)
+ 
+@@ -120,10 +122,10 @@
+ | 01_2 | Five friends who own it would like to know. If the company made a few dozen, their boxes are rare. If it made tens of thousands, they're ordinary. | The box rises into the middle of a top band and four more fade in beside it, five boxes in a row, none showing a number; "how many?" moves to the panel. Under the band a dim scale, "a few dozen" over "rare" at its left end and "tens of thousands" over "ordinary" at its right; a hero "?" marker moves to each end as it is named and drifts back, settling nowhere | lagged reveal, stakes | |
+ | 01_3 | Every box has a number on the bottom, counting up from one. The first box made is number one, the next is number two, and nothing is skipped. | The scale fades. On "counting up from one" the line draws from the left, one faint dot per number from 1 to 84, fading out over the strip's last quarter; "1" under the first dot and "2" over the second (staggered: they are 0.15 apart); on "nothing is skipped" a ripple runs along the first twelve dots | number line, lagged dots | |
+ | 01_4 | The friends turn their boxes over. Fourteen, twenty-seven, thirty-three, fifty-one and sixty. | Each box turns over (a squash and unsquash; its lid band goes) as its number is spoken and shows its number in gold; the picture holds so the five can be read | lagged reveal, inspection hold | hold |
+-| 01_5 | Put each box where its number belongs, on the line of every number the company could have printed. | One at a time each box shrinks and slides down onto its own dot, keeping its gold number; the five dots turn gold and a gold tick grows from each dot to its box. From here everything on the line is bound to three trackers through one map (the line's last number shown, the boxes' spread, the ticks' growth). On "every number the company could have printed" a ripple runs along the whole line | identity-preserving move | |
++| 01_5 | Put each box where its number belongs, on the line of every number the company could have printed. | One at a time, from the right (60 first), each box shrinks and slides down onto its own dot, keeping its gold number; the five dots turn gold and a gold tick grows from each dot to the bottom centre of its box. From here everything on the line is bound to three trackers through one map (the line's last number shown, the boxes' spread, the ticks' growth). On "every number the company could have printed" a ripple runs along the whole line | identity-preserving move | |
+ | 01_6 | ⟨predict⟩ Before any clever ideas, what can you say for certain about how many boxes the company made? | Nothing new appears; the countdown runs in the panel | prediction pause, think time | |
+ | 01_7 | It made at least sixty. Box sixty exists, so boxes one to sixty all do too. | A teal bracket under the line from 1 to 60; the panel writes "at least 60" in teal under "how many?"; on "Box sixty exists" box 60 flashes; on "boxes one to sixty" the dots under the bracket brighten one step | bracket, highlight | |
+-| 01_8 | Above sixty, nobody knows. The line might stop right after sixty, or run on for hundreds more. | The labels 1 and 2 go. A dashed hero bracket starts at 61 and runs off the faded end, a hero "?" under it near the right. On "hundreds more" the line zooms out to 1 … 1,000: the 84 dots squeeze to the left, a thin faint line fills the rest of the strip, the dashed bracket grows to cover almost all of it, the teal bracket shrinks with its numbers, and the five boxes spread into a row from the line's left end, each tick still joining its dot to its box | number line, zoom out | |
++| 01_8 | Above sixty, nobody knows. The line might stop right after sixty, or run on for hundreds more. | The labels 1 and 2 go. A dashed hero bracket starts at 61 and runs off the faded end, a hero "?" under it near the right. On "or run on" the five boxes spread into a row from the line's left end, each tick still joining its dot to its box's bottom centre; then, on "hundreds more", the line zooms out to 1 … 1,000 under them: the 84 dots squeeze to the left, a thin faint line fills the rest of the strip, the dashed bracket grows to cover almost all of it and the teal bracket shrinks with its numbers. The boxes are apart in every state of both moves, not only at their ends | number line, zoom out | |
+ | 01_9 | Nothing these five numbers say can rule out a thousand boxes. But would five boxes from a thousand look like these? | Marks 1, 250, 500 and 750 under the zoomed line and "1,000?" in dim over its right end; on "look like these" the five boxes and their ticks flash once | highlight | |
+ 
+ ### Notes for 01
+@@ -153,3 +155,109 @@
+   are read (the inspection hold), the prediction countdown after 01_6, a
+   reveal pause after "It made at least sixty.", a thought pause after
+   "Above sixty, nobody knows."
++
++## 02_a_thousand_boxes: If there were a thousand (~85 s)
++
++Chapter 01's line again, 1 to 84 with the five boxes on their dots and
++ticks. It can zoom out to 1 to 1,000 and back, the boxes spreading into a
++row before the line squeezes and coming home after it stretches. The bin, a
++large rounded rectangle, in the middle. Rows of drawn handfuls stack above
++the line, one row per handful, each number a gold ring at half strength; the
++friends' boxes stay full gold. Every number is `G-F2`.
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 02_1 | To find out, we need a picture of how the five were chosen. Imagine every box the company made in a huge bin, shaken well. | On "Imagine every box" the boxes and their ticks fade and the bin appears; every dot of the line, all at one strength now, pours into it and settles in a heap, each dot still a box; on "shaken well" the bin shakes | morph, identity-preserving move | |
++| 02_2 | Five boxes come out blindly, and any five are exactly as likely as any other five. Call that a fair handful. | On "come out blindly" five dots rise out of the heap as gold rings (`G-F2.bin_handful`); on "as likely as any other five" they flash; on "Call that a fair handful" the panel writes "fair handful" and a "precisely" lower-third rises (card B) | lagged reveal, lower-third | |
++| 02_3 | Real friends don't shop from a bin, so this is an assumption. Later we'll break it on purpose. | On "this is an assumption" the panel's words give way to the badge "if the handful is fair" in the panel's corner, where it stays; on "Later we'll break it" the five sink back and every dot pours back onto the line with its old fade; the rings and the bin go and the boxes and ticks return; card B stays until it can be read | badge | |
++| 02_4 | ⟨predict⟩ If the company had made a thousand boxes, where would a fair handful's five numbers usually land? | The boxes spread into their row; on "a thousand boxes" the line's end slides to 1,000 under them, the 84 dots squeezing to the left; marks 1, 250, 500, 750 and 1,000 under the line; the countdown | prediction pause, think time, number line | |
++| 02_5 | All over the line. Here are ten fair handfuls from a thousand, drawn by computer. Each of them reaches past six hundred. | The countdown goes; on "Here are ten" ten rows drop in one after another from the computed draws (`G-F2.big_handfuls`), each row's largest flashing as it lands; on "past six hundred" a dim upright mark at 600 rises through every row and all ten largest numbers flash | computed experiment, lagged reveal | |
++| 02_6 | Five numbers that all stay at sixty or less, like the friends', turn up in fewer than one handful in a million. | On "sixty or less" a teal outline, strokes only, surrounds the stretch 1 to 60 across every row: no row fits inside it; on "fewer than one handful" the panel: "all 5 at most 60" over "from 1,000: fewer than one in a million" | highlight | |
++| 02_7 | Now try a company of seventy. Its handfuls look much more like the friends'. Nearly half of its possible handfuls stay at sixty or below. Three of these ten do. | On "Now try a company" the rows, the 600 mark, the outline and the marks fade; the line comes back in to 1 … 84, the boxes coming home after it, and an upright end mark at 70 appears; on "Its handfuls look" ten rows from seventy drop in (`G-F2.small_handfuls`); on "Nearly half" the teal outline 1 to 60 returns and the panel adds "from 70: 45% of all handfuls"; on "Three of these ten" the three rows inside the outline flash | computed experiment, zoom in, highlight | |
++| 02_8 | Look at the spacing. Numbers from a thousand sit over a hundred and fifty apart, on average. From seventy, about twelve apart, just like the friends' numbers. | The rows, the outline, the 70 mark and the panel's lines go. On "Numbers from a thousand" the line zooms out again, the panel heads "average spacing" and a blue readout "arrows' length ÷ 5" appears at the lower right; one row from a thousand drops in and blue spacing arrows run from zero to each of its numbers while the live readout counts their length over five, ending at 190.6; the panel adds "all handfuls from 1,000: 166.8". On "From seventy" that row goes, the line comes back in and a row from seventy runs the same way to 11.0; the panel adds "all handfuls from 70: 11.8". On "just like the friends'" arrows run under the friends' own five (14, 13, 6, 18, 9), the readout ending at 12.0, and the panel adds "the friends' handful: 12" | live readout, coordinated views, number line | |
++| 02_9 | So the numbers can't prove the count, but their spacing is a clue. What they can never tell you is whether the handful was fair. | The drawn row, its arrows and the readout go; on "their spacing is a clue" the friends' arrows flash; on "whether the handful was fair" the badge flashes | highlight, badge | |
++
++### Notes for 02
++
++- The draws: SplitMix64 with seed `G-F2.seed` 20261024 plus one stream number
++  per experiment (1 for a thousand, 2 for seventy, and one for the bin's
++  handful), each box drawn uniformly by rejection, a repeat redrawn, the
++  first ten handfuls shown in the order drawn and never chosen. `src/model.rs`
++  and `oracle.py` implement the generator separately and must print the same
++  rows. They are illustrations; every spoken claim is an exact fact:
++  `G-F2.big_largest_over_600` true ("past six hundred" is `G-F2.over` 600,
++  under `G-F2.big_lowest_largest` 750), `G-F2.big_all_at_most_60`
++  227563/343762135425 ≈ 6.6 × 10⁻⁷ (`…_under_one_in_a_million` true),
++  `G-F2.small_all_at_most_60.percent` 45 ("nearly half").
++- "Three of these ten do" is `G-F2.small_fit_shown` 3: one draw's count, said
++  after the exact share so the two are not confused. The scene refuses rows
++  where none or all fit, or a count that differs from the words.
++- Spacing: the average distance from each number to the one before it,
++  counting from zero, is (N + 1)/6 for a fair handful of five: 1001/6 ≈ 166.8
++  (`G-F2.big_spacing`, "over a hundred and fifty", `G-F2.spacing_over` 150)
++  and 71/6 ≈ 11.8 (`G-F2.small_spacing`, "about twelve"); the friends' is
++  60/5 = 12 (`G-F2.friends_spacing`). "Just like" compares those two rounded
++  values, nothing more. The live readout is one row's arrows over five and
++  ends on that row's own average (`G-F2.big_row_spacing` 190.6,
++  `G-F2.small_row_spacing` 11.0); the panel's exact averages are labelled
++  "all handfuls from" so a row's readout is never read as the average.
++- Card B (02_2): "precisely: the count N is fixed and unknown; the handful is
++  random: every set of 5 numbers from 1 to N is equally likely (a uniform
++  draw without replacement). Equal chances for each box are not enough."
++  Chapter 15 shows why.
++- The bin is the owner's "concrete before notation": the fair handful is
++  defined by a physical action before any formula, and its badge stays in the
++  panel through chapter 03.
++- "Real friends don't shop from a bin" states the assumption's status; it is
++  not a claim about any real market. Chapter 14 breaks it with these same
++  five boxes.
++- The stretch 1 to 60 is teal, the certain role, so it is an outline and never
++  a fill.
++- Pauses: a hold after the bin has settled (02_1), the countdown after 02_4, a
++  reveal pause after "All over the line.", a thought pause after "Look at the
++  spacing."
++
++## 03_counting_the_gaps: Counting what nobody saw (~67 s)
++
++Back to the line from 1 to 84, the friends' boxes on their ticks, the badge
++in the panel's corner. Gaps are counted dot by dot, each with its own live
++count under the line. Every number is `G-F3`.
++
++| id | words | picture | features | hold/listen |
++|---|---|---|---|---|
++| 03_1 | So let's use that clue. Look at the numbers nobody has seen. Below fourteen, there are thirteen. | On "Look at the numbers" the dots 1 to 13 light blue one at a time while a live count under them climbs 1, 2, … 13; on "there are thirteen" a blue arc closes over them and the count stays as its label | live count, one gap at a time | |
++| 03_2 | Between fourteen and twenty-seven, twelve more. | On "Between fourteen" the dots 15 to 26 count up the same way, a little faster, to 12; on "twelve more" their arc closes | live count | |
++| 03_3 | Then five, then seventeen, then eight. | On each number the next gap counts up, a little faster each, and closes: 5, 17, 8 | live count, lagged reveal | |
++| 03_4 | These stretches are the gaps. Five gaps hold fifty-five unseen boxes. That's eleven per gap, on average. | On "These stretches are the gaps" the five arcs flash in turn; on "Five gaps hold" the five counts slide up into the panel and the signs appear between them, 13 + 12 + 5 + 17 + 8 = 55 with the 55 in blue; on "That's eleven per gap" the line 55 ÷ 5 = 11 under it, 55 and 11 in blue | equation, identity-preserving move | |
++| 03_5 | There's one more gap, above sixty. It's the top gap, and nobody can see it. | On "one more gap" a dashed hero bracket draws in, dash by dash, from 61 off the faded end; on "It's the top gap" a hero "?" under it; on "nobody can see it" the "?" flashes | bracket, highlight | |
++| 03_6 | In a fair handful, nothing makes the top gap special. It's just one more space between numbers, and it happens to be out of sight. | On "In a fair handful" the badge flashes. On "It's just one more space" an inset comes in at the upper left: "a fair handful from 70", chapter 02's first row from seventy (`G-F3.known_handful`) on its own short line ending at 70, every gap with its blue arc and count, the top gap's too (`G-F3.known_gaps`, `G-F3.known_top_gap`), and the top gap's hero dashed bracket; its six arcs flash in turn: because that count is known, its top gap can be seen. On "out of sight" the friends' dashed bracket and its "?" flash | inset, callback, lagged reveal | |
++| 03_7 | ⟨predict⟩ If the top gap is about as big as the others, how many boxes did the company make? | The inset fades; the dashed bracket keeps its full, unknown length; the countdown | prediction pause, think time | |
++| 03_8 | About seventy-one. Sixty, plus one average gap of eleven. | The countdown and the "?" give way to a green tick at 71 with "≈ 71" over it; on "Sixty, plus" box 60 flashes; on "plus one average gap" the dashed bracket's right end draws back to 71, then the dashes become a green bracket from 61 to 71 with a green 11 under it; on "of eleven" the panel writes 60 + 11 = 71, the 60 gold, the 11 blue and the 71 green | equation, highlight, tracker | |
++| 03_9 | That's a recipe. Take the largest number and add the average gap. If the handful is fair, this recipe is right on average. | On "That's a recipe" the sums fade, the panel's top line becomes "estimate = largest + average gap" (estimate green, largest gold, average gap blue) and 60 + 11 = 71 moves up under it; on "Take the largest number" box 60 flashes; on "add the average gap" the green bracket flashes; on "If the handful is fair" "right on average" appears at the panel's foot and the corner badge slides beside it; on "right on average" both flash | equation card, badge, highlight | |
++| 03_10 | Right on average is a promise about the recipe, not about seventy-one. We'll prove it, and then find out what it can't promise. | A "precisely" lower-third rises (card A); on "a promise about the recipe" the recipe flashes; on "not about seventy-one" 60 + 11 = 71, the green tick, "≈ 71" and the green bracket dim a step while the recipe, its claim and the badge stay bright; card A stays until it can be read | lower-third, card | |
++
++### Notes for 03
++
++- `G-F3.gaps` 13, 12, 5, 17, 8; `G-F3.unseen` 55; `G-F3.gap_count` 5;
++  `G-F3.average_gap` 11; `G-F3.estimate` 71. The voice reads them one at a
++  time: `G-F3.first_seen` 14 and `G-F3.first_gap` 13, `G-F3.second_seen` 27
++  and `G-F3.second_gap` 12, then `G-F3.last_gaps` 5, 17, 8. "One more gap"
++  (03_5, 03_6, 03_8) is `G-F3.top_gaps` 1, counted on the known handful,
++  where the top gap can be seen.
++- A gap's count and its lit dots round the same tracker the way the kit's
++  live count does, so the number shown and the dots lit agree on every frame.
++- The inset's row is the first drawn from seventy, (30, 33, 50, 53, 55):
++  gaps 29, 2, 16, 2, 1 and top gap 15. It was not chosen; its top gap is
++  simply visible because we fixed the count.
++- 03_6 is the intuition chapters 05 to 07 prove ("the gaps can trade
++  places"); its claim is about a fair handful only, and the badge is on
++  screen when it is made.
++- Card A (03_10): "precisely: boxes 1 to N with no skips; a fair handful of 5.
++  Right on average: over all handfuls, the estimates average exactly N, for
++  every N of at least 5. 71 is one estimate, not a count."
++- Prediction (03_7): the tempting answers are "sixty" (the largest) and "about
++  double the average, seventy-three" (which returns in chapter 10 as the
++  rival recipe). The countdown hides the bracket's length and every estimate.
++- Pauses: the counting holds (03_1 to 03_3 are visual beats with short
++  words); a thought pause after "Five gaps hold fifty-five unseen boxes."; the
++  countdown after 03_7; a reveal pause after "About seventy-one."
+diff '--color=never' -ruN a/explainer_corpus/german_tank/lexicon.json b/explainer_corpus/german_tank/lexicon.json
+--- a/explainer_corpus/german_tank/lexicon.json	2026-10-24 03:53:39.056903058 -0400
++++ b/explainer_corpus/german_tank/lexicon.json	2026-10-24 04:05:09.758976227 -0400
+@@ -1,5 +1,5 @@
+ {
+-  "_comment": "Narration lexicon (natural-sounding-narration-with-frankentts). Chapter 01, the only chapter in script.tsv, says no proper name and no term of art, so nothing is respelled. Risks recorded for root's qualification, none of them heard (docs/brief.md lists them with their lines): quick runs of hyphenated numbers (01_4; 03_1 to 03_3 in the draft); decimals and halves from chapter 05 on (05_4, 08_2, 08_5, 10_4, 11_5, 12_3, 12_6, 13_3, 15_3); the meaning-carrying groupings 'the largest, plus the largest minus five, over five' (04_5) and 'N minus five, over six' (07_3); 'estimator' (04_3), 'unbiased', 'sufficient' (11_5), 'statisticians' (04_3, 11_5), 'analysts' (16_1). Rao-Blackwell, Lehmann-Scheffe, Ruggles, Brodie and Goodman are card-only and never voiced. Before any voiced name is added, look it up, audition it against a control and a decoy, and lock it here with its sources; the owner's pronunciation overrides every source.",
++  "_comment": "Narration lexicon (natural-sounding-narration-with-frankentts). Chapters 01 to 03, the chapters in script.tsv, say no proper name and no term of art, so nothing is respelled. Risks recorded for root's qualification, none of them heard (docs/brief.md lists them with their lines): quick runs of hyphenated numbers (01_4; 03_1 to 03_3); compound numbers whose joins carry the value, 'a hundred and fifty' (02_8), 'fifty-five' (03_4), 'seventy-one' (03_8, 03_10); decimals and halves from chapter 05 on (05_4, 08_2, 08_5, 10_4, 11_5, 12_3, 12_6, 13_3, 15_3); the meaning-carrying groupings 'the largest, plus the largest minus five, over five' (04_5) and 'N minus five, over six' (07_3); 'estimator' (04_3), 'unbiased', 'sufficient' (11_5), 'statisticians' (04_3, 11_5), 'analysts' (16_1). Rao-Blackwell, Lehmann-Scheffe, Ruggles, Brodie and Goodman are card-only and never voiced. Before any voiced name is added, look it up, audition it against a control and a decoy, and lock it here with its sources; the owner's pronunciation overrides every source.",
+   "words": {},
+   "accept": {},
+   "phrases": {}
+diff '--color=never' -ruN a/explainer_corpus/german_tank/oracle.py b/explainer_corpus/german_tank/oracle.py
+--- a/explainer_corpus/german_tank/oracle.py	2026-10-24 03:53:39.057626020 -0400
++++ b/explainer_corpus/german_tank/oracle.py	2026-10-24 03:54:12.380063543 -0400
+@@ -282,16 +282,26 @@
+     emit("G-F2.draws", len(big_hands))
+     emit("G-F2.big_handfuls", ";".join(csv(h) for h in big_hands))
+     emit("G-F2.big_lowest_largest", min(h[-1] for h in big_hands))
+-    emit("G-F2.big_largest_over_600", flag(all(h[-1] > 600 for h in big_hands)))
++    # the mark every row from a thousand reaches past (02_5's "six
++    # hundred"): a round number the voice says, under the lowest largest
++    over = 600
++    emit("G-F2.over", over)
++    emit("G-F2.big_largest_over_600", flag(all(h[-1] > over for h in big_hands)))
+     emit("G-F2.small_handfuls", ";".join(csv(h) for h in small_hands))
+     p_big = all_at_most(m, big, k)
+     emit("G-F2.big_all_at_most_60", q(p_big))
+     emit("G-F2.big_all_at_most_60_under_one_in_a_million", flag(p_big < F(1, 10**6)))
+     emit("G-F2.small_all_at_most_60.percent", nearest(100 * all_at_most(m, small, k)))
++    # how many of the ten rows shown from seventy stay at sixty or below
++    # (02_7's "Three of these ten do"): one draw's count, not the chance
++    emit("G-F2.small_fit_shown", sum(1 for h in small_hands if h[-1] <= m))
+     # the average spacing of neighbouring numbers, counting from zero: one
+-    # more than a gap's average size, (N - k)/(k + 1) + 1
++    # more than a gap's average size, (N - k)/(k + 1) + 1; the round number
++    # 02_8 says the big company's spacing is over
++    spacing_over = 150
++    emit("G-F2.spacing_over", spacing_over)
+     emit("G-F2.big_spacing", q(F(big - k, k + 1) + 1))
+-    emit("G-F2.big_spacing_over_150", flag(F(big - k, k + 1) + 1 > 150))
++    emit("G-F2.big_spacing_over_150", flag(F(big - k, k + 1) + 1 > spacing_over))
+     emit("G-F2.small_spacing", q(F(small - k, k + 1) + 1))
+     emit("G-F2.small_spacing_about", nearest(F(small - k, k + 1) + 1))
+     emit("G-F2.friends_spacing", q(F(m, k)))
+@@ -315,12 +325,25 @@
+     emit("G-F3.average_gap", q(F(sum(g), k)))
+     emit("G-F3.estimate", q(est))
+     check("03: the five gaps hold 55 boxes, 11 a gap, and 60 + 11 = 71", g == [13, 12, 5, 17, 8] and est == 71)
++    # what 03_1 to 03_3 say, one gap at a time: the first two numbers and
++    # the gaps below and between them, then the last three gaps
++    emit("G-F3.first_seen", hand[0])
++    emit("G-F3.second_seen", hand[1])
++    emit("G-F3.first_gap", g[0])
++    emit("G-F3.second_gap", g[1])
++    emit("G-F3.last_gaps", csv(g[2:]))
+     # a company whose count we know (chapter 02's seventy): the first drawn
+     # handful's gaps, its top gap among them
+     first = small_hands[0]
+     emit("G-F3.known_handful", csv(first))
+     emit("G-F3.known_gaps", csv(gaps_of(first)))
+     emit("G-F3.known_top_gap", small - first[-1])
++    # how many gaps lie above the largest number (03_5, 03_6, 03_8: "one
++    # more"): counted on the known handful, where the top gap can be seen
++    with_top = [b - a - 1 for a, b in zip((0,) + tuple(first), tuple(first) + (small + 1,))]
++    emit("G-F3.top_gaps", len(with_top) - len(gaps_of(first)))
++    check("03: the known handful's gaps and its one top gap fill seventy",
++          sum(with_top) + k == small and with_top[-1] == small - first[-1])
+ 
+     # 04: the edge handful 1..5, and the recipe in numbers
+     edge = (1, 2, 3, 4, 5)
+diff '--color=never' -ruN a/explainer_corpus/german_tank/script.tsv b/explainer_corpus/german_tank/script.tsv
+--- a/explainer_corpus/german_tank/script.tsv	2026-10-24 03:53:39.057176726 -0400
++++ b/explainer_corpus/german_tank/script.tsv	2026-10-24 04:03:15.062700595 -0400
+@@ -8,3 +8,22 @@
+ 01_7	It made at least sixty. Box sixty exists, so boxes one to sixty all do too.
+ 01_8	Above sixty, nobody knows. The line might stop right after sixty, or run on for hundreds more.
+ 01_9	Nothing these five numbers say can rule out a thousand boxes. But would five boxes from a thousand look like these?
++02_1	To find out, we need a picture of how the five were chosen. Imagine every box the company made in a huge bin, shaken well.
++02_2	Five boxes come out blindly, and any five are exactly as likely as any other five. Call that a fair handful.
++02_3	Real friends don't shop from a bin, so this is an assumption. Later we'll break it on purpose.
++02_4	If the company had made a thousand boxes, where would a fair handful's five numbers usually land?
++02_5	All over the line. Here are ten fair handfuls from a thousand, drawn by computer. Each of them reaches past six hundred.
++02_6	Five numbers that all stay at sixty or less, like the friends', turn up in fewer than one handful in a million.
++02_7	Now try a company of seventy. Its handfuls look much more like the friends'. Nearly half of its possible handfuls stay at sixty or below. Three of these ten do.
++02_8	Look at the spacing. Numbers from a thousand sit over a hundred and fifty apart, on average. From seventy, about twelve apart, just like the friends' numbers.
++02_9	So the numbers can't prove the count, but their spacing is a clue. What they can never tell you is whether the handful was fair.
++03_1	So let's use that clue. Look at the numbers nobody has seen. Below fourteen, there are thirteen.
++03_2	Between fourteen and twenty-seven, twelve more.
++03_3	Then five, then seventeen, then eight.
++03_4	These stretches are the gaps. Five gaps hold fifty-five unseen boxes. That's eleven per gap, on average.
++03_5	There's one more gap, above sixty. It's the top gap, and nobody can see it.
++03_6	In a fair handful, nothing makes the top gap special. It's just one more space between numbers, and it happens to be out of sight.
++03_7	If the top gap is about as big as the others, how many boxes did the company make?
++03_8	About seventy-one. Sixty, plus one average gap of eleven.
++03_9	That's a recipe. Take the largest number and add the average gap. If the handful is fair, this recipe is right on average.
++03_10	Right on average is a promise about the recipe, not about seventy-one. We'll prove it, and then find out what it can't promise.
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/chapters/mod.rs b/explainer_corpus/german_tank/src/chapters/mod.rs
+--- a/explainer_corpus/german_tank/src/chapters/mod.rs	2026-10-24 03:53:39.059514655 -0400
++++ b/explainer_corpus/german_tank/src/chapters/mod.rs	2026-10-24 03:58:27.317964034 -0400
+@@ -1,20 +1,36 @@
+ //! One scene per chapter, in storyboard order, with its score intensity
+ //! (`0.0..=1.0`). Keys are `NN_name`; narration line ids `NN_k` belong to
+ //! the chapter with the same `NN`. Only chapters with a native scene are
+-//! registered: chapters 02 to 16 are written in full in
++//! registered: chapters 04 to 16 are written in full in
+ //! docs/storyboard-draft.md and join this registry, docs/storyboard.md and
+-//! script.tsv together when their scenes exist.
++//! script.tsv together when their scenes exist. Chapters 02 and 03 share
++//! one number line, built in [`friends_line`].
+ 
++pub mod a_thousand_boxes;
++pub mod counting_the_gaps;
+ pub mod draw;
+ pub mod five_boxes;
++pub mod friends_line;
+ pub mod glyphs;
+ 
+ use explainer_kit::Chapter;
+ 
+ pub fn registry() -> Vec<Chapter> {
+-    vec![Chapter {
+-        key: "01_five_boxes",
+-        make: |kit| Box::new(five_boxes::FiveBoxes { kit }),
+-        intensity: 0.4,
+-    }]
++    vec![
++        Chapter {
++            key: "01_five_boxes",
++            make: |kit| Box::new(five_boxes::FiveBoxes { kit }),
++            intensity: 0.4,
++        },
++        Chapter {
++            key: "02_a_thousand_boxes",
++            make: |kit| Box::new(a_thousand_boxes::AThousandBoxes { kit }),
++            intensity: 0.45,
++        },
++        Chapter {
++            key: "03_counting_the_gaps",
++            make: |kit| Box::new(counting_the_gaps::CountingTheGaps { kit }),
++            intensity: 0.5,
++        },
++    ]
+ }
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/facts.rs b/explainer_corpus/german_tank/src/facts.rs
+--- a/explainer_corpus/german_tank/src/facts.rs	2026-10-24 03:53:39.061221913 -0400
++++ b/explainer_corpus/german_tank/src/facts.rs	2026-10-24 03:57:43.625761199 -0400
+@@ -25,6 +25,12 @@
+ pub const DRAWS: usize = 10;
+ pub const AGAIN_DRAWS: usize = 20;
+ 
++/// The round numbers chapter 02 says the big company passes: every row's
++/// largest number reaches past [`OVER`] (02_5), and the average spacing is
++/// over [`SPACING_OVER`] (02_8).
++pub const OVER: u64 = 600;
++pub const SPACING_OVER: u64 = 150;
++
+ /// The tiny company of chapters 05, 06, 12 and 13: five boxes, two seen.
+ pub const TINY: u64 = 5;
+ pub const TINY_SEEN: usize = 2;
+@@ -109,7 +115,8 @@
+     f.add("G-F2.big_handfuls", rows(&big))?;
+     let lowest_largest = big.iter().map(|h| h[h.len() - 1]).min().ok_or("no draws")?;
+     f.add("G-F2.big_lowest_largest", lowest_largest)?;
+-    f.add("G-F2.big_largest_over_600", flag(lowest_largest > 600))?;
++    f.add("G-F2.over", OVER)?;
++    f.add("G-F2.big_largest_over_600", flag(lowest_largest > OVER))?;
+     f.add("G-F2.small_handfuls", rows(&small))?;
+     let p_big = model::all_at_most(m, BIG, K);
+     f.add("G-F2.big_all_at_most_60", p_big)?;
+@@ -119,8 +126,13 @@
+     )?;
+     let p_small = model::all_at_most(m, SMALL, K);
+     f.add("G-F2.small_all_at_most_60.percent", (Q::int(100) * p_small).nearest())?;
++    // one draw's count of the ten rows from seventy that fit (02_7), not
++    // the chance above
++    let fit_shown = small.iter().filter(|h| h[h.len() - 1] <= m).count();
++    f.add("G-F2.small_fit_shown", fit_shown)?;
++    f.add("G-F2.spacing_over", SPACING_OVER)?;
+     f.add("G-F2.big_spacing", spacing(BIG, K))?;
+-    f.add("G-F2.big_spacing_over_150", flag(spacing(BIG, K) > Q::int(150)))?;
++    f.add("G-F2.big_spacing_over_150", flag(spacing(BIG, K) > int(SPACING_OVER)))?;
+     f.add("G-F2.small_spacing", spacing(SMALL, K))?;
+     f.add("G-F2.small_spacing_about", spacing(SMALL, K).nearest())?;
+     f.add("G-F2.friends_spacing", Q::new(m as i128, K as i128))?;
+@@ -145,10 +157,19 @@
+     // the source's formula, m(1 + 1/k) − 1, for m = 60 and k = 5
+     let cgm = int(m) * (Q::ONE + Q::new(1, K as i128)) - Q::ONE;
+     f.pin("G-F3.estimate", gap_recipe(&FRIENDS), &cgm.to_string(), CGM)?;
++    // what 03_1 to 03_3 say, one gap at a time
++    f.add("G-F3.first_seen", FRIENDS[0])?;
++    f.add("G-F3.second_seen", FRIENDS[1])?;
++    f.add("G-F3.first_gap", g[0])?;
++    f.add("G-F3.second_gap", g[1])?;
++    f.add("G-F3.last_gaps", csv(&g[2..]))?;
+     let known = &small[0];
+     f.add("G-F3.known_handful", csv(known))?;
+     f.add("G-F3.known_gaps", csv(&gaps(known)))?;
+     f.add("G-F3.known_top_gap", SMALL - known[4])?;
++    // the gaps above the largest number (03_5's "one more gap"), counted
++    // where the top gap can be seen
++    f.add("G-F3.top_gaps", gap_list(known, SMALL).len() - gaps(known).len())?;
+ 
+     // 04: the edge handful 1..5
+     let edge: Vec<u64> = (1..=K).collect();
+@@ -437,16 +458,25 @@
+         for (key, value) in [
+             ("G-F1.numbers", "14,27,33,51,60"),
+             ("G-F1.at_least", "60"),
++            ("G-F2.over", "600"),
+             ("G-F2.big_largest_over_600", "true"),
+             ("G-F2.big_all_at_most_60_under_one_in_a_million", "true"),
+             ("G-F2.small_all_at_most_60.percent", "45"),
++            ("G-F2.small_fit_shown", "3"),
++            ("G-F2.spacing_over", "150"),
+             ("G-F2.big_spacing_over_150", "true"),
+             ("G-F2.small_spacing_about", "12"),
+             ("G-F2.friends_spacing", "12"),
++            ("G-F3.first_seen", "14"),
++            ("G-F3.second_seen", "27"),
++            ("G-F3.first_gap", "13"),
++            ("G-F3.second_gap", "12"),
++            ("G-F3.last_gaps", "5,17,8"),
+             ("G-F3.gaps", "13,12,5,17,8"),
+             ("G-F3.unseen", "55"),
+             ("G-F3.average_gap", "11"),
+             ("G-F3.estimate", "71"),
++            ("G-F3.top_gaps", "1"),
+             ("G-F9.range", "60,107"),
+             ("G-F14.shop_average", "71"),
+             ("G-F15.spread_estimate", "68"),
+@@ -470,6 +500,6 @@
+     #[test]
+     fn there_is_one_fact_per_oracle_key() {
+         let f = facts().unwrap();
+-        assert_eq!(f.len(), 152);
++        assert_eq!(f.len(), 161);
+     }
+ }
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/main.rs b/explainer_corpus/german_tank/src/main.rs
+--- a/explainer_corpus/german_tank/src/main.rs	2026-10-24 03:53:39.061809166 -0400
++++ b/explainer_corpus/german_tank/src/main.rs	2026-10-24 04:04:18.161739112 -0400
+@@ -1,9 +1,10 @@
+ //! How Much Can Five Serial Numbers Reveal?: five board-game boxes, the one
+-//! thing their numbers prove, and (in the chapters drafted in
+-//! docs/storyboard-draft.md) the gap recipe, why it is right on average for
+-//! a fair handful, what that does not promise, and what breaks it, rendered
+-//! end to end by franken_manim's native Rust front door and the corpus's
+-//! shared kit.
++//! thing their numbers prove, fair handfuls drawn by computer from a
++//! thousand and from seventy, and the gap recipe found by counting the gaps;
++//! then (in the chapters drafted in docs/storyboard-draft.md) why it is right
++//! on average for a fair handful, what that does not promise, and what
++//! breaks it, rendered end to end by franken_manim's native Rust front door
++//! and the corpus's shared kit.
+ //!
+ //! ```text
+ //! tank facts                         # every number the video shows or says (key<TAB>value)
+@@ -89,6 +90,68 @@
+         ("01_9", "a thousand boxes", "G-F1.thousand", "1000"),
+         ("01_9", "would five boxes from a thousand", "G-F1.handful", "5"),
+         ("01_9", "would five boxes from a thousand", "G-F1.thousand", "1000"),
++        // 02: a thousand boxes
++        ("02_1", "how the five were chosen", "G-F1.handful", "5"),
++        ("02_2", "Five boxes come out", "G-F1.handful", "5"),
++        (
++            "02_2",
++            "any five are exactly as likely as any other five",
++            "G-F1.handful",
++            "5",
++        ),
++        ("02_4", "a thousand boxes", "G-F2.big", "1000"),
++        ("02_4", "five numbers", "G-F1.handful", "5"),
++        ("02_5", "ten fair handfuls", "G-F2.draws", "10"),
++        ("02_5", "from a thousand", "G-F2.big", "1000"),
++        ("02_5", "past six hundred", "G-F2.over", "600"),
++        ("02_5", "past six hundred", "G-F2.big_largest_over_600", "true"),
++        ("02_6", "Five numbers", "G-F1.handful", "5"),
++        ("02_6", "sixty or less", "G-F1.largest", "60"),
++        ("02_6", "fewer than one handful in a million", "G-F2.million", "1000000"),
++        (
++            "02_6",
++            "fewer than one handful in a million",
++            "G-F2.big_all_at_most_60_under_one_in_a_million",
++            "true",
++        ),
++        ("02_7", "a company of seventy", "G-F2.small", "70"),
++        ("02_7", "Nearly half", "G-F2.small_all_at_most_60.percent", "45"),
++        ("02_7", "sixty or below", "G-F1.largest", "60"),
++        ("02_7", "Three of these ten", "G-F2.small_fit_shown", "3"),
++        ("02_7", "Three of these ten", "G-F2.draws", "10"),
++        ("02_8", "Numbers from a thousand", "G-F2.big", "1000"),
++        ("02_8", "over a hundred and fifty apart", "G-F2.spacing_over", "150"),
++        (
++            "02_8",
++            "over a hundred and fifty apart",
++            "G-F2.big_spacing_over_150",
++            "true",
++        ),
++        ("02_8", "From seventy", "G-F2.small", "70"),
++        ("02_8", "about twelve apart", "G-F2.small_spacing_about", "12"),
++        // 03: counting the gaps
++        ("03_1", "Below fourteen", "G-F3.first_seen", "14"),
++        ("03_1", "there are thirteen", "G-F3.first_gap", "13"),
++        ("03_2", "Between fourteen", "G-F3.first_seen", "14"),
++        ("03_2", "and twenty-seven", "G-F3.second_seen", "27"),
++        ("03_2", "twelve more", "G-F3.second_gap", "12"),
++        (
++            "03_3",
++            "Then five, then seventeen, then eight",
++            "G-F3.last_gaps",
++            "5,17,8",
++        ),
++        ("03_4", "Five gaps hold", "G-F3.gap_count", "5"),
++        ("03_4", "fifty-five unseen boxes", "G-F3.unseen", "55"),
++        ("03_4", "eleven per gap", "G-F3.average_gap", "11"),
++        ("03_5", "one more gap", "G-F3.top_gaps", "1"),
++        ("03_5", "above sixty", "G-F1.largest", "60"),
++        ("03_6", "one more space", "G-F3.top_gaps", "1"),
++        ("03_8", "About seventy-one", "G-F3.estimate", "71"),
++        ("03_8", "Sixty, plus", "G-F1.largest", "60"),
++        ("03_8", "plus one average gap", "G-F3.top_gaps", "1"),
++        ("03_8", "of eleven", "G-F3.average_gap", "11"),
++        ("03_10", "not about seventy-one", "G-F3.estimate", "71"),
+     ];
+ 
+     /// Sizes said on purpose without a value: the stakes and the unknown
+@@ -235,15 +298,28 @@
+     }
+ 
+     /// Each chapter asks one prediction, and the next line's first words
+-    /// answer it: the one certain thing about the count.
++    /// answer it: the one certain thing about the count, where a fair
++    /// handful from a thousand lands, and the first estimate.
+     #[test]
+     fn the_prediction_is_asked_once_and_answered_next() {
+         let boards = explainer_kit::storyboard::parse(STORYBOARD).unwrap();
+-        let expected = [(
+-            "01_five_boxes",
+-            "how many boxes the company made?",
+-            "It made at least sixty",
+-        )];
++        let expected = [
++            (
++                "01_five_boxes",
++                "how many boxes the company made?",
++                "It made at least sixty",
++            ),
++            (
++                "02_a_thousand_boxes",
++                "where would a fair handful's five numbers usually land?",
++                "All over the line",
++            ),
++            (
++                "03_counting_the_gaps",
++                "how many boxes did the company make?",
++                "About seventy-one",
++            ),
++        ];
+         assert_eq!(boards.len(), expected.len());
+         for (board, (key, asks, answers)) in boards.iter().zip(expected) {
+             assert_eq!(board.key, key);
+diff '--color=never' -ruN a/explainer_corpus/german_tank/src/palette.rs b/explainer_corpus/german_tank/src/palette.rs
+--- a/explainer_corpus/german_tank/src/palette.rs	2026-10-24 03:53:39.058007022 -0400
++++ b/explainer_corpus/german_tank/src/palette.rs	2026-10-24 03:58:09.489907923 -0400
+@@ -1,8 +1,8 @@
+ //! The video's color roles (storyboard, "Color roles"): one color per idea
+ //! for the whole video, on top of the corpus's shared roles. Only the roles
+ //! an implemented chapter uses are here; the rest of the storyboard's table
+-//! (unseen numbers, estimates, the doubling recipe, an unfair pool) joins
+-//! with the chapters that draw them.
++//! (the doubling recipe, an unfair pool) joins with the chapters that draw
++//! them.
+ 
+ use explainer_kit::Palette;
+ use fmn::prelude::Srgb;
+@@ -12,11 +12,22 @@
+     Palette::gold()
+ }
+ 
++/// An unseen number in a gap below the largest, the gap's count and a
++/// spacing arrow.
++pub fn unseen() -> Srgb {
++    Palette::blue()
++}
++
+ /// The top gap: everything above the largest number, nobody knows how far.
+ pub fn top_gap() -> Srgb {
+     Palette::hero()
+ }
+ 
++/// An estimate the gap recipe gives.
++pub fn estimate() -> Srgb {
++    Palette::green()
++}
++
+ /// What is certain: the lower bound. Text and strokes only.
+ pub fn certain() -> Srgb {
+     Palette::teal()
+@@ -38,7 +49,16 @@
+ 
+     #[test]
+     fn every_role_is_its_own_color() {
+-        let roles = [seen(), top_gap(), certain(), line(), outline(), Palette::ink()];
++        let roles = [
++            seen(),
++            unseen(),
++            top_gap(),
++            estimate(),
++            certain(),
++            line(),
++            outline(),
++            Palette::ink(),
++        ];
+         for (i, a) in roles.iter().enumerate() {
+             for b in &roles[i + 1..] {
+                 assert_ne!(a, b);

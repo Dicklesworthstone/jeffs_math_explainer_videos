@@ -1,0 +1,182 @@
+--- a/explainer_corpus/parrondo/docs/storyboard-draft.md
++++ b/explainer_corpus/parrondo/docs/storyboard-draft.md
+@@ -339,3 +339,3 @@
+ - The badge is the label of the explanatory example: outlined "round-number
+-  coins · no handicap" from 07_5 to 12_8 and again in 14; the published
++  coins · no handicap" from 07_5 to 12_12 and again in 14; the published
+   coins return, filled, at 13_1.
+@@ -488,3 +488,3 @@
+ 
+-## 12_one_dial: One dial decides game B (~75 s)
++## 12_one_dial: One dial decides game B (~140 s)
+ 
+@@ -492,10 +492,14 @@
+ |---|---|---|---|---|
+-| 12_1 | Split the mix's rounds into A rounds and B rounds. The A rounds win exactly half the time, at every corner, so they can't be where the winning comes from. | The mix's rounds as a strip of blue and violet tiles; the blue tiles show "50 %" | tiles | |
+-| 12_2 | Game B's chance of winning depends on just one number, its share of rounds at corner zero. Every round it spends there swaps a seventy-five percent coin for a ten percent one. | A plot: horizontal axis "B's share of rounds at corner 0" from 30 % to 40 %, vertical "B wins" from 48 % to 56 %; the falling line 75 % − 65 % × share | plot, axis | |
+-| 12_3 | At a third, B wins fifty-three point three percent. At game B's own thirty-eight point five, exactly half. | Two points on the line: (33.3 %, 53.3 %) green, (38.5 %, 50 %) violet | plot points from facts | |
+-| 12_4 | Inside the mix, B's rounds spend thirty-four point six percent at corner zero. So what do they win? ⟨predict⟩ | A gold vertical marker at 34.6 %; question; countdown; no value on the line | think countdown | |
+-| 12_5 | Fifty-two point five percent. Averaged with the A rounds' fifty, the mix wins fifty-one point three percent of all its rounds. | The marker meets the line at 52.5 %; TeX ½ · 50 % + ½ · 52.54 % = 51.27 % (two decimals, so the sum checks) | TeX from facts | |
+-| 12_6 | On average, that's a gain of just over two and a half cents a round. | "+2.54 cents a round" in gold; a "precisely" card (K05) | lower-third | |
+-| 12_7 | So game A's rounds only break even. They move the crowd off the bad corner, and game B's good coin does the winning. | The blue tiles dim; the violet tiles glow | glow | |
+-| 12_8 | Remember the first count, with a third of the rounds at each corner? The mix pushes the crowd most of the way back to it. | On the plot, an arrow from 38.5 % toward 33.3 % stopping at 34.6 %; "76 % of the way" | arrow from facts | |
++| 12_1 | Stay with the round coins for now. With them, game A and game B each break even when they're played alone. Inside the mix, a fair coin splits the rounds into A rounds and B rounds. | 11's panel stays: the outlined badge "round-number coins · 50 · 10 · 75 % · no handicap", the 26 players, the three corner rows with the mix's teal bars over B's dashed ghosts and their settled shares ("38.5 → 34.6 %" at corner 0). The badge is framed at "Stay with the round coins". Where the dial will stand, "game A alone: breaks even" (blue) and "game B alone: breaks even" (violet). At "a fair coin splits the rounds" every teal bar becomes two halves of its own length, blue over violet, with "A rounds" and "B rounds" beside them | bars from the model | |
++| 12_2 | That coin never looks at the money, so at every corner, half the rounds are A rounds and half are B rounds. And A's coin wins exactly half the time wherever it's tossed, so the A rounds can't be where the winning comes from. | One frame round all six halves; the blue halves flash, then the violet. At "A's coin wins exactly half the time" the "A rounds" line becomes "A rounds: 50 % at every corner", framed; at "can't be where the winning comes from" the blue halves dim | shape emphasis only | beat |
++| 12_3 | Everything rests on the B rounds. Their chance of winning depends on just one number: what share of them are played at corner zero. Every B round there swaps a seventy-five percent coin for a ten percent one. | The violet halves flash; at "just one number" a frame round corner 0's violet half; at the swap the "B rounds" line becomes "B rounds: 10 % at corner 0, 75 % elsewhere", framed | coin chances from facts | |
++| 12_4 | Think of that share as a dial. Game B on its own sets it at thirty-eight point five percent. | The two "alone" lines give way to the dial's share axis, "32 %" to "40 %" with a tick at every point, titled "the dial: share of B's rounds at corner 0". At "Game B on its own" a violet mark at 38.5 % with "game B alone: 38.5 %", and corner 0's ghost (B's own share) flashes | dial from facts | |
++| 12_5 | Inside the mix, B's rounds sit wherever the crowd sits, half of every corner's rounds. The mix moved the crowd off corner zero, and that turns the dial down to thirty-four point six percent. | A frame round the violet halves. At "moved the crowd off corner zero" a red outline marks the part of corner 0's ghost the mix's bar no longer fills, and flashes. At "turns the dial down" one tracker moves a hero marker along corner 0's bar from B's share to the mix's and, bound to the same value, a gold needle on the dial from 38.5 % to 34.6 %; "the mix: 34.6 %" under the needle | one tracker for bar and dial | beat |
++| 12_6 | What is that turn worth? With a third of B's rounds at corner zero, B wins fifty-three point three percent. At game B's own thirty-eight point five, exactly half. | The win axis, "B wins", 48 % to 56 %. At "With a third" a dim mark "a third: 33.3 %" and its dashed upright; at "fifty-three point three percent" a point at (33.3 %, 53.3 %) with "53.3 %". At "At game B's own" a point slides along B's chances from the third to 38.5 %, drawing the line behind it; at "exactly half" the dashed 50 % line with "50 %" (framed) and B's violet point on it | computed slide | beat |
++| 12_7 | In between, it's a straight line. B wins seventy-five percent, minus sixty-five percent of its share at corner zero. So it breaks even at exactly five thirteenths, the weight we found for corner zero. That's why game B on its own breaks even. | The whole line across the dial; the slide's trail goes. In the panel, TeX "B wins = 75 % − 65 % × share"; at "exactly five thirteenths", "50 % at share = 25/65 = 5/13 ≈ 38.5 %" while B's point flashes; at "the weight we found" corner 0's ghost flashes; at "That's why" a frame round "game B alone: 38.5 %" pointing at B's point | TeX from the model | |
++| 12_8 | At the mix's thirty-four point six percent, then, what do B's rounds win? ⟨predict⟩ | A gold dashed upright at 34.6 % to the top of the dial, no point on the line; "at 34.6 %, what do B's rounds win?" under the panel; the countdown | think countdown | |
++| 12_9 | Fifty-two point five percent. Averaged with the A rounds' fifty, the mix wins fifty-one point three percent of all its rounds. | The upright and the question give way to a gold point on the line at (34.6 %, 52.5 %) with "52.5 %", flashed; at "Averaged with" the TeX becomes "½ · 50 % + ½ · 52.5 % ≈ 51.3 %", framed at "of all its rounds" | TeX from the model | |
++| 12_10 | On average, that's a gain of just over two and a half cents a round. | "+2.54 cents a round" in gold under the sum; the "precisely" card (K05) | lower-third card | |
++| 12_11 | So game A's rounds only break even. They move the crowd off the bad corner, and game B's good coin does the winning. | A frame round "A rounds: 50 % at every corner"; the red outline flashes at "move the crowd off the bad corner"; at "game B's good coin" a frame round the B rounds line pointing at the violet halves on corners 1 and 2 | shape emphasis only | |
++| 12_12 | Game A on its own keeps a third of the rounds at every corner. The mix pulls corner zero most of the way from game B's share to that third. | Dashed ticks at a third on all three bars; the dial's third mark flashes. At "most of the way" a hero arrow on the dial from 38.5 % to 34.6 %, dashed on to 33.3 %, with "76 % of the way to a third"; framed, pointing at the red outline | arrow from facts | hold |
+ 
+@@ -503,13 +507,35 @@
+ 
+-- K05: "exactly: a crowd of 1,418 at 490, 360, 568 under the mix sends 147,
+-  225, 355 forward and 343, 135, 213 back; every corner gets back what it
+-  sends; 727 win, 691 lose: 18/709 dollars a round (Ethier & Lee 2009 give
+-  18/709)".
+-- The line is exact: B wins 3/4 − (13/20)·share, so B is fair at share 5/13.
+-- Prediction (12_4): the answer is between 50 % and 53.3 %, nearer 53.3 %.
+-- Pause intentions: completed-thought pause after "can't be where the
+-  winning comes from" (12_1); a thinking beat after the two points (12_3);
+-  the answer (12_5) begins promptly after the countdown.
+-
+-## 13_the_half_point: The half point returns (~82 s)
++- Order (root's direction, Mail 6914): the one changed dial and the crowd
++  movement come first (12_4 and 12_5, one tracker driving both the marker on
++  corner 0's bar and the dial's needle); then the two known points; then the
++  straight line and its threshold (12_7); only then the prediction.
++- The halves (12_1) replace the old strip of tiles: each corner's bar keeps
++  its length and splits into equal A and B halves, because the fair coin
++  that picks the game never reads the money, so at every corner half of the
++  rounds are A rounds. A coin that preferred A at corner 0 would not split
++  them evenly (checked exactly on the chain of corner and game).
++- The line is exact: B wins 3/4 − (13/20) × share whatever corners 1 and 2
++  split, so it is even at share 5/13, game B's own weight for corner 0.
++  The published coins' line is exactly half a point lower at every share.
++- The sums are shown at one decimal with "≈": ½ · 50 + ½ · 52.5 is 51.25,
++  which prints as 51.3 but is not the mix's 51.27 (exactly 727/1418); "="
++  appears only where every printed value is exact.
++- K05: "exactly: the mix wins 727/1418 of its rounds, and every round wins
++  or loses one dollar, so it gains 2 · 727/1418 − 1 = 18/709 of a dollar a
++  round (Ethier and Lee also give 18/709)". The crowd of 1,418 is left to
++  14, which counts it.
++- Prediction (12_8): the answer lies between 50 % (B's own share) and
++  53.3 % (a third), nearer 53.3 %; the scene draws no value before 12_9.
++- Failed controls (tested): "the A rounds must be doing the winning" (they
++  win exactly 1/2); B's rounds spread as B alone's would only break even;
++  a switch that reads the corner (chapter 18) plays every B round on the
++  bad coin, not at the crowd's shares.
++- Pause intentions: a held beat after "can't be where the winning comes
++  from" (12_2); a beat after the dial turns (12_5) and after the two points
++  (12_6); 12_8's countdown; the answer (12_9) begins promptly; the card
++  (12_10) stands until it can be read; 12_12 holds.
++- Pronunciation: "five thirteenths" (not "thirtieths"); "thirty-four point
++  six", "fifty-two point five" (each "point" clear).
++
++## 13_the_half_point: The half point returns (~114 s)
+ 
+@@ -517,10 +543,12 @@
+ |---|---|---|---|---|
+-| 13_1 | Now shave the half point off every coin again, back to the coins Harmer and Abbott published, the ones the player used. | The badge flips back to the filled "published coins". 50 % → 49.5 %, 10 % → 9.5 %, 75 % → 74.5 %, each with "−0.5" | badge, count-down from facts | |
+-| 13_2 | Game A slips from fair to losing a cent a round. | Row "game A: 0 → −1.00 cents a round" | live number | |
+-| 13_3 | Game B's crowd barely moves. Corner zero still holds thirty-eight point four percent of its rounds, and with the weaker coins that's now too many. B loses a little under a cent a round. | The dial's line drops by half a point; its fair point moves from 38.5 % to 37.7 %; B's point at 38.4 % sits past it; "game B: −0.87" | plot from facts | |
+-| 13_4 | The mix had an edge of just over two and a half cents a round. Does it survive the handicap? ⟨predict⟩ | "the mix: +2.54" with a question mark; countdown | think countdown | |
+-| 13_5 | It does. The half point costs the mix about one cent a round, and the edge was bigger than that. The mix still wins just over one and a half cents a round. | "+2.54 − 0.97 = +1.57 cents a round" in gold | TeX from facts | |
+-| 13_6 | Inside the mix, corner zero still holds only thirty-four and a half percent, so B's rounds still win fifty-two point one percent. | The gold marker on the lowered line at 34.5 % meets it at 52.1 %; the player's mix-run readout "34.5 %" (05_2) beside it | plot from facts | |
+-| 13_7 | That's every number from the opening. A loses a cent a round, B a little under a cent, and the coin-flip mix of the two wins. | The bars of 05_3 return exactly (callback), and the three run thumbnails beside them | bars from facts | |
+-| 13_8 | Harmer and Abbott's paper calls the effect Parrondo's paradox, after its discoverer, Juan Parrondo. It appeared in Nature in nineteen ninety-nine, and it's a single page. | Citation card: "G. P. Harmer & D. Abbott, Losing strategies can win by Parrondo's paradox, Nature 402, 864 (1999)" | citation card | hold |
++| 13_1 | Now shave the half point off every coin again, back to the coins Harmer and Abbott published, the ones the player used. With these, both games really lose. | The dial as 12 left it: B's round line, B alone's violet point on the dashed 50 % line, the mix's gold point with "52.5 %", the marks "game B alone: 38.5 %" and "the mix: 34.6 %", the outlined round badge. New at the top left: the three coins in a row, A, bad and good, with "50 %", "10 %", "75 %"; under them a ledger "long-run average per round, in cents": game A 0.00, game B 0.00, the mix +2.54. At "shave the half point" a "−0.5" falls toward each chance, fading, as it becomes 49.5 %, 9.5 %, 74.5 %; at "published" the badge turns to the filled "published coins · 49.5 · 9.5 · 74.5 %"; at "both games really lose" a frame round "game A" and "game B" | coins, ledger, badge from facts | |
++| 13_2 | Game A slips from fair to losing a cent a round. | "→ −1.00" beside game A's 0.00, framed | ledger from facts | |
++| 13_3 | The crowds barely move. Game B's corner zero slips from thirty-eight point five to thirty-eight point four percent, and the mix's from thirty-four point six to thirty-four and a half. | The round coins' points dim and "52.5 %" goes. One tracker shaves all three coins from the round chances to the published ones while both marks follow their crowd's corner 0 (B's by a tenth of a point, the mix's by half that), then settle as fixed ticks; at "to thirty-eight point four percent" B's mark words become "game B alone: 38.4 %" (framed, the tick flashes); at "to thirty-four and a half" the mix's become "the mix: 34.5 %" | one tracker, computed shares | beat |
++| 13_4 | But B's line drops by half a point everywhere, so the share where it breaks even falls to thirty-seven point seven percent. Game B's own crowd sits just past that, so B loses a little under a cent a round. | A second tracker lowers B's line by half a point at every share; the old line stays faint, the dimmed round points go, and a hero dot rides the line's crossing of 50 % from 38.5 % to 37.7 %. At "falls to" a hero mark "break even: 37.7 %" with its dashed upright, and in the panel "B wins = 74.5 % − 65 % × share" over "50 % at share = 24.5/65 = 49/130 ≈ 37.7 %". At "sits just past that" B's violet point at 38.4 %, just under the 50 % line, with its upright, flashed; at "B loses" game B's "→ −0.87", framed | trackers; TeX from the model | beat |
++| 13_5 | The mix had an edge of just over two and a half cents a round. Does it survive the handicap? ⟨predict⟩ | A frame round the mix's +2.54; at "Does it survive" the panel's sums give way to the mix's "→ ?" in hero; the countdown | think countdown | |
++| 13_6 | It does. At thirty-four and a half percent, the mix's B rounds still win fifty-two point one percent. The A rounds now lose a little, so the mix wins fifty point eight percent of its rounds. | At "It does" the "?" gives way to a gold point on the lowered line at 34.5 % with "52.1 %" and a dashed upright, flashed at "still win"; at "The A rounds now lose a little" a frame round A's "49.5 %", pointing at the A coin; at "fifty point eight percent" the TeX "½ · 49.5 % + ½ · 52.1 % ≈ 50.8 %" | TeX from the model | |
++| 13_7 | The half point costs the mix about one cent a round, and the edge was bigger than that. The mix still wins just over one and a half cents a round. | TeX "+2.54 − 0.97 ≈ +1.57 cents" under the sum, framed at "the edge was bigger than that"; at "The mix still wins" the "→ ?" becomes the mix's "→ +1.57" in gold, framed | TeX from facts | |
++| 13_8 | The player's own runs showed these same shares: thirty-eight point four percent in game B, and thirty-four and a half in the mix. | Across the foot, "model, published coins: game B 38.4 %, the mix 34.5 %" (dim) over "the player's runs, 100,000 rounds each: game B 38.4 %, the mix 34.5 %" (teal); a teal chip on each mark at the run's own share, each flashed at its words | runs from the model | beat |
++| 13_9 | That's every number from the opening. A loses a cent a round, B a little under a cent, and the coin-flip mix of the two wins. | Everything but the badge goes; the bars of 05_3 return exactly: A −1.00, B −0.87, the halfway guess struck and faint, the mix +1.57. A frame round A's and B's labels; then round the mix's label, pointing at its bar | bars from facts | hold |
++| 13_10 | Harmer and Abbott's paper calls the effect Parrondo's paradox, after its discoverer, Juan Parrondo. It appeared in Nature in nineteen ninety-nine, and it's a single page. | The bars go. A citation card: "G. P. Harmer and D. Abbott", "Losing strategies can win by Parrondo's paradox", "Nature 402, 864 (1999)"; the last line framed at "It appeared in Nature" | citation card from facts | hold |
+ 
+@@ -528,5 +556,21 @@
+ 
+-- The published numbers: B's weights 38.4 %, 15.4 %, 46.2 %; B's fair
+-  share threshold 49/130 = 37.7 %; the mix's weights 34.5 %, 25.4 %, 40.1 %;
+-  B rounds inside the mix 52.1 %; the mix's win 50.8 %.
++- The explanatory coins and the real ones stay apart: the outlined round
++  badge until 13_1's "published", the filled published badge after it; the
++  ledger keeps the round coins' values beside the published ones
++  ("0.00 → −1.00").
++- The published numbers: B's weights 38.4 %, 15.4 %, 46.2 %; the even share
++  49/130 = 37.7 % (5/13 less 1/130: the half point over the line's slope of
++  65 points); the mix's weights 34.5 %, 25.4 %, 40.1 %; the mix's B rounds
++  52.1 %; the mix wins 50.8 %; −1.00, −0.87 and +1.57 cents a round.
++- The crowds' move is small on purpose (13_3 says "barely"): B's corner 0
++  moves 0.10 of a point, the mix's 0.05. The words change with them.
++- Failed controls (tested): "every coin is half a point weaker, so the mix
++  loses a whole cent" gives 1.00, but the cost is 0.97, because the mix's
++  crowd also moves off corner 0; shaving only the good coin would put B's
++  even share at 49/129, not 49/130.
++- 13_8's two lines are labelled: the model's long-run shares (published
++  coins) and the measured shares of the player's seeded runs, 100,000
++  rounds each (one seed, an illustration). They agree at the one decimal
++  shown (38.37 % against 38.36 %, 34.52 % against 34.51 %), and the tests
++  assert that they differ at two.
+ - History: only the paper's own sentence ("called Parrondo's paradox, after
+@@ -534,7 +578,15 @@
+   date and length. Not who coined the name (the page does not say;
+-  GoldGate's review, M4), no year of discovery, no affiliation.
+-- Pause intentions: "It does." (13_5) is followed by a short beat; the
+-  citation (13_8) holds.
++  GoldGate's review, M4), no year of discovery, no affiliation. The card's
++  volume, page and year are facts pinned to the citation (`source.volume`,
++  `source.page`, `source.year`).
++- The run thumbnails beside the bars (old 13_7) are dropped: the bars and
++  their labels already carry every number, and the frame has no room for
++  three windows beside them.
++- Pause intentions: a beat after the crowds move (13_3) and after B's
++  verdict (13_4); 13_5's countdown; "It does." (13_6) is followed by a
++  short beat in the reading; a beat after the runs (13_8); a look at the
++  bars (13_9); the citation (13_10) holds.
+ - Pronunciation: Juan Parrondo ("hwahn pah-RON-doh"), Harmer, Abbott,
+-  "nineteen ninety-nine".
++  "nineteen ninety-nine", "thirty-seven point seven", "thirty-four and a
++  half".
+ 
+--- a/explainer_corpus/parrondo/docs/storyboard.md
++++ b/explainer_corpus/parrondo/docs/storyboard.md
+@@ -288,3 +288,3 @@
+ - The badge is the label of the explanatory example: outlined "round-number
+-  coins · no handicap" from 07_5 to 12_8 and again in 14; the published
++  coins · no handicap" from 07_5 to 12_12 and again in 14; the published
+   coins return, filled, at 13_1.
+--- a/explainer_corpus/parrondo/src/facts.rs
++++ b/explainer_corpus/parrondo/src/facts.rs
+@@ -186,2 +186,6 @@
+     )?;
++    // the paper itself (13_10's card)
++    f.pin("source.volume", 402, "402", HARMER_ABBOTT)?;
++    f.pin("source.page", 864, "864", HARMER_ABBOTT)?;
++    f.pin("source.year", 1999, "1999", HARMER_ABBOTT)?;
+     f.add("coins.round", csv(coins(&ROUND)))?;
+@@ -498,4 +502,5 @@
+ 
+-    /// The visible sums check: 2.54 − 0.97 = 1.57 (13_5), ½ · 50 + ½ · 52.54
+-    /// = 51.27 (12_5), 3 × 12 = 36 = 727 − 691 (14_4), 1 + 3 + 9 = 13 (09_6).
++    /// The visible sums check: 2.54 − 0.97 = 1.57 (13_7), ½ · 50 + ½ · 52.54
++    /// = 51.27 (12_9 prints it at one decimal, with ≈), 3 × 12 = 36 = 727 −
++    /// 691 (14_4), 1 + 3 + 9 = 13 (09_6).
+     #[test]
+--- a/explainer_corpus/parrondo/oracle.py
++++ b/explainer_corpus/parrondo/oracle.py
+@@ -358,2 +358,7 @@
+     emit("coins.published.tails.pct", csv(exact_pct(1 - p) for p in PUBLISHED))
++    # the paper itself (13_10's card): Harmer & Abbott, Nature 402, 864
++    # (1999), doi:10.1038/47220
++    emit("source.volume", 402)
++    emit("source.page", 864)
++    emit("source.year", 1999)
+     emit("coins.round", fracs(ROUND))

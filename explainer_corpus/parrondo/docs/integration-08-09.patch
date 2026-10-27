@@ -1,0 +1,93 @@
+--- a/explainer_corpus/parrondo/docs/storyboard-draft.md
++++ b/explainer_corpus/parrondo/docs/storyboard-draft.md
+@@ -344,22 +344,31 @@
+   "fifty-three point three percent of its rounds" (07_7), held.
+ - Pronunciation: "thirty-three and a half", "fifty-three point three".
+ 
+-## 08_one_player_to_a_crowd: One player becomes a crowd (~83 s)
++## 08_one_player_to_a_crowd: One player becomes a crowd (~95 s)
+ 
+ | id | words | picture | features | hold/listen |
+ |---|---|---|---|---|
+-| 08_1 | So is it really a third each? One player's path is full of luck. To see past it, imagine twenty-six copies of the player, all starting at corner zero and all playing game B. | A's triangle leaves. The token, still on B's corner 2 with 8 dollars from 06_4, takes one more win along the green 2 → 0 arrow (counter "9"), so it stands on corner 0; there it splits into 26 teal dots gathered at corner 0, "26" beside it; a counter "round 0"; a fixed readout "players: 26" | token move, dots, live count | |
+-| 08_2 | Let the crowd split exactly by the coins' chances. After one round, where is most of the crowd? ⟨predict⟩ | The dots become a bar at corner 0 (height ∝ players); under "players: 26" a dim label "split by the chances (expected numbers)", which stays through 08 and 09 (except 08_7's real crowd, which has its own label) and returns on 11's bars and 14's crowd of 1,418; countdown; nothing has moved | think countdown | |
+-| 08_3 | At corner two. A tenth of the crowd moves forward, and nine tenths fall back to corner two. | Round 1: 2.6 flow along 0 → 1, 23.4 along 0 → 2, drawn as moving streams on the arrows. A "precisely" card (K04) | bars, flows, live numbers | |
+-| 08_4 | The next round, three quarters of corner two win their way around to zero. Every player is always somewhere, so the total stays twenty-six while the crowd sloshes between corners. | Rounds 2 to 6 at one a second: (18.2, 5.9, 2.0), (2.9, 2.3, 20.8), (16.2, 5.5, 4.4), (4.6, 2.7, 18.7), (14.7, 5.1, 6.2); streams on the arrows each round; "players: 26" never changes | bars, flows, live numbers | |
+-| 08_5 | Watch the share at corner zero, where the bad coin waits. It swings wildly at first, then steadies above a third. | A live readout "share at corner 0" and a small trace of it against rounds, with a dashed line at 33.3 % | live readout, trace | |
+-| 08_6 | Round after round the sloshing dies down, and the crowd settles at ten players on corner zero, four on corner one and twelve on corner two. Not a third each. | Rounds 7 to 30 quicken; the bars converge; "10", "4", "12" settle in teal; the share trace flattens at 38.5 %; small dim "within half a player from round 24" | bars, live numbers | hold |
+-| 08_7 | Real players don't split this neatly. Toss real coins for these twenty-six, and the counts jump from round to round. In a thousand rounds they land on exactly ten, four and twelve only forty times, but on average, that's where they sit. | The settled bars dim and shrink to one side, beside a second triangle labelled "real tosses, seeded illustration" with 26 teal dots starting at 10, 4, 12. Its first eight computed rounds play at one a second, the dots hopping and the counts jumping: (9, 6, 11), (7, 5, 14), (9, 6, 11), (8, 8, 10), (9, 2, 15), (14, 2, 10), (6, 5, 15), (10, 5, 11); the split bars beside it never move off 10, 4, 12. Then a counter runs to "1,000 rounds" and two lines appear: "exactly 10, 4, 12: 40 of 1,000 rounds" and "average: 10.0, 4.0, 12.0". The real triangle leaves; the bars return to full size | dots, live counts, lines from facts | hold |
++| 08_1 | So is it really a third each? One player's path is full of luck. To see past it, imagine twenty-six copies of the player, all starting at corner zero and all playing game B. | 07's end: both triangles with the round-number coins' chances, the badge "round-number coins · 50 · 10 · 75 % · no handicap", the counter "8" with "8 → remainder 2", the token still on B's corner 2, and "with equal thirds at every corner:" over 07_7's sum and "B would win". The sum is outlined (really a third each); the token pulses (full of luck). A's triangle, its labels and the hypothetical leave. The same token takes one more win, 2 → 0, onto corner 0 while the counter becomes "9" with "9 → remainder 0"; at "twenty-six copies" it splits into 26 teal dots gathered on corner 0, "26" beside them; the counter and remainder give way to "round 0" and "players: 26", both live from the crowd's trackers; corner 0 gets a hollow ring (all starting at corner zero) and B's title an outline (all playing game B) | token move, dots, live count | |
++| 08_2 | Let the crowd split exactly by the coins' chances. After one round, where is most of the crowd? ⟨predict⟩ | The dots merge into a teal puddle filling corner 0 (each corner's puddle has area ∝ its players) and, in the left panel, three rows "corner 0", "corner 1", "corner 2" with live bars (length ∝ players) and live one-decimal numbers "26.0", "0.0", "0.0"; under "players: 26" a dim label "split by the chances (expected numbers)", which stays through 08 and 09 (except 08_7's real crowd, which has its own label) and returns on 11's bars and 14's crowd of 1,418; a small dim note "shown to one decimal; the total is exactly 26"; countdown; nothing has moved | think countdown | |
++| 08_3 | At corner two. A tenth of the crowd moves forward, and nine tenths fall back to corner two. These are not fractions of people. Two point six and twenty-three point four are expected numbers: twenty-six times each chance. | Round 1, slowly (2.4 s): teal streams on the 0 → 1 and 0 → 2 arrows, widths ∝ their flows, as the puddles and bars move; "2.6" (green) appears past the 10 % label and "23.4" (dim) past the 90 % label, each label outlined in turn. At "not fractions of people" a "precisely" card (K04); at "are expected numbers" the dim label is outlined | bars, flows, live numbers | |
++| 08_4 | The next round, three quarters of corner two win their way around to zero. Every player is always somewhere, so the total stays twenty-six while the crowd sloshes between corners. | Round 1's streams and numbers fade. Round 2 (1.6 s) with its streams: three quarters of corner 2 win around to 0, (18.2, 5.9, 2.0); "players: 26" is outlined; rounds 3 to 6 at 0.7 s each, streams on the arrows each round: (2.9, 2.3, 20.8), (16.2, 5.5, 4.4), (4.6, 2.7, 18.7), (14.7, 5.1, 6.2); "players: 26" never changes | bars, flows, live numbers | |
++| 08_5 | Watch the share at corner zero, where the bad coin waits. It swings wildly at first, then steadies above a third. | K04 leaves once read. A live readout "share at corner 0 … %" and a small trace of it against rounds 0 to 60, with a dashed line labelled "33.3 %"; corner 0 gets a hollow ring (where the bad coin waits); the trace is outlined (swings wildly at first); rounds 7 to 12 at half a second each | live readout, trace | |
++| 08_6 | Round after round the sloshing dies down, and the crowd settles at ten players on corner zero, four on corner one and twelve on corner two. Not a third each. | Rounds 13 to 60 at a tenth of a second each; the bars and puddles converge and the trace flattens; at each phrase that row's live number gives way to a fixed teal "10", "4", "12", the row outlined; at "Not a third each" the share's readout becomes a fixed "38.5" and a small dim "within half a player of 10, 4, 12 from round 24" appears; the share row, then "33.3 %", are outlined | bars, live numbers | hold |
++| 08_7 | Real players don't split this neatly. Toss real coins for these twenty-six, and the counts jump from round to round. | The share row, its trace, the precision note and the round counter leave; the dim label is outlined (real players don't split). At "Toss real coins" a second, smaller triangle at the lower left, labelled "real tosses, seeded illustration", with its own "round 0" and 26 teal dots starting at 10, 4, 12, a live count beside each corner; the split bars and puddles stay at 10, 4, 12 beside it. After the line, in silence, its first eight computed rounds hop at one a second, the dots moving and the counts jumping: (9, 6, 11), (7, 5, 14), (9, 6, 11), (8, 8, 10), (9, 2, 15), (14, 2, 10), (6, 5, 15), (10, 5, 11); the split crowd never moves off 10, 4, 12 | dots, live counts | hold |
++| 08_8 | In this run of a thousand rounds, they land on exactly ten, four and twelve only forty times, but on average, that's where they sit. | "exactly 10, 4, 12 so far:" with a live tally (0 after the eight rounds shown); at "In this run of a thousand rounds" the real counter runs to "1,000" in 3 s, the dots snapping to each round's places and the tally climbing; at "only forty times" the tally line gives way to "this run: exactly 10, 4, 12 in 40 of 1,000 rounds", and at "on average" "average over the 1,000 rounds: 10.0, 4.0, 12.0" appears (held). The real triangle, its dots, counts and lines leave; the split crowd stays at 10, 4, 12 | live counts, lines from facts | hold |
+ 
+ ### Notes for 08
+ 
+-- K04: "the crowd splits by expected numbers: 26 times each corner's chance.
+-  Real players scatter around these numbers."
++- K04: "expected numbers: 26 times one player's chance of being at that
++  corner after that round; real players come whole and scatter around them".
++- The split crowd runs to round 60: the first round from which every
++  readout (the three counts and the share at corner 0, at one decimal)
++  shows its settled value for good through round 200 (the counts from
++  round 41, the share from round 60; from round 41 to 59 the share still
++  alternates between 38.5 and its neighbours, 38.3 to 38.6). The shown
++  one-decimal counts can add to 26.1 (rounds 2 and 4, for example) or 25.9
++  (round 7), hence the precision note; the live total adds the unrounded
++  counts and reads 26 in every frame.
+ - Conserved flows before weights: the total stays 26 every round (the facts
+   check it); the corner 0 share is shown as a changing quantity here and is
+   named "weight" only at 09_9.
+@@ -380,23 +389,26 @@
+ - Pause intentions: a held breath on "imagine twenty-six copies" (08_1) as the
+   token splits; "At corner two." (08_3) then the streams; a listen-quiet hold
+   after "Not a third each" (08_6) so the settling is seen (hold); after
+-  "jump from round to round" (08_7) the real dots hop in silence for a few
+-  seconds before the count of a thousand rounds, and the two result lines
+-  hold at its end (hold).
++  "jump from round to round" (08_7) the real dots hop in silence for eight
++  seconds (hold) before 08_8 counts the thousand rounds, and the two result
++  lines hold at its end (hold). The words of the old 08_7 are split at that
++  silence, so the first real rounds are seen before they are summarized.
++- Pronunciation: "a tenth", "nine tenths" (the final -nths cluster) and
++  "twenty-three point four" (08_3), "sloshes" (08_4).
+ 
+-## 09_ten_four_twelve: A crowd that stays put (~82 s)
++## 09_ten_four_twelve: A crowd that stays put (~85 s)
+ 
+ | id | words | picture | features | hold/listen |
+ |---|---|---|---|---|
+-| 09_1 | Check that this crowd really stays put, still split exactly by the chances. At corner zero, ten players toss the bad coin, so one wins and moves forward, and nine drop back to corner two. | The bars become 26 dots again: 10 at corner 0, 4 at 1, 12 at 2; the dim "split by the chances (expected numbers)" stays under "players: 26". Corner 0's dots split: one beside the forward arrow (green "1"), nine beside the back arrow (dim "9"); they wait at the arrow's start | dots, labels from facts | |
+-| 09_2 | At corner one, the good coin splits four players. Three move on to corner two, and one falls back to zero. | Corner 1's dots split: "3" forward, "1" back | dots | |
+-| 09_3 | At corner two, it splits twelve. Nine wrap around to zero, and three fall back to one. | Corner 2's dots split: "9" forward, "3" back | dots | |
+-| 09_4 | Now let everyone move at once. How many players land on each corner? ⟨predict⟩ | The question on screen; countdown; the dots still wait | think countdown | |
+-| 09_5 | Corner zero gets one plus nine, ten. Corner one gets one plus three, four. Corner two gets nine plus three, twelve. Everyone moved, and the counts come back exactly as they were. | All 26 dots move along their arrows together; arrival sums appear at each corner "1 + 9 = 10", "1 + 3 = 4", "9 + 3 = 12" | swarm move, TeX from facts | |
+-| 09_6 | Count the winners. One, three and nine make thirteen, exactly half of twenty-six. Without the half point, game B is perfectly fair. | The 13 forward movers flash green; "13 of 26 win = 1/2" | flash | |
+-| 09_7 | Now look at where the crowd sits. Ten of twenty-six is thirty-eight and a half percent, more than a third. | Corner 0's 10 dots outlined red; a bar "38.5 %" beside a dim marker at "33.3 %" | bar from facts | |
+-| 09_8 | Those extra rounds at corner zero, with the bad coin, cancel the good coin's advantage exactly. | The equal-thirds count from 07_7 (53.3 %) slides down to "50 %" as the share moves from 33.3 % to 38.5 % | tween | |
+-| 09_9 | Each corner's long-run share of the rounds is called its weight. For game B, the weights are five thirteenths, two thirteenths and six thirteenths. | At the corners: 5/13, 2/13, 6/13 (= 10, 4, 12 of 26). Lower-third: "names to search: stationary distribution · Markov chain" | lower-third, labels from facts | |
++| 09_1 | Check that this crowd really stays put, still split exactly by the chances. At corner zero, ten players toss the bad coin, so one wins and moves forward, and nine drop back to corner two. | 08's end: B's triangle with the round-number chances and the badge, "players: 26", the dim "split by the chances (expected numbers)", the panel's bars and the corners' puddles at 10, 4, 12. The bars and puddles become 26 dots again: 10 at corner 0, 4 at 1, 12 at 2; the dim label is outlined (still split exactly by the chances). Corner 0 gets a hollow ring as its dots pulse; they split: one waits past the start of the forward arrow 0 → 1, outside the triangle (green "1"), nine past the start of the back arrow 0 → 2, inside it (dim "9") | dots, labels from facts | |
++| 09_2 | At corner one, the good coin splits four players. Three move on to corner two, and one falls back to zero. | A hollow ring at corner 1 as its dots pulse; they split and wait: "3" forward (green), "1" back (dim) | dots | |
++| 09_3 | At corner two, it splits twelve. Nine wrap around to zero, and three fall back to one. | A hollow ring at corner 2 as its dots pulse; they split and wait: "9" forward, around to 0 (green), "3" back (dim) | dots | |
++| 09_4 | Now let everyone move at once. How many players land on each corner? ⟨predict⟩ | The question "how many land on each corner?" in the panel; countdown; the dots still wait and nothing is summed | think countdown | |
++| 09_5 | Corner zero gets one plus nine, ten. Corner one gets one plus three, four. Corner two gets nine plus three, twelve. Everyone moved, and the counts come back exactly as they were. | All 26 dots move at once (2 s), straight to the corners their arrows point at, while the groups' counts and the question fade; at each "Corner … gets" its arrival sum appears beside it, each summand in its arrow's colour (green forward, dim back), listed by the corner it comes from: "1 + 9 = 10", "1 + 3 = 4", "9 + 3 = 12"; at "exactly as they were" each total is outlined in turn (held) | swarm move, text from facts | hold |
++| 09_6 | Count the winners. One, three and nine make thirteen, exactly half of twenty-six. Without the half point, game B is perfectly fair. | The 13 forward movers pulse; "winners: 1 + 3 + 9 = 13", then, green, "13 of 26 = 1/2"; the badge is outlined (without the half point) | pulse | |
++| 09_7 | Now look at where the crowd sits. Ten of twenty-six is thirty-eight and a half percent, more than a third. | A red ring around corner 0's 10 dots, pulsing; "share at corner 0: 10 of 26" and a red bar growing to a live "38.5 %"; a dim mark at "33.3 %" across the bar, pulsing (more than a third) | bar from facts | |
++| 09_8 | Those extra rounds at corner zero, with the bad coin, cancel the good coin's advantage exactly. | The bar falls back to the mark, 33.3 %, and "B wins 53.3 %" appears (07_7's equal-thirds count, live from the same share); at "with the bad coin" the bar grows back to 38.5 % while B's wins slide to "50.0 %"; the B-wins row is outlined (cancel the good coin's advantage exactly) | tween | |
++| 09_9 | Each corner's long-run share of the rounds is called its weight. For game B, the weights are five thirteenths, two thirteenths and six thirteenths. | The line "weight: a corner's long-run share of the rounds"; at each fraction that corner's sum gives way to its weight, "10/26 = 5/13", "4/26 = 2/13", "12/26 = 6/13". After the line, lower-third: "names to search: stationary distribution · Markov chain" | lower-third, labels from facts | |
+ 
+ ### Notes for 09
+ 
+@@ -418,6 +430,8 @@
+   with short completed-thought gaps; after "exactly as they were" (09_5) a
+   longer hold so the unchanged counts register; "perfectly fair" (09_6) ends
+   a section; 09_9 names the weight as the chapter closes.
++- Pronunciation: "thirteenths", three times in a row (09_9), and "thirty-eight
++  and a half percent" (09_7).
+ 
+ ## 10_the_trap: Why corner zero collects players (~77 s)
+ 
