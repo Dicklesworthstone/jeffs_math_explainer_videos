@@ -1,0 +1,17 @@
+[package]
+name = "crofton_explainer"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "Measure a Curve Without Following It: the Cauchy–Crofton formula, which recovers a curve's length from how often straight lines cross it, under the one way of choosing lines that does not care where or how the card is turned; a 3Blue1Brown-style explainer rendered by franken_manim"
+
+[[bin]]
+name = "crofton"
+path = "src/main.rs"
+
+# franken_manim's pin, its reviewed patches and the release profile come from
+# the corpus workspace (the root Cargo.toml).
+[dependencies]
+fmn.workspace = true
+explainer_kit.workspace = true
+explainer_score.workspace = true

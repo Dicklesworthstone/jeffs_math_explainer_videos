@@ -1,0 +1,17 @@
+[package]
+name = "parrondo_explainer"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "Two Losing Games Can Win, Here Is the Catch: Parrondo's capital-dependent coin games A and B, the long-run share of rounds at each remainder of the capital mod 3, and why a coin-flip mix of two losing games wins; a 3Blue1Brown-style explainer rendered by franken_manim"
+
+[[bin]]
+name = "parrondo"
+path = "src/main.rs"
+
+# franken_manim's pin, its reviewed patches and the release profile come from
+# the corpus workspace (the root Cargo.toml).
+[dependencies]
+fmn.workspace = true
+explainer_kit.workspace = true
+explainer_score.workspace = true

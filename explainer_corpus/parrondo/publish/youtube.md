@@ -1,0 +1,45 @@
+# YouTube publication package
+
+- Title: Two Losing Games Can Win — Here Is the Catch
+- Tags: Parrondo paradox,probability,Markov chains,mathematics,random walks,stationary distribution,game theory
+- Thumbnail: `../../narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/thumbnail.png`
+
+```text
+Game A loses. Game B loses. Choose between them with a fair coin, and the mixture can win. The coins have not improved, so where does the gain come from?
+
+We follow players around a triangle of remainders, calculate how the crowd settles, and find the flow that decides the game's long-run direction. The same picture explains why a fixed alternating pattern can lose while other patterns win.
+
+These are mathematical games with unlimited credit. A positive long-run average is not a promise that an individual player will be ahead after a particular number of rounds.
+
+Chapters
+?:?? The puzzle
+?:?? The rule
+?:?? Does b win
+?:?? Looks hopeless
+?:?? The clue
+?:?? Three corners
+?:?? Where you stand
+?:?? One player to a crowd
+?:?? Ten four twelve
+?:?? The trap
+?:?? Mix the games
+?:?? One dial
+?:?? The half point
+?:?? Net flow
+?:?? Two products
+?:?? When switching fails
+?:?? What winning promises
+?:?? The catch
+
+Primary sources
+G. P. Harmer and D. Abbott, Losing strategies can win by Parrondo's paradox, Nature 402 (1999), 864:
+https://doi.org/10.1038/47220
+S. N. Ethier and J. Lee, Limit theorems for Parrondo's paradox, Electronic Journal of Probability 14 (2009), 1827-1862:
+https://doi.org/10.1214/EJP.v14-684
+https://arxiv.org/abs/0902.2368
+The film distinguishes random switching, fixed patterns and finite-run outcomes; it does not claim every switching sequence wins.
+
+Created with FrankenManim and FrankenTTS. Narration uses a synthetic voice.
+```
+
+Chapter timestamps are filled from the final native timelines before upload.

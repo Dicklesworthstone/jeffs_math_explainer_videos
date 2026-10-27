@@ -1,0 +1,93 @@
+# inspection_paradox: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	Every weekday you take a bus to the station to catch a train. You never check the timetable. You walk to the stop when you're ready and take the first bus that comes.
+01_2	Two bus routes stop here on the way to the station. Each runs every twelve minutes, exactly on time, and the red bus comes two minutes after the blue one.
+01_3	So the sign tells the truth. Ten buses an hour, a bus every six minutes on average.
+01_4	Your train won't wait for you, so you'd like to know how long you'll stand here. Some mornings a bus pulls in as you arrive. Some mornings you've just missed one.
+01_5	A fair guess is half of six, three minutes. Over many mornings, will your average wait be three minutes, more, or less?
+01_6	More. Four minutes and twenty seconds, and every bus is exactly on time. That's an extra minute and twenty seconds every morning, on average.
+01_7	Nothing here is late, broken or crowded. The extra time comes from the timetable itself, and from how you pick the moment you turn up. By the end, you'll work it out for any timetable, and know when the answer stops applying to you.
+02_1	Look at the gaps between buses. Two minutes, ten minutes, two, ten, all hour long. Five short gaps and five long ones.
+02_2	The bus company sees the timetable one bus at a time. Tag each bus with the gap before it. Half the tags say two minutes, half say ten, and they average six, the number on the sign.
+02_3	That's not how you see it. You don't arrive with a bus. You arrive at some moment, and that moment sits inside a gap.
+02_4	Say you turn up at a random moment, any minute of the hour as likely as any other. What's the chance you land in a long gap?
+02_5	Five in six. Picture the other passengers turning up steadily, one in the middle of every minute. Sixty in the hour, and fifty of them land in a long gap.
+02_6	The long gaps fill fifty of the sixty minutes. Half the gaps, but five sixths of the time.
+02_7	So the dots measure time. Each gap gets one tag, from the bus that ends it, but a dot for every minute it lasts. Counting buses and counting moments give different answers, on the very same timetable.
+03_1	To see what controls this, start from a timetable with no surprise. Move the red bus to six minutes after the blue. Now every gap is six minutes.
+03_2	Watch one kind of gap, from each red bus to the next blue bus. Half the buses end one of these gaps, and half the passengers stand in one. The two counts agree.
+03_3	Now slide the red bus back toward the blue, a minute at a time. The same ten buses, still a bus every six minutes on average. Watch the passengers.
+03_4	The buses' count never moves. Half of them still end the gap that's growing. The passengers' count follows its length. Seven of every twelve, then eight, nine, ten.
+03_5	Keep sliding until the red bus comes with the blue one. What share of the passengers is in the long gap then?
+03_6	All of them. The short gap shrinks to nothing, so every passenger waits in a twelve-minute gap. And the sign still says a bus every six minutes.
+03_7	So the timetable counts each gap once, however long it lasts. Your mornings land in a gap in proportion to its length. Stretch a gap, and more of your mornings fall inside it.
+04_1	Back to our timetable. The hour is the same twelve minutes, five times over, so zoom in on one stretch. A blue bus, a red bus two minutes later, and ten minutes after that, the next blue bus.
+04_2	It holds twelve of our passengers, one in the middle of each minute, none of them looking at the timetable. Now ask how long each one waits.
+04_3	The two passengers in the short gap wait a minute and a half, and half a minute. One minute each, on average.
+04_4	The ten passengers in the long gap wait anywhere from nine and a half minutes down to half a minute. Five minutes each, on average. Your unlucky morning and your lucky one are the first and the last of them.
+04_5	So what's the average wait over all twelve passengers?
+04_6	Not three. The two passengers in the short gap waited two minutes between them. The ten in the long gap waited fifty.
+04_7	That's fifty-two minutes of waiting, shared by twelve passengers. Four and a third minutes each, or four minutes and twenty seconds.
+04_8	Half of six is the average of one and five, as if both gaps had the same number of passengers. They don't. The long gap has five times as many.
+05_1	Now draw the wait for every moment in those twelve minutes. Across is the moment you turn up. Up is how long you'll wait.
+05_2	Right after a bus leaves, you'd wait the whole gap. The wait shrinks steadily until the next bus comes, then jumps back up.
+05_3	So each gap draws a triangle, as wide as the gap and just as tall.
+05_4	Give each of our twelve passengers a bar one minute wide, as tall as their wait. The bars hold exactly as much as the triangles. So the total waiting is measured by this area, because we have one passenger per minute.
+05_5	The short triangle is half of two times two, which is two. The long one is half of ten times ten, which is fifty. The axes are both minutes, so these areas are in square minutes. At one passenger per minute, they represent the fifty-two minutes of waiting again.
+05_6	The long gap is five times as wide as the short one. How many times as much waiting does it hold?
+05_7	Twenty-five times. It's five times as wide and five times as tall. Five times as many passengers, each waiting five times as long on average.
+05_8	So the waiting grows with the square of the gap. Double a gap and it holds four times the waiting.
+06_1	Now put numbers on the two ways of counting. Averaged over buses, the tags say six minutes, the number on the sign.
+06_2	Now ask each passenger how long the gap they landed in is. One in six says two minutes. Five in six say ten.
+06_3	So what's the average gap, as the passengers see it?
+06_4	Eight minutes and forty seconds. A sixth of the passengers say two, five sixths say ten. Same buses, same gaps, two honest averages.
+06_5	And a passenger who turns up at a random moment in a gap waits half that gap, on average. Half of eight minutes forty is four minutes twenty. The same answer, a second way.
+06_6	Averaging over buses and averaging over moments give different answers, because long gaps last longer and get picked more. In probability, this is called the inspection paradox.
+06_7	Look back as well as forward. On average the last bus left four minutes twenty before you came. Behind you four twenty, ahead of you four twenty. Together, the eight forty of your gap.
+07_1	Notice what we didn't need. No bus broke down, no driver ran late, and nothing bunched up in traffic. Every gap was written into the timetable.
+07_2	Real buses do bunch. A late bus picks up extra passengers and falls further behind, while the bus behind it catches up. That's a different story, about why gaps grow. Here the gaps are simply uneven, and that alone stretches the wait.
+07_3	Go back to the even timetable, with the red bus six minutes after the blue. Every gap is six minutes. What's the average wait there?
+07_4	Three minutes. Half of six, just what the sign suggests. With even gaps, the buses and the passengers agree.
+07_5	Now slide the red bus again, this time watching the wait. The same ten buses an hour, the same average gap of six minutes. Only the wait changes.
+07_6	Two minutes apart, it's four minutes twenty. Six apart, it's three. And if the two buses come together, you're really waiting for a bus every twelve minutes, and the average is six.
+07_7	Same buses, same sign, and the average wait runs from three minutes to six. Only the spacing changed.
+08_1	Now turn the triangles into a formula for any timetable. The gap of two holds two square minutes, and the gap of ten holds fifty. Any gap holds half its length squared.
+08_2	Add up the triangles and divide by the time they cover. That's the average wait.
+08_3	Divide the top and the bottom by the number of gaps. The top becomes half the average of the squared gaps. The bottom becomes the average gap.
+08_4	For our gaps, two squared is four and ten squared is a hundred, so the average square is fifty-two. Six squared is only thirty-six. The extra sixteen measures how uneven the gaps are.
+08_5	So the average wait is half the average gap, three minutes, plus sixteen over twice six, which is a minute and twenty seconds. There's the extra time.
+08_6	For you at the stop, that minute and twenty seconds is the cost of uneven gaps. The sign can't show it, because it counts buses, not mornings.
+08_7	Can the average wait ever be less than half the average gap?
+08_8	No. The extra piece is never negative, so for passengers who turn up at random, the average wait is at least half the average gap. It's exactly half only when every gap is the same.
+09_1	What if there's no timetable at all? Suppose buses come completely at random. At every moment a bus is just as likely to come, however long it's been since the last bus.
+09_2	Keep the same average, a bus every six minutes. Now some gaps are tiny and some are long, and the long ones hold huge triangles.
+09_3	How long is the average wait now?
+09_4	Six minutes. The whole average gap, not half of it.
+09_5	The buses have no memory. So from the moment you turn up, the wait ahead of you is just like a brand new gap, and a gap averages six minutes.
+09_6	The formula agrees. For completely random gaps the spread is the average gap squared, thirty-six. Three minutes, plus thirty-six over twelve. Six.
+09_7	Look back too, and the last bus left six minutes before you, on average. So the gap you land in averages twelve minutes, twice the average gap.
+09_8	Even gaps wait three minutes, random buses wait six, and our timetable sits at four twenty. More spread means a longer wait, even past six. The formula needs only the average gap and the spread.
+10_1	The same sum turns up far from bus stops. Whenever you pick a person or a moment instead of a group, the big groups get picked more often.
+10_2	Now seat those twelve passengers in a school with two classes, one of two students and one of ten. The school says the average class has six students.
+10_3	Ask every student in turn how big their class is.
+10_4	What's the average answer?
+10_5	Eight and two thirds. It's the bus sum again, with students in place of minutes. Ten of the twelve students sit in the big class.
+10_6	Scott Feld and Bernard Grofman wrote about this in nineteen seventy-seven and called it the class size paradox.
+10_7	For programmers. A sampling profiler checks what your program is doing many times a second, so it measures where the time goes, not how often each function is called. On average, one ten millisecond call shows up as often as five two millisecond calls put together: half the samples, but only a sixth of the calls.
+10_8	That needs checks that aren't in step with the program. Checks that tick exactly with its loop land in the same function every time, and the shares come out completely wrong.
+10_9	And people noticed it over a century ago. In nineteen twenty-two the physicist Torahiko Terada wrote an essay about waiting for Tokyo's trams, with his own observations of the trams.
+11_1	Back to the stop. Ten buses an hour, all on time, a bus every six minutes on average. All of that is true.
+11_2	But you don't sample buses when you turn up. You sample a moment. Five times in six, that moment falls in a long gap, where the waits are long.
+11_3	The area of the triangles, divided by the time they cover. Fifty-two square minutes over twelve minutes. Four minutes and twenty seconds.
+11_4	Now suppose you do check the timetable, and turn up one minute before your bus. How long do you wait?
+11_5	One minute. You're no longer turning up at random, so the triangles' average doesn't describe you.
+11_6	And if every passenger planned? Each would aim for the first bus they could make with a minute to spare, and stand at the stop one minute before it. Ten would wait for each blue bus, and two for each red.
+11_7	Five in six would still stand in a long gap, but every wait would be one minute. They'd all stand in the last minute of a gap, so the triangles' average wouldn't describe them. Change how passengers arrive, and you change the model.
+12_1	Now forget the planners. Go back to passengers who never look at the timetable, one a minute, spread evenly over the hour.
+12_2	Here's a last timetable to solve with the picture. Move the red bus to four minutes after the blue, so the gaps are four and eight. What's the average wait?
+12_3	Raise the triangles again, a minute up for every minute across. The gap of four holds half of four squared, eight square minutes. The gap of eight holds half of eight squared, thirty-two square minutes.
+12_4	Together they make forty square minutes, over the twelve minutes they cover. Dividing square minutes by minutes leaves minutes. Forty over twelve is three and a third minutes. Three minutes and twenty seconds.
+12_5	That's a point on the curve from before, between our timetable and the even timetable. The more even the gaps, the closer the wait comes to three minutes.
+12_6	And your train? Back on our timetable, four minutes twenty is what the stop costs you on an average morning.
+12_7	But a deadline needs your worst morning, not an average. Turn up just as a red bus leaves, and you wait the whole long gap, so allow the full ten minutes.
+12_8	Ten minutes is the worst case only because every bus runs exactly on time. It's a bound in this model, not a guarantee against real delays, or for the whole journey.
+12_9	Your bus isn't late. You're just more likely to turn up during a long gap.

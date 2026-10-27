@@ -1,0 +1,800 @@
+{
+  "schema_version": 1,
+  "script_sha256": "652c925a2eb9edfdeeb43a7c17938fc8f0ecc18d09cbb6f92346d8ac8f0cab57",
+  "units": [
+    {
+      "id": "01u1",
+      "line_ids": [
+        "01_1",
+        "01_2"
+      ],
+      "text": "A small company makes a board game, and it won't say how many copies it has made. Five friends who own it would like to know. If the company made a few dozen, their boxes are rare. If it made tens of thousands, they're ordinary."
+    },
+    {
+      "id": "01u2",
+      "line_ids": [
+        "01_3"
+      ],
+      "text": "Every box has a number on the bottom, counting up from one. The first box made is number one, the next is number two, and nothing is skipped."
+    },
+    {
+      "id": "01u3",
+      "line_ids": [
+        "01_4"
+      ],
+      "text": "The friends turn their boxes over. Fourteen, twenty-seven, thirty-three, fifty-one and sixty."
+    },
+    {
+      "id": "01u4",
+      "line_ids": [
+        "01_5",
+        "01_6"
+      ],
+      "text": "Put each box where its number belongs, on the line of every number the company could have printed. Before any clever ideas, what can you say for certain about how many boxes the company made?"
+    },
+    {
+      "id": "01u5",
+      "line_ids": [
+        "01_7",
+        "01_8"
+      ],
+      "text": "It made at least sixty. Box sixty exists, so boxes one to sixty all do too. Above sixty, nobody knows. The line might stop right after sixty, or run on for hundreds more."
+    },
+    {
+      "id": "01u6",
+      "line_ids": [
+        "01_9"
+      ],
+      "text": "Nothing these five numbers say can rule out a thousand boxes. But would five boxes from a thousand look like these?"
+    },
+    {
+      "id": "02u1",
+      "line_ids": [
+        "02_1"
+      ],
+      "text": "To find out, we need a picture of how the five were chosen. Imagine every box the company made in a huge bin, shaken well."
+    },
+    {
+      "id": "02u2",
+      "line_ids": [
+        "02_2",
+        "02_3"
+      ],
+      "text": "Five boxes come out blindly, and any five are exactly as likely as any other five. Call that a fair handful. Real friends don't shop from a bin, so this is an assumption. Later we'll break it on purpose."
+    },
+    {
+      "id": "02u3",
+      "line_ids": [
+        "02_4"
+      ],
+      "text": "If the company had made a thousand boxes, where would a fair handful's five numbers usually land?"
+    },
+    {
+      "id": "02u4",
+      "line_ids": [
+        "02_5"
+      ],
+      "text": "All over the line. Here are ten fair handfuls from a thousand, drawn by computer. Each of them reaches past six hundred."
+    },
+    {
+      "id": "02u5",
+      "line_ids": [
+        "02_6"
+      ],
+      "text": "Five numbers that all stay at sixty or less, like the friends', turn up in fewer than one handful in a million."
+    },
+    {
+      "id": "02u6",
+      "line_ids": [
+        "02_7"
+      ],
+      "text": "Now try a company of seventy. Its handfuls look much more like the friends'. Nearly half of its possible handfuls stay at sixty or below. Three of these ten do."
+    },
+    {
+      "id": "02u7",
+      "line_ids": [
+        "02_8",
+        "02_9"
+      ],
+      "text": "Look at the spacing. Numbers from a thousand sit over a hundred and fifty apart, on average. From seventy, about twelve apart, just like the friends' numbers. So the numbers can't prove the count, but their spacing is a clue. What they can never tell you is whether the handful was fair."
+    },
+    {
+      "id": "03u1",
+      "line_ids": [
+        "03_1"
+      ],
+      "text": "So let's use that clue. Look at the numbers nobody has seen. Below fourteen, there are thirteen."
+    },
+    {
+      "id": "03u2",
+      "line_ids": [
+        "03_2"
+      ],
+      "text": "Between fourteen and twenty-seven, twelve more."
+    },
+    {
+      "id": "03u3",
+      "line_ids": [
+        "03_3"
+      ],
+      "text": "Then five, then seventeen, then eight."
+    },
+    {
+      "id": "03u4",
+      "line_ids": [
+        "03_4",
+        "03_5",
+        "03_6"
+      ],
+      "text": "These stretches are the gaps. Five gaps hold fifty-five unseen boxes. That's eleven per gap, on average. There's one more gap, above sixty. It's the top gap, and nobody can see it. In a fair handful, nothing makes the top gap special. It's just one more space between numbers, and it happens to be out of sight."
+    },
+    {
+      "id": "03u5",
+      "line_ids": [
+        "03_7"
+      ],
+      "text": "If the top gap is about as big as the others, how many boxes did the company make?"
+    },
+    {
+      "id": "03u6",
+      "line_ids": [
+        "03_8",
+        "03_9",
+        "03_10"
+      ],
+      "text": "About seventy-one. Sixty, plus one average gap of eleven. That's a recipe. Take the largest number and add the average gap. If the handful is fair, this recipe is right on average. Right on average is a promise about the recipe, not about seventy-one. We'll prove it, and then find out what it can't promise."
+    },
+    {
+      "id": "04u1",
+      "line_ids": [
+        "04_1",
+        "04_2"
+      ],
+      "text": "Let's pin the question down. Call the true number of boxes the count. We don't know it. It might be sixty, seventy-one or five hundred. The friends' five boxes are a single handful. We assume the bin from before, so every handful of five was equally likely to be theirs."
+    },
+    {
+      "id": "04u2",
+      "line_ids": [
+        "04_3",
+        "04_4"
+      ],
+      "text": "A recipe is any rule that turns a handful into an estimate of the count. Statisticians call it an estimator. Ours, the gap recipe, adds the average gap to the largest number. Of the sixty boxes from one to sixty, five are the friends', so the gaps hold sixty minus five, fifty-five."
+    },
+    {
+      "id": "04u3",
+      "line_ids": [
+        "04_5"
+      ],
+      "text": "With any five numbers, the gaps below the largest hold the largest minus five. So the estimate is the largest, plus the largest minus five, over five. For our friends, sixty plus fifty-five over five, seventy-one."
+    },
+    {
+      "id": "04u4",
+      "line_ids": [
+        "04_6"
+      ],
+      "text": "What would the recipe say if the five numbers were one, two, three, four and five?"
+    },
+    {
+      "id": "04u5",
+      "line_ids": [
+        "04_7",
+        "04_8"
+      ],
+      "text": "Five. There are no gaps, so there's nothing to add. And since gaps are never negative, the recipe never guesses below the largest number it saw. A single handful can't tell whether a recipe is good. We'll judge a recipe across every handful the company could have sold."
+    },
+    {
+      "id": "05u1",
+      "line_ids": [
+        "05_1",
+        "05_2"
+      ],
+      "text": "A company of seventy-one boxes has over thirteen million handfuls of five, far too many to look at. So let's shrink the company. Suppose it made just five boxes, and you see two. There are ten possible pairs, from one and two up to four and five. In a fair draw, each pair is equally likely."
+    },
+    {
+      "id": "05u2",
+      "line_ids": [
+        "05_3",
+        "05_4"
+      ],
+      "text": "Take the pair two and five. Below five, the unseen boxes are one, three and four. That's three boxes, five minus two, in two gaps. So with a pair, the recipe adds half of the largest minus two. For two and five, that's five plus three halves, six and a half. For one and two, there are no gaps, so the estimate is just two."
+    },
+    {
+      "id": "05u3",
+      "line_ids": [
+        "05_5"
+      ],
+      "text": "Here are all ten estimates. Some are too low and some too high. What do the ten average?"
+    },
+    {
+      "id": "05u4",
+      "line_ids": [
+        "05_6",
+        "05_7"
+      ],
+      "text": "Exactly five, the true count. The largest number on its own averages only four. A recipe is unbiased if its estimates average to the true count, whatever that count is. A single small company isn't a proof. So why does adding the average gap work?"
+    },
+    {
+      "id": "06u1",
+      "line_ids": [
+        "06_1",
+        "06_2"
+      ],
+      "text": "Here's why, starting with the ten pairs from five boxes. Each pair leaves three boxes unseen. Its two numbers cut them into three gaps, below the smaller, between the two, and above the larger. One and two leave gaps of zero, zero and three. Two and five leave one, two and zero. Every pair has its own three gaps, and they always add up to three."
+    },
+    {
+      "id": "06u2",
+      "line_ids": [
+        "06_3",
+        "06_4"
+      ],
+      "text": "A list can also be read backwards. One, two and zero says skip one box, take the next, skip two, take the next, and stop. That rebuilds two and five. So pairs and gap lists match up exactly. The ten lists are every way to split three unseen boxes into three gaps, each exactly once. And since each pair is one in ten, so is each list."
+    },
+    {
+      "id": "06u3",
+      "line_ids": [
+        "06_5"
+      ],
+      "text": "Now let the gap below and the gap above trade places. For one and two, zero, zero and three becomes three, zero and zero. That's the list for four and five, another row of the table, just as likely."
+    },
+    {
+      "id": "06u4",
+      "line_ids": [
+        "06_6",
+        "06_7",
+        "06_8"
+      ],
+      "text": "Every row has a partner like that, and a row with equal gaps below and above is its own partner. So the below column and the above column hold the same ten numbers, in a different order. Trading the gap between with the gap above works the same way. So all three columns hold the same ten numbers, and they must have the same average. Add up each column. Each holds ten boxes, over ten pairs, so each gap averages one box. Three unseen boxes, shared evenly by three gaps. That includes the top gap, above the larger number."
+    },
+    {
+      "id": "06u5",
+      "line_ids": [
+        "06_9"
+      ],
+      "text": "Now back to the friends' five boxes. Five numbers cut the unseen boxes into six gaps, but only five arcs are drawn. Where is the sixth gap?"
+    },
+    {
+      "id": "06u6",
+      "line_ids": [
+        "06_10"
+      ],
+      "text": "Above sixty. It's the top gap, which nobody can see. In the small company, the top gap averaged one box, just like the gaps below it."
+    },
+    {
+      "id": "07u1",
+      "line_ids": [
+        "07_1",
+        "07_2"
+      ],
+      "text": "Now the same argument for any count. Call the count N. The friends' five numbers cut the N minus five unseen boxes into six gaps, five they can see and the top gap they can't. The matching from the table still works. Every handful of five gives a list of six gaps adding up to N minus five, and every such list builds back its own handful."
+    },
+    {
+      "id": "07u2",
+      "line_ids": [
+        "07_3"
+      ],
+      "text": "Every handful is equally likely, so every list is too. Letting gaps trade places gives another list, just as likely, so all six gaps have the same average. Together they always hold N minus five boxes, so each gap averages N minus five, over six."
+    },
+    {
+      "id": "07u3",
+      "line_ids": [
+        "07_4",
+        "07_5"
+      ],
+      "text": "That includes the top gap, which the recipe can't see. So the recipe guesses it with the average of the five gaps it can see. For the friends, that's eleven. But eleven is one handful's average, and another handful would give another number. In the small company, each pair guesses its top gap with the average of its two gaps below. Row by row, the guess and the top gap agree only three times in ten."
+    },
+    {
+      "id": "07u4",
+      "line_ids": [
+        "07_6"
+      ],
+      "text": "Yet over all ten pairs, the guesses average one box, and so do the top gaps. For the friends it's the same. Over all handfuls, each seen gap averages N minus five, over six, so the average of the five does too, exactly like the top gap."
+    },
+    {
+      "id": "07u5",
+      "line_ids": [
+        "07_7"
+      ],
+      "text": "So for every handful, the count is the largest number plus the top gap, and the estimate is the largest number plus the guess. Over all handfuls, the guess and the top gap have the same average, so the estimates average the count. The recipe is unbiased, whatever the count."
+    },
+    {
+      "id": "07u6",
+      "line_ids": [
+        "07_8"
+      ],
+      "text": "What does the recipe do with a handful of just one box?"
+    },
+    {
+      "id": "07u7",
+      "line_ids": [
+        "07_9",
+        "07_10"
+      ],
+      "text": "It doubles the number and subtracts one. One box leaves two gaps, and the gap below is the only clue to the gap above. Box thirty-seven has thirty-six boxes below it, so the recipe says seventy-three. Nothing in the proof needed five. With any handful size, the numbers cut the unseen boxes into one more gap than there are numbers, all with the same average. So the recipe always adds the largest minus the size, over the size, and it's right on average for every count, as long as the handful is fair."
+    },
+    {
+      "id": "08u1",
+      "line_ids": [
+        "08_1",
+        "08_2"
+      ],
+      "text": "Right on average is a promise about the recipe across all handfuls, not about our seventy-one. To see what it promises, imagine a company that made exactly seventy-one boxes, and friends who could buy five fresh boxes from it, again and again. Here are twenty such handfuls, drawn by computer."
+    },
+    {
+      "id": "08u2",
+      "line_ids": [
+        "08_3",
+        "08_4"
+      ],
+      "text": "Their estimates land between about forty-five and eighty-four point two, and three of them land exactly on seventy-one. Together they average about seventy-two. Twenty is only twenty. This company has over thirteen million handfuls of five, and we can count them all, because the recipe looks only at the largest number. Just one handful tops out at five. Five handfuls top out at six. Over nine hundred thousand top out at seventy-one. So the handfuls fall into sixty-seven stacks by their largest number, and every handful in a stack gives the same estimate."
+    },
+    {
+      "id": "08u3",
+      "line_ids": [
+        "08_5"
+      ],
+      "text": "Out of all those handfuls, how often do you think the estimate is exactly seventy-one, the true count?"
+    },
+    {
+      "id": "08u4",
+      "line_ids": [
+        "08_6",
+        "08_7"
+      ],
+      "text": "About one handful in twenty-nine. Three in twenty was lucky. Being right on average doesn't mean being right often. Yet all the bars together balance at seventy-one exactly, while our twenty draws averaged about seventy-two. The bars are lopsided, though. Fifty-eight percent of handfuls overestimate, by about eight boxes on average, and the estimates that fall short miss by twelve on average."
+    },
+    {
+      "id": "08u5",
+      "line_ids": [
+        "08_8"
+      ],
+      "text": "So how far off is a typical estimate? Ignoring the direction, an estimate misses by about nine boxes on average. Statisticians often quote a different width, the standard deviation. It squares each miss before averaging, then takes the square root, so big misses count for more, and here it comes to about eleven point seven."
+    },
+    {
+      "id": "08u6",
+      "line_ids": [
+        "08_9"
+      ],
+      "text": "So keep these ideas apart. The recipe is unbiased, so its estimates balance at the true count. They spread out around it, by about nine boxes on average. And our seventy-one is a single estimate, from a single handful."
+    },
+    {
+      "id": "09u1",
+      "line_ids": [
+        "09_1",
+        "09_2"
+      ],
+      "text": "Back to the friends' own boxes. Their count is a fixed number nobody knows, at least sixty. How large could it be? Flip the question around. For each possible count, how often would a fair handful of five all be sixty or less? If the count were seventy-one, about forty-two percent of the time. If it were a hundred, about seven percent. The bigger the count, the rarer a handful this low."
+    },
+    {
+      "id": "09u2",
+      "line_ids": [
+        "09_3",
+        "09_4"
+      ],
+      "text": "At a hundred and seven boxes the chance is still just over five percent. At a hundred and eight it's just under, and it keeps falling from there. Counts that big would rarely give a handful like ours. So keep every count from sixty to a hundred and seven, the counts that give a handful like ours at least five times in a hundred. That's our range."
+    },
+    {
+      "id": "09u3",
+      "line_ids": [
+        "09_5"
+      ],
+      "text": "Is a range built this way any good? Test it where we know the answer. Fix the count at seventy-one, and let the twenty handfuls drawn by computer each build their own range the same way."
+    },
+    {
+      "id": "09u4",
+      "line_ids": [
+        "09_6"
+      ],
+      "text": "Nineteen of the twenty ranges cover seventy-one. The range that misses came from a handful topped by thirty-eight. Over every handful, ranges built this way cover seventy-one about ninety-six times in a hundred, and whatever the count, never fewer than ninety-five."
+    },
+    {
+      "id": "09u5",
+      "line_ids": [
+        "09_7",
+        "09_8"
+      ],
+      "text": "That's what ninety-five percent confidence means. The count stays fixed, and the range changes from handful to handful. It's a promise about the method, not a ninety-five percent chance that the count lies in our range. Behind each bar was a single division. Count the handfuls of five from the first sixty boxes, and divide by all the handfuls of five from the whole company. At a hundred and seven boxes, that's just over five percent."
+    },
+    {
+      "id": "09u6",
+      "line_ids": [
+        "09_9"
+      ],
+      "text": "If the friends had ten boxes instead, with the same largest number, would the range get wider or narrower?"
+    },
+    {
+      "id": "09u7",
+      "line_ids": [
+        "09_10"
+      ],
+      "text": "Narrower. Ten numbers all sixty or less would be rare from a big company, so the range shrinks to sixty through seventy-nine."
+    },
+    {
+      "id": "10u1",
+      "line_ids": [
+        "10_1",
+        "10_2"
+      ],
+      "text": "Here's another recipe, built on a different idea. A company's numbers run from one up to the count, so they balance at the middle number. With seventy-one boxes the middle is thirty-six, and the count is twice the middle, minus one. A fair handful's numbers should spread around the middle too, so let the handful's average stand in for it. Twice the average, minus one. Call it the doubling recipe."
+    },
+    {
+      "id": "10u2",
+      "line_ids": [
+        "10_3",
+        "10_4"
+      ],
+      "text": "Our five add up to a hundred and eighty-five, an average of thirty-seven. So doubling says seventy-three, just above the gap recipe's seventy-one. It's unbiased too. In a fair handful each box is just as likely to carry any number from one to the count, so averaged over every handful, the handful's average is the middle number. That makes the doubling recipe average the count, whatever the count is."
+    },
+    {
+      "id": "10u3",
+      "line_ids": [
+        "10_5"
+      ],
+      "text": "So which recipe should we trust? Try a strange handful. Keep the box at sixty, and make the other four two, three, four and five. What does doubling say for this handful?"
+    },
+    {
+      "id": "10u4",
+      "line_ids": [
+        "10_6",
+        "10_7"
+      ],
+      "text": "Twenty-eight point six. That's fewer than the sixty boxes we know were made. The gap recipe says seventy-one for this handful, as it does for every handful topped by sixty. That's no freak. In a company of seventy-one boxes, about one handful in five gets a doubling estimate below its own largest number. The gap recipe never does."
+    },
+    {
+      "id": "10u5",
+      "line_ids": [
+        "10_8"
+      ],
+      "text": "So put both recipes side by side, over every handful from a company of exactly seventy-one boxes. The gap recipe's sixty-seven bars come back. The doubling recipe looks only at the total of the five numbers, so its handfuls can be counted by total, and its estimates spread from five all the way to a hundred and thirty-seven."
+    },
+    {
+      "id": "10u6",
+      "line_ids": [
+        "10_9"
+      ],
+      "text": "Both balance at seventy-one. But the purple bars are lower and wider. Ignoring direction, doubling misses by fourteen point three boxes on average, the gap recipe by nine point two. The standard deviation, built from squared misses, says seventeen point eight against eleven point seven. By either measure, the gap recipe's estimates spread less."
+    },
+    {
+      "id": "10u7",
+      "line_ids": [
+        "10_10"
+      ],
+      "text": "So the gap recipe, which uses only the largest number, beats the recipe that uses all five. What are the other four worth, then?"
+    },
+    {
+      "id": "11u1",
+      "line_ids": [
+        "11_1",
+        "11_2"
+      ],
+      "text": "Back to the friends' own five boxes. Suppose all you were told is that the largest number is sixty. Then the other four could be any four different numbers below sixty. Try it on pairs. In the tiny company of five boxes, four of its ten pairs have five as their larger number, and the smaller one is one, two, three or four. A fair draw makes those four pairs equally likely, so each is one time in four."
+    },
+    {
+      "id": "11u2",
+      "line_ids": [
+        "11_3"
+      ],
+      "text": "Now let the company make six boxes, or eight. There are more pairs, fifteen and then twenty-eight, so a larger number of five gets rarer. But the pairs topped by five are still the same four, and each is still one time in four."
+    },
+    {
+      "id": "11u3",
+      "line_ids": [
+        "11_4"
+      ],
+      "text": "It's the same with sixty. Whatever the count, from sixty boxes up, a handful topped by sixty is sixty plus any four numbers below it. That's over four hundred and fifty thousand groups of four, all equally likely, for every count. Only the chance that sixty is the largest changes. With exactly sixty boxes it's one in twelve, with seventy-one about one in twenty-nine, and with a thousand about one in eighteen million."
+    },
+    {
+      "id": "11u4",
+      "line_ids": [
+        "11_5"
+      ],
+      "text": "So once you know the largest number, how much can the other four tell you about the count?"
+    },
+    {
+      "id": "11u5",
+      "line_ids": [
+        "11_6"
+      ],
+      "text": "Nothing. Given the largest, their pattern is the same for every count, so it can't favour any count over another. Statisticians say the largest number is sufficient. It holds everything a fair handful can tell you about the count."
+    },
+    {
+      "id": "11u6",
+      "line_ids": [
+        "11_7",
+        "11_8"
+      ],
+      "text": "That's why the gap recipe needs only the largest number. Whatever the other four are, the gaps below sixty hold fifty-five numbers, sixty minus five. Ours split them fairly evenly, and the strange handful's put nearly all of them in a single gap. All of this needs the handful to be fair. If bigger numbers were likelier to be picked, the other four could shift with the count and carry a clue of their own. With a fair handful they say nothing more about the count, but they can still warn you when a draw doesn't look fair."
+    },
+    {
+      "id": "12u1",
+      "line_ids": [
+        "12_1",
+        "12_2"
+      ],
+      "text": "Back to the tiny company of five boxes, where any two are as likely to be seen as any other two. Here are its ten pairs again, now with the doubling recipe's estimates. For a pair, doubling the average just gives the total, so the recipe adds the two numbers and takes away one. They average five, so doubling is unbiased here too. But they wobble, from two all the way up to eight."
+    },
+    {
+      "id": "12u2",
+      "line_ids": [
+        "12_3",
+        "12_4"
+      ],
+      "text": "Where does the wobble come from? The last chapter showed that once you know the larger number, the smaller carries no news about the count. Doubling listens to it anyway, so the four pairs topped by five get four different estimates. So sort the pairs by their larger number. Each pair keeps its squares and its estimate, and moves next to the pairs that share its larger number. That makes four groups, topped by two, three, four and five, with one, two, three and four pairs."
+    },
+    {
+      "id": "12u3",
+      "line_ids": [
+        "12_5"
+      ],
+      "text": "Look at the biggest group. Doubling says five, six, seven and eight for its pairs. What's their average?"
+    },
+    {
+      "id": "12u4",
+      "line_ids": [
+        "12_6",
+        "12_7"
+      ],
+      "text": "Six and a half. That's what the gap recipe says for every pair topped by five. The other groups work the same way. Three and four average three and a half. Four, five and six average five. And the lone pair topped by two says two. So every group's average is exactly the gap recipe's estimate. Averaging inside the groups turns the doubling recipe into the gap recipe."
+    },
+    {
+      "id": "12u5",
+      "line_ids": [
+        "12_8"
+      ],
+      "text": "And a recipe can use these averages without knowing the count. With a fair draw, once the larger number is known, every smaller number below it is equally likely, whatever the count. So in a company of six boxes, or eight, the pairs topped by five still average six and a half."
+    },
+    {
+      "id": "12u6",
+      "line_ids": [
+        "12_9",
+        "12_10"
+      ],
+      "text": "Is the averaged recipe still unbiased? The groups aren't equally likely. Each pair is a chance in ten, so a group's chance is its number of pairs in ten, and the biggest group's is four in ten. Weight each group's average by its chance, and the ten pairs' average comes back, exactly five. Give the four groups equal weight instead, and you'd get four and a quarter, because the lone pair would count as much as the biggest group."
+    },
+    {
+      "id": "12u7",
+      "line_ids": [
+        "12_11",
+        "12_12"
+      ],
+      "text": "Now the misses. Draw each estimate's miss as an arrow from five, the true count. In the group topped by four, doubling's arrows are minus one, zero and plus one. They cancel, so the group's average misses by nothing at all. In the group topped by five, the arrows are zero, one, two and three, all on the same side. Nothing cancels, so the average misses by one and a half, the average length of the arrows."
+    },
+    {
+      "id": "12u8",
+      "line_ids": [
+        "12_13",
+        "12_14"
+      ],
+      "text": "Add it up over all ten pairs. Ignoring direction, doubling misses by one point four boxes on average, and the gap recipe by one point two. That's a rule, not luck. The arrow of an average is never longer than the average length of the arrows. It's shorter when they point both ways, and just as long when they all point the same way. So averaging inside the groups can never make the average miss bigger."
+    },
+    {
+      "id": "12u9",
+      "line_ids": [
+        "12_15"
+      ],
+      "text": "Squared misses tell the same story with different numbers. Doubling's squared misses average three, the gap recipe's two and a quarter, so the standard deviation falls from about one point seven to exactly one point five. For squares, the drop, three quarters, is exactly the wobble inside the groups."
+    },
+    {
+      "id": "12u10",
+      "line_ids": [
+        "12_16"
+      ],
+      "text": "So averaging any recipe inside the groups of the largest number keeps its average and never makes its misses bigger, plain or squared. That's why the gap recipe beat the doubling recipe."
+    },
+    {
+      "id": "13u1",
+      "line_ids": [
+        "13_1",
+        "13_2"
+      ],
+      "text": "Averaging turned the doubling recipe into the gap recipe, and shrank its misses. Could some cleverer unbiased recipe still beat the gap recipe? To find out, we need to know every recipe that's unbiased. Unbiased has to hold at every count the company could have made, because we never know which count is true. A recipe that always says seventy-one is right on average if the count is seventy-one, and wrong on average at every other count. So it isn't unbiased."
+    },
+    {
+      "id": "13u2",
+      "line_ids": [
+        "13_3",
+        "13_4"
+      ],
+      "text": "Start with pairs, and recipes that look only at the larger number. The smallest company with a pair has two boxes, and its only pair is one and two. To average two, the recipe must say two when the larger number is two. Three boxes make three pairs. The pair topped by two must still say two. The other two are topped by three, and all three estimates must average three, so those two must say three and a half."
+    },
+    {
+      "id": "13u3",
+      "line_ids": [
+        "13_5"
+      ],
+      "text": "Four boxes make six pairs, and three of them are topped by four. The other three already have their values. What must the recipe say for the new three?"
+    },
+    {
+      "id": "13u4",
+      "line_ids": [
+        "13_6"
+      ],
+      "text": "Five. That's the only value that brings all six estimates to an average of four. Take the same step at five boxes, and its four new pairs are forced to six and a half."
+    },
+    {
+      "id": "13u5",
+      "line_ids": [
+        "13_7"
+      ],
+      "text": "The same step works at every count, for handfuls of any size. Going up by a box, the only new handfuls are the ones that contain the new top box, and it's always their largest number. They're never missing. Their share is the handful size over the count. So each step has exactly one unknown value, and the step fixes it. With five seen from exactly sixty boxes, that share is one in twelve, as we found before."
+    },
+    {
+      "id": "13u6",
+      "line_ids": [
+        "13_8",
+        "13_9"
+      ],
+      "text": "Each count fixes the next value, all the way up from the smallest company. So only a single recipe of the largest number is unbiased at every count, and it's the gap recipe. Now take any unbiased recipe at all, even a recipe that uses every number. For pairs, try three times the smaller number, minus one. Its estimates swing from two all the way to eleven, yet over the ten pairs they still average five."
+    },
+    {
+      "id": "13u7",
+      "line_ids": [
+        "13_10"
+      ],
+      "text": "Average it inside the groups of the larger number. With a fair draw those averages don't depend on the count, so they make a recipe, and averaging keeps it unbiased at every count. So they have to be the staircase again, two, three and a half, five, and six and a half."
+    },
+    {
+      "id": "13u8",
+      "line_ids": [
+        "13_11",
+        "13_12"
+      ],
+      "text": "The smaller-number recipe misses by two point four boxes on average, against the gap recipe's one point two. That's the whole argument. Averaging any unbiased recipe inside the groups gives the gap recipe, and never makes its misses bigger, plain or squared. So no unbiased recipe misses by less than the gap recipe. Best doesn't mean every rival does worse. With exactly as many boxes as the handful holds, there's just a single handful, so every unbiased recipe is exactly right. And a recipe that already uses only the largest number doesn't change when you average it."
+    },
+    {
+      "id": "13u9",
+      "line_ids": [
+        "13_13"
+      ],
+      "text": "A recipe that accepts a little bias can sometimes miss by less. Take seven sixths of the largest number, minus one. For the friends' five boxes it says sixty-nine. Over every handful from seventy-one boxes it averages sixty-nine, two short of the count, yet its misses average about eight point seven boxes against the gap recipe's nine point two, and its squared misses are smaller too."
+    },
+    {
+      "id": "13u10",
+      "line_ids": [
+        "13_14"
+      ],
+      "text": "But it doesn't win everywhere. With exactly five boxes, the gap recipe is always right and seven sixths says four and five sixths, and its squared misses are bigger at every count from five to ten. Among recipes that are right on average at every count, though, none misses by less than the gap recipe, as long as the handful is fair."
+    },
+    {
+      "id": "14u1",
+      "line_ids": [
+        "14_1",
+        "14_2",
+        "14_3"
+      ],
+      "text": "Everything so far rested on a fair handful. Now break it, with the same five boxes. Suppose all five friends shop at one store, and it only ever got the first seventy-one boxes. Say the company really made two hundred. The friends' numbers look just as innocent as before, and the recipe still says seventy-one. Averaged over every handful that shop could sell, the recipe gives exactly seventy-one. It measured the shop, not the company, and it's short by a hundred and twenty-nine."
+    },
+    {
+      "id": "14u2",
+      "line_ids": [
+        "14_4"
+      ],
+      "text": "It can miss the other way too. Suppose only boxes from a hundred and fifty-one up are still on shelves. Will the recipe guess too low, or too high?"
+    },
+    {
+      "id": "14u3",
+      "line_ids": [
+        "14_5",
+        "14_6"
+      ],
+      "text": "Too high. This handful's estimate is two hundred and thirty-nine. The gap below the smallest number holds a hundred and fifty-seven boxes, and the recipe treats it like any other gap. That gap is the clue. In a fair draw from two hundred boxes, all five numbers above a hundred and fifty would happen less than once in a thousand."
+    },
+    {
+      "id": "14u4",
+      "line_ids": [
+        "14_7"
+      ],
+      "text": "So the other four numbers earn their keep after all. Once the largest is known, they add nothing to our best unbiased recipe under the fair model. But they can warn us that the draw wasn't fair. An unlikely handful is a warning, not proof."
+    },
+    {
+      "id": "15u1",
+      "line_ids": [
+        "15_1",
+        "15_2"
+      ],
+      "text": "Another assumption was that numbering starts at one. A company might begin at an unknown number instead. Then the gap below the smallest is hidden too. Two gaps are unknown, one at each end, and the four inner gaps are the only clues."
+    },
+    {
+      "id": "15u2",
+      "line_ids": [
+        "15_3"
+      ],
+      "text": "Between fourteen and sixty, the inner gaps hold forty-two boxes, ten and a half per gap. And fourteen to sixty spans forty-seven numbers."
+    },
+    {
+      "id": "15u3",
+      "line_ids": [
+        "15_4"
+      ],
+      "text": "Add one average inner gap at each end. What's the estimate now?"
+    },
+    {
+      "id": "15u4",
+      "line_ids": [
+        "15_5"
+      ],
+      "text": "Sixty-eight. It's the same gap idea with two hidden gaps instead of one, and in a fair draw it's unbiased too. That's a count of boxes, not the last serial number."
+    },
+    {
+      "id": "15u5",
+      "line_ids": [
+        "15_6",
+        "15_7",
+        "15_8"
+      ],
+      "text": "One last trap. Every box having the same chance isn't enough. Every handful of five must be equally likely. Return to numbering from one. Suppose ten boxes were made. A coin flip chooses your delivery: boxes one to five, or boxes six to ten. Every box has a one in two chance of reaching you. But those chances are tied together: you always receive an entire delivery, never a mixed handful."
+    },
+    {
+      "id": "15u6",
+      "line_ids": [
+        "15_9"
+      ],
+      "text": "Our original, starts-at-one recipe gives estimates five or eleven. Those average eight, not ten. Equal chances for individual boxes did not make the draw fair."
+    },
+    {
+      "id": "16u1",
+      "line_ids": [
+        "16_1"
+      ],
+      "text": "This puzzle is often called the German tank problem. In the Second World War, Allied analysts estimated German production from serial numbers on captured equipment."
+    },
+    {
+      "id": "16u2",
+      "line_ids": [
+        "16_2",
+        "16_3"
+      ],
+      "text": "The reasoning needs no war. It needs numbers that count up from one without skipping, and a fair handful. So, the five friends. Box sixty proves there are at least sixty. The gaps say about seventy-one."
+    },
+    {
+      "id": "16u3",
+      "line_ids": [
+        "16_4"
+      ],
+      "text": "In a fair draw, that recipe is right on average at every possible count. Among recipes that are unbiased at every count, none has a smaller average squared miss."
+    },
+    {
+      "id": "16u4",
+      "line_ids": [
+        "16_5"
+      ],
+      "text": "But seventy-one is one estimate from one handful. Our ninety-five percent confidence range runs from sixty to a hundred and seven. The percentage describes repeated use of the procedure, not a probability for this particular count."
+    },
+    {
+      "id": "16u5",
+      "line_ids": [
+        "16_6"
+      ],
+      "text": "And if those five were drawn fairly from one shop's stock, numbered from one, the recipe estimates the shop's stock, not the whole company."
+    },
+    {
+      "id": "16u6",
+      "line_ids": [
+        "16_7"
+      ],
+      "text": "Now return to a fair draw from the company. A sixth friend turns up with box ninety. What's the new estimate?"
+    },
+    {
+      "id": "16u7",
+      "line_ids": [
+        "16_8"
+      ],
+      "text": "Ninety, plus one average gap. Six gaps below ninety hold eighty-four boxes, fourteen per gap, so about a hundred and four."
+    },
+    {
+      "id": "16u8",
+      "line_ids": [
+        "16_9"
+      ],
+      "text": "The largest number tells you where the count begins. The gaps tell you the rest, as long as the draw was fair."
+    }
+  ],
+  "direction_contract": {
+    "schema_version": 1,
+    "topic": "german_tank",
+    "script_sha256": "652c925a2eb9edfdeeb43a7c17938fc8f0ecc18d09cbb6f92346d8ac8f0cab57",
+    "map": {
+      "path": "explainer_corpus/german_tank/docs/narration-direction-map.json",
+      "sha256": "473efcbab933a02df2c62eac1b2210aae21a3b2ef29131fa87aa6ef34f426297"
+    }
+  }
+}

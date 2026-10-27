@@ -1,0 +1,96 @@
+# parrondo: generated from docs/storyboard.md by tools/storyboard.py; edit the storyboard, not this file
+01_1	Here are two games. Every round, you win a dollar or lose one.
+01_2	Game A is one bent coin. It lands heads forty-nine and a half percent of the time, and heads wins.
+01_3	In a hundred rounds you expect forty-nine and a half wins and fifty and a half losses. That's a dollar lost, a cent a round.
+01_4	Game B has two coins and a rule. Before each round, count your dollars.
+01_5	If the count divides by three, you toss the bad coin, heads only nine and a half percent of the time. Otherwise you toss the good coin, heads seventy-four and a half percent.
+01_6	Two counts in every three don't divide by three. If the good coin really got two rounds in three, game B would win fifty-two point eight percent of them.
+01_7	So does game B win or lose in the long run?
+01_8	It loses, a little under a cent a round. Now flip a fair coin before every round to choose A or B. That mix of two losing games wins, just over one and a half cents a round.
+01_9	The catch is hidden in game B's rule, the part that looks at your money.
+02_1	Game B asks one question about your money. When you divide your dollars by three, what's left over?
+02_2	Six leaves nothing over. Seven leaves one, eight leaves two, and nine leaves nothing again. That leftover is the remainder, and it's always zero, one or two.
+02_3	So draw three corners, one for each remainder. A win moves you one corner forward, and from two that means around to zero. A loss moves you one corner back.
+02_4	Write game B on the triangle. From corner zero, the bad coin, forward nine and a half percent of the time. From corners one and two, the good coin, forward seventy-four and a half percent.
+02_5	Game A is the same from every corner, forward forty-nine and a half percent, back fifty and a half.
+02_6	Whether you hold six dollars or six hundred, game B plays the same way at corner zero. So what decides game B is how often you stand at each corner.
+02_7	If you play only game A for a long time, what share of the rounds do you spend at corner zero?
+02_8	One third. Game A treats every corner alike, so in the long run the corners share the rounds equally. Game B does not.
+03_1	The percentages in these games are round numbers with half a percentage point shaved off. For now, put the half point back.
+03_2	Game A becomes a fair coin, heads exactly half the time, so on average it neither wins nor loses. Game B gets a ten percent coin at corner zero and a seventy-five percent coin everywhere else.
+03_3	With equal thirds at every corner, B would now win fifty-three point three percent of its rounds.
+03_4	But do the corners really get a third each under game B?
+03_5	Watch a crowd find out. Twenty-six players start at corner zero, and every one of them plays game B.
+03_6	Let the crowd split exactly by the coins' chances. After one round, a tenth of it moves forward and nine tenths fall back to corner two.
+03_7	The next round, three quarters of corner two win their way around to zero. The crowd sloshes back and forth between corners zero and two.
+03_8	Round after round the sloshing dies down, and the crowd settles at ten players on corner zero, four on corner one and twelve on corner two.
+04_1	Check that this crowd really stays put. At corner zero, ten players toss the bad coin. One wins and moves forward. Nine lose and drop back to corner two.
+04_2	At corner one, four players toss the good coin. Three win and move on to corner two, and one falls back to zero.
+04_3	At corner two, twelve players. Nine win and wrap around to zero, and three fall back to one.
+04_4	Now let everyone move at once. How many players land on each corner?
+04_5	Corner zero gets one plus nine, ten. Corner one gets one plus three, four. Corner two gets nine plus three, twelve. Every player moved, and the crowd looks exactly the same.
+04_6	Count the winners. One, three and nine make thirteen, exactly half of twenty-six. Without the half point, game B is perfectly fair.
+04_7	Now look at where the crowd sits. Ten of twenty-six is thirty-eight and a half percent, more than a third.
+04_8	Those extra rounds at corner zero, with the bad coin, cancel the good coin's advantage exactly.
+05_1	Why does corner zero collect extra players? Follow one who has just arrived there. Where is that player most likely to be one round later?
+05_2	At corner two, nine times in ten. The bad coin knocks them back. And from corner two, the good coin usually wins, which carries them forward, around to zero again.
+05_3	So most of the good coin's wins at corner two just bring the player back to zero, where the bad coin waits.
+05_4	That's the trap in game B. The good coin wins often, but its wins keep getting spent on climbing back to a multiple of three.
+05_5	One change removes the trap. Let a die choose B's coin instead of your money. A one or a two means the bad coin, anything else the good coin.
+05_6	Now the bad coin really does get one round in three, wherever you stand, and this game wins fifty-three point three percent of the time.
+05_7	Same two coins. Only the rule that picks between them changed. Reading your money is what drags game B from fifty-three point three percent down to exactly half.
+05_8	Each corner's long-run share of the rounds is called its weight. For game B, the weights are five thirteenths, two thirteenths and six thirteenths.
+06_1	Now mix the games. Before every round, a fair coin decides whether you play A or B.
+06_2	On the triangle, every arrow becomes an average. At corner zero, half the time it's A's fifty percent, half the time B's ten percent. So forward thirty percent in all.
+06_3	At corners one and two, halfway between fifty and seventy-five, forward sixty-two and a half percent.
+06_4	Start the mix from game B's settled crowd, ten, four and twelve. Which way will the crowd shift?
+06_5	Off corner zero. Round by round, corner zero's share falls from thirty-eight point five percent to thirty-four point six, and corner one's climbs from fifteen point four to twenty-five point four.
+06_6	Game A's coin ignores the corners, so its rounds keep stirring the crowd toward equal thirds. That shift of weight off corner zero is where the winning comes from.
+07_1	Split the mix's rounds into A rounds and B rounds. The A rounds win exactly half the time, at every corner, so they can't be where the winning comes from.
+07_2	Game B's chance of winning depends on just one number, its share of rounds at corner zero. Every round it spends there swaps a seventy-five percent coin for a ten percent one.
+07_3	At a third, B wins fifty-three point three percent. At game B's own thirty-eight point five, exactly half.
+07_4	Inside the mix, B's rounds spend thirty-four point six percent at corner zero. So what do they win?
+07_5	Fifty-two point five percent. Averaged with the A rounds' fifty, the mix wins fifty-one point three percent of all its rounds.
+07_6	On average, that's a gain of just over two and a half cents a round.
+07_7	So game A's rounds only break even. They move the crowd off the bad corner, and game B's good coin does the winning.
+07_8	Remember the first count, with a third of the rounds at each corner? The mix pushes the crowd most of the way back to it.
+08_1	Now shave the half point off every coin again, as Harmer and Abbott did when they published these games.
+08_2	Game A slips from fair to losing a cent a round.
+08_3	Game B's crowd barely moves. Corner zero still holds thirty-eight point four percent of its rounds, and with the weaker coins that's now too many. B loses a little under a cent a round.
+08_4	The mix had an edge of just over two and a half cents a round. Does it survive the handicap?
+08_5	It does. The half point costs the mix about one cent a round, and the edge was bigger than that. The mix still wins just over one and a half cents a round.
+08_6	Inside the mix, corner zero still holds only thirty-four and a half percent, so B's rounds still win fifty-two point one percent.
+08_7	That's every number from the opening. A loses a cent a round, B a little under a cent, and the coin-flip mix of the two wins.
+08_8	Harmer and Abbott named the effect after its discoverer, Juan Parrondo. Their paper, in Nature in nineteen ninety-nine, is a single page.
+09_1	There's a test that decides any game like these, without finding where the crowd settles. It starts from how a settled crowd moves around the triangle.
+09_2	Go back to the round numbers, and take the mix's crowd, scaled up to one thousand four hundred eighteen players so every count is whole. Across each edge, twelve more players go forward than come back.
+09_3	Every forward step wins a dollar and every backward step loses one. So how many dollars does this crowd gain each round?
+09_4	Thirty-six, twelve for each of the three edges. That's seven hundred twenty-seven winners against six hundred ninety-one losers.
+09_5	In any settled crowd, every edge carries the same net flow, and the gain per round is three times it. A game is fair exactly when that flow is zero.
+10_1	When is the net flow zero? Then every edge balances on its own, the players going forward across it equal to the players coming back.
+10_2	Multiply the three balances together. The weights appear once on each side and cancel.
+10_3	What's left compares the two ways around. Winning three times in a row, all the way around the triangle, is exactly as likely as losing three times in a row the other way.
+10_4	For game B without the half point, a tenth times three quarters times three quarters, against nine tenths times a quarter times a quarter. Both come to nine over one hundred sixty. Balanced, so fair.
+10_5	For the mix, the forward product is thirty percent times sixty-two and a half percent twice over. The backward product is seventy percent times thirty-seven and a half percent twice over. Which is bigger?
+10_6	Forward, seventy-five over six hundred forty against sixty-three. When the forward product is bigger, the crowd turns forward and the game wins. When it's smaller, the game loses.
+10_7	With the half point shaved off, game B's forward product drops below its backward one, and the mix's stays above. Two products per game decide A, B and the mix.
+11_1	Switching helped here for one reason. Game B's coin reads your money, and game A's rounds move your money around.
+11_2	Mix two ordinary coins and you get an ordinary coin with the average chance. Two losing ordinary coins always mix into a losing one.
+11_3	Even these two games don't win under every schedule. What happens if you strictly alternate, A, then B, then A, then B?
+11_4	It loses, about two thirds of a cent a round. The random mix wins, and the rigid alternation of the same two games loses. Two A's, then two B's, the pattern in the original paper, wins about one and a half cents.
+11_5	The share of A matters too. With A on only one round in twenty, the mix loses. With A on nine rounds in ten, it loses again. The mix wins only when A's share is between about seven and eighty-five percent.
+11_6	So there is no general rule that switching between losing games wins. It works here, with these coins and these schedules, because one game reads the money and the other moves it.
+12_1	Just over one and a half cents a round is an average over the very long run. Over a hundred rounds, luck is much bigger than that.
+12_2	Start a crowd at zero dollars and let everyone play the mix for a hundred rounds. Just over half finish ahead, and about two in five finish behind.
+12_3	After a thousand rounds, what share of the crowd is ahead?
+12_4	A little more than two in three. The average gain grows in step with the number of rounds, while the spread of luck grows only like its square root.
+12_5	In the long run, a player's average per round settles on just over one and a half cents, with probability one. Over a thousand rounds of game A or game B alone, most players end up behind.
+12_6	These are invented games. What they teach is about chances that depend on where you stand, and none of it is advice about real money.
+13_1	Back to the start. Game A loses a cent a round, wherever you stand.
+13_2	Game B loses because its crowd piles up at corner zero, where the bad coin waits and the good coin's wins keep returning it.
+13_3	Flip a fair coin between them, and game A's rounds keep pushing the crowd off corner zero. Game B's rounds, played from better corners, now win more than half the time.
+13_4	So losing, for game B, depends on two things, its coins and where its crowd settles. A partner game can change the second.
+13_5	One last check. For game A, with forty-nine and a half percent at every corner, which way round the triangle is more likely, three wins or three losses?
+13_6	Three losses. Fifty and a half percent, three times over, beats forty-nine and a half, three times over. Game A loses, as the first minute showed.
+13_7	For any game drawn on this triangle, the verdict is that comparison. Win, win, win one way round against lose, lose, lose the other. Whichever is more likely is the way the money flows.
+13_8	To look further, search for Parrondo's paradox, Markov chains, and the flashing ratchet that Harmer and Abbott compared it to.

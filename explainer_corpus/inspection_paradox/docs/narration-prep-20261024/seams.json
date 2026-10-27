@@ -1,0 +1,2025 @@
+{
+ "about": "Every within-chapter cue seam of the projected inspection script (01-12), classified from the construct sources for coherent-unit planning. Source reading and arithmetic only: no Cargo, synthesis or measurement.",
+ "method": {
+  "boundary": "A think, an authored window (kit.music_breath), kit.hold/stand or wait_until/pause between two says makes the seam a unit boundary (events give file lines). Chapter ends are always boundaries.",
+  "animation_only": "Otherwise tail_s is the hand-read total run time of the animations after the line's last wait_for anchor (derivation per seam); speech_after_anchor_s apportions the line's words at 2.68 words/s by characters from the anchor (the kit's timed_sentences rule); slack_s = speech - tail, slack_fast_s the same at 3.0 words/s. slack_s < 0.5 is a boundary (overrun if negative, tight otherwise); deliberate marks picture time designed to run past the line. Estimates, not measurements.",
+  "why": "narration.rs say() requires zero inserted samples between contiguous cues of one coherent take (sounding edges), so a seam inside a unit must not wait on the picture.",
+  "preview": "gap_s is the observed next-start minus end in root's native --scratch-voice render (2.6 words/s + 0.4 s a line); over 1.05 s means a hold or overrun. bound = rendered from today's chapter and script bytes; source-bound = chapter bytes equal, script changed since; unbound = input hashes not recorded. Corroboration only."
+ },
+ "inputs": {
+  "projected_script": {
+   "path": "explainer_corpus/inspection_paradox/docs/narration-prep-20261024/projected-script.tsv",
+   "sha256": "8a65ec15cfafd499006ac2590013562744eb81d478fd50e1b67ea8968920ad50"
+  },
+  "chapter_sources": [
+   {
+    "path": "explainer_corpus/inspection_paradox/src/chapters/at_random.rs",
+    "sha256": "f43764c1e1747d1ba4b8d690a7355f835607bbc00530912a09a698f44bfd5fbf"
+   },
+   {
+    "path": "explainer_corpus/inspection_paradox/src/chapters/back_to_the_stop.rs",
+    "sha256": "3c98fc169d961cbda78e80df5f1b3e3b53b3c73193f3ecb957391f733dcf6ee1"
+   },
+   {
+    "path": "explainer_corpus/inspection_paradox/src/chapters/no_bus_late.rs",
+    "sha256": "5ebf1bb67b955f8a3bfd5f567ec18a12938136c9e3741ce2453ef3dbf588e42b"
+   },
+   {
+    "path": "explainer_corpus/inspection_paradox/src/chapters/one_a_minute.rs",
+    "sha256": "747ac26e1ed363d399df3f9a20a9101e8588c894acf89b46343cd65dbce13995"
+   },
+   {
+    "path": "explainer_corpus/inspection_paradox/src/chapters/one_more_timetable.rs",
+    "sha256": "e067a6d02a7f4206b4e370c821a7e94ef7ceb8607ba10f7982ca398a153ad4c2"
+   },
+   {
+    "path": "explainer_corpus/inspection_paradox/src/chapters/same_sum.rs",
+    "sha256": "6a6cf394f33a520515a635b0b97adc99dfc8064a6d834a5ee0fb269242ef8ed1"
+   },
+   {
+    "path": "explainer_corpus/inspection_paradox/src/chapters/stretch_one_gap.rs",
+    "sha256": "9087c041da02577766e5494f48ddd6434238c9fdfdb3682ca1d8943cbce19c36"
+   },
+   {
+    "path": "explainer_corpus/inspection_paradox/src/chapters/the_formula.rs",
+    "sha256": "55876aff31002fe21636849a8833163cb677d0d62a8f90a1c876103d93daeeee"
+   },
+   {
+    "path": "explainer_corpus/inspection_paradox/src/chapters/the_stop.rs",
+    "sha256": "1432b76358c2dfeb685bc8fc407e1ecd9aeeae0cb74f1db6bb35f7eabdf1b841"
+   },
+   {
+    "path": "explainer_corpus/inspection_paradox/src/chapters/triangles.rs",
+    "sha256": "dc74a296270986ab43bfe4c5bc194fb4ab8985909803f66751e9b29dd843aae3"
+   },
+   {
+    "path": "explainer_corpus/inspection_paradox/src/chapters/two_averages.rs",
+    "sha256": "78325de488aa368adf1c5cd9b0481ae6af839f297ef179948ccd03372a570756"
+   },
+   {
+    "path": "explainer_corpus/inspection_paradox/src/chapters/two_ways_to_count.rs",
+    "sha256": "8e5d0386e85453d7053acb1a636d0fac018c94b9a1d523f38e68634a838c70f7"
+   }
+  ],
+  "helpers": [
+   {
+    "path": "explainer_corpus/inspection_paradox/src/chapters/draw.rs",
+    "sha256": "e51741b39e65e31a61f9c8b490b8dc99976197abbdc687ee75e3939833ba7f30"
+   },
+   {
+    "path": "explainer_corpus/inspection_paradox/src/chapters/timetable.rs",
+    "sha256": "66c43d843f42b762f208ca7b523dc8470b1e7b9339ec001c8fe059016d64facf"
+   }
+  ],
+  "kit": [
+   {
+    "path": "crates/explainer_kit/src/narration.rs",
+    "sha256": "af63c2af9cbadb0fe5193d862ba96047a89c6b006f04ab74ca782a3dfa3c38d8"
+   },
+   {
+    "path": "crates/explainer_kit/src/kit.rs",
+    "sha256": "3c146947e3bca55befd92e1fc7e63530ebd85eba27ad2ecb35d60f02e28a45ad"
+   }
+  ],
+  "previews": [
+   {
+    "path": "narration_lab/third-wave-20261024/root/native-qualification/inspection-chapter03-09/output/03_stretch_one_gap.cues.tsv",
+    "sha256": "6b152d9d7dfe6bc28f46786834554fb980aa51235acd3e79a31b5384abcb4bd7",
+    "binding": "unbound"
+   },
+   {
+    "path": "narration_lab/third-wave-20261024/root/native-qualification/inspection-chapters07/output/02_two_ways_to_count.cues.tsv",
+    "sha256": "1e1003a2893598533ca8a30202ca345bff709ce658f4fde71b8b4955d5e029db",
+    "binding": "unbound"
+   },
+   {
+    "path": "narration_lab/third-wave-20261024/root/native-qualification/inspection-opening05/output/01_the_stop.cues.tsv",
+    "sha256": "a7133f57e575e51d74f1499666ac56d3fc2015ace23bd5f2b03fadb18e332d7b",
+    "binding": "unbound"
+   },
+   {
+    "path": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview10/04_one_a_minute.cues.tsv",
+    "sha256": "c0e1d2282672a4b3e2e237680a55624558ee66b5ff2eefa08398d477294128d7",
+    "binding": "source-bound"
+   },
+   {
+    "path": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview11/05_triangles.cues.tsv",
+    "sha256": "73ae3b1ef23674bdb3a416e27ab3f397954c57a8af3c0b02ad8e1c7082180fd0",
+    "binding": "source-bound"
+   },
+   {
+    "path": "narration_lab/third-wave-20261024/root/tend-1054/inspection-preview15/06_two_averages.cues.tsv",
+    "sha256": "ea925ab8d10c2f17a70ddd00feec09a9f6d839a566dbe69241ab511533395d20",
+    "binding": "source-bound"
+   },
+   {
+    "path": "narration_lab/third-wave-20261024/root/tend-1054/inspection-preview15/07_no_bus_late.cues.tsv",
+    "sha256": "7cafa42a7249abcfa448ec7217944b8163b90024f5fffb7cfd3150f6fca16962",
+    "binding": "source-bound"
+   },
+   {
+    "path": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview17/09_at_random.cues.tsv",
+    "sha256": "b1c80dd0eee68fe29ece3af6521ced3adfae69f298141aaf4e78c91a7fb59b62",
+    "binding": "bound"
+   },
+   {
+    "path": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview18/08_the_formula.cues.tsv",
+    "sha256": "248f357df40743db927b8f8706c89d53d94bcd1be9f08837d5872b63972f7407",
+    "binding": "bound"
+   }
+  ]
+ },
+ "seams": [
+  {
+   "seam": "01_1|01_2",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/the_stop.rs",
+   "say_lines": [
+    297,
+    307
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "You walk to the stop",
+   "anchor_line": 302,
+   "tail_s": 2.0,
+   "tail": "fly(me) 2.0",
+   "speech_after_anchor_s": 5.41,
+   "slack_s": 3.41,
+   "slack_fast_s": 2.84,
+   "preview": {
+    "gap_s": 0.84,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-opening05/output/01_the_stop.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "01u1"
+  },
+  {
+   "seam": "01_2|01_3",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/the_stop.rs",
+   "say_lines": [
+    307,
+    329
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "the red bus",
+   "anchor_line": 321,
+   "tail_s": 1.0,
+   "tail": "fade_in_lagged(red) 1.0",
+   "speech_after_anchor_s": 3.56,
+   "slack_s": 2.56,
+   "slack_fast_s": 2.18,
+   "preview": {
+    "gap_s": 0.6,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-opening05/output/01_the_stop.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "01u1"
+  },
+  {
+   "seam": "01_3|01_4",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/the_stop.rs",
+   "say_lines": [
+    329,
+    375
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "Ten buses",
+   "anchor_line": 362,
+   "tail_s": 1.9,
+   "tail": "fade_in_all(sign[2..]) 0.5 + flash_lagged(in_order) 1.4",
+   "speech_after_anchor_s": 4.13,
+   "slack_s": 2.23,
+   "slack_fast_s": 1.79,
+   "preview": {
+    "gap_s": 0.86,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-opening05/output/01_the_stop.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "01_4|01_5",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/the_stop.rs",
+   "say_lines": [
+    375,
+    395
+   ],
+   "decision": "boundary",
+   "kind": "deliberate_overrun",
+   "anchor": "Some mornings you've",
+   "anchor_line": 381,
+   "tail_s": 4.6,
+   "tail": "morning(): fade 0.3 + tween GROW_RT 0.6 + fade 0.3 + steady UNLUCKY_RT 2.6; fade_out 0.4; dim_ghost 0.4",
+   "speech_after_anchor_s": 2.64,
+   "slack_s": -1.96,
+   "slack_fast_s": -2.24,
+   "deliberate": "the unlucky morning's countdown runs past the line",
+   "preview": {
+    "gap_s": 1.74,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-opening05/output/01_the_stop.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "01_5|01_6",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/the_stop.rs",
+   "say_lines": [
+    395,
+    416
+   ],
+   "decision": "boundary",
+   "kind": "prediction",
+   "events": [
+    {
+     "kind": "think",
+     "line": 412,
+     "code": "let ask = think(&kit, stage, THINK_AT)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 5.14,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-opening05/output/01_the_stop.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "01_6|01_7",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/the_stop.rs",
+   "say_lines": [
+    416,
+    468
+   ],
+   "decision": "boundary",
+   "kind": "reading_hold",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 463,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "until",
+     "line": 464,
+     "code": "wait_until(stage, card_up + read_s(K01))?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 3.24,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-opening05/output/01_the_stop.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "02_1|02_2",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/two_ways_to_count.rs",
+   "say_lines": [
+    240,
+    281
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "Five short gaps",
+   "anchor_line": 260,
+   "tail_s": 0.5,
+   "tail": "fade_in_all(counters) 0.5",
+   "speech_after_anchor_s": 2.43,
+   "slack_s": 1.93,
+   "slack_fast_s": 1.68,
+   "preview": {
+    "gap_s": 0.87,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-chapters07/output/02_two_ways_to_count.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "02u1"
+  },
+  {
+   "seam": "02_2|02_3",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/two_ways_to_count.rs",
+   "say_lines": [
+    281,
+    327
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "they average six",
+   "anchor_line": 321,
+   "tail_s": 1.2,
+   "tail": "fade_in_all(tally[2..]) 0.4 + flash_all 0.8",
+   "speech_after_anchor_s": 3.13,
+   "slack_s": 1.93,
+   "slack_fast_s": 1.59,
+   "preview": {
+    "gap_s": 0.64,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-chapters07/output/02_two_ways_to_count.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "02u1"
+  },
+  {
+   "seam": "02_3|02_4",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/two_ways_to_count.rs",
+   "say_lines": [
+    327,
+    348
+   ],
+   "decision": "boundary",
+   "kind": "tight",
+   "anchor": "inside a gap",
+   "anchor_line": 334,
+   "tail_s": 0.5,
+   "tail": "fade_in_with(my_span, dims) 0.5",
+   "speech_after_anchor_s": 1.0,
+   "slack_s": 0.5,
+   "slack_fast_s": 0.39,
+   "preview": {
+    "gap_s": 0.83,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-chapters07/output/02_two_ways_to_count.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "02_4|02_5",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/two_ways_to_count.rs",
+   "say_lines": [
+    348,
+    368
+   ],
+   "decision": "boundary",
+   "kind": "prediction",
+   "events": [
+    {
+     "kind": "think",
+     "line": 363,
+     "code": "let q = think(&kit, stage, THINK_AT)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 5.15,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-chapters07/output/02_two_ways_to_count.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "02_5|02_6",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/two_ways_to_count.rs",
+   "say_lines": [
+    368,
+    411
+   ],
+   "decision": "boundary",
+   "kind": "tight",
+   "anchor": "fifty of them",
+   "anchor_line": 402,
+   "tail_s": 2.0,
+   "tail": "steady(landed) SWEEP_RT 2.0",
+   "speech_after_anchor_s": 2.4,
+   "slack_s": 0.4,
+   "slack_fast_s": 0.14,
+   "preview": {
+    "gap_s": 0.86,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-chapters07/output/02_two_ways_to_count.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "02_6|02_7",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/two_ways_to_count.rs",
+   "say_lines": [
+    411,
+    470
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "five sixths",
+   "anchor_line": 446,
+   "tail_s": 0.4,
+   "tail": "fade_in_all(caption, equation) 0.4",
+   "speech_after_anchor_s": 1.79,
+   "slack_s": 1.39,
+   "slack_fast_s": 1.2,
+   "preview": {
+    "gap_s": 0.61,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-chapters07/output/02_two_ways_to_count.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "02u4"
+  },
+  {
+   "seam": "03_1|03_2",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/stretch_one_gap.rs",
+   "say_lines": [
+    504,
+    544
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "Now every gap",
+   "anchor_line": 529,
+   "tail_s": 0.6,
+   "tail": "fade_in_all(coming) 0.6",
+   "speech_after_anchor_s": 2.09,
+   "slack_s": 1.49,
+   "slack_fast_s": 1.27,
+   "preview": {
+    "gap_s": 0.83,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-chapter03-09/output/03_stretch_one_gap.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "03u1"
+  },
+  {
+   "seam": "03_2|03_3",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/stretch_one_gap.rs",
+   "say_lines": [
+    544,
+    587
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "The two counts agree",
+   "anchor_line": 575,
+   "tail_s": 0.6,
+   "tail": "flash_all(upper[1], value) 0.6",
+   "speech_after_anchor_s": 1.62,
+   "slack_s": 1.02,
+   "slack_fast_s": 0.84,
+   "preview": {
+    "gap_s": 0.64,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-chapter03-09/output/03_stretch_one_gap.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "03_3|03_4",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/stretch_one_gap.rs",
+   "say_lines": [
+    587,
+    602
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "The same ten buses",
+   "anchor_line": 596,
+   "tail_s": 0.8,
+   "tail": "flash_all(sign) 0.8",
+   "speech_after_anchor_s": 6.11,
+   "slack_s": 5.31,
+   "slack_fast_s": 4.66,
+   "preview": {
+    "gap_s": 0.85,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-chapter03-09/output/03_stretch_one_gap.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "03u2"
+  },
+  {
+   "seam": "03_4|03_5",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/stretch_one_gap.rs",
+   "say_lines": [
+    602,
+    621
+   ],
+   "decision": "boundary",
+   "kind": "authored_window",
+   "events": [
+    {
+     "kind": "window",
+     "line": 618,
+     "code": "kit.music_breath(stage, BREATH_S)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 3.9,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-chapter03-09/output/03_stretch_one_gap.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "03_5|03_6",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/stretch_one_gap.rs",
+   "say_lines": [
+    621,
+    631
+   ],
+   "decision": "boundary",
+   "kind": "prediction",
+   "events": [
+    {
+     "kind": "think",
+     "line": 625,
+     "code": "let q = think(&kit, stage, THINK_AT)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 5.14,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-chapter03-09/output/03_stretch_one_gap.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "03_6|03_7",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/stretch_one_gap.rs",
+   "say_lines": [
+    631,
+    648
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "And the sign",
+   "anchor_line": 636,
+   "tail_s": 1.5,
+   "tail": "fade_out_all(upper) 0.3 + fade_in_all(over) 0.4 + flash_all 0.8",
+   "speech_after_anchor_s": 3.36,
+   "slack_s": 1.86,
+   "slack_fast_s": 1.5,
+   "preview": {
+    "gap_s": 0.62,
+    "binding": "unbound",
+    "file": "narration_lab/third-wave-20261024/root/native-qualification/inspection-chapter03-09/output/03_stretch_one_gap.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "03u4"
+  },
+  {
+   "seam": "04_1|04_2",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_a_minute.rs",
+   "say_lines": [
+    367,
+    394
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "the next blue bus",
+   "anchor_line": 388,
+   "tail_s": 0.6,
+   "tail": "fade_in_flashing(clocks[2]) 0.6",
+   "speech_after_anchor_s": 1.34,
+   "slack_s": 0.74,
+   "slack_fast_s": 0.59,
+   "preview": {
+    "gap_s": 0.85,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview10/04_one_a_minute.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "04u1"
+  },
+  {
+   "seam": "04_2|04_3",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_a_minute.rs",
+   "say_lines": [
+    394,
+    408
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "none of them looking",
+   "anchor_line": 399,
+   "tail_s": 0.5,
+   "tail": "fade_in_all(ghosts) 0.5",
+   "speech_after_anchor_s": 5.11,
+   "slack_s": 4.61,
+   "slack_fast_s": 4.06,
+   "preview": {
+    "gap_s": 0.81,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview10/04_one_a_minute.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "04_3|04_4",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_a_minute.rs",
+   "say_lines": [
+    408,
+    430
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "One minute each",
+   "anchor_line": 418,
+   "tail_s": 0.4,
+   "tail": "fade_in_all(short_mean) 0.4",
+   "speech_after_anchor_s": 2.11,
+   "slack_s": 1.71,
+   "slack_fast_s": 1.48,
+   "preview": {
+    "gap_s": 0.87,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview10/04_one_a_minute.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "04u2"
+  },
+  {
+   "seam": "04_4|04_5",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_a_minute.rs",
+   "say_lines": [
+    430,
+    453
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "your lucky one",
+   "anchor_line": 448,
+   "tail_s": 0.6,
+   "tail": "morning_label (static) + fade_in_flashing 0.6",
+   "speech_after_anchor_s": 3.61,
+   "slack_s": 3.01,
+   "slack_fast_s": 2.62,
+   "preview": {
+    "gap_s": 0.61,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview10/04_one_a_minute.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "04u2"
+  },
+  {
+   "seam": "04_5|04_6",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_a_minute.rs",
+   "say_lines": [
+    453,
+    467
+   ],
+   "decision": "boundary",
+   "kind": "prediction",
+   "events": [
+    {
+     "kind": "think",
+     "line": 463,
+     "code": "let q = think(&kit, stage, THINK_AT)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 5.14,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview10/04_one_a_minute.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "04_6|04_7",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_a_minute.rs",
+   "say_lines": [
+    467,
+    491
+   ],
+   "decision": "boundary",
+   "kind": "tight",
+   "anchor": "waited fifty",
+   "anchor_line": 479,
+   "tail_s": 0.6,
+   "tail": "fade_in_flashing(long_sum) 0.6",
+   "speech_after_anchor_s": 0.91,
+   "slack_s": 0.31,
+   "slack_fast_s": 0.21,
+   "preview": {
+    "gap_s": 0.6,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview10/04_one_a_minute.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "04_7|04_8",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_a_minute.rs",
+   "say_lines": [
+    491,
+    524
+   ],
+   "decision": "boundary",
+   "kind": "reading_hold",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 518,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "until",
+     "line": 519,
+     "code": "wait_until(stage, card_up + read_s(K02))?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 2.26,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview10/04_one_a_minute.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "05_1|05_2",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/triangles.rs",
+   "say_lines": [
+    466,
+    491
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "Up is how long",
+   "anchor_line": 486,
+   "tail_s": 0.6,
+   "tail": "fade_in_flashing(axis.name) 0.6",
+   "speech_after_anchor_s": 2.0,
+   "slack_s": 1.4,
+   "slack_fast_s": 1.19,
+   "preview": {
+    "gap_s": 0.84,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview11/05_triangles.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "05u1"
+  },
+  {
+   "seam": "05_2|05_3",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/triangles.rs",
+   "say_lines": [
+    491,
+    536
+   ],
+   "decision": "boundary",
+   "kind": "deliberate_overrun",
+   "anchor": "then jumps back up",
+   "anchor_line": 528,
+   "tail_s": 5.0,
+   "tail": "steady(ride) RIDE_S_PER_MIN 0.5 x 10 minutes",
+   "speech_after_anchor_s": 1.33,
+   "slack_s": -3.67,
+   "slack_fast_s": -3.82,
+   "deliberate": "the ride down the long gap's triangle runs past the line",
+   "preview": {
+    "gap_s": 3.55,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview11/05_triangles.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "05_3|05_4",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/triangles.rs",
+   "say_lines": [
+    536,
+    568
+   ],
+   "decision": "boundary",
+   "kind": "tight",
+   "anchor": "just as tall",
+   "anchor_line": 551,
+   "tail_s": 0.7,
+   "tail": "fade_in_flashing(levels) 0.7",
+   "speech_after_anchor_s": 1.1,
+   "slack_s": 0.4,
+   "slack_fast_s": 0.28,
+   "preview": {
+    "gap_s": 0.83,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview11/05_triangles.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "05_4|05_5",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/triangles.rs",
+   "say_lines": [
+    568,
+    601
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "So the total waiting",
+   "anchor_line": 593,
+   "tail_s": 1.4,
+   "tail": "fade_out_all(gone) 0.6 + pulse 2 x PULSE_RT/2 0.8",
+   "speech_after_anchor_s": 6.2,
+   "slack_s": 4.8,
+   "slack_fast_s": 4.14,
+   "preview": {
+    "gap_s": 0.83,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview11/05_triangles.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "05_5|05_6",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/triangles.rs",
+   "say_lines": [
+    601,
+    632
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "the fifty-two minutes",
+   "anchor_line": 620,
+   "tail_s": 0.6,
+   "tail": "fade_in_flashing(both) 0.6",
+   "speech_after_anchor_s": 2.72,
+   "slack_s": 2.12,
+   "slack_fast_s": 1.83,
+   "preview": {
+    "gap_s": 0.82,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview11/05_triangles.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "05u4"
+  },
+  {
+   "seam": "05_6|05_7",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/triangles.rs",
+   "say_lines": [
+    632,
+    664
+   ],
+   "decision": "boundary",
+   "kind": "prediction",
+   "events": [
+    {
+     "kind": "think",
+     "line": 660,
+     "code": "let q = think(&kit, stage, THINK_AT)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 5.19,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview11/05_triangles.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "05_7|05_8",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/triangles.rs",
+   "say_lines": [
+    664,
+    696
+   ],
+   "decision": "boundary",
+   "kind": "authored_window",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 691,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "window",
+     "line": 692,
+     "code": "kit.music_breath(stage, LOOK_S)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 2.18,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1011/inspection-preview11/05_triangles.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "06_1|06_2",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/two_averages.rs",
+   "say_lines": [
+    624,
+    688
+   ],
+   "decision": "boundary",
+   "kind": "tight",
+   "anchor": "the number on the sign",
+   "anchor_line": 680,
+   "tail_s": 1.4,
+   "tail": "fade_in_all(bus_sum) 0.5 + halo HALO_RT 0.9",
+   "speech_after_anchor_s": 1.64,
+   "slack_s": 0.24,
+   "slack_fast_s": 0.07,
+   "preview": {
+    "gap_s": 0.61,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1054/inspection-preview15/06_two_averages.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "06_2|06_3",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/two_averages.rs",
+   "say_lines": [
+    688,
+    737
+   ],
+   "decision": "boundary",
+   "kind": "overrun",
+   "anchor": "Five in six",
+   "anchor_line": 717,
+   "tail_s": 2.4,
+   "tail": "loop's last wait 'Five in six': fade_in_with(painted) 0.4 + play_lagged(long_births) 1.6; fade_in_all(person_caption) 0.4",
+   "speech_after_anchor_s": 1.59,
+   "slack_s": -0.81,
+   "slack_fast_s": -0.98,
+   "preview": {
+    "gap_s": 0.62,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1054/inspection-preview15/06_two_averages.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "06_3|06_4",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/two_averages.rs",
+   "say_lines": [
+    737,
+    745
+   ],
+   "decision": "boundary",
+   "kind": "prediction",
+   "events": [
+    {
+     "kind": "think",
+     "line": 741,
+     "code": "let q = think(&kit, stage, THINK_AT)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 5.15,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1054/inspection-preview15/06_two_averages.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "06_4|06_5",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/two_averages.rs",
+   "say_lines": [
+    745,
+    771
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "two honest averages",
+   "anchor_line": 761,
+   "tail_s": 0.5,
+   "tail": "fade_in_all(boxes) 0.5",
+   "speech_after_anchor_s": 1.3,
+   "slack_s": 0.8,
+   "slack_fast_s": 0.66,
+   "preview": {
+    "gap_s": 0.62,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1054/inspection-preview15/06_two_averages.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "06u4"
+  },
+  {
+   "seam": "06_5|06_6",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/two_averages.rs",
+   "say_lines": [
+    771,
+    814
+   ],
+   "decision": "boundary",
+   "kind": "reading_hold",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 808,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "until",
+     "line": 809,
+     "code": "wait_until(stage, card_up + read_s(&k03))?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 2.59,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1054/inspection-preview15/06_two_averages.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "06_6|06_7",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/two_averages.rs",
+   "say_lines": [
+    814,
+    846
+   ],
+   "decision": "boundary",
+   "kind": "reading_hold",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 840,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "until",
+     "line": 841,
+     "code": "wait_until(stage, names_up + read_s(&NAMES.join(\" · \")))?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 1.88,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1054/inspection-preview15/06_two_averages.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "07_1|07_2",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/no_bus_late.rs",
+   "say_lines": [
+    692,
+    736
+   ],
+   "decision": "boundary",
+   "kind": "overrun",
+   "anchor": "written into the timetable",
+   "anchor_line": 714,
+   "tail_s": 2.4,
+   "tail": "fade_in_lagged(rows) 1.2 + fade_in_lagged(ours) 1.2",
+   "speech_after_anchor_s": 1.83,
+   "slack_s": -0.57,
+   "slack_fast_s": -0.76,
+   "preview": {
+    "gap_s": 0.87,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1054/inspection-preview15/07_no_bus_late.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "07_2|07_3",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/no_bus_late.rs",
+   "say_lines": [
+    736,
+    798
+   ],
+   "decision": "boundary",
+   "kind": "reading_hold",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 791,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "until",
+     "line": 792,
+     "code": "wait_until(stage, card_up + read_s(K04))?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 1.78,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1054/inspection-preview15/07_no_bus_late.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "07_3|07_4",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/no_bus_late.rs",
+   "say_lines": [
+    798,
+    827
+   ],
+   "decision": "boundary",
+   "kind": "prediction",
+   "events": [
+    {
+     "kind": "think",
+     "line": 822,
+     "code": "let q = think(&kit, stage, THINK_AT)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 5.19,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1054/inspection-preview15/07_no_bus_late.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "07_4|07_5",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/no_bus_late.rs",
+   "say_lines": [
+    827,
+    854
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "the buses and the passengers agree",
+   "anchor_line": 844,
+   "tail_s": 0.5,
+   "tail": "fade_in_all(agree) 0.5",
+   "speech_after_anchor_s": 2.3,
+   "slack_s": 1.8,
+   "slack_fast_s": 1.55,
+   "preview": {
+    "gap_s": 0.62,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1054/inspection-preview15/07_no_bus_late.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "07u4"
+  },
+  {
+   "seam": "07_5|07_6",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/no_bus_late.rs",
+   "say_lines": [
+    854,
+    896
+   ],
+   "decision": "boundary",
+   "kind": "authored_window",
+   "events": [
+    {
+     "kind": "window",
+     "line": 888,
+     "code": "kit.music_breath(stage, LISTEN_S)?;"
+    },
+    {
+     "kind": "until",
+     "line": 889,
+     "code": "wait_until(stage, swept + sweep_s())?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 5.63,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1054/inspection-preview15/07_no_bus_late.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "07_6|07_7",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/no_bus_late.rs",
+   "say_lines": [
+    896,
+    912
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "the average is six",
+   "anchor_line": 907,
+   "tail_s": 0.4,
+   "tail": "mark_point: fade_in_all(dot, label) 0.4",
+   "speech_after_anchor_s": 1.25,
+   "slack_s": 0.85,
+   "slack_fast_s": 0.72,
+   "preview": {
+    "gap_s": 0.83,
+    "binding": "source-bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1054/inspection-preview15/07_no_bus_late.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "07u5"
+  },
+  {
+   "seam": "08_1|08_2",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/the_formula.rs",
+   "say_lines": [
+    1197,
+    1237
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "Any gap holds half its length squared",
+   "anchor_line": 1219,
+   "tail_s": 1.75,
+   "tail": "show_row (static) + carry: fly CARRY_RT 0.7 + fade_out 0.2 + fade_in 0.35; fade_in_all(g_labels) 0.5",
+   "speech_after_anchor_s": 2.7,
+   "slack_s": 0.95,
+   "slack_fast_s": 0.66,
+   "preview": {
+    "gap_s": 0.83,
+    "binding": "bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview18/08_the_formula.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "08u1"
+  },
+  {
+   "seam": "08_2|08_3",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/the_formula.rs",
+   "say_lines": [
+    1237,
+    1283
+   ],
+   "decision": "boundary",
+   "kind": "authored_window",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 1266,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "window",
+     "line": 1273,
+     "code": "kit.music_breath(stage, LETTERS_LOOK_S)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 5.36,
+    "binding": "bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview18/08_the_formula.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "08_3|08_4",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/the_formula.rs",
+   "say_lines": [
+    1283,
+    1326
+   ],
+   "decision": "boundary",
+   "kind": "authored_window",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 1297,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "window",
+     "line": 1313,
+     "code": "kit.music_breath(stage, LETTERS_LOOK_S)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 5.88,
+    "binding": "bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview18/08_the_formula.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "08_4|08_5",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/the_formula.rs",
+   "say_lines": [
+    1326,
+    1484
+   ],
+   "decision": "boundary",
+   "kind": "authored_window",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 1443,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "until",
+     "line": 1474,
+     "code": "pause(stage, read(&argument[..2]))?;"
+    },
+    {
+     "kind": "until",
+     "line": 1477,
+     "code": "pause(stage, read(std::slice::from_ref(shown)))?;"
+    },
+    {
+     "kind": "window",
+     "line": 1480,
+     "code": "kit.music_breath(stage, read(&argument[4..]).max(SQUARES_LOOK_S))?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 19.11,
+    "binding": "bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview18/08_the_formula.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "08_5|08_6",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/the_formula.rs",
+   "say_lines": [
+    1484,
+    1521
+   ],
+   "decision": "boundary",
+   "kind": "authored_window",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 1510,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "window",
+     "line": 1517,
+     "code": "kit.music_breath(stage, FORMULA_LOOK_S)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 4.01,
+    "binding": "bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview18/08_the_formula.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "08_6|08_7",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/the_formula.rs",
+   "say_lines": [
+    1521,
+    1556
+   ],
+   "decision": "boundary",
+   "kind": "tight",
+   "anchor": "not mornings",
+   "anchor_line": 1550,
+   "tail_s": 0.9,
+   "tail": "halo HALO_RT 0.9",
+   "speech_after_anchor_s": 0.92,
+   "slack_s": 0.02,
+   "slack_fast_s": -0.08,
+   "preview": {
+    "gap_s": 0.82,
+    "binding": "bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview18/08_the_formula.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "08_7|08_8",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/the_formula.rs",
+   "say_lines": [
+    1556,
+    1565
+   ],
+   "decision": "boundary",
+   "kind": "prediction",
+   "events": [
+    {
+     "kind": "think",
+     "line": 1560,
+     "code": "let q = think(&kit, stage, THINK_AT)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 5.19,
+    "binding": "bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview18/08_the_formula.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "09_1|09_2",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/at_random.rs",
+   "say_lines": [
+    632,
+    692
+   ],
+   "decision": "boundary",
+   "kind": "reading_hold",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 687,
+     "code": "kit.hold(stage)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 1.76,
+    "binding": "bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview17/09_at_random.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "09_2|09_3",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/at_random.rs",
+   "say_lines": [
+    692,
+    718
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "the long ones hold huge triangles",
+   "anchor_line": 708,
+   "tail_s": 0.8,
+   "tail": "pulse 2 x PULSE_RT/2 0.8",
+   "speech_after_anchor_s": 2.48,
+   "slack_s": 1.68,
+   "slack_fast_s": 1.41,
+   "preview": {
+    "gap_s": 0.85,
+    "binding": "bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview17/09_at_random.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "09u2"
+  },
+  {
+   "seam": "09_3|09_4",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/at_random.rs",
+   "say_lines": [
+    718,
+    725
+   ],
+   "decision": "boundary",
+   "kind": "prediction",
+   "events": [
+    {
+     "kind": "think",
+     "line": 722,
+     "code": "let q = think(&kit, stage, THINK_AT)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 5.17,
+    "binding": "bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview17/09_at_random.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "09_4|09_5",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/at_random.rs",
+   "say_lines": [
+    725,
+    742
+   ],
+   "decision": "boundary",
+   "kind": "reading_hold",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 737,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "until",
+     "line": 738,
+     "code": "wait_until(stage, card_up + read_s(&k06_text))?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 10.62,
+    "binding": "bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview17/09_at_random.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "09_5|09_6",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/at_random.rs",
+   "say_lines": [
+    742,
+    800
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "a gap averages six minutes",
+   "anchor_line": 794,
+   "tail_s": 0.9,
+   "tail": "halo HALO_RT 0.9",
+   "speech_after_anchor_s": 2.14,
+   "slack_s": 1.24,
+   "slack_fast_s": 1.01,
+   "preview": {
+    "gap_s": 0.86,
+    "binding": "bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview17/09_at_random.cues.tsv",
+    "held_or_overran": false
+   },
+   "in_unit": "09u4"
+  },
+  {
+   "seam": "09_6|09_7",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/at_random.rs",
+   "say_lines": [
+    800,
+    839
+   ],
+   "decision": "boundary",
+   "kind": "authored_window",
+   "events": [
+    {
+     "kind": "window",
+     "line": 819,
+     "code": "kit.music_breath(stage, VERDICT_LOOK_S)?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 2.6,
+    "binding": "bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview17/09_at_random.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "09_7|09_8",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/at_random.rs",
+   "say_lines": [
+    839,
+    914
+   ],
+   "decision": "boundary",
+   "kind": "reading_hold",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 871,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "until",
+     "line": 875,
+     "code": "wait_until(stage, names_up + read_s(&NAMES.join(\" · \")))?;"
+    }
+   ],
+   "preview": {
+    "gap_s": 5.02,
+    "binding": "bound",
+    "file": "narration_lab/third-wave-20261024/root/tend-1232/inspection-preview17/09_at_random.cues.tsv",
+    "held_or_overran": true
+   },
+   "in_unit": null
+  },
+  {
+   "seam": "10_1|10_2",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/same_sum.rs",
+   "say_lines": [
+    841,
+    868
+   ],
+   "decision": "boundary",
+   "kind": "tight",
+   "anchor": "the big groups get picked more often",
+   "anchor_line": 849,
+   "tail_s": 2.8,
+   "tail": "flash_lagged 1.0 + fade_in_with(corner moves) CORNER_RT 1.2 + fade_in_all(rooms) 0.6",
+   "speech_after_anchor_s": 2.8,
+   "slack_s": 0.0,
+   "slack_fast_s": -0.3,
+   "in_unit": null
+  },
+  {
+   "seam": "10_2|10_3",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/same_sum.rs",
+   "say_lines": [
+    868,
+    914
+   ],
+   "decision": "boundary",
+   "kind": "overrun",
+   "anchor": "six students",
+   "anchor_line": 898,
+   "tail_s": 1.1,
+   "tail": "grow_with(class_level) 0.6 + fade_in_all(school_sum) 0.5",
+   "speech_after_anchor_s": 0.91,
+   "slack_s": -0.19,
+   "slack_fast_s": -0.29,
+   "in_unit": null
+  },
+  {
+   "seam": "10_3|10_4",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/same_sum.rs",
+   "say_lines": [
+    914,
+    949
+   ],
+   "decision": "boundary",
+   "kind": "deliberate_overrun",
+   "anchor": "Ask every student in turn",
+   "anchor_line": 915,
+   "tail_s": 7.6,
+   "tail": "12 students: ASK_SLOW 3 x ASK_SLOW_RT 0.9 + 9 x ASK_RT 0.5 (each rt/2 tag + rt/2 bar) + caption 0.4",
+   "speech_after_anchor_s": 3.73,
+   "slack_s": -3.87,
+   "slack_fast_s": -4.27,
+   "deliberate": "asking every student in turn runs past the line",
+   "in_unit": null
+  },
+  {
+   "seam": "10_4|10_5",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/same_sum.rs",
+   "say_lines": [
+    949,
+    958
+   ],
+   "decision": "boundary",
+   "kind": "prediction",
+   "events": [
+    {
+     "kind": "think",
+     "line": 953,
+     "code": "let q = think(&kit, stage, THINK_AT)?;"
+    }
+   ],
+   "in_unit": null
+  },
+  {
+   "seam": "10_5|10_6",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/same_sum.rs",
+   "say_lines": [
+    958,
+    986
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "Ten of the twelve students",
+   "anchor_line": 978,
+   "tail_s": 2.1,
+   "tail": "flash_lagged(the_big) 1.2 + halo 0.9",
+   "speech_after_anchor_s": 3.47,
+   "slack_s": 1.37,
+   "slack_fast_s": 1.0,
+   "in_unit": "10u5"
+  },
+  {
+   "seam": "10_6|10_7",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/same_sum.rs",
+   "say_lines": [
+    986,
+    1020
+   ],
+   "decision": "boundary",
+   "kind": "reading_hold",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 991,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "until",
+     "line": 992,
+     "code": "wait_until(stage, fg_up + read_s(&s.fg))?;"
+    }
+   ],
+   "in_unit": null
+  },
+  {
+   "seam": "10_7|10_8",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/same_sum.rs",
+   "say_lines": [
+    1020,
+    1050
+   ],
+   "decision": "boundary",
+   "kind": "tight",
+   "anchor": "a sixth of the calls",
+   "anchor_line": 1044,
+   "tail_s": 0.9,
+   "tail": "halo 0.9",
+   "speech_after_anchor_s": 1.4,
+   "slack_s": 0.5,
+   "slack_fast_s": 0.35,
+   "in_unit": null
+  },
+  {
+   "seam": "10_8|10_9",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/same_sum.rs",
+   "say_lines": [
+    1050,
+    1087
+   ],
+   "decision": "boundary",
+   "kind": "reading_hold",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 1081,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "until",
+     "line": 1082,
+     "code": "wait_until(stage, k08_up + read_s(K08))?;"
+    }
+   ],
+   "in_unit": null
+  },
+  {
+   "seam": "11_1|11_2",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/back_to_the_stop.rs",
+   "say_lines": [
+    664,
+    711
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "All of that is true",
+   "anchor_line": 700,
+   "tail_s": 0.9,
+   "tail": "halo 0.9",
+   "speech_after_anchor_s": 1.62,
+   "slack_s": 0.72,
+   "slack_fast_s": 0.55,
+   "in_unit": "11u1"
+  },
+  {
+   "seam": "11_2|11_3",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/back_to_the_stop.rs",
+   "say_lines": [
+    711,
+    747
+   ],
+   "decision": "boundary",
+   "kind": "overrun",
+   "anchor": "where the waits are long",
+   "anchor_line": 738,
+   "tail_s": 2.4,
+   "tail": "fade_out_all(leaving) 0.4 + grow_lagged(tris) GROW_RT 2.0",
+   "speech_after_anchor_s": 1.89,
+   "slack_s": -0.51,
+   "slack_fast_s": -0.71,
+   "in_unit": null
+  },
+  {
+   "seam": "11_3|11_4",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/back_to_the_stop.rs",
+   "say_lines": [
+    747,
+    787
+   ],
+   "decision": "boundary",
+   "kind": "reading_hold",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 781,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "until",
+     "line": 782,
+     "code": "wait_until(stage, verdict_up + read_s(&s.verdict()))?;"
+    }
+   ],
+   "in_unit": null
+  },
+  {
+   "seam": "11_4|11_5",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/back_to_the_stop.rs",
+   "say_lines": [
+    787,
+    818
+   ],
+   "decision": "boundary",
+   "kind": "prediction",
+   "events": [
+    {
+     "kind": "think",
+     "line": 814,
+     "code": "let q = think(&kit, stage, THINK_AT)?;"
+    }
+   ],
+   "in_unit": null
+  },
+  {
+   "seam": "11_5|11_6",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/back_to_the_stop.rs",
+   "say_lines": [
+    818,
+    847
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "the triangles' average doesn't describe you",
+   "anchor_line": 838,
+   "tail_s": 0.8,
+   "tail": "fade_in_with(dimming) 0.8",
+   "speech_after_anchor_s": 2.68,
+   "slack_s": 1.88,
+   "slack_fast_s": 1.59,
+   "in_unit": "11u4"
+  },
+  {
+   "seam": "11_6|11_7",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/back_to_the_stop.rs",
+   "say_lines": [
+    847,
+    915
+   ],
+   "decision": "boundary",
+   "kind": "tight",
+   "anchor": "two for each red",
+   "anchor_line": 907,
+   "tail_s": 0.8,
+   "tail": "flash_all(red_stacks) 0.8",
+   "speech_after_anchor_s": 1.27,
+   "slack_s": 0.47,
+   "slack_fast_s": 0.34,
+   "in_unit": null
+  },
+  {
+   "seam": "12_1|12_2",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_more_timetable.rs",
+   "say_lines": [
+    829,
+    858
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "spread evenly over the hour",
+   "anchor_line": 851,
+   "tail_s": 0.5,
+   "tail": "fade_in_all(caption) 0.5",
+   "speech_after_anchor_s": 1.88,
+   "slack_s": 1.38,
+   "slack_fast_s": 1.18,
+   "in_unit": "12u1"
+  },
+  {
+   "seam": "12_2|12_3",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_more_timetable.rs",
+   "say_lines": [
+    858,
+    885
+   ],
+   "decision": "boundary",
+   "kind": "prediction",
+   "events": [
+    {
+     "kind": "think",
+     "line": 880,
+     "code": "let q = think(&kit, stage, THINK_AT)?;"
+    }
+   ],
+   "in_unit": null
+  },
+  {
+   "seam": "12_3|12_4",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_more_timetable.rs",
+   "say_lines": [
+    885,
+    907
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "The gap of eight",
+   "anchor_line": 900,
+   "tail_s": 1.2,
+   "tail": "fade_in_with(rows[1], tri) 0.6 + flash_all(bracket) 0.6",
+   "speech_after_anchor_s": 4.65,
+   "slack_s": 3.45,
+   "slack_fast_s": 2.96,
+   "in_unit": "12u2"
+  },
+  {
+   "seam": "12_4|12_5",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_more_timetable.rs",
+   "say_lines": [
+    907,
+    958
+   ],
+   "decision": "boundary",
+   "kind": "reading_hold",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 935,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "until",
+     "line": 937,
+     "code": "wait_until(stage, (step_up + read_s(&n.step_text())).max(held + INSPECT_S))?;"
+    }
+   ],
+   "in_unit": null
+  },
+  {
+   "seam": "12_5|12_6",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_more_timetable.rs",
+   "say_lines": [
+    958,
+    978
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "The more even the gaps",
+   "anchor_line": 972,
+   "tail_s": 0.8,
+   "tail": "flash_all(marks[1][1]) 0.8",
+   "speech_after_anchor_s": 4.55,
+   "slack_s": 3.75,
+   "slack_fast_s": 3.26,
+   "in_unit": null
+  },
+  {
+   "seam": "12_6|12_7",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_more_timetable.rs",
+   "say_lines": [
+    978,
+    1013
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "four minutes twenty",
+   "anchor_line": 1006,
+   "tail_s": 0.5,
+   "tail": "fade_in_all(cost) 0.5",
+   "speech_after_anchor_s": 4.77,
+   "slack_s": 4.27,
+   "slack_fast_s": 3.76,
+   "in_unit": "12u4"
+  },
+  {
+   "seam": "12_7|12_8",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_more_timetable.rs",
+   "say_lines": [
+    1013,
+    1047
+   ],
+   "decision": "coherent_eligible",
+   "kind": "animation_only",
+   "anchor": "allow the full ten minutes",
+   "anchor_line": 1034,
+   "tail_s": 0.4,
+   "tail": "fade_in_all(allow) 0.4",
+   "speech_after_anchor_s": 2.03,
+   "slack_s": 1.63,
+   "slack_fast_s": 1.41,
+   "in_unit": "12u4"
+  },
+  {
+   "seam": "12_8|12_9",
+   "file": "explainer_corpus/inspection_paradox/src/chapters/one_more_timetable.rs",
+   "say_lines": [
+    1047,
+    1075
+   ],
+   "decision": "boundary",
+   "kind": "reading_hold",
+   "events": [
+    {
+     "kind": "hold",
+     "line": 1067,
+     "code": "kit.hold(stage)?;"
+    },
+    {
+     "kind": "until",
+     "line": 1068,
+     "code": "wait_until(stage, k10_up + read_s(&k10_text))?;"
+    }
+   ],
+   "in_unit": null
+  }
+ ]
+}

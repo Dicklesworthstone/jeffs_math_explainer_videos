@@ -1,0 +1,4759 @@
+{
+  "_comment": "Authored boundaries through28; coverage intentions, not delivery controls or listening acceptance.",
+  "overrides": [
+    {
+      "video": "crofton",
+      "cue": "04_1",
+      "after": "look harder at the count itself",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Shift attention from an exchange rate to the observable count before posing the sliding experiment."
+    },
+    {
+      "video": "crofton",
+      "cue": "04_2",
+      "after": "The coast hasn't changed at all",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the unchanged blue object establish the controlled comparison before explaining what changed."
+    },
+    {
+      "video": "crofton",
+      "cue": "04_5",
+      "after": "a placement is two choices",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Introduce the two visible controls before naming each variable; the paired visual nudges have separate protected time."
+    },
+    {
+      "video": "crofton",
+      "cue": "04_7",
+      "after": "Every line lands exactly where its neighbour was",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.65
+      ],
+      "reason": "Connect the line-by-line landing with the same whole sheet; preserve the preceding eight-second experiment."
+    },
+    {
+      "video": "crofton",
+      "cue": "04_11",
+      "after": "So here's the plan",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.75
+      ],
+      "reason": "Separate the exploratory experiments from the plan to average over both placement choices."
+    },
+    {
+      "video": "crofton",
+      "cue": "05_1",
+      "after": "a curve whose length we already know",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.85
+      ],
+      "reason": "Explain why calibration needs a familiar known length before introducing the coin."
+    },
+    {
+      "video": "crofton",
+      "cue": "05_3",
+      "after": "Always two",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.85
+      ],
+      "reason": "Let the answer land before the geometric reason; the subsequent coin wander remains a visual experiment."
+    },
+    {
+      "video": "crofton",
+      "cue": "05_4",
+      "after": "just touching both",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Allow the viewer to inspect the exceptional tangent position before describing how its points are counted."
+    },
+    {
+      "video": "crofton",
+      "cue": "05_5",
+      "after": "Its rim is pi times its width",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.85
+      ],
+      "reason": "Connect circumference with the shown diameter before the rolling demonstration."
+    },
+    {
+      "video": "crofton",
+      "cue": "05_6",
+      "after": "Two crossings for six point two eight centimetres",
+      "role": "thought",
+      "range_s": [
+        0.55,
+        1.0
+      ],
+      "reason": "Inspect the first correspondence before dividing to one crossing; keep the final rows visible after speech."
+    },
+    {
+      "video": "crofton",
+      "cue": "06_1",
+      "after": "Now a bet",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The coin and its count fade before the bet is stated."
+    },
+    {
+      "video": "crofton",
+      "cue": "06_1",
+      "after": "centimetre for centimetre",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The supposition stands before its consequence, while the coast brightens."
+    },
+    {
+      "video": "crofton",
+      "cue": "06_4",
+      "after": "Now open the envelope",
+      "role": "thought",
+      "range_s": [
+        0.7,
+        1.2
+      ],
+      "reason": "The flap opens (1 s) before the true length is spoken."
+    },
+    {
+      "video": "crofton",
+      "cue": "06_5",
+      "after": "Side by side and to scale",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.65
+      ],
+      "reason": "The two bars grow (2.4 s) before the difference is named."
+    },
+    {
+      "video": "crofton",
+      "cue": "06_6",
+      "after": "at one placement",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The old estimate fades; the point of the chapter lands before the slide."
+    },
+    {
+      "video": "crofton",
+      "cue": "06_6",
+      "after": "the count is nine",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The gold bar has jumped past the green one; let it register before the arithmetic."
+    },
+    {
+      "video": "crofton",
+      "cue": "06_7",
+      "after": "same bet",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.2
+      ],
+      "reason": "The slide back finishes and the count settles at seven before the conclusion."
+    },
+    {
+      "video": "crofton",
+      "cue": "06_8",
+      "after": "every direction",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.9
+      ],
+      "reason": "The plan, restated with its question on screen, settles before the real question."
+    },
+    {
+      "video": "crofton",
+      "cue": "07_2",
+      "after": "It crosses three lines",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Time to count the three dots."
+    },
+    {
+      "video": "crofton",
+      "cue": "07_2",
+      "after": "the bet says nine point four",
+      "role": "thought",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "The row lands before the verdict."
+    },
+    {
+      "video": "crofton",
+      "cue": "07_3",
+      "after": "between two of them",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The stick finishes its 3 s turn before the question."
+    },
+    {
+      "video": "crofton",
+      "cue": "07_4",
+      "after": "Zero",
+      "word_index": 0,
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The answer: the counter reads 0 with no dots before the voice explains."
+    },
+    {
+      "video": "crofton",
+      "cue": "07_4",
+      "after": "which way it points",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The chapter's claim stands before the callback to the coin."
+    },
+    {
+      "video": "crofton",
+      "cue": "07_5",
+      "after": "running along the lines",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The light and the shadow's single point appear before the claim about them."
+    },
+    {
+      "video": "crofton",
+      "cue": "07_7",
+      "after": "It climbed as the shadow grew",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The finished turn is looked at before the summary of its end."
+    },
+    {
+      "video": "crofton",
+      "cue": "08_1",
+      "after": "Now tilt the stick",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The 2.5 s tilt is under way; let the count fall from three to two before the angle is named."
+    },
+    {
+      "video": "crofton",
+      "cue": "08_2",
+      "after": "At this placement it crosses two lines",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Time to count the two dots before the experiment is set up."
+    },
+    {
+      "video": "crofton",
+      "cue": "08_3",
+      "after": "and back to two",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The answer is read off the finished trace before its shares are named."
+    },
+    {
+      "video": "crofton",
+      "cue": "08_4",
+      "after": "the one centimetre left over",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Both pieces and their words are on screen before the second slide is announced."
+    },
+    {
+      "video": "crofton",
+      "cue": "08_5",
+      "after": "The whole gap always held one line",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The halo on the lower piece is inspected before the reason it always holds one."
+    },
+    {
+      "video": "crofton",
+      "cue": "08_5",
+      "after": "half the time",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The second piece's share lands before the two are added."
+    },
+    {
+      "video": "crofton",
+      "cue": "08_6",
+      "after": "divided by the gap, two",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The first use of the rule appears on the console before it is generalised."
+    },
+    {
+      "video": "crofton",
+      "cue": "08_6",
+      "after": "That works for any shadow",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The cut's marks clear before the general argument."
+    },
+    {
+      "video": "crofton",
+      "cue": "08_8",
+      "after": "Two and a quarter",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The prediction's answer and its dashed average register before the check."
+    },
+    {
+      "video": "crofton",
+      "cue": "08_9",
+      "after": "The rule agrees with what we saw before, too",
+      "role": "thought",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "A breath before the two callbacks to 07."
+    },
+    {
+      "video": "crofton",
+      "cue": "09_1",
+      "after": "one direction at a time",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The step plot and its uses fade; the slide is settled before the direction is raised."
+    },
+    {
+      "video": "crofton",
+      "cue": "09_1",
+      "after": "which way the stick points",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The count and labels clear while the stick turns to lie along the lines."
+    },
+    {
+      "video": "crofton",
+      "cue": "09_3",
+      "after": "In between, the shadow traces this arch",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Time to look at the finished arch before what each point means."
+    },
+    {
+      "video": "crofton",
+      "cue": "09_5",
+      "after": "More",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The answer lands before the visible triangle supplies its geometric reason."
+    },
+    {
+      "video": "crofton",
+      "cue": "09_5",
+      "after": "with the same area",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "The 2.5 s flattening runs; its height is named once it has settled."
+    },
+    {
+      "video": "crofton",
+      "cue": "09_7",
+      "after": "the stick's own length",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.1
+      ],
+      "reason": "The payoff: the green estimate and the green 6 cm over the stick are compared."
+    },
+    {
+      "video": "crofton",
+      "cue": "09_7",
+      "after": "nine point four or zero",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The one placement row is read against the averaged one before the conclusion."
+    },
+    {
+      "video": "crofton",
+      "cue": "09_8",
+      "after": "two over pi",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The ratio's TeX is read before the promise of the coin."
+    },
+    {
+      "video": "crofton",
+      "cue": "09_5",
+      "after": "with straight lines",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Inspect the tent under the same arch before discussing its area."
+    },
+    {
+      "video": "crofton",
+      "cue": "09_5",
+      "after": "So its average height is half the stick",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Compare the triangle with the half-height line before comparing curve areas."
+    },
+    {
+      "video": "crofton",
+      "cue": "09_5",
+      "after": "so its average is larger",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Let the geometric lower bound land before measuring the exact average by flattening."
+    },
+    {
+      "video": "crofton",
+      "cue": "10_1",
+      "after": "Back to the coast",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1
+      ],
+      "reason": "09's bench and plot fade and the coast comes back at full strength; let the eye find it again."
+    },
+    {
+      "video": "crofton",
+      "cue": "10_1",
+      "after": "it's almost straight",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1
+      ],
+      "reason": "The inset's magnified bay and its two chords are inspected before the sticks are named."
+    },
+    {
+      "video": "crofton",
+      "cue": "10_2",
+      "after": "a crossing of one of these sticks",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1
+      ],
+      "reason": "Seven sticks light up; match each gold dot to its stick before they are added up."
+    },
+    {
+      "video": "crofton",
+      "cue": "10_3",
+      "after": "so the shadow rule holds for it",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "08's rule returns on the console; read it before it is applied to one stick."
+    },
+    {
+      "video": "crofton",
+      "cue": "10_3",
+      "after": "then divided by the gap",
+      "role": "cue_transition",
+      "range_s": [
+        0.7,
+        1.2
+      ],
+      "reason": "Both rules stand on the console; read the coast's under the stick's before the shadows are laid."
+    },
+    {
+      "video": "crofton",
+      "cue": "10_4",
+      "after": "starting at the cove",
+      "role": "thought",
+      "range_s": [
+        0.8,
+        1.1
+      ],
+      "reason": "The cove's 2.5 s lay onto the bar finishes before the beach is named."
+    },
+    {
+      "video": "crofton",
+      "cue": "10_4",
+      "after": "nothing is added",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The trace runs along the beach while the bar stands still; see it before the reason."
+    },
+    {
+      "video": "crofton",
+      "cue": "10_5",
+      "after": "so both of its shadows go in",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1
+      ],
+      "reason": "Both of the bay's halos and both of its spans on the bar are compared before the reason."
+    },
+    {
+      "video": "crofton",
+      "cue": "10_5",
+      "after": "this line through the bay crosses it twice",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "The lower line's halo lands before its two crossings are ringed one at a time."
+    },
+    {
+      "video": "crofton",
+      "cue": "10_6",
+      "after": "Our first count was seven",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "The bay's marks clear; seven is looked at before the slide's readings come in."
+    },
+    {
+      "video": "crofton",
+      "cue": "10_7",
+      "after": "Above",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The answer lands and the countdown's ? goes before the bar is laid past the mark."
+    },
+    {
+      "video": "crofton",
+      "cue": "10_8",
+      "after": "fifteen point two six centimetres",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The trace fades and 15.26 cm stands over the bar's end; read it before it is halved."
+    },
+    {
+      "video": "crofton",
+      "cue": "10_9",
+      "after": "So seven was a low reading",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Compare the mark at seven and 04's readings with the bar's 7.63."
+    },
+    {
+      "video": "crofton",
+      "cue": "10_9",
+      "after": "just the shadows",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "A breath before the caveat that this average holds for one direction."
+    },
+    {
+      "video": "crofton",
+      "cue": "11_1",
+      "after": "So far the lines have all run one way",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "10's count, readings and rows clear and the table comes up with its 0\u00b0 row; read it before the turn."
+    },
+    {
+      "video": "crofton",
+      "cue": "11_1",
+      "after": "and every shadow changes",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1
+      ],
+      "reason": "The 3 s eighth of a turn ends; watch the bar settle before the average is named."
+    },
+    {
+      "video": "crofton",
+      "cue": "11_2",
+      "after": "and watch the beach",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The beach lights on the coast and on the bar as the turn begins."
+    },
+    {
+      "video": "crofton",
+      "cue": "11_2",
+      "after": "three and a half centimetres",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "'beach 3.5 cm' stands over its spans; compare it with 10's 'beach 0 cm'."
+    },
+    {
+      "video": "crofton",
+      "cue": "11_4",
+      "after": "Each direction sees the coast differently",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The table's four rows, 7.63 to 8.74, are compared before they are averaged."
+    },
+    {
+      "video": "crofton",
+      "cue": "11_4",
+      "after": "and multiply by pi",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The four-direction row is read before the comparison with one placement."
+    },
+    {
+      "video": "crofton",
+      "cue": "11_5",
+      "after": "Easily",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The answer lands and the countdown goes before the number."
+    },
+    {
+      "video": "crofton",
+      "cue": "11_5",
+      "after": "Twenty-five point five three centimetres",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "The green 25.53 cm is read before how short it falls."
+    },
+    {
+      "video": "crofton",
+      "cue": "11_7",
+      "after": "Our four directions are these four points",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1
+      ],
+      "reason": "The four gold points on the curve and the list's first column are matched with the table before more directions."
+    },
+    {
+      "video": "crofton",
+      "cue": "11_7",
+      "after": "Eight give twenty-five point seven four",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Eight directions' points and column land before thirty-two."
+    },
+    {
+      "video": "crofton",
+      "cue": "11_8",
+      "after": "as we flattened the stick's arch",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "The 2.5 s flattening settles before its height is named."
+    },
+    {
+      "video": "crofton",
+      "cue": "11_8",
+      "after": "twenty-five point eight one centimetres",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "The green 25.81 cm is read beside the halving before the comparison with the true length."
+    },
+    {
+      "video": "crofton",
+      "cue": "11_9",
+      "after": "but it doesn't prove that it must",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.1
+      ],
+      "reason": "'computed, not proved' appears; the difference between a computed average and a proof is the chapter's last point."
+    },
+    {
+      "video": "crofton",
+      "cue": "11_1",
+      "after": "as in the bay",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Connect a stick turning back across the rotated lines to the bay's two shadows before naming the new average."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_1",
+      "after": "on one coast",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "11's computed result is restated as one coast's; let it land before the question why."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_1",
+      "after": "Here's the claim",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The claim row fades in; let the eye reach it before it is read out."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_2",
+      "after": "without a single integral",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Barbier's source is on screen; no integral is the frame for the whole chapter."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_3",
+      "after": "look at this placement",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "The joints' ticks and the two tones come in; the eye needs to find the eleven pieces."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_3",
+      "after": "once on its way back up",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The bay's two halos are lit; let the viewer find both crossings on it before the sum."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_4",
+      "after": "always add up to the coast's count",
+      "role": "thought",
+      "range_s": [
+        1.8,
+        2.2
+      ],
+      "reason": "sync: the 8 s slide of a whole gap finishes, the row's digits changing and the sum always equal to the count, before the step from counts to averages."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_5",
+      "after": "instead of three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Two against three: the moved stick's count has changed, the first fact to compare."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_5",
+      "after": "moving the sheet the other way",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The equivalence the proof rests on; let it register before it is shown."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_5",
+      "after": "Put the stick back",
+      "role": "clause",
+      "range_s": [
+        0.8,
+        1.1
+      ],
+      "reason": "sync: the stick's 2.5 s glide home finishes, three again, before the sheet is named."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_5",
+      "after": "move the sheet instead",
+      "role": "thought",
+      "range_s": [
+        1.4,
+        1.8
+      ],
+      "reason": "sync: the sheet's 3 s turn must finish, and the count read 2, before 'Two again'."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_6",
+      "after": "which way it points",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The conclusion of invariance; the sheet has turned back and the count reads three."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_7",
+      "after": "together they make the whole stick's count",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The halves' counts 2 and 1 stand beside them; let the viewer add them to the 3."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_7",
+      "after": "as a line passes it",
+      "role": "thought",
+      "range_s": [
+        0.8,
+        1.1
+      ],
+      "reason": "The slide reaches the cut about 3.75 s after 'Watch the cut'; the next sentence should land as the counts swap."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_8",
+      "after": "Lay one half across the other",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "The lower half swings across the upper; let the viewer watch it settle on the middle before the meeting point is named."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_8",
+      "after": "so it counts twice",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "One point, two dots, two crossings: the multiplicity the rest of the proof needs."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_9",
+      "after": "since one can be moved onto the other",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The swing back and the slide back run; the reason equal pieces agree is 12_5's."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_9",
+      "after": "have three quarters of it",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The three-quarters row is on screen; let it be read before the general rule."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_10",
+      "after": "and a bit",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "14.73 cm and a bit is not a fraction we can build; the line is drawn."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_10",
+      "after": "and watch",
+      "role": "thought",
+      "range_s": [
+        0.8,
+        1.2
+      ],
+      "reason": "The quarter turn is under way; give the eye the three counts before the rule is said."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_11",
+      "after": "fifteen times our number",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The first bracket appears; let it be read before it tightens."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_11",
+      "after": "fourteen point seven four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The hundredths bracket is up; the squeeze is the step from fractions to every length."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_12",
+      "after": "exactly its total length times that number",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The exact result for chains; the sheet is returning to the first placement under it."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_12",
+      "after": "crossed only five times",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Five against the coast's seven: let the viewer look for the two that are missing."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_13",
+      "after": "never crossed more often than the coast",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "The one-sided bound is the key to the limit; let it settle before the finer chains."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_13",
+      "after": "catch all seven",
+      "role": "cue_transition",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "The finest chain's purple dots sit on the gold ones; let it be seen before the limit is stated."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_14",
+      "after": "rise to the coast's count",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The limit's two halves, lengths and counts, both said; the lower third is up."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_15",
+      "after": "the same for every curve",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The claim returns with its ?; the question of what calibrates it follows."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_16",
+      "after": "The coin",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The answer to the prediction: the coin fades in with its two dots."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_16",
+      "after": "two pi centimetres",
+      "role": "thought",
+      "range_s": [
+        2.6,
+        3.2
+      ],
+      "reason": "sync: the sheet's 4 s slide and 6 s half turn under the coin, its count steady at 2, finish before the calibration is said."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_17",
+      "after": "worth pi centimetres",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The rule for every curve and 06's worth meet; let them join."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_17",
+      "after": "It was forced",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "The chapter's point, before the coast's own numbers."
+    },
+    {
+      "video": "crofton",
+      "cue": "13_1",
+      "after": "Back to our six centimetre stick",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "12's rows and the coin go and the stick returns across the lines."
+    },
+    {
+      "video": "crofton",
+      "cue": "13_1",
+      "after": "about three point eight two centimetres",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The shadow row is up; let it be read before its share is drawn."
+    },
+    {
+      "video": "crofton",
+      "cue": "13_2",
+      "after": "and it crosses none",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Along the lines, 0: the count's first change, seen before the bend."
+    },
+    {
+      "video": "crofton",
+      "cue": "13_2",
+      "after": "Here it crosses one line",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Bent, one crossing: the count has changed; the length comes next."
+    },
+    {
+      "video": "crofton",
+      "cue": "13_2",
+      "after": "six centimetres",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The arms' labels and 3 + 3 = 6 cm are up before the prediction."
+    },
+    {
+      "video": "crofton",
+      "cue": "13_3",
+      "after": "about one point nine one",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The prediction's answer, with its row; the reason follows."
+    },
+    {
+      "video": "crofton",
+      "cue": "13_3",
+      "after": "which is what the straight stick does",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The additivity argument is complete before the sheet turns."
+    },
+    {
+      "video": "crofton",
+      "cue": "13_4",
+      "after": "how the count is spread",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "The straight spread's bars fade in; let the eye find the 0 bar."
+    },
+    {
+      "video": "crofton",
+      "cue": "13_4",
+      "after": "more than a gap across the lines",
+      "role": "thought",
+      "range_s": [
+        0.8,
+        1.1
+      ],
+      "reason": "Both spreads are up; compare them before the summary line."
+    },
+    {
+      "video": "crofton",
+      "cue": "13_5",
+      "after": "Where its pieces cross",
+      "role": "clause",
+      "range_s": [
+        0.4,
+        0.65
+      ],
+      "reason": "The ring marks the crossing as the sheet starts to move a line onto it."
+    },
+    {
+      "video": "crofton",
+      "cue": "13_6",
+      "after": "Buffon's noodle",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The name and its source on screen; the rule for every flat wire follows."
+    },
+    {
+      "video": "crofton",
+      "cue": "13_7",
+      "after": "a long bent wire",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "The wire goes and the sheet returns to the first placement; the coast takes its place."
+    },
+    {
+      "video": "crofton",
+      "cue": "13_7",
+      "after": "about eight point two two times",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "One placement's seven against the average 8.22, before the turn around."
+    },
+    {
+      "video": "crofton",
+      "cue": "12_16",
+      "after": "Those exceptional placements have no effect on the average",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Root review: let the tangency qualification settle before using the coin to calibrate the general rule."
+    },
+    {
+      "video": "crofton",
+      "cue": "14_1",
+      "after": "Think back to the coin",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Return attention to the retained coin before discussing its count."
+    },
+    {
+      "video": "crofton",
+      "cue": "14_2",
+      "after": "The gap between them is the coin's width",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Let the two supporting rulers define width before naming the value."
+    },
+    {
+      "video": "crofton",
+      "cue": "14_4",
+      "after": "No",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Prediction answer precedes the construction."
+    },
+    {
+      "video": "crofton",
+      "cue": "14_4",
+      "after": "without changing the compass opening",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Inspect the completed three arcs before retaining their outline."
+    },
+    {
+      "video": "crofton",
+      "cue": "14_5",
+      "after": "This curve is called a Reuleaux triangle",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Give the newly constructed shape its name before pressing the rulers."
+    },
+    {
+      "video": "crofton",
+      "cue": "14_7",
+      "after": "It stays at two centimetres",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Resolve the prediction before describing the moving supports."
+    },
+    {
+      "video": "crofton",
+      "cue": "14_7",
+      "after": "Constant width does not mean the shape stays still between fixed lines",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Separate equal separation from fixed ruler position."
+    },
+    {
+      "video": "crofton",
+      "cue": "14_8",
+      "after": "The triangle inside it can't do that",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Prepare the plain-triangle counterexample."
+    },
+    {
+      "video": "crofton",
+      "cue": "14_9",
+      "after": "despite looking very different",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Pause on the shared invariant before the perimeter question."
+    },
+    {
+      "video": "crofton",
+      "cue": "15_1",
+      "after": "One line runs between them",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "See the interior grid line before counting rim crossings."
+    },
+    {
+      "video": "crofton",
+      "cue": "15_1",
+      "after": "and crosses the rim twice",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Inspect the crossing dots before explaining convexity."
+    },
+    {
+      "video": "crofton",
+      "cue": "15_2",
+      "after": "Slide it and turn it",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Allow the controlled placement experiment to begin."
+    },
+    {
+      "video": "crofton",
+      "cue": "15_3",
+      "after": "for that one slide",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Separate the corner exception from tangency."
+    },
+    {
+      "video": "crofton",
+      "cue": "15_3",
+      "after": "and the rim only touches them",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Inspect the tangent contacts before the probability qualification."
+    },
+    {
+      "video": "crofton",
+      "cue": "15_4",
+      "after": "it averages two crossings",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Keep the count separate from the question about length."
+    },
+    {
+      "video": "crofton",
+      "cue": "15_5",
+      "after": "about six point two eight",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Inspect the solved length before comparison with the coin."
+    },
+    {
+      "video": "crofton",
+      "cue": "15_6",
+      "after": "Check it another way",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Change from crossing counts to rigid arc geometry."
+    },
+    {
+      "video": "crofton",
+      "cue": "15_6",
+      "after": "so its angles are each sixty degrees",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Read the angle before identifying the fraction of a circle."
+    },
+    {
+      "video": "crofton",
+      "cue": "15_6",
+      "after": "lay them end to end",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Allow the three arcs to reach their semicircle positions."
+    },
+    {
+      "video": "crofton",
+      "cue": "15_7",
+      "after": "And a third way is to approach the rim with straight chains",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Set up the independent lower-bound comparison."
+    },
+    {
+      "video": "crofton",
+      "cue": "15_7",
+      "after": "Each finite chain still cuts off the bends",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Retain the finite approximation limitation."
+    },
+    {
+      "video": "crofton",
+      "cue": "15_8",
+      "after": "pi times the width",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Read the theorem before returning to the concrete two-centimetre shape."
+    },
+    {
+      "video": "crofton",
+      "cue": "15_9",
+      "after": "So counting crossings and laying out the arcs agree",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Compare the two arguments before returning to the coast."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_1",
+      "after": "a particular recipe for randomness",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the chosen sampling law from an everyday impression of fairness."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_2",
+      "after": "Put two pins on the card",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Introduce the tangible objects before specifying their distribution."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_2",
+      "after": "independently of the other pin",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Keep independence audible before constructing the line."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_2",
+      "after": "continuing beyond the pins to the edges of the card",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Protect the full-line definition from a segment interpretation."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_3",
+      "after": "each two centimetres long",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Establish equal lengths before changing position."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_3",
+      "after": "a stick near the corner",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the viewer locate both sticks before hearing the experiment size."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_4",
+      "after": "Make a prediction before we draw the lines",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Invite a prediction before the alternatives; the scene retains its separate countdown."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_5",
+      "after": "the calculation includes them all",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep selected pictures distinct from complete counting."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_6",
+      "after": "cross the middle stick",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Allow the first measured count to register before the comparison."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_6",
+      "after": "cross the corner stick",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Hold the second count before interpreting the difference."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_6",
+      "after": "Equal lengths, in the same direction",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Emphasize what the experiment holds fixed."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_7",
+      "after": "where the pins can go",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Move from outcomes to the geometry that generates the line law."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_7",
+      "after": "a line that clips a corner",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Allow the long and short runs to be inspected."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_8",
+      "after": "the part inside the card",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Separate the infinite line from its finite allowed pin region."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_8",
+      "after": "Random needs a recipe",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the central lesson stand before its consequence."
+    },
+    {
+      "video": "crofton",
+      "cue": "16_9",
+      "after": "exactly where they are",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Preserve the same physical example for the next controlled comparison."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_1",
+      "after": "The pins favored the middle stick",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Recall the measured comparison before defining a new rule."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_1",
+      "after": "let's give every line an address",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Introduce the representation before naming its coordinates."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_2",
+      "after": "called the normal direction",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the unfamiliar term attach to the visible perpendicular."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_2",
+      "after": "not to the line itself",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate normal orientation from line orientation before movement."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_3",
+      "after": "a signed distance",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Define the coordinate before its two signs."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_3",
+      "after": "has distance zero",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Hold the central example before explaining the slide."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_4",
+      "after": "zero to half a turn",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Leave room to locate the horizontal axis."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_4",
+      "after": "a dot on the chart",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Establish the correspondence before varying either coordinate."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_5",
+      "after": "a column of dots",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the parallel family become one chart column."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_5",
+      "after": "move up their column",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate slide from turn as controlled changes."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_6",
+      "after": "miss the card entirely",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Distinguish the full chart box from admissible addresses."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_6",
+      "after": "a missed card",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect the red counterexample before explaining angle dependence."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_7",
+      "after": "pick both coordinates again",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Do not lose the joint redraw condition."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_7",
+      "after": "equal areas have equal chances",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Pause before the nonuniform angular marginal qualification."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_8",
+      "after": "count ten thousand accepted lines",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Give the experiment denominator before asking for a prediction."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_9",
+      "after": "against both sticks",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate the computed crossing rule from the selected display."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_10",
+      "after": "the corner one",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let both measured outcomes register before comparison."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_10",
+      "after": "compatible with chance",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Avoid turning a finite experiment into an exact proof."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_11",
+      "after": "on the same chart",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Hold the same axes while the sampling recipe changes."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_11",
+      "after": "longer runs through the card",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Connect the crowding to the earlier pin-pair intuition."
+    },
+    {
+      "video": "crofton",
+      "cue": "17_12",
+      "after": "say how you chose them",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Land the lesson before the next area argument."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_1",
+      "after": "six centimetre stick",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Recall the familiar object before assigning it a chart region."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_2",
+      "after": "Fix a normal angle",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Locate the column before defining the endpoint interval."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_2",
+      "after": "it crosses the stick",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate membership from the outside counterexample."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_3",
+      "after": "the edges of a band",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the boundaries attach to the endpoints."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_3",
+      "after": "the same shadow we measured earlier",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Connect chart height to the earlier physical measurement."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_4",
+      "after": "over a half turn",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Recall the earlier integral before its units and value."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_4",
+      "after": "measured in radians",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Do not conflate chart scale in degrees with area in radians."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_4",
+      "after": "the band has area twelve",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect the computed area before its interpretation."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_5",
+      "after": "Make a prediction before it moves",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Leave room for the question and protected visual hold."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_6",
+      "after": "the same projection of the movement",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Identify the common displacement before the height invariant."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_6",
+      "after": "every column keeps its height",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect the local invariant before summing it."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_7",
+      "after": "Return the stick to the centre",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate the return from the rotation experiment."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_8",
+      "after": "the same total",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Distinguish changing members from preserved measure."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_9",
+      "after": "the chart's edge",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Flag the convention before crossing the seam."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_9",
+      "after": "the opposite signed distance",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Explain sign reversal before the visible address wrap."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_10",
+      "after": "through that fixed distribution",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Do not suggest the sampling density moves with the stick."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_10",
+      "after": "different chances",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate unequal probability from equal unweighted area."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_11",
+      "after": "inside the card",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Hold the containment condition before the next generalization."
+    },
+    {
+      "video": "crofton",
+      "cue": "18_11",
+      "after": "replace the stick with our coast",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Prepare the recurring object and crossing multiplicity."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_1",
+      "after": "the same chart",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Re-establish the recurring geometry before multiplicity."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_2",
+      "after": "Its address gets zero",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect the miss before the next selected line."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_2",
+      "after": "Its address gets one",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate the line address from its physical crossing."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_3",
+      "after": "count the gold dots",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Leave inspection time for the actual six crossings."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_4",
+      "after": "the count at its centre",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Explain midpoint sampling before declaring approximation."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_4",
+      "after": "finite grid approximation",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep the image distinct from an exact integral."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_5",
+      "after": "miss the coast",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate the all-card denominator from the hit-only denominator."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_5",
+      "after": "Keep those groups separate",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect the conditional denominator."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_5",
+      "after": "every possible line",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Do not generalize the grid maximum."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_6",
+      "after": "then add",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Make the area-times-count operation explicit."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_6",
+      "after": "six times its area",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect the multiplicity before its interpretation."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_7",
+      "after": "Make a prediction before we add the patches",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep the answer hidden through the question and visual hold."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_8",
+      "after": "fifty-one point six three",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Hold the measured finite sum."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_8",
+      "after": "the grid's limited resolution",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep the numerical approximation explicit."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_9",
+      "after": "differ slightly",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect extra digits before the proof caveat."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_10",
+      "after": "adds those contributions too",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Connect linearity to the earlier stick-band rule."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_10",
+      "after": "uses a limiting argument",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Do not silently promote the picture to a general proof."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_11",
+      "after": "eighteen sixty-eight",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Read the scoped historical credit."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_12",
+      "after": "finite length",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "State the theorem domain before traversal multiplicity."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_12",
+      "after": "adds crossings again",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep length and count multiplicities matched."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_12",
+      "after": "measured in radians",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect the chart-area normalization."
+    },
+    {
+      "video": "crofton",
+      "cue": "19_12",
+      "after": "zero chart area",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate exceptional line conventions from the integral."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_1",
+      "after": "and add",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Recall the chart operation before notation."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_2",
+      "after": "its signed distance",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate address coordinates from count."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_2",
+      "after": "the gold crossing on the coast",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect the coupled physical/chart points."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_3",
+      "after": "That reads one column",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect the highlighted column."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_3",
+      "after": "counted again",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect projection multiplicity."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_4",
+      "after": "measuring the angle in radians",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect normalization."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_4",
+      "after": "twice the length",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Recall the earned factor before continuing."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_5",
+      "after": "It contains no random choice",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate exact identity from sampling."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_5",
+      "after": "approximates the integral",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep finite grid limitations explicit."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_6",
+      "after": "Count overlapping shadows separately",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Prevent silhouette-width interpretation."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_6",
+      "after": "eighteen thirty-two",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Read historical attribution as a report by Barbier."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_7",
+      "after": "Make a prediction before we fill its chart",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect prediction before result."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_8",
+      "after": "approximately",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep rounding audible."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_9",
+      "after": "crosses the rim twice",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect strict interior before motion."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_9",
+      "after": "the same circle",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect actual computed intersections."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_10",
+      "after": "There is one contact",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect exact tangent."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_10",
+      "after": "Farther away there is none",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect exterior case."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_10",
+      "after": "zero area in the chart",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Distinguish boundary from a finite-width strip."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_11",
+      "after": "pi radians wide",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect dimensions before weighting."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_11",
+      "after": "four pi",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate weighted total from final halving."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_12",
+      "after": "two crossings per sheet",
+      "word_index": 11,
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep sheet count distinct from one-line count."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_12",
+      "after": "sixty-four percent of its length",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep projection fraction distinct from crossing count."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_13",
+      "after": "count every traversal",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect rectifiable-path multiplicity."
+    },
+    {
+      "video": "crofton",
+      "cue": "20_13",
+      "after": "normal angles in radians",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep measure conventions explicit."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_1",
+      "after": "a finite sample",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate identity from experiment."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_2",
+      "after": "over a half turn",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate direction from slide."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_2",
+      "after": "over one gap",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect independent uniform slide."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_2",
+      "after": "for the next drop",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect independence across drops."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_3",
+      "after": "the actual crossings",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect retained placements."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_4",
+      "after": "eight point two crossings",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect mean before conversion."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_4",
+      "after": "twenty-five point eight centimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect estimate and exact value."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_5",
+      "after": "Make a prediction",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Preserve prediction before answer."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_6",
+      "after": "a fortunate sample",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Avoid promising precision."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_6",
+      "after": "from five to twelve",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate sample range from model support."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_6",
+      "after": "numerical model's probabilities",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep numerical scope explicit."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_6",
+      "after": "zero point zero three six percent",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Read the tiny top bin."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_7",
+      "after": "four point four centimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect model spread."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_7",
+      "after": "take the square root",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Define standard deviation before interpretation."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_8",
+      "after": "one point four centimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Compare like scales."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_9",
+      "after": "not an individual drop",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect group denominator."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_9",
+      "after": "the true length",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect strict error threshold."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_9",
+      "after": "forty-three percent of the groups are red",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect actual retained experiment."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_10",
+      "after": "forty-three percent",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate numerical calculation from observed frequency."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_10",
+      "after": "outside the allowed error window",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Explain convolution before qualification."
+    },
+    {
+      "video": "crofton",
+      "cue": "21_11",
+      "after": "remember its luck",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Return to concrete opening."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_1",
+      "after": "a thousand drops",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep sample size explicit."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_1",
+      "after": "over a half turn",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate direction from slide."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_1",
+      "after": "over one gap",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect joint independent law."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_2",
+      "after": "to all thousand",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect computed prefix trace."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_2",
+      "after": "The curve wiggles",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Do not promise monotonic improvement."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_3",
+      "after": "twenty-five point nine centimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect observed estimate."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_3",
+      "after": "one observed average",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Distinguish sample from population."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_4",
+      "after": "a thousand independent drops",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Define ensemble before SD."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_4",
+      "after": "point one four centimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect model spread."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_4",
+      "after": "take the square root",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Complete SD definition."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_5",
+      "after": "subtracting its mean",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Define centred deviation."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_5",
+      "after": "average to zero",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Motivate disappearance of cross terms."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_5",
+      "after": "variance of one drop",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect additive variance."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_6",
+      "after": "dividing by n",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate sum from average."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_6",
+      "after": "divided by n squared",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect square scaling."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_6",
+      "after": "variance divided by n",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect before square root."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_7",
+      "after": "half as large",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect fourfold sample-size example."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_8",
+      "after": "Make a prediction",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Preserve question before answer."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_9",
+      "after": "About two thousand",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Reveal only after prediction."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_9",
+      "after": "nineteen sixty-five",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect numerical minimum."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_9",
+      "after": "then round up",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect ceiling rule."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_10",
+      "after": "different questions",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate observed estimate from model SD."
+    },
+    {
+      "video": "crofton",
+      "cue": "22_10",
+      "after": "a finite random estimate does",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate identity from sampling variation."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_1",
+      "after": "a small, planned set of directions",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Motivate controlled alternative."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_1",
+      "after": "every slide",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect averaging condition."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_2",
+      "after": "the entire slide",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Distinguish full integral from finite frames."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_2",
+      "after": "computed projection travel",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Bind displayed analytical averages."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_3",
+      "after": "twenty-five point five three centimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect coast estimate."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_3",
+      "after": "one point one percent low",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate example from bound."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_4",
+      "after": "six centimetres long",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Preserve true length."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_4",
+      "after": "divided by their spacing",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Recall projection count law."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_4",
+      "after": "true length stays fixed",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect controlled change."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_5",
+      "after": "That is the low point",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect aligned stick."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_5",
+      "after": "its high point",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect midpoint orientation."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_6",
+      "after": "two point six percent high",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Read rounded extremes."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_6",
+      "after": "approximate descriptions",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Do not present rounding as strict bound."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_7",
+      "after": "length-weighted average",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Understand inheritance of bounds."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_7",
+      "after": "local tangent contributions",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Scope curved-path extension."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_7",
+      "after": "including repeated traversals",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Retain multiplicity."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_8",
+      "after": "Make a prediction",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Question precedes answer."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_9",
+      "after": "eleven point one percent high",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect two-direction extrema."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_9",
+      "after": "an individual placement",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Scope full slide averages."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_10",
+      "after": "a hundred percent low",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect parallel case."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_10",
+      "after": "fifty-seven percent high",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect perpendicular case."
+    },
+    {
+      "video": "crofton",
+      "cue": "23_11",
+      "after": "a separate issue",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate sampling from orientation error."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_1",
+      "after": "After full slide averaging",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Scope directional bound."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_1",
+      "after": "on a map",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Motivate usable tool."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_2",
+      "after": "the other way",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect three square grids."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_2",
+      "after": "our own illustrative placement",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate source directions from phases."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_3",
+      "after": "in millimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Establish calibration goal."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_3",
+      "after": "a full gap of slides",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Scope fixed-direction mean."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_3",
+      "after": "It depends on direction",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Prevent orientation-average confusion."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_4",
+      "after": "over orientations",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Mark added averaging."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_4",
+      "after": "two L over pi d",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect equation."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_4",
+      "after": "both measured in millimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Resolve units."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_5",
+      "after": "uniform over a gap",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "State offset marginal condition."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_5",
+      "after": "expectations to add",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Independence not needed."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_6",
+      "after": "Make a prediction",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect question before answer."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_7",
+      "after": "three point eight two",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect rounded spacing."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_7",
+      "after": "length in millimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect cancellation."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_8",
+      "after": "small additional scale error",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate rounding from geometry."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_8",
+      "after": "an individual placement",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect estimate scope."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_9",
+      "after": "The count has",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect changed count."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_9",
+      "after": "including repeated traversals",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Whole-path multiplicity."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_10",
+      "after": "two hundred fifty-seven point two seven millimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect analytical mean."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_10",
+      "after": "two hundred fifty-eight point one three",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Compare true length."
+    },
+    {
+      "video": "crofton",
+      "cue": "24_11",
+      "after": "distance on the ground",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Distinguish map calibration from map scale."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_1",
+      "after": "then eight",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect changed spacing."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_2",
+      "after": "a half turn",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Scope orientation law."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_2",
+      "after": "a full gap",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Scope independent slide."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_3",
+      "after": "two pi and four pi",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect calibrated crossing worth."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_3",
+      "after": "Make a prediction",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect prediction."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_4",
+      "after": "we get the original length",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect cancellation."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_4",
+      "after": "two point zero five",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Compare mean counts."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_5",
+      "after": "all the sheets",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Explain coupling of retained pairs."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_5",
+      "after": "what actually happened",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate sample from population."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_6",
+      "after": "population model instead",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Mark numerical population."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_6",
+      "after": "fourteen point nine",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect SD comparison."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_6",
+      "after": "the square root",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Recall SD definition."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_6",
+      "after": "a coverage probability",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect scope."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_7",
+      "after": "comparison establishes",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Avoid general monotonic claim."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_8",
+      "after": "twenty-two point six centimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect original walk."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_8",
+      "after": "give equality",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Qualify chord bound."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_9",
+      "after": "Make a prediction",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Protect divider prediction."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_10",
+      "after": "twenty-five point one centimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect first answer."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_10",
+      "after": "twenty-five point six",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect second walk."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_11",
+      "after": "eleven whole steps",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect identical step count."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_11",
+      "after": "twenty-one point six centimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect counterexample."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_12",
+      "after": "any positive gap",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Scope mean identity."
+    },
+    {
+      "video": "crofton",
+      "cue": "25_12",
+      "after": "a particular trial",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Final comparison hold."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_1",
+      "after": "What exactly does the sheet measure? Keep the same card and the same coast",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Persistent coast and card; change only highlighted beach with fixed endpoints and linked enlargement."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_1",
+      "after": "keeping both endpoints fixed",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Persistent coast and card; change only highlighted beach with fixed endpoints and linked enlargement."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_2",
+      "after": "Each ripple has radius a quarter centimetre",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Computed semicircle radius and exact beach length, with approximation mark."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_2",
+      "after": "That is pi over two times its old length",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Computed semicircle radius and exact beach length, with approximation mark."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_3",
+      "after": "Now use fourteen semicircles with half the radius",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Same beach object becomes fourteen semicircles; explicitly alternative replacement, not nested detail."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_3",
+      "after": "These are alternative replacements of the straight beach",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Same beach object becomes fourteen semicircles; explicitly alternative replacement, not nested detail."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_4",
+      "after": "Return to the larger ripples and our two centimetre dividers",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Actual two divider walks and changed landings; four-decimal totals distinguish equal one-decimal labels."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_4",
+      "after": "yet both round to twenty-two point six centimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Actual two divider walks and changed landings; four-decimal totals distinguish equal one-decimal labels."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_4",
+      "after": "They still cut across much of the new detail",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Actual two divider walks and changed landings; four-decimal totals distinguish equal one-decimal labels."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_5",
+      "after": "Keep the sheet at a two centimetre gap",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Prediction before mean reveal."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_5",
+      "after": "or miss that detail too?",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Prediction before mean reveal."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_6",
+      "after": "It recovers the length of this new drawing",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Exact symbolic identity and explicitly rounded mean/length; joint probability law."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_6",
+      "after": "The mean is about eight point eight five crossings",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Exact symbolic identity and explicitly rounded mean/length; joint probability law."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_6",
+      "after": "The identity is exact; those decimal displays are rounded",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Exact symbolic identity and explicitly rounded mean/length; joint probability law."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_7",
+      "after": "then cutting through them",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Actual selected line and computed fourteen beach intersection dots in both views."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_7",
+      "after": "Counting only whether the line hits would discard nearly all that information",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Actual selected line and computed fourteen beach intersection dots in both views."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_8",
+      "after": "A single ripple averages a quarter of a crossing under our turn and slide rule",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Single-ripple expectation, additivity and P(hit) bound; no family independence assumption."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_8",
+      "after": "so its chance of any hit is at most a quarter",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Single-ripple expectation, additivity and P(hit) bound; no family independence assumption."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_9",
+      "after": "The sheet expectation is about twenty-seven point eight centimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Original diagram compares two methods on same new curve."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_9",
+      "after": "and therefore its length",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Original diagram compares two methods on same new curve."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_10",
+      "after": "This distinction has a history",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Scoped paraphrase through Mandelbrot; not a Vistula experiment."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_10",
+      "after": "not a measurement we have made here",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Scoped paraphrase through Mandelbrot; not a Vistula experiment."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_11",
+      "after": "Our model remains a finite collection of straight pieces and circular arcs",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Return to chosen finite drawing and precise conditions."
+    },
+    {
+      "video": "crofton",
+      "cue": "26_11",
+      "after": "The sheet measures that chosen drawing in expectation",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Return to chosen finite drawing and precise conditions."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_1",
+      "after": "Keep our original drawing fixed",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Persistent original coast/card; actual one-centimetre divider walk and sum."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_1",
+      "after": "Now imagine reducing the step",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Persistent original coast/card; actual one-centimetre divider walk and sum."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_2",
+      "after": "With a half centimetre step, the divider total increases by about two percent",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Replace only divider walk by half-centimetre landings; computed rounded increase."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_2",
+      "after": "Shorter chords follow its existing bends more closely",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Replace only divider walk by half-centimetre landings; computed rounded increase."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_3",
+      "after": "Lewis Fry Richardson studied map measurements made with different divider steps",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Historical question and prediction before empirical result."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_3",
+      "after": "Make a prediction: as the steps became smaller, did the measured coastal lengths settle toward a limit like an ordinary smooth curve, or keep growing across the measured scales?",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Historical question and prediction before empirical result."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_4",
+      "after": "The reported measurements kept growing across those scales",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "State measured-range growth and empirical scope before formula."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_4",
+      "after": "It summarizes a pattern in measurements",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "State measured-range growth and empirical scope before formula."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_5",
+      "after": "Here is the relation",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Decode G, L, M and reported exponent with full inspection hold."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_5",
+      "after": "M sets the overall scale",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Decode G, L, M and reported exponent with full inspection hold."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_5",
+      "after": "For the west coast of Britain, Mandelbrot reports D as one point two five",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Decode G, L, M and reported exponent with full inspection hold."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_6",
+      "after": "Halving the step in that fitted relation multiplies the length by two to the power D minus one",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Halving ratio derived from fitted exponent; explicitly not raw observation ratios."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_6",
+      "after": "This percentage is a calculation from the fit, not a list of measured halving ratios",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Halving ratio derived from fitted exponent; explicitly not raw observation ratios."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_7",
+      "after": "Compare the shapes of the two trends",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Linked normalized smooth walk versus illustrative law, both labeled; no fabricated data."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_7",
+      "after": "The teal curve illustrates the fitted relation; these are not Richardson data points",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Linked normalized smooth walk versus illustrative law, both labeled; no fabricated data."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_7",
+      "after": "It rises much less",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Linked normalized smooth walk versus illustrative law, both labeled; no fabricated data."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_8",
+      "after": "Watch our actual walk at a quarter centimetre, then an eighth",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Actual quarter/eighth walks on same coast; bounded sums and nonmonotonic caveat."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_8",
+      "after": "These selected totals approach the drawn length",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Actual quarter/eighth walks on same coast; bounded sums and nonmonotonic caveat."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_8",
+      "after": "The finite drawn length still bounds the chord sum",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Actual quarter/eighth walks on same coast; bounded sums and nonmonotonic caveat."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_9",
+      "after": "Mandelbrot used Richardson's results to discuss statistical self-similarity and fractional dimension in How Long Is the Coast of Britain? That is the historical connection",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Scoped primary-text attribution and finite-range limitation."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_10",
+      "after": "Return to our two drawings",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Return smooth/rippled drawing distinction and precise random-sheet conditions."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_10",
+      "after": "Choose the drawing first",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Return smooth/rippled drawing distinction and precise random-sheet conditions."
+    },
+    {
+      "video": "crofton",
+      "cue": "27_10",
+      "after": "The sheet cannot recover coastal features that the drawing leaves out",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Return smooth/rippled drawing distinction and precise random-sheet conditions."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_1",
+      "after": "Return to our original card",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Original card/coast, seven crossings and rounded estimate versus drawn length."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_1",
+      "after": "The drawn coast is about twenty five point eight centimetres long",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Original card/coast, seven crossings and rounded estimate versus drawn length."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_1",
+      "after": "What did averaging buy us?",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Original card/coast, seven crossings and rounded estimate versus drawn length."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_2",
+      "after": "For lines two centimetres apart, each crossing is worth pi centimetres",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Decode calibration and exact joint orientation/slide law."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_2",
+      "after": "Count every traversal of a finite length path",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Decode calibration and exact joint orientation/slide law."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_3",
+      "after": "We also tried four fixed directions with complete slide averages",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Recall four-direction slide average and all-direction identity."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_3",
+      "after": "Averaging over all directions removes that remaining directional bias",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Recall four-direction slide average and all-direction identity."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_4",
+      "after": "Now transfer the idea to a simpler outline",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Persistent physical square and linked enlargement on original card."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_4",
+      "after": "Keep the small square on the same card; the enlarged copy lets us inspect it",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Persistent physical square and linked enlargement on original card."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_5",
+      "after": "Watch these selected placements",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Four computed selected poses; count labels only after movement."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_5",
+      "after": "These are illustrations, not a random sample",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Four computed selected poses; count labels only after movement."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_6",
+      "after": "Look at the width of the square across the lines",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Projection width and one/two interior lines; convex entry/exit intuition."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_6",
+      "after": "That is at least one gap and less than two gaps",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Projection width and one/two interior lines; convex entry/exit intuition."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_6",
+      "after": "Each enters and leaves the square, contributing two crossings",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Projection width and one/two interior lines; convex entry/exit intuition."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_7",
+      "after": "There are exceptions to that simple count",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Actual corner contact and coincident edges separate from transverse crossings."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_7",
+      "after": "Or lines can coincide with entire edges, giving infinitely many contact points",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Actual corner contact and coincident edges separate from transverse crossings."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_7",
+      "after": "Two or four holds almost surely, which means with probability one, not without exceptions",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Actual corner contact and coincident edges separate from transverse crossings."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_8",
+      "after": "Make a prediction",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Prediction before probability result, with deliberate hold."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_8",
+      "after": "Can those facts answer the question without a new sampling experiment?",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Prediction before probability result, with deliberate hold."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_9",
+      "after": "The rim is four sides of two centimetres, so its length is eight",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Rim to exact mean and marked rounded decimal."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_9",
+      "after": "The mean count is eight over pi, about two point five five",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Rim to exact mean and marked rounded decimal."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_10",
+      "after": "Call the probability of four crossings p",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Define p and complementary probabilities before expectation algebra."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_10",
+      "after": "The mean is two times one minus p, plus four times p",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Define p and complementary probabilities before expectation algebra."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_10",
+      "after": "Think of a baseline pair of crossings, with an extra pair in the four crossing cases",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Define p and complementary probabilities before expectation algebra."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_11",
+      "after": "Set that mean equal to eight over pi",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Solve mean identity and reveal exact versus rounded probability."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_11",
+      "after": "The chance of four crossings is four over pi minus one, about twenty seven percent",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Solve mean identity and reveal exact versus rounded probability."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_12",
+      "after": "The remaining chance, about seventy three percent, belongs to two crossings",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Calculated probability bar; distinguish intersections from sheet lines."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_12",
+      "after": "Four crossings means four intersections with the rim; here they come from two sheet lines",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Calculated probability bar; distinguish intersections from sheet lines."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_13",
+      "after": "Return once more to the original coast and the same sheet",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Original card callback and precise law/exception/traversal condition."
+    },
+    {
+      "video": "crofton",
+      "cue": "28_13",
+      "after": "Choose the finite drawing, count all traversals, and average under that law",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Original card callback and precise law/exception/traversal condition."
+    }
+  ]
+}

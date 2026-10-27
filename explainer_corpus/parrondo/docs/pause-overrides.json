@@ -1,0 +1,1546 @@
+{
+  "_comment": "Authored semantic intentions through the complete18chapter native script; coverage contracts, not TTS control or listening acceptance.",
+  "overrides": [
+    {
+      "video": "parrondo",
+      "cue": "08_1",
+      "after": "full of luck",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the single-player limitation land before imagining copies."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_3",
+      "after": "At corner two",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction before explaining the two flows."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_3",
+      "after": "not fractions of people",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Correct the likely misconception before naming expected counts."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_3",
+      "after": "are expected numbers",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Separate the concept from the multiplication that computes it."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_6",
+      "after": "twelve on corner two",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let all three stationary counts register before rejecting equal thirds."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_8",
+      "after": "only forty times",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.65
+      ],
+      "reason": "Distinguish this run's rare exact count from its average."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_1",
+      "after": "still split exactly by the chances",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Re-establish expected flow before counting individual groups."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_5",
+      "after": "one plus nine, ten",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Give the first destination's sum time to land."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_5",
+      "after": "one plus three, four",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Finish the second destination before moving attention to the third."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_5",
+      "after": "nine plus three, twelve",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Inspect the restored crowd before stating its invariance."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_6",
+      "after": "Count the winners",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Redirect attention from destinations to forward-moving groups."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_9",
+      "after": "is called its weight",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Name the idea only after the picture, then read the three fractions deliberately."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_2",
+      "after": "nine times in ten",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.85
+      ],
+      "reason": "Let the predicted destination and its likelihood register."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_2",
+      "after": "knocks them back",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.85
+      ],
+      "reason": "Finish the backward move before describing the return."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_3",
+      "after": "not the only way they can go",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Separate a likely individual path from evidence about the crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_4",
+      "after": "for nine at corner two",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Read both groups before changing to their conditional share."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_4",
+      "after": "nine happen at corner two",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Give nine of twelve a beat before tracing those winners back to zero."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_5",
+      "after": "That's the trap in game B",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Name the mechanism after the evidence, then state its consequence."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_6",
+      "after": "One change removes the trap",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Introduce the controlled experiment before changing the selection rule."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_6",
+      "after": "instead of your money",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Make the changed variable clear before explaining the die faces."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_8",
+      "after": "Same two coins",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.85
+      ],
+      "reason": "Emphasize the invariant in the controlled comparison."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_8",
+      "after": "picks between them changed",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the causal point land before comparing the outcomes."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_2",
+      "after": "every arrow becomes an average",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Introduce the averaging operation before reading its two inputs."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_2",
+      "after": "B's ten percent",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Separate the two inputs from the thirty-percent result."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_3",
+      "after": "between fifty and seventy-five",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Allow mental averaging before announcing sixty-two and a half."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_5",
+      "after": "Off corner zero",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the direction question before the measured first step."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_6",
+      "after": "and the crowd settles",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Allow inspection of the settling graph before reading the final shares."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_7",
+      "after": "toward equal thirds",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Connect the stirring action to the shift away from the bad corner."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_1",
+      "after": "break even when they're played alone",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Re-establish the fair explanatory coins before mixing them."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_2",
+      "after": "never looks at the money",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "State independence before the equal split at each corner."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_2",
+      "after": "half are B rounds",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Finish the split before reasoning about A's coin."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_3",
+      "after": "Everything rests on the B rounds",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Shift attention to the rounds that earn the gain."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_3",
+      "after": "just one number",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Give the listener time to locate the controlling share."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_5",
+      "after": "half of every corner's rounds",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Finish conditional sampling before moving the crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_6",
+      "after": "What is that turn worth",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Frame the graph's purpose before reading its points."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_6",
+      "after": "fifty-three point three percent",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the two anchor values on the graph."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_7",
+      "after": "it's a straight line",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Name the visual relationship before its formula."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_7",
+      "after": "exactly five thirteenths",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the threshold land before connecting it to the weight."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_9",
+      "after": "Fifty-two point five percent",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction before averaging A and B."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_11",
+      "after": "only break even",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate A's direct return from its effect on the crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_1",
+      "after": "the ones the player used",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Complete the return to the published example."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_3",
+      "after": "The crowds barely move",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Prepare the listener for the deliberately small change."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_4",
+      "after": "thirty-seven point seven percent",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Locate the new threshold before comparing B's crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_6",
+      "after": "It does",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Resolve the prediction before explaining why."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_6",
+      "after": "fifty-two point one percent",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate B's winning rounds from A's losing ones."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_7",
+      "after": "the edge was bigger than that",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the handicap comparison land before the positive result."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_9",
+      "after": "every number from the opening",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Signal the return to the opening puzzle."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_1",
+      "after": "Here's a new question.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Turn from the half point to a new question about any game."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_2",
+      "after": "so that every count is whole",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Let the scaling register before the three counts."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_2",
+      "after": "five hundred sixty-eight at corner two",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let all three counts and puddles register before the familiar share."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_3",
+      "after": "thirty percent of the four hundred ninety",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Separate the forward flow from the opposing back flow."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_6",
+      "after": "Twelve, every time.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the counted answer land before restating it."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_6",
+      "after": "around the triangle",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the circulation register before naming it."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_8",
+      "after": "twelve for each of the three edges",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction, then check it by winners and losers."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_8",
+      "after": "six hundred ninety-one lose",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Separate the crowd's dollars from a player's cents."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_9",
+      "after": "Watch corner one.",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Direct attention to the ringed corner before its two edges."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_9",
+      "after": "keeps its three hundred sixty",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Complete the conservation argument before its converse case."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_10",
+      "after": "split exactly by the chances",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Mark expected numbers as a concept before the real round."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_10",
+      "after": "Real players toss real coins.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Separate the claim from the seeded illustration that follows."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_10",
+      "after": "minus seventeen",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Let the disagreeing edges register before the corner changes."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_11",
+      "after": "thirty-five point eight dollars a round",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let both averages register before the lesson about scatter."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_12",
+      "after": "gains three times it each round",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "State the rule, then its fair case."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_13",
+      "after": "every edge balances on its own",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Name the balance before the three numeric balances."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_14",
+      "after": "so they cancel",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the cancellation register before reading what is left."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_15",
+      "after": "and back as q",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the three letters register before the cancellation."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_15",
+      "after": "and each one cancels",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Complete the general cancellation before its meaning."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_1",
+      "after": "the two products match",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Restate what 14 proved before opening the converse."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_2",
+      "after": "pretend we never found its settled crowd",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the puddles drain before rebuilding the crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_2",
+      "after": "That takes four players.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Finish the first balance before the second."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_3",
+      "after": "nothing left to choose",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the viewer see the third row is already determined."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_3",
+      "after": "so it holds",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the check land before naming B's settled crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_4",
+      "after": "Why did the third balance come out right?",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Give a thinking beat before generalizing."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_6",
+      "after": "exactly the players it sends",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Complete the stays-put step before uniqueness."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_6",
+      "after": "from any corner to any other",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Complete the uniqueness step before the conclusion."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_7",
+      "after": "which way does the crowd turn?",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Give the question time before the derivation begins."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_7",
+      "after": "the net flow appears just once",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the simplification register before the last substitution."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_8",
+      "after": "so it's positive",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Establish the first positive factor before the second."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_8",
+      "after": "minus the backward product",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "State the sign rule before its two cases."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_9",
+      "after": "and B is fair",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the verdict register before the tempting misjudgement."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_11",
+      "after": "The forward product.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Answer the prediction before the exact fractions."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_12",
+      "after": "differ by three over one hundred sixty",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let both computed factors register before the two sides."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_14",
+      "after": "the coins Harmer and Abbott published",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the badge and chances change before the three verdicts."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_15",
+      "after": "what the test never needed",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Give the transfer observation a beat before naming what is absent."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_1",
+      "after": "and the mix won.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Settle the known result before questioning the switching rule."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_1",
+      "after": "only how often each one is?",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the order-versus-frequency question register."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_2",
+      "after": "forever.",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Let the fixed schedule register before its half-and-half count."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_4",
+      "after": "two thirds of a cent a round.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the answer land before its meaning."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_4",
+      "after": "into a loss.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Separate the surprise from the turn to the crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_5",
+      "after": "never looks at the money.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Set A's fixed cost aside before B's rounds."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_5",
+      "after": "when B plays.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Bring back the dial before its break-even line."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_6",
+      "after": "and wins.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the first dot stand before the climb."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_6",
+      "after": "just above it.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the settled dots register before the verdict."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_7",
+      "after": "Follow one cycle.",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Direct attention to one B round."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_7",
+      "after": "one step behind corner zero.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Complete B's round before A's."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_8",
+      "after": "just over one and a half cents.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the tempting prediction stand before refuting it."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_8",
+      "after": "the player stands.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Establish the independence that permits averaging before contrasting the fixed schedule."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_9",
+      "after": "Harmer and Abbott simulated.",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Separate the pattern's source from its mechanism."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_9",
+      "after": "both below the line.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the dots below the line register before the verdict."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_10",
+      "after": "per round played.",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Set the unit before the three rows."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_10",
+      "after": "wins one point five seven cents.",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Let each row arrive."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_10",
+      "after": "loses zero point six seven.",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Let each row arrive."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_10",
+      "after": "wins one point four seven.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Inspect the table before the conclusion."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_11",
+      "after": "Now the control.",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Mark the controlled comparison."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_11",
+      "after": "three cents a round.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the equal losses register before the reason."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_12",
+      "after": "a quarter of a cent a round.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Finish the first point before the second."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_13",
+      "after": "comes back down.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the computed curve draw before reading its crossings."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_13",
+      "after": "about eighty-five percent.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the rounded range register before the products."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_14",
+      "after": "not round numbers.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Introduce precision before the exact crossings."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_14",
+      "after": "strictly between them.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the strict bound register before its edge cases."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_15",
+      "after": "wins.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Separate the general denial from the specific mechanism.",
+      "word_index": 10
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_1",
+      "after": "even though game B loses.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the counterexample land before the long run."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_2",
+      "after": "over a fixed number of rounds?",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Give the question time before the setup."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_2",
+      "after": "for a hundred rounds.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Complete the setup before negative dollars."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_3",
+      "after": "the crowd has spread out.",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Let the bars grow before naming them."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_3",
+      "after": "finishes there.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let a bar's meaning register before parity."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_3",
+      "after": "every total is even.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the gaps register before the whole crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_3",
+      "after": "hold the whole crowd.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the whole crowd register before the corners."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_4",
+      "after": "Ahead of the start:",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Let the gold bars register before the number."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_5",
+      "after": "twenty-nine cents up.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the average register before comparing with the rate."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_5",
+      "after": "twenty-eight cents, once.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Complete the comparison before what the average hides."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_7",
+      "after": "more than two in three.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Answer the prediction before the transformation."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_7",
+      "after": "from a hundred to a thousand.",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Leave the voice silent while the bars change."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_8",
+      "after": "Level: two point four.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Finish the categories before the average."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_9",
+      "after": "the square root of ten.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the comparison register before the law."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_10",
+      "after": "where the player started,",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Mark the changed start before the game."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_10",
+      "after": "but not rare.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the verdict on the player's luck land."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_11",
+      "after": "sixty-three point nine percent.",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Let both single games register before the mix."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_12",
+      "after": "And in the very long run?",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Turn from fixed rounds to the long run."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_13",
+      "after": "three different things.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Announce the three before listing them."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_13",
+      "after": "it never becomes certain.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the second meaning land before the third."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_14",
+      "after": "invented games.",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Mark the scope before the lesson."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_8",
+      "after": "the next game is already fixed.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the fixed schedule register before its dependence on the previous crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_1",
+      "after": "Back to the puzzle",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Recall the original two games before summarizing their behavior."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_2",
+      "after": "where the bad coin waits",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Finish the explanation before changing the crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_3",
+      "after": "off corner zero",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Let the crowd change register before the conditional B win rate."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_4",
+      "after": "One last puzzle, to solve from the picture",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Introduce the transfer problem before specifying the rule."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_6",
+      "after": "It loses, and badly",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate the verdict from its size and mechanism."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_7",
+      "after": "A at corner zero and B everywhere else",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "Keep the swapped rule clear before its positive result."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_8",
+      "after": "the way the money flows",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Finish unequal products before introducing the equal-product case."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_9",
+      "after": "Parrondo's paradox, Markov chains",
+      "role": "clause",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "Distinct search terms while preserving the separate final reading hold."
+    }
+  ]
+}

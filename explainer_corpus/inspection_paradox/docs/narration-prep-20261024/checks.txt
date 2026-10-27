@@ -1,0 +1,77 @@
+# check_plan.py output, 2026-10-24, run from the repo root (exit codes noted)
+
+## Current run: check_plan.py (default --script projected-script.tsv), exit 0
+
+script explainer_corpus/inspection_paradox/docs/narration-prep-20261024/projected-script.tsv sha256 8a65ec15cfafd499006ac2590013562744eb81d478fd50e1b67ea8968920ad50
+A. units and map bind this script: True
+B. coherent_narration.read_units: 92 cues, 66 units
+C. every cue once, in order: True; 92 cues; words per unit 4-83; units per chapter 01:5 02:4 03:4 04:5 05:6 06:6 07:5 08:7 09:6 10:8 11:5 12:5
+D. 26 seams inside units: none holds in the source, all coherent-eligible (slack >= 0.5 s); 10_3|10_4 inside a unit: False; 33/33 hold seams re-scan as held
+E. narration_director.validate_map passes; directions places 73/73 overrides on distinct boundaries, none at a cue end; roles calculation_step 8, claim_boundary 1, clause 1, condition 1, connected 3, contrast 3, definition 4, payoff 2, protected_phrase 16, question 3, thought 30, turn 1
+F. 47 visual holds = 36 source holds/deliberate overruns + 11 chapter ends; each evidence span holds its call; none inside a unit
+G. override phrases unique (directions raises otherwise); 47 seam anchors unique: True
+H. negative controls
+   refused as expected: units omit a cue: unit plan omits, repeats or reorders script cues
+   refused as expected: units repeat a cue: unit plan omits, repeats or reorders script cues
+   refused as expected: units reorder two units: unit plan omits, repeats or reorders script cues
+   refused as expected: unit text changed by one character: unit 01u4 must contain exact script text, at most 100 words
+   refused as expected: a unit crosses chapters 01|02: invalid or cross-chapter cue group 01u5
+   refused as expected: a unit over 100 words: unit 01u1 must contain exact script text, at most 100 words
+   refused as expected: units bound to another script: unit plan does not bind current script bytes
+   refused as expected: 10_3 and 10_4 merged (read_units alone accepts it; the source seam check refuses): 10_3|10_4 is a deliberate_overrun seam
+   refused as expected: override phrase 'three' (twice in 12_4): override must name one unambiguous phrase and reason: inspection_paradox/12_4/['three']
+   refused as expected: override phrase not in its cue: override must name one unambiguous phrase and reason: inspection_paradox/12_4/['half', 'of', 'four']
+   refused as expected: two overrides on one boundary: duplicate or missing override boundary
+   refused as expected: visual hold evidence changed: visual hold evidence changed
+   refused as expected: visual hold names non-adjacent cues: visual hold does not name adjacent cues
+   refused as expected: map bound to another script: director map binds a different script: inspection_paradox
+242 checks; 0 failure(s)
+
+## Control: --script explainer_corpus/inspection_paradox/script.tsv (live, 67 cues), exit 1
+
+The plan must not bind the live 01-09 script. The traceback's absolute
+repo prefix is removed here; nothing else is changed.
+
+script explainer_corpus/inspection_paradox/script.tsv sha256 95cdcab9d87ba04eaa7631b1b091e6a3d621dbc25f153572e57726ce175eda29
+A. units and map bind this script: False
+Traceback (most recent call last):
+  File "explainer_corpus/inspection_paradox/docs/narration-prep-20261024/check_plan.py", line 81, in <module>
+    script, units = cn.read_units(script_path, units_path)
+                    ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tools/coherent_narration.py", line 53, in read_units
+    raise ValueError("unit plan does not bind current script bytes")
+ValueError: unit plan does not bind current script bytes
+
+## Preserved failed run 1, exit 1 (superseded)
+
+Run from the scratch staging copy against the previous map. 10_9|11_1 and
+11_7|12_1 failed because the check expected stand( at every chapter end,
+but chapters 10 and 11 end on kit.hold + wait_until. The check and the
+hold's reason text were corrected; the units and the overrides did not change.
+
+script projected-script.tsv sha256 8a65ec15cfafd499006ac2590013562744eb81d478fd50e1b67ea8968920ad50
+A. units and map bind this script: True
+B. coherent_narration.read_units: 92 cues, 66 units
+C. every cue once, in order: True; 92 cues; words per unit 4-83; units per chapter 01:5 02:4 03:4 04:5 05:6 06:6 07:5 08:7 09:6 10:8 11:5 12:5
+D. 26 seams inside units: none holds in the source, all coherent-eligible (slack >= 0.5 s); 10_3|10_4 inside a unit: False; 33/33 hold seams re-scan as held
+E. narration_director.validate_map passes; directions places 73/73 overrides on distinct boundaries, none at a cue end; roles calculation_step 8, claim_boundary 1, clause 1, condition 1, connected 3, contrast 3, definition 4, payoff 2, protected_phrase 16, question 3, thought 30, turn 1
+F. 47 visual holds = 36 source holds/deliberate overruns + 11 chapter ends; each evidence span holds its call; none inside a unit
+G. override phrases unique (directions raises otherwise); 47 seam anchors unique: True
+H. negative controls
+   refused as expected: units omit a cue: unit plan omits, repeats or reorders script cues
+   refused as expected: units repeat a cue: unit plan omits, repeats or reorders script cues
+   refused as expected: units reorder two units: unit plan omits, repeats or reorders script cues
+   refused as expected: unit text changed by one character: unit 01u4 must contain exact script text, at most 100 words
+   refused as expected: a unit crosses chapters 01|02: invalid or cross-chapter cue group 01u5
+   refused as expected: a unit over 100 words: unit 01u1 must contain exact script text, at most 100 words
+   refused as expected: units bound to another script: unit plan does not bind current script bytes
+   refused as expected: 10_3 and 10_4 merged (read_units alone accepts it; the source seam check refuses): 10_3|10_4 is a deliberate_overrun seam
+   refused as expected: override phrase 'three' (twice in 12_4): override must name one unambiguous phrase and reason: inspection_paradox/12_4/['three']
+   refused as expected: override phrase not in its cue: override must name one unambiguous phrase and reason: inspection_paradox/12_4/['half', 'of', 'four']
+   refused as expected: two overrides on one boundary: duplicate or missing override boundary
+   refused as expected: visual hold evidence changed: visual hold evidence changed
+   refused as expected: visual hold names non-adjacent cues: visual hold does not name adjacent cues
+   refused as expected: map bound to another script: director map binds a different script: inspection_paradox
+242 checks; 2 failure(s)
+  FAIL 10_9|11_1: lines 1087-1105 lack its chapter_end call
+  FAIL 11_7|12_1: lines 915-965 lack its chapter_end call

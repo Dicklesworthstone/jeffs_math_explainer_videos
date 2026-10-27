@@ -1,0 +1,18 @@
+[package]
+name = "inspection_paradox_explainer"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+description = "Why Your Bus Wait Is Longer Than You Expect: two bus routes on time, gaps of 2 and 10 minutes, and why people who turn up at random wait 4 minutes 20 seconds, not 3; residual-wait triangles, buses versus moments, and the exact formula; a 3Blue1Brown-style explainer rendered by franken_manim"
+
+[[bin]]
+name = "inspection_paradox"
+path = "src/main.rs"
+
+# franken_manim's pin, its reviewed patches and the release profile come from
+# the corpus workspace (the root Cargo.toml). Until root's integration Bead
+# removes this crate from the workspace's exclude list, nothing builds it.
+[dependencies]
+fmn.workspace = true
+explainer_kit.workspace = true
+explainer_score.workspace = true

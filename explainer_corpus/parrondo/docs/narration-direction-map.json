@@ -1,0 +1,4900 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "parrondo": "f33734146ec212b6bc5aef71ef5fd5ea81c82e2a3b9677982041bcdb23d8a0d1"
+  },
+  "policy": {
+    "connected": [
+      0.0,
+      0.28
+    ],
+    "clause": [
+      0.12,
+      0.65
+    ],
+    "thought": [
+      0.35,
+      1.1
+    ],
+    "question": [
+      0.65,
+      1.65
+    ],
+    "cue_transition": [
+      0.45,
+      1.4
+    ],
+    "chapter_transition": [
+      0.7,
+      2.2
+    ]
+  },
+  "overrides": [
+    {
+      "video": "parrondo",
+      "cue": "08_1",
+      "after": "full of luck",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the single-player limitation land before imagining copies."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_3",
+      "after": "At corner two",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction before explaining the two flows."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_3",
+      "after": "not fractions of people",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Correct the likely misconception before naming expected counts."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_3",
+      "after": "are expected numbers",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Separate the concept from the multiplication that computes it."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_6",
+      "after": "twelve on corner two",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let all three stationary counts register before rejecting equal thirds."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_8",
+      "after": "only forty times",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.65
+      ],
+      "reason": "Distinguish this run's rare exact count from its average."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_1",
+      "after": "still split exactly by the chances",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Re-establish expected flow before counting individual groups."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_5",
+      "after": "one plus nine, ten",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Give the first destination's sum time to land."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_5",
+      "after": "one plus three, four",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Finish the second destination before moving attention to the third."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_5",
+      "after": "nine plus three, twelve",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Inspect the restored crowd before stating its invariance."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_6",
+      "after": "Count the winners",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Redirect attention from destinations to forward-moving groups."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_9",
+      "after": "is called its weight",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Name the idea only after the picture, then read the three fractions deliberately."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_2",
+      "after": "nine times in ten",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.85
+      ],
+      "reason": "Let the predicted destination and its likelihood register."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_2",
+      "after": "knocks them back",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.85
+      ],
+      "reason": "Finish the backward move before describing the return."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_3",
+      "after": "not the only way they can go",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Separate a likely individual path from evidence about the crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_4",
+      "after": "for nine at corner two",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Read both groups before changing to their conditional share."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_4",
+      "after": "nine happen at corner two",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Give nine of twelve a beat before tracing those winners back to zero."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_5",
+      "after": "That's the trap in game B",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Name the mechanism after the evidence, then state its consequence."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_6",
+      "after": "One change removes the trap",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Introduce the controlled experiment before changing the selection rule."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_6",
+      "after": "instead of your money",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Make the changed variable clear before explaining the die faces."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_8",
+      "after": "Same two coins",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.85
+      ],
+      "reason": "Emphasize the invariant in the controlled comparison."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_8",
+      "after": "picks between them changed",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the causal point land before comparing the outcomes."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_2",
+      "after": "every arrow becomes an average",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Introduce the averaging operation before reading its two inputs."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_2",
+      "after": "B's ten percent",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Separate the two inputs from the thirty-percent result."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_3",
+      "after": "between fifty and seventy-five",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Allow mental averaging before announcing sixty-two and a half."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_5",
+      "after": "Off corner zero",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the direction question before the measured first step."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_6",
+      "after": "and the crowd settles",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Allow inspection of the settling graph before reading the final shares."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_7",
+      "after": "toward equal thirds",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Connect the stirring action to the shift away from the bad corner."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_1",
+      "after": "break even when they're played alone",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Re-establish the fair explanatory coins before mixing them."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_2",
+      "after": "never looks at the money",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "State independence before the equal split at each corner."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_2",
+      "after": "half are B rounds",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Finish the split before reasoning about A's coin."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_3",
+      "after": "Everything rests on the B rounds",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Shift attention to the rounds that earn the gain."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_3",
+      "after": "just one number",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Give the listener time to locate the controlling share."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_5",
+      "after": "half of every corner's rounds",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Finish conditional sampling before moving the crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_6",
+      "after": "What is that turn worth",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Frame the graph's purpose before reading its points."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_6",
+      "after": "fifty-three point three percent",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the two anchor values on the graph."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_7",
+      "after": "it's a straight line",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Name the visual relationship before its formula."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_7",
+      "after": "exactly five thirteenths",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the threshold land before connecting it to the weight."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_9",
+      "after": "Fifty-two point five percent",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction before averaging A and B."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_11",
+      "after": "only break even",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate A's direct return from its effect on the crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_1",
+      "after": "the ones the player used",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Complete the return to the published example."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_3",
+      "after": "The crowds barely move",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Prepare the listener for the deliberately small change."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_4",
+      "after": "thirty-seven point seven percent",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Locate the new threshold before comparing B's crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_6",
+      "after": "It does",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Resolve the prediction before explaining why."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_6",
+      "after": "fifty-two point one percent",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate B's winning rounds from A's losing ones."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_7",
+      "after": "the edge was bigger than that",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the handicap comparison land before the positive result."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_9",
+      "after": "every number from the opening",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Signal the return to the opening puzzle."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_1",
+      "after": "Here's a new question.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Turn from the half point to a new question about any game."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_2",
+      "after": "so that every count is whole",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Let the scaling register before the three counts."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_2",
+      "after": "five hundred sixty-eight at corner two",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let all three counts and puddles register before the familiar share."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_3",
+      "after": "thirty percent of the four hundred ninety",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Separate the forward flow from the opposing back flow."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_6",
+      "after": "Twelve, every time.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the counted answer land before restating it."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_6",
+      "after": "around the triangle",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the circulation register before naming it."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_8",
+      "after": "twelve for each of the three edges",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction, then check it by winners and losers."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_8",
+      "after": "six hundred ninety-one lose",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Separate the crowd's dollars from a player's cents."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_9",
+      "after": "Watch corner one.",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Direct attention to the ringed corner before its two edges."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_9",
+      "after": "keeps its three hundred sixty",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Complete the conservation argument before its converse case."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_10",
+      "after": "split exactly by the chances",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Mark expected numbers as a concept before the real round."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_10",
+      "after": "Real players toss real coins.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Separate the claim from the seeded illustration that follows."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_10",
+      "after": "minus seventeen",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Let the disagreeing edges register before the corner changes."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_11",
+      "after": "thirty-five point eight dollars a round",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let both averages register before the lesson about scatter."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_12",
+      "after": "gains three times it each round",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "State the rule, then its fair case."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_13",
+      "after": "every edge balances on its own",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Name the balance before the three numeric balances."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_14",
+      "after": "so they cancel",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the cancellation register before reading what is left."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_15",
+      "after": "and back as q",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the three letters register before the cancellation."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_15",
+      "after": "and each one cancels",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Complete the general cancellation before its meaning."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_1",
+      "after": "the two products match",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Restate what 14 proved before opening the converse."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_2",
+      "after": "pretend we never found its settled crowd",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the puddles drain before rebuilding the crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_2",
+      "after": "That takes four players.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Finish the first balance before the second."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_3",
+      "after": "nothing left to choose",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the viewer see the third row is already determined."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_3",
+      "after": "so it holds",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the check land before naming B's settled crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_4",
+      "after": "Why did the third balance come out right?",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Give a thinking beat before generalizing."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_6",
+      "after": "exactly the players it sends",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Complete the stays-put step before uniqueness."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_6",
+      "after": "from any corner to any other",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Complete the uniqueness step before the conclusion."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_7",
+      "after": "which way does the crowd turn?",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Give the question time before the derivation begins."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_7",
+      "after": "the net flow appears just once",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the simplification register before the last substitution."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_8",
+      "after": "so it's positive",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Establish the first positive factor before the second."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_8",
+      "after": "minus the backward product",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "State the sign rule before its two cases."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_9",
+      "after": "and B is fair",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the verdict register before the tempting misjudgement."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_11",
+      "after": "The forward product.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Answer the prediction before the exact fractions."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_12",
+      "after": "differ by three over one hundred sixty",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let both computed factors register before the two sides."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_14",
+      "after": "the coins Harmer and Abbott published",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the badge and chances change before the three verdicts."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_15",
+      "after": "what the test never needed",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Give the transfer observation a beat before naming what is absent."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_1",
+      "after": "and the mix won.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Settle the known result before questioning the switching rule."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_1",
+      "after": "only how often each one is?",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the order-versus-frequency question register."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_2",
+      "after": "forever.",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Let the fixed schedule register before its half-and-half count."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_4",
+      "after": "two thirds of a cent a round.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the answer land before its meaning."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_4",
+      "after": "into a loss.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Separate the surprise from the turn to the crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_5",
+      "after": "never looks at the money.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Set A's fixed cost aside before B's rounds."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_5",
+      "after": "when B plays.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Bring back the dial before its break-even line."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_6",
+      "after": "and wins.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the first dot stand before the climb."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_6",
+      "after": "just above it.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the settled dots register before the verdict."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_7",
+      "after": "Follow one cycle.",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Direct attention to one B round."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_7",
+      "after": "one step behind corner zero.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Complete B's round before A's."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_8",
+      "after": "just over one and a half cents.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the tempting prediction stand before refuting it."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_8",
+      "after": "the player stands.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Establish the independence that permits averaging before contrasting the fixed schedule."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_9",
+      "after": "Harmer and Abbott simulated.",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Separate the pattern's source from its mechanism."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_9",
+      "after": "both below the line.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the dots below the line register before the verdict."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_10",
+      "after": "per round played.",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Set the unit before the three rows."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_10",
+      "after": "wins one point five seven cents.",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Let each row arrive."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_10",
+      "after": "loses zero point six seven.",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Let each row arrive."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_10",
+      "after": "wins one point four seven.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Inspect the table before the conclusion."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_11",
+      "after": "Now the control.",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Mark the controlled comparison."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_11",
+      "after": "three cents a round.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the equal losses register before the reason."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_12",
+      "after": "a quarter of a cent a round.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Finish the first point before the second."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_13",
+      "after": "comes back down.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the computed curve draw before reading its crossings."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_13",
+      "after": "about eighty-five percent.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the rounded range register before the products."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_14",
+      "after": "not round numbers.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Introduce precision before the exact crossings."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_14",
+      "after": "strictly between them.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the strict bound register before its edge cases."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_15",
+      "after": "wins.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Separate the general denial from the specific mechanism.",
+      "word_index": 10
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_1",
+      "after": "even though game B loses.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the counterexample land before the long run."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_2",
+      "after": "over a fixed number of rounds?",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Give the question time before the setup."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_2",
+      "after": "for a hundred rounds.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Complete the setup before negative dollars."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_3",
+      "after": "the crowd has spread out.",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Let the bars grow before naming them."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_3",
+      "after": "finishes there.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let a bar's meaning register before parity."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_3",
+      "after": "every total is even.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the gaps register before the whole crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_3",
+      "after": "hold the whole crowd.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the whole crowd register before the corners."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_4",
+      "after": "Ahead of the start:",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Let the gold bars register before the number."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_5",
+      "after": "twenty-nine cents up.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the average register before comparing with the rate."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_5",
+      "after": "twenty-eight cents, once.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Complete the comparison before what the average hides."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_7",
+      "after": "more than two in three.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Answer the prediction before the transformation."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_7",
+      "after": "from a hundred to a thousand.",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Leave the voice silent while the bars change."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_8",
+      "after": "Level: two point four.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Finish the categories before the average."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_9",
+      "after": "the square root of ten.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the comparison register before the law."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_10",
+      "after": "where the player started,",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Mark the changed start before the game."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_10",
+      "after": "but not rare.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the verdict on the player's luck land."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_11",
+      "after": "sixty-three point nine percent.",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Let both single games register before the mix."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_12",
+      "after": "And in the very long run?",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Turn from fixed rounds to the long run."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_13",
+      "after": "three different things.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Announce the three before listing them."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_13",
+      "after": "it never becomes certain.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the second meaning land before the third."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_14",
+      "after": "invented games.",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Mark the scope before the lesson."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_8",
+      "after": "the next game is already fixed.",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Let the fixed schedule register before its dependence on the previous crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_1",
+      "after": "Back to the puzzle",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Recall the original two games before summarizing their behavior."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_2",
+      "after": "where the bad coin waits",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Finish the explanation before changing the crowd."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_3",
+      "after": "off corner zero",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Let the crowd change register before the conditional B win rate."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_4",
+      "after": "One last puzzle, to solve from the picture",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Introduce the transfer problem before specifying the rule."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_6",
+      "after": "It loses, and badly",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate the verdict from its size and mechanism."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_7",
+      "after": "A at corner zero and B everywhere else",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "Keep the swapped rule clear before its positive result."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_8",
+      "after": "the way the money flows",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Finish unequal products before introducing the equal-product case."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_9",
+      "after": "Parrondo's paradox, Markov chains",
+      "role": "clause",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "Distinct search terms while preserving the separate final reading hold."
+    },
+    {
+      "video": "parrondo",
+      "cue": "01_1",
+      "after": "two games of chance",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Establish the concrete objects before their surprising common loss."
+    },
+    {
+      "video": "parrondo",
+      "cue": "01_1",
+      "after": "slowly loses money",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the premise land before asking about switching."
+    },
+    {
+      "video": "parrondo",
+      "cue": "01_2",
+      "after": "learn the games properly",
+      "role": "clause",
+      "range_s": [
+        0.25,
+        0.55
+      ],
+      "reason": "Invite the viewer to learn the rules before calculating."
+    },
+    {
+      "video": "parrondo",
+      "cue": "01_3",
+      "after": "Heads wins a dollar",
+      "role": "clause",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "Keep the win and loss outcomes distinct."
+    },
+    {
+      "video": "parrondo",
+      "cue": "01_4",
+      "after": "forty-nine and a half percent of the time",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Keep the whole probability together before its comparison with half."
+    },
+    {
+      "video": "parrondo",
+      "cue": "01_5",
+      "after": "here it even climbs",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the displayed lucky rise challenge the long-run claim."
+    },
+    {
+      "video": "parrondo",
+      "cue": "01_6",
+      "after": "think in averages instead",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Mark the change from a sample path to an expectation."
+    },
+    {
+      "video": "parrondo",
+      "cue": "01_6",
+      "after": "forty-nine and a half wins",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Separate the expected wins from losses without splitting the number."
+    },
+    {
+      "video": "parrondo",
+      "cue": "01_8",
+      "after": "One dollar per hundred rounds",
+      "role": "clause",
+      "range_s": [
+        0.4,
+        0.7
+      ],
+      "reason": "Let the answer land before converting its unit."
+    },
+    {
+      "video": "parrondo",
+      "cue": "01_8",
+      "after": "a cent a round",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.8
+      ],
+      "reason": "Give the per-round cost its own beat."
+    },
+    {
+      "video": "parrondo",
+      "cue": "01_9",
+      "after": "a hundred thousand rounds",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Complete the experiment size before describing its path."
+    },
+    {
+      "video": "parrondo",
+      "cue": "01_10",
+      "after": "losing slowly",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate the verdict from the short-run versus long-run distinction."
+    },
+    {
+      "video": "parrondo",
+      "cue": "02_1",
+      "after": "two coins and a rule for choosing between them",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The rule is the hidden state dependence; make it audible."
+    },
+    {
+      "video": "parrondo",
+      "cue": "02_2",
+      "after": "Does the count divide by three",
+      "role": "question",
+      "range_s": [
+        0.65,
+        1.1
+      ],
+      "reason": "Allow the rule question to register before the physical rows."
+    },
+    {
+      "video": "parrondo",
+      "cue": "02_3",
+      "after": "one left over",
+      "role": "clause",
+      "range_s": [
+        0.25,
+        0.55
+      ],
+      "reason": "Separate the seven-dollar example from eight."
+    },
+    {
+      "video": "parrondo",
+      "cue": "02_3",
+      "after": "Eight leave two over",
+      "role": "clause",
+      "range_s": [
+        0.25,
+        0.55
+      ],
+      "reason": "Separate the eight-dollar example from nine."
+    },
+    {
+      "video": "parrondo",
+      "cue": "02_3",
+      "after": "nothing left over",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the three physical cases settle before naming remainder."
+    },
+    {
+      "video": "parrondo",
+      "cue": "02_4",
+      "after": "the bad coin",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.75
+      ],
+      "reason": "Bind corner zero to its coin before giving its chance."
+    },
+    {
+      "video": "parrondo",
+      "cue": "02_5",
+      "after": "the good coin",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.75
+      ],
+      "reason": "Make the contrasting rule audible before its chance."
+    },
+    {
+      "video": "parrondo",
+      "cue": "02_7",
+      "after": "The good coin",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.85
+      ],
+      "reason": "Answer the viewer prediction before the reason."
+    },
+    {
+      "video": "parrondo",
+      "cue": "02_8",
+      "after": "eight becomes nine",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the changed remainder trigger the bad coin."
+    },
+    {
+      "video": "parrondo",
+      "cue": "03_1",
+      "after": "the bad coin",
+      "role": "question",
+      "range_s": [
+        0.65,
+        1.1
+      ],
+      "reason": "Hold the question before the tempting equal-thirds shortcut."
+    },
+    {
+      "video": "parrondo",
+      "cue": "03_2",
+      "after": "two rounds in three",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Keep the hypothetical assumption distinct from the computed rate."
+    },
+    {
+      "video": "parrondo",
+      "cue": "03_4",
+      "after": "It loses",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction before replaying the path."
+    },
+    {
+      "video": "parrondo",
+      "cue": "03_5",
+      "after": "Not a third of the rounds",
+      "role": "clause",
+      "range_s": [
+        0.4,
+        0.7
+      ],
+      "reason": "Contrast equal thirds with the observed occupation."
+    },
+    {
+      "video": "parrondo",
+      "cue": "03_6",
+      "after": "what sink game B",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Land the mechanism question before the invitation to explain it."
+    },
+    {
+      "video": "parrondo",
+      "cue": "04_1",
+      "after": "a fair coin",
+      "role": "thought",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "Separate the game-selection coin from the games themselves."
+    },
+    {
+      "video": "parrondo",
+      "cue": "04_1",
+      "after": "play game A",
+      "role": "clause",
+      "range_s": [
+        0.25,
+        0.55
+      ],
+      "reason": "Separate the two game-selection outcomes."
+    },
+    {
+      "video": "parrondo",
+      "cue": "04_2",
+      "after": "the mix looks hopeless",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Frame the ordinary-coins comparison as a tempting argument."
+    },
+    {
+      "video": "parrondo",
+      "cue": "04_3",
+      "after": "forty-eight and a half percent",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep the averaged probability whole before the verdict."
+    },
+    {
+      "video": "parrondo",
+      "cue": "04_4",
+      "after": "a little under a cent",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Separate the two standalone averages from the invalid inference."
+    },
+    {
+      "video": "parrondo",
+      "cue": "04_6",
+      "after": "They win",
+      "role": "thought",
+      "range_s": [
+        0.55,
+        0.95
+      ],
+      "reason": "Let the reversal land before the sample path."
+    },
+    {
+      "video": "parrondo",
+      "cue": "05_1",
+      "after": "so something else did",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.85
+      ],
+      "reason": "Ask what changed while keeping the coins fixed."
+    },
+    {
+      "video": "parrondo",
+      "cue": "05_2",
+      "after": "Less",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction before reporting the new share."
+    },
+    {
+      "video": "parrondo",
+      "cue": "05_3",
+      "after": "it's real",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.85
+      ],
+      "reason": "Land the puzzle before its per-round numerical result."
+    },
+    {
+      "video": "parrondo",
+      "cue": "05_4",
+      "after": "the part that reads your money",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.85
+      ],
+      "reason": "Emphasize state dependence before introducing the new picture."
+    },
+    {
+      "video": "parrondo",
+      "cue": "06_1",
+      "after": "just that",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.75
+      ],
+      "reason": "Motivate discarding the dollar total before drawing corners."
+    },
+    {
+      "video": "parrondo",
+      "cue": "06_2",
+      "after": "at corner one",
+      "role": "thought",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "Locate the persistent player before moving them."
+    },
+    {
+      "video": "parrondo",
+      "cue": "06_4",
+      "after": "Around to corner zero",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Give the wraparound answer before its dollar interpretation."
+    },
+    {
+      "video": "parrondo",
+      "cue": "06_5",
+      "after": "nine and a half percent of the time",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Separate the bad corner from the other two without splitting a chance."
+    },
+    {
+      "video": "parrondo",
+      "cue": "06_6",
+      "after": "the same from every corner",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Contrast A with the state-dependent rule."
+    },
+    {
+      "video": "parrondo",
+      "cue": "07_1",
+      "after": "at corner zero",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate the same-rule example from the occupation question."
+    },
+    {
+      "video": "parrondo",
+      "cue": "07_3",
+      "after": "One third",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction before the symmetry explanation."
+    },
+    {
+      "video": "parrondo",
+      "cue": "07_3",
+      "after": "share the rounds equally",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate the limiting statement from the finite observed run."
+    },
+    {
+      "video": "parrondo",
+      "cue": "07_4",
+      "after": "does not treat its corners alike",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Contrast the broken symmetry before its observed consequence."
+    },
+    {
+      "video": "parrondo",
+      "cue": "07_5",
+      "after": "rounder for a while",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Mark this as a temporary change to the worked example."
+    },
+    {
+      "video": "parrondo",
+      "cue": "07_5",
+      "after": "half a point shaved off",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Distinguish percentage points from a percentage reduction."
+    },
+    {
+      "video": "parrondo",
+      "cue": "07_6",
+      "after": "neither wins nor loses",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Land the fair A result before changing B."
+    },
+    {
+      "video": "parrondo",
+      "cue": "07_7",
+      "after": "not the published games",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Protect the distinction between round and published coins."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "parrondo",
+      "cue": "01_1",
+      "next_cue": "01_2",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_puzzle.rs",
+        "sha256": "24f0ef141953d01091e52855594ba53d8242154632b79577dc13252914e7b57a",
+        "lines": [
+          305,
+          344
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 340,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 341,
+          "text": "pause(stage, 1.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "01_7",
+      "next_cue": "01_8",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_puzzle.rs",
+        "sha256": "24f0ef141953d01091e52855594ba53d8242154632b79577dc13252914e7b57a",
+        "lines": [
+          478,
+          485
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 482,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "01_10",
+      "next_cue": "02_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_puzzle.rs",
+        "sha256": "24f0ef141953d01091e52855594ba53d8242154632b79577dc13252914e7b57a",
+        "lines": [
+          551,
+          640
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 613,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 614,
+          "text": "wait_until(stage, card_up + read_s(&n.card))?;"
+        },
+        {
+          "line": 638,
+          "text": "stand(&kit, stage, up)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "02_5",
+      "next_cue": "02_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_rule.rs",
+        "sha256": "ad182b3d28aa63feddede7a0f0641e6649e3b3dc56f6c79565f671b15d7e30e6",
+        "lines": [
+          411,
+          438
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 434,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "02_6",
+      "next_cue": "02_7",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_rule.rs",
+        "sha256": "ad182b3d28aa63feddede7a0f0641e6649e3b3dc56f6c79565f671b15d7e30e6",
+        "lines": [
+          438,
+          453
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 450,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "02_8",
+      "next_cue": "03_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_rule.rs",
+        "sha256": "ad182b3d28aa63feddede7a0f0641e6649e3b3dc56f6c79565f671b15d7e30e6",
+        "lines": [
+          472,
+          534
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 532,
+          "text": "stand(&kit, stage, up)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "03_3",
+      "next_cue": "03_4",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/does_b_win.rs",
+        "sha256": "1e22ff62e451b512c4ad44e3691dc01214cab52a84c818c3c6d3ec445aede3a6",
+        "lines": [
+          390,
+          394
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 391,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "03_6",
+      "next_cue": "04_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/does_b_win.rs",
+        "sha256": "1e22ff62e451b512c4ad44e3691dc01214cab52a84c818c3c6d3ec445aede3a6",
+        "lines": [
+          527,
+          551
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 530,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 549,
+          "text": "stand(&kit, stage, up)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "04_5",
+      "next_cue": "04_6",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/looks_hopeless.rs",
+        "sha256": "1751dde486f080c5bc511dd16cd465275332c69f9bf2fef2fd4f56e8df8b6912",
+        "lines": [
+          723,
+          727
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 724,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "04_6",
+      "next_cue": "05_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/looks_hopeless.rs",
+        "sha256": "1751dde486f080c5bc511dd16cd465275332c69f9bf2fef2fd4f56e8df8b6912",
+        "lines": [
+          727,
+          773
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 771,
+          "text": "stand(&kit, stage, up)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "05_1",
+      "next_cue": "05_2",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_clue.rs",
+        "sha256": "b413c9436180947b6892ead49130378a9c2d18245085df550363498c2dd666d7",
+        "lines": [
+          399,
+          457
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 453,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "05_3",
+      "next_cue": "05_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_clue.rs",
+        "sha256": "b413c9436180947b6892ead49130378a9c2d18245085df550363498c2dd666d7",
+        "lines": [
+          534,
+          600
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 585,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 586,
+          "text": "wait_until(stage, card_up + read_s(&n.k02))?;"
+        },
+        {
+          "line": 596,
+          "text": "pause(stage, TITLE_HOLD)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "05_4",
+      "next_cue": "06_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_clue.rs",
+        "sha256": "b413c9436180947b6892ead49130378a9c2d18245085df550363498c2dd666d7",
+        "lines": [
+          600,
+          640
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 638,
+          "text": "stand(&kit, stage, up)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "06_3",
+      "next_cue": "06_4",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/three_corners.rs",
+        "sha256": "9917a02792faaa37c16103c54987d1ad85761429004652e80a464f0d46b42e2a",
+        "lines": [
+          733,
+          738
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 734,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "06_4",
+      "next_cue": "06_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/three_corners.rs",
+        "sha256": "9917a02792faaa37c16103c54987d1ad85761429004652e80a464f0d46b42e2a",
+        "lines": [
+          738,
+          778
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 773,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 774,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "06_6",
+      "next_cue": "07_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/three_corners.rs",
+        "sha256": "9917a02792faaa37c16103c54987d1ad85761429004652e80a464f0d46b42e2a",
+        "lines": [
+          801,
+          818
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 815,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 816,
+          "text": "wait_until(stage, up + COMPARE_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "07_1",
+      "next_cue": "07_2",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/where_you_stand.rs",
+        "sha256": "fce6cc388c7a2445bbfa4d8303dbf742a67db252e3bc0c89c73449ca15340b22",
+        "lines": [
+          409,
+          467
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 461,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 462,
+          "text": "wait_until(stage, card_up + read_s(&n.k03))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "07_2",
+      "next_cue": "07_3",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/where_you_stand.rs",
+        "sha256": "fce6cc388c7a2445bbfa4d8303dbf742a67db252e3bc0c89c73449ca15340b22",
+        "lines": [
+          467,
+          473
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 470,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "07_4",
+      "next_cue": "07_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/where_you_stand.rs",
+        "sha256": "fce6cc388c7a2445bbfa4d8303dbf742a67db252e3bc0c89c73449ca15340b22",
+        "lines": [
+          494,
+          513
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 508,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 509,
+          "text": "pause(stage, COMPARE_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "07_5",
+      "next_cue": "07_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/where_you_stand.rs",
+        "sha256": "fce6cc388c7a2445bbfa4d8303dbf742a67db252e3bc0c89c73449ca15340b22",
+        "lines": [
+          513,
+          579
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 574,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 575,
+          "text": "pause(stage, TURN)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "07_7",
+      "next_cue": "08_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/where_you_stand.rs",
+        "sha256": "fce6cc388c7a2445bbfa4d8303dbf742a67db252e3bc0c89c73449ca15340b22",
+        "lines": [
+          599,
+          622
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 619,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 620,
+          "text": "pause(stage, THINK_HOLD)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_2",
+      "next_cue": "08_3",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/one_player_to_a_crowd.rs",
+        "sha256": "953a0a54a318ad3ae965be2d88e821a5356c9073bbe3bc66172e6666648fdf1f",
+        "lines": [
+          946,
+          993
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 989,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_3",
+      "next_cue": "08_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/one_player_to_a_crowd.rs",
+        "sha256": "953a0a54a318ad3ae965be2d88e821a5356c9073bbe3bc66172e6666648fdf1f",
+        "lines": [
+          993,
+          1032
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1028,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_4",
+      "next_cue": "08_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/one_player_to_a_crowd.rs",
+        "sha256": "953a0a54a318ad3ae965be2d88e821a5356c9073bbe3bc66172e6666648fdf1f",
+        "lines": [
+          1032,
+          1054
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1050,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_5",
+      "next_cue": "08_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/one_player_to_a_crowd.rs",
+        "sha256": "953a0a54a318ad3ae965be2d88e821a5356c9073bbe3bc66172e6666648fdf1f",
+        "lines": [
+          1054,
+          1176
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1055,
+          "text": "wait_until(stage, card_up + read_s(&n.k04))?;"
+        },
+        {
+          "line": 1172,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_6",
+      "next_cue": "08_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/one_player_to_a_crowd.rs",
+        "sha256": "953a0a54a318ad3ae965be2d88e821a5356c9073bbe3bc66172e6666648fdf1f",
+        "lines": [
+          1176,
+          1207
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1202,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1203,
+          "text": "pause(stage, SETTLE_HOLD)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_7",
+      "next_cue": "08_8",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/one_player_to_a_crowd.rs",
+        "sha256": "953a0a54a318ad3ae965be2d88e821a5356c9073bbe3bc66172e6666648fdf1f",
+        "lines": [
+          1207,
+          1284
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1269,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1279,
+          "text": "pause(stage, HOP_REST)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "08_8",
+      "next_cue": "09_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/one_player_to_a_crowd.rs",
+        "sha256": "953a0a54a318ad3ae965be2d88e821a5356c9073bbe3bc66172e6666648fdf1f",
+        "lines": [
+          1284,
+          1357
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1344,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1345,
+          "text": "pause(stage, RESULT_HOLD)?;"
+        },
+        {
+          "line": 1354,
+          "text": "pause(stage, BEAT)?;"
+        },
+        {
+          "line": 1355,
+          "text": "stand(&kit, stage, up)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_1",
+      "next_cue": "09_2",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/ten_four_twelve.rs",
+        "sha256": "7b48df5195b27ae6c21d652d8749040919a39d7a1de26991ca3cf04df00b2fcb",
+        "lines": [
+          413,
+          522
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 482,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_2",
+      "next_cue": "09_3",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/ten_four_twelve.rs",
+        "sha256": "7b48df5195b27ae6c21d652d8749040919a39d7a1de26991ca3cf04df00b2fcb",
+        "lines": [
+          413,
+          522
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 482,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_3",
+      "next_cue": "09_4",
+      "kind": "setup_or_inspection",
+      "reason": "Keep the final corner split separate from the simultaneous-motion prediction; loop has no extra post-09_3 hold.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/ten_four_twelve.rs",
+        "sha256": "7b48df5195b27ae6c21d652d8749040919a39d7a1de26991ca3cf04df00b2fcb",
+        "lines": [
+          413,
+          522
+        ]
+      },
+      "source_calls": [],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_4",
+      "next_cue": "09_5",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/ten_four_twelve.rs",
+        "sha256": "7b48df5195b27ae6c21d652d8749040919a39d7a1de26991ca3cf04df00b2fcb",
+        "lines": [
+          522,
+          531
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 527,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_5",
+      "next_cue": "09_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/ten_four_twelve.rs",
+        "sha256": "7b48df5195b27ae6c21d652d8749040919a39d7a1de26991ca3cf04df00b2fcb",
+        "lines": [
+          531,
+          613
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 609,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 610,
+          "text": "pause(stage, AS_WERE_HOLD)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_6",
+      "next_cue": "09_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/ten_four_twelve.rs",
+        "sha256": "7b48df5195b27ae6c21d652d8749040919a39d7a1de26991ca3cf04df00b2fcb",
+        "lines": [
+          613,
+          632
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 627,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 628,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_8",
+      "next_cue": "09_9",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/ten_four_twelve.rs",
+        "sha256": "7b48df5195b27ae6c21d652d8749040919a39d7a1de26991ca3cf04df00b2fcb",
+        "lines": [
+          685,
+          720
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 716,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "09_9",
+      "next_cue": "10_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/ten_four_twelve.rs",
+        "sha256": "7b48df5195b27ae6c21d652d8749040919a39d7a1de26991ca3cf04df00b2fcb",
+        "lines": [
+          720,
+          752
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 742,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 749,
+          "text": "wait_until(stage, card_up + read_s(&NAMES.join(\" \\u{b7} \")))?;"
+        },
+        {
+          "line": 750,
+          "text": "stand(&kit, stage, card_up)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_1",
+      "next_cue": "10_2",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_trap.rs",
+        "sha256": "51793c57a29a256e5c33450da95f1a8695eddc2465e939b204fd9f7a018a695a",
+        "lines": [
+          725,
+          783
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 778,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_2",
+      "next_cue": "10_3",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_trap.rs",
+        "sha256": "51793c57a29a256e5c33450da95f1a8695eddc2465e939b204fd9f7a018a695a",
+        "lines": [
+          783,
+          814
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 809,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 810,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_5",
+      "next_cue": "10_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_trap.rs",
+        "sha256": "51793c57a29a256e5c33450da95f1a8695eddc2465e939b204fd9f7a018a695a",
+        "lines": [
+          906,
+          921
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 916,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 917,
+          "text": "pause(stage, TRAP_HOLD)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_7",
+      "next_cue": "10_8",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_trap.rs",
+        "sha256": "51793c57a29a256e5c33450da95f1a8695eddc2465e939b204fd9f7a018a695a",
+        "lines": [
+          992,
+          1027
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1022,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1023,
+          "text": "pause(stage, VERDICT_HOLD)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "10_8",
+      "next_cue": "11_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_trap.rs",
+        "sha256": "51793c57a29a256e5c33450da95f1a8695eddc2465e939b204fd9f7a018a695a",
+        "lines": [
+          1027,
+          1053
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1051,
+          "text": "stand(&kit, stage, up)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_3",
+      "next_cue": "11_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/mix_the_games.rs",
+        "sha256": "cbc872d8c2d8c0bc401b7c1b6556baf5877e82ce955237cb697163b2cc5c0824",
+        "lines": [
+          622,
+          660
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 655,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_4",
+      "next_cue": "11_5",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/mix_the_games.rs",
+        "sha256": "cbc872d8c2d8c0bc401b7c1b6556baf5877e82ce955237cb697163b2cc5c0824",
+        "lines": [
+          660,
+          779
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 774,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_5",
+      "next_cue": "11_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/mix_the_games.rs",
+        "sha256": "cbc872d8c2d8c0bc401b7c1b6556baf5877e82ce955237cb697163b2cc5c0824",
+        "lines": [
+          779,
+          864
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 855,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 859,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_6",
+      "next_cue": "11_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/mix_the_games.rs",
+        "sha256": "cbc872d8c2d8c0bc401b7c1b6556baf5877e82ce955237cb697163b2cc5c0824",
+        "lines": [
+          864,
+          937
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 933,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "11_7",
+      "next_cue": "12_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/mix_the_games.rs",
+        "sha256": "cbc872d8c2d8c0bc401b7c1b6556baf5877e82ce955237cb697163b2cc5c0824",
+        "lines": [
+          937,
+          982
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 980,
+          "text": "stand(&kit, stage, up)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_2",
+      "next_cue": "12_3",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/one_dial.rs",
+        "sha256": "20aa25a9e8991d7a91eaac44c37d933fa4ac5a237beecc101a87bb34fc90c630",
+        "lines": [
+          729,
+          755
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 750,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 751,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_5",
+      "next_cue": "12_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/one_dial.rs",
+        "sha256": "20aa25a9e8991d7a91eaac44c37d933fa4ac5a237beecc101a87bb34fc90c630",
+        "lines": [
+          785,
+          829
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 825,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_6",
+      "next_cue": "12_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/one_dial.rs",
+        "sha256": "20aa25a9e8991d7a91eaac44c37d933fa4ac5a237beecc101a87bb34fc90c630",
+        "lines": [
+          829,
+          884
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 879,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 880,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_8",
+      "next_cue": "12_9",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/one_dial.rs",
+        "sha256": "20aa25a9e8991d7a91eaac44c37d933fa4ac5a237beecc101a87bb34fc90c630",
+        "lines": [
+          904,
+          914
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 911,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_10",
+      "next_cue": "12_11",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/one_dial.rs",
+        "sha256": "20aa25a9e8991d7a91eaac44c37d933fa4ac5a237beecc101a87bb34fc90c630",
+        "lines": [
+          934,
+          946
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 940,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 941,
+          "text": "wait_until(stage, card_up + read_s(&n.k05))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "12_12",
+      "next_cue": "13_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/one_dial.rs",
+        "sha256": "20aa25a9e8991d7a91eaac44c37d933fa4ac5a237beecc101a87bb34fc90c630",
+        "lines": [
+          958,
+          1008
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1006,
+          "text": "stand(&kit, stage, up)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_3",
+      "next_cue": "13_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_half_point.rs",
+        "sha256": "d75b153226100f9b4b847f4850c436796f298317eed1b2c7468fc6eec79602af",
+        "lines": [
+          587,
+          634
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 627,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 628,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_4",
+      "next_cue": "13_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_half_point.rs",
+        "sha256": "d75b153226100f9b4b847f4850c436796f298317eed1b2c7468fc6eec79602af",
+        "lines": [
+          634,
+          699
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 695,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 696,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_5",
+      "next_cue": "13_6",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_half_point.rs",
+        "sha256": "d75b153226100f9b4b847f4850c436796f298317eed1b2c7468fc6eec79602af",
+        "lines": [
+          699,
+          711
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 707,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_8",
+      "next_cue": "13_9",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_half_point.rs",
+        "sha256": "d75b153226100f9b4b847f4850c436796f298317eed1b2c7468fc6eec79602af",
+        "lines": [
+          747,
+          808
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 803,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 804,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_9",
+      "next_cue": "13_10",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_half_point.rs",
+        "sha256": "d75b153226100f9b4b847f4850c436796f298317eed1b2c7468fc6eec79602af",
+        "lines": [
+          808,
+          854
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 850,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 851,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "13_10",
+      "next_cue": "14_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_half_point.rs",
+        "sha256": "d75b153226100f9b4b847f4850c436796f298317eed1b2c7468fc6eec79602af",
+        "lines": [
+          854,
+          883
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 881,
+          "text": "stand(&kit, stage, up)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_3",
+      "next_cue": "14_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/net_flow.rs",
+        "sha256": "28b379313c6d9c4af081bbe2fe282f8add744383344e0282576d0f61886ce9f1",
+        "lines": [
+          947,
+          968
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 963,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 964,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_5",
+      "next_cue": "14_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/net_flow.rs",
+        "sha256": "28b379313c6d9c4af081bbe2fe282f8add744383344e0282576d0f61886ce9f1",
+        "lines": [
+          990,
+          1000
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 994,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 997,
+          "text": "pause(stage, COUNT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_7",
+      "next_cue": "14_8",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/net_flow.rs",
+        "sha256": "28b379313c6d9c4af081bbe2fe282f8add744383344e0282576d0f61886ce9f1",
+        "lines": [
+          1028,
+          1038
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1034,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_8",
+      "next_cue": "14_9",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/net_flow.rs",
+        "sha256": "28b379313c6d9c4af081bbe2fe282f8add744383344e0282576d0f61886ce9f1",
+        "lines": [
+          1038,
+          1063
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1058,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1059,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_9",
+      "next_cue": "14_10",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/net_flow.rs",
+        "sha256": "28b379313c6d9c4af081bbe2fe282f8add744383344e0282576d0f61886ce9f1",
+        "lines": [
+          1063,
+          1085
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1081,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1082,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_10",
+      "next_cue": "14_11",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/net_flow.rs",
+        "sha256": "28b379313c6d9c4af081bbe2fe282f8add744383344e0282576d0f61886ce9f1",
+        "lines": [
+          1085,
+          1135
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1130,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1131,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_11",
+      "next_cue": "14_12",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/net_flow.rs",
+        "sha256": "28b379313c6d9c4af081bbe2fe282f8add744383344e0282576d0f61886ce9f1",
+        "lines": [
+          1135,
+          1172
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1167,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1168,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_12",
+      "next_cue": "14_13",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/net_flow.rs",
+        "sha256": "28b379313c6d9c4af081bbe2fe282f8add744383344e0282576d0f61886ce9f1",
+        "lines": [
+          1172,
+          1218
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1213,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1214,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_13",
+      "next_cue": "14_14",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/net_flow.rs",
+        "sha256": "28b379313c6d9c4af081bbe2fe282f8add744383344e0282576d0f61886ce9f1",
+        "lines": [
+          1218,
+          1258
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1253,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1254,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_14",
+      "next_cue": "14_15",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/net_flow.rs",
+        "sha256": "28b379313c6d9c4af081bbe2fe282f8add744383344e0282576d0f61886ce9f1",
+        "lines": [
+          1258,
+          1362
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1357,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1358,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "14_15",
+      "next_cue": "15_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/net_flow.rs",
+        "sha256": "28b379313c6d9c4af081bbe2fe282f8add744383344e0282576d0f61886ce9f1",
+        "lines": [
+          1362,
+          1407
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1404,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1405,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_3",
+      "next_cue": "15_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/two_products.rs",
+        "sha256": "700230d84a8e09b927df22f279d0eb679577f8ca48b980e055edd2ecbfe683c0",
+        "lines": [
+          742,
+          770
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 765,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 766,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_5",
+      "next_cue": "15_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/two_products.rs",
+        "sha256": "700230d84a8e09b927df22f279d0eb679577f8ca48b980e055edd2ecbfe683c0",
+        "lines": [
+          799,
+          828
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 823,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 824,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_6",
+      "next_cue": "15_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/two_products.rs",
+        "sha256": "700230d84a8e09b927df22f279d0eb679577f8ca48b980e055edd2ecbfe683c0",
+        "lines": [
+          828,
+          866
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 861,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 862,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_7",
+      "next_cue": "15_8",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/two_products.rs",
+        "sha256": "700230d84a8e09b927df22f279d0eb679577f8ca48b980e055edd2ecbfe683c0",
+        "lines": [
+          866,
+          916
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 911,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 912,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_8",
+      "next_cue": "15_9",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/two_products.rs",
+        "sha256": "700230d84a8e09b927df22f279d0eb679577f8ca48b980e055edd2ecbfe683c0",
+        "lines": [
+          916,
+          970
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 965,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 966,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_9",
+      "next_cue": "15_10",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/two_products.rs",
+        "sha256": "700230d84a8e09b927df22f279d0eb679577f8ca48b980e055edd2ecbfe683c0",
+        "lines": [
+          970,
+          1008
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1003,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1004,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_10",
+      "next_cue": "15_11",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/two_products.rs",
+        "sha256": "700230d84a8e09b927df22f279d0eb679577f8ca48b980e055edd2ecbfe683c0",
+        "lines": [
+          1008,
+          1051
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1047,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_11",
+      "next_cue": "15_12",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/two_products.rs",
+        "sha256": "700230d84a8e09b927df22f279d0eb679577f8ca48b980e055edd2ecbfe683c0",
+        "lines": [
+          1051,
+          1077
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1072,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1073,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_12",
+      "next_cue": "15_13",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/two_products.rs",
+        "sha256": "700230d84a8e09b927df22f279d0eb679577f8ca48b980e055edd2ecbfe683c0",
+        "lines": [
+          1077,
+          1107
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1103,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1104,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_13",
+      "next_cue": "15_14",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/two_products.rs",
+        "sha256": "700230d84a8e09b927df22f279d0eb679577f8ca48b980e055edd2ecbfe683c0",
+        "lines": [
+          1107,
+          1126
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1120,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1121,
+          "text": "wait_until(stage, card_up + read_s(&n.k06))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_14",
+      "next_cue": "15_15",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/two_products.rs",
+        "sha256": "700230d84a8e09b927df22f279d0eb679577f8ca48b980e055edd2ecbfe683c0",
+        "lines": [
+          1126,
+          1197
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1192,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1193,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "15_15",
+      "next_cue": "16_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/two_products.rs",
+        "sha256": "700230d84a8e09b927df22f279d0eb679577f8ca48b980e055edd2ecbfe683c0",
+        "lines": [
+          1197,
+          1219
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1216,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1217,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_3",
+      "next_cue": "16_4",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/when_switching_fails.rs",
+        "sha256": "31581e6269184e7f8f0cd0895473b15605d33924402edcdee7b0c89b37e7c59f",
+        "lines": [
+          1106,
+          1120
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1117,
+          "text": "let q = think(&kit, stage, THINK_AT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_4",
+      "next_cue": "16_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/when_switching_fails.rs",
+        "sha256": "31581e6269184e7f8f0cd0895473b15605d33924402edcdee7b0c89b37e7c59f",
+        "lines": [
+          1120,
+          1135
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1131,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1132,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_6",
+      "next_cue": "16_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/when_switching_fails.rs",
+        "sha256": "31581e6269184e7f8f0cd0895473b15605d33924402edcdee7b0c89b37e7c59f",
+        "lines": [
+          1159,
+          1209
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1205,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1206,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_7",
+      "next_cue": "16_8",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/when_switching_fails.rs",
+        "sha256": "31581e6269184e7f8f0cd0895473b15605d33924402edcdee7b0c89b37e7c59f",
+        "lines": [
+          1209,
+          1267
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1263,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1264,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_8",
+      "next_cue": "16_9",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/when_switching_fails.rs",
+        "sha256": "31581e6269184e7f8f0cd0895473b15605d33924402edcdee7b0c89b37e7c59f",
+        "lines": [
+          1267,
+          1292
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1288,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1289,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_9",
+      "next_cue": "16_10",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/when_switching_fails.rs",
+        "sha256": "31581e6269184e7f8f0cd0895473b15605d33924402edcdee7b0c89b37e7c59f",
+        "lines": [
+          1292,
+          1336
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1332,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1333,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_10",
+      "next_cue": "16_11",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/when_switching_fails.rs",
+        "sha256": "31581e6269184e7f8f0cd0895473b15605d33924402edcdee7b0c89b37e7c59f",
+        "lines": [
+          1336,
+          1394
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1389,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1390,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_11",
+      "next_cue": "16_12",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/when_switching_fails.rs",
+        "sha256": "31581e6269184e7f8f0cd0895473b15605d33924402edcdee7b0c89b37e7c59f",
+        "lines": [
+          1394,
+          1430
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1425,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1426,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_13",
+      "next_cue": "16_14",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/when_switching_fails.rs",
+        "sha256": "31581e6269184e7f8f0cd0895473b15605d33924402edcdee7b0c89b37e7c59f",
+        "lines": [
+          1486,
+          1537
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1533,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1534,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_14",
+      "next_cue": "16_15",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/when_switching_fails.rs",
+        "sha256": "31581e6269184e7f8f0cd0895473b15605d33924402edcdee7b0c89b37e7c59f",
+        "lines": [
+          1537,
+          1577
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1571,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1572,
+          "text": "wait_until(stage, card_up + read_s(&n.k07))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "16_15",
+      "next_cue": "17_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/when_switching_fails.rs",
+        "sha256": "31581e6269184e7f8f0cd0895473b15605d33924402edcdee7b0c89b37e7c59f",
+        "lines": [
+          1577,
+          1606
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1603,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1604,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_1",
+      "next_cue": "17_2",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/what_winning_promises.rs",
+        "sha256": "373cbfb278dd4c3c8dbb445c862dd03c2c36e390c7d73fc03ab8fd7493ebcc6f",
+        "lines": [
+          992,
+          1063
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1058,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1059,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_2",
+      "next_cue": "17_3",
+      "kind": "setup_or_inspection",
+      "reason": "Finish the full crowd/negative-dollar invitation before the histogram; source moves through phrase anchors before the next cue. No additional silence prescribed.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/what_winning_promises.rs",
+        "sha256": "373cbfb278dd4c3c8dbb445c862dd03c2c36e390c7d73fc03ab8fd7493ebcc6f",
+        "lines": [
+          1063,
+          1114
+        ]
+      },
+      "source_calls": [],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_3",
+      "next_cue": "17_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/what_winning_promises.rs",
+        "sha256": "373cbfb278dd4c3c8dbb445c862dd03c2c36e390c7d73fc03ab8fd7493ebcc6f",
+        "lines": [
+          1114,
+          1191
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1185,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1186,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_4",
+      "next_cue": "17_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/what_winning_promises.rs",
+        "sha256": "373cbfb278dd4c3c8dbb445c862dd03c2c36e390c7d73fc03ab8fd7493ebcc6f",
+        "lines": [
+          1191,
+          1235
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1228,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1230,
+          "text": "wait_until(stage, card_up + read_s(&n.k08))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_5",
+      "next_cue": "17_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/what_winning_promises.rs",
+        "sha256": "373cbfb278dd4c3c8dbb445c862dd03c2c36e390c7d73fc03ab8fd7493ebcc6f",
+        "lines": [
+          1235,
+          1263
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1259,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1260,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_6",
+      "next_cue": "17_7",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/what_winning_promises.rs",
+        "sha256": "373cbfb278dd4c3c8dbb445c862dd03c2c36e390c7d73fc03ab8fd7493ebcc6f",
+        "lines": [
+          1263,
+          1272
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1268,
+          "text": "let q = think(&kit, stage, THINK17)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_7",
+      "next_cue": "17_8",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/what_winning_promises.rs",
+        "sha256": "373cbfb278dd4c3c8dbb445c862dd03c2c36e390c7d73fc03ab8fd7493ebcc6f",
+        "lines": [
+          1272,
+          1330
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1279,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1325,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1326,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_8",
+      "next_cue": "17_9",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/what_winning_promises.rs",
+        "sha256": "373cbfb278dd4c3c8dbb445c862dd03c2c36e390c7d73fc03ab8fd7493ebcc6f",
+        "lines": [
+          1330,
+          1363
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1359,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1360,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_9",
+      "next_cue": "17_10",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/what_winning_promises.rs",
+        "sha256": "373cbfb278dd4c3c8dbb445c862dd03c2c36e390c7d73fc03ab8fd7493ebcc6f",
+        "lines": [
+          1363,
+          1383
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1377,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1378,
+          "text": "wait_until(stage, card_up + read_s(&n.k10))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_10",
+      "next_cue": "17_11",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/what_winning_promises.rs",
+        "sha256": "373cbfb278dd4c3c8dbb445c862dd03c2c36e390c7d73fc03ab8fd7493ebcc6f",
+        "lines": [
+          1383,
+          1447
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1443,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1444,
+          "text": "pause(stage, BEAT)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_12",
+      "next_cue": "17_13",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/what_winning_promises.rs",
+        "sha256": "373cbfb278dd4c3c8dbb445c862dd03c2c36e390c7d73fc03ab8fd7493ebcc6f",
+        "lines": [
+          1480,
+          1497
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1492,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1493,
+          "text": "wait_until(stage, card_up + read_s(&n.k09))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_13",
+      "next_cue": "17_14",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/what_winning_promises.rs",
+        "sha256": "373cbfb278dd4c3c8dbb445c862dd03c2c36e390c7d73fc03ab8fd7493ebcc6f",
+        "lines": [
+          1497,
+          1520
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1516,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1517,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "17_14",
+      "next_cue": "18_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/what_winning_promises.rs",
+        "sha256": "373cbfb278dd4c3c8dbb445c862dd03c2c36e390c7d73fc03ab8fd7493ebcc6f",
+        "lines": [
+          1520,
+          1534
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 1531,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 1532,
+          "text": "pause(stage, INSPECT_S)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_2",
+      "next_cue": "18_3",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_catch.rs",
+        "sha256": "88a2a0a6ac89e78c1938c3b7bb83a003e3ec71fcd7ec562c1ce79e7b18ce08bf",
+        "lines": [
+          151,
+          172
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 169,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 170,
+          "text": "pause(stage, 1.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_3",
+      "next_cue": "18_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_catch.rs",
+        "sha256": "88a2a0a6ac89e78c1938c3b7bb83a003e3ec71fcd7ec562c1ce79e7b18ce08bf",
+        "lines": [
+          172,
+          206
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 203,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 204,
+          "text": "pause(stage, 2.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_5",
+      "next_cue": "18_6",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_catch.rs",
+        "sha256": "88a2a0a6ac89e78c1938c3b7bb83a003e3ec71fcd7ec562c1ce79e7b18ce08bf",
+        "lines": [
+          224,
+          227
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 225,
+          "text": "let q = think(&kit, stage, v(-3.9, -0.4))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_6",
+      "next_cue": "18_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_catch.rs",
+        "sha256": "88a2a0a6ac89e78c1938c3b7bb83a003e3ec71fcd7ec562c1ce79e7b18ce08bf",
+        "lines": [
+          227,
+          241
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 238,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 239,
+          "text": "pause(stage, 2.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_7",
+      "next_cue": "18_8",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_catch.rs",
+        "sha256": "88a2a0a6ac89e78c1938c3b7bb83a003e3ec71fcd7ec562c1ce79e7b18ce08bf",
+        "lines": [
+          241,
+          264
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 261,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 262,
+          "text": "pause(stage, 2.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "parrondo",
+      "cue": "18_8",
+      "next_cue": "18_9",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_catch.rs",
+        "sha256": "88a2a0a6ac89e78c1938c3b7bb83a003e3ec71fcd7ec562c1ce79e7b18ce08bf",
+        "lines": [
+          264,
+          279
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 275,
+          "text": "wait_until(stage, exact_read)?;"
+        },
+        {
+          "line": 276,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    }
+  ],
+  "terminal_holds": [
+    {
+      "cue": "18_9",
+      "evidence": {
+        "path": "explainer_corpus/parrondo/src/chapters/the_catch.rs",
+        "sha256": "88a2a0a6ac89e78c1938c3b7bb83a003e3ec71fcd7ec562c1ce79e7b18ce08bf",
+        "lines": [
+          279,
+          291
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 289,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 290,
+          "text": "wait_until(stage, until)?;"
+        },
+        {
+          "line": 291,
+          "text": "pause(stage, 1.0)"
+        }
+      ]
+    }
+  ],
+  "claim": "Coverage intentions and source-call protection; not TTS delivery controls, measured spoken timing or listening acceptance. Preserve existing quiet; no blanket padding."
+}

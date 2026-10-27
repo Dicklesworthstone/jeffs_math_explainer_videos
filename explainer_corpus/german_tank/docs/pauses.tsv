@@ -1,0 +1,127 @@
+# Authored semantic pause intentions (owner direction 2026-10-21: pauses follow meaning, not blanket silence;
+# 2026-10-24: protect thinking and inspection time). One row per boundary: cue <TAB> after (an exact phrase,
+# once in the cue's words; the pause falls after it; a phrase that ends its cue marks the cue's end) <TAB> role
+# <TAB> min_s <TAB> max_s <TAB> reason. Roles are tools/narration_director.py's policy names, so a row converts
+# to a director override {video, cue, after, role, range_s: [min_s, max_s], reason}. Ranges are editorial
+# hypotheses for total audible silence (existing take margins count toward them); they are not measured, not
+# listened to, and not acceptance thresholds. Prediction countdowns and the inspection holds of 01_4, 04_5,
+# 05_2, 06_4, 06_5, 06_8, 07_3, 07_5, 07_6, 07_7, 07_10, 08_4, 08_7, 08_8, 08_9, 09_4, 09_6, 09_8, 09_10, 10_9,
+# 10_10, 11_4, 11_6, 12_15, 12_16 and 13_14 are scene holds, not rows here; so are the computed rows that keep
+# landing after 08_2 and 09_5 (protected visual holds before 08_3 and 09_6); 10_8's zoom out and 12_4's regroup
+# run inside their first sentences. The Rust test in src/main.rs checks every phrase against script.tsv or
+# docs/storyboard-draft.md.
+01_2	Five friends who own it would like to know.	thought	0.5	0.9	setup: the stakes follow
+01_2	their boxes are rare.	clause	0.2	0.45	contrast: rare, then ordinary
+01_3	counting up from one.	thought	0.5	0.9	visual: the line starts drawing from one
+01_4	The friends turn their boxes over.	thought	0.6	1.0	visual: the first box flips before its number is read
+01_7	It made at least sixty.	thought	0.6	1.0	reveal: the prediction's answer, then its reason
+01_8	Above sixty, nobody knows.	thought	0.5	0.9	the unknown tail is named before its extent
+01_8	or run on for hundreds more.	cue_transition	0.8	1.4	visual: the zoom out to a thousand finishes
+02_1	how the five were chosen.	thought	0.4	0.8	setup: the bin is coming
+02_1	in a huge bin, shaken well.	cue_transition	0.8	1.3	visual: the dots settle in the bin
+02_2	any five are exactly as likely as any other five.	thought	0.4	0.8	the definition lands before its name
+02_5	All over the line.	thought	0.6	1.0	reveal: the prediction's answer, then the rows
+02_5	drawn by computer.	thought	0.6	1.1	visual: the ten rows land
+02_7	Now try a company of seventy.	thought	0.6	1.1	visual: the zoom back in and the new rows
+02_8	Look at the spacing.	thought	0.6	1.0	visual: the first spacing arrows draw
+02_8	over a hundred and fifty apart, on average.	thought	0.4	0.8	visual: the second row's arrows draw
+02_9	their spacing is a clue.	thought	0.5	0.9	the clue, then the limit
+03_1	Look at the numbers nobody has seen.	thought	0.4	0.8	visual: the counting starts
+03_1	there are thirteen.	cue_transition	0.6	1.1	visual: the first arc closes over its count
+03_2	twelve more.	cue_transition	0.5	1.0	visual: the second count lands
+03_3	Then five, then seventeen, then eight.	cue_transition	0.8	1.4	visual: the last count lands before the sum
+03_4	Five gaps hold fifty-five unseen boxes.	thought	0.4	0.8	the sum lands before the division
+03_6	nothing makes the top gap special.	thought	0.4	0.8	claim, then the inset that shows it
+03_8	About seventy-one.	thought	0.6	1.1	reveal: the prediction's answer, then its reason
+03_9	That's a recipe.	thought	0.4	0.8	name, then the rule
+03_9	add the average gap.	thought	0.5	0.9	the rule, then its condition
+04_1	We don't know it.	thought	0.4	0.8	the unknown is named before the examples
+04_2	are a single handful.	thought	0.4	0.8	visual: the halo round the five comes and goes before the assumption
+04_5	the largest, plus the largest minus five,	clause	0.15	0.35	grouping: "over five" divides only the gap total
+04_7	Five.	thought	0.5	0.9	reveal: the edge handful's answer
+05_1	far too many to look at.	thought	0.5	0.9	visual: the live count finishes before the company shrinks
+05_5	Some are too low and some too high.	thought	0.4	0.8	inspection: the dots land by the count line before the question
+05_6	Exactly five, the true count.	thought	0.6	1.0	reveal: the ten estimates balance
+05_7	A single small company isn't a proof.	thought	0.5	0.9	the limit stands before the question that opens 06
+06_1	Each pair leaves three boxes unseen.	thought	0.4	0.8	visual: the unseen squares become gap squares before the gaps are named
+06_3	That rebuilds two and five.	cue_transition	0.6	1.1	visual: the halos compare the built row with the table's row
+06_4	each exactly once.	thought	0.4	0.8	the matching stands before the chance
+06_5	trade places.	thought	0.4	0.8	visual: the first row's list is written again before the trade
+06_8	Add up each column.	thought	0.4	0.8	visual: the column sums land
+06_10	Above sixty.	thought	0.6	1.0	reveal: the prediction's answer, then the bracket
+07_3	each gap averages N minus five,	clause	0.15	0.35	grouping: "over six" divides the whole difference
+07_4	For the friends, that's eleven.	cue_transition	0.5	0.9	visual: the guess's arc lands before the contrast
+07_7	so the estimates average the count.	thought	0.4	0.8	conclusion before its name
+07_9	It doubles the number and subtracts one.	thought	0.5	0.9	reveal: the prediction's answer, then its reason
+08_1	not about our seventy-one.	thought	0.5	0.9	contrast: the recipe's promise versus this one estimate
+08_4	Twenty is only twenty.	thought	0.4	0.8	turn: from twenty draws to every handful
+08_4	top out at seventy-one.	thought	0.3	0.6	visual: the tallest bar rises before the stacks are named
+08_6	About one handful in twenty-nine.	thought	0.6	1.0	reveal: the prediction's answer, then what it means
+08_7	The bars are lopsided, though.	thought	0.4	0.8	visual: the two sides' halos before their numbers
+08_8	So how far off is a typical estimate?	thought	0.5	0.9	the question stands before the first width
+08_8	the standard deviation.	thought	0.3	0.6	the name lands before its recipe
+09_1	How large could it be?	thought	0.7	1.1	visual: the line's end slides out before the flipped question
+09_3	it keeps falling from there.	thought	0.4	0.8	visual: the rare bars turn faint
+09_6	Nineteen of the twenty ranges cover seventy-one.	thought	0.5	0.9	visual: the covering ranges turn ink before the miss is named
+09_7	That's what ninety-five percent confidence means.	thought	0.4	0.8	name, then the careful reading
+09_10	Narrower.	thought	0.6	1.0	reveal: the prediction's answer, then its reason
+10_2	Twice the average, minus one.	thought	0.5	0.9	the recipe lands before its name
+10_3	an average of thirty-seven.	thought	0.3	0.6	visual: the average's purple mark lands before the doubling
+10_4	It's unbiased too.	thought	0.4	0.8	claim, then its reason
+10_5	So which recipe should we trust?	question	0.5	0.9	the question stands before the test
+10_6	Twenty-eight point six.	thought	0.6	1.0	reveal: let the absurd value register
+10_7	That's no freak.	thought	0.3	0.6	turn: from one handful to every handful
+10_8	The gap recipe's sixty-seven bars come back.	thought	0.4	0.8	visual: the green bars rise before the purple outline
+10_9	Both balance at seventy-one.	thought	0.4	0.8	visual: the fulcrum lands before the contrast
+10_9	But the purple bars are lower and wider.	thought	0.5	0.9	visual: the halos stand before the widths' numbers
+10_10	beats the recipe that uses all five.	thought	0.5	0.9	the conclusion stands before the chapter's question
+11_1	the largest number is sixty.	thought	0.4	0.8	visual: the four smaller boxes fade
+11_2	Try it on pairs.	thought	0.4	0.8	turn: to the tiny company's pairs
+11_3	Now let the company make six boxes, or eight.	thought	0.4	0.8	visual: two more triangles land
+11_4	It's the same with sixty.	thought	0.4	0.8	turn: back to the friends' sixty
+11_4	Only the chance that sixty is the largest changes.	thought	0.4	0.8	the contrast is named before its numbers
+11_6	Nothing.	thought	0.7	1.1	reveal: the chapter's surprise
+11_6	the largest number is sufficient.	thought	0.4	0.8	the name lands before its meaning
+11_7	needs only the largest number.	thought	0.4	0.8	callback: the boxes and their arcs return
+11_8	All of this needs the handful to be fair.	thought	0.5	0.9	the condition stands alone
+12_1	Here are its ten pairs again,	clause	0.3	0.6	visual: the ten rows land before their estimates
+12_2	But they wobble,	clause	0.3	0.6	the word lands before the range
+12_3	Where does the wobble come from?	question	0.6	1.0	the question stands before the callback
+12_4	So sort the pairs by their larger number.	thought	0.6	1.0	visual: the rows move, each whole, into their groups
+12_6	Six and a half.	thought	0.6	1.0	reveal: the prediction's answer, then whose it is
+12_6	Three and four average three and a half.	thought	0.3	0.6	let this worked average land before the next group
+12_6	Four, five and six average five.	thought	0.3	0.6	separate this worked average from the lone pair
+12_7	Averaging inside the groups turns the doubling recipe into the gap recipe.	cue_transition	0.7	1.2	the chapter's first claim stands before the condition behind it
+12_9	Is the averaged recipe still unbiased?	question	0.6	1.0	the question stands before the weights
+12_10	comes back, exactly five.	thought	0.4	0.8	visual: the weighted sum lands before the equal-weight contrast
+12_11	Now the misses.	thought	0.4	0.8	turn: from averages to misses
+12_11	They cancel,	clause	0.2	0.5	visual: the arrows' sum lands
+12_12	Nothing cancels,	clause	0.2	0.5	the contrast with the group before
+12_14	That's a rule, not luck.	thought	0.4	0.8	the claim before the rule
+12_15	the drop, three quarters,	clause	0.2	0.5	visual: the drop lands before what it is
+13_1	Could some cleverer unbiased recipe still beat the gap recipe?	question	0.6	1.0	the chapter's question stands
+13_2	because we never know which count is true.	thought	0.4	0.8	the reason lands before the example
+13_2	So it isn't unbiased.	cue_transition	0.6	1.0	turn: from the definition to pairs
+13_3	and its only pair is one and two.	thought	0.3	0.6	visual: the single dot lands
+13_4	The pair topped by two must still say two.	thought	0.4	0.8	the kept value before the new one
+13_6	Five.	thought	0.6	1.0	reveal: the prediction's answer, then its reason
+13_7	The same step works at every count, for handfuls of any size.	thought	0.4	0.8	turn: from pairs to any handful size
+13_7	They're never missing.	thought	0.4	0.8	the step's key fact stands alone
+13_7	and the step fixes it.	thought	0.3	0.6	the step closes before the friends' share
+13_8	all the way up from the smallest company.	thought	0.4	0.8	the induction lands before its conclusion
+13_9	three times the smaller number,	clause	0.2	0.4	finish the multiplication before subtracting one
+13_10	the staircase again,	clause	0.3	0.6	introduce the values before reading them
+13_10	two, three and a half,	clause	0.15	0.35	keep three and a half together before the next value
+13_10	two, three and a half, five,	clause	0.15	0.35	separate five from the final six and a half
+13_11	That's the whole argument.	thought	0.4	0.8	the argument named before it is summed up
+13_12	Best doesn't mean every rival does worse.	thought	0.4	0.8	turn: the claim's limits
+13_13	two short of the count,	clause	0.2	0.5	visual: the halo round the biased average
+13_14	But it doesn't win everywhere.	thought	0.4	0.8	turn: where the biased recipe loses
+14_1	Now break it, with the same five boxes.	thought	0.5	0.9	turn: the assumption is broken on purpose
+14_5	Too high.	thought	0.5	0.9	reveal: the prediction's answer
+14_6	That gap is the clue.	thought	0.4	0.8	the clue is named before the number
+15_5	Sixty-eight.	thought	0.6	1.0	reveal: the prediction's answer
+15_6	One last trap.	thought	0.4	0.8	topic turn inside the chapter
+16_3	So, the five friends.	thought	0.5	0.9	callback: the opening picture returns
+16_8	Ninety, plus one average gap.	thought	0.4	0.8	the rule, then the arithmetic
+16_9	where the count begins.	thought	0.4	0.8	the last sentence stands alone

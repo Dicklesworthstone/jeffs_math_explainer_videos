@@ -1,0 +1,494 @@
+{
+  "schema_version": 1,
+  "script_sha256": "8a65ec15cfafd499006ac2590013562744eb81d478fd50e1b67ea8968920ad50",
+  "units": [
+    {
+      "id": "01u1",
+      "line_ids": [
+        "01_1",
+        "01_2",
+        "01_3"
+      ],
+      "text": "Every weekday you take a bus to the station to catch a train. You never check the timetable. You walk to the stop when you're ready and take the first bus that comes. Two bus routes stop here on the way to the station. Each runs every twelve minutes, exactly on time, and the red bus comes two minutes after the blue one. So the sign tells the truth. Ten buses an hour, a bus every six minutes on average."
+    },
+    {
+      "id": "01u2",
+      "line_ids": [
+        "01_4"
+      ],
+      "text": "Your train won't wait for you, so you'd like to know how long you'll stand here. Some mornings a bus pulls in as you arrive. Some mornings you've just missed one."
+    },
+    {
+      "id": "01u3",
+      "line_ids": [
+        "01_5"
+      ],
+      "text": "A fair guess is half of six, three minutes. Over many mornings, will your average wait be three minutes, more, or less?"
+    },
+    {
+      "id": "01u4",
+      "line_ids": [
+        "01_6"
+      ],
+      "text": "More. Four minutes and twenty seconds, and every bus is exactly on time. That's an extra minute and twenty seconds every morning, on average."
+    },
+    {
+      "id": "01u5",
+      "line_ids": [
+        "01_7"
+      ],
+      "text": "Nothing here is late, broken or crowded. The extra time comes from the timetable itself, and from how you pick the moment you turn up. By the end, you'll work it out for any timetable, and know when the answer stops applying to you."
+    },
+    {
+      "id": "02u1",
+      "line_ids": [
+        "02_1",
+        "02_2",
+        "02_3"
+      ],
+      "text": "Look at the gaps between buses. Two minutes, ten minutes, two, ten, all hour long. Five short gaps and five long ones. The bus company sees the timetable one bus at a time. Tag each bus with the gap before it. Half the tags say two minutes, half say ten, and they average six, the number on the sign. That's not how you see it. You don't arrive with a bus. You arrive at some moment, and that moment sits inside a gap."
+    },
+    {
+      "id": "02u2",
+      "line_ids": [
+        "02_4"
+      ],
+      "text": "Say you turn up at a random moment, any minute of the hour as likely as any other. What's the chance you land in a long gap?"
+    },
+    {
+      "id": "02u3",
+      "line_ids": [
+        "02_5"
+      ],
+      "text": "Five in six. Picture the other passengers turning up steadily, one in the middle of every minute. Sixty in the hour, and fifty of them land in a long gap."
+    },
+    {
+      "id": "02u4",
+      "line_ids": [
+        "02_6",
+        "02_7"
+      ],
+      "text": "The long gaps fill fifty of the sixty minutes. Half the gaps, but five sixths of the time. So the dots measure time. Each gap gets one tag, from the bus that ends it, but a dot for every minute it lasts. Counting buses and counting moments give different answers, on the very same timetable."
+    },
+    {
+      "id": "03u1",
+      "line_ids": [
+        "03_1",
+        "03_2"
+      ],
+      "text": "To see what controls this, start from a timetable with no surprise. Move the red bus to six minutes after the blue. Now every gap is six minutes. Watch one kind of gap, from each red bus to the next blue bus. Half the buses end one of these gaps, and half the passengers stand in one. The two counts agree."
+    },
+    {
+      "id": "03u2",
+      "line_ids": [
+        "03_3",
+        "03_4"
+      ],
+      "text": "Now slide the red bus back toward the blue, a minute at a time. The same ten buses, still a bus every six minutes on average. Watch the passengers. The buses' count never moves. Half of them still end the gap that's growing. The passengers' count follows its length. Seven of every twelve, then eight, nine, ten."
+    },
+    {
+      "id": "03u3",
+      "line_ids": [
+        "03_5"
+      ],
+      "text": "Keep sliding until the red bus comes with the blue one. What share of the passengers is in the long gap then?"
+    },
+    {
+      "id": "03u4",
+      "line_ids": [
+        "03_6",
+        "03_7"
+      ],
+      "text": "All of them. The short gap shrinks to nothing, so every passenger waits in a twelve-minute gap. And the sign still says a bus every six minutes. So the timetable counts each gap once, however long it lasts. Your mornings land in a gap in proportion to its length. Stretch a gap, and more of your mornings fall inside it."
+    },
+    {
+      "id": "04u1",
+      "line_ids": [
+        "04_1",
+        "04_2"
+      ],
+      "text": "Back to our timetable. The hour is the same twelve minutes, five times over, so zoom in on one stretch. A blue bus, a red bus two minutes later, and ten minutes after that, the next blue bus. It holds twelve of our passengers, one in the middle of each minute, none of them looking at the timetable. Now ask how long each one waits."
+    },
+    {
+      "id": "04u2",
+      "line_ids": [
+        "04_3",
+        "04_4",
+        "04_5"
+      ],
+      "text": "The two passengers in the short gap wait a minute and a half, and half a minute. One minute each, on average. The ten passengers in the long gap wait anywhere from nine and a half minutes down to half a minute. Five minutes each, on average. Your unlucky morning and your lucky one are the first and the last of them. So what's the average wait over all twelve passengers?"
+    },
+    {
+      "id": "04u3",
+      "line_ids": [
+        "04_6"
+      ],
+      "text": "Not three. The two passengers in the short gap waited two minutes between them. The ten in the long gap waited fifty."
+    },
+    {
+      "id": "04u4",
+      "line_ids": [
+        "04_7"
+      ],
+      "text": "That's fifty-two minutes of waiting, shared by twelve passengers. Four and a third minutes each, or four minutes and twenty seconds."
+    },
+    {
+      "id": "04u5",
+      "line_ids": [
+        "04_8"
+      ],
+      "text": "Half of six is the average of one and five, as if both gaps had the same number of passengers. They don't. The long gap has five times as many."
+    },
+    {
+      "id": "05u1",
+      "line_ids": [
+        "05_1",
+        "05_2"
+      ],
+      "text": "Now draw the wait for every moment in those twelve minutes. Across is the moment you turn up. Up is how long you'll wait. Right after a bus leaves, you'd wait the whole gap. The wait shrinks steadily until the next bus comes, then jumps back up."
+    },
+    {
+      "id": "05u2",
+      "line_ids": [
+        "05_3"
+      ],
+      "text": "So each gap draws a triangle, as wide as the gap and just as tall."
+    },
+    {
+      "id": "05u3",
+      "line_ids": [
+        "05_4"
+      ],
+      "text": "Give each of our twelve passengers a bar one minute wide, as tall as their wait. The bars hold exactly as much as the triangles. So the total waiting is measured by this area, because we have one passenger per minute."
+    },
+    {
+      "id": "05u4",
+      "line_ids": [
+        "05_5",
+        "05_6"
+      ],
+      "text": "The short triangle is half of two times two, which is two. The long one is half of ten times ten, which is fifty. The axes are both minutes, so these areas are in square minutes. At one passenger per minute, they represent the fifty-two minutes of waiting again. The long gap is five times as wide as the short one. How many times as much waiting does it hold?"
+    },
+    {
+      "id": "05u5",
+      "line_ids": [
+        "05_7"
+      ],
+      "text": "Twenty-five times. It's five times as wide and five times as tall. Five times as many passengers, each waiting five times as long on average."
+    },
+    {
+      "id": "05u6",
+      "line_ids": [
+        "05_8"
+      ],
+      "text": "So the waiting grows with the square of the gap. Double a gap and it holds four times the waiting."
+    },
+    {
+      "id": "06u1",
+      "line_ids": [
+        "06_1"
+      ],
+      "text": "Now put numbers on the two ways of counting. Averaged over buses, the tags say six minutes, the number on the sign."
+    },
+    {
+      "id": "06u2",
+      "line_ids": [
+        "06_2"
+      ],
+      "text": "Now ask each passenger how long the gap they landed in is. One in six says two minutes. Five in six say ten."
+    },
+    {
+      "id": "06u3",
+      "line_ids": [
+        "06_3"
+      ],
+      "text": "So what's the average gap, as the passengers see it?"
+    },
+    {
+      "id": "06u4",
+      "line_ids": [
+        "06_4",
+        "06_5"
+      ],
+      "text": "Eight minutes and forty seconds. A sixth of the passengers say two, five sixths say ten. Same buses, same gaps, two honest averages. And a passenger who turns up at a random moment in a gap waits half that gap, on average. Half of eight minutes forty is four minutes twenty. The same answer, a second way."
+    },
+    {
+      "id": "06u5",
+      "line_ids": [
+        "06_6"
+      ],
+      "text": "Averaging over buses and averaging over moments give different answers, because long gaps last longer and get picked more. In probability, this is called the inspection paradox."
+    },
+    {
+      "id": "06u6",
+      "line_ids": [
+        "06_7"
+      ],
+      "text": "Look back as well as forward. On average the last bus left four minutes twenty before you came. Behind you four twenty, ahead of you four twenty. Together, the eight forty of your gap."
+    },
+    {
+      "id": "07u1",
+      "line_ids": [
+        "07_1"
+      ],
+      "text": "Notice what we didn't need. No bus broke down, no driver ran late, and nothing bunched up in traffic. Every gap was written into the timetable."
+    },
+    {
+      "id": "07u2",
+      "line_ids": [
+        "07_2"
+      ],
+      "text": "Real buses do bunch. A late bus picks up extra passengers and falls further behind, while the bus behind it catches up. That's a different story, about why gaps grow. Here the gaps are simply uneven, and that alone stretches the wait."
+    },
+    {
+      "id": "07u3",
+      "line_ids": [
+        "07_3"
+      ],
+      "text": "Go back to the even timetable, with the red bus six minutes after the blue. Every gap is six minutes. What's the average wait there?"
+    },
+    {
+      "id": "07u4",
+      "line_ids": [
+        "07_4",
+        "07_5"
+      ],
+      "text": "Three minutes. Half of six, just what the sign suggests. With even gaps, the buses and the passengers agree. Now slide the red bus again, this time watching the wait. The same ten buses an hour, the same average gap of six minutes. Only the wait changes."
+    },
+    {
+      "id": "07u5",
+      "line_ids": [
+        "07_6",
+        "07_7"
+      ],
+      "text": "Two minutes apart, it's four minutes twenty. Six apart, it's three. And if the two buses come together, you're really waiting for a bus every twelve minutes, and the average is six. Same buses, same sign, and the average wait runs from three minutes to six. Only the spacing changed."
+    },
+    {
+      "id": "08u1",
+      "line_ids": [
+        "08_1",
+        "08_2"
+      ],
+      "text": "Now turn the triangles into a formula for any timetable. The gap of two holds two square minutes, and the gap of ten holds fifty. Any gap holds half its length squared. Add up the triangles and divide by the time they cover. That's the average wait."
+    },
+    {
+      "id": "08u2",
+      "line_ids": [
+        "08_3"
+      ],
+      "text": "Divide the top and the bottom by the number of gaps. The top becomes half the average of the squared gaps. The bottom becomes the average gap."
+    },
+    {
+      "id": "08u3",
+      "line_ids": [
+        "08_4"
+      ],
+      "text": "For our gaps, two squared is four and ten squared is a hundred, so the average square is fifty-two. Six squared is only thirty-six. The extra sixteen measures how uneven the gaps are."
+    },
+    {
+      "id": "08u4",
+      "line_ids": [
+        "08_5"
+      ],
+      "text": "So the average wait is half the average gap, three minutes, plus sixteen over twice six, which is a minute and twenty seconds. There's the extra time."
+    },
+    {
+      "id": "08u5",
+      "line_ids": [
+        "08_6"
+      ],
+      "text": "For you at the stop, that minute and twenty seconds is the cost of uneven gaps. The sign can't show it, because it counts buses, not mornings."
+    },
+    {
+      "id": "08u6",
+      "line_ids": [
+        "08_7"
+      ],
+      "text": "Can the average wait ever be less than half the average gap?"
+    },
+    {
+      "id": "08u7",
+      "line_ids": [
+        "08_8"
+      ],
+      "text": "No. The extra piece is never negative, so for passengers who turn up at random, the average wait is at least half the average gap. It's exactly half only when every gap is the same."
+    },
+    {
+      "id": "09u1",
+      "line_ids": [
+        "09_1"
+      ],
+      "text": "What if there's no timetable at all? Suppose buses come completely at random. At every moment a bus is just as likely to come, however long it's been since the last bus."
+    },
+    {
+      "id": "09u2",
+      "line_ids": [
+        "09_2",
+        "09_3"
+      ],
+      "text": "Keep the same average, a bus every six minutes. Now some gaps are tiny and some are long, and the long ones hold huge triangles. How long is the average wait now?"
+    },
+    {
+      "id": "09u3",
+      "line_ids": [
+        "09_4"
+      ],
+      "text": "Six minutes. The whole average gap, not half of it."
+    },
+    {
+      "id": "09u4",
+      "line_ids": [
+        "09_5",
+        "09_6"
+      ],
+      "text": "The buses have no memory. So from the moment you turn up, the wait ahead of you is just like a brand new gap, and a gap averages six minutes. The formula agrees. For completely random gaps the spread is the average gap squared, thirty-six. Three minutes, plus thirty-six over twelve. Six."
+    },
+    {
+      "id": "09u5",
+      "line_ids": [
+        "09_7"
+      ],
+      "text": "Look back too, and the last bus left six minutes before you, on average. So the gap you land in averages twelve minutes, twice the average gap."
+    },
+    {
+      "id": "09u6",
+      "line_ids": [
+        "09_8"
+      ],
+      "text": "Even gaps wait three minutes, random buses wait six, and our timetable sits at four twenty. More spread means a longer wait, even past six. The formula needs only the average gap and the spread."
+    },
+    {
+      "id": "10u1",
+      "line_ids": [
+        "10_1"
+      ],
+      "text": "The same sum turns up far from bus stops. Whenever you pick a person or a moment instead of a group, the big groups get picked more often."
+    },
+    {
+      "id": "10u2",
+      "line_ids": [
+        "10_2"
+      ],
+      "text": "Now seat those twelve passengers in a school with two classes, one of two students and one of ten. The school says the average class has six students."
+    },
+    {
+      "id": "10u3",
+      "line_ids": [
+        "10_3"
+      ],
+      "text": "Ask every student in turn how big their class is."
+    },
+    {
+      "id": "10u4",
+      "line_ids": [
+        "10_4"
+      ],
+      "text": "What's the average answer?"
+    },
+    {
+      "id": "10u5",
+      "line_ids": [
+        "10_5",
+        "10_6"
+      ],
+      "text": "Eight and two thirds. It's the bus sum again, with students in place of minutes. Ten of the twelve students sit in the big class. Scott Feld and Bernard Grofman wrote about this in nineteen seventy-seven and called it the class size paradox."
+    },
+    {
+      "id": "10u6",
+      "line_ids": [
+        "10_7"
+      ],
+      "text": "For programmers. A sampling profiler checks what your program is doing many times a second, so it measures where the time goes, not how often each function is called. On average, one ten millisecond call shows up as often as five two millisecond calls put together: half the samples, but only a sixth of the calls."
+    },
+    {
+      "id": "10u7",
+      "line_ids": [
+        "10_8"
+      ],
+      "text": "That needs checks that aren't in step with the program. Checks that tick exactly with its loop land in the same function every time, and the shares come out completely wrong."
+    },
+    {
+      "id": "10u8",
+      "line_ids": [
+        "10_9"
+      ],
+      "text": "And people noticed it over a century ago. In nineteen twenty-two the physicist Torahiko Terada wrote an essay about waiting for Tokyo's trams, with his own observations of the trams."
+    },
+    {
+      "id": "11u1",
+      "line_ids": [
+        "11_1",
+        "11_2"
+      ],
+      "text": "Back to the stop. Ten buses an hour, all on time, a bus every six minutes on average. All of that is true. But you don't sample buses when you turn up. You sample a moment. Five times in six, that moment falls in a long gap, where the waits are long."
+    },
+    {
+      "id": "11u2",
+      "line_ids": [
+        "11_3"
+      ],
+      "text": "The area of the triangles, divided by the time they cover. Fifty-two square minutes over twelve minutes. Four minutes and twenty seconds."
+    },
+    {
+      "id": "11u3",
+      "line_ids": [
+        "11_4"
+      ],
+      "text": "Now suppose you do check the timetable, and turn up one minute before your bus. How long do you wait?"
+    },
+    {
+      "id": "11u4",
+      "line_ids": [
+        "11_5",
+        "11_6"
+      ],
+      "text": "One minute. You're no longer turning up at random, so the triangles' average doesn't describe you. And if every passenger planned? Each would aim for the first bus they could make with a minute to spare, and stand at the stop one minute before it. Ten would wait for each blue bus, and two for each red."
+    },
+    {
+      "id": "11u5",
+      "line_ids": [
+        "11_7"
+      ],
+      "text": "Five in six would still stand in a long gap, but every wait would be one minute. They'd all stand in the last minute of a gap, so the triangles' average wouldn't describe them. Change how passengers arrive, and you change the model."
+    },
+    {
+      "id": "12u1",
+      "line_ids": [
+        "12_1",
+        "12_2"
+      ],
+      "text": "Now forget the planners. Go back to passengers who never look at the timetable, one a minute, spread evenly over the hour. Here's a last timetable to solve with the picture. Move the red bus to four minutes after the blue, so the gaps are four and eight. What's the average wait?"
+    },
+    {
+      "id": "12u2",
+      "line_ids": [
+        "12_3",
+        "12_4"
+      ],
+      "text": "Raise the triangles again, a minute up for every minute across. The gap of four holds half of four squared, eight square minutes. The gap of eight holds half of eight squared, thirty-two square minutes. Together they make forty square minutes, over the twelve minutes they cover. Dividing square minutes by minutes leaves minutes. Forty over twelve is three and a third minutes. Three minutes and twenty seconds."
+    },
+    {
+      "id": "12u3",
+      "line_ids": [
+        "12_5"
+      ],
+      "text": "That's a point on the curve from before, between our timetable and the even timetable. The more even the gaps, the closer the wait comes to three minutes."
+    },
+    {
+      "id": "12u4",
+      "line_ids": [
+        "12_6",
+        "12_7",
+        "12_8"
+      ],
+      "text": "And your train? Back on our timetable, four minutes twenty is what the stop costs you on an average morning. But a deadline needs your worst morning, not an average. Turn up just as a red bus leaves, and you wait the whole long gap, so allow the full ten minutes. Ten minutes is the worst case only because every bus runs exactly on time. It's a bound in this model, not a guarantee against real delays, or for the whole journey."
+    },
+    {
+      "id": "12u5",
+      "line_ids": [
+        "12_9"
+      ],
+      "text": "Your bus isn't late. You're just more likely to turn up during a long gap."
+    }
+  ]
+}

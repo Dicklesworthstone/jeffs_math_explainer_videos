@@ -1,0 +1,1551 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "inspection_paradox": "8a65ec15cfafd499006ac2590013562744eb81d478fd50e1b67ea8968920ad50"
+  },
+  "policy": {
+    "connected": [
+      0.0,
+      0.28
+    ],
+    "clause": [
+      0.12,
+      0.65
+    ],
+    "thought": [
+      0.35,
+      1.1
+    ],
+    "question": [
+      0.65,
+      1.65
+    ],
+    "cue_transition": [
+      0.45,
+      1.4
+    ],
+    "chapter_transition": [
+      0.7,
+      2.2
+    ]
+  },
+  "overrides": [
+    {
+      "video": "inspection_paradox",
+      "cue": "01_5",
+      "after": "half of six, three minutes",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the fair-looking guess land before the question tests it."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "01_6",
+      "after": "More",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "The answer to the prediction: the 'more' chip lights before the number is said."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "01_6",
+      "after": "exactly on time",
+      "role": "thought",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "The green dots over all ten buses settle before the extra minute and twenty seconds."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "01_7",
+      "after": "the moment you turn up",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Close the puzzle's statement before the preview of what the film will do."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "02_3",
+      "after": "That's not how you see it",
+      "role": "thought",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "The turn from the bus company's view to yours."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "02_5",
+      "after": "Five in six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The answer lands before the passengers start to drop in."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "03_4",
+      "after": "the gap that's growing",
+      "role": "thought",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "The frozen 1/2 settles before the passengers' count moves."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "03_6",
+      "after": "All of them",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The last red marker lands beside the blue."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "04_3",
+      "after": "a minute and a half",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "The two waits form one listing, without a clause break inside it."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "04_4",
+      "after": "Five minutes each, on average",
+      "role": "thought",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "Let the long-gap average settle before returning to the two mornings."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "04_6",
+      "after": "Not three",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the prediction answer land before the two sums."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "05_4",
+      "after": "as tall as their wait",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.2
+      ],
+      "reason": "Allow the bars to finish widening before comparing their area."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "05_5",
+      "after": "square minutes",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Let the area units settle before converting at one passenger per minute."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "05_7",
+      "after": "Twenty-five times",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The answer lands while the first tiles arrive."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_4",
+      "after": "Eight minutes and forty seconds",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The prediction's answer lands, and the gold level settles, before the reasons."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_4",
+      "after": "Same buses",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "\"Same buses, same gaps\" is one run into the two averages: no clause break inside it."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_4",
+      "after": "same gaps",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "The run carries straight on to \"two honest averages\"."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "07_4",
+      "after": "Three minutes",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.9
+      ],
+      "reason": "The prediction's answer, while the ten equal triangles land."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_8",
+      "after": "No",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The prediction's answer, while the violet spread term flashes, before the reason."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "09_4",
+      "after": "Six minutes",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.2
+      ],
+      "reason": "The chapter's surprise: the green answer box lands beside the model's average gap."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "09_5",
+      "after": "The buses have no memory",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "The assumption settles before you land on the line and the wait ahead is drawn."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_1",
+      "after": "formula for any timetable",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.85
+      ],
+      "reason": "Return to the familiar triangles before the area units and general letter arrive."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_3",
+      "after": "by the number of gaps",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the same division of numerator and denominator register before naming the averages."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_4",
+      "after": "the average square is fifty-two",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Keep average of squares distinct from the square of the average."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_4",
+      "after": "only thirty-six",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Allow comparison of the two areas before identifying the leftover sixteen."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_5",
+      "after": "three minutes",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Separate the familiar even-gap wait from the penalty for uneven gaps."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "09_8",
+      "after": "four twenty",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the three named cases settle before extending the scale past six."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "10_5",
+      "after": "Eight and two thirds",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.9
+      ],
+      "reason": "The prediction's answer: the students' level settles at 8⅔ before the bus sum is named."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "10_7",
+      "after": "For programmers",
+      "role": "thought",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "A label for the turn from the school to the program, not a sentence the voice leans on."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "11_5",
+      "after": "One minute",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The prediction's answer: your one-minute wait lands before the reason the triangles miss it."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "11_6",
+      "after": "And if every passenger planned",
+      "role": "question",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "A question the next sentence answers at once: shorter than a question's default, before the dots move."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "11_7",
+      "after": "every wait would be one minute",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The wait bar falls to a minute while the five-in-six share stays; the fall lands before the reason."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_4",
+      "after": "three and a third minutes",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The division's answer as a fraction lands before the same wait is read as a clock; the step stays on screen."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_6",
+      "after": "And your train",
+      "role": "question",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "The question the film opened with, answered by the next sentence at once: shorter than a question's default."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_7",
+      "after": "not an average",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The turn from the average cost to the worst case, before you are placed just after the red bus."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_8",
+      "after": "exactly on time",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The green on-time marks land before the bound is limited to this model."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "02_2",
+      "after": "Tag each bus with the gap before it",
+      "role": "definition",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The tagging rule settles before the tags are counted."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "05_8",
+      "after": "the square of the gap",
+      "role": "definition",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The square law lands before the doubling example."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_6",
+      "after": "get picked more",
+      "role": "definition",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "The reason settles before the effect is given its name, the inspection paradox."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_2",
+      "after": "divide by the time they cover",
+      "role": "definition",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The recipe settles before it is named the average wait."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "10_1",
+      "after": "far from bus stops",
+      "role": "turn",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The turn to a new setting settles before the general rule."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "11_2",
+      "after": "You sample a moment",
+      "role": "payoff",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "The film's key idea, said plainly, before where that moment falls."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_9",
+      "after": "Your bus isn't late",
+      "role": "payoff",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The opening complaint answered, before the reason that closes the film."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "02_6",
+      "after": "Half the gaps",
+      "role": "contrast",
+      "range_s": [
+        0.25,
+        0.55
+      ],
+      "reason": "Half the gaps, but five sixths of the time: a short beat for the contrast, not a full stop."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "04_8",
+      "after": "the same number of passengers",
+      "role": "condition",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The hidden assumption lands before 'They don't' rejects it."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "07_2",
+      "after": "about why gaps grow",
+      "role": "contrast",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Set the bunching story aside before 'Here the gaps are simply uneven'."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "10_7",
+      "after": "half the samples",
+      "role": "contrast",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "Half the samples, but only a sixth of the calls: a short contrast beat."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_8",
+      "after": "a bound in this model",
+      "role": "claim_boundary",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "The bound is stated before what it does not cover."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "09_1",
+      "after": "no timetable at all",
+      "role": "question",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "A real question, answered at once by the supposition that follows; shorter than a question's default."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "04_7",
+      "after": "shared by twelve passengers",
+      "role": "calculation_step",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "The division is stated before its result, four and a third."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "05_5",
+      "after": "half of two times two",
+      "role": "calculation_step",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "The product is whole before 'which is two'."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "05_5",
+      "after": "half of ten times ten",
+      "role": "calculation_step",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "The product is whole before 'which is fifty'."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_5",
+      "after": "twice six",
+      "role": "calculation_step",
+      "range_s": [
+        0.25,
+        0.6
+      ],
+      "reason": "The fraction is whole before its value, a minute and twenty seconds."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "09_6",
+      "after": "over twelve",
+      "role": "calculation_step",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Three plus thirty-six over twelve is complete before its result, six."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "11_3",
+      "after": "over twelve minutes",
+      "role": "calculation_step",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "The division is complete before its value, four minutes and twenty seconds."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_3",
+      "after": "half of four squared",
+      "role": "calculation_step",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "The expression is whole before its value, eight square minutes."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_3",
+      "after": "half of eight squared",
+      "role": "calculation_step",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "The expression is whole before its value, thirty-two square minutes."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_1",
+      "after": "half its length",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.12
+      ],
+      "reason": "No break before 'squared': half of the length squared, not half the length, squared."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_3",
+      "after": "half of four",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.12
+      ],
+      "reason": "No break before 'squared': (half of four) squared would be four, not eight."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_3",
+      "after": "half of eight",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.12
+      ],
+      "reason": "No break before 'squared': (half of eight) squared would be sixteen, not thirty-two."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_5",
+      "after": "sixteen over",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.15
+      ],
+      "reason": "Keep the division operator attached to its denominator."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_5",
+      "after": "over twice",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.15
+      ],
+      "reason": "'twice six' is the whole denominator; no break inside it."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "09_6",
+      "after": "thirty-six over",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.15
+      ],
+      "reason": "Keep the division operator attached to its denominator."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "11_3",
+      "after": "square minutes over",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.15
+      ],
+      "reason": "Keep the division operator attached to its denominator."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_4",
+      "after": "Forty over",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.15
+      ],
+      "reason": "Keep the division operator attached to its denominator."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_4",
+      "after": "is three",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.15
+      ],
+      "reason": "Three and a third is one number; a break would sound like a list."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_5",
+      "after": "eight minutes",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.15
+      ],
+      "reason": "Eight minutes forty is one duration; a break before 'forty' splits it."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_5",
+      "after": "four minutes",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.15
+      ],
+      "reason": "Four minutes twenty is one duration."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_7",
+      "after": "Behind you four",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.15
+      ],
+      "reason": "Bare 'four twenty' is one duration, four minutes twenty."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_7",
+      "after": "ahead of you four",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.15
+      ],
+      "reason": "Bare 'four twenty' is one duration, four minutes twenty."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_7",
+      "after": "the eight",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.15
+      ],
+      "reason": "Bare 'eight forty' is one duration, eight minutes forty."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "07_6",
+      "after": "four minutes",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.15
+      ],
+      "reason": "Four minutes twenty is one duration."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_6",
+      "after": "four minutes",
+      "role": "protected_phrase",
+      "range_s": [
+        0.0,
+        0.15
+      ],
+      "reason": "Four minutes twenty is one duration."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "inspection_paradox",
+      "cue": "01_4",
+      "next_cue": "01_5",
+      "kind": "deliberate_overrun",
+      "reason": "Deliberate picture time past the line: the unlucky morning's countdown runs past the line. Scene delay counts once; never a coherent seam; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/the_stop.rs",
+        "sha256": "1432b76358c2dfeb685bc8fc407e1ecd9aeeae0cb74f1db6bb35f7eabdf1b841",
+        "lines": [
+          381,
+          394
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "01_5",
+      "next_cue": "01_6",
+      "kind": "prediction",
+      "reason": "Question before its answer: draw.rs think() (kit.hold, mark 'predict', a 4.0 s ring with 0.2 s fades) is the pause. Recorded quiet and the ring's scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/the_stop.rs",
+        "sha256": "1432b76358c2dfeb685bc8fc407e1ecd9aeeae0cb74f1db6bb35f7eabdf1b841",
+        "lines": [
+          412,
+          412
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "01_6",
+      "next_cue": "01_7",
+      "kind": "reading_hold",
+      "reason": "Picture-reading hold: kit.hold then wait_until/pause for a card or picture to be read. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/the_stop.rs",
+        "sha256": "1432b76358c2dfeb685bc8fc407e1ecd9aeeae0cb74f1db6bb35f7eabdf1b841",
+        "lines": [
+          463,
+          464
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "01_7",
+      "next_cue": "02_1",
+      "kind": "chapter_end",
+      "reason": "Chapter end: the last line's hold (stand, or kit.hold with wait_until for the last card), the fade (and in 01 the title), then the next chapter's opening. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/the_stop.rs",
+        "sha256": "1432b76358c2dfeb685bc8fc407e1ecd9aeeae0cb74f1db6bb35f7eabdf1b841",
+        "lines": [
+          468,
+          498
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "02_4",
+      "next_cue": "02_5",
+      "kind": "prediction",
+      "reason": "Question before its answer: draw.rs think() (kit.hold, mark 'predict', a 4.0 s ring with 0.2 s fades) is the pause. Recorded quiet and the ring's scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/two_ways_to_count.rs",
+        "sha256": "8e5d0386e85453d7053acb1a636d0fac018c94b9a1d523f38e68634a838c70f7",
+        "lines": [
+          363,
+          363
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "02_7",
+      "next_cue": "03_1",
+      "kind": "chapter_end",
+      "reason": "Chapter end: the last line's hold (stand, or kit.hold with wait_until for the last card), the fade (and in 01 the title), then the next chapter's opening. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/two_ways_to_count.rs",
+        "sha256": "8e5d0386e85453d7053acb1a636d0fac018c94b9a1d523f38e68634a838c70f7",
+        "lines": [
+          470,
+          555
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "03_4",
+      "next_cue": "03_5",
+      "kind": "authored_window",
+      "reason": "Authored music window (kit.music_breath): the picture holds with no voice. Recorded quiet and the window count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/stretch_one_gap.rs",
+        "sha256": "9087c041da02577766e5494f48ddd6434238c9fdfdb3682ca1d8943cbce19c36",
+        "lines": [
+          618,
+          618
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "03_5",
+      "next_cue": "03_6",
+      "kind": "prediction",
+      "reason": "Question before its answer: draw.rs think() (kit.hold, mark 'predict', a 4.0 s ring with 0.2 s fades) is the pause. Recorded quiet and the ring's scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/stretch_one_gap.rs",
+        "sha256": "9087c041da02577766e5494f48ddd6434238c9fdfdb3682ca1d8943cbce19c36",
+        "lines": [
+          625,
+          625
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "03_7",
+      "next_cue": "04_1",
+      "kind": "chapter_end",
+      "reason": "Chapter end: the last line's hold (stand, or kit.hold with wait_until for the last card), the fade (and in 01 the title), then the next chapter's opening. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/stretch_one_gap.rs",
+        "sha256": "9087c041da02577766e5494f48ddd6434238c9fdfdb3682ca1d8943cbce19c36",
+        "lines": [
+          648,
+          672
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "04_5",
+      "next_cue": "04_6",
+      "kind": "prediction",
+      "reason": "Question before its answer: draw.rs think() (kit.hold, mark 'predict', a 4.0 s ring with 0.2 s fades) is the pause. Recorded quiet and the ring's scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/one_a_minute.rs",
+        "sha256": "747ac26e1ed363d399df3f9a20a9101e8588c894acf89b46343cd65dbce13995",
+        "lines": [
+          463,
+          463
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "04_7",
+      "next_cue": "04_8",
+      "kind": "reading_hold",
+      "reason": "Picture-reading hold: kit.hold then wait_until/pause for a card or picture to be read. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/one_a_minute.rs",
+        "sha256": "747ac26e1ed363d399df3f9a20a9101e8588c894acf89b46343cd65dbce13995",
+        "lines": [
+          518,
+          519
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "04_8",
+      "next_cue": "05_1",
+      "kind": "chapter_end",
+      "reason": "Chapter end: the last line's hold (stand, or kit.hold with wait_until for the last card), the fade (and in 01 the title), then the next chapter's opening. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/one_a_minute.rs",
+        "sha256": "747ac26e1ed363d399df3f9a20a9101e8588c894acf89b46343cd65dbce13995",
+        "lines": [
+          524,
+          579
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "05_2",
+      "next_cue": "05_3",
+      "kind": "deliberate_overrun",
+      "reason": "Deliberate picture time past the line: the ride down the long gap's triangle runs past the line. Scene delay counts once; never a coherent seam; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/triangles.rs",
+        "sha256": "dc74a296270986ab43bfe4c5bc194fb4ab8985909803f66751e9b29dd843aae3",
+        "lines": [
+          528,
+          535
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "05_6",
+      "next_cue": "05_7",
+      "kind": "prediction",
+      "reason": "Question before its answer: draw.rs think() (kit.hold, mark 'predict', a 4.0 s ring with 0.2 s fades) is the pause. Recorded quiet and the ring's scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/triangles.rs",
+        "sha256": "dc74a296270986ab43bfe4c5bc194fb4ab8985909803f66751e9b29dd843aae3",
+        "lines": [
+          660,
+          660
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "05_7",
+      "next_cue": "05_8",
+      "kind": "authored_window",
+      "reason": "Authored music window (kit.music_breath): the picture holds with no voice. Recorded quiet and the window count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/triangles.rs",
+        "sha256": "dc74a296270986ab43bfe4c5bc194fb4ab8985909803f66751e9b29dd843aae3",
+        "lines": [
+          691,
+          692
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "05_8",
+      "next_cue": "06_1",
+      "kind": "chapter_end",
+      "reason": "Chapter end: the last line's hold (stand, or kit.hold with wait_until for the last card), the fade (and in 01 the title), then the next chapter's opening. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/triangles.rs",
+        "sha256": "dc74a296270986ab43bfe4c5bc194fb4ab8985909803f66751e9b29dd843aae3",
+        "lines": [
+          696,
+          763
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_3",
+      "next_cue": "06_4",
+      "kind": "prediction",
+      "reason": "Question before its answer: draw.rs think() (kit.hold, mark 'predict', a 4.0 s ring with 0.2 s fades) is the pause. Recorded quiet and the ring's scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/two_averages.rs",
+        "sha256": "78325de488aa368adf1c5cd9b0481ae6af839f297ef179948ccd03372a570756",
+        "lines": [
+          741,
+          741
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_5",
+      "next_cue": "06_6",
+      "kind": "reading_hold",
+      "reason": "Picture-reading hold: kit.hold then wait_until/pause for a card or picture to be read. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/two_averages.rs",
+        "sha256": "78325de488aa368adf1c5cd9b0481ae6af839f297ef179948ccd03372a570756",
+        "lines": [
+          808,
+          809
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_6",
+      "next_cue": "06_7",
+      "kind": "reading_hold",
+      "reason": "Picture-reading hold: kit.hold then wait_until/pause for a card or picture to be read. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/two_averages.rs",
+        "sha256": "78325de488aa368adf1c5cd9b0481ae6af839f297ef179948ccd03372a570756",
+        "lines": [
+          840,
+          841
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_7",
+      "next_cue": "07_1",
+      "kind": "chapter_end",
+      "reason": "Chapter end: the last line's hold (stand, or kit.hold with wait_until for the last card), the fade (and in 01 the title), then the next chapter's opening. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/two_averages.rs",
+        "sha256": "78325de488aa368adf1c5cd9b0481ae6af839f297ef179948ccd03372a570756",
+        "lines": [
+          846,
+          913
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "07_2",
+      "next_cue": "07_3",
+      "kind": "reading_hold",
+      "reason": "Picture-reading hold: kit.hold then wait_until/pause for a card or picture to be read. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/no_bus_late.rs",
+        "sha256": "5ebf1bb67b955f8a3bfd5f567ec18a12938136c9e3741ce2453ef3dbf588e42b",
+        "lines": [
+          791,
+          792
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "07_3",
+      "next_cue": "07_4",
+      "kind": "prediction",
+      "reason": "Question before its answer: draw.rs think() (kit.hold, mark 'predict', a 4.0 s ring with 0.2 s fades) is the pause. Recorded quiet and the ring's scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/no_bus_late.rs",
+        "sha256": "5ebf1bb67b955f8a3bfd5f567ec18a12938136c9e3741ce2453ef3dbf588e42b",
+        "lines": [
+          822,
+          822
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "07_5",
+      "next_cue": "07_6",
+      "kind": "authored_window",
+      "reason": "Authored music window (kit.music_breath): the picture holds with no voice. Recorded quiet and the window count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/no_bus_late.rs",
+        "sha256": "5ebf1bb67b955f8a3bfd5f567ec18a12938136c9e3741ce2453ef3dbf588e42b",
+        "lines": [
+          888,
+          889
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "07_7",
+      "next_cue": "08_1",
+      "kind": "chapter_end",
+      "reason": "Chapter end: the last line's hold (stand, or kit.hold with wait_until for the last card), the fade (and in 01 the title), then the next chapter's opening. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/no_bus_late.rs",
+        "sha256": "5ebf1bb67b955f8a3bfd5f567ec18a12938136c9e3741ce2453ef3dbf588e42b",
+        "lines": [
+          912,
+          924
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_2",
+      "next_cue": "08_3",
+      "kind": "authored_window",
+      "reason": "Authored music window (kit.music_breath): the picture holds with no voice. Recorded quiet and the window count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/the_formula.rs",
+        "sha256": "55876aff31002fe21636849a8833163cb677d0d62a8f90a1c876103d93daeeee",
+        "lines": [
+          1266,
+          1273
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_3",
+      "next_cue": "08_4",
+      "kind": "authored_window",
+      "reason": "Authored music window (kit.music_breath): the picture holds with no voice. Recorded quiet and the window count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/the_formula.rs",
+        "sha256": "55876aff31002fe21636849a8833163cb677d0d62a8f90a1c876103d93daeeee",
+        "lines": [
+          1297,
+          1313
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_4",
+      "next_cue": "08_5",
+      "kind": "authored_window",
+      "reason": "Authored music window (kit.music_breath): the picture holds with no voice. Recorded quiet and the window count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/the_formula.rs",
+        "sha256": "55876aff31002fe21636849a8833163cb677d0d62a8f90a1c876103d93daeeee",
+        "lines": [
+          1443,
+          1480
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_5",
+      "next_cue": "08_6",
+      "kind": "authored_window",
+      "reason": "Authored music window (kit.music_breath): the picture holds with no voice. Recorded quiet and the window count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/the_formula.rs",
+        "sha256": "55876aff31002fe21636849a8833163cb677d0d62a8f90a1c876103d93daeeee",
+        "lines": [
+          1510,
+          1517
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_7",
+      "next_cue": "08_8",
+      "kind": "prediction",
+      "reason": "Question before its answer: draw.rs think() (kit.hold, mark 'predict', a 4.0 s ring with 0.2 s fades) is the pause. Recorded quiet and the ring's scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/the_formula.rs",
+        "sha256": "55876aff31002fe21636849a8833163cb677d0d62a8f90a1c876103d93daeeee",
+        "lines": [
+          1560,
+          1560
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_8",
+      "next_cue": "09_1",
+      "kind": "chapter_end",
+      "reason": "Chapter end: the last line's hold (stand, or kit.hold with wait_until for the last card), the fade (and in 01 the title), then the next chapter's opening. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/the_formula.rs",
+        "sha256": "55876aff31002fe21636849a8833163cb677d0d62a8f90a1c876103d93daeeee",
+        "lines": [
+          1565,
+          1605
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "09_1",
+      "next_cue": "09_2",
+      "kind": "reading_hold",
+      "reason": "Picture-reading hold: kit.hold then wait_until/pause for a card or picture to be read. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/at_random.rs",
+        "sha256": "f43764c1e1747d1ba4b8d690a7355f835607bbc00530912a09a698f44bfd5fbf",
+        "lines": [
+          687,
+          687
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "09_3",
+      "next_cue": "09_4",
+      "kind": "prediction",
+      "reason": "Question before its answer: draw.rs think() (kit.hold, mark 'predict', a 4.0 s ring with 0.2 s fades) is the pause. Recorded quiet and the ring's scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/at_random.rs",
+        "sha256": "f43764c1e1747d1ba4b8d690a7355f835607bbc00530912a09a698f44bfd5fbf",
+        "lines": [
+          722,
+          722
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "09_4",
+      "next_cue": "09_5",
+      "kind": "reading_hold",
+      "reason": "Picture-reading hold: kit.hold then wait_until/pause for a card or picture to be read. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/at_random.rs",
+        "sha256": "f43764c1e1747d1ba4b8d690a7355f835607bbc00530912a09a698f44bfd5fbf",
+        "lines": [
+          737,
+          738
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "09_6",
+      "next_cue": "09_7",
+      "kind": "authored_window",
+      "reason": "Authored music window (kit.music_breath): the picture holds with no voice. Recorded quiet and the window count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/at_random.rs",
+        "sha256": "f43764c1e1747d1ba4b8d690a7355f835607bbc00530912a09a698f44bfd5fbf",
+        "lines": [
+          819,
+          819
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "09_7",
+      "next_cue": "09_8",
+      "kind": "reading_hold",
+      "reason": "Picture-reading hold: kit.hold then wait_until/pause for a card or picture to be read. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/at_random.rs",
+        "sha256": "f43764c1e1747d1ba4b8d690a7355f835607bbc00530912a09a698f44bfd5fbf",
+        "lines": [
+          871,
+          875
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "09_8",
+      "next_cue": "10_1",
+      "kind": "chapter_end",
+      "reason": "Chapter end: the last line's hold (stand, or kit.hold with wait_until for the last card), the fade (and in 01 the title), then the next chapter's opening. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/at_random.rs",
+        "sha256": "f43764c1e1747d1ba4b8d690a7355f835607bbc00530912a09a698f44bfd5fbf",
+        "lines": [
+          914,
+          965
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "10_3",
+      "next_cue": "10_4",
+      "kind": "deliberate_overrun",
+      "reason": "Deliberate picture time past the line: asking every student in turn runs past the line. Scene delay counts once; never a coherent seam; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/same_sum.rs",
+        "sha256": "6a6cf394f33a520515a635b0b97adc99dfc8064a6d834a5ee0fb269242ef8ed1",
+        "lines": [
+          915,
+          948
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "10_4",
+      "next_cue": "10_5",
+      "kind": "prediction",
+      "reason": "Question before its answer: draw.rs think() (kit.hold, mark 'predict', a 4.0 s ring with 0.2 s fades) is the pause. Recorded quiet and the ring's scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/same_sum.rs",
+        "sha256": "6a6cf394f33a520515a635b0b97adc99dfc8064a6d834a5ee0fb269242ef8ed1",
+        "lines": [
+          953,
+          953
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "10_6",
+      "next_cue": "10_7",
+      "kind": "reading_hold",
+      "reason": "Picture-reading hold: kit.hold then wait_until/pause for a card or picture to be read. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/same_sum.rs",
+        "sha256": "6a6cf394f33a520515a635b0b97adc99dfc8064a6d834a5ee0fb269242ef8ed1",
+        "lines": [
+          991,
+          992
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "10_8",
+      "next_cue": "10_9",
+      "kind": "reading_hold",
+      "reason": "Picture-reading hold: kit.hold then wait_until/pause for a card or picture to be read. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/same_sum.rs",
+        "sha256": "6a6cf394f33a520515a635b0b97adc99dfc8064a6d834a5ee0fb269242ef8ed1",
+        "lines": [
+          1081,
+          1082
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "10_9",
+      "next_cue": "11_1",
+      "kind": "chapter_end",
+      "reason": "Chapter end: the last line's hold (stand, or kit.hold with wait_until for the last card), the fade (and in 01 the title), then the next chapter's opening. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/same_sum.rs",
+        "sha256": "6a6cf394f33a520515a635b0b97adc99dfc8064a6d834a5ee0fb269242ef8ed1",
+        "lines": [
+          1087,
+          1105
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "11_3",
+      "next_cue": "11_4",
+      "kind": "reading_hold",
+      "reason": "Picture-reading hold: kit.hold then wait_until/pause for a card or picture to be read. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/back_to_the_stop.rs",
+        "sha256": "3c98fc169d961cbda78e80df5f1b3e3b53b3c73193f3ecb957391f733dcf6ee1",
+        "lines": [
+          781,
+          782
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "11_4",
+      "next_cue": "11_5",
+      "kind": "prediction",
+      "reason": "Question before its answer: draw.rs think() (kit.hold, mark 'predict', a 4.0 s ring with 0.2 s fades) is the pause. Recorded quiet and the ring's scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/back_to_the_stop.rs",
+        "sha256": "3c98fc169d961cbda78e80df5f1b3e3b53b3c73193f3ecb957391f733dcf6ee1",
+        "lines": [
+          814,
+          814
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "11_7",
+      "next_cue": "12_1",
+      "kind": "chapter_end",
+      "reason": "Chapter end: the last line's hold (stand, or kit.hold with wait_until for the last card), the fade (and in 01 the title), then the next chapter's opening. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/back_to_the_stop.rs",
+        "sha256": "3c98fc169d961cbda78e80df5f1b3e3b53b3c73193f3ecb957391f733dcf6ee1",
+        "lines": [
+          915,
+          965
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_2",
+      "next_cue": "12_3",
+      "kind": "prediction",
+      "reason": "Question before its answer: draw.rs think() (kit.hold, mark 'predict', a 4.0 s ring with 0.2 s fades) is the pause. Recorded quiet and the ring's scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/one_more_timetable.rs",
+        "sha256": "e067a6d02a7f4206b4e370c821a7e94ef7ceb8607ba10f7982ca398a153ad4c2",
+        "lines": [
+          880,
+          880
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_4",
+      "next_cue": "12_5",
+      "kind": "reading_hold",
+      "reason": "Picture-reading hold: kit.hold then wait_until/pause for a card or picture to be read. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/one_more_timetable.rs",
+        "sha256": "e067a6d02a7f4206b4e370c821a7e94ef7ceb8607ba10f7982ca398a153ad4c2",
+        "lines": [
+          935,
+          937
+        ]
+      }
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "12_8",
+      "next_cue": "12_9",
+      "kind": "reading_hold",
+      "reason": "Picture-reading hold: kit.hold then wait_until/pause for a card or picture to be read. Recorded quiet and scene delay count once; insert nothing.",
+      "evidence": {
+        "path": "explainer_corpus/inspection_paradox/src/chapters/one_more_timetable.rs",
+        "sha256": "e067a6d02a7f4206b4e370c821a7e94ef7ceb8607ba10f7982ca398a153ad4c2",
+        "lines": [
+          1067,
+          1068
+        ]
+      }
+    }
+  ],
+  "claim": "Semantic pause intentions authored from the projected script and the scene source before any narration exists: questions before answers, calculations, new concepts, contrasts, protected phrases, and every picture hold bound to its source event. Ranges are editorial hypotheses for the total quiet heard, not measurements or acceptance. Nothing was synthesized or listened to.",
+  "accounting": {
+    "range_s": "Total quiet heard at the boundary: recorded quiet on both sides plus any inserted silence plus scene delay, each counted once (the director's audit sums tail quiet + scene delay + lead quiet across cues).",
+    "inside_a_take": "Within one unit's take (inside a cue, or at a contiguous seam, where the kit inserts nothing), pause to add = max(0, range_s[0] - measured quiet at the reviewed boundary), applied as an exact-sample edit before assembly. Never inside a protected_phrase.",
+    "at_a_kit_cue_edge": "Between units the kit already gives max(class, tail_A + lead_B + 0.10). To reach T above that, insert X = T - 0.10 - (tail_A + lead_B) at A's end, X >= 0 (narration.rs class_gap; MIN_GAP_S 0.10; inserted cue-end zeros are counted as tail and re-subtracted).",
+    "at_a_visual_hold": "Pause to add = 0. The hold is the pause; the audit marks it protected_visual_hold."
+  }
+}

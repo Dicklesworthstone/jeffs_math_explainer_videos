@@ -1,0 +1,1624 @@
+{
+  "schema_version": 1,
+  "script_sha256": "7e72ae28dd37515de52f03fcce2f4c8086ad8660843d29a8fe28f0b7575f978c",
+  "units": [
+    {
+      "id": "01u1",
+      "line_ids": [
+        "01_1",
+        "01_2"
+      ],
+      "text": "Here is a coastline, drawn on a card sixteen centimetres wide. A cove, a long beach, a knobbly headland, a round bay and a hook at the far end. How long is it? I mean the length of the line itself, every bend included, not the distance between its ends."
+    },
+    {
+      "id": "01u2",
+      "line_ids": [
+        "01_3",
+        "01_4"
+      ],
+      "text": "A ruler won't do it. It's straight, so it fits the beach, but on the headland it touches at a single point. Here's a quicker tool. Dividers, two points a fixed step apart. Open them to two centimetres and walk them along the coast, each step landing back on the line."
+    },
+    {
+      "id": "01u3",
+      "line_ids": [
+        "01_5"
+      ],
+      "text": "Eleven steps and a short bit at the end. Will the total come out too long, too short, or about right?"
+    },
+    {
+      "id": "01u4",
+      "line_ids": [
+        "01_6"
+      ],
+      "text": "Too short, and it can never come out long. Each step goes straight between its two points, and a straight line is shorter than the bend it cuts across."
+    },
+    {
+      "id": "01u5",
+      "line_ids": [
+        "01_7"
+      ],
+      "text": "Each smaller step cuts less off its bend, but it needs more steps, and every step still has to follow the coast."
+    },
+    {
+      "id": "02u1",
+      "line_ids": [
+        "02_1"
+      ],
+      "text": "A string does better. Press it into every bend, then pull it straight and measure the string. That works, but it's slow and fiddly, and a real map has thousands of bends."
+    },
+    {
+      "id": "02u2",
+      "line_ids": [
+        "02_2",
+        "02_3",
+        "02_4"
+      ],
+      "text": "Ruler, dividers and string all follow the coast, bend by bend. Is there a way to measure it without following it at all? Here's a stranger idea. Take a clear sheet, ruled with straight lines two centimetres apart, and lay it over the card. Wherever the coast meets a line, call that a crossing. Here's one, in the cove. And here's another, where the coast climbs away from the beach."
+    },
+    {
+      "id": "02u3",
+      "line_ids": [
+        "02_5"
+      ],
+      "text": "Count them all, and take as long as you like. How many crossings are there?"
+    },
+    {
+      "id": "02u4",
+      "line_ids": [
+        "02_6"
+      ],
+      "text": "Seven. Here they are, in the order the coast meets them."
+    },
+    {
+      "id": "02u5",
+      "line_ids": [
+        "02_7"
+      ],
+      "text": "Only two of the lines meet the coast at all. The lower one crosses it four times, in the cove, on the climb, and twice round the bay. The upper one crosses it three times, either side of the headland, and once near the end."
+    },
+    {
+      "id": "03u1",
+      "line_ids": [
+        "03_1",
+        "03_2"
+      ],
+      "text": "Seven crossings, and we never followed the coast. But seven is a count, not a length. Still, crossings ought to know something about length. Swap the straight beach for one big half circle. The coast gets about two centimetres longer, and it crosses the lower line twice more."
+    },
+    {
+      "id": "03u2",
+      "line_ids": [
+        "03_3",
+        "03_4"
+      ],
+      "text": "Now swap in seven small half circles instead. That adds just as much length, but here they cross no line at all. So at one placement, more length doesn't have to mean more crossings. The hope is that it does on average, over many placements. How many centimetres, then, is one crossing worth? The lines are two centimetres apart. Is each crossing worth two centimetres?"
+    },
+    {
+      "id": "03u3",
+      "line_ids": [
+        "03_5",
+        "03_6",
+        "03_7"
+      ],
+      "text": "It can't be. Seven times two is fourteen centimetres, and the two ends of the coast are already fourteen point seven apart. No curve joining them can be shorter than that. The exchange rate has to come from somewhere else, from a curve whose length we already know. Since I built this coast myself, from four straight runs and seven pieces of circles, I know its true length exactly. It goes in this envelope until counting has had its chance."
+    },
+    {
+      "id": "04u1",
+      "line_ids": [
+        "04_1"
+      ],
+      "text": "Before hunting for an exchange rate, look harder at the count itself. Here's the same sheet. If it slides slowly up the card, will the count stay at seven?"
+    },
+    {
+      "id": "04u2",
+      "line_ids": [
+        "04_2",
+        "04_3"
+      ],
+      "text": "No. The count jumps from seven to nine, dips to eight for a moment, and settles back at seven. The coast hasn't changed at all. The lines just meet it in different places. The sheet can turn, too. Give it an eighth of a turn about the middle of the card, and watch the count."
+    },
+    {
+      "id": "04u3",
+      "line_ids": [
+        "04_4",
+        "04_5",
+        "04_6"
+      ],
+      "text": "It changed again. Now it's eight. So a count isn't a property of the coast alone. It comes from a placement of the sheet, and a placement is two choices. How far the sheet is slid, and which way its lines run. Some choices are repeats. If I slide the sheet by exactly one gap, two centimetres, what will the count be?"
+    },
+    {
+      "id": "04u4",
+      "line_ids": [
+        "04_7",
+        "04_8"
+      ],
+      "text": "Eight again. Every line lands exactly where its neighbour was, so the coast sees the same lines. Only slides within one gap are different. Turning has repeats too. Here's half a turn, about this point."
+    },
+    {
+      "id": "04u5",
+      "line_ids": [
+        "04_9"
+      ],
+      "text": "The lines run the same way again, and they lie in the same places, so the count is eight again. Only directions within half a turn are different."
+    },
+    {
+      "id": "04u6",
+      "line_ids": [
+        "04_10",
+        "04_11"
+      ],
+      "text": "Our first count, seven, was one reading from one placement among many. So here's the plan. Try every slide and every direction, average the counts, and ask what that average knows about the coast."
+    },
+    {
+      "id": "05u1",
+      "line_ids": [
+        "05_1",
+        "05_2"
+      ],
+      "text": "To find an exchange rate, start with a curve whose length we already know. Take a coin, two centimetres across, exactly as wide as the gap between the lines. Drop it on the sheet. Its rim crosses this line twice. Now slide it and turn it as much as you like. How many crossings will it have, wherever it lands?"
+    },
+    {
+      "id": "05u2",
+      "line_ids": [
+        "05_3"
+      ],
+      "text": "Always two. The lines are exactly a coin's width apart. At a typical landing, one line runs through the coin, and only one. Its rim crosses that line twice. Turning changes nothing, because a circle looks the same turned any way."
+    },
+    {
+      "id": "05u3",
+      "line_ids": [
+        "05_4"
+      ],
+      "text": "There's an awkward moment, when the coin fits exactly between two lines, just touching both. Then no line runs through it, but it meets each line at a single point, which still makes two."
+    },
+    {
+      "id": "05u4",
+      "line_ids": [
+        "05_5",
+        "05_6"
+      ],
+      "text": "Its rim is pi times its width. Roll the coin one full turn, and it covers six point two eight centimetres. Two crossings for six point two eight centimetres. So for the coin, each crossing is worth pi centimetres, about three point one four."
+    },
+    {
+      "id": "06u1",
+      "line_ids": [
+        "06_1",
+        "06_2"
+      ],
+      "text": "Now a bet. Suppose every curve earns crossings at the same rate as the coin's rim, centimetre for centimetre. Then a crossing on any curve is worth pi centimetres. Our coast had seven crossings at the first placement. What length does the bet give?"
+    },
+    {
+      "id": "06u2",
+      "line_ids": [
+        "06_3",
+        "06_4",
+        "06_5",
+        "06_6"
+      ],
+      "text": "Seven times pi, about twenty-two point zero centimetres. Now open the envelope. The true length is twenty-five point eight centimetres. Side by side and to scale, the bet comes up three point eight centimetres short. That's about fifteen percent. But seven was one count, at one placement. Slide the sheet up a little, and the count is nine. Nine times pi is about twenty-eight point three, and now the bet is two point five centimetres too long."
+    },
+    {
+      "id": "06u3",
+      "line_ids": [
+        "06_7"
+      ],
+      "text": "Same coast, same bet. A single placement can come out short or long."
+    },
+    {
+      "id": "06u4",
+      "line_ids": [
+        "06_8",
+        "06_9"
+      ],
+      "text": "The plan was never one count. It was the average count, over every slide and every direction. The real question is whether pi times that average is the length. For the coast, we can't work that average out yet. So try the bet first on something much simpler, something whose average we can find."
+    },
+    {
+      "id": "07u1",
+      "line_ids": [
+        "07_1",
+        "07_2",
+        "07_3"
+      ],
+      "text": "Take a straight stick, six centimetres long, and lay it straight across the lines. It crosses three lines. At pi centimetres a crossing, the bet says nine point four. Far too long. Now lay it along the lines, between two of them. What does the bet say now?"
+    },
+    {
+      "id": "07u2",
+      "line_ids": [
+        "07_4",
+        "07_5",
+        "07_6"
+      ],
+      "text": "Zero. It crosses no lines at all. Same stick, same sheet, and the bet says nine point four or zero. For a straight stick, the count depends on which way it points. The coin hid this, because a circle runs in every direction at once. What matters is how far the stick reaches across the lines. Picture its shadow, cast on a ruler standing at right angles to them, with the light running along the lines. Lying along, the stick casts no shadow at all. Now turn it slowly back across, and watch the count."
+    },
+    {
+      "id": "07u3",
+      "line_ids": [
+        "07_7"
+      ],
+      "text": "It climbed as the shadow grew. Lying across again, the shadow is the full six centimetres, and the count is three."
+    },
+    {
+      "id": "08u1",
+      "line_ids": [
+        "08_1",
+        "08_2"
+      ],
+      "text": "Now tilt the stick, so it lies thirty degrees from the lines. Its shadow shrinks to three centimetres. At this placement it crosses two lines. Now hold the stick still, and slide the sheet up through one whole gap. Will the count stay at two?"
+    },
+    {
+      "id": "08u2",
+      "line_ids": [
+        "08_3",
+        "08_4"
+      ],
+      "text": "No. It went from two to one, and back to two. Sliding through a whole gap tries every slide once, and it spent half of them at one crossing and half at two. So on average, over every slide, it crosses one and a half lines. Why one and a half? Cut the shadow into one whole gap, two centimetres, and the one centimetre left over. Slide the sheet through the same gap again, and watch where the lines meet the shadow."
+    },
+    {
+      "id": "08u3",
+      "line_ids": [
+        "08_5"
+      ],
+      "text": "The whole gap always held one line. As each one left at the top, the next came in at the bottom. The leftover centimetre held a line only while one passed through, half the time. One, plus a half."
+    },
+    {
+      "id": "08u4",
+      "line_ids": [
+        "08_6",
+        "08_7"
+      ],
+      "text": "And one and a half is just the shadow, three centimetres, divided by the gap, two. That works for any shadow. Each whole gap of it holds one line, and the part left over holds one for its share of the slide. So for a straight stick at any angle, the average count over every slide is its shadow divided by the gap. Let's test the rule. Turn the stick part of the way back, until its shadow is four and a half centimetres. What should its average count be now?"
+    },
+    {
+      "id": "08u5",
+      "line_ids": [
+        "08_8",
+        "08_9"
+      ],
+      "text": "Two and a quarter. It crossed three lines for a quarter of the slide, and two for the rest, just as four and a half divided by two says. The rule agrees with what we saw before, too. Lying across, the shadow is six centimetres, three whole gaps, and six over two is three. Lying along, there's no shadow, and zero over two is zero."
+    },
+    {
+      "id": "09u1",
+      "line_ids": [
+        "09_1",
+        "09_2"
+      ],
+      "text": "That settles the slide, one direction at a time. But the shadow, and so the average, still depends on which way the stick points. So now the other choice, the direction. Turning the stick is just like turning the sheet the other way, and half a turn tries every direction once. Watch the shadow as the stick turns."
+    },
+    {
+      "id": "09u2",
+      "line_ids": [
+        "09_3",
+        "09_4"
+      ],
+      "text": "Lying along the lines, no shadow. Straight across, the full six centimetres. In between, the shadow traces this arch. Each point of it, divided by the gap, is the average count over every slide at that direction, like the two we measured. So the average over every slide and every direction is the arch's average height, divided by the gap. Is that average height more than half the stick, or less?"
+    },
+    {
+      "id": "09u3",
+      "line_ids": [
+        "09_5",
+        "09_6"
+      ],
+      "text": "More. Join the two ends of the arch to its top with straight lines. The triangle's area is half its width times the full height. So its average height is half the stick. The arch lies above that tent, so its average is larger. Flatten it into a rectangle with the same area, and its height is three point eight two centimetres, about sixty-four percent of the stick. Divide by the gap, and the stick's average count, over every slide and every direction, is one point nine one crossings."
+    },
+    {
+      "id": "09u4",
+      "line_ids": [
+        "09_7",
+        "09_8"
+      ],
+      "text": "Times pi centimetres a crossing, that's six point zero centimetres, the stick's own length. A single placement said nine point four or zero. Averaged over both choices, the slide and the direction, the bet gets the stick right. That sixty-four percent is really two over pi. Keep it in mind. Later, a coin will explain it, with no calculus at all."
+    },
+    {
+      "id": "10u1",
+      "line_ids": [
+        "10_1",
+        "10_2"
+      ],
+      "text": "Back to the coast. Look closely at any smooth curve, and it's almost straight. So think of the coast as a crowd of tiny sticks, laid end to end. Every crossing of the coast is a crossing of one of these sticks. So the coast's count is just its sticks' counts, added up, and here that's seven."
+    },
+    {
+      "id": "10u2",
+      "line_ids": [
+        "10_3",
+        "10_4"
+      ],
+      "text": "Each stick runs one way across the lines, as the straight stick did, so the shadow rule holds for it. Its average count over every slide is its shadow divided by the gap. So the coast's average count is all its sticks' shadows, added up, then divided by the gap. Lay their shadows end to end along this bar, starting at the cove. Along the beach, nothing is added. It lies along the lines, so it casts no shadow."
+    },
+    {
+      "id": "10u3",
+      "line_ids": [
+        "10_5",
+        "10_6"
+      ],
+      "text": "Round the bay, the coast goes down and then comes back up, so both of its shadows go in. That's right, because this line through the bay crosses it twice, once on the way down and once on the way back up. Our first count was seven, and sliding showed nine and eight as well. With every shadow in, will the average come out above seven, or below?"
+    },
+    {
+      "id": "10u4",
+      "line_ids": [
+        "10_7",
+        "10_8",
+        "10_9"
+      ],
+      "text": "Above. The last stretch, round the hook to the far end, finishes the bar. In all, the shadows come to fifteen point two six centimetres. Divided by the gap, that's seven point six three crossings on average, over every slide. So seven was a low reading. And this average needed no sliding at all, just the shadows. But it holds only for lines running this one way."
+    },
+    {
+      "id": "11u1",
+      "line_ids": [
+        "11_1",
+        "11_2"
+      ],
+      "text": "So far the lines have all run one way. Turn the sheet an eighth of a turn, and every shadow changes. Where a stick now turns back, both of its shadows go in, as in the bay. Now the average comes to eight point seven four crossings. Another eighth, and watch the beach. Lying along the lines, it cast no shadow. Now it runs straight across them, and its shadow is its whole length, three and a half centimetres. Here the average is eight point two three."
+    },
+    {
+      "id": "11u2",
+      "line_ids": [
+        "11_3",
+        "11_4"
+      ],
+      "text": "And one more eighth, to three eighths of a turn. Here the average is seven point nine one. Each direction sees the coast differently. Average those four, and multiply by pi. Will that beat the first placement's twenty-two point zero centimetres?"
+    },
+    {
+      "id": "11u3",
+      "line_ids": [
+        "11_5",
+        "11_6"
+      ],
+      "text": "Easily. Twenty-five point five three centimetres, only about one percent short of the true length. But four directions are only four. Turn the sheet back to the start, then through half a turn, and watch the total shadow."
+    },
+    {
+      "id": "11u4",
+      "line_ids": [
+        "11_7",
+        "11_8",
+        "11_9"
+      ],
+      "text": "Our four directions are these four points. More directions read the curve more finely. Eight give twenty-five point seven four, and thirty-two give twenty-five point eight one. Flatten the curve, as we flattened the stick's arch, and its height gives twenty-five point eight one centimetres, the true length to two decimal places. That's the computer averaging three thousand six hundred directions. It shows the bet working on this coast, but it doesn't prove that it must. Why it has to is the next question."
+    },
+    {
+      "id": "12u1",
+      "line_ids": [
+        "12_1",
+        "12_2"
+      ],
+      "text": "So far we've checked the bet by computing, on one coast. Why should it work for every curve? Here's the claim. Average the count over every slide and every direction, and you get the curve's length times one fixed number, the same number for every curve. Barbier made this argument in eighteen sixty, without a single integral. It rests on two ideas. The first is that crossings add up."
+    },
+    {
+      "id": "12u2",
+      "line_ids": [
+        "12_3",
+        "12_4"
+      ],
+      "text": "Cut the coast at its joints, and look at this placement. The cove is crossed, the beach and the headland aren't, and the bay is crossed twice, once on its way down and once on its way back up. Add up every piece's crossings, and you get the coast's seven. That's true at every placement. Slide the sheet, and the pieces' counts change, but they always add up to the coast's count. So the pieces' averages add up to the coast's average too."
+    },
+    {
+      "id": "12u3",
+      "line_ids": [
+        "12_5",
+        "12_6"
+      ],
+      "text": "Now take our six centimetre stick. Move it, and its count can change. Here it crosses two lines instead of three. But moving the stick is just like moving the sheet the other way. Put the stick back and move the sheet instead. Two again. The average gives every placement of the sheet an equal share, and moving them all by the same amount only reshuffles them. So a stick's average can't depend on where it lies or which way it points. It can only depend on its length."
+    },
+    {
+      "id": "12u4",
+      "line_ids": [
+        "12_7",
+        "12_8"
+      ],
+      "text": "Cut the stick in half. Each half counts its own crossings, and together they make the whole stick's count. Watch the cut as a line passes it. One half loses a crossing, and the other gains it. The pieces don't even have to stay in line. Lay one half across the other. Where they cross, a line through that point meets both halves, so it counts twice, just as the lines beside it cross each half once."
+    },
+    {
+      "id": "12u5",
+      "line_ids": [
+        "12_9"
+      ],
+      "text": "Equal pieces have equal averages, since one can be moved onto the other. So each half has half the whole stick's average, each third a third, and each quarter a quarter. Three quarters together, four and a half centimetres, have three quarters of it. So for every length that's a fraction, the average is the length times one number, the average for one centimetre."
+    },
+    {
+      "id": "12u6",
+      "line_ids": [
+        "12_10"
+      ],
+      "text": "Not every length is a fraction. Take the straight line between the coast's two ends, fourteen point seven three centimetres and a bit. Lay a fourteen and a fifteen centimetre stick along it, from the same end. Turn the sheet, slide it, and watch. A longer stick is always crossed at least as often as the shorter one inside it."
+    },
+    {
+      "id": "12u7",
+      "line_ids": [
+        "12_11",
+        "12_12"
+      ],
+      "text": "So its average lies between fourteen and fifteen times our number. Between fourteen point seven and fourteen point eight times it, and between fourteen point seven three and fourteen point seven four. Squeezed tighter and tighter, it can only be the length times the number. So for any chain of straight sticks, the average count is exactly its total length times that number. Here's a chain with its corners at the coast's joints. It's twenty-one point three nine centimetres long, and here it's crossed only five times. Its chord across the bay misses both of the bay's crossings."
+    },
+    {
+      "id": "12u8",
+      "line_ids": [
+        "12_13"
+      ],
+      "text": "A line can only cross a chord if it crosses the coast between the chord's ends, so a chain is never crossed more often than the coast. Put more corners on the coast, and the chain gets longer and catches more. Twenty-three point nine one centimetres, then twenty-five point seven one, and here both catch all seven."
+    },
+    {
+      "id": "12u9",
+      "line_ids": [
+        "12_14",
+        "12_15"
+      ],
+      "text": "As the corners crowd together, the chains' lengths rise to the coast's length, and at almost every placement their counts rise to the coast's count. So the coast's average is its length times the same number. Chains give it exactly, and for a curve, it's a limit. One number, the same for every curve. To find it, we need just one curve whose average we already know. Which would you use?"
+    },
+    {
+      "id": "12u10",
+      "line_ids": [
+        "12_16",
+        "12_17"
+      ],
+      "text": "The coin. Away from exact tangencies, it crosses the lines at two points, and its rim is two pi centimetres. Those exceptional placements have no effect on the average. So two is two pi times the number, and the number is one over pi. So on this sheet, every curve averages its length over pi crossings, and each crossing is worth pi centimetres. The bet wasn't luck. It was forced. For our coast, twenty-five point eight one over pi is about eight point two two, the average the computer found."
+    },
+    {
+      "id": "13u1",
+      "line_ids": [
+        "13_1"
+      ],
+      "text": "Back to our six centimetre stick. Its length over pi says it averages about one point nine one crossings. And by the shadow rule, its average shadow is the gap times that average, twelve over pi, about three point eight two centimetres. That's the stick's sixty-four percent from before, and now we know why it's two over pi. The coin explained it."
+    },
+    {
+      "id": "13u2",
+      "line_ids": [
+        "13_2"
+      ],
+      "text": "Turn it to lie along the lines, and it crosses none. Now bend the same wire at its middle, into two arms of three centimetres at a right angle. Here it crosses one line. Its length hasn't changed, six centimetres. Will its average count go up, go down, or stay the same?"
+    },
+    {
+      "id": "13u3",
+      "line_ids": [
+        "13_3",
+        "13_4"
+      ],
+      "text": "It stays the same, about one point nine one. Each arm is a three centimetre stick, and crossings add up, so the bent wire averages what its two arms do, which is what the straight stick does. Turn the sheet, and its count moves around, but its average doesn't. What changes is how the count is spread. Straight, the stick misses every line about ten point seven percent of the time. Bent, it never does, because one of its arms always reaches more than a gap across the lines. Different spreads, the same average."
+    },
+    {
+      "id": "13u4",
+      "line_ids": [
+        "13_5",
+        "13_6"
+      ],
+      "text": "Bend it once more, into a shape that crosses itself, still lying flat on the card. Where its pieces cross, a line through that point counts both of them, as before. Its average is still one point nine one, because its pieces still add up to six centimetres. This is known as Buffon's noodle. However a wire is bent, as long as it lies flat on the card, it averages its length over pi crossings on this sheet."
+    },
+    {
+      "id": "13u5",
+      "line_ids": [
+        "13_7"
+      ],
+      "text": "And our coast is just a long bent wire. At our first placement it crossed the lines seven times. On average it crosses its length over pi, about eight point two two times. Turn that around, and pi times the average count gives back its length, twenty-five point eight one centimetres. That's why counting crossings can measure a coast."
+    },
+    {
+      "id": "14u1",
+      "line_ids": [
+        "14_1",
+        "14_2",
+        "14_3"
+      ],
+      "text": "Think back to the coin. Wherever we dropped it, apart from the exact touching placements, it met the lines at two points. That was useful because we knew its rim. But what made its count so dependable? Press two straight rulers against opposite sides of the coin, keeping them parallel. The gap between them is the coin's width, two centimetres. Turn the coin. Different points of its rim touch the rulers, but the gap stays the same. A circle has the same width whichever way you turn it. Is a circle the only shape that can do that?"
+    },
+    {
+      "id": "14u2",
+      "line_ids": [
+        "14_4",
+        "14_5"
+      ],
+      "text": "No. Mark three points, each two centimetres from the others. They are the corners of a triangle with equal sides. Put the point of a compass on one corner, and draw an arc from the second corner to the remaining corner. Do the same from each corner, without changing the compass opening. Keep the curved outline. This curve is called a Reuleaux triangle. Press the rulers against it. One touches a corner. The other touches the arc across from that corner. That arc was drawn from this corner, so the gap between them is its radius, two centimetres."
+    },
+    {
+      "id": "14u3",
+      "line_ids": [
+        "14_6"
+      ],
+      "text": "Now imagine turning this shape while keeping the rulers pressed against it. The corners will trade places with the arcs. Will the gap between them ever change?"
+    },
+    {
+      "id": "14u4",
+      "line_ids": [
+        "14_7",
+        "14_8"
+      ],
+      "text": "It stays at two centimetres. Watch the rulers ride up and down as the shape turns. A corner touches a ruler while the opposite arc touches the other. Their separation stays equal to the compass radius. Constant width does not mean the shape stays still between fixed lines. It means the pressed rulers stay the same distance apart. The triangle inside it can't do that. Without its arcs, the gap shrinks to about one point seven three centimetres. As it turns, the gap comes back to two, and drops again. The curved sides make the difference."
+    },
+    {
+      "id": "14u5",
+      "line_ids": [
+        "14_9"
+      ],
+      "text": "So the Reuleaux triangle shares the coin's constant width, despite looking very different. We have another shape whose width matches the spacing of our sheet. Can that tell us something about its rim, without following the rim?"
+    },
+    {
+      "id": "15u1",
+      "line_ids": [
+        "15_1"
+      ],
+      "text": "Now look at the sheet's lines. They're two centimetres apart, just as far apart as the rulers. One line runs between them. It has no dents, this shape, so that line enters, leaves, and crosses the rim twice. A straight line cannot leave and then enter again. That's what convexity gives us here."
+    },
+    {
+      "id": "15u2",
+      "line_ids": [
+        "15_2"
+      ],
+      "text": "Slide it and turn it. The rulers move with the shape, but their separation is still the spacing of the sheet. The highlighted line can change. The count stays the same."
+    },
+    {
+      "id": "15u3",
+      "line_ids": [
+        "15_3"
+      ],
+      "text": "As the sheet slides, a line can pass exactly through a corner. The adjoining arcs meet there, and our rule for counting their interiors needs special treatment for that one slide. And once in every gap, the lines lie along both rulers, and the rim only touches them. Each of those is one slide among a continuous range of slides. An exact exceptional slide has probability zero, so it does not change the average."
+    },
+    {
+      "id": "15u4",
+      "line_ids": [
+        "15_4"
+      ],
+      "text": "So like the coin, it averages two crossings. We already know how an average count measures length on this sheet. What does that make the length of its rim?"
+    },
+    {
+      "id": "15u5",
+      "line_ids": [
+        "15_5"
+      ],
+      "text": "Two pi centimetres, about six point two eight. That is the same as the coin's rim. The corners and the curved sides look different, but the same width has led to the same length."
+    },
+    {
+      "id": "15u6",
+      "line_ids": [
+        "15_6"
+      ],
+      "text": "Check it another way. Each arc is centred on a corner. The radii to its ends make a triangle with equal sides, so its angles are each sixty degrees. Each arc is a sixth of a circle of radius two. Lift the three arcs off and lay them end to end. Together they make half of that circle. Its full circumference is four pi. So half of it is two pi again."
+    },
+    {
+      "id": "15u7",
+      "line_ids": [
+        "15_7"
+      ],
+      "text": "And a third way is to approach the rim with straight chains. The triangle itself is such a chain, six centimetres long. With six corners, the chain is about six point two one centimetres, and with twelve, about six point two seven. These lengths rise toward the rim from below. Each finite chain still cuts off the bends."
+    },
+    {
+      "id": "15u8",
+      "line_ids": [
+        "15_8"
+      ],
+      "text": "Barbier made the general point in eighteen sixty. For a convex shape of constant width, its perimeter depends only on that width. A circle of the same width gives the reference length, pi times the width. Ours is two centimetres wide. The statement concerns the boundary of a convex shape. Keeping the same supporting rulers in every direction while adding inward detours would add length."
+    },
+    {
+      "id": "15u9",
+      "line_ids": [
+        "15_9"
+      ],
+      "text": "So counting crossings and laying out the arcs agree. The straight chains approach the same result. On our coast, the average count also recovered the length, about twenty-five point eight one centimetres. Constant width gave us an especially clear check. The counting rule reaches beyond that special shape."
+    },
+    {
+      "id": "16u1",
+      "line_ids": [
+        "16_1"
+      ],
+      "text": "So far, a random placement meant an even slide and an even turn of the sheet. That was a particular recipe for randomness. Here is another recipe that sounds fair, but changes what gets measured."
+    },
+    {
+      "id": "16u2",
+      "line_ids": [
+        "16_2"
+      ],
+      "text": "Put two pins on the card. Each pin is spread uniformly over its area, independently of the other pin. Draw the full straight line through them, continuing beyond the pins to the edges of the card. Then pick fresh pins and repeat."
+    },
+    {
+      "id": "16u3",
+      "line_ids": [
+        "16_3"
+      ],
+      "text": "To compare the recipes, replace the coast with two equal vertical sticks, each two centimetres long. Keep a stick in the middle and a stick near the corner. We will draw ten thousand independent pairs of pins and count how many full lines cross each stick."
+    },
+    {
+      "id": "16u4",
+      "line_ids": [
+        "16_4"
+      ],
+      "text": "Make a prediction before we draw the lines. Which stick will be crossed more often, the middle stick, the corner stick, or will they tie?"
+    },
+    {
+      "id": "16u5",
+      "line_ids": [
+        "16_5"
+      ],
+      "text": "Now run the experiment. Every pair supplies a full line, and every line contributes to the counts. The animation shows selected draws as the total advances. The calculation includes them all."
+    },
+    {
+      "id": "16u6",
+      "line_ids": [
+        "16_6"
+      ],
+      "text": "In this run, two thousand one hundred and seventy-eight lines cross the middle stick. One thousand two hundred and seventy-three cross the corner stick. Equal lengths, in the same direction, but very different counts. Moving the stick on the card has changed its chance of being crossed."
+    },
+    {
+      "id": "16u7",
+      "line_ids": [
+        "16_7"
+      ],
+      "text": "Think about where the pins can go. A line with a long run across the card has more room for widely separated pin pairs than a line that clips a corner. Nearby lines inherit different amounts of room for pairs. Picking pins uniformly therefore favours some families of lines over others."
+    },
+    {
+      "id": "16u8",
+      "line_ids": [
+        "16_8"
+      ],
+      "text": "The line itself is infinitely long. What matters here is the part inside the card, where pins are allowed. And the result is specific to this pin recipe. Random needs a recipe. Equal sticks do not automatically receive equal average counts under every way of choosing lines."
+    },
+    {
+      "id": "16u9",
+      "line_ids": [
+        "16_9"
+      ],
+      "text": "Keep these sticks exactly where they are. Next we will change only how we choose the lines, returning to even slides and even turns. That comparison will show why specifying the randomness belongs inside the mathematics, before we average anything."
+    },
+    {
+      "id": "17u1",
+      "line_ids": [
+        "17_1"
+      ],
+      "text": "The pins favored the middle stick. What would the sheet's even slides and turns do instead? To make that question precise, let's give every line an address. Keep the same card and the same sticks."
+    },
+    {
+      "id": "17u2",
+      "line_ids": [
+        "17_2"
+      ],
+      "text": "Start at the middle of the card. Draw a perpendicular to the line. Its direction is called the normal direction. The angle we record belongs to that perpendicular, not to the line itself. Watch them turn together."
+    },
+    {
+      "id": "17u3",
+      "line_ids": [
+        "17_3"
+      ],
+      "text": "The other part of the address is a signed distance. Positive means along that normal direction. Negative means the opposite way. A line through the middle has distance zero. Sliding the line changes this distance while its angle stays put."
+    },
+    {
+      "id": "17u4",
+      "line_ids": [
+        "17_4"
+      ],
+      "text": "Put the normal angle across a chart, from zero to half a turn. Put the signed distance up and down. Now a line on the card is a dot on the chart. Turn the line, and the dot moves sideways. Slide it, and the dot moves vertically."
+    },
+    {
+      "id": "17u5",
+      "line_ids": [
+        "17_5"
+      ],
+      "text": "A sheet has parallel lines, all with the same normal angle. They become a column of dots. Equal gaps become equal vertical spacing. Slide the sheet and the dots move up their column. Turn the sheet and the column moves across."
+    },
+    {
+      "id": "17u6",
+      "line_ids": [
+        "17_6"
+      ],
+      "text": "Some addresses describe lines that miss the card entirely. This curved boundary keeps just the addresses that meet it. A dot outside the boundary is a missed card. Notice that the allowed distance range changes with the angle."
+    },
+    {
+      "id": "17u7",
+      "line_ids": [
+        "17_7"
+      ],
+      "text": "Here is our new rule. Pick a dot uniformly in the whole chart box. If its line misses the card, discard it and pick both coordinates again. Inside the boundary, equal areas have equal chances. Taller columns contain more accepted dots, so the accepted angles alone are not evenly distributed."
+    },
+    {
+      "id": "17u8",
+      "line_ids": [
+        "17_8"
+      ],
+      "text": "With that rule, count ten thousand accepted lines. Make a prediction before we run it. Will the middle stick still win, or should the equal sticks come out about even?"
+    },
+    {
+      "id": "17u9",
+      "line_ids": [
+        "17_9"
+      ],
+      "text": "Each accepted dot gives a line, and we test that full line against both sticks. The display shows selected draws, but the count uses every accepted line."
+    },
+    {
+      "id": "17u10",
+      "line_ids": [
+        "17_10"
+      ],
+      "text": "Seven hundred and ninety-six cross the middle stick, and eight hundred and eleven cross the corner one. About even in this run. That small difference is compatible with chance. The chart gives us a way to explain why equal sticks have equal chances under this rule."
+    },
+    {
+      "id": "17u11",
+      "line_ids": [
+        "17_11"
+      ],
+      "text": "Compare the two recipes on the same chart. The uniform rule spreads its dots across the allowed region. The pin rule piles more dots near the middle band, where lines have longer runs through the card. These are samples from different distributions, even though both recipes sound random."
+    },
+    {
+      "id": "17u12",
+      "line_ids": [
+        "17_12"
+      ],
+      "text": "Before averaging over random lines, say how you chose them. The sheet's even slides and turns give equal weight to equal areas of this chart. Next, we'll see what area belongs to the lines that cross a stick."
+    },
+    {
+      "id": "18u1",
+      "line_ids": [
+        "18_1"
+      ],
+      "text": "Put away the short test sticks and bring back our six centimetre stick. Keep the same card and the same chart. Which addresses belong to lines that cross this stick?"
+    },
+    {
+      "id": "18u2",
+      "line_ids": [
+        "18_2"
+      ],
+      "text": "Fix a normal angle. Each endpoint of the stick has a projection onto that normal. If a line's signed distance lies between those projections, it crosses the stick. Outside that interval, it misses. Watch the line slide through the whole interval."
+    },
+    {
+      "id": "18u3",
+      "line_ids": [
+        "18_3"
+      ],
+      "text": "Now turn the normal. The endpoint projections trace the edges of a band. Every address between those edges belongs to a crossing line. The height of each column is the stick's shadow in that direction, the same shadow we measured earlier."
+    },
+    {
+      "id": "18u4",
+      "line_ids": [
+        "18_4"
+      ],
+      "text": "We already added these shadow widths over a half turn. With angle measured in radians, the total is twice the stick's length. For our six centimetre stick, the band has area twelve. This is chart area, not an area on the card."
+    },
+    {
+      "id": "18u5",
+      "line_ids": [
+        "18_5"
+      ],
+      "text": "Keep the length and direction fixed, and imagine sliding the stick to the right. Make a prediction before it moves. What happens to its band, and does the chart area grow, shrink, or stay the same?"
+    },
+    {
+      "id": "18u6",
+      "line_ids": [
+        "18_6"
+      ],
+      "text": "Each endpoint gains the same projection of the movement. So the boundaries in each column rise or fall together. The band bends as it shifts, but every column keeps its height. Add those unchanged heights. The area is still twelve."
+    },
+    {
+      "id": "18u7",
+      "line_ids": [
+        "18_7"
+      ],
+      "text": "Return the stick to the centre. This time, imagine turning it about its centre, keeping its length. Predict before we turn. What happens to the band, and will its area change?"
+    },
+    {
+      "id": "18u8",
+      "line_ids": [
+        "18_8"
+      ],
+      "text": "Different angles now see the different shadows. The width pattern moves across the chart, but adding it over a complete half turn gives the same total. The area stays twelve. Turning changed which lines meet the stick, not how much chart area they occupy."
+    },
+    {
+      "id": "18u9",
+      "line_ids": [
+        "18_9"
+      ],
+      "text": "There's a catch at the chart's edge. After a half turn, the normal points the opposite way. The same physical line then has the opposite signed distance. Watch the dot wrap to the other edge while the line moves continuously. Those edges name the same lines, with reversed distance signs."
+    },
+    {
+      "id": "18u10",
+      "line_ids": [
+        "18_10"
+      ],
+      "text": "Now put the pin dots back. This sampling recipe crowds some chart regions more than others. Moving our stick moves its band through that fixed distribution. It does not move the pin distribution with it. Equal band areas can therefore have different chances. These sampled dots illustrate the crowding. They are not an exact probability calculation."
+    },
+    {
+      "id": "18u11",
+      "line_ids": [
+        "18_11"
+      ],
+      "text": "Under the uniform chart rule, equal lengths give equal band areas and equal hit probabilities, provided the whole stick stays inside the card. That explains why position need not matter. Next, replace the stick with our coast. A line may cross a curve repeatedly, so its address will need a crossing count, not just a yes or no."
+    },
+    {
+      "id": "19u1",
+      "line_ids": [
+        "19_1"
+      ],
+      "text": "Replace the stick with our coast, keeping the same card and the same chart. The coast bends back on itself, so knowing whether a line meets it is no longer enough. We need to know how many crossings belong to that address."
+    },
+    {
+      "id": "19u2",
+      "line_ids": [
+        "19_2"
+      ],
+      "text": "Start with a line that misses the coast. Its address gets zero. Move to a line that crosses once. Its address gets one. The gold dot on the chart names the entire line. The gold dots on the coast mark its crossings."
+    },
+    {
+      "id": "19u3",
+      "line_ids": [
+        "19_3"
+      ],
+      "text": "Here is a line with six crossings. Follow it across the coast and count the gold dots. Its address needs a stronger color because it contributes all six crossings. Replacing that count by a yes would throw most of its contribution away."
+    },
+    {
+      "id": "19u4",
+      "line_ids": [
+        "19_4"
+      ],
+      "text": "Repeat this calculation across the chart. This picture uses three hundred and sixty angle columns and a hundred and eighty-four distance rows. Each little patch gets the count at its centre. The colors show a finite grid approximation, with blank patches for misses. The outline still marks the lines that meet the card."
+    },
+    {
+      "id": "19u5",
+      "line_ids": [
+        "19_5"
+      ],
+      "text": "In this grid, about thirty-five percent of the lines across the card miss the coast. Among the lines that do meet it, about seventy-one percent cross once. Keep those groups separate. And six is the largest count found on this grid. This picture alone does not prove a bound for every possible line."
+    },
+    {
+      "id": "19u6",
+      "line_ids": [
+        "19_6"
+      ],
+      "text": "To total the chart, multiply each little patch's area by its crossing count, then add. A patch marked six contributes six times its area. We're adding chart area with multiplicity, not measuring the area inside the coast, and not merely counting colored patches."
+    },
+    {
+      "id": "19u7",
+      "line_ids": [
+        "19_7"
+      ],
+      "text": "The stick's band totaled twice its length. Think about what should happen when the stick becomes this coast. Make a prediction before we add the patches. What should the coast's weighted chart total be?"
+    },
+    {
+      "id": "19u8",
+      "line_ids": [
+        "19_8"
+      ],
+      "text": "Each column adds its own crossing counts, multiplied by the same patch area. This is a numerical sum, with the grid's limited resolution. Sweeping through the grid gives approximately fifty-one point six three."
+    },
+    {
+      "id": "19u9",
+      "line_ids": [
+        "19_9"
+      ],
+      "text": "Twice the coast's exact length also rounds to fifty-one point six three. Look at the extra digits. The grid and the exact calculation differ slightly. Their agreement illustrates the identity. It does not turn a finite grid into a proof."
+    },
+    {
+      "id": "19u10",
+      "line_ids": [
+        "19_10"
+      ],
+      "text": "Why does twice the length appear? Break the coast into small pieces. For each line, every piece contributes its crossings, including places where the coast doubles back. Adding over all lines adds those contributions too. Each straight piece has the band rule we already found. The precise extension to finite-length curves uses a limiting argument. The picture is its intuition."
+    },
+    {
+      "id": "19u11",
+      "line_ids": [
+        "19_11"
+      ],
+      "text": "This is the Cauchy Crofton length formula, associated with Morgan Crofton's work in eighteen sixty-eight. It measures length by adding crossings over the space of lines. The earlier shadow argument and this chart are descriptions of the same geometry."
+    },
+    {
+      "id": "19u12",
+      "line_ids": [
+        "19_12"
+      ],
+      "text": "Precisely, the curve must have finite length. Count every traversal. Tracing a path again adds length and adds crossings again. Use signed distance and a full half turn of normal angles, measured in radians, with equal chart areas weighted equally. For our coast, exceptional tangencies and joints occupy zero chart area. No uniform probability over the entire unbounded plane of lines is needed. Next we'll write this rule as a formula."
+    },
+    {
+      "id": "20u1",
+      "line_ids": [
+        "20_1"
+      ],
+      "text": "Keep the coast and its chart in view. We have already done the work the formula describes. Label each address by its crossing count, multiply by the little patch's area, and add. The symbols are a compact way to ask for that total without choosing a grid size."
+    },
+    {
+      "id": "20u2",
+      "line_ids": [
+        "20_2"
+      ],
+      "text": "Theta and p locate one full line, its normal angle and its signed distance. The letter n records how many times that line meets the path. Follow the gold address to the gold crossing on the coast. That is what the expression inside the integral means."
+    },
+    {
+      "id": "20u3",
+      "line_ids": [
+        "20_3"
+      ],
+      "text": "First hold the angle fixed and move through every signed distance. That reads one column. Add the crossing counts down the column, each weighted by its small step of distance. The result is the path's total projected travel in that direction. If the path doubles back, the overlapping shadows are counted again."
+    },
+    {
+      "id": "20u4",
+      "line_ids": [
+        "20_4"
+      ],
+      "text": "Now add those columns over a half turn, measuring the angle in radians. That is the outer integral. Finally multiply by one half, because the weighted chart total is twice the length. We earned that factor from the stick's band. It is still the same calculation."
+    },
+    {
+      "id": "20u5",
+      "line_ids": [
+        "20_5"
+      ],
+      "text": "This is an exact identity for a path of finite length, with repeated traversals counted in both length and crossings. It contains no random choice. A finite colored grid approximates the integral. Randomly placed sheets are another way to estimate it. Neither approximation becomes exact just because the identity is exact."
+    },
+    {
+      "id": "20u6",
+      "line_ids": [
+        "20_6"
+      ],
+      "text": "Divide the total by pi instead, and you have the average total shadow over directions, two over pi times the length. Count overlapping shadows separately. Barbier reports that Cauchy's projection result appeared in eighteen thirty-two. For our coast the average is about sixteen point four three three centimetres."
+    },
+    {
+      "id": "20u7",
+      "line_ids": [
+        "20_7"
+      ],
+      "text": "Try the formula on our coin, two centimetres across. Its rim is about six point two eight centimetres. Make a prediction before we fill its chart. What should the weighted total be?"
+    },
+    {
+      "id": "20u8",
+      "line_ids": [
+        "20_8"
+      ],
+      "text": "Twelve point five seven, approximately. Twice the rim. Now let's see that answer in the chart, rather than merely doubling a number."
+    },
+    {
+      "id": "20u9",
+      "line_ids": [
+        "20_9"
+      ],
+      "text": "A line strictly less than one centimetre from the centre crosses the rim twice. Slide this line through the interior. Its gold address moves within the band, and the crossing dots move along the same circle. Turning the line changes neither the band height nor the count inside it."
+    },
+    {
+      "id": "20u10",
+      "line_ids": [
+        "20_10"
+      ],
+      "text": "Right on the edge, a tangent only touches the rim. There is one contact. Farther away there is none. The tangent addresses sit on the band's boundaries, which have zero area in the chart. They do not alter this integral."
+    },
+    {
+      "id": "20u11",
+      "line_ids": [
+        "20_11"
+      ],
+      "text": "The band is two centimetres tall and pi radians wide. Multiply its area by the interior weight two to get four pi. The formula takes one half of that, giving two pi centimetres, the coin's rim, about six point two eight."
+    },
+    {
+      "id": "20u12",
+      "line_ids": [
+        "20_12"
+      ],
+      "text": "Return to the earlier pictures. The coin gives two crossings per sheet. A stick's average total shadow is about sixty-four percent of its length. The coast averages about eight point two two crossings per sheet at our two-centimetre spacing. These are different quantities, connected by the same length identity."
+    },
+    {
+      "id": "20u13",
+      "line_ids": [
+        "20_13"
+      ],
+      "text": "The precise scope matters. Use a finite-length plane path and count every traversal. Use signed distance across the whole real line and a half turn of normal angles in radians. Exceptional tangent lines do not carry chart area. The formula is exact. Our finite estimates still have error."
+    },
+    {
+      "id": "21u1",
+      "line_ids": [
+        "21_1"
+      ],
+      "text": "The identity averages over every placement. A measurement uses a finite sample. Let's return to our coast and try ten drops of the ruled sheet."
+    },
+    {
+      "id": "21u2",
+      "line_ids": [
+        "21_2"
+      ],
+      "text": "Each time, choose a direction uniformly over a half turn. Independently, choose a slide uniformly over one gap. Make fresh independent choices for the next drop. Do not choose placements because their counts look good."
+    },
+    {
+      "id": "21u3",
+      "line_ids": [
+        "21_3"
+      ],
+      "text": "Watch the sheet change its direction and slide while the coast stays fixed. The gold dots mark the actual crossings. Keep each count in the row, so we can inspect the complete experiment before taking an average."
+    },
+    {
+      "id": "21u4",
+      "line_ids": [
+        "21_4"
+      ],
+      "text": "Their mean is eight point two crossings. At our spacing, multiply by pi centimetres per crossing. The estimate is twenty-five point eight centimetres. That agrees with the true length to the displayed decimal place."
+    },
+    {
+      "id": "21u5",
+      "line_ids": [
+        "21_5"
+      ],
+      "text": "Make a prediction. Should we expect ten drops to be this close whenever we try again?"
+    },
+    {
+      "id": "21u6",
+      "line_ids": [
+        "21_6"
+      ],
+      "text": "No. This is a fortunate sample. Across a thousand retained drops, the counts range from five to twelve. Those bars describe that sample. The gold outlines show the numerical model's probabilities. It also includes thirteen crossings, with a very small probability, about zero point zero three six percent."
+    },
+    {
+      "id": "21u7",
+      "line_ids": [
+        "21_7"
+      ],
+      "text": "To describe the variation, convert each drop's count into a length estimate. The model's standard deviation is about four point four centimetres. This measures spread around the true length. Square the errors, average them, then take the square root. It does not say that every error fits inside this bar."
+    },
+    {
+      "id": "21u8",
+      "line_ids": [
+        "21_8"
+      ],
+      "text": "Averaging ten independent drops reduces that standard deviation to about one point four centimetres. Some errors are smaller, some larger. We have improved the method, but our particularly close opening result still overstates its usual precision."
+    },
+    {
+      "id": "21u9",
+      "line_ids": [
+        "21_9"
+      ],
+      "text": "Now repeat the whole ten-drop experiment a thousand times. Each square is a fresh group of ten, not an individual drop. Color it red if the resulting estimate is more than one centimetre from the true length. In this retained experiment, forty-three percent of the groups are red."
+    },
+    {
+      "id": "21u10",
+      "line_ids": [
+        "21_10"
+      ],
+      "text": "The numerical probability calculation also rounds to forty-three percent. It adds independent counts. Multiply their probabilities, collect the ways to reach each total, then add the probabilities outside the allowed error window. Its input probabilities are numerically computed. Agreement here does not turn a finite sample, or a numerical calculation, into an exact probability."
+    },
+    {
+      "id": "21u11",
+      "line_ids": [
+        "21_11"
+      ],
+      "text": "So keep our opening estimate, but remember its luck. An exact identity can justify an unbiased measuring procedure without making a small experiment precise. Next we can ask how much more repetition buys us."
+    },
+    {
+      "id": "22u1",
+      "line_ids": [
+        "22_1"
+      ],
+      "text": "Keep the same coast, and keep going to a thousand drops. Each fresh drop chooses a uniform direction over a half turn, and independently a uniform slide over one gap. The choices are independent of all earlier drops."
+    },
+    {
+      "id": "22u2",
+      "line_ids": [
+        "22_2"
+      ],
+      "text": "Follow the running estimate, from the first ten to all thousand. Each new crossing count joins the total, and we divide by the number of drops used so far. The curve wiggles. More data need not improve every individual step."
+    },
+    {
+      "id": "22u3",
+      "line_ids": [
+        "22_3"
+      ],
+      "text": "This retained run ends at twenty-five point nine centimetres. That is one observed average. It does not tell us how far another run might wander, and it does not certify this run's error."
+    },
+    {
+      "id": "22u4",
+      "line_ids": [
+        "22_4"
+      ],
+      "text": "Imagine starting over again and again, always averaging a thousand independent drops. The numerical population model gives those averages a standard deviation of point one four centimetres. Recall what that means. Square their deviations from their mean, average those squares, then take the square root. It is a measure of spread, not a promise that an estimate lands inside an interval."
+    },
+    {
+      "id": "22u5",
+      "line_ids": [
+        "22_5"
+      ],
+      "text": "Why does averaging help? First centre each drop's estimate by subtracting its mean. Independence makes the cross-products of different centred deviations average to zero. So the variance of their sum is n times the variance of one drop. Variance is the average squared deviation we just described."
+    },
+    {
+      "id": "22u6",
+      "line_ids": [
+        "22_6"
+      ],
+      "text": "Now turn that sum into an average by dividing by n. Squared deviations are divided by n squared. That leaves variance divided by n. Taking the square root gives standard deviation multiplied by one over the square root of n."
+    },
+    {
+      "id": "22u7",
+      "line_ids": [
+        "22_7"
+      ],
+      "text": "That is why the spread shrinks slowly. With four times as many drops, the standard deviation is half as large. Follow the gold curve. It describes repeated independent averages under the model, not the wiggles in our retained run."
+    },
+    {
+      "id": "22u8",
+      "line_ids": [
+        "22_8"
+      ],
+      "text": "Make a prediction. To bring the standard deviation down to a tenth of a centimetre or less, about how many independent drops would we need?"
+    },
+    {
+      "id": "22u9",
+      "line_ids": [
+        "22_9"
+      ],
+      "text": "About two thousand. Using the unrounded population standard deviation in the numerical model, the first whole number that meets the target is nineteen sixty-five. We square the ratio of the single-drop standard deviation to the target, then round up. This is a target for spread, not a confidence guarantee."
+    },
+    {
+      "id": "22u10",
+      "line_ids": [
+        "22_10"
+      ],
+      "text": "Return to our coast. The retained estimate and the model's standard deviation answer different questions. The integral identity has no sampling variation. A finite random estimate does. Keeping those statements separate tells us what our measurement can actually promise."
+    },
+    {
+      "id": "23u1",
+      "line_ids": [
+        "23_1"
+      ],
+      "text": "Could we replace random turns with a small, planned set of directions? Keep our coast. Choose four directions, equally spaced over a half turn, horizontal, diagonal, vertical, and the other diagonal. There is a crucial condition. In each direction we must still average over every slide, uniformly across a full gap."
+    },
+    {
+      "id": "23u2",
+      "line_ids": [
+        "23_2"
+      ],
+      "text": "Watch the sheet slide while its direction stays fixed. The crossing count changes as lines pass the coast. Average that count over the entire slide, then do the same in each remaining direction. These displayed averages come from the computed projection travel, not from counting the few animation frames you see."
+    },
+    {
+      "id": "23u3",
+      "line_ids": [
+        "23_3"
+      ],
+      "text": "Average those direction results and apply the same crossing calibration. Our coast comes out at twenty-five point five three centimetres, about one point one percent low. That looks encouraging. But does this particular coast hide a much worse problem for a differently oriented path?"
+    },
+    {
+      "id": "23u4",
+      "line_ids": [
+        "23_4"
+      ],
+      "text": "Start with something simpler, the same straight stick, six centimetres long. For each direction, the slide-averaged count measures the stick's projection across the lines, divided by their spacing. The bars show those projection lengths. As the stick rotates, its true length stays fixed, but the average of these projections changes. The graph tracks the resulting percentage error."
+    },
+    {
+      "id": "23u5",
+      "line_ids": [
+        "23_5"
+      ],
+      "text": "When the stick lines up with a chosen direction, its projection across those lines vanishes. That is the low point. Turn halfway toward the next chosen direction, and the projections balance differently. The total reaches its high point. The pattern then repeats. Averaging slides removes the accident of where the sheet lands. It does not remove the effect of these chosen directions."
+    },
+    {
+      "id": "23u6",
+      "line_ids": [
+        "23_6"
+      ],
+      "text": "For these four equally spaced directions, the extremes are about five point two percent low and two point six percent high. Those percentages are rounded, so treat them as approximate descriptions. The exact factors come from summing the projections. These bounds hold for every orientation of the stick."
+    },
+    {
+      "id": "23u7",
+      "line_ids": [
+        "23_7"
+      ],
+      "text": "Why does a stick help with a coast? For a polygonal path, add the projection contributions of its straight pieces. The ratio for the whole path is a length-weighted average of the pieces' ratios, so it cannot escape their common bounds. For a finite rectifiable curved path, the corresponding integral adds the local tangent contributions. Count the whole path, including repeated traversals. That is the scope of the claim."
+    },
+    {
+      "id": "23u8",
+      "line_ids": [
+        "23_8"
+      ],
+      "text": "Make a prediction. Suppose we keep only two directions, at right angles, still averaging every slide in each. How much worse could the orientation error become?"
+    },
+    {
+      "id": "23u9",
+      "line_ids": [
+        "23_9"
+      ],
+      "text": "About twenty-one point five percent low, or eleven point one percent high. The same rotating stick reaches both extremes. A diagonal stick gives the high point. A stick along either chosen direction gives the low point. Again these rounded percentages describe the full slide averages, not a guarantee for an individual placement."
+    },
+    {
+      "id": "23u10",
+      "line_ids": [
+        "23_10"
+      ],
+      "text": "With just one direction, a parallel stick is missed for almost every slide. Its estimate is a hundred percent low. At the opposite extreme, a perpendicular stick gives an estimate about fifty-seven percent high. Choosing directions matters even when we have averaged away all the slide variation."
+    },
+    {
+      "id": "23u11",
+      "line_ids": [
+        "23_11"
+      ],
+      "text": "Return to our coast and its planned directions. The estimate remains useful because we can state exactly what the method controls, orientation error after full slide averaging. If we use only a few actual slides, their sampling error is a separate issue. A small error for this coast is an example. The geometric bounds explain what survives when the path changes."
+    },
+    {
+      "id": "24u1",
+      "line_ids": [
+        "24_1"
+      ],
+      "text": "Six equally spaced directions reduce the directional error to about two point three percent low and one point two percent high. After full slide averaging, our coast reads twenty-five point seven three centimetres. Can we turn that idea into a tool you could lay on a map?"
+    },
+    {
+      "id": "24u2",
+      "line_ids": [
+        "24_2"
+      ],
+      "text": "Start with a square grid. Add another turned thirty degrees, and another turned thirty degrees the other way. Together their lines run in six directions. This is the arrangement in Chris Staecker's reconstruction of the Steinhaus longimeter. Our drawing uses its directions, with our own illustrative placement."
+    },
+    {
+      "id": "24u3",
+      "line_ids": [
+        "24_3"
+      ],
+      "text": "We want the crossing count to read the map length directly, in millimetres. But first, remember what an average means here. For a fixed direction, average over a full gap of slides. The answer is the coast's total projection travel across the lines, divided by the gap. It depends on direction."
+    },
+    {
+      "id": "24u4",
+      "line_ids": [
+        "24_4"
+      ],
+      "text": "Only after also averaging uniformly over orientations does that projection travel become two times the length over pi. Divide by the gap, and the mean count for a line family is two L over pi d. Here L is the path length, and d is the line spacing, both measured in millimetres."
+    },
+    {
+      "id": "24u5",
+      "line_ids": [
+        "24_5"
+      ],
+      "text": "Our sheet has six line families. Turn the whole sheet uniformly, and average its position so each family's offset is uniform over a gap. Adding the family means gives twelve L over pi d. The families need not be independent for their expectations to add."
+    },
+    {
+      "id": "24u6",
+      "line_ids": [
+        "24_6"
+      ],
+      "text": "Now choose the spacing. We want the expected count to have the same numerical value as the length in millimetres. Make a prediction. What gap makes that happen?"
+    },
+    {
+      "id": "24u7",
+      "line_ids": [
+        "24_7"
+      ],
+      "text": "Twelve over pi millimetres, approximately three point eight two. Substitute that gap into the denominator. The calibration factor cancels, leaving the numerical length in millimetres. That's why counting can act like a ruler."
+    },
+    {
+      "id": "24u8",
+      "line_ids": [
+        "24_8"
+      ],
+      "text": "The exact calibration uses twelve over pi. Printing the rounded spacing introduces a small additional scale error. And neither calibration removes the variation in an individual placement. Let's slide our exact-spacing sheet over the same coast. Watch the crossings appear and disappear."
+    },
+    {
+      "id": "24u9",
+      "line_ids": [
+        "24_9"
+      ],
+      "text": "The coast hasn't changed. The count has. These are selected placements, not a random experiment or a guarantee about the size of that variation. Count every crossing along the whole path, including repeated traversals. A mere touch at a tangency is an exceptional placement, not a crossing through the line."
+    },
+    {
+      "id": "24u10",
+      "line_ids": [
+        "24_10"
+      ],
+      "text": "Keep these directions fixed and average fully over each family's slide. Our coast's calibrated reading is two hundred fifty-seven point two seven millimetres. Its actual length is about two hundred fifty-eight point one three. That remaining difference is directional bias, separate from the changing count at individual placements."
+    },
+    {
+      "id": "24u11",
+      "line_ids": [
+        "24_11"
+      ],
+      "text": "So the longimeter packages the geometry into a practical counting sheet. More directions control directional bias after slide averaging. Turning and shifting provide the averaging behind the calibration. A particular placement still gives an estimate, and the map's scale is a separate conversion to distance on the ground."
+    },
+    {
+      "id": "25u1",
+      "line_ids": [
+        "25_1"
+      ],
+      "text": "A counting sheet also needs a spacing. Return to our original parallel lines, two centimetres apart. Widen the gap to four centimetres, then eight. The coast stays exactly where it was. There are fewer lines available to cross it. Does a cheaper sheet change what we're measuring?"
+    },
+    {
+      "id": "25u2",
+      "line_ids": [
+        "25_2"
+      ],
+      "text": "To compare the methods fairly, keep the rule for a random drop explicit. Choose the line direction uniformly over a half turn. Independently, choose the slide uniformly over a full gap. Widening the gap widens that slide range too. A fixed direction or a favorite placement would be a different experiment."
+    },
+    {
+      "id": "25u3",
+      "line_ids": [
+        "25_3"
+      ],
+      "text": "Each crossing becomes worth more. With the original spacing it is worth pi centimetres. With the wider sheets, two pi and four pi. We get fewer crossings, but each counts for more length. Make a prediction. Will the average calibrated estimate change?"
+    },
+    {
+      "id": "25u4",
+      "line_ids": [
+        "25_4"
+      ],
+      "text": "The factors cancel. The mean count is two times the length divided by pi times the gap. Multiply by pi times the gap over two, and we get the original length. For this coast, the mean counts are about eight point two two, four point one one, and two point zero five. Different counts, the same expected length."
+    },
+    {
+      "id": "25u5",
+      "line_ids": [
+        "25_5"
+      ],
+      "text": "Here are our thousand retained drops again. Use the same directions and the same fractions of a gap for all the sheets. The filled bars count what actually happened. Their horizontal positions are length estimates, so a crossing on a wider sheet makes a bigger jump. These finite averages need not land exactly on the true length."
+    },
+    {
+      "id": "25u6",
+      "line_ids": [
+        "25_6"
+      ],
+      "text": "The gold outlines describe the numerical population model instead. Its standard deviations are about four point four centimetres, eight point one, and fourteen point nine. Recall what that means. Square each estimate's deviation from the mean, average those squares, then take the square root. It measures spread. It is not an error bound, and it does not specify a coverage probability."
+    },
+    {
+      "id": "25u7",
+      "line_ids": [
+        "25_7"
+      ],
+      "text": "For this coast and these spacings, the wider sheets have more variable estimates. That is what this comparison establishes. It is not a theorem that every increase in spacing makes every curve's standard deviation larger. The identity fixes the mean. It does not fix the whole distribution."
+    },
+    {
+      "id": "25u8",
+      "line_ids": [
+        "25_8"
+      ],
+      "text": "Now remember the dividers from the opening. Their two centimetre walk measured twenty-two point six centimetres. Each straight chord is no longer than the portion of coast it replaces. A straight portion can give equality. A bend can lose length. Our red walk cuts across bends, so its total falls short."
+    },
+    {
+      "id": "25u9",
+      "line_ids": [
+        "25_9"
+      ],
+      "text": "Close the dividers to one centimetre. Think about where their next landing will be, and how many landings they will need. Make a prediction. Will this smaller step measure more length?"
+    },
+    {
+      "id": "25u10",
+      "line_ids": [
+        "25_10"
+      ],
+      "text": "For this change, yes. The one centimetre walk gives twenty-five point one centimetres. Half a centimetre gives twenty-five point six. The shorter chords follow these bends more closely. But those examples do not prove that every smaller step gives a longer total."
+    },
+    {
+      "id": "25u11",
+      "line_ids": [
+        "25_11"
+      ],
+      "text": "Try one point nine centimetres instead. It still takes eleven whole steps, just like the two centimetre walk. Those steps are each shorter, and the final little chord does not make up the difference. The result drops to twenty-one point six centimetres. A smaller step has given a shorter answer."
+    },
+    {
+      "id": "25u12",
+      "line_ids": [
+        "25_12"
+      ],
+      "text": "Both tools have a scale choice, but they use it differently. The divider sum replaces the path by chords and can miss its bends. The sheet preserves the expected length under our random-drop rule, for any positive gap, while its distribution can change. Keep the coast fixed, and distinguish the mean, the spread, and the result of a particular trial."
+    },
+    {
+      "id": "26u1",
+      "line_ids": [
+        "26_1"
+      ],
+      "text": "What exactly does the sheet measure? Keep the same card and the same coast. Change only this straight beach, three point five centimetres long. Replace it with seven semicircles, each half a circle, keeping both endpoints fixed."
+    },
+    {
+      "id": "26u2",
+      "line_ids": [
+        "26_2"
+      ],
+      "text": "Each ripple has radius a quarter centimetre. Its arc is pi times its radius, so the beach now totals seven pi over four centimetres, about five point five. That is pi over two times its old length. The extra distance lives in the bends."
+    },
+    {
+      "id": "26u3",
+      "line_ids": [
+        "26_3"
+      ],
+      "text": "Now use fourteen semicircles with half the radius. More pieces, each proportionally shorter, give the same total length. These are alternative replacements of the straight beach. We have not added ripples inside the earlier ripples."
+    },
+    {
+      "id": "26u4",
+      "line_ids": [
+        "26_4"
+      ],
+      "text": "Return to the larger ripples and our two centimetre dividers. The landing points do change. The totals shown here differ, yet both round to twenty-two point six centimetres. Equal rounded answers do not mean the dividers detected no change. They still cut across much of the new detail."
+    },
+    {
+      "id": "26u5",
+      "line_ids": [
+        "26_5"
+      ],
+      "text": "Keep the sheet at a two centimetre gap. Make a prediction. After averaging its turns and slides, will it recover the extra arc length, or miss that detail too?"
+    },
+    {
+      "id": "26u6",
+      "line_ids": [
+        "26_6"
+      ],
+      "text": "It recovers the length of this new drawing. Turn uniformly over a half turn, and independently slide uniformly across a full gap. The mean is about eight point eight five crossings. Multiplying the unrounded mean by pi gives about twenty-seven point eight centimetres. The identity is exact. Those decimal displays are rounded."
+    },
+    {
+      "id": "26u7",
+      "line_ids": [
+        "26_7"
+      ],
+      "text": "Here is a selected line, first above the ripples, then cutting through them. Now it contributes fourteen crossings on the beach. Counting only whether the line hits would discard nearly all that information. Every entrance and exit counts."
+    },
+    {
+      "id": "26u8",
+      "line_ids": [
+        "26_8"
+      ],
+      "text": "A single ripple averages a quarter of a crossing under our turn and slide rule. Seven together average one point seven five. Whenever a ripple is hit, it contributes at least one crossing, so its chance of any hit is at most a quarter. Most placements miss that ripple, but we keep the multiple crossings when they occur."
+    },
+    {
+      "id": "26u9",
+      "line_ids": [
+        "26_9"
+      ],
+      "text": "The sheet expectation is about twenty-seven point eight centimetres. The two centimetre divider walk is still about twenty-two point six. We changed the drawing, and therefore its length. Averaging crossings recovers that drawn length. It cannot restore details absent from the drawing."
+    },
+    {
+      "id": "26u10",
+      "line_ids": [
+        "26_10"
+      ],
+      "text": "This distinction has a history. Mandelbrot quotes Steinhaus imagining much more detailed measurements of the left bank of the Vistula, lengths greater than a school map suggests by factors of ten, a hundred, even a thousand. That is a historical illustration of scale sensitivity, not a measurement we have made here."
+    },
+    {
+      "id": "26u11",
+      "line_ids": [
+        "26_11"
+      ],
+      "text": "Our model remains a finite collection of straight pieces and circular arcs. It has a definite length. The sheet measures that chosen drawing in expectation. Deciding how much real coastal detail to draw is a separate question."
+    },
+    {
+      "id": "27u1",
+      "line_ids": [
+        "27_1"
+      ],
+      "text": "Keep our original drawing fixed. Walk along it with one centimetre dividers, adding the chords and the last short piece. Now imagine reducing the step. Are we merely measuring this same drawing more accurately, or are we discovering new coastal detail?"
+    },
+    {
+      "id": "27u2",
+      "line_ids": [
+        "27_2"
+      ],
+      "text": "With a half centimetre step, the divider total increases by about two percent. The drawing itself has not changed. Shorter chords follow its existing bends more closely. That is a different operation from adding the ripples we just drew."
+    },
+    {
+      "id": "27u3",
+      "line_ids": [
+        "27_3"
+      ],
+      "text": "Lewis Fry Richardson studied map measurements made with different divider steps. Mandelbrot later reported the results. Make a prediction. As the steps became smaller, did the measured coastal lengths settle toward a limit like an ordinary smooth curve, or keep growing across the measured scales?"
+    },
+    {
+      "id": "27u4",
+      "line_ids": [
+        "27_4"
+      ],
+      "text": "The reported measurements kept growing across those scales. Richardson described that behavior with an empirical scaling relation. It summarizes a pattern in measurements. It does not say that every observed ratio is identical, or that the pattern must continue below the measured range."
+    },
+    {
+      "id": "27u5",
+      "line_ids": [
+        "27_5"
+      ],
+      "text": "Here is the relation. G is the divider step, and L is the resulting length. M sets the overall scale. The exponent describes how strongly the measured length changes with the step. For the west coast of Britain, Mandelbrot reports D as one point two five."
+    },
+    {
+      "id": "27u6",
+      "line_ids": [
+        "27_6"
+      ],
+      "text": "Halving the step in that fitted relation multiplies the length by two to the power D minus one. With the reported exponent, the factor is about one point one eight nine, roughly nineteen percent longer. This percentage is a calculation from the fit, not a list of measured halving ratios."
+    },
+    {
+      "id": "27u7",
+      "line_ids": [
+        "27_7"
+      ],
+      "text": "Compare the shapes of the two trends. Set each starting length to one, and successively halve its starting step. The teal curve illustrates the fitted relation. These are not Richardson data points. The gold curve uses our computed divider sums, starting at one centimetre. It rises much less."
+    },
+    {
+      "id": "27u8",
+      "line_ids": [
+        "27_8"
+      ],
+      "text": "Watch our actual walk at a quarter centimetre, then an eighth. Its chords follow the same finite straight pieces and circular arcs more closely. These selected totals approach the drawn length. Smaller steps need not increase every divider sum. Remember our earlier counterexample. The finite drawn length still bounds the chord sum."
+    },
+    {
+      "id": "27u9",
+      "line_ids": [
+        "27_9"
+      ],
+      "text": "Mandelbrot used Richardson's results to discuss statistical self-similarity and fractional dimension in How Long Is the Coast of Britain? That is the historical connection. Observed scaling over a range does not, by itself, prove that a physical coast has infinite length or that the same law holds at arbitrarily small scales."
+    },
+    {
+      "id": "27u10",
+      "line_ids": [
+        "27_10"
+      ],
+      "text": "Return to our two drawings. The smooth version and the rippled version have different lengths, and each has its own sheet expectation. Choose the drawing first. With all crossings counted, uniform turns and independent uniform slides recover its finite length on average. The sheet cannot recover coastal features that the drawing leaves out."
+    },
+    {
+      "id": "28u1",
+      "line_ids": [
+        "28_1"
+      ],
+      "text": "Return to our original card. The first sheet placement gave seven crossings and an estimate of twenty two centimetres. The drawn coast is about twenty five point eight centimetres long. A particular placement can miss the length. What did averaging buy us?"
+    },
+    {
+      "id": "28u2",
+      "line_ids": [
+        "28_2"
+      ],
+      "text": "For lines two centimetres apart, each crossing is worth pi centimetres. That calibration works on average when the direction is uniform over a half turn and the slide is independently uniform over a full gap. Count every traversal of a finite length path. The conditions are part of the rule."
+    },
+    {
+      "id": "28u3",
+      "line_ids": [
+        "28_3"
+      ],
+      "text": "We also tried four fixed directions with complete slide averages. They gave about twenty five point five three centimetres for this drawing. Averaging over all directions removes that remaining directional bias. Neither statement says that each individual placement equals the length."
+    },
+    {
+      "id": "28u4",
+      "line_ids": [
+        "28_4"
+      ],
+      "text": "Now transfer the idea to a simpler outline. Draw a square with side two centimetres, exactly the gap between our lines. Keep the small square on the same card. The enlarged copy lets us inspect it. Use the same uniform direction and independent uniform full gap slide."
+    },
+    {
+      "id": "28u5",
+      "line_ids": [
+        "28_5"
+      ],
+      "text": "Watch these selected placements. There are two crossings here, then four, then two, then four. These are illustrations, not a random sample. Can you see why most placements have one of those counts?"
+    },
+    {
+      "id": "28u6",
+      "line_ids": [
+        "28_6"
+      ],
+      "text": "Look at the width of the square across the lines. It ranges from two centimetres to two times the square root of two, about two point eight three. That is at least one gap and less than two gaps. Except at boundary placements, either one line or two lines pass through the interior. Each enters and leaves the square, contributing two crossings."
+    },
+    {
+      "id": "28u7",
+      "line_ids": [
+        "28_7"
+      ],
+      "text": "There are exceptions to that simple count. A line can touch a corner. This placement has three distinct contact points. Or lines can coincide with entire edges, giving infinitely many contact points. Those exact coincidences have probability zero under our continuous random choices. Two or four holds almost surely, which means with probability one, not without exceptions."
+    },
+    {
+      "id": "28u8",
+      "line_ids": [
+        "28_8"
+      ],
+      "text": "Make a prediction. Under that precise random choice of direction and slide, how often will the square have four crossings? We know the perimeter, and we know what a crossing is worth on average. Can those facts answer the question without a new sampling experiment?"
+    },
+    {
+      "id": "28u9",
+      "line_ids": [
+        "28_9"
+      ],
+      "text": "The rim is four sides of two centimetres, so its length is eight. Divide by pi centimetres per crossing. The mean count is eight over pi, about two point five five. The fraction is exact for this model. The decimal is rounded."
+    },
+    {
+      "id": "28u10",
+      "line_ids": [
+        "28_10"
+      ],
+      "text": "Call the probability of four crossings p. The probability of two is one minus p. The mean is two times one minus p, plus four times p. That simplifies to two plus two p. Think of a baseline pair of crossings, with an extra pair in the four crossing cases. The probability zero exceptions do not change this mean."
+    },
+    {
+      "id": "28u11",
+      "line_ids": [
+        "28_11"
+      ],
+      "text": "Set that mean equal to eight over pi. Subtract two, then divide by two. The chance of four crossings is four over pi minus one, about twenty seven percent. We found a probability from a length."
+    },
+    {
+      "id": "28u12",
+      "line_ids": [
+        "28_12"
+      ],
+      "text": "The remaining chance, about seventy three percent, belongs to two crossings. This bar shows the calculated probability law, not frequencies from a finite sample. Four crossings means four intersections with the rim. Here they come from two sheet lines. A different rule for choosing placements could give a different probability."
+    },
+    {
+      "id": "28u13",
+      "line_ids": [
+        "28_13"
+      ],
+      "text": "Return once more to the original coast and the same sheet. A count, an average, and a carefully stated random choice connected the pictures. Choose the finite drawing, count all traversals, and average under that law. That recovers its length, including detail you drew, without inventing detail you left out."
+    }
+  ],
+  "direction_contract": {
+    "schema_version": 1,
+    "topic": "crofton",
+    "script_sha256": "7e72ae28dd37515de52f03fcce2f4c8086ad8660843d29a8fe28f0b7575f978c",
+    "map": {
+      "path": "explainer_corpus/crofton/docs/narration-direction-map.json",
+      "sha256": "7cd3bef07419774568a43e224a0f3da66675dd122b6d5e2668d399688696595f"
+    }
+  }
+}

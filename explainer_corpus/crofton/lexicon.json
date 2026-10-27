@@ -1,0 +1,83 @@
+{
+  "_comment": "Full 277-cue Crofton script: pronunciation remains unqualified. Nine people (Barbier, Buffon, Reuleaux, Morgan Crofton, Cauchy, Chris Staecker, Steinhaus, Mandelbrot, Lewis Fry Richardson), Vistula and longimeter need exact-context qualification. Six Cambridge UK lexical text lookups, Collins Vistula and three name-notation references are recorded in narration_lab/third-wave-20261024/root/tend-1623-20261025/pronunciation-prerequisites.json. Identity text is not phonetic evidence; French or American notation is not an accepted English-accent target. Existing _risks remain unverified historical hypotheses with possibly stale cue addresses, not accepted spellings. No probes, heard phonemes, accepted aliases or locks. Pinned Michael and owner pronunciation remain authoritative.",
+  "words": {},
+  "accept": {},
+  "phrases": {},
+  "_risks": {
+    "centimetres": {
+      "where": "01_1, 01_4 and throughout",
+      "expected": "British spelling; the voice must not trip on -tres",
+      "risk": "ASR writes 'centimeters'; an accept entry may be needed, as in eigen_engineering"
+    },
+    "pi": {
+      "where": "draft 05_5 onward",
+      "expected": "pie",
+      "risk": "a bare two-letter word between numbers; check it is not read as letters"
+    },
+    "Barbier": {
+      "where": "draft 12_1, 14_1, 15_4",
+      "expected": "bar-BYAY (French)",
+      "risk": "English readers say BAR-bee-er"
+    },
+    "Joseph Émile": {
+      "where": "draft 12_1",
+      "expected": "zho-ZEF ay-MEEL (French)",
+      "risk": "the accented É; English 'JOH-sef'"
+    },
+    "Buffon": {
+      "where": "draft 13_4",
+      "expected": "boo-FOHN (French), often bew-FON in English",
+      "risk": "two accepted readings; choose one and keep it"
+    },
+    "Reuleaux": {
+      "where": "draft 14_2",
+      "expected": "ROO-loh (German name, French spelling)",
+      "risk": "letter-by-letter reading"
+    },
+    "Crofton": {
+      "where": "draft 19_5",
+      "expected": "KROF-tun",
+      "risk": "low"
+    },
+    "Cauchy": {
+      "where": "draft 20_3",
+      "expected": "koh-SHEE",
+      "risk": "English 'KOW-chee'"
+    },
+    "Augustin": {
+      "where": "draft 20_3",
+      "expected": "oh-goo-STAN (French)",
+      "risk": "English 'AW-gus-tin'"
+    },
+    "Steinhaus": {
+      "where": "draft 24_2, 24_3, 26_6",
+      "expected": "SHTINE-house",
+      "risk": "English 'STINE-hows'"
+    },
+    "Hugo": {
+      "where": "draft 24_2",
+      "expected": "HOO-go",
+      "risk": "low"
+    },
+    "longimeter": {
+      "where": "draft 24_2",
+      "expected": "lon-JIM-it-er",
+      "risk": "a rare word; 'long-i-meter' split"
+    },
+    "Vistula": {
+      "where": "draft 26_6",
+      "expected": "VIS-tyoo-luh",
+      "risk": "stress on the second syllable"
+    },
+    "Lewis Fry Richardson": {
+      "where": "draft 27_1",
+      "expected": "LOO-is FRY RICH-ard-sun",
+      "risk": "'Fry' read as a verb in a list"
+    },
+    "Benoit Mandelbrot": {
+      "where": "draft 27_4",
+      "expected": "ben-WAH MAN-dul-brot",
+      "risk": "English 'BEN-oyt'"
+    }
+  }
+}

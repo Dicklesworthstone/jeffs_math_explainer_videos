@@ -1,0 +1,2088 @@
+{
+  "_comment": "Authored semantic intentions through all23 chapters; not measured speech acceptance.",
+  "overrides": [
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_2",
+      "after": "last digit: nine",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "Keep the five ordered last digits connected while the matching cards appear."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_2",
+      "after": "last digit: nine, seven",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "Continue the ordered card list without treating each digit as a new thought."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_2",
+      "after": "last digit: nine, seven, nine",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "Carry the repeated nine into the final pair of digits as one list."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_3",
+      "after": "deals nine",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "Recall the straight-line shares as a connected ordered list."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_3",
+      "after": "deals nine, three",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "Keep the number sequence together while matching it to trustee positions."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_3",
+      "after": "deals nine, three, seven",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "Complete the share list before the separate explanation of trustee five."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "06_1",
+      "after": "any three of five",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Recall the opening rule before constructing locks."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "06_5",
+      "after": "their own",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the single closed lock land before proving minimality."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "06_6",
+      "after": "an older book",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate historical introduction from the larger example."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "06_7",
+      "after": "four hundred and sixty-two locks",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the first large count register before introducing keys."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "07_1",
+      "after": "any two of five",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Make the change of threshold explicit before axes."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "07_2",
+      "after": "say it gives four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Connect the random spin to the slope before drawing it."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "07_3",
+      "after": "at their own position",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Establish position versus height before the sequence of shares."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "07_6",
+      "after": "zero, five or ten",
+      "role": "thought",
+      "range_s": [
+        0.7,
+        1.1
+      ],
+      "reason": "Let the three possibilities appear before the exhaustive argument."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "08_2",
+      "after": "the rule is the same",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Recall the unchanged rule before stepping on the dial."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "08_3",
+      "after": "holding two and six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Inspect the adjacent marked points before comparing them."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "08_4",
+      "after": "is nine",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Let the first backwards wrap settle before the second."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "08_6",
+      "after": "one for each spin",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Separate the answer from the two worked spin examples."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "08_7",
+      "after": "five, seven and nine",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Finish the connected doubles list before the one-to-one conclusion."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_1",
+      "after": "a curve",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Establish the changed threshold before dealing two spins."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_2",
+      "after": "the secret",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Separate the fixed secret from the two random terms."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_3",
+      "after": "nineteen",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Give the first worked height time to land before trustee two."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_4",
+      "after": "two hundred and fifteen",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Finish the height list before naming the paper parabola."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_6",
+      "after": "lands on three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Let the four turns and remainder register before revealing all cards."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_7",
+      "after": "a polynomial",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Name the rule before comparing the two thresholds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "10_1",
+      "after": "Now we can see what it found",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the recalled full strip register before the curve that explains it."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "10_3",
+      "after": "with spins one and four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction, then pause before checking it."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "10_3",
+      "after": "which lands on six",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Close the two-line check before the next secret."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "10_5",
+      "after": "are all equally likely",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let fairness of the spins land before each secret lights its one cell."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_1",
+      "after": "Notice what that argument used",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Mark the turn from the result to what the argument depended on."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_1",
+      "after": "can't be the reason",
+      "role": "cue_transition",
+      "range_s": [
+        0.8,
+        1.3
+      ],
+      "reason": "Let the claim stand before the paper numbers test it."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_2",
+      "after": "two hundred and fifteen",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the two heights from the fractional spins they force."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_2",
+      "after": "no spin can be that",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the impossibility register before the one whole-spin secret."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_3",
+      "after": "all equally likely",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the counting claim stand before naming it the proof."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_5",
+      "after": "Just one",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction, then show why."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_1",
+      "after": "the natural choice",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the natural expectation stand before the dial is changed."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_3",
+      "after": "exactly one way",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the full eleven-mark tally register before the ten-mark one fills."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_3",
+      "after": "has the secret five",
+      "role": "thought",
+      "range_s": [
+        0.7,
+        1.1
+      ],
+      "reason": "Let the single lit tick contrast with the full row above it."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_4",
+      "after": "Write their heights out",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Set up the letters before the first height is written."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_4",
+      "after": "sixteen of the second",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the first row's three columns settle before the second row."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_5",
+      "after": "the same amount of it",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the plan stand before the copies are written out."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_5",
+      "after": "the first spin cancels",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the struck terms and their zero register."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_6",
+      "after": "the secret bare",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the bare secret land before the cards are put in."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_7",
+      "after": "which lands on eight",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Close the eleven-mark sum before saying why eight hides nothing."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_8",
+      "after": "always find it",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the leaking pairs from the one pair that learns nothing."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_1",
+      "after": "multiply to zero",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the surprising claim stand before its example."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_2",
+      "after": "multiplying by five",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the rows appear before the arrows start."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_3",
+      "after": "the spin is zero or five",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Connect the crowded row to the share before the two candidates."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_5",
+      "after": "All eleven",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction, then show it arrow by arrow."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_5",
+      "after": "reached exactly once",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the full row of ones register before the callback."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_6",
+      "after": "their product lands on zero",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Close the ten-mark split before the eleven-mark contrast."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_6",
+      "after": "split like that",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the contrast land before the word prime."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_7",
+      "after": "a multiple of eleven",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the definition settle before the factorization step."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_7",
+      "after": "one to ten does",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the premise land before the conclusion."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_8",
+      "after": "the same mark",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Close the proof before it is extended to every multiplier."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_1",
+      "after": "the door opened",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the remembered opening land before the open question."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_1",
+      "after": "give five",
+      "role": "cue_transition",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "A rhetorical question: a beat into the paper picture, not think time."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_2",
+      "after": "where nothing wraps",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Mark the switch to ordinary numbers before the pretence."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_2",
+      "after": "is the secret",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the goal, the height at zero, settle before the trick."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_3",
+      "after": "helper curve",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Name the new object before its rule."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_3",
+      "after": "two and three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the first helper's three dots be read before the others."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_4",
+      "after": "and add them",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Finish the recipe before checking it at each position."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_4",
+      "after": "the sum there is nineteen",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the first check land before the other two positions."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_5",
+      "after": "be built",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Pose the doubt before the concrete question."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_6",
+      "after": "times position minus three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the product be read before why it works."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_6",
+      "after": "zero at both",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Close the zeros before the value at position one."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_7",
+      "after": "the other two",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Announce the repetition before the second helper."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_7",
+      "after": "divide by minus one",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the second helper's working from the third's."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_1",
+      "after": "so three",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the first weight land before naming it."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_2",
+      "after": "so its weight is minus three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the second weight's working from the third's."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_2",
+      "after": "so one",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the last weight land before what the weights use."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_3",
+      "after": "minus three times forty-seven",
+      "role": "clause",
+      "range_s": [
+        0.25,
+        0.55
+      ],
+      "reason": "Keep the three weighted heights apart as separate terms."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_3",
+      "after": "which is five",
+      "role": "cue_transition",
+      "range_s": [
+        0.8,
+        1.3
+      ],
+      "reason": "Let the paper secret land before the trustees' problem."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_4",
+      "after": "never see those heights",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the obstacle register before what they hold."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_5",
+      "after": "lands on five",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the answer land before the door opens."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_6",
+      "after": "Here's why",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "A beat before the explanation."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_6",
+      "after": "one eleven",
+      "role": "clause",
+      "range_s": [
+        0.15,
+        0.35
+      ],
+      "reason": "A short list beat: keep the three splits together."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_6",
+      "after": "four elevens",
+      "role": "clause",
+      "range_s": [
+        0.15,
+        0.35
+      ],
+      "reason": "A short list beat: keep the three splits together."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_7",
+      "after": "into whole elevens",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the principle land before it is applied to the sums."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_8",
+      "after": "Adding scaled helpers keeps that form",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the degree bound from the uniqueness argument."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_8",
+      "after": "the dealer's curve itself",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the matching curve be inspected before naming its value at zero."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_1",
+      "after": "three, two and six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_1",
+      "after": "The trustees never see those heights",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_2",
+      "after": "one there",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_2",
+      "after": "twenty divided by six",
+      "role": "clause",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_3",
+      "after": "it is ten",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_4",
+      "after": "eight thirds",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_5",
+      "after": "is exactly five",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_6",
+      "after": "only the wrapped shares",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_7",
+      "after": "Here they do, by luck",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_7",
+      "after": "minus ten",
+      "role": "connected",
+      "range_s": [
+        0.1,
+        0.35
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_8",
+      "after": "happens to be whole",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_1",
+      "after": "spins zero and one instead",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Let the changed dealing register before paper heights."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_1",
+      "after": "nine, ten and eight",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Separate wrapped cards from their paper heights."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_2",
+      "after": "gives four thirds",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.1
+      ],
+      "reason": "Let the failed fractional answer be inspected."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_3",
+      "after": "an awkward example",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Open the computed experiment as a separate claim."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_3",
+      "after": "leave a fractional sum",
+      "role": "thought",
+      "range_s": [
+        0.55,
+        1.0
+      ],
+      "reason": "Allow inspection of the grid count before its explanation."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_4",
+      "after": "Clear the thirds first",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Announce the repair before the arithmetic."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_4",
+      "after": "ten, minus fifteen and eight",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the integer weights settle."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_4",
+      "after": "three times the secret",
+      "role": "thought",
+      "range_s": [
+        0.55,
+        1.0
+      ],
+      "reason": "Keep the changed target explicit before wrapping."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_5",
+      "after": "cards, nine, ten and eight",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Anchor the arithmetic in the retained cards."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_5",
+      "after": "minus a hundred and fifty",
+      "role": "connected",
+      "range_s": [
+        0,
+        0.28
+      ],
+      "reason": "Keep the signed terms connected."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_5",
+      "after": "which is four",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Distinguish the multiplied target from the secret."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_7",
+      "after": "Five",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Let the prediction answer land.",
+      "word_index": 0
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_7",
+      "after": "which lands on four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the example from the permutation reason."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_1",
+      "after": "forty-eight",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_1",
+      "after": "That lands on four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_2",
+      "after": "each time",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_3",
+      "after": "Four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds.",
+      "word_index": 0
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_3",
+      "after": "which lands on one",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_4",
+      "after": "five, the secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_4",
+      "after": "multiplying by four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_5",
+      "after": "landing on seven",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_5",
+      "after": "Minus five lands on six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_5",
+      "after": "landing on ten",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_6",
+      "after": "ninety-three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_7",
+      "after": "on eleven marks",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_7",
+      "after": "one exactly once",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_8",
+      "after": "have no partner",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_1",
+      "after": "same answer",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_2",
+      "after": "the same cards",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_3",
+      "after": "higher than squared",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_5",
+      "after": "Three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds.",
+      "word_index": 0
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_5",
+      "after": "difference is three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_6",
+      "after": "position minus four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_7",
+      "after": "multiply by that partner",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_7",
+      "after": "other factor alone",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_8",
+      "after": "leaves no remainder",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_8",
+      "after": "What's left has at most a position term: a line",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_9",
+      "after": "not zero everywhere",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_9",
+      "after": "the same recipe",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_10",
+      "after": "the secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_1",
+      "after": "on ten marks",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_1",
+      "after": "nine, nine and five",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_2",
+      "after": "ten, twenty and thirty",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_2",
+      "after": "lands on zero",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_4",
+      "after": "on their cards",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_4",
+      "after": "secret becomes zero",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_5",
+      "after": "the same evidence",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_6",
+      "after": "every allowed recipe",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_6",
+      "after": "determine the secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_7",
+      "after": "at most one zero",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_1",
+      "after": "no information about it",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_1",
+      "after": "holding two and six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_2",
+      "after": "and kept secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_2",
+      "after": "zero included",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_3",
+      "after": "produces these cards",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_3",
+      "after": "for every secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_5",
+      "after": "Eight",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds.",
+      "word_index": 0
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_5",
+      "after": "wraps to two",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_5",
+      "after": "wraps to six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_6",
+      "after": "eight is impossible",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_6",
+      "after": "an allowed recipe",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_7",
+      "after": "one time in eleven",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_7",
+      "after": "that chance",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_8",
+      "after": "easy-to-guess password",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_1",
+      "after": "one false share",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_1",
+      "after": "two instead of one",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_2",
+      "after": "minus three, and one",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_2",
+      "after": "lands on six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_3",
+      "after": "sounds the alarm",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_3",
+      "after": "false card",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_4",
+      "after": "actually holds two",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_4",
+      "after": "without consulting the vault",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_5",
+      "after": "other three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_5",
+      "after": "eight, three, five, and six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_7",
+      "after": "four of the five cards",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_7",
+      "after": "That is the false card",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_8",
+      "after": "at least three positions",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_9",
+      "after": "the same curve",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_10",
+      "after": "does not authenticate them",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_1",
+      "after": "genuine cards again",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_1",
+      "after": "the door opens",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_2",
+      "after": "two and six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_2",
+      "after": "possible secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_3",
+      "after": "produces these cards",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_3",
+      "after": "every secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_5",
+      "after": "shares needed",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_5",
+      "after": "at most three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_6",
+      "after": "four, zero and nine",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_6",
+      "after": "one for each secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_7",
+      "after": "trustee four brings three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_7",
+      "after": "new card correctly",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_8",
+      "after": "this prime dial",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_8",
+      "after": "a unique candidate",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_9",
+      "after": "the threshold k",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_9",
+      "after": "about D",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_10",
+      "after": "reconstruct the secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_10",
+      "after": "the secret is odd",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    }
+  ]
+}

@@ -1,0 +1,1139 @@
+{
+  "_comment": "Authored pause intentions for implemented06\u201316. German16 adds ten directions, preserving prior93 exactly. Coverage intentions only; preserve prediction and reading holds independently.",
+  "overrides": [
+    {
+      "video": "german_tank",
+      "cue": "06_1",
+      "after": "Each pair leaves three boxes unseen",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "visual: the unseen squares become gap squares before the gaps are named"
+    },
+    {
+      "video": "german_tank",
+      "cue": "06_3",
+      "after": "That rebuilds two and five",
+      "role": "cue_transition",
+      "range_s": [
+        0.6,
+        1.1
+      ],
+      "reason": "visual: the halos compare the built row with the table's row"
+    },
+    {
+      "video": "german_tank",
+      "cue": "06_4",
+      "after": "each exactly once",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "the matching stands before the chance"
+    },
+    {
+      "video": "german_tank",
+      "cue": "06_5",
+      "after": "trade places",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "visual: the first row's list is written again before the trade"
+    },
+    {
+      "video": "german_tank",
+      "cue": "06_8",
+      "after": "Add up each column",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "visual: the column sums land"
+    },
+    {
+      "video": "german_tank",
+      "cue": "06_10",
+      "after": "Above sixty",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "reveal: the prediction's answer, then the bracket"
+    },
+    {
+      "video": "german_tank",
+      "cue": "07_3",
+      "after": "each gap averages N minus five,",
+      "role": "clause",
+      "range_s": [
+        0.15,
+        0.35
+      ],
+      "reason": "grouping: \"over six\" divides the whole difference"
+    },
+    {
+      "video": "german_tank",
+      "cue": "07_4",
+      "after": "For the friends, that's eleven",
+      "role": "cue_transition",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "visual: the guess's arc lands before the contrast"
+    },
+    {
+      "video": "german_tank",
+      "cue": "07_7",
+      "after": "so the estimates average the count",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "conclusion before its name"
+    },
+    {
+      "video": "german_tank",
+      "cue": "07_9",
+      "after": "It doubles the number and subtracts one",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "reveal: the prediction's answer, then its reason"
+    },
+    {
+      "video": "german_tank",
+      "cue": "08_1",
+      "after": "not about our seventy-one.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "contrast: the recipe's promise versus this one estimate"
+    },
+    {
+      "video": "german_tank",
+      "cue": "08_4",
+      "after": "Twenty is only twenty.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "turn: from twenty draws to every handful"
+    },
+    {
+      "video": "german_tank",
+      "cue": "08_4",
+      "after": "top out at seventy-one.",
+      "role": "thought",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "visual: the tallest bar rises before the stacks are named"
+    },
+    {
+      "video": "german_tank",
+      "cue": "08_6",
+      "after": "About one handful in twenty-nine.",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "reveal: the prediction's answer, then what it means"
+    },
+    {
+      "video": "german_tank",
+      "cue": "08_7",
+      "after": "The bars are lopsided, though.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "visual: the two sides' halos before their numbers"
+    },
+    {
+      "video": "german_tank",
+      "cue": "08_8",
+      "after": "So how far off is a typical estimate?",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "the question stands before the first width"
+    },
+    {
+      "video": "german_tank",
+      "cue": "08_8",
+      "after": "the standard deviation.",
+      "role": "thought",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "the name lands before its recipe"
+    },
+    {
+      "video": "german_tank",
+      "cue": "09_1",
+      "after": "How large could it be?",
+      "role": "thought",
+      "range_s": [
+        0.7,
+        1.1
+      ],
+      "reason": "visual: the line's end slides out before the flipped question"
+    },
+    {
+      "video": "german_tank",
+      "cue": "09_3",
+      "after": "it keeps falling from there.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "visual: the rare bars turn faint"
+    },
+    {
+      "video": "german_tank",
+      "cue": "09_6",
+      "after": "Nineteen of the twenty ranges cover seventy-one.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "visual: the covering ranges turn ink before the miss is named"
+    },
+    {
+      "video": "german_tank",
+      "cue": "09_7",
+      "after": "That's what ninety-five percent confidence means.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "name, then the careful reading"
+    },
+    {
+      "video": "german_tank",
+      "cue": "09_10",
+      "after": "Narrower.",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "reveal: the prediction's answer, then its reason"
+    },
+    {
+      "video": "german_tank",
+      "cue": "10_2",
+      "after": "Twice the average, minus one",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "the recipe lands before its name"
+    },
+    {
+      "video": "german_tank",
+      "cue": "10_3",
+      "after": "an average of thirty-seven",
+      "role": "thought",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "visual: the average's purple mark lands before the doubling"
+    },
+    {
+      "video": "german_tank",
+      "cue": "10_4",
+      "after": "It's unbiased too",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "claim, then its reason"
+    },
+    {
+      "video": "german_tank",
+      "cue": "10_5",
+      "after": "So which recipe should we trust",
+      "role": "question",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "the question stands before the test"
+    },
+    {
+      "video": "german_tank",
+      "cue": "10_6",
+      "after": "Twenty-eight point six",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "reveal: let the absurd value register"
+    },
+    {
+      "video": "german_tank",
+      "cue": "10_7",
+      "after": "That's no freak",
+      "role": "thought",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "turn: from one handful to every handful"
+    },
+    {
+      "video": "german_tank",
+      "cue": "10_8",
+      "after": "The gap recipe's sixty-seven bars come back",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "visual: the green bars rise before the purple outline"
+    },
+    {
+      "video": "german_tank",
+      "cue": "10_9",
+      "after": "Both balance at seventy-one",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "visual: the fulcrum lands before the contrast"
+    },
+    {
+      "video": "german_tank",
+      "cue": "10_9",
+      "after": "But the purple bars are lower and wider",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "visual: the halos stand before the widths' numbers"
+    },
+    {
+      "video": "german_tank",
+      "cue": "10_10",
+      "after": "beats the recipe that uses all five",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "the conclusion stands before the chapter's question"
+    },
+    {
+      "video": "german_tank",
+      "cue": "11_1",
+      "after": "the largest number is sixty",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "visual: the four smaller boxes fade"
+    },
+    {
+      "video": "german_tank",
+      "cue": "11_2",
+      "after": "Try it on pairs",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "turn: to the tiny company's pairs"
+    },
+    {
+      "video": "german_tank",
+      "cue": "11_3",
+      "after": "Now let the company make six boxes, or eight",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "visual: two more triangles land"
+    },
+    {
+      "video": "german_tank",
+      "cue": "11_4",
+      "after": "It's the same with sixty",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "turn: back to the friends' sixty"
+    },
+    {
+      "video": "german_tank",
+      "cue": "11_4",
+      "after": "Only the chance that sixty is the largest changes",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "the contrast is named before its numbers"
+    },
+    {
+      "video": "german_tank",
+      "cue": "11_6",
+      "after": "Nothing",
+      "role": "thought",
+      "range_s": [
+        0.7,
+        1.1
+      ],
+      "reason": "reveal: the chapter's surprise"
+    },
+    {
+      "video": "german_tank",
+      "cue": "11_6",
+      "after": "the largest number is sufficient",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "the name lands before its meaning"
+    },
+    {
+      "video": "german_tank",
+      "cue": "11_7",
+      "after": "needs only the largest number",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "callback: the boxes and their arcs return"
+    },
+    {
+      "video": "german_tank",
+      "cue": "11_8",
+      "after": "All of this needs the handful to be fair",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "the condition stands alone"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_1",
+      "after": "Here are its ten pairs again,",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "visual: the ten rows land before their estimates"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_2",
+      "after": "But they wobble,",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "the word lands before the range"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_3",
+      "after": "Where does the wobble come from?",
+      "role": "question",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "the question stands before the callback"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_4",
+      "after": "So sort the pairs by their larger number.",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "visual: the rows move, each whole, into their groups"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_6",
+      "after": "Six and a half.",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "reveal: the prediction's answer, then whose it is"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_6",
+      "after": "Three and four average three and a half.",
+      "role": "thought",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "let this worked average land before the next group"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_6",
+      "after": "Four, five and six average five.",
+      "role": "thought",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "separate this worked average from the lone pair"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_7",
+      "after": "Averaging inside the groups turns the doubling recipe into the gap recipe.",
+      "role": "cue_transition",
+      "range_s": [
+        0.7,
+        1.2
+      ],
+      "reason": "the chapter's first claim stands before the condition behind it"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_9",
+      "after": "Is the averaged recipe still unbiased?",
+      "role": "question",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "the question stands before the weights"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_10",
+      "after": "comes back, exactly five.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "visual: the weighted sum lands before the equal-weight contrast"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_11",
+      "after": "Now the misses.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "turn: from averages to misses"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_11",
+      "after": "They cancel,",
+      "role": "clause",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "visual: the arrows' sum lands"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_12",
+      "after": "Nothing cancels,",
+      "role": "clause",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "the contrast with the group before"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_14",
+      "after": "That's a rule, not luck.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "the claim before the rule"
+    },
+    {
+      "video": "german_tank",
+      "cue": "12_15",
+      "after": "the drop, three quarters,",
+      "role": "clause",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "visual: the drop lands before what it is"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_1",
+      "after": "Could some cleverer unbiased recipe still beat the gap recipe?",
+      "role": "question",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "the chapter's question stands"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_2",
+      "after": "because we never know which count is true.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "the reason lands before the example"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_2",
+      "after": "So it isn't unbiased.",
+      "role": "cue_transition",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "turn: from the definition to pairs"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_3",
+      "after": "and its only pair is one and two.",
+      "role": "thought",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "visual: the single dot lands"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_4",
+      "after": "The pair topped by two must still say two.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "the kept value before the new one"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_6",
+      "after": "Five.",
+      "word_index": 0,
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "reveal: the prediction's answer, then its reason"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_7",
+      "after": "The same step works at every count, for handfuls of any size.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "turn: from pairs to any handful size"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_7",
+      "after": "They're never missing.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "the step's key fact stands alone"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_7",
+      "after": "and the step fixes it.",
+      "role": "thought",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "the step closes before the friends' share"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_8",
+      "after": "all the way up from the smallest company.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "the induction lands before its conclusion"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_9",
+      "after": "three times the smaller number,",
+      "role": "clause",
+      "range_s": [
+        0.2,
+        0.4
+      ],
+      "reason": "finish the multiplication before subtracting one"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_10",
+      "after": "the staircase again,",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "introduce the values before reading them"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_10",
+      "after": "two, three and a half,",
+      "role": "clause",
+      "range_s": [
+        0.15,
+        0.35
+      ],
+      "reason": "keep three and a half together before the next value"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_10",
+      "after": "two, three and a half, five,",
+      "role": "clause",
+      "range_s": [
+        0.15,
+        0.35
+      ],
+      "reason": "separate five from the final six and a half"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_11",
+      "after": "That's the whole argument.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "the argument named before it is summed up"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_12",
+      "after": "Best doesn't mean every rival does worse.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "turn: the claim's limits"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_13",
+      "after": "two short of the count,",
+      "role": "clause",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "visual: the halo round the biased average"
+    },
+    {
+      "video": "german_tank",
+      "cue": "13_14",
+      "after": "But it doesn't win everywhere.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "turn: where the biased recipe loses"
+    },
+    {
+      "video": "german_tank",
+      "cue": "14_1",
+      "after": "Now break it, with the same five boxes.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Same boxes remain while the eligible pool changes."
+    },
+    {
+      "video": "german_tank",
+      "cue": "14_3",
+      "after": "exactly seventy-one.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Inspect the weighted distribution and its mean before the company comparison."
+    },
+    {
+      "video": "german_tank",
+      "cue": "14_4",
+      "after": "still on shelves.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the late sampling pool register before the prediction question."
+    },
+    {
+      "video": "german_tank",
+      "cue": "14_5",
+      "after": "Too high.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Prediction answer before the gap calculation."
+    },
+    {
+      "video": "german_tank",
+      "cue": "14_6",
+      "after": "That gap is the clue.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Identify the long first gap before its fair-model probability."
+    },
+    {
+      "video": "german_tank",
+      "cue": "14_7",
+      "after": "under the fair model.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the optimal unbiased estimation result from a model diagnostic."
+    },
+    {
+      "video": "german_tank",
+      "cue": "14_7",
+      "after": "the draw wasn't fair.",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Leave room for the explicit warning, not proof, limitation."
+    },
+    {
+      "video": "german_tank",
+      "cue": "15_1",
+      "after": "starts at one.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the known endpoint assumption register before removing it."
+    },
+    {
+      "video": "german_tank",
+      "cue": "15_2",
+      "after": "hidden too.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Distinguish the newly hidden lower gap from the upper gap."
+    },
+    {
+      "video": "german_tank",
+      "cue": "15_3",
+      "after": "forty-two boxes,",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect inner unseen total before averaging."
+    },
+    {
+      "video": "german_tank",
+      "cue": "15_3",
+      "after": "ten and a half per gap.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate the gap mean from the inclusive span."
+    },
+    {
+      "video": "german_tank",
+      "cue": "15_5",
+      "after": "Sixty-eight.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Give the prediction answer its own beat."
+    },
+    {
+      "video": "german_tank",
+      "cue": "15_5",
+      "after": "unbiased too.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate the estimator claim from count versus serial label."
+    },
+    {
+      "video": "german_tank",
+      "cue": "15_6",
+      "after": "isn't enough.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Contrast per-box inclusion with equal handful probabilities."
+    },
+    {
+      "video": "german_tank",
+      "cue": "15_7",
+      "after": "Return to numbering from one.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Explicit model reset before the counterexample."
+    },
+    {
+      "video": "german_tank",
+      "cue": "15_7",
+      "after": "boxes one to five,",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect the first entire delivery before moving the outline."
+    },
+    {
+      "video": "german_tank",
+      "cue": "15_8",
+      "after": "reaching you.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Equal marginal inclusion does not imply the fair joint draw."
+    },
+    {
+      "video": "german_tank",
+      "cue": "15_9",
+      "after": "estimates five or eleven.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Inspect both original-recipe estimates before the average."
+    },
+    {
+      "video": "german_tank",
+      "cue": "15_9",
+      "after": "eight, not ten.",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Leave room for the failure before explaining it."
+    },
+    {
+      "video": "german_tank",
+      "cue": "16_1",
+      "after": "German tank problem",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Closing callback: separate condition, interpretation and arithmetic; intention only, actual delivery remains to be qualified."
+    },
+    {
+      "video": "german_tank",
+      "cue": "16_2",
+      "after": "The reasoning needs no war",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Closing callback: separate condition, interpretation and arithmetic; intention only, actual delivery remains to be qualified."
+    },
+    {
+      "video": "german_tank",
+      "cue": "16_3",
+      "after": "So, the five friends",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Closing callback: separate condition, interpretation and arithmetic; intention only, actual delivery remains to be qualified."
+    },
+    {
+      "video": "german_tank",
+      "cue": "16_4",
+      "after": "every possible count",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Closing callback: separate condition, interpretation and arithmetic; intention only, actual delivery remains to be qualified."
+    },
+    {
+      "video": "german_tank",
+      "cue": "16_5",
+      "after": "one handful",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Closing callback: separate condition, interpretation and arithmetic; intention only, actual delivery remains to be qualified."
+    },
+    {
+      "video": "german_tank",
+      "cue": "16_5",
+      "after": "a hundred and seven",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Closing callback: separate condition, interpretation and arithmetic; intention only, actual delivery remains to be qualified."
+    },
+    {
+      "video": "german_tank",
+      "cue": "16_6",
+      "after": "numbered from one",
+      "role": "thought",
+      "range_s": [
+        0.3,
+        0.7
+      ],
+      "reason": "Closing callback: separate condition, interpretation and arithmetic; intention only, actual delivery remains to be qualified."
+    },
+    {
+      "video": "german_tank",
+      "cue": "16_8",
+      "after": "Ninety, plus one average gap",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Closing callback: separate condition, interpretation and arithmetic; intention only, actual delivery remains to be qualified."
+    },
+    {
+      "video": "german_tank",
+      "cue": "16_8",
+      "after": "eighty-four boxes",
+      "role": "thought",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Closing callback: separate condition, interpretation and arithmetic; intention only, actual delivery remains to be qualified."
+    },
+    {
+      "video": "german_tank",
+      "cue": "16_9",
+      "after": "where the count begins",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Closing callback: separate condition, interpretation and arithmetic; intention only, actual delivery remains to be qualified."
+    }
+  ]
+}

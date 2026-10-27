@@ -1,0 +1,311 @@
+{
+  "_comment": "Authored pause intentions for the active script (chapters 01 to 12), in tools/narration_director.py's override format, to splice into a map's \"overrides\" after `plan`. Each 'after' phrase occurs once in its cue. Ranges are editorial hypotheses from the storyboard's notes, not measurements or acceptance; nothing has been narrated or listened to. The chapter's prediction countdown and title hold are picture holds in the scene, not narration gaps.",
+  "overrides": [
+    {
+      "video": "inspection_paradox",
+      "cue": "01_5",
+      "after": "half of six, three minutes",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the fair-looking guess land before the question tests it."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "01_6",
+      "after": "More",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "The answer to the prediction: the 'more' chip lights before the number is said."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "01_6",
+      "after": "exactly on time",
+      "role": "thought",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "The green dots over all ten buses settle before the extra minute and twenty seconds."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "01_7",
+      "after": "the moment you turn up",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Close the puzzle's statement before the preview of what the film will do."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "02_3",
+      "after": "That's not how you see it",
+      "role": "thought",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "The turn from the bus company's view to yours."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "02_5",
+      "after": "Five in six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The answer lands before the passengers start to drop in."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "03_4",
+      "after": "the gap that's growing",
+      "role": "thought",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "The frozen 1/2 settles before the passengers' count moves."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "03_6",
+      "after": "All of them",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The last red marker lands beside the blue."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "04_3",
+      "after": "a minute and a half",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "The two waits form one listing, without a clause break inside it."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "04_4",
+      "after": "Five minutes each, on average",
+      "role": "thought",
+      "range_s": [
+        0.35,
+        0.7
+      ],
+      "reason": "Let the long-gap average settle before returning to the two mornings."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "04_6",
+      "after": "Not three",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the prediction answer land before the two sums."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "05_4",
+      "after": "as tall as their wait",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.2
+      ],
+      "reason": "Allow the bars to finish widening before comparing their area."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "05_5",
+      "after": "square minutes",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Let the area units settle before converting at one passenger per minute."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "05_7",
+      "after": "Twenty-five times",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The answer lands while the first tiles arrive."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_4",
+      "after": "Eight minutes and forty seconds",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "The prediction's answer lands, and the gold level settles, before the reasons."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_4",
+      "after": "Same buses",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "\"Same buses, same gaps\" is one run into the two averages: no clause break inside it."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "06_4",
+      "after": "same gaps",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "The run carries straight on to \"two honest averages\"."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "07_4",
+      "after": "Three minutes",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.9
+      ],
+      "reason": "The prediction's answer, while the ten equal triangles land."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "08_8",
+      "after": "No",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "The prediction's answer, while the violet spread term flashes, before the reason."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "09_4",
+      "after": "Six minutes",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.2
+      ],
+      "reason": "The chapter's surprise: the green answer box lands beside the model's average gap."
+    },
+    {
+      "video": "inspection_paradox",
+      "cue": "09_5",
+      "after": "The buses have no memory",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "The assumption settles before you land on the line and the wait ahead is drawn."
+    },
+    {
+      "video": "inspection_paradox", "cue": "08_1", "after": "formula for any timetable",
+      "role": "thought", "range_s": [0.45, 0.85],
+      "reason": "Return to the familiar triangles before the area units and general letter arrive."
+    },
+    {
+      "video": "inspection_paradox", "cue": "08_3", "after": "by the number of gaps",
+      "role": "thought", "range_s": [0.5, 0.9],
+      "reason": "Let the same division of numerator and denominator register before naming the averages."
+    },
+    {
+      "video": "inspection_paradox", "cue": "08_4", "after": "the average square is fifty-two",
+      "role": "thought", "range_s": [0.6, 1.0],
+      "reason": "Keep average of squares distinct from the square of the average."
+    },
+    {
+      "video": "inspection_paradox", "cue": "08_4", "after": "only thirty-six",
+      "role": "thought", "range_s": [0.6, 1.0],
+      "reason": "Allow comparison of the two areas before identifying the leftover sixteen."
+    },
+    {
+      "video": "inspection_paradox", "cue": "08_5", "after": "three minutes",
+      "role": "clause", "range_s": [0.35, 0.65],
+      "reason": "Separate the familiar even-gap wait from the penalty for uneven gaps."
+    },
+    {
+      "video": "inspection_paradox", "cue": "09_8", "after": "four twenty",
+      "role": "thought", "range_s": [0.5, 0.9],
+      "reason": "Let the three named cases settle before extending the scale past six."
+    },
+    {
+      "video": "inspection_paradox", "cue": "10_5", "after": "Eight and two thirds",
+      "role": "thought", "range_s": [0.4, 0.9],
+      "reason": "The prediction's answer: the students' level settles at 8⅔ before the bus sum is named."
+    },
+    {
+      "video": "inspection_paradox", "cue": "10_7", "after": "For programmers",
+      "role": "thought", "range_s": [0.35, 0.7],
+      "reason": "A label for the turn from the school to the program, not a sentence the voice leans on."
+    },
+    {
+      "video": "inspection_paradox", "cue": "11_5", "after": "One minute",
+      "role": "thought", "range_s": [0.4, 0.8],
+      "reason": "The prediction's answer: your one-minute wait lands before the reason the triangles miss it."
+    },
+    {
+      "video": "inspection_paradox", "cue": "11_6", "after": "And if every passenger planned",
+      "role": "question", "range_s": [0.35, 0.7],
+      "reason": "A question the next sentence answers at once: shorter than a question's default, before the dots move."
+    },
+    {
+      "video": "inspection_paradox", "cue": "11_7", "after": "every wait would be one minute",
+      "role": "thought", "range_s": [0.5, 1.0],
+      "reason": "The wait bar falls to a minute while the five-in-six share stays; the fall lands before the reason."
+    },
+    {
+      "video": "inspection_paradox", "cue": "12_4", "after": "three and a third minutes",
+      "role": "thought", "range_s": [0.5, 1.0],
+      "reason": "The division's answer as a fraction lands before the same wait is read as a clock; the step stays on screen."
+    },
+    {
+      "video": "inspection_paradox", "cue": "12_6", "after": "And your train",
+      "role": "question", "range_s": [0.35, 0.7],
+      "reason": "The question the film opened with, answered by the next sentence at once: shorter than a question's default."
+    },
+    {
+      "video": "inspection_paradox", "cue": "12_7", "after": "not an average",
+      "role": "thought", "range_s": [0.4, 0.8],
+      "reason": "The turn from the average cost to the worst case, before you are placed just after the red bus."
+    },
+    {
+      "video": "inspection_paradox", "cue": "12_8", "after": "exactly on time",
+      "role": "thought", "range_s": [0.5, 1.0],
+      "reason": "The green on-time marks land before the bound is limited to this model."
+    }
+  ]
+}

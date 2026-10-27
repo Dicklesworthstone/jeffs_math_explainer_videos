@@ -1,0 +1,1 @@
+Shamir secret sharing,cryptography,mathematics,finite fields,Lagrange interpolation,polynomials,information theory

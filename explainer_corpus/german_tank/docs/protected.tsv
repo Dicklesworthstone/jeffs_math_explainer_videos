@@ -1,0 +1,69 @@
+# Protected facts: the words every revision must keep (./x german_tank protected checks they are still there).
+# One per line: <phrase> TAB <where> TAB <why>. <where> is a comma list of script, captions,
+# description, title, or empty for "anywhere". Rows are for the chapters in script.tsv (chapters 01 to 13);
+# a drafted chapter's rows join when it moves into docs/storyboard.md and script.tsv (root's scope correction,
+# Mail 6790).
+counting up from one	script	the numbering assumption the whole recipe needs, stated before any number (G-F1.first)
+It made at least sixty	script	the largest number is a lower bound and only that (G-F1.at_least)
+Above sixty, nobody knows	script	the unknown tail, named before any estimate exists
+any five are exactly as likely as any other five	script	the fair handful defined by the bin, not by equal chances per box (card B; chapter 15 negative control)
+drawn by computer	script	the experiment rows are computed draws, said so where they appear (G-F2.seed)
+What they can never tell you is whether the handful was fair	script	the limit stated before the recipe exists
+Five gaps hold fifty-five unseen boxes	script	the gaps earn the correction (G-F3.gaps, G-F3.unseen)
+About seventy-one	script	the one realised estimate, sixty plus one average gap of eleven (G-F3.average_gap, G-F3.estimate)
+If the handful is fair, this recipe is right on average	script	the condition is spoken with the first statistical claim (card A)
+not about seventy-one	script	unbiased is a property of the recipe, not of the one estimate
+every handful of five was equally likely	script	the one assumption, stated as the model every later claim needs (badge; G-F4.ghost_handfuls)
+the recipe never guesses below the largest number it saw	script	the lower bound kept: no estimate under the certain number (oracle cross-check, k<=6, N<=12)
+A single handful can't tell whether a recipe is good	script	one realised estimate is not a judgement of the recipe
+each pair is equally likely	script	the tiny company's fair draw, the condition its average needs (G-F5.pairs)
+Exactly five, the true count	script	unbiased on the tiny company, exactly, not about (G-F5.average)
+A recipe is unbiased if its estimates average to the true count, whatever that count is	script	unbiased defined over every count, not one
+A single small company isn't a proof	script	the example is not the proof; chapters 06 and 07 prove it
+since each pair is one in ten, so is each list	script	the matching carries the fair draw to the gap lists, the condition the trade needs (G-F6.each_chance; oracle negative control: weighted pairs)
+That's the list for four and five, another row of the table, just as likely	script	the trade lands on a real row of the table, not on a new case (G-F6.low_traded, G-F6.low_partner)
+the below column and the above column hold the same ten numbers	script	the trade's consequence, before any average is computed (G-F6.below_values, G-F6.above_values)
+so each gap averages one box	script	the column averages, the top gap's included (G-F6.position_averages)
+each gap averages N minus five, over six	script	the general average, from the total shared by six positions (G-F7.gap_average_formula)
+But eleven is one handful's average	script	one realised average kept apart from the average over handfuls
+the guess and the top gap agree only three times in ten	script	single handfuls differ; only the averages agree (G-F7.tiny_agree, G-F7.tiny_guess_average)
+so the estimates average the count	script	unbiased for every count, as the proof's conclusion (G-F7.general_unbiased)
+as long as the handful is fair	script	the condition is spoken with the general claim
+It doubles the number and subtracts one	script	the one-box answer, spoken before its arithmetic (G-F7.one_box_recipe)
+a promise about the recipe across all handfuls	script	unbiased is the recipe's property over every handful, not this estimate's (G-F8.average)
+Being right on average doesn't mean being right often	script	unbiased is not usually right: one handful in twenty-nine is exact (G-F8.exactly_right_one_in)
+a single estimate, from a single handful	script	the realised estimate kept apart from the recipe's average and spread
+Their count is a fixed number nobody knows	script	the count is fixed, not random: what the confidence statement needs
+At a hundred and eight it's just under	script	the exact cutoff, from exact chances, not the (60/N)^5 guess (G-F9.first_rare; oracle negative control 109)
+The count stays fixed, and the range changes from handful to handful	script	repeated-sampling meaning: the range is what varies
+not a ninety-five percent chance that the count lies in our range	script	the 95% is never a posterior (oracle negative control: flat priors give 91.8% and 91.2%)
+never fewer than ninety-five	script	coverage holds whatever the count, not only at seventy-one (G-F9.worst_coverage_at_least_95)
+so the range shrinks to sixty through seventy-nine	script	more boxes with the same largest narrow the range (G-F9.ten_boxes_range)
+the count is twice the middle, minus one	script	the doubling recipe is earned from the middle number before it is named (G-F10.from_middle)
+That's fewer than the sixty boxes we know were made	script	the unbiased rival can land below a box someone holds (G-F10.silly_doubling, G-F1.at_least)
+as it does for every handful topped by sixty	script	the gap recipe's estimate depends on the largest number alone (G-F10.silly_gap)
+about one handful in five gets a doubling estimate below its own largest number	script	the absurd case is common, not a freak (G-F10.below_largest_71)
+Ignoring direction, doubling misses by fourteen point three boxes on average	script	the average miss is the average distance ignoring direction, never the standard deviation (G-F10.doubling_miss_71_decimal)
+The standard deviation, built from squared misses	script	the second width is named and kept apart from the average miss (G-F10.doubling_sd_about)
+all equally likely, for every count	script	given the largest, every group of four below it has the same chance at every count (G-F11.each_group.60, .71, .1000)
+Only the chance that sixty is the largest changes	script	the count changes how likely the largest is, not which four come with it (G-F11.top_chance.60, .71, .1000)
+Statisticians say the largest number is sufficient	script	the term of art, said once, after the viewer has predicted it
+It holds everything a fair handful can tell you about the count	script	sufficiency stated with its condition, the fair handful
+All of this needs the handful to be fair	script	the fair-sampling assumption kept explicit (oracle negative control: weighted draws shift the others with the count)
+Each pair keeps its squares and its estimate	script	the regroup keeps every pair whole: the same ten pairs, sorted, not new ones
+every smaller number below it is equally likely, whatever the count	script	chapter 11's fair-sampling sufficiency is why the group averages are free of the count (G-F12.group_average_same_for_every_count)
+a group's chance is its number of pairs in ten	script	the groups are weighted by their true chances, not equally (G-F12.top_group_chance, G-F12.weighted_average)
+Give the four groups equal weight instead, and you'd get four and a quarter	script	the equal-weight negative control is spoken (G-F12.equal_weight_average)
+Ignoring direction, doubling misses by one point four boxes on average	script	the average miss is the average distance, kept apart from squared misses (G-F12.doubling_miss, G-F12.grouped_miss)
+The arrow of an average is never longer than the average length of the arrows	script	the rule shown with arrows before it is stated in general (card H)
+Squared misses tell the same story with different numbers	script	3 against 9/4 are squared misses, not the 1.4 against 1.2 average misses (G-F12.doubling_squared_miss, G-F12.grouped_squared_miss)
+is exactly the wobble inside the groups	script	the squared drop equals the spread inside the groups (G-F12.spread_inside)
+Unbiased has to hold at every count the company could have made	script	unbiased at every possible count N ≥ k, not just the unknown true one (card I)
+and wrong on average at every other count	script	the "always 71" counterexample to unbiasedness at one count (G-F13.always)
+They're never missing	script	the new handfuls' share k ÷ N is never zero, so each step fixes its value (G-F13.share_at_60, G-F13.recurrence_proved)
+So each step has exactly one unknown value, and the step fixes it	script	uniqueness by the recurrence, proved, not enumerated (G-F13.recurrence_proved)
+With a fair draw those averages don't depend on the count	script	the averaged rival is a recipe only because of the fair-sampling sufficiency (G-F11.pair_same_for_every_company)
+So no unbiased recipe misses by less than the gap recipe	script	the claim is "none misses by less", not that every rival misses by more
+Best doesn't mean every rival does worse	script	ties: at the smallest count and for recipes of the largest number alone
+A recipe that accepts a little bias can sometimes miss by less	script	a biased recipe can beat the gap recipe at some counts (G-F13.shrunk_miss_71_shown, G-F13.shrunk_squared_71_shown)
+But it doesn't win everywhere	script	the biased recipe does not dominate: squared misses bigger at counts 5 to 10 (G-F13.shrunk_loses_squared_at)

@@ -1,0 +1,5511 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "shamir_secret_sharing": "e12f0156e173c82b043dfb79201a7df3f0c582b80d43b5c98b394662efdf2c7e"
+  },
+  "policy": {
+    "connected": [
+      0.0,
+      0.28
+    ],
+    "clause": [
+      0.12,
+      0.65
+    ],
+    "thought": [
+      0.35,
+      1.1
+    ],
+    "question": [
+      0.65,
+      1.65
+    ],
+    "cue_transition": [
+      0.45,
+      1.4
+    ],
+    "chapter_transition": [
+      0.7,
+      2.2
+    ]
+  },
+  "overrides": [
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_2",
+      "after": "last digit: nine",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "Keep the five ordered last digits connected while the matching cards appear."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_2",
+      "after": "last digit: nine, seven",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "Continue the ordered card list without treating each digit as a new thought."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_2",
+      "after": "last digit: nine, seven, nine",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "Carry the repeated nine into the final pair of digits as one list."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_3",
+      "after": "deals nine",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "Recall the straight-line shares as a connected ordered list."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_3",
+      "after": "deals nine, three",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "Keep the number sequence together while matching it to trustee positions."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_3",
+      "after": "deals nine, three, seven",
+      "role": "connected",
+      "range_s": [
+        0.0,
+        0.28
+      ],
+      "reason": "Complete the share list before the separate explanation of trustee five."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "06_1",
+      "after": "any three of five",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Recall the opening rule before constructing locks."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "06_5",
+      "after": "their own",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the single closed lock land before proving minimality."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "06_6",
+      "after": "an older book",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate historical introduction from the larger example."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "06_7",
+      "after": "four hundred and sixty-two locks",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the first large count register before introducing keys."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "07_1",
+      "after": "any two of five",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Make the change of threshold explicit before axes."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "07_2",
+      "after": "say it gives four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Connect the random spin to the slope before drawing it."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "07_3",
+      "after": "at their own position",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Establish position versus height before the sequence of shares."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "07_6",
+      "after": "zero, five or ten",
+      "role": "thought",
+      "range_s": [
+        0.7,
+        1.1
+      ],
+      "reason": "Let the three possibilities appear before the exhaustive argument."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "08_2",
+      "after": "the rule is the same",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Recall the unchanged rule before stepping on the dial."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "08_3",
+      "after": "holding two and six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Inspect the adjacent marked points before comparing them."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "08_4",
+      "after": "is nine",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Let the first backwards wrap settle before the second."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "08_6",
+      "after": "one for each spin",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Separate the answer from the two worked spin examples."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "08_7",
+      "after": "five, seven and nine",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Finish the connected doubles list before the one-to-one conclusion."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_1",
+      "after": "a curve",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Establish the changed threshold before dealing two spins."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_2",
+      "after": "the secret",
+      "role": "clause",
+      "range_s": [
+        0.35,
+        0.65
+      ],
+      "reason": "Separate the fixed secret from the two random terms."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_3",
+      "after": "nineteen",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Give the first worked height time to land before trustee two."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_4",
+      "after": "two hundred and fifteen",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Finish the height list before naming the paper parabola."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_6",
+      "after": "lands on three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Let the four turns and remainder register before revealing all cards."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_7",
+      "after": "a polynomial",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.95
+      ],
+      "reason": "Name the rule before comparing the two thresholds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "10_1",
+      "after": "Now we can see what it found",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the recalled full strip register before the curve that explains it."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "10_3",
+      "after": "with spins one and four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction, then pause before checking it."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "10_3",
+      "after": "which lands on six",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Close the two-line check before the next secret."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "10_5",
+      "after": "are all equally likely",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let fairness of the spins land before each secret lights its one cell."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_1",
+      "after": "Notice what that argument used",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Mark the turn from the result to what the argument depended on."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_1",
+      "after": "can't be the reason",
+      "role": "cue_transition",
+      "range_s": [
+        0.8,
+        1.3
+      ],
+      "reason": "Let the claim stand before the paper numbers test it."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_2",
+      "after": "two hundred and fifteen",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the two heights from the fractional spins they force."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_2",
+      "after": "no spin can be that",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the impossibility register before the one whole-spin secret."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_3",
+      "after": "all equally likely",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the counting claim stand before naming it the proof."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_5",
+      "after": "Just one",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction, then show why."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_1",
+      "after": "the natural choice",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the natural expectation stand before the dial is changed."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_3",
+      "after": "exactly one way",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the full eleven-mark tally register before the ten-mark one fills."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_3",
+      "after": "has the secret five",
+      "role": "thought",
+      "range_s": [
+        0.7,
+        1.1
+      ],
+      "reason": "Let the single lit tick contrast with the full row above it."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_4",
+      "after": "Write their heights out",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Set up the letters before the first height is written."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_4",
+      "after": "sixteen of the second",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the first row's three columns settle before the second row."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_5",
+      "after": "the same amount of it",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the plan stand before the copies are written out."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_5",
+      "after": "the first spin cancels",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the struck terms and their zero register."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_6",
+      "after": "the secret bare",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the bare secret land before the cards are put in."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_7",
+      "after": "which lands on eight",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Close the eleven-mark sum before saying why eight hides nothing."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_8",
+      "after": "always find it",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the leaking pairs from the one pair that learns nothing."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_1",
+      "after": "multiply to zero",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the surprising claim stand before its example."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_2",
+      "after": "multiplying by five",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the rows appear before the arrows start."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_3",
+      "after": "the spin is zero or five",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Connect the crowded row to the share before the two candidates."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_5",
+      "after": "All eleven",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction, then show it arrow by arrow."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_5",
+      "after": "reached exactly once",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the full row of ones register before the callback."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_6",
+      "after": "their product lands on zero",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Close the ten-mark split before the eleven-mark contrast."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_6",
+      "after": "split like that",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the contrast land before the word prime."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_7",
+      "after": "a multiple of eleven",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the definition settle before the factorization step."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_7",
+      "after": "one to ten does",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the premise land before the conclusion."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_8",
+      "after": "the same mark",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Close the proof before it is extended to every multiplier."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_1",
+      "after": "the door opened",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the remembered opening land before the open question."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_1",
+      "after": "give five",
+      "role": "cue_transition",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "A rhetorical question: a beat into the paper picture, not think time."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_2",
+      "after": "where nothing wraps",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.6
+      ],
+      "reason": "Mark the switch to ordinary numbers before the pretence."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_2",
+      "after": "is the secret",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the goal, the height at zero, settle before the trick."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_3",
+      "after": "helper curve",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Name the new object before its rule."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_3",
+      "after": "two and three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the first helper's three dots be read before the others."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_4",
+      "after": "and add them",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Finish the recipe before checking it at each position."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_4",
+      "after": "the sum there is nineteen",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the first check land before the other two positions."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_5",
+      "after": "be built",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Pose the doubt before the concrete question."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_6",
+      "after": "times position minus three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the product be read before why it works."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_6",
+      "after": "zero at both",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Close the zeros before the value at position one."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_7",
+      "after": "the other two",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Announce the repetition before the second helper."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_7",
+      "after": "divide by minus one",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the second helper's working from the third's."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_1",
+      "after": "so three",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the first weight land before naming it."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_2",
+      "after": "so its weight is minus three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the second weight's working from the third's."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_2",
+      "after": "so one",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the last weight land before what the weights use."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_3",
+      "after": "minus three times forty-seven",
+      "role": "clause",
+      "range_s": [
+        0.25,
+        0.55
+      ],
+      "reason": "Keep the three weighted heights apart as separate terms."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_3",
+      "after": "which is five",
+      "role": "cue_transition",
+      "range_s": [
+        0.8,
+        1.3
+      ],
+      "reason": "Let the paper secret land before the trustees' problem."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_4",
+      "after": "never see those heights",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the obstacle register before what they hold."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_5",
+      "after": "lands on five",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the answer land before the door opens."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_6",
+      "after": "Here's why",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "A beat before the explanation."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_6",
+      "after": "one eleven",
+      "role": "clause",
+      "range_s": [
+        0.15,
+        0.35
+      ],
+      "reason": "A short list beat: keep the three splits together."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_6",
+      "after": "four elevens",
+      "role": "clause",
+      "range_s": [
+        0.15,
+        0.35
+      ],
+      "reason": "A short list beat: keep the three splits together."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_7",
+      "after": "into whole elevens",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Let the principle land before it is applied to the sums."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_8",
+      "after": "Adding scaled helpers keeps that form",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the degree bound from the uniqueness argument."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_8",
+      "after": "the dealer's curve itself",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the matching curve be inspected before naming its value at zero."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_1",
+      "after": "three, two and six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_1",
+      "after": "The trustees never see those heights",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_2",
+      "after": "one there",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_2",
+      "after": "twenty divided by six",
+      "role": "clause",
+      "range_s": [
+        0.2,
+        0.5
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_3",
+      "after": "it is ten",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_4",
+      "after": "eight thirds",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_5",
+      "after": "is exactly five",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_6",
+      "after": "only the wrapped shares",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_7",
+      "after": "Here they do, by luck",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_7",
+      "after": "minus ten",
+      "role": "connected",
+      "range_s": [
+        0.1,
+        0.35
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_8",
+      "after": "happens to be whole",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the current semantic step while preserving the matching picture and authored prediction/inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_1",
+      "after": "spins zero and one instead",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Let the changed dealing register before paper heights."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_1",
+      "after": "nine, ten and eight",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Separate wrapped cards from their paper heights."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_2",
+      "after": "gives four thirds",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.1
+      ],
+      "reason": "Let the failed fractional answer be inspected."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_3",
+      "after": "an awkward example",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Open the computed experiment as a separate claim."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_3",
+      "after": "leave a fractional sum",
+      "role": "thought",
+      "range_s": [
+        0.55,
+        1.0
+      ],
+      "reason": "Allow inspection of the grid count before its explanation."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_4",
+      "after": "Clear the thirds first",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Announce the repair before the arithmetic."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_4",
+      "after": "ten, minus fifteen and eight",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Let the integer weights settle."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_4",
+      "after": "three times the secret",
+      "role": "thought",
+      "range_s": [
+        0.55,
+        1.0
+      ],
+      "reason": "Keep the changed target explicit before wrapping."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_5",
+      "after": "cards, nine, ten and eight",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Anchor the arithmetic in the retained cards."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_5",
+      "after": "minus a hundred and fifty",
+      "role": "connected",
+      "range_s": [
+        0,
+        0.28
+      ],
+      "reason": "Keep the signed terms connected."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_5",
+      "after": "which is four",
+      "role": "thought",
+      "range_s": [
+        0.6,
+        1.0
+      ],
+      "reason": "Distinguish the multiplied target from the secret."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_7",
+      "after": "Five",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Let the prediction answer land.",
+      "word_index": 0
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_7",
+      "after": "which lands on four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Separate the example from the permutation reason."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_1",
+      "after": "forty-eight",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_1",
+      "after": "That lands on four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_2",
+      "after": "each time",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_3",
+      "after": "Four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds.",
+      "word_index": 0
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_3",
+      "after": "which lands on one",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_4",
+      "after": "five, the secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_4",
+      "after": "multiplying by four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_5",
+      "after": "landing on seven",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_5",
+      "after": "Minus five lands on six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_5",
+      "after": "landing on ten",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_6",
+      "after": "ninety-three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_7",
+      "after": "on eleven marks",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_7",
+      "after": "one exactly once",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_8",
+      "after": "have no partner",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Keep the mathematical step distinct; retain authored diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_1",
+      "after": "same answer",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_2",
+      "after": "the same cards",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_3",
+      "after": "higher than squared",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_5",
+      "after": "Three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds.",
+      "word_index": 0
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_5",
+      "after": "difference is three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_6",
+      "after": "position minus four",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_7",
+      "after": "multiply by that partner",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_7",
+      "after": "other factor alone",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_8",
+      "after": "leaves no remainder",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_8",
+      "after": "What's left has at most a position term: a line",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_9",
+      "after": "not zero everywhere",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_9",
+      "after": "the same recipe",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_10",
+      "after": "the secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate each proof step; preserve explicit prediction and diagram inspection holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_1",
+      "after": "on ten marks",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_1",
+      "after": "nine, nine and five",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_2",
+      "after": "ten, twenty and thirty",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_2",
+      "after": "lands on zero",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_4",
+      "after": "on their cards",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_4",
+      "after": "secret becomes zero",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_5",
+      "after": "the same evidence",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_6",
+      "after": "every allowed recipe",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_6",
+      "after": "determine the secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_7",
+      "after": "at most one zero",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate the controlled change, ambiguity and scope; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_1",
+      "after": "no information about it",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_1",
+      "after": "holding two and six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_2",
+      "after": "and kept secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_2",
+      "after": "zero included",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_3",
+      "after": "produces these cards",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_3",
+      "after": "for every secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_5",
+      "after": "Eight",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds.",
+      "word_index": 0
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_5",
+      "after": "wraps to two",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_5",
+      "after": "wraps to six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_6",
+      "after": "eight is impossible",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_6",
+      "after": "an allowed recipe",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_7",
+      "after": "one time in eleven",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_7",
+      "after": "that chance",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_8",
+      "after": "easy-to-guess password",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate assumptions, likelihood, counterexample and prior; preserve visual prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_1",
+      "after": "one false share",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_1",
+      "after": "two instead of one",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_2",
+      "after": "minus three, and one",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_2",
+      "after": "lands on six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_3",
+      "after": "sounds the alarm",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_3",
+      "after": "false card",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_4",
+      "after": "actually holds two",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_4",
+      "after": "without consulting the vault",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_5",
+      "after": "other three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_5",
+      "after": "eight, three, five, and six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_7",
+      "after": "four of the five cards",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_7",
+      "after": "That is the false card",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_8",
+      "after": "at least three positions",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_9",
+      "after": "the same curve",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_10",
+      "after": "does not authenticate them",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate submitted values, checks, competing explanations and conditional uniqueness; preserve prediction and reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_1",
+      "after": "genuine cards again",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_1",
+      "after": "the door opens",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_2",
+      "after": "two and six",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_2",
+      "after": "possible secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_3",
+      "after": "produces these cards",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_3",
+      "after": "every secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_5",
+      "after": "shares needed",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_5",
+      "after": "at most three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_6",
+      "after": "four, zero and nine",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_6",
+      "after": "one for each secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_7",
+      "after": "trustee four brings three",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_7",
+      "after": "new card correctly",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_8",
+      "after": "this prime dial",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_8",
+      "after": "a unique candidate",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_9",
+      "after": "the threshold k",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_9",
+      "after": "about D",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_10",
+      "after": "reconstruct the secret",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_10",
+      "after": "the secret is odd",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        1.0
+      ],
+      "reason": "Separate recall, extension, competing recipes, proof and final conditions while retaining prediction/reading holds."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "01_1",
+      "after": "Five trustees guard one vault",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Establish the people and continuing physical object before its rule."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "01_1",
+      "after": "one mark, the secret",
+      "role": "clause",
+      "range_s": [
+        0.25,
+        0.55
+      ],
+      "reason": "Define secret before the consequence of a wrong guess."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "01_2",
+      "after": "any of the eleven marks",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate uncertainty from the strip that represents it."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "01_3",
+      "after": "tell one trustee",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the first ordinary proposal register before its failure."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "01_3",
+      "after": "shut the vault for good",
+      "role": "clause",
+      "range_s": [
+        0.25,
+        0.55
+      ],
+      "reason": "Distinguish losing access from a bribe allowing access."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "01_4",
+      "after": "give all five a copy",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Allow the alternative before its different weakness."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "01_5",
+      "after": "lies in between",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Prepare the desired compromise before stating both requirements."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "01_5",
+      "after": "from what they hold",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.65
+      ],
+      "reason": "Separate the three-person recovery requirement from two-person privacy."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "01_6",
+      "after": "not guessing it",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.9
+      ],
+      "reason": "Protect the difference between reconstruction and a lucky guess."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "01_6",
+      "after": "the vault still opens",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Land the practical tolerance before inviting a design."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "02_1",
+      "after": "call it their share",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Define the object before proposing that it be a literal piece."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "02_2",
+      "after": "A and B",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Establish the two trustees before assigning their numbers."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "02_2",
+      "after": "two for A and three for B",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep both assignments intact for inspection."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "02_3",
+      "after": "the door opens",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let successful reconstruction precede the privacy question."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "02_4",
+      "after": "Quite a lot",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction before explaining the leaked bound."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "02_4",
+      "after": "the secret is at least three",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Hold the inequality before crossing off possible secrets."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "02_5",
+      "after": "the more it gives away",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let the size-dependent leak settle before its concise lesson."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "02_6",
+      "after": "They only work all together",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.65
+      ],
+      "reason": "Separate the availability failure from the previous privacy failure."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "02_7",
+      "after": "it needs every piece",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.85
+      ],
+      "reason": "Keep the two defects together before choosing which to fix first."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "03_1",
+      "after": "Adding on the dial means turning",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Define the physical operation before the numerical example."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "03_2",
+      "after": "nine plus seven is five",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Let wraparound arithmetic register before another example."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "03_2",
+      "after": "Ten plus one is zero",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate forward wrapping from taking away."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "03_3",
+      "after": "on the dial instead",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Mark the change in representation while keeping the same secret."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "03_3",
+      "after": "wherever it stops, nine",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep the fair random share distinct from the calculated other share."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "03_4",
+      "after": "the door opens",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate joint recovery from the single-share privacy question."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "03_5",
+      "after": "Nothing at all",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Land the reversal before enumerating possible secrets."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "03_5",
+      "after": "the secret would be seven",
+      "role": "clause",
+      "range_s": [
+        0.25,
+        0.55
+      ],
+      "reason": "Distinguish the first hypothetical assignment from the next."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "03_6",
+      "after": "every secret equally well",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.85
+      ],
+      "reason": "Let equal likelihood carry the claim before the circle intuition."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "03_7",
+      "after": "That fixes the leak",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.65
+      ],
+      "reason": "Separate the solved privacy issue from the remaining threshold issue."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "04_1",
+      "after": "a threshold of three",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Restore the original five-person goal before previewing its solution."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "04_1",
+      "after": "eight, three, one, two and six",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep the original five card values intact for later callbacks."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "04_2",
+      "after": "the door opens",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Separate the promised result from the deferred reconstruction."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "04_3",
+      "after": "hold two and six",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Identify the continuing pair before discussing a guess."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "04_3",
+      "after": "They'd be right one time in eleven",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.65
+      ],
+      "reason": "Keep the full success probability together before the other ten cases."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "04_4",
+      "after": "two trustees can never get lucky",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.85
+      ],
+      "reason": "Make the rejected claim distinct from the actual privacy requirement."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "04_4",
+      "after": "not one mark ruled out",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.65
+      ],
+      "reason": "Allow complete exclusion and partial information to register separately."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "05_1",
+      "after": "every secret from zero to ten",
+      "role": "clause",
+      "range_s": [
+        0.3,
+        0.65
+      ],
+      "reason": "Separate the outer secret enumeration from the spin-pair enumeration."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "05_2",
+      "after": "a two and a six",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Fix the observed cards before asking about relative counts."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "05_3",
+      "after": "No",
+      "role": "thought",
+      "range_s": [
+        0.5,
+        0.9
+      ],
+      "reason": "Answer the prediction before revealing the uniform counts."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "05_3",
+      "after": "a different way each time",
+      "role": "thought",
+      "range_s": [
+        0.4,
+        0.8
+      ],
+      "reason": "Keep uniqueness distinct from the equal-likelihood conclusion."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "05_4",
+      "after": "what to guess",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.85
+      ],
+      "reason": "Distinguish guessing from information before stating the preserved prior."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "05_5",
+      "after": "and three can",
+      "role": "thought",
+      "range_s": [
+        0.45,
+        0.85
+      ],
+      "reason": "Let the two promised properties settle before the explanation begins."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "01_2",
+      "next_cue": "01_3",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_vault.rs",
+        "sha256": "a02d316fa41cc3e8b7259256331e9c4b61a6ca7627f2c7655af682292ed9d57d",
+        "lines": [
+          106,
+          117
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 114,
+          "text": "pause(stage, 1.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "01_4",
+      "next_cue": "01_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_vault.rs",
+        "sha256": "a02d316fa41cc3e8b7259256331e9c4b61a6ca7627f2c7655af682292ed9d57d",
+        "lines": [
+          141,
+          183
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 154,
+          "text": "pause(stage, 0.4)?;"
+        },
+        {
+          "line": 180,
+          "text": "pause(stage, 0.5)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "01_5",
+      "next_cue": "01_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_vault.rs",
+        "sha256": "a02d316fa41cc3e8b7259256331e9c4b61a6ca7627f2c7655af682292ed9d57d",
+        "lines": [
+          183,
+          211
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 191,
+          "text": "pause(stage, 0.12)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "01_6",
+      "next_cue": "02_1",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_vault.rs",
+        "sha256": "a02d316fa41cc3e8b7259256331e9c4b61a6ca7627f2c7655af682292ed9d57d",
+        "lines": [
+          211,
+          244
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 230,
+          "text": "wait_until(stage, read)?;"
+        },
+        {
+          "line": 239,
+          "text": "think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        },
+        {
+          "line": 240,
+          "text": "pause(stage, 0.5)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "02_3",
+      "next_cue": "02_4",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/cutting_it_up.rs",
+        "sha256": "bf3309d298864074d2a50b855605050ee1fea7d722533636a2d86ee07edb6090",
+        "lines": [
+          170,
+          204
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 185,
+          "text": "pause(stage, 0.3)?;"
+        },
+        {
+          "line": 201,
+          "text": "let q = think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "02_5",
+      "next_cue": "02_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/cutting_it_up.rs",
+        "sha256": "bf3309d298864074d2a50b855605050ee1fea7d722533636a2d86ee07edb6090",
+        "lines": [
+          246,
+          271
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 261,
+          "text": "pause(stage, 0.12)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "02_7",
+      "next_cue": "03_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/cutting_it_up.rs",
+        "sha256": "bf3309d298864074d2a50b855605050ee1fea7d722533636a2d86ee07edb6090",
+        "lines": [
+          287,
+          309
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 305,
+          "text": "pause(stage, 0.6)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "03_4",
+      "next_cue": "03_5",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_dial.rs",
+        "sha256": "c72602a14c736440da218e2edae4b5ecf49b8ab0124c35a0679e79c398ec0307",
+        "lines": [
+          335,
+          368
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 351,
+          "text": "pause(stage, 0.3)?;"
+        },
+        {
+          "line": 365,
+          "text": "let q = think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "03_5",
+      "next_cue": "03_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_dial.rs",
+        "sha256": "c72602a14c736440da218e2edae4b5ecf49b8ab0124c35a0679e79c398ec0307",
+        "lines": [
+          368,
+          410
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 407,
+          "text": "pause(stage, 1.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "03_6",
+      "next_cue": "03_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_dial.rs",
+        "sha256": "c72602a14c736440da218e2edae4b5ecf49b8ab0124c35a0679e79c398ec0307",
+        "lines": [
+          410,
+          470
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 466,
+          "text": "wait_until(stage, read)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "03_7",
+      "next_cue": "04_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_dial.rs",
+        "sha256": "c72602a14c736440da218e2edae4b5ecf49b8ab0124c35a0679e79c398ec0307",
+        "lines": [
+          470,
+          505
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 501,
+          "text": "pause(stage, 0.6)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "04_2",
+      "next_cue": "04_3",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_goal.rs",
+        "sha256": "b2081cb1804cd23a56831671a22a403678fe415b70a8d408bbd52fba67785861",
+        "lines": [
+          234,
+          271
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 258,
+          "text": "pause(stage, 1.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "04_4",
+      "next_cue": "04_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_goal.rs",
+        "sha256": "b2081cb1804cd23a56831671a22a403678fe415b70a8d408bbd52fba67785861",
+        "lines": [
+          295,
+          325
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 322,
+          "text": "wait_until(stage, read)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "04_5",
+      "next_cue": "05_1",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_goal.rs",
+        "sha256": "b2081cb1804cd23a56831671a22a403678fe415b70a8d408bbd52fba67785861",
+        "lines": [
+          325,
+          343
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 338,
+          "text": "think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        },
+        {
+          "line": 339,
+          "text": "pause(stage, 0.5)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "05_2",
+      "next_cue": "05_3",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/an_experiment.rs",
+        "sha256": "5de3cd868b70d7aacf7a0b675ade9b56678e00126aa3c005384a2913931817db",
+        "lines": [
+          332,
+          384
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 380,
+          "text": "let q = think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "05_3",
+      "next_cue": "05_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/an_experiment.rs",
+        "sha256": "5de3cd868b70d7aacf7a0b675ade9b56678e00126aa3c005384a2913931817db",
+        "lines": [
+          384,
+          419
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 415,
+          "text": "pause(stage, 1.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "05_4",
+      "next_cue": "05_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/an_experiment.rs",
+        "sha256": "5de3cd868b70d7aacf7a0b675ade9b56678e00126aa3c005384a2913931817db",
+        "lines": [
+          419,
+          440
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 435,
+          "text": "wait_until(stage, read)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "05_5",
+      "next_cue": "06_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/an_experiment.rs",
+        "sha256": "5de3cd868b70d7aacf7a0b675ade9b56678e00126aa3c005384a2913931817db",
+        "lines": [
+          440,
+          473
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 469,
+          "text": "pause(stage, 0.6)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "06_4",
+      "next_cue": "06_5",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/padlocks.rs",
+        "sha256": "aa56b8cc21df46e21cb1e84b00df949a32755f6eb4ade7d94d9e6e7caeb074fe",
+        "lines": [
+          628,
+          639
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 636,
+          "text": "let question = think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "06_5",
+      "next_cue": "06_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/padlocks.rs",
+        "sha256": "aa56b8cc21df46e21cb1e84b00df949a32755f6eb4ade7d94d9e6e7caeb074fe",
+        "lines": [
+          639,
+          752
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 749,
+          "text": "wait_until(stage, read)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "06_7",
+      "next_cue": "06_8",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/padlocks.rs",
+        "sha256": "aa56b8cc21df46e21cb1e84b00df949a32755f6eb4ade7d94d9e6e7caeb074fe",
+        "lines": [
+          769,
+          843
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 840,
+          "text": "wait_until(stage, read)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "06_8",
+      "next_cue": "07_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/padlocks.rs",
+        "sha256": "aa56b8cc21df46e21cb1e84b00df949a32755f6eb4ade7d94d9e6e7caeb074fe",
+        "lines": [
+          843,
+          916
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 912,
+          "text": "wait_until(stage, read)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "07_5",
+      "next_cue": "07_6",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_line_through_the_secret.rs",
+        "sha256": "5c379c3b0d5599db32e4166d3baf4890b52dce4eae6f67eca26ae747eab9a53f",
+        "lines": [
+          452,
+          496
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 493,
+          "text": "let question = think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "07_6",
+      "next_cue": "07_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_line_through_the_secret.rs",
+        "sha256": "5c379c3b0d5599db32e4166d3baf4890b52dce4eae6f67eca26ae747eab9a53f",
+        "lines": [
+          496,
+          534
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 531,
+          "text": "wait_until(stage, read)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "07_7",
+      "next_cue": "08_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_line_through_the_secret.rs",
+        "sha256": "5c379c3b0d5599db32e4166d3baf4890b52dce4eae6f67eca26ae747eab9a53f",
+        "lines": [
+          534,
+          557
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 553,
+          "text": "pause(stage, 0.5)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "08_1",
+      "next_cue": "08_2",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_line_on_the_dial.rs",
+        "sha256": "14058323bda5ef625afa1121f02df8fdd34193c06598020418fa1a107019f85d",
+        "lines": [
+          324,
+          389
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 386,
+          "text": "pause(stage, 0.6)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "08_4",
+      "next_cue": "08_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_line_on_the_dial.rs",
+        "sha256": "14058323bda5ef625afa1121f02df8fdd34193c06598020418fa1a107019f85d",
+        "lines": [
+          567,
+          644
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 641,
+          "text": "pause(stage, HOLD_ON_SECRET)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "08_5",
+      "next_cue": "08_6",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_line_on_the_dial.rs",
+        "sha256": "14058323bda5ef625afa1121f02df8fdd34193c06598020418fa1a107019f85d",
+        "lines": [
+          644,
+          693
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 690,
+          "text": "let question = think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "08_8",
+      "next_cue": "09_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/the_line_on_the_dial.rs",
+        "sha256": "14058323bda5ef625afa1121f02df8fdd34193c06598020418fa1a107019f85d",
+        "lines": [
+          829,
+          849
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 844,
+          "text": "wait_until(stage, read)?;"
+        },
+        {
+          "line": 845,
+          "text": "pause(stage, HOLD_AT_END)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_5",
+      "next_cue": "09_6",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_curve_for_three.rs",
+        "sha256": "bf9bb87b2f99462c7b0cd999d038a3bf85343e25247b9f40797a748ea3801a85",
+        "lines": [
+          679,
+          700
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 696,
+          "text": "let question = think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_6",
+      "next_cue": "09_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_curve_for_three.rs",
+        "sha256": "bf9bb87b2f99462c7b0cd999d038a3bf85343e25247b9f40797a748ea3801a85",
+        "lines": [
+          700,
+          785
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 781,
+          "text": "pause(stage, HOLD_MATCHED)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "09_7",
+      "next_cue": "10_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_curve_for_three.rs",
+        "sha256": "bf9bb87b2f99462c7b0cd999d038a3bf85343e25247b9f40797a748ea3801a85",
+        "lines": [
+          785,
+          885
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 881,
+          "text": "pause(stage, HOLD_AT_END)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "10_2",
+      "next_cue": "10_3",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/two_shares.rs",
+        "sha256": "7ffd84444ab550a6ae470e3e476e0b0da54a23914ca6422957f85f3cacdf1f42",
+        "lines": [
+          573,
+          600
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 597,
+          "text": "let question = think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "10_4",
+      "next_cue": "10_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/two_shares.rs",
+        "sha256": "7ffd84444ab550a6ae470e3e476e0b0da54a23914ca6422957f85f3cacdf1f42",
+        "lines": [
+          664,
+          696
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 692,
+          "text": "pause(stage, HOLD_ON_ELEVEN)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "10_6",
+      "next_cue": "11_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/two_shares.rs",
+        "sha256": "7ffd84444ab550a6ae470e3e476e0b0da54a23914ca6422957f85f3cacdf1f42",
+        "lines": [
+          794,
+          815
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 809,
+          "text": "wait_until(stage, read)?;"
+        },
+        {
+          "line": 811,
+          "text": "pause(stage, HOLD_AT_END)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_4",
+      "next_cue": "11_5",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/one_more_share.rs",
+        "sha256": "56ee4af79db24d89f48c731a2fe8230ba44dd1b93901c1b34db31eb08fb6f572",
+        "lines": [
+          775,
+          810
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 806,
+          "text": "let question = think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_5",
+      "next_cue": "11_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/one_more_share.rs",
+        "sha256": "56ee4af79db24d89f48c731a2fe8230ba44dd1b93901c1b34db31eb08fb6f572",
+        "lines": [
+          810,
+          881
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 877,
+          "text": "pause(stage, HOLD_ON_ONE)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "11_6",
+      "next_cue": "12_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/one_more_share.rs",
+        "sha256": "56ee4af79db24d89f48c731a2fe8230ba44dd1b93901c1b34db31eb08fb6f572",
+        "lines": [
+          881,
+          926
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 920,
+          "text": "wait_until(stage, read)?;"
+        },
+        {
+          "line": 922,
+          "text": "pause(stage, HOLD_AT_END)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_1",
+      "next_cue": "12_2",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_ten_mark_dial.rs",
+        "sha256": "2f367de689431b9abcc67c90a6ffa5acbb9b4e55e895362a9181fc5a688786c4",
+        "lines": [
+          597,
+          656
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 652,
+          "text": "let question = think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_3",
+      "next_cue": "12_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_ten_mark_dial.rs",
+        "sha256": "2f367de689431b9abcc67c90a6ffa5acbb9b4e55e895362a9181fc5a688786c4",
+        "lines": [
+          691,
+          761
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 758,
+          "text": "pause(stage, HOLD_ON_TALLIES)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "12_8",
+      "next_cue": "13_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_ten_mark_dial.rs",
+        "sha256": "2f367de689431b9abcc67c90a6ffa5acbb9b4e55e895362a9181fc5a688786c4",
+        "lines": [
+          932,
+          996
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 991,
+          "text": "wait_until(stage, read)?;"
+        },
+        {
+          "line": 992,
+          "text": "pause(stage, HOLD_AT_END)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_2",
+      "next_cue": "13_3",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/why_prime.rs",
+        "sha256": "ba43d54dd830f51ab5ba054b993ecb7ff173de9729296e5f9bbfac80fa6ac485",
+        "lines": [
+          759,
+          781
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 778,
+          "text": "pause(stage, HOLD_ON_TEN)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_4",
+      "next_cue": "13_5",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/why_prime.rs",
+        "sha256": "ba43d54dd830f51ab5ba054b993ecb7ff173de9729296e5f9bbfac80fa6ac485",
+        "lines": [
+          833,
+          844
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 841,
+          "text": "let question = think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_5",
+      "next_cue": "13_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/why_prime.rs",
+        "sha256": "ba43d54dd830f51ab5ba054b993ecb7ff173de9729296e5f9bbfac80fa6ac485",
+        "lines": [
+          844,
+          877
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 874,
+          "text": "pause(stage, HOLD_ON_BOTH)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_7",
+      "next_cue": "13_8",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/why_prime.rs",
+        "sha256": "ba43d54dd830f51ab5ba054b993ecb7ff173de9729296e5f9bbfac80fa6ac485",
+        "lines": [
+          904,
+          927
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 923,
+          "text": "wait_until(stage, read)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_8",
+      "next_cue": "13_9",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/why_prime.rs",
+        "sha256": "ba43d54dd830f51ab5ba054b993ecb7ff173de9729296e5f9bbfac80fa6ac485",
+        "lines": [
+          927,
+          976
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 973,
+          "text": "pause(stage, HOLD_ON_GRIDS)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "13_9",
+      "next_cue": "14_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/why_prime.rs",
+        "sha256": "ba43d54dd830f51ab5ba054b993ecb7ff173de9729296e5f9bbfac80fa6ac485",
+        "lines": [
+          976,
+          994
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 989,
+          "text": "wait_until(stage, read)?;"
+        },
+        {
+          "line": 990,
+          "text": "pause(stage, HOLD_AT_END)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_5",
+      "next_cue": "14_6",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/helper_curves.rs",
+        "sha256": "262aa09eb2e0f5f46a06d1a683d01b716a44d6cc8f2f0f83db8fe8db318d5542",
+        "lines": [
+          901,
+          923
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 920,
+          "text": "let question = think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "14_8",
+      "next_cue": "15_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/helper_curves.rs",
+        "sha256": "262aa09eb2e0f5f46a06d1a683d01b716a44d6cc8f2f0f83db8fe8db318d5542",
+        "lines": [
+          958,
+          992
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 987,
+          "text": "wait_until(stage, read)?;"
+        },
+        {
+          "line": 988,
+          "text": "pause(stage, HOLD_AT_END)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_4",
+      "next_cue": "15_5",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/three_shares.rs",
+        "sha256": "40c9a854cd54dbff4780f362eb5325565bcdb35d4284051c6814067b4ac373a0",
+        "lines": [
+          537,
+          561
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 557,
+          "text": "let question = think(&kit, stage, v(THINK_X, THINK_Y))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_5",
+      "next_cue": "15_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/three_shares.rs",
+        "sha256": "40c9a854cd54dbff4780f362eb5325565bcdb35d4284051c6814067b4ac373a0",
+        "lines": [
+          561,
+          584
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 581,
+          "text": "pause(stage, DOOR_HOLD)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "15_7",
+      "next_cue": "16_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/three_shares.rs",
+        "sha256": "40c9a854cd54dbff4780f362eb5325565bcdb35d4284051c6814067b4ac373a0",
+        "lines": [
+          617,
+          679
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 674,
+          "text": "wait_until(stage, read_at)?;"
+        },
+        {
+          "line": 675,
+          "text": "pause(stage, HOLD_AT_END)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_1",
+      "next_cue": "16_2",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/fraction_weights.rs",
+        "sha256": "0b7f5b5bfc4760f9da2b3600a58ffa08faa595ecfa48443cd457bd0a09107be0",
+        "lines": [
+          208,
+          247
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 232,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_2",
+      "next_cue": "16_3",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/fraction_weights.rs",
+        "sha256": "0b7f5b5bfc4760f9da2b3600a58ffa08faa595ecfa48443cd457bd0a09107be0",
+        "lines": [
+          247,
+          258
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 256,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_3",
+      "next_cue": "16_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/fraction_weights.rs",
+        "sha256": "0b7f5b5bfc4760f9da2b3600a58ffa08faa595ecfa48443cd457bd0a09107be0",
+        "lines": [
+          247,
+          258
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 256,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_4",
+      "next_cue": "16_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/fraction_weights.rs",
+        "sha256": "0b7f5b5bfc4760f9da2b3600a58ffa08faa595ecfa48443cd457bd0a09107be0",
+        "lines": [
+          247,
+          258
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 256,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_5",
+      "next_cue": "16_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/fraction_weights.rs",
+        "sha256": "0b7f5b5bfc4760f9da2b3600a58ffa08faa595ecfa48443cd457bd0a09107be0",
+        "lines": [
+          258,
+          277
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 274,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 275,
+          "text": "pause(stage, 1.2)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_6",
+      "next_cue": "16_7",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/fraction_weights.rs",
+        "sha256": "0b7f5b5bfc4760f9da2b3600a58ffa08faa595ecfa48443cd457bd0a09107be0",
+        "lines": [
+          277,
+          286
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 284,
+          "text": "let question = think(&kit, stage, v(1.2, 0.25))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_7",
+      "next_cue": "16_8",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/fraction_weights.rs",
+        "sha256": "0b7f5b5bfc4760f9da2b3600a58ffa08faa595ecfa48443cd457bd0a09107be0",
+        "lines": [
+          286,
+          329
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 327,
+          "text": "kit.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "16_8",
+      "next_cue": "17_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/fraction_weights.rs",
+        "sha256": "0b7f5b5bfc4760f9da2b3600a58ffa08faa595ecfa48443cd457bd0a09107be0",
+        "lines": [
+          329,
+          344
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 341,
+          "text": "kit.hold(stage)?;"
+        },
+        {
+          "line": 342,
+          "text": "wait_until(stage, until)?;"
+        },
+        {
+          "line": 343,
+          "text": "pause(stage, 0.6)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_1",
+      "next_cue": "17_2",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/thirds_that_do_not_cancel.rs",
+        "sha256": "244d65851121ae511a0790aec087469c8ce714a4cfe2350fc0bc02cb628765d4",
+        "lines": [
+          112,
+          157
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 155,
+          "text": "k.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_2",
+      "next_cue": "17_3",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/thirds_that_do_not_cancel.rs",
+        "sha256": "244d65851121ae511a0790aec087469c8ce714a4cfe2350fc0bc02cb628765d4",
+        "lines": [
+          157,
+          183
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 180,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 181,
+          "text": "pause(stage, 1.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_3",
+      "next_cue": "17_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/thirds_that_do_not_cancel.rs",
+        "sha256": "244d65851121ae511a0790aec087469c8ce714a4cfe2350fc0bc02cb628765d4",
+        "lines": [
+          183,
+          292
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 289,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 290,
+          "text": "pause(stage, 1.5)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_4",
+      "next_cue": "17_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/thirds_that_do_not_cancel.rs",
+        "sha256": "244d65851121ae511a0790aec087469c8ce714a4cfe2350fc0bc02cb628765d4",
+        "lines": [
+          292,
+          329
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 327,
+          "text": "k.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_5",
+      "next_cue": "17_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/thirds_that_do_not_cancel.rs",
+        "sha256": "244d65851121ae511a0790aec087469c8ce714a4cfe2350fc0bc02cb628765d4",
+        "lines": [
+          329,
+          372
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 370,
+          "text": "k.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_6",
+      "next_cue": "17_7",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/thirds_that_do_not_cancel.rs",
+        "sha256": "244d65851121ae511a0790aec087469c8ce714a4cfe2350fc0bc02cb628765d4",
+        "lines": [
+          372,
+          406
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 404,
+          "text": "let question = think(&k, stage, v(2.3, -1.2))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "17_7",
+      "next_cue": "18_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/thirds_that_do_not_cancel.rs",
+        "sha256": "244d65851121ae511a0790aec087469c8ce714a4cfe2350fc0bc02cb628765d4",
+        "lines": [
+          406,
+          441
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 434,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 439,
+          "text": "wait_until(stage, until)?;"
+        },
+        {
+          "line": 440,
+          "text": "pause(stage, 0.6)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_1",
+      "next_cue": "18_2",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/dividing_on_the_dial.rs",
+        "sha256": "601f0268cfedb9ef761c2eb53b25d27742fd9fc3053e81198777c29fe3c93002",
+        "lines": [
+          121,
+          167
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 165,
+          "text": "k.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_2",
+      "next_cue": "18_3",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/dividing_on_the_dial.rs",
+        "sha256": "601f0268cfedb9ef761c2eb53b25d27742fd9fc3053e81198777c29fe3c93002",
+        "lines": [
+          167,
+          190
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 189,
+          "text": "let question = think(&k, stage, v(2.3, -1.2))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_3",
+      "next_cue": "18_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/dividing_on_the_dial.rs",
+        "sha256": "601f0268cfedb9ef761c2eb53b25d27742fd9fc3053e81198777c29fe3c93002",
+        "lines": [
+          190,
+          229
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 226,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 227,
+          "text": "pause(stage, 1.2)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_4",
+      "next_cue": "18_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/dividing_on_the_dial.rs",
+        "sha256": "601f0268cfedb9ef761c2eb53b25d27742fd9fc3053e81198777c29fe3c93002",
+        "lines": [
+          229,
+          270
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 267,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 268,
+          "text": "pause(stage, 1.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_5",
+      "next_cue": "18_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/dividing_on_the_dial.rs",
+        "sha256": "601f0268cfedb9ef761c2eb53b25d27742fd9fc3053e81198777c29fe3c93002",
+        "lines": [
+          270,
+          306
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 303,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 304,
+          "text": "pause(stage, 2.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_6",
+      "next_cue": "18_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/dividing_on_the_dial.rs",
+        "sha256": "601f0268cfedb9ef761c2eb53b25d27742fd9fc3053e81198777c29fe3c93002",
+        "lines": [
+          306,
+          349
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 346,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 347,
+          "text": "pause(stage, 1.5)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_7",
+      "next_cue": "18_8",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/dividing_on_the_dial.rs",
+        "sha256": "601f0268cfedb9ef761c2eb53b25d27742fd9fc3053e81198777c29fe3c93002",
+        "lines": [
+          349,
+          377
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 375,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 376,
+          "text": "pause(stage, 1.5)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "18_8",
+      "next_cue": "19_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/dividing_on_the_dial.rs",
+        "sha256": "601f0268cfedb9ef761c2eb53b25d27742fd9fc3053e81198777c29fe3c93002",
+        "lines": [
+          377,
+          416
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 409,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 414,
+          "text": "wait_until(stage, until)?;"
+        },
+        {
+          "line": 415,
+          "text": "pause(stage, 0.6)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_1",
+      "next_cue": "19_2",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/any_three.rs",
+        "sha256": "5f5d98c61d8fbeae1e104598dcb870398d8e4af79b4192500645e2557514b068",
+        "lines": [
+          94,
+          134
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 131,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 132,
+          "text": "pause(stage, 2.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_2",
+      "next_cue": "19_3",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/any_three.rs",
+        "sha256": "5f5d98c61d8fbeae1e104598dcb870398d8e4af79b4192500645e2557514b068",
+        "lines": [
+          134,
+          204
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 202,
+          "text": "k.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_3",
+      "next_cue": "19_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/any_three.rs",
+        "sha256": "5f5d98c61d8fbeae1e104598dcb870398d8e4af79b4192500645e2557514b068",
+        "lines": [
+          204,
+          232
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 231,
+          "text": "k.hold(stage)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_4",
+      "next_cue": "19_5",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/any_three.rs",
+        "sha256": "5f5d98c61d8fbeae1e104598dcb870398d8e4af79b4192500645e2557514b068",
+        "lines": [
+          232,
+          235
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 233,
+          "text": "let question = think(&k, stage, v(3.0, -1.0))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_5",
+      "next_cue": "19_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/any_three.rs",
+        "sha256": "5f5d98c61d8fbeae1e104598dcb870398d8e4af79b4192500645e2557514b068",
+        "lines": [
+          235,
+          272
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 269,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 270,
+          "text": "pause(stage, 1.5)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_6",
+      "next_cue": "19_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/any_three.rs",
+        "sha256": "5f5d98c61d8fbeae1e104598dcb870398d8e4af79b4192500645e2557514b068",
+        "lines": [
+          272,
+          322
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 319,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 320,
+          "text": "pause(stage, 2.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_7",
+      "next_cue": "19_8",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/any_three.rs",
+        "sha256": "5f5d98c61d8fbeae1e104598dcb870398d8e4af79b4192500645e2557514b068",
+        "lines": [
+          322,
+          341
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 338,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 339,
+          "text": "pause(stage, 1.3)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_8",
+      "next_cue": "19_9",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/any_three.rs",
+        "sha256": "5f5d98c61d8fbeae1e104598dcb870398d8e4af79b4192500645e2557514b068",
+        "lines": [
+          341,
+          373
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 370,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 371,
+          "text": "pause(stage, 2.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_9",
+      "next_cue": "19_10",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/any_three.rs",
+        "sha256": "5f5d98c61d8fbeae1e104598dcb870398d8e4af79b4192500645e2557514b068",
+        "lines": [
+          373,
+          387
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 385,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 386,
+          "text": "pause(stage, 1.3)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "19_10",
+      "next_cue": "20_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/any_three.rs",
+        "sha256": "5f5d98c61d8fbeae1e104598dcb870398d8e4af79b4192500645e2557514b068",
+        "lines": [
+          387,
+          412
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 409,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 410,
+          "text": "wait_until(stage, deadline)?;"
+        },
+        {
+          "line": 411,
+          "text": "pause(stage, 0.6)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_1",
+      "next_cue": "20_2",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/ten_marks_again.rs",
+        "sha256": "310302a09c0a44be2b83d5cd5551cb92ae12d9c2a6cf94293b821b535e90ba96",
+        "lines": [
+          97,
+          152
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 149,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 150,
+          "text": "pause(stage, 1.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_2",
+      "next_cue": "20_3",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/ten_marks_again.rs",
+        "sha256": "310302a09c0a44be2b83d5cd5551cb92ae12d9c2a6cf94293b821b535e90ba96",
+        "lines": [
+          152,
+          195
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 192,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 193,
+          "text": "pause(stage, 2.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_3",
+      "next_cue": "20_4",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/ten_marks_again.rs",
+        "sha256": "310302a09c0a44be2b83d5cd5551cb92ae12d9c2a6cf94293b821b535e90ba96",
+        "lines": [
+          195,
+          198
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 196,
+          "text": "let question = think(&k, stage, v(3.1, -1.35))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_4",
+      "next_cue": "20_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/ten_marks_again.rs",
+        "sha256": "310302a09c0a44be2b83d5cd5551cb92ae12d9c2a6cf94293b821b535e90ba96",
+        "lines": [
+          198,
+          231
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 228,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 229,
+          "text": "pause(stage, 1.5)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_5",
+      "next_cue": "20_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/ten_marks_again.rs",
+        "sha256": "310302a09c0a44be2b83d5cd5551cb92ae12d9c2a6cf94293b821b535e90ba96",
+        "lines": [
+          231,
+          246
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 243,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 244,
+          "text": "pause(stage, 2.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_6",
+      "next_cue": "20_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/ten_marks_again.rs",
+        "sha256": "310302a09c0a44be2b83d5cd5551cb92ae12d9c2a6cf94293b821b535e90ba96",
+        "lines": [
+          246,
+          284
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 281,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 282,
+          "text": "pause(stage, 3.0)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "20_7",
+      "next_cue": "21_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/ten_marks_again.rs",
+        "sha256": "310302a09c0a44be2b83d5cd5551cb92ae12d9c2a6cf94293b821b535e90ba96",
+        "lines": [
+          284,
+          306
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 303,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 304,
+          "text": "wait_until(stage, deadline)?;"
+        },
+        {
+          "line": 305,
+          "text": "pause(stage, 0.6)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_1",
+      "next_cue": "21_2",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/what_it_promises.rs",
+        "sha256": "0c3e5e601e087395826fb891b68d5f55c2766bcd0bf28b29c1f787db57e108b2",
+        "lines": [
+          72,
+          121
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 118,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 119,
+          "text": "pause(stage, 1.5)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_2",
+      "next_cue": "21_3",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/what_it_promises.rs",
+        "sha256": "0c3e5e601e087395826fb891b68d5f55c2766bcd0bf28b29c1f787db57e108b2",
+        "lines": [
+          121,
+          136
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 133,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 134,
+          "text": "pause(stage, 2.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_3",
+      "next_cue": "21_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/what_it_promises.rs",
+        "sha256": "0c3e5e601e087395826fb891b68d5f55c2766bcd0bf28b29c1f787db57e108b2",
+        "lines": [
+          136,
+          177
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 174,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 175,
+          "text": "pause(stage, 3.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_4",
+      "next_cue": "21_5",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/what_it_promises.rs",
+        "sha256": "0c3e5e601e087395826fb891b68d5f55c2766bcd0bf28b29c1f787db57e108b2",
+        "lines": [
+          177,
+          191
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 189,
+          "text": "let question = think(&k, stage, v(3.2, -1.55))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_5",
+      "next_cue": "21_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/what_it_promises.rs",
+        "sha256": "0c3e5e601e087395826fb891b68d5f55c2766bcd0bf28b29c1f787db57e108b2",
+        "lines": [
+          191,
+          237
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 234,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 235,
+          "text": "pause(stage, 2.5)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_6",
+      "next_cue": "21_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/what_it_promises.rs",
+        "sha256": "0c3e5e601e087395826fb891b68d5f55c2766bcd0bf28b29c1f787db57e108b2",
+        "lines": [
+          237,
+          269
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 266,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 267,
+          "text": "pause(stage, 3.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_7",
+      "next_cue": "21_8",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/what_it_promises.rs",
+        "sha256": "0c3e5e601e087395826fb891b68d5f55c2766bcd0bf28b29c1f787db57e108b2",
+        "lines": [
+          269,
+          294
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 273,
+          "text": "pause(stage, 1.)?;"
+        },
+        {
+          "line": 291,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 292,
+          "text": "pause(stage, 2.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "21_8",
+      "next_cue": "22_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/what_it_promises.rs",
+        "sha256": "0c3e5e601e087395826fb891b68d5f55c2766bcd0bf28b29c1f787db57e108b2",
+        "lines": [
+          294,
+          322
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 319,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 320,
+          "text": "wait_until(stage, deadline)?;"
+        },
+        {
+          "line": 321,
+          "text": "pause(stage, 0.6)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_1",
+      "next_cue": "22_2",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_liar.rs",
+        "sha256": "3520eba80f867d241ee061a85e4d2343f2522d813a1c346c120514fec8d9ff9b",
+        "lines": [
+          94,
+          154
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 151,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 152,
+          "text": "pause(stage, 2.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_2",
+      "next_cue": "22_3",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_liar.rs",
+        "sha256": "3520eba80f867d241ee061a85e4d2343f2522d813a1c346c120514fec8d9ff9b",
+        "lines": [
+          154,
+          183
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 180,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 181,
+          "text": "pause(stage, 2.5)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_3",
+      "next_cue": "22_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_liar.rs",
+        "sha256": "3520eba80f867d241ee061a85e4d2343f2522d813a1c346c120514fec8d9ff9b",
+        "lines": [
+          183,
+          200
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 197,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 198,
+          "text": "pause(stage, 2.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_4",
+      "next_cue": "22_5",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_liar.rs",
+        "sha256": "3520eba80f867d241ee061a85e4d2343f2522d813a1c346c120514fec8d9ff9b",
+        "lines": [
+          200,
+          250
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 247,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 248,
+          "text": "pause(stage, 3.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_5",
+      "next_cue": "22_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_liar.rs",
+        "sha256": "3520eba80f867d241ee061a85e4d2343f2522d813a1c346c120514fec8d9ff9b",
+        "lines": [
+          250,
+          305
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 288,
+          "text": "pause(stage, 0.5)?;"
+        },
+        {
+          "line": 302,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 303,
+          "text": "pause(stage, 4.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_6",
+      "next_cue": "22_7",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_liar.rs",
+        "sha256": "3520eba80f867d241ee061a85e4d2343f2522d813a1c346c120514fec8d9ff9b",
+        "lines": [
+          305,
+          311
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 309,
+          "text": "let question = think(&k, stage, v(2.5, -1.7))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_7",
+      "next_cue": "22_8",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_liar.rs",
+        "sha256": "3520eba80f867d241ee061a85e4d2343f2522d813a1c346c120514fec8d9ff9b",
+        "lines": [
+          311,
+          368
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 365,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 366,
+          "text": "pause(stage, 4.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_8",
+      "next_cue": "22_9",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_liar.rs",
+        "sha256": "3520eba80f867d241ee061a85e4d2343f2522d813a1c346c120514fec8d9ff9b",
+        "lines": [
+          368,
+          445
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 442,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 443,
+          "text": "pause(stage, 3.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_9",
+      "next_cue": "22_10",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_liar.rs",
+        "sha256": "3520eba80f867d241ee061a85e4d2343f2522d813a1c346c120514fec8d9ff9b",
+        "lines": [
+          445,
+          482
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 479,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 480,
+          "text": "pause(stage, 2.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "22_10",
+      "next_cue": "23_1",
+      "kind": "chapter_end",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/a_liar.rs",
+        "sha256": "3520eba80f867d241ee061a85e4d2343f2522d813a1c346c120514fec8d9ff9b",
+        "lines": [
+          482,
+          505
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 502,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 503,
+          "text": "wait_until(stage, deadline)?;"
+        },
+        {
+          "line": 504,
+          "text": "pause(stage, 0.6)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_1",
+      "next_cue": "23_2",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/three_keys_two_nothing.rs",
+        "sha256": "0d8410cb5232cf122b72f55240ff5565040fc7ab8255d5db45ff92db4a70b327",
+        "lines": [
+          90,
+          161
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 158,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 159,
+          "text": "pause(stage, 2.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_2",
+      "next_cue": "23_3",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/three_keys_two_nothing.rs",
+        "sha256": "0d8410cb5232cf122b72f55240ff5565040fc7ab8255d5db45ff92db4a70b327",
+        "lines": [
+          161,
+          206
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 203,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 204,
+          "text": "pause(stage, 2.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_3",
+      "next_cue": "23_4",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/three_keys_two_nothing.rs",
+        "sha256": "0d8410cb5232cf122b72f55240ff5565040fc7ab8255d5db45ff92db4a70b327",
+        "lines": [
+          206,
+          229
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 226,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 227,
+          "text": "pause(stage, 3.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_4",
+      "next_cue": "23_5",
+      "kind": "prediction",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/three_keys_two_nothing.rs",
+        "sha256": "0d8410cb5232cf122b72f55240ff5565040fc7ab8255d5db45ff92db4a70b327",
+        "lines": [
+          229,
+          252
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 250,
+          "text": "let think = think(&k, stage, v(3.2, -0.2))?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_5",
+      "next_cue": "23_6",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/three_keys_two_nothing.rs",
+        "sha256": "0d8410cb5232cf122b72f55240ff5565040fc7ab8255d5db45ff92db4a70b327",
+        "lines": [
+          252,
+          289
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 286,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 287,
+          "text": "pause(stage, 2.5)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_6",
+      "next_cue": "23_7",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/three_keys_two_nothing.rs",
+        "sha256": "0d8410cb5232cf122b72f55240ff5565040fc7ab8255d5db45ff92db4a70b327",
+        "lines": [
+          289,
+          338
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 335,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 336,
+          "text": "pause(stage, 4.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_7",
+      "next_cue": "23_8",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/three_keys_two_nothing.rs",
+        "sha256": "0d8410cb5232cf122b72f55240ff5565040fc7ab8255d5db45ff92db4a70b327",
+        "lines": [
+          338,
+          369
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 366,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 367,
+          "text": "pause(stage, 3.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_8",
+      "next_cue": "23_9",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/three_keys_two_nothing.rs",
+        "sha256": "0d8410cb5232cf122b72f55240ff5565040fc7ab8255d5db45ff92db4a70b327",
+        "lines": [
+          369,
+          399
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 396,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 397,
+          "text": "pause(stage, 3.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    },
+    {
+      "video": "shamir_secret_sharing",
+      "cue": "23_9",
+      "next_cue": "23_10",
+      "kind": "reading_hold",
+      "reason": "Preserve implemented prediction or inspection timing; source quiet counts, no blanket padding.",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/three_keys_two_nothing.rs",
+        "sha256": "0d8410cb5232cf122b72f55240ff5565040fc7ab8255d5db45ff92db4a70b327",
+        "lines": [
+          399,
+          438
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 434,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 435,
+          "text": "wait_until(stage, quote_deadline)?;"
+        },
+        {
+          "line": 436,
+          "text": "pause(stage, 1.)?;"
+        }
+      ],
+      "timing_status": "Source instruction only; actual spoken hold unmeasured."
+    }
+  ],
+  "terminal_holds": [
+    {
+      "cue": "23_10",
+      "evidence": {
+        "path": "explainer_corpus/shamir_secret_sharing/src/chapters/three_keys_two_nothing.rs",
+        "sha256": "0d8410cb5232cf122b72f55240ff5565040fc7ab8255d5db45ff92db4a70b327",
+        "lines": [
+          438,
+          479
+        ]
+      },
+      "source_calls": [
+        {
+          "line": 476,
+          "text": "k.hold(stage)?;"
+        },
+        {
+          "line": 477,
+          "text": "wait_until(stage, deadline)?;"
+        },
+        {
+          "line": 478,
+          "text": "pause(stage, 1.)?;"
+        }
+      ]
+    }
+  ],
+  "claim": "Coverage intentions and source-call protection; not TTS delivery controls, measured spoken timing or listening acceptance. Preserve existing quiet; no blanket padding."
+}
