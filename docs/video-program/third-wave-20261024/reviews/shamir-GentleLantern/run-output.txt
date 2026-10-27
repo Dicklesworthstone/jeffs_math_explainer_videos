@@ -1,0 +1,154 @@
+== claims, the draft's parameters (p = 11, secret 5, spins 7 and 7)
+claim ok   04_1/09_6: the five shares: draft [8, 3, 1, 2, 6]; computed [8, 3, 1, 2, 6]
+claim ok   09_3/09_4: ordinary heights: draft [19, 47, 89, 145, 215]; computed [19, 47, 89, 145, 215]
+claim ok   09_6: 47 = 4 elevens and 3: draft [4, 3]; computed [4, 3]
+claim ok   02_4: B's ordinary 3 leaves: draft 8; computed 8
+claim ok   03_1: 9 + 7 on the dial: draft 5; computed 5
+claim ok   03_2: 10 + 1, 5 - 7: draft [0, 9]; computed [0, 9]
+claim ok   03_5: secret if A held 0..10: draft [7, 8, 9, 10, 0, 1, 2, 3, 4, 5, 6]; computed [7, 8, 9, 10, 0, 1, 2, 3, 4, 5, 6]
+claim ok   05_3: ways each secret fits the pair's (2, 6): draft [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; computed [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+claim ok   10_3: spins for secrets 0 and 1: draft [[1, 4], [0, 9]]; computed [[1, 4], [0, 9]]
+claim ok   10_1: the true secret's spins: draft [7, 7]; computed [7, 7]
+claim ok   05_3: a different spin pair each time: draft 11; computed 11
+claim ok   11_6: every pair, every view: all secrets equally often: draft True; computed True
+claim ok   05_4: posterior = prior (prior ~ secret+1): draft True; computed True
+claim ok   11_5: each curve at position 1: draft [5, 10, 4, 9, 3, 8, 2, 7, 1, 6, 0]; computed [5, 10, 4, 9, 3, 8, 2, 7, 1, 6, 0]
+claim ok   11_5: secrets left after trustee 1 joins: draft [5]; computed [5]
+claim ok   11_2: paper spins for secret 0: draft [37/4, 27/4]; computed [37/4, 27/4]
+claim ok   11_2: secrets with whole paper spins 0..10: draft [5]; computed [5]
+claim ok   07_3: line heights: draft [9, 13, 17, 21, 25]; computed [9, 13, 17, 21, 25]
+claim ok   07_6: paper: secrets fitting 25 at 5: draft [0, 5, 10]; computed [0, 5, 10]
+claim ok   08_1: line shares: draft [9, 2, 6, 10, 3]; computed [9, 2, 6, 10, 3]
+claim ok   08_4: step back twice from (2, 2): draft [9, 5]; computed [9, 5]
+claim ok   08_6: trustee 2 alone: secret by spin: draft [2, 0, 9, 7, 5, 3, 1, 10, 8, 6, 4]; computed [2, 0, 9, 7, 5, 3, 1, 10, 8, 6, 4]
+claim ok   08_7: doubles: draft [0, 2, 4, 6, 8, 10, 1, 3, 5, 7, 9]; computed [0, 2, 4, 6, 8, 10, 1, 3, 5, 7, 9]
+claim ok   13_4: times 5: draft [0, 5, 10, 4, 9, 3, 8, 2, 7, 1, 6]; computed [0, 5, 10, 4, 9, 3, 8, 2, 7, 1, 6]
+claim ok   15_1/15_2: opening trio weights: draft [3, -3, 1]; computed [3, -3, 1]
+claim ok   15_4: 24 - 9 + 1 and where it lands: draft [16, 5]; computed [16, 5]
+claim ok   14_5: (x-2)(x-3) at 1: draft 2; computed 2
+claim ok   16_2: second trio weights: draft [10/3, -5, 8/3]; computed [10/3, -5, 8/3]
+claim ok   16_4: dividing by 3 is times: draft 4; computed 4
+claim ok   16_5: weights on the dial: draft [7, 6, 10]; computed [7, 6, 10]
+claim ok   16_6: 7*3 + 6*2 + 10*6 and where it lands: draft [93, 5]; computed [93, 5]
+claim ok   16_7: ten-mark marks with no partner: draft [2, 4, 5, 6, 8]; computed [2, 4, 5, 6, 8]
+claim ok   15_4: Gaussian elimination mod p: the trio's recipe: draft [5, 7, 7]; computed [5, 7, 7]
+claim ok   17_1: secret rebuilt by each of the ten trios: draft [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]; computed [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]
+claim ok   17_4: most zeros of a nonzero recipe: draft 2; computed 2
+claim ok   18_4: the straight line through the pair meets 0 at: draft 8; computed 8
+claim ok   18_4: secrets left when b = 0 is refused: draft [0, 1, 2, 3, 4, 5, 6, 7, 9, 10]; computed [0, 1, 2, 3, 4, 5, 6, 7, 9, 10]
+claim ok   18_5: 8*3 - 3*3 + 2*1 and where it lands: draft [17, 6]; computed [17, 6]
+claim ok   18_6: the lie predicts trustee 4 holds: draft 5; computed 5
+claim ok   19_4: four of seven: ways each secret fits three shares: draft [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; computed [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+== negative controls: one assumption broken; each must fail somewhere
+control[ten-mark dial] FAIL 04_1/09_6: the five shares: draft [8, 3, 1, 2, 6]; computed [9, 7, 9, 5, 5]
+control[ten-mark dial] FAIL 09_6: 47 = 4 elevens and 3: draft [4, 3]; computed [4, 7]
+control[ten-mark dial] FAIL 02_4: B's ordinary 3 leaves: draft 8; computed 7
+control[ten-mark dial] FAIL 03_1: 9 + 7 on the dial: draft 5; computed 6
+control[ten-mark dial] FAIL 03_2: 10 + 1, 5 - 7: draft [0, 9]; computed [1, 8]
+control[ten-mark dial] FAIL 03_5: secret if A held 0..10: draft [7, 8, 9, 10, 0, 1, 2, 3, 4, 5, 6]; computed [7, 8, 9, 0, 1, 2, 3, 4, 5, 6]
+control[ten-mark dial] FAIL 05_3: ways each secret fits the pair's (2, 6): draft [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; computed [0, 0, 0, 0, 0, 10, 0, 0, 0, 0]
+control[ten-mark dial] FAIL 10_3: spins for secrets 0 and 1: draft [[1, 4], [0, 9]]; computed [None, None]
+control[ten-mark dial] FAIL 10_1: the true secret's spins: draft [7, 7]; computed None
+control[ten-mark dial] FAIL 05_3: a different spin pair each time: draft 11; computed 1
+control[ten-mark dial] FAIL 11_6: every pair, every view: all secrets equally often: draft True; computed False
+control[ten-mark dial] FAIL 05_4: posterior = prior (prior ~ secret+1): draft True; computed False
+control[ten-mark dial] FAIL 11_5: each curve at position 1: draft [5, 10, 4, 9, 3, 8, 2, 7, 1, 6, 0]; computed [None, None, None, None, None, None, None, None, None, None]
+control[ten-mark dial] FAIL 11_5: secrets left after trustee 1 joins: draft [5]; computed []
+control[ten-mark dial] FAIL 07_6: paper: secrets fitting 25 at 5: draft [0, 5, 10]; computed [0, 5]
+control[ten-mark dial] FAIL 08_1: line shares: draft [9, 2, 6, 10, 3]; computed [9, 3, 7, 1, 5]
+control[ten-mark dial] FAIL 08_4: step back twice from (2, 2): draft [9, 5]; computed [8, 4]
+control[ten-mark dial] FAIL 08_6: trustee 2 alone: secret by spin: draft [2, 0, 9, 7, 5, 3, 1, 10, 8, 6, 4]; computed [3, 1, 9, 7, 5, 3, 1, 9, 7, 5]
+control[ten-mark dial] FAIL 08_7: doubles: draft [0, 2, 4, 6, 8, 10, 1, 3, 5, 7, 9]; computed [0, 2, 4, 6, 8, 0, 2, 4, 6, 8]
+control[ten-mark dial] FAIL 13_4: times 5: draft [0, 5, 10, 4, 9, 3, 8, 2, 7, 1, 6]; computed [0, 5, 0, 5, 0, 5, 0, 5, 0, 5]
+control[ten-mark dial] FAIL 15_4: 24 - 9 + 1 and where it lands: draft [16, 5]; computed [15, 5]
+control[ten-mark dial] FAIL 16_4: dividing by 3 is times: draft 4; computed 7
+control[ten-mark dial] FAIL 16_5: weights on the dial: draft [7, 6, 10]; computed [0, 5, 6]
+control[ten-mark dial] FAIL 16_6: 7*3 + 6*2 + 10*6 and where it lands: draft [93, 5]; computed [55, 5]
+control[ten-mark dial] FAIL 15_4: Gaussian elimination mod p: the trio's recipe: draft [5, 7, 7]; computed None
+control[ten-mark dial] FAIL 17_1: secret rebuilt by each of the ten trios: draft [5, 5, 5, 5, 5, 5, 5, 5, 5, 5]; computed [5, 5, None, 5, None, 5, 5, 5, 5, 5]
+control[ten-mark dial] FAIL 17_4: most zeros of a nonzero recipe: draft 2; computed 10
+control[ten-mark dial] FAIL 18_4: the straight line through the pair meets 0 at: draft 8; computed 5
+control[ten-mark dial] FAIL 18_4: secrets left when b = 0 is refused: draft [0, 1, 2, 3, 4, 5, 6, 7, 9]; computed [5]
+control[ten-mark dial] FAIL 18_5: 8*3 - 3*3 + 2*1 and where it lands: draft [17, 6]; computed [17, 7]
+control[ten-mark dial] FAIL 19_4: four of seven: ways each secret fits three shares: draft [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; computed [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+control[ten-mark dial] fails as expected at ['05_3', '05_4', '11_6'] (31 claims failed in all)
+control[spins 7 and 6] FAIL 04_1/09_6: the five shares: draft [8, 3, 1, 2, 6]; computed [7, 10, 3, 8, 3]
+control[spins 7 and 6] FAIL 09_3/09_4: ordinary heights: draft [19, 47, 89, 145, 215]; computed [18, 43, 80, 129, 190]
+control[spins 7 and 6] FAIL 09_6: 47 = 4 elevens and 3: draft [4, 3]; computed [3, 10]
+control[spins 7 and 6] FAIL 10_3: spins for secrets 0 and 1: draft [[1, 4], [0, 9]]; computed [[1, 3], [0, 8]]
+control[spins 7 and 6] FAIL 10_1: the true secret's spins: draft [7, 7]; computed [7, 6]
+control[spins 7 and 6] FAIL 11_5: each curve at position 1: draft [5, 10, 4, 9, 3, 8, 2, 7, 1, 6, 0]; computed [4, 9, 3, 8, 2, 7, 1, 6, 0, 5, 10]
+control[spins 7 and 6] FAIL 11_2: paper spins for secret 0: draft [37/4, 27/4]; computed [37/4, 23/4]
+control[spins 7 and 6] FAIL 15_4: 24 - 9 + 1 and where it lands: draft [16, 5]; computed [-6, 5]
+control[spins 7 and 6] FAIL 16_6: 7*3 + 6*2 + 10*6 and where it lands: draft [93, 5]; computed [148, 5]
+control[spins 7 and 6] FAIL 15_4: Gaussian elimination mod p: the trio's recipe: draft [5, 7, 7]; computed [5, 7, 6]
+control[spins 7 and 6] FAIL 18_4: the straight line through the pair meets 0 at: draft 8; computed 6
+control[spins 7 and 6] FAIL 18_4: secrets left when b = 0 is refused: draft [0, 1, 2, 3, 4, 5, 6, 7, 9, 10]; computed [0, 1, 2, 3, 4, 5, 7, 8, 9, 10]
+control[spins 7 and 6] fails as expected at ['04_1/09_6', '10_1'] (12 claims failed in all)
+control[b = 0 refused] FAIL 05_3: ways each secret fits the pair's (2, 6): draft [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; computed [1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 1]
+control[b = 0 refused] FAIL 11_6: every pair, every view: all secrets equally often: draft True; computed False
+control[b = 0 refused] FAIL 05_4: posterior = prior (prior ~ secret+1): draft True; computed False
+control[b = 0 refused] fails as expected at ['05_3', '05_4', '11_6'] (3 claims failed in all)
+control[ten-mark spare dial] FAIL 05_3: ways each secret fits the pair's (2, 6): draft [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]; computed [1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0]
+control[ten-mark spare dial] FAIL 11_6: every pair, every view: all secrets equally often: draft True; computed False
+control[ten-mark spare dial] FAIL 05_4: posterior = prior (prior ~ secret+1): draft True; computed False
+control[ten-mark spare dial] FAIL 18_4: secrets left when b = 0 is refused: draft [0, 1, 2, 3, 4, 5, 6, 7, 9, 10]; computed [0, 1, 3, 4, 5, 6, 7, 9]
+control[ten-mark spare dial] fails as expected at ['05_3', '05_4', '11_6'] (4 claims failed in all)
+
+== side checks
+ok   12_5 ten-mark pairs that leak: 9
+ok   ten-mark pair that learns nothing: [[1, 3]]
+ok   same pairs by the (1, 1)-in-image criterion: [[1, 3]]
+ok   12_2 ten-mark (4, 5) seeing (5, 5): secrets: [5]
+ok   12_3 5*y4 - 4*y5 = s on ten marks, every recipe: True
+ok   12_5 the same sum is s + 2b on eleven, every recipe: True
+ok   12_5 the pair's sum on eleven: [-14, 8]
+ok   13_2 ten-mark line, trustee 5 holding 5: secrets: [0, 5]
+ok   ten-mark line, trustee 2 holding 3: secrets (parity): [1, 3, 5, 7, 9]
+ok   13_7 smallest prime above five: 7
+ok   13_7 seven marks: every pair of 1..5 learns nothing: True
+ok   six marks (not prime): pairs that leak: True
+info ten marks: trios whose shares can leave two or more secrets: [[1, 3, 5]]
+info ten marks: trio (1, 3, 5) holding (9, 9, 5): secrets: [0, 5]
+ok   ten marks: 5 + 5x^2 is zero at 1, 3 and 5: [0, 0, 0]
+ok   17_6 5x + 5x^2 on ten marks: zeros: 10
+info ten marks: opening trio's example shares (9, 7, 9): secrets: [5]
+ok   trio (1, 2, 3): paper sum of true heights: 5
+info trio (1, 2, 3): paper sum of wrapped shares: 16
+ok   trio (2, 4, 5): paper sum of true heights: 5
+info trio (2, 4, 5): paper sum of wrapped shares: 16
+info trios whose paper sum of wrapped shares is a fraction: []
+ok   every trio's naive sum, put on the dial, is 5: True
+info secret 5: spin pairs whose trio (2, 4, 5) naive sum is a fraction: 80
+ok   e.g. spins 0 and 1: trio (2, 4, 5) holds, naive sum, on the dial: [[9, 10, 8], 4/3, 5]
+ok   a whole naive sum always wraps to 5 (11 is coprime to every weight's bottom): True
+ok   06_5 a lock every trio opens stops at most: 1
+ok   06_5 so the fewest locks is the number of pairs: 10
+ok   06_3 keys each = pairs without that trustee: 6
+ok   06_7 Liu: locks C(11,5), keys C(10,5): [462, 252]
+ok   19_4 every 3 of positions 1..7: spins fixed by secret + shares (det != 0 mod 11): True
+ok   spins fair over 0..10: pair (4,5) learns nothing: True
+ok   b = 0 refused: pair (4,5) learns something: False
+ok   a = 0 refused: pair (4,5) learns something: False
+ok   spare dial of ten marks (spins 0..9): pair (4,5) learns something: False
+ok   first spin tied to the secret (a = s): pair (4,5) learns something: False
+ok   one trustee alone, fair spins: learns nothing (each position): True
+
+== chapter 01 timeline estimate (no audio; words/wps, character shares)
+wps 2.4: chapter ~92.8 s; cues the picture reaches late: 01_4 'One absence' +0.69s
+wps 2.68: chapter ~84.2 s; cues the picture reaches late: 01_1 'one vault' +0.11s; 01_4 'One absence' +0.77s
+wps 3.0: chapter ~76.3 s; cues the picture reaches late: 01_1 'one vault' +0.27s; 01_4 'One absence' +0.83s
+
+== the author's oracle, run unchanged
+# oracle exit 0; its stderr follows verbatim
+# oracle stderr: # self-test: ten-mark dial pairs that leak: 9 of 10
+# oracle stderr: # 152 facts, 0 failed cross-checks
+# oracle: 152 facts read; 21 compared with mine; 0 differ
+
+== source consistency (snapshot files)
+ok   chapter 01 rows: storyboard.md = storyboard-draft.md (6 rows)
+ok   script.tsv lines = script-draft.tsv's 01 lines (6 lines)
+ok   SPOKEN replay: 14 rows, 1 not-a-count, 40 number words, facts checked
+
+== ALL HOLD

@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-10-21",
+  "updated_on": "2026-10-27",
   "work_tracker": ".beads",
   "consumer": "Channel owner and video producers",
   "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
@@ -395,7 +395,7 @@
     },
     {
       "video_id": "raptorq_gf256",
-      "working_title": "The Arithmetic Where 3 × 7 = 9",
+      "working_title": "The Arithmetic Where 3 \u00d7 7 = 9",
       "work_epic": "mx-e-b-qyy",
       "production_approval": "historical_granted",
       "decisions": [
@@ -1504,7 +1504,7 @@
     {
       "video_id": "square_packing",
       "working_title": "Why turning a square can make the whole box smaller",
-      "pitch": "Five unit squares; construct a side `2 + √2/2` container, distinguish a feasible construction from a lower bound, then explain why local motion and global optimality differ. Contacts and forbidden regions, not a gallery of records.",
+      "pitch": "Five unit squares; construct a side `2 + \u221a2/2` container, distinguish a feasible construction from a lower bound, then explain why local motion and global optimality differ. Contacts and forbidden regions, not a gallery of records.",
       "work_epic": "mx-video-program-program-87do.5",
       "production_approval": "explicit_current_grant",
       "decisions": [
@@ -1951,7 +1951,7 @@
             },
             "evidence_state": "fail"
           },
-          "generation_provenance": "Full 3840x2160/60fps H.264 BT.709 scored export: 14893 frames, 248.216667 seconds, 48 kHz stereo AAC and 79 embedded English captions covering 74 sentences. One bounded following-context seed2 repair replaces the truncated chapter01 ending; its target ends at source sample521040 and excludes96480 context samples. The up/Its seam is at129662 after the measured release. All41 selected cues were reconstructed exactly. All four final timelines match the refreshed score inputs, native PCM replay null checks and score QA pass, and layout files are empty. Full software and VideoToolbox hardware decodes pass with zero errors. All decoded frames of unchanged chapters02–04 equal the previously reviewed 4K export; root additionally viewed all ten new chapter01 cues, two-second samples, question/reveal and ending samples, and three final-master joins. These are technical and sampled visual observations, not continuous listening. Detailed source mappings are in the cue assembly; empty artifact input lists mean incomplete catalog lineage.",
+          "generation_provenance": "Full 3840x2160/60fps H.264 BT.709 scored export: 14893 frames, 248.216667 seconds, 48 kHz stereo AAC and 79 embedded English captions covering 74 sentences. One bounded following-context seed2 repair replaces the truncated chapter01 ending; its target ends at source sample521040 and excludes96480 context samples. The up/Its seam is at129662 after the measured release. All41 selected cues were reconstructed exactly. All four final timelines match the refreshed score inputs, native PCM replay null checks and score QA pass, and layout files are empty. Full software and VideoToolbox hardware decodes pass with zero errors. All decoded frames of unchanged chapters02\u201304 equal the previously reviewed 4K export; root additionally viewed all ten new chapter01 cues, two-second samples, question/reveal and ending samples, and three final-master joins. These are technical and sampled visual observations, not continuous listening. Detailed source mappings are in the cue assembly; empty artifact input lists mean incomplete catalog lineage.",
           "evidence_refs": [
             "mx-video-program-program-87do.6.7",
             "mx-video-program-program-87do.2.11",
@@ -2307,6 +2307,15 @@
             "docs/video-program/README.md",
             "docs/video-program/research-20261016/SLATE.md"
           ]
+        },
+        {
+          "on": "2026-10-23",
+          "decision": "published",
+          "by": "Owner explicitly authorized; orchestrator BlueSalmon published through native Computer UI",
+          "reason": "Uploaded the exact completed paced 4K60 master with title, description, chapters, thumbnail and timed English captions. Studio publication and public watch-page 2160p60 playback verified. Prior no-publication statements describe earlier delivery state; publication does not imply continuous perceptual acceptance.",
+          "source_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
+          ]
         }
       ],
       "source_refs": [
@@ -2395,7 +2404,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-expanded-review01.mp4",
@@ -2426,14 +2435,73 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "paced-final-review01-20261023",
+          "label": "Complete revised narrated and scored 4K60 review candidate, 16:29",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-paced-final-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "25fe802b6d1c12b6a52238c9b95df4ce0cb95378794e24046648733055818cd6"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Thirteen individually source-bound native 3840x2160p60 chapters; 59338 frames, 988.966667 seconds, 99 narration cues, 258 sentences and 282 captions. Revised motivated survey setup, conditional-probability counts, single-survey prediction, uncertainty calculation, privacy tradeoffs and callbacks. Each chapter preserves its exact source, score, speech and sampled review receipts. Native replay matched all thirteen captured PCM soundtracks bit for bit. Complete AV decode, exact frame grid, selected cue bytes, prediction holds and caption sample timing passed. Root viewed 62 master joins/opening/ending samples plus individual chapter samples. All 99 clips pass canonical accent screens; 96 pass raw screens. Retained raw/canonical disagreements: 02_7, 04_7, 13_4. These are model screening results, not calibrated accent strength or listening acceptance. The approved Michael reference remains with explicitly identified native and Qwen1.7B research takes. All prior cuts and failed candidates preserved.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/rr-master-final01/delivery01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/rr-master-final01/verification01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/rr-master-final01/review01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/rr-master-final01/components01.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-paced-final-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-paced-final-review01.en.vtt",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/accent-audit-20261022/current-narration-bank62.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
+          ],
+          "disposition": "Complete local 4K review candidate with synchronized SRT/VTT. Technical and sampled visual checks passed; continuous audiovisual and perceptual qualification remains open. Exact disagreement intervals are recorded in the delivery receipt. No publication authorization or upload. Update 2026-10-23: the owner subsequently authorized publication; this exact master is now public at https://www.youtube.com/watch?v=0_w08vCm9DA. Earlier no-authorization/no-upload statements above are historical. Continuous audiovisual and perceptual qualification remains separate.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-23",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/rr-master-final01/delivery01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/rr-master-final01/verification01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/rr-master-final01/review01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/rr-master-final01/components01.json"
+              ]
+            },
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-23",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
+              ]
+            }
+          ]
         }
       ],
-      "publications": []
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "0_w08vCm9DA",
+          "url": "https://www.youtube.com/watch?v=0_w08vCm9DA",
+          "revision_id": "paced-final-review01-20261023",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-23",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
+          ]
+        }
+      ]
     },
     {
       "video_id": "discrete_tomography",
-      "working_title": "Two shadows can lie—even when every number is right",
-      "pitch": "Binary discrete tomography; identical row/column sums, 2×2 switching components, flow reconstruction, feasibility versus uniqueness.",
+      "working_title": "Two shadows can lie\u2014even when every number is right",
+      "pitch": "Binary discrete tomography; identical row/column sums, 2\u00d72 switching components, flow reconstruction, feasibility versus uniqueness.",
       "work_epic": "mx-video-program-program-87do.9",
       "production_approval": "explicit_current_grant",
       "decisions": [
@@ -2455,6 +2523,15 @@
             "AGENTS.md",
             "docs/video-program/README.md",
             "docs/video-program/research-20261016/SLATE.md"
+          ]
+        },
+        {
+          "on": "2026-10-23",
+          "decision": "published",
+          "by": "Owner explicitly authorized; orchestrator BlueSalmon published through native Computer UI",
+          "reason": "Uploaded the exact completed paced 4K60 master with title, description, chapters, thumbnail and timed English captions. Studio publication and public watch-page 2160p60 playback verified. Prior no-publication statements describe earlier delivery state; publication does not imply continuous perceptual acceptance.",
+          "source_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
           ]
         }
       ],
@@ -2544,7 +2621,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-expanded-review01.mp4",
@@ -2575,9 +2652,68 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "paced-final-review01-20261023",
+          "label": "Complete revised narrated and scored 4K60 review candidate, 15:33",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-paced-final-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "fd5192e150e8e05130501c78fb06a37b2713851508476a226f760ebeefd8569a"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Eleven individually bound native 3840x2160p60 chapters, 55,952 frames, 932.533333 seconds, 92 selected narration cues and 276 captions. Revised motivated setup, explanations and callbacks; authored semantic pauses retain source speech. Every chapter keeps its own source, score and review receipts. Native replay matched all eleven captured PCM soundtracks bit for bit; the complete programme uses one fixed gain and a single AAC encode, with video streams remuxed. Full AV decode, frame/timestamp grid, exact selected cue bytes and caption sample timing passed. Root viewed 52 actual master join/opening/ending samples plus the linked individual chapter samples. All 92 cues pass canonical accent screens; 90 pass raw screens. Two raw disagreements remain explicitly bound to 01_1 and 02_3. Screens do not establish accent strength, identity or listening acceptance. Same owner-accepted Michael reference, with native and explicitly identified Qwen1.7B research renditions; no claim all clips use one backend. Previous files preserved.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/tomography-master-final01/delivery01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/tomography-master-final01/verification01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/tomography-master-final01/review01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/tomography-master-final01/components01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/tomography-master-final01/screen-disagreements01.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-paced-final-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-paced-final-review01.en.vtt",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
+          ],
+          "disposition": "Complete local 4K review candidate delivered. Technical and sampled visual checks passed. Two raw/canonical acoustic disagreements and complete audiovisual acceptance remain open; autonomous repair continues without requiring owner feedback. No publication or release approval. Update 2026-10-23: the owner subsequently authorized publication; this exact master is now public at https://www.youtube.com/watch?v=nNTu_2eUULw. Earlier no-authorization/no-upload statements above are historical. Continuous audiovisual and perceptual qualification remains separate.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-23",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/tomography-master-final01/delivery01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/tomography-master-final01/verification01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/tomography-master-final01/review01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/tomography-master-final01/components01.json"
+              ]
+            },
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-23",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
+              ]
+            }
+          ]
         }
       ],
-      "publications": []
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "nNTu_2eUULw",
+          "url": "https://www.youtube.com/watch?v=nNTu_2eUULw",
+          "revision_id": "paced-final-review01-20261023",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-23",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
+          ]
+        }
+      ]
     },
     {
       "video_id": "group_testing",
@@ -2606,7 +2742,7 @@
     {
       "video_id": "good_turing",
       "working_title": "How much of the next sample will be something you've never seen?",
-      "pitch": "Good–Turing missing mass from singleton counts; distinguish probability mass from number of unseen species. Animate a frequency-of-frequencies table.",
+      "pitch": "Good\u2013Turing missing mass from singleton counts; distinguish probability mass from number of unseen species. Animate a frequency-of-frequencies table.",
       "work_epic": "mx-video-program-program-87do.11",
       "production_approval": "not_requested",
       "decisions": [
@@ -2632,7 +2768,7 @@
       "working_title": "How many machines were built, from a handful of serial numbers?",
       "pitch": "German-tank inference via order statistics and the gaps around the sample maximum; sampling bias can dominate the arithmetic.",
       "work_epic": "mx-video-program-program-87do.12",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-16",
@@ -2642,6 +2778,17 @@
           "source_refs": [
             "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
             "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        },
+        {
+          "on": "2026-10-24",
+          "decision": "selected",
+          "by": "Owner delegated next-five selection using channel stats; orchestrator BlueSalmon",
+          "reason": "Selected for initial writing and source work in five Claude Code Opus 5.5 xhigh lanes after both final remaining second-wave films were verified public. Selection remains reversible under independent review. Analytics are directional, not a guarantee of views or likes; narration and production qualification remain open.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/third-wave-20261024/MOR_CASE.md",
+            "docs/video-program/third-wave-20261024/SELECTION.md"
           ]
         }
       ],
@@ -2658,7 +2805,7 @@
       "working_title": "Why the average passenger waits longer than half the average gap",
       "pitch": "Renewal reward and length-biased sampling; turn a timeline into the area under residual-wait triangles.",
       "work_epic": "mx-video-program-program-87do.13",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-16",
@@ -2668,14 +2815,78 @@
           "source_refs": [
             "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
           ]
+        },
+        {
+          "on": "2026-10-24",
+          "decision": "selected",
+          "by": "Owner delegated next-five selection using channel stats; orchestrator BlueSalmon",
+          "reason": "Selected for initial writing and source work in five Claude Code Opus 5.5 xhigh lanes after both final remaining second-wave films were verified public. Selection remains reversible under independent review. Analytics are directional, not a guarantee of views or likes; narration and production qualification remain open.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/third-wave-20261024/MOR_CASE.md",
+            "docs/video-program/third-wave-20261024/SELECTION.md"
+          ]
+        },
+        {
+          "on": "2026-10-27",
+          "decision": "published",
+          "by": "owner explicit request and root UI verification",
+          "reason": "Finish and publish the five films; native 4K60 release and captions verified on public YouTube page.",
+          "source_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/publication-receipt.json"
+          ]
         }
       ],
       "source_refs": [
         "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
       ],
       "related_video_ids": [],
-      "revisions": [],
-      "publications": []
+      "revisions": [
+        {
+          "revision_id": "michael-4k60-20261027",
+          "label": "Why Your Bus Wait Is Longer Than You Expect",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/final03/inspection_paradox_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "ba123b057286003ce833a8e0d61569368dd5f17c7db0686d9552091e28d2a301"
+            },
+            "evidence_state": "verified_current"
+          },
+          "generation_provenance": "Retained complete 71-unit narration plan, 92 cue placements; original takes preserved",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/publication-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/final-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/final-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "published",
+              "recorded_as_of": "2026-10-27",
+              "evidence_state": "verified_current",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/publication-receipt.json"
+              ]
+            }
+          ],
+          "disposition": "Public release authorized by owner; auditory acceptance limits retained in receipt."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "ELxgByPW13s",
+          "url": "https://youtu.be/ELxgByPW13s",
+          "revision_id": "michael-4k60-20261027",
+          "visibility": "public",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/publication-receipt.json"
+          ],
+          "evidence_state": "verified_current",
+          "recorded_as_of": "2026-10-27"
+        }
+      ]
     },
     {
       "video_id": "bus_bunching",
@@ -2706,7 +2917,7 @@
       "working_title": "Two losing games, one winning schedule",
       "pitch": "Parrondo's paradox; track probability mass among capital residue classes and derive long-run drift from the stationary distribution.",
       "work_epic": "mx-video-program-program-87do.15",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-16",
@@ -2715,6 +2926,17 @@
           "reason": "Reserve. Require the losing/winning calculations, not a gambling montage.",
           "source_refs": [
             "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        },
+        {
+          "on": "2026-10-24",
+          "decision": "selected",
+          "by": "Owner delegated next-five selection using channel stats; orchestrator BlueSalmon",
+          "reason": "Selected for initial writing and source work in five Claude Code Opus 5.5 xhigh lanes after both final remaining second-wave films were verified public. Selection remains reversible under independent review. Analytics are directional, not a guarantee of views or likes; narration and production qualification remain open.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/third-wave-20261024/MOR_CASE.md",
+            "docs/video-program/third-wave-20261024/SELECTION.md"
           ]
         }
       ],
@@ -2887,7 +3109,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-expanded-review01.mp4",
@@ -2918,9 +3140,69 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "paced-final-4k60-20261024",
+          "label": "Final narrated and scored 4K60 release, 16:22",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/resistor_random_walk/delivery116/resistor_random_walk_final_4k60.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "4726f16941b0ca5df8005ce4760f1569b22444ee3115a22f514d7babd04e484a"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "11 source-bound native 3840x2160p60 chapters; 58919 frames, 981.9833333333333 seconds, 81 narration cues and 272 captions. Native PCM replay, complete final decode, BT.709 metadata, unchanged coded picture payload, caption timing and prediction holds passed. Revised motivated setup, contextual narration, mathematical reading time and callbacks. Root actually viewed 52 final join/opening/ending samples plus the individual chapter samples linked in components01.json. Fixed gain is 0 dB to retain the -1.5 dBTP ceiling; integrated loudness is below -16 LUFS. Michael reference preserved. Acoustic classifiers failed original accepted controls; strong-English accent and continuous perceptual acceptance are unverified. No listening verdict is claimed. All baseline and failed variants preserved.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/resistor_random_walk/delivery-verification116.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/resistor_random_walk/verification01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/resistor_random_walk/review01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/resistor_random_walk/components01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-remaining-publication01/resistor_random_walk/resistor_random_walk.en.srt",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-remaining-publication01/resistor_random_walk/resistor_random_walk.en.vtt",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-remaining-publication01/resistor_random_walk/publication-receipt131.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/accent-audit-20261022/remaining-publish85/control-replay128/comparison.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/accent-audit-20261022/remaining-publish85/editorial-selection129.json"
+          ],
+          "disposition": "Published under explicit owner authorization at https://www.youtube.com/watch?v=dy08JbIQ2GI. Technical and sampled visual checks passed. Publication does not close strong-English accent or continuous listening acceptance.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-24",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/resistor_random_walk/delivery-verification116.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/resistor_random_walk/verification01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/resistor_random_walk/review01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/resistor_random_walk/components01.json"
+              ]
+            },
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-24",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-remaining-publication01/resistor_random_walk/publication-receipt131.json"
+              ]
+            }
+          ]
         }
       ],
-      "publications": []
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "dy08JbIQ2GI",
+          "url": "https://www.youtube.com/watch?v=dy08JbIQ2GI",
+          "revision_id": "paced-final-4k60-20261024",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-24",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-remaining-publication01/resistor_random_walk/publication-receipt131.json"
+          ]
+        }
+      ]
     },
     {
       "video_id": "rotor_router",
@@ -2973,7 +3255,7 @@
     {
       "video_id": "maxwell_cremona",
       "working_title": "The second drawing that tells you whether a structure can hold itself up",
-      "pitch": "Maxwell–Cremona reciprocal diagrams: equilibrium force polygons, a dual graph, and a lifted surface.",
+      "pitch": "Maxwell\u2013Cremona reciprocal diagrams: equilibrium force polygons, a dual graph, and a lifted surface.",
       "work_epic": "mx-video-program-program-87do.21",
       "production_approval": "not_requested",
       "decisions": [
@@ -2997,17 +3279,28 @@
     {
       "video_id": "crofton",
       "working_title": "Measure a curve by throwing lines at it",
-      "pitch": "Cauchy–Crofton through projection and intersection counts; define the distribution of lines before averaging.",
+      "pitch": "Cauchy\u2013Crofton through projection and intersection counts; define the distribution of lines before averaging.",
       "work_epic": "mx-video-program-program-87do.22",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-16",
           "decision": "inbox",
           "by": "planning intake; owner response where stated",
-          "reason": "Reserve. A satisfying exact theorem; generic “random needles find π” would be too familiar.",
+          "reason": "Reserve. A satisfying exact theorem; generic \u201crandom needles find \u03c0\u201d would be too familiar.",
           "source_refs": [
             "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+          ]
+        },
+        {
+          "on": "2026-10-24",
+          "decision": "selected",
+          "by": "Owner delegated next-five selection using channel stats; orchestrator BlueSalmon",
+          "reason": "Selected for initial writing and source work in five Claude Code Opus 5.5 xhigh lanes after both final remaining second-wave films were verified public. Selection remains reversible under independent review. Analytics are directional, not a guarantee of views or likes; narration and production qualification remain open.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/third-wave-20261024/MOR_CASE.md",
+            "docs/video-program/third-wave-20261024/SELECTION.md"
           ]
         }
       ],
@@ -3043,6 +3336,15 @@
             "AGENTS.md",
             "docs/video-program/README.md",
             "docs/video-program/research-20261016/SLATE.md"
+          ]
+        },
+        {
+          "on": "2026-10-23",
+          "decision": "published",
+          "by": "Owner explicitly authorized; orchestrator BlueSalmon published through native Computer UI",
+          "reason": "Uploaded the exact completed paced 4K60 master with title, description, chapters, thumbnail and timed English captions. Studio publication and public watch-page 2160p60 playback verified. Prior no-publication statements describe earlier delivery state; publication does not imply continuous perceptual acceptance.",
+          "source_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
           ]
         }
       ],
@@ -3132,7 +3434,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-expanded-review01.mp4",
@@ -3163,9 +3465,68 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "paced-final-review01-20261023",
+          "label": "Complete revised narrated and scored 4K60 review candidate, 15:10",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-paced-final-review01.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "fb58e3b08f29d9945a8a5d439dce2954a149b452409becd811fccd05eac7d4d4"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "Eleven individually source-bound native 3840x2160p60 chapters,54,586frames,909.766667seconds,87 selected narration cues,243 sentences and270 captions. Revised motivated setup, worked explanations and callbacks. Every chapter retains its exact source, score, speech and sampled review receipts. Native replay matched all eleven captured PCM soundtracks bit for bit. One fixed programme gain of+1.27dB and a single AAC encode; chapter video streams remuxed. Full AV decode, exact frame grid, selected cue bytes, prediction holds and caption sample timing passed. Root actually viewed52 master-join/opening/ending samples plus linked individual chapter samples. All87 final narration clips pass both raw and pause-normalized accent screens, with no unresolved Freivalds parent selections. This is operational model evidence, not certified accent strength or listening acceptance. The same approved Michael reference is preserved with explicitly identified Qwen1.7B research renditions and native takes; no claim that all clips use one backend. All prior cuts and failed candidates retained.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/freivalds-master-final01/delivery01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/freivalds-master-final01/verification01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/freivalds-master-final01/review01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/freivalds-master-final01/components01.json",
+            "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-paced-final-review01.en.srt",
+            "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-paced-final-review01.en.vtt",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/accent-audit-20261022/current-narration-bank52.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
+          ],
+          "disposition": "Complete local4K review candidate delivered with synchronized SRT/VTT. Technical and sampled visual checks passed. The11_1 promise-is/promises ASR segmentation ambiguity is retained; not an audible-defect judgment. Continuous audiovisual and perceptual qualification remain open; model screens do not establish hearing. No publication authorization or upload. Update 2026-10-23: the owner subsequently authorized publication; this exact master is now public at https://www.youtube.com/watch?v=2IXHk72Reb0. Earlier no-authorization/no-upload statements above are historical. Continuous audiovisual and perceptual qualification remains separate.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-23",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/freivalds-master-final01/delivery01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/freivalds-master-final01/verification01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/freivalds-master-final01/review01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/freivalds-master-final01/components01.json"
+              ]
+            },
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-23",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
+              ]
+            }
+          ]
         }
       ],
-      "publications": []
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "2IXHk72Reb0",
+          "url": "https://www.youtube.com/watch?v=2IXHk72Reb0",
+          "revision_id": "paced-final-review01-20261023",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-23",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
+          ]
+        }
+      ]
     },
     {
       "video_id": "distinct_streaming",
@@ -3270,7 +3631,7 @@
     {
       "video_id": "steiner_tree",
       "working_title": "Why the shortest connecting network adds a point nobody asked for",
-      "pitch": "Steiner trees; derive the 120° junction by local length variation, then show topology choices and local/global distinction.",
+      "pitch": "Steiner trees; derive the 120\u00b0 junction by local length variation, then show topology choices and local/global distinction.",
       "work_epic": "mx-video-program-program-87do.28",
       "production_approval": "not_requested",
       "decisions": [
@@ -3293,7 +3654,7 @@
     },
     {
       "video_id": "stable_matching",
-      "working_title": "The matching that is stable—and still rewards someone for lying",
+      "working_title": "The matching that is stable\u2014and still rewards someone for lying",
       "pitch": "Deferred acceptance, stability, proposer advantage, and a concrete manipulation example under stated roles.",
       "work_epic": "mx-video-program-program-87do.29",
       "production_approval": "not_requested",
@@ -3716,7 +4077,7 @@
       "working_title": "Shamir secret sharing",
       "pitch": "Threshold reconstruction and exact privacy assumptions.",
       "work_epic": "mx-video-program-program-87do.46",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-16",
@@ -3725,6 +4086,17 @@
           "reason": "Imported future-corpus idea, not selected. Threshold reconstruction and exact privacy assumptions.",
           "source_refs": [
             "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
+          ]
+        },
+        {
+          "on": "2026-10-24",
+          "decision": "selected",
+          "by": "Owner delegated next-five selection using channel stats; orchestrator BlueSalmon",
+          "reason": "Selected for initial writing and source work in five Claude Code Opus 5.5 xhigh lanes after both final remaining second-wave films were verified public. Selection remains reversible under independent review. Analytics are directional, not a guarantee of views or likes; narration and production qualification remain open.",
+          "source_refs": [
+            "AGENTS.md",
+            "docs/video-program/third-wave-20261024/MOR_CASE.md",
+            "docs/video-program/third-wave-20261024/SELECTION.md"
           ]
         }
       ],
@@ -3737,7 +4109,7 @@
     },
     {
       "video_id": "reed_solomon_qr",
-      "working_title": "Reed–Solomon and QR codes",
+      "working_title": "Reed\u2013Solomon and QR codes",
       "pitch": "Error correction and an honest code-capacity example.",
       "work_epic": "mx-video-program-program-87do.47",
       "production_approval": "not_requested",
@@ -3953,7 +4325,7 @@
     },
     {
       "video_id": "diffie_hellman",
-      "working_title": "Diffie–Hellman",
+      "working_title": "Diffie\u2013Hellman",
       "pitch": "Public key exchange, hardness assumptions and authentication limits.",
       "work_epic": "mx-video-program-program-87do.56",
       "production_approval": "not_requested",
@@ -4061,7 +4433,7 @@
             },
             "evidence_state": "unknown"
           },
-          "generation_provenance": "Complete native 1920x1080p60 narrated review cut: 53185 frames, 886.416667s, 12 chapters, 256 timed captions covering 233 sentences. Existing Michael-reference route with selected original takes and sample-preserving cue assembly; exact source and narration lineage is in the input and chapter receipts. Every captured chapter soundtrack replayed bit for bit through the native mixer; full master decode passed. Caption text and native timing were verified, with at most 1ms rounding difference. Root viewed actual chapter frames and master opening/join/ending samples. These are sampled visual and technical checks. The catalog does not enumerate the full artifact graph; detailed lineage remains in the pinned receipts. The 12-chapter cut uses 36 seed 2 first takes, all actual EOS, without pickups. Three cue-boundary repairs retain all source samples exactly once. Chapter 12 has a measured six-second reading-hold repair; other 11 rendered chapter files are copied exactly. Native mark-to-answer prediction intervals range 4.55–5.05s. 91/108 normalized assembled-cue ASR checks match; 17 recognition ambiguities remain documented.",
+          "generation_provenance": "Complete native 1920x1080p60 narrated review cut: 53185 frames, 886.416667s, 12 chapters, 256 timed captions covering 233 sentences. Existing Michael-reference route with selected original takes and sample-preserving cue assembly; exact source and narration lineage is in the input and chapter receipts. Every captured chapter soundtrack replayed bit for bit through the native mixer; full master decode passed. Caption text and native timing were verified, with at most 1ms rounding difference. Root viewed actual chapter frames and master opening/join/ending samples. These are sampled visual and technical checks. The catalog does not enumerate the full artifact graph; detailed lineage remains in the pinned receipts. The 12-chapter cut uses 36 seed 2 first takes, all actual EOS, without pickups. Three cue-boundary repairs retain all source samples exactly once. Chapter 12 has a measured six-second reading-hold repair; other 11 rendered chapter files are copied exactly. Native mark-to-answer prediction intervals range 4.55\u20135.05s. 91/108 normalized assembled-cue ASR checks match; 17 recognition ambiguities remain documented.",
           "evidence_refs": [
             "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/review-cut01/verification.json",
             "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/review-cut01/inputs.json",
@@ -4119,7 +4491,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-expanded-review01.mp4",
@@ -4150,9 +4522,69 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "paced-final-4k60-20261024",
+          "label": "Final narrated and scored 4K60 release, 19:18",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/epsilon_delta/delivery116/epsilon_delta_final_4k60.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "0161bb60a77198badeff03154c736d5a02707d175303c88ef587fb13833047c1"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "12 source-bound native 3840x2160p60 chapters; 69498 frames, 1158.3 seconds, 106 narration cues and 345 captions. Native PCM replay, complete final decode, BT.709 metadata, unchanged coded picture payload, caption timing and prediction holds passed. Revised motivated setup, contextual narration, mathematical reading time and callbacks. Root actually viewed 57 final join/opening/ending samples plus the individual chapter samples linked in components01.json. Fixed gain is 0 dB to retain the -1.5 dBTP ceiling; integrated loudness is below -16 LUFS. Michael reference preserved. Acoustic classifiers failed original accepted controls; strong-English accent and continuous perceptual acceptance are unverified. No listening verdict is claimed. All baseline and failed variants preserved.",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/epsilon_delta/delivery-verification116.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/epsilon_delta/verification01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/epsilon_delta/review01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/epsilon_delta/components01.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-remaining-publication01/epsilon_delta/epsilon_delta.en.srt",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-remaining-publication01/epsilon_delta/epsilon_delta.en.vtt",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-remaining-publication01/epsilon_delta/publication-receipt131.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/accent-audit-20261022/remaining-publish85/control-replay128/comparison.json",
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/accent-audit-20261022/remaining-publish85/editorial-selection129.json"
+          ],
+          "disposition": "Published under explicit owner authorization at https://www.youtube.com/watch?v=ctVHmGixNr4. Technical and sampled visual checks passed. Publication does not close strong-English accent or continuous listening acceptance.",
+          "milestones": [
+            {
+              "stage": "master_recorded",
+              "recorded_as_of": "2026-10-24",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/epsilon_delta/delivery-verification116.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/epsilon_delta/verification01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/epsilon_delta/review01.json",
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/final-two-masters01/epsilon_delta/components01.json"
+              ]
+            },
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-24",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-remaining-publication01/epsilon_delta/publication-receipt131.json"
+              ]
+            }
+          ]
         }
       ],
-      "publications": []
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "ctVHmGixNr4",
+          "url": "https://www.youtube.com/watch?v=ctVHmGixNr4",
+          "revision_id": "paced-final-4k60-20261024",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-24",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-remaining-publication01/epsilon_delta/publication-receipt131.json"
+          ]
+        }
+      ]
     }
   ],
   "coverage": {

@@ -1,0 +1,130 @@
+== 1. the two handicap regimes (stationary weights by net-flow equations)
+ok   round.a: weights sum to 1 and pi P = pi exactly
+ok   round.a: float power iteration agrees to 1e-12
+   round.a: coins 1/2,1/2,1/2  weights 1/3,1/3,1/3 (33.3, 33.3, 33.3 %)  mean 0 = 0.00 cents
+ok   round.b: weights sum to 1 and pi P = pi exactly
+ok   round.b: float power iteration agrees to 1e-12
+   round.b: coins 1/10,3/4,3/4  weights 5/13,2/13,6/13 (38.5, 15.4, 46.2 %)  mean 0 = 0.00 cents
+ok   round.mix: weights sum to 1 and pi P = pi exactly
+ok   round.mix: float power iteration agrees to 1e-12
+   round.mix: coins 3/10,5/8,5/8  weights 245/709,180/709,284/709 (34.6, 25.4, 40.1 %)  mean 18/709 = 2.54 cents
+ok   round: B's win from the dial equals sum pi_i p_i
+ok   round: mix win = (A coin + B-in-mix)/2 (game decomposition)
+   round: B fair share 5/13 (38.5 %), B win 50.00 %, B rounds in mix 52.54 %, mix win 51.27 %, die-chosen 8/15 (53.3 %)
+ok   round.a: in-tree weights / W = flux weights
+ok   round.a: K06 mean = 3 (fwd - back) / W
+ok   round.a: sign rule (mean > 0 iff fwd > back)
+ok   round.b: in-tree weights / W = flux weights
+ok   round.b: K06 mean = 3 (fwd - back) / W
+ok   round.b: sign rule (mean > 0 iff fwd > back)
+ok   round.mix: in-tree weights / W = flux weights
+ok   round.mix: K06 mean = 3 (fwd - back) / W
+ok   round.mix: sign rule (mean > 0 iff fwd > back)
+ok   pub.a: weights sum to 1 and pi P = pi exactly
+ok   pub.a: float power iteration agrees to 1e-12
+   pub.a: coins 99/200,99/200,99/200  weights 1/3,1/3,1/3 (33.3, 33.3, 33.3 %)  mean -1/100 = -1.00 cents
+ok   pub.b: weights sum to 1 and pi P = pi exactly
+ok   pub.b: float power iteration agrees to 1e-12
+   pub.b: coins 19/200,149/200,149/200  weights 32401/84463,13031/84463,39031/84463 (38.4, 15.4, 46.2 %)  mean -73443/8446300 = -0.87 cents
+ok   pub.mix: weights sum to 1 and pi P = pi exactly
+ok   pub.mix: float power iteration agrees to 1e-12
+   pub.mix: coins 59/200,31/50,31/50  weights 49/142,433/1704,683/1704 (34.5, 25.4, 40.1 %)  mean 223/14200 = 1.57 cents
+ok   pub: B's win from the dial equals sum pi_i p_i
+ok   pub: mix win = (A coin + B-in-mix)/2 (game decomposition)
+   pub: B fair share 49/130 (37.7 %), B win 49.57 %, B rounds in mix 52.07 %, mix win 50.79 %, die-chosen 317/600 (52.8 %)
+ok   pub.a: in-tree weights / W = flux weights
+ok   pub.a: K06 mean = 3 (fwd - back) / W
+ok   pub.a: sign rule (mean > 0 iff fwd > back)
+ok   pub.b: in-tree weights / W = flux weights
+ok   pub.b: K06 mean = 3 (fwd - back) / W
+ok   pub.b: sign rule (mean > 0 iff fwd > back)
+ok   pub.mix: in-tree weights / W = flux weights
+ok   pub.mix: K06 mean = 3 (fwd - back) / W
+ok   pub.mix: sign rule (mean > 0 iff fwd > back)
+ok   round B is exactly fair; weights 5/13, 2/13, 6/13
+ok   round mix mean 18/709 (Ethier & Lee)
+ok   published: A -1/100, B -73443/8446300, mix +223/14200
+   handicap costs the mix 0.97 cents; the mix moves 76.2 % of the way to thirds
+   halfway between A and B: -0.93 cents (the attractive wrong answer)
+   03_2: published coins with equal thirds win 52.83 %
+   10_3 check (round B): good-coin wins at corner 1 vs 2 = 25.0 % vs 75.0 %; every win at corner 2 lands on corner 0 (2 -> 0 is forward)
+   10_3 check (pub B): good-coin wins at corner 1 vs 2 = 25.0 % vs 75.0 %; every win at corner 2 lands on corner 0 (2 -> 0 is forward)
+ok   400 random games: equal net flow on all edges, mean = 3 J = 3 (fwd - back)/W
+== 2. the expected crowd (26) and the mix crowd (1,418)
+   crowd: smallest whole crowd 26; counts 10,4,12; forward 1,3,9; back 9,1,3; arrivals 10,4,12; net per edge 0,0,0; winners 13, losers 13
+ok   crowd: one round leaves the counts unchanged and conserves the total
+   mixcrowd: smallest whole crowd 1418; counts 490,360,568; forward 147,225,355; back 343,135,213; arrivals 490,360,568; net per edge 12,12,12; winners 727, losers 691
+ok   mixcrowd: one round leaves the counts unchanged and conserves the total
+   expected crowd from (26, 0, 0) under round B, rounds 1-6: 0.0,2.6,23.4; 18.2,5.9,2.0; 2.9,2.3,20.8; 16.2,5.5,4.4; 4.6,2.7,18.7; 14.7,5.1,6.2
+   within half a player of (10, 4, 12) at every corner from round 24 on (checked to round 400)
+   share at corner 0, rounds 1-10: 0.0, 70.0, 11.2, 62.1, 17.9, 56.4, 22.8, 52.1, 26.6, 48.8
+   round B: transient eigenvalues -0.1292, -0.8708 (negative: the crowd sloshes, flipping sign each round)
+   round mix: transient eigenvalues -0.3146, -0.6854 (negative: the crowd sloshes, flipping sign each round)
+   pub B: transient eigenvalues -0.1279, -0.8721 (negative: the crowd sloshes, flipping sign each round)
+   pub mix: transient eigenvalues -0.3135, -0.6865 (negative: the crowd sloshes, flipping sign each round)
+   11_5 check, the mix started from B's settled crowd (10, 4, 12), round coins, shares %:
+     round 0: corner 0 38.5, corner 1 15.4, corner 2 46.2
+     round 1: corner 0 34.6, corner 1 28.8, corner 2 36.5
+     round 2: corner 0 33.7, corner 1 24.1, corner 2 42.3
+     round 3: corner 0 35.4, corner 1 25.9, corner 2 38.6
+     round 4: corner 0 33.9, corner 1 25.1, corner 2 41.0
+     round 5: corner 0 35.1, corner 1 25.5, corner 2 39.4
+     round 6: corner 0 34.2, corner 1 25.3, corner 2 40.5
+     round 7: corner 0 34.8, corner 1 25.5, corner 2 39.7
+     round 8: corner 0 34.4, corner 1 25.3, corner 2 40.3
+ok   11_5: after ONE mix round corner 0 is already 9/26 = 34.6 % and corner 1 overshoots to 7.5/26 = 28.8 %
+== 3. 26 real random players at (10, 4, 12), round B, one round
+ok   joint distribution sums to 1
+   P(the counts come back exactly 10, 4, 12)        = 0.0707  (151741764353756313/2147483648000000000)
+   P(the six flows are exactly 1/9, 3/1, 9/3)       = 0.0422
+   P(exactly 13 winners)                            = 0.2016
+   P(exactly 1 of the 10 at corner 0 wins)          = 0.3874
+   corner 0 after the round: mean 10, standard deviation 1.73 players, P(9..11) = 0.617
+   long-run (stationary) crowd of 26 independent players: P(exactly 10, 4, 12) = 0.0358; corner-0 count 10 +/- 2.48 (binomial 26, 5/13)
+ok   a real crowd keeps 10, 4, 12 for one round less than one time in ten
+   illustration (one seeded draw, SplitMix64 seed 26): 26 real players from corner 0, counts at rounds 24-30: 24: [8, 8, 10]; 25: [10, 2, 14]; 26: [15, 0, 11]; 27: [8, 5, 13]; 28: [10, 4, 12]; 29: [11, 3, 12]; 30: [11, 4, 11]
+== 4. mixture vs periodic schedules ((corner, phase) chain, exact)
+ok   round coins, AB per round played = 0 (Ethier & Lee pin)
+ok   round coins, AABB per round played = 4/163 (Ethier & Lee pin)
+ok   round coins, ABB per round played = 2416/35601 (Ethier & Lee pin)
+ok   round coins, AAB per round played = 32/1609 (Ethier & Lee pin)
+ok   published AB: exact -0.674 cents; float Cesaro average over 200,000 rounds agrees to 1e-5
+ok   published AABB: exact 1.465 cents; float Cesaro average over 200,000 rounds agrees to 1e-5
+   AB at eps = 0 over rho (A fair; B p0 = rho^2/(1+rho^2), p1 = p2 = 1/(1+rho)):
+     rho  1/5: AB   0   ABB +0.13795   AABB +0.05083
+     rho  1/4: AB   0   ABB +0.10717   AABB +0.03921
+     rho  1/3: AB   0   ABB +0.06786   AABB +0.02454
+     rho  2/5: AB   0   ABB +0.04532   AABB +0.01624
+     rho  1/2: AB   0   ABB +0.02283   AABB +0.00809
+     rho  2/3: AB   0   ABB +0.00530   AABB +0.00185
+     rho  3/4: AB   0   ABB +0.00197   AABB +0.00069
+     rho  3/2: AB   0   ABB -0.00530   AABB -0.00185
+     rho    2: AB   0   ABB -0.02283   AABB -0.00809
+     rho    3: AB   0   ABB -0.06786   AABB -0.02454
+ok   AB is exactly fair at eps = 0 for every rho tried (10 values)
+ok   AB slope at eps -> 0: -1.34911 vs -228/169 = -1.34911
+   the share of A in the random mix (published coins):
+     crossings 7.031 % and 84.708 %; at 5 % -0.229 cents, at 90 % -0.338 cents; at 50 % 1.570
+== 5. finite horizon (exact Fraction DP to 100 rounds; float DP to 1,000)
+ok   100-round exact distribution sums to 1
+   mix, 100 rounds from 0 dollars: ahead 51.709 %, behind 39.581 %, level 8.710 %
+   (same from 7 dollars, the player's start: ahead 54.037, behind 39.581, level 6.382)
+   mix, 1,000 rounds: ahead 68.861 % from 0 dollars, 69.502 % from 7
+   a, 1,000 rounds: behind 61.206 % from 0 dollars, 61.206 % from 7
+   b, 1,000 rounds: behind 63.898 % from 0 dollars, 63.898 % from 7
+== 6. the seeded player (SplitMix64 re-implemented; contract: seed 1999, start 7, mix draws its deciding coin first, even = A, toss = draw mod 200 < chance in 200ths)
+   A: net -1062, rounds at a multiple of 3 33512 (33.51 %), low -1138, high 13
+   B: net -548, rounds at a multiple of 3 38371 (38.37 %), low -575, high 39
+   Mix: net +1748, rounds at a multiple of 3 34520 (34.52 %), low -11, high 1794
+   A's first nine values 7,8,9,8,9,10,11,12,11; B after 1,000 rounds +16
+== 7. the closing puzzle (switch by the count)
+   B at 0, A elsewhere: -2490243/9016300 = -27.62 cents; A at 0, B elsewhere: 2902797/9230300 = 31.45 cents
+ok   18_6: every coin of the reverse rule is below one half
+== 8. chapter 01 arithmetic from the_puzzle.rs constants (no frame was rendered or seen)
+   first 1,000 rounds of A: dollars -58 to 13; drawn 0.106 units wide (29 px at 4K) and 0.203 units tall (55 px)
+   the 01_10 outline is 0.50 x 0.50 units; the run inside it fills 21 % of its width and 40 % of its height
+   01_5's climb (7 -> 12, five dollars) on the long plot: 0.0143 units = 3.9 px at 4K
+   01_9 (scratch estimate): line 10.4 s; draw from 2.8 s to 9.8 s; 'ending about' at 6.7 s, when 54 % is drawn and the token reads about -881 dollars; the end readout fades in after 9.8 s
+== comparison with the author's oracle stdout
+   76 keys agree, 0 differ; 4 of mine have no oracle key
+== all checks passed

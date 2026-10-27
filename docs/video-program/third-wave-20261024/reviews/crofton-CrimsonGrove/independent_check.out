@@ -1,0 +1,103 @@
+== the coast
+ok   exact length: computed 15/2 + 1399/240 pi = 25.812867; film says 15/2 + 1399/240 pi = 25.81
+ok   arc-length sum of placed pieces: computed 25.812867177; film says the exact length
+ok   pieces join without gaps or corners: computed max gap 4.4e-16 cm, max bend 4.4e-16 rad; film says joined smoothly
+ok   reach on the card: computed |x| 7.302, |y| 2.016; film says |x| 7.30, |y| 2.02, a quarter cm inside 16 x 9
+ok   the coast never crosses itself: computed 0 crossings among 7326 chords; film says never
+ok   ends apart: computed 14.7305; film says 14.7 (14.73)
+ok   beach level and 3.5 cm: computed y -1.982362 to -1.982362, 3.500000 cm; film says a straight 3.5 cm run at -1.98
+ok   headland tangent at its middle has the coast on one side: computed highest point -1.04e-06 above it; tilt 7.5000 degrees; film says touches at one point; ruler tilts 7.5 degrees
+
+== crossings at the placements shown (meeting points, direct intersection)
+ok   direction 0, slide 0.45: computed 7 crossings, clearance 0.397 cm, clearest 0.05 grid slide 0.45; film says 7 crossings, clearance >= 0.15, slide 0.45
+ok   direction 45, slide 1.20: computed 8 crossings, clearance 0.277 cm, clearest 0.05 grid slide 1.20; film says 8 crossings, clearance >= 0.15, slide 1.20
+ok   direction 90, slide 0.30: computed 7 crossings, clearance 0.161 cm, clearest 0.05 grid slide 0.30; film says 7 crossings, clearance >= 0.15, slide 0.30
+ok   direction 135, slide 1.35: computed 8 crossings, clearance 0.152 cm, clearest 0.05 grid slide 1.35; film says 8 crossings, clearance >= 0.15, slide 1.35
+ok   first placement in walking order: computed cove,climb,rise,fall,bay,bay,end; per line bottom to top [4, 3]; film says cove,climb,rise,fall,bay,bay,end; lower line 4, upper 3
+note 02_6 says lower: cove, climb, twice round the bay -> ['cove', 'climb', 'bay', 'bay']; upper: either side of the headland and near the end -> ['rise', 'fall', 'end']
+ok   04_1 slide sequence over 1.5 cm: computed 7,9,8,7, shortest run 0.056 cm; film says 7,9,8,7, shortest 0.056
+note direction 0, the whole gap from the first placement (count, from, to): 7 0.0000..0.3967, 9 0.3967..0.9941, 8 0.9941..1.0500, 7 1.0500..1.5676, 9 1.5676..1.5724, 7 1.5724..2.0000
+ok   the tangent flicker the slide stops short of: computed 9 crossings from 1.5676 to 1.5724 cm past the start; film says 1.568 to 1.573, 0.005 wide, past the 1.5 cm shown
+
+== travel, averages and the identity
+ok   direction 0 travel and slide mean: computed travel 15.2603, exact slide mean 7.6301, counts 7..9; film says 15.26, 7.63
+ok   direction 45 travel and slide mean: computed travel 17.4852, exact slide mean 8.7426, counts 7..11; film says 17.49, 8.74
+ok   direction 90 travel and slide mean: computed travel 16.4516, exact slide mean 8.2258, counts 7..12; film says 16.45, 8.23
+ok   direction 135 travel and slide mean: computed travel 15.8213, exact slide mean 7.9106, counts 6..9; film says 15.82, 7.91
+ok   four directions: computed mean 8.12729 crossings, x pi 25.5326, error -1.086%; film says 8.13, 25.53, -1.1%
+note said-versus-shown: 8.13 x pi = 25.5411 (reads 25.54), the film shows 25.53 beside 8.13 (11_4, 23_2, 28_3)
+ok   average travel over every direction: computed 16.4330, x pi/2 = 25.8129; film says 16.43, the length 25.81
+note said-versus-shown: 8.22 x pi = 25.8239 (11_5 handles it in small print); 2 x 25.81 = 51.62 while 19_4 says 51.63 (2L = 51.6257)
+note said-versus-shown: 17.49 / 2 = 8.745 on the 11_1 table row that shows 8.74 (exact 45-degree travel 17.4852)
+ok   negative control: directions over a quarter turn only: computed 26.6528 cm; film says differs from the length (the half-turn range matters)
+ok   negative control: directions weighted 2 sin^2 instead of evenly: computed 26.1313 cm; film says differs from the length (even turning matters)
+ok   negative control: worth pi x gap, the half forgotten: computed 51.6257 cm; film says twice the length, so the worth's half matters
+ok   negative control: headland radius 4/5 instead of 3/4: computed length 25.9830; first placement 7 crossings; film says the checks see a changed coast (length not 25.81)
+
+== one drop: the exact distribution of a count over slide and direction
+ok   mean count: computed 8.21649; film says 8.22 = 2L/(pi gap)
+note exact distribution of one drop's count: {5: 0.01657, 6: 0.05394, 7: 0.29314, 8: 0.23519, 9: 0.20832, 10: 0.1358, 11: 0.04119, 12: 0.01549, 13: 0.00036}
+note 21_4 'in a thousand drops, single counts ran anywhere from five to twelve' is the seeded sample's range; the exact range is 5..13
+ok   drops meeting the sheet 13 times exist: computed chance 0.036%; widest window direction 62.475, slides 0.1979..0.2396: direct 13, polyline (20,000 per cm) 13; film says the seeded thousand ran 5 to 12 (a sample statement)
+DIFF one drop's spread, cm: computed exact 4.4319, rounds 4.4; film says 4.3 (21_4, 25_3; measured over the seeded 1,000 drops)
+ok   ten drops' spread, cm: computed 1.401; film says 1.4
+ok   ten drops off by over 1 cm: computed 43.31% exactly (the film's 1,000 repeats gave 43%); film says 43%, more than four times in ten
+DIFF drops for a spread of 0.1 cm: computed exact 1965, to the nearest hundred 2000; film says 1,868 on screen, 'about nineteen hundred' (22_3)
+ok   a thousand drops' spread, cm: computed 0.1401; film says 0.14 (22_1)
+ok   gap 4: mean x worth: computed 25.8129; film says 25.8 on average (25_2)
+DIFF gap 4: one drop's spread, cm: computed exact 8.1200, rounds 8.1; film says 8.2 (25_3; the seeded 1,000 drops)
+ok   gap 8: mean x worth: computed 25.8129; film says 25.8 on average (25_2)
+DIFF gap 8: one drop's spread, cm: computed exact 14.9313, rounds 14.9; film says 15.9 (25_3; the seeded 1,000 drops)
+note gap 2: 20,000 random drops (Python random, seed 1868) give mean x worth 25.819 and one drop's spread 4.423 cm; counts 5..13
+note gap 8: 20,000 random drops (Python random, seed 1868) give mean x worth 25.735 and one drop's spread 14.872 cm; counts 0..6
+
+== the chart: lines one at a time (19_1)
+note chart area by a line's own count (cm x share of the half turn): 1: 7.4134, 2: 0.7101, 3: 1.8603, 4: 0.2470, 5: 0.1040, 6: 0.0850
+ok   the chart's patches add up to the mean travel: computed sum of count x area 16.4330; film says 16.43 (19_4's 51.63 / pi)
+ok   lines meeting the coast, as chart area: computed 32.7350 cm rad; the coast's convex hull perimeter 32.7350; film says Cauchy: the hull's perimeter
+DIFF 19_1 'Most lines miss it entirely': computed 65.5% of the lines meeting the card (50 cm rad, 17_6's region) cross the coast; 56.6% of the whole 18.4 cm x half-turn chart; film says most miss
+ok   19_1 'Some cross once': computed 71.1% of the lines that meet the coast cross it once; film says some
+DIFF most crossings by a single line: computed 6 (widest window 0.4735 cm at direction 7.775, distance -1.4747; polyline recount 6); film says 19_1's shading runs 1 to 12
+
+== sticks, the bent stick, the square, the coin
+ok   6 cm stick at 30 degrees, over slides: computed {2: 0.5, 1: 0.5}; film says 1 or 2, half the time each, mean 1.5
+ok   bent and straight sticks' single counts: computed L [1, 2, 3, 4]; straight [0, 1, 2, 3]; film says 1 to 4 against 0 to 3
+ok   square of side 2: counts and share of fours: computed [2, 4], 0.273240; film says 2 or 4; 4/pi - 1 = 0.273240
+note 28_5 edge: the square turned 45 degrees with a corner on a line meets the sheet 3 times (chance zero; the draft's note names only a side lying along a line)
+ok   05_4: a 2 cm coin grazing two lines: computed 2 meeting points; film says two, one on each line
+
+== fixed directions (23, 24) and the six-direction discrepancy
+ok   1 directions: stick band: computed -100.0000% .. +57.0796%; film says -100% .. +57%
+ok   2 directions: stick band: computed -21.4602% .. +11.0721%; film says -21.5% .. +11.1%
+ok   4 directions: stick band: computed -5.1941% .. +2.6172%; film says -5.2% .. +2.6%
+ok   6 directions: stick band: computed -2.2951% .. +1.1515%; film says -2.3% .. +1.2%
+note six directions in closed form: (2 + sqrt 3) pi / 12 - 1 = -2.2951% (a stick along a family), (pi/12) / sin(pi/12) - 1 = +1.1515% (midway)
+note six directions, pi as 22/7: -2.2558%
+note six directions, error relative to the estimate: -2.3491%
+note to read -2.26% the stick must sit 0.077 degrees off a family (the lower end is a V-shaped minimum)
+ok   coast, six slid directions: computed 25.7269 (-0.333%); film says 25.73, inside the band
+ok   longimeter spacing for one crossing per mm: computed 3.8197 mm; film says 12/pi = 3.82 mm
+
+== the dividers (01, 25, 26, 27)
+ok   dividers 4 cm: computed 4 steps, last 2.6591, total 18.6591; film says 4 steps, 18.7
+ok   dividers 2 cm: computed 11 steps, last 0.6414, total 22.6414; film says 11 steps, 22.6
+ok   the step that leaves the headland: computed step 6, across 3.0772 cm of coast; film says step 6, 3.08 cm
+ok   the short last bit: computed 0.6414; film says 0.64
+ok   dividers 1 cm: computed 25 steps, last 0.1367, total 25.1367; film says 25 steps, 25.1
+ok   dividers 0.5 cm: computed 51 steps, last 0.1360, total 25.6360; film says 51 steps, 25.6
+ok   halving the step from 1 to 0.5: computed +1.986%; film says +2%
+note 01_7 'a smaller step cuts less off', swept 0.25 to 4.00 cm by 0.05: 46 places where a larger step walks further: [(1.25, 1.3), (1.4, 1.45), (1.5, 1.55), (1.6, 1.65), (1.65, 1.7), (1.7, 1.75), (1.8, 1.85), (1.85, 1.9)]
+ok   negative control: a smaller step is not always longer: computed square outline of side 2: step 2 walks 8.0000, step 1.9 walks 7.7028; film says 1.9 shorter than 2 on this outline
+ok   rippled drawing's length: computed 27.8107 (27.8107 placed); film says 27.8
+ok   rippled drawing's mean count: computed 8.8524; film says 8.85
+ok   2 cm dividers on the rippled drawing: computed 22.6268; film says 22.6
+ok   Richardson's halving for D = 1.25: computed 18.921%; film says 19%
+
+== random lines: pins against the sheet's way (16, 17, 18)
+ok   pins, middle stick: computed 22.01% (+/- 0.15); film says 21.9%
+ok   pins, corner stick: computed 12.44%; film says 12.4%
+ok   the sheet's way, any 2 cm stick: computed 2 x 2 / 50 = 8.0%; film says 8%
+note 18_4 'a stick near the edge is always shortchanged' by the pins, against the same stick in the middle: middle, upright 22.01%; corner, upright (the film's) 12.44%; middle, lying 12.45%; bottom edge, upright 12.53%; bottom edge, lying 6.49%; left edge, lying 5.67%; left edge, upright 11.26%
+note the pins cross the film's corner stick 12.4% of the time, more than the even way's 8%: shortchanged only relative to the middle stick under the same pins
+
+# 6 differences: ["one drop's spread, cm", 'drops for a spread of 0.1 cm', "gap 4: one drop's spread, cm", "gap 8: one drop's spread, cm", "19_1 'Most lines miss it entirely'", 'most crossings by a single line']

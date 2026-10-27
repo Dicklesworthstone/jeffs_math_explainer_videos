@@ -74,7 +74,7 @@ These come from the explainer skills and from the incidents that produced them. 
 5. **Choose bounded coherent narration units.** Owner amendment 2026-10-17: use FrankenTTS Michael with his approved English accent, accepted B as the reference, contextual whole-thought takes/repairs and authored semantic pauses. Sentence synthesis remains a comparison route, not a universal requirement. Follow the current canonical narration skill and `docs/video-program/NARRATION-CONSISTENCY.md`. Pin the actual executable, model, voice conditioning, text, seed and emitted generation receipt; seed 0 can equal omitted, while positive seeds produce candidates in tested builds. Neither one request nor a resident proves unbroken context, and replay does not generalize across builds/backends. Transcript, speaker/accent scores and EOS evidence do not establish listening acceptance. Other models primarily support diagnosis.
 6. **Look at every frame:** the layout lint, contact sheets and cue sheets are read as images before a draft counts as reviewed.
 7. **4K60 finals with explicit encoder quality and one encoder for every chapter and segment** (a camera-route segment goes through the same runner-wrapped encoder as the retained route, or the stream-copy join breaks).
-8. **Chapters stay ≤ ~85 s** (editorial pacing; the kit raises the engine's byte caps).
+8. **Chapter boundaries follow the teaching.** The owner's 2026-10-24 direction supersedes the old ~85 s editorial cap: preserve useful intuition, motivation and inspection time, and split at conceptual boundaries when helpful. `tools/storyboard.py` reports longer estimates as advisory. Do not cut explanation or rush narration to meet that estimate. Actual engine resource limits and coherent TTS take limits remain separate constraints.
 9. **Music never fights the voice:** the bed sits 18 LU under speech, melody only in gaps, no sustained music inside the narrator's pitch band during speech (95–250 Hz for `robert`; measured afresh from each video's own narration), the duck baked into the stem offline; never use franken_manim's `gain_to_background`.
 10. **`/de-slopify` the final script, then re-apply the voice rules.**
 11. **Verify before announcing:** `verify_video.sh` with the EXPECT_* gates (3840×2160, 60 fps, BT.709, −16 LUFS ±1, ≤ −1.0 dBTP, A/V ≤ 0.2 s), contact sheet read, md5 checked after every copy.
@@ -86,6 +86,63 @@ Work around engine gaps in this repository and record them (§14 of the plan). F
 ---
 
 ## Working in the Swarm (the build host)
+
+### Owner-authorized third production wave — 2026-10-24
+
+The owner explicitly asked to finish the last upload, then select the next five
+from the existing slate using actual channel statistics and start writing them
+in five Claude Code panes on Opus 5.5. Both remaining second-wave uploads are
+public with final packaging; this prerequisite is complete (catalog receipts).
+The orchestrator selects `inspection_paradox`, `german_tank`,
+`shamir_secret_sharing`, `crofton`, and `parrondo`; the selection is reversible
+if the independent evidence/mathematics review finds a concrete reason.
+This instruction supersedes the old planning-only restriction for these five.
+Read `docs/video-program/third-wave-20261024/README.md` and your exact lane prompt.
+
+Use one new, labelled local NTM session, five `claude-opus-5-5`/`xhigh` lanes,
+with disjoint `explainer_corpus/<topic>/**` ownership. Only the orchestrator
+edits Beads, shared files, catalog and the canonical third-wave analysis. Workers
+may write their explicitly assigned independent-review output. Preserve all
+older sessions, code, variants and peer staging. No Git commit/push, account
+change, remote work, cleanup, extra agents or new-batch publication. The initial
+writing-only phase withheld synthesis and full renders. Owner continuation on
+2026-10-24 now authorizes root to progress these five toward finished review
+videos: integrate independently reviewed source, then serialize builds, bounded
+previews, narration repairs and final renders when their prerequisites pass.
+Workers keep their assigned paths and do not independently launch heavy work.
+The active `tend-five-math-videos` heartbeat tends these five every ten minutes,
+quietly when unchanged; see the third-wave README and TODO for current work.
+
+Deliver real full spoken scripts and scene-by-scene visual plans, a strong
+motivated opening with a continuing example, primary-source-backed facts and
+independent executable arithmetic/oracle checks. Then begin native model/facts
+and opening scene code using the existing kit, without editing shared workspace
+membership or launching Cargo builds. Root temporarily excludes these five draft
+directories from the Cargo member glob; remove each exclusion at that topic's
+integration/qualification Bead after independent review and source handoff.
+Workers report exact paths and limitations;
+they do not close their own tasks. Cross-review before expensive production.
+
+Script pace follows meaning: author thought boundaries, technical explanations,
+prediction holds and callbacks before timing. Twenty minutes or longer is fine
+when useful; there is no target to pad to. Define objects before metaphors or
+notation. A spectrogram, ASR result, voice embedding or previous accent score is
+not proof of a strong English accent or continuous listening acceptance.
+All new narration still requires qualified Michael conditioning and actual
+per-clip diagnosis; the failed control-based accent gate must not be reused as
+acceptance. Production/listening/final qualification remain separate open work.
+
+Owner clarification on 2026-10-24: err toward more time for intuition,
+motivation, background, setting the stage and explaining why the question
+matters before technical work. There is no first-minute derivation deadline.
+Show a concrete puzzle early, then let the viewer understand and predict it.
+Use FrankenManim to preserve the identity of objects as examples become
+diagrams, vary one cause at a time, connect the same model to live readouts,
+and demonstrate both the result and its limits. Stable spatial/color roles,
+recurring examples, deliberate visual holds and final transfer questions are
+more valuable than dense decorative animation. Verify APIs against the pinned
+native source and inspect actual draft frames; a storyboard promise is not a
+working visual. Topic-specific direction is in the third-wave README.
 
 ### Owner rejection and withdrawal — 2026-10-19
 

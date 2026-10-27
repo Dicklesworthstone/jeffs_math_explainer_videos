@@ -30,6 +30,30 @@ remain preserved comparison baselines. Full-cut audio acceptance and publication
 remain open. The current work is tracked under the existing narration program;
 the dated earlier waiting/production-order directions below do not cancel it.
 
+**Implemented 2026-10-21 — semantic cadence audit:**
+[`tools/narration_director.py`](../../tools/narration_director.py) now compares
+script-first direction with FW words, source waveform estimates and native scene
+waits. [The real five-cut run](../../narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/pacing-story-20261021/RESULTS.md)
+covers all 465 cues, with 89 authored semantic boundaries and explicit heuristic
+defaults elsewhere. It reconstructs exact cue PCM, exposes unmatched/coarse ASR,
+counts recorded and assembly silence once, protects known visual tasks, and ranks
+dense/fast cues relative to each video's own pace. Six fresh master excerpts were
+transcribed; timestamp changes with input/context demote uncertain internal
+findings. The resistor code-panel reading deadline is explicitly protected.
+Fifteen focused tests pass. Diagnostic candidates are not calibrated audible
+defect labels or permission for automatic pause surgery.
+
+For reuse, run `uv run --no-project --with numpy python3 -I tools/narration_director.py
+plan --manifest INPUT.json --out MAP.json`, author semantic roles and reasons,
+then run `audit` with `--manifest INPUT.json --map MAP.json --out NEW_DIRECTORY`.
+The map binds script hashes; `visual_holds` bind evidence for reading/demonstration
+tasks, and optional master-excerpt verification checks timing sensitivity. Use
+the resulting [review page](../../narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/pacing-story-20261021/audit05/review.html)
+to localize work. [Five revised setups and callback plans](../../narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/pacing-story-20261021/setup-and-callback-revisions.md)
+address the missing conceptual anchor separately from pause duration. Beads
+`mx-video-program-program-87do.2.17` retains the unfinished production application;
+no new full cuts or listening approvals are claimed by this diagnostic work.
+
 **2026-10-19 priority and listening feedback — supersedes the earlier production sequence:** The owner directs us to redo the narration for square packing, medical p-values and Golay before working on new videos, and to deliver the **complete revised cuts** for their own review before anything is published again. On the packing sample, the owner said it is “sort of OK, but it's too rushed” and asked for “a more measured pace” when discussing technical material. This authorizes further repair; it does not accept the sample's voice, pronunciation, cadence or a complete cut. The earlier request to wait for another sample verdict is superseded. Existing tasks `.5.10`, `.6.7` and `.7.8` own this work; new-video work is deferred with its files preserved.
 
 Apply the feedback to the explanation itself: clearer complete thoughts, deliberate space between technical steps and visual observations, and contextual rereadings where articulation within a phrase is rushed. Extra silence after a question alone does not repair a hurried explanation. Count recorded silence and scene delay once; preserve intentional prediction windows. Do not time-stretch, alter pitch, impose a uniform pause after every sentence, or infer audible improvement from ASR or timing measurements. Retain the exact accepted Michael and medical-opening excerpts and all rejected variants. The agents cannot hear audio; technical checks and the owner's listening verdict are separate.
@@ -94,3 +118,13 @@ The independent Codex idea pass generated 30 proposals and ranked five: frozen-t
 The final skill passed structure/link checks and fresh review. Its existing 17 editor tests and five real receipt checks passed; the optional 16-cell schedule is complete and balanced. UBS found no supported code language in the five Markdown/JSON changes, so no scanner ran. Nine research claims were independently audited: six verified within narrow scopes, three hypotheses. No new audio, model benchmark, engine change, full video or upload occurred in this refinement.
 
 Detailed local evidence lives in the research run `outputs/next-video-program-20261016/narration-consistency-20261017` in the originating chat workspace; the Bead records the commit and receipt scope. Those run files are evidence, not a second active backlog.
+
+## 2026-10-24 — performance diagnosis and direction-preserving assembly
+
+The owner's new report supersedes any inference that prior accent success established good pacing or prosody. Work continues autonomously under `mx-video-program-program-87do.2.18`; the [third-wave checklist](third-wave-20261024/TODO.md) is canonical. [Measured results and controls](../../narration_lab/third-wave-20261024/root/narration-performance-20261024/RESULTS.md) distinguish a production direction-loss repair from unproven perceptual improvements.
+
+For new third-wave synthesis and assembly, use `coherent_narration.py --require-directions` with a script-hash-bound plan, exact map identity and a disposition for every selected authored boundary. The adapter rejects unknown/renamed cues, stale or ambiguous phrases, missing/duplicate dispositions, changed evidence and claims contradicted by inserted samples. Preserve visual/prediction waits in the native timeline. Final-master coverage, alternate assembly routes and explicit supersession lineage still require integration; a disposition alone does not establish the truth of a listening judgment.
+
+The new `tools/narration_performance.py` diagnostic separates active articulation from added quiet and exposes uncertain FW edges instead of treating them as measured vowels. Dual pitch trackers and endpoint perturbations are triage, not naturalness or accent classifiers. Questions need authored rhetorical intent: a prediction, rhetorical question and continuation need not share an upward terminal contour. Protect connected word groups, contrastive focus and mathematical scope rather than using punctuation-only pause rules.
+
+The first three experiments produced 14 TTS takes and 2 exact-sample pause controls, without changing the pinned Michael assets. Longer staged wording was inconsistent; targeted 0.42 s silence changed only the chosen boundary; the continuous-versus-separate same-word comparison was inconclusive under its predeclared alignment/voicing requirements. No automatic performance winner or changed default follows. Six prospective held-out passage contracts are frozen for the next bounded tests. No owner feedback or timestamps are needed to continue this work, but acoustic plots and transcripts must never be described as actual hearing.

@@ -1,0 +1,10 @@
+== imports never named outside their `use` (non-test build)
+   src/chapters/draw.rs: `Timed` (from `use explainer_kit::{Frame2, Kit, Palette, Script, Timed, v}`)
+   src/chapters/the_puzzle.rs: `Timed` (from `use explainer_kit::{Frame2, Kit, Palette, Timed, fade_all, rect, tween, v}`)
+   src/chapters/the_puzzle.rs: `FRAME_Y_RADIUS` (from `use fmn::core::constants::{FRAME_X_RADIUS, FRAME_Y_RADIUS}`)
+== crate items never named outside their definition (non-test build)
+   src/model.rs: `sub`
+   src/model.rs: `mul`
+   src/model.rs: `div`
+   src/model.rs: `neg`
+   src/model.rs: `partial_cmp`

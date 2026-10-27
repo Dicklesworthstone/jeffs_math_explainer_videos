@@ -1,0 +1,18 @@
+--- control: number word with no SPOKEN row
+ok   chapter 01 rows: storyboard.md = storyboard-draft.md (6 rows)
+ok   script.tsv lines = script-draft.tsv's 01 lines (6 lines)
+FAIL 01_1: 'two' at 35 is in no SPOKEN or NOT_A_COUNT phrase
+FAIL SPOKEN replay: 14 rows, 1 not-a-count, 40 number words, facts not loaded
+--- caught: number word with no SPOKEN row
+--- control: SPOKEN phrase no longer said
+ok   chapter 01 rows: storyboard.md = storyboard-draft.md (6 rows)
+ok   script.tsv lines = script-draft.tsv's 01 lines (6 lines)
+FAIL 01_6 lacks 'two trustees can be away'
+FAIL SPOKEN replay: 14 rows, 1 not-a-count, 40 number words, facts not loaded
+--- caught: SPOKEN phrase no longer said
+--- control: production line drifts from the draft
+ok   chapter 01 rows: storyboard.md = storyboard-draft.md (6 rows)
+FAIL script.tsv lines = script-draft.tsv's 01 lines (6 lines)
+ok   SPOKEN replay: 14 rows, 1 not-a-count, 40 number words, facts not loaded
+--- caught: production line drifts from the draft
+== 3 of 3 controls caught

@@ -312,3 +312,11 @@ the release set above (no voice, no review number). A release is done only with 
 Public state, its captions and its 4K processing recorded here by the upload lane's receipt: done
 for all four (RaptorQ, Hoeffding and the bakery video in mails 1368 and 1378; the fish video in
 mails 1388 and 1389).
+
+## Third wave — Inspection Paradox public release, 2026-10-27
+
+The owner explicitly requested completion and publication. **Why Your Bus Wait Is Longer Than You Expect** is public at https://youtu.be/ELxgByPW13s. YouTube watch-page quality confirms 2160p60; the English subtitle track is installed and visible. Copyright and community-guidelines checks reported no issues.
+
+Master: `narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/final03/inspection_paradox_master.mp4`, MD5 `1a2d8b5ffd08637295a76cb12035c878`. Timed English SRT MD5 `f8f2af14bf1198ace8bd4da017113dc4`. Exact source, technical and publication evidence: [publication receipt](../../narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/publication-receipt.json).
+
+18:34.267, 66,856 frames at native 3840×2160/60 fps. Full audiovisual decode and exact caption text pass; 42 final pictures inspected. Public playback was muted. No auditory or continuous audiovisual acceptance is claimed. Fixed-gain audio is peak-limited: decoded AAC measured −25.6 LUFS, −1.5 dBFS true peak. All earlier variants remain preserved.
