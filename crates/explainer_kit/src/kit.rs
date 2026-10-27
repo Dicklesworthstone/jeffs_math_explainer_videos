@@ -202,25 +202,26 @@ impl Kit {
         self.hold(stage)?;
         let fail = |m: String| fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(m.into_boxed_str())));
         if let Some(stem) = &self.stem {
-            let file = crate::narration::inspect_cue(stem).map_err(|e| fail(e.to_string()))?;
+            let parts = crate::score_stem::read(stem).map_err(|e| fail(e.to_string()))?;
             let t = stage.scene().time();
             let want = explainer_score::units::frame_to_sample(t.frames().max(0) as u64, t.fps()) as usize;
-            if file.rate != explainer_score::SAMPLE_RATE || file.frames != want {
+            let total = parts.last().map_or(0, |p| p.start + p.file.frames);
+            if total != want || parts.iter().any(|p| p.file.rate != explainer_score::SAMPLE_RATE) {
                 return Err(fail(format!(
-                    "{}: {} frames at {} Hz, but chapter {} is {want} samples at 48 kHz: score it from this chapter's timeline",
+                    "{}: {total} stem frames, but chapter {} is {want} samples at 48 kHz: score it from this chapter's timeline",
                     stem.display(),
-                    file.frames,
-                    file.rate,
                     self.chapter
                 )));
             }
-            let secs = t.to_f64();
-            match &self.narrator {
-                Some(n) => n
-                    .sound(stage, stem, -secs, Some(0.0))
-                    .map_err(|e| fail(e.to_string()))?,
-                None => {
-                    stage.scene_mut().add_sound(stem.clone(), -secs, Some(0.0), None)?;
+            for part in parts {
+                let offset = part.start as f64 / f64::from(explainer_score::SAMPLE_RATE) - t.to_f64();
+                match &self.narrator {
+                    Some(n) => n
+                        .sound(stage, &part.file.path, offset, Some(0.0))
+                        .map_err(|e| fail(e.to_string()))?,
+                    None => {
+                        stage.scene_mut().add_sound(part.file.path, offset, Some(0.0), None)?;
+                    }
                 }
             }
         }

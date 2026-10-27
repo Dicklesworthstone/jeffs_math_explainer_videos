@@ -361,8 +361,212 @@ fn thoughts(gaps: LineGaps) -> ChapterTimeline {
     tl.expect("the scene recorded its timeline")
 }
 
+struct SeamGuardScene {
+    kit: Kit,
+    mode: &'static str,
+}
+
+impl SceneConstruct for SeamGuardScene {
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        let kit = self.kit.clone();
+        if self.mode != "skip" {
+            kit.say(stage, "01_1")?;
+        }
+        match self.mode {
+            "overrun" => {
+                stage.wait(1.0)?;
+            }
+            "window" => kit.music_breath(stage, 0.4)?,
+            _ => {}
+        }
+        kit.say(stage, "01_2")?;
+        kit.hold(stage)
+    }
+}
+
+#[test]
+fn sounding_coherent_seams_refuse_inserted_samples_and_skipped_predecessors() {
+    // Real native placements of synthetic continuous PCM: no perceptual claim.
+    for (name, first_len, quiet, mode, should_pass) in [
+        ("exact", 12_000, false, "normal", true),
+        ("subframe", 12_001, false, "normal", false),
+        ("overrun", 12_000, false, "overrun", false),
+        ("window", 12_000, false, "window", false),
+        ("skipped", 12_000, false, "skip", false),
+        ("quiet_subframe", 12_001, true, "normal", true),
+        ("quiet_overrun", 12_000, true, "overrun", true),
+        ("quiet_window", 12_000, true, "window", true),
+        ("quiet_skipped", 12_000, true, "skip", true),
+    ] {
+        let dir = fresh_dir(name);
+        std::fs::create_dir_all(&dir).unwrap();
+        let script = Script::parse("01_1\tFirst.\n01_2\tSecond.\n")
+            .unwrap()
+            .with_line_gaps(LineGaps::Thought);
+        let total = first_len + 12_000;
+        let mut samples: Vec<f64> = (0..total).map(|i| 0.1 * (i as f64 * 0.05).sin()).collect();
+        if quiet {
+            samples[first_len - 960..first_len + 960].fill(0.0);
+        }
+        let source = dir.join("source.wav");
+        wav::write(&source, &Stereo::from_mono(&samples), wav::Format::F32).unwrap();
+        let hash = explainer_score::digest::sha256_hex(&std::fs::read(&source).unwrap());
+        let row = |sentence: &str, start: usize, end: usize| {
+            serde_json::json!([{
+                "sentence": sentence, "unit_id": "01u1", "source": source,
+                "source_sha256": hash, "source_in_sample": start, "source_out_sample": end,
+                "out_samples": end-start, "gap_after_samples": 0
+            }])
+        };
+        let report = serde_json::json!({
+            "meta": {"rate": 48_000, "adapter": "coherent-narration-v1"},
+            "lines": {"01_1": row("First.",0,first_len), "01_2": row("Second.",first_len,total)}
+        });
+        for (id, start, end) in [("01_1", 0, first_len), ("01_2", first_len, total)] {
+            wav::write(
+                &dir.join(format!("{id}.wav")),
+                &Stereo::from_mono(&samples[start..end]),
+                wav::Format::F32,
+            )
+            .unwrap();
+        }
+        std::fs::write(dir.join("report.json"), report.to_string()).unwrap();
+        let narrator = Narrator::load(&script, &dir, 0.0).unwrap();
+        let mut scene = SeamGuardScene {
+            kit: Kit::new().unwrap().with_narrator(Rc::clone(&narrator)),
+            mode,
+        };
+        let result = fmn::render(&mut scene, tiny_render(dir.join("frames")));
+        if should_pass {
+            result.unwrap_or_else(|error| panic!("{name}: {error}"));
+            let cues = narrator.cues();
+            if mode == "normal" {
+                let inserted = cues[1].start_sample() - cues[0].start_sample() - first_len as i64;
+                assert_eq!(inserted, if quiet { 799 } else { 0 }, "{name}");
+            }
+        } else {
+            let error = result
+                .err()
+                .unwrap_or_else(|| panic!("{name}: unsafe seam rendered"))
+                .to_string();
+            assert!(error.contains("sounding coherent seam 01_1|01_2"), "{name}: {error}");
+        }
+    }
+}
+
 fn starts_of(tl: &ChapterTimeline) -> Vec<u64> {
     tl.lines.iter().map(|l| l.start_frame).collect()
+}
+
+/// Quiet source boundaries can retain an explicit scene wait and window.
+struct CoherentTalk {
+    kit: Kit,
+    timeline: Rc<RefCell<Option<ChapterTimeline>>>,
+}
+
+impl SceneConstruct for CoherentTalk {
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        let kit = self.kit.clone();
+        kit.say(stage, "01_1")?; // frame 36; 0.25 s source + 0.10 s authored silence
+        kit.hold(stage)?; // frame 57, with no additional generic gap
+        kit.mark(stage, "first_complete");
+        kit.say(stage, "01_2")?; // frame 57, source-contiguous with 01_1
+        stage.wait(1.0)?; // frame 117, beyond this line's end at frame 72
+        kit.say(stage, "01_3")?; // frame 117, never rewind for a coherent seam
+        kit.music_breath(stage, 0.4)?; // pre-window breath to frame 168; window to 192
+        kit.say(stage, "01_4")?; // frame 192, after the authored window
+        kit.hold(stage)?; // frame 243, final line retains the ordinary ending breath
+        *self.timeline.borrow_mut() = Some(kit.narrator.as_ref().unwrap().timeline(stage, "01_coherent"));
+        Ok(())
+    }
+}
+
+#[test]
+fn coherent_source_splits_preserve_pcm_pauses_and_native_scene_deadlines() {
+    // Synthetic continuous audio is a timing/PCM regression fixture, not
+    // evidence that a voice sounds natural. The source file and its hash are real.
+    let dir = fresh_dir("coherent_scene");
+    std::fs::create_dir_all(&dir).unwrap();
+    let script = Script::parse("01_1\tOne. Then two.\n01_2\tThen three.\n01_3\tFour.\n01_4\tFive.\n")
+        .unwrap()
+        .with_line_gaps(LineGaps::Thought);
+    let mut source_samples: Vec<f64> = (0..48_000).map(|i| 0.1 * (f64::from(i) * 0.05).sin()).collect();
+    // The two deliberately held boundaries must actually be quiet. A sine
+    // continuing through either boundary is covered by the rejection tests.
+    for seam in [24_000, 36_000] {
+        source_samples[seam - 960..seam + 960].fill(0.0);
+    }
+    let source = dir.join("source.wav");
+    wav::write(&source, &Stereo::from_mono(&source_samples), wav::Format::F32).unwrap();
+    let hash = explainer_score::digest::sha256_hex(&std::fs::read(&source).unwrap());
+    let row = |sentence: &str, start: usize, end: usize, gap: usize| {
+        serde_json::json!({
+            "sentence": sentence, "unit_id": "01u1", "source": source,
+            "source_sha256": hash, "source_in_sample": start, "source_out_sample": end,
+            "out_samples": end - start, "gap_after_samples": gap
+        })
+    };
+    let report = serde_json::json!({
+        "meta": {"rate": 48_000, "adapter": "coherent-narration-v1"},
+        "lines": {
+            "01_1": [row("One.", 0, 6_000, 2_400), row("Then two.", 6_000, 12_000, 2_400)],
+            "01_2": [row("Then three.", 12_000, 24_000, 0)],
+            "01_3": [row("Four.", 24_000, 36_000, 0)],
+            "01_4": [row("Five.", 36_000, 48_000, 0)]
+        }
+    });
+    let mut first = source_samples[..6_000].to_vec();
+    first.extend(vec![0.0; 2_400]);
+    first.extend_from_slice(&source_samples[6_000..12_000]);
+    first.extend(vec![0.0; 2_400]);
+    wav::write(&dir.join("01_1.wav"), &Stereo::from_mono(&first), wav::Format::F32).unwrap();
+    for (id, start) in [("01_2", 12_000), ("01_3", 24_000), ("01_4", 36_000)] {
+        wav::write(
+            &dir.join(format!("{id}.wav")),
+            &Stereo::from_mono(&source_samples[start..start + 12_000]),
+            wav::Format::F32,
+        )
+        .unwrap();
+    }
+    let report_text = report.to_string();
+    std::fs::write(dir.join("report.json"), &report_text).unwrap();
+    let narrator = Narrator::load(&script, &dir, 0.0).unwrap();
+    assert_eq!(narrator.length("01_1"), Some(0.35));
+    assert_eq!(narrator.sentence_starts("01_1"), vec![0.0, 0.175]);
+    for (a, b) in [("01_1", "01_2"), ("01_2", "01_3"), ("01_3", "01_4")] {
+        assert_eq!(narrator.line_gap(a, b), 0.0);
+    }
+    let got = Rc::new(RefCell::new(None));
+    let mut scene = CoherentTalk {
+        kit: Kit::new().unwrap().with_narrator(Rc::clone(&narrator)),
+        timeline: Rc::clone(&got),
+    };
+    fmn::render(&mut scene, tiny_render(dir.join("frames"))).expect("render coherent source slices");
+    let tl = got.borrow().clone().expect("native timeline recorded");
+    assert_eq!(starts_of(&tl), vec![36, 57, 117, 192]);
+    assert_eq!(tl.frames, 243);
+    assert_eq!(tl.marks[0].frame, 57, "hold adds no second seam pause");
+    assert_eq!(tl.breaths.len(), 1);
+    assert_eq!((tl.breaths[0].frame, tl.breaths[0].seconds), (168, 0.4));
+    assert_eq!(ChapterTimeline::parse(&tl.to_text()).unwrap(), tl);
+    let cues = narrator.cues();
+    for pair in cues.windows(2) {
+        let end = pair[0].start_sample() + i64::try_from(pair[0].file.frames).unwrap();
+        assert!(pair[1].start_sample() >= end, "coherent seams never overlap audio");
+    }
+    assert_eq!(cues[1].start_sample(), cues[0].start_sample() + 16_800);
+    let bus = tl.voice_bus(None).unwrap();
+    // Exact PCM comparison through the native timeline's consumer: both
+    // inserted 0.05 s pauses survive once, including the pause at the cue seam.
+    for cue in &cues {
+        let decoded = wav::read(&cue.file.path).unwrap();
+        let start = usize::try_from(cue.start_sample()).unwrap();
+        assert_eq!(&bus.l[start..start + decoded.frames()], decoded.samples[0].as_slice());
+        assert_eq!(&bus.r[start..start + decoded.frames()], decoded.samples[1].as_slice());
+    }
+    assert!(bus.l[36 * 800 + 6_000..36 * 800 + 8_400].iter().all(|x| *x == 0.0));
+    assert!(bus.l[57 * 800 - 2_400..57 * 800].iter().all(|x| *x == 0.0));
+    assert_eq!(std::fs::read_to_string(dir.join("report.json")).unwrap(), report_text);
 }
 
 #[test]

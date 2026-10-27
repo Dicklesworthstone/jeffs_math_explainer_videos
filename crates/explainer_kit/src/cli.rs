@@ -18,7 +18,6 @@ use std::time::Instant;
 use explainer_score::qa::{self, ScoreFacts};
 use explainer_score::score::{self, ChapterPlan, Identity, Section};
 use explainer_score::timeline::ChapterTimeline;
-use explainer_score::wav;
 use fmn::prelude::*;
 
 use crate::captions;
@@ -100,7 +99,7 @@ render options:
   --lint            layout lint at every beat and every 0.2 s of the scene (a problem is reported once it has
                     stood a second): OUT/<chapter>.layout.tsv
   --timeline-only   the score's first pass: 64x36 at --fps with --narration, timelines only
-  --score DIR       lay DIR/<chapter>.music.f32.wav under each chapter (needs --narration)
+  --score DIR       lay DIR/<chapter>.music.f32.wav (or bounded parts) under each chapter (needs --narration)
   --crf N           delivery quality: x264 CRF or NVENC constant quality; also --preset, --gpu, AAC 256k
   --preset NAME     x264 preset, ultrafast..veryslow (with --crf)
   --encoder NAME    libx264 (default), h264_nvenc, hevc_nvenc, h264_videotoolbox
@@ -123,6 +122,7 @@ pub struct Args {
     pub out: PathBuf,
     pub silent: bool,
     pub narration: Option<PathBuf>,
+    pub review_units: Option<PathBuf>,
     pub scratch_voice: bool,
     pub lint: bool,
     pub timeline_only: bool,
@@ -157,6 +157,7 @@ pub fn parse_args(argv: impl IntoIterator<Item = String>) -> Result<Args, String
         out: PathBuf::from("renders"),
         silent: false,
         narration: None,
+        review_units: None,
         scratch_voice: false,
         lint: false,
         timeline_only: false,
@@ -190,6 +191,9 @@ pub fn parse_args(argv: impl IntoIterator<Item = String>) -> Result<Args, String
             "--max-frames" => a.max_frames = Some(next_parsed(&mut it, "--max-frames")?),
             "-h" | "--help" => a.help = true,
             "--narration" => a.narration = Some(PathBuf::from(it.next().ok_or("--narration needs DIR")?)),
+            "--review-units" => {
+                a.review_units = Some(PathBuf::from(it.next().ok_or("--review-units needs PATH")?));
+            }
             "--encoder" => {
                 let e = it.next().ok_or("--encoder needs a name")?;
                 if !matches!(
@@ -232,6 +236,21 @@ pub fn parse_args(argv: impl IntoIterator<Item = String>) -> Result<Args, String
     }
     if a.score.is_some() && a.narration.is_none() {
         return Err("--score lays stems scored from the real narration; it needs --narration".into());
+    }
+    if a.review_units.is_some() {
+        if !matches!(a.command.as_str(), "render" | "captions")
+            || a.narration.is_none()
+            || a.score.is_some()
+            || a.targets.len() != 1
+            || a.targets[0] == "all"
+        {
+            return Err("--review-units requires one render/captions chapter with --narration and no --score".into());
+        }
+        if a.command == "render"
+            && (a.res.0 == 0 || a.res.0 > 1920 || a.res.1 == 0 || a.res.1 > 1080 || a.fps == 0 || a.fps > 30)
+        {
+            return Err("lab review render is limited to positive dimensions at most 1920x1080 and 30 fps".into());
+        }
     }
     Ok(a)
 }
@@ -293,6 +312,17 @@ pub fn check_script_owners(
 
 /// Run the CLI; returns the process exit code (0 ok, 1 a failed check, 2 usage).
 pub fn run(e: &Explainer, argv: impl IntoIterator<Item = String>) -> i32 {
+    run_impl(e, argv, None)
+}
+
+/// Third-wave consumers bind real speech to the topic's canonical script,
+/// unit plan and direction map before creating output. This is a technical
+/// integrity check, not listening acceptance or permission to promote a take.
+pub fn run_with_contract(e: &Explainer, argv: impl IntoIterator<Item = String>, topic: &Path) -> i32 {
+    run_impl(e, argv, Some(topic))
+}
+
+fn run_impl(e: &Explainer, argv: impl IntoIterator<Item = String>, topic: Option<&Path>) -> i32 {
     // a wrong number must never render, or even print
     let facts = match (e.facts)().and_then(|f| f.self_check().map(|()| f)) {
         Ok(f) => f,
@@ -311,9 +341,20 @@ pub fn run(e: &Explainer, argv: impl IntoIterator<Item = String>) -> i32 {
     };
     if args.help {
         print!("{usage}");
+        if topic.is_some() {
+            println!(
+                "\nReal-speech render, captions, score and master require --narration with a canonical\ncoherent assembly. Score/master verify every chapter; master also binds cue logs.\nFor a scored master, --score names the same stem directory used by render.\nExplicit --review-units PATH permits one render/captions chapter in narration_lab,\nwith both the plan and --out inside that directory. Render is capped at 1920x1080\nand 30 fps; score stems and mastering are excluded. This does not promote a plan.\nContract verification does not establish listening or final delivery acceptance."
+            );
+        }
         return 0;
     }
     let result: Result<i32, Box<dyn Error>> = (|| {
+        if args.review_units.is_some() && topic.is_none() {
+            return Err("--review-units requires a contract-enabled explainer".into());
+        }
+        if let Some(topic) = topic {
+            check_delivery_contract(e, &args, topic)?;
+        }
         let script = Script::parse(e.script)?.with_line_gaps(e.line_gaps);
         match args.command.as_str() {
             "facts" => print!("{}", facts.print()),
@@ -344,6 +385,90 @@ pub fn run(e: &Explainer, argv: impl IntoIterator<Item = String>) -> i32 {
             1
         }
     }
+}
+
+fn check_delivery_contract(e: &Explainer, args: &Args, topic: &Path) -> Result<(), Box<dyn Error>> {
+    match args.command.as_str() {
+        "render" if args.narration.is_none() => return Ok(()), // silent/scratch review only
+        "render" | "captions" | "score" | "master" => {}
+        _ => return Ok(()),
+    }
+    let narration = args
+        .narration
+        .as_ref()
+        .ok_or("this consumer requires --narration with a verified assembly")?;
+    if std::fs::read(topic.join("script.tsv"))? != e.script.as_bytes() {
+        return Err("compiled script differs from the canonical script; rebuild before delivery".into());
+    }
+    if e.line_owner.is_some() {
+        return Err("contract delivery requires chapter-prefixed cue IDs".into());
+    }
+    let all = (e.chapters)();
+    let whole = matches!(args.command.as_str(), "score" | "master");
+    if whole && args.targets.iter().any(|t| t != "all") {
+        return Err("score/master require the complete chapter registry".into());
+    }
+    let wanted: Vec<&str> = if args.targets.is_empty() || args.targets.iter().any(|t| t == "all") {
+        all.iter().map(|c| c.key).collect()
+    } else {
+        args.targets
+            .iter()
+            .map(|t| {
+                all.iter()
+                    .find(|c| c.key == t)
+                    .map(|c| c.key)
+                    .ok_or_else(|| format!("unknown chapter {t}"))
+            })
+            .collect::<Result<_, _>>()?
+    };
+    let repo = topic
+        .parent()
+        .and_then(Path::parent)
+        .ok_or("topic has no repository root")?;
+    let mut command = std::process::Command::new("python3");
+    command
+        .arg("-I")
+        .arg("-B")
+        .arg(repo.join("tools/narration_delivery.py"))
+        .arg("--topic")
+        .arg(topic)
+        .arg("--narration")
+        .arg(narration)
+        .arg("--consumer")
+        .arg(&args.command)
+        .arg("--gain-db")
+        .arg(e.narration_gain_db.to_string());
+    for chapter in wanted {
+        command.arg("--chapter-key").arg(chapter);
+    }
+    if let Some(units) = &args.review_units {
+        command
+            .arg("--review-units")
+            .arg(units)
+            .arg("--output")
+            .arg(&args.out)
+            .arg("--width")
+            .arg(args.res.0.to_string())
+            .arg("--height")
+            .arg(args.res.1.to_string())
+            .arg("--fps")
+            .arg(args.fps.to_string());
+    }
+    if args.command != "render" {
+        let timelines = if args.command == "score" {
+            args.timelines.as_ref().unwrap_or(&args.out)
+        } else {
+            &args.out
+        };
+        command.arg("--timelines").arg(timelines);
+    }
+    if let Some(score) = &args.score {
+        command.arg("--score").arg(score);
+    }
+    if !command.status()?.success() {
+        return Err("narration delivery contract refused; no consumer output was written".into());
+    }
+    Ok(())
 }
 
 pub(crate) fn options(
@@ -677,7 +802,7 @@ fn score_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
     let up_to_date = std::fs::read_to_string(&fp_path).is_ok_and(|f| f == fp)
         && chapters
             .iter()
-            .all(|c| stems.join(format!("{}.music.f32.wav", c.key)).exists());
+            .all(|c| crate::score_stem::read(&stems.join(format!("{}.music.f32.wav", c.key))).is_ok());
     if up_to_date {
         let failed: Vec<&str> = chapters
             .iter()
@@ -701,6 +826,9 @@ fn score_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
         s.phrases.len(),
         s.true_peak_db
     );
+    for note in &s.notes {
+        println!("score note: {note}");
+    }
     if !s.skipped_marks.is_empty() {
         // deep in a sentence, at the very end, or too close to another cue
         println!("marks the score could not answer: {:?}", s.skipped_marks);
@@ -731,8 +859,7 @@ fn score_video(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
     for (k, c) in chapters.iter().enumerate() {
         let music = s.chapter_music(k);
         let stem = stems.join(format!("{}.music.f32.wav", c.key));
-        set_aside(&stem)?;
-        wav::write(&stem, &music, wav::Format::F32)?;
+        crate::score_stem::write(&stem, &music)?;
         let report = qa::evaluate(
             c.key,
             &s.chapter_voice(k),

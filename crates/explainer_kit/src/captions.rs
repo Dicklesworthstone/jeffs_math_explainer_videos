@@ -33,6 +33,17 @@ pub struct Spoken {
     /// Recorded start, end of source samples, and end of the following gap,
     /// in seconds from this cue's start. Absent in legacy reports.
     pub recorded: Option<(f64, f64, f64)>,
+    /// Bound authored insertions, with cue-relative sample times. These are
+    /// editorial boundaries, not measured phonetic onsets.
+    pub pauses: Vec<CaptionPause>,
+}
+
+#[derive(Clone, Debug, PartialEq)]
+pub struct CaptionPause {
+    /// Number of whitespace-separated display words before this pause.
+    pub after_words: usize,
+    pub start: f64,
+    pub end: f64,
 }
 
 /// One caption on screen.
@@ -63,6 +74,7 @@ fn parse_report(json: &str) -> io::Result<HashMap<String, Vec<Spoken>>> {
             .ok_or_else(|| bad("report.json: not an object of lines"))?,
     };
     let mut out = HashMap::new();
+    let mut used_directions = std::collections::HashSet::new();
     for (id, sentences) in lines {
         let list = sentences
             .as_array()
@@ -80,6 +92,7 @@ fn parse_report(json: &str) -> io::Result<HashMap<String, Vec<Spoken>>> {
             1.0
         };
         let mut cursor = 0u64;
+        let mut word_offset = 0usize;
         for (k, s) in list.iter().enumerate() {
             let field = |name: &str| s.get(name).ok_or_else(|| bad(format!("{id} sentence {k}: no {name}")));
             let num = |name: &str| {
@@ -94,6 +107,7 @@ fn parse_report(json: &str) -> io::Result<HashMap<String, Vec<Spoken>>> {
             if text.trim().is_empty() || !seconds.is_finite() || seconds <= 0.0 {
                 return Err(bad(format!("{id} sentence {k}: empty or {seconds} s long")));
             }
+            let sentence_start = cursor;
             let recorded = if measured {
                 let samples = |name: &str| {
                     field(name)?
@@ -116,15 +130,160 @@ fn parse_report(json: &str) -> io::Result<HashMap<String, Vec<Spoken>>> {
             } else {
                 None
             };
+            let pauses = report_pauses(&v, id, s, word_offset, sentence_start, rate, measured)?;
+            if let Some(items) = s.get("intra_sentence_pauses").and_then(serde_json::Value::as_array) {
+                for item in items {
+                    if !used_directions.insert(item["override_index"].as_u64().unwrap()) {
+                        return Err(bad("duplicate intra-sentence direction"));
+                    }
+                }
+            }
+            word_offset += direction_words(text).len();
             spoken.push(Spoken {
                 text: text.trim().to_owned(),
                 seconds,
                 recorded,
+                pauses,
             });
         }
         out.insert(id.clone(), spoken);
     }
     Ok(out)
+}
+
+/// Match coherent_narration.py's ASCII words, including one apostrophe suffix.
+/// Hyphens separate contract words but remain intact in displayed captions.
+fn direction_words(text: &str) -> Vec<String> {
+    let mut chars = text.chars().peekable();
+    let mut words = Vec::new();
+    while let Some(c) = chars.next() {
+        if !c.is_ascii_alphanumeric() {
+            continue;
+        }
+        let mut word = c.to_ascii_lowercase().to_string();
+        while chars.peek().is_some_and(char::is_ascii_alphanumeric) {
+            word.push(chars.next().unwrap().to_ascii_lowercase());
+        }
+        if chars.peek().is_some_and(|c| matches!(c, '\'' | '’')) {
+            chars.next();
+            if chars.peek().is_some_and(char::is_ascii_alphabetic) {
+                word.push('\'');
+                while chars.peek().is_some_and(char::is_ascii_alphabetic) {
+                    word.push(chars.next().unwrap().to_ascii_lowercase());
+                }
+            }
+        }
+        words.push(word);
+    }
+    words
+}
+
+fn report_pauses(
+    report: &serde_json::Value,
+    cue: &str,
+    row: &serde_json::Value,
+    word_offset: usize,
+    cue_sample: u64,
+    rate: f64,
+    measured: bool,
+) -> io::Result<Vec<CaptionPause>> {
+    let Some(value) = row.get("intra_sentence_pauses") else {
+        return Ok(Vec::new());
+    };
+    let items = value
+        .as_array()
+        .ok_or_else(|| bad("intra_sentence_pauses must be an array"))?;
+    if items.is_empty() {
+        return Ok(Vec::new());
+    }
+    if !measured {
+        return Err(bad("intra-sentence pauses require sample timing"));
+    }
+    let integer =
+        |v: &serde_json::Value, key: &str| v[key].as_u64().ok_or_else(|| bad(format!("pause: invalid {key}")));
+    let source_in = integer(row, "source_in_sample")?;
+    let source_out = integer(row, "source_out_sample")?;
+    let text = row["sentence"].as_str().ok_or_else(|| bad("pause: missing sentence"))?;
+    let words: Vec<_> = text.split_whitespace().collect();
+    let tokens = direction_words(text);
+    let resolved = report
+        .pointer("/meta/direction_contract/binding/resolved")
+        .and_then(serde_json::Value::as_array)
+        .ok_or_else(|| bad("pause: missing resolved directions"))?;
+    let dispositions = report
+        .pointer("/meta/direction_contract/dispositions")
+        .and_then(serde_json::Value::as_array)
+        .ok_or_else(|| bad("pause: missing direction dispositions"))?;
+    let mut previous_sample = source_in;
+    let mut previous_words = 0;
+    let mut inserted = 0u64;
+    let mut pauses = Vec::new();
+    for item in items {
+        let index = integer(item, "override_index")?;
+        let sample = integer(item, "source_sample")?;
+        let count = integer(item, "inserted_samples")?;
+        if sample <= previous_sample || sample >= source_out || count == 0 {
+            return Err(bad("pause: unordered or outside source sentence"));
+        }
+        let bindings: Vec<_> = resolved
+            .iter()
+            .filter(|v| v["override_index"].as_u64() == Some(index))
+            .collect();
+        let kinds: Vec<_> = dispositions
+            .iter()
+            .filter(|v| v["override_index"].as_u64() == Some(index))
+            .collect();
+        if bindings.len() != 1 || kinds.len() != 1 || kinds[0]["kind"] != "authored_silence" {
+            return Err(bad("pause: missing, duplicate or undisposed direction"));
+        }
+        let binding = bindings[0];
+        if binding["cue"] != cue || binding["direction"]["cue"] != cue {
+            return Err(bad("pause: direction belongs to another cue"));
+        }
+        let boundary = usize::try_from(integer(binding, "end_word_index")?)
+            .ok()
+            .and_then(|i| i.checked_add(1))
+            .and_then(|i| i.checked_sub(word_offset))
+            .filter(|&i| i > 0 && i < tokens.len())
+            .ok_or_else(|| bad("pause: boundary outside sentence"))?;
+        let phrase = direction_words(
+            binding["direction"]["after"]
+                .as_str()
+                .ok_or_else(|| bad("pause: missing after phrase"))?,
+        );
+        if phrase.is_empty() || !tokens[..boundary].ends_with(&phrase) {
+            return Err(bad("pause: direction phrase does not match sentence"));
+        }
+        let mut n = 0;
+        let after_words = words
+            .iter()
+            .position(|w| {
+                n += direction_words(w).len();
+                n == boundary
+            })
+            .map(|i| i + 1)
+            .filter(|&i| i > previous_words && i < words.len())
+            .ok_or_else(|| bad("pause: direction splits a display word or is unordered"))?;
+        let start = cue_sample
+            .checked_add(sample - source_in)
+            .and_then(|n| n.checked_add(inserted))
+            .ok_or_else(|| bad("pause sample overflow"))?;
+        let end = start.checked_add(count).ok_or_else(|| bad("pause sample overflow"))?;
+        inserted = inserted
+            .checked_add(count)
+            .ok_or_else(|| bad("pause sample overflow"))?;
+        pauses.push(CaptionPause {
+            after_words,
+            start: start as f64 / rate,
+            end: end as f64 / rate,
+        });
+        previous_sample = sample;
+        previous_words = after_words;
+    }
+    if source_out.checked_sub(source_in).and_then(|n| n.checked_add(inserted)) != row["out_samples"].as_u64() {
+        return Err(bad("pause: source plus insertions does not equal output samples"));
+    }
+    Ok(pauses)
 }
 
 /// The speech regions of a line's audio (seconds), at 48 kHz.
@@ -342,6 +501,40 @@ pub fn sentence_captions(text: &str, start: f64, end: f64) -> Vec<Caption> {
         .collect()
 }
 
+fn directed_captions(sentence: &Spoken, start: f64, end: f64) -> Vec<Caption> {
+    let words: Vec<_> = sentence.text.split_whitespace().collect();
+    let mut captions = Vec::new();
+    let mut from = 0;
+    let mut at = start;
+    for pause in &sentence.pauses {
+        let mut before = sentence_captions(&words[from..pause.after_words].join(" "), at, pause.start);
+        // Keep the pre-pause thought visible through the authored silence;
+        // only the next caption may introduce the post-pause words.
+        if let Some(last) = before.last_mut() {
+            last.end = pause.end;
+        }
+        captions.extend(before);
+        from = pause.after_words;
+        at = pause.end;
+    }
+    captions.extend(sentence_captions(&words[from..].join(" "), at, end));
+    captions
+}
+
+fn prediction_end(chapter: &ChapterTimeline, line_index: usize, cue_duration: f64) -> Option<f64> {
+    let fps = f64::from(chapter.fps);
+    let cue_end = chapter.lines[line_index].start_frame as f64 / fps + cue_duration;
+    let next = chapter.lines.get(line_index + 1)?.start_frame as f64 / fps;
+    chapter
+        .marks
+        .iter()
+        .any(|mark| {
+            let at = mark.frame as f64 / fps;
+            mark.label == "predict" && at >= cue_end && at < next
+        })
+        .then_some(next)
+}
+
 /// The video's captions: every chapter in order (each starting where the
 /// ones before it end), every line at its placement, every sentence where
 /// its line's audio (the timeline's WAV) puts it.
@@ -349,20 +542,23 @@ pub fn video_captions(chapters: &[ChapterTimeline], report: &HashMap<String, Vec
     let mut out = Vec::new();
     let mut offset = 0.0;
     for ch in chapters {
+        if ch.fps == 0 {
+            return Err(bad("caption timeline has zero fps"));
+        }
         let fps = f64::from(ch.fps);
-        for line in &ch.lines {
+        for (line_index, line) in ch.lines.iter().enumerate() {
             let sentences = report
                 .get(&line.id)
                 .ok_or_else(|| bad(format!("{}: line {} is not in the report", ch.chapter, line.id)))?;
             let d = wav::read(&line.wav)?;
-            if let Some((_, _, end)) = sentences.last().and_then(|s| s.recorded) {
-                let duration = d.mono().len() as f64 / f64::from(d.rate);
-                if (end - duration).abs() > 1.0 / f64::from(d.rate) {
-                    return Err(bad(format!(
-                        "{}: recorded captions cover {end:.6} s but WAV has {duration:.6} s",
-                        line.id
-                    )));
-                }
+            let duration = d.mono().len() as f64 / f64::from(d.rate);
+            if let Some((_, _, end)) = sentences.last().and_then(|s| s.recorded)
+                && (end - duration).abs() > 1.0 / f64::from(d.rate)
+            {
+                return Err(bad(format!(
+                    "{}: recorded captions cover {end:.6} s but WAV has {duration:.6} s",
+                    line.id
+                )));
             }
             let mono = resample(&d.mono(), d.rate, SAMPLE_RATE);
             let spans = sentence_spans(&Stereo::from_mono(&mono), sentences);
@@ -370,8 +566,18 @@ pub fn video_captions(chapters: &[ChapterTimeline], report: &HashMap<String, Vec
                 return Err(bad(format!("{}: no speech found in {}", line.id, line.wav.display())));
             }
             let at = offset + line.start_frame as f64 / fps;
+            let first_caption = out.len();
             for (s, (a, b)) in sentences.iter().zip(spans) {
-                out.extend(sentence_captions(&s.text, at + a, at + b));
+                out.extend(directed_captions(s, a, b).into_iter().map(|mut caption| {
+                    caption.start += at;
+                    caption.end += at;
+                    caption
+                }));
+            }
+            if let Some(end) = prediction_end(ch, line_index, duration)
+                && let Some(last) = out[first_caption..].last_mut()
+            {
+                last.end = offset + end;
             }
         }
         offset += ch.frames as f64 / fps;
@@ -479,6 +685,7 @@ mod tests {
                 text: format!("Sentence {k}."),
                 seconds: s,
                 recorded: None,
+                pauses: Vec::new(),
             })
             .collect()
     }
@@ -495,6 +702,233 @@ mod tests {
         let spans = sentence_spans(&bursts(&[(0.0, 3.5)], 3.5), &report["01_1"]);
         assert_eq!(spans, [(0.0, 1.0), (1.5, 3.5)]);
         assert_eq!(report["01_1"][1].recorded, Some((1.5, 3.5, 3.5)));
+    }
+
+    fn pause_report() -> serde_json::Value {
+        serde_json::json!({"meta":{"rate":24000,"direction_contract":{
+            "binding":{"resolved":[{"override_index":46,"cue":"10_7","end_word_index":48,
+                "direction":{"cue":"10_7","after":"half the samples"}}]},
+            "dispositions":[{"override_index":46,"kind":"authored_silence"}]}},"lines":{"10_7":[
+            {"sentence":"For programmers.","start":0,"end":1.2916666666666667,"pause_cut_s":0,"out_samples":31000,"gap_after_samples":0},
+            {"sentence":"A sampling profiler checks what your program is doing many times a second, so it measures where the time goes, not how often each function is called.",
+                "start":1.2916666666666667,"end":10.083333333333334,"pause_cut_s":0,"out_samples":211000,"gap_after_samples":0},
+            {"sentence":"On average, one ten millisecond call shows up as often as five two millisecond calls put together: half the samples, but only a sixth of the calls.",
+                "start":10.083333333333334,"end":19.44,"pause_cut_s":0,"source_in_sample":242000,"source_out_sample":466560,
+                "out_samples":229360,"gap_after_samples":0,"intra_sentence_pauses":[{"override_index":46,"source_sample":424000,"inserted_samples":4800}]}
+        ]}})
+    }
+
+    #[test]
+    fn profiler_contrast_waits_for_the_bound_pause_and_keeps_call_phrases_together() {
+        let report = parse_report(&pause_report().to_string()).unwrap();
+        let sentence = &report["10_7"][2];
+        let (a, b, _) = sentence.recorded.unwrap();
+        let caps = directed_captions(sentence, a, b);
+        assert_eq!(caps.len(), 3);
+        assert_eq!(
+            caps.iter().map(|c| c.lines.join("\n")).collect::<Vec<_>>(),
+            [
+                "On average, one ten millisecond call shows\nup as often as",
+                "five two millisecond calls put together:\nhalf the samples,",
+                "but only a sixth of the calls."
+            ]
+        );
+        assert_eq!(caps[1].end, 17.866666666666667);
+        assert_eq!(caps[2].start, caps[1].end);
+        assert!((caps[0].end + 55.13333333333333 - 68.975).abs() < 0.000501);
+        assert!(validate(&caps).is_ok());
+        assert_eq!(
+            caps.iter()
+                .flat_map(|c| &c.lines)
+                .cloned()
+                .collect::<Vec<_>>()
+                .join(" "),
+            sentence.text
+        );
+    }
+
+    #[test]
+    fn pause_offsets_include_prior_sentence_gaps_and_prior_insertions() {
+        let value = serde_json::json!({"meta":{"rate":100,"direction_contract":{
+            "binding":{"resolved":[
+                {"override_index":0,"cue":"x","end_word_index":2,"direction":{"cue":"x","after":"One"}},
+                {"override_index":1,"cue":"x","end_word_index":5,"direction":{"cue":"x","after":"twenty-one calls"}}]},
+            "dispositions":[{"override_index":0,"kind":"authored_silence"},{"override_index":1,"kind":"authored_silence"}]}},
+            "lines":{"x":[
+                {"sentence":"Warm up.","start":0,"end":1,"pause_cut_s":0,"out_samples":100,"gap_after_samples":50},
+                {"sentence":"One twenty-one calls remain.","start":2,"end":10,"pause_cut_s":0,"out_samples":850,"gap_after_samples":0,
+                "source_in_sample":200,"source_out_sample":1000,"intra_sentence_pauses":[
+                    {"override_index":0,"source_sample":400,"inserted_samples":20},
+                    {"override_index":1,"source_sample":800,"inserted_samples":30}]}]}});
+        let parsed = parse_report(&value.to_string()).unwrap();
+        let s = &parsed["x"][1];
+        assert_eq!(
+            s.pauses,
+            [
+                CaptionPause {
+                    after_words: 1,
+                    start: 3.5,
+                    end: 3.7
+                },
+                CaptionPause {
+                    after_words: 3,
+                    start: 7.7,
+                    end: 8.0
+                }
+            ]
+        );
+        let caps = directed_captions(s, 1.5, 10.0);
+        assert_eq!(
+            caps.iter()
+                .map(|c| (c.start, c.end, c.lines.join(" ")))
+                .collect::<Vec<_>>(),
+            [
+                (1.5, 3.7, "One".into()),
+                (3.7, 8.0, "twenty-one calls".into()),
+                (8.0, 10.0, "remain.".into())
+            ]
+        );
+        let mut invalid = value;
+        invalid["meta"]["direction_contract"]["binding"]["resolved"][1]["end_word_index"] = 3.into();
+        invalid["meta"]["direction_contract"]["binding"]["resolved"][1]["direction"]["after"] = "twenty".into();
+        assert!(
+            parse_report(&invalid.to_string())
+                .unwrap_err()
+                .to_string()
+                .contains("display word")
+        );
+    }
+
+    #[test]
+    fn malformed_pause_contracts_are_refused_instead_of_guessing_caption_boundaries() {
+        for (pointer, value) in [
+            (
+                "/meta/direction_contract/binding/resolved/0/cue",
+                serde_json::json!("other"),
+            ),
+            (
+                "/meta/direction_contract/binding/resolved/0/end_word_index",
+                serde_json::json!(29),
+            ),
+            (
+                "/meta/direction_contract/binding/resolved/0/end_word_index",
+                serde_json::json!(55),
+            ),
+            (
+                "/meta/direction_contract/binding/resolved/0/direction/after",
+                serde_json::json!("wrong phrase"),
+            ),
+            (
+                "/meta/direction_contract/dispositions/0/kind",
+                serde_json::json!("native_visual_hold"),
+            ),
+            ("/meta/direction_contract/dispositions", serde_json::json!([])),
+            (
+                "/lines/10_7/2/intra_sentence_pauses/0/source_sample",
+                serde_json::json!(242000),
+            ),
+            (
+                "/lines/10_7/2/intra_sentence_pauses/0/inserted_samples",
+                serde_json::json!(0),
+            ),
+            ("/lines/10_7/2/out_samples", serde_json::json!(224560)),
+            ("/lines/10_7/2/intra_sentence_pauses", serde_json::json!({})),
+        ] {
+            let mut input = pause_report();
+            *input.pointer_mut(pointer).unwrap() = value;
+            assert!(parse_report(&input.to_string()).is_err(), "accepted {pointer}: {input}");
+        }
+        for pointer in [
+            "/meta/direction_contract/binding/resolved",
+            "/lines/10_7/2/intra_sentence_pauses",
+        ] {
+            let mut input = pause_report();
+            let array = input.pointer_mut(pointer).unwrap().as_array_mut().unwrap();
+            array.push(array[0].clone());
+            assert!(
+                parse_report(&input.to_string()).is_err(),
+                "accepted duplicate {pointer}"
+            );
+        }
+    }
+
+    #[test]
+    fn contract_words_match_apostrophes_digits_and_hyphenated_words() {
+        assert_eq!(
+            direction_words("What's twenty-one? They’re 2nd. 'ab'cd 42'foo9"),
+            ["what's", "twenty", "one", "they're", "2nd", "ab'cd", "42'foo", "9"]
+        );
+    }
+
+    #[test]
+    fn video_export_derives_prediction_holds_from_each_timeline_and_chapter_offset() {
+        use explainer_score::timeline::{LinePlacement, Mark};
+        let path = std::env::temp_dir().join(format!("caption_prediction_{}.wav", std::process::id()));
+        wav::write(&path, &Stereo::from_mono(&vec![0.0; 48000]), wav::Format::F32).unwrap();
+        let report = parse_report(r#"{"meta":{"rate":48000},"lines":{
+            "q":[{"sentence":"What's the average wait there?","start":0,"end":1,"pause_cut_s":0,"out_samples":48000,"gap_after_samples":0}],
+            "a":[{"sentence":"The answer.","start":0,"end":1,"pause_cut_s":0,"out_samples":48000,"gap_after_samples":0}]}}"#).unwrap();
+        for fps in [15, 60] {
+            let factor = u64::from(fps / 15);
+            let leading = ChapterTimeline {
+                fps,
+                frames: u64::from(fps),
+                ..Default::default()
+            };
+            let mut chapter = ChapterTimeline {
+                chapter: "question".into(),
+                fps,
+                frames: 120 * factor,
+                lines: vec![
+                    LinePlacement {
+                        id: "q".into(),
+                        start_frame: 7 * factor,
+                        gain_db: 0.0,
+                        wav: path.clone(),
+                    },
+                    LinePlacement {
+                        id: "a".into(),
+                        start_frame: 75 * factor,
+                        gain_db: 0.0,
+                        wav: path.clone(),
+                    },
+                ],
+                marks: vec![Mark {
+                    label: "predict".into(),
+                    frame: 30 * factor,
+                }],
+                ..Default::default()
+            };
+            let caps = video_captions(&[leading.clone(), chapter.clone()], &report).unwrap();
+            assert_eq!(caps.len(), 2);
+            assert_eq!(caps[0].end, 6.0);
+            assert_eq!(caps[1].start, 6.0);
+            assert!(validate(&caps).is_ok());
+            // A later final timeline must move the hold, not reuse 15 fps sidecars.
+            chapter.lines[1].start_frame += 15 * factor;
+            assert_eq!(
+                video_captions(&[leading, chapter.clone()], &report).unwrap()[0].end,
+                7.0
+            );
+            for mark in [
+                Mark {
+                    label: "reveal".into(),
+                    frame: 30 * factor,
+                },
+                Mark {
+                    label: "predict".into(),
+                    frame: 8 * factor,
+                },
+                Mark {
+                    label: "predict".into(),
+                    frame: 90 * factor,
+                },
+            ] {
+                chapter.marks = vec![mark];
+                assert!(prediction_end(&chapter, 0, 1.0).is_none());
+            }
+            assert!(prediction_end(&chapter, 1, 1.0).is_none());
+        }
     }
 
     #[test]

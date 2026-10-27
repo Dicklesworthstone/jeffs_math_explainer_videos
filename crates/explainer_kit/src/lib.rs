@@ -26,6 +26,7 @@ pub mod palette;
 pub mod play;
 pub mod plot;
 pub mod props;
+pub mod score_stem;
 pub mod stats;
 pub mod storyboard;
 pub mod telemetry;

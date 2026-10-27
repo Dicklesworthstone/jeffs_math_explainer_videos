@@ -3,6 +3,12 @@
 [workspace]
 resolver = "3"
 members = ["crates/*", "explainer_corpus/*"]
+# Third-wave writing drafts join this workspace only at their integration Bead.
+# Root removes each exclusion after its independent review and source handoff.
+exclude = [
+    # Session hooks may write here; this preserved state is not a crate.
+    "explainer_corpus/.ee",
+]
 
 [workspace.package]
 edition = "2024"

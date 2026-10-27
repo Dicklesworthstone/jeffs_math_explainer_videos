@@ -975,6 +975,43 @@ pub struct ChordSpan {
     pub voicing: Voicing,
 }
 
+/// A musical rest when continuous speech leaves no legal chord change.
+/// Release the bed at 15 s (inside the unchanged 16 s ceiling), with a
+/// one-second fade; resume only at the already-planned eligible pause.
+/// Explicit held listen/theme windows keep their authored behavior and QA.
+fn release_long_bed(chords: &mut [ChordSpan], held: &[(f64, f64)]) -> Vec<(f64, f64)> {
+    let mut rests = Vec::new();
+    for chord in chords {
+        if chord.end - chord.start > LONGEST_CHORD && !held.iter().any(|&(a, b)| chord.start < b && chord.end > a) {
+            let end = chord.end;
+            chord.end = chord.start + 15.0;
+            rests.push((chord.end, end));
+        }
+    }
+    rests
+}
+
+/// Fade only the harmonic bed (including its effects tail), without moving
+/// any narration or melodic event. No step when a new chord resumes.
+fn apply_bed_rests(bed: &mut Stereo, rests: &[(f64, f64)]) {
+    for &(start, end) in rests {
+        let first = ((start - 1.0).max(0.0) * FS).round() as usize;
+        let last = (((end + 0.5) * FS).round() as usize).min(bed.len());
+        for i in first..last {
+            let t = i as f64 / FS;
+            let gain = if t < start {
+                1.0 - rcos(t - (start - 1.0))
+            } else if t < end {
+                0.0
+            } else {
+                rcos((t - end) / 0.5)
+            };
+            bed.l[i] *= gain;
+            bed.r[i] *= gain;
+        }
+    }
+}
+
 /// A rendered score with everything QA needs to judge it.
 #[derive(Clone, Debug)]
 pub struct Score {
@@ -1140,7 +1177,37 @@ pub const LONGEST_CHORD: f64 = 16.0;
 /// [t + min, t + max] that still leaves ≥ `min` for what follows; with no
 /// candidate there (speech allowed no pause), to the first later one that
 /// does (the chord holds, a pedal, longer than `max`).
+///
+/// Keep that established plan, including its RNG consumption, whenever it
+/// meets the hard 4–16 s bounds. Otherwise, use only candidates from which
+/// the end is reachable in legal spans: a locally attractive pause can
+/// strand the next chord even when a complete legal path exists. If none
+/// exists, keep the original plan so QA still reports the long chord. Short
+/// sections (including stretches beside listen windows) retain their single
+/// chord rather than inventing a change outside the section.
 pub fn plan_changes(candidates: &[f64], total: f64, (min, max): (f64, f64), rng: &mut Rng) -> Vec<f64> {
+    let mut repair_rng = rng.clone();
+    let original = plan_changes_greedy(candidates, total, (min, max), rng);
+    let legal = original
+        .windows(2)
+        .map(|w| w[1] - w[0])
+        .chain([total - original.last().unwrap()])
+        .all(|length| (SHORTEST_CHORD..=LONGEST_CHORD).contains(&length));
+    if legal || total < SHORTEST_CHORD {
+        return original;
+    }
+    match plan_changes_reachable(candidates, total, (min, max), &mut repair_rng) {
+        Some(repaired) => {
+            *rng = repair_rng;
+            repaired
+        }
+        None => original,
+    }
+}
+
+/// The established greedy planner, kept unchanged for already-valid scores
+/// and for cases where the available speech pauses cannot meet the bounds.
+fn plan_changes_greedy(candidates: &[f64], total: f64, (min, max): (f64, f64), rng: &mut Rng) -> Vec<f64> {
     let mut out = vec![0.0];
     let mut t = 0.0;
     while total - t > max {
@@ -1174,6 +1241,63 @@ pub fn plan_changes(candidates: &[f64], total: f64, (min, max): (f64, f64), rng:
         }
     }
     out
+}
+
+/// Backward reachability on actual quiet candidates plus the section's end.
+/// The end closes the last chord; it is never emitted as a chord change.
+fn plan_changes_reachable(candidates: &[f64], total: f64, (min, max): (f64, f64), rng: &mut Rng) -> Option<Vec<f64>> {
+    if !total.is_finite() || total < SHORTEST_CHORD {
+        return None;
+    }
+    let mut points = vec![0.0];
+    points.extend(
+        candidates
+            .iter()
+            .copied()
+            .filter(|&c| c.is_finite() && c > 0.0 && c < total),
+    );
+    points.sort_by(f64::total_cmp);
+    points.dedup();
+    points.push(total);
+    let end = points.len() - 1;
+    let mut reachable = vec![false; points.len()];
+    reachable[end] = true;
+    for i in (0..end).rev() {
+        for j in i + 1..=end {
+            let length = points[j] - points[i];
+            if length > LONGEST_CHORD {
+                break;
+            }
+            if length >= SHORTEST_CHORD && reachable[j] {
+                reachable[i] = true;
+                break;
+            }
+        }
+    }
+    if !reachable[0] {
+        return None;
+    }
+    let mut out = vec![0.0];
+    let mut i = 0;
+    while i < end {
+        let target = points[i] + rng.range(min, max);
+        let viable = (i + 1..=end)
+            .take_while(|&j| points[j] - points[i] <= LONGEST_CHORD)
+            .filter(|&j| points[j] - points[i] >= SHORTEST_CHORD && reachable[j]);
+        let nearest = |a: &usize, b: &usize| (points[*a] - target).abs().total_cmp(&(points[*b] - target).abs());
+        // The identity remains the preference, but the hard limits can
+        // require an earlier or later real pause to keep the suffix legal.
+        let next = viable
+            .clone()
+            .filter(|&j| (min..=max).contains(&(points[j] - points[i])))
+            .min_by(nearest)
+            .or_else(|| viable.min_by(nearest))?;
+        if next != end {
+            out.push(points[next]);
+        }
+        i = next;
+    }
+    Some(out)
 }
 
 /// A listen stretch shorter than this between two listen windows is not
@@ -1919,7 +2043,7 @@ fn compose(
             line_spans.push(((c.1 + a) as f64 / FS, (c.1 + b) as f64 / FS));
         }
     }
-    let (silences, notes) = authored_silences(sections, &chapter_starts, &fine, &speech, &line_spans, total);
+    let (silences, mut notes) = authored_silences(sections, &chapter_starts, &fine, &speech, &line_spans, total);
     let silent = |t: f64| silences.iter().any(|s| t >= s.fade_start && t < s.back);
 
     // 3. harmony, planned inside each chapter from its own progression (its
@@ -1930,6 +2054,7 @@ fn compose(
     //    chord is the progression's first when the plan resolves
     let resolve = sections.last().is_some_and(|s| s.plan.resolve);
     let mut chords: Vec<ChordSpan> = Vec::new();
+    let mut bed_rests = Vec::new();
     let mut events = Vec::new();
     for (c, (name, a, b)) in chapters.iter().enumerate() {
         let (t0, t1) = (*a as f64 / FS, *b as f64 / FS);
@@ -2039,6 +2164,15 @@ fn compose(
                 voicing,
             });
         }
+        let held_global: Vec<_> = held.iter().map(|&(a, b)| (t0 + a, t0 + b)).collect();
+        for rest in release_long_bed(&mut mine, &held_global) {
+            notes.push(format!(
+                "{name}: harmonic bed fades into a rest {:.6}-{:.6} s; no speech or chord onset moved",
+                rest.0 - t0,
+                rest.1 - t0
+            ));
+            bed_rests.push(rest);
+        }
         for (k, span) in mine.iter().enumerate() {
             events.extend(chord_events(identity, span, sections[c].plan.intensity, name, k));
         }
@@ -2048,7 +2182,8 @@ fn compose(
         chords
             .iter()
             .find(|c| t >= c.start && t < c.end)
-            .or(chords.last())
+            .or_else(|| chords.iter().rev().find(|c| c.start <= t))
+            .or(chords.first())
             .expect("at least one chord")
     };
 
@@ -2502,6 +2637,7 @@ fn compose(
             }
         }
         let mut sum = bed_bus(identity, &events, n, &send, &room);
+        apply_bed_rests(&mut sum, &bed_rests);
         drop(send);
         sum.scale(db_to_gain(v_ref + identity.bed_lu - ref_bed + bed_trim_db));
         let melody = melody_bus(&events, n);
@@ -2797,6 +2933,37 @@ mod tests {
     }
 
     #[test]
+    fn unbroken_speech_gets_a_real_bed_rest_without_a_new_onset() {
+        let chord = Chord::six_nine(2);
+        let span = ChordSpan {
+            start: 0.0,
+            end: 22.0,
+            voicing: voice_lead(&chord, 4, None, &Register::ROBERT),
+            chord,
+        };
+        let mut chords = vec![span.clone()];
+        let rests = release_long_bed(&mut chords, &[]);
+        assert_eq!(rests, vec![(15.0, 22.0)]);
+        assert_eq!(chords[0].start, 0.0);
+        assert_eq!(chords[0].end, 15.0);
+        let mut bed = Stereo {
+            l: vec![1.0; 24 * 48000],
+            r: vec![1.0; 24 * 48000],
+        };
+        apply_bed_rests(&mut bed, &rests);
+        assert_eq!(bed.l[13 * 48000], 1.0);
+        assert!(bed.l[15 * 48000..22 * 48000].iter().all(|&x| x == 0.0));
+        assert_eq!(bed.l[23 * 48000], 1.0);
+        assert!(bed.l.windows(2).all(|w| (w[1] - w[0]).abs() < 0.001));
+        let mut held = vec![span];
+        assert!(release_long_bed(&mut held, &[(0.0, 22.0)]).is_empty());
+        assert_eq!(held[0].end, 22.0, "authored held window still reaches QA unchanged");
+        let mut valid = chords.clone();
+        assert!(release_long_bed(&mut valid, &[]).is_empty());
+        assert_eq!(valid[0].end, chords[0].end);
+    }
+
+    #[test]
     fn candidates_respect_pauses_and_onsets() {
         // speech 1–4 s, a 0.1 s pause (too short), 4.1–6 s, a 0.5 s pause, 6.5–9 s
         let fine = [(1.0, 4.0), (4.1, 6.0), (6.5, 9.0)];
@@ -2877,6 +3044,112 @@ mod tests {
         assert_eq!(
             plan_changes(&[0.0, 6.5], 15.5, (8.0, 14.0), &mut Rng::new(1)),
             vec![0.0]
+        );
+    }
+
+    #[test]
+    fn reachable_changes_avoid_a_greedy_lookahead_trap() {
+        // Taking 10 leaves an 18 s jump to 28. Taking 12 instead permits
+        // the complete 12 / 16 / 16 / 6 s path using the same real pauses.
+        let candidates = [0.0, 10.0, 12.0, 28.0, 44.0];
+        let mut trapped_seeds = 0;
+        for seed in 0..64 {
+            let old = plan_changes_greedy(&candidates, 50.0, (6.0, 12.0), &mut Rng::new(seed));
+            if old.windows(2).any(|w| w[1] - w[0] > LONGEST_CHORD) {
+                trapped_seeds += 1;
+            }
+            let actual = plan_changes(&candidates, 50.0, (6.0, 12.0), &mut Rng::new(seed));
+            assert_eq!(actual, vec![0.0, 12.0, 28.0, 44.0], "seed {seed}");
+            assert!(actual.iter().all(|c| candidates.contains(c)));
+            assert!(actual.iter().all(|&c| c < 50.0));
+            for length in actual
+                .windows(2)
+                .map(|w| w[1] - w[0])
+                .chain([50.0 - actual.last().unwrap()])
+            {
+                assert!(
+                    (SHORTEST_CHORD..=LONGEST_CHORD).contains(&length),
+                    "seed {seed}: {actual:?}"
+                );
+            }
+        }
+        assert!(trapped_seeds > 0, "the regression must exercise a failing greedy plan");
+    }
+
+    #[test]
+    fn valid_changes_preserve_the_established_plan_and_rng() {
+        let dense: Vec<f64> = (0..400).map(|k| k as f64 * 0.37).collect();
+        for seed in 0..64 {
+            for (candidates, total, range) in [
+                (dense.as_slice(), 140.0, (6.0, 12.0)),
+                // A hard-valid pedal outside the identity preference remains
+                // one chord, rather than being changed for aesthetic reasons.
+                (&[0.0, 6.5][..], 15.5, (8.0, 14.0)),
+            ] {
+                let mut old_rng = Rng::new(seed);
+                let mut new_rng = Rng::new(seed);
+                let expected = plan_changes_greedy(candidates, total, range, &mut old_rng);
+                assert!(
+                    expected
+                        .windows(2)
+                        .map(|w| w[1] - w[0])
+                        .chain([total - expected.last().unwrap()])
+                        .all(|length| (SHORTEST_CHORD..=LONGEST_CHORD).contains(&length))
+                );
+                assert_eq!(plan_changes(candidates, total, range, &mut new_rng), expected);
+                assert_eq!(new_rng.next_u64(), old_rng.next_u64(), "seed {seed}");
+            }
+        }
+    }
+
+    #[test]
+    fn impossible_changes_preserve_the_original_failure_and_rng() {
+        let candidates = [0.0, 3.0, 30.0, 60.0];
+        assert_eq!(
+            plan_changes_reachable(&candidates, 80.0, (6.0, 12.0), &mut Rng::new(1)),
+            None
+        );
+        for seed in 0..64 {
+            let mut old_rng = Rng::new(seed);
+            let mut new_rng = Rng::new(seed);
+            let expected = plan_changes_greedy(&candidates, 80.0, (6.0, 12.0), &mut old_rng);
+            assert_eq!(expected, vec![0.0, 30.0, 60.0]);
+            assert_eq!(plan_changes(&candidates, 80.0, (6.0, 12.0), &mut new_rng), expected);
+            assert_eq!(new_rng.next_u64(), old_rng.next_u64(), "seed {seed}");
+            assert!(expected.windows(2).any(|w| w[1] - w[0] > LONGEST_CHORD));
+        }
+    }
+
+    #[test]
+    fn reachable_changes_preserve_short_sections_and_listen_windows() {
+        for total in [0.0, 1.5, 3.75, 11.0] {
+            let mut old_rng = Rng::new(7);
+            let mut new_rng = Rng::new(7);
+            let expected = plan_changes_greedy(&[0.0, 1.0], total, (6.0, 12.0), &mut old_rng);
+            assert_eq!(plan_changes(&[0.0, 1.0], total, (6.0, 12.0), &mut new_rng), expected);
+            assert_eq!(new_rng.next_u64(), old_rng.next_u64());
+        }
+        let candidates = [0.0, 10.0, 12.0, 28.0, 44.0, 50.0, 52.0, 62.0, 64.0, 80.0, 96.0];
+        for seed in 0..64 {
+            let actual = plan_with_listens(&candidates, 102.0, (6.0, 12.0), &[(50.0, 52.0)], &mut Rng::new(seed));
+            assert_eq!(
+                actual,
+                vec![
+                    (0.0, false),
+                    (12.0, false),
+                    (28.0, false),
+                    (44.0, false),
+                    (50.0, true),
+                    (52.0, false),
+                    (64.0, false),
+                    (80.0, false),
+                    (96.0, false),
+                ]
+            );
+        }
+        assert_eq!(
+            plan_with_listens(&[0.0, 1.5, 4.5], 8.0, (6.0, 12.0), &[(1.5, 4.5)], &mut Rng::new(3)),
+            vec![(0.0, false), (1.5, true), (4.5, false)],
         );
     }
 

@@ -82,6 +82,74 @@ fn explainer(facts: fn() -> Result<Facts, String>) -> Explainer {
     }
 }
 
+#[test]
+fn contract_consumers_refuse_before_creating_output() {
+    // Retain all fixtures. No render/encoder is needed to prove admission order.
+    let root = std::env::temp_dir().join(format!(
+        "native-contract-{}-{}",
+        std::process::id(),
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_nanos()
+    ));
+    let topic = root.join("explainer_corpus/toy");
+    std::fs::create_dir_all(&topic).unwrap();
+    let e = explainer(good_facts);
+    for body in ["stale compiled script", SCRIPT] {
+        std::fs::write(topic.join("script.tsv"), body).unwrap();
+        for consumer in ["render", "captions", "score", "master"] {
+            let out = root.join(format!("{consumer}-{}", body.len()));
+            let argv = [
+                consumer.to_owned(),
+                "--narration".into(),
+                root.join("missing").display().to_string(),
+                "--out".into(),
+                out.display().to_string(),
+            ];
+            assert_eq!(explainer_kit::cli::run_with_contract(&e, argv, &topic), 1);
+            assert!(!out.exists(), "{consumer} wrote output before verification");
+        }
+    }
+    for consumer in ["captions", "score", "master"] {
+        assert_eq!(
+            explainer_kit::cli::run_with_contract(&e, [consumer.to_owned()], &topic),
+            1
+        );
+    }
+}
+
+/// A thumbnail: one picture and a title, held for the one captured frame.
+#[test]
+fn lab_review_requires_explicit_bounded_contract_consumer() {
+    use explainer_kit::cli::parse_args;
+    let parse = |text: &str| parse_args(text.split_whitespace().map(str::to_owned));
+    let base = "render 01_first --narration voice --review-units lab/units.json --fps 15";
+    assert!(parse(base).is_ok());
+    assert!(parse("captions 01_first --narration voice --review-units lab/units.json").is_ok());
+    for suffix in [
+        "--fps 60",
+        "--fps 0",
+        "--res 3840x2160",
+        "--res 0x1080",
+        "--score stems",
+        "02_second",
+    ] {
+        assert!(parse(&format!("{base} {suffix}")).is_err(), "{suffix}");
+    }
+    for command in ["score", "master", "facts", "thumbnail"] {
+        assert!(parse(&base.replacen("render", command, 1)).is_err(), "{command}");
+    }
+    assert!(parse(&base.replace("01_first", "all")).is_err());
+    assert!(parse(&base.replace("01_first", "")).is_err());
+    assert!(parse(&base.replace("--narration voice", "")).is_err());
+    assert_eq!(
+        explainer_kit::cli::run(&explainer(good_facts), base.split_whitespace().map(str::to_owned)),
+        1,
+        "legacy callers must not silently ignore the review contract"
+    );
+}
+
 /// A thumbnail: one picture and a title, held for the one captured frame.
 struct ToyThumbnail {
     kit: Kit,

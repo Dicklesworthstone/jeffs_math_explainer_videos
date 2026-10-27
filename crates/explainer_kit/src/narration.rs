@@ -56,7 +56,9 @@ pub enum LineGaps {
     Constant,
     /// The silence follows the thought: [`classify_gap`] reads the two lines'
     /// text and [`GapClass::audible_s`] gives the silence the ear should
-    /// hear, less the two takes' own quiet edges ([`quiet_edges`]). A
+    /// hear, less the two takes' own quiet edges ([`quiet_edges`]). A contiguous
+    /// split inside a coherent take keeps its recorded phrasing instead of
+    /// receiving another generic gap. A
     /// chapter's first line is placed by the class of the pair that crosses
     /// the chapter join. Authored windows (`music_breath`, `listen`,
     /// `sonify`) keep their length and the breath after them, and `hold`
@@ -90,7 +92,7 @@ pub const SENTENCE_END_S: f64 = 0.81;
 pub const PARAGRAPH_END_S: f64 = 0.99;
 // a continuation is shorter than a beat, and a beat shorter than a topic
 const _: () = assert!(WITHIN_PARAGRAPH_S < SENTENCE_END_S && SENTENCE_END_S < PARAGRAPH_END_S);
-/// The shortest silence the kit inserts between lines, seconds.
+/// The shortest generic silence the kit inserts between separate reads, seconds.
 pub const MIN_GAP_S: f64 = 0.10;
 /// The coefficient of variation the plain line gaps of a video must reach
 /// for [`check_gap_spread`] to pass. The constant breath, with the takes' own
@@ -213,6 +215,27 @@ pub fn quiet_edges(mono: &[f64], rate: u32) -> (f64, f64) {
         }
     };
     (seconds(lead), seconds(tail))
+}
+
+/// Conservative endpoint level evidence, without the 40 ms run requirement.
+/// This is a seam guard, not a speech or perceptual classifier. Unknown short
+/// clips count as sounding. Inspect the actual last frame, including any
+/// remainder outside the hop grid used for the reference percentile.
+fn quiet_boundary_frames(mono: &[f64], rate: u32) -> (bool, bool) {
+    let frame = (f64::from(rate) * EDGE_FRAME_S).round() as usize;
+    let hop = (f64::from(rate) * EDGE_HOP_S).round() as usize;
+    if frame == 0 || hop == 0 || mono.len() < frame {
+        return (false, false);
+    }
+    let level = |s: &[f64]| 10.0 * (s.iter().map(|x| x * x).sum::<f64>() / s.len() as f64 + 1e-12).log10();
+    let mut levels: Vec<f64> = mono.windows(frame).step_by(hop).map(level).collect();
+    levels.sort_by(f64::total_cmp);
+    let at = 0.95 * (levels.len() - 1) as f64;
+    let lo = at.floor() as usize;
+    let hi = at.ceil() as usize;
+    let top = levels[lo] + (levels[hi] - levels[lo]) * (at - lo as f64);
+    let quiet = |s: &[f64]| s.iter().all(|x| *x == 0.0) || level(s) < top - EDGE_BELOW_TOP_DB;
+    (quiet(&mono[..frame]), quiet(&mono[mono.len() - frame..]))
 }
 
 /// The coefficient of variation (population standard deviation over the
@@ -395,6 +418,53 @@ impl Script {
 
 // ----------------------------------------------------------------- cues
 
+/// Check a coherent-unit plan against the exact script it will synthesize.
+/// Metadata may repeat cue names; only `line_ids` assigns spoken coverage.
+pub fn check_coherent_units(script_source: &str, json: &str) -> Result<(), String> {
+    let plan: serde_json::Value = serde_json::from_str(json).map_err(|e| e.to_string())?;
+    let hash = explainer_score::digest::sha256_hex(script_source.as_bytes());
+    if plan["schema_version"].as_u64() != Some(1) || plan["script_sha256"].as_str() != Some(&hash) {
+        return Err("unit plan does not bind the current script".into());
+    }
+    let script = Script::parse(script_source)?;
+    let units = plan["units"].as_array().ok_or("units must be an array")?;
+    let mut covered = Vec::new();
+    let mut unit_ids = HashSet::new();
+    for unit in units {
+        let id = unit["id"].as_str().ok_or("unit id must be text")?;
+        if id.is_empty() || !unit_ids.insert(id) {
+            return Err(format!("empty or repeated unit id {id:?}"));
+        }
+        let cues = unit["line_ids"].as_array().ok_or("line_ids must be an array")?;
+        if cues.is_empty() {
+            return Err(format!("unit {id} is empty"));
+        }
+        let mut chapter = None;
+        let mut parts = Vec::new();
+        for cue in cues {
+            let cue = cue.as_str().ok_or("cue id must be text")?;
+            let prefix = cue.split_once('_').ok_or("cue id lacks chapter")?.0;
+            if chapter.is_some_and(|c| c != prefix) {
+                return Err(format!("unit {id} crosses chapters"));
+            }
+            chapter = Some(prefix);
+            parts.push(script.text(cue).ok_or_else(|| format!("unknown cue {cue}"))?);
+            covered.push(cue);
+        }
+        let text = parts.join(" ");
+        if unit["text"].as_str() != Some(&text) || !(1..=100).contains(&text.split_whitespace().count()) {
+            return Err(format!(
+                "unit {id} changes text or exceeds the coherent-unit word bound"
+            ));
+        }
+    }
+    let expected: Vec<&str> = script.lines().iter().map(|(id, _)| id.as_str()).collect();
+    if covered != expected {
+        return Err("units omit, repeat or reorder script cues".into());
+    }
+    Ok(())
+}
+
 /// A sound file as checked before franken_manim loads it.
 #[derive(Clone, Debug, PartialEq)]
 pub struct CueFile {
@@ -503,6 +573,11 @@ pub struct Narrator {
     /// The (lead, tail) quiet seconds of each loaded take, measured only under
     /// [`LineGaps::Thought`]; empty for the scratch voice.
     edges: HashMap<String, (f64, f64)>,
+    /// Endpoint levels for refusing silence inserted inside coherent speech.
+    boundary_quiet: HashMap<String, (bool, bool)>,
+    /// Adjacent cues cut from contiguous spans of one coherent take. Their
+    /// recorded phrasing, including authored PCM silence, already spans the seam.
+    contiguous_cues: HashSet<(String, String)>,
     after: RefCell<After>,
 }
 
@@ -617,6 +692,81 @@ pub fn report_starts(json: &str) -> io::Result<HashMap<String, (Vec<f64>, f64)>>
     Ok(out)
 }
 
+/// Only the coherent assembler records enough provenance to identify a cue
+/// boundary inside one take. Missing or malformed provenance is ineligible;
+/// it must never turn two unrelated reads into a continuous phrase.
+fn report_contiguous_cues(json: &str, script: &Script) -> io::Result<HashSet<(String, String)>> {
+    struct Span<'a> {
+        unit: &'a str,
+        source: &'a str,
+        hash: &'a str,
+        start: u64,
+        end: u64,
+    }
+    fn span(row: &serde_json::Value) -> Option<Span<'_>> {
+        let text = |key: &str| row.get(key)?.as_str().filter(|s| !s.trim().is_empty());
+        let unit = text("unit_id")?;
+        let source = text("source")?;
+        let hash = text("source_sha256")?;
+        if hash.len() != 64 || !hash.bytes().all(|b| b.is_ascii_hexdigit()) {
+            return None;
+        }
+        let start = row.get("source_in_sample")?.as_u64()?;
+        let end = row.get("source_out_sample")?.as_u64()?;
+        let samples = row.get("out_samples")?.as_u64()?;
+        row.get("gap_after_samples")?.as_u64()?;
+        if samples == 0 || end.checked_sub(start)? != samples {
+            return None;
+        }
+        Some(Span {
+            unit,
+            source,
+            hash,
+            start,
+            end,
+        })
+    }
+
+    let report: serde_json::Value = serde_json::from_str(json)
+        .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, format!("report.json: {e}")))?;
+    let mut pairs = HashSet::new();
+    if report.pointer("/meta/adapter").and_then(serde_json::Value::as_str) != Some("coherent-narration-v1") {
+        return Ok(pairs);
+    }
+    let Some(lines) = report.get("lines").and_then(serde_json::Value::as_object) else {
+        return Ok(pairs);
+    };
+    // Full-script order prevents a partial selection from making formerly
+    // nonadjacent cues neighbours. JSON key order is not spoken order.
+    for pair in script.all.windows(2) {
+        let (prev, next) = (&pair[0].0, &pair[1].0);
+        if script.text(prev).is_none() || script.text(next).is_none() {
+            continue;
+        }
+        let (Some((chapter, _)), Some((next_chapter, _))) = (prev.split_once('_'), next.split_once('_')) else {
+            continue;
+        };
+        if chapter.is_empty() || chapter != next_chapter {
+            continue;
+        }
+        let a = lines
+            .get(prev)
+            .and_then(serde_json::Value::as_array)
+            .and_then(|rows| rows.last());
+        let b = lines
+            .get(next)
+            .and_then(serde_json::Value::as_array)
+            .and_then(|rows| rows.first());
+        let (Some(a), Some(b)) = (a.and_then(span), b.and_then(span)) else {
+            continue;
+        };
+        if a.unit == b.unit && a.source == b.source && a.hash == b.hash && a.end == b.start {
+            pairs.insert((prev.clone(), next.clone()));
+        }
+    }
+    Ok(pairs)
+}
+
 /// Bind the report's display text to the script, not its pronunciation
 /// respellings (`tts`). Existing WAV names alone do not identify a read:
 /// rewording a line keeps its id, so it must require new narration.
@@ -717,18 +867,22 @@ impl Narrator {
         let mut files = HashMap::new();
         let mut lengths = HashMap::new();
         let mut edges = HashMap::new();
+        let mut boundary_quiet = HashMap::new();
         for (id, _) in script.lines() {
             let (f, decoded) = inspect_decoded(&dir.join(format!("{id}.wav")))?;
             lengths.insert(id.clone(), f.seconds());
             files.insert(id.clone(), f);
+            let mono = decoded.mono();
+            boundary_quiet.insert(id.clone(), quiet_boundary_frames(&mono, decoded.rate));
             if script.line_gaps() == LineGaps::Thought {
-                edges.insert(id.clone(), quiet_edges(&decoded.mono(), decoded.rate));
+                edges.insert(id.clone(), quiet_edges(&mono, decoded.rate));
             }
         }
         let report_path = dir.join("report.json");
         let report = std::fs::read_to_string(&report_path)
             .map_err(|e| io::Error::new(e.kind(), format!("{}: {e}", report_path.display())))?;
         check_report_script(&report, script)?;
+        let contiguous_cues = report_contiguous_cues(&report, script)?;
         let report = report_starts(&report)?;
         let mut starts = HashMap::new();
         for (id, _) in script.lines() {
@@ -758,6 +912,8 @@ impl Narrator {
             line_gaps: script.line_gaps(),
             order: script.all.clone(),
             edges,
+            boundary_quiet,
+            contiguous_cues,
             after: RefCell::new(After::Start),
         }))
     }
@@ -791,6 +947,8 @@ impl Narrator {
             line_gaps: script.line_gaps(),
             order: script.all.clone(),
             edges: HashMap::new(),
+            boundary_quiet: HashMap::new(),
+            contiguous_cues: HashSet::new(),
             after: RefCell::new(After::Start),
         }
     }
@@ -883,7 +1041,8 @@ impl Narrator {
     /// `next` when `next` is said right after `prev`, seconds: [`BREATH`]
     /// under [`LineGaps::Constant`]; under [`LineGaps::Thought`] the class of
     /// the pair ([`classify_gap`]) less the two takes' quiet edges, never under
-    /// [`MIN_GAP_S`]. A line the script does not have gets the breath.
+    /// [`MIN_GAP_S`], except that contiguous coherent spans need no generic
+    /// gap. A line the script does not have gets the breath.
     pub fn line_gap(&self, prev: &str, next: &str) -> f64 {
         if self.line_gaps == LineGaps::Constant {
             return BREATH;
@@ -892,6 +1051,14 @@ impl Narrator {
     }
 
     fn class_gap(&self, prev: &str, next: &str, with_tail: bool) -> f64 {
+        // Only a preceding line in this scene can carry recorded phrasing
+        // across the seam. Starts and authored windows retain their own rule.
+        if with_tail
+            && self.line_gaps == LineGaps::Thought
+            && self.contiguous_cues.contains(&(prev.to_owned(), next.to_owned()))
+        {
+            return 0.0;
+        }
         let (Some(a), Some(b)) = (self.text_of(prev), self.text_of(next)) else {
             return BREATH;
         };
@@ -966,7 +1133,31 @@ impl Narrator {
             )));
         }
         self.wait_gap(stage, self.gap_before(id))?;
-        let (frame, _, now) = clock(stage);
+        let (frame, fps, now) = clock(stage);
+        if let Some(prev) = self.line_before(id)
+            && self.contiguous_cues.contains(&(prev.to_owned(), id.to_owned()))
+            && !self.boundary_quiet.get(prev).is_some_and(|edge| edge.1)
+            && !self.boundary_quiet.get(id).is_some_and(|edge| edge.0)
+        {
+            let log = self.log.borrow();
+            let previous = log.lines.last().filter(|line| line.id == prev).ok_or_else(|| {
+                fail(format!(
+                    "sounding coherent seam {prev}|{id}: predecessor was skipped or reordered"
+                ))
+            })?;
+            let file = self
+                .files
+                .get(prev)
+                .ok_or_else(|| fail(format!("missing source for coherent seam {prev}|{id}")))?;
+            let samples = (file.frames as u128 * u128::from(SAMPLE_RATE)).div_ceil(u128::from(file.rate));
+            let end = u128::from(frame_to_sample(previous.start_frame, fps)) + samples;
+            let start = u128::from(frame_to_sample(frame, fps));
+            if start != end {
+                return Err(fail(format!(
+                    "sounding coherent seam {prev}|{id}: next starts at sample {start}, previous ends at {end}; require zero inserted samples; re-slice on the frame grid, fix animation overrun, or merge the cues"
+                )));
+            }
+        }
         self.said_at.borrow_mut().insert(id.to_owned(), now);
         if let (Some(dir), Some(file)) = (&self.dir, self.files.get(id)) {
             let path = dir.join(format!("{id}.wav"));
@@ -1139,6 +1330,46 @@ impl Narrator {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn coherent_unit_coverage_uses_assignments_not_metadata_mentions() {
+        let script = "01_1\tLook at the square.\n01_2\tNow count its sides.\n";
+        let plan = serde_json::json!({
+            "schema_version": 1,
+            "script_sha256": explainer_score::digest::sha256_hex(script.as_bytes()),
+            "units": [{"id": "01u1", "cues": ["01_1", "01_2"],
+                "line_ids": ["01_1", "01_2"],
+                "text": "Look at the square. Now count its sides."}]
+        });
+        super::check_coherent_units(script, &plan.to_string()).unwrap();
+        for ids in [
+            serde_json::json!(["01_1"]),
+            serde_json::json!(["01_2", "01_1"]),
+            serde_json::json!(["01_1", "01_1", "01_2"]),
+        ] {
+            let mut wrong = plan.clone();
+            wrong["units"][0]["line_ids"] = ids.clone();
+            wrong["units"][0]["text"] = serde_json::Value::String(
+                ids.as_array()
+                    .unwrap()
+                    .iter()
+                    .map(|id| {
+                        if id == "01_1" {
+                            "Look at the square."
+                        } else {
+                            "Now count its sides."
+                        }
+                    })
+                    .collect::<Vec<_>>()
+                    .join(" "),
+            );
+            assert!(super::check_coherent_units(script, &wrong.to_string()).is_err());
+        }
+        let mut wrong = plan.clone();
+        wrong["units"][0]["text"] = "Changed narration.".into();
+        assert!(super::check_coherent_units(script, &wrong.to_string()).is_err());
+        assert!(super::check_coherent_units(&format!("{script}# changed bytes\n"), &plan.to_string()).is_err());
+    }
+
     use super::*;
 
     #[test]
@@ -1493,6 +1724,157 @@ mod tests {
         let report = serde_json::json!({"meta": {"rate": 48_000}, "lines": lines});
         std::fs::write(dir.join("report.json"), report.to_string()).unwrap();
         dir
+    }
+
+    /// Synthetic source slices exercise the real loader, not listening quality.
+    fn coherent_narration(tag: &str, script: &Script) -> (PathBuf, serde_json::Value) {
+        let takes: Vec<_> = script.lines().iter().map(|_| take(0.0, 0.25, 0.0)).collect();
+        let dir = narration(tag, script, &takes);
+        let source = dir.join("source.wav");
+        let samples: Vec<_> = takes.iter().flatten().copied().collect();
+        wav::write(&source, &explainer_score::Stereo::from_mono(&samples), wav::Format::F32).unwrap();
+        let hash = digest::sha256_hex(&std::fs::read(&source).unwrap());
+        let mut report: serde_json::Value =
+            serde_json::from_str(&std::fs::read_to_string(dir.join("report.json")).unwrap()).unwrap();
+        report["meta"]["adapter"] = "coherent-narration-v1".into();
+        for (i, (id, _)) in script.lines().iter().enumerate() {
+            let row = &mut report["lines"][id][0];
+            row["unit_id"] = "test-unit".into();
+            row["source"] = source.to_str().unwrap().into();
+            row["source_sha256"] = hash.clone().into();
+            row["source_in_sample"] = (i * 12_000).into();
+            row["source_out_sample"] = ((i + 1) * 12_000).into();
+        }
+        std::fs::write(dir.join("report.json"), report.to_string()).unwrap();
+        (dir, report)
+    }
+
+    #[test]
+    fn coherent_seams_require_exact_adjacent_source_provenance() {
+        let script = Script::parse("01_1\tOne.\n01_2\tThen two.\n01_3\tThree.\n02_1\tFour.\n")
+            .unwrap()
+            .with_line_gaps(LineGaps::Thought);
+        let (dir, report) = coherent_narration("coherent_provenance", &script);
+        let load = |value: &serde_json::Value| {
+            std::fs::write(dir.join("report.json"), value.to_string()).unwrap();
+            Narrator::load(&script, &dir, 0.0).unwrap()
+        };
+        let valid = load(&report);
+        assert_eq!(valid.line_gap("01_1", "01_2"), 0.0);
+        assert_eq!(valid.line_gap("01_2", "01_3"), 0.0);
+        assert_eq!(
+            valid.line_gap("01_3", "02_1"),
+            SENTENCE_END_S,
+            "chapters cannot share a seam"
+        );
+        assert_eq!(
+            valid.line_gap("01_1", "01_3"),
+            SENTENCE_END_S,
+            "script adjacency is required"
+        );
+
+        for key in ["unit_id", "source", "source_sha256"] {
+            let mut changed = report.clone();
+            changed["lines"]["01_2"][0][key] = if key == "source_sha256" {
+                "f".repeat(64).into()
+            } else {
+                "different".into()
+            };
+            assert_eq!(load(&changed).line_gap("01_1", "01_2"), WITHIN_PARAGRAPH_S, "{key}");
+        }
+        // Both a hole and an overlap retain the original gap. Each changed
+        // row still has a positive span accounting for its own output samples.
+        for start in [11_999, 12_001] {
+            let mut changed = report.clone();
+            changed["lines"]["01_2"][0]["source_in_sample"] = start.into();
+            changed["lines"]["01_2"][0]["source_out_sample"] = (start + 12_000).into();
+            assert_eq!(load(&changed).line_gap("01_1", "01_2"), WITHIN_PARAGRAPH_S);
+        }
+        for adapter in [serde_json::Value::Null, "other-adapter".into()] {
+            let mut changed = report.clone();
+            changed["meta"]["adapter"] = adapter;
+            assert_eq!(load(&changed).line_gap("01_1", "01_2"), WITHIN_PARAGRAPH_S);
+        }
+        // Selecting nonadjacent cues must not turn them into a coherent pair,
+        // even if a malformed report claims their source positions touch.
+        let partial = script.select(|id| id == "01_1" || id == "01_3");
+        let mut changed = report.clone();
+        changed["lines"]["01_3"][0]["source_in_sample"] = 12_000.into();
+        changed["lines"]["01_3"][0]["source_out_sample"] = 24_000.into();
+        assert!(
+            report_contiguous_cues(&changed.to_string(), &partial)
+                .unwrap()
+                .is_empty()
+        );
+    }
+
+    #[test]
+    fn malformed_coherent_boundaries_never_receive_a_continuity_exemption() {
+        let script = Script::parse("01_1\tOne.\n01_2\tThen two.\n").unwrap();
+        let (_, report) = coherent_narration("coherent_malformed", &script);
+        for key in [
+            "unit_id",
+            "source",
+            "source_sha256",
+            "source_in_sample",
+            "source_out_sample",
+            "out_samples",
+        ] {
+            let mut changed = report.clone();
+            changed["lines"]["01_2"][0].as_object_mut().unwrap().remove(key);
+            assert!(
+                report_contiguous_cues(&changed.to_string(), &script)
+                    .unwrap()
+                    .is_empty(),
+                "missing {key}"
+            );
+        }
+        for (key, value) in [
+            ("unit_id", serde_json::json!(" ")),
+            ("source", serde_json::json!("")),
+            ("source_sha256", serde_json::json!("short")),
+            ("source_sha256", serde_json::json!("z".repeat(64))),
+            ("source_in_sample", serde_json::json!(-1)),
+            ("source_out_sample", serde_json::json!(12_000)),
+            ("out_samples", serde_json::json!(0)),
+            ("out_samples", serde_json::json!(11_999)),
+            ("gap_after_samples", serde_json::json!(-1)),
+        ] {
+            let mut changed = report.clone();
+            changed["lines"]["01_2"][0][key] = value;
+            assert!(
+                report_contiguous_cues(&changed.to_string(), &script)
+                    .unwrap()
+                    .is_empty(),
+                "malformed {key}"
+            );
+        }
+    }
+
+    #[test]
+    fn coherent_seams_leave_windows_starts_constant_and_scratch_gaps_alone() {
+        let script = Script::parse("01_1\tOne.\n01_2\tThen two.\n")
+            .unwrap()
+            .with_line_gaps(LineGaps::Thought);
+        let (dir, _) = coherent_narration("coherent_states", &script);
+        let thought = Narrator::load(&script, &dir, 0.0).unwrap();
+        assert_eq!(thought.gap_before("01_1"), BREATH);
+        assert_eq!(
+            thought.gap_before("01_2"),
+            WITHIN_PARAGRAPH_S,
+            "a start has no previous placed cue"
+        );
+        *thought.after.borrow_mut() = After::Line("01_1".into());
+        assert_eq!(thought.gap_before("01_2"), 0.0);
+        *thought.after.borrow_mut() = After::Window;
+        assert_eq!(thought.gap_before("01_2"), BREATH);
+        let constant = Narrator::load(&script.clone().with_line_gaps(LineGaps::Constant), &dir, 0.0).unwrap();
+        *constant.after.borrow_mut() = After::Line("01_1".into());
+        assert_eq!(constant.gap_before("01_2"), BREATH);
+        assert_eq!(constant.line_gap("01_1", "01_2"), BREATH);
+        let scratch = Narrator::estimate(&script);
+        assert!(scratch.contiguous_cues.is_empty());
+        assert_eq!(scratch.line_gap("01_1", "01_2"), WITHIN_PARAGRAPH_S);
     }
 
     #[test]
