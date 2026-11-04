@@ -625,9 +625,8 @@ const SILENT_WPS: f64 = 2.6;
 
 /// A line being spoken: when it began, how long it runs and where its
 /// sentences start, so a picture can land on the phrase it illustrates. A
-/// phrase's moment is its sentence's start, as the narrator measured it,
-/// plus its share of that sentence's characters; the narrated draft's cue
-/// sheets check the result.
+/// phrase uses a source-bound timing mark when available; its character
+/// share within the sentence remains a provisional fallback.
 pub struct Spoken {
     pub id: String,
     pub start: f64,
@@ -635,6 +634,7 @@ pub struct Spoken {
     text: String,
     /// Each sentence's first character and its start, seconds into the line.
     sentences: Vec<(usize, f64)>,
+    phrase_marks: std::collections::HashMap<usize, f64>,
 }
 
 /// The character each sentence of `text` starts at: after a `.`, `?` or
@@ -691,6 +691,7 @@ pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
         len,
         text,
         sentences,
+        phrase_marks: kit.narrator.as_ref().map(|n| n.phrase_marks(id)).unwrap_or_default(),
     })
 }
 
@@ -701,6 +702,9 @@ impl Spoken {
             .text
             .find(phrase)
             .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
+        if let Some(&seconds) = self.phrase_marks.get(&byte) {
+            return Ok(self.start + seconds);
+        }
         let i = self.text[..byte].chars().count();
         let all = self.text.chars().count().max(1);
         let j = self.sentences.iter().rposition(|&(at, _)| at <= i).unwrap_or(0);
@@ -787,6 +791,21 @@ pub fn think(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
 mod tests {
     use super::*;
     use crate::model::{MARKS, SECRET, TRUSTEES};
+
+    #[test]
+    fn phrase_marks_override_interpolation_at_unicode_byte_offsets() {
+        let text = "é then next".to_owned();
+        let byte = text.find("next").unwrap();
+        let mut line = Spoken {
+            id: "x".to_owned(), start: 2.0, len: 10.0, text,
+            sentences: vec![(0, 0.0)], phrase_marks: std::collections::HashMap::new(),
+        };
+        let fallback = line.at("next").unwrap();
+        line.phrase_marks.insert(byte, 1.25);
+        assert!((line.at("next").unwrap() - 3.25).abs() < 1e-9);
+        line.phrase_marks.clear();
+        assert!((line.at("next").unwrap() - fallback).abs() < 1e-9);
+    }
 
     #[test]
     fn sentences_start_after_their_stops() {

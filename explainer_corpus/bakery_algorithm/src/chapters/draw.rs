@@ -34,15 +34,52 @@ pub fn fail(message: String) -> fmn::Error {
 /// kit's scratch voice estimates them.
 const SILENT_WPS: f64 = 2.6;
 
-/// A line being spoken: when it began and how long it runs, so a picture
-/// can land on the phrase it illustrates. A phrase's moment is its share of
-/// the line's characters (the voice reads at a nearly even rate); the cue
-/// sheets of the narrated draft check the result.
+/// A line being spoken: when it began, how long it runs and where its
+/// sentences start, so a picture can land on the phrase it illustrates. A
+/// phrase uses a bound recognition estimate when available, otherwise its
+/// share of the sentence. Neither estimate establishes heard timing.
 pub struct Spoken {
     pub id: String,
     pub start: f64,
     pub len: f64,
     text: String,
+    /// Each sentence's first character and its start, seconds into the line.
+    sentences: Vec<(usize, f64)>,
+    /// Bound recognition estimates for word starts; not heard timing.
+    phrase_marks: std::collections::HashMap<usize, f64>,
+}
+
+/// The character each sentence of `text` starts at: after a `.`, `?` or
+/// `!` and its space, as the narrator splits a line.
+fn sentence_offsets(text: &str) -> Vec<usize> {
+    let chars: Vec<char> = text.chars().collect();
+    let mut out = vec![0];
+    for (i, pair) in chars.windows(2).enumerate() {
+        if matches!(pair[0], '.' | '?' | '!') && pair[1] == ' ' && i + 2 < chars.len() {
+            out.push(i + 2);
+        }
+    }
+    out
+}
+
+/// Line `id`'s sentences, each with its start in seconds into the line:
+/// the narrator's `measured` onsets, one per sentence, or with no narrator
+/// (an empty list) each sentence's share of `len` by characters. A
+/// narrator that splits the line differently is an error, never a guess.
+fn timed_sentences(id: &str, text: &str, len: f64, measured: &[f64]) -> fmn::Result<Vec<(usize, f64)>> {
+    let offsets = sentence_offsets(text);
+    if measured.is_empty() {
+        let all = text.chars().count().max(1) as f64;
+        return Ok(offsets.into_iter().map(|at| (at, len * at as f64 / all)).collect());
+    }
+    if measured.len() != offsets.len() {
+        return Err(fail(format!(
+            "line {id} has {} sentences, but the narrator timed {}",
+            offsets.len(),
+            measured.len()
+        )));
+    }
+    Ok(offsets.into_iter().zip(measured.iter().copied()).collect())
 }
 
 /// Speak line `id` now (after the previous line), as `Kit::say`.
@@ -59,24 +96,34 @@ pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
         .as_ref()
         .and_then(|n| n.length(id))
         .unwrap_or(words / SILENT_WPS + 0.4);
+    let sentences = timed_sentences(id, &text, len, &kit.sentence_starts(id))?;
     Ok(Spoken {
         id: id.to_owned(),
         start: stage.scene().time().to_f64(),
         len,
         text,
+        sentences,
+        phrase_marks: kit.narrator.as_ref().map(|n| n.phrase_marks(id)).unwrap_or_default(),
     })
 }
 
 impl Spoken {
     /// When `phrase` begins (scene seconds).
     pub fn at(&self, phrase: &str) -> fmn::Result<f64> {
-        let i = self
+        let byte = self
             .text
             .find(phrase)
             .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
-        let before = self.text[..i].chars().count() as f64;
-        let all = self.text.chars().count().max(1) as f64;
-        Ok(self.start + self.len * before / all)
+        if let Some(time) = self.phrase_marks.get(&byte) {
+            return Ok(self.start + time);
+        }
+        let i = self.text[..byte].chars().count();
+        let all = self.text.chars().count().max(1);
+        let j = self.sentences.iter().rposition(|&(at, _)| at <= i).unwrap_or(0);
+        let (from, t0) = self.sentences[j];
+        let (to, t1) = self.sentences.get(j + 1).copied().unwrap_or((all, self.len));
+        let share = (i - from) as f64 / (to - from).max(1) as f64;
+        Ok(self.start + t0 + (t1 - t0) * share)
     }
 
     /// When the line ends.
@@ -990,6 +1037,22 @@ pub fn scanline(x: f64, y0: f64, y1: f64) -> fmn::Result<VMobject> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn bound_phrase_estimate_precedes_sentence_interpolation() {
+        let text = "One two. Three four.";
+        let line = Spoken {
+            id: "test".to_owned(),
+            start: 10.0,
+            len: 6.0,
+            text: text.to_owned(),
+            sentences: timed_sentences("test", text, 6.0, &[0.0, 4.0]).unwrap(),
+            phrase_marks: [(4, 1.3)].into_iter().collect(),
+        };
+        assert!((line.at("two").unwrap() - 11.3).abs() < 1e-9);
+        assert!((line.at("Three").unwrap() - 14.0).abs() < 1e-9);
+        assert!(line.at("missing").is_err());
+    }
 
     #[test]
     fn a_room_band_is_the_models_room() {

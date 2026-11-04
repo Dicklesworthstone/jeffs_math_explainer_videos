@@ -152,9 +152,8 @@ const SILENT_WPS: f64 = 2.6;
 
 /// A line being spoken: when it began, how long it runs and where its
 /// sentences start, so a picture can land on the words it illustrates. A
-/// phrase's moment is its share of its sentence's characters (the voice reads
-/// at a nearly even rate); the cue sheets of the narrated draft check the
-/// result.
+/// phrase uses a bound recognition estimate when available, otherwise its
+/// share of the sentence. Neither estimate establishes heard timing.
 pub struct Spoken {
     pub id: String,
     pub start: f64,
@@ -162,6 +161,8 @@ pub struct Spoken {
     text: String,
     /// Each sentence's first character and its start, seconds into the line.
     sentences: Vec<(usize, f64)>,
+    /// Bound recognition estimates for word starts; not heard timing.
+    phrase_marks: std::collections::HashMap<usize, f64>,
 }
 
 /// The character each sentence of `text` starts at.
@@ -212,6 +213,7 @@ pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
         len,
         text,
         sentences,
+        phrase_marks: kit.narrator.as_ref().map(|n| n.phrase_marks(id)).unwrap_or_default(),
     })
 }
 
@@ -235,6 +237,9 @@ impl Spoken {
             .text
             .find(phrase)
             .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
+        if let Some(time) = self.phrase_marks.get(&byte) {
+            return Ok(self.start + time);
+        }
         let i = self.text[..byte].chars().count();
         let all = self.text.chars().count().max(1);
         let j = self.sentences.iter().rposition(|&(at, _)| at <= i).unwrap_or(0);
@@ -1581,6 +1586,21 @@ pub mod quiz_log {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn bound_phrase_estimate_precedes_sentence_interpolation() {
+        let line = Spoken {
+            id: "test".to_owned(),
+            start: 10.0,
+            len: 6.0,
+            text: "One two. Three four.".to_owned(),
+            sentences: vec![(0, 0.0), (9, 4.0)],
+            phrase_marks: [(4, 1.3)].into_iter().collect(),
+        };
+        assert!((line.at("two").unwrap() - 11.3).abs() < 1e-9);
+        assert!((line.at("Three").unwrap() - 14.0).abs() < 1e-9);
+        assert!(line.at("missing").is_err());
+    }
 
     // ΔE2000 (Sharma, Wu and Dalal 2005), for the colour-role test.
     fn lab(c: Srgb) -> [f64; 3] {

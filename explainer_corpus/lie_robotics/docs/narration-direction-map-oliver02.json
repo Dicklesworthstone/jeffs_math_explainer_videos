@@ -1,0 +1,225 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "lie_robotics": "fc7be3f86006dd179c89e8ac7dbe08eafb4611323a4b6b012028dec22036cf82"
+  },
+  "overrides": [
+    {
+      "video": "lie_robotics",
+      "cue": "01_1",
+      "after": "Does the book end up the same way?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    },
+    {
+      "video": "lie_robotics",
+      "cue": "02_2",
+      "after": "How big is that single turn?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    },
+    {
+      "video": "lie_robotics",
+      "cue": "03_2",
+      "after": "Do those two rings do different things any more?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    },
+    {
+      "video": "lie_robotics",
+      "cue": "04_2",
+      "after": "What heading is halfway between them?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    },
+    {
+      "video": "lie_robotics",
+      "cue": "05_4",
+      "after": "After one second, where do its edges point?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    },
+    {
+      "video": "lie_robotics",
+      "cue": "06_2",
+      "after": "Where does the platform end up?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    },
+    {
+      "video": "lie_robotics",
+      "cue": "07_1",
+      "after": "In how many ways can a pose change in space?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    },
+    {
+      "video": "lie_robotics",
+      "cue": "08_3",
+      "after": "Which parts of the arm move?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    },
+    {
+      "video": "lie_robotics",
+      "cue": "09_4",
+      "after": "Where does the gripper go?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    },
+    {
+      "video": "lie_robotics",
+      "cue": "10_4",
+      "after": "Joint one, two or seven?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    },
+    {
+      "video": "lie_robotics",
+      "cue": "11_2",
+      "after": "Can the gripper still move in all six directions?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    },
+    {
+      "video": "lie_robotics",
+      "cue": "12_2",
+      "after": "Can your elbow still move?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    },
+    {
+      "video": "lie_robotics",
+      "cue": "13_5",
+      "after": "How many steps until it is within a tenth of a millimeter?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    },
+    {
+      "video": "lie_robotics",
+      "cue": "14_2",
+      "after": "Is the result halfway there?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    },
+    {
+      "video": "lie_robotics",
+      "cue": "15_2",
+      "after": "Do the two results still differ?",
+      "role": "question",
+      "reason": "The existing quiz holds the full question before its countdown."
+    }
+  ],
+  "visual_holds": [
+    {
+      "cue": "01_1",
+      "path": "explainer_corpus/lie_robotics/src/chapters/the_book.rs",
+      "sha256": "910da5c97da7c444babf54d4e709b63a7f35e29641fd7cfcae1e15e4fcaef018",
+      "line": 329,
+      "marker": "card.count(&kit, stage)?;"
+    },
+    {
+      "cue": "02_2",
+      "path": "explainer_corpus/lie_robotics/src/chapters/one_turn.rs",
+      "sha256": "88b4c972a4ae4f7f888d513ed3ae8d3715e13db6f574c33f9a3e8ac87f8c67ca",
+      "line": 303,
+      "marker": "let card = your_turn(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;"
+    },
+    {
+      "cue": "03_2",
+      "path": "explainer_corpus/lie_robotics/src/chapters/three_angles.rs",
+      "sha256": "7151ad78f2438d837db213689bc51fb6b2bd6fb586b2d47d7764c261e5759c72",
+      "line": 321,
+      "marker": "card2.count(&kit, stage)?;"
+    },
+    {
+      "cue": "04_2",
+      "path": "explainer_corpus/lie_robotics/src/chapters/halfway.rs",
+      "sha256": "6e518faa07b8d0d23f750cef093b43858d87a577dad6e1f965ce265209b945c6",
+      "line": 283,
+      "marker": "let card = your_turn(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;"
+    },
+    {
+      "cue": "05_4",
+      "path": "explainer_corpus/lie_robotics/src/chapters/spin.rs",
+      "sha256": "b044c2fcd2499bbe91723e0cbdee1e4db36d53bde05134cf4561f428c2133d04",
+      "line": 577,
+      "marker": "let card = your_turn(&kit, stage, ASK, QuizLook::at(v(CARD_AT[0], CARD_AT[1]), CARD_SCALE))?;"
+    },
+    {
+      "cue": "06_2",
+      "path": "explainer_corpus/lie_robotics/src/chapters/the_platform.rs",
+      "sha256": "9879fce0357143a3967d54bfc6dfaed31e8a2d6f9c4796c2765b242b62836824",
+      "line": 427,
+      "marker": "card.count(&kit, stage)?;"
+    },
+    {
+      "cue": "07_1",
+      "path": "explainer_corpus/lie_robotics/src/chapters/screws.rs",
+      "sha256": "10433f6a9f8fe1de95ddfb04aafaa47424f3d14d183f96da35054b989ffd3286",
+      "line": 331,
+      "marker": "card.count(&kit, stage)?;"
+    },
+    {
+      "cue": "08_3",
+      "path": "explainer_corpus/lie_robotics/src/chapters/seven_screws.rs",
+      "sha256": "1deee69b6b842ac7d50ad13dde339f5e3edfb47c640d016cc4d5de4e463c0ee0",
+      "line": 369,
+      "marker": "card.count(&kit, stage)?;"
+    },
+    {
+      "cue": "09_4",
+      "path": "explainer_corpus/lie_robotics/src/chapters/by_hand.rs",
+      "sha256": "cf0a28ac16fc0ae07a7d432933de293be557c7a140eea589e268f4a11feaf3ee",
+      "line": 427,
+      "marker": "card.count(&kit, stage)?;"
+    },
+    {
+      "cue": "10_4",
+      "path": "explainer_corpus/lie_robotics/src/chapters/velocities_add.rs",
+      "sha256": "51a962adbac9d03d72f63dbcb2ad02b033ce7d42040abc94d16cd26b6d076cbd",
+      "line": 676,
+      "marker": "card.count(&kit, stage)?;"
+    },
+    {
+      "cue": "11_2",
+      "path": "explainer_corpus/lie_robotics/src/chapters/lost_directions.rs",
+      "sha256": "50e303508d567824104e09626e7792d3f755cb317513e749ef3319418afa8d20",
+      "line": 362,
+      "marker": "card.count(&kit, stage)?;"
+    },
+    {
+      "cue": "12_2",
+      "path": "explainer_corpus/lie_robotics/src/chapters/the_spare_joint.rs",
+      "sha256": "bc00e91b7448ae0b6e73c2cac6f1487e43b55ee64a9e50f11710bb781734c9bf",
+      "line": 425,
+      "marker": "card.count(&kit, stage)?;"
+    },
+    {
+      "cue": "13_5",
+      "path": "explainer_corpus/lie_robotics/src/chapters/steps.rs",
+      "sha256": "f6084391ea5f37e7a817db6df4d040991124132530c5b847ed437835f8fc29fd",
+      "line": 493,
+      "marker": "card.count(&kit, stage)?;"
+    },
+    {
+      "cue": "14_2",
+      "path": "explainer_corpus/lie_robotics/src/chapters/the_steady_path.rs",
+      "sha256": "6805fb1d4ea9937add4b9706a62f4d8c1b251a82aac05c9ac3610b8503ade876",
+      "line": 405,
+      "marker": "card.count(&kit, stage)?;"
+    },
+    {
+      "cue": "15_2",
+      "path": "explainer_corpus/lie_robotics/src/chapters/everywhere.rs",
+      "sha256": "41189e41475a67e73da98b94e9b24329814f1b7bbdf6f89378924dfe08462f9a",
+      "line": 458,
+      "marker": "card.count(&kit, stage)?;"
+    }
+  ],
+  "hold_helper": {
+    "path": "explainer_corpus/lie_robotics/src/chapters/draw.rs",
+    "sha256": "434b405bd5521238e5b45853fe3900b928ef29dba5565b0ebcd517ba54767ccc",
+    "basis": "QuizCard.count calls kit.hold before the timed countdown; your_turn calls it after the question."
+  }
+}

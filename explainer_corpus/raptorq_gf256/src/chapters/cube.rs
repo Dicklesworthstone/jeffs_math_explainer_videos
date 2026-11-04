@@ -125,7 +125,9 @@ impl SceneConstruct for Cube {
             .iter()
             .map(|&c| {
                 let p = flat_corner(c);
-                kit.text(stage, &name(c), 30.0, Palette::ink(), v(p[0] + 0.42, p[1] + 0.3))
+                // The front four diagonal edges run through the old upper-right labels.
+                let offset = if c < 4 { v(0.42, -0.36) } else { v(0.42, 0.3) };
+                kit.text(stage, &name(c), 30.0, Palette::ink(), v(p[0] + offset[0], p[1] + offset[1]))
             })
             .collect::<fmn::Result<_>>()?;
         kit.say(stage, "04_1")?;
@@ -195,7 +197,15 @@ impl SceneConstruct for Cube {
             .iter()
             .map(|&c| {
                 let p = on_screen(&settled, corner(c));
-                kit.text_hud(stage, &name(c), 30.0, Palette::ink(), v(p[0] + 0.38, p[1] + 0.3))
+                // Move labels away from the projected edges at the near and left corners.
+                let offset = match c {
+                    0 => v(-0.48, -0.22),
+                    1 => v(0.48, -0.22),
+                    4 => v(-0.48, 0.24),
+                    5 => v(0.48, -0.22),
+                    _ => v(0.38, 0.3),
+                };
+                kit.text_hud(stage, &name(c), 30.0, Palette::ink(), v(p[0] + offset[0], p[1] + offset[1]))
             })
             .collect::<fmn::Result<_>>()?;
         let label_group = super::draw::group_of(stage, &labels)?;
@@ -211,7 +221,8 @@ impl SceneConstruct for Cube {
             if nx > 0.0 {
                 (nx, ny) = (-nx, -ny);
             }
-            let at = v(a[0] + 0.55 * dx + 0.42 * nx, a[1] + 0.55 * dy + 0.42 * ny);
+            let clearance = if i == 2 { 0.95 } else { 0.42 };
+            let at = v(a[0] + 0.55 * dx + clearance * nx, a[1] + 0.55 * dy + clearance * ny);
             let tag = kit.text_hud(
                 stage,
                 &format!("use {}", PIECE_NAMES[i as usize]),

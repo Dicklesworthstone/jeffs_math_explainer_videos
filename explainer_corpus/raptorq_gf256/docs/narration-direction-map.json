@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "raptorq_gf256": "ec1e47078ba3aeecd60a13382122e0e977f1437de1e294afebd180803ea53db8"
+  },
+  "overrides": [
+    {
+      "video": "raptorq_gf256",
+      "cue": "01_7",
+      "after": "How many random pieces until you've seen all ten thousand?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "02_5",
+      "after": "What's five ex-or seven?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "03_6",
+      "after": "Is it useful?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "05_1",
+      "after": "So for three random cards in a row, how often are all three useful?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "06_1",
+      "after": "With two spare cards, beyond one per piece, how often does the lottery still fail?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "07_2",
+      "after": "What do you get?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "08_1",
+      "after": "On a seven-hour clock, what times three is one?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "09_4",
+      "after": "What do you get?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "10_2",
+      "after": "Under that fold, what's three times two fifty-five?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "11_1",
+      "after": "What comes next?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "12_2",
+      "after": "What will the table look like?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "13_3",
+      "after": "With random byte amounts, how often is a card useless at the last slot?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "14_4",
+      "after": "What happens?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "15_4",
+      "after": "What if those last cards were plain ex-or cards?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "16_4",
+      "after": "This time, does the A cancel?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    },
+    {
+      "video": "raptorq_gf256",
+      "cue": "17_2",
+      "after": "So how many failures now?",
+      "role": "question",
+      "reason": "Existing scene waits for the complete question before a prediction hold."
+    }
+  ],
+  "visual_holds": [
+    {
+      "cue": "01_7",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/hook.rs",
+      "sha256": "bf454a141446bc01c0df8cb4d9b7aee99b3d01fbc36f09de03fcf0d0d697863b",
+      "line": 920,
+      "marker": "let q = predict_pause(kit, stage, v(3.6, 0.6))?;"
+    },
+    {
+      "cue": "02_5",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/bits.rs",
+      "sha256": "4fcf42e4509a6088c679d9952873145ca37135174a38dd701d7e1e5f62d83f17",
+      "line": 363,
+      "marker": "let q = predict_pause(kit, stage, v(5.4, 0.85))?;"
+    },
+    {
+      "cue": "03_6",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/cards.rs",
+      "sha256": "4d1200ebcca80766c72af8a9eec3423fd1be6f617b8832144cf6107bf4edfd71",
+      "line": 632,
+      "marker": "let q = predict_pause(kit, stage, v(3.6, 2.15))?;"
+    },
+    {
+      "cue": "05_1",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/lottery.rs",
+      "sha256": "e6b66e294c8f5284f28498b99db92d0ab19b93a219201f8ecc10606c736d6fdd",
+      "line": 180,
+      "marker": "let q = predict_pause(kit, stage, v(4.4, 0.85))?;"
+    },
+    {
+      "cue": "06_1",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/spares.rs",
+      "sha256": "fd2d53d8add6bb99b932e46cb537660fbe672ba39695f7a0e76de766a14b4ec0",
+      "line": 82,
+      "marker": "let q = predict_pause(kit, stage, v(1.6, 0.6))?;"
+    },
+    {
+      "cue": "07_2",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/wrap256.rs",
+      "sha256": "07c27a1c38f592624c5f0ad6e5bfdccd346ca3706d9b85806edb586fbe93e0f4",
+      "line": 350,
+      "marker": "let q = predict_pause(&kit, stage, q_at)?;"
+    },
+    {
+      "cue": "08_1",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/prime_clocks.rs",
+      "sha256": "1876a098693942e1afcb621733968a784a5c8a9438a8f6c7fd5b03f09f44cefd",
+      "line": 103,
+      "marker": "let q = predict_pause(&kit, stage, v(2.05, 0.6))?;"
+    },
+    {
+      "cue": "09_4",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/polynomials.rs",
+      "sha256": "cb7f68cb270491533b54a119a484a278c03cfda922c34afd050ab2eeeeff8eee",
+      "line": 305,
+      "marker": "let q = predict_pause(&kit, stage, v(-0.6, 1.2))?;"
+    },
+    {
+      "cue": "10_2",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/fold.rs",
+      "sha256": "ea383de6146f71f3c54de581dcb8d5b37bb664b89169fbb1ebdd3e4bb4d76cae",
+      "line": 367,
+      "marker": "let q = predict_pause(&kit, stage, q_at)?;"
+    },
+    {
+      "cue": "11_1",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/byte_clock.rs",
+      "sha256": "6001778d7ca4109b55a9b9c5bc82956cee89a22ba3a394e6a630ddc1fe33ad55",
+      "line": 212,
+      "marker": "let q = predict_pause(&kit, stage, q_at)?;"
+    },
+    {
+      "cue": "12_2",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/times_table.rs",
+      "sha256": "e5da1b4cad0daf9e37dd4ab4426c6138e2a13c9e029fb5d34b86f4de2ec18fcf",
+      "line": 235,
+      "marker": "let q = predict_pause(&kit, stage, v(5.4, 1.2))?;"
+    },
+    {
+      "cue": "13_3",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/byte_lottery.rs",
+      "sha256": "e1fa5a15fa66e7f73e1fca79b7eca4bbaa49cee5ee960a18ff7f24c6ff225c6c",
+      "line": 220,
+      "marker": "let q = predict_pause(kit, stage, v(meter.readout_at[0] + 0.3, meter.readout_at[1]))?;"
+    },
+    {
+      "cue": "14_4",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/density.rs",
+      "sha256": "7be5f8135870787c8845035bbfe47b1a2c955dd15079f1830671fdc729e88e05",
+      "line": 821,
+      "marker": "let q = predict_pause(kit, stage, v(5.6, -2.6))?;"
+    },
+    {
+      "cue": "15_4",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/danger.rs",
+      "sha256": "36ec6401bd423b94c19b5e5b1832aa839f5d5cd7bd4aa0a0d8817e54f75aba9a",
+      "line": 627,
+      "marker": "predict_pause(kit, stage, v(0.6, 0.3))?;"
+    },
+    {
+      "cue": "16_4",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/parking.rs",
+      "sha256": "559763e9a7a1195002e82666e42124dc8e103b614fd237b66c16baafedc94ef7",
+      "line": 399,
+      "marker": "let q = predict_pause(kit, stage, v(5.8, -2.6))?;"
+    },
+    {
+      "cue": "17_2",
+      "path": "explainer_corpus/raptorq_gf256/src/chapters/two_packets.rs",
+      "sha256": "6fdef67594a84136d8d9334355728be8c0bd9603a23ddadf9b1c6858c6ceecf3",
+      "line": 274,
+      "marker": "let q = predict_pause(kit, stage, v(ladder.x + 2.6, (ladder.y(p0) + ladder.y(guess)) / 2.0))?;"
+    }
+  ],
+  "hold_helper": {
+    "path": "crates/explainer_kit/src/props.rs",
+    "sha256": "73606e8921ec18c8492ec3a7355a755e269acabd174cafed1fabfca14379d436",
+    "duration_seconds": 2,
+    "basis": "predict_pause calls kit.hold before its two-second prediction hold"
+  }
+}

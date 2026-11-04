@@ -85,7 +85,9 @@ fn passed_label(passed: usize, count: usize) -> String {
 }
 
 fn shadows_label(shadows: usize, pictures: usize) -> String {
-    format!("{shadows} shadows, {pictures} pictures")
+    let shadow_suffix = if shadows == 1 { "" } else { "s" };
+    let picture_suffix = if pictures == 1 { "" } else { "s" };
+    format!("{shadows} shadow{shadow_suffix}, {pictures} picture{picture_suffix}")
 }
 
 /// "48 of 64 alone with all three of their shadows" (10_7).
@@ -703,6 +705,7 @@ mod tests {
     fn the_words_on_screen_are_built_from_the_facts() {
         let f = facts::facts().unwrap();
         let get = |key: &str| -> usize { f.get(key).unwrap().parse().unwrap() };
+        assert_eq!(shadows_label(1, 0), "1 shadow, 0 pictures");
         assert_eq!(
             gallery_label(get("DT-F3.fits")),
             "64 pictures with the face's rows and columns"
@@ -735,17 +738,18 @@ mod tests {
     #[test]
     fn the_other_diagonals_cover_the_grid_once() {
         let board = Board::new(RIGHT, CELL, 5, 5);
-        let mut seen = Vec::new();
+        let mut seen: Vec<(usize, usize)> = Vec::new();
         let face = model::face();
         let falling = model::falling_counts(&face);
-        for k in 0..9 {
+        assert_eq!(falling.len(), 9);
+        for (k, &count) in falling.iter().enumerate() {
             let squares = falling_squares(&board, k);
             assert!(!squares.is_empty(), "{k}");
             for w in squares.windows(2) {
                 assert_eq!((w[0].0 + 1, w[0].1 + 1), w[1], "{k}: {squares:?}");
             }
             assert!(squares.iter().all(|&(r, c)| c + 4 - r == k));
-            assert_eq!(squares.iter().filter(|&&(r, c)| face.get(r, c)).count(), falling[k], "{k}");
+            assert_eq!(squares.iter().filter(|&&(r, c)| face.get(r, c)).count(), count, "{k}");
             seen.extend(&squares);
             let at = falling_count_at(&board, k);
             assert!(at[0] < board.left() || at[1] > board.top(), "{k}");

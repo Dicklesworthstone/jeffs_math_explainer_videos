@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "scripts": {"eigen_engineering": "69401b7448ae333deebbcc2e60c4ba6fa6497c79fbf79830e054c54bce8ef496"},
+  "overrides": [
+    {"video":"eigen_engineering","cue":"01_5","after":"So what does a bridge have, besides strength, that footsteps can find?","role":"question"},
+    {"video":"eigen_engineering","cue":"02_6","after":"What are the two pushes?","role":"question"},
+    {"video":"eigen_engineering","cue":"03_1","after":"What pushes does that take?","role":"question"},
+    {"video":"eigen_engineering","cue":"04_1","after":"Where do the carts end up?","role":"question"},
+    {"video":"eigen_engineering","cue":"04_5","after":"Where do they end up?","role":"question"},
+    {"video":"eigen_engineering","cue":"05_5","after":"Will only that joint move, its neighbours, or every joint?","role":"question"},
+    {"video":"eigen_engineering","cue":"06_3","after":"The whole span sagging as one, or neighbouring joints moving opposite ways?","role":"question"},
+    {"video":"eigen_engineering","cue":"07_4","after":"Does the lowest mode get faster, slower, or stay the same?","role":"question"},
+    {"video":"eigen_engineering","cue":"08_4","after":"So what was pushing London's footbridge?","role":"question"},
+    {"video":"eigen_engineering","cue":"09_4","after":"How many round trips a second?","role":"question"},
+    {"video":"eigen_engineering","cue":"10_3","after":"How many modes do you think it has below a thousand hertz?","role":"question"},
+    {"video":"eigen_engineering","cue":"11_3","after":"Which has several modes on exactly one tone, a long narrow room, an ordinary one, or a perfect cube?","role":"question"},
+    {"video":"eigen_engineering","cue":"12_2","after":"How much of each is used up?","role":"question"},
+    {"video":"eigen_engineering","cue":"13_5","after":"What happens to the rounds?","role":"question"},
+    {"video":"eigen_engineering","cue":"14_4","after":"And where does the idea stop?","role":"question"}
+  ],
+  "visual_holds": [
+    {"cue":"01_5","path":"explainer_corpus/eigen_engineering/src/chapters/the_bridge_that_swayed.rs","line":443,"marker":"predict_hold(","sha256":"c25916cfe10ea88b1bafbfafe19778417f2b7b51d0a44003ea06f4a68284bbfc"},
+    {"cue":"02_6","path":"explainer_corpus/eigen_engineering/src/chapters/two_carts.rs","line":360,"marker":"card.count(","sha256":"f2f60fa74f4823c40932578e41774cf7c541cd0e00fe8ffec7b36146ccce6cdc"},
+    {"cue":"03_1","path":"explainer_corpus/eigen_engineering/src/chapters/own_patterns.rs","line":148,"marker":"predict_hold(","sha256":"76397d5fb4a3469706fe5228f0f0c5f8a0b6c12c8e04fdc617bf7b3a7cb399a6"},
+    {"cue":"04_1","path":"explainer_corpus/eigen_engineering/src/chapters/the_split.rs","line":230,"marker":"predict_hold(","sha256":"23de0d370b9637c9eefa26efe01540c39efc33c581326466fd95b3f6ad009e72"},
+    {"cue":"04_5","path":"explainer_corpus/eigen_engineering/src/chapters/the_split.rs","line":514,"marker":"card.count(","sha256":"23de0d370b9637c9eefa26efe01540c39efc33c581326466fd95b3f6ad009e72"},
+    {"cue":"05_5","path":"explainer_corpus/eigen_engineering/src/chapters/a_steel_truss.rs","line":418,"marker":"predict_hold(","sha256":"bf0af7b12f9687f0da8e96dc9ca5eef506c8a0fb241d82024588a3881faa72f0"},
+    {"cue":"06_3","path":"explainer_corpus/eigen_engineering/src/chapters/twenty_one_patterns.rs","line":481,"marker":"card.count(","sha256":"ca6cae698ecace2c559d5fface151f73818cf1c50395ee586c9af4cd64b01fa5"},
+    {"cue":"07_4","path":"explainer_corpus/eigen_engineering/src/chapters/every_mode_a_note.rs","line":502,"marker":"card.count(","sha256":"b249588ff08f4e5ead1bf0a4f9fd4a949945f8f4999f7a3af3f325cbde17e107"},
+    {"cue":"08_4","path":"explainer_corpus/eigen_engineering/src/chapters/two_bridges.rs","line":867,"marker":"predict_hold(","sha256":"8bc0f1de7acf4c4faa7e07d92a7c9658e436fa8a2a07f47f0cb5f3d50612bfdf"},
+    {"cue":"09_4","path":"explainer_corpus/eigen_engineering/src/chapters/the_air_in_a_room.rs","line":673,"marker":"card.count(","sha256":"d12e4a1819940feb44b265fddc00d976f8bb20c13073a8c3fcf4a1edc2c75b75"},
+    {"cue":"10_3","path":"explainer_corpus/eigen_engineering/src/chapters/two_million_modes.rs","line":526,"marker":"predict_pause(","sha256":"29f5522534a49f32a7ad408ad85dc9035fcdd06a6ba7e5602bbf298b0bb7eefa"},
+    {"cue":"11_3","path":"explainer_corpus/eigen_engineering/src/chapters/where_modes_rule.rs","line":774,"marker":"card.count(","sha256":"594ede0397516f60a7cb35eb24586f02fae8b92783ab0a3ece29c7a340f1c6f1"},
+    {"cue":"12_2","path":"explainer_corpus/eigen_engineering/src/chapters/an_economy.rs","line":510,"marker":"card.count(","sha256":"0745e76bb4d410858ae94980f082498e58adc03be49d464e75002450233c1385"},
+    {"cue":"13_5","path":"explainer_corpus/eigen_engineering/src/chapters/can_it_feed_itself.rs","line":568,"marker":"predict_hold(","sha256":"489e9e6d6b63d4b4eab1fa524b6fbf506ad9e8f92feb5ed89b75d9aca63a9b8d"},
+    {"cue":"14_4","path":"explainer_corpus/eigen_engineering/src/chapters/one_idea.rs","line":628,"marker":"predict_hold(","sha256":"0fbd662a10a40387f5cc7aa8cb75b3f7d6ad19f6c3751f0da993771559abc5f7"}
+  ]
+}

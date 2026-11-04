@@ -351,6 +351,8 @@ pub struct Spoken {
     text: String,
     /// Each sentence's first character and its start, seconds into the line.
     sentences: Vec<(usize, f64)>,
+    /// Optional automatic word timings, keyed by byte offset in the script.
+    phrase_marks: std::collections::HashMap<usize, f64>,
 }
 
 /// Where each sentence of `text` starts, by character.
@@ -406,6 +408,7 @@ pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
         len,
         text,
         sentences,
+        phrase_marks: kit.narrator.as_ref().map(|n| n.phrase_marks(id)).unwrap_or_default(),
     })
 }
 
@@ -416,6 +419,15 @@ impl Spoken {
             .text
             .find(phrase)
             .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
+        if let Some(time) = self.phrase_marks.get(&byte) {
+            return Ok(self.start + time);
+        }
+        if !self.phrase_marks.is_empty() {
+            eprintln!(
+                "No estimated speech timing for {} phrase {phrase:?}; using sentence interpolation",
+                self.id
+            );
+        }
         let i = self.text[..byte].chars().count();
         let all = self.text.chars().count().max(1);
         let j = self.sentences.iter().rposition(|&(at, _)| at <= i).unwrap_or(0);
@@ -428,6 +440,13 @@ impl Spoken {
     /// Wait (if need be) until `phrase` begins.
     pub fn wait_for(&self, stage: &mut Stage<'_>, phrase: &str) -> fmn::Result<()> {
         let t = self.at(phrase)?;
+        let now = stage.scene().time().to_f64();
+        if !self.phrase_marks.is_empty() && now > t + 0.25 {
+            eprintln!(
+                "LATE_PHRASE {} target={t:.3} actual={now:.3} phrase={phrase:?}",
+                self.id
+            );
+        }
         wait_until(stage, t)
     }
 }

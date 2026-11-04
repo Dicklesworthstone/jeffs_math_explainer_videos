@@ -196,9 +196,9 @@ pub fn stand(kit: &Kit, stage: &mut Stage<'_>, up: f64) -> fmn::Result<()> {
 const SILENT_WPS: f64 = 2.6;
 
 /// A line being spoken: when it began, how long it runs and where its
-/// sentences start, so a picture can land on the phrase it illustrates (as
-/// in the second-wave crates: a phrase's moment is its sentence's measured
-/// start plus its share of that sentence's characters).
+/// sentences start, so a picture can land on the phrase it illustrates.
+/// A source-bound phrase mark takes precedence; otherwise the sentence's
+/// character share remains a provisional estimate.
 pub struct Spoken {
     pub id: String,
     pub start: f64,
@@ -206,6 +206,7 @@ pub struct Spoken {
     text: String,
     /// Each sentence's first character and its start, seconds into the line.
     sentences: Vec<(usize, f64)>,
+    phrase_marks: std::collections::HashMap<usize, f64>,
 }
 
 /// The character each sentence of `text` starts at: after a `.`, `?` or
@@ -262,6 +263,7 @@ pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
         len,
         text,
         sentences,
+        phrase_marks: kit.narrator.as_ref().map(|n| n.phrase_marks(id)).unwrap_or_default(),
     })
 }
 
@@ -272,6 +274,9 @@ impl Spoken {
             .text
             .find(phrase)
             .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
+        if let Some(&seconds) = self.phrase_marks.get(&byte) {
+            return Ok(self.start + seconds);
+        }
         let i = self.text[..byte].chars().count();
         let all = self.text.chars().count().max(1);
         let j = self.sentences.iter().rposition(|&(at, _)| at <= i).unwrap_or(0);
@@ -599,12 +604,28 @@ mod tests {
             len: 6.0,
             text: text.to_owned(),
             sentences,
+            phrase_marks: std::collections::HashMap::new(),
         };
         let close = |phrase: &str, t: f64| (line.at(phrase).unwrap() - t).abs() < 1e-9;
         assert!(close("Three", 14.0));
         assert!(close("two", 10.0 + 4.0 * 4.0 / 9.0));
         assert!(line.at("five").is_err());
         assert!(timed_sentences("x", text, 6.0, &[0.0]).is_err());
+    }
+
+    #[test]
+    fn phrase_marks_override_interpolation_at_unicode_byte_offsets() {
+        let text = "é then next".to_owned();
+        let byte = text.find("next").unwrap();
+        let mut line = Spoken {
+            id: "x".to_owned(), start: 2.0, len: 10.0, text,
+            sentences: vec![(0, 0.0)], phrase_marks: std::collections::HashMap::new(),
+        };
+        let fallback = line.at("next").unwrap();
+        line.phrase_marks.insert(byte, 1.25);
+        assert!((line.at("next").unwrap() - 3.25).abs() < 1e-9);
+        line.phrase_marks.clear();
+        assert!((line.at("next").unwrap() - fallback).abs() < 1e-9);
     }
 
     /// A thinned run keeps its first and last rounds and every step between.

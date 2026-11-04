@@ -1,4 +1,4 @@
-# Inspection Paradox — publication package
+# Inspection Paradox publication package
 
 - Title: Why Your Bus Wait Is Longer Than You Expect
 - Tags: inspection paradox,waiting time paradox,bus paradox,probability,statistics,size biased sampling,expected value,renewal theory,math explainer
@@ -7,9 +7,9 @@
 ```text
 Every bus is on time. Buses arrive every six minutes on average. So why does a passenger who arrives at random wait longer than three minutes?
 
-We build a complete timetable with two bus routes, count the same gaps in two different ways, and derive the inspection paradox. Long gaps occupy more of the clock, so a random arrival is more likely to land inside one. The same weighting explains why students experience larger classes and why a sampling profiler sees long-running calls more often.
+We build a timetable with two bus routes and count its gaps in two ways. Long gaps occupy more of the clock, so a random arrival is more likely to land inside one. The same weighting explains why students experience larger classes and why a sampling profiler sees long-running calls more often.
 
-The formula is earned from a picture: add the triangular areas under the waiting-time graph, then divide by the total time. We also examine the assumptions. Random arrival must be independent of the timetable; arriving just before a scheduled bus is a different sampling rule.
+To calculate the average wait, add the triangular areas under the waiting-time graph and divide by the total time. This calculation assumes that a passenger's arrival is independent of the timetable. Someone who arrives just before a scheduled bus follows a different sampling rule.
 
 Chapters
 0:00 The stop
@@ -35,5 +35,5 @@ https://sites.socsci.uci.edu/~bgrofman/R5%20%20Feld%20and%20Grofman.%201977.%20V
 Masuda and Hiraoka (2020), Waiting-time paradox in 1922:
 https://arxiv.org/abs/2004.14081
 
-Created with FrankenManim and FrankenTTS.
+Created with FrankenManim and FrankenTTS. Narration uses a synthetic voice.
 ```

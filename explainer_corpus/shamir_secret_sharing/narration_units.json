@@ -990,8 +990,8 @@
     "topic": "shamir_secret_sharing",
     "script_sha256": "e12f0156e173c82b043dfb79201a7df3f0c582b80d43b5c98b394662efdf2c7e",
     "map": {
-      "path": "explainer_corpus/shamir_secret_sharing/docs/narration-direction-map.json",
-      "sha256": "53946ebff27c7ae264d02e750ed03266a9c81df00b17e0629596570b3d1f05b6"
+      "path": "explainer_corpus/shamir_secret_sharing/docs/narration-direction-map-oliver01.json",
+      "sha256": "4e1aa76ee7b44555d0c0273f2ecb25389c16df140ab83573f02a85ab4dac15aa"
     }
   }
 }

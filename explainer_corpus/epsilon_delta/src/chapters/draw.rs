@@ -48,6 +48,8 @@ pub struct Spoken {
     text: String,
     /// Each sentence's first character and its start, seconds into the line.
     sentences: Vec<(usize, f64)>,
+    /// Recognition-based estimates, not heard phonetic boundaries.
+    phrase_marks: std::collections::HashMap<usize, f64>,
 }
 
 /// The character each sentence of `text` starts at: after a `.`, `?` or
@@ -104,6 +106,7 @@ pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
         len,
         text,
         sentences,
+        phrase_marks: kit.narrator.as_ref().map(|n| n.phrase_marks(id)).unwrap_or_default(),
     })
 }
 
@@ -114,6 +117,9 @@ impl Spoken {
             .text
             .find(phrase)
             .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
+        if let Some(time) = self.phrase_marks.get(&byte) {
+            return Ok(self.start + time);
+        }
         let i = self.text[..byte].chars().count();
         let all = self.text.chars().count().max(1);
         let j = self.sentences.iter().rposition(|&(at, _)| at <= i).unwrap_or(0);
@@ -560,12 +566,16 @@ mod tests {
             len: 6.0,
             text: text.to_owned(),
             sentences,
+            phrase_marks: std::collections::HashMap::new(),
         };
         let close = |phrase: &str, t: f64| (line.at(phrase).unwrap() - t).abs() < 1e-9;
         assert!(close("Three", 14.0));
         assert!(close("two", 10.0 + 4.0 * 4.0 / 9.0));
         assert!(close("four", 14.0 + 2.0 * 6.0 / 11.0));
         assert!(line.at("five").is_err(), "a phrase the line does not say");
+        let mut marked = line;
+        marked.phrase_marks.insert(4, 1.25);
+        assert!((marked.at("two").unwrap() - 11.25).abs() < 1e-9);
         assert!(
             timed_sentences("x", text, 6.0, &[0.0]).is_err(),
             "a narrator's other split"

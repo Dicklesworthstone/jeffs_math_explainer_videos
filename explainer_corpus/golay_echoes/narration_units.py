@@ -21,7 +21,9 @@ order, a unit split into consecutive takes keeping its number with letters
 a, b, ... (at least two parts: 01u1a, 01u1b); each text exactly its lines
 joined; at most 100 words a unit. The
 shared synthesis adapter may check the same contract; this copy goes when it
-does.
+does. An optional direction contract binds the current script and the four
+storyboard prediction holds; rebuilding retains that binding and refuses a
+stale one instead of silently dropping it.
 """
 import hashlib
 import json
@@ -51,7 +53,7 @@ def chapter(line_id):
     return line_id.split("_", 1)[0]
 
 
-def build(groups, data, unit_ids=None):
+def build(groups, data, unit_ids=None, direction_contract=None):
     """The units file for `groups` (lists of line ids) and script bytes, the
     units named `unit_ids` when given, else numbered in order."""
     text = dict(parse_script(data))
@@ -67,22 +69,38 @@ def build(groups, data, unit_ids=None):
                 "text": " ".join(text.get(i, "") for i in ids),
             }
         )
-    return {
+    result = {
         "schema_version": 1,
         "script_sha256": hashlib.sha256(data).hexdigest(),
         "units": units,
     }
+    if direction_contract is not None:
+        result["direction_contract"] = direction_contract
+    return result
 
 
 def check(doc, data):
     """Every way `doc` fails to be the units file of the script `data`."""
     errors = []
-    if not isinstance(doc, dict) or set(doc) != {"schema_version", "script_sha256", "units"}:
-        return ["the file is not {schema_version, script_sha256, units}"]
+    required = {"schema_version", "script_sha256", "units"}
+    if not isinstance(doc, dict) or set(doc) not in (required, required | {"direction_contract"}):
+        return ["the file has unexpected or missing top-level fields"]
     if doc["schema_version"] != 1 or isinstance(doc["schema_version"], bool):
         errors.append(f"schema_version is {doc['schema_version']!r}, not 1")
     if doc["script_sha256"] != hashlib.sha256(data).hexdigest():
         errors.append("script_sha256 is not the hash of script.tsv: the units are stale")
+    if "direction_contract" in doc:
+        contract = doc["direction_contract"]
+        direction_map = HERE / "docs/narration-direction-map.json"
+        binding = contract.get("map") if isinstance(contract, dict) else None
+        if (not isinstance(contract, dict) or contract.get("schema_version") != 1
+                or contract.get("topic") != "golay_echoes"
+                or contract.get("script_sha256") != hashlib.sha256(data).hexdigest()
+                or not isinstance(binding, dict)
+                or binding.get("path") != "explainer_corpus/golay_echoes/docs/narration-direction-map.json"
+                or not direction_map.is_file()
+                or binding.get("sha256") != hashlib.sha256(direction_map.read_bytes()).hexdigest()):
+            errors.append("direction contract is stale or invalid")
     lines = parse_script(data)
     text = dict(lines)
     units = doc["units"]
@@ -169,8 +187,12 @@ def self_test(doc, data):
 
     if check(doc, data):
         failed.append(f"the committed file fails: {check(doc, data)}")
-    if build(groups_of(doc), data, ids_of(doc)) != doc:
+    if build(groups_of(doc), data, ids_of(doc), doc.get("direction_contract")) != doc:
         failed.append("--write would change the committed file")
+    if "direction_contract" in doc:
+        broken_contract = json.loads(json.dumps(doc))
+        broken_contract["direction_contract"]["map"] = None
+        expect("malformed direction binding", broken_contract, "direction contract is stale or invalid")
     # the first unit of two lines or more, and the unit after it
     f = next(k for k, g in enumerate(groups_of(doc)) if len(g) >= 2)
     first, second = groups_of(doc)[f], groups_of(doc)[f + 1]
@@ -244,7 +266,11 @@ def main(argv):
     data = SCRIPT.read_bytes()
     doc = json.loads(UNITS.read_text(encoding="utf-8"))
     if "--write" in argv:
-        doc = build(groups_of(doc), data, ids_of(doc))
+        rebuilt = build(groups_of(doc), data, ids_of(doc), doc.get("direction_contract"))
+        if "direction contract is stale or invalid" in check(rebuilt, data):
+            print("FAIL direction contract is stale or invalid; update its binding before writing", file=sys.stderr)
+            return 1
+        doc = rebuilt
         UNITS.write_text(json.dumps(doc, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
     if "--self-test" in argv:
         failed = self_test(doc, data)

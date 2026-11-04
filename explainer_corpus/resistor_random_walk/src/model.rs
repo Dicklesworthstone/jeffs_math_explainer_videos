@@ -24,6 +24,9 @@ use std::cmp::Ordering;
 use std::fmt;
 use std::ops::{Add, Div, Mul, Neg, Sub};
 
+/// The low and high sequences of simultaneous averaging rounds.
+pub type AveragingRuns = (Vec<Vec<Q>>, Vec<Vec<Q>>);
+
 // ---------------------------------------------------------------------------
 // exact fractions
 // ---------------------------------------------------------------------------
@@ -718,7 +721,7 @@ impl Network {
     /// the order of two guesses, so the true values stay between the runs,
     /// and their gap at a junction is the chance that a walker from there is
     /// still walking after that many steps.
-    pub fn two_runs(&self, rounds: usize) -> Result<(Vec<Vec<Q>>, Vec<Vec<Q>>), String> {
+    pub fn two_runs(&self, rounds: usize) -> Result<AveragingRuns, String> {
         let start = |middle: Q| -> Vec<Q> {
             (0..self.size)
                 .map(|x| {

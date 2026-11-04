@@ -998,7 +998,14 @@ impl SceneConstruct for ThePriceOfTheCoin {
         }
         axis.push(lane(
             stage,
-            vec![v(share_x(at), SHARE_AXIS_Y), v(share_x(at), BRACKET_Y[0] + 0.15)],
+            vec![v(share_x(at), SHARE_AXIS_Y), v(share_x(at), BRACKET_Y[1] + BRACKET_WORDS_DY - 0.2)],
+            palette::copied(),
+        ));
+        // Leave a clear gap for the lower spread's label while retaining the
+        // common reference line above and below it.
+        axis.push(lane(
+            stage,
+            vec![v(share_x(at), BRACKET_Y[1] + BRACKET_WORDS_DY + 0.2), v(share_x(at), BRACKET_Y[0] + 0.15)],
             palette::copied(),
         ));
         fade_in_all(stage, &axis, 0.4)?;
@@ -1430,7 +1437,7 @@ mod tests {
         };
         assert!(big_x(60.0 + 15.0) < BIG_X1 && big_x(60.0 - 15.0) > BIG_X0);
         // the widest share bar and its words inside the right edge (about 2.5 wide)
-        assert!(SHARE_BAR_X0 + SHARE_BAR_SCALE * 0.2 + SHARE_WORDS_DX + 2.6 < FRAME_X_RADIUS - 0.25);
+        const { assert!(SHARE_BAR_X0 + SHARE_BAR_SCALE * 0.2 + SHARE_WORDS_DX + 2.6 < FRAME_X_RADIUS - 0.25) };
         // chapter 08's share axis at the left, under the formula's column
         const { assert!(SHARE_X0 > -FRAME_X_RADIUS + 0.5, "the axis inside the left edge") };
         const { assert!(SHARE_X1 + 0.4 < FORMULA_X - 2.0, "the axis left of the formulas") };

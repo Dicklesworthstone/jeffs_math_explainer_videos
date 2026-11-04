@@ -407,10 +407,10 @@ mod tests {
         assert!(board.right() + SHARE_DX + 0.15 < TEXT_X - 0.1);
         // the words stay apart from the units-through counter and from the
         // table's lines above them
-        assert!(WORDS_Y[3] - 0.15 > THROUGH_Y + 0.2);
-        assert!(PAIRS_Y[0] + 0.15 < THROUGH_Y - 0.2);
+        const { assert!(WORDS_Y[3] - 0.15 > THROUGH_Y + 0.2); }
+        const { assert!(PAIRS_Y[0] + 0.15 < THROUGH_Y - 0.2); }
         assert!(PAIRS_Y[1] - 0.15 > -safe_y);
-        assert!(RULE_Y - 0.15 > THROUGH_Y + 0.2);
+        const { assert!(RULE_Y - 0.15 > THROUGH_Y + 0.2); }
         // the pair's ask, under its drains, inside
         assert!(board.col_count_at(0)[1] + ASKS_DY - 0.15 > -safe_y);
     }

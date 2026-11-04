@@ -377,8 +377,8 @@ mod tests {
         // the chart right of the class and the think ring, inside the frame
         let last = seat_at(model::CLASS_SIZE - 1);
         assert!(last[0] + RING_R < THINK_X - 0.62 - 0.3);
-        assert!(THINK_X + 0.62 < CHART.x0 - 0.3 - 0.3);
-        assert!(CHART.x0 + CHART.w + 0.3 < FRAME_X_RADIUS - 0.25);
+        const { assert!(THINK_X + 0.62 < CHART.x0 - 0.3 - 0.3) };
+        const { assert!(CHART.x0 + CHART.w + 0.3 < FRAME_X_RADIUS - 0.25) };
         // the axis's name over the band; the side axis's name under the question
         assert!(CHART.across_name_at()[1] - 0.15 > BAND_TOP);
         assert!(CHART.up_name_at()[1] + 0.15 < QUESTION_Y - 0.25);

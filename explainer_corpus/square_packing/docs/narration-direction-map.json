@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "scripts": {"square_packing": "6812add69ea48b4deccefbeb48e8ea4aca6f8a253236a3a3c807798721a1b6f1"},
+  "overrides": [
+    {"video": "square_packing", "cue": "01_4", "after": "Could turning one tile make the box smaller?", "role": "question", "reason": "Prediction before the turn in 01_5."},
+    {"video": "square_packing", "cue": "02_5", "after": "So how many straight tiles fit?", "role": "question", "reason": "Prediction before the answer in 02_6."},
+    {"video": "square_packing", "cue": "03_3", "after": "Do the corners still only touch it?", "role": "question", "reason": "Prediction before the turn in 03_4."},
+    {"video": "square_packing", "cue": "04_3", "after": "So could a turned tile slip past the point?", "role": "question", "reason": "Prediction before 04_4."},
+    {"video": "square_packing", "cue": "05_2", "after": "Could it slip up between the points?", "role": "question", "reason": "Prediction before the answer in 05_3."},
+    {"video": "square_packing", "cue": "06_2", "after": "Must a tile centred in one cover a corner of it?", "role": "question", "reason": "Prediction before 06_3."},
+    {"video": "square_packing", "cue": "07_3", "after": "Does it cover one of the four points?", "role": "question", "reason": "Prediction before the answer in 07_4."},
+    {"video": "square_packing", "cue": "08_2", "after": "Does this picture prove that box is the smallest?", "role": "question", "reason": "Prediction before the answer in 08_3."}
+  ],
+  "visual_holds": [
+    {"cue": "01_4", "next_cue": "01_5", "path": "explainer_corpus/square_packing/src/chapters/the_turned_tile.rs", "line": 346, "sha256": "831f2770cd280b8b22a2a99ec51823ee119f01866b4ccb957008286f06cf6eb7"},
+    {"cue": "02_5", "next_cue": "02_6", "path": "explainer_corpus/square_packing/src/chapters/four_pins.rs", "line": 500, "sha256": "ccb3780a34c900162fb98c78c436f7e89663a49b73725dd56870eac8e9591697"},
+    {"cue": "03_3", "next_cue": "03_4", "path": "explainer_corpus/square_packing/src/chapters/a_turn_by_a_hair.rs", "line": 371, "sha256": "97366d83ba1ea772ef9c49d1723982f3088d5e67f5e7bc79b969d8eeb9183ce7"},
+    {"cue": "04_3", "next_cue": "04_4", "path": "explainer_corpus/square_packing/src/chapters/the_corner_lemma.rs", "line": 422, "sha256": "770d3ac6f3f97691dbc573a9eba0cd11b2d72bf5d77f05a5ec49783a5ea2277b"},
+    {"cue": "05_2", "next_cue": "05_3", "path": "explainer_corpus/square_packing/src/chapters/near_a_side.rs", "line": 724, "sha256": "95d6707616f2d042e0ed24ec29a8a5219de8242aac0e94e061faeddfbf5636da"},
+    {"cue": "06_2", "next_cue": "06_3", "path": "explainer_corpus/square_packing/src/chapters/a_triangle_of_points.rs", "line": 513, "sha256": "4e811eabe8702a94e49c39be6e2240c44105fa2b43e739a031cee39bfb9be426"},
+    {"cue": "07_3", "next_cue": "07_4", "path": "explainer_corpus/square_packing/src/chapters/four_points_five_tiles.rs", "line": 310, "sha256": "95d35ee9d748308d4910216f7aff5e362fe98855b92fc7d3df5146fe824fa244"},
+    {"cue": "08_2", "next_cue": "08_3", "path": "explainer_corpus/square_packing/src/chapters/what_is_proved.rs", "line": 209, "sha256": "49147b74316efdb2f8d56d7dc780e3d30a1ec3154e6082d87b6214d50e6361a6"}
+  ]
+}

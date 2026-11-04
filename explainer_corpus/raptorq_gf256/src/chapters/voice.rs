@@ -56,6 +56,8 @@ pub struct Spoken {
     words: String,
     shares: Vec<f64>,
     starts: Vec<f64>,
+    /// Recognition-derived estimates, not heard boundaries.
+    phrase_marks: std::collections::HashMap<usize, f64>,
 }
 
 impl Spoken {
@@ -95,6 +97,7 @@ impl Spoken {
             shares,
             starts,
             words,
+            phrase_marks: kit.narrator.as_ref().map(|n| n.phrase_marks(id)).unwrap_or_default(),
         })
     }
 
@@ -113,6 +116,13 @@ impl Spoken {
     /// come from the narrator; characters interpolate only between adjacent
     /// boundaries. An absent phrase fails rather than leaving a stale cue.
     pub fn at_phrase(&self, stage: &mut Stage<'_>, phrase: &str) -> fmn::Result<()> {
+        let byte = self.words.find(phrase).ok_or_else(|| {
+            let m = format!("line {} does not say {phrase:?}", self.id);
+            fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(m.into_boxed_str())))
+        })?;
+        if let Some(offset) = self.phrase_marks.get(&byte) {
+            return self.until(stage, self.start + offset);
+        }
         let share = phrase_share(&self.words, phrase).ok_or_else(|| {
             let m = format!("line {} does not say {phrase:?}", self.id);
             fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig(Box::leak(m.into_boxed_str())))

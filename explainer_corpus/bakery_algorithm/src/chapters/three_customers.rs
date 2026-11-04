@@ -481,7 +481,7 @@ fn beam_faces(i: usize, j: usize, inside: f64, n: f64, r: f64) -> Vec<Vec<[f64; 
 fn legend(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<[Mob; 3]> {
     let mut out = Vec::new();
     for k in 1..=3 {
-        let y = 3.3 - 0.5 * (k - 1) as f64;
+        let y = 3.60 - 0.38 * (k - 1) as f64;
         let b = badge(kit, stage, k, 0.17, v(-6.55, y))?;
         let t = kit.text_left(
             stage,

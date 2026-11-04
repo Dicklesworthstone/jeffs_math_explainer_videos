@@ -324,7 +324,10 @@ impl SceneConstruct for SevenScrews {
             let sign = if i % 2 == 0 { 1.0 } else { -1.0 };
             let end = model::add(arm.origin[i], model::scale(arm.axis[i], sign * 0.48));
             let at = view.project(end);
-            numbers.push(kit.text(stage, &format!("{}", i + 1), 26.0, gold, at)?);
+            // Vertical joint axes project through their numbers; move those
+            // labels to the left so the gold stroke does not cover them.
+            let label_at = if i % 2 == 0 { v(at[0] - 0.25, at[1]) } else { at };
+            numbers.push(kit.text(stage, &format!("{}", i + 1), 26.0, gold, label_at)?);
             lines_on.push(world.parts[AXES_AT + i].shown);
         }
         let ons: Vec<(Mob, f64)> = lines_on.iter().map(|&t| (t, 1.0)).collect();

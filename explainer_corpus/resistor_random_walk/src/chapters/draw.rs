@@ -789,10 +789,8 @@ const SILENT_WPS: f64 = 2.6;
 
 /// A line being spoken: when it began, how long it runs and where its
 /// sentences start, so a picture can land on the phrase it illustrates. A
-/// phrase's moment is its sentence's start, as the narrator measured it,
-/// plus its share of that sentence's characters (the voice reads at a
-/// nearly even rate inside a sentence; the pauses fall between them); the
-/// narrated draft's cue sheets check the result.
+/// phrase uses a bound recognition estimate when available, otherwise its
+/// share of the sentence. Neither estimate establishes heard timing.
 pub struct Spoken {
     pub id: String,
     pub start: f64,
@@ -800,6 +798,8 @@ pub struct Spoken {
     text: String,
     /// Each sentence's first character and its start, seconds into the line.
     sentences: Vec<(usize, f64)>,
+    /// Bound recognition estimates for word starts; not heard timing.
+    phrase_marks: std::collections::HashMap<usize, f64>,
 }
 
 /// The character each sentence of `text` starts at: after a `.`, `?` or
@@ -856,6 +856,7 @@ pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
         len,
         text,
         sentences,
+        phrase_marks: kit.narrator.as_ref().map(|n| n.phrase_marks(id)).unwrap_or_default(),
     })
 }
 
@@ -866,6 +867,9 @@ impl Spoken {
             .text
             .find(phrase)
             .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
+        if let Some(time) = self.phrase_marks.get(&byte) {
+            return Ok(self.start + time);
+        }
         let i = self.text[..byte].chars().count();
         let all = self.text.chars().count().max(1);
         let j = self.sentences.iter().rposition(|&(at, _)| at <= i).unwrap_or(0);
@@ -947,6 +951,22 @@ pub fn think(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
 mod tests {
     use super::*;
     use crate::model;
+
+    #[test]
+    fn bound_phrase_estimate_precedes_sentence_interpolation() {
+        let text = "One two. Three four.";
+        let line = Spoken {
+            id: "test".to_owned(),
+            start: 10.0,
+            len: 6.0,
+            text: text.to_owned(),
+            sentences: timed_sentences("test", text, 6.0, &[0.0, 4.0]).unwrap(),
+            phrase_marks: [(4, 1.3)].into_iter().collect(),
+        };
+        assert!((line.at("two").unwrap() - 11.3).abs() < 1e-9);
+        assert!((line.at("Three").unwrap() - 14.0).abs() < 1e-9);
+        assert!(line.at("missing").is_err());
+    }
 
     #[test]
     fn values_print_as_tex() {

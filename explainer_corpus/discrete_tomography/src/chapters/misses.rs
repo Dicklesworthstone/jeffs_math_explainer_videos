@@ -364,8 +364,8 @@ mod tests {
         assert!(ends(TEXT_X, &bound_text(11, 3, 3, 4), 24.0) < safe_x);
         assert!(ends(TEXT_X, NOT_SAID, 24.0) < safe_x);
         // the argument's words stay apart from the units-through counter
-        assert!(WORDS_Y[3] - 0.15 > THROUGH_Y + 0.2);
-        assert!(BOUND_Y + 0.15 < THROUGH_Y - 0.2);
+        const { assert!(WORDS_Y[3] - 0.15 > THROUGH_Y + 0.2); }
+        const { assert!(BOUND_Y + 0.15 < THROUGH_Y - 0.2); }
         // the bound and the closing words stay over a three-line card (its
         // top 0.2 + 0.3 + 3 x 0.36 above the frame's bottom)
         let card_top = -FRAME_Y_RADIUS + 0.2 + 0.3 + 3.0 * 0.36;
@@ -373,12 +373,12 @@ mod tests {
         assert!(CLOSING_Y[1] - 0.15 > card_top);
         // the think ring and its note sit under the small table's last line
         // and over the frame's foot, clear of the verdict's words
-        assert!(THINK_LOW[1] + 0.62 < GIVE_Y - 0.2);
-        assert!(THINK_LOW[1] - 0.62 - 0.3 - 0.15 > -FRAME_Y_RADIUS + 0.25);
+        const { assert!(THINK_LOW[1] + 0.62 < GIVE_Y - 0.2); }
+        const { assert!(THINK_LOW[1] - 0.62 - 0.3 - 0.15 > -FRAME_Y_RADIUS + 0.25); }
         assert!(THINK_LOW[0] - 1.1 > ends(TEXT_X, NOTHING_FITS, 26.0));
         // the small table's last entry stands inside; the verdict's words
         // stand under its last line
         assert!(cell_at(2, K_Y)[0] + 0.3 < safe_x);
-        assert!(VERDICT_Y[0] + 0.15 < GIVE_Y - 0.2);
+        const { assert!(VERDICT_Y[0] + 0.15 < GIVE_Y - 0.2); }
     }
 }

@@ -466,8 +466,8 @@ const SILENT_WPS: f64 = 2.6;
 
 /// A line being spoken: when it began, how long it runs and where its
 /// sentences start, so a picture can land on the phrase it illustrates. A
-/// phrase's moment is its sentence's start, as the narrator measured it,
-/// plus its share of that sentence's characters. That share is an
+/// A phrase uses a source-bound timing mark when available, or its share of
+/// the sentence as a provisional fallback. That share is an
 /// approximate draft cue, not measured word timing: before the narrated
 /// version claims a number flip or reveal (01_4's five numbers) lands on its
 /// word, those moments must come from the qualified FrankenWhisper word
@@ -479,6 +479,7 @@ pub struct Spoken {
     text: String,
     /// Each sentence's first character and its start, seconds into the line.
     sentences: Vec<(usize, f64)>,
+    phrase_marks: std::collections::HashMap<usize, f64>,
 }
 
 /// The character each sentence of `text` starts at: after a `.`, `?` or
@@ -535,17 +536,21 @@ pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
         len,
         text,
         sentences,
+        phrase_marks: kit.narrator.as_ref().map(|n| n.phrase_marks(id)).unwrap_or_default(),
     })
 }
 
 impl Spoken {
-    /// When `phrase` begins (scene seconds), interpolated by character
-    /// position inside its sentence: a draft cue, not a measured word onset.
+    /// When `phrase` begins: use a provisional timing mark, or interpolate
+    /// inside its sentence when no exact mark is available.
     pub fn at(&self, phrase: &str) -> fmn::Result<f64> {
         let byte = self
             .text
             .find(phrase)
             .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
+        if let Some(&seconds) = self.phrase_marks.get(&byte) {
+            return Ok(self.start + seconds);
+        }
         let i = self.text[..byte].chars().count();
         let all = self.text.chars().count().max(1);
         let j = self.sentences.iter().rposition(|&(at, _)| at <= i).unwrap_or(0);
@@ -908,6 +913,21 @@ mod tests {
                 }
             }
         }
+    }
+
+    #[test]
+    fn phrase_marks_take_precedence_and_fallback_stays_available() {
+        let text = "é then next".to_owned();
+        let byte = text.find("next").unwrap();
+        let mut spoken = Spoken {
+            id: "01_1".to_owned(), start: 2.0, len: 10.0, text,
+            sentences: vec![(0, 0.0)], phrase_marks: std::collections::HashMap::new(),
+        };
+        let fallback = spoken.at("next").unwrap();
+        spoken.phrase_marks.insert(byte, 1.25);
+        assert!((spoken.at("next").unwrap() - 3.25).abs() < NEAR);
+        spoken.phrase_marks.clear();
+        assert!((spoken.at("next").unwrap() - fallback).abs() < NEAR);
     }
 
     #[test]

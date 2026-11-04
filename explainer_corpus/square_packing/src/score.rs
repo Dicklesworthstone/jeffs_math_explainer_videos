@@ -15,7 +15,7 @@
 //!
 //! **Nothing in the bed rubs against the melody.** Every chord is drawn from
 //! the major pentatonic (B♭ C D F G): a sixth-ninth on the tonic, a minor
-//! seventh on G, a seventh-sus on C and a plain sus on F. No two tones of a
+//! seventh on G, a seventh-sus on C and a sixth-sus on F. No two tones of a
 //! chord are a semitone apart, and the motif and resolution keep to the same
 //! five notes, so the score's hard rule 7 never moves a note of the tune.
 
@@ -38,8 +38,9 @@ pub fn identity() -> Identity {
             Chord::new(7, &[0, 3, 7, 10]),
             // ii: C F G B♭, a seventh-sus with no third
             Chord::dom7sus4(0),
-            // V: F B♭ C, a plain sus
-            Chord::sus4(5),
+            // V: F B♭ C D. The added sixth permits four separated voices
+            // above Oliver's measured range without changing the pentatonic palette.
+            Chord::six_sus4(5),
         ],
         motif: Motif::new(&[3, 2, 1, 2], &[0.5, 0.5, 0.5, 1.5]),
         resolution: Motif::new(&[5, 3, 2, 1], &[0.5, 0.5, 0.5, 2.0]),
@@ -85,6 +86,7 @@ pub fn identity() -> Identity {
 #[cfg(test)]
 mod tests {
     use explainer_score::score::avoid_minor_ninths;
+    use explainer_score::theory::{Register, rough, voice_lead};
 
     use super::*;
 
@@ -98,6 +100,25 @@ mod tests {
         id.validate().unwrap();
         assert_eq!(id.progression[0].root, id.key.tonic);
         assert_eq!(id.progression[0].bass, id.key.tonic);
+    }
+
+    #[test]
+    fn oliver_register_keeps_the_progression_free_of_rough_pairs() {
+        let id = identity();
+        let register = Register::from_f0(97.56, 228.57);
+        for offset in 0..id.progression.len() {
+            let mut previous = None;
+            for n in 0..16 {
+                let chord = &id.progression[(n + offset) % id.progression.len()];
+                let voicing = voice_lead(chord, 4, previous.as_ref(), &register);
+                assert_eq!(voicing.upper.len(), 4);
+                assert!(
+                    voicing.upper.windows(2).all(|pair| !rough(pair[0], pair[1])),
+                    "{chord:?}: {voicing:?}"
+                );
+                previous = Some(voicing);
+            }
+        }
     }
 
     /// The motif is a turn about 2̂ (D C B♭ C) and the resolution ends on the

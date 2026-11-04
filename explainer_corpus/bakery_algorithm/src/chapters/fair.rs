@@ -475,7 +475,7 @@ impl SceneConstruct for FairAtAPrice {
             if st.enters() && st.customer != 1 {
                 let x = l.x(s).ok_or_else(|| fail("entry has a slot".into()))?;
                 let y = l.y(st.customer).ok_or_else(|| fail("lane".into()))?;
-                let once = kit.text(stage, glyphs::ONCE, 22.0, customer(st.customer), v(x + 0.15, y - 0.42))?;
+                let once = kit.text(stage, glyphs::ONCE, 22.0, customer(st.customer), v(x + 0.24, y - 0.60))?;
                 play!(stage; fade_in(stage.arena_mut(), once, v(0.0, 0.1), 1.0)?.rt(0.35));
                 ahead.push(once);
             }

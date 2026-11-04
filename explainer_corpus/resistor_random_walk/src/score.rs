@@ -19,8 +19,9 @@ pub fn identity() -> Identity {
         name: "resistor_random_walk".into(),
         key: Key::new(E_FLAT, LYDIAN),
         tonic_midi: 63,
-        // I, V, vi, II of E-flat Lydian: E♭maj9, B♭maj7, Cm9, Fsus4
-        progression: vec![Chord::maj9(E_FLAT), Chord::maj7(10), Chord::min9(0), Chord::sus4(5)],
+        // I, V, vi, II of E-flat Lydian. F6sus4 adds the in-key D,
+        // allowing four non-rough upper voices in Oliver's measured register.
+        progression: vec![Chord::maj9(E_FLAT), Chord::maj7(10), Chord::min9(0), Chord::six_sus4(5)],
         motif: Motif::new(&[1, 5, 3], &[0.75, 0.75, 1.5]),
         resolution: Motif::new(&[3, 2, 1], &[0.75, 0.75, 2.0]),
         beat_s: 60.0 / 74.0,
@@ -53,6 +54,23 @@ pub fn identity() -> Identity {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use explainer_score::theory::{Register, rough, voice_lead};
+
+    #[test]
+    fn oliver_register_keeps_the_progression_free_of_rough_pairs() {
+        let id = identity();
+        let register = Register::from_f0(96.39, 222.22);
+        for offset in 0..id.progression.len() {
+            let mut previous = None;
+            for n in 0..16 {
+                let chord = &id.progression[(n + offset) % id.progression.len()];
+                let voicing = voice_lead(chord, 4, previous.as_ref(), &register);
+                assert_eq!(voicing.upper.len(), 4);
+                assert!(voicing.upper.windows(2).all(|pair| !rough(pair[0], pair[1])), "{chord:?}: {voicing:?}");
+                previous = Some(voicing);
+            }
+        }
+    }
 
     #[test]
     fn the_identity_is_one_the_engine_can_play() {

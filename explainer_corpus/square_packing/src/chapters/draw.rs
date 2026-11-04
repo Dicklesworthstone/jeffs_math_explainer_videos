@@ -255,6 +255,8 @@ pub struct Spoken {
     text: String,
     /// Each sentence's first character and its start, seconds into the line.
     sentences: Vec<(usize, f64)>,
+    /// Bound recognition estimates for word starts; these are not heard timing.
+    phrase_marks: std::collections::HashMap<usize, f64>,
 }
 
 /// The character each sentence of `text` starts at: after `.`, `?` or `!`
@@ -286,7 +288,8 @@ pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
         .and_then(|n| n.length(id))
         .unwrap_or(words / SILENT_WPS + 0.4);
     let measured = kit.sentence_starts(id);
-    let line = Spoken::new(id, stage.scene().time().to_f64(), len, text, &measured);
+    let mut line = Spoken::new(id, stage.scene().time().to_f64(), len, text, &measured);
+    line.phrase_marks = kit.narrator.as_ref().map(|n| n.phrase_marks(id)).unwrap_or_default();
     // real audio is never timed by estimate
     if kit.narrator.as_ref().is_some_and(|n| n.has_audio()) && measured.len() != line.sentences.len() {
         return Err(fail(format!(
@@ -323,6 +326,7 @@ impl Spoken {
             len,
             text,
             sentences,
+            phrase_marks: std::collections::HashMap::new(),
         }
     }
 
@@ -332,6 +336,9 @@ impl Spoken {
             .text
             .find(phrase)
             .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
+        if let Some(time) = self.phrase_marks.get(&byte) {
+            return Ok(self.start + time);
+        }
         let i = self.text[..byte].chars().count();
         let all = self.text.chars().count().max(1);
         let j = self.sentences.iter().rposition(|&(at, _)| at <= i).unwrap_or(0);
@@ -509,6 +516,14 @@ mod tests {
             assert!((even.at("Three").unwrap() - (10.0 + 4.0 * 9.0 / 20.0)).abs() < 1e-12);
         }
         assert!(heard.at("five").is_err());
+    }
+
+    #[test]
+    fn bound_phrase_estimate_takes_precedence_and_unmatched_phrases_fall_back() {
+        let mut line = Spoken::new("x", 10.0, 4.0, "One two. Three four.".to_owned(), &[0.0, 2.5]);
+        line.phrase_marks.insert(4, 1.75);
+        assert!((line.at("two").unwrap() - 11.75).abs() < 1e-12);
+        assert!((line.at("Three").unwrap() - 12.5).abs() < 1e-12);
     }
 
     /// Every line splits into the sentences the kit's narrator times, so a

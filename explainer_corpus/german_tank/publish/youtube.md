@@ -7,27 +7,27 @@
 ```text
 Five friends compare the serial numbers on their board-game boxes. Can those five labels tell them how many boxes the company made?
 
-We start by counting the gaps, derive an estimate of seventy-one, and then ask what that estimate really promises. Computed samples show why being right on average is different from knowing the answer in this one case. The argument leads to uncertainty, sufficient statistics, and why averaging can improve a rival estimator.
+Counting the gaps gives an estimate of seventy-one. We test that estimate on computed samples, measure its uncertainty, and show why the largest observed label contains all the information about the total. Averaging estimates from samples with the same largest label then improves a rival method.
 
-The sampling assumptions matter: consecutive labels and a uniform sample without replacement. A shop's stock, a biased draw, or an unknown starting label changes the question.
+The calculation assumes consecutive labels starting at one and a uniform sample without replacement. Sampling from a shop's stock, favoring some boxes, or allowing an unknown starting label requires a different model.
 
 Chapters
-?:?? Five boxes
-?:?? A thousand boxes
-?:?? Counting the gaps
-?:?? What we assume
-?:?? Every handful
-?:?? Gaps trade places
-?:?? Right on average
-?:?? One estimate
-?:?? How far off
-?:?? A rival recipe
-?:?? The largest says it all
-?:?? Averaging the wobble
-?:?? Nothing does better
-?:?? An unfair draw
-?:?? Other assumptions
-?:?? Five boxes again
+0:00 Five boxes
+1:09 A thousand boxes
+2:38 Counting the gaps
+3:45 What we assume
+5:02 Every handful
+6:13 Gaps trade places
+8:13 Right on average
+10:43 One estimate
+12:59 How far off
+15:16 A rival recipe
+17:27 The largest says it all
+19:32 Averaging the wobble
+22:55 Nothing does better
+26:34 An unfair draw
+28:04 Other assumptions
+29:59 Five boxes again
 
 Sources and further reading
 George Clark, Alex Gonye and Steven J. Miller, Lessons from the German Tank Problem:

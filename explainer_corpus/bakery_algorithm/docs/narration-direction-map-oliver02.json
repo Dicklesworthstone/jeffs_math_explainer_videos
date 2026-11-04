@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "bakery_algorithm": "7a6fa387bff699677b549c497519765c74246fd7278992e3d33b2587309c100d"
+  },
+  "overrides": [
+    {
+      "video": "bakery_algorithm",
+      "cue": "01_7",
+      "after": "How many lose a point?",
+      "role": "question",
+      "reason": "Prediction before 01_8."
+    },
+    {
+      "video": "bakery_algorithm",
+      "cue": "02_3",
+      "after": "Does the sign work?",
+      "role": "question",
+      "reason": "Prediction before 02_4."
+    },
+    {
+      "video": "bakery_algorithm",
+      "cue": "03_4",
+      "after": "What does she write?",
+      "role": "question",
+      "reason": "Prediction before 03_5."
+    },
+    {
+      "video": "bakery_algorithm",
+      "cue": "04_1",
+      "after": "Can two customers get the same ticket?",
+      "role": "question",
+      "reason": "Prediction before 04_2."
+    },
+    {
+      "video": "bakery_algorithm",
+      "cue": "04_5",
+      "after": "Does she go before Pink and Green?",
+      "role": "question",
+      "reason": "Prediction before 04_6."
+    },
+    {
+      "video": "bakery_algorithm",
+      "cue": "05_5",
+      "after": "What does Green do this time?",
+      "role": "question",
+      "reason": "Prediction before 05_6."
+    },
+    {
+      "video": "bakery_algorithm",
+      "cue": "06_1",
+      "after": "How many orders are there now?",
+      "role": "question",
+      "reason": "Prediction before 06_2."
+    },
+    {
+      "video": "bakery_algorithm",
+      "cue": "07_3",
+      "after": "What ticket does she take?",
+      "role": "question",
+      "reason": "Prediction before 07_4."
+    },
+    {
+      "video": "bakery_algorithm",
+      "cue": "08_4",
+      "after": "Where could Green have been?",
+      "role": "question",
+      "reason": "Prediction before 08_5."
+    },
+    {
+      "video": "bakery_algorithm",
+      "cue": "10_1",
+      "after": "Is that dangerous?",
+      "role": "question",
+      "reason": "Prediction before 10_2."
+    },
+    {
+      "video": "bakery_algorithm",
+      "cue": "12_3",
+      "after": "What does she see?",
+      "role": "question",
+      "reason": "Prediction before 12_4."
+    },
+    {
+      "video": "bakery_algorithm",
+      "cue": "13_1",
+      "after": "So does the bakery still run anywhere?",
+      "role": "question",
+      "reason": "Prediction before 13_2."
+    }
+  ],
+  "visual_holds": [
+    {
+      "cue": "01_7",
+      "next_cue": "01_8",
+      "path": "explainer_corpus/bakery_algorithm/src/chapters/scoreboard.rs",
+      "line": 551,
+      "marker": "let q = predict_pause(kit, stage, v(4.6, -0.6))?;",
+      "sha256": "9b492b132e808b31b56225ee589b2e0028ce93718456df8e3b8150f5bae3bd54"
+    },
+    {
+      "cue": "02_3",
+      "next_cue": "02_4",
+      "path": "explainer_corpus/bakery_algorithm/src/chapters/room.rs",
+      "line": 158,
+      "marker": "let q = predict_pause(kit, stage, v(5.8, -2.6))?;",
+      "sha256": "ba1a41bfc205ceabd9bf3c30a625cab1636238e0e9bdec42ee95d3659cea6b09"
+    },
+    {
+      "cue": "03_4",
+      "next_cue": "03_5",
+      "path": "explainer_corpus/bakery_algorithm/src/chapters/tickets.rs",
+      "line": 474,
+      "marker": "let q = predict_pause(kit, stage, v(SUM_X, blue_y + 0.32))?;",
+      "sha256": "2e98c77fc62f15889dfe62c49e68e474a30978fa1bf3cc5471299e31df2e82dc"
+    },
+    {
+      "cue": "04_1",
+      "next_cue": "04_2",
+      "path": "explainer_corpus/bakery_algorithm/src/chapters/ties.rs",
+      "line": 211,
+      "marker": "let q = predict_pause(kit, stage, v(1.6, 0.0))?;",
+      "sha256": "03d1d9baba7e998344e0459b00f9904bb74fee36ed81bcfeb07b997349eaedef"
+    },
+    {
+      "cue": "04_5",
+      "next_cue": "04_6",
+      "path": "explainer_corpus/bakery_algorithm/src/chapters/ties.rs",
+      "line": 570,
+      "marker": "let q = predict_pause(kit, stage, v(5.9, 2.4))?;",
+      "sha256": "03d1d9baba7e998344e0459b00f9904bb74fee36ed81bcfeb07b997349eaedef"
+    },
+    {
+      "cue": "05_5",
+      "next_cue": "05_6",
+      "path": "explainer_corpus/bakery_algorithm/src/chapters/flag.rs",
+      "line": 434,
+      "marker": "let q = predict_pause(kit, stage, v(2.4, 2.9))?;",
+      "sha256": "1f0703e4ae404d41180f6b7e3ba3c29fa8145f44a91628d02ebf7d4eea4c0592"
+    },
+    {
+      "cue": "06_1",
+      "next_cue": "06_2",
+      "path": "explainer_corpus/bakery_algorithm/src/chapters/three_customers.rs",
+      "line": 389,
+      "marker": "let q = predict_pause(&kit, stage, v(4.95, 2.1))?;",
+      "sha256": "848fe099e5704d57fa1d5e020a7febf0c499af52ef54cae95fc18e99cd3196b4"
+    },
+    {
+      "cue": "07_3",
+      "next_cue": "07_4",
+      "path": "explainer_corpus/bakery_algorithm/src/chapters/one_run.rs",
+      "line": 322,
+      "marker": "let q = predict_pause(&kit, stage, v(1.6, 3.0))?;",
+      "sha256": "aa1468b9160881c7319e7bb768e5971bb045fe7fc451c989cb36886974088b0b"
+    },
+    {
+      "cue": "08_4",
+      "next_cue": "08_5",
+      "path": "explainer_corpus/bakery_algorithm/src/chapters/why_never_two.rs",
+      "line": 410,
+      "marker": "let q = predict_pause(&kit, stage, v(5.6, -1.6))?;",
+      "sha256": "844176e00154c6827ff9e685d84c5c393310c93a5952929ab9885379e53dee4c"
+    },
+    {
+      "cue": "10_1",
+      "next_cue": "10_2",
+      "path": "explainer_corpus/bakery_algorithm/src/chapters/old_zero.rs",
+      "line": 166,
+      "marker": "let q = predict_pause(&kit, stage, v(5.7, 2.6))?;",
+      "sha256": "0f3b6ede8285044026c253592989ff22de12b64941dd1ff6195bc5ada09cfb6b"
+    },
+    {
+      "cue": "12_3",
+      "next_cue": "12_4",
+      "path": "explainer_corpus/bakery_algorithm/src/chapters/cpu.rs",
+      "line": 804,
+      "marker": "let q = predict_pause(&kit, stage, v(5.65, 2.55))?;",
+      "sha256": "9454d207526f4c0858bf5570a6b9f9360a7335a21564e4cdb5b7cf3dec939bc4"
+    },
+    {
+      "cue": "13_1",
+      "next_cue": "13_2",
+      "path": "explainer_corpus/bakery_algorithm/src/chapters/proudest.rs",
+      "line": 120,
+      "marker": "let q = predict_pause(&kit, stage, v(0.0, -1.3))?;",
+      "sha256": "17fb0b947e5eb2e2f6302e8d2390d7be8bbb561c3a6d84f5d183d3d9ea3bb1ab"
+    }
+  ],
+  "hold_helper": {
+    "path": "crates/explainer_kit/src/props.rs",
+    "sha256": "73606e8921ec18c8492ec3a7355a755e269acabd174cafed1fabfca14379d436",
+    "duration_seconds": 2,
+    "basis": "existing predict_pause holds voice then displays a two-second prediction hold; visual and auditory acceptance remain open"
+  }
+}

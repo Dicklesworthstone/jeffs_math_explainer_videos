@@ -429,10 +429,15 @@ fn header(kit: &Kit, stage: &mut Stage<'_>, words: &Words) -> fmn::Result<Mob> {
 /// Row `i` of the table: its direction and its halving. Detached.
 fn table_row(kit: &Kit, stage: &mut Stage<'_>, words: &Words, i: usize) -> fmn::Result<Vec<Mob>> {
     let y = TABLE_Y[i];
-    Ok(vec![
-        row(kit, stage, &words.directions[i], Palette::dim(), v(DIRECTION_X, y))?,
-        row(kit, stage, &words.rows[i], Palette::ink(), v(HALVING_X, y))?,
-    ])
+    // Keep the same model-derived values while using a single text object
+    // per cell; the TeX glyphs intermittently disappeared in the final render.
+    let direction = words.directions[i].replace(r"^\circ", "°");
+    let calculation = words.rows[i].replace(r"\div", "÷");
+    let direction_at = v(DIRECTION_X, y);
+    let calculation_at = v(HALVING_X, y);
+    let direction = kit.text(stage, &direction, ROW_SIZE, Palette::dim(), direction_at)?;
+    let calculation = kit.text(stage, &calculation, ROW_SIZE, Palette::ink(), calculation_at)?;
+    Ok(vec![left_at(stage, direction, direction_at), left_at(stage, calculation, calculation_at)])
 }
 
 /// The plot's axes and words. Detached.

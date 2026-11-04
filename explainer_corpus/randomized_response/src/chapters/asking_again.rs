@@ -1208,7 +1208,7 @@ mod tests {
         }
         const { assert!(MATH_Y[0] + 0.4 < FRAME_Y_RADIUS - 0.25, "the fraction inside the top") };
         const { assert!(MATH_Y[6] - 0.15 > BAND_TOP + 0.2, "the zeros' words over the band") };
-        assert!(MATH_X + 3.9 < FRAME_X_RADIUS - 0.25);
+        const { assert!(MATH_X + 3.9 < FRAME_X_RADIUS - 0.25) };
         assert!(MATH_X - 3.9 > last[0] + DAY_SIDE / 2.0 + 0.2);
         // the closing diagram's boxes inside the frame, apart, over the band
         const { assert!(BOX_X + BOX_W / 2.0 < FRAME_X_RADIUS - 0.25, "the boxes inside") };

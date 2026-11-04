@@ -217,9 +217,12 @@ impl SceneConstruct for OneRun {
         };
         // the lane heads are the customers themselves (R3, maya-02)
         let lanes = TraceLanes::build_with_faces(&kit, stage, layout, &steps, &[])?;
-        for p in &lanes.parts {
+        for (p, step) in lanes.parts.iter().zip(&steps) {
             if let Some(c) = p.chip {
                 stage.scale(c, CHIP_SCALE);
+                if step.customer == 4 && step.label.starts_with("number[4]:=0") {
+                    stage.shift(c, v(-0.35, 0.0));
+                }
             }
         }
         // the room bars: each visit, from its entry to its exit, grown to

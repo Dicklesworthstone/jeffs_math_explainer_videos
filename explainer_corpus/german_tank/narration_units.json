@@ -793,8 +793,8 @@
     "topic": "german_tank",
     "script_sha256": "652c925a2eb9edfdeeb43a7c17938fc8f0ecc18d09cbb6f92346d8ac8f0cab57",
     "map": {
-      "path": "explainer_corpus/german_tank/docs/narration-direction-map.json",
-      "sha256": "473efcbab933a02df2c62eac1b2210aae21a3b2ef29131fa87aa6ef34f426297"
+      "path": "explainer_corpus/german_tank/docs/narration-direction-map-oliver02.json",
+      "sha256": "b826e6541612ffe56677aeb133e01615d981c041056c3f593feadca0de2c5bb2"
     }
   }
 }

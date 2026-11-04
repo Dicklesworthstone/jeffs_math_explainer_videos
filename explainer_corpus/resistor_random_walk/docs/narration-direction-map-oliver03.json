@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "resistor_random_walk": "51446a6559095ef81b57a35d706711f88b56cbf2e4089f53cf5448cb893b53b8"
+  },
+  "overrides": [
+    {
+      "video": "resistor_random_walk",
+      "cue": "01_7",
+      "after": "So what is it one wire above the bottom?",
+      "role": "question",
+      "reason": "Prediction before 01_8."
+    },
+    {
+      "video": "resistor_random_walk",
+      "cue": "02_4",
+      "after": "So what's the voltage one wire above the bottom?",
+      "role": "question",
+      "reason": "Prediction before 02_5."
+    },
+    {
+      "video": "resistor_random_walk",
+      "cue": "03_6",
+      "after": "Which two can you merge next?",
+      "role": "question",
+      "reason": "Prediction before 03_7."
+    },
+    {
+      "video": "resistor_random_walk",
+      "cue": "04_3",
+      "after": "So what is it from the left junction?",
+      "role": "question",
+      "reason": "Prediction before 04_4."
+    },
+    {
+      "video": "resistor_random_walk",
+      "cue": "05_6",
+      "after": "What does four times the right equal?",
+      "role": "question",
+      "reason": "Prediction before 05_7."
+    },
+    {
+      "video": "resistor_random_walk",
+      "cue": "06_1",
+      "after": "What's the chance its first step reaches the top?",
+      "role": "question",
+      "reason": "Prediction before 06_2."
+    },
+    {
+      "video": "resistor_random_walk",
+      "cue": "07_8",
+      "after": "From the left, what's the walker's chance of reaching the bottom first?",
+      "role": "question",
+      "reason": "Prediction before 07_9."
+    },
+    {
+      "video": "resistor_random_walk",
+      "cue": "08_6",
+      "after": "So after how many rounds is the left exactly three fifths?",
+      "role": "question",
+      "reason": "Prediction before 08_7."
+    },
+    {
+      "video": "resistor_random_walk",
+      "cue": "09_6",
+      "after": "Is there still only one solution?",
+      "role": "question",
+      "reason": "Prediction before 09_7."
+    },
+    {
+      "video": "resistor_random_walk",
+      "cue": "10_3",
+      "after": "So where will a walker at the left most likely step first?",
+      "role": "question",
+      "reason": "Prediction before 10_4."
+    },
+    {
+      "video": "resistor_random_walk",
+      "cue": "11_4",
+      "after": "What happens to the two runs there?",
+      "role": "question",
+      "reason": "Prediction before 11_5."
+    }
+  ],
+  "visual_holds": [
+    {
+      "cue": "01_7",
+      "next_cue": "01_8",
+      "path": "explainer_corpus/resistor_random_walk/src/chapters/which_end.rs",
+      "line": 243,
+      "marker": "let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "4d3bb7b61cd2e8498cf7d29695ee1fe22ee9db8df06b7c09039cf1ed224d2975"
+    },
+    {
+      "cue": "02_4",
+      "next_cue": "02_5",
+      "path": "explainer_corpus/resistor_random_walk/src/chapters/line_circuit.rs",
+      "line": 147,
+      "marker": "let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "e94d9fbf310ad6eb4d05599f91daa79a0fc16296d7a19c332f6c7aae2b387b4a"
+    },
+    {
+      "cue": "03_6",
+      "next_cue": "03_7",
+      "path": "explainer_corpus/resistor_random_walk/src/chapters/a_bridge.rs",
+      "line": 288,
+      "marker": "let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "ac82e650bb98e47308000795593a25cbc84918a4dafba8fc5ea5cff551f20dfc"
+    },
+    {
+      "cue": "04_3",
+      "next_cue": "04_4",
+      "path": "explainer_corpus/resistor_random_walk/src/chapters/the_same_number.rs",
+      "line": 276,
+      "marker": "let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "3d7ea7e95639150dbdbffac945b6d39b800b30a27a7bc4115929aae51a5af5fb"
+    },
+    {
+      "cue": "05_6",
+      "next_cue": "05_7",
+      "path": "explainer_corpus/resistor_random_walk/src/chapters/why_an_average.rs",
+      "line": 268,
+      "marker": "let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "830d9111f01103baa9643469a00002b24d6f61e9b2a0b74bc1c135d1e2021e59"
+    },
+    {
+      "cue": "06_1",
+      "next_cue": "06_2",
+      "path": "explainer_corpus/resistor_random_walk/src/chapters/walkers_rule.rs",
+      "line": 187,
+      "marker": "let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "d59df980ac1b4e0978b5fdd70febea6093e63f7d313fe301419837e90d2a4b6a"
+    },
+    {
+      "cue": "07_8",
+      "next_cue": "07_9",
+      "path": "explainer_corpus/resistor_random_walk/src/chapters/one_answer.rs",
+      "line": 338,
+      "marker": "let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "7fc86fb7144dcb972ba38f2f9766bd1f9850904d77f8358d136368fd9124f8d4"
+    },
+    {
+      "cue": "08_6",
+      "next_cue": "08_7",
+      "path": "explainer_corpus/resistor_random_walk/src/chapters/round_after_round.rs",
+      "line": 381,
+      "marker": "let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "5dfce70a7c21d5947fa27edf5958cf41aa7d98723a3fbd8b11a2812627369473"
+    },
+    {
+      "cue": "09_6",
+      "next_cue": "09_7",
+      "path": "explainer_corpus/resistor_random_walk/src/chapters/only_one.rs",
+      "line": 550,
+      "marker": "let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "13a92a74e163474c619ebef37b3316ed21eae2141f7879e19bee0e7e8f834f39"
+    },
+    {
+      "cue": "10_3",
+      "next_cue": "10_4",
+      "path": "explainer_corpus/resistor_random_walk/src/chapters/any_wires.rs",
+      "line": 239,
+      "marker": "let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "111b2e4be52434b07c34bdf2a2ed000af8be77878dac44ce291436ec486a79fc"
+    },
+    {
+      "cue": "11_4",
+      "next_cue": "11_5",
+      "path": "explainer_corpus/resistor_random_walk/src/chapters/when_to_stop.rs",
+      "line": 325,
+      "marker": "let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "db2f4c90efb00fb276bd0fd39bddd3b8d56df6f35ebddd0ee868e20d81911e28"
+    }
+  ],
+  "hold_helper": {
+    "path": "explainer_corpus/resistor_random_walk/src/chapters/draw.rs",
+    "sha256": "95acc76b333228e40cf591737d1122c1f820674bb672dc01b09db02b837bd94e",
+    "duration_seconds": 4,
+    "basis": "existing think helper holds voice before a four-second countdown; listening remains unreviewed"
+  }
+}

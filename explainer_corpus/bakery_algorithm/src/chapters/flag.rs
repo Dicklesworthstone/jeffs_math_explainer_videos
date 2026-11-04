@@ -93,7 +93,8 @@ fn draw_step(kit: &Kit, stage: &mut Stage<'_>, s5: &mut Stage05, step: &Step, k:
             .style(Style::default().fill(color, 0.85).stroke(color, 2.5, 0.85))
             .build()?;
         let arrow = stage.arena_mut().add(arrow);
-        let chip = kit.text(stage, text, 26.0, color, v(x, y + 0.32))?;
+        let chip_y = y + if from[1] > y { -0.32 } else { 0.32 };
+        let chip = kit.text(stage, text, 26.0, color, v(x, chip_y))?;
         Ok([arrow, chip])
     };
     let mut anims: Vec<Box<dyn Animation>> = vec![{

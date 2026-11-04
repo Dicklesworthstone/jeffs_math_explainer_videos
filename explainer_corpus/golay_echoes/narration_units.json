@@ -1,6 +1,15 @@
 {
   "schema_version": 1,
   "script_sha256": "a118d2285b0666ba6529d094633d11d96e56b9a3ac9eaa25176e0d6d5c00cd73",
+  "direction_contract": {
+    "schema_version": 1,
+    "topic": "golay_echoes",
+    "script_sha256": "a118d2285b0666ba6529d094633d11d96e56b9a3ac9eaa25176e0d6d5c00cd73",
+    "map": {
+      "path": "explainer_corpus/golay_echoes/docs/narration-direction-map.json",
+      "sha256": "19f4646354f6ae38934bbd6ca5a7524e57fac89d9a0d3478fa53518ce9db59d0"
+    }
+  },
   "units": [
     {
       "id": "01u1a",

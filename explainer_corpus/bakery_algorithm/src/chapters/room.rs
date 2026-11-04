@@ -243,7 +243,7 @@ fn sign_fails(kit: &Kit, stage: &mut Stage<'_>, mut scene: DoorScene) -> fmn::Re
         g::BOTH_INSIDE,
         22.0,
         room_red(),
-        v(l.p(red.0 as f64, nf)[0], l.p(0.0, nf)[1] + 0.3),
+        v(l.p(red.0 as f64, nf)[0], l.p(0.0, nf)[1] + 0.75),
     )?;
     let [start, end] = l.ends(FAN);
     let ends = [stage.arena_mut().add(start), stage.arena_mut().add(end)];

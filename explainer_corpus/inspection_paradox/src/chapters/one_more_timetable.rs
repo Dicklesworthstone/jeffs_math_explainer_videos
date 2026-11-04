@@ -826,7 +826,6 @@ impl SceneConstruct for OneMoreTimetable {
         // 12_1: chapter 11's end, the planners in their stacks before the
         // buses, each in its gap's color; they slide back to the moments
         // they were ready; one a minute; spread evenly, the caption
-        let line = say(&kit, stage, "12_1")?;
         let table = timetable::timetable(&kit, stage, &f, OFFSET)?;
         let dots: Vec<Mob> = (0..ready.len())
             .map(|i| {
@@ -841,6 +840,7 @@ impl SceneConstruct for OneMoreTimetable {
         opening.extend(&table.red);
         opening.extend(&dots);
         fade_in_all(stage, &opening, 0.8)?;
+        let line = say(&kit, stage, "12_1")?;
         line.wait_for(stage, "Now forget the planners")?;
         let back = stage.add_value_tracker(1.0);
         let unstacking = unstack(stage, &dots, &ready, &n, back)?;

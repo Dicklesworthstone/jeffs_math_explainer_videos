@@ -1617,8 +1617,8 @@
     "topic": "crofton",
     "script_sha256": "7e72ae28dd37515de52f03fcce2f4c8086ad8660843d29a8fe28f0b7575f978c",
     "map": {
-      "path": "explainer_corpus/crofton/docs/narration-direction-map.json",
-      "sha256": "7cd3bef07419774568a43e224a0f3da66675dd122b6d5e2668d399688696595f"
+      "path": "explainer_corpus/crofton/docs/narration-direction-map-oliver02.json",
+      "sha256": "098a088f5d1298a0ca404030a41056788f64b73eec7ea1b75b833f93840a5924"
     }
   }
 }

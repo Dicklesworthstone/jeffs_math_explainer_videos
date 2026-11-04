@@ -945,8 +945,8 @@
     "topic": "parrondo",
     "script_sha256": "f33734146ec212b6bc5aef71ef5fd5ea81c82e2a3b9677982041bcdb23d8a0d1",
     "map": {
-      "path": "explainer_corpus/parrondo/docs/narration-direction-map.json",
-      "sha256": "ea46ab48aeb997d5d967da1773fe6dbce02e3c1f995abd0f51ffd2839948cbc0"
+      "path": "explainer_corpus/parrondo/docs/narration-direction-map-oliver01.json",
+      "sha256": "e6f87cbdea2b0b735654638b1601382d9a3e13aec14f3a2393504ddecdcd7666"
     }
   }
 }

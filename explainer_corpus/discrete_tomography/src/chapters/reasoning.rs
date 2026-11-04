@@ -253,11 +253,11 @@ impl SceneConstruct for SquareBySquare {
         fade_in_all(stage, &marks, 0.4)?;
         settled.extend(marks);
         fade_out_all(stage, &rings, 0.2)?;
-        for r in 0..rows {
-            recount(&kit, stage, &mut row_counts, r, tree_shadows.rows[r], palette::matches(), board.row_count_at(r))?;
+        for (r, &count) in tree_shadows.rows[..rows].iter().enumerate() {
+            recount(&kit, stage, &mut row_counts, r, count, palette::matches(), board.row_count_at(r))?;
         }
-        for c in 0..cols {
-            recount(&kit, stage, &mut col_counts, c, tree_shadows.cols[c], palette::matches(), board.col_count_at(c))?;
+        for (c, &count) in tree_shadows.cols[..cols].iter().enumerate() {
+            recount(&kit, stage, &mut col_counts, c, count, palette::matches(), board.col_count_at(c))?;
         }
         line.wait_for(stage, "the picture is the tree")?;
         let decided = kit.text(

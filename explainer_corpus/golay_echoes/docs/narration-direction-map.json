@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "scripts": {"golay_echoes": "a118d2285b0666ba6529d094633d11d96e56b9a3ac9eaa25176e0d6d5c00cd73"},
+  "overrides": [
+    {"video": "golay_echoes", "cue": "01_8", "after": "What if we add the two rows?", "role": "question", "reason": "The authored prediction precedes the answer in 01_9."},
+    {"video": "golay_echoes", "cue": "02_7", "after": "What will B score at three steps?", "role": "question", "reason": "The authored prediction precedes the answer in 02_8."},
+    {"video": "golay_echoes", "cue": "03_7", "after": "So what's left when we add A's and B's products here?", "role": "question", "reason": "The authored prediction precedes the answer in 03_8."},
+    {"video": "golay_echoes", "cue": "04_7", "after": "What happens to the true echo when we add?", "role": "question", "reason": "The authored prediction precedes the answer in 04_8."}
+  ],
+  "visual_holds": [
+    {"video": "golay_echoes", "cue": "01_8", "next_cue": "01_9", "kind": "prediction", "reason": "The existing think animation holds the prediction before its answer.", "evidence": {"path": "explainer_corpus/golay_echoes/src/chapters/two_bad_echoes.rs", "sha256": "219f1f486991ee444a316a89d678868bc96bc406914feffd968b7169bdfb32b9", "lines": [361, 361]}},
+    {"video": "golay_echoes", "cue": "02_7", "next_cue": "02_8", "kind": "prediction", "reason": "The existing think animation holds the prediction before its answer.", "evidence": {"path": "explainer_corpus/golay_echoes/src/chapters/what_the_ghosts_hide.rs", "sha256": "462f34af3305adb48e026539e84c1ed556417f5d8f94a3f75ef1ad7e9aa667cd", "lines": [329, 329]}},
+    {"video": "golay_echoes", "cue": "03_7", "next_cue": "03_8", "kind": "prediction", "reason": "The existing think animation holds the prediction before its answer.", "evidence": {"path": "explainer_corpus/golay_echoes/src/chapters/why_they_cancel.rs", "sha256": "eca46ade6d82ab028cabf902d8f0466e4192a0ce5185709ecf0ca513a6d25508", "lines": [331, 331]}},
+    {"video": "golay_echoes", "cue": "04_7", "next_cue": "04_8", "kind": "prediction", "reason": "The existing think animation holds the prediction before its answer.", "evidence": {"path": "explainer_corpus/golay_echoes/src/chapters/when_it_breaks.rs", "sha256": "44e42ab0dcc2758963fec88d920834e8b31929f724b6bce470483d8456100e6c", "lines": [257, 257]}}
+  ]
+}

@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "discrete_tomography": "46422806f3e951496b034ad554aa86c4ba59262b1cf979d253aa7a6edd2eef32"
+  },
+  "overrides": [
+    {
+      "video": "discrete_tomography",
+      "cue": "01_3",
+      "after": "Could a different picture cast the same shadows?",
+      "role": "question",
+      "reason": "Prediction before 01_4."
+    },
+    {
+      "video": "discrete_tomography",
+      "cue": "02_8",
+      "after": "Can you be sure of any other square?",
+      "role": "question",
+      "reason": "Prediction before 02_9."
+    },
+    {
+      "video": "discrete_tomography",
+      "cue": "03_1",
+      "after": "How many pictures does this grid have?",
+      "role": "question",
+      "reason": "Prediction before 03_2."
+    },
+    {
+      "video": "discrete_tomography",
+      "cue": "04_1",
+      "after": "Is the water stuck?",
+      "role": "question",
+      "reason": "Prediction before 04_2."
+    },
+    {
+      "video": "discrete_tomography",
+      "cue": "05_2",
+      "after": "Could taking water back get the ninth through?",
+      "role": "question",
+      "reason": "Prediction before 05_3."
+    },
+    {
+      "video": "discrete_tomography",
+      "cue": "06_2",
+      "after": "Does any picture fit?",
+      "role": "question",
+      "reason": "Prediction before 06_3."
+    },
+    {
+      "video": "discrete_tomography",
+      "cue": "07_5",
+      "after": "Does a picture fit?",
+      "role": "question",
+      "reason": "Prediction before 07_6."
+    },
+    {
+      "video": "discrete_tomography",
+      "cue": "08_4",
+      "after": "Could another picture cast the same shadows?",
+      "role": "question",
+      "reason": "Prediction before 08_5."
+    },
+    {
+      "video": "discrete_tomography",
+      "cue": "09_1",
+      "after": "Can a single switch turn one into the other?",
+      "role": "question",
+      "reason": "Prediction before 09_2."
+    },
+    {
+      "video": "discrete_tomography",
+      "cue": "10_3",
+      "after": "How many of all sixty-four do?",
+      "role": "question",
+      "reason": "Prediction before 10_4."
+    },
+    {
+      "video": "discrete_tomography",
+      "cue": "11_4",
+      "after": "What does the program report?",
+      "role": "question",
+      "reason": "Prediction before 11_5."
+    }
+  ],
+  "visual_holds": [
+    {
+      "cue": "01_3",
+      "next_cue": "01_4",
+      "path": "explainer_corpus/discrete_tomography/src/chapters/same_shadows.rs",
+      "line": 236,
+      "marker": "let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "1b3b617f58e648efb9a8c2b05087e5740af4716d2e07f8282d14df5cab71cb63"
+    },
+    {
+      "cue": "02_8",
+      "next_cue": "02_9",
+      "path": "explainer_corpus/discrete_tomography/src/chapters/reasoning.rs",
+      "line": 296,
+      "marker": "let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "fc39e6d5c9d17b4cf334368c3554a52c226084bd74bbe1c80ba445d5e86ebc63"
+    },
+    {
+      "cue": "03_1",
+      "next_cue": "03_2",
+      "path": "explainer_corpus/discrete_tomography/src/chapters/water.rs",
+      "line": 524,
+      "marker": "let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "81afdbdfdf6c1dae8f53d59bd1b8afcf92ffc871f634b86903a1d2b1af0f6279"
+    },
+    {
+      "cue": "04_1",
+      "next_cue": "04_2",
+      "path": "explainer_corpus/discrete_tomography/src/chapters/water.rs",
+      "line": 779,
+      "marker": "let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "81afdbdfdf6c1dae8f53d59bd1b8afcf92ffc871f634b86903a1d2b1af0f6279"
+    },
+    {
+      "cue": "05_2",
+      "next_cue": "05_3",
+      "path": "explainer_corpus/discrete_tomography/src/chapters/stops.rs",
+      "line": 282,
+      "marker": "let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "0ce0864c875192905aec86e13729ab94591300eeff1703ea762623cffe7d2227"
+    },
+    {
+      "cue": "06_2",
+      "next_cue": "06_3",
+      "path": "explainer_corpus/discrete_tomography/src/chapters/group.rs",
+      "line": 170,
+      "marker": "let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "355029c13f46b2265b8fc3b3f3053cea580606e55bdb854b518be2af79b52cf2"
+    },
+    {
+      "cue": "07_5",
+      "next_cue": "07_6",
+      "path": "explainer_corpus/discrete_tomography/src/chapters/misses.rs",
+      "line": 233,
+      "marker": "let q = think(&kit, stage, v(THINK_LOW[0], THINK_LOW[1]))?;",
+      "sha256": "52a8d659193a748184fd25d0da41129994375c9600fc904496c6691976bbd70e"
+    },
+    {
+      "cue": "08_4",
+      "next_cue": "08_5",
+      "path": "explainer_corpus/discrete_tomography/src/chapters/only.rs",
+      "line": 403,
+      "marker": "let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "7afcbafd79a6ef87fba86e6b37787bb44864c003c2d9e3fd7d9a51aa154e82e8"
+    },
+    {
+      "cue": "09_1",
+      "next_cue": "09_2",
+      "path": "explainer_corpus/discrete_tomography/src/chapters/chains.rs",
+      "line": 145,
+      "marker": "let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "6de6af0538720f077b80e46b718c4e053cce90d99c1ddd3eaf838e6a10ce0732"
+    },
+    {
+      "cue": "10_3",
+      "next_cue": "10_4",
+      "path": "explainer_corpus/discrete_tomography/src/chapters/third.rs",
+      "line": 422,
+      "marker": "let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "ad2fb22172869e685afbff63dfc704cbaea6483d2499132acc9f43b757179a21"
+    },
+    {
+      "cue": "11_4",
+      "next_cue": "11_5",
+      "path": "explainer_corpus/discrete_tomography/src/chapters/promise.rs",
+      "line": 196,
+      "marker": "let q = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;",
+      "sha256": "fa67163a598470326c62443df1156a6a3385e1a579a3e6e6794b25fe5168d300"
+    }
+  ],
+  "hold_helper": {
+    "path": "explainer_corpus/discrete_tomography/src/chapters/draw.rs",
+    "sha256": "37538574eda05ac058bd11e7a973886dc8f4b07f3cc641e727278c67de62e09e",
+    "duration_seconds": 4,
+    "basis": "think holds the voice then starts the four-second countdown"
+  }
+}

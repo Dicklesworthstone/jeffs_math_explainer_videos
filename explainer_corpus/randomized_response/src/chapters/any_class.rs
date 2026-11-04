@@ -60,6 +60,7 @@ const FORMULA_Y: f64 = 2.75;
 const NAME_Y: f64 = 2.1;
 const SUM_Y: f64 = 1.6;
 const INVERSE_Y: f64 = 0.95;
+#[cfg(test)]
 const FRACTION_HALF: f64 = 0.41;
 const STEP_Y: [f64; 4] = [0.15, -0.4, -0.95, -1.5];
 const NOT_COUNT_Y: f64 = -2.05;
@@ -409,8 +410,8 @@ mod tests {
     fn the_layout_keeps_its_pieces_apart() {
         const BAND_TOP: f64 = -FRAME_Y_RADIUS + 0.2 + 0.3 + 0.36 * 2.0;
         // the left column left of the chart and its tick values, inside the frame
-        assert!(LEFT_X + 2.4 < CHART.x0 - 0.3 - 0.3);
-        assert!(LEFT_X - 2.6 > -FRAME_X_RADIUS + 0.25);
+        const { assert!(LEFT_X + 2.4 < CHART.x0 - 0.3 - 0.3) };
+        const { assert!(LEFT_X - 2.6 > -FRAME_X_RADIUS + 0.25) };
         const {
             assert!(
                 FORMULA_Y + FRACTION_HALF < FRAME_Y_RADIUS - 0.25,
@@ -454,12 +455,12 @@ mod tests {
             )
         };
         // the think ring between the left column's steps and the chart
-        assert!(THINK_X + 0.62 < CHART.x0 - 0.3 - 0.2);
+        const { assert!(THINK_X + 0.62 < CHART.x0 - 0.3 - 0.2) };
         const { assert!(THINK_Y - 0.62 - 0.45 > BAND_TOP, "the think note over the band") };
         // the stacked bar's words inside the chart, right of the bar
         let base = CHART.p(Q::int(4), Q::ZERO);
         assert!(base[0] + STACK_LABEL_DX + 0.5 < CHART.x0 + CHART.w);
-        assert!(STACK_LABEL_DX > STACK_W / 2.0 + 0.05);
+        const { assert!(STACK_LABEL_DX > STACK_W / 2.0 + 0.05) };
         // the cloud's longest bar stays short of the rule's line
         let dist = model::yes_count_distribution(20, 4).unwrap();
         let longest = dist.iter().map(|p| p.to_f64()).fold(0.0, f64::max) * CLOUD_SCALE;

@@ -401,13 +401,13 @@ mod tests {
         let (bottom, top) = (line_spot(LINE_AT, n, 0), line_spot(LINE_AT, n, n - 1));
         assert!(top[1] + 0.6 + 0.2 < FRAME_Y_RADIUS - 0.15, "the name inside the top");
         assert!(bottom[1] - JUNCTION_R - 0.15 > -FRAME_Y_RADIUS + 1.58, "above a lower-third");
-        assert!(LINE_AT[0] - LINE_LABEL_GAP - 0.4 > -(FRAME_X_RADIUS - 0.25));
+        const { assert!(LINE_AT[0] - LINE_LABEL_GAP - 0.4 > -(FRAME_X_RADIUS - 0.25)) };
         let bars_end = LINE_AT[0] + BAR_X0 + BAR_LEN;
         let crowd_end = LINE_AT[0] + CROWD_X0 + CROWD_STEP * CROWD as f64;
         assert!(bars_end + 0.4 < PANEL_X - 1.6 && crowd_end + 0.4 < PANEL_X - 1.6);
         assert!(THINK_AT[0] - THINK_R > bars_end + 0.3);
-        assert!(THINK_AT[1] + THINK_R + 0.3 < NOTE_Y - 0.2);
-        assert!(THINK_AT[1] - THINK_R - 0.45 > -FRAME_Y_RADIUS + 1.58);
-        assert!(PANEL_X + 1.6 < FRAME_X_RADIUS - 0.25);
+        const { assert!(THINK_AT[1] + THINK_R + 0.3 < NOTE_Y - 0.2) };
+        const { assert!(THINK_AT[1] - THINK_R - 0.45 > -FRAME_Y_RADIUS + 1.58) };
+        const { assert!(PANEL_X + 1.6 < FRAME_X_RADIUS - 0.25) };
     }
 }

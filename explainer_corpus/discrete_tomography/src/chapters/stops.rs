@@ -529,7 +529,7 @@ mod tests {
         // units-through counter
         assert!(TEXT_X > board.right() + 0.5);
         assert!(TEXT_X + STILL_REACHES.chars().count() as f64 * 24.0 * 0.0045 < safe_x);
-        assert!(CUT_Y[3] - 0.15 > THROUGH_Y + 0.15);
+        const { assert!(CUT_Y[3] - 0.15 > THROUGH_Y + 0.15); }
         // a column's ask, under its drain, stays over a three-line card
         // (its top 0.2 + 0.3 + 3 x 0.36 above the frame's bottom)
         let card_top = -FRAME_Y_RADIUS + 0.2 + 0.3 + 3.0 * 0.36;

@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "scripts": {"p_values_medical": "1f3535c3be0741db24606f08da96d5eb317af36693f754d8a8c4866658f44599"},
+  "overrides": [
+    {"video": "p_values_medical", "cue": "01_5", "after": "So is there a ninety-five percent chance you have it?", "role": "question", "reason": "Prediction before the count in 01_6."},
+    {"video": "p_values_medical", "cue": "02_3", "after": "So will a positive result mean more here, or less?", "role": "question", "reason": "Prediction before the count in 02_4."},
+    {"video": "p_values_medical", "cue": "03_9", "after": "In this world, how often do fifteen or more pairs favour the treatment?", "role": "question", "reason": "Prediction before the next chapter's histogram."},
+    {"video": "p_values_medical", "cue": "04_2", "after": "So which bars hold an outcome at least as favourable as fifteen?", "role": "question", "reason": "Prediction before the answer in 04_3."},
+    {"video": "p_values_medical", "cue": "05_2", "after": "So is two percent the chance that the treatment did nothing?", "role": "question", "reason": "Prediction before the answer in 05_3."},
+    {"video": "p_values_medical", "cue": "06_3", "after": "For our study, what did the two percent actually count?", "role": "question", "reason": "Prediction before the answer in 06_4."}
+  ],
+  "visual_holds": [
+    {"cue": "01_5", "next_cue": "01_6", "path": "explainer_corpus/p_values_medical/src/chapters/five_percent.rs", "line": 395, "sha256": "df025ced69bb26eca3d3dd681a493643c6a8c945a3d7e9595602d4c024134144"},
+    {"cue": "02_3", "next_cue": "02_4", "path": "explainer_corpus/p_values_medical/src/chapters/same_test.rs", "line": 598, "sha256": "3b87ec63a1a648f3083d11bdcf56852a5e49a3ef252c06c0e42c37888f9f9378"},
+    {"cue": "03_9", "next_cue": "04_1", "path": "explainer_corpus/p_values_medical/src/chapters/imaginary_world.rs", "line": 620, "sha256": "2f79203f1778a8b9fdfa3c173031c4ce22959562ce6267800df042a53c7cee0f"},
+    {"cue": "04_2", "next_cue": "04_3", "path": "explainer_corpus/p_values_medical/src/chapters/count_tail.rs", "line": 412, "sha256": "4be7572b326bf72305bc96f41977b3866e2ff16cd39fbcd313338d14cccd7a19"},
+    {"cue": "05_2", "next_cue": "05_3", "path": "explainer_corpus/p_values_medical/src/chapters/does_not_say.rs", "line": 354, "sha256": "eef7d8e1805eec27d20daca1260f126993122c5d8ce7b182252673bf4460c8d4"},
+    {"cue": "06_3", "next_cue": "06_4", "path": "explainer_corpus/p_values_medical/src/chapters/question_again.rs", "line": 257, "sha256": "dc5cf0ccbdb49612dc2521bd92450b0da4f19ad89ebba9638f756bdc2949b2fc"}
+  ]
+}

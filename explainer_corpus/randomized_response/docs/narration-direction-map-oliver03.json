@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "randomized_response": "ccb86dc80561833ec273df9a538c1f2eeea30590a0de702c71cef6275ddcecaf"
+  },
+  "overrides": [
+    {
+      "video": "randomized_response",
+      "cue": "01_6",
+      "after": "What do they tell it about how many copied?",
+      "role": "question",
+      "reason": "Prediction before 01_7."
+    },
+    {
+      "video": "randomized_response",
+      "cue": "02_4",
+      "after": "How many of the four give a yes?",
+      "role": "question",
+      "reason": "Prediction before 02_5."
+    },
+    {
+      "video": "randomized_response",
+      "cue": "03_4",
+      "after": "From those two numbers, how could the survey get back to four?",
+      "role": "question",
+      "reason": "Prediction before 03_5."
+    },
+    {
+      "video": "randomized_response",
+      "cue": "04_6",
+      "after": "What does the survey estimate?",
+      "role": "question",
+      "reason": "Prediction before 04_7."
+    },
+    {
+      "video": "randomized_response",
+      "cue": "05_3",
+      "after": "What's the chance they copied?",
+      "role": "question",
+      "reason": "Prediction before 05_4."
+    },
+    {
+      "video": "randomized_response",
+      "cue": "06_5",
+      "after": "How often does a class land exactly on four?",
+      "role": "question",
+      "reason": "Prediction before 06_6."
+    },
+    {
+      "video": "randomized_response",
+      "cue": "07_6",
+      "after": "Does the estimate miss by more people than in our class, or fewer?",
+      "role": "question",
+      "reason": "Prediction before 07_7."
+    },
+    {
+      "video": "randomized_response",
+      "cue": "08_3",
+      "after": "How many coin answers would it take to miss by only nine points?",
+      "role": "question",
+      "reason": "Prediction before 08_4."
+    },
+    {
+      "video": "randomized_response",
+      "cue": "09_2",
+      "after": "On average, what does the survey estimate?",
+      "role": "question",
+      "reason": "Prediction before 09_3."
+    },
+    {
+      "video": "randomized_response",
+      "cue": "10_3",
+      "after": "How many times as likely are three yeses from someone who copied?",
+      "role": "question",
+      "reason": "Prediction before 10_4."
+    },
+    {
+      "video": "randomized_response",
+      "cue": "11_4",
+      "after": "How many times as likely are three yeses now?",
+      "role": "question",
+      "reason": "Prediction before 11_5."
+    },
+    {
+      "video": "randomized_response",
+      "cue": "12_3",
+      "after": "At three quarters, how many times as likely is a yes from someone who copied?",
+      "role": "question",
+      "reason": "Prediction before 12_4."
+    },
+    {
+      "video": "randomized_response",
+      "cue": "13_5",
+      "after": "What do the private coins protect, and what does keeping the negatives protect?",
+      "role": "question",
+      "reason": "Prediction before 13_6."
+    }
+  ],
+  "visual_holds": [
+    {
+      "cue": "01_6",
+      "next_cue": "01_7",
+      "path": "explainer_corpus/randomized_response/src/chapters/asking_straight_out.rs",
+      "line": 220,
+      "marker": "let q = think(&kit, stage, v(THINK_X, THINK_Y))?;",
+      "sha256": "0903704be3a18592f9502d6e7c139f1c98324471bf36f2869737aa7d0852b17c"
+    },
+    {
+      "cue": "02_4",
+      "next_cue": "02_5",
+      "path": "explainer_corpus/randomized_response/src/chapters/one_students_coins.rs",
+      "line": 222,
+      "marker": "let q = think(&kit, stage, v(THINK_X, THINK_Y))?;",
+      "sha256": "d5085bbed58ece6dd5d2b359eb4470fb3f3bcddcef56e29bbf893abd521715bd"
+    },
+    {
+      "cue": "03_4",
+      "next_cue": "03_5",
+      "path": "explainer_corpus/randomized_response/src/chapters/the_coin.rs",
+      "line": 614,
+      "marker": "let q = think(&kit, stage, v(THINK_X, THINK_Y))?;",
+      "sha256": "a782607945c793b2aafacbdb0e0c7443bf3c492fd60f18692d3c349e0449abaf"
+    },
+    {
+      "cue": "04_6",
+      "next_cue": "04_7",
+      "path": "explainer_corpus/randomized_response/src/chapters/any_class.rs",
+      "line": 296,
+      "marker": "let q = think(&kit, stage, v(THINK_X, THINK_Y))?;",
+      "sha256": "23c780528f8139a1b00082361df30c274a681a99613c13ee35d4a395f5bbb5e5"
+    },
+    {
+      "cue": "05_3",
+      "next_cue": "05_4",
+      "path": "explainer_corpus/randomized_response/src/chapters/what_a_yes_says.rs",
+      "line": 327,
+      "marker": "let q = think(&kit, stage, v(RIGHT_X, THINK_Y))?;",
+      "sha256": "9cef7e72bff3a31d1b37e0e46aa71e346e385dd54c83a39b5166772e2c16aa5b"
+    },
+    {
+      "cue": "06_5",
+      "next_cue": "06_6",
+      "path": "explainer_corpus/randomized_response/src/chapters/the_price_of_the_coin.rs",
+      "line": 574,
+      "marker": "let q = think(&kit, stage, v(THINK_X, THINK_Y))?;",
+      "sha256": "c2bb6b773cd3795de19959e373e6887ef2dd03b54647fa3fbbbe267d77749742"
+    },
+    {
+      "cue": "07_6",
+      "next_cue": "07_7",
+      "path": "explainer_corpus/randomized_response/src/chapters/the_price_of_the_coin.rs",
+      "line": 806,
+      "marker": "let q = think(&kit, stage, v(BIG_THINK_X, BIG_THINK_Y))?;",
+      "sha256": "c2bb6b773cd3795de19959e373e6887ef2dd03b54647fa3fbbbe267d77749742"
+    },
+    {
+      "cue": "08_3",
+      "next_cue": "08_4",
+      "path": "explainer_corpus/randomized_response/src/chapters/the_price_of_the_coin.rs",
+      "line": 1055,
+      "marker": "let q = think(&kit, stage, v(SHARE_THINK_X, SHARE_THINK_Y))?;",
+      "sha256": "c2bb6b773cd3795de19959e373e6887ef2dd03b54647fa3fbbbe267d77749742"
+    },
+    {
+      "cue": "09_2",
+      "next_cue": "09_3",
+      "path": "explainer_corpus/randomized_response/src/chapters/rule_not_followed.rs",
+      "line": 147,
+      "marker": "let q = think(&kit, stage, v(THINK_X, THINK_Y))?;",
+      "sha256": "8fc312ddf0d5e1f91e124076a81477453b58a187aa086108f02ab7e682491d31"
+    },
+    {
+      "cue": "10_3",
+      "next_cue": "10_4",
+      "path": "explainer_corpus/randomized_response/src/chapters/asking_again.rs",
+      "line": 386,
+      "marker": "let q = think(&kit, stage, v(RIGHT_X, THINK_Y))?;",
+      "sha256": "4819e1bca13e51b55ce1890009e36fc9a1f841617bf248f862a11f07495dab61"
+    },
+    {
+      "cue": "11_4",
+      "next_cue": "11_5",
+      "path": "explainer_corpus/randomized_response/src/chapters/asking_again.rs",
+      "line": 814,
+      "marker": "let q = think(&kit, stage, v(RIGHT_X, THINK_Y))?;",
+      "sha256": "4819e1bca13e51b55ce1890009e36fc9a1f841617bf248f862a11f07495dab61"
+    },
+    {
+      "cue": "12_3",
+      "next_cue": "12_4",
+      "path": "explainer_corpus/randomized_response/src/chapters/the_dial.rs",
+      "line": 473,
+      "marker": "let q = think(&kit, stage, v(THINK_X, THINK_Y))?;",
+      "sha256": "81e0e9eb62de325c7ad5b194b080a5d7effd054f5ecd0364585be7d396ddbf18"
+    },
+    {
+      "cue": "13_5",
+      "next_cue": "13_6",
+      "path": "explainer_corpus/randomized_response/src/chapters/running_one.rs",
+      "line": 177,
+      "marker": "let q = think(&kit, stage, v(THINK_X, THINK_Y))?;",
+      "sha256": "a4166a9906571cd372c3baeca33a26d07b09501e175ac1216cd4dea83d5775e8"
+    }
+  ],
+  "hold_helper": {
+    "path": "explainer_corpus/randomized_response/src/chapters/draw.rs",
+    "sha256": "013fdc3078761617a1a914e85197d77d942d6d4c219a64df05ea252fcef74c16",
+    "duration_seconds": 4,
+    "basis": "existing think helper holds voice before a four-second countdown; listening remains unreviewed"
+  }
+}

@@ -498,6 +498,9 @@ impl SceneConstruct for OneCountOnePlacement {
         line.wait_for(stage, "slide the sheet by exactly one gap")?;
         let (ticks, label_at) = bracket(plan.gap.from);
         let mut marks: Vec<Mob> = ticks.iter().map(|seg| path(stage, seg, Palette::ink(), 2.0)).collect();
+        // The highlighted moving line can pass through the measurement;
+        // keep its label readable while the sheet slides underneath.
+        marks.push(backing(stage, card_point(label_at), 0.76, 0.38)?);
         marks.push(kit.text(stage, &words.gap, LABEL_SIZE, Palette::dim(), card_point(label_at))?);
         at_once(stage, &marks, &[], vec![tween(halo_alpha, 1.0, FADE_S)?], FADE_S)?;
         line.wait_for(stage, "what will the count be")?;

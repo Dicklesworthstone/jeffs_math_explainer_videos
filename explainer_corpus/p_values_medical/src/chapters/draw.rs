@@ -39,6 +39,8 @@ pub struct Spoken {
     text: String,
     /// Each sentence's first character and its start, seconds into the line.
     sentences: Vec<(usize, f64)>,
+    /// Bound recognition estimates for word starts; these are not heard timing.
+    phrase_marks: std::collections::HashMap<usize, f64>,
 }
 
 /// The character each sentence of `text` starts at: after a `.`, `?` or
@@ -97,6 +99,7 @@ pub fn say(kit: &Kit, stage: &mut Stage<'_>, id: &str) -> fmn::Result<Spoken> {
         len,
         text,
         sentences,
+        phrase_marks: kit.narrator.as_ref().map(|n| n.phrase_marks(id)).unwrap_or_default(),
     })
 }
 
@@ -107,6 +110,9 @@ impl Spoken {
             .text
             .find(phrase)
             .ok_or_else(|| fail(format!("line {} has no phrase {phrase:?}", self.id)))?;
+        if let Some(time) = self.phrase_marks.get(&byte) {
+            return Ok(self.start + time);
+        }
         let i = self.text[..byte].chars().count();
         let all = self.text.chars().count().max(1);
         let j = self.sentences.iter().rposition(|&(at, _)| at <= i).unwrap_or(0);
@@ -393,6 +399,7 @@ mod tests {
             len: 6.0,
             text: text.to_owned(),
             sentences,
+            phrase_marks: std::collections::HashMap::new(),
         };
         let close = |phrase: &str, t: f64| (line.at(phrase).unwrap() - t).abs() < 1e-9;
         // by the whole line's characters "Three" would come at 12.7 s
@@ -403,6 +410,21 @@ mod tests {
             timed_sentences("x", text, 6.0, &[0.0]).is_err(),
             "a narrator's other split"
         );
+    }
+
+    #[test]
+    fn bound_phrase_estimate_takes_precedence_and_unmatched_phrases_fall_back() {
+        let text = "One two. Three four.";
+        let line = Spoken {
+            id: "x".to_owned(),
+            start: 10.0,
+            len: 6.0,
+            text: text.to_owned(),
+            sentences: timed_sentences("x", text, 6.0, &[0.0, 4.0]).unwrap(),
+            phrase_marks: [(4, 2.5)].into_iter().collect(),
+        };
+        assert!((line.at("two").unwrap() - 12.5).abs() < 1e-9);
+        assert!((line.at("Three").unwrap() - 14.0).abs() < 1e-9);
     }
 
     /// Every line of this script splits into the sentences the kit's
@@ -435,6 +457,7 @@ mod tests {
                 len,
                 text: text.clone(),
                 sentences: timed_sentences(id, text, len, &[]).unwrap(),
+                phrase_marks: std::collections::HashMap::new(),
             };
             let all = text.chars().count() as f64;
             for (space, _) in text.match_indices(' ') {

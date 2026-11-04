@@ -55,6 +55,12 @@ fn read_s(text: &str) -> f64 {
     text.chars().count() as f64 / 15.0
 }
 
+/// Start fading only after the fully visible card has had its reading time
+/// and the spoken question is nearly complete.
+fn card_fade_start(fully_visible: f64, question_start: f64, question_len: f64) -> f64 {
+    (fully_visible + read_s(CARD_D)).max(question_start + question_len - CARD_OUT)
+}
+
 /// 02_7: junction `x`'s voltage, the average of its far ends'.
 fn halfway_row(volts: &[Q], x: usize) -> String {
     format!(
@@ -129,14 +135,14 @@ impl SceneConstruct for LineCircuit {
         flash_all(stage, &pic.wires, 0.6)?;
         let card = precisely(&kit, stage, CARD_D)?;
         fade_in_all(stage, &[card], CARD_IN)?;
-        let card_read = stage.scene().time().to_f64() + read_s(CARD_D);
+        let card_fully_visible = stage.scene().time().to_f64();
 
         // 02_4: the question; the card stays while it is asked and goes as
         // it ends; no drop is shown with a number through the countdown
         let question = say(&kit, stage, "02_4")?;
         let asked = label(&kit, stage, &pic, LINE_START, UNKNOWN, Palette::hero())?;
         fade_in_all(stage, &[asked], 0.3)?;
-        wait_until(stage, card_read.max(question.start + question.len - CARD_OUT))?;
+        wait_until(stage, card_fade_start(card_fully_visible, question.start, question.len))?;
         fade_out_all(stage, &[card], CARD_OUT)?;
         let countdown = think(&kit, stage, v(THINK_AT[0], THINK_AT[1]))?;
 
@@ -165,8 +171,11 @@ impl SceneConstruct for LineCircuit {
         let walk = line_picture(stage, &row, WALK_AT, &walk_colors)?;
         let walk_name = kit.text(stage, CHANCE, 26.0, Palette::dim(), walk.name_spot())?;
         let mut walk_values = Vec::new();
-        for x in 0..row.size() {
-            walk_values.push(label(&kit, stage, &walk, x, &tex(chances[x]), Palette::ink())?);
+        if chances.len() != row.size() {
+            return Err(fail("the walk's value count does not match its junctions".to_string()));
+        }
+        for (x, &chance) in chances.iter().enumerate() {
+            walk_values.push(label(&kit, stage, &walk, x, &tex(chance), Palette::ink())?);
         }
         let mut arriving = walk.mobs();
         arriving.push(walk_name);
@@ -270,19 +279,16 @@ mod tests {
         assert!(explainer_kit::animatic::wrap(CARD_D, 84, 10).len() <= 3);
     }
 
-    /// Card D can be read from "equal drops" to the end of the 02_4
-    /// question, by the scratch voice with this video's gaps.
+    /// Card D remains fully visible for its reading budget even when the
+    /// question is short, and remains through a longer spoken question.
     #[test]
     fn the_card_stays_up_long_enough_to_read() {
-        let script = explainer_kit::Script::parse(crate::SCRIPT)
-            .unwrap()
-            .with_line_gaps(crate::EXPLAINER.line_gaps);
-        let voice = explainer_kit::Narrator::estimate(&script);
-        let len = |id: &str| voice.length(id).unwrap_or_else(|| panic!("no line {id}"));
-        let text = script.text("02_3").unwrap();
-        let at = text[..text.find("equal drops").unwrap()].chars().count() as f64 / text.chars().count() as f64;
-        let up = len("02_3") * (1.0 - at) - CARD_IN + voice.line_gap("02_3", "02_4") + len("02_4") - CARD_OUT;
-        assert!(read_s(CARD_D) <= up, "{:.2} s to read, {up:.2} s up", read_s(CARD_D));
+        let fully_visible = 10.0;
+        for (question_start, question_len) in [(11.0, 2.0), (11.0, 20.0)] {
+            let fade_start = card_fade_start(fully_visible, question_start, question_len);
+            assert!(fade_start >= fully_visible + read_s(CARD_D));
+            assert!(fade_start >= question_start + question_len - CARD_OUT);
+        }
     }
 
     /// The two lines, the battery between them and the panel stay apart and

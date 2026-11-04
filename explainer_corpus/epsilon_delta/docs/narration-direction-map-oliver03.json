@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "epsilon_delta": "aa97ba84e1a615dfbb5c17599f4c0a73a6864244229d157ab3cca058bd2f051d"
+  },
+  "overrides": [
+    {
+      "video": "epsilon_delta",
+      "cue": "01_5",
+      "after": "So what shape are the curves heading for?",
+      "role": "question",
+      "reason": "The authored prediction pause holds the question before its countdown."
+    },
+    {
+      "video": "epsilon_delta",
+      "cue": "02_5",
+      "after": "Once it's thinner than a pixel, is the trouble gone?",
+      "role": "question",
+      "reason": "The authored prediction pause holds the question before its countdown."
+    },
+    {
+      "video": "epsilon_delta",
+      "cue": "03_4",
+      "after": "So what slope does h equal to zero give?",
+      "role": "question",
+      "reason": "The authored prediction pause holds the question before its countdown."
+    },
+    {
+      "video": "epsilon_delta",
+      "cue": "04_5",
+      "after": "But if the defender could see h first, could this broken graph still win?",
+      "role": "question",
+      "reason": "The authored prediction pause holds the question before its countdown."
+    },
+    {
+      "video": "epsilon_delta",
+      "cue": "05_6",
+      "after": "Against one tenth, about how large could delta be, and still work?",
+      "role": "question",
+      "reason": "The authored prediction pause holds the question before its countdown."
+    },
+    {
+      "video": "epsilon_delta",
+      "cue": "06_4",
+      "after": "Does every h in that window pass?",
+      "role": "question",
+      "reason": "The authored prediction pause holds the question before its countdown."
+    },
+    {
+      "video": "epsilon_delta",
+      "cue": "07_4",
+      "after": "What single multiple of the size of h covers all three terms?",
+      "role": "question",
+      "reason": "The authored prediction pause holds the question before its countdown."
+    },
+    {
+      "video": "epsilon_delta",
+      "cue": "08_5",
+      "after": "Can any stage, however late, meet that stronger promise?",
+      "role": "question",
+      "reason": "The authored prediction pause holds the question before its countdown."
+    },
+    {
+      "video": "epsilon_delta",
+      "cue": "09_5",
+      "after": "Can the total error still reach the full tolerance?",
+      "role": "question",
+      "reason": "The authored prediction pause holds the question before its countdown."
+    },
+    {
+      "video": "epsilon_delta",
+      "cue": "10_4",
+      "after": "Can checking several good sequences establish continuity?",
+      "role": "question",
+      "reason": "The authored prediction pause holds the question before its countdown."
+    },
+    {
+      "video": "epsilon_delta",
+      "cue": "11_3",
+      "after": "Must those inputs form a single piece?",
+      "role": "question",
+      "reason": "The authored prediction pause holds the question before its countdown."
+    },
+    {
+      "video": "epsilon_delta",
+      "cue": "12_4",
+      "after": "Must a zero exist in this rational domain?",
+      "role": "question",
+      "reason": "The authored prediction pause holds the question before its countdown."
+    }
+  ],
+  "visual_holds": [
+    {
+      "cue": "01_5",
+      "path": "explainer_corpus/epsilon_delta/src/chapters/limit_that_jumps.rs",
+      "sha256": "6cf26384cdc16646d9ef05a2811c84c1f634d4544a5e74b455fe8a14704ea10d",
+      "line": 340,
+      "marker": "think_pause(kit, stage, RING_AT, RING_R)?;"
+    },
+    {
+      "cue": "02_5",
+      "path": "explainer_corpus/epsilon_delta/src/chapters/shrinking_region.rs",
+      "sha256": "c14c61cc2c5fe8608a331c58ac6f7759e5a2d3197bf4a80f17fd54391cb52abb",
+      "line": 628,
+      "marker": "think_pause(&kit, stage, RING_AT, RING_R)?;"
+    },
+    {
+      "cue": "03_4",
+      "path": "explainer_corpus/epsilon_delta/src/chapters/old_objection.rs",
+      "sha256": "7a5dcdf5f0d97d99392916c2d275a18139c871850a6d147bd976fa422cf947bc",
+      "line": 681,
+      "marker": "think_pause(&kit, stage, RING_AT, RING_R)?;"
+    },
+    {
+      "cue": "04_5",
+      "path": "explainer_corpus/epsilon_delta/src/chapters/challenge_game.rs",
+      "sha256": "1fe65ab0ae5e21c71bb938ea8027623d9c83fe83f3b05183c01078df88c050ad",
+      "line": 507,
+      "marker": "think_pause(&kit, stage, RING_AT, RING_R)?;"
+    },
+    {
+      "cue": "05_6",
+      "path": "explainer_corpus/epsilon_delta/src/chapters/hidden_search.rs",
+      "sha256": "dc974c8e80b3dd49b569e493a57ccd3460d8e279b75a2e4995cef48b60ad0aa2",
+      "line": 456,
+      "marker": "think_pause(&kit, stage, RING_AT, RING_R)?;"
+    },
+    {
+      "cue": "06_4",
+      "path": "explainer_corpus/epsilon_delta/src/chapters/recentring.rs",
+      "sha256": "0670c19a4d083114e6ba4827bbe4c89f6ad3e2371460a80ceb88be18b48a9c04",
+      "line": 456,
+      "marker": "think_pause(&kit, stage, RING_AT, RING_R)?;"
+    },
+    {
+      "cue": "07_4",
+      "path": "explainer_corpus/epsilon_delta/src/chapters/polynomial_bound.rs",
+      "sha256": "2a206f9803dcbeb498e35fb7c91a263598bf48ad2940098820ea0e3ae2538931",
+      "line": 191,
+      "marker": "think_pause(&kit, stage, v(3.1, -1.25), 0.45)?;"
+    },
+    {
+      "cue": "08_5",
+      "path": "explainer_corpus/epsilon_delta/src/chapters/fixed_or_moving.rs",
+      "sha256": "f9ad34acfe0450f4d05dd9a30db75821eddd3ef1ef3b767050615b2a874862d5",
+      "line": 166,
+      "marker": "think_pause(&kit, stage, v(X, -1.25), 0.5)?;"
+    },
+    {
+      "cue": "09_5",
+      "path": "explainer_corpus/epsilon_delta/src/chapters/error_bridge.rs",
+      "sha256": "459dbff897d10a3893345331410371e7cf84916989a6aa41510ae49aefa1bd5f",
+      "line": 131,
+      "marker": "think_pause(&kit, stage, v(0.0, -2.9), 0.35)?;"
+    },
+    {
+      "cue": "10_4",
+      "path": "explainer_corpus/epsilon_delta/src/chapters/sequences.rs",
+      "sha256": "8890a40a053aaf8039c06e61a3a6a8b90acae407f15953ebb331cdb2960ee521",
+      "line": 216,
+      "marker": "think_pause(&kit, stage, v(0.0, 0.0), 0.5)?;"
+    },
+    {
+      "cue": "11_3",
+      "path": "explainer_corpus/epsilon_delta/src/chapters/preimages.rs",
+      "sha256": "5282e7964bff7039828d1f0cbd62112b18c504a1e7418a9dcca74ad315279a55",
+      "line": 172,
+      "marker": "think_pause(&kit, stage, RING_AT, 0.4)?;"
+    },
+    {
+      "cue": "12_4",
+      "path": "explainer_corpus/epsilon_delta/src/chapters/completeness.rs",
+      "sha256": "6fdd4d68ee76b776df1bc421388e07a5836160618601a7c0972b5f4d436fa2a2",
+      "line": 107,
+      "marker": "think_pause(&kit, stage, v(0.0, -3.0), 0.25)?;"
+    }
+  ],
+  "hold_helper": {
+    "path": "explainer_corpus/epsilon_delta/src/chapters/draw.rs",
+    "sha256": "90b928d58f0b2c47012be3c4d95af32bb5ca10e006d929590164ea230dc2270c",
+    "basis": "think_pause calls kit.hold before the timed prediction ring."
+  }
+}

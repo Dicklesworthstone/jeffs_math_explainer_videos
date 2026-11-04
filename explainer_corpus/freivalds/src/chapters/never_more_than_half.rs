@@ -95,6 +95,17 @@ const DIMMED: f64 = 0.25;
 /// 06_7: "all zeros" over the column the slip is right in.
 const ZEROS_DY: f64 = 0.35;
 
+/// Fade a coin outline without filling the ring and obscuring its face.
+fn fade_ring_to(mob: Mob, opacity: f64, rt: f64) -> fmn::Result<AnimBuilder> {
+    Ok(mob
+        .animate()
+        .set_anim_args(AnimateArgs {
+            run_time: Some(rt),
+            ..AnimateArgs::default()
+        })?
+        .set_stroke(None, None, Some(opacity))?)
+}
+
 /// Where toss `k` (counting order) stands: two rows of four. With three
 /// coins the first coin is the row: toss k and toss k + 4 differ only in it,
 /// so the pairs by coin 1 stand one above the other.
@@ -556,7 +567,7 @@ impl SceneConstruct for NeverMoreThanHalf {
                 for m in coin_mobs(coins) {
                     dims.push(fade_to(m, DIMMED, 0.4)?);
                 }
-                dims.push(fade_to(coin_rings[k], DIMMED, 0.4)?);
+                dims.push(fade_ring_to(coin_rings[k], DIMMED, 0.4)?);
             }
         }
         for (p, &link) in links.iter().enumerate() {
@@ -614,8 +625,11 @@ impl SceneConstruct for NeverMoreThanHalf {
         // 06_6: every pair the same; at most one miss in each
         let line = say(&kit, stage, "06_6")?;
         let mut undims = Vec::new();
-        for m in all_coins.iter().chain(&coin_rings).chain(&links) {
+        for m in all_coins.iter().chain(&links) {
             undims.push(fade_to(*m, 1.0, 0.4)?);
+        }
+        for &ring in &coin_rings {
+            undims.push(fade_ring_to(ring, 1.0, 0.4)?);
         }
         together(stage, undims)?;
         let mut leaving = fixed_rings;

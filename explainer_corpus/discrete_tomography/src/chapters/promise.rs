@@ -375,7 +375,7 @@ mod tests {
         assert!(ends(TEXT_X, NOT_SAID, 24.0) < safe_x);
         assert!(HEADING_Y + 0.2 < safe_y);
         // the think ring and its note stay under the list, inside
-        assert!(THINK_AT[1] + 0.62 < DETAIL_Y[1] - 0.15);
+        const { assert!(THINK_AT[1] + 0.62 < DETAIL_Y[1] - 0.15); }
         assert!(THINK_AT[0] + 1.1 < safe_x);
         assert!(THINK_AT[1] - 0.62 - 0.3 - 0.15 > -safe_y);
         // the closing words stay over a three-line card

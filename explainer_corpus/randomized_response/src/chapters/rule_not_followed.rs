@@ -93,7 +93,6 @@ impl SceneConstruct for WhenTheRuleIsNotFollowed {
         let kit = self.kit.clone();
         let a: Average = facts::average().map_err(fail)?;
         let (n, copiers) = (a.class.size(), a.class.copiers());
-        let truth = Q::int(copiers as i128);
         let honest = model::yes_count_distribution(n, copiers).map_err(fail)?;
         let broken = model::yes_count_distribution_copiers_say_no(n, copiers).map_err(fail)?;
         let low = model::undo(0, n)[2];

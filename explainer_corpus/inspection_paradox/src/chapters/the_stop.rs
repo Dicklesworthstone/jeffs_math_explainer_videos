@@ -304,7 +304,6 @@ impl SceneConstruct for TheStop {
 
         // 01_2: the street becomes a strip at the top, you still at the stop;
         // the hour, then the blue buses and the red
-        let line = say(&kit, stage, "01_2")?;
         let mut members = parts.clone();
         members.push(me);
         let strip = group(stage, &members)?;
@@ -312,6 +311,7 @@ impl SceneConstruct for TheStop {
         let marks: Vec<i64> = (0..=HOUR).step_by(PERIOD as usize).collect();
         let hour = hour_line(&kit, stage, &marks)?;
         fade_in_all(stage, &hour.mobs(), 0.6)?;
+        let line = say(&kit, stage, "01_2")?;
         line.wait_for(stage, "Two bus routes")?;
         let blue: Vec<Mob> = model::route(0)
             .into_iter()

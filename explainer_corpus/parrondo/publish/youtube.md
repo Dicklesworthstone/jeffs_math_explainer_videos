@@ -1,35 +1,35 @@
 # YouTube publication package
 
-- Title: Two Losing Games Can Win — Here Is the Catch
+- Title: How Two Losing Games Can Win
 - Tags: Parrondo paradox,probability,Markov chains,mathematics,random walks,stationary distribution,game theory
 - Thumbnail: `../../narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/thumbnail.png`
 
 ```text
-Game A loses. Game B loses. Choose between them with a fair coin, and the mixture can win. The coins have not improved, so where does the gain come from?
+Two games can each lose when played alone and win when a fair coin chooses which to play. How does switching change the outcome when the games use the same coins?
 
-We follow players around a triangle of remainders, calculate how the crowd settles, and find the flow that decides the game's long-run direction. The same picture explains why a fixed alternating pattern can lose while other patterns win.
+We track a player's money modulo three and calculate how players are distributed among the three remainders. That distribution determines the long-run gain or loss. It also explains why alternating A and B loses while some other switching patterns win.
 
-These are mathematical games with unlimited credit. A positive long-run average is not a promise that an individual player will be ahead after a particular number of rounds.
+These are mathematical games with unlimited credit. A positive long-run average does not guarantee that an individual player will be ahead after a particular number of rounds.
 
 Chapters
-?:?? The puzzle
-?:?? The rule
-?:?? Does b win
-?:?? Looks hopeless
-?:?? The clue
-?:?? Three corners
-?:?? Where you stand
-?:?? One player to a crowd
-?:?? Ten four twelve
-?:?? The trap
-?:?? Mix the games
-?:?? One dial
-?:?? The half point
-?:?? Net flow
-?:?? Two products
-?:?? When switching fails
-?:?? What winning promises
-?:?? The catch
+0:00 The puzzle
+1:27 The rule
+2:38 Does B win
+3:29 Looks hopeless
+4:29 The clue
+5:24 Three corners
+6:17 Where you stand
+7:38 One player to a crowd
+9:25 Ten, four, twelve
+10:50 The trap
+12:22 Mix the games
+13:39 One dial
+15:46 The half point
+17:24 Net flow
+21:47 Two products
+26:11 When switching fails
+30:46 What winning promises
+35:07 The catch
 
 Primary sources
 G. P. Harmer and D. Abbott, Losing strategies can win by Parrondo's paradox, Nature 402 (1999), 864:
@@ -37,7 +37,6 @@ https://doi.org/10.1038/47220
 S. N. Ethier and J. Lee, Limit theorems for Parrondo's paradox, Electronic Journal of Probability 14 (2009), 1827-1862:
 https://doi.org/10.1214/EJP.v14-684
 https://arxiv.org/abs/0902.2368
-The film distinguishes random switching, fixed patterns and finite-run outcomes; it does not claim every switching sequence wins.
 
 Created with FrankenManim and FrankenTTS. Narration uses a synthetic voice.
 ```

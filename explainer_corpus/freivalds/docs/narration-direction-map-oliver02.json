@@ -1,0 +1,196 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "freivalds": "1f788115f1c1387e5c2d4ca9da4be75fec12595cd2b08e38162d99ff1780fbf5"
+  },
+  "overrides": [
+    {
+      "video": "freivalds",
+      "cue": "01_6",
+      "after": "How many multiplications does that take, row by column?",
+      "role": "question",
+      "reason": "Prediction before 01_7."
+    },
+    {
+      "video": "freivalds",
+      "cue": "02_4",
+      "after": "How many different entries would you have to check to catch it at least half the time?",
+      "role": "question",
+      "reason": "Prediction before 02_5."
+    },
+    {
+      "video": "freivalds",
+      "cue": "03_5",
+      "after": "Will the two columns match?",
+      "role": "question",
+      "reason": "Prediction before 03_6."
+    },
+    {
+      "video": "freivalds",
+      "cue": "04_1",
+      "after": "Of the eight ways three coins can land, how many miss the slip?",
+      "role": "question",
+      "reason": "Prediction before 04_2."
+    },
+    {
+      "video": "freivalds",
+      "cue": "04_7",
+      "after": "How often would the slip get past?",
+      "role": "question",
+      "reason": "Prediction before 04_8."
+    },
+    {
+      "video": "freivalds",
+      "cue": "05_5",
+      "after": "How many tosses does it hide from?",
+      "role": "question",
+      "reason": "Prediction before 05_6."
+    },
+    {
+      "video": "freivalds",
+      "cue": "06_4",
+      "after": "How much does row two's sum change?",
+      "role": "question",
+      "reason": "Prediction before 06_5."
+    },
+    {
+      "video": "freivalds",
+      "cue": "07_2",
+      "after": "How many of them miss both times?",
+      "role": "question",
+      "reason": "Prediction before 07_3."
+    },
+    {
+      "video": "freivalds",
+      "cue": "08_2",
+      "after": "Where could they put a wrong entry this toss can't see?",
+      "role": "question",
+      "reason": "Prediction before 08_3."
+    },
+    {
+      "video": "freivalds",
+      "cue": "09_4",
+      "after": "For three by three matrices, how many checks cost as much as redoing the product?",
+      "role": "question",
+      "reason": "Prediction before 09_5."
+    },
+    {
+      "video": "freivalds",
+      "cue": "10_2",
+      "after": "What is ten to the sixteen plus one in doubles?",
+      "role": "question",
+      "reason": "Prediction before 10_3."
+    },
+    {
+      "video": "freivalds",
+      "cue": "11_5",
+      "after": "How many fresh checks would push that below one in a billion?",
+      "role": "question",
+      "reason": "Prediction before 11_6."
+    }
+  ],
+  "visual_holds": [
+    {
+      "cue": "01_6",
+      "next_cue": "01_7",
+      "path": "explainer_corpus/freivalds/src/chapters/handed_an_answer.rs",
+      "line": 372,
+      "marker": "let q = think(&kit, stage, THINK_AT)?;",
+      "sha256": "7291ff3ab5e70b4563bcff59deb488ddfb4f4e26b772e8a9b4560126941acaf1"
+    },
+    {
+      "cue": "02_4",
+      "next_cue": "02_5",
+      "path": "explainer_corpus/freivalds/src/chapters/cheap_checks.rs",
+      "line": 209,
+      "marker": "let q = think(&kit, stage, RIGHT_THINK_AT)?;",
+      "sha256": "29fb2625fcefaffc4dae3f7d5ba2d46a94eb19094b2279da4611d2075f6d8667"
+    },
+    {
+      "cue": "03_5",
+      "next_cue": "03_6",
+      "path": "explainer_corpus/freivalds/src/chapters/check_with_coins.rs",
+      "line": 529,
+      "marker": "let q = think(&kit, stage, MATCH_THINK_AT)?;",
+      "sha256": "78da73cffd8ae878c74a651733c7822b3fcfa1aff975abe56d38bc94e62da769"
+    },
+    {
+      "cue": "04_1",
+      "next_cue": "04_2",
+      "path": "explainer_corpus/freivalds/src/chapters/check_with_coins.rs",
+      "line": 638,
+      "marker": "let q = think(&kit, stage, THINK_AT)?;",
+      "sha256": "78da73cffd8ae878c74a651733c7822b3fcfa1aff975abe56d38bc94e62da769"
+    },
+    {
+      "cue": "04_7",
+      "next_cue": "04_8",
+      "path": "explainer_corpus/freivalds/src/chapters/check_with_coins.rs",
+      "line": 790,
+      "marker": "let q = think(&kit, stage, THINK_AT)?;",
+      "sha256": "78da73cffd8ae878c74a651733c7822b3fcfa1aff975abe56d38bc94e62da769"
+    },
+    {
+      "cue": "05_5",
+      "next_cue": "05_6",
+      "path": "explainer_corpus/freivalds/src/chapters/never_more_than_half.rs",
+      "line": 422,
+      "marker": "let q = think(&kit, stage, THINK_AT)?;",
+      "sha256": "b69033ad86ce5aa040485cc808d532e87e85c0609e9bad8c223e0384f18a1d54"
+    },
+    {
+      "cue": "06_4",
+      "next_cue": "06_5",
+      "path": "explainer_corpus/freivalds/src/chapters/never_more_than_half.rs",
+      "line": 601,
+      "marker": "let q = think(&kit, stage, THINK_AT)?;",
+      "sha256": "b69033ad86ce5aa040485cc808d532e87e85c0609e9bad8c223e0384f18a1d54"
+    },
+    {
+      "cue": "07_2",
+      "next_cue": "07_3",
+      "path": "explainer_corpus/freivalds/src/chapters/toss_again.rs",
+      "line": 519,
+      "marker": "let q = think(&kit, stage, THINK_AT)?;",
+      "sha256": "1f4317ccacee20d50fbf24e275a60f8369b38a6f48f55eaa66b5030eff37ac17"
+    },
+    {
+      "cue": "08_2",
+      "next_cue": "08_3",
+      "path": "explainer_corpus/freivalds/src/chapters/toss_again.rs",
+      "line": 806,
+      "marker": "let q = think(&kit, stage, SEEN_THINK_AT)?;",
+      "sha256": "1f4317ccacee20d50fbf24e275a60f8369b38a6f48f55eaa66b5030eff37ac17"
+    },
+    {
+      "cue": "09_4",
+      "next_cue": "09_5",
+      "path": "explainer_corpus/freivalds/src/chapters/exact_and_rounded.rs",
+      "line": 692,
+      "marker": "let q = think(&kit, stage, BREAK_THINK_AT)?;",
+      "sha256": "2058d92e21b5c37eacdc4357da6b0fee6a3ab9412ebb1eee18fad1745a879101"
+    },
+    {
+      "cue": "10_2",
+      "next_cue": "10_3",
+      "path": "explainer_corpus/freivalds/src/chapters/exact_and_rounded.rs",
+      "line": 789,
+      "marker": "let q = think(&kit, stage, THINK_AT)?;",
+      "sha256": "2058d92e21b5c37eacdc4357da6b0fee6a3ab9412ebb1eee18fad1745a879101"
+    },
+    {
+      "cue": "11_5",
+      "next_cue": "11_6",
+      "path": "explainer_corpus/freivalds/src/chapters/exact_and_rounded.rs",
+      "line": 1023,
+      "marker": "let q = think(&kit, stage, BILLION_THINK_AT)?;",
+      "sha256": "2058d92e21b5c37eacdc4357da6b0fee6a3ab9412ebb1eee18fad1745a879101"
+    }
+  ],
+  "hold_helper": {
+    "path": "explainer_corpus/freivalds/src/chapters/draw.rs",
+    "sha256": "714477cc738d40fc438c6701c53ceaede0a89f213458b61e16b75f199a0b0806",
+    "duration_seconds": 4,
+    "basis": "think calls kit.hold before the four-second visual countdown"
+  }
+}
