@@ -1,0 +1,11 @@
+A space at the head of a subscript or superscript group:
+  franken_markdown@126a530 fmd-math: 0 lines in 33 .rs files
+  franken_manim@a399d62 fmn-tex: 0 lines in 15 .rs files
+  franken_manim@a399d62 fmn-library: 0 lines in 67 .rs files
+  repo explainer_corpus: 0 lines in 879 .rs files
+  repo crates: 0 lines in 58 .rs files
+Any group opening with a thin space, in fmd-math:
+  franken_markdown@126a530 fmd-math/tests/parse_constructs.rs:751: let items = parse_items(r"\sqrt{\,");
+  franken_markdown@126a530 fmd-math: 1 lines in 33 .rs files
+
+[exit 0]

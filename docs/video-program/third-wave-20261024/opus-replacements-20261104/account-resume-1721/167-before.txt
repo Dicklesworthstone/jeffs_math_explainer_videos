@@ -1,0 +1,153 @@
+         Ok((chain, denominators))
+     }
+     … +294 lines (ctrl+o to expand)
+
+⏺ Bash(R=docs/video-program/third-wave-20261024/opus-replacements-20261104; grep -n -i "integrat\|registry\|mod \|chapters/mod\|main.rs\|cue id\|prefix\|final id" $R/e…)
+  ⎿  69:| C4, 03_7 | New cue: hooks s1–s4 and two clause hooks in s3. Root sets the final id. |
+     79:3. **`until_clause` is new in these two scenes.** It replaces fixed waits inside four sentences (02_4 s4, 02_6 s3, 03_2 s0, 03_7 s3). It shares a sentence's real window by characters, so it is an
+     estimate, not a heard boundary, and it ig
+     … +172 lines (ctrl+o to expand)
+
+⏺ Bash(R=docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-abc-teaching-cross-review01; /bin/ls -la $R | cut -c1-100; for f in $(/bin/ls $R…)
+  ⎿  total 0
+     drwxr-xr-x   5 jemanuel  staff   160 Nov  4 12:00 .
+     drwxr-xr-x  65 jemanuel  staff  2080 Nov  4 12:00 ..
+     … +67 lines (ctrl+o to expand)
+
+⏺ I've settled the D and E teaching design from the brief and the A–C words. Next I'm writing the script slices, models and exact oracles, then the scenes.
+
+⏺ Write(docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/limit01/script-slice.tsv)
+  ⎿  Wrote 13 lines to docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/limit01/script-slice.tsv
+     04_1    Return to the short straight steps. Each step took the current height and climbed by that height times the step's width. But climbing by a fraction of your own height is the same as
+     multiplying your height. So a step one quarter wide multiplies by five quarters, whatever the height was. Four steps make five quarters to the fourth power, the endpoint we already drew.
+     04_2    Give one unit of time this fixed width, and split it into n cells. Now let the slope be x times the current height. Over that one unit of time, the fractional rate x gives each of n steps
+     the multiplier one plus x over n. After all the steps, we have that multiplier raised to the n-th power. For a rate of one, this is the familiar compound-growth construction of e. More cells keep
+     raising its endpoint, by less and less.
+     04_3    Now put those endpoints on the graph of our series. Change the rate, and the endpoint lands near the curve at that input, for rates above zero and below it. Near is still not a proof. Why
+     should that limit be our series? Expand the finite product.
+     04_4    Each cell offers two choices. Keep its one, or take its x over n. Multiplying out the product means making those choices in every possible way. With four cells, that is sixteen ways, and
+     they sort themselves by how many cells took x. For x squared, two cells must take it, and six pairs of cells can do that. So the coefficient of x squared is six times a quarter times a quarter, six
+     sixteenths.
+     … +9 lines (ctrl+o to expand)
+
+⏺ Write(docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/only01/script-slice.tsv)
+  ⎿  Wrote 9 lines to docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/only01/script-slice.tsv
+     05_1    We constructed a function whose derivative equals itself. Could a different function obey the same rule and start at the same height? What we just proved does not settle that. The steps
+     reach E, but nothing yet forces every solution to follow our steps.
+     05_2    So build a test. Take any function y that has a derivative, and multiply it by E of minus x. Differentiate that product. One contribution is y prime times E of minus x. The other comes from
+     E of minus x itself, whose slope is minus E of minus x, by the chain rule. Together they make y prime minus y, times E of minus x.
+     05_3    Try it on functions that break the rule. Our degree-two polynomial starts at height one, but its derivative loses its top term. Its product with E of minus x tilts. Degree four breaks the
+     rule less, and tilts less. E of minus x is never zero, so the product can only be level where y prime equals y. Suppose a function obeys the rule everywhere. What must its product do?
+     05_4    It stays level. One contribution is the proposed function times E of minus x, and the other is its negative. They cancel. A slope of zero across an interval means a constant value, and at
+     zero that value is one. So y of x times E of minus x equals one, everywhere on that interval.
+     05_5    Now multiply both sides by E of x. The product grid already gave us E of x times E of minus x equals one, so the left side collapses to y of x. The proposed solution must equal E of x
+     everywhere on its interval. That is the rule in both directions. E obeys it, and whatever obeys it is E.
+     … +4 lines (ctrl+o to expand)
+
+⏺ Write(docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/limit01/limit_model.rs)
+  ⎿  Wrote 334 lines to docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/limit01/limit_model.rs
+     //! Arithmetic behind the small-multiplier chapter. These are printed values and bar heights at named inputs;
+     //! the proof is the chain of inequalities the chapter draws, and these numbers only illustrate it.
+     use crate::series_model::{RADIUS, sum, tail_bound, tail_label, term_size};
+
+     /// Rate-one endpoints in the table. The first three are the rate chapter's own step counts.
+     pub const TABLE_COUNTS: [u32; 5] = [4, 8, 16, 64, 1024];
+     /// The cell count the graph's sweep uses.
+     pub const SWEEP_CELLS: u32 = 16;
+     /// The worked strip: four cells, and the columns its sixteen choices sort into.
+     pub const STRIP_CELLS: usize = 4;
+     … +324 lines (ctrl+o to expand)
+
+⏺ Write(docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/limit01/oracle.py)
+  ⎿  Wrote 160 lines to docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/limit01/oracle.py
+     #!/usr/bin/env python3
+     """Exact rational arithmetic for the small-multiplier chapter; imports no native model.
+
+     Coefficients come from Pascal's rule, not from the native chain of factors. Endpoints are exact powers of exact
+     fractions. E at an input is an exact partial sum bracketed by its tail bound, and each printed value is accepted only
+     when both ends of the bracket print the same digits.
+     """
+     from fractions import Fraction as Q
+     from math import ceil, factorial
+
+     … +151 lines (ctrl+o to expand)
+
+⏺ Bash(F=~/.cargo/git/checkouts/franken_manim-6641d0e09642f63e/a399d62/crates; grep -rn "dashed_vmobject\|pub use.*Arrow\|pub struct Arrow\b" "$F/fmn/src" "$F/fmn-libr…)
+  ⎿  399d62/crates/fmn/src/prelude.rs:35:    curved_arrow, curved_double_arrow, curves_as_submobjects, dashed_vmobject, group, polyline,
+     399d62/crates/fmn-library/src/lib.rs:154:pub use line::{Arrow, DashedLine, Elbow, Line, StrokeArrow, tangent_line, vector};
+     399d62/crates/fmn-library/src/lib.rs:209:    DashError, MAX_DASHES, VMobject, curves_as_submobjects, dashed_vmobject, group, v_grou
+     … +69 lines (ctrl+o to expand)
+
+⏺ Bash(sed -n 128,142p explainer_corpus/bakery_algorithm/src/chapters/garbage.rs | cut -c1-110; sed -n 560,562p crates/explainer_kit/src/kit.rs >/dev/null; grep -n "fn…)
+  ⎿      Ok(indicate(stage.arena_mut(), m, 1.2, Some(super::draw::rgb(chalk())))?)
+     }
+     … +59 lines (ctrl+o to expand)
+
+⏺ Bash(cd /Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/limi…)
+  ⎿  Traceback (most recent call last):
+       File "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/limit01/oracle.py", line 121, in <modu
+     le>
+     … +24 lines (ctrl+o to expand)
+
+⏺ Bash(cd /Users/jemanuel/projects/jeffs_math_explainer_videos && D=docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate…)
+  ⎿  tiny.step.multiplier    5/4
+     tiny.one.4      2.441
+     tiny.one.8      2.566
+     … +78 lines (ctrl+o to expand)
+
+⏺ Write(docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/limit01/tiny_multipliers.rs)
+  ⎿  Wrote 1908 lines to docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/limit01/tiny_multipliers.rs
+     //! Native staged small-multiplier chapter. Type-checked at the pin; never rendered.
+     //!
+     //! Each cue has one function, in film order, and each function begins with its own `say`.
+     //! The rate chapter's four steps become a product, the product expands into choices, and the same green ceilings
+     //! the series chapter measured carry the limit, at both signs of the input.
+     use crate::limit_model::{
+         AIM, BAR_COUNTS, BAR_TOP, CUT, EARLY_CUT, EDGE_COUNTS, EDGE_INPUT, FILL_COUNTS, FILL_FAR, FILL_NEAR, FILL_TOP,
+         GRAPH_LOW, GRAPH_SAMPLES, HEAD_COUNTS, STRIP_CELLS, SWEEP_CELLS, TABLE_COUNTS, WALK_COUNTS, WARNING_COUNTS, chain,
+         choices, column_label, distance, e_value, edge_base, edge_value, endpoint, gap, graph_x, head_gaps, rate_one_label,
+         strip_coefficient, sweep_label, tail_print, term, total_label, up_label, walk, ways,
+     … +1898 lines (ctrl+o to expand)
+
+⏺ Write(docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/only01/solution_model.rs)
+  ⎿  Wrote 161 lines to docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/only01/solution_model.rs
+     //! Arithmetic behind the uniqueness chapter. The proof is the derivative the chapter writes out; these curves only
+     //! show the test at work on functions we can name.
+     use crate::limit_model::e_value;
+     use crate::series_model::sum;
+
+     /// The test's panels: inputs from -PANEL_RADIUS to PANEL_RADIUS at steps of 1/10.
+     pub const PANEL_RADIUS: f64 = 1.5;
+     pub const PANEL_SAMPLES: usize = 30;
+     /// The polynomials the test is tried on. Their rule breaks by exactly their top term.
+     pub const DEGREES: [usize; 2] = [2, 4];
+     … +151 lines (ctrl+o to expand)
+
+⏺ Write(docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/only01/oracle.py)
+  ⎿  Wrote 92 lines to docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-de-native01/candidate/only01/oracle.py
+     #!/usr/bin/env python3
+     """Exact rational arithmetic for the uniqueness chapter; imports no native model.
+
+     E at an input is an exact partial sum bracketed by its tail bound. A printed value is accepted only when both ends
+     of its bracket print the same digits, so a value that could round either way stops this oracle.
+     """
+     from fractions import Fraction as Q
+     from math import factorial
+
+     PANEL = Q(3, 2)
+     … +82 lines (ctrl+o to expand)
+  ⎿  You've hit your weekly limit · resets Nov 8 at 11am (America/New_York)
+
+✻ Crunched for 26m 47s · done 12:12 PM
+
+❯ /rate-limit-options
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  What do you want to do?
+
+  ❯ 1. Stop and wait for limit to reset
+    2. Wait here, then continue automatically at Nov 8 at 11am
+    3. Switch to usage credits
+
+  Enter to confirm · Esc to cancel
+

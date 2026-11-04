@@ -1,0 +1,94 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
+@@ -669,15 +669,45 @@
+         assert!((rise - PI / 2.0_f64.sqrt()).abs() < 1e-6);
+     }
+ 
++    /// The path walked in steps no longer than `step`, the closing join included. Every
++    /// sample lies on a chord of the path as drawn, so the curve is the same; only the samples
++    /// are finer. The picture needs just the two ends of the diameter, but from a point near
++    /// the loop that one chord turns `z − q` by more than the quarter turn the sampled count
++    /// accepts per step (`model::MAX_STEP_TURN`), and the count rightly refuses it.
++    fn walked(path: &[C], step: f64) -> Vec<C> {
++        let mut zs = Vec::new();
++        for (k, &a) in path.iter().enumerate() {
++            let b = path[(k + 1) % path.len()];
++            let pieces = ((b - a).abs() / step).ceil().max(1.0) as u32;
++            zs.extend((0..pieces).map(|j| a + (b - a).scale(f64::from(j) / f64::from(pieces))));
++        }
++        zs
++    }
++
+     #[test]
+     fn the_contour_encloses_exactly_the_upper_poles() {
+-        let path = contour(model::ARC_RADII[0]);
++        let r = model::ARC_RADII[0];
++        let path = walked(&contour(r), 1.0 / 256.0);
+         for q in model::quartic_roots() {
+             let turns = model::winding_count(|z: C| Some(z - q), &path);
+             assert_eq!(turns, Some(i64::from(q.im > 0.0)));
+         }
+         assert_eq!(model::winding_count(|z: C| Some(z - C::new(0.0, 1.0)), &path), Some(1));
+         assert_eq!(model::winding_count(|z: C| Some(z - C::new(0.0, -1.0)), &path), Some(0));
++        // the loop is the half disk's edge on every side: just inside it, just outside it
++        for (q, inside) in [
++            (C::new(0.0, r - 0.01), 1),
++            (C::new(0.0, r + 0.01), 0),
++            (C::new(0.0, 0.01), 1),
++            (C::new(0.0, -0.01), 0),
++            (C::new(r - 0.02, 0.01), 1),
++            (C::new(r + 0.01, 0.0), 0),
++            (C::new(0.02 - r, 0.01), 1),
++            (C::new(-r - 0.01, 0.0), 0),
++        ] {
++            let turns = model::winding_count(|z: C| Some(z - q), &path);
++            assert_eq!(turns, Some(inside), "at {q:?}");
++        }
+     }
+ 
+     #[test]
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs
+@@ -661,6 +661,17 @@
+         assert!((WALK_R * WALK_R - get("square.circle.out_radius").parse::<f64>().unwrap()).abs() < 1e-12);
+     }
+ 
++    /// The same rectangle on screen. `planes` passes the centre and width through untouched,
++    /// so those must match exactly. Only the height is computed, as width × span / span: two
++    /// rounded operations, each off by at most 2⁻⁵³ of its result, so a height is within
++    /// `f64::EPSILON` × width of the width and two heights within twice that. (5.4 × 3 / 3 comes
++    /// out one unit in the last place high.) Anything past that bound is a different layout.
++    fn same_rectangle(a: Plane, b: Plane) -> bool {
++        a.frame.center == b.frame.center
++            && a.frame.width == b.frame.width
++            && (a.frame.height - b.frame.height).abs() <= 2.0 * f64::EPSILON * a.frame.width
++    }
++
+     #[test]
+     fn the_grid_and_its_images_fit_the_windows() {
+         let (inp, out) = planes(SQUARE_HALVES.0, SQUARE_HALVES.1);
+@@ -686,10 +697,20 @@
+         let (inp2, out2) = planes(INVERSE_HALVES.0, INVERSE_HALVES.1);
+         let (inp3, out3) = planes(WALK_HALVES.0, WALK_HALVES.1);
+         for (a, b) in [(inp, inp2), (inp, inp3), (out, out2), (out, out3)] {
+-            assert_eq!(
+-                (a.frame.center, a.frame.width, a.frame.height),
+-                (b.frame.center, b.frame.width, b.frame.height)
+-            );
++            assert!(same_rectangle(a, b), "{:?} and {:?}", a.frame, b.frame);
++        }
++        // and a layout that does differ is told apart, one change at a time from the input
++        // plane's own recipe, even at 1e-9 of a scene unit, far under a pixel of the 4K frame
++        let (centre, square) = (v(-3.5, -0.35), (-SQUARE_HALVES.0, SQUARE_HALVES.0));
++        assert!(same_rectangle(inp, Plane::new(centre, 5.4, square, square)));
++        for other in [
++            out,
++            Plane::new(v(-3.5 + 1e-9, -0.35), 5.4, square, square),
++            Plane::new(centre, 5.4 + 1e-9, square, square),
++            Plane::new(centre, 5.4, square, (square.0, square.1 + 1e-9)),
++            Plane::new(centre, 5.4, square, (square.0 / 2.0, square.1 / 2.0)),
++        ] {
++            assert!(!same_rectangle(inp, other), "{:?}", other.frame);
+         }
+         // one scale on both sides in every beat but e^z's
+         for (a, b) in [(inp, out), (inp2, out2), (inp3, out3)] {

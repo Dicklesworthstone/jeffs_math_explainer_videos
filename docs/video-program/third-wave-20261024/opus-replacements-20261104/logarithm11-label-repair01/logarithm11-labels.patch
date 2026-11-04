@@ -1,0 +1,29 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs
+@@ -1306,7 +1306,7 @@
+         let positive = tex_left(
+             &kit,
+             stage,
+-            r"e^{tp} > 0 \text{ for all real } t \text{ and } p\text{: no axis reverses}",
++            r"e^{tp} > 0 \text{ for real } t \text{ and } p\text{: } e^{tX} \text{ reverses no axis}",
+             22.0,
+             blue,
+             v(right, -0.05),
+@@ -1659,7 +1659,7 @@
+         kit.until_sentence(stage, "11_8", 3)?;
+         let singular = kit.tex(
+             stage,
+-            r"\operatorname{det} A = 0 \quad\text{but}\quad \operatorname{det} e^{X} = e^{\operatorname{tr} X} \neq 0",
++            r"\text{singular } S\text{: } \operatorname{det} S = 0 \quad\text{but}\quad \operatorname{det} e^{X} = e^{\operatorname{tr} X} \neq 0",
+             28.0,
+             red,
+             &[],
+@@ -1907,7 +1907,7 @@
+             ("the ends meet only when b = c = 0", 24.0, 2.2),
+             // typeset lines, counting their exponents at full size
+             ("etX stretches the axes by etp and etq", 22.0, 2.2),
+-            ("etp > 0 for all real t and p: no axis reverses", 22.0, 2.2),
++            ("etp > 0 for real t and p: etX reverses no axis", 22.0, 2.2),
+             ("where A puts the F", 20.0, 2.2 + KEY_WORD_X),
+             ("a half turn, then a stretch: two flows in turn", 22.0, 2.2),
+             ("equal stretches: (−1) − (−1) = 0, no gap,", 20.0, 2.2),

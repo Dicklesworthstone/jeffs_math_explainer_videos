@@ -1,0 +1,6 @@
+{
+  "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/abstract_algebra_expanded/src/cyclic.rs",
+  "source_sha256": "946f1da44bd20e674320a26c3b69876092e7f5a46679565151893645f538b05e",
+  "candidate_sha256": "105f5cf8be10bcc25579a57912fcc8d1a08eaad275a855854b418c9c7bcf0d0c",
+  "syntax_gate": "rustfmt --edition 2024 --check exit0; not compilation"
+}

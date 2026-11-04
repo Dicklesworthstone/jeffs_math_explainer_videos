@@ -1,0 +1,154 @@
+--- a/explainer_corpus/abstract_algebra_expanded/src/permutations.rs
++++ b/explainer_corpus/abstract_algebra_expanded/src/permutations.rs
+@@ -644,6 +644,7 @@
+ const THE_PAIRS: Anchor = ("11_7", 2, "for pairs with");
+ const BOTH_REVERSE: Anchor = ("11_11", 2, "sometimes both");
+ const SAME_PRODUCT: Anchor = ("11_11", 2, "so their product");
++const THEY_COMPOSE: Anchor = ("11_20", 0, "since they compose");
+ const NOT_EVERY: Anchor = ("11_9", 0, "but not every");
+ const OUR_EIGHT: Anchor = ("11_9", 1, "and our eight");
+ const AS_SUBGROUP: Anchor = ("11_9", 1, "as a subgroup");
+@@ -654,7 +655,7 @@
+ const STILL_OUT: Anchor = ("11_23", 1, "yet most");
+ 
+ #[cfg(test)]
+-const ANCHORS: [Anchor; 16] = [
++const ANCHORS: [Anchor; 17] = [
+     NO_COLLISIONS,
+     NO_MISSING,
+     THEY_COMMUTE,
+@@ -663,6 +664,7 @@
+     THE_PAIRS,
+     BOTH_REVERSE,
+     SAME_PRODUCT,
++    THEY_COMPOSE,
+     NOT_EVERY,
+     OUR_EIGHT,
+     AS_SUBGROUP,
+@@ -1801,7 +1803,7 @@
+         &[],
+         v(0.0, -2.95),
+     )?;
+-    exchange(stage, &[swap_count], &[adding])?;
++    swap_caption(stage, &[swap_count], &[adding])?;
+ 
+     let mut on_screen = one.mobs();
+     on_screen.extend(three.mobs());
+@@ -2535,7 +2537,7 @@
+     }
+     let mut appearing = rings.clone();
+     appearing.push(strict);
+-    exchange(stage, &[clock], &appearing)?;
++    swap_caption(stage, &[clock], &appearing)?;
+     stage.wait(0.6)?;
+     fade(stage, &rings, false)?;
+ 
+@@ -2635,7 +2637,7 @@
+         Palette::red(),
+         v(0.0, ORDER_QUESTION_Y),
+     )?;
+-    exchange(stage, &[fixed], &[five, sum])?;
++    swap_caption(stage, &[fixed], &[five, sum])?;
+     board.frames.push(five);
+     board.notes.push(sum);
+     Ok(())
+@@ -3030,6 +3032,7 @@
+     // Sentence 0: two swaps compose, then undo in reverse, and the row is home for the count below.
+     let mut row = card_row(stage, k, 4, sign_top, corner_paint)?;
+     fade(stage, &row.mobs(), true)?;
++    until_phrase(stage, k, THEY_COMPOSE)?;
+     trade_slots(stage, &mut row, (0, 1), 0.6)?;
+     trade_slots(stage, &mut row, (1, 2), 0.6)?;
+     stage.wait(0.3)?;
+@@ -3185,8 +3188,8 @@
+     pulse(stage, &[left_cells[0], right_cells[0]])?;
+ 
+     k.until_sentence(stage, "11_21", 3)?;
+-    let even_key = k.text(stage, "Gold: even", 26.0, Palette::gold(), v(-0.15, 0.3))?;
+-    let odd_key = k.text(stage, "Blue: odd", 26.0, Palette::blue(), v(-0.15, -0.3))?;
++    let even_key = k.text(stage, "Even", 26.0, Palette::gold(), v(-0.15, 0.3))?;
++    let odd_key = k.text(stage, "Odd", 26.0, Palette::blue(), v(-0.15, -0.3))?;
+     recolor(stage, &left_cells, Palette::gold(), 0.3)?;
+     recolor(stage, &right_cells, Palette::blue(), 0.3)?;
+     fade(stage, &[even_key, odd_key], true)?;
+@@ -3210,6 +3213,8 @@
+ 
+     // Sentence 5: what the even ones are, colour by kind.
+     k.until_sentence(stage, "11_21", 5)?;
++    // The even cells are about to take three colours, so the two-colour key leaves first.
++    fade(stage, &[even_key, odd_key], false)?;
+     let mut nothing = Vec::new();
+     let mut doubles = Vec::new();
+     for (&p, &cell) in evens.iter().zip(&left_cells) {
+@@ -3238,7 +3243,7 @@
+     let mut on_screen = left_cells;
+     on_screen.extend(right_cells);
+     on_screen.extend(arrows);
+-    on_screen.extend([title, count, even_key, odd_key, split, kinds]);
++    on_screen.extend([title, count, split, kinds]);
+     Ok(on_screen)
+ }
+ 
+@@ -3425,11 +3430,14 @@
+     above: bool,
+     color: Srgb,
+     arrows: &mut Vec<Mob>,
++    beside: &[Mob],
+ ) -> fmn::Result<()> {
+     let anchor: fn(usize) -> (f64, f64) = if above { deck_above } else { deck_below };
+     let offsets = link_offsets(cycle);
+     let walker = halo(stage, deck_slot(cycle[0] - 1), 0.37, Palette::ink(), 3.0);
+-    fade(stage, &[walker], true)?;
++    let mut appearing = vec![walker];
++    appearing.extend(beside);
++    fade(stage, &appearing, true)?;
+     for (index, &label) in cycle.iter().enumerate() {
+         let next = cycle[(index + 1) % cycle.len()];
+         let bend = if above == (next > label) { -WALK_BEND } else { WALK_BEND };
+@@ -3468,16 +3476,15 @@
+     let (from, to) = (trails[0][0], trails[0][1]);
+     let reading = k.text(
+         stage,
+-        &format!("Card {from} went from slot {from} to slot {to}"),
++        &format!("Card {from} went from position {from} to position {to}"),
+         27.0,
+         Palette::hero(),
+         v(0.0, -0.75),
+     )?;
+-    fade(stage, &[reading], true)?;
+-    walk_cycle(stage, &trails[0], true, Palette::hero(), &mut scene.arrows)?;
++    walk_cycle(stage, &trails[0], true, Palette::hero(), &mut scene.arrows, &[reading])?;
+     k.until_sentence(stage, "11_22", 3)?;
+     fade(stage, &[reading], false)?;
+-    walk_cycle(stage, &trails[1], false, Palette::blue(), &mut scene.arrows)?;
++    walk_cycle(stage, &trails[1], false, Palette::blue(), &mut scene.arrows, &[])?;
+ 
+     k.until_sentence(stage, "11_22", 4)?;
+     let written = k.tex(
+@@ -3864,7 +3871,7 @@
+     let order = first_return(&wires);
+     let title = k.text(
+         stage,
+-        "The same shuffle, wiring eight lines",
++        "The same shuffle, on eight wires",
+         32.0,
+         Palette::ink(),
+         v(0.0, 3.05),
+@@ -3916,7 +3923,7 @@
+     }
+     let back = k.text(
+         stage,
+-        &format!("After {order} stages: all data back on their starting lines"),
++        &format!("After {order} stages: all data back on their starting wires"),
+         27.0,
+         Palette::green(),
+         v(0.0, -2.45),
+@@ -4037,7 +4044,7 @@
+         Palette::ink(),
+         v(0.0, -2.8),
+     )?;
+-    exchange(stage, &[limits, odd], &[next])
++    swap_caption(stage, &[limits, odd], &[next])
+ }
+ 
+ impl SceneConstruct for Permutations {

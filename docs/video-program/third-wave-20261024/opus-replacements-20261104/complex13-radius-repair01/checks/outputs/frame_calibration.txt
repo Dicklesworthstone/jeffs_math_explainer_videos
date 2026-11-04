@@ -1,0 +1,20 @@
+half sizes, plane units (one px = 0.011)
+  i                  frame 88: 4 x 14 px; centre -0.277, +0.996; half 0.021 x 0.075
+  ring               frame 88: 20 x 19 px; centre +0.000, +1.001; half 0.107 x 0.101
+  R at the walk's end frame 100: 14 x 16 px; centre -1.440, +0.249; half 0.075 x 0.085
+  i at R = 10        frame 130: 4 x 15 px; centre -0.277, +0.201; half 0.021 x 0.080
+  -i at R = 10       frame 130: 16 x 15 px; centre +0.363, -0.204; half 0.085 x 0.080
+the walk: measured walker angle and R centre against r_name_z(2, th)
+  frame   time  walker   R measured        R formula       error
+     90   37.5   15.15  +1.461, +0.132   +1.455, +0.135   0.007
+     91   38.0   43.05  +1.227, +0.799   +1.223, +0.800   0.004
+     92   38.5   70.80  +0.709, +1.279   +0.710, +1.278   0.001
+     93   39.0   98.75  +0.032, +1.465   +0.028, +1.461   0.006
+     94   39.5  126.55  -0.661, +1.305   -0.657, +1.306   0.005
+     95   40.0  154.40  -1.195, +0.841   -1.191, +0.848   0.008
+worst R error 0.008 plane units (0.7 px)
+walker rate 55.7 deg/s; walker at 0 deg at 37.23 s, at 180 deg at 40.46 s (frame time, scratch voice)
+no frame falls inside the ring band 83.3 to 96.7 deg: True
+no frame falls inside the letter band 103.9 to 107.3 deg: True
+no frame falls inside the segment band 5.6 to 14.1 deg: True
+frames inside the R on axis band 96.4 to 103.3 deg: [98.75]

@@ -1,0 +1,9 @@
+fmn rmeta: target/debug/deps/libfmn-d0eee55d0a1f71a0.rmeta
+PASS fmn metadata was built from the a399d62 checkout
+PASS explainer_score metadata from current source
+PASS explainer_kit metadata from current source
+PASS the integrated crate in normal cfg
+PASS the integrated crate in test cfg
+PASS Clippy, normal cfg, -D warnings
+PASS Clippy, test cfg, -D warnings (the all-targets half)
+SCENE TYPE CHECK: OK

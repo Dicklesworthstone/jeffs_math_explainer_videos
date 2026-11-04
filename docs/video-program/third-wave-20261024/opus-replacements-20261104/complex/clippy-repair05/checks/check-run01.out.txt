@@ -1,0 +1,125 @@
+1. every finding in root's log, at its logged line in the base
+  ok   chapters/residues.rs:8 unused import: `TAU`
+  ok   chapters/draw.rs:415 method `contains` is never used
+  ok   chapters/draw.rs:807 method `leave` is never used
+  ok   chapters/real_integral.rs:66 function `antiderivative` is never used
+  ok   model.rs:86 method `sqrt` is never used
+  ok   model.rs:384 variant `Quartic` is never constructed
+  ok   chapters/counting.rs:846 this assertion has a constant value
+  ok   chapters/one_point.rs:804 this assertion has a constant value
+  ok   chapters/residues.rs:358 this assertion has a constant value
+  ok   model.rs:147 suspicious use of `*` in `Div` impl
+  ok   model.rs:349 float has excessive precision
+  ok   model.rs:649 negated comparison operators on partially ordered types
+  ok   the strict run prints 13 errors: these 12, with `leave` shown for both targets
+  ok   the same run passed 95 tests before Clippy
+2. the candidate is exactly the enumerated edit
+  ok   chapters/counting.rs: -1 +1, as enumerated
+  ok   chapters/one_point.rs: -1 +1, as enumerated
+  ok   chapters/draw.rs: -6 +1, as enumerated
+  ok   chapters/real_integral.rs: -1 +2, as enumerated
+  ok   chapters/residues.rs: -2 +4, as enumerated
+  ok   model.rs: exactly 7 lines removed
+  ok   model.rs adds: use std::cmp::Ordering;
+  ok   model.rs adds: #[cfg(test)]
+  ok   model.rs adds: Mul::mul(self, o.recip())
+  ok   model.rs adds: 25.010_857_580_145_69,
+  ok   model.rs adds: .any(|w| reach.partial_cmp(&w.abs()) != Some(Ordering::Less))
+  ok   model.rs adds: fn a_tie_or_a_nan_never_certifies_a_winding() {
+  ok   model.rs adds: fn division_is_the_product_with_the_reciprocal() {
+3. no gate weakened, no coverage lost
+  ok   chapters/counting.rs: no allow or expect added
+  ok   chapters/counting.rs: tests 9 -> 9
+  ok   chapters/counting.rs: assertions 32 -> 32
+  ok   chapters/one_point.rs: no allow or expect added
+  ok   chapters/one_point.rs: tests 7 -> 7
+  ok   chapters/one_point.rs: assertions 36 -> 36
+  ok   chapters/draw.rs: no allow or expect added
+  ok   chapters/draw.rs: tests 5 -> 5
+  ok   chapters/draw.rs: assertions 14 -> 14
+  ok   chapters/real_integral.rs: no allow or expect added
+  ok   chapters/real_integral.rs: tests 6 -> 6
+  ok   chapters/real_integral.rs: assertions 20 -> 20
+  ok   chapters/residues.rs: no allow or expect added
+  ok   chapters/residues.rs: tests 3 -> 3
+  ok   chapters/residues.rs: assertions 13 -> 13
+  ok   model.rs: no allow or expect added
+  ok   model.rs: tests 15 -> 17
+  ok   model.rs: assertions 86 -> 94
+  ok   the variant nothing constructs is gone, arms included
+  ok   quartic_roots stays live: facts.rs calls it outside tests
+  ok   quartic_roots stays live: chapters/real_integral.rs calls it outside tests
+  ok   quartic_roots stays live: chapters/closing.rs calls it outside tests
+  ok   and model.rs's test still covers the roots
+  ok   C::sqrt keeps its test
+  ok   antiderivative keeps its test
+  ok   Plane::contains keeps its tests
+  ok   draw.rs still has fade_out_all: removing `leave` strands no import
+  ok   fade_out_all is defined or imported there for the chapters
+  ok   Walker's anchor and mobs are still read, so no field goes dead
+  ok   residues.rs uses TAU only in tests
+  ok   and imports it there
+  ok   no doc link points at the cfg(test) item
+  ok   no other source names the removed variant, not even in a pattern []
+  ok   the removed arm strands nothing: C::powi and ONE keep a live caller
+  ok   and so does C::recip
+4. what stays numerically the same
+  ok   the shorter literal is the same double, 403902c78ff7a3b2
+  ok   and it is the literal in the candidate
+  ok   the oracle keeps the published digits, an equal double
+  ok   !(a < b) equals cmp != Some(Less) on all 100 pairs, NaN and ties included
+  ok   new test: a constant at twice the reach passes
+  ok   new test: a constant at the reach is a tie, refused
+  ok   new test: a NaN value is refused
+  ok   new test: a NaN bound is refused
+  ok   new test: an infinite bound is refused
+  ok   const assert holds: COARSE_ROW_X -6.85 >= -6.96
+  ok   const assert holds: MOSAIC_CORE 0.03 < SQUEEZE_RADII[1] 0.06
+  ok   const assert holds: BIG_R 1.35 < 1.6
+  ok   all three are `const` items, usable in a const block
+5. the patch
+  ok   it applies to a copy of base 
+  ok   and gives candidate byte for byte (6 of 6)
+  ok   reversed, it applies to a copy of candidate 
+  ok   and gives base byte for byte (6 of 6)
+  ok   base equals the canonical crate's current bytes (drift: [])
+  ok   git apply --check accepts it from the repository root 
+  ok   the whole crate with the candidate parses and is formatted (rustfmt 1.10.0-nightly (9085017724 2026-08-30); parse only, not a compile)
+6. against reading-repair02 as it stands now, on scratch copies (information for the merge)
+  1	1	chapters/counting.rs
+  1	6	chapters/draw.rs
+  1	1	chapters/one_point.rs
+  2	1	chapters/real_integral.rs
+  4	2	chapters/residues.rs
+  38	7	model.rs
+  chapters/counting.rs: staged by them; applies
+  chapters/draw.rs: staged by them; applies
+  chapters/one_point.rs: staged by them; applies
+  chapters/real_integral.rs: staged by them; CONFLICT: error: patch failed: explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs:63
+  chapters/residues.rs: not staged by them; applies
+  model.rs: not staged by them; applies
+  their patch now: sha256 12236b014419cc071dc765d93898575d38d13ddcc4648a06576c09f00c9aa4fe
+  their added lines naming sqrt, antiderivative, Quartic, leave or TAU: []
+  their added .contains( receivers (all text, none a Plane): ['                    source[here..arrives]', ' s', 'before', 'body', 'cleared_by', 'closing', 'source[here + 1..then]']
+  git merge-file chapters/counting.rs: 0 conflicts
+  git merge-file chapters/draw.rs: 0 conflicts
+  git merge-file chapters/one_point.rs: 0 conflicts
+  git merge-file chapters/real_integral.rs: 0 conflicts
+  git merge-file chapters/residues.rs: 0 conflicts
+  git merge-file model.rs: 0 conflicts
+  merged real_integral.rs gates the right item: True
+  rustfmt --check through main.rs on the merged crate: exit 0
+  draw.rs: same .leave( callers as base: True; non-test antiderivative call: False
+  real_integral.rs: same .leave( callers as base: True; non-test antiderivative call: False
+  counting.rs: same .leave( callers as base: True; non-test antiderivative call: False
+  one_point.rs: same .leave( callers as base: True; non-test antiderivative call: False
+  wrote clippy-repair05.patch and MANIFEST.json
+patch sha256 e6d4405bf25b6979e06e811bf1c2dc0be68fdc6aba423648aca98376ebe3f245
+5b32c4877cc21c61 57c5e5159cfb3943 chapters/counting.rs
+5963fc53c6ad8401 07965225f2e051ae chapters/draw.rs
+99e47ff96cbda6f4 76877afc1a75abb9 chapters/one_point.rs
+afc7b069c011af6c b7bc79e0bfab5fc3 chapters/real_integral.rs
+0c7e39a7c0bfd2d9 d56dec7933dbde71 chapters/residues.rs
+d481bc8f8b20a4f8 e32b72591da65c13 model.rs
+
+PASS (source text, exact logic and round trip; no compile, no Clippy, no test run)

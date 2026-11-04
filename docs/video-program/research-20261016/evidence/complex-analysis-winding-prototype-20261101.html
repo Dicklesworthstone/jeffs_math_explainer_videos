@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Complex analysis: watch a loop count</title>
+<style>
+:root{color-scheme:dark;background:#0b1423;color:#eef4fa;font-family:ui-sans-serif,system-ui,sans-serif}*{box-sizing:border-box}
+body{margin:0;padding:clamp(20px,4vw,50px)}main{max-width:1120px;margin:auto}h1{font-size:clamp(2rem,4vw,3.6rem);letter-spacing:-.04em;margin:.25em 0;line-height:1.1}
+.tag{color:#71dbcb;font-size:.76rem;letter-spacing:.14em;text-transform:uppercase;font-weight:800}p{color:#bdcde0;line-height:1.55;max-width:900px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{background:#15263b;border:1px solid #36546b;border-radius:14px;padding:18px;min-width:0}
+h2{font-size:1.05rem;margin:0 0 6px}.sub{font-size:.86rem;color:#b5c6d8;min-height:2.8em;margin:0 0 12px}canvas{width:100%;height:auto;display:block;background:#0a1320;border-radius:8px}
+.controls{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin:22px 0}label{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-weight:700}input{width:min(310px,48vw)}button{font:inherit;font-weight:700;color:#162337;background:#ffd688;border:0;border-radius:8px;padding:10px 13px;cursor:pointer}button:focus-visible,input:focus-visible{outline:3px solid white;outline-offset:3px}
+.status{font-size:1.15rem;font-weight:800;color:#a7f2e4;min-height:2em}.legend{display:flex;justify-content:space-between;max-width:420px;font-size:.85rem;color:#c8d8e7}.swatch{display:inline-block;width:.7em;height:.7em;border-radius:50%;margin-right:.3em;background:#fff}.swatch.pole{background:#101c2b;border:2px solid #fff}
+.hue{height:12px;border-radius:8px;background:linear-gradient(to right,red,#ff0,lime,cyan,blue,magenta,red);max-width:420px;margin:10px 0 4px}.small{font-size:.88rem;color:#aabed2}
+@media(max-width:740px){.grid{grid-template-columns:1fr}.sub{min-height:0}}
+</style></head><body><main>
+<div class="tag">Complex analysis · visual prototype</div>
+<h1>Can a loop count what it cannot see?</h1>
+<p>Track the boundary in the input plane and its image in the output plane for <strong>f(z) = (z − 0.45) / (z − 1.35)</strong>. The input loop runs counterclockwise. The image’s signed turns around zero count enclosed zeros minus poles.</p>
+<div class="controls"><label>Circle radius <input id="radius" type="range" min="0.20" max="1.90" step="0.01" value="0.80"><span id="rvalue">0.80</span></label><button id="one">Enclose zero only</button><button id="both">Enclose both</button></div>
+<div class="controls"><label>Move point around the loop <input id="progress" type="range" min="0" max="100" step="1" value="0"><span id="progressvalue">0%</span></label></div>
+<div id="status" class="status" aria-live="polite"></div>
+<div class="grid"><section class="panel"><h2>Input plane</h2><p class="sub">White dot: zero. Dark ring: pole. Circle: the input path. Move the cyan point to see its image. Hue shows output angle.</p><canvas id="input" width="480" height="480" aria-label="Input plane with a circular contour, one zero, one pole and output phase colors"></canvas></section>
+<section class="panel"><h2>Output plane</h2><p class="sub">Gold curve: the image of the loop. Cyan point: the image of the moving input point. The cross marks zero. <span id="outputscale">Axes span −4 to 4.</span></p><canvas id="output" width="480" height="480" aria-label="Output plane showing the mapped contour and the origin"></canvas></section></div>
+<div class="hue" role="img" aria-label="Phase hue key: red at zero turns, yellow near one sixth, green near one third, cyan at one half, blue near two thirds, magenta near five sixths, red again at one full turn"></div>
+<div class="legend"><span>0 turns</span><span>¼ turn</span><span>½ turn</span><span>¾ turn</span><span>1 turn</span></div>
+<p class="small">Hue repeats after one turn; brightness bands encode output magnitude. The exact zero and pole have no assigned phase. The output scale expands near the pole, so size cannot be compared between radii without reading the scale. Radius 0.45 or 1.35 puts a zero or pole on the contour: the mapped path is withheld and winding is undefined. This numerical visual is a prototype, not a proof.</p>
+</main><script>
+'use strict';
+const input=document.getElementById('input'),output=document.getElementById('output'),radius=document.getElementById('radius'),progress=document.getElementById('progress');
+const ic=input.getContext('2d'),oc=output.getContext('2d'),N=480,S=2.2,TAU=2*Math.PI;
+function f(x,y){const a=x-.45,b=x-1.35,d=b*b+y*y;return [(a*b+y*y)/d,(y*b-a*y)/d]}
+function rgb(h,l){const s=.86,c=(1-Math.abs(2*l-1))*s,x=c*(1-Math.abs((h*6)%2-1)),m=l-c/2;let a,b,d;if(h<1/6)[a,b,d]=[c,x,0];else if(h<2/6)[a,b,d]=[x,c,0];else if(h<3/6)[a,b,d]=[0,c,x];else if(h<4/6)[a,b,d]=[0,x,c];else if(h<5/6)[a,b,d]=[x,0,c];else[a,b,d]=[c,0,x];return [(a+m)*255,(b+m)*255,(d+m)*255]}
+const img=ic.createImageData(N,N);
+for(let py=0;py<N;py++)for(let px=0;px<N;px++){
+ const x=(px/(N-1)*2-1)*S,y=(1-py/(N-1)*2)*S,[u,v]=f(x,y),mag=Math.hypot(u,v),i=(py*N+px)*4;
+ let color=[15,25,38];if(Number.isFinite(mag)&&mag>1e-9){const hue=(Math.atan2(v,u)/TAU+1)%1,light=.46+.13*Math.cos(TAU*Math.log2(mag));color=rgb(hue,light)}
+ img.data[i]=color[0];img.data[i+1]=color[1];img.data[i+2]=color[2];img.data[i+3]=255;
+}
+const X=(x,s)=>N/2+x*N/(2*s),Y=(y,s)=>N/2-y*N/(2*s);
+function dot(ctx,x,y,s,fill){ctx.beginPath();ctx.arc(X(x,s),Y(y,s),7,0,TAU);ctx.fillStyle=fill;ctx.fill();ctx.lineWidth=2;ctx.strokeStyle='white';ctx.stroke()}
+function render(){
+ const r=Number(radius.value),boundary=Math.abs(r-.45)<.005||Math.abs(r-1.35)<.005;
+ // f(z)=1+0.9/(z-1.35): a circle not through the pole maps to a circle.
+ // Include its full horizontal extent and the origin, plus a 10% margin.
+ const denominator=r*r-1.35*1.35,center=boundary?0:1+1.215/denominator,mappedRadius=boundary?0:.9*r/Math.abs(denominator),T=boundary?4:Math.max(4,1.1*(Math.abs(center)+mappedRadius));
+ document.getElementById('outputscale').textContent=boundary?'Mapped path hidden at the boundary.':`Axes span approximately −${T.toFixed(1)} to ${T.toFixed(1)}; scale adjusts with radius.`;
+ document.getElementById('rvalue').textContent=r.toFixed(2);ic.putImageData(img,0,0);ic.beginPath();ic.arc(N/2,N/2,r*N/(2*S),0,TAU);ic.lineWidth=3;ic.strokeStyle='#fff';ic.setLineDash([8,5]);ic.stroke();ic.setLineDash([]);dot(ic,.45,0,S,'white');dot(ic,1.35,0,S,'#0a1523');
+ oc.fillStyle='#0c192b';oc.fillRect(0,0,N,N);oc.strokeStyle='#35506b';oc.lineWidth=1;oc.beginPath();oc.moveTo(0,N/2);oc.lineTo(N,N/2);oc.moveTo(N/2,0);oc.lineTo(N/2,N);oc.stroke();
+ oc.strokeStyle='#fdd37e';oc.lineWidth=3;oc.beginPath();let prevAngle=null,total=0,draw=false;
+ if(!boundary)for(let k=0;k<=2048;k++){const t=TAU*k/2048,[u,v]=f(r*Math.cos(t),r*Math.sin(t));const angle=Math.atan2(v,u);if(prevAngle!==null){let delta=angle-prevAngle;while(delta>Math.PI)delta-=TAU;while(delta< -Math.PI)delta+=TAU;total+=delta}prevAngle=angle;const inside=Number.isFinite(u)&&Number.isFinite(v)&&Math.abs(u)<=T&&Math.abs(v)<=T;if(inside){if(draw)oc.lineTo(X(u,T),Y(v,T));else oc.moveTo(X(u,T),Y(v,T));draw=true}else draw=false}oc.stroke();
+ oc.strokeStyle='white';oc.lineWidth=2;oc.beginPath();oc.moveTo(N/2-7,N/2);oc.lineTo(N/2+7,N/2);oc.moveTo(N/2,N/2-7);oc.lineTo(N/2,N/2+7);oc.stroke();
+ const theta=TAU*Number(progress.value)/100,ix=r*Math.cos(theta),iy=r*Math.sin(theta),[ox,oy]=f(ix,iy);dot(ic,ix,iy,S,'#38e3d2');if(!boundary&&Number.isFinite(ox)&&Number.isFinite(oy)&&Math.abs(ox)<=T&&Math.abs(oy)<=T)dot(oc,ox,oy,T,'#38e3d2');document.getElementById('progressvalue').textContent=`${progress.value}%`;
+ const status=document.getElementById('status');if(boundary){status.textContent='Contour hits a zero or pole: winding is undefined.';return}
+ const zeros=r>.45?1:0,poles=r>1.35?1:0,w=Math.round(total/TAU);status.textContent=`Zeros ${zeros} − poles ${poles} = ${zeros-poles}; sampled image winding: ${w} turn${Math.abs(w)===1?'':'s'}.`;
+}
+radius.addEventListener('input',render);progress.addEventListener('input',render);document.getElementById('one').addEventListener('click',()=>{radius.value='.80';render()});document.getElementById('both').addEventListener('click',()=>{radius.value='1.70';render()});render();
+</script></body></html>

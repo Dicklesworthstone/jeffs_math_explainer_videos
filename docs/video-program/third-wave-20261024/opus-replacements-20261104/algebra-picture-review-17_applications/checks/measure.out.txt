@@ -1,0 +1,115 @@
+949 frames, 949 sampled times
+
+# runs of at least 10 s with byte-identical frames
+
+# 17 cues; sentence starts by share of characters (scratch estimate)
+17_1  0.600 + 30.015
+   0     0.600  Abstract structure becomes useful when it captures the feature w
+   1     5.645  As one example, consider the older ten-digit ISBN system.
+   2     9.285  Modern ISBNs have thirteen digits and use a different check, but
+   3    16.949  This is not a security system: it is an arithmetic check that ca
+   4    23.079  Its arithmetic happens modulo eleven, and its weighted sum is bu
+17_2  31.233 + 25.785
+   0    31.233  Take the ten symbols of an ISBN, using values zero through nine,
+   1    40.097  Multiply the first value by ten, the second by nine, and continu
+   2    47.275  Add the results.
+   3    48.447  The number is valid only when the total is divisible by eleven.
+   4    53.062  A random ten-symbol string need not satisfy this rule.
+17_3  57.633 + 22.323
+   0    57.633  Let's calculate one.
+   1    58.894  The ISBN zero, three, zero, six, four, zero, six, one, five, two
+   2    70.434  The total is one hundred thirty-two, which is twelve times eleve
+   3    74.596  It passes the check.
+   4    75.857  Passing does not prove that the ISBN was assigned to a real book
+17_4  80.567 + 21.554
+   0    80.567  Now make one copying error: change the fourth symbol from six to
+   1    85.247  That position has weight seven, so the total increases by seven,
+   2    93.157  The new total is not divisible by eleven.
+   3    95.859  The checksum catches this error without knowing what title the n
+17_5  102.733 + 26.938
+   0   102.733  Why does that work for every single-symbol substitution?
+   1   106.308  A changed symbol changes the weighted sum by its weight times th
+   2   113.202  Each weight from one to ten is nonzero modulo eleven.
+   3   116.585  Distinct allowed symbol values differ by a nonzero amount modulo
+   4   121.181  Because eleven is prime, the product of two nonzero residues is 
+   5   125.777  So a single substitution cannot leave the checksum unchanged.
+17_6  130.300 + 22.708
+   0   130.300  The primality matters here.
+   1   132.052  In arithmetic modulo a composite number, two nonzero residues ca
+   2   139.772  We used more than the additive-group laws when we multiplied a w
+   3   145.352  Modulo eleven also has the field property that nonzero factors d
+   4   150.737  Keep that extra assumption visible.
+17_7  153.633 + 26.554
+   0   153.633  What about swapping two different symbols?
+   1   156.478  If positions i and j have weights w i and w j and values a and b
+   2   168.874  Distinct positions have distinct weights modulo eleven.
+   3   172.600  Distinct symbol values have a nonzero difference modulo eleven.
+   4   176.868  The product is nonzero, so this swap is detected.
+17_8  180.800 + 28.862
+   0   180.800  That includes adjacent swaps, and in fact any two distinct posit
+   1   189.270  Exchanging identical symbols changes nothing, so there is no cha
+   2   194.666  Here is a concrete failure.
+   3   196.360  Change the first digit from zero to one, adding ten to the total
+   4   200.439  Also change the second from three to eight, adding forty-five.
+   5   204.329  Together they add fifty-five, a multiple of eleven.
+   6   207.529  The corrupted number still passes.
+17_14  210.267 + 12.323
+   0   210.267  Multiple unrelated errors can cancel in the weighted sum.
+   1   213.744  The rule detects every one-symbol substitution and every swap of
+17_9  223.200 + 20.015
+   0   223.200  For a second application, look at a code that repairs an error i
+   1   229.191  Hamming's code hides four data bits inside seven.
+   2   232.417  Its sixteen allowed words form a subgroup of all one hundred twe
+   3   238.343  The operation flips bits position by position, a rule called exc
+17_15  243.833 + 19.246
+   0   243.833  A received word with an error lies in some coset of that subgrou
+   1   248.435  One hundred twenty-eight words, sixteen in each coset.
+   2   252.201  By Lagrange, there are exactly eight cosets.
+   3   255.269  And there are exactly eight situations we hope to repair.
+   4   259.244  No error, or one flipped bit in any of seven positions.
+17_16  263.700 + 34.246
+   0   263.700  Each of those eight situations lands in a different coset.
+   1   268.065  The checks are arranged so that the receiver can compute a three
+   2   276.345  That label spells the position of the flipped bit in binary.
+   3   280.861  In binary, the three places are worth four, two and one, from le
+   4   286.581  Here the label reads one, zero, one.
+   5   289.290  So it holds a four, no two, and a one.
+   6   292.151  Four plus zero plus one is five.
+   7   294.559  Flip bit five back, and the word is repaired.
+17_17  298.567 + 23.477
+   0   298.567  That label is a map onto the quotient group.
+   1   301.836  It forgets which codeword was sent and keeps only the coset.
+   2   306.294  So it has a limit.
+   3   307.631  Flip two bits, and the word lands in the coset of some other sin
+   4   313.054  Here two errors produce the label seven, the decoder confidently
+17_18  322.667 + 15.785
+   0   322.667  Related codes have long protected computer memory.
+   1   325.762  Adding an overall parity check lets this code correct one flippe
+   2   333.190  The quotient keeps exactly the information it was designed to ke
+17_11  339.067 + 22.323
+   0   339.067  Let's return to our square and clock.
+   1   341.299  A group records how moves combine.
+   2   343.351  A subgroup collects moves that remain closed under that combinat
+   3   347.453  An isomorphism changes the description while preserving the stru
+   4   351.676  Cosets partition the moves, and a normal subgroup lets those pie
+   5   357.046  Each definition solved a difficulty that appeared in a concrete 
+17_12  362.000 + 19.631
+   0   362.000  Try three exercises before the credits.
+   1   364.415  Find the subgroup generated by six on the twelve-clock.
+   2   367.821  Decide whether the four-clock and two two-position clocks can be
+   3   372.528  Finally, explain why adding a subgroup's elements to a coset rep
+   4   378.906  Pause and work them out; the answers follow.
+17_13  387.233 + 25.785
+   0   387.233  Adding six repeatedly reaches zero and six.
+   1   390.012  The four-clock has an element of order four while the two-clock 
+   2   397.185  And multiplying a subgroup by one of its own elements permutes t
+   3   407.008  These are small examples of a general method: follow the operati
+
+# arithmetic
+products [0, 27, 0, 42, 24, 0, 24, 3, 10, 2] sum 132 mod 11 0
+running [0, 27, 27, 69, 93, 93, 117, 120, 130, 132]
+7d mod 11 [7, 3, 10, 6, 2, 9, 5, 1, 8, 4]
+parity of the sent word: 0 ; received two-flip word ones: 4 ; decoded wrong word ones: 3
+cosets of {0,4,8} in Z12: [[0, 4, 8], [1, 5, 9], [2, 6, 10], [3, 7, 11]]
+generated by 6 in Z12: [0, 6]
+ARITHMETIC OK

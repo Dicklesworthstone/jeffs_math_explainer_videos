@@ -1,0 +1,31 @@
+PASS fmn metadata was built from the a399d62 checkout
+PASS the film, normal cfg
+PASS the film, test cfg
+PASS the lab, normal cfg
+PASS the lab, test cfg
+PASS Clippy, the film, normal cfg
+PASS Clippy, the film, test cfg
+PASS Clippy, the lab, normal cfg
+PASS Clippy, the lab, test cfg
+PASS rustfmt --check on the changed files
+PASS select-tile applies
+PASS the film with select-tile, normal cfg
+PASS the film with select-tile, test cfg
+PASS Clippy, the film with select-tile, normal cfg
+PASS Clippy, the film with select-tile, test cfg
+PASS select-blend applies
+PASS the film with select-blend, normal cfg
+PASS the film with select-blend, test cfg
+PASS Clippy, the film with select-blend, normal cfg
+PASS Clippy, the film with select-blend, test cfg
+PASS select-rows2 applies
+PASS the film with select-rows2, normal cfg
+PASS the film with select-rows2, test cfg
+PASS Clippy, the film with select-rows2, normal cfg
+PASS Clippy, the film with select-rows2, test cfg
+PASS select-cells2 applies
+PASS the film with select-cells2, normal cfg
+PASS the film with select-cells2, test cfg
+PASS Clippy, the film with select-cells2, normal cfg
+PASS Clippy, the film with select-cells2, test cfg
+CANDIDATE TYPE CHECK: OK

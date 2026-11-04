@@ -1,0 +1,80 @@
+1
+00:00:00,600 --> 00:00:03,760
+A tortoise starts one hundred metres
+ahead.
+
+2
+00:00:03,760 --> 00:00:08,640
+Achilles runs ten metres per second; the
+tortoise moves at one.
+
+3
+00:00:08,640 --> 00:00:11,086
+First Achilles reaches the tortoise's
+
+4
+00:00:11,086 --> 00:00:14,060
+starting point, but the tortoise
+has moved on.
+
+5
+00:00:14,060 --> 00:00:17,360
+When he reaches that new point, it has
+moved again.
+
+6
+00:00:17,360 --> 00:00:20,400
+There are infinitely many of these stages.
+
+7
+00:00:20,400 --> 00:00:22,120
+How can he ever catch it?
+
+8
+00:00:26,200 --> 00:00:28,220
+The stages get shorter.
+
+9
+00:00:28,220 --> 00:00:32,508
+The first takes ten seconds, the next one
+second,
+
+10
+00:00:32,508 --> 00:00:36,260
+then a tenth, then a hundredth, and so on.
+
+11
+00:00:36,260 --> 00:00:40,629
+Their sum approaches ten plus ten ninths,
+or one hundred
+
+12
+00:00:40,629 --> 00:00:44,600
+ninths seconds: about eleven point one one
+seconds.
+
+13
+00:00:45,200 --> 00:00:49,421
+The usual constant-speed model gives the
+same answer directly:
+
+14
+00:00:49,421 --> 00:00:53,780
+Achilles closes the hundred-metre gap at
+nine metres per second.
+
+15
+00:00:53,780 --> 00:00:58,100
+Infinitely many positive stage times can
+have a finite limit.
+
+16
+00:00:58,100 --> 00:01:02,305
+This answers the arithmetic challenge in
+that model; the deeper
+
+17
+00:01:02,305 --> 00:01:07,120
+philosophical questions about motion and
+infinity have a longer history.
+

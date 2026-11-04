@@ -1,0 +1,145 @@
+(rustc printed nothing)
+(rustc printed nothing)
+-- rustc --test, candidate permutations.rs
+(rustc printed nothing)
+running 31 tests
+test permutations::repair_tests::both_routes_end_on_one_arrangement_and_one_product ... ok
+test permutations::repair_tests::both_swap_descriptions_of_the_three_cycle_agree ... ok
+test permutations::repair_tests::cycle_notation_reads_back_and_a_loop_has_no_first_label ... ok
+test permutations::repair_tests::every_anchor_names_words_in_its_own_sentence ... ok
+test permutations::repair_tests::every_swap_word_up_to_six_flips_the_sign_once_per_swap ... ok
+test permutations::repair_tests::running_the_arrows_backwards_undoes_the_cycle ... ok
+test permutations::repair_tests::sentence_counts_bind_every_wait_in_the_chapter ... ok
+test permutations::repair_tests::separate_loops_commute_and_reach_the_row_on_screen ... ok
+test permutations::repair_tests::the_first_map_is_legal_and_the_second_collides_and_misses ... ok
+test permutations::repair_tests::the_overlapping_pair_of_11_3_does_not_commute ... ok
+test permutations::repair_tests::the_rings_follow_the_trails_the_review_names ... ok
+test permutations::repair_tests::the_route_row_lands_its_cards_where_the_arithmetic_says ... ok
+test permutations::repair_tests::the_square_moves_read_as_the_cycles_on_screen ... ok
+test permutations::repair_tests::the_tallies_print_the_factors_on_screen ... ok
+test permutations::repair_tests::the_way_home_inverts_any_arrangement_of_corners ... ok
+test permutations::repair_tests::the_witness_chips_show_every_case_of_the_proof ... ok
+test permutations::repair_tests::trading_neighbours_tears_exactly_the_edges_drawn_in_red ... ok
+test permutations::repair_tests::twenty_four_arrangements_hold_eight_that_keep_the_edges ... ok
+test permutations::repetition_tests::order_is_the_lcm_of_disjoint_cycle_lengths_for_every_small_permutation ... ok
+test permutations::repetition_tests::overlapping_cycles_break_the_lcm_rule ... ok
+test permutations::repetition_tests::seven_more_undo_the_first_and_one_slip_can_never_come_home ... ok
+test permutations::repetition_tests::signs_multiply_and_the_evens_pass_the_subgroup_test ... ok
+test permutations::repetition_tests::the_extra_swap_pairs_twelve_evens_with_twelve_odds ... ok
+test permutations::repetition_tests::the_first_row_is_home_at_six_and_never_before ... ok
+test permutations::repetition_tests::the_full_deck_returns_at_eight_and_at_fifty_two ... ok
+test permutations::repetition_tests::the_second_row_is_neither_the_product_nor_the_sum ... ok
+test permutations::repetition_tests::the_swap_lists_land_where_the_cue_says ... ok
+test permutations::repetition_tests::the_ten_card_shuffle_reads_as_the_spoken_cycles ... ok
+test permutations::repetition_tests::three_stages_restore_eight_wires_and_a_fourth_repeats_the_first ... ok
+test permutations::route_tests::displayed_compositions_have_different_endpoints_and_no_collisions ... ok
+test permutations::route_tests::two_swap_routes_give_the_displayed_three_cycle ... ok
+
+test result: ok. 31 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.01s
+-- rustc, candidate permutations.rs
+(rustc printed nothing)
+-- clippy-driver -D warnings, candidate permutations.rs, with and without tests
+(clippy printed nothing)
+(clippy printed nothing)
+-- scene run at 2.68 words per second
+scene 11_permutations at 2.68 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+11_1	0.0	19.4	-5.2	5.7	0
+11_2	19.8	23.9	+1.0	0.9	1
+11_3	44.7	28.0	+1.9	0.0	0
+11_4	74.5	32.1	-5.0	0.8	2
+11_12	107.0	22.8	+3.0	0.0	0
+11_13	132.8	26.9	-2.6	0.0	0
+11_14	160.1	24.6	-4.6	0.0	0
+11_15	185.1	12.7	+3.0	0.0	0
+11_16	200.8	19.8	-5.4	0.0	0
+11_17	220.9	23.9	-6.4	0.0	0
+11_5	245.2	24.6	-4.6	2.3	4
+11_6	270.3	11.6	+3.0	0.0	0
+11_7	284.8	19.8	-7.5	1.6	2
+11_11	305.0	19.8	-1.0	5.1	2
+11_8	325.2	33.2	-6.1	0.0	0
+11_18	358.8	20.9	-2.9	0.0	0
+11_19	380.1	15.3	-4.8	0.0	0
+11_20	395.8	35.4	-4.4	0.0	0
+11_21	431.6	32.8	-4.3	0.0	0
+11_9	464.9	34.0	-3.5	5.0	3
+11_10	499.2	29.1	+3.0	0.5	3
+11_22	531.3	25.0	-5.3	0.0	0
+11_23	556.7	17.2	-4.9	1.0	2
+11_24	574.3	19.4	+3.9	0.0	0
+11_25	597.6	20.5	-4.0	0.0	0
+11_26	618.6	23.9	-3.9	0.0	0
+11_27	642.8	34.3	+0.0	0.0	0
+chapter ends at 677.2 s
+0 object-ledger problems
+1 estimated overlaps or frame exits
+  11_4: "3" meets a 0.74x0.74 shape at (-0.40, 0.75)
+-- scene run at 2.4 words per second
+scene 11_permutations at 2.4 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+11_1	0.0	21.7	-5.8	6.3	0
+11_2	22.1	26.7	+1.0	0.3	1
+11_3	49.7	31.2	+1.5	0.0	0
+11_4	82.5	35.8	-5.6	0.8	2
+11_12	118.7	25.4	+3.0	0.0	0
+11_13	147.2	30.0	-2.9	0.0	0
+11_14	177.6	27.5	-5.1	0.0	0
+11_15	205.5	14.2	+3.0	0.0	0
+11_16	222.6	22.1	-6.2	0.0	0
+11_17	245.1	26.7	-7.2	0.0	0
+11_5	272.2	27.5	-5.8	2.0	4
+11_6	300.1	12.9	+3.0	0.0	0
+11_7	316.0	22.1	-8.6	1.6	2
+11_11	338.5	22.1	-1.2	5.5	2
+11_8	361.0	37.1	-6.9	0.0	0
+11_18	398.4	23.3	-3.5	0.0	0
+11_19	422.2	17.1	-5.3	0.0	0
+11_20	439.7	39.6	-5.0	0.0	0
+11_21	479.6	36.7	-4.9	0.0	0
+11_9	516.7	37.9	-3.9	5.4	3
+11_10	555.0	32.5	+3.0	0.5	3
+11_22	590.5	27.9	-6.0	0.0	0
+11_23	618.8	19.2	-5.6	0.6	2
+11_24	638.4	21.7	+3.6	0.0	0
+11_25	663.7	22.9	-4.5	0.0	0
+11_26	687.0	26.7	-4.5	0.0	0
+11_27	714.1	38.3	+0.0	0.0	0
+chapter ends at 752.4 s
+0 object-ledger problems
+1 estimated overlaps or frame exits
+  11_4: "3" meets a 0.74x0.74 shape at (-0.40, 0.75)
+-- scene run at 3.0 words per second
+scene 11_permutations at 3 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+11_1	0.0	17.3	-4.5	5.2	0
+11_2	17.7	21.3	+1.0	1.4	1
+11_3	40.1	25.0	+2.2	0.1	6
+11_4	67.3	28.7	-4.4	1.0	1
+11_12	96.3	20.3	+3.0	0.0	0
+11_13	119.7	24.0	-2.2	0.0	0
+11_14	144.1	22.0	-4.0	0.0	0
+11_15	166.5	11.3	+3.0	0.0	0
+11_16	180.8	17.7	-4.7	0.0	0
+11_17	198.9	21.3	-5.7	0.0	0
+11_5	220.6	22.0	-3.5	2.6	4
+11_6	243.0	10.3	+3.0	0.0	0
+11_7	256.3	17.7	-6.4	1.6	2
+11_11	274.4	17.7	-0.8	4.8	2
+11_8	292.5	29.7	-5.4	0.0	0
+11_18	322.5	18.7	-2.3	0.0	0
+11_19	341.6	13.7	-4.2	0.0	0
+11_20	355.7	31.7	-3.9	0.0	0
+11_21	387.7	29.3	-3.8	0.0	0
+11_9	417.5	30.3	-2.7	4.7	3
+11_10	448.2	26.0	+3.0	0.5	3
+11_22	477.2	22.3	-4.7	0.0	0
+11_23	499.9	15.3	-4.3	1.3	2
+11_24	515.7	17.3	+4.3	0.0	0
+11_25	537.2	18.3	-3.5	0.0	0
+11_26	556.0	21.3	-3.4	0.0	0
+11_27	577.7	30.7	-0.0	0.0	0
+chapter ends at 608.4 s
+0 object-ledger problems
+1 estimated overlaps or frame exits
+  11_4: "3" meets a 0.74x0.74 shape at (-0.40, 0.75)

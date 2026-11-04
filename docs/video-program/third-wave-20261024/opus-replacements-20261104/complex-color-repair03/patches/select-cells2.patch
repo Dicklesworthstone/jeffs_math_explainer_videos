@@ -1,0 +1,37 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+@@ -606,7 +606,6 @@
+ };
+ /// Those, with cells half as high and half as wide: four times the evaluations, about twice the
+ /// curves in a row, and so about twice the raster work per pixel.
+-#[allow(dead_code)] // for examples/plate_lab.rs, until root chooses
+ pub const PLATE_CELLS2: PlateStyle = PlateStyle {
+     row: CELL / 2.0,
+     col: CELL / 2.0,
+@@ -621,7 +620,7 @@
+     ..PLATE_BLEND
+ };
+ /// The style the film's pictures use.
+-pub const PLATE: PlateStyle = PLATE_NOW;
++pub const PLATE: PlateStyle = PLATE_CELLS2;
+ 
+ /// Rows that meet as `style` says. At the engine's default band of 1.5 px the background shows
+ /// through at each boundary between rows, which reads as fine stripes across the picture; a
+@@ -1538,7 +1537,7 @@
+     /// Choosing a picture for the film is a decision: this changes with it.
+     #[test]
+     fn the_film_draws_what_it_drew() {
+-        assert_eq!(PLATE, PLATE_NOW);
++        assert_eq!(PLATE, PLATE_CELLS2);
+     }
+ 
+     #[test]
+@@ -1609,7 +1608,7 @@
+         // the widest picture the chapters draw: 6.4 × 6.4 scene units
+         let p = Plane::new(v(0.0, 0.0), 6.4, (-2.0, 2.0), (-2.0, 2.0));
+         let (cols, rows) = picture_cells(&p, &PLATE);
+-        assert!(rows <= 200 && cols <= 200, "{cols} × {rows}");
++        assert!(rows <= 400 && cols <= 400, "{cols} × {rows}");
+         assert!(rows < explainer_kit::GROUP_TRANSFORM_LIMIT);
+     }
+ 

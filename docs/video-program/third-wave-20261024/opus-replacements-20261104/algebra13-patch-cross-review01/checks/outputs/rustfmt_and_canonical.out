@@ -1,0 +1,7 @@
+candidate-A: rustfmt --check exit 0
+candidate-AB: rustfmt --check exit 0
+candidate-ABC: rustfmt --check exit 0
+canonical 78ed9b54477a452da6f459089d8dca289e71bd548b244a79e88641a5b4d4a651  explainer_corpus/abstract_algebra_expanded/src/arithmetic.rs
+canonical 803782696455cf666c983b561929d524c4140f9a391a0c3338283ee5ec8e5631  explainer_corpus/abstract_algebra_expanded/oracle.py
+canonical 83619d48676b32d5d93bf7527477aa752a902dd16927c548e4b3052cc2d689c0  explainer_corpus/abstract_algebra_expanded/script.tsv
+canonical ac8323e61d4d77229b024b2491e60782d50334ebd04f7ccb970d9a9b0f515db2  explainer_corpus/abstract_algebra_expanded/src/main.rs

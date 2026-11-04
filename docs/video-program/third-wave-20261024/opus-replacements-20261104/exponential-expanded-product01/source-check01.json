@@ -1,0 +1,27 @@
+{
+  "utc": "2026-11-04T14:16:20.413707+00:00",
+  "cues": 6,
+  "words": 347,
+  "max_cue_words": 65,
+  "oracle": {
+    "exact_diagonal_examples": 325,
+    "max_degree": 12,
+    "displayed_complete_degrees": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "native_comparison": "not run",
+    "general_proof": "binomial theorem plus absolute convergence; independent review open"
+  },
+  "hashes": {
+    "product_model.rs": "ee9d24de06f13be46f6d7cc7e783358bac33478f636e6eb1ee8bd158ac5d7baf",
+    "README.md": "8189300f1ef5c7053ef6d7ae0976bd15770bef3479b19ff098cf6c8ded70f23c",
+    "oracle01.json": "106532667e4e31e326b5911e235e9b75ca93f02a0de873757cc9c8970c1cab34",
+    "product_grid.rs": "afa94c76ba69854416df7a32be903c24fc6ab804195d7ebed1bbba599827b89e",
+    "oracle.py": "360226c5b97fa48ba2c0322434b7c9a9b8bbc9672dfd7f015e3013c5bdfea16c",
+    "script-slice.tsv": "a66c795969e6975ff2f44bab420cf470e4a8d92e67378ae7f98316285d7cce06"
+  },
+  "limits": "uncompiled/unrendered; no recorded take, listening or independent review"
+}

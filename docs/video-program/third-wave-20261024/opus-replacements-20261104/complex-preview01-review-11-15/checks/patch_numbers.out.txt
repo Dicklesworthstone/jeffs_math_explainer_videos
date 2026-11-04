@@ -1,0 +1,42 @@
+1. Arrow::new as drawn, scene units; buffer 0.25 at each end
+  12_1 loop direction, residues.rs:122: asked 0.451, drawn 0.049, head BACKWARD
+  13 contour along, real_integral.rs:203: asked 0.625, drawn 0.125, head forward
+  13 contour back, real_integral.rs:207: asked 0.623, drawn 0.123, head forward
+  13_8 p1, real_integral.rs:529: asked 1.042, drawn 0.542, head forward
+  13_8 p2, real_integral.rs:530: asked 1.042, drawn 0.542, head forward
+  13_8 p1+p2, real_integral.rs:536: asked 1.473, drawn 0.973, head forward
+  14_8 hop, continuing.rs:602: asked 1.154, drawn 0.654, head forward
+  15 box 1 carry, closing.rs:95: asked 0.575, drawn 0.075, head forward
+  15 box 3 along, closing.rs:117: asked 0.351, drawn 0.149, head BACKWARD
+   12_1 chains, residues.rs:137 through draw.rs:967, 24 steps, radius 0.9
+  1/z^2: scale 0.900, asked 0.261-0.261, forward 0, BACKWARD 24
+  1/z: scale 0.383, asked 0.100-0.100, forward 24, BACKWARD 0
+  h(z): scale 1.111, asked 0.145-0.378, forward 10, BACKWARD 14
+    step 0: true direction +100 deg, asked 0.378, head BACKWARD
+    step 6: true direction -147 deg, asked 0.272, head BACKWARD
+    step 12: true direction -89 deg, asked 0.145, head forward
+    step 18: true direction -15 deg, asked 0.300, head BACKWARD
+2. 11_4 walk: |z| = 1.35 from -1.35 anticlockwise, stopping 0.03 short of the pole
+  Re f = 2/3 at 65 samples; leaves the window (Im = 1.5) at s = 0.3982; |f| at the stop = 30.0056, printed 30.0
+  |f| along the walk: 0.67 0.73 0.95 1.49 2.60 4.72 8.72 16.17 30.01
+3. 11_7 lengths on |z| = 3
+  walker 243.000000; leash 8.000000 to 10.000000; ratio 0.0412
+  on screen at 720p: walker 111.1 px from 0, radial leash at most 2.0 px, sideways at most 4.6 px; dot radii 8.1 and 7.2 px
+  bars: 243 -> 3.000, 10 -> 0.123 scene units
+4. 14_5 bars
+  partial sums [1, 3, 7, 15, 31, 63, 127, 255, 511, 1023, 2047]
+  chart top 40: heights at 3.6 scene units: 0.090 0.270 0.630 1.350 2.790 3.600 3.600 3.600 3.600 3.600 3.600
+  chart top 2200: heights at 3.6 scene units: 0.002 0.005 0.011 0.025 0.051 0.103 0.208 0.417 0.836 1.674 3.350
+5. 14_7 rim
+  64 ticks in 7 levels; |sum| grows from r = 0.999 to 0.999999999 by at least 18.749 at every tick
+6. 15 labels, closing plane units
+  -0.16: spans 0.104 to 0.696 at y -0.33; big circle at -0.145, 6.145; axis 0; old ring at 0.944
+  6.16: spans 5.494 to 5.906 at y -0.33; big circle at -0.145, 6.145; axis 0; old ring at 0.944
+  i at (0.42, 1.28): 0.347 outside the radius 1 ring
+  -i at (0.5, -1.28): 0.374 outside the radius 1 ring
+   box 4 arc: pole ring outer radius 0.085 + 0.025 scene at 0.885 scene per unit
+  arc radius 1.1: 0.088 scene from pole centre to arc
+  arc radius 1.22: 0.195 scene from pole centre to arc
+7. 13_8
+  p1 + p2 = 0.000000+1.414214j; -(p1 + p2)/4 = -0.000000-0.353553j; residues add: 0.000000-0.353553j
+  2 pi i x sum = 2.221441-0.000000j; pi/sqrt 2 = 2.221441

@@ -1,0 +1,17 @@
+baseline: exit 0, 204 lines of output
+patched: exit 0, 204 lines of output
+output differences, baseline to patched:
+   -  unreachable.rs:1309: "e^{tp} > 0 \text{ for all real } t \text{ and } p\text{: no axis reverses}"
+   +  unreachable.rs:1309: "e^{tp} > 0 \text{ for real } t \text{ and } p\text{: } e^{tX} \text{ reverses no axis}"
+   -  unreachable.rs:1662: "\operatorname{det} A = 0 \quad\text{but}\quad \operatorname{det} e^{X} = e^{\operatorname{tr} X} \neq 0"
+   +  unreachable.rs:1662: "\text{singular } S\text{: } \operatorname{det} S = 0 \quad\text{but}\quad \operatorname{det} e^{X} = e^{\operatorname{tr} X} \neq 0"
+   4 differing lines
+last lines of the patched output:
+     what_it_forgets.rs:984: "diag(−2, −½):"
+     what_it_forgets.rs:1287: "spins ending here: ±{}, ±{}, … laps per unit time about the rod; eigenvalue −1, so no principal log (Higham §4 Fact 1)"
+     what_it_forgets.rs:1296: "for the number −1, Log(−1) = iπ by convention"
+   OK
+control, 11_6's say removed: exit 1 (expect 1)
+cue check holds on both, and the control fails
+
+[exit 0]

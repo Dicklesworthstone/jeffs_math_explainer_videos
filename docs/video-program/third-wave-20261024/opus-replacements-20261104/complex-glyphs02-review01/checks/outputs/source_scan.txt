@@ -1,0 +1,53 @@
+# composition
+  Counter({'Text': 534, 'Tex': 189, 'Mono': 11})
+  captured from a chapter and in the supplement 368; captured only 272; supplement only 94
+
+# non-ASCII characters, by kind
+  Text: °(U+00B0)x11 ±(U+00B1)x1 ²(U+00B2)x4 ³(U+00B3)x1 ·(U+00B7)x6 ×(U+00D7)x9 é(U+00E9)x1 ÷(U+00F7)x3 π(U+03C0)x13 –(U+2013)x7 …(U+2026)x6 ⁵(U+2075)x3 →(U+2192)x14 ⇒(U+21D2)x3 −(U+2212)x51 √(U+221A)x6 ≈(U+2248)x16 ≠(U+2260)x1 ≤(U+2264)x3 ≥(U+2265)x2
+  Tex: 
+  Mono: π(U+03C0)x5 −(U+2212)x3
+
+# Text or Mono rows holding TeX-looking markup (^ _ \ $ { }): 0
+
+# Text rows with ASCII hyphen beside a digit or as a sign: 0
+
+# Text rows with an ASCII apostrophe beside a letter used as a prime or an asterisk: 3
+   222 Text 08_loop_sums                       "by Goursat's lemma each square's error shrinks faster than its area; no continuity of f' is"
+   223 Text supplement                         "by Goursat's lemma each square's error shrinks faster than its area; no continuity of f' is assumed"
+   443 Text 12_residues,supplement             "the sum of the residues of f'/f"
+
+# Text rows with ascii x between numbers: 0
+
+# Number artefacts: exponents, NaN, inf, negative zero, doubled signs, long decimals: 9
+    75 Text supplement                         '0123456789 . , + − × ÷ ≈ → ° i π √ ≥ <'
+   149 Text 09_boundary                        '60 terms at 2: 0.200000 = the bump'
+   214 Text 09_boundary                        'average of 16: 1.000015'
+   215 Text 09_boundary                        'average of 16: −0.000015'
+   418 Text 10_rigidity                        'sum = 1.000000'
+   489 Text 14_continuation                    'z = 1/2: 11 terms give 1.999023'
+   507 Text 08_loop_sums                       '|total| = 0.000000'
+   640 Tex  14_continuation                    '\\zeta(-1) = -\\frac{1}{12} \\approx -0.083333'
+   654 Tex  03_two_planes                      'e^{2\\pi i} = 1.000000 + 0.000000i'
+
+# TeX control sequences used
+  \ x2 \,x44 \;x10 \Bigx13 \Deltax3 \Gammax10 \Rightarrowx2 \approxx33 \arctanx3 \argx2 \barx1 \cdotx6 \cdotsx8 \cosx4 \fracx79 \gammax2 \inftyx5 \intx5 \lex7 \limx1 \lnx1 \mapstox3 \mathrmx20 \maxx1 \nex2 \ointx6 \pix22 \qquadx4 \quadx7 \sinx11 \sqrtx14 \sumx2 \tanx7 \thetax7 \timesx3 \tox5 \zetax4
+
+# TeX rows with a bare run of 3+ letters outside text commands (would set as italic product): 0
+
+# TeX rows with non-ASCII source: 0
+
+# TeX rows with words separated by a plain space (spaces vanish in math): 0
+
+# longest rows
+   430 Text len  192 'the integral of |f| over the line is finite, so the improper integral is the limit of the '
+   283 Text len  130 'identity theorem: if f and g are holomorphic on a connected open set U and agree on a set '
+   323 Text len  111 'near a zero a of order m, f(z) is about c times (z − a) to the power m, so the hue turns m'
+   429 Text len  111 'the integral of |f| over the line is finite, so the improper integral is the limit of the '
+   163 Text len  107 "Cauchy's formula needs f holomorphic on an open set containing the closed disk: on the cir"
+   348 Text len  107 'output drawn with its direction exact and its size compressed, so every turn around 0 is t'
+   285 Text len  104 'if the first m − 1 derivatives vanish at a point and the m-th does not, angles there are m'
+   644 Tex  len  102 'c_0 \\approx 1.000,\\; c_1 \\approx 0.000,\\; c_2 \\approx -1.000,\\; c_3 \\approx 0.000,\\; c_4 \\'
+   223 Text len   99 "by Goursat's lemma each square's error shrinks faster than its area; no continuity of f' i"
+   649 Tex  len   95 'c_n = \\frac{1}{r^n}\\cdot \\mathrm{average}\\;\\mathrm{of}\\; f(a + r e^{i\\theta})\\, e^{-i n \\t'
+   347 Text len   92 'output drawn with its direction exact and its size compressed, so every turn around 0 is t'
+   222 Text len   91 "by Goursat's lemma each square's error shrinks faster than its area; no continuity of f' i"

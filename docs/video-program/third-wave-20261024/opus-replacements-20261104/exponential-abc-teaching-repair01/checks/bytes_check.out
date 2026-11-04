@@ -1,0 +1,69 @@
+--- base/ equals where it was copied from
+PASS base/rate02/rate_law.rs == exponential-expanded-rate02/rate_law.rs  093f37e54b73
+PASS base/rate02/script-slice.tsv == exponential-expanded-rate02/script-slice.tsv  1b5257beac7d
+PASS base/series01/factorials.rs == exponential-expanded-review01/candidate/series01/factorials.rs  f41b666b7755
+PASS base/series01/series_model.rs == exponential-expanded-review01/candidate/series01/series_model.rs  61b8f5e36635
+PASS base/series01/oracle.py == exponential-expanded-review01/candidate/series01/oracle.py  83885416e1da
+PASS base/series01/script-slice.tsv == exponential-expanded-series01/script-slice.tsv  fe8480fbdef3
+PASS base/product01/product_grid.rs == exponential-expanded-review01/candidate/product01/product_grid.rs  f61959586d79
+PASS base/product01/product_model.rs == exponential-expanded-review01/candidate/product01/product_model.rs  90eb1bcfbc13
+PASS base/product01/oracle.py == exponential-expanded-review01/candidate/product01/oracle.py  4c1177885d3e
+PASS base/product01/script-slice.tsv == exponential-expanded-product01/script-slice.tsv  a66c795969e6
+--- patches, forward and reverse, fuzz 0, no offset
+  rate.patch touches ['rate_law.rs']
+PASS rate.patch forward
+PASS   forward rate_law.rs == candidate
+PASS   forward script-slice.tsv == candidate
+PASS rate.patch reverse
+PASS   reverse rate_law.rs == base
+PASS   reverse script-slice.tsv == base
+  series.patch touches ['factorials.rs', 'oracle.py', 'script-slice.tsv', 'series_model.rs']
+PASS series.patch forward
+PASS   forward factorials.rs == candidate
+PASS   forward oracle.py == candidate
+PASS   forward script-slice.tsv == candidate
+PASS   forward series_model.rs == candidate
+PASS series.patch reverse
+PASS   reverse factorials.rs == base
+PASS   reverse oracle.py == base
+PASS   reverse script-slice.tsv == base
+PASS   reverse series_model.rs == base
+  product.patch touches ['oracle.py', 'product_grid.rs', 'product_model.rs', 'script-slice.tsv']
+PASS product.patch forward
+PASS   forward oracle.py == candidate
+PASS   forward product_grid.rs == candidate
+PASS   forward product_model.rs == candidate
+PASS   forward script-slice.tsv == candidate
+PASS product.patch reverse
+PASS   reverse oracle.py == base
+PASS   reverse product_grid.rs == base
+PASS   reverse product_model.rs == base
+PASS   reverse script-slice.tsv == base
+--- the frozen review stands
+PASS cross-review02/HASHES.sha256 is the delivered one  027075b445ac11a6
+PASS every listed file still matches: 18 listed
+PASS no unlisted file was added to it  []
+--- nothing in this folder names a machine path
+PASS no absolute home or scratch path  ['checks/bytes_check.py']
+--- REPAIR.md's bindings, when it exists
+PASS binding candidate/rate02/rate_law.rs  0d472d7098fb
+PASS binding candidate/rate02/script-slice.tsv  1b5257beac7d
+PASS binding candidate/series01/factorials.rs  9d465dd088a6
+PASS binding candidate/series01/series_model.rs  f5115801e279
+PASS binding candidate/series01/oracle.py  a9d2f041b43d
+PASS binding candidate/series01/script-slice.tsv  a12508f016a0
+PASS binding candidate/product01/product_grid.rs  5626940d420c
+PASS binding candidate/product01/product_model.rs  b978fcd3ff5e
+PASS binding candidate/product01/oracle.py  b132aa72b248
+PASS binding candidate/product01/script-slice.tsv  d94c33e01647
+PASS binding patches/rate.patch  e4b105fc2441
+PASS binding patches/series.patch  c0cf5be40ef3
+PASS binding patches/product.patch  8f4f9e5f74a7
+  bindings checked: 13
+--- canonical, read only, for root's base check
+  canonical now oracle.py c28b1e87ccb63e09
+  canonical now src/facts.rs 75bc46a0b43a1e85
+  canonical now src/main.rs 14ff5e872f72b95b
+  canonical now script.tsv 077cd2f02e8b5074
+  canonical chapters: ['applications.rs', 'closing.rs', 'definitions.rs', 'derivative.rs', 'mod.rs', 'property.rs', 'rotation.rs', 'slide_rule.rs', 'thumbnail.rs']
+RESULT PASS

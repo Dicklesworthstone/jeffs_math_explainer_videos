@@ -1,0 +1,11 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs
+@@ -395,7 +395,7 @@
+         let heading2 = title(&kit, stage, "The principal logarithm")?;
+         swap(stage, &[heading], &[heading2], 0.4)?;
+         kit.until_sentence(stage, "10_3", 1)?;
+-        // the turning line, in units of π, with the window −π < angle < π
++        // the turning line, in units of π, with a number's window −π < angle ≤ π
+         let mut line = vec![seg(stage, turn_at(-2.3 * PI), turn_at(2.3 * PI), Palette::faint(), 2.5)];
+         for k in -2..=2_i64 {
+             let p = turn_at(PI * k as f64);

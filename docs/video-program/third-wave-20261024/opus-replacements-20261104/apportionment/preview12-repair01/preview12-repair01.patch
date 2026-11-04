@@ -1,0 +1,883 @@
+diff --git a/explainer_corpus/apportionment/docs/narration-direction-map-oliver03.json b/explainer_corpus/apportionment/docs/narration-direction-map-oliver03.json
+index 926208f..f49932b 100644
+--- a/explainer_corpus/apportionment/docs/narration-direction-map-oliver03.json
++++ b/explainer_corpus/apportionment/docs/narration-direction-map-oliver03.json
+@@ -238,9 +238,9 @@
+       "next_cue": "12_2",
+       "kind": "prediction",
+       "path": "explainer_corpus/apportionment/src/chapters/both_promises.rs",
+-      "sha256": "81d2f0aa92091dc961aa5072234bea9ac6e5a914d6751d1f36171f7ccb9f4739",
+-      "line": 297,
+-      "marker": "let q = think_here(&kit, stage)?;",
++      "sha256": "da41049bbaf9d9fe0514cf33bc416effccd4035a4a35d8a0a03a303e159fa9cc",
++      "line": 347,
++      "marker": "let q = think(&kit, stage, v(PREDICT_AT.0, PREDICT_AT.1))?;",
+       "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+     },
+     {
+diff --git a/explainer_corpus/apportionment/docs/storyboard.md b/explainer_corpus/apportionment/docs/storyboard.md
+index 0c7b825..c5722a6 100644
+--- a/explainer_corpus/apportionment/docs/storyboard.md
++++ b/explainer_corpus/apportionment/docs/storyboard.md
+@@ -179,16 +179,16 @@ axis.
+ 
+ | id | words | picture | features | hold/listen |
+ |---|---|---|---|---|
+-| 12_1 | ⟨predict⟩ Jefferson broke the quota promise at fifteen seats by giving Cedar its eleventh seat. Suppose a rule refuses any seat that would lift a town above its share rounded up. Who gets the fifteenth seat instead? | The signpost list, slider below card 14; card 15 "Cedar seat 11" glows; Cedar's ceiling "10" beside it; think ring. | `quotamethod.15.cedar_ceiling`; quiz | listen 4 s |
++| 12_1 | ⟨predict⟩ Jefferson broke the quota promise at fifteen seats by giving Cedar its eleventh seat. Suppose a rule refuses any seat that would lift a town above its share rounded up. Who gets the fifteenth seat instead? | The signpost list, slider below card 14; card 15 "Cedar seat 11" glows; Cedar's ceiling "10" beside it; think ring left of the list, so it covers no card (the viewer may be comparing Birch's 2,250 with Ash's 2,000). | `quotamethod.15.cedar_ceiling`; quiz | listen 4 s |
+ | 12_2 | Birch. Michel Balinski and Peyton Young published exactly this rule in nineteen seventy four, and called it the quota method. Here it is in a simple form. Hand out seats one at a time, from the top of Jefferson's list. Before giving a town its next seat, check that the seat would not lift it above its share rounded up at the new house size. If it would, skip that signpost for now and go to the next one. | Birch's card glows; "the quota method: Balinski and Young, 1974" (22 pt) at top left. At "Hand out seats one at a time" counters reset to 0, 0, 0, the ceiling column becomes "1 seat: at most 1, 1, 1", and the walk is the quota method's own: the line steps down the list, the counters follow the method's count and the ceilings follow each new house size, through 5 seats. At "check that the seat would not lift it" the ceilings move to 6 seats and flash, Cedar's "at most 4" in red. At "If it would, skip that signpost" card 6 (Cedar seat 5) glows red while Cedar's counter (4) and ceiling flash; at "and go to the next one" the line passes it to card 7 and Birch's counter becomes 2. At 7 the red glow clears and card 6 is taken; the walk runs on to 14 (1, 3, 10) and the ceilings return to 15 seats. Guards: the walk equals `model::quota_rule`; it has exactly one wait before 15, resolved one seat later, where the waiting card would lift its town above its ceiling. | `quotamethod.15.*`, `quotamethod.15.birch_priority`, `history.quota_method_year` (PNAS 1974, Theorem 2); list, morph | hold |
+ | 12_3 | At fifteen seats Cedar already has ten, and its share is exactly ten, so it is skipped. The next signpost is Birch's fourth, at two thousand two hundred fifty, which beats Ash's second at two thousand. The result is one, four, ten. At sixteen seats Cedar's ceiling rises to eleven, and it gets its seat. | Cedar's counter and ceiling flash; at "so it is skipped" card 15 is struck through; Birch's fourth glows and counters become 1, 4, 10, with Ash's second dimly glowing beside it; "15 seats: 1, 4, 10". At "Cedar's ceiling rises" the ceilings morph to 16 seats; the struck card un-strikes and is taken; counters 1, 4, 11; "16 seats: 1, 4, 11". | `quotamethod.15.ash_priority`, `quotamethod.16.*` | hold |
+ | 12_4 | Each house is the previous house plus one seat, so nobody ever loses one. And Balinski and Young's theorem says the skipping never strands a town below its share rounded down either. Both promises, at every house size. Here is one way to see why that is true. | The scorecard gains the row "quota method": the no-take-backs check at "so nobody ever loses one", the quota check at "Balinski and Young's theorem says", and under the row the brief source "Balinski & Young, PNAS 1974, Theorem 2" (22 pt; the full citation is in `description.md`). Both checks flash at "Both promises". Guard: the model's own run keeps both promises (not a proof; 12_5 to 12_9 give one). | `quotamethod.within_quota_checked`, `quotamethod.never_takes_back_checked`, `history.quota_method_year`; table | hold |
+ | 12_5 | Lay each town's seats along the house sizes as a row of tiles. Every added seat raises a town's share by its fraction of the people, so each tile is as long as the stretch of house sizes it takes to earn one whole seat. Ash's tiles are nine and three quarters long, Birch's four and a third, and Cedar's one and a half. | A house-size axis 0 to 19.5 along the bottom ("house size"); one row per town, Ash top, each a run of tile outlines in its color (Ash's two, Birch's five, Cedar's thirteen). At "by its fraction of the people" "+4/39 per seat", "+9/39 per seat", "+26/39 per seat" under the names; at "so each tile is as long as" each town's first tile flashes, and its length appears over it as the line names it: "9 3/4", "4 1/3", "1 1/2". | `tile.len.ash`, `tile.len.birch`, `tile.len.cedar`, `speed39.*`; tiles, lagged | hold |
+ | 12_6 | Now slide a marker along the house sizes. A town's share, rounded down, counts the tiles the marker has passed completely. Rounded up, it counts the tiles the marker has entered. So the quota promise says that every tile the marker has passed is already handed out, and no tile it has not entered is. | A hero marker line from the axis through all rows, with "marker at" and a live count; live shares under the names. The marker runs 0 → 8. At "passed completely" green bars under the passed tiles (Ash 0, Birch 1, Cedar 5); at "entered" hero rings on the tiles the marker is inside (one per town); at "already handed out" the green bars flash; at "has not entered" faint veils cover every later tile. Guard: at 8 seats, passed and entered counts equal each share rounded down and up. | `tile.len.*`; shares at 8 from `model::share` (guarded, not a spoken number); tracker, live value | hold |
+ | 12_7 | And Jefferson's list is these tiles in the order they end. A seat's signpost is the population divided by the seat number, so the bigger the signpost, the sooner that seat's tile ends. At every house size, the quota method takes the entered tiles nobody holds yet and hands out the one that ends soonest. | Marker back to 0. Rank numbers 1 to 17 appear at the right end of each tile in Jefferson's order. "a seat's tile ends at 39,000 ÷ its signpost"; at "the bigger the signpost" "Birch's seat 4: 39,000 ÷ 2,250 = 17 1/3" and rank 16 flashes. At "At every house size" the marker steps 1 → 16 and the tile handed out at each step fills in its town's color. Twice Jefferson's next tile has not been entered: at 6 (Cedar's fifth, ringed red, "6 to 7 1/2: not entered at 6", the same wait 12_2 showed) and at 15 (Cedar's eleventh, "15 to 16 1/2: not entered at 15"); each holds 1.2 s before the soonest-ending entered tile fills. Guard: at every step the filled tile is the entered unheld tile that ends soonest. | `quotamethod.15.birch_priority`, `tile.end.birch.4`, `tile.end.cedar.11`, `quotamethod.*`; tracker, fills | hold |
+-| 12_8 | Could a passed tile ever be left out? Suppose one were. Go back to the last moment the rule handed out a tile that ends later than the missing one, or to the very start if it never did. Every tile handed out since then, and the missing tile too, had not been entered at that moment, or the rule would have picked a tile ending sooner. And every one of them ends by now. | An illustration on our towns (no real run can fail, so the supposition is drawn on a stretch chosen from the facts). Tiles filled after 13 fade; the marker runs back to 13, "now". At "Suppose one were" Cedar's eighth tile (10 1/2 to 12) empties, ringed red with "?", and "suppose: a passed tile not handed out". At "Go back" a second, ink marker slides 13 → 6, "then"; at "had not been entered" a hero band covers 6 to 13. | `stretch.from`, `stretch.to`; tracker, band | hold |
+-| 12_9 | So all those tiles fit inside the stretch from that moment to now, and there is one more of them than seats added in the stretch. But each town's row fits at most the stretch times its fraction of the people, and the fractions add up to one. So a stretch never holds more whole tiles than the seats added across it, and no passed tile is ever left out. The quota method never hands out a tile before the marker enters it, so it keeps the quota promise at every house size. | The band flashes. "7 seats from then to now: 7 + 1 = 8 tiles inside" in red. At "But each town's row fits at most" hero rings on the whole tiles really inside the band (the missing one keeps its red ring) and under the rows "Ash 0 ≤ 7 × 4/39", "Birch 1 ≤ 7 × 9/39", "Cedar 4 ≤ 7 × 26/39"; at "the fractions add up to one" "0 + 1 + 4 = 5 ≤ 7 × 39/39 = 7"; at "a stretch never holds" it flashes and "8 tiles cannot fit". At "no passed tile is ever left out" the "?" clears and the missing tile fills again; at the end "quota method: within quota at every house size" in green. Guard: the stretch's counts equal the facts and never exceed its seats. | `stretch.seats`, `stretch.inside.ash`, `stretch.inside.birch`, `stretch.inside.cedar`, `stretch.inside.total`; rings, flash | hold |
+-| 12_10 | Notice that the quota method gives one, four, ten at fifteen seats, while Hamilton gives two, three, ten. Both keep the quota promise. That promise can allow more than one answer, and different rules choose differently. | Both allocations side by side ("upper: quota method", "lower: Hamilton"), each inside its brackets; "Ash 1 or 2, Birch 3 or 4, Cedar 10: both answers fit". | `quotamethod.15.*`, `hamilton.15.*` | hold |
++| 12_8 | Could a passed tile ever be left out? Suppose one were. Go back to the last moment the rule handed out a tile that ends later than the missing one, or to the very start if it never did. Every tile handed out since then, and the missing tile too, had not been entered at that moment, or the rule would have picked a tile ending sooner. And every one of them ends by now. | An illustration on our towns. No real run can fail, so the picture keeps the run and the supposition apart: a solid tile was really handed out by "then", a hollow one is only supposed, and no fill after "then" is ever shown beside the supposition. Tiles filled after 13 fade; the marker runs back to 13, "now": the real run, 1, 3, 9. At "Suppose one were" the seven fills after 6 fade, leaving the real run at 6 (0, 2, 4), and Cedar's fifth tile (6 to 7 1/2), the wait 12_2 and 12_7 showed, is ringed red with "?"; "suppose: a passed tile not handed out". At "Go back" a second, ink marker slides 13 → 6, "then", with "solid: real up to then, hollow: only supposed". At "a tile that ends later" Birch's second tile, really handed out at 6, gets an ink ring, a red line marks where the missing tile ends, and "Birch's seat 2 ends at 8 2/3, later than 7 1/2". At "or to the very start" a dim "or 0" at the axis's start. At "Every tile handed out since then" seven hollow chips under the axis, one per seat; at "and the missing tile too" an eighth, red. At "had not been entered" veils cover every tile that starts before 6 except Birch's second, with "6 to 7 1/2: not entered at 6", and the ink marker pulses. At "would have picked a tile ending sooner" the two rings pulse and Birch's second is veiled too. At "ends by now" veils cover every tile ending after 13, a hero band covers 6 to 13 and the hero marker pulses: only the whole tiles between the markers stay clear. Pulses recolor without growing. Guards: the fills that fade are the real run's seats 7 to 13; the veils and the whole tiles inside cover every tile exactly once. | `stretch.from`, `stretch.to`, `stretch.then.*`, `stretch.now.*`, `stretch.later.*`, `stretch.missing.*`; tracker, band, chips | hold |
++| 12_9 | So all those tiles fit inside the stretch from that moment to now, and there is one more of them than seats added in the stretch. But each town's row fits at most the stretch times its fraction of the people, and the fractions add up to one. So a stretch never holds more whole tiles than the seats added across it, and no passed tile is ever left out. The quota method never hands out a tile before the marker enters it, so it keeps the quota promise at every house size. | "suppose" stays up until the supposition fails. At "So all those tiles fit" hero rings on the whole tiles inside the band; the missing one keeps its red ring, so the rings count 0, 1, 4 from here on. At "one more of them" beside the chips "7 seats from then to now: 7 + 1 = 8 tiles" in red, and the red chip pulses. At "But each town's row fits at most" under them "Ash 0 ≤ 7 × 4/39", "Birch 1 ≤ 7 × 9/39", "Cedar 4 ≤ 7 × 26/39"; at "the fractions add up to one" "0 + 1 + 4 = 5 ≤ 7 × 39/39 = 7"; at "a stretch never holds" it flashes, a bracket shows room for seven chips, and "8 tiles cannot fit". At "no passed tile is ever left out" all the supposition brought goes (ink marker, labels, veils, band, rings, chips, counts) and the seven fills come back, so the real run stands whole in one shade, with "the real run at 13 seats: 1, 3, 9". At "never hands out a tile before the marker enters it" faint veils cover every tile not yet entered at 13, and no fill lies under one; at the end "quota method: within quota at every house size" in green. Guards: the stretch's counts equal the facts and never exceed its seats; the rings count the whole tiles inside; the restored seats equal the facts. | `stretch.seats`, `stretch.need`, `stretch.inside.ash`, `stretch.inside.birch`, `stretch.inside.cedar`, `stretch.inside.total`, `stretch.now.*`; rings, chips, flash | hold |
++| 12_10 | Notice that the quota method gives one, four, ten at fifteen seats, while Hamilton gives two, three, ten. Both keep the quota promise. That promise can allow more than one answer, and different rules choose differently. | Both allocations side by side ("upper: quota method", "lower: Hamilton"), each inside its brackets; at "Both keep the quota promise" the quota boxes turn green, outlines only, so the cells and tokens inside stay readable; "Ash 1 or 2, Birch 3 or 4, Cedar 10: both answers fit". | `quotamethod.15.*`, `hamilton.15.*` | hold |
+ 
+ ## 13_population: when populations change
+ 
+diff --git a/explainer_corpus/apportionment/narration_units.json b/explainer_corpus/apportionment/narration_units.json
+index 6133efe..062f3db 100644
+--- a/explainer_corpus/apportionment/narration_units.json
++++ b/explainer_corpus/apportionment/narration_units.json
+@@ -7,7 +7,7 @@
+     "script_sha256": "cfcec06911c7d94efa6b7b29a820be9bf73a608810b4b57085f02f5b95939313",
+     "map": {
+       "path": "explainer_corpus/apportionment/docs/narration-direction-map-oliver03.json",
+-      "sha256": "317f821a32e6a804d176ff7f309b9d9564ff6405c0a937b9f701d99bb8459c9a"
++      "sha256": "3fc8199165851dc2d8f8e14a61f8f68150032f5751393ee49a6923981ba16f44"
+     }
+   },
+   "scope": "Candidate full-cue source plan for ElevenLabs Oliver: every cue is new text, one take per cue, no take selection, listening, timing or independent acceptance.",
+diff --git a/explainer_corpus/apportionment/oracle.py b/explainer_corpus/apportionment/oracle.py
+index 73827d5..b2a7cdd 100644
+--- a/explainer_corpus/apportionment/oracle.py
++++ b/explainer_corpus/apportionment/oracle.py
+@@ -419,6 +419,31 @@ def main(check):
+         emit(f"stretch.inside.{t}", n)
+         inside += n
+     emit("stretch.inside.total", inside)
++    # chapter 12's picture of the supposition: the run as it really went up to
++    # 6, the seat handed out there, and the tile supposed left out
++    emit("stretch.need", b - a + 1)
++    for t in TOWNS:
++        emit(f"stretch.then.{t}", hist[a][t])
++        emit(f"stretch.now.{t}", hist[b][t])
++    later = [t for t in TOWNS if hist[a][t] == hist[a - 1][t] + 1]
++    assert len(later) == 1
++    later_seat = hist[a][later[0]]
++    later_end = F(later_seat * total, POP[later[0]])
++    emit("stretch.later.town", later[0])
++    emit("stretch.later.seat", later_seat)
++    emit("stretch.later.end", mixed(later_end))
++    # the next tile, k = seats + 1, spans k-1 to k tile lengths: not yet entered
++    # at a, ending sooner than the tile the rule took, and passed by b
++    waiting = [t for t in TOWNS
++               if F(hist[a][t] * total, POP[t]) >= a
++               and F((hist[a][t] + 1) * total, POP[t]) < later_end
++               and F((hist[a][t] + 1) * total, POP[t]) <= b]
++    assert len(waiting) == 1
++    missing_seat = hist[a][waiting[0]] + 1
++    emit("stretch.missing.town", waiting[0])
++    emit("stretch.missing.seat", missing_seat)
++    emit("stretch.missing.start", mixed(F((missing_seat - 1) * total, POP[waiting[0]])))
++    emit("stretch.missing.end", mixed(F(missing_seat * total, POP[waiting[0]])))
+ 
+     # the population paradox: a later census, still 16 seats
+     total2 = sum(POP2.values())
+diff --git a/explainer_corpus/apportionment/src/chapters/both_promises.rs b/explainer_corpus/apportionment/src/chapters/both_promises.rs
+index d4c93f0..a2b9979 100644
+--- a/explainer_corpus/apportionment/src/chapters/both_promises.rs
++++ b/explainer_corpus/apportionment/src/chapters/both_promises.rs
+@@ -18,8 +18,8 @@ use fmn::prelude::*;
+ use super::draw::{
+     CARD_H, CARD_W, LIST_X, NAME_SIZE, NAME_X, ROW_H, ROW_Y, SCORE_LABEL_X, SCORE_STEP, SCORE_X, card_y, check, cutoff,
+     cutoff_y, fade_in_all, fade_in_lagged, fade_out_all, fail, flash_all, flat, grid, line_style, morph_all, move_all,
+-    pause, quota_box, refill, run_tracker, say, score_head, score_row, seat_x, signpost_cards, stroke, think_here,
+-    token_at, town_color, wipe,
++    pause, quota_box, run_tracker, say, score_head, score_row, seat_x, signpost_cards, stroke, think, token_at,
++    town_color, wipe,
+ };
+ use crate::model::{self, ASH, BIRCH, CEDAR, KEYS, NAMES, POP, Ratio, Rule, grouped, share};
+ 
+@@ -45,6 +45,26 @@ const RANKED: usize = 17;
+ const STEP: f64 = 0.3;
+ /// 12_9's three bounds, one per town.
+ const BOUND_X: [f64; 3] = [-4.3, 0.0, 4.3];
++/// 12_8 and 12_9: the count panel under the axis, one row per step. Row 0
++/// holds one hollow chip per tile the supposition needs, between the count
++/// that names them and the verdict on them.
++const PANEL_Y: [f64; 3] = [-2.35, -2.9, -3.45];
++const NEED_X: f64 = -4.9;
++const CHIP: f64 = 0.22;
++const CHIP_X: f64 = -0.2;
++const CHIP_STEP: f64 = 0.3;
++const CANNOT_X: f64 = 2.35;
++/// 12_8's labels inside the stretch: just right of the `then` marker, in the
++/// gaps between the rows.
++const MARK_GAP: f64 = 0.1;
++const LATER_T_DY: f64 = 0.6;
++const WAIT_T_DY: f64 = 0.63;
++/// Under "suppose", over `then` and `now`: which tiles are real.
++const LEGEND_Y: f64 = 2.95;
++/// 12_1's think ring: left of the list, so it covers no card.
++const PREDICT_AT: (f64, f64) = (1.2, -2.9);
++/// For pulsing a line already drawn in the highlight's yellow.
++const PULSE_WHITE: [f32; 3] = [1.0, 1.0, 1.0];
+ 
+ /// Where house size `h` sits along the axis.
+ fn hx(h: f64) -> f64 {
+@@ -175,6 +195,36 @@ fn marker(stage: &mut Stage<'_>, tracker: Mob, h0: f64, color: Srgb) -> fmn::Res
+     Ok([line, anchor])
+ }
+ 
++/// Where chip `i` of the count row sits.
++fn chip_x(i: usize) -> f64 {
++    CHIP_X + i as f64 * CHIP_STEP
++}
++
++/// Chip `i` of the count row: one tile the supposition needs, hollow because
++/// it stands for a count and not for any real seat, detached.
++fn chip(stage: &mut Stage<'_>, i: usize, color: Srgb) -> fmn::Result<Mob> {
++    let r = Rectangle::new()
++        .width(CHIP)
++        .height(CHIP)
++        .corner_radius(0.03)
++        .style(line_style(color, 2.5, 1.0))
++        .build()?
++        .moved_to(v(chip_x(i), PANEL_Y[0]));
++    Ok(stage.arena_mut().add(r))
++}
++
++/// Recolor each mobject and back, in place: a flash with no growth, so a
++/// tile's drawn length and its neighbours stay true.
++fn pulse_all(stage: &mut Stage<'_>, mobs: &[Mob], color: Option<[f32; 3]>, rt: f64) -> fmn::Result<()> {
++    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
++    for &m in mobs {
++        let a = fmn::animation::indicate(stage.arena_mut(), m, 1.0, color)?;
++        anims.push(stage.prepare(a.rt(rt))?);
++    }
++    stage.play_prepared(anims)?;
++    Ok(())
++}
++
+ /// The house-size axis: a line, a tick at every whole house size (taller
+ /// every five, with its number) and its name, detached.
+ fn house_axis(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+@@ -294,7 +344,7 @@ impl SceneConstruct for BothPromises {
+         let ceil15 = ceilings(&kit, stage, 15, Some(CEDAR))?;
+         let ceil_head = kit.text(stage, "15 seats", 18.0, Palette::dim(), v(CEIL_X, 2.35))?;
+         fade_in_lagged(stage, &[vec![ceil_head], ceil15.clone()].concat(), 1.0, 0.25)?;
+-        let q = think_here(&kit, stage)?;
++        let q = think(&kit, stage, v(PREDICT_AT.0, PREDICT_AT.1))?;
+ 
+         // 12_2 Birch; the rule in its simple form
+         let s = say(&kit, stage, "12_2")?;
+@@ -752,38 +802,68 @@ impl SceneConstruct for BothPromises {
+             fills.push((h, t, f));
+         }
+ 
+-        // 12_8 suppose a passed tile were left out: go back to the last time
+-        // a tile ending later was handed out
++        // 12_8 suppose a passed tile were left out. The supposition is kept
++        // apart from the run: a solid tile was really handed out by `then`, a
++        // hollow one is only supposed, and no fill after `then` stays in view,
++        // since no real run can show the supposition. The missing tile is
++        // Cedar's fifth, the wait 12_2 and 12_7 showed: at `then` the rule
++        // really handed out Birch's second, which ends later than it.
+         let s = say(&kit, stage, "12_8")?;
+         let (from, to) = model::STRETCH;
+         let (from_r, to_r) = (Ratio::new(u128::from(from), 1), Ratio::new(u128::from(to), 1));
+-        let inside: Vec<Tile> = tiles
++        let (from_h, to_h) = (from as usize, to as usize);
++        let seats_n = to_h - from_h;
++        let proof = model::stretch_proof(&POP, from, to).map_err(fail)?;
++        let missing = tile(&tiles, proof.missing.town, proof.missing.k)?;
++        let later = tile(&tiles, proof.later.town, proof.later.k)?;
++        let mut inside = Vec::new();
++        for t in &proof.inside {
++            inside.push(tile(&tiles, t.town, t.k)?);
++        }
++        // 12_7's fills: those after the stretch, and those the supposition takes away
++        let past_now: Vec<Mob> = fills.iter().filter(|(h, _, _)| *h > to_h).map(|f| f.2).collect();
++        let real_since: Vec<(usize, u64, Mob)> = fills
+             .iter()
+-            .filter(|t| t.start >= from_r && t.end <= to_r)
+-            .copied()
++            .filter(|(h, _, _)| (from_h + 1..=to_h).contains(h))
++            .map(|(_, t, f)| (t.town, t.k, *f))
+             .collect();
+-        // the supposed missing tile: the last of Cedar's inside the stretch
+-        let missing = *inside
++        if history[from_h] != proof.then_seats
++            || history[to_h] != proof.now_seats
++            || real_since.len() != proof.real_after.len()
++            || real_since
++                .iter()
++                .zip(&proof.real_after)
++                .any(|(f, t)| (f.0, f.1) != (t.town, t.k))
++        {
++            return Err(fail("12_8: the fills since then are not the real run".into()));
++        }
++        let since_then: Vec<Mob> = real_since.iter().map(|f| f.2).collect();
++        // every tile is ruled out by one spoken clause, or is whole inside the stretch
++        let entered_then: Vec<Tile> = tiles
+             .iter()
+-            .filter(|t| t.town == CEDAR)
+-            .max_by_key(|t| t.k)
+-            .ok_or_else(|| fail("12_8: no Cedar tile inside the stretch".into()))?;
+-        let held = fills
++            .filter(|t| t.start < from_r && !(t.town == later.town && t.k == later.k))
++            .copied()
++            .collect();
++        let beyond_now: Vec<Tile> = tiles
+             .iter()
+-            .find(|(h, t, _)| *h <= to as usize && t.town == missing.town && t.k == missing.k)
+-            .map(|f| f.2)
+-            .ok_or_else(|| fail("12_8: the supposed missing tile is not held at the stretch's end".into()))?;
+-        let later: Vec<Mob> = fills.iter().filter(|(h, _, _)| *h > to as usize).map(|f| f.2).collect();
++            .filter(|t| t.start >= from_r && t.end > to_r)
++            .copied()
++            .collect();
++        if entered_then.len() + 1 + beyond_now.len() + inside.len() != tiles.len() {
++            return Err(fail(
++                "12_8: the veils and the stretch do not cover every tile once".into(),
++            ));
++        }
+         fade_out_all(stage, &[ranks, waits, vec![rule_t, example]].concat(), 0.3)?;
+         s.wait_for(stage, "Could a passed tile ever be left out")?;
+-        // back to the end of the stretch: the tiles handed out after it go
+-        fade_out_all(stage, &later, 0.4)?;
++        // back to the end of the stretch: the real run, whole
++        fade_out_all(stage, &past_now, 0.4)?;
+         run_tracker(stage, m, to as f64, 1.0)?;
+         let now_t = kit.text(stage, "now", 22.0, Palette::hero(), v(hx(to as f64), TILE_Y[0] + 0.75))?;
+         fade_in_all(stage, &[now_t], 0.3)?;
+         s.wait_for(stage, "Suppose one were")?;
+         let (mx0, mx1) = tile_span(&missing);
+-        fade_out_all(stage, &[held], 0.4)?;
++        fade_out_all(stage, &since_then, 0.4)?;
+         let gone = ring(stage, &missing, Palette::red());
+         let ask = kit.text(
+             stage,
+@@ -812,8 +892,85 @@ impl SceneConstruct for BothPromises {
+             Palette::ink(),
+             v(hx(from as f64), TILE_Y[0] + 0.75),
+         )?;
+-        fade_in_all(stage, &[then_t], 0.3)?;
++        let legend = kit.text(
++            stage,
++            "solid: real up to then, hollow: only supposed",
++            18.0,
++            Palette::dim(),
++            v(0.0, LEGEND_Y),
++        )?;
++        fade_in_all(stage, &[then_t, legend], 0.3)?;
++        s.wait_for(stage, "a tile that ends later than the missing one")?;
++        // what the rule really handed out at `then`, reaching past the missing tile's end
++        let later_ring = ring(stage, &later, Palette::ink());
++        let compare = stroke(
++            stage,
++            vec![
++                v(mx1, TILE_Y[missing.town] + TILE_H / 2.0),
++                v(mx1, TILE_Y[later.town] + TILE_H / 2.0 + 0.06),
++            ],
++            line_style(Palette::red(), 2.5, 1.0),
++        );
++        let later_t = kit.text_left(
++            stage,
++            &format!(
++                "{}'s seat {} ends at {}, later than {}",
++                NAMES[later.town],
++                fact("stretch.later.seat")?,
++                fact("stretch.later.end")?,
++                fact("stretch.missing.end")?
++            ),
++            18.0,
++            Palette::ink(),
++            v(hx(from as f64) + MARK_GAP, TILE_Y[later.town] + LATER_T_DY),
++        )?;
++        fade_in_all(stage, &[later_ring, compare, later_t], 0.4)?;
++        s.wait_for(stage, "or to the very start if it never did")?;
++        let or_zero = kit.text(stage, "or 0", 20.0, Palette::dim(), v(hx(0.0), TILE_Y[0] + 0.75))?;
++        fade_in_all(stage, &[or_zero], 0.3)?;
++        s.wait_for(stage, "Every tile handed out since then")?;
++        // one hollow chip per tile the supposition needs: a count, not a place
++        let mut chips = Vec::new();
++        for i in 0..seats_n {
++            chips.push(chip(stage, i, Palette::ink())?);
++        }
++        chips.push(chip(stage, seats_n, Palette::red())?);
++        fade_in_lagged(stage, &chips[..seats_n], 0.9, 0.2)?;
++        s.wait_for(stage, "and the missing tile too")?;
++        fade_in_all(stage, &chips[seats_n..], 0.3)?;
+         s.wait_for(stage, "had not been entered at that moment")?;
++        // the first clause: nothing that starts before `then` can be one of them
++        fade_out_all(stage, &[compare], 0.2)?;
++        let wait_t = kit.text_left(
++            stage,
++            &format!(
++                "{} to {}: not entered at {from}",
++                fact("stretch.missing.start")?,
++                fact("stretch.missing.end")?
++            ),
++            18.0,
++            Palette::red(),
++            v(hx(from as f64) + MARK_GAP, TILE_Y[missing.town] + WAIT_T_DY),
++        )?;
++        let before: Vec<Mob> = entered_then
++            .iter()
++            .map(|t| tile_rect(stage, t, flat(Palette::faint(), 0.45)))
++            .collect::<fmn::Result<_>>()?;
++        fade_in_all(stage, &[before.clone(), vec![wait_t]].concat(), 0.4)?;
++        pulse_all(stage, &then_mark[..1], None, 0.5)?;
++        s.wait_for(stage, "or the rule would have picked a tile ending sooner")?;
++        // the missing tile ends sooner than the one the rule really picked
++        pulse_all(stage, &[gone, later_ring], None, 0.6)?;
++        let later_veil = tile_rect(stage, &later, flat(Palette::faint(), 0.45))?;
++        fade_out_all(stage, &[later_ring, later_t], 0.2)?;
++        fade_in_all(stage, &[later_veil], 0.2)?;
++        s.wait_for(stage, "And every one of them ends by now")?;
++        // the second clause: nothing that ends after `now` can be one of them;
++        // what stays clear is what fits between the two markers
++        let after: Vec<Mob> = beyond_now
++            .iter()
++            .map(|t| tile_rect(stage, t, flat(Palette::faint(), 0.45)))
++            .collect::<fmn::Result<_>>()?;
+         let band = Rectangle::new()
+             .width(hx(to as f64) - hx(from as f64))
+             .height(TILE_Y[0] - AXIS_Y + TILE_H / 2.0 + 0.1)
+@@ -824,9 +981,10 @@ impl SceneConstruct for BothPromises {
+                 (TILE_Y[0] + TILE_H / 2.0 + 0.1 + AXIS_Y) / 2.0,
+             ));
+         let band = stage.arena_mut().add(band);
+-        fade_in_all(stage, &[band], 0.5)?;
++        fade_in_all(stage, &[after.clone(), vec![band]].concat(), 0.4)?;
++        pulse_all(stage, &mark[..1], Some(PULSE_WHITE), 0.5)?;
+ 
+-        // 12_9 the stretch holds fewer whole tiles than it would need
++        // 12_9 the stretch holds fewer whole tiles than the supposition needs
+         let s = say(&kit, stage, "12_9")?;
+         let mut counts = Vec::new();
+         for (i, key) in KEYS.iter().enumerate() {
+@@ -839,35 +997,37 @@ impl SceneConstruct for BothPromises {
+             }
+             counts.push(n);
+         }
+-        let seats_n = (to - from) as usize;
+-        if fact("stretch.seats")? != seats_n.to_string() || counts.iter().sum::<usize>() > seats_n {
++        let fits: usize = counts.iter().sum();
++        let need = seats_n + 1;
++        if fact("stretch.seats")? != seats_n.to_string() || fact("stretch.need")? != need.to_string() || fits > seats_n
++        {
+             return Err(fail(
+                 "12_9 says the stretch holds no more whole tiles than seats".into(),
+             ));
+         }
+-        // the supposition's tiles all lie in the band; the band itself is
+-        // what the line points at, since no real run can show them
+         s.wait_for(stage, "So all those tiles fit inside the stretch")?;
+-        fade_out_all(stage, &[suppose], 0.2)?;
+-        flash_all(stage, &[band], 0.9)?;
+-        s.wait_for(stage, "one more of them than seats added")?;
+-        let need = seats_n + 1;
+-        let need_t = kit.text(
+-            stage,
+-            &format!("{seats_n} seats from then to now: {seats_n} + 1 = {need} tiles inside"),
+-            24.0,
+-            Palette::red(),
+-            v(0.0, 3.3),
+-        )?;
+-        fade_in_all(stage, &[need_t], 0.4)?;
+-        s.wait_for(stage, "But each town's row fits at most")?;
+-        // what really fits: the whole tiles inside the band, town by town
++        // a ring on every whole tile inside, the missing one's stays red, so
++        // the rings always count what the labels below them say
+         let fit: Vec<Mob> = inside
+             .iter()
+             .filter(|t| !(t.town == missing.town && t.k == missing.k))
+             .map(|t| ring(stage, t, Palette::hero()))
+             .collect();
++        if fit.len() + 1 != fits {
++            return Err(fail("12_9: the rings do not count the whole tiles inside".into()));
++        }
+         fade_in_lagged(stage, &fit, 1.0, 0.2)?;
++        s.wait_for(stage, "one more of them than seats added")?;
++        let need_t = kit.text_left(
++            stage,
++            &format!("{seats_n} seats from then to now: {seats_n} + 1 = {need} tiles"),
++            22.0,
++            Palette::red(),
++            v(NEED_X, PANEL_Y[0]),
++        )?;
++        fade_in_all(stage, &[need_t], 0.4)?;
++        pulse_all(stage, &chips[seats_n..], None, 0.6)?;
++        s.wait_for(stage, "But each town's row fits at most")?;
+         let mut bounds = Vec::new();
+         for (i, &n) in counts.iter().enumerate() {
+             bounds.push(kit.text(
+@@ -875,7 +1035,7 @@ impl SceneConstruct for BothPromises {
+                 &format!("{} {n} ≤ {seats_n} × {}/{}", NAMES[i], POP[i] / g, total / g),
+                 22.0,
+                 town_color(i),
+-                v(BOUND_X[i], -2.35),
++                v(BOUND_X[i], PANEL_Y[1]),
+             )?);
+         }
+         fade_in_lagged(stage, &bounds, 1.2, 0.3)?;
+@@ -891,24 +1051,84 @@ impl SceneConstruct for BothPromises {
+             ),
+             24.0,
+             Palette::hero(),
+-            v(0.0, -2.9),
++            v(0.0, PANEL_Y[2]),
+         )?;
+         fade_in_all(stage, &[sum], 0.5)?;
+         s.wait_for(stage, "a stretch never holds more whole tiles")?;
+         flash_all(stage, &[sum], 0.9)?;
+-        let cannot = kit.text(
++        // room for one chip per seat: the last chip has nowhere to go
++        let (bx0, bx1) = (chip_x(0) - CHIP / 2.0, chip_x(seats_n - 1) + CHIP / 2.0);
++        let by = PANEL_Y[0] - CHIP / 2.0 - 0.06;
++        let room = stroke(
++            stage,
++            vec![v(bx0, by + 0.05), v(bx0, by), v(bx1, by), v(bx1, by + 0.05)],
++            line_style(Palette::hero(), 2.5, 1.0),
++        );
++        let cannot = kit.text_left(
+             stage,
+             &format!("{need} tiles cannot fit"),
+             24.0,
+             Palette::red(),
+-            v(0.0, -3.45),
++            v(CANNOT_X, PANEL_Y[0]),
+         )?;
+-        fade_in_all(stage, &[cannot], 0.4)?;
++        fade_in_all(stage, &[room, cannot], 0.4)?;
+         s.wait_for(stage, "no passed tile is ever left out")?;
+-        // the supposition fails: the tile was handed out all along
+-        fade_out_all(stage, &[ask, gone, need_t, cannot], 0.3)?;
+-        let back = tile_rect(stage, &missing, flat(town_color(missing.town), 0.75))?;
+-        fade_in_all(stage, &[back], 0.4)?;
++        // the supposition fails: all it brought goes, and the real run comes
++        // back whole, in one shade, its seats the facts' at this house size
++        for (i, key) in KEYS.iter().enumerate() {
++            if fact(&format!("stretch.now.{key}"))? != history[to_h][i].to_string() {
++                return Err(fail(format!(
++                    "12_9: {}'s seats at {to} differ from the facts",
++                    NAMES[i]
++                )));
++            }
++        }
++        let supposed = [
++            vec![
++                then_mark[0],
++                gone,
++                ask,
++                suppose,
++                then_t,
++                legend,
++                or_zero,
++                wait_t,
++                later_veil,
++                band,
++                need_t,
++                sum,
++                room,
++                cannot,
++            ],
++            before,
++            after,
++            chips,
++            fit,
++            bounds,
++        ]
++        .concat();
++        fade_out_all(stage, &supposed, 0.4)?;
++        let mut back = Vec::new();
++        for t in &proof.real_after {
++            let t = tile(&tiles, t.town, t.k)?;
++            back.push(tile_rect(stage, &t, flat(town_color(t.town), 0.75))?);
++        }
++        let real_t = kit.text(
++            stage,
++            &format!("the real run at {to} seats: {}", triple(&history[to_h])),
++            22.0,
++            Palette::hero(),
++            v(0.0, PANEL_Y[0]),
++        )?;
++        fade_in_all(stage, &[back, vec![real_t]].concat(), 0.5)?;
++        s.wait_for(stage, "never hands out a tile before the marker enters it")?;
++        // the other half of the promise: no tile of the real run lies under a veil
++        let unentered: Vec<Mob> = tiles
++            .iter()
++            .filter(|t| t.start >= to_r)
++            .map(|t| tile_rect(stage, t, flat(Palette::faint(), 0.45)))
++            .collect::<fmn::Result<_>>()?;
++        fade_in_lagged(stage, &unentered, 0.8, 0.05)?;
+         s.wait_for(stage, "so it keeps the quota promise at every house size")?;
+         let done = kit.text(
+             stage,
+@@ -963,8 +1183,14 @@ impl SceneConstruct for BothPromises {
+         fade_in_all(stage, &[legend[1]], 0.3)?;
+         fade_in_lagged(stage, &lower, 1.0, 0.1)?;
+         s.wait_for(stage, "Both keep the quota promise")?;
+-        let green: Vec<(Mob, Srgb, f64)> = boxes.iter().map(|&b| (b, Palette::green(), 1.0)).collect();
+-        refill(stage, &green, 0.5)?;
++        // recolor the outlines only: the quota boxes stay hollow, so the cells
++        // and tokens inside them stay readable
++        let mut green = Vec::new();
++        for (i, &b) in boxes.iter().enumerate() {
++            let q = share(&POP, i, 15);
++            green.push((b, quota_box(stage, ROW_Y[i], q.floor(), q.ceil(), Palette::green())?));
++        }
++        morph_all(stage, &green, 0.5)?;
+         s.wait_for(stage, "can allow more than one answer")?;
+         flash_all(stage, &boxes[..2], 1.0)?;
+         let allowed: Vec<String> = (0..3)
+@@ -989,3 +1215,84 @@ impl SceneConstruct for BothPromises {
+         kit.finish(stage)
+     }
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::super::draw::{PAUSE_NOTE, THINK_R};
++    use super::*;
++
++    const SAFE_X: f64 = 6.96;
++    const SAFE_Y: f64 = 3.85;
++
++    /// A generous width for `s` at `size`: this film's frames measure 0.0042
++    /// to 0.0045 of the size per character.
++    fn wide(s: &str, size: f64) -> f64 {
++        s.chars().count() as f64 * size * 0.0048
++    }
++
++    /// Half the height of a line of text at `size`.
++    fn half(size: f64) -> f64 {
++        size * 0.005
++    }
++
++    /// One edge lies strictly beyond the other, up or to the right.
++    #[track_caller]
++    fn clears(beyond: f64, edge: f64) {
++        assert!(beyond > edge, "{beyond} does not clear {edge}");
++    }
++
++    #[test]
++    fn the_think_ring_covers_no_card() {
++        let half_width = THINK_R.max(wide(PAUSE_NOTE, 16.0) / 2.0);
++        // a glowing card reaches 0.07 past its edge
++        clears(LIST_X - CARD_W / 2.0 - 0.07, PREDICT_AT.0 + half_width);
++        // under the lowest row of the left panel, its note on screen
++        clears(ROW_Y[2] - ROW_H / 2.0, PREDICT_AT.1 + THINK_R);
++        clears(PREDICT_AT.1 - THINK_R - 0.28 - half(16.0), -SAFE_Y);
++    }
++
++    #[test]
++    fn the_count_row_keeps_its_parts_apart() {
++        let seats = (model::STRETCH.1 - model::STRETCH.0) as usize;
++        let need = format!("{seats} seats from then to now: {seats} + 1 = {} tiles", seats + 1);
++        let cannot = format!("{} tiles cannot fit", seats + 1);
++        clears(NEED_X, -SAFE_X);
++        clears(chip_x(0) - CHIP / 2.0, NEED_X + wide(&need, 22.0));
++        clears(chip_x(1) - CHIP / 2.0, chip_x(0) + CHIP / 2.0);
++        clears(CANNOT_X, chip_x(seats) + CHIP / 2.0);
++        clears(SAFE_X, CANNOT_X + wide(&cannot, 24.0));
++    }
++
++    #[test]
++    fn the_count_panel_clears_the_axis_and_the_frame() {
++        // the axis's numbers sit 0.38 under it
++        clears(AXIS_Y - 0.38 - half(22.0), PANEL_Y[0] + half(22.0));
++        // the bracket under the chips stops above the bounds' row
++        clears(PANEL_Y[0] - CHIP / 2.0 - 0.06, PANEL_Y[1] + half(22.0));
++        clears(PANEL_Y[1] - half(22.0), PANEL_Y[2] + half(24.0));
++        clears(PANEL_Y[2] - half(24.0), -SAFE_Y);
++    }
++
++    #[test]
++    fn the_labels_in_the_stretch_clear_the_markers_and_rows() {
++        let (from, to) = model::STRETCH;
++        let (left, right) = (hx(from as f64) + MARK_GAP, hx(to as f64));
++        clears(
++            right,
++            left + wide("Birch's seat 2 ends at 8 2/3, later than 7 1/2", 18.0),
++        );
++        clears(right, left + wide("6 to 7 1/2: not entered at 6", 18.0));
++        // each sits in the gap above its row, rings (0.04 out) included
++        let top = |row: usize| TILE_Y[row] + TILE_H / 2.0 + 0.04;
++        let bottom = |row: usize| TILE_Y[row] - TILE_H / 2.0 - 0.04;
++        let later_y = TILE_Y[BIRCH] + LATER_T_DY;
++        clears(later_y - half(18.0), top(BIRCH));
++        clears(bottom(ASH), later_y + half(18.0));
++        let wait_y = TILE_Y[CEDAR] + WAIT_T_DY;
++        clears(wait_y - half(18.0), top(CEDAR));
++        clears(bottom(BIRCH), wait_y + half(18.0));
++        // the legend sits between "suppose" and the `then` and `now` labels
++        clears(3.3 - half(22.0), LEGEND_Y + half(18.0));
++        clears(LEGEND_Y - half(18.0), TILE_Y[0] + 0.75 + half(22.0));
++    }
++}
+diff --git a/explainer_corpus/apportionment/src/facts.rs b/explainer_corpus/apportionment/src/facts.rs
+index eed9b95..936f4b6 100644
+--- a/explainer_corpus/apportionment/src/facts.rs
++++ b/explainer_corpus/apportionment/src/facts.rs
+@@ -268,6 +268,19 @@ pub fn facts() -> Result<Facts, String> {
+         inside += n;
+     }
+     f.add("stretch.inside.total", inside)?;
++    // chapter 12's picture of the supposition: the real run up to `from`, the
++    // tile it really handed out there, and the next tile, supposed left out
++    let proof = model::stretch_proof(&POP, from, to)?;
++    f.add("stretch.need", to - from + 1)?;
++    town_seats(&mut f, "stretch.then", &proof.then_seats)?;
++    town_seats(&mut f, "stretch.now", &proof.now_seats)?;
++    f.add("stretch.later.town", KEYS[proof.later.town])?;
++    f.add("stretch.later.seat", proof.later.k)?;
++    f.add("stretch.later.end", mixed(proof.later.end))?;
++    f.add("stretch.missing.town", KEYS[proof.missing.town])?;
++    f.add("stretch.missing.seat", proof.missing.k)?;
++    f.add("stretch.missing.start", mixed(proof.missing.start))?;
++    f.add("stretch.missing.end", mixed(proof.missing.end))?;
+ 
+     // the population paradox at the later census
+     for (i, key) in KEYS.iter().enumerate() {
+@@ -365,6 +378,30 @@ pub fn facts() -> Result<Facts, String> {
+ mod tests {
+     use super::*;
+ 
++    /// What chapter 12 shows of its supposition (on screen, never spoken).
++    #[test]
++    fn the_supposition_on_screen() {
++        let f = facts().expect("facts build");
++        for (key, want) in [
++            ("stretch.need", "8"),
++            ("stretch.then.ash", "0"),
++            ("stretch.then.birch", "2"),
++            ("stretch.then.cedar", "4"),
++            ("stretch.now.ash", "1"),
++            ("stretch.now.birch", "3"),
++            ("stretch.now.cedar", "9"),
++            ("stretch.later.town", "birch"),
++            ("stretch.later.seat", "2"),
++            ("stretch.later.end", "8 2/3"),
++            ("stretch.missing.town", "cedar"),
++            ("stretch.missing.seat", "5"),
++            ("stretch.missing.start", "6"),
++            ("stretch.missing.end", "7 1/2"),
++        ] {
++            assert_eq!(f.get(key), Some(want), "{key}");
++        }
++    }
++
+     /// The values the storyboard's words say, by key (spelled out there).
+     #[test]
+     fn the_spoken_numbers() {
+diff --git a/explainer_corpus/apportionment/src/model.rs b/explainer_corpus/apportionment/src/model.rs
+index a7bd06b..2313384 100644
+--- a/explainer_corpus/apportionment/src/model.rs
++++ b/explainer_corpus/apportionment/src/model.rs
+@@ -292,6 +292,84 @@ pub fn tiles_inside(pops: &[u64], i: usize, from: u64, to: u64) -> u64 {
+         .count() as u64
+ }
+ 
++/// One seat tile of a town's row: seat `k`, from house size `start` to `end`.
++#[derive(Clone, Copy, Debug, PartialEq, Eq)]
++pub struct SeatTile {
++    pub town: usize,
++    pub k: u64,
++    pub start: Ratio,
++    pub end: Ratio,
++}
++
++fn seat_tile(pops: &[u64], town: usize, k: u64) -> SeatTile {
++    SeatTile {
++        town,
++        k,
++        start: tile_end(pops, town, k - 1),
++        end: tile_end(pops, town, k),
++    }
++}
++
++/// What chapter 12 draws its supposition on, over the stretch from house size
++/// `from` to `to`. No real run can leave a passed tile out, so the picture
++/// keeps two things apart: the real run up to `from`, and a supposition that
++/// starts there.
++#[derive(Debug)]
++pub struct StretchProof {
++    /// The seats the rule really holds at `from` and at `to`.
++    pub then_seats: Vec<u64>,
++    pub now_seats: Vec<u64>,
++    /// The tile the rule really hands out at `from`.
++    pub later: SeatTile,
++    /// The tile supposed left out: a town's next tile at `from`, not yet
++    /// entered there, ending sooner than `later` and passed by `to`.
++    pub missing: SeatTile,
++    /// The tiles the rule really hands out after `from`, through `to`, in order.
++    pub real_after: Vec<SeatTile>,
++    /// Every whole tile inside the stretch, town by town.
++    pub inside: Vec<SeatTile>,
++}
++
++pub fn stretch_proof(pops: &[u64], from: u64, to: u64) -> Result<StretchProof, String> {
++    let history = quota_rule(pops, to)?;
++    let (from_r, to_r) = (Ratio::new(u128::from(from), 1), Ratio::new(u128::from(to), 1));
++    let handed_out = |h: usize| -> Result<SeatTile, String> {
++        let town = (0..pops.len())
++            .find(|&i| history[h][i] == history[h - 1][i] + 1)
++            .ok_or_else(|| format!("no seat handed out at {h}"))?;
++        Ok(seat_tile(pops, town, history[h][town]))
++    };
++    let later = handed_out(from as usize)?;
++    let then_seats = history[from as usize].clone();
++    let waiting: Vec<SeatTile> = (0..pops.len())
++        .map(|i| seat_tile(pops, i, then_seats[i] + 1))
++        .filter(|t| t.start >= from_r && t.end < later.end && t.end <= to_r)
++        .collect();
++    let [missing] = waiting[..] else {
++        return Err(format!("{} tiles could be the one left out at {from}", waiting.len()));
++    };
++    let real_after = (from as usize + 1..=to as usize)
++        .map(handed_out)
++        .collect::<Result<Vec<_>, _>>()?;
++    let mut inside = Vec::new();
++    for i in 0..pops.len() {
++        inside.extend(
++            (1..)
++                .map(|k| seat_tile(pops, i, k))
++                .take_while(|t| t.start < to_r)
++                .filter(|t| t.start >= from_r && t.end <= to_r),
++        );
++    }
++    Ok(StretchProof {
++        then_seats,
++        now_seats: history[to as usize].clone(),
++        later,
++        missing,
++        real_after,
++        inside,
++    })
++}
++
+ // --------------------------------------------------------- Hill thresholds
+ 
+ /// The largest whole number whose square is at most `n`.
+@@ -517,6 +595,112 @@ mod tests {
+         assert!(ev.iter().all(|e| e.1 == vec![ASH]));
+     }
+ 
++    /// Each town's held tiles, as (town, seat).
++    fn held(seats: &[u64]) -> Vec<(usize, u64)> {
++        let mut out: Vec<(usize, u64)> = Vec::new();
++        for (i, &n) in seats.iter().enumerate() {
++            out.extend((1..=n).map(|k| (i, k)));
++        }
++        out
++    }
++
++    /// Could a run hold exactly these tiles? Seats go out one at a time, so a
++    /// town's tiles must be its first ones, with no hole.
++    fn is_a_run(tiles: &[(usize, u64)]) -> bool {
++        tiles.iter().all(|&(i, k)| k == 1 || tiles.contains(&(i, k - 1)))
++    }
++
++    #[test]
++    fn the_supposition_starts_from_a_real_moment() {
++        let p = stretch_proof(&POP, 6, 13).unwrap();
++        let (from, to) = (Ratio::new(6, 1), Ratio::new(13, 1));
++        assert_eq!(p.then_seats, vec![0, 2, 4]);
++        assert_eq!(p.now_seats, vec![1, 3, 9]);
++        // at 6 the rule really hands out Birch's second, already entered,
++        // and it ends later than the tile supposed missing
++        assert_eq!((p.later.town, p.later.k), (BIRCH, 2));
++        assert!(p.later.start < from && p.later.end > p.missing.end);
++        assert_eq!(mixed(p.later.end), "8 2/3");
++        // the missing tile is Cedar's next at 6: not entered there (it starts
++        // exactly at 6), ending sooner, and passed by 13
++        assert_eq!((p.missing.town, p.missing.k), (CEDAR, p.then_seats[CEDAR] + 1));
++        assert_eq!(p.missing.start, from);
++        assert!(p.missing.end <= to);
++        assert_eq!(mixed(p.missing.end), "7 1/2");
++    }
++
++    #[test]
++    fn no_state_of_the_picture_is_an_impossible_run() {
++        let p = stretch_proof(&POP, 6, 13).unwrap();
++        let before = held(&p.now_seats);
++        let during = held(&p.then_seats);
++        let mut after = during.clone();
++        after.extend(p.real_after.iter().map(|t| (t.town, t.k)));
++        // what fades at "Suppose one were" comes back at "no passed tile":
++        // seven tiles out, the same seven in
++        assert_eq!(p.real_after.len(), 7);
++        let (mut sorted_before, mut sorted_after) = (before.clone(), after.clone());
++        sorted_before.sort_unstable();
++        sorted_after.sort_unstable();
++        assert_eq!(sorted_before, sorted_after);
++        assert!(is_a_run(&before) && is_a_run(&during) && is_a_run(&after));
++        // nothing solid during the supposition was handed out after `then`
++        assert!(p.real_after.iter().all(|t| !during.contains(&(t.town, t.k))));
++        // negative control: the old picture, the run at 13 less Cedar's eighth
++        let old: Vec<(usize, u64)> = before.iter().copied().filter(|&t| t != (CEDAR, 8)).collect();
++        assert!(!is_a_run(&old));
++        // and the missing tile itself is really handed out, right after `then`
++        assert_eq!(p.real_after[0], p.missing);
++    }
++
++    #[test]
++    fn the_counts_on_screen_hold() {
++        let p = stretch_proof(&POP, 6, 13).unwrap();
++        let seats = 7_u64;
++        // the rings: one per whole tile inside, the missing one among them
++        assert!(p.inside.contains(&p.missing));
++        let mut sum = 0;
++        for (i, &pop) in POP.iter().enumerate() {
++            let rings = p.inside.iter().filter(|t| t.town == i).count() as u64;
++            assert_eq!(rings, tiles_inside(&POP, i, 6, 13));
++            // the bound beside each row, n <= seats * p / P, exactly
++            assert!(u128::from(rings) * u128::from(total(&POP)) <= u128::from(seats) * u128::from(pop));
++            sum += rings;
++        }
++        assert_eq!(sum, 5);
++        // the chips: one per seat handed out since then, plus the missing
++        // tile, one more than the stretch holds or has room for
++        let chips = p.real_after.len() as u64 + 1;
++        assert_eq!(chips, seats + 1);
++        assert!(sum < chips && seats < chips);
++    }
++
++    #[test]
++    fn every_tile_is_ruled_out_or_inside_exactly_once() {
++        let p = stretch_proof(&POP, 6, 13).unwrap();
++        let (from, to) = (Ratio::new(6, 1), Ratio::new(13, 1));
++        for i in 0..POP.len() {
++            for k in (1..).take_while(|&k| tile_end(&POP, i, k - 1) < Ratio::new(39, 2)) {
++                let t = seat_tile(&POP, i, k);
++                let classes = [t.start < from, t.start >= from && t.end > to, p.inside.contains(&t)];
++                assert_eq!(classes.iter().filter(|&&c| c).count(), 1, "{i} {k}");
++            }
++        }
++    }
++
++    #[test]
++    fn the_real_run_at_now_keeps_both_halves_of_the_promise() {
++        let p = stretch_proof(&POP, 6, 13).unwrap();
++        let to = Ratio::new(13, 1);
++        assert!(within_quota(&p.now_seats, &POP, 13));
++        for (i, &n) in p.now_seats.iter().enumerate() {
++            // no tile it has not entered is handed out
++            assert!(seat_tile(&POP, i, n).start < to);
++            // and every tile it has passed is
++            assert!(seat_tile(&POP, i, n + 1).end > to);
++        }
++    }
++
+     #[test]
+     fn formatting() {
+         assert_eq!(decimal(share(&POP, ASH, 15), 2), "1.54");

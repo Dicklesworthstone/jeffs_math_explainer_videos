@@ -1,0 +1,42 @@
+== Independence
+  rate02/rate_law.rs equals my earlier review candidate: True
+  rate02/rate_model.rs equals my earlier review candidate: True
+== factorials.rs TEXT use
+  line 68: TEXT[0] = 'Where the factorials come from'
+  line 106: TEXT[22] = 'A finite polynomial loses its highest power'
+  line 172: TEXT[23] = 'The infinite tail needs a proof'
+  never drawn: TEXT[13] = 'a = ?'
+  never drawn: TEXT[17] = '1/2'
+  never drawn: TEXT[18] = '1/6'
+  never drawn: TEXT[19] = '1/24'
+  never drawn: TEXT[21] = 'Which coefficient makes the constant column agree?'
+  never drawn: TEXT[24] = 'Uniform convergence on every bounded interval'
+== product_grid.rs TEXT use
+  TEXT[0] drawn: 'Why addition becomes multiplication'
+  TEXT[1] drawn: 'A corner of an infinite grid'
+  TEXT[2] drawn: 'What is the degree-two diagonal?'
+  TEXT[3] NEVER DRAWN: 'Complete diagonals: degrees 0 through 3'
+  TEXT[4] drawn: 'Absolute convergence permits regrouping'
+== prediction holds
+  rate_law: predict mark True, music_breath True, bare wait(4.0) False
+  factorials: predict mark False, music_breath False, bare wait(4.0) True
+  product_grid: predict mark False, music_breath False, bare wait(4.0) True
+== names used only in tests (a binary crate warns on these under -D warnings)
+  series_model.rs: append_facts has no non-test caller (tests: 0)
+  product_model.rs: choose has no non-test caller (tests: 1)
+  rate_model.rs: append_facts has no non-test caller (tests: 0)
+== helpers the scenes call that a model file must export
+  factorials: imports ['ORDERS', 'PLOT_SEGMENTS', 'PLOT_TOP', 'RADIUS', 'TAIL_ORDER', 'coefficient', 'plot_x', 'sum', 'tail_bound']; all exported: True
+  product_grid: imports ['SIDE', 'cell_tex', 'diagonal', 'total_tex']; all exported: True
+== facts01: candidate rate_model is the reviewed model plus append_facts
+  equal after removing append_facts: True
+  oracle.py: candidate hash ok True; baseline equals canonical
+  facts.rs: candidate hash ok True; baseline equals canonical
+  main.rs: candidate hash ok True; baseline equals canonical
+  rate_model.rs: candidate hash ok True; new file
+== stale statements
+  rate02 README says 244 words: True; the slice has 248
+  rate02 README says two Rust tests in rate_model.rs: True; it has 4
+  series README cites 324 tail samples; series oracle.py computes tail samples: False
+  series README says the bound shows upward-rounded: True; series_model.rs rounds up: False
+  product oracle emits fact rows: False; product_model has append_facts: False

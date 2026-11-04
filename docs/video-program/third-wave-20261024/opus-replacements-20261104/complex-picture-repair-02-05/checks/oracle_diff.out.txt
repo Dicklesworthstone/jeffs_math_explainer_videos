@@ -1,0 +1,6 @@
+baseline: exit 0; # 120 facts, 0 failed cross-checks
+candidate: exit 0; # 121 facts, 0 failed cross-checks
+  + square.circle.in_radius	0.5
+counters' finals: 1 2 so the cards read 1.00 2.00
+the new key directly precedes its neighbour in facts.rs and in the oracle: True
+PASS

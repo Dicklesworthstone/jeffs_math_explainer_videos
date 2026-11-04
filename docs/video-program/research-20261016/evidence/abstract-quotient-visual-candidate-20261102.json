@@ -1,0 +1,20 @@
+{
+  "created_utc": "2026-11-02T15:11:10.494228+00:00",
+  "status": "research-only candidate; not installed, compiled, rendered, listened to, or independently accepted",
+  "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/abstract_algebra_visual/src/chapters/quotient.rs",
+  "source_sha256": "82ff29062af95c13fdeeead3a5fab38d865c2b86a1dc4a1f30e63121fe3ab789",
+  "model": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/abstract_algebra_visual/src/model.rs",
+  "model_sha256": "4b22702aed0708ccd5cf6d5f06ee426c2b97004bdf57985c7d21d80b9668a2bd",
+  "script": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/abstract_algebra_visual/script.tsv",
+  "script_sha256": "d046477e8a1d1a2c94fd52e1794f29d144542b7e94f949a4567052a381eefdfc",
+  "candidate": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/research-20261016/evidence/abstract-quotient-visual-candidate-20261102.rs",
+  "candidate_sha256": "f4a6153b85e76ec29d8f062295f13564d7f8e27b2b3485a0981a5f45b5ae5bb7",
+  "patch": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/research-20261016/evidence/abstract-quotient-visual-candidate-20261102.patch",
+  "patch_sha256": "5a42d27592cc43a0c9315a8f91850125701a9d8ed1744587d56d688898aa0f3e",
+  "intent": "Show two model-computed marked square outcomes beside staged e*r and s*r class results; preserve existing script and cue timing calls.",
+  "risks": [
+    "No type-check or actual rendering; label clearance, color discrimination, position and timing unverified.",
+    "Exact coordinates and memberships require mathematical and independent pedagogical review.",
+    "Production source and map remain untouched; rebind source-held map and rebuild under guard if authorized."
+  ]
+}

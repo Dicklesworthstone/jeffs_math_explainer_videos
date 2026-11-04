@@ -1,0 +1,109 @@
+Baselines, stage04 bytes:
+  new checker, stage04 as it stands: exit 0; 80 cues, 364 sentences, 80 said; 0 failures; last line 'OK'
+    registered modules read, in registry order: ratio_ruler, building_ruler, slide_rule, folded_decade, undoing_growth, complex_turns, lifting_loops, branch_cut, product_rule, matrix_logs, doing_nothing, unreachable, what_it_forgets
+    other declared modules read, none may narrate: draw, mod, thumbnail
+    not declared in mod.rs, so not compiled and not read: bookends.rs, doing_nothing.rs.orig, matrix_log.rs, product_law.rs, real_inverse.rs, winding.rs
+    product_rule.rs:339 until_sentence(08_4, k + 1) runs 1 to 4 of 7 sentences
+    other cue helpers called, not checked here: until_phrase 22, until_share 3, phrase_time 12, phrase_seconds 3, sentence_time 3, sentence_starts 11
+  old checker, stage04 as it stands: exit 1; 80 cues, 364 sentences, 80 said; 27 failures
+  old checker, registered scene code only: exit 0; 80 cues, 364 sentences, 80 said; 0 failures; last line 'OK'
+
+The informational digit listing (old on scene code, new on stage04):
+  old lists 182, new lists 187
+  in old's and not new's: 0
+
+Plants. old = old checker on scene code; new = candidate on all of stage04.
+ old new  plant
+  1   1   real say removed; the test string that names it stays
+      04_5: said 0 times (never)
+  0   1   real say replaced by a comment
+      04_5: said 0 times (never)
+  0   1   real say replaced by a block comment
+      04_5: said 0 times (never)
+  1   1   real say replaced by a string
+      04_5: said 0 times (never)
+  0   1   real say replaced by a raw string
+      04_5: said 0 times (never)
+  1   1   real say moved into a cfg(test) helper
+      04_5: said 0 times (never)
+  1   1   real say moved to a retired file
+      04_5: said 0 times (never)
+  1   1   real hook past the end of its cue
+      product_rule.rs:342: until_sentence(08_4, 99) but 08_4 has 7 sentences
+  1   1   real hook at index zero
+      product_rule.rs:342: until_sentence(08_4, 0) but 08_4 has 7 sentences
+  1   1   real hook going backwards
+      product_rule.rs:345: until_sentence(08_4, 2) goes backwards
+  1   1   real hook on a cue that isn't the current line
+      product_rule.rs:345: until_sentence(08_3, 1) while 08_4 is the current line
+  1   1   real hook on an unknown cue
+      product_rule.rs:345: unknown cue 08_99
+  1   1   a real say duplicated
+      08_5: said 2 times (product_rule.rs, product_rule.rs)
+  1   1   a real say out of order
+      product_rule.rs:349: 08_4 said after 08_5
+  1   1   a real say on an unknown cue
+      product_rule.rs:349: unknown cue 08_99
+  1   1   a real say in the wrong chapter
+      building_ruler.rs:98: 00_5 said in chapter 01_building_ruler
+  1   1   a say with a computed cue
+      product_rule.rs:349: say(stage , id) does not name a literal cue
+  0   1   the computed hook pushed past its cue
+      product_rule.rs:339: until_sentence(08_4, k + 9) has a computed index: nobody has reviewed this computed index
+  0   1   the computed hook's loop reversed
+      product_rule.rs:339: until_sentence(08_4, k + 1) has a computed index: its reviewed loop `for ( k , & m ) in steps . iter ( ) . enumerate ( ) {` chang
+  0   1   the computed hook's array grown past the cue
+      product_rule.rs:339: until_sentence(08_4, k + 1) but 08_4 has 7 sentences
+  1   1   a say in an unmarked module called tests
+      08_5: said 2 times (product_rule.rs, product_rule.rs)
+  0   1   a cfg(not(test)) in a chapter
+      product_rule.rs: line 535: a cfg this check can't evaluate: cfg ( not ( test ) )
+  -   1   a say in a helper module
+      draw.rs:780: say 08_5 in a module the registry does not run
+  -   1   the retired bookends.rs declared again
+      bookends.rs:25: say 00_1 in a module the registry does not run
+  1   1   a registered file missing
+      mod.rs registry names matrix_logs, but matrix_logs.rs is missing
+  0   1   an empty registry
+      mod.rs registry is empty
+  1   1   two chapters swapped in the registry
+      mod.rs registry out of order: ['01', '00', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12']
+  0   1   a registered module not declared
+      mod.rs registry names matrix_logs, which mod.rs does not declare
+  -   1   the registry pointed at a retired module
+      mod.rs registry names matrix_log, which mod.rs does not declare
+  1   1   a chapter key renumbered
+      mod.rs registry ['00', '01', '02', '03', '04', '05', '06', '07', '08', '19', '10', '11', '12'] does not cover cue prefixes ['00', '01', '02', '03', '0
+  1   1   a cue row duplicated in the script
+      duplicate cue ids in script.tsv: 08_5
+  1   1   digits in spoken text
+      01_1: digits in spoken text
+  1   1   a script row with no tab
+      script.tsv:84: no tab between cue id and text
+  1   1   a said cue dropped from the script
+      product_rule.rs:349: unknown cue 08_5
+  1   1   a new cue nobody says
+      12_99: said 0 times (never)
+  1   0   a comment that repeats a real say
+  0   0   a char literal holding a quote before a real say
+  1   0   a string with hook text in it, the real say kept
+  1   0   another test fixture naming a bad hook
+
+39 plants: 35 must refuse, 4 must pass, 0 wrong
+Refused by new and passed by old (9):
+  real say replaced by a comment
+  real say replaced by a block comment
+  real say replaced by a raw string
+  the computed hook pushed past its cue
+  the computed hook's loop reversed
+  the computed hook's array grown past the cue
+  a cfg(not(test)) in a chapter
+  an empty registry
+  a registered module not declared
+Passed by new and refused by old (3). Each is text that is not a compiled call:
+  a comment that repeats a real say
+  a string with hook text in it, the real say kept
+  another test fixture naming a bad hook
+
+Canonical crate, for information only. No gate reads this.
+  new checker: exit 0; 75 cues, 364 sentences, 75 said; 0 failures

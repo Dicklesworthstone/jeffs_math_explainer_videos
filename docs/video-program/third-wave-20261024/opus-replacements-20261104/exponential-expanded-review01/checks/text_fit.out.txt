@@ -1,0 +1,27 @@
+coverage of characters these scenes send to Text (fallback chain: CM, then Noto Sans Math, then IBM Plex Sans):
+  '²' U+00B2: served by Plex
+  '³' U+00B3: served by Plex
+  '⁴' U+2074: served by Plex
+  '≤' U+2264: served by math
+  '|' U+007C: served by CM
+  '=' U+003D: served by CM
+  '/' U+002F: served by CM
+  '?' U+003F: served by CM
+  ':' U+003A: served by CM
+  ',' U+002C: served by CM
+  '.' U+002E: served by CM
+text extents (scene units; the frame is +/-7.11):
+  factorials:  4.83 wide,  -2.41 to  2.41  'Where the factorials come from'
+  factorials:  5.51 wide,  -2.75 to  2.75  'Which coefficient makes the constant column agree?'
+  factorials:  4.64 wide,  -2.32 to  2.32  'A finite polynomial loses its highest power'
+  factorials:  3.26 wide,  -1.63 to  1.63  'The infinite tail needs a proof'
+  factorials:  5.24 wide,  -2.62 to  2.62  'Uniform convergence on every bounded interval'
+  factorials:  1.00 wide,   2.10 to  3.10  'derivative'
+  factorials:  2.63 wide,  -1.31 to  1.31  'partial sums on fixed axes'
+  factorials:  3.61 wide,  -1.80 to  1.80  '|x| ≤ 1.5, degree 4: tail ≤ 0.08438'
+  product_grid:  5.58 wide,  -2.79 to  2.79  'Why addition becomes multiplication'
+  product_grid:  2.59 wide,  -3.40 to -0.80  'A corner of an infinite grid'
+  product_grid:  3.38 wide,   1.21 to  4.59  'What is the degree-two diagonal?'
+  product_grid:  3.97 wide,  -1.99 to  1.99  'Absolute convergence permits regrouping'
+  product_grid:  3.91 wide,   1.05 to  4.95  'Complete diagonals: degrees 0 through 3'
+product_grid: question's left edge 1.21; the grid's rules end at 0.50

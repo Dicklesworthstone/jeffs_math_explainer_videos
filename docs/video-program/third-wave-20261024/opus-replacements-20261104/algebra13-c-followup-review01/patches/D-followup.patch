@@ -1,0 +1,24 @@
+--- a/explainer_corpus/abstract_algebra_expanded/src/arithmetic.rs
++++ b/explainer_corpus/abstract_algebra_expanded/src/arithmetic.rs
+@@ -198,8 +198,10 @@
+         kit.until_sentence(stage, "13_3", 3)?;
+         left_label = caption(stage, &kit, "r²", LEFT_LABEL.0, LEFT_LABEL.1)?;
+         kit.until_sentence(stage, "13_3", 4)?;
+-        left_label = step(stage, &kit, left, 3., left_label, "r³", LEFT_LABEL)?;
+-        stage.wait(0.6)?;
++        fade(stage, &[left_label], false)?;
++        perform(stage, left, 3., LONE_RT, &[])?;
++        left_label = caption(stage, &kit, "r³", LEFT_LABEL.0, LEFT_LABEL.1)?;
++        kit.until_sentence(stage, "13_3", 5)?;
+         // Four turns bring the tile home; the name e waits for the sentence defining it.
+         fade(stage, &[left_label], false)?;
+         advance(stage, left, 4.)?;
+@@ -296,6 +298,8 @@
+         perform(stage, undo, 1., 0.8, &[])?;
+         perform(stage, undo, 4., 1.4, &[])?;
+         let mut undo_label = caption(stage, &kit, "r³ r = e", 0., -2.)?;
++        // The sum stays readable even if this take's sentence window is shorter than measured.
++        stage.wait(0.35)?;
+         kit.until_sentence(stage, "13_8", 3)?;
+         undo_label = replace(stage, &kit, undo_label, "Half-turn, then half-turn", 0., BELOW_TURNING)?;
+         perform(stage, undo, 6., 0.7, &[])?;

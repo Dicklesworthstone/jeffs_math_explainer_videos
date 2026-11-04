@@ -1,0 +1,11 @@
+5aca13aa255f842986bebe0ccbbdfde2064d5233db1da10e9f31996fb67df3ff  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra17-coset-followup-review01/REVIEW.md
+f4f43fe34f147e877078d5220f1b0d98c8f75503818cef5dc103e1d2b76d8f39  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra17-coset-followup-review01/base.sha256
+22d73671a6617fece84e200dbc9878bd8f3b38e4ae117cd20d047640e9c04097  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra17-coset-followup-review01/checks/build_patches.py
+e744b3cc504a3e451168100e7f049d443bc5d9f8cbe1a4b3cd325e2e6c51a80b  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra17-coset-followup-review01/checks/seal.py
+2720efca89b1b2ceb25134ac5d3a19f50b6ec220360fc2f68a12fec0621af2f6  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra17-coset-followup-review01/checks/verify.out
+eaa7b1dfe1613be835f71dcd6f5d3a8a22efb37571292efe7db48fd9ecf4126d  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra17-coset-followup-review01/checks/verify.py
+40adfb7bac1d9f9b980897adc08ba3211509cf4897db816ef1f38c56b1877e57  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra17-coset-followup-review01/coverage/sheets-viewed.tsv
+d78de031300069a1fe6954bc885f6347572bb5d12c8209a33e2c3704517b4464  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra17-coset-followup-review01/patches/keep-the-step-in-view.patch
+7f000171ae4c96c81e83c9afa577db3250eb8a71049e0aa1a9dafeefbe91e4e7  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra17-coset-followup-review01/patches/left-coset-wording.script.patch
+8d6d7e0bb0a76d7a9543ca32e351501ea97bbad0411bdb7d0ce422b0118007b5  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra17-coset-followup-review01/patches/prompt-names-the-side.patch
+246a0d4c70525d3fc73f8796ed45970f04201b1fa58f9e4fa02f4ba15cbf9658  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra17-coset-followup-review01/patches/waits-are-pinned.test.patch

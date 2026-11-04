@@ -1,0 +1,793 @@
+//! A bounded native comparison of colour-plate candidates: stills and fades as lossless PNG
+//! frames from the film's own picture code, for `checks/measure_lab.py` and a person's eye.
+//!
+//! ```text
+//! cargo run --release --example plate_lab -- OUT --res 3840x2160 [--dry-run]
+//!     [--stage stills|fades|repaints,...] [--subjects z,tan,...] [--candidates now,tile,...] [--no-truth]
+//! ```
+//!
+//! No narration, no score, no ffmpeg, and the film's binary is not touched: this is its own
+//! program over the film's sources. `OUT` must not exist, and nothing in it is overwritten. The
+//! plan is printed first, and a plan over [`FRAME_LIMIT`] frames is refused. Everything else
+//! about the render is the engine's default, as the film's own render is: standard determinism,
+//! adaptive antialiasing.
+//!
+//! Writes, under `OUT`:
+//!   `stills/SUBJECT__CANDIDATE/`, `fades/...`, `repaints/...`: `frame_000000.png` and on
+//!   `truth/SUBJECT.ppm`: the plate's box, 16 samples a pixel from `model::portrait`
+//!   `plates.tsv`: each subject's box in pixels
+//!   `receipt.tsv`: per scene, wall time, cells, evaluation time, and what the records held
+
+#![allow(dead_code)] // the film's draw.rs and model.rs, of which this uses a part
+
+#[path = "../src/chapters/draw.rs"]
+mod draw;
+#[path = "../src/facts.rs"]
+mod facts;
+#[path = "../src/model.rs"]
+mod model;
+#[path = "../src/plate_layout.rs"]
+mod plate_layout;
+
+use std::error::Error;
+use std::fs;
+use std::io::Write as _;
+use std::path::{Path, PathBuf};
+use std::time::Instant;
+
+use draw::{PLATE_BLEND, PLATE_CELLS2, PLATE_CELLS4, PLATE_NOW, PLATE_ROWS2, PLATE_TILE, Painter, Plane, PlateStyle};
+use explainer_kit::narration::wait_frames;
+use explainer_kit::plot::children;
+use explainer_kit::{BACKGROUND, v};
+use fmn::prelude::*;
+use model::{C, Func};
+
+/// What `crate::SCRIPT` is to the film.
+pub(crate) const SCRIPT: &str = include_str!("../script.tsv");
+/// `draw.rs` reads these through `super::`, and nothing here asks a question or holds a window.
+pub const PREDICTS: &[(&str, f64)] = &[];
+pub const READING_WINDOWS: &[(&str, f64)] = &[];
+/// The test build of `model.rs` and `facts.rs` may ask for it, as the film's does.
+#[cfg(test)]
+pub(crate) const STORYBOARD: &str = include_str!("../docs/storyboard.md");
+
+/// The hard ceiling on a plan, in frames, whatever the arguments say.
+const FRAME_LIMIT: u64 = 160;
+/// Three frames in each second of a fade: opacities near a quarter and three quarters.
+const FADE_FPS: u32 = 3;
+const FADE_FRAMES: u64 = 7;
+const REPAINT_FRAMES: u64 = 3;
+/// Samples per axis in a pixel of the truth.
+const TRUTH_SAMPLES: usize = 4;
+
+#[derive(Clone, Copy)]
+struct Subject {
+    key: &'static str,
+    func: Func,
+    plane: fn() -> Plane,
+    enhance: f64,
+}
+
+/// The centre of the tile `gallery.rs` zooms into, from its `tile_centre()` with `TILE_SEED`
+/// 0.55 + 0.95i and `TILE_STEPS` 16. `checks/stair_model.py` recomputes this from that code.
+const TILE_CENTRE: (f64, f64) = (0.613_822, 1.063_171);
+
+fn reading_plane() -> Plane {
+    Plane::new(v(-2.6, -0.25), 6.4, (-2.0, 2.0), (-2.0, 2.0))
+}
+fn gallery_trig_plane() -> Plane {
+    Plane::new(v(-2.4, -0.1), 8.4, (-6.6, 6.6), (-3.3, 3.3))
+}
+fn zoom_plane() -> Plane {
+    let (x, y) = TILE_CENTRE;
+    Plane::new(v(2.6, -0.3), 5.0, (x - 0.65, x + 0.65), (y - 0.65, y + 0.65))
+}
+fn sin_recip_plane() -> Plane {
+    Plane::new(v(-2.8, 0.0), 5.6, (-0.42, 0.42), (-0.42, 0.42))
+}
+fn sine_plane() -> Plane {
+    Plane::new(v(-2.8, -0.3), 6.0, (-4.0, 4.0), (-3.5, 3.5))
+}
+fn small_plane() -> Plane {
+    Plane::new(v(1.5, -1.0), 2.8, (-1.2, 1.2), (-1.2, 1.2))
+}
+fn residue_bump_plane() -> Plane {
+    Plane::new(v(-3.4, -0.3), 5.0, (-2.0, 2.0), (-2.0, 2.0))
+}
+fn opening_bump_plane() -> Plane {
+    Plane::new(v(-3.3, -0.35), 5.6, (-2.5, 2.5), (-2.5, 2.5))
+}
+
+/// Hue alone (`z`), then each enhanced kind of picture that was flagged: flat bands (`tan`), the
+/// zoom's large cells, chapter 10's two plates (Mail 2542), chapter 12's smallest plate and its
+/// bump (Mail 2591), and chapter 14's opening plate (Mail 2614).
+const SUBJECTS: [Subject; 9] = [
+    Subject {
+        key: "z",
+        func: Func::Identity,
+        plane: reading_plane,
+        enhance: 0.0,
+    },
+    Subject {
+        key: "z2",
+        func: Func::Square,
+        plane: reading_plane,
+        enhance: 1.0,
+    },
+    Subject {
+        key: "tan",
+        func: Func::Tan,
+        plane: gallery_trig_plane,
+        enhance: 1.0,
+    },
+    Subject {
+        key: "zoom",
+        func: Func::Cubic,
+        plane: zoom_plane,
+        enhance: 1.0,
+    },
+    Subject {
+        key: "sinrecip",
+        func: Func::SinRecip,
+        plane: sin_recip_plane,
+        enhance: 1.0,
+    },
+    Subject {
+        key: "sin",
+        func: Func::Sin,
+        plane: sine_plane,
+        enhance: 1.0,
+    },
+    Subject {
+        key: "recip",
+        func: Func::Recip,
+        plane: small_plane,
+        enhance: 1.0,
+    },
+    Subject {
+        key: "bump",
+        func: Func::Bump,
+        plane: residue_bump_plane,
+        enhance: 1.0,
+    },
+    Subject {
+        key: "openbump",
+        func: Func::Bump,
+        plane: opening_bump_plane,
+        enhance: 1.0,
+    },
+];
+
+#[derive(Clone, Copy)]
+struct Candidate {
+    key: &'static str,
+    style: PlateStyle,
+    /// Flatten every row to its first colour after the build, a planted loss of vertex colours
+    /// that `measure_lab.py` has to catch.
+    flatten: bool,
+}
+
+const fn candidate(key: &'static str, style: PlateStyle) -> Candidate {
+    Candidate {
+        key,
+        style,
+        flatten: false,
+    }
+}
+
+/// Every candidate. `now` is the positive control: it has to show the seams.
+const CANDIDATES: [Candidate; 11] = [
+    candidate("now", PLATE_NOW),
+    // Mail 2167's overlap, and one of 0.6 px at 4K: what a fade does to double-covered rows
+    candidate(
+        "overlap",
+        PlateStyle {
+            overlap: 0.012,
+            ..PLATE_NOW
+        },
+    ),
+    candidate(
+        "overlap06",
+        PlateStyle {
+            overlap: 0.6 / 270.0,
+            ..PLATE_NOW
+        },
+    ),
+    candidate("tile", PLATE_TILE),
+    // no guard: the one row at 1080p the desk model predicts is for this to show
+    candidate(
+        "tile_raw",
+        PlateStyle {
+            overlap: 0.0,
+            ..PLATE_TILE
+        },
+    ),
+    candidate(
+        "tile_p3",
+        PlateStyle {
+            samples: 2,
+            ..PLATE_TILE
+        },
+    ),
+    candidate("blend", PLATE_BLEND),
+    candidate("rows2", PLATE_ROWS2),
+    candidate("cells2", PLATE_CELLS2),
+    candidate("cells4", PLATE_CELLS4),
+    Candidate {
+        key: "flat_control",
+        style: PLATE_NOW,
+        flatten: true,
+    },
+];
+
+#[derive(Clone, Copy, PartialEq)]
+enum Kind {
+    Still,
+    Fade,
+    Repaint,
+}
+
+impl Kind {
+    const fn dir(self) -> &'static str {
+        match self {
+            Self::Still => "stills",
+            Self::Fade => "fades",
+            Self::Repaint => "repaints",
+        }
+    }
+
+    const fn frames(self) -> u64 {
+        match self {
+            Self::Still => 1,
+            Self::Fade => FADE_FRAMES,
+            Self::Repaint => REPAINT_FRAMES,
+        }
+    }
+
+    const fn fps(self) -> u32 {
+        match self {
+            Self::Still => 1,
+            Self::Fade | Self::Repaint => FADE_FPS,
+        }
+    }
+}
+
+#[derive(Clone, Copy)]
+struct Job {
+    kind: Kind,
+    subject: Subject,
+    candidate: Candidate,
+}
+
+/// The full plan: which candidate each subject and kind of scene needs. Finer rungs are
+/// bracketed on the two pictures that ask most of them, and controls on one.
+fn plan() -> Vec<Job> {
+    let mut out = Vec::new();
+    let mut add = |kind: Kind, subjects: &[&str], candidates: &[&str]| {
+        for s in subjects {
+            for c in candidates {
+                out.push(Job {
+                    kind,
+                    subject: *SUBJECTS.iter().find(|x| x.key == *s).expect("a known subject"),
+                    candidate: *CANDIDATES.iter().find(|x| x.key == *c).expect("a known candidate"),
+                });
+            }
+        }
+    };
+    add(
+        Kind::Still,
+        &["z", "z2", "tan", "zoom", "sinrecip", "sin"],
+        &[
+            "now",
+            "overlap",
+            "overlap06",
+            "tile",
+            "tile_p3",
+            "blend",
+            "rows2",
+            "cells2",
+        ],
+    );
+    add(
+        Kind::Still,
+        &["recip", "bump", "openbump"],
+        &["now", "tile", "blend", "rows2", "cells2"],
+    );
+    add(Kind::Still, &["z2", "sinrecip"], &["cells4"]);
+    add(Kind::Still, &["z"], &["tile_raw", "flat_control"]);
+    add(Kind::Fade, &["z"], &["now", "overlap", "overlap06", "tile", "blend"]);
+    add(Kind::Fade, &["tan", "bump"], &["now", "tile", "blend"]);
+    add(Kind::Repaint, &["z2"], &["now", "blend", "rows2"]);
+    out
+}
+
+struct Args {
+    out: PathBuf,
+    res: (u32, u32),
+    dry_run: bool,
+    truth: bool,
+    stages: Option<Vec<String>>,
+    subjects: Option<Vec<String>>,
+    candidates: Option<Vec<String>>,
+}
+
+fn parse_args(mut raw: impl Iterator<Item = String>) -> Result<Args, Box<dyn Error>> {
+    let mut args = Args {
+        out: PathBuf::from(
+            raw.next()
+                .ok_or("usage: plate_lab OUT --res WxH [options]; see the source's header")?,
+        ),
+        res: (0, 0),
+        dry_run: false,
+        truth: true,
+        stages: None,
+        subjects: None,
+        candidates: None,
+    };
+    let list = |value: Option<String>, flag: &str| -> Result<Vec<String>, Box<dyn Error>> {
+        Ok(value
+            .ok_or_else(|| format!("{flag} needs a value"))?
+            .split(',')
+            .map(str::to_owned)
+            .collect())
+    };
+    while let Some(flag) = raw.next() {
+        match flag.as_str() {
+            "--res" => {
+                let value = raw.next().ok_or("--res needs WxH")?;
+                let (w, h) = value.split_once('x').ok_or("--res needs WxH")?;
+                args.res = (w.parse()?, h.parse()?);
+            }
+            "--dry-run" => args.dry_run = true,
+            "--no-truth" => args.truth = false,
+            "--stage" => args.stages = Some(list(raw.next(), "--stage")?),
+            "--subjects" => args.subjects = Some(list(raw.next(), "--subjects")?),
+            "--candidates" => args.candidates = Some(list(raw.next(), "--candidates")?),
+            other => return Err(format!("unknown argument {other}").into()),
+        }
+    }
+    let (w, h) = args.res;
+    // the frame is 16:9 with 8 scene units of height, which the plates and measures rely on
+    if h == 0 || u64::from(w) * 9 != u64::from(h) * 16 || h > 2160 {
+        return Err("--res must be 16:9 and at most 3840x2160".into());
+    }
+    Ok(args)
+}
+
+fn chosen(key: &str, filter: Option<&Vec<String>>) -> bool {
+    filter.is_none_or(|f| f.iter().any(|k| k == key))
+}
+
+fn selected(args: &Args) -> Result<Vec<Job>, Box<dyn Error>> {
+    for (filter, known, what) in [
+        (
+            &args.subjects,
+            SUBJECTS.iter().map(|s| s.key).collect::<Vec<_>>(),
+            "subject",
+        ),
+        (
+            &args.candidates,
+            CANDIDATES.iter().map(|c| c.key).collect::<Vec<_>>(),
+            "candidate",
+        ),
+        (&args.stages, vec!["stills", "fades", "repaints"], "stage"),
+    ] {
+        for key in filter.iter().flatten() {
+            if !known.contains(&key.as_str()) {
+                return Err(format!("unknown {what} {key}; one of {known:?}").into());
+            }
+        }
+    }
+    Ok(plan()
+        .into_iter()
+        .filter(|j| {
+            chosen(j.kind.dir(), args.stages.as_ref())
+                && chosen(j.subject.key, args.subjects.as_ref())
+                && chosen(j.candidate.key, args.candidates.as_ref())
+        })
+        .collect())
+}
+
+/// What a scene saw of its own records, for the receipt.
+#[derive(Default)]
+struct Seen {
+    cols: usize,
+    rows: usize,
+    evaluate_s: f64,
+    build_s: f64,
+    records: &'static str,
+}
+
+/// The colour lanes of a picture's first, middle and last rows.
+fn sample_lanes(stage: &Stage<'_>, rows: &[Mob]) -> Vec<Vec<f32>> {
+    [0, rows.len() / 2, rows.len() - 1]
+        .iter()
+        .filter_map(|&i| stage.get(rows[i]).and_then(|e| e.buffer.read_column("stroke_rgba")))
+        .collect()
+}
+
+/// Do `now`'s lanes hold what `then`'s did, apart from `alpha` where the record was opaque?
+fn same_colours(then: &[Vec<f32>], now: &[Vec<f32>], alpha: Option<f32>) -> bool {
+    then.len() == now.len()
+        && then.iter().zip(now).all(|(a, b)| {
+            a.len() == b.len()
+                && a.as_chunks::<4>().0.iter().zip(b.as_chunks::<4>().0).all(|(x, y)| {
+                    let rgb = (0..3).all(|i| (x[i] - y[i]).abs() <= 1e-6);
+                    rgb && match alpha {
+                        None => (x[3] - y[3]).abs() <= 1e-6,
+                        Some(want) => x[3] == 0.0 && y[3] == 0.0 || (y[3] - want).abs() <= 1e-6,
+                    }
+                })
+        })
+}
+
+/// Write each row's first colour over the whole row: the planted loss of vertex colours.
+fn flatten(stage: &mut Stage<'_>, rows: &[Mob]) -> bool {
+    rows.iter().all(|&m| {
+        let Some(entry) = stage.arena_mut().get_mut(m) else {
+            return false;
+        };
+        let Some(mut lane) = entry.buffer.read_column("stroke_rgba") else {
+            return false;
+        };
+        let first = [lane[12], lane[13], lane[14]];
+        for record in lane.as_chunks_mut::<4>().0 {
+            record[..3].copy_from_slice(&first);
+        }
+        entry.buffer.write_range("stroke_rgba", 0, &lane)
+    })
+}
+
+struct Scene<F>(F);
+
+impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Scene<F> {
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        (self.0)(stage)
+    }
+}
+
+fn still(stage: &mut Stage<'_>, job: Job, seen: &mut Seen) -> fmn::Result<()> {
+    let plane = (job.subject.plane)();
+    let t = Instant::now();
+    let picture = draw::portrait_styled(
+        stage,
+        job.subject.func,
+        &plane,
+        job.subject.enhance,
+        &job.candidate.style,
+    )?;
+    seen.build_s = t.elapsed().as_secs_f64();
+    let before = sample_lanes(stage, picture.rows());
+    if job.candidate.flatten {
+        let planted = flatten(stage, picture.rows());
+        let moved = !same_colours(&before, &sample_lanes(stage, picture.rows()), None);
+        seen.records = if planted && moved {
+            "planted flat"
+        } else {
+            "PLANT FAILED"
+        };
+    } else {
+        seen.records = "as built";
+    }
+    stage.add_to_scene(picture.group)?;
+    wait_frames(stage, 1)
+}
+
+fn fade(stage: &mut Stage<'_>, job: Job, seen: &mut Seen) -> fmn::Result<()> {
+    let plane = (job.subject.plane)();
+    let t = Instant::now();
+    let painter = Painter::build_styled(
+        stage,
+        Some(job.subject.func),
+        plane,
+        job.subject.enhance,
+        job.candidate.style,
+    )?;
+    seen.build_s = t.elapsed().as_secs_f64();
+    let rows = children(stage, painter.group);
+    let before = sample_lanes(stage, &rows);
+    painter.show(stage, 1.0)?;
+    let after_in = same_colours(&before, &sample_lanes(stage, &rows), None);
+    wait_frames(stage, 1)?;
+    painter.leave(stage, 1.0)?;
+    let lanes = sample_lanes(stage, &rows);
+    let after_out = same_colours(&before, &lanes, None) || same_colours(&before, &lanes, Some(0.0));
+    seen.records = match (after_in, after_out) {
+        (true, true) => "kept through fades",
+        (false, _) => "MOVED BY THE FADE IN",
+        (true, false) => "MOVED BY THE FADE OUT",
+    };
+    Ok(())
+}
+
+/// A crossfade in place, the film's repaint: the updater writes the colour lane every twelfth of
+/// the way, which is where a blended strip's own `recolor` runs on a real render.
+fn repaint(stage: &mut Stage<'_>, job: Job, seen: &mut Seen) -> fmn::Result<()> {
+    let plane = (job.subject.plane)();
+    let t = Instant::now();
+    let painter = Painter::build_styled(
+        stage,
+        Some(job.subject.func),
+        plane,
+        job.subject.enhance,
+        job.candidate.style,
+    )?;
+    seen.build_s = t.elapsed().as_secs_f64();
+    let rows = children(stage, painter.group);
+    let before = sample_lanes(stage, &rows);
+    stage.add_to_scene(painter.group)?;
+    stage.add_to_scene(painter.anchor)?;
+    painter.to(stage, Some(Func::Cubic), 1.0)?;
+    seen.records = if same_colours(&before, &sample_lanes(stage, &rows), None) {
+        "REPAINT WROTE NOTHING"
+    } else {
+        "repainted in place"
+    };
+    Ok(())
+}
+
+fn options(path: PathBuf, res: (u32, u32), fps: u32, frames: u64) -> Result<RenderOptions, Box<dyn Error>> {
+    let mut o = RenderOptions::with_format(path, RenderFormat::PngSequence)?;
+    o.config.camera.resolution = res;
+    o.config.camera.fps = fps;
+    o.config.camera.background_color = BACKGROUND.to_owned();
+    // room for the engine's own rounding of each animation, and no more
+    o.max_frames = frames + 4;
+    Ok(o)
+}
+
+fn render_job(job: Job, out: &Path, res: (u32, u32)) -> Result<(Seen, u64, f64), Box<dyn Error>> {
+    let dir = out
+        .join(job.kind.dir())
+        .join(format!("{}__{}", job.subject.key, job.candidate.key));
+    let mut seen = Seen::default();
+    let plane = (job.subject.plane)();
+    let (cols, rows) = draw::picture_cells(&plane, &job.candidate.style);
+    seen.cols = cols;
+    seen.rows = rows;
+    // the model's evaluations alone, as a repaint makes them, with nothing else in the timing
+    let t = Instant::now();
+    let mut touched = 0usize;
+    for r in 0..rows {
+        for c in 0..cols {
+            let z = model::cell_input(plane.frame.x, plane.frame.y, cols, rows, r, c);
+            touched += usize::from(model::portrait(job.subject.func.eval(z), job.subject.enhance).is_some());
+        }
+    }
+    let per_sample = t.elapsed().as_secs_f64();
+    std::hint::black_box(touched);
+    let samples = f64::from(job.candidate.style.samples);
+    seen.evaluate_s = per_sample * samples * samples;
+
+    let opts = options(dir, res, job.kind.fps(), job.kind.frames())?;
+    let t = Instant::now();
+    let report = {
+        let seen = &mut seen;
+        let mut scene = Scene(move |stage: &mut Stage<'_>| match job.kind {
+            Kind::Still => still(stage, job, seen),
+            Kind::Fade => fade(stage, job, seen),
+            Kind::Repaint => repaint(stage, job, seen),
+        });
+        fmn::render(&mut scene, opts)?
+    };
+    Ok((seen, report.artifact.frame_count, t.elapsed().as_secs_f64()))
+}
+
+/// The plate's box in pixels: x0, y0, x1, y1, half-open, covering every pixel it touches.
+fn plate_box(plane: &Plane, (w, h): (u32, u32)) -> (u32, u32, u32, u32) {
+    let scale = f64::from(h) / 8.0;
+    let (cx, cy) = (f64::from(w) / 2.0, f64::from(h) / 2.0);
+    let x0 = (cx + plane.frame.left() * scale).floor().max(0.0) as u32;
+    let x1 = ((cx + (plane.frame.left() + plane.frame.width) * scale).ceil() as u32).min(w);
+    let y0 = (cy - plane.frame.top() * scale).floor().max(0.0) as u32;
+    let y1 = ((cy - (plane.frame.top() - plane.frame.height) * scale).ceil() as u32).min(h);
+    (x0, y0, x1, y1)
+}
+
+fn decode(c: f64) -> f64 {
+    if c <= 0.04045 {
+        c / 12.92
+    } else {
+        ((c + 0.055) / 1.055).powf(2.4)
+    }
+}
+
+fn encode(c: f64) -> f64 {
+    let c = c.clamp(0.0, 1.0);
+    if c <= 0.003_130_8 {
+        c * 12.92
+    } else {
+        1.055 * c.powf(1.0 / 2.4) - 0.055
+    }
+}
+
+/// The picture with no cells at all: `model::portrait` at `TRUTH_SAMPLES`² places in each pixel
+/// of the plate's box, averaged in linear light, background where the function has no colour.
+/// A reference for a measure, not a target: the film's plates are not meant to reach it.
+fn write_truth(subject: Subject, res: (u32, u32), path: &Path) -> Result<f64, Box<dyn Error>> {
+    let t = Instant::now();
+    let plane = (subject.plane)();
+    let (x0, y0, x1, y1) = plate_box(&plane, res);
+    let scale = f64::from(res.1) / 8.0;
+    let (cx, cy) = (f64::from(res.0) / 2.0, f64::from(res.1) / 2.0);
+    let ground = draw::ground();
+    let ground = [decode(ground.r), decode(ground.g), decode(ground.b)];
+    let n = TRUTH_SAMPLES;
+    let mut bytes = format!("P6\n{} {}\n255\n", x1 - x0, y1 - y0).into_bytes();
+    for py in y0..y1 {
+        for px in x0..x1 {
+            let mut sum = [0.0; 3];
+            for j in 0..n {
+                for i in 0..n {
+                    let sx = (f64::from(px) + (i as f64 + 0.5) / n as f64 - cx) / scale;
+                    let sy = (cy - (f64::from(py) + (j as f64 + 0.5) / n as f64)) / scale;
+                    let u = (sx - plane.frame.left()) / plane.frame.width;
+                    let w = (plane.frame.top() - sy) / plane.frame.height;
+                    let (fx, fy) = (plane.frame.x, plane.frame.y);
+                    let z = C::new(fx.0 + (fx.1 - fx.0) * u, fy.1 - (fy.1 - fy.0) * w);
+                    let colour = model::portrait(subject.func.eval(z), subject.enhance);
+                    for (k, total) in sum.iter_mut().enumerate() {
+                        *total += colour.map_or(ground[k], |c| decode(c[k]));
+                    }
+                }
+            }
+            for total in sum {
+                bytes.push((encode(total / (n * n) as f64) * 255.0 + 0.5) as u8);
+            }
+        }
+    }
+    let mut file = fs::File::create_new(path)?;
+    file.write_all(&bytes)?;
+    Ok(t.elapsed().as_secs_f64())
+}
+
+fn main() -> Result<(), Box<dyn Error>> {
+    let args = parse_args(std::env::args().skip(1))?;
+    let jobs = selected(&args)?;
+    let total: u64 = jobs.iter().map(|j| j.kind.frames()).sum();
+    println!(
+        "plan: {} scenes, {total} frames at {}x{}",
+        jobs.len(),
+        args.res.0,
+        args.res.1
+    );
+    for job in &jobs {
+        let (cols, rows) = draw::picture_cells(&(job.subject.plane)(), &job.candidate.style);
+        println!(
+            "  {:8} {:8} {:12} {:3} frames, {rows} x {cols} cells",
+            job.kind.dir(),
+            job.subject.key,
+            job.candidate.key,
+            job.kind.frames(),
+        );
+    }
+    if total > FRAME_LIMIT {
+        return Err(format!("{total} frames is over the limit of {FRAME_LIMIT}").into());
+    }
+    if args.dry_run {
+        return Ok(());
+    }
+    // refuses an existing folder: every run gets its own, and nothing is overwritten
+    fs::create_dir(&args.out)?;
+    for dir in ["stills", "fades", "repaints", "truth"] {
+        fs::create_dir(args.out.join(dir))?;
+    }
+    let mut plates = fs::File::create_new(args.out.join("plates.tsv"))?;
+    writeln!(
+        plates,
+        "subject\tres\tx0\ty0\tx1\ty1\trows_now\tcols_now\tleft\ttop\twidth\theight\tenhance\tre0\tre1\tim0\tim1"
+    )?;
+    for s in SUBJECTS {
+        let plane = (s.plane)();
+        let (x0, y0, x1, y1) = plate_box(&plane, args.res);
+        let (cols, rows) = draw::picture_cells(&plane, &PLATE_NOW);
+        writeln!(
+            plates,
+            "{}\t{}x{}\t{x0}\t{y0}\t{x1}\t{y1}\t{rows}\t{cols}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}\t{}",
+            s.key,
+            args.res.0,
+            args.res.1,
+            plane.frame.left(),
+            plane.frame.top(),
+            plane.frame.width,
+            plane.frame.height,
+            s.enhance,
+            plane.frame.x.0,
+            plane.frame.x.1,
+            plane.frame.y.0,
+            plane.frame.y.1,
+        )?;
+    }
+    let mut receipt = fs::File::create_new(args.out.join("receipt.tsv"))?;
+    writeln!(
+        receipt,
+        "kind\tsubject\tcandidate\tframes\trows\tcols\tevaluate_s\tbuild_s\trender_s\ts_per_frame\trecords"
+    )?;
+    let begun = Instant::now();
+    for job in jobs {
+        let (seen, frames, wall) = render_job(job, &args.out, args.res)?;
+        writeln!(
+            receipt,
+            "{}\t{}\t{}\t{frames}\t{}\t{}\t{:.4}\t{:.4}\t{wall:.3}\t{:.3}\t{}",
+            job.kind.dir(),
+            job.subject.key,
+            job.candidate.key,
+            seen.rows,
+            seen.cols,
+            seen.evaluate_s,
+            seen.build_s,
+            wall / frames.max(1) as f64,
+            seen.records,
+        )?;
+        receipt.flush()?;
+        println!(
+            "{}/{}__{}: {frames} frames in {wall:.1} s; records {}",
+            job.kind.dir(),
+            job.subject.key,
+            job.candidate.key,
+            seen.records,
+        );
+    }
+    if args.truth {
+        for s in SUBJECTS.iter().filter(|s| chosen(s.key, args.subjects.as_ref())) {
+            let seconds = write_truth(*s, args.res, &args.out.join("truth").join(format!("{}.ppm", s.key)))?;
+            println!("truth/{}.ppm in {seconds:.1} s", s.key);
+        }
+    }
+    println!("done in {:.0} s", begun.elapsed().as_secs_f64());
+    Ok(())
+}
+
+#[cfg(test)]
+mod lab_tests {
+    use super::*;
+
+    /// The plates here are the chapters' own, spelled out because the chapters are not in this
+    /// program. If a chapter moves its plate, this says so.
+    #[test]
+    fn the_plates_are_the_films() {
+        let reading = include_str!("../src/chapters/reading_color.rs");
+        assert!(reading.contains("Plane::new(v(-2.6, -0.25), 6.4, (-2.0, 2.0), (-2.0, 2.0))"));
+        let gallery = include_str!("../src/chapters/gallery.rs");
+        assert!(gallery.contains("Plane::new(v(-2.4, -0.1), 8.4, (-6.6, 6.6), (-3.3, 3.3))"));
+        assert!(gallery.contains("pub const TILE_SEED: C = C::new(0.55, 0.95);"));
+        assert!(gallery.contains("pub const TILE_STEPS: usize = 16;"));
+        let rigidity = include_str!("../src/chapters/rigidity.rs");
+        assert!(rigidity.contains("Plane::new(v(-2.8, 0.0), 5.6, (-0.42, 0.42), (-0.42, 0.42))"));
+        assert!(rigidity.contains("Plane::new(v(-2.8, -0.3), 6.0, (-4.0, 4.0), (-3.5, 3.5))"));
+        let residues = include_str!("../src/chapters/residues.rs");
+        assert!(residues.contains("[-4.9, -1.7, 1.5].map(|x| Plane::new(v(x, -1.0), 2.8, (-1.2, 1.2), (-1.2, 1.2)))"));
+        assert!(residues.contains("Plane::new(v(-3.4, -0.3), 5.0, (-2.0, 2.0), (-2.0, 2.0))"));
+        let continuing = include_str!("../src/chapters/continuing.rs");
+        assert!(continuing.contains("Plane::new(v(-3.3, -0.35), 5.6, (-2.5, 2.5), (-2.5, 2.5))"));
+    }
+
+    #[test]
+    fn the_full_plan_fits_and_has_its_controls() {
+        let jobs = plan();
+        let total: u64 = jobs.iter().map(|j| j.kind.frames()).sum();
+        assert_eq!(total, 67 + 77 + 9);
+        assert!(total <= FRAME_LIMIT);
+        assert!(jobs.iter().any(|j| j.candidate.flatten));
+        assert!(jobs.iter().any(|j| j.candidate.key == "now" && j.kind == Kind::Fade));
+    }
+
+    #[test]
+    fn same_colours_fails_on_what_it_is_for() {
+        let a = vec![vec![0.1, 0.2, 0.3, 0.0, 0.4, 0.5, 0.6, 1.0]];
+        assert!(same_colours(&a, &a, None));
+        let gone = vec![vec![0.1, 0.2, 0.3, 0.0, 0.4, 0.5, 0.6, 0.0]];
+        assert!(!same_colours(&a, &gone, None));
+        assert!(same_colours(&a, &gone, Some(0.0)));
+        let flat = vec![vec![0.4, 0.5, 0.6, 0.0, 0.4, 0.5, 0.6, 1.0]];
+        assert!(!same_colours(&a, &flat, None));
+    }
+
+    #[test]
+    fn a_plate_box_covers_the_plate() {
+        let (x0, y0, x1, y1) = plate_box(&reading_plane(), (1280, 720));
+        // the plate's edges are x 118 and 694, y 94.5 and 670.5, give or take rounding
+        assert!((117..=118).contains(&x0) && x1 == 694, "{x0} {x1}");
+        assert_eq!((y0, y1), (94, 671));
+    }
+}

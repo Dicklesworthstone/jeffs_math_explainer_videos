@@ -1,0 +1,99 @@
+-- the width rule against measured preview02 widths
+   2.78 predicted   2.80 measured   -0.6%  the circle closes after one lap
+   2.58 predicted   2.60 measured   -0.7%  a dial that forgets laps
+   0.63 predicted   0.64 measured   -1.0%  one lap
+   1.48 predicted   1.47 measured   +0.7%  0: no logarithm
+   1.73 predicted   1.73 measured   -0.3%  length 2, angle 0.6π
+   2.98 predicted   2.90 measured   +2.9%  candidate: πi → −πi, gap 0 → −1
+   2.00 predicted   2.01 measured   -0.7%  principal angle, in π:
+   1.46 predicted   1.44 measured   +1.4%  branch point
+   0.90 predicted   0.92 measured   -2.0%  just above
+   2.66 predicted   2.71 measured   -1.8%  just below → the bottom edge
+   6.32 predicted   6.37 measured   -0.8%  no continuous logarithm on a loop that winds around 0
+-- 06 E7: arrow -0.106 to -2.494, length/scale = 6.283185 (2π = 6.283185)
+-- 05 D5: leader at -55.1°, 10.1° from the nearest ray
+-- predicted margin of each inequality, tightest first (negative would fail)
+  +0.008  06 E8 short trail vs stroke
+  +0.050  05 D4 line vs axis: a dial that forg
+  +0.050  05 D4 line vs axis: the circle close
+  +0.060  05 D3 i corner vs unit circle
+  +0.066  06 E7 words vs gauge
+  +0.069  06 E3 zero label vs base line
+  +0.079  06 E1 tick 2πi vs bracket stub
+  +0.079  06 E1 tick 3πi vs bracket stub
+  +0.079  06 E1 tick 4πi vs bracket stub
+  +0.083  06 E1 word vs bracket
+  +0.089  05 D5 leader vs nearest ray (rad, need > 5°)
+  +0.097  05 D9 0 vs level link
+  +0.097  05 D6 words vs outer ring
+  +0.100  06 E6 note vs axis
+  +0.103  07 F-gap words vs live angle
+  +0.105  05 D1 words vs gridline end
+  +0.105  06 E3 zero label vs bracket stub
+  +0.113  05 D6 words vs axis
+  +0.122  07 F-blocked corner vs unit circle
+  +0.124  06 E1 tick πi vs bracket stub
+  +0.126  07 F-sides just above vs marked line
+  +0.126  07 F-sides just below vs marked line
+  +0.128  05 D3 i vs axis
+  +0.159  07 F-sides just above vs safe
+  +0.160  06 E10 theorem vs formula (formula estimated)
+  +0.162  07 F-sides just below vs safe
+  +0.174  06 E7 label −πi vs inset axis/words
+  +0.177  07 F-sides just above vs outer circle
+  +0.180  07 F-sides just below vs outer circle
+  +0.180  06 E10 theorem vs bottom of safe
+  +0.182  07 F-edge bottom label vs rays card
+  +0.244  06 E7 label πi vs inset axis/words
+  +0.258  06 E6 note vs unit circle
+  +0.260  07 F-zero note vs safe
+  +0.267  05 D8 aid vs axis
+  +0.267  05 D8 aid vs bottom of safe
+  +0.269  05 D7 laps vs count
+  +0.270  05 D4 line vs outer ring: a dial that forg
+  +0.275  06 E7 label 0 vs inset axis/words
+  +0.279  07 F-bp word vs card above
+  +0.282  06 E9 name vs axis
+  +0.288  05 D4 line vs outer ring: the circle close
+  +0.294  06 E9 name vs 4πi
+  +0.297  07 F-gap not too wide
+  +0.304  06 E7 label −πi vs tall axis
+  +0.304  05 D7 laps vs ray end
+  +0.349  05 D8 aid vs output
+  +0.353  05 D5 word vs -45° ray end
+  +0.355  05 D5 word vs outer ring
+  +0.374  06 E7 label πi vs tall axis
+  +0.383  06 E1 word vs number's panel
+  +0.405  06 E7 label 0 vs tall axis
+  +0.435  05 D2 2i vs axis
+  +0.480  05 D4 line top vs title: a dial that forg
+  +0.482  06 E9 name vs number's panel
+  +0.499  05 D4 line top vs title: the circle close
+  +0.508  06 E6 note vs side circle
+  +0.521  07 F-edge top label vs column
+  +0.578  06 E10 theorem vs tall axis
+  +0.612  07 F-zero note vs strip
+  +0.650  07 V1 bottom edge: left out vs column
+  +0.655  05 D13 rule vs strip (TeX estimated)
+  +0.657  07 card on screen: any curve from 0 out to infi
+  +0.680  07 F-bp word vs bottom of safe
+  +0.710  05 D7 count vs safe
+  +0.760  05 D2 2i vs zw
+  +0.886  07 V1 bottom edge: left out vs strip
+  +0.886  07 V1 top edge: included vs strip
+  +0.886  07 strip ends before its labels
+  +0.900  07 V1 top edge: included vs column
+  +0.947  07 card on screen: angle just above the cut: ne
+  +1.105  05 D13 rule vs outer ring (TeX estimated)
+  +1.149  05 D5 word vs bottom of safe
+  +1.236  06 E7 inset bottom vs safe
+  +1.320  05 D5 word vs right of safe
+  +1.326  05 D4 line vs safe: the circle close
+  +1.499  06 E10 theorem vs the number z
+  +1.528  05 D4 line vs safe: a dial that forg
+  +1.541  07 card on screen: rays at angle θ  →  horizont
+  +1.918  07 card on screen: circles |z| = r  →  vertical
+  +2.601  06 E10 theorem vs right of safe
+  +3.224  07 card on screen: where do the two sides go?
+  +6.983  05 D8 aid vs left of safe
+83 inequalities; tightest +0.008; failing 0

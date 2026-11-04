@@ -1,0 +1,170 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+@@ -596,6 +596,10 @@
+ 
+ /// "f(z) = z⁸", over the two windows.
+ const COARSE_TITLE_AT: (f64, f64) = (-4.0, 2.4);
++/// Where 11_8 names the reach, one label after the other, in the output window's units: over
++/// its top edge. Carried round the unit circle, the reach disk passes over everything out to
++/// a radius of 1.79, which leaves no room in the window for a label this long (tested).
++const REACH_NAMES_AT: (f64, f64) = (0.0, 2.2);
+ /// The rows under the windows, left-aligned at `COARSE_ROW_X`: what the
+ /// samples say, what they missed, the bound, then the test.
+ const COARSE_ROW_X: f64 = -6.85;
+@@ -771,7 +775,8 @@
+         .build(),
+     );
+     // above the window: inside it, this would be red on the red the window has just turned
+-    let covers = kit.text(stage, REACH_COVERS, 18.0, warn(), out.p(C::new(0.0, 2.2)))?;
++    let names_at = out.p(C::new(REACH_NAMES_AT.0, REACH_NAMES_AT.1));
++    let covers = kit.text(stage, REACH_COVERS, 18.0, warn(), names_at)?;
+     let refused = kit.text_left(
+         stage,
+         &format!("{REACH_IS}{reach_few} ≥ {size}{REFUSE}"),
+@@ -806,13 +811,8 @@
+         output(),
+         out.p(f(ONE) + C::new(-0.28, 0.2)),
+     )?;
+-    let reach_name = kit.text(
+-        stage,
+-        STEP_SKETCH[2],
+-        18.0,
+-        derivative_teal(),
+-        out.p(C::new(0.95, -1.2)),
+-    )?;
++    // where `covers` has just left: the sweep below passes over the window's whole middle
++    let reach_name = kit.text(stage, STEP_SKETCH[2], 18.0, derivative_teal(), names_at)?;
+     let passes = kit.text_left(
+         stage,
+         &format!("{REACH_IS}{reach_enough} < {size}{PASSES}"),
+@@ -1399,6 +1399,130 @@
+         assert_eq!(winding_certified(f, ZERO, 1.0, enough, l), Some(i64::from(power)));
+     }
+ 
++    /// The reach's name is fixed and the disk is carried once round the unit circle, so the
++    /// label has to clear the disk at every step of the sweep, over the label's whole extent.
++    /// Half its size in scene units: 102 × 16 pixels at 90 a unit on preview02's frame 535,
++    /// rounded up. That is the drawn label, measured where it stood before this move.
++    #[test]
++    fn the_reach_disk_never_crosses_its_name() {
++        const HALF: (f64, f64) = (0.6, 0.09);
++        // half the title's width, from x = 231 to 328 on the same frame, rounded up
++        const TITLE_HALF: f64 = 0.55;
++        let (_, out) = coarse_planes();
++        let w = out.frame;
++        let unit = out.unit();
++        let reach = f64::from(model::COARSE_POWER) * TAU / model::COARSE_STEPS[1] as f64;
++        let (half_x, half_y) = (HALF.0 / unit, HALF.1 / unit);
++        let sweep = circle(ZERO, 1.0, 1440);
++        // the closest any disk of the sweep comes to a label centred at `at`, in window units;
++        // below zero, the disk is on the label
++        let clearance = |at: (f64, f64)| {
++            sweep
++                .iter()
++                .map(|c| {
++                    let dx = ((c.re - at.0).abs() - half_x).max(0.0);
++                    let dy = ((c.im - at.1).abs() - half_y).max(0.0);
++                    dx.hypot(dy) - reach
++                })
++                .fold(f64::INFINITY, f64::min)
++        };
++        // a clear gap in scene units, wider than the disk's line
++        assert!(clearance(REACH_NAMES_AT) * unit > 0.15);
++        // the place it had, where preview02's frames 548-551 show the disk on it
++        assert!(clearance((0.95, -1.2)) < 0.0);
++        // and no place inside the window would do: every label that fits in it is within the
++        // sweep, the emptiest corner included
++        for i in 0..=80 {
++            for j in 0..=80 {
++                let at = (
++                    w.x.0 + half_x + (w.x.1 - w.x.0 - 2.0 * half_x) * f64::from(i) / 80.0,
++                    w.y.0 + half_y + (w.y.1 - w.y.0 - 2.0 * half_y) * f64::from(j) / 80.0,
++                );
++                assert!(clearance(at) < 0.0, "{at:?}");
++            }
++        }
++        // whole, above the window's top edge, under its width, in the frame and clear of the title
++        let centre = out.p(C::new(REACH_NAMES_AT.0, REACH_NAMES_AT.1));
++        assert!(REACH_NAMES_AT.1 - half_y > w.y.1 + 0.05);
++        assert!(REACH_NAMES_AT.0 - half_x > w.x.0 && REACH_NAMES_AT.0 + half_x < w.x.1);
++        assert!(centre[1] + HALF.1 < 4.0);
++        assert!(centre[0] - HALF.0 > COARSE_TITLE_AT.0 + TITLE_HALF + 0.2, "{centre:?}");
++    }
++
++    /// The two labels share one place, one after the other, and the sweep leaves it alone.
++    /// Read from this file, because no render can run here.
++    #[test]
++    fn the_reach_labels_take_turns_over_the_window() {
++        let source = include_str!("counting.rs");
++        let body = &source[source.find("fn coarse_loop(").unwrap()..];
++        let at = |text: &str| body.find(text).unwrap_or_else(|| panic!("{text}"));
++        let covers = at("let covers = kit.text(stage, REACH_COVERS, 18.0, warn(), names_at)?;");
++        let gone = at("fade_out_all(stage, &[covered, covers, refused, band], 0.3)?;");
++        let name = at("let reach_name = kit.text(stage, STEP_SKETCH[2], 18.0, derivative_teal(), names_at)?;");
++        let lit = at("fade_in_all(stage, &lit, 0.4)?;");
++        let sweep = at("let carried = stage.add_value_tracker(0.0);");
++        let played = at("stage.play(tween_linear(carried, 1.0, rt)?)?;");
++        assert!(covers < gone && gone < name && name < lit && lit < sweep && sweep < played);
++        assert!(!body[sweep..played].contains("reach_name"));
++        assert!(!body[..played].contains("C::new(0.95, -1.2)"));
++    }
++
++    /// 11_7's pictures wait on the sentences that name them. A sentence added to the cue moves
++    /// these indices, and nothing else would notice: a wrong one still runs, on the wrong words.
++    #[test]
++    fn the_roots_argument_waits_on_the_right_sentences() {
++        let said = crate::SCRIPT
++            .lines()
++            .find_map(|line| line.strip_prefix("11_7\t"))
++            .unwrap();
++        assert!(!said.contains("? ") && !said.contains("! "));
++        let sentences: Vec<&str> = said.split(". ").collect();
++        assert_eq!(sentences.len(), 7);
++        let source = include_str!("counting.rs");
++        let here = source.find("let line = say(&kit, stage, \"11_7\")?;").unwrap();
++        let end = here + source[here..].find("let line = say(&kit, stage, \"11_8\")?;").unwrap();
++        let cue = &source[here..end];
++        for (k, opens, then) in [
++            (2, "Now it starts with z to the n", "let degree_n ="),
++            (3, "On a huge circle", "fade_in_all(stage, &wide_all, 0.5)?;"),
++            (4, "Picture z to the n as a walker", "dog.show(stage)?;"),
++        ] {
++            assert!(sentences[k].starts_with(opens), "{k}: {}", sentences[k]);
++            let waited = format!("line.wait_sentence(stage, {k})?;");
++            let wait = cue.find(&waited).unwrap() + waited.len();
++            let shown = wait + cue[wait..].find(then).unwrap();
++            assert!(!cue[wait..shown].contains("wait_sentence"), "{k}: {then}");
++        }
++        // the walk lands on the count
++        assert!(sentences[6].starts_with("So there are exactly n roots"));
++        assert!(cue.contains("let rt = (line.sentence(6)? - stage.scene().time().to_f64()).max(5.0);"));
++        // the claim needs "nonconstant", on screen and said, and the said argument needs the division
++        assert!(ROOTS_CLAIM.contains("nonconstant"));
++        assert!(sentences[0].contains("every nonconstant complex polynomial"));
++        assert!(sentences[1].starts_with("Divide by its leading coefficient"));
++        assert!(sentences[2].contains("for some positive integer n"));
++    }
++
++    /// 11_7 at its edges. Dividing by a leading coefficient that is not one changes neither the
++    /// roots nor the turns, and then the leash is shorter than the walker on a huge circle. A
++    /// constant makes no turns at all, which is why the claim says "nonconstant".
++    #[test]
++    fn the_division_keeps_the_count_and_a_constant_makes_no_turns() {
++        let a = C::new(2.0, -3.0);
++        let polynomial = move |z: C| Some(a * z.powi(3) + z - C::real(5.0));
++        let divided = move |z: C| Some(z.powi(3) + z / a - C::real(5.0) / a);
++        let huge = circle(ZERO, 50.0, 4000);
++        assert_eq!(winding_count(polynomial, &huge), Some(3));
++        assert_eq!(winding_count(divided, &huge), Some(3));
++        for &z in &huge {
++            let (walker, dog) = (z.powi(3), divided(z).unwrap());
++            assert!((dog - walker).abs() < walker.abs());
++            // the same polynomial, up to the factor: their zeros are the same points
++            assert!((polynomial(z).unwrap() / a - dog).abs() < 1e-9 * walker.abs());
++        }
++        assert_eq!(winding_count(move |_: C| Some(a), &huge), Some(0));
++    }
++
+     #[test]
+     fn the_coarse_formulas_name_the_loop() {
+         assert_eq!(fact("argument.coarse.power").ok(), Some("8"));

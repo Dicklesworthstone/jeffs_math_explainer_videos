@@ -1,0 +1,12 @@
+{
+  "utc": "2026-11-04T05:30:10.083908+00:00",
+  "candidate_sha256": "8de1bb0bc235a38544b90d8bf627a44d37774c51e3243e66a1605db98b487d9c",
+  "canonical_sha256": "8de1bb0bc235a38544b90d8bf627a44d37774c51e3243e66a1605db98b487d9c",
+  "backup": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/before-subgroups-action02-subgroups.rs",
+  "changes": [
+    "Visible nonempty subset premise through final iff",
+    "Native marked tile performs two flips at08_8 sentence1 before new identity appears",
+    "Corner endpoint test for flip and identity added"
+  ],
+  "status": "integrated; rustfmt passed; guarded build pending; not visually accepted; narration unchanged"
+}

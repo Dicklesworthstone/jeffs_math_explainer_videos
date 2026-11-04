@@ -1,0 +1,106 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/closing.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/closing.rs
+@@ -25,7 +25,7 @@
+ 
+ pub const DEMAND: &str = "the same from every direction";
+ /// 06's quotient with its limit: it is the limit that is the same from every direction.
+-pub const LIMIT_TEX: &str = r"\lim_{h \to 0}\frac{f(z_0 + h) - f(z_0)}{h}";
++pub const LIMIT_TEX: &str = r"\lim_{h \to 0}\frac{f(z_{\,0} + h) - f(z_{\,0})}{h}";
+ pub const CAPTIONS: [[&str; 2]; 5] = [
+     ["on an open region:", "stretch and turn"],
+     ["the boundary", "decides the inside"],
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+@@ -47,7 +47,7 @@
+ pub const FROM_POLE: &str = " from the pole";
+ pub const OFF_WINDOW: &str = "off the window";
+ pub const ASK: [&str; 2] = ["z⁵ − 3z + 1: how many roots", "inside the unit circle?"];
+-pub const LEASH_TEX: &str = r"|z^5 + 1| \le 2 < 3 = |-3z|";
++pub const LEASH_TEX: &str = r"|z^5 + 1| \le 2 < 3 = |{-3z}|";
+ /// 11_6's name for the reference circle the output follows.
+ pub const MINUS_THREE_Z_TEX: &str = "-3z";
+ pub const INSIDE: &str = "one root inside, at distance ";
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
+@@ -47,8 +47,8 @@
+ pub const CAUCHY_TEX: &str = r"\oint_{\gamma} f(z)\,dz = 0";
+ pub const GAMMA_TEX: &str = r"\gamma";
+ pub const HYPOTHESIS: &str = "f holomorphic on the loop and inside it";
+-pub const LINEAR_TEX: &str = r"f(z) \approx a + b\,(z - z_0)";
+-pub const EACH_TEX: &str = r"\oint (a + b\,(z - z_0))\,dz = 0";
++pub const LINEAR_TEX: &str = r"f(z) \approx a + b\,(z - z_{\,0})";
++pub const EACH_TEX: &str = r"\oint (a + b\,(z - z_{\,0}))\,dz = 0";
+ pub const EACH: &str = "around each small square";
+ pub const CANCEL: [&str; 2] = ["shared edges cancel:", "only the outer loop is left"];
+ pub const GOURSAT: &str =
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+@@ -404,8 +404,8 @@
+     one_derivative::JACOBIAN[3],
+     one_derivative::CONJ_TEX,
+     one_derivative::SQUASH_TEX,
+-    r"z_0 = 1 + i",
+-    r"z_0^2 = 2i",
++    r"z_{\,0} = 1 + i",
++    r"z_{\,0}^2 = 2i",
+     one_point::MAP_TEX,
+     one_point::DERIV_TEX,
+     one_point::ABS_TEX,
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs
+@@ -23,7 +23,7 @@
+ #[cfg(test)]
+ use crate::model::square_gap_ratio;
+ 
+-pub const QUOTIENT_TEX: &str = r"\frac{f(z_0 + h) - f(z_0)}{h}";
++pub const QUOTIENT_TEX: &str = r"\frac{f(z_{\,0} + h) - f(z_{\,0})}{h}";
+ pub const RIGHT_TEX: &str = r"u_x + i\,v_x";
+ pub const UP_TEX: &str = r"\frac{u_y + i\,v_y}{i} = v_y - i\,u_y";
+ pub const CR_TEX: &str = r"u_x = v_y \qquad v_x = -u_y";
+@@ -41,10 +41,10 @@
+ pub const ZOOMED: &str = "zoomed in about 2i";
+ pub const ZOOMED_WHY: &str = "to keep the image's size";
+ pub const CHANGE: &str = "change in the output";
+-pub const SETTLES_TEX: &str = r"\to\, f'(z_0)";
++pub const SETTLES_TEX: &str = r"\to\, f'(z_{\,0})";
+ /// The three approaches of 06_2, as the voice lists them.
+ pub const FROM: [&str; 3] = ["from the right", "from above", "along a spiral"];
+-pub const TIMES_TEX: &str = r"\times\, f'(z_0)";
++pub const TIMES_TEX: &str = r"\times\, f'(z_{\,0})";
+ pub const A_STRETCH_AND_TURN: &str = "a stretch and a turn";
+ pub const IMAGE_NAME: &str = "the image";
+ pub const EXACT_NAME: &str = "exact stretch and turn";
+@@ -208,13 +208,20 @@
+         let names = [
+             kit.tex(
+                 stage,
+-                r"z_0 = 1 + i",
++                r"z_{\,0} = 1 + i",
+                 28.0,
+                 input(),
+                 &[],
+                 inp.p(Z0 + C::new(-0.55, 0.6)),
+             )?,
+-            kit.tex(stage, r"z_0^2 = 2i", 28.0, output(), &[], out.p(w0 + C::new(-0.6, 0.3)))?,
++            kit.tex(
++                stage,
++                r"z_{\,0}^2 = 2i",
++                28.0,
++                output(),
++                &[],
++                out.p(w0 + C::new(-0.6, 0.3)),
++            )?,
+         ];
+         fade_in_all(stage, &frame, 0.4)?;
+         fade_in_all(stage, &axes, 0.3)?;
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/residues.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/residues.rs
+@@ -28,7 +28,7 @@
+ pub const EACH: &str = "each small loop: 2πi × its residue";
+ pub const NEAR_TEX: &str = r"\frac{g(z)}{h(z)} \approx \frac{g(p)}{h'(p)\,(z-p)}";
+ pub const SIMPLE_TEX: &str = r"h(p) = 0,\quad h'(p) \ne 0:\qquad \mathrm{Res}_p \frac{g}{h} = \frac{g(p)}{h'(p)}";
+-pub const ZERO_TEX: &str = r"\frac{f'}{f} \approx \frac{m}{z - z_0}";
++pub const ZERO_TEX: &str = r"\frac{f'}{f} \approx \frac{m}{z - z_{\,0}}";
+ pub const POLE_TEX: &str = r"\frac{f'}{f} \approx \frac{-n}{z - p}";
+ pub const ZERO_SAYS: &str = "near a zero of order m";
+ pub const POLE_SAYS: &str = "near a pole of order n";

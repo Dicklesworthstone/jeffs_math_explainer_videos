@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The extra seat — a research sketch</title>
+<style>
+  :root { color-scheme: dark; font-family: ui-sans-serif, system-ui, sans-serif; background: #111a27; color: #f6f8fc; }
+  * { box-sizing: border-box; }
+  body { margin: 0; }
+  main { max-width: 1060px; margin: auto; padding: 2rem 1.25rem 4rem; }
+  .eyebrow { color: #9cb6cf; text-transform: uppercase; letter-spacing: .12em; font-size: .78rem; }
+  h1 { font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.06; margin: .55rem 0; }
+  p { line-height: 1.5; }
+  .intro { max-width: 68ch; color: #c8d6e5; }
+  .controls { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin: 1.5rem 0; }
+  fieldset { border: 0; padding: 0; margin: 0; }
+  legend { font-size: .85rem; color: #b9cadb; margin-bottom: .4rem; }
+  button { cursor: pointer; border: 1px solid #60758c; border-radius: 7px; background: #1d2d40; color: white; padding: .55rem .9rem; font: inherit; }
+  button[aria-pressed="true"] { background: #c4ecf5; color: #102331; border-color: #c4ecf5; font-weight: 700; }
+  button:focus-visible { outline: 3px solid #ffd27a; outline-offset: 3px; }
+  .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: .85rem; }
+  article { border: 1px solid #40566c; border-radius: 12px; background: #1a2939; padding: 1rem; min-width: 0; }
+  h2 { font-size: 1.15rem; margin: 0; }
+  .population, .quota { color: #c5d4e3; margin: .35rem 0; font-size: .9rem; }
+  .seatcount { font-size: 1.5rem; font-weight: 700; margin: .6rem 0 .2rem; }
+  .change { min-height: 1.35rem; margin: 0; font-size: .85rem; color: #ffd27a; }
+  .seats { display: flex; flex-wrap: wrap; gap: .3rem; min-height: 2rem; align-content: start; margin: .5rem 0 1rem; }
+  .seat { width: 1.25rem; height: 1.25rem; border-radius: 4px 4px 7px 7px; background: #86d8df; }
+  .bar { height: .75rem; border-radius: 99px; background: #3d5267; overflow: hidden; }
+  .fill { height: 100%; background: #ffc46d; }
+  .remainder { font-size: .87rem; margin: .4rem 0 0; color: #f6d29c; }
+  .result { border-left: 4px solid #ffc46d; background: #213448; padding: .85rem 1rem; margin-top: 1rem; }
+  .result p { margin: .25rem 0; }
+  .priority-panel { border: 1px solid #40566c; border-radius: 12px; padding: 1rem; margin-top: 1rem; background: #1a2939; }
+  .priority-panel h2 { margin-bottom: .4rem; }
+  .priority-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+  .priority-round { border: 1px solid #40566c; border-radius: 8px; padding: .75rem; }
+  .priority-round h3 { margin: 0 0 .4rem; font-size: 1rem; }
+  .priority-round p { margin: .3rem 0; }
+  .priorities { list-style: none; margin: .5rem 0; padding: 0; display: flex; flex-wrap: wrap; gap: .4rem; }
+  .priorities li { border-radius: 5px; padding: .35rem .5rem; background: #2c4054; }
+  .priorities .winner { background: #c4ecf5; color: #102331; font-weight: 700; }
+  details { border: 1px solid #40566c; border-radius: 12px; padding: 1rem; margin-top: 1rem; background: #1a2939; }
+  summary { cursor: pointer; font-weight: 700; }
+  .table-wrap { overflow-x: auto; }
+  table { border-collapse: collapse; width: 100%; min-width: 34rem; text-align: left; }
+  th, td { border-bottom: 1px solid #40566c; padding: .55rem .4rem; }
+  .small { color: #b9cadb; font-size: .88rem; max-width: 78ch; }
+  @media(max-width: 650px) { .cards, .priority-grid { grid-template-columns: 1fr; } .seats { min-height: 0; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Research sketch · fictional populations</div>
+  <h1>Can one extra seat take a seat away?</h1>
+  <p class="intro">Three regions keep exactly the same populations. Change the total number of seats and compare two rules. The seat icons show totals in each fresh allocation; they are not tracked physical chairs.</p>
+  <div class="controls">
+    <fieldset><legend>House size</legend>
+      <button type="button" data-house="15" aria-pressed="true">15 seats</button>
+      <button type="button" data-house="16" aria-pressed="false">16 seats</button>
+      <button type="button" data-house="17" aria-pressed="false">17 seats</button>
+    </fieldset>
+    <fieldset><legend>Allocation rule</legend>
+      <button type="button" data-method="hamilton" aria-pressed="true">Hamilton</button>
+      <button type="button" data-method="jefferson" aria-pressed="false">Jefferson</button>
+    </fieldset>
+  </div>
+  <section class="cards" aria-label="Regions and allocations" id="cards"></section>
+  <section class="result" aria-live="polite"><p id="result"></p><p id="comparison"></p><button type="button" id="reveal" aria-expanded="false">Reveal both house sizes</button></section>
+  <p class="small" id="explanation"></p>
+  <section class="priority-panel" id="priority-panel" aria-labelledby="priority-title" hidden>
+    <h2 id="priority-title">Why seats 15 and 16?</h2>
+    <p>Each candidate's priority is population ÷ (current seats + 1). The largest wins; only the winner's denominator changes for the next award.</p>
+    <div class="priority-grid" id="priority-grid"></div>
+  </section>
+  <details>
+    <summary>Can this example avoid both problems?</summary>
+    <p>Yes. Here is one hand-picked sequence for these populations and these three house sizes. Each region's seats are within its standard quota's floor and ceiling; no region loses a seat as the house grows.</p>
+    <div class="table-wrap"><table>
+      <caption>One possible sequence, with allowed quota ranges</caption>
+      <thead><tr><th scope="col">House</th><th scope="col">A: seats (allowed)</th><th scope="col">B: seats (allowed)</th><th scope="col">C: seats (allowed)</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">15</th><td>2 (1–2)</td><td>3 (3–4)</td><td>10 (10 only)</td></tr>
+        <tr><th scope="row">16</th><td>2 (1–2)</td><td>4 (3–4)</td><td>10 (10–11)</td></tr>
+        <tr><th scope="row">17</th><td>2 (1–2)</td><td>4 (3–4)</td><td>11 (11–12)</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small">This sequence is a finite example, not a general allocation method. It does not establish what happens for other populations or house sizes.</p>
+  </details>
+  <p class="small">The fractional bars always show each region's <strong>standard quota</strong>: population × seats ÷ 39. Hamilton awards remaining seats by these remainders. Jefferson instead awards each next seat by population ÷ (seats already awarded + 1). All comparisons here use exact integer arithmetic; these examples have no ties for the winning priority.</p>
+  <p class="small">This is a teaching prototype, not a historical election or a complete description of current U.S. House apportionment. Mathematical and audience review are still needed.</p>
+</main>
+<script>
+(() => {
+  const populations = [4, 9, 26], names = ["A", "B", "C"], total = 39;
+  let house = 15, method = "hamilton", revealed = false, lastChange = null;
+  function allocate(h, rule) {
+    const floors = populations.map(p => Math.floor(p * h / total));
+    const remainders = populations.map(p => p * h % total);
+    if (rule === "hamilton") {
+      const seats = [...floors];
+      const order = [0, 1, 2].sort((a, b) => remainders[b] - remainders[a] || a - b);
+      for (let i = 0; i < h - floors.reduce((a, b) => a + b, 0); i++) seats[order[i]]++;
+      return { seats, floors, remainders };
+    }
+    const seats = [0, 0, 0];
+    for (let n = 0; n < h; n++) {
+      let winner = 0;
+      for (let i = 1; i < 3; i++) {
+        if (populations[i] * (seats[winner] + 1) > populations[winner] * (seats[i] + 1)) winner = i;
+      }
+      seats[winner]++;
+    }
+    return { seats, floors, remainders };
+  }
+  function render() {
+    const current = allocate(house, method);
+    document.querySelectorAll("[data-house]").forEach(b => b.setAttribute("aria-pressed", String(Number(b.dataset.house) === house)));
+    document.querySelectorAll("[data-method]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.method === method)));
+    document.querySelector("#cards").innerHTML = populations.map((p, i) => `
+      <article><h2>Region ${names[i]}</h2><p class="population">Population units: ${p}</p>
+      <p class="quota">Standard quota: ${p * house}/39${(p * house) % total === 0 ? ` = ${p * house / total}` : ""}</p>
+      <p class="seatcount">${current.seats[i]} ${current.seats[i] === 1 ? "seat" : "seats"}</p>
+      <p class="change">${lastChange ? `${lastChange.deltas[i] > 0 ? "+" : ""}${lastChange.deltas[i]} compared with ${lastChange.from} seats` : ""}</p>
+      <div class="seats" aria-label="${current.seats[i]} ${current.seats[i] === 1 ? "seat" : "seats"}">${'<span class="seat" aria-hidden="true"></span>'.repeat(current.seats[i])}</div>
+      <div class="bar" aria-hidden="true"><div class="fill" style="width:${100 * current.remainders[i] / total}%"></div></div>
+      <p class="remainder">Fractional remainder: ${current.remainders[i]}/39</p></article>`).join("");
+    document.querySelector("#result").textContent = `${method === "hamilton" ? "Hamilton" : "Jefferson"} at ${house}: ${current.seats.join(" / ")} seats.`;
+    const sizes = lastChange ? [Math.min(lastChange.from, house), Math.max(lastChange.from, house)]
+      : house === 17 ? [16, 17] : [15, 16];
+    const first = allocate(sizes[0], method).seats, second = allocate(sizes[1], method).seats;
+    document.querySelector("#comparison").textContent = revealed
+      ? `${sizes[0]} → ${sizes[1]} seats: ${first.join(" / ")} → ${second.join(" / ")}.`
+      : lastChange
+        ? "The changes compare two separate allocations. Reveal the comparison for an explanation."
+        : `Predict how each region's allocation differs between ${sizes[0]} and ${sizes[1]} seats.`;
+    document.querySelector("#reveal").setAttribute("aria-expanded", String(revealed));
+    document.querySelector("#reveal").textContent = revealed ? "Hide comparison" : "Reveal both house sizes";
+    document.querySelector("#explanation").textContent = !revealed ? "" : method === "hamilton"
+      ? sizes[0] === 15 && sizes[1] === 16
+        ? "At 15, A has the largest remainder and gets the one unassigned seat. At 16, B and C have the two largest remainders; A's allocation falls from two seats to one."
+        : "No region loses a seat in this comparison. Hamilton can still cause a loss in another comparison, as it does from 15 to 16."
+      : "Each larger house extends the same sequence of awards, so no region loses a seat. At 15, however, C receives 11 seats even though its standard quota is exactly 10.";
+    const panel = document.querySelector("#priority-panel");
+    panel.hidden = !(revealed && method === "jefferson");
+    if (!panel.hidden) {
+      document.querySelector("#priority-grid").innerHTML = [15, 16].map(n => {
+        const before = allocate(n - 1, "jefferson").seats;
+        const after = allocate(n, "jefferson").seats;
+        const winner = after.findIndex((count, i) => count > before[i]);
+        return `<div class="priority-round"><h3>Seat ${n}</h3>
+          <p>Before: ${before.join(" / ")} seats.</p>
+          <ul class="priorities">${populations.map((population, i) =>
+            `<li class="${i === winner ? "winner" : ""}">${names[i]}: ${population}/${before[i] + 1}${i === winner ? " · wins" : ""}</li>`).join("")}</ul>
+          <p>After: ${after.join(" / ")} seats.</p></div>`;
+      }).join("");
+    }
+  }
+  document.querySelectorAll("[data-house]").forEach(b => b.addEventListener("click", () => {
+    const next = Number(b.dataset.house);
+    if (next !== house) {
+      const before = allocate(house, method).seats, after = allocate(next, method).seats;
+      lastChange = { from: house, deltas: after.map((n, i) => n - before[i]) };
+      house = next;
+    }
+    render();
+  }));
+  document.querySelectorAll("[data-method]").forEach(b => b.addEventListener("click", () => { method = b.dataset.method; lastChange = null; render(); }));
+  document.querySelector("#reveal").addEventListener("click", () => { revealed = !revealed; render(); });
+  render();
+})();
+</script>
+</body>
+</html>

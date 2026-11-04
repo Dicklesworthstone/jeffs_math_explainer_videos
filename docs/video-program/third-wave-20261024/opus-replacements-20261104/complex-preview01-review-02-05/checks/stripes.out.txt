@@ -1,0 +1,12 @@
+CELL 0.035 units x 90 px per unit = 3.15 native px at 720p; 9.45 px at 4K by scale (not measured)
+04 frame 20, hue only: 1280x720, patch mean luma 148.3, row residual rms 5.08 (3.4%), peak-to-peak 15.5, strongest period 3.11 px
+04 frame 140, z squared: 1280x720, patch mean luma 91.9, row residual rms 2.92 (3.2%), peak-to-peak 9.4, strongest period 3.13 px
+04 frame 300, bump: 1280x720, patch mean luma 128.9, row residual rms 4.06 (3.1%), peak-to-peak 12.7, strongest period 3.13 px
+05 frame 92, exp: 1280x720, patch mean luma 121.2, row residual rms 5.49 (4.5%), peak-to-peak 24.2, strongest period 3.11 px
+05 frame 200, tan: 1280x720, patch mean luma 127.8, row residual rms 4.12 (3.2%), peak-to-peak 12.0, strongest period 3.11 px
+05 frame 367, zeta: 1280x720, patch mean luma 104.9, row residual rms 3.48 (3.3%), peak-to-peak 12.8, strongest period 3.16 px
+05 frame 464, zoom: 1280x720, patch mean luma 107.5, row residual rms 3.37 (3.1%), peak-to-peak 10.5, strongest period 3.13 px
+GF256 1080p 4 s, hook picture, no crisp: 1920x1080, patch mean luma 58.4, row residual rms 0.27 (0.5%), peak-to-peak 1.1, strongest period 14.00 px
+GF256 4K 4 s, hook picture, no crisp: 3840x2160, patch mean luma 58.4, row residual rms 1.66 (2.8%), peak-to-peak 6.2, strongest period 3.54 px
+GF256 1080p 794 s, table's key, crisp: 1920x1080, patch mean luma 163.0, row residual rms 1.30 (0.8%), peak-to-peak 8.6, strongest period 9.70 px
+GF256 table's key: 4.6 units / 256 rows at 135 px per unit = 2.43 px a row

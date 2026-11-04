@@ -1,0 +1,52 @@
+== baselines still match the tree the repair was cut from
+PASS one_derivative.rs b67231d94cafe4f5
+PASS one_point.rs 43b6f1c323c5f715
+PASS loop_sums.rs cf383504cdc80652
+PASS boundary.rs 328d2acbc247eccc
+PASS draw.rs 4eba4bb18b989ac7
+PASS mod.rs 57c46d67161490cb
+PASS model.rs aa4bdcd9afcf19b7
+PASS script.tsv 2968b0fd76540cbc
+== scope: exactly the four chapter files are staged
+PASS ['boundary.rs', 'loop_sums.rs', 'one_derivative.rs', 'one_point.rs']
+== each patch applies to its baseline, equals the staged file, and reverses
+PASS 06-one-derivative.patch applies clean
+PASS one_derivative.rs equals staged 84ed107492e65b39
+PASS 06-one-derivative.patch reverses to baseline
+PASS 07-one-point.patch applies clean
+PASS one_point.rs equals staged 76a8bf1dc2ae4725
+PASS 07-one-point.patch reverses to baseline
+PASS 08-loop-sums.patch applies clean
+PASS loop_sums.rs equals staged 5458765d947f2b93
+PASS 08-loop-sums.patch reverses to baseline
+PASS 09-boundary.patch applies clean
+PASS boundary.rs equals staged 69e41733fd0e4d4e
+PASS 09-boundary.patch reverses to baseline
+== no timed call changed: the source-bound hold and phrase delta is 0 at every call
+PASS one_derivative: 107 timed calls, identical in order and arguments
+PASS one_point: 80 timed calls, identical in order and arguments
+PASS loop_sums: 91 timed calls, identical in order and arguments
+PASS boundary: 118 timed calls, identical in order and arguments
+PASS control: a changed fade time is detected
+PASS control: an added wait is detected
+== no on-screen string changed, and the script is untouched
+PASS one_derivative: 80 string literals in the film code, the same
+PASS one_point: 53 string literals in the film code, the same
+PASS loop_sums: 53 string literals in the film code, the same
+PASS boundary: 97 string literals in the film code, the same
+PASS script.tsv 2968b0fd76540cbc
+== no test removed
+PASS one_derivative: 9 kept, new ['the_reflections_numbers_leave_before_doublings_heading', 'the_right_column_reads_rates_then_cross_then_verdict']
+PASS one_point: 7 kept, new ['the_map_arrow_starts_clear_of_re_and_stops_short_of_the_right_plane']
+PASS loop_sums: 5 kept, new ['a_circulation_head_has_one_point_and_sits_on_its_arc', 'the_position_is_on_the_ring_while_the_voice_undoes_its_turn']
+PASS boundary: 6 kept, new ['the_centre_card_is_clear_of_what_joins_it_on_the_picture']
+== question windows: source unchanged from the question's cue through the first answer
+PASS 06_8 to 06_9: 2654 characters, identical
+PASS 07_3 to 07_4: 1525 characters, identical
+PASS 09_4 to 09_5: 1339 characters, identical
+PASS 09_8 to 09_9: 5136 characters, identical
+== beside the glyph patch, in either order, with no line of it lost
+PASS glyph-first: every hunk applies
+PASS repair-first: every hunk applies
+PASS both orders give the same four files
+RESULT PASS

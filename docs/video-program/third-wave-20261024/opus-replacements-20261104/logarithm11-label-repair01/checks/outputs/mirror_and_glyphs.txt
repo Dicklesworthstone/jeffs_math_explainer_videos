@@ -1,0 +1,32 @@
+--- width assertion of the_panels_and_text_column_fit, mirrored
+em table read from the source: 57 characters; same in both files: True
+baseline: 18 width rows, largest checked right edge 6.596 against 6.86; failures: none
+patched: 18 width rows, largest checked right edge 6.633 against 6.86; failures: none
+new mirror row present: True
+old mirror row gone: True
+  new positive: checked right edge 6.633, passes
+  rejected, keeping 'all real': checked right edge 6.935, fails
+--- TeX commands, old against new string
+  old ['\\neq', '\\operatorname', '\\quad', '\\text']
+  new ['\\neq', '\\operatorname', '\\quad', '\\text']
+  new command introduced: none
+  old ['\\text']
+  new ['\\text']
+  new command introduced: none
+--- glyph coverage, pinned faces
+  math letter S in cmunti.ttf (the face FACE_ITALIC math letters use): True
+  math letters of the new strings in cmunti.ttf: {'S': True, 'X': True, 'e': True, 'p': True, 't': True}
+  text 'singular :' in cmunrm.ttf, all present: True
+  text ' for real  and : reverses no axis' in cmunrm.ttf, all present: True
+--- registry rows
+rows 583 ; control, re-sorting the old strings reproduces the file: True
+rows in the whole film using S as a standalone letter: 0 ; control, rows using X the same way: 22
+  old row [542], chapter ['11_unreachable']: \operatorname{det} A = 0 \quad\text{but}\quad \operatorname{
+  old row [571], chapter ['11_unreachable']: e^{tp} > 0 \text{ for all real } t \text{ and } p\text{: no 
+rows after the change 583 ; distinct: True
+  new row [555]: \text{singular } S\text{: } \operatorname{det} S = 0 \quad\text{but}\q
+  new row [571]: e^{tp} > 0 \text{ for real } t \text{ and } p\text{: } e^{tX} \text{ r
+row numbers whose string differs from the old registry: 15 ; first 542 ; last 571
+Text rows unchanged: True
+
+[exit 0]

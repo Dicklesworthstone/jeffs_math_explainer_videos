@@ -1,0 +1,13 @@
+build: A lines 1162 oracle changed False; AB lines 1275 oracle changed True
+git apply A-wrong-or-early.patch: exit 0 
+  after A-wrong-or-early.patch, src/arithmetic.rs equals its candidate: True
+  after A-wrong-or-early.patch, oracle.py equals its candidate: True
+git apply B-teaching-and-sync.patch: exit 0 
+  after B-teaching-and-sync.patch, src/arithmetic.rs equals its candidate: True
+  after B-teaching-and-sync.patch, oracle.py equals its candidate: True
+manifest: exit 0
+desk_mirror: exit 0; problems: 0
+run_desk_checks: exit 0
+oliver_sentences: exit 0
+candidate-A: rustfmt --check exit 0
+candidate-AB: rustfmt --check exit 0

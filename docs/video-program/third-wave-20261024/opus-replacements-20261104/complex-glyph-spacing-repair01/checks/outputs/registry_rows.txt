@@ -1,0 +1,18 @@
+rows 734 control: re-sorting the old strings reproduces the file: True
+old strings missing from this registry: none
+other Tex rows holding z_0 or a bar then a minus: none
+distinct after the change: True
+rows whose number changes, changed strings included: 3
+old_row	new_row	new_source
+594	594	\frac{f'}{f} \approx \frac{m}{z - z_{\,0}}
+597	597	\frac{f(z_{\,0} + h) - f(z_{\,0})}{h}
+605	605	\lim_{h \to 0}\frac{f(z_{\,0} + h) - f(z_{\,0})}{h}
+612	612	\oint (a + b\,(z - z_{\,0}))\,dz = 0
+637	637	\times\, f'(z_{\,0})
+638	638	\to\, f'(z_{\,0})
+676	676	f(z) \approx a + b\,(z - z_{\,0})
+716	717	z_{\,0} = 1 + i
+717	718	z_{\,0}^2 = 2i
+723	723	|z^5 + 1| \le 2 < 3 = |{-3z}|
+
+[exit 0]

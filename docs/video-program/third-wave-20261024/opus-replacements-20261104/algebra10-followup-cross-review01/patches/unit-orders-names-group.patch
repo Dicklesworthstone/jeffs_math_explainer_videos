@@ -1,0 +1,20 @@
+--- a/explainer_corpus/abstract_algebra_expanded/src/cyclic.rs
++++ b/explainer_corpus/abstract_algebra_expanded/src/cyclic.rs
+@@ -1355,12 +1355,12 @@
+         fade(stage, &[squares], true)?;
+         tint(stage, &squared, 0.4)?;
+         k.until_sentence(stage, "10_10", 4)?;
+-        let unit_orders = k.tex(
+-            stage,
+-            r"\operatorname{ord}(5)=\operatorname{ord}(7)=\operatorname{ord}(11)=2",
+-            32.0,
++        // Names the group: 10_6 boxes ord(5)=12 for the move +5, under the same symbol.
++        let unit_orders = k.text(
++            stage,
++            "U(12): 5, 7 and 11 each have order 2",
++            28.0,
+             Palette::hero(),
+-            &[],
+             v(2.5, -0.5),
+         )?;
+         fade(stage, &[unit_orders], true)?;

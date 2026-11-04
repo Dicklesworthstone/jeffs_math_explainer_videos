@@ -1,0 +1,51 @@
+{
+  "checked_utc": "2026-11-02T15:12:15.107106+00:00",
+  "bindings": {
+    "source": "82ff29062af95c13fdeeead3a5fab38d865c2b86a1dc4a1f30e63121fe3ab789",
+    "model": "4b22702aed0708ccd5cf6d5f06ee426c2b97004bdf57985c7d21d80b9668a2bd",
+    "script": "d046477e8a1d1a2c94fd52e1794f29d144542b7e94f949a4567052a381eefdfc",
+    "candidate": "f4a6153b85e76ec29d8f062295f13564d7f8e27b2b3485a0981a5f45b5ae5bb7",
+    "patch": "5a42d27592cc43a0c9315a8f91850125701a9d8ed1744587d56d688898aa0f3e"
+  },
+  "checks": [
+    {
+      "command": "rustfmt --edition 2024 --emit stdout <candidate>",
+      "exit": 0,
+      "scope": "Rust syntax parse only; no type-check or compile."
+    },
+    {
+      "command": "git apply --check <patch>",
+      "exit": 0,
+      "scope": "Applies to current working tree without modifying it."
+    },
+    {
+      "command": "python3 docs/video-program/research-20261016/evidence/abstract-quotient-corner-check-20261102.py",
+      "exit": 0,
+      "sha256": "e2af50edb37cb2bbfd10c91a47eeb54c632d5ad3301fe52121c8870e36b0d1ef",
+      "scope": "Author exact corner permutations: eight symmetries, distinct counterexample cosets, two displayed corner orders, 64 rotation-quotient representative products."
+    }
+  ],
+  "reviewed_existing_frames": [
+    {
+      "seconds": 4,
+      "sha256": "66134c0ef0fc5a710021eddb508d30fa902745114de89369aebb46bc7e532514"
+    },
+    {
+      "seconds": 15,
+      "sha256": "66134c0ef0fc5a710021eddb508d30fa902745114de89369aebb46bc7e532514"
+    },
+    {
+      "seconds": 26,
+      "sha256": "a6d68ef897a54a6a2b90004f3bb295394a0d3539f2cd58a63ccfe0165dc60724"
+    },
+    {
+      "seconds": 35,
+      "sha256": "df952eea7934565f5f4c43c47ea88496b64a2b52951a6483a3b9fc1992256409"
+    }
+  ],
+  "limitations": [
+    "Research candidate only; current product source and direction map unchanged.",
+    "No type-check, rendered-picture test, playback, take selection, fine sync, accessibility or independent mathematics/pedagogy review.",
+    "The author geometry check does not execute or visually validate FrankenManim."
+  ]
+}

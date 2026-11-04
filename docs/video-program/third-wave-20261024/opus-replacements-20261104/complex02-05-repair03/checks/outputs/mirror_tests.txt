@@ -1,0 +1,70 @@
+mirrors: 21; planted defects: 44
+baseline on staged sources: 21 pass, 0 fail
+planted defects:
+  ok  turning: 'line.wait_for(stage, "an eighth of a turn")?;' -> the_recalled_turn: no hook on the recalled turn
+  ok  turning: 'sweep_arc(stage, tp, ANGLE_ARC_R, TURN_BY.arg(), SWEEP' -> the_recalled_turn: no sweep
+  ok  turning: 'pub const SWEEP_S: f64 = 0.7;' -> the_recalled_turn: the fixed beat runs 2.25 s
+  ok  turning: 'fade_out_all(stage, &grid.mobs(), 0.5)?;' -> the_last_beat: fade_out_all(stage, &grid.mobs(), 0.5)?;: missing or early
+  ok  turning: 'gone.extend(stretch_turn);' -> the_last_beat: the caption stays up
+  ok  turning: 'line.wait_for(stage, "and angles add")?;' -> every_hook: 02_6: the voice never says 'and angels add' (also: the_last_beat_reads_the_rule)
+  ok  gallery: 'line.wait_for(stage, "exact squares")?;' -> every_hook: 05_3: out of the voice's order: as you climb then repeating every two pi (also: the_exponential_tile_is_an_e)
+  ok  two_planes: 'pub const RADIUS_AT: [C; 2] = [C::new(0.8, -0.66), C::' -> the_walk_radii: (0.8-0.3j): reaches its circle
+  ok  two_planes: 'pub const RULE_ANGLE: f64 = PI / 6.0;' -> the_rule_is_shown: angle not doubled
+  ok  two_planes: 'pub const RULE_LENGTH: f64 = 1.4;' -> the_rule_is_shown: it sits on the walk's circle
+  ok  two_planes: 'fade_out_all(stage, &shown_rule, 0.3)?;' -> the_planes_are_not_empty: fade_out_all(stage, &shown_rule, 0.3)?;: missing or early
+  ok  two_planes: 'line.wait_for(stage, "doubles each angle")?;' -> the_planes_are_not_empty: line.wait_for(stage, "doubles each angle")?;: missing or early
+  ok  two_planes: 'stage.add_to_scene(second_lap)?;' -> each_half_of_the_walk: stage.add_to_scene(second_lap)?;: missing or early
+  ok  two_planes: 'gone = vec![rule, ring_in, ring_out, w_in, w_out, trai' -> each_half_of_the_walk: the second lap never fades
+  ok  two_planes: 'pub const FLIP_BUFF: f64 = 0.1;' -> each_flip: 3.6: only 1.038961040779219 long
+  ok  two_planes: 'gone.extend(flips);' -> each_flip: the flips never fade
+  ok  two_planes: 'pub const ASK_AT: C = C::new(0.55, -0.65);' -> the_question_and_its_ring: the ring reaches the imaginary axis
+  ok  two_planes: 'pub const ASK_AT: C = C::new(0.55, -0.65);' -> the_question_and_its_ring: the card covers the 1
+  ok  two_planes: '"horizontal axis → positive ray"' -> the_labels_say: real axis → positive ray: not the voice's words
+  ok  two_planes: 'fade_out_all(stage, &[rescaled], 0.3)?;' -> the_labels_say: fade_out_all(stage, &[rescaled], 0.3)?;: missing or early
+  ok  reading_color: 'f.eval(loop_point(t)).map_or(0.0, |w| w.arg())' -> the_needle_stands: the needle does not read f's output
+  ok  reading_color: 'pub const COUNT_BELOW: f64 = 0.35;' -> the_walk_counts: the count touches the wheel
+  ok  reading_color: 'pub const STATED_Y: f64 = 0.6;' -> the_walk_counts: the count reaches the stated row
+  ok  reading_color: 'let walked = walk.stop(stage);\n        fade_out_all(st' -> the_cycle_is_walked: fade_out_all(stage, &walked, 0.3)?;: missing or early
+  ok  reading_color: 'LoopWalk::start(&kit, stage, Func::Recip, p, wheel_at)' -> the_cycle_is_walked: LoopWalk::start(&kit, stage, Func::Recip, p, wheel_at)?;: missing or early
+  ok  reading_color: 'clearing.extend(&walked);' -> the_cycle_is_walked: clearing.extend(&walked);: missing or early
+  ok  reading_color: 'stage.add_to_scene(touching)?;' -> the_gold_never: stage.add_to_scene(touching)?;: missing or early
+  ok  reading_color: 'near a zero z = a of order m' -> the_exact_card: the card says zero a
+  ok  reading_color: 'near a zero z = a of order m' -> the_exact_card: 121 characters (also: reading_windows_and_each_car)
+  ok  reading_color: 'near a zero z = a of order m' -> mod::reading_windows: 04_4: 7.7 s for 121 characters (also: the_exact_card_names_its_poi)
+  ok  gallery: 'zero_mark(stage, sp.p(ONE))' -> the_zero_and_the_pole: zero_mark(stage, sp.p(ONE)): missing or early
+  ok  gallery: 'fade_in_all(stage, &arriving, 0.3)?;' -> the_zero_and_the_pole: fade_in_all(stage, &arriving, 0.3)?;: missing or early
+  ok  gallery: 'pub const EXP_TILE_BAND: (i32, i32) = (1, 3);' -> the_exponential_tile: (10.210176124166827+1.308996938995747j): out of the window
+  ok  gallery: 'C::new(x + s, y + s)' -> the_exponential_tile: exp_tile lost C::new(x + s, y + s)
+  ok  gallery: 'one_square,' -> the_exponential_tile: the outline never fades
+  ok  gallery: 'pub const CLIMB_STOP: f64 = 2.8;' -> the_climb_stops: the tip is on the dot
+  ok  gallery: 'stage.add_to_scene(start_box)?;' -> the_strip_arrives: stage.add_to_scene(start_box)?;: missing or early
+  ok  gallery: 'fade_out_all(stage, &[converges, pole_says, zedge], 0.' -> the_strip_arrives: fade_out_all(stage, &[converges, pole_says, zedge], 0.3)?;: missing or early
+  ok  gallery: 'fade_out_all(stage, &[squashed], 0.3)?;' -> the_strip_arrives: fade_out_all(stage, &[squashed], 0.3)?;: missing or early
+  ok  gallery: 'pub const TILE_BEATS: [f64; 4] = [0.3, 0.3, 0.5, 0.2];' -> the_tile_is_ready: 1.9000000000000001 s before the tile
+  ok  gallery: 'line.wait_for(stage, "nearly square")?;' -> the_tile_is_ready: line.wait_for(stage, "nearly square")?;: missing or early
+  ok  gallery: 'this strip shows four zeros' -> the_tile_is_ready: the card does not say which picture
+  ok  gallery: "located by Newton's method" -> mod::reading_windows: 05_8: 4.1 s for 92 characters (also: the_tile_is_ready_for_the_wo)
+  ok  gallery: 'fade_out_all(stage, &[squashed], 0.3)?;\n        let fo' -> mod::reading_windows: 05_8: cleared early (also: the_strip_arrives_on_a_clear)
+canonical control (a mirror that passes here does not detect the original defect):
+  fails  turning::the_recalled_turn_moves_and_does_not_answer_the_question: no hook on the recalled turn
+  fails  turning::the_last_beat_reads_the_rule_off_the_rows_and_ends_on_the_arrows: underline_pulse(stage, &[length, total_stretch])?;: missing or early
+  passes turning::every_hook_is_said_and_they_run_in_the_voices_order
+  fails  two_planes::the_walk_radii_stand_off_their_circles_and_the_axes: two_planes: no const RADIUS_SIZE
+  fails  two_planes::the_rule_is_shown_on_one_point_that_squaring_really_sends_there: two_planes: no const RULE_LENGTH
+  fails  two_planes::the_planes_are_not_empty_under_the_rule: line.wait_for(stage, "squares each length")?;: missing or early
+  fails  two_planes::each_half_of_the_walk_is_one_lap_of_the_image: tween_linear(walked, 0.5, rt / 2.0): missing or early
+  fails  two_planes::each_flip_goes_straight_across_the_horizontal_axis: two_planes: no const FLIP_BUFF
+  fails  two_planes::the_question_and_its_ring_stand_clear_of_the_axes: two_planes: no const ASK_AT
+  fails  two_planes::the_labels_say_what_the_voice_says: real axis → positive ray: not the voice's words
+  fails  reading_color::the_needle_stands_on_the_colour_under_the_dot: reading_color: no fn needle_angle
+  fails  reading_color::the_walk_counts_what_the_cards_state: reading_color: no const COUNT_BELOW
+  fails  reading_color::the_cycle_is_walked_on_the_words_that_name_it: let squared = : missing or early
+  fails  reading_color::the_gold_never_crosses_the_marks_and_never_leaves_a_gap: stage.add_to_scene(touching)?;: missing or early
+  fails  reading_color::the_exact_card_names_its_point_and_fits_its_window: the card says zero a
+  passes mod::reading_windows_and_each_card_outlasts (existing tests, repeated)
+  fails  gallery::the_zero_and_the_pole_come_on_their_own_words: zero_mark(stage, sp.p(ONE)): missing or early
+  fails  gallery::the_exponential_tile_is_an_exact_square_on_the_band_lines: gallery: no const EXP_TILE_BAND
+  fails  gallery::the_climb_stops_short_of_the_dot: gallery: no const CLIMB_STOP
+  fails  gallery::the_strip_arrives_on_a_clear_column_and_under_the_pole: fade_out_all(stage, &[converges, pole_says, zedge], 0.3)?;: missing or early
+  fails  gallery::the_tile_is_ready_for_the_words_that_name_it: gallery: no const TILE_BEATS
+{"problems": 0}

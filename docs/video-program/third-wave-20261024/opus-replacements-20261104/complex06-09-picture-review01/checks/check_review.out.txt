@@ -1,0 +1,8 @@
+frame and time pairs: {'06': 65, '07': 40, '08': 28, '09': 88} plus 15 cross-chapter
+voice quotes: 19
+word shares: 15
+source anchors: 47
+new rows by severity: {'Medium': 6, 'Low': 26} prior rows 38 prior now {'Reduced': 2, 'Fixed': 26, 'Partly': 3, 'Mostly': 1, 'Persists': 4, 'Accept': 2} prior residual Low 14
+binding rows: 10
+controls rejected: True
+RESULT PASS

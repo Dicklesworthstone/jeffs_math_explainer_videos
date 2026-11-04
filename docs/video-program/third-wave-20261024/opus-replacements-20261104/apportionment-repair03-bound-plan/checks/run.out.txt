@@ -1,0 +1,217 @@
+== inputs before
+staged03 topic tree digest 56e6c42446bcfc116b760ba4e71e8593a2d8aefbfa432aa233c8dfe68a9b5a65
+canonical topic tree digest 057be7d6caf476e8e12d29d7e0b2149b0410ca21b571d228f80435f18774fb06
+e0aa81f352cb2c847f53dacf1d37b7d1b6a44526102df7f79329278c278c48d0  tools/coherent_narration.py
+3faed8c1ded451c432eddfcdd8d2034a7244594f3f99d753a63dc47e487cb0b7  tools/storyboard.py
+985478f3b109a17d10e4ac5770c67c7e72d4934d20a97c4a94ebd7af3e9d0f12  narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/checks01/bind_oliver_plan.py
+904381bf9d4a173c41d6729b16a89760dbcbb85f5fbeb81501dccd7bd6380d65  narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/checks01/validate_oliver_plan.py
+c0df76154e74cd7d7a5950f8d7d64820cc320d1f3a02aa318011955d84841434  narration_lab/third-wave-20261024/root/elevenlabs-apportionment-rebuild-20261104/checks01/phrase_scan.py
+
+== 1. binder: outputs on disk equal what the staged source gives
+8136388e58082b74395b2b8141207bc5fd6dc7d5f80fb93f9f8f16eb518c7bd8  narration-direction-map-oliver04.json
+2aaceadd55624524f9665022ea6a4fc2f861d703f33dc0ba0556e118a4a9b4d9  narration_units.json
+61bb6626e366fd1cb9a79a120e68e2eaac41dd1fa4f38d48d242a246623825e2  source-audit.json
+93 cues, 93 units, 4129 words, max 100; 15 prediction holds, 0 reading holds
+boundaries: {'prediction': 15, 'wipe': 20, 'hold_plus_pause': 1, 'hold_then_say': 2, 'say_breath': 40, 'chapter_end': 15}
+scratch gaps: {"hold_plus_pause": {"pairs": 1, "min_s": 1.218, "max_s": 1.218}, "hold_then_say": {"pairs": 2, "min_s": 0.618, "max_s": 0.631}, "prediction": {"pairs": 15, "min_s": 5.067, "max_s": 5.087}, "say_breath": {"pairs": 40, "min_s": 0.6, "max_s": 2.515}, "wipe": {"pairs": 20, "min_s": 1.2, "max_s": 1.231}}
+overrun on scratch: 01_2 -> 01_3 1.615 s (say_breath)
+overrun on scratch: 12_2 -> 12_3 2.515 s (say_breath)
+overrun on scratch: 12_7 -> 12_8 2.012 s (say_breath)
+
+== 2. storyboard corrections: output on disk equals the corrections applied to canonical
+85d3b36b4a9bb11d38b5c7d3839ad142296e82a1afb47e92eb03bf50eaaccfb1  input storyboard
+f883e0229d6fe1a69bbe7f58aeb6801a5064651b1e1f99664280b2364bb8f45f  corrected storyboard
+8 corrections in rows ['04_2', '12_5', '12_8', '12_9']; every other cell and line unchanged
+
+== 3. coherent API in an isolated root, map against source, planted defects
+coherent.read_units(require_directions=True): 93 units over 93 cues
+coherent.direction_contract: 15 directions resolved, each ending its cue; Authored coverage only. No acoustic or listening acceptance.
+map path in contract: explainer_corpus/apportionment/docs/narration-direction-map-oliver04.json
+check_coherent_units rules, one cue per unit: 93 units
+words: total 4129, max 100 (['11_2'])
+15 hold rows fit the staged source (hash, marker at line, between adjacent cues)
+hold_kinds: {'prediction': 15, 'reading': 0}
+3 helper rows fit draw.rs
+overrides: 15, identical to oliver03
+hold rows differing from oliver03: ['04_3: sha256 fbf41f13 -> d65ef2d8', '12_1: line 347 -> 351, sha256 c667ad1a -> c00c98e4']
+against the installed canonical chapters, 3 problems, as expected until root installs:
+  04_3 sixteenth.rs:146: hash differs
+  12_1 both_promises.rs:351: hash differs
+  12_1 both_promises.rs:351: marker is not on this line
+storyboard: words, features and hold cells identical in 93 rows; picture cell differs in ['04_2', '12_5', '12_8', '12_9']
+storyboard ⟨predict⟩ rows = listen 4 s rows = map rows: 15
+planted defects, coherent API:
+  refused unit-text-changed: unit oliver_01_4 must contain exact script text, at most 100 words
+  refused unit-dropped: unit plan omits, repeats or reorders script cues
+  refused units-reordered: unit plan omits, repeats or reorders script cues
+  refused map-bytes-changed: direction map changed
+  refused phrase-not-in-cue: direction phrase is missing or ambiguous
+  refused direction-duplicated: duplicate direction boundary
+  refused direction-not-at-cue-end: 01_3: a direction does not end its cue
+planted defects, source binding:
+  refused line-shifted: ['12_1 both_promises.rs:352: marker is not on this line']
+  refused wrong-next-cue: ['12_1 both_promises.rs:351: not between its two cues']
+9 planted defects refused
+VALIDATION PASS: authored coverage only; no take, timing, listening or acceptance
+
+== 4. root's validate_oliver_plan.py on a copy; only its map file name is changed, oliver03 to oliver04
+direction_contract: 15 directions resolved; Authored coverage only. No acoustic or listening acceptance.
+check_coherent_units rules: 93 units cover 93 cues in order
+visual holds: 15 markers at their lines, hashes current
+
+== 5. root's bind_oliver_plan.py on a copy of staged03, compared row by row
+hold after 01_3: one_more_seat.rs:86
+hold after 02_4: shares.rs:231
+hold after 03_3: largest_tails.rs:106
+hold after 04_3: sixteenth.rs:146
+hold after 05_3: dials.rs:152
+hold after 06_1: not_every_time.rs:58
+hold after 07_2: yardstick.rs:109
+hold after 08_3: signposts.rs:121
+hold after 09_1: cost.rs:57
+hold after 10_3: rounding_rules.rs:189
+hold after 11_1: webster_quota.rs:124
+hold after 12_1: both_promises.rs:351
+hold after 13_3: population.rs:185
+hold after 14_3: no_rule.rs:289
+hold after 15_3: recap.rs:180
+15 prediction holds; written
+root's binder on staged03: 15 overrides and 15 hold rows, identical to oliver04
+root's binder on staged03: 93 units, identical; only the map name, map hash and scope wording differ
+
+== 6. root's phrase_scan.py on the registered chapters of staged03
+93 lines said, 254 literal phrases checked
+problems: 0
+
+== 7. tools/storyboard.py --check in isolated roots: canonical baseline, corrected, planted word change
+apportionment:
+  01_one_more_seat                    92.6 s  6 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  02_shares                          126.3 s  7 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  03_largest_tails                   109.0 s  6 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  04_sixteenth                        79.8 s  5 beats
+  05_dials                           116.4 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  06_not_every_time                   98.2 s  6 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  07_yardstick                        92.9 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  08_signposts                       107.2 s  6 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  09_cost                             91.0 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  10_rounding_rules                  159.2 s  7 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  11_webster_quota                   120.9 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  12_both_promises                   256.9 s  10 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  13_population                      135.3 s  7 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  14_no_rule                         188.4 s  8 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  15_recap                           107.8 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  total 31.4 min over 15 chapters
+  [x] TeX derivations (`write`, `TransformMatchingTex`: symbols → numbers → answer): 03_5, 12_5, 12_9, 15_5
+  [x] value trackers driving live numbers and bars: 01_2, 03_2, 04_1, 05_1, 05_4, 05_5 …
+  [x] morphs that keep identity (clouds, swarms, tables): 03_5, 05_4, 12_2, 12_3, 13_6, 15_4 …
+  [x] data windows (plots, histograms, number lines): 01_1, 01_2, 02_1, 02_2, 03_1, 03_3 …
+  [x] lagged group reveals: 01_1, 01_2, 01_6, 02_1, 02_5, 06_3 …
+  [x] highlights (`indicate`, surrounding boxes, flashes, glow): 01_4, 02_3, 02_5, 02_6, 02_7, 03_6 …
+  [x] sound that teaches (listen windows, the score engine): 01_3, 02_4, 03_3, 04_3, 05_3, 06_1 …
+  [x] tables and grids built from primitives: 01_6, 02_2, 02_5, 02_6, 02_7, 06_3 …
+  [ ] the camera route (3D, orbits)
+apportionment:
+  01_one_more_seat                    92.6 s  6 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  02_shares                          126.3 s  7 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  03_largest_tails                   109.0 s  6 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  04_sixteenth                        79.8 s  5 beats
+  05_dials                           116.4 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  06_not_every_time                   98.2 s  6 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  07_yardstick                        92.9 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  08_signposts                       107.2 s  6 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  09_cost                             91.0 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  10_rounding_rules                  159.2 s  7 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  11_webster_quota                   120.9 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  12_both_promises                   256.9 s  10 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  13_population                      135.3 s  7 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  14_no_rule                         188.4 s  8 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  15_recap                           107.8 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  total 31.4 min over 15 chapters
+  [x] TeX derivations (`write`, `TransformMatchingTex`: symbols → numbers → answer): 03_5, 12_5, 12_9, 15_5
+  [x] value trackers driving live numbers and bars: 01_2, 03_2, 04_1, 05_1, 05_4, 05_5 …
+  [x] morphs that keep identity (clouds, swarms, tables): 03_5, 05_4, 12_2, 12_3, 13_6, 15_4 …
+  [x] data windows (plots, histograms, number lines): 01_1, 01_2, 02_1, 02_2, 03_1, 03_3 …
+  [x] lagged group reveals: 01_1, 01_2, 01_6, 02_1, 02_5, 06_3 …
+  [x] highlights (`indicate`, surrounding boxes, flashes, glow): 01_4, 02_3, 02_5, 02_6, 02_7, 03_6 …
+  [x] sound that teaches (listen windows, the score engine): 01_3, 02_4, 03_3, 04_3, 05_3, 06_1 …
+  [x] tables and grids built from primitives: 01_6, 02_2, 02_5, 02_6, 02_7, 06_3 …
+  [ ] the camera route (3D, orbits)
+apportionment:
+  01_one_more_seat                    92.6 s  6 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  02_shares                          126.3 s  7 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  03_largest_tails                   109.0 s  6 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  04_sixteenth                        79.4 s  5 beats
+  05_dials                           116.4 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  06_not_every_time                   98.2 s  6 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  07_yardstick                        92.9 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  08_signposts                       107.2 s  6 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  09_cost                             91.0 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  10_rounding_rules                  159.2 s  7 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  11_webster_quota                   120.9 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  12_both_promises                   256.9 s  10 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  13_population                      135.3 s  7 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  14_no_rule                         188.4 s  8 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  15_recap                           107.8 s  5 beats
+    ADVISORY: longer chapter; review its conceptual boundary and inspection time. Preserve useful explanation; this estimate is not a runtime cap.
+  total 31.4 min over 15 chapters
+  [x] TeX derivations (`write`, `TransformMatchingTex`: symbols → numbers → answer): 03_5, 12_5, 12_9, 15_5
+  [x] value trackers driving live numbers and bars: 01_2, 03_2, 04_1, 05_1, 05_4, 05_5 …
+  [x] morphs that keep identity (clouds, swarms, tables): 03_5, 05_4, 12_2, 12_3, 13_6, 15_4 …
+  [x] data windows (plots, histograms, number lines): 01_1, 01_2, 02_1, 02_2, 03_1, 03_3 …
+  [x] lagged group reveals: 01_1, 01_2, 01_6, 02_1, 02_5, 06_3 …
+  [x] highlights (`indicate`, surrounding boxes, flashes, glow): 01_4, 02_3, 02_5, 02_6, 02_7, 03_6 …
+  [x] sound that teaches (listen windows, the score engine): 01_3, 02_4, 03_3, 04_3, 05_3, 06_1 …
+  [x] tables and grids built from primitives: 01_6, 02_2, 02_5, 02_6, 02_7, 06_3 …
+  [ ] the camera route (3D, orbits)
+  PROBLEM apportionment: script.tsv is stale (run tools/storyboard.py apportionment)
+planted word change refused, as it should be
+script.tsv unchanged by the storyboard check
+
+== inputs after
+staged03 topic tree digest 56e6c42446bcfc116b760ba4e71e8593a2d8aefbfa432aa233c8dfe68a9b5a65
+canonical topic tree digest 057be7d6caf476e8e12d29d7e0b2149b0410ca21b571d228f80435f18774fb06
+staged03 unchanged during this run
+canonical topic unchanged during this run
+
+ALL CHECKS RAN

@@ -1,0 +1,72 @@
+binder: a fresh build equals all 8 generated files on disk, byte for byte
+staged root = this bundle, script = stage04: coherent.read_units(require_directions=True) -> 80 units over 80 cues
+coherent.direction_contract -> 15 directions resolved, each ending its cue; claim: Authored coverage only. No acoustic or listening acceptance.
+rehearsal root with the canonical layout (script, plan and map copied): same 15 resolutions
+map path in contract: explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json, sha256 631dc98c007e1a7c39bfe35264cc0610d3bf430c7467d49fe5fda4957e8674ad
+check_coherent_units rules, one cue per unit: 80 units, in script order
+tools/narration_delivery.py external_plan's rule holds: one cue per unit, so an ElevenLabs UI plan can carry this contract unchanged
+words: total 4592, max 95 (['07_6']); script sha256 f201d2dc57fa9ccac30d475255690a90d6749449014b542d4dea62164f31bf84
+stage04's copied 14-unit plan, against the final script: refused (unit plan does not bind current script bytes)
+15 hold rows fit stage04 (file hash, marker at line, between adjacent cues, interval hash): {'prediction': 13, 'reading': 2}
+the four obsolete pairs are absent: ['00_1->00_2', '01_1->01_2', '03_1->03_2', '04_1->04_2']
+each names a retired file, or a line that no longer holds that marker; its old words are not in the final cue; its final interval has no window
+every audited hold carries its cue's exact text and text hash
+15 helper rows and 7 consumer rows: hash and marker at line hold
+10_4: conditional window, no number claimed; 197 characters at the 13.2 s floor = 14.924 per second
+11_20: 159 + 107 characters at 15.0 per second = 17.7333 s of window, from the source's literals; source floor 18.3333 s after the voice
+narration_delivery.prediction_end, synthetic numbers: 13 declared pairs extend with a mark and do not without one; reading pair 11_20->11_8 is not a prediction and never extends
+coherent.review_directions and check_dispositions accept 15 native_visual_hold rows with zero inserted samples (structure only; there is no take)
+24 phrase anchors in 14 cues, each exactly where text.find lands, once, at a word start; a separate scan counts the same 30 until_phrase and phrase_time calls
+affected by a split: 11; with a new cue or byte: 4; measured: 0
+template: 80 cues, every wav_sha256 and seconds null
+3 sentence share hooks, listed apart: not byte anchors
+cue delta: the 80 cues rejoin to root's 75 request texts byte for byte; {'cues': 80, 'unchanged_from_baseline': 71, 'split_cues': 9, 'with_exact_request_bytes': 80}
+reference only, narration-binding-stage01 expanded01: 14 of its rows carry over, 11_20 is new; same interval hash on 11; line moves: ['02_2 201->204', '04_6 692->738', '10_4 595->602', '11_3 567->1070', '12_5 866->1121']
+reference only, 10_4's marker: expanded01 'kit.hold(stage)?;'; this map 'kit.music_breath(stage, FINE_PRINT_S - read_for)?;'
+proposed versus installed canonical, at this run:
+  script.tsv: not installed
+  narration_units.json: not installed
+  src/chapters/draw.rs: not installed
+  src/chapters/ratio_ruler.rs: same
+  src/chapters/building_ruler.rs: not installed
+  src/chapters/slide_rule.rs: not installed
+  src/chapters/folded_decade.rs: not installed
+  src/chapters/undoing_growth.rs: not installed
+  src/chapters/complex_turns.rs: not installed
+  src/chapters/lifting_loops.rs: not installed
+  src/chapters/branch_cut.rs: not installed
+  src/chapters/product_rule.rs: not installed
+  src/chapters/matrix_logs.rs: not installed
+  src/chapters/doing_nothing.rs: not installed
+  src/chapters/unreachable.rs: not installed
+  src/chapters/what_it_forgets.rs: not installed
+  docs/narration-direction-map-oliver12.json: not installed
+no absolute home or scratch path in any bundle file
+planted defects, coherent API:
+  refused unit-text-changed: unit oliver_00_4 must contain exact script text, at most 100 words
+  refused unit-dropped: unit plan omits, repeats or reorders script cues
+  refused units-reordered: unit plan omits, repeats or reorders script cues
+  refused unit-over-100-words: unit oliver_11_7 must contain exact script text, at most 100 words
+  refused map-bytes-changed: direction map changed
+  refused phrase-not-in-cue: direction phrase is missing or ambiguous
+  refused direction-duplicated: duplicate direction boundary
+  refused direction-not-at-cue-end: 00_4: a direction does not end its cue
+  refused oliver11-direction-back: direction phrase is missing or ambiguous
+planted defects, source binding:
+  refused line-shifted: ['12_5 what_it_forgets.rs:1122: marker is not on this line']
+  refused wrong-next-cue: ['05_1 complex_turns.rs:235: cues are not adjacent']
+  refused file-hash-changed: ['00_4 ratio_ruler.rs:371: hash differs']
+  refused interval-changed: ['08_4 product_rule.rs:346: interval changed']
+  refused obsolete-pair-back: ['an obsolete pair is back']
+  refused reading-row-dropped: ['the reading rows are not 10_4 and 11_20']
+planted defects, phrase anchors:
+  refused byte-shifted: ['11_20@92: not where text.find lands']
+  refused invented-seconds: ['02_1@48: a seconds value']
+  refused invented-template-seconds: ['11_20: template marks']
+  refused template-bound-to-a-wav: ['11_20: template binding']
+planted defects, dispositions:
+  refused invented-silence-with-no-gap: direction disposition contradicts assembled samples at override 0
+  refused a-direction-with-no-disposition: every selected authored direction needs an explicit assembly disposition
+  refused evidence-hash-wrong: direction disposition evidence changed
+22 planted defects refused
+VALIDATION PASS: authored coverage and source binding only; no take, timing, picture, listening or acceptance

@@ -1,0 +1,71 @@
+# Existing crate checks, on a scratch copy of canonical with the candidate laid over it
+## rustfmt --check through main.rs (parses every module; no compile)
+exit 0
+## phrase_scan
+93 lines said, 244 literal phrases checked
+problems: 0
+exit 0
+## regen_script
+script.tsv unchanged
+problems: 0
+exit 0
+## bind_oliver_plan --check, candidate
+hold after 01_3: one_more_seat.rs:86
+hold after 02_4: shares.rs:128
+hold after 03_3: largest_tails.rs:106
+hold after 04_3: sixteenth.rs:146
+hold after 05_3: dials.rs:152
+hold after 06_1: not_every_time.rs:58
+hold after 07_2: yardstick.rs:112
+hold after 08_3: signposts.rs:121
+hold after 09_1: cost.rs:57
+hold after 10_3: rounding_rules.rs:189
+hold after 11_1: webster_quota.rs:124
+hold after 12_1: both_promises.rs:347
+hold after 13_3: population.rs:185
+hold after 14_3: no_rule.rs:289
+hold after 15_3: recap.rs:180
+15 prediction holds; stale: narration-direction-map-oliver03.json, narration_units.json
+exit 1
+## bind_oliver_plan --check, canonical as it stands (the stale holds are not this repair's)
+hold after 01_3: one_more_seat.rs:86
+hold after 02_4: shares.rs:128
+hold after 03_3: largest_tails.rs:106
+hold after 04_3: sixteenth.rs:146
+hold after 05_3: dials.rs:152
+hold after 06_1: not_every_time.rs:58
+hold after 07_2: yardstick.rs:112
+hold after 08_3: signposts.rs:121
+hold after 09_1: cost.rs:57
+hold after 10_3: rounding_rules.rs:189
+hold after 11_1: webster_quota.rs:124
+hold after 12_1: both_promises.rs:297
+hold after 13_3: population.rs:185
+hold after 14_3: no_rule.rs:289
+hold after 15_3: recap.rs:180
+15 prediction holds; stale: narration-direction-map-oliver03.json, narration_units.json
+exit 1
+## validate_oliver_plan, candidate
+Traceback (most recent call last):
+  File "docs/video-program/third-wave-20261024/opus-replacements-20261104/apportionment/checks/validate_oliver_plan.py", line 64, in <module>
+    assert hashlib.sha256(src.read_bytes()).hexdigest() == hold["sha256"], f"{src.name} changed"
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: largest_tails.rs changed
+direction_contract: 15 directions resolved; Authored coverage only. No acoustic or listening acceptance.
+check_coherent_units rules: 93 units cover 93 cues in order
+exit 0
+
+## why the two plan checks above stop: a scratch rebind of the candidate, then what differs
+15 prediction holds; written
+differs: 03_3 largest_tails.rs in ['sha256']: line 106 -> 106
+differs: 04_3 sixteenth.rs in ['sha256']: line 146 -> 146
+differs: 05_3 dials.rs in ['sha256']: line 152 -> 152
+12_1 hold equal to the rebind: True 347 let q = think(&kit, stage, v(PREDICT_AT.0, PREDICT_AT.1))?;
+## validate_oliver_plan on that scratch rebind (only the three pre-existing holds corrected; not in the patch)
+direction_contract: 15 directions resolved; Authored coverage only. No acoustic or listening acceptance.
+check_coherent_units rules: 93 units cover 93 cues in order
+visual holds: 15 markers at their lines, hashes current
+validate exit 0
+## validate_oliver_plan on canonical as it stands (same stop, not this repair's)
+AssertionError: largest_tails.rs changed
+validate exit 1

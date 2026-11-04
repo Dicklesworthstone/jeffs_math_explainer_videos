@@ -1,0 +1,1864 @@
+{
+  "schema_version": 1,
+  "topic": "apportionment",
+  "claim": "Text audit of Rust source. Uncompiled, unrendered. No take, duration, listening or acceptance.",
+  "script_sha256": "cfcec06911c7d94efa6b7b29a820be9bf73a608810b4b57085f02f5b95939313",
+  "map_version": "oliver04",
+  "kit": {
+    "line_gaps": "Constant",
+    "breath_s": 0.6,
+    "think_s": 4.0
+  },
+  "meanings": {
+    "prediction": "draw::think after a question cue: kit.hold (voice end plus the 0.6 s breath), mark predict, fade 0.2, THINK_S 4.0, fade 0.2, so 5.0 s in source after the voice. Not silence in any take.",
+    "wipe": "draw::wipe: kit.hold, then a 0.6 s fade of the whole stage, so 1.2 s in source after the voice. A scene change, not a reading or prediction hold.",
+    "hold_plus_pause": "kit.hold then pause 0.6: 1.2 s in source after the voice, no fade.",
+    "hold_then_say": "kit.hold directly before say: the breath say would keep anyway; no added time.",
+    "say_breath": "say waits for the previous line, then the 0.6 s breath (LineGaps::Constant).",
+    "chapter_end": "The chapter's last cue: closing pause, then kit.finish. No next cue in this chapter."
+  },
+  "counts": {
+    "cues": 93,
+    "units": 93,
+    "chapters": 15,
+    "words_total": 4129,
+    "words_max": 100,
+    "cues_over_90_words": [
+      "11_2",
+      "12_9"
+    ],
+    "prediction_holds": 15,
+    "reading_holds": 0,
+    "boundaries": {
+      "prediction": 15,
+      "wipe": 20,
+      "hold_plus_pause": 1,
+      "hold_then_say": 2,
+      "say_breath": 40,
+      "chapter_end": 15
+    },
+    "think_calls": 15,
+    "wipe_calls": 20,
+    "kit_hold_calls": 3,
+    "pause_calls": 19,
+    "closing_pauses": 15,
+    "wait_until_calls": 2,
+    "literal_wait_for_calls": 254,
+    "non_literal_wait_for_calls": 9
+  },
+  "prediction_holds": [
+    {
+      "cue": "01_3",
+      "next_cue": "01_4",
+      "file": "one_more_seat.rs",
+      "line": 86,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": []
+    },
+    {
+      "cue": "02_4",
+      "next_cue": "02_5",
+      "file": "shares.rs",
+      "line": 231,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": []
+    },
+    {
+      "cue": "03_3",
+      "next_cue": "03_4",
+      "file": "largest_tails.rs",
+      "line": 106,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": []
+    },
+    {
+      "cue": "04_3",
+      "next_cue": "04_4",
+      "file": "sixteenth.rs",
+      "line": 146,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": [
+        "sha256"
+      ]
+    },
+    {
+      "cue": "05_3",
+      "next_cue": "05_4",
+      "file": "dials.rs",
+      "line": 152,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": []
+    },
+    {
+      "cue": "06_1",
+      "next_cue": "06_2",
+      "file": "not_every_time.rs",
+      "line": 58,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": []
+    },
+    {
+      "cue": "07_2",
+      "next_cue": "07_3",
+      "file": "yardstick.rs",
+      "line": 109,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": []
+    },
+    {
+      "cue": "08_3",
+      "next_cue": "08_4",
+      "file": "signposts.rs",
+      "line": 121,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": []
+    },
+    {
+      "cue": "09_1",
+      "next_cue": "09_2",
+      "file": "cost.rs",
+      "line": 57,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": []
+    },
+    {
+      "cue": "10_3",
+      "next_cue": "10_4",
+      "file": "rounding_rules.rs",
+      "line": 189,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": []
+    },
+    {
+      "cue": "11_1",
+      "next_cue": "11_2",
+      "file": "webster_quota.rs",
+      "line": 124,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": []
+    },
+    {
+      "cue": "12_1",
+      "next_cue": "12_2",
+      "file": "both_promises.rs",
+      "line": 351,
+      "marker": "let q = think(&kit, stage, v(PREDICT_AT.0, PREDICT_AT.1))?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": [
+        "line",
+        "sha256"
+      ]
+    },
+    {
+      "cue": "13_3",
+      "next_cue": "13_4",
+      "file": "population.rs",
+      "line": 185,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": []
+    },
+    {
+      "cue": "14_3",
+      "next_cue": "14_4",
+      "file": "no_rule.rs",
+      "line": 289,
+      "marker": "let q = think(&kit, stage, v(5.6, -0.4))?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": []
+    },
+    {
+      "cue": "15_3",
+      "next_cue": "15_4",
+      "file": "recap.rs",
+      "line": 180,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "seconds_in_source_after_voice": 5.0,
+      "changed_from_oliver03": []
+    }
+  ],
+  "reading_holds": [],
+  "reading_holds_note": "Judgement: no row. No site adds a wait after the voice in order to read a card. The nearest candidates are the classes transition_after_voice, reading_floor_inside_cue and picture_beat under other_waits, left for root to overrule.",
+  "other_waits": [
+    {
+      "file": "one_more_seat.rs",
+      "line": 117,
+      "marker": "pause(stage, 0.8)?;",
+      "cue": "01_4",
+      "seconds_in_source": 0.8,
+      "class": "picture_beat",
+      "row_in_map": false,
+      "note": "Beat after Ash's 2 → 1 note, timed from picture time, before the wipe. Whether it ends before or after the voice is not fixed by source."
+    },
+    {
+      "file": "shares.rs",
+      "line": 153,
+      "marker": "kit.hold(stage)?;",
+      "cue": "02_1",
+      "seconds_in_source": null,
+      "class": "transition_after_voice",
+      "row_in_map": false,
+      "note": "With line 154: the source's own comment says the hold and pause keep the wipe's timing. A real wait after the voice, but authored as a scene beat, not for reading. Same 1.2 s as the 20 wipes, which have no row either."
+    },
+    {
+      "file": "shares.rs",
+      "line": 154,
+      "marker": "pause(stage, 0.6)?;",
+      "cue": "02_1",
+      "seconds_in_source": 0.6,
+      "class": "transition_after_voice",
+      "row_in_map": false,
+      "note": "The added 0.6 s of the pair at lines 153 and 154."
+    },
+    {
+      "file": "shares.rs",
+      "line": 165,
+      "marker": "wait_until(stage, s.at(\"Ash's share\")? - 1.1)?;",
+      "cue": "02_2",
+      "seconds_in_source": null,
+      "class": "word_sync_inside_voice",
+      "row_in_map": false,
+      "note": "Clears the number line 1.1 s before \"Ash's share\" is spoken: inside 02_2."
+    },
+    {
+      "file": "not_every_time.rs",
+      "line": 82,
+      "marker": "kit.hold(stage)?;",
+      "cue": "06_2",
+      "seconds_in_source": null,
+      "class": "sequencing_no_added_time",
+      "row_in_map": false,
+      "note": "Directly before say 06_3. The comment asks that the result stays up during the introduction; no time is added."
+    },
+    {
+      "file": "not_every_time.rs",
+      "line": 131,
+      "marker": "kit.hold(stage)?;",
+      "cue": "06_3",
+      "seconds_in_source": null,
+      "class": "sequencing_no_added_time",
+      "row_in_map": false,
+      "note": "Directly before say 06_4. The comment asks that the loss strip stays up; no time is added."
+    },
+    {
+      "file": "not_every_time.rs",
+      "line": 195,
+      "marker": "wait_until(stage, shown + chars as f64 / READ_CPS)?;",
+      "cue": "06_6",
+      "seconds_in_source": null,
+      "class": "reading_floor_inside_cue",
+      "row_in_map": false,
+      "note": "The film's only authored reading time: the quote and its source stay at full strength for READ_CPS after they appear. It delays a picture change inside 06_6, the chapter's last cue, not a cue boundary. It adds time after the voice only if 06_6 ends before the floor, so a boundary row would misdescribe it.",
+      "floor": {
+        "chars": 159,
+        "chars_per_second": 15.0,
+        "seconds_from_quote_shown": 10.6
+      }
+    },
+    {
+      "file": "both_promises.rs",
+      "line": 544,
+      "marker": "pause(stage, 1.0)?;",
+      "cue": "12_3",
+      "seconds_in_source": 1.0,
+      "class": "picture_beat",
+      "row_in_map": false,
+      "note": "Beat on \"16 seats: 1, 4, 11\" before the wipe into 12_4, timed from picture time. Whether it ends before or after the voice is not fixed by source."
+    },
+    {
+      "file": "both_promises.rs",
+      "line": 799,
+      "marker": "pause(stage, 1.2)?;",
+      "cue": "12_7",
+      "seconds_in_source": 1.2,
+      "class": "conditional_walk_beat",
+      "row_in_map": false,
+      "note": "Inside the 12_7 walk's wait branch, reached at 6 and at 15 (storyboard: each holds 1.2 s). Part of the picture's walk; it can only push 12_8 back by overrunning the voice."
+    }
+  ],
+  "closing_pauses": [
+    {
+      "file": "one_more_seat.rs",
+      "line": 206,
+      "cue": "01_6",
+      "seconds_in_source": 0.5
+    },
+    {
+      "file": "shares.rs",
+      "line": 396,
+      "cue": "02_7",
+      "seconds_in_source": 0.6
+    },
+    {
+      "file": "largest_tails.rs",
+      "line": 205,
+      "cue": "03_6",
+      "seconds_in_source": 0.6
+    },
+    {
+      "file": "sixteenth.rs",
+      "line": 229,
+      "cue": "04_5",
+      "seconds_in_source": 0.6
+    },
+    {
+      "file": "dials.rs",
+      "line": 190,
+      "cue": "05_5",
+      "seconds_in_source": 0.6
+    },
+    {
+      "file": "not_every_time.rs",
+      "line": 207,
+      "cue": "06_6",
+      "seconds_in_source": 0.6
+    },
+    {
+      "file": "yardstick.rs",
+      "line": 210,
+      "cue": "07_5",
+      "seconds_in_source": 0.6
+    },
+    {
+      "file": "signposts.rs",
+      "line": 212,
+      "cue": "08_6",
+      "seconds_in_source": 0.6
+    },
+    {
+      "file": "cost.rs",
+      "line": 193,
+      "cue": "09_5",
+      "seconds_in_source": 0.6
+    },
+    {
+      "file": "rounding_rules.rs",
+      "line": 457,
+      "cue": "10_7",
+      "seconds_in_source": 0.6
+    },
+    {
+      "file": "webster_quota.rs",
+      "line": 418,
+      "cue": "11_5",
+      "seconds_in_source": 0.6
+    },
+    {
+      "file": "both_promises.rs",
+      "line": 1251,
+      "cue": "12_10",
+      "seconds_in_source": 0.6
+    },
+    {
+      "file": "population.rs",
+      "line": 401,
+      "cue": "13_7",
+      "seconds_in_source": 0.6
+    },
+    {
+      "file": "no_rule.rs",
+      "line": 505,
+      "cue": "14_8",
+      "seconds_in_source": 0.6
+    },
+    {
+      "file": "recap.rs",
+      "line": 301,
+      "cue": "15_5",
+      "seconds_in_source": 1.0
+    }
+  ],
+  "wipes": [
+    {
+      "file": "one_more_seat.rs",
+      "line": 120,
+      "cue": "01_4",
+      "next_cue": "01_5"
+    },
+    {
+      "file": "shares.rs",
+      "line": 364,
+      "cue": "02_6",
+      "next_cue": "02_7"
+    },
+    {
+      "file": "cost.rs",
+      "line": 90,
+      "cue": "09_2",
+      "next_cue": "09_3"
+    },
+    {
+      "file": "cost.rs",
+      "line": 139,
+      "cue": "09_3",
+      "next_cue": "09_4"
+    },
+    {
+      "file": "cost.rs",
+      "line": 177,
+      "cue": "09_4",
+      "next_cue": "09_5"
+    },
+    {
+      "file": "rounding_rules.rs",
+      "line": 324,
+      "cue": "10_5",
+      "next_cue": "10_6"
+    },
+    {
+      "file": "rounding_rules.rs",
+      "line": 410,
+      "cue": "10_6",
+      "next_cue": "10_7"
+    },
+    {
+      "file": "webster_quota.rs",
+      "line": 194,
+      "cue": "11_2",
+      "next_cue": "11_3"
+    },
+    {
+      "file": "webster_quota.rs",
+      "line": 378,
+      "cue": "11_4",
+      "next_cue": "11_5"
+    },
+    {
+      "file": "both_promises.rs",
+      "line": 549,
+      "cue": "12_3",
+      "next_cue": "12_4"
+    },
+    {
+      "file": "both_promises.rs",
+      "line": 607,
+      "cue": "12_4",
+      "next_cue": "12_5"
+    },
+    {
+      "file": "both_promises.rs",
+      "line": 1180,
+      "cue": "12_9",
+      "next_cue": "12_10"
+    },
+    {
+      "file": "population.rs",
+      "line": 235,
+      "cue": "13_4",
+      "next_cue": "13_5"
+    },
+    {
+      "file": "population.rs",
+      "line": 362,
+      "cue": "13_6",
+      "next_cue": "13_7"
+    },
+    {
+      "file": "no_rule.rs",
+      "line": 263,
+      "cue": "14_2",
+      "next_cue": "14_3"
+    },
+    {
+      "file": "no_rule.rs",
+      "line": 367,
+      "cue": "14_5",
+      "next_cue": "14_6"
+    },
+    {
+      "file": "no_rule.rs",
+      "line": 437,
+      "cue": "14_6",
+      "next_cue": "14_7"
+    },
+    {
+      "file": "no_rule.rs",
+      "line": 471,
+      "cue": "14_7",
+      "next_cue": "14_8"
+    },
+    {
+      "file": "recap.rs",
+      "line": 152,
+      "cue": "15_2",
+      "next_cue": "15_3"
+    },
+    {
+      "file": "recap.rs",
+      "line": 267,
+      "cue": "15_4",
+      "next_cue": "15_5"
+    }
+  ],
+  "non_literal_wait_for": [
+    {
+      "file": "one_more_seat.rs",
+      "line": 71,
+      "marker": "s.wait_for(stage, phrase)?;",
+      "cue": "01_2"
+    },
+    {
+      "file": "shares.rs",
+      "line": 181,
+      "marker": "s.wait_for(stage, phrase)?;",
+      "cue": "02_2"
+    },
+    {
+      "file": "shares.rs",
+      "line": 325,
+      "marker": "s.wait_for(stage, phrase)?;",
+      "cue": "02_5"
+    },
+    {
+      "file": "dials.rs",
+      "line": 129,
+      "marker": "s.wait_for(stage, phrases[i])?;",
+      "cue": "05_2"
+    },
+    {
+      "file": "dials.rs",
+      "line": 163,
+      "marker": "s.wait_for(stage, phrase)?;",
+      "cue": "05_4"
+    },
+    {
+      "file": "signposts.rs",
+      "line": 81,
+      "marker": "s.wait_for(stage, phrase)?;",
+      "cue": "08_1"
+    },
+    {
+      "file": "both_promises.rs",
+      "line": 643,
+      "marker": "s.wait_for(stage, phrase)?;",
+      "cue": "12_5"
+    },
+    {
+      "file": "population.rs",
+      "line": 140,
+      "marker": "s.wait_for(stage, phrase)?;",
+      "cue": "13_2"
+    },
+    {
+      "file": "population.rs",
+      "line": 320,
+      "marker": "s.wait_for(stage, phrase)?;",
+      "cue": "13_6"
+    }
+  ],
+  "scratch_gap_crosscheck": {
+    "claim": "Scratch voice on the older preview02 render, which predates the staged chapters 04 and 12. Used only to test this classification, not as timing for Oliver.",
+    "by_kind": {
+      "hold_plus_pause": {
+        "pairs": 1,
+        "min_s": 1.218,
+        "max_s": 1.218
+      },
+      "hold_then_say": {
+        "pairs": 2,
+        "min_s": 0.618,
+        "max_s": 0.631
+      },
+      "prediction": {
+        "pairs": 15,
+        "min_s": 5.067,
+        "max_s": 5.087
+      },
+      "say_breath": {
+        "pairs": 40,
+        "min_s": 0.6,
+        "max_s": 2.515
+      },
+      "wipe": {
+        "pairs": 20,
+        "min_s": 1.2,
+        "max_s": 1.231
+      }
+    },
+    "picture_overruns": [
+      {
+        "cue": "01_2",
+        "next_cue": "01_3",
+        "kind": "say_breath",
+        "scratch_gap_s": 1.615,
+        "from_source": "After \"Cedar gets ten\" Cedar's ten tokens take 2.8 s (0.25 × 10 + 0.3), which outlasts the voice."
+      },
+      {
+        "cue": "12_2",
+        "next_cue": "12_3",
+        "kind": "say_breath",
+        "scratch_gap_s": 2.515,
+        "from_source": "The quota walk keeps running after the cue's last phrase."
+      },
+      {
+        "cue": "12_7",
+        "next_cue": "12_8",
+        "kind": "say_breath",
+        "scratch_gap_s": 2.012,
+        "from_source": "The walk to 16, with its two 1.2 s waits, keeps running after the cue's last phrase."
+      }
+    ],
+    "note": "Overruns are not authored pauses and have no row. Their size depends on the voice, so they must be measured on real takes."
+  },
+  "registered_chapters": [
+    {
+      "key": "01_one_more_seat",
+      "file": "one_more_seat.rs"
+    },
+    {
+      "key": "02_shares",
+      "file": "shares.rs"
+    },
+    {
+      "key": "03_largest_tails",
+      "file": "largest_tails.rs"
+    },
+    {
+      "key": "04_sixteenth",
+      "file": "sixteenth.rs"
+    },
+    {
+      "key": "05_dials",
+      "file": "dials.rs"
+    },
+    {
+      "key": "06_not_every_time",
+      "file": "not_every_time.rs"
+    },
+    {
+      "key": "07_yardstick",
+      "file": "yardstick.rs"
+    },
+    {
+      "key": "08_signposts",
+      "file": "signposts.rs"
+    },
+    {
+      "key": "09_cost",
+      "file": "cost.rs"
+    },
+    {
+      "key": "10_rounding_rules",
+      "file": "rounding_rules.rs"
+    },
+    {
+      "key": "11_webster_quota",
+      "file": "webster_quota.rs"
+    },
+    {
+      "key": "12_both_promises",
+      "file": "both_promises.rs"
+    },
+    {
+      "key": "13_population",
+      "file": "population.rs"
+    },
+    {
+      "key": "14_no_rule",
+      "file": "no_rule.rs"
+    },
+    {
+      "key": "15_recap",
+      "file": "recap.rs"
+    }
+  ],
+  "unregistered_files_ignored": [
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/alabama.rs",
+      "sha256": "b450219c3ee029fa012410c87f74d89a8b4ead09a107756ed48af3c209a18c14",
+      "in_canonical": true
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/both_promises.rs.orig",
+      "sha256": "7e2ed19ef731778677ed11948ca90ce4937e84e8c56de64d51131c81da15d1c2",
+      "in_canonical": false
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/divisor.rs",
+      "sha256": "2ac4fc9100e5583eba81d6449734a705a561b2fe4a547fe60c878967304c7cdd",
+      "in_canonical": true
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/priority.rs",
+      "sha256": "edcdfa0e9dec82ac846f4b260312b1e5ba0fd09981f8f7a0f17f57f6e1d40ebe",
+      "in_canonical": true
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/quota.rs",
+      "sha256": "954119f5ec9259a9ea3b5fb9b65c400afdf577117a44ba2a16b745cf0cd48bce",
+      "in_canonical": true
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/remainders.rs",
+      "sha256": "c5519ac04faf0bbb319ab21c2f3618f442ba5ab69a85947bac46e5c0971498c9",
+      "in_canonical": true
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/seat_disappears.rs",
+      "sha256": "92e10cdc4a2d4545efd46fdd5a862bb7d04b2e52988577be80adbaf7a6e4c815",
+      "in_canonical": true
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/seventeen.rs",
+      "sha256": "532de8dd742005c5f45a7323c1406da9106c21babf5b74ab2e1fb880fafe8906",
+      "in_canonical": true
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/three_rows.rs",
+      "sha256": "c922577d8bfdb38b1611332c35fe3ad7ea4c571811b1bfa621341613c16f3e3b",
+      "in_canonical": true
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/visual.rs",
+      "sha256": "27c2520b28079e9a3cb9329c63b7559163f1d5a4998e7e89572f6cf9ed20a032",
+      "in_canonical": true
+    }
+  ],
+  "not_in_the_film": [
+    {
+      "file": "thumbnail.rs",
+      "line": 75,
+      "note": "stage.wait(1.0) renders the thumbnail, not a chapter."
+    }
+  ],
+  "proposed_versus_installed": [
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/one_more_seat.rs",
+      "proposed_sha256": "d7a8b5e66053ed0ac4e9fc2a3fcd8684a862a22016cdffe3206e873bd5bacc5a",
+      "installed_canonical_sha256": "d7a8b5e66053ed0ac4e9fc2a3fcd8684a862a22016cdffe3206e873bd5bacc5a",
+      "status": "same"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/shares.rs",
+      "proposed_sha256": "836a2bc808714b2b463960ec2e6ca4e5ae9332cbe527aab4003fbd8efa648b2c",
+      "installed_canonical_sha256": "836a2bc808714b2b463960ec2e6ca4e5ae9332cbe527aab4003fbd8efa648b2c",
+      "status": "same"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/largest_tails.rs",
+      "proposed_sha256": "d15246943cc8828c3491a9712039d77900d705ffacb8ad7f2f07e769e8a82b10",
+      "installed_canonical_sha256": "d15246943cc8828c3491a9712039d77900d705ffacb8ad7f2f07e769e8a82b10",
+      "status": "same"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/sixteenth.rs",
+      "proposed_sha256": "d65ef2d84a7a3b6d5b133c956e5fd1694f9173c398f4af476f167111293ae618",
+      "installed_canonical_sha256": "fbf41f13db0d933d5f1f17e03eeb64f2a01ce846eb93d285e9a0dc3d49bab3b1",
+      "status": "PROPOSED: not installed"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/dials.rs",
+      "proposed_sha256": "ba3db7f7ec45ed58fad570d54ef9d0d49aa394fe6b7c79517f3c4a946f0c93a0",
+      "installed_canonical_sha256": "ba3db7f7ec45ed58fad570d54ef9d0d49aa394fe6b7c79517f3c4a946f0c93a0",
+      "status": "same"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/not_every_time.rs",
+      "proposed_sha256": "d3e88f7bcad146b9078ddc7d84588f6569339cd59cd3b2c225aa963bfadf7c94",
+      "installed_canonical_sha256": "d3e88f7bcad146b9078ddc7d84588f6569339cd59cd3b2c225aa963bfadf7c94",
+      "status": "same"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/yardstick.rs",
+      "proposed_sha256": "49a858d0a3dfde135e40b0012a664503447b0b36780d5d63d44b618d99ca0ec5",
+      "installed_canonical_sha256": "49a858d0a3dfde135e40b0012a664503447b0b36780d5d63d44b618d99ca0ec5",
+      "status": "same"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/signposts.rs",
+      "proposed_sha256": "16f6ff6285f205309cd9462d725f1cee152eb9311adb062ff815ac85a6f4663c",
+      "installed_canonical_sha256": "16f6ff6285f205309cd9462d725f1cee152eb9311adb062ff815ac85a6f4663c",
+      "status": "same"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/cost.rs",
+      "proposed_sha256": "18d7b7df003c12fa2aaee0a6e8bf8c7c94cc78e4a93817a2d5ffd505ddb407e5",
+      "installed_canonical_sha256": "18d7b7df003c12fa2aaee0a6e8bf8c7c94cc78e4a93817a2d5ffd505ddb407e5",
+      "status": "same"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/rounding_rules.rs",
+      "proposed_sha256": "d5baaecdde2dd7d50b1cc8cbef60b177f6bf2e647709c181c3b9022aa04163f5",
+      "installed_canonical_sha256": "d5baaecdde2dd7d50b1cc8cbef60b177f6bf2e647709c181c3b9022aa04163f5",
+      "status": "same"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/webster_quota.rs",
+      "proposed_sha256": "14dab3d4a7f8724334b740fbb863e86d3ed000f6880a1ff1863669913cc17ed1",
+      "installed_canonical_sha256": "14dab3d4a7f8724334b740fbb863e86d3ed000f6880a1ff1863669913cc17ed1",
+      "status": "same"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/both_promises.rs",
+      "proposed_sha256": "c00c98e4f6b4b3094cfcd8643ecea1d61e5157963459b589aecdd17aa34c9144",
+      "installed_canonical_sha256": "c667ad1a29a81ed9d880aa8d830a162380e7ebea7c2b347edb0dafd6d88de8e3",
+      "status": "PROPOSED: not installed"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/population.rs",
+      "proposed_sha256": "f7e75ed4eaf8892c736430a7618f6b8d5adf450f0cdea1253c7e76b41a20636a",
+      "installed_canonical_sha256": "f7e75ed4eaf8892c736430a7618f6b8d5adf450f0cdea1253c7e76b41a20636a",
+      "status": "same"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/no_rule.rs",
+      "proposed_sha256": "aceba2952c63fd44692d5015958eb76e1ce96c87f63ac17cf7212c62815cbd5e",
+      "installed_canonical_sha256": "aceba2952c63fd44692d5015958eb76e1ce96c87f63ac17cf7212c62815cbd5e",
+      "status": "same"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/recap.rs",
+      "proposed_sha256": "3be379158a19314eb954aa9749c3b352080e96dd3214cbda6b3a165a436cd0bb",
+      "installed_canonical_sha256": "3be379158a19314eb954aa9749c3b352080e96dd3214cbda6b3a165a436cd0bb",
+      "status": "same"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/draw.rs",
+      "proposed_sha256": "dd385ed5f45f09ffb8c0d8563829601bb147460bc16c7d4cbbf08245a7b23ba4",
+      "installed_canonical_sha256": "dd385ed5f45f09ffb8c0d8563829601bb147460bc16c7d4cbbf08245a7b23ba4",
+      "status": "same"
+    },
+    {
+      "path": "explainer_corpus/apportionment/script.tsv",
+      "proposed_sha256": "cfcec06911c7d94efa6b7b29a820be9bf73a608810b4b57085f02f5b95939313",
+      "installed_canonical_sha256": "cfcec06911c7d94efa6b7b29a820be9bf73a608810b4b57085f02f5b95939313",
+      "status": "same"
+    }
+  ],
+  "cues": [
+    {
+      "cue": "01_1",
+      "unit": "oliver_01_1",
+      "next_cue": "01_2",
+      "next_cue_crosses_chapter": false,
+      "words": 23,
+      "file": "one_more_seat.rs",
+      "line": 31,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "01_2",
+      "unit": "oliver_01_2",
+      "next_cue": "01_3",
+      "next_cue_crosses_chapter": false,
+      "words": 27,
+      "file": "one_more_seat.rs",
+      "line": 55,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "01_3",
+      "unit": "oliver_01_3",
+      "next_cue": "01_4",
+      "next_cue_crosses_chapter": false,
+      "words": 36,
+      "file": "one_more_seat.rs",
+      "line": 78,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "01_4",
+      "unit": "oliver_01_4",
+      "next_cue": "01_5",
+      "next_cue_crosses_chapter": false,
+      "words": 26,
+      "file": "one_more_seat.rs",
+      "line": 89,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 0
+    },
+    {
+      "cue": "01_5",
+      "unit": "oliver_01_5",
+      "next_cue": "01_6",
+      "next_cue_crosses_chapter": false,
+      "words": 44,
+      "file": "one_more_seat.rs",
+      "line": 121,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 0
+    },
+    {
+      "cue": "01_6",
+      "unit": "oliver_01_6",
+      "next_cue": "02_1",
+      "next_cue_crosses_chapter": true,
+      "words": 33,
+      "file": "one_more_seat.rs",
+      "line": 158,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "02_1",
+      "unit": "oliver_02_1",
+      "next_cue": "02_2",
+      "next_cue_crosses_chapter": false,
+      "words": 38,
+      "file": "shares.rs",
+      "line": 85,
+      "boundary": "hold_plus_pause",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "02_2",
+      "unit": "oliver_02_2",
+      "next_cue": "02_3",
+      "next_cue_crosses_chapter": false,
+      "words": 48,
+      "file": "shares.rs",
+      "line": 155,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "02_3",
+      "unit": "oliver_02_3",
+      "next_cue": "02_4",
+      "next_cue_crosses_chapter": false,
+      "words": 35,
+      "file": "shares.rs",
+      "line": 194,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "02_4",
+      "unit": "oliver_02_4",
+      "next_cue": "02_5",
+      "next_cue_crosses_chapter": false,
+      "words": 36,
+      "file": "shares.rs",
+      "line": 218,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "02_5",
+      "unit": "oliver_02_5",
+      "next_cue": "02_6",
+      "next_cue_crosses_chapter": false,
+      "words": 43,
+      "file": "shares.rs",
+      "line": 237,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 6
+    },
+    {
+      "cue": "02_6",
+      "unit": "oliver_02_6",
+      "next_cue": "02_7",
+      "next_cue_crosses_chapter": false,
+      "words": 33,
+      "file": "shares.rs",
+      "line": 345,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "02_7",
+      "unit": "oliver_02_7",
+      "next_cue": "03_1",
+      "next_cue_crosses_chapter": true,
+      "words": 38,
+      "file": "shares.rs",
+      "line": 365,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "03_1",
+      "unit": "oliver_03_1",
+      "next_cue": "03_2",
+      "next_cue_crosses_chapter": false,
+      "words": 49,
+      "file": "largest_tails.rs",
+      "line": 37,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "03_2",
+      "unit": "oliver_03_2",
+      "next_cue": "03_3",
+      "next_cue_crosses_chapter": false,
+      "words": 31,
+      "file": "largest_tails.rs",
+      "line": 52,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "03_3",
+      "unit": "oliver_03_3",
+      "next_cue": "03_4",
+      "next_cue_crosses_chapter": false,
+      "words": 24,
+      "file": "largest_tails.rs",
+      "line": 81,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "03_4",
+      "unit": "oliver_03_4",
+      "next_cue": "03_5",
+      "next_cue_crosses_chapter": false,
+      "words": 24,
+      "file": "largest_tails.rs",
+      "line": 109,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 0
+    },
+    {
+      "cue": "03_5",
+      "unit": "oliver_03_5",
+      "next_cue": "03_6",
+      "next_cue_crosses_chapter": false,
+      "words": 60,
+      "file": "largest_tails.rs",
+      "line": 137,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "03_6",
+      "unit": "oliver_03_6",
+      "next_cue": "04_1",
+      "next_cue_crosses_chapter": true,
+      "words": 45,
+      "file": "largest_tails.rs",
+      "line": 193,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "04_1",
+      "unit": "oliver_04_1",
+      "next_cue": "04_2",
+      "next_cue_crosses_chapter": false,
+      "words": 34,
+      "file": "sixteenth.rs",
+      "line": 91,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "04_2",
+      "unit": "oliver_04_2",
+      "next_cue": "04_3",
+      "next_cue_crosses_chapter": false,
+      "words": 21,
+      "file": "sixteenth.rs",
+      "line": 101,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "04_3",
+      "unit": "oliver_04_3",
+      "next_cue": "04_4",
+      "next_cue_crosses_chapter": false,
+      "words": 25,
+      "file": "sixteenth.rs",
+      "line": 123,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "04_4",
+      "unit": "oliver_04_4",
+      "next_cue": "04_5",
+      "next_cue_crosses_chapter": false,
+      "words": 32,
+      "file": "sixteenth.rs",
+      "line": 149,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "04_5",
+      "unit": "oliver_04_5",
+      "next_cue": "05_1",
+      "next_cue_crosses_chapter": true,
+      "words": 51,
+      "file": "sixteenth.rs",
+      "line": 183,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "05_1",
+      "unit": "oliver_05_1",
+      "next_cue": "05_2",
+      "next_cue_crosses_chapter": false,
+      "words": 67,
+      "file": "dials.rs",
+      "line": 107,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 4
+    },
+    {
+      "cue": "05_2",
+      "unit": "oliver_05_2",
+      "next_cue": "05_3",
+      "next_cue_crosses_chapter": false,
+      "words": 58,
+      "file": "dials.rs",
+      "line": 125,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 0
+    },
+    {
+      "cue": "05_3",
+      "unit": "oliver_05_3",
+      "next_cue": "05_4",
+      "next_cue_crosses_chapter": false,
+      "words": 29,
+      "file": "dials.rs",
+      "line": 147,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "05_4",
+      "unit": "oliver_05_4",
+      "next_cue": "05_5",
+      "next_cue_crosses_chapter": false,
+      "words": 37,
+      "file": "dials.rs",
+      "line": 155,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "05_5",
+      "unit": "oliver_05_5",
+      "next_cue": "06_1",
+      "next_cue_crosses_chapter": true,
+      "words": 70,
+      "file": "dials.rs",
+      "line": 179,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "06_1",
+      "unit": "oliver_06_1",
+      "next_cue": "06_2",
+      "next_cue_crosses_chapter": false,
+      "words": 13,
+      "file": "not_every_time.rs",
+      "line": 51,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 0
+    },
+    {
+      "cue": "06_2",
+      "unit": "oliver_06_2",
+      "next_cue": "06_3",
+      "next_cue_crosses_chapter": false,
+      "words": 28,
+      "file": "not_every_time.rs",
+      "line": 61,
+      "boundary": "hold_then_say",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "06_3",
+      "unit": "oliver_06_3",
+      "next_cue": "06_4",
+      "next_cue_crosses_chapter": false,
+      "words": 51,
+      "file": "not_every_time.rs",
+      "line": 83,
+      "boundary": "hold_then_say",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "06_4",
+      "unit": "oliver_06_4",
+      "next_cue": "06_5",
+      "next_cue_crosses_chapter": false,
+      "words": 58,
+      "file": "not_every_time.rs",
+      "line": 132,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "06_5",
+      "unit": "oliver_06_5",
+      "next_cue": "06_6",
+      "next_cue_crosses_chapter": false,
+      "words": 31,
+      "file": "not_every_time.rs",
+      "line": 168,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "06_6",
+      "unit": "oliver_06_6",
+      "next_cue": "07_1",
+      "next_cue_crosses_chapter": true,
+      "words": 23,
+      "file": "not_every_time.rs",
+      "line": 190,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "07_1",
+      "unit": "oliver_07_1",
+      "next_cue": "07_2",
+      "next_cue_crosses_chapter": false,
+      "words": 38,
+      "file": "yardstick.rs",
+      "line": 49,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "07_2",
+      "unit": "oliver_07_2",
+      "next_cue": "07_3",
+      "next_cue_crosses_chapter": false,
+      "words": 38,
+      "file": "yardstick.rs",
+      "line": 108,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 0
+    },
+    {
+      "cue": "07_3",
+      "unit": "oliver_07_3",
+      "next_cue": "07_4",
+      "next_cue_crosses_chapter": false,
+      "words": 59,
+      "file": "yardstick.rs",
+      "line": 112,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "07_4",
+      "unit": "oliver_07_4",
+      "next_cue": "07_5",
+      "next_cue_crosses_chapter": false,
+      "words": 43,
+      "file": "yardstick.rs",
+      "line": 142,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "07_5",
+      "unit": "oliver_07_5",
+      "next_cue": "08_1",
+      "next_cue_crosses_chapter": true,
+      "words": 20,
+      "file": "yardstick.rs",
+      "line": 206,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "08_1",
+      "unit": "oliver_08_1",
+      "next_cue": "08_2",
+      "next_cue_crosses_chapter": false,
+      "words": 59,
+      "file": "signposts.rs",
+      "line": 66,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 0
+    },
+    {
+      "cue": "08_2",
+      "unit": "oliver_08_2",
+      "next_cue": "08_3",
+      "next_cue_crosses_chapter": false,
+      "words": 52,
+      "file": "signposts.rs",
+      "line": 86,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 4
+    },
+    {
+      "cue": "08_3",
+      "unit": "oliver_08_3",
+      "next_cue": "08_4",
+      "next_cue_crosses_chapter": false,
+      "words": 12,
+      "file": "signposts.rs",
+      "line": 111,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 0
+    },
+    {
+      "cue": "08_4",
+      "unit": "oliver_08_4",
+      "next_cue": "08_5",
+      "next_cue_crosses_chapter": false,
+      "words": 25,
+      "file": "signposts.rs",
+      "line": 124,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "08_5",
+      "unit": "oliver_08_5",
+      "next_cue": "08_6",
+      "next_cue_crosses_chapter": false,
+      "words": 36,
+      "file": "signposts.rs",
+      "line": 149,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "08_6",
+      "unit": "oliver_08_6",
+      "next_cue": "09_1",
+      "next_cue_crosses_chapter": true,
+      "words": 44,
+      "file": "signposts.rs",
+      "line": 183,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "09_1",
+      "unit": "oliver_09_1",
+      "next_cue": "09_2",
+      "next_cue_crosses_chapter": false,
+      "words": 23,
+      "file": "cost.rs",
+      "line": 44,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 0
+    },
+    {
+      "cue": "09_2",
+      "unit": "oliver_09_2",
+      "next_cue": "09_3",
+      "next_cue_crosses_chapter": false,
+      "words": 43,
+      "file": "cost.rs",
+      "line": 60,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "09_3",
+      "unit": "oliver_09_3",
+      "next_cue": "09_4",
+      "next_cue_crosses_chapter": false,
+      "words": 60,
+      "file": "cost.rs",
+      "line": 91,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 4
+    },
+    {
+      "cue": "09_4",
+      "unit": "oliver_09_4",
+      "next_cue": "09_5",
+      "next_cue_crosses_chapter": false,
+      "words": 36,
+      "file": "cost.rs",
+      "line": 140,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "09_5",
+      "unit": "oliver_09_5",
+      "next_cue": "10_1",
+      "next_cue_crosses_chapter": true,
+      "words": 31,
+      "file": "cost.rs",
+      "line": 178,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "10_1",
+      "unit": "oliver_10_1",
+      "next_cue": "10_2",
+      "next_cue_crosses_chapter": false,
+      "words": 33,
+      "file": "rounding_rules.rs",
+      "line": 156,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "10_2",
+      "unit": "oliver_10_2",
+      "next_cue": "10_3",
+      "next_cue_crosses_chapter": false,
+      "words": 41,
+      "file": "rounding_rules.rs",
+      "line": 173,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 4
+    },
+    {
+      "cue": "10_3",
+      "unit": "oliver_10_3",
+      "next_cue": "10_4",
+      "next_cue_crosses_chapter": false,
+      "words": 20,
+      "file": "rounding_rules.rs",
+      "line": 186,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 0
+    },
+    {
+      "cue": "10_4",
+      "unit": "oliver_10_4",
+      "next_cue": "10_5",
+      "next_cue_crosses_chapter": false,
+      "words": 43,
+      "file": "rounding_rules.rs",
+      "line": 192,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 6
+    },
+    {
+      "cue": "10_5",
+      "unit": "oliver_10_5",
+      "next_cue": "10_6",
+      "next_cue_crosses_chapter": false,
+      "words": 63,
+      "file": "rounding_rules.rs",
+      "line": 286,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 4
+    },
+    {
+      "cue": "10_6",
+      "unit": "oliver_10_6",
+      "next_cue": "10_7",
+      "next_cue_crosses_chapter": false,
+      "words": 81,
+      "file": "rounding_rules.rs",
+      "line": 325,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 5
+    },
+    {
+      "cue": "10_7",
+      "unit": "oliver_10_7",
+      "next_cue": "11_1",
+      "next_cue_crosses_chapter": true,
+      "words": 78,
+      "file": "rounding_rules.rs",
+      "line": 411,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 4
+    },
+    {
+      "cue": "11_1",
+      "unit": "oliver_11_1",
+      "next_cue": "11_2",
+      "next_cue_crosses_chapter": false,
+      "words": 16,
+      "file": "webster_quota.rs",
+      "line": 109,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 0
+    },
+    {
+      "cue": "11_2",
+      "unit": "oliver_11_2",
+      "next_cue": "11_3",
+      "next_cue_crosses_chapter": false,
+      "words": 100,
+      "file": "webster_quota.rs",
+      "line": 128,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 8
+    },
+    {
+      "cue": "11_3",
+      "unit": "oliver_11_3",
+      "next_cue": "11_4",
+      "next_cue_crosses_chapter": false,
+      "words": 76,
+      "file": "webster_quota.rs",
+      "line": 209,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 6
+    },
+    {
+      "cue": "11_4",
+      "unit": "oliver_11_4",
+      "next_cue": "11_5",
+      "next_cue_crosses_chapter": false,
+      "words": 55,
+      "file": "webster_quota.rs",
+      "line": 306,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 4
+    },
+    {
+      "cue": "11_5",
+      "unit": "oliver_11_5",
+      "next_cue": "12_1",
+      "next_cue_crosses_chapter": true,
+      "words": 26,
+      "file": "webster_quota.rs",
+      "line": 379,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "12_1",
+      "unit": "oliver_12_1",
+      "next_cue": "12_2",
+      "next_cue_crosses_chapter": false,
+      "words": 36,
+      "file": "both_promises.rs",
+      "line": 329,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "12_2",
+      "unit": "oliver_12_2",
+      "next_cue": "12_3",
+      "next_cue_crosses_chapter": false,
+      "words": 79,
+      "file": "both_promises.rs",
+      "line": 354,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 5
+    },
+    {
+      "cue": "12_3",
+      "unit": "oliver_12_3",
+      "next_cue": "12_4",
+      "next_cue_crosses_chapter": false,
+      "words": 55,
+      "file": "both_promises.rs",
+      "line": 487,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 7
+    },
+    {
+      "cue": "12_4",
+      "unit": "oliver_12_4",
+      "next_cue": "12_5",
+      "next_cue_crosses_chapter": false,
+      "words": 48,
+      "file": "both_promises.rs",
+      "line": 550,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "12_5",
+      "unit": "oliver_12_5",
+      "next_cue": "12_6",
+      "next_cue_crosses_chapter": false,
+      "words": 64,
+      "file": "both_promises.rs",
+      "line": 608,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 4
+    },
+    {
+      "cue": "12_6",
+      "unit": "oliver_12_6",
+      "next_cue": "12_7",
+      "next_cue_crosses_chapter": false,
+      "words": 55,
+      "file": "both_promises.rs",
+      "line": 658,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 5
+    },
+    {
+      "cue": "12_7",
+      "unit": "oliver_12_7",
+      "next_cue": "12_8",
+      "next_cue_crosses_chapter": false,
+      "words": 55,
+      "file": "both_promises.rs",
+      "line": 713,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 4
+    },
+    {
+      "cue": "12_8",
+      "unit": "oliver_12_8",
+      "next_cue": "12_9",
+      "next_cue_crosses_chapter": false,
+      "words": 75,
+      "file": "both_promises.rs",
+      "line": 814,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 10
+    },
+    {
+      "cue": "12_9",
+      "unit": "oliver_12_9",
+      "next_cue": "12_10",
+      "next_cue_crosses_chapter": false,
+      "words": 93,
+      "file": "both_promises.rs",
+      "line": 1023,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 8
+    },
+    {
+      "cue": "12_10",
+      "unit": "oliver_12_10",
+      "next_cue": "13_1",
+      "next_cue_crosses_chapter": true,
+      "words": 36,
+      "file": "both_promises.rs",
+      "line": 1181,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 4
+    },
+    {
+      "cue": "13_1",
+      "unit": "oliver_13_1",
+      "next_cue": "13_2",
+      "next_cue_crosses_chapter": false,
+      "words": 34,
+      "file": "population.rs",
+      "line": 78,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "13_2",
+      "unit": "oliver_13_2",
+      "next_cue": "13_3",
+      "next_cue_crosses_chapter": false,
+      "words": 34,
+      "file": "population.rs",
+      "line": 113,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "13_3",
+      "unit": "oliver_13_3",
+      "next_cue": "13_4",
+      "next_cue_crosses_chapter": false,
+      "words": 13,
+      "file": "population.rs",
+      "line": 157,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 1
+    },
+    {
+      "cue": "13_4",
+      "unit": "oliver_13_4",
+      "next_cue": "13_5",
+      "next_cue_crosses_chapter": false,
+      "words": 36,
+      "file": "population.rs",
+      "line": 188,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "13_5",
+      "unit": "oliver_13_5",
+      "next_cue": "13_6",
+      "next_cue_crosses_chapter": false,
+      "words": 69,
+      "file": "population.rs",
+      "line": 236,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "13_6",
+      "unit": "oliver_13_6",
+      "next_cue": "13_7",
+      "next_cue_crosses_chapter": false,
+      "words": 79,
+      "file": "population.rs",
+      "line": 287,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "13_7",
+      "unit": "oliver_13_7",
+      "next_cue": "14_1",
+      "next_cue_crosses_chapter": true,
+      "words": 30,
+      "file": "population.rs",
+      "line": 363,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "14_1",
+      "unit": "oliver_14_1",
+      "next_cue": "14_2",
+      "next_cue_crosses_chapter": false,
+      "words": 63,
+      "file": "no_rule.rs",
+      "line": 179,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "14_2",
+      "unit": "oliver_14_2",
+      "next_cue": "14_3",
+      "next_cue_crosses_chapter": false,
+      "words": 34,
+      "file": "no_rule.rs",
+      "line": 242,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "14_3",
+      "unit": "oliver_14_3",
+      "next_cue": "14_4",
+      "next_cue_crosses_chapter": false,
+      "words": 50,
+      "file": "no_rule.rs",
+      "line": 264,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 5
+    },
+    {
+      "cue": "14_4",
+      "unit": "oliver_14_4",
+      "next_cue": "14_5",
+      "next_cue_crosses_chapter": false,
+      "words": 75,
+      "file": "no_rule.rs",
+      "line": 292,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 8
+    },
+    {
+      "cue": "14_5",
+      "unit": "oliver_14_5",
+      "next_cue": "14_6",
+      "next_cue_crosses_chapter": false,
+      "words": 47,
+      "file": "no_rule.rs",
+      "line": 332,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 4
+    },
+    {
+      "cue": "14_6",
+      "unit": "oliver_14_6",
+      "next_cue": "14_7",
+      "next_cue_crosses_chapter": false,
+      "words": 82,
+      "file": "no_rule.rs",
+      "line": 368,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 9
+    },
+    {
+      "cue": "14_7",
+      "unit": "oliver_14_7",
+      "next_cue": "14_8",
+      "next_cue_crosses_chapter": false,
+      "words": 44,
+      "file": "no_rule.rs",
+      "line": 438,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "14_8",
+      "unit": "oliver_14_8",
+      "next_cue": "15_1",
+      "next_cue_crosses_chapter": true,
+      "words": 33,
+      "file": "no_rule.rs",
+      "line": 472,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "15_1",
+      "unit": "oliver_15_1",
+      "next_cue": "15_2",
+      "next_cue_crosses_chapter": false,
+      "words": 30,
+      "file": "recap.rs",
+      "line": 86,
+      "boundary": "say_breath",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "15_2",
+      "unit": "oliver_15_2",
+      "next_cue": "15_3",
+      "next_cue_crosses_chapter": false,
+      "words": 51,
+      "file": "recap.rs",
+      "line": 105,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 3
+    },
+    {
+      "cue": "15_3",
+      "unit": "oliver_15_3",
+      "next_cue": "15_4",
+      "next_cue_crosses_chapter": false,
+      "words": 33,
+      "file": "recap.rs",
+      "line": 153,
+      "boundary": "prediction",
+      "literal_wait_for_calls": 2
+    },
+    {
+      "cue": "15_4",
+      "unit": "oliver_15_4",
+      "next_cue": "15_5",
+      "next_cue_crosses_chapter": false,
+      "words": 68,
+      "file": "recap.rs",
+      "line": 184,
+      "boundary": "wipe",
+      "literal_wait_for_calls": 6
+    },
+    {
+      "cue": "15_5",
+      "unit": "oliver_15_5",
+      "next_cue": null,
+      "next_cue_crosses_chapter": false,
+      "words": 56,
+      "file": "recap.rs",
+      "line": 268,
+      "boundary": "chapter_end",
+      "literal_wait_for_calls": 4
+    }
+  ]
+}

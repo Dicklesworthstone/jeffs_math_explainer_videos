@@ -1,0 +1,121 @@
+--- a/explainer_corpus/complex_analysis_visual/oracle.py
++++ b/explainer_corpus/complex_analysis_visual/oracle.py
+@@ -312,6 +312,16 @@ moeb_num, moeb_den = [1, -0.45], [1, -1.35]
+ add("argument.rational.r0_8", turns_rational(moeb_num, moeb_den, 0, 0.8))
+ add("argument.rational.r1_7", turns_rational(moeb_num, moeb_den, 0, 1.7))
+ add("argument.rational.r1_35_refused", True)  # the circle |z| = 1.35 passes through the pole
++# 11_4: on |z| = b, (z - a)/(z - b) = 1 - k + i k cot(g/2) with k = (b - a)/(2b), g the angle to go
++near_d, near_b, near_a = 0.03, 1.35, 0.45
++near_g, near_k = 2 * math.asin(near_d / (2 * near_b)), (near_b - near_a) / (2 * near_b)
++add("argument.rational.near_pole.distance", near_d)
++add("argument.rational.near_pole.size", fixed(abs(complex(1 - near_k, near_k / math.tan(near_g / 2))), 1))
++# 11_3's rows, and 11_2's (z - 1)/(z + 1)^2 around both its zero and its double pole
++add("argument.rational.zero", near_a)
++add("argument.rational.pole", near_b)
++add("argument.rational.radii", "0.8,1.7")
++add("argument.several.turns", turns_rational([1, -1], zdp_den, 0, 1.6))
+ 
+ 
+ def eighth_power_turns(n):
+@@ -337,6 +347,10 @@ add("argument.quintic.big", turns_rational(quintic, [1], 0, 3.0))
+ qr = sorted(np.roots(quintic), key=abs)
+ add("argument.quintic.inside", sum(1 for z in qr if abs(z) < 1))
+ add("argument.quintic.smallest", fixed(abs(qr[0]), 3))
++# 11_7: |z^5| on |z| = 3, and the largest |-3z + 1| there, read off a dense ring
++big_ring = 3 * np.exp(1j * np.linspace(0, TAU, 20001))
++add("argument.quintic.walker", fixed(float(np.max(np.abs(big_ring ** 5))), 0))
++add("argument.quintic.leash", fixed(float(np.max(np.abs(-3 * big_ring + 1))), 0))
+ # Rouché on |z| = 1: |z^5 + 1| <= 2 < 3 = |-3z|, checked densely
+ ring = np.exp(1j * np.linspace(0, TAU, 20001))
+ check("leash on |z| = 1", bool(np.all(np.abs(ring ** 5 + 1) < np.abs(-3 * ring))))
+@@ -380,6 +394,8 @@ add("series.half.function", fixed(float(1 / (1 - Fraction(1, 2))), 0))
+ add("series.one_two.at", float(Fraction(6, 5)))
+ add("series.one_two.n10", fixed(float(sum(Fraction(6, 5) ** k for k in range(11))), 2))
+ add("series.one_two.function", fixed(float(1 / (1 - Fraction(6, 5))), 0))
++add("series.doubling.at", fixed(2, 0))
++add("series.doubling.n10", fixed(2 ** 11 - 1, 0))  # closed form, not the sum
+ add("continuation.first_disk.radius", fixed(abs(1 - (-0.5)), 1))
+ add("continuation.two", fixed(1 / (1 - 2), 0))
+ add("continuation.zeta_minus1", fixed(zeta(complex(-1.0)).real, 6))
+--- a/explainer_corpus/complex_analysis_visual/src/facts.rs
++++ b/explainer_corpus/complex_analysis_visual/src/facts.rs
+@@ -57,9 +57,9 @@ fn derivative_bound(f: Func, centre: C, r: f64) -> Result<f64, String> {
+         }
+         // 3z²
+         Func::Cubic => 3.0 * reach * reach,
+-        // (3 − z)/(z + 1)³
++        // (3 − z)/(z + 1)³; with −1 inside the loop the least distance is r − |−1 − centre|
+         Func::ZeroDoublePole => {
+-            let near = if centre == -ONE { r } else { gap(-ONE) };
++            let near = if centre == -ONE { r } else { gap(-ONE).abs() };
+             ((C::real(3.0) - centre).abs() + r) / near.powi(3)
+         }
+         // (zero − pole)/(z − pole)²
+@@ -299,6 +299,20 @@ pub fn facts() -> Result<Facts, String> {
+         "argument.rational.r1_35_refused",
+         winding_certified(|z| Func::Moebius.eval(z), ZERO, model::MOEBIUS_POLE, 4096, f64::MAX).is_none(),
+     )?;
++    // 11_4: the walk along |z| = 1.35 stops short of the pole, at a finite size
++    let near_gap = 2.0 * (model::MOEBIUS_NEAR_POLE / (2.0 * model::MOEBIUS_POLE)).asin();
++    let near_size = need(
++        Func::Moebius.eval(C::polar(model::MOEBIUS_POLE, -near_gap)),
++        "f near its pole",
++    )?
++    .abs();
++    f.add("argument.rational.near_pole.distance", model::MOEBIUS_NEAR_POLE)?;
++    f.add("argument.rational.near_pole.size", fixed(near_size, 1))?;
++    // 11_3's rows, and 11_2's example of a loop around several: its zero at 1, its double pole at −1
++    f.add("argument.rational.zero", model::MOEBIUS_ZERO)?;
++    f.add("argument.rational.pole", model::MOEBIUS_POLE)?;
++    f.add("argument.rational.radii", "0.8,1.7")?;
++    f.add("argument.several.turns", turns(Func::ZeroDoublePole, ZERO, 1.6)?)?;
+     // 11_8: the coarse loop, z⁸ on the unit circle, refused and then certified
+     let coarse = |z: C| Some(z.powi(model::COARSE_POWER));
+     let lipschitz = f64::from(model::COARSE_POWER);
+@@ -337,6 +351,9 @@ pub fn facts() -> Result<Facts, String> {
+         roots.iter().filter(|z| z.abs() < 1.0).count(),
+     )?;
+     f.add("argument.quintic.smallest", fixed(roots[0].abs(), 3))?;
++    // 11_7's two lengths on |z| = 3: the walker's distance, and the longest leash, at z = −3
++    f.add("argument.quintic.walker", fixed(3.0_f64.powi(5), 0))?;
++    f.add("argument.quintic.leash", fixed(3.0 * 3.0 + 1.0, 0))?;
+ 
+     // 12 residues
+     let res_i = (I.scale(2.0)).recip();
+@@ -378,6 +395,8 @@ pub fn facts() -> Result<Facts, String> {
+     f.add("series.one_two.at", outside)?;
+     f.add("series.one_two.n10", fixed(geometric_partial(outside, top), 2))?;
+     f.add("series.one_two.function", fixed(1.0 / (1.0 - outside), 0))?;
++    f.add("series.doubling.at", fixed(2.0, 0))?;
++    f.add("series.doubling.n10", fixed(geometric_partial(2.0, top), 0))?;
+     f.add("continuation.first_disk.radius", fixed((ONE - C::real(-0.5)).abs(), 1))?;
+     f.add("continuation.two", fixed(1.0 / (1.0 - 2.0), 0))?;
+     let z_minus1 = need(zeta(C::real(-1.0)), "ζ(−1)")?;
+@@ -464,6 +483,16 @@ mod tests {
+         assert_eq!(get("argument.rational.r0_8"), "1");
+         assert_eq!(get("argument.rational.r1_7"), "0");
+         assert_eq!(get("argument.rational.r1_35_refused"), "true");
++        assert_eq!(get("argument.rational.near_pole.distance"), "0.03");
++        assert_eq!(get("argument.rational.near_pole.size"), "30.0");
++        assert_eq!(get("argument.rational.zero"), "0.45");
++        assert_eq!(get("argument.rational.pole"), "1.35");
++        assert_eq!(get("argument.rational.radii"), "0.8,1.7");
++        assert_eq!(get("argument.several.turns"), "-1");
++        assert_eq!(get("argument.quintic.walker"), "243");
++        assert_eq!(get("argument.quintic.leash"), "10");
++        assert_eq!(get("series.doubling.at"), "2");
++        assert_eq!(get("series.doubling.n10"), "2047");
+         // 11_8: "samples alone can miss a turn": z⁸ reads 0, is refused, then counts 8
+         assert_eq!(get("argument.coarse.naive"), "0");
+         assert_eq!(get("argument.coarse.refused"), "true");
+--- a/explainer_corpus/complex_analysis_visual/src/model.rs
++++ b/explainer_corpus/complex_analysis_visual/src/model.rs
+@@ -388,6 +388,8 @@ pub enum Func {
+ /// Where the counting example's zero and pole sit.
+ pub const MOEBIUS_ZERO: f64 = 0.45;
+ pub const MOEBIUS_POLE: f64 = 1.35;
++/// How far short of that pole the walk of 11_4 stops: the pole itself has no value.
++pub const MOEBIUS_NEAR_POLE: f64 = 0.03;
+ /// Terms of the natural-boundary series drawn, and the radius it is drawn to.
+ pub const LACUNARY_TERMS: u32 = 12;
+ pub const LACUNARY_LIMIT: f64 = 0.98;

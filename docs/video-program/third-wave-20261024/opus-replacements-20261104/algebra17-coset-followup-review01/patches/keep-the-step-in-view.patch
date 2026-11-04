@@ -1,0 +1,12 @@
+--- a/explainer_corpus/abstract_algebra_expanded/src/applications.rs
++++ b/explainer_corpus/abstract_algebra_expanded/src/applications.rs
+@@ -680,8 +680,7 @@
+         fade(stage, &[d], true)?;
+         // Multiplying the representative on the right stays in the same left coset.
+         k.until_sentence(stage, "17_13", 3)?;
+-        fade(stage, &[c], false)?;
+-        let same_coset = k.tex(stage, r"(gh)H=g(hH)=gH", 32., Palette::green(), &[], v(2., -1.))?;
++        let same_coset = k.tex(stage, r"(gh)H=g(hH)=gH", 32., Palette::green(), &[], v(2., -1.75))?;
+         fade(stage, &[same_coset], true)?;
+         k.finish(stage)
+     }

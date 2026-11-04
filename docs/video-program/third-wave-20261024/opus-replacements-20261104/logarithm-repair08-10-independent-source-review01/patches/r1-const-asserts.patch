@@ -1,0 +1,13 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/matrix_logs.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/matrix_logs.rs
+@@ -439,8 +439,8 @@
+     #[test]
+     fn the_clip_holds_the_grid_in_the_frame_and_cuts_no_turned_grid() {
+         // the lint's limit is 6.86 from the centre of the frame
+-        assert!(CENTRE[0] - UNIT * CLIP > -6.86);
+-        assert!(CENTRE[0] + UNIT * CLIP < 1.0);
++        const { assert!(CENTRE[0] - UNIT * CLIP > -6.86) };
++        const { assert!(CENTRE[0] + UNIT * CLIP < 1.0) };
+         // a turned n = 3 grid reaches √18, a turned n = 2 panel √8
+         assert!(18f64.sqrt() < CLIP && 8f64.sqrt() < CLIP);
+     }

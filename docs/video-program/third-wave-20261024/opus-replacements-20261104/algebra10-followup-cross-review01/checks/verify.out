@@ -1,0 +1,349 @@
+== TEXT: inputs
+ok   canonical cyclic.rs is the patch's base | bee439fdad35eb75a22a05d32d4e9aad059feabac0456fbfd29e24746b391d46
+ok   script.tsv | 83619d48676b32d5d93bf7527477aa752a902dd16927c548e4b3052cc2d689c0
+ok   direction map | 7f05be9377a54b2c4e1a03ca83b563eb87d90734818273d59d95cea566784d4a
+ok   patch | dbb3a64aebb68076edd1be98a24e2709c807cc980a613f1f29d89e8790491d19
+
+== TEXT: the patch
+ok   touches one file only, cyclic.rs | ['--- a/explainer_corpus/abstract_algebra_expanded/src/cyclic.rs', '+++ b/explainer_corpus/abstract_algebra_expanded/src/cyclic.rs']
+ok   12 hunks, +92 -17 | (12, 92, 17)
+ok   my hunk walker reaches the claimed result, compared in full | bee0eb2c55f2b9ad43fcd10b4f0993947b7fd104cda963e63ed27ccfefa4f17f
+ok   reverse returns the base
+ok   patch(1) --fuzz=0 forward
+ok   patch(1) --fuzz=0 reverse
+
+== TEXT: each finding alone, and rustfmt
+ok   A: hunks [3] reach d8b37282b641 and pass rustfmt
+ok   B: hunks [0, 1, 7, 8, 9, 10] reach 05beefda26a8 and pass rustfmt
+ok   C: hunks [4, 5] reach 2816a9c2e766 and pass rustfmt
+ok   D: hunks [2, 11] reach ebf784219c1e and pass rustfmt
+ok   E: hunks [6] reach 4484c5db8342 and pass rustfmt
+ok   whole result passes rustfmt
+ok   control: the baseline passes rustfmt
+ok   control: rustfmt refuses a misformatted copy
+
+== TEXT: cue order, sentence indices and phrases
+ok   k.say order is unchanged | 11 cues in cyclic.rs
+ok   baseline waits all legal | []
+ok   patched waits all legal | []
+ok   control: an out-of-range sentence is caught
+ok   control: a phrase in the wrong sentence is caught
+ok   sentence counts the patch relies on | {'10_1': 5, '10_2': 9, '10_4': 4, '10_6': 6, '10_10': 6}
+
+== TEXT: the prediction hold
+     the map holds 16 rows in all; rows naming cyclic.rs: 1
+ok   exactly one row names cyclic.rs, and it is 10_1 to 10_2
+ok   the map row binds the base hash, line 448 and the marker
+ok   the marker is unique and at 448 in the base | [448]
+ok   the marker is unique and at 453 after the whole patch | [453]
+ok   wait and next cue still follow the marker
+     hold line with only A: [448]
+     hold line with only B: [450]
+     hold line with only C: [448]
+     hold line with only D: [451]
+     hold line with only E: [448]
+ok   only opening and question are shown before the hold | ['opening', '[question]']
+ok   nothing in the 10_1 window names an answer
+ok   the map binds the script unchanged
+ok   narration_units binds this script and this map today
+     (native 'predict' mark in cyclic.rs: 0; see REVIEW.md)
+
+== TEXT: what else binds this source
+ok   in the crate, tools and catalog, only the current map binds the hash | ['explainer_corpus/abstract_algebra_expanded/docs/narration-direction-map-oliver24.json']
+     tools that read a hold's line or marker: 0
+     phrase-timings.json files under the algebra narration folder: 0
+ok   the crate's docs folder holds only direction maps, so no doc names these beats | []
+
+== TEXT: tests and facts
+ok   110 tests today | 110
+ok   111 after the patch | 111
+ok   PHRASES declares 13 and lists 13 | (13, 13)
+ok   every listed phrase is in its listed sentence
+ok   every phrase the scene waits for is in the test's list | set()
+ok   the sentence-count list adds 10_1 at 5, and each row is true | [('10_1', '5'), ('10_2', '9'), ('10_3', '5')]
+ok   main.rs and oracle.py are outside the patch
+ok   the oracle still prints 240 facts (the Rust side was not run) | 240
+     oracle mentions of unit squares or unit orders: 0
+
+== TEXT: new pictures come on once and leave once
+ok   group_size: made once, shown once | (1, 1)
+ok   each_coprime: made once, shown once | (1, 1)
+ok   unit_orders: made once, shown once | (1, 1)
+ok   rotations: made once, shown once | (1, 1)
+ok   group_size leaves with the question at 10_3
+ok   the 10_10 rows leave with the table at 10_11
+ok   table[0] is units, so [..1] and [1..] split it there
+ok   question faded in exactly once
+ok   the opening no longer carries the question
+ok   C is a pure reorder: same 10_4 lines, other order
+ok   C: phrase, then k_split, then hop, then the hop's hide | {'wait': 87, 'k': 96, 'hop': 99, 'hide': 104}
+ok   E: apart from the two name slices and a comment, 10_6 holds the same lines
+ok   E: k row, then the question's end, then gcd, ord, the rule's pulse, the phrase | [65, 66, 68, 69, 70, 71, 72, 73]
+
+== MODEL: voices
+     10_1 take01: 56/56 words aligned; length 22.40; starts [0.0, 3.16, 7.6, 13.36, 17.64]
+     10_1 take02: 56/56 words aligned; length 22.16; starts [0.0, 3.16, 7.6, 13.28, 17.52]
+     10_2 take01: 68/69 words aligned; length 29.44; starts [0.0, 1.42, 3.8, 7.9, 11.22, 14.4, 19.24, 24.0, 26.92]
+     10_2 take02: 68/69 words aligned; length 28.80; starts [0.0, 1.7, 4.18, 8.04, 11.56, 14.74, 19.24, 23.84, 26.6]
+     10_4 take01: 44/46 words aligned; length 19.84; starts [0.0, 4.6, 9.2, 15.56]
+     10_4 take02: 44/46 words aligned; length 19.60; starts [0.0, 4.7, 9.3, 15.34]
+     10_6 take01: 66/66 words aligned; length 28.64; starts [0.0, 2.64, 7.42, 16.34, 20.54, 24.88]
+     10_6 take02: 66/66 words aligned; length 28.80; starts [0.0, 2.62, 7.4, 16.54, 20.76, 24.98]
+     10_10 take01: 79/81 words aligned; length 36.32; starts [0.0, 4.0, 10.54, 18.4, 24.58, 28.36]
+     10_10 take02: 79/81 words aligned; length 35.92; starts [0.0, 3.9, 10.54, 18.2, 24.48, 28.14]
+ok   scratch length of 10_1 matches the preview's cue table | (21.554, 21.554)
+ok   scratch length of 10_2 matches the preview's cue table | (26.938, 26.938)
+ok   scratch length of 10_4 matches the preview's cue table | (18.092, 18.092)
+ok   scratch length of 10_6 matches the preview's cue table | (25.4, 25.4)
+ok   scratch length of 10_10 matches the preview's cue table | (31.554, 31.554)
+
+== MODEL: transcription guard (differential: my patched programs change by what the patch changes)
+ok   10_1 gains one timed call
+ok   10_2 gains two timed calls
+ok   10_4 keeps its count of timed calls
+ok   10_6 keeps its count of timed calls
+ok   10_10 gains five timed calls | 5
+
+== MODEL: positive control, scratch replay of TODAY's source against measured ink in the frames
+ok   10_2 ord(8)=3: replay 42.00 | first ink frame 94 at 42.50, sample before 42.00
+ok   10_4 d row: replay 81.73 | first ink frame 185 at 82.00, sample before 81.50
+ok   10_4 orbit label: replay 84.28 | first ink frame 190 at 84.50, sample before 84.00
+ok   10_4 n split: replay 87.49 | first ink frame 197 at 88.00, sample before 87.50
+ok   10_4 k split: replay 89.99 | first ink frame 202 at 90.50, sample before 90.00
+ok   10_4 coprime: replay 90.59 | first ink frame 203 at 91.00, sample before 90.50
+ok   10_6 k row: replay 124.06 | first ink frame 282 at 124.50, sample before 124.00
+ok   10_6 gcd row: replay 125.26 | first ink frame 284 at 125.50, sample before 125.00
+ok   10_6 ord row: replay 127.39 | first ink frame 288 at 127.50, sample before 127.00
+ok   10_10 table header row: replay 225.40 | first ink frame 505 at 225.50, sample before 225.20
+ok   10_10 squares: replay 240.90 | first ink frame 536 at 241.00, sample before 240.50
+ok   10_10 no: replay 248.33 | first ink frame 551 at 248.50, sample before 248.00
+
+== MODEL: picture beats against the voice (seconds into the cue)
+ok   10_1 scratch base: picture ends 0.40, inside speech end 21.15
+ok   10_1 scratch patch: picture ends 12.68, inside speech end 21.15
+ok   10_1 take01 base: picture ends 0.40, inside speech end 22.40
+ok   10_1 take01 patch: picture ends 13.76, inside speech end 22.40
+ok   10_1 take02 base: picture ends 0.40, inside speech end 22.16
+ok   10_1 take02 patch: picture ends 13.68, inside speech end 22.16
+ok   10_2 scratch base: picture ends 16.63, inside speech end 26.54
+ok   10_2 scratch patch: picture ends 24.46, inside speech end 26.54
+ok   10_2 take01 base: picture ends 19.64, inside speech end 29.44
+ok   10_2 take01 patch: picture ends 27.52, inside speech end 29.44
+ok   10_2 take02 base: picture ends 19.64, inside speech end 28.80
+ok   10_2 take02 patch: picture ends 27.20, inside speech end 28.80
+ok   10_4 scratch base: picture ends 14.55, inside speech end 17.69
+ok   10_4 scratch patch: picture ends 14.55, inside speech end 17.69
+ok   10_4 take01 base: picture ends 16.56, inside speech end 19.84
+ok   10_4 take01 patch: picture ends 16.56, inside speech end 19.84
+ok   10_4 take02 base: picture ends 16.34, inside speech end 19.60
+ok   10_4 take02 patch: picture ends 16.34, inside speech end 19.60
+ok   10_6 scratch base: picture ends 22.82, inside speech end 25.00
+ok   10_6 scratch patch: picture ends 22.82, inside speech end 25.00
+ok   10_6 take01 base: picture ends 26.18, inside speech end 28.64
+ok   10_6 take01 patch: picture ends 26.18, inside speech end 28.64
+ok   10_6 take02 base: picture ends 26.28, inside speech end 28.80
+ok   10_6 take02 patch: picture ends 26.28, inside speech end 28.80
+ok   10_10 scratch base: picture ends 23.73, inside speech end 31.15
+ok   10_10 scratch patch: picture ends 26.83, inside speech end 31.15
+ok   10_10 take01 base: picture ends 28.76, inside speech end 36.32
+ok   10_10 take01 patch: picture ends 31.76, inside speech end 36.32
+ok   10_10 take02 base: picture ends 28.54, inside speech end 35.92
+ok   10_10 take02 patch: picture ends 31.47, inside speech end 35.92
+
+== MODEL: claims
+     scratch: A unchanged today 9.90 | B unchanged today 15.10 | B longest gap patched 6.33
+     take01: A unchanged today 9.80 | B unchanged today 17.60 | B longest gap patched 7.46
+     take02: A unchanged today 9.16 | B unchanged today 17.40 | B longest gap patched 7.26
+ok   take01: WhiteSwan's A and B figures reproduce within 0.05 | (9.8, 17.6, 7.46)
+ok   take02: WhiteSwan's A and B figures reproduce within 0.05 | (9.16, 17.4, 7.26)
+ok   scratch: beats meant to stay do stay | []
+     scratch: C k_split today 12.95, patched 10.75; coprime 13.55; S3 12.60
+     scratch: E rows and pulse end 9.42; question ends 6.12; boxes begin 11.47
+ok   take01: beats meant to stay do stay | []
+     take01: C k_split today 14.76, patched 12.56; coprime 15.56; S3 15.56
+     take01: E rows and pulse end 10.72; question ends 7.42; boxes begin 14.03
+ok   take02: beats meant to stay do stay | []
+     take02: C k_split today 14.69, patched 12.49; coprime 15.34; S3 15.34
+     take02: E rows and pulse end 10.70; question ends 7.40; boxes begin 14.17
+
+== MODEL: when each new reveal starts, against the words it shows (ASR; negative: the picture leads)
+     10_1 question  vs 'add eight'                 -2.64 / -2.62  D: 'Add 8' vs 'add eight'
+     10_1 question  vs 'predict how many'          -5.74 / -5.56  D: 'how many' vs 'predict how many'
+     10_2 group     vs 'whole clock group'         -0.36 / -0.16  A
+     10_4 k         vs 'and k as'                  +0.78 / +0.81  C
+     10_4 k         vs 'k prime'                   -1.60 / -1.45  C
+     10_6 gcd       vs 'greatest common divisor'   -1.96 / -1.96  E
+     10_10 units     vs 'a group with four'         +0.20 / +0.22  B
+     10_10 table     vs 'consider the numbers'      +0.00 / +0.00  B
+     10_10 each      vs 'relatively prime'          -0.94 / -0.94  B
+     10_10 squares   vs 'five squared'              +0.00 / +0.00  B
+     10_10 orders    vs 'order two'                 -2.24 / -2.20  B
+     10_10 no        vs 'no single one'             +0.00 / +0.00  B
+     10_10 rotations vs 'so this group is not'      -0.08 / -0.09  B
+     10_10 rotations vs 'four rotations'            -2.96 / -2.93  B
+ok   WhiteSwan's 13.36/13.28 is sentence 3's first word, 'On'
+ok   the voice reaches 'add eight' at about 16.00/15.90, not 13.36/13.28 | (16.0, 15.9)
+ok   so the patched question leads its words by more than 2.5 s on both takes | [-2.6400000000000006, -2.619999618530274]
+     a phrase wait on 'add eight' would land, by the kit's fallback, at 16.86 / 16.75; sentence 4 starts 17.64 / 17.52
+
+== MODEL: how long each new label stays, as a lower bound (it leaves at the next cue, after the voice ends)
+ok   take01 question: at least 4.36 s on screen, 1.73 s needed at 15 characters a second
+ok   take02 question: at least 4.24 s on screen, 1.73 s needed at 15 characters a second
+ok   take01 group: at least 5.04 s on screen, 2.00 s needed at 15 characters a second
+ok   take02 group: at least 4.56 s on screen, 2.00 s needed at 15 characters a second
+ok   take01 each: at least 25.38 s on screen, 1.80 s needed at 15 characters a second
+ok   take02 each: at least 24.98 s on screen, 1.80 s needed at 15 characters a second
+ok   take01 orders: at least 11.34 s on screen, 2.40 s needed at 15 characters a second
+ok   take02 orders: at least 11.04 s on screen, 2.40 s needed at 15 characters a second
+ok   take01 rotations: at least 4.56 s on screen, 2.27 s needed at 15 characters a second
+ok   take02 rotations: at least 4.45 s on screen, 2.27 s needed at 15 characters a second
+
+== MODEL: F, the star, on today's source
+     scratch: d 4.70; star 5.10-6.85; tinted 7.25; label full 7.55; star leaves 8.45-8.75; whole picture held 1.21; label with star 0.91; if retired, unchanged after d row 3.36
+     take01: d 4.60; star 5.00-6.75; tinted 7.15; label full 7.45; star leaves 9.20-9.50; whole picture held 2.05; label with star 1.75; if retired, unchanged after d row 4.20
+     take02: d 4.70; star 5.10-6.85; tinted 7.25; label full 7.55; star leaves 9.30-9.60; whole picture held 2.05; label with star 1.75; if retired, unchanged after d row 4.20
+     the label at 15 characters a second needs 1.73 s
+ok   take01: the label is readable while the star is still up | 1.75
+ok   take02: the label is readable while the star is still up | 1.75
+
+== PIXELS: controls on the reader
+ok   control: ord(8)=3 is ink on frame 100
+ok   control: 'No element' is ink on frame 560
+ok   control: the table's own row is ink on frame 560
+ok   control: an empty corner is empty on frame 100
+ok   control: frames straddling the star differ | (397, 1951)
+
+== PIXELS: today's still stretches the fixes aim at
+ok   D 10_1, frames 4, 30, 62: 1.00 to 13.50, 4 changed sampled pixels | 4
+ok   D 10_1: 13.50 to 26.50, 0 changed sampled pixels | 0
+ok   A 10_2, frames 95, 107, 119: 43.00 to 49.00, 0 changed sampled pixels | 0
+ok   A 10_2: 49.00 to 53.33, 0 changed sampled pixels | 0
+ok   B 10_10, frames 506, 520, 535: 226.00 to 233.00, 0 changed sampled pixels | 0
+ok   B 10_10: 233.00 to 240.50, 0 changed sampled pixels | 0
+
+== PIXELS: the width law, against labels measured on these frames
+ok   'Add 8: how many positions?' 30 pt: law 3.74, ink 3.73
+ok   '4 orbits, 3 positions each' 26 pt: law 2.84, ink 2.87
+ok   'No element generates all four' 31 pt: law 3.97, ink 4.00
+ok   'Multiply modulo 12' 27 pt: law 2.35, ink 2.37
+ok   'The general rule' 36 pt: law 2.58, ink 2.59
+
+== PIXELS: A, the new label on frame 100
+     group_size width 3.88, x 0.36 to 4.24; ord(8)=3 ink x 1.57..3.03, y -1.50..-1.18
+ok   the label's box is empty today, with the pulse's 1.25 scale allowed
+ok   the pulsed label clears the clock ring | (-0.13, -1.08)
+ok   order_tex and the label stay apart while both pulse | 0.45 units, 41 px
+ok   the pulsed label stays inside the safe frame
+ok   10_3 draws divides in that slot, but only after group_size has left
+
+== PIXELS: B, the right column on frame 560
+     squares y -0.03..0.36; no y -1.29..-1.00; table ink ends x -1.59
+ok   control: ord(8)=3 at 32 pt, em count 1.46, ink 1.47
+     unit_orders width 4.22, x 0.39..4.61, height 0.32, y -0.66..-0.34
+ok   unit_orders clears squares by 28 px and no by 30 px
+ok   the unit_orders slot is empty today
+     each_coprime width 3.33; rotations width 4.00
+ok   the each_coprime slot is empty today
+ok   the rotations slot is empty today
+ok   every new row clears the table: leftmost x 0.39 against -1.59
+ok   every new row is inside the safe frame
+ok   rotations clears no by 35 px | (-1.68, -1.29)
+
+== PIXELS: hero against ink, the tint must read
+ok   brightest header pixel is yellow, brightest cell pixel is near white | {'header': (254, 215, 113), 'cell': (234, 238, 242)}
+
+== MIRROR: the new test, and the diagonal rule
+ok   mirror passes on the film's group
+ok   mutation fails: a wrong list | the list
+ok   mutation fails: a short list | the list
+ok   mutation fails: U(5), a cyclic group of four | square 2
+ok   mutation fails: U(10), a cyclic group of four | square 3
+ok   control: U(8), also not cyclic, rightly passes the test's body
+ok   brute force: ord(5)=ord(7)=ord(11)=2 under multiplication mod 12 | {1: 1, 5: 2, 7: 2, 11: 2}
+ok   brute force: no element generates all four | {1: {1}, 5: {1, 5}, 7: {1, 7}, 11: {1, 11}}
+ok   the tint rule picks exactly 5×5, 7×7, 11×11, each equal to 1 | [(5, 1), (7, 1), (11, 1)]
+ok   control: without value != 1 the rule also takes 1×1
+ok   the square's rotations do have an element of order 4, so the new label is true | {0: 1, 1: 4, 2: 2, 3: 4}
+ok   group_size's number is N, spoken as twelve
+ok   F: four orbits of three, covering all twelve hours once
+ok   F: the label's 4 and 3 are the factors of n = d n' = 4·3
+ok   F: the four triangles are chapter 14's four cosets of {0,4,8}, in the same shift order
+ok   F: 14_8 says so aloud
+ok   F: the first spoken 'orbit' in script order is 10_11 | 10_11
+ok   the clash: as moves, ord(5)=ord(7)=ord(11)=12, the boxed columns on sheet 080 | {5: 12, 7: 12, 11: 12}
+ok   the clash: the rule on screen in 10_6 gives the same
+ok   the clash: chapter 12 already words it with the group's name
+ok   the glyph list already covers every character of 'Whole clock group: 12 elements' | set()
+ok   the glyph list already covers every character of 'Each relatively prime to 12' | set()
+ok   the glyph list already covers every character of 'Not the four rotations of a square' | set()
+ok   the glyph list already covers every character of 'U(12): 5, 7 and 11 each have order 2' | set()
+
+== TEXT: what retiring F would really touch
+ok   orbit_color: only the scene uses it, no test does, so it would be dead code
+ok   orbits: the facts in main.rs use it outside any test
+ok   orbits: two tests also use it
+ok   only triangles[1..] leave at sentence 2
+ok   the walk's own triangle lives on: 10_5 pulses it, 10_6 hides it
+ok   the label leaves at 10_5
+ok   in the whole film, the word 'orbit' is on screen in one place: this label | ['&format!("{} orbits, {} positions each", parts.len(), parts[0].len()),']
+     scratch: hours back to ink 9.05; the label outlives the three triangles by at least 9.64 s, to the end of the cue
+     take01: hours back to ink 9.80; the label outlives the three triangles by at least 10.64 s, to the end of the cue
+     take02: hours back to ink 9.90; the label outlives the three triangles by at least 10.30 s, to the end of the cue
+
+== TEXT: root's combined-repair-stage02, as found when this ran
+ok   stage02 holds this same source
+ok   its map binds it at line 448, so the rebind applies there too | explainer_corpus/abstract_algebra_expanded/docs/narration-direction-map-oliver26.json
+ok   its map holds 16 rows
+ok   the preview is 1280x720 at 30 fps, as the model and reader assume | 1280,720,30/1
+
+== STACK: the correction, on top of the patch
+ok   it applies at its stated line, and changes one line | 5005476e2517668edcd66587d0eb8e108b1da45cf0898fdab174aa34d8e1851e
+ok   reverse returns the patch's result
+ok   it also applies on D alone, by unique context
+ok   patch(1) --fuzz=0 agrees
+ok   rustfmt passes
+ok   waits remain legal | []
+ok   the hold stays at line 453
+ok   no test or phrase table changes: still 111 tests, 13 phrases
+     result sha256 5005476e2517668edcd66587d0eb8e108b1da45cf0898fdab174aa34d8e1851e
+     scratch: question today 0.00, patch 12.28, corrected 15.95-16.35; speech ends 21.15
+ok   scratch: the corrected question is in place before the voice ends
+     take01: question today 0.00, patch 13.36, corrected 17.64-18.04; speech ends 22.40; 'add eight' 16.00, 'predict' 19.10, 'how many' 19.46
+ok   take01: the corrected question is in place before the voice ends
+ok   take01: and it follows 'add eight' and comes ahead of 'predict'
+     take02: question today 0.00, patch 13.28, corrected 17.52-17.92; speech ends 22.16; 'add eight' 15.90, 'predict' 18.84, 'how many' 19.26
+ok   take02: the corrected question is in place before the voice ends
+ok   take02: and it follows 'add eight' and comes ahead of 'predict'
+     take01: if the kit's onsets were character shares instead of ASR: sentence 3 13.00, sentence 4 16.89
+ok   take01: index 3 is early and index 4 is right under either rule
+     take02: if the kit's onsets were character shares instead of ASR: sentence 3 12.86, sentence 4 16.71
+ok   take02: index 3 is early and index 4 is right under either rule
+ok   control: index 5 would be caught, 10_1 has five sentences
+
+== STACK: the second correction, the label that names its group
+ok   it applies at its stated line
+ok   reverse returns the patch's result
+ok   the patch's ord(5)=2 row is gone, and 10_6's ord(k) rows stay
+ok   the row is still made once and shown once
+ok   rustfmt passes
+ok   waits remain legal; hold still at 453
+ok   no test or phrase table changes
+ok   patch(1) --fuzz=0 agrees
+ok   the two corrections commute
+ok   rustfmt passes on both together
+     patch + question correction  5005476e2517668edcd66587d0eb8e108b1da45cf0898fdab174aa34d8e1851e
+     patch + label correction     b1e1e7ca8c3206e19d9fe328551f50bab7473935f954476f05cf93a082358090
+     patch + both                 e948e2b909c7a883a2dbb2d7ed4e96c403897ecc1ffdad6e9b29203f03393202
+     label width 4.49, x 0.26..4.74, y -0.63..-0.37
+ok   its slot is empty today
+ok   it clears squares by 31 px and no by 34 px
+ok   it clears the table and stays in the safe frame
+
+frames decoded and measured, not viewed: 61; [4, 30, 62, 90, 91, 92, 93, 94, 95, 100, 107, 119, 182, 183, 184, 185, 186, 187, 188, 189, 190, 192, 193, 194, 195, 196, 197, 198, 199, 200, 201, 202, 203, 278, 279, 280, 281, 282, 283, 284, 285, 286, 287, 288, 503, 504, 505, 506, 520, 532, 533, 534, 535, 536, 546, 547, 548, 549, 550, 551, 560]
+
+== canonical
+ok   canonical cyclic.rs still equals the base at the end
+ok   canonical script still unchanged
+ok   canonical map still unchanged
+
+failures: 0

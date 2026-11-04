@@ -1,0 +1,142 @@
+--- a/explainer_corpus/abstract_algebra_expanded/src/applications.rs
++++ b/explainer_corpus/abstract_algebra_expanded/src/applications.rs
+@@ -15,8 +15,13 @@
+ const DIGITS: [i32; 10] = [0, 3, 0, 6, 4, 0, 6, 1, 5, 2];
+ /// The column walk starts when the contributions start being read.
+ const CONTRIBUTIONS_PHRASE: &str = "gives weighted contributions";
+-/// The swap's change appears when the voice reaches it.
+-const SWAP_CHANGE_PHRASE: &str = "changes the total";
++/// The digits cross when the voice reaches the exchange.
++const SWAP_PHRASE: &str = "exchanging the values";
++/// The label column takes its name when the voice gives it.
++const SYNDROME_PHRASE: &str = "called the syndrome";
++/// The extra bit's two cases, each as the voice reaches it.
++const ONE_FLIP_PHRASE: &str = "correct one flipped bit";
++const TWO_FLIPS_PHRASE: &str = "while reporting two";
+ /// One fade of the column walk: five of these and a short hold make 0.7 s a column.
+ const WALK_FADE: f64 = 0.1;
+ fn checksum(d: &[i32; 10]) -> i32 {
+@@ -216,7 +221,7 @@
+             &[],
+             v(-6.05, -0.85),
+         )?;
+-        fade(stage, &[caption, change_label, product_label], true)?;
++        fade(stage, &[change_label, product_label], true)?;
+         let mut row = vec![change_label, product_label];
+         for d in 1..11 {
+             let i = (d - 1) as usize;
+@@ -239,7 +244,7 @@
+             Palette::ink(),
+             v(0., -2.2),
+         )?;
+-        fade(stage, &[condition], true)?;
++        fade(stage, &[caption, condition], true)?;
+         k.say(stage, "17_6")?;
+         let mut old = vec![heading, rule, caption, condition];
+         old.extend(row);
+@@ -321,6 +326,7 @@
+         k.until_sentence(stage, "17_7", 1)?;
+         let before = k.tex(stage, r"7\times6+6\times4=66", 34., Palette::ink(), &[], v(0., -0.2))?;
+         fade(stage, &[before], true)?;
++        until_phrase(stage, &k, "17_7", 1, SWAP_PHRASE)?;
+         // Separate vertical lanes keep the crossing digits legible.
+         for (i, y) in [(3, 2.1), (4, 0.9)] {
+             let a = swap_digits[i]
+@@ -361,7 +367,6 @@
+         }
+         let after = k.tex(stage, r"7\times4+6\times6=64", 34., Palette::red(), &[], v(0., -1.2))?;
+         fade(stage, &[after], true)?;
+-        until_phrase(stage, &k, "17_7", 1, SWAP_CHANGE_PHRASE)?;
+         let delta = k.tex(stage, r"\Delta S=(7-6)(4-6)=-2", 32., Palette::hero(), &[], v(0., -2.3))?;
+         let mut why = k.text(
+             stage,
+@@ -1084,10 +1089,11 @@
+             v(4.95, grid_at(usize::from(row), 0).1),
+         )?);
+     }
++    fade(stage, &labels, true)?;
++    let (mut stack, mut result) = syndrome_stack(stage, k, word.value)?;
++    until_phrase(stage, k, "17_16", 1, SYNDROME_PHRASE)?;
+     let syndrome_name = k.text(stage, "syndrome", 22., Palette::dim(), v(4.95, 0.1))?;
+-    fade(stage, &labels, true)?;
+     fade(stage, &[syndrome_name], true)?;
+-    let (mut stack, mut result) = syndrome_stack(stage, k, word.value)?;
+     // Place values first; only then is the label read as a number.
+     k.until_sentence(stage, "17_16", 3)?;
+     let key = place_key(stage, k)?;
+@@ -1190,11 +1196,6 @@
+     )?;
+     fade(stage, &[memory], true)?;
+     k.until_sentence(stage, "17_18", 1)?;
+-    // Back to the two-flip word, the case the extra bit reports: four ones, parity bit
+-    // zero, so parity holds while the label is not 000. The miscorrected word has three.
+-    word.flip(stage, k, miscorrect, Palette::ink())?;
+-    d4g::glide(stage, ring, grid_at(landed.0, landed.1), 0.6)?;
+-    fade(stage, &[sent_column, wrong_column, sent_name, wrong_name], false)?;
+     let parity = frame(stage, (box_x(7) + 0.95, WORD_Y), (0.6, 0.7), Palette::purple(), 3.0)?;
+     let parity_name = k.text(
+         stage,
+@@ -1203,6 +1204,23 @@
+         Palette::purple(),
+         v(box_x(7) + 0.95, WORD_Y - 0.6),
+     )?;
++    fade(stage, &[parity, parity_name], true)?;
++    until_phrase(stage, k, "17_18", 1, ONE_FLIP_PHRASE)?;
++    let one_flip = k.text(
++        stage,
++        "One flip: parity breaks, so repair it",
++        24.,
++        Palette::purple(),
++        v(-1.8, 0.55),
++    )?;
++    fade(stage, &[one_flip], true)?;
++    // Back to the two-flip word, the case the extra bit reports: four ones, parity bit
++    // zero, so parity holds while the label is not 000. The miscorrected word has three,
++    // so the bit stays off screen until the word has returned.
++    until_phrase(stage, k, "17_18", 1, TWO_FLIPS_PHRASE)?;
++    word.flip(stage, k, miscorrect, Palette::ink())?;
++    d4g::glide(stage, ring, grid_at(landed.0, landed.1), 0.6)?;
++    fade(stage, &[sent_column, wrong_column, sent_name, wrong_name], false)?;
+     let parity_bit = k.text(
+         stage,
+         &(SENT.count_ones() % 2).to_string(),
+@@ -1210,15 +1228,6 @@
+         Palette::purple(),
+         v(box_x(7) + 0.95, WORD_Y),
+     )?;
+-    fade(stage, &[parity, parity_name, parity_bit], true)?;
+-    let one_flip = k.text(
+-        stage,
+-        "One flip: parity breaks, so repair it",
+-        24.,
+-        Palette::purple(),
+-        v(-1.8, 0.55),
+-    )?;
+-    fade(stage, &[one_flip], true)?;
+     let two_flips = k.text(
+         stage,
+         "Two flips: parity holds, label not 000, so report",
+@@ -1226,7 +1235,7 @@
+         Palette::purple(),
+         v(-1.8, 0.05),
+     )?;
+-    fade(stage, &[two_flips], true)?;
++    fade(stage, &[parity_bit, two_flips], true)?;
+     k.until_sentence(stage, "17_18", 2)?;
+     let summary = k.text(
+         stage,
+@@ -1269,7 +1278,13 @@
+     #[test]
+     fn every_waited_phrase_is_in_its_sentence() {
+         use crate::axioms::{line_text, sentence_ranges};
+-        let waited: [(&str, usize, &str); 2] = [("17_3", 1, CONTRIBUTIONS_PHRASE), ("17_7", 1, SWAP_CHANGE_PHRASE)];
++        let waited: [(&str, usize, &str); 5] = [
++            ("17_3", 1, CONTRIBUTIONS_PHRASE),
++            ("17_7", 1, SWAP_PHRASE),
++            ("17_16", 1, SYNDROME_PHRASE),
++            ("17_18", 1, ONE_FLIP_PHRASE),
++            ("17_18", 1, TWO_FLIPS_PHRASE),
++        ];
+         for (cue, j, phrase) in waited {
+             let text = line_text(cue).expect("cue in script");
+             let (from, to) = sentence_ranges(text)[j];

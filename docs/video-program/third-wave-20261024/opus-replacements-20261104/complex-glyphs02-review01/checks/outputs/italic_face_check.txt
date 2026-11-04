@@ -1,0 +1,16 @@
+cmunti.ttf: 289276 B; inside the probe binary: True
+cmunrm.ttf: 235656 B; inside the probe binary: True
+cmunti maps U+03B8: True (336)
+cmunti maps U+03D1: True (359)
+
+italic ink past the advance, thousandths of an em (positive means it overhangs):
+  z: advance 408, ink right 464, overhang +56
+  c: advance 460, ink right 471, overhang +11
+  p: advance 511, ink right 511, overhang +0
+  u: advance 536, ink right 562, overhang +26
+  v: advance 460, ink right 494, overhang +34
+  a: advance 511, ink right 536, overhang +25
+  t: advance 332, ink right 374, overhang +42
+  k: advance 460, ink right 502, overhang +42
+  x: advance 463, ink right 519, overhang +56
+  h: advance 511, ink right 536, overhang +25

@@ -1,0 +1,12 @@
+rustfmt rustfmt 1.10.0-nightly (9085017724 2026-08-30)
+config rustfmt.toml = edition = "2024" max_width = 120
+baseline: rustfmt exit 0; format diffs 0; parse errors 0
+patched: rustfmt exit 0; format diffs 0; parse errors 0
+control, literal without the reflow (expect a diff): rustfmt exit 1; format diffs 1; parse errors 0
+    Diff in src/chapters/one_derivative.rs:214:
+control, stray brace in closing.rs (expect a failure): rustfmt exit 1; format diffs 0; parse errors 1
+    error: unexpected closing delimiter: `}`
+round trip: forward exit 0, equals the edited copies True; reverse exit 0, equals the baseline True
+result: PASS
+
+[exit 0]

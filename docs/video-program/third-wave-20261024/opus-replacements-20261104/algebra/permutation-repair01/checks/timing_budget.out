@@ -1,0 +1,42 @@
+
+assumed rate 2.2 words/s
+  11_1   voice  23.6  picture ends  16.5  silence after  0.0 
+  11_2   voice  29.1  picture ends  26.7  silence after  1.0 
+  11_3   voice  34.1  picture ends  34.7  silence after  1.6 
+  11_4   voice  39.1  picture ends  32.8  silence after  0.0 
+  11_5   voice  30.0  picture ends  22.0  silence after  0.0 s4 count caption +1.1s
+  11_6   voice  14.1  picture ends   5.4  silence after  3.0 
+  11_7   voice  24.1  picture ends  21.7  silence after  0.0 
+  11_11  voice  24.1  picture ends  22.6  silence after  0.0 
+  11_8   voice  31.8  picture ends  22.6  silence after  0.0 
+  11_9   voice  41.4  picture ends  36.3  silence after  0.0 
+  11_10  voice  33.2  picture ends  27.1  silence after  0.0 
+  chapter about 5.5 min
+
+assumed rate 2.6 words/s
+  11_1   voice  20.0  picture ends  14.1  silence after  0.0 
+  11_2   voice  24.6  picture ends  22.7  silence after  1.0 
+  11_3   voice  28.8  picture ends  30.0  silence after  2.1 
+  11_4   voice  33.1  picture ends  27.8  silence after  0.0 
+  11_5   voice  25.4  picture ends  19.4  silence after  0.0 s4 count caption +1.7s
+  11_6   voice  11.9  picture ends   4.6  silence after  3.0 
+  11_7   voice  20.4  picture ends  18.4  silence after  0.0 
+  11_11  voice  20.4  picture ends  19.3  silence after  0.0 
+  11_8   voice  26.9  picture ends  19.3  silence after  0.0 
+  11_9   voice  35.0  picture ends  30.8  silence after  0.0 
+  11_10  voice  28.1  picture ends  23.0  silence after  0.0 
+  chapter about 4.7 min
+
+assumed rate 3.0 words/s
+  11_1   voice  17.3  picture ends  12.3  silence after  0.0 
+  11_2   voice  21.3  picture ends  19.9  silence after  1.0 
+  11_3   voice  25.0  picture ends  26.5  silence after  2.5 
+  11_4   voice  28.7  picture ends  24.2  silence after  0.0 
+  11_5   voice  22.0  picture ends  17.6  silence after  0.0 s4 count caption +2.2s
+  11_6   voice  10.3  picture ends   4.1  silence after  3.0 
+  11_7   voice  17.7  picture ends  16.0  silence after  0.0 
+  11_11  voice  17.7  picture ends  16.8  silence after  0.0 
+  11_8   voice  23.3  picture ends  16.8  silence after  0.0 
+  11_9   voice  30.3  picture ends  26.7  silence after  0.0 
+  11_10  voice  24.3  picture ends  20.0  silence after  0.0 
+  chapter about 4.1 min

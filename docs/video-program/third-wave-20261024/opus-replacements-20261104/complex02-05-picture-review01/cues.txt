@@ -1,0 +1,66 @@
+
+## 02_turning_numbers: 66 sheets, 261 frames, duration 96.866
+02_1     0.600 to   15.615  frame 2 sheet 0
+    A complex number is a point in a plane. Its first part says how far right, its second part how far up. We write it as x plus i y, and draw it as an arrow from zero.
+02_2    16.233 to   29.325  frame 39 sheet 9
+    Adding two complex numbers puts their arrows tip to tail. Multiplying does something more interesting. Multiply every point of the plane by i, and the whole plane turns a quarter turn about zero.
+02_3    29.933 to   39.564  frame 72 sheet 18
+    So i times i is a half turn. It sends one to minus one. That is all that i squared equals minus one means.
+02_4    40.167 to   57.105  frame 107 sheet 26
+    Multiplying by any complex number does two things at once. It stretches by that number's length and turns by its angle. Multiply by one plus i, and the plane grows by the square root of two and turns an eighth of a turn.
+02_5    57.733 to   68.518  frame 156 sheet 39
+    Multiplying by one plus i once makes an eighth of a turn. What happens if you multiply by it twice? Which number is one plus i, squared?
+02_6    74.400 to   93.646  frame 202 sheet 50
+    A quarter turn, with the stretch of the square root of two applied twice, which is two. So one plus i, squared, is two i. Lengths multiply and angles add. Hold on to that. Every complex derivative in this video will be one of these stretch and turn moves.
+
+## 03_two_planes: 79 sheets, 315 frames, duration 120.700
+03_1     0.600 to   14.462  frame 2 sheet 0
+    A complex function takes a point and returns a point. Its graph would need four dimensions. Instead, draw two planes side by side. The input plane on the left, the output plane on the right.
+03_2    15.067 to   30.467  frame 37 sheet 9
+    Start with squaring. Lengths multiply and angles add, so squaring squares each length and doubles each angle. Walk a point once around a circle of radius one half. Its image goes around a circle of radius one quarter, twice.
+03_3    31.067 to   36.852  frame 76 sheet 19
+    Now a grid of straight lines. After squaring, will the vertical lines stay straight?
+03_4    41.733 to   68.671  frame 110 sheet 27
+    No. Every vertical line off the axis bends into a parabola, and so does every horizontal one. The two axes fold in half instead. The horizontal axis lands on the positive real ray, and the vertical axis on the negative one. But look where the curves cross. They still meet at right angles everywhere, except at zero. Keep that in mind. It is the first sign of something rigid.
+03_5    69.300 to   88.162  frame 176 sheet 44
+    One over z does something else. Points near zero go far away, and far points come close. The unit circle lands on itself as a whole, though each point flips across the horizontal axis. Inside and outside trade places. At zero itself there is no output at all.
+03_6    88.767 to  106.090  frame 224 sheet 56
+    The exponential turns the grid into something familiar. Moving right by one multiplies the output's length by e. Moving up turns the output, a full turn for every two pi you climb. So vertical lines become circles, and horizontal lines become rays from zero.
+03_7   106.700 to  117.485  frame 275 sheet 68
+    Climb two pi, and you land on exactly the same output. The exponential repeats as you climb, and it never reaches zero. Both facts will come back.
+
+## 04_reading_color: 80 sheets, 317 frames, duration 118.866
+04_1     0.600 to   21.769  frame 2 sheet 0
+    Two planes show only a few curves at a time. To see a whole function at once, paint the input plane. At each input point, find the output, and colour the point by the output's direction. Pointing right is red. Pointing up is yellow green. Pointing left is teal, and pointing down is violet.
+04_2    22.400 to   38.185  frame 51 sheet 12
+    Colour alone hides how big the output is. So brightness climbs in bands. Each time the output's size grows by about one point seven, a new band begins. Thin dark lines also mark every twelfth of a turn in direction.
+04_3    38.800 to   49.585  frame 90 sheet 22
+    Now square. Every colour appears twice around zero, because squaring doubles each angle. And the colours run around zero in the same order as the wheel itself.
+04_4    50.200 to   67.523  frame 118 sheet 29
+    Around a point where the output is zero, the colours always cycle in this order. Once for a simple zero, twice for a zero of order two, and so on. That is how to spot a zero, and its order, in a single glance.
+04_5    75.633 to   84.110  frame 183 sheet 45
+    One over z runs the colours the other way. Around a pole, where the output blows up, the colours cycle backwards.
+04_6    84.733 to   97.056  frame 218 sheet 54
+    Here is the bump, one over one plus z squared. Before the colours appear, where do you expect its poles, and how many times will the colours turn around each one?
+04_7   102.933 to  115.256  frame 269 sheet 67
+    Two poles, at i and minus i, each with one backwards cycle. And the circle of radius one around zero just touches them. That is the opening puzzle, seen in colour.
+
+## 05_gallery: 123 sheets, 491 frames, duration 165.200
+05_1     0.600 to   15.231  frame 2 sheet 0
+    Polynomials first. z cubed minus one has three zeros, evenly spaced on the unit circle. Far from zero, z cubed swamps the minus one, so a large loop sees the colours cycle three times. Three zeros inside.
+05_2    15.833 to   30.079  frame 38 sheet 9
+    Rational functions divide one polynomial by another. Here z minus one, over z plus one squared. A simple zero at one, and at minus one a pole of order two, where the colours run backwards twice.
+05_3    30.700 to   45.715  frame 80 sheet 20
+    The exponential has no zeros and no poles anywhere. Its direction depends only on height, and its size only on how far right you are. So its tiles are exact squares, repeating every two pi as you climb.
+05_4    46.333 to   65.579  frame 122 sheet 30
+    Sine has zeros at every multiple of pi on the real line, and nowhere else. On the real line it never passes one. But off the line it grows fast. Sine of i is about one point one eight i, and sine of three i is about ten i.
+05_5    66.200 to   79.677  frame 182 sheet 45
+    Tangent is sine over cosine. Its zeros and poles alternate along the real line. Far above the line, tangent settles toward i, and far below toward minus i, so the colours there go flat.
+05_6    80.300 to  104.162  frame 227 sheet 56
+    The gamma function extends the factorial. Gamma of n plus one is n factorial. It starts as an integral that only makes sense when the real part of z is positive. Yet the picture continues left, with a pole at zero, at minus one, at minus two, and on forever, and no zeros anywhere. Chapter fourteen shows how it gets there.
+05_7   104.767 to  130.936  frame 302 sheet 75
+    The zeta function starts as one, plus one over two to the s, plus one over three to the s, and so on. That sum only settles when the real part of s is bigger than one. The picture goes further. A single pole at one. Zeros at minus two, minus four, and on. And more zeros climbing the line where the real part is one half.
+05_8   131.567 to  142.352  frame 384 sheet 96
+    No zero found so far sits off that line. Whether all of them lie on it is the Riemann hypothesis, still unsolved. A picture cannot settle it.
+05_9   146.467 to  161.098  frame 431 sheet 107
+    These pictures share a pattern. Zeros and poles are isolated points. Between them, the colours flow smoothly in little tiles that are nearly square. That is not a coincidence. It comes from what a complex derivative demands.

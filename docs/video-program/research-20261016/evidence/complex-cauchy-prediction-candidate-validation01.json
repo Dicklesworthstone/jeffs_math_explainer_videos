@@ -1,0 +1,28 @@
+{
+  "checked_utc": "2026-11-02T15:05:52.673927+00:00",
+  "source_sha256": "7ed28b9fb1db3008a798969c0c5428351defd63ff24bf8aa0e47e5af731bec5b",
+  "candidate_sha256": "4c633df2e6bcc42f8c7c7f126015d3dc9cdb9388fe2f64900e6e1b3bf2139d13",
+  "patch_sha256": "234441bc9d4539762abad55ebea80f38da986e76d728f98cf6126bf2f8512921",
+  "checks": [
+    {
+      "command": "rustfmt --edition 2024 --emit stdout <candidate>",
+      "exit": 0,
+      "scope": "Rust syntax parsing; no compile or type-check"
+    },
+    {
+      "command": "git apply --check <patch>",
+      "exit": 0,
+      "scope": "Patch applies to current working-tree source without modifying it"
+    },
+    {
+      "command": "author ordering assertions",
+      "exit": 0,
+      "scope": "Neutral question appears before 3s wait, cue 03_1 starts next, post-cue hold precedes reveal; 03_2 retained exactly once."
+    }
+  ],
+  "limitations": [
+    "Research-only candidate; source and direction map unchanged.",
+    "Not compiled, rendered, listened to or independently reviewed.",
+    "Actual pause and AV alignment must be checked; map and plan must be rebound if applied."
+  ]
+}

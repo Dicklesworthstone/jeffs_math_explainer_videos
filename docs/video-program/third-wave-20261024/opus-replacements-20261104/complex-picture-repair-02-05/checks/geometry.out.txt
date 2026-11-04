@@ -1,0 +1,85 @@
+-- chapter 02
+  ok   i and -1 are off their axes  0.3 0.35
+  ok   name at (-0.3+1.25j) clears the unit circle and is in the window  |z| = 1.285
+  ok   name at (-1.35+0.35j) clears the unit circle and is in the window  |z| = 1.395
+  ok   '1 + i' clear of the grid at rest, multiplier 1  margin 0.340
+  ok   '1 + i' clear of the grid at rest, multiplier (1+1j)  margin 0.270
+  ok   '1 + i' clear of the grid at rest, multiplier 2j  margin 0.200
+  ok   '2i' clear of the final grid  margin 0.140
+-- chapter 03
+  ok   window ticks  [-2.0, -1.0, 1.0, 2.0]
+  ok   e^z input ticks  [1.0, 2.0, 3.0, 4.0, 5.0, 6.0]
+  ok   e^z output ticks
+  ok   e^z input frame height equals the others  5.4 vs 5.4
+  ok   the window holds z^2 of the grid, and 1/z's farthest image  2.3 > 2.222
+  ok   unit length is one through 03_5  1.1739 scene units per 1 (was 1.8, 1.227, 1.08 by beat)
+  ok   unit name (1.17-0.22j): off axes, off the unit circle, off the images  image margin 0.121
+  ok   unit name (1.17-0.22j) inside every window it is used in
+  ok   unit name (-0.22+1.17j): off axes, off the unit circle, off the images  image margin 0.216
+  ok   unit name (-0.22+1.17j) inside every window it is used in
+  ok   the name at 0 fits the gap around the fold  image margin 0.040
+  ok   input: 'turns:' and its value on one side of the axis  value right -3.95, axis -3.5
+  ok   output: 'turns:' and its value on one side of the axis  value right 3.05, axis 3.5
+  ok   the turns row is in the frame, under the radii  -3.05 < -2.65 < -1.31
+  ok   radius 0.5 label off the axes and its circle  nearest 0.647 vs circle 0.5
+  ok   radius 0.25 label off the axes and its circle  nearest 0.384 vs circle 0.25
+  ok   readout 0 clear of every circle  smallest gap 0.060
+  ok   readout 0 clear of the ray at -45 degrees  box corner gap 0.138
+  ok   readout 1 clear of every circle  smallest gap 0.048
+  ok   readout 1 clear of the ray at -45 degrees  box corner gap 0.770
+  ok   readout 2 clear of every circle  smallest gap 0.066
+  ok   readout 2 clear of the ray at -45 degrees  box corner gap 1.882
+  ok   the three readouts do not touch  [(0.40787944117144226, 0.8938794411714422), (1.04, 1.5259999999999998), (2.1522818284590453, 2.638281828459045)]
+  ok   the 1/0 card is outside the unit circle  top -1.36
+  ok   the leader starts on the card's top edge, off the vertical axis
+  ok   the leader misses every tick pair  distance 0.478 vs tick 0.085
+  ok   rays end in the window  2.233+2.233j
+  ok   no ray lies on an axis  smallest part 0.158
+-- chapter 04
+  ok   the name card stands inside the gold loop  reach 1.300 vs loop 1.440
+  ok   the name card clears the mark  0.276 vs mark 0.11
+  ok   the formula stands over the picture, inside the frame  3.10 > 2.95, 3.70 < 3.85
+  ok   the probe stays in the window at every named direction
+  ok   'Pointing right is red' is literal, in order
+  ok   'Pointing up is yellow green' is literal, in order
+  ok   'Pointing left is teal' is literal, in order
+  ok   'pointing down is violet' is literal, in order
+-- chapter 05
+  ok   sin's zeros at +-2pi stand inside, mark and all  0.317 vs mark 0.173
+  ok   sin(3i)'s card stays inside the picture  1.969 < 2.000
+  ok   the two readout cards do not touch  gap 0.173
+  ok   the box lies in the wide picture, the band in the strip
+  ok   the wide picture's top is the band's top
+  ok   the band is visible on the strip  0.553 scene units tall
+  ok   all four marked zeros are above the band, so the box holds none
+  ok   no row of the column lines up with a zero's label  smallest gap 0.344, labels at [0.006, 1.276, 2.011, 3.01]
+  ok   the labels end before the column starts  3.71 vs 4.15
+  ok   05_2 phrases in order; the count lands on the line's last words
+  ok   05_9 phrase is literal
+-- P2, the half-step bands
+  ok   tan z at y = 2.0: flat where the voice says it is flat  max/min 2.084 -> 1.084
+  ok   tan z at y = 2.4: flat where the voice says it is flat  max/min 2.123 -> 1.037
+  ok   tan z at y = 3.0: flat where the voice says it is flat  max/min 2.145 -> 1.011
+  ok   e^z does not flip across x = 0  largest jump 0.415 -> 0.002
+  ok   the shading still repeats every step, at (0.3+0.2j)
+  ok   the shading still repeats every step, at (-1.3+2.2j)
+  ok   the shading still repeats every step, at (0.7-0.4j)
+  ok   the band ratio is unchanged  1.6881
+  ok   every traced point lies on a band or phase line  65 points
+  ok   the tile is nearly square (test tolerance 1.1)  ratio 1.0325
+  ok   the tile sits in the zoom  centre 0.6138+1.0632j
+  ok   the zoom sits in the cubic's panel  [-0.036, 1.264, 0.413, 1.713]
+  ok   no zero in the zoom
+-- facts the pictures keep (independent values)
+  ok   z^2 winds 2
+  ok   1/z winds -1
+  ok   the bump winds -1 at i and at -i
+  ok   the cubic winds 3 on r = 1.8
+  ok   (z-1)/(z+1)^2 winds -2 at -1
+  ok   sin i, sin 3i  1.1752 10.018
+  ok   tan(+-4i) settles to +-i  0.0000+0.9993j
+  ok   e^(2 pi i) = 1
+  ok   (1 + i)^2 = 2i, |1 + i| = sqrt 2, 45 degrees
+  ok   the walk: r = 0.5 maps to 0.25, once becomes twice
+
+0 failed

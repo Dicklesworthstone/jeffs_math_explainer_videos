@@ -1,5 +1,60 @@
 # Third wave — 24 October 2026
 
+## 2026-10-28 04:59 UTC: All five films published and verified
+
+Crofton is public as [Measure a Curve Without Following It](https://youtu.be/aSIuUuLVJkc). The existing upload completed, saved Public, and offers selected 2160p60 with the uploaded English captions. The final three chapter links now use hour notation; all28 public timestamp links retain their actual times. The title has no em dash. Exact evidence is in `narration_lab/third-wave-20261024/root/five-film-release-20261027/crofton/publication-receipt.json` and `publication-timecode-amendment01/verification.json` beside it.
+
+All five public films:
+
+- [Why Your Bus Wait Is Longer Than You Expect](https://youtu.be/ELxgByPW13s)
+- [How Two Losing Games Can Win](https://youtu.be/oW5XXB0zk-c)
+- [How Much Can Five Serial Numbers Reveal?](https://youtu.be/gWiO0HYfsMM)
+- [How to Share a Secret Among Five People](https://youtu.be/ACT1taIJfU8)
+- [Measure a Curve Without Following It](https://youtu.be/aSIuUuLVJkc)
+
+The recurring publication automation was deleted after all five public releases were verified. No further upload or media job is pending. Crofton retains121 fast-caption items and219 unique selected-frame observations; encoded AAC is -24.7LUFS/-1.5dBFS, an explicit nominal-loudness exception. Continuous listening, heard joins, fine synchronization, score/mix perception and independent acceptance remain open for the released films. Publication does not close those Beads prerequisites. All previous artifacts and historical checkpoints remain preserved below.
+
+
+## 2026-10-28 04:18 UTC: Four public; Crofton upload in progress
+
+Shamir is PUBLIC and verified at https://youtu.be/ACT1taIJfU8. All Crofton final technical and selected-picture checks are complete:274310frames/4571.833333s,222streams/277placements/1247captions;84main+11repair+128layout picture entries represent219 unique final frames. All48 layout flags at33 anchors are retained with observations; no persistent sampled obstruction. AAC−24.7LUFS/−1.5dBFS remains a nominal-loudness exception;121fast captions and auditory/independent acceptance remain open.
+
+Crofton has been uploaded ONCE into existing video aSIuUuLVJkc, title Measure a Curve Without Following It. The browser is still transferring the master, last observed7percent. Private is saved,28timestamp description/eight tags/original thumbnail/timed English SRT installed, English/Education/notkids/paidNo/AIYes set. Keep Chrome tab1054651128 open, handle studioShamir, currently Video uploading modal on the previous Shamir details URL. Do not navigate, close, or upload another master. Finish this transfer, inspect Studio processing/checks, publish existing aSIuUuLVJkc and verify public2160p60/English. Evidence:crofton/upload-draft03.json and its three picture-view records. Render queue and all extraction jobs are complete; no background media job remains.
+
+
+## 2026-10-28 04:04 UTC: Shamir published; four of five films public
+
+[How to Share a Secret Among Five People](https://youtu.be/ACT1taIJfU8) is public. The existing upload was published once its final picture checks completed. Studio confirms saved Public status and 4K completion; the public watch page shows selected 2160p60 and the uploaded English captions. The title has no em dash; the reviewed description retains all 23 chapter timestamps and source credits. [Publication receipt](../../../narration_lab/third-wave-20261024/root/five-film-release-20261027/shamir_secret_sharing/publication-receipt.json).
+
+All 97 selected final frames were viewed, including 12 repair and 16 layout samples. The four layout flags are the deliberate chapter02 cut line and chapter12 cancellation strokes. The original layout helper failure is preserved; the changed parser succeeded. Full decode and 172 placements/662 exact captions pass. Listening, joins, fine synchronization and independent acceptance remain open, as do 33 fast captions and the -24.2 LUFS nominal-loudness exception.
+
+Crofton has completed all 28 native 4K60 renders, master, full decode and release package. Its final picture review and publication remain next. Bounded jobs crofton-repair-final01 and crofton-layout-final01 are already launched; do not duplicate them. The first four public films must never be re-uploaded.
+
+## 2026-10-28 01:27 UTC: German Tank published; three of five films public
+
+[How Much Can Five Serial Numbers Reveal?](https://youtu.be/gWiO0HYfsMM) is public. YouTube Studio confirms Public and completed 4K processing; the watch page offers 2160p60 and displays the uploaded English captions. The manually reviewed title, description with 16 chapters, tags and thumbnail are installed. The native master is 31:53.983, with 114,839 frames, 155 cue placements and 532 captions. Full audiovisual decode and exact caption/placement checks pass; 48 selected final frames were viewed. [Publication receipt](../../../narration_lab/third-wave-20261024/root/five-film-release-20261027/german_tank/publication-receipt.json).
+
+No continuous listening or independent acceptance is claimed. Encoded AAC measures -23.2 LUFS and -1.5 dBFS true peak, retaining the documented nominal-loudness exception. Two native layout flags and 69 fast-caption items remain recorded. Inspection and Parrondo remain public; never re-upload any of these three or earlier waves.
+
+The existing serial queue is rendering Shamir, followed by Crofton. Each still needs final-picture review, bounded chapter 12 repair-picture extraction and viewing, and publication after its package exits successfully. Do not duplicate running jobs or repeat completed media. No em dashes in titles; manually apply de-slopify to all publication prose.
+
+## 2026-10-28 01:13 UTC: Publication copy corrected
+
+The owner requires no em dashes in video titles and manual de-slopify review of publication copy. All five titles, descriptions, tags and upload packages were read and revised. Parrondo is now **How Two Losing Games Can Win**; Shamir is **How to Share a Secret Among Five People**. Inspection and Parrondo descriptions are saved publicly. Source credits, chapter timestamps and mathematical conditions remain. Earlier copy is retained in `narration_lab/third-wave-20261024/root/five-film-release-20261027/publication-copy-review-20261028/`. Apply the same manual review before every remaining upload.
+
+## 2026-10-28 01:02 UTC — Parrondo published; two of five films public
+
+Parrondo is public as [How Two Losing Games Can Win](https://youtu.be/oW5XXB0zk-c): 36:45.517, native4K60, timed English captions, title/description/18 chapters/tags/prepared thumbnail; YouTube checks reported no issues and public playback offers2160p60. Full audiovisual decode and exact canonical captions/placements pass. Root viewed86 final frames, including32 new layout-anchor samples. This is not continuous listening or independent acceptance. The peak-limited encoded AAC measures−26.2 LUFS/−1.5 dBFS; nominal loudness remains an explicit exception. [Exact publication receipt](../../../narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/publication-receipt.json). Inspection remains public; never re-upload either film.
+
+German Tank is currently rendering in existing queue24137/PID81442, followed by Shamir and Crofton. Do not duplicate live jobs. Those three still need final-picture review/publication; Shamir and Crofton also need bounded final chapter12 repair-picture extraction and viewing.
+
+## 2026-10-28 00:16 UTC — All full-film timelines and scores complete; final exports running
+
+Inspection remains [public](https://youtu.be/ELxgByPW13s). The four remaining films now have complete source-preserving narration assemblies and native timelines: Parrondo36:45.517, German Tank31:53.983, Shamir41:03.233 and Crofton76:11.833. All85 chapter scores pass their technical QA. The qualified music changes preserve narration and existing QA thresholds; prior failures remain retained. Shamir’s decorative-highlight repair and Crofton’s chapter12 movement scheduling now pass the unchanged native seam guard. These are technical results, not listening acceptance.
+
+The serial4K60 export/master/caption/release-check queue is running, Parrondo first, then German, Shamir and Crofton. Actual final-picture review and authorized public upload/verification follow each completed package. [Live continuation and exact jobs](../../../narration_lab/third-wave-20261024/root/five-film-release-20261027/STATUS.md). Historical chapter-only next actions below are superseded; previous artifacts remain preserved.
+
+
 ## 2026-10-27 — Inspection published; four full-film releases in progress
 
 [Why Your Bus Wait Is Longer Than You Expect](https://youtu.be/ELxgByPW13s) is public. Native 4K60, English captions and YouTube checks verified. [Release receipt](../../../narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/publication-receipt.json) retains exact master identities and listening limits. All four remaining films have complete source-preserving narration assemblies. Full native timelines, scoring, final rendering and publication are next; Shamir has a narrow highlight-duration repair under qualification.

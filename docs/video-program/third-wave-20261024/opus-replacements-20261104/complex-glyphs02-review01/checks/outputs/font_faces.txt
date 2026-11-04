@@ -1,0 +1,32 @@
+CM Roman: 235654 B, sha256 c7cdebc16fc4, ok
+  698 code points mapped
+CM Typewriter: 214526 B, sha256 5647bcfccd1a, ok
+  682 code points mapped
+IBM Plex Sans: 200500 B, sha256 975dcda37d80, ok
+  895 code points mapped
+Noto Sans Math: 72908 B, sha256 634b9964bd8a, ok
+  639 code points mapped
+
+# characters by the face that draws them
+  Mono from CM Typewriter: ascii [#'()*+,./012:;=>L]abdefghiklnoprstuz|] other: π(U+03C0)
+  Mono from Noto Sans Math: ascii [] other: −(U+2212)
+  Text from CM Roman: ascii ['()+,-./0123456789:;<=>?CFGHILMNRTU[]abcdefghijklmnopqrstuvwxyz|] other: °(U+00B0) ±(U+00B1) ·(U+00B7) é(U+00E9) ÷(U+00F7) π(U+03C0) –(U+2013) …(U+2026) √(U+221A)
+  Text from IBM Plex Sans: ascii [] other: ²(U+00B2) ³(U+00B3) ⁵(U+2075)
+  Text from Noto Sans Math: ascii [] other: ×(U+00D7) →(U+2192) ⇒(U+21D2) −(U+2212) ≈(U+2248) ≠(U+2260) ≤(U+2264) ≥(U+2265)
+
+# rows that use a character outside the row's own face
+  Mono − U+2212 from Noto Sans Math: 3 rows: [726, 732, 733]
+  Text ² U+00B2 from IBM Plex Sans: 4 rows: [18, 411, 508, 509]
+  Text ³ U+00B3 from IBM Plex Sans: 1 rows: [342]
+  Text ⁵ U+2075 from IBM Plex Sans: 3 rows: [242, 475, 503]
+  Text × U+00D7 from Noto Sans Math: 9 rows: [75, 167, 168, 169, 250, 327, 328, 372, 508]
+  Text → U+2192 from Noto Sans Math: 13 rows: [75, 161, 287, 293, 302, 370, 371, 374, 393, 394, 470, 471, 518]
+  Text ⇒ U+21D2 from Noto Sans Math: 3 rows: [199, 519, 520]
+  Text − U+2212 from Noto Sans Math: 44 rows: [14, 31, 32, 75, 189, 190, 191, 207, 215, 219, 229, 242, 273, 284, 285, 295, 296, 322, 323, 337, 338, 339, 342, 382, 387, 405, 429, 430, 456, 464, 465, 472, 482, 498, 499, 500, 503, 521, 522, 523, 524, 525, 526, 529]
+  Text ≈ U+2248 from Noto Sans Math: 16 rows: [17, 75, 204, 220, 221, 308, 309, 380, 381, 401, 402, 530, 531, 532, 533, 534]
+  Text ≠ U+2260 from Noto Sans Math: 1 rows: [239]
+  Text ≤ U+2264 from Noto Sans Math: 2 rows: [339, 508]
+  Text ≥ U+2265 from Noto Sans Math: 2 rows: [75, 169]
+
+# Text or Mono rows with at least one fallback glyph: 90; captured from a chapter: 71
+  01_the_bump:3 02_turning_numbers:1 03_two_planes:4 04_reading_color:4 05_gallery:4 06_one_derivative:4 07_one_point:7 08_loop_sums:2 09_boundary:7 10_rigidity:9 11_counting:13 12_residues:4 13_real_integral:7 14_continuation:5 15_closing:4

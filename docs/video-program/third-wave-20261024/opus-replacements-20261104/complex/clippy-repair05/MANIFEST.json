@@ -1,0 +1,44 @@
+{
+  "stage": "clippy-repair05",
+  "grant": "Agent Mail 1361",
+  "log": "narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-opus-rebuild-build04/command.log",
+  "patch": {
+    "path": "clippy-repair05.patch",
+    "sha256": "e6d4405bf25b6979e06e811bf1c2dc0be68fdc6aba423648aca98376ebe3f245",
+    "strip": 1,
+    "apply_from": "repository root"
+  },
+  "files": [
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "base_sha256": "5b32c4877cc21c617a8bcc762e469b2aa91e1f196c8df635d78d296308ce1ca1",
+      "candidate_sha256": "57c5e5159cfb3943d67ad38f2765e8c7576cafc673f96eabdfd6f008c92e69f5"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "base_sha256": "5963fc53c6ad8401cf8f682ca9ac1fcbb00ef0ffa29828011abd1db9106140a1",
+      "candidate_sha256": "07965225f2e051ae2c229d8b3851dbaab91851a8e6fcb573782dd92da1e142f5"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+      "base_sha256": "99e47ff96cbda6f424eea728723870fbc6d0f44e721dc0384ef15b506aa599dd",
+      "candidate_sha256": "76877afc1a75abb95c43089800d60902f5eaff96ed2f56d25603601f87625332"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+      "base_sha256": "afc7b069c011af6c2ea8dd1eb528f4a3c7df71006fe655cf073c59392aa5d712",
+      "candidate_sha256": "b7bc79e0bfab5fc30ac6d29ad0586e50b40199f8faf0c0daeca8130fcd08ee62"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/residues.rs",
+      "base_sha256": "0c7e39a7c0bfd2d913e37275c3d69d5cb626931c55cded2997c9cffebd51af9d",
+      "candidate_sha256": "d56dec7933dbde7128b6213e8ce6b01e5fd486d25cf241d68c8fe07c0e775c4d"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/model.rs",
+      "base_sha256": "d481bc8f8b20a4f8410024235bd0da1e6bc868759d91cc7f18b83b80e5e715f5",
+      "candidate_sha256": "e32b72591da65c134f03b8536f6d772bf518bed76849a5d2d10a6c2766b12e9c"
+    }
+  ],
+  "not_done": "no compile, Clippy, Cargo test, render, listening, fine sync or AV acceptance"
+}

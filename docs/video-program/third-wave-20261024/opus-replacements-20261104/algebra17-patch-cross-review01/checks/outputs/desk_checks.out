@@ -1,0 +1,68 @@
+--- arity_check: baseline exit 0, 47 lines; last: UNKNOWN with_capacity x1 e.g. src/permutations.rs:4605
+    proposed: exit 0; 47 lines; 10 changed
+        - calls checked: 3607; problems: 7
+        + calls checked: 3634; problems: 7
+        - BY NAME src/applications.rs:1124 method swap: 2 args, definitions take [3, 4]
+        + BY NAME src/applications.rs:1285 method swap: 2 args, definitions take [3, 4]
+        - second pass, by name only: 4584 calls, 10 hits
+        + second pass, by name only: 4655 calls, 10 hits
+        - UNKNOWN cfg x19 e.g. src/applications.rs:1114
+        + UNKNOWN cfg x19 e.g. src/applications.rs:1265
+        - UNKNOWN count_ones x2 e.g. src/applications.rs:622
+        + UNKNOWN count_ones x3 e.g. src/applications.rs:734
+    C1: exit 0; 47 lines; 10 changed
+        - calls checked: 3607; problems: 7
+        + calls checked: 3636; problems: 7
+        - BY NAME src/applications.rs:1124 method swap: 2 args, definitions take [3, 4]
+        + BY NAME src/applications.rs:1286 method swap: 2 args, definitions take [3, 4]
+        - second pass, by name only: 4584 calls, 10 hits
+        + second pass, by name only: 4655 calls, 10 hits
+        - UNKNOWN cfg x19 e.g. src/applications.rs:1114
+        + UNKNOWN cfg x19 e.g. src/applications.rs:1266
+        - UNKNOWN count_ones x2 e.g. src/applications.rs:622
+        + UNKNOWN count_ones x6 e.g. src/applications.rs:734
+    C1C2: exit 0; 47 lines; 10 changed
+        - calls checked: 3607; problems: 7
+        + calls checked: 3639; problems: 7
+        - BY NAME src/applications.rs:1124 method swap: 2 args, definitions take [3, 4]
+        + BY NAME src/applications.rs:1301 method swap: 2 args, definitions take [3, 4]
+        - second pass, by name only: 4584 calls, 10 hits
+        + second pass, by name only: 4655 calls, 10 hits
+        - UNKNOWN cfg x19 e.g. src/applications.rs:1114
+        + UNKNOWN cfg x19 e.g. src/applications.rs:1275
+        - UNKNOWN count_ones x2 e.g. src/applications.rs:622
+        + UNKNOWN count_ones x6 e.g. src/applications.rs:739
+--- scope_check: baseline exit 0, 12 lines; last: scope problems: 11
+    proposed: exit 0; 12 lines; 0 changed
+    C1: exit 0; 12 lines; 0 changed
+    C1C2: exit 0; 12 lines; 0 changed
+--- shape_check: baseline exit 0, 4 lines; last: shape problems: 0
+    proposed: exit 0; 4 lines; 4 changed
+        - format-family macros checked: 215
+        + format-family macros checked: 216
+        - argument shapes compared: 6467
+        + argument shapes compared: 6510
+    C1: exit 0; 4 lines; 4 changed
+        - format-family macros checked: 215
+        + format-family macros checked: 217
+        - argument shapes compared: 6467
+        + argument shapes compared: 6512
+    C1C2: exit 0; 4 lines; 4 changed
+        - format-family macros checked: 215
+        + format-family macros checked: 217
+        - argument shapes compared: 6467
+        + argument shapes compared: 6527
+--- unused_check: baseline exit 0, 3 lines; last: bindings checked: 2816; problems: 2
+    proposed: exit 0; 3 lines; 2 changed
+        - bindings checked: 2816; problems: 2
+        + bindings checked: 2835; problems: 2
+    C1: exit 0; 3 lines; 2 changed
+        - bindings checked: 2816; problems: 2
+        + bindings checked: 2835; problems: 2
+    C1C2: exit 0; 3 lines; 2 changed
+        - bindings checked: 2816; problems: 2
+        + bindings checked: 2835; problems: 2
+--- desk_check: baseline exit 0, 50 lines; last: desk problems 49
+    proposed: exit 0; 50 lines; 0 changed
+    C1: exit 0; 50 lines; 0 changed
+    C1C2: exit 0; 50 lines; 0 changed

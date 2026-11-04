@@ -1,0 +1,159 @@
+matrices and rules
+  ok   k=0.00 scale 1.00, heights kept
+  ok   k=0.25 scale 0.50, heights kept
+  ok   k=0.50 scale 0.00, heights kept
+  ok   the run ends on the average diag(0, 1)
+  ok   the last drawn flat step is under a pixel
+  ok   flip pair reverses isolated directions [0.0, 1.5708, 3.1416]
+  ok   -1.0I reverses a whole lap as one span
+  ok   -1.5I reverses a whole lap as one span
+  ok   part way round, only the axes passed
+  ok   identity reverses nothing
+  ok   quarter turn reverses nothing
+  ok   mirror reverses its one axis, seen twice
+  ok   sweep's gold arrow stays on the panel; furthest 2.4 plane units
+  ok   marked axes stay on the panel
+  ok   halfway through the half lap, x axis lies on y axis
+  ok   e^(ln 1.0 I + pi J) = -1.0 I, error 4.4e-16
+  ok   e^(ln 2.0 I + pi J) = -2.0 I, error 3.6e-15
+  ok   e^(ln 1.5 I + pi J) = -1.5 I, error 2.4e-15
+  ok   sheared spins with a +- i pi(2k+1) exponentiate to -e^a I, worst error 7.3e-15 (Rust test limit 1e-8)
+  ok   [(-1.0, 1), (-1.0, 1)]: matching pair: real log
+  ok   verdict is in the candidate verbatim: matching pair: real log
+  ok   [(-2.0, 1), (-0.5, 1)]: no partners: no real log
+  ok   verdict is in the candidate verbatim: no partners: no real log
+  ok   [(-2.0, 1), (-2.0, 1), (3.0, 1)]: −2 paired, 3 positive: real log
+  ok   verdict is in the candidate verbatim: −2 paired, 3 positive: real log
+  ok   [(-1.0, 2)]: one size-2 block: no real log
+  ok   verdict is in the candidate verbatim: one size-2 block: no real log
+  ok   counts per size
+  ok   odd counts fail, positives free
+layout (width table: em x size x 0.01, room 1.03; column starts x 2.2)
+  ok   gap word ends 0.262: white: a direction
+  ok   gap word ends 0.658: gold: where A sends it
+  ok   gap word ends 0.525: dashes: straight back
+  ok   gap word ends 0.701: A = diag(−2, −½)
+  ok   gap word ends 1.935: only the two axes go straight back
+  ok   gap word ends -0.395: A = −I
+  ok   gap word ends 1.867: every direction goes straight back
+  ok   gap word ends 0.385: A = −cI, c > 0
+  ok   gap word ends 0.911: half turn, equal stretch
+  ok   verdict ends -0.534: matching pair: real log
+  ok   verdict ends -0.458: no partners: no real log
+  ok   verdict ends 0.165: −2 paired, 3 positive: real log
+  ok   verdict ends -0.024: one size-2 block: no real log
+  ok   row tiles -5.21..-3.85, verdict at -2.75
+  ok   row tiles -5.21..-3.85, verdict at -2.75
+  ok   row tiles -5.21..-3.11, verdict at -2.75
+  ok   row tiles -5.21..-4.23, verdict at -2.75
+  ok   block heading -5.21..-0.242
+  ok   lowest bracket line y -2.11, above the fine print at y -3.5
+  ok   size-2 card half 0.41 x 0.22 inside outline half 0.49 x 0.31
+  ok   dial label 2.4 at (3.087, 0.612)
+  ok   clear of label 2 by 0.565
+  ok   clear of label 3 by 0.691
+  ok   label right edge 3.179, caption at 3.6
+  ok   label bottom 0.512, panel B bottom 0.20
+the green x2 arrow, now over later items (R3), does not reach its own label plate
+  ok   arrow head half width 0.10 stays under the plate's foot at 0.22 over the axis
+phrase hooks: exact, once, in order; every hook also a Rust const in the candidate
+  ok   11_1: 'a halfway point'
+  ok   11_1: 'squashes the whole plane'
+  ok   11_5: 'the two routes end in different places'
+  ok   11_7: 'so nothing forces a logarithm to keep the axes'
+  ok   11_7: 'the spin, which turns every axis'
+  ok   11_7: 'a matrix that sends some direction'
+  ok   11_7: 'only when it does that to every direction alike'
+  ok   11_7: 'a half turn combined with an equal stretch'
+  ok   11_7: "the matrix's blocks for each negative stretch"
+  ok   11_7: 'come in matching pairs'
+  ok   12_6: 'also ends here'
+  ok   12_6: 'and so does two and a half'
+control against MEASUREMENTS.md phrase table (the table closes a line's last sentence at speech end)
+  ok   11_1 'squashes the whole plane': 24.51, table 24.51
+  ok   11_5 'end in different places': 140.86, table 140.86
+  ok   11_7 'come in matching pairs': 230.94, table 230.94
+  ok   12_6 'also ends here': 111.33, table 111.33
+  ok   12_6 'and so does two and a half': 112.56, table 112.56
+  ok   the hook closes a last sentence at the line's length, tail included: 24.75, so 0.25 s after the table here
+timeline on the kit's scratch voice (seconds of scene time)
+      19.697   20.197  avg_a caption
+      23.471   23.871  midpoint dots; words out
+      24.754   25.054  dashes out
+      25.054   27.423  grid and F collapse
+      27.423   27.823  whole line + caption
+  ok   t11_1: last beat ends 27.823, line end at 27.923
+     139.740  140.140  gap bar + caption
+  ok   t11_5: last beat ends 140.140, s3 at 142.644
+     197.307  197.707  equal captions
+     199.310  201.110  rewind, axes on
+     202.901  205.301  half lap, axes turn
+  ok   t11_7a: last beat ends 205.301, s4 at 206.009
+     206.009  206.409  plane out, rim in
+     208.978  209.378  legend, A = diag
+     209.378  215.125  sweep half lap, flip pair
+     215.125  215.425  gold slides to -I
+     215.425  215.725  caption A = -I
+     215.725  218.509  sweep whole lap, -I
+     218.509  218.809  caption A = -cI
+     218.809  220.409  c grows
+  ok   t11_7b: last beat ends 220.409, s5 at 221.479
+     221.479  221.879  sweep out, cite, heading
+     221.879  225.879  tiles lagged
+     227.763  230.163  outlines, verdicts lagged
+     230.940  231.340  brackets
+  ok   t11_7c: last beat ends 231.340, s6 at 232.529
+     107.563  107.863  word swap
+     107.863  110.863  1½ run
+     110.863  112.556  1½ held
+     112.556  112.856  word swap
+     112.856  116.256  2½ run
+     116.256  116.656  laps chip
+  ok   t12_6: last beat ends 116.656, s2 at 117.780
+clamps under arbitrary scalings of that scratch line: spare seconds at each limit
+(negative would delay what follows; these factors are stress values, not takes)
+  factor 0.8: t11_1 +0.10, t11_5 +1.92, t11_7a +0.20, t11_7b +0.48, t11_7c +0.87, t12_6 +0.10
+  factor 0.9: t11_1 +0.10, t11_5 +2.21, t11_7a +0.40, t11_7b +0.77, t11_7c +1.03, t12_6 +0.60
+  factor 1.1: t11_1 +0.19, t11_5 +2.79, t11_7a +1.02, t11_7b +1.37, t11_7c +1.35, t12_6 +1.65
+  factor 1.25: t11_1 +0.66, t11_5 +3.23, t11_7a +1.48, t11_7b +1.81, t11_7c +1.59, t12_6 +2.43
+reading, scratch: four verdicts 107 chars over 8.57 s = 12.5 chars/s (guideline 15), before counting the rule lines the column adds at s6
+reading, scratch: the rule's 159 chars have 3.80 s = 41.8 chars/s, unchanged by this repair
+source scans of the candidates
+  ok   11: collapsing leaves the scene
+  ok   11: flat_f leaves the scene
+  ok   11: whole_line leaves the scene
+  ok   11: before_f leaves the scene
+  ok   11: after_f leaves the scene
+  ok   11: joins leaves the scene
+  ok   11: before_word leaves the scene
+  ok   11: after_word leaves the scene
+  ok   11: turning leaves the scene
+  ok   11: spinning leaves the scene
+  ok   11: sweeping leaves the scene
+  ok   11: still_grid leaves the scene
+  ok   11: rim leaves the scene
+  ok   11: some_a leaves the scene
+  ok   11: some_b leaves the scene
+  ok   11: all_a leaves the scene
+  ok   11: all_b leaves the scene
+  ok   11: any_a leaves the scene
+  ok   11: any_b leaves the scene
+  ok   11: blocks_head leaves the scene
+  ok   11: cite leaves the scene
+  ok   11: first_picture.extend(mids)
+  ok   11: sweep_gone.extend(legend)
+  ok   11: rule_gone.extend(rows.tiles)
+  ok   11: rule_gone.extend(rows.verdicts)
+  ok   11: rule_gone.extend(rows.brackets)
+  ok   11: the replaced static grid is not faded again
+  ok   11: the live grid takes the static grid's slot
+  ok   11: no call of draw::arrow left
+  ok   11: arrow gone from the imports
+  ok   11: R7 at both Fs
+  ok   11: R8 at both arrows
+  ok   11: R3 before the fade
+  ok   11: R4 at both callers
+  ok   12: R2 in its fade and the panels list
+  ok   new strings use no character the baseline lacks: []
+
+FAILURES: 0

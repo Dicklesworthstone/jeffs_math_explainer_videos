@@ -1,0 +1,15 @@
+{
+  "status": "staged; not compiled, rendered or accepted",
+  "source_sha256": "f7bf05b8fe4480c462a524ed82374c18cb9c6a3f38e34dd0d3079c66c7dcd7fd",
+  "changes": [
+    "11_2 native traveling ring follows fixed label cycle and re-enters at another start",
+    "11_5 shared native composition paths display both transpositions and all three input trails",
+    "added endpoint test, not yet run"
+  ],
+  "open": [
+    "11_4 inverse/disjoint-cycle explanation remains schematic",
+    "11_7/8 parity needs concrete numerical visual witness",
+    "11_9 square comparison needs geometric witness",
+    "narration111 cues still missing; no listening/fine-sync/independent AV"
+  ]
+}

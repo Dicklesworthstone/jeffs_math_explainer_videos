@@ -1,0 +1,29 @@
+sandbox: 368 files copied
+pass integrate --check on an untouched copy: OK: all 7 files can install; nothing written. Live guarded jobs: none
+pass integrate --apply installs seven files: Installed 7 files; records in records/integration. Next: build_stage06.sh, which runs preflight --mode canonical first.
+pass every replaced file is kept, byte for byte, under before/: 6 kept; map13 is new, so it has none
+pass the records hold no absolute home path
+pass real CLI: coherent_narration check --require-directions: {"cues": 80, "units": 80}
+pass preflight --mode canonical, pins on, after install: 325 ok, 0 FAIL, 4 WARN  (mode canonical; source and plan text only: not compiled, rendered, heard or watched)
+pass real CLI: assemble, 80 stand-in takes, 15 native_visual_hold dispositions: {"assembled_cues": 80, "chapter": null, "out": "<tmp>/narration"}
+pass real CLI: verify --require-directions rebuilds every cue sample for sample: supplied script/unit/generation binding plus required direction coverage plus sample reconstruction verified; listening is separate
+pass real CLI: narration_delivery --consumer render accepts the whole film: verified 80, plan_mode canonical, listening_acceptance False
+pass phrase gate at <narration>/phrase-timings.json, bound to the assembled WAVs: 326 ok, 0 FAIL, 4 WARN  (mode canonical; source and plan text only: not compiled, rendered, heard or watched)
+pass phrase gate refuses a file missing one anchor, which the kit would load: ['GATE.phrase_timings']
+pass a second --apply is refused: REFUSED src/chapters/undoing_growth.rs: already the candidate; was this run before?
+pass --apply refuses when canonical moved under stage06, writing nothing: REFUSED canonical moved under stage06, not in the seven files: ['src/chapters/ratio_ruler.rs']
+pass --apply refuses an existing record folder
+pass --apply refuses while a guarded job looks live: REFUSED guarded jobs look live, and any that binds these paths would trip its input guard: ['a-live-job pid 82
+pass --open-jobs-checked is root's explicit override
+pass copying stage06's stale units is caught by the real CLI and the preflight: 12 FAIL
+pass installing the stray .orig is caught: ['ASM.orig_not_installed', 'REG.unregistered_listed']
+pass a half-reverted install is caught by the holds: 16 FAIL
+pass real assembler refuses a take whose receipt text differs from the cue: coherent-narration: external source, text or decoded audio changed
+pass real assembler refuses a missing disposition: coherent-narration: every selected authored direction needs an explicit assembly disposition
+pass real assembler refuses 48 kHz: the provider's WAV needs a bound 24 kHz decode first: coherent-narration: expected nonempty 24 kHz mono PCM16 FTTS WAV
+pass post_build_check passes a stand-in binary that agrees: Rust and the Python oracle agree on 102 facts.
+pass post_build_check refuses a fact the oracle lacks: REFUSED facts differ. One side only: ['made.up']. Different values: []
+pass post_build_check refuses the wrong chapter list
+pass build_stage06.sh parses (sh -n only; it has not been run)
+pass the real canonical crate and stage06 are unchanged: a90f187c04aba906
+27 of 27 steps behaved; 0 did not: []

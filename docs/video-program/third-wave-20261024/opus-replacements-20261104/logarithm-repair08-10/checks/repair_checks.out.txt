@@ -1,0 +1,206 @@
+A. Binding: baseline against the canonical tree now, and what the candidate changed
+  ok   draw.rs: baseline 59ebd09d2fa5c793 equals canonical; candidate changed
+  ok   product_rule.rs: baseline a8b4e31d98b23bd7 equals canonical; candidate changed
+  ok   matrix_logs.rs: baseline 4250a5f0294f58a3 equals canonical; candidate changed
+  ok   doing_nothing.rs: baseline bf0008113e804186 equals canonical; candidate changed
+  ok   storyboard.md: baseline c5bc6e7e9fbd0797 equals canonical; candidate changed
+  ok   script.tsv: baseline 3e4e34af7090e448 equals canonical; candidate not in the candidate
+  ok   script.tsv is not in the candidate: no spoken word changes
+B. Every finding's words and placements in the candidate source
+  ok   F1 draw.rs: fn card_widths(size: f64, widest: f64)
+  ok   F2 matrix_logs.rs: v(DICTIONARY_X, 0.05)
+  ok   F3 doing_nothing.rs: v(TURN_X - RULE_BACK, TURN_Y - 0.7)
+  ok   F3 doing_nothing.rs: v(turn_at(TAU)[0] + LAP_ASIDE, TURN_Y - 0.7)
+  ok   F4 doing_nothing.rs: let closed_r = dot(stage, turn_at(PI), 0.09, green);
+  ok   F4 doing_nothing.rs: until_phrase(&kit, stage, "10_4", "strictly between")
+  ok   F5 draw.rs: if inside_clip(q, clip) {
+  ok   F6 product_rule.rs: v(zz_at[0] + ZZ_ASIDE, zz_at[1])
+  ok   F7 product_rule.rs: Z.p(C::new(0.0, DEF_HEIGHT))
+  ok   F8 doing_nothing.rs: spiral flow: turns {} radians per unit time
+  ok   F9 matrix_logs.rs: let resting = picture(stage.arena_mut(), I2, CENTRE, UNIT, 3);
+  ok   F10 doing_nothing.rs: phrase_time(&kit, "10_3", "or does not turn")
+  ok   F11 matrix_logs.rs: "J: quarter turn"
+  ok   F12 product_rule.rs: window_shown.push(window_word);
+  ok   F13 product_rule.rs: v(right + 3.0, -1.2)
+  ok   F14 matrix_logs.rs: clipped_grid(s, m, centre, unit, n, CLIP, number_c(), 0.75)
+  ok   F15 doing_nothing.rs: turning rate of the flow of X = imaginary part
+  ok   F16 doing_nothing.rs: kit.music_breath(stage, FINE_PRINT_S - read_for)?
+  ok   F16 doing_nothing.rs: fade_out_all(stage, &[spiral_word, stretch_word, zero_word], 0
+  ok   F17 matrix_logs.rs: stage.scene_mut().remove(&resting_panels);
+  ok   F17 doing_nothing.rs: let squash = stage.add_value_tracker(0.0);
+  ok   F17 doing_nothing.rs: swap(stage, &[numbers_word], &[flows_word, resting_grid], 0.4)
+  ok   F17 no instant grid jump left in chapter 10
+C. Matrix cards as drawn and as repaired (F1 and the chapter 11 effect), scene units
+    09_1 rotation   old gap +0.011 bracket -0.197 | new gap +0.586 bracket +0.113 | half-width 0.697 -> 1.294, spans 3.11 .. 5.69
+  ok   09_1 rotation: entries and brackets clear
+    09_1 stretched  old gap +0.446 bracket +0.106 | new gap +0.446 bracket +0.113 | half-width 0.697 -> 0.705, spans 3.70 .. 5.10
+  ok   09_1 stretched: entries and brackets clear
+    09_1 sheared    old gap +0.578 bracket +0.238 | new gap +0.578 bracket +0.238 | half-width 0.697 -> 0.697, spans 3.70 .. 5.10
+  ok   09_1 sheared: entries and brackets clear
+    09_1 flipped    old gap +0.446 bracket +0.106 | new gap +0.446 bracket +0.113 | half-width 0.697 -> 0.705, spans 3.70 .. 5.10
+  ok   09_1 flipped: entries and brackets clear
+    09_2 x_card     old gap +0.160 bracket -0.023 | new gap +0.367 bracket +0.100 | half-width 0.615 -> 0.842, spans 3.76 .. 5.44
+  ok   09_2 x_card: entries and brackets clear
+    09_2 e_card     old gap -0.065 bracket -0.098 | new gap +0.292 bracket +0.100 | half-width 0.615 -> 0.992, spans 3.61 .. 5.59
+  ok   09_2 e_card: entries and brackets clear
+    09_4 target     old gap +0.393 bracket +0.093 | new gap +0.393 bracket +0.100 | half-width 0.615 -> 0.622, spans 4.78 .. 6.02
+  ok   09_4 target: entries and brackets clear
+    09_4 pair       old gap +0.334 bracket +0.074 | new gap +0.334 bracket +0.087 | half-width 0.533 -> 0.546, spans 4.35 .. 5.45
+  ok   09_4 pair: entries and brackets clear
+    10_1 identity   old gap +0.544 bracket +0.224 | new gap +0.544 bracket +0.224 | half-width 0.656 -> 0.656, spans 3.94 .. 5.26
+  ok   10_1 identity: entries and brackets clear
+    11 m_card       old gap +0.420 bracket +0.100 | new gap +0.420 bracket +0.107 | half-width 0.656 -> 0.663, spans 4.74 .. 6.06
+  ok   11 m_card: entries and brackets clear
+    11 a_card       old gap +0.356 bracket +0.056 | new gap +0.404 bracket +0.100 | half-width 0.615 -> 0.683, spans 2.97 .. 4.33
+  ok   11 a_card: entries and brackets clear
+    11 x_card       old gap +0.493 bracket +0.202 | new gap +0.493 bracket +0.202 | half-width 0.615 -> 0.615, spans 5.54 .. 6.77
+  ok   11 x_card: entries and brackets clear
+    11 x_diag       old gap +0.502 bracket +0.202 | new gap +0.502 bracket +0.202 | half-width 0.615 -> 0.615, spans 5.54 .. 6.77
+  ok   11 x_diag: entries and brackets clear
+    11 minus_i      old gap +0.393 bracket +0.093 | new gap +0.393 bracket +0.100 | half-width 0.615 -> 0.622, spans 3.03 .. 4.27
+  ok   11 minus_i: entries and brackets clear
+  what stands beside each card that grew
+  ok   09_2: 'X, a velocity' ends 3.36, x_card starts 3.76
+  ok   09_2: 'e^X =' ends about 3.10, e_card starts 3.61
+  ok   09_1: the turned grid's right end against the card at 3.11
+  ok   wide cards stay inside the lint limit
+  ok   09_4: pair ends 5.45, the double arrow starts about 5.63
+  ok   11: 'A =' ends 2.72, a_card starts 2.97
+  ok   11: a_card ends 4.33, 'X =' starts 4.90
+  ok   11: x_card and x_diag unchanged
+    the 11-12 stage at this moment: 11 card and grid call lines, canonical 8; new:
+      return clipped_grid(s, m, CENTRE, UNIT, 4, CLIP, number_c(), 0.5);
+      return matrix_card(kit, stage, entries, at, 20.0, Palette::ink());
+      let still_grid = clipped_grid(stage.arena_mut(), I2, CENTRE, UNIT, 4, CLIP, green, 0.3);
+    its size-2 tile (size 20): half-width 0.410 -> 0.414; its outline half 0.49, its own check wants < 0.44
+  ok   the 11-12 stage's size-2 tile card still passes that stage's own bound under this patch
+  ok   the 11-12 stage keeps clip 3.2: no grid line lies on its box, so F5's slack changes nothing there
+D. Clip tolerance (F5): samples kept on the border lines k = +-3 of a home-coming flow, n = 4, clip 3
+    2 pi J: old [0, 0, 0, 0] new [73, 73, 73, 73]
+  ok   2 pi J: all four border lines keep their 73 samples inside the box
+    ellipse 2 by 1: old [0, 1, 0, 1] new [73, 73, 73, 73]
+  ok   ellipse 2 by 1: all four border lines keep their 73 samples inside the box
+    ellipse 1.6 by 0.7 tilted 30: old [72, 59, 72, 59] new [73, 73, 73, 73]
+  ok   ellipse 1.6 by 0.7 tilted 30: all four border lines keep their 73 samples inside the box
+    stretch flow at t = 1: x = 2 lands at 3.0000000000000018
+  ok   stretch flow: the line x = 2 stays drawn at t = 1
+  ok   a point at 3.001 stays out: the tolerance hides no real motion
+  ok   chapter 11 (clip 3.2, identity grid): identical to the old test, sample for sample
+    chapter 11's flip and spin grids at clip 3.2: no line lies on the box, so the slack only matters within 1e-9 of it
+E. Clip in chapter 09 (F14): CENTRE -3.2, UNIT 0.78, CLIP 4.4, n = 3
+    turned 60: left edge scene -6.40 -> -6.40; 0 of 14 lines shortened, 0 gone
+  ok   turned 60: inside the lint limit
+    stretched: left edge scene -6.94 -> -6.63; 9 of 14 lines shortened, 2 gone
+  ok   stretched: inside the lint limit
+    sheared: left edge scene -7.88 -> -6.58; 8 of 14 lines shortened, 0 gone
+  ok   sheared: inside the lint limit
+    flipped: left edge scene -5.54 -> -5.54; 0 of 14 lines shortened, 0 gone
+  ok   flipped: inside the lint limit
+    e^X: left edge scene -7.59 -> -6.63; 8 of 14 lines shortened, 0 gone
+  ok   e^X: inside the lint limit
+  ok   a turned n = 3 grid loses nothing
+  ok   the three small panels lose nothing at any sampled moment of the spin
+F. Label spans (F2, F3, F6, F7, F8, F13), measured widths from preview02 where named
+    F2 dictionary 3.09 .. 6.81; panel 3 rests with right edge 2.56
+  ok   F2 inside the lint limit and clear of panel 3
+    F3 rule 2.83 .. 4.87; lap label 5.19 .. 6.71; gap 0.315
+  ok   F3 labels apart and inside the lint limit
+  ok   F6 z^2 label's left edge is 0.21 right of the axis (half-width 0.15 read from frame 130)
+    F7 axis top 2.30; definition centred 2.673, extent 2.483 .. 2.863
+  ok   F7 above the axis's end and under the title
+  ok   F8 right edge 5.84 (frame 200) + 0.84 = 6.68, inside the lint limit
+    F13: the product line moves 0.2 down, 18 native px, so its 8-9 px under '= sqrt 1 = 1' becomes about 26 (estimate)
+G. Chapter 10's rows after the flows' words leave (F16), scene y
+    rule and lap label +0.85 to cond_a +0.25: 0.60
+  ok   rule and lap label / cond_a rows keep apart
+    cond_a +0.25 to cond_b -0.20: 0.45
+  ok   cond_a / cond_b rows keep apart
+    cond_b -0.20 to name -0.75: 0.55
+  ok   cond_b / name rows keep apart
+    name -0.75 to log I = 0 -1.50: 0.75
+  ok   name / log I = 0 rows keep apart
+    log I = 0 -1.50 to textbook -3.15: 1.65
+  ok   log I = 0 / textbook rows keep apart
+    textbook -3.15 to precisely -3.62: 0.47
+  ok   textbook / precisely rows keep apart
+  ok   the new fine print is in the source, word for word
+  ok   F15 no literal caret on screen in either line
+    precisely 120 -> 118 characters; ems 57.2 -> 55.7
+  ok   F15 no wider than the line that fitted, within 2 ems
+    197 characters at 15 a second: 13.13 s; FINE_PRINT_S 13.2
+  ok   F16 the fine print's hold meets the reading floor
+H. Sentence and phrase timing, line-relative seconds. Illustrative only: no Oliver data
+  ok   10_2: the phrase timer and the narrator split it alike (4 sentences)
+  ok   10_3: the phrase timer and the narrator split it alike (6 sentences)
+  ok   10_4: the phrase timer and the narrator split it alike (5 sentences)
+  ok   09_2: the phrase timer and the narrator split it alike (5 sentences)
+  ok   09_4: the phrase timer and the narrator split it alike (6 sentences)
+  ok   10_3 holds the phrase 'turns round at a steady'
+  ok   10_3 holds the phrase 'or does not turn'
+  ok   10_4 holds the phrase 'strictly between'
+    10_3 x0.8: S3 9.5, 'turns round' 11.6, 'or does not turn' 16.9, S4 18.7, S5 21.6, end 24.4
+      S2 run ends +1.2 past S3; spiral sweeps 11.6 .. 16.4; stretch word 16.9, runs to 18.5; beats end 22.1
+  ok   10_3 x0.8: the sweep starts within 0.25 s of 'turns round'
+  ok   10_3 x0.8: nothing says 'does not turn' while the spiral sweeps
+  ok   10_3 x0.8: 'stretch flow' lands within 0.25 s of 'or does not turn'
+  ok   10_3 x0.8: the stretch run is over by 'The zero flow'
+  ok   10_3 x0.8: the line's beats end with the line (22.1 of 24.4)
+  ok   10_4 x0.8: the +pi end opens (2.2) and crosses end 2.9 before S1 4.1
+    10_4 x0.8: fine print up 18.6, voice ends 25.0, read 6.4 s, added end hold 6.8 s
+  ok   10_2 x0.8: rings squash and e0 land (1.8 s) by S1 1.89 + 0.25
+  ok   09_2 x0.8: the resting plane's fade fits sentence 1 (2.02 s)
+    10_3 x1.0: S3 11.8, 'turns round' 14.5, 'or does not turn' 21.1, S4 23.3, S5 27.0, end 30.4
+      S2 run ends +1.4 past S3; spiral sweeps 14.5 .. 20.6; stretch word 21.1, runs to 23.1; beats end 27.5
+  ok   10_3 x1.0: the sweep starts within 0.25 s of 'turns round'
+  ok   10_3 x1.0: nothing says 'does not turn' while the spiral sweeps
+  ok   10_3 x1.0: 'stretch flow' lands within 0.25 s of 'or does not turn'
+  ok   10_3 x1.0: the stretch run is over by 'The zero flow'
+  ok   10_3 x1.0: the line's beats end with the line (27.5 of 30.4)
+  ok   10_4 x1.0: the +pi end opens (2.7) and crosses end 3.4 before S1 5.1
+    10_4 x1.0: fine print up 23.1, voice ends 31.2, read 8.1 s, added end hold 5.1 s
+  ok   10_2 x1.0: rings squash and e0 land (1.8 s) by S1 2.36 + 0.25
+  ok   09_2 x1.0: the resting plane's fade fits sentence 1 (2.52 s)
+    10_3 x1.25: S3 14.8, 'turns round' 18.2, 'or does not turn' 26.4, S4 29.2, S5 33.7, end 37.9
+      S2 run ends +1.0 past S3; spiral sweeps 18.2 .. 25.9; stretch word 26.4, runs to 29.0; beats end 34.2
+  ok   10_3 x1.25: the sweep starts within 0.25 s of 'turns round'
+  ok   10_3 x1.25: nothing says 'does not turn' while the spiral sweeps
+  ok   10_3 x1.25: 'stretch flow' lands within 0.25 s of 'or does not turn'
+  ok   10_3 x1.25: the stretch run is over by 'The zero flow'
+  ok   10_3 x1.25: the line's beats end with the line (34.2 of 37.9)
+  ok   10_4 x1.25: the +pi end opens (3.4) and crosses end 4.1 before S1 6.3
+    10_4 x1.25: fine print up 28.8, voice ends 38.9, read 10.1 s, added end hold 3.1 s
+  ok   10_2 x1.25: rings squash and e0 land (1.8 s) by S1 2.95 + 0.25
+  ok   09_2 x1.25: the resting plane's fade fits sentence 1 (3.15 s)
+I. Picture continuity at each static-to-live change (F9, F17)
+  ok   09_4 rate 0.25: the live panel at spin 0 is the identity exactly
+  ok   09_4 rate 1.25: the live panel at spin 0 is the identity exactly
+  ok   09_4 rate -0.75: the live panel at spin 0 is the identity exactly
+  ok   09_2: the live flow at time 0 is the identity exactly
+  ok   10_3: the live grid at time 0 is the identity exactly
+  ok   F17 ellipse 2.0 by 1.0: at u = 1 the rings are the old orbit (worst 0.0e+00)
+  ok   F17 ellipse 2.0 by 1.0: at u = 0 they are circles (worst 2.2e-16)
+  ok   F17 ellipse 1.6 by 0.7: at u = 1 the rings are the old orbit (worst 4.4e-16)
+  ok   F17 ellipse 1.6 by 0.7: at u = 0 they are circles (worst 4.4e-16)
+J. The new Rust tests' numbers, prototyped (they have not run)
+  ok   draw: a_line_on_the_clip_box_survives_a_flows_rounding
+  ok   draw: card_columns_and_brackets at (34.0, 1.039)
+  ok   draw: card_columns_and_brackets at (30.0, 0.767)
+  ok   draw: card_columns_and_brackets at (30.0, 0.617)
+  ok   draw: card_columns_and_brackets at (26.0, 0.332)
+  ok   draw: card_columns_and_brackets at (32.0, 0.16)
+  ok   draw: a_small_card_grows_only_as_its_text_does
+  ok   draw: narrow_entries_keep_the_cards_old_spacing (exact)
+  ok   matrix_logs: the_clip_holds_the_grid
+  ok   matrix_logs: the_dictionary_line_stays_in_the_frame
+  ok   doing_nothing: a_numbers_window_closes_at_plus_pi
+  ok   doing_nothing: every_timed_phrase, 10_3
+  ok   doing_nothing: every_timed_phrase, 10_4
+  ok   doing_nothing: a_takes_word_mark_beats_the_estimate
+  ok   doing_nothing: the estimate falls in its sentence
+  ok   doing_nothing: a bad phrase or split is refused
+  ok   doing_nothing: a_run_ends_before_its_mark
+  ok   doing_nothing: the_labels_under_the_turning_line_keep_apart
+  ok   doing_nothing: the_fine_print_has_no_caret_and_time_to_be_read
+  ok   product_rule: the_axis_runs_through_neither_label
+
+all checks passed; these are source-level mirrors, not a build or a render

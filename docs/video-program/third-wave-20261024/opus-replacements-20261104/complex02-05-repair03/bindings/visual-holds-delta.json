@@ -1,0 +1,93 @@
+{
+ "map": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver10.json",
+ "map_sha256": "341356cda34ac129fbca1988699f9f20f1cb583d63a5463f780226a13ab3c5b4",
+ "script_sha256": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e",
+ "note": "Replace only these fields. Rows and sections not listed do not change. Derived by the frozen binder's build() on canonical + this patch, and each row re-read here. Valid only for these exact file hashes; a later edit to any of the four files moves them again.",
+ "rows": [
+  {
+   "cue": "02_5",
+   "next_cue": "02_6",
+   "kind": "prediction",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+   "old": {
+    "sha256": "2b4dd9a1e41e5e484e243d0fad0c5d4f3d66f92247d6a75104828989361e0e32",
+    "line": 384,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, v(COLUMN, -1.0))?;"
+   },
+   "new": {
+    "sha256": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec",
+    "line": 435,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, v(COLUMN, -1.0))?;"
+   },
+   "basis_changed": false
+  },
+  {
+   "cue": "03_3",
+   "next_cue": "03_4",
+   "kind": "prediction",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+   "old": {
+    "sha256": "d8f547c95cef1dda2d15e5512934b5412929fdf575f658ea69c8a3e29e291361",
+    "line": 494,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, out.p(C::new(0.0, 0.4)))?;"
+   },
+   "new": {
+    "sha256": "98cd46c5cc825095600ae431ae22c142a65c7b0cb8d2507d4c4ba0644ca3c432",
+    "line": 607,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, out.p(ASK_AT))?;"
+   },
+   "basis_changed": false
+  },
+  {
+   "cue": "04_4",
+   "next_cue": "04_5",
+   "kind": "reading",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+   "old": {
+    "sha256": "dc98bcee3fc0c5b43fa7fc8601bf4a397dc508bfbd2574e4c809c0ad7d7572d0",
+    "line": 239,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   },
+   "new": {
+    "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d",
+    "line": 341,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   },
+   "basis_changed": false
+  },
+  {
+   "cue": "04_6",
+   "next_cue": "04_7",
+   "kind": "prediction",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+   "old": {
+    "sha256": "dc98bcee3fc0c5b43fa7fc8601bf4a397dc508bfbd2574e4c809c0ad7d7572d0",
+    "line": 279,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right - 0.15, 0.75))?;"
+   },
+   "new": {
+    "sha256": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d",
+    "line": 389,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right - 0.15, 0.75))?;"
+   },
+   "basis_changed": false
+  },
+  {
+   "cue": "05_8",
+   "next_cue": "05_9",
+   "kind": "reading",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+   "old": {
+    "sha256": "6f310eb739ec3e5e6a085de42e31dd2be27b9c95dff3e82953530efacf1fed02",
+    "line": 827,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   },
+   "new": {
+    "sha256": "bff74a1524c71d7bd4ed517e35303c15e801241462d19d192d92afb04312f16c",
+    "line": 866,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   },
+   "basis_changed": false
+  }
+ ]
+}

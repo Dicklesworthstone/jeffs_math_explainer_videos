@@ -1,0 +1,12 @@
+06_1 step                          one_derivative.rs:138        L=0.863 now +0.363 forward  ( 32.6 px)  with buff 0:  77.6 px, shaft  5.4 px
+06_1 change                        one_derivative.rs:144        L=2.116 now +1.616 forward  (145.5 px)  with buff 0: 190.5 px, shaft  5.4 px
+06_9 orientation head              one_derivative.rs:429        L=0.113 now -0.387 reversed ( 34.9 px)  with buff 0:  10.1 px, shaft  1.0 px
+08_1/08_3 dz_k, product            loop_sums.rs:151             L=0.627 now +0.127 forward  ( 11.4 px)  with buff 0:  56.4 px, shaft  4.0 px
+08_2 chain                         draw.rs:967 via :315         L=0.783 now +0.283 forward  ( 25.5 px)  with buff 0:  70.5 px, shaft  4.0 px
+08_3 column                        draw.rs:967 via :368         L=0.200 now -0.300 reversed ( 27.0 px)  with buff 0:  18.0 px, shaft  1.8 px
+08_4 row                           draw.rs:967 via :466         L=0.117 now -0.383 reversed ( 34.4 px)  with buff 0:  10.6 px, shaft  1.1 px
+08_5 circulation tip               loop_sums.rs:207             L=0.141 now -0.359 reversed ( 32.3 px)  with buff 0:  12.7 px, shaft  1.3 px
+08_5 walk_on                       loop_sums.rs:521             L=0.800 now +0.300 forward  ( 27.0 px)  with buff 0:  72.0 px, shaft  4.0 px
+08_5 shared walks                  loop_sums.rs:559             L=0.800 now +0.300 forward  ( 27.0 px)  with buff 0:  72.0 px, shaft  4.0 px
+07_5 steps                         one_point.rs:480,495         L=0.810 now +0.310 forward  ( 27.9 px)  with buff 0:  72.9 px, shaft  5.4 px
+07_1 map arrow                     one_point.rs:234             L=1.200 now +0.700 forward  ( 63.0 px)  with buff 0: 108.0 px, shaft  5.4 px

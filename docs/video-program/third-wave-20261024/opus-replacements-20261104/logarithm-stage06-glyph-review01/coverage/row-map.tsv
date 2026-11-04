@@ -1,0 +1,604 @@
+page	top	bottom	left	right	registry_row	kind	chapters	text
+frame_000000.png	135	181	55	843	1	Text	11_unreachable	(here X is the sample flow from before)
+frame_000000.png	211	245	55	192	2	Text	07_branch_cut	+0.850
+frame_000000.png	275	309	55	192	3	Text	07_branch_cut	+0.913
+frame_000000.png	339	378	55	618	4	Text	04_undoing_growth	+1% in x  →  +0.01 in ln x
+frame_000000.png	407	439	55	74	5	Text	00_ratio_ruler,03_folded_decade,04_undoing_growth,05_complex_turns,06_lifting_loops,08_product_rule,09_matrix_logs,10_doing_nothing,11_unreachable,12_what_it_forgets	0
+frame_000000.png	471	512	55	675	6	Text	04_undoing_growth	0 and below: no real logarithm
+frame_000000.png	542	575	55	335	7	Text	06_lifting_loops	0 is not inside
+frame_000000.png	606	647	55	170	8	Text	03_folded_decade	0 laps
+frame_000000.png	677	708	55	134	9	Text	06_lifting_loops,09_matrix_logs,11_unreachable,12_what_it_forgets	0.00
+frame_000000.png	740	772	55	134	10	Text	12_what_it_forgets	0.06
+frame_000000.png	803	835	55	134	11	Text	12_what_it_forgets	0.09
+frame_000000.png	867	899	55	134	12	Text	11_unreachable	0.10
+frame_000000.png	930	962	55	134	13	Text	12_what_it_forgets	0.13
+frame_000001.png	135	166	55	134	14	Text	09_matrix_logs	0.16
+frame_000001.png	198	230	55	134	15	Text	06_lifting_loops,12_what_it_forgets	0.19
+frame_000001.png	261	293	55	134	16	Text	06_lifting_loops	0.20
+frame_000001.png	325	357	55	156	17	Text	04_undoing_growth	0.202
+frame_000001.png	388	421	55	134	18	Text	03_folded_decade	0.24
+frame_000001.png	452	492	55	393	19	Text	12_what_it_forgets	0.24, 2.4, 24, 240
+frame_000001.png	522	562	55	521	20	Text	09_matrix_logs	0.25 turn per unit time
+frame_000001.png	591	623	55	134	21	Text	12_what_it_forgets	0.26
+frame_000001.png	655	687	55	135	22	Text	06_lifting_loops	0.27
+frame_000001.png	718	750	55	134	23	Text	12_what_it_forgets	0.28
+frame_000001.png	782	814	55	110	24	Text	09_matrix_logs	0.3
+frame_000001.png	845	877	55	133	25	Text	12_what_it_forgets	0.32
+frame_000001.png	909	941	55	157	26	Text	04_undoing_growth	0.320
+frame_000002.png	135	167	55	134	27	Text	12_what_it_forgets	0.34
+frame_000002.png	198	230	55	134	28	Text	12_what_it_forgets	0.38
+frame_000002.png	261	293	55	134	29	Text	06_lifting_loops,12_what_it_forgets	0.39
+frame_000002.png	325	367	55	471	30	Text	02_slide_rule	0.398 of a full length
+frame_000002.png	397	429	55	134	31	Text	06_lifting_loops	0.40
+frame_000002.png	460	493	55	133	32	Text	12_what_it_forgets	0.45
+frame_000002.png	524	556	55	135	33	Text	12_what_it_forgets	0.47
+frame_000002.png	587	619	55	134	34	Text	06_lifting_loops	0.49
+frame_000002.png	651	682	55	110	35	Text	09_matrix_logs	0.5
+frame_000002.png	714	746	55	134	36	Text	06_lifting_loops,12_what_it_forgets	0.50
+frame_000002.png	778	809	55	156	37	Text	02_slide_rule	0.505
+frame_000002.png	841	873	55	158	38	Text	09_matrix_logs	0.517
+frame_000002.png	904	936	55	133	39	Text	12_what_it_forgets	0.52
+frame_000003.png	135	166	55	133	40	Text	12_what_it_forgets	0.55
+frame_000003.png	198	230	55	134	41	Text	12_what_it_forgets	0.56
+frame_000003.png	261	293	55	110	42	Text	09_matrix_logs	0.6
+frame_000003.png	325	357	55	158	43	Text	04_undoing_growth	0.607
+frame_000003.png	388	420	55	133	44	Text	12_what_it_forgets	0.65
+frame_000003.png	452	484	55	134	45	Text	09_matrix_logs	0.66
+frame_000003.png	515	547	55	157	46	Text	11_unreachable	0.670
+frame_000003.png	579	610	55	134	47	Text	12_what_it_forgets	0.69
+frame_000003.png	642	674	55	157	48	Text	11_unreachable	0.703
+frame_000003.png	706	738	55	157	49	Text	04_undoing_growth	0.748
+frame_000003.png	769	801	55	133	50	Text	12_what_it_forgets	0.75
+frame_000003.png	833	874	55	532	51	Text	09_matrix_logs	0.75 turn the other way
+frame_000003.png	904	936	55	135	52	Text	12_what_it_forgets	0.77
+frame_000004.png	135	167	55	157	53	Text	09_matrix_logs	0.776
+frame_000004.png	198	230	55	134	54	Text	12_what_it_forgets	0.78
+frame_000004.png	261	293	55	110	55	Text	09_matrix_logs	0.8
+frame_000004.png	325	357	55	133	56	Text	12_what_it_forgets	0.82
+frame_000004.png	388	420	55	134	57	Text	11_unreachable	0.83
+frame_000004.png	452	484	55	134	58	Text	12_what_it_forgets	0.86
+frame_000004.png	515	547	55	157	59	Text	09_matrix_logs	0.866
+frame_000004.png	579	610	55	156	60	Text	09_matrix_logs	0.905
+frame_000004.png	642	674	55	132	61	Text	12_what_it_forgets	0.91
+frame_000004.png	706	737	55	134	62	Text	06_lifting_loops	0.93
+frame_000004.png	769	801	55	134	63	Text	12_what_it_forgets	0.94
+frame_000004.png	832	864	55	157	64	Text	11_unreachable	0.986
+frame_000004.png	896	928	55	134	65	Text	09_matrix_logs	0.99
+frame_000005.png	135	187	55	1387	66	Text	supplement	0123456789 . , : ; ( ) [ ] = + − × ÷ ± ½ ≈ ≠ ≤ < > ∞ ∫ √ π θ ° ₂
+frame_000005.png	217	261	55	1030	66	Text	supplement	 → ↔ – … ? ! Hz % a b c d e i k t x y z A I J X
+frame_000005.png	291	333	55	363	67	Text	05_complex_turns	0: no logarithm
+frame_000005.png	363	393	55	70	68	Text	01_building_ruler,02_slide_rule,03_folded_decade,04_undoing_growth,05_complex_turns,06_lifting_loops,09_matrix_logs,10_doing_nothing,11_unreachable,12_what_it_forgets	1
+frame_000005.png	426	458	55	167	69	Text	04_undoing_growth	1 at 0
+frame_000005.png	489	530	55	150	70	Text	03_folded_decade	1 lap
+frame_000005.png	560	592	55	266	71	Text	00_ratio_ruler	1 semitone
+frame_000005.png	624	663	55	244	72	Text	03_folded_decade	1, 10, 100
+frame_000005.png	693	725	55	131	73	Text	06_lifting_loops,09_matrix_logs,12_what_it_forgets	1.00
+frame_000005.png	757	788	55	155	74	Text	11_unreachable	1.000
+frame_000005.png	820	852	55	154	75	Text	11_unreachable	1.156
+frame_000005.png	884	916	55	132	76	Text	11_unreachable	1.17
+frame_000005.png	947	978	55	153	77	Text	11_unreachable	1.221
+frame_000006.png	135	174	55	537	78	Text	09_matrix_logs	1.25 turns per unit time
+frame_000006.png	204	236	55	154	79	Text	04_undoing_growth	1.282
+frame_000006.png	268	299	55	154	80	Text	11_unreachable	1.309
+frame_000006.png	331	375	55	293	81	Text	01_building_ruler	1.36% apart
+frame_000006.png	405	437	55	154	82	Text	11_unreachable	1.492
+frame_000006.png	468	500	55	131	83	Text	12_what_it_forgets	1.50
+frame_000006.png	531	563	55	108	84	Text	09_matrix_logs	1.6
+frame_000006.png	595	627	55	131	85	Text	06_lifting_loops	1.62
+frame_000006.png	658	691	55	131	86	Text	12_what_it_forgets	1.72
+frame_000006.png	722	754	55	154	87	Text	11_unreachable	1.822
+frame_000006.png	785	817	55	131	88	Text	06_lifting_loops	1.86
+frame_000006.png	849	895	55	362	89	Text	00_ratio_ruler	1/2 of the ruler
+frame_000006.png	925	971	55	362	90	Text	00_ratio_ruler	1/8 of the ruler
+frame_000007.png	135	166	55	95	91	Text	01_building_ruler,02_slide_rule,03_folded_decade	10
+frame_000007.png	198	230	55	118	92	Text	03_folded_decade,04_undoing_growth	100
+frame_000007.png	261	293	55	142	93	Text	03_folded_decade	1000
+frame_000007.png	325	357	55	142	94	Text	04_undoing_growth	1024
+frame_000007.png	388	420	55	307	95	Text	00_ratio_ruler	12 semitones
+frame_000007.png	452	484	55	232	96	Text	01_building_ruler	12 threes
+frame_000007.png	515	547	55	118	97	Text	04_undoing_growth	128
+frame_000007.png	579	610	55	131	98	Text	04_undoing_growth	13.9
+frame_000007.png	642	674	55	118	99	Text	04_undoing_growth	150
+frame_000007.png	706	737	55	95	100	Text	04_undoing_growth	16
+frame_000007.png	769	801	55	142	101	Text	00_ratio_ruler	1760
+frame_000007.png	833	874	55	304	102	Text	01_building_ruler	19 doublings
+frame_000007.png	904	935	55	73	103	Text	01_building_ruler,02_slide_rule,03_folded_decade,04_undoing_growth,11_unreachable,12_what_it_forgets	2
+frame_000008.png	135	176	55	170	104	Text	03_folded_decade	2 laps
+frame_000008.png	205	238	55	244	105	Text	04_undoing_growth	2 × 4 = 8
+frame_000008.png	269	301	55	133	106	Text	06_lifting_loops	2.00
+frame_000008.png	332	364	55	131	107	Text	06_lifting_loops	2.01
+frame_000008.png	396	427	55	111	108	Text	02_slide_rule,03_folded_decade,12_what_it_forgets	2.4
+frame_000008.png	459	490	55	133	109	Text	06_lifting_loops	2.42
+frame_000008.png	523	554	55	316	110	Text	02_slide_rule	2.5 × 3.2 = 8
+frame_000008.png	586	620	55	314	111	Text	02_slide_rule	2.5 × 3.2 = ?
+frame_000008.png	650	681	55	133	112	Text	12_what_it_forgets	2.50
+frame_000008.png	713	745	55	154	113	Text	04_undoing_growth	2.571
+frame_000008.png	776	808	55	156	114	Text	04_undoing_growth	2.586
+frame_000008.png	840	871	55	98	115	Text	02_slide_rule,03_folded_decade	24
+frame_000008.png	903	936	55	397	116	Text	02_slide_rule	24 would sit here
+frame_000009.png	135	167	55	120	117	Text	02_slide_rule,03_folded_decade	240
+frame_000009.png	198	230	55	120	118	Text	04_undoing_growth	256
+frame_000009.png	262	294	55	143	119	Text	00_ratio_ruler	2640
+frame_000009.png	325	356	55	87	120	Text	05_complex_turns	2i
+frame_000009.png	388	430	55	934	121	Text	11_unreachable	2×2, a direction sent to a negative multiple:
+frame_000009.png	460	491	55	98	122	Text	05_complex_turns,08_product_rule,10_doing_nothing,12_what_it_forgets	2π
+frame_000009.png	523	563	55	221	123	Text	05_complex_turns	2π apart
+frame_000009.png	593	634	55	512	124	Text	05_complex_turns	2π up = one lap round
+frame_000009.png	664	695	55	111	125	Text	05_complex_turns,06_lifting_loops	2πi
+frame_000009.png	727	759	55	74	126	Text	01_building_ruler,02_slide_rule,03_folded_decade,04_undoing_growth,05_complex_turns,11_unreachable,12_what_it_forgets	3
+frame_000009.png	790	824	55	111	127	Text	01_building_ruler	3 ?
+frame_000009.png	854	886	55	135	128	Text	06_lifting_loops	3.17
+frame_000009.png	917	949	55	133	129	Text	06_lifting_loops	3.58
+frame_000010.png	135	166	55	97	130	Text	04_undoing_growth	32
+frame_000010.png	198	230	55	144	131	Text	00_ratio_ruler	3520
+frame_000010.png	261	293	55	98	132	Text	05_complex_turns,12_what_it_forgets	3π
+frame_000010.png	325	357	55	111	133	Text	05_complex_turns,06_lifting_loops,12_what_it_forgets	3πi
+frame_000010.png	388	420	55	75	134	Text	01_building_ruler,02_slide_rule,03_folded_decade,04_undoing_growth,12_what_it_forgets	4
+frame_000010.png	452	484	55	499	135	Text	03_folded_decade	4 × 6 = 10 × 2.4 = 24
+frame_000010.png	515	548	55	269	136	Text	02_slide_rule	4 × 6 = 24
+frame_000010.png	579	612	55	243	137	Text	02_slide_rule	4 × 6 = ?
+frame_000010.png	642	675	55	651	138	Text	02_slide_rule	4 × 6 lies between 10 and 100
+frame_000010.png	706	738	55	134	139	Text	06_lifting_loops	4.00
+frame_000010.png	769	801	55	121	140	Text	00_ratio_ruler	440
+frame_000010.png	833	865	55	112	141	Text	06_lifting_loops	4πi
+frame_000010.png	896	929	55	243	142	Text	05_complex_turns	4πi above
+frame_000011.png	135	166	55	73	143	Text	02_slide_rule,03_folded_decade,12_what_it_forgets	5
+frame_000011.png	198	230	55	97	144	Text	04_undoing_growth	50
+frame_000011.png	261	293	55	120	145	Text	04_undoing_growth	512
+frame_000011.png	325	365	55	293	146	Text	00_ratio_ruler	55, 110, 220
+frame_000011.png	394	426	55	74	147	Text	02_slide_rule,03_folded_decade,12_what_it_forgets	6
+frame_000011.png	458	490	55	286	148	Text	00_ratio_ruler	6 semitones
+frame_000011.png	521	553	55	120	149	Text	00_ratio_ruler	622
+frame_000011.png	585	617	55	250	150	Text	00_ratio_ruler	622.25 Hz
+frame_000011.png	648	680	55	98	151	Text	04_undoing_growth	64
+frame_000011.png	712	754	55	414	152	Text	00_ratio_ruler	660 by difference?
+frame_000011.png	784	816	55	75	153	Text	02_slide_rule,03_folded_decade,12_what_it_forgets	7
+frame_000011.png	847	879	55	74	154	Text	01_building_ruler,02_slide_rule,03_folded_decade,04_undoing_growth,12_what_it_forgets	8
+frame_000011.png	910	942	55	121	155	Text	00_ratio_ruler	880
+frame_000012.png	135	166	55	74	156	Text	02_slide_rule,03_folded_decade,12_what_it_forgets	9
+frame_000012.png	198	231	55	72	157	Text	02_slide_rule,12_what_it_forgets	?
+frame_000012.png	261	294	55	143	158	Text	00_ratio_ruler	? Hz
+frame_000012.png	325	358	55	137	159	Text	11_unreachable	A =
+frame_000012.png	388	435	55	500	160	Text	11_unreachable	A = (−I) × diag(2, ½)
+frame_000012.png	464	511	55	416	161	Text	11_unreachable	A = diag(−2, −½)
+frame_000012.png	540	587	55	798	162	Text	11_unreachable	A = diag(−2, −½): no real logarithm
+frame_000012.png	616	649	55	197	163	Text	11_unreachable	A = −I
+frame_000012.png	680	722	55	356	164	Text	11_unreachable	A = −cI, c > 0
+frame_000012.png	752	794	55	1344	165	Text	01_building_ruler	A at 440 Hz, 19 semitones up: 1318.51 Hz    3 × 440 = 1320 Hz
+frame_000012.png	824	866	55	387	166	Text	08_product_rule	A famous puzzle
+frame_000012.png	895	938	55	909	167	Text	11_unreachable	A real matrix has a real logarithm exactly
+frame_000013.png	135	168	55	397	168	Text	00_ratio_ruler	A ruler for ratios
+frame_000013.png	198	241	55	1247	169	Text	10_doing_nothing	A sends no direction to 0 or to a negative multiple of itself
+frame_000013.png	270	304	55	285	170	Text	02_slide_rule	A slide rule
+frame_000013.png	334	376	55	497	171	Text	11_unreachable	Allow complex entries
+frame_000013.png	406	447	55	414	172	Text	01_building_ruler	Building the ruler
+frame_000013.png	477	511	55	83	173	Text	02_slide_rule	C
+frame_000013.png	541	583	55	616	174	Text	06_lifting_loops	Carry the logarithm around
+frame_000013.png	612	655	55	973	175	Text	06_lifting_loops	Could one logarithm work all the way round?
+frame_000013.png	684	716	55	86	176	Text	02_slide_rule	D
+frame_000013.png	748	788	55	324	177	Text	02_slide_rule	D stops at 10
+frame_000013.png	818	860	55	675	178	Text	08_product_rule	Does the product rule survive?
+frame_000013.png	890	931	55	635	179	Text	03_folded_decade	Every decade looks the same
+frame_000014.png	135	177	55	562	180	Text	07_branch_cut	Give something up: a cut
+frame_000014.png	206	249	55	469	181	Text	04_undoing_growth	How long to double?
+frame_000014.png	278	320	55	763	182	Text	12_what_it_forgets	How many steady spins end at this
+frame_000014.png	350	390	55	355	183	Text	09_matrix_logs	J: quarter turn
+frame_000014.png	420	466	55	756	184	Text	06_lifting_loops	L(1) has one value: where it began
+frame_000014.png	496	538	55	468	185	Text	03_folded_decade	Laps the dial forgets
+frame_000014.png	568	614	55	304	186	Text	07_branch_cut	Log i = πi/2
+frame_000014.png	644	686	55	758	187	Text	07_branch_cut	Log undoes exp from one side only
+frame_000014.png	716	757	55	718	188	Text	12_what_it_forgets	Log zw = Log z + Log w + 2πik
+frame_000014.png	787	833	55	378	189	Text	07_branch_cut	Log(−i) = −πi/2
+frame_000014.png	863	905	55	919	190	Text	08_product_rule	Log: keeps the direction, drops a lap of 2πi
+frame_000014.png	935	977	55	569	191	Text	10_doing_nothing	Many ways to do nothing
+frame_000015.png	135	176	55	548	192	Text	09_matrix_logs	Matrices move the plane
+frame_000015.png	205	247	55	500	193	Text	03_folded_decade	Multiplying is turning
+frame_000015.png	277	309	55	437	194	Text	05_complex_turns	Numbers that turn
+frame_000015.png	340	382	55	483	195	Text	12_what_it_forgets	One to take with you
+frame_000015.png	412	454	55	647	196	Text	11_unreachable	Places no steady flow reaches
+frame_000015.png	484	525	55	561	197	Text	05_complex_turns	The complex exponential
+frame_000015.png	555	596	55	343	198	Text	01_building_ruler	The logarithm
+frame_000015.png	626	668	55	752	199	Text	04_undoing_growth	The logarithm on its home ground
+frame_000015.png	698	739	55	536	200	Text	10_doing_nothing	The principal logarithm
+frame_000015.png	769	811	55	766	201	Text	09_matrix_logs	Three ways to reach a quarter turn
+frame_000015.png	840	872	55	319	202	Text	07_branch_cut	Two cautions
+frame_000015.png	904	946	55	645	203	Text	12_what_it_forgets	What the exponential forgets
+frame_000016.png	135	177	55	490	204	Text	01_building_ruler	Where does three go?
+frame_000016.png	207	248	55	477	205	Text	00_ratio_ruler	Where the ruler goes
+frame_000016.png	278	320	55	746	206	Text	12_what_it_forgets	Which steady motion got us here?
+frame_000016.png	350	381	55	137	207	Text	11_unreachable	X =
+frame_000016.png	413	455	55	310	208	Text	09_matrix_logs	X, a velocity
+frame_000016.png	485	506	55	76	209	Text	09_matrix_logs	a
+frame_000016.png	548	589	55	467	210	Text	07_branch_cut	a choice, not a crack
+frame_000016.png	619	660	55	494	211	Text	12_what_it_forgets	a cut chooses the laps
+frame_000016.png	690	732	55	511	212	Text	05_complex_turns	a dial that forgets laps
+frame_000016.png	762	804	55	763	213	Text	10_doing_nothing	a flow's turning in one unit of time
+frame_000016.png	834	875	55	579	214	Text	11_unreachable	a half turn, then a stretch
+frame_000016.png	905	946	55	952	215	Text	11_unreachable	a half turn, then a stretch: two flows in turn
+frame_000017.png	135	177	55	978	216	Text	10_doing_nothing	a number's principal angle: within a half turn
+frame_000017.png	207	249	55	702	217	Text	11_unreachable	a real log only if A = −cI, c > 0
+frame_000017.png	279	320	55	532	218	Text	03_folded_decade	a spiral, and its shadow
+frame_000017.png	350	391	55	482	219	Text	11_unreachable	a steady spin, 0.5 lap
+frame_000017.png	421	454	55	146	220	Text	11_unreachable	after
+frame_000017.png	485	517	55	473	221	Text	12_what_it_forgets	all land on one mark
+frame_000017.png	548	589	55	833	222	Text	09_matrix_logs	all three end on the same quarter turn
+frame_000017.png	619	661	55	948	223	Text	00_ratio_ruler	and a transformation no steady flow reaches
+frame_000017.png	691	732	55	1110	224	Text	07_branch_cut	angle just above the cut: near π; just below: near −π
+frame_000017.png	762	804	55	446	225	Text	05_complex_turns	angle ruler: plain +
+frame_000017.png	834	875	55	196	226	Text	05_complex_turns	angle π
+frame_000017.png	905	947	55	413	227	Text	05_complex_turns	angles a lap apart
+frame_000018.png	135	176	55	627	228	Text	05_complex_turns	angles add:  30° + 50° = 80°
+frame_000018.png	206	248	55	1186	229	Text	07_branch_cut	any curve from 0 out to infinity that never crosses itself
+frame_000018.png	278	320	55	1082	230	Text	12_what_it_forgets	axis: only the rod; another axis drags the top off it
+frame_000018.png	350	382	55	78	231	Text	09_matrix_logs,11_unreachable	b
+frame_000018.png	413	455	55	551	232	Text	06_lifting_loops	back at 1: logarithm = ?
+frame_000018.png	485	527	55	480	233	Text	06_lifting_loops	back where it began?
+frame_000018.png	557	590	55	176	234	Text	11_unreachable	before
+frame_000018.png	620	663	55	1337	235	Text	09_matrix_logs	before and after only: where each point lands, not how it travel
+frame_000018.png	692	714	55	70	235	Text	09_matrix_logs	s
+frame_000018.png	756	798	55	1175	236	Text	01_building_ruler	bigger numbers further along: the rule fixes every mark
+frame_000018.png	828	860	55	204	237	Text	07_branch_cut	blocked
+frame_000018.png	891	933	55	520	238	Text	11_unreachable	both axes flipped alike:
+frame_000019.png	135	177	55	480	239	Text	07_branch_cut	bottom edge: left out
+frame_000019.png	207	239	55	268	240	Text	07_branch_cut	branch cut
+frame_000019.png	270	311	55	309	241	Text	07_branch_cut	branch point
+frame_000019.png	341	382	55	877	242	Text	04_undoing_growth	built from scratch in the companion film
+frame_000019.png	412	433	55	73	243	Text	11_unreachable	c
+frame_000019.png	476	508	55	263	244	Text	06_lifting_loops	came back
+frame_000019.png	539	581	55	939	245	Text	06_lifting_loops	candidate: keep the angle between −π and π
+frame_000019.png	610	652	55	717	246	Text	06_lifting_loops	candidate: πi → −πi, gap 0 → −1
+frame_000019.png	682	723	55	412	247	Text	06_lifting_loops	carried logarithm:
+frame_000019.png	753	799	55	921	248	Text	07_branch_cut	circles |z| = r  →  vertical segments at ln r
+frame_000019.png	829	862	55	319	249	Text	06_lifting_loops	contradiction
+frame_000019.png	893	935	55	657	250	Text	07_branch_cut	crossing the cut: a jump of 2π
+frame_000020.png	135	176	55	931	251	Text	11_unreachable	dashes pair each corner with where it lands
+frame_000020.png	205	247	55	476	252	Text	11_unreachable	dashes: straight back
+frame_000020.png	277	318	55	585	253	Text	11_unreachable	det < 0: no real logarithm
+frame_000020.png	348	394	55	552	254	Text	11_unreachable	det = (−2) × (−½) = +1
+frame_000020.png	424	466	55	552	255	Text	11_unreachable	det = signed area factor:
+frame_000020.png	496	538	55	399	256	Text	11_unreachable	det > 0: enough?
+frame_000020.png	568	610	55	461	257	Text	11_unreachable	det > 0: not enough
+frame_000020.png	639	686	55	328	258	Text	12_what_it_forgets	diag(−2, −½):
+frame_000020.png	715	757	55	751	259	Text	12_what_it_forgets	direction: ½ lap the other way too
+frame_000020.png	787	808	55	73	260	Text	04_undoing_growth	e
+frame_000020.png	850	883	55	235	261	Text	04_undoing_growth	e ≈ 2.718
+frame_000020.png	914	955	55	918	262	Text	12_what_it_forgets	each corner keeps to a circle about the rod
+frame_000021.png	135	177	55	849	263	Text	11_unreachable	each gap part = ±1.5 × an off-diagonal
+frame_000021.png	206	248	55	1217	264	Text	05_complex_turns	each lap drawn a little further out, to keep the laps apart
+frame_000021.png	278	319	55	1177	265	Text	11_unreachable	each row is one matrix, each tile a block and its stretch
+frame_000021.png	349	391	55	876	266	Text	11_unreachable	eigenvalue, its Jordan blocks of each size
+frame_000021.png	421	462	55	601	267	Text	10_doing_nothing	ellipse 1.6 by 0.7, tilted 30°
+frame_000021.png	492	533	55	315	268	Text	10_doing_nothing	ellipse 2 by 1
+frame_000021.png	563	605	55	403	269	Text	10_doing_nothing	ellipse flows: ±2π
+frame_000021.png	635	677	55	546	270	Text	11_unreachable	entry of X × a part of u,
+frame_000021.png	706	748	55	922	271	Text	00_ratio_ruler	equal steps on the keyboard = equal ratios
+frame_000021.png	778	824	55	873	272	Text	11_unreachable	equal stretches: (−1) − (−1) = 0, no gap,
+frame_000021.png	854	895	55	794	273	Text	01_building_ruler	every base: the same ruler, stretched
+frame_000021.png	925	967	55	1145	274	Text	12_what_it_forgets	every corner halfway round: a half turn about the rod
+frame_000022.png	135	176	55	734	275	Text	11_unreachable	every direction goes straight back
+frame_000022.png	206	248	55	795	276	Text	01_building_ruler	every doubling adds the same length
+frame_000022.png	277	319	55	1209	277	Text	11_unreachable	every invertible complex matrix has a complex logarithm
+frame_000022.png	349	391	55	736	278	Text	02_slide_rule	every mark moved by 2.5's length
+frame_000022.png	421	462	55	658	279	Text	10_doing_nothing	everything home at t = 1: yes
+frame_000022.png	492	533	55	930	280	Text	09_matrix_logs	existence becomes a question about motion
+frame_000022.png	563	605	55	352	281	Text	11_unreachable	first A, then X
+frame_000022.png	635	677	55	352	282	Text	11_unreachable	first X, then A
+frame_000022.png	707	740	55	150	283	Text	06_lifting_loops	fixed
+frame_000022.png	770	812	55	1022	284	Text	11_unreachable	flattening matrices, like zero, have no logarithm
+frame_000022.png	842	884	55	191	285	Text	09_matrix_logs	flipped
+frame_000022.png	913	960	55	1009	286	Text	12_what_it_forgets	for the number −1, Log(−1) = iπ by convention
+frame_000023.png	135	176	55	626	287	Text	08_product_rule	for z²: k = −1, one lap down
+frame_000023.png	206	247	55	498	288	Text	11_unreachable	gap between the ends:
+frame_000023.png	277	319	55	327	289	Text	06_lifting_loops	gap in laps, k
+frame_000023.png	349	391	55	503	290	Text	11_unreachable	gold: where A sends it
+frame_000023.png	421	463	55	996	291	Text	04_undoing_growth	growth factor on a ratio ruler: each mark is ×2
+frame_000023.png	493	526	55	701	292	Text	12_what_it_forgets	half turn after one unit of time?
+frame_000023.png	556	598	55	519	293	Text	11_unreachable	half turn, equal stretch
+frame_000023.png	628	669	55	176	294	Text	04_undoing_growth	height
+frame_000023.png	699	741	55	216	295	Text	07_branch_cut	height π
+frame_000023.png	771	812	55	242	296	Text	07_branch_cut	height −π
+frame_000023.png	842	884	55	502	297	Text	12_what_it_forgets	here: the whole family
+frame_000023.png	914	946	55	338	298	Text	10_doing_nothing	home at t = 1
+frame_000024.png	135	176	55	1121	299	Text	12_what_it_forgets	how far each of these spins turns in one unit of time:
+frame_000024.png	206	237	55	65	300	Text	05_complex_turns	i
+frame_000024.png	269	302	55	222	301	Text	05_complex_turns	i × i = ?
+frame_000024.png	333	374	55	882	302	Text	05_complex_turns	i × i = −1: two quarter turns, a half turn
+frame_000024.png	404	446	55	762	303	Text	10_doing_nothing	infinitely many real logarithms of I
+frame_000024.png	476	516	55	304	304	Text	05_complex_turns	input x + iy
+frame_000024.png	546	587	55	665	305	Text	03_folded_decade	inputs a lap apart, one output
+frame_000024.png	617	660	55	816	306	Text	09_matrix_logs	is there a steady flow that ends at A?
+frame_000024.png	689	722	55	348	307	Text	06_lifting_loops	it breaks at −1
+frame_000024.png	753	794	55	789	308	Text	11_unreachable	it squashes the plane flat onto a line
+frame_000024.png	824	866	55	312	309	Text	06_lifting_loops	its logarithm
+frame_000024.png	896	937	55	502	310	Text	06_lifting_loops	its logarithm, close up
+frame_000025.png	135	165	55	85	311	Text	05_complex_turns	iz
+frame_000025.png	198	240	55	263	312	Text	07_branch_cut	just above
+frame_000025.png	269	311	55	513	313	Text	07_branch_cut	just above → top edge
+frame_000025.png	341	382	55	263	314	Text	07_branch_cut	just below
+frame_000025.png	412	454	55	593	315	Text	07_branch_cut	just below → bottom edge
+frame_000025.png	484	525	55	494	316	Text	06_lifting_loops	k would have to jump
+frame_000025.png	555	596	55	514	317	Text	10_doing_nothing	keep −π < turning < π
+frame_000025.png	626	668	55	332	318	Text	00_ratio_ruler	laps forgotten
+frame_000025.png	698	739	55	405	319	Text	03_folded_decade	laps past the top:
+frame_000025.png	769	810	55	260	320	Text	12_what_it_forgets	laps so far
+frame_000025.png	840	881	55	142	321	Text	05_complex_turns	laps:
+frame_000025.png	911	952	55	703	322	Text	12_what_it_forgets	laps: ½, 1½, 2½, … all end here
+frame_000026.png	135	176	55	552	323	Text	05_complex_turns	length 1 → x = ln 1 = 0
+frame_000026.png	206	248	55	448	324	Text	05_complex_turns	length 2, angle 0.6π
+frame_000026.png	277	324	55	668	325	Text	05_complex_turns	length ruler (logarithm): the ×
+frame_000026.png	353	395	55	690	326	Text	06_lifting_loops	length stays 1: real part stays 0
+frame_000026.png	425	466	55	726	327	Text	05_complex_turns	lengths multiply:  1.2 × 1.5 = 1.8
+frame_000026.png	496	529	55	291	328	Text	11_unreachable	ln 2 ≈ 0.693
+frame_000026.png	560	601	55	354	329	Text	04_undoing_growth	ln: step 1 = ×e
+frame_000026.png	630	672	55	556	330	Text	04_undoing_growth	ln: the natural logarithm
+frame_000026.png	702	744	55	608	331	Text	06_lifting_loops	logarithms of 1: which one?
+frame_000026.png	774	816	55	872	332	Text	12_what_it_forgets	many flows, one place: all home at t = 1
+frame_000026.png	846	887	55	512	333	Text	11_unreachable	matching pair: real log
+frame_000026.png	917	948	55	181	334	Text	11_unreachable	mirror
+frame_000027.png	135	166	55	256	335	Text	11_unreachable	mirror: −1
+frame_000027.png	198	240	55	467	336	Text	00_ratio_ruler	motions of the plane
+frame_000027.png	269	311	55	433	337	Text	00_ratio_ruler	multiply by sliding
+frame_000027.png	341	382	55	1174	338	Text	06_lifting_loops	no continuous logarithm on a loop that winds around 0
+frame_000027.png	412	453	55	277	339	Text	07_branch_cut	no crossing
+frame_000027.png	482	524	55	642	340	Text	07_branch_cut	no loop can go around 0 now
+frame_000027.png	554	595	55	526	341	Text	11_unreachable	no partners: no real log
+frame_000027.png	625	667	55	402	342	Text	04_undoing_growth	no real logarithm
+frame_000027.png	697	738	55	376	343	Text	12_what_it_forgets	no single steady
+frame_000027.png	768	810	55	687	344	Text	11_unreachable	no single steady flow does both
+frame_000027.png	840	882	55	871	345	Text	00_ratio_ruler	note interval depends on frequency ratio
+frame_000027.png	912	951	55	455	346	Text	01_building_ruler	now one step = ×10
+frame_000028.png	135	168	55	686	347	Text	11_unreachable	occur an even number of times.
+frame_000028.png	198	231	55	271	348	Text	02_slide_rule	off the end
+frame_000028.png	261	302	55	384	349	Text	07_branch_cut	on the cut plane
+frame_000028.png	332	374	55	814	350	Text	02_slide_rule	one full length = 1: from 1 to 10, ×10
+frame_000028.png	404	446	55	588	351	Text	12_what_it_forgets	one input for every output
+frame_000028.png	476	517	55	199	352	Text	06_lifting_loops	one lap
+frame_000028.png	547	588	55	338	353	Text	03_folded_decade	one lap = ×10
+frame_000028.png	618	650	55	242	354	Text	02_slide_rule	one mark
+frame_000028.png	681	723	55	612	355	Text	11_unreachable	one size-2 block: no real log
+frame_000028.png	753	790	55	219	356	Text	01_building_ruler	one step
+frame_000028.png	820	860	55	336	357	Text	01_building_ruler	one step = ×4
+frame_000028.png	890	931	55	749	358	Text	11_unreachable	only the two axes go straight back
+frame_000029.png	135	176	55	367	359	Text	06_lifting_loops	ours: 2πi higher
+frame_000029.png	206	248	55	429	360	Text	06_lifting_loops	ours: carried along
+frame_000029.png	277	315	55	187	361	Text	05_complex_turns	output
+frame_000029.png	345	377	55	196	362	Text	08_product_rule	outside
+frame_000029.png	408	437	55	78	363	Text	11_unreachable	p
+frame_000029.png	471	513	55	1334	364	Text	04_undoing_growth	precisely: 100 × ln 2 ≈ 69.3; seventy is the round number near i
+frame_000029.png	543	572	55	69	364	Text	04_undoing_growth	t
+frame_000029.png	606	652	55	1394	365	Text	11_unreachable	precisely: Culver, Proc. AMS 17 (1966) 1146–1151, as stated by H
+frame_000029.png	682	728	55	1269	365	Text	11_unreachable	igham (Handbook of Linear Algebra) and Gallier (Thm 3.4)
+frame_000029.png	758	800	55	1348	366	Text	11_unreachable	precisely: Gallier, arXiv 0805.0245, Theorem 3.3, proved via the
+frame_000029.png	830	864	55	301	366	Text	11_unreachable	 Jordan form
+frame_000029.png	894	940	55	1377	367	Text	07_branch_cut	precisely: Log is holomorphic off (−∞, 0] with −π < Im < π; with
+frame_000030.png	135	181	55	1295	367	Text	07_branch_cut	 Arg(−x) = π for x > 0, Im Log fills −π < Im ≤ π (DLMF 4.2)
+frame_000030.png	211	253	55	1286	368	Text	02_slide_rule	precisely: a working slide rule reads about three significant fi
+frame_000030.png	283	324	55	854	368	Text	02_slide_rule	gures; the user places the decimal point
+frame_000030.png	354	400	55	1402	369	Text	00_ratio_ruler	precisely: equal temperament with A4 = 440 Hz (ISO 16); real pia
+frame_000030.png	430	472	55	806	369	Text	00_ratio_ruler	nos are often tuned slightly stretched
+frame_000030.png	502	555	55	1296	370	Text	11_unreachable	precisely: for any real linear flow, steady or not, det = exp(∫ 
+frame_000030.png	585	631	55	542	370	Text	11_unreachable	trace dt) > 0 (Liouville)
+frame_000030.png	661	703	55	1285	371	Text	08_product_rule	precisely: for nonzero z, w on the principal branch, k is −1, 0 
+frame_000030.png	732	764	55	130	371	Text	08_product_rule	or 1
+frame_000030.png	796	842	55	1355	372	Text	10_doing_nothing	precisely: no eigenvalue of A in (−∞, 0] ⇒ one logarithm has all
+frame_000030.png	872	918	55	1363	372	Text	10_doing_nothing	 eigenvalues −π < Im < π; real if A is (Higham; Gallier Thm 3.11
+frame_000031.png	135	181	55	66	372	Text	10_doing_nothing	)
+frame_000031.png	211	252	55	1398	373	Text	12_what_it_forgets	precisely: spins ending here: ±½, ±1½, … laps per unit time abou
+frame_000031.png	282	328	55	1343	373	Text	12_what_it_forgets	t the rod; eigenvalue −1, so no principal log (Higham §4 Fact 1)
+frame_000031.png	358	400	55	467	374	Text	07_branch_cut	principal angle, in π:
+frame_000031.png	430	471	55	399	375	Text	08_product_rule	principal window
+frame_000031.png	500	530	55	78	376	Text	11_unreachable	q
+frame_000031.png	564	606	55	1008	377	Text	07_branch_cut	rays at angle θ  →  horizontal lines at height θ
+frame_000031.png	636	669	55	431	378	Text	12_what_it_forgets	real flow ends here
+frame_000031.png	699	740	55	492	379	Text	05_complex_turns	real part ln 2 = 0.693
+frame_000031.png	770	801	55	122	380	Text	04_undoing_growth	rise
+frame_000031.png	834	875	55	554	381	Text	04_undoing_growth	rise and run trade places
+frame_000031.png	904	951	55	955	382	Text	04_undoing_growth	rule of seventy: time ≈ 70 ÷ (percent a year)
+frame_000032.png	135	155	55	122	383	Text	04_undoing_growth	run
+frame_000032.png	198	239	55	801	384	Text	11_unreachable	run backwards: never flat, never zero
+frame_000032.png	269	310	55	360	385	Text	11_unreachable	same end point
+frame_000032.png	340	373	55	204	386	Text	09_matrix_logs	sheared
+frame_000032.png	404	446	55	567	387	Text	11_unreachable	signed area of the square:
+frame_000032.png	475	518	55	1001	388	Text	08_product_rule	slide rule: keeps the digits, drops a factor of 10
+frame_000032.png	547	589	55	1364	389	Text	02_slide_rule	sliding adds the lengths; the marks turn the sum back into a pro
+frame_000032.png	619	651	55	141	389	Text	02_slide_rule	duct
+frame_000032.png	682	723	55	154	390	Text	04_undoing_growth	slope
+frame_000032.png	753	794	55	376	391	Text	04_undoing_growth	slope 1 at x = 1
+frame_000032.png	824	866	55	783	392	Text	04_undoing_growth	slope = height > 0: always climbing
+frame_000032.png	895	937	55	647	393	Text	11_unreachable	so every X commutes with −I
+frame_000033.png	135	177	55	916	394	Text	12_what_it_forgets	so: infinitely many spins, all about the rod
+frame_000033.png	206	248	55	658	395	Text	12_what_it_forgets	spin: 1½ laps per unit of time
+frame_000033.png	278	319	55	658	396	Text	12_what_it_forgets	spin: 2½ laps per unit of time
+frame_000033.png	349	390	55	676	397	Text	12_what_it_forgets	spin: ½ lap about another axis
+frame_000033.png	420	462	55	617	398	Text	12_what_it_forgets	spin: ½ lap per unit of time
+frame_000033.png	491	534	55	911	399	Text	12_what_it_forgets	spin: ½ lap the other way per unit of time
+frame_000033.png	563	605	55	1228	400	Text	10_doing_nothing	spiral flow: turns 0.872 radians per unit time, about 0.28π
+frame_000033.png	635	676	55	902	401	Text	11_unreachable	starts at 1, never touches 0: stays positive
+frame_000033.png	706	748	55	907	402	Text	04_undoing_growth	starts at 1; to go negative it would cross 0
+frame_000033.png	777	811	55	845	403	Text	10_doing_nothing	stretch flow: does not turn round at all
+frame_000033.png	841	873	55	236	404	Text	09_matrix_logs	stretched
+frame_000033.png	904	946	55	1047	405	Text	06_lifting_loops	suppose L is a continuous logarithm on the circle
+frame_000034.png	135	166	55	292	406	Text	11_unreachable	t = 1: 1.221
+frame_000034.png	198	230	55	293	407	Text	11_unreachable	t = 3: 1.822
+frame_000034.png	261	303	55	761	408	Text	04_undoing_growth	that is why base e is called natural
+frame_000034.png	333	374	55	761	409	Text	03_folded_decade	the 2.4 mark: one place on the dial
+frame_000034.png	404	450	55	798	410	Text	11_unreachable	the average ½(I + mirror) has det 0:
+frame_000034.png	480	512	55	211	411	Text	12_what_it_forgets	the axis
+frame_000034.png	543	585	55	638	412	Text	05_complex_turns	the circle closes after one lap
+frame_000034.png	614	657	55	872	413	Text	12_what_it_forgets	the complex exponential forgets the laps
+frame_000034.png	686	728	55	589	414	Text	12_what_it_forgets	the dial forgets the decade
+frame_000034.png	758	800	55	641	415	Text	03_folded_decade	the dial shows only the mark
+frame_000034.png	830	871	55	461	416	Text	12_what_it_forgets	the direction of spin
+frame_000034.png	901	943	55	776	417	Text	11_unreachable	the ends meet only when b = c = 0
+frame_000035.png	135	176	55	659	418	Text	10_doing_nothing	the identity: every point stays
+frame_000035.png	206	247	55	212	419	Text	12_what_it_forgets	the laps
+frame_000035.png	277	318	55	371	420	Text	05_complex_turns	the line goes on
+frame_000035.png	348	390	55	691	421	Text	06_lifting_loops	the logarithm returns: change 0
+frame_000035.png	420	453	55	1141	422	Text	09_matrix_logs	the matrix's columns: where the two unit arrows land
+frame_000035.png	483	516	55	321	423	Text	06_lifting_loops	the number z
+frame_000035.png	546	589	55	1069	424	Text	10_doing_nothing	the principal logarithm, log A: real when A is real
+frame_000035.png	619	651	55	390	425	Text	12_what_it_forgets	the rod: our axis
+frame_000035.png	682	724	55	619	426	Text	02_slide_rule	the rule gives the digits: 2 4
+frame_000035.png	754	795	55	629	427	Text	08_product_rule	the rule keeps a lap count, k
+frame_000035.png	825	867	55	1090	428	Text	12_what_it_forgets	the slowest two, ±π, tie on the window's open edge
+frame_000035.png	897	930	55	265	429	Text	04_undoing_growth	three facts
+frame_000036.png	135	166	55	143	430	Text	12_what_it_forgets	time
+frame_000036.png	198	229	55	226	431	Text	09_matrix_logs	time t =
+frame_000036.png	261	302	55	898	432	Text	06_lifting_loops	times round 0:  unit circle 1,  side circle 0
+frame_000036.png	332	374	55	765	433	Text	04_undoing_growth	times the curve reaches this height:
+frame_000036.png	404	445	55	423	434	Text	07_branch_cut	top edge: included
+frame_000036.png	475	516	55	703	435	Text	03_folded_decade	total 1.380 laps = 1 lap + 0.380
+frame_000036.png	546	587	55	909	436	Text	09_matrix_logs	turn-and-scale matrix ↔ complex number
+frame_000036.png	617	649	55	187	437	Text	09_matrix_logs	turned
+frame_000036.png	680	722	55	1338	438	Text	10_doing_nothing	turning rate of the flow of X = imaginary part of an eigenvalue 
+frame_000036.png	752	785	55	140	438	Text	10_doing_nothing	of X
+frame_000036.png	816	862	55	252	439	Text	11_unreachable	u = (1, 1)
+frame_000036.png	892	933	55	485	440	Text	00_ratio_ruler	vibrations per second
+frame_000037.png	135	155	55	87	441	Text	05_complex_turns	w
+frame_000037.png	198	240	55	933	442	Text	11_unreachable	when it is invertible and, for every negative
+frame_000037.png	270	316	55	555	443	Text	11_unreachable	where 1.5 = (−½) − (−2)
+frame_000037.png	346	388	55	449	444	Text	11_unreachable	where A puts the F
+frame_000037.png	418	460	55	596	445	Text	07_branch_cut	where do the two sides go?
+frame_000037.png	490	531	55	332	446	Text	05_complex_turns	which inputs?
+frame_000037.png	561	594	55	408	447	Text	11_unreachable	white: a direction
+frame_000037.png	625	666	55	397	448	Text	06_lifting_loops	whole rungs only
+frame_000037.png	696	737	55	457	449	Text	10_doing_nothing	with matrices, more
+frame_000037.png	767	797	55	156	450	Text	04_undoing_growth	years
+frame_000037.png	830	850	55	72	451	Text	05_complex_turns	z
+frame_000037.png	894	927	55	469	452	Text	07_branch_cut	z → 0: off to the left
+frame_000037.png	957	991	55	404	453	Text	10_doing_nothing	zero flow: turns 0
+frame_000038.png	135	155	55	107	454	Text	05_complex_turns	zw
+frame_000038.png	198	230	55	92	455	Text	01_building_ruler	½
+frame_000038.png	261	295	55	538	456	Text	00_ratio_ruler	× ?   then   × ?   =   ×2
+frame_000038.png	325	366	55	535	457	Text	03_folded_decade	×10 = one decade along
+frame_000038.png	396	428	55	169	458	Text	04_undoing_growth	×1000
+frame_000038.png	460	491	55	99	459	Text	00_ratio_ruler	×2
+frame_000038.png	523	565	55	588	460	Text	12_what_it_forgets	×2 is always the same step
+frame_000038.png	595	628	55	242	461	Text	04_undoing_growth	×2 when?
+frame_000038.png	658	700	55	267	462	Text	11_unreachable	×2, flipped
+frame_000038.png	729	770	55	414	463	Text	03_folded_decade	×4: turn 0.602 lap
+frame_000038.png	800	841	55	530	464	Text	03_folded_decade	×6: turn 0.778 lap more
+frame_000038.png	871	913	55	678	465	Text	05_complex_turns	×i: same length, a quarter turn
+frame_000038.png	942	984	55	285	466	Text	11_unreachable	×½, flipped
+frame_000039.png	135	173	55	553	467	Text	00_ratio_ruler	×√2   then   ×√2   =   ×2
+frame_000039.png	203	224	55	76	468	Text	05_complex_turns,08_product_rule,10_doing_nothing,12_what_it_forgets	π
+frame_000039.png	267	298	55	89	469	Text	05_complex_turns,06_lifting_loops,12_what_it_forgets	πi
+frame_000039.png	330	370	55	221	470	Text	06_lifting_loops	πi, at −1
+frame_000039.png	400	446	55	134	471	Text	06_lifting_loops	πi/2
+frame_000039.png	475	507	55	158	472	Text	12_what_it_forgets	–0.19
+frame_000039.png	539	571	55	158	473	Text	12_what_it_forgets	–0.38
+frame_000039.png	602	634	55	159	474	Text	12_what_it_forgets	–0.50
+frame_000039.png	666	698	55	182	475	Text	07_branch_cut	–0.850
+frame_000039.png	729	761	55	182	476	Text	07_branch_cut	–0.913
+frame_000039.png	793	797	55	86	477	Text	12_what_it_forgets	…
+frame_000039.png	856	898	55	1165	478	Text	10_doing_nothing	⇒ exactly one logarithm turns by less than a half turn
+frame_000039.png	928	960	55	135	479	Text	09_matrix_logs	−0.1
+frame_000040.png	135	166	55	183	480	Text	09_matrix_logs	−0.866
+frame_000040.png	198	230	55	161	481	Text	09_matrix_logs	−0.97
+frame_000040.png	261	292	55	98	482	Text	04_undoing_growth,05_complex_turns,06_lifting_loops,09_matrix_logs,11_unreachable	−1
+frame_000040.png	325	366	55	178	483	Text	03_folded_decade	−1 lap
+frame_000040.png	396	426	55	100	484	Text	04_undoing_growth,06_lifting_loops,11_unreachable	−2
+frame_000040.png	459	501	55	643	485	Text	11_unreachable	−2 paired, 3 positive: real log
+frame_000040.png	531	562	55	124	486	Text	05_complex_turns,08_product_rule,10_doing_nothing,12_what_it_forgets	−2π
+frame_000040.png	594	626	55	138	487	Text	05_complex_turns	−2πi
+frame_000040.png	657	689	55	124	488	Text	05_complex_turns,12_what_it_forgets	−3π
+frame_000040.png	721	753	55	138	489	Text	05_complex_turns,12_what_it_forgets	−3πi
+frame_000040.png	784	816	55	144	490	Text	11_unreachable	−I =
+frame_000040.png	848	880	55	103	491	Text	09_matrix_logs	−b
+frame_000040.png	911	944	55	118	492	Text	11_unreachable	−½
+frame_000041.png	135	155	55	101	493	Text	05_complex_turns,08_product_rule,10_doing_nothing,12_what_it_forgets	−π
+frame_000041.png	198	230	55	114	494	Text	05_complex_turns,06_lifting_loops,12_what_it_forgets	−πi
+frame_000041.png	261	300	55	97	495	Text	01_building_ruler	√2
+frame_000041.png	330	373	55	819	496	Text	01_building_ruler	√2 × √2 = 2:  two half steps make one
+frame_000041.png	403	452	55	109	497	Tex	06_lifting_loops	(\\ell)
+frame_000041.png	482	515	55	236	498	Tex	08_product_rule	-1 = i \\cdot i
+frame_000041.png	546	581	55	471	499	Tex	04_undoing_growth	0.05\\,t = \\ln 2 \\approx 0.693
+frame_000041.png	611	659	55	708	500	Tex	02_slide_rule	0.398 + 0.505 = 0.903 = \\mathrm{pos}(8)
+frame_000041.png	689	733	55	613	501	Tex	04_undoing_growth	10 \\text{ doublings} \\approx 138.6\\ \\text{years}
+frame_000041.png	763	816	55	734	502	Tex	10_doing_nothing	2\\pi\\, P J P^{-1} \\ \\text{for every invertible } P
+frame_000041.png	846	889	55	327	503	Tex	08_product_rule	2\\pi\\,i: \\text{one lap}
+frame_000041.png	919	963	55	276	504	Tex	04_undoing_growth	2^{10} = 1024
+frame_000042.png	135	187	55	338	505	Tex	01_building_ruler	2^{19} = 524{,}288
+frame_000042.png	217	269	55	336	506	Tex	01_building_ruler	3^{12} = 531{,}441
+frame_000042.png	299	357	55	315	507	Tex	08_product_rule	= \\sqrt{(-1)(-1)}
+frame_000042.png	387	429	55	264	508	Tex	08_product_rule	= \\sqrt{-1}\\,\\sqrt{-1}
+frame_000042.png	459	500	55	238	509	Tex	08_product_rule	= \\sqrt{1} = 1
+frame_000042.png	530	592	55	806	510	Tex	11_unreachable	A = e^{X} = I + X + \\tfrac{1}{2}X^{2} + \\tfrac{1}{6}X^{3} + \\text{...}
+frame_000042.png	621	667	55	534	511	Tex	11_unreachable	A = e^{X}\\ \\Rightarrow\\ XA = AX
+frame_000042.png	696	740	55	389	512	Tex	10_doing_nothing	X = 0:\\ \\ e^{0} = I
+frame_000042.png	770	806	55	585	513	Tex	10_doing_nothing	X = 2\\pi J:\\ \\ \\text{one full turn}
+frame_000042.png	836	891	55	1006	514	Tex	09_matrix_logs	X = \\left(\\tfrac{\\pi}{2} + 2\\pi k\\right) J \\quad\\longleftrightarrow\\quad \\log i = \\left(\\tfrac{\\pi}{2} + 2\\pi k\\right) i
+frame_000042.png	921	965	55	486	515	Tex	11_unreachable	X X^{k} = X^{k+1} = X^{k} X
+frame_000043.png	135	188	55	774	516	Tex	09_matrix_logs	X \\text{ is a logarithm of } A \\iff e^{X} = A
+frame_000043.png	218	255	55	351	517	Tex	11_unreachable	\\Rightarrow\\ XA = AX
+frame_000043.png	285	386	55	294	518	Tex	04_undoing_growth	\\frac{d}{dx}\\ln x = \\frac{1}{x}
+frame_000043.png	416	517	55	326	519	Tex	07_branch_cut	\\frac{d}{dz} \\operatorname{Log} z = \\frac{1}{z}
+frame_000043.png	547	585	55	263	520	Tex	09_matrix_logs	\\leftrightarrow\\ a + bi
+frame_000043.png	615	649	55	215	521	Tex	04_undoing_growth	\\ln 1 = 0
+frame_000043.png	679	714	55	544	522	Tex	04_undoing_growth	\\ln 1.01 \\approx 0.00995 \\approx 0.01
+frame_000043.png	744	779	55	292	523	Tex	04_undoing_growth	\\ln 2 \\approx 0.693
+frame_000043.png	809	858	55	487	524	Tex	04_undoing_growth	\\ln e = 1 \\quad (e \\approx 2.718)
+frame_000043.png	888	937	55	745	525	Tex	04_undoing_growth	\\ln(ab) = \\ln a + \\ln b \\qquad (a, b > 0)
+frame_000044.png	135	183	55	696	526	Tex	08_product_rule	\\ln(ab) = \\ln a + \\ln b \\quad (a, b > 0)
+frame_000044.png	213	270	55	876	527	Tex	04_undoing_growth	\\ln(e^{x}) = x \\ \\ \\text{(all } x) \\qquad e^{\\ln y} = y \\ \\ (y > 0)
+frame_000044.png	299	348	55	784	528	Tex	11_unreachable	\\log A = \\operatorname{diag}(\\ln 2 + i\\pi,\\ -\\ln 2 + i\\pi)
+frame_000044.png	378	422	55	237	529	Tex	10_doing_nothing	\\log I = 0
+frame_000044.png	452	498	55	644	530	Tex	01_building_ruler	\\log_2 8 = 3 \\qquad \\log_2 3 \\approx 1.585
+frame_000044.png	528	629	55	315	531	Tex	04_undoing_growth	\\log_2 x = \\frac{\\ln x}{\\ln 2}
+frame_000044.png	659	705	55	436	532	Tex	04_undoing_growth	\\log_2:\\ \\text{step 1} = \\times 2
+frame_000044.png	735	848	55	397	533	Tex	01_building_ruler	\\log_{10} x = \\frac{\\log_2 x}{\\log_2 10}
+frame_000044.png	878	927	55	352	534	Tex	01_building_ruler	\\mathrm{pos}(3) \\approx 1.585
+frame_000045.png	135	194	55	454	535	Tex	01_building_ruler	\\mathrm{pos}(3) \\approx \\tfrac{19}{12} \\approx 1.583
+frame_000045.png	223	272	55	649	536	Tex	01_building_ruler	\\mathrm{pos}(a \\times b) = \\mathrm{pos}(a) + \\mathrm{pos}(b)
+frame_000045.png	302	351	55	369	537	Tex	01_building_ruler	\\mathrm{pos}(x) = \\log_2 x
+frame_000045.png	381	430	55	619	538	Tex	07_branch_cut	\\operatorname{Arg}(-1) = \\pi \\ \\ (\\text{convention})
+frame_000045.png	460	503	55	452	539	Tex	08_product_rule	\\operatorname{Log} 1 = 0,\\ \\text{not } 2\\pi i
+frame_000045.png	533	593	55	966	540	Tex	08_product_rule	\\operatorname{Log} z + \\operatorname{Log} z = \\tfrac{3}{2}\\pi\\,i, \\qquad \\operatorname{Log}(z^{2}) = -\\tfrac{1}{2}\\pi\\,i
+frame_000045.png	623	672	55	524	541	Tex	07_branch_cut	\\operatorname{Log} z = \\ln|z| + i \\operatorname{Arg} z
+frame_000045.png	702	757	55	463	542	Tex	07_branch_cut	\\operatorname{Log}(e^{2\\pi i}) = 0 \\neq 2\\pi i
+frame_000045.png	787	836	55	740	543	Tex	07_branch_cut	\\operatorname{Log}(e^{w}) = w \\iff -\\pi < \\operatorname{Im} w \\le \\pi
+frame_000045.png	865	921	55	335	544	Tex	08_product_rule	\\operatorname{Log}(z^{2}) = \\ ?\\; i
+frame_000046.png	135	183	55	750	545	Tex	08_product_rule	\\operatorname{Log}(zw) = \\operatorname{Log} z + \\operatorname{Log} w + 2\\pi i\\,k
+frame_000046.png	213	260	55	703	546	Tex	08_product_rule	\\sqrt{-1}\\,\\sqrt{-1} = e^{i\\pi/2} e^{i\\pi/2} = e^{i\\pi} = -1
+frame_000046.png	290	340	55	492	547	Tex	08_product_rule	\\sqrt{1} = e^{\\frac{1}{2} \\operatorname{Log} 1} = e^{0} = 1
+frame_000046.png	370	411	55	346	548	Tex	08_product_rule	\\sqrt{zw} = \\pm \\sqrt{z}\\,\\sqrt{w}
+frame_000046.png	441	496	55	289	549	Tex	08_product_rule	\\sqrt{z} = e^{\\frac{1}{2}\\operatorname{Log} z}
+frame_000046.png	526	570	55	1099	550	Tex	06_lifting_loops	\\text{change in the logarithm} = 2\\pi i \\times \\text{winding number}
+frame_000046.png	600	659	55	731	551	Tex	07_branch_cut	\\text{cut upward:}\\quad -\\tfrac{3\\pi}{2} < \\text{angle} < \\tfrac{\\pi}{2}
+frame_000046.png	689	732	55	345	552	Tex	04_undoing_growth	\\text{factor} = e^{0.05\\,t}
+frame_000046.png	762	815	55	397	553	Tex	11_unreachable	\\text{first } X,\\ \\text{then } e^{X}
+frame_000046.png	845	898	55	397	554	Tex	11_unreachable	\\text{first } e^{X},\\ \\text{then } X
+frame_000046.png	928	987	55	928	555	Tex	08_product_rule	\\text{length } 1 \\times 1 = 1, \\quad \\text{angle } \\tfrac{3}{4}\\pi + \\tfrac{3}{4}\\pi = \\tfrac{3}{2}\\pi
+frame_000047.png	135	189	55	841	556	Tex	05_complex_turns	\\text{length } e^{\\ln 2} = 2,\\ \\text{angle a quarter turn}
+frame_000047.png	218	267	55	798	557	Tex	07_branch_cut	\\text{remove } (-\\infty, 0]:\\quad -\\pi < \\operatorname{Arg} z < \\pi
+frame_000047.png	297	356	55	558	558	Tex	08_product_rule	\\text{same direction as } -\\tfrac{1}{2}\\pi
+frame_000047.png	386	440	55	1041	559	Tex	11_unreachable	\\text{singular } S\\text{: } \\operatorname{det} S = 0 \\quad\\text{but}\\quad \\operatorname{det} e^{X} = e^{\\operatorname{tr} X} \\neq 0
+frame_000047.png	470	505	55	315	560	Tex	08_product_rule	\\text{so } -1 = 1\\ ?
+frame_000047.png	534	587	55	562	561	Tex	11_unreachable	\\text{suppose } A = e^{X},\\ X \\text{ real}
+frame_000047.png	617	677	55	551	562	Tex	08_product_rule	\\tfrac{1}{2}(2\\pi i) = \\pi i, \\quad e^{\\pi i} = -1
+frame_000047.png	707	762	55	551	563	Tex	05_complex_turns	e^{(\\pi + 2\\pi k) i} = -1,\\ \\ k \\text{ whole}
+frame_000047.png	792	835	55	242	564	Tex	04_undoing_growth	e^{0.05\\,t} = 2
+frame_000047.png	865	924	55	993	565	Tex	06_lifting_loops	e^{L(z)} = z = e^{\\ell} \\;\\Rightarrow\\; L(z) - \\ell = 2\\pi i\\,k,\\ \\ k \\text{ whole}
+frame_000048.png	135	179	55	149	566	Tex	09_matrix_logs	e^{X} =
+frame_000048.png	209	270	55	702	567	Tex	09_matrix_logs	e^{X} = I + X + \\tfrac{1}{2}X^{2} + \\tfrac{1}{6}X^{3} + \\text{...}
+frame_000048.png	300	346	55	326	568	Tex	05_complex_turns	e^{\\ln 2 + i\\pi/2} = 2i
+frame_000048.png	376	437	55	710	569	Tex	11_unreachable	e^{\\ln 2 + i\\pi} = -2, \\qquad e^{-\\ln 2 + i\\pi} = -\\tfrac{1}{2}
+frame_000048.png	467	522	55	425	570	Tex	07_branch_cut	e^{\\operatorname{Log} z} = z \\quad (z \\neq 0)
+frame_000048.png	552	596	55	236	571	Tex	11_unreachable	e^{\\pi J} = -I
+frame_000048.png	626	671	55	291	572	Tex	04_undoing_growth	e^{a+b} = e^{a}\\, e^{b}
+frame_000048.png	701	744	55	222	573	Tex	11_unreachable	e^{i\\pi} = -1
+frame_000048.png	773	827	55	818	574	Tex	11_unreachable	e^{tX} \\text{ stretches the axes by } e^{tp} \\text{ and } e^{tq}
+frame_000048.png	857	910	55	983	575	Tex	11_unreachable	e^{tp} > 0 \\text{ for real } t \\text{ and } p\\text{: } e^{tX} \\text{ reverses no axis}
+frame_000048.png	940	983	55	146	576	Tex	03_folded_decade	e^{x+iy}
+frame_000049.png	135	189	55	574	577	Tex	05_complex_turns	e^{x+iy} = e^{x}\\,(\\cos y + i \\sin y)
+frame_000049.png	219	264	55	583	578	Tex	04_undoing_growth	e^{x}\\, e^{-x} = e^{0} = 1 \\;\\Rightarrow\\; e^{x} \\neq 0
+frame_000049.png	294	396	55	574	579	Tex	04_undoing_growth	t = \\frac{\\ln 1000}{0.05} \\approx \\frac{6.91}{0.05} \\approx 138
+frame_000049.png	425	468	55	337	580	Tex	04_undoing_growth	t \\approx 13.9\\ \\text{years}
+frame_000049.png	498	543	55	478	581	Tex	05_complex_turns	x \\text{ sets the length, } e^{x}
+frame_000049.png	573	617	55	216	582	Tex	04_undoing_growth	y = \\ln x
+frame_000049.png	647	692	55	182	583	Tex	04_undoing_growth	y = e^{x}
+frame_000049.png	722	754	55	167	584	Tex	04_undoing_growth	y = x
+frame_000049.png	786	830	55	383	585	Tex	05_complex_turns	y \\text{ sets the angle}
+frame_000049.png	859	918	55	200	586	Tex	08_product_rule	z: \\ \\tfrac{3}{4}\\pi
+frame_000050.png	135	178	55	90	587	Tex	08_product_rule	z^{2}
+frame_000050.png	208	263	55	370	588	Tex	05_complex_turns	|e^{x+iy}| = e^{x} > 0

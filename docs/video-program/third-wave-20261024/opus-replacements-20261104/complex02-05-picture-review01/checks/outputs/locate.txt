@@ -1,0 +1,31 @@
+columns: ['chapter', 'sheet', 'sha256', 'frames', 'times']
+first row: 02_turning_numbers	sheet-000.png	6fde2365d8f0c5aed7a345e6fd73c06ea4b33428fb1682a2c2b27d351a7f0c03	0,1,2,3	0.000,0.500,0.600,0.800
+02-freeze	02_turning_numbers	57.0-65.5 s	frames 151-177 (57.0-65.5 s)	sheets 37-44
+02-G	02_turning_numbers	84.0-96.3 s	frames 228-259 (84.0-96.0 s)	sheets 57-64
+03-empty	03_two_planes	15.5-22.0 s	frames 39-53 (15.5-22.0 s)	sheets 9-13
+03-flip	03_two_planes	78.0-82.5 s	frames 197-207 (78.0-82.5 s)	sheets 49-51
+04-still z2	04_reading_color	41.5-75.6 s	frames 97-182 (41.5-75.5 s)	sheets 24-45
+04-still 1/z	04_reading_color	79.6-84.7 s	frames 199-217 (79.6-84.5 s)	sheets 49-54
+04-A2	04_reading_color	26.0-118.2 s	frames 61-315 (26.0-118.2 s)	sheets 15-78
+04 band	04_reading_color	67.7-76.0 s	frames 164-185 (67.723-76.0 s)	sheets 41-46
+04 title z2	04_reading_color	39.3-40.0 s	frames 92-94 (39.3-40.0 s)	sheets 23-23
+04 title 1/z	04_reading_color	76.2-77.5 s	frames 187-192 (76.2-77.5 s)	sheets 46-48
+04 title bump	04_reading_color	85.233-86.0 s	frames 221-223 (85.233-86.0 s)	sheets 55-55
+04 card order 2	04_reading_color	56.8-62.5 s	frames 134-150 (56.8-62.5 s)	sheets 33-37
+05 pictures	05_gallery	0.8-164.95 s	frames 3-490 (0.8-164.95 s)	sheets 0-122
+05 tan flats	05_gallery	67.5-80.4 s	frames 188-227 (67.5-80.3 s)	sheets 47-56
+05 zoom	05_gallery	155.5-164.5 s	frames 460-489 (155.5-164.5 s)	sheets 115-122
+05 pole struck	05_gallery	126.5-146.6 s	frames 366-433 (126.5-146.6 s)	sheets 91-108
+05 tile late	05_gallery	153.2-157.5 s	frames 454-465 (153.2-157.5 s)	sheets 113-116
+05 crowd	05_gallery	135.0-146.5 s	frames 397-432 (135.0-146.5 s)	sheets 99-108
+05 series still	05_gallery	107.0-113.0 s	frames 312-329 (107.0-113.0 s)	sheets 78-82
+05 bracket	05_gallery	40.5-45.72 s	frames 106-119 (40.5-45.715 s)	sheets 26-29
+05 RH early	05_gallery	134.5-138.75 s	frames 396-408 (134.5-138.6 s)	sheets 99-102
+05 pole card	05_gallery	23.0-26.3 s	frames 55-66 (23.0-26.0 s)	sheets 13-16
+05 sign flash	05_gallery	25.5-25.5 s	frames 65-65 (25.5-25.5 s)	sheets 16-16
+05 laps	05_gallery	8.0-13.5 s	frames 19-30 (8.0-13.5 s)	sheets 4-7
+05 caption stack	05_gallery	140.5-146.5 s	frames 412-432 (140.5-146.5 s)	sheets 103-108
+05 arrow head	05_gallery	62.5-66.8 s	frames 165-186 (62.5-66.8 s)	sheets 41-46
+05 tan still	05_gallery	76.0-80.4 s	frames 212-227 (76.0-80.3 s)	sheets 53-56
+05 mosaic names	05_gallery	150.0-154.0 s	frames 445-457 (150.0-154.0 s)	sheets 111-114
+05 ghost	05_gallery	106.0-106.6 s	frames 308-311 (106.0-106.6 s)	sheets 77-77

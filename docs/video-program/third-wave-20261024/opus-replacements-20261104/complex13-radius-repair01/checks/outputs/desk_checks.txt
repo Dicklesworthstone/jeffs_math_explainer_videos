@@ -1,0 +1,13 @@
+=== arity_check: canonical exit 0; with repair exit 0; rows not on canonical: 2
+   calls checked: 4603; problems: 0
+   second pass, by name only: 4806 calls, 1 hits
+=== scope_check: canonical exit 0; with repair exit 0; rows not on canonical: 2
+   NOT IN SCOPE (test) src/chapters/real_integral.rs:173 Item [unknown]
+   scope problems: 29
+=== shape_check: canonical exit 0; with repair exit 0; rows not on canonical: 3
+   format-family macros checked: 256
+   sized const arrays checked: 111
+   argument shapes compared: 9661
+=== unused_check: canonical exit 0; with repair exit 0; rows not on canonical: 1
+   bindings checked: 3101; problems: 1
+=== desk_check: canonical exit 0; with repair exit 0; rows not on canonical: 0

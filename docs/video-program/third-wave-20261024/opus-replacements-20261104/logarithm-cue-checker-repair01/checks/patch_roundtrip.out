@@ -1,0 +1,18 @@
+ok  git apply: the checker patch applies to stage04's bytes
+ok  git apply: the storyboard patch applies to stage04's bytes
+ok  the result is byte for byte the candidates
+ok  git apply -R reverses both
+ok  the reversal is byte for byte stage04
+ok  the reversal removes the new test file from the scratch copy
+ok  patch -p1 applies both
+ok  the result is byte for byte the candidates
+
+On a scratch copy of canonical's current bytes, for information:
+  checker patch: applies
+  storyboard patch: does not apply: error: patch failed: explainer_corpus/logarithm_mysteries/docs/storyboard.md:88
+error: explainer_corpus/logarithm_mysteries/docs/storyboard.md: patch does not apply
+
+ok  the patched checker, in a stage04 copy: exit 0; 80 cues, 364 sentences, 80 said; last line 'OK'
+ok  the patched regression file, from the same place: exit 0; 102 cases, 22 must pass, 80 must refuse, 0 wrong
+
+0 problems

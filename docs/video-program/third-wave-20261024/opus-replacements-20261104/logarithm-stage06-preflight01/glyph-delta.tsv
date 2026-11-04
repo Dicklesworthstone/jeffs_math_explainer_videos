@@ -1,0 +1,8 @@
+chapter	line	literal	characters_no_canonical_literal_used
+undoing_growth.rs	479	y = x	
+complex_turns.rs	67	the line goes on	
+lifting_loops.rs	79	e^{L(z)} = z = e^{\\ell} \\;\\Rightarrow\\; L(z) - \\ell = 2\\pi i\\,k,\\ \\ k \\text{ whole}	
+lifting_loops.rs	219	\\ell	
+lifting_loops.rs	634	(\\ell)	
+unreachable.rs	1309	e^{tp} > 0 \\text{ for real } t \\text{ and } p\\text{: } e^{tX} \\text{ reverses no axis}	
+unreachable.rs	1662	\\text{singular } S\\text{: } \\operatorname{det} S = 0 \\quad\\text{but}\\quad \\operatorname{det} e^{X} = e^{\\operatorname{tr} X} \\neq 0	

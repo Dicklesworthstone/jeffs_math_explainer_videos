@@ -1,0 +1,224 @@
+splitter: real sentences() and estimated_starts() from narration.rs; SCRATCH_WPS 2.6
+  04_1: 5 sentences, 25.00 s of speech at factor 1.0
+  04_2: 6 sentences, 31.54 s of speech at factor 1.0
+  04_3: 5 sentences, 18.08 s of speech at factor 1.0
+  04_4: 6 sentences, 28.85 s of speech at factor 1.0
+  04_5: 5 sentences, 21.54 s of speech at factor 1.0
+  04_6: 5 sentences, 30.38 s of speech at factor 1.0
+  05_1: 6 sentences, 26.54 s of speech at factor 1.0
+  05_2: 6 sentences, 25.77 s of speech at factor 1.0
+  05_3: 6 sentences, 32.69 s of speech at factor 1.0
+  05_4: 5 sentences, 20.00 s of speech at factor 1.0
+  05_5: 4 sentences, 20.77 s of speech at factor 1.0
+  05_6: 5 sentences, 20.38 s of speech at factor 1.0
+  05_7: 7 sentences, 27.69 s of speech at factor 1.0
+  05_8: 6 sentences, 32.69 s of speech at factor 1.0
+  06_1: 4 sentences, 16.92 s of speech at factor 1.0
+  06_2: 6 sentences, 25.38 s of speech at factor 1.0
+  06_3: 7 sentences, 28.08 s of speech at factor 1.0
+  06_4: 5 sentences, 21.15 s of speech at factor 1.0
+  06_5: 5 sentences, 23.46 s of speech at factor 1.0
+  06_6: 8 sentences, 29.23 s of speech at factor 1.0
+  06_7: 4 sentences, 20.38 s of speech at factor 1.0
+  06_8: 6 sentences, 35.77 s of speech at factor 1.0
+  06_9: 3 sentences, 15.00 s of speech at factor 1.0
+
+=== my transcription against the source's literal calls
+PASS tiny_multipliers: cues in source order  14
+PASS tiny_multipliers: every sentence hook replayed, in source order  62
+PASS tiny_multipliers: every phrase hook replayed, in source order  [('05_3', 'and after that'), ('05_5', 'so push'), ('05_5', 'then make'), ('05_7', 'and three')]
+PASS only_solution: cues in source order  9
+PASS only_solution: every sentence hook replayed, in source order  39
+PASS only_solution: every phrase hook replayed, in source order  [('06_4', 'and the other'), ('06_4', 'and at zero'), ('06_5', 'so the left side'), ('06_7', 'with a derivative'), ('06_8', 'so y of t')]
+
+kit raw-output limit: 256 GiB, which is 368 s of 4K60
+
+=== 04_tiny_multipliers
+total seconds at 0.8 / 1.0 / 1.25: 130.91 / 161.98 / 200.83
+hooks, with lateness at 0.8 / 1.0 / 1.25 (0 means the picture waited for the sentence):
+  04_1 s1: 0.00 0.00 0.00  height, width, rise, h + h/4  <- 'Each step took the current height and climbed by'
+  04_1 s2: 0.00 0.00 0.00  5h/4  <- 'But climbing by a fraction of your own height is'
+  04_1 s3: 0.00 0.00 0.00  strip, hopper walks  <- 'So a step one quarter wide multiplies by five qu'
+  04_1 s4: 0.00 0.00 0.00  (5/4)^4, value  <- 'Four steps make five quarters to the fourth powe'
+  04_2 s1: 0.00 0.00 0.00  y'=xy  <- 'Now let the slope be x times the current height.'
+  04_2 s2: 0.00 0.00 0.00  1+x/n in the cells  <- 'Over that one unit of time, the fractional rate '
+  04_2 s3: 0.00 0.00 0.00  (1+x/n)^n  <- 'After all the steps, we have that multiplier rai'
+  04_2 s4: 0.00 0.00 0.00  rate one, first row  <- 'For a rate of one, this is the familiar compound'
+  04_2 s5: 0.00 0.00 0.00  cells refine, table fills  <- 'More cells keep raising its endpoint, by less an'
+  04_3 s1: 0.00 0.00 0.00  endpoint sweeps both ways, read-outs  <- 'Change the rate, and the endpoint lands near the'
+  04_3 s2: 0.00 0.00 0.00  not a proof  <- 'Near is still not a proof.'
+  04_3 s3: 0.00 0.00 0.00  why this limit  <- 'Why should that limit be our series?'
+  04_3 s4: 0.00 0.00 0.00  power  <- 'Expand the finite product.'
+  04_4 s2: 0.00 0.00 0.00  sixteen strips  <- 'Multiplying out the product means making those c'
+  04_4 s3: 0.00 0.00 0.00  powers and ways  <- 'With four cells, that is sixteen ways, and they '
+  04_4 s4: 0.00 0.00 0.00  x squared framed  <- 'For x squared, two cells must take it, and six p'
+  04_4 s5: 0.00 0.00 0.00  coefficients, series row  <- 'So the coefficient of x squared is six times a q'
+  04_5 s1: 0.00 0.00 0.00  first pick, second pick  <- 'Pick cells one at a time.'
+  04_5 s2: 0.00 0.00 0.00  falling product  <- 'There are n options, then n minus one, then n mi'
+  04_5 s3: 0.00 0.00 0.00  the other order, k!, binomial  <- 'Every set of k cells was counted k factorial tim'
+  04_5 s4: 0.00 0.00 0.00  binomial pulses  <- 'There is our factorial, earned a second way.'
+  04_6 s1: 0.00 0.00 0.00  chain  <- 'So the coefficient of x to the k is one over k f'
+  04_6 s2: 0.00 0.00 0.00  chain pulses  <- 'The chain runs one, one minus one over n, one mi'
+  04_6 s3: 0.00 0.00 0.00  worked  <- 'For our six sixteenths, that is one half, times '
+  04_6 s4: 0.00 0.00 0.00  k>n zero  <- 'Ask for more cells than exist, and one factor is'
+hooks late by over 0.25 s at some factor: 0
+static stretches of 6 s or more at factor 1.0:
+   6.14 s,   20.46 to   26.60, before 'working clears'
+   7.52 s,   35.60 to   43.12, before 'power'
+   6.22 s,   88.97 to   95.18, before 'frame'
+   7.02 s,  101.04 to  108.06, before 'clears'
+   6.19 s,  113.69 to  119.88, before 'recount'
+   7.87 s,  137.12 to  144.99, before 'pulse'
+seconds from each cue's start to its first visual change, factor 1.0, and the cue's length:
+  04_1:  0.00 s of 25.40 s
+  04_2:  0.00 s of 31.94 s
+  04_3:  0.00 s of 18.48 s
+  04_4:  0.00 s of 29.25 s
+  04_5:  0.00 s of 21.94 s
+  04_6:  0.00 s of 30.78 s
+PASS 04_tiny_multipliers: under the kit's raw limit even at factor 1.25  201 s of 368 s
+
+=== 05_whole_sum
+total seconds at 0.8 / 1.0 / 1.25: 178.13 / 219.44 / 271.07
+hooks, with lateness at 0.8 / 1.0 / 1.25 (0 means the picture waited for the sentence):
+  05_1 s1: 0.00 0.00 0.00  full line  <- 'Here each bar shows how much of the series coeff'
+  05_1 s2: 0.00 0.00 0.00  n climbs  <- 'For any fixed k, every correction factor approac'
+  05_1 s3: 0.00 0.00 0.00  n climbs  <- 'The coefficient approaches exactly the coefficie'
+  05_1 s4: 0.00 0.00 0.00  n climbs, readings pulse  <- 'The columns fill one at a time, but at every n, '
+  05_1 s5: 0.00 0.00 0.00  question  <- 'If every column fills eventually, must the whole'
+  05_2 s1: 0.00 0.00 0.00  chains clear  <- 'Here is a sum where that reasoning fails.'
+  05_2 s2: 0.00 0.00 0.00  n terms of 1/n  <- 'Take n terms, each equal to one over n.'
+  05_2 s3: 0.00 0.00 0.00  n climbs, column three falls  <- 'Every fixed term shrinks to zero, so column by c'
+  05_2 s4: 0.00 0.00 0.00  tower, total one  <- 'Yet the total is one, for every n.'
+  05_2 s5: 0.00 0.00 0.00  100, outward  <- 'The weight slips out to columns further and furt'
+  05_3 s1: 0.00 0.00 0.00  chain range  <- 'Until k passes n, each correction factor lies be'
+  05_3 s2: 0.00 0.00 0.00  bars rise, bound  <- 'In absolute value, each finite-product term is n'
+  05_3 s3: 0.00 0.00 0.00  n climbs under fixed lids  <- 'These are the same ceilings we measured for the '
+  05_3 s4: 0.00 0.00 0.00  no ceiling  <- 'Our warning sum has no such ceilings.'
+  05_3 s5: 0.00 0.00 0.00  harmonic  <- 'Its column k can reach one over k, and those add'
+  05_4 s1: 0.00 0.00 0.00  gaps solid, sum  <- 'It is at most the total of the gaps between each'
+  05_4 s2: 0.00 0.00 0.00  aim  <- 'Say we want that distance below one hundredth.'
+  05_4 s3: 0.00 0.00 0.00  cut at 4  <- 'Choose a cut before choosing n.'
+  05_4 s4: 0.00 0.00 0.00  inset, tail too big  <- 'Beyond the cut, every gap fits under the series '
+  05_5 s1: 0.00 0.00 0.00  head closes, three rows  <- 'Before the cut sit only finitely many columns, a'
+  05_5 s2: 0.00 0.00 0.00  tail row pulses  <- 'First make the shared tail small, then make the '
+  05_5 s3: 0.00 0.00 0.00  total below aim  <- 'That proves the whole expression converges.'
+  05_6 s1: 0.00 0.00 0.00  live, x sweeps to -3/2  <- 'Slide to minus three halves.'
+  05_6 s2: 0.10 0.00 0.00  lower ceilings, signs  <- 'The odd terms turn negative, so the bars alterna'
+  05_6 s3: 0.00 0.00 0.00  same sizes  <- 'In absolute value they are the same bars under t'
+  05_6 s4: 0.00 0.00 0.00  bound, both distances  <- 'So the same cut and the same number of cells bou'
+  05_7 s1: 0.00 0.00 0.00  one cell  <- 'One cell gives minus two.'
+  05_7 s2: 0.00 0.00 0.00  two cells  <- 'Two cells give one quarter, and three give exact'
+  05_7 s3: 0.00 0.00 0.00  the rest, E(-3)  <- 'Four cells give almost nothing, and then the val'
+  05_7 s4: 0.00 0.00 0.00  brackets  <- 'Decay needs a positive multiplier in every step,'
+  05_7 s5: 0.00 0.00 0.00  same algebra  <- 'The algebra never asked for that.'
+  05_7 s6: 0.00 0.00 0.00  no climb  <- 'It never asked the values to climb steadily, and'
+  05_8 s1: 0.00 0.00 0.00  later cut, more cells  <- 'For bigger inputs, this argument asks for a late'
+  05_8 s2: 0.00 0.00 0.00  x=1, e  <- 'A rate of one gives the number e, one special ca'
+  05_8 s3: 0.00 0.00 0.00  time swap  <- 'A rate of x for one unit of time and a rate of o'
+  05_8 s4: 0.00 0.00 0.00  walks both ways  <- 'So the stepped drawing out to any input reaches '
+  05_8 s5: 0.00 0.00 0.00  debt paid  <- 'That pays the second debt.'
+  05_3 s1 phrase 'and after that': 0.00 0.00 0.00  chain empty
+  05_5 s0 phrase 'so push': 0.00 0.00 0.00  cut moves to 8
+  05_5 s2 phrase 'then make': 0.00 0.00 0.00  head row pulses
+  05_7 s2 phrase 'and three': 0.00 0.00 0.00  three cells
+hooks late by over 0.25 s at some factor: 0
+  predict 05_1: answer withheld from question landing for 9.11 s
+static stretches of 6 s or more at factor 1.0:
+   8.81 s,   23.33 to   32.14, before 'question clears'
+   6.99 s,   32.79 to   39.78, before 'clears'
+   6.01 s,   73.03 to   79.05, before '16'
+   9.51 s,  107.50 to  117.00, before 'cut moves'
+   6.02 s,  151.03 to  157.05, before 'clears'
+   6.42 s,  170.81 to  177.23, before 'same'
+   7.24 s,  190.54 to  197.77, before 'special case'
+   7.16 s,  203.37 to  210.53, before 'coarse'
+seconds from each cue's start to its first visual change, factor 1.0, and the cue's length:
+  05_1:  0.00 s of 26.94 s
+  05_2:  0.00 s of 26.17 s
+  05_3:  0.00 s of 33.09 s
+  05_4:  0.00 s of 20.40 s
+  05_5:  3.10 s of 21.17 s
+  05_6:  0.00 s of 20.78 s
+  05_7:  0.00 s of 28.09 s
+  05_8:  0.00 s of 33.09 s
+PASS 05_whole_sum: under the kit's raw limit even at factor 1.25  271 s of 368 s
+
+=== 06_only_solution
+total seconds at 0.8 / 1.0 / 1.25: 186.21 / 229.28 / 283.13
+hooks, with lateness at 0.8 / 1.0 / 1.25 (0 means the picture waited for the sentence):
+  06_1 s1: 0.00 0.00 0.00  the curve in question  <- 'Could a different function obey the same rule an'
+  06_1 s2: 0.00 0.00 0.00  proved  <- 'What we just proved does not settle that.'
+  06_1 s3: 0.00 0.00 0.00  not yet, the debt  <- 'The steps reach E, but nothing yet forces every '
+  06_2 s1: 0.00 0.00 0.00  y E(-x)  <- 'Take any function y that has a derivative, and m'
+  06_2 s2: 0.00 0.00 0.00  d/dx  <- 'Differentiate that product.'
+  06_2 s3: 0.00 0.00 0.00  first part  <- 'One contribution is y prime times E of minus x.'
+  06_2 s4: 0.00 0.00 0.00  second part, chain rule  <- 'The other comes from E of minus x itself, whose '
+  06_2 s5: 0.00 0.00 0.00  result  <- 'Together they make y prime minus y, times E of m'
+  06_3 s1: 0.00 0.00 0.00  degree 2  <- 'Our degree-two polynomial starts at height one, '
+  06_3 s2: 0.00 0.00 0.00  its product, slope  <- 'Its product with E of minus x tilts.'
+  06_3 s3: 0.00 0.00 0.00  degree 4, its product, slope  <- 'On these axes, degree four breaks the rule less,'
+  06_3 s4: 0.00 0.00 0.00  never zero, level when  <- 'E of minus x is never zero, so the product can o'
+  06_3 s5: 0.00 0.00 0.00  the rule  <- 'Suppose a function obeys the rule everywhere.'
+  06_3 s6: 0.00 0.00 0.00  question  <- 'What must its product do?'
+  06_4 s1: 0.00 0.00 0.00  up arrow  <- 'One contribution is the proposed function times '
+  06_4 s2: 0.00 0.00 0.00  cancel  <- 'They cancel.'
+  06_4 s3: 0.00 0.00 0.00  constant  <- 'A slope of zero across an interval means a const'
+  06_4 s4: 0.00 0.00 0.00  equals one  <- 'So y of x times E of minus x equals one, everywh'
+  06_5 s1: 0.00 0.00 0.00  grid fact  <- 'The product grid already gave us E of x times E '
+  06_5 s2: 0.00 0.00 0.00  curve lands on E  <- 'The proposed solution must equal E of x everywhe'
+  06_5 s3: 0.00 0.00 0.00  both ways  <- 'That is the rule in both directions.'
+  06_5 s4: 0.00 0.00 0.00  pulse  <- 'E obeys it, and whatever obeys it is E.'
+  06_6 s1: 0.00 0.00 0.00  series box  <- 'Follow the arrows.'
+  06_6 s2: 0.00 0.00 0.00  E'=E  <- 'The series gave us E prime equals E, by differen'
+  06_6 s3: 0.00 0.00 0.00  E(x)E(-x)=1  <- 'Multiplying series in the grid gave us E of x ti'
+  06_6 s4: 0.00 0.00 0.00  the result  <- 'Neither step used this result.'
+  06_6 s5: 0.00 0.00 0.00  two arrows, tools  <- 'All we added was the product rule, the chain rul'
+  06_6 s6: 0.00 0.00 0.00  not used, struck  <- 'No uniqueness theorem and no logarithm came in.'
+  06_6 s7: 0.00 0.00 0.00  arrows pulse  <- 'Every arrow points one way.'
+  06_7 s1: 0.00 0.00 0.00  gap, far piece  <- 'Cut a gap in the domain, and the far piece can b'
+  06_7 s2: 0.00 0.00 0.00  obeys, read-outs  <- 'Its slope equals its height, and the start at ze'
+  06_7 s3: 0.00 0.00 0.00  one interval  <- 'So the proposed function needs one unbroken inte'
+  06_8 s1: 0.00 0.00 0.00  rule, product  <- 'If y prime equals k times y, multiply by E of mi'
+  06_8 s2: 0.00 0.00 0.00  test  <- 'The contributions cancel again, so y of t equals'
+  06_8 s3: 0.00 0.00 0.00  curves  <- 'A positive k grows, a negative k decays, a zero '
+  06_8 s4: 0.00 0.00 0.00  units  <- 'The rate k has units of one over time, so k t is'
+  06_8 s5: 0.00 0.00 0.00  the model question  <- 'Whether a real quantity obeys this law is a ques'
+  06_9 s1: 0.00 0.00 0.00  the structure  <- 'Its powers, derivatives and growth rule fit toge'
+  06_9 s2: 0.00 0.00 0.00  debts  <- 'All three debts are paid.'
+  06_4 s1 phrase 'and the other': 0.00 0.00 0.00  down arrow
+  06_4 s3 phrase 'and at zero': 0.00 0.00 0.00  value one
+  06_5 s1 phrase 'so the left side': 0.00 0.00 0.00  y=E
+  06_7 s3 phrase 'with a derivative': 0.00 0.00 0.00  a derivative everywhere
+  06_8 s2 phrase 'so y of t': 0.00 0.00 0.00  result
+hooks late by over 0.25 s at some factor: 0
+  predict 06_3: answer withheld from question landing for 6.80 s
+static stretches of 6 s or more at factor 1.0:
+   7.26 s,   32.22 to   39.48, before 'result'
+   6.50 s,   71.49 to   77.98, before 'question clears'
+   7.76 s,  140.88 to  148.64, before 'struck'
+   6.88 s,  191.96 to  198.84, before 'units'
+   6.84 s,  199.19 to  206.03, before 'question'
+   6.91 s,  206.38 to  213.28, before 'clears'
+   6.51 s,  220.24 to  226.75, before 'debts'
+seconds from each cue's start to its first visual change, factor 1.0, and the cue's length:
+  06_1:  0.00 s of 17.32 s
+  06_2:  0.00 s of 25.78 s
+  06_3:  0.00 s of 28.48 s
+  06_4:  0.00 s of 21.55 s
+  06_5:  0.00 s of 23.86 s
+  06_6:  0.00 s of 29.63 s
+  06_7:  0.00 s of 20.78 s
+  06_8:  0.00 s of 36.17 s
+  06_9:  0.00 s of 15.40 s
+PASS 06_only_solution: under the kit's raw limit even at factor 1.25  283 s of 368 s
+
+=== order claims, at each factor
+the two D chapters as one, at factor 1.25: 471 s, against 368 s: this is why they are two
+PASS factor 0.8: 05_2's answer comes after the think gap  8.28 s after the question
+PASS factor 0.8: 06_4's answer comes after the think gap  6.43 s after the question
+PASS factor 1.0: 05_2's answer comes after the think gap  9.11 s after the question
+PASS factor 1.0: 06_4's answer comes after the think gap  6.80 s after the question
+PASS factor 1.25: 05_2's answer comes after the think gap  10.15 s after the question
+PASS factor 1.25: 06_4's answer comes after the think gap  7.26 s after the question
+RESULT PASS

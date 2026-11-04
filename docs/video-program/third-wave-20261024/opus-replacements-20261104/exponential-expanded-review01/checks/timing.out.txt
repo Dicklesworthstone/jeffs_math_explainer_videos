@@ -1,0 +1,26 @@
+factorials.rs
+  02_1 table built, seconds after sentence 2 (boxes) starts: 4.63  (6.01 at 0.8, 2.90 at 1.25)
+  02_1 question shown, seconds before sentence 4 asks it: 3.01  (-0.53 at 0.8, 5.76 at 1.25)
+  02_3 first curve, seconds after sentence 4 (watch) starts: 7.50  (7.50 at 0.8, 7.50 at 1.25)
+  02_3 last curve done, seconds after the cue's voice ends: 1.68  (3.26 at 0.8, -0.30 at 1.25)
+  02_5 no formula on screen, seconds from cue start: 8.79  (7.04 at 0.8, 10.99 at 1.25)
+  total seconds: 142.87  (118.23 at 0.8, 174.58 at 1.25)
+  02_1: 57 words, 5 sentences
+  02_2: 55 words, 6 sentences
+  02_3: 52 words, 6 sentences
+  02_4: 46 words, 5 sentences
+  02_5: 66 words, 6 sentences
+  02_6: 65 words, 5 sentences
+product_grid.rs
+  03_1 edges done, seconds before sentence 2 names them: 2.32  (1.23 at 0.8, 3.69 at 1.25)
+  03_2 x+y total shown, seconds before sentence 3 says it: 1.92  (1.40 at 0.8, 2.56 at 1.25)
+  03_2 question shown, seconds before sentence 5 asks it: 2.49  (1.86 at 0.8, 3.27 at 1.25)
+  03_6 E(0)=1 shown, seconds before sentence 1 says it: 1.50  (1.13 at 0.8, 1.97 at 1.25)
+  03_6 positive shown, seconds before sentence 3 says it: 4.25  (3.33 at 0.8, 5.40 at 1.25)
+  total seconds: 144.21  (117.52 at 0.8, 177.58 at 1.25)
+  03_1: 59 words, 6 sentences
+  03_2: 51 words, 6 sentences
+  03_3: 55 words, 5 sentences
+  03_4: 54 words, 5 sentences
+  03_5: 63 words, 5 sentences
+  03_6: 65 words, 6 sentences

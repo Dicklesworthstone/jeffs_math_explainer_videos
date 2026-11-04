@@ -1,0 +1,34 @@
+frame	time	sha256	seen
+0007	2.000	4dd4b47f00e92d9d66f6be54823d0493113d601157ce7146348c55f58ff5e6dd	digits and note already up; voice on sentence 0
+0109	50.000	05fa6c9b1221b9cb732d38d8aa5c788607fc5cc04138b21c889bc93c97b4527c	weights and Running total: 0; nothing about divisibility
+0156	70.500	0093a3bf7d4e3684c94b0c802e9f80f2267aaad6c209f6606ade2639dc40b26a	Running total: 93 fading in, seventh column, while the scratch voice reaches 132
+0171	78.000	407f34eb62cfb39b926223daf176db530fd1c94eb524c4d25cee7ef0e98853b7	132 = 12 x 11: passes; letter x
+0185	82.000	a607a483a2c1c4c591b1696e08e16b3059e1cd225b888b139167e12b89f98e42	red 7 and 49, 132 + 7 = 139, Remainder 7; conclusion up
+0230	102.733	0170961babf2ec08af68a6370b577461343d773c346a03bde870cc6906935c24	GHOST: 6 over red 7, 42 over red 49, both at about full opacity
+0231	102.933	a0b2badae6ea3ac37ed8623444e2315525b8a389e9ca5b668c491b5b2d9850d6	ghost in the wipe
+0232	103.000	45503045fc12a7e6d8091ddc8a7f22ff3481aebb5d7152f2dcb4572d8a561cbe	ghost still legible at the end of the wipe
+0244	108.500	614d9e52700812d5a8d8aff6d0bd991279dcb278802b27ba8c0cf71e17be663b	unlabelled rows; Prime modulus line up
+0297	132.500	1857fae9f08fc9b33de83ed94cfa1621ac1053a717250c056d9dcf7cc26fb247	ring crossing the empty centre, no clock outline
+0358	160.000	1dc8f935b8d5b33b8f75cb8bff3f63b4cbc977e81072151954759240abebb0d7	swap done, three formulas up, no weights on screen
+0411	184.000	7f0cade6d69841d03784b814440baeec5cd807340c4cd20c6ad2e6dbd9b8d4f1	wheel 0 touching the x 3 weight label; marker below it
+0438	197.500	be9b970f16e360aafdab9fb1a8ede7c65845de26b6bb591a5aae7a76148ba0ca	first change, total dimming, marker still at 0
+0452	204.500	7587aa9f89f667613d91d4d1d0fcfdb409fa616c4341417aa3a0a1c2eabc1141	187, +45 = 4 x 11 + 1, red limit line, marker at 0
+0490	220.500	2c2b49b4124ff11e7f96f900dacc8e04247468fb568b5990f28dd2b92c9806dd	same picture during 17_14
+0510	227.500	11dbc1d1718dd0cafdb51d5ef9c5ea415bcadaf4505eb99af6b95476f40112c5	word boxes, no data note yet
+0514	229.500	7ce87ffaee05884ba9f7f476e9a049600f8d2d151bfdb0d82c9b901b8fb8e426	data note: Blue data, Gold check
+0533	239.000	17b9eaf08d8054f47f3a40dcb715effa8b733a7c1d2eb11d7efdb1a367f44441	XOR rows, 1000011 green; top row filled
+0564	251.500	ccb4b1232d9c9c3522c8de3c3f22bf1d6c13ec510cc581fcd526f94d27e57c65	four of eight rows filled, one at a time
+0573	256.000	0c7966d677f9dba48f5d48b1619e9b564520979d9c4b35c198cb0a63728ab63e	all rows filled, 128/16 = 8; no word coset on screen
+0608	270.500	e8aed6e3fd6b573abfb883117078da969b3070c03e28e80d4e3d2d4ce05e8ad8	stack with no heading; 000-111 column with no name; bit 5 row ringed
+0650	291.500	2f2324ae40b194cf9351288bd65a0518b1e9d880399a71398165ea4ac64cb093	digits and worths in the key; layout clear
+0677	302.000	3544e7719d34dde57c873fe54d2573ac2452e3a7d8b7a5999069a813f9d612d5	repaired word; keeps the row; forgets the column; empty key boxes linger; lint anchor not clipped
+0707	316.500	77a02373bb0795b5590c16a950ee5dbddcebe8976213cec08e246c98444ae6cc	decoded 0010110, sent 0110011; red and green column frames unnamed
+0734	327.000	5ce69a375806d62cd8ec477013b8d4bfeb85ce3a4ba6578748c1844d46c50225	miscorrected word, empty parity box, parity lines
+0749	333.700	75db3d3b2b56cd81a17faf6c6aab76762c70269a4465dc3f48cfe51880eed841	summary line; lint anchor not clipped; built to keep
+0779	342.500	e8b939ab7fc6a4ccad385d939d384cfda02383460c2252543e540dd90f7a73a2	four cosets of {0,4,8}; no square; nothing for isomorphism; question mark
+0818	360.000	17bc96da1eb0bb50c572d35d799bdfac7420bedf370c041854c2de2a14ea27bc	same picture about 9 s later; static
+0830	363.700	405da0d9bb5eae4e735aed56fad388459fa7b9b8e96db06ed00ccc89a355b3f8	all three prompts up; equal; centred; no answer
+0885	387.233	4e52646c025142ef794d3b2cc36ef599328d0a2a721d56d0ab09bc32c6759add	prompts at the 17_13 start; no answer pixel
+0888	387.733	dba9de268aa6a5b375ef914cc70a9cb47e3f5f71ab6fd3ce61cd06c67ec6afa9	new title fading in; no answer yet
+0899	392.500	e84509b9a499f43a374808e8428f57c45bda27e5b19ee4a326c38b922150f0d5	all three answers up
+0948	413.383	4b15b51ffbe95fa755580f2d7886f8d89ef90e804092f5ce0f9516be90d159ae	last sampled frame, same picture

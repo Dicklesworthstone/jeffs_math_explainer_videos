@@ -1,0 +1,86 @@
+== baselines still match
+PASS counting-wording-repair01/counting.rs 7c5a41c6fd37ad5d
+PASS counting-wording-repair01/script.tsv 1e24aba8b520f2e6
+PASS counting-wording-repair01/before-script.tsv 2968b0fd76540cbc
+PASS chapters/counting.rs 0ecda9cf1bfa26ed
+PASS complex_analysis_visual/script.tsv 2968b0fd76540cbc
+PASS docs/storyboard.md be30f73484bd69cb
+PASS complex_analysis_visual/narration_units.json 3c4f53d797385729
+PASS src/model.rs aa4bdcd9afcf19b7
+PASS tools/storyboard.py 3faed8c1ded451c4
+PASS complex-glyph-spacing-repair01/complex-glyph-spacing.patch b925d8b636eb42ac
+PASS 11_counting/frame-0340.png 9bcbc2ea2060bf81
+PASS 11_counting/frame-0360.png f2a08677e2a3679a
+PASS 11_counting/frame-0526.png 6ee8bcc0c2958e98
+PASS 11_counting/frame-0535.png e8842d5bcdde59d1
+PASS 11_counting/frame-0541.png a6dde908b60b7d51
+PASS 11_counting/frame-0544.png 9a0e20576e1be9b1
+PASS 11_counting/frame-0546.png 36a1568c3502d295
+PASS 11_counting/frame-0547.png 502d5e2d5d0df3c9
+PASS 11_counting/frame-0548.png 1d34e6150a880c0f
+PASS 11_counting/frame-0549.png 93617421ac82bb84
+PASS 11_counting/frame-0550.png b8ae748788a8429b
+PASS 11_counting/frame-0551.png e089d9aad5a85399
+== scope: one staged source file, and the storyboard as a patch only
+PASS ['counting.rs']
+== patches apply, equal what they claim, and reverse
+PASS 01 applies clean to root's candidate
+PASS 01 gives the staged file f3c75f8cff9d06b39761e8ac3533db815de84a11b9e635ceb6d38cceccc19d9a
+PASS 03 applies clean on top of 01
+     01 + 03 = 20ad375dcce1c1172a976a546507a108ce12e746c8fea939cefbc0f2bc6fecdb
+PASS 03 reverses
+PASS 01 reverses to root's candidate
+PASS 02 applies clean to the canonical storyboard
+PASS 02 puts root's exact 11_7 in the row and takes the old one out
+     02 gives storyboard.md 6803d39a27bbb2ba093d5e96e6bff3d0b12679c2d63d17e906436a3ca0762f96
+PASS 02 reverses
+== the label move: no timed call, no on-screen string, no test lost
+PASS 112 timed calls, identical in order and arguments
+PASS control: a changed fade time is detected
+PASS control: an added wait is detected
+PASS 121 string literals in the film code, the same
+PASS 17 tests kept, new ['the_division_keeps_the_count_and_a_constant_makes_no_turns', 'the_reach_disk_never_crosses_its_name', 'the_reach_labels_take_turns_over_the_window', 'the_roots_argument_waits_on_the_right_sentences']
+PASS film code differs in exactly 12 lines, the label's
+== the map's three hold markers keep their lines between root's candidate and the staged file
+PASS 11_5 map 429, canonical 429, root 428, staged 428
+PASS 11_6 map 492, canonical 492, root 491, staged 491
+PASS 11_8 map 547, canonical 547, root 546, staged 546
+== root's sentence anchors against root's script
+     11_7: 82 words 6 sentences -> 96 words 7 sentences; 404 -> 505 characters
+PASS seven sentences by draw.rs's rule
+PASS wait_sentence 2: 'Now it starts with z to the n' brings degree_n
+PASS wait_sentence 3: 'On a huge circle' brings wide_all
+PASS wait_sentence 4: 'Picture z to the n' brings dog.show
+PASS the walk ends on sentence 6, 'So there are exactly n roots'
+PASS 11_7 uses no phrase anchor, so no phrase mark needs rebinding for it
+PASS nothing on screen is keyed to sentence 1, 'Divide by its leading coefficient'
+     character-share estimate at preview02's scratch rate, not Oliver and not measured:
+     picture holds on the claim until 4.3 s of the old cue, 11.4 s of the new; the cue goes 31.9 -> 39.9 s
+== storyboard: main.rs's test calls check_video on it and script.tsv; the real function, built with rustc alone
+PASS main.rs's the_storyboard_the_registry_and_the_script_agree makes that call at cargo test
+PASS the real check_video and Script::parse build
+PASS control: canonical storyboard and canonical script agree
+PASS root's script against the canonical storyboard fails, as root's folder stands: script.tsv is not the storyboard's words (first difference a...
+PASS root's script against patch 02's storyboard agrees
+== narration unit limits: tools/coherent_narration.py allows 100 words, with any following context
+PASS 11_7 alone 96 words, 4 to spare
+PASS following context around 11_7 was already over the limit, so the longer cue closes no option
+PASS narration_units.json still holds the old text: root's rebind
+== the card's reading window, as mod.rs's reading_windows_leave_time_for_what_the_voice_leaves_out computes it
+PASS canonical: 107 characters, floor 7.13 s <= 7.2 s clean <= ceiling 14.27 s
+PASS root: 58 characters, floor 3.87 s <= 7.2 s clean <= ceiling 7.73 s
+PASS suggested: 65 characters, floor 4.33 s <= 7.2 s clean <= ceiling 8.67 s
+PASS a card of 53 characters or fewer would fail the ceiling, with the 7 s window kept
+== width estimates, in pixels at 1280 x 720, cmr10 ems x size x 0.01 x 90
+     claim: estimate calibrated by 1.007 on frame 360; 428 px wide, x 115 to 544
+PASS claim clear of the frame's edge and of the output window at x 707
+PASS card one line (58 of 92 characters), ending near x 785, band ends at 1244
+== glyphs: every character of the two new strings is already in a string the film shows
+PASS SQUASHED: none missing
+PASS ROOTS_CLAIM: none missing
+PASS the semicolon appears in real_integral::HONEST, drawn by the same lower third
+== beside the glyph patch, in either order
+PASS glyph-first: every hunk applies
+PASS repair-first: every hunk applies
+PASS both orders give the same counting.rs
+RESULT PASS

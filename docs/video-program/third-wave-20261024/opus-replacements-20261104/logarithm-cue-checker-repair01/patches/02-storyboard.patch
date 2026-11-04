@@ -1,0 +1,69 @@
+--- a/explainer_corpus/logarithm_mysteries/docs/storyboard.md
++++ b/explainer_corpus/logarithm_mysteries/docs/storyboard.md
+@@ -63,24 +63,27 @@
+ 
+ ## Prediction holds (draw::predict, THINK = 4.0 s each, music alone, picture still)
+ 
+-Every hold is the last beat of its cue: the question ends cue N and cue N+1 answers it.
++Every hold is the last beat of a question cue: cue N asks, the hold follows its last sentence,
++and cue N+1 answers. That sentence is usually the question, but not always. In 11 of the 13 the
++cue ends on its question. In 00_4 the tempting wrong answer follows the question, and in 12_5
++the hints do. The last column says which is which.
+ That puts one take per cue, and a scratch check confirmed it for all thirteen.
+ 
+-| cue | question | answered in |
+-|---|---|---|
+-| 00_4 | the half-octave note (with the tempting wrong answer, 660 Hz) | 00_5 |
+-| 01_3 | where does 3 go | 01_4 |
+-| 02_2 | 2.5 × 3.2 on the slide rule | 02_3 |
+-| 04_6 | how long to double at 5 % | 04_7 |
+-| **05_1** | what is i × i? | 05_2 |
+-| 05_5 | which inputs give −1 | 05_6 |
+-| 06_2 | where the carried logarithm returns | 06_3 |
+-| **06_4** | does a loop off to the side bring its logarithm back? | 06_5 |
+-| **07_3** | where do the cut's two sides go on the strip? | 07_4 |
+-| **08_1** | what angle does Log report for z²? | 08_2 |
+-| 08_4 | the broken step in −1 = 1 | 08_5 |
+-| 11_3 | can one steady flow end on diag(−2, −½)? | 11_4–11_6 |
+-| **12_5** | how many steady spins give the half turn? (after three hints) | 12_6 |
++| cue | question | answered in | cue ends on the question? |
++|---|---|---|---|
++| 00_4 | the half-octave note (with the tempting wrong answer, 660 Hz) | 00_5 | no: the wrong answer follows it |
++| 01_3 | where does 3 go | 01_4 | yes |
++| 02_2 | 2.5 × 3.2 on the slide rule | 02_3 | yes |
++| 04_6 | how long to double at 5 % | 04_7 | yes |
++| **05_1** | what is i × i? | 05_2 | yes |
++| 05_5 | which inputs give −1 | 05_6 | yes |
++| 06_2 | where the carried logarithm returns | 06_3 | yes |
++| **06_4** | does a loop off to the side bring its logarithm back? | 06_5 | yes |
++| **07_3** | where do the cut's two sides go on the strip? | 07_4 | yes |
++| **08_1** | what angle does Log report for z²? | 08_2 | yes |
++| 08_4 | the broken step in −1 = 1 | 08_5 | yes |
++| 11_3 | can one steady flow end on diag(−2, −½)? | 11_4–11_6 | yes |
++| **12_5** | how many steady spins give the half turn? (three hints follow) | 12_6 | no: the hints follow it |
+ 
+ Bold rows are new this round. Root decides from the real takes whether 4 s is right.
+ 
+@@ -88,14 +91,19 @@
+ 
+ A hold for reading is authored, with its own music window, and not left to whatever a cue
+ schedule happens to leave. Screen text is held for at least its length at 15 characters a
+-second, longer where something else on screen competes for the eye.
++second, longer where something else on screen competes for the eye. A window is either a fixed
++length or a top-up of the time the voice has already given.
+ 
+ | after | what is read | how long |
+ |---|---|---|
++| 10_4 | the fine print: the textbook line, then "precisely: " and the source line, 197 characters in all | conditional: 13.2 s (`FINE_PRINT_S`) from when it has faded in. Music fills only what the voice and its breath leave short, `FINE_PRINT_S − read_for`, so the window depends on the take and can be zero |
+ | 11_20 | Culver's rule, four lines, 159 characters, then each block row's verdict in turn, 107 characters, with a gold mark at the row being read | 10.6 s + 7.13 s = 17.73 s of music after the voice |
+ 
+-The rule replaces the words in the column when its sentence starts, so nothing else in that
+-column competes with it. The next line waits for the window. Root re-scores the music and
++10_4 ends chapter 10, so its window comes before the join to 11_1. Source gives no length for
++it; root reads that from the take.
++
++In 11_20, the rule replaces the words in the column when its sentence starts, so nothing else in
++that column competes with it. The next line waits for the window. Root re-scores the music and
+ may shorten the row walk after listening; the rule's own 10.6 s is the floor.
+ 
+ ## 05–08: what each cue predicts or shows (repair 5)

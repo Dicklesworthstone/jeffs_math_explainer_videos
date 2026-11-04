@@ -1,0 +1,80 @@
+PASS  base series01/factorials.rs equals the original
+PASS  base series01/series_model.rs equals the original
+PASS  base series01/oracle.py equals the original
+PASS  series-repair.patch applies to base series01 (clean)
+PASS  series-repair.patch reproduces candidate series01/factorials.rs
+PASS  series-repair.patch reproduces candidate series01/series_model.rs
+PASS  series-repair.patch reproduces candidate series01/oracle.py
+PASS  base product01/product_grid.rs equals the original
+PASS  base product01/product_model.rs equals the original
+PASS  base product01/oracle.py equals the original
+PASS  product-repair.patch applies to base product01 (clean)
+PASS  product-repair.patch reproduces candidate product01/product_grid.rs
+PASS  product-repair.patch reproduces candidate product01/product_model.rs
+PASS  product-repair.patch reproduces candidate product01/oracle.py
+PASS  rustfmt --check series01/factorials.rs
+PASS  rustfmt --check series01/series_model.rs
+PASS  rustfmt --check product01/product_grid.rs
+PASS  rustfmt --check product01/product_model.rs
+PASS  rustfmt --check original exponential-expanded-rate02/rate_law.rs
+PASS  rustfmt --check original exponential-expanded-rate02/rate_model.rs
+PASS  rustfmt --check original exponential-rate-facts01/candidate/src/rate_model.rs
+PASS  rustfmt --check original exponential-expanded-series01/factorials.rs
+PASS  rustfmt --check original exponential-expanded-series01/series_model.rs
+PASS  rustfmt --check original exponential-expanded-product01/product_grid.rs
+PASS  rustfmt --check original exponential-expanded-product01/product_model.rs
+PASS  script lint exponential-expanded-rate02: lint: 5 lines, 0 errors, 4 warnings -> PASS
+PASS  script lint exponential-expanded-series01: lint: 6 lines, 0 errors, 7 warnings -> PASS
+      WARN  6 02_6: colon/semicolon; TTS prosody on them is erratic, recast as two sentences
+PASS  script lint exponential-expanded-product01: lint: 6 lines, 0 errors, 8 warnings -> PASS
+      WARN  2 03_2: colon/semicolon; TTS prosody on them is erratic, recast as two sentences
+      WARN  3 03_3: colon/semicolon; TTS prosody on them is erratic, recast as two sentences
+PASS  series: 626 mirrored, 626 oracle rows, 0 differ, 0 unmatched
+PASS  tail label through the native double path prints 0.08438
+      curve heights at 3 places: 0 rows round apart
+      curve heights at 4 places: 4 rows round apart
+      curve heights at 5 places: 0 rows round apart
+      curve heights at 6 places: 10 rows round apart
+      curve heights at 7 places: 0 rows round apart
+      curve heights at 8 places: 0 rows round apart
+      curve heights at 9 places: 2 rows round apart
+PASS  product: 26 mirrored, 26 oracle rows, 0 differ, 0 unmatched
+PASS  series01/factorials.rs: 10 sentence waits name real sentences 
+PASS  series01/factorials.rs: says every cue once, in order
+PASS  series01/factorials.rs: indices in range (28 TEXT, 4 TEX)
+      TEXT drawn [0, 2, 3, 20, 21, 22, 23, 24]; TEX drawn [0, 1, 2, 3]
+PASS  product01/product_grid.rs: 15 sentence waits name real sentences 
+PASS  product01/product_grid.rs: says every cue once, in order
+PASS  product01/product_grid.rs: indices in range (5 TEXT, 11 TEX)
+      TEXT drawn [0, 1, 2, 3, 4]; TEX drawn [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+PASS  factorials.rs: two source-order tests found
+PASS  factorials.rs: order holds in the candidate (6 steps) 
+PASS  factorials.rs: the same order fails on the base, at 'let question = k.text(stage, TEXT[21]'
+PASS  factorials.rs: order holds in the candidate (7 steps) 
+PASS  factorials.rs: the same order fails on the base, at 'k.mark(stage, "predict");'
+PASS  product_grid.rs: two source-order tests found
+PASS  product_grid.rs: order holds in the candidate (7 steps) 
+PASS  product_grid.rs: the same order fails on the base, at 'k.mark(s, "predict");'
+PASS  product_grid.rs: order holds in the candidate (10 steps) 
+PASS  product_grid.rs: the same order fails on the base, at 'until_sentence(s, "03_4", 2)'
+PASS  on frame: 5.04 wide, -2.52 to 2.52  '|x| ≤ 1.5, degree 4: ratio ≤ 0.25, tail ≤ 0.08438'
+PASS  on frame: 3.38 wide, 2.51 to 5.89  'What is the degree-two diagonal?'
+PASS  on frame: 3.91 wide, 2.75 to 6.65  'Complete diagonals: degrees 0 through 3'
+PASS  on frame: 3.97 wide, -1.99 to 1.99  'Absolute convergence permits regrouping'
+timing replay, factorials.rs
+  02_1 table lands, seconds after sentence 2 starts: 0.60  (0.60 at 0.8, 0.60 at 1.25)
+  02_1 moves end, seconds before sentence 4 starts: 1.58  (0.15 at 0.8, 3.36 at 1.25)
+  02_1 question lands, seconds after sentence 4 starts: 0.35  (0.35 at 0.8, 0.35 at 1.25)
+  02_1 think time before the answer: 4.30  (4.30 at 0.8, 4.30 at 1.25)
+  02_3 first curve starts, seconds after sentence 4 starts: 0.70  (0.70 at 0.8, 0.70 at 1.25)
+  02_3 last curve done, seconds before the cue ends: 2.12  (0.54 at 0.8, 4.10 at 1.25)
+  02_5 conclusion lands, seconds after sentence 5 starts: 0.35  (0.35 at 0.8, 0.35 at 1.25)
+  total seconds: 141.75  (115.52 at 0.8, 174.54 at 1.25)
+timing replay, product_grid.rs
+  03_1 edges done, seconds before sentence 3 starts: 2.49  (1.35 at 0.8, 3.91 at 1.25)
+  03_1 cells done, seconds after sentence 3 starts: 3.60  (3.60 at 0.8, 3.60 at 1.25)
+  03_1 cells done, seconds before sentence 5 starts: 1.29  (0.31 at 0.8, 2.51 at 1.25)
+  03_2 question lands, seconds after sentence 5 starts: 0.35  (0.35 at 0.8, 0.35 at 1.25)
+  total seconds: 144.21  (117.52 at 0.8, 177.58 at 1.25)
+PASS  no machine paths or user names in the folder 
+RESULT PASS

@@ -1,0 +1,70 @@
+PASS binding exponential-expanded-rate02/rate_law.rs  093f37e54b73
+PASS binding exponential-expanded-rate02/rate_model.rs  48f3dae06f4b
+PASS binding exponential-expanded-rate02/script-slice.tsv  1b5257beac7d
+PASS binding exponential-rate-facts01/candidate/oracle.py  f042a80e4c56
+PASS binding exponential-rate-facts01/candidate/src/facts.rs  afff33feaf5e
+PASS binding exponential-rate-facts01/candidate/src/main.rs  5c3c665feb9e
+PASS binding exponential-rate-facts01/candidate/src/rate_model.rs  8d896cf9d23d
+PASS binding exponential-rate-facts01/oracle.tsv  d2930a2a1627
+PASS binding exponential-expanded-series01/factorials.rs  5b7ecd2ae11e
+PASS binding exponential-expanded-series01/series_model.rs  058392239fd8
+PASS binding exponential-expanded-series01/script-slice.tsv  fe8480fbdef3
+PASS binding exponential-expanded-series01/oracle.py  f18530ae1197
+PASS binding exponential-expanded-series01/oracle01.tsv  ebf22c6c83fc
+PASS binding exponential-expanded-series01/README.md  f521030184e0
+PASS binding exponential-expanded-product01/product_grid.rs  afa94c76ba69
+PASS binding exponential-expanded-product01/product_model.rs  ee9d24de06f1
+PASS binding exponential-expanded-product01/script-slice.tsv  a66c795969e6
+PASS binding exponential-expanded-product01/oracle.py  360226c5b97f
+PASS binding exponential-expanded-product01/README.md  8189300f1ef5
+PASS binding patches/series-repair.patch  2ea6c1247df1
+PASS binding patches/product-repair.patch  32946317587f
+bindings checked: 21
+PASS SHA256SUMS: 27 listed, 0 differ
+PASS rate02/rate_law.rs == rate01-review candidate/rate_law.rs
+PASS rate02/rate_model.rs == rate01-review candidate/rate_model.rs
+PASS rate02/script-slice.tsv == rate01-review candidate/script-slice.tsv
+PASS base/series01/factorials.rs == exponential-expanded-series01/factorials.rs
+PASS base/series01/series_model.rs == exponential-expanded-series01/series_model.rs
+PASS base/series01/oracle.py == exponential-expanded-series01/oracle.py
+PASS base/product01/product_grid.rs == exponential-expanded-product01/product_grid.rs
+PASS base/product01/product_model.rs == exponential-expanded-product01/product_model.rs
+PASS base/product01/oracle.py == exponential-expanded-product01/oracle.py
+series-repair.patch: touches ['factorials.rs', 'oracle.py', 'series_model.rs']
+PASS series-repair.patch leaves the script slice alone
+  series-repair.patch: READMEs touched: []
+PASS series-repair.patch forward, fuzz 0, no offset  patching file factorials.rs; patching file series_model.rs; patching file oracle.py
+PASS forward factorials.rs == candidate
+PASS forward series_model.rs == candidate
+PASS forward oracle.py == candidate
+PASS series-repair.patch reverse, fuzz 0
+PASS reverse factorials.rs == original
+PASS reverse series_model.rs == original
+PASS reverse oracle.py == original
+product-repair.patch: touches ['oracle.py', 'product_grid.rs', 'product_model.rs']
+PASS product-repair.patch leaves the script slice alone
+  product-repair.patch: READMEs touched: []
+PASS product-repair.patch forward, fuzz 0, no offset  patching file product_grid.rs; patching file product_model.rs; patching file oracle.py
+PASS forward product_grid.rs == candidate
+PASS forward product_model.rs == candidate
+PASS forward oracle.py == candidate
+PASS product-repair.patch reverse, fuzz 0
+PASS reverse product_grid.rs == original
+PASS reverse product_model.rs == original
+PASS reverse oracle.py == original
+bindings.json top-level keys: ['changes', 'reviewed_model_sha256']
+  binding /changes/before_sha256 = c28b1e87ccb63e09
+  binding /changes/sha256 = f042a80e4c5689b4
+  binding /changes/before_sha256 = 75bc46a0b43a1e85
+  binding /changes/sha256 = afff33feaf5ef85c
+  binding /changes/before_sha256 = 14ff5e872f72b95b
+  binding /changes/sha256 = 5c3c665feb9e2c61
+  binding /changes/sha256 = 8d896cf9d23d6a6f
+  binding /reviewed_model_sha256 = 48f3dae06f4b696a
+canonical now oracle.py c28b1e87ccb63e09
+canonical now src/facts.rs 75bc46a0b43a1e85
+canonical now src/main.rs 14ff5e872f72b95b
+canonical now script.tsv 077cd2f02e8b5074
+canonical rate_model exists: False
+canonical src/: ['chapters', 'facts.rs', 'main.rs', 'score.rs']
+RESULT PASS

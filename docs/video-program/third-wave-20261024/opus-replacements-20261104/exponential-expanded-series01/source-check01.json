@@ -1,0 +1,15 @@
+{
+  "utc": "2026-11-04T14:10:14.066800+00:00",
+  "author_rational_sample_checks": 324,
+  "display_tail_exact": "27/320",
+  "display_tail_rounded": "0.08438",
+  "cues": 6,
+  "words": 341,
+  "max_cue_words": 66,
+  "sha256": {
+    "series_model.rs": "894acec6d774fe30dc9b2c2c2ddb02720edcb2f873733cb224a7330e5a7c3575",
+    "script-slice.tsv": "fe8480fbdef3524caee8e53ec507010ed052700319176a12d920282b4c23fef7",
+    "factorials.rs": "ed201b736e612e8d3a518fcb7a5d7165fa8840181d742efb9635bb86bdf5357a"
+  },
+  "limits": "Author arithmetic samples and rustfmt only; no native compile, glyph or picture review, independent review, narration or listening."
+}

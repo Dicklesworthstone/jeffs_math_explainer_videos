@@ -1,0 +1,175 @@
+A: 13_12 not replayed (sequential card changes; see the author's baseline table)
+# A: replay on Oliver take01 ASR starts, sums of literal run times
+
+## Timeline, cue-relative seconds
+  13_1    0.00  SAY 13_1, gap slack -0.00, length 16.00
+  13_1    0.00  caption 0.40: Arithmetic with actions
+  13_1    0.40  tile demo_left at x -3.1 appears at once
+  13_1    0.40  tile demo_right at x 3.1 appears at once
+  13_2    0.00  SAY 13_2, gap slack +16.20, length 24.64
+  13_2    0.00  motion demo_turn 0 to 1 in 1.70 (+0.50)
+  13_2    2.20  caption 0.40: r
+  13_2    2.60  wait 13_2 sentence 1: slack +0.94
+  13_2    3.54  caption 0.40: s
+  13_2    3.94  motion demo_flip 0 to 1 in 1.70 (+0.50)
+  13_2    6.14  wait 13_2 sentence 2: slack +0.62
+  13_2    6.76  caption 0.40: Rightmost move first
+  13_2    7.16  wait 13_2 sentence 4: slack +8.96
+  13_2   16.12  fade 0.40: s
+  13_2   16.52  motion demo_flip 1 to 2 in 1.70 (+0.50)
+  13_2   18.72  caption 0.40: r s
+  13_2   19.12  hold
+  13_2   25.24  fade 0.40: demo_left, demo_right, r, r s
+  13_2   25.64  tile left_objects at x -3.1 appears at once
+  13_2   25.64  tile right_objects at x 3.1 appears at once
+  13_2   25.64  caption 0.40: start
+  13_2   26.04  caption 0.40: start
+  13_3    0.00  SAY 13_3, gap slack -1.20, length 20.08
+  13_3    0.00  fade 0.40: start
+  13_3    0.40  motion left 0 to 1 in 1.70 (+0.50)
+  13_3    2.60  caption 0.40: r
+  13_3    3.00  wait 1.
+  13_3    4.00  fade 0.40: r
+  13_3    4.40  motion left 1 to 2 in 1.70 (+0.50)
+  13_3    6.60  caption 0.40: r²
+  13_3    7.00  wait 1.
+  13_3    8.00  fade 0.40: r²
+  13_3    8.40  motion left 2 to 3 in 1.70 (+0.50)
+  13_3   10.60  caption 0.40: r³
+  13_3   11.00  wait 1.
+  13_3   12.00  fade 0.40: r³
+  13_3   12.40  motion left 3 to 4 in 1.70 (+0.50)
+  13_3   14.60  wait 13_3 sentence 6: slack +2.02
+  13_3   16.62  caption 0.40: r⁴ = e
+  13_4    0.00  SAY 13_4, gap slack +3.66, length 19.92
+  13_4    0.00  fade 0.40: r⁴ = e
+  13_4    0.40  motion left 4 to 5 in 1.70 (+0.50)
+  13_4    2.60  caption 0.40: s
+  13_4    3.00  wait 1.
+  13_4    4.00  fade 0.40: s
+  13_4    4.40  motion left 5 to 6 in 1.70 (+0.50)
+  13_4    6.60  caption 0.40: s² = e
+  13_5    0.00  SAY 13_5, gap slack +13.52, length 19.60
+  13_5    0.00  fade 0.40: start
+  13_5    0.40  motion right 0 to 1 in 1.70 (+0.50)
+  13_5    2.60  caption 0.40: r
+  13_5    3.00  fade 0.40: r
+  13_5    3.40  motion right 1 to 2 in 1.70 (+0.50)
+  13_5    5.60  caption 0.40: s r
+  13_5    6.00  fade 0.40: s² = e
+  13_5    6.40  motion left 6 to 7 in 1.70 (+0.50)
+  13_5    8.60  caption 0.40: s
+  13_5    9.00  fade 0.40: s
+  13_5    9.40  motion left 7 to 8 in 1.70 (+0.50)
+  13_5   11.60  caption 0.40: r s
+  13_6    0.00  SAY 13_6, gap slack +8.20, length 22.56
+  13_6    0.00  fade 0.40: r s
+  13_6    0.40  motion left 8 to 9 in 1.70 (+0.50)
+  13_6    2.60  caption 0.40: s r s
+  13_6    3.00  fade 0.40: s r
+  13_6    3.40  motion right 2 to 3 in 1.70 (+0.50)
+  13_6    5.60  caption 0.40: r
+  13_6    6.00  fade 0.40: r
+  13_6    6.40  motion right 3 to 4 in 1.70 (+0.50)
+  13_6    8.60  caption 0.40: e
+  13_6    9.00  fade 0.40: e
+  13_6    9.40  motion right 4 to 5 in 1.70 (+0.50)
+  13_6   11.60  caption 0.40: r⁻¹
+  13_6   12.00  wait 13_6 phrase 's r s equals' (share): slack +6.40
+  13_6   18.40  caption 0.40: s r s = r⁻¹
+  13_7    0.00  SAY 13_7, gap slack +4.36, length 24.08
+  13_7    0.00  fade 0.40: left_objects, right_objects, s r s, r⁻¹, s r s = r⁻¹
+  13_7    0.40  caption 0.40: s
+  13_7    0.80  caption 0.40: r
+  13_7    1.20  caption 0.40: s
+  13_7    1.60  caption 0.40: r²
+  13_7    2.00  caption 0.40: s
+  13_7    2.40  caption 0.40: s r s = r⁻¹
+  13_7    2.80  grouping 0.40: bracket
+  13_7    3.20  wait 2.
+  13_7    5.20  fade 0.40: bracket
+  13_7    5.60  fade 0.40: s, r, s
+  13_7    6.00  caption 0.40: r⁻¹
+  13_7    6.40  wait 2.
+  13_7    8.40  grouping 0.40: combine
+  13_7    8.80  wait 1.
+  13_7    9.80  fade 0.40: combine, r⁻¹, r²
+  13_7   10.20  caption 0.40: r
+  13_7   10.60  caption 0.40: rᵏ or rᵏ s
+  13_8    0.00  SAY 13_8, gap slack +13.68, length 21.68
+  13_8    0.00  fade 0.40: r, s, s r s = r⁻¹, rᵏ or rᵏ s
+  13_8    0.40  tile undo_objects at x 0 appears at once
+  13_8    0.40  caption 0.40: r
+  13_8    0.80  motion undo 0 to 1 in 1.70 (+0.50)
+  13_8    3.00  fade 0.40: r
+  13_8    3.40  motion undo 1 to 2 in 1.70 (+0.50)
+  13_8    5.60  motion undo 2 to 3 in 1.70 (+0.50)
+  13_8    7.80  motion undo 3 to 4 in 1.70 (+0.50)
+  13_8   10.00  caption 0.40: r³ r = e
+  13_8   10.40  wait 13_8 sentence 3: slack +3.42
+  13_8   13.82  fade 0.40: r³ r = e
+  13_8   14.22  caption 0.40: Half-turn, then half-turn
+  13_8   14.62  motion undo 4 to 6 in 1.70 (+0.50)
+  13_8   16.82  motion undo 6 to 8 in 1.70 (+0.50)
+  13_8   19.02  wait 13_8 sentence 4: slack -2.90
+  13_8   19.02  fade 0.40: undo_objects
+  13_8   19.42  tile flip_objects at x 0 appears at once
+  13_8   19.42  fade 0.40: Half-turn, then half-turn
+  13_8   19.82  caption 0.40: Flip, then flip
+  13_8   20.22  motion flip_back 0 to 1 in 1.70 (+0.50)
+  13_8   22.42  motion flip_back 1 to 2 in 1.70 (+0.50)
+  13_9    0.00  SAY 13_9, gap slack -2.34, length 25.28
+
+## POSE/NAME: intervals when a tile's name is not its pose, or its tile moves under it
+   13_2 x +3.1    3.54 to   5.64  (2.10 s)  s
+   13_8 x +0.0    0.40 to   2.50  (2.10 s)  r
+  2 intervals
+
+## LIFECYCLE
+  0 problems
+
+## WAITS: negative slack means the picture is late for that word
+  13_2 sentence 1                              at   3.54  slack +0.94
+  13_2 sentence 2                              at   6.76  slack +0.62
+  13_2 sentence 4                              at  16.12  slack +8.96
+  13_3 sentence 6                              at  16.62  slack +2.02
+  13_6 phrase 's r s equals' (share)           at  18.40  slack +6.40
+  13_8 sentence 3                              at  13.82  slack +3.42
+  13_8 sentence 4                              at  16.12  slack -2.90  LATE
+
+## HOLDS: seconds fully shown, against characters at 15 per second
+   13_2 from   3.94  hold 12.18  need 0.07  s
+   13_2 from   2.60  hold 22.64  need 0.07  r
+   13_2 from  19.12  hold  6.12  need 0.13  r s
+   13_2 from  26.04  hold  0.40  need 0.33  start
+   13_3 from   3.00  hold  1.00  need 0.07  r
+   13_3 from   7.00  hold  1.00  need 0.13  r²
+   13_3 from  11.00  hold  1.00  need 0.13  r³
+   13_3 from  17.02  hold  3.66  need 0.27  r⁴ = e
+   13_4 from   3.00  hold  1.00  need 0.07  s
+   13_2 from  26.44  hold 41.20  need 0.33  start
+   13_5 from   3.00  hold  0.00  need 0.07  r  SHORT
+   13_4 from   7.00  hold 19.52  need 0.27  s² = e
+   13_5 from   9.00  hold  0.00  need 0.07  s  SHORT
+   13_5 from  12.00  hold  8.20  need 0.13  r s
+   13_5 from   6.00  hold 17.20  need 0.13  s r
+   13_6 from   6.00  hold  0.00  need 0.07  r  SHORT
+   13_6 from   9.00  hold  0.00  need 0.07  e  SHORT
+   13_6 from   3.00  hold 20.16  need 0.20  s r s
+   13_6 from  12.00  hold 11.16  need 0.20  r⁻¹
+   13_6 from  18.80  hold  4.36  need 0.47  s r s = r⁻¹
+   13_7 from   0.80  hold  4.80  need 0.07  s
+   13_7 from   1.20  hold  4.40  need 0.07  r
+   13_7 from   1.60  hold  4.00  need 0.07  s
+   13_7 from   6.40  hold  3.40  need 0.20  r⁻¹
+   13_7 from   2.00  hold  7.80  need 0.13  r²
+   13_7 from  10.60  hold 14.08  need 0.07  r
+   13_7 from   2.40  hold 22.28  need 0.07  s
+   13_7 from   2.80  hold 21.88  need 0.47  s r s = r⁻¹
+   13_7 from  11.00  hold 13.68  need 0.47  rᵏ or rᵏ s
+   13_8 from   0.80  hold  2.20  need 0.07  r
+   13_8 from  10.40  hold  3.42  need 0.33  r³ r = e
+   13_8 from  14.62  hold  4.80  need 1.53  Half-turn, then half-turn
+   13_1 from   0.40  hold 176.50  need 1.40  Arithmetic with actions (still up)
+   13_2 from   7.16  hold 153.14  need 1.20  Rightmost move first (still up)
+   13_8 from  20.22  hold  4.40  need 0.87  Flip, then flip (still up)

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Can two switches calculate a probability?</title>
+<style>
+:root{color-scheme:dark;--bg:#0b1220;--panel:#111e30;--line:#30445c;--ink:#f2f7fb;--muted:#bdcbda;--cyan:#73d9e3;--gold:#f1c66b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 system-ui,-apple-system,sans-serif}main{max-width:1120px;margin:auto;padding:clamp(20px,5vw,54px)}h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.08;letter-spacing:-.035em;margin:.4rem 0 1rem}h2{font-size:1.25rem;margin:0}p{color:var(--muted)}.eyebrow{color:var(--cyan);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;font-weight:750}.lead{max-width:750px;font-size:1.1rem}.controls{display:flex;flex-wrap:wrap;gap:10px;margin:1.6rem 0}button{min-height:46px;border:1px solid #66819a;border-radius:10px;padding:.65rem 1rem;font:inherit;font-weight:700;color:var(--ink);background:#21364d;cursor:pointer}button.primary{color:#081722;background:var(--cyan);border-color:var(--cyan)}button:hover{filter:brightness(1.12)}button:focus-visible{outline:3px solid var(--gold);outline-offset:3px}.panels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.panel{border:1px solid var(--line);border-radius:16px;background:var(--panel);padding:20px}.panel p{margin:.4rem 0 1rem}.board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));align-items:center;gap:5px;margin:1.3rem 0}.node{border:1px solid #58718a;border-radius:10px;padding:.7rem .2rem;text-align:center;min-width:0}.node strong{display:block;font-size:1.45rem;color:var(--ink)}.node span{font-size:.78rem;color:var(--muted)}.node.exit{border-color:#4d858b;background:#102d39}.node.switch{border-color:#a17f43;background:#302919}.counts{display:flex;justify-content:space-between;gap:12px;font-size:1.05rem}.counts strong{color:var(--cyan);font-size:1.55rem}.path{min-height:2.1em;color:var(--ink)}.path span{color:var(--gold)}.next{font-size:.91rem}.result{border-top:1px solid var(--line);padding-top:12px;margin-top:14px}.result strong{color:var(--gold)}details{border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-top:20px}summary{cursor:pointer;font-weight:700}code{color:#f3d99a}footer{border-top:1px solid var(--line);margin-top:30px;padding-top:14px;color:var(--muted);font-size:.88rem}a{color:var(--cyan)}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:720px){.panels{grid-template-columns:1fr}.controls button{flex:1 1 auto}}
+</style>
+</head>
+<body><main>
+<div class="eyebrow">Research prototype · deterministic routing</div>
+<h1>Can two switches calculate a probability?</h1>
+<p class="lead">Each token starts at A and moves until it reaches an exit. At each visit, the switch sends the token along its next arrow, then flips. Compare what happens when the switches remember their positions with what happens when they are reset for every token.</p>
+<div class="controls" aria-label="Simulation controls">
+<button class="primary" id="one">Send one token</button><button id="thirty">Send 30 tokens</button><button id="restart">Start again</button>
+</div>
+<p id="announce" class="sr-only" aria-live="polite"></p>
+<div class="panels">
+<section class="panel" aria-labelledby="persistent-title"><h2 id="persistent-title">1. Switches remember</h2><p>Each switch keeps its next direction between tokens.</p>
+<div class="board" aria-label="Line of nodes, left exit, switch A, switch B, right exit"><div class="node exit"><strong>L</strong><span>left exit</span></div><div class="node switch"><strong>A</strong><span id="p-a">next ← L</span></div><div class="node switch"><strong>B</strong><span id="p-b">next R →</span></div><div class="node exit"><strong>R</strong><span>right exit</span></div></div>
+<div class="next" id="p-next"></div><div class="path" id="p-path"></div><div class="counts"><div>Left<br><strong id="p-left">0</strong></div><div>Right<br><strong id="p-right">0</strong></div><div>Tokens<br><strong id="p-total">0</strong></div></div>
+<div class="result" id="p-result"></div></section>
+<section class="panel" aria-labelledby="reset-title"><h2 id="reset-title">2. Switches are reset</h2><p>Before each token, A is set to L and B is set to R.</p>
+<div class="board" aria-label="Same line of nodes with switches reset before each token"><div class="node exit"><strong>L</strong><span>left exit</span></div><div class="node switch"><strong>A</strong><span id="r-a">next ← L</span></div><div class="node switch"><strong>B</strong><span id="r-b">next R →</span></div><div class="node exit"><strong>R</strong><span>right exit</span></div></div>
+<div class="next" id="r-next"></div><div class="path" id="r-path"></div><div class="counts"><div>Left<br><strong id="r-left">0</strong></div><div>Right<br><strong id="r-right">0</strong></div><div>Tokens<br><strong id="r-total">0</strong></div></div>
+<div class="result" id="r-result"></div></section>
+</div>
+<details><summary>Why is the target 2/3, and what is proved?</summary><p>If a fair coin chooses an exit at each switch, let <code>h(A)</code> be the probability of reaching L first. From A, half the time the token reaches L and half the time it goes to B; from B, half the time it goes to A and half the time it reaches R. Thus <code>h(A) = (1 + h(B))/2</code> and <code>h(B) = h(A)/2</code>, giving <code>h(A) = 2/3</code>.</p><p>For the remembering switches, let <code>L</code> and <code>R</code> be the number of tokens exiting left and right, <code>x</code> the number of A→B trips and <code>y</code> the number of B→A trips. Alternation gives <code>|L − x| ≤ 1</code> and <code>|R − y| ≤ 1</code>. Conservation gives <code>x = R + y</code> and <code>N = L + R</code>, so <code>3L − 2N = (L − x) + (y − R)</code>. The error in the left fraction is at most <code>2/(3N)</code> for N &gt; 0.</p><p>This is a proof for this small graph, not for every routing system. The reset system does not satisfy the persistent alternation premise. The two token streams shown here are deterministic; neither is a sample of random paths.</p></details>
+<footer>Research sketch, not a finished or approved video. The example, sources and competing treatments are recorded in the <a href="rotor-router-brief-20261031.md">candidate brief</a>. Independent mathematical and teaching review remain open.</footer>
+</main>
+<script>
+'use strict';
+const blank=()=>({a:0,b:0,left:0,right:0,path:[]});
+let persistent=blank(), reset=blank();
+function send(state, resetEach){
+  if(resetEach){state.a=0;state.b=0;}
+  let node='A';const path=['A'];
+  while(node==='A'||node==='B'){
+    if(node==='A'){node=state.a===0?'L':'B';state.a^=1;}
+    else{node=state.b===0?'R':'A';state.b^=1;}
+    path.push(node);
+  }
+  if(node==='L')state.left++;else state.right++;
+  state.path=path;
+}
+function show(prefix,state,resetEach){
+  const total=state.left+state.right;
+  const set=(suffix,value)=>document.getElementById(prefix+'-'+suffix).textContent=value;
+  set('a',resetEach?'next ← L':state.a===0?'next ← L':'next B →');
+  set('b',resetEach?'next R →':state.b===0?'next R →':'next ← A');
+  set('next',resetEach?'Before the next token: A → L · B → R':'Next visit: A → '+(state.a===0?'L':'B')+' · B → '+(state.b===0?'R':'A'));
+  set('path',state.path.length?'Last path: '+state.path.join(' → '):'No token has been sent yet.');
+  set('left',state.left);set('right',state.right);set('total',total);
+  if(!total){set('result','Send a token to see the left-exit fraction.');return;}
+  const percent=(100*state.left/total).toFixed(1);
+  set('result',resetEach?'Left fraction: '+state.left+'/'+total+' = '+percent+'%. The switches forgot.':'Left fraction: '+state.left+'/'+total+' = '+percent+'%. Target: 2/3 ≈ 66.7%.  |3L − 2N| = '+Math.abs(3*state.left-2*total)+' (at most 2).');
+}
+function update(){show('p',persistent,false);show('r',reset,true);}
+function advance(n){for(let i=0;i<n;i++){send(persistent,false);send(reset,true);}update();document.getElementById('announce').textContent='Sent '+n+' token'+(n===1?'':'s')+'. Remembering switches: '+persistent.left+' left and '+persistent.right+' right. Reset switches: '+reset.left+' left.';}
+document.getElementById('one').addEventListener('click',()=>advance(1));
+document.getElementById('thirty').addEventListener('click',()=>advance(30));
+document.getElementById('restart').addEventListener('click',()=>{persistent=blank();reset=blank();update();document.getElementById('announce').textContent='Both systems restarted.';});
+update();
+</script>
+</body></html>

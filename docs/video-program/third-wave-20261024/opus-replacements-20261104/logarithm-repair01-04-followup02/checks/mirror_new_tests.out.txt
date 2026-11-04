@@ -1,0 +1,20 @@
+ok   04_2 phrase occurs once  [byte 306]
+ok   04_2 phrase is in sentence 3
+ok   a mark at the exact byte wins
+ok   a mark elsewhere is ignored: 54 of 139  [23.884892]
+ok   no marks gives the same estimate
+ok   another line gives none
+ok   04_2 order: sentence 3, wait, climb, sentence 4  [[12346, 13621, 13821, 13860]]
+ok   04_4 order: labels, sentence 1, fade, flip  [[19208, 20175, 20242, 20309]]
+ok   04_4 has one wait for sentence 1
+ok   no literal \ln 1000 in the scene
+ok   the formula reads the target right after its template  [[31954, 32031]]
+ok   the formula's holes match its arguments  [5 holes, 5 args]
+ok   02_1 phrase is in the first sentence  [byte 48]
+ok   02_1 order: wait, out, back, sentence 1  [[5300, 5394, 5458, 5517]]
+ok   the 02_2 label carries its unit
+ok   the label's ems are at most the test's 9.06  [9.057]
+ok   the test's width is narrower than the bar  [1.993 < 3.184]
+ok   ln of the target within the test's tolerance  [6.91]
+ok   years from the target
+failures: 0

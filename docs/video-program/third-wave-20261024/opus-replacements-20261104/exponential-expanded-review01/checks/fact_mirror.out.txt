@@ -1,0 +1,18 @@
+rate oracle: fresh run equals stored oracle.tsv: True | rows 183
+rate: 166 mirrored rows, 166 oracle rows, 0 only in the mirror, 0 only in the oracle, 0 differ
+series oracle: fresh run equals stored oracle01.tsv: True | rows 625
+series: 625 mirrored rows, 625 oracle rows, 0 only in the mirror, 0 only in the oracle, 11 differ
+  DIFFERS factorials.curve.2.1.y 1.025312 1.025313
+  DIFFERS factorials.curve.2.9.y 1.250313 1.250312
+  DIFFERS factorials.curve.2.13.y 1.377812 1.377813
+  DIFFERS factorials.curve.2.21.y 1.662812 1.662813
+  DIFFERS factorials.curve.2.33.y 2.165312 2.165313
+  DIFFERS factorials.curve.2.49.y 2.975313 2.975312
+  DIFFERS factorials.curve.2.53.y 3.202813 3.202812
+  DIFFERS factorials.curve.3.54.y 3.671313 3.671312
+  DIFFERS factorials.curve.4.36.y 2.453837 2.453838
+  DIFFERS factorials.curve.4.44.y 2.987838 2.987837
+  DIFFERS factorials.tail.bound 0.08437 0.08438
+tail bound: the Rust path gives 0.08437499999999999; exact value 27/320 = 0.084375; nearest double 0.084375
+  Rust prints 0.08437; the oracle prints 0.08438
+RESULT MISMATCH (see DIFFERS rows)

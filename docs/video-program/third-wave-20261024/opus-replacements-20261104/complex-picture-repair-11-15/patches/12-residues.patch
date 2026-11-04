@@ -1,0 +1,185 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/residues.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/residues.rs
+@@ -5,7 +5,7 @@
+ //! 08: the negative square and the holomorphic part close up, and the
+ //! 1/(z − p) term stacks into the 2πi column.
+ 
+-use std::f64::consts::FRAC_PI_4;
++use std::f64::consts::{FRAC_PI_4, PI};
+ 
+ use explainer_kit::{Kit, Palette, v};
+ use fmn::prelude::*;
+@@ -14,6 +14,7 @@ use super::draw::{
+     Painter, Plane, chain_arrows, chain_points, dot, fact, fade_in_all, fade_out_all, faded_line, fit_chain, hero,
+     lay_down, marks, names_now, pause, pole, pole_mark, say, wait_until,
+ };
++use super::the_bump::{POLE_I, POLE_MINUS_I};
+ use crate::model::{self, C, Func, I, ZERO};
+ 
+ pub const LAURENT_TEX: &str = r"f(z) = \frac{a_{-2}}{(z-p)^2} + \frac{a_{-1}}{z-p} + h(z)";
+@@ -39,7 +40,7 @@ pub const LOG_TEX: [&str; 3] = [
+ ];
+ pub const RESIDUE: &str = "residue ";
+ pub const TURNS: [&str; 3] = [
+-    "the turns of chapter 11:",
++    "the turns we counted:",
+     "zeros − poles =",
+     "the sum of the residues of f'/f",
+ ];
+@@ -72,6 +73,30 @@ pub fn term_chain(k: usize) -> Vec<C> {
+ pub const POLES: [C; 3] = [C::new(-0.7, 0.5), C::new(0.6, 0.6), C::new(0.0, -0.7)];
+ pub const BIG_R: f64 = 1.35;
+ pub const SMALL_R: f64 = 0.25;
++/// The big loop's direction mark: from and to, as angles, between two of its corridors.
++pub const BIG_MARK: (f64, f64) = (1.75, 2.1);
++/// Half the angle a small loop's direction mark spans.
++const SMALL_MARK_HALF: f64 = 0.35;
++
++/// The direction mark on the small loop around `q`: its start and end, counterclockwise, on the
++/// side away from the corridor that loop leaves by.
++pub fn small_loop_mark(q: C) -> (C, C) {
++    let a = q.arg() + PI - SMALL_MARK_HALF;
++    (
++        q + C::polar(SMALL_R, a),
++        q + C::polar(SMALL_R, a + 2.0 * SMALL_MARK_HALF),
++    )
++}
++
++/// An arrowhead on a loop, the way 12_1's is drawn: it fills the span it is given.
++fn direction_mark(stage: &mut Stage<'_>, from: Vec3, to: Vec3, thickness: f64) -> fmn::Result<Mob> {
++    let mark = Arrow::new(from, to)
++        .buff(0.0)
++        .thickness(thickness)
++        .color(hero())
++        .build()?;
++    Ok(stage.arena_mut().add(mark))
++}
+ 
+ /// The three small planes of 12_3.
+ pub fn small_planes() -> [Plane; 3] {
+@@ -123,6 +148,7 @@ impl SceneConstruct for Residues {
+                 p.p(C::polar(LOOP_R, FRAC_PI_4)),
+                 p.p(C::polar(LOOP_R, FRAC_PI_4 + 0.35)),
+             )
++            .buff(0.0)
+             .thickness(5.0)
+             .color(hero())
+             .build()?,
+@@ -163,13 +189,21 @@ impl SceneConstruct for Residues {
+             pms.extend(pole_mark(stage, p.p(q)));
+         }
+         let big = p.circle(stage, ZERO, BIG_R, hero(), 5.0)?;
++        let big_mark = direction_mark(
++            stage,
++            p.p(C::polar(BIG_R, BIG_MARK.0)),
++            p.p(C::polar(BIG_R, BIG_MARK.1)),
++            5.0,
++        )?;
+         fade_in_all(stage, &pms, 0.3)?;
+-        fade_in_all(stage, &[big], 0.4)?;
++        fade_in_all(stage, &[big, big_mark], 0.4)?;
+         fade_in_all(stage, &[theorem, inside], 0.5)?;
+         // shrink the big loop onto small loops joined by corridors walked both ways
+         let mut smalls = Vec::new();
+         for &q in &POLES {
+             smalls.push(p.circle(stage, q, SMALL_R, hero(), 4.0)?);
++            let (from, to) = small_loop_mark(q);
++            smalls.push(direction_mark(stage, p.p(from), p.p(to), 3.0)?);
+             let out_dir = if q.abs() > 0.0 {
+                 q.scale(1.0 / q.abs())
+             } else {
+@@ -191,10 +225,13 @@ impl SceneConstruct for Residues {
+             kit.text(stage, SHRINK[0], 22.0, Palette::ink(), v(3.6, 1.2))?,
+             kit.text(stage, SHRINK[1], 20.0, Palette::dim(), v(3.6, 0.75))?,
+         ];
+-        fade_in_all(stage, &smalls, 0.6)?;
++        // "shrink" is the deformation, so it is built up piece by piece: each loop, its direction,
++        // then the corridor walked both ways
++        lay_down(stage, &smalls, 0.1)?;
+         fade_in_all(stage, &shrink, 0.4)?;
+         pause(stage, 0.4)?;
+         super::draw::restroke(stage, big, hero(), 0.25);
++        stage.set_opacity(big_mark, 0.25, true);
+         let each = kit.text(stage, EACH, 22.0, hero(), v(3.6, 0.1))?;
+         fade_in_all(stage, &[each], 0.4)?;
+         line.wait_sentence(stage, 1)?;
+@@ -203,17 +240,28 @@ impl SceneConstruct for Residues {
+         let near = kit.tex(stage, NEAR_TEX, 30.0, Palette::ink(), &[], v(3.6, -1.0))?;
+         let simple = kit.tex(stage, SIMPLE_TEX, 26.0, hero(), &[], v(2.7, -2.1))?;
+         fade_in_all(stage, &[near], 0.4)?;
++        // the voice states the result only after it has set up h and its derivative
++        line.wait_for(stage, "the residue is")?;
+         fade_in_all(stage, &[simple], 0.4)?;
+         wait_until(stage, line.end())?;
+ 
+         // 12_3: the turns of chapter 11 are residues of f′/f
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "12_3")?;
+-        let mut gone = vec![theorem, inside, big, each, search, near, simple, shrink[0], shrink[1]];
++        let mut gone = vec![
++            theorem, inside, big, big_mark, each, search, near, simple, shrink[0], shrink[1],
++        ];
+         gone.extend(pms);
+         gone.extend(smalls);
+         gone.extend(frame);
+         fade_out_all(stage, &gone, 0.4)?;
++        // "The turns we counted are residues too": said first, so it is on screen first
++        let turns: Vec<Mob> = TURNS
++            .iter()
++            .enumerate()
++            .map(|(i, t)| kit.text(stage, t, 20.0, Palette::ink(), v(5.2, 0.4 - 0.45 * i as f64)))
++            .collect::<fmn::Result<_>>()?;
++        fade_in_all(stage, &turns, 0.5)?;
+         line.wait_sentence(stage, 1)?;
+         let zero_tex = kit.tex(stage, ZERO_TEX, 32.0, Palette::ink(), &[], v(-3.3, 2.9))?;
+         let zero_says = kit.text(stage, ZERO_SAYS, 20.0, Palette::dim(), v(-3.3, 2.1))?;
+@@ -263,12 +311,6 @@ impl SceneConstruct for Residues {
+             minis.extend(extra);
+             painters.push(painter);
+         }
+-        let turns: Vec<Mob> = TURNS
+-            .iter()
+-            .enumerate()
+-            .map(|(i, t)| kit.text(stage, t, 20.0, Palette::ink(), v(5.2, 0.4 - 0.45 * i as f64)))
+-            .collect::<fmn::Result<_>>()?;
+-        fade_in_all(stage, &turns, 0.5)?;
+         wait_until(stage, line.end())?;
+ 
+         // 12_4: the bump's residue at i: g/h′ = 1/(2i)
+@@ -285,7 +327,10 @@ impl SceneConstruct for Residues {
+         let bump = Painter::build(stage, Some(Func::Bump), bp, 1.0)?;
+         let border = bp.border(stage, Palette::faint())?;
+         bump.show(stage, 0.8)?;
+-        let bump_marks = marks(stage, Func::Bump, &bp);
++        let mut bump_marks = marks(stage, Func::Bump, &bp);
++        // the voice says "At i": both poles are named, clear of the loop around i
++        bump_marks.push(kit.text(stage, POLE_I, 30.0, Palette::ink(), bp.p(C::new(0.62, 1.0)))?);
++        bump_marks.push(kit.text(stage, POLE_MINUS_I, 30.0, Palette::ink(), bp.p(C::new(0.62, -1.0)))?);
+         fade_in_all(stage, &[border], 0.3)?;
+         fade_in_all(stage, &bump_marks, 0.3)?;
+         let steps0 = kit.tex(stage, BUMP_STEPS_TEX[0], 30.0, Palette::ink(), &[], v(3.6, 2.3))?;
+@@ -325,6 +370,24 @@ mod tests {
+ 
+     use super::*;
+ 
++    #[test]
++    fn the_direction_marks_run_counterclockwise_clear_of_the_corridors() {
++        for q in POLES {
++            let (from, to) = small_loop_mark(q);
++            assert!(((to - q) / (from - q)).arg() > 0.0);
++            assert!(((from - q).abs() - SMALL_R).abs() < 1e-12);
++            assert!(((to - q).abs() - SMALL_R).abs() < 1e-12);
++            // the far side of the small loop from its corridor, which leaves towards the big one
++            let outward = q.scale(1.0 / q.abs());
++            assert!((((from + to).scale(0.5) - q) / outward).re < 0.0);
++        }
++        let (from, to) = BIG_MARK;
++        assert!(from < to);
++        for q in POLES {
++            assert!(q.arg() < from || q.arg() > to, "a corridor meets the big loop's mark");
++        }
++    }
++
+     #[test]
+     fn only_the_one_over_z_term_survives_the_loop() {
+         for k in 0..3 {

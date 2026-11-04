@@ -1,0 +1,33 @@
+cue	call	hook	status
+13_1	wait_sentence	1	kept
+13_1	wait_sentence	3	kept
+13_1	wait_sentence	4	kept
+13_2	until	Inside this loop	kept
+13_2	until	then come back	kept
+13_2	wait_sentence	1	kept
+13_2	wait_sentence	2	kept
+13_2	wait_sentence	3	kept
+13_3	until	All of pi	kept
+13_3	until	so the bump	kept
+13_3	wait_for	so the bump	kept
+13_3	wait_for	which shrinks	kept
+13_3	wait_sentence	1	kept
+13_3	wait_sentence	2	kept
+13_3	wait_sentence	3	kept
+13_4	wait_sentence	1	kept
+13_4	wait_sentence	2	kept
+13_4	wait_sentence	3	kept
+13_5	wait_sentence	1	kept
+13_6	wait_sentence	1	kept
+13_7	wait_sentence	1	kept
+13_7	wait_sentence	2	kept
+13_8	wait_for	each has imaginary part	kept
+13_8	wait_sentence	1	kept
+13_8	wait_sentence	2	kept
+13_9	wait_sentence	1	kept
+13_9	wait_sentence	2	kept
+13_10	wait_for	so that part	kept
+13_10	wait_sentence	1	kept
+13_10	wait_sentence	2	kept
+13_10	wait_sentence	3	kept
+13_11	wait_sentence	1	kept

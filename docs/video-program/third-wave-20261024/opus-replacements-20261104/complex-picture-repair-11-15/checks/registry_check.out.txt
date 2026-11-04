@@ -1,0 +1,30 @@
+TEXT: baseline 237 entries, candidate 256; unresolved 0; duplicate values 0; added 19; removed 0
+  + counting::SEVERAL_ORDERS[0] = '+1'
+  + counting::SEVERAL_ORDERS[1] = '−2'
+  + counting::SEVERAL_SUM = '+1 − 2 = −1'
+  + counting::ZERO_AT = 'zero at '
+  + counting::POLE_AT = 'pole at '
+  + counting::SIZE_SAYS = '|f| ='
+  + counting::FROM_POLE = ' from the pole'
+  + counting::OFF_WINDOW = 'off the window'
+  + counting::ROOTS_CLAIM = 'every polynomial has roots'
+  + counting::DOG_DRAWN = 'drawn: n = 5, on the circle |z| = 3'
+  + counting::DOG_ROWS[0] = "walker's distance from 0: "
+  + counting::DOG_ROWS[1] = 'longest leash: '
+  + real_integral::ZOOM_NOTE = 'rescaled as R grows: the loop keeps its size, so i and −i close in'
+  + real_integral::SUM_NAME = 'sum'
+  + continuing::SMALL_DISK = 'small disk'
+  + continuing::DISK_STOPS = 'each disk stops at the pole at 1'
+  + continuing::DENSE[0] = 'it blows up at the 2nd, 4th, 8th, 16th, … roots of 1'
+  + continuing::DENSE[1] = 'drawn: up to the 64th; all of them are dense on the circle'
+  + continuing::RE_ZERO = 'Re z = 0'
+TEX: baseline 130 entries, candidate 137; unresolved 0; duplicate values 0; added 7; removed 0
+  + closing::LIMIT_TEX = '\\lim_{h \\to 0}\\frac{f(z_0 + h) - f(z_0)}{h}'  COMMANDS NOT YET IN THIS REGISTRY ['\\lim']
+  + counting::MINUS_THREE_Z_TEX = '-3z'
+  + counting::DEGREE_N_TEX = 'p(z) = z^n + \\cdots'
+  + real_integral::IM_TEX = '\\mathrm{Im}\\,p = \\frac{\\sqrt{2}}{2}'
+  + real_integral::VALUE_RESULT_TEX = '= \\frac{\\pi\\sqrt{2}}{2} = \\frac{\\pi}{\\sqrt{2}}'
+  + real_integral::MINUS_R_TEX = '-R'
+  + real_integral::TOTAL_TEX = 'p_1 + p_2'
+MONO: baseline 6 entries, candidate 6; unresolved 0; duplicate values 0; added 0; removed 0
+RESULT PASS: no empty or duplicate values

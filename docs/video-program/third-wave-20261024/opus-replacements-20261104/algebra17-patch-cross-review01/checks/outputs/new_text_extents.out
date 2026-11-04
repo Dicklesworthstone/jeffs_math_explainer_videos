@@ -1,0 +1,40 @@
+
+# calibration, against what the render and the lint report
+   1.96 model,  1.96 seen (0.998)  lint span -1.53..0.43
+   6.03 model,  6.04 seen (0.999)  lint span -3.02..3.02
+   6.02 model,  6.04 seen (0.997)  frame 231, 368 to 912 px
+   7.12 model,  7.14 seen (0.997)  frame 830, 318 to 961 px
+   3.70 model,  3.71 seen (0.997)  frame 779, 698 to 1032 px
+
+# new or changed text: centre x, y, size; left and right edges against the safe area +-6.96
+   -2.42 ..  2.42  w 4.83  y -2.20  size 28  Valid only if the total is divisible by 11
+   -1.88 ..  1.88  w 3.75  y -3.05  size 24  weight difference × value difference
+   -2.66 ..  2.66  w 5.31  y -3.05  size 24  Distinct positions: the weight difference is nonzero
+   -2.54 ..  2.54  w 5.08  y -3.05  size 24  Distinct symbols: the value difference is nonzero
+   -2.24 ..  2.24  w 4.48  y -3.05  size 24  Two nonzero factors: this swap is detected
+    0.98 ..  4.02  w 3.04  y  1.90  size 25  Group: how moves combine
+    0.53 ..  4.47  w 3.93  y  1.10  size 25  Subgroup: moves that stay together
+   -0.02 ..  5.02  w 5.03  y  0.30  size 25  Isomorphism: same structure, new description
+    0.25 ..  4.75  w 4.51  y -0.50  size 25  Cosets: equal pieces that cover the group
+    0.02 ..  4.98  w 4.96  y -1.30  size 25  Normal subgroup: pieces inherit an operation
+   -3.60 ..  2.90  w 6.50  y  2.00  size 27  1. Which residues does 6 generate on the twelve-clock?
+   -3.60 ..  3.70  w 7.30  y  0.75  size 27  2. Can a four-clock be isomorphic to two two-position clocks?
+   -3.60 ..  3.52  w 7.12  y -0.50  size 27  3. Why does changing representative within a coset keep it?
+    2.20 ..  4.20  w 1.99  y  2.80  size 22  positions holding a 1
+    2.08 ..  4.32  w 2.23  y  2.80  size 22  1s in the received word
+    1.75 ..  4.85  w 3.09  y  0.35  size 24  each row: a coset of 16 words
+    4.49 ..  5.41  w 0.92  y  0.10  size 22  syndrome
+   -1.68 .. -1.28  w 0.39  y  0.03  size 22  sent
+   -4.34 .. -3.58  w 0.77  y  0.03  size 22  decoded
+   -1.53 ..  0.43  w 1.96  y -3.70  size 24  forgets the column
+   -3.23 ..  3.23  w 6.47  y -3.70  size 26  The quotient keeps exactly what it was designed to keep
+
+# clearances that decide a fit, in units
+  17_11 captions: clock's '3' label right edge -0.94 + half glyph; widest caption left edge -0.02
+  17_16 heading vs key: heading right edge 4.20 (or 4.32 with the correction); the key's first box starts at 4.75, its '4' at y 2.5
+  17_15 'rows_are' left edge 1.75; the word's last box ends at -0.60
+  17_5 label '7 Delta d (mod 11)' size 20, by TeX metrics: width 1.37, so x -6.74 .. -5.36; safe edge -6.96, first column digit about -5.05
+
+# a tex width check on the render: frame 358's 7x6+6x4=66 at size 34
+  ink 524 to 755 px, 2.57 units
+  so 'x 7' labels at y 0.35 (px 328) sit above that row (px 362 top) and below the lane at y 0.9 (px 279)

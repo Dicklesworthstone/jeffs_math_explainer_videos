@@ -1,0 +1,17 @@
+{
+ "made_against": "canonical explainer_corpus/complex_analysis_visual as read on 2026-11-04, after root integrated compile-repair01 and its own turning.rs test-bound edit (build03)",
+ "patched_files": {
+  "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs": "66f09d8d751959a45878e382a1434b40fdbcb4942eadbd3fb9a740012911031f",
+  "explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs": "00c3a36edc09713e27784f513d20cfbc9cdf4c7e798ea7264d1ff50b0014f4e0"
+ },
+ "build_log": {
+  "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-opus-rebuild-build03/command.log",
+  "sha256": "69ea08fe8ea9f9a3d2a910a90bf6de7a4054135b4ad744e2f10d3a7df22aff68"
+ },
+ "read_dependencies": {
+  "explainer_corpus/complex_analysis_visual/src/model.rs": "d481bc8f8b20a4f8410024235bd0da1e6bc868759d91cc7f18b83b80e5e715f5",
+  "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs": "5963fc53c6ad8401cf8f682ca9ac1fcbb00ef0ffa29828011abd1db9106140a1",
+  "crates/explainer_kit/src/plot.rs": "15e8c470ece7844da1f86562e214ad5185454abb079bc5ceb5f6615cf792246d"
+ },
+ "script_tsv": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e"
+}

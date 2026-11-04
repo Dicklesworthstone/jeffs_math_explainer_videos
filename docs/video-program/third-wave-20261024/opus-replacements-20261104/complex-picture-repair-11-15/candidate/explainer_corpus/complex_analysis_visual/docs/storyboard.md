@@ -1,0 +1,298 @@
+# Storyboard — The Hidden Geometry of Complex Functions
+
+Opus replacement candidate for `complex_analysis_visual` (Bead
+`mx-video-program-program-87do.39`), staged under
+`opus-replacements-20261104/complex/` and mirroring the canonical crate's
+paths. It replaces the 18-cue, 8-chapter draft whose scope audit
+(`research-20261016/evidence/new-videos-scope-audit-20261103.md`) found it named
+results without building them. Nothing here is narrated, built, rendered or
+reviewed. The words column is the candidate `script.tsv`, one line per beat.
+
+Words are spoken exactly as written: no colons, semicolons, dashes or
+parentheses, numbers in words, one idea per beat. `⟨predict⟩` opens a
+question; the beat ends on the question, the picture holds through a silent
+countdown (`listen N s`, music only), and the next beat answers it in the same
+place on screen. Every number names its fact key (`src/facts.rs`, recomputed
+by `oracle.py`).
+
+## 1 Promise, audience, recurring example
+
+**Audience.** A curious viewer who knows what a function, a graph and a
+derivative are, and has heard of i. A programmer should be able to implement
+the winding count and the residue integral afterwards; a mathematician should
+find every hypothesis stated where it is used.
+
+**The hook is an honest failure on honest data.** The bump `1/(1+x²)` is smooth
+on the whole real line, yet its power series at zero diverges for every
+`|x| > 1`. Nothing on the real line explains this. The answer is two poles at
+`±i`, one unit from zero. The film resolves the hook in chapter 09 (radius of
+convergence = distance to the nearest singularity, from Cauchy's formula),
+makes a transfer prediction from it (recentre at 1: radius √2), and closes on
+it (recentre at 3: radius √10).
+
+**One recurring example.** The bump appears in 01 (hook), 04 (its two poles in
+colour), 09 (mean value on radius ½ holds, on radius 2 fails, the radius of its
+series), 12 (its residue), 13 (its area, π, as the method's sanity check before
+the hard integral) and 15 (close). Its sharper cousin `1/(1+x⁴)` carries the
+fully worked integral.
+
+**What the film refuses to say.** Differentiability at one point does not
+give rigidity (07 shows `|z|²`, complex differentiable only at 0, and any
+bounded multiple of it). Every Cauchy, identity, argument-principle and residue
+statement carries its hypothesis on screen and in the words. Continuation does
+not sum divergent series (14), can depend on the path (14), and can be
+impossible (14, a natural boundary). A colour picture of zeta proves nothing
+about the Riemann hypothesis (05).
+
+## 2 The arc
+
+| Act | Chapters | Spine |
+|---|---|---|
+| I. A puzzle and a way to see | 01 the bump, 02 numbers that turn, 03 two planes, 04 reading colour, 05 a gallery | a smooth curve whose series stops at one; complex multiplication is stretch and turn; maps drawn as two planes; the enhanced phase portrait read as direction and size; polynomial, rational, exponential, sine, tangent, gamma and zeta with their domains |
+| II. What a derivative demands | 06 one number from every direction, 07 one point is not enough | the limit from every direction; local similarity; Cauchy–Riemann derived and checked on z² at 1+i; reflection and squash fail; critical points; `|z|²` differentiable at one point only; holomorphic defined |
+| III. Rigidity | 08 walking a loop, 09 the boundary knows the inside, 10 rigid functions | contour sums drawn tip to tail; only 1/z survives; Cauchy's theorem by cancelling squares; the mean value on the bump, its failure when poles are inside; Taylor coefficients as weighted averages; the hook answered and a recentred prediction; identity theorem with its accumulation-point condition; real smooth functions are not rigid; Liouville |
+| IV. Counting and computing | 11 counting by walking, 12 residues, 13 a real integral | turns of the output count zeros minus poles; boundary radius forbidden; a quintic's roots counted without solving; the dog on a leash and the fundamental theorem of algebra; residue theorem and the simple-pole formula; π for the bump as a check, then π/√2 worked through every sign, with the arc bound |
+| V. Beyond the disk | 14 continuation and its limits, 15 closing | the geometric series and 1/(1−z); a chain of disks around the pole; divergent sums stay divergent (1+2+4+…, 1+2+3+…); √z changes sign around zero; a natural boundary; gamma continued strip by strip; the bump once more and a transfer question |
+
+## 3 Colour roles
+
+| Idea | Colour |
+|---|---|
+| the input plane, a tracked input point, an input step `h` | blue `#58C4DD` |
+| the output plane, an image point, an output arrow | green `#83C167` |
+| a loop, a contour, the recipe (Taylor polynomials) | hero gold `#FFD866` |
+| a zero (white dot with a dark ring) | ink `#ECEFF4` |
+| a pole (dark dot with a pink ring) | pink `#EC4E97` |
+| the local stretch-and-turn (the derivative's arrows and square) | teal `#5CD0B3` |
+| a failure, a forbidden radius, a divergent sum (dashed or crossed) | red `#FC6255` |
+| the prediction card and its countdown | violet `#B189D6` |
+| the domain colouring | its own continuous wheel: output direction 0 red, a quarter turn yellow-green, a half turn teal, three quarters violet; never used for anything else |
+
+**The colour picture (enhanced phase portrait).** Hue is the output's
+direction. Brightness rises through a band and drops at its edge each time the
+output's size grows by the factor `e^(2π/12) ≈ 1.69`, and dims along twelve
+phase lines, one every twelfth of a turn. With equal spacing in `log|f|` and
+`arg f`, the bands and lines of a holomorphic function cut the plane into
+nearly square tiles wherever `f′/f` is finite and nonzero (chapter 05's closing
+line and chapter 06's reason). Zeros and poles are always marked by the dot
+conventions above, so hue never carries a fact alone; colour-blind viewers can
+count phase lines around a point and read the direction of brightness.
+
+## Vocabulary (one word per idea)
+
+**point**, **arrow** (a complex number drawn from zero); **length** and
+**angle** of a complex number (modulus and argument appear once, on screen);
+**stretch and turn** (multiplication by a complex number); **input plane**,
+**output plane**; **direction** and **size** of an output; **zero**, **pole**,
+**order**; **the bump** (`1/(1+x²)`); **the recipe** (a power series; its
+partial sums are drawn); **complex derivative**; **holomorphic** (defined in
+07); **conformal** (named once); **critical point**; **loop**; **contour
+integral** (named in 08, said as "loop integral" after); **turns** (the winding
+number, named once); **residue**; **continuation**; **branch**. Never "analytic
+function", "Laurent series", "meromorphic" or "monodromy" aloud except where a
+beat defines the word.
+
+## 01_the_bump (~95 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 01_1 | Here is a perfectly smooth curve. One over one plus x squared. It rises to a peak of one at zero and fades away on both sides. It has no corners and no gaps, and it never blows up. We will call it the bump. | A real graph window (x from −3 to 3, y from −0.6 to 1.6). The bump draws left to right in ink; a dot rides it; at its peak a small label `1` (`bump.peak`). Title strip: "the bump: 1/(1 + x²)". | plot | |
+| 01_2 | Near zero there is a simple recipe for it. One, minus x squared, plus x to the fourth, minus x to the sixth, and so on. Each extra term should make the recipe better. | The recipe written as the series `1 − x² + x⁴ − x⁶ + …` above the window; the gold degree-2 parabola, then degree 4 and 6 replacing it in place (one gold curve morphing), each clipped to the window. | morph | |
+| 01_3 | Between minus one and one, it works, though near the ends it needs more and more terms. Just past one, it falls apart. At one point one, the recipe up to x to the fortieth gives about twenty five. The bump itself is less than one half there. | Degree climbs 10, 20, 40 (`bump.recipe40.*`). Two thin vertical guides at x = ±1. A live readout pair at x = 1.1: "recipe ≈ 25.2" (red, `bump.recipe40.at1_1`) against "bump = 0.452" (ink, `bump.at1_1`). The gold curve leaves the window steeply beyond ±1. | walker; live readout; formula | |
+| 01_4 | ⟨predict⟩ Nothing special happens to the curve at one. It is as smooth there as anywhere else. So what stops the recipe at exactly one? | The window holds; the guides at ±1 brighten. Violet card at right: "what stops the recipe at x = 1?" with its ring. | | listen 5 s |
+| 01_5 | The answer is not on this line at all. Let x be a complex number, and the bump has two points where it blows up. They sit at i and minus i, one unit above and below zero. A recipe built at zero only works inside the largest circle around zero that avoids them. That circle has radius one. | The graph window's x axis becomes the real axis of a plane: the window flattens and a vertical axis grows (dim). Two pink pole marks at ±i (`bump.poles`); a gold circle of radius 1 grows from 0 and stops touching them (`bump.radius0`). The interval (−1, 1) brightens as the circle's diameter. | plot | |
+| 01_6 | So points we could not see from the real line were deciding what happens on it. Complex functions are that rigid. By the end, the same idea will count roots we never find and compute a real area from points off the line. First, we need a way to see complex functions at all. | The circle and poles stay; a small preview strip at the right fades through three thumbnails that later chapters build: a colour plot, a loop with a turning arrow, a half-disk contour. | arrows | hold |
+
+## 02_turning_numbers (~85 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 02_1 | A complex number is a point in a plane. Its first part says how far right, its second part how far up. We write it as x plus i y, and draw it as an arrow from zero. | A plane with axes labelled "real part" and "imaginary part". A blue arrow from 0 to `3 + 2i` with dashed guides to 3 and 2i; label `3 + 2i`. | arrows | |
+| 02_2 | Adding two complex numbers puts their arrows tip to tail. Multiplying does something more interesting. Multiply every point of the plane by i, and the whole plane turns a quarter turn about zero. | A second arrow `1 − i` (green) slides to the tip of the first; their sum `4 + i` (ink). Then a blue grid with a marked F-shaped glyph of points turns a quarter turn counterclockwise as one piece (tracker 0 → 1). | live readout; arrows | |
+| 02_3 | So i times i is a half turn. It sends one to minus one. That is all that i squared equals minus one means. | The point 1 turns a quarter to i, another quarter to −1; arcs drawn; label "i · i = −1". | |  |
+| 02_4 | Multiplying by any complex number does two things at once. It stretches by that number's length and turns by its angle. Multiply by one plus i, and the plane grows by the square root of two and turns an eighth of a turn. | The arrow `1 + i` with its length `√2` and angle `45°` marked (`turn.one_plus_i.*`); the grid and glyph scale and turn together. Lower third: "length = modulus \|w\|, angle = argument arg w". | arrows | |
+| 02_5 | ⟨predict⟩ Multiplying by one plus i once makes an eighth of a turn. What happens if you multiply by it twice? Which number is one plus i, squared? | The glyph after one multiplication; violet card: "(1 + i)² = ?" | predict card | listen 5 s |
+| 02_6 | A quarter turn, with the stretch of the square root of two applied twice, which is two. So one plus i, squared, is two i. Lengths multiply and angles add. Hold on to that. Every complex derivative in this video will be one of these stretch and turn moves. | The glyph multiplies again: total turn 90°, total stretch 2 (`turn.square.*`); `(1 + i)² = 2i` boxed. Caption: "lengths multiply, angles add". | formula | hold |
+
+## 03_two_planes (~120 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 03_1 | A complex function takes a point and returns a point. Its graph would need four dimensions. Instead, draw two planes side by side. The input plane on the left, the output plane on the right. | Two framed planes, "input z" (blue) left and "output f(z)" (green) right, each with dim axes. | |  |
+| 03_2 | Start with squaring. Lengths multiply and angles add, so squaring squares each length and doubles each angle. Walk a point once around a circle of radius one half. Its image goes around a circle of radius one quarter, twice. | A blue point walks the circle `\|z\| = ½`; its green image walks `\|w\| = ¼` twice, leaving a trail; a turn counter reads "1 turn → 2 turns" (`square.circle.*`). | walker; live readout; formula | |
+| 03_3 | ⟨predict⟩ Now a grid of straight lines. After squaring, will the vertical lines stay straight? | A blue grid (vertical lines blue, horizontal lines gold, x and y in [−1, 1] step ½); the output plane empty; violet card "straight after z²?" | predict card | listen 4 s |
+| 03_4 | No. Every vertical line off the axis bends into a parabola, and so does every horizontal one. The two axes fold in half instead. The horizontal axis lands on the positive real ray, and the vertical axis on the negative one. But look where the curves cross. They still meet at right angles everywhere, except at zero. Keep that in mind. It is the first sign of something rigid. | Each input line flows into its image (polyline morph from the line to its z² image, exact pointwise): the off-axis lines x, y = ±½, ±1 become parabolas; the axis lines y = 0 and x = 0 fold onto the rays [0, ∞) and (−∞, 0], each covered twice, drawn with a fold tick at the origin. Small right-angle marks appear at three off-axis crossings in both planes; at the origin's image the two rays meet in a straight angle, marked red. | morph | |
+| 03_5 | One over z does something else. Points near zero go far away, and far points come close. The unit circle lands on itself as a whole, though each point flips across the horizontal axis. Inside and outside trade places. At zero itself there is no output at all. | Map `1/z`: a blue point inside the unit circle maps outside and back; the unit circle's points are tracked with tick marks that reflect. Zero is crossed out red on the input plane: "1/0 undefined". | |  |
+| 03_6 | The exponential turns the grid into something familiar. Moving right by one multiplies the output's length by e. Moving up turns the output, a full turn for every two pi you climb. So vertical lines become circles, and horizontal lines become rays from zero. | Map `exp`: input lines x = −1, 0, 1 map to circles of radius 1/e, 1, e (`exp.circle_radii`); input lines y = 0, π/2, π, 3π/2 map to rays. | formula | |
+| 03_7 | Climb two pi, and you land on exactly the same output. The exponential repeats as you climb, and it never reaches zero. Both facts will come back. | A blue point climbs from 0 to 2πi; its image goes once around the unit circle and returns to 1. Label "exp(z + 2πi) = exp(z)", and "exp(z) ≠ 0". | walker | hold |
+
+## 04_reading_color (~130 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 04_1 | Two planes show only a few curves at a time. To see a whole function at once, paint the input plane. At each input point, find the output, and colour the point by the output's direction. Pointing right is red. Pointing up is yellow green. Pointing left is teal, and pointing down is violet. | The colour wheel legend (a ring of hue around a small plane: the direction key); then the input plane fills, row strips sweeping in from the top, with the colour plot of `f(z) = z` itself: the wheel. Labels at the four directions. | formula | |
+| 04_2 | Colour alone hides how big the output is. So brightness climbs in bands. Each time the output's size grows by about one point seven, a new band begins. Thin dark lines also mark every twelfth of a turn in direction. | The same plot gains its brightness bands and twelve phase lines (tracker blends plain hue to the enhanced picture); the legend gains a size scale "band: size × 1.69" (`color.band_ratio`). | |  |
+| 04_3 | Now square. Every colour appears twice around zero, because squaring doubles each angle. And the colours run around zero in the same order as the wheel itself. | Recolour in place to `z²`; a gold loop around 0 with a small arrow showing the walking direction; along it, the hue sequence red, yellow green, teal, violet passes twice (`color.square.turns`). | arrows | |
+| 04_4 | Around a point where the output is zero, the colours always cycle in this order. Once for a simple zero, twice for a zero of order two, and so on. That is how to spot a zero, and its order, in a single glance. | A white zero dot at 0 with label "zero of order 2". Once the voice has finished, lower third "precisely: near a zero a of order m, f(z) is about c times (z − a) to the power m, so the hue turns m times as z circles a". | lower third | read 7.5 s |
+| 04_5 | One over z runs the colours the other way. Around a pole, where the output blows up, the colours cycle backwards. | Recolour to `1/z`; same gold loop; the hue runs red, violet, teal, yellow green; pink pole mark at 0, "simple pole". | |  |
+| 04_6 | ⟨predict⟩ Here is the bump, one over one plus z squared. Before the colours appear, where do you expect its poles, and how many times will the colours turn around each one? | The plane empty except the faint unit circle; violet card "bump: where are the poles? how many turns?" | predict card | listen 5 s |
+| 04_7 | Two poles, at i and minus i, each with one backwards cycle. And the circle of radius one around zero just touches them. That is the opening puzzle, seen in colour. | Recolour to the bump; pink marks at ±i; the gold circle of radius 1 from chapter 01 returns and touches both; the real axis segment (−1, 1) outlined. | | hold |
+
+## 05_gallery (~180 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 05_1 | Polynomials first. z cubed minus one has three zeros, evenly spaced on the unit circle. Far from zero, z cubed swamps the minus one, so a large loop sees the colours cycle three times. Three zeros inside. | Plot of `z³ − 1` over [−2, 2]²; three white zero dots at the cube roots of one (exact, from `Func::zeros`); a gold loop of radius 1.8 with a turn counter reading 3. | phase portrait (RowStrips); live readout | |
+| 05_2 | Rational functions divide one polynomial by another. Here z minus one, over z plus one squared. A simple zero at one, and at minus one a pole of order two, where the colours run backwards twice. | Plot of `(z − 1)/(z + 1)²`; white dot at 1, pink ring at −1 labelled "pole of order 2". | phase portrait (RowStrips) | |
+| 05_3 | The exponential has no zeros and no poles anywhere. Its direction depends only on height, and its size only on how far right you are. So its tiles are exact squares, repeating every two pi as you climb. | Plot of `exp z` over x ∈ [−3, 3], y ∈ [−4, 8]; a bracket on the right edge marks one period `2π` (`gallery.exp.period`). | phase portrait (RowStrips) | |
+| 05_4 | Sine has zeros at every multiple of pi on the real line, and nowhere else. On the real line it never passes one. But off the line it grows fast. Sine of i is about one point one eight i, and sine of three i is about ten i. | Plot of `sin z` over x ∈ [−2π, 2π], y ∈ [−3, 3]; white dots at −2π…2π; two readouts with arrows: `sin(i) ≈ 1.18i`, `sin(3i) ≈ 10.0i` (`gallery.sin.at_i`, `gallery.sin.at_3i`). | phase portrait (RowStrips); live readout; arrows | |
+| 05_5 | Tangent is sine over cosine. Its zeros and poles alternate along the real line. Far above the line, tangent settles toward i, and far below toward minus i, so the colours there go flat. | Plot of `tan z`; alternating white and pink marks; labels "→ i" above, "→ −i" below (`gallery.tan.far`). | phase portrait (RowStrips) | |
+| 05_6 | The gamma function extends the factorial. Gamma of n plus one is n factorial. It starts as an integral that only makes sense when the real part of z is positive. Yet the picture continues left, with a pole at zero, at minus one, at minus two, and on forever, and no zeros anywhere. Chapter fourteen shows how it gets there. | Plot of `Γ(z)` over x ∈ [−4.5, 4.5], y ∈ [−2.5, 2.5]; a dashed vertical line at Re z = 0 labelled "integral works to the right"; pink marks at 0, −1, −2, −3, −4 (`gallery.gamma.*`). Readouts `Γ(4) = 3! = 6`, `Γ(5) = 4! = 24`. | phase portrait (RowStrips); formula | |
+| 05_7 | The zeta function starts as one, plus one over two to the s, plus one over three to the s, and so on. That sum only settles when the real part of s is bigger than one. The picture goes further. A single pole at one. Zeros at minus two, minus four, and on. And more zeros climbing the line where the real part is one half. | Wide plot of `ζ(s)` over x ∈ [−7, 3], y ∈ [−3, 3] beside a tall strip x ∈ [−1, 2], y ∈ [0, 32]; dashed line Re s = 1 labelled "series converges to the right"; pink mark at 1; white marks at −2, −4, −6 and at ½ + 14.13i, 21.02i, 25.01i, 30.42i (`gallery.zeta.zeros`); a thin line at Re s = ½. | formula | |
+| 05_8 | No zero found so far sits off that line. Whether all of them lie on it is the Riemann hypothesis, still unsolved. A picture cannot settle it. | The four marked zeros highlighted on the line; card "Riemann hypothesis: open"; lower third "precisely: this plot shows four zeros, located by Newton's method." No count of verified zeros is spoken or shown (root review, Mail 622): a count needs a dated primary source checked by root first. | lower third | read 3.5 s |
+| 05_9 | These pictures share a pattern. Zeros and poles are isolated points. Between them, the colours flow smoothly in little tiles that are nearly square. That is not a coincidence. It comes from what a complex derivative demands. | A 2 × 3 mosaic of the gallery, then a zoom into one tile cluster of the cubic showing near-square tiles. | | hold |
+
+## 06_one_derivative (~170 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 06_1 | For a real function, the derivative compares a small change out with a small change in. Do the same for a complex function. Step from z by a small complex number h, and divide the change in the output by h. As h shrinks to zero, that ratio should settle on one complex number, the derivative. | Two planes, `f(z) = z²`, `z₀ = 1 + i`. A blue step arrow h from z₀; its green image `f(z₀ + h) − f(z₀)`; the quotient written as `[f(z₀ + h) − f(z₀)] / h`. | formula; arrows | |
+| 06_2 | In the plane, h can shrink from any direction. From the right, from above, along a spiral. The derivative exists only if every one of those approaches gives the same answer. That demand is much stronger than it looks. | Three blue paths of h shrinking to 0 (horizontal, vertical, a spiral); for each, a live readout of the quotient converging to `2 + 2i` (`deriv.value`). | live readout | |
+| 06_3 | Here is why. If the ratio is the same number from every direction, then near z, the function moves every small arrow the same way. It multiplies it by the derivative. And multiplying by a complex number is a stretch and a turn. So a tiny square around z lands as a tiny square, bigger and turned, but still square. | A small blue square at z₀ and its green image under z²; beside it the teal square `z₀² + f′(z₀)·(square − z₀)`. | |  |
+| 06_4 | Squaring at one plus i has derivative two times one plus i, which is two plus two i. It stretches by about two point eight and turns an eighth of a turn. Shrink the square, and its image gets ever closer to exactly that. | The square shrinks from side 0.5 to 0.05 while the camera of the right plane zooms to keep the image the same size; the green image approaches the teal square; a readout "largest gap ÷ image side: 0.088 → 0.0088" (`deriv.gap.*`). | live readout | |
+| 06_5 | Now write the rule in coordinates. Call the output's parts u and v. Step to the right, and the ratio becomes how fast u and v change as x changes. Step up, by i times a small number, and you also divide by i, which turns the answer back a quarter turn. The two answers must agree. | Two rows of formulas: horizontal step `u_x + i v_x`; vertical step `(u_y + i v_y)/i = v_y − i u_y`. | formula | |
+| 06_6 | That gives two equations. The rate of u along x equals the rate of v along y. The rate of v along x is minus the rate of u along y. These are the Cauchy Riemann equations. | `u_x = v_y` and `v_x = −u_y` boxed; names to search: "Cauchy–Riemann equations". | names to search; formula | |
+| 06_7 | In matrix form, the local map must be a stretch and a turn, with no squash and no reflection. For squaring at one plus i, the four rates are two, minus two, two, and two. That grid is exactly multiplication by two plus two i. | The Jacobian `[[u_x, u_y],[v_x, v_y]] = [[a, −b],[b, a]]`; then the numbers `[[2, −2],[2, 2]]` (`deriv.jacobian`), morphing to `= 2√2 × turn 45°`. | morph; formula | |
+| 06_8 | ⟨predict⟩ Here is a simple map. Reflect the plane across the horizontal axis. It sends x plus i y to x minus i y. Does it have a complex derivative anywhere? | Two planes, the map `z̄`; a small blue square and its mirror image; violet card "derivative anywhere?" | predict card | listen 5 s |
+| 06_9 | Nowhere. Step to the right, and the ratio is one. Step up, and the ratio is minus one. A reflection reverses every little square, and no stretch and turn can do that. Squashing fails too. Double every height, and squares become tall rectangles. | The two quotients `1` and `−1` (`deriv.conj`); the square's orientation arrow reversed (red cross). Then `x + 2iy`: square → rectangle, red cross. | arrows | hold |
+
+## 07_one_point (~120 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 07_1 | Where the derivative is zero, the picture changes. Squaring has derivative zero at zero. Two lines crossing there at a right angle come out as two rays pointing in opposite directions. The angle has doubled, from a right angle to a straight line. | Two planes, `z²` at 0: blue lines along 0° and 90°; green images along 0° and 180°; angle marks 90° → 180° (`critical.angle_*`). | |  |
+| 07_2 | So a nonzero derivative keeps angles. A map like that is called conformal. A point where the derivative is zero is a critical point, and there angles get multiplied. | A small blue cross at −0.7 + 0.6i and its green image under `z²`, both marked 90° ("derivative ≠ 0: angles kept (conformal)"); then "derivative = 0: a critical point, angles multiplied" and the lower third "precisely: if the first m − 1 derivatives vanish at a point and the m-th does not, angles there are multiplied by m". | lower third | read 4.5 s |
+| 07_3 | ⟨predict⟩ A subtler question. Take the function that sends z to the square of its length. At zero, does it have a complex derivative? | `f(z) = \|z\|² = x² + y²` written; its colour picture (all red: outputs are real and positive, brightness rings); violet card "derivative at 0?" | phase portrait (RowStrips); predict card; formula | listen 5 s |
+| 07_4 | It does. The ratio is the square of the length of h, divided by h. Its size is the length of h, which shrinks to zero from every direction. So the derivative at zero exists, and it is zero. | `\|h\|²/h = h̄`; three approach paths with readouts shrinking to 0 (`onepoint.at0`). | live readout; formula | |
+| 07_5 | Move to the point one. Step right, and the ratio heads to two. Step up, and it heads to zero. This function has a complex derivative at exactly one point in the whole plane, and that buys almost nothing. Multiply it by any bounded function at all, smooth or jagged, and the product still has derivative zero at zero. | At the point 1: readouts "→ 2" horizontal, "→ 0" vertical (`onepoint.at1`), red cross. Then a jagged bounded g painted on the plane (polar cells at every scale, hue for direction, \|g\| ≤ 1, no limit at 0) times `\|z\|²`: a whole disk of steps h, and in the ratio's window every ratio from them jumping about but always inside the disk of radius \|h\|; both disks shrink together with a live "inside radius" (`onepoint.squeeze.radii`), and `\|g(h)\|\|h\|²/\|h\| ≤ M\|h\| → 0`: still "derivative 0 at 0". | live readout | |
+| 07_6 | The strong results ahead need more. They need the derivative to exist at every point of an open region, so that around each point there is a small disk where it works everywhere. A function like that is called holomorphic on the region. From here on, every claim carries that condition. | A region drawn as an open blob; at three points small disks inside it; the word "holomorphic on U" with its definition card. | morph | hold |
+
+## 08_loop_sums (~140 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 08_1 | To see what holomorphic buys, we need one new tool. Walk around a loop in small steps. At each step, take the function's value there, and multiply it by the step, as a complex number. Then add all those products. As the steps shrink, the total is the contour integral around the loop. | The unit circle in gold cut into 24 steps; at one step: the value `f(z_k)`, the step `Δz_k`, their product arrow. Formula `∮ f(z) dz ≈ Σ f(z_k) Δz_k`. | formula; arrows | |
+| 08_2 | Draw each product as an arrow, and lay the arrows tip to tail. For f of z equals z, around the unit circle, the arrows curl around and close up. The total is zero. | Right panel: the 24 product arrows laid tip to tail for `f(z) = z`; they close into a doubled polygon; readout "total = 0" (`loop.z.total`). | live readout; formula; arrows | |
+| 08_3 | Now one over z. At each step, dividing by z undoes the turn of the step's position, and what is left points straight up. The arrows stack into a column. As the steps shrink, the total becomes two pi i, whatever the size of the circle. | For `1/z`, the arrows stack vertically; readout "24 steps: 6.27i" (`loop.inv.total24`) then "limit: 2πi ≈ 6.28i". The circle grows to radius 2: same column. | live readout; arrows | |
+| 08_4 | Every other whole power of z gives zero. The arrows always close up. Only one over z survives, and that single fact powers most of what follows. | A row of small tip-to-tail diagrams for z⁻³, z⁻², z⁻¹, z⁰, z¹, z²: all closed except z⁻¹ (`loop.powers.*`). | |  |
+| 08_5 | Cauchy's theorem says more. If a function is holomorphic on a loop and everywhere inside it, its loop integral is zero. Here is the idea. Cut the inside into tiny squares. Around each one, the function is almost a constant plus a stretch and turn, and those integrate to zero. Neighbouring squares walk their shared edge in opposite directions, so the inner edges cancel, and only the outer loop is left. | A square loop γ tiled by small squares (a square, so the tiling is exact; a disk would leave cut cells at its rim), each with a little circulating arrow; one shared edge's two opposite walks flash, the inner edges cancel; only the boundary stays lit. Once the voice has finished, lower third "precisely: Goursat's lemma: each square's error shrinks faster than its area; no continuity of f' is assumed". | lower third; arrows | read 5 s, hold |
+
+## 09_boundary (~210 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 09_1 | Here is the payoff. Take a function holomorphic on a disk and a little beyond its edge, and divide it by z minus a, where a is the centre. Near a, that quotient looks like f of a, times one over z minus a. The rest is holomorphic, and integrates to zero. So the loop integral is two pi i times f of a. | A disk centred at a, gold boundary; the quotient `f(z)/(z − a)` split as `f(a)/(z − a) + [f(z) − f(a)]/(z − a)`; the second piece marked "holomorphic → 0". | morph | |
+| 09_2 | Around a circle centred at a, that has a simple meaning. The value at the centre is the average of the values on the circle. This is Cauchy's integral formula. | `f(a) = (1/2πi) ∮ f(z)/(z − a) dz = average of f on the circle`; names to search: "Cauchy's integral formula". | names to search; formula | |
+| 09_3 | Try it on the bump, on a circle of radius one half around zero. Eight sample points already average to within half a percent of one, which is the bump's value at zero. With sixteen samples, it is off by about fifteen millionths. | The bump's colour picture with a radius ½ gold circle; 8 sample dots, each with its value; live average "1.0039" (`cauchy.r_half.n8`), then 16 dots "1.000015" (`cauchy.r_half.n16`). | phase portrait (RowStrips) | |
+| 09_4 | ⟨predict⟩ Now take a circle of radius two. The bump is still one at the centre. Is the average around this bigger circle still one? | Radius 2 circle with 16 samples, average hidden; violet card "average = 1?" | predict card | listen 5 s |
+| 09_5 | It is zero. The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic. Each pole pulls the average down by one half. The formula only holds when the function is holomorphic out to the circle and a little beyond. | Average readout "−0.000015" (`cauchy.r_two.n16`) → "limit 0"; the two pink poles flash with "− ½" each (`cauchy.pole_share`). With the last sentence, lower third "precisely: Cauchy's formula needs f holomorphic on an open set containing the closed disk: on the circle and inside it". | live readout | read 3 s |
+| 09_6 | The same circle tells you more than the value. Turn each sample back by its own angle, average, and divide by the radius. That gives the slope at the centre. Turn back by twice the angle and divide by the radius squared, and you get the next coefficient of the recipe. Every derivative at the centre is hidden in the boundary values. | Formula `cₙ = (1/rⁿ) · average of f(a + r e^{iθ}) e^{−inθ}`; for the bump at radius ½, 16 samples: `c₀ ≈ 1, c₁ ≈ 0, c₂ ≈ −1, c₄ ≈ 1` (`cauchy.coef`). | formula | |
+| 09_7 | Those coefficients build a power series, and Cauchy's formula shows it converges on the largest disk around the centre where the function stays holomorphic. That answers the opening puzzle. The bump is holomorphic everywhere except at i and minus i. From zero they are one unit away, so the recipe works out to radius one, and since the bump blows up at i, no further. | The chapter 01 graph returns below the plane; the radius 1 circle touches ±i; the recipe on (−1, 1) glows. | plot | |
+| 09_8 | ⟨predict⟩ Recentre the recipe at x equals one. How far along the real line will it work now? | The centre dot slides to 1; the circle shrinks to nothing; violet card "recipe at 1: works from ? to ?" | predict card | listen 6 s |
+| 09_9 | The nearest poles are now the square root of two away. So the new recipe works from about minus point four one to about two point four one. A computer check of sixty terms agrees. | Circle of radius √2 around 1 through ±i (`recentre1.radius`); on the graph, gold partial sums of the recipe at 1 hug the bump on (−0.41, 2.41) and leave it outside (`recentre1.left`, `recentre1.right`, `recentre1.check.*`). | plot | hold |
+
+## 10_rigidity (~130 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 10_1 | This makes holomorphic functions astonishingly rigid. Take two of them on a connected region. If they agree along any little curve, they agree everywhere. Even agreeing on a sequence of points that piles up at a point inside the region is enough. | A connected region; a short curve in it highlighted; the agreement spreads by a chain of overlapping disks across the region. Names to search: "identity theorem". | |  |
+| 10_2 | Sine squared plus cosine squared equals one for every real number. Both sides are holomorphic on the whole plane, and they agree along the real line. So the identity holds for every complex number, even where sine and cosine are huge. At three i, sine squared is about minus one hundred, cosine squared is about one hundred and one, and they still add to one. | Readouts at 3i: `sin²(3i) ≈ −100.36`, `cos²(3i) ≈ 101.36`, sum `1` (`rigid.trig.*`). | |  |
+| 10_3 | Real smooth functions have no such rigidity. This curve is exactly zero for every negative x, then rises smoothly. It agrees with zero on a whole half line, yet it is not zero. Every derivative exists at zero, and every one is zero, so its power series misses the curve completely. | Graph of `e^{−1/x}` (x > 0), 0 (x ≤ 0); the zero recipe drawn in gold along the axis, red gap to the curve. | |  |
+| 10_4 | ⟨predict⟩ Sine of one over z is zero at one over pi, one over two pi, one over three pi, and so on. Those zeros pile up at zero. Must the function be zero everywhere? | Colour picture of `sin(1/z)` near 0 with white zero dots accumulating at 0; violet card "forced to be 0?" | phase portrait (RowStrips); predict card | listen 5 s |
+| 10_5 | No. The pile up point is zero, and zero is not in the region, because the function is undefined there. The theorem needs the pile up point inside the region. Nothing forces sine of one over z to vanish, and it doesn't. | Zero crossed out red on the plane: "not in the region"; the condition highlighted on the theorem card. With "The theorem needs", lower third "precisely: identity theorem: if f and g are holomorphic on a connected open set U and agree on a set with a limit point in U, then f = g on U". | | read 8.5 s |
+| 10_6 | Rigidity also limits what is possible. A function holomorphic on the whole plane that stays bounded must be constant. That is Liouville's theorem. It is why sine, trapped between minus one and one on the real line, must grow huge somewhere else. | Sine's colour picture returns with its growing brightness bands; names to search: "Liouville's theorem". | phase portrait (RowStrips); names to search | hold |
+
+## 11_counting (~200 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 11_1 | Back to colour. Walk a loop in the input plane and watch the output's direction. Around a simple zero, the output makes one full turn, the same way you walk. Around a zero of order two, it makes two. Around a simple pole, it makes one turn the other way. | Left: colour picture with a gold loop and a walker; right: the output plane with the image point and its arrow from 0; a turn counter reading 1, 2 and −1 for z, z² and 1/z around 0 (`argument.local`). | phase portrait (RowStrips); walker; live readout; arrows | |
+| 11_2 | For a loop around several of them, the turns add. So the number of turns equals the zeros inside minus the poles inside, each counted by its order. This is the argument principle. It needs a loop that winds once counterclockwise, passes through no zero or pole, and a function that is holomorphic inside except at poles. | On "several of them" the walker goes round \|z\| = 1.6 on `(z − 1)/(z + 1)²`, zero at 1 and double pole at −1, and its count lands on −1 (`argument.several.turns`). The rule `turns = zeros − poles` boxed; on "each counted by its order", "+1" and "−2" on the two marks and the sum "+1 − 2 = −1"; names to search: "argument principle, winding number". The three hypotheses as small cards, each on the words that name it, beside the loop and marks they are about. | names to search; formula | |
+| 11_3 | Here is a function with a zero at zero point four five and a pole at one point three five. A circle of radius zero point eight encloses only the zero, and the output turns once. Grow the circle to one point seven, and it encloses both. The zero's turn and the pole's turn cancel, so the count is zero. The count is always a net total. An output could circle zero once and then unwind, and it would still count zero. | `f(z) = (z − 0.45)/(z − 1.35)`, with "zero at 0.45", "pole at 1.35" and the loop's radius in rows over the picture: loop radius 0.8, counter "1"; the same loop grows to radius 1.7, counter "0" (`argument.rational.*`); output curves drawn in the right plane, rescaled to fit (at radius 1.7 the image is a circle off zero, swinging about ±42°). On the last two sentences a small inset: a schematic curve that circles 0 once counterclockwise, then once clockwise, with an arrow on each circle, counter "+1 − 1 = 0". | live readout; formula | |
+| 11_4 | At radius one point three five exactly, the loop runs through the pole, and the output shoots off to infinity. There the count has no meaning. The loop must avoid every zero and pole. | Radius 1.35 named in red, on a red dashed loop: the walker heads for the pole while the true output runs up the window and leaves it ("off the window"); the readout `\|f\| =` carries on climbing and stops at a finite 30.0, 0.03 from the pole (`argument.rational.near_pole.*`). No value is drawn at the pole. Then the label "loop through a pole: not allowed". | |  |
+| 11_5 | ⟨predict⟩ This polynomial, z to the fifth minus three z plus one, has five roots. How many of them lie inside the unit circle? | Plain axes and the unit circle, with no colour, since the colouring would show the answer; no zero dots yet; violet card "z⁵ − 3z + 1: how many roots inside the unit circle?" | phase portrait (RowStrips); predict card | listen 6 s |
+| 11_6 | One. Walk the unit circle, and the output turns around zero exactly once. On that circle, the minus three z term is always bigger than the other two terms combined, so the output follows minus three z, which turns once. | The quintic's colour comes up once the think time is over. The walker on the unit circle; output trace turns once (`argument.quintic.unit`), with a faint reference trace of −3z, named (a circle of radius 3 starting at −3, a half turn ahead of 3z) that the output shadows; inequality card "\|z⁵ + 1\| ≤ 2 < 3 = \|−3z\|"; then white dots appear: one inside at 0.335, four outside (`argument.quintic.inside`, `argument.quintic.smallest`). Once the voice has finished, lower third "precisely: output drawn with its direction exact and its size compressed, so every turn around 0 is the function's own". | walker; formula | read 7 s |
+| 11_7 | The same trick proves that every polynomial has roots. Take one of degree n, starting with z to the n. On a huge circle, z to the n dwarfs the other terms. Picture z to the n as a walker going n times around zero, and the polynomial as a dog on a leash. The leash is shorter than the walker's distance from zero, so the dog circles zero n times too. So there are exactly n roots inside, counted by order. | The quintic on \|z\| = 3: z⁵ (blue walker) and the polynomial (green dog) with a leash; both circle 5 times (`argument.quintic.big`). Names to search: "fundamental theorem of algebra, Rouché's theorem". | walker | |
+| 11_8 | For programmers. This counts roots inside a loop without finding them. Walk the loop in small steps, add up the change in the output's angle at each step, and divide by a full turn. But samples alone can miss a turn made quickly between them. So bound how fast f can change on the loop, and take steps so small that the output cannot move as far as its distance from zero. Then no turn can hide between samples, and the count is certain. | Code panel (below) slides in; left of it the check runs on a real coarse loop, z⁸ on the unit circle (`argument.coarse.*`). Eight samples all land on 1: "8 samples say 0 turns"; a walker then shows a whole turn hiding in every step: "between the samples: 8 turns". `L = 8`: one step's reach 6.28 ≥ \|a\| = 1, wider than the output window, which is shaded with "reach covers 0"; the refuse line of the code is banded and the row reads "refuse". At 64 steps the reach 0.79 is a teal disk around `a` that misses 0, and the row reads "passes"; on "cannot move" the disk is carried once round the output circle with the distance from 0 drawn, and 0 is never inside it. A card gives "64 steps: 8 turns, certain". The check then stands still with the panel beside it, so the code can be read against what the voice described. | code panel | read 7.5 s, hold |
+
+Code panel for 11_8 (the check is `winding_certified` in `src/model.rs`;
+the counts the film states come from it, with a derivative bound proved per
+loop in `src/facts.rs`):
+
+```text
+turns = 0
+for k in 0..n:
+    a = f(loop(k / n)); b = f(loop((k + 1) / n))
+    if L * step >= |a|: refuse    # L bounds |f'| on the loop
+    turns += angle(b / a)         # in (−π, π]
+turns /= 2π                       # zeros − poles inside
+```
+
+## 12_residues (~90 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 12_1 | Counting turns is one use of a bigger idea. Near a pole, a function looks like a few negative powers of z minus p, plus something holomorphic. Around a small loop, all of those terms integrate to zero, except one over z minus p. Its coefficient is called the residue. | Expansion `f(z) = a₋₂/(z − p)² + a₋₁/(z − p) + (holomorphic)` with `a₋₁` in hero gold; the chapter 08 column of arrows returns for the `1/(z − p)` term. | morph; formula; arrows | |
+| 12_2 | So a loop integral is two pi i times the sum of the residues inside. That is the residue theorem. For a simple pole of g over h, where h is zero but its derivative is not, the residue is g over the derivative of h, both at the pole. | `∮ f dz = 2πi Σ residues inside` beside the big loop with its direction arrow; the small loops, each with its own arrow, and the corridors walked both ways are laid down one piece at a time, and the big loop dims; names to search: "residue theorem"; `g/h ≈ g(p)/(h′(p)(z − p))`, then `Res = g(p)/h′(p)` on "the residue is". | names to search; formula | |
+| 12_3 | The turns we counted are residues too. Near a zero of order m, f prime over f has residue m. Near a pole of order n, its residue is minus n. | `f′/f` near a zero `≈ m/(z − z₀)`; near a pole `≈ −n/(z − p)`. | |  |
+| 12_4 | For the bump, the bottom is one plus z squared, and its derivative is two z. At i, that is two i. So the residue of the bump at i is one over two i. | `Res_{z=i} 1/(1 + z²) = 1/(2i)` (`residue.bump.at_i`). | formula | hold |
+
+## 13_real_integral (~240 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 13_1 | Now a real question. What is the area under the bump, along the whole real line? You may know it from calculus. The antiderivative is the arctangent, and the area is pi. Here is a second way, with no antiderivative at all. | The bump's graph with the area shaded; `∫ dx/(1 + x²) = arctan x |₋∞^∞ = π`, which dims on "a second way". | |
+| 13_2 | Walk along the real line from minus R to R, then come back along a big half circle above it. Inside this loop sits one pole, at i. So the loop integral is two pi i, times one over two i. That is exactly pi. | The plane, with −R and R named: a walker draws the gold segment and then the upper semicircle as the voice walks them, each getting its counterclockwise arrow as it is finished; pink pole at i inside, at −i outside; `2πi · 1/(2i) = π` (`integral.bump.loop`). | live readout; formula; arrows | |
+| 13_3 | On the half circle, z squared has length R squared, so the bump is at most one over R squared minus one. The half circle has length pi R. So that part of the loop is at most pi R over R squared minus one, which shrinks to zero as R grows. All of pi comes from the real line. | A point walks the half circle with its spoke R (`\|z²\| = R²`) while the bump's size is traced along the arc unrolled; the max line `1/(R² − 1)` is touched at the top. The arc lights with the base `πR`. Then the rectangle length × max with `\|∫_arc\| ≤ πR · 1/(R² − 1) = πR/(R² − 1)`, growing long and flat as R goes 2 → 5 → 10 (`integral.bump.radii`) with live readouts of R and its area (`integral.bump.arc`). Meanwhile the plane keeps the loop's size and rescales, so i and −i close in, with a note under the plane that says so. Last, the real segment lights and the bump's area brightens. | live readout | |
+| 13_4 | Now a harder area. One over one plus x to the fourth. Its antiderivative exists, but it looks like this. Instead, use the same loop. | Graph of `1/(1 + x⁴)`; the antiderivative written out in full (two logarithm terms and two arctangents) and then dimmed. | |  |
+| 13_5 | ⟨predict⟩ The bottom is zero at the four fourth roots of minus one. They sit on the unit circle at forty five, one hundred thirty five, two hundred twenty five and three hundred fifteen degrees. Which ones lie inside the half circle loop? | Four dim dots on the unit circle at 45°, 135°, 225°, 315° (`integral.quartic.roots_deg`); the contour; violet card "which are inside?" | predict card | listen 5 s |
+| 13_6 | The two above the real line. Call them p one and p two. | p₁ = e^{iπ/4}, p₂ = e^{3iπ/4} turn pink; the two below stay dim. | |  |
+| 13_7 | Each is a simple pole, so its residue is one over the derivative of the bottom, one over four p cubed. Because p to the fourth is minus one, one over p cubed is minus p. So each residue is minus p over four. | `h = 1 + z⁴: Res = 1/h′(p) = 1/(4p³)`; `p⁴ = −1 ⇒ 1/p³ = −p`; `Res = −p/4` (symbolic; the values follow in 13_8 as `integral.quartic.sum`). | formula | |
+| 13_8 | Add the two. The real parts of p one and p two cancel, and each has imaginary part the square root of two over two. So the residues add to minus i times the square root of two, over four. | p₁ and p₂ as arrows; their sum `i√2` drawn tip to tail, named; `Im p = √2/2` on "each has imaginary part"; a quarter of that arrow turned to point down, named "sum"; `Σ Res = −i√2/4` (`integral.quartic.sum`). | formula; arrows | |
+| 13_9 | Multiply by two pi i. The two i's make minus one, which cancels the minus sign, and the area is pi over the square root of two. About two point two two. | `2πi · (−i√2/4) = π√2/2 = π/√2 ≈ 2.22` (`integral.quartic.value`), boxed. | formula | |
+| 13_10 | And the half circle? On it, the function is at most one over R to the fourth minus one, so that part is at most pi R over R to the fourth minus one. At R equals ten, that is already less than one three hundredth. A numerical sum along the real line agrees with pi over the square root of two. | The half circle lights; the max `\|1/(1 + z⁴)\| ≤ 1/(R⁴ − 1)`, then length × max `πR · 1/(R⁴ − 1) = πR/(R⁴ − 1)`; 0.4189 at R = 2, 0.0031 < 1/300 at R = 10 (`integral.quartic.radii`, `integral.quartic.arc`, `integral.quartic.under`); a Riemann-sum readout 2.2214 (`integral.quartic.numeric`). | live readout; formula | |
+| 13_11 | One honest note. The real integral converges on its own, because the function falls off fast in both directions. That is what lets us find it as the limit of the stretch from minus R to R. | While the voice speaks, lower third "precisely: the integral of \|f\| over the line is finite, so the improper integral is the limit of the integral from −R to R". When it has finished, a fuller card replaces that one with its first line in the same place, adding the clause the voice never says: "; for slowly decaying f that symmetric limit can exist when the integral does not". | lower third | read 5 s, hold |
+
+## 14_continuation (~210 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 14_1 | The bump's recipe stops at radius one. Is the bump itself stuck inside that circle? Of course not. We know it everywhere. A function given by a series can often be extended beyond where its series works. This is called analytic continuation. | The bump's colour picture with the radius-1 disk outlined; outside the disk the picture is the same function; the poles marked and named i and −i. | phase portrait (RowStrips) | |
+| 14_2 | The clearest example is one, plus z, plus z squared, and so on. Inside the unit circle it adds up to one over one minus z. At one half, the sums settle on two. At one point two, they grow without limit. But one over one minus z makes perfect sense at one point two. It equals minus five. | On "Inside the unit circle", a small plane with the unit disk; a dot at 1/2 inside it and a dot at 1.2 outside it as each chart starts. Partial sums at 0.5 (blue) and 1.2 (red) as growing columns: `1, 1.5, 1.75 … → 2` and `1, 2.2, 3.64 … 32.2 after 11 terms` (`series.half.*`, `series.one_two.*`); `1/(1 − 1.2) = −5`. | formula; plot | |
+| 14_3 | Because holomorphic functions are rigid, a function has at most one holomorphic extension to a given connected region. Two extensions that agree on the small disk agree everywhere in that region. You can also build an extension step by step. Re-centre the series at a point inside the disk, and its new disk pokes outside the old one. Chain disks along a path, and you can walk all the way around the pole at one. Each step along the path is forced. Here every path gives back one over one minus z, but that is not always so. | The unit disk, named "small disk", and the pole, named 1; a new disk centred at −0.5 with radius 1.5 (`continuation.first_disk.radius`); then a chain of disks around z = 1 with the path drawn through their centres, each radius = distance to 1 (`chain_centres`), and the row "each disk stops at the pole at 1"; at the end the row "here every path gives 1/(1 − z); not always". Lower third "precisely: uniqueness is for one connected region; continuation along a path is unique for that path." | lower third; formula | read 5.5 s |
+| 14_4 | ⟨predict⟩ So what does one plus two plus four plus eight, and so on forever, add up to? | `1 + 2 + 4 + 8 + …` and the formula `1/(1 − z)` at z = 2; violet card "= ?" | predict card; formula | listen 5 s |
+| 14_5 | It has no sum at all. The partial sums grow without limit. The continued function equals minus one at two, but that is a value of the function, not a sum of the series. Continuation extends the function. It never makes a divergent series converge. The same goes for the famous claim that one plus two plus three, and so on, equals minus one twelfth. Minus one twelfth is the value of the continued zeta function at minus one. The sum itself diverges. | Red partial sums climbing; `1/(1 − 2) = −1` in the function's colour, separated by a vertical bar from "the series diverges"; then `ζ(−1) = −1/12` beside `1 + 2 + 3 + …` diverging (`continuation.zeta_minus1`). | formula; plot | |
+| 14_6 | A second limit. Continuation can depend on the path. Start with the square root near one, where it is one. Carry it continuously once around zero. When you come back, it has become minus one. The logarithm does the same, gaining two pi i each time around. That story has its own video. | A blue point walks the unit circle from 1; a green arrow `√z` turns half as fast and ends at −1 (`continuation.sqrt.end`), with 1 and −1 named on its plane; label "√ after one loop: −1". | walker; arrows | |
+| 14_7 | A third limit. Sometimes there is no way across at all. This series adds z, z squared, z to the fourth, z to the eighth, and on, doubling the power each time. It converges inside the unit circle, but near a dense set of points on the edge it blows up. No continuation can cross the circle anywhere. | Colour picture of `Σ z^(2ⁿ)` (12 terms) inside \|z\| < 0.98, its boundary increasingly frantic; the circle drawn red: "natural boundary". | phase portrait (RowStrips) | |
+| 14_8 | When a continuation does exist, a formula usually does the work. Gamma's integral only works to the right of the vertical line through zero. But gamma of z equals gamma of z plus one, divided by z. Use that to step left, one strip at a time, and each step adds a new pole, at zero, minus one, minus two, and on. | The gamma picture revealed strip by strip from the right: Re z > 0 first, its edge named "Re z = 0", then (−1, 0], (−2, −1] …, each with a new pink pole; formula `Γ(z) = Γ(z + 1)/z`. | formula | hold |
+
+## 15_closing (~80 s)
+
+| id | words | picture | features | hold/listen |
+|---|---|---|---|---|
+| 15_1 | Back to the bump on the real line. Its recipe stopped at one because of two points we could not see from the line, at i and minus i. | Chapter 01's graph and recipe, then the plane rises behind it with the poles and the radius 1 circle; held a moment after the voice. | plot | |
+| 15_2 | Everything since came from one demand. The complex derivative must be the same from every direction. On an open region, that makes every small piece of the map a stretch and a turn. It lets boundary values decide the inside. It lets a loop count zeros and poles, and it turns a real integral into a sum of residues. It allows at most one extension to a given connected region, though not always everywhere, and along different paths a continuation can branch. | Chapter 06's quotient with its limit, beside "the same from every direction"; a recap strip of five small pictures from 06, 09, 11, 13, 14, each lit as named; held a moment after the voice. | |  |
+| 15_3 | ⟨predict⟩ One question to take with you. Centre the bump's recipe at x equals three. How far will it reach? | The plane with the centre at 3; violet card "radius at 3?" | predict card | listen 6 s |
+| 15_4 | To the poles at i and minus i, which are the square root of ten away. About three point one six in each direction. | Circle of radius √10 around 3 through ±i (`recentre3.radius`); the interval (−0.16, 6.16) on the real line. Title card. | title card | hold |
+
+## Remaining production work (not done here)
+
+Narrator: ElevenLabs Oliver (owner instruction, Mail 611), synthesized
+serially by root through the guarded ElevenLabs lane; every cue in
+`script.tsv` is new against canonical. Root's script review (Mail 622) is
+applied to 03_4, 05_8, 11_3, 11_6, 11_8, 14_3 (and 15_2 to match 14_3); the
+version root read is kept as `docs/script-as-reviewed-mail622.tsv`.
+Pronunciation lexicon (Cauchy, Riemann, Liouville, Rouché, Goursat,
+Lanczos), the de-slopify pass after review, narration, draft renders,
+contact and cue sheets, listening and fine sync are all open. Chapter timings
+above are reading estimates, not measurements.

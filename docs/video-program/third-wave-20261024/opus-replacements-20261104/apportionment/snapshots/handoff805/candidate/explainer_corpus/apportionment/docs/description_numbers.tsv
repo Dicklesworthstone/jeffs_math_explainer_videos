@@ -1,0 +1,8 @@
+#! legacy: the description names oracle.py keys in prose, not in the tool's [X-Y.key] tag form; any oracle fact will do until it is tagged
+# Apportionment rebuild candidate: the numbers of docs/description.md that are not a number of a fact (python3 -I tools/description_numbers.py apportionment).
+# number	context (a piece of the line it stands in)	kind (year, cited, structural)	reason
+# Grouped facts ("4,000") are read with --facts set to the same oracle output with the thousands commas removed.
+1880	After the 1880 census	year	Young, Fairness in Apportionment, census PDF p. 13 (printed p. 12): Seaton's apportionments after the 1880 census
+6.2	Proposition 6.2	cited	Balinski and Young 1982, Proposition 6.2, as cited by Gölz, Peters and Procaccia, arXiv 2202.11061v2, §3.1
+4604	p. 4604	cited	page of Balinski and Young, PNAS 71(11) 4602–4606, 1974, that defines E(h + 1) and states Theorem 2
+2010	Robinson and Ullman (2010)	year	inside the verbatim quote from Gölz, Peters and Procaccia §3.1 (their citation of Robinson and Ullman 2010)

@@ -1,0 +1,39 @@
+{
+  "created_utc": "2026-11-02T14:47:34.452926+00:00",
+  "scope": "Local draft proposals only; no listening, speech alignment or accessibility acceptance. Timing, block count and flattened caption text unchanged.",
+  "files": [
+    {
+      "project": "exponential",
+      "chapter": "03_three_definitions",
+      "original": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/exponential-native-unified-03_three_definitions-preview01/draft/exponential_magic.en.srt",
+      "original_sha256": "f1b73bb549488f4dd47bde6902bf0fd0017e91bb673dcc96bf39d8be1167953d",
+      "proposal": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/caption-reflow-proposals-20261102/exponential-03_three_definitions-proposed.srt",
+      "proposal_sha256": "4f84a873d0793ea174bfb615c109feafe6a26d0f3b35c98219bfe5b994c644b8",
+      "blocks": 14,
+      "line_breaks_changed": 2,
+      "timestamps_and_flattened_block_text_equal": true
+    },
+    {
+      "project": "exponential",
+      "chapter": "06_logarithm_bridge",
+      "original": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/exponential-native-unified-06_logarithm_bridge-preview01/draft/exponential_magic.en.srt",
+      "original_sha256": "dc8e59f941105c9051245d36d9a08e7a78541d442be7a5aed296b6d12be80bf7",
+      "proposal": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/caption-reflow-proposals-20261102/exponential-06_logarithm_bridge-proposed.srt",
+      "proposal_sha256": "e68421acf1593272a37d5758be897cf398201debafb59ce03aef34ddf94a5dba",
+      "blocks": 7,
+      "line_breaks_changed": 1,
+      "timestamps_and_flattened_block_text_equal": true
+    },
+    {
+      "project": "logarithm",
+      "chapter": "00_opening",
+      "original": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-native-opening-map05-voice-preview01/draft/logarithm_mysteries.en.srt",
+      "original_sha256": "a06e2b84d1d62c03c8768135f57d7e2bd2c77ba7ef32c84ec007431b302bd75c",
+      "proposal": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/caption-reflow-proposals-20261102/logarithm-00_opening-proposed.srt",
+      "proposal_sha256": "2bf75bafb5fe34f70387a238034956da3aee6471f71bfb6205054b70e34a1698",
+      "blocks": 10,
+      "line_breaks_changed": 2,
+      "timestamps_and_flattened_block_text_equal": true
+    }
+  ]
+}

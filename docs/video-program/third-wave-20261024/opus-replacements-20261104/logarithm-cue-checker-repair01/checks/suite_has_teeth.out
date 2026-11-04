@@ -1,0 +1,31 @@
+candidate as it stands: 0 wrong
+stage04's old checker: 85 wrong
+caught: line comments read as code: 3 wrong
+caught: block comments read as code: 2 wrong
+caught: raw strings not recognised: 1 wrong
+caught: char literals not recognised: 1 wrong
+caught: cfg attributes ignored, so test modules read and other cfgs allowed: 11 wrong
+caught: #[test] items kept: 2 wrong
+caught: any item accepted after a test attribute: 1 wrong
+caught: #[path] allowed: 1 wrong
+caught: include! allowed: 1 wrong
+caught: an empty registry allowed: 1 wrong
+caught: a missing file skipped in silence: 2 wrong
+caught: an undeclared registered module allowed: 1 wrong
+caught: helper modules not read for hooks: 3 wrong
+caught: a said count of other than one allowed: 35 wrong
+caught: order not checked: 7 wrong
+caught: chapter of a cue not checked: 5 wrong
+caught: unknown cues skipped in silence: 2 wrong
+caught: the current line not checked: 3 wrong
+caught: index bounds not checked: 4 wrong
+caught: backwards indices allowed: 5 wrong
+caught: any receiver accepted: 2 wrong
+caught: a computed cue skipped in silence: 3 wrong
+caught: any computed index accepted: 4 wrong
+caught: the reviewed loop not checked: 1 wrong
+caught: the reviewed array taken as four: 3 wrong
+caught: digits in spoken text allowed: 1 wrong
+caught: duplicate script ids allowed: 1 wrong
+caught: malformed rows skipped in silence: 1 wrong
+28 rules switched off one at a time; 0 went unnoticed

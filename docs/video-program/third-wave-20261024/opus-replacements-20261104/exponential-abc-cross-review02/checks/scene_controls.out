@@ -1,0 +1,29 @@
+PASS baseline: candidate set still type-checks  (exit 0)
+PASS control: stage.wait on a misspelt method inside factorials::construct fails  (exit 1)
+     error[E0599]: no method named `waitt` found for mutable reference `&mut fmn::Stage<'_>` in the current scope  --> <scratch>/planted_factorials.rs:194:19
+     error: aborting due to 1 previous error  
+PASS control: wrong argument type in product_grid fails  (exit 1)
+     error[E0308]: mismatched types  --> <scratch>/planted_product_grid.rs:35:17
+     error: aborting due to 1 previous error  
+PASS control: a dead function in series_model fails under -D warnings  (exit 1)
+     error: function `never_called_control` is never used  --> <scratch>/planted_series_model.rs:11:8
+     error: aborting due to 1 previous error  
+PASS control: clippy::needless_return fails under clippy-driver -D warnings  (exit 1)
+     error: unneeded `return` statement  --> <scratch>/planted_series_model.rs:26:5
+     error: aborting due to 1 previous error  
+--- unpatched series and product, as originally staged
+base rustc exit 0 ; warnings: ['warning: function `choose` is never used', 'warning: 1 warning emitted']
+base clippy -D warnings exit 1
+     error: function `choose` is never used  --> exponential-expanded-review01/base/product01/product_model.rs:6:8
+     error: aborting due to 1 previous error  
+base clippy -D warnings, test cfg, exit 0
+--- stages applied alone (dead code tells root what must land together)
+facts01 alone (canonical main + rate_model + candidate facts.rs, no rate scene): exit 0
+rate scene with rate02's own model (no facts01): exit 0
+series scene + model, facts call absent: exit 1
+     error: function `append_facts` is never used  --> exponential-expanded-review01/candidate/series01/series_model.rs:51:8
+     error: aborting due to 1 previous error  
+product scene + model, facts call absent: exit 1
+     error: function `append_facts` is never used  --> exponential-expanded-review01/candidate/product01/product_model.rs:40:8
+     error: aborting due to 1 previous error  
+RESULT controls all behaved

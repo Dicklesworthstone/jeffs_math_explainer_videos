@@ -1,0 +1,36 @@
+ok   spoken contributions [0, 27, 0, 42, 24, 0, 24, 3, 10, 2]
+ok   132 = 12 x 11
+     running totals [0, 27, 27, 69, 93, 93, 117, 120, 130, 132] (frame 156's 93 is the total after column 5)
+ok   red 7, red 49, 132 + 7 = 139, remainder 7
+ok   7dd mod 11 [7, 3, 10, 6, 2, 9, 5, 1, 8, 4]: a permutation of 1..10
+ok   the swap's weights and digits: x7 over 6, x6 over 4
+ok   66, 64, (7-6)(4-6) = -2
+ok   the swapped ISBN totals 130
+ok   17_7 lines: distinct weights and distinct values both differ mod 11, in every pair
+ok   142, 187, remainder 0
+ok   +45 = 4 x 11 + 1; the marker turns 10 + 1 = 11, one full circle
+ok   16 codewords, closed under XOR
+ok   8 rows of 16: 'each row: a coset of 16 words', 128/16 = 8
+ok   each row is a coset of the code
+ok   sent word 0110011 is a codeword
+ok   one flip at 5: label 101
+ok   two flips at 2 and 5: 0010111, label 111
+ok   decoder flips 7: 0010110, a different codeword
+ok   second stack: positions 3, 5, 6, 7, XOR 111; they are the ones of the RECEIVED word
+ok   after the miscorrection the word's ones are 3, 5, 6, so 'positions holding a 1' over the stack is false until bit 7 returns
+ok   same for the first stack once bit 5 is repaired: the word's ones are 2, 3, 6, 7
+ok   parity bit of the sent word is 0
+ok   0010111 with parity bit 0: four ones, parity holds
+ok   0010110 with parity bit 0: three ones, parity BREAKS, so the baseline line was beside the wrong word
+ok   extended code: 128 single flips corrected, 448 double flips reported; both captions hold in every case
+     sent (0, 6), two-flip word (7, 2), decoded (0, 2)
+ok   two-flip word sits in row 7 of the DECODED word's column, so the ring returns straight along that column
+ok   'sent' at x -1.48 and 'decoded' at x -3.96 cannot touch
+ok   four triangles are the cosets of {0,4,8}
+ok   6 generates {0, 6}
+ok   four-clock has an element of order 4
+ok   two-clock product: every element has order at most 2
+ok   column 0.7 s, walk 7.0 s
+ok   17_15: 0.35 + 7 x 0.4 = 3.15 s
+
+problems: none

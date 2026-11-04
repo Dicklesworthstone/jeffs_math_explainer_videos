@@ -1,0 +1,21 @@
+--- a/rate_law.rs
++++ b/rate_law.rs
+@@ -271,6 +271,9 @@
+         }
+         kit.hold(stage)?;
+         kit.say(stage, "01_5")?;
++        // The rule in symbols, on the sentence that says what would solve it. 02_1 opens on the same equation.
++        let equation = kit.tex(stage, r"y'=y,\quad y(0)=1", 34.0, Palette::blue(), &[], v(2.75, -3.2))?;
++        show(stage, &[equation], 0.4)?;
+         kit.until_sentence(stage, "01_5", 2)?;
+         let promise = kit.text(
+             stage,
+@@ -317,6 +320,8 @@
+             r#""straight steps: an approximation""#,
+             r#"until_sentence(stage, "01_3", 5)"#,
+             "last_step_label(p[last - 1].1, p[last].1)",
++            r#"kit.say(stage, "01_5")?;"#,
++            r"y'=y,\quad y(0)=1",
+             r#"until_sentence(stage, "01_5", 2)"#,
+             r#""Next: construct an exact solution""#,
+         ]);

@@ -1,0 +1,48 @@
+Frames read for this repair, from root's logarithm-combined-repair-frames01/11_unreachable.
+These are the sheets of the two passages only: 18 of 150 sheets. Root read all 150; this does not repeat that.
+Sheet N holds burned-in labels 4N to 4N+3. Burned-in label L is frame-L.png (both count from 0) at times[L] of sampling.json.
+Rendered with --scratch-voice, so times are positions in this preview, not Oliver timing. No audio was involved.
+
+sheet-092.png  labels 368-371  t 167.5-169.0  sha256 4404fbf41fae770524f8dd6e1ef7e8caad9a2f083068753b486edb52d80a666e
+    Labels 368-369: only the teal e^tX line. Label 370: adds the teal e^tp > 0 line, the red target F and its key.
+sheet-093.png  labels 372-375  t 169.5-171.0  sha256 be395d4d9eae19ad976d1bb2ba8c63dcdb5a7a031edebd65a1b97624dfd134d7
+    Diagonal flow running beside both teal lines; the F squeezes, no axis reverses. Label and motion agree.
+sheet-094.png  labels 376-379  t 171.5-173.0  sha256 fb75dc83e47ba875f9561c07230a92d6c767b3fdcd6974800520f0f836f7ecb7
+    Same as 093: diagonal flow, label and motion agree.
+sheet-095.png  labels 380-383  t 173.5-175.0  sha256 5d293771731694ffc2d1ae8a23a6ff55c30ebbdf41c0dd80bb03aa9e48ec57a3
+    Same as 093: diagonal flow, label and motion agree.
+sheet-096.png  labels 384-387  t 175.5-177.0  sha256 14df85acce3949f11e4f22b9c5188368d27f2c3712c65bd06955384702275cfd
+    Labels 384-385: flow still running. Label 386: plane back at the identity, purple line up.
+sheet-097.png  labels 388-391  t 177.5-179.0  sha256 068ef28be7d8cb56a3e6eed6be25152d331a186aca21b4edb605d69b38c869bf
+    Plane at rest, purple line up, teal lines unchanged.
+sheet-098.png  labels 392-395  t 179.5-181.0  sha256 c5361f561ca388e9ee450f0d03fc7e4e94badcc88f73d895cc44b696c9179b02
+    Plane at rest through label 394. Label 395: rotation begins.
+sheet-099.png  labels 396-399  t 181.5-183.0  sha256 883649d14a4129bd18510181e1cf6ef33d464977ddd5ec9c8a94393751fd5d90
+    DEFECT. Labels 396-397: F mid half turn, axes reversing, teal 'no axis reverses' at full brightness. Label 398: half turn done. Label 399: stretch.
+sheet-100.png  labels 400-403  t 183.5-185.0  sha256 9e99c549bb925ee2411d92d84b38d78a8769f02aa54e582a650403681e133a45
+    Label 400: stretch. Label 401: F on the red target, red 'no single steady flow does both' up.
+sheet-101.png  labels 404-407  t 185.5-186.787  sha256 90651bf0113e5bf77eede52ab851dd6d6548cfc41e52a70008a2d5650bca1483
+    Hold on the finished plane; all labels up.
+sheet-102.png  labels 408-411  t 186.887-187.5  sha256 394ff5c4422853f806a3fcea35c65d1e89c66cb6673f4d16233e8cbe60b59849
+    Hold through label 411.
+sheet-103.png  labels 412-415  t 187.7-189.0  sha256 d68f31fa61e4057679c9d439e7799e5a2567666596448aa971832a013ac045b7
+    Label 412: everything fading (11_7 begins). Labels 413-415: -I scene.
+sheet-144.png  labels 576-579  t 264.5-266.0  sha256 64c36894ef5765d55ac547ffae316f0dd48bcb53c08a4e96c5a63fba4f2adf60
+    Closing card without the singular lines. Top: A = diag(-2, -1/2): no real logarithm.
+sheet-145.png  labels 580-583  t 266.5-268.0  sha256 f9919ca38f758d88891d1175bd42bcf3904e58a64fcd8113fcd49d050c120c1b
+    Label 580: no singular lines. DEFECT from label 581: red 'det A = 0 but det e^X = e^(tr X) != 0' under the same A.
+sheet-146.png  labels 584-587  t 268.5-270.0  sha256 65225d0f331777cde7b8a8889d41f95ef3cb8add8295bdaf176cef23962c1079
+    DEFECT: same card, unchanged.
+sheet-147.png  labels 588-591  t 270.5-272.0  sha256 2cab07cf149c13dd94251f1765bf733b9ddc052de3bf1ab979dda9cce3074680
+    DEFECT: same card, unchanged.
+sheet-148.png  labels 592-595  t 272.5-273.429  sha256 530eed1179373f2b1d18f70c0fdfaf11a403dfa62ccfb02115d6b06b35a26f34
+    DEFECT: same card, unchanged.
+sheet-149.png  labels 596-598  t 273.5-273.783  sha256 2ea57175d9ef35d4ca1029ffe4a88fbff35cf7c85e46b9d20af26a21cdea49b1
+    DEFECT: same card through label 598, the last sample.
+
+frame-0396.png  t 181.5  sha256 fba853b0e0fd988255000c1beec398733caa99765104bd6ed47ee1bd03165c0c
+    Read whole. Grid mid half turn; teal 'no axis reverses' at full brightness; purple line up.
+frame-0400.png  t 183.5  sha256 052f42417f2f0c069a42faba1d9faa6f9648a2e4b51e45921a1517c2c8f30dc7
+    Measured, not separately judged: teal and purple line extents (frame_extents.py).
+frame-0598.png  t 273.783  sha256 5de351956c50838c4c81952ba6ffad0db7b3c8fcfda9bed3180180889fa8ce49
+    Measured, not separately judged: closing line extents (frame_extents.py).

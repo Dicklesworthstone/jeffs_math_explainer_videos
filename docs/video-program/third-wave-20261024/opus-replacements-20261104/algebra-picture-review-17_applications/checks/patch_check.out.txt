@@ -1,0 +1,11 @@
+baseline is the reviewed source 7cc3f0d08b61
+canonical source now: same as baseline
+script.tsv is the rendered one 83619d48676b
+git apply forward: byte-exact
+git apply -R: back to the baseline, byte-exact
+rustfmt --check: clean
+k.say order unchanged: 17_1 17_2 17_3 17_4 17_5 17_6 17_7 17_8 17_14 17_9 17_11 17_12 17_13 17_15 17_16 17_17 17_18
+49 sentence and phrase waits: every index exists, every cue runs in order, every phrase is in its sentence
+names faded twice with no reassignment between: none
+no absolute home path in the bundle's text files
+ALL CHECKS PASS (text only: uncompiled, unrendered)

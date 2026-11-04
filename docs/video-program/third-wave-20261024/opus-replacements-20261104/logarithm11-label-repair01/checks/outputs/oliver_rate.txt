@@ -1,0 +1,14 @@
+reports naming ElevenLabs or Oliver: 114; distinct source spans: 745
+1-200 words: 745 spans; rate median 2.36, 5th percentile 1.70, 95th 3.08, max 3.64 words/s
+14-22 words: 222 spans; rate median 2.54, 5th percentile 2.05, 95th 3.12, max 3.64 words/s
+16-20 words: 119 spans; rate median 2.56, 5th percentile 2.12, 95th 3.21, max 3.64 words/s
+The closing sentence of 11_8 has 18 words.
+  at 2.40 words/s: speech 7.50 s; clean window = speech + 0.60 tail - 0.50 fade = 7.60 s; baseline needs 5.40 s, patched needs 6.20 s
+  at 2.60 words/s: speech 6.92 s; clean window = speech + 0.60 tail - 0.50 fade = 7.02 s; baseline needs 5.40 s, patched needs 6.20 s
+  at 2.80 words/s: speech 6.43 s; clean window = speech + 0.60 tail - 0.50 fade = 6.53 s; baseline needs 5.40 s, patched needs 6.20 s
+  at 2.96 words/s: speech 6.08 s; clean window = speech + 0.60 tail - 0.50 fade = 6.18 s; baseline needs 5.40 s, patched needs 6.20 s
+  at 3.00 words/s: speech 6.00 s; clean window = speech + 0.60 tail - 0.50 fade = 6.10 s; baseline needs 5.40 s, patched needs 6.20 s
+  at 3.32 words/s: speech 5.42 s; clean window = speech + 0.60 tail - 0.50 fade = 5.52 s; baseline needs 5.40 s, patched needs 6.20 s
+  at 3.40 words/s: speech 5.29 s; clean window = speech + 0.60 tail - 0.50 fade = 5.39 s; baseline needs 5.40 s, patched needs 6.20 s
+
+[exit 0]

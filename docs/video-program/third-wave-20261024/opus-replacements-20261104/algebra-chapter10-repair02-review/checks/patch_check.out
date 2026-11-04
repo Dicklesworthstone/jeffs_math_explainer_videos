@@ -1,0 +1,52 @@
+ok   before-cyclic.rs is 946f1da4
+ok   candidate cyclic.rs is 105f5cf8
+info canonical cyclic.rs is 946f1da4 (baseline 946f1da4 when reviewed)
+ok   root's cyclic.patch takes before-cyclic.rs to the candidate, byte for byte
+ok   proposed.patch takes the candidate to proposed-cyclic.rs, byte for byte
+ok   and reverses to the candidate
+ok   rustfmt --check on proposed-cyclic.rs (syntax and format only, not compilation)
+ok   no changed line is a k.say
+info script.tsv sha256 83619d48676b32d5d93bf7527477aa752a902dd16927c548e4b3052cc2d689c0: not in the patch, so no spoken word changes
+ok   PHRASES declares 12 rows and lists 12
+ok   every phrase constant has a row and every row a constant
+ok   10_3 sentence 4 contains "and the distinct positions"
+ok   10_4 sentence 2 contains "and k as d times"
+ok   10_6 sentence 2 contains "one, five, seven"
+ok   10_7 sentence 0 contains "of a cyclic group"
+ok   10_7 sentence 4 contains "and choose the one"
+ok   10_7 sentence 4 contains "call that exponent d"
+ok   10_9 sentence 2 contains "and every element of H"
+ok   10_11 sentence 0 contains "repeating a move"
+ok   10_11 sentence 0 contains "measures its order"
+ok   10_11 sentence 1 contains "predicts that return"
+ok   10_11 sentence 2 contains "divide exponents"
+ok   10_11 sentence 2 contains "the smallest positive step"
+ok   10_2 has 9 sentences
+ok   10_3 has 5 sentences
+ok   10_4 has 4 sentences
+ok   10_5 has 5 sentences
+ok   10_6 has 6 sentences
+ok   10_7 has 6 sentences
+ok   10_8 has 3 sentences
+ok   10_9 has 4 sentences
+ok   10_10 has 6 sentences
+ok   10_11 has 4 sentences
+ok   the test now counts 10_11
+ok   10_7 hooks in source order, inside the cue: [0, 2, 3, 4, 4, 4, 5]
+ok   10_10 hooks in source order, inside the cue: [3, 5]
+ok   10_11 hooks in source order, inside the cue: [0, 0, 1, 1, 2, 2, 2]
+ok   no absolute home path in REVIEW.md
+ok   no absolute home path in base.sha256
+ok   no absolute home path in checks/geometry_math.out
+ok   no absolute home path in checks/geometry_math.py
+ok   no absolute home path in checks/make_proposed.py
+ok   no absolute home path in checks/patch_check.out
+ok   no absolute home path in checks/patch_check.py
+ok   no absolute home path in checks/reshow_scan.out
+ok   no absolute home path in checks/reshow_scan.py
+ok   no absolute home path in checks/timing.out
+ok   no absolute home path in checks/timing.py
+ok   no absolute home path in proposed-cyclic.rs
+ok   no absolute home path in proposed.patch
+
+PATCH CHECK OK

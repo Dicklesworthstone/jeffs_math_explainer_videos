@@ -1,0 +1,117 @@
+1. the run, by the tiles
+  ok   seats at 6: (0, 2, 4)
+  ok   seats at 13: (1, 3, 9)
+  ok   handed out at 6: birch 2
+  ok   that tile was already entered at then
+  ok   the only tile that can be the missing one: [(2, 5)]
+  ok   the missing tile starts exactly at then, so it is not entered there
+  ok   and ends sooner than the tile the rule really took
+  ok   and is passed by now
+  ok   seats 7 to 13: [(2, 5), (2, 6), (0, 1), (2, 7), (2, 8), (1, 3), (2, 9)]
+2. the facts
+  ok   the base oracle has 429 values
+  ok   no old value changed (0)
+  ok   the 14 new values equal this walk's
+  ok   the candidate oracle has 443 values
+  ok   the oracle's rule at 14 equals this walk: (1, 3, 10)
+  ok   the oracle's rule at 15 equals this walk: (1, 4, 10)
+  ok   the oracle's rule at 16 equals this walk: (1, 4, 11)
+3. before, during and after the supposition
+  ok   before: the real run at 13, 13 fills, no hole
+  ok   during: the real run at 6, 6 fills, no hole
+  ok   after: the same 13 fills
+  ok   no fill during the supposition was handed out after then
+  ok   the supposition is false of the real run: the missing tile is really handed out
+  ok   indeed the very next seat, as 12_2's one skip says
+  ok   control: the old picture (13 fills less Cedar 8) is no run
+  ok   control: in it Ash 1 was handed out after then yet crosses then: [(0, 1)]
+  ok   control: in it Cedar 9 runs past now: [(2, 9)]
+  ok   control: with Cedar 8 missing, no tile handed out by 6 ends later, so then = 6 cannot follow
+4. the counts on screen, and where each tile goes
+  ok   tiles on the axis: 20
+  ok   whole tiles inside, town by town: [0, 1, 4]
+  ok   their total equals the fact
+  ok   hero rings plus the red one count those tiles
+  ok   ash: 0 <= 7 x 4000/39000
+  ok   birch: 1 <= 7 x 9000/39000
+  ok   cedar: 4 <= 7 x 26000/39000
+  ok   5 fit and there is room for 7, but 8 chips
+  ok   veils and rings cover every tile once
+  ok   the veils at 'never hands out' cover no fill of the real run
+  ok   and every passed tile is filled: the theorem's instance at 13
+5. layout boxes per state, from the source's constants
+  ok   going back: 14 boxes, clashes [], off the safe area []
+  ok   later tile: 15 boxes, clashes [], off the safe area []
+  ok   chips: 24 boxes, clashes [], off the safe area []
+  ok   not entered: 25 boxes, clashes [], off the safe area []
+  ok   ends by now: 24 boxes, clashes [], off the safe area []
+  ok   the count: 31 boxes, clashes [], off the safe area []
+  ok   restored: 13 boxes, clashes [], off the safe area []
+  ok   'Birch's seat 2 ends at 8 2/3, later than 7 1/2' clears the rows
+  ok   '6 to 7 1/2: not entered at 6' clears the rows
+  ok   '7 seats from then to now: 7 + 1 = 8 tiles' clears the rows
+  ok   '8 tiles cannot fit' clears the rows
+  ok   'the real run at 13 seats: 1, 3, 9' clears the rows
+  ok   'or 0' clears the rows
+  ok   'then' clears the rows
+  ok   'Birch's seat 2 ends at 8 2/3, later than 7 1/2' clears both marker lines
+  ok   '6 to 7 1/2: not entered at 6' clears both marker lines
+  ok   'then' clears both marker lines
+  ok   'solid: real up to then, hollow: only supposed' clears both marker lines
+  ok   'suppose: a passed tile not handed out' clears both marker lines
+  ok   the think ring's right edge 1.93 is left of the list 2.28
+  ok   its note's bottom -3.81 is inside the safe area
+  ok   control: the old ring at (6.1, -2.9) does fall on the list
+  ok   control: a legend at y 2.55 would hit 'then'
+  ok   control: the count moved right 1.0 would hit the chips
+   the chapter's Rust layout tests, by hand
+  ok   20 inequalities hold; tightest 'think: note' by 0.040
+6. timing, simulated from the source's own beats (not a render)
+  ok   20 beats parsed from the source: 2 line starts, 18 phrases
+  scale 0.8: worst lateness 0.30 s; picture ends -2.57 s against the voice
+    12_8    0.00  late 0.00  beat 0.30  (line starts)
+    12_8    0.00  late 0.30  beat 1.70  Could a passed tile ever be left out
+    12_8    2.41  late 0.00  beat 0.80  Suppose one were
+    12_8    3.55  late 0.00  beat 2.20  Go back to the last moment
+    12_8    6.53  late 0.00  beat 0.40  a tile that ends later than the missing one
+    12_8    9.38  late 0.00  beat 0.30  or to the very start if it never did
+    12_8   11.79  late 0.00  beat 0.90  Every tile handed out since then
+    12_8   13.95  late 0.00  beat 0.30  and the missing tile too
+    12_8   15.60  late 0.00  beat 1.10  had not been entered at that moment
+    12_8   17.94  late 0.00  beat 1.00  or the rule would have picked a tile ending sooner
+    12_8   21.24  late 0.00  beat 0.90  And every one of them ends by now
+    12_9   24.02  late 0.00  beat 0.00  (line starts)
+    12_9   24.02  late 0.00  beat 1.00  So all those tiles fit inside the stretch
+    12_9   28.92  late 0.00  beat 1.00  one more of them than seats added
+    12_9   31.99  late 0.00  beat 1.20  But each town's row fits at most
+    12_9   36.83  late 0.00  beat 0.50  and the fractions add up to one
+    12_9   39.04  late 0.00  beat 1.30  a stretch never holds more whole tiles
+    12_9   43.63  late 0.00  beat 0.90  no passed tile is ever left out
+    12_9   46.70  late 0.00  beat 0.80  never hands out a tile before the marker enters it
+    12_9   49.89  late 0.00  beat 0.50  so it keeps the quota promise at every house size
+  scale 1.0: worst lateness 0.30 s; picture ends -3.33 s against the voice
+    12_8    0.00  late 0.00  beat 0.30  (line starts)
+    12_8    0.00  late 0.30  beat 1.70  Could a passed tile ever be left out
+    12_8    3.01  late 0.00  beat 0.80  Suppose one were
+    12_8    4.44  late 0.00  beat 2.20  Go back to the last moment
+    12_8    8.16  late 0.00  beat 0.40  a tile that ends later than the missing one
+    12_8   11.73  late 0.00  beat 0.30  or to the very start if it never did
+    12_8   14.74  late 0.00  beat 0.90  Every tile handed out since then
+    12_8   17.44  late 0.00  beat 0.30  and the missing tile too
+    12_8   19.50  late 0.00  beat 1.10  had not been entered at that moment
+    12_8   22.43  late 0.00  beat 1.00  or the rule would have picked a tile ending sooner
+    12_8   26.55  late 0.00  beat 0.90  And every one of them ends by now
+    12_9   29.87  late 0.00  beat 0.00  (line starts)
+    12_9   29.87  late 0.00  beat 1.00  So all those tiles fit inside the stretch
+    12_9   36.00  late 0.00  beat 1.00  one more of them than seats added
+    12_9   39.83  late 0.00  beat 1.20  But each town's row fits at most
+    12_9   45.88  late 0.00  beat 0.50  and the fractions add up to one
+    12_9   48.64  late 0.00  beat 1.30  a stretch never holds more whole tiles
+    12_9   54.39  late 0.00  beat 0.90  no passed tile is ever left out
+    12_9   58.22  late 0.00  beat 0.80  never hands out a tile before the marker enters it
+    12_9   62.20  late 0.00  beat 0.50  so it keeps the quota promise at every house size
+  scale 1.2: worst lateness 0.30 s; picture ends -4.10 s against the voice
+  ok   at the scratch length no beat starts more than 0.6 s after its phrase (0.30)
+  (at 0.8 of the scratch length the worst is 0.30 s: Oliver's real pace is unknown, root's fine sync sets it)
+
+PASS (exact maths, estimated widths, simulated times; no render, no listening)

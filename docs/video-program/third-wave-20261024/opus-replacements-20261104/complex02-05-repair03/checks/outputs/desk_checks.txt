@@ -1,0 +1,17 @@
+=== arity_check: canonical exit 0; with repair exit 0; rows not on canonical: 8
+   calls checked: 4717; problems: 0
+   second pass, by name only: 4928 calls, 1 hits
+   UNKNOWN char_indices x1 e.g. src/chapters/turning.rs:688
+   UNKNOWN map_or x2 e.g. src/chapters/draw.rs:756
+   UNKNOWN match_indices x3 e.g. src/chapters/turning.rs:711
+   UNKNOWN sort_unstable x1 e.g. src/chapters/turning.rs:737
+   UNKNOWN to_vec x13 e.g. src/chapters/counting.rs:294
+   UNKNOWN with_capacity x21 e.g. src/chapters/continuing.rs:142
+=== scope_check: canonical exit 0; with repair exit 0; rows not on canonical: 0
+=== shape_check: canonical exit 0; with repair exit 0; rows not on canonical: 3
+   format-family macros checked: 285
+   sized const arrays checked: 115
+   argument shapes compared: 9809
+=== unused_check: canonical exit 0; with repair exit 0; rows not on canonical: 1
+   bindings checked: 3247; problems: 1
+=== desk_check: canonical exit 0; with repair exit 0; rows not on canonical: 0

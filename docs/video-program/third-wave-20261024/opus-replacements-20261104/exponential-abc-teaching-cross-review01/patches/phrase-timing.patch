@@ -1,0 +1,211 @@
+--- a/series01/factorials.rs
++++ b/series01/factorials.rs
+@@ -3,12 +3,12 @@
+ //! Each cue has one function, in film order, and each function begins with its own `say`.
+ //! The polynomial stays on screen from 02_1 to the end of 02_4: its letters become factorials,
+ //! its terms light up with their curves, and its dots are the ones 02_4 refuses to trust.
++use crate::phrase::until_phrase;
+ use crate::series_model::{
+     BAR_TOP, INSET_TOP, ORDERS, PLOT_SEGMENTS, PLOT_TOP, RADIUS, TAIL_ORDERS, ZOOM, coefficient, column_tex,
+     derivative_label, envelope, equation_label, factorial_tex, halving_from, letter, plot_x, ratio_label,
+     running_product_tex, sum, tail_bound, tail_label, term_size, value_label,
+ };
+-use explainer_kit::narration::{frames_covering, wait_frames};
+ use explainer_kit::{Kit, Palette, Timed, ink_style, lagged, rect, stroke_style, tween, v};
+ use fmn::library::TransformMatchingTex;
+ use fmn::prelude::*;
+@@ -28,11 +28,7 @@
+ const FIRST_DEBT: &str = "Why adding inputs multiplies outputs";
+ const SECOND_DEBT: &str = "Why the stepped approximations reach E";
+ const THIRD_DEBT: &str = "Why E is the only solution from height one";
+-/// Word for word from 02_4 and 02_6: these two sentences carry more than one reveal.
+-const OBLIGATIONS_SENTENCE: &str =
+-    "We need to know that the sum exists and that differentiating it term by term is legitimate.";
+-const DEBTS_SENTENCE: &str = "We still owe three explanations: why adding inputs multiplies outputs, why the stepped approximations reach this curve, and why it is the only solution with that starting value.";
+-/// Each clause of DEBTS_SENTENCE, and the words it puts on screen.
++/// Each clause of the debts sentence in 02_6, and the words it puts on screen.
+ const DEBTS: [(&str, &str); 3] = [
+     ("why adding", FIRST_DEBT),
+     ("why the stepped", SECOND_DEBT),
+@@ -106,30 +102,6 @@
+     INTERVAL_MID + INTERVAL_HALF * x / RADIUS
+ }
+ 
+-/// Wait for `clause` of sentence `j`: the sentence's real window, shared out by its characters. An estimate inside
+-/// a sentence, not a heard boundary. Nothing if that moment has passed, or without a narrator.
+-fn until_clause(k: &Kit, stage: &mut Stage<'_>, id: &str, j: usize, sentence: &str, clause: &str) -> fmn::Result<()> {
+-    let Some(narrator) = k.narrator.as_ref() else {
+-        return Ok(());
+-    };
+-    let Some(from) = narrator.sentence_at(id, j) else {
+-        return Ok(());
+-    };
+-    let end = narrator
+-        .sentence_at(id, 0)
+-        .zip(narrator.length(id))
+-        .map(|(began, length)| began + length);
+-    let Some(to) = narrator.sentence_at(id, j + 1).or(end) else {
+-        return Ok(());
+-    };
+-    let byte = sentence.find(clause).expect("the clause is in its sentence");
+-    let at = from + (to - from) * byte as f64 / sentence.len() as f64;
+-    let (now, fps) = (stage.scene().time().to_f64(), stage.scene().time().fps());
+-    if at > now {
+-        wait_frames(stage, frames_covering(at - now, fps))?;
+-    }
+-    Ok(())
+-}
+ fn reveal(stage: &mut Stage<'_>, mob: Mob) -> fmn::Result<()> {
+     let a = fade_in(stage.arena_mut(), mob, ORIGIN, 1.0)?;
+     stage.play(a.rt(0.35))?;
+@@ -639,7 +611,7 @@
+     k.until_sentence(stage, "02_4", 4)?;
+     let exists = k.text(stage, SUM_EXISTS, 25.0, Palette::ink(), v(0.0, -0.75))?;
+     reveal(stage, exists)?;
+-    until_clause(k, stage, "02_4", 4, OBLIGATIONS_SENTENCE, "and that differentiating")?;
++    until_phrase(k, stage, "02_4", "and that differentiating")?;
+     let allowed = k.text(stage, TERM_BY_TERM, 25.0, Palette::ink(), v(0.0, -1.45))?;
+     reveal(stage, allowed)?;
+     screen.extend([exists, allowed]);
+@@ -982,7 +954,7 @@
+     k.until_sentence(stage, "02_6", 3)?;
+     let mut debts = Vec::new();
+     for (row, (clause, debt)) in DEBTS.iter().enumerate() {
+-        until_clause(k, stage, "02_6", 3, DEBTS_SENTENCE, clause)?;
++        until_phrase(k, stage, "02_6", clause)?;
+         let m = k.text(stage, debt, 25.0, Palette::gold(), v(0.0, -1.55 - 0.65 * row as f64))?;
+         reveal(stage, m)?;
+         debts.push(m);
+@@ -1138,10 +1110,12 @@
+         assert!(TAIL_TOTAL.contains(r"(N+2\geq 2R)"));
+     }
+     #[test]
+-    fn every_clause_is_in_its_sentence_in_spoken_order() {
+-        let at: Vec<usize> = DEBTS.iter().map(|(c, _)| DEBTS_SENTENCE.find(c).unwrap()).collect();
++    fn every_clause_is_in_its_line_in_spoken_order() {
++        let script = explainer_kit::Script::parse(crate::phrase::SCRIPT).unwrap();
++        let debts = script.text("02_6").unwrap();
++        let at: Vec<usize> = DEBTS.iter().map(|(c, _)| debts.find(c).unwrap()).collect();
+         assert!(at.windows(2).all(|w| w[0] < w[1]));
+-        assert!(OBLIGATIONS_SENTENCE.contains("and that differentiating"));
++        assert!(script.text("02_4").unwrap().contains("and that differentiating"));
+     }
+     #[test]
+     fn the_chapter_ends_with_all_three_debts_in_payment_order() {
+@@ -1152,7 +1126,7 @@
+             "SOLVES",
+             r#"until_sentence(stage, "02_6", 3)"#,
+             "DEBTS.iter()",
+-            "until_clause(k, stage, \"02_6\", 3, DEBTS_SENTENCE, clause)?;",
++            r#"until_phrase(k, stage, "02_6", clause)?;"#,
+             r#"until_sentence(stage, "02_6", 4)"#,
+         ]);
+     }
+--- a/product01/product_grid.rs
++++ b/product01/product_grid.rs
+@@ -1,9 +1,9 @@
+ //! Native staged product-grid proof. Type-checked at the pin; never rendered.
++use crate::phrase::until_phrase;
+ use crate::product_model::{
+     LADDER_HIGH, LADDER_LOW, SIDE, cell_tex, diagonal, e_label, ladder_fractions, ladder_negatives, ladder_whole,
+     total_tex,
+ };
+-use explainer_kit::narration::{frames_covering, wait_frames};
+ use explainer_kit::{Kit, Palette, Timed, dot_cloud, rect, stroke_style, v};
+ use fmn::prelude::*;
+ pub struct ProductGrid {
+@@ -41,36 +41,9 @@
+ const WORK_X: f64 = 4.7;
+ /// The 03_7 line, from LADDER_LOW to LADDER_HIGH.
+ const LADDER_Y: f64 = -1.35;
+-/// Word for word from 03_2 and 03_7: these two sentences carry more than one reveal.
+-const ROWS_SENTENCE: &str = "Instead of collecting the products by rows, collect them by total degree.";
+-const LADDER_SENTENCE: &str = "Roots give fractions, reciprocals give negatives, and continuity fills in the rest.";
+ fn ladder_x(input: f64) -> f64 {
+     -4.0 + 1.6 * (input - f64::from(LADDER_LOW))
+ }
+-/// Wait for `clause` of sentence `j`: the sentence's real window, shared out by its characters. An estimate inside
+-/// a sentence, not a heard boundary. Nothing if that moment has passed, or without a narrator.
+-fn until_clause(k: &Kit, s: &mut Stage<'_>, id: &str, j: usize, sentence: &str, clause: &str) -> fmn::Result<()> {
+-    let Some(narrator) = k.narrator.as_ref() else {
+-        return Ok(());
+-    };
+-    let Some(from) = narrator.sentence_at(id, j) else {
+-        return Ok(());
+-    };
+-    let end = narrator
+-        .sentence_at(id, 0)
+-        .zip(narrator.length(id))
+-        .map(|(began, length)| began + length);
+-    let Some(to) = narrator.sentence_at(id, j + 1).or(end) else {
+-        return Ok(());
+-    };
+-    let byte = sentence.find(clause).expect("the clause is in its sentence");
+-    let at = from + (to - from) * byte as f64 / sentence.len() as f64;
+-    let (now, fps) = (s.scene().time().to_f64(), s.scene().time().fps());
+-    if at > now {
+-        wait_frames(s, frames_covering(at - now, fps))?;
+-    }
+-    Ok(())
+-}
+ fn reveal(s: &mut Stage<'_>, m: Mob) -> fmn::Result<()> {
+     let a = fade_in(s.arena_mut(), m, ORIGIN, 1.0)?;
+     s.play(a.rt(0.35))?;
+@@ -229,7 +202,7 @@
+         let row = rect(v(-4.85, 0.9), 5.4, 1.0, stroke_style(Palette::yellow(), 3.0))?;
+         let row = s.arena_mut().add(row);
+         reveal(s, row)?;
+-        until_clause(&k, s, "03_2", 0, ROWS_SENTENCE, "collect them")?;
++        until_phrase(&k, s, "03_2", "collect them")?;
+         let along = Line::new(v(-4.55, -1.86), v(0.2, 1.66))
+             .style(stroke_style(Palette::yellow(), 4.0))
+             .build()?;
+@@ -374,11 +347,11 @@
+         let roots = k.tex(s, TEX[12], 28.0, Palette::green(), &[], v(0.0, 0.55))?;
+         let fraction_marks = ladder_marks(s, &ladder_fractions(), Palette::green(), 0.07);
+         reveal_all(s, &[roots, fraction_marks], 0.4)?;
+-        until_clause(&k, s, "03_7", 3, LADDER_SENTENCE, "reciprocals")?;
++        until_phrase(&k, s, "03_7", "reciprocals")?;
+         let reciprocal = k.tex(s, TEX[13], 28.0, Palette::gold(), &[], v(0.0, -0.3))?;
+         let negative_marks = ladder_marks(s, &ladder_negatives(), Palette::gold(), 0.07);
+         reveal_all(s, &[reciprocal, negative_marks], 0.4)?;
+-        until_clause(&k, s, "03_7", 3, LADDER_SENTENCE, "continuity")?;
++        until_phrase(&k, s, "03_7", "continuity")?;
+         let solid = Line::new(
+             v(ladder_x(f64::from(LADDER_LOW)), LADDER_Y),
+             v(ladder_x(f64::from(LADDER_HIGH)), LADDER_Y),
+@@ -445,7 +418,7 @@
+         assert_in_order(&[
+             r#"k.say(s, "03_2")?;"#,
+             "let row = rect(",
+-            r#"until_clause(&k, s, "03_2", 0, ROWS_SENTENCE, "collect them")?;"#,
++            r#"until_phrase(&k, s, "03_2", "collect them")?;"#,
+             "let along = Line::new(",
+             r#"k.until_sentence(s, "03_2", 1)?;"#,
+             "hide(s, along)?;",
+@@ -462,6 +435,13 @@
+         ]);
+     }
+     #[test]
++    fn every_phrase_is_in_its_line_in_spoken_order() {
++        let script = explainer_kit::Script::parse(crate::phrase::SCRIPT).unwrap();
++        assert!(script.text("03_2").unwrap().contains("collect them"));
++        let ladder = script.text("03_7").unwrap();
++        assert!(ladder.find("reciprocals").unwrap() < ladder.find("continuity").unwrap());
++    }
++    #[test]
+     fn the_name_is_earned_in_the_order_the_voice_earns_it() {
+         assert_in_order(&[
+             r#"k.say(s, "03_7")?;"#,
+@@ -471,9 +451,9 @@
+             "TEX[11]",
+             r#"until_sentence(s, "03_7", 3)"#,
+             "TEX[12]",
+-            r#"until_clause(&k, s, "03_7", 3, LADDER_SENTENCE, "reciprocals")?;"#,
++            r#"until_phrase(&k, s, "03_7", "reciprocals")?;"#,
+             "TEX[13]",
+-            r#"until_clause(&k, s, "03_7", 3, LADDER_SENTENCE, "continuity")?;"#,
++            r#"until_phrase(&k, s, "03_7", "continuity")?;"#,
+             "show_creation(solid)",
+             r#"until_sentence(s, "03_7", 4)"#,
+             "TEX[14]",

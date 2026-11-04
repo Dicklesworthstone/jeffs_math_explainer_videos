@@ -1,0 +1,5 @@
+rustfmt --check turning.rs: exit 0
+rustfmt --check two_planes.rs: exit 0
+rustfmt --check reading_color.rs: exit 0
+rustfmt --check gallery.rs: exit 0
+rustfmt --check main.rs of canonical + repair (parses every module): exit 0

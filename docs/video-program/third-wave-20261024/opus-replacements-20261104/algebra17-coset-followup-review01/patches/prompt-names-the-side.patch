@@ -1,0 +1,11 @@
+--- a/explainer_corpus/abstract_algebra_expanded/src/applications.rs
++++ b/explainer_corpus/abstract_algebra_expanded/src/applications.rs
+@@ -594,7 +594,7 @@
+         let prompts = [
+             "1. Which residues does 6 generate on the twelve-clock?",
+             "2. Can a four-clock be isomorphic to two two-position clocks?",
+-            "3. Why does changing representative within a coset keep it?",
++            "3. Why does gh name the same left coset as g, when h is in H?",
+         ];
+         let mut quiz = Vec::new();
+         for (i, p) in prompts.iter().enumerate() {

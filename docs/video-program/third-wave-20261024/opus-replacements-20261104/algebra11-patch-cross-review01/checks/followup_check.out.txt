@@ -1,0 +1,27 @@
+follow-up patch 43541f26216ce15da21553bc92b50aa40391f2319988400234a4ba61cc183dd7
+base: frozen candidate 521089439e9d0f173b3ccdb5630db9422d1a12a2ef1a24ce49b76380c922684a
+canonical + bundle patch: exit, reject (0, False) | equals frozen candidate: True
++ follow-up: exit, reject (0, False)
+result 4f861c3b6704dfd89774909f88168bc7252a66cc54a4c5d62f1f547060c28473
+reverse follow-up: exit, reject (0, False) | equals frozen candidate: True
+reverse bundle patch: exit, reject (0, False) | equals canonical: True
+rustfmt --check exit 0 | stderr lines 0 | diff lines 0
+== follow-up: sha256 4f861c3b6704dfd89774909f88168bc7252a66cc54a4c5d62f1f547060c28473
+k.hold lines in file: [4115, 4165, 4177, 4189, 4276, 4333]
+  11_2->11_3 (reading): say 4078, hold [4115], next say 4118; bound line 4020 moved by 95; line after the hold: 'stage.wait(1.0)?;'
+  11_3->11_4 (reading): say 4118, hold [4165], next say 4168; bound line 4070 moved by 95; line after the hold: 'stage.wait(1.0)?;'
+  11_12->11_13 (prediction): say 4174, hold [4177], next say 4180; bound line 4082 moved by 95; line after the hold: 'stage.wait(3.0)?;'
+  11_15->11_16 (prediction): say 4186, hold [4189], next say 4192; bound line 4094 moved by 95; line after the hold: 'stage.wait(3.0)?;'
+  11_6->11_7 (prediction): say 4256, hold [4276], next say 4279; bound line 4160 moved by 116; line after the hold: 'stage.wait(3.0)?;'
+  11_10->11_22 (prediction): say 4330, hold [4333], next say 4336; bound line 4217 moved by 116; line after the hold: 'stage.wait(3.0)?;'
+  say-to-next-say text unchanged from baseline, per row: {'11_2': True, '11_3': True, '11_12': True, '11_15': True, '11_6': True, '11_10': True}
+  11_24->11_25: k.hold between its says: [] | map row: False
+
+hunks 15 | added 22 | removed 15
+ANCHORS length 17 | entries 17 | THEY_COMPOSE listed: True
+anchor phrase in 11_20 sentence 0: True
+walk_cycle calls: ['walk_cycle(stage, &trails[0], true, Palette::hero(), &mut scene.arrows, &[reading])?;', 'walk_cycle(stage, &trails[1], false, Palette::blue(), &mut scene.arrows, &[])?;']
+walk_cycle parameters: 6 (Clippy too_many_arguments starts above 7)
+even_key uses in 11_21: 3 | odd_key: 3 | in the returned list: False
+order in sentence 5: keys leave before the first recolour: True
+old words left in the file: []

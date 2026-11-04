@@ -1,0 +1,69 @@
+reading plate, 6.4 wide: 183 rows. Flat colour, luma 128 of 255.
+Each cell: lowest, highest deviation from ideal (luma), rms, pixel rows off by more than 1 luma.
+
+720p: 90.0 px a unit, a row is 3.15 px
+candidate                                                            opacity 1              opacity 0.75               opacity 0.5              opacity 0.25  2x2 rows
+C0 now: aa 0.5, width = cell                            -7.5   +0.0  2.61  125    -4.9   +0.0  1.71  115    -2.7   +0.0  0.95   93    -1.0   +0.0  0.34    0  159/500
+C1 tile: aa 0, width = cell + 0.0001                    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0  77/500
+    the same, no guard: aa 0, width = cell              +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0  83/500
+C2 small overlap: aa 0.5, width = cell + 0.6 px         +0.0   +0.0  0.00    0    +0.0   +9.1  3.55  149    +0.0  +14.5  5.74  153    +0.0  +15.3  6.08  153  66/500
+C3 Mail 2167: aa 0.5, width = cell + 0.012              +0.0   +0.0  0.00    0    +0.0  +11.9  6.58  221    +0.0  +18.9 10.46  231    +0.0  +19.7 10.97  231  0/500
+
+1080p: 135.0 px a unit, a row is 4.72 px
+candidate                                                            opacity 1              opacity 0.75               opacity 0.5              opacity 0.25  2x2 rows
+C0 now: aa 0.5, width = cell                            -7.5   +0.0  2.12  123    -4.9   +0.0  1.39  111    -2.7   +0.0  0.77   98    -1.0   +0.0  0.28    0  159/751
+C1 tile: aa 0, width = cell + 0.0001                    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0  79/751
+    the same, no guard: aa 0, width = cell              +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0  79/751
+C2 small overlap: aa 0.5, width = cell + 0.6 px         +0.0   +0.0  0.00    0    +0.0   +9.4  2.91  149    +0.0  +15.1  4.70  153    +0.0  +15.9  4.98  153  63/751
+C3 Mail 2167: aa 0.5, width = cell + 0.012              +0.0   +0.0  0.00    0    +0.0  +11.9  6.71  310    +0.0  +18.9 10.66  315    +0.0  +19.7 11.17  318  0/751
+
+2160p: 270.0 px a unit, a row is 9.44 px
+candidate                                                            opacity 1              opacity 0.75               opacity 0.5              opacity 0.25  2x2 rows
+C0 now: aa 0.5, width = cell                            -7.5   +0.0  1.52  125    -4.9   +0.0  1.00  115    -2.7   +0.0  0.55   95    -1.0   +0.0  0.20    0  159/1502
+C1 tile: aa 0, width = cell + 0.0001                    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0  74/1502
+    the same, no guard: aa 0, width = cell              +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0    +0.0   +0.0  0.00    0  80/1502
+C2 small overlap: aa 0.5, width = cell + 0.6 px         +0.0   +0.0  0.00    0    +0.0   +9.1  2.03  147    +0.0  +14.5  3.28  153    +0.0  +15.3  3.48  153  66/1502
+C3 Mail 2167: aa 0.5, width = cell + 0.012              +0.0   +0.0  0.00    0    +0.0  +11.9  6.84  567    +0.0  +18.9 10.85  577    +0.0  +19.7 11.36  577  0/1502
+
+Row lattice, aa 0. gap > 0 is a real hole between two rows, in px. Each size lists: largest gap with no guard, and
+boundaries whose hole holds a sample height; largest gap with the guard, and boundaries whose overlap holds one.
+plate                rows | 720p | 1080p | 2160p
+boundary picture      160 | +7.7e-06, 9; -9.0e-03, 24 | +1.2e-05, 5; -1.3e-02, 12 | +2.3e-05, 9; -2.7e-02, 24
+closing               185 | +9.4e-06, 0; -9.0e-03, 0 | +1.4e-05, 0; -1.3e-02, 8 | +2.8e-05, 0; -2.7e-02, 14
+counting input        160 | +7.7e-06, 7; -9.0e-03, 23 | +1.2e-05, 4; -1.3e-02, 11 | +2.3e-05, 7; -2.7e-02, 23
+counting output       143 | +1.1e-05, 0; -9.0e-03, 2 | +1.6e-05, 0; -1.3e-02, 4 | +3.3e-05, 0; -2.7e-02, 10
+counting inset         43 | +1.5e-06, 0; -9.0e-03, 0 | +2.3e-06, 0; -1.3e-02, 2 | +4.5e-06, 0; -2.7e-02, 4
+continuing bump       160 | +7.7e-06, 7; -9.0e-03, 23 | +1.2e-05, 4; -1.3e-02, 11 | +2.3e-05, 7; -2.7e-02, 23
+continuing gamma      110 | +5.6e-06, 0; -9.0e-03, 2 | +8.4e-06, 1; -1.3e-02, 5 | +1.7e-05, 0; -2.7e-02, 10
+lacunary              154 | +5.4e-06, 0; -9.0e-03, 5 | +8.0e-06, 0; -1.3e-02, 7 | +1.6e-05, 0; -2.7e-02, 13
+gallery square        160 | +7.7e-06, 9; -9.0e-03, 24 | +1.2e-05, 5; -1.3e-02, 12 | +2.3e-05, 9; -2.7e-02, 24
+gallery exp           183 | +2.1e-05, 1; -9.0e-03, 8 | +3.1e-05, 1; -1.3e-02, 5 | +6.2e-05, 1; -2.7e-02, 14
+gallery trig          120 | +7.7e-06, 4; -9.0e-03, 18 | +1.2e-05, 1; -1.3e-02, 9 | +2.3e-05, 4; -2.7e-02, 18
+gallery gamma         133 | +9.4e-06, 0; -9.0e-03, 0 | +1.4e-05, 0; -1.3e-02, 6 | +2.8e-05, 0; -2.7e-02, 14
+gallery zeta          110 | +1.4e-05, 0; -9.0e-03, 2 | +2.1e-05, 0; -1.3e-02, 6 | +4.2e-05, 0; -2.7e-02, 8
+gallery zoom          143 | +1.1e-05, 0; -9.0e-03, 4 | +1.6e-05, 0; -1.3e-02, 6 | +3.3e-05, 0; -2.7e-02, 12
+reading               183 | +2.1e-05, 1; -9.0e-03, 8 | +3.1e-05, 1; -1.3e-02, 5 | +6.2e-05, 1; -2.7e-02, 14
+one point painted     154 | +1.3e-06, 0; -9.0e-03, 5 | +2.0e-06, 0; -1.3e-02, 7 | +4.0e-06, 0; -2.7e-02, 13
+one point inset        74 | +1.2e-05, 0; -9.0e-03, 0 | +1.8e-05, 0; -1.3e-02, 1 | +3.6e-05, 0; -2.7e-02, 4
+bump small             43 | +1.5e-06, 0; -9.0e-03, 0 | +2.3e-06, 0; -1.3e-02, 0 | +4.5e-06, 0; -2.7e-02, 2
+rigidity trig         154 | +1.1e-05, 0; -9.0e-03, 4 | +1.6e-05, 0; -1.3e-02, 7 | +3.2e-05, 0; -2.7e-02, 12
+rigidity sin(1/z)     160 | +7.7e-06, 6; -9.0e-03, 24 | +1.2e-05, 4; -1.3e-02, 12 | +2.3e-05, 6; -2.7e-02, 24
+rigidity sin z        150 | +7.7e-06, 7; -9.0e-03, 22 | +1.2e-05, 3; -1.3e-02, 11 | +2.3e-05, 7; -2.7e-02, 22
+
+largest unguarded gap +6.18e-05 px; largest guarded gap -8.98e-03 px (negative: rows overlap)
+unguarded boundaries, all plates and sizes, with a sample height inside a real hole: 131
+
+controls, 2160p: aa 0.5 rms 1.52; aa 1.5 rms 3.23
+aa 0, planted 0.3 px hole, adaptive: lowest -111.4, 14 rows off
+aa 0, planted 0.02 px hole, canonical: lowest -111.4, 2 rows off
+aa 0, planted 0.02 px hole, adaptive: lowest +0.0, 0 rows off (the classifier only ever samples it at 2x)
+
+Every plate above, every pixel row: lowest, highest deviation (luma), rows off by more than 1. aa 0.
+adaptive is the policy the film's standard renders use. canonical has no classifier: one sample at the pixel centre.
+                                    adaptive, opacity 1      adaptive, opacity 0.5       canonical, opacity 1     canonical, opacity 0.5
+no guard           720p             +0.0    +0.0      0         +0.0    +0.0      0       -111.4    +0.0     20        -76.9   +18.9     40
+no guard          1080p             -7.5    +0.0      1         -2.7    +0.0      1       -111.4    +0.0     10        -76.9   +18.9     20
+no guard          2160p             +0.0    +0.0      0         +0.0    +0.0      0       -111.4    +0.0     20        -76.9   +18.9     40
+guard 0.0001       720p             +0.0    +0.0      0         +0.0    +0.0      0         +0.0    +0.0      0         +0.0   +18.9     62
+guard 0.0001      1080p             +0.0    +0.0      0         +0.0    +0.0      0         +0.0    +0.0      0         +0.0   +18.9     61
+guard 0.0001      2160p             +0.0    +0.0      0         +0.0    +0.0      0         +0.0    +0.0      0         +0.0   +18.9     86

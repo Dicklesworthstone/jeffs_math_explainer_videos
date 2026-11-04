@@ -1,0 +1,246 @@
+# ABC: replay on Oliver take01 ASR starts, sums of literal run times
+
+## Timeline, cue-relative seconds
+  13_1    0.00  SAY 13_1, gap slack -0.00, length 16.00
+  13_1    0.00  caption 0.40: Arithmetic with actions
+  13_1    0.40  tile routes at x -3.1 appears at once
+  13_1    0.40  tile routes+ at x 3.1 appears at once
+  13_1    0.40  wait 13_1 sentence 1: slack +4.20
+  13_1    4.60  motion long_route 0 to 5 in 3.40 (+0.25)
+  13_1    8.25  motion short_route 0 to 1 in 1.30 (+0.25)
+  13_1    9.80  wait 13_1 phrase 'its final action' (share): slack +3.62
+  13_1   13.42  fade 0.40: routes, routes+
+  13_1   13.82  appear 0.51: eight0, eight1, eight2, eight3, eight4, eight5, eight6, eight7
+  13_2    0.00  SAY 13_2, gap slack +2.27, length 24.64
+  13_2    0.00  fade 0.40: eight0, eight1, eight2, eight3, eight4, eight5, eight6, eight7
+  13_2    0.40  tile demo_left at x -3.1 appears at once
+  13_2    0.40  tile demo_right at x 3.1 appears at once
+  13_2    0.40  motion demo_turn 0 to 1 in 1.70 (+0.50)
+  13_2    2.60  caption 0.40: r
+  13_2    3.00  wait 13_2 sentence 1: slack +0.54
+  13_2    3.54  motion demo_flip 0 to 1 in 1.70 (+0.50)
+  13_2    5.74  caption 0.40: s
+  13_2    6.14  wait 13_2 sentence 2: slack +0.62
+  13_2    6.76  caption 0.40: Rightmost move first
+  13_2    7.16  wait 13_2 sentence 4: slack +8.96
+  13_2   16.12  fade 0.40: s
+  13_2   16.52  motion demo_flip 1 to 2 in 1.70 (+0.50)
+  13_2   18.72  caption 0.40: r s
+  13_2   19.12  hold
+  13_2   25.24  fade 0.40: demo_left, demo_right, r, r s
+  13_2   25.64  tile left_objects at x -3.1 appears at once
+  13_2   25.64  tile right_objects at x 3.1 appears at once
+  13_2   25.64  caption 0.40: start
+  13_2   26.04  caption 0.40: start
+  13_3    0.00  SAY 13_3, gap slack -1.20, length 20.08
+  13_3    0.00  wait 13_3 sentence 1: slack +1.84
+  13_3    1.84  fade 0.40: start
+  13_3    2.24  motion left 0 to 1 in 1.30 (+0.25)
+  13_3    3.79  motion left 1 to 2 in 1.30 (+0.25)
+  13_3    5.34  wait 13_3 sentence 3: slack +2.84
+  13_3    8.18  caption 0.40: r²
+  13_3    8.58  wait 13_3 sentence 4: slack +1.84
+  13_3   10.42  fade 0.40: r²
+  13_3   10.82  motion left 2 to 3 in 1.70 (+0.50)
+  13_3   13.02  caption 0.40: r³
+  13_3   13.42  wait 0.6
+  13_3   14.02  fade 0.40: r³
+  13_3   14.42  motion left 3 to 4 in 1.70 (+0.50)
+  13_3   16.62  wait 13_3 sentence 6: slack -0.00
+  13_3   16.62  caption 0.40: r⁴ = e
+  13_4    0.00  SAY 13_4, gap slack +3.66, length 19.92
+  13_4    0.00  wait 13_4 sentence 1: slack +2.06
+  13_4    2.06  fade 0.40: r⁴ = e
+  13_4    2.46  motion left 4 to 5 in 1.70 (+0.50)
+  13_4    4.66  caption 0.40: s
+  13_4    5.06  wait 1.
+  13_4    6.06  fade 0.40: s
+  13_4    6.46  motion left 5 to 6 in 1.70 (+0.50)
+  13_4    8.66  caption 0.40: s² = e
+  13_4    9.06  wait 13_4 sentence 5: slack +6.34
+  13_4   15.40  fade 0.40: start
+  13_4   15.80  caption 0.40: r⁴ = e
+  13_5    0.00  SAY 13_5, gap slack +4.32, length 19.60
+  13_5    0.00  wait 13_5 sentence 1: slack +4.60
+  13_5    4.60  fade 0.40: r⁴ = e
+  13_5    5.00  motion right 0 to 2 in 2.40 (+0.25)
+  13_5    7.65  caption 0.40: s r
+  13_5    8.05  wait 13_5 sentence 2: slack +0.05
+  13_5    8.10  fade 0.40: s² = e
+  13_5    8.50  motion left 6 to 8 in 2.40 (+0.25)
+  13_5   11.15  caption 0.40: r s
+  13_6    0.00  SAY 13_6, gap slack +8.65, length 22.56
+  13_6    0.00  wait 13_6 sentence 1: slack +3.18
+  13_6    3.18  fade 0.40: left_objects, right_objects, r s, s r
+  13_6    3.58  tile left_objects at x -3.1 appears at once
+  13_6    3.58  tile right_objects at x 3.1 appears at once
+  13_6    3.58  motion conjugate 0 to 3 in 2.40 (+0.25)
+  13_6    6.23  caption 0.40: s r s
+  13_6    6.63  wait 13_6 sentence 3: slack +4.01
+  13_6   10.64  motion opposite 0 to 1 in 1.30 (+0.25)
+  13_6   12.19  caption 0.40: r⁻¹
+  13_6   12.59  wait 13_6 phrase 's r s equals' (share): slack +5.81
+  13_6   18.40  caption 0.40: s r s = r⁻¹ = r³
+  13_7    0.00  SAY 13_7, gap slack +4.36, length 24.08
+  13_7    0.00  fade 0.40: left_objects, right_objects, s r s, r⁻¹, s r s = r⁻¹ = r³
+  13_7    0.40  caption 0.40: s
+  13_7    0.80  caption 0.40: r
+  13_7    1.20  caption 0.40: s
+  13_7    1.60  caption 0.40: r²
+  13_7    2.00  caption 0.40: s
+  13_7    2.40  wait 13_7 sentence 1: slack +1.02
+  13_7    3.42  grouping 0.40: bracket
+  13_7    3.82  wait 13_7 phrase 'if we reverse' (share): slack +4.87
+  13_7    8.69  caption 0.40: s r = r⁻¹ s
+  13_7    9.09  fade 0.40: bracket, s, r
+  13_7    9.49  caption 0.40: r⁻¹
+  13_7    9.89  caption 0.40: s
+  13_7   10.29  wait 13_7 sentence 2: slack -0.07
+  13_7   10.29  grouping 0.40: pair
+  13_7   10.69  wait 1.
+  13_7   11.69  fade 0.40: pair, s, s
+  13_7   12.09  glide inverse 0.4
+  13_7   12.49  grouping 0.40: combine
+  13_7   12.89  wait 0.8
+  13_7   13.69  fade 0.40: combine, r⁻¹, r²
+  13_7   14.09  caption 0.40: r
+  13_7   14.49  wait 13_7 sentence 3: slack +0.45
+  13_7   14.94  caption 0.40: rᵏ or rᵏ s
+  13_7   15.34  wait 13_7 sentence 4: slack +5.68
+  13_7   21.02  fade 0.40: r, s, s r = r⁻¹ s
+  13_7   21.42  glide normal 0.4
+  13_7   21.82  appear 0.47: moves0, moves1, moves2, moves3, moves4, moves5, moves6, moves7
+  13_7   22.29  show 0.35: row_frames0, row_frames1
+  13_8    0.00  SAY 13_8, gap slack +2.04, length 21.68
+  13_8    0.00  fade 0.40: row_frames0, row_frames1, rᵏ or rᵏ s
+  13_8    0.40  wait 13_8 phrase 'an undo move' (share): slack +8.87
+  13_8    9.27  hide 0.40: moves0, moves1, moves2, moves3, moves4, moves5, moves6, moves7
+  13_8    9.67  tile undo_objects at x 0 appears at once
+  13_8    9.67  wait 13_8 sentence 2: slack +0.61
+  13_8   10.28  motion undo 0 to 1 in 0.80 (+0.25)
+  13_8   11.33  motion undo 1 to 4 in 1.40 (+0.25)
+  13_8   12.98  caption 0.40: r³ r = e
+  13_8   13.38  wait 13_8 sentence 3: slack +0.44
+  13_8   13.82  fade 0.40: r³ r = e
+  13_8   14.22  caption 0.40: Half-turn, then half-turn
+  13_8   14.62  motion undo 4 to 6 in 0.70 (+0.25)
+  13_8   15.57  motion undo 6 to 8 in 0.70 (+0.25)
+  13_8   16.52  wait 13_8 sentence 4: slack -0.40
+  13_8   16.52  fade 0.40: undo_objects
+  13_8   16.92  tile flip_objects at x 0 appears at once
+  13_8   16.92  fade 0.40: Half-turn, then half-turn
+  13_8   17.32  caption 0.40: Flip, then flip
+  13_8   17.72  motion flip_back 0 to 1 in 1.00 (+0.25)
+  13_8   18.97  motion flip_back 1 to 2 in 1.00 (+0.25)
+  13_9    0.00  SAY 13_9, gap slack +2.06, length 25.28
+ 13_12    0.00  wait 13_12 sentence 1: slack +3.74
+ 13_12    3.74  relight card 0, 0.40: leaving 
+ 13_12    4.14  show 0.35: factors0, factors1
+ 13_12    4.49  show 0.35: s r = r³s, landed, Stay inside the calculation
+ 13_12    4.84  wait 13_12 sentence 2: slack +2.74
+ 13_12    7.58  relight card 1, 0.40: leaving lit0, factors0, factors1, s r = r³s, landed, Stay inside the calculation
+ 13_12    7.98  show 0.35: s r s r²s
+ 13_12    8.33  wait 0.35
+ 13_12    8.68  show 0.35: =(s r s) r²s = r⁻¹ r²s
+ 13_12    9.03  wait 0.35
+ 13_12    9.38  show 0.35: =(r⁻¹ r²) s = rs
+ 13_12    9.73  wait 0.35
+ 13_12   10.08  show 0.35: landed, Bundle a long instruction
+ 13_12   10.43  wait 13_12 sentence 3: slack +1.79
+ 13_12   12.22  relight card 2, 0.40: leaving lit1, s r s r²s, =(s r s) r²s = r⁻¹ r²s, =(r⁻¹ r²) s = rs, landed, Bundle a long instruction
+ 13_12   12.62  show 0.35: neutral, e r = r = r e, Do nothing
+ 13_12   12.97  wait 13_12 sentence 4: slack +2.13
+ 13_12   15.10  relight card 3, 0.40: leaving lit2, neutral, e r = r = r e, Do nothing
+ 13_12   15.50  show 0.35: r x = s
+ 13_12   15.85  wait 0.3
+ 13_12   16.15  show 0.35: x = r⁻¹ s
+ 13_12   16.50  wait 0.3
+ 13_12   16.80  show 0.35: x = r³s
+ 13_12   17.15  wait 0.3
+ 13_12   17.45  show 0.35: answer, r (r³s) = s, checked, Undo to solve
+ 13_12   17.80  wait 13_12 sentence 5: slack +1.80
+ 13_12   19.60  hide 0.40: lit3, r x = s, x = r⁻¹ s, x = r³s, answer, r (r³s) = s, checked, Undo to solve
+
+## POSE/NAME: intervals when a tile's name is not its pose, or its tile moves under it
+  0 intervals
+
+## LIFECYCLE
+  0 problems
+
+## WAITS: negative slack means the picture is late for that word
+  13_1 sentence 1                              at   4.60  slack +4.20
+  13_1 phrase 'its final action' (share)       at  13.42  slack +3.62
+  13_2 sentence 1                              at   3.54  slack +0.54
+  13_2 sentence 2                              at   6.76  slack +0.62
+  13_2 sentence 4                              at  16.12  slack +8.96
+  13_3 sentence 1                              at   1.84  slack +1.84
+  13_3 sentence 3                              at   8.18  slack +2.84
+  13_3 sentence 4                              at  10.42  slack +1.84
+  13_3 sentence 6                              at  16.62  slack -0.00
+  13_4 sentence 1                              at   2.06  slack +2.06
+  13_4 sentence 5                              at  15.40  slack +6.34
+  13_5 sentence 1                              at   4.60  slack +4.60
+  13_5 sentence 2                              at   8.10  slack +0.05
+  13_6 sentence 1                              at   3.18  slack +3.18
+  13_6 sentence 3                              at  10.64  slack +4.01
+  13_6 phrase 's r s equals' (share)           at  18.40  slack +5.81
+  13_7 sentence 1                              at   3.42  slack +1.02
+  13_7 phrase 'if we reverse' (share)          at   8.69  slack +4.87
+  13_7 sentence 2                              at  10.22  slack -0.07  LATE
+  13_7 sentence 3                              at  14.94  slack +0.45
+  13_7 sentence 4                              at  21.02  slack +5.68
+  13_8 phrase 'an undo move' (share)           at   9.27  slack +8.87
+  13_8 sentence 2                              at  10.28  slack +0.61
+  13_8 sentence 3                              at  13.82  slack +0.44
+  13_8 sentence 4                              at  16.12  slack -0.40  LATE
+  13_12 sentence 1                             at   3.74  slack +3.74
+  13_12 sentence 2                             at   7.58  slack +2.74
+  13_12 sentence 3                             at  12.22  slack +1.79
+  13_12 sentence 4                             at  15.10  slack +2.13
+  13_12 sentence 5                             at  19.60  slack +1.80
+
+## HOLDS: seconds fully shown, against characters at 15 per second
+   13_2 from   6.14  hold  9.98  need 0.07  s
+   13_2 from   3.00  hold 22.24  need 0.07  r
+   13_2 from  19.12  hold  6.12  need 0.13  r s
+   13_2 from  26.04  hold  2.24  need 0.33  start
+   13_3 from   8.58  hold  1.84  need 0.13  r²
+   13_3 from  13.42  hold  0.60  need 0.13  r³
+   13_3 from  17.02  hold  5.72  need 0.27  r⁴ = e
+   13_4 from   5.06  hold  1.00  need 0.07  s
+   13_2 from  26.44  hold 36.08  need 0.33  start
+   13_4 from  16.20  hold  8.92  need 0.27  r⁴ = e
+   13_4 from   9.06  hold 19.56  need 0.27  s² = e
+   13_5 from  11.55  hold 11.83  need 0.13  r s
+   13_5 from   8.05  hold 15.33  need 0.13  s r
+   13_6 from   6.63  hold 16.53  need 0.20  s r s
+   13_6 from  12.59  hold 10.57  need 0.20  r⁻¹
+   13_6 from  18.80  hold  4.36  need 0.67  s r s = r⁻¹ = r³
+   13_7 from   0.80  hold  8.29  need 0.07  s
+   13_7 from   1.20  hold  7.89  need 0.07  r
+   13_7 from  10.29  hold  1.40  need 0.07  s
+   13_7 from   1.60  hold 10.09  need 0.07  s
+   13_7 from   9.89  hold  3.80  need 0.20  r⁻¹
+   13_7 from   2.00  hold 11.69  need 0.13  r²
+   13_7 from  14.49  hold  6.53  need 0.07  r
+   13_7 from   2.40  hold 18.62  need 0.07  s
+   13_7 from   9.09  hold 11.93  need 0.47  s r = r⁻¹ s
+   13_7 from  15.34  hold  9.34  need 0.47  rᵏ or rᵏ s
+   13_8 from  13.38  hold  0.44  need 0.33  r³ r = e
+   13_8 from  14.62  hold  2.30  need 1.53  Half-turn, then half-turn
+   13_1 from   0.40  hold 174.16  need 1.40  Arithmetic with actions (still up)
+   13_2 from   7.16  hold 150.80  need 1.20  Rightmost move first (still up)
+   13_8 from  17.72  hold  4.56  need 0.87  Flip, then flip (still up)
+  13_12 from   4.84  hold  2.74  need 0.40  s r = r³s
+  13_12 from   4.84  hold  2.74  need 1.60  Stay inside the calculation
+  13_12 from   8.33  hold  3.89  need 0.40  s r s r²s
+  13_12 from   9.03  hold  3.19  need 1.07  =(s r s) r²s = r⁻¹ r²s
+  13_12 from   9.73  hold  2.49  need 0.80  =(r⁻¹ r²) s = rs
+  13_12 from  10.43  hold  1.79  need 1.47  Bundle a long instruction
+  13_12 from  12.97  hold  2.13  need 0.47  e r = r = r e
+  13_12 from  12.97  hold  2.13  need 0.60  Do nothing
+  13_12 from  15.85  hold  3.75  need 0.27  r x = s
+  13_12 from  16.50  hold  3.10  need 0.40  x = r⁻¹ s
+  13_12 from  17.15  hold  2.45  need 0.33  x = r³s
+  13_12 from  17.80  hold  1.80  need 0.53  r (r³s) = s
+  13_12 from  17.80  hold  1.80  need 0.73  Undo to solve

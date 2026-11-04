@@ -1,0 +1,67 @@
+--- A0. the author's three patches, from base to candidate
+PASS rate.patch: fuzz 0, and every rate02 candidate file matches  rate_law.rs,script-slice.tsv
+PASS series.patch: fuzz 0, and every series01 candidate file matches  factorials.rs,oracle.py,script-slice.tsv,series_model.rs
+PASS product.patch: fuzz 0, and every product01 candidate file matches  oracle.py,product_grid.rs,product_model.rs,script-slice.tsv
+--- A. the patches against the frozen candidates
+PASS series01/factorials.rs is the bundle's bound file  9d465dd088a6
+PASS product01/product_grid.rs is the bundle's bound file  5626940d420c
+PASS product01/script-slice.tsv is the bundle's bound file  d94c33e01647
+PASS phrase-timing.patch applies, fuzz 0, no offset
+    series01/factorials.rs: ca48d460151a418ab13ca8b9995ac22f068ea0b975021f81a2ed93e580cdc4b0
+    product01/product_grid.rs: d06c45e6a7d9387df4b378b74df1af2833e469e35dfbe94f70e205312d07e0b3
+PASS phrase-timing.patch reverses to the frozen bytes
+PASS 03_7-wording.patch applies, fuzz 0, no offset
+    product01/script-slice.tsv: 00650efcacdba6661c928344be0c8d8435b1705bbf1987288784016af36b6da1
+PASS 03_7-wording.patch reverses to the frozen bytes
+PASS factorials: no until_clause left
+PASS factorials: no _SENTENCE left
+PASS factorials: no frames_covering left
+PASS factorials: no wait_frames left
+PASS factorials: no .expect("the clause left
+    factorials: 2 until_phrase call sites
+PASS product_grid: no until_clause left
+PASS product_grid: no _SENTENCE left
+PASS product_grid: no frames_covering left
+PASS product_grid: no wait_frames left
+PASS product_grid: no .expect("the clause left
+    product_grid: 3 until_phrase call sites
+PASS factorials keeps its two call sites
+PASS product_grid keeps its three call sites
+--- A2. phrase.rs against the corpus, whitespace and trailing commas aside
+PASS fn phrase_seconds(...) is the corpus function
+PASS fn phrase_time(...) is the corpus function
+PASS fn until_phrase(...) is the corpus function
+--- B. formatting
+PASS rustfmt --check on the patched factorials.rs
+PASS rustfmt --check on the patched product_grid.rs
+PASS rustfmt --check on phrase.rs
+--- C. the scene tests' string walks and the script bindings, mirrored (not run in Rust)
+PASS factorials: all 8 assert_in_order walks hold  []
+PASS factorials: control, a reversed walk fails
+PASS product_grid: all 5 assert_in_order walks hold  []
+PASS product_grid: control, a reversed walk fails
+PASS every_clause_is_in_its_line_in_spoken_order  ['why adding', 'why the stepped', 'why it is']
+PASS 02_4 has its phrase
+PASS every_phrase_is_in_its_line_in_spoken_order
+--- D. the corrected crate shape type-checks: phrase, scenes, models, facts() and Chapter rows
+PASS fmn metadata was built from the a399d62 checkout
+PASS explainer_score metadata from the current tree
+PASS explainer_kit metadata from the current tree
+PASS rustc -D warnings, normal cfg
+PASS rustc, test cfg
+PASS clippy-driver -D warnings, normal cfg
+PASS clippy-driver -D warnings, test cfg
+PASS control: without `mod phrase;` the crate does not compile
+--- D2. the two optional recurrence lines in REVIEW.md type-check
+PASS rustc -D warnings with both lines
+--- E. the oracle and the two facts lines
+PASS one file holding the three oracles in this order runs
+PASS its stdout is the combined oracle REPAIR.md binds  a7f288a76bf1d1c6e7c5113484624ae891f6068c5466ba3e9425f0674d69c871
+    rows: 883 | imports: ['fractions', 'json', 'math', 'sys']
+PASS Kit facts shim builds
+PASS facts_wired compiles
+PASS facts() with the two lines before self_check prints 883 rows, all equal to the oracle  883
+    factorials.tail.4.bound 0.12657 | factorials.tail.8.bound 0.00022 | product.e 2.71828
+PASS facts_unwired compiles
+PASS control: facts01's facts() without the lines prints only the 183 older rows  183
+RESULT PASS

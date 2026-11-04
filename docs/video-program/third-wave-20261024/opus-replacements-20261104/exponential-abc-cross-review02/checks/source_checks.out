@@ -1,0 +1,62 @@
+--- the scene source-order tests, compiled and run for real (not replayed in Python)
+PASS rate_law: scene tests  test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test tests::the_think_gap_is_authored_and_nothing_new_appears_during_it ... ok
+     test tests::no_refinement_runs_under_the_old_slope_or_its_read_out ... ok
+     test tests::each_reveal_waits_for_the_sentence_that_names_it ... ok
+PASS factorials: scene tests  test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test tests::each_indexed_string_is_the_one_its_beat_needs ... ok
+     test tests::the_think_gap_is_authored_and_the_answer_waits ... ok
+PASS product_grid: scene tests  test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test tests::the_think_gap_is_authored_and_the_answer_waits ... ok
+     test tests::the_proof_steps_land_on_their_sentences ... ok
+--- rustfmt on scratch copies, repo config (edition 2024, width 120)
+  clean: rate_law.rs
+  clean: factorials.rs
+  clean: product_grid.rs
+  clean: facts01 rate_model.rs
+  clean: series_model.rs
+  clean: product_model.rs
+  NOT clean: facts01 facts.rs (4 hunks)
+  NOT clean: canonical facts.rs (4 hunks)
+--- cue texts
+  17 cues, 936 words
+PASS no digits in any slice's words (final_check treats a caption digit as a defect)
+  colons or semicolons: {'02_6': 2, '03_2': 1, '03_3': 1}
+    02_6: the colon sits in sentence 1; a full stop there would move every later index in that cue up by one
+    03_2: the colon sits in sentence 2; a full stop there would move every later index in that cue up by one
+    03_3: the colon sits in sentence 2; a full stop there would move every later index in that cue up by one
+  voice names 'dots': ['02_4']
+  voice names 'boxes': ['02_1']
+  voice names 'bars': []
+  voice names 'column': ['02_1']
+  voice names 'rows': ['02_1', '02_6', '03_2']
+  voice names 'grey': ['01_4']
+  voice names 'brackets': ['03_3']
+--- cue ids against the canonical script
+  canonical has 16 cues; 9 ids collide with the slices: ['01_1', '01_2', '01_3', '02_1', '02_2', '03_1', '03_2', '03_3', '03_4']
+  owners of prefix 01 if the chapters are added beside canonical's: ['01_addition_to_multiplication', '01_rate_law'] (check_script_owners requires exactly 1)
+--- literal strings and indices in the scenes
+PASS rate_law: each cue said once  01_1 01_2 01_3 01_4 01_5
+  rate_law: Transform::new 1, TransformMatchingTex 0, tracker 0, Frame2 0, Axes 0
+PASS factorials: each cue said once  02_1 02_2 02_3 02_4 02_5 02_6
+  factorials: TEXT has 28; indexed [0, 2, 3, 20, 21, 22, 23, 24]; never drawn: [(5, 'x²'), (6, 'x³'), (7, 'x⁴'), (13, 'a = ?'), (17, '1/2'), (18, '1/6'), (19, '1/24'), (26, '1.5'), (27, '5')]
+  factorials: TEX has 4; drawn [0, 1, 2, 3]; all drawn: True
+  factorials: Transform::new 1, TransformMatchingTex 0, tracker 0, Frame2 0, Axes 0
+PASS product_grid: each cue said once  03_1 03_2 03_3 03_4 03_5 03_6
+  product_grid: TEXT has 5; indexed [0, 1, 2, 3, 4]; never drawn: []
+  product_grid: TEX has 11; drawn [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]; all drawn: True
+  product_grid: Transform::new 2, TransformMatchingTex 0, tracker 0, Frame2 0, Axes 0
+--- what the screen ever prints that speaks to the voice
+  factorials: TEX drawn before 02_5 sentence 3: [0, 1] ; any with a factorial: False
+  factorials: TEXT drawn before 02_5 sentence 3: [0, 2, 3, 20, 21, 22, 23] ; any with a factorial: False
+  factorials: first TEX with a factorial: 2 (TEX[2] is drawn at 02_5 sentence 3, :222)
+  factorials: run-time labels before then come from coefficient(n), which prints 1/d with no factorial sign
+  factorials: polynomial 1+ax+bx^2 anywhere in the source: False
+  factorials: an ellipsis (cdots, dots, …) anywhere in the source: False
+  factorials: highlight or colour change on the table in 02_2: False
+  product_grid: colour_diagonal or any animate on cells or totals in 03_5: False
+  product_grid: distinct colours among the totals and the lit diagonal: ['dim', 'hero'] for cells; green for every total
+--- the three oracles merged by plain concatenation, stdout only
+PASS concatenated oracle runs  835 rows; stderr 247 bytes
+PASS concatenated oracle's stdout equals the three run apart
+RESULT PASS

@@ -1,0 +1,62 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs
+@@ -87,6 +87,11 @@
+     Plane::new(v(4.0, 0.15), 3.4, (-1.5, 1.5), (-1.5, 1.5))
+ }
+ 
++/// Where 09_3's "a = 0" card stands on the picture, and where each share card of 09_5 stands
++/// from its pole. The three are on screen together through 09_5.
++const CENTRE_CARD_AT: C = C::new(1.05, -0.4);
++const SHARE_CARD_FROM_POLE: C = C::new(0.72, 0.0);
++
+ /// The real graph of 09_7–09_9.
+ pub fn graph() -> Frame2 {
+     Frame2 {
+@@ -281,7 +286,7 @@
+             CENTRE_ZERO,
+             20.0,
+             Palette::ink(),
+-            p.p(C::new(0.85, -0.72)),
++            p.p(CENTRE_CARD_AT),
+             Palette::faint(),
+         )?;
+         fade_in_all(stage, &[bump_name, r_half[0], r_half[1], a_is[0], a_is[1]], 0.3)?;
+@@ -374,7 +379,7 @@
+                 &share,
+                 24.0,
+                 Palette::ink(),
+-                p.p(z + C::new(0.72, 0.0)),
++                p.p(z + SHARE_CARD_FROM_POLE),
+                 pole(),
+             )?);
+         }
+@@ -892,6 +897,29 @@
+         }
+     }
+ 
++    /// Picture review 09-N2: the lower share card covered the bottom of "a = 0" for 14 s. Half
++    /// sizes in scene units, measured at 1280 × 720 on frame 240 of 09.
++    #[test]
++    fn the_centre_card_is_clear_of_what_joins_it_on_the_picture() {
++        let p = picture();
++        let (at, centre) = (p.p(CENTRE_CARD_AT), p.p(ZERO));
++        let (half_w, half_h) = (44.0 / 90.0, 22.5 / 90.0);
++        let (share_w, share_h) = (41.5 / 90.0, 23.5 / 90.0);
++        for z in [model::I, -model::I] {
++            let share = p.p(z + SHARE_CARD_FROM_POLE);
++            let apart_x = (at[0] - share[0]).abs() - half_w - share_w;
++            let apart_y = (at[1] - share[1]).abs() - half_h - share_h;
++            assert!(apart_x.max(apart_y) > 0.1, "{z:?}: {apart_x}, {apart_y}");
++        }
++        // between the small ring of 09_3 and 09_6, with its dots, and the large ring of 09_4
++        let (dx, dy) = ((at[0] - centre[0]).abs(), (at[1] - centre[1]).abs());
++        assert!(dx > half_w && dy > half_h);
++        let nearest = (dx - half_w).hypot(dy - half_h);
++        let farthest = (dx + half_w).hypot(dy + half_h);
++        assert!(nearest > 0.5 * p.unit() + 0.1, "{nearest}");
++        assert!(farthest < 2.0 * p.unit() - 0.1, "{farthest}");
++    }
++
+     #[test]
+     fn every_point_drawn_stays_in_its_window() {
+         let (p, vp, tp) = (picture(), values_plane(), turned_plane());

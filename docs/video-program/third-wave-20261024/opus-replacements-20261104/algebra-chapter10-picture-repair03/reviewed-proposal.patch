@@ -1,0 +1,95 @@
+--- a/explainer_corpus/abstract_algebra_expanded/src/cyclic.rs
++++ b/explainer_corpus/abstract_algebra_expanded/src/cyclic.rs
+@@ -153,14 +153,26 @@
+ const SMALLEST_PHRASE: &str = "and choose the one";
+ const NAME_D_PHRASE: &str = "call that exponent d";
+ const EVERY_PHRASE: &str = "and every element of H";
++const THEOREM_TAIL_PHRASE: &str = "of a cyclic group";
++const RECAP_WALK_PHRASE: &str = "repeating a move";
++const RECAP_ORDER_PHRASE: &str = "measures its order";
++const RECAP_PREDICT_PHRASE: &str = "predicts that return";
++const RECAP_DIVIDE_PHRASE: &str = "divide exponents";
++const RECAP_STEP_PHRASE: &str = "the smallest positive step";
+ #[cfg(test)]
+-const PHRASES: [(&str, usize, &str); 6] = [
++const PHRASES: [(&str, usize, &str); 12] = [
+     ("10_3", 4, POSITIONS_PHRASE),
+     ("10_4", 2, K_SPLIT_PHRASE),
+     ("10_6", 2, GENERATORS_PHRASE),
++    ("10_7", 0, THEOREM_TAIL_PHRASE),
+     ("10_7", 4, SMALLEST_PHRASE),
+     ("10_7", 4, NAME_D_PHRASE),
+     ("10_9", 2, EVERY_PHRASE),
++    ("10_11", 0, RECAP_WALK_PHRASE),
++    ("10_11", 0, RECAP_ORDER_PHRASE),
++    ("10_11", 1, RECAP_PREDICT_PHRASE),
++    ("10_11", 2, RECAP_DIVIDE_PHRASE),
++    ("10_11", 2, RECAP_STEP_PHRASE),
+ ];
+ 
+ fn at_hour(center: (f64, f64), radius: f64, hour: f64) -> Vec3 {
+@@ -939,7 +951,8 @@
+             v(0.0, 3.0),
+         )?;
+         swap(stage, asked, theorem, 0.6)?;
+-        // Build the exponent line during the invitation to see the proof.
++        // The title reads alone, then the line is up before the invitation to see the proof.
++        until_phrase(stage, &k, "10_7", 0, THEOREM_TAIL_PHRASE)?;
+         let (line, numbers) = exponent_line(stage, &k)?;
+         let axis = k.tex(
+             stage,
+@@ -1302,9 +1315,9 @@
+             v(2.5, -1.15),
+         )?;
+         fade(stage, &table, true)?;
+-        k.until_sentence(stage, "10_10", 2)?;
++        k.until_sentence(stage, "10_10", 3)?;
+         fade(stage, &[squares], true)?;
+-        k.until_sentence(stage, "10_10", 3)?;
++        k.until_sentence(stage, "10_10", 5)?;
+         fade(stage, &[no], true)?;
+         k.say(stage, "10_11")?;
+         // Return to the actual objects named by each summary sentence.
+@@ -1322,7 +1335,10 @@
+             v(PANEL_X, 0.5),
+         )?;
+         d4g::show(stage, &[recap_dial.group], 0.4)?;
+-        draw(stage, &[recap_path], 1.2, 0.0)?;
++        until_phrase(stage, &k, "10_11", 0, RECAP_WALK_PHRASE)?;
++        // Slow enough that the triangle closes as the voice reaches the first return.
++        draw(stage, &[recap_path], 2.2, 0.0)?;
++        until_phrase(stage, &k, "10_11", 0, RECAP_ORDER_PHRASE)?;
+         d4g::show(stage, &[recap_order], 0.4)?;
+         k.until_sentence(stage, "10_11", 1)?;
+         let recap_formula = k.tex(
+@@ -1337,18 +1353,18 @@
+             v(PANEL_X, -0.6),
+         )?;
+         d4g::show(stage, &[recap_formula], 0.4)?;
+-        pulse(stage, &[recap_path, recap_order])?;
++        until_phrase(stage, &k, "10_11", 1, RECAP_PREDICT_PHRASE)?;
++        pulse(stage, &[recap_order])?;
+         k.until_sentence(stage, "10_11", 2)?;
+         d4g::hide(stage, &[recap_dial.group, recap_path, recap_order, recap_formula], 0.4)?;
+         let mut recap_proof = vec![theorem, line, axis, generated, d_ring];
+         recap_proof.extend(&numbers);
+         recap_proof.extend(&members);
+         d4g::show(stage, &recap_proof, 0.4)?;
++        until_phrase(stage, &k, "10_11", 2, RECAP_DIVIDE_PHRASE)?;
+         draw(stage, &whole, 0.4, 0.4)?;
++        until_phrase(stage, &k, "10_11", 2, RECAP_STEP_PHRASE)?;
+         pulse(stage, &[d_ring])?;
+-        k.until_sentence(stage, "10_11", 3)?;
+-        // Keep the positions visible as the next chapter turns moves into permutations.
+-        pulse(stage, &members)?;
+         k.finish(stage)
+     }
+ }
+@@ -1466,6 +1482,7 @@
+             ("10_8", 3),
+             ("10_9", 4),
+             ("10_10", 6),
++            ("10_11", 4),
+         ] {
+             let text = line_text(cue).expect("the cue is in the script");
+             assert_eq!(sentence_ranges(text).len(), sentences, "{cue}");

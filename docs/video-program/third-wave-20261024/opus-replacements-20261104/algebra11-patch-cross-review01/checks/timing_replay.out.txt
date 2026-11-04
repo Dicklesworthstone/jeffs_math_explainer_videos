@@ -1,0 +1,77 @@
+== model against the baseline render's cue table
+27 cues; largest difference between cue length and words/2.6 + 0.4: 0.000 s
+11_24 sentence 3 starts 624.599; plus 0.4 + 8 x (0.5 + 0.3) = 631.399; the render places 11_25 at 631.433. Baseline is picture-driven here.
+
+== Oliver against the scratch rule, from retained takes in other chapters (local inventory, take files only)
+124 takes whose cue text may or may not be current; duration / scratch length: min 0.79, p10 0.90, median 1.05, p90 1.20, max 1.31
+chapter 11 takes in that inventory: 0 | missing_by_chapter['11']: 27
+
+== picture blocks against their sentence windows; README's figures in brackets
+item            block  [README]  window  [README]  spare | spare at p10 x0.90, at p90 x1.20
+I 11_5 s0-1      1.70 [   1.70]    5.69 [   5.08]   3.99 |   3.43,   5.11
+I 11_5 s2        1.20 [   1.20]    9.12 [   8.99]   7.92 |   7.03,   9.71
+T 11_20 s0       3.50 [   3.50]    7.06 [   7.00]   3.56 |   2.86,   4.93
+V 11_21 s3       2.20 [   2.20]    6.48 [   6.23]   4.28 |   3.64,   5.54
+AA 11_22 s2      8.10 [   8.10]    8.98 [   9.76]   0.88 |  -0.01,   2.63
+AA 11_22 s3      3.50 [   3.50]    4.38 [   5.08]   0.88 |   0.45,   1.74
+AE 11_25 s0      1.90 [   1.90]    4.72 [   5.09]   2.82 |   2.35,   3.74
+AE 11_25 s2      4.86 [   4.86]    6.59 [   6.66]   1.73 |   1.08,   3.02
+AE 11_26 s1      0.80 [   0.80]    4.34 [   5.47]   3.54 |   3.11,   4.38
+AI 11_26 s3      3.00 [   3.00]    5.85 [   5.87]   2.85 |   2.27,   3.99
+AM 11_27 s1      2.69 [   2.69]    2.97 [   2.72]   0.28 |  -0.02,   0.85
+G 11_14 s3       0.80 [   0.80]    9.34 [   8.99]   8.54 |   7.62,  10.37
+J 11_17 s4       0.80 [   0.80]    6.98 [   6.64]   6.18 |   5.49,   7.54
+
+== 11_24 to 11_25: the payoff
+sentence 3 voice: 3.37 s to cue end. Picture from its start: baseline 0.4 + 8 x 0.8 = 6.80; candidate + 0.6 + 0.6 = 8.00
+silence between 11_24's end and 11_25: baseline 3.43, candidate 4.63. README's push: 1.20. Direction policy for a cue transition: 0.45-1.4 s
+last bar lands at 6.80 - 0.30 = 6.50; 'Shuffles: 8' fully up at 6.80; the '8' starts to leave at 8.00, gone at 8.40. Staircase still until the first in-shuffle at 8.80. Baseline: count up 6.80, and 11_25's crossfade starts at 6.80
+the same silence at p10 and p90 voice: 4.96, 3.97. It remains picture-driven.
+
+== 11_20 sentence 0: words against the trades
+  'since they compose' starts 3.64 s into the sentence
+  'and each one can be undone' starts 5.05 s into the sentence
+  candidate: trades 0.80-2.00 and 2.30-3.50; all done before 'since' starts
+  with until_phrase on 'since they compose': trades 3.64-4.84 and 5.14-6.34; window ends 7.06; spare 0.72
+    at p10: phrase 3.28, trades end 5.98, window 6.36, spare 0.38
+    at p90: phrase 4.35, trades end 7.05, window 8.43, spare 1.38
+
+== 11_22 sentence 2: the ring's hops against the words, scratch rate
+  hop 1 words end  1.31 | ring lands: baseline  1.55 (+0.24), candidate  1.95 (+0.64)
+  hop 2 words end  2.41 | ring lands: baseline  2.70 (+0.29), candidate  3.10 (+0.69)
+  hop 3 words end  3.43 | ring lands: baseline  3.85 (+0.42), candidate  4.25 (+0.82)
+  hop 4 words end  4.53 | ring lands: baseline  5.00 (+0.47), candidate  5.40 (+0.87)
+  hop 5 words end  5.55 | ring lands: baseline  6.15 (+0.60), candidate  6.55 (+1.00)
+  hop 6 words end  7.08 | ring lands: baseline  7.30 (+0.22), candidate  7.70 (+0.62)
+
+== 11_9 sentence 3: the rest against the anchors (X)
+  from 'r s' to 'and s r': 1.97 s. Left picture: ring 0.4, moves 0.6 + 0.35 + 0.6, tex 0.4 = 2.35 (baseline 2.00). Delay past 'and s r': 0.38 (baseline 0.03)
+  from 'and s r' to sentence 4: 2.26 s. Right picture needs 2.35. Spare when it starts on time: -0.09
+  sentence 4 is 4.01 s long. How late its picture lands, candidate (baseline):
+    scratch x1.00: 0.47 (0.00)
+    p10 x0.90: 0.89 (0.19)
+    median x1.05: 0.28 (0.00)
+    p90 x1.20: 0.00 (0.00)
+
+== Why README's windows differ: it takes each sentence's share of WORDS of the whole cue length; the kit takes its share of CHARACTERS of the speech
+  AA s2: word share of cue length 9.76 (README 9.76); kit rule 8.98
+  AA s3: word share of cue length 5.08 (README 5.08); kit rule 4.38
+  I s0-1: word share of cue length 5.08 (README 5.08); kit rule 5.69
+  AM s1: word share of cue length 2.72 (README 2.72); kit rule 2.97
+  T s0: word share of cue length 7.00 (README 7.00); kit rule 7.06
+
+== With the follow-up patch
+  T: see above; picture spare 0.72
+  V sentence 5: keys out 0.4, recolour 0.3 + 0.3, kinds 0.4 = 1.40 in 5.54; spare 4.14
+  AA sentence 2: caption and ring up together, 0.4, 6 hops 6.9, ring out 0.4 = 7.70 in 8.98; spare 1.28, at p10 0.39. Hops land as in baseline, +0.22 to +0.60
+  swap_caption 11_8 s4: 0.80 in 6.68; spare 5.88, at p10 5.22
+  swap_caption 11_12 s3, then rest 0.6, rings out 0.4: 1.80 in 6.13; spare 4.33, at p10 3.73
+  swap_caption 11_14 s5: 0.80 in 5.08; spare 4.28, at p10 3.78
+  swap_caption 11_27 s5: 0.80 in 6.26; spare 5.46, at p10 4.84
+
+== Reading time of the new words at 15 characters a second
+  AA reading: 33 chars need 2.20 s; on screen at least 8.58 s at scratch rate
+  I name: 30 chars need 2.00 s; on screen at least 4.89 s at scratch rate
+  V keys: 20 chars need 1.33 s; on screen at least 13.89 s at scratch rate
+  AC: 46 chars need 3.07 s; on screen at least 14.65 s at scratch rate
+  AH: 53 chars need 3.53 s; on screen at least 8.17 s at scratch rate

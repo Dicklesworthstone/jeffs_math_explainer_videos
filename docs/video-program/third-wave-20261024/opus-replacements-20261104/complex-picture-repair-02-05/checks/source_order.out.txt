@@ -1,0 +1,118 @@
+-- TEXT and TEX: no exact duplicate, nothing empty, every name resolves
+  ok   TEXT: 233 entries, no duplicate
+  ok   TEXT: nothing empty
+  ok   TEXT: every name resolves
+  ok   TEXT has 'new windows: the ticks still mark whole numbers'
+  ok   TEXT has 'gold segment: where the recipe works'
+  ok   TEXT has 'output f(z), sizes squashed'
+  ok   TEXT has '1/2 + '
+  ok   TEXT has ' turn, at −i: '
+  ok   TEXT has ' turn'
+  ok   TEX: 140 entries, no duplicate
+  ok   TEX: nothing empty
+  ok   TEX: every name resolves
+  ok   TEX has 'z'
+  ok   TEX has 'f(z)'
+  ok   TEX has '1'
+  ok   TEX has 'i'
+  ok   TEX has '2\\pi i'
+  ok   TEX has 'f(z) = z'
+  ok   TEX has 'f(z) = \\frac{1}{1 + z^2}'
+  ok   TEX has 'z^3 - 1'
+  ok   TEX has '\\frac{z-1}{(z+1)^2}'
+  ok   TEX has 'e^z'
+  ok   TEX has '\\sin z'
+  ok   TEX has '\\Gamma(z)'
+  ok   TEX has '\\zeta(s)'
+-- every phrase waited on is literal in its cue, and in order
+  ok   02_1: 'how far right'  at char 60
+  ok   02_1: 'how far up'  at char 91
+  ok   02_2: 'and the whole plane turns'  at char 143
+  ok   02_6: 'So one plus i'  at char 88
+  ok   04_1: 'Pointing right is red' (NAMED)  at char 187
+  ok   04_1: 'Pointing up is yellow green' (NAMED)  at char 210
+  ok   04_1: 'Pointing left is teal' (NAMED)  at char 239
+  ok   04_1: 'pointing down is violet' (NAMED)  at char 266
+  ok   05_1: 'Three zeros inside'  at char 185
+  ok   05_2: 'and at minus one'  at char 118
+  ok   05_2: 'backwards twice'  at char 178
+  ok   05_3: 'and its size'  at char 90
+  ok   05_4: 'and sine of three i'  at char 187
+  ok   05_5: 'and far below'  at char 126
+  ok   05_6: 'and no zeros anywhere'  at char 259
+  ok   05_9: 'in little tiles'  at char 109
+-- sentence indices waited on exist in their cues
+  ok   02_1: sentences [2] of 3, rising
+  ok   02_2: sentences [1, 2] of 3, rising
+  ok   02_3: sentences [2] of 3, rising
+  ok   02_4: sentences [1, 2] of 3, rising
+  ok   02_5: sentences [] of 3, rising
+  ok   02_6: sentences [1, 2] of 5, rising
+  ok   04_1: sentences [1, 2] of 6, rising
+  ok   04_2: sentences [1, 2, 3] of 4, rising
+  ok   04_3: sentences [1] of 3, rising
+  ok   04_4: sentences [1] of 3, rising
+  ok   04_5: sentences [1] of 2, rising
+  ok   04_6: sentences [] of 2, rising
+  ok   04_7: sentences [1, 2] of 3, rising
+  ok   05_1: sentences [1, 2] of 4, rising
+  ok   05_2: sentences [2] of 3, rising
+  ok   05_3: sentences [1, 2] of 3, rising
+  ok   05_4: sentences [1, 2, 3] of 4, rising
+  ok   05_5: sentences [1, 2] of 3, rising
+  ok   05_6: sentences [1, 2, 3, 4] of 5, rising
+  ok   05_7: sentences [1, 2, 3, 4, 5] of 6, rising
+  ok   05_8: sentences [1, 2] of 3, rising
+  ok   05_9: sentences [1, 4] of 5, rising
+-- each_card_outlasts_its_reading_window, the two edited sites
+  ok   04_4: shown before held
+  ok   04_4: nothing cleared before the window
+  ok   04_4: voice ends before the card
+  ok   04_4: next cue follows the window at once
+  ok   04_4: no other cue between
+  ok   04_4: the next cue clears the card
+  ok   05_8: shown before held
+  ok   05_8: nothing cleared before the window
+  ok   05_8: voice ends before the card
+  ok   05_8: next cue follows the window at once
+  ok   05_8: no other cue between
+  ok   05_8: the next cue clears the card
+-- every_colour_picture_is_crisp
+  ok   2 pictures, 2 crisp calls
+-- cue words
+  ok   script.tsv byte-identical to the baseline  2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e
+  ok   storyboard: same rows  105 rows
+       storyboard rows whose picture column changed: ['03_1', '03_6', '03_7', '04_1', '04_6', '05_4', '05_7', '05_9']
+  ok   storyboard: the words column of every row is unchanged
+  ok   storyboard: only the picture column changed
+  ok   storyboard still holds the words of 02_1
+  ok   storyboard still holds the words of 02_2
+  ok   storyboard still holds the words of 02_3
+  ok   storyboard still holds the words of 02_4
+  ok   storyboard still holds the words of 02_5
+  ok   storyboard still holds the words of 02_6
+  ok   storyboard still holds the words of 03_1
+  ok   storyboard still holds the words of 03_2
+  ok   storyboard still holds the words of 03_3
+  ok   storyboard still holds the words of 03_4
+  ok   storyboard still holds the words of 03_5
+  ok   storyboard still holds the words of 03_6
+  ok   storyboard still holds the words of 03_7
+  ok   storyboard still holds the words of 04_1
+  ok   storyboard still holds the words of 04_2
+  ok   storyboard still holds the words of 04_3
+  ok   storyboard still holds the words of 04_4
+  ok   storyboard still holds the words of 04_5
+  ok   storyboard still holds the words of 04_6
+  ok   storyboard still holds the words of 04_7
+  ok   storyboard still holds the words of 05_1
+  ok   storyboard still holds the words of 05_2
+  ok   storyboard still holds the words of 05_3
+  ok   storyboard still holds the words of 05_4
+  ok   storyboard still holds the words of 05_5
+  ok   storyboard still holds the words of 05_6
+  ok   storyboard still holds the words of 05_7
+  ok   storyboard still holds the words of 05_8
+  ok   storyboard still holds the words of 05_9
+
+0 failed

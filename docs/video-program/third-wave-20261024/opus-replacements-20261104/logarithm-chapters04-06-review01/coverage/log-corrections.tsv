@@ -1,0 +1,8 @@
+chapter	sheet	old_text	new_text	why
+04_undoing_growth	sheet-080	line starts; line at t=50 reads about 12, right	line starts	misplaced: on this sheet the line has barely begun (found by the spot check)
+04_undoing_growth	sheet-094	0.693/0.05 = 13.86, right	0.693/0.05 = 13.86, right; line at t=50 reads about 12 (x=259, line y about 367.9, 3.59 doublings), right	the measurement belongs on this sheet
+05_complex_turns	sheet-091	tip on the second circle radially outside the lap-1 circle	tip 114.8 sheet px = length 2 at 57.4 sheet px/unit, angle 108 deg, between the x=0.5 and x=1 circles, right since ln 2 = 0.693	the earlier wording was a loose reading; the measured position replaces it
+06_lifting_loops	sheet-027	2pi i purple hidden under blue	2pi i purple hidden under blue; red ring on 2pi i first appears at 46.5 (frame 110)	the ring's first picture is on this sheet
+06_lifting_loops	sheet-028	wait: 46.5 red ring on 2pi i appears on the previous sheet cell run; red ring holds 47.5, 48.0;	red ring holds 47.5, 48.0;	removes a note-to-self; the first appearance is now on sheet-027
+06_lifting_loops	sheet-028	ring right edge about 3 sheet px from gold 2pi i label (tight, check at full size)	ring right edge about 2 frame px from gold 2pi i label at full size (frame-0111)	records the full-size measurement
+06_lifting_loops	sheet-060	(see C8 for -pi)	(C6; -pi i appears only in the 06_6 strip)	the finding's label in REVIEW.md is C6

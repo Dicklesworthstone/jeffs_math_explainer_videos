@@ -1,0 +1,50 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/continuation.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/continuation.rs
+@@ -16,6 +16,16 @@
+     Ok(())
+ }
+ 
++fn disappear(stage: &mut Stage<'_>, mobs: &[Mob]) -> fmn::Result<()> {
++    let mut animations: Vec<Box<dyn Animation>> = Vec::new();
++    for &mob in mobs {
++        let animation = fade_out(stage.arena_mut(), mob, ORIGIN, 1.0)?;
++        animations.push(stage.prepare(animation.rt(0.5))?);
++    }
++    stage.play_prepared(animations)?;
++    Ok(())
++}
++
+ fn partial_sum(z: f64, n: u32) -> f64 {
+     (0..=n).fold((0.0, 1.0), |(sum, power), _| (sum+power, power*z)).0
+ }
+@@ -27,15 +37,27 @@
+ 
+     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+         let kit = self.kit.clone();
++        // Research draft: 06_0 is a new spoken question, not yet recorded.
++        let prediction = [
++            kit.text(stage, "Will these sums settle?", 32.0, Palette::ink(), v(0.0,2.9))?,
++            kit.text(stage, "1 + z + z² + ...", 28.0, Palette::blue(), v(0.0,2.1))?,
++            kit.text(stage, "z = 0.5", 25.0, Palette::blue(), v(-3.2,1.3))?,
++            kit.text(stage, "z = 1.2", 25.0, Palette::hero(), v(3.2,1.3))?,
++            kit.text(stage, "Which partial sums settle?", 25.0, Palette::hero(), v(0.0,-2.2))?,
++        ];
++        appear(stage, &prediction)?;
++        kit.say(stage, "06_0")?;
++        kit.hold(stage)?;
++        kit.mark(stage, "predict");
++        stage.wait(3.0)?;
++        disappear(stage, &prediction)?;
+         kit.say(stage, "06_1")?;
+         let title = kit.text(stage, "The function can continue; the series may not", 32.0, Palette::ink(), v(0.0,2.9))?;
+         let identity = kit.text(stage, "1 + z + z² + ... = 1 / (1 − z),  |z| < 1", 25.0, Palette::blue(), v(0.0,2.1))?;
+         let left = kit.text(stage, "z = 0.5: partial sums", 23.0, Palette::blue(), v(-3.2,1.3))?;
+         let right = kit.text(stage, "z = 1.2: partial sums", 23.0, Palette::hero(), v(3.2,1.3))?;
+-        let question = kit.text(stage, "Do both sequences settle?", 25.0, Palette::hero(), v(0.0,-2.2))?;
+-        appear(stage, &[title,identity,left,right,question])?;
++        appear(stage, &[title,identity,left,right])?;
+         kit.hold(stage)?;
+-        stage.wait(3.0)?;
+         for (row,n) in [0_u32,1,2,5,10].into_iter().enumerate() {
+             let y = 0.7 - row as f64*0.5;
+             let a = kit.text(stage, &format!("n={n}: {:.3}",partial_sum(0.5,n)), 23.0, Palette::blue(), v(-3.2,y))?;

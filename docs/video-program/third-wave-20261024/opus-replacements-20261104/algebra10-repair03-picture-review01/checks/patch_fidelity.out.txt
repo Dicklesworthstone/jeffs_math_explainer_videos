@@ -1,0 +1,81 @@
+== inputs
+bee439fdad35eb75a22a05d32d4e9aad059feabac0456fbfd29e24746b391d46 canonical explainer_corpus/abstract_algebra_expanded/src/cyclic.rs
+bee439fdad35eb75a22a05d32d4e9aad059feabac0456fbfd29e24746b391d46 repair03 bundle cyclic.rs
+83619d48676b32d5d93bf7527477aa752a902dd16927c548e4b3052cc2d689c0 script.tsv
+7f05be9377a54b2c4e1a03ca83b563eb87d90734818273d59d95cea566784d4a direction map
+dbb3a64aebb68076edd1be98a24e2709c807cc980a613f1f29d89e8790491d19 patch
+
+== the patch at fuzz 0, forward and reverse, in a temporary tree
+forward exit 0 | rejects: False
+candidate sha256 bee0eb2c55f2b9ad43fcd10b4f0993947b7fd104cda963e63ed27ccfefa4f17f
+reverse exit 0 | rejects: False | returns the base bytes: True
+
+== the same patch applied by an independent hunk walker
+hunks 12, added 92, removed 17; result equals the patch tool's: True
+
+== each finding's hunks alone, at fuzz 0 on the base, then rustfmt
+A 10_2: hunks [3] exit 0 rejects False | rustfmt (exit, stderr lines, diff lines) (0, 0, 0) | sha d8b37282b641
+B 10_10: hunks [0, 1, 7, 8, 9, 10] exit 0 rejects False | rustfmt (exit, stderr lines, diff lines) (0, 0, 0) | sha 05beefda26a8
+C 10_4: hunks [4, 5] exit 0 rejects False | rustfmt (exit, stderr lines, diff lines) (0, 0, 0) | sha 2816a9c2e766
+D 10_1: hunks [2, 11] exit 0 rejects False | rustfmt (exit, stderr lines, diff lines) (0, 0, 0) | sha ebf784219c1e
+E 10_6: hunks [6] exit 0 rejects False | rustfmt (exit, stderr lines, diff lines) (0, 0, 0) | sha 4484c5db8342
+
+== where the change falls
+tests module starts at base line 1372
+hunks starting inside tests: [1466, 1473] | #[test] base 5 candidate 6
+
+== cue order, sentence indices, phrases
+k.say order identical: True | count 11
+waits in candidate: 51 | base: 44
+indices past their cue's sentences: []
+sentence waits in order within every cue: True
+phrases not in their sentence: [] | ROTATIONS_PHRASE: so this group is not
+PHRASES declares 13 and lists 13
+first k.hold in candidate at line 453 | next lines: ['stage.wait(3.0)?;', 'k.say(stage, "10_2")?;']
+narration_units binds script 83619d48676b and map 7f05be9377a5
+map hold row for 10_1: line 448 sha bee439fdad35 | base line text: k.hold(stage)?; | needs rebinding to line 453 and the candidate sha
+
+== every new mobject leaves the screen, and the new names were free
+group_size in base: 0 | in candidate: 4
+each_coprime in base: 0 | in candidate: 3
+unit_orders in base: 0 | in candidate: 3
+rotations in base: 0 | in candidate: 4
+squared in base: 0 | in candidate: 4
+cell in base: 0 | in candidate: 3
+hide list carries group_size: True
+table carries the four new rows: True | hidden next: True
+
+== new and removed display strings
+  new     "10_1"
+  new     "10_10"
+  new     "10_2"
+  new     "Each relatively prime to {N}"
+  new     "Not the four rotations of a square"
+  new     "Whole clock group: {N} elements"
+  new     "so this group is not"
+  new     "{u} squared"
+  new     "{u} times {w}"
+  new     "{u} to the {power}"
+  new     "{u}"
+  new     r"\operatorname{ord}(5)=\operatorname{ord}(7)=\operatorname{ord}(11)=2"
+
+== an independent mirror of the new test, with mutated inputs that must fail
+{1,5,7,11} mod 12: True | {1,5,7,10} mod 12 (must fail): False | {1,2,3,4} mod 5, which is cyclic (must fail): False
+table: [[1, 5, 7, 11], [5, 1, 11, 7], [7, 11, 1, 5], [11, 7, 5, 1]]
+
+== placing the new labels: the width law against ink measured on existing frames
+'No element generates all four' size 31: law 3.98 units | measured frame 560 4.00 units, ink box (685, 450, 1045, 477)
+'Add 8: how many positions?' size 30: law 3.75 units | measured frame 30 3.73 units, ink box (688, 257, 1024, 283)
+'4 orbits, 3 positions each' size 26: law 2.84 units | measured frame 192 2.84 units, ink box (773, 286, 1029, 308)
+
+New labels: width by the law, edges in scene units, and whether the frame's target box is empty today
+'Whole clock group: 12 elements' size 28: width 3.89, x 0.35 to 4.25; frame 100 box (661, 531, 1032, 575) ink today: None
+'Each relatively prime to 12' size 28: width 3.35, x 0.83 to 4.17; frame 560 box (704, 234, 1025, 278) ink today: None
+'Not the four rotations of a square' size 27: width 4.00, x 0.50 to 4.50; frame 560 box (675, 500, 1054, 544) ink today: None
+
+ord(8)=3 at size 32 on frame 100, ink box: (781, 467, 912, 496) | width 1.46 height px 29
+ems of ord(8)=3 by the TeX widths; units per em measured: 0.319
+ord(5)=ord(7)=ord(11)=2 at size 32: about 4.21 units wide at x 2.5, so x 0.40 to 4.60
+slot at y -0.5 on frame 560: squares' ink ends at 364 px, 'No element' starts at 450 px; the new row needs 390 to 420 px | clearances 26 and 30 px
+10_10 table ink, below its title, ends at x px 497 = scene -1.59 | squares' ink box (680, 329, 1050, 364)
+candidate rustfmt (exit, stderr lines, diff lines): (0, 0, 0)

@@ -1,0 +1,149 @@
+--- check_compile_repair.py . <scratch>
+exit 0
+ok   baseline unchanged: explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+ok   baseline unchanged: explainer_corpus/complex_analysis_visual/src/chapters/closing.rs
+ok   baseline unchanged: explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs
+ok   baseline unchanged: explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs
+ok   baseline unchanged: explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+ok   baseline unchanged: explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs
+ok   baseline unchanged: explainer_corpus/complex_analysis_visual/src/chapters/turning.rs
+ok   baseline unchanged: explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
+ok   baseline unchanged: explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
+ok   dependency unchanged: narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-opus-rebuild-build02/command.log
+ok   dependency unchanged: crates/explainer_kit/src/play.rs
+ok   dependency unchanged: crates/explainer_kit/src/lib.rs
+ok   dependency unchanged: crates/explainer_kit/src/facts.rs
+ok   dependency unchanged: crates/explainer_kit/src/plot.rs
+ok   dependency unchanged: explainer_corpus/complex_analysis_visual/src/facts.rs
+ok   dependency unchanged: explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+ok   dependency unchanged: explainer_corpus/complex_analysis_visual/src/chapters/thumbnail.rs
+ok   dependency unchanged: explainer_corpus/complex_analysis_visual/src/score.rs
+ok   dependency unchanged: ~/.cargo/git/checkouts/franken_manim-6641d0e09642f63e/a399d62/crates/fmn/src/lib.rs
+ok   dependency unchanged: ~/.cargo/git/checkouts/franken_manim-6641d0e09642f63e/a399d62/crates/fmn-library/src/poly.rs
+ok   dependency unchanged: ~/.cargo/git/checkouts/franken_manim-6641d0e09642f63e/a399d62/crates/fmn-library/src/line.rs
+ok   dependency unchanged: ~/.cargo/git/checkouts/franken_manim-6641d0e09642f63e/a399d62/crates/fmn-anim/src/animation.rs
+ok   log ends: 15 previous errors
+ok   15 error headers at the listed log lines
+ok   log 7: E0283 one_derivative.rs:431
+ok   log 38: E0283 one_derivative.rs:249
+ok   log 69: E0308 closing.rs:199
+ok   log 90: E0308 draw.rs:800
+ok   log 101: E0308 draw.rs:633
+ok   log 113: E0308 draw.rs:638
+ok   log 124: E0599 draw.rs:272
+ok   log 141: E0599 draw.rs:283
+ok   log 158: E0308 the_bump.rs:199
+ok   log 179: E0515 closing.rs:411
+ok   log 188: E0373 counting.rs:666
+ok   log 212: E0515 two_planes.rs:652
+ok   log 221: E0515 turning.rs:440
+ok   log 230: E0515 gallery.rs:849
+ok   log 239: E0515 loop_sums.rs:596
+ok   every logged error has a repair row
+ok   draw.rs differs from canonical
+ok   closing.rs differs from canonical
+ok   the_bump.rs differs from canonical
+ok   one_derivative.rs differs from canonical
+ok   counting.rs differs from canonical
+ok   two_planes.rs differs from canonical
+ok   turning.rs differs from canonical
+ok   gallery.rs differs from canonical
+ok   loop_sums.rs differs from canonical
+ok   patch regenerates byte for byte
+ok   patch -p1 applies
+ok   exactly 9 files change
+ok   applied draw.rs equals the candidate copy
+ok   applied closing.rs equals the candidate copy
+ok   applied the_bump.rs equals the candidate copy
+ok   applied one_derivative.rs equals the candidate copy
+ok   applied counting.rs equals the candidate copy
+ok   applied two_planes.rs equals the candidate copy
+ok   applied turning.rs equals the candidate copy
+ok   applied gallery.rs equals the candidate copy
+ok   applied loop_sums.rs equals the candidate copy
+ok   patch -R returns to canonical
+ok   no .orig or .rej
+ok   18 repair rows hold
+ok   17 registered chapter modules scanned
+ok   control, canonical still has the old forms: {'collect': ['one_derivative.rs'], 'temporary': ['loop_sums.rs', 'closing.rs', 'turning.rs', 'gallery.rs', 'two_planes.rs'], 'tail': [('draw.rs', 633), ('draw.rs', 638), ('draw.rs', 800)], 'untimed': ['draw.rs']}
+ok   none of the old forms in any registered module: {'collect': [], 'temporary': [], 'tail': [], 'untimed': []}
+ok   draw.rs keeps its counts {'#[test]': 5, 'assert': 14, 'should_panic': 0, 'fn': 83}
+ok   draw.rs string literals unchanged
+ok   closing.rs keeps its counts {'#[test]': 3, 'assert': 20, 'should_panic': 0, 'fn': 13}
+ok   closing.rs string literals unchanged
+ok   the_bump.rs keeps its counts {'#[test]': 3, 'assert': 6, 'should_panic': 0, 'fn': 10}
+ok   the_bump.rs string literals unchanged
+ok   one_derivative.rs keeps its counts {'#[test]': 6, 'assert': 12, 'should_panic': 0, 'fn': 19}
+ok   one_derivative.rs string literals unchanged
+ok   counting.rs keeps its counts {'#[test]': 9, 'assert': 32, 'should_panic': 0, 'fn': 21}
+ok   counting.rs string literals unchanged
+ok   two_planes.rs keeps its counts {'#[test]': 5, 'assert': 29, 'should_panic': 0, 'fn': 20}
+ok   two_planes.rs string literals unchanged
+ok   turning.rs keeps its counts {'#[test]': 3, 'assert': 19, 'should_panic': 0, 'fn': 15}
+ok   turning.rs string literals unchanged
+ok   gallery.rs keeps its counts {'#[test]': 5, 'assert': 38, 'should_panic': 0, 'fn': 26}
+ok   gallery.rs string literals unchanged
+ok   loop_sums.rs keeps its counts {'#[test]': 3, 'assert': 25, 'should_panic': 0, 'fn': 26}
+ok   loop_sums.rs string literals unchanged
+ok   script.tsv is the frozen script
+ok   rustfmt --check accepts the whole module tree
+ok   18/18 repairs undone alone are refused
+
+all checks passed
+
+--- older desk checks and the oracle, increment06 against increment06 + this repair
+(thumbnail.rs and score.rs are increment06's here; root's fmt of them changes neither check)
+exit 0
+[cross] exit 0 -> 0, lines 17 -> 17
+[supp] exit 0 -> 0, lines 4 -> 4
+[desk] exit 0 -> 0, lines 1 -> 2
+    @@ -1 +1,2 @@
+    -desk problems 0
+    +UNUSED src/chapters/draw.rs Timed
+    +desk problems 1
+[unused] exit 0 -> 0, lines 1 -> 1
+[arity] exit 0 -> 0, lines 25 -> 25
+    @@ -1 +1 @@
+    -calls checked: 3475; problems: 0
+    +calls checked: 3480; problems: 0
+    @@ -9 +9 @@
+    -UNKNOWN filter_map x2 e.g. src/chapters/draw.rs:732
+    +UNKNOWN filter_map x2 e.g. src/chapters/draw.rs:734
+    @@ -13 +13 @@
+    -UNKNOWN map_or x1 e.g. src/chapters/draw.rs:708
+    +UNKNOWN map_or x1 e.g. src/chapters/draw.rs:710
+[scope] exit 0 -> 0, lines 26 -> 26
+    @@ -2 +2 @@
+    -NOT IN SCOPE (prod) src/chapters/draw.rs:695 allow() [unknown]
+    +NOT IN SCOPE (prod) src/chapters/draw.rs:697 allow() [unknown]
+[shape] exit 0 -> 0, lines 4 -> 4
+    @@ -3 +3 @@
+    -argument shapes compared: 7265
+    +argument shapes compared: 7270
+[oracle] exit 0 -> 0, lines 137 -> 137
+--- desk after
+UNUSED src/chapters/draw.rs Timed
+desk problems 1
+--- unused after
+bindings checked: 2253; problems: 0
+--- arity after, tail
+UNKNOWN total_cmp x1 e.g. src/model.rs:674
+UNKNOWN try_fold x1 e.g. src/model.rs:578
+UNKNOWN unsigned_abs x1 e.g. src/model.rs:94
+UNKNOWN unwrap_or_default x4 e.g. src/chapters/draw.rs:127
+UNKNOWN with_capacity x14 e.g. src/chapters/continuing.rs:107
+UNKNOWN wrapping_mul x4 e.g. src/chapters/one_point.rs:116
+
+--- files, sha256
+f2c9a6be24178328a0365d6230857fb05e41f28c0a4a76961e999db1a73873a3  baseline.json
+137743cf9c798830351800e8895f5202aea4ab12a6e0b607397a59195401fb24  check_compile_repair.py
+c9efb0fa37005492ec9da50acc12880cc0b24d804ec036b5061cf9a570b4b200  compile-repair01.patch
+32365297a4560ee97ce361b51dd536efec133d00a10886b1d7089705779bba8d  explainer_corpus/complex_analysis_visual/src/chapters/closing.rs
+5b32c4877cc21c617a8bcc762e469b2aa91e1f196c8df635d78d296308ce1ca1  explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+5963fc53c6ad8401cf8f682ca9ac1fcbb00ef0ffa29828011abd1db9106140a1  explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+e1c99bd1ef96dd051ee0b35382480c3314805b689e5d188c104f08e3dd5c074d  explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
+4cf94187b2f871571c7139d12f1381133b1ee361c2d08c73f1268190d39d8ddc  explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
+ebeca97226687616749b55be6b7a6e8f0b9140c6f04c4063e1910f942881077c  explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs
+b4a63f57a390d11f1dab3e7c462b9f65d0967b03d721f9e66a12343af72f3975  explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs
+043002d0884a41dd5c76e489706587ba5d8cb336d3aac00762f793aa671a7e93  explainer_corpus/complex_analysis_visual/src/chapters/turning.rs
+00c3a36edc09713e27784f513d20cfbc9cdf4c7e798ea7264d1ff50b0014f4e0  explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs

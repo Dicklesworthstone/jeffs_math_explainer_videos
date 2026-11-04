@@ -1,0 +1,13 @@
+canonical problems: 8; with this repair: 8
+added by the repair: 0; gone with the repair: 0
+problems on canonical (not this repair's):
+   closing.rs:278 pause after the voice-end wait of 15_1: an unclassified post-voice hold; read it and classify it as reading or not
+   closing.rs:319 pause after the voice-end wait of 15_2: an unclassified post-voice hold; read it and classify it as reading or not
+   counting.rs:215 non-literal sentence argument nobody has resolved: let until = if i < 2 { line.sentence(i + 3)? } else { line.end() };
+   counting.rs:277 non-literal wait_for argument nobody has resolved: line.wait_for(stage, NEEDS_SAID[i])?;
+   gallery.rs:345 non-literal until argument nobody has resolved: let rt = line.until(stage, phrase, 2.5)?;
+   reading_color.rs:170 non-literal wait_for argument nobody has resolved: line.wait_for(stage, phrase)?;
+   gallery.rs: DYNAMIC's source line is gone: Some("Three zeros inside"),
+   gallery.rs: DYNAMIC's call is gone: Some(p) => line.until(stage, p, 2.5)?,
+hold rows the binder derives differently: ['13_11', '13_5']
+other sections unchanged: {'schema_version': True, 'scripts': True, 'overrides': True, 'hold_kinds': True, 'helpers': True, 'scope': True}

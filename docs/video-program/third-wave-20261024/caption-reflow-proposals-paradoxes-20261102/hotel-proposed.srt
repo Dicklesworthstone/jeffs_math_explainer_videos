@@ -1,0 +1,68 @@
+1
+00:00:00,600 --> 00:00:06,960
+Imagine a hotel with rooms numbered one,
+two, three, and so on without end.
+
+2
+00:00:06,960 --> 00:00:09,520
+Every room has one guest.
+
+3
+00:00:09,520 --> 00:00:11,320
+A new guest arrives.
+
+4
+00:00:11,320 --> 00:00:13,080
+Can everyone have a room?
+
+5
+00:00:17,200 --> 00:00:22,470
+Assign the guest in room one to room two,
+the guest in room two to
+
+6
+00:00:22,470 --> 00:00:27,740
+room three, and in general the guest in
+room n to room n plus one.
+
+7
+00:00:27,740 --> 00:00:31,200
+Now assign the new guest room one.
+
+8
+00:00:31,200 --> 00:00:34,300
+Every original guest has a distinct room.
+
+9
+00:00:34,300 --> 00:00:40,630
+The new guest has one too, and every room
+is assigned: room one to the newcomer,
+
+10
+00:00:40,630 --> 00:00:46,480
+and room k, for k at least two, to the
+former guest from room k minus one.
+
+11
+00:00:47,133 --> 00:00:49,953
+That is impossible for a finite hotel.
+
+12
+00:00:49,953 --> 00:00:53,064
+For an infinite set, a one-to-one
+matching can
+
+13
+00:00:53,064 --> 00:00:56,313
+pair the whole set with a proper part of
+itself.
+
+14
+00:00:56,313 --> 00:00:59,050
+This is a mathematical assignment, not a
+
+15
+00:00:59,050 --> 00:01:02,333
+practical plan for moving infinitely many
+people.
+

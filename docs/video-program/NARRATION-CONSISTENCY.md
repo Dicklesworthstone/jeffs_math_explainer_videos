@@ -1,6 +1,15 @@
 # Michael continuity and cadence — 2026-10-17 UTC
 
-This is the current narration handoff, not a second task board. Beads owns status. The reusable direction is in the private canonical [narration skill](https://github.com/Dicklesworthstone/je_private_skills_repo/blob/63496ee742c57f78c6de5a8675b281c96dc7ce96/.claude/skills/natural-sounding-narration-with-frankentts/SKILL.md) and its [consistency experiments](https://github.com/Dicklesworthstone/je_private_skills_repo/blob/63496ee742c57f78c6de5a8675b281c96dc7ce96/.claude/skills/natural-sounding-narration-with-frankentts/references/CONSISTENCY-EXPERIMENTS.md). All 41 tracked skill files match the canonical and both installed copies after the N9.3 refresh.
+> **Historical handoff, superseded for future voice selection:** On 2026-10-31
+> the owner clarified that current narration uses ElevenLabs, not Michael.
+> Keep the experiments, approvals and negative results below as historical
+> evidence; they do not authorize new Michael auditions or synthesis. The
+> ElevenLabs Oliver replacements and their exact evidence are recorded in the
+> catalog and [third-wave handoff](third-wave-20261024/TODO.md). Those receipts
+> do not establish a required ElevenLabs voice for every future project or
+> substitute ASR and technical checks for listening and fine-sync acceptance.
+
+This was the 2026-10-17 narration handoff, not a second task board. Beads owns status. The reusable direction at that time was in the private canonical [narration skill](https://github.com/Dicklesworthstone/je_private_skills_repo/blob/63496ee742c57f78c6de5a8675b281c96dc7ce96/.claude/skills/natural-sounding-narration-with-frankentts/SKILL.md) and its [consistency experiments](https://github.com/Dicklesworthstone/je_private_skills_repo/blob/63496ee742c57f78c6de5a8675b281c96dc7ce96/.claude/skills/natural-sounding-narration-with-frankentts/references/CONSISTENCY-EXPERIMENTS.md). All 41 tracked skill files matched the canonical and both installed copies after the N9.3 refresh.
 
 ## Latest owner direction and evidence
 

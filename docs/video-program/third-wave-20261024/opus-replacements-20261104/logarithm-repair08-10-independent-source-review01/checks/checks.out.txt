@@ -1,0 +1,38 @@
+== spans, centred unless noted; lint limit 6.86, safe 6.96
+  F2 dictionary        3.11 ..  6.79  width  3.68
+  F3 rule              2.82 ..  4.88  width  2.07
+  F3 lap word          5.18 ..  6.72  width  1.53
+  F8 spiral word       1.00 ..  6.60  width  5.60
+  10 stretch word      1.00 ..  4.78  width  3.78
+  F16 cond_a           1.00 ..  6.68  width  5.68
+  F16 cond_b           1.00 ..  6.30  width  5.30
+  F16 name             1.00 ..  5.83  width  4.83
+  F11 target word      4.68 ..  6.12  width  1.44
+  F15 textbook        -2.71 ..  2.71  width  5.42
+  F15 precisely       -6.37 ..  6.37  width 12.74
+  baseline precisely width 13.04 (131 chars)
+  fine print 197 characters; 14.92 per second over 13.2 s
+== matrix cards through the candidate's card_widths
+  rotation             widest 1.039 dx 0.661 half 1.294 spans  3.11 ..  5.69  col gap 0.283 bracket gap 0.113
+  stretched            widest 0.435 dx 0.374 half 0.705 spans  3.70 ..  5.10  col gap 0.313 bracket gap 0.113
+  x_card               widest 0.617 dx 0.433 half 0.842 spans  3.76 ..  5.44  col gap 0.250 bracket gap 0.100
+  e_card               widest 0.767 dx 0.508 half 0.992 spans  3.61 ..  5.59  col gap 0.250 bracket gap 0.100
+  target               widest 0.383 dx 0.330 half 0.622 spans  4.78 ..  6.02  col gap 0.277 bracket gap 0.100
+  pair                 widest 0.347 dx 0.286 half 0.546 spans  4.35 ..  5.45  col gap 0.225 bracket gap 0.087
+  i_card               widest 0.160 dx 0.352 half 0.656 spans  3.94 ..  5.26  col gap 0.544 bracket gap 0.224
+  ch11 a_card -2,-0.5  widest 0.617 dx 0.433 half 0.842 spans  2.81 ..  4.49  col gap 0.250 bracket gap 0.100
+  ch11 a_card -2,-1/2  widest 0.458 dx 0.354 half 0.683 spans  2.97 ..  4.33  col gap 0.250 bracket gap 0.100
+  ch11 minus_i         widest 0.383 dx 0.330 half 0.622 spans  3.03 ..  4.27  col gap 0.277 bracket gap 0.100
+  ch11 m_card          widest 0.409 dx 0.352 half 0.663 spans  4.74 ..  6.06  col gap 0.295 bracket gap 0.107
+== mirror of the candidate's phrase timing, and the beats of 10_3 / 10_4
+  factor 0.8: first run 2.09; sweep start minus phrase 0.00; sweep seconds 4.80; stretch word minus phrase 0.00; stretch run 1.25; 10_3 beats end 22.06; 10_3 line length 24.32; 10_4 strictly at 2.17; 10_4 strict beats end vs s1 -1.19; fine print voice+breath read 6.95; added window 6.25; 10_4 s4 span 6.85
+  factor 1.0: first run 2.60; sweep start minus phrase 0.00; sweep seconds 6.13; stretch word minus phrase 0.00; stretch run 1.69; 10_3 beats end 27.45; 10_3 line length 30.40; 10_4 strictly at 2.71; 10_4 strict beats end vs s1 -1.66; fine print voice+breath read 8.67; added window 4.53; 10_4 s4 span 8.57
+  factor 1.25: first run 2.60; sweep start minus phrase 0.00; sweep seconds 7.78; stretch word minus phrase 0.00; stretch run 2.23; 10_3 beats end 34.19; 10_3 line length 38.00; 10_4 strictly at 3.39; 10_4 strict beats end vs s1 -2.25; fine print voice+breath read 10.81; added window 2.39; 10_4 s4 span 10.71
+== 10_2 first sentence: candidate beats 0.4 + 1.1 + 0.3 = 1.8 s before sentence 1
+  factor 0.8: sentence 1 at 1.89
+  factor 1.0: sentence 1 at 2.36
+  factor 1.25: sentence 1 at 2.95
+== literal checks
+  repr of the test's rounding literal: 3.0000000000000018
+  e^X row 1 to 3 places: 0.905 -0.97
+  0.872/pi: 0.2775025587750287

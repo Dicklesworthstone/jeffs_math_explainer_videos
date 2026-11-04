@@ -1,0 +1,64 @@
+== 1. the run, two derivations agree through 16
+  h 1 Cedar seat  1  tile 0 to 3/2  seats [0, 0, 1]
+  h 2 Cedar seat  2  tile 3/2 to 3  seats [0, 0, 2]
+  h 3 Birch seat  1  tile 0 to 13/3  seats [0, 1, 2]
+  h 4 Cedar seat  3  tile 3 to 9/2  seats [0, 1, 3]
+  h 5 Cedar seat  4  tile 9/2 to 6  seats [0, 1, 4]
+  h 6 Birch seat  2  tile 13/3 to 26/3  seats [0, 2, 4]
+  h 7 Cedar seat  5  tile 6 to 15/2  seats [0, 2, 5]
+  h 8 Cedar seat  6  tile 15/2 to 9  seats [0, 2, 6]
+  h 9 Ash   seat  1  tile 0 to 39/4  seats [1, 2, 6]
+  h10 Cedar seat  7  tile 9 to 21/2  seats [1, 2, 7]
+  h11 Cedar seat  8  tile 21/2 to 12  seats [1, 2, 8]
+  h12 Birch seat  3  tile 26/3 to 13  seats [1, 3, 8]
+  h13 Cedar seat  9  tile 12 to 27/2  seats [1, 3, 9]
+  h14 Cedar seat 10  tile 27/2 to 15  seats [1, 3, 10]
+  h15 Birch seat  4  tile 13 to 52/3  seats [1, 4, 10]
+  h16 Cedar seat 11  tile 15 to 33/2  seats [1, 4, 11]
+  later (handed out at then): ('Birch', 2) ends 26/3
+  candidates for missing: [('Cedar', 5)] -> ends ['15/2'] starts ['6']
+  at then, next Ash seat 1: 0 to 39/4; entered at 6: True
+  at then, next Birch seat 3: 26/3 to 13; entered at 6: False
+  at then, next Cedar seat 5: 6 to 15/2; entered at 6: False
+== 2. the patched order: fade the newest fill, then step the marker back
+  fade Cedar 9 (h13), marker -> 12: seats [1, 3, 8]  ends later than 7 1/2
+  fade Birch 3 (h12), marker -> 11: seats [1, 2, 8]  ends later than 7 1/2
+  fade Cedar 8 (h11), marker -> 10: seats [1, 2, 7]  ends later than 7 1/2
+  fade Cedar 7 (h10), marker -> 9: seats [1, 2, 6]  ends later than 7 1/2
+  fade Ash 1 (h9), marker -> 8: seats [0, 2, 6]  ends later than 7 1/2
+  fade Cedar 6 (h8), marker -> 7: seats [0, 2, 5]  ends later than 7 1/2
+  fade Cedar 5 (h7), marker -> 6: seats [0, 2, 4]  <- the missing tile
+  at landing the marker is exactly at then, seats [0, 2, 4] and the missing tile is unfilled: True
+  the missing tile's fill is since_then[0], the last to leave: True
+  loop at line 892, ring's only fade at line 912, every line naming gone/ask: [869, 870, 911, 912, 997, 1019, 1066, 1125, 1126]
+  since_then is used at lines [843, 892] so no fill is faded a second time
+== 3. whole tiles and the partition the veils claim
+  inside: [('Birch', 3), ('Cedar', 5), ('Cedar', 6), ('Cedar', 7), ('Cedar', 8)] counts [0, 1, 4]
+  5 whole tiles, room for 7, the supposition needs 8
+  no veil and no fill covers the missing tile from landing to the fade of `supposed`: True (it is neither entered at then nor beyond now)
+  real hand-outs since then that end later than 7 1/2: [('Cedar', 6), ('Ash', 1), ('Cedar', 7), ('Cedar', 8), ('Birch', 3), ('Cedar', 9)]
+== 4. frames, exact rational of the f64
+  0.12: 4 frames at 30, 8 at 60; exact f64 below the decimal
+  0.1: 4 frames at 30, 7 at 60; exact f64 above the decimal
+  0.15: 5 frames at 30, 9 at 60; exact f64 below the decimal
+  0.2: 7 frames at 30, 13 at 60; exact f64 above the decimal
+  0.3: 9 frames at 30, 18 at 60; exact f64 below the decimal
+  0.4: 13 frames at 30, 25 at 60; exact f64 above the decimal
+  0.5: 15 frames at 30, 30 at 60; exact f64 below the decimal
+  from 'Go back' to the ring fully in, 30 fps: 83 frames = 2.7667 s
+  from 'Go back' to the ring fully in, 60 fps: 166 frames = 2.7667 s
+== 5. phrase times, Spoken::at with no marks, scratch length scaled
+  sentences: 5
+  every phrase once, in this order: True ('the missing one' x1)
+  2.00 words/s: 'Go back'   5.75; ring in   8.52; 'a tile'  10.58 (spare  2.06); 'the missing one'  13.46 (spare  4.94); 'or to the very start'  15.20 (spare after the 0.4 s later-ring fade  4.19)
+  2.60 words/s: 'Go back'   4.44; ring in   7.21; 'a tile'   8.16 (spare  0.96); 'the missing one'  10.38 (spare  3.18); 'or to the very start'  11.73 (spare after the 0.4 s later-ring fade  3.13)
+  3.00 words/s: 'Go back'   3.85; ring in   6.62; 'a tile'   7.09 (spare  0.47); 'the missing one'   9.02 (spare  2.40); 'or to the very start'  10.19 (spare after the 0.4 s later-ring fade  2.66)
+  3.25 words/s: 'Go back'   3.56; ring in   6.33; 'a tile'   6.55 (spare  0.22); 'the missing one'   8.33 (spare  2.01); 'or to the very start'   9.42 (spare after the 0.4 s later-ring fade  2.43)
+  3.50 words/s: 'Go back'   3.31; ring in   6.08; 'a tile'   6.09 (spare  0.01); 'the missing one'   7.75 (spare  1.67); 'or to the very start'   8.76 (spare after the 0.4 s later-ring fade  2.23)
+  3.75 words/s: 'Go back'   3.10; ring in   5.86; 'a tile'   5.69 (spare -0.17); 'the missing one'   7.24 (spare  1.38); 'or to the very start'   8.18 (spare after the 0.4 s later-ring fade  1.89)
+== 6. grey key, by the crate's test rule and by CMR10 ems
+  characters 45, 15, 62
+  test rule: legend half 1.944 < key x 2.0; key end 3.296 < 6.96
+  CMR10: legend half 1.744, gap to key 0.256; key 2.000 .. 3.166; old 63-char line half 2.383
+  'now' centred at x 2.667, y 2.50; key at y 2.95 (test: 2.86 > 2.61)
+  'then' at x -1.569; the missing tile -1.569 .. -0.662, so the ring's left edge lies on the then marker

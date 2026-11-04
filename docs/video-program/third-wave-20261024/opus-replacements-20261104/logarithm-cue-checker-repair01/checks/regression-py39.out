@@ -1,0 +1,238 @@
+ok  passes  the baseline crate
+ok  passes  a preserved retired file, with its says and bad hooks, is ignored and named
+ok  passes  a preserved retired file that would not even lex is ignored
+ok  passes  a .orig left by a patch run is named
+ok  passes  test module strings and test fixtures don't count
+ok  passes  a cfg(test) helper before the tests module doesn't count
+ok  passes  a #[test] fn outside any cfg(test) module doesn't count
+ok  passes  a test item keeps its attributes and visibility
+ok  passes  a real say after the string "#[cfg(test)]" still counts
+ok  passes  char literals and lifetimes open no strings
+ok  passes  comments with quotes open no strings
+ok  passes  raw strings with quotes and hashes end where they end
+ok  passes  a string with an escaped quote and a line break
+ok  passes  a rustfmt-wrapped hook with a trailing comma is read
+ok  passes  a local variable named say is not a call
+ok  passes  a comment that looks like a second say is not a second say
+ok  passes  KNOWN GAP: a say in a function nothing calls counts as said
+ok  passes  KNOWN GAP: a say in a loop counts once
+ok  passes  KNOWN GAP: a say in a macro body counts once, however often it expands
+ok  passes  KNOWN GAP: until_phrase on a bad cue is counted, not checked
+ok  passes  KNOWN GAP: a say outside src/chapters isn't read
+ok  refuses a comment can't stand in for a say
+      01_2: said 0 times (never)
+ok  refuses a block comment can't stand in for a say
+      01_2: said 0 times (never)
+ok  refuses a string can't stand in for a say
+      01_2: said 0 times (never)
+ok  refuses a raw string can't stand in for a say
+      01_2: said 0 times (never)
+ok  refuses a say in a cfg(test) module can't stand in for the scene's
+      01_2: said 0 times (never)
+ok  refuses a say in a #[test] can't stand in for the scene's
+      01_2: said 0 times (never)
+ok  refuses a say in a cfg(test) helper can't stand in for the scene's
+      01_2: said 0 times (never)
+ok  refuses a say in a retired file can't stand in for the scene's
+      01_2: said 0 times (never)
+ok  refuses mod.rs missing
+      src/chapters/mod.rs missing
+ok  refuses an empty registry
+      mod.rs registry is empty
+ok  refuses no fn registry
+      mod.rs: 0 fn registry found, not 1
+ok  refuses a registry that is built, not listed
+      mod.rs: fn registry is not a plain vec![..]
+ok  refuses a registry entry that is not a Chapter
+      mod.rs: line 17: a registry entry that is not Chapter { .. }
+ok  refuses a chapter key without a number
+      mod.rs: line 17: a Chapter that does not start key: "NN_name", make: |kit| Box::new(
+ok  refuses a missing registered file
+      mod.rs registry names beta, but beta.rs is missing
+      01_1: said 0 times (never)
+      01_2: said 0 times (never)
+ok  refuses a registered module with no declaration
+      mod.rs registry names beta, which mod.rs does not declare
+ok  refuses a declared module with no file
+      mod.rs declares gamma, but gamma.rs is missing
+ok  refuses chapters out of order
+      mod.rs registry out of order: ['01', '00']
+      alpha.rs:4: 00_1 said after 01_2
+ok  refuses a repeated chapter number
+      mod.rs registry repeats a chapter: ['00', '00']
+      mod.rs registry ['00', '00'] does not cover cue prefixes ['00', '01']
+      beta.rs:4: 01_1 said in chapter 00_beta
+      beta.rs:6: 01_2 said in chapter 00_beta
+ok  refuses a chapter with no cues
+      mod.rs registry ['00', '02'] does not cover cue prefixes ['00', '01']
+      beta.rs:4: 01_1 said in chapter 02_beta
+      beta.rs:6: 01_2 said in chapter 02_beta
+ok  refuses one module run by two chapters
+      mod.rs registry ['00', '01', '02'] does not cover cue prefixes ['00', '01']
+      mod.rs registry runs beta more than once
+      beta.rs:4: 01_1 said in chapter 02_again
+      beta.rs:4: 01_1 said after 01_2
+      beta.rs:6: 01_2 said in chapter 02_again
+      01_1: said 2 times (beta.rs, beta.rs)
+      01_2: said 2 times (beta.rs, beta.rs)
+ok  refuses a retired file declared again is compiled, so it is read
+      bookends.rs:1: say 00_1 in a module the registry does not run
+ok  refuses #[path] on a module
+      mod.rs: line 4: #[path] moves a module where this check won't look
+ok  refuses include! in a chapter
+      beta.rs: line 10: include! pulls in source this check won't read
+      01_1: said 0 times (never)
+      01_2: said 0 times (never)
+ok  refuses script.tsv missing
+      script.tsv missing
+ok  refuses a script with only comments
+      script.tsv has no cues
+ok  refuses a duplicate cue id
+      duplicate cue ids in script.tsv: 01_2
+ok  refuses digits in spoken text
+      01_2: digits in spoken text
+ok  refuses a row with no tab
+      script.tsv:6: no tab between cue id and text
+ok  refuses a bad cue id
+      script.tsv:6: bad cue id '01_3-part2'
+ok  refuses a cue with no text
+      script.tsv:6: 01_3 has no text
+ok  refuses a cue nobody says
+      01_3: said 0 times (never)
+ok  refuses a missing say
+      01_2: said 0 times (never)
+ok  refuses a duplicate say in one module
+      beta.rs:7: 01_2 said after 01_2
+      01_2: said 2 times (beta.rs, beta.rs)
+ok  refuses a duplicate say across modules
+      alpha.rs:9: 01_2 said in chapter 00_alpha
+      beta.rs:4: 01_1 said after 01_2
+      01_2: said 2 times (alpha.rs, beta.rs)
+ok  refuses two says out of order in one module
+      alpha.rs:5: until_sentence(00_1, 1) while None is the current line
+      alpha.rs:6: until_sentence(00_1, 2) while None is the current line
+      alpha.rs:9: 00_1 said after 00_2
+ok  refuses an unknown cue
+      beta.rs:6: unknown cue 01_9
+      01_2: said 0 times (never)
+ok  refuses a cue said by the wrong chapter
+      alpha.rs:9: 01_2 said in chapter 00_alpha
+      beta.rs:4: 01_1 said after 01_2
+ok  refuses a real say in a module named tests but not marked cfg(test) counts
+      alpha.rs:14: 00_1 said after 00_2
+      00_1: said 2 times (alpha.rs, alpha.rs)
+ok  refuses a say in a helper module
+      draw.rs:5: say 00_1 in a module the registry does not run
+ok  refuses an until_sentence in a helper module
+      draw.rs:5: until 00_1 in a module the registry does not run
+ok  refuses index zero
+      alpha.rs:5: until_sentence(00_1, 0) but 00_1 has 3 sentences
+ok  refuses index equal to the sentence count
+      alpha.rs:6: until_sentence(00_1, 3) but 00_1 has 3 sentences
+ok  refuses index far past the end
+      alpha.rs:6: until_sentence(00_1, 99) but 00_1 has 3 sentences
+ok  refuses an index going backwards
+      alpha.rs:6: until_sentence(00_1, 1) goes backwards
+ok  refuses a hook on a cue that is not the current line
+      alpha.rs:8: until_sentence(00_1, 2) while 00_2 is the current line
+ok  refuses a hook before any say
+      alpha.rs:4: until_sentence(00_1, 1) while None is the current line
+ok  refuses a hook on an unknown cue
+      alpha.rs:5: unknown cue 00_9
+ok  refuses a say with a computed cue
+      beta.rs:6: say(stage , id) does not name a literal cue
+      01_2: said 0 times (never)
+ok  refuses a say with a raw string cue
+      beta.rs:6: say(stage , 01_2) does not name a literal cue
+      01_2: said 0 times (never)
+ok  refuses a say with another receiver
+      beta.rs:6: say not called as kit.say(stage, ..)
+      01_2: said 0 times (never)
+ok  refuses a say as a path call
+      beta.rs:6: say not called as kit.say(stage, ..)
+      01_2: said 0 times (never)
+ok  refuses a say passed around as a value
+      beta.rs:6: say not called as kit.say(stage, ..)
+ok  refuses a say with another stage
+      beta.rs:6: say(other , 01_2) does not name a literal cue
+      01_2: said 0 times (never)
+ok  refuses a say with extra arguments
+      beta.rs:6: say(stage , 01_2 , 1) has extra arguments
+      01_2: said 0 times (never)
+ok  refuses a computed index nobody reviewed
+      alpha.rs:5: until_sentence(00_1, j) has a computed index: nobody has reviewed this computed index
+ok  refuses a suffixed index
+      alpha.rs:5: until_sentence(00_1, 1usize) has a computed index: nobody has reviewed this computed index
+ok  refuses a hook with no index
+      alpha.rs:5: until_sentence(stage , 00_1) has no index
+ok  refuses cfg(not(test)) is refused
+      beta.rs: line 10: a cfg this check can't evaluate: cfg ( not ( test ) )
+      01_1: said 0 times (never)
+      01_2: said 0 times (never)
+ok  refuses cfg(any(test, ..)) is refused
+      beta.rs: line 10: a cfg this check can't evaluate: cfg ( any ( test , feature = x ) )
+      01_1: said 0 times (never)
+      01_2: said 0 times (never)
+ok  refuses cfg(feature) is refused
+      beta.rs: line 10: a cfg this check can't evaluate: cfg ( feature = x )
+      01_1: said 0 times (never)
+      01_2: said 0 times (never)
+ok  refuses cfg_attr is refused
+      beta.rs: line 10: a cfg this check can't evaluate: cfg_attr ( test , derive ( Debug ) )
+      01_1: said 0 times (never)
+      01_2: said 0 times (never)
+ok  refuses an inner cfg(test) is refused
+      beta.rs: line 10: a cfg this check can't evaluate: cfg ( test )
+      01_1: said 0 times (never)
+      01_2: said 0 times (never)
+ok  refuses cfg!
+      beta.rs: line 10: cfg! switches code at build time
+      01_1: said 0 times (never)
+      01_2: said 0 times (never)
+ok  refuses a test attribute on a match arm can't hide the next arm
+      beta.rs: line 7: a test attribute on something that is not an item
+      01_1: said 0 times (never)
+      01_2: said 0 times (never)
+ok  refuses a string that never closes is refused
+      beta.rs: line 10: a string never closes
+      01_1: said 0 times (never)
+      01_2: said 0 times (never)
+ok  refuses a raw string that never closes is refused
+      beta.rs: line 10: a raw string never closes
+      01_1: said 0 times (never)
+      01_2: said 0 times (never)
+ok  refuses a block comment that never closes is refused
+      beta.rs: line 10: a block comment never closes
+      01_1: said 0 times (never)
+      01_2: said 0 times (never)
+ok  refuses an unbalanced bracket in a test item is refused
+      beta.rs: line 11: { never closes
+      01_1: said 0 times (never)
+      01_2: said 0 times (never)
+ok  refuses a file that isn't UTF-8
+      beta.rs: cannot be read: UnicodeDecodeError
+      01_1: said 0 times (never)
+      01_2: said 0 times (never)
+ok  passes  the reviewed computed index
+ok  refuses its array grows past the cue
+      product_rule.rs:14: until_sentence(08_4, k + 1) but 08_4 has 7 sentences
+      product_rule.rs:17: until_sentence(08_4, 5) goes backwards
+ok  refuses its array grows past the next literal
+      product_rule.rs:17: until_sentence(08_4, 5) goes backwards
+ok  refuses another computed index on the same cue
+      product_rule.rs:14: until_sentence(08_4, k + 2) has a computed index: nobody has reviewed this computed index
+ok  refuses its loop changes
+      product_rule.rs:14: until_sentence(08_4, k + 1) has a computed index: its reviewed loop `for ( k , & m ) in steps . iter ( ) . enumerate ( ) {` changed
+ok  refuses its fill changes
+      product_rule.rs:14: until_sentence(08_4, k + 1) has a computed index: its reviewed fill `for ( k , src ) in steps_src . iter ( ) . enumerate ( ) {` appears 0 times, not once
+ok  refuses a second push
+      product_rule.rs:15: until_sentence(08_4, k + 1) has a computed index: its reviewed push `steps . push (` appears 2 times, not once
+ok  refuses its array goes
+      product_rule.rs:14: until_sentence(08_4, k + 1) has a computed index: its reviewed array steps_src is gone or empty
+ok  refuses a literal after it, below its end
+      product_rule.rs:17: until_sentence(08_4, 3) goes backwards
+ok  refuses a literal before it, above its start
+      product_rule.rs:15: until_sentence(08_4, k + 1) goes backwards
+ok  refuses the same index in another file is not reviewed
+      other.rs:14: until_sentence(08_4, k + 1) has a computed index: nobody has reviewed this computed index
+102 cases, 22 must pass, 80 must refuse, 0 wrong

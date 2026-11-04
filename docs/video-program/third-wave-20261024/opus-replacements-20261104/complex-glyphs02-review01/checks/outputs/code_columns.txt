@@ -1,0 +1,5 @@
+right ink edge: row 727 x=293, row 728 x=537; one column = 24.4 px
+row 731: first ink at or after x=700 is x=783
+row 732: first ink at or after x=700 is x=785
+row 733: first ink at or after x=700 is x=882
+row 733 minus row 732 = 97 px; four columns = 97.6 px

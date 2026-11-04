@@ -1,0 +1,48 @@
+running 11 tests
+test repetition_tests::order_is_the_lcm_of_disjoint_cycle_lengths_for_every_small_permutation ... ok
+test repetition_tests::overlapping_cycles_break_the_lcm_rule ... ok
+test repetition_tests::seven_more_undo_the_first_and_one_slip_can_never_come_home ... ok
+test repetition_tests::signs_multiply_and_the_evens_pass_the_subgroup_test ... ok
+test repetition_tests::the_extra_swap_pairs_twelve_evens_with_twelve_odds ... ok
+test repetition_tests::the_first_row_is_home_at_six_and_never_before ... ok
+test repetition_tests::the_full_deck_returns_at_eight_and_at_fifty_two ... ok
+test repetition_tests::the_second_row_is_neither_the_product_nor_the_sum ... ok
+test repetition_tests::the_swap_lists_land_where_the_cue_says ... ok
+test repetition_tests::the_ten_card_shuffle_reads_as_the_spoken_cycles ... ok
+test repetition_tests::three_stages_restore_eight_wires_and_a_fourth_repeats_the_first ... ok
+
+test result: ok. 11 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+33 Rust repetition facts; 181 oracle lines; 0 disagree
+permutations.loop_three_home	3,6,9,12
+permutations.loop_pair_home	2,4,6,8,10,12
+permutations.loops_order	6
+permutations.second_four_home	4,8,12
+permutations.second_pair_home	2,4,6,8,10,12
+permutations.second_order	4
+permutations.overlap_images	3,2,1
+permutations.overlap_order	2
+permutations.even_lists_final	4,3,2,1
+permutations.short_route_final	4,3,2,1
+permutations.one_more_final	3,4,2,1
+permutations.two_odd_final	2,3,1,4
+permutations.even_on_four	12
+permutations.odd_on_four	12
+permutations.even_kinds	1,3,8
+permutations.even_partners	1234>2134,1342>3142,1423>4123,2143>1243,2314>3214,2431>4231,3124>1324,3241>2341,3412>4312,4132>1432,4213>2413,4321>3421
+permutations.deck_images	1,3,5,7,9,2,4,6,8,10
+permutations.deck_cycles	2 3 5 9 8 6;4 7
+permutations.deck_order	6
+permutations.deck_away_after_two	6
+permutations.full_out_lengths	1,1,2,8,8,8,8,8,8
+permutations.full_out_order	8
+permutations.full_in_lengths	52
+permutations.full_in_order	52
+permutations.full_in_home_after_eight	0
+permutations.full_arrangements_scientific	8,67
+permutations.wire_images	1,3,5,7,2,4,6,8
+permutations.wire_cycles	2 3 5;4 7 6
+permutations.wire_order	3
+permutations.slip_cards	11,37
+permutations.slip_parity	odd
+permutations.undo_by_more	7
+permutations.full_home_labels	1

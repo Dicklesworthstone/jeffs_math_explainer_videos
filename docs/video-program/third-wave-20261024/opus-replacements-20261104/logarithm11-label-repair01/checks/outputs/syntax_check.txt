@@ -1,0 +1,24 @@
+rustfmt rustfmt 1.10.0-nightly (9085017724 2026-08-30)
+config rustfmt.toml = edition = "2024" max_width = 120
+baseline: rustfmt exit 1; format diffs 2; parse errors 0
+    Diff in src/score.rs:6:
+    Diff in src/score.rs:13:
+patched: rustfmt exit 1; format diffs 2; parse errors 0
+    Diff in src/score.rs:6:
+    Diff in src/score.rs:13:
+patched has no parse error: True
+patched has no diff in the chapter: True
+patched diff list equals the baseline's (the score.rs lines only): True
+control, misindented neighbour (expect a diff in the chapter): rustfmt exit 1; format diffs 3; parse errors 0
+    Diff in src/chapters/unreachable.rs:1667:
+    Diff in src/score.rs:6:
+    Diff in src/score.rs:13:
+control, stray brace (expect a parse error): rustfmt exit 1; format diffs 0; parse errors 1
+    error: unexpected closing delimiter: `}`
+git apply --check on the scratch copy: exit 0 
+git apply on the scratch copy: exit 0 
+round trip equals the staged file: True
+git apply --check against the live tree (reads only): exit 0 
+all syntax checks and controls hold
+
+[exit 0]

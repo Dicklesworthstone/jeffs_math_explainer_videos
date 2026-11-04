@@ -1,0 +1,774 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs
+@@ -35,6 +35,11 @@
+ const LINE_Y: f64 = -2.35;
+ const LINE_X: f64 = -3.6;
+ const PER_PI: f64 = 1.55;
++/// How far right of the vertical axis the label of z² sits, scene units.
++const ZZ_ASIDE: f64 = 0.36;
++/// Where the definition of √z is centred on the vertical axis, plane units:
++/// above the axis's top end, so the axis does not run through it.
++const DEF_HEIGHT: f64 = 1.66;
+ 
+ fn angle_x(units: f64) -> f64 {
+     LINE_X + PER_PI * (units + 2.0)
+@@ -150,7 +155,9 @@
+         play!(stage; tween(turn, sum, 2.2)?);
+         let zz = C::polar(1.0, sum * PI);
+         let zz_arrow = arrow(stage, Z.centre, Z.p(zz), gold, 4.0)?;
+-        let zz_word = kit.tex(stage, r"z^{2}", 30.0, gold, &[], Z.p(zz.scale(1.3)))?;
++        // beside the arrow's tip, not on the vertical axis the arrow runs along
++        let zz_at = Z.p(zz.scale(1.3));
++        let zz_word = kit.tex(stage, r"z^{2}", 30.0, gold, &[], v(zz_at[0] + ZZ_ASIDE, zz_at[1]))?;
+         fade_in_all(stage, &[zz_arrow, zz_word], 0.4)?;
+         kit.until_sentence(stage, "08_1", 4)?;
+         let adds = kit.tex(
+@@ -190,9 +197,12 @@
+         }
+         line.push(ring_open(stage, v(angle_x(-1.0), LINE_Y), gold));
+         line.push(dot(stage, v(angle_x(1.0), LINE_Y), 0.08, gold));
++        // kept out of `line`: it leaves at 08_2, and a second fade-out with the
++        // line at 08_4 would root it again at full strength for one beat
+         let window_word = kit.text(stage, "principal window", 20.0, gold, v(angle_x(0.0), LINE_Y + 0.42))?;
+-        line.push(window_word);
+-        fade_in_all(stage, &line, 0.6)?;
++        let mut window_shown = line.clone();
++        window_shown.push(window_word);
++        fade_in_all(stage, &window_shown, 0.6)?;
+         let one_a = dot(stage, v(angle_x(a), LINE_Y), 0.1, green);
+         let sum_dot = dot(stage, v(angle_x(sum), LINE_Y), 0.11, red);
+         fade_in_all(stage, &[one_a], 0.3)?;
+@@ -346,7 +356,7 @@
+             30.0,
+             blue,
+             &[],
+-            Z.p(C::new(0.0, 1.3)),
++            Z.p(C::new(0.0, DEF_HEIGHT)),
+         )?;
+         fade_in_all(stage, &[def], 0.5)?;
+         kit.until_sentence(stage, "08_5", 2)?;
+@@ -391,7 +401,7 @@
+             26.0,
+             green,
+             &[],
+-            v(right + 3.0, -1.0),
++            v(right + 3.0, -1.2),
+         )?;
+         fade_out_all(stage, &[absurd], 0.2)?;
+         fade_in_all(stage, &[product], 0.5)?;
+@@ -503,6 +513,17 @@
+     }
+ 
+     #[test]
++    fn the_axis_runs_through_neither_label() {
++        // half extents read from preview02 frames 130 and 300, scene units
++        let (zz_half_w, def_half_h, title_bottom) = (0.15, 0.19, 3.2);
++        assert!(ZZ_ASIDE - zz_half_w > 0.15);
++        let def_y = Z.centre[1] + Z.scale * DEF_HEIGHT;
++        // clear of the axis's top end below, clear of the title above
++        assert!(def_y - def_half_h > Z.centre[1] + Z.half_h + 0.15);
++        assert!(def_y + def_half_h < title_bottom - 0.2);
++    }
++
++    #[test]
+     fn principal_roots_of_minus_one_multiply_to_minus_one() {
+         let r = C::new(-1.0, 0.0).sqrt();
+         let p = r.mul(r);
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/matrix_logs.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/matrix_logs.rs
+@@ -22,7 +22,7 @@
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    answer_c, arrow_parts, fact_list, fact_matrix, fade_in_all, fade_out_all, faded_line, flat,
++    answer_c, arrow_parts, clipped_grid, fact_list, fact_matrix, fade_in_all, fade_out_all, faded_line, flat,
+     grid_under, lap_c, letter_f, matrix_card, number_c, position_c, slide_c, swap, title, value,
+ };
+ use crate::model::{self, I2, J, M2};
+@@ -37,6 +37,12 @@
+ /// The three small panels of 09_4.
+ const SMALL: [[f64; 3]; 3] = [[-5.0, 0.15, 0.0], [-1.7, 0.15, 0.0], [1.6, 0.15, 0.0]];
+ const SMALL_UNIT: f64 = 0.48;
++/// How far from a panel's centre its grid is drawn, plane units: a shear or a
++/// late flow would otherwise run off the left of the frame. Every turned grid
++/// of this chapter fits inside, so none of those is cut.
++const CLIP: f64 = 4.4;
++/// Where the dictionary line of 09_4 is centred: its whole width in the frame.
++const DICTIONARY_X: f64 = 4.95;
+ 
+ /// The points whose landing places 09_1 marks.
+ const COMPARE: [[f64; 2]; 4] = [[1.0, 0.0], [0.0, 1.0], [1.0, 1.0], [-1.0, 1.0]];
+@@ -83,7 +89,7 @@
+ /// The grid, the two unit arrows and the letter F under `m`.
+ fn picture(s: &mut Arena, m: M2, centre: [f64; 3], unit: f64, n: i32) -> Mob {
+     let g = s.add(VMobject::new());
+-    let grid = grid_under(s, m, centre, unit, n, number_c(), 0.75);
++    let grid = clipped_grid(s, m, centre, unit, n, CLIP, number_c(), 0.75);
+     let _ = s.attach(g, grid);
+     let o = v(centre[0], centre[1]);
+     for (col, c) in [(0usize, number_c()), (1usize, slide_c())] {
+@@ -222,18 +228,25 @@
+         gone.extend(shown_now);
+         fade_out_all(stage, &gone, 0.4)?;
+         fade_in_all(stage, &[series], 0.5)?;
++        // "Here is the picture that matters": the plane at rest, ready to move
++        kit.until_sentence(stage, "09_2", 1)?;
++        let resting = picture(stage.arena_mut(), I2, CENTRE, UNIT, 3);
++        fade_in_all(stage, &[resting], 0.5)?;
+         kit.until_sentence(stage, "09_2", 2)?;
+         let x = fact_matrix("matrix.flow")?;
+-        let arrows_field = stage.always_redraw(move |s: &mut Arena| field(s, x, CENTRE, UNIT));
+-        stage.add_to_scene(arrows_field)?;
++        let arrows_field = field(stage.arena_mut(), x, CENTRE, UNIT);
+         let x_card = card(&kit, stage, x, v(4.6, 0.85), 30.0, blue)?;
+         let x_word = kit.text(stage, "X, a velocity", 24.0, blue, v(2.6, 0.85))?;
+-        fade_in_all(stage, &[x_card, x_word], 0.5)?;
++        fade_in_all(stage, &[arrows_field, x_card, x_word], 0.5)?;
+         kit.until_sentence(stage, "09_2", 3)?;
+         let time = stage.add_value_tracker(0.0);
+         let flowing =
+             stage.always_redraw(move |s: &mut Arena| picture(s, model::flow(x, value(s, time)), CENTRE, UNIT, 3));
++        // the live picture replaces the resting one, the same pixels at t = 0;
++        // the arrows stay on top, fixed in space while the plane moves under them
++        stage.scene_mut().remove(&[resting]);
+         stage.add_to_scene(flowing)?;
++        stage.scene_mut().bring_to_front(&[arrows_field])?;
+         let clock_word = kit.text_left(stage, "time t =", 24.0, Palette::ink(), v(right + 0.4, -0.45))?;
+         let clock = kit.live_value(
+             stage,
+@@ -305,6 +318,8 @@
+         let speeds = fact_list("matrix.quarter_turn_speeds")?;
+         let spin = stage.add_value_tracker(0.0);
+         let mut panels = Vec::new();
++        // each panel fades in at rest; the live ones take over just before the spin
++        let mut resting_panels = Vec::new();
+         let mut labels = Vec::new();
+         for (k, &rate) in speeds.iter().enumerate() {
+             let c = SMALL[k];
+@@ -312,6 +327,7 @@
+             let p =
+                 stage.always_redraw(move |s: &mut Arena| picture(s, model::flow(xk, value(s, spin)), c, SMALL_UNIT, 2));
+             panels.push(p);
++            resting_panels.push(picture(stage.arena_mut(), I2, c, SMALL_UNIT, 2));
+             let words = match k {
+                 0 => format!("{} turn per unit time", entry(rate)),
+                 1 => format!("{} turns per unit time", entry(rate)),
+@@ -320,17 +336,19 @@
+             labels.push(kit.text(stage, &super::draw::shown(&words), 20.0, purple, v(c[0], c[1] - 1.75))?);
+         }
+         kit.until_sentence(stage, "09_4", 1)?;
+-        stage.add_to_scene(panels[0])?;
+-        fade_in_all(stage, &[labels[0]], 0.4)?;
++        fade_in_all(stage, &[resting_panels[0], labels[0]], 0.4)?;
+         let target_card = matrix_card(&kit, stage, [["0", "-1"], ["1", "0"]], v(5.4, 1.2), 30.0, gold)?;
+-        let target_word = kit.text(stage, "quarter turn", 22.0, gold, v(5.4, 2.1))?;
++        // the name the column below and chapter 10 use for this matrix
++        let target_word = kit.text(stage, "J: quarter turn", 22.0, gold, v(5.4, 2.1))?;
+         fade_in_all(stage, &[target_card, target_word], 0.4)?;
+         kit.until_sentence(stage, "09_4", 2)?;
+-        stage.add_to_scene(panels[1])?;
+-        fade_in_all(stage, &[labels[1]], 0.4)?;
++        fade_in_all(stage, &[resting_panels[1], labels[1]], 0.4)?;
+         kit.until_sentence(stage, "09_4", 3)?;
+-        stage.add_to_scene(panels[2])?;
+-        fade_in_all(stage, &[labels[2]], 0.4)?;
++        fade_in_all(stage, &[resting_panels[2], labels[2]], 0.4)?;
++        stage.scene_mut().remove(&resting_panels);
++        for &panel in &panels {
++            stage.add_to_scene(panel)?;
++        }
+         play!(stage; tween(spin, 1.0, 4.0)?);
+         let all_three = kit.text(
+             stage,
+@@ -356,7 +374,7 @@
+             "turn-and-scale matrix ↔ complex number",
+             20.0,
+             teal,
+-            v(5.4, 0.05),
++            v(DICTIONARY_X, 0.05),
+         )?;
+         let pair = matrix_card(&kit, stage, [["a", "-b"], ["b", "a"]], v(4.9, -0.75), 26.0, teal)?;
+         let as_c = kit.tex(stage, r"\leftrightarrow\ a + bi", 26.0, teal, &[], v(6.2, -0.75))?;
+@@ -419,6 +437,31 @@
+     }
+ 
+     #[test]
++    fn the_clip_holds_the_grid_in_the_frame_and_cuts_no_turned_grid() {
++        // the lint's limit is 6.86 from the centre of the frame
++        assert!(CENTRE[0] - UNIT * CLIP > -6.86);
++        assert!(CENTRE[0] + UNIT * CLIP < 1.0);
++        // a turned n = 3 grid reaches √18, a turned n = 2 panel √8
++        assert!(18f64.sqrt() < CLIP && 8f64.sqrt() < CLIP);
++    }
++
++    #[test]
++    fn the_dictionary_line_stays_in_the_frame_and_clear_of_the_third_panel() {
++        // the line's width, from the lint's span on preview02: 3.54 to 7.26
++        let half = (7.26 - 3.54) / 2.0;
++        assert!(DICTIONARY_X + half < 6.86);
++        assert!(DICTIONARY_X - half > SMALL[2][0] + 2.0 * SMALL_UNIT + 0.3);
++    }
++
++    #[test]
++    fn a_resting_picture_is_the_live_one_at_time_zero() {
++        assert!(model::mdist(model::flow([[0.3, -1.0], [0.8, -0.1]], 0.0), I2) < 1e-15);
++        for rate in [0.25, 1.25, -0.75] {
++            assert!(model::mdist(model::flow(model::mscale(J, TAU * rate), 0.0), I2) < 1e-15);
++        }
++    }
++
++    #[test]
+     fn matrix_entries_print_cleanly() {
+         assert_eq!(entry(-1.0), "-1");
+         assert_eq!(entry(0.30000000000000004), "0.3");
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs
+@@ -28,14 +28,16 @@
+ //! Rebuild candidate for `mx-video-program-program-87do.63`; uncompiled,
+ //! unrendered, unlistened.
+ 
++use std::collections::HashMap;
+ use std::f64::consts::{PI, TAU};
+ 
+-use explainer_kit::{Kit, Palette, play, tween, v};
++use explainer_kit::narration::{frames_covering, wait_frames};
++use explainer_kit::{Kit, Palette, Script, play, tween, v};
+ use fmn::mobject::Stage as Arena;
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    answer_c, clipped_grid, dot, fact, fact_f64, fact_matrix, fade_in_all, fade_out_all, flat, lap_c, line_style,
++    answer_c, clipped_grid, dot, fact, fact_f64, fact_matrix, fade_in_all, fade_out_all, fail, flat, lap_c, line_style,
+     matrix_card, number_c, pi_label, position_c, precisely, ring, seg, slide_c, swap, title, value, warn_c,
+ };
+ use crate::model::{self, J, M2};
+@@ -44,6 +46,29 @@
+     pub kit: Kit,
+ }
+ 
++const SCRIPT: &str = include_str!("../../script.tsv");
++
++/// A flow rewinding to the identity before the next one starts, seconds.
++const REWIND: f64 = 0.5;
++/// The shortest run a flow gets, however little of its words is left.
++const MIN_RUN: f64 = 1.0;
++/// The spiral's first run under "Matrix flows turn too", at its longest, and
++/// the fade of its words that follows.
++const FIRST_RUN: f64 = 2.6;
++const SPIRAL_WORD: f64 = 0.4;
++/// The rule under the turning line sits this far left of the line's zero, and
++/// the ellipse flows' label this far right of 2π, so that neither prints on
++/// the other.
++const RULE_BACK: f64 = 0.25;
++const LAP_ASIDE: f64 = 0.15;
++/// The chapter's fine print, with the prefix `draw::precisely` adds counted in
++/// the test below.
++const TEXTBOOK: &str = "turning rate of the flow of X = imaginary part of an eigenvalue of X";
++const SOURCE: &str = "no eigenvalue of A in (−∞, 0] ⇒ one logarithm has all eigenvalues −π < Im < π; real if A is (Higham; Gallier Thm 3.11)";
++/// How long the fine print stays before the chapter ends: its characters at
++/// fifteen a second, a proposal to judge against the voice.
++const FINE_PRINT_S: f64 = 13.2;
++
+ const CENTRE: [f64; 3] = [-3.3, -0.4, 0.0];
+ const UNIT: f64 = 0.72;
+ /// The grid points whose journeys are traced.
+@@ -79,6 +104,109 @@
+         .collect()
+ }
+ 
++/// A point of a circle of radius `r` squashed `u` of the way to the flow's
++/// ellipse (half-axes `a`, `b`, tilted by `tilt` degrees): at u = 0 the circle,
++/// at u = 1 the ellipse through the point `r` along the long axis.
++fn squashed_point((a, b, tilt): (f64, f64, f64), u: f64, r: f64, th: f64) -> [f64; 2] {
++    let short = 1.0 + (b / a - 1.0) * u;
++    model::apply(model::rotation(tilt.to_radians()), [r * th.cos(), short * r * th.sin()])
++}
++
++/// Four such rings, faint.
++fn squashed_rings(s: &mut Arena, shape: (f64, f64, f64), u: f64) -> Mob {
++    let g = s.add(VMobject::new());
++    for r in [0.5, 1.0, 1.5, 2.0] {
++        let pts: Vec<Vec3> = (0..=80)
++            .map(|k| screen(squashed_point(shape, u, r, TAU * f64::from(k) / 80.0)))
++            .collect();
++        let m = s.add(polyline(pts).style(line_style(Palette::faint(), 1.6)).build());
++        let _ = s.attach(g, m);
++    }
++    g
++}
++
++/// A tracker's move at constant speed: the voice says "a steady rate", and
++/// `tween` takes the engine's default easing.
++fn steady(tracker: Mob, to: f64, run_time: f64) -> fmn::Result<AnimBuilder> {
++    Ok(tracker
++        .animate()
++        .set_anim_args(AnimateArgs {
++            run_time: Some(run_time),
++            rate_func: Some(fmn::core::rate::linear),
++            ..AnimateArgs::default()
++        })?
++        .set_value(to)?)
++}
++
++/// Where each sentence of a line begins, in bytes: the narrator splits after
++/// `.`, `?` or `!` followed by a space.
++fn sentence_offsets(text: &str) -> Vec<usize> {
++    let mut at = vec![0];
++    for (i, pair) in text.as_bytes().windows(2).enumerate() {
++        if matches!(pair[0], b'.' | b'?' | b'!') && pair[1] == b' ' {
++            at.push(i + 2);
++        }
++    }
++    at
++}
++
++/// Seconds from a line's start to where `phrase` begins: the take's own word
++/// mark when it has one there, otherwise the phrase's share of its sentence by
++/// characters (an estimate, not a heard boundary). `None` if the line has no
++/// such phrase, or the narrator split the line differently.
++fn phrase_seconds(text: &str, starts: &[f64], len: f64, marks: &HashMap<usize, f64>, phrase: &str) -> Option<f64> {
++    let byte = text.find(phrase)?;
++    if let Some(&at) = marks.get(&byte) {
++        return Some(at);
++    }
++    let offsets = sentence_offsets(text);
++    if offsets.len() != starts.len() {
++        return None;
++    }
++    let j = offsets.iter().rposition(|&at| at <= byte)?;
++    let (from, to) = (offsets[j], offsets.get(j + 1).copied().unwrap_or(text.len()));
++    let (t0, t1) = (starts[j], starts.get(j + 1).copied().unwrap_or(len));
++    Some(t0 + (t1 - t0) * (byte - from) as f64 / (to - from).max(1) as f64)
++}
++
++/// The scene time `phrase` of line `id`, already said, begins; `None` without
++/// a narrator. A phrase that cannot be timed fails the render, never a guess.
++fn phrase_time(kit: &Kit, id: &str, phrase: &str) -> fmn::Result<Option<f64>> {
++    let Some(narrator) = kit.narrator.as_ref() else {
++        return Ok(None);
++    };
++    let starts = narrator.sentence_starts(id);
++    let (Some(&first), Some(began)) = (starts.first(), narrator.sentence_at(id, 0)) else {
++        return Ok(None);
++    };
++    let script = Script::parse(SCRIPT).map_err(fail)?;
++    let text = script
++        .text(id)
++        .ok_or_else(|| fail(format!("line {id} is not in the script")))?;
++    let len = narrator.length(id).unwrap_or_default();
++    phrase_seconds(text, &starts, len, &narrator.phrase_marks(id), phrase)
++        .map(|at| Some(began - first + at))
++        .ok_or_else(|| fail(format!("line {id}: cannot time {phrase:?}")))
++}
++
++/// Wait until `phrase` of line `id` begins; nothing if that moment has passed,
++/// or without a narrator.
++fn until_phrase(kit: &Kit, stage: &mut Stage<'_>, id: &str, phrase: &str) -> fmn::Result<()> {
++    if let Some(at) = phrase_time(kit, id, phrase)? {
++        let (now, fps) = (stage.scene().time().to_f64(), stage.scene().time().fps());
++        if at > now {
++            wait_frames(stage, frames_covering(at - now, fps))?;
++        }
++    }
++    Ok(())
++}
++
++/// A run time that ends `margin` seconds before scene time `at`, and is never
++/// shorter than `MIN_RUN`; `fallback` when there is no time to aim for.
++fn run_to(now: f64, at: Option<f64>, margin: f64, fallback: f64) -> f64 {
++    at.map_or(fallback, |t| (t - now - margin).max(MIN_RUN))
++}
++
+ /// The traced points' journeys under e^{tX} from 0 to `t`, and the points.
+ fn journeys(s: &mut Arena, x: M2, t: f64, c: Srgb) -> Mob {
+     let g = s.add(VMobject::new());
+@@ -169,29 +297,20 @@
+ 
+         // 10_2: around ellipses; a continuous family
+         kit.say(stage, "10_2")?;
+-        fade_out_all(stage, &[turn_trace, home, more], 0.4)?;
++        // "Squash the circle": rings fade in as circles and really squash
++        let first_shape = shapes[0];
++        let circles = squashed_rings(stage.arena_mut(), first_shape, 0.0);
++        swap(stage, &[turn_trace, home, more], &[circles], 0.4)?;
+         stage.set_tracker_value(still, 0.0)?;
+         stage.set_tracker_value(which, 1.0)?;
+-        let (a0, b0, t0) = shapes[0];
++        let squash = stage.add_value_tracker(0.0);
+         let orbit = stage.always_redraw(move |s: &mut Arena| {
+-            let g = s.add(VMobject::new());
+-            for r in [0.5, 1.0, 1.5, 2.0] {
+-                let pts: Vec<Vec3> = (0..=80)
+-                    .map(|k| {
+-                        let th = TAU * f64::from(k) / 80.0;
+-                        let p = model::apply(
+-                            model::mmul(model::rotation(t0.to_radians()), [[a0, 0.0], [0.0, b0]]),
+-                            [r * th.cos() / a0, r * th.sin() / a0],
+-                        );
+-                        screen(p)
+-                    })
+-                    .collect();
+-                let m = s.add(polyline(pts).style(line_style(Palette::faint(), 1.6)).build());
+-                let _ = s.attach(g, m);
+-            }
+-            g
++            let u = value(s, squash);
++            squashed_rings(s, first_shape, u)
+         });
++        stage.scene_mut().remove(&[circles]);
+         stage.add_to_scene(orbit)?;
++        play!(stage; tween(squash, 1.0, 1.1)?);
+         let e0 = kit.text_left(
+             stage,
+             &format!("ellipse {} by {}", shapes[0].0, shapes[0].1),
+@@ -199,7 +318,7 @@
+             blue,
+             v(right, -0.8),
+         )?;
+-        fade_in_all(stage, &[e0], 0.4)?;
++        fade_in_all(stage, &[e0], 0.3)?;
+         kit.until_sentence(stage, "10_2", 1)?;
+         let x1 = gens[1];
+         let trace1 = stage.always_redraw(move |s: &mut Arena| journeys(s, x1, value(s, still), blue));
+@@ -291,7 +410,9 @@
+         }
+         let window = seg(stage, turn_at(-PI), turn_at(PI), green, 6.0);
+         let open_l = ring(stage, turn_at(-PI), 0.09, red, 2.5);
+-        let open_r = ring(stage, turn_at(PI), 0.09, red, 2.5);
++        // a number's window is the one chapter 08 drew, closed at π: −1 has
++        // principal angle π. Only the rule for flows, at 10_4, opens this end.
++        let closed_r = dot(stage, turn_at(PI), 0.09, green);
+         let numbers_word = kit.text(
+             stage,
+             "a number's principal angle: within a half turn",
+@@ -300,7 +421,7 @@
+             v(TURN_X, TURN_Y + 0.5),
+         )?;
+         fade_in_all(stage, &line, 0.4)?;
+-        fade_in_all(stage, &[window, open_l, open_r, numbers_word], 0.5)?;
++        fade_in_all(stage, &[window, open_l, closed_r, numbers_word], 0.5)?;
+         kit.until_sentence(stage, "10_3", 2)?;
+         // flows turn too: the spiral flow, a stretch flow, the zero flow
+         let spiral = fact_matrix("matrix.flow")?;
+@@ -312,7 +433,6 @@
+             let k = (value(s, pick).round() as usize).min(2);
+             clipped_grid(s, model::flow(flows[k], value(s, tt)), CENTRE, UNIT, 4, 3.0, green, 0.7)
+         });
+-        stage.add_to_scene(moving)?;
+         let flows_word = kit.text(
+             stage,
+             "a flow's turning in one unit of time",
+@@ -320,16 +440,28 @@
+             Palette::ink(),
+             v(TURN_X, TURN_Y + 0.5),
+         )?;
+-        swap(stage, &[numbers_word], &[flows_word], 0.4)?;
++        // the grid fades in at rest; the live one takes over, the same pixels
++        let resting_grid = clipped_grid(stage.arena_mut(), model::I2, CENTRE, UNIT, 4, 3.0, green, 0.7);
++        swap(stage, &[numbers_word], &[flows_word, resting_grid], 0.4)?;
++        stage.scene_mut().remove(&[resting_grid]);
++        stage.add_to_scene(moving)?;
+         let spiral_trace = stage.always_redraw(move |s: &mut Arena| journeys(s, spiral, value(s, tt), blue));
+         stage.add_to_scene(spiral_trace)?;
+-        play!(stage; tween(tt, 1.0, 2.6)?);
++        // a quicker voice reaches the spiral's own words sooner: this run gives way
++        let first_run = run_to(
++            stage.scene().time().to_f64(),
++            phrase_time(&kit, "10_3", "turns round at a steady")?,
++            SPIRAL_WORD + REWIND,
++            FIRST_RUN,
++        )
++        .min(FIRST_RUN);
++        play!(stage; tween(tt, 1.0, first_run)?);
+         kit.until_sentence(stage, "10_3", 3)?;
+         let rate = fact_f64("matrix.flow_turning")?;
+         let spiral_word = kit.text_left(
+             stage,
+             &format!(
+-                "spiral flow: turns {} per unit time, about {}π",
++                "spiral flow: turns {} radians per unit time, about {}π",
+                 fact("matrix.flow_turning")?,
+                 fact("matrix.flow_turning_pi")?
+             ),
+@@ -338,14 +470,25 @@
+             v(right, 0.35),
+         )?;
+         let spiral_mark = dot(stage, turn_at(rate), 0.1, blue);
+-        fade_in_all(stage, &[spiral_word, spiral_mark], 0.4)?;
+-        fade_out_all(stage, &[spiral_trace], 0.3)?;
+-        stage.set_tracker_value(tt, 0.0)?;
++        fade_in_all(stage, &[spiral_word, spiral_mark], SPIRAL_WORD)?;
++        // the spiral again, steadily, under the words that describe it: it
++        // stays on screen until the voice reaches the flow that does not turn
++        play!(stage; tween(tt, 0.0, REWIND)?);
++        until_phrase(&kit, stage, "10_3", "turns round at a steady")?;
++        let sweep = run_to(
++            stage.scene().time().to_f64(),
++            phrase_time(&kit, "10_3", "or does not turn")?,
++            0.5,
++            3.4,
++        );
++        play!(stage; steady(tt, 1.0, sweep)?);
++        fade_out_all(stage, &[spiral_trace], 0.2)?;
++        play!(stage; tween(tt, 0.0, 0.3)?);
+         stage.set_tracker_value(pick, 1.0)?;
+         let stretch_trace =
+             stage.always_redraw(move |s: &mut Arena| journeys(s, stretch_flow, value(s, tt), slide_c()));
+         stage.add_to_scene(stretch_trace)?;
+-        play!(stage; tween(tt, 1.0, 2.2)?);
++        until_phrase(&kit, stage, "10_3", "or does not turn")?;
+         let stretch_word = kit.text_left(
+             stage,
+             "stretch flow: does not turn round at all",
+@@ -354,10 +497,17 @@
+             v(right, -0.1),
+         )?;
+         let stretch_mark = ring(stage, turn_at(0.0), 0.16, slide_c(), 3.0);
+-        fade_in_all(stage, &[stretch_word, stretch_mark], 0.4)?;
++        fade_in_all(stage, &[stretch_word, stretch_mark], 0.3)?;
++        let stretch_run = run_to(
++            stage.scene().time().to_f64(),
++            kit.narrator.as_ref().and_then(|n| n.sentence_at("10_3", 4)),
++            0.2,
++            2.2,
++        );
++        play!(stage; tween(tt, 1.0, stretch_run)?);
+         kit.until_sentence(stage, "10_3", 4)?;
+         fade_out_all(stage, &[stretch_trace], 0.3)?;
+-        stage.set_tracker_value(tt, 0.0)?;
++        play!(stage; tween(tt, 0.0, REWIND)?);
+         stage.set_tracker_value(pick, 2.0)?;
+         let zero_word = kit.text_left(stage, "zero flow: turns 0", 22.0, gold, v(right, -0.55))?;
+         let zero_mark = dot(stage, turn_at(0.0), 0.09, gold);
+@@ -370,13 +520,19 @@
+             "ellipse flows: ±2π",
+             20.0,
+             purple,
+-            v(turn_at(TAU)[0], TURN_Y - 0.7),
++            v(turn_at(TAU)[0] + LAP_ASIDE, TURN_Y - 0.7),
+         )?;
+         fade_in_all(stage, &[lap_l, lap_r, lap_word], 0.5)?;
+ 
+         // 10_4: the same rule picks one: the principal logarithm
+         kit.say(stage, "10_4")?;
+-        let rule = kit.text(stage, "keep −π < turning < π", 20.0, green, v(TURN_X, TURN_Y - 0.7))?;
++        let rule = kit.text(
++            stage,
++            "keep −π < turning < π",
++            20.0,
++            green,
++            v(TURN_X - RULE_BACK, TURN_Y - 0.7),
++        )?;
+         let mut crosses = Vec::new();
+         for c in [turn_at(-TAU), turn_at(TAU)] {
+             crosses.push(seg(
+@@ -395,49 +551,53 @@
+             ));
+         }
+         fade_in_all(stage, &[rule], 0.4)?;
++        // "strictly": unlike a number's window, the flows' rule shuts out π too
++        until_phrase(&kit, stage, "10_4", "strictly between")?;
++        let open_r = ring(stage, turn_at(PI), 0.09, red, 2.5);
++        swap(stage, &[closed_r], &[open_r], 0.3)?;
+         fade_in_all(stage, &crosses, 0.4)?;
+         kit.until_sentence(stage, "10_4", 1)?;
++        // the three flows have done their work: their marks stay on the line,
++        // and the statement of the rule takes their rows
++        fade_out_all(stage, &[spiral_word, stretch_word, zero_word], 0.3)?;
+         let cond_a = kit.text_left(
+             stage,
+             "A sends no direction to 0 or to a negative multiple of itself",
+             22.0,
+             Palette::ink(),
+-            v(right, -1.05),
++            v(right, 0.25),
+         )?;
+         let cond_b = kit.text_left(
+             stage,
+             "⇒ exactly one logarithm turns by less than a half turn",
+             22.0,
+             Palette::ink(),
+-            v(right, -1.5),
++            v(right, -0.2),
+         )?;
+-        fade_in_all(stage, &[cond_a, cond_b], 0.6)?;
++        fade_in_all(stage, &[cond_a, cond_b], 0.5)?;
+         kit.until_sentence(stage, "10_4", 2)?;
+         let name = kit.text_left(
+             stage,
+             "the principal logarithm, log A: real when A is real",
+             22.0,
+             gold,
+-            v(right, -2.0),
++            v(right, -0.75),
+         )?;
+         fade_in_all(stage, &[name], 0.5)?;
+         kit.until_sentence(stage, "10_4", 3)?;
+-        let log_i = kit.tex(stage, r"\log I = 0", 40.0, gold, &[], v(right + 1.0, -2.6))?;
++        let log_i = kit.tex(stage, r"\log I = 0", 40.0, gold, &[], v(right + 1.0, -1.5))?;
+         fade_in_all(stage, &[log_i], 0.5)?;
+         kit.until_sentence(stage, "10_4", 4)?;
+-        let textbook = kit.text(
+-            stage,
+-            "turning rate of e^(tX) = imaginary part of an eigenvalue of X (complex vectors allowed)",
+-            18.0,
+-            Palette::dim(),
+-            v(0.0, -3.15),
+-        )?;
+-        let source = precisely(
+-            &kit,
+-            stage,
+-            "no eigenvalue of A in (−∞, 0] ⇒ one X with e^X = A, all eigenvalues −π < Im < π; real if A is (Higham; Gallier Thm 3.11)",
+-        )?;
++        let textbook = kit.text(stage, TEXTBOOK, 18.0, Palette::dim(), v(0.0, -3.15))?;
++        let source = precisely(&kit, stage, SOURCE)?;
+         fade_in_all(stage, &[textbook, source], 0.5)?;
++        let shown_from = stage.scene().time().to_f64();
++        kit.hold(stage)?;
++        // the voice may finish first; the fine print still gets its reading time
++        let read_for = stage.scene().time().to_f64() - shown_from;
++        if read_for < FINE_PRINT_S {
++            kit.music_breath(stage, FINE_PRINT_S - read_for)?;
++        }
+         kit.finish(stage)
+     }
+ }
+@@ -508,6 +668,90 @@
+     }
+ 
+     #[test]
++    fn a_numbers_window_closes_at_plus_pi() {
++        // −1's principal angle is +π, the end 10_3 draws closed for numbers
++        assert!((model::C::new(-1.0, 0.0).log().im - PI).abs() < 1e-15);
++    }
++
++    #[test]
++    fn the_rings_squash_from_circles_onto_the_flows_own_ellipses() {
++        let shape = (2.0, 1.0, 0.0);
++        let p = model::mmul(model::rotation(0.0), [[2.0, 0.0], [0.0, 1.0]]);
++        let q = model::inverse(p);
++        for k in 0..=16 {
++            let th = TAU * f64::from(k) / 16.0;
++            for r in [0.5, 1.0, 1.5, 2.0] {
++                let start = squashed_point(shape, 0.0, r, th);
++                assert!((start[0].hypot(start[1]) - r).abs() < 1e-12);
++                // |P⁻¹p| is what the flow keeps, so this point rides one orbit
++                let end = model::apply(q, squashed_point(shape, 1.0, r, th));
++                assert!((end[0].hypot(end[1]) - r / 2.0).abs() < 1e-12);
++            }
++        }
++    }
++
++    #[test]
++    fn every_timed_phrase_is_in_its_line_and_they_fall_in_spoken_order() {
++        let script = Script::parse(SCRIPT).unwrap();
++        // the scratch voice's way: each sentence's share of the line, by characters
++        let shares = |text: &str, len: f64| -> Vec<f64> {
++            sentence_offsets(text)
++                .iter()
++                .map(|&at| len * at as f64 / text.len() as f64)
++                .collect()
++        };
++        let none = HashMap::new();
++        let text = script.text("10_3").unwrap();
++        let starts = shares(text, 30.0);
++        assert_eq!(starts.len(), 6);
++        let turns = phrase_seconds(text, &starts, 30.0, &none, "turns round at a steady").unwrap();
++        let not = phrase_seconds(text, &starts, 30.0, &none, "or does not turn").unwrap();
++        assert!(starts[3] < turns && turns < not && not < starts[4], "{turns} {not}");
++        let text = script.text("10_4").unwrap();
++        let starts = shares(text, 30.0);
++        let strictly = phrase_seconds(text, &starts, 30.0, &none, "strictly between").unwrap();
++        assert!(0.0 < strictly && strictly < starts[1], "{strictly}");
++    }
++
++    #[test]
++    fn a_takes_word_mark_beats_the_estimate_and_a_bad_phrase_is_refused() {
++        let text = "One two three. Four five.";
++        let starts = [0.0, 2.0];
++        let byte = text.find("five").unwrap();
++        let marks = HashMap::from([(byte, 3.25)]);
++        assert_eq!(phrase_seconds(text, &starts, 4.0, &marks, "five"), Some(3.25));
++        let estimate = phrase_seconds(text, &starts, 4.0, &HashMap::new(), "five").unwrap();
++        assert!(2.0 < estimate && estimate < 4.0);
++        assert_eq!(phrase_seconds(text, &starts, 4.0, &marks, "six"), None);
++        // a narrator that splits the line differently is an error, never a guess
++        assert_eq!(phrase_seconds(text, &[0.0], 4.0, &HashMap::new(), "five"), None);
++    }
++
++    #[test]
++    fn a_run_ends_before_its_mark_and_is_never_too_short() {
++        assert!((run_to(10.0, Some(15.0), 0.5, 9.0) - 4.5).abs() < 1e-12);
++        assert_eq!(run_to(10.0, Some(10.2), 0.5, 9.0), MIN_RUN);
++        assert_eq!(run_to(10.0, None, 0.5, 9.0), 9.0);
++    }
++
++    #[test]
++    fn the_labels_under_the_turning_line_keep_apart() {
++        // widths from preview02 frame 170: the rule 3.10 to 5.14, the label 5.03 to 6.56
++        let (rule_w, lap_w) = (5.14 - 3.10, 6.56 - 5.03);
++        let rule_right = TURN_X - RULE_BACK + rule_w / 2.0;
++        let lap_at = turn_at(TAU)[0] + LAP_ASIDE;
++        assert!(lap_at - lap_w / 2.0 - rule_right > 0.25);
++        assert!(lap_at + lap_w / 2.0 < 6.86);
++    }
++
++    #[test]
++    fn the_fine_print_has_no_caret_and_time_to_be_read() {
++        assert!(!TEXTBOOK.contains('^') && !SOURCE.contains('^'));
++        let characters = TEXTBOOK.chars().count() + "precisely: ".chars().count() + SOURCE.chars().count();
++        assert!(characters as f64 / FINE_PRINT_S <= 15.0, "{characters}");
++    }
++
++    #[test]
+     fn the_ellipse_fact_parses() {
+         assert_eq!(ellipses("2,1,0;1.6,0.7,30"), vec![(2.0, 1.0, 0.0), (1.6, 0.7, 30.0)]);
+     }
+--- a/explainer_corpus/logarithm_mysteries/docs/storyboard.md
++++ b/explainer_corpus/logarithm_mysteries/docs/storyboard.md
+@@ -125,13 +125,17 @@
+ **10_3–10_4 (repair 2).** The round-1 sentence about "possibly complex stretch
+ directions" is gone.
+ 
+-- 10_3: for numbers the principal angle stays within a half turn. Matrix flows turn too:
+-  at a steady rate, sweeping round stretched circles, perhaps spiralling, or not at all.
+-  A turning line shows the spiral flow (0.872, inside), a stretch flow and the zero flow
+-  (0), and the ellipse flows (±2π, outside).
++- 10_3: for numbers the principal angle stays within a half turn, the window closed at
++  +π as in chapter 08. Matrix flows turn too: at a steady rate, sweeping round stretched
++  circles, perhaps spiralling, or not at all. The spiral flow runs again at constant speed
++  under the words that describe it, and the stretch flow runs from "or does not turn". A
++  turning line shows the spiral flow (0.872 radians per unit time, inside), a stretch
++  flow and the zero flow (0), and the ellipse flows (±2π, outside).
+ - 10_4: the same rule picks exactly one logarithm when A sends no direction to zero or
+-  to a negative multiple. That is the principal logarithm, real for real A, and 0 for
+-  the identity. The textbook line (eigenvalues) comes last.
++  to a negative multiple. At "strictly between" the +π end opens, and the three flows'
++  words give way to the rule's statement. That is the principal logarithm, real for real
++  A, and 0 for the identity. The textbook line (eigenvalues) comes last and holds long
++  enough to be read.
+ 
+ **11_1 (repair 4).** The mirror is compared before and after: dashes pair each corner
+ with its image. Then the plain average ½(I + mirror) appears in red: "det 0 … squashes
+@@ -178,8 +182,9 @@
+   is singular.
+ - 07_3–07_4: the cut's marked sides are drawn 0.07 rad from the cut (MARKED) so the two
+   stay apart on screen.
+-- 10 and 11: the grids are clipped to a box (`draw::clipped_grid`). The flows are exact,
+-  and only the far corners are hidden.
++- 09, 10 and 11: the grids are clipped to a box (`draw::clipped_grid`). The flows are
++  exact, and only what falls outside the box is hidden: the far corners, and in 09_1's
++  stretched and sheared examples the lines that would leave the frame.
+ 
+ ## Precisely lines (lower thirds) and their sources
+ 
+@@ -206,7 +211,8 @@
+   avoided.
+ - Text widths are estimated (0.55 em per character, em = size/144 scene units) in tests,
+   not measured. The glyph probe and a frame review will show the truth.
+-- `matrix_card` geometry was corrected in round 1 and has never been seen.
++- `matrix_card` sizes its columns and brackets from its entries' measured widths; no
++  frame of that sizing has been seen.
+ - 12's cube: the visibility (`hidden`) and face culling are tested numerically (three
+   faces seen at the start and after the half turn, never a back face), but no frame has
+   been seen.

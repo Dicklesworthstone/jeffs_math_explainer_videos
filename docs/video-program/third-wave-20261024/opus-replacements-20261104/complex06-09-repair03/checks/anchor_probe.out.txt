@@ -1,0 +1,53 @@
+== preview02: every anchor must fail
+FAIL A06
+     BAD old right: band empty
+     BAD old up: band empty
+     BAD old readout band empty
+     BAD old lower cross empty
+     BAD new readout present
+     ok  cross present
+     ok  verdict present
+FAIL A07
+     BAD gap after Re is empty
+     ok  Re present
+     ok  arrow present
+     BAD name centred near x 648, measured 639.5
+FAIL A08N1
+     BAD dot present
+     BAD name present
+FAIL A08N2
+     BAD mark (0,3) reach 30.6 px, under 29.0
+     BAD mark (3,3) reach 30.6 px, under 29.0
+     BAD mark (0,0) reach 30.6 px, under 29.0
+     BAD mark (3,0) reach 30.6 px, under 29.0
+FAIL A09
+     BAD card fill at the new place
+     BAD card text at the new place
+     BAD plate where the card was
+== desk composites: every anchor must pass
+PASS A06
+     ok  old right: band empty
+     ok  old up: band empty
+     ok  old readout band empty
+     ok  old lower cross empty
+     ok  new readout present
+     ok  cross present
+     ok  verdict present
+PASS A07
+     ok  gap after Re is empty
+     ok  Re present
+     ok  arrow present
+     ok  name centred near x 648, measured 647.5
+PASS A08N1
+     ok  dot present
+     ok  name present
+PASS A08N2
+     ok  mark (0,3) reach 27.2 px, under 29.0
+     ok  mark (3,3) reach 27.2 px, under 29.0
+     ok  mark (0,0) reach 27.2 px, under 29.0
+     ok  mark (3,0) reach 27.2 px, under 29.0
+PASS A09
+     ok  card fill at the new place
+     ok  card text at the new place
+     ok  plate where the card was
+RESULT PASS

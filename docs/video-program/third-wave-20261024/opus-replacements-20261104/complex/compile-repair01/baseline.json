@@ -1,0 +1,30 @@
+{
+  "made_against": "canonical explainer_corpus/complex_analysis_visual as read on 2026-11-04, byte-equal to increment06 except root's fmt of thumbnail.rs and score.rs",
+  "patched_files": {
+    "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs": "ba0e727bbf996cdb90b8d92d3308715e1199dcd25b2d39198792ca4c007c2ca4",
+    "explainer_corpus/complex_analysis_visual/src/chapters/closing.rs": "5672d71c37bb19e3acbc1aed7137bf02a2899fd4e3b06b4d94f8d353d4494827",
+    "explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs": "9f331f715568a633e8f8503ffc9a0c20c2223c8101a2ba32c3af1ee7d244f567",
+    "explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs": "ca4ff69d5059c914c4c05870939e722b527715756d861efa3fd28b0670845c87",
+    "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs": "16c9c4d4471e108909aa2539fda8d81d775c2b2221cf084c1441f03286e596be",
+    "explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs": "39f4716557569bb85eba048d8a297f39aa727e078f4631b58d0f7f914039b7a1",
+    "explainer_corpus/complex_analysis_visual/src/chapters/turning.rs": "41e7b9248ab8dbd0422146ae69c6424c7c188ecaeb88e43e40c49bf25bbfe334",
+    "explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs": "8798b91f6dc92bd12e44f667d3394a61bc9a351d4b1644b7f8d79b0322dc796b",
+    "explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs": "c1056a5df4752b1a6520e0ace83735f301ff150975c15252797fb277f6883f3c"
+  },
+  "read_dependencies": {
+    "narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-opus-rebuild-build02/command.log": "e9eb358679adc74f1b5980b59b67129e494ed728263e914dd2f4918a79830af6",
+    "crates/explainer_kit/src/play.rs": "a07793ac8746e4d4c59d4d85206c90ba35bc607c57d0818437c6d682db34d669",
+    "crates/explainer_kit/src/lib.rs": "6fd69ffe0dab74b20a68995d728d2a04fcc62c074828fb966e23e7e502690c6e",
+    "crates/explainer_kit/src/facts.rs": "67615ba6c01bd7ced1e1741d33c5bf7bc7234f07013728918915924c09d1c8ae",
+    "crates/explainer_kit/src/plot.rs": "15e8c470ece7844da1f86562e214ad5185454abb079bc5ceb5f6615cf792246d",
+    "explainer_corpus/complex_analysis_visual/src/facts.rs": "cf7b91af8ae17e4dcad690b41b395d7bdb93af8f1de6b6d8d46b5fe39ffab196",
+    "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs": "d6b2b4280ae57e111c36b6e35fc382df1cc55826d4b602619e706091393f696d",
+    "explainer_corpus/complex_analysis_visual/src/chapters/thumbnail.rs": "5d90834bba4b0d6acf8f3c437ca66dab046f1c4823e3b773616f4d4d665c2c65",
+    "explainer_corpus/complex_analysis_visual/src/score.rs": "0563256da1cd670e7e453a4e840b93d4be9bbd1202941843bdbc77ca46062680",
+    "~/.cargo/git/checkouts/franken_manim-6641d0e09642f63e/a399d62/crates/fmn/src/lib.rs": "29a7158988b3c7a9baaee8f7e801990764e7a7e4b9507a57e6ce876de4c6a8c0",
+    "~/.cargo/git/checkouts/franken_manim-6641d0e09642f63e/a399d62/crates/fmn-library/src/poly.rs": "00ba6217e631b1d28b9319c18661cda1db4118cae0b4456f2c82fb0e54101dfc",
+    "~/.cargo/git/checkouts/franken_manim-6641d0e09642f63e/a399d62/crates/fmn-library/src/line.rs": "4f11e1873a2af84a067c19c9808576ac31220e0234d9d697a3272c183d0bc010",
+    "~/.cargo/git/checkouts/franken_manim-6641d0e09642f63e/a399d62/crates/fmn-anim/src/animation.rs": "0724de7516d9ae2a1f44bfb519f3efda5e7153896286089fef8a6578aff1a078"
+  },
+  "script_tsv": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e"
+}

@@ -1,0 +1,18 @@
+{
+  "utc": "2026-11-04T14:10:14.066800+00:00",
+  "author_rational_sample_checks": 324,
+  "display_tail_exact": "27/320",
+  "display_tail_rounded": "0.08438",
+  "cues": 6,
+  "words": 341,
+  "max_cue_words": 66,
+  "sha256": {
+    "source-check01.json": "a9d7724a99cfc5cc08df798db4f4aea7b11bffee218c256688ce77f8065a58c5",
+    "series_model.rs": "894acec6d774fe30dc9b2c2c2ddb02720edcb2f873733cb224a7330e5a7c3575",
+    "README.md": "f521030184e00496379e45ae9f21370e2542e0e8542863b2ed7fe5c60fc0bec7",
+    "script-slice.tsv": "fe8480fbdef3524caee8e53ec507010ed052700319176a12d920282b4c23fef7",
+    "factorials.rs": "dab315156713b3d9ffa27672662df59e2e5afb9bcd952559f1c930ef0f124dd8"
+  },
+  "limits": "Author arithmetic samples and rustfmt only; no native compile, glyph or picture review, independent review, narration or listening.",
+  "note": "Added coefficient boxes, row labels, fixed-scale chart labels and moved finite-polynomial warning below axes after source layout inspection; no pixels viewed."
+}

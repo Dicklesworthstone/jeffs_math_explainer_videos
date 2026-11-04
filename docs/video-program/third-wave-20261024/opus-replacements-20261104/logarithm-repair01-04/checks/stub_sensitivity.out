@@ -1,0 +1,20 @@
+unchanged copy: caught by nothing
+15 overlap lines in the baseline
+lengths inset by half a stroke, as the review first said: caught by test, claim (claims on 1.4, 1.5)
+base-two words stay up for the base-ten sentence: caught by test, overlap, claim (claims on 1.1, 1.3)
+keyboard line arrives over the power row: caught by overlap, claim (claims on 1.9)
+hairline back at 0.62: caught by test, overlap, claim (claims on 2.1, 2.2)
+end tick and its words left out of the fade: caught by test, claim (claims on 2.2)
+the slide waits on a phrase the cue lacks: caught by test
+the landing tick lit before the turn: an answer leak: caught by claim (claims on 3.3)
+readings back on the helix: caught by test, overlap, claim (claims on 3.9)
+the old title stays under the new one: caught by test, overlap, claim (claims on 3.4)
+ln 2's label back on the tick labels: caught by overlap, claim (claims on 4.2)
+the name y = e^x left out of the flip's fade: caught by test, overlap
+the still floor faded twice: caught by ledger
+a sentence the cue lacks: caught by scene
+the name back at 1.9, on the mirror: caught by rustc
+the red bar's far end stays behind in the flip: caught by claim (claims on 4.1)
+the teal bar never slides, so nothing lands on 8: caught by claim (claims on 4.3)
+closing rows back on the dashed line: caught by test, overlap, claim (claims on 4.4)
+17 mutants, 0 surprises

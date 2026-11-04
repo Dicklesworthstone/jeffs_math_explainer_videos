@@ -1,0 +1,24 @@
+{
+  "created_utc": "2026-11-02T14:58:34.537506+00:00",
+  "scope": "Local unadopted line-wrap proposals; no listening, fine sync or accessibility acceptance.",
+  "files": [
+    {
+      "chapter": "zeno",
+      "original": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/paradox-native-zeno-cue-voice-preview03/draft/five_math_paradoxes.en.srt",
+      "original_sha256": "ee97509c4b1a9dfc914588528f7b3bc0135cd6ec15ba36aa9b3fa5c1e447bc96",
+      "proposal": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/caption-reflow-proposals-paradoxes-20261102/zeno-proposed.srt",
+      "proposal_sha256": "2be026c049f29203276ffc4d7aeb9ab875c89dde7edf296d7a01972480980f5a",
+      "timestamps_and_flattened_block_text_equal": true,
+      "line_breaks_changed": 1
+    },
+    {
+      "chapter": "hotel",
+      "original": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/five-film-release-20261027/paradox-native-hotel-cue-voice-preview03/draft/five_math_paradoxes.en.srt",
+      "original_sha256": "37304e137c08d5829fea1efbabe914d5675ff21a76a72c8c284023553749473d",
+      "proposal": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/caption-reflow-proposals-paradoxes-20261102/hotel-proposed.srt",
+      "proposal_sha256": "bc7d64bcc7b58c3747287d9f84a4c254ccf6ded73201bad4c764a5f7298b2dff",
+      "timestamps_and_flattened_block_text_equal": true,
+      "line_breaks_changed": 1
+    }
+  ]
+}

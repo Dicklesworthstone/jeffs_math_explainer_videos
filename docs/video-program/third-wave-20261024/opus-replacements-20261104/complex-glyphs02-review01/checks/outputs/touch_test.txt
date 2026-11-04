@@ -1,0 +1,165 @@
+# row 594 z_0
+51:235,350,272,395
+  level 0.25: 1 components [x235-268 y360-390]
+  level 0.5: 1 components [x235-267 y361-390]
+  level 0.75: 1 components [x236-267 y361-389]
+# row 597 first z_0
+51:100,695,136,740
+  level 0.25: 1 components [x101-133 y705-734]
+  level 0.5: 1 components [x101-133 y705-734]
+  level 0.75: 1 components [x101-133 y705-734]
+# row 597 second z_0
+51:335,695,372,740
+  level 0.25: 1 components [x337-369 y705-734]
+  level 0.5: 1 components [x337-369 y705-734]
+  level 0.75: 1 components [x337-369 y705-734]
+# row 605 first z_0
+53:180,140,218,185
+  level 0.25: 1 components [x181-214 y150-179]
+  level 0.5: 1 components [x181-214 y150-179]
+  level 0.75: 1 components [x182-213 y150-179]
+# row 605 second z_0
+53:415,140,455,185
+  level 0.25: 1 components [x417-450 y150-179]
+  level 0.5: 1 components [x417-449 y150-179]
+  level 0.75: 1 components [x418-449 y150-179]
+# row 612 z_0
+54:360,165,400,215
+  level 0.25: 1 components [x363-395 y181-210]
+  level 0.5: 1 components [x363-395 y181-210]
+  level 0.75: 1 components [x363-395 y181-210]
+# row 637 z_0
+56:145,720,182,766
+  level 0.25: 1 components [x146-179 y732-762]
+  level 0.5: 1 components [x146-179 y732-762]
+  level 0.75: 1 components [x147-178 y733-761]
+# row 638 z_0
+56:182,805,218,847
+  level 0.25: 1 components [x182-215 y814-843]
+  level 0.5: 1 components [x182-214 y814-843]
+  level 0.75: 1 components [x183-214 y814-843]
+# row 676 z_0
+61:405,312,442,354
+  level 0.25: 1 components [x406-439 y320-350]
+  level 0.5: 1 components [x407-439 y320-349]
+  level 0.75: 1 components [x407-438 y320-349]
+# row 716 z_0
+65:52,135,92,178
+  level 0.25: 1 components [x55-88 y146-175]
+  level 0.5: 1 components [x55-88 y146-175]
+  level 0.75: 1 components [x56-87 y146-175]
+# row 717 z_0 with superscript 2
+65:52,205,92,264
+  level 0.25: 2 components [x55-88 y227-261] [x77-90 y205-228]
+  level 0.5: 2 components [x55-88 y227-261] [x77-90 y205-228]
+  level 0.75: 3 components [x56-74 y227-248] [x74-87 y238-260] [x77-90 y206-227]
+# control row 569 z_k with the Delta edge
+47:90,795,135,842
+  level 0.25: 3 components [x90-91 y827-830] [x97-116 y809-831] [x116-131 y814-838]
+  level 0.5: 3 components [x90-91 y828-830] [x97-116 y809-831] [x116-130 y814-838]
+  level 0.75: 4 components [x90-90 y828-830] [x97-115 y809-831] [x117-129 y815-838] [x128-130 y823-826]
+# control row 677 z_k
+61:100,388,137,432
+  level 0.25: 2 components [x101-120 y399-421] [x120-135 y404-428]
+  level 0.5: 2 components [x101-120 y399-421] [x120-134 y404-428]
+  level 0.75: 3 components [x101-120 y399-420] [x121-134 y404-427] [x132-133 y423-427]
+# control row 718 z_k
+65:52,291,92,322
+  level 0.25: 2 components [x55-75 y291-313] [x75-89 y296-320]
+  level 0.5: 2 components [x55-74 y291-313] [x75-89 y296-320]
+  level 0.75: 3 components [x56-74 y291-312] [x75-88 y297-320] [x83-89 y305-308]
+# control row 644 c_0
+57:50,535,95,582
+  level 0.25: 2 components [x55-73 y547-569] [x74-88 y553-577]
+  level 0.5: 2 components [x55-72 y547-569] [x74-88 y554-577]
+  level 0.75: 2 components [x56-72 y548-569] [x74-87 y554-576]
+# control row 644 c_1
+57:295,535,335,582
+  level 0.25: 2 components [x300-317 y547-569] [x320-331 y554-576]
+  level 0.5: 2 components [x300-317 y547-569] [x320-331 y554-576]
+  level 0.75: 2 components [x300-317 y548-569] [x320-330 y554-576]
+# control row 608 p_1
+53:445,530,490,575
+  level 0.25: 2 components [x445-469 y540-571] [x473-484 y546-569]
+  level 0.5: 2 components [x446-469 y540-571] [x473-484 y546-568]
+  level 0.75: 2 components [x446-469 y540-570] [x474-483 y546-568]
+# control row 599 u_y
+52:55,135,105,185
+  level 0.25: 2 components [x59-82 y145-167] [x84-99 y159-181]
+  level 0.5: 2 components [x59-82 y145-167] [x84-99 y159-181]
+  level 0.75: 3 components [x60-82 y146-167] [x85-98 y159-180] [x85-87 y177-180]
+# row 611 a_{-1}
+53:272,930,332,970
+  level 0.25: 2 components [x274-312 y937-959] [x317-328 y943-966]
+  level 0.5: 3 components [x275-295 y937-959] [x296-312 y955-957] [x317-328 y943-965]
+  level 0.75: 3 components [x275-295 y937-958] [x296-311 y955-957] [x318-328 y944-965]
+# row 605 h to 0 under lim
+53:55,212,125,242
+  level 0.25: 3 components [x55-71 y213-237] [x73-104 y220-234] [x107-121 y214-237]
+  level 0.5: 3 components [x55-70 y213-237] [x73-104 y220-233] [x107-121 y214-237]
+  level 0.75: 4 components [x56-68 y213-236] [x68-70 y232-236] [x73-103 y221-233] [x107-121 y214-237]
+# row 604 bar and minus infinity
+52:575,830,600,862
+  level 0.25: 2 components [x579-581 y830-856] [x586-599 y848-851]
+  level 0.5: 2 components [x579-581 y830-856] [x586-599 y848-850]
+  level 0.75: 2 components [x579-581 y830-856] [x586-599 y849-850]
+# row 614 p_k then f
+54:570,475,630,505
+  level 0.25: 3 components [x571-588 y478-500] [x590-600 y481-499] [x603-616 y475-496]
+  level 0.5: 3 components [x572-588 y478-500] [x590-600 y482-498] [x603-616 y475-496]
+  level 0.75: 5 components [x572-588 y479-499] [x574-576 y479-483] [x591-599 y482-498] [x598-600 y488-490] [x604-616 y475-495]
+# control row 715 z^2
+64:52,879,93,925
+  level 0.25: 2 components [x55-75 y900-922] [x77-90 y879-901]
+  level 0.5: 2 components [x55-74 y900-922] [x77-90 y879-901]
+  level 0.75: 2 components [x56-74 y900-922] [x77-90 y879-901]
+# control row 568 R^4
+47:375,715,425,760
+  level 0.25: 2 components [x376-408 y720-754] [x409-424 y716-739]
+  level 0.5: 2 components [x376-408 y720-754] [x409-424 y716-739]
+  level 0.75: 2 components [x376-407 y720-754] [x410-424 y717-739]
+# control row 675 x^2
+61:340,220,385,275
+  level 0.25: 2 components [x342-365 y241-263] [x367-380 y220-242]
+  level 0.5: 2 components [x343-365 y241-263] [x367-380 y220-242]
+  level 0.75: 2 components [x343-365 y242-263] [x367-380 y220-242]
+# control row 675 y^2
+61:445,220,488,275
+  level 0.25: 2 components [x449-470 y241-273] [x472-485 y220-242]
+  level 0.5: 2 components [x449-470 y241-273] [x472-485 y220-242]
+  level 0.75: 2 components [x449-469 y242-272] [x472-485 y220-242]
+# control row 681 p^3
+61:735,750,780,802
+  level 0.25: 2 components [x735-758 y768-799] [x760-774 y753-776]
+  level 0.5: 2 components [x735-758 y768-799] [x760-774 y753-776]
+  level 0.75: 2 components [x735-757 y769-799] [x760-773 y753-776]
+# control row 650 e^z
+58:52,384,90,426
+  level 0.25: 2 components [x55-72 y397-419] [x75-88 y384-399]
+  level 0.5: 2 components [x55-72 y398-419] [x75-88 y384-399]
+  level 0.75: 2 components [x56-72 y398-419] [x75-88 y384-399]
+# control row 689 p^4
+62:52,685,100,745
+  level 0.25: 2 components [x55-79 y712-743] [x80-95 y690-713]
+  level 0.5: 2 components [x55-79 y712-743] [x81-95 y690-713]
+  level 0.75: 2 components [x56-79 y712-742] [x81-95 y691-712]
+# control row 648 r^2
+58:224,185,266,228
+  level 0.25: 2 components [x227-246 y202-224] [x248-262 y187-209]
+  level 0.5: 2 components [x227-246 y202-224] [x248-262 y187-209]
+  level 0.75: 2 components [x227-246 y202-224] [x249-261 y187-209]
+# control row 660 f prime
+59:55,292,95,345
+  level 0.25: 2 components [x55-78 y297-341] [x80-88 y292-302]
+  level 0.5: 2 components [x55-78 y297-341] [x81-88 y292-302]
+  level 0.75: 2 components [x56-78 y297-341] [x81-88 y292-301]
+# row 512 en dash then 0
+42:50,640,100,680
+  level 0.25: 2 components [x55-78 y659-660] [x80-99 y641-673]
+  level 0.5: 2 components [x55-78 y659-660] [x80-99 y641-673]
+  level 0.75: 2 components [x56-77 y660-660] [x81-99 y642-672]
+# row 517 en dash then 2
+43:50,135,100,170
+  level 0.25: 2 components [x55-78 y153-153] [x81-99 y135-165]
+  level 0.5: 2 components [x55-78 y153-153] [x81-99 y135-165]
+  level 0.75: 2 components [x56-78 y153-153] [x81-98 y135-165]

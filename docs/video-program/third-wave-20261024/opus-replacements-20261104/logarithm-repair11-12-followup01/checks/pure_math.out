@@ -1,0 +1,55 @@
+12_6: spin about (0, 1, 1)
+  top lands (0.0, 0.0, 1.0)
+  corner lands (-1.0, 1.0, 1.0)
+  over 40 poses: tip hidden 0, a ring hidden 0
+  whole tip arc minus shown tip arc, worst: 0.000e+00; top centre's path shown, worst: 0.000e+00
+  pin drawn at t: 0.025:0.97, 0.125:0.91, 0.225:0.81, 0.325:0.67, 0.425:0.51, 0.525:0.32, 0.625:0.15, 0.725:0.18, 0.825:0.37, 0.925:0.55
+  pin drawn: least 0.128, at t 0.675; at the end 0.670
+  guards on what is drawn:
+    t 0.25: corner 0.815  tip arc 0.934
+    t 0.5: corner 1.574  tip arc 1.955
+    t 0.75: corner 2.234  tip arc 3.107
+    t 1.0: corner 2.956  tip arc 4.180
+  other axis drawn at t 0.0: 1.493
+  other axis drawn at t 1.0: 1.493
+  start ring (r 0.13): nearest {'line': 0.514, 'pin': 1.449, 'tip arc': 1.509}
+  end ring (r 0.2): nearest {'line': 2.076, 'pin': 0.71, 'tip arc': 0.709, 'corner trace': 1.112}
+  corner dot to end ring at the end: 1.341
+the veil over 12_6's picture
+  picture x -4.662..-1.338, y -2.523..1.423
+  veil x -4.800..-1.200, y -2.650..1.550
+  rod word's centre y 1.719
+12_2's fold, panel B is x 0.35..6.75, y 0.2..2.7
+  rim x 0.485..6.535, y 0.237..2.400
+  closed and turned, worst distance from the dial's own marks: 2.22e-16
+  just past flat vs flat, worst: 9.88e-04
+  the 1 and the 10 closed: 4.44e-16
+11_4's routes, screen points
+  u: (-2.9, 0.4)
+  mid A: (-4.09, 0.19)
+  mid B: (-3.646, 0.605)
+  end A: (-4.519, -0.427)
+  end B: (-4.519, -0.427)
+  drop 0.62: word centre (-4.519, -0.861); dot bottom -0.547; lowest route point -0.427
+  drop 0.8: word centre (-4.519, -0.987); dot bottom -0.547; lowest route point -0.427
+the rule's hold at 15 characters a second
+  rule [42, 45, 42, 30] = 159 chars, 10.600 s; rows [23, 24, 31, 29] = 107 chars, 7.133 s; window 17.733 s
+the block rows' numbers
+  e^(ln 1 I + pi J) = [[-1.0, 0.0], [0.0, -1.0]]
+  e^(ln 2 I + pi J) = [[-2.0, 0.0], [0.0, -2.0]]
+  every real X sampled with eigenvalues a +- i pi (2k+1) gives -e^a I, off-diagonal 0; the size-2 block's off-diagonal is 1.0
+  block det 1, trace -2
+  block's eigenvalues [(-1+0j), (-1-0j)]
+phrase hooks: exact, once, in spoken order
+  11_2: 'run backwards' byte 185
+  11_5: 'send it along both routes' byte 72, 'the two routes end in different places' byte 178
+  11_6: 'running one after the other' byte 273
+  12_1: 'the keyboard and the slide rule' byte 167
+  12_6: 'also ends here' byte 89, 'and so does two and a half' byte 105
+  12_21: 'a convention broke the same tie' byte 192, 'the honest answer is the whole family' byte 230
+card half widths under the shared helper, and what each must clear
+  11_1 mirror: half 0.663, x 4.737..6.063; right gap 0.797
+  11_5 A: half 0.683, x 2.967..4.333; left gap 0.247; right gap 0.567
+  11_5 X: half 0.615, x 5.535..6.765; left gap 0.098; right gap 0.095
+  11_7 -I: half 0.622, x 3.028..4.272; left gap 0.198
+  11_20 size-2 tile: half 0.414, under the wide tile's half 0.49

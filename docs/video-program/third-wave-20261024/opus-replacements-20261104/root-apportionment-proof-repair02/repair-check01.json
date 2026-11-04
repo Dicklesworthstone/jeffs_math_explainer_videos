@@ -1,0 +1,29 @@
+{
+  "utc": "2026-11-04T11:29:03.801445+00:00",
+  "path": "explainer_corpus/apportionment/src/chapters/both_promises.rs",
+  "baseline_sha256": "c667ad1a29a81ed9d880aa8d830a162380e7ebea7c2b347edb0dafd6d88de8e3",
+  "candidate_sha256": "aa5f5c9a8943bfdb7d55bd16915294cb4ec449b7f298decb3155c0344b8497b5",
+  "root_frames_viewed": [
+    "frame-0534.png",
+    "frame-0566.png"
+  ],
+  "staged_fixes": [
+    "N1 capacity rings deferred; chips pulsed at those tiles",
+    "N2 grey ruled-out legend",
+    "N4 red question and annotation above band and rings",
+    "N5 chip label with retained morph handle",
+    "N6 only changed Birch counter morphs",
+    "F7 highlight preserves tile length",
+    "F6 result held one extra second"
+  ],
+  "open": [
+    "N3 hypothesis transition judgement",
+    "N7 optional additional length equation",
+    "other disclosed low findings",
+    "native compile/tests/glyphs/rendered repair review",
+    "actual Oliver timing/listening/fine sync/independent final AV"
+  ],
+  "script_sha256": "cfcec06911c7d94efa6b7b29a820be9bf73a608810b4b57085f02f5b95939313",
+  "scope": "Source staging and scoped Rust formatting only. All canonical files/takes preserved; no render or listening acceptance.",
+  "prior_attempt": "Initial Python edit script syntax error before execution, no files changed; corrected attempt here."
+}

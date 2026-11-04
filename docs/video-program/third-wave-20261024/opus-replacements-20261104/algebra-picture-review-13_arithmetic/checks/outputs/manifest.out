@@ -1,0 +1,36 @@
+input record keys: ['path', 'sha256']
+src/arithmetic.rs: now 78ed9b54477a452d; at the frames build 78ed9b54477a452d; SAME
+src/d4_group.rs: now 1fc767e951b31ab6; at the frames build 1fc767e951b31ab6; SAME
+src/tile_actor.rs: now 7afae6916b8fee39; at the frames build 7afae6916b8fee39; SAME
+src/tile_model.rs: now 2ad5cedc3acd30c1; at the frames build 2ad5cedc3acd30c1; SAME
+src/axioms.rs: now 605d531bafaf7c73; at the frames build 605d531bafaf7c73; SAME
+src/main.rs: now ac8323e61d4d7722; at the frames build ac8323e61d4d7722; SAME
+script.tsv: now 83619d48676b32d5; at the frames build 83619d48676b32d5; SAME
+oracle.py: now 803782696455cf66; at the frames build 803782696455cf66; SAME
+sheet cells differing from their frame: 0 worst channel difference (0, None)
+frames 595 unique 388 sheets 149 duration 262.5
+before 13_1        frames   0-  1  t   0.000-  0.500  sheets 000-000  unique 1
+13_1               frames   2- 42  t   0.600- 19.000  sheets 000-010  unique 9
+after 13_1         frames  43- 45  t  19.077- 19.500  sheets 010-011  unique 1
+13_2               frames  46- 97  t  19.700- 43.500  sheets 011-024  unique 30
+after 13_2         frames  98-104  t  43.562- 46.000  sheets 024-026  unique 5
+13_3               frames 105-142  t  46.333- 63.171  sheets 026-035  unique 33
+after 13_3         frames 143-145  t  63.271- 63.500  sheets 035-036  unique 1
+13_4               frames 146-185  t  63.900- 81.892  sheets 036-046  unique 20
+after 13_4         frames 186-189  t  81.992- 82.500  sheets 046-047  unique 1
+13_5               frames 190-229  t  82.600-100.592  sheets 047-057  unique 30
+after 13_5         frames 230-232  t 100.692-101.000  sheets 057-058  unique 1
+13_6               frames 233-278  t 101.300-122.754  sheets 058-069  unique 31
+after 13_6         frames 279-281  t 122.854-123.054  sheets 069-070  unique 1
+13_7               frames 282-335  t 123.467-148.000  sheets 070-083  unique 23
+after 13_7         frames 336-338  t 148.098-148.500  sheets 084-084  unique 1
+13_8               frames 339-378  t 148.700-166.692  sheets 084-094  unique 40
+after 13_8         frames 379-388  t 166.792-170.500  sheets 094-097  unique 9
+13_9               frames 389-440  t 170.733-194.500  sheets 097-110  unique 40
+after 13_9         frames 441-443  t 194.595-195.000  sheets 110-110  unique 1
+13_10              frames 444-489  t 195.200-216.269  sheets 111-122  unique 34
+after 13_10        frames 490-492  t 216.369-216.569  sheets 122-123  unique 1
+13_11              frames 493-539  t 217.000-239.223  sheets 123-134  unique 38
+after 13_11        frames 540-542  t 239.323-239.523  sheets 135-135  unique 2
+13_12              frames 543-590  t 239.933-261.771  sheets 135-147  unique 45
+after 13_12        frames 591-594  t 261.871-262.250  sheets 147-148  unique 2

@@ -1,0 +1,7 @@
+{
+  "source_sha256": "8de1bb0bc235a38544b90d8bf627a44d37774c51e3243e66a1605db98b487d9c",
+  "candidate_sha256": "f08c76332c13f79f4f6c103dfc530540fb8823b73958d5a92df0487147449402",
+  "defect": "blank sampled140.9-148.0s",
+  "status": "staged only; current canonical frozen in axioms pipeline; compile/render/review pending",
+  "narration": "unchanged"
+}

@@ -1,0 +1,89 @@
+cue	file	call	hook	byte_in_cue	status	phrase_mark_needed
+02_1	turning.rs	wait_sentence	2		kept	no
+02_1	turning.rs	wait_for	how far right	60	kept	no
+02_1	turning.rs	wait_for	how far up	91	kept	no
+02_2	turning.rs	wait_sentence	1		kept	no
+02_2	turning.rs	wait_sentence	2		kept	no
+02_2	turning.rs	wait_for	and the whole plane turns	143	kept	no
+02_3	turning.rs	wait_sentence	2		kept	no
+02_4	turning.rs	wait_sentence	1		kept	no
+02_4	turning.rs	wait_sentence	2		kept	no
+02_5	turning.rs	wait_for	an eighth of a turn	37	added	yes
+02_6	turning.rs	wait_sentence	1		kept	no
+02_6	turning.rs	wait_sentence	2		kept	no
+02_6	turning.rs	until	So one plus i	88	kept	no
+02_6	turning.rs	wait_for	and angles add	139	added	yes
+02_6	turning.rs	wait_for	Every complex derivative	172	added	yes
+03_1	two_planes.rs	wait_sentence	1		kept	no
+03_1	two_planes.rs	wait_sentence	2		kept	no
+03_1	two_planes.rs	wait_sentence	3		kept	no
+03_2	two_planes.rs	wait_sentence	1		kept	no
+03_2	two_planes.rs	wait_sentence	2		kept	no
+03_2	two_planes.rs	wait_for	squares each length	66	added	yes
+03_2	two_planes.rs	wait_for	doubles each angle	90	added	yes
+03_4	two_planes.rs	wait_sentence	1		kept	no
+03_4	two_planes.rs	wait_sentence	3		kept	no
+03_4	two_planes.rs	wait_sentence	4		kept	no
+03_4	two_planes.rs	wait_sentence	5		kept	no
+03_4	two_planes.rs	wait_sentence	7		kept	no
+03_4	two_planes.rs	until	The two axes fold	94	kept	no
+03_4	two_planes.rs	until	The horizontal axis lands	129	kept	no
+03_4	two_planes.rs	wait_for	except at zero	301	kept	no
+03_5	two_planes.rs	wait_sentence	1		kept	no
+03_5	two_planes.rs	wait_sentence	3		kept	no
+03_5	two_planes.rs	wait_sentence	4		kept	no
+03_5	two_planes.rs	until	The unit circle	89	kept	no
+03_5	two_planes.rs	wait_for	each point flips	140	added	yes
+03_6	two_planes.rs	wait_sentence	1		kept	no
+03_6	two_planes.rs	wait_sentence	2		kept	no
+03_6	two_planes.rs	wait_sentence	3		kept	no
+03_6	two_planes.rs	until	So vertical lines	181	kept	no
+03_7	two_planes.rs	until	The exponential repeats	55	kept	no
+03_7	two_planes.rs	wait_for	and it never reaches zero	93	kept	no
+04_1	reading_color.rs	wait_sentence	1		kept	no
+04_1	reading_color.rs	wait_sentence	2		kept	no
+04_2	reading_color.rs	wait_sentence	1		kept	no
+04_2	reading_color.rs	wait_sentence	2		kept	no
+04_2	reading_color.rs	wait_sentence	3		kept	no
+04_3	reading_color.rs	wait_sentence	1		kept	no
+04_3	reading_color.rs	wait_sentence	2		added	no
+04_4	reading_color.rs	wait_sentence	1		removed	no
+04_4	reading_color.rs	wait_sentence	2		added	no
+04_4	reading_color.rs	until	Once for a simple zero	81	added	yes
+04_4	reading_color.rs	wait_for	twice for a zero of order two	105	added	yes
+04_5	reading_color.rs	wait_sentence	1		kept	no
+04_7	reading_color.rs	wait_sentence	1		kept	no
+04_7	reading_color.rs	wait_sentence	2		kept	no
+05_1	gallery.rs	wait_sentence	1		kept	no
+05_1	gallery.rs	wait_sentence	2		kept	no
+05_2	gallery.rs	wait_sentence	2		kept	no
+05_2	gallery.rs	wait_for	and at minus one	118	kept	no
+05_3	gallery.rs	wait_sentence	1		kept	no
+05_3	gallery.rs	wait_sentence	2		removed	no
+05_3	gallery.rs	wait_for	and its size	90	kept	no
+05_3	gallery.rs	wait_for	exact squares	151	added	yes
+05_3	gallery.rs	wait_for	repeating every two pi	166	added	yes
+05_4	gallery.rs	wait_sentence	1		kept	no
+05_4	gallery.rs	wait_sentence	2		kept	no
+05_4	gallery.rs	wait_sentence	3		kept	no
+05_4	gallery.rs	wait_for	and sine of three i	187	kept	no
+05_5	gallery.rs	wait_sentence	1		kept	no
+05_5	gallery.rs	wait_sentence	2		kept	no
+05_5	gallery.rs	wait_for	and far below	126	kept	no
+05_6	gallery.rs	wait_sentence	1		kept	no
+05_6	gallery.rs	wait_sentence	2		kept	no
+05_6	gallery.rs	wait_sentence	3		kept	no
+05_6	gallery.rs	wait_sentence	4		kept	no
+05_6	gallery.rs	wait_for	and no zeros anywhere	259	kept	no
+05_7	gallery.rs	wait_sentence	1		kept	no
+05_7	gallery.rs	wait_sentence	2		kept	no
+05_7	gallery.rs	wait_sentence	3		kept	no
+05_7	gallery.rs	wait_sentence	4		kept	no
+05_7	gallery.rs	wait_sentence	5		kept	no
+05_8	gallery.rs	wait_sentence	1		removed	no
+05_8	gallery.rs	wait_sentence	2		kept	no
+05_8	gallery.rs	wait_for	is the Riemann hypothesis	71	added	yes
+05_9	gallery.rs	wait_sentence	1		kept	no
+05_9	gallery.rs	wait_sentence	4		kept	no
+05_9	gallery.rs	wait_for	in little tiles	109	kept	no
+05_9	gallery.rs	wait_for	nearly square	134	added	yes

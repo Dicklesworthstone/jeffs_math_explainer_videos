@@ -1,0 +1,87 @@
+--- a/explainer_corpus/abstract_algebra_visual/src/chapters/quotient.rs
++++ b/explainer_corpus/abstract_algebra_visual/src/chapters/quotient.rs
+@@ -3,7 +3,7 @@
+ //! Existing ElevenLabs takes remain whole; those cue boundaries are proposals.
+ //! `a.compose(b)` means do b first, then a; cosets below are left cosets gH.
+ use crate::model::{Symmetry, left_coset};
+-use explainer_kit::{Kit, Palette, Timed, v};
++use explainer_kit::{Kit, Palette, Timed, hex, ink_style, rect, stroke_style, v};
+ use fmn::prelude::*;
+ 
+ pub struct AmbiguousCosets { pub kit: Kit }
+@@ -13,6 +13,16 @@
+     let mut animations: Vec<Box<dyn Animation>> = Vec::new();
+     for &mob in mobs {
+         let animation = fade_in(stage.arena_mut(), mob, ORIGIN, 1.0)?;
++        animations.push(stage.prepare(animation.rt(0.5))?);
++    }
++    stage.play_prepared(animations)?;
++    Ok(())
++}
++
++fn disappear(stage: &mut Stage<'_>, mobs: &[Mob]) -> fmn::Result<()> {
++    let mut animations: Vec<Box<dyn Animation>> = Vec::new();
++    for &mob in mobs {
++        let animation = fade_out(stage.arena_mut(), mob, ORIGIN, 1.0)?;
+         animations.push(stage.prepare(animation.rt(0.5))?);
+     }
+     stage.play_prepared(animations)?;
+@@ -40,6 +50,22 @@
+     format!("{{{}}}", labels.join(", "))
+ }
+ 
++// These panels use the same colored, numbered corners as the other square scenes.
++// `action` is computed by the existing exact D4 model.
++fn marked_square(stage: &mut Stage<'_>, kit: &Kit, action: Symmetry, center: (f64, f64)) -> fmn::Result<Vec<Mob>> {
++    let corners = [(-1, -1), (1, -1), (1, 1), (-1, 1)];
++    let colors = [Palette::blue(), Palette::gold(), Palette::green(), Palette::hero()];
++    let border = rect(v(center.0 - 1.0, center.1 - 1.0), 2.0, 2.0, stroke_style(Palette::dim(), 3.0))?;
++    let mut panel = vec![stage.arena_mut().add(border)];
++    for (i, corner) in corners.iter().enumerate() {
++        let (x, y) = action.apply(*corner);
++        let position = v(center.0 + f64::from(x) * 0.75, center.1 + f64::from(y) * 0.75);
++        panel.push(stage.arena_mut().add(Circle::new().radius(0.20).style(ink_style(colors[i])).build().moved_to(position)));
++        panel.push(kit.text(stage, &(i + 1).to_string(), 20.0, hex("#0E1116"), position)?);
++    }
++    Ok(panel)
++}
++
+ impl SceneConstruct for AmbiguousCosets {
+     fn name(&self) -> &str { "06_ambiguous_cosets" }
+ 
+@@ -63,19 +89,31 @@
+             kit.text(stage, "Will the resulting class depend on the choice?", 25.0, Palette::ink(), v(0.0, -0.2))?,
+         ];
+         appear(stage, &setup)?;
++        // Show the two choices themselves during the question, without the
++        // products or their resulting classes.
++        let mut choices = marked_square(stage, &kit, e, (-3.0, -1.9))?;
++        choices.push(kit.text(stage, "choose e", 24.0, Palette::blue(), v(-3.0, -0.65))?);
++        choices.extend(marked_square(stage, &kit, s, (3.0, -1.9))?);
++        choices.push(kit.text(stage, "choose s", 24.0, Palette::gold(), v(3.0, -0.65))?);
++        appear(stage, &choices)?;
+         kit.hold(stage)?;
+         stage.wait(3.0)?;
++        disappear(stage, &choices)?;
+ 
+         kit.say(stage, "06_2")?;
+         if right_class.contains(&left_result) {
+             return Err(fmn::Error::Scene(fmn::scene::SceneError::InvalidConfig("different classes overlap")));
+         }
+         kit.until_sentence(stage, "06_2", 2)?;
+-        let first = kit.text(stage, &format!("e · r = {}  ∈  {}", symbol(left_result), coset_text(r, &h)), 28.0, Palette::blue(), v(0.0, -1.2))?;
+-        appear(stage, &[first])?;
++        let mut first = marked_square(stage, &kit, left_result, (-3.0, -1.9))?;
++        first.push(kit.text(stage, "r then e", 24.0, Palette::blue(), v(-3.0, -0.65))?);
++        first.push(kit.text(stage, &format!("e · r = {}  ∈  {}", symbol(left_result), coset_text(r, &h)), 27.0, Palette::blue(), v(-3.0, -3.25))?);
++        appear(stage, &first)?;
+         kit.until_sentence(stage, "06_2", 3)?;
+-        let second = kit.text(stage, &format!("s · r = {}  ∈  {}", symbol(right_result), coset_text(right_result, &h)), 28.0, Palette::gold(), v(0.0, -2.0))?;
+-        appear(stage, &[second])?;
++        let mut second = marked_square(stage, &kit, right_result, (3.0, -1.9))?;
++        second.push(kit.text(stage, "r then s", 24.0, Palette::gold(), v(3.0, -0.65))?);
++        second.push(kit.text(stage, &format!("s · r = {}  ∈  {}", symbol(right_result), coset_text(right_result, &h)), 27.0, Palette::gold(), v(3.0, -3.25))?);
++        appear(stage, &second)?;
+         kit.finish(stage)
+     }
+ }

@@ -1,0 +1,31 @@
+Tests in the changed files that name a changed constant or an old string:
+  counting.rs the_leash_formula_holds_on_the_unit_circle: LEASH_TEX
+  of 43 test functions in the six files
+Mirror of counting.rs the_leash_formula_holds_on_the_unit_circle's string assert:
+  '|z^5 + 1| \\le 2 < 3 = |{-3z}|' contains '\le 2 < 3 =': True
+Mirror of mod.rs no_supplement_is_empty_or_duplicated on TEX:
+  baseline: 98 strings resolved, duplicates 0, empty 0, not resolved by this mirror 65 (array elements and other forms)
+  edited: 98 strings resolved, duplicates 0, empty 0, not resolved by this mirror 65 (array elements and other forms)
+  new forms in the baseline crate, so a new string cannot collide with an unresolved one: z_{\,0} 0, |{-3z}| 0
+  positive control, the same forms in the six edited files: z_{\,0} 13, |{-3z}| 1
+Patterns the source-scanning tests read (counting.rs, mod.rs): counts in the changed files, baseline vs edited
+    3   3  predict(&kit, stage, &line, &ASK
+    2   2  painter.to(stage, Some(Func::Quintic)
+    3   3  Some(Func::Quintic)
+    4   4  reading_window(&kit, stage, &line)?;
+   31  31  let line = say(&kit, stage, 
+   16  16  wait_until(stage, line.end())?;
+   50  50  fade_out_all
+    1   1  let exact = 
+    2   2  let squashed = 
+    1   1  let panel = 
+  patterns whose count changed: 0
+Files holding an old string outside the crate (crates, tools, docs/video-program; opus-replacements-20261104 staging excluded):
+  hits: 0
+The same strings elsewhere in the crate (not chapter sources):
+  script.tsv: z_0 = 1 + i 0, z_0^2 = 2i 0, |-3z| 0, f(z_0 + h) 0
+  narration_units.json: z_0 = 1 + i 0, z_0^2 = 2i 0, |-3z| 0, f(z_0 + h) 0
+  docs/storyboard.md: z_0 = 1 + i 0, z_0^2 = 2i 0, |-3z| 0, f(z_0 + h) 0
+  oracle.py: z_0 = 1 + i 0, z_0^2 = 2i 0, |-3z| 1, f(z_0 + h) 0
+
+[exit 0]

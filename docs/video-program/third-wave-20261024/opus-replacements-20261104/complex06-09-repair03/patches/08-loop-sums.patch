@@ -1,0 +1,101 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
+@@ -205,12 +205,25 @@
+ 
+ /// Where a circulation mark starts and stops, in radians, going anticlockwise.
+ const CIRCULATION: (f64, f64) = (0.4, 5.4);
++/// A circulation head's length and width. It is narrower than long, so the tip is its one point;
++/// a head as wide as it is long reads as a triangle aimed at whichever corner is lowest.
++const CIRCULATION_HEAD: (f64, f64) = (0.16, 0.11);
+ 
+ /// The corners of a circulation mark's head, pointing on round the way it turns. A solid
+-/// head, since a chord of an arc this small is shorter than an `Arrow` can point.
++/// head, since a chord of an arc this small is shorter than an `Arrow` can point. The middle of
++/// its base lies on the arc, so the arc runs into the head along its axis, not along one edge.
+ pub fn circulation_head(at: Vec3, r: f64) -> Vec<Vec3> {
++    let (length, width) = CIRCULATION_HEAD;
+     let point = |a: f64| v(at[0] + r * a.cos(), at[1] + r * a.sin());
+-    arrow_head_points(point(CIRCULATION.1), point(CIRCULATION.1 - 0.35), 0.16)
++    let back = 2.0 * (length / (2.0 * r)).min(1.0).asin();
++    let (tip, base) = (point(CIRCULATION.1), point(CIRCULATION.1 - back));
++    let (ux, uy) = ((tip[0] - base[0]) / length, (tip[1] - base[1]) / length);
++    let half = width / 2.0;
++    vec![
++        tip,
++        v(base[0] - uy * half, base[1] + ux * half),
++        v(base[0] + uy * half, base[1] - ux * half),
++    ]
+ }
+ 
+ /// A small anticlockwise circulation arrow around `at`, detached.
+@@ -444,10 +457,14 @@
+         let [_, _, up] = parts(inverse, R, K);
+         let up_at = product_point(up);
+         let up_says = kit.text(stage, UP, 20.0, hero(), v(up_at[0] + 1.1, up_at[1]))?;
+-        fade_in_all(stage, &[up_says], 0.3)?;
++        // the position whose turn the voice says is undone: 08_1's dot and name on the same step,
++        // in this fade so no beat moves, and gone before the circle grows away from them
++        let position = dot(stage, p.p(mid), 0.07, output());
++        let position_name = kit.tex(stage, PART_TEX[0], 22.0, output(), &[], p.p(mid.scale(1.35)))?;
++        fade_in_all(stage, &[up_says, position, position_name], 0.3)?;
+         line.wait_sentence(stage, 2)?;
+         let mut gone = product.clone();
+-        gone.push(up_says);
++        gone.extend([up_says, position, position_name]);
+         fade_out_all(stage, &gone, 0.3)?;
+         let corners = chain(inverse, R);
+         let (origin, scale) = fit_chain(&corners, v(CHAIN_AT.0, CHAIN_AT.1), CHAIN_BOX.0, CHAIN_BOX.1, CHAIN_MAX);
+@@ -766,6 +783,53 @@
+         assert!(rx * dy - ry * dx > 0.0, "the head points clockwise");
+     }
+ 
++    /// Picture review 08-N2: the sign was right and the head still read as aimed downward,
++    /// because it was as wide as long and the arc entered it along one edge.
++    #[test]
++    fn a_circulation_head_has_one_point_and_sits_on_its_arc() {
++        let (at, r) = (v(1.0, 2.0), 0.26);
++        let head = circulation_head(at, r);
++        let [tip, left, right] = [head[0], head[1], head[2]];
++        let angle_at = |q: Vec3, a: Vec3, b: Vec3| {
++            let (ax, ay, bx, by) = (a[0] - q[0], a[1] - q[1], b[0] - q[0], b[1] - q[1]);
++            (ax * by - ay * bx).abs().atan2(ax * bx + ay * by).to_degrees()
++        };
++        let (sharp, blunt) = (angle_at(tip, left, right), angle_at(left, tip, right));
++        assert!(sharp < 40.0 && blunt > 65.0, "tip {sharp}, base {blunt}");
++        let on_arc = |x: f64, y: f64| ((x - at[0]).hypot(y - at[1]) - r).abs() < 1e-9;
++        let (base_x, base_y) = ((left[0] + right[0]) / 2.0, (left[1] + right[1]) / 2.0);
++        assert!(on_arc(tip[0], tip[1]) && on_arc(base_x, base_y));
++        // and it keeps its size: the base's middle is one head length back from the tip
++        assert!(((tip[0] - base_x).hypot(tip[1] - base_y) - CIRCULATION_HEAD.0).abs() < 1e-9);
++    }
++
++    /// Read from the source, because no render can run here. Picture review 08-N1: the voice
++    /// says dividing by z undoes the turn of the step's position, so that position is on the
++    /// ring for those words. It leaves before the ring grows away from it.
++    #[test]
++    fn the_position_is_on_the_ring_while_the_voice_undoes_its_turn() {
++        let source = include_str!("loop_sums.rs");
++        let cue = source.find("let line = say(&kit, stage, \"08_3\")?;").unwrap();
++        let scene = &source[cue..];
++        let said = scene.find("line.wait_sentence(stage, 1)?;").unwrap();
++        let arrives = scene
++            .find("fade_in_all(stage, &[up_says, position, position_name], 0.3)?;")
++            .unwrap();
++        let held = scene.find("line.wait_sentence(stage, 2)?;").unwrap();
++        let leaves = scene.find("gone.extend([up_says, position, position_name]);").unwrap();
++        let grows = scene.find("stage.play(tween(grow, BIG_R, 1.6)?)?;").unwrap();
++        assert!(said < arrives && arrives < held && held < leaves && leaves < grows);
++        // and what it shows is true: the step runs a quarter turn ahead of the position, f's
++        // arrow is the position's turn undone, and what is left points straight up
++        let (_, _, mid) = step(R, K, STEPS);
++        let [w, dz, up] = parts(inverse, R, K);
++        assert!((mid.abs() - R).abs() < 1e-12);
++        assert!((w.arg() + mid.arg()).abs() < 1e-12);
++        assert!((dz.arg() - mid.arg() - TAU / 4.0).abs() < 1e-12);
++        assert!((up.arg() - TAU / 4.0).abs() < 1e-12);
++        assert!(circle_plane().contains(mid.scale(1.35)));
++    }
++
+     #[test]
+     fn the_pictures_fit_and_no_arrow_is_dropped() {
+         let p = circle_plane();

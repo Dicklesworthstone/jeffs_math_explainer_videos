@@ -1,0 +1,13 @@
+use	fix	film_size	glyphs02_row	predicted_row	old_source	new_source
+patch	F1	32	605	605	\lim_{h \to 0}\frac{f(z_0 + h) - f(z_0)}{h}	\lim_{h \to 0}\frac{f(z_{\,0} + h) - f(z_{\,0})}{h}
+patch	F3	34	723	723	|z^5 + 1| \le 2 < 3 = |-3z|	|z^5 + 1| \le 2 < 3 = |{-3z}|
+patch	F1	28	676	676	f(z) \approx a + b\,(z - z_0)	f(z) \approx a + b\,(z - z_{\,0})
+patch	F1	28	612	612	\oint (a + b\,(z - z_0))\,dz = 0	\oint (a + b\,(z - z_{\,0}))\,dz = 0
+patch	F1	36	597	597	\frac{f(z_0 + h) - f(z_0)}{h}	\frac{f(z_{\,0} + h) - f(z_{\,0})}{h}
+patch	F1	32	638	638	\to\, f'(z_0)	\to\, f'(z_{\,0})
+patch	F1	30	637	637	\times\, f'(z_0)	\times\, f'(z_{\,0})
+patch	F1	28	716	717	z_0 = 1 + i	z_{\,0} = 1 + i
+patch	F1	28	717	718	z_0^2 = 2i	z_{\,0}^2 = 2i
+patch	F1	32	594	594	\frac{f'}{f} \approx \frac{m}{z - z_0}	\frac{f'}{f} \approx \frac{m}{z - z_{\,0}}
+comparison_only	F1	28			z_0 = 1 + i	z_{\;\!0} = 1 + i
+comparison_only	F1	36			\frac{f(z_0 + h) - f(z_0)}{h}	\frac{f(z_{\;\!0} + h) - f(z_{\;\!0})}{h}

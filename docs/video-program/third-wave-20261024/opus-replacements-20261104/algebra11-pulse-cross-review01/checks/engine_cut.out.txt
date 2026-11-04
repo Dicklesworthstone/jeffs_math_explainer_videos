@@ -1,0 +1,24 @@
+PASS the Straight path is (1 - a) s + a e, as the source states
+PASS a frame's alpha is (k / fps) / run_time, clamped
+PASS k / fps is computed in f64
+PASS the cut functions compile
+frames 0.6 60 36
+frames 0.6 30 18
+frames 0.6 10 6
+frames 0.5 60 30
+alpha18 0.5 alpha36 1.0
+rate0 0.0 rate.5 1.0 rate1 0.0
+symmetric true
+rises true
+first_rate 0.001575 frame17_rate 0.998425
+cases 360
+end_exact true peak_exact true pivot_held true ratio_ok true
+default_rate_stays_swollen true default_rate_only_half_at_midpoint true
+PASS 0.6 s at 60 fps is 36 frames
+PASS control: 0.5 s would be 30 frames
+PASS frame 18 is exactly alpha 0.5, and frame 36 exactly alpha 1
+PASS there_and_back is exactly 0, 1 and 0 at the three ends
+PASS the rate rises strictly to frame 18, and frames mirror about it
+PASS end placement equals the start exactly, the peak equals the target exactly, and the pivot holds
+PASS control: without rate_func the mobject stays at 1.25, and is only at 1.125 at the midpoint
+RESULT PASS

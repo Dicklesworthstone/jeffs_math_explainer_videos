@@ -1,0 +1,132 @@
+1. arithmetic
+  39,000 / 15 = 2600
+  4,000 ÷ 2,600 = 1.54  (20/13)
+  9,000 ÷ 2,600 = 3.46  (45/13)
+  26,000 ÷ 2,600 = 10.00  (10)
+  14 seats: ['1.44', '3.23', '9.33'] -> [1, 3, 9] = 13, tag 1 short, all down
+  15 seats: ['1.54', '3.46', '10.00'] -> [2, 3, 10] = 15, tag None, mixed
+  16 seats: ['1.64', '3.69', '10.67'] -> [2, 4, 11] = 17, tag 1 over, all up
+2. say ids and phrases
+  said in order: ['02_1', '02_2', '02_3', '02_4', '02_5', '02_6', '02_7']
+  28 phrases each occur exactly once in their own line
+  morph targets are not touched after their morphs; later steps use need, reads, marks, bars
+3. schedule under the scratch voice (cue starts from the preview's cues.tsv)
+  02_1    0.60-   1.80  room 13.82  late 0.00  bars fade in   [       ]
+  02_1    5.02-   6.72  room  8.89  late 0.00  bars slide into the line; 39,000 people   ['Together the towns'   5.025]
+  02_1    8.51-   9.31  room  6.30  late 0.00  slide over; ÷ 15 seats   ['Fifteen seats'   8.511]
+  02_1    9.31-  10.81  room  4.80  late 0.00  ticks   [       ]
+  02_1   11.99-  12.59  room  3.02  late 0.00  brace and 2,600 people = 1 seat   ['one seat for every'  11.992]
+  02_2   19.73-  20.23  room 15.47  late 0.00  share = people ÷ 2,600   ['population divided'  19.727]
+  02_2   21.93-  22.93  room 12.76  late 0.00  line parts out; names and grids in   ["Ash's share"  21.933]
+  02_2   23.03-  23.73  room 11.96  late 0.00  Ash's bar to its row; 4,000 ÷ 2,600 = 1.54   ["Ash's share"  23.033]
+  02_2   25.89-  26.59  room  9.11  late 0.00  Birch's bar; 9,000 ÷ 2,600 = 3.46   ["Birch's is"  25.890]
+  02_2   28.12-  28.82  room  6.88  late 0.00  Cedar's bar; 26,000 ÷ 2,600 = 10.00   ["Cedar's is"  28.119]
+  02_2   30.75-  31.25  room  4.45  late 0.00  share = quota   ['call this exact number'  30.745]
+  02_3   38.18-  39.18  room 10.99  late 0.00  flash Ash's tail   ['Nobody can sit'  38.177]
+  02_3   41.85-  42.35  room  7.81  late 0.00  → ? on each row   ['Each share has'  41.848]
+  02_3   47.93-  48.43  room  1.73  late 0.00  ? + ? + ? = 15   ['add up to exactly'  47.933]
+  02_4   52.36-  52.96  room 12.05  late 0.00  ? becomes 2, 3, 10   ['round each share'  52.360]
+  02_4   57.56-  58.26  room  6.76  late 0.00  sum turns green   ['because two plus'  57.557]
+  02_5   70.10-  70.50  room 16.54  late 0.00  rows view out   [       ]
+  02_5   70.50-  71.20  room 15.84  late 0.00  row 15 gathers; header in   [       ]
+  02_5   71.20-  71.50  room 15.54  late 0.88  14   ['At fourteen'  70.319]
+  02_5   72.70-  73.10  room 13.94  late 0.00  1.44   ['one point four four'  72.700]
+  02_5   74.21-  74.61  room 12.42  late 0.00  3.23   ['three point two three'  74.215]
+  02_5   76.09-  76.49  room 10.55  late 0.00  9.33   ['nine point three three'  76.091]
+  02_5   77.82-  78.32  room  8.72  late 0.00  1 3 9   ['Every one rounds down'  77.823]
+  02_5   80.83-  81.93  room  5.11  late 0.00  13 and its flash   ['a seat short'  80.828]
+  02_5   81.93-  83.13  room  3.91  late 0.10  16 and its shares   ['At sixteen'  81.830]
+  02_5   83.17-  83.67  room  3.37  late 0.00  2 4 11   ['every share rounds up'  83.171]
+  02_5   85.54-  86.64  room  0.40  late 0.00  17 and its flash   ['hand out'  85.539]
+  02_6   93.25-  94.85  room  5.91  late 0.00  table dims; totals flash   ['the total'  93.252]
+  02_6   96.78-  97.28  room  3.48  late 0.00  1 short, 1 over   ['a way to settle'  96.780]
+  02_7  101.97- 102.47  room 14.52  late 0.00  both empty frames   [       ]
+  02_7  104.13- 104.73  room 12.25  late 0.00  first label   ['One keeps' 104.135]
+  02_7  108.19- 108.79  room  8.19  late 0.00  second label   ['The other changes' 108.191]
+  02_7  113.92- 116.02  room  0.96  late 0.00  flash; gold card with dark words; beat   ['The paradox lives' 113.925]
+  02_2 ends 35.695; 02_3 starts 36.300, breath 0.6: later cues keep their times if no step above runs past its line
+  02_3 ends 50.162; 02_4 starts 50.767, breath 0.6: later cues keep their times if no step above runs past its line
+  02_5 ends 87.038; 02_6 starts 87.667, breath 0.6: later cues keep their times if no step above runs past its line
+  picture still for 4 s or more (scratch), cue joins included:
+     7.13 s    12.59 to   19.73
+     6.93 s    31.25 to   38.18
+     5.59 s    42.35 to   47.93
+     4.60 s    52.96 to   57.56
+     7.35 s    58.26 to   65.61
+     6.61 s    86.64 to   93.25
+     4.08 s    97.28 to  101.36
+     5.13 s   108.79 to  113.92
+4. text boxes (CMR10 ems x size x 0.01; lint limits: text 0.25 from edge, frame +-7.11, +-4)
+  rule check '39,000 people': estimate 1.77, measured 1.78
+  rule check '2,600 people = 1 seat': estimate 2.25, measured 2.27
+  line view at the rule:
+     -1.62 to   0.14  y  1.45 to  1.75  39,000 people
+      0.25 to   1.62  y  1.45 to  1.75  ÷ 15 seats
+     -1.53 to   1.53  y  2.60 to  2.90  share = people ÷ 2,600
+     -5.58 to  -3.32  y -0.32 to -0.08  2,600 people = 1 seat
+    gap between the two parts over the line: 0.11; whole spans -1.62 to 1.62
+    4,000: ÷ starts at x = 1.777
+    9,000: ÷ starts at x = 1.777
+    26,000: ÷ starts at x = 1.777
+  rows view, 02_4:
+      1.15 to   3.36  y  1.38 to  1.62  4,000 ÷ 2,600 = 1.54
+      1.15 to   3.36  y -0.12 to  0.12  9,000 ÷ 2,600 = 3.46
+      1.03 to   3.48  y -1.62 to -1.38  26,000 ÷ 2,600 = 10.00
+     -1.53 to   1.53  y  2.60 to  2.90  share = people ÷ 2,600
+      3.79 to   5.41  y  2.62 to  2.88  share = quota
+     -2.77 to  -0.43  y -2.91 to -2.59  2 + 3 + 10 = 15
+      5.93 to   6.27  y -3.25 to -2.55  ?
+      5.40 to   6.80  y -3.81 to -3.65  pause for more time
+      3.75 to   3.99  y  1.38 to  1.62  →
+      4.11 to   4.23  y  1.38 to  1.62  2
+      3.75 to   3.99  y -0.12 to  0.12  →
+      4.11 to   4.23  y -0.12 to  0.12  3
+      3.75 to   3.99  y -1.62 to -1.38  →
+      4.11 to   4.35  y -1.62 to -1.38  10
+     -6.50 to  -6.06  y  1.51 to  1.77  Ash
+     -6.50 to  -5.53  y  1.17 to  1.35  4,000 people
+     -6.50 to  -5.88  y  0.01 to  0.27  Birch
+     -6.50 to  -5.53  y -0.33 to -0.15  9,000 people
+     -6.50 to  -5.82  y -1.49 to -1.23  Cedar
+     -6.50 to  -5.44  y -1.83 to -1.65  26,000 people
+    the waiting line's bars: y 0.57 to 0.93; Ash's grid bottom 1.07, Birch's grid top 0.43, Ash's people label bottom about 1.17, Birch's name top about 0.27
+  table view with tags, 02_6:
+     -5.45 to  -4.95  y  2.08 to  2.32  seats
+     -3.40 to  -3.00  y  2.08 to  2.32  Ash
+     -1.89 to  -1.31  y  2.08 to  2.32  Birch
+     -0.31 to   0.31  y  2.08 to  2.32  Cedar
+      1.87 to   2.73  y  2.08 to  2.32  rounded
+      4.35 to   4.85  y  2.08 to  2.32  total
+     -5.34 to  -5.06  y  1.06 to  1.34  14
+     -3.45 to  -2.95  y  1.06 to  1.34  1.44
+     -1.85 to  -1.35  y  1.06 to  1.34  3.23
+     -0.25 to   0.25  y  1.06 to  1.34  9.33
+      1.61 to   1.75  y  1.06 to  1.34  1
+      2.23 to   2.37  y  1.06 to  1.34  3
+      2.85 to   2.99  y  1.06 to  1.34  9
+      4.44 to   4.76  y  1.04 to  1.36  13
+      5.15 to   5.76  y  1.10 to  1.30  1 short
+     -5.34 to  -5.06  y  0.06 to  0.34  15
+     -3.45 to  -2.95  y  0.06 to  0.34  1.54
+     -1.85 to  -1.35  y  0.06 to  0.34  3.46
+     -0.32 to   0.32  y  0.06 to  0.34  10.00
+      1.61 to   1.75  y  0.06 to  0.34  2
+      2.23 to   2.37  y  0.06 to  0.34  3
+      2.78 to   3.06  y  0.06 to  0.34  10
+      4.44 to   4.76  y  0.04 to  0.36  15
+     -5.34 to  -5.06  y -0.94 to -0.66  16
+     -3.45 to  -2.95  y -0.94 to -0.66  1.64
+     -1.85 to  -1.35  y -0.94 to -0.66  3.69
+     -0.32 to   0.32  y -0.94 to -0.66  10.67
+      1.61 to   1.75  y -0.94 to -0.66  2
+      2.23 to   2.37  y -0.94 to -0.66  4
+      2.78 to   3.06  y -0.94 to -0.66  11
+      4.44 to   4.76  y -0.96 to -0.64  17
+      5.15 to   5.69  y -0.90 to -0.70  1 over
+  cards, 02_7:
+     -4.86 to  -1.74  y  0.26 to  0.54  compare what is left over
+      1.67 to   4.93  y  0.26 to  0.54  change the people per seat
+    a card at the flash's peak (x 1.25) spans -6.80 to 0.20; the second card starts at 0.50
+  palette contrast on the gold card: baseline ink 1.19:1, candidate dark 13.75:1
+
+RESULT: all checks pass (no compile, no render, no listening)

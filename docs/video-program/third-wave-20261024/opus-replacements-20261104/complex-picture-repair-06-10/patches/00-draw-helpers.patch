@@ -1,0 +1,51 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+@@ -458,6 +458,37 @@
+     }
+ }
+ 
++/// "Re" and "Im" just outside `plane`'s window, level with whichever axes cross it, so no
++/// stroke runs under them and they read beside a colour picture. Detached.
++pub fn axis_names(kit: &Kit, stage: &mut Stage<'_>, plane: &Plane) -> fmn::Result<Vec<Mob>> {
++    let f = plane.frame;
++    let mut out = Vec::new();
++    if f.y.0 <= 0.0 && f.y.1 >= 0.0 {
++        let y = plane.p(C::new(f.x.1, 0.0))[1];
++        out.push(kit.text(stage, "Re", 20.0, Palette::dim(), v(f.right() + 0.24, y))?);
++    }
++    if f.x.0 <= 0.0 && f.x.1 >= 0.0 {
++        let x = plane.p(C::new(0.0, f.y.1))[0];
++        out.push(kit.text(stage, "Im", 20.0, Palette::dim(), v(x, f.top() + 0.18))?);
++    }
++    Ok(out)
++}
++
++/// The corners of a solid arrowhead with its point at `tip`, coming from `from`, `size` long
++/// and `size` wide: the end of a curved mark, whose last chord is too short for an `Arrow`.
++pub fn arrow_head_points(tip: Vec3, from: Vec3, size: f64) -> Vec<Vec3> {
++    let (dx, dy) = (tip[0] - from[0], tip[1] - from[1]);
++    let len = (dx * dx + dy * dy).sqrt().max(1e-9);
++    let (ux, uy) = (dx / len, dy / len);
++    let back = v(tip[0] - ux * size, tip[1] - uy * size);
++    let half = size / 2.0;
++    vec![
++        v(tip[0], tip[1]),
++        v(back[0] - uy * half, back[1] + ux * half),
++        v(back[0] + uy * half, back[1] - ux * half),
++    ]
++}
++
+ /// A dot of `color` at `at`.
+ pub fn dot(stage: &mut Stage<'_>, at: Vec3, r: f64, color: Srgb) -> Mob {
+     let d = Circle::new().radius(r).style(flat(color, 1.0)).build().moved_to(at);
+@@ -964,7 +995,9 @@
+         if ((b[0] - a[0]).powi(2) + (b[1] - a[1]).powi(2)).sqrt() < 1e-3 {
+             continue;
+         }
+-        let arrow = Arrow::new(a, b).thickness(3.0).color(color).build()?;
++        // buff 0: `Arrow::new` otherwise trims 0.25 from each end, and a chain's arrows are
++        // shorter than that, so they would not touch, or would point backwards
++        let arrow = Arrow::new(a, b).thickness(3.0).color(color).buff(0.0).build()?;
+         out.push(stage.arena_mut().add(arrow));
+     }
+     Ok(out)

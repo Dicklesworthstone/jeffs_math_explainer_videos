@@ -1,0 +1,235 @@
+--- candidate02/permutations.rs
++++ patched/permutations.rs
+@@ -4852,3 +4852,232 @@
+         }
+     }
+ }
++
++/// The real `pulse` in a real headless scene, read at its real frames: a filled token, a stroked frame, plain
++/// text and typeset maths swell and come back, and none of them is ever repainted.
++#[cfg(test)]
++mod pulse_tests {
++    use super::*;
++    use fmn::mobject::{Placement, Stage as Arena, Uniforms};
++
++    /// `pulse` runs 0.6 s, and the film renders at 60 fps.
++    const FPS: u32 = 60;
++    const FRAMES: usize = 36;
++    const PEAK: usize = FRAMES / 2 - 1;
++    const SWELL: f64 = 1.25;
++    const CLOSE: f64 = 1e-5;
++
++    /// Keeps each sampled frame, so a test can read the state the renderer would have been given.
++    #[derive(Default)]
++    struct Frames(Vec<FramePacket>);
++
++    impl SceneSink for Frames {
++        fn capture(&mut self, reason: CaptureReason, packet: FramePacket) -> Result<(), IntegrationError> {
++            if reason == CaptureReason::Segment {
++                self.0.push(packet);
++            }
++            Ok(())
++        }
++    }
++
++    struct Probe<F>(F);
++
++    impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
++        fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
++            (self.0)(stage)
++        }
++    }
++
++    fn headless(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) -> Vec<FramePacket> {
++        let config = RuntimeConfig {
++            fps: FPS,
++            ..RuntimeConfig::default()
++        };
++        let mut frames = Frames::default();
++        fmn::run_scene(&mut Probe(f), config, 7, &mut frames).expect("the headless scene runs");
++        frames.0
++    }
++
++    /// Every colour column of one member, found the way `indicate` finds what it repaints.
++    fn colours(arena: &Arena, mob: Mob) -> Vec<(String, Vec<f32>)> {
++        let buffer = &arena.get(mob).expect("a live member").buffer;
++        buffer
++            .schema()
++            .fields()
++            .iter()
++            .filter(|field| field.name.ends_with("rgba"))
++            .map(|field| {
++                (
++                    field.name.clone(),
++                    buffer.read_column(&field.name).expect("a colour column"),
++                )
++            })
++            .collect()
++    }
++
++    /// All a pulse must hand back unchanged on one member of a family.
++    #[derive(Debug, PartialEq)]
++    struct Member {
++        mob: Mob,
++        placement: Option<Placement>,
++        uniforms: Option<Uniforms>,
++        z_index: i32,
++        colours: Vec<(String, Vec<f32>)>,
++    }
++
++    fn look(arena: &Arena, roots: &[Mob]) -> Vec<Member> {
++        roots
++            .iter()
++            .flat_map(|&root| arena.family(root))
++            .map(|mob| Member {
++                mob,
++                placement: arena.placement(mob),
++                uniforms: arena.uniforms(mob).copied(),
++                z_index: arena.z_index(mob),
++                colours: colours(arena, mob),
++            })
++            .collect()
++    }
++
++    struct Run {
++        roots: [Mob; 4],
++        before: Vec<Member>,
++        /// Each root's width, height and centre before the pulse.
++        boxes: Vec<(f64, f64, [f64; 3])>,
++        after: Vec<Member>,
++        frames: Vec<FramePacket>,
++    }
++
++    /// The chapter's four kinds of pulsed mobject, pulsed together.
++    fn pulse_each_kind() -> Run {
++        let mut made = None;
++        let frames = headless(|stage| {
++            let k = Kit::new()?;
++            let token = card(stage, &k, 3, (-4.5, 1.0), 0.37)?;
++            let frame = chip(stage, &k, 2, (-1.5, 1.0))?.frame;
++            let text = k.text(stage, "Swaps: 0", 26.0, Palette::ink(), v(1.5, 1.0))?;
++            let maths = k.tex(stage, r"(1\;3\;4)", 34.0, Palette::green(), &[], v(4.5, 1.0))?;
++            let roots = [token, frame, text, maths];
++            for mob in roots {
++                stage.arena_mut().add_to_scene(mob)?;
++            }
++            let arena = stage.arena();
++            let boxes = roots
++                .iter()
++                .map(|&mob| (arena.get_width(mob), arena.get_height(mob), arena.get_center(mob)))
++                .collect();
++            let before = look(arena, &roots);
++            pulse(stage, &roots)?;
++            made = Some((roots, before, boxes, look(stage.arena(), &roots)));
++            Ok(())
++        });
++        let (roots, before, boxes, after) = made.expect("the scene ran");
++        Run {
++            roots,
++            before,
++            boxes,
++            after,
++            frames,
++        }
++    }
++
++    #[test]
++    fn a_pulse_peaks_at_its_factor_halfway_and_keeps_each_centre() {
++        let run = pulse_each_kind();
++        assert_eq!(run.frames.len(), FRAMES);
++        assert_eq!(run.frames[PEAK].alpha(), 0.5);
++        let arena = run.frames[PEAK].materialize_stage();
++        for (&root, &(width, height, centre)) in run.roots.iter().zip(&run.boxes) {
++            assert!((arena.get_width(root) - SWELL * width).abs() < CLOSE);
++            assert!((arena.get_height(root) - SWELL * height).abs() < CLOSE);
++            let at = arena.get_center(root);
++            assert!(
++                (0..3).all(|i| (at[i] - centre[i]).abs() < CLOSE),
++                "{at:?} left {centre:?}"
++            );
++        }
++        let widths: Vec<f64> = run
++            .frames
++            .iter()
++            .map(|frame| frame.materialize_stage().get_width(run.roots[0]))
++            .collect();
++        assert!(
++            widths[..=PEAK].windows(2).all(|w| w[0] < w[1]),
++            "rises to the peak: {widths:?}"
++        );
++        assert!(
++            widths[PEAK..].windows(2).all(|w| w[0] > w[1]),
++            "falls from the peak: {widths:?}"
++        );
++    }
++
++    #[test]
++    fn a_pulse_never_repaints_any_member_on_any_frame() {
++        let run = pulse_each_kind();
++        for frame in &run.frames {
++            let arena = frame.materialize_stage();
++            for member in &run.before {
++                assert_eq!(
++                    colours(&arena, member.mob),
++                    member.colours,
++                    "frame {}",
++                    frame.segment_frame()
++                );
++            }
++        }
++        // The repair's purpose: at the peak a card's numeral is still another colour from its disk.
++        let arena = run.frames[PEAK].materialize_stage();
++        let fills: Vec<Vec<f32>> = arena
++            .family(run.roots[0])
++            .into_iter()
++            .filter_map(|mob| arena.get(mob)?.buffer.read_column("fill_rgba"))
++            .filter(|column| !column.is_empty())
++            .map(|column| column[..3].to_vec())
++            .collect();
++        assert!(
++            fills.iter().any(|fill| *fill != fills[0]),
++            "the numeral merged into its disk: {fills:?}"
++        );
++    }
++
++    #[test]
++    fn a_pulse_ends_exactly_where_it_began() {
++        let run = pulse_each_kind();
++        let last = run.frames.last().expect("frames");
++        assert_eq!(last.alpha(), 1.0);
++        assert_eq!(look(&last.materialize_stage(), &run.roots), run.before);
++        assert_eq!(run.after, run.before);
++    }
++
++    #[test]
++    fn a_pulsed_token_can_still_be_recoloured_moved_and_pulsed_again() {
++        let mut checked = false;
++        headless(|stage| {
++            let k = Kit::new()?;
++            let token = card(stage, &k, 3, (-3.0, 1.0), 0.37)?;
++            stage.arena_mut().add_to_scene(token)?;
++            let paint =
++                |arena: &Arena| -> Vec<_> { arena.family(token).into_iter().map(|m| colours(arena, m)).collect() };
++            let painted = paint(stage.arena());
++            pulse(stage, &[token])?;
++            recolor(stage, &[token], Palette::red(), 0.1)?;
++            travel(stage, &[(token, (2.0, -1.0))], 0.0, 0.1)?;
++            assert_ne!(paint(stage.arena()), painted, "the pulse left its colours locked");
++            let centre = stage.arena().get_center(token);
++            assert!(
++                (centre[0] - 2.0).abs() < CLOSE && (centre[1] + 1.0).abs() < CLOSE,
++                "{centre:?}"
++            );
++            let settled = look(stage.arena(), &[token]);
++            pulse(stage, &[token])?;
++            assert_eq!(
++                look(stage.arena(), &[token]),
++                settled,
++                "a second pulse must not compound"
++            );
++            checked = true;
++            Ok(())
++        });
++        assert!(checked);
++    }
++}

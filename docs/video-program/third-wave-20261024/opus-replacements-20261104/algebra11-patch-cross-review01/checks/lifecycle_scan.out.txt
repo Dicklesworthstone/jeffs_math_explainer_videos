@@ -1,0 +1,46 @@
+== 11_20 even_subgroup (3020-3133)
+  row :3030 // Sentence 0: two swaps compose, then undo in reverse, and the row is home for the coun
+  row :3031 let mut row = card_row(stage, k, 4, sign_top, corner_paint)?;
+  row :3032 fade(stage, &row.mobs(), true)?;
+  row :3033 trade_slots(stage, &mut row, (0, 1), 0.6)?;
+  row :3034 trade_slots(stage, &mut row, (1, 2), 0.6)?;
+  row :3036 trade_slots(stage, &mut row, (1, 2), 0.6)?;
+  row :3037 trade_slots(stage, &mut row, (0, 1), 0.6)?;
+  row :3086 run_word(stage, k, &mut row, &mut count, &backwards)?;
+  row :3098 run_word(stage, k, &mut row, &mut count, &EVEN_FIRST)?;
+  row :3130 let mut on_screen = row.mobs();
+== 11_21 twelve_of_twenty_four (3144-3243)
+  even_key :3188 let even_key = k.text(stage, "Gold: even", 26.0, Palette::gold(), v(-0.15, 0.3))?;
+  even_key :3192 fade(stage, &[even_key, odd_key], true)?;
+  even_key :3241 on_screen.extend([title, count, even_key, odd_key, split, kinds]);
+  odd_key :3189 let odd_key = k.text(stage, "Blue: odd", 26.0, Palette::blue(), v(-0.15, -0.3))?;
+  odd_key :3192 fade(stage, &[even_key, odd_key], true)?;
+  odd_key :3241 on_screen.extend([title, count, even_key, odd_key, split, kinds]);
+== 11_22 read_the_cycles (3451-3518)
+  reading :3469 let reading = k.text(
+  reading :3476 fade(stage, &[reading], true)?;
+  reading :3479 fade(stage, &[reading], false)?;
+== 11_26 loop_and_wires (3838-3963)
+  fourth :3944 let fourth = k.text(
+  fourth :3952 appearing.extend([repeat, fourth]);
+  fourth :3961 on_screen.extend([repeat, fourth]);
+== 11_5 in construct (4192-4249)
+  swap_name :4195 let swap_name = k.text(
+  swap_name :4206 fade(stage, &[swap_name, swap_cards[0], swap_cards[1]], true)?;
+  swap_name :4214 fade(stage, &[swap_name, swap_cards[0], swap_cards[1]], false)?;
+  swap_cards :4202 let swap_cards = [
+  swap_cards :4206 fade(stage, &[swap_name, swap_cards[0], swap_cards[1]], true)?;
+  swap_cards :4209 &[(swap_cards[0], (1.5, 0.0)), (swap_cards[1], (-1.5, 0.0))],
+  swap_cards :4214 fade(stage, &[swap_name, swap_cards[0], swap_cards[1]], false)?;
+== callers that clear what the scenes hand back
+  let test = even_subgroup -> [4312]
+  fade(stage, &test, false) -> [4315]
+  let half = twelve_of_twenty_four -> [4316]
+  fade(stage, &half, false) -> [4319]
+  let wires = loop_and_wires -> [4343]
+  fade(stage, &wires, false) -> [4346]
+== the cell colours are text, and recolor already ran on these same cells in baseline sentence 5
+  [3190, 3191, 3222, 3223]
+== AD's two pulse targets in full_deck
+  :3751 notes: vec![size, each, types, predicted],
+  :3757 pulse(stage, &[scene.notes[3], scene.count.mob])?;

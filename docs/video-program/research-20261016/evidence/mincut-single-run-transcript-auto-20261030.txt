@@ -1,0 +1,640 @@
+YouTube transcript
+Video ID: I-tcUxkPxgI
+Language: en
+Captions: auto-generated
+
+[0:00] all right so in the last video we talked
+[0:02] about how to use cargo's algorithm to
+[0:06] figure out a Min cut for a given graph
+[0:09] most of the timers some of the time so
+[0:12] in this video we're going to be talking
+[0:13] about how often that actually happens
+[0:14] how how much of the time a single run of
+[0:17] cargo's algorithm is going to give you
+[0:18] the correct Min cut for a given graph so
+[0:22] for starters let's just say we have a
+[0:24] graph so we have a graph G which is some
+[0:27] vertices and some edges
+[0:30] so
+[0:32] to begin with let's pick
+[0:35] one of the main Cuts so pick some Min
+[0:38] cut on G
+[0:40] or we'll say I'm going to cut from G
+[0:43] G
+[0:45] with size k
+[0:49] so all we're saying here is the Min cut
+[0:52] of this graph
+[0:54] is going to be
+[0:55] of size k
+[0:57] actually let's go ahead and name this
+[1:00] Min cut we'll we'll call this Pixelmon
+[1:02] cut
+[1:03] C that's what we're going to call our
+[1:05] cut and the size of that Min cut is K so
+[1:07] all we're saying is there might be more
+[1:09] than one Min cut there might be two or
+[1:11] three places that you could get an
+[1:13] equally minimal amount of edges cut
+[1:15] we're just saying pick one of them and
+[1:18] then we're going to evaluate what's
+[1:19] what's the likelihood of uh of picking
+[1:23] that that given Min cut
+[1:25] so just just for a quick example
+[1:30] let's actually let's let's pick a
+[1:31] different color let's make a a sample
+[1:33] graph and pick a different color
+[1:34] so let's use green
+[1:37] so say we have our tried and true uh
+[1:40] dice kind of graph
+[1:44] so this is the one we used in previous
+[1:46] videos so I've just gotten good at
+[1:48] drawing it so let's keep using that
+[1:51] so here there's only one Min cut so
+[1:54] there's cutting this Edge and cutting
+[1:57] this Edge so all we're saying here is
+[2:01] C
+[2:03] is
+[2:05] the set of
+[2:07] this Edge and this image not super
+[2:10] technical math jargon but
+[2:12] all we're saying is it's those two edges
+[2:14] so k
+[2:16] is the number
+[2:19] of edges
+[2:22] in that Min cut that we picked so just
+[2:24] to give you kind of a graphical example
+[2:26] of what we're talking about
+[2:28] but now that we have that down
+[2:30] we can kind of go into evaluating
+[2:33] how often this is going to stay the Min
+[2:36] cut that we picked so
+[2:39] let's say we have some event
+[2:42] a sub I
+[2:45] and this is
+[2:47] the event
+[2:50] that one of the edges
+[2:54] one of our edges in C in that set of Min
+[2:57] cut edges one of our edges in C gets
+[3:01] contracted
+[3:05] during step I
+[3:10] step I
+[3:12] and just for Simplicity I'm going to say
+[3:17] is
+[3:19] greater that's terrible let's go ahead
+[3:21] and erase that and go again I is greater
+[3:23] than or equal to zero
+[3:26] so instead of starting at step one we're
+[3:28] going to say we start at set Step Zero
+[3:30] that's just going to make some things
+[3:31] easier later on
+[3:33] so say we have this event that one of
+[3:35] our edges gets contracted during step I
+[3:38] so why is this important why would we
+[3:40] ever care about it well the reason that
+[3:43] we actually care about that is
+[3:45] the only way that we're going to get C
+[3:48] as the result from Carver's algorithm as
+[3:51] the cut that it returns to us is if none
+[3:54] of the edges in C get contracted and
+[3:58] this kind of makes sense because
+[4:00] you look at you look at some graph G
+[4:06] and then you run
+[4:08] a bunch of operations on it so you
+[4:11] contract it some number of times and
+[4:14] then at the end you have two nodes and a
+[4:18] bunch of edges between them
+[4:21] so that's important because actually
+[4:23] let's not say G let's say
+[4:26] um
+[4:27] uh we can use G let's say G has
+[4:32] some actually let's go ahead and just
+[4:34] say
+[4:35] up here I'll say let
+[4:38] n equals
+[4:41] the size of V so the number of vertices
+[4:43] we have we're going to just call that n
+[4:46] so
+[4:48] she has n vertices to start
+[4:54] um at we'll say at Step Zero
+[4:56] so I get the starting state
+[4:59] we end
+[5:02] when we have two vertices left
+[5:05] have
+[5:07] two vertices left okay so I'm just
+[5:09] listing all the things we know
+[5:11] about this algorithm so G has
+[5:14] inverses to start with we end when we
+[5:17] have two vertices
+[5:19] what happens when we do a contraction
+[5:21] algorithm so when we take two of our
+[5:24] vertices and pull them into one so when
+[5:27] we take an edge and join together the
+[5:29] vertices that it connects well you can
+[5:31] kind of see just by looking at it let's
+[5:33] let's look at this example we start and
+[5:36] we take one
+[5:38] say we're Contracting this Edge we take
+[5:41] one
+[5:43] two vertices
+[5:45] and we join them into one vertex and
+[5:49] then all
+[5:51] of the connected
+[5:54] edges join with this guy
+[5:58] instead so we went over that last video
+[6:00] but you can kind of see now that what's
+[6:03] essentially Happening Here is we're
+[6:05] taking in two vertices we're removing
+[6:07] two vertices from the graph and putting
+[6:09] back in one vertex so essentially every
+[6:11] contraction is removing one vertex from
+[6:14] our graph
+[6:15] so
+[6:16] every
+[6:18] contraction
+[6:23] and I'm going to say removes in quotes
+[6:25] just because it's not actually removing
+[6:27] them it's joining them into a single
+[6:29] vertex but the end result is that our
+[6:31] graph has one fewer vertex so every
+[6:34] contraction removes
+[6:36] one vertex
+[6:39] from our graph from
+[6:42] G
+[6:43] so that's the thing so we start with n
+[6:46] vertices
+[6:47] we end when we have two vertices every
+[6:50] contraction removes one vertex
+[6:53] so
+[6:55] how many contractions are we going to do
+[6:57] how many contractions
+[7:01] attractions
+[7:04] well if we're starting with n
+[7:07] and we're ending when we have two left
+[7:09] then we can just say pretty easily
+[7:12] n minus two contractions
+[7:15] because essentially that's how many
+[7:16] contractions you need to start with n
+[7:18] subtract one each time and have two at
+[7:20] the end when you're done
+[7:22] so now let's scroll down just so we can
+[7:25] focus on this a sub I event so a sub I
+[7:28] which we talked about up here that's the
+[7:31] event that one of our edges in C gets
+[7:34] contracted during a step I
+[7:36] now this is important because as we
+[7:38] mentioned before the only way that c is
+[7:42] going to be the uh the set of edges the
+[7:46] cut set that we return is if none of the
+[7:49] edges within C get contracted all the
+[7:52] other edges get contracted instead and
+[7:54] none of the ones in C do so how does
+[7:57] that happen
+[7:58] so
+[8:00] um let's let's look at an example of
+[8:03] this so
+[8:04] a sub zero so at the starting step
+[8:07] what is the probability that on our very
+[8:11] first step we go in and we contract one
+[8:14] of our edges with C so let's let's
+[8:18] draw a new example actually we can we
+[8:20] can copy the dice still but just so we
+[8:23] can play around a little bit more uh
+[8:25] with withdrawing it out so
+[8:28] we have one two three
+[8:31] four five
+[8:33] so here we have our graph that we've
+[8:36] gotten really familiar with
+[8:38] and we have the Min cut
+[8:42] let's use a different color for our main
+[8:44] cut
+[8:45] um let's let's wrap it in green
+[8:47] so this is
+[8:50] the Min cut we're going to want to cut
+[8:52] this guy and we're going to want to cut
+[8:54] this guy so we have two edges that we're
+[8:57] going to want to return by the end
+[9:00] so the probability
+[9:02] for a Sub 0
+[9:05] is we don't want to cut either of those
+[9:07] two edges so we have two edges that are
+[9:11] going to be returning our set
+[9:12] if we're picking an edge at random how
+[9:14] many edges do we have to pick from we
+[9:16] have one two three four five six seven
+[9:20] so seven
+[9:21] so in this particular example you can
+[9:24] see that we have a 2 7 chance of picking
+[9:27] uh one of our Cuts one of the edges from
+[9:31] our cut cut C
+[9:33] we can kind of generalize this though
+[9:36] if we talk about that value K that we
+[9:40] had so if you remember we had k
+[9:44] is the size of the cut set so we have
+[9:47] our set C
+[9:49] but K is the size of that so let's
+[9:50] scroll back down here so k
+[9:54] in this example is 2 because you can see
+[9:57] we have one two edges that we need to
+[9:59] cut
+[10:00] and this the number of edges is the
+[10:03] thing that we're using to restrict it so
+[10:06] here we said we have two out of seven
+[10:08] edges that we're picking so the size of
+[10:10] our Edge set is that seven we chose
+[10:13] seven because there are seven possible
+[10:14] edges you can pick from randomly two of
+[10:17] those are ones that we'd prefer not to
+[10:18] have cut
+[10:19] so in general
+[10:23] probability
+[10:25] at any given time at a sub I at some
+[10:28] step
+[10:29] is however many edges you have so K in
+[10:34] this case two
+[10:35] over
+[10:36] however many edges
+[10:39] you have left during that step so say
+[10:42] we'd gone through and removed this guy
+[10:45] on the next turn now we only have one
+[10:48] two three four five six edges to choose
+[10:50] from so on that round we'd have two out
+[10:52] of six
+[10:55] um so before we continue further down
+[10:57] this path I want to
+[11:00] handle this e sub I
+[11:02] so
+[11:03] it seems like we could do something with
+[11:06] this but let's let's investigate if we
+[11:08] can get a bound on this just just so we
+[11:10] know the minimum or the maximum
+[11:12] probability that we can expect for a
+[11:13] given graph
+[11:15] so
+[11:16] we do know
+[11:18] based on the handshake theorem so this
+[11:21] is this is more or less a definition of
+[11:22] the handshake theorem so I'll actually
+[11:24] just write that and Shake theorem just
+[11:28] in case you want to look that
+[11:30] handshake theorem essentially it just
+[11:32] gives you a relationship between the
+[11:35] number of vertices and the edges in the
+[11:36] graph so the number of edges in a graph
+[11:39] for our case
+[11:40] is going to be at least
+[11:43] at least could be more could be equal
+[11:46] but it's at least
+[11:47] the number of vertices in our graph
+[11:50] times
+[11:52] the size of the Min cut
+[11:54] over 2. now you may be asking how do we
+[11:57] know this how do we know this is the
+[11:58] case so let's take our example here we
+[12:01] have this graph
+[12:03] and
+[12:04] my assertion is we have one two three
+[12:08] four five nodes I'm saying because our
+[12:11] Min cut is of size two
+[12:13] then
+[12:15] we have two times five let's actually
+[12:17] just write this out
+[12:18] the number of edges in this graph
+[12:21] the number of edges
+[12:22] is going to be greater than or equal to
+[12:25] 5
+[12:27] times 2
+[12:30] over 2. so that's what I'm asserting
+[12:34] that's that's kind of a concrete example
+[12:36] now how do I know this is true well I I
+[12:39] asserted at the beginning that
+[12:42] um C or k is the size of some Min cut so
+[12:47] it's it's the minimum number of edges I
+[12:51] can cut to separate the graph into two
+[12:54] pieces so say this this isn't true and
+[12:58] we actually have some other node we'll
+[13:00] use blue we actually have some other
+[13:01] note here
+[13:03] that doesn't have at least K edges it
+[13:06] only has one Edge
+[13:08] if this is the case then I was lying to
+[13:11] you before because this only has one
+[13:13] Edge I can easily easily separate this
+[13:17] into two sets
+[13:18] by just getting rid of that one Edge
+[13:21] and now I've I've been lying to you the
+[13:24] whole time if that's the case because
+[13:26] the Min cut wasn't actually two it was
+[13:28] one
+[13:28] because I asserted at the beginning that
+[13:31] K is the size of the Min cut we can be
+[13:33] sure that every vertex is connected by
+[13:36] at least that many edges if that's not
+[13:39] the case we can do this kind of cheesy
+[13:41] thing which which we can't do because we
+[13:44] asserted that's the case
+[13:46] so because we know we can't just plop
+[13:49] off a Vertex that has fewer than that
+[13:51] fewer than that many edges we can be
+[13:54] sure that every vertex has at least K
+[13:57] edges
+[13:58] um
+[13:59] so with this knowledge we can we can
+[14:01] kind of take that back in here
+[14:03] so let's let's actually just bring it
+[14:05] down here so p
+[14:08] of a sub I
+[14:10] is equal to
+[14:13] hour is less than or equal to because
+[14:16] this is greater than or equal to F2 not
+[14:19] equal to uh it's less than or equal to K
+[14:24] over
+[14:26] n
+[14:27] sub I
+[14:29] times k
+[14:32] Over 2. N Sub I being the number of
+[14:35] vertices in the graph at that time
+[14:39] so what is this equal to so
+[14:43] what does this chunk equal to we can
+[14:45] take those K's and simplify those out
+[14:47] and remove those 1 over N Sub I over 2
+[14:52] which is just equal to 2 over N Sub I
+[14:57] so we know that for any given step the
+[15:00] probability of
+[15:03] the probability of removing one of the
+[15:06] edges that we care about
+[15:08] is 2 over the number of vertices at that
+[15:12] point in time
+[15:13] so
+[15:15] now that we know the chances of messing
+[15:18] up we know the chances of accidentally
+[15:19] ruining that point cut or that mean cut
+[15:22] how can we use that
+[15:24] well we determined earlier that we're
+[15:27] going to be doing n minus 2 contractions
+[15:33] and we just figured out that the point
+[15:35] of
+[15:36] uh or the chance of messing up at any
+[15:38] given time is 2 over n minus 1.
+[15:42] so what we can do is take the inverse of
+[15:45] this probability
+[15:47] so the probability that we didn't mess
+[15:49] up
+[15:51] on a sub I
+[15:53] is just 1 minus
+[15:57] probability that we did mess up on a sub
+[16:00] I
+[16:01] and for our case because we know that
+[16:03] that's 2 over n minus 1.
+[16:05] we just get probability of one minus two
+[16:08] over
+[16:10] and so I I think I said n minus one it
+[16:12] was supposed to be N Sub either
+[16:14] so
+[16:15] we spoke earlier and we're talking about
+[16:18] how the only way that you'll actually
+[16:21] get C back is if you go through all n
+[16:23] minus two contractions and never
+[16:26] contract one of your edges from C so
+[16:29] essentially C are the only the C edges
+[16:31] are the only ones you have left at the
+[16:33] end
+[16:34] so what are the chances of that well the
+[16:37] chances of that
+[16:38] are essentially the chances that you go
+[16:41] n minus two rounds so from zero to n
+[16:44] minus three n minus three because we're
+[16:47] starting at zero instead of one
+[16:48] and
+[16:50] the probability
+[16:52] of not
+[16:54] messing up not Contracting one of your
+[16:58] Min cut edges at that point
+[17:01] so we can actually take this expression
+[17:04] which is the expression let's actually
+[17:06] just write this let's annotate this
+[17:07] equals
+[17:08] the chance
+[17:11] of going through
+[17:14] going all n minus 2 contractions
+[17:22] without
+[17:25] Contracting an edge in C
+[17:30] and Edge in
+[17:33] C
+[17:34] and let's just remind ourselves C is our
+[17:36] Min cut set of edges so that's the set
+[17:39] of edges that is representing what we're
+[17:41] going to cut in our mink
+[17:44] so this tells us the probability that
+[17:47] that's going to happen so what is this
+[17:50] well we just described above so this
+[17:55] is the same as
+[17:57] the same product
+[18:00] I have zero n minus three
+[18:04] of
+[18:06] one
+[18:07] minus 2 over N Sub I
+[18:14] so that makes sense that's that's all
+[18:16] well and good what is N Sub I we've
+[18:19] determined that it's the number of nodes
+[18:20] left or uh the number of vertices left
+[18:23] in the graph after step after the eighth
+[18:26] step or on the eighth step
+[18:28] what is that number
+[18:30] well let's let's look at some examples
+[18:32] so Step Zero because we're starting at
+[18:35] zero how many nodes are in the graph
+[18:37] when we're starting
+[18:39] well we defined that actually we said
+[18:41] that's n we said that's the number of
+[18:43] vertices so that's by definition
+[18:46] step one we've gone through one
+[18:48] contraction so we have the N that we
+[18:51] started with
+[18:52] minus one that we just removed the one
+[18:55] that we just contracted or the two each
+[18:57] contracted together
+[18:58] step two we have the N minus one from
+[19:01] the previous step
+[19:03] and then we removed one more so you can
+[19:05] kind of see the pattern
+[19:07] that this is going with N Sub I
+[19:11] is equal to n minus I
+[19:15] and so if we take that and plug that in
+[19:17] here
+[19:18] let's do another swoop layer
+[19:20] and just rewrite this
+[19:24] so this is just the product this is like
+[19:27] some but product
+[19:29] of 1 minus
+[19:32] 2 over
+[19:34] n minus I
+[19:37] so that looks kind of ugly this isn't
+[19:40] this isn't super intuitive I don't know
+[19:42] about you but I I personally have some
+[19:44] trouble when I do one minus this so I'm
+[19:47] just going to go ahead and make that a
+[19:48] little bit prettier so let's let's
+[19:50] simplify this one more time
+[19:52] into
+[19:54] product
+[19:56] Over N minus two rounds of
+[20:00] n minus I so I'm just rewriting one in a
+[20:03] very fancy way n minus I times n minus I
+[20:06] minus 2
+[20:08] Over N minus I
+[20:11] and we can write that this is equivalent
+[20:13] to the product
+[20:15] from I equals 0 to n minus 3
+[20:18] of n minus I minus 2 over n minus I
+[20:26] so this product is still the exact same
+[20:28] thing this is still
+[20:30] the chance that we go all the way
+[20:32] without Contracting an edge and C so
+[20:35] essentially the chance that we're
+[20:36] returning our valid Min cut as the
+[20:38] result from kargar's algorithm so let's
+[20:41] go ahead and take this and see what this
+[20:44] looks like when it's expanded
+[20:46] so we start at Round zero and we go all
+[20:48] the way to n minus 3. so let's uh so we
+[20:51] have n minus zero
+[20:54] minus 2
+[20:56] Over N minus 2. we multiply that by n
+[21:01] minus 1 minus 2 over n minus 2.
+[21:06] we multiply that by n minus 2 minus two
+[21:10] over oh I lied actually this is n minus
+[21:13] 0. this is n minus one because we're
+[21:17] doing n minus I minus 2 over n minus I
+[21:19] so right here I is zero
+[21:23] I is 1 and here we're going to be doing
+[21:25] the same thing
+[21:27] n minus 2 and you can kind of see the
+[21:29] way this goes goes on and on
+[21:31] until we hit
+[21:33] n minus
+[21:36] n minus four
+[21:39] minus 2. Over N minus n minus 4.
+[21:45] and then we get n minus our last one n
+[21:49] minus 3 minus 2 over
+[21:52] n minus n minus 3.
+[21:56] in parentheses so this is the whole
+[21:59] product that we have it's just stretched
+[22:01] out
+[22:02] so we can go ahead and simplify these
+[22:05] last ones a little bit I'm going to
+[22:08] everything is the same from there
+[22:11] but here we have
+[22:14] in
+[22:15] minus n minus
+[22:18] or so we have n minus n plus 4 minus two
+[22:24] which we can simplify down to just two
+[22:27] and then that's over n minus n minus 4
+[22:30] which just becomes four
+[22:33] here we have kind of the same thing n
+[22:35] minus n plus three minus two so this
+[22:38] gives us 1 over 3.
+[22:42] and then here we have n minus 2 over n
+[22:46] times n minus 3 over n minus 1. we're
+[22:51] just simplifying out the whole product
+[22:52] we're taking all these uh multiple
+[22:54] subtractions and just making them look a
+[22:56] little bit simpler
+[22:57] Over N minus 2.
+[23:00] okay so this is our full product
+[23:04] if you look at this though you see a
+[23:07] kind of interesting pattern
+[23:09] this right here
+[23:13] all the way down to the end this whole
+[23:15] thing
+[23:17] now we'll Loop this around so it
+[23:19] includes these guys is just n minus 2
+[23:24] factorial
+[23:27] right that makes sense
+[23:29] so down here we almost have
+[23:32] n factorial we're just missing one more
+[23:35] thing so let's actually just take this
+[23:37] whole thing this whole equation and
+[23:39] multiply it by one we're going to write
+[23:41] one a little fancy so we're going to say
+[23:42] times two
+[23:44] times 2.
+[23:46] so we rewrote this now we have to keep
+[23:48] in mind our numerator is no longer n
+[23:50] minus 2 factorial it's n minus 2
+[23:52] factorial
+[23:53] times
+[23:55] two oh
+[23:57] times 2
+[23:59] over
+[24:01] now that we added that extra 2 in there
+[24:03] we can just write this whole bottom
+[24:06] denominator portion the product of all
+[24:08] the denominators as n factorial
+[24:12] so you may be looking at this and saying
+[24:15] something something looks familiar about
+[24:16] this and you would be right
+[24:19] so we have the operation
+[24:22] n choose m
+[24:26] and N choose M it's essentially the
+[24:30] binomial coefficient for uh for two two
+[24:33] numbers and the way we we write that is
+[24:36] n
+[24:37] factorial
+[24:39] over
+[24:40] n minus m
+[24:43] factorial
+[24:44] M factorial
+[24:47] so this is a
+[24:49] this is
+[24:51] the binomial coefficient
+[24:53] so you may be looking at this and saying
+[24:55] hmm this this seems really close to that
+[24:57] and you'd be right so up here we can
+[25:00] rewrite this as
+[25:02] n minus 2 factorial
+[25:06] times 2 factorial because the factorial
+[25:09] of 2 is 2.
+[25:11] over
+[25:12] n factorial now do you see
+[25:16] see a little uh similarity between those
+[25:18] two
+[25:19] if you do you would be correct because
+[25:21] this is just n choose two
+[25:27] to the negative 1. this is just one over
+[25:29] n choose 2.
+[25:31] so now we go all the way back
+[25:34] what were we looking for what was this
+[25:35] uh what was this answer answered for
+[25:37] this is the chance that we go all the
+[25:40] way we contract our graph the whole way
+[25:44] and never contract an edge in our Min
+[25:46] cut set so we look at this this is the
+[25:50] chance
+[25:51] that when we have n vertices that
+[25:54] carger's algorithm gives us the correct
+[25:57] Min cut set that we were looking for
+[25:59] so we can just sum that up with
+[26:02] on a graph
+[26:06] with n vertices
+[26:12] one run a single run
+[26:16] of Carter's algorithm
+[26:22] will give you
+[26:26] the expected
+[26:28] the expected or give the actual Min cut
+[26:32] we'll say it's the actual because we
+[26:33] selected it so that c is an actual
+[26:35] mid-cut it'll give you the actual Min
+[26:38] cut
+[26:42] with probability
+[26:49] n choose two
+[26:52] to the negative one
+[26:54] so this is the chance that cargers gives
+[26:56] us the right answer in a single run so I
+[26:59] was mentioning in the previous video
+[27:01] usually the way we do this is we do
+[27:03] multiple runs so we'll talk about that
+[27:06] in a little bit but this is just kind of
+[27:08] a walk through of how to calculate the
+[27:11] probability that a single run gives you
+[27:13] the right Min cut and that's what we
+[27:14] just did

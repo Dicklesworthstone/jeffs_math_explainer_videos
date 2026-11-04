@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-04T12:20:09.739023+00:00",
+  "patch_results": [
+    {
+      "patch": "rate-law-source.patch",
+      "exit": 0,
+      "stdout": "patching file rate_law.rs\npatching file rate_model.rs\n",
+      "stderr": ""
+    },
+    {
+      "patch": "script-wording.patch",
+      "exit": 0,
+      "stdout": "patching file script-slice.tsv\n",
+      "stderr": ""
+    }
+  ],
+  "files": {
+    "rate_law.rs": "093f37e54b73b8e4634c8fea365ae8110a374e565747cbb86d17a1ebfa9f120a",
+    "rate_model.rs": "48f3dae06f4b696afe24012b3bafa85ac59522925527d704674c13d4cc71189d",
+    "script-slice.tsv": "1b5257beac7dd0e08a300c4625d8914f80ebc8af5bed718b7556587f6317e63e"
+  },
+  "canonical_integrated": false,
+  "native_verified": false,
+  "listening": false,
+  "independent_AV": false
+}

@@ -1,0 +1,18 @@
+Left column, x = 2.2, size 22; the test's assertion: x + width * 1.03 < 6.86
+  baseline positive           46 chars  width 4.175  checked end 6.501  pass  etp > 0 for all real t and p: no axis reverses
+  neighbour axes_word         37 chars  width 3.595  checked end 5.903  pass  etX stretches the axes by etp and etq
+  neighbour stage_word        46 chars  width 4.268  checked end 6.596  pass  a half turn, then a stretch: two flows in turn
+  CHOSEN 'for real'           46 chars  width 4.304  checked end 6.633  pass  etp > 0 for real t and p: etX reverses no axis
+  rejected 'for all real'     50 chars  width 4.597  checked end 6.935  FAIL  etp > 0 for all real t and p: etX reverses no axis
+  rejected 'always'           39 chars  width 3.741  checked end 6.054  pass  etp > 0 always, so etX reverses no axis
+  rejected 'never reverses'   52 chars  width 4.884  checked end 7.231  FAIL  etp > 0 for real t and p: etX never reverses an axis
+
+Closing, centred at x = 0, size 28; frame half width 7.11; read with like_zero at 15 characters a second
+  baseline                32 chars  width 4.247  half 2.124  with like_zero  81 chars = 5.40 s  det A = 0 but det eX = etr X ≠ 0
+  CHOSEN singular S       44 chars  width 5.671  half 2.836  with like_zero  93 chars = 6.20 s  singular S: det S = 0 but det eX = etr X ≠ 0
+  fallback letter only    32 chars  width 4.247  half 2.124  with like_zero  81 chars = 5.40 s  det S = 0 but det eX = etr X ≠ 0
+  rejected conditional    44 chars  width 5.546  half 2.773  with like_zero  93 chars = 6.20 s  if det S = 0, S is no eX: det eX = etr X ≠ 0
+  rejected in words       51 chars  width 6.387  half 3.194  with like_zero 100 chars = 6.67 s  a flattening matrix: det = 0 but det eX = etr X ≠ 0
+  like_zero alone, size 22: 49 chars, width 4.579
+
+[exit 0]

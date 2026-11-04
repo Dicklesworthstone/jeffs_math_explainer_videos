@@ -1,0 +1,27 @@
+{
+ "made_against": "canonical explainer_corpus/complex_analysis_visual as read on 2026-11-04: build03's tree, which already holds compile-repair01",
+ "patched_files": {
+  "explainer_corpus/complex_analysis_visual/src/main.rs": "77c6c872c30a762ee9ec41af136bbc4f0499f9737834e72788fbda30af31d23d",
+  "explainer_corpus/complex_analysis_visual/docs/storyboard.md": "d64a8f88a9d7ba50025b6d89dfb26b1d171667c4b674942943128762234a4702",
+  "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs": "d6b2b4280ae57e111c36b6e35fc382df1cc55826d4b602619e706091393f696d",
+  "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs": "5963fc53c6ad8401cf8f682ca9ac1fcbb00ef0ffa29828011abd1db9106140a1",
+  "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs": "c1704925a65e826d09f93312934c2de3c1f39c65d9b477f912bc428b10a8ea3c",
+  "explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs": "e1c99bd1ef96dd051ee0b35382480c3314805b689e5d188c104f08e3dd5c074d",
+  "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs": "99e47ff96cbda6f424eea728723870fbc6d0f44e721dc0384ef15b506aa599dd",
+  "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs": "324bd17d6a033b4f4decae4475dbfcefbb7ddb825670baeee53ed94e96917bfc",
+  "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs": "4764c3a9841913008ba58a6a2888aeda6a4a366ac9e4b31182a44b82a36c1705",
+  "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs": "5b32c4877cc21c617a8bcc762e469b2aa91e1f196c8df635d78d296308ce1ca1",
+  "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs": "3d17d2f8e1f85f95f9be1c7a7a47d485c9f00cd0395e4b797b074b428ef0bc42"
+ },
+ "read_dependencies": {
+  "crates/explainer_kit/src/narration.rs": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8",
+  "crates/explainer_kit/src/kit.rs": "ef035faf236498e7485fb60a66d862b383e1a5040fa17962e1633596ed99e106",
+  "crates/explainer_kit/src/storyboard.rs": "fe835a0980d6e2a82c5d0ece1ffb5aef88b0eb2368e1a4ad99fb3b8f2678284e",
+  "tools/storyboard.py": "3faed8c1ded451c432eddfcdd8d2034a7244594f3f99d753a63dc47e487cb0b7",
+  "tools/coherent_narration.py": "e0aa81f352cb2c847f53dacf1d37b7d1b6a44526102df7f79329278c278c48d0"
+ },
+ "bound_with": {
+  "test-repair01.patch": "3de21386fe140c53194dda487f00acf5eaf2c2c6a67a59817dc82a3db11a9352"
+ },
+ "script_tsv": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e"
+}

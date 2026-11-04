@@ -1,0 +1,35 @@
+PASS bound source unchanged: explainer_corpus/complex_analysis_visual/src/chapters/draw.rs 4eba4bb18b98
+PASS bound source unchanged: explainer_corpus/complex_analysis_visual/src/main.rs dcc3e6281e42
+PASS bound source unchanged: explainer_corpus/complex_analysis_visual/script.tsv 2968b0fd7654
+PASS bound source unchanged: crates/explainer_kit/src/props.rs 73606e8921ec
+PASS A applies, fuzz 0
+PASS B applies, fuzz 0
+PASS gives the candidate's bytes: src/chapters/draw.rs
+PASS gives the candidate's bytes: src/main.rs
+PASS gives the candidate's bytes: src/plate_layout.rs
+PASS gives the candidate's bytes: examples/plate_lab.rs
+PASS select-tile.patch applies on A, fuzz 0
+PASS select-tile.patch chooses PLATE_TILE
+PASS select-tile.patch reverses, fuzz 0
+PASS select-tile.patch leaves A's bytes
+PASS select-blend.patch applies on A, fuzz 0
+PASS select-blend.patch chooses PLATE_BLEND
+PASS select-blend.patch reverses, fuzz 0
+PASS select-blend.patch leaves A's bytes
+PASS select-rows2.patch applies on A, fuzz 0
+PASS select-rows2.patch chooses PLATE_ROWS2
+PASS select-rows2.patch reverses, fuzz 0
+PASS select-rows2.patch leaves A's bytes
+PASS select-cells2.patch applies on A, fuzz 0
+PASS select-cells2.patch chooses PLATE_CELLS2
+PASS select-cells2.patch reverses, fuzz 0
+PASS select-cells2.patch leaves A's bytes
+PASS B reverses, fuzz 0
+PASS A reverses, fuzz 0
+PASS back to the source's bytes: src/chapters/draw.rs
+PASS back to the source's bytes: src/main.rs
+PASS back to the source's bytes: src/plate_layout.rs
+PASS back to the source's bytes: examples/plate_lab.rs
+PASS git apply --check A-plate-core.patch against the working tree
+PASS git apply --check B-plate-lab.patch against the working tree
+PATCH ROUND TRIP: OK

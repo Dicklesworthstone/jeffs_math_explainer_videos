@@ -1,0 +1,12 @@
+11 of 11 canonical files equal baseline/ by content
+same docs/storyboard.md
+same oracle.py
+same script.tsv
+same src/chapters/draw.rs
+same src/chapters/gallery.rs
+same src/chapters/mod.rs
+same src/chapters/reading_color.rs
+same src/chapters/turning.rs
+same src/chapters/two_planes.rs
+same src/facts.rs
+same src/model.rs

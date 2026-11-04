@@ -1,0 +1,237 @@
+$ python3 -I -B check_reading_repair.py REPO EMPTY_SCRATCH   (exit 0)
+
+# baseline
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/main.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/docs/storyboard.md
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs
+ok   dependency unchanged crates/explainer_kit/src/narration.rs
+ok   dependency unchanged crates/explainer_kit/src/kit.rs
+ok   dependency unchanged crates/explainer_kit/src/props.rs
+ok   dependency unchanged crates/explainer_kit/src/storyboard.rs
+ok   dependency unchanged crates/explainer_score/src/score.rs
+ok   dependency unchanged tools/storyboard.py
+ok   dependency unchanged tools/coherent_narration.py
+ok   dependency unchanged tools/narration_director.py
+ok   dependency unchanged tools/narration_delivery.py
+ok   dependency unchanged explainer_corpus/complex_analysis_visual/src/score.rs
+ok   dependency unchanged explainer_corpus/complex_analysis_visual/script.tsv
+ok   script.tsv hash
+ok   unchanged: test-repair01/test-repair01.patch
+ok   unchanged: reading-repair01/reading-repair01.patch
+ok   reading-repair01 still frozen: all 22 files have the recorded hashes
+# patch
+ok   differs explainer_corpus/complex_analysis_visual/src/main.rs
+ok   differs explainer_corpus/complex_analysis_visual/docs/storyboard.md
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs
+ok   patch regenerates byte for byte
+ok   patch -p1 applies to canonical
+ok   applied equals the candidate files
+ok   patch -R reverses
+ok   reversed equals canonical
+ok   nothing else mirrors the crate but the two bound files: []
+# scope
+ok   boundary: undoing its 1 listed edits and the import gives canonical back
+ok   continuing: undoing its 1 listed edits and the import gives canonical back
+ok   counting: undoing its 3 listed edits and the import gives canonical back
+ok   gallery: undoing its 1 listed edits and the import gives canonical back
+ok   loop_sums: undoing its 2 listed edits and the import gives canonical back
+ok   one_point: undoing its 1 listed edits and the import gives canonical back
+ok   reading_color: undoing its 2 listed edits and the import gives canonical back
+ok   real_integral: undoing its 3 listed edits and the import gives canonical back
+ok   rigidity: undoing its 1 listed edits and the import gives canonical back
+ok   main.rs: no string in rendered code lost or changed
+ok   main.rs: all 2 existing tests byte for byte; 1 added
+ok   mod.rs: no string in rendered code lost or changed
+ok   mod.rs: all 2 existing tests byte for byte; 3 added
+ok   draw.rs: no string in rendered code lost or changed
+ok   draw.rs: all 5 existing tests byte for byte; 2 added
+ok   reading_color.rs: no string in rendered code lost or changed
+ok   reading_color.rs: all 2 existing tests byte for byte; 0 added
+ok   gallery.rs: no string in rendered code lost or changed
+ok   gallery.rs: all 5 existing tests byte for byte; 0 added
+ok   one_point.rs: no string in rendered code lost or changed
+ok   one_point.rs: all 7 existing tests byte for byte; 0 added
+ok   loop_sums.rs: no string in rendered code lost or changed
+ok   loop_sums.rs: all 3 existing tests byte for byte; 0 added
+ok   boundary.rs: no string in rendered code lost or changed
+ok   boundary.rs: all 4 existing tests byte for byte; 0 added
+ok   rigidity.rs: no string in rendered code lost or changed
+ok   rigidity.rs: all 4 existing tests byte for byte; 0 added
+ok   counting.rs: no string in rendered code lost or changed
+ok   counting.rs: all 9 existing tests byte for byte; 0 added
+ok   real_integral.rs: no string in rendered code lost or changed
+ok   real_integral.rs: all 6 existing tests byte for byte; 0 added
+ok   continuing.rs: no string in rendered code lost or changed
+ok   continuing.rs: all 5 existing tests byte for byte; 0 added
+ok   of reading-repair01's new tests only reading_windows_stay_short_and_never_delay_an_answer is gone: ['reading_windows_stay_short_and_never_delay_an_answer']
+ok   two are extended for chapter-end windows: ['each_card_outlasts_its_reading_window', 'every_reading_window_is_in_the_storyboard']
+ok   one is byte for byte: ['the_reading_window_waits_in_order_and_clears_nothing']
+ok   each_card_outlasts keeps its assertions; the per-file count is now per cue: []
+ok   draw.rs: outside its tests, only the three helpers are added
+ok   mod.rs: outside its tests, only READING_WINDOWS and one TEXT row are added
+ok   main.rs: outside its tests, one doc comment
+# the storyboard
+ok   every beat's words are identical
+ok   11 beats change, the ten windows and 07_5's note: [('04_4', 'read 7.5 s'), ('05_8', 'read 3.5 s'), ('07_2', 'read 4.5 s'), ('07_5', ''), ('08_5', 'read 5 s, hold'), ('09_5', 'read 3 s'), ('10_5', 'read 8.5 s'), ('11_6', 'read 7 s'), ('11_8', 'read 7.5 s, hold'), ('13_11', 'read 5 s, hold'), ('14_3', 'read 5.5 s')]
+ok   only the ten windows change a hold cell
+ok   only their picture and hold cells change
+ok   tools/storyboard.py check: same problems before and after: ['complex_analysis_visual 05_gallery: no prediction pause', 'complex_analysis_visual 08_loop_sums: no prediction pause', 'complex_analysis_visual 12_residues: no prediction pause']
+ok   its report moves on one line only, a row already ticked: its `morph` pattern matches the word holomorphic in 09_5's quoted card
+     note: so its estimate lines do not move: it counts no `read N s`, and undercounts these windows by 57 s
+ok   the script it would generate is byte-identical
+     note: its `script.tsv is stale` on canonical is the header comment only: cue rows equal = True
+ok   04_4: its picture note quotes NEAR_ZERO exactly
+ok   05_8: its picture note quotes FOUR exactly
+ok   07_2: its picture note quotes CRITICAL exactly
+ok   08_5: its picture note quotes GOURSAT exactly
+ok   09_5: its picture note quotes NEEDS exactly
+ok   10_5: its picture note quotes EXACT exactly
+ok   11_6: its picture note quotes SQUASHED exactly
+ok   14_3: its picture note quotes PATH_EXACT exactly
+ok   13_11: its picture note quotes both steps of the card
+ok   04_4: its picture note no longer says z₀, which the card never did
+ok   07_5: its picture note no longer says z₀, which chapter 07 never draws; the voice says the point one
+ok   z₀ stays in the notes of ['06_1', '06_3', '12_3'] only
+ok   06_1: keeps z₀, because one_derivative.rs draws z_0 = 1 + i
+ok   06_3: keeps z₀, because one_derivative.rs draws z_0 = 1 + i
+ok   12_3: keeps z₀, because residues.rs draws z - z_0
+# rustfmt, whole module tree (canonical + this overlay)
+ok   rustfmt --check
+# the changed and new Rust tests, mirrored on the candidate text
+ok   each_card_outlasts_its_reading_window: None
+ok   reading_windows_leave_time_for_what_the_voice_leaves_out: None
+ok   the_honest_note_only_adds_the_clause_nobody_says: None
+ok   the_reading_window_waits_in_order_and_clears_nothing: None
+ok   a_growing_card_covers_before_it_clears: None
+ok   every_reading_window_is_in_the_storyboard: None
+ok   mod.rs holds each_card_outlasts_its_reading_window
+ok   mod.rs holds reading_windows_leave_time_for_what_the_voice_leaves_out
+ok   mod.rs holds the_honest_note_only_adds_the_clause_nobody_says
+ok   no test bounds a window by the 4 s gap any more
+ok   draw.rs holds the_reading_window_waits_in_order_and_clears_nothing
+ok   draw.rs holds a_growing_card_covers_before_it_clears
+ok   main.rs holds its test
+# planted defects, each must fail the mirror
+ok   caught: the window after the next say: 09_5: out of order
+ok   caught: a fade between window and next say: 10_5: 10_6 waits on more
+ok   caught: the card cleared before the window: 10_5: cleared early
+ok   caught: the window removed: 05_8: no card or no window after the say
+ok   caught: the card not cleared by the next cue: 10_5: 10_6 does not clear exact
+ok   caught: no such card before the window: 11_6: no card or no window after the say
+ok   caught: a table row removed: the table and the sites differ
+ok   caught: a card promised after the voice comes under it: 04_4: comes under the voice
+ok   caught: 13_11's clause comes under the voice: 13_11: comes under the voice
+ok   caught: a last cue's breath before the window: 13_11: the window is not right before kit.music_breath(stage, 2.5)?;
+ok   caught: a last cue's breath shorter than the clean time counts on: 08_5: the window is not right before kit.music_breath(stage, 2.0)?;
+ok   caught: a last cue's card not cleared: 08_5: the closing does not clear exact
+ok   caught: the code panel not cleared: 11_8: the closing does not clear panel
+ok   caught: the theorem back to a 3 s window: 10_5: 3.60 s clean is under 8.67 s for what the voice leaves out
+ok   caught: the honest clause with no window and a short breath: 13_11: 0.80 s clean is under 5.27 s for what the voice leaves out
+ok   caught: a window far past the card's length: 05_8: 9.60 s is past twice the rule of thumb for the whole text
+ok   caught: a card after the voice claiming only part is unspoken: 04_4: comes after the voice, so all of it is unspoken
+ok   caught: unspoken text that is not on the card: 09_5: 'a neighbourhood of the disk' is not on screen
+ok   caught: TO_READ out of step with the table: the table and TO_READ differ
+ok   caught: a window on a question, both tables agreeing: 10_4: a window after a question delays its answer
+ok   caught: rows out of order, both tables agreeing: not sorted
+ok   caught: a cue that does not exist, both tables agreeing: 05_99 is not a cue
+ok   caught: the honest card says more than the voice's part plus the clause: the whole adds something else
+ok   caught: the part said is reworded away from the whole: the part said is not the start of the whole
+ok   caught: helper: the pause first: out of order
+ok   caught: helper: the breath before the voice: out of order
+ok   caught: helper: gains a fade: touches fade
+ok   caught: a growing card clears first: it clears before it covers
+ok   caught: storyboard: a row gone: [('04_4', 7.5), ('05_8', 3.5), ('07_2', 4.5), ('08_5', 5.0), ('09_5', 3.0), ('10_5', 8.5), ('11_6', 7.0), ('11_8', 7.5), ('13_11', 5.0), ('14_3', 5.5)] against [('04_4', 7.5), ('05_8', 3.5), ('07_2', 4.5), ('08_5', 5.0), ('10_5', 8.5), ('11_6', 7.0), ('11_8', 7.5), ('13_11', 5.0), ('14_3', 5.5)]
+ok   caught: storyboard: other seconds: [('04_4', 7.5), ('05_8', 3.5), ('07_2', 4.5), ('08_5', 5.0), ('09_5', 3.0), ('10_5', 8.5), ('11_6', 7.0), ('11_8', 7.5), ('13_11', 5.0), ('14_3', 5.5)] against [('04_4', 7.5), ('05_8', 3.5), ('07_2', 4.5), ('08_5', 5.0), ('09_5', 2.5), ('10_5', 8.5), ('11_6', 7.0), ('11_8', 7.5), ('13_11', 5.0), ('14_3', 5.5)]
+ok   caught: storyboard: a last cue's other seconds: [('04_4', 7.5), ('05_8', 3.5), ('07_2', 4.5), ('08_5', 5.0), ('09_5', 3.0), ('10_5', 8.5), ('11_6', 7.0), ('11_8', 7.5), ('13_11', 5.0), ('14_3', 5.5)] against [('04_4', 7.5), ('05_8', 3.5), ('07_2', 4.5), ('08_5', 4.0), ('09_5', 3.0), ('10_5', 8.5), ('11_6', 7.0), ('11_8', 7.5), ('13_11', 5.0), ('14_3', 5.5)]
+# the binder, the validator and their planted defects
+ok   binder --check: in step: 105 units for 105 cues in 15 chapters; 105 say calls, 0 non-literal; 13 prediction holds; 10 reading holds; 16 music breaths on 15 cues; longest cue 98 words
+ok   validator: reading rows: exactly the 10 cues with a reading_window call and a READING_WINDOWS row; no range_s on any row
+ok   planted_defects: 55 binder defects, 21 validator defects, 3 controls; 0 failed
+# the map's reading rows, in source seconds. Nothing below is measured.
+ok   hold_kinds {'prediction': 13, 'reading': 10}
+ok   no range_s anywhere in the map
+     cue    arrives      window  breath   clean   unspoken@15  whole@15   next
+ok   04_4: the binder's clean time agrees with the mirror's
+     04_4   after_voice    7.5     0.0    7.70       7.40      7.40   04_5
+ok   05_8: the binder's clean time agrees with the mirror's
+     05_8   under_voice    3.5     0.0    4.10       3.60      3.60   05_9
+ok   07_2: the binder's clean time agrees with the mirror's
+     07_2   under_voice    4.5     0.0    5.10       4.67      6.93   07_3
+ok   08_5: the binder's clean time agrees with the mirror's
+     08_5   after_voice    5.0     2.0    7.20       6.47      6.47   09_1
+ok   09_5: the binder's clean time agrees with the mirror's
+     09_5   under_voice    3.0     0.0    3.60       2.53      7.13   09_6
+ok   10_5: the binder's clean time agrees with the mirror's
+     10_5   under_voice    8.5     0.0    9.10       8.67      8.67   10_6
+ok   11_6: the binder's clean time agrees with the mirror's
+     11_6   after_voice    7.0     0.0    7.20       7.13      7.13   11_7
+ok   11_8: the binder's clean time agrees with the mirror's
+     11_8   under_voice    7.5     2.0   10.10       6.60     15.60   12_1
+ok   13_11: the binder's clean time agrees with the mirror's
+     13_11  after_voice    5.0     2.5    7.70       5.27     12.80   14_1
+ok   14_3: the binder's clean time agrees with the mirror's
+     14_3   under_voice    5.5     0.0    6.10       5.93      5.93   14_4
+     total 57.0 s; by chapter {'04': 7.5, '05': 3.5, '07': 4.5, '08': 5.0, '09': 3.0, '10': 8.5, '11': 14.5, '13': 5.0, '14': 5.5}
+# for root: what the score and the cue sheets will make of these. Nothing shared is changed.
+ok   score.rs HOLD_MERGE 4.0
+ok   score.rs MIN_PHRASE_GAP 1.6: a gap this long gets a phrase
+ok   score.rs ROLL_GAP 2.4: a gap this long gets a chord roll first
+ok   this crate's identity sets steady_bed
+ok   none of the ten sites' chapter files carries a sonification, the one thing the duck curve still shapes under steady_bed
+     9 of 10 windows will warn in cue_sheets at its defaults (--max-gap 4.0, --max-tail 5.0):
+       04_4: gap: 8.1 s of silence before 04_5
+       05_8: gap: 4.1 s of silence before 05_9
+       07_2: gap: 5.1 s of silence before 07_3
+       08_5: tail: 8.2 s of picture after the chapter's last line
+       10_5: gap: 9.1 s of silence before 10_6
+       11_6: gap: 7.6 s of silence before 11_7
+       11_8: tail: 10.6 s of picture after the chapter's last line
+       13_11: tail: 8.7 s of picture after the chapter's last line
+       14_3: gap: 6.1 s of silence before 14_4
+ok   nine warnings are expected, six gaps and three tails; 09_5's 3.6 s is simply under 4 s, not exempt
+# hashes
+12236b014419cc071dc765d93898575d38d13ddcc4648a06576c09f00c9aa4fe  reading-repair02.patch
+ef46877b134cdfd18817457ba10c5bd2f1a7d28f8af2b9fc91bb6f69fc466eb4  from-reading-repair01.diff
+fd369e8034a4ea70078815627ff112b349498a4d715d7be02df8f1c586a81952  baseline.json
+828e4cb3b567c4648d91d2725e98997444b1c8f0e530679dc9e1291d887c74a0  check_reading_repair.py
+9d6d5aee321a4f93af994a88c29fba1263190efcc3e9052414b9c9a8a72cef1f  bind_oliver_plan.py
+48956225fad87112223c26a85d59fe39a38b959c8836fa2ab9b0e3aabea2073b  validate_oliver_plan.py
+c49de02bfea35b0fe444c7d8d3a9ca1b3c7f7c3b7d20174d70205698cc323660  planted_defects.py
+63bf051c582ac2d9e5b588abd4ab389fd5d097ff0ae48802ec849cfa9bd6269e  source-audit.json
+0c955d29dfc89ffd8bf83f8765839465faae1cbf8590bf3391ceb3f1f1c0dbf8  explainer_corpus/complex_analysis_visual/narration_units.json
+7db950843c433bc210c923bd110e476c0cdd7dcdf623fc09efa837394fe35678  explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver09.json
+dcc3e6281e42f7bbc6f0b068122d9086547a0f75221b1652eebe3278946327c1  explainer_corpus/complex_analysis_visual/src/main.rs
+6cc2c04286fed44b22a39cac496d797d634cc442b12398278cbd7a8445cd6bff  explainer_corpus/complex_analysis_visual/docs/storyboard.md
+13f80812713c062c923811863b863d3bbb1ca577251e7c6c77b545baa376ad61  explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+1df54210c7b628618f932830cc3783c3bbdb228690ce94bdb30c1415ce4d1da1  explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+69259456d3fde27dfe41f4226f35a724107fd43680c3ea3b2c0461ffef4beb35  explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs
+67ee4db45dc59c372e28315c21fce1e17be43b2cac033a097564a5b67beed88a  explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
+510773b231c5cd33601591f38e8eb3abd1a2b244b901c7da2a7c31d298d7459d  explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs
+bbf8e4bfbd4c8c37a35659381dba680eba576672f79f30be00aa871c3c916929  explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
+03880164adefa31b43fbecf7cecc2b6b1eb1e7eae15cdd9d90402aac0fec682f  explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs
+c7d53ccac33537bd97a49cc51fb1b7bf69d78999b8e17799f43d66e84f8d4266  explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs
+026eedc57481c464e7c66a8d64fc34874c2397d54ab94765ffcb943aeefa3e57  explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+3ba6b2726a3efb35adfb9163c57f5685a180c6fae078506362aa6b69fb13a30e  explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
+598bf75ce6035c0984d825e9041d0b491864de7b1935ec1cb742973704d94058  explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs
+
+ALL PASS

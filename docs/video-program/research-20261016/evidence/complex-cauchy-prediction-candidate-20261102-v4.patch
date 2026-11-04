@@ -1,0 +1,34 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/cauchy.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/cauchy.rs
+@@ -35,15 +35,26 @@
+     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+         let kit=self.kit.clone();
+         let center=(-3.1_f64,0.0_f64);let radius=1.7_f64;let n=8_u32;
+-        kit.say(stage,"03_1")?;
+-        let title=kit.text(stage,"A boundary determines the center",34.0,Palette::ink(),v(0.0,2.9))?;
+-        let ring=stage.arena_mut().add(Circle::new().radius(radius).style(stroke_style(Palette::dim(),3.0)).build().moved_to(v(center.0,center.1)));
++        let title=kit.text(stage,"What can the boundary tell us?",34.0,Palette::ink(),v(0.0,2.9))?;
++        let ring=stage.arena_mut().add(Circle::new().radius(radius).style(stroke_style(Palette::gold(),3.0)).build().moved_to(v(center.0,center.1)));
+         let middle=stage.arena_mut().add(Circle::new().radius(0.10).style(ink_style(Palette::green())).build().moved_to(v(center.0,center.1)));
+         let point=stage.arena_mut().add(Circle::new().radius(0.12).style(ink_style(Palette::blue())).build().moved_to(v(center.0+radius,center.1)));
+         let example=kit.text(stage,"f(z) = 1 + z + z²",26.0,Palette::blue(),v(2.2,1.6))?;
++        let known=kit.text(stage,"All boundary values known",24.0,Palette::gold(),v(2.2,1.6))?;
+         let question=kit.text(stage,"Can boundary values recover f(0)?",24.0,Palette::hero(),v(2.2,0.7))?;
+-        appear(stage,&[title,ring,middle,point,example,question])?;
+-        kit.hold(stage)?;stage.wait(3.0)?;
++        // Keep the function itself hidden while the viewer considers what
++        // boundary values alone could reveal about the center.
++        appear(stage,&[title,ring,middle,point,known,question])?;
++        // Research draft: 03_0 is a new spoken question, not yet recorded.
++        kit.say(stage,"03_0")?;
++        kit.hold(stage)?;
++        stage.wait(3.0)?;
++        kit.say(stage,"03_1")?;
++        kit.hold(stage)?;
++        let hide_known=fade_out(stage.arena_mut(),known,ORIGIN,1.0)?;
++        let hide_known=stage.prepare(hide_known.rt(0.5))?;
++        stage.play_prepared(vec![hide_known])?;
++        appear(stage,&[example])?;
+         for k in 1..=n {
+             let t=std::f64::consts::TAU*f64::from(k)/f64::from(n);
+             let anim=point.animate().set_anim_args(AnimateArgs {run_time:Some(0.25),..AnimateArgs::default()})?.move_to(v(center.0+radius*t.cos(),center.1+radius*t.sin()),ORIGIN)?;

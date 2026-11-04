@@ -1,0 +1,7 @@
+{
+  "candidate_sha256": "ae70d701b9b5515d41fc865815741cfeb588f7d2fdc6a681861b7b0895d332c9",
+  "patch": "repair02.patch",
+  "supersedes": "repair.patch",
+  "change": "Label explicitly includes missing tile when the red eighth chip appears; prevents label implying it was handed out. Prior candidate preserved.",
+  "scope": "Source/format only; native layout and timing unverified."
+}

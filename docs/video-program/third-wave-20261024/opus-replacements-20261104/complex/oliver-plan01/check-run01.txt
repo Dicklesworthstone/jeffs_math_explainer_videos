@@ -1,0 +1,83 @@
+--- the two frozen copies are identical (staging snapshot, root's copy)
+exit 0
+
+
+--- binder --check against the staging snapshot
+exit 0
+in step: 105 units for 105 cues in 15 chapters; 105 say calls, 0 non-literal; 13 prediction holds; 0 reading holds; 16 music breaths on 15 cues; longest cue 98 words
+script 2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e
+
+--- binder --check against root's frozen copy
+exit 0
+in step: 105 units for 105 cues in 15 chapters; 105 say calls, 0 non-literal; 13 prediction holds; 0 reading holds; 16 music breaths on 15 cues; longest cue 98 words
+script 2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e
+
+--- validator against the staging snapshot
+exit 0
+coherent.read_units(require_directions=True): 105 units, 105 cues
+coherent.direction_contract: 13 directions resolved; Authored coverage only. No acoustic or listening acceptance.
+check_coherent_units rules: 105 units cover 105 cues in order, one cue each
+source: 105 literal say calls, each cue once
+overrides: 13, each ends its cue, so native_visual_hold can dispose of it
+visual holds: 13 predictions, 0 reading; adjacent, same chapter, hashes and markers current
+Coverage only. No take, timing, listening or acceptance.
+
+--- validator against root's frozen copy
+exit 0
+coherent.read_units(require_directions=True): 105 units, 105 cues
+coherent.direction_contract: 13 directions resolved; Authored coverage only. No acoustic or listening acceptance.
+check_coherent_units rules: 105 units cover 105 cues in order, one cue each
+source: 105 literal say calls, each cue once
+overrides: 13, each ends its cue, so native_visual_hold can dispose of it
+visual holds: 13 predictions, 0 reading; adjacent, same chapter, hashes and markers current
+Coverage only. No take, timing, listening or acceptance.
+
+--- planted defects, in scratch copies only
+exit 0
+ok   control: unchanged crate binds to the same bytes
+ok   control: the plan validates
+ok   binder refuses: say with a computed cue
+ok   binder refuses: say removed
+ok   binder refuses: say inside a loop
+ok   binder refuses: say inside a loop on its own line
+ok   binder refuses: kit.hold through another receiver
+ok   binder refuses: a cue past an early #[cfg(test)] use goes missing
+ok   binder refuses: predict call removed
+ok   binder refuses: PREDICTS row removed
+ok   binder refuses: window differs from the storyboard
+ok   binder refuses: predict given another line
+ok   binder refuses: predict order changed in draw.rs
+ok   binder refuses: a wait after the voice
+ok   binder refuses: a stage.wait after the voice
+ok   binder refuses: a wait between predict and the next cue
+ok   binder refuses: a music breath inside a chapter
+ok   binder refuses: a phrase not in its cue
+ok   binder refuses: a sentence its cue lacks
+ok   binder refuses: a new non-literal wait
+ok   binder refuses: a changed non-literal wait
+ok   binder refuses: a dynamic phrase's source changed
+ok   binder refuses: a cue over 100 words
+ok   binder refuses: script word changed
+ok   binder refuses: an unclassified storyboard hold
+ok   binder refuses: cues truly swapped in a chapter
+ok   binder refuses: prediction no longer a question, storyboard agreeing
+ok   binder refuses: prediction on a chapter's last cue, which delivery would not hold
+ok   validator refuses: unit text changed
+ok   validator refuses: units reordered
+ok   validator refuses: two cues in one unit
+ok   validator refuses: contract names the old map
+ok   validator refuses: hold names the wrong next cue
+ok   validator refuses: hold marker line moved
+ok   validator refuses: hold hash stale
+ok   validator refuses: override carries an invented range
+ok   validator refuses: override stops mid-cue
+ok   validator refuses: a prediction hold dropped
+26 binder defects, 10 validator defects, 2 controls; 0 failed
+
+--- plan files, sha256
+a5b2c8a35db3a1c248e6e56b9f96ef4c47fc1bda1acfb6d3ff6b11b826127ee3  explainer_corpus/complex_analysis_visual/narration_units.json
+70579ea5fa07c922ccb35b568f22dcce4f53a42bd0324bb3b843ec27da8c0465  explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver07.json
+9b4e8af549ba5b85ab0f264b84dfe7c3a6ff3ba881c11fde510abae2f9d7ae87  source-audit.json
+54d20b0b9b9be5dc1a66fe6adf03f0d7f86c8713e1b037612a6183208388ccfa  bind_oliver_plan.py
+490ccf95667924ba20f8edcf00661b620aa10ef82280babd42629e2b2d1a4010  validate_oliver_plan.py
+b7e778496a81723e3610b65ab21fffa52208add8a0d1f6894b021bcbedea4c44  planted_defects.py

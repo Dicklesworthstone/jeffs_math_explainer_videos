@@ -1,0 +1,8 @@
+{
+  "created_at": "2026-11-04T10:59:01.148524+00:00",
+  "before_sha256": "fbf41f13db0d933d5f1f17e03eeb64f2a01ce846eb93d285e9a0dc3d49bab3b1",
+  "candidate_sha256": "d65ef2d84a7a3b6d5b133c956e5fd1694f9173c398f4af476f167111293ae618",
+  "change": "Label computed1+3+10=14 as whole parts, preventing confusion with final16seat tokens before result morph. No script or timing changes.",
+  "validation": "Scoped rustfmt --check exit0. Not integrated, built, glyph checked or rendered.",
+  "required_next": "Integrate with next apportionment repairs, rebind source holds, guarded build/glyph and actual pictures; complete narration and full AV remain open."
+}

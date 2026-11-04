@@ -1,0 +1,33 @@
+script: 75 -> 78 cues; every word identical, same order
+words per new line: {'11_7': 91, '11_20': 32, '12_6': 39, '12_20': 61, '12_21': 50}
+sentences: 14 mapped, each the same exact words
+unreachable.rs
+  until_sentence ('11_7', 5) -> kit.say 11_20
+  until_sentence ('11_7', 6) -> ('11_20', 1)
+  sentence_time ('11_7', 5) -> line_end 11_7 (the sentence after it is now another line)
+  18 phrase hooks, each once in its line
+  kit.say order matches the script: 9 lines
+what_it_forgets.rs
+  until_sentence ('12_6', 2) -> kit.say 12_20
+  until_sentence ('12_6', 3) -> ('12_20', 1)
+  until_sentence ('12_6', 4) -> ('12_20', 2)
+  until_sentence ('12_6', 5) -> kit.say 12_21
+  until_sentence ('12_6', 6) -> ('12_21', 1)
+  sentence_at ('12_6', 2) -> line_end 12_6 (the sentence after it is now another line)
+  sentence_len ('12_6', 3) -> ('12_20', 1)
+  until_share ('12_6', 3) -> ('12_20', 1)
+  until_share ('12_6', 3) -> ('12_20', 1)
+  until_share ('12_6', 5) -> ('12_21', 0)
+  5 phrase hooks, each once in its line
+  kit.say order matches the script: 8 lines
+phrase bytes for phrase-timings, in the split script:
+  11_1: 320 'a halfway point', 337 'squashes the whole plane'
+  11_2: 185 'run backwards'
+  11_5: 72 'send it along both routes', 178 'the two routes end in different places'
+  11_6: 273 'running one after the other'
+  11_7: 174 'so nothing forces a logarithm to keep the axes', 226 'the spin, which turns every axis', 315 'a matrix that sends some direction', 404 'only when it does that to every direction alike', 453 'a half turn combined with an equal stretch'
+  11_20: 91 "the matrix's blocks for each negative stretch", 137 'come in matching pairs'
+  12_1: 167 'the keyboard and the slide rule'
+  12_6: 89 'also ends here', 105 'and so does two and a half'
+  12_21: 192 'a convention broke the same tie', 230 'the honest answer is the whole family'
+PASS

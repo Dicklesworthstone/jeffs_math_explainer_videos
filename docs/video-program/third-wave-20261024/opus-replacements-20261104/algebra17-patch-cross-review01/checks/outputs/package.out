@@ -1,0 +1,18 @@
+build: C1 8f3358e6c75a32aefa0247a58440306c290cb190a9f8bd9f683164ee77fe74f3; C1C2 9d3ed41d35cc887924bad5c38a2bc16e9f2efb65e57465560dde836f5af2e363
+canonical applications.rs equals RubyRaven's baseline: True (7cc3f0d08b610872)
+script.tsv: 83619d48676b32d5
+apply proposed.patch: exit 0, equals its candidate: True 
+apply C1-false-labels-and-guards.patch: exit 0, equals its candidate: True 
+apply C2-voice-sync.patch: exit 0, equals its candidate: True 
+reverse C2-voice-sync.patch: exit 0, back to the earlier file: True
+reverse C1-false-labels-and-guards.patch: exit 0, back to the earlier file: True
+reverse proposed.patch: exit 0, back to the earlier file: True
+candidate-C1: rustfmt --check exit 0
+candidate-C1C2: rustfmt --check exit 0
+k.say source order unchanged: True
+5 until_phrase calls; 5 phrase constants; each phrase is in its sentence: True
+oliver_ratio: exit 0
+clock_mirror: exit 0
+model_arithmetic: exit 0
+new_text_extents: exit 0
+desk_checks: exit 0

@@ -1,0 +1,41 @@
+patches applied one by one to a fresh copy of base/
+  11-counting.patch: git apply exit 0  sha256 4d397fa0064c2ffcb18465d3bad80af5cf27495afe5ba3c7f02c4c542e8da1ca
+  12-residues.patch: git apply exit 0  sha256 d003142012bb26a5effa9f030110306720ba07f1c1e58ea996287045dfecc02b
+  13-real-integral.patch: git apply exit 0  sha256 eb9af851436c6025f90275f24172b4f3ebe582aa99edaabb2e75177c186d6118
+  14-continuing.patch: git apply exit 0  sha256 1c247ad41514f3d6782d8a53a78c4dcb7738a6389eb67d28097eb2e2e15f34e5
+  15-closing.patch: git apply exit 0  sha256 fb5cefa4009c3954fbdc9866a4ab3a8a6ef66077bb122fc5edc9d2d3f2891ae5
+  shared-chain-arrows.patch: git apply exit 0  sha256 2ecb308676b0d1f1983a79a04bee2cac35ef62480937a1e726ef23bd07cb09e1
+  shared-facts.patch: git apply exit 0  sha256 a18733320c501e745444e93acdac63edfa05ec2dad4921f8056071a2ef8a3daf
+  shared-registry.patch: git apply exit 0  sha256 47ae8c5c5705c1a15f922cc8a96e1d22336708731381a1c2a5fccfd2364256ff
+file by file: base against the canonical file now, replay against candidate/
+  src/chapters/counting.rs: base=canonical True; replay=candidate True; candidate 74f9a64355448030c3ab8660bb08c7be74d83408e348ea657bd42f089444125c
+  src/chapters/residues.rs: base=canonical True; replay=candidate True; candidate cde9557781f7ea34a0cedcd9dff6a20ee1c887fddb869e207404135478823ad5
+  src/chapters/real_integral.rs: base=canonical True; replay=candidate True; candidate c873c1dc307b32a0d08f3cabdb3b4c840990f7969b5f4c04808f4113f74b2afc
+  src/chapters/continuing.rs: base=canonical True; replay=candidate True; candidate ee9c280053f8ba254e0b0e6a1cdb7c1a8470f18c40b362a7e7b4b8dcb4e06854
+  src/chapters/closing.rs: base=canonical True; replay=candidate True; candidate 6ac6b577db9426183be2881127c9b646c1bc777c94dfe59b60b9fdbd4a3c2615
+  src/chapters/draw.rs: base=canonical True; replay=candidate True; candidate e6db5143e707ad06a1ab848d7e56e73cefb3276189e108189008738ce2e7488c
+  oracle.py: base=canonical True; replay=candidate True; candidate 197384790ede776681e85e056400467c0f43243d9626e84040c5b9fc4252cf14
+  src/facts.rs: base=canonical True; replay=candidate True; candidate a622dfb848c8ab7729a6abed240a2d85369b518973e2fb6fd1b706473fc7c716
+  src/model.rs: base=canonical True; replay=candidate True; candidate f2d2a349dafa7887c5b29ac2563fcdc73900cf84e58ac736c3b2a711cbc6c665
+  src/chapters/mod.rs: base=canonical True; replay=candidate True; candidate 45c6a0c9b1dc30191e6dbf084ff2c9421b61a0ffd2a27e2e4431f2cfe070065c
+rustfmt --check, edition 2024, repo rustfmt.toml; parse and format only
+  src/chapters/closing.rs: exit 0
+  src/chapters/continuing.rs: exit 0
+  src/chapters/counting.rs: exit 0
+  src/chapters/draw.rs: exit 0
+  src/chapters/mod.rs: exit 0
+  src/chapters/real_integral.rs: exit 0
+  src/chapters/residues.rs: exit 0
+  src/facts.rs: exit 0
+  src/model.rs: exit 0
+oracle.py: rows printed by canonical and by candidate, and the rows only the candidate has
+  canonical: exit 0, 120 rows
+  candidate: exit 0, 126 rows
+  new: argument.rational.near_pole.distance = 0.03
+  new: argument.rational.near_pole.size = 30.0
+  new: argument.quintic.walker = 243
+  new: argument.quintic.leash = 10
+  new: series.doubling.at = 2
+  new: series.doubling.n10 = 2047
+  canonical rows changed or gone: 0
+all of the above passed

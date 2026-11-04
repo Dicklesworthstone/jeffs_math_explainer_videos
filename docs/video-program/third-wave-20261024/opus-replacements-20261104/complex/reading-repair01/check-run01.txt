@@ -1,0 +1,150 @@
+$ python3 -I -B check_reading_repair.py REPO EMPTY_SCRATCH   (exit 0)
+
+# baseline
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/main.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/docs/storyboard.md
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs
+ok   dependency unchanged crates/explainer_kit/src/narration.rs
+ok   dependency unchanged crates/explainer_kit/src/kit.rs
+ok   dependency unchanged crates/explainer_kit/src/storyboard.rs
+ok   dependency unchanged tools/storyboard.py
+ok   dependency unchanged tools/coherent_narration.py
+ok   script.tsv hash
+# patch
+ok   differs explainer_corpus/complex_analysis_visual/src/main.rs
+ok   differs explainer_corpus/complex_analysis_visual/docs/storyboard.md
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs
+ok   patch regenerates byte for byte
+ok   patch -p1 applies to canonical
+ok   applied equals the candidate files
+ok   patch -R reverses
+ok   reversed equals canonical
+ok   nothing else mirrors the crate but the two bound files: []
+# scope
+ok   reading_color: one kit.hold became the window
+ok   reading_color: otherwise only the import list changes
+ok   gallery: one kit.hold became the window
+ok   gallery: otherwise only the import list changes
+ok   one_point: one kit.hold became the window
+ok   one_point: otherwise only the import list changes
+ok   boundary: one kit.hold became the window
+ok   boundary: otherwise only the import list changes
+ok   rigidity: one kit.hold became the window
+ok   rigidity: otherwise only the import list changes
+ok   counting: one kit.hold became the window
+ok   counting: otherwise only the import list changes
+ok   continuing: one kit.hold became the window
+ok   continuing: otherwise only the import list changes
+ok   main.rs: no string in rendered code lost or changed
+ok   main.rs: all 2 existing tests byte for byte; 1 new
+ok   mod.rs: no string in rendered code lost or changed
+ok   mod.rs: all 2 existing tests byte for byte; 2 new
+ok   draw.rs: no string in rendered code lost or changed
+ok   draw.rs: all 5 existing tests byte for byte; 1 new
+ok   reading_color.rs: no string in rendered code lost or changed
+ok   reading_color.rs: all 2 existing tests byte for byte; 0 new
+ok   gallery.rs: no string in rendered code lost or changed
+ok   gallery.rs: all 5 existing tests byte for byte; 0 new
+ok   one_point.rs: no string in rendered code lost or changed
+ok   one_point.rs: all 7 existing tests byte for byte; 0 new
+ok   boundary.rs: no string in rendered code lost or changed
+ok   boundary.rs: all 4 existing tests byte for byte; 0 new
+ok   rigidity.rs: no string in rendered code lost or changed
+ok   rigidity.rs: all 4 existing tests byte for byte; 0 new
+ok   counting.rs: no string in rendered code lost or changed
+ok   counting.rs: all 9 existing tests byte for byte; 0 new
+ok   continuing.rs: no string in rendered code lost or changed
+ok   continuing.rs: all 5 existing tests byte for byte; 0 new
+ok   draw.rs: outside its tests, only the helper is added
+ok   mod.rs: outside its tests, only READING_WINDOWS is added
+ok   main.rs: outside its tests, one doc comment
+# the storyboard's words
+ok   every beat's words are identical
+ok   7 beats change: ["04_4 'read 2.5 s'", "05_8 'read 2 s'", "07_2 'read 3 s'", "09_5 'read 2 s'", "10_5 'read 3 s'", "11_6 'read 1.5 s'", "14_3 'read 2.5 s'"]
+ok   tools/storyboard.py check: same problems before and after: ['complex_analysis_visual 05_gallery: no prediction pause', 'complex_analysis_visual 08_loop_sums: no prediction pause', 'complex_analysis_visual 12_residues: no prediction pause']
+ok   its estimate does not move: it counts no `read N s`, so it undercounts these by 16.5 s
+ok   the script it would generate is byte-identical
+     note: its `script.tsv is stale` on canonical is the header comment only: cue rows equal = True
+# rustfmt, whole module tree (canonical + test-repair01 + this overlay)
+ok   rustfmt --check
+# the new Rust tests, mirrored on the candidate text
+ok   each_card_outlasts_its_reading_window: None
+ok   reading_windows_stay_short_and_never_delay_an_answer: None
+ok   the_reading_window_waits_in_order_and_clears_nothing: None
+ok   every_reading_window_is_in_the_storyboard: None
+ok   mod.rs holds each_card_outlasts_its_reading_window
+ok   mod.rs holds reading_windows_stay_short_and_never_delay_an_answer
+ok   draw.rs holds its test
+ok   main.rs holds its test
+# planted defects, each must fail the mirror
+ok   caught: the window after the next say: 09_5: out of order
+ok   caught: a fade between window and next say: 10_5: 10_6 waits on more
+ok   caught: the card cleared before the window: 10_5: cleared early
+ok   caught: the window removed: 05_8: 0 windows in the file
+ok   caught: the card not cleared by the next cue: 10_5: 10_6 does not clear exact
+ok   caught: no such card before the window: 11_6: out of order
+ok   caught: a table row removed: the table and the sites differ
+ok   caught: a window too short: 10_5: 0.5 s
+ok   caught: a window at the 4 s limit: 10_5: 3.4 s
+ok   caught: a window on a question: 10_4: a window after a question delays its answer
+ok   caught: rows out of order: not sorted
+ok   caught: helper: the pause first: out of order
+ok   caught: helper: the breath before the voice: out of order
+ok   caught: helper: gains a fade: touches fade
+ok   caught: storyboard: a row gone: [('04_4', 2.5), ('05_8', 2.0), ('07_2', 3.0), ('09_5', 2.0), ('10_5', 3.0), ('11_6', 1.5), ('14_3', 2.5)] against [('04_4', 2.5), ('05_8', 2.0), ('07_2', 3.0), ('10_5', 3.0), ('11_6', 1.5), ('14_3', 2.5)]
+ok   caught: storyboard: other seconds: [('04_4', 2.5), ('05_8', 2.0), ('07_2', 3.0), ('09_5', 2.0), ('10_5', 3.0), ('11_6', 1.5), ('14_3', 2.5)] against [('04_4', 2.5), ('05_8', 2.0), ('07_2', 3.0), ('09_5', 2.5), ('10_5', 3.0), ('11_6', 1.5), ('14_3', 2.5)]
+# the binder, the validator and their planted defects
+ok   binder --check: in step: 105 units for 105 cues in 15 chapters; 105 say calls, 0 non-literal; 13 prediction holds; 7 reading holds; 16 music breaths on 15 cues; longest cue 98 words
+ok   validator: reading rows: exactly the 7 cues with a reading_window call and a READING_WINDOWS row; no range_s on any row
+ok   planted_defects: 45 binder defects, 18 validator defects, 3 controls; 0 failed
+# the map's reading rows, and what acceptance must measure
+ok   hold_kinds {'prediction': 13, 'reading': 7}
+ok   no range_s anywhere in the map
+     cue   chars read_s window  voice after the card's last sync must reach, s
+     04_4    111   7.40    2.5   5.00
+     05_8     54   3.60    2.0   1.40
+     07_2    104   6.93    3.0   4.43
+     09_5    107   7.13    2.0   4.93
+     10_5    130   8.67    3.0   5.97
+     11_6    107   7.13    1.5   6.53
+     14_3     89   5.93    2.5   3.63
+     total 16.5 s; by chapter {'04': 2.5, '05': 2.0, '07': 3.0, '09': 2.0, '10': 3.0, '11': 1.5, '14': 2.5}
+# hashes
+54b3a2223152abfe14a623a8832235f79e457e81e72a0802433221053f69f968  reading-repair01.patch
+0d3e94073a3ebb953550b8cc9ccd00da959d6dff0dbcdfc1ee8b8e5f19a3478b  baseline.json
+bb9d4ddd0801c702ee7fe3016ae126cd3b620ca708449bc69bd8babb2c8121b1  check_reading_repair.py
+d2d75b6ef4e87f664cc8fd516f4571ec2b1b943b2f4be652dfc4918d5f3c89af  bind_oliver_plan.py
+b3ccd89b6e3e56b188746aff8da3ffc2509f3b84b3b162294147e146fabccdff  validate_oliver_plan.py
+f7dcbf71420693a63f1446546cb7ba9d9bb02d9c22897a8add49e1f4c7ee4023  planted_defects.py
+ea73ab82505898da4d221dae7a7f011e39c2b76abb43175e32a6958c67419530  source-audit.json
+228700fec2a4d780fbcc2f82c6978ed8e9304e4e4e6925f9ec1f65e667832761  explainer_corpus/complex_analysis_visual/narration_units.json
+78032e57f8ee800d98a4016ce4918e3e63956c85934af16a1148c4a843a7682b  explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver08.json
+86520751431d260687333ba20eb2727633ace868ec01650308d594bc77ac384c  explainer_corpus/complex_analysis_visual/src/main.rs
+a8934fbd5c3270ef5a9943bf79e6ec49d45b9fd1d256e9e2c777ebe66c37e6bb  explainer_corpus/complex_analysis_visual/docs/storyboard.md
+f49efc76506ea7b069418c899b0333f543d58ae644616ea5a8bb433242e9edcf  explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+321b9361c5647217187befd16da826e33e02efcbd9c7c933bc218b6545033eca  explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+13b0f5434535f3ab509ec1aaa2d3239c559cd7d28ebe46d6caac3cf3331c00e0  explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs
+67ee4db45dc59c372e28315c21fce1e17be43b2cac033a097564a5b67beed88a  explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
+510773b231c5cd33601591f38e8eb3abd1a2b244b901c7da2a7c31d298d7459d  explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs
+03880164adefa31b43fbecf7cecc2b6b1eb1e7eae15cdd9d90402aac0fec682f  explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs
+c7d53ccac33537bd97a49cc51fb1b7bf69d78999b8e17799f43d66e84f8d4266  explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs
+f2403bd1600c00762471f3d177caf45c65110f6bf43cc8ec0010081e8737e672  explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+598bf75ce6035c0984d825e9041d0b491864de7b1935ec1cb742973704d94058  explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs
+
+ALL PASS

@@ -1,0 +1,55 @@
+binding script.tsv: 0 conflict(s)
+  merged script: 80 cues, every word and the order as canonical
+  longest unit in the merged script: 95 words
+  cues over 100 words: []
+combined src/facts.rs: 1 conflict(s)
+ follow-up
+        assert_eq!(f.len(), 96, "oracle.py prints 96 keys");
+    }
+
+    /// 11_7: the numbers the block rows print, in the form the chapter parses.
+    #[test]
+    fn the_block_rows_numbers_read_as_their_rows_need() {
+        assert_eq!(fact("matrix.blocks_matching"), "-1,-1");
+        assert_eq!(fact("matrix.blocks_mixed"), "-2,-2,3");
+        assert_eq!(fact("matrix.jordan_block"), "-1,1;0,-1");
+=======
+        assert_eq!(f.len(), 99, "oracle.py prints 99 keys");
+    }
+
+    #[test]
+    fn repaired_ruler_labels_describe_the_same_geometry() {
+        let read = |key: &str| fact(key).parse::<f64>().unwrap();
+        assert_eq!(read("ruler.change_base_mid"), 4.0);
+        assert_eq!(read("ruler.change_base_final"), 10.0);
+        let a = read("real.product_a");
+        let b = read("real.product_b");
+        let ab = read("real.product_ab");
+        assert_eq!((a, b, ab), (2.0, 4.0, 8.0));
+        assert!((a.ln() + b.ln() - ab.ln()).abs() < 1e-12);
+        assert_eq!(read("real.growth_target"), 1000.0);
+
+  facts conflict is the count line only: True
+combined oracle.py: 0 conflict(s)
+  merged oracle runs: 102 keys
+  merged keys beyond root's combined stage: ['matrix.blocks_matching\t-1,-1', 'matrix.blocks_mixed\t-2,-2,3', 'matrix.jordan_block\t-1,1;0,-1']
+combined docs/storyboard.md: 1 conflict(s)
+ follow-up
+- Text widths in chapters 11 and 12 use CMR10 advances in their tests (em × size × 0.01),
+  within about 2% of lint-measured lines. TeX runs about 6% wider. A frame review shows the
+  truth.
+- 12's cube: the visibility (`hidden`) and face culling are tested numerically. Preview02
+  showed the earlier axis; the new axis (0, 1, 1), its dips and the fold have not been seen.
+=======
+- Text widths are estimated (0.55 em per character, em = size/144 scene units) in tests,
+  not measured. The glyph probe and a frame review will show the truth.
+- `matrix_card` sizes its columns and brackets from its entries' measured widths; no
+  frame of that sizing has been seen.
+- 12's cube: the visibility (`hidden`) and face culling are tested numerically (three
+  faces seen at the start and after the half turn, never a back face), but no frame has
+  been seen.
+
+  storyboard: see the conflict above
+logarithm-repair08-10/patches/shared-draw-helpers.patch -> 0 patching file 'explainer_corpus/logarithm_mysteries/src/chapters/draw.rs'
+logarithm-repair05-07/patches/draw-arrow-solid-head.patch -> 0 patching file 'explainer_corpus/logarithm_mysteries/src/chapters/draw.rs'
+this stage has no draw.rs

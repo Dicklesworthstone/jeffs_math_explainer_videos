@@ -1,0 +1,354 @@
+=== franken_markdown@126a530 fmd-math/src/parse.rs  sha256 726e9aab753657178850346bba3881ef71dce7d47c160514b83d87dc1516b703
+  168  const fn map_math_char(ch: char) -> char {
+  169      match ch {
+  170          '-' => '−',
+  171          '*' => '∗',
+  172          _ => ch,
+  173      }
+  174  }
+  ...
+  311                  TokKind::BeginGroup => {
+  312                      self.pos += 1;
+  313                      let node = self.math_group_body(tok.span)?;
+  314                      items.push(node);
+  315                  }
+  ...
+  345      fn math_group_body(&mut self, open: Span) -> Result<Node, MathError> {
+  346          let (items, reason) = self.descend(open.start, |p| p.math_list(Stops::default()))?;
+  347          match reason {
+  348              Reason::EndGroup(close) => Ok(Node::new(NodeKind::List(items), open.union(close))),
+  349              Reason::EndOfInput => Ok(Node::new(
+  350                  NodeKind::List(items),
+  351                  Span::new(open.start, self.src.len()),
+  352              )),
+  ...
+  358      /// option leaves room for stop-like symbols without reshaping callers.
+  359      fn math_control_symbol(&mut self, c: char, span: Span) -> Result<Option<Node>, MathError> {
+  360          let node = match c {
+  361              ',' => Node::new(NodeKind::Space(SpaceKind::Thin), span),
+  362              ':' => Node::new(NodeKind::Space(SpaceKind::Med), span),
+  363              ';' => Node::new(NodeKind::Space(SpaceKind::Thick), span),
+  364              '!' => Node::new(NodeKind::Space(SpaceKind::NegThin), span),
+  365              ' ' => Node::new(NodeKind::Space(SpaceKind::ControlSpace), span),
+  ...
+  851      fn argument(&mut self, what: &str) -> Result<Node, MathError> {
+  852          self.skip_spaces();
+  853          let Some(tok) = self.peek().cloned() else {
+  854              // End of input: the argument lives in a later piece of the
+  855              // balanced whole (fragment semantics) — an empty list stands in.
+  856              let end = self.src.len();
+  857              let _ = what;
+  858              return Ok(Node::new(NodeKind::List(Vec::new()), Span::new(end, end)));
+  859          };
+  860          match tok.kind {
+  861              TokKind::BeginGroup => {
+  862                  self.pos += 1;
+  863                  self.math_group_body(tok.span)
+  864              }
+  ...
+  886              TokKind::ControlSymbol(c) => {
+  887                  self.pos += 1;
+  888                  match self.math_control_symbol(c, tok.span)? {
+  889                      Some(node) => Ok(node),
+  890                      None => Err(MathError::Malformed {
+  891                          what: format!("missing {what}"),
+  892                          at: tok.span.start,
+  893                      }),
+  894                  }
+  895              }
+  ...
+ 1347      fn script_cluster(&mut self, items: &mut Vec<Node>) -> Result<(), MathError> {
+ 1348          let base = match items.last() {
+ 1349              Some(last) if intrinsic_class(last).is_some() => items.pop().map(Box::new),
+ 1350              _ => None,
+ 1351          };
+  ...
+ 1378                  TokKind::Sub => {
+ 1379                      if sub.is_some() {
+ 1380                          return Err(MathError::Malformed {
+ 1381                              what: "double subscript".to_owned(),
+ 1382                              at: tok.span.start,
+ 1383                          });
+ 1384                      }
+ 1385                      self.pos += 1;
+ 1386                      let arg = self.descend(tok.span.start, |p| p.argument("subscript"))?;
+ 1387                      end_span = end_span.union(arg.span);
+ 1388                      sub = Some(Box::new(arg));
+ 1389                  }
+ 1390                  TokKind::Char('\'') => {
+  ...
+=== franken_markdown@126a530 fmd-math/src/node.rs  sha256 baf730352028ab089fe95d47a5d602cad8e7f9897735bb52eb9e34d26def898d
+  212  pub enum SpaceKind {
+  213      /// `\,` — 3 mu
+  214      Thin,
+  215      /// `\:` — 4 mu
+  216      Med,
+  217      /// `\;` — 5 mu
+  218      Thick,
+  219      /// `\!` — −3 mu
+  ...
+  231      /// space is nominally a text interword space; 6 mu (= ⅓ em) is the
+  232      /// conventional math approximation.
+  233      #[must_use]
+  234      pub const fn mu(self) -> i32 {
+  235          match self {
+  236              Self::Thin => 3,
+  237              Self::Med => 4,
+  238              Self::Thick => 5,
+  ...
+=== franken_markdown@126a530 fmd-math/src/style.rs  sha256 5bb1d4732cf061ad72fc660350d5f64463c9cc354edac3b9cddea1116592208b
+   41      pub const fn size_factor(self) -> f64 {
+   42          match self {
+   43              Self::Display | Self::Text => 1.0,
+   44              Self::Script => 0.7,
+   45              Self::ScriptScript => 0.5,
+   46          }
+   47      }
+  ...
+=== franken_markdown@126a530 fmd-math/src/atom.rs  sha256 6d49cb75949a1393ba178a7139b6d5f0f2f243cb03616f1831088a7cb361119b
+  205  pub const fn char_class(ch: char) -> AtomClass {
+  206      match ch {
+  207          '+' | '−' | '-' | '∗' | '*' | '±' | '∓' | '×' | '⋅' | '÷' | '∘' | '∙' | '⊕' | '⊖' | '⊗'
+  208          | '⊘' | '⊙' | '∪' | '∩' | '∨' | '∧' | '∖' | '⋄' | '†' | '‡' | '⊎' | '⊔' | '⊓' | '≀'
+  209          | '⨿' | '⋆' | '◁' | '▷' => AtomClass::Bin,
+  210          '=' | '<' | '>' | ':' | '≤' | '≥' | '≠' | '≡' | '≈' | '∼' | '≃' | '≅' | '≐' | '∝' | '∈'
+  211          | '∋' | '∉' | '⊂' | '⊃' | '⊆' | '⊇' | '≪' | '≫' | '⊨' | '⊢' | '⊣' | '≍' | '∣' | '∥'
+  212          | '→' | '←' | '↔' | '⇒' | '⇐' | '⇔' | '⟶' | '⟵' | '⟷' | '⟹' | '⟸' | '⟺' | '↦' | '⟼'
+  213          | '↑' | '↓' | '↕' | '⇑' | '⇓' | '⇕' | '↗' | '↘' | '↙' | '↖' | '↪' | '↩' | '⇀' | '⇁'
+  214          | '↼' | '↽' | '⇌' => AtomClass::Rel,
+  215          '(' | '[' | '⟨' | '⌈' | '⌊' => AtomClass::Open,
+  216          ')' | ']' | '⟩' | '⌉' | '⌋' | '!' | '?' => AtomClass::Close,
+  217          ',' | ';' => AtomClass::Punct,
+  218          _ => AtomClass::Ord,
+  219      }
+  220  }
+  221  
+  222  /// The intrinsic atom class a node contributes to its enclosing list, or
+  ...
+  228      match &node.kind {
+  229          NodeKind::Symbol { class, .. } => Some(*class),
+  230          NodeKind::BigOp { .. } | NodeKind::OpName { .. } => Some(AtomClass::Op),
+  231          NodeKind::Scripts { base, .. } => base
+  232              .as_deref()
+  233              .map_or(Some(AtomClass::Ord), intrinsic_class),
+  234          NodeKind::Frac { .. } | NodeKind::LeftRight { .. } => Some(AtomClass::Inner),
+  235          NodeKind::SizedDelim { class, .. } => Some(*class),
+  236          NodeKind::Radical { .. }
+  237          | NodeKind::Accent { .. }
+  238          | NodeKind::List(_)
+  239          | NodeKind::Text { .. }
+  240          | NodeKind::TextRun { .. }
+  241          | NodeKind::TextStyled { .. }
+  242          | NodeKind::MathIsland { .. }
+  243          | NodeKind::AlignBlock { .. }
+  244          | NodeKind::Environment { .. } => Some(AtomClass::Ord),
+  245          NodeKind::MathFont { body, .. } | NodeKind::Phantom { body, .. } => intrinsic_class(body),
+  246          NodeKind::Stack { kind, base, .. } => match kind {
+  247              StackKind::Stackrel => Some(AtomClass::Rel),
+  ...
+  281  pub fn classify_list(items: &[Node]) -> Vec<Option<AtomClass>> {
+  282      let mut classes: Vec<Option<AtomClass>> = items.iter().map(intrinsic_class).collect();
+  283      let mut prev_atom: Option<usize> = None;
+  284      for i in 0..classes.len() {
+  285          let Some(current) = classes[i] else { continue };
+  286          if current == AtomClass::Bin {
+  287              let degrade = match prev_atom {
+  288                  None => true,
+  289                  Some(p) => matches!(
+  290                      classes[p],
+  291                      Some(
+  292                          AtomClass::Bin
+  293                              | AtomClass::Op
+  294                              | AtomClass::Rel
+  295                              | AtomClass::Open
+  296                              | AtomClass::Punct
+  297                      )
+  298                  ),
+  299              };
+  300              if degrade {
+  301                  classes[i] = Some(AtomClass::Ord);
+  302              }
+  303          } else if matches!(
+  304              current,
+  305              AtomClass::Rel | AtomClass::Close | AtomClass::Punct
+  306          ) {
+  307              if let Some(p) = prev_atom {
+  308                  if classes[p] == Some(AtomClass::Bin) {
+  309                      classes[p] = Some(AtomClass::Ord);
+  310                  }
+  311              }
+  312          }
+  313          prev_atom = Some(i);
+  314      }
+  315      if let Some(p) = prev_atom {
+  316          if classes[p] == Some(AtomClass::Bin) {
+  317              classes[p] = Some(AtomClass::Ord);
+  318          }
+  319      }
+  320      classes
+  321  }
+  322  
+  ...
+=== franken_markdown@126a530 fmd-math/src/layout.rs  sha256 a1a7e1f0fbf97e334b2313fdf95538e64dfb48b4364248ba69aa764eb47f7fbd
+  203      fn size(&self) -> f64 {
+  204          self.style.size_factor() * self.decl_size
+  205      }
+  ...
+  309      fn line(&self, items: &[Node], outer: LayCtx) -> Result<(MBox, LayCtx), MathError> {
+  310          let classes = classify_list(items);
+  311          let mut ctx = outer;
+  ...
+  337                  NodeKind::Space(kind) => {
+  338                      let em = f64::from(kind.mu()) / 18.0 * ctx.size();
+  339                      laid_items.push(LineItem::Glue(GlueSpec {
+  340                          natural: em,
+  341                          stretch: 0.0,
+  342                          shrink: 0.0,
+  343                      }));
+  ...
+  377                  LineItem::Glue(glue) => {
+  378                      x += glue.natural;
+  379                      children.push(Positioned {
+  380                          dx: x,
+  381                          dy: 0.0,
+  382                          node: MNode::Glue(glue),
+  383                      });
+  384                      // Inter-atom spacing looks past glue and kerns to the
+  385                      // previous atom (tex.web §761 keeps r_type across them),
+  386                      // so `a\,=b` gets the thin space and the Ord–Rel thick
+  387                      // space. A font kern needs adjacent characters.
+  388                      prev = prev.map(|(class, _)| (class, None));
+  389                  }
+  390                  LineItem::Atom { laid, class } => {
+  ...
+  470              // A group holding one scriptless Ord character is that character
+  471              // (tex.web §1186): `{f}(` kerns like `f(`, `{x}^2` scripts like
+  472              // `x^2`, and `\mathrm{f}(` is a word of the text face.
+  473              NodeKind::List(items)
+  474                  if matches!(
+  475                      items.as_slice(),
+  476                      [Node {
+  477                          kind: NodeKind::Symbol {
+  478                              class: AtomClass::Ord,
+  479                              ..
+  480                          },
+  481                          ..
+  482                      }]
+  483                  ) =>
+  484              {
+  485                  self.lay_node(&items[0], ctx)
+  486              }
+  487              NodeKind::List(items) => Ok(Laid {
+  488                  boxx: self.hlist(items, ctx)?,
+  489                  italic: 0.0,
+  490                  char_glyph: None,
+  491              }),
+  ...
+  826              | NodeKind::Space(_)
+  827              | NodeKind::Tie
+  828              | NodeKind::Linebreak
+  829              | NodeKind::AlignTab => Ok(Laid {
+  830                  boxx: kern_box(0.0),
+  831                  italic: 0.0,
+  832                  char_glyph: None,
+  833              }),
+  834          }
+  ...
+ 1150          let sub_box = match sub {
+ 1151              Some(node) => Some(self.lay_node(node, ctx.map(StyleCtx::sub))?.boxx),
+ 1152              None => None,
+ 1153          };
+ 1154          // §756: every script box is widened by \scriptspace.
+ 1155          let widen = |mut b: MBox| {
+ 1156              b.width += c.script_space;
+ 1157              b
+ 1158          };
+ 1159          let (sup_box, sub_box) = (sup_box.map(widen), sub_box.map(widen));
+ 1160          let base_w = base_laid.boxx.width;
+  ...
+ 1172                  // Rule 18b: subscript alone.
+ 1173                  let shift = v
+ 1174                      .max(c.sub1 * size)
+ 1175                      .max(sb.height - 0.8 * c.x_height * size);
+ 1176                  width = width.max(base_w + sb.width);
+ 1177                  height = height.max(sb.height - shift);
+ 1178                  depth = depth.max(sb.depth + shift);
+ 1179                  children.push(Positioned {
+ 1180                      dx: base_w,
+ 1181                      dy: -shift,
+ 1182                      node: MNode::Box(sb),
+ 1183                  });
+  ...
+ 1196                  });
+ 1197              }
+ 1198              (Some(sp), Some(sb)) => {
+ 1199                  // Rules 18d–f: both scripts; resolve the clash, then the
+ 1200                  // ⅘ x-height redistribution.
+ 1201                  let p = script_p(c, ctx.style) * size;
+ 1202                  let mut shift_up = u.max(p).max(sp.depth + 0.25 * c.x_height * size);
+ 1203                  let mut shift_down = v.max(c.sub2 * size);
+ 1204                  let theta = c.rule_thickness * size;
+ 1205                  let gap = (shift_up - sp.depth) - (sb.height - shift_down);
+ 1206                  if gap < 4.0 * theta {
+ 1207                      shift_down += 4.0 * theta - gap;
+ 1208                      let psi = 0.8 * c.x_height * size - (shift_up - sp.depth);
+ 1209                      if psi > 0.0 {
+ 1210                          shift_up += psi;
+ 1211                          shift_down -= psi;
+ 1212                      }
+ 1213                  }
+ 1214                  width = width.max(base_w + delta + sp.width).max(base_w + sb.width);
+ 1215                  height = height.max(sp.height + shift_up);
+ 1216                  depth = depth.max(sb.depth + shift_down);
+ 1217                  children.push(Positioned {
+ 1218                      dx: base_w + delta,
+ 1219                      dy: shift_up,
+ 1220                      node: MNode::Box(sp),
+ 1221                  });
+ 1222                  children.push(Positioned {
+ 1223                      dx: base_w,
+ 1224                      dy: -shift_down,
+ 1225                      node: MNode::Box(sb),
+ 1226                  });
+ 1227              }
+ 1228          }
+  ...
+=== franken_markdown@126a530 fmd-math/src/mbox.rs  sha256 727bc046fa5f112853ef3a07a5198485e6391df7d82128b104a8587f55999668
+  313                  MNode::Kern(_) | MNode::Glue(_) => {}
+  314                  MNode::Box(inner) => inner.flatten_into(cx, cy, out),
+  ...
+=== franken_markdown@126a530 fmd-math/src/faces.rs  sha256 06df74317bfa56243be00f198cee4cfe21abdd3978a59ccde45d58a15015194b
+  148      /// Synthesized italic correction: right ink overhang past the advance.
+  149      pub italic: f64,
+  ...
+=== franken_markdown@126a530 fmd-math/src/commands.rs  sha256 2714156318ae702585f4a5e913bf8c806b2057b009a1c5bec29bfb5b318bf144
+  680          "quad" => Cmd::Spacing(SpaceKind::Quad),
+  681          "qquad" => Cmd::Spacing(SpaceKind::Qquad),
+  ...
+  935      fn t1_headliners_are_supported() {
+  936          for c in [
+  ...
+  953              r"\,",
+  ...
+=== franken_manim@a399d62 crates/fmn-library/src/tex.rs  sha256 b53d81e95a778a9291896ecc05c0056f716963da44e8d514be5ed530a07b61a7
+  172      /// (the Reference wraps every `Tex` in `\begin{align*}`, which is display
+  173      /// math), font size 48 over 144-per-unit, the tex style, no color map.
+  174      /// Inline (text-style) mathematics is `.math_style(MathStyle::Text)`.
+  175      #[must_use]
+  176      pub fn new(source: &'a str) -> Self {
+  177          Self {
+  178              source,
+  179              preamble: "",
+  180              mode: Mode::Math(MathStyle::Display),
+  ...
+=== franken_manim@a399d62 crates/fmn-tex/src/engine.rs  sha256 c61c651d41f7bef1b4fc096cf571f7303eaf28d7108701922beebeee44a1e101
+  534      fn layout(&self, mode: Mode, source: &str) -> Result<Typeset, TexError> {
+  535          self.layout_computations.fetch_add(1, Ordering::Relaxed);
+  536          let layout = match mode {
+  537              Mode::Math(style) => self
+  538                  .math
+  539                  .typeset_with_macros(source, style, &self.macros)
+  540                  .map_err(TexError::Math)?,
+  ...
+
+[exit 0]

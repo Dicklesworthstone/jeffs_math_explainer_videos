@@ -1,0 +1,192 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/closing.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/closing.rs
+@@ -16,14 +16,16 @@ use fmn::prelude::*;
+ 
+ use super::draw::{
+     Plane, dashed, dot, fact, fact_f64, fact_list, fade_in_all, fade_out_all, faded_line, hero, input, line_style,
+-    output, pole, pole_mark, predict, restroke, say, shift_all, tween_linear, value, wait_until, warn, zero_mark,
++    output, pause, pole, pole_mark, predict, restroke, say, shift_all, tween_linear, value, wait_until, warn,
++    zero_mark,
+ };
+-// the derivative's quotient from 06; the bump's formula, pole names and recipe from 01
+-use super::one_derivative::QUOTIENT_TEX;
++// the bump's formula, pole names and recipe from 01
+ use super::the_bump::{AT_X, BUMP_TEX, POLE_I, POLE_MINUS_I, graph, recipe_points};
+ use crate::model::{self, C, ZERO};
+ 
+ pub const DEMAND: &str = "the same from every direction";
++/// 06's quotient with its limit: it is the limit that is the same from every direction.
++pub const LIMIT_TEX: &str = r"\lim_{h \to 0}\frac{f(z_0 + h) - f(z_0)}{h}";
+ pub const CAPTIONS: [[&str; 2]; 5] = [
+     ["on an open region:", "stretch and turn"],
+     ["the boundary", "decides the inside"],
+@@ -71,6 +73,18 @@ pub fn closing_plane() -> Plane {
+ }
+ pub const ASK_AT: (f64, f64) = (4.7, 1.2);
+ 
++/// How far out a pole's name sits, as a multiple of the pole's height: past the radius 1 ring
++/// that runs through the pole, on the side away from the spokes.
++pub const POLE_NAME_OUT: f64 = 1.28;
++/// The residue panel's half circle: clear of the poles on the unit circle, which are inside it.
++pub const PANEL_ARC: f64 = 1.22;
++
++/// Where the label of the reach's end `k` sits: inside the circle and off it, since the circle
++/// crosses the axis almost vertically and would strike through a label centred under the end.
++pub fn end_label_at(k: usize, x: f64) -> C {
++    C::new(x + if k == 0 { 0.56 } else { -0.46 }, -0.33)
++}
++
+ /// A text minus sign for a fact printed with an ASCII hyphen.
+ fn minus(s: &str) -> String {
+     s.replacen('-', "−", 1)
+@@ -93,6 +107,7 @@ fn panel_picture(stage: &mut Stage<'_>, j: usize) -> fmn::Result<Vec<Mob>> {
+             out.push(p.path(stage, &piece(PIECE_AT, C::real(1.0)), input(), 3.0)?);
+             out.push(p.path(stage, &piece(IMAGE_AT, STRETCH_TURN), output(), 3.0)?);
+             let carry = Arrow::new(p.p(C::new(-0.55, -0.85)), p.p(C::new(0.05, -0.6)))
++                .buff(0.0)
+                 .thickness(3.0)
+                 .color(Palette::dim())
+                 .build()?;
+@@ -115,6 +130,7 @@ fn panel_picture(stage: &mut Stage<'_>, j: usize) -> fmn::Result<Vec<Mob>> {
+         2 => {
+             out.push(p.circle(stage, ZERO, 1.0, hero(), 3.0)?);
+             let along = Arrow::new(p.p(C::polar(1.0, 0.45)), p.p(C::polar(1.0, 0.85)))
++                .buff(0.0)
+                 .thickness(3.0)
+                 .color(hero())
+                 .build()?;
+@@ -126,11 +142,11 @@ fn panel_picture(stage: &mut Stage<'_>, j: usize) -> fmn::Result<Vec<Mob>> {
+         }
+         // 13: the half-disk contour over the real line, the upper poles inside
+         3 => {
+-            let r = 1.1;
++            let r = PANEL_ARC;
+             let mut half: Vec<C> = (0..=60).map(|i| C::polar(r, PI * f64::from(i) / 60.0)).collect();
+             half.push(C::real(r));
+             out.push(p.path(stage, &half, hero(), 3.0)?);
+-            out.push(p.path(stage, &[C::real(-1.25), C::real(1.25)], Palette::ink(), 5.0)?);
++            out.push(p.path(stage, &[C::real(-1.28), C::real(1.28)], Palette::ink(), 5.0)?);
+             for q in model::quartic_roots().into_iter().filter(|q| q.im > 0.0) {
+                 out.extend(pole_mark(stage, p.p(q)));
+             }
+@@ -202,7 +218,7 @@ impl SceneConstruct for Closing {
+                 .build()?)
+         };
+         let guides = [stage.arena_mut().add(guide(-1.0)?), stage.arena_mut().add(guide(1.0)?)];
+-        let formula = kit.tex(stage, BUMP_TEX, 36.0, Palette::ink(), &[], v(-0.6, 3.4))?;
++        let formula = kit.tex(stage, BUMP_TEX, 36.0, Palette::ink(), &[], v(-0.6, 3.36))?;
+         fade_in_all(stage, &[x_axis, y_axis, curve, formula], 0.6)?;
+         fade_in_all(stage, &[recipe], 0.5)?;
+         fade_in_all(stage, &guides, 0.4)?;
+@@ -235,8 +251,20 @@ impl SceneConstruct for Closing {
+         for &im in &poles {
+             pole_mobs.extend(pole_mark(stage, plane.p(C::new(0.0, im))));
+         }
+-        pole_mobs.push(kit.text(stage, POLE_I, 28.0, pole(), plane.p(C::new(0.3, poles[0])))?);
+-        pole_mobs.push(kit.text(stage, POLE_MINUS_I, 28.0, pole(), plane.p(C::new(0.35, poles[1])))?);
++        pole_mobs.push(kit.text(
++            stage,
++            POLE_I,
++            28.0,
++            pole(),
++            plane.p(C::new(0.3, poles[0] * POLE_NAME_OUT)),
++        )?);
++        pole_mobs.push(kit.text(
++            stage,
++            POLE_MINUS_I,
++            28.0,
++            pole(),
++            plane.p(C::new(0.35, poles[1] * POLE_NAME_OUT)),
++        )?);
+         fade_in_all(stage, &pole_mobs, 0.5)?;
+         let r0 = fact_f64("bump.radius0")?;
+         let ring = stage.arena_mut().add(
+@@ -246,6 +274,8 @@ impl SceneConstruct for Closing {
+         );
+         fade_in_all(stage, &[ring], 0.5)?;
+         wait_until(stage, line.end())?;
++        // the film's first picture, answered: it gets a moment before the wipe
++        pause(stage, 1.0)?;
+ 
+         // 15_2: one demand, and five things it bought, each lit as named
+         kit.hold(stage)?;
+@@ -259,7 +289,7 @@ impl SceneConstruct for Closing {
+             .collect::<fmn::Result<_>>()?;
+         fade_in_all(stage, &borders, 0.5)?;
+         line.wait_sentence(stage, 1)?;
+-        let quotient = kit.tex(stage, QUOTIENT_TEX, 32.0, Palette::ink(), &[], v(-2.4, 2.3))?;
++        let quotient = kit.tex(stage, LIMIT_TEX, 32.0, Palette::ink(), &[], v(-2.4, 2.3))?;
+         let demand = kit.text(stage, DEMAND, 22.0, hero(), v(2.4, 2.3))?;
+         fade_in_all(stage, &[quotient], 0.4)?;
+         fade_in_all(stage, &[demand], 0.4)?;
+@@ -285,6 +315,8 @@ impl SceneConstruct for Closing {
+             strip.extend(caption);
+         }
+         wait_until(stage, line.end())?;
++        // the whole recap, read as one strip before it goes
++        pause(stage, 1.2)?;
+ 
+         // 15_3: recentre the recipe at 3: how far will it reach?
+         kit.hold(stage)?;
+@@ -300,8 +332,20 @@ impl SceneConstruct for Closing {
+         for &im in &poles {
+             poles_here.extend(pole_mark(stage, cp.p(C::new(0.0, im))));
+         }
+-        poles_here.push(kit.text(stage, POLE_I, 28.0, pole(), cp.p(C::new(0.4, poles[0])))?);
+-        poles_here.push(kit.text(stage, POLE_MINUS_I, 28.0, pole(), cp.p(C::new(0.45, poles[1])))?);
++        poles_here.push(kit.text(
++            stage,
++            POLE_I,
++            28.0,
++            pole(),
++            cp.p(C::new(0.42, poles[0] * POLE_NAME_OUT)),
++        )?);
++        poles_here.push(kit.text(
++            stage,
++            POLE_MINUS_I,
++            28.0,
++            pole(),
++            cp.p(C::new(0.5, poles[1] * POLE_NAME_OUT)),
++        )?);
+         let old = stage.arena_mut().add(
+             polyline(ring_points(&cp, ZERO, r0))
+                 .style(faded_line(hero(), 3.0, 0.45))
+@@ -373,7 +417,7 @@ impl SceneConstruct for Closing {
+         let mut end_marks = Vec::new();
+         for (k, &x) in ends.iter().enumerate() {
+             end_marks.push(cp.path(stage, &[C::new(x, -0.15), C::new(x, 0.15)], hero(), 4.0)?);
+-            end_marks.push(kit.text(stage, &minus(printed[k]), 22.0, hero(), cp.p(C::new(x, -0.45)))?);
++            end_marks.push(kit.text(stage, &minus(printed[k]), 22.0, hero(), cp.p(end_label_at(k, x)))?);
+         }
+         fade_in_all(stage, &[reach], 0.5)?;
+         fade_in_all(stage, &end_marks, 0.4)?;
+@@ -448,8 +492,17 @@ mod tests {
+         // the radius label is inside the window, clear of the circle's centre and the pole
+         let at = radius_label_at(a, 1.0);
+         assert!(cp.contains(at) && at.im > 0.6 && (at - C::new(0.0, 1.0)).abs() > 1.0);
+-        // the end labels fit
+-        assert!(cp.contains(C::new(a - r, -0.45)) && cp.contains(C::new(a + r, -0.45)));
++        // the end labels fit, and sit off the circle and off the vertical axis
++        for (k, x) in [a - r, a + r].into_iter().enumerate() {
++            let at = end_label_at(k, x);
++            assert!(cp.contains(at));
++            assert!(((at - C::real(a)).abs() - r).abs() > 0.2, "{k}");
++            assert!(at.re.abs() > 0.25, "{k}");
++        }
++        // the pole names are off the radius 1 ring
++        for (x, im) in [(0.3, 1.0), (0.35, -1.0), (0.42, 1.0), (0.5, -1.0)] {
++            assert!(C::new(x, im * POLE_NAME_OUT).abs() > 1.2);
++        }
+     }
+ 
+     #[test]
+@@ -478,7 +531,8 @@ mod tests {
+         let upper: Vec<C> = model::quartic_roots().into_iter().filter(|q| q.im > 0.0).collect();
+         assert_eq!(upper.len(), 2);
+         for q in upper {
+-            assert!(q.abs() < 1.1 && panel(3).contains(q));
++            assert!(q.abs() + 0.2 < PANEL_ARC && panel(3).contains(q));
+         }
++        assert!(panel(3).contains(C::real(1.28)) && panel(3).contains(C::new(0.0, PANEL_ARC)));
+     }
+ }

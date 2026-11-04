@@ -1,0 +1,16 @@
+  ok   base and candidate hold the same 7 files
+  wrote preview12-repair01.patch
+  ok   the patch applies to a copy of base 
+  ok   and gives candidate byte for byte (7 of 7)
+  ok   reversed, it applies to a copy of candidate 
+  ok   and gives base byte for byte (7 of 7)
+  ok   base equals the canonical crate's current bytes (drift: [])
+  ok   git apply --check accepts it from the repository root 
+  wrote MANIFEST.json
+patch sha256 910636402ec6c0ba35842e21077061564fde0dab2786d151e055a5a2d6ef31b4
+changed files 7 of 7
+unchanged cfcec06911c7d94e explainer_corpus/apportionment/script.tsv
+unchanged dd385ed5f45f09ff explainer_corpus/apportionment/src/chapters/draw.rs
+unchanged 0c87d6bcdabea112 explainer_corpus/apportionment/docs/description.md
+
+PASS

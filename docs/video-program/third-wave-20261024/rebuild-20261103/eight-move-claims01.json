@@ -1,0 +1,7 @@
+{
+  "conjugation_srs_equals_r_inverse": true,
+  "reflection_involutions_checked": 4,
+  "all_words_through_length": 12,
+  "words_checked": 8191,
+  "scope": "Finite exact checks supporting examples; general normal-form proof remains a written argument, no independent reviewer."
+}

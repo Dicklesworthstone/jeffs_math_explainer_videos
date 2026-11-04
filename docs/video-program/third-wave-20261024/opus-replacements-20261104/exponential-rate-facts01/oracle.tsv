@@ -1,0 +1,183 @@
+slide.a	2
+slide.b	3
+slide.product	6
+growth.base	2
+growth.first	3
+growth.second	2
+growth.first_factor	8
+growth.second_factor	4
+growth.total_factor	32
+limit.1	2.00000
+limit.2	2.25000
+limit.4	2.44141
+limit.16	2.63793
+limit.64	2.69734
+limit.1024	2.71696
+series.order	8
+series.sum	2.71828
+rate.start	1.000000
+rate.duration	1.000000
+rate.4.steps	4
+rate.4.0.t	0.000000
+rate.4.0.proportional	1.000000
+rate.4.0.constant	1.000000
+rate.4.0.right_readout	height 1.00: slope 1.00
+rate.4.0.left_readout	height 1.00: slope 1.00
+rate.4.1.t	0.250000
+rate.4.1.proportional	1.250000
+rate.4.1.constant	1.250000
+rate.4.1.right_readout	height 1.25: slope 1.25
+rate.4.1.left_readout	height 1.25: slope 1.00
+rate.4.2.t	0.500000
+rate.4.2.proportional	1.562500
+rate.4.2.constant	1.500000
+rate.4.2.right_readout	height 1.56: slope 1.56
+rate.4.2.left_readout	height 1.50: slope 1.00
+rate.4.3.t	0.750000
+rate.4.3.proportional	1.953125
+rate.4.3.constant	1.750000
+rate.4.3.right_readout	height 1.95: slope 1.95
+rate.4.3.left_readout	height 1.75: slope 1.00
+rate.4.4.t	1.000000
+rate.4.4.proportional	2.441406
+rate.4.4.constant	2.000000
+rate.4.4.right_readout	height 2.44: slope 2.44
+rate.4.4.left_readout	height 2.00: slope 1.00
+rate.4.last_step	last step: slope 1.95, height now 2.44
+rate.8.steps	8
+rate.8.0.t	0.000000
+rate.8.0.proportional	1.000000
+rate.8.0.constant	1.000000
+rate.8.0.right_readout	height 1.00: slope 1.00
+rate.8.0.left_readout	height 1.00: slope 1.00
+rate.8.1.t	0.125000
+rate.8.1.proportional	1.125000
+rate.8.1.constant	1.125000
+rate.8.1.right_readout	height 1.12: slope 1.12
+rate.8.1.left_readout	height 1.12: slope 1.00
+rate.8.2.t	0.250000
+rate.8.2.proportional	1.265625
+rate.8.2.constant	1.250000
+rate.8.2.right_readout	height 1.27: slope 1.27
+rate.8.2.left_readout	height 1.25: slope 1.00
+rate.8.3.t	0.375000
+rate.8.3.proportional	1.423828
+rate.8.3.constant	1.375000
+rate.8.3.right_readout	height 1.42: slope 1.42
+rate.8.3.left_readout	height 1.38: slope 1.00
+rate.8.4.t	0.500000
+rate.8.4.proportional	1.601807
+rate.8.4.constant	1.500000
+rate.8.4.right_readout	height 1.60: slope 1.60
+rate.8.4.left_readout	height 1.50: slope 1.00
+rate.8.5.t	0.625000
+rate.8.5.proportional	1.802032
+rate.8.5.constant	1.625000
+rate.8.5.right_readout	height 1.80: slope 1.80
+rate.8.5.left_readout	height 1.62: slope 1.00
+rate.8.6.t	0.750000
+rate.8.6.proportional	2.027287
+rate.8.6.constant	1.750000
+rate.8.6.right_readout	height 2.03: slope 2.03
+rate.8.6.left_readout	height 1.75: slope 1.00
+rate.8.7.t	0.875000
+rate.8.7.proportional	2.280697
+rate.8.7.constant	1.875000
+rate.8.7.right_readout	height 2.28: slope 2.28
+rate.8.7.left_readout	height 1.88: slope 1.00
+rate.8.8.t	1.000000
+rate.8.8.proportional	2.565785
+rate.8.8.constant	2.000000
+rate.8.8.right_readout	height 2.57: slope 2.57
+rate.8.8.left_readout	height 2.00: slope 1.00
+rate.8.last_step	last step: slope 2.28, height now 2.57
+rate.16.steps	16
+rate.16.0.t	0.000000
+rate.16.0.proportional	1.000000
+rate.16.0.constant	1.000000
+rate.16.0.right_readout	height 1.00: slope 1.00
+rate.16.0.left_readout	height 1.00: slope 1.00
+rate.16.1.t	0.062500
+rate.16.1.proportional	1.062500
+rate.16.1.constant	1.062500
+rate.16.1.right_readout	height 1.06: slope 1.06
+rate.16.1.left_readout	height 1.06: slope 1.00
+rate.16.2.t	0.125000
+rate.16.2.proportional	1.128906
+rate.16.2.constant	1.125000
+rate.16.2.right_readout	height 1.13: slope 1.13
+rate.16.2.left_readout	height 1.12: slope 1.00
+rate.16.3.t	0.187500
+rate.16.3.proportional	1.199463
+rate.16.3.constant	1.187500
+rate.16.3.right_readout	height 1.20: slope 1.20
+rate.16.3.left_readout	height 1.19: slope 1.00
+rate.16.4.t	0.250000
+rate.16.4.proportional	1.274429
+rate.16.4.constant	1.250000
+rate.16.4.right_readout	height 1.27: slope 1.27
+rate.16.4.left_readout	height 1.25: slope 1.00
+rate.16.5.t	0.312500
+rate.16.5.proportional	1.354081
+rate.16.5.constant	1.312500
+rate.16.5.right_readout	height 1.35: slope 1.35
+rate.16.5.left_readout	height 1.31: slope 1.00
+rate.16.6.t	0.375000
+rate.16.6.proportional	1.438711
+rate.16.6.constant	1.375000
+rate.16.6.right_readout	height 1.44: slope 1.44
+rate.16.6.left_readout	height 1.38: slope 1.00
+rate.16.7.t	0.437500
+rate.16.7.proportional	1.528631
+rate.16.7.constant	1.437500
+rate.16.7.right_readout	height 1.53: slope 1.53
+rate.16.7.left_readout	height 1.44: slope 1.00
+rate.16.8.t	0.500000
+rate.16.8.proportional	1.624170
+rate.16.8.constant	1.500000
+rate.16.8.right_readout	height 1.62: slope 1.62
+rate.16.8.left_readout	height 1.50: slope 1.00
+rate.16.9.t	0.562500
+rate.16.9.proportional	1.725681
+rate.16.9.constant	1.562500
+rate.16.9.right_readout	height 1.73: slope 1.73
+rate.16.9.left_readout	height 1.56: slope 1.00
+rate.16.10.t	0.625000
+rate.16.10.proportional	1.833536
+rate.16.10.constant	1.625000
+rate.16.10.right_readout	height 1.83: slope 1.83
+rate.16.10.left_readout	height 1.62: slope 1.00
+rate.16.11.t	0.687500
+rate.16.11.proportional	1.948132
+rate.16.11.constant	1.687500
+rate.16.11.right_readout	height 1.95: slope 1.95
+rate.16.11.left_readout	height 1.69: slope 1.00
+rate.16.12.t	0.750000
+rate.16.12.proportional	2.069890
+rate.16.12.constant	1.750000
+rate.16.12.right_readout	height 2.07: slope 2.07
+rate.16.12.left_readout	height 1.75: slope 1.00
+rate.16.13.t	0.812500
+rate.16.13.proportional	2.199258
+rate.16.13.constant	1.812500
+rate.16.13.right_readout	height 2.20: slope 2.20
+rate.16.13.left_readout	height 1.81: slope 1.00
+rate.16.14.t	0.875000
+rate.16.14.proportional	2.336712
+rate.16.14.constant	1.875000
+rate.16.14.right_readout	height 2.34: slope 2.34
+rate.16.14.left_readout	height 1.88: slope 1.00
+rate.16.15.t	0.937500
+rate.16.15.proportional	2.482756
+rate.16.15.constant	1.937500
+rate.16.15.right_readout	height 2.48: slope 2.48
+rate.16.15.left_readout	height 1.94: slope 1.00
+rate.16.16.t	1.000000
+rate.16.16.proportional	2.637928
+rate.16.16.constant	2.000000
+rate.16.16.right_readout	height 2.64: slope 2.64
+rate.16.16.left_readout	height 2.00: slope 1.00
+rate.16.last_step	last step: slope 2.48, height now 2.64
+rate.refinement.1	4 steps: 2.441
+rate.refinement.2	4, 8 steps: 2.441, 2.566
+rate.refinement.3	4, 8, 16 steps: 2.441, 2.566, 2.638

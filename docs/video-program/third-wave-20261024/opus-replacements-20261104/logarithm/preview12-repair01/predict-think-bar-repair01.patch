@@ -1,0 +1,27 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/draw.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/draw.rs
+@@ -346,17 +346,21 @@
+ pub const THINK: f64 = 4.0;
+ 
+ /// Leave the viewer `THINK` seconds with the question: the current line
+-/// finishes, the music has the gap to itself, and a thin bar drains under
+-/// `at` while the picture holds still. Nothing is revealed before it ends.
++/// finishes, the music has the gap to itself, and only then does a thin bar
++/// drain under `at` while the picture holds still. Nothing is revealed before
++/// it ends. The hold moves no cue: the gap's own wait reaches the same frame.
+ pub fn predict(kit: &Kit, stage: &mut Stage<'_>, at: Vec3, width: f64) -> fmn::Result<()> {
++    kit.hold(stage)?;
+     let left = stage.add_value_tracker(1.0);
+     let start = v(at[0] - width / 2.0, at[1]);
+     let bar = stage.always_redraw(move |s| {
+         let f = value(s, left).clamp(0.0, 1.0);
++        // an empty bar shows nothing, not a stub of a finished wait
++        let opacity = if width * f < 0.01 { 0.0 } else { 0.9 };
+         let r = Rectangle::new()
+             .width((width * f).max(1e-3))
+             .height(0.07)
+-            .style(flat(Palette::hero(), 0.9))
++            .style(flat(Palette::hero(), opacity))
+             .build()
+             .expect("positive extents");
+         let m = s.add(r);

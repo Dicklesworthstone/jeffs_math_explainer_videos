@@ -1,0 +1,5 @@
+WARN ASM.stage_crate_units_are_stale  stage06's crate holds 14 units for script 15eb9ae95f70, bound to narration-direction-map-oliver11.json. Install the bound-plan copy; never copy this one.
+WARN ASM.stray_orig  stage06's chapters hold doing_nothing.rs.orig, carried from stage04 and stage05. mod.rs does not declare it, so it does not compile. Do not install it.
+WARN TXT.requests_name_older_stage  requests.json's script_path is combined-repair-stage04; its hash matches, so this is a label, not a wrong binding
+WARN CON.director_not_run  narration_director needs numpy here: No module named 'numpy'
+322 ok, 0 FAIL, 4 WARN  (mode stage; source and plan text only: not compiled, rendered, heard or watched)

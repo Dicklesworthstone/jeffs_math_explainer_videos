@@ -1,0 +1,114 @@
+{
+  "schema_version": 1,
+  "script_sha256": "15eb9ae95f70979792771e4eda35af03fb4b0d5a517aaadda4dbb5471649e6e7",
+  "units": [
+    {
+      "id": "oliver_00_1",
+      "line_ids": [
+        "00_1"
+      ],
+      "text": "Suppose a balance grows continuously at a rate equal to its current amount per year. How long until it doubles?"
+    },
+    {
+      "id": "oliver_00_2",
+      "line_ids": [
+        "00_2"
+      ],
+      "text": "After a time t, its multiplier is e to the t, so doubling asks when e to the t equals two. The answer is the natural logarithm of two, about zero point six nine years. A logarithm finds the missing input of an exponential. But what if the input also records turns, and several different numbers lead to the same point? Then undoing the exponential needs a choice. And when numbers become matrices, even the question ‘can it be undone?’ gets subtler."
+    },
+    {
+      "id": "oliver_01_1",
+      "line_ids": [
+        "01_1"
+      ],
+      "text": "The real exponential rises continuously from values near zero to arbitrarily large values. It never reaches zero, and it never visits a negative output. So every positive real number has exactly one real input: its natural logarithm. What input gives e?"
+    },
+    {
+      "id": "oliver_01_2",
+      "line_ids": [
+        "01_2"
+      ],
+      "text": "The logarithm of e is one. The logarithm of one is zero. The logarithm of zero is not a real number, nor is the real logarithm of a negative number."
+    },
+    {
+      "id": "oliver_01_3",
+      "line_ids": [
+        "01_3"
+      ],
+      "text": "Since exponentials turn adding inputs into multiplying outputs, their real inverse turns multiplication into addition: log of a times b is log a plus log b, when a and b are positive. That is the idea built into the slide rule."
+    },
+    {
+      "id": "oliver_02_1",
+      "line_ids": [
+        "02_1"
+      ],
+      "text": "For complex numbers, the exponential can rotate as well as scale. Add two pi i to the input and the output makes one complete extra turn, returning to the same point. So the exponential of zero and the exponential of two pi i are both one. There is no single global inverse that returns every original input."
+    },
+    {
+      "id": "oliver_02_2",
+      "line_ids": [
+        "02_2"
+      ],
+      "text": "For a nonzero complex number with radius r and one angle theta, every logarithm has real part log r and imaginary part theta plus any whole number of complete turns. Zero is still excluded: the complex exponential never outputs zero."
+    },
+    {
+      "id": "oliver_03_1",
+      "line_ids": [
+        "03_1"
+      ],
+      "text": "To make one continuous choice, we restrict where we allow ourselves to travel. A common choice removes the nonpositive real axis and uses angles strictly between minus pi and pi. On that slit plane, the principal logarithm is a single analytic function. The cut marks where our chosen angle would jump; it is a choice of domain, not a crack in space."
+    },
+    {
+      "id": "oliver_03_2",
+      "line_ids": [
+        "03_2"
+      ],
+      "text": "Why do we need a restriction? Follow a continuously unwrapped angle around a full loop. It comes back two pi higher even though the point is where it started. A single-valued continuous choice cannot assign both values to that same point."
+    },
+    {
+      "id": "oliver_04_1",
+      "line_ids": [
+        "04_1"
+      ],
+      "text": "Even after choosing a branch, log of a product need not equal the sum of the chosen logs. If two angles are each three quarters of pi, their sum is one and a half pi."
+    },
+    {
+      "id": "oliver_04_2",
+      "line_ids": [
+        "04_2"
+      ],
+      "text": "The product lands at the same point as minus half pi. On the principal branch the two answers differ by one full turn: two pi i. The real rule did not become nonsense; its domain and the meaning of the logarithm changed."
+    },
+    {
+      "id": "oliver_05_1",
+      "line_ids": [
+        "05_1"
+      ],
+      "text": "For a square matrix A, a matrix logarithm means a matrix X whose matrix exponential is A. These can be non-unique even among real matrices: doing nothing and making a full turn both return a two-dimensional grid to its starting position."
+    },
+    {
+      "id": "oliver_05_2",
+      "line_ids": [
+        "05_2"
+      ],
+      "text": "Some transformations cannot be reached by exponentiating any real matrix. A mirror reflection has negative determinant, while the determinant of a real matrix exponential is always positive. But if we allow complex matrices, that same reflection can have a complex logarithm. So the answer depends on what kind of logarithm we ask for."
+    },
+    {
+      "id": "oliver_06_1",
+      "line_ids": [
+        "06_1"
+      ],
+      "text": "The real logarithm reverses growth. In the complex plane it must also account for turns. With matrices it asks which transformations a continuous exponential motion can reach. The mystery is not that the inverse failed. It is that we discovered what information the forward map can forget."
+    }
+  ],
+  "direction_contract": {
+    "schema_version": 1,
+    "topic": "logarithm_mysteries",
+    "script_sha256": "15eb9ae95f70979792771e4eda35af03fb4b0d5a517aaadda4dbb5471649e6e7",
+    "map": {
+      "path": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver11.json",
+      "sha256": "c73bec82a4461342ef24247539899ec5d163de9cd8bce577a5746378786d92fd"
+    }
+  },
+  "scope": "Chapter-scoped native lab review only; no listening or pedagogical acceptance."
+}

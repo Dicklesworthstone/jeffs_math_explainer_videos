@@ -1,0 +1,40 @@
+ok   TEXT   canonical is still the patch's base
+ok   TEXT   root's before copy is canonical
+ok   TEXT   root's candidate is the hash in its receipt
+ok   TEXT   interval.patch applied to the base gives the candidate
+ok   TEXT   rustfmt --check accepts the candidate
+ok   TEXT   line count unchanged: 779
+ok   TEXT   only lines 556, 557 and 560 differ: [556, 557, 560]
+ok   TEXT   hook site 558 still holds until_phrase(&kit, stage, "10_4", "strictly between")
+ok   TEXT   hook site 598 still holds kit.hold(stage)?;
+ok   TEXT   hook site 604 still holds kit.finish(stage)
+ok   TEXT   cue, sentence and phrase hooks identical in order: 24
+ok   TEXT   rule and open end are in one swap, after the phrase hook
+ok   TEXT   no other fade of rule remains in the scene
+ok   TEXT   rule is made once and used once, never removed: [538, 560]
+note TEXT   strict inequality strings outside comments, lines [64, 69]: RULE_WORD and the closing SOURCE fine print
+ok   TEXT   control: root's plan does carry doing_nothing.rs line references: 12 references
+ok   TEXT   none of them points at a changed line: nearest to the change: [558]
+note TEXT   source hash bindings to rebind if root integrates into that plan: {'explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json': 2, 'hold-audit.json': 2, 'inputs.sha256': 1, 'phrase-anchors.json': 3}
+ok   TEXT   check_cues passes on base and candidate copies
+ok   TEXT   check_cues listing identical
+ok   MODEL  phrase is in sentence 0, at byte 39, as root's anchor file says: sentence 1 at byte 73
+note MODEL  scratch: phrase 2.708 s after the cue starts, scene time 69.808; sentence 1 at 72.170
+ok   MODEL  scratch: swap starts on the same frame with or without the 0.4 s fade: frame 2095, 69.833 s
+ok   MODEL  same landing frame for voices 0.4x to 3x the scratch rate, at 30 and 60 fps: 106 cases
+ok   MODEL  control: a phrase inside the old 0.4 s fade would land earlier now
+note MODEL  unchanged by the candidate: swap 0.3 s + crosses 0.4 s after the phrase; 1.66 s spare before sentence 1 at scratch rate, gone only at a voice 3.4x faster
+note MODEL  real Oliver timing for this phrase is unmeasured (root's phrase-timings-unmeasured-template.json)
+note MODEL  without a narrator until_phrase waits for nothing, so a silent run is 0.4 s shorter; the previews and final use a narrator
+ok   PIXELS decoded frame 2085 matches root's frame-0159.png at the π end: mean abs green difference 0.00
+ok   PIXELS decoded frame 2100 matches root's frame-0160.png at the π end: mean abs green difference 0.00
+ok   PIXELS control: the dot's inside is green while closed and dark once open: 192 then 120
+ok   PIXELS today's swap starts within a frame or two of the modelled phrase: model frame 2095, first visible change 2096
+ok   PIXELS today's swap runs about 9 frames: 2096..2102
+note PIXELS closed dot's visible share by frame: 2094:1.00, 2095:0.99, 2096:0.97, 2097:0.83, 2098:0.67, 2099:0.52, 2100:0.27, 2101:0.14, 2102:0.02, 2103:-0.00, 2104:-0.00, 2105:0.00, 2106:-0.00
+note PIXELS smooth over 9 frames, for comparison: 1.00, 0.99, 0.92, 0.79, 0.60, 0.40, 0.21, 0.08, 0.01, 0.00
+ok   PIXELS control: the rule's box is empty before the cue and full by 0.6 s in: 17.0 then 42.9
+note PIXELS baseline rule's visible share by frame: 2011:0.00, 2012:0.00, 2013:0.01, 2014:0.13, 2015:0.25, 2016:0.43, 2017:0.56, 2018:0.68, 2019:0.81, 2020:0.89, 2021:0.94, 2022:0.99, 2023:1.00, 2024:1.00, 2025:1.00, 2026:1.00, 2027:1.00
+ok   PIXELS baseline contradiction measured: strict rule visible while π is still closed: rule first visible frame 2014 (67.13 s), full 2022, π starts to open frame 2096 (69.87 s): 2.73 s
+
+0 failed

@@ -1,0 +1,39 @@
+expected ink rows 754
+gap 18: 761 bands
+gap 22: 756 bands
+gap 25: 754 bands
+gap 27: 754 bands
+gap 29: 678 bands
+gap 31: 172 bands
+gap 34: 90 bands
+blank gaps between ink runs, px: count
+    2: 7
+    3: 13
+    4: 4
+    5: 8
+    6: 9
+    7: 2
+    8: 8
+    9: 1
+   10: 1
+   11: 2
+   14: 1
+   16: 2
+   20: 5
+   23: 1
+   24: 1
+   29: 76
+   30: 407
+   31: 99
+   32: 54
+   33: 17
+   34: 11
+   35: 6
+   38: 1
+   41: 1
+   42: 4
+   43: 5
+   44: 2
+   48: 2
+   53: 1
+   54: 1

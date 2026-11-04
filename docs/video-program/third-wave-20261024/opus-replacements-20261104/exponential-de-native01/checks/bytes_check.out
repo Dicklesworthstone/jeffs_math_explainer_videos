@@ -1,0 +1,67 @@
+--- root's stage, the bytes this patch was built on
+PASS stage src/phrase.rs  7ab27a09372cc42e
+PASS stage src/chapters/factorials.rs  ca48d460151a418a
+PASS stage src/chapters/product_grid.rs  d06c45e6a7d9387d
+PASS stage src/chapters/rate_law.rs  0d472d7098fb1534
+PASS stage src/series_model.rs  f5115801e279a5c6
+PASS stage src/product_model.rs  b978fcd3ff5eafe3
+PASS stage src/rate_model.rs  8d896cf9d23d6a6f
+PASS stage oracle.py  650cb5b3a06efa09
+PASS stage script.tsv  adf9543c50555dbc
+  stage src/main.rs: 257bb3d36f305385
+  stage src/facts.rs: cc8bbdf235db7043
+  stage src/chapters/mod.rs: d9fcbfb564ddfce9
+  stage Cargo.toml: 020a55dda976ba63
+--- the patch, forward and reverse, fuzz 0, no offset
+  touches ['oracle.py', 'script.tsv', 'src/chapters/mod.rs', 'src/chapters/only_solution.rs', 'src/chapters/tiny_multipliers.rs', 'src/facts.rs', 'src/limit_model.rs', 'src/main.rs', 'src/solution_model.rs']
+PASS exactly the nine expected files
+PASS no machine path in the patch
+PASS forward
+PASS   forward oracle.py == integrated
+PASS   forward script.tsv == integrated
+PASS   forward src/chapters/mod.rs == integrated
+PASS   forward src/chapters/only_solution.rs == integrated
+PASS   forward src/chapters/tiny_multipliers.rs == integrated
+PASS   forward src/facts.rs == integrated
+PASS   forward src/limit_model.rs == integrated
+PASS   forward src/main.rs == integrated
+PASS   forward src/solution_model.rs == integrated
+PASS   src/limit_model.rs == candidate/limit01/limit_model.rs
+PASS   src/solution_model.rs == candidate/only01/solution_model.rs
+PASS   src/chapters/tiny_multipliers.rs == candidate/limit01/tiny_multipliers.rs
+PASS   src/chapters/only_solution.rs == candidate/only01/only_solution.rs
+PASS reverse
+PASS   reverse oracle.py == stage
+PASS   reverse script.tsv == stage
+PASS   reverse src/main.rs == stage
+PASS   reverse src/facts.rs == stage
+PASS   reverse src/chapters/mod.rs == stage
+PASS   reverse removes src/limit_model.rs
+PASS   reverse removes src/solution_model.rs
+PASS   reverse removes src/chapters/tiny_multipliers.rs
+PASS   reverse removes src/chapters/only_solution.rs
+PASS git apply --check from inside a copy of native-crate
+--- the frozen bundles stand
+PASS exponential-abc-teaching-repair01/HASHES.sha256 is the delivered one  0b7717acf0b9408e
+PASS every listed file still matches: 43 listed
+PASS exponential-abc-cross-review02/HASHES.sha256 is the delivered one  027075b445ac11a6
+PASS every listed file still matches: 18 listed
+--- nothing in this folder names a machine path
+PASS no absolute home or scratch path outside this script's own pattern  ['checks/bytes_check.py']
+--- HANDOFF.md's bindings, when it exists
+PASS binding patches/integration.patch  1be8145f6ad9
+PASS binding candidate/limit01/limit_model.rs  ec8a857fac17
+PASS binding candidate/limit01/tiny_multipliers.rs  9f584a39bc9c
+PASS binding candidate/limit01/oracle.py  9428e8416b94
+PASS binding candidate/limit01/script-slice.tsv  3d37a8319d1c
+PASS binding candidate/only01/solution_model.rs  111838d7bf4f
+PASS binding candidate/only01/only_solution.rs  faf42a21e6f7
+PASS binding candidate/only01/oracle.py  8fede8d2fc78
+PASS binding candidate/only01/script-slice.tsv  8300bd1b800e
+  bindings checked: 9
+--- canonical, read only, for root's base check
+  canonical now oracle.py c28b1e87ccb63e09
+  canonical now src/facts.rs 75bc46a0b43a1e85
+  canonical now src/main.rs 14ff5e872f72b95b
+  canonical now script.tsv 077cd2f02e8b5074
+RESULT PASS

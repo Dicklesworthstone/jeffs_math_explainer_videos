@@ -1,0 +1,103 @@
+--- A. the printed bounds at R = 3/2
+  degree 4: first omitted 0.063281250; 2 x that 0.126562500; true tail in [0.083251570, 0.083251570]; math.exp route 0.083251570
+PASS oracle row prints 0.12657
+PASS degree 4: the printed number is at or above 2 t(N+1)
+PASS degree 4: rounded up by less than one in the fifth place
+PASS degree 4: the true tail is under the bound
+PASS degree 4: N+2 >= 2R (6 >= 3)
+PASS degree 4: every later ratio is at most 1/2
+PASS degree 4: every later term is under its ceiling
+  degree 8: first omitted 0.000105940; 2 x that 0.000211879; true tail in [0.000124303, 0.000124303]; math.exp route 0.000124303
+PASS oracle row prints 0.00022
+PASS degree 8: the printed number is at or above 2 t(N+1)
+PASS degree 8: rounded up by less than one in the fifth place
+PASS degree 8: the true tail is under the bound
+PASS degree 8: N+2 >= 2R (10 >= 3)
+PASS degree 8: every later ratio is at most 1/2
+PASS degree 8: every later term is under its ceiling
+  old printed bound 0.08438 = t5/(1 - 1/4) = 0.0843750; also true, on a different hypothesis
+--- B. every |x| <= R, not only x = R
+PASS degree 4: the absolute tail stays under the bound at 25 inputs across the interval
+PASS degree 8: the absolute tail stays under the bound at 25 inputs across the interval
+--- C. the hypothesis, swept and at its edges
+PASS N+2 >= 2R: no failure in 160 cases
+  without the guard the claim is false in 68 of the other cases, first [('3/2', 0), ('2', 0), ('2', 1), ('5/2', 0)]
+PASS edge: R = 3/2, N = 0 fails without the guard: 2 t1 = 3 under e^1.5 - 1
+PASS mutation caught: the old hypothesis N+2 > R paired with the factor 2 is false in 36 cases
+PASS edge: R = 3/2, N = 1 is the first degree the guard allows, and the bound holds there
+PASS edge: equality N+2 = 2R (R = 3, N = 4) holds
+--- D. mutations that must fail
+PASS factor 1 instead of 2 is below the true tail at degree 4
+PASS rounding degree 4 down prints under the bound
+PASS rounding degree 8 down prints under the bound
+--- E. the model functions, cut verbatim from series_model.rs
+PASS the cut functions compile
+  tail 1.5 0 None
+  tail 1.5 1 Some(2.25)
+  tail 1.5 4 Some(0.1265625)
+  tail 1.5 8 Some(0.00021187918526785715)
+  tail 1.5 18 Some(3.644763023915672e-14)
+  tail 1.5 19 None
+  tail 3 3 None
+  tail 3 4 Some(4.05)
+  tail -1 4 None
+  tail NaN 4 None
+  label 4 0.12657
+  label 8 0.00022
+  halving 3
+  whole [0.0, 1.0, 2.0, 3.0]
+  fractions [0.25, 0.5, 0.75, 1.25, 1.5, 1.75, 2.25, 2.5, 2.75]
+  negatives [-2.0, -1.75, -1.5, -1.25, -1.0, -0.75, -0.5, -0.25]
+PASS tail_bound refuses R = 1.5, N = 0
+PASS tail_bound allows R = 1.5, N = 1, at 2.25
+PASS tail_bound changes over at N + 2 = 2R for R = 3
+PASS tail_bound refuses a negative or non-finite radius
+PASS tail_label prints the two figures from the native arithmetic
+PASS halving_from(1.5) = 3
+--- F. the ratio row, the ceilings and the derivative shift
+PASS ratio 1 = R/1
+PASS ratio 2 = R/2
+PASS ratio 3 = R/3
+PASS ratio 4 = R/4
+PASS ratio 5 = R/5
+PASS ratio 6 = R/6
+PASS ratio 7 = R/7
+PASS ratio 8 = R/8
+PASS the first ratio at most 1/2 is index 3
+PASS ceiling over term 5 matches t5 / 2^(k-5) to print precision
+PASS ceiling over term 6 matches t5 / 2^(k-5) to print precision
+PASS ceiling over term 7 matches t5 / 2^(k-5) to print precision
+PASS ceiling over term 8 matches t5 / 2^(k-5) to print precision
+PASS ceiling over term 9 matches t5 / 2^(k-5) to print precision
+PASS d/dx x^k/k! = x^(k-1)/(k-1)!: the shift is exact
+PASS the derivative series after degree N-1 obeys the same bound, one index down, from N = 2
+--- G. the recurrence, from coefficient matching alone
+PASS matching gives 1/k! through k = 12
+PASS (k+1) u(k+1) = u(k): the reason behind the chain
+PASS 02_3 s2 says the five values in order  one, one, one half, one sixth, one twenty-fourth
+PASS coefficient row 0 = 1
+PASS running product 0: 1 = 0!
+PASS coefficient row 1 = 1
+PASS running product 1: 1 = 1!
+PASS coefficient row 2 = 1/2
+PASS running product 2: 1\cdot 2 = 2!
+PASS coefficient row 3 = 1/6
+PASS running product 3: 1\cdot 2\cdot 3 = 3!
+PASS coefficient row 4 = 1/24
+PASS running product 4: 1\cdot 2\cdot 3\cdot 4 = 4!
+PASS the chain's divisors are 1, 2, 3, 4: each is the next whole number
+  voiced anywhere in 02_1 to 03_7: 'u' as a word: 0 | 'zero factorial': 0
+--- H. 03_7: the ladder, in exact interval arithmetic
+PASS the three clouds mark each of the 21 quarter points from -2 to 3 exactly once
+PASS 'fractions' are all positive and 'negatives' all negative
+PASS the fact rows count the same clouds
+PASS E(1) is in (2.71828, 2.71829), and the fact row prints 2.71828
+PASS E(2) = e times e
+PASS E(3) = e cubed
+PASS E(1/2)^2 = e
+PASS E(1/2) > 0, as 03_6 shows and as the screen line states
+PASS control: -E(1/2) squares to e as well, so 'E > 0' on the screen line is needed
+PASS E(q)^4 = e^(4q) at every quarter point, negatives included
+PASS E(q) E(-q) = 1 at every negative mark: the reciprocal step
+PASS without reciprocals the marks stop at 0: continuity alone never reaches a negative input, so the clause is needed
+RESULT PASS

@@ -1,0 +1,457 @@
+== this preview's cue table against the preview before repair03 (scratch voice both times)
+identical bytes: True | cues 11
+
+== word alignment of each take to the script (matched / script words), and lengths
+10_1 | preview 21.554 | take01 len 22.40 matched 54/55 | take02 len 22.16 matched 54/55
+10_2 | preview 26.938 | take01 len 29.44 matched 68/69 | take02 len 28.80 matched 68/69
+10_3 | preview 23.092 | take01 len 24.80 matched 55/59 | take02 len 25.44 matched 55/59
+10_4 | preview 18.092 | take01 len 19.84 matched 44/46 | take02 len 19.60 matched 44/46
+10_5 | preview 24.631 | take01 len 26.64 matched 53/63 | take02 len 25.92 matched 55/63
+10_6 | preview 25.400 | take01 len 28.64 matched 64/65 | take02 len 28.80 matched 64/65
+10_7 | preview 35.400 | take01 len 34.96 matched 91/91 | take02 len 35.36 matched 91/91
+10_8 | preview 17.708 | take01 len 18.00 matched 43/45 | take02 len 18.00 matched 43/45
+10_9 | preview 23.092 | take01 len 22.96 matched 57/59 | take02 len 22.88 matched 57/59
+10_10 | preview 31.554 | take01 len 36.32 matched 80/81 | take02 len 35.92 matched 80/81
+10_11 | preview 24.246 | take01 len 25.84 matched 61/62 | take02 len 25.52 matched 61/62
+
+== sentence starts, seconds into the cue
+10_1 scratch [0.0, 2.74, 6.41, 12.28, 15.95] | speech ends 21.15
+10_1 take01  [0.0, 3.16, 7.6, 13.36, 17.64] | speech ends 22.4
+10_1 take02  [0.0, 3.16, 7.6, 13.28, 17.52] | speech ends 22.16
+10_2 scratch [0.0, 0.99, 2.96, 6.21, 9.18, 12.21, 16.23, 20.89, 23.86] | speech ends 26.54
+10_2 take01  [0.0, 1.42, 3.8, 7.9, 11.22, 14.4, 19.24, 24.0, 26.92] | speech ends 29.44
+10_2 take02  [0.0, 1.7, 4.18, 8.04, 11.56, 14.74, 19.24, 23.84, 26.6] | speech ends 28.8
+10_3 scratch [0.0, 2.4, 7.59, 10.71, 13.64] | speech ends 22.69
+10_3 take01  [0.0, 2.88, 9.4, 13.22, 16.68] | speech ends 24.8
+10_3 take02  [0.0, 2.76, 9.68, 13.52, 17.12] | speech ends 25.44
+10_4 scratch [0.0, 4.7, 8.45, 12.6] | speech ends 17.69
+10_4 take01  [0.0, 4.6, 9.2, 15.56] | speech ends 19.84
+10_4 take02  [0.0, 4.7, 9.3, 15.34] | speech ends 19.6
+10_5 scratch [0.0, 4.62, 8.61, 14.35, 17.85] | speech ends 24.23
+10_5 take01  [0.0, 5.1, 10.42, 16.22, 20.22] | speech ends 26.64
+10_5 take02  [0.0, 5.0, 10.24, 15.88, 19.8] | speech ends 25.92
+10_6 scratch [0.0, 2.19, 6.12, 13.34, 17.59, 21.52] | speech ends 25.0
+10_6 take01  [0.0, 2.64, 7.42, 16.34, 20.54, 24.88] | speech ends 28.64
+10_6 take02  [0.0, 2.62, 7.4, 16.54, 20.76, 24.98] | speech ends 28.8
+10_7 scratch [0.0, 5.11, 7.78, 11.97, 16.47, 26.76] | speech ends 35.0
+10_7 take01  [0.0, 5.52, 8.08, 12.96, 17.68, 27.28] | speech ends 34.96
+10_7 take02  [0.0, 5.78, 8.32, 13.22, 18.0, 27.76] | speech ends 35.36
+10_8 scratch [0.0, 2.88, 11.72] | speech ends 17.31
+10_8 take01  [0.0, 3.62, 13.06] | speech ends 18.0
+10_8 take02  [0.0, 3.56, 13.06] | speech ends 18.0
+10_9 scratch [0.0, 5.59, 13.24, 19.32] | speech ends 22.69
+10_9 take01  [0.0, 6.8, 13.28, 19.74] | speech ends 22.96
+10_9 take02  [0.0, 6.84, 13.24, 19.7] | speech ends 22.88
+10_10 scratch [0.0, 3.78, 9.17, 15.9, 20.77, 23.33] | speech ends 31.15
+10_10 take01  [0.0, 4.0, 10.54, 18.4, 24.58, 28.36] | speech ends 36.32
+10_10 take02  [0.0, 3.9, 10.54, 18.2, 24.48, 28.14] | speech ends 35.92
+10_11 scratch [0.0, 6.43, 11.17, 18.99] | speech ends 23.85
+10_11 take01  [0.0, 6.62, 11.72, 20.52] | speech ends 25.84
+10_11 take02  [0.0, 6.5, 11.72, 20.32] | speech ends 25.52
+
+== positive control: scratch replay against frames read on the sheets
+10_2 ord(8)=3 begins: replay 42.00 | first seen in frame 94 at 42.50 | sample before at 42.00 | replay falls inside that interval or within one sample: True
+10_4 d row begins: replay 81.73 | first seen in frame 185 at 82.00 | sample before at 81.50 | replay falls inside that interval or within one sample: True
+10_4 k split begins: replay 89.83 | first seen in frame 202 at 90.50 | sample before at 90.00 | replay falls inside that interval or within one sample: True
+10_4 coprime begins: replay 90.43 | first seen in frame 203 at 91.00 | sample before at 90.50 | replay falls inside that interval or within one sample: True
+10_6 k row begins: replay 124.06 | first seen in frame 282 at 124.50 | sample before at 124.00 | replay falls inside that interval or within one sample: True
+10_6 gcd row begins: replay 125.26 | first seen in frame 284 at 125.50 | sample before at 125.00 | replay falls inside that interval or within one sample: True
+10_6 ord row begins: replay 127.39 | first seen in frame 288 at 127.50 | sample before at 127.00 | replay falls inside that interval or within one sample: True
+10_10 table begins: replay 225.40 | first seen in frame 505 at 225.50 | sample before at 225.20 | replay falls inside that interval or within one sample: True
+10_10 squares begins: replay 240.90 | first seen in frame 536 at 241.00 | sample before at 240.50 | replay falls inside that interval or within one sample: True
+10_10 no element begins: replay 248.33 | first seen in frame 551 at 248.50 | sample before at 248.00 | replay falls inside that interval or within one sample: True
+
+== beats, seconds into the cue: start-end label, one block per voice
+-- 10_1 current | scratch | speech ends 21.15 | last beat ends 0.40 | fits inside the voice: True
+     0.00-  0.40 whole picture with the question
+-- 10_1 current | take01 | speech ends 22.40 | last beat ends 0.40 | fits inside the voice: True
+     0.00-  0.40 whole picture with the question
+-- 10_1 current | take02 | speech ends 22.16 | last beat ends 0.40 | fits inside the voice: True
+     0.00-  0.40 whole picture with the question
+-- 10_1 patched | scratch | speech ends 21.15 | last beat ends 12.68 | fits inside the voice: True
+     0.00-  0.40 clock
+    12.28        [sentence 3]
+    12.28- 12.68 question up
+-- 10_1 patched | take01 | speech ends 22.40 | last beat ends 13.76 | fits inside the voice: True
+     0.00-  0.40 clock
+    13.36        [sentence 3]
+    13.36- 13.76 question up
+-- 10_1 patched | take02 | speech ends 22.16 | last beat ends 13.68 | fits inside the voice: True
+     0.00-  0.40 clock
+    13.28        [sentence 3]
+    13.28- 13.68 question up
+-- 10_2 current | scratch | speech ends 26.54 | last beat ends 16.63 | fits inside the voice: True
+     0.99        [sentence 1]
+     0.99-  2.59 at 8
+     2.96        [sentence 2]
+     2.96-  4.56 at 4
+     6.21        [sentence 3]
+     6.21-  7.81 at 0
+     9.18        [sentence 4]
+     9.18-  9.58 trail
+    12.21        [sentence 5]
+    12.21- 12.61 orbit
+    16.23        [sentence 6]
+    16.23- 16.63 ord(8)=3
+-- 10_2 current | take01 | speech ends 29.44 | last beat ends 19.64 | fits inside the voice: True
+     1.42        [sentence 1]
+     1.42-  3.02 at 8
+     3.80        [sentence 2]
+     3.80-  5.40 at 4
+     7.90        [sentence 3]
+     7.90-  9.50 at 0
+    11.22        [sentence 4]
+    11.22- 11.62 trail
+    14.40        [sentence 5]
+    14.40- 14.80 orbit
+    19.24        [sentence 6]
+    19.24- 19.64 ord(8)=3
+-- 10_2 current | take02 | speech ends 28.80 | last beat ends 19.64 | fits inside the voice: True
+     1.70        [sentence 1]
+     1.70-  3.30 at 8
+     4.18        [sentence 2]
+     4.18-  5.78 at 4
+     8.04        [sentence 3]
+     8.04-  9.64 at 0
+    11.56        [sentence 4]
+    11.56- 11.96 trail
+    14.74        [sentence 5]
+    14.74- 15.14 orbit
+    19.24        [sentence 6]
+    19.24- 19.64 ord(8)=3
+-- 10_2 patched | scratch | speech ends 26.54 | last beat ends 24.46 | fits inside the voice: True
+     0.99        [sentence 1]
+     0.99-  2.59 at 8
+     2.96        [sentence 2]
+     2.96-  4.56 at 4
+     6.21        [sentence 3]
+     6.21-  7.81 at 0
+     9.18        [sentence 4]
+     9.18-  9.58 trail
+    12.21        [sentence 5]
+    12.21- 12.61 orbit
+    16.23        [sentence 6]
+    16.23- 16.63 ord(8)=3
+    20.89        [sentence 7]
+    20.89- 21.29 group size
+    23.86        [sentence 8]
+    23.86- 24.46 both pulse
+-- 10_2 patched | take01 | speech ends 29.44 | last beat ends 27.52 | fits inside the voice: True
+     1.42        [sentence 1]
+     1.42-  3.02 at 8
+     3.80        [sentence 2]
+     3.80-  5.40 at 4
+     7.90        [sentence 3]
+     7.90-  9.50 at 0
+    11.22        [sentence 4]
+    11.22- 11.62 trail
+    14.40        [sentence 5]
+    14.40- 14.80 orbit
+    19.24        [sentence 6]
+    19.24- 19.64 ord(8)=3
+    24.00        [sentence 7]
+    24.00- 24.40 group size
+    26.92        [sentence 8]
+    26.92- 27.52 both pulse
+-- 10_2 patched | take02 | speech ends 28.80 | last beat ends 27.20 | fits inside the voice: True
+     1.70        [sentence 1]
+     1.70-  3.30 at 8
+     4.18        [sentence 2]
+     4.18-  5.78 at 4
+     8.04        [sentence 3]
+     8.04-  9.64 at 0
+    11.56        [sentence 4]
+    11.56- 11.96 trail
+    14.74        [sentence 5]
+    14.74- 15.14 orbit
+    19.24        [sentence 6]
+    19.24- 19.64 ord(8)=3
+    23.84        [sentence 7]
+    23.84- 24.24 group size
+    26.60        [sentence 8]
+    26.60- 27.20 both pulse
+-- 10_4 current | scratch | speech ends 17.69 | last beat ends 14.39 | fits inside the voice: True
+     0.00-  1.40 setting
+     4.70        [sentence 1]
+     4.70-  5.10 d
+     5.10-  6.85 star drawn
+     6.85-  7.25 star tint
+     7.25-  7.55 orbit count
+     8.45        [sentence 2]
+     8.45-  9.05 star gone
+     9.05- 10.15 block arcs
+    10.15- 10.45 block labels
+    10.45- 10.75 n split
+    10.65        [phrase 'and k as d times' passed by 0.11]
+    10.75- 12.79 hop done
+    12.79- 13.09 k split
+    13.09- 13.39 hop hidden
+    12.60        [sentence 3 passed by 0.79]
+    13.39- 13.79 coprime
+    13.79- 14.39 pulse
+-- 10_4 current | take01 | speech ends 19.84 | last beat ends 16.56 | fits inside the voice: True
+     0.00-  1.40 setting
+     4.60        [sentence 1]
+     4.60-  5.00 d
+     5.00-  6.75 star drawn
+     6.75-  7.15 star tint
+     7.15-  7.45 orbit count
+     9.20        [sentence 2]
+     9.20-  9.80 star gone
+     9.80- 10.90 block arcs
+    10.90- 11.20 block labels
+    11.20- 11.50 n split
+    12.56        [phrase 'and k as d times']
+    12.56- 14.60 hop done
+    14.60- 14.90 k split
+    14.90- 15.20 hop hidden
+    15.56        [sentence 3]
+    15.56- 15.96 coprime
+    15.96- 16.56 pulse
+-- 10_4 current | take02 | speech ends 19.60 | last beat ends 16.34 | fits inside the voice: True
+     0.00-  1.40 setting
+     4.70        [sentence 1]
+     4.70-  5.10 d
+     5.10-  6.85 star drawn
+     6.85-  7.25 star tint
+     7.25-  7.55 orbit count
+     9.30        [sentence 2]
+     9.30-  9.90 star gone
+     9.90- 11.00 block arcs
+    11.00- 11.30 block labels
+    11.30- 11.60 n split
+    12.49        [phrase 'and k as d times']
+    12.49- 14.53 hop done
+    14.53- 14.83 k split
+    14.83- 15.13 hop hidden
+    15.34        [sentence 3]
+    15.34- 15.74 coprime
+    15.74- 16.34 pulse
+-- 10_4 patched | scratch | speech ends 17.69 | last beat ends 14.39 | fits inside the voice: True
+     0.00-  1.40 setting
+     4.70        [sentence 1]
+     4.70-  5.10 d
+     5.10-  6.85 star drawn
+     6.85-  7.25 star tint
+     7.25-  7.55 orbit count
+     8.45        [sentence 2]
+     8.45-  9.05 star gone
+     9.05- 10.15 block arcs
+    10.15- 10.45 block labels
+    10.45- 10.75 n split
+    10.65        [phrase 'and k as d times' passed by 0.11]
+    10.75- 11.05 k split
+    11.05- 13.09 hop done
+    13.09- 13.39 hop hidden
+    12.60        [sentence 3 passed by 0.79]
+    13.39- 13.79 coprime
+    13.79- 14.39 pulse
+-- 10_4 patched | take01 | speech ends 19.84 | last beat ends 16.56 | fits inside the voice: True
+     0.00-  1.40 setting
+     4.60        [sentence 1]
+     4.60-  5.00 d
+     5.00-  6.75 star drawn
+     6.75-  7.15 star tint
+     7.15-  7.45 orbit count
+     9.20        [sentence 2]
+     9.20-  9.80 star gone
+     9.80- 10.90 block arcs
+    10.90- 11.20 block labels
+    11.20- 11.50 n split
+    12.56        [phrase 'and k as d times']
+    12.56- 12.86 k split
+    12.86- 14.90 hop done
+    14.90- 15.20 hop hidden
+    15.56        [sentence 3]
+    15.56- 15.96 coprime
+    15.96- 16.56 pulse
+-- 10_4 patched | take02 | speech ends 19.60 | last beat ends 16.34 | fits inside the voice: True
+     0.00-  1.40 setting
+     4.70        [sentence 1]
+     4.70-  5.10 d
+     5.10-  6.85 star drawn
+     6.85-  7.25 star tint
+     7.25-  7.55 orbit count
+     9.30        [sentence 2]
+     9.30-  9.90 star gone
+     9.90- 11.00 block arcs
+    11.00- 11.30 block labels
+    11.30- 11.60 n split
+    12.49        [phrase 'and k as d times']
+    12.49- 12.79 k split
+    12.79- 14.83 hop done
+    14.83- 15.13 hop hidden
+    15.34        [sentence 3]
+    15.34- 15.74 coprime
+    15.74- 16.34 pulse
+-- 10_6 current | scratch | speech ends 25.00 | last beat ends 11.47 | fits inside the voice: True
+     0.00-  1.20 rule
+     2.19        [sentence 1]
+     2.19-  2.79 asked title
+     2.79-  3.09 k and gcd names
+     3.09-  4.29 k row
+     4.29-  5.49 gcd row
+     6.12        [sentence 2]
+     6.12-  6.42 ord name
+     6.42-  7.62 ord row
+     7.62-  8.22 rule pulse
+    11.47        [phrase 'one, five, seven']
+    11.47- 11.47 generators boxed from here
+-- 10_6 current | take01 | speech ends 28.64 | last beat ends 14.03 | fits inside the voice: True
+     0.00-  1.20 rule
+     2.64        [sentence 1]
+     2.64-  3.24 asked title
+     3.24-  3.54 k and gcd names
+     3.54-  4.74 k row
+     4.74-  5.94 gcd row
+     7.42        [sentence 2]
+     7.42-  7.72 ord name
+     7.72-  8.92 ord row
+     8.92-  9.52 rule pulse
+    14.03        [phrase 'one, five, seven']
+    14.03- 14.03 generators boxed from here
+-- 10_6 current | take02 | speech ends 28.80 | last beat ends 14.17 | fits inside the voice: True
+     0.00-  1.20 rule
+     2.62        [sentence 1]
+     2.62-  3.22 asked title
+     3.22-  3.52 k and gcd names
+     3.52-  4.72 k row
+     4.72-  5.92 gcd row
+     7.40        [sentence 2]
+     7.40-  7.70 ord name
+     7.70-  8.90 ord row
+     8.90-  9.50 rule pulse
+    14.17        [phrase 'one, five, seven']
+    14.17- 14.17 generators boxed from here
+-- 10_6 patched | scratch | speech ends 25.00 | last beat ends 11.47 | fits inside the voice: True
+     0.00-  1.20 rule
+     2.19        [sentence 1]
+     2.19-  2.79 asked title
+     2.79-  3.09 k name
+     3.09-  4.29 k row
+     6.12        [sentence 2]
+     6.12-  6.42 gcd and ord names
+     6.42-  7.62 gcd row
+     7.62-  8.82 ord row
+     8.82-  9.42 rule pulse
+    11.47        [phrase 'one, five, seven']
+    11.47- 11.47 generators boxed from here
+-- 10_6 patched | take01 | speech ends 28.64 | last beat ends 14.03 | fits inside the voice: True
+     0.00-  1.20 rule
+     2.64        [sentence 1]
+     2.64-  3.24 asked title
+     3.24-  3.54 k name
+     3.54-  4.74 k row
+     7.42        [sentence 2]
+     7.42-  7.72 gcd and ord names
+     7.72-  8.92 gcd row
+     8.92- 10.12 ord row
+    10.12- 10.72 rule pulse
+    14.03        [phrase 'one, five, seven']
+    14.03- 14.03 generators boxed from here
+-- 10_6 patched | take02 | speech ends 28.80 | last beat ends 14.17 | fits inside the voice: True
+     0.00-  1.20 rule
+     2.62        [sentence 1]
+     2.62-  3.22 asked title
+     3.22-  3.52 k name
+     3.52-  4.72 k row
+     7.40        [sentence 2]
+     7.40-  7.70 gcd and ord names
+     7.70-  8.90 gcd row
+     8.90- 10.10 ord row
+    10.10- 10.70 rule pulse
+    14.17        [phrase 'one, five, seven']
+    14.17- 14.17 generators boxed from here
+-- 10_10 current | scratch | speech ends 31.15 | last beat ends 23.73 | fits inside the voice: True
+     0.00-  0.40 proof gone
+     0.40-  0.80 whole table
+    15.90        [sentence 3]
+    15.90- 16.30 squares
+    23.33        [sentence 5]
+    23.33- 23.73 no element
+-- 10_10 current | take01 | speech ends 36.32 | last beat ends 28.76 | fits inside the voice: True
+     0.00-  0.40 proof gone
+     0.40-  0.80 whole table
+    18.40        [sentence 3]
+    18.40- 18.80 squares
+    28.36        [sentence 5]
+    28.36- 28.76 no element
+-- 10_10 current | take02 | speech ends 35.92 | last beat ends 28.54 | fits inside the voice: True
+     0.00-  0.40 proof gone
+     0.40-  0.80 whole table
+    18.20        [sentence 3]
+    18.20- 18.60 squares
+    28.14        [sentence 5]
+    28.14- 28.54 no element
+-- 10_10 patched | scratch | speech ends 31.15 | last beat ends 26.68 | fits inside the voice: True
+     0.00-  0.40 proof gone
+     0.40-  0.80 U(12) line
+     3.78        [sentence 1]
+     3.78-  4.18 table
+     9.17        [sentence 2]
+     9.17-  9.57 relatively prime
+    15.90        [sentence 3]
+    15.90- 16.30 squares
+    16.30- 16.70 diagonal tint
+    20.77        [sentence 4]
+    20.77- 21.17 orders
+    23.33        [sentence 5]
+    23.33- 23.73 no element
+    26.28        [phrase 'so this group is not']
+    26.28- 26.68 not the rotations
+-- 10_10 patched | take01 | speech ends 36.32 | last beat ends 31.76 | fits inside the voice: True
+     0.00-  0.40 proof gone
+     0.40-  0.80 U(12) line
+     4.00        [sentence 1]
+     4.00-  4.40 table
+    10.54        [sentence 2]
+    10.54- 10.94 relatively prime
+    18.40        [sentence 3]
+    18.40- 18.80 squares
+    18.80- 19.20 diagonal tint
+    24.58        [sentence 4]
+    24.58- 24.98 orders
+    28.36        [sentence 5]
+    28.36- 28.76 no element
+    31.36        [phrase 'so this group is not']
+    31.36- 31.76 not the rotations
+-- 10_10 patched | take02 | speech ends 35.92 | last beat ends 31.47 | fits inside the voice: True
+     0.00-  0.40 proof gone
+     0.40-  0.80 U(12) line
+     3.90        [sentence 1]
+     3.90-  4.30 table
+    10.54        [sentence 2]
+    10.54- 10.94 relatively prime
+    18.20        [sentence 3]
+    18.20- 18.60 squares
+    18.60- 19.00 diagonal tint
+    24.48        [sentence 4]
+    24.48- 24.88 orders
+    28.14        [sentence 5]
+    28.14- 28.54 no element
+    31.07        [phrase 'so this group is not']
+    31.07- 31.47 not the rotations
+
+== how long the 10_10 table would sit unchanged, seconds
+scratch current: table full at 0.80, squares at 15.9 = 15.1 | patched longest gap: 6.33
+take01 current: table full at 0.80, squares at 18.4 = 17.6 | patched longest gap: 7.46
+take02 current: table full at 0.80, squares at 18.2 = 17.4 | patched longest gap: 7.26
+
+== what the voice is on when the question and the rows are up, seconds into the cue
+scratch 10_1: 'add eight' sentence at 12.28 | 'predict' sentence at 15.95 | question up since 0.40
+scratch 10_6: question sentence 2.19 to 6.12 | answer word 'one, five, seven' by phrase rule 11.47 | by ASR None
+scratch 10_4: 'and k as d times' by phrase rule 10.65 | by ASR None | 'k prime' by ASR None | 'Those two' at 12.6
+scratch 10_2: 'The whole clock' at 20.89 | 'These are' at 23.86 | speech ends 26.54
+take01 10_1: 'add eight' sentence at 13.36 | 'predict' sentence at 17.64 | question up since 0.40
+take01 10_6: question sentence 2.64 to 7.42 | answer word 'one, five, seven' by phrase rule 14.03 | by ASR 12.59999942779541
+take01 10_4: 'and k as d times' by phrase rule 12.56 | by ASR 11.779999732971191 | 'k prime' by ASR 14.15999984741211 | 'Those two' at 15.56
+take01 10_2: 'The whole clock' at 24.0 | 'These are' at 26.92 | speech ends 29.44
+take02 10_1: 'add eight' sentence at 13.28 | 'predict' sentence at 17.52 | question up since 0.40
+take02 10_6: question sentence 2.62 to 7.4 | answer word 'one, five, seven' by phrase rule 14.17 | by ASR 13.16
+take02 10_4: 'and k as d times' by phrase rule 12.49 | by ASR 11.679999351501465 | 'k prime' by ASR 13.9399995803833 | 'Those two' at 15.34
+take02 10_2: 'The whole clock' at 23.84 | 'These are' at 26.6 | speech ends 28.8
+
+== the end of 10_11: last picture change against the voice, seconds into the cue
+scratch d ring pulse 15.77 to 16.37 | 'Next we' at 18.99 | speech ends 23.85 | still after the pulse 7.47
+take01 d ring pulse 16.9 to 17.5 | 'Next we' at 20.52 | speech ends 25.84 | still after the pulse 8.34
+take02 d ring pulse 16.78 to 17.38 | 'Next we' at 20.32 | speech ends 25.52 | still after the pulse 8.14

@@ -1,0 +1,268 @@
+
+######## AB:13_8
+  large: r³ r = e whole 13.78, leaves 13.82: hold 0.04; s4 slack -0.40
+  small: r³ r = e whole 13.92, leaves 13.92: hold 0.00; s4 slack -0.46
+
+######## ABC
+
+---- large model
+13_3 starts [0.0, 1.84, 5.42, 8.18, 10.420000076293945, 13.12, 16.62]
+    {'what': 'wait s1', 'at': 0.0, 'slack': 1.84}
+    {'what': 'fade', 'at': 1.84, 'of': '[left_label]', 'until': 2.24}
+    {'what': 'move', 'at': 2.24, 'tile': 'left', 'to': 1.0, 'lands': 3.54}
+    {'what': 'move', 'at': 3.79, 'tile': 'left', 'to': 2.0, 'lands': 5.09}
+    {'what': 'wait s3', 'at': 5.34, 'slack': 2.84}
+    {'what': 'caption', 'at': 8.18, 'text': 'r²', 'whole': 8.58}
+    {'what': 'wait s4', 'at': 8.58, 'slack': 1.84}
+    {'what': 'fade', 'at': 10.42, 'of': 'left_label', 'until': 10.82}
+    {'what': 'move', 'at': 10.82, 'tile': 'left', 'to': 3.0, 'lands': 12.52}
+    {'what': 'caption', 'at': 13.02, 'text': 'r³', 'whole': 13.42}
+    {'what': 'fade', 'at': 14.02, 'of': '[left_label]', 'until': 14.42}
+    {'what': 'move', 'at': 14.42, 'tile': 'left', 'to': 4.0, 'lands': 16.12}
+    {'what': 'wait s6', 'at': 16.62, 'slack': -0.0}
+    {'what': 'caption', 'at': 16.62, 'text': 'r⁴ = e', 'whole': 17.02}
+  r²: whole 8.58; voice says R at 8.66: lead +0.08
+  r³: tile lands 12.52; fade-in 13.02; whole 13.42; leaves 14.02; hold 0.60
+      voice: R 11.62, cubed 11.98, Four 13.12
+      tile lands +0.54 from cubed; whole +1.44 from cubed; whole +0.30 from Four
+  slack at s6 (r⁴ = e): -0.00
+13_7 starts [0.0, 3.42, 10.22, 14.94, 21.02]
+    {'what': 'wait s1', 'at': 0.0, 'slack': 3.42}
+    {'what': 'box', 'at': 3.42, 'whole': 3.82}
+    {'what': 'wait phrase REVERSE_PHRASE', 'at': 3.82, 'target': 8.69, 'slack': 4.87}
+    {'what': 'caption', 'at': 8.69, 'text': 's r = r⁻¹ s', 'whole': 9.09}
+    {'what': 'fade', 'at': 9.09, 'of': '[bracket, factors[0], factors[1]]', 'until': 9.49}
+    {'what': 'caption', 'at': 9.49, 'text': 'r⁻¹', 'whole': 9.89}
+    {'what': 'caption', 'at': 9.89, 'text': 's', 'whole': 10.29}
+    {'what': 'wait s2', 'at': 10.29, 'slack': -0.07}
+    {'what': 'box', 'at': 10.29, 'whole': 10.69}
+    {'what': 'fade', 'at': 11.69, 'of': '[pair, moved, factors[2]]', 'until': 12.09}
+    {'what': 'glide', 'at': 12.09, 'until': 12.49}
+    {'what': 'box', 'at': 12.49, 'whole': 12.89}
+    {'what': 'fade', 'at': 13.69, 'of': '[combine, inverse, factors[3]]', 'until': 14.09}
+    {'what': 'caption', 'at': 14.09, 'text': 'r', 'whole': 14.49}
+    {'what': 'wait s3', 'at': 14.49, 'slack': 0.45}
+    {'what': 'caption', 'at': 14.94, 'text': 'rᵏ  or  rᵏ s', 'whole': 15.34}
+  rule: fade-in 8.69, whole 9.09; voice: if 8.06, reverse 8.54 to 8.96
+        fade-in starts +0.15 from reverse's start; whole +0.13 from reverse's recognised end
+  slack: s2 -0.07, s3 +0.45
+13_8 starts [0.0, 4.0, 10.28, 13.82, 16.12]
+    {'what': 'fade', 'at': 0.0, 'of': '[row_frames[0], row_frames[1], normal]', 'until': 0.4}
+    {'what': 'wait phrase UNDO_PHRASE', 'at': 4.0, 'target': 9.27, 'slack': 5.27}
+    {'what': 'rack leaves', 'at': 9.27, 'until': 9.67}
+    {'what': 'tile appears at once', 'at': 9.67}
+    {'what': 'wait s2', 'at': 9.67, 'slack': 0.61}
+    {'what': 'move', 'at': 10.28, 'tile': 'undo', 'to': 1.0, 'lands': 11.08}
+    {'what': 'move', 'at': 11.33, 'tile': 'undo', 'to': 4.0, 'lands': 12.73}
+    {'what': 'caption', 'at': 12.98, 'text': 'r³ r = e', 'whole': 13.38}
+    {'what': 'wait s3', 'at': 13.38, 'slack': 0.44}
+    {'what': 'fade', 'at': 13.82, 'of': 'undo_label', 'until': 14.22}
+    {'what': 'caption', 'at': 14.22, 'text': 'Half-turn, then half-turn', 'whole': 14.62}
+    {'what': 'move', 'at': 14.62, 'tile': 'undo', 'to': 6.0, 'lands': 15.32}
+    {'what': 'move', 'at': 15.57, 'tile': 'undo', 'to': 8.0, 'lands': 16.27}
+    {'what': 'wait s4', 'at': 16.52, 'slack': -0.4}
+  rack leaves 9.27 to 9.67; voice: undo 8.84 to 9.24
+  r³ r = e: fade-in 12.98, whole 13.38, leaves 13.82: hold 0.44
+            against 5 glyphs at 15/s = 0.33 s: +0.11; against 8 with spaces = 0.53 s: -0.09
+  slack: s2 +0.61, s3 +0.44, s4 -0.40
+  if the two phrases are bound to their first recognised word, rather than a character share:
+    13_7 rule fade-in 8.06, whole 8.46; r⁻¹ whole 9.26; s2 slack +0.56
+    13_8 rack leaves 8.68 to 9.08; s2 slack +1.20; r³ r = e hold 0.44
+
+---- small model
+13_3 starts [0.0, 1.84, 5.42, 8.239999771118164, 10.34000015258789, 13.1, 16.62]
+    {'what': 'wait s1', 'at': 0.0, 'slack': 1.84}
+    {'what': 'fade', 'at': 1.84, 'of': '[left_label]', 'until': 2.24}
+    {'what': 'move', 'at': 2.24, 'tile': 'left', 'to': 1.0, 'lands': 3.54}
+    {'what': 'move', 'at': 3.79, 'tile': 'left', 'to': 2.0, 'lands': 5.09}
+    {'what': 'wait s3', 'at': 5.34, 'slack': 2.9}
+    {'what': 'caption', 'at': 8.24, 'text': 'r²', 'whole': 8.64}
+    {'what': 'wait s4', 'at': 8.64, 'slack': 1.7}
+    {'what': 'fade', 'at': 10.34, 'of': 'left_label', 'until': 10.74}
+    {'what': 'move', 'at': 10.74, 'tile': 'left', 'to': 3.0, 'lands': 12.44}
+    {'what': 'caption', 'at': 12.94, 'text': 'r³', 'whole': 13.34}
+    {'what': 'fade', 'at': 13.94, 'of': '[left_label]', 'until': 14.34}
+    {'what': 'move', 'at': 14.34, 'tile': 'left', 'to': 4.0, 'lands': 16.04}
+    {'what': 'wait s6', 'at': 16.54, 'slack': 0.08}
+    {'what': 'caption', 'at': 16.62, 'text': 'r⁴ = e', 'whole': 17.02}
+  r²: whole 8.64; voice says R at 8.66: lead +0.02
+  r³: tile lands 12.44; fade-in 12.94; whole 13.34; leaves 13.94; hold 0.60
+      voice: R 11.62, cubed 12.06, Four 13.10
+      tile lands +0.38 from cubed; whole +1.28 from cubed; whole +0.24 from Four
+  slack at s6 (r⁴ = e): +0.08
+13_7 starts [0.0, 3.4800000190734863, 10.34000015258789, 15.039999961853027, 21.020000457763672]
+    {'what': 'wait s1', 'at': 0.0, 'slack': 3.48}
+    {'what': 'box', 'at': 3.48, 'whole': 3.88}
+    {'what': 'wait phrase REVERSE_PHRASE', 'at': 3.88, 'target': 8.79, 'slack': 4.91}
+    {'what': 'caption', 'at': 8.79, 'text': 's r = r⁻¹ s', 'whole': 9.19}
+    {'what': 'fade', 'at': 9.19, 'of': '[bracket, factors[0], factors[1]]', 'until': 9.59}
+    {'what': 'caption', 'at': 9.59, 'text': 'r⁻¹', 'whole': 9.99}
+    {'what': 'caption', 'at': 9.99, 'text': 's', 'whole': 10.39}
+    {'what': 'wait s2', 'at': 10.39, 'slack': -0.05}
+    {'what': 'box', 'at': 10.39, 'whole': 10.79}
+    {'what': 'fade', 'at': 11.79, 'of': '[pair, moved, factors[2]]', 'until': 12.19}
+    {'what': 'glide', 'at': 12.19, 'until': 12.59}
+    {'what': 'box', 'at': 12.59, 'whole': 12.99}
+    {'what': 'fade', 'at': 13.79, 'of': '[combine, inverse, factors[3]]', 'until': 14.19}
+    {'what': 'caption', 'at': 14.19, 'text': 'r', 'whole': 14.59}
+    {'what': 'wait s3', 'at': 14.59, 'slack': 0.45}
+    {'what': 'caption', 'at': 15.04, 'text': 'rᵏ  or  rᵏ s', 'whole': 15.44}
+  rule: fade-in 8.79, whole 9.19; voice: if 8.10, reverse 8.58 to 8.92
+        fade-in starts +0.21 from reverse's start; whole +0.27 from reverse's recognised end
+  slack: s2 -0.05, s3 +0.45
+13_8 starts [0.0, 4.119999885559082, 10.420000076293945, 13.84000015258789, 16.15999984741211]
+    {'what': 'fade', 'at': 0.0, 'of': '[row_frames[0], row_frames[1], normal]', 'until': 0.4}
+    {'what': 'wait phrase UNDO_PHRASE', 'at': 4.12, 'target': 9.41, 'slack': 5.29}
+    {'what': 'rack leaves', 'at': 9.41, 'until': 9.81}
+    {'what': 'tile appears at once', 'at': 9.81}
+    {'what': 'wait s2', 'at': 9.81, 'slack': 0.61}
+    {'what': 'move', 'at': 10.42, 'tile': 'undo', 'to': 1.0, 'lands': 11.22}
+    {'what': 'move', 'at': 11.47, 'tile': 'undo', 'to': 4.0, 'lands': 12.87}
+    {'what': 'caption', 'at': 13.12, 'text': 'r³ r = e', 'whole': 13.52}
+    {'what': 'wait s3', 'at': 13.52, 'slack': 0.32}
+    {'what': 'fade', 'at': 13.84, 'of': 'undo_label', 'until': 14.24}
+    {'what': 'caption', 'at': 14.24, 'text': 'Half-turn, then half-turn', 'whole': 14.64}
+    {'what': 'move', 'at': 14.64, 'tile': 'undo', 'to': 6.0, 'lands': 15.34}
+    {'what': 'move', 'at': 15.59, 'tile': 'undo', 'to': 8.0, 'lands': 16.29}
+    {'what': 'wait s4', 'at': 16.54, 'slack': -0.38}
+  rack leaves 9.41 to 9.81; voice: undo 8.84 to 9.24
+  r³ r = e: fade-in 13.12, whole 13.52, leaves 13.84: hold 0.32
+            against 5 glyphs at 15/s = 0.33 s: -0.01; against 8 with spaces = 0.53 s: -0.21
+  slack: s2 +0.61, s3 +0.32, s4 -0.38
+  if the two phrases are bound to their first recognised word, rather than a character share:
+    13_7 rule fade-in 8.10, whole 8.50; r⁻¹ whole 9.30; s2 slack +0.64
+    13_8 rack leaves 8.68 to 9.08; s2 slack +1.34; r³ r = e hold 0.32
+
+######## ABCD
+
+---- large model
+13_3 starts [0.0, 1.84, 5.42, 8.18, 10.420000076293945, 13.12, 16.62]
+    {'what': 'wait s1', 'at': 0.0, 'slack': 1.84}
+    {'what': 'fade', 'at': 1.84, 'of': '[left_label]', 'until': 2.24}
+    {'what': 'move', 'at': 2.24, 'tile': 'left', 'to': 1.0, 'lands': 3.54}
+    {'what': 'move', 'at': 3.79, 'tile': 'left', 'to': 2.0, 'lands': 5.09}
+    {'what': 'wait s3', 'at': 5.34, 'slack': 2.84}
+    {'what': 'caption', 'at': 8.18, 'text': 'r²', 'whole': 8.58}
+    {'what': 'wait s4', 'at': 8.58, 'slack': 1.84}
+    {'what': 'fade', 'at': 10.42, 'of': '[left_label]', 'until': 10.82}
+    {'what': 'move', 'at': 10.82, 'tile': 'left', 'to': 3.0, 'lands': 12.12}
+    {'what': 'caption', 'at': 12.37, 'text': 'r³', 'whole': 12.77}
+    {'what': 'wait s5', 'at': 12.77, 'slack': 0.35}
+    {'what': 'fade', 'at': 13.12, 'of': '[left_label]', 'until': 13.52}
+    {'what': 'move', 'at': 13.52, 'tile': 'left', 'to': 4.0, 'lands': 15.22}
+    {'what': 'wait s6', 'at': 15.72, 'slack': 0.9}
+    {'what': 'caption', 'at': 16.62, 'text': 'r⁴ = e', 'whole': 17.02}
+  r²: whole 8.58; voice says R at 8.66: lead +0.08
+  r³: tile lands 12.12; fade-in 12.37; whole 12.77; leaves 13.12; hold 0.35
+      voice: R 11.62, cubed 11.98, Four 13.12
+      tile lands +0.14 from cubed; whole +0.79 from cubed; whole -0.35 from Four
+  slack at s6 (r⁴ = e): +0.90
+13_7 starts [0.0, 3.42, 10.22, 14.94, 21.02]
+    {'what': 'wait s1', 'at': 0.0, 'slack': 3.42}
+    {'what': 'box', 'at': 3.42, 'whole': 3.82}
+    {'what': 'wait phrase REVERSE_PHRASE', 'at': 3.82, 'target': 8.69, 'slack': 4.87}
+    {'what': 'caption', 'at': 8.69, 'text': 's r = r⁻¹ s', 'whole': 9.09}
+    {'what': 'fade', 'at': 9.09, 'of': '[bracket, factors[0], factors[1]]', 'until': 9.49}
+    {'what': 'caption', 'at': 9.49, 'text': 'r⁻¹', 'whole': 9.89}
+    {'what': 'caption', 'at': 9.89, 'text': 's', 'whole': 10.29}
+    {'what': 'wait s2', 'at': 10.29, 'slack': -0.07}
+    {'what': 'box', 'at': 10.29, 'whole': 10.69}
+    {'what': 'fade', 'at': 11.69, 'of': '[pair, moved, factors[2]]', 'until': 12.09}
+    {'what': 'glide', 'at': 12.09, 'until': 12.49}
+    {'what': 'box', 'at': 12.49, 'whole': 12.89}
+    {'what': 'fade', 'at': 13.69, 'of': '[combine, inverse, factors[3]]', 'until': 14.09}
+    {'what': 'caption', 'at': 14.09, 'text': 'r', 'whole': 14.49}
+    {'what': 'wait s3', 'at': 14.49, 'slack': 0.45}
+    {'what': 'caption', 'at': 14.94, 'text': 'rᵏ  or  rᵏ s', 'whole': 15.34}
+  rule: fade-in 8.69, whole 9.09; voice: if 8.06, reverse 8.54 to 8.96
+        fade-in starts +0.15 from reverse's start; whole +0.13 from reverse's recognised end
+  slack: s2 -0.07, s3 +0.45
+13_8 starts [0.0, 4.0, 10.28, 13.82, 16.12]
+    {'what': 'fade', 'at': 0.0, 'of': '[row_frames[0], row_frames[1], normal]', 'until': 0.4}
+    {'what': 'wait phrase UNDO_PHRASE', 'at': 4.0, 'target': 9.27, 'slack': 5.27}
+    {'what': 'rack leaves', 'at': 9.27, 'until': 9.67}
+    {'what': 'tile appears at once', 'at': 9.67}
+    {'what': 'wait s2', 'at': 9.67, 'slack': 0.61}
+    {'what': 'move', 'at': 10.28, 'tile': 'undo', 'to': 1.0, 'lands': 11.08}
+    {'what': 'move', 'at': 11.33, 'tile': 'undo', 'to': 4.0, 'lands': 12.73}
+    {'what': 'caption', 'at': 12.98, 'text': 'r³ r = e', 'whole': 13.38}
+    {'what': 'wait s3', 'at': 13.73, 'slack': 0.09}
+    {'what': 'fade', 'at': 13.82, 'of': 'undo_label', 'until': 14.22}
+    {'what': 'caption', 'at': 14.22, 'text': 'Half-turn, then half-turn', 'whole': 14.62}
+    {'what': 'move', 'at': 14.62, 'tile': 'undo', 'to': 6.0, 'lands': 15.32}
+    {'what': 'move', 'at': 15.57, 'tile': 'undo', 'to': 8.0, 'lands': 16.27}
+    {'what': 'wait s4', 'at': 16.52, 'slack': -0.4}
+  rack leaves 9.27 to 9.67; voice: undo 8.84 to 9.24
+  r³ r = e: fade-in 12.98, whole 13.38, leaves 13.82: hold 0.44
+            against 5 glyphs at 15/s = 0.33 s: +0.11; against 8 with spaces = 0.53 s: -0.09
+  slack: s2 +0.61, s3 +0.09, s4 -0.40
+  if the two phrases are bound to their first recognised word, rather than a character share:
+    13_7 rule fade-in 8.06, whole 8.46; r⁻¹ whole 9.26; s2 slack +0.56
+    13_8 rack leaves 8.68 to 9.08; s2 slack +1.20; r³ r = e hold 0.44
+
+---- small model
+13_3 starts [0.0, 1.84, 5.42, 8.239999771118164, 10.34000015258789, 13.1, 16.62]
+    {'what': 'wait s1', 'at': 0.0, 'slack': 1.84}
+    {'what': 'fade', 'at': 1.84, 'of': '[left_label]', 'until': 2.24}
+    {'what': 'move', 'at': 2.24, 'tile': 'left', 'to': 1.0, 'lands': 3.54}
+    {'what': 'move', 'at': 3.79, 'tile': 'left', 'to': 2.0, 'lands': 5.09}
+    {'what': 'wait s3', 'at': 5.34, 'slack': 2.9}
+    {'what': 'caption', 'at': 8.24, 'text': 'r²', 'whole': 8.64}
+    {'what': 'wait s4', 'at': 8.64, 'slack': 1.7}
+    {'what': 'fade', 'at': 10.34, 'of': '[left_label]', 'until': 10.74}
+    {'what': 'move', 'at': 10.74, 'tile': 'left', 'to': 3.0, 'lands': 12.04}
+    {'what': 'caption', 'at': 12.29, 'text': 'r³', 'whole': 12.69}
+    {'what': 'wait s5', 'at': 12.69, 'slack': 0.41}
+    {'what': 'fade', 'at': 13.1, 'of': '[left_label]', 'until': 13.5}
+    {'what': 'move', 'at': 13.5, 'tile': 'left', 'to': 4.0, 'lands': 15.2}
+    {'what': 'wait s6', 'at': 15.7, 'slack': 0.92}
+    {'what': 'caption', 'at': 16.62, 'text': 'r⁴ = e', 'whole': 17.02}
+  r²: whole 8.64; voice says R at 8.66: lead +0.02
+  r³: tile lands 12.04; fade-in 12.29; whole 12.69; leaves 13.10; hold 0.41
+      voice: R 11.62, cubed 12.06, Four 13.10
+      tile lands -0.02 from cubed; whole +0.63 from cubed; whole -0.41 from Four
+  slack at s6 (r⁴ = e): +0.92
+13_7 starts [0.0, 3.4800000190734863, 10.34000015258789, 15.039999961853027, 21.020000457763672]
+    {'what': 'wait s1', 'at': 0.0, 'slack': 3.48}
+    {'what': 'box', 'at': 3.48, 'whole': 3.88}
+    {'what': 'wait phrase REVERSE_PHRASE', 'at': 3.88, 'target': 8.79, 'slack': 4.91}
+    {'what': 'caption', 'at': 8.79, 'text': 's r = r⁻¹ s', 'whole': 9.19}
+    {'what': 'fade', 'at': 9.19, 'of': '[bracket, factors[0], factors[1]]', 'until': 9.59}
+    {'what': 'caption', 'at': 9.59, 'text': 'r⁻¹', 'whole': 9.99}
+    {'what': 'caption', 'at': 9.99, 'text': 's', 'whole': 10.39}
+    {'what': 'wait s2', 'at': 10.39, 'slack': -0.05}
+    {'what': 'box', 'at': 10.39, 'whole': 10.79}
+    {'what': 'fade', 'at': 11.79, 'of': '[pair, moved, factors[2]]', 'until': 12.19}
+    {'what': 'glide', 'at': 12.19, 'until': 12.59}
+    {'what': 'box', 'at': 12.59, 'whole': 12.99}
+    {'what': 'fade', 'at': 13.79, 'of': '[combine, inverse, factors[3]]', 'until': 14.19}
+    {'what': 'caption', 'at': 14.19, 'text': 'r', 'whole': 14.59}
+    {'what': 'wait s3', 'at': 14.59, 'slack': 0.45}
+    {'what': 'caption', 'at': 15.04, 'text': 'rᵏ  or  rᵏ s', 'whole': 15.44}
+  rule: fade-in 8.79, whole 9.19; voice: if 8.10, reverse 8.58 to 8.92
+        fade-in starts +0.21 from reverse's start; whole +0.27 from reverse's recognised end
+  slack: s2 -0.05, s3 +0.45
+13_8 starts [0.0, 4.119999885559082, 10.420000076293945, 13.84000015258789, 16.15999984741211]
+    {'what': 'fade', 'at': 0.0, 'of': '[row_frames[0], row_frames[1], normal]', 'until': 0.4}
+    {'what': 'wait phrase UNDO_PHRASE', 'at': 4.12, 'target': 9.41, 'slack': 5.29}
+    {'what': 'rack leaves', 'at': 9.41, 'until': 9.81}
+    {'what': 'tile appears at once', 'at': 9.81}
+    {'what': 'wait s2', 'at': 9.81, 'slack': 0.61}
+    {'what': 'move', 'at': 10.42, 'tile': 'undo', 'to': 1.0, 'lands': 11.22}
+    {'what': 'move', 'at': 11.47, 'tile': 'undo', 'to': 4.0, 'lands': 12.87}
+    {'what': 'caption', 'at': 13.12, 'text': 'r³ r = e', 'whole': 13.52}
+    {'what': 'wait s3', 'at': 13.87, 'slack': -0.03}
+    {'what': 'fade', 'at': 13.87, 'of': 'undo_label', 'until': 14.27}
+    {'what': 'caption', 'at': 14.27, 'text': 'Half-turn, then half-turn', 'whole': 14.67}
+    {'what': 'move', 'at': 14.67, 'tile': 'undo', 'to': 6.0, 'lands': 15.37}
+    {'what': 'move', 'at': 15.62, 'tile': 'undo', 'to': 8.0, 'lands': 16.32}
+    {'what': 'wait s4', 'at': 16.57, 'slack': -0.41}
+  rack leaves 9.41 to 9.81; voice: undo 8.84 to 9.24
+  r³ r = e: fade-in 13.12, whole 13.52, leaves 13.87: hold 0.35
+            against 5 glyphs at 15/s = 0.33 s: +0.02; against 8 with spaces = 0.53 s: -0.18
+  slack: s2 +0.61, s3 -0.03, s4 -0.41
+  if the two phrases are bound to their first recognised word, rather than a character share:
+    13_7 rule fade-in 8.10, whole 8.50; r⁻¹ whole 9.30; s2 slack +0.64
+    13_8 rack leaves 8.68 to 9.08; s2 slack +1.34; r³ r = e hold 0.35
+
+[exit 0]

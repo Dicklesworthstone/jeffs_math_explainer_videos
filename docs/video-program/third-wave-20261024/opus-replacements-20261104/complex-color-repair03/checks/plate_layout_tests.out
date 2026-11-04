@@ -1,0 +1,14 @@
+
+running 9 tests
+test tests::control_a_missing_null_curve_is_seen ... ok
+test tests::control_a_shifted_colour_is_seen ... ok
+test tests::control_the_probe_sees_the_kits_steps ... ok
+test tests::stations_run_left_to_right_with_no_step_back ... ok
+test tests::the_half_cells_at_each_end_are_flat ... ok
+test tests::halfway_between_centres_is_the_mean_of_the_encoded_colours ... ok
+test tests::the_strip_is_clear_outside_the_picture_and_opaque_inside ... ok
+test tests::each_cell_centre_shows_that_cells_own_colour ... ok
+test tests::points_and_colours_agree_on_the_record_count ... ok
+
+test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

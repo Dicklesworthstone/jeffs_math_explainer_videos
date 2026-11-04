@@ -1,0 +1,2 @@
+candidate-A: rustfmt --check exit 0
+candidate-AB: rustfmt --check exit 0

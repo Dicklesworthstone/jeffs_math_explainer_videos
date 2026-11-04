@@ -1,0 +1,20 @@
+rustc 1.100.0-nightly (908501772 2026-08-30)
+staged: 7 tests, failed []
+caught  06-N1 r1 and r2 stay beside the heading: failed ['the_reflections_numbers_leave_before_doublings_heading']
+caught  06-N1 first cross stays: failed ['the_reflections_numbers_leave_before_doublings_heading']
+caught  06-N1 r1 fades twice: failed ['the_reflections_numbers_leave_before_doublings_heading']
+caught  06-N1 verdict leaves too: failed ['the_reflections_numbers_leave_before_doublings_heading']
+caught  06-N1 heading comes first: failed ['the_reflections_numbers_leave_before_doublings_heading']
+caught  06-N1 rates back below the verdict: failed ['the_right_column_reads_rates_then_cross_then_verdict']
+caught  07-N1 tail back in Re: failed ['the_map_arrow_starts_clear_of_re_and_stops_short_of_the_right_plane']
+caught  08-N1 dot never comes: failed ['the_position_is_on_the_ring_while_the_voice_undoes_its_turn']
+caught  08-N1 dot left behind on the growing ring: failed ['the_position_is_on_the_ring_while_the_voice_undoes_its_turn']
+caught  08-N1 wrong step: failed ['the_position_is_on_the_ring_while_the_voice_undoes_its_turn']
+caught  08-N2 head as wide as long, the review's one-number fix: failed ['a_circulation_head_has_one_point_and_sits_on_its_arc']
+caught  08-N2 the old back angle, base off the arc: failed ['a_circulation_head_has_one_point_and_sits_on_its_arc']
+caught  08-N2 head points clockwise: failed ['a_circulation_mark_points_the_way_it_turns']
+caught  09-N2 card back under the share card: failed ['the_centre_card_is_clear_of_what_joins_it_on_the_picture']
+caught  09-N2 card on the small ring: failed ['the_centre_card_is_clear_of_what_joins_it_on_the_picture']
+caught  09-N2 card on the large ring: failed ['the_centre_card_is_clear_of_what_joins_it_on_the_picture']
+mutants: 16
+RESULT PASS

@@ -1,0 +1,55 @@
+--- a/explainer_corpus/abstract_algebra_expanded/src/applications.rs
++++ b/explainer_corpus/abstract_algebra_expanded/src/applications.rs
+@@ -153,14 +153,14 @@
+             Palette::red(),
+             v(x(3), -0.05),
+         )?;
+-        // Sentence 0 changes the symbol and nothing else. The replaced handles leave
+-        // `digits` and `products`, so the wipe below cannot re-root them: fading a
+-        // removed mobject out shows it at full opacity first.
+-        fade(stage, &[digits[3]], false)?;
++        // Sentence 0 changes the symbol and retires the verdict, which no longer holds. The
++        // replaced handles leave `digits` and `products`, so the wipe below cannot re-root
++        // them: fading a removed mobject out shows it at full opacity first.
++        fade(stage, &[digits[3], valid], false)?;
+         fade(stage, &[digit], true)?;
+         digits[3] = digit;
+         k.until_sentence(stage, "17_4", 1)?;
+-        fade(stage, &[products[3], total, valid], false)?;
++        fade(stage, &[products[3], total], false)?;
+         fade(stage, &[product], true)?;
+         products[3] = product;
+         let changed_sum = checksum(&changed);
+@@ -882,7 +882,8 @@
+ 
+ /// The XOR of the positions holding a one, written out as three-bit rows.
+ fn syndrome_stack(stage: &mut Stage<'_>, k: &Kit, word: u8) -> fmn::Result<(Vec<Mob>, Mob)> {
+-    let heading = k.text(stage, "positions holding a 1", 22., Palette::dim(), v(3.2, 2.8))?;
++    // Names the received word: the word on screen is repaired or miscorrected under it.
++    let heading = k.text(stage, "1s in the received word", 22., Palette::dim(), v(3.2, 2.8))?;
+     fade(stage, &[heading], true)?;
+     let mut rows = vec![heading];
+     let ones: Vec<u8> = (1..=7).filter(|&p| has_one(word, p)).collect();
+@@ -997,7 +998,7 @@
+     k.until_sentence(stage, "17_15", 1)?;
+     let rows_are = k.text(
+         stage,
+-        "each row: a coset of 16 words",
++        &format!("each row: a coset of {} words", codes.len()),
+         24.,
+         Palette::ink(),
+         v(3.3, 0.35),
+@@ -1350,6 +1351,13 @@
+         assert_eq!(syndrome(decoded), 0);
+         assert_ne!(decoded, SENT);
+         assert_ne!(grid_place(decoded).1, grid_place(SENT).1);
++        // 17_18 shows the parity bit beside the received word. Parity holds there and would
++        // break beside the miscorrected word, so the word has to return first.
++        assert_eq!(SENT.count_ones() % 2, 0);
++        assert_eq!(received.count_ones() % 2, 0);
++        assert_eq!(decoded.count_ones() % 2, 1);
++        // The ring's return runs straight along the decoded word's column.
++        assert_eq!(grid_place(received), (7, grid_place(decoded).1));
+         // Any two flips: nonzero syndrome, never the original codeword after "repair".
+         for &c in &codewords() {
+             for p in 1..=7 {

@@ -1,0 +1,49 @@
+rustc: rustc 1.100.0-nightly (908501772 2026-08-30)
+PASS kit facts shim compiles
+PASS the integrated registry compiles, facts.rs included
+PASS the registry runs, and its self_check accepts it
+PASS every native row has a tab
+1079 native rows; prefixes: {'factorials': 667, 'growth': 6, 'limit': 6, 'only': 20, 'product': 33, 'rate': 166, 'series': 2, 'slide': 3, 'tiny': 176}
+PASS the concatenated oracle runs  1079 rows
+sha256 oracle stdout: 38df7e3cf40dd73fcba6e2929c52fd9faa8107379c95c775967fe9159e09e32f
+sha256 native facts : 4efc0ed34de023e8ded21794cecc9ecd168adb68b0f9f211caa7dce3d9e13762
+oracle_diff lines: 0
+PASS the kit's own oracle_diff is empty
+PASS no duplicate keys on either side
+PASS dict equality, independent of oracle_diff  1079 rows
+PASS row count: stage 883, plus limit 176, plus only 20  1079
+PASS every limit row carries tiny.  176
+PASS every uniqueness row carries only.  20
+  tiny.one.1024: native 2.717 | oracle 2.717
+  tiny.total.1024: native 0.00514 | oracle 0.00514
+  tiny.distance.1024: native 0.00492 | oracle 0.00492
+  only.defect.2: native 2 | oracle 2
+  only.defect.4: native 24 | oracle 24
+  only.axes.tops: native 5 3 3 6 | oracle 5 3 3 6
+  only.rate.1/2.end: native 5.437 | oracle 5.437
+PASS control: the tampered oracle differs
+PASS control: oracle_diff catches one changed denominator
+PASS the models compile in test cfg
+PASS tests: every model and facts.rs  test result: ok. 41 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test limit_model::tests::every_chain_stays_in_range_and_empties_past_n ... ok
+     test limit_model::tests::no_bar_passes_its_ceiling_at_either_sign ... ok
+     test limit_model::tests::the_expansion_adds_up_to_the_product_at_both_signs_and_every_base ... ok
+     test limit_model::tests::the_far_column_is_still_nearly_empty_at_every_drawn_count ... ok
+     test limit_model::tests::the_edge_table_shows_each_kind_of_base_and_is_not_monotone ... ok
+     test limit_model::tests::the_distance_is_under_the_total_of_the_gaps ... ok
+     test limit_model::tests::the_chain_is_the_binomial_coefficient_shared_out ... ok
+     test limit_model::tests::the_walks_end_at_the_printed_endpoints ... ok
+     test limit_model::tests::the_rate_one_table_climbs_by_less_and_less_and_stays_below_e ... ok
+     test limit_model::tests::the_printed_numbers_tell_the_story_of_the_cut ... ok
+     test limit_model::tests::the_strip_counts_are_pascals_row_and_the_choices_list_them ... ok
+     test limit_model::tests::the_zero_input_is_the_trivial_edge ... ok
+     test limit_model::tests::the_warning_sum_stays_at_one_while_every_fixed_column_falls ... ok
+     test solution_model::tests::both_pieces_obey_the_rule_and_the_far_piece_is_not_e ... ok
+     test solution_model::tests::e_itself_reads_level_at_one ... ok
+     test solution_model::tests::each_rate_solves_its_law_and_the_edges_behave ... ok
+     test solution_model::tests::every_curve_fits_under_its_panel_top ... ok
+     test solution_model::tests::the_imagined_curve_starts_at_one_and_is_not_a_solution ... ok
+     test solution_model::tests::the_polynomials_start_at_one_and_tilt_down_with_the_higher_degree_flatter ... ok
+     test solution_model::tests::the_written_derivative_matches_the_slope_numerically ... ok
+     test solution_model::tests::the_written_slope_is_exactly_minus_the_top_term_times_e_of_minus_x ... ok
+RESULT PASS

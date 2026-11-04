@@ -1,0 +1,32 @@
+--- replay-ABC.out
++++ replay-ABCD.out
+@@ -1 +1 @@
+-# ABC: replay on Oliver take01 ASR starts, sums of literal run times
++# ABCD: replay on Oliver take01 ASR starts, sums of literal run times
+@@ -44,6 +44,6 @@
+-  13_3   10.82  motion left 2 to 3 in 1.70 (+0.50)
+-  13_3   13.02  caption 0.40: r³
+-  13_3   13.42  wait 0.6
+-  13_3   14.02  fade 0.40: r³
+-  13_3   14.42  motion left 3 to 4 in 1.70 (+0.50)
+-  13_3   16.62  wait 13_3 sentence 6: slack -0.00
++  13_3   10.82  motion left 2 to 3 in 1.30 (+0.25)
++  13_3   12.37  caption 0.40: r³
++  13_3   12.77  wait 13_3 sentence 5: slack +0.35
++  13_3   13.12  fade 0.40: r³
++  13_3   13.52  motion left 3 to 4 in 1.70 (+0.50)
++  13_3   15.72  wait 13_3 sentence 6: slack +0.90
+@@ -123 +123,2 @@
+-  13_8   13.38  wait 13_8 sentence 3: slack +0.44
++  13_8   13.38  wait 0.35
++  13_8   13.73  wait 13_8 sentence 3: slack +0.09
+@@ -179 +180,2 @@
+-  13_3 sentence 6                              at  16.62  slack -0.00
++  13_3 sentence 5                              at  13.12  slack +0.35
++  13_3 sentence 6                              at  16.62  slack +0.90
+@@ -194 +196 @@
+-  13_8 sentence 3                              at  13.82  slack +0.44
++  13_8 sentence 3                              at  13.82  slack +0.09
+@@ -208 +210 @@
+-   13_3 from  13.42  hold  0.60  need 0.13  r³
++   13_3 from  12.77  hold  0.35  need 0.13  r³

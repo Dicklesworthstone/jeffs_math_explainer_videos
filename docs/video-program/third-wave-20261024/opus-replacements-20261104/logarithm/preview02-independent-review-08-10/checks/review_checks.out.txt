@@ -1,0 +1,74 @@
+A. The grid border at t = 1 (finding F5)
+  gens[0], 2 pi J: frames 25-35, clip 3.0
+    line y = -3: 0/73 samples kept, nothing
+    line x = -3: 0/73 samples kept, nothing
+    line y = +3: 0/73 samples kept, nothing
+    line x = +3: 0/73 samples kept, nothing
+  gens[1], ellipse 2 by 1: frames 48-58, clip 3.0
+    line y = -3: 0/73 samples kept, nothing
+    line x = -3: 1/73 samples kept, t +2.92 .. +2.92
+    line y = +3: 0/73 samples kept, nothing
+    line x = +3: 1/73 samples kept, t -2.92 .. -2.92
+  gens[2], ellipse 1.6 by 0.7 tilted 30: frames 66-87, clip 3.0
+    line y = -3: 72/73 samples kept, t -3.00 .. +2.92
+    line x = -3: 59/73 samples kept, t -3.00 .. +1.83
+    line y = +3: 72/73 samples kept, t -2.92 .. +3.00
+    line x = +3: 59/73 samples kept, t -1.83 .. +3.00
+  the same three with a tolerance of 1e-9 on the clip
+  gens[0], clip 3.000000001
+    line y = -3: 73/73 samples kept, t -3.00 .. +3.00
+    line x = -3: 73/73 samples kept, t -3.00 .. +3.00
+    line y = +3: 73/73 samples kept, t -3.00 .. +3.00
+    line x = +3: 73/73 samples kept, t -3.00 .. +3.00
+  gens[1], clip 3.000000001
+    line y = -3: 73/73 samples kept, t -3.00 .. +3.00
+    line x = -3: 73/73 samples kept, t -3.00 .. +3.00
+    line y = +3: 73/73 samples kept, t -3.00 .. +3.00
+    line x = +3: 73/73 samples kept, t -3.00 .. +3.00
+  gens[2], clip 3.000000001
+    line y = -3: 73/73 samples kept, t -3.00 .. +3.00
+    line x = -3: 73/73 samples kept, t -3.00 .. +3.00
+    line y = +3: 73/73 samples kept, t -3.00 .. +3.00
+    line x = +3: 73/73 samples kept, t -3.00 .. +3.00
+  stretch flow at t = 1: the line x = 2 lands at 3.0000000000000018; kept: False
+B. The matrix card widths as drawn (finding F1): draw.rs dx = size*0.011, w = dx + size*0.0095
+  09_1 rotation card: row gaps +0.011 +0.143, left bracket -0.064, right bracket -0.197, brackets at 3.70 .. 5.10  COLLIDES
+  e_card: row gaps -0.065 -0.023, left bracket -0.057, right bracket -0.098, brackets at 3.98 .. 5.21  COLLIDES
+  x_card: row gaps +0.277 +0.160, left bracket +0.093, right bracket -0.023, brackets at 3.98 .. 5.21  COLLIDES
+  target card: row gaps +0.393 +0.510, left bracket +0.210, right bracket +0.093, brackets at 4.79 .. 6.02
+  pair: row gaps +0.341 +0.442, left bracket +0.182, right bracket +0.081, brackets at 4.37 .. 5.43
+  identity card: row gaps +0.544 +0.544, left bracket +0.224, right bracket +0.224, brackets at 3.94 .. 5.26
+C. e^X for the 09_2 velocity, values on the card (finding F1: the numbers are right)
+  e^X = [[0.905220, -0.970407], [0.776326, 0.517058]]
+  Im of its eigenvalue: 0.87178 radians per unit time = 0.2775 pi = 0.1387 laps (finding F8)
+D. Rates in 09_4 agree with pi/2 + 2 pi k
+  rate +0.25: +1.57080; pi/2 + 2 pi (+0) = +1.57080
+  rate +1.25: +7.85398; pi/2 + 2 pi (+1) = +7.85398
+  rate -0.75: -4.71239; pi/2 + 2 pi (-1) = -4.71239
+E. Residue after the 10_3 fade (not counted as a defect): difference from frame 92
+  frame 86: largest difference 171 of 255
+  frame 87: largest difference 30 of 255
+  frame 88: largest difference 4 of 255
+  frame 89: largest difference 4 of 255
+  frame 90: largest difference 0 of 255
+  frame 91: largest difference 0 of 255
+F. 08 frames 198 and 199: what appears at the start of the 08_4 fade (finding F12)
+  full-frame difference bbox (527, 525, 663, 542)
+G. Reading load at the end of chapter 10 (finding F16)
+  present in source: True; 87 characters
+  present in source: True; 120 characters
+  218 characters on screen from 90.0 s to 98.9 s (scratch timing): 24.5 per second
+H. Proposed card widths (finding F1, uncompiled): dx = max(size*0.011, (widest + 0.25)/2), w = dx + max(size*0.0095, widest/2 + 0.10)
+  09_1 rotation card: row gaps +0.552 +0.685, left bracket +0.232, right bracket +0.100, brackets at 3.14 .. 5.66
+  e_card: row gaps +0.292 +0.333, left bracket +0.142, right bracket +0.100, brackets at 3.61 .. 5.59
+  x_card: row gaps +0.483 +0.367, left bracket +0.217, right bracket +0.100, brackets at 3.76 .. 5.44
+  target card: row gaps +0.393 +0.510, left bracket +0.217, right bracket +0.100, brackets at 4.78 .. 6.02
+  pair: row gaps +0.351 +0.452, left bracket +0.201, right bracket +0.100, brackets at 4.34 .. 5.46
+  identity card: row gaps +0.544 +0.544, left bracket +0.224, right bracket +0.224, brackets at 3.94 .. 5.26
+  rounding to two places with the present widths does not repair the cards
+  rotation card, rounded: row gaps +0.096 +0.228, left bracket +0.021, right bracket -0.112  COLLIDES
+  e_card, rounded: row gaps +0.010 +0.127, left bracket +0.018, right bracket -0.098  COLLIDES
+I. Native measurements for findings F2, F3, F8
+  F2 dictionary, 09 frame 220: lit columns 958 .. 1279 of 0 .. 1279
+  F3, 10 frame 170: green rule ends at column 1099, purple label starts at column 1094: 6 columns shared
+  F8 spiral line, 10 frame 200: right edge scene 5.84; 'radians ' adds 0.77: 6.62, safe area ends 6.96

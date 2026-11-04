@@ -1,0 +1,1815 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs
+@@ -43,8 +43,12 @@
+ //! The picture lands on phrases through `until_phrase`: a word mark when the
+ //! narrator has one, otherwise a provisional share of the measured sentence.
+ //!
+-//! Rebuild candidate for `mx-video-program-program-87do.63`; uncompiled,
+-//! unrendered, unlistened.
++//! The precise rule is an authored hold, not what a cue happens to leave. It
++//! takes the column once the text there has gone, and the voice's end opens a
++//! music window long enough to read it at `READING_RATE`, then each block row in
++//! turn, so the next line waits for the reader.
++//!
++//! Rebuild candidate for `mx-video-program-program-87do.63`.
+ 
+ use std::collections::HashMap;
+ use std::f64::consts::PI;
+@@ -100,7 +104,10 @@
+ /// Phrases the picture lands on, each the exact words of its line.
+ const HALFWAY: &str = "a halfway point";
+ const SQUASHES: &str = "squashes the whole plane";
++const RUN_BACKWARDS: &str = "run backwards";
++const BOTH_ROUTES: &str = "send it along both routes";
+ const ENDS_DIFFER: &str = "the two routes end in different places";
++const ONE_AFTER_THE_OTHER: &str = "running one after the other";
+ const KEEP_AXES: &str = "so nothing forces a logarithm to keep the axes";
+ const TURNS_EVERY: &str = "the spin, which turns every axis";
+ const SOME_DIRECTION: &str = "a matrix that sends some direction";
+@@ -142,15 +149,25 @@
+ 
+ /// A block of a matrix: the stretch on its diagonal, and its size.
+ type Block = (f64, usize);
+-/// One row per matrix, for the rule in 11_7, and what the rule says of it. The
+-/// second row is `matrix.flip_pair`; the others are illustrations, checked below
+-/// against the rule and the exponential.
+-const BLOCK_ROWS: [(&[Block], &str); 4] = [
+-    (&[(-1.0, 1), (-1.0, 1)], "matching pair: real log"),
+-    (&[(-2.0, 1), (-0.5, 1)], "no partners: no real log"),
+-    (&[(-2.0, 1), (-2.0, 1), (3.0, 1)], "−2 paired, 3 positive: real log"),
+-    (&[(-1.0, 2)], "one size-2 block: no real log"),
++/// One matrix as its blocks, and what the rule says of it.
++type BlockRow = (Vec<Block>, String);
++/// 11_7's precise rule, as the screen breaks it.
++const THEOREM: [&str; 4] = [
++    "A real matrix has a real logarithm exactly",
++    "when it is invertible and, for every negative",
++    "eigenvalue, its Jordan blocks of each size",
++    "occur an even number of times.",
+ ];
++/// Its size and its lines' heights: it takes the column, level with the rows.
++const THEOREM_SIZE: f64 = 22.0;
++const THEOREM_Y: [f64; 4] = [0.5, 0.05, -0.4, -0.85];
++/// Screen text is held for this many characters a second.
++const READING_RATE: f64 = 15.0;
++/// The marker beside the block row being read, left of the row's tiles.
++const ROW_MARK_X: f64 = ROWS_X - TILE_HALF - 0.22;
++const ROW_MARK_R: f64 = 0.08;
++/// 11_4: how far below the shared route end its words stand, in plane units.
++const END_WORD_DROP: f64 = 0.62;
+ 
+ fn gauge(d: f64) -> Vec3 {
+     v(GAUGE_X, GAUGE_ZERO + GAUGE_PER * d)
+@@ -188,6 +205,20 @@
+     group(stage, &[plate, label])
+ }
+ 
++/// Detached TeX with its left edge at `at`, so it lines up with the text column.
++fn tex_left(kit: &Kit, stage: &mut Stage<'_>, src: &str, size: f64, c: Srgb, at: Vec3) -> fmn::Result<Mob> {
++    let m = kit.tex(stage, src, size, c, &[], at)?;
++    stage.move_to(m, at, LEFT);
++    Ok(m)
++}
++
++/// Words give way to words in the same place: the old ones leave first, so the
++/// two never print over each other.
++fn reword(stage: &mut Stage<'_>, out: &[Mob], inn: &[Mob], rt: f64) -> fmn::Result<()> {
++    fade_out_all(stage, out, rt / 2.0)?;
++    fade_in_all(stage, inn, rt / 2.0)
++}
++
+ /// When `phrase` begins, in seconds from the start of a line with this `text`:
+ /// the narrator's word mark if it has one for that word, otherwise a share by
+ /// characters of the measured sentence the phrase sits in. The share is a
+@@ -392,19 +423,38 @@
+ 
+ /// The F's corners used for 11_1's comparison dashes.
+ const CHORD_CORNERS: [usize; 4] = [0, 3, 7, 9];
++/// Half the open gap between the F and its mirror image, in plane units:
++/// `letter_f`'s stem starts this far from its centre line.
++const F_GAP: f64 = 0.15;
++/// The dot on each paired corner, and the dashes across the gap.
++const CHORD_DOT: f64 = 0.035;
++const GAP_DASHES: u32 = 3;
+ 
+-/// Dashed chords from a few corners of the F to where `m` sends them: a
+-/// comparison of before and after, not a path anything travels.
++/// A comparison of before and after, not a path anything travels: a dot on a few
++/// corners of the F and on where the mirror `m` sends them, joined by dashes that
++/// stay in the open gap between the two. A chord through the letters themselves
++/// would run along their edges, and half a stroke on an edge reads as a notch.
+ fn chords(s: &mut Arena, m: M2) -> Mob {
+     let g = s.add(VMobject::new());
+     let (from, to) = (letter_f(I2, CENTRE, UNIT), letter_f(m, CENTRE, UNIT));
++    let left = CENTRE[0] - F_GAP * UNIT;
++    let step = 2.0 * F_GAP * UNIT / f64::from(2 * GAP_DASHES - 1);
+     for k in CHORD_CORNERS {
+         let (a, b) = (from[k], to[k]);
+-        let at = |t: f64| v(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t);
+-        for d in 0..6 {
+-            let t0 = f64::from(d) / 6.0;
++        for end in [a, b] {
++            let mark = s.add(
++                Dot::new()
++                    .point(end)
++                    .radius(CHORD_DOT)
++                    .style(flat(Palette::ink(), 0.9))
++                    .build(),
++            );
++            let _ = s.attach(g, mark);
++        }
++        for d in 0..GAP_DASHES {
++            let x0 = left + f64::from(2 * d) * step;
+             let dash = s.add(
+-                polyline(vec![at(t0), at(t0 + 0.5 / 6.0)])
++                polyline(vec![v(x0, a[1]), v(x0 + step, a[1])])
+                     .style(faded_line(Palette::ink(), 2.5, 0.7))
+                     .build(),
+             );
+@@ -562,6 +612,49 @@
+     (0..blocks.len()).all(|i| blocks[i].0 > 0.0 || paired(blocks, i))
+ }
+ 
++/// One row per matrix for the rule in 11_7, and what the rule says of it. The
++/// numbers are facts, each checked against the exponential in facts.rs and by the
++/// oracle; the second row is the flip pair the chapter has been using.
++fn block_examples() -> fmn::Result<[BlockRow; 4]> {
++    let singles = |key: &str| -> fmn::Result<Vec<Block>> { Ok(fact_list(key)?.into_iter().map(|x| (x, 1)).collect()) };
++    let mixed = singles("matrix.blocks_mixed")?;
++    let said = format!(
++        "{} paired, {} positive: real log",
++        shown_num(mixed[0].0),
++        shown_num(mixed[2].0)
++    );
++    let jordan = fact_matrix("matrix.jordan_block")?;
++    Ok([
++        (singles("matrix.blocks_matching")?, "matching pair: real log".to_owned()),
++        (singles("matrix.flip_pair")?, "no partners: no real log".to_owned()),
++        (mixed, said),
++        (vec![(jordan[0][0], 2)], "one size-2 block: no real log".to_owned()),
++    ])
++}
++
++/// How long `text` takes to read at `READING_RATE`, seconds.
++fn read_seconds(text: &str) -> f64 {
++    text.chars().count() as f64 / READING_RATE
++}
++
++/// How long the precise rule takes to read.
++fn rule_seconds() -> f64 {
++    THEOREM.iter().map(|line| read_seconds(line)).sum()
++}
++
++/// Which block row the marker stands beside, `held` seconds into the rule's hold:
++/// none while the rule is read, then each row for its own reading time, none after.
++fn row_in_turn(held: f64, rule: f64, rows: &[f64]) -> Option<usize> {
++    if held < rule {
++        return None;
++    }
++    let mut end = rule;
++    rows.iter().position(|&seconds| {
++        end += seconds;
++        held < end
++    })
++}
++
+ /// A tile's half width for a block of this size.
+ fn tile_half(size: usize) -> f64 {
+     if size > 1 { WIDE_TILE_HALF } else { TILE_HALF }
+@@ -588,8 +681,8 @@
+ fn block_tile(kit: &Kit, stage: &mut Stage<'_>, block: Block, at: Vec3) -> fmn::Result<Mob> {
+     let (stretch, size) = block;
+     if size > 1 {
+-        let e = stretch.to_string();
+-        let entries = [[e.as_str(), "1"], ["0", e.as_str()]];
++        let [[a, b], [c, d]] = fact_matrix("matrix.jordan_block")?.map(|row| row.map(shown_num));
++        let entries = [[a.as_str(), b.as_str()], [c.as_str(), d.as_str()]];
+         return matrix_card(kit, stage, entries, at, 20.0, Palette::ink());
+     }
+     let c = if stretch < 0.0 { Palette::ink() } else { Palette::dim() };
+@@ -613,7 +706,7 @@
+         verdicts: Vec::new(),
+         brackets: Vec::new(),
+     };
+-    for (row, (blocks, verdict)) in BLOCK_ROWS.iter().enumerate() {
++    for (row, (blocks, verdict)) in block_examples()?.iter().enumerate() {
+         let y = ROWS_TOP - ROWS_PITCH * row as f64;
+         let (mut tiles, mut says) = (Vec::new(), Vec::new());
+         for (i, &block) in blocks.iter().enumerate() {
+@@ -697,7 +790,8 @@
+             Palette::dim(),
+             v(right, 0.75),
+         )?;
+-        fade_in_all(stage, &[joins, after_f, after_word, ends_note], 0.6)?;
++        // the dots on the corners go over the gold they mark
++        fade_in_all(stage, &[after_f, joins, after_word, ends_note], 0.6)?;
+         kit.until_sentence(stage, "11_1", 4)?;
+         // the plain average ½(I + mirror) = diag(0, 1): every point onto the vertical axis
+         let avg_a = kit.text_left(
+@@ -824,7 +918,11 @@
+         )?;
+         fade_in_all(stage, &[t3], 0.3)?;
+         kit.until_sentence(stage, "11_2", 3)?;
+-        play!(stage; tween(time, FLOW_TIMES.0, 3.0)?);
++        // backwards when the words say so, with room for the caption before the next sentence
++        until_phrase(&kit, stage, "11_2", RUN_BACKWARDS)?;
++        let now = stage.scene().time().to_f64();
++        let by = sentence_time(&kit, "11_2", 4).map(|at| at - 0.6);
++        play!(stage; tween(time, FLOW_TIMES.0, run_by(by, now, 1.2, 3.0))?);
+         let backwards = kit.text_left(
+             stage,
+             "run backwards: never flat, never zero",
+@@ -857,7 +955,7 @@
+         let liouville = precisely(
+             &kit,
+             stage,
+-            "for any real linear flow, steady or not, det = e^(∫ trace dt) > 0 (Liouville)",
++            "for any real linear flow, steady or not, det = exp(∫ trace dt) > 0 (Liouville)",
+         )?;
+         fade_in_all(stage, &[mirror_mark, mirror_word, liouville], 0.5)?;
+ 
+@@ -870,7 +968,7 @@
+             gold,
+             v(GAUGE_X, READOUT_WORD_Y),
+         )?;
+-        swap(stage, &[area_word, m_card, m_word], &[det_word], 0.4)?;
++        reword(stage, &[area_word, m_card, m_word], &[det_word], 0.4)?;
+         kit.until_sentence(stage, "11_3", 1)?;
+         let no_neg = kit.text_left(stage, "det < 0: no real logarithm", 24.0, red, v(right, 2.3))?;
+         fade_in_all(stage, &[no_neg], 0.4)?;
+@@ -975,24 +1073,23 @@
+         // commutes with every power of itself
+         kit.say(stage, "11_4")?;
+         let no = kit.text_left(stage, "det > 0: not enough", 26.0, red, v(right, 1.7))?;
+-        swap(stage, &[enough], &[no], 0.3)?;
++        reword(stage, &[enough], &[no], 0.3)?;
+         kit.until_sentence(stage, "11_4", 1)?;
+-        let suppose = kit.tex(
++        let suppose = tex_left(
++            &kit,
+             stage,
+             r"\text{suppose } A = e^{X},\ X \text{ real}",
+             28.0,
+             blue,
+-            &[],
+-            v(4.6, 2.3),
++            v(right, 2.3),
+         )?;
+-        swap(stage, &[no_neg, area, split, split_word], &[suppose], 0.4)?;
++        reword(stage, &[no_neg, area, split, split_word], &[suppose], 0.4)?;
+         kit.until_sentence(stage, "11_4", 2)?;
+         // a sample X with its own exponential: both orders end on one point
+         fade_out_all(stage, &[before, after, e1, e1_word, e2, e2_word], 0.4)?;
+         let x_any = fact_matrix("matrix.flow")?;
+         let e_any = model::flow(x_any, 1.0);
+-        let both = stage.always_redraw(move |s: &mut Arena| routes(s, x_any, e_any, u, true));
+-        stage.add_to_scene(both)?;
++        let both = routes(stage.arena_mut(), x_any, e_any, u, true);
+         let u_word = kit.text(
+             stage,
+             &format!("u = ({}, {})", shown_num(u[0]), shown_num(u[1])),
+@@ -1001,9 +1098,32 @@
+             to_screen([u[0] + 0.8, u[1] + 0.3]),
+         )?;
+         let u_word = on_plate(stage, u_word)?;
+-        let order_a = kit.text_left(stage, "first X, then e^X", 22.0, purple, v(right, 0.4))?;
+-        let order_b = kit.text_left(stage, "first e^X, then X", 22.0, slide_c(), v(right, 0.0))?;
+-        let same_end = kit.text_left(stage, "same end point", 22.0, gold, v(right + 3.2, 0.2))?;
++        let order_a = tex_left(
++            &kit,
++            stage,
++            r"\text{first } X,\ \text{then } e^{X}",
++            22.0,
++            purple,
++            v(right, 0.4),
++        )?;
++        let order_b = tex_left(
++            &kit,
++            stage,
++            r"\text{first } e^{X},\ \text{then } X",
++            22.0,
++            slide_c(),
++            v(right, 0.0),
++        )?;
++        // the words stand by the dot they name, on a plate on the panel
++        let [(_, shared_end), _] = route_points(x_any, e_any, u);
++        let same_end = kit.text(
++            stage,
++            "same end point",
++            20.0,
++            gold,
++            to_screen([shared_end[0], shared_end[1] - END_WORD_DROP]),
++        )?;
++        let same_end = on_plate(stage, same_end)?;
+         let sample = kit.text_left(
+             stage,
+             "(here X is the sample flow from before)",
+@@ -1011,50 +1131,75 @@
+             Palette::dim(),
+             v(right, -0.35),
+         )?;
+-        fade_in_all(stage, &[u_word, order_a, order_b, same_end, sample], 0.5)?;
++        fade_in_all(stage, &[both, u_word, order_a, order_b, same_end, sample], 0.5)?;
+         kit.until_sentence(stage, "11_4", 4)?;
+-        let series = kit.tex(
++        let series = tex_left(
++            &kit,
+             stage,
+             r"A = e^{X} = I + X + \tfrac{1}{2}X^{2} + \tfrac{1}{6}X^{3} + \text{...}",
+             26.0,
+             Palette::ink(),
+-            &[],
+-            v(4.6, -0.85),
++            v(right, -0.85),
+         )?;
+         fade_in_all(stage, &[series], 0.5)?;
+         kit.until_sentence(stage, "11_4", 5)?;
+-        let powers = kit.tex(
++        let powers = tex_left(
++            &kit,
+             stage,
+             r"X X^{k} = X^{k+1} = X^{k} X",
+             26.0,
+             Palette::ink(),
+-            &[],
+-            v(4.6, -1.5),
++            v(right, -1.5),
+         )?;
+         fade_in_all(stage, &[powers], 0.4)?;
+-        let so = kit.tex(stage, r"\Rightarrow\ XA = AX", 28.0, gold, &[], v(4.6, -2.15))?;
++        let so = tex_left(&kit, stage, r"\Rightarrow\ XA = AX", 28.0, gold, v(right, -2.15))?;
+         fade_in_all(stage, &[so], 0.4)?;
+ 
+         // 11_5: what commuting with A costs: the routes A-then-X and X-then-A of u
+         kit.say(stage, "11_5")?;
+-        fade_out_all(stage, &[both, order_a, order_b, same_end, sample, series, powers], 0.4)?;
+-        let given = kit.tex(stage, r"A = e^{X}\ \Rightarrow\ XA = AX", 28.0, gold, &[], v(4.6, 2.3))?;
+-        swap(stage, &[suppose, so], &[given], 0.4)?;
++        // the plate keeps naming the probe: it stays on the plane, alone, until the
++        // words send it along the routes
++        let probe_alone = arrow_parts(
++            stage.arena_mut(),
++            to_screen([0.0, 0.0]),
++            to_screen(u),
++            Palette::ink(),
++            4.0,
++            0.2,
++        );
++        swap(
++            stage,
++            &[both, order_a, order_b, same_end, sample, series, powers],
++            &[probe_alone],
++            0.4,
++        )?;
++        let given = tex_left(
++            &kit,
++            stage,
++            r"A = e^{X}\ \Rightarrow\ XA = AX",
++            28.0,
++            gold,
++            v(right, 2.3),
++        )?;
++        reword(stage, &[suppose, so], &[given], 0.4)?;
+         let x_word = kit.text_left(stage, "X =", 28.0, blue, v(right + 2.7, 1.05))?;
+         let x_card = matrix_card(&kit, stage, [["p", "b"], ["c", "q"]], v(right + 3.95, 1.05), 30.0, blue)?;
+         fade_in_all(stage, &[x_word, x_card], 0.4)?;
+         kit.until_sentence(stage, "11_5", 1)?;
++        until_phrase(&kit, stage, "11_5", BOTH_ROUTES)?;
+         let off = stage.add_value_tracker(1.0);
+         // the bar waits for the words that claim it
+         let gap_on = stage.add_value_tracker(0.0);
++        let route_a = kit.text_left(stage, "first A, then X", 22.0, purple, v(right, 0.4))?;
++        let route_b = kit.text_left(stage, "first X, then A", 22.0, slide_c(), v(right, 0.0))?;
++        // the routes fade in over the waiting probe, then go live in the same slot
++        let first_routes = routes(stage.arena_mut(), flip_pair, candidate(base, 1.0), u, false);
++        swap(stage, &[probe_alone], &[first_routes, route_a, route_b], 0.4)?;
+         let test = stage.always_redraw(move |s: &mut Arena| {
+             let xs = candidate(base, value(s, off));
+             routes(s, flip_pair, xs, u, value(s, gap_on) > 0.5)
+         });
+-        stage.add_to_scene(test)?;
+-        let route_a = kit.text_left(stage, "first A, then X", 22.0, purple, v(right, 0.4))?;
+-        let route_b = kit.text_left(stage, "first X, then A", 22.0, slide_c(), v(right, 0.0))?;
+-        fade_in_all(stage, &[route_a, route_b], 0.4)?;
++        stage.scene_mut().replace(first_routes, &[test])?;
+         kit.until_sentence(stage, "11_5", 2)?;
+         until_phrase(&kit, stage, "11_5", ENDS_DIFFER)?;
+         let gap_word = kit.text_left(stage, "gap between the ends:", 22.0, red, v(right, -0.55))?;
+@@ -1103,7 +1248,7 @@
+         // 11_6: so X is diagonal, and a real exponential never reverses an axis
+         kit.say(stage, "11_6")?;
+         let x_diag = matrix_card(&kit, stage, [["p", "0"], ["0", "q"]], v(right + 3.95, 1.05), 30.0, blue)?;
+-        swap(stage, &[x_card], &[x_diag], 0.4)?;
++        reword(stage, &[x_card], &[x_diag], 0.4)?;
+         fade_out_all(
+             stage,
+             &[
+@@ -1111,20 +1256,21 @@
+             ],
+             0.4,
+         )?;
++        // white, as in 11_7: the gold F's middle bar lies along the x axis
+         let reach = UNIT * CLIP;
+         let ax = seg(
+             stage,
+             v(CENTRE[0] - reach, CENTRE[1]),
+             v(CENTRE[0] + reach, CENTRE[1]),
+-            gold,
+-            5.0,
++            Palette::ink(),
++            3.0,
+         );
+         let ay = seg(
+             stage,
+             v(CENTRE[0], CENTRE[1] - reach),
+             v(CENTRE[0], CENTRE[1] + reach),
+-            gold,
+-            5.0,
++            Palette::ink(),
++            3.0,
+         );
+         fade_in_all(stage, &[ax, ay], 0.4)?;
+         kit.until_sentence(stage, "11_6", 1)?;
+@@ -1133,9 +1279,10 @@
+         let stretching =
+             stage.always_redraw(move |s: &mut Arena| plane(s, diagonal_flow(la, lb, value(s, diag)), true));
+         stage.add_to_scene(stretching)?;
+-        let axes_word = kit.text_left(
++        let axes_word = tex_left(
++            &kit,
+             stage,
+-            "e^(tX) stretches the axes by e^(tp) and e^(tq)",
++            r"e^{tX} \text{ stretches the axes by } e^{tp} \text{ and } e^{tq}",
+             22.0,
+             blue,
+             v(right, 0.4),
+@@ -1156,9 +1303,10 @@
+             .arena_mut()
+             .add(polyline(key_pts).style(faded_line(red, 2.0, 0.9)).build());
+         let target_word = kit.text_left(stage, "where A puts the F", 20.0, red, v(right + KEY_WORD_X, KEY_Y))?;
+-        let positive = kit.text_left(
++        let positive = tex_left(
++            &kit,
+             stage,
+-            "e^(tp) > 0 for all real t and p: no axis reverses",
++            r"e^{tp} > 0 \text{ for all real } t \text{ and } p\text{: no axis reverses}",
+             22.0,
+             blue,
+             v(right, -0.05),
+@@ -1166,10 +1314,13 @@
+         fade_in_all(stage, &[target, target_key, target_word, positive], 0.4)?;
+         play!(stage; tween(diag, -1.0, 2.0)?);
+         kit.until_sentence(stage, "11_6", 3)?;
+-        fade_out_all(stage, &[stretching], 0.3)?;
++        // the stretch flow goes home, and the journey takes its slot from there: at
++        // the identity the two pictures are the same, so nothing cuts
++        play!(stage; tween(diag, 0.0, 0.6)?);
+         let journey = stage.add_value_tracker(0.0);
+         let two = stage.always_redraw(move |s: &mut Arena| plane(s, two_stage(value(s, journey), la, lb), true));
+-        stage.add_to_scene(two)?;
++        stage.clear_updaters(stretching, true);
++        stage.scene_mut().replace(stretching, &[two])?;
+         let stage_word = kit.text_left(
+             stage,
+             "a half turn, then a stretch: two flows in turn",
+@@ -1178,8 +1329,12 @@
+             v(right, -0.85),
+         )?;
+         fade_in_all(stage, &[stage_word], 0.3)?;
+-        play!(stage; tween(journey, 1.0, 2.0)?);
+-        play!(stage; tween(journey, 2.0, 1.8)?);
++        // the two flows run when the words run them, each its share of the time left
++        until_phrase(&kit, stage, "11_6", ONE_AFTER_THE_OTHER)?;
++        let now = stage.scene().time().to_f64();
++        let whole = run_by(sentence_time(&kit, "11_6", 4), now, 2.4, 3.8);
++        play!(stage; tween(journey, 1.0, whole * 2.0 / 3.8)?);
++        play!(stage; tween(journey, 2.0, whole * 1.8 / 3.8)?);
+         kit.until_sentence(stage, "11_6", 4)?;
+         let never_one = kit.text_left(stage, "no single steady flow does both", 26.0, red, v(right, -1.45))?;
+         fade_in_all(stage, &[never_one], 0.4)?;
+@@ -1204,7 +1359,6 @@
+             no,
+             given,
+         ];
+-        fade_out_all(stage, &away, 0.5)?;
+         let alike = kit.text_left(stage, "both axes flipped alike:", 24.0, green, v(right, 2.3))?;
+         let minus_word = kit.text_left(stage, "−I =", 28.0, green, v(right, 1.6))?;
+         let minus_i = matrix_card(
+@@ -1215,14 +1369,17 @@
+             30.0,
+             green,
+         )?;
+-        fade_in_all(stage, &[alike, minus_word, minus_i], 0.4)?;
++        // the plane is back at once, at rest, ready for the spin
++        let at_rest = plane(stage.arena_mut(), I2, true);
++        fade_out_all(stage, &away, 0.3)?;
++        fade_in_all(stage, &[at_rest, alike, minus_word, minus_i], 0.3)?;
+         kit.until_sentence(stage, "11_7", 1)?;
+         let turn = stage.add_value_tracker(0.0);
+         let speed = fact_f64("matrix.half_turn_speed")?;
+         let spinning = stage.always_redraw(move |s: &mut Arena| {
+             plane(s, model::flow(model::mscale(J, 2.0 * PI * speed), value(s, turn)), true)
+         });
+-        stage.add_to_scene(spinning)?;
++        stage.scene_mut().replace(at_rest, &[spinning])?;
+         play!(stage; tween(turn, 1.0, 2.4)?);
+         let spin = kit.tex(stage, r"e^{\pi J} = -I", 30.0, green, &[], v(right + 1.2, 0.75))?;
+         let spin_word = kit.text_left(
+@@ -1328,7 +1485,7 @@
+             purple,
+             v(GAP_X, -0.1),
+         )?;
+-        swap(stage, &[some_a, some_b], &[all_a, all_b], 0.3)?;
++        reword(stage, &[some_a, some_b], &[all_a, all_b], 0.3)?;
+         let now = stage.scene().time().to_f64();
+         let by = phrase_time(&kit, "11_7", HALF_TURN_STRETCH)?;
+         play!(stage; steady(angle, 3.0 * PI, run_by(by, now, 1.5, 3.0))?);
+@@ -1336,7 +1493,7 @@
+         until_phrase(&kit, stage, "11_7", HALF_TURN_STRETCH)?;
+         let any_a = kit.text_left(stage, "A = −cI, c > 0", 22.0, gold, v(GAP_X, 0.3))?;
+         let any_b = kit.text_left(stage, "half turn, equal stretch", 20.0, purple, v(GAP_X, -0.1))?;
+-        swap(stage, &[all_a, all_b], &[any_a, any_b], 0.3)?;
++        reword(stage, &[all_a, all_b], &[any_a, any_b], 0.3)?;
+         let now = stage.scene().time().to_f64();
+         let by = sentence_time(&kit, "11_7", 5).map(|at| at - 0.2);
+         play!(stage; tween(equal_c, STRETCH_C, run_by(by, now, 0.8, 1.6))?);
+@@ -1368,57 +1525,95 @@
+         until_phrase(&kit, stage, "11_7", MATCHING)?;
+         fade_in_all(stage, &rows.brackets, 0.4)?;
+         kit.until_sentence(stage, "11_7", 6)?;
+-        let rule_a = kit.text_left(
++        // the rule takes the column: what stood there has done its work, and only the
++        // rows it speaks of stay beside it
++        fade_out_all(
+             stage,
+-            "A real matrix has a real logarithm exactly",
+-            20.0,
+-            gold,
+-            v(right, -1.75),
++            &[
++                alike,
++                minus_word,
++                minus_i,
++                spin,
++                spin_word,
++                equal_a,
++                equal_b,
++                two_a,
++                two_b,
++                blocks_head,
++            ],
++            0.4,
+         )?;
+-        let rule_b = kit.text_left(
+-            stage,
+-            "when it is invertible and, for every negative",
+-            20.0,
+-            gold,
+-            v(right, -2.15),
+-        )?;
+-        let rule_c = kit.text_left(
+-            stage,
+-            "eigenvalue, its Jordan blocks of each size",
+-            20.0,
+-            gold,
+-            v(right, -2.55),
+-        )?;
+-        let rule_d = kit.text_left(stage, "occur an even number of times.", 20.0, gold, v(right, -2.95))?;
+-        fade_in_all(stage, &[rule_a, rule_b, rule_c, rule_d], 0.6)?;
++        let mut rule = Vec::new();
++        for (line, y) in THEOREM.into_iter().zip(THEOREM_Y) {
++            rule.push(kit.text_left(stage, line, THEOREM_SIZE, gold, v(right, y))?);
++        }
++        fade_in_all(stage, &rule, 0.6)?;
++        // an authored hold. The voice only says the rule is on screen, so the reading
++        // clock starts when it stops: first the rule alone, then a gold mark beside
++        // each row for that row's verdict. The next line waits, and root re-scores
++        kit.hold(stage)?;
++        let rule_read = rule_seconds();
++        let row_reads = block_examples()?.map(|(_, verdict)| read_seconds(&verdict));
++        let held = stage.add_value_tracker(0.0);
++        let row_mark = stage.always_redraw(move |s: &mut Arena| {
++            let g = s.add(VMobject::new());
++            if let Some(row) = row_in_turn(value(s, held), rule_read, &row_reads) {
++                let at = v(ROW_MARK_X, ROWS_TOP - ROWS_PITCH * row as f64);
++                let mark = s.add(
++                    Dot::new()
++                        .point(at)
++                        .radius(ROW_MARK_R)
++                        .style(flat(answer_c(), 1.0))
++                        .build(),
++                );
++                let _ = s.attach(g, mark);
++            }
++            g
++        });
++        stage.add_to_scene(row_mark)?;
++        // as in draw::predict: a bare probe drives the tracker by the clock, because
++        // the music's window waits and plays no animation of its own
++        let reading_clock = stage.arena_mut().add(VMobject::new());
++        stage.add_to_scene(reading_clock)?;
++        let ticking = stage.add_dt_updater(
++            reading_clock,
++            move |s, _, dt| {
++                let now = s.tracker_value(held).unwrap_or(0.0);
++                let _ = s.set_tracker_value(held, now + dt);
++            },
++            false,
++        );
++        if ticking.is_err() {
++            return Err(fail("the rule's hold: updater refused".into()));
++        }
++        kit.music_breath(stage, rule_read + row_reads.iter().sum::<f64>())?;
++        stage.clear_updaters(reading_clock, true);
+ 
+         // 11_8: complex logarithms; only flattening matrices have none
+         kit.say(stage, "11_8")?;
+-        let mut rule_gone = vec![
+-            alike,
+-            minus_word,
+-            minus_i,
+-            spin,
+-            spin_word,
+-            equal_a,
+-            equal_b,
+-            two_a,
+-            two_b,
+-            rule_a,
+-            rule_b,
+-            rule_c,
+-            rule_d,
+-            cite,
+-            blocks_head,
+-        ];
++        let mut rule_gone = rule;
++        rule_gone.extend([cite, row_mark, reading_clock]);
+         rule_gone.extend(rows.tiles);
+         rule_gone.extend(rows.verdicts);
+         rule_gone.extend(rows.brackets);
+         fade_out_all(stage, &rule_gone, 0.5)?;
+         let heading2 = title(&kit, stage, "Allow complex entries")?;
+-        swap(stage, &[heading], &[heading2], 0.4)?;
++        reword(stage, &[heading], &[heading2], 0.4)?;
++        // what the obstacle was, while the voice says it disappears
++        let obstacle = kit.text(
++            stage,
++            &format!(
++                "A = diag({}, {}): no real logarithm",
++                shown_num(pair[0]),
++                shown_num(pair[1])
++            ),
++            24.0,
++            red,
++            v(0.0, 2.75),
++        )?;
++        fade_in_all(stage, &[obstacle], 0.4)?;
+         kit.until_sentence(stage, "11_8", 1)?;
+-        let flip = kit.tex(stage, r"e^{i\pi} = -1", 34.0, purple, &[], v(0.0, 2.2))?;
++        let flip = kit.tex(stage, r"e^{i\pi} = -1", 34.0, Palette::ink(), &[], v(0.0, 2.2))?;
+         fade_in_all(stage, &[flip], 0.4)?;
+         let big = format!("{}", -pair[0]);
+         let complex_log = kit.tex(
+@@ -1709,30 +1904,34 @@
+             ("entry of X × a part of u,", 22.0, 2.2),
+             ("where 1.5 = (−½) − (−2)", 22.0, 2.2),
+             ("the ends meet only when b = c = 0", 24.0, 2.2),
+-            ("e^(tX) stretches the axes by e^(tp) and e^(tq)", 22.0, 2.2),
+-            ("e^(tp) > 0 for all real t and p: no axis reverses", 22.0, 2.2),
++            // typeset lines, counting their exponents at full size
++            ("etX stretches the axes by etp and etq", 22.0, 2.2),
++            ("etp > 0 for all real t and p: no axis reverses", 22.0, 2.2),
+             ("where A puts the F", 20.0, 2.2 + KEY_WORD_X),
+             ("a half turn, then a stretch: two flows in turn", 22.0, 2.2),
+             ("equal stretches: (−1) − (−1) = 0, no gap,", 20.0, 2.2),
+             ("so every X commutes with −I", 20.0, 2.2),
+             ("2×2, a direction sent to a negative multiple:", 20.0, 2.2),
+             ("a real log only if A = −cI, c > 0", 20.0, 2.2),
+-            ("A real matrix has a real logarithm exactly", 20.0, 2.2),
+-            ("when it is invertible and, for every negative", 20.0, 2.2),
+-            ("eigenvalue, its Jordan blocks of each size", 20.0, 2.2),
+-            ("occur an even number of times.", 20.0, 2.2),
+         ] {
+             assert!(x + width(s, size) * WIDTH_ROOM < TEXT_RIGHT, "{s}");
+         }
+-        // the X card clears the A card and the screen edge (card half-width 0.0205 × size)
++        for line in THEOREM {
++            assert!(2.2 + width(line, THEOREM_SIZE) * WIDTH_ROOM < TEXT_RIGHT, "{line}");
++        }
++        // the A and X cards clear each other and the screen edge. A half-width of 0.683
++        // is the widest either has: the A card's under the shared helpers that size a
++        // card from its entries, wider than the 0.615 of the fixed spacing
+         for (offset, boundary) in [(1.45, 2.2 + 2.7), (3.95, 7.0)] {
+-            assert!(2.2 + offset + 0.0205 * 30.0 < boundary);
++            assert!(2.2 + offset + 0.683 < boundary);
+         }
+         // the "u = (1, 1)" label sits on the plane panel
+         let label = to_screen([PROBE[0] + 0.8, PROBE[1] + 0.3]);
+         assert!(label[0] + width("u = (1, 1)", 20.0) / 2.0 < CENTRE[0] + UNIT * CLIP + 0.1);
+         assert!(width("every invertible complex matrix has a complex logarithm", 26.0) < 13.6);
++        assert!(width("A = diag(−2, −½): no real logarithm", 24.0) < 13.6);
+         for line in [
++            "for any real linear flow, steady or not, det = exp(∫ trace dt) > 0 (Liouville)",
+             "Culver, Proc. AMS 17 (1966) 1146–1151, as stated by Higham (Handbook of Linear Algebra) and Gallier (Thm 3.4)",
+             "Gallier, arXiv 0805.0245, Theorem 3.3, proved via the Jordan form",
+         ] {
+@@ -1805,7 +2004,9 @@
+         let script = Script::parse(SCRIPT).unwrap();
+         for (id, phrases) in [
+             ("11_1", &[HALFWAY, SQUASHES][..]),
+-            ("11_5", &[ENDS_DIFFER][..]),
++            ("11_2", &[RUN_BACKWARDS][..]),
++            ("11_5", &[BOTH_ROUTES, ENDS_DIFFER][..]),
++            ("11_6", &[ONE_AFTER_THE_OTHER][..]),
+             (
+                 "11_7",
+                 &[
+@@ -1930,11 +2131,17 @@
+ 
+     #[test]
+     fn the_block_rows_follow_the_rule_and_each_verdict_says_what_the_rule_says() {
+-        for (blocks, verdict) in BLOCK_ROWS {
++        let rows = block_examples().unwrap();
++        for (blocks, verdict) in &rows {
+             assert_eq!(pairs_up(blocks), !verdict.contains("no real log"), "{verdict}");
+         }
++        // the numbers the rows print, from the facts
++        assert_eq!(rows[0].0, vec![(-1.0, 1), (-1.0, 1)]);
++        assert_eq!(rows[2].0, vec![(-2.0, 1), (-2.0, 1), (3.0, 1)]);
++        assert_eq!(rows[2].1, "−2 paired, 3 positive: real log");
++        assert_eq!(rows[3].0, vec![(-1.0, 2)]);
+         // the second row is the flip pair the chapter has been using
+-        assert_eq!(BLOCK_ROWS[1].0, [(PAIR.0, 1), (PAIR.1, 1)]);
++        assert_eq!(rows[1].0, vec![(PAIR.0, 1), (PAIR.1, 1)]);
+         assert_eq!(fact_list("matrix.flip_pair").unwrap(), [PAIR.0, PAIR.1].to_vec());
+         // the rule counts blocks of each size, and leaves positive stretches alone
+         assert!(pairs_up(&[(-1.0, 2), (-1.0, 2)]));
+@@ -1942,9 +2149,82 @@
+         assert!(!pairs_up(&[(-1.0, 1), (-1.0, 1), (-1.0, 1)]));
+         assert!(pairs_up(&[(3.0, 1)]));
+         assert!(pairs_up(&[(3.0, 1), (0.5, 2)]));
++    }
++
++    #[test]
++    fn each_row_with_a_real_logarithm_shows_one_and_the_size_two_block_is_not_a_negative_identity() {
++        let spin_log = |c: f64| model::madd(model::mscale(I2, c.ln()), model::mscale(J, PI));
++        // −1, −1 and −2, −2 are each one spin; a positive stretch has its own logarithm
++        for c in [1.0, 2.0] {
++            assert!(model::mdist(model::flow(spin_log(c), 1.0), model::mscale(I2, -c)) < 1e-9);
++        }
++        assert!((3f64.ln().exp() - 3.0).abs() < 1e-12);
++        // one eigenvalue −1, but not −I, which by the 2×2 reason below is the only
++        // thing a real logarithm could reach
++        let block = fact_matrix("matrix.jordan_block").unwrap();
++        assert!((model::det(block) - 1.0).abs() < 1e-12 && (model::trace(block) + 2.0).abs() < 1e-12);
++        assert!(model::mdist(block, model::mscale(I2, -1.0)) > 0.5);
+     }
+ 
+     #[test]
++    fn the_rule_is_held_long_enough_to_read_and_then_each_row_in_turn() {
++        // 159 characters at 15 a second, from the end of the voice
++        let chars: usize = THEOREM.iter().map(|line| line.chars().count()).sum();
++        assert_eq!(chars, 159);
++        assert!((rule_seconds() - 10.6).abs() < 1e-12);
++        // the mark waits for the rule, then gives each row its own time
++        let rows = [1.0, 2.0];
++        assert_eq!(row_in_turn(0.0, 5.0, &rows), None);
++        assert_eq!(row_in_turn(4.99, 5.0, &rows), None);
++        assert_eq!(row_in_turn(5.0, 5.0, &rows), Some(0));
++        assert_eq!(row_in_turn(6.5, 5.0, &rows), Some(1));
++        assert_eq!(row_in_turn(8.0, 5.0, &rows), None);
++        // each row gets its own verdict's reading time: 107 characters in all
++        let verdicts = block_examples().unwrap().map(|(_, verdict)| read_seconds(&verdict));
++        let total: f64 = verdicts.iter().sum();
++        assert!((total - 107.0 / 15.0).abs() < 1e-12);
++        // the rule stands in the column, level with the rows and above the fine print;
++        // the mark stands left of the tiles, on the screen
++        const { assert!(THEOREM_Y[0] < ROWS_TOP + TILE_HALF && THEOREM_Y[3] > ROWS_TOP - 3.0 * ROWS_PITCH) };
++        const { assert!(ROW_MARK_X + ROW_MARK_R < ROWS_X - TILE_HALF && ROW_MARK_X > -6.8) };
++    }
++
++    #[test]
++    fn the_comparison_dashes_stay_in_the_open_gap_between_the_two_fs() {
++        let gap = F_GAP * UNIT;
++        for p in letter_f(I2, CENTRE, UNIT) {
++            assert!(p[0] >= CENTRE[0] + gap - 1e-12, "{}", p[0]);
++        }
++        for p in letter_f(MIRROR, CENTRE, UNIT) {
++            assert!(p[0] <= CENTRE[0] - gap + 1e-12, "{}", p[0]);
++        }
++        // the stem's own corners open onto the gap; the bar tips stand well clear of it
++        let from = letter_f(I2, CENTRE, UNIT);
++        for k in [0, 9] {
++            assert!((from[k][0] - (CENTRE[0] + gap)).abs() < 1e-12);
++        }
++        for k in [3, 7] {
++            assert!(from[k][0] > CENTRE[0] + gap + 0.3);
++        }
++    }
++
++    #[test]
++    fn the_same_end_words_stand_on_the_panel_under_their_dot() {
++        let e = model::flow(FLOW, 1.0);
++        let points = route_points(FLOW, e, PROBE);
++        let end = points[0].1;
++        let at = to_screen([end[0], end[1] - END_WORD_DROP]);
++        let half = width("same end point", 20.0) * WIDTH_ROOM / 2.0 + 0.05;
++        assert!(at[0] - half > CENTRE[0] - UNIT * CLIP && at[0] + half < CENTRE[0] + UNIT * CLIP);
++        // under the gold dot (radius 0.12) and every point of both routes, plate included
++        let top = at[1] + 0.13;
++        assert!(top < to_screen(end)[1] - 0.12);
++        for (mid, stop) in points {
++            assert!(top < to_screen(mid)[1] && top < to_screen(stop)[1]);
++        }
++    }
++
++    #[test]
+     fn a_half_turn_with_an_equal_stretch_has_a_real_logarithm_that_commutes_with_every_x() {
+         for c in [1.0f64, 2.0, STRETCH_C] {
+             // ln c on the diagonal plus the half-turn spin
+@@ -1987,7 +2267,7 @@
+             assert!(GAP_X + width(s, size) * WIDTH_ROOM < 2.2 - 0.1, "{s}");
+         }
+         const { assert!(GAP_X > CENTRE[0] + UNIT * CLIP + 0.1) };
+-        for (blocks, verdict) in BLOCK_ROWS {
++        for (blocks, verdict) in &block_examples().unwrap() {
+             assert!(VERDICT_X + width(verdict, 22.0) * WIDTH_ROOM < 2.2 - 0.1, "{verdict}");
+             // each row's last tile ends before its verdict starts
+             let last = blocks.len() - 1;
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs
+@@ -30,21 +30,24 @@
+ //! spins run at constant speed, and their length comes from the sentence they
+ //! illustrate.
+ //!
+-//! Rebuild candidate for `mx-video-program-program-87do.63`; uncompiled,
+-//! unrendered, unlistened.
++//! The red spin turns about (0, 1, 1), whose line and arcs keep clear of the two
++//! rings. A pose never cuts in plain view: a background veil dips over the picture
++//! while the trackers jump (`redeal`). Panel B's ruler really folds into the dial,
++//! and the family ends on its words: a convention for −1, the whole family here.
++//!
++//! Rebuild candidate for `mx-video-program-program-87do.63`.
+ 
+ use std::collections::HashMap;
+ use std::f64::consts::{PI, SQRT_2, TAU};
+ 
+ use explainer_kit::narration::{frames_covering, wait_frames};
+-use explainer_kit::{Kit, Palette, Script, play, v};
++use explainer_kit::{BACKGROUND, Kit, Palette, Script, hex, play, tween, v};
+ use fmn::mobject::Stage as Arena;
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Decade, answer_c, arc_points, dot, fact, fact_f64, fact_list, fade_in_all, fade_in_lagged, fade_out_all,
+-    faded_line, fail, flat, lap_c, number_c, path, position_c, precisely, predict, ring, seg, slide_c, swap, title,
+-    value, warn_c,
++    answer_c, arc_points, dot, fact, fact_f64, fact_list, fade_in_all, fade_in_lagged, fade_out_all, faded_line, fail,
++    flat, group, lap_c, number_c, path, position_c, precisely, predict, ring, seg, slide_c, swap, title, value, warn_c,
+ };
+ use crate::model;
+ 
+@@ -63,13 +66,29 @@
+ const GRAPH_SX: f64 = 0.55;
+ const GRAPH_SY: f64 = 0.25;
+ const GRAPH_X: (f64, f64) = (-2.0, 1.95);
+-/// Panel B: the dial.
++/// Panel A: the ruler for ratios, the 1 and its length to the 10; its ticks and
++/// its numbers above the spine; where the hops stand.
++const RULER_ONE: [f64; 2] = [-3.6, 1.3];
++const RULER_LEN: f64 = 3.0;
++const RULER_TICK: f64 = 0.32;
++const RULER_LABEL: f64 = 0.58;
++const HOP_Y: f64 = 2.05;
++/// Panel A: the keyboard under the ruler, two octaves of white keys from A to A.
++const KEYS_LEFT: f64 = -3.6;
++const KEYS_RIGHT: f64 = -0.6;
++const KEYS_TOP: f64 = 0.72;
++const KEYS_H: f64 = 0.38;
++const KEYS_WHITE: i32 = 15;
++/// Panel B: the dial, and how far its ticks reach in from the rim.
+ const DIAL_C: [f64; 2] = [2.3, 1.45];
+ const DIAL_R: f64 = 0.95;
+-/// Panel C: the plane's zero, its scale, the column of log(−1)'s x and
+-/// its height per π.
+-const PLANE_C: [f64; 2] = [-5.6, -1.55];
++const DIAL_TICK: f64 = 0.14;
++/// Panel C: the plane's zero, its scale, the reach of its axes, the column of
++/// log(−1)'s x and its height per π. The zero stands a little high and the axes
++/// short, so the lowest label and the axis's foot keep clear of the sentence.
++const PLANE_C: [f64; 2] = [-5.6, -1.45];
+ const PLANE_S: f64 = 0.55;
++const PLANE_AXIS: f64 = 0.9;
+ const COLUMN_X: f64 = -3.9;
+ const COLUMN_PER_PI: f64 = 0.28;
+ /// Panel D: the plane's zero and scene units per unit.
+@@ -88,12 +107,21 @@
+ const CUBE_HALF: f64 = 1.05;
+ const ROD: P3 = [0.0, 1.0, 0.0];
+ const ROD_REACH: f64 = 2.0;
+-/// 12_6's other axis (normalised where used), tilted 45° from the rod
+-/// toward the viewer's side, so the top face's centre ends in view.
+-const OTHER_AXIS: P3 = [-1.0, 1.0, 0.0];
++/// 12_6's other axis (normalised where used), tilted 45° from the rod through
++/// the middle of an edge, so the cube lands on itself. Of the edge axes this one
++/// keeps its line, the pin and the arcs clear of both rings, and the top face's
++/// centre ends in view on the front face.
++const OTHER_AXIS: P3 = [0.0, 1.0, 1.0];
+ /// The corner followed round its circle, and the top face's centre.
+ const CORNER: P3 = [1.0, 1.0, 1.0];
+ const TOP_CENTRE: P3 = [0.0, 1.0, 0.0];
++/// The rings at the corner's start and at the half turn's end.
++const START_RING_R: f64 = 0.13;
++const END_RING_R: f64 = 0.2;
++/// A dip: how long the veil takes to come and go, and how far it reaches from the
++/// cube's centre. It covers all of the picture and none of the words.
++const DIP: f64 = 0.4;
++const VEIL_HALF: (f64, f64) = (1.8, 2.1);
+ /// The tip of 12_6's pin, the rod's upper stub carried with the cube by a spin
+ /// about another axis. A point of the top face stays within radius 1, inside
+ /// the inscribed ball, so the solid hides its whole path in every pose. This
+@@ -108,7 +136,7 @@
+ const PITCH_DEG: f64 = 20.0;
+ /// 12_6's turning line: the centre's x and y, and scene units per π.
+ const TURNING_X: f64 = 3.9;
+-const TURNING_Y: f64 = -2.0;
++const TURNING_Y: f64 = -1.6;
+ const TURNING_PER_PI: f64 = 0.62;
+ /// 12_6's third sentence as shares of its length, from even word spacing
+ /// over its 34 words (a proposal until fine sync): the red spin ends with "where
+@@ -127,6 +155,11 @@
+ /// landed until the second, when the 2½-lap run begins.
+ const ALSO_ENDS_HERE: &str = "also ends here";
+ const AND_TWO_AND_A_HALF: &str = "and so does two and a half";
++/// 12_1: the keys come when the line names them.
++const THE_KEYBOARD: &str = "the keyboard and the slide rule";
++/// 12_6's last sentence: the number's convention, then the family lit up.
++const CONVENTION: &str = "a convention broke the same tie";
++const WHOLE_FAMILY: &str = "the honest answer is the whole family";
+ /// However the take falls, the 1½-lap arrival holds at least this long, seconds:
+ /// a chosen floor for the eye, not a timing of any voice.
+ const ARRIVAL_HOLD: f64 = 0.5;
+@@ -445,8 +478,8 @@
+         if value(s, self.follow) > 0.5 {
+             // the rings mark the half turn's start and end whatever now spins, so
+             // a spin about another axis shows its corner missing the end ring
+-            add_mark(s, g, CORNER, pose, 0.13, gold, true);
+-            add_mark(s, g, turn(ROD, PI, CORNER), pose, 0.2, gold, true);
++            add_mark(s, g, CORNER, pose, START_RING_R, gold, true);
++            add_mark(s, g, turn(ROD, PI, CORNER), pose, END_RING_R, gold, true);
+             let moving = if on_rod { gold } else { red };
+             let trace = self.path(s, CORNER, now);
+             add_runs(s, g, unhidden_runs(&trace, pose), moving, 3.0, 0.9);
+@@ -617,8 +650,119 @@
+ fn column_at(k: i32) -> Vec3 {
+     // the logarithms of −1 have heights (2k + 1)π
+     v(COLUMN_X, PLANE_C[1] + COLUMN_PER_PI * f64::from(2 * k + 1))
++}
++
++/// Words give way to words in the same place: the old ones leave first, so the
++/// two never print over each other.
++fn reword(stage: &mut Stage<'_>, out: &[Mob], inn: &[Mob], rt: f64) -> fmn::Result<()> {
++    fade_out_all(stage, out, rt / 2.0)?;
++    fade_in_all(stage, inn, rt / 2.0)
++}
++
++/// A new pose for the cube, never a jump in plain view: a veil the colour of the
++/// background comes over the picture as `out` leaves, the trackers move under it,
++/// and it lifts as `inn` arrives.
++fn redeal(stage: &mut Stage<'_>, set: &[(Mob, f64)], out: &[Mob], inn: &[Mob]) -> fmn::Result<()> {
++    let r = Rectangle::new()
++        .width(2.0 * VEIL_HALF.0)
++        .height(2.0 * VEIL_HALF.1)
++        .style(flat(hex(BACKGROUND), 1.0))
++        .build()?
++        .moved_to(v(CUBE_C[0], CUBE_C[1]));
++    let veil = stage.arena_mut().add(r);
++    swap(stage, out, &[veil], DIP / 2.0)?;
++    for &(tracker, to) in set {
++        stage.set_tracker_value(tracker, to)?;
++    }
++    swap(stage, &[veil], inn, DIP / 2.0)
++}
++
++/// Where panel A's ruler puts `value`.
++fn ruler_x(value: f64) -> f64 {
++    RULER_ONE[0] + RULER_LEN * value.log10()
++}
++
++/// Panel A's ruler for ratios: a tick at each whole number from 1 to 10, and
++/// numbers only at the doublings the hops land on.
++fn ratio_ruler(kit: &Kit, stage: &mut Stage<'_>, c: Srgb) -> fmn::Result<Mob> {
++    let y = RULER_ONE[1];
++    let mut parts = vec![seg(stage, v(ruler_x(1.0), y), v(ruler_x(10.0), y), c, 3.0)];
++    for n in 1..=10 {
++        let x = ruler_x(f64::from(n));
++        parts.push(seg(stage, v(x, y), v(x, y + RULER_TICK), c, 2.5));
++    }
++    for n in [1, 2, 4, 8] {
++        let at = v(ruler_x(f64::from(n)), y + RULER_LABEL);
++        parts.push(kit.text(stage, &n.to_string(), 14.0, c, at)?);
++    }
++    group(stage, &parts)
++}
++
++/// Panel A's keyboard: two octaves of white keys from A to A, the black keys cut
++/// in the background colour, and a gold dot on each A, every one a doubling.
++fn mini_keyboard(stage: &mut Stage<'_>) -> fmn::Result<Mob> {
++    let w = (KEYS_RIGHT - KEYS_LEFT) / f64::from(KEYS_WHITE);
++    let key_x = |j: i32| KEYS_LEFT + w * (f64::from(j) + 0.5);
++    let mut parts = Vec::new();
++    for j in 0..KEYS_WHITE {
++        let key = Rectangle::new()
++            .width(w * 0.9)
++            .height(KEYS_H)
++            .style(flat(Palette::faint(), 1.0))
++            .build()?
++            .moved_to(v(key_x(j), KEYS_TOP - KEYS_H / 2.0));
++        parts.push(stage.arena_mut().add(key));
++    }
++    // from A, a black key follows A, C, D, F and G
++    for j in (0..KEYS_WHITE - 1).filter(|j| matches!(j % 7, 0 | 2 | 3 | 5 | 6)) {
++        let key = Rectangle::new()
++            .width(w * 0.6)
++            .height(KEYS_H * 0.6)
++            .style(flat(hex(BACKGROUND), 1.0))
++            .build()?
++            .moved_to(v(key_x(j) + w / 2.0, KEYS_TOP - KEYS_H * 0.3));
++        parts.push(stage.arena_mut().add(key));
++    }
++    for j in [0, 7, 14] {
++        parts.push(dot(stage, v(key_x(j), KEYS_TOP - KEYS_H * 0.78), 0.05, answer_c()));
++    }
++    group(stage, &parts)
+ }
+ 
++/// A point of the ruler as it folds into the dial: `laps` along it (0 at the 1, 1
++/// at the 10) and `inset` in from its rim. `fold` closes it from flat across panel
++/// B to a circle with its ends at the bottom, keeping its middle at the top of the
++/// bend and its length fixed; `turned` then brings the 1 round to the top, where it
++/// is exactly `dial_at`.
++fn folded_at(fold: f64, turned: f64, laps: f64, inset: f64) -> Vec3 {
++    let top = [PANELS[1][0] + (DIAL_C[0] - PANELS[1][0]) * fold, DIAL_C[1] + DIAL_R];
++    if fold < 1e-4 {
++        return v(top[0] + TAU * DIAL_R * (laps - 0.5), top[1] - inset);
++    }
++    let r = DIAL_R / fold;
++    let a = PI * fold * (1.0 - turned) - TAU * fold * laps;
++    v(top[0] - (r - inset) * a.sin(), top[1] - r + (r - inset) * a.cos())
++}
++
++/// The ruler part way to a dial: its rim and a tick at each whole number. At the
++/// end the 10 lands on the 1, which is what the dial forgets.
++fn folded_ruler(s: &mut Arena, fold: f64, turned: f64) -> Mob {
++    let g = s.add(VMobject::new());
++    let rim: Vec<Vec3> = (0..=72)
++        .map(|k| folded_at(fold, turned, f64::from(k) / 72.0, 0.0))
++        .collect();
++    let spine = s.add(polyline(rim).style(faded_line(Palette::dim(), 2.5, 1.0)).build());
++    let _ = s.attach(g, spine);
++    for k in 1..=10 {
++        let laps = f64::from(k).log10();
++        let a = folded_at(fold, turned, laps, 0.0);
++        let b = folded_at(fold, turned, laps, DIAL_TICK);
++        let tick = s.add(polyline(vec![a, b]).style(faded_line(position_c(), 2.0, 1.0)).build());
++        let _ = s.attach(g, tick);
++    }
++    g
++}
++
+ fn frame(stage: &mut Stage<'_>, c: [f64; 2]) -> Mob {
+     let (w, h) = (HALF_W, HALF_H);
+     let pts = vec![
+@@ -680,37 +824,38 @@
+         fade_in_all(stage, &[x_axis, curve], 0.5)?;
+         fade_in_all(stage, &[probe, hit, cap_a], 0.5)?;
+         kit.until_sentence(stage, "12_1", 2)?;
+-        let ruler = Decade {
+-            one: v(-3.6, 1.2),
+-            length: 3.0,
+-            side: 1.0,
+-        };
+-        let scale = ruler.build(&kit, stage, blue, 14.0)?;
++        let scale = ratio_ruler(&kit, stage, blue)?;
+         let mut hops = Vec::new();
+         for k in 0..3 {
+-            let (a, b) = (ruler.x(2f64.powi(k)), ruler.x(2f64.powi(k + 1)));
++            let (a, b) = (ruler_x(2f64.powi(k)), ruler_x(2f64.powi(k + 1)));
+             let (mid, r) = ((a + b) / 2.0, (b - a) / 2.0);
+-            let pts: Vec<Vec3> = arc_points(v(mid, 1.95), r, 0.0, PI, 16).into_iter().rev().collect();
++            let pts: Vec<Vec3> = arc_points(v(mid, HOP_Y), r, 0.0, PI, 16).into_iter().rev().collect();
+             hops.push(path(stage, pts, green, 2.5));
+         }
+-        let cap_a2 = kit.text_left(stage, "×2 is always the same step", 20.0, green, v(-3.6, 0.85))?;
++        let cap_a2 = kit.text_left(stage, "×2 is always the same step", 20.0, green, v(KEYS_LEFT, 0.95))?;
+         fade_in_all(stage, &[scale], 0.5)?;
+         fade_in_lagged(stage, &hops, 1.0, 0.3)?;
+         fade_in_all(stage, &[cap_a2], 0.4)?;
++        until_phrase(&kit, stage, "12_1", THE_KEYBOARD)?;
++        let keys = mini_keyboard(stage)?;
++        fade_in_all(stage, &[keys], 0.4)?;
+ 
+         // 12_2: the dial forgets the decade; the complex exponential the laps
+         kit.say(stage, "12_2")?;
+-        let dial = ring(stage, v(DIAL_C[0], DIAL_C[1]), DIAL_R, Palette::dim(), 2.5);
++        // the ruler itself, flat across panel B, folds shut and turns its 1 to the top
++        let flat_ruler = folded_ruler(stage.arena_mut(), 0.0, 0.0);
++        fade_in_all(stage, &[flat_ruler], 0.3)?;
++        let (fold, turned) = (stage.add_value_tracker(0.0), stage.add_value_tracker(0.0));
++        let dial = stage.always_redraw(move |s: &mut Arena| {
++            let (f, t) = (value(s, fold), value(s, turned));
++            folded_ruler(s, f, t)
++        });
++        stage.scene_mut().replace(flat_ruler, &[dial])?;
++        play!(stage; tween(fold, 1.0, 1.2)?);
++        play!(stage; tween(turned, 1.0, 0.5)?);
+         let mut dial_marks = Vec::new();
+         for k in 1..=9 {
+             let laps = f64::from(k).log10();
+-            dial_marks.push(seg(
+-                stage,
+-                dial_at(laps, DIAL_R),
+-                dial_at(laps, DIAL_R - 0.14),
+-                blue,
+-                2.0,
+-            ));
+             dial_marks.push(kit.text(stage, &k.to_string(), 14.0, blue, dial_at(laps, DIAL_R + 0.2))?);
+         }
+         let mark = fact_f64("dial.mark")?;
+@@ -728,12 +873,11 @@
+         let same = kit.text_left(stage, &values, 20.0, gold, v(3.6, 1.85))?;
+         let one_mark = kit.text_left(stage, "all land on one mark", 20.0, gold, v(3.6, 1.4))?;
+         let cap_b = kit.text_left(stage, "the dial forgets the decade", 20.0, purple, v(3.6, 0.75))?;
+-        fade_in_all(stage, &[dial], 0.4)?;
+-        fade_in_all(stage, &dial_marks, 0.5)?;
++        fade_in_all(stage, &dial_marks, 0.3)?;
+         fade_in_all(stage, &[pointer, mark_dot, mark_word, same, one_mark, cap_b], 0.5)?;
+         kit.until_sentence(stage, "12_2", 1)?;
+         let axes = {
+-            let (c, w) = (PLANE_C, 0.95);
++            let (c, w) = (PLANE_C, PLANE_AXIS);
+             let x = seg(stage, v(c[0] - w, c[1]), v(c[0] + w, c[1]), Palette::faint(), 2.0);
+             let y = seg(stage, v(c[0], c[1] - w), v(c[0], c[1] + w), Palette::faint(), 2.0);
+             [x, y]
+@@ -750,7 +894,7 @@
+                 stage,
+                 &format!("{}i", super::draw::pi_label(i64::from(2 * k + 1))),
+                 16.0,
+-                purple,
++                Palette::ink(),
+                 v(COLUMN_X + 0.2, p[1]),
+             )?);
+         }
+@@ -762,13 +906,15 @@
+             v(-6.55, -2.65),
+         )?;
+         fade_in_all(stage, &[axes[0], axes[1], circle, target], 0.4)?;
++        // −1 stays on top of the leaders and of the cut, which runs through it
++        stage.set_z_index(target, 1, true);
+         fade_in_lagged(stage, &column, 1.2, 0.08)?;
+         fade_in_all(stage, &[cap_c], 0.4)?;
+         kit.until_sentence(stage, "12_2", 2)?;
+         let cut = seg(
+             stage,
+             v(PLANE_C[0], PLANE_C[1]),
+-            v(PLANE_C[0] - 0.95, PLANE_C[1]),
++            v(PLANE_C[0] - PLANE_AXIS, PLANE_C[1]),
+             red,
+             4.0,
+         );
+@@ -795,16 +941,17 @@
+         }
+         let home = ring(stage, flows_screen(SHARED_START), SHARED_RING_R, Palette::ink(), 2.5);
+         let clock = stage.add_value_tracker(0.0);
++        let movers_on = stage.add_value_tracker(0.0);
+         let all: Vec<(f64, f64, f64)> = std::iter::once((1.0, 1.0, 0.0)).chain(specs.iter().copied()).collect();
+         let movers = stage.always_redraw(move |s: &mut Arena| {
+-            let t = value(s, clock);
++            let (t, on) = (value(s, clock), value(s, movers_on));
+             let g = s.add(VMobject::new());
+             for &(a, b, tilt) in &all {
+                 let d = s.add(
+                     Dot::new()
+                         .point(flows_screen(orbit_point(a, b, tilt, t)))
+                         .radius(0.07)
+-                        .style(flat(green, 1.0))
++                        .style(flat(green, on))
+                         .build(),
+                 );
+                 let _ = s.attach(g, d);
+@@ -821,6 +968,7 @@
+         fade_in_all(stage, &orbits, 0.4)?;
+         fade_in_all(stage, &[home], 0.2)?;
+         stage.add_to_scene(movers)?;
++        play!(stage; tween(movers_on, 1.0, 0.3)?);
+         play!(stage; steady(clock, 1.0, 2.6)?);
+         fade_in_all(stage, &[cap_d], 0.4)?;
+         kit.until_sentence(stage, "12_3", 1)?;
+@@ -837,7 +985,8 @@
+         kit.until_sentence(stage, "12_3", 3)?;
+         let mut panels = frames.clone();
+         panels.extend([
+-            x_axis, curve, probe, hit, cap_a, scale, cap_a2, dial, pointer, mark_dot, mark_word, same, one_mark, cap_b,
++            x_axis, curve, probe, hit, cap_a, scale, cap_a2, keys, dial, pointer, mark_dot, mark_word, same, one_mark,
++            cap_b,
+         ]);
+         panels.extend(hops);
+         panels.extend(dial_marks);
+@@ -857,7 +1006,7 @@
+         // half a lap per unit time ends, at time 1, in a half turn
+         kit.say(stage, "12_4")?;
+         let heading2 = title(&kit, stage, "One to take with you")?;
+-        swap(stage, &[heading, question], &[heading2], 0.5)?;
++        reword(stage, &[heading, question], &[heading2], 0.5)?;
+         kit.until_sentence(stage, "12_4", 1)?;
+         let rates = fact_list("puzzle.spin_rates")?;
+         let &[half_rate, lap_and_half, two_and_half, back_rate] = rates.as_slice() else {
+@@ -899,7 +1048,7 @@
+         stage.set_tracker_value(pz.follow, 1.0)?;
+         let spin_word = |r: f64| format!("spin: {} per unit of time", laps_text(r));
+         let rate_word = kit.text_left(stage, &spin_word(half_rate), 22.0, purple, v(0.6, 2.3))?;
+-        swap(stage, &[circle_word], &[rate_word], 0.3)?;
++        reword(stage, &[circle_word], &[rate_word], 0.3)?;
+         let time_word = kit.text_left(stage, "time", 20.0, Palette::dim(), v(0.6, 1.85))?;
+         let _time_val = kit.live_value(
+             stage,
+@@ -982,10 +1131,8 @@
+             (lap_and_half, phrase_time(&kit, "12_6", ALSO_ENDS_HERE)?, true),
+             (two_and_half, chip_by, false),
+         ] {
+-            stage.set_tracker_value(pz.time, 0.0)?;
+-            stage.set_tracker_value(pz.rate, r)?;
+-            let word = kit.text_left(stage, &spin_word(r), 22.0, purple, v(0.6, 2.3))?;
+-            swap(stage, &[rate_shown], &[word], 0.3)?;
++            let word = kit.text_left(stage, &spin_word(r), 22.0, purple, v(0.6, 2.3))?;
++            redeal(stage, &[(pz.time, 0.0), (pz.rate, r)], &[rate_shown], &[word])?;
+             rate_shown = word;
+             let now = stage.scene().time().to_f64();
+             play!(stage; steady(pz.time, 1.0, run_by(by, now, 2.4 + 0.4 * r))?);
+@@ -1009,10 +1156,8 @@
+         fade_in_all(stage, &[laps_chip], 0.4)?;
+         kit.until_sentence(stage, "12_6", 2)?;
+         // the direction: half a lap the other way
+-        stage.set_tracker_value(pz.time, 0.0)?;
+-        stage.set_tracker_value(pz.rate, back_rate)?;
+         let word = kit.text_left(stage, &spin_word(back_rate), 22.0, blue, v(0.6, 2.3))?;
+-        swap(stage, &[rate_shown], &[word], 0.3)?;
++        redeal(stage, &[(pz.time, 0.0), (pz.rate, back_rate)], &[rate_shown], &[word])?;
+         rate_shown = word;
+         play!(stage; steady(pz.time, 1.0, 2.6)?);
+         let way_chip = kit.text_left(
+@@ -1027,9 +1172,6 @@
+         let axis_began = stage.scene().time().to_f64();
+         // the axis: half a lap about another line drags the top face's
+         // centre off the rod, while that line's own points stay put
+-        stage.set_tracker_value(pz.time, 0.0)?;
+-        stage.set_tracker_value(pz.rate, half_rate)?;
+-        stage.set_tracker_value(pz.other, 1.0)?;
+         let word = kit.text_left(
+             stage,
+             &format!("spin: {} about another axis", laps_text(half_rate)),
+@@ -1037,16 +1179,20 @@
+             red,
+             v(0.6, 2.3),
+         )?;
+-        swap(stage, &[rate_shown], &[word], 0.3)?;
++        redeal(
++            stage,
++            &[(pz.time, 0.0), (pz.rate, half_rate), (pz.other, 1.0)],
++            &[rate_shown],
++            &[word],
++        )?;
+         let red_spin =
+-            sentence_len(&kit.sentence_starts("12_6"), 3).map_or(2.8, |len| (AXIS_SPIN_END * len - 0.3).max(MIN_RUN));
++            sentence_len(&kit.sentence_starts("12_6"), 3).map_or(2.8, |len| (AXIS_SPIN_END * len - DIP).max(MIN_RUN));
+         play!(stage; steady(pz.time, 1.0, red_spin)?);
+         // hold the miss, then back to the half turn about the rod, its top
+         // face's centre on the rod in plain view for "only the rod's points"
+         until_share(&kit, stage, "12_6", 3, axis_began, AXIS_RESET)?;
+-        stage.set_tracker_value(pz.other, 0.0)?;
+         let back = kit.text_left(stage, &spin_word(half_rate), 22.0, purple, v(0.6, 2.3))?;
+-        swap(stage, &[word], &[back], 0.3)?;
++        redeal(stage, &[(pz.other, 0.0)], &[word], &[back])?;
+         until_share(&kit, stage, "12_6", 3, axis_began, AXIS_CHIP)?;
+         let axis_chip = kit.text_left(
+             stage,
+@@ -1093,6 +1239,10 @@
+                 v(p[0], p[1] - 0.3),
+             )?);
+         }
++        // the family goes on past the last mark, both ways
++        for side in [-1.0, 1.0] {
++            marks.push(kit.text(stage, "…", 20.0, Palette::dim(), turning_at(side * 3.75 * PI))?);
++        }
+         let window = seg(stage, turning_at(-PI), turning_at(PI), green, 6.0);
+         let mut ends = Vec::new();
+         for k in [-3.0, -1.0, 1.0, 3.0] {
+@@ -1106,14 +1256,14 @@
+             "how far each of these spins turns in one unit of time:",
+             20.0,
+             Palette::ink(),
+-            v(1.4, -1.5),
++            v(1.4, -1.1),
+         )?;
+         let tie = kit.text_left(
+             stage,
+             "the slowest two, ±π, tie on the window's open edge",
+             20.0,
+             gold,
+-            v(1.4, -2.7),
++            v(1.4, -2.3),
+         )?;
+         fade_in_all(stage, &marks, 0.4)?;
+         fade_in_all(stage, &[window, line_word], 0.4)?;
+@@ -1132,14 +1282,23 @@
+                 half_laps(lap_and_half)
+             ),
+         )?;
++        fade_in_all(stage, &[source], 0.4)?;
++        until_phrase(&kit, stage, "12_6", CONVENTION)?;
+         let convention = kit.text_left(
+             stage,
+             "for the number −1, Log(−1) = iπ by convention",
+             18.0,
+             Palette::dim(),
+-            v(1.4, -3.1),
++            v(1.4, -2.7),
+         )?;
+-        fade_in_all(stage, &[source, convention], 0.4)?;
++        fade_in_all(stage, &[convention], 0.4)?;
++        // here no convention picks one: every spin on the line lights up
++        until_phrase(&kit, stage, "12_6", WHOLE_FAMILY)?;
++        let mut family = vec![kit.text_left(stage, "here: the whole family", 20.0, gold, v(1.4, -3.1))?];
++        for k in [-3.0, -1.0, 1.0, 3.0] {
++            family.push(dot(stage, turning_at(PI * k), 0.1, gold));
++        }
++        fade_in_all(stage, &family, 0.4)?;
+         kit.finish(stage)
+     }
+ }
+@@ -1252,7 +1411,7 @@
+         assert!(close3(turn(ROD, PI, TOP_CENTRE), TOP_CENTRE));
+         assert!(top[0].hypot(top[2]) > 0.9, "{top:?}");
+         // and it ends on a face turned toward the viewer, so its dot ends in view
+-        assert!(close3(top, [-1.0, 0.0, 0.0]) && !hidden(top, pose(OTHER_AXIS, 0.5, 1.0)));
++        assert!(close3(top, [0.0, 0.0, 1.0]) && !hidden(top, pose(OTHER_AXIS, 0.5, 1.0)));
+     }
+ 
+     #[test]
+@@ -1273,8 +1432,6 @@
+             let shown = drawn(&unhidden_runs(&arc, p));
+             assert!((shown - drawn(&[whole])).abs() < 1e-9, "{t}: {shown}");
+             assert!(!hidden(turn(p.0, p.1, PIN_TIP), p), "{t}");
+-            // most of the pin stays in view, even while the top face looks away
+-            assert!(drawn(&unhidden_runs(&pin_points(p), p)) > 0.8, "{t}");
+             // the corner's start and end rings stay in view for the whole spin
+             assert!(!hidden(CORNER, p) && !hidden(turn(ROD, PI, CORNER), p), "{t}");
+         }
+@@ -1282,13 +1439,19 @@
+         for t in [0.25, 0.5, 0.75, 1.0] {
+             let p = pose(OTHER_AXIS, 0.5, t);
+             let corner = drawn(&unhidden_runs(&spin_path(n, 0.5, CORNER, t), p));
+-            assert!(corner > 0.9, "{t}: {corner}");
++            assert!(corner > 0.8, "{t}: {corner}");
+             assert!(drawn(&unhidden_runs(&spin_path(n, 0.5, PIN_TIP, t), p)) > 0.85, "{t}");
+         }
++        // the pin points nearly at the viewer through the middle of the spin, when its
++        // tip and arc carry the drag; it has real length at both ends
++        for (t, least) in [(0.025, 0.9), (1.0, 0.6)] {
++            let p = pose(OTHER_AXIS, 0.5, t);
++            assert!(drawn(&unhidden_runs(&pin_points(p), p)) > least, "{t}");
++        }
+         // the miss: the corner lands in view, one edge from its end ring, and so
+         // does every corner, though the outline is the same cube
+         let end = pose(OTHER_AXIS, 0.5, 1.0);
+-        assert!(close3(turn(n, PI, CORNER), [-1.0, -1.0, -1.0]) && !hidden(turn(n, PI, CORNER), end));
++        assert!(close3(turn(n, PI, CORNER), [-1.0, 1.0, 1.0]) && !hidden(turn(n, PI, CORNER), end));
+         for &c in &CORNERS {
+             let (a, b) = (turn(n, PI, c), turn(ROD, PI, c));
+             let gap = ((a[0] - b[0]).powi(2) + (a[1] - b[1]).powi(2) + (a[2] - b[2]).powi(2)).sqrt();
+@@ -1298,8 +1461,98 @@
+         // the other axis shows well beyond the solid at both ends of the spin
+         for t in [0.0, 1.0] {
+             let p = pose(OTHER_AXIS, 0.5, t);
+-            assert!(drawn(&unhidden_runs(&axis_points(n, OTHER_REACH), p)) > 2.0, "{t}");
++            assert!(drawn(&unhidden_runs(&axis_points(n, OTHER_REACH), p)) > 1.4, "{t}");
++        }
++    }
++
++    /// The least screen distance from `at` to the points of `runs`.
++    fn nearest(at: Vec3, runs: &[Vec<Vec3>]) -> f64 {
++        runs.iter()
++            .flatten()
++            .map(|q| (q[0] - at[0]).hypot(q[1] - at[1]))
++            .fold(f64::INFINITY, f64::min)
++    }
++
++    #[test]
++    fn the_red_spin_keeps_clear_of_both_rings() {
++        let n = unit(OTHER_AXIS);
++        let (start, end) = (project(CORNER), project(turn(ROD, PI, CORNER)));
++        for j in 0..=60 {
++            let t = f64::from(j) / 60.0;
++            let p = pose(OTHER_AXIS, 0.5, t);
++            let line = unhidden_runs(&axis_points(n, OTHER_REACH), p);
++            let pin = unhidden_runs(&pin_points(p), p);
++            let arc = unhidden_runs(&spin_path(n, 0.5, PIN_TIP, t), p);
++            for runs in [&line, &pin, &arc] {
++                assert!(nearest(start, runs) > START_RING_R + 0.3, "{t}");
++                assert!(nearest(end, runs) > END_RING_R + 0.4, "{t}");
++            }
++            // the corner leaves the start ring, and its trace never nears the end ring
++            let trace = unhidden_runs(&spin_path(n, 0.5, CORNER, t), p);
++            assert!(nearest(end, &trace) > END_RING_R + 0.8, "{t}");
++        }
++        // the miss still shows: the red corner lands well outside the end ring
++        let landed = project(turn(n, PI, CORNER));
++        assert!((landed[0] - end[0]).hypot(landed[1] - end[1]) > 1.3);
++    }
++
++    #[test]
++    fn the_veil_covers_every_pose_of_the_picture_and_none_of_the_words() {
++        let inside = |q: Vec3| (q[0] - CUBE_C[0]).abs() < VEIL_HALF.0 && (q[1] - CUBE_C[1]).abs() < VEIL_HALF.1;
++        for (axis, rate, reach) in [
++            (ROD, 2.5, ROD_REACH),
++            (OTHER_AXIS, 0.5, OTHER_REACH),
++            (ROD, -0.5, ROD_REACH),
++        ] {
++            let n = unit(axis);
++            for j in 0..=120 {
++                let (a, angle) = pose(axis, rate, f64::from(j) / 120.0);
++                for &c in &CORNERS {
++                    assert!(inside(project(turn(a, angle, c))));
++                }
++                assert!(inside(project(turn(a, angle, PIN_TIP))));
++            }
++            assert!(inside(project([n[0] * reach, n[1] * reach, n[2] * reach])));
++            assert!(inside(project([-n[0] * reach, -n[1] * reach, -n[2] * reach])));
++        }
++        // the corners' circles reach √2 from the rod, at the top and bottom faces
++        for k in 0..72 {
++            let a = TAU * f64::from(k) / 72.0;
++            for h in [1.0, -1.0] {
++                assert!(inside(project([SQRT_2 * a.cos(), h, SQRT_2 * a.sin()])));
++            }
++        }
++        // the rod's name stands above it, and the words start right of it
++        assert!(project([0.0, ROD_REACH + 0.3, 0.0])[1] - 0.12 > CUBE_C[1] + VEIL_HALF.1);
++        const { assert!(CUBE_C[0] + VEIL_HALF.0 < 0.6) };
++    }
++
++    #[test]
++    fn the_ruler_folds_inside_panel_b_and_closes_exactly_on_the_dial() {
++        let (c, w, h) = (PANELS[1], HALF_W, HALF_H);
++        for j in 0..=100 {
++            let fold = f64::from(j) / 100.0;
++            for k in 0..=72 {
++                let q = folded_at(fold, 0.0, f64::from(k) / 72.0, 0.0);
++                assert!((q[0] - c[0]).abs() < w && (q[1] - c[1]).abs() < h, "{fold} {q:?}");
++            }
++        }
++        for k in 0..=40 {
++            let laps = f64::from(k) / 40.0;
++            // shut and turned, it is the dial; and folding starts from flat, with no jump
++            let (shut, mark) = (folded_at(1.0, 1.0, laps, DIAL_TICK), dial_at(laps, DIAL_R - DIAL_TICK));
++            assert!((shut[0] - mark[0]).abs() < 1e-12 && (shut[1] - mark[1]).abs() < 1e-12);
++            let (a, b) = (folded_at(2e-4, 0.0, laps, 0.1), folded_at(0.0, 0.0, laps, 0.1));
++            assert!((a[0] - b[0]).hypot(a[1] - b[1]) < 2e-3);
++            for t in [0.25, 0.5, 0.75] {
++                let q = folded_at(1.0, t, laps, 0.0);
++                let r = (q[0] - DIAL_C[0]).hypot(q[1] - DIAL_C[1]);
++                assert!((r - DIAL_R).abs() < 1e-12);
++            }
+         }
++        // and the 10 lands on the 1: what the dial forgets
++        let (one, ten) = (folded_at(1.0, 1.0, 0.0, 0.0), folded_at(1.0, 1.0, 1.0, 0.0));
++        assert!((one[0] - ten[0]).abs() < 1e-12 && (one[1] - ten[1]).abs() < 1e-12);
+     }
+ 
+     #[test]
+@@ -1456,8 +1709,30 @@
+                 "{q:?}"
+             );
+         }
+-        // the turning line and its labels fit between x 1.4 and the edge
++        // the turning line and its labels fit between x 1.4 and the edge, with the
++        // family's dots past each end
+         assert!(turning_at(-3.4 * PI)[0] > 1.4 && turning_at(3.4 * PI)[0] < 6.6);
++        let dots = 0.11;
++        assert!(turning_at(-3.75 * PI)[0] - dots > 1.4 && turning_at(3.75 * PI)[0] + dots < TEXT_RIGHT);
++        assert!(turning_at(-3.75 * PI)[0] + dots < turning_at(-3.4 * PI)[0]);
++        // and the words stack clear of it and of the fine print
++        const { assert!(-1.1 - 0.11 > TURNING_Y + 0.15 && TURNING_Y - 0.3 - 0.09 > -2.3 + 0.11) };
++        const { assert!(-3.1 - 0.11 > -3.62 + 0.13) };
++        // panel A: the ruler's hops under the frame, its keys inside it under the caption
++        let tallest = (ruler_x(2.0) - ruler_x(1.0)) / 2.0;
++        assert!(HOP_Y + tallest < PANELS[0][1] + HALF_H);
++        const { assert!(RULER_ONE[1] + RULER_LABEL + 0.08 < HOP_Y) };
++        const { assert!(KEYS_TOP - KEYS_H > PANELS[0][1] - HALF_H && KEYS_TOP < 0.95 - 0.1) };
++        const { assert!(KEYS_RIGHT < PANELS[0][0] + HALF_W) };
++        assert!(-6.55 + width("one input for every output", 20.0) * WIDTH_ROOM < KEYS_LEFT - 0.1);
++        // the caption over the keys stays inside the panel
++        assert!(KEYS_LEFT + width("×2 is always the same step", 20.0) * WIDTH_ROOM < PANELS[0][0] + HALF_W);
++        // panel C: the lowest label and the axis's foot clear the sentence, the top the frame
++        let sentence_top = -2.65 + 0.11;
++        assert!(column_at(-2)[1] - 0.09 > sentence_top + 0.15);
++        const { assert!(PLANE_C[1] - PLANE_AXIS > -2.65 + 0.11 + 0.15) };
++        const { assert!(PLANE_C[1] + PLANE_AXIS < PANELS[2][1] + HALF_H) };
++        assert!(column_at(1)[1] + 0.09 < PANELS[2][1] + HALF_H);
+         for (s, size, x) in [
+             ("each corner keeps to a circle about the rod", 20.0, 0.6),
+             ("spin: ½ lap the other way per unit of time", 22.0, 0.6),
+@@ -1467,6 +1742,8 @@
+             ("so: infinitely many spins, all about the rod", 24.0, 0.6),
+             ("how far each of these spins turns in one unit of time:", 20.0, 1.4),
+             ("the slowest two, ±π, tie on the window's open edge", 20.0, 1.4),
++            ("for the number −1, Log(−1) = iπ by convention", 18.0, 1.4),
++            ("here: the whole family", 20.0, 1.4),
+         ] {
+             assert!(x + width(s, size) * WIDTH_ROOM < TEXT_RIGHT, "{s}");
+         }
+@@ -1511,6 +1788,20 @@
+     }
+ 
+     #[test]
++    fn the_new_hooks_are_in_their_lines_once_and_in_spoken_order() {
++        let script = Script::parse(SCRIPT).unwrap();
++        let line = script.text("12_1").unwrap();
++        assert_eq!(line.matches(THE_KEYBOARD).count(), 1);
++        let text = script.text("12_6").unwrap();
++        let last = text.find("For the number minus one").unwrap();
++        for phrase in [CONVENTION, WHOLE_FAMILY] {
++            assert_eq!(text.matches(phrase).count(), 1, "{phrase}");
++        }
++        let (a, b) = (text.find(CONVENTION).unwrap(), text.find(WHOLE_FAMILY).unwrap());
++        assert!(last < a && a < b);
++    }
++
++    #[test]
+     fn a_spin_ends_by_its_moment_within_its_limits() {
+         assert!((run_by(Some(12.0), 10.0, 3.0) - 2.0).abs() < 1e-12);
+         assert!((run_by(Some(20.0), 10.0, 3.0) - 3.0).abs() < 1e-12);
+--- a/explainer_corpus/logarithm_mysteries/src/facts.rs
++++ b/explainer_corpus/logarithm_mysteries/src/facts.rs
+@@ -73,6 +73,11 @@
+ pub const PROBE: [f64; 2] = [1.0, 1.0];
+ /// 11_5's candidate X, whose off-diagonal entries shrink to zero on screen.
+ pub const PROBE_CANDIDATE: model::M2 = [[0.4, 0.6], [-0.5, -0.3]];
++/// 11_7's block rows beyond the flip pair: a matching pair, a matching pair with a
++/// positive stretch, and one size-2 block.
++pub const BLOCKS_MATCHING: [f64; 2] = [-1.0, -1.0];
++pub const BLOCKS_MIXED: [f64; 3] = [-2.0, -2.0, 3.0];
++pub const JORDAN_BLOCK: model::M2 = [[-1.0, 1.0], [0.0, -1.0]];
+ /// 12_4–12_6's spins about the rod, in laps per unit time, run on screen.
+ pub const SPIN_RATES: [f64; 4] = [0.5, 1.5, 2.5, -0.5];
+ 
+@@ -255,6 +260,36 @@
+     let flip = [[FLIP_PAIR.0, 0.0], [0.0, FLIP_PAIR.1]];
+     let gap = model::apply(model::commutator(PROBE_CANDIDATE, flip), PROBE);
+     f.add("matrix.probe_gap", dec(gap[0].hypot(gap[1]), 2))?;
++    // 11_7: a matching pair −c, −c is one spin, e^(ln c I + πJ); a positive stretch
++    // has its own logarithm. The size-2 block has eigenvalue −1 twice without being −I
++    for c in [1.0_f64, 2.0] {
++        let spin = model::madd(model::mscale(model::I2, c.ln()), model::mscale(model::J, PI));
++        if model::mdist(model::mexp(spin), model::mscale(model::I2, -c)) > 1e-9 {
++            return Err(format!("matrix.blocks: e^(ln {c} I + πJ) is not −{c} I"));
++        }
++    }
++    if (3f64.ln().exp() - 3.0).abs() > 1e-12 {
++        return Err("matrix.blocks_mixed: ln 3 does not undo e".to_owned());
++    }
++    let block = JORDAN_BLOCK;
++    if (model::det(block) - 1.0).abs() > 1e-12
++        || (model::trace(block) + 2.0).abs() > 1e-12
++        || model::mdist(block, model::mscale(model::I2, -1.0)) < 0.5
++    {
++        return Err("matrix.jordan_block: not a size-2 block for −1".to_owned());
++    }
++    f.add("matrix.blocks_matching", joined(&BLOCKS_MATCHING[..]))?;
++    f.add("matrix.blocks_mixed", joined(&BLOCKS_MIXED[..]))?;
++    f.add(
++        "matrix.jordan_block",
++        format!(
++            "{},{};{},{}",
++            num(block[0][0]),
++            num(block[0][1]),
++            num(block[1][0]),
++            num(block[1][1])
++        ),
++    )?;
+     // 12_4–12_6: each shown spin rate ends, at time 1, in the half turn
+     for r in SPIN_RATES {
+         let (s, c) = (2.0 * PI * r).sin_cos();
+@@ -309,9 +344,17 @@
+     #[test]
+     fn the_facts_compute_and_self_check() {
+         let f = facts().unwrap();
+-        assert_eq!(f.len(), 93, "oracle.py prints 93 keys");
++        assert_eq!(f.len(), 96, "oracle.py prints 96 keys");
+     }
+ 
++    /// 11_7: the numbers the block rows print, in the form the chapter parses.
++    #[test]
++    fn the_block_rows_numbers_read_as_their_rows_need() {
++        assert_eq!(fact("matrix.blocks_matching"), "-1,-1");
++        assert_eq!(fact("matrix.blocks_mixed"), "-2,-2,3");
++        assert_eq!(fact("matrix.jordan_block"), "-1,1;0,-1");
++    }
++
+     /// 00_2: "the last step alone fills half the ruler; the first four notes
+     /// crowd into the first eighth" — exactly, not roughly.
+     #[test]
+--- a/explainer_corpus/logarithm_mysteries/oracle.py
++++ b/explainer_corpus/logarithm_mysteries/oracle.py
+@@ -252,7 +252,39 @@
+ r1 = act(Xc, act(flip, [1, 1]))
+ r2 = act(flip, act(Xc, [1, 1]))
+ add("matrix.probe_gap", dec(math.hypot(r1[0] - r2[0], r1[1] - r2[1]), 2))
++
++
++# 11_7's block rows. A matching pair -c, -c is one spin, so it has a real logarithm;
++# a positive stretch has its own. The size-2 block has eigenvalue -1 twice, and a
++# real 2x2 X reaching eigenvalue -1 has eigenvalues a +- i pi (2k + 1), so e^X is
++# -e^a I whatever its stretch directions: never that block.
++def spin_log(c):
++    return [[math.log(c), -math.pi], [math.pi, math.log(c)]]
++
++
++def sheared_spin(a_, k_, shear):
++    w = math.pi * (2 * k_ + 1)
++    return [
++        [a_ + shear * w, -w - shear * shear * w],
++        [w, a_ - shear * w],
++    ]
++
+ 
++assert close(mexp(spin_log(1)), [[-1, 0], [0, -1]])
++assert close(mexp(spin_log(2)), [[-2, 0], [0, -2]])
++assert abs(math.exp(math.log(3)) - 3) < 1e-12
++add("matrix.blocks_matching", ",".join(num(x) for x in [-1, -1]))
++add("matrix.blocks_mixed", ",".join(num(x) for x in [-2, -2, 3]))
++jordan = [[-1, 1], [0, -1]]
++assert mdet(jordan) == 1 and jordan[0][0] + jordan[1][1] == -2 and jordan[0][1] != 0
++for a_ in (-1.0, 0.0, 0.7):
++    for k_ in (0, 1, -2):
++        for shear in (0.0, 0.5, 3.0):
++            reached = mexp(sheared_spin(a_, k_, shear))
++            assert close(reached, [[-math.exp(a_), 0], [0, -math.exp(a_)]], 1e-6), (a_, k_, shear)
++            assert not close(reached, jordan, 0.5), (a_, k_, shear)
++add("matrix.jordan_block", "-1,1;0,-1")
++
+ # 12_4-12_6: spins about the vertical rod, in laps per unit time; each must
+ # end at time 1 in the half turn diag(-1, 1, -1) (rotation matrix about y)
+ rates = [0.5, 1.5, 2.5, -0.5]
+--- a/explainer_corpus/logarithm_mysteries/docs/storyboard.md
++++ b/explainer_corpus/logarithm_mysteries/docs/storyboard.md
+@@ -5,9 +5,10 @@
+ at `../../snapshots/handoff-mail785/explainer_corpus/logarithm_mysteries/docs/storyboard.md`
+ (relative to this crate).
+ 
+-Status: **written, not compiled, not rendered, no narration synthesised, nothing heard.**
+-Every timing below is a design proposal until root renders it against the ElevenLabs
+-Oliver takes.
++Status: root has built and previewed earlier snapshots of chapters 11 and 12 (preview02,
++scratch voice). The beats below for those chapters are this follow-up's: **not compiled,
++not rendered, nothing heard.** Every timing below is a design proposal until root renders
++it against the ElevenLabs Oliver takes.
+ 
+ Narration: ElevenLabs **Oliver** (owner requirement, 2026-11-04), synthesised serially by
+ root's guarded lane. The script is 75 cues, 364 sentences and 4,592 words. At an assumed
+@@ -81,6 +82,20 @@
+ 
+ Bold rows are new this round. Root decides from the real takes whether 4 s is right.
+ 
++## Authored reading holds
++
++A hold for reading is authored, with its own music window, and not left to whatever a cue
++schedule happens to leave. Screen text is held for at least its length at 15 characters a
++second, longer where something else on screen competes for the eye.
++
++| after | what is read | how long |
++|---|---|---|
++| 11_7 | Culver's rule, four lines, 159 characters, then each block row's verdict in turn, 107 characters, with a gold mark at the row being read | 10.6 s + 7.13 s = 17.73 s of music after the voice |
++
++The rule replaces the words in the column when its sentence starts, so nothing else in that
++column competes with it. The next line waits for the window. Root re-scores the music and
++may shorten the row walk after listening; the rule's own 10.6 s is the floor.
++
+ ## 05–08: what each cue predicts or shows (repair 5)
+ 
+ Mail 803 asked that every cue in 05–08 carry a concrete prediction or a visible payoff,
+@@ -133,40 +148,66 @@
+   to a negative multiple. That is the principal logarithm, real for real A, and 0 for
+   the identity. The textbook line (eigenvalues) comes last.
+ 
+-**11_1 (repair 4).** The mirror is compared before and after: dashes pair each corner
+-with its image. Then the plain average ½(I + mirror) appears in red: "det 0 … squashes
+-the plane flat onto a line" (fact `matrix.mirror_average_det`).
++**11_1 (repair 4).** The mirror is compared before and after: a dot on each of four
++corners and on its image, joined by dashes that stay in the open gap between the two Fs.
++That pairing is a comparison of two ends, and nothing travels along it. Then the plain
++average ½(I + mirror) appears in red, with a red dot at each dash's middle. The dashes
++leave, and the collapse is drawn: the whole grid moves along the straight line of
++matrices from I to the singular midpoint ½(I + mirror), and stops there. It is a path to
++that midpoint and never to the reflection: "det 0 … squashes the plane flat onto a line"
++(fact `matrix.mirror_average_det`).
+ 
+ **11_4–11_7 (repair 1).**
+ 
+-- 11_4: "suppose A = e^X, X real". The probe u = (1, 1) travels two routes, first X then
+-  e^X (purple) and first e^X then X (teal), shown with the sample flow; a gold dot marks
+-  "same end point". Then the series and `X X^k = X^{k+1} = X^k X` ⇒ XA = AX.
+-- 11_5: the same two routes for A = diag(−2, −½) and a candidate X with off-diagonal
+-  entries. They end apart, with a red gap bar and a live readout: "each gap part = ±1.5
+-  × an off-diagonal entry of X × a part of u, where 1.5 = (−½) − (−2)". The off-diagonal
+-  entries tween to 0, and the ends meet only when b = c = 0.
+-- 11_6: X is diagonal, so its flow stretches each axis by e^(tp) > 0 and never reverses
+-  one. A's target F, outlined in red, needs both reversed. Two flows in turn get there;
+-  no single one does.
+-- 11_7: −I by the spin. Equal stretches mean (−1) − (−1) = 0, so there is no gap and
+-  every X commutes with −I. Then the 2×2 rule, and Culver's exact condition in two gold
+-  lines, with the citation as the precisely line.
++- 11_4: "suppose A = e^X, X real". The probe u = (1, 1) has two routes, first X then
++  e^X (purple) and first e^X then X (teal), shown with the sample flow; the column's labels
++  are typeset, and a gold dot on the plane carries its own words, "same end point". Then
++  the series and `X X^k = X^{k+1} = X^k X` ⇒ XA = AX.
++- 11_5: the probe stays alone on the plane, still named, until the words send it along
++  both routes. Then the same two routes for A = diag(−2, −½) and a candidate X with
++  off-diagonal entries. They end apart; the red gap bar waits for those words, with a live
++  readout: "each gap part = ±1.5 × an off-diagonal entry of X × a part of u, where 1.5 =
++  (−½) − (−2)". The off-diagonal entries tween to 0, and the ends meet only when b = c = 0.
++- 11_6: X is diagonal, so its flow stretches each axis by e^{tp} > 0 and never reverses
++  one. The axes are white, as in 11_7, so the gold F never lies on them. A's target F,
++  outlined in red, needs both reversed. The stretch flow goes home first, so nothing cuts;
++  two flows run in turn on "running one after the other" and get there; no single one does.
++- 11_7: −I by the spin, with the plane back at rest at once. Equal stretches mean
++  (−1) − (−1) = 0, so there is no gap and every X commutes with −I. Then the 2×2 rule and
++  the rows, each row a matrix from the facts. Culver's exact condition takes the column in
++  four gold lines, with the citation as the precisely line, and gets its authored hold.
++- 11_8: the title changes, and "A = diag(−2, −½): no real logarithm" stands under it while
++  the voice says what disappears.
+ 
+-**12_4–12_6 (repair 3).**
++**12_1–12_3 (follow-up).** Panel A's ruler numbers only the doublings 1, 2, 4, 8, with a
++tick at every whole number, and the keyboard fades in under it on "the keyboard and the
++slide rule". 12_2 folds that idea for real: a ruler flat across panel B bends shut, its ends
++meeting at the bottom, and turns its 1 to the top, so the 10 lands on the 1. Only then do
++the dial's numbers, pointer and caption come. Panel C stands a little higher with shorter
++axes, its labels are white, and −1 stays on top of the cut. Panel D's dots fade in.
+ 
++**12_4–12_6 (repair 3, follow-up).**
++
+ - 12_4: an opaque cube (only faces toward the viewer are drawn) with a gold rod through
+   the centres of its top and bottom faces; parts hidden by the solid are not drawn
+   (`hidden`, a slab test). Corner circles about the rod preview the motion. One corner
+   is followed with "time" and "laps so far" readouts to the half turn.
+ - 12_5: the question and the hints: laps, direction, axis. Then the hold.
+ - 12_6: the answer on the cube, one hint at a time.
++  - Each new spin starts under a short dip of the picture, never a jump in plain view.
+   - 1½ and 2½ laps land the same, and so does ½ lap the other way.
+-  - A spin about another axis drags the top face's centre off the rod (red trace).
++  - A spin about another axis, (0, 1, 1), drags a pin copied from the rod's upper stub off
++    the rod (red line, pin, arc). The top face's centre itself stays inside the solid.
++    The line and the arcs keep clear of the two rings, and the corner lands one edge from
++    the end ring. For about t 0.48 to 0.84 the pin points nearly at the viewer, and its tip
++    and arc carry the drag.
+   - "so: infinitely many spins, all about the rod".
+-  - A turning line shows ±π and ±3π, with ±π tying on the green window's open edge.
++  - A turning line shows ±π and ±3π with "…" past each end, with ±π tying on the green
++    window's open edge.
+   - Precisely: "eigenvalue −1, so no principal log (Higham §4 Fact 1)".
+-  - Then "for the number −1, Log(−1) = iπ by convention".
++  - On "a convention broke the same tie": "for the number −1, Log(−1) = iπ by convention".
++  - On "the honest answer is the whole family": gold dots on all four spins and "here: the
++    whole family".
+ 
+ The take-away is now answered on screen, not left for the description.
+ 
+@@ -174,8 +215,9 @@
+ 
+ - 05_3: the wound circle's trace spreads outward a little each lap (LAP_SPREAD 0.045) so
+   the laps stay visible. It is labelled as a drawing aid.
+-- 09_1 and 11_1: endpoint comparisons, never paths. 11_1 shows that the straight average
+-  is singular.
++- 09_1: an endpoint comparison, never a path.
++- 11_1: the dashes compare two ends. The collapse that follows is a path, drawn only as
++  far as the singular midpoint ½(I + mirror), and never on to the reflection.
+ - 07_3–07_4: the cut's marked sides are drawn 0.07 rad from the cut (MARKED) so the two
+   stay apart on screen.
+ - 10 and 11: the grids are clipped to a box (`draw::clipped_grid`). The flows are exact,
+@@ -204,11 +246,10 @@
+   environments. `\operatorname`, `\tfrac`, `\text{...}`, `\Rightarrow`, `\neq`, `\quad`,
+   `\qquad` and `\;` follow the corpus's usage; `\phantom`, `\cdots` and `smallmatrix` are
+   avoided.
+-- Text widths are estimated (0.55 em per character, em = size/144 scene units) in tests,
+-  not measured. The glyph probe and a frame review will show the truth.
+-- `matrix_card` geometry was corrected in round 1 and has never been seen.
+-- 12's cube: the visibility (`hidden`) and face culling are tested numerically (three
+-  faces seen at the start and after the half turn, never a back face), but no frame has
+-  been seen.
++- Text widths in chapters 11 and 12 use CMR10 advances in their tests (em × size × 0.01),
++  within about 2% of lint-measured lines. TeX runs about 6% wider. A frame review shows the
++  truth.
++- 12's cube: the visibility (`hidden`) and face culling are tested numerically. Preview02
++  showed the earlier axis; the new axis (0, 1, 1), its dips and the fold have not been seen.
+ - `always_redraw` is used throughout: the routes in 11, the cube and its traces in 12,
+   the gap gauge in 06, and the cut-plane grid in 07. Render cost is unmeasured.

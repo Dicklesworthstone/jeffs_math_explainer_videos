@@ -1,0 +1,1710 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/building_ruler.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/building_ruler.rs
+@@ -4,15 +4,16 @@
+ //! the keyboard's nineteen-key near-tripling and the true 1.585 (01_5), and
+ //! the name: base two, base ten, the same ruler stretched (01_6).
+ //!
+-//! Rebuild candidate for `mx-video-program-program-87do.63`; uncompiled,
+-//! unrendered, unlistened.
++//! Rebuild candidate for `mx-video-program-program-87do.63`; picture repairs
++//! from the independent review staged in `logarithm-repair01-04`. Type-checked
++//! against stand-ins only: not compiled against fmn, unrendered, unlistened.
+ 
+ use explainer_kit::{Kit, Palette, play, thousands, tween, v};
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    answer_c, fact, fact_f64, fade_in_all, fade_in_lagged, fade_out_all, number_c, position_c, predict, seg, swap,
+-    title, value,
++    answer_c, fact, fact_f64, fade_in_all, fade_in_lagged, fade_out_all, faded_line, line_style, number_c, position_c,
++    predict, seg, swap, title, value,
+ };
+ use crate::model;
+ 
+@@ -26,6 +27,22 @@
+ const SPINE_Y: f64 = 0.3;
+ const LEFT: f64 = -6.3;
+ const RIGHT: f64 = 6.3;
++/// Where the step words sit: under both rows of lengths.
++const WORD_Y: f64 = SPINE_Y - 0.92;
++/// The blue lengths: each stops `INSET` short of its marks. A stroke has round
++/// caps of half its width, so this inset is what leaves equal lengths a gap.
++const LENGTH_W: f64 = 6.0;
++const INSET: f64 = 0.06;
++/// Where the hunter rests during the question: the plain middle of the gap, a
++/// guess the viewer can reject, not the answer.
++const HUNT_REST: f64 = 1.5;
++/// The compressed rows of 01_4: nineteen doublings span `ROW_SPAN` from
++/// `ROW_LEFT`; their labels start at `ROW_LABEL_X`.
++const ROW_LEFT: f64 = -6.0;
++const ROW_SPAN: f64 = 11.0;
++const ROW_W: f64 = 5.0;
++const ROW_INSET: f64 = 0.05;
++const ROW_LABEL_X: f64 = 5.15;
+ 
+ fn at(x: f64) -> f64 {
+     ONE_X + STEP * model::position(x, 2.0)
+@@ -39,11 +56,33 @@
+     Ok([tick, word])
+ }
+ 
++/// The height of row `row` of lengths (0 just under the spine).
++fn row_y(row: f64) -> f64 {
++    SPINE_Y - 0.3 - 0.28 * row
++}
++
+ /// A blue length under the ruler from position `a` to `b` (in steps), on
+-/// row `row` (0 just under the spine).
++/// row `row`, with visible gaps to its neighbours.
+ fn length(stage: &mut Stage<'_>, a: f64, b: f64, row: f64) -> Mob {
+-    let y = SPINE_Y - 0.3 - 0.28 * row;
+-    seg(stage, v(ONE_X + STEP * a, y), v(ONE_X + STEP * b, y), position_c(), 6.0)
++    let y = row_y(row);
++    seg(
++        stage,
++        v(ONE_X + STEP * a + INSET, y),
++        v(ONE_X + STEP * b - INSET, y),
++        position_c(),
++        LENGTH_W,
++    )
++}
++
++/// Piece `k` of a compressed row, `len` long from `x`: alternate pieces are
++/// dimmer, so the pieces can be counted.
++fn piece(stage: &mut Stage<'_>, x: f64, len: f64, y: f64, c: Srgb, k: u32) -> Mob {
++    let o = if k.is_multiple_of(2) { 1.0 } else { 0.55 };
++    stage.arena_mut().add(
++        polyline(vec![v(x + ROW_INSET, y), v(x + len - ROW_INSET, y)])
++            .style(faded_line(c, ROW_W, o))
++            .build(),
++    )
+ }
+ 
+ impl SceneConstruct for BuildingRuler {
+@@ -57,23 +96,25 @@
+ 
+         // 01_1: one at the start; each doubling adds one step
+         kit.say(stage, "01_1")?;
+-        let heading = title(&kit, stage, "Where does three go?")?;
++        let heading = title(&kit, stage, "Building the ruler")?;
+         let spine = seg(stage, v(LEFT, SPINE_Y), v(RIGHT, SPINE_Y), Palette::dim(), 3.0);
+         fade_in_all(stage, &[heading, spine], 0.6)?;
+         kit.until_sentence(stage, "01_1", 1)?;
+         let one = mark(&kit, stage, 1.0, "1", green)?;
+         fade_in_all(stage, &one, 0.5)?;
+         kit.until_sentence(stage, "01_1", 2)?;
+-        let step_word = kit.text(stage, "one step", 24.0, blue, v(ONE_X + STEP / 2.0, SPINE_Y - 0.72))?;
++        let step_word = kit.text(stage, "one step", 24.0, blue, v(ONE_X + STEP / 2.0, WORD_Y))?;
+         let first = length(stage, 0.0, 1.0, 0.0);
+         fade_in_all(stage, &[first, step_word], 0.5)?;
+         kit.until_sentence(stage, "01_1", 3)?;
+         let mut doublings = Vec::new();
++        let mut later_steps = Vec::new();
+         for (k, n) in [(1.0, "2"), (2.0, "4"), (3.0, "8")] {
+             let m = mark(&kit, stage, 2f64.powf(k), n, green)?;
+             let l = length(stage, k - 1.0, k, 0.0);
+             doublings.extend(m);
+             doublings.push(l);
++            later_steps.push(l);
+         }
+         fade_in_lagged(stage, &doublings[..3], 0.8, 0.3)?;
+         fade_in_lagged(stage, &doublings[3..], 1.4, 0.3)?;
+@@ -120,6 +161,9 @@
+         // 01_3: where does three go? A marker hunts between two and four
+         kit.say(stage, "01_3")?;
+         fade_out_all(stage, &[both, back, h1, h2], 0.4)?;
++        kit.until_sentence(stage, "01_3", 1)?;
++        let heading2 = title(&kit, stage, "Where does three go?")?;
++        swap(stage, &[heading], &[heading2], 0.5)?;
+         let hunt = stage.add_value_tracker(1.2);
+         let hunter = stage.always_redraw(move |s| {
+             let p = ONE_X + STEP * value(s, hunt);
+@@ -139,7 +183,7 @@
+         kit.until_sentence(stage, "01_3", 2)?;
+         play!(stage; tween(hunt, 1.85, 1.0)?);
+         play!(stage; tween(hunt, 1.3, 1.0)?);
+-        play!(stage; tween(hunt, 1.55, 0.8)?);
++        play!(stage; tween(hunt, HUNT_REST, 0.8)?);
+         predict(&kit, stage, v(3.8, -2.9), 3.0)?;
+ 
+         // 01_4: twelve threes against nineteen twos, laid end to end
+@@ -180,27 +224,26 @@
+         kit.until_sentence(stage, "01_4", 4)?;
+         // the compressed rows: nineteen blue steps; twelve gold copies of
+         // three's (true) length, which overshoot by a sliver
+-        let unit = 11.4 / f64::from(n2);
++        let unit = ROW_SPAN / f64::from(n2);
+         let (row_b, row_g) = (-2.35, -2.7);
+         let mut steps = Vec::new();
+         for k in 0..n2 {
+-            let x = -5.7 + unit * f64::from(k);
+-            steps.push(seg(stage, v(x + 0.02, row_b), v(x + unit - 0.02, row_b), blue, 6.0));
++            steps.push(piece(stage, ROW_LEFT + unit * f64::from(k), unit, row_b, blue, k));
+         }
+         let three_len = unit * model::position(3.0, 2.0);
+         let mut copies = Vec::new();
+         for k in 0..n3 {
+-            let x = -5.7 + three_len * f64::from(k);
+-            copies.push(seg(
++            copies.push(piece(
+                 stage,
+-                v(x + 0.02, row_g),
+-                v(x + three_len - 0.02, row_g),
++                ROW_LEFT + three_len * f64::from(k),
++                three_len,
++                row_g,
+                 gold,
+-                6.0,
++                k,
+             ));
+         }
+-        let rows_label_b = kit.text(stage, &format!("{n2} doublings"), 22.0, blue, v(6.35, row_b))?;
+-        let rows_label_g = kit.text(stage, &format!("{n3} threes"), 22.0, gold, v(6.35, row_g))?;
++        let rows_label_b = kit.text_left(stage, &format!("{n2} doublings"), 22.0, blue, v(ROW_LABEL_X, row_b))?;
++        let rows_label_g = kit.text_left(stage, &format!("{n3} threes"), 22.0, gold, v(ROW_LABEL_X, row_g))?;
+         fade_out_all(stage, &[three_q], 0.3)?;
+         fade_in_lagged(stage, &steps, 1.6, 0.08)?;
+         fade_in_lagged(stage, &copies, 1.6, 0.12)?;
+@@ -211,7 +254,7 @@
+         let est_word = kit.tex(
+             stage,
+             &format!(
+-                r"\mathrm{{pos}}(3) \approx \tfrac{{{n2}}}{{{n3}}} = {}",
++                r"\mathrm{{pos}}(3) \approx \tfrac{{{n2}}}{{{n3}}} \approx {}",
+                 fact("ruler.nineteen_twelfths")?
+             ),
+             36.0,
+@@ -234,15 +277,15 @@
+             ),
+             26.0,
+             Palette::ink(),
+-            v(0.0, -3.3),
+-        )?;
+-        fade_in_all(stage, &[keys], 0.6)?;
++            v(0.0, -1.45),
++        )?;
++        swap(stage, &[threes, twos, gap], &[keys], 0.6)?;
+         kit.until_sentence(stage, "01_5", 2)?;
+         let truth = model::position(3.0, 2.0);
+         play!(stage; tween(hunt, truth, 1.0)?);
+         let true_word = kit.tex(
+             stage,
+-            &format!(r"\mathrm{{pos}}(3) = {}", fact("ruler.log2_3")?),
++            &format!(r"\mathrm{{pos}}(3) \approx {}", fact("ruler.log2_3")?),
+             36.0,
+             gold,
+             &[],
+@@ -265,7 +308,7 @@
+         kit.say(stage, "01_6")?;
+         let mut clear = steps.clone();
+         clear.extend(copies.iter().copied());
+-        clear.extend([rows_label_b, rows_label_g, threes, twos, gap, keys, fixed, hunter]);
++        clear.extend([rows_label_b, rows_label_g, keys, fixed, hunter]);
+         fade_out_all(stage, &clear, 0.5)?;
+         kit.until_sentence(stage, "01_6", 1)?;
+         let name = kit.tex(
+@@ -276,7 +319,8 @@
+             &[(r"\log_2", blue)],
+             v(0.0, 2.35),
+         )?;
+-        swap(stage, &[rule], &[name], 0.6)?;
++        let heading3 = title(&kit, stage, "The logarithm")?;
++        swap(stage, &[rule, heading2], &[name, heading3], 0.6)?;
+         kit.until_sentence(stage, "01_6", 2)?;
+         let samples = kit.tex(
+             stage,
+@@ -291,40 +335,40 @@
+             v(0.0, -1.45),
+         )?;
+         fade_in_all(stage, &[samples], 0.5)?;
++        kit.until_sentence(stage, "01_6", 3)?;
++        // A new first step changes every position, so everything measured in
++        // doublings goes first. The marks stay exactly where they are: only the
++        // unit changes. The first step's bar grows until it lands on 4, base 4.
++        let reach = stage.add_value_tracker(1.0);
++        let step_bar = stage.always_redraw(move |s| {
++            let (y, to) = (row_y(0.0), ONE_X + STEP * value(s, reach) - INSET);
++            s.add(
++                polyline(vec![v(ONE_X + INSET, y), v(to, y)])
++                    .style(line_style(blue, LENGTH_W))
++                    .build(),
++            )
++        });
++        stage.add_to_scene(step_bar)?;
++        let mut retired = later_steps.clone();
++        retired.extend([first, name, samples, true_word]);
++        fade_out_all(stage, &retired, 0.5)?;
++        play!(stage; tween(reach, model::position(4.0, 2.0), 1.2)?);
++        let four_step = kit.text(stage, "one step = ×4", 24.0, blue, v(ONE_X + STEP, WORD_Y))?;
++        swap(stage, &[step_word], &[four_step], 0.4)?;
+         kit.until_sentence(stage, "01_6", 4)?;
+-        // squeeze the ruler about its 1 until ten sits where two was: the
+-        // marks keep their order and spacing ratios; only the step changes
+-        let squeeze = model::position(2.0, 10.0);
+-        let mut marks: Vec<Mob> = Vec::new();
+-        marks.extend(one);
+-        marks.extend(half);
+-        marks.extend(root);
+-        marks.extend(three);
+-        marks.extend(doublings.iter().copied());
++        // ... then on to 10, on the same marks: three now sits at log10 3 of a step
+         let ten = mark(&kit, stage, 10.0, "10", green)?;
+-        let mut moves: Vec<Box<dyn Animation>> = Vec::new();
+-        for &m in marks.iter().chain(ten.iter()) {
+-            let c = stage.get_center(m);
+-            let to = v(ONE_X + (c[0] - ONE_X) * squeeze, c[1]);
+-            let a = m
+-                .animate()
+-                .set_anim_args(AnimateArgs {
+-                    run_time: Some(2.2),
+-                    ..AnimateArgs::default()
+-                })?
+-                .move_to(to, ORIGIN)?;
+-            moves.push(stage.prepare(a)?);
+-        }
+         fade_in_all(stage, &ten, 0.4)?;
+-        stage.play_prepared(moves)?;
++        fade_out_all(stage, &[four_step], 0.3)?;
++        play!(stage; tween(reach, model::position(10.0, 2.0), 1.6)?);
+         let ten_step = kit.text(
+             stage,
+             "now one step = ×10",
+             24.0,
+             blue,
+-            v(ONE_X + STEP * 0.5, SPINE_Y - 0.72),
+-        )?;
+-        swap(stage, &[step_word], &[ten_step], 0.5)?;
++            v((at(1.0) + at(10.0)) / 2.0, WORD_Y),
++        )?;
++        fade_in_all(stage, &[ten_step], 0.4)?;
+         kit.until_sentence(stage, "01_6", 5)?;
+         let stretch = kit.tex(
+             stage,
+@@ -350,20 +394,122 @@
+ mod tests {
+     use super::*;
+ 
++    /// The scene code without these tests, for checks on the order of its beats.
++    fn scene_source() -> &'static str {
++        include_str!("building_ruler.rs")
++            .split("#[cfg(test)]")
++            .next()
++            .unwrap_or("")
++    }
++
++    fn found(text: &str) -> usize {
++        scene_source()
++            .find(text)
++            .unwrap_or_else(|| panic!("not in the scene: {text}"))
++    }
++
++    /// Half the printed width of a 28-point ruler label (ems × size × 0.01).
++    fn half_width(label: &str) -> f64 {
++        let ems: f64 = label.chars().map(|c| if c == '√' { 0.83 } else { 0.5 }).sum();
++        ems * 28.0 * 0.01 / 2.0
++    }
++
+     #[test]
+     fn every_mark_from_a_half_to_ten_fits_the_ruler() {
+-        for x in [0.5, 1.0, 2f64.sqrt(), 2.0, 3.0, 4.0, 8.0] {
++        for x in [0.5, 1.0, 2f64.sqrt(), 2.0, 3.0, 4.0, 8.0, 10.0] {
+             assert!(at(x) > LEFT && at(x) < RIGHT, "{x}");
+         }
+-        // ten only appears after the squeeze, where it sits on two's old place
+-        let squeeze = model::position(2.0, 10.0);
+-        assert!((ONE_X + (at(10.0) - ONE_X) * squeeze - at(2.0)).abs() < 1e-12);
++    }
++
++    #[test]
++    fn neighbouring_labels_never_touch_so_eight_and_ten_stay_two_numbers() {
++        let marks = [
++            (0.5, "½"),
++            (1.0, "1"),
++            (2f64.sqrt(), "√2"),
++            (2.0, "2"),
++            (3.0, "3"),
++            (4.0, "4"),
++            (8.0, "8"),
++            (10.0, "10"),
++        ];
++        for pair in marks.windows(2) {
++            let gap = at(pair[1].0) - at(pair[0].0) - half_width(pair[0].1) - half_width(pair[1].1);
++            assert!(gap > 0.2, "{} and {}: {gap}", pair[0].1, pair[1].1);
++        }
++    }
++
++    #[test]
++    fn the_step_bar_lands_on_the_mark_its_words_name() {
++        let end = |reach: f64| ONE_X + STEP * reach;
++        assert!((end(model::position(4.0, 2.0)) - at(4.0)).abs() < 1e-12);
++        assert!((end(model::position(10.0, 2.0)) - at(10.0)).abs() < 1e-12);
++        // drawn ends, caps included, sit within a hair of the ticks they name
++        let shortfall = INSET - LENGTH_W * 0.01 / 2.0;
++        assert!((0.0..0.05).contains(&shortfall), "{shortfall}");
++        // in the new unit each mark's position is its common logarithm
++        let unit = at(10.0) - at(1.0);
++        for x in [0.5, 2.0, 3.0, 8.0] {
++            assert!(((at(x) - at(1.0)) / unit - f64::log10(x)).abs() < 1e-12, "{x}");
++        }
++    }
++
++    #[test]
++    fn equal_lengths_keep_a_visible_gap_after_their_round_caps() {
++        let (big, small) = (2.0 * INSET - LENGTH_W * 0.01, 2.0 * ROW_INSET - ROW_W * 0.01);
++        assert!(big >= 0.05, "{big}");
++        assert!(small >= 0.05, "{small}");
++    }
++
++    #[test]
++    fn the_half_steps_clear_the_step_words_and_the_caption_below() {
++        let bar_bottom = row_y(1.0) - LENGTH_W * 0.01 / 2.0;
++        let word_half = 0.88 * 24.0 * 0.01 / 2.0;
++        assert!(bar_bottom - (WORD_Y + word_half) >= 0.1, "{bar_bottom}");
++        // the √2 caption sits at SPINE_Y - 1.35
++        assert!(WORD_Y - word_half - (SPINE_Y - 1.35 + word_half) >= 0.05);
++    }
++
++    #[test]
++    fn the_hunter_rests_mid_gap_well_away_from_the_answer() {
++        assert!((HUNT_REST - 1.5).abs() < 1e-12);
++        let miss = (model::position(3.0, 2.0) - HUNT_REST).abs() * STEP;
++        assert!(miss >= 0.15, "{miss}");
+     }
+ 
+     #[test]
+     fn twelve_threes_overshoot_nineteen_doublings_by_a_sliver() {
+-        let unit = 11.4 / 19.0;
++        let unit = ROW_SPAN / 19.0;
+         let over = 12.0 * unit * model::position(3.0, 2.0) - 19.0 * unit;
+         assert!(over > 0.0 && over < 0.03, "{over}");
+     }
+-}
++
++    #[test]
++    fn the_rows_stop_short_of_labels_that_stay_inside_the_safe_frame() {
++        let longest = ROW_LEFT + 12.0 * ROW_SPAN / 19.0 * model::position(3.0, 2.0);
++        assert!(ROW_LABEL_X - longest >= 0.1, "{longest}");
++        // "19 doublings" is 5.51 ems at 22 points
++        const { assert!(ROW_LABEL_X + 5.51 * 22.0 * 0.01 <= 6.86) };
++        const { assert!(ROW_LEFT >= -6.86) };
++    }
++
++    #[test]
++    fn base_two_claims_leave_before_the_step_changes_and_no_mark_moves() {
++        let sentence = found(r#"until_sentence(stage, "01_6", 3)"#);
++        let retired = found("retired.extend([first, name, samples, true_word])");
++        let fade = found("fade_out_all(stage, &retired, 0.5)");
++        let change = found("tween(reach, model::position(4.0, 2.0)");
++        assert!(sentence < retired && retired < fade && fade < change);
++        assert!(
++            !scene_source().contains("move_to("),
++            "the marks stay put; only the unit changes"
++        );
++    }
++
++    #[test]
++    fn the_later_doublings_go_with_the_first_step_so_one_bar_is_left() {
++        // only `step_bar` is left under the ruler once `retired` has gone
++        assert!(found("let mut retired = later_steps.clone()") < found("fade_out_all(stage, &retired, 0.5)"));
++        assert_eq!(scene_source().matches("later_steps.push(l)").count(), 1);
++    }
++}
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs
+@@ -8,9 +8,11 @@
+ //! Lengths are blue, numbers on D green, the sliding scale teal, the answer
+ //! hero, the overflow red. Every value shown is a facts.rs key.
+ //!
+-//! Rebuild candidate for `mx-video-program-program-87do.63`; uncompiled,
+-//! unrendered, unlistened.
+-
++//! Rebuild candidate for `mx-video-program-program-87do.63`; picture repairs
++//! from the independent review staged in `logarithm-repair01-04`. Type-checked
++//! against stand-ins only: not compiled against fmn, unrendered, unlistened.
++
++use explainer_kit::narration::{frames_covering, wait_frames};
+ use explainer_kit::{Kit, Palette, v};
+ use fmn::prelude::*;
+ 
+@@ -32,6 +34,14 @@
+ /// Where the blue lengths ride: under D's labels, over C's labels.
+ const D_BAR_Y: f64 = -0.72;
+ const C_BAR_Y: f64 = 1.62;
++/// How far a reading line reaches past each scale: past the ticks (0.32) and
++/// short of the numbers (about 0.5), so it points at the digit and leaves it whole.
++const HAIR_REACH: f64 = 0.42;
++/// C's name once its 1 has gone off the frame: just past its 10.
++const C_NAME_DX: f64 = 0.5;
++/// The words the first slide waits for, in 02_2's first sentence.
++const SLIDE_PHRASE: &str = "slide the moving";
++const SCRIPT: &str = include_str!("../../script.tsv");
+ 
+ fn d_scale() -> Decade {
+     Decade {
+@@ -52,7 +62,44 @@
+ 
+ /// The reading hairline through both scales at `x`.
+ fn hairline(stage: &mut Stage<'_>, x: f64, c: Srgb) -> Mob {
+-    seg(stage, v(x, D_Y - 0.62), v(x, C_Y + 0.62), c, 2.5)
++    seg(stage, v(x, D_Y - HAIR_REACH), v(x, C_Y + HAIR_REACH), c, 2.5)
++}
++
++/// When `phrase`, in the first sentence of `cue`, begins (scene seconds): the
++/// narration's phrase mark at that byte when one exists, otherwise the phrase's
++/// share of the sentence's characters (the house rule, as in the algebra film).
++fn phrase_time(kit: &Kit, cue: &str, phrase: &str) -> Option<f64> {
++    let narrator = kit.narrator.as_ref()?;
++    let text = SCRIPT
++        .lines()
++        .find_map(|row| row.strip_prefix(cue)?.strip_prefix('\t'))?;
++    let byte = text.find(phrase)?;
++    let said = narrator.sentence_at(cue, 0)? - narrator.sentence_starts(cue).first().copied()?;
++    if let Some(&seconds) = narrator.phrase_marks(cue).get(&byte) {
++        return Some(said + seconds);
++    }
++    let sentence_end = text.find(". ").map_or(text.len(), |k| k + 2);
++    let start = narrator.sentence_at(cue, 0)?;
++    let end = match narrator.sentence_at(cue, 1) {
++        Some(next) => next,
++        None => said + narrator.length(cue)?,
++    };
++    let share = text[..byte].chars().count() as f64 / text[..sentence_end].chars().count() as f64;
++    Some(start + (end - start) * share)
++}
++
++/// Wait for `phrase` in the first sentence of `cue`. Without a narrator, or if
++/// the phrase is missing (a test guards it), this does nothing; nothing waits
++/// once the moment has passed.
++fn until_phrase(stage: &mut Stage<'_>, kit: &Kit, cue: &str, phrase: &str) -> fmn::Result<()> {
++    let Some(at) = phrase_time(kit, cue, phrase) else {
++        return Ok(());
++    };
++    let (now, fps) = (stage.scene().time().to_f64(), stage.scene().time().fps());
++    if at > now {
++        wait_frames(stage, frames_covering(at - now, fps))?;
++    }
++    Ok(())
+ }
+ 
+ impl SceneConstruct for SlideRule {
+@@ -76,12 +123,15 @@
+         let moving = c_scale(0.0).build(&kit, stage, teal, 22.0)?;
+         let c_name = kit.text(stage, "C", 26.0, teal, v(ONE_X - 0.5, C_Y))?;
+         fade_in_all(stage, &[moving, c_name], 0.7)?;
++        // "one that slides along it": it does, a little, and comes back
++        shift_all(stage, &[moving, c_name], v(0.8, 0.0), 0.6)?;
++        shift_all(stage, &[moving, c_name], v(-0.8, 0.0), 0.6)?;
+         let mut offset = 0.0;
+         kit.until_sentence(stage, "02_1", 1)?;
+         let full = seg(stage, v(d.x(1.0), D_BAR_Y), v(d.x(10.0), D_BAR_Y), blue, 5.0);
+         let full_word = kit.text(
+             stage,
+-            "one full length: from 1 to 10, ×10",
++            "one full length = 1: from 1 to 10, ×10",
+             22.0,
+             blue,
+             v(ONE_X + LEN / 2.0, D_BAR_Y - 0.35),
+@@ -109,6 +159,7 @@
+         )?;
+         fade_in_all(stage, &[ask, d_len, d_len_word], 0.6)?;
+         let shift_a = LEN * a.log10();
++        until_phrase(stage, &kit, "02_2", SLIDE_PHRASE)?;
+         shift_all(stage, &[moving, c_name], v(shift_a, 0.0), 1.6)?;
+         offset += shift_a;
+         let index = ring(stage, c_scale(offset).at(1.0), 0.16, teal, 3.0);
+@@ -162,7 +213,8 @@
+         swap(stage, &[ask, below], &[solved, eight], 0.5)?;
+         kit.until_sentence(stage, "02_3", 1)?;
+         // C's length drops onto D's row, starting where D's length ends
+-        shift_all(stage, &[c_len, c_len_word], v(0.0, D_BAR_Y - C_BAR_Y), 1.2)?;
++        fade_out_all(stage, &[c_len_word], 0.2)?;
++        shift_all(stage, &[c_len], v(0.0, D_BAR_Y - C_BAR_Y), 1.2)?;
+         let c_word_fix = kit.text(
+             stage,
+             fact("slide.pos_b")?,
+@@ -170,7 +222,7 @@
+             blue,
+             v((c.x(1.0) + c.x(b)) / 2.0, D_BAR_Y - 0.32),
+         )?;
+-        swap(stage, &[c_len_word], &[c_word_fix], 0.3)?;
++        fade_in_all(stage, &[c_word_fix], 0.3)?;
+         let sum = kit.tex(
+             stage,
+             &format!(
+@@ -205,8 +257,6 @@
+             ],
+             0.5,
+         )?;
+-        shift_all(stage, &[moving, c_name], v(-offset, 0.0), 1.0)?;
+-        offset = 0.0;
+         let ask2 = kit.text(
+             stage,
+             &format!("{} × {} = ?", fact("slide.c")?, fact("slide.d")?),
+@@ -215,6 +265,8 @@
+             v(4.7, 2.3),
+         )?;
+         swap(stage, &[solved], &[ask2], 0.5)?;
++        shift_all(stage, &[moving, c_name], v(-offset, 0.0), 1.0)?;
++        offset = 0.0;
+         kit.until_sentence(stage, "02_4", 1)?;
+         let shift_c = LEN * c4.log10();
+         shift_all(stage, &[moving, c_name], v(shift_c, 0.0), 1.6)?;
+@@ -224,7 +276,13 @@
+         let six = ring(stage, c.at(d6), 0.16, teal, 3.0);
+         fade_in_all(stage, &[index, six], 0.5)?;
+         kit.until_sentence(stage, "02_4", 2)?;
+-        let end = seg(stage, v(d.x(10.0), D_Y - 0.5), v(d.x(10.0), D_Y + 0.15), red, 4.0);
++        let end = seg(
++            stage,
++            v(d.x(10.0), D_Y - HAIR_REACH),
++            v(d.x(10.0), D_Y + 0.15),
++            red,
++            4.0,
++        );
+         let beyond = dashed(
+             stage,
+             v(d.x(10.0), D_Y),
+@@ -244,19 +302,25 @@
+             gold,
+             v(c.x(d6), D_Y - 1.5),
+         )?;
+-        let stops = kit.text(stage, "D stops at 10", 22.0, red, v(d.x(10.0), D_Y - 0.85))?;
++        let stops = kit.text(stage, "D stops at 10", 22.0, red, v(d.x(10.0), D_Y - 1.1))?;
+         fade_in_all(stage, &[ghost, stops], 0.5)?;
+ 
+         // 02_5: the other index; six over 2.4; the decimal point is ours
+         kit.say(stage, "02_5")?;
+         kit.until_sentence(stage, "02_5", 1)?;
+-        fade_out_all(stage, &[six, index, off_line, off, ghost, beyond], 0.4)?;
+-        shift_all(stage, &[moving, c_name], v(-LEN, 0.0), 1.8)?;
++        // the overflow is over, so its marks go; C's name would slide off the frame
++        fade_out_all(
++            stage,
++            &[six, index, off_line, off, ghost, beyond, end, stops, c_name],
++            0.4,
++        )?;
++        shift_all(stage, &[moving], v(-LEN, 0.0), 1.8)?;
+         offset -= LEN;
+         let c = c_scale(offset);
+         let ten = ring(stage, c.at(10.0), 0.16, teal, 3.0);
+         let four = ring(stage, d.at(c4), 0.16, green, 3.0);
+-        fade_in_all(stage, &[ten, four], 0.5)?;
++        let c_again = kit.text(stage, "C", 26.0, teal, v(c.x(10.0) + C_NAME_DX, C_Y))?;
++        fade_in_all(stage, &[ten, four, c_again], 0.5)?;
+         kit.until_sentence(stage, "02_5", 2)?;
+         let digits = fact_f64("slide.cd_digits")?;
+         let line = hairline(stage, c.x(d6), gold);
+@@ -290,9 +354,21 @@
+         let hundreds = super::draw::fact_list("dial.values")?;
+         let last = hundreds.last().copied().unwrap_or(0.0);
+         tags.push(kit.text(stage, &format!("{last}"), 24.0, Palette::dim(), v(x, D_Y - 1.89))?);
+-        let same = kit.text(stage, "one mark", 20.0, Palette::dim(), v(x + 1.1, D_Y - 1.47))?;
++        // a bracket over all three rows: they are one mark
++        let bracket = super::draw::path(
++            stage,
++            vec![
++                v(x + 0.48, D_Y - 0.93),
++                v(x + 0.6, D_Y - 0.93),
++                v(x + 0.6, D_Y - 2.01),
++                v(x + 0.48, D_Y - 2.01),
++            ],
++            Palette::dim(),
++            2.0,
++        );
++        let same = kit.text_left(stage, "one mark", 20.0, Palette::dim(), v(x + 0.72, D_Y - 1.47))?;
+         super::draw::fade_in_lagged(stage, &tags, 1.2, 0.4)?;
+-        fade_in_all(stage, &[same], 0.4)?;
++        fade_in_all(stage, &[bracket, same], 0.4)?;
+         kit.until_sentence(stage, "02_5", 5)?;
+         let reason = kit.text(
+             stage,
+@@ -324,6 +400,17 @@
+ #[cfg(test)]
+ mod tests {
+     use super::*;
++
++    /// The scene code without these tests, for checks on the order of its beats.
++    fn scene_source() -> &'static str {
++        include_str!("slide_rule.rs").split("#[cfg(test)]").next().unwrap_or("")
++    }
++
++    fn found(text: &str) -> usize {
++        scene_source()
++            .find(text)
++            .unwrap_or_else(|| panic!("not in the scene: {text}"))
++    }
+ 
+     #[test]
+     fn sliding_to_two_point_five_puts_three_point_two_over_eight() {
+@@ -354,4 +441,56 @@
+         let c = c_scale(LEN * 2.5f64.log10());
+         assert!(c.x(10.0) < 7.1, "{}", c.x(10.0));
+     }
+-}
++
++    #[test]
++    fn the_reading_line_passes_the_ticks_and_stops_short_of_the_numbers() {
++        // Decade::build: numbers centred 0.58 from the spine; ticks reach 0.32.
++        // Digits are 0.69 em tall at 22 points; the line's round cap adds 0.0125.
++        let number_starts = 0.58 - 0.69 * 22.0 * 0.01 / 2.0;
++        let line_ends = HAIR_REACH + 2.5 * 0.01 / 2.0;
++        assert!(line_ends > 0.32 + 0.05, "{line_ends}");
++        assert!(number_starts - line_ends >= 0.05, "{number_starts} {line_ends}");
++        // the red end tick uses the same reach, so it leaves D's 10 whole too
++        assert!(found("v(d.x(10.0), D_Y - HAIR_REACH)") > 0);
++    }
++
++    #[test]
++    fn the_slide_waits_for_words_that_are_in_the_first_sentence() {
++        let text = SCRIPT
++            .lines()
++            .find_map(|row| row.strip_prefix("02_2")?.strip_prefix('\t'))
++            .expect("02_2 is in the script");
++        let phrase = text.find(SLIDE_PHRASE).expect("the phrase is in 02_2");
++        assert!(phrase < text.find(". ").expect("02_2 has two sentences"));
++        assert!(found("until_phrase(stage, &kit, \"02_2\", SLIDE_PHRASE)") < found("v(shift_a, 0.0)"));
++    }
++
++    #[test]
++    fn the_overflow_marks_leave_before_the_other_index_moves_in() {
++        let fade = found("&[six, index, off_line, off, ghost, beyond, end, stops, c_name]");
++        assert!(fade < found("v(-LEN, 0.0)"));
++    }
++
++    #[test]
++    fn the_card_changes_on_the_new_question_before_the_slide_home() {
++        assert!(found("swap(stage, &[solved], &[ask2], 0.5)") < found("v(-offset, 0.0)"));
++    }
++
++    #[test]
++    fn c_keeps_its_name_on_screen_clear_of_the_ten_ring() {
++        let c = c_scale(LEN * 4f64.log10() - LEN);
++        let at = c.x(10.0) + C_NAME_DX;
++        assert!(at.abs() < 6.86, "{at}");
++        let half_letter = 0.722 * 26.0 * 0.01 / 2.0;
++        assert!(at - half_letter - (c.x(10.0) + 0.16) >= 0.1, "{at}");
++    }
++
++    #[test]
++    fn the_printed_lengths_are_fractions_of_one_full_length() {
++        let d = d_scale();
++        for (x, printed) in [(2.5, 0.398), (3.2, 0.505), (8.0, 0.903)] {
++            assert!(((d.x(x) - d.x(1.0)) / LEN - printed).abs() < 0.001, "{x}");
++        }
++        assert!(found("one full length = 1") > 0);
++    }
++}
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs
+@@ -9,8 +9,9 @@
+ //! from the straight decade to the circle (`bend`), and a second tracker lays
+ //! the circle down into the spiral's floor.
+ //!
+-//! Rebuild candidate for `mx-video-program-program-87do.63`; uncompiled,
+-//! unrendered, unlistened.
++//! Rebuild candidate for `mx-video-program-program-87do.63`; picture repairs
++//! from the independent review staged in `logarithm-repair01-04`. Type-checked
++//! against stand-ins only: not compiled against fmn, unrendered, unlistened.
+ 
+ use std::f64::consts::{FRAC_PI_2, TAU};
+ 
+@@ -19,8 +20,8 @@
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Spiral, answer_c, arc_points, dot, fact, fact_f64, fact_list, fade_in_all, fade_in_lagged, fade_out_all, lap_c,
+-    line_style, number_c, position_c, ring, seg, swap, title, value,
++    Spiral, answer_c, arc_points, dot, fact, fact_f64, fact_list, fade_in_all, fade_in_lagged, fade_out_all,
++    faded_line, lap_c, line_style, number_c, position_c, ring, seg, swap, title, value,
+ };
+ 
+ pub struct FoldedDecade {
+@@ -40,6 +41,15 @@
+ const FLOOR_TILT: f64 = 0.3;
+ const RISE: f64 = 1.15;
+ const FLOOR_LAP: f64 = -1.8;
++/// The landing's number, out along the dial's ray past the ring and the tick.
++const LAND_R: f64 = R + 0.8;
++/// The floor's caption, right of the tilted tick's end.
++const ONE_MARK_DX: f64 = 0.55;
++/// Each spiral reading's number and lap count, right of its point.
++const READ_DX: f64 = 0.65;
++const LAP_DX: f64 = 1.8;
++/// The spiral's caption, under the floor where no lap can cross it.
++const KEEP_Y: f64 = -3.55;
+ 
+ /// The point of the decade at fraction `u` (0 at its 1, 1 at its 10), and
+ /// the outward unit direction there, part way `w` from the straight first
+@@ -64,9 +74,9 @@
+     (v(x, cy + (y - DIAL_Y) * tilt), [n[0], n[1] * tilt])
+ }
+ 
+-/// The dial's spine, its ticks for 1..10 and a taller hero tick at the mark
+-/// `mark` (a fraction of a lap), rebuilt from the two trackers.
+-fn dial_parts(s: &mut Arena, w: f64, p: f64, mark: f64) -> Mob {
++/// The dial's spine, its ticks for 1..10 and, once `lit` is above zero, a taller
++/// hero tick at the mark `mark` (a fraction of a lap), rebuilt from the trackers.
++fn dial_parts(s: &mut Arena, w: f64, p: f64, mark: f64, lit: f64) -> Mob {
+     let g = s.add(VMobject::new());
+     let spine: Vec<Vec3> = (0..=120).map(|k| bend(f64::from(k) / 120.0, w, p).0).collect();
+     let line = s.add(polyline(spine).style(line_style(number_c(), 3.0)).build());
+@@ -80,16 +90,18 @@
+         );
+         let _ = s.attach(g, tick);
+     }
+-    let (q, d) = bend(mark, w, p);
+-    let hero = s.add(
+-        polyline(vec![
+-            v(q[0] - 0.12 * d[0], q[1] - 0.12 * d[1]),
+-            v(q[0] + 0.5 * d[0], q[1] + 0.5 * d[1]),
+-        ])
+-        .style(line_style(answer_c(), 4.0))
+-        .build(),
+-    );
+-    let _ = s.attach(g, hero);
++    if lit > 1e-3 {
++        let (q, d) = bend(mark, w, p);
++        let hero = s.add(
++            polyline(vec![
++                v(q[0] - 0.12 * d[0], q[1] - 0.12 * d[1]),
++                v(q[0] + 0.5 * d[0], q[1] + 0.5 * d[1]),
++            ])
++            .style(faded_line(answer_c(), 4.0, lit))
++            .build(),
++        );
++        let _ = s.attach(g, hero);
++    }
+     g
+ }
+ 
+@@ -188,9 +200,11 @@
+         rest.extend(tens.iter().copied());
+         let w_bend = stage.add_value_tracker(0.0);
+         let p_lay = stage.add_value_tracker(0.0);
++        // the hero tick stays dark until the turn lands on it in 03_2
++        let lit_tick = stage.add_value_tracker(0.0);
+         let dial = stage.always_redraw(move |s| {
+-            let (w, p) = (value(s, w_bend), value(s, p_lay));
+-            dial_parts(s, w, p, mark)
++            let (w, p, lit) = (value(s, w_bend), value(s, p_lay), value(s, lit_tick));
++            dial_parts(s, w, p, mark, lit)
+         });
+         stage.add_to_scene(dial)?;
+         fade_out_all(stage, &rest, 0.6)?;
+@@ -215,7 +229,7 @@
+         // 03_2: multiplying is turning; 4 then 6 pass the top and stop on 2.4
+         kit.say(stage, "03_2")?;
+         let heading2 = title(&kit, stage, "Multiplying is turning")?;
+-        swap(stage, &[heading, lap_arc], &[heading2], 0.5)?;
++        swap(stage, &[heading, lap_arc, lap_word], &[heading2], 0.5)?;
+         let turn = stage.add_value_tracker(0.0);
+         let (first, second) = (fact_f64("slide.pos_c")?, fact_f64("slide.pos_d")?);
+         let pointer = stage.always_redraw(move |s| {
+@@ -253,7 +267,7 @@
+             false,
+             30.0,
+             purple,
+-            v(4.75, -1.2),
++            v(3.6, -1.2),
+             LEFT,
+         )?;
+         fade_in_all(stage, &[count_word], 0.4)?;
+@@ -279,6 +293,7 @@
+         kit.until_sentence(stage, "03_2", 3)?;
+         play!(stage; tween(turn, first + second, 2.4)?);
+         let land = ring(stage, on_dial(mark, R + 0.05), 0.2, gold, 3.5);
++        let land_word = kit.text(stage, fact("slide.cd_digits")?, 26.0, gold, on_dial(mark, LAND_R))?;
+         let total = kit.text_left(
+             stage,
+             &format!(
+@@ -291,7 +306,8 @@
+             Palette::ink(),
+             v(1.4, 0.4),
+         )?;
+-        fade_in_all(stage, &[land, total], 0.5)?;
++        play!(stage; tween(lit_tick, 1.0, 0.3)?);
++        fade_in_all(stage, &[land, land_word, total], 0.5)?;
+         kit.until_sentence(stage, "03_2", 4)?;
+         let ten = kit.text_left(
+             stage,
+@@ -306,25 +322,28 @@
+             gold,
+             v(1.4, -0.3),
+         )?;
+-        fade_in_all(stage, &[ten], 0.5)?;
++        let lap_tag = kit.text_left(stage, "one lap = ×10", 24.0, purple, v(1.4, -1.7))?;
++        fade_in_all(stage, &[ten, lap_tag], 0.5)?;
+ 
+         // 03_3: the dial forgets laps; lay it flat and let the laps rise
+         kit.say(stage, "03_3")?;
++        let heading3 = title(&kit, stage, "Laps the dial forgets")?;
+         let forgets = kit.text_left(
+             stage,
+             "the dial shows only the mark",
+             26.0,
+             Palette::dim(),
+-            v(1.4, -1.8),
+-        )?;
+-        fade_in_all(stage, &[forgets], 0.4)?;
++            v(1.4, -2.3),
++        )?;
++        swap(stage, &[heading2], &[heading3, forgets], 0.5)?;
+         let mut clear = vec![
+-            pointer, trail, count, count_word, four, six, total, ten, land, lap_word, forgets,
++            pointer, trail, count, count_word, four, six, total, ten, land, land_word, lap_tag,
+         ];
+         clear.extend(labels.iter().copied());
+         fade_out_all(stage, &clear, 0.6)?;
+         play!(stage; tween(p_lay, 1.0, 2.0)?);
+         kit.until_sentence(stage, "03_3", 1)?;
++        fade_out_all(stage, &[forgets], 0.4)?;
+         let climb = stage.add_value_tracker(laps[0] - 0.1);
+         let helix = stage.always_redraw(move |s| {
+             let top = value(s, climb);
+@@ -340,27 +359,27 @@
+         play!(stage; tween(climb, laps[laps.len() - 1] + mark + 0.25, 3.2)?);
+         let shadow_at = spiral().shadow(mark);
+         let shadow = dot(stage, shadow_at, 0.1, gold);
+-        let mut drops = Vec::new();
+         let mut points = Vec::new();
+         for &k in &laps {
+-            let p = spiral().at(k + mark);
+-            points.push(dot(stage, p, 0.09, purple));
+-            drops.push(super::draw::dashed(stage, p, shadow_at, Palette::faint(), 2.0, 7)?);
+-        }
++            points.push(dot(stage, spiral().at(k + mark), 0.09, purple));
++        }
++        // one dashed line from the top point: every lower point sits on it
++        let top_point = spiral().at(laps[laps.len() - 1] + mark);
++        let drop_line = super::draw::dashed(stage, top_point, shadow_at, Palette::faint(), 2.0, 16)?;
+         let one_mark = kit.text_left(
+             stage,
+-            "one mark on the dial",
++            &format!("the {} mark: one place on the dial", fact("slide.cd_digits")?),
+             22.0,
+             gold,
+-            v(shadow_at[0] + 0.3, shadow_at[1] - 0.05),
++            v(shadow_at[0] + ONE_MARK_DX, shadow_at[1] - 0.05),
+         )?;
+         fade_in_all(stage, &points, 0.4)?;
+-        fade_in_all(stage, &drops, 0.6)?;
++        fade_in_all(stage, &[drop_line], 0.6)?;
+         fade_in_all(stage, &[shadow, one_mark], 0.5)?;
+         // the readings, lap by lap, as the narration names them
+         let reading = |kit: &Kit, stage: &mut Stage<'_>, i: usize| -> fmn::Result<[Mob; 2]> {
+             let p = spiral().at(laps[i] + mark);
+-            let n = kit.text_left(stage, &format!("{}", values[i]), 26.0, green, v(p[0] + 0.45, p[1]))?;
++            let n = kit.text_left(stage, &format!("{}", values[i]), 26.0, green, v(p[0] + READ_DX, p[1]))?;
+             let l = laps[i] as i64;
+             let word = if l.abs() == 1 { "lap" } else { "laps" };
+             let lap = kit.text_left(
+@@ -368,7 +387,7 @@
+                 &format!("{} {word}", super::draw::shown(&l.to_string())),
+                 22.0,
+                 purple,
+-                v(p[0] + 1.6, p[1]),
++                v(p[0] + LAP_DX, p[1]),
+             )?;
+             Ok([n, lap])
+         };
+@@ -391,10 +410,8 @@
+             "a spiral, and its shadow",
+             26.0,
+             Palette::ink(),
+-            v(DIAL_X, 3.0 - 0.45),
+-        )?;
+-        let heading3 = title(&kit, stage, "Laps the dial forgets")?;
+-        swap(stage, &[heading2], &[heading3], 0.5)?;
++            v(DIAL_X, KEEP_Y),
++        )?;
+         fade_in_all(stage, &[keep], 0.4)?;
+         kit.until_sentence(stage, "03_4", 1)?;
+         // the promise: a vertical column of inputs, a lap apart, one output
+@@ -408,7 +425,8 @@
+         let circle = ring(stage, out_c, 0.9, Palette::dim(), 2.5);
+         let target = v(out_c[0] + 0.9 * 0.7f64.cos(), out_c[1] + 0.9 * 0.7f64.sin());
+         let out = dot(stage, target, 0.11, gold);
+-        fade_in_all(stage, &[column, circle, out], 0.5)?;
++        let caption = kit.text(stage, "inputs a lap apart, one output", 22.0, purple, v(4.6, -2.65))?;
++        fade_in_all(stage, &[column, circle, out, caption], 0.5)?;
+         fade_in_lagged(stage, &inputs, 0.8, 0.3)?;
+         kit.until_sentence(stage, "03_4", 2)?;
+         let mut folds = Vec::new();
+@@ -419,8 +437,7 @@
+         fade_in_lagged(stage, &folds, 1.2, 0.25)?;
+         kit.until_sentence(stage, "03_4", 3)?;
+         let exp = kit.tex(stage, r"e^{x+iy}", 40.0, Palette::ink(), &[], v(4.6, 2.3))?;
+-        let caption = kit.text(stage, "inputs a lap apart, one output", 22.0, purple, v(4.6, -2.65))?;
+-        fade_in_all(stage, &[exp, caption], 0.5)?;
++        fade_in_all(stage, &[exp], 0.5)?;
+         kit.finish(stage)
+     }
+ }
+@@ -433,6 +450,20 @@
+ #[cfg(test)]
+ mod tests {
+     use super::*;
++
++    /// The scene code without these tests, for checks on the order of its beats.
++    fn scene_source() -> &'static str {
++        include_str!("folded_decade.rs")
++            .split("#[cfg(test)]")
++            .next()
++            .unwrap_or("")
++    }
++
++    fn found(text: &str) -> usize {
++        scene_source()
++            .find(text)
++            .unwrap_or_else(|| panic!("not in the scene: {text}"))
++    }
+ 
+     #[test]
+     fn the_bend_starts_on_the_long_ruler_and_ends_on_the_dial() {
+@@ -478,4 +509,87 @@
+         // the lowest reading clears the floor ellipse's back edge
+         assert!(s.at(-1.0 + m)[1] > shadow[1] + 2.0 * R * FLOOR_TILT);
+     }
+-}
++
++    #[test]
++    fn the_landing_number_clears_the_ring_the_tick_and_the_dial_numerals() {
++        let m = 2.4f64.log10();
++        // the printed "2.4" reaches at most this far along the ray towards the ring
++        let reach = 0.21;
++        assert!(LAND_R - reach > R + 0.5 + 0.02, "the tick ends at R + 0.5");
++        assert!(LAND_R - reach > R + 0.05 + 0.2 + 0.02, "the ring ends at R + 0.25");
++        let at = on_dial(m, LAND_R);
++        for n in [2.0f64, 3.0] {
++            let other = on_dial(n.log10(), R + 0.45);
++            assert!((at[0] - other[0]).hypot(at[1] - other[1]) > 0.6, "{n}");
++        }
++        assert!(at[1] > -3.85 && at[0] < 6.86);
++    }
++
++    #[test]
++    fn the_hero_tick_stays_dark_until_the_turn_lands() {
++        assert!(found("tween(turn, first + second, 2.4)") < found("tween(lit_tick, 1.0, 0.3)"));
++        assert!(found("tween(lit_tick, 1.0, 0.3)") < found("&[land, land_word, total]"));
++    }
++
++    #[test]
++    fn the_lap_words_leave_with_their_arc_and_return_by_the_counter() {
++        let swap_at = found("swap(stage, &[heading, lap_arc, lap_word], &[heading2], 0.5)");
++        let tag = found(r#""one lap = ×10", 24.0, purple, v(1.4, -1.7)"#);
++        assert!(swap_at < tag);
++        // the words leave once only: a second fade would flash them
++        assert_eq!(scene_source().matches("lap_word").count(), 3);
++    }
++
++    #[test]
++    fn the_new_title_and_the_caption_arrive_on_the_first_sentence_of_03_3() {
++        let swap_at = found("swap(stage, &[heading2], &[heading3, forgets], 0.5)");
++        assert!(swap_at < found("tween(p_lay, 1.0, 2.0)"));
++        // "the dial shows only the mark" holds through the lay, until sentence 1
++        let hold = found(r#"kit.until_sentence(stage, "03_3", 1)"#);
++        assert!(found("tween(p_lay, 1.0, 2.0)") < hold && hold < found("fade_out_all(stage, &[forgets], 0.4)"));
++    }
++
++    #[test]
++    fn the_right_panel_has_its_caption_while_the_voice_describes_it() {
++        let sentence = found(r#"kit.until_sentence(stage, "03_4", 1)"#);
++        let next = found(r#"kit.until_sentence(stage, "03_4", 2)"#);
++        let shown = found("&[column, circle, out, caption]");
++        assert!(sentence < shown && shown < next);
++    }
++
++    #[test]
++    fn the_spiral_caption_sits_under_the_floor_inside_the_frame() {
++        let half = 0.88 * 26.0 * 0.01 / 2.0;
++        assert!(
++            FLOOR_Y - R * FLOOR_TILT - (KEEP_Y + half) >= 0.15,
++            "the floor's lowest edge"
++        );
++        assert!(KEEP_Y - half >= -3.85);
++    }
++
++    #[test]
++    fn the_floor_caption_starts_past_the_tilted_tick() {
++        let m = 2.4f64.log10();
++        let (q, d) = bend(m, 1.0, 1.0);
++        let tick_end = q[0] + 0.5 * d[0];
++        assert!(spiral().shadow(m)[0] + ONE_MARK_DX >= tick_end + 0.1, "{tick_end}");
++    }
++
++    #[test]
++    fn every_reading_clears_the_helix() {
++        let m = 2.4f64.log10();
++        let s = spiral();
++        let helix = s.points(laps_from(), 2.0 + 0.25 + m, 400);
++        // text boxes: "0.24" is the widest number; 22-point lap words are 1.0 wide
++        let half_height = 0.69 * 26.0 * 0.01 / 2.0;
++        for k in [-1.0, 0.0, 1.0, 2.0] {
++            let p = s.at(k + m);
++            let (left, right) = (p[0] + READ_DX, p[0] + LAP_DX + 1.0);
++            for q in &helix {
++                let dx = (left - q[0]).max(q[0] - right).max(0.0);
++                let dy = ((q[1] - p[1]).abs() - half_height).max(0.0);
++                assert!(dx.hypot(dy) > 0.05, "{k}: {q:?}");
++            }
++        }
++    }
++}
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs
+@@ -11,8 +11,9 @@
+ //! Live readouts (tangent slope and height) are computed from `f64::exp` in
+ //! the scene; every fixed number is a facts.rs key.
+ //!
+-//! Rebuild candidate for `mx-video-program-program-87do.63`; uncompiled,
+-//! unrendered, unlistened.
++//! Rebuild candidate for `mx-video-program-program-87do.63`; picture repairs
++//! from the independent review staged in `logarithm-repair01-04`. Type-checked
++//! against stand-ins only: not compiled against fmn, unrendered, unlistened.
+ 
+ use std::f64::consts::{E, PI};
+ 
+@@ -22,7 +23,7 @@
+ 
+ use super::draw::{
+     answer_c, dashed, dot, fact, fact_f64, fade_in_all, fade_in_lagged, fade_out_all, line_style, number_c, position_c,
+-    precisely, predict, seg, swap, title, value, warn_c,
++    precisely, predict, ring, seg, shift_all, swap, title, value, warn_c,
+ };
+ 
+ pub struct UndoingGrowth {
+@@ -62,6 +63,57 @@
+         .filter(|&(a, b)| inside(a, b))
+         .map(|(a, b)| p(a, b))
+         .collect()
++}
++
++/// The stroke of the tangent at x = `a`, whose slope equals its height.
++fn tangent_points(a: f64) -> Vec<Vec3> {
++    let h = a.exp();
++    let d = 0.8 / (1.0 + h * h).sqrt();
++    vec![p(a - d, h - h * d), p(a + d, h + h * d)]
++}
++
++/// How far the climbing tangent of 04_2 rises: it stays under the title.
++const CLIMB_FROM: f64 = -2.2;
++const CLIMB_TO: f64 = 0.95;
++
++/// The dashes of the red floor y = 0, carried part way `m` across the mirror:
++/// e^x's floor becomes the logarithm's wall at x = 0.
++const FLOOR_DASHES: usize = 22;
++
++fn floor_parts(s: &mut Arena, m: f64, c: Srgb) -> Mob {
++    let g = s.add(VMobject::new());
++    let at = |t: f64| {
++        let (a, b) = flipped(LO + (HI - LO) * t, 0.0, m);
++        p(a, b)
++    };
++    for k in 0..FLOOR_DASHES {
++        let (t0, t1) = (k as f64 / FLOOR_DASHES as f64, (k as f64 + 0.55) / FLOOR_DASHES as f64);
++        let dash = s.add(polyline(vec![at(t0), at(t1)]).style(line_style(c, 3.0)).build());
++        let _ = s.attach(g, dash);
++    }
++    g
++}
++
++/// The slope triangle: its corner on the curve at x = `TRI_A`, then run `TRI_K`,
++/// then rise `TRI_K` × height.
++const TRI_A: f64 = 0.5;
++const TRI_K: f64 = 0.6;
++
++fn tri_points() -> [(f64, f64); 3] {
++    let h = TRI_A.exp();
++    [(TRI_A, h), (TRI_A + TRI_K, h), (TRI_A + TRI_K, h + TRI_K * h)]
++}
++
++/// The ruler of 04_5: where 1 sits, the length of one ×e, and its height. Two
++/// rows between the spine and the first step scale carry the product's lengths.
++const RULER_LEFT: f64 = -5.6;
++const RULER_UNIT: f64 = 2.6;
++const RULER_Y: f64 = 0.4;
++const PRODUCT_ROW_A: f64 = RULER_Y - 0.3;
++const PRODUCT_ROW_B: f64 = RULER_Y - 0.48;
++
++fn ruler_x(n: f64) -> f64 {
++    RULER_LEFT + RULER_UNIT * n.ln()
+ }
+ 
+ fn axes(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
+@@ -87,6 +139,13 @@
+ const PER_YEAR: f64 = 7.0 / 150.0;
+ const PER_DOUBLING: f64 = 0.5;
+ const DOUBLINGS: i32 = 10;
++/// The think bar of 04_6: just under "×2 when?", which sits at y = 1.5.
++const THINK_BAR_Y: f64 = 1.1;
++/// The two rows that close the chapter, centred right of the panel.
++const TEN_ROWS_X: f64 = 4.4;
++/// The name y = e^x: right of the dot at (1, e) that 04_3 places, and left of
++/// the mirror y = x that 04_4 draws.
++const EXP_NAME_X: f64 = 1.68;
+ 
+ fn g(years: f64, doublings: f64) -> Vec3 {
+     v(GX + PER_YEAR * years, GY + PER_DOUBLING * doublings)
+@@ -111,13 +170,16 @@
+         let drawn = stage.add_value_tracker(LO);
+         let mirror = stage.add_value_tracker(0.0);
+         let curve = stage.always_redraw(move |s: &mut Arena| {
+-            let pts = exp_curve(value(s, mirror), value(s, drawn));
++            let m = value(s, mirror);
++            let pts = exp_curve(m, value(s, drawn));
+             let pts = if pts.len() < 2 { vec![p(LO, LO.exp()); 2] } else { pts };
+-            s.add(polyline(pts).style(line_style(green, 4.0)).build())
++            // blue once it is a logarithm; the change falls where the curve is edge-on
++            let c = if m > 0.5 { blue } else { green };
++            s.add(polyline(pts).style(line_style(c, 4.0)).build())
+         });
+         stage.add_to_scene(curve)?;
+         play!(stage; tween(drawn, HI, 2.0)?);
+-        let name = kit.tex(stage, r"y = e^{x}", 34.0, green, &[], p(1.6, 2.4))?;
++        let name = kit.tex(stage, r"y = e^{x}", 34.0, green, &[], p(EXP_NAME_X, 2.4))?;
+         fade_in_all(stage, &[name], 0.4)?;
+         kit.until_sentence(stage, "04_1", 2)?;
+         let law = kit.tex(
+@@ -136,13 +198,7 @@
+         let x0 = stage.add_value_tracker(-1.6);
+         let tangent = stage.always_redraw(move |s: &mut Arena| {
+             let a = value(s, x0);
+-            let h = a.exp();
+-            let d = 0.8 / (1.0 + h * h).sqrt();
+-            s.add(
+-                polyline(vec![p(a - d, h - h * d), p(a + d, h + h * d)])
+-                    .style(line_style(blue, 3.0))
+-                    .build(),
+-            )
++            s.add(polyline(tangent_points(a)).style(line_style(blue, 3.0)).build())
+         });
+         let touch = stage.always_redraw(move |s: &mut Arena| {
+             let a = value(s, x0);
+@@ -213,7 +269,7 @@
+         let pair_b = dot(stage, p(-1.0, 1.0 / E), 0.07, green);
+         fade_in_all(stage, &[f1, pair_a, pair_b], 0.5)?;
+         kit.until_sentence(stage, "04_2", 2)?;
+-        let floor = dashed(stage, p(LO, 0.0), p(HI, 0.0), red, 3.0, 22)?;
++        let floor = dashed(stage, p(LO, 0.0), p(HI, 0.0), red, 3.0, FLOOR_DASHES)?;
+         let f2 = kit.text_left(
+             stage,
+             "starts at 1; to go negative it would cross 0",
+@@ -231,7 +287,27 @@
+             v(1.0, -0.55),
+         )?;
+         fade_in_all(stage, &[f3], 0.4)?;
++        // "it only ever climbs": the tangent runs up the curve, steeper as it goes
++        let climb = stage.add_value_tracker(CLIMB_FROM);
++        let climb_line = stage.always_redraw(move |s: &mut Arena| {
++            let a = value(s, climb);
++            s.add(polyline(tangent_points(a)).style(line_style(blue, 3.0)).build())
++        });
++        let climb_dot = stage.always_redraw(move |s: &mut Arena| {
++            let a = value(s, climb);
++            s.add(
++                Dot::new()
++                    .point(p(a, a.exp()))
++                    .radius(0.07)
++                    .style(super::draw::flat(blue, 1.0))
++                    .build(),
++            )
++        });
++        stage.add_to_scene(climb_line)?;
++        stage.add_to_scene(climb_dot)?;
++        play!(stage; tween(climb, CLIMB_TO, 4.0)?);
+         kit.until_sentence(stage, "04_2", 4)?;
++        fade_out_all(stage, &[climb_line, climb_dot], 0.3)?;
+         // a horizontal probe at height c meets the curve once for c > 0
+         let c = stage.add_value_tracker(2.6);
+         let probe = stage.always_redraw(move |s: &mut Arena| {
+@@ -281,9 +357,11 @@
+         kit.say(stage, "04_3")?;
+         fade_out_all(
+             stage,
+-            &[three, f1, f2, f3, hits_word, hits, pair_a, pair_b, probe, meet],
++            &[three, f1, f2, f3, hits_word, hits, pair_a, pair_b, probe, meet, law],
+             0.4,
+         )?;
++        kit.until_sentence(stage, "04_3", 1)?;
++        let named = kit.text(stage, "ln: the natural logarithm", 24.0, blue, v(3.9, 2.0))?;
+         let back = kit.tex(
+             stage,
+             r"\ln(e^{x}) = x \ \ \text{(all } x) \qquad e^{\ln y} = y \ \ (y > 0)",
+@@ -292,8 +370,7 @@
+             &[(r"\ln", blue)],
+             v(3.9, 1.3),
+         )?;
+-        fade_in_all(stage, &[back], 0.5)?;
+-        kit.until_sentence(stage, "04_3", 1)?;
++        fade_in_all(stage, &[named, back], 0.5)?;
+         // read backwards: from height 2 across to the curve, down to ln 2
+         let ln2 = fact_f64("real.ln2")?;
+         let across = seg(stage, p(0.0, 2.0), p(ln2, 2.0), gold, 3.0);
+@@ -304,13 +381,15 @@
+             28.0,
+             gold,
+             &[],
+-            p(1.5, -0.45),
++            p(1.1, -0.75),
+         )?;
+         fade_in_lagged(stage, &[across, down, ln2_word], 1.4, 0.5)?;
+         kit.until_sentence(stage, "04_3", 2)?;
+         let ln1 = kit.tex(stage, r"\ln 1 = 0", 32.0, blue, &[], v(2.4, 0.4))?;
+-        fade_in_all(stage, &[ln1], 0.4)?;
++        let at_one_ring = ring(stage, p(0.0, 1.0), 0.17, gold, 3.0);
++        fade_in_all(stage, &[ln1, at_one_ring], 0.4)?;
+         kit.until_sentence(stage, "04_3", 3)?;
++        fade_out_all(stage, &[at_one_ring], 0.3)?;
+         let e_dot = dot(stage, p(1.0, E), 0.08, gold);
+         let e_down = dashed(stage, p(1.0, E), p(1.0, 0.0), gold, 2.5, 8)?;
+         let ln_e = kit.tex(
+@@ -338,23 +417,21 @@
+                 e_dot,
+                 e_down,
+                 back,
++                named,
+                 ln1,
+                 ln_e,
+                 nowhere_word,
+                 at_one,
+-                law,
+             ],
+             0.4,
+         )?;
+         let line_yx = dashed(stage, p(LO, LO), p(HI, HI), Palette::dim(), 2.0, 26)?;
+         fade_in_all(stage, &[line_yx], 0.5)?;
+         kit.until_sentence(stage, "04_4", 1)?;
+-        // a slope triangle rides along: run 1, rise e^a; flipped, run e^a, rise 1
+-        let a = 0.5f64;
++        // a slope triangle rides along: run k, rise k·e^a; flipped, the legs trade
+         let tri = stage.always_redraw(move |s: &mut Arena| {
+             let m = value(s, mirror);
+-            let (h, k) = (a.exp(), 0.6);
+-            let pts = [(a, h), (a + k, h), (a + k, h + k * h)];
++            let pts = tri_points();
+             let mapped: Vec<Vec3> = pts
+                 .iter()
+                 .chain(std::iter::once(&pts[0]))
+@@ -366,15 +443,39 @@
+             s.add(polyline(mapped).style(line_style(blue, 3.0)).build())
+         });
+         stage.add_to_scene(tri)?;
+-        let ln_name = kit.tex(stage, r"y = \ln x", 34.0, blue, &[], p(2.4, 1.55))?;
++        let h = TRI_A.exp();
++        let run0 = kit.text(stage, "run", 20.0, blue, p(TRI_A + TRI_K / 2.0, h - 0.2))?;
++        let rise0 = kit.text(stage, "rise", 20.0, blue, p(TRI_A + TRI_K + 0.33, h + 0.35 * TRI_K * h))?;
++        fade_in_all(stage, &[run0, rise0], 0.4)?;
++        // The red marks were about the heights e^x never reaches. Reflected with
++        // the curve they say what is true of ln: the floor becomes its wall at
++        // x = 0, and the bar lands on the inputs with no real logarithm. Each live
++        // copy starts exactly on its still original, so the handover cannot show.
++        let wall = stage.always_redraw(move |s: &mut Arena| {
++            let m = value(s, mirror);
++            floor_parts(s, m, red)
++        });
++        let barred = stage.always_redraw(move |s: &mut Arena| {
++            let m = value(s, mirror);
++            let (a0, b0) = flipped(0.0, 0.0, m);
++            let (a1, b1) = flipped(0.0, LO, m);
++            s.add(polyline(vec![p(a0, b0), p(a1, b1)]).style(line_style(red, 7.0)).build())
++        });
++        stage.add_to_scene(wall)?;
++        stage.add_to_scene(barred)?;
++        fade_out_all(stage, &[name, run0, rise0, floor, nowhere], 0.25)?;
+         play!(stage; tween(mirror, 1.0, 2.6)?);
+-        swap(stage, &[name], &[ln_name], 0.4)?;
++        let ln_name = kit.tex(stage, r"y = \ln x", 34.0, blue, &[], p(2.75, 1.7))?;
++        let rise1 = kit.text(stage, "rise", 20.0, blue, p(h - 0.33, TRI_A + TRI_K / 2.0))?;
++        let run1 = kit.text(stage, "run", 20.0, blue, p(h + TRI_K * h / 2.0, TRI_A + TRI_K + 0.17))?;
++        let no_log = kit.text(stage, "no real logarithm", 22.0, red, p(-1.35, 0.32))?;
+         let swapped = kit.text_left(stage, "rise and run trade places", 24.0, Palette::ink(), v(1.0, 2.2))?;
+-        fade_in_all(stage, &[swapped], 0.4)?;
++        fade_in_all(stage, &[ln_name, rise1, run1, no_log, swapped], 0.4)?;
+         kit.until_sentence(stage, "04_4", 2)?;
+         let slope_rule = kit.tex(stage, r"\frac{d}{dx}\ln x = \frac{1}{x}", 36.0, blue, &[], v(4.0, 1.25))?;
+         fade_in_all(stage, &[slope_rule], 0.5)?;
+         kit.until_sentence(stage, "04_4", 3)?;
++        fade_out_all(stage, &[tri, rise1, run1], 0.3)?;
+         let one = dot(stage, p(1.0, 0.0), 0.08, gold);
+         let tangent1 = seg(stage, p(0.2, -0.8), p(2.2, 1.2), gold, 3.0);
+         let one_word = kit.text_left(stage, "slope 1 at x = 1", 22.0, gold, v(1.0, 0.35))?;
+@@ -382,7 +483,7 @@
+         kit.until_sentence(stage, "04_4", 4)?;
+         let small = kit.tex(
+             stage,
+-            &format!(r"\ln 1.01 = {} \approx 0.01", fact("real.ln_one_point_oh_one")?),
++            &format!(r"\ln 1.01 \approx {} \approx 0.01", fact("real.ln_one_point_oh_one")?),
+             32.0,
+             Palette::ink(),
+             &[],
+@@ -404,16 +505,13 @@
+         kit.say(stage, "04_5")?;
+         let mut graph: Vec<Mob> = frame.clone();
+         graph.extend([
+-            curve, tri, line_yx, ln_name, swapped, slope_rule, one, tangent1, one_word, small, natural, why, floor,
+-            nowhere,
++            curve, line_yx, ln_name, swapped, slope_rule, one, tangent1, one_word, small, natural, why, wall, barred,
++            no_log,
+         ]);
+-        fade_out_all(stage, &graph, 0.6)?;
+-        kit.until_sentence(stage, "04_5", 1)?;
+-        // one ruler, numbers in the middle, two step scales above and below
+-        let unit = 2.6;
+-        let left = -5.6;
+-        let at = |n: f64| left + unit * n.ln();
+-        let mid_y = 0.4;
++        // one ruler, numbers in the middle, two step scales above and below; it
++        // arrives as the graph leaves, on "this is the ruler again"
++        let (unit, left, mid_y) = (RULER_UNIT, RULER_LEFT, RULER_Y);
++        let at = ruler_x;
+         let spine = seg(stage, v(left, mid_y), v(at(10.0), mid_y), green, 3.0);
+         let mut marks = vec![spine];
+         for (n, label) in [(1.0, "1"), (2.0, "2"), (E, "e"), (4.0, "4"), (8.0, "8")] {
+@@ -421,6 +519,8 @@
+             let c = if label == "e" { gold } else { green };
+             marks.push(kit.text(stage, label, 24.0, c, v(at(n), mid_y + 0.42))?);
+         }
++        swap(stage, &graph, &marks, 0.6)?;
++        kit.until_sentence(stage, "04_5", 1)?;
+         let e_val = kit.text(
+             stage,
+             &format!("e ≈ {}", fact("real.e")?),
+@@ -435,7 +535,6 @@
+             ln_steps.push(kit.text(stage, &k.to_string(), 20.0, blue, v(x, mid_y - 1.1))?);
+         }
+         let ln_word = kit.text_left(stage, "ln: step 1 = ×e", 22.0, blue, v(at(10.0) + 0.3, mid_y - 0.75))?;
+-        fade_in_all(stage, &marks, 0.6)?;
+         fade_in_all(stage, &[e_val], 0.4)?;
+         fade_in_all(stage, &ln_steps, 0.6)?;
+         fade_in_all(stage, &[ln_word], 0.4)?;
+@@ -449,7 +548,35 @@
+             v(0.0, 2.3),
+         )?;
+         fade_in_all(stage, &[product], 0.5)?;
++        // 2 × 4 as lengths: 1 to 2, then a copy of 1 to 4 slid to start where the
++        // first one ends. It lands on 8, the slide rule's move on this ruler.
++        let bar_a = seg(
++            stage,
++            v(at(1.0) + 0.03, PRODUCT_ROW_A),
++            v(at(2.0) - 0.03, PRODUCT_ROW_A),
++            blue,
++            6.0,
++        );
++        let bar_b = seg(
++            stage,
++            v(at(1.0) + 0.03, PRODUCT_ROW_B),
++            v(at(4.0) - 0.03, PRODUCT_ROW_B),
++            super::draw::slide_c(),
++            6.0,
++        );
++        fade_in_lagged(stage, &[bar_a, bar_b], 0.9, 0.5)?;
++        shift_all(stage, &[bar_b], v(at(2.0) - at(1.0), 0.0), 1.2)?;
++        let landing = ring(stage, v(at(8.0), mid_y), 0.18, gold, 3.0);
++        let landing_word = kit.text_left(
++            stage,
++            "2 × 4 = 8",
++            24.0,
++            gold,
++            v(at(8.0) + 0.3, (PRODUCT_ROW_A + PRODUCT_ROW_B) / 2.0),
++        )?;
++        fade_in_all(stage, &[landing, landing_word], 0.4)?;
+         kit.until_sentence(stage, "04_5", 3)?;
++        fade_out_all(stage, &[bar_a, bar_b, landing, landing_word], 0.4)?;
+         let two = super::draw::slide_c();
+         let mut two_steps = vec![seg(stage, v(left, mid_y - 1.75), v(at(10.0), mid_y - 1.75), two, 2.0)];
+         for k in 0..=3 {
+@@ -457,7 +584,14 @@
+             two_steps.push(seg(stage, v(x, mid_y - 1.85), v(x, mid_y - 1.65), two, 2.5));
+             two_steps.push(kit.text(stage, &k.to_string(), 20.0, two, v(x, mid_y - 2.1))?);
+         }
+-        let two_word = kit.text_left(stage, "log₂: step 1 = ×2", 22.0, two, v(at(10.0) + 0.3, mid_y - 1.75))?;
++        let two_word = kit.tex_left(
++            stage,
++            r"\log_2:\ \text{step 1} = \times 2",
++            22.0,
++            two,
++            &[],
++            v(at(10.0) + 0.3, mid_y - 1.75),
++        )?;
+         fade_in_all(stage, &two_steps, 0.6)?;
+         fade_in_all(stage, &[two_word], 0.4)?;
+         kit.until_sentence(stage, "04_5", 4)?;
+@@ -514,10 +648,10 @@
+         let years = kit.text(stage, "years", 20.0, Palette::dim(), g(75.0, -1.05))?;
+         let up = kit.text(
+             stage,
+-            "growth factor, on a ratio ruler",
++            "growth factor on a ratio ruler: each mark is ×2",
+             18.0,
+             Palette::dim(),
+-            v(GX + 1.9, g(0.0, 10.75)[1]),
++            v(GX + 2.1, g(0.0, 10.75)[1]),
+         )?;
+         panel.extend([years, up]);
+         fade_in_all(stage, &panel, 0.6)?;
+@@ -530,13 +664,24 @@
+             v(4.6, 2.4),
+         )?;
+         let t_end = (f64::from(DOUBLINGS) + 0.4) * 2f64.ln() / rate;
+-        let line = seg(stage, g(0.0, 0.0), g(t_end, f64::from(DOUBLINGS) + 0.4), green, 4.0);
+-        fade_in_all(stage, &[formula, line], 0.7)?;
++        // the money grows: the line draws itself up the ratio ruler
++        let grown = stage.add_value_tracker(0.01);
++        let line = stage.always_redraw(move |s: &mut Arena| {
++            let t = value(s, grown);
++            s.add(
++                polyline(vec![g(0.0, 0.0), g(t, t * rate / 2f64.ln())])
++                    .style(line_style(green, 4.0))
++                    .build(),
++            )
++        });
++        stage.add_to_scene(line)?;
++        fade_in_all(stage, &[formula], 0.5)?;
++        play!(stage; tween(grown, t_end, 2.0)?);
+         kit.until_sentence(stage, "04_6", 2)?;
+         let double_line = dashed(stage, g(0.0, 1.0), g(150.0, 1.0), gold, 2.5, 30)?;
+         let ask = kit.text(stage, "×2 when?", 26.0, gold, v(4.6, 1.5))?;
+         fade_in_all(stage, &[double_line, ask], 0.5)?;
+-        predict(&kit, stage, v(4.6, -2.75), 3.0)?;
++        predict(&kit, stage, v(4.6, THINK_BAR_Y), 3.0)?;
+ 
+         // 04_7: take ln of both sides: 13.9 years; the rule of 70; ×1000
+         kit.say(stage, "04_7")?;
+@@ -571,11 +716,12 @@
+         )?;
+         let hit = dot(stage, g(doubled, 1.0), 0.1, gold);
+         let hit_down = dashed(stage, g(doubled, 1.0), g(doubled, 0.0), gold, 2.5, 5)?;
+-        fade_in_all(stage, &[step3, hit, hit_down], 0.5)?;
++        let hit_foot = kit.text(stage, fact("real.double_years")?, 18.0, gold, g(doubled, -0.6))?;
++        fade_in_all(stage, &[step3, hit, hit_down, hit_foot], 0.5)?;
+         kit.until_sentence(stage, "04_7", 3)?;
+         let seventy = kit.text(
+             stage,
+-            "doubling time ≈ 70 ÷ (percent a year)",
++            "rule of seventy: time ≈ 70 ÷ (percent a year)",
+             22.0,
+             Palette::ink(),
+             v(4.3, -0.45),
+@@ -584,7 +730,7 @@
+             &kit,
+             stage,
+             &format!(
+-                "100 × ln 2 = {}; seventy is the round number near it",
++                "100 × ln 2 ≈ {}; seventy is the round number near it",
+                 fact("real.rule_of_seventy")?
+             ),
+         )?;
+@@ -605,8 +751,10 @@
+             v(4.4, -1.3),
+         )?;
+         let thousand_at = 1000f64.log2();
+-        let far = dot(stage, g(fact_f64("real.thousand_years")?, thousand_at), 0.1, green);
+-        fade_in_all(stage, &[thousand, far], 0.5)?;
++        let far_at = g(fact_f64("real.thousand_years")?, thousand_at);
++        let far = dot(stage, far_at, 0.1, green);
++        let far_word = kit.text_left(stage, "×1000", 20.0, green, v(far_at[0] + 0.22, far_at[1] - 0.2))?;
++        fade_in_all(stage, &[thousand, far, far_word], 0.5)?;
+         kit.until_sentence(stage, "04_7", 5)?;
+         let mut tens = Vec::new();
+         for d in 1..=DOUBLINGS {
+@@ -614,19 +762,27 @@
+             tens.push(dot(stage, g(t, f64::from(d)), 0.06, gold));
+         }
+         fade_in_lagged(stage, &tens, 1.6, 0.2)?;
++        // two rows, clear of the end of the dashed ×2 line
+         let ten = kit.tex(
+             stage,
++            &format!(r"2^{{10}} = {}", fact("real.two_pow10")?),
++            28.0,
++            gold,
++            &[],
++            v(TEN_ROWS_X, -1.95),
++        )?;
++        let ten_years = kit.tex(
++            stage,
+             &format!(
+-                r"2^{{10}} = {} \quad\Rightarrow\quad 10 \text{{ doublings}} \approx {}\ \text{{years}}",
+-                fact("real.two_pow10")?,
++                r"10 \text{{ doublings}} \approx {}\ \text{{years}}",
+                 fact("real.ten_doublings_years")?
+             ),
+             28.0,
+             gold,
+             &[],
+-            v(4.0, -2.1),
+-        )?;
+-        fade_in_all(stage, &[ten], 0.5)?;
++            v(TEN_ROWS_X, -2.4),
++        )?;
++        fade_in_all(stage, &[ten, ten_years], 0.5)?;
+         kit.finish(stage)
+     }
+ }
+@@ -634,6 +790,20 @@
+ #[cfg(test)]
+ mod tests {
+     use super::*;
++
++    /// The scene code without these tests, for checks on the order of its beats.
++    fn scene_source() -> &'static str {
++        include_str!("undoing_growth.rs")
++            .split("#[cfg(test)]")
++            .next()
++            .unwrap_or("")
++    }
++
++    fn found(text: &str) -> usize {
++        scene_source()
++            .find(text)
++            .unwrap_or_else(|| panic!("not in the scene: {text}"))
++    }
+ 
+     #[test]
+     fn the_flip_is_the_mirror_in_y_equals_x_and_fixes_the_line() {
+@@ -670,4 +840,145 @@
+         assert!((k - 138.155).abs() < 0.01 && g(k, 0.0)[0] < 1.6);
+         assert!(g(0.0, 0.0)[1] > -3.0);
+     }
+-}
++
++    #[test]
++    fn the_red_marks_land_where_the_logarithm_really_has_no_value() {
++        // the bar of heights e^x never reaches lands on the negative inputs of ln
++        for y in [-0.3, -1.0, LO] {
++            let (a, b) = flipped(0.0, y, 1.0);
++            assert!((a - y).abs() < 1e-12 && b.abs() < 1e-12, "{y}");
++            assert!(a < 0.0);
++        }
++        // the floor y = 0 lands on the wall x = 0
++        for x in [LO, -1.0, 1.0, HI] {
++            let (a, b) = flipped(x, 0.0, 1.0);
++            assert!(a.abs() < 1e-12 && (b - x).abs() < 1e-12, "{x}");
++        }
++        // and the curve stays right of that wall all the way down the window
++        for q in exp_curve(1.0, HI) {
++            assert!(q[0] - OX > 0.0, "{q:?}");
++        }
++    }
++
++    #[test]
++    fn the_still_red_marks_go_as_the_live_ones_take_over_before_the_flip() {
++        let live = found("stage.add_to_scene(barred)");
++        let fade = found("&[name, run0, rise0, floor, nowhere]");
++        let flip = found("tween(mirror, 1.0, 2.6)");
++        assert!(live < fade && fade < flip);
++        // the graph's own fade takes the live marks, never the still ones
++        let graph = found("let mut graph: Vec<Mob> = frame.clone();");
++        let graph_end = graph + scene_source()[graph..].find("]);").expect("the list ends");
++        let list = &scene_source()[graph..graph_end];
++        assert!(list.contains("wall") && list.contains("barred") && list.contains("no_log"));
++        assert!(!list.contains("floor") && !list.contains("nowhere") && !list.contains("tri"));
++    }
++
++    #[test]
++    fn each_live_red_mark_starts_exactly_on_its_still_original() {
++        // m = 0 leaves every point where it was, so the handover cannot show
++        for (x, y) in [(LO, 0.0), (HI, 0.0), (0.0, 0.0), (0.0, LO)] {
++            assert_eq!(flipped(x, y, 0.0), (x, y));
++        }
++    }
++
++    #[test]
++    fn the_flipped_triangle_has_slope_one_over_x() {
++        let [a, b, c] = tri_points();
++        // before: slope = rise / run = height
++        assert!(((c.1 - b.1) / (b.0 - a.0) - a.1).abs() < 1e-12);
++        assert!((a.1 - TRI_A.exp()).abs() < 1e-12);
++        // after: the old run stands up and the old rise lies down
++        let m = |q: (f64, f64)| flipped(q.0, q.1, 1.0);
++        let (a, b, c) = (m(a), m(b), m(c));
++        assert!((a.0 - b.0).abs() < 1e-12, "the old run is now vertical");
++        assert!((b.1 - c.1).abs() < 1e-12, "the old rise is now level");
++        let slope = (b.1 - a.1) / (c.0 - b.0);
++        assert!((slope - 1.0 / a.0).abs() < 1e-12, "{slope}");
++    }
++
++    #[test]
++    fn the_ln_two_label_clears_the_tick_labels_and_the_red_bar() {
++        // the label is centred at p(1.1, -0.75), about 1.75 wide at 28 points
++        let (centre, half_w, half_h) = (1.1, 0.875, 0.14);
++        let tick_label_bottom = -0.3 - 0.07;
++        assert!(tick_label_bottom - (-0.75 + half_h) >= 0.1);
++        assert!(centre - half_w > 0.05, "right of the red bar at x = 0");
++        // its foot, ln 2, stands over the label
++        assert!(((centre - half_w)..(centre + half_w)).contains(&2f64.ln()));
++    }
++
++    #[test]
++    fn the_law_goes_with_04_2_and_the_formula_waits_for_its_name() {
++        let fade = found("&[three, f1, f2, f3, hits_word, hits, pair_a, pair_b, probe, meet, law]");
++        let named = found(r#"kit.until_sentence(stage, "04_3", 1)"#);
++        assert!(fade < named && named < found("fade_in_all(stage, &[named, back], 0.5)"));
++    }
++
++    #[test]
++    fn the_tangent_climbs_only_inside_its_sentence_and_under_the_title() {
++        let three = found(r#"kit.until_sentence(stage, "04_2", 3)"#);
++        let four = found(r#"kit.until_sentence(stage, "04_2", 4)"#);
++        let climb = found("tween(climb, CLIMB_TO, 4.0)");
++        assert!(three < climb && climb < four);
++        let top = tangent_points(CLIMB_TO)[1];
++        assert!(top[1] < 3.0, "{top:?}");
++        let left = tangent_points(CLIMB_FROM)[0];
++        assert!(left[0] > -6.86, "{left:?}");
++    }
++
++    #[test]
++    fn the_product_law_is_drawn_two_lengths_landing_on_eight() {
++        let (a, b) = (ruler_x(2.0) - ruler_x(1.0), ruler_x(4.0) - ruler_x(1.0));
++        assert!((ruler_x(1.0) + a + b - ruler_x(8.0)).abs() < 1e-12);
++        // the rows fit between the spine's ticks and the first step scale
++        let half = 6.0 * 0.01 / 2.0;
++        assert!(RULER_Y - 0.15 - (PRODUCT_ROW_A + half) >= 0.1);
++        assert!((PRODUCT_ROW_B - half) - (RULER_Y - 0.65) >= 0.1);
++        assert!(PRODUCT_ROW_A - PRODUCT_ROW_B >= 2.0 * half + 0.05);
++        // "2 × 4 = 8" is 4.39 ems at 24 points, right of the 8 and under the spine
++        assert!(ruler_x(8.0) + 0.3 + 4.39 * 24.0 * 0.01 < 6.86);
++    }
++
++    #[test]
++    fn the_ruler_is_on_screen_when_the_voice_says_ruler() {
++        let say = found(r#"kit.say(stage, "04_5")"#);
++        let sentence = found(r#"kit.until_sentence(stage, "04_5", 1)"#);
++        let swap_at = found("swap(stage, &graph, &marks, 0.6)");
++        assert!(say < swap_at && swap_at < sentence);
++    }
++
++    #[test]
++    fn the_flip_labels_keep_clear_of_each_other_the_names_and_the_mirror() {
++        let h = TRI_A.exp();
++        // "rise" before the flip, and y = e^x beside it (about 0.94 wide, 0.34 tall)
++        let (rise_x, rise_y) = (TRI_A + TRI_K + 0.33, h + 0.35 * TRI_K * h);
++        assert!(2.4 - 0.17 - (rise_y + 0.09) >= 0.03, "{rise_y}");
++        assert!(rise_x < 3.0);
++        // the name, about 0.94 wide, clears e's dot at (1, e), which reaches x = 1.08
++        const { assert!(EXP_NAME_X - 0.47 > 1.08 + 0.1) };
++        // and it ends left of the mirror at the height of its lowest ink
++        const { assert!(EXP_NAME_X + 0.47 < 2.4 - 0.17 - 0.05) };
++        // y = ln x, about 1.0 wide, stays right of the mirror y = x at its height
++        let (name_left, name_top) = (2.75 - 0.5, 1.7 + 0.17);
++        assert!(name_left > name_top + 0.1, "{name_left} {name_top}");
++        // "run" sits above the level leg and under y = ln x
++        let run_y = TRI_A + TRI_K + 0.17;
++        assert!(1.7 - 0.17 - (run_y + 0.09) >= 0.05, "{run_y}");
++    }
++
++    #[test]
++    fn the_think_bar_sits_under_its_question_and_clear_of_the_next_row() {
++        const { assert!(1.5 - THINK_BAR_Y >= 0.3) };
++        // it fades before the 0.85 row of 04_7 arrives, and clears it anyway
++        const { assert!(THINK_BAR_Y - 0.85 >= 0.2) };
++    }
++
++    #[test]
++    fn the_closing_rows_start_well_right_of_the_dashed_line() {
++        // the wider row is about 3.7 wide at 28 points
++        let line_end = g(150.0, 1.0)[0];
++        assert!(TEN_ROWS_X - 3.7 / 2.0 - line_end >= 0.5, "{line_end}");
++        const { assert!(TEN_ROWS_X + 3.7 / 2.0 <= 6.86) };
++    }
++}

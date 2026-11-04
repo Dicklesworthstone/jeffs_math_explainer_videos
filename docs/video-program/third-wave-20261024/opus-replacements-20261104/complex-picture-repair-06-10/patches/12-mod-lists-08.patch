@@ -1,0 +1,12 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+@@ -310,6 +310,9 @@
+     loop_sums::CANCEL[0],
+     loop_sums::CANCEL[1],
+     loop_sums::GOURSAT,
++    loop_sums::UNIT_CIRCLE,
++    loop_sums::LAPS[0],
++    loop_sums::LAPS[1],
+     closing::DEMAND,
+     closing::CAPTIONS[0][0],
+     closing::CAPTIONS[0][1],

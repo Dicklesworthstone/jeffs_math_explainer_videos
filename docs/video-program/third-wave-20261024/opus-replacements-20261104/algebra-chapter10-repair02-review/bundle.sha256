@@ -1,0 +1,13 @@
+d25b3c2856538c68c2c6e4e0677e14d06495317afa6b74410fbc73c3a48349a6  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra-chapter10-repair02-review/REVIEW.md
+1b6840c7964e38a99cf6018384d7a8ff5b54a2ece91ca854b6bb51302e15ebdc  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra-chapter10-repair02-review/base.sha256
+8bea5c1657af5640fc7ab53a365483ac23167a227bb03037dcae4db1b1d2b75a  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra-chapter10-repair02-review/checks/geometry_math.out
+0152d51c497a3cc07016cae0f9189c12f93b759722263804ec53ad6fefa04913  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra-chapter10-repair02-review/checks/geometry_math.py
+510924ce5bc8e81eaac4b9fc4747a1f5103c9d1f36970e7e8955c6b28a6478cd  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra-chapter10-repair02-review/checks/make_proposed.py
+245162edc6285c882077ef9ac6f62d17578dd6c09c3c782f877ad8eb1101afb1  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra-chapter10-repair02-review/checks/patch_check.out
+75c1b3a4c1eff76b6f0634a7a6b7be56ca5b93d9d98215f74f15334bdd640b76  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra-chapter10-repair02-review/checks/patch_check.py
+9121a99acd214cbe0e6c9f6038485333ac4ac162ee7ccfc164a3cd61bb413b7e  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra-chapter10-repair02-review/checks/reshow_scan.out
+047ba0a3f7ec14bc189b1d4979dba01540909ab76e61f3caf0eabd4bdec06087  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra-chapter10-repair02-review/checks/reshow_scan.py
+a4c7fb284e24222268f5674c20ea197c7393af5e0492fc46a4bf55540a651644  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra-chapter10-repair02-review/checks/timing.out
+bcbcb290891ea29e6538a8e901d8e0380ce7be5a821eec95c96a534607584f62  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra-chapter10-repair02-review/checks/timing.py
+bee439fdad35eb75a22a05d32d4e9aad059feabac0456fbfd29e24746b391d46  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra-chapter10-repair02-review/proposed-cyclic.rs
+236109053b21859974791ff2ad93ee37d60dc56d99a9ed494451371922acacc1  docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra-chapter10-repair02-review/proposed.patch

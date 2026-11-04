@@ -1,0 +1,11 @@
+--- a/explainer_corpus/apportionment/src/chapters/sixteenth.rs
++++ b/explainer_corpus/apportionment/src/chapters/sixteenth.rs
+@@ -100,7 +100,7 @@
+         // 04_2 the whole parts did not move: two seats left over
+         let s = say(&kit, stage, "04_2")?;
+         let sum = format!(
+-            "{} + {} + {} = {}",
++            "whole parts: {} + {} + {} = {}",
+             wholes[0],
+             wholes[1],
+             wholes[2],

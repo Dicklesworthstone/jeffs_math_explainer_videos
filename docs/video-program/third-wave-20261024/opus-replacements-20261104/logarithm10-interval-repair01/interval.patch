@@ -1,0 +1,17 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs
+@@ -553,11 +553,11 @@
+                 3.5,
+             ));
+         }
+-        fade_in_all(stage, &[rule], 0.4)?;
+-        // "strictly": unlike a number's window, the flows' rule shuts out π too
++        // Reveal the strict rule together with its open endpoint, on "strictly".
++        // Showing the inequality earlier contradicts the still-closed number window.
+         until_phrase(&kit, stage, "10_4", "strictly between")?;
+         let open_r = ring(stage, turn_at(PI), 0.09, red, 2.5);
+-        swap(stage, &[closed_r], &[open_r], 0.3)?;
++        swap(stage, &[closed_r], &[open_r, rule], 0.3)?;
+         fade_in_all(stage, &crosses, 0.4)?;
+         kit.until_sentence(stage, "10_4", 1)?;
+         // the three flows have done their work: their marks stay on the line,

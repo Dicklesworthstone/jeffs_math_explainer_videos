@@ -1,0 +1,18 @@
+shared-draw-helpers.patch exit 0 fuzz or reject: []
+chapters-08-10.patch exit 0 fuzz or reject: []
+  src/chapters/draw.rs equals candidate: True
+  src/chapters/product_rule.rs equals candidate: True
+  src/chapters/matrix_logs.rs equals candidate: True
+  src/chapters/doing_nothing.rs equals candidate: True
+  docs/storyboard.md equals candidate: True
+rustfmt whole crate: parse errors: [] | files with diffs: ['score.rs']
+check_cues failure lists identical to canonical: True (15 lines)
+product_rule: anchors 26 -> 26, added [], removed [], says same: True
+  predict calls 2 -> 2
+matrix_logs: anchors 18 -> 19, added [('until_sentence', '09_2', '1')], removed [], says same: True
+  predict calls 0 -> 0
+doing_nothing: anchors 19 -> 20, added [('hold', '', '')], removed [], says same: True
+  predict calls 0 -> 0
+added float literals: 77 | near a std constant: []
+constant-only assert: +        assert!(CENTRE[0] - UNIT * CLIP > -6.86);
+constant-only assert: +        assert!(CENTRE[0] + UNIT * CLIP < 1.0);

@@ -1,0 +1,578 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs
+@@ -16,11 +16,30 @@
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Painter, Plane, dot, fact, fact_f64, fade_in_all, fade_out_all, faded_line, hero, input, line_style, marks,
+-    names_now, output, pause, pole, precisely_now, predict, reading_window, say, tween_linear, value, wait_until,
++    Painter, Plane, axis_names, carded, dot, fact, fact_f64, fade_in_all, fade_out_all, faded_line, hero, input,
++    line_style, marks, names_now, output, pause, pole, precisely_now, predict, reading_window, say, tween_linear,
++    value, wait_until,
+ };
++// the opening chapter's words for the same things
++use super::the_bump::{POLE_I, POLE_MINUS_I, RADIUS, TITLE};
+ use crate::model::{self, C, Func, ZERO};
+ 
++pub const QUOTIENT_TEX: &str = r"\frac{f(z)}{z-a}";
++/// The two terms of the split's right side, each lit in its turn.
++pub const SPLIT_TERMS: [&str; 2] = [r"\frac{f(a)}{z-a}", r"\frac{f(z)-f(a)}{z-a}"];
++pub const BEYOND: &str = "a little beyond";
++pub const BUMP_Z_TEX: &str = r"\mathrm{bump} = \frac{1}{1 + z^2}";
++pub const R_NAMES: [&str; 2] = ["r = 1/2", "r = 2"];
++pub const CENTRE_ZERO: &str = "a = 0";
++/// Why 8 samples show as 4 dots, and 16 as 8: the bump takes one value at z and at −z.
++pub const PAIR_UP: &str = "opposite samples share a value";
++pub const THETA_TEX: &str = r"\theta = \mathrm{its}\;\mathrm{angle}";
++pub const SLOPE: &str = "the slope at the centre";
++pub const NEXT: &str = "the next coefficient";
++pub const RECIPE_NAME: &str = "the recipe";
++/// What the two check rows of 09_9 are compared with.
++pub const MATCHES: &str = " = the bump";
++pub const OUTSIDE: &str = " (outside: it blows up)";
+ pub const SPLIT_TEX: &str = r"\frac{f(z)}{z-a} = \frac{f(a)}{z-a} + \frac{f(z)-f(a)}{z-a}";
+ pub const REST: &str = "the second piece is holomorphic: its loop integral is 0";
+ pub const RESULT_TEX: &str = r"\oint \frac{f(z)}{z-a}\,dz = 2\pi i\, f(a)";
+@@ -36,7 +55,8 @@
+ pub const SHARES: &str = "bump at 0, then each pole: ";
+ pub const NEEDS: &str =
+     "Cauchy's formula needs f holomorphic on an open set containing the closed disk: on the circle and inside it";
+-pub const COEF_TEX: &str = r"c_n = \frac{1}{r^n}\cdot \mathrm{avg}_k\; f(a + r e^{i\theta_k})\, e^{-i n \theta_k}";
++pub const COEF_TEX: &str =
++    r"c_n = \frac{1}{r^n}\cdot \mathrm{average}\;\mathrm{of}\; f(a + r e^{i\theta})\, e^{-i n \theta}";
+ pub const TURNED: [&str; 2] = ["each turned back by its angle", "each turned back by twice its angle"];
+ pub const READ: [&str; 2] = [
+     r"c_1 = \frac{\mathrm{average}}{r} \approx ",
+@@ -53,7 +73,8 @@
+ 
+ /// The bump's picture, [−2.5, 2.5]², on the left.
+ pub fn picture() -> Plane {
+-    Plane::new(v(-3.3, -0.35), 5.6, (-2.5, 2.5), (-2.5, 2.5))
++    // its foot stops above where a two-line lower third starts
++    Plane::new(v(-3.3, -0.2), 5.6, (-2.5, 2.5), (-2.5, 2.5))
+ }
+ 
+ /// Where the samples' values are drawn (09_3–09_5).
+@@ -103,9 +124,13 @@
+         .collect()
+ }
+ 
++/// Steps across a graph's window: 0.005 each on [−1.6, 3], so that 0 and ±1 are on the grid
++/// and the recipe's two spikes at ±1 draw alike.
++pub const CURVE_STEPS: i32 = 920;
++
+ /// A function of x drawn in `g`, cut into pieces wherever it leaves the window.
+ pub fn clipped(g: &Frame2, f: impl Fn(f64) -> f64) -> Vec<Vec<Vec3>> {
+-    let n = 600;
++    let n = CURVE_STEPS;
+     let mut pieces: Vec<Vec<Vec3>> = Vec::new();
+     let mut current: Vec<Vec3> = Vec::new();
+     for k in 0..=n {
+@@ -144,22 +169,59 @@
+         // 09_1: divide by z − a; split; the rest integrates to zero
+         let line = say(&kit, stage, "09_1")?;
+         let painter = Painter::build(stage, Some(Func::Bump), p, 1.0)?;
+-        let border = p.border(stage, Palette::faint())?;
++        let mut p_frame = axis_names(&kit, stage, &p)?;
++        p_frame.push(p.border(stage, Palette::faint())?);
+         painter.show(stage, 1.0)?;
+         let poles = marks(stage, Func::Bump, &p);
+-        fade_in_all(stage, &[border], 0.3)?;
++        fade_in_all(stage, &p_frame, 0.3)?;
+         fade_in_all(stage, &poles, 0.3)?;
+         line.wait_sentence(stage, 1)?;
+         let centre = dot(stage, p.p(ZERO), 0.08, Palette::ink());
+         let a_name = kit.tex(stage, "a", 28.0, Palette::ink(), &[], p.p(C::new(0.18, -0.2)))?;
+         let half = p.circle(stage, ZERO, 0.5, hero(), 5.0)?;
+         let beyond = p.circle(stage, ZERO, 0.8, Palette::faint(), 2.0)?;
+-        fade_in_all(stage, &[centre, a_name, half, beyond], 0.5)?;
+-        let split = kit.tex(stage, SPLIT_TEX, 34.0, Palette::ink(), &[], v(2.0, 3.2))?;
+-        fade_in_all(stage, &[split], 0.5)?;
++        let beyond_name = carded(
++            &kit,
++            stage,
++            BEYOND,
++            18.0,
++            Palette::ink(),
++            p.p(C::new(1.7, -0.3)),
++            Palette::faint(),
++        )?;
++        fade_in_all(
++            stage,
++            &[centre, a_name, half, beyond, beyond_name[0], beyond_name[1]],
++            0.5,
++        )?;
++        // the quotient alone on the words that make it; the split with the term that carries
++        // f(a) lit on "Near a"; the other term lit on "The rest"
++        line.wait_for(stage, "divide it by")?;
++        let quotient = kit.tex(stage, QUOTIENT_TEX, 34.0, Palette::ink(), &[], v(2.0, 3.2))?;
++        fade_in_all(stage, &[quotient], 0.4)?;
++        line.wait_sentence(stage, 2)?;
++        let split = kit.tex(
++            stage,
++            SPLIT_TEX,
++            34.0,
++            Palette::ink(),
++            &[(SPLIT_TERMS[0], hero())],
++            v(2.0, 3.2),
++        )?;
++        fade_out_all(stage, &[quotient], 0.2)?;
++        fade_in_all(stage, &[split], 0.4)?;
+         line.wait_sentence(stage, 3)?;
+-        let rest = kit.text(stage, REST, 20.0, Palette::dim(), v(right, 2.2))?;
+-        fade_in_all(stage, &[rest], 0.4)?;
++        let split_rest = kit.tex(
++            stage,
++            SPLIT_TEX,
++            34.0,
++            Palette::ink(),
++            &[(SPLIT_TERMS[1], output())],
++            v(2.0, 3.2),
++        )?;
++        let rest = kit.text(stage, REST, 20.0, output(), v(right, 2.2))?;
++        fade_out_all(stage, &[split], 0.2)?;
++        fade_in_all(stage, &[split_rest, rest], 0.4)?;
+         line.wait_sentence(stage, 4)?;
+         let result = kit.tex(stage, RESULT_TEX, 36.0, hero(), &[], v(right, 1.1))?;
+         fade_in_all(stage, &[result], 0.5)?;
+@@ -167,7 +229,7 @@
+         // 09_2: on a circle the formula is an average
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "09_2")?;
+-        fade_out_all(stage, &[split, rest, beyond], 0.3)?;
++        fade_out_all(stage, &[split_rest, rest, beyond, beyond_name[0], beyond_name[1]], 0.3)?;
+         let formula = kit.tex(stage, FORMULA_TEX, 34.0, Palette::ink(), &[], v(2.0, 3.2))?;
+         let on_circle = kit.tex(stage, ON_CIRCLE_TEX, 28.0, Palette::dim(), &[], v(right, 0.0))?;
+         fade_in_all(stage, &[formula, on_circle], 0.5)?;
+@@ -202,6 +264,27 @@
+             vp.p(C::new(peak, -0.12)),
+         )?);
+         fade_in_all(stage, &vp_frame, 0.4)?;
++        // what the voice names: the function, the radius, the centre
++        let bump_name = kit.tex(stage, BUMP_Z_TEX, 28.0, Palette::ink(), &[], v(-5.0, 3.0))?;
++        let r_half = carded(
++            &kit,
++            stage,
++            R_NAMES[0],
++            20.0,
++            Palette::ink(),
++            p.p(C::new(-1.05, 0.3)),
++            hero(),
++        )?;
++        let a_is = carded(
++            &kit,
++            stage,
++            CENTRE_ZERO,
++            20.0,
++            Palette::ink(),
++            p.p(C::new(0.85, -0.72)),
++            Palette::faint(),
++        )?;
++        fade_in_all(stage, &[bump_name, r_half[0], r_half[1], a_is[0], a_is[1]], 0.3)?;
+         line.wait_sentence(stage, 1)?;
+         let [few, many] = model::AVERAGE_SAMPLES;
+         let counts: Vec<&str> = fact("cauchy.samples")?.split(',').collect();
+@@ -214,6 +297,9 @@
+             v(right, -1.4),
+         )?;
+         fade_in_all(stage, &[avg8], 0.4)?;
++        let pair_up = kit.text(stage, PAIR_UP, 18.0, Palette::dim(), v(right, -0.75))?;
++        fade_in_all(stage, &[pair_up], 0.3)?;
++        vp_frame.push(pair_up);
+         line.wait_sentence(stage, 2)?;
+         let mut gone = dots8;
+         gone.push(mean8);
+@@ -232,11 +318,21 @@
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "09_4")?;
+         let mut gone = dots16;
+-        gone.extend([mean16, avg8, avg16]);
++        // one ring at a time: the small one comes back with its samples in 09_6
++        gone.extend([mean16, avg8, avg16, half, r_half[0], r_half[1]]);
+         fade_out_all(stage, &gone, 0.3)?;
+         line.wait_sentence(stage, 0)?;
+         let two = p.circle(stage, ZERO, 2.0, hero(), 5.0)?;
+-        fade_in_all(stage, &[two], 0.5)?;
++        let r_two = carded(
++            &kit,
++            stage,
++            R_NAMES[1],
++            20.0,
++            Palette::ink(),
++            p.p(C::new(-2.0, 1.85)),
++            hero(),
++        )?;
++        fade_in_all(stage, &[two, r_two[0], r_two[1]], 0.5)?;
+         let (dots2, mean2) = sample_round_hidden(stage, &p, &vp, 2.0, many)?;
+         let asked = predict(&kit, stage, &line, &ASK, v(right, -2.0))?;
+ 
+@@ -262,13 +358,28 @@
+         fade_in_all(stage, &[limit], 0.3)?;
+         line.wait_sentence(stage, 1)?;
+         let share = signed(fact("cauchy.pole_share")?);
++        // the poles ringed on "swallowed", each one's share on "Each pole pulls", on a card
++        // because pole-coloured words do not read on the plate around a pole
+         let mut flash = Vec::new();
+         for z in [model::I, -model::I] {
+             flash.push(p.circle(stage, z, 0.22, pole(), 5.0)?);
+-            flash.push(kit.text(stage, &share, 24.0, pole(), p.p(z + C::new(0.62, 0.0)))?);
+         }
+         fade_in_all(stage, &flash, 0.4)?;
+         line.wait_sentence(stage, 2)?;
++        let mut shares = Vec::new();
++        for z in [model::I, -model::I] {
++            shares.extend(carded(
++                &kit,
++                stage,
++                &share,
++                24.0,
++                Palette::ink(),
++                p.p(z + C::new(0.72, 0.0)),
++                pole(),
++            )?);
++        }
++        fade_in_all(stage, &shares, 0.3)?;
++        flash.extend(shares);
+         let tally = kit.text(
+             stage,
+             &format!(
+@@ -290,7 +401,7 @@
+         // 09_6: turn the samples back by their angles: the coefficients
+         reading_window(&kit, stage, &line)?;
+         let line = say(&kit, stage, "09_6")?;
+-        let mut gone = vec![two, mean2, avg2, limit, tally, needs, formula];
++        let mut gone = vec![two, r_two[0], r_two[1], mean2, avg2, limit, tally, needs, formula];
+         gone.extend(dots2);
+         gone.extend(flash);
+         gone.extend(vp_frame);
+@@ -299,6 +410,22 @@
+         let tp = turned_plane();
+         let mut tp_frame = vec![tp.border(stage, output())?];
+         tp_frame.extend(tp.axes(stage)?);
++        tp_frame.push(kit.text(
++            stage,
++            VALUES,
++            22.0,
++            output(),
++            v(tp.frame.center[0], tp.frame.top() + 0.25),
++        )?);
++        tp_frame.push(dot(stage, tp.p(C::real(peak)), 0.05, Palette::dim()));
++        tp_frame.push(kit.text(
++            stage,
++            fact("bump.peak")?,
++            20.0,
++            Palette::dim(),
++            tp.p(C::new(peak, -0.2)),
++        )?);
++        tp_frame.push(kit.tex(stage, THETA_TEX, 24.0, Palette::dim(), &[], v(right, 2.55))?);
+         fade_in_all(stage, &[coef_tex], 0.4)?;
+         fade_in_all(stage, &tp_frame, 0.3)?;
+         let n = many;
+@@ -317,7 +444,18 @@
+                 .build()
+                 .moved_to(tp.p(centroid(&turned_values(0.5, n, 0.0)))),
+         );
+-        fade_in_all(stage, &on_circle, 0.3)?;
++        let r_again = carded(
++            &kit,
++            stage,
++            R_NAMES[0],
++            20.0,
++            Palette::ink(),
++            p.p(C::new(-1.05, 0.3)),
++            hero(),
++        )?;
++        let mut small_ring = on_circle.clone();
++        small_ring.extend([half, r_again[0], r_again[1]]);
++        fade_in_all(stage, &small_ring, 0.3)?;
+         fade_in_all(stage, &vals, 0.3)?;
+         fade_in_all(stage, &[mean], 0.3)?;
+         let s = stage.add_value_tracker(0.0);
+@@ -350,7 +488,8 @@
+             &[],
+             v(right, -2.55),
+         )?;
+-        fade_in_all(stage, &[read1], 0.4)?;
++        let slope = kit.text(stage, SLOPE, 18.0, hero(), v(1.35, -2.55))?;
++        fade_in_all(stage, &[read1, slope], 0.4)?;
+         line.wait_sentence(stage, 3)?;
+         let turned_twice = kit.text(stage, TURNED[1], 20.0, Palette::dim(), v(right, -1.95))?;
+         fade_out_all(stage, &[turned_once], 0.2)?;
+@@ -364,7 +503,8 @@
+             &[],
+             v(right, -3.4),
+         )?;
+-        fade_in_all(stage, &[read2], 0.4)?;
++        let next = kit.text(stage, NEXT, 18.0, hero(), v(1.5, -3.4))?;
++        fade_in_all(stage, &[read2, next], 0.4)?;
+         stage.clear_updaters(anchor, true);
+         line.wait_sentence(stage, 4)?;
+         let list = kit.tex(
+@@ -379,12 +519,30 @@
+             v(-3.3, -3.45),
+         )?;
+         fade_in_all(stage, &[list], 0.5)?;
++        // "hidden in the boundary values": the ring they came from lights
++        let lit = p.circle(stage, ZERO, 0.5, hero(), 10.0)?;
++        fade_in_all(stage, &[lit], 0.3)?;
++        fade_out_all(stage, &[lit], 0.5)?;
+         wait_until(stage, line.end())?;
+ 
+         // 09_7: the opening puzzle answered: holomorphic out to the poles, radius 1
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "09_7")?;
+-        let mut gone = vec![coef_tex, mean, read1, read2, turned_twice, list, half];
++        let mut gone = vec![
++            coef_tex,
++            mean,
++            read1,
++            read2,
++            slope,
++            next,
++            turned_twice,
++            list,
++            half,
++            r_again[0],
++            r_again[1],
++            a_is[0],
++            a_is[1],
++        ];
+         gone.extend(on_circle);
+         gone.extend(vals);
+         gone.extend(tp_frame);
+@@ -409,6 +567,15 @@
+                     .add(polyline(piece).style(line_style(Palette::ink(), 4.0)).build()),
+             );
+         }
++        let tick = |x: f64| {
++            let q = g.p(x, 0.0);
++            v(q[0], q[1] - 0.24)
++        };
++        axes_g.push(kit.text(stage, "−1", 20.0, Palette::dim(), tick(-1.0))?);
++        axes_g.push(kit.text(stage, "1", 20.0, Palette::dim(), tick(1.0))?);
++        let axis_end = g.p(g.x.1, 0.0);
++        axes_g.push(kit.text(stage, "x", 22.0, Palette::dim(), v(axis_end[0] + 0.18, axis_end[1]))?);
++        axes_g.push(kit.text(stage, TITLE, 20.0, Palette::ink(), g.p(2.0, 0.45))?);
+         fade_in_all(stage, &axes_g, 0.5)?;
+         let recipe0: Vec<Mob> = clipped(&g, |x| model::bump_recipe0(x, 40))
+             .into_iter()
+@@ -418,49 +585,118 @@
+                     .add(polyline(pc).style(line_style(hero(), 3.0)).build())
+             })
+             .collect();
+-        fade_in_all(stage, &recipe0, 0.5)?;
++        let recipe_name = kit.text(stage, RECIPE_NAME, 20.0, hero(), g.p(-0.55, 1.2))?;
++        let mut recipe_shown = recipe0.clone();
++        recipe_shown.push(recipe_name);
++        fade_in_all(stage, &recipe_shown, 0.5)?;
++        // the largest disk: it grows from the centre until it hits the poles
++        line.wait_for(stage, "the largest disk")?;
++        let unit = p.circle(stage, ZERO, 1e-3, hero(), 5.0)?;
++        fade_in_all(stage, &[unit], 0.1)?;
++        let disk = stage.add_value_tracker(1e-3);
++        let anchor = stage.arena_mut().add(VMobject::new());
++        stage.add_to_scene(anchor)?;
++        stage.add_updater(
++            anchor,
++            move |a, _| {
++                let r = value(a, disk).max(1e-3);
++                let pts: Vec<Vec3> = (0..=120)
++                    .map(|k| p.p(C::polar(r, TAU * f64::from(k) / 120.0)))
++                    .collect();
++                let _ = a.set_points(unit, polyline(pts).build().points());
++            },
++            true,
++        )?;
++        let rt = line.until(stage, "That answers", 1.6)?.min(3.0);
++        stage.play(tween_linear(disk, fact_f64("bump.radius0")?, rt)?)?;
++        stage.clear_updaters(anchor, true);
++        stage.remove_from_scene(anchor);
+         line.wait_sentence(stage, 2)?;
+-        let unit = p.circle(stage, ZERO, fact_f64("bump.radius0")?, hero(), 5.0)?;
+-        fade_in_all(stage, &[unit], 0.6)?;
++        let mut pole_names = Vec::new();
++        for (z, s, dy) in [(model::I, POLE_I, 0.3), (-model::I, POLE_MINUS_I, -0.3)] {
++            pole_names.extend(carded(
++                &kit,
++                stage,
++                s,
++                22.0,
++                Palette::ink(),
++                p.p(z + C::new(-0.42, dy)),
++                pole(),
++            )?);
++        }
++        fade_in_all(stage, &pole_names, 0.4)?;
+         line.wait_sentence(stage, 3)?;
++        let reach0 = p.path(stage, &[ZERO, model::I], hero(), 4.0)?;
++        let radius_name = carded(
++            &kit,
++            stage,
++            &format!("{RADIUS}{}", fact("bump.radius0")?),
++            20.0,
++            Palette::ink(),
++            p.p(C::new(1.5, 0.7)),
++            hero(),
++        )?;
+         let glow0 = stage.arena_mut().add(
+             polyline(vec![g.p(-1.0, 0.0), g.p(1.0, 0.0)])
+                 .style(faded_line(hero(), 12.0, 0.55))
+                 .build(),
+         );
+-        fade_in_all(stage, &[glow0], 0.5)?;
++        fade_in_all(stage, &[reach0, radius_name[0], radius_name[1], glow0], 0.5)?;
++        // "no further": the pole that stops it
++        line.wait_for(stage, "no further")?;
++        let stops = p.circle(stage, model::I, 0.2, pole(), 5.0)?;
++        fade_in_all(stage, &[stops], 0.3)?;
+ 
+         // 09_8: recentre at 1: how far now?
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "09_8")?;
+-        fade_out_all(stage, &recipe0, 0.3)?;
+-        fade_out_all(stage, &[glow0], 0.3)?;
++        // the old disk goes as its centre leaves: the size of the new one is the question
++        let mut gone = recipe0;
++        gone.extend([glow0, recipe_name, reach0, radius_name[0], radius_name[1], stops, unit]);
++        fade_out_all(stage, &gone, 0.3)?;
+         let slide = stage.add_value_tracker(0.0);
+         let anchor = stage.arena_mut().add(VMobject::new());
+         stage.add_to_scene(anchor)?;
+         stage.add_updater(
+             anchor,
+             move |a, _| {
+-                let t = value(a, slide);
+-                let c = C::real(t);
+-                let r = (1.0 - t).max(1e-3);
++                let c = C::real(value(a, slide));
+                 a.move_to(centre, p.p(c), ORIGIN);
+                 a.move_to(a_name, p.p(c + C::new(0.18, -0.2)), ORIGIN);
+-                let pts: Vec<Vec3> = (0..=120)
+-                    .map(|k| p.p(c + C::polar(r, TAU * f64::from(k) / 120.0)))
+-                    .collect();
+-                let _ = a.set_points(unit, polyline(pts).build().points());
+             },
+             true,
+         )?;
+         stage.play(tween_linear(slide, 1.0, 1.8)?)?;
+         stage.clear_updaters(anchor, true);
++        let one_name = carded(
++            &kit,
++            stage,
++            "1",
++            22.0,
++            Palette::ink(),
++            p.p(C::new(1.0, -0.62)),
++            Palette::faint(),
++        )?;
++        fade_in_all(stage, &one_name, 0.2)?;
+         let asked = predict(&kit, stage, &line, &ASK_RECENTRE, v(3.9, 2.2))?;
+ 
+         // 09_9: radius √2 through ±i; the recipe at 1 hugs the bump on (−0.41, 2.41)
+         let line = say(&kit, stage, "09_9")?;
+         fade_out_all(stage, &asked, 0.3)?;
+         let radius = fact_f64("recentre1.radius")?;
++        // the new distance, drawn and named while the voice says it, for the disk to grow to
++        let unit = p.circle(stage, C::real(1.0), 1e-3, hero(), 5.0)?;
++        let reach1 = p.path(stage, &[C::real(1.0), model::I], hero(), 4.0)?;
++        let reach_name = carded(
++            &kit,
++            stage,
++            &format!("√2 ≈ {}", fact("recentre1.radius")?),
++            20.0,
++            Palette::ink(),
++            p.p(C::new(0.95, 0.95)),
++            hero(),
++        )?;
++        fade_in_all(stage, &[unit, reach1, reach_name[0], reach_name[1]], 0.3)?;
+         let grow = stage.add_value_tracker(1e-3);
+         let anchor = stage.arena_mut().add(VMobject::new());
+         stage.add_to_scene(anchor)?;
+@@ -503,7 +739,10 @@
+                     .add(polyline(pc).style(line_style(hero(), 3.0)).build())
+             })
+             .collect();
+-        fade_in_all(stage, &recipe1, 0.6)?;
++        let recipe_again = kit.text(stage, RECIPE_NAME, 20.0, hero(), g.p(1.0, 0.95))?;
++        let mut recipe_shown = recipe1.clone();
++        recipe_shown.push(recipe_again);
++        fade_in_all(stage, &recipe_shown, 0.6)?;
+         fade_in_all(stage, &[glow1, works], 0.5)?;
+         line.wait_sentence(stage, 2)?;
+         let terms = fact("recentre1.check.terms")?;
+@@ -511,14 +750,22 @@
+         let check = [
+             kit.text(
+                 stage,
+-                &format!("{terms}{CHECK}{}{COLON}{}", points[0], fact("recentre1.check.at2")?),
++                &format!(
++                    "{terms}{CHECK}{}{COLON}{}{MATCHES}",
++                    points[0],
++                    fact("recentre1.check.at2")?
++                ),
+                 22.0,
+                 Palette::ink(),
+                 v(3.9, 2.55),
+             )?,
+             kit.text(
+                 stage,
+-                &format!("{terms}{CHECK}{}{COLON}{}", points[1], fact("recentre1.check.at2_6")?),
++                &format!(
++                    "{terms}{CHECK}{}{COLON}{}{OUTSIDE}",
++                    points[1],
++                    fact("recentre1.check.at2_6")?
++                ),
+                 22.0,
+                 Palette::ink(),
+                 v(3.9, 2.0),
+@@ -527,7 +774,22 @@
+         fade_in_all(stage, &check, 0.4)?;
+         wait_until(stage, line.end())?;
+         kit.music_breath(stage, 2.0)?;
+-        let mut all = vec![border, centre, a_name, unit, glow1, works, check[0], check[1]];
++        let mut all = vec![
++            centre,
++            a_name,
++            unit,
++            reach1,
++            glow1,
++            works,
++            check[0],
++            check[1],
++            bump_name,
++            recipe_again,
++        ];
++        all.extend(reach_name);
++        all.extend(one_name);
++        all.extend(pole_names);
++        all.extend(p_frame);
+         all.extend(poles);
+         all.extend(axes_g);
+         all.extend(recipe1);
+@@ -610,6 +872,26 @@
+         }
+     }
+ 
++    #[test]
++    fn opposite_samples_share_a_value() {
++        for n in model::AVERAGE_SAMPLES {
++            let zs = samples(0.5, n);
++            for k in 0..n / 2 {
++                assert!((bump_at(zs[k]) - bump_at(zs[k + n / 2])).abs() < 1e-12);
++            }
++        }
++    }
++
++    #[test]
++    fn a_curve_puts_zero_and_both_ones_on_its_grid() {
++        let g = graph();
++        let step = (g.x.1 - g.x.0) / f64::from(CURVE_STEPS);
++        for x in [-1.0, 0.0, 1.0] {
++            let k = (x - g.x.0) / step;
++            assert!((k - k.round()).abs() < 1e-9, "{x} is off the grid");
++        }
++    }
++
+     #[test]
+     fn every_point_drawn_stays_in_its_window() {
+         let (p, vp, tp) = (picture(), values_plane(), turned_plane());

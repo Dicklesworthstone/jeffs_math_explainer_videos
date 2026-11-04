@@ -1,0 +1,7 @@
+{
+  "source_sha256": "52612e2b38d98be98c6dd68140bb409cbef1f2e3986f23709358e5fdf7fa2b11",
+  "candidate_sha256": "f7bf05b8fe4480c462a524ed82374c18cb9c6a3f38e34dd0d3079c66c7dcd7fd",
+  "status": "staged only; canonical frozen by subgroup build and preview; compile/render/review pending",
+  "narration": "unchanged",
+  "evidence": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/permutation-route-picture-review-progress01.json"
+}

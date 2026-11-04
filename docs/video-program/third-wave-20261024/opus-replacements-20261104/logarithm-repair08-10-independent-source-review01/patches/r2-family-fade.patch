@@ -1,0 +1,62 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs
+@@ -94,6 +94,21 @@
+     model::ellipse_generator(a, b, tilt.to_radians())
+ }
+ 
++/// Three orbits of the 10_2 family's member with half-axes `a` and 1, tilted 15°.
++fn family_orbits(s: &mut Arena, a: f64, c: Srgb) -> Mob {
++    let x = generator(a, 1.0, 15.0);
++    let g = s.add(VMobject::new());
++    for r in [0.6, 1.2, 1.8] {
++        let pts: Vec<Vec3> = (0..=80)
++            .map(|k| model::apply(model::flow(x, f64::from(k) / 80.0), [r, 0.0]))
++            .map(screen)
++            .collect();
++        let m = s.add(polyline(pts).style(line_style(c, 2.5)).build());
++        let _ = s.attach(g, m);
++    }
++    g
++}
++
+ /// Parse "a,b,tilt;a,b,tilt" into ellipses.
+ fn ellipses(s: &str) -> Vec<(f64, f64, f64)> {
+     s.split(';')
+@@ -352,21 +367,7 @@
+         // a continuous family: stretch the ellipse; every member returns
+         fade_out_all(stage, &[trace2], 0.3)?;
+         let stretch = stage.add_value_tracker(1.0);
+-        let family = stage.always_redraw(move |s: &mut Arena| {
+-            let a = value(s, stretch);
+-            let x = generator(a, 1.0, 15.0);
+-            let g = s.add(VMobject::new());
+-            for r in [0.6, 1.2, 1.8] {
+-                let pts: Vec<Vec3> = (0..=80)
+-                    .map(|k| model::apply(model::flow(x, f64::from(k) / 80.0), [r, 0.0]))
+-                    .map(screen)
+-                    .collect();
+-                let m = s.add(polyline(pts).style(line_style(gold, 2.5)).build());
+-                let _ = s.attach(g, m);
+-            }
+-            g
+-        });
+-        stage.add_to_scene(family)?;
++        let resting_family = family_orbits(stage.arena_mut(), 1.0, gold);
+         let family_word = kit.tex(
+             stage,
+             r"2\pi\, P J P^{-1} \ \text{for every invertible } P",
+@@ -375,7 +376,13 @@
+             &[],
+             v(3.9, -2.45),
+         )?;
+-        fade_in_all(stage, &[family_word], 0.4)?;
++        fade_in_all(stage, &[resting_family, family_word], 0.4)?;
++        stage.scene_mut().remove(&[resting_family]);
++        let family = stage.always_redraw(move |s: &mut Arena| {
++            let a = value(s, stretch);
++            family_orbits(s, a, gold)
++        });
++        stage.add_to_scene(family)?;
+         play!(stage; tween(stretch, 2.2, 2.6)?);
+         play!(stage; tween(stretch, 0.6, 2.4)?);
+         let infinite = kit.text_left(

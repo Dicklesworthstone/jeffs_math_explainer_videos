@@ -1,0 +1,56 @@
+{
+  "utc": "2026-11-04T09:55:08.453562+00:00",
+  "script_base_sha256": "682e06b5e21407c25429f0329b6843a98f0e8935b6600b5bbed1907a4f4e18cf",
+  "script_candidate_sha256": "13ffd6a0b5f042352b1f973c7c22a3c7d3547d52773639a9215af21fc828dd1d",
+  "simulations": [
+    {
+      "n": 10,
+      "out": true,
+      "cycle_lengths": [
+        1,
+        1,
+        2,
+        6
+      ],
+      "first_return": 6
+    },
+    {
+      "n": 52,
+      "out": true,
+      "cycle_lengths": [
+        1,
+        1,
+        2,
+        8,
+        8,
+        8,
+        8,
+        8,
+        8
+      ],
+      "first_return": 8
+    },
+    {
+      "n": 52,
+      "out": false,
+      "cycle_lengths": [
+        52
+      ],
+      "first_return": 52
+    },
+    {
+      "n": 8,
+      "out": true,
+      "cycle_lengths": [
+        1,
+        1,
+        3,
+        3
+      ],
+      "first_return": 3
+    }
+  ],
+  "single_adjacent_slip_cases": 408,
+  "all_odd_and_not_home": true,
+  "scope": "Independent Python list-dealing arithmetic only. No native renderer, narration or picture acceptance."
+}

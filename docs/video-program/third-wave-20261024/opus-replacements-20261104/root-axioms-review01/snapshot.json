@@ -1,0 +1,26 @@
+{
+  "utc": "2026-11-04T05:37:23.674097+00:00",
+  "files": [
+    {
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra/candidate/explainer_corpus/abstract_algebra_expanded/src/axioms.rs",
+      "snapshot": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/root-axioms-review01/src/axioms.rs",
+      "sha256": "a6b4d38f8193c33add2a23f2e88e08f3ccbaf63114e41702c7bd5b560203d1c0"
+    },
+    {
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra/candidate/explainer_corpus/abstract_algebra_expanded/src/main.rs",
+      "snapshot": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/root-axioms-review01/src/main.rs",
+      "sha256": "ba8d53ce96a2a1a61a147e4121df970ac684ad48f0866e6dfad19a382d77f704"
+    },
+    {
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra/candidate/explainer_corpus/abstract_algebra_expanded/oracle.py",
+      "snapshot": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/root-axioms-review01/oracle.py",
+      "sha256": "528ca6a6bf869b465bfc338d7564be3f4720d4d29a2c7c05a93260c0b6f577ca"
+    },
+    {
+      "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra/candidate/explainer_corpus/abstract_algebra_expanded/script.tsv",
+      "snapshot": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/root-axioms-review01/script.tsv",
+      "sha256": "e5ba1c3e83692e6128aca93591d9f0b27482bd267402bd7b5b493f3428559261"
+    }
+  ],
+  "status": "Root source-review snapshot of interrupted author candidate. Not integrated, compiled, rendered, or independently accepted. Script matches canonical e5ba1c3e83692e6128aca93591d9f0b27482bd267402bd7b5b493f3428559261. Main/oracle diffs add chapter06 facts only."
+}

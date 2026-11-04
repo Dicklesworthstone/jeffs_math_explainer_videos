@@ -1,0 +1,53 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+@@ -522,12 +522,23 @@
+ /// enough for the phase lines, and `rows` strips however many cells.
+ pub const CELL: f64 = 0.035;
+ 
++/// Rows that meet without a seam: the renderer's antialiasing band at half a pixel. At the
++/// default 1.5 px the background shows through at each boundary between rows, which reads as
++/// fine stripes across the picture (the same fix as `raptorq_gf256`'s `crisp`).
++fn crisp(stage: &mut Stage<'_>, strips: &RowStrips) {
++    for &m in &strips.rows {
++        stage.set_anti_alias_width(m, 0.5, false);
++    }
++}
++
+ /// The colour picture of `f` over `plane` as row strips.
+ pub fn portrait(stage: &mut Stage<'_>, f: Func, plane: &Plane, enhance: f64) -> fmn::Result<RowStrips> {
+     let (cols, rows) = picture_cells(plane);
+     let colors = portrait_colors(|z| f.eval(z), plane, cols, rows, enhance);
+     let cell = (plane.frame.width / cols as f64, plane.frame.height / rows as f64);
+-    RowStrips::build(stage, v(plane.frame.left(), plane.frame.top()), cell, &colors)
++    let strips = RowStrips::build(stage, v(plane.frame.left(), plane.frame.top()), cell, &colors)?;
++    crisp(stage, &strips);
++    Ok(strips)
+ }
+ 
+ /// How many cells the picture over `plane` has, each about [`CELL`].
+@@ -580,6 +591,7 @@
+             cell,
+             &paint(f, enhance0),
+         )?;
++        crisp(stage, &strips);
+         let group = strips.group;
+         let enhance = stage.add_value_tracker(enhance0);
+         let blend = stage.add_value_tracker(1.0);
+@@ -1036,6 +1048,17 @@
+         assert!(comes < goes);
+     }
+ 
++    /// Every picture the film builds goes through `crisp`. Read from this file, because no
++    /// render can run here; what it does to the pixels is for the pictures to show.
++    #[test]
++    fn every_colour_picture_is_crisp() {
++        let source = include_str!("draw.rs");
++        let code = &source[..source.find("#[cfg(test)]\nmod tests").unwrap()];
++        let built = code.matches("RowStrips::build(").count();
++        assert_eq!(built, 2);
++        assert_eq!(code.matches("crisp(stage, &strips);").count(), built);
++    }
++
+     #[test]
+     fn squashing_keeps_direction_and_fits() {
+         for w in [C::new(3.0, 4.0), C::new(-1e6, 2.0), C::new(1e-9, -1e-9)] {

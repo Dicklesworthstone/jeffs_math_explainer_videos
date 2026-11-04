@@ -1,0 +1,184 @@
+splitter: real sentences() and estimated_starts() from narration.rs; SCRATCH_WPS 2.6
+  01_1: 6 sentences, 16.15 s of speech at factor 1.0
+  01_2: 5 sentences, 16.92 s of speech at factor 1.0
+  01_3: 6 sentences, 19.23 s of speech at factor 1.0
+  01_4: 6 sentences, 21.15 s of speech at factor 1.0
+  01_5: 4 sentences, 21.92 s of speech at factor 1.0
+  02_1: 5 sentences, 21.92 s of speech at factor 1.0
+  02_2: 6 sentences, 21.15 s of speech at factor 1.0
+  02_3: 6 sentences, 20.00 s of speech at factor 1.0
+  02_4: 5 sentences, 17.69 s of speech at factor 1.0
+  02_5: 6 sentences, 25.38 s of speech at factor 1.0
+  02_6: 5 sentences, 27.69 s of speech at factor 1.0
+  03_1: 6 sentences, 22.69 s of speech at factor 1.0
+  03_2: 6 sentences, 19.62 s of speech at factor 1.0
+  03_3: 5 sentences, 21.15 s of speech at factor 1.0
+  03_4: 5 sentences, 21.92 s of speech at factor 1.0
+  03_5: 5 sentences, 25.77 s of speech at factor 1.0
+  03_6: 6 sentences, 25.00 s of speech at factor 1.0
+  03_7: 5 sentences, 23.08 s of speech at factor 1.0
+
+=== my transcription against the source's literal calls
+PASS rate_law: every clause hook is replayed  0
+PASS rate_law: cues in source order, every literal hook replayed, every hook names a real sentence  loop-driven hooks read from the loops: [('01_3', 2), ('01_3', 3), ('01_4', 2), ('01_4', 4)]
+PASS factorials: every clause hook is replayed  4
+PASS factorials: cues in source order, every literal hook replayed, every hook names a real sentence  loop-driven hooks read from the loops: []
+PASS product_grid: every clause hook is replayed  3
+PASS product_grid: cues in source order, every literal hook replayed, every hook names a real sentence  loop-driven hooks read from the loops: [('03_2', 2), ('03_2', 4), ('03_3', 1), ('03_3', 3)]
+
+=== rate_law
+total seconds at 0.8 / 1.0 / 1.25: 86.21 / 105.28 / 129.13
+hooks, with lateness at 0.8 / 1.0 / 1.25 (0 means the picture waited for the sentence):
+  01_1 s2: 0.00 0.00 0.00  constant rate = 1  <- 'On the left, climb at a constant rate of one.'
+  01_1 s3: 0.00 0.00 0.00  rate = current height  <- 'On the right, let the rate equal the current height.'
+  01_1 s4: 0.00 0.00 0.00  first slopes and read-outs  <- 'At the beginning they agree.'
+  01_1 s5: 0.00 0.00 0.00  question  <- 'But will they keep drawing the same curve?'
+  01_2 s2: 0.00 0.00 0.00  height read again  <- 'Now read the height again.'
+  01_3 s1: 0.00 0.00 0.00  reading morph  <- 'Read the height, use it as the slope, and take anoth'
+  01_3 s2: 0.00 0.00 0.00  third step  <- 'The left drawing is a straight line.'
+  01_3 s3: 0.00 0.00 0.00  fourth step  <- 'The right drawing keeps steepening.'
+  01_3 s4: 0.00 0.00 0.00  straight steps: an approximation  <- 'Its straight steps are approximations.'
+  01_3 s5: 0.00 0.00 0.00  last step read-out  <- 'During a step the true height would already have cha'
+  01_4 s2: 0.00 0.00 0.00  old drawing greys  <- 'The old approximation stays in grey.'
+  01_4 s3: 0.00 0.00 0.00  8 steps  <- 'The new one climbs slightly higher.'
+  01_4 s4: 0.60 0.13 0.00  grey, then 16 steps  <- 'Shortening the steps again brings the new drawings c'  LATE
+  01_5 s2: 0.00 0.00 0.00  promise  <- 'To answer those questions, we will build an exact fu'
+  predict 01_1: answer withheld from question landing for 8.07 s
+static stretches of 6 s or more at factor 1.0:
+   7.77 s,   13.98 to   21.75, before 'question fades'
+   6.68 s,   22.65 to   29.34, before 'reading morph'
+  10.04 s,   29.94 to   39.98, before 'second step'
+   6.79 s,   53.42 to   60.21, before 'slope tick fades'
+   6.18 s,   60.81 to   66.99, before 'old drawing greys'
+   7.33 s,   75.03 to   82.36, before "y'=y"
+  13.41 s,   82.76 to   96.17, before 'promise'
+   8.72 s,   96.57 to  105.28, end of chapter
+seconds from each cue's start to its first visual change, factor 1.0:
+  01_1:  0.00 s of 16.55 s
+  01_2:  0.00 s of 17.32 s
+  01_3:  0.00 s of 19.63 s
+  01_4:  0.00 s of 21.55 s
+  01_5:  0.00 s of 22.32 s
+
+=== factorials
+total seconds at 0.8 / 1.0 / 1.25: 118.28 / 145.05 / 178.51
+hooks, with lateness at 0.8 / 1.0 / 1.25 (0 means the picture waited for the sentence):
+  02_1 s1: 0.00 0.00 0.00  polynomial, no answer  <- 'Try a polynomial.'
+  02_1 s2: 0.00 0.00 0.00  boxes and headers, coefficients fall  <- 'Put its coefficients in boxes, one box for each powe'
+  02_1 s3: 0.00 0.00 0.00  derivative row, terms move left  <- 'Differentiation moves each term one column left and '
+  02_1 s4: 0.00 0.00 0.00  frame and question  <- 'To make the two rows agree, what must the coefficien'
+  02_2 s1: 0.00 0.00 0.00  pulse b term and 2b  <- 'Now the derivative of b times x squared is two b tim'
+  02_2 s2: 0.00 0.00 0.00  2b = 1  <- 'That must match the x term above, whose coefficient '
+  02_2 s3: 0.00 0.00 0.00  b = 1/2, rises  <- 'So b is one half.'
+  02_2 s4: 0.00 0.00 0.00  pulse c term and 3c  <- 'The derivative of c times x cubed is three c times x'
+  02_2 s5: 0.00 0.00 0.00  3c = 1/2  <- 'To match one half, c must be one sixth.'
+  02_3 s1: 0.00 0.00 0.00  derivative row leaves, chain  <- 'Each coefficient is the previous one divided by the '
+  02_3 s2: 0.00 0.00 0.00  running products gather  <- 'We get one, one, one half, one sixth, one twenty-fou'
+  02_3 s3: 0.00 0.00 0.00  products become k!  <- 'Those denominators are factorials.'
+  02_3 s4: 0.00 0.00 0.00  factorials rise into polynomial, axes  <- 'As we add terms, watch the polynomial change on the '
+  02_3 s5: 0.43 0.00 0.00  note, degree three  <- 'These curves are partial sums, not yet the exact sol'  LATE
+  02_4 s1: 0.00 0.00 0.00  derivatives land left, hole  <- 'Differentiation removes its highest power.'
+  02_4 s2: 0.00 0.00 0.00  two more terms, dots  <- 'With infinitely many terms, another term can supply '
+  02_4 s3: 0.00 0.00 0.00  dots pulse, needs a proof  <- 'But dots are not a proof.'
+  02_4 s4: 0.00 0.00 0.00  two obligations  <- 'We need to know that the sum exists and that differe'
+  02_5 s1: 0.00 0.00 0.00  bars, ratio row  <- 'The ratio of one absolute term to the previous one i'
+  02_5 s2: 0.00 0.00 0.00  ratios from one half green  <- 'Eventually that ratio is at most one half.'
+  02_5 s3: 0.00 0.00 0.00  zoom, ceilings, sum, bound  <- 'So the remaining terms fit beneath a shrinking geome'
+  02_5 s4: 0.00 0.00 0.00  bars one column left  <- 'The same argument works for the derivative series.'
+  02_5 s5: 0.00 0.00 0.00  uniform card, input sweeps  <- 'Both converge uniformly on each bounded interval, wh'
+  02_6 s1: 0.00 0.00 0.00  E' row, frame walks, definition  <- 'The shifted coefficient rows now match all the way a'
+  02_6 s2: 0.00 0.00 0.00  y=E solves  <- 'We built a solution to our drawing rule.'
+  02_6 s3: 0.00 0.00 0.00  three debts  <- 'We still owe three explanations: why adding inputs m'
+  02_6 s4: 0.00 0.00 0.00  debts lit  <- 'The series gives us a way to answer all three.'
+  02_4 s4 clause 'and that differentiating': 0.00 0.00 0.00  term by term
+  02_6 s3 clause 'why adding': 0.00 0.00 0.00  debt
+  02_6 s3 clause 'why the stepped': 0.00 0.00 0.00  debt
+  02_6 s3 clause 'why it is': 0.00 0.00 0.00  debt
+  predict 02_1: answer withheld from question landing for 9.16 s
+static stretches of 6 s or more at factor 1.0:
+   8.86 s,   18.66 to   27.52, before 'question clears'
+seconds from each cue's start to its first visual change, factor 1.0:
+  02_1:  0.00 s of 22.32 s
+  02_2:  0.00 s of 21.55 s
+  02_3:  0.00 s of 20.40 s
+  02_4:  0.00 s of 18.09 s
+  02_5:  0.00 s of 25.78 s
+  02_6:  0.00 s of 28.09 s
+
+=== product_grid
+total seconds at 0.8 / 1.0 / 1.25: 139.73 / 171.58 / 211.39
+hooks, with lateness at 0.8 / 1.0 / 1.25 (0 means the picture waited for the sentence):
+  03_1 s2: 0.00 0.00 0.00  edges and headers  <- 'Put the terms of E of x across the top, and the term'
+  03_1 s3: 0.00 0.00 0.00  rules and cells  <- 'Each square contains one product.'
+  03_1 s5: 0.00 0.00 0.00  corner card  <- 'We are showing its first corner, not pretending that'
+  03_2 s1: 0.00 0.00 0.00  line hides  <- 'Degree zero has just one square, containing one.'
+  03_2 s1: 0.25 0.25 0.25  degree 0  <- 'Degree zero has just one square, containing one.'
+  03_2 s2: 0.00 0.00 0.00  degree 1  <- 'Degree one has two squares: x and y.'
+  03_2 s3: 0.00 0.00 0.00  total x+y  <- 'Their sum is x plus y.'
+  03_2 s4: 0.00 0.00 0.00  degree 2  <- 'Now inspect the three squares of degree two.'
+  03_2 s5: 0.00 0.00 0.00  question  <- 'Before we combine them, can you recognize their sum?'
+  03_3 s1: 0.00 0.00 0.00  factor one half  <- 'Factor out one half.'
+  03_3 s3: 0.00 0.00 0.00  (x+y)^2/2  <- 'So this diagonal contributes x plus y, squared, divi'
+  03_4 s1: 0.00 0.00 0.00  binomial  <- 'In general, multiplying a degree-m diagonal by m fac'
+  03_4 s2: 0.00 0.00 0.00  identity  <- 'The binomial theorem combines that diagonal into the'
+  03_4 s3: 0.00 0.00 0.00  complete diagonals card  <- 'We have shown the complete diagonals through degree '
+  03_5 s1: 0.00 0.00 0.00  permission  <- 'Both series converge absolutely, so their product ca'
+  03_5 s2: 0.00 0.00 0.00  diagonals and totals share colours, series  <- 'The diagonals are precisely the terms of E at the su'
+  03_5 s3: 0.00 0.00 0.00  law  <- 'Therefore E of x times E of y equals E of the sum, x'
+  03_6 s1: 0.00 0.00 0.00  E(x)E(-x)  <- 'The product is E of zero, which is one, so E never v'
+  03_6 s2: 0.00 0.00 0.00  half law  <- 'For a real x, apply the same law to two copies of ha'
+  03_6 s3: 0.00 0.00 0.00  > 0  <- 'E of x is the square of a nonzero real number, so it'
+  03_6 s4: 0.00 0.00 0.00  E'=E>0  <- 'Since its derivative is itself, it is increasing.'
+  03_7 s1: 0.00 0.00 0.00  e = E(1)  <- 'Call E of one by the letter e.'
+  03_7 s2: 0.00 0.00 0.00  E(2), E(3), whole marks  <- 'The law says E of two is e times e, and E of three i'
+  03_7 s3: 0.00 0.00 0.00  roots, reciprocals, solid line  <- 'Roots give fractions, reciprocals give negatives, an'
+  03_7 s4: 0.00 0.00 0.00  E(x)=e^x  <- 'That is when writing E of x as e to the x becomes a '
+  03_2 s0 clause 'collect them': 0.00 0.00 0.00  row becomes diagonal
+  03_7 s3 clause 'reciprocals': 0.00 0.00 0.00  reciprocal, negatives
+  03_7 s3 clause 'continuity': 0.00 0.00 0.00  solid line
+  predict 03_2: answer withheld from question landing for 8.66 s
+static stretches of 6 s or more at factor 1.0:
+   7.29 s,   17.00 to   24.29, before 'a row framed'
+   8.36 s,   40.55 to   48.91, before 'question hides'
+   7.39 s,   54.63 to   62.02, before 'morph'
+   8.34 s,   62.97 to   71.31, before 'degree 3 lit'
+   6.30 s,   80.11 to   86.40, before 'card'
+   7.48 s,   86.75 to   94.23, before 'card hides'
+   6.90 s,   97.21 to  104.11, before 'linked colours'
+  12.12 s,  108.89 to  121.00, before 'everything fades'
+   9.12 s,  138.39 to  147.50, before '03_6 fades'
+   6.90 s,  164.68 to  171.58, end of chapter
+seconds from each cue's start to its first visual change, factor 1.0:
+  03_1:  0.00 s of 23.09 s
+  03_2:  0.00 s of 20.02 s
+  03_3:  0.00 s of 21.55 s
+  03_4:  0.00 s of 22.32 s
+  03_5:  0.00 s of 26.17 s
+  03_6:  1.85 s of 25.40 s
+  03_7:  0.00 s of 23.48 s
+
+=== order claims, at each factor
+PASS factor 0.8: the first answer comes after 02_1's think gap  8.32 s after the question
+PASS factor 0.8: the first factorial sign lands with 'Those denominators are factorials'  +0.00 s
+PASS factor 1.0: the first answer comes after 02_1's think gap  9.16 s after the question
+PASS factor 1.0: the first factorial sign lands with 'Those denominators are factorials'  +0.00 s
+PASS factor 1.25: the first answer comes after 02_1's think gap  10.21 s after the question
+PASS factor 1.25: the first factorial sign lands with 'Those denominators are factorials'  +0.00 s
+
+=== sentence windows the dense beats lean on (seconds, factors 0.8 / 1.0 / 1.25)
+  01_5 s0:  4.16 /  5.20 /  6.50  'A curve whose slope equals its height would solve our drawing rule exa'
+  02_1 s1:  0.92 /  1.15 /  1.44  'Try a polynomial.'
+  02_1 s3:  5.70 /  7.13 /  8.91  'Differentiation moves each term one column left and multiplies its coe'
+  02_3 s2:  2.96 /  3.70 /  4.62  'We get one, one, one half, one sixth, one twenty-fourth.'
+  02_3 s3:  1.80 /  2.24 /  2.81  'Those denominators are factorials.'
+  02_4 s2:  3.71 /  4.64 /  5.79  'With infinitely many terms, another term can supply each missing power'
+  02_5 s1:  4.53 /  5.66 /  7.08  'The ratio of one absolute term to the previous one is at most R divide'
+  02_5 s2:  2.24 /  2.80 /  3.50  'Eventually that ratio is at most one half.'
+  02_5 s3:  3.30 /  4.13 /  5.16  'So the remaining terms fit beneath a shrinking geometric tail.'
+  02_5 s4:  2.67 /  3.33 /  4.16  'The same argument works for the derivative series.'
+  02_5 s5:  5.06 /  6.33 /  7.91  'Both converge uniformly on each bounded interval, which justifies diff'
+  02_6 s1:  5.70 /  7.12 /  8.90  'The shifted coefficient rows now match all the way across: E prime equ'
+  03_2 s0:  4.17 /  5.21 /  6.51  'Instead of collecting the products by rows, collect them by total degr'
+  03_5 s2:  3.54 /  4.42 /  5.53  'The diagonals are precisely the terms of E at the sum, x plus y.'
+  03_7 s3:  5.76 /  7.20 /  9.00  'Roots give fractions, reciprocals give negatives, and continuity fills'
+RESULT PASS

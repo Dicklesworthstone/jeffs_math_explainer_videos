@@ -1,0 +1,12 @@
+{
+  "exact_diagonal_examples": 325,
+  "max_degree": 12,
+  "displayed_complete_degrees": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "native_comparison": "not run",
+  "general_proof": "binomial theorem plus absolute convergence; independent review open"
+}

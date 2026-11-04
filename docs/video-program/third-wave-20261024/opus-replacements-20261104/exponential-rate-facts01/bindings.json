@@ -1,0 +1,29 @@
+{
+  "changes": [
+    {
+      "path": "explainer_corpus/exponential_magic/oracle.py",
+      "before_sha256": "c28b1e87ccb63e09cc4ef7e687c5cd519b5605fa6824794d15878f2ea468545a",
+      "candidate": "docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-rate-facts01/candidate/oracle.py",
+      "sha256": "f042a80e4c5689b4a33f746fd599078da4d1fb7f0add929fb3cf183f180574fa"
+    },
+    {
+      "path": "explainer_corpus/exponential_magic/src/facts.rs",
+      "before_sha256": "75bc46a0b43a1e850bb977e88893c82b6bdf849cf0d79a68704eef4b6b149ad1",
+      "candidate": "docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-rate-facts01/candidate/src/facts.rs",
+      "sha256": "afff33feaf5ef85cfb68f9ad9c041e630e14e4cef52a636d420f6e33e2bd7c14"
+    },
+    {
+      "path": "explainer_corpus/exponential_magic/src/main.rs",
+      "before_sha256": "14ff5e872f72b95be4f8c97e4dfe73a63b2daa82a584d38e2aca60d7caa84c7e",
+      "candidate": "docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-rate-facts01/candidate/src/main.rs",
+      "sha256": "5c3c665feb9e2c61a4a51e21dcd2f8d42672e01c2de8d7cb4375d8f77b1c1e2d"
+    },
+    {
+      "path": "explainer_corpus/exponential_magic/src/rate_model.rs",
+      "before_sha256": null,
+      "candidate": "docs/video-program/third-wave-20261024/opus-replacements-20261104/exponential-rate-facts01/candidate/src/rate_model.rs",
+      "sha256": "8d896cf9d23d6a6f87289d7cbe25c89ee54537161e77a93978c21b4ae91d2edc"
+    }
+  ],
+  "reviewed_model_sha256": "48f3dae06f4b696afe24012b3bafa85ac59522925527d704674c13d4cc71189d"
+}

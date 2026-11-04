@@ -1,0 +1,51 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs
+@@ -38,6 +38,9 @@
+ const OY: f64 = -0.4;
+ const LO: f64 = -2.6;
+ const HI: f64 = 3.0;
++/// The mirror's name in graph units: its left edge, just right of the line's
++/// upper end, and its height.
++const LINE_NAME_AT: (f64, f64) = (3.05, 2.8);
+ 
+ fn p(x: f64, y: f64) -> Vec3 {
+     v(OX + x, OY + y)
+@@ -471,7 +474,15 @@
+             0.4,
+         )?;
+         let line_yx = dashed(stage, p(LO, LO), p(HI, HI), Palette::dim(), 2.0, 26)?;
+-        fade_in_all(stage, &[line_yx], 0.5)?;
++        let line_name = kit.tex_left(
++            stage,
++            r"y = x",
++            24.0,
++            Palette::dim(),
++            &[],
++            p(LINE_NAME_AT.0, LINE_NAME_AT.1),
++        )?;
++        fade_in_all(stage, &[line_yx, line_name], 0.5)?;
+         // a slope triangle rides along: run k, rise k·e^a; flipped, the legs trade
+         let tri = stage.always_redraw(move |s: &mut Arena| {
+             let m = value(s, mirror);
+@@ -551,8 +562,8 @@
+         kit.say(stage, "04_5")?;
+         let mut graph: Vec<Mob> = frame.clone();
+         graph.extend([
+-            curve, line_yx, ln_name, swapped, slope_rule, one, tangent1, one_word, small, natural, why, wall, barred,
+-            no_log,
++            curve, line_yx, line_name, ln_name, swapped, slope_rule, one, tangent1, one_word, small, natural, why,
++            wall, barred, no_log,
+         ]);
+         // one ruler, numbers in the middle, two step scales above and below; it
+         // arrives as the graph leaves, on "this is the ruler again"
+@@ -1063,6 +1074,10 @@
+         // "run" sits above the level leg and under y = ln x
+         let run_y = TRI_A + TRI_K + 0.17;
+         assert!(1.7 - 0.17 - (run_y + 0.09) >= 0.05, "{run_y}");
++        // the mirror's name, about 0.6 wide and 0.25 tall, stands right of the line
++        // at the height of its top, and short of "rise and run trade places" at 1.0
++        const { assert!(LINE_NAME_AT.0 > LINE_NAME_AT.1 + 0.125 + 0.1) };
++        const { assert!(OX + LINE_NAME_AT.0 + 0.6 < 1.0 - 0.1) };
+     }
+ 
+     #[test]

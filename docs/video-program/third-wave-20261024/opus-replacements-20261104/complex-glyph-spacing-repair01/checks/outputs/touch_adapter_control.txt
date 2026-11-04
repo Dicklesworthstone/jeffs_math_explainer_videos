@@ -1,0 +1,14 @@
+65:52,135,92,178
+  level 0.25: 1 components [x55-88 y146-175]
+  level 0.5: 1 components [x55-88 y146-175]
+  level 0.75: 1 components [x56-87 y146-175]
+65:52,205,92,264
+  level 0.25: 2 components [x55-88 y227-261] [x77-90 y205-228]
+  level 0.5: 2 components [x55-88 y227-261] [x77-90 y205-228]
+  level 0.75: 3 components [x56-74 y227-248] [x74-87 y238-260] [x77-90 y206-227]
+61:100,388,137,432
+  level 0.25: 2 components [x101-120 y399-421] [x120-135 y404-428]
+  level 0.5: 2 components [x101-120 y399-421] [x120-134 y404-428]
+  level 0.75: 3 components [x101-120 y399-420] [x121-134 y404-427] [x132-133 y423-427]
+
+[exit 0]

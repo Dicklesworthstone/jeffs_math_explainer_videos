@@ -1,0 +1,153 @@
+  Canonical is untouched.
+
+  The two fixes
+
+  The patch changes two on-screen strings and the test line that mirrors one of them. The spoken words don't change, and no line numbers move.
+
+  ┌────────────────────────────────────────┬────────────────────────────────────────────────────────────────────────────────────────┬──────────────────────────────────────────────────┐
+  │                 Where                  │                                 Problem on the frames                                  │                     New text                     │
+  ├────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+  │ Closing card, last ~7 s of the chapter │ The top says A = diag(−2, −½), whose determinant is 1, while the bottom says det A = 0 │ singular S: det S = 0 but det e^X = e^(tr X) ≠ 0 │
+  ├────────────────────────────────────────┼────────────────────────────────────────────────────────────────────────────────────────┼──────────────────────────────────────────────────┤
+  │ Around 181.5–182 s                     │ The grid is mid half turn, axes reversing, beside a bright no axis reverses            │ e^tp > 0 for real t and p: e^tX reverses no axis │
+  └────────────────────────────────────────┴────────────────────────────────────────────────────────────────────────────────────────┴──────────────────────────────────────────────────┘
+
+  For the second problem I reworded the one line that had no subject and removed nothing. Those teal lines are the reason for no single steady flow does both, so taking them away would drop that reason just
+  before the conclusion.
+
+  What root needs to do
+
+  - Order of steps: root is merging this into its stage06 tree, whose copy of the chapter was identical to canonical when I checked. The patch needs to go in before root runs the stage06 binder, so the new
+    narration map picks up the new source hash.
+  - Map patch dropped: I had built a patch for the current narration map, but root's Mail 2027 said a new map replaces it, so I left it out. The handoff gives the hash values for reference only.
+
+  Still open
+
+  1. Reading time on the closing card: the two red lines now need 6.20 s to read, up from 5.40 s. The preview used an estimated scratch voice, so this can't be settled until Oliver's take is measured. By my
+     estimate they fit unless Oliver reads the last sentence faster than about 2.96 words per second; the median on other Oliver sentences of similar length is 2.56. If it runs faster, the fallback is changing
+     only the letter, which needs 5.40 s.
+  2. Whether the reworded teal line works: it stays on screen during the half turn by design. I think naming e^tX resolves the clash, but root will have to judge that on new frames.
+
+  Evidence
+
+  - Checks run: rustfmt, the crate's cue checker, the patch round trip and a Python copy of the width test all pass, and the two that can pass by accident have controls that fail as they should. None of this
+    proves how the engine will lay out the new strings.
+  - Frames read: I read 18 of the 150 sheets, covering only these two passages, so this isn't a chapter review.
+  - Independence: this isn't independent work. Root named both defects first and my reading confirmed them, and nobody has reviewed the patch.
+
+  Everything is in docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm11-label-repair01/; start with HANDOFF.md.
+
+✻ Churned for 25m 10s · done 11:54 AM
+
+❯ Please read new BlueSalmon Mail 2045 on algebra13 correction C and proceed with that bounded cross-review. Log11 handoff received and integrated in staging. ElevenLabs Oliver remains narration; root owns
+  native lane.
+
+  Read 1 file, called mcp-agent-mail, recalled 1 memory (ctrl+o to expand)
+
+⏺ I'll take the lease on the new folder, then review RubyRaven's correction C against my A and B and root's staged ABC tree, targeting the four named points rather than repeating the audit.
+
+  Called mcp-agent-mail (ctrl+o to expand)
+
+⏺ Bash(cd /Users/jemanuel/projects/jeffs_math_explainer_videos; P=docs/video-program/third-wave-20261024/opus-replacements-20261104; X=$P/algebra13-patch-cross-review0…)
+  ⎿  === new folder exists?
+     ls: docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra13-c-followup-review01: No such file or directory
+     === cross-review
+     … +51 lines (ctrl+o to expand)
+
+  Read 3 files, called mcp-agent-mail (ctrl+o to expand)
+
+⏺ Bash(cd /Users/jemanuel/projects/jeffs_math_explainer_videos; P=docs/video-program/third-wave-20261024/opus-replacements-20261104; X=$P/algebra13-patch-cross-review0…)
+  ⎿  {
+      "time": "2026-11-04T16:58:11.418071+00:00",
+      "scope": "root staged A+B+C arithmetic scene and matching oracle",
+     … +31 lines (ctrl+o to expand)
+
+  Called mcp-agent-mail (ctrl+o to expand)
+
+⏺ Bash(cd /Users/jemanuel/projects/jeffs_math_explainer_videos; S=narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/arithmetic-repair-stage01…)
+ ▐▛███▛█   Claude Code v2.1.318
+▝▜██████▀  Opus 5.5 with xhigh effort · Claude Ultra
+ ▝▝   ▝▝   ~/projects/jeffs_math_explainer_videos
+
+
+✻ Conversation compacted (ctrl+o for the summary)
+  Earlier messages are saved in ~/.claude/projects/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626.jsonl
+
+
+⏺ I've checked C's logic against the replay and the kit's phrase timing so far. Next I'm verifying recognition timestamps for the key phrases, since they test whether each power is up when the voice names it.
+
+  Made 1 scratchpad edit +58 (ctrl+o to expand)
+
+⏺ Bash(cd /Users/jemanuel/projects/jeffs_math_explainer_videos; python3 -I -B /private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8…)
+  ⎿  == 13_3 large expanded-algebra-13-3-asr01/take01-large.json; result keys ['acceleration', 'artifact_paths', 'backend', 'language', 'raw_output', 'segments', 'transcript']; words 0
+        no word timing; first segment: {"start_sec": 0.0, "end_sec": 0.2199999988079071, "text": "Try", "speaker": null, "confidence": 0.02079016692606256}
+        seg 9.09999942779541 to 10.32: squared.
+     … +148 lines (ctrl+o to expand)
+  ⎿  Read ../../../../private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/alg13c/word_times.py (58 lines)
+  ⎿  Read ../../.claude/projects/-Users-jemanuel-projects-jeffs-math-explainer-videos/memory/logarithm11-label-repair.md (26 lines)
+  ⎿  Read ../../../../private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/log11-labels/seal.py (66 lines)
+  ⎿  Read docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm11-label-repair01/HANDOFF.md (145 lines)
+  ⎿  Read ../../../../private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e-44d50a9d8626/scratchpad/log11-labels/cue_check.py (67 lines)
+  ⎿  Skills restored (franken-manim-mega-skill, natural-sounding-narration-with-frankentts, math-explainer-videos-end-to-end-with-franken-manim-frankentts)
+
+⏺ Word times came through at word level. Next I'll read the call sites, imports and helpers the new pose test relies on, so I can mirror it and check it compiles by reading.
+
+⏺ Bash(cd /Users/jemanuel/projects/jeffs_math_explainer_videos; S=narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/arithmetic-repair-stage01…)
+  ⎿  === imports
+     //! Action arithmetic: rigid worked examples, word reduction and regrouping;
+     //! then (13_9 to 13_12) packaging shown on two tiles and on a number passing
+     … +180 lines (ctrl+o to expand)
+
+  Called mcp-agent-mail (ctrl+o to expand)
+
+⏺ Bash(cd /Users/jemanuel/projects/jeffs_math_explainer_videos; S=narration_lab/third-wave-20261024/root/elevenlabs-expanded-algebra-20261103/arithmetic-repair-stage01…)
+  ⎿          // Separate demonstration actors leave the worked-calculation histories intact.
+             let demo_turn = stage.add_value_tracker(0.);
+             let demo_flip = stage.add_value_tracker(0.);
+     … +125 lines (ctrl+o to expand)
+
+⏺ Word timing checks out and the pose test names all exist; next I'm reading the remaining stops, RubyRaven's replay arguments, and the take audio paths to build my own timeline and speech-end measure.
+
+⏺ Bash(cd /Users/jemanuel/projects/jeffs_math_explainer_videos; P=docs/video-program/third-wave-20261024/opus-replacements-20261104; S=narration_lab/third-wave-2026102…)
+  ⎿          fade(stage, &leaving, false)?;
+             let left_objects = tile_actor::add_tile(stage, &kit, left, -3.1, 0., 1.25, |t| pose(&LEFT, t))?;
+             let right_objects = tile_actor::add_tile(stage, &kit, right, 3.1, 0., 1.25, |t| pose(&RIGHT, t))?;
+     … +100 lines (ctrl+o to expand)
+
+⏺ Bash(cd /Users/jemanuel/projects/jeffs_math_explainer_videos; P=docs/video-program/third-wave-20261024/opus-replacements-20261104; C=$P/algebra13-patch-cross-review0…)
+  ⎿  Error: Exit code 1
+     }
+
+     /// When `phrase`, inside sentence `j` of `cue`, begins (scene seconds): the
+     /// narration's phrase mark at that byte when one exists, otherwise the
+     /// phrase's share of the sentence's characters between this sentence's start
+     /// and the next one's (the house rule, as in the other films' `Spoken::at`).
+     fn phrase_time(kit: &Kit, cue: &str, j: usize, phrase: &str) -> Option<f64> {
+         let narrator = kit.narrator.as_ref()?;
+         let text = line_text(cue)?;
+     … +201 lines (ctrl+o to expand)
+
+⏺ I'm writing three independent checks in scratch: my own source-reading timeline, a speech-end measure from the take audio, and a pose-test mirror with mutation controls.
+
+  Made 3 scratchpad edits +581 (ctrl+o to expand)
+
+⏺ Bash(cd /Users/jemanuel/projects/jeffs_math_explainer_videos; SC=/private/tmp/claude-501/-Users-jemanuel-projects-jeffs-math-explainer-videos/b0a72b9b-6c8d-4794-942e…)
+  ⎿  === speech ends
+     13_3 squared.  recognised from   9.10; quiet   9.87 to  10.35 (0.48 s); Three recognised at 10.42, quiet ends -0.07 from it  [48000 Hz, 1 ch, 20.08 s]
+     13_3 cubed.    recognised from  11.98; quiet  12.66 to  13.15 (0.49 s); Four recognised at 13.12, quiet ends +0.03 from it  [48000 Hz, 1 ch, 20.08 s]
+     … +83 lines (ctrl+o to expand)
+  ⎿  You've hit your weekly limit · resets Nov 8 at 11am (America/New_York)
+
+✻ Sautéed for 13m 28s · done 12:12 PM
+
+❯ /rate-limit-options
+
+──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+  What do you want to do?
+
+  ❯ 1. Stop and wait for limit to reset
+    2. Wait here, then continue automatically at Nov 8 at 11am
+    3. Switch to usage credits
+
+  Enter to confirm · Esc to cancel
+

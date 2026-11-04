@@ -1,0 +1,31 @@
+Rust definitions match the lines this mirror copies
+LEFT [('turn', 1.0), ('turn', 1.0), ('turn', 1.0), ('turn', 1.0), ('flip', None), ('flip', None), ('flip', None), ('turn', 1.0), ('flip', None)]
+RIGHT [('turn', 1.0), ('flip', None), ('flip', None), ('turn', -1.0), ('turn', -1.0)]
+table [(2.0, 'R2'), (3.0, 'R.inv()'), (4.0, 'E'), (5.0, 'S'), (6.0, 'E'), (8.0, 'R.mul(S)')] right (2.0, 'S.mul(R)')
+the test's table holds: True 
+
+Mutations the test must catch
+  42 mutations, 42 caught, 0 not caught
+
+Moves the test cannot see: same code, wrong call-site number
+  perform(left, 7) under `r s`: pose is not r s; the table still passes, because it does not read the call sites
+
+Every named stop on the left and right tiles, walked from the call sites
+  line 199: left at t=2 named 'r²': pose agrees True; in the test's table True
+  line 203: left at t=3 named 'r³': pose agrees True; in the test's table True
+  line 209: left at t=4 named 'r⁴ = e': pose agrees True; in the test's table True
+  line 212: left at t=5 named 's': pose agrees True; in the test's table True
+  line 214: left at t=6 named 's² = e': pose agrees True; in the test's table True
+  line 216: right at t=0 named 'r⁴ = e': pose agrees True; in the test's table False
+  line 222: right at t=2 named 's r': pose agrees True; in the test's table True
+  line 226: left at t=8 named 'r s': pose agrees True; in the test's table True
+  8 named stops, 0 disagree
+
+Stops outside this test, checked here
+  13_2 right demo at t=2 (closure: turn(t-1) after flip(1)), named r s: True
+  13_6 SEQUENCE at t=3, named s r s: True
+  13_6 opposite at t=1 (turn(-t)), named r⁻¹: True
+  13_8 undo at t=4 (turn(t)), named r³ r = e: True
+  13_8 undo at t=6 and t=8, half-turn then half-turn: True True
+
+[exit 0]

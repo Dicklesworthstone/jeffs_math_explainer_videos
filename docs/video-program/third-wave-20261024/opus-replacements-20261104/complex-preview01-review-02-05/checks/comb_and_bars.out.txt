@@ -1,0 +1,17 @@
+step 0.5235987755982988 band ratio e^step 1.6880917949644685
+e^z picture: 91 columns, 183 rows; centre column index 45.0
+centre column samples x = 0.0
+rows where centre cell lands on the band's top (size just under 1): 35 of 183
+changes of side between neighbouring rows: 60
+frame 92, teeth seen at x=406 by nearest neighbour: 35 of 183; agreement with predicted rows: 183 of 183
+tan z above the line: shade across one period, unshifted and with bands moved half a step
+  y=1.0: min 0.525 max 0.895 ratio 1.70; half-step shift: min 0.506 max 0.932 ratio 1.84
+  y=2.0: min 0.472 max 0.986 ratio 2.09; half-step shift: min 0.682 max 0.740 ratio 1.08
+  y=3.0: min 0.465 max 0.998 ratio 2.15; half-step shift: min 0.707 max 0.715 ratio 1.01
+tan z above the line with only the size bands moved half a step (phase lines stay on the wheel's spokes)
+  y=1.0: min 0.476 max 0.983 ratio 2.07
+  y=2.0: min 0.609 max 0.819 ratio 1.35
+  y=3.0: min 0.629 max 0.794 ratio 1.26
+e^z at the x=0 band edge with bands moved half a step: left and right of 0 give 0.709 0.781
+frame 200 row 200: mean luma of the 16 bars: [181, 105, 85, 145, 181, 106, 85, 145, 181, 106, 85, 145, 181, 106, 85, 145] max/min 2.14
+frame 200 row 260: mean luma of the 16 bars: [173, 109, 90, 143, 174, 109, 90, 143, 173, 109, 90, 143, 174, 109, 90, 143] max/min 1.94

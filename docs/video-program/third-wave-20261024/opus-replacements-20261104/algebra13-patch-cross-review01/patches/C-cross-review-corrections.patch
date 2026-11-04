@@ -1,0 +1,108 @@
+--- a/explainer_corpus/abstract_algebra_expanded/src/arithmetic.rs
++++ b/explainer_corpus/abstract_algebra_expanded/src/arithmetic.rs
+@@ -172,8 +172,8 @@
+         advance(stage, demo_turn, 1.)?;
+         let demo_r = caption(stage, &kit, "r", LEFT_LABEL.0, LEFT_LABEL.1)?;
+         kit.until_sentence(stage, "13_2", 1)?;
++        advance(stage, demo_flip, 1.)?;
+         let mut demo_s = caption(stage, &kit, "s", RIGHT_LABEL.0, RIGHT_LABEL.1)?;
+-        advance(stage, demo_flip, 1.)?;
+         kit.until_sentence(stage, "13_2", 2)?;
+         let convention = caption(stage, &kit, "Rightmost move first", 0., 2.3)?;
+         kit.until_sentence(stage, "13_2", 4)?;
+@@ -190,10 +190,16 @@
+         let mut left_label = caption(stage, &kit, "start", LEFT_LABEL.0, LEFT_LABEL.1)?;
+         let mut right_label = caption(stage, &kit, "start", RIGHT_LABEL.0, RIGHT_LABEL.1)?;
+         kit.say(stage, "13_3")?;
+-        for (index, text) in ["r", "r²", "r³"].into_iter().enumerate() {
+-            left_label = step(stage, &kit, left, (index + 1) as f64, left_label, text, LEFT_LABEL)?;
+-            stage.wait(1.)?;
+-        }
++        // The turns run under the words that ask for them; each power is up when the voice names it.
++        kit.until_sentence(stage, "13_3", 1)?;
++        fade(stage, &[left_label], false)?;
++        perform(stage, left, 1., LONE_RT, &[])?;
++        perform(stage, left, 2., LONE_RT, &[])?;
++        kit.until_sentence(stage, "13_3", 3)?;
++        left_label = caption(stage, &kit, "r²", LEFT_LABEL.0, LEFT_LABEL.1)?;
++        kit.until_sentence(stage, "13_3", 4)?;
++        left_label = step(stage, &kit, left, 3., left_label, "r³", LEFT_LABEL)?;
++        stage.wait(0.6)?;
+         // Four turns bring the tile home; the name e waits for the sentence defining it.
+         fade(stage, &[left_label], false)?;
+         advance(stage, left, 4.)?;
+@@ -250,9 +256,10 @@
+         }
+         // Move the flip past the turn, reversing the turn.
+         kit.until_sentence(stage, "13_7", 1)?;
++        let bracket = grouping(stage, -2.4, -0.6, 0.6)?;
++        // The reversed turn waits for the words that reverse it.
++        until_phrase(stage, &kit, "13_7", 1, REVERSE_PHRASE)?;
+         let rule = caption(stage, &kit, "s r = r⁻¹ s", 0., -0.7)?;
+-        let bracket = grouping(stage, -2.4, -0.6, 0.6)?;
+-        stage.wait(1.6)?;
+         fade(stage, &[bracket, factors[0], factors[1]], false)?;
+         let inverse = caption(stage, &kit, "r⁻¹", -2., 0.6)?;
+         let moved = caption(stage, &kit, "s", -1., 0.6)?;
+@@ -279,11 +286,13 @@
+         kit.say(stage, "13_8")?;
+         // The rack stays while the voice talks about it.
+         fade(stage, &[row_frames[0], row_frames[1], normal], false)?;
+-        // The motions fit the sentences that name them.
+-        kit.until_sentence(stage, "13_8", 2)?;
++        // The rack leaves on "an undo move": the next sentence's motions then end in time to read r³ r = e.
++        until_phrase(stage, &kit, "13_8", 1, UNDO_PHRASE)?;
+         d4g::hide(stage, &moves.slots, 0.4)?;
+         let undo = stage.add_value_tracker(0.);
+         let undo_objects = tile_actor::add_tile(stage, &kit, undo, 0., 0., 1.25, tile_model::turn)?;
++        // The motions fit the sentences that name them.
++        kit.until_sentence(stage, "13_8", 2)?;
+         perform(stage, undo, 1., 0.8, &[])?;
+         perform(stage, undo, 4., 1.4, &[])?;
+         let mut undo_label = caption(stage, &kit, "r³ r = e", 0., -2.)?;
+@@ -560,7 +569,7 @@
+         recolor(stage, &texts, Palette::dim(), 0.4)?;
+         let side_rack = rack(stage, &kit, (-5.6, 0.55), (1.2, 1.45), 0.72)?;
+         appear(stage, &side_rack.slots, 0.3, 0.15)?;
+-        // Closure: r times s is again one of the eight.
++        // Closure: s times r is again one of the eight.
+         kit.until_sentence(stage, "13_12", 1)?;
+         let (p, q) = CLOSURE_PAIR;
+         let lit = relight(stage, &cards, None, 0, &[])?;
+@@ -811,6 +820,8 @@
+ /// Phrases the pictures wait for: (cue, sentence, phrase); a test finds each.
+ const EIGHT_PHRASE: &str = "its final action";
+ const RELATION_PHRASE: &str = "s r s equals";
++const REVERSE_PHRASE: &str = "if we reverse";
++const UNDO_PHRASE: &str = "an undo move";
+ const GROUPING_PHRASE: &str = "grouping the first two";
+ const OBJECT_PHRASE: &str = "any object";
+ const FUNCTIONS_PHRASE: &str = "three functions";
+@@ -822,9 +833,11 @@
+ const UNDONE_PHRASE: &str = "because most additions";
+ const UNKNOWN_PHRASE: &str = "without knowing";
+ #[cfg(test)]
+-const PHRASES: [(&str, usize, &str); 15] = [
++const PHRASES: [(&str, usize, &str); 17] = [
+     ("13_1", 2, EIGHT_PHRASE),
+     ("13_6", 4, RELATION_PHRASE),
++    ("13_7", 1, REVERSE_PHRASE),
++    ("13_8", 1, UNDO_PHRASE),
+     ("13_9", 3, GROUPING_PHRASE),
+     ("13_10", 0, OBJECT_PHRASE),
+     ("13_10", 0, FUNCTIONS_PHRASE),
+@@ -1201,6 +1214,14 @@
+     }
+ 
+     #[test]
++    fn the_tiles_stop_under_their_names() {
++        for (t, name) in [(2., R2), (3., R.inv()), (4., E), (5., S), (6., E), (8., R.mul(S))] {
++            assert!(same_corners(pose(&LEFT, t), name.matrix()), "left at {t}");
++        }
++        assert!(same_corners(pose(&RIGHT, 2.), S.mul(R).matrix()));
++    }
++
++    #[test]
+     fn the_word_reduction_uses_the_spoken_rules() {
+         assert_eq!(LONG_WORD, [S, R, S, R2, S]);
+         assert_eq!(S.mul(R), R.inv().mul(S));

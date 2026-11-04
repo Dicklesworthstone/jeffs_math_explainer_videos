@@ -1,0 +1,62 @@
+rustc: rustc 1.100.0-nightly (908501772 2026-08-30)
+PASS kit facts shim compiles
+PASS A: candidate registry compiles (rate + series + product)
+PASS A: every native row has a tab
+A: 835 native rows; prefixes: {'factorials': 626, 'growth': 6, 'limit': 6, 'product': 26, 'rate': 166, 'series': 2, 'slide': 3}
+PASS oracle rate runs
+   rate: 183 rows, stderr 0 bytes
+PASS oracle series runs
+   series: 626 rows, stderr 0 bytes
+PASS oracle product runs
+   product: 26 rows, stderr 247 bytes
+sha256 oracle_combined: 4969329af38f70378a27b4b3ed31f386542d6eb07b8b7da2c20522c674e8fe99
+oracle_diff lines: 0
+PASS A: the kit's own oracle_diff over all three oracles is empty
+PASS A: no duplicate keys on either side
+PASS A: dict equality, independent of oracle_diff  835 rows
+PASS facts01 stored oracle.tsv equals a fresh run
+series stored oracle01.tsv: 625 rows (candidate oracle: 626); equal: False
+native rate.8.1.right_readout: height 1.12: slope 1.12 | oracle: height 1.12: slope 1.12
+native tail: 0.25 0.08438 | oracle: 0.25 0.08438
+PASS B: base series model compiles
+B: base native 625 rows, base oracle 625 rows, 11 differ
+   factorials.curve.2.1.y: native 1.025312 oracle 1.025313
+   factorials.curve.2.13.y: native 1.377812 oracle 1.377813
+   factorials.curve.2.21.y: native 1.662812 oracle 1.662813
+   factorials.curve.2.33.y: native 2.165312 oracle 2.165313
+   factorials.curve.2.49.y: native 2.975313 oracle 2.975312
+   factorials.curve.2.53.y: native 3.202813 oracle 3.202812
+   factorials.curve.2.9.y: native 1.250313 oracle 1.250312
+   factorials.curve.3.54.y: native 3.671313 oracle 3.671312
+   factorials.curve.4.36.y: native 2.453837 oracle 2.453838
+   factorials.curve.4.44.y: native 2.987838 oracle 2.987837
+   factorials.tail.bound: native 0.08437 oracle 0.08438
+PASS tests: rate02/rate_model.rs  test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test tests::displayed_refinements_stay_on_the_same_domain_and_improve_endpoint ... ok
+     test tests::first_step_agrees_but_the_next_slope_does_not ... ok
+     test tests::every_printed_number_is_the_exact_rational_rounded ... ok
+     test tests::each_refinement_climbs_above_the_coarser_drawing_and_the_end_gap_shrinks ... ok
+PASS tests: facts01 rate_model.rs  test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test tests::displayed_refinements_stay_on_the_same_domain_and_improve_endpoint ... ok
+     test tests::each_refinement_climbs_above_the_coarser_drawing_and_the_end_gap_shrinks ... ok
+     test tests::first_step_agrees_but_the_next_slope_does_not ... ok
+     test tests::every_printed_number_is_the_exact_rational_rounded ... ok
+PASS tests: candidate series_model.rs  test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test tests::derivative_coefficients_match_the_previous_power ... ok
+     test tests::the_printed_bound_is_rounded_up_and_its_ratio_is_exact ... ok
+     test tests::bound_contains_positive_and_negative_sample_errors ... ok
+PASS tests: candidate product_model.rs  test result: ok. 3 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test tests::factorial_weights_are_exact_binomial_coefficients ... ok
+     test tests::diagonals_have_every_term_once_and_no_truncated_degree ... ok
+     test tests::every_printed_cell_is_exact ... ok
+PASS tests: base series_model.rs  test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test tests::derivative_coefficients_match_the_previous_power ... ok
+     test tests::bound_contains_positive_and_negative_sample_errors ... ok
+PASS tests: base product_model.rs  test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test tests::diagonals_have_every_term_once_and_no_truncated_degree ... ok
+     test tests::factorial_weights_are_exact_binomial_coefficients ... ok
+PASS A compiles in test cfg
+PASS tests: whole registry crate  test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+PASS clippy-driver -D warnings on the three models and candidate facts.rs (normal cfg)
+PASS clippy-driver -D warnings on the three models and candidate facts.rs (test cfg)
+RESULT PASS

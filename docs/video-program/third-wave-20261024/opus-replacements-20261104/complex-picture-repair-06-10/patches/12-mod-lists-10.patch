@@ -1,0 +1,23 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+@@ -214,6 +214,11 @@
+     rigidity::LIOUVILLE[0],
+     rigidity::LIOUVILLE[1],
+     rigidity::REAL_BOUND,
++    rigidity::AGREE_HERE,
++    rigidity::ZERO_HERE,
++    rigidity::NOT_ZERO_HERE,
++    rigidity::FIRST_ZERO,
++    rigidity::SIZE,
+     residues::H_NOTE,
+     residues::TOTALS[0],
+     residues::TOTALS[1],
+@@ -373,6 +378,8 @@
+     boundary::COEF_TEX,
+     boundary::READ[0],
+     boundary::READ[1],
++    rigidity::SIN_RECIP_TEX,
++    rigidity::SIN_Z_TEX,
+     rigidity::IDENTITY_TEX,
+     rigidity::AT_3I[0],
+     rigidity::AT_3I[1],

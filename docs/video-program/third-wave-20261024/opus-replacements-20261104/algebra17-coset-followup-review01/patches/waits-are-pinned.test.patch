@@ -1,0 +1,26 @@
+--- a/explainer_corpus/abstract_algebra_expanded/src/applications.rs
++++ b/explainer_corpus/abstract_algebra_expanded/src/applications.rs
+@@ -1297,6 +1297,23 @@
+         }
+     }
+     #[test]
++    fn quiz_and_answer_waits_land_on_their_sentences() {
++        use crate::axioms::{line_text, sentence_ranges};
++        let waited: [(&str, usize, &str); 6] = [
++            ("17_12", 1, "Find the subgroup"),
++            ("17_12", 2, "Decide whether"),
++            ("17_12", 3, "Finally"),
++            ("17_13", 1, "The four-clock"),
++            ("17_13", 2, "And multiplying"),
++            ("17_13", 3, "Now apply"),
++        ];
++        for (cue, j, opening) in waited {
++            let text = line_text(cue).expect("cue in script");
++            let (from, to) = sentence_ranges(text)[j];
++            assert!(text[from..to].starts_with(opening), "{cue} sentence {j}: {opening}");
++        }
++    }
++    #[test]
+     fn worked_corruptions() {
+         assert_eq!(checksum(&DIGITS), 132);
+         let mut d = DIGITS;

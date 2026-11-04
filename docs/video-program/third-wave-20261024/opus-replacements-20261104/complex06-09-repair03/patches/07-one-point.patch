@@ -1,0 +1,46 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs
+@@ -77,6 +77,9 @@
+ pub const REACH: f64 = 1.1;
+ /// The radius of the angle mark in the input; its image has radius `ARC_R²`.
+ pub const ARC_R: f64 = 0.5;
++/// Where the map arrow of 07_1 starts and stops, between the planes. Its tail starts past the
++/// left plane's "Re", and the map's name stands over its middle.
++const MAP_ARROW: (f64, f64) = (-0.42, 0.6);
+ 
+ /// The arc `r e^{iθ}`, θ from 0 to `to`.
+ pub fn arc(r: f64, to: f64) -> Vec<C> {
+@@ -235,13 +238,14 @@
+         frame.extend(axis_names(&kit, stage, &inp)?);
+         frame.extend(axis_names(&kit, stage, &out)?);
+         let map_arrow = stage.arena_mut().add(
+-            Arrow::new(v(-0.6, -0.15), v(0.6, -0.15))
++            Arrow::new(v(MAP_ARROW.0, -0.15), v(MAP_ARROW.1, -0.15))
+                 .thickness(4.0)
+                 .color(Palette::dim())
+                 .buff(0.0)
+                 .build()?,
+         );
+-        let map = kit.tex(stage, MAP_TEX, 28.0, Palette::ink(), &[], v(0.0, 0.35))?;
++        let map_at = v((MAP_ARROW.0 + MAP_ARROW.1) / 2.0, 0.35);
++        let map = kit.tex(stage, MAP_TEX, 28.0, Palette::ink(), &[], map_at)?;
+         frame.extend([map_arrow, map]);
+         fade_in_all(stage, &frame, 0.5)?;
+         line.wait_sentence(stage, 1)?;
+@@ -895,6 +899,16 @@
+     }
+ 
+     #[test]
++    fn the_map_arrow_starts_clear_of_re_and_stops_short_of_the_right_plane() {
++        let (inp, out) = planes();
++        // "Re" stands 0.24 past the left plane; measured at 1280 × 720 on frame 10 of 07, it
++        // ends 11 px past its middle, at 90 px to the scene unit
++        let re_ends = inp.frame.right() + 0.24 + 11.0 / 90.0;
++        assert!(MAP_ARROW.0 > re_ends + 0.1, "the tail runs into Re: {re_ends}");
++        assert!(MAP_ARROW.1 < out.frame.left() - 0.2);
++    }
++
++    #[test]
+     fn the_pictures_fit_and_do_not_collide() {
+         let (inp, out) = planes();
+         assert!(inp.frame.right() < -0.6 && out.frame.left() > 0.6);

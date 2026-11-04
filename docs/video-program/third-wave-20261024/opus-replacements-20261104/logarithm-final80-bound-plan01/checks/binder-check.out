@@ -1,0 +1,16 @@
+1e348042beb12a654158e2d60c23a0c4ba8210831a82a39e3d610e1363fc5142  explainer_corpus/logarithm_mysteries/narration_units.json
+631dc98c007e1a7c39bfe35264cc0610d3bf430c7467d49fe5fda4957e8674ad  explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+74af971e4b75279a2f4d16ba35f1232fd7950809a65085fa22a97aea0e4ad115  hold-audit.json
+7f057978294481306988af3e8ee13e2e3591184a16e7c6cc144cf0bae946072a  phrase-anchors.json
+141a635e86e430711b61a527cf5e05763bddb5ed6ad9e11af7126a6b6415fd5a  phrase-timings-unmeasured-template.json
+566447314548e6db651160cf7aeb2c960e5004b7d18f0f1ab6f8864c5114a11d  direction-dispositions-proposed.json
+125a049a035dc3f7db59e8fc1931591358e625b5231d64e3ba9ad19e3275d988  cue-delta.json
+2d55a276909cd5d964c1024a4834a300c376dad85b762e973ff9c6848c77b232  inputs.sha256
+80 cues, 80 units, 4592 words, max 95; 13 registered chapters
+13 prediction holds, 2 reading holds, 12 other waits classified, 13 chapter finishes
+predictions whose cue does not end in a question: ['00_4', '12_5']
+removed pairs: ['00_1->00_2', '01_1->01_2', '03_1->03_2', '04_1->04_2']
+reading windows missing from the storyboard's table: ['10_4']
+sentence hooks: 282 literal, 1 non-literal, 2 naming another cue
+phrase anchors: 24 in 14 cues; 11 in split cues, 4 with a new cue or byte; 0 measured
+cue delta: {'cues': 80, 'unchanged_from_baseline': 71, 'split_cues': 9, 'with_exact_request_bytes': 80}

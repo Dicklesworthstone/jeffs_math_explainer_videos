@@ -1,0 +1,5 @@
+A on baseline: patch exit 0, bytes equal to candidate: True
+B on A: patch exit 0, bytes equal to candidate: True
+C on AB: patch exit 0, bytes equal to candidate: True
+baseline arithmetic.rs 78ed9b54477a452d
+baseline oracle.py 803782696455cf66

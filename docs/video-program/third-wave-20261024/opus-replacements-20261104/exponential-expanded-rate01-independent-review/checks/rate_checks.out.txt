@@ -1,0 +1,155 @@
+== 1. Exact arithmetic against root's oracle file
+ok   n=4: recurrence equals (1+1/n)^k at all 5 points
+ok   n=4: all_endpoints match the file
+ok   n=4: endpoint fraction matches
+ok   n=4: display 2.441
+ok   n=4: f64 recurrence prints the same
+ok   n=4: endpoint below e
+ok   n=8: recurrence equals (1+1/n)^k at all 9 points
+ok   n=8: all_endpoints match the file
+ok   n=8: endpoint fraction matches
+ok   n=8: display 2.566
+ok   n=8: f64 recurrence prints the same
+ok   n=8: endpoint below e
+ok   n=16: recurrence equals (1+1/n)^k at all 17 points
+ok   n=16: all_endpoints match the file
+ok   n=16: endpoint fraction matches
+ok   n=16: display 2.638
+ok   n=16: f64 recurrence prints the same
+ok   n=16: endpoint below e
+
+== 2. What 01_4 claims about the drawings
+ok   8-step is never below 4-step on the 1/16 grid
+ok   8 vs 4: the widest gap is at the endpoint
+     8 vs 4: identical until t=1/8, end gap 0.1244
+ok   16-step is never below 8-step on the 1/16 grid
+ok   16 vs 8: the widest gap is at the endpoint
+     16 vs 8: identical until t=1/16, end gap 0.0721
+ok   the second refinement's end gap is smaller
+     blue stroke is 0.035 scene units wide
+     t     4v8 units  8v16 units  (stroke width is the merge limit)
+     0.25      0.016       0.009
+     0.50      0.041       0.023
+     0.75      0.077       0.044
+     1.00      0.129       0.075
+
+== 3. Drawn slopes (anisotropic axes, consistent in data coordinates)
+     slope 1.00 draws at 12.9 degrees
+     slope 1.25 draws at 16.0 degrees
+     slope 1.56 draws at 19.7 degrees
+     slope 1.95 draws at 24.2 degrees
+     slope 2.44 draws at 29.3 degrees
+     last right tick ends at x=5.54, y=1.026
+     last left tick ends at x=-0.36, y=0.391
+ok   the last tick stays under the top of the axis
+
+== 4. Text layout (estimated)
+     title      4.67 wide  x  -2.34.. 2.34  y   2.94.. 3.26  Same start, two different rules
+     rule L     2.09 wide  x  -4.19..-2.11  y   2.08.. 2.32  constant rate = 1
+     rule R     2.54 wide  x   1.48.. 4.02  y   2.08.. 2.32  rate = current height
+     promise    4.09 wide  x  -2.04.. 2.04  y   2.53.. 2.77  Next: construct an exact solution
+     time L     1.07 wide  x  -3.69..-2.61  y  -2.34..-2.16  time: 0 to 1
+     time R     1.07 wide  x   2.21.. 3.29  y  -2.34..-2.16  time: 0 to 1
+     read L     2.24 wide  x  -4.27..-2.03  y   1.60.. 1.80  height 1.00: slope 1.00
+     read L     2.24 wide  x  -4.27..-2.03  y   1.60.. 1.80  height 2.00: slope 1.00
+     read R     2.24 wide  x   1.63.. 3.87  y   1.60.. 1.80  height 1.25: slope 1.25
+     read R     3.71 wide  x   0.90.. 4.60  y   1.60.. 1.80  last step: slope 1.95, height now 2.44
+     read R     1.36 wide  x   2.07.. 3.43  y   1.60.. 1.80  4 steps: 2.441
+     read R     2.28 wide  x   1.61.. 3.89  y   1.60.. 1.80  4, 8 steps: 2.441, 2.566
+     read R     3.31 wide  x   1.09.. 4.41  y   1.60.. 1.80  4, 8, 16 steps: 2.441, 2.566, 2.638
+     question   4.10 wide  x  -2.05.. 2.05  y  -2.77..-2.53  Will the two curves stay together?
+     approx     3.57 wide  x   0.97.. 4.53  y  -2.76..-2.54  straight steps: an approximation
+ok   every string is inside the lint's x limit
+ok   the widest right read-out (3.71) fits the 4.5 wide panel
+ok   no two coexisting strings overlap 
+     read-out bottom 1.60, axis top 1.30, last tick top 1.03
+     start dot right of digit: digit ends 0.297, dot begins 0.410
+
+== 5. Timing on the scratch rule (illustrative factors, not Oliver)
+-- factor 0.8
+   root: rule R visible at 0.60, voice reaches it at 5.69; question at 1.00, voice at 10.64 (early 9.64)
+   root: footer visible at 0.60, voice says it at 41.13 (early 40.53)
+   root: 01_3 last change ends 4.80, voice runs to 15.70: 10.90 s with no picture change
+   root: 'slope 2.44' stays until 01_4 S3 at 7.52 + 0.30, with its tick gone at 0.30
+   root: promise at 0.40, voice reaches it at 9.99 (early 9.59)
+ok   cand 01_1: each reveal ends before the next sentence
+   cand: question lands 10.64, its voice ends 13.24, think gap 4.6 s + 0.3 fade
+   both: 01_2 read-outs change at S2 5.96; the left sentence starts 7.48, the right 9.53
+ok   cand 01_3: step 2 read-out done before S2 (2.34 vs 4.73)
+ok   cand 01_3: step 3 done before S3 (6.53 vs 6.68)
+ok   cand 01_3: step 4 done before S4 (8.48 vs 8.59)
+   cand: 01_3 last change at S5 11.05, voice runs to 15.70: 4.65 s still
+ok   cand 01_4: read-out replaced at 0.60, before grey at S2 5.53
+ok   01_4: grey ends before the 8-step label
+ok   01_4: 8 steps done before S4 (9.02 vs 9.45)
+   01_4: 16 steps done 12.55, S5 at 13.15, past S5 by -0.60
+   cand: 01_5 promise 11.25; chapter about 85.2 s
+-- factor 1.0
+   root: rule R visible at 0.60, voice reaches it at 7.12; question at 1.00, voice at 13.30 (early 12.30)
+   root: footer visible at 0.60, voice says it at 50.04 (early 49.44)
+   root: 01_3 last change ends 4.80, voice runs to 19.63: 14.83 s with no picture change
+   root: 'slope 2.44' stays until 01_4 S3 at 9.40 + 0.30, with its tick gone at 0.30
+   root: promise at 0.40, voice reaches it at 12.48 (early 12.08)
+ok   cand 01_1: each reveal ends before the next sentence
+   cand: question lands 13.30, its voice ends 16.55, think gap 4.6 s + 0.3 fade
+   both: 01_2 read-outs change at S2 7.46; the left sentence starts 9.36, the right 11.91
+ok   cand 01_3: step 2 read-out done before S2 (2.63 vs 5.91)
+ok   cand 01_3: step 3 done before S3 (7.71 vs 8.35)
+ok   cand 01_3: step 4 done before S4 (10.15 vs 10.73)
+   cand: 01_3 last change at S5 13.71, voice runs to 19.63: 5.92 s still
+ok   cand 01_4: read-out replaced at 0.60, before grey at S2 6.91
+ok   01_4: grey ends before the 8-step label
+ok   01_4: 8 steps done before S4 (10.90 vs 11.81)
+   01_4: 16 steps done 14.91, S5 at 16.44, past S5 by -1.53
+   cand: 01_5 promise 14.06; chapter about 104.7 s
+-- factor 1.25
+   root: rule R visible at 0.60, voice reaches it at 8.90; question at 1.00, voice at 16.63 (early 15.63)
+   root: footer visible at 0.60, voice says it at 61.17 (early 60.57)
+   root: 01_3 last change ends 4.80, voice runs to 24.54: 19.74 s with no picture change
+   root: 'slope 2.44' stays until 01_4 S3 at 11.74 + 0.30, with its tick gone at 0.30
+   root: promise at 0.40, voice reaches it at 15.61 (early 15.21)
+ok   cand 01_1: each reveal ends before the next sentence
+   cand: question lands 16.63, its voice ends 20.69, think gap 4.6 s + 0.3 fade
+   both: 01_2 read-outs change at S2 9.32; the left sentence starts 11.69, the right 14.89
+ok   cand 01_3: step 2 read-out done before S2 (2.98 vs 7.39)
+ok   cand 01_3: step 3 done before S3 (9.19 vs 10.44)
+ok   cand 01_3: step 4 done before S4 (12.24 vs 13.42)
+   cand: 01_3 last change at S5 17.04, voice runs to 24.54: 7.50 s still
+ok   cand 01_4: read-out replaced at 0.60, before grey at S2 8.64
+ok   01_4: grey ends before the 8-step label
+ok   01_4: 8 steps done before S4 (13.24 vs 14.77)
+   01_4: 16 steps done 17.87, S5 at 20.55, past S5 by -2.69
+   cand: 01_5 promise 17.57; chapter about 129.0 s
+
+== 6. Python mirrors of the new tests (the Rust tests have never run)
+ok   each_reveal_waits_for_the_sentence_that_names_it
+ok   the_think_gap_is_authored_and_nothing_new_appears_during_it
+ok   no_refinement_runs_under_the_old_slope_or_its_read_out
+ok   reading_label rows
+ok   left reading at the end
+ok   last_step_label
+ok   endpoints_label numbers
+ok   01_1: 42 words
+ok   01_2: 44 words
+ok   01_3: 50 words
+ok   01_4: 55 words
+ok   01_5: 57 words
+ok   root's slice is the 244 words its README states
+ok   the candidate slice adds 4 words
+ok   sentence counts are unchanged
+
+== 7. Rows for facts.rs and oracle.py (root integrates; not added here)
+     rate.height.1	1.25
+     rate.height.2	1.56
+     rate.height.3	1.95
+     rate.height.4	2.44
+     rate.line_height.1	1.25
+     rate.line_height.2	1.50
+     rate.line_height.3	1.75
+     rate.line_height.4	2.00
+     rate.end.4	2.441
+     rate.end.8	2.566
+     rate.end.16	2.638
+ok   matches the crate's limit.4 and limit.16 facts when rounded to 5 places
+
+FAILURES: 0

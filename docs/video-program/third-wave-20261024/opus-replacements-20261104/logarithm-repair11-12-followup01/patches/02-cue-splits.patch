@@ -1,0 +1,475 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs
+@@ -12,7 +12,7 @@
+ //! diagonal, its flow only stretches the axes by positive factors, and a
+ //! half turn then a stretch needs two flows (11_6); flipping both axes
+ //! alike is a half turn, why the argument fails there (equal stretches,
+-//! no gap), the 2×2 rule and Culver's exact condition (11_7); complex
++//! no gap) and the 2×2 rule (11_7); Culver's exact condition (11_20); complex
+ //! entries remove the obstacle, and only flattening matrices have no
+ //! logarithm (11_8).
+ //!
+@@ -36,7 +36,7 @@
+ //! area gauge at x 0.9 with its word over its live number, a text column
+ //! from x 2.2. Proof captions break inside that column. A label on the panel
+ //! either fits one grid cell or stands on a plate (`on_plate`); the target F's
+-//! words are a key in the column, clear of the moving plane. In 11_7, with the
++//! words are a key in the column, clear of the moving plane. In 11_7 and 11_20, with the
+ //! gauge gone, the sweep's words stand in the gap from x −1.15, and the block
+ //! rows run from x −5.2 to the gap, clear of the column.
+ //!
+@@ -132,7 +132,7 @@
+ const STRETCH_C: f64 = 1.5;
+ /// The left edge of the sweep's words, in the gap the gauge left.
+ const GAP_X: f64 = -1.15;
+-/// 11_7's block rows: the left tile's centre, the distance between tiles, a
++/// 11_20's block rows: the left tile's centre, the distance between tiles, a
+ /// tile's half height (and a plain tile's half width), a two-by-two block's
+ /// half width, the first row's height and the distance between rows.
+ const ROWS_X: f64 = -4.9;
+@@ -151,7 +151,7 @@
+ type Block = (f64, usize);
+ /// One matrix as its blocks, and what the rule says of it.
+ type BlockRow = (Vec<Block>, String);
+-/// 11_7's precise rule, as the screen breaks it.
++/// 11_20's precise rule, as the screen breaks it.
+ const THEOREM: [&str; 4] = [
+     "A real matrix has a real logarithm exactly",
+     "when it is invertible and, for every negative",
+@@ -612,7 +612,7 @@
+     (0..blocks.len()).all(|i| blocks[i].0 > 0.0 || paired(blocks, i))
+ }
+ 
+-/// One row per matrix for the rule in 11_7, and what the rule says of it. The
++/// One row per matrix for the rule in 11_20, and what the rule says of it. The
+ /// numbers are facts, each checked against the exponential in facts.rs and by the
+ /// oracle; the second row is the flip pair the chapter has been using.
+ fn block_examples() -> fmn::Result<[BlockRow; 4]> {
+@@ -691,7 +691,7 @@
+     group(stage, &[frame, word])
+ }
+ 
+-/// 11_7's rows, built but not yet shown: the tiles of each row; each row's
++/// 11_20's rows, built but not yet shown: the tiles of each row; each row's
+ /// outlines and verdict, green where paired and red where not; and a gold
+ /// bracket under each pair.
+ struct BlockRows {
+@@ -1495,9 +1495,10 @@
+         let any_b = kit.text_left(stage, "half turn, equal stretch", 20.0, purple, v(GAP_X, -0.1))?;
+         reword(stage, &[all_a, all_b], &[any_a, any_b], 0.3)?;
+         let now = stage.scene().time().to_f64();
+-        let by = sentence_time(&kit, "11_7", 5).map(|at| at - 0.2);
++        let by = line_end(&kit, "11_7").map(|at| at - 0.2);
+         play!(stage; tween(equal_c, STRETCH_C, run_by(by, now, 0.8, 1.6))?);
+-        kit.until_sentence(stage, "11_7", 5)?;
++        // 11_20: the rest of the line, split at the narration's cap of 100 words
++        kit.say(stage, "11_20")?;
+         let cite = precisely(
+             &kit,
+             stage,
+@@ -1516,15 +1517,15 @@
+         swap(stage, &sweep_gone, &[cite, blocks_head], 0.4)?;
+         let rows = block_rows(&kit, stage)?;
+         let now = stage.scene().time().to_f64();
+-        let by = phrase_time(&kit, "11_7", BLOCKS)?;
++        let by = phrase_time(&kit, "11_20", BLOCKS)?;
+         fade_in_lagged(stage, &rows.tiles, run_by(by, now, 1.2, 4.0), 0.5)?;
+-        until_phrase(&kit, stage, "11_7", BLOCKS)?;
++        until_phrase(&kit, stage, "11_20", BLOCKS)?;
+         let now = stage.scene().time().to_f64();
+-        let by = phrase_time(&kit, "11_7", MATCHING)?;
++        let by = phrase_time(&kit, "11_20", MATCHING)?;
+         fade_in_lagged(stage, &rows.verdicts, run_by(by, now, 0.8, 2.4), 0.4)?;
+-        until_phrase(&kit, stage, "11_7", MATCHING)?;
++        until_phrase(&kit, stage, "11_20", MATCHING)?;
+         fade_in_all(stage, &rows.brackets, 0.4)?;
+-        kit.until_sentence(stage, "11_7", 6)?;
++        kit.until_sentence(stage, "11_20", 1)?;
+         // the rule takes the column: what stood there has done its work, and only the
+         // rows it speaks of stay beside it
+         fade_out_all(
+@@ -2015,10 +2016,9 @@
+                     SOME_DIRECTION,
+                     EVERY_DIRECTION,
+                     HALF_TURN_STRETCH,
+-                    BLOCKS,
+-                    MATCHING,
+                 ][..],
+             ),
++            ("11_20", &[BLOCKS, MATCHING][..]),
+         ] {
+             let text = script.text(id).unwrap();
+             let mut last = 0;
+@@ -2032,6 +2032,17 @@
+     }
+ 
+     #[test]
++    fn the_exact_rule_is_its_own_line_within_the_narrations_cap() {
++        let script = Script::parse(SCRIPT).unwrap();
++        let (a, b) = (script.text("11_7").unwrap(), script.text("11_20").unwrap());
++        assert!(a.ends_with("a half turn combined with an equal stretch."));
++        assert!(b.starts_with("In higher dimensions,"));
++        // the sentence the rule waits for is the new line's second
++        assert!(b.ends_with("come in matching pairs. On screen is the precise version."));
++        assert!(a.split_whitespace().count() <= 100 && b.split_whitespace().count() <= 100);
++    }
++
++    #[test]
+     fn a_run_ends_by_its_moment_within_its_limits() {
+         assert!((run_by(Some(12.0), 10.0, 1.0, 3.0) - 2.0).abs() < 1e-12);
+         assert!((run_by(Some(20.0), 10.0, 1.0, 3.0) - 3.0).abs() < 1e-12);
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs
+@@ -13,7 +13,7 @@
+ //! land the same, so does ½ lap the other way, and a spin about another
+ //! axis drags the top face's centre off the rod; so infinitely many spins,
+ //! all about the rod, the slowest two turning ±π, on the open edge of
+-//! 10_3's window: a tie, so no principal logarithm (12_6).
++//! 10_3's window: a tie, so no principal logarithm (12_6, 12_20, 12_21).
+ //!
+ //! Mail 803 repair 3: depth is unambiguous. Only the faces turned toward
+ //! the viewer are drawn, opaque, and the rod, the other axis, the circles,
+@@ -107,7 +107,7 @@
+ const CUBE_HALF: f64 = 1.05;
+ const ROD: P3 = [0.0, 1.0, 0.0];
+ const ROD_REACH: f64 = 2.0;
+-/// 12_6's other axis (normalised where used), tilted 45° from the rod through
++/// 12_20's other axis (normalised where used), tilted 45° from the rod through
+ /// the middle of an edge, so the cube lands on itself. Of the edge axes this one
+ /// keeps its line, the pin and the arcs clear of both rings, and the top face's
+ /// centre ends in view on the front face.
+@@ -122,7 +122,7 @@
+ /// cube's centre. It covers all of the picture and none of the words.
+ const DIP: f64 = 0.4;
+ const VEIL_HALF: (f64, f64) = (1.8, 2.1);
+-/// The tip of 12_6's pin, the rod's upper stub carried with the cube by a spin
++/// The tip of 12_20's pin, the rod's upper stub carried with the cube by a spin
+ /// about another axis. A point of the top face stays within radius 1, inside
+ /// the inscribed ball, so the solid hides its whole path in every pose. This
+ /// tip is at radius `ROD_REACH`, beyond the corners' √3, so it never enters
+@@ -134,18 +134,18 @@
+ /// The fixed view: yaw about the vertical, then pitch toward us, degrees.
+ const YAW_DEG: f64 = 35.0;
+ const PITCH_DEG: f64 = 20.0;
+-/// 12_6's turning line: the centre's x and y, and scene units per π.
++/// 12_21's turning line: the centre's x and y, and scene units per π.
+ const TURNING_X: f64 = 3.9;
+ const TURNING_Y: f64 = -1.6;
+ const TURNING_PER_PI: f64 = 0.62;
+-/// 12_6's third sentence as shares of its length, from even word spacing
++/// 12_20's second sentence as shares of its length, from even word spacing
+ /// over its 34 words (a proposal until fine sync): the red spin ends with "where
+ /// it was", holds through "and our half turn leaves", goes back for "only the
+ /// rod's points", and the chip comes with "so any other axis is ruled out".
+ const AXIS_SPIN_END: f64 = 0.45;
+ const AXIS_RESET: f64 = 0.60;
+ const AXIS_CHIP: f64 = 0.79;
+-/// 12_6's fifth sentence: the tie appears as the voice reaches "the very edge".
++/// 12_21's first sentence: the tie appears as the voice reaches "the very edge".
+ const TIE_AT: f64 = 0.45;
+ /// The shortest a spin may run when its sentence leaves little room, seconds.
+ const MIN_RUN: f64 = 1.0;
+@@ -157,13 +157,13 @@
+ const AND_TWO_AND_A_HALF: &str = "and so does two and a half";
+ /// 12_1: the keys come when the line names them.
+ const THE_KEYBOARD: &str = "the keyboard and the slide rule";
+-/// 12_6's last sentence: the number's convention, then the family lit up.
++/// 12_21's last sentence: the number's convention, then the family lit up.
+ const CONVENTION: &str = "a convention broke the same tie";
+ const WHOLE_FAMILY: &str = "the honest answer is the whole family";
+ /// However the take falls, the 1½-lap arrival holds at least this long, seconds:
+ /// a chosen floor for the eye, not a timing of any voice.
+ const ARRIVAL_HOLD: f64 = 0.5;
+-/// What the 2½-lap run leaves before the next sentence: the laps chip's fade and
++/// What the 2½-lap run leaves before its line ends: the laps chip's fade and
+ /// a little air.
+ const LAPS_CHIP_ROOM: f64 = 0.5;
+ 
+@@ -412,7 +412,7 @@
+         .collect()
+ }
+ 
+-/// 12_4–12_6's take-away as trackers for one redraw: the clock (0 to 1),
++/// 12_4–12_21's take-away as trackers for one redraw: the clock (0 to 1),
+ /// the spin rate in laps per unit time, which axis turns (0 the rod, 1 the
+ /// other axis), and switches for the corners' circles and the followed
+ /// corner with its start and end rings.
+@@ -613,6 +613,13 @@
+     let seconds =
+         phrase_seconds(text, phrase, &n.phrase_marks(id), &starts, len).map_err(|e| fail(format!("line {id}: {e}")))?;
+     Ok(Some(said - first + seconds))
++}
++
++/// The scene time line `id` ends at, once it has been said.
++fn line_end(kit: &Kit, id: &str) -> Option<f64> {
++    let n = kit.narrator.as_ref()?;
++    let first = *n.sentence_starts(id).first()?;
++    Some(n.sentence_at(id, 0)? - first + n.length(id)?)
+ }
+ 
+ /// Wait until `phrase` of line `id` begins; nothing if that moment has passed.
+@@ -1120,13 +1127,9 @@
+         kit.until_sentence(stage, "12_6", 1)?;
+         // the laps: one and a half, then two and a half, land in the same place. The
+         // first lands by "also ends here" and stays landed until "and so does two and
+-        // a half"; the second must leave the chip its fade before the next sentence
++        // a half"; the second must leave the chip its fade before the line ends
+         let mut rate_shown = rate_word;
+-        let chip_by = kit
+-            .narrator
+-            .as_ref()
+-            .and_then(|n| n.sentence_at("12_6", 2))
+-            .map(|at| at - LAPS_CHIP_ROOM);
++        let chip_by = line_end(&kit, "12_6").map(|at| at - LAPS_CHIP_ROOM);
+         for (r, by, hold) in [
+             (lap_and_half, phrase_time(&kit, "12_6", ALSO_ENDS_HERE)?, true),
+             (two_and_half, chip_by, false),
+@@ -1154,7 +1157,8 @@
+             v(0.6, 1.3),
+         )?;
+         fade_in_all(stage, &[laps_chip], 0.4)?;
+-        kit.until_sentence(stage, "12_6", 2)?;
++        // 12_20: the answer goes on, split at the narration's cap of 100 words
++        kit.say(stage, "12_20")?;
+         // the direction: half a lap the other way
+         let word = kit.text_left(stage, &spin_word(back_rate), 22.0, blue, v(0.6, 2.3))?;
+         redeal(stage, &[(pz.time, 0.0), (pz.rate, back_rate)], &[rate_shown], &[word])?;
+@@ -1168,7 +1172,7 @@
+             v(0.6, 0.85),
+         )?;
+         fade_in_all(stage, &[way_chip], 0.4)?;
+-        kit.until_sentence(stage, "12_6", 3)?;
++        kit.until_sentence(stage, "12_20", 1)?;
+         let axis_began = stage.scene().time().to_f64();
+         // the axis: half a lap about another line drags the top face's
+         // centre off the rod, while that line's own points stay put
+@@ -1186,14 +1190,14 @@
+             &[word],
+         )?;
+         let red_spin =
+-            sentence_len(&kit.sentence_starts("12_6"), 3).map_or(2.8, |len| (AXIS_SPIN_END * len - DIP).max(MIN_RUN));
++            sentence_len(&kit.sentence_starts("12_20"), 1).map_or(2.8, |len| (AXIS_SPIN_END * len - DIP).max(MIN_RUN));
+         play!(stage; steady(pz.time, 1.0, red_spin)?);
+         // hold the miss, then back to the half turn about the rod, its top
+         // face's centre on the rod in plain view for "only the rod's points"
+-        until_share(&kit, stage, "12_6", 3, axis_began, AXIS_RESET)?;
++        until_share(&kit, stage, "12_20", 1, axis_began, AXIS_RESET)?;
+         let back = kit.text_left(stage, &spin_word(half_rate), 22.0, purple, v(0.6, 2.3))?;
+         redeal(stage, &[(pz.other, 0.0)], &[word], &[back])?;
+-        until_share(&kit, stage, "12_6", 3, axis_began, AXIS_CHIP)?;
++        until_share(&kit, stage, "12_20", 1, axis_began, AXIS_CHIP)?;
+         let axis_chip = kit.text_left(
+             stage,
+             "axis: only the rod; another axis drags the top off it",
+@@ -1202,7 +1206,7 @@
+             v(0.6, 0.4),
+         )?;
+         fade_in_all(stage, &[axis_chip], 0.4)?;
+-        kit.until_sentence(stage, "12_6", 4)?;
++        kit.until_sentence(stage, "12_20", 2)?;
+         let so = kit.text_left(
+             stage,
+             "so: infinitely many spins, all about the rod",
+@@ -1211,7 +1215,8 @@
+             v(0.6, -0.2),
+         )?;
+         fade_in_all(stage, &[so], 0.4)?;
+-        kit.until_sentence(stage, "12_6", 5)?;
++        // 12_21: the tie and the family, split the same way
++        kit.say(stage, "12_21")?;
+         let tie_began = stage.scene().time().to_f64();
+         // the turning line of 10_3: these spins turn by ±π, ±3π, …; the
+         // two slowest sit on the open ends of the principal window
+@@ -1270,9 +1275,9 @@
+         fade_in_all(stage, &ends, 0.5)?;
+         // the tie as the voice reaches the window's edge, and the conclusion only
+         // once the voice has said it
+-        until_share(&kit, stage, "12_6", 5, tie_began, TIE_AT)?;
++        until_share(&kit, stage, "12_21", 0, tie_began, TIE_AT)?;
+         fade_in_all(stage, &[tie], 0.4)?;
+-        kit.until_sentence(stage, "12_6", 6)?;
++        kit.until_sentence(stage, "12_21", 1)?;
+         let source = precisely(
+             &kit,
+             stage,
+@@ -1283,7 +1288,7 @@
+             ),
+         )?;
+         fade_in_all(stage, &[source], 0.4)?;
+-        until_phrase(&kit, stage, "12_6", CONVENTION)?;
++        until_phrase(&kit, stage, "12_21", CONVENTION)?;
+         let convention = kit.text_left(
+             stage,
+             "for the number −1, Log(−1) = iπ by convention",
+@@ -1293,7 +1298,7 @@
+         )?;
+         fade_in_all(stage, &[convention], 0.4)?;
+         // here no convention picks one: every spin on the line lights up
+-        until_phrase(&kit, stage, "12_6", WHOLE_FAMILY)?;
++        until_phrase(&kit, stage, "12_21", WHOLE_FAMILY)?;
+         let mut family = vec![kit.text_left(stage, "here: the whole family", 20.0, gold, v(1.4, -3.1))?];
+         for k in [-3.0, -1.0, 1.0, 3.0] {
+             family.push(dot(stage, turning_at(PI * k), 0.1, gold));
+@@ -1783,16 +1788,31 @@
+             text.find(ALSO_ENDS_HERE).unwrap(),
+             text.find(AND_TWO_AND_A_HALF).unwrap(),
+         );
+-        let third = text.find("Direction next:").unwrap();
+-        assert!(second < a && a < b && b < third);
++        assert!(second < a && a < b);
++        // the line ends with that sentence: the direction has its own line
++        assert!(text.ends_with("any odd number of half laps."));
+     }
+ 
+     #[test]
++    fn the_answer_is_three_lines_within_the_narrations_cap() {
++        let script = Script::parse(SCRIPT).unwrap();
++        let parts = ["12_6", "12_20", "12_21"].map(|id| script.text(id).unwrap());
++        assert!(parts[0].starts_with("Here is the answer, one hint at a time."));
++        assert!(parts[1].starts_with("Direction next:"));
++        assert!(parts[1].ends_with("all about this one rod."));
++        assert!(parts[2].starts_with("The two slowest,"));
++        assert!(parts[2].ends_with("the whole family."));
++        for part in parts {
++            assert!(part.split_whitespace().count() <= 100, "{part}");
++        }
++    }
++
++    #[test]
+     fn the_new_hooks_are_in_their_lines_once_and_in_spoken_order() {
+         let script = Script::parse(SCRIPT).unwrap();
+         let line = script.text("12_1").unwrap();
+         assert_eq!(line.matches(THE_KEYBOARD).count(), 1);
+-        let text = script.text("12_6").unwrap();
++        let text = script.text("12_21").unwrap();
+         let last = text.find("For the number minus one").unwrap();
+         for phrase in [CONVENTION, WHOLE_FAMILY] {
+             assert_eq!(text.matches(phrase).count(), 1, "{phrase}");
+--- a/explainer_corpus/logarithm_mysteries/docs/storyboard.md
++++ b/explainer_corpus/logarithm_mysteries/docs/storyboard.md
+@@ -11,7 +11,9 @@
+ it against the ElevenLabs Oliver takes.
+ 
+ Narration: ElevenLabs **Oliver** (owner requirement, 2026-11-04), synthesised serially by
+-root's guarded lane. The script is 75 cues, 364 sentences and 4,592 words. At an assumed
++root's guarded lane. The script is 364 sentences and 4,592 words, in 80 cues once root's
++05_2 and 06_6 splits and the 11_7 and 12_6 splits are all in (75 before them; no word
++changes). At an assumed
+ 150 to 165 words a minute that is roughly 28 to 31 minutes of speech, plus thirteen 4 s
+ prediction holds and animation gaps. This is not a measurement.
+ 
+@@ -90,7 +92,7 @@
+ 
+ | after | what is read | how long |
+ |---|---|---|
+-| 11_7 | Culver's rule, four lines, 159 characters, then each block row's verdict in turn, 107 characters, with a gold mark at the row being read | 10.6 s + 7.13 s = 17.73 s of music after the voice |
++| 11_20 | Culver's rule, four lines, 159 characters, then each block row's verdict in turn, 107 characters, with a gold mark at the row being read | 10.6 s + 7.13 s = 17.73 s of music after the voice |
+ 
+ The rule replaces the words in the column when its sentence starts, so nothing else in that
+ column competes with it. The next line waits for the window. Root re-scores the music and
+@@ -157,7 +159,7 @@
+ that midpoint and never to the reflection: "det 0 … squashes the plane flat onto a line"
+ (fact `matrix.mirror_average_det`).
+ 
+-**11_4–11_7 (repair 1).**
++**11_4–11_20 (repair 1).**
+ 
+ - 11_4: "suppose A = e^X, X real". The probe u = (1, 1) has two routes, first X then
+   e^X (purple) and first e^X then X (teal), shown with the sample flow; the column's labels
+@@ -173,9 +175,10 @@
+   outlined in red, needs both reversed. The stretch flow goes home first, so nothing cuts;
+   two flows run in turn on "running one after the other" and get there; no single one does.
+ - 11_7: −I by the spin, with the plane back at rest at once. Equal stretches mean
+-  (−1) − (−1) = 0, so there is no gap and every X commutes with −I. Then the 2×2 rule and
+-  the rows, each row a matrix from the facts. Culver's exact condition takes the column in
+-  four gold lines, with the citation as the precisely line, and gets its authored hold.
++  (−1) − (−1) = 0, so there is no gap and every X commutes with −I. Then the 2×2 rule.
++- 11_20 (11_7's words from "In higher dimensions,"): the rows, each row a matrix from the
++  facts. Culver's exact condition takes the column in four gold lines, with the citation as
++  the precisely line, and gets its authored hold.
+ - 11_8: the title changes, and "A = diag(−2, −½): no real logarithm" stands under it while
+   the voice says what disappears.
+ 
+@@ -186,22 +189,25 @@
+ the dial's numbers, pointer and caption come. Panel C stands a little higher with shorter
+ axes, its labels are white, and −1 stays on top of the cut. Panel D's dots fade in.
+ 
+-**12_4–12_6 (repair 3, follow-up).**
++**12_4–12_21 (repair 3, follow-up).**
+ 
+ - 12_4: an opaque cube (only faces toward the viewer are drawn) with a gold rod through
+   the centres of its top and bottom faces; parts hidden by the solid are not drawn
+   (`hidden`, a slab test). Corner circles about the rod preview the motion. One corner
+   is followed with "time" and "laps so far" readouts to the half turn.
+ - 12_5: the question and the hints: laps, direction, axis. Then the hold.
+-- 12_6: the answer on the cube, one hint at a time.
+-  - Each new spin starts under a short dip of the picture, never a jump in plain view.
+-  - 1½ and 2½ laps land the same, and so does ½ lap the other way.
++- 12_6, 12_20 and 12_21: the answer on the cube, one hint at a time, 12_6's old words split
++  before "Direction next:" and before "The two slowest,". Each new spin starts under a short
++  dip of the picture, never a jump in plain view.
++- 12_6: 1½ and 2½ laps land the same.
++- 12_20: ½ lap the other way lands the same.
+   - A spin about another axis, (0, 1, 1), drags a pin copied from the rod's upper stub off
+     the rod (red line, pin, arc). The top face's centre itself stays inside the solid.
+     The line and the arcs keep clear of the two rings, and the corner lands one edge from
+     the end ring. For about t 0.48 to 0.84 the pin points nearly at the viewer, and its tip
+     and arc carry the drag.
+   - "so: infinitely many spins, all about the rod".
++- 12_21: the tie and the family.
+   - A turning line shows ±π and ±3π with "…" past each end, with ±π tying on the green
+     window's open edge.
+   - Precisely: "eigenvalue −1, so no principal log (Higham §4 Fact 1)".
+@@ -236,9 +242,9 @@
+ | 08 | for nonzero z, w on the principal branch, k is −1, 0 or 1 | derived: Im Log ∈ (−π, π] |
+ | 10 | the principal matrix logarithm | Higham, MIMS EPrint 2005.21, §4 Fact 1; Gallier arXiv 0805.0245 Thm 3.11(a) |
+ | 11 | det = e^{∫ tr} for any real linear flow | Liouville's formula |
+-| 11_7 | the real-log condition, attributed to Culver "as stated by" Higham and Gallier | Higham §4 Fact 3; Gallier Thm 3.4 (Culver unread) |
++| 11_20 | the real-log condition, attributed to Culver "as stated by" Higham and Gallier | Higham §4 Fact 3; Gallier Thm 3.4 (Culver unread) |
+ | 11_8 | every invertible complex matrix has a logarithm | Gallier Thm 3.3 (Jordan form) |
+-| 12_6 | eigenvalue −1, so no principal log | Higham §4 Fact 1's definition, plus the step in sources.md |
++| 12_21 | eigenvalue −1, so no principal log | Higham §4 Fact 1's definition, plus the step in sources.md |
+ 
+ ## Known screen risks for root's render review
+ 
+--- a/explainer_corpus/logarithm_mysteries/docs/sources.md
++++ b/explainer_corpus/logarithm_mysteries/docs/sources.md
+@@ -38,17 +38,17 @@
+ | cue | screen claim | rests on |
+ |---|---|---|
+ | 10_4 | the principal matrix logarithm: no eigenvalue on the closed negative axis ⇒ one log with eigenvalue angles in (−π, π), real when A is real | Fact 1 (and Gallier Thm 3.11(a) for the real case, below) |
+-| 11_7 | "A real matrix has a real logarithm exactly when it is invertible and, for every negative eigenvalue, its Jordan blocks of each size occur an even number of times." | Fact 3, word for word in substance |
++| 11_20 | "A real matrix has a real logarithm exactly when it is invertible and, for every negative eigenvalue, its Jordan blocks of each size occur an even number of times." | Fact 3, word for word in substance |
+ | 11_7 | 2×2: a direction sent to a negative multiple gives a real log only if A = −cI, c > 0 | Fact 3, specialised (see the derivation below) |
+ | 11_8 | singular matrices have no logarithm: det e^X = e^(tr X) ≠ 0 | Fact 5's identity, read for X; the series argument is standard |
+-| 12_6 | "eigenvalue −1, so no principal log (Higham §4 Fact 1)" | Fact 1's definition, plus one step (below) |
++| 12_21 | "eigenvalue −1, so no principal log (Higham §4 Fact 1)" | Fact 1's definition, plus one step (below) |
+ 
+ **Fact 1's R−.** At the square-root fact, the text writes R−₀ and glosses it as
+ "the closed negative real axis". At the logarithm fact, the extracted text writes R−.
+ Zero cannot matter there, because a logarithm needs A nonsingular (Fact 5). The film says
+ "no eigenvalue on the negative real axis" for invertible A, which is the same condition.
+ 
+-**The 12_6 step.** Fact 1 defines the principal logarithm as the logarithm whose
++**The 12_21 step.** Fact 1 defines the principal logarithm as the logarithm whose
+ eigenvalues all lie in the open strip. If A has eigenvalue −1, every logarithm X has an
+ eigenvalue μ with e^μ = −1. So Im μ is an odd multiple of π, and μ is never inside the
+ open strip. Hence no logarithm meets Fact 1's definition.
+@@ -105,7 +105,7 @@
+ | cue | screen line | rests on |
+ |---|---|---|
+ | 10_4 | precisely line ends "(Higham; Gallier Thm 3.11)" | Thm 3.11(a), the real case of the principal log |
+-| 11_7 | "Culver, Proc. AMS 17 (1966) 1146–1151, as stated by Higham (Handbook of Linear Algebra) and Gallier (Thm 3.4)" | Thm 3.4 and Higham Fact 3 agree; that is what the line claims |
++| 11_20 | "Culver, Proc. AMS 17 (1966) 1146–1151, as stated by Higham (Handbook of Linear Algebra) and Gallier (Thm 3.4)" | Thm 3.4 and Higham Fact 3 agree; that is what the line claims |
+ | 11_8 | "Gallier, arXiv 0805.0245, Theorem 3.3, proved via the Jordan form" | Thm 3.3 |
+ 
+ Round 1 cited "Higham Thm 1.27" for 11_8 and "Higham Thm 1.31" for 10_4. Neither book
+@@ -136,7 +136,7 @@
+ | 11_5 | (XA − AX)u = (b(a₂ − a₁)u₂, c(a₁ − a₂)u₁); with A = diag(−½, −2) each part is ±1.5 × an off-diagonal entry × a part of u | `each_part_of_the_gap_is_an_off_diagonal_entry_times_the_stretch_difference` (down to off-diagonal scale 10⁻⁶); `the_ends_meet_once_the_off_diagonal_entries_are_zero` |
+ | 11_6 | a diagonal real X stretches each axis by e^(tp) > 0, so no axis reverses | `anything_commuting_with_the_flip_pair_is_diagonal`, `a_diagonal_flow_never_flips_an_axis` |
+ | 11_1, 09_1 | ½(I + mirror) has determinant 0: the average of the endpoints is singular | `the_plain_average_of_identity_and_mirror_is_flat`; fact `matrix.mirror_average_det` (oracle) |
+-| 12_4–12_6 | the spins about the rod that end at the half turn are ±½, ±1½, … laps per unit time; no other axis works; the slowest two tie | `a_half_turn_is_reached_by_odd_half_turns_either_way_about_the_rod`, `the_shown_rates_all_end_in_the_half_turn`, `a_spin_about_any_other_axis_never_lands_on_the_half_turn`, `the_two_slowest_spins_tie_so_no_principal_choice_exists` |
++| 12_4–12_21 | the spins about the rod that end at the half turn are ±½, ±1½, … laps per unit time; no other axis works; the slowest two tie | `a_half_turn_is_reached_by_odd_half_turns_either_way_about_the_rod`, `the_shown_rates_all_end_in_the_half_turn`, `a_spin_about_any_other_axis_never_lands_on_the_half_turn`, `the_two_slowest_spins_tie_so_no_principal_choice_exists` |
+ | 06_6 | the principal candidate's gap is 0 up to −1 and −1 just after | `the_principal_candidate_jumps_a_lap_just_after_minus_one_and_only_there`; fact `loop.principal_gap` |
+ | 07_2 | Log i = πi/2, Log(−i) = −πi/2 | fact `branch.log_i_pi`; `log_of_i_and_minus_i_are_a_quarter_turn_either_way` |
+ | 08_3 | for z at 3π/4, Log(z²) = 2 Log z + 2πi·k with k = −1; generally k ∈ {−1, 0, 1} | `the_square_drops_exactly_one_lap_so_k_is_minus_one`; the range follows from Im Log ∈ (−π, π] |

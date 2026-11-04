@@ -1,0 +1,92 @@
+--- 02_1 to 02_3: the columns, the equations, the factorials
+ok   column 0: 1 times the coefficient of x^1 equals the coefficient above it  [1]
+ok   the chain's divisions give 1/1!
+ok   column 1: 2 times the coefficient of x^2 equals the coefficient above it  [1/2]
+ok   the chain's divisions give 1/2!
+ok   column 2: 3 times the coefficient of x^3 equals the coefficient above it  [1/6]
+ok   the chain's divisions give 1/3!
+ok   column 3: 4 times the coefficient of x^4 equals the coefficient above it  [1/24]
+ok   the chain's divisions give 1/4!
+ok   column 4: 5 times the coefficient of x^5 equals the coefficient above it  [1/120]
+ok   the chain's divisions give 1/5!
+ok   column 5: 6 times the coefficient of x^6 equals the coefficient above it  [1/720]
+ok   the chain's divisions give 1/6!
+ok   column 6: 7 times the coefficient of x^7 equals the coefficient above it  [1/5040]
+ok   the chain's divisions give 1/7!
+ok   02_3 s2: 'one, one, one half, one sixth, one twenty-fourth'
+ok   the running product 1...1 printed under column 1 is 1!  [1]
+ok   the running product 1...2 printed under column 2 is 2!  [2]
+ok   the running product 1...3 printed under column 3 is 3!  [6]
+ok   the running product 1...4 printed under column 4 is 4!  [24]
+--- 02_4: differentiating a polynomial of degree N lands N terms and misses one power
+ok   degree 4: the derivative's first 4 columns match the function's
+ok   degree 4: the derivative has no x^4, and the function does: the hole is real
+ok   degree 5: the derivative's first 5 columns match the function's
+ok   degree 5: the derivative has no x^5, and the function does: the hole is real
+ok   degree 6: the derivative's first 6 columns match the function's
+ok   degree 6: the derivative has no x^6, and the function does: the hole is real
+--- 02_5: ratio, halving and tail, at R = 3/2 and at the edge of the hypothesis
+ok   every printed ratio is R / index exactly
+ok   the ratio row reads 3/2, 3/4, 1/2, 3/8, 3/10, 1/4, 3/14, 3/16
+ok   halving starts at index 3, with equality there: the sign is non-strict for a reason
+ok   R=1/2, N=0: every tail term sits under the halving ceiling
+ok   R=1/2, N=0: the tail, truncated at 80 terms, is at most the printed bound
+ok   R=1/2: an inner input's term is no larger, and -R's equals R's
+ok   R=1, N=0: every tail term sits under the halving ceiling
+ok   R=1, N=0: the tail, truncated at 80 terms, is at most the printed bound
+ok   R=1: an inner input's term is no larger, and -R's equals R's
+ok   R=3/2, N=1: every tail term sits under the halving ceiling
+ok   R=3/2, N=1: the tail, truncated at 80 terms, is at most the printed bound
+ok   R=3/2: an inner input's term is no larger, and -R's equals R's
+ok   edge, R=3/2: one degree below the hypothesis the first ceiling step already fails
+ok   R=2, N=2: every tail term sits under the halving ceiling
+ok   R=2, N=2: the tail, truncated at 80 terms, is at most the printed bound
+ok   R=2: an inner input's term is no larger, and -R's equals R's
+ok   edge, R=2: one degree below the hypothesis the first ceiling step already fails
+ok   R=5/2, N=3: every tail term sits under the halving ceiling
+ok   R=5/2, N=3: the tail, truncated at 80 terms, is at most the printed bound
+ok   R=5/2: an inner input's term is no larger, and -R's equals R's
+ok   edge, R=5/2: one degree below the hypothesis the first ceiling step already fails
+ok   R=7, N=12: every tail term sits under the halving ceiling
+ok   R=7, N=12: the tail, truncated at 80 terms, is at most the printed bound
+ok   R=7: an inner input's term is no larger, and -R's equals R's
+ok   edge, R=7: one degree below the hypothesis the first ceiling step already fails
+ok   degree 4: 0.12657 is 2 t_5 rounded up at the fifth place  [exact 0.1265625]
+ok   degree 4: the true tail is under it  [0.0832516]
+ok   degree 8: 0.00022 is 2 t_9 rounded up at the fifth place  [exact 0.0002119]
+ok   degree 8: the true tail is under it  [0.0001243]
+ok   degree 4: the bound is 81/640 before rounding
+ok   zoom: the tallest inset bar stays under two scene units at the 1.9 scale  [1.924]
+ok   02_5 s4: the derivative of term 1 has the size of term 0
+ok   02_5 s4: the derivative of term 2 has the size of term 1
+ok   02_5 s4: the derivative of term 3 has the size of term 2
+ok   02_5 s4: the derivative of term 4 has the size of term 3
+ok   02_5 s4: the derivative of term 5 has the size of term 4
+ok   02_5 s4: the derivative of term 6 has the size of term 5
+ok   02_5 s4: the derivative of term 7 has the size of term 6
+ok   02_5 s4: the derivative of term 8 has the size of term 7
+ok   02_5 s4: the derivative of term 9 has the size of term 8
+ok   02_5 s5: across the sweep no bar passes its ceiling
+ok   the sweep's edge: bar 0 stays at one, including at x = 0
+ok   the sweep's other edge: at x = 0 every later bar is zero, and the live bar clamps instead of failing
+--- 02_6: the promises, in payment order, against the brief's section order
+ok   the clauses come in the order C (product), D (Euler limit), E (uniqueness)
+--- 03_7: named inputs, in exact brackets. Examples of the law, not its proof
+ok   E(1) lies between 2.71828 and 2.71829, so the printed five places are its digits  [width 1.2e-49]
+ok   the bracket is tight enough for the checks below to mean something
+ok   E(2) = e times e
+ok   E(3) = e cubed
+ok   E(1/2) is positive and its square is e
+ok   fractions: E(3/4) is E(1/4) cubed, and E(1/4) is the positive fourth root of e
+ok   fractions: E(1/4) to the fourth is e
+ok   reciprocals: E(-1/4) is positive and E(1/4) E(-1/4) = 1
+ok   reciprocals: E(-1) is positive and E(1) E(-1) = 1
+ok   reciprocals: E(-2) is positive and E(2) E(-2) = 1
+ok   edge: E(0) = 1, so the zero mark is earned without the law
+ok   edge: squares alone do not pick the root. A negative number has the same square, which is why TEX[12] prints E>0
+ok   edge: no fraction squares to 2 in this search, so the marks alone cannot reach every input: continuity is doing work
+--- 03_7 line and the product's guides
+ok   the three groups cover the marks once each  [4+9+8]
+ok   the line runs from x = -4 to x = 4, in frame
+ok   03_2's line runs through the centres of all four degree-three cells  [largest miss 0.0006]
+RESULT PASS

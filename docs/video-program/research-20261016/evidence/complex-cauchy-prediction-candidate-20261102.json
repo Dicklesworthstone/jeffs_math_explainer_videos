@@ -1,0 +1,25 @@
+{
+  "created_utc": "2026-11-02T15:05:28.815486+00:00",
+  "state": "research candidate only; not installed, compiled, rendered, listened to, or independently accepted",
+  "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/complex_analysis_visual/src/chapters/cauchy.rs",
+  "source_sha256": "7ed28b9fb1db3008a798969c0c5428351defd63ff24bf8aa0e47e5af731bec5b",
+  "script": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/complex_analysis_visual/script.tsv",
+  "script_sha256": "5722bc1c2b1844bfc7be96ee63d6b3c847f1448a98fd94486d89108da320b931",
+  "old_map": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver01.json",
+  "old_map_sha256": "1a0c0d13255bd165207be0cbd54c5780465aaa5972472a25a7b98ba5fb74f86d",
+  "candidate": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/research-20261016/evidence/complex-cauchy-prediction-candidate-20261102.rs",
+  "candidate_sha256": "4c633df2e6bcc42f8c7c7f126015d3dc9cdb9388fe2f64900e6e1b3bf2139d13",
+  "patch": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/research-20261016/evidence/complex-cauchy-prediction-candidate-20261102.patch",
+  "patch_sha256": "234441bc9d4539762abad55ebea80f38da986e76d728f98cf6126bf2f8512921",
+  "candidate_markers": {
+    "question_appearance_line": 44,
+    "before_cue_wait_line": 45,
+    "cue_start_line": 46,
+    "post_cue_hold_line": 47
+  },
+  "remaining": [
+    "Review native prediction sequence and line lengths, then apply only when production source changes are authorized.",
+    "Rebind post-cue hold and record before-cue prediction under a new direction map; retain prior map and plan.",
+    "Run guarded build and scene preview, inspect actual prediction and reveal pictures; review listening, sync, accessibility and independent mathematics/pedagogy."
+  ]
+}

@@ -1,0 +1,10 @@
+--- a/script-slice.tsv
++++ b/script-slice.tsv
+@@ -1,5 +1,5 @@
+ 01_1	Start at height one. Here are two drawing rules. On the left, climb at a constant rate of one. On the right, let the rate equal the current height. At the beginning they agree. But will they keep drawing the same curve?
+ 01_2	Take one small step to the right. Both rules begin with slope one, so their first straight steps agree. Now read the height again. The left rule still says slope one. The right rule asks for a steeper slope, because its height has increased.
+-01_3	Repeat the procedure. Read the height, use it as the slope, and take another short step. The left drawing is a straight line. The right drawing keeps steepening. These straight steps are approximations. During a step the true height would already have changed, so the true slope would change too.
++01_3	Repeat the procedure. Read the height, use it as the slope, and take another short step. The left drawing is a straight line. The right drawing keeps steepening. Its straight steps are approximations. During a step the true height would already have changed, so the true slope would change too.
+ 01_4	Use shorter steps and read the height more often. We keep the same axes and the same starting height. The old approximation stays in grey. The new one climbs slightly higher. Shortening the steps again brings the new drawings closer together. Agreement in a picture is evidence to investigate, not a proof of a limit.
+-01_5	A curve whose slope equals its height would solve our drawing rule exactly. We have not yet proved that the stepped approximations reach such a curve, or that there is only one. To answer those questions, we will build an exact function, term by term. That is where the factorials will come from.
++01_5	A curve whose slope equals its height would solve our drawing rule exactly. We have not yet proved that the stepped approximations reach such a curve, or that only one such curve starts at height one. To answer those questions, we will build an exact function, term by term. That is where the factorials will come from.

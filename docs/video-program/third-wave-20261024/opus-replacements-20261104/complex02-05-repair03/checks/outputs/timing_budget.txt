@@ -1,0 +1,68 @@
+late = seconds the scene reaches a hook after the voice, on the assumptions in this file's header
+cue     len  hook                              x0.85  x1.00  x1.15
+02_5   10.8  an eighth of a turn                0.00   0.00   0.00
+02_5   10.8  sentence 2                         0.00   0.00   0.00
+02_5   10.8  voice ends                         0.00   0.00   0.00
+02_6   19.2  So one plus i (lands)              0.00   0.00   0.00
+02_6   19.2  sentence 1                         0.40   0.40   0.40
+02_6   19.2  sentence 2                         0.00   0.00   0.00
+02_6   19.2  and angles add                     0.00   0.00   0.00
+02_6   19.2  Every complex derivative           0.00   0.00   0.00
+02_6   19.2  voice ends                         0.00   0.00   0.00
+03_2   15.4  sentence 1                         0.00   0.00   0.00
+03_2   15.4  squares each length                0.00   0.00   0.00
+03_2   15.4  doubles each angle                 0.00   0.00   0.00
+03_2   15.4  sentence 2                         0.00   0.00   0.00
+03_2   15.4  voice ends                         0.00   0.00   0.00
+03_5   18.9  sentence 1                         0.00   0.00   0.00
+03_5   18.9  The unit circle (lands)            0.00   0.00  -0.00
+03_5   18.9  each point flips                   0.00   0.00   0.00
+03_5   18.9  sentence 3                         0.00   0.00   0.00
+03_5   18.9  sentence 4                         0.00   0.00   0.00
+03_5   18.9  voice ends                         0.00   0.00   0.00
+03_6   17.3  sentence 1                         0.00   0.00   0.00
+03_6   17.3  sentence 2                         0.00   0.00   0.00
+03_6   17.3  So vertical lines (lands)          0.00   0.00   0.00
+03_6   17.3  sentence 3                         0.00   0.00   0.00
+03_6   17.3  voice ends                         0.00   0.00   0.00
+04_3   10.8  sentence 1                         1.56   1.44   1.31
+04_3   10.8  sentence 2                         0.00   0.00   0.00
+04_3   10.8  voice ends                         0.00   0.00   0.00
+04_4   17.3  Once for a simple zero (lands)     0.00   0.00   0.00
+04_4   17.3  twice for a zero of order two      0.00   0.00   0.00
+04_4   17.3  sentence 2                         0.00   0.00   0.00
+04_4   17.3  voice ends                         0.00   0.00   0.00
+04_5    8.5  sentence 1                         0.00   0.00   0.00
+04_5    8.5  voice ends                         0.00   0.00   0.00
+04_6   12.3  sentence 1                         0.00   0.00   0.00
+04_6   12.3  voice ends                         0.00   0.00   0.00
+04_7   12.3  sentence 1                         0.00   0.00   0.00
+04_7   12.3  sentence 2                         0.00   0.00   0.00
+04_7   12.3  voice ends                         0.00   0.00   0.00
+05_2   14.2  sentence 2                         0.00   0.00   0.00
+05_2   14.2  and at minus one                   0.00   0.00   0.00
+05_2   14.2  backwards twice (lands)            0.00   0.00   0.00
+05_2   14.2  voice ends                         0.00   0.00   0.00
+05_3   15.0  sentence 1                         0.00   0.00   0.00
+05_3   15.0  and its size                       0.00   0.00   0.00
+05_3   15.0  exact squares                      0.00   0.00   0.00
+05_3   15.0  repeating every two pi             0.00   0.00   0.00
+05_3   15.0  voice ends                         0.00   0.00   0.00
+05_7   26.2  sentence 1                         0.00   0.00   0.00
+05_7   26.2  sentence 2                         0.00   0.00   0.00
+05_7   26.2  sentence 3                         0.00   0.00   0.00
+05_7   26.2  sentence 4                         0.00   0.00   0.00
+05_7   26.2  sentence 5                         0.00   0.00   0.00
+05_7   26.2  voice ends                         0.00   0.00   0.00
+05_8   10.8  is the Riemann hypothesis          0.00   0.00   0.00
+05_8   10.8  sentence 2                         0.00   0.00   0.00
+05_8   10.8  voice ends                         0.00   0.00   0.00
+05_9   14.6  sentence 1                         1.52   1.21   0.90
+05_9   14.6  in little tiles                    0.00   0.00   0.00
+05_9   14.6  nearly square                      0.00   0.00   0.00
+05_9   14.6  sentence 4                         0.00   0.00   0.00
+05_9   14.6  voice ends                         0.00   0.00   0.00
+
+hooks late by over 0.5 s at any scale:
+  04_3 sentence 1: 1.56
+  05_9 sentence 1: 1.52

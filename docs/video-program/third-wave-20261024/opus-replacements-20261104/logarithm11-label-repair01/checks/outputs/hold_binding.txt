@@ -1,0 +1,22 @@
+source baseline 43c8dac362df7fac8d6c974b3c108a25dee677faac85d093bfdafc1564db6527
+source patched  a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee
+map occurrences of the source hash: 4; holds on this file: 2
+lines: baseline 2306, patched 2306
+lines that differ: [1309, 1662, 1910]
+hold 11_3->11_4 (prediction) lines 963..1070: stored e34e65ad69a71865; baseline recomputed e34e65ad69a71865 (control holds); patched e34e65ad69a71865 (unchanged); marker on its line, baseline True, patched True
+hold 11_20->11_8 (reading) lines 1501..1590: stored 36386b6b24e17360; baseline recomputed 36386b6b24e17360 (control holds); patched 36386b6b24e17360 (unchanged); marker on its line, baseline True, patched True
+old map against the patched source, evidence digests match: False (expected False: the director refuses until rebound)
+rebound map against the patched source, evidence digests match: True
+units file cites the map hash: 1 time(s)
+units text unchanged: True ; script_sha256 unchanged: True
+map baseline   7dbb3e1dcc309582545b3ccf490e40c581d209c091460195b6b9f2955b2b3860
+map rebound    ab7a9e6cc31336acd7b58748914c6110228427fa6b45b733cc8cc3a2da636fb6
+units baseline 34747511327c7c8bfee51c7a04c1fc721199d11117cb840c3df1e3205864dc7d
+units rebound  d8e40b96153040530afef84c671ae26967ace3c55a27b2cba2510f1779e9707e
+changed lines holding a timing or animation call: none
+stage06 binder sites on a changed line: none
+stage06 binder sites unchanged: True
+stage06 chapter byte-identical to canonical at this run: True
+script.tsv sha256: f201d2dc57fa9ccac30d475255690a90d6749449014b542d4dea62164f31bf84 ; units direction_contract.script_sha256 agrees: True
+
+[exit 0]

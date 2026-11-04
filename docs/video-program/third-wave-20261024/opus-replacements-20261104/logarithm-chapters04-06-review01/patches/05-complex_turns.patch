@@ -1,0 +1,173 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs
+@@ -56,8 +56,15 @@
+ };
+ /// The vertical input lines drawn, and their circles.
+ const XS: [f64; 5] = [-1.0, -0.5, 0.0, 0.5, 1.0];
+-/// How much further out each lap of the wound trace is drawn (drawing aid).
+-const LAP_SPREAD: f64 = 0.045;
++/// How much further out each lap of the wound trace is drawn (drawing aid):
++/// wide enough that three laps stay three strokes.
++const LAP_SPREAD: f64 = 0.06;
++/// Where the climb of 05_3 stops: three whole laps and a quarter, far past the
++/// top of the strip, so "again and again" is counted on screen, and between
++/// whole laps, where rounding cannot read the count one short.
++const CLIMB_END: f64 = 6.5 * PI;
++/// The note beside the arrow that carries the climb on past the strip.
++const GOES_ON: &str = "the line goes on";
+ /// Lines over the output plane start just right of its axis, which would
+ /// otherwise run through them.
+ const OVER_OUT: [f64; 2] = [OUT.centre[0] + 0.15, 2.6];
+@@ -76,6 +83,9 @@
+ const ZERO_WORD_AT: [f64; 2] = [OUT.centre[0] + 2.2, -2.6];
+ /// The rule for 05_6's column, with its k defined on screen.
+ const EACH: &str = r"e^{(\pi + 2\pi k) i} = -1,\ \ k \text{ whole}";
++/// Its place: clear of the strip on the left, and on the right short of the
++/// output axis, which would otherwise run under "whole".
++const EACH_AT: [f64; 2] = [IN.centre[0] + 2.05, -0.1];
+ const SETS_LEN: &str = r"x \text{ sets the length, } e^{x}";
+ const SETS_ANG: &str = r"y \text{ sets the angle}";
+ 
+@@ -458,7 +468,9 @@
+             let g = s.add(VMobject::new());
+             let a = s.add(
+                 Dot::new()
+-                    .point(IN.p(C::new(0.0, y)))
++                    // past the top of the strip the dot waits at its edge: the arrow
++                    // above it says the climb goes on, and the output keeps winding
++                    .point(IN.p(C::new(0.0, y.min(IN_Y))))
+                     .radius(0.08)
+                     .style(super::draw::flat(blue, 1.0))
+                     .build(),
+@@ -496,8 +508,17 @@
+             LEFT,
+         )?;
+         let aid = kit.text(stage, AID, 18.0, Palette::dim(), v(AID_AT[0], AID_AT[1]))?;
+-        fade_in_all(stage, &[laps_word, aid], 0.4)?;
+-        play!(stage; tween(climb, 3.0 * PI, 2.2)?);
++        let strip_top = IN.p(C::new(0.0, IN_Y));
++        let goes_on = super::draw::arrow(
++            stage,
++            v(strip_top[0], strip_top[1] + 0.12),
++            v(strip_top[0], strip_top[1] + 0.48),
++            blue,
++            3.0,
++        )?;
++        let goes_on_word = kit.text_left(stage, GOES_ON, 18.0, blue, v(strip_top[0] + 0.2, strip_top[1] + 0.3))?;
++        fade_in_all(stage, &[laps_word, aid, goes_on, goes_on_word], 0.4)?;
++        play!(stage; tween(climb, CLIMB_END, 2.6)?);
+         // every vertical line wraps its own circle
+         let mut circles = Vec::new();
+         for &x in &XS {
+@@ -507,7 +528,23 @@
+ 
+         // 05_4: 0, 2πi, 4πi and −2πi all land on 1
+         kit.say(stage, "05_4")?;
+-        fade_out_all(stage, &[closes, h_line, h_dot], 0.3)?;
++        // the climb is over: its dot would stand away from the 1 the voice now names,
++        // and the input dot would sit under the arrow to 4πi
++        fade_out_all(
++            stage,
++            &[
++                closes,
++                h_line,
++                h_dot,
++                climber,
++                laps,
++                laps_word,
++                aid,
++                goes_on,
++                goes_on_word,
++            ],
++            0.3,
++        )?;
+         let one = OUT.p(C::new(1.0, 0.0));
+         let one_dot = dot(stage, one, 0.11, gold);
+         let one_word = kit.text(stage, "1", 26.0, gold, v(one[0] + 0.3, one[1] - 0.3))?;
+@@ -575,9 +612,7 @@
+         let mut tidy = marks.clone();
+         tidy.extend(links.iter().copied());
+         // the blue x = 0 column leaves too: it would give away 05_6's first step
+-        tidy.extend([
+-            bracket, lap_word, one_dot, one_word, climber, laps, laps_word, aid, v_line,
+-        ]);
++        tidy.extend([bracket, lap_word, one_dot, one_word, v_line]);
+         fade_out_all(stage, &tidy, 0.5)?;
+         kit.until_sentence(stage, "05_5", 1)?;
+         let minus = OUT.p(C::new(-1.0, 0.0));
+@@ -614,7 +649,9 @@
+         }
+         fade_in_lagged(stage, &more, 0.9, 0.3)?;
+         kit.until_sentence(stage, "05_6", 3)?;
+-        let column = fact_list("complex.minus_one_logs_pi")?;
++        // in the order the narration names them: πi, 3πi, −πi, then −3πi
++        let mut column = fact_list("complex.minus_one_logs_pi")?;
++        column.sort_by_key(|&k| (k < 0.0, k.abs() as i64));
+         let mut col = Vec::new();
+         for &k in &column {
+             let at = IN.p(C::new(0.0, k * PI));
+@@ -625,7 +662,7 @@
+         let apart = kit.text(stage, "2π apart", 20.0, purple, v(IN.centre[0] + 2.4, 0.5))?;
+         fade_in_all(stage, &[apart], 0.4)?;
+         kit.until_sentence(stage, "05_6", 4)?;
+-        let each = kit.tex(stage, EACH, 30.0, gold, &[], v(IN.centre[0] + 2.6, -0.1))?;
++        let each = kit.tex(stage, EACH, 30.0, gold, &[], v(EACH_AT[0], EACH_AT[1]))?;
+         fade_in_all(stage, &[each], 0.5)?;
+ 
+         // 05_7: every nonzero number has a column; zero has none
+@@ -870,11 +907,15 @@
+         run(|stage| {
+             let kit = Kit::new()?;
+             // the rule for the column, between the strip and the output rings
+-            let each = kit.tex(stage, EACH, 30.0, Palette::ink(), &[], v(IN.centre[0] + 2.6, -0.1))?;
++            let each = kit.tex(stage, EACH, 30.0, Palette::ink(), &[], v(EACH_AT[0], EACH_AT[1]))?;
+             let [left, right, _, _] = box_of(stage, each);
+             assert!(left > IN.p(C::new(IN_X.1, 0.0))[0] + 0.05, "the rule reaches the strip");
+             let outer = OUT.centre[0] - OUT.scale * XS[XS.len() - 1].exp();
+             assert!(right < outer - 0.05, "the rule reaches the outer ring");
++            assert!(
++                right < OUT.centre[0] - OUT.half_w - 0.03,
++                "the output axis runs under the rule"
++            );
+             // the cards that replaced plain carets
+             let example = example_words("2");
+             for (card, size, y) in [
+@@ -948,6 +989,38 @@
+         let last = t[t.len() - 1];
+         let r = ((last[0] - OUT.centre[0]).powi(2) + (last[1] - OUT.centre[1]).powi(2)).sqrt() / OUT.scale;
+         assert!((r - (1.0 + LAP_SPREAD * 1.5)).abs() < 1e-9);
++    }
++
++    #[test]
++    fn the_count_moves_on_screen_and_the_wound_trace_stays_inside_the_next_circle() {
++        // the count appears at one lap and has to move: "again and again"
++        assert_eq!((CLIMB_END / TAU).floor(), 3.0);
++        // it stops between whole laps, where rounding cannot read it short
++        let past = (CLIMB_END / TAU).fract();
++        assert!(past > 0.2 && past < 0.8, "{past}");
++        // the input runs off the strip, so its dot waits at the top edge
++        const { assert!(CLIMB_END > IN_Y) };
++        let t = wound(0.0, 0.0, CLIMB_END);
++        let furthest = t
++            .iter()
++            .map(|q| (q[0] - OUT.centre[0]).hypot(q[1] - OUT.centre[1]))
++            .fold(0.0, f64::max);
++        assert!(furthest < OUT.scale * 0.5f64.exp() - 0.1, "{furthest}");
++    }
++
++    #[test]
++    fn the_note_past_the_strip_clears_the_strip_and_the_title() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let top = IN.p(C::new(0.0, IN_Y));
++            let word = kit.text_left(stage, GOES_ON, 18.0, Palette::ink(), v(top[0] + 0.2, top[1] + 0.3))?;
++            let [left, right, bottom, above] = box_of(stage, word);
++            assert!(left > top[0] + 0.1, "the arrow reaches the note");
++            assert!(bottom > top[1] + 0.05, "the strip's top line reaches the note");
++            // the title's left end stands at about -2.2 in the rendered frames
++            assert!(right < -2.4 && above < SAFE[1], "the note leaves its place");
++            Ok(())
++        });
+     }
+ 
+     #[test]

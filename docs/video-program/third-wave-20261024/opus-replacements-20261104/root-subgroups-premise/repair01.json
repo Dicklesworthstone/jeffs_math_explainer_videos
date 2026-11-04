@@ -1,0 +1,11 @@
+{
+  "utc": "2026-11-04T05:26:42.722470+00:00",
+  "source": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/abstract_algebra_expanded/src/subgroups.rs",
+  "source_sha256": "72103d39f22c750ad8162049de605e464a5df57c6114ea5cc63bbb52ffaeab2a",
+  "candidate_sha256": "c0faa9f817258d5e31a55f3b1a9c6ef9a86336826df77e626b4560c0756d9a42",
+  "change": "Keep nonempty subset H of G visible throughout pair-test proof and final iff. Empty set otherwise satisfies pair predicate vacuously.",
+  "canonical_changed": false,
+  "build": "unrun",
+  "pictures": "unrendered/unreviewed",
+  "narration": "unchanged; retained Oliver takes preserved"
+}

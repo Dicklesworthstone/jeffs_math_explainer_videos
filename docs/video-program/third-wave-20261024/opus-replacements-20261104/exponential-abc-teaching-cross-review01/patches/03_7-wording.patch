@@ -1,0 +1,8 @@
+--- a/product01/script-slice.tsv
++++ b/product01/script-slice.tsv
+@@ -4,4 +4,4 @@
+ 03_4	The degree-three diagonal works the same way. In general, multiplying a degree-m diagonal by m factorial gives the binomial coefficients. The binomial theorem combines that diagonal into the sum x plus y, raised to the m, divided by m factorial. We have shown the complete diagonals through degree three here. Higher ones continue beyond the visible corner.
+ 03_5	There is one analytic permission slip. Both series converge absolutely, so their product can be regrouped by diagonals without changing its sum. The diagonals are precisely the terms of E at the sum, x plus y. Therefore E of x times E of y equals E of the sum, x plus y. The multiplication law came from the factorials and convergence, not from naming the function exponential.
+ 03_6	Set y equal to minus x. The product is E of zero, which is one, so E never vanishes. For a real x, apply the same law to two copies of half x. E of x is the square of a nonzero real number, so it is positive. Since its derivative is itself, it is increasing. Those familiar properties now follow from what we built.
+-03_7	Now we can name it. Call E of one by the letter e. The law says E of two is e times e, and E of three is e cubed. Roots give fractions, reciprocals give negatives, and continuity fills in the rest. That is when writing E of x as e to the x becomes a result, not a label.
++03_7	Now we can name a number. Call E of one by the small letter e. The law says E of two is e times e, and E of three is e cubed. Roots give fractions, reciprocals give negatives, and continuity fills in the rest. That is when writing E of x as e to the x becomes a result, not a label.

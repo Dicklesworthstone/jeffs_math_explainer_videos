@@ -1,0 +1,50 @@
+ok   TEXT   undoing_growth.rs cue calls unchanged: 35 calls
+ok   TEXT   complex_turns.rs cue calls unchanged: 33 calls
+ok   TEXT   lifting_loops.rs cue calls unchanged: 34 calls
+ok   TEXT   script.tsv unchanged
+ok   TEXT   check_cues passes on the baseline copy
+ok   TEXT   check_cues passes on the candidate copy
+ok   TEXT   check_cues listing changes only by the new 0 label and the reworded formula: 2 new, 1 gone
+note   TEXT   check_cues new row: lifting_loops.rs: "0"
+note   TEXT   check_cues new row: lifting_loops.rs: "e^{L(z)} = z = e^{\ell} \;\Rightarrow\; L(z) - \ell = 2\pi i\,k,\ \ k \text{ whole}"
+note   TEXT   check_cues gone row: lifting_loops.rs: "e^{L(z)} = z = e^{\ell(z)} \;\Rightarrow\; L(z) - \ell(z) = 2\pi i\,k,\ \ k \text{ whole}"
+ok   MATHS  C1 control: baseline climb to 3 pi never moves the count
+ok   MATHS  C1 candidate count ends on 3
+ok   MATHS  C1 stops between whole laps: fraction 0.250, end angle pi/2
+ok   MATHS  C1 each count stands at least 0.4 s under the assumed smooth rate: 1: 1.62 s, 2: 0.71 s, 3: 1.87 s (real-speed legibility not seen)
+ok   MATHS  C1 pinned dot stops short of the arrow tail: dot top 2.757, tail 2.797
+ok   MATHS  C1 wound trace stays inside the x = 0.5 ring: 1.195 vs 1.649 in lengths
+ok   MATHS  C1 lap spacing clears the 3 pt stroke: 0.051 vs 0.030 units; baseline 0.038 (margin only 1.9 px at 720p)
+note   MATHS  C1 the green dot rides the true circle, so at the end it stands 15 px (720p) inside the trace tip; the on-screen aid already says laps are drawn further out
+ok   MATHS  C7 control: baseline rule runs over the output axis: right -0.756, axis -1.200
+ok   MATHS  C7 candidate rule stops short of the axis: right -1.306
+ok   MATHS  C7 candidate rule clears the strip: left -4.394, strip -4.540
+ok   MATHS  S3 column sorts to the spoken order
+ok   MATHS  C3 control: baseline axis passes the safe edge: -7.00
+ok   MATHS  C3 candidate axis inside the safe edge: -6.90
+ok   MATHS  C4 carried value differs at z = 1 by one lap
+ok   MATHS  C4 both values are logarithms of the same z
+ok   MATHS  06_6 gauge sign: candidate - ours drops by a lap past -1
+ok   MATHS  C6b note centres under the side circle: -1.978 vs -1.975
+ok   MATHS  C6b control: baseline note sits under the unit circle
+ok   MATHS  C6b note stands below the side circle: note top about -1.78, circle bottom -1.30
+ok   MATHS  C6b 0 is outside the side circle
+ok   MATHS  S1 name right of the line at its own top
+ok   MATHS  S1 name short of the note at scene x = 1.0
+ok   MATHS  05_3 last sentence holds the 4.2 s picture under scratch shares: 4.8 s; baseline picture 3.8 s
+ok   MATHS  06_2 first sentence holds the 2.8 s picture under scratch shares: 6.4 s
+note   MATHS  06_20 third sentence: 0.4 + 4.0 + 0.3 s before and after, order only; real Oliver sentence timing unmeasured everywhere
+ok   PIXELS control: the scanner finds the 05 rule on frame 350: 1409 px, x (295, 572)
+ok   PIXELS C7 control: baseline axis and rule share the row right of -1.2: 206 px
+ok   PIXELS C1 note and arrow box empty in 05_3: 4 frames t 92.0..98.5, most ink 0
+ok   PIXELS C1 title's left end stands right of the note: title ink starts at px 441
+ok   PIXELS C7 new left part of the rule is empty today: 7 frames t 140.0..155.0, most ink 0
+ok   PIXELS C6b control: a box reaching x = -4.1 does find the upright axis: 60 px, x (270, 271)
+ok   PIXELS C6b box of the name 0, from before 06_4 to the last picture: 35 frames t 60.0..178.15, most ink 0
+ok   PIXELS C4 ours line found on frame 364: ink x (766, 927)
+note   PIXELS C4 ours line ends at scene x 3.19; the name starts 0.12 right of it
+ok   PIXELS C4 box of the name right of ours, 06_20 to the end: 11 frames t 130.0..178.15, most ink 0
+ok   PIXELS S1 control: the scanner finds the dashed mirror beside the box: 62 px, x (601, 614)
+ok   PIXELS S1 box of the mirror's name, from 04_4 while the graph stands: 10 frames t 76.3..108.0, most ink 0
+
+0 failed

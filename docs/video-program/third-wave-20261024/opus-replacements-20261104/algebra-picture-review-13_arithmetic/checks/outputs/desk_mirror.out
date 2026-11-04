@@ -1,0 +1,58 @@
+== 1 sentence indices and phrases
+ok   A: 32 waits checked
+ok   A: PHRASES says 14, lists 14
+ok   A: phrases waited on but not guarded: []
+ok   AB: 45 waits checked
+ok   AB: PHRASES says 15, lists 15
+ok   AB: phrases waited on but not guarded: []
+     sentence counts: {'13_1': 3, '13_2': 6, '13_3': 7, '13_4': 6, '13_5': 5, '13_6': 5, '13_7': 5, '13_8': 5, '13_9': 6, '13_10': 3, '13_11': 5, '13_12': 6}
+ok   the test's table agrees: {'13_1': '3', '13_2': '6', '13_3': '7', '13_4': '6', '13_5': '5', '13_6': '5', '13_7': '5', '13_8': '5', '13_9': '6', '13_10': '3', '13_11': '5', '13_12': '6'}
+
+== 2 mirror of the tile model and Elem::mul
+ok   LONG_ROUTE ends at one quarter-turn
+ok   SEQUENCE (flip, turn, flip) ends at the opposite quarter-turn
+ok   and at r cubed
+ok   the long route really leaves that pose on the way
+ok   s r = r⁻¹ s
+ok   s s = e
+ok   r⁻¹ r² = r
+ok   s r s r² s = r s, the end of the 13_7 chain
+ok   after the first rewrite the word r⁻¹ s s r² s is still that element
+
+== 3 oracle on AB
+ok   oracle exit 0; 240 lines 
+ok   closure fact ['arithmetic.closure.product\tr^3s'] against mirror r^3s
+ok   exactly one oracle line differs from canonical: [('arithmetic.closure.product\trs', 'arithmetic.closure.product\tr^3s')]
+
+== 4 glyph coverage of new on-screen strings
+ok   text 'start': characters not in glyph_text []
+ok   text 'Undoing +3 needs −3, which is missing': characters not in glyph_text []
+ok   tex 'sr=r^{-1}s': characters not in glyph_tex []
+ok   tex 'srs=r^{-1}=r^3': characters not in glyph_tex []
+ok   tex 's\\,r=r^3s': characters not in glyph_tex []
+
+== 5 clearances on the baseline frames, 720p, 90 px per unit
+ok   row 1, f∘(g∘h): value at x -5.6..-5.2 ink (149, 399, 159, 420) inside box 122..672
+ok   row 1, f∘(g∘h): value at x -0.2..0.2 ink (633, 399, 647, 420) inside box 122..672
+ok   row 1, f∘(g∘h): x 1.25..1.75 ink (763, 404, 787, 415) clear of box 122..672
+ok   row 2, (f∘g)∘h: value at x -3.2..-2.8 ink (363, 489, 377, 510) inside box 338..942
+ok   row 2, (f∘g)∘h: value at x 2.8..3.2 ink (903, 489, 917, 510) inside box 338..942
+ok   row 2, (f∘g)∘h: x -4.45..-3.95 ink (250, 494, 274, 505) clear of box 338..942
+ok   row 2, (f∘g)∘h: x 4.7..6.1 ink (1074, 486, 1178, 513) clear of box 338..942
+ok   the two trail boxes keep 31 px between them
+ok   rack row 0: ink (402, 315, 878, 419) inside frame x 374..906, y 308..430
+ok   rack row 1: ink (402, 446, 878, 550) inside frame x 374..906, y 439..560
+ok   the two row frames do not touch
+ok   frame 358: lowest tile ink ends at y 524; text at y -2.3 would start near 553
+ok   frame 358: at least 15 px clear of BELOW_TURNING
+ok   frame 371: lowest tile ink ends at y 519; text at y -2.3 would start near 553
+ok   frame 371: at least 15 px clear of BELOW_TURNING
+
+== 6 the 13_12 beats on Oliver take01, ASR sentence starts recorded by root
+     beat            window  before: asks, full hold   B: asks, full hold
+     closure          3.84    1.85   1.99            1.10   2.74
+     associativity    4.64    4.10   0.54            2.85   1.79
+     identity         2.88    2.05   0.83            0.75   2.13
+     inverse          4.50    4.00   0.50            2.70   1.80
+
+problems: 0

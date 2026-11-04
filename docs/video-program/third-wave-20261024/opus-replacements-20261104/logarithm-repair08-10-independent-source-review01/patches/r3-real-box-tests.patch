@@ -1,0 +1,175 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/draw.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/draw.rs
+@@ -677,6 +677,23 @@
+     }
+ }
+ 
++/// Run `f` as a scene's `construct`, headless, at 10 fps.
++#[cfg(test)]
++pub fn probe_scene(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
++    use fmn::scene::{NullSceneSink, RuntimeConfig};
++    struct Probe<F>(F);
++    impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
++        fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
++            (self.0)(stage)
++        }
++    }
++    let config = RuntimeConfig {
++        fps: 10,
++        ..RuntimeConfig::default()
++    };
++    fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
++}
++
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+@@ -692,6 +709,46 @@
+     }
+ 
+     #[test]
++    fn real_flows_keep_the_box_and_the_stretch_lines_when_they_come_home() {
++        use crate::model::{self, J};
++        let home = model::flow(model::mscale(J, TAU), 1.0);
++        let stretch = model::flow([[1.5f64.ln(), 0.0], [0.0, 0.6f64.ln()]], 1.0);
++        for k in -36..=36 {
++            let t = f64::from(k) / 12.0;
++            for p in [[3.0, t], [-3.0, t], [t, 3.0], [t, -3.0]] {
++                assert!(inside_clip(model::apply(home, p), 3.0), "{p:?}");
++            }
++            for p in [[2.0, t], [-2.0, t]] {
++                assert!(inside_clip(model::apply(stretch, p), 3.0), "{p:?}");
++            }
++        }
++    }
++
++    #[test]
++    fn a_real_card_sets_its_brackets_from_its_own_typeset_entries() {
++        probe_scene(|stage| {
++            let kit = Kit::new()?;
++            let ink = Palette::ink();
++            for (entries, size) in [
++                ([["0.5", "-0.866"], ["0.866", "0.5"]], 34.0),
++                ([["0.905", "-0.97"], ["0.776", "0.517"]], 30.0),
++            ] {
++                let mut widest: f64 = 0.0;
++                for e in entries.iter().flatten() {
++                    let alone = kit.text(stage, &shown(e), size, ink, ORIGIN)?;
++                    widest = widest.max(stage.get_width(alone));
++                }
++                let (_, w) = card_widths(size, widest);
++                let card = matrix_card(&kit, stage, entries, ORIGIN, size, ink)?;
++                // the brackets are the card's outer edge, at ±w
++                let drawn = stage.get_width(card);
++                assert!((drawn - 2.0 * w).abs() < 1e-3, "{drawn} against {}", 2.0 * w);
++            }
++            Ok(())
++        });
++    }
++
++    #[test]
+     fn card_columns_and_brackets_clear_the_widest_entry() {
+         for (size, widest) in [(34.0, 1.039), (30.0, 0.767), (30.0, 0.617), (26.0, 0.332), (32.0, 0.16)] {
+             let (dx, w) = card_widths(size, widest);
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/matrix_logs.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/matrix_logs.rs
+@@ -43,6 +43,7 @@
+ const CLIP: f64 = 4.4;
+ /// Where the dictionary line of 09_4 is centred: its whole width in the frame.
+ const DICTIONARY_X: f64 = 4.95;
++const DICTIONARY: &str = "turn-and-scale matrix ↔ complex number";
+ 
+ /// The points whose landing places 09_1 marks.
+ const COMPARE: [[f64; 2]; 4] = [[1.0, 0.0], [0.0, 1.0], [1.0, 1.0], [-1.0, 1.0]];
+@@ -369,13 +370,7 @@
+         )?;
+         fade_in_all(stage, &[column], 0.5)?;
+         kit.until_sentence(stage, "09_4", 5)?;
+-        let dictionary = kit.text(
+-            stage,
+-            "turn-and-scale matrix ↔ complex number",
+-            20.0,
+-            teal,
+-            v(DICTIONARY_X, 0.05),
+-        )?;
++        let dictionary = kit.text(stage, DICTIONARY, 20.0, teal, v(DICTIONARY_X, 0.05))?;
+         let pair = matrix_card(&kit, stage, [["a", "-b"], ["b", "a"]], v(4.9, -0.75), 26.0, teal)?;
+         let as_c = kit.tex(stage, r"\leftrightarrow\ a + bi", 26.0, teal, &[], v(6.2, -0.75))?;
+         fade_in_all(stage, &[dictionary, pair, as_c], 0.5)?;
+@@ -447,10 +442,13 @@
+ 
+     #[test]
+     fn the_dictionary_line_stays_in_the_frame_and_clear_of_the_third_panel() {
+-        // the line's width, from the lint's span on preview02: 3.54 to 7.26
+-        let half = (7.26 - 3.54) / 2.0;
+-        assert!(DICTIONARY_X + half < 6.86);
+-        assert!(DICTIONARY_X - half > SMALL[2][0] + 2.0 * SMALL_UNIT + 0.3);
++        super::super::draw::probe_scene(|stage| {
++            let kit = Kit::new()?;
++            let line = kit.text(stage, DICTIONARY, 20.0, Palette::ink(), v(DICTIONARY_X, 0.05))?;
++            assert!(stage.get_bounding_box_point(line, RIGHT)[0] < 6.86);
++            assert!(stage.get_bounding_box_point(line, LEFT)[0] > SMALL[2][0] + 2.0 * SMALL_UNIT + 0.3);
++            Ok(())
++        });
+     }
+ 
+     #[test]
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs
+@@ -61,6 +61,8 @@
+ /// the other.
+ const RULE_BACK: f64 = 0.25;
+ const LAP_ASIDE: f64 = 0.15;
++const RULE_WORD: &str = "keep −π < turning < π";
++const LAP_WORD: &str = "ellipse flows: ±2π";
+ /// The chapter's fine print, with the prefix `draw::precisely` adds counted in
+ /// the test below.
+ const TEXTBOOK: &str = "turning rate of the flow of X = imaginary part of an eigenvalue of X";
+@@ -517,7 +519,7 @@
+         let lap_r = ring(stage, turn_at(TAU), 0.11, purple, 3.0);
+         let lap_word = kit.text(
+             stage,
+-            "ellipse flows: ±2π",
++            LAP_WORD,
+             20.0,
+             purple,
+             v(turn_at(TAU)[0] + LAP_ASIDE, TURN_Y - 0.7),
+@@ -526,13 +528,7 @@
+ 
+         // 10_4: the same rule picks one: the principal logarithm
+         kit.say(stage, "10_4")?;
+-        let rule = kit.text(
+-            stage,
+-            "keep −π < turning < π",
+-            20.0,
+-            green,
+-            v(TURN_X - RULE_BACK, TURN_Y - 0.7),
+-        )?;
++        let rule = kit.text(stage, RULE_WORD, 20.0, green, v(TURN_X - RULE_BACK, TURN_Y - 0.7))?;
+         let mut crosses = Vec::new();
+         for c in [turn_at(-TAU), turn_at(TAU)] {
+             crosses.push(seg(
+@@ -736,12 +732,17 @@
+ 
+     #[test]
+     fn the_labels_under_the_turning_line_keep_apart() {
+-        // widths from preview02 frame 170: the rule 3.10 to 5.14, the label 5.03 to 6.56
+-        let (rule_w, lap_w) = (5.14 - 3.10, 6.56 - 5.03);
+-        let rule_right = TURN_X - RULE_BACK + rule_w / 2.0;
+-        let lap_at = turn_at(TAU)[0] + LAP_ASIDE;
+-        assert!(lap_at - lap_w / 2.0 - rule_right > 0.25);
+-        assert!(lap_at + lap_w / 2.0 < 6.86);
++        super::super::draw::probe_scene(|stage| {
++            let kit = Kit::new()?;
++            let y = TURN_Y - 0.7;
++            let rule = kit.text(stage, RULE_WORD, 20.0, Palette::ink(), v(TURN_X - RULE_BACK, y))?;
++            let lap = kit.text(stage, LAP_WORD, 20.0, Palette::ink(), v(turn_at(TAU)[0] + LAP_ASIDE, y))?;
++            let rule_right = stage.get_bounding_box_point(rule, RIGHT)[0];
++            let lap_left = stage.get_bounding_box_point(lap, LEFT)[0];
++            assert!(lap_left - rule_right > 0.25, "gap {}", lap_left - rule_right);
++            assert!(stage.get_bounding_box_point(lap, RIGHT)[0] < 6.86);
++            Ok(())
++        });
+     }
+ 
+     #[test]

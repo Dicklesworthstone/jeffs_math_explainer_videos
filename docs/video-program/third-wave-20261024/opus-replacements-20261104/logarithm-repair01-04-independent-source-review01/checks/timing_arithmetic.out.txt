@@ -1,0 +1,13 @@
+Scratch-rule arithmetic only; not measured Oliver timing.
+02_1: phrase 'one that slides', share of sentence 0 = 0.649
+  x0.8: nudge now 1.40..2.60; phrase at 3.09; corrected nudge 3.09..4.29; sentence 1 at 4.76
+  x1.0: nudge now 1.40..2.60; phrase at 3.86; corrected nudge 3.86..5.06; sentence 1 at 5.96
+  x1.25: nudge now 1.40..2.60; phrase at 4.83; corrected nudge 4.83..6.03; sentence 1 at 7.44
+04_2: 'it only ever climbs' at 54/139 chars of sentence 3, share 0.3885
+  x0.8: sentence 8.42 s; tween now +0.40..+4.40; phrase at +3.27; across the phrase moving 1.13 s, frozen 4.02 s; corrected run 4.85 s, ending 0.30 s before sentence 4
+  x1.0: sentence 10.52 s; tween now +0.40..+4.40; phrase at +4.09; across the phrase moving 0.31 s, frozen 6.12 s; corrected run 6.13 s, ending 0.30 s before sentence 4
+  x1.25: sentence 13.15 s; tween now +0.40..+4.40; phrase at +5.11; across the phrase moving 0.00 s, frozen 8.04 s; corrected run 7.74 s, ending 0.30 s before sentence 4
+04_4 x0.8: S1 2.15, S2 4.41. Now: labels full strength 0.00 s, on screen 0.65 s, flip ends 5.40, after-labels in 5.80. Moved wait: labels in by 1.30, full strength 0.85 s, flip 2.40..5.00, after-labels in 5.40
+04_4 x1.0: S1 2.69, S2 5.52. Now: labels full strength 0.00 s, on screen 0.65 s, flip ends 5.94, after-labels in 6.34. Moved wait: labels in by 1.30, full strength 1.39 s, flip 2.94..5.54, after-labels in 5.94
+04_4 x1.25: S1 3.36, S2 6.90. Now: labels full strength 0.00 s, on screen 0.65 s, flip ends 6.61, after-labels in 7.01. Moved wait: labels in by 1.30, full strength 2.06 s, flip 3.61..6.21, after-labels in 6.61
+02_2 label '0.398 of a full length': width 1.99, centre -4.41, span -5.40..-3.41; bar -6.00..-2.82

@@ -1,0 +1,471 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs
+@@ -33,21 +33,24 @@
+ //! proof, via the Jordan form).
+ //!
+ //! Screen layout: the plane panel at the left (x −5.8..−1.4), the signed
+-//! area gauge at x 0.9, a text column from x 2.2.
++//! area gauge at x 0.9 with its word over its live number, a text column
++//! from x 2.2. Proof captions break inside that column. A label on the panel
++//! either fits one grid cell or stands on a plate (`on_plate`); the target F's
++//! words are a key in the column, clear of the moving plane.
+ //!
+ //! Rebuild candidate for `mx-video-program-program-87do.63`; uncompiled,
+ //! unrendered, unlistened.
+ 
+ use std::f64::consts::PI;
+ 
+-use explainer_kit::{Kit, Palette, play, tween, v};
++use explainer_kit::{BACKGROUND, Kit, Palette, hex, play, tween, v};
+ use fmn::mobject::Stage as Arena;
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+     answer_c, arrow, arrow_parts, clipped_grid, fact, fact_f64, fact_list, fact_matrix, fade_in_all, fade_out_all,
+-    faded_line, flat, lap_c, letter_f, line_style, matrix_card, number_c, position_c, precisely, predict, ring, seg,
+-    shown, slide_c, swap, title, value, warn_c,
++    faded_line, flat, group, lap_c, letter_f, line_style, matrix_card, number_c, position_c, precisely, predict, ring,
++    seg, shown, slide_c, swap, title, value, warn_c,
+ };
+ use crate::model::{self, I2, J, M2};
+ 
+@@ -65,6 +68,23 @@
+ const GAUGE_ZERO: f64 = -0.9;
+ const GAUGE_PER: f64 = 1.35;
+ const GAUGE_RANGE: (f64, f64) = (-1.3, 2.2);
++/// The gauge's tick numbers and the left end of its red zero line, apart so
++/// that the line never strikes the 0.
++const GAUGE_LABEL_X: f64 = GAUGE_X - 0.45;
++const ZERO_LINE_LEFT: f64 = GAUGE_X - 0.25;
++/// The readout over the gauge: its word, then its live number beneath, under
++/// the title and above the gauge's top. A three-decimal number is about 0.55
++/// wide, so this left edge centres it on the gauge.
++const READOUT_WORD_Y: f64 = 2.72;
++const READOUT_VALUE_Y: f64 = 2.36;
++const READOUT_VALUE_X: f64 = GAUGE_X - 0.28;
++/// The key to the target F in 11_6, offsets from the text column: a small copy
++/// of the outline (the flipped F reaches 1.8 units left of its centre), then
++/// its words.
++const KEY_Y: f64 = -0.45;
++const KEY_F_UNIT: f64 = 0.45;
++const KEY_F_X: f64 = 1.8 * KEY_F_UNIT;
++const KEY_WORD_X: f64 = 0.85;
+ /// The flow's clock runs over this range in 11_2 (forwards, then back).
+ const FLOW_TIMES: (f64, f64) = (-2.0, 3.0);
+ 
+@@ -91,6 +111,19 @@
+     v(CENTRE[0] + UNIT * q[0], CENTRE[1] + UNIT * q[1])
+ }
+ 
++/// Stand a placed label on a plate of the background colour. One grid cell is
++/// narrower than these words, so without it a grid line runs through a glyph.
++fn on_plate(stage: &mut Stage<'_>, label: Mob) -> fmn::Result<Mob> {
++    let plate = Rectangle::new()
++        .width(stage.get_width(label) + 0.1)
++        .height(stage.get_height(label) + 0.06)
++        .style(flat(hex(BACKGROUND), 1.0))
++        .build()?
++        .moved_to(stage.get_center(label));
++    let plate = stage.arena_mut().add(plate);
++    group(stage, &[plate, label])
++}
++
+ /// The plane under `m`, for a redraw: clipped grid, optionally the unit
+ /// square (blue, its signed area on the gauge), and the letter F.
+ fn plane(s: &mut Arena, m: M2, square: bool) -> Mob {
+@@ -248,7 +281,8 @@
+                 .style(flat(Palette::faint(), 0.8))
+                 .build(),
+         );
+-        let before_word = kit.text(stage, "before", 20.0, Palette::dim(), to_screen([0.6, 1.25]))?;
++        // each word fits one grid cell: centred in it, no grid line touches it
++        let before_word = kit.text(stage, "before", 20.0, Palette::dim(), to_screen([0.5, 1.25]))?;
+         fade_in_all(stage, &[start_grid, before_f, before_word], 0.5)?;
+         kit.until_sentence(stage, "11_1", 3)?;
+         let after_f = stage.arena_mut().add(
+@@ -257,7 +291,7 @@
+                 .build(),
+         );
+         let joins = chords(stage.arena_mut(), mirror);
+-        let after_word = kit.text(stage, "after", 20.0, gold, to_screen([-0.6, 1.25]))?;
++        let after_word = kit.text(stage, "after", 20.0, gold, to_screen([-0.5, 1.25]))?;
+         let ends_note = kit.text_left(
+             stage,
+             "dashes pair each corner with where it lands",
+@@ -330,22 +364,22 @@
+                 Palette::dim(),
+                 2.0,
+             ));
+-            scale.push(kit.text(
+-                stage,
+-                &shown(&k.to_string()),
+-                18.0,
+-                Palette::dim(),
+-                v(GAUGE_X - 0.35, y),
+-            )?);
++            scale.push(kit.text(stage, &shown(&k.to_string()), 18.0, Palette::dim(), v(GAUGE_LABEL_X, y))?);
+         }
+         let zero_line = seg(
+             stage,
+-            v(GAUGE_X - 0.35, GAUGE_ZERO),
++            v(ZERO_LINE_LEFT, GAUGE_ZERO),
+             v(GAUGE_X + 0.35, GAUGE_ZERO),
+             red,
+             4.0,
+         );
+-        let area_word = kit.text(stage, "signed area of the square:", 22.0, blue, v(GAUGE_X, 2.45))?;
++        let area_word = kit.text(
++            stage,
++            "signed area of the square:",
++            22.0,
++            blue,
++            v(GAUGE_X, READOUT_WORD_Y),
++        )?;
+         fade_in_all(stage, &scale, 0.4)?;
+         fade_in_all(stage, &[zero_line, area_word], 0.4)?;
+         let needle = stage.always_redraw(move |s: &mut Arena| {
+@@ -360,7 +394,7 @@
+             false,
+             24.0,
+             blue,
+-            v(2.0, 2.45),
++            v(READOUT_VALUE_X, READOUT_VALUE_Y),
+             LEFT,
+         )?;
+         kit.until_sentence(stage, "11_2", 1)?;
+@@ -427,10 +461,16 @@
+ 
+         // 11_3: det < 0 rules a real logarithm out; det > 0 is not enough
+         kit.say(stage, "11_3")?;
+-        let det_word = kit.text(stage, "det = signed area factor:", 22.0, gold, v(GAUGE_X, 2.45))?;
++        let det_word = kit.text(
++            stage,
++            "det = signed area factor:",
++            22.0,
++            gold,
++            v(GAUGE_X, READOUT_WORD_Y),
++        )?;
+         swap(stage, &[area_word, m_card, m_word], &[det_word], 0.4)?;
+         kit.until_sentence(stage, "11_3", 1)?;
+-        let no_neg = kit.text_left(stage, "det < 0: no real logarithm", 24.0, red, v(right + 0.5, 2.3))?;
++        let no_neg = kit.text_left(stage, "det < 0: no real logarithm", 24.0, red, v(right, 2.3))?;
+         fade_in_all(stage, &[no_neg], 0.4)?;
+         kit.until_sentence(stage, "11_3", 2)?;
+         let mut gone = scale.clone();
+@@ -481,6 +521,7 @@
+             green,
+             v(to_screen([pair[0], 0.0])[0], CENTRE[1] + 0.35),
+         )?;
++        let e1_word = on_plate(stage, e1_word)?;
+         fade_in_all(stage, &[e1, e1_word], 0.5)?;
+         kit.until_sentence(stage, "11_3", 5)?;
+         let e2 = arrow(stage, o, to_screen([0.0, pair[1]]), slide_c(), 4.0)?;
+@@ -489,8 +530,9 @@
+             &format!("×{}, flipped", shown_num(-pair[1])),
+             20.0,
+             slide_c(),
+-            v(CENTRE[0] + 0.25, to_screen([0.0, pair[1]])[1] - 0.2),
++            v(CENTRE[0] + 0.35, to_screen([0.0, pair[1]])[1] - 0.2),
+         )?;
++        let e2_word = on_plate(stage, e2_word)?;
+         let after = stage.arena_mut().add(
+             Polygon::new(letter_f(flip_pair, CENTRE, UNIT))
+                 .style(flat(gold, 0.9))
+@@ -553,6 +595,7 @@
+             Palette::ink(),
+             to_screen([u[0] + 0.8, u[1] + 0.3]),
+         )?;
++        let u_word = on_plate(stage, u_word)?;
+         let order_a = kit.text_left(stage, "first X, then e^X", 22.0, purple, v(right, 0.4))?;
+         let order_b = kit.text_left(stage, "first e^X, then X", 22.0, slide_c(), v(right, 0.0))?;
+         let same_end = kit.text_left(stage, "same end point", 22.0, gold, v(right + 3.2, 0.2))?;
+@@ -625,26 +668,27 @@
+         let gap_factor = fact("matrix.flip_pair_gap")?;
+         let why_a = kit.text_left(
+             stage,
+-            &format!("each gap part = ±{gap_factor} × an off-diagonal entry of X"),
++            &format!("each gap part = ±{gap_factor} × an off-diagonal"),
+             22.0,
+             Palette::ink(),
+             v(right, -1.1),
+         )?;
+-        let why_b = kit.text_left(
++        let why_b = kit.text_left(stage, "entry of X × a part of u,", 22.0, Palette::ink(), v(right, -1.5))?;
++        let why_c = kit.text_left(
+             stage,
+             &format!(
+-                "× a part of u, where {gap_factor} = ({}) − ({})",
++                "where {gap_factor} = ({}) − ({})",
+                 shown_num(pair[1]),
+                 shown_num(pair[0])
+             ),
+             22.0,
+             Palette::ink(),
+-            v(right, -1.55),
++            v(right, -1.9),
+         )?;
+-        fade_in_all(stage, &[why_a, why_b], 0.5)?;
++        fade_in_all(stage, &[why_a, why_b, why_c], 0.5)?;
+         kit.until_sentence(stage, "11_5", 4)?;
+         play!(stage; tween(off, 0.0, 2.6)?);
+-        let only_diag = kit.text_left(stage, "the ends meet only when b = c = 0", 24.0, gold, v(right, -2.15))?;
++        let only_diag = kit.text_left(stage, "the ends meet only when b = c = 0", 24.0, gold, v(right, -2.45))?;
+         fade_in_all(stage, &[only_diag], 0.4)?;
+ 
+         // 11_6: so X is diagonal, and a real exponential never reverses an axis
+@@ -654,7 +698,7 @@
+         fade_out_all(
+             stage,
+             &[
+-                test, u_word, route_a, route_b, gap_word, gap_val, why_a, why_b, only_diag,
++                test, u_word, route_a, route_b, gap_word, gap_val, why_a, why_b, why_c, only_diag,
+             ],
+             0.4,
+         )?;
+@@ -696,7 +740,13 @@
+         let target = stage
+             .arena_mut()
+             .add(polyline(target_pts).style(faded_line(red, 3.0, 0.9)).build());
+-        let target_word = kit.text(stage, "where A puts the F", 18.0, red, to_screen([-1.05, -0.75]))?;
++        // its words stand in the column: on the panel they sit on grid lines and under the moving plane
++        let mut key_pts = letter_f(flip_pair, v(right + KEY_F_X, KEY_Y), KEY_F_UNIT);
++        key_pts.push(key_pts[0]);
++        let target_key = stage
++            .arena_mut()
++            .add(polyline(key_pts).style(faded_line(red, 2.0, 0.9)).build());
++        let target_word = kit.text_left(stage, "where A puts the F", 20.0, red, v(right + KEY_WORD_X, KEY_Y))?;
+         let positive = kit.text_left(
+             stage,
+             "e^(tp) > 0 for all real t and p: no axis reverses",
+@@ -704,7 +754,7 @@
+             blue,
+             v(right, -0.05),
+         )?;
+-        fade_in_all(stage, &[target, target_word, positive], 0.4)?;
++        fade_in_all(stage, &[target, target_key, target_word, positive], 0.4)?;
+         play!(stage; tween(diag, -1.0, 2.0)?);
+         kit.until_sentence(stage, "11_6", 3)?;
+         fade_out_all(stage, &[stretching], 0.3)?;
+@@ -734,6 +784,7 @@
+             positive,
+             axes_word,
+             target,
++            target_key,
+             target_word,
+             ax,
+             ay,
+@@ -774,23 +825,31 @@
+         )?;
+         fade_in_all(stage, &[spin, spin_word], 0.4)?;
+         kit.until_sentence(stage, "11_7", 3)?;
+-        let equal = kit.text_left(
++        let equal_a = kit.text_left(
+             stage,
+-            "equal stretches: (−1) − (−1) = 0, no gap, so every X commutes with −I",
++            "equal stretches: (−1) − (−1) = 0, no gap,",
+             20.0,
+             gold,
+-            v(right - 1.2, 0.1),
++            v(right, 0.1),
+         )?;
+-        fade_in_all(stage, &[equal], 0.4)?;
++        let equal_b = kit.text_left(stage, "so every X commutes with −I", 20.0, gold, v(right, -0.3))?;
++        fade_in_all(stage, &[equal_a, equal_b], 0.4)?;
+         kit.until_sentence(stage, "11_7", 4)?;
+-        let two_d = kit.text_left(
++        let two_a = kit.text_left(
+             stage,
+-            "2×2, a direction sent to a negative multiple: a real log only if A = −cI, c > 0",
++            "2×2, a direction sent to a negative multiple:",
+             20.0,
+             Palette::ink(),
+-            v(0.3, -0.6),
++            v(right, -0.8),
+         )?;
+-        fade_in_all(stage, &[two_d], 0.4)?;
++        let two_b = kit.text_left(
++            stage,
++            "a real log only if A = −cI, c > 0",
++            20.0,
++            Palette::ink(),
++            v(right, -1.2),
++        )?;
++        fade_in_all(stage, &[two_a, two_b], 0.4)?;
+         kit.until_sentence(stage, "11_7", 5)?;
+         let cite = precisely(
+             &kit,
+@@ -801,26 +860,35 @@
+         kit.until_sentence(stage, "11_7", 6)?;
+         let rule_a = kit.text_left(
+             stage,
+-            "A real matrix has a real logarithm exactly when it is invertible and, for every",
++            "A real matrix has a real logarithm exactly",
+             20.0,
+             gold,
+-            v(0.3, -1.3),
++            v(right, -1.75),
+         )?;
+         let rule_b = kit.text_left(
+             stage,
+-            "negative eigenvalue, its Jordan blocks of each size occur an even number of times.",
++            "when it is invertible and, for every negative",
++            20.0,
++            gold,
++            v(right, -2.15),
++        )?;
++        let rule_c = kit.text_left(
++            stage,
++            "eigenvalue, its Jordan blocks of each size",
+             20.0,
+             gold,
+-            v(0.3, -1.7),
++            v(right, -2.55),
+         )?;
+-        fade_in_all(stage, &[rule_a, rule_b], 0.6)?;
++        let rule_d = kit.text_left(stage, "occur an even number of times.", 20.0, gold, v(right, -2.95))?;
++        fade_in_all(stage, &[rule_a, rule_b, rule_c, rule_d], 0.6)?;
+ 
+         // 11_8: complex logarithms; only flattening matrices have none
+         kit.say(stage, "11_8")?;
+         fade_out_all(
+             stage,
+             &[
+-                spinning, alike, minus_word, minus_i, spin, spin_word, equal, two_d, rule_a, rule_b, cite,
++                spinning, alike, minus_word, minus_i, spin, spin_word, equal_a, equal_b, two_a, two_b, rule_a, rule_b,
++                rule_c, rule_d, cite,
+             ],
+             0.5,
+         )?;
+@@ -897,12 +965,38 @@
+     const FLOW: M2 = [[0.3, -1.0], [0.8, -0.1]];
+     const PAIR: (f64, f64) = (-2.0, -0.5);
+ 
+-    /// Rough fmn text width: one em is size / 144 scene units, an average
+-    /// character about 0.55 em.
++    /// CMR10 advance widths in em; capitals and ½ take a typical capital's.
++    fn em(c: char) -> f64 {
++        match c {
++            'i' | 'l' | ',' | '.' | ':' | ';' | '!' | '[' | ']' => 0.278,
++            'j' | 'f' => 0.306,
++            ' ' | '-' => 0.333,
++            'I' => 0.361,
++            'r' | 's' | 't' | '(' | ')' => 0.39,
++            'a' | 'c' | 'e' | 'z' => 0.444,
++            'g' | 'o' | '^' | '/' | '0'..='9' => 0.5,
++            'k' | 'q' | 'v' | 'x' | 'y' => 0.528,
++            'b' | 'd' | 'h' | 'n' | 'p' | 'u' => 0.556,
++            'w' => 0.722,
++            '=' | '+' | '−' | '×' | '±' | '<' | '>' => 0.778,
++            'm' => 0.833,
++            _ => 0.75,
++        }
++    }
++
++    /// Text width in scene units: ems × size × 0.01. Within 2% of the five long
++    /// lines the layout lint measured on preview01, within 4% of nine shorter
++    /// ones read from its frames. The flat estimate this replaces, 0.55 × size /
++    /// 144 per character, ran about 20% short and passed lines clipped on screen.
+     fn width(s: &str, size: f64) -> f64 {
+-        s.chars().count() as f64 * 0.55 * size / 144.0
++        s.chars().map(em).sum::<f64>() * size * 0.01
+     }
+ 
++    /// The lint's `tight` limit for a text's right edge, and room for the
++    /// width estimate's error.
++    const TEXT_RIGHT: f64 = 7.11 - 0.25;
++    const WIDTH_ROOM: f64 = 1.03;
++
+     const MIRROR: M2 = [[-1.0, 0.0], [0.0, 1.0]];
+     const PROBE: [f64; 2] = [1.0, 1.0];
+     const BASE: M2 = [[0.4, 0.6], [-0.5, -0.3]];
+@@ -1087,34 +1181,25 @@
+             ("it squashes the plane flat onto a line", 22.0, 2.2),
+             ("starts at 1, never touches 0: stays positive", 22.0, 2.2),
+             ("(here X is the sample flow from before)", 18.0, 2.2),
+-            ("each gap part = ±1.5 × an off-diagonal entry of X", 22.0, 2.2),
+-            ("× a part of u, where 1.5 = (−½) − (−2)", 22.0, 2.2),
++            ("det < 0: no real logarithm", 24.0, 2.2),
++            ("each gap part = ±1.5 × an off-diagonal", 22.0, 2.2),
++            ("entry of X × a part of u,", 22.0, 2.2),
++            ("where 1.5 = (−½) − (−2)", 22.0, 2.2),
+             ("the ends meet only when b = c = 0", 24.0, 2.2),
+             ("e^(tX) stretches the axes by e^(tp) and e^(tq)", 22.0, 2.2),
+             ("e^(tp) > 0 for all real t and p: no axis reverses", 22.0, 2.2),
++            ("where A puts the F", 20.0, 2.2 + KEY_WORD_X),
+             ("a half turn, then a stretch: two flows in turn", 22.0, 2.2),
+-            (
+-                "equal stretches: (−1) − (−1) = 0, no gap, so every X commutes with −I",
+-                20.0,
+-                1.0,
+-            ),
+-            (
+-                "2×2, a direction sent to a negative multiple: a real log only if A = −cI, c > 0",
+-                20.0,
+-                0.3,
+-            ),
+-            (
+-                "A real matrix has a real logarithm exactly when it is invertible and, for every",
+-                20.0,
+-                0.3,
+-            ),
+-            (
+-                "negative eigenvalue, its Jordan blocks of each size occur an even number of times.",
+-                20.0,
+-                0.3,
+-            ),
++            ("equal stretches: (−1) − (−1) = 0, no gap,", 20.0, 2.2),
++            ("so every X commutes with −I", 20.0, 2.2),
++            ("2×2, a direction sent to a negative multiple:", 20.0, 2.2),
++            ("a real log only if A = −cI, c > 0", 20.0, 2.2),
++            ("A real matrix has a real logarithm exactly", 20.0, 2.2),
++            ("when it is invertible and, for every negative", 20.0, 2.2),
++            ("eigenvalue, its Jordan blocks of each size", 20.0, 2.2),
++            ("occur an even number of times.", 20.0, 2.2),
+         ] {
+-            assert!(x + width(s, size) < 7.0, "{s}");
++            assert!(x + width(s, size) * WIDTH_ROOM < TEXT_RIGHT, "{s}");
+         }
+         // the X card clears the A card and the screen edge (card half-width 0.0205 × size)
+         for (offset, boundary) in [(1.45, 2.2 + 2.7), (3.95, 7.0)] {
+@@ -1132,6 +1217,41 @@
+         }
+     }
+ 
++    #[test]
++    fn the_readout_keeps_its_word_and_number_apart_and_clear_of_the_gauge() {
++        // text is about 0.2 high: word over number, under the title (its foot near y 3.28)
++        const { assert!(READOUT_WORD_Y - READOUT_VALUE_Y > 0.3) };
++        const { assert!(READOUT_WORD_Y + 0.12 < 3.2) };
++        assert!(READOUT_VALUE_Y - 0.12 > gauge(GAUGE_RANGE.1)[1]);
++        // the number, about 0.55 wide, is centred on the gauge
++        const { assert!(READOUT_VALUE_X + 0.275 > GAUGE_X - 0.02 && READOUT_VALUE_X + 0.275 < GAUGE_X + 0.02) };
++        // and neither word reaches the text column
++        for word in ["signed area of the square:", "det = signed area factor:"] {
++            assert!(GAUGE_X + width(word, 22.0) * WIDTH_ROOM / 2.0 < 2.2, "{word}");
++        }
++    }
++
++    #[test]
++    fn the_zero_line_leaves_the_tick_numbers_alone() {
++        for tick in ["−1", "0", "1", "2"] {
++            assert!(
++                GAUGE_LABEL_X + width(tick, 18.0) * WIDTH_ROOM / 2.0 < ZERO_LINE_LEFT - 0.05,
++                "{tick}"
++            );
++        }
++        const { assert!(CENTRE[0] + UNIT * CLIP < GAUGE_LABEL_X - 0.3) };
++    }
++
++    #[test]
++    fn the_target_key_stands_in_the_column_between_its_neighbours() {
++        let a = [[PAIR.0, 0.0], [0.0, PAIR.1]];
++        for p in letter_f(a, v(2.2 + KEY_F_X, KEY_Y), KEY_F_UNIT) {
++            assert!(p[0] > 2.2 - 1e-9 && p[0] < 2.2 + KEY_WORD_X - 0.1, "{}", p[0]);
++            // the caption lines above (y −0.05) and below (y −0.85), each about 0.2 high
++            assert!(p[1] < -0.05 - 0.12 && p[1] > -0.85 + 0.12, "{}", p[1]);
++        }
++    }
++
+     #[test]
+     fn shown_numbers_use_halves_and_true_minus() {
+         assert_eq!(shown_num(-0.5), "\u{2212}½");

@@ -1,0 +1,10 @@
+PASS a misspelt method deep in the D scene  (exit 1)
+PASS a wrong argument type in the E scene  (exit 1)
+PASS a text constant left unused under -D warnings  (exit 1)
+PASS a clippy lint under clippy-driver -D warnings  (exit 1)
+--- wiring: each line of the integration is load-bearing
+PASS without mod limit_model  (exit 1)
+PASS without mod solution_model  (exit 1)
+PASS without the D row in the registry, the D scene is dead code  (exit 1)
+PASS without the solution facts line, the model is dead code  (exit 1)
+RESULT controls all behaved

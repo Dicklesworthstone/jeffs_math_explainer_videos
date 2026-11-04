@@ -1,0 +1,13 @@
+fix	file	line	symbol	on_screen_per_string	used_at_baseline_line	film_size	chapter	supplement	glyphs02_row	predicted_row	old_source	new_source
+F1	closing.rs	28	LIMIT_TEX	2	closing.rs:292	32	15_closing	mod.rs:391 by name	605	605	\lim_{h \to 0}\frac{f(z_0 + h) - f(z_0)}{h}	\lim_{h \to 0}\frac{f(z_{\,0} + h) - f(z_{\,0})}{h}
+F3	counting.rs	50	LEASH_TEX	1	counting.rs:464	34	11_counting	mod.rs:415 by name	723	723	|z^5 + 1| \le 2 < 3 = |-3z|	|z^5 + 1| \le 2 < 3 = |{-3z}|
+F1	loop_sums.rs	50	LINEAR_TEX	1	loop_sums.rs:637	28	08_loop_sums	mod.rs:549 by name	676	676	f(z) \approx a + b\,(z - z_0)	f(z) \approx a + b\,(z - z_{\,0})
+F1	loop_sums.rs	51	EACH_TEX	1	loop_sums.rs:638	28	08_loop_sums	mod.rs:550 by name	612	612	\oint (a + b\,(z - z_0))\,dz = 0	\oint (a + b\,(z - z_{\,0}))\,dz = 0
+F1	mod.rs	407	TEX supplement literal	1	pairs with one_derivative.rs:211		supplement	this line	716	717	z_0 = 1 + i	z_{\,0} = 1 + i
+F1	mod.rs	408	TEX supplement literal	1	pairs with one_derivative.rs:217		supplement	this line	717	718	z_0^2 = 2i	z_{\,0}^2 = 2i
+F1	one_derivative.rs	26	QUOTIENT_TEX	2	one_derivative.rs:243	36	06_one_derivative	mod.rs:390 by name	597	597	\frac{f(z_0 + h) - f(z_0)}{h}	\frac{f(z_{\,0} + h) - f(z_{\,0})}{h}
+F1	one_derivative.rs	44	SETTLES_TEX	1	one_derivative.rs:269	32	06_one_derivative	mod.rs:395 by name	638	638	\to\, f'(z_0)	\to\, f'(z_{\,0})
+F1	one_derivative.rs	47	TIMES_TEX	1	one_derivative.rs:410	30	06_one_derivative	mod.rs:396 by name	637	637	\times\, f'(z_0)	\times\, f'(z_{\,0})
+F1	one_derivative.rs	211	scene literal	1	this line	28	06_one_derivative	mod.rs:407 literal	716	717	z_0 = 1 + i	z_{\,0} = 1 + i
+F1	one_derivative.rs	217	scene literal, call reflowed	1	this line	28	06_one_derivative	mod.rs:408 literal	717	718	z_0^2 = 2i	z_{\,0}^2 = 2i
+F1	residues.rs	31	ZERO_TEX	1	residues.rs:266	32	12_residues	mod.rs:468 by name	594	594	\frac{f'}{f} \approx \frac{m}{z - z_0}	\frac{f'}{f} \approx \frac{m}{z - z_{\,0}}

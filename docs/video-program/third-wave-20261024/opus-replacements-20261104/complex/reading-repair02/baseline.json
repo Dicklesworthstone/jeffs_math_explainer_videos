@@ -1,0 +1,60 @@
+{
+ "made_against": "canonical explainer_corpus/complex_analysis_visual as read on 2026-11-04, which already holds compile-repair01 and test-repair01. Self-contained: supersedes reading-repair01, not stacked on it.",
+ "patched_files": {
+  "explainer_corpus/complex_analysis_visual/src/main.rs": "77c6c872c30a762ee9ec41af136bbc4f0499f9737834e72788fbda30af31d23d",
+  "explainer_corpus/complex_analysis_visual/docs/storyboard.md": "d64a8f88a9d7ba50025b6d89dfb26b1d171667c4b674942943128762234a4702",
+  "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs": "d6b2b4280ae57e111c36b6e35fc382df1cc55826d4b602619e706091393f696d",
+  "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs": "5963fc53c6ad8401cf8f682ca9ac1fcbb00ef0ffa29828011abd1db9106140a1",
+  "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs": "c1704925a65e826d09f93312934c2de3c1f39c65d9b477f912bc428b10a8ea3c",
+  "explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs": "e1c99bd1ef96dd051ee0b35382480c3314805b689e5d188c104f08e3dd5c074d",
+  "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs": "99e47ff96cbda6f424eea728723870fbc6d0f44e721dc0384ef15b506aa599dd",
+  "explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs": "4cf94187b2f871571c7139d12f1381133b1ee361c2d08c73f1268190d39d8ddc",
+  "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs": "324bd17d6a033b4f4decae4475dbfcefbb7ddb825670baeee53ed94e96917bfc",
+  "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs": "4764c3a9841913008ba58a6a2888aeda6a4a366ac9e4b31182a44b82a36c1705",
+  "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs": "5b32c4877cc21c617a8bcc762e469b2aa91e1f196c8df635d78d296308ce1ca1",
+  "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs": "afc7b069c011af6c2ea8dd1eb528f4a3c7df71006fe655cf073c59392aa5d712",
+  "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs": "3d17d2f8e1f85f95f9be1c7a7a47d485c9f00cd0395e4b797b074b428ef0bc42"
+ },
+ "read_dependencies": {
+  "crates/explainer_kit/src/narration.rs": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8",
+  "crates/explainer_kit/src/kit.rs": "ef035faf236498e7485fb60a66d862b383e1a5040fa17962e1633596ed99e106",
+  "crates/explainer_kit/src/props.rs": "73606e8921ec18c8492ec3a7355a755e269acabd174cafed1fabfca14379d436",
+  "crates/explainer_kit/src/storyboard.rs": "fe835a0980d6e2a82c5d0ece1ffb5aef88b0eb2368e1a4ad99fb3b8f2678284e",
+  "crates/explainer_score/src/score.rs": "8ba3f501a487b981e65d10b92c332ca7d69c36c3326fb4443309d81068ef5592",
+  "tools/storyboard.py": "3faed8c1ded451c432eddfcdd8d2034a7244594f3f99d753a63dc47e487cb0b7",
+  "tools/coherent_narration.py": "e0aa81f352cb2c847f53dacf1d37b7d1b6a44526102df7f79329278c278c48d0",
+  "tools/narration_director.py": "8898ca1e113a214be50624de87a21a16d85ef082058a1d8fed52f18348aee760",
+  "tools/narration_delivery.py": "c91914b89bed9e7aca71a649d403fa591bf40ec135f9c3d30f9d5e45c88422ba",
+  "explainer_corpus/complex_analysis_visual/src/score.rs": "0563256da1cd670e7e453a4e840b93d4be9bbd1202941843bdbc77ca46062680",
+  "explainer_corpus/complex_analysis_visual/script.tsv": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e"
+ },
+ "bound_with": {
+  "test-repair01/test-repair01.patch": "3de21386fe140c53194dda487f00acf5eaf2c2c6a67a59817dc82a3db11a9352",
+  "reading-repair01/reading-repair01.patch": "54b3a2223152abfe14a623a8832235f79e457e81e72a0802433221053f69f968"
+ },
+ "reading_repair01_frozen": {
+  "reading-repair01/README.md": "8a0f0d843303a942e3169fcd89d9be4e0511bf71c00a49f6174422cef8cce4dc",
+  "reading-repair01/baseline.json": "0d3e94073a3ebb953550b8cc9ccd00da959d6dff0dbcdfc1ee8b8e5f19a3478b",
+  "reading-repair01/bind_oliver_plan.py": "d2d75b6ef4e87f664cc8fd516f4571ec2b1b943b2f4be652dfc4918d5f3c89af",
+  "reading-repair01/check-run01.txt": "e5c30263c8201d21b241f1af70653cae651c0003905c1c932deeb00d8fc578ee",
+  "reading-repair01/check_reading_repair.py": "bb9d4ddd0801c702ee7fe3016ae126cd3b620ca708449bc69bd8babb2c8121b1",
+  "reading-repair01/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver08.json": "78032e57f8ee800d98a4016ce4918e3e63956c85934af16a1148c4a843a7682b",
+  "reading-repair01/explainer_corpus/complex_analysis_visual/docs/storyboard.md": "a8934fbd5c3270ef5a9943bf79e6ec49d45b9fd1d256e9e2c777ebe66c37e6bb",
+  "reading-repair01/explainer_corpus/complex_analysis_visual/narration_units.json": "228700fec2a4d780fbcc2f82c6978ed8e9304e4e4e6925f9ec1f65e667832761",
+  "reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs": "03880164adefa31b43fbecf7cecc2b6b1eb1e7eae15cdd9d90402aac0fec682f",
+  "reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs": "598bf75ce6035c0984d825e9041d0b491864de7b1935ec1cb742973704d94058",
+  "reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs": "f2403bd1600c00762471f3d177caf45c65110f6bf43cc8ec0010081e8737e672",
+  "reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs": "321b9361c5647217187befd16da826e33e02efcbd9c7c933bc218b6545033eca",
+  "reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs": "67ee4db45dc59c372e28315c21fce1e17be43b2cac033a097564a5b67beed88a",
+  "reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs": "f49efc76506ea7b069418c899b0333f543d58ae644616ea5a8bb433242e9edcf",
+  "reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs": "510773b231c5cd33601591f38e8eb3abd1a2b244b901c7da2a7c31d298d7459d",
+  "reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs": "13b0f5434535f3ab509ec1aaa2d3239c559cd7d28ebe46d6caac3cf3331c00e0",
+  "reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs": "c7d53ccac33537bd97a49cc51fb1b7bf69d78999b8e17799f43d66e84f8d4266",
+  "reading-repair01/explainer_corpus/complex_analysis_visual/src/main.rs": "86520751431d260687333ba20eb2727633ace868ec01650308d594bc77ac384c",
+  "reading-repair01/planted_defects.py": "f7dcbf71420693a63f1446546cb7ba9d9bb02d9c22897a8add49e1f4c7ee4023",
+  "reading-repair01/reading-repair01.patch": "54b3a2223152abfe14a623a8832235f79e457e81e72a0802433221053f69f968",
+  "reading-repair01/source-audit.json": "ea73ab82505898da4d221dae7a7f011e39c2b76abb43175e32a6958c67419530",
+  "reading-repair01/validate_oliver_plan.py": "b3ccd89b6e3e56b188746aff8da3ffc2509f3b84b3b162294147e146fabccdff"
+ },
+ "script_tsv": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e"
+}

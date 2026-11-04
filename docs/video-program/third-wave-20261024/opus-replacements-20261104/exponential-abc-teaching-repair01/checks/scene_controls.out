@@ -1,0 +1,21 @@
+PASS baseline: candidate set still type-checks under -D warnings  (exit 0)
+PASS control: a misspelt method deep inside the factorials scene fails  (exit 1)
+     error[E0599]: no method named `waitt` found for mutable reference `&mut fmn::Stage<'_>` in the current scope  --> <scratch>/planted_factorials.rs:393:11
+     error: aborting due to 1 previous error  
+PASS control: a wrong argument type in the new product cue fails  (exit 1)
+     error[E0308]: mismatched types  --> <scratch>/planted_product_grid.rs:389:40
+     error: aborting due to 1 previous error  
+PASS control: a TeX constant left unused in factorials fails under -D warnings  (exit 1)
+     error: constant `NEVER_DRAWN` is never used  --> <scratch>/planted_factorials.rs:54:7
+     error: aborting due to 1 previous error  
+PASS control: a dead function in series_model fails under -D warnings  (exit 1)
+     error: function `never_called_control` is never used  --> <scratch>/planted_series_model.rs:20:8
+     error: aborting due to 1 previous error  
+PASS control: clippy::needless_return fails under clippy-driver -D warnings  (exit 1)
+     error: unneeded `return` statement  --> <scratch>/planted_series_model.rs:18:5
+     error: aborting due to 1 previous error  
+--- stages alone (dead code tells root what must land together)
+rate scene + facts01 model, nothing else: exit 0
+series scene + model, append_facts reached: exit 0
+product scene + model, append_facts reached: exit 0
+RESULT controls all behaved

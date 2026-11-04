@@ -1,0 +1,17 @@
+-- the stack, in order, against candidate/
+  ok   chapters-02-05.patch 
+  ok   shared-P1-crisp-strips.patch 
+  ok   shared-P2-half-step-bands.patch 
+  ok   chapters + P1 + P2 equals candidate/: 11 of 11 files
+  ok   shared-P3-optional-four-samples.patch on top 
+-- each piece on its own, on the baseline, as root may want it
+  applies: chapters-02-05.patch 
+  applies: shared-P1-crisp-strips.patch 
+  applies: shared-P2-half-step-bands.patch 
+  applies: shared-P3-optional-four-samples.patch 
+-- P1 and P3 on the chapter layer without P2, and P2 without P1
+  applies: chapters+P1 
+  applies: chapters+P2 
+  applies: chapters+P3 
+
+0 failed

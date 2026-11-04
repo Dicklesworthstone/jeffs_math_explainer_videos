@@ -1,0 +1,4 @@
+canonical oracle 93 keys, staged oracle 96 keys; only additions:
+matrix.blocks_matching	-1,-1
+matrix.blocks_mixed	-2,-2,3
+matrix.jordan_block	-1,1;0,-1

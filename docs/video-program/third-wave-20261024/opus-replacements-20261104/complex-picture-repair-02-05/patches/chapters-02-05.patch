@@ -1,0 +1,1821 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/turning.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/turning.rs
+@@ -14,8 +14,8 @@
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Plane, dashed, dot, fact, fade_in_all, fade_out_all, hero, input, line_style, output, predict, say, shift_all,
+-    value, wait_until,
++    Plane, dashed, derivative, dot, fact, fade_in_all, fade_out_all, hero, input, line_style, output, predict, say,
++    shift_all, value, wait_until,
+ };
+ use crate::model::{C, I, ONE, TURN_ADDED, TURN_BY, TURN_POINT, ZERO};
+ 
+@@ -35,6 +35,15 @@
+ pub const SQUARE_TEX: &str = r"(1 + i)^2 = ";
+ pub const RULE: &str = "lengths multiply, angles add";
+ 
++/// Where "i" and "−1" are written in 02_3: off the axis each point lies on, and outside the
++/// unit circle the walker draws.
++pub const TURN_NAMES_AT: [C; 2] = [C::new(-0.3, 1.25), C::new(-1.35, 0.35)];
++/// Where "1 + i" is written: past the arrow's tip, clear of the grid's lines whenever the grid
++/// rests (the lines pass over it only while the second multiplication runs).
++pub const W_NAME_AT: C = C::new(1.5, 1.5);
++/// Where "2i" is written: over the grid's top edge, left of the axis.
++pub const W2_NAME_AT: C = C::new(-0.4, 2.3);
++
+ /// The one plane of the chapter: a unit is one scene unit.
+ pub fn turn_plane() -> Plane {
+     Plane::new(v(-2.0, -0.1), 8.4, (-3.4, 5.0), (-2.6, 2.9))
+@@ -85,6 +94,12 @@
+ fn fact_c(key: &str) -> fmn::Result<C> {
+     let parts: Vec<f64> = super::draw::fact_list(key)?;
+     Ok(C::new(parts[0], parts[1]))
++}
++
++/// An arrow that reaches both its points: the voice says "an arrow from zero" and "tip to
++/// tail". `Arrow::new` alone trims `MED_SMALL_BUFF` (0.25) off each end.
++fn reaching_arrow(a: Vec3, b: Vec3, color: Srgb) -> fmn::Result<VMobject> {
++    Ok(Arrow::new(a, b).buff(0.0).thickness(5.0).color(color).build()?)
+ }
+ 
+ /// The arc of radius `r` about 0 from angle `a0` to `a1`.
+@@ -164,7 +179,7 @@
+         let kit = self.kit.clone();
+         let tp = turn_plane();
+         let arrow = |stage: &mut Stage<'_>, a: C, b: C, color: Srgb| -> fmn::Result<Mob> {
+-            let m = Arrow::new(tp.p(a), tp.p(b)).thickness(5.0).color(color).build()?;
++            let m = reaching_arrow(tp.p(a), tp.p(b), color)?;
+             Ok(stage.arena_mut().add(m))
+         };
+ 
+@@ -259,7 +274,7 @@
+         fade_in_all(stage, &grid.mobs(), 0.6)?;
+         line.wait_sentence(stage, 2)?;
+         let times_i = kit.text(stage, TIMES_I, 22.0, Palette::ink(), v(COLUMN, 1.4))?;
+-        let turned = kit.text(stage, TURNED, 24.0, hero(), v(COLUMN - 0.8, 0.6))?;
++        let turned = kit.text(stage, TURNED, 24.0, derivative(), v(COLUMN - 0.8, 0.6))?;
+         let share = stage.add_value_tracker(0.0);
+         let quarter = (I.arg() / TAU) * 360.0;
+         let degrees = kit.live_value(
+@@ -268,11 +283,11 @@
+             0,
+             false,
+             30.0,
+-            hero(),
++            derivative(),
+             v(COLUMN + 0.35, 0.6),
+             ORIGIN,
+         )?;
+-        let degree_mark = kit.text(stage, DEGREE, 24.0, hero(), v(COLUMN + 0.95, 0.68))?;
++        let degree_mark = kit.text(stage, DEGREE, 24.0, derivative(), v(COLUMN + 0.6, 0.68))?;
+         fade_in_all(stage, &[times_i, turned, degree_mark], 0.3)?;
+         line.wait_for(stage, "and the whole plane turns")?;
+         let rt = (line.end() - stage.scene().time().to_f64()).max(2.0);
+@@ -307,10 +322,9 @@
+             true,
+         )?;
+         let mut labels = Vec::new();
+-        for (k, (z, name)) in [(I, "i"), (-ONE, "-1")].into_iter().enumerate() {
++        for (k, name) in ["i", "-1"].into_iter().enumerate() {
+             stage.play(tween(angle, PI / 2.0 * (k as f64 + 1.0), 0.9)?)?;
+-            let at = tp.p(z + z.scale(0.35));
+-            let l = kit.tex(stage, name, 26.0, Palette::ink(), &[], at)?;
++            let l = kit.tex(stage, name, 26.0, Palette::ink(), &[], tp.p(TURN_NAMES_AT[k]))?;
+             fade_in_all(stage, &[l], 0.2)?;
+             labels.push(l);
+         }
+@@ -335,29 +349,23 @@
+             .collect::<fmn::Result<_>>()?;
+         fade_in_all(stage, &stretch_turn, 0.4)?;
+         line.wait_sentence(stage, 1)?;
+-        let w_arrow = arrow(stage, ZERO, TURN_BY, hero())?;
+-        let w_label = kit.tex(
+-            stage,
+-            &written(TURN_BY),
+-            26.0,
+-            hero(),
+-            &[],
+-            tp.p(TURN_BY + C::new(0.35, 0.25)),
+-        )?;
++        // the multiplier wears the stretch-and-turn's teal: the F it acts on is gold
++        let w_arrow = arrow(stage, ZERO, TURN_BY, derivative())?;
++        let w_label = kit.tex(stage, &written(TURN_BY), 26.0, derivative(), &[], tp.p(W_NAME_AT))?;
+         let length = kit.tex(
+             stage,
+             &format!("{LENGTH_TEX}{}", fact("turn.one_plus_i.length")?),
+             26.0,
+-            hero(),
++            derivative(),
+             &[],
+             v(COLUMN, 1.2),
+         )?;
+-        let angle_arc = tp.path(stage, &arc(0.45, 0.0, TURN_BY.arg()), hero(), 3.0)?;
++        let angle_arc = tp.path(stage, &arc(0.45, 0.0, TURN_BY.arg()), derivative(), 3.0)?;
+         let angle_says = kit.text(
+             stage,
+             &format!("{ANGLE}{}{DEGREE}", fact("turn.one_plus_i.angle_deg")?),
+             22.0,
+-            hero(),
++            derivative(),
+             v(COLUMN, 0.55),
+         )?;
+         fade_in_all(stage, &[w_arrow, w_label], 0.4)?;
+@@ -384,20 +392,21 @@
+             stage,
+             &format!("{}{}{DEGREE}", TOTAL[0], fact("turn.square.angle_deg")?),
+             22.0,
+-            hero(),
++            derivative(),
+             v(COLUMN, -0.25),
+         )?;
+         let total_stretch = kit.text(
+             stage,
+             &format!("{}{}", TOTAL[1], fact("turn.square.length")?),
+             22.0,
+-            hero(),
++            derivative(),
+             v(COLUMN, -0.8),
+         )?;
+         fade_in_all(stage, &[total_turn, total_stretch], 0.4)?;
+         line.wait_sentence(stage, 1)?;
+         let square = fact_c("turn.square.value")?;
+-        let w2_arrow = arrow(stage, ZERO, square, hero())?;
++        let w2_arrow = arrow(stage, ZERO, square, derivative())?;
++        let w2_label = kit.tex(stage, &written(square), 26.0, derivative(), &[], tp.p(W2_NAME_AT))?;
+         let boxed = explainer_kit::props::equation_card(
+             &kit,
+             stage,
+@@ -406,7 +415,7 @@
+             &[],
+             v(COLUMN, -1.8),
+         )?;
+-        fade_in_all(stage, &[w2_arrow, boxed], 0.5)?;
++        fade_in_all(stage, &[w2_arrow, w2_label, boxed], 0.5)?;
+         line.wait_sentence(stage, 2)?;
+         let rule = kit.text(stage, RULE, 24.0, hero(), v(COLUMN, -2.7))?;
+         fade_in_all(stage, &[rule], 0.4)?;
+@@ -421,6 +430,7 @@
+             total_turn,
+             total_stretch,
+             w2_arrow,
++            w2_label,
+             boxed,
+             rule,
+         ];
+@@ -483,4 +493,67 @@
+         assert!(tp.frame.bottom() > (-4.0 + 0.2 + 0.66) && tp.frame.left() > -6.96);
+         assert!((tp.unit() - 1.0).abs() < 1e-12);
+     }
+-}
++
++    /// The whole outline runs from one point to the other, so "from zero" and "tip to tail"
++    /// are what is drawn. Read from the real arrow's outline.
++    #[test]
++    fn the_arrows_reach_their_points() {
++        let tp = turn_plane();
++        for (a, b) in [
++            (ZERO, TURN_POINT),
++            (TURN_POINT, TURN_POINT + TURN_ADDED),
++            (ZERO, TURN_BY),
++            (ZERO, TURN_BY * TURN_BY),
++        ] {
++            let (pa, pb) = (tp.p(a), tp.p(b));
++            let (dx, dy) = (pb[0] - pa[0], pb[1] - pa[1]);
++            let len = (dx * dx + dy * dy).sqrt();
++            let m = reaching_arrow(pa, pb, input()).unwrap();
++            let along: Vec<f64> = m
++                .points()
++                .iter()
++                .map(|q| ((q[0] - pa[0]) * dx + (q[1] - pa[1]) * dy) / len)
++                .collect();
++            let lo = along.iter().copied().fold(f64::MAX, f64::min);
++            let hi = along.iter().copied().fold(f64::MIN, f64::max);
++            assert!(
++                lo.abs() < 1e-6 && (hi - len).abs() < 1e-6,
++                "{a:?} to {b:?}: {lo} to {hi} of {len}"
++            );
++        }
++    }
++
++    /// "i" and "−1" stand off the axes their points lie on and off the walker's circle.
++    #[test]
++    fn the_names_of_i_and_minus_one_stand_off_the_axes() {
++        let tp = turn_plane();
++        const { assert!(TURN_NAMES_AT[0].re.abs() > 0.2 && TURN_NAMES_AT[1].im.abs() > 0.2) };
++        for z in TURN_NAMES_AT {
++            assert!(z.abs() > 1.2 && tp.contains(z), "{z:?}");
++        }
++    }
++
++    /// Whenever the grid rests, none of its lines or the glyph's strokes run through the two
++    /// names. The half sizes are CMR10 widths at 26, an estimate: the pictures decide.
++    #[test]
++    fn the_arrow_names_are_clear_of_the_grid_at_rest() {
++        let (lines, glyph) = sheet();
++        let mut strokes: Vec<(C, C)> = lines.iter().map(|l| (l[0], l[1])).collect();
++        for g in &glyph {
++            strokes.extend(g.windows(2).map(|w| (w[0], w[1])));
++        }
++        let clear = |at: C, m: C| {
++            strokes.iter().all(|&(a, b)| {
++                (0..=200).all(|k| {
++                    let z = (a + (b - a).scale(f64::from(k) / 200.0)) * m;
++                    (z.re - at.re).abs() > 0.3 || (z.im - at.im).abs() > 0.16
++                })
++            })
++        };
++        for m in [ONE, TURN_BY, TURN_BY * TURN_BY] {
++            assert!(clear(W_NAME_AT, m), "1 + i at {m:?}");
++        }
++        assert!(clear(W2_NAME_AT, TURN_BY * TURN_BY));
++        assert!(turn_plane().contains(W2_NAME_AT));
++    }
++}
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs
+@@ -20,7 +20,7 @@
+ 
+ use super::draw::{
+     Plane, Walker, carded_lines, dot, fact, fact_list, fade_in_all, fade_out_all, hero, input, line_style, output,
+-    predict, say, tween_linear, value, wait_until, warn,
++    pole, predict, say, tween_linear, value, wait_until, warn,
+ };
+ // "f(z) = e^z" is the gallery's title for the same map; "radius " the bump's label
+ use super::gallery::TITLES_TEX as GALLERY_TITLES;
+@@ -41,10 +41,18 @@
+ pub const PERIOD_TEX: &str = r"e^{z + 2\pi i} = e^z";
+ pub const NONZERO_TEX: &str = r"e^z \ne 0";
+ pub const AFTER_TEX: &str = r"e^{2\pi i} = ";
++/// What the two points of 03_1 are called.
++pub const POINT_TEX: [&str; 2] = ["z", "f(z)"];
++/// A plane's names for its units.
++pub const UNIT_TEX: [&str; 2] = ["1", "i"];
++/// The height a climb reaches (03_6, 03_7).
++pub const CLIMB_TEX: &str = r"2\pi i";
++/// The one change of scale in the chapter, said where it happens.
++pub const RESCALED: &str = "new windows: the ticks still mark whole numbers";
+ 
+ /// The two planes: input on the left, output on the right; both 5.4 wide at
+-/// the same height, so their frames stay put when the windows change (no
+-/// window is ever ticked, and each beat uses one scale on both sides).
++/// the same height, so their frames stay put. Every window is ticked at the
++/// whole numbers (`scale_marks`), and each beat uses one scale on both sides.
+ pub fn planes(input_half: f64, output_half: f64) -> (Plane, Plane) {
+     (
+         Plane::new(
+@@ -61,22 +69,49 @@
+         ),
+     )
+ }
++/// The one window of 03_1 – 03_5, on both planes, so a unit keeps its length from beat to
++/// beat: ±2.3 holds the grid's images (up to ±2) and 1/z's farthest image (1/0.45).
++pub const WINDOW: f64 = 2.3;
+ /// The walk of 03_2 at one scale on both sides, so radius ¼ is drawn half
+ /// as large as radius ½.
+-pub const WALK_HALVES: (f64, f64) = (1.5, 1.5);
++pub const WALK_HALVES: (f64, f64) = (WINDOW, WINDOW);
+ /// The grid of 03_3 – 03_4, one scale on both sides: the images reach ±2,
+ /// and each copy starts exactly on top of its input line's shape.
+-pub const SQUARE_HALVES: (f64, f64) = (2.2, 2.2);
++pub const SQUARE_HALVES: (f64, f64) = (WINDOW, WINDOW);
+ /// 1/z's windows (03_5).
+-pub const INVERSE_HALVES: (f64, f64) = (2.5, 2.5);
+-/// e^z's output window (03_6, 03_7), on the same frame.
++pub const INVERSE_HALVES: (f64, f64) = (WINDOW, WINDOW);
++/// e^z's output window (03_6, 03_7), on the same frame: wider, because e^1.15 is past 3. The
++/// ticks fade and return at the new spacing, and `RESCALED` says so.
+ pub const EXP_OUT_HALF: f64 = 3.2;
+ 
+ /// e^z's input window: tall enough for a climb of 2π, with the same top
+ /// and bottom as the other frames.
+ pub fn exp_input() -> Plane {
+-    Plane::new(v(-3.5, -0.35), 3.6, (-2.4, 2.4), (-0.5, 6.8))
+-}
++    Plane::new(v(-3.5, -0.35), 3.6, (-2.4, 2.4), (-0.4, 6.8))
++}
++
++/// Half a tick's length, scene units.
++pub const TICK: f64 = 0.06;
++/// Where "1" and "i" are written: off both axes, off the unit circle, and clear of the
++/// images of the grid.
++pub const UNIT_AT: [C; 2] = [C::new(1.17, -0.22), C::new(-0.22, 1.17)];
++/// Where "2πi" is written beside its tick on e^z's input plane.
++pub const CLIMB_NAME_AT: C = C::new(-0.5, TAU);
++/// Where "turns:" and its value read under each plane: both on one side of the plane's axis.
++pub const TURNS_AT: [(f64, f64); 2] = [(-5.0, -4.2), (2.0, 2.8)];
++pub const TURNS_Y: f64 = -2.65;
++/// Where the radii of 03_2 are written: beside their circles, off both axes.
++pub const RADIUS_AT: [C; 2] = [C::new(0.75, -0.62), C::new(0.62, -0.42)];
++/// Where the output's origin is named (03_4), in the gap the images leave around it.
++pub const FOLD_NAME_AT: C = C::new(-0.09, -0.18);
++/// The 1/0 card (03_5): outside the unit circle, with a leader back to the crossed-out 0.
++pub const UNDEFINED_AT: C = C::new(-0.55, -1.6);
++/// Half the 1/0 card's height, in plane units (the card is 0.56 tall at this window).
++#[cfg(test)]
++pub const UNDEFINED_HALF_H: f64 = 0.24;
++/// The leader, from the card's top edge to just short of the cross: slanted, so it is not
++/// read as a stretch of the vertical axis.
++pub const UNDEFINED_LEADER: [C; 2] = [C::new(-0.25, -1.36), C::new(-0.1, -0.2)];
+ 
+ /// Where the one-line captions sit, under both frames.
+ pub const CAPTION_Y: f64 = -3.5;
+@@ -127,7 +162,8 @@
+ pub const RAY_ANGLE: f64 = 0.6;
+ 
+ /// The lines of 03_6: vertical x = −1, 0, 1 for 0 ≤ y ≤ 2π, and
+-/// horizontal y = 0, π/2, π, 3π/2 for −1.5 ≤ x ≤ 1.15.
++/// horizontal y = π/4, 3π/4, 5π/4, 7π/4 for −1.5 ≤ x ≤ 1.15. Those heights keep the rays
++/// off the output's axes, which are straight lines from 0 already.
+ pub fn exp_lines(n: usize) -> (Vec<Vec<C>>, Vec<Vec<C>>) {
+     let line = |a: C, b: C| {
+         (0..=n)
+@@ -139,16 +175,56 @@
+         .map(|x| line(C::new(x, 0.0), C::new(x, TAU)))
+         .collect();
+     let horizontal = (0..4)
+-        .map(|k| f64::from(k) * PI / 2.0)
++        .map(|k| (f64::from(k) + 0.5) * PI / 2.0)
+         .map(|y| line(C::new(-1.5, y), C::new(1.15, y)))
+         .collect();
+     (vertical, horizontal)
+ }
+ 
+-/// Where the radius readout of e^x (x = −1, 0, 1 as `k` = 0, 1, 2) sits in
+-/// the output plane: under the real axis, except the middle one, above.
++/// Half a radius readout's width in e^z's output window (five characters at 18, CMR10).
++pub const RADIUS_LABEL_HALF: f64 = 0.243;
++
++/// Where the radius readout of e^x (x = −1, 0, 1 as `k` = 0, 1, 2) sits in the output plane:
++/// under the real axis, beside its dot and between circles, so no circle runs through it. The
++/// largest circle has no room outside it, so its readout stands just inside.
+ pub fn radius_label_at(k: usize, r: f64) -> C {
+-    C::new(r, if k == 1 { 0.4 } else { -0.4 })
++    let x = if k == 2 {
++        r - 0.08 - RADIUS_LABEL_HALF
++    } else {
++        r + 0.04 + RADIUS_LABEL_HALF
++    };
++    C::new(x, -0.2)
++}
++
++/// The whole numbers inside `span`, without 0: where a plane's ticks go.
++pub fn whole_ticks(span: (f64, f64)) -> Vec<f64> {
++    (span.0.ceil() as i32..=span.1.floor() as i32)
++        .filter(|&k| k != 0)
++        .map(f64::from)
++        .collect()
++}
++
++/// Ticks at the whole numbers along both axes of `p`, and the names in `UNIT_AT` listed in
++/// `names`: the plane's scale, on the plane.
++fn scale_marks(kit: &Kit, stage: &mut Stage<'_>, p: &Plane, names: &[usize]) -> fmn::Result<Vec<Mob>> {
++    let tick = |stage: &mut Stage<'_>, a: Vec3, b: Vec3| -> Mob {
++        stage
++            .arena_mut()
++            .add(polyline(vec![a, b]).style(line_style(Palette::dim(), 2.0)).build())
++    };
++    let mut out = Vec::new();
++    for x in whole_ticks(p.frame.x) {
++        let at = p.p(C::real(x));
++        out.push(tick(stage, v(at[0], at[1] - TICK), v(at[0], at[1] + TICK)));
++    }
++    for y in whole_ticks(p.frame.y) {
++        let at = p.p(C::new(0.0, y));
++        out.push(tick(stage, v(at[0] - TICK, at[1]), v(at[0] + TICK, at[1])));
++    }
++    for &k in names {
++        out.push(kit.tex(stage, UNIT_TEX[k], 18.0, Palette::dim(), &[], p.p(UNIT_AT[k]))?);
++    }
++    Ok(out)
+ }
+ 
+ /// A red cross at `at`.
+@@ -252,16 +328,31 @@
+             .color(Palette::dim())
+             .build()?;
+         let carry = stage.arena_mut().add(carry);
+-        fade_in_all(stage, &[in_dot], 0.3)?;
+-        fade_in_all(stage, &[carry, out_dot], 0.5)?;
++        let z_name = kit.tex(stage, POINT_TEX[0], 28.0, input(), &[], inp.p(z0 + C::new(0.0, 0.3)))?;
++        let w_name = kit.tex(
++            stage,
++            POINT_TEX[1],
++            28.0,
++            output(),
++            &[],
++            out.p(z0 * z0 + C::new(0.0, 0.32)),
++        )?;
++        fade_in_all(stage, &[in_dot, z_name], 0.3)?;
++        fade_in_all(stage, &[carry, out_dot, w_name], 0.5)?;
+         line.wait_sentence(stage, 1)?;
+         let graph = kit.text(stage, GRAPH, 22.0, Palette::dim(), caption_at)?;
+         fade_in_all(stage, &[graph], 0.4)?;
+         line.wait_sentence(stage, 2)?;
++        // the planes arrive, and the arrow that would cross both their frames goes
++        fade_out_all(stage, &[carry], 0.3)?;
+         let in_frame = framed(stage, &inp, input())?;
+         let out_frame = framed(stage, &out, output())?;
++        let in_scale = scale_marks(&kit, stage, &inp, &[0, 1])?;
++        let out_scale = scale_marks(&kit, stage, &out, &[0, 1])?;
+         fade_in_all(stage, &in_frame, 0.4)?;
+         fade_in_all(stage, &out_frame, 0.4)?;
++        fade_in_all(stage, &in_scale, 0.3)?;
++        fade_in_all(stage, &out_scale, 0.3)?;
+         line.wait_sentence(stage, 3)?;
+         let titles = [
+             kit.text(stage, TITLES[0], 24.0, input(), v(-3.5, 2.75))?,
+@@ -273,7 +364,7 @@
+         // 03_2: squaring: once around |z| = ½ is twice around |w| = ¼
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "03_2")?;
+-        fade_out_all(stage, &[in_dot, out_dot, carry, graph], 0.3)?;
++        fade_out_all(stage, &[in_dot, out_dot, z_name, w_name, graph], 0.3)?;
+         let fn_tex = kit.tex(stage, FN_TEX[0], 32.0, Palette::ink(), &[], fn_at)?;
+         fade_in_all(stage, &[fn_tex], 0.4)?;
+         line.wait_sentence(stage, 1)?;
+@@ -284,7 +375,7 @@
+         let ring_out = out.circle(stage, ZERO, WALK_R * WALK_R, Palette::faint(), 2.0)?;
+         let walked = stage.add_value_tracker(0.0);
+         let w_in = dot(stage, inp.p(C::real(WALK_R)), 0.08, input());
+-        let w_out = dot(stage, out.p(C::real(WALK_R * WALK_R)), 0.08, output());
++        let w_out = dot(stage, out.p(C::real(WALK_R * WALK_R)), 0.06, output());
+         let trail = curve(stage, &out, &[C::real(WALK_R * WALK_R); 2], output(), 4.0);
+         let anchor = stage.arena_mut().add(VMobject::new());
+         stage.add_to_scene(anchor)?;
+@@ -307,33 +398,49 @@
+             true,
+         )?;
+         let labels = [
+-            kit.text(stage, TURNS_LABEL, 22.0, input(), v(-4.3, -2.65))?,
+-            kit.text(stage, TURNS_LABEL, 22.0, output(), v(2.7, -2.65))?,
++            kit.text(stage, TURNS_LABEL, 22.0, input(), v(TURNS_AT[0].0, TURNS_Y))?,
++            kit.text(stage, TURNS_LABEL, 22.0, output(), v(TURNS_AT[1].0, TURNS_Y))?,
++        ];
++        let radii_said = [
++            kit.text(
++                stage,
++                &format!("{RADIUS}{}", fact("square.circle.in_radius")?),
++                20.0,
++                input(),
++                inp.p(RADIUS_AT[0]),
++            )?,
++            kit.text(
++                stage,
++                &format!("{RADIUS}{}", fact("square.circle.out_radius")?),
++                20.0,
++                output(),
++                out.p(RADIUS_AT[1]),
++            )?,
+         ];
+         let counts = [
+             kit.live_value(
+                 stage,
+                 move |s| Walker::turns_so_far(Func::Identity, ZERO, WALK_R, value(s, walked)),
+-                1,
++                2,
+                 false,
+                 28.0,
+                 input(),
+-                v(-3.3, -2.65),
++                v(TURNS_AT[0].1, TURNS_Y),
+                 ORIGIN,
+             )?,
+             kit.live_value(
+                 stage,
+                 move |s| Walker::turns_so_far(Func::Square, ZERO, WALK_R, value(s, walked)),
+-                1,
++                2,
+                 false,
+                 28.0,
+                 output(),
+-                v(3.7, -2.65),
++                v(TURNS_AT[1].1, TURNS_Y),
+                 ORIGIN,
+             )?,
+         ];
+         fade_in_all(stage, &[ring_in, ring_out, w_in, w_out, trail], 0.4)?;
+-        fade_in_all(stage, &labels, 0.3)?;
++        fade_in_all(stage, &[labels[0], labels[1], radii_said[0], radii_said[1]], 0.3)?;
+         let rt = (line.end() - stage.scene().time().to_f64()).max(3.0);
+         stage.play(tween_linear(walked, 1.0, rt)?)?;
+         stage.clear_updaters(anchor, true);
+@@ -341,30 +448,36 @@
+             stage.clear_updaters(c, true);
+             stage.remove_from_scene(c);
+         }
++        // written as the counters read at the end, so the digits do not jump
+         let finals = [
+-            kit.text(stage, fact("identity.circle.turns")?, 28.0, input(), v(-3.3, -2.65))?,
+-            kit.text(stage, fact("square.circle.turns")?, 28.0, output(), v(3.7, -2.65))?,
++            kit.text(
++                stage,
++                &format!("{}.00", fact("identity.circle.turns")?),
++                28.0,
++                input(),
++                v(TURNS_AT[0].1, TURNS_Y),
++            )?,
++            kit.text(
++                stage,
++                &format!("{}.00", fact("square.circle.turns")?),
++                28.0,
++                output(),
++                v(TURNS_AT[1].1, TURNS_Y),
++            )?,
+         ];
+-        let radius = kit.text(
+-            stage,
+-            &format!("{RADIUS}{}", fact("square.circle.out_radius")?),
+-            20.0,
+-            output(),
+-            out.p(C::new(0.0, -0.55)),
+-        )?;
+         for f in finals {
+             stage.add_to_scene(f)?;
+         }
+-        fade_in_all(stage, &[radius], 0.3)?;
+ 
+         // 03_3: a grid: will the vertical lines stay straight after z²?
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "03_3")?;
+-        let mut gone = vec![rule, ring_in, ring_out, w_in, w_out, trail, radius];
++        let mut gone = vec![rule, ring_in, ring_out, w_in, w_out, trail];
++        gone.extend(radii_said);
+         gone.extend(labels);
+         gone.extend(finals);
+         fade_out_all(stage, &gone, 0.4)?;
+-        // same frames, a wider window on both sides for the grid's images
++        // same frames, same window
+         let (inp, out) = planes(SQUARE_HALVES.0, SQUARE_HALVES.1);
+         let (vertical, horizontal) = grid(60);
+         let mut in_lines = Vec::new();
+@@ -396,7 +509,7 @@
+         fade_in_all(stage, &axis_mobs, 0.3)?;
+         let rt = line.until(stage, "The horizontal axis lands", 1.5)?;
+         morph(stage, out, &axes, |z| z * z, rt)?;
+-        // the fold: both axes double back at the origin's image
++        // the fold: both axes double back at the origin's image, which is named
+         let fold = curve(
+             stage,
+             &out,
+@@ -404,7 +517,8 @@
+             Palette::ink(),
+             4.0,
+         );
+-        fade_in_all(stage, &[fold], 0.2)?;
++        let fold_name = kit.text(stage, "0", 18.0, Palette::ink(), out.p(FOLD_NAME_AT))?;
++        fade_in_all(stage, &[fold, fold_name], 0.2)?;
+         line.wait_sentence(stage, 3)?;
+         let rays = [
+             kit.text(stage, RAYS[0], 20.0, hero(), v(-2.6, CAPTION_Y))?,
+@@ -448,13 +562,13 @@
+         // 03_5: 1/z: near and far trade places; the unit circle flips; 0 has no image
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "03_5")?;
+-        let mut gone = vec![fn_tex, fold, kept, at_zero_in, at_zero_out];
++        let mut gone = vec![fn_tex, fold, fold_name, kept, at_zero_in, at_zero_out];
+         gone.extend(in_lines);
+         gone.extend(copies.iter().map(|(m, _)| *m));
+         gone.extend(marks_in);
+         gone.extend(marks_out);
+         fade_out_all(stage, &gone, 0.4)?;
+-        // same frames, wider windows
++        // same frames, same window
+         let (inp, out) = planes(INVERSE_HALVES.0, INVERSE_HALVES.1);
+         let fn_tex = kit.tex(stage, FN_TEX[1], 32.0, Palette::ink(), &[], fn_at)?;
+         fade_in_all(stage, &[fn_tex], 0.4)?;
+@@ -487,7 +601,9 @@
+             out.circle(stage, ZERO, 1.0, hero(), 3.0)?,
+         ];
+         fade_in_all(stage, &circles, 0.4)?;
+-        let colors = [hero(), input(), output(), Palette::ink()];
++        // pairs told apart by colour, in none of the input's or output's: the walking dot
++        // and its image are blue and green, and are not one of these pairs
++        let colors = [hero(), Palette::purple(), pole(), Palette::ink()];
+         let mut ticks = Vec::new();
+         for (&th, &c) in TICKS.iter().zip(&colors) {
+             let a = dot(stage, inp.p(C::polar(1.0, th)), 0.1, c);
+@@ -501,43 +617,57 @@
+         fade_in_all(stage, &[trade], 0.4)?;
+         line.wait_sentence(stage, 4)?;
+         let cross = red_cross(stage, inp.p(ZERO));
+-        let undefined = carded_lines(
+-            &kit,
+-            stage,
+-            &[UNDEFINED],
+-            20.0,
+-            warn(),
+-            inp.p(C::new(0.0, -0.6)),
+-            warn(),
+-        )?;
++        // the card stands outside the unit circle and its ticks; a leader joins it to the cross
++        let undefined = carded_lines(&kit, stage, &[UNDEFINED], 20.0, warn(), inp.p(UNDEFINED_AT), warn())?;
++        let leader = stage.arena_mut().add(
++            polyline(vec![inp.p(UNDEFINED_LEADER[0]), inp.p(UNDEFINED_LEADER[1])])
++                .style(line_style(warn(), 2.0))
++                .build(),
++        );
+         fade_in_all(stage, &cross, 0.3)?;
++        fade_in_all(stage, &[leader], 0.2)?;
+         fade_in_all(stage, &undefined, 0.3)?;
+         wait_until(stage, line.end())?;
+ 
+         // 03_6: e^z: right by one is ×e, up turns; vertical lines → circles, horizontal → rays
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "03_6")?;
+-        let mut gone = vec![fn_tex, near, far, trade];
++        let mut gone = vec![fn_tex, near, far, trade, leader];
+         gone.extend(cross);
+         gone.extend(circles);
+         gone.extend(ticks);
+         gone.extend(undefined);
+         gone.extend(in_frame);
++        gone.extend(in_scale);
++        gone.extend(out_scale);
+         fade_out_all(stage, &gone, 0.4)?;
+         let inp = exp_input();
+         let (_, out) = planes(INVERSE_HALVES.0, EXP_OUT_HALF);
+         let in_frame = framed(stage, &inp, input())?;
++        let mut in_scale = scale_marks(&kit, stage, &inp, &[0, 1])?;
++        let top = inp.p(C::new(0.0, TAU));
++        let climb_tick = stage.arena_mut().add(
++            polyline(vec![v(top[0] - 2.0 * TICK, top[1]), v(top[0] + 2.0 * TICK, top[1])])
++                .style(line_style(hero(), 3.0))
++                .build(),
++        );
++        in_scale.push(climb_tick);
++        in_scale.push(kit.tex(stage, CLIMB_TEX, 18.0, hero(), &[], inp.p(CLIMB_NAME_AT))?);
++        // no "1" here: 1.000 is written beside that tick in a moment
++        let out_scale = scale_marks(&kit, stage, &out, &[1])?;
++        let rescaled = kit.text(stage, RESCALED, 18.0, Palette::dim(), caption_at)?;
+         let fn_tex = kit.tex(stage, GALLERY_TITLES[2], 32.0, Palette::ink(), &[], fn_at)?;
+         fade_in_all(stage, &in_frame, 0.4)?;
+-        fade_in_all(stage, &[fn_tex], 0.4)?;
++        fade_in_all(stage, &in_scale, 0.3)?;
++        fade_in_all(stage, &out_scale, 0.3)?;
++        fade_in_all(stage, &[fn_tex, rescaled], 0.4)?;
+         line.wait_sentence(stage, 1)?;
+         let radii = fact_list("exp.circle_radii")?;
+         let printed: Vec<&str> = fact("exp.circle_radii")?.split(',').collect();
+-        let mut steps = Vec::new();
++        let mut steps = vec![rescaled];
+         for (k, x) in [-1.0, 0.0, 1.0].into_iter().enumerate() {
+             let a = dot(stage, inp.p(C::real(x)), 0.08, input());
+             let b = dot(stage, out.p(C::real(radii[k])), 0.08, output());
+-            // 1/e and 1 sit close: the middle label goes above the axis
+             let l = kit.text(stage, printed[k], 18.0, output(), out.p(radius_label_at(k, radii[k])))?;
+             fade_in_all(stage, &[a], 0.2)?;
+             fade_in_all(stage, &[b, l], 0.3)?;
+@@ -637,7 +767,9 @@
+         let mut all = vec![fn_tex, climber, image_dot, path, landed, period, nonzero, never];
+         all.extend(drawn);
+         all.extend(in_frame);
++        all.extend(in_scale);
+         all.extend(out_frame);
++        all.extend(out_scale);
+         all.extend(titles);
+         fade_out_all(stage, &all, 0.6)?;
+         kit.finish(stage)
+@@ -659,6 +791,122 @@
+         assert!((once - get("identity.circle.turns").parse::<f64>().unwrap()).abs() < 1e-9);
+         assert!((twice - get("square.circle.turns").parse::<f64>().unwrap()).abs() < 1e-9);
+         assert!((WALK_R * WALK_R - get("square.circle.out_radius").parse::<f64>().unwrap()).abs() < 1e-12);
++        assert!((WALK_R - get("square.circle.in_radius").parse::<f64>().unwrap()).abs() < 1e-12);
++        // the counters end at the values the final cards write with ".00"
++        assert_eq!((get("identity.circle.turns"), get("square.circle.turns")), ("1", "2"));
++    }
++
++    /// Every plane carries its scale, and from the first point through 1/z the scale is one.
++    #[test]
++    fn every_plane_is_ticked_and_the_scale_changes_once() {
++        assert_eq!(whole_ticks((-WINDOW, WINDOW)), vec![-2.0, -1.0, 1.0, 2.0]);
++        assert_eq!(whole_ticks(exp_input().frame.y), vec![1.0, 2.0, 3.0, 4.0, 5.0, 6.0]);
++        assert_eq!(
++            whole_ticks((-EXP_OUT_HALF, EXP_OUT_HALF)),
++            vec![-3.0, -2.0, -1.0, 1.0, 2.0, 3.0]
++        );
++        assert_eq!(WALK_HALVES, SQUARE_HALVES);
++        assert_eq!(SQUARE_HALVES, INVERSE_HALVES);
++        // the window holds what it has to: 1/z's farthest image
++        assert!(1.0 / ray_distance(0.0) < WINDOW);
++        // e^z's frames have exactly the other frames' height
++        let (square, _) = planes(SQUARE_HALVES.0, SQUARE_HALVES.1);
++        assert!((exp_input().frame.height - square.frame.height).abs() < 1e-9);
++    }
++
++    /// True if nothing the grid maps to under z² enters a box around `at` of half size
++    /// `(hx, hy)`, in plane units.
++    fn clear_of_images(at: C, hx: f64, hy: f64) -> bool {
++        let (vertical, horizontal) = grid(240);
++        vertical.iter().chain(&horizontal).flatten().all(|&z| {
++            let w = z * z;
++            (w.re - at.re).abs() > hx || (w.im - at.im).abs() > hy
++        })
++    }
++
++    /// The names of 1 and i stand off the axes, off the unit circle and off the grid's images.
++    /// The half sizes are CMR10 widths at 18, an estimate: the pictures decide.
++    #[test]
++    fn the_unit_names_stand_clear() {
++        let (hx, hy) = (0.05, 0.06);
++        for z in UNIT_AT {
++            assert!(z.re.abs() > hx && z.im.abs() > hy, "{z:?}");
++            assert!(z.abs() - (hx * hx + hy * hy).sqrt() > 1.05, "{z:?}");
++            assert!(clear_of_images(z, hx, hy), "{z:?}");
++            assert!(exp_input().contains(z) && planes(WINDOW, WINDOW).1.contains(z));
++        }
++        // and the name at 0 fits the gap the images leave around the origin
++        assert!(clear_of_images(FOLD_NAME_AT, 0.045, 0.055));
++        const { assert!(FOLD_NAME_AT.re + 0.045 < 0.0 && FOLD_NAME_AT.im + 0.055 < -0.12) };
++    }
++
++    /// "turns:" and its value keep to one side of each plane's axis.
++    #[test]
++    fn the_turn_counts_keep_to_one_side_of_the_axis() {
++        let (inp, out) = planes(WALK_HALVES.0, WALK_HALVES.1);
++        for ((word, value), p) in TURNS_AT.into_iter().zip([inp, out]) {
++            let axis = p.p(ZERO)[0];
++            assert!(word + 0.3 < value - 0.2, "the word and its value overlap");
++            assert!(value + 0.2 < axis - 0.2, "the value reaches the axis");
++            assert!(word - 0.3 > p.frame.left());
++        }
++        // the row stands inside the frame, under the radii
++        assert!(TURNS_Y > inp.frame.bottom() && TURNS_Y < inp.p(C::new(0.0, RADIUS_AT[0].im - 0.2))[1]);
++    }
++
++    /// Radii ½ and ¼ are both written, off both axes and off the circles they name. The half
++    /// sizes are CMR10 widths at 20 in this window, an estimate: the pictures decide.
++    #[test]
++    fn the_walk_radii_stand_off_their_circles_and_the_axes() {
++        for (at, half, r) in [(RADIUS_AT[0], 0.365, WALK_R), (RADIUS_AT[1], 0.408, WALK_R * WALK_R)] {
++            assert!(at.re - half > 0.1, "{at:?}: reaches the axis");
++            assert!(at.im + 0.1 < -0.1, "{at:?}: reaches the axis");
++            let near = C::new(at.re - half, at.im + 0.1).abs();
++            assert!(near > r + 0.1, "{at:?}: reaches its circle");
++        }
++    }
++
++    /// No circle of 03_6 runs through a radius readout.
++    #[test]
++    fn the_radius_readouts_clear_every_circle() {
++        let radii: Vec<f64> = get("exp.circle_radii").split(',').map(|x| x.parse().unwrap()).collect();
++        let (_, out) = planes(INVERSE_HALVES.0, EXP_OUT_HALF);
++        for (k, &r) in radii.iter().enumerate() {
++            let at = radius_label_at(k, r);
++            let half_h = 0.07;
++            assert!(at.im + half_h < -0.1, "{k}: reaches the axis and its dot");
++            let lo = C::new(at.re - RADIUS_LABEL_HALF, at.im + half_h).abs();
++            let hi = C::new(at.re + RADIUS_LABEL_HALF, at.im - half_h).abs();
++            for &other in &radii {
++                assert!(
++                    other < lo - 0.03 || other > hi + 0.03,
++                    "{k}: circle {other} in {lo}..{hi}"
++                );
++            }
++            assert!(out.contains(C::new(at.re + RADIUS_LABEL_HALF, at.im)));
++        }
++    }
++
++    /// The 1/0 card stands outside the unit circle, and its leader misses every tick.
++    #[test]
++    fn the_undefined_card_and_its_leader_clear_the_ticks() {
++        let (inp, _) = planes(INVERSE_HALVES.0, INVERSE_HALVES.1);
++        const {
++            assert!(UNDEFINED_AT.im + UNDEFINED_HALF_H < -1.1);
++            assert!((UNDEFINED_LEADER[0].im - (UNDEFINED_AT.im + UNDEFINED_HALF_H)).abs() < 1e-9);
++            // off the vertical axis the whole way
++            assert!(UNDEFINED_LEADER[0].re < -0.05 && UNDEFINED_LEADER[1].re < -0.05);
++        };
++        assert!(inp.contains(UNDEFINED_AT - C::new(0.0, UNDEFINED_HALF_H)));
++        let tick_radius = 0.1 / inp.unit();
++        let [a, b] = UNDEFINED_LEADER;
++        for th in TICKS {
++            let z = C::polar(1.0, th);
++            for k in 0..=50 {
++                let q = a + (b - a).scale(f64::from(k) / 50.0);
++                assert!((q - z).abs() > tick_radius, "tick at {th}");
++            }
++        }
+     }
+ 
+     /// The same rectangle on screen. `planes` passes the centre and width through untouched,
+@@ -768,7 +1016,10 @@
+         }
+         for zs in &horizontal {
+             for &z in zs {
+-                assert!(inp.contains(z) && out.contains(z.exp()));
++                let w = z.exp();
++                assert!(inp.contains(z) && out.contains(w));
++                // a ray that lay on an axis would read as the axis changing colour
++                assert!(w.re.abs() > 0.1 && w.im.abs() > 0.1, "{z:?}");
+             }
+         }
+         assert_eq!(get("exp.after_2pi"), "1.000000,0.000000");
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs
+@@ -4,15 +4,18 @@
+ //! the bump's two poles and the radius-1 circle that touches them
+ //! (storyboard 04_1–04_7). One picture, recoloured in place throughout.
+ 
+-use std::f64::consts::FRAC_PI_4;
+-
+-use explainer_kit::{Kit, Palette, v};
++use std::f64::consts::{FRAC_PI_2, FRAC_PI_4, PI, TAU};
++
++use explainer_kit::{Kit, Palette, tween, v};
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Painter, Plane, fact, fade_in_all, fade_out_all, hero, line_style, marks, names_now, pause, pole, precisely_now,
+-    predict, reading_window, say, wait_until, wheel_legend,
++    Painter, Plane, carded_lines, dot, fact, fade_in_all, fade_out_all, hero, line_style, marks, names_now, pole,
++    precisely_now, predict, reading_window, say, value, wait_until, wheel_legend,
+ };
++use super::gallery::minus;
++use super::loop_sums::IDENTITY_TEX;
++use super::two_planes::FN_TEX;
+ use crate::model::{C, Func, ZERO};
+ 
+ pub const DIRECTIONS: [&str; 4] = ["right: red", "up: yellow green", "left: teal", "down: violet"];
+@@ -24,20 +27,81 @@
+ pub const NEAR_ZERO: &str =
+     "near a zero a of order m, f(z) is about c times (z − a) to the power m, so the hue turns m times as z circles a";
+ pub const ASK: [&str; 2] = ["where are the bump's poles?", "how many turns at each?"];
+-pub const EACH: &str = "one backwards cycle at each";
++pub const EACH: &str = "at i: ";
++pub const EACH_REST: [&str; 2] = [" turn, at −i: ", " turn"];
++pub const RECIPE_RANGE: &str = "gold segment: where the recipe works";
++/// The one function this chapter paints that no other chapter's constant already writes.
++pub const BUMP_TEX: &str = r"f(z) = \frac{1}{1 + z^2}";
++
++/// The formula's place: over the picture, so what is painted is always named.
++pub const FORMULA_AT: (f64, f64) = (-2.6, 3.4);
++/// Where a mark's name is carded: under the mark, inside the gold loop.
++pub const NAME_AT: C = C::new(0.0, -0.36);
++/// The wheel legend's radius.
++pub const WHEEL_R: f64 = 0.75;
++/// The loop's radius.
++pub const LOOP_R: f64 = 0.9;
++/// How far around the loop one direction head reaches, radians.
++pub const HEAD_SWEEP: f64 = 0.25;
++
++/// The probe of 04_1: its distance from 0, and the direction it starts in.
++pub const PROBE_R: f64 = 1.45;
++pub const PROBE_ANGLE: f64 = 0.6;
++/// The directions the voice names, in the words it names them with.
++pub const NAMED: [(&str, f64); 4] = [
++    ("Pointing right is red", 0.0),
++    ("Pointing up is yellow green", FRAC_PI_2),
++    ("Pointing left is teal", PI),
++    ("pointing down is violet", 3.0 * FRAC_PI_2),
++];
+ 
+ /// The picture's window: [−2, 2]², 6.4 units wide, left of centre.
+ pub fn plane() -> Plane {
+     Plane::new(v(-2.6, -0.25), 6.4, (-2.0, 2.0), (-2.0, 2.0))
+ }
+ 
+-/// The gold loop with a direction arrow, around 0 at radius `r`.
++/// A solid head from `a` to `b` in ink, large enough to read as a direction against a gold
++/// ring or a coloured picture.
++fn solid_head(stage: &mut Stage<'_>, a: Vec3, b: Vec3) -> fmn::Result<Mob> {
++    let head = Arrow::new(a, b)
++        .buff(0.0)
++        .thickness(5.0)
++        .max_width_to_length_ratio(0.25)
++        .max_tip_length_to_length_ratio(0.8)
++        .color(Palette::ink())
++        .build()?;
++    Ok(stage.arena_mut().add(head))
++}
++
++/// The gold loop with three direction heads, around 0 at radius `r`.
+ fn loop_with_arrow(stage: &mut Stage<'_>, p: &Plane, r: f64) -> fmn::Result<Vec<Mob>> {
+-    let ring = p.circle(stage, ZERO, r, hero(), 5.0)?;
+-    let at = C::polar(r, FRAC_PI_4);
+-    let ahead = C::polar(r, FRAC_PI_4 + 0.35);
+-    let arrow = Arrow::new(p.p(at), p.p(ahead)).thickness(5.0).color(hero()).build()?;
+-    Ok(vec![ring, stage.arena_mut().add(arrow)])
++    let mut out = vec![p.circle(stage, ZERO, r, hero(), 5.0)?];
++    for k in 0..3 {
++        let from = FRAC_PI_4 + TAU * f64::from(k) / 3.0;
++        out.push(solid_head(
++            stage,
++            p.p(C::polar(r, from)),
++            p.p(C::polar(r, from + HEAD_SWEEP)),
++        )?);
++    }
++    Ok(out)
++}
++
++/// The wheel's own direction of travel: a short arc just outside it, ending in the same head
++/// the loop carries, so "the same order as the wheel" can be checked by eye.
++fn wheel_way(stage: &mut Stage<'_>, at: Vec3, r: f64) -> fmn::Result<Vec<Mob>> {
++    let outer = r + 0.13;
++    let on = |a: f64| v(at[0] + outer * a.cos(), at[1] + outer * a.sin());
++    let arc: Vec<Vec3> = (0..=24).map(|k| on(0.45 + 0.65 * f64::from(k) / 24.0)).collect();
++    let tail = stage
++        .arena_mut()
++        .add(polyline(arc).style(line_style(Palette::ink(), 3.0)).build());
++    Ok(vec![tail, solid_head(stage, on(1.1), on(1.5))?])
++}
++
++/// The wheel's needle: from its centre to its rim, in direction `th`.
++fn needle_points(at: Vec3, r: f64, th: f64) -> Vec<Vec3> {
++    vec![at, v(at[0] + r * th.cos(), at[1] + r * th.sin())]
+ }
+ 
+ pub struct ReadingColor {
+@@ -53,31 +117,67 @@
+         let kit = self.kit.clone();
+         let p = plane();
+         let right = 4.55;
++        let wheel_at = v(right, 2.2);
++        let formula_at = v(FORMULA_AT.0, FORMULA_AT.1);
+ 
+         // 04_1: the wheel legend, then the plane painted with f(z) = z
+         let line = say(&kit, stage, "04_1")?;
+-        let legend = wheel_legend(&kit, stage, v(right, 2.2), 0.75)?;
++        let legend = wheel_legend(&kit, stage, wheel_at, WHEEL_R)?;
++        let way = wheel_way(stage, wheel_at, WHEEL_R)?;
+         fade_in_all(stage, &legend, 0.6)?;
++        fade_in_all(stage, &way, 0.3)?;
+         line.wait_sentence(stage, 1)?;
+         let painter = Painter::build(stage, Some(Func::Identity), p, 0.0)?;
+         let border = p.border(stage, Palette::faint())?;
+         painter.show(stage, 1.2)?;
+-        fade_in_all(stage, &[border], 0.3)?;
+-        line.wait_for(stage, "Pointing right is red")?;
++        let formula = kit.tex(stage, IDENTITY_TEX, 32.0, Palette::ink(), &[], formula_at)?;
++        fade_in_all(stage, &[border, formula], 0.3)?;
++        // the rule, shown: a point, its output's direction (for f(z) = z the point's own),
++        // and that direction on the wheel, which is the colour the point is painted
++        line.wait_sentence(stage, 2)?;
++        let aim = stage.add_value_tracker(PROBE_ANGLE);
++        let start = C::polar(PROBE_R, PROBE_ANGLE);
++        let probe = dot(stage, p.p(start), 0.09, Palette::ink());
++        let arm = stage.arena_mut().add(
++            polyline(vec![p.p(ZERO), p.p(start)])
++                .style(line_style(Palette::ink(), 3.0))
++                .build(),
++        );
++        let needle = stage.arena_mut().add(
++            polyline(needle_points(wheel_at, WHEEL_R, PROBE_ANGLE))
++                .style(line_style(Palette::ink(), 4.0))
++                .build(),
++        );
++        let anchor = stage.arena_mut().add(VMobject::new());
++        stage.add_to_scene(anchor)?;
++        stage.add_updater(
++            anchor,
++            move |a, _| {
++                let th = value(a, aim);
++                let z = C::polar(PROBE_R, th);
++                a.move_to(probe, p.p(z), ORIGIN);
++                let _ = a.set_points(arm, polyline(vec![p.p(ZERO), p.p(z)]).build().points());
++                let _ = a.set_points(needle, polyline(needle_points(wheel_at, WHEEL_R, th)).build().points());
++            },
++            true,
++        )?;
++        fade_in_all(stage, &[arm, probe, needle], 0.4)?;
+         let mut names = Vec::new();
+         for (i, d) in DIRECTIONS.iter().enumerate() {
+             names.push(kit.text(stage, d, 22.0, Palette::ink(), v(right, 1.0 - 0.38 * i as f64))?);
+         }
+-        for (i, &m) in names.iter().enumerate() {
+-            fade_in_all(stage, &[m], 0.3)?;
+-            if i + 1 < names.len() {
+-                pause(stage, 0.5)?;
+-            }
++        for (&m, (phrase, th)) in names.iter().zip(NAMED) {
++            line.wait_for(stage, phrase)?;
++            stage.play(tween(aim, th, 0.35)?)?;
++            fade_in_all(stage, &[m], 0.25)?;
+         }
+ 
+         // 04_2: brightness bands for size, dark lines every twelfth of a turn
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "04_2")?;
++        stage.clear_updaters(anchor, true);
++        stage.remove_from_scene(anchor);
++        fade_out_all(stage, &[arm, probe, needle], 0.3)?;
+         line.wait_sentence(stage, 1)?;
+         painter.enhance_to(stage, 1.0, 2.0)?;
+         line.wait_sentence(stage, 2)?;
+@@ -96,9 +196,13 @@
+         // 04_3: z²: every colour twice around zero, in the wheel's order
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "04_3")?;
+-        fade_out_all(stage, &names, 0.3)?;
++        let mut old = names;
++        old.push(formula);
++        fade_out_all(stage, &old, 0.3)?;
++        let squared = kit.tex(stage, FN_TEX[0], 32.0, Palette::ink(), &[], formula_at)?;
++        fade_in_all(stage, &[squared], 0.25)?;
+         painter.to(stage, Some(Func::Square), 1.2)?;
+-        let ring = loop_with_arrow(stage, &p, 0.9)?;
++        let ring = loop_with_arrow(stage, &p, LOOP_R)?;
+         fade_in_all(stage, &ring, 0.5)?;
+         line.wait_sentence(stage, 1)?;
+         let count = kit.text(
+@@ -114,10 +218,18 @@
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "04_4")?;
+         let zero = marks(stage, Func::Square, &p);
+-        let order = kit.text(stage, ORDER_TWO, 24.0, Palette::ink(), p.p(C::new(0.0, -0.35)))?;
++        let order = carded_lines(
++            &kit,
++            stage,
++            &[ORDER_TWO],
++            22.0,
++            Palette::ink(),
++            p.p(NAME_AT),
++            Palette::faint(),
++        )?;
+         fade_in_all(stage, &zero, 0.3)?;
+         line.wait_sentence(stage, 1)?;
+-        fade_in_all(stage, &[order], 0.3)?;
++        fade_in_all(stage, &order, 0.3)?;
+         // the voice is still asking the eye to count colours around the dot, so the card
+         // comes only when it has finished, and all of it is read in the window below
+         wait_until(stage, line.end())?;
+@@ -126,29 +238,39 @@
+         // 04_5: 1/z runs the colours backwards around a pole
+         reading_window(&kit, stage, &line)?;
+         let line = say(&kit, stage, "04_5")?;
+-        fade_out_all(stage, &[order, exact, count], 0.3)?;
++        let mut old = vec![exact, count, squared];
++        old.extend(&order);
++        fade_out_all(stage, &old, 0.3)?;
+         fade_out_all(stage, &zero, 0.2)?;
++        let inverse = kit.tex(stage, FN_TEX[1], 32.0, Palette::ink(), &[], formula_at)?;
++        fade_in_all(stage, &[inverse], 0.25)?;
+         painter.to(stage, Some(Func::Recip), 1.2)?;
+         let pole_mark = marks(stage, Func::Recip, &p);
+-        let simple = kit.text(stage, SIMPLE_POLE, 24.0, pole(), p.p(C::new(0.0, -0.35)))?;
++        let simple = carded_lines(&kit, stage, &[SIMPLE_POLE], 22.0, pole(), p.p(NAME_AT), pole())?;
+         let back = kit.text(
+             stage,
+-            &format!("{TURNS}{}", fact("color.recip.turns")?),
++            &format!("{TURNS}{}", minus(fact("color.recip.turns")?)),
+             26.0,
+             pole(),
+             v(right, 0.6),
+         )?;
+         line.wait_sentence(stage, 1)?;
+         fade_in_all(stage, &pole_mark, 0.3)?;
+-        fade_in_all(stage, &[simple, back], 0.4)?;
++        fade_in_all(stage, &simple, 0.4)?;
++        fade_in_all(stage, &[back], 0.3)?;
+ 
+         // 04_6: before the colours appear, where are the bump's poles?
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "04_6")?;
+-        let mut clearing = vec![simple, back];
++        // the size and phase notes describe a picture that has gone; the wheel stays to answer with
++        let mut clearing = vec![back, inverse, band, phase];
++        clearing.extend(&simple);
+         clearing.extend(&ring);
+         clearing.extend(&pole_mark);
+         fade_out_all(stage, &clearing, 0.4)?;
++        // the voice names the bump as the picture clears, so the question has its formula
++        let bump = kit.tex(stage, BUMP_TEX, 32.0, Palette::ink(), &[], formula_at)?;
++        fade_in_all(stage, &[bump], 0.3)?;
+         painter.to(stage, None, 0.8)?;
+         let unit = p.circle(stage, ZERO, 1.0, Palette::faint(), 3.0)?;
+         let axes = p.axes(stage)?;
+@@ -165,9 +287,11 @@
+         let each = kit.text(
+             stage,
+             &format!(
+-                "{EACH}: {} and {}",
+-                fact("color.bump.turns_at_i")?,
+-                fact("color.bump.turns_at_minus_i")?
++                "{EACH}{}{}{}{}",
++                minus(fact("color.bump.turns_at_i")?),
++                EACH_REST[0],
++                minus(fact("color.bump.turns_at_minus_i")?),
++                EACH_REST[1]
+             ),
+             24.0,
+             pole(),
+@@ -181,14 +305,20 @@
+                 .style(line_style(hero(), 9.0))
+                 .build(),
+         );
++        let range_says = kit.text(stage, RECIPE_RANGE, 20.0, hero(), v(right, -0.2))?;
+         fade_out_all(stage, &[unit], 0.2)?;
+-        fade_in_all(stage, &[touching, segment], 0.6)?;
++        fade_in_all(stage, &[touching, segment, range_says], 0.6)?;
++        // the circle touches the poles: their marks stay on top of it
++        for &m in &bump_marks {
++            stage.add_to_scene(m)?;
++        }
+         line.wait_sentence(stage, 2)?;
+         let search = names_now(&kit, stage, &["domain colouring", "enhanced phase portrait"])?;
+         wait_until(stage, line.end())?;
+         kit.music_breath(stage, 2.0)?;
+-        let mut all = vec![border, band, phase, each, touching, segment, search];
++        let mut all = vec![border, bump, each, touching, segment, range_says, search];
+         all.extend(legend);
++        all.extend(way);
+         all.extend(axes);
+         all.extend(bump_marks);
+         fade_out_all(stage, &all, 0.5)?;
+@@ -200,7 +330,7 @@
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+-    use crate::model::{I, circle, winding_count};
++    use crate::model::{I, WHEEL, circle, wheel, winding_count};
+ 
+     #[test]
+     fn the_window_holds_every_point_the_chapter_marks() {
+@@ -211,7 +341,8 @@
+             -I,
+             C::real(1.0),
+             C::real(-1.0),
+-            C::polar(0.9, FRAC_PI_4 + 0.35),
++            C::polar(LOOP_R, FRAC_PI_4 + HEAD_SWEEP),
++            C::polar(PROBE_R, PROBE_ANGLE),
+         ] {
+             assert!(p.contains(z));
+         }
+@@ -228,5 +359,48 @@
+         let sq = winding_count(|z| Func::Square.eval(z), &circle(ZERO, 0.9, 2048));
+         let inv = winding_count(|z| Func::Recip.eval(z), &circle(ZERO, 0.9, 2048));
+         assert_eq!((sq, inv), (Some(2), Some(-1)));
+-    }
+-}
++        // a turn count is printed with a true minus sign
++        assert_eq!(minus(f.get("color.bump.turns_at_i").unwrap()), "−1");
++        assert_eq!(minus(f.get("color.bump.turns_at_minus_i").unwrap()), "−1");
++    }
++
++    /// The probe turns to each direction as the voice names it, and each is the wheel's own
++    /// anchor for that direction, so the needle lands on the colour the voice says.
++    #[test]
++    fn the_probe_turns_where_the_voice_points() {
++        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
++        let said = script.text("04_1").unwrap();
++        let mut from = 0;
++        for (k, (phrase, th)) in NAMED.into_iter().enumerate() {
++            let at = said[from..].find(phrase).unwrap_or_else(|| panic!("{phrase}"));
++            from += at + phrase.len();
++            let anchor = WHEEL[3 * k].map(|c| f64::from(c) / 255.0);
++            for (a, b) in wheel(th).into_iter().zip(anchor) {
++                assert!((a - b).abs() < 1e-9, "{phrase}");
++            }
++        }
++        assert!(plane().contains(C::polar(PROBE_R, 3.0 * FRAC_PI_2)));
++    }
++
++    /// The zero's and pole's cards stand inside the gold loop and clear of the mark above
++    /// them. The half sizes are CMR10 widths at 22 plus the card's margins, an estimate: the
++    /// pictures decide.
++    #[test]
++    fn the_cards_clear_the_loop_and_the_mark() {
++        let p = plane();
++        let (half_w, half_h) = (0.96, 0.3);
++        let at = p.p(NAME_AT);
++        let c = p.p(ZERO);
++        let (dx, dy) = (half_w, (at[1] - c[1]).abs() + half_h);
++        assert!((dx * dx + dy * dy).sqrt() < LOOP_R * p.unit() - 0.1);
++        assert!((at[1] - c[1]).abs() - half_h > 0.13);
++    }
++
++    /// The formula stands over the picture, inside the frame.
++    #[test]
++    fn the_formula_stands_over_the_picture() {
++        let half_h = 0.3;
++        assert!(FORMULA_AT.1 - half_h > plane().frame.top());
++        assert!(FORMULA_AT.1 + half_h < 3.85);
++    }
++}
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
+@@ -59,11 +59,27 @@
+ pub const ONE_POLE: &str = "a single pole: s = 1";
+ pub const TRIVIAL: &str = "zeros at ";
+ pub const CRITICAL: &str = "more zeros on Re s = 1/2";
+-pub const SQUASHED: &str = "strip squashed: 0 ≤ Im s ≤ ";
++pub const SQUASHED: &str = "gold box = gold band. The strip runs on up to Im s = ";
+ pub const RH: [&str; 2] = ["Riemann hypothesis:", "open"];
+ pub const FOUR: &str = "this plot shows four zeros, located by Newton's method";
+ pub const ONE_TILE: &str = "one tile of z³ − 1, traced exactly";
+ pub const NEXT: &str = "next: what one complex derivative demands";
++/// The walker's output box (05_1, 05_2): it says what the box holds, and that sizes are
++/// squashed to fit (`draw::squash`).
++pub const OUT_BOX: &str = "output f(z), sizes squashed";
++/// A zero on the critical line is written whole, so no label names a point on the imaginary axis.
++pub const ZERO_AT: &str = "1/2 + ";
++/// The mosaic's six names, in `mosaic`'s order.
++pub const PANEL_NAMES_TEX: [&str; 6] = [
++    r"z^3 - 1",
++    r"\frac{z-1}{(z+1)^2}",
++    r"e^z",
++    r"\sin z",
++    r"\Gamma(z)",
++    r"\zeta(s)",
++];
++/// The heights of the mosaic's names: over the top row, and in the gap over the bottom row.
++pub const PANEL_NAME_Y: [f64; 2] = [3.15, 0.1];
+ 
+ /// The walker's output plane (05_1, 05_2), and the radius outputs are
+ /// squashed into.
+@@ -90,10 +106,14 @@
+     Plane::new(v(-2.6, -0.25), 3.2, (-3.0, 3.0), (-4.0, 8.0))
+ }
+ 
+-/// sin and tan over x ∈ [−2π, 2π], y ∈ [−3.3, 3.3] (05_4, 05_5).
++/// sin and tan over x ∈ [−6.6, 6.6], y ∈ [−3.3, 3.3] (05_4, 05_5): a little past ±2π, so the
++/// zeros there sit inside the picture and not on its border.
+ pub fn trig_plane() -> Plane {
+-    Plane::new(v(-2.4, -0.1), 8.4, (-TAU, TAU), (-3.3, 3.3))
+-}
++    Plane::new(v(-2.4, -0.1), 8.4, (-6.6, 6.6), (-3.3, 3.3))
++}
++/// How far the sin(3i) readout's card drops below its dot, so it stays inside the picture; the
++/// sin(i) readout's card is level with its own.
++pub const READOUT_DROP: [f64; 2] = [0.0, 0.26];
+ 
+ /// Γ over x ∈ [−4.5, 4.5], y ∈ [−2.5, 2.5] (05_6).
+ pub fn gamma_plane() -> Plane {
+@@ -122,6 +142,36 @@
+ /// The right-hand column's x.
+ pub const COLUMN: f64 = 4.6;
+ 
++/// The zeta beat's column, left aligned, past the strip's zero labels.
++pub const ZETA_COLUMN: f64 = 4.15;
++/// Its rows, which fall between the strip's zero labels, so none reads as a row of a table.
++pub const ZETA_ROWS: [f64; 4] = [2.5, 1.65, 0.85, 0.35];
++/// Where a zero's label starts, past the strip's right edge.
++pub const ZERO_LABEL_GAP: f64 = 0.12;
++/// The height both pictures of 05_7 show: the wide picture's top, and the strip's gold band.
++pub const SHARED_TOP: f64 = 3.0;
++
++/// The region both pictures of 05_7 show, as a closed path: the box on the wide picture and
++/// the band at the foot of the strip.
++pub fn shared_region() -> [C; 5] {
++    [
++        C::new(-1.0, 0.0),
++        C::new(2.0, 0.0),
++        C::new(2.0, SHARED_TOP),
++        C::new(-1.0, SHARED_TOP),
++        C::new(-1.0, 0.0),
++    ]
++}
++
++/// The two links between them: each joins the box's right edge to the band's left edge at the
++/// same height, as the tile's zoom does in 05_9.
++pub fn strip_links() -> [(C, C); 2] {
++    [
++        (C::new(2.0, SHARED_TOP), C::new(-1.0, SHARED_TOP)),
++        (C::new(2.0, 0.0), C::new(-1.0, 0.0)),
++    ]
++}
++
+ /// The first four nontrivial zeros of ζ, each found by Newton's method from
+ /// its published height rounded to a whole number (as `facts` does).
+ pub fn zeta_zeros() -> Vec<C> {
+@@ -143,7 +193,7 @@
+         (Func::Cubic, panel(-4.5, 1.55, (-2.7, 2.7), 0.3)),
+         (Func::ZeroDoublePole, panel(0.0, 1.55, (-2.7, 2.7), 0.0)),
+         (Func::Exp, panel(4.5, 1.55, (-3.5, 3.5), 1.2)),
+-        (Func::Sin, panel(-4.5, -1.35, (-TAU, TAU), 0.0)),
++        (Func::Sin, panel(-4.5, -1.35, (-6.6, 6.6), 0.0)),
+         (Func::Gamma, panel(0.0, -1.35, (-4.5, 3.5), 0.0)),
+         (Func::Zeta, panel(4.5, -1.35, (-7.0, 3.0), 0.0)),
+     ]
+@@ -245,8 +295,23 @@
+ }
+ 
+ /// A printed number with a true minus sign.
+-fn minus(s: &str) -> String {
++pub fn minus(s: &str) -> String {
+     s.replace('-', "−")
++}
++
++/// The walker's output box, with its name.
++fn output_box(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Vec<Mob>> {
++    let out = walk_plane();
++    let mut shown = vec![out.border(stage, Palette::faint())?];
++    shown.extend(out.axes(stage)?);
++    shown.push(kit.text(
++        stage,
++        OUT_BOX,
++        18.0,
++        Palette::dim(),
++        v(out.frame.center[0], out.frame.top() + 0.18),
++    )?);
++    Ok(shown)
+ }
+ 
+ pub struct Gallery {
+@@ -255,14 +320,14 @@
+ 
+ impl Gallery {
+     /// Walk the loop `|z − centre| = r` of `f` in `inp`, with its image in
+-    /// `out` and a live turn count, until `phrase` (or the line's end); then
+-    /// the count is replaced by `stated`. Returns everything it drew.
++    /// `out` and a live turn count, until `phrase`; then the count is
++    /// replaced by `stated`. Returns everything it drew.
+     #[allow(clippy::too_many_arguments)]
+     fn walk_and_count(
+         kit: &Kit,
+         stage: &mut Stage<'_>,
+         line: &Spoken,
+-        phrase: Option<&str>,
++        phrase: &str,
+         f: Func,
+         centre: C,
+         (r, squash): (f64, f64),
+@@ -276,10 +341,7 @@
+         w.show(stage, 0.4)?;
+         let at = v(COUNT_AT.0, COUNT_AT.1);
+         let counter = w.counter(kit, stage, at)?;
+-        let rt = match phrase {
+-            Some(p) => line.until(stage, p, 2.5)?,
+-            None => (line.end() - stage.scene().time().to_f64()).max(2.5),
+-        };
++        let rt = line.until(stage, phrase, 2.5)?;
+         w.walk(stage, rt)?;
+         stage.clear_updaters(counter, true);
+         let shown = kit.text(stage, stated, 26.0, hero(), at)?;
+@@ -315,16 +377,14 @@
+         fade_in_all(stage, &[unit], 0.3)?;
+         fade_in_all(stage, &cubic_marks, 0.4)?;
+         line.wait_sentence(stage, 2)?;
+-        let out = walk_plane();
+-        let mut out_frame = vec![out.border(stage, Palette::faint())?];
+-        out_frame.extend(out.axes(stage)?);
++        let out_frame = output_box(&kit, stage)?;
+         fade_in_all(stage, &out_frame, 0.3)?;
+         let stated = format!("{TURNS}{}{CUBIC_SAYS}", fact("gallery.cubic.turns_r1_8")?);
+         let walked = Self::walk_and_count(
+             &kit,
+             stage,
+             &line,
+-            Some("Three zeros inside"),
++            "Three zeros inside",
+             Func::Cubic,
+             ZERO,
+             CUBIC_LOOP,
+@@ -339,6 +399,8 @@
+         let mut gone = vec![unit, title];
+         gone.extend(cubic_marks);
+         gone.extend(walked);
++        // the output box goes too, and comes back when there is a walk to put in it
++        gone.extend(out_frame);
+         fade_out_all(stage, &gone, 0.4)?;
+         painter.to(stage, Some(Func::ZeroDoublePole), 1.2)?;
+         let title = kit.tex(stage, TITLES_TEX[1], 34.0, Palette::ink(), &[], title_at)?;
+@@ -365,13 +427,17 @@
+             pole(),
+         )?);
+         fade_in_all(stage, &labels, 0.3)?;
+-        line.wait_for(stage, "where the colours run backwards")?;
++        // the walk starts as the voice reaches the pole and lands on its last two words, so
++        // the count is read while they are said and for the breath after them
++        line.wait_for(stage, "and at minus one")?;
++        let out_frame = output_box(&kit, stage)?;
++        fade_in_all(stage, &out_frame, 0.3)?;
+         let stated = format!("{TURNS}{}{ZDP_SAYS}", minus(fact("gallery.zdp.turns_at_minus1")?));
+         let walked = Self::walk_and_count(
+             &kit,
+             stage,
+             &line,
+-            None,
++            "backwards twice",
+             Func::ZeroDoublePole,
+             -ONE,
+             ZDP_LOOP,
+@@ -470,8 +536,13 @@
+         let real = tp.path(stage, &[C::real(-TAU), C::real(TAU)], hero(), 5.0)?;
+         let real_says = kit.text(stage, SIN_REAL, 20.0, hero(), v(COLUMN, 1.15))?;
+         fade_in_all(stage, &[real, real_says], 0.4)?;
++        // the zeros stay on top of the line through them
++        for &m in &sin_marks {
++            stage.add_to_scene(m)?;
++        }
+         line.wait_sentence(stage, 2)?;
+         let climb = Arrow::new(tp.p(ZERO), tp.p(C::new(0.0, 3.0)))
++            .buff(0.0)
+             .thickness(4.0)
+             .color(Palette::ink())
+             .build()?;
+@@ -485,16 +556,18 @@
+         {
+             let at = tp.p(z);
+             let d = dot(stage, at, 0.08, Palette::ink());
++            let card_y = at[1] - READOUT_DROP[k];
+             let card = explainer_kit::props::equation_card(
+                 &kit,
+                 stage,
+                 &format!(r"{}{}\,i", SIN_AT_TEX[k], part(key, 1)?),
+                 26.0,
+                 &[],
+-                v(at[0] + 1.9, at[1]),
++                v(at[0] + 1.9, card_y),
+             )?;
+             let left = at[0] + 1.9 - stage.get_width(card) / 2.0;
+-            let arrow = Arrow::new(v(left - 0.05, at[1]), v(at[0] + 0.14, at[1]))
++            let arrow = Arrow::new(v(left - 0.05, card_y), v(at[0] + 0.14, at[1]))
++                .buff(0.0)
+                 .thickness(3.0)
+                 .color(Palette::ink())
+                 .build()?;
+@@ -639,21 +712,22 @@
+         let zeta = Painter::build(stage, Some(Func::Zeta), zp, 1.0)?;
+         let zborder = zp.border(stage, Palette::faint())?;
+         let series = kit.tex(stage, TITLES_TEX[6], 30.0, Palette::ink(), &[], v(-3.4, 2.85))?;
+-        fade_in_all(stage, &[series], 0.5)?;
++        // the picture comes with the formula, as Γ's does, and the series' half-plane is then
++        // cut out of it, so the formula never stands alone on an empty frame
++        zeta.show(stage, 0.8)?;
++        fade_in_all(stage, &[zborder, series], 0.4)?;
+         line.wait_sentence(stage, 1)?;
+         let zcover = cover_left(stage, &zp, 1.0);
+-        zeta.show(stage, 0.8)?;
+-        stage.add_to_scene(zcover)?;
+         let zedge = dashed(stage, zp.p(C::new(1.0, -3.0)), zp.p(C::new(1.0, 3.0)), Palette::ink())?;
+-        // the column sits right of the strip's height labels
+-        let zcol = COLUMN + 0.4;
+-        let converges = kit.text(stage, CONVERGES, 22.0, Palette::ink(), v(zcol, 2.5))?;
+-        fade_in_all(stage, &[zborder, zedge, converges], 0.4)?;
++        // the column stands past the strip's zero labels
++        let zcol = ZETA_COLUMN;
++        let converges = kit.text_left(stage, CONVERGES, 22.0, Palette::ink(), v(zcol, ZETA_ROWS[0]))?;
++        fade_in_all(stage, &[zcover, zedge, converges], 0.5)?;
+         line.wait_sentence(stage, 2)?;
+         fade_out_all(stage, &[zcover], 0.8)?;
+         line.wait_sentence(stage, 3)?;
+         let pole1 = pole_mark(stage, zp.p(ONE));
+-        let pole_says = kit.text(stage, ONE_POLE, 22.0, pole(), v(zcol, 1.85))?;
++        let pole_says = kit.text_left(stage, ONE_POLE, 22.0, pole(), v(zcol, ZETA_ROWS[1]))?;
+         fade_in_all(stage, &pole1, 0.3)?;
+         fade_in_all(stage, &[pole_says], 0.3)?;
+         line.wait_sentence(stage, 4)?;
+@@ -661,7 +735,7 @@
+         for &x in &fact_list("gallery.zeta.trivial")? {
+             trivial.extend(zero_mark(stage, zp.p(C::real(x))));
+         }
+-        let trivial_says = kit.text(
++        let trivial_says = kit.text_left(
+             stage,
+             &format!(
+                 "{TRIVIAL}{}, …",
+@@ -669,33 +743,27 @@
+             ),
+             22.0,
+             Palette::ink(),
+-            v(zcol, 1.2),
++            v(zcol, ZETA_ROWS[2]),
+         )?;
+         fade_in_all(stage, &trivial, 0.4)?;
+         fade_in_all(stage, &[trivial_says], 0.3)?;
+         line.wait_sentence(stage, 5)?;
+-        // the strip starts where the wide picture's [−1, 2] × [0, 3] is
++        // the wide picture's [−1, 2] × [0, 3] is the gold box there and the gold band at the
++        // strip's foot; two links join them at the same heights, and the strip runs on above
+         let st = strip_plane();
+-        let start_box = zp.path(
+-            stage,
+-            &[
+-                C::new(-1.0, 0.0),
+-                C::new(2.0, 0.0),
+-                C::new(2.0, 3.0),
+-                C::new(-1.0, 3.0),
+-                C::new(-1.0, 0.0),
+-            ],
+-            hero(),
+-            3.0,
+-        )?;
+-        let link = stage.arena_mut().add(
+-            polyline(vec![zp.p(C::new(2.0, 3.0)), st.p(C::new(-1.0, 0.0))])
+-                .style(line_style(hero(), 2.0))
+-                .build(),
+-        );
++        let start_box = zp.path(stage, &shared_region(), hero(), 3.0)?;
++        let links: Vec<Mob> = strip_links()
++            .into_iter()
++            .map(|(a, b)| {
++                stage
++                    .arena_mut()
++                    .add(polyline(vec![zp.p(a), st.p(b)]).style(line_style(hero(), 2.0)).build())
++            })
++            .collect();
+         let strip = Painter::build(stage, Some(Func::Zeta), st, 1.0)?;
+-        let sborder = st.border(stage, hero())?;
++        let sborder = st.border(stage, Palette::faint())?;
+         strip.show(stage, 0.8)?;
++        let band = st.path(stage, &shared_region(), hero(), 3.0)?;
+         let half = st.path(
+             stage,
+             &[C::new(0.5, 0.0), C::new(0.5, model::ZETA_STRIP_TOP)],
+@@ -706,26 +774,29 @@
+             stage,
+             &format!("{SQUASHED}{}", fact("gallery.zeta.strip_top")?),
+             18.0,
+-            Palette::dim(),
++            Palette::ink(),
+             v(st.frame.center[0], st.frame.bottom() - 0.25),
+         )?;
+-        let critical = kit.text(stage, CRITICAL, 22.0, Palette::ink(), v(zcol, 0.5))?;
+-        fade_in_all(stage, &[start_box, link, sborder, half, squashed, critical], 0.4)?;
++        let critical = kit.text_left(stage, CRITICAL, 22.0, Palette::ink(), v(zcol, ZETA_ROWS[3]))?;
++        fade_in_all(stage, &[start_box, sborder, band, half, squashed, critical], 0.4)?;
++        fade_in_all(stage, &links, 0.3)?;
+         let heights: Vec<&str> = fact("gallery.zeta.zeros")?.split(',').collect();
+         let mut climbing = Vec::new();
+         for (z, h) in zeta_zeros().into_iter().zip(heights) {
+-            let zm = zero_mark(stage, st.p(z));
+-            let label = kit.text(
+-                stage,
+-                &format!("{h}i"),
+-                20.0,
+-                Palette::ink(),
+-                v(st.frame.right() + 0.5, st.p(z)[1]),
+-            )?;
++            let at = st.p(z);
++            let zm = zero_mark(stage, at);
++            // each label is joined to its zero, so it reads as the zero's name
++            let name_x = st.frame.right() + ZERO_LABEL_GAP;
++            let leader = stage.arena_mut().add(
++                polyline(vec![v(at[0] + 0.13, at[1]), v(name_x - 0.03, at[1])])
++                    .style(line_style(Palette::ink(), 2.0))
++                    .build(),
++            );
++            let label = kit.text_left(stage, &format!("{ZERO_AT}{h}i"), 18.0, Palette::ink(), v(name_x, at[1]))?;
+             fade_in_all(stage, &zm, 0.25)?;
+-            fade_in_all(stage, &[label], 0.2)?;
++            fade_in_all(stage, &[leader, label], 0.2)?;
+             climbing.extend(zm);
+-            climbing.push(label);
++            climbing.extend([leader, label]);
+         }
+         wait_until(stage, line.end())?;
+ 
+@@ -745,7 +816,7 @@
+             .collect();
+         fade_in_all(stage, &rings, 0.5)?;
+         line.wait_sentence(stage, 1)?;
+-        let rh = carded_lines(&kit, stage, &RH, 26.0, hero(), v(zcol, -1.0), hero())?;
++        let rh = carded_lines(&kit, stage, &RH, 26.0, hero(), v(zcol + 1.2, -1.0), hero())?;
+         fade_in_all(stage, &rh, 0.4)?;
+         line.wait_sentence(stage, 2)?;
+         let four = precisely_now(&kit, stage, FOUR)?;
+@@ -762,13 +833,14 @@
+             pole_says,
+             trivial_says,
+             start_box,
+-            link,
++            band,
+             sborder,
+             half,
+             squashed,
+             critical,
+             four,
+         ];
++        gone.extend(links);
+         gone.extend(pole1);
+         gone.extend(trivial);
+         gone.extend(climbing);
+@@ -786,21 +858,38 @@
+             frames.push(p.border(stage, Palette::faint())?);
+             painters.push(painter);
+         }
++        let panel_names: Vec<Mob> = panels
++            .iter()
++            .enumerate()
++            .map(|(k, &(_, p))| {
++                kit.tex(
++                    stage,
++                    PANEL_NAMES_TEX[k],
++                    20.0,
++                    Palette::ink(),
++                    &[],
++                    v(p.frame.center[0], PANEL_NAME_Y[k / 3]),
++                )
++            })
++            .collect::<fmn::Result<_>>()?;
+         fade_in_all(stage, &frames, 0.3)?;
++        fade_in_all(stage, &panel_names, 0.3)?;
+         line.wait_sentence(stage, 1)?;
+         let panel_marks: Vec<Vec<Mob>> = panels.iter().map(|&(f, p)| marks(stage, f, &p)).collect();
+         fade_in_all(stage, &panel_marks.concat(), 0.5)?;
+-        line.wait_sentence(stage, 2)?;
++        // the six stay up until the voice reaches the tiles
++        line.wait_for(stage, "in little tiles")?;
+         let (_, cubic) = panels[0];
+         let zp9 = zoom_plane();
+         let boxed = window_box(stage, &cubic, &zp9, hero())?;
+         fade_in_all(stage, &[boxed], 0.4)?;
+         // keep the cubic's panel; the others make room for the zoom
+         let mut leaving: Vec<Mob> = frames[1..].to_vec();
++        leaving.extend(&panel_names[1..]);
+         leaving.extend(panel_marks[1..].concat());
+         fade_out_all(stage, &leaving, 0.4)?;
+         for p in &painters[1..] {
+-            p.leave(stage, 0.4)?;
++            p.leave(stage, 0.2)?;
+         }
+         let zoom = Painter::build(stage, Some(Func::Cubic), zp9, 1.0)?;
+         let zborder9 = zp9.border(stage, hero())?;
+@@ -830,7 +919,7 @@
+         fade_in_all(stage, &[next], 0.4)?;
+         wait_until(stage, line.end())?;
+         kit.music_breath(stage, 2.0)?;
+-        let mut all = vec![frames[0], boxed, zborder9, outline, tile_says, next];
++        let mut all = vec![frames[0], panel_names[0], boxed, zborder9, outline, tile_says, next];
+         all.extend(panel_marks[0].iter().copied());
+         all.extend(links);
+         fade_out_all(stage, &all, 0.5)?;
+@@ -928,6 +1017,73 @@
+         assert!(st.frame.bottom() > -2.78 && st.frame.top() < 3.85);
+     }
+ 
++    /// The box and the band are one region of the plane: each link joins equal heights, the
++    /// box is inside the wide picture and the band inside the strip, and the band is the
++    /// strip's foot, with the rest of the strip running on above it.
++    #[test]
++    fn the_inset_joins_the_same_region_at_the_same_heights() {
++        let (zp, st) = (zeta_plane(), strip_plane());
++        for z in shared_region() {
++            assert!(zp.contains(z) && st.contains(z), "{z:?}");
++        }
++        for (a, b) in strip_links() {
++            assert_eq!(a.im, b.im);
++            assert!(zp.contains(a) && st.contains(b));
++        }
++        assert_eq!(st.frame.y.0, 0.0);
++        assert!(SHARED_TOP < st.frame.y.1 && zp.frame.y.1 == SHARED_TOP);
++        // the strip's four marked zeros are all above the band, so the box does not hold them:
++        // the caption says the strip runs on
++        assert!(zeta_zeros().iter().all(|z| z.im > SHARED_TOP));
++    }
++
++    /// Each label names the whole zero, and no row of the column lines up with a label. The
++    /// half heights are estimates at 18 and 22: the pictures decide.
++    #[test]
++    fn the_zero_labels_name_the_zeros_and_are_no_table() {
++        let st = strip_plane();
++        let zs = zeta_zeros();
++        assert!(zs.iter().all(|z| (z.re - 0.5).abs() < 1e-9));
++        assert_eq!(ZERO_AT, "1/2 + ");
++        for z in &zs {
++            let y = st.p(*z)[1];
++            for row in ZETA_ROWS {
++                assert!((row - y).abs() > 0.25, "row {row} lines up with the label at {y}");
++            }
++        }
++        // the labels end before the column starts: 5.5 ems at 18 (CMR10)
++        let label_end = st.frame.right() + ZERO_LABEL_GAP + 5.5 * 18.0 * 0.01;
++        assert!(label_end + 0.3 < ZETA_COLUMN, "{label_end}");
++    }
++
++    /// 05_2 lands its count on the words that state it, with the walk long enough to follow:
++    /// the phrases are the line's own, in order, and the second is near its end.
++    #[test]
++    fn the_backwards_count_lands_on_its_words() {
++        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
++        let said = script.text("05_2").unwrap();
++        let start = said.find("and at minus one").unwrap();
++        let land = said.find("backwards twice").unwrap();
++        assert!(start < land);
++        assert_eq!(&said[land..], "backwards twice.");
++        let nine = script.text("05_9").unwrap();
++        assert!(nine.contains("in little tiles"));
++    }
++
++    /// sin's zeros at ±2π stand inside the picture, mark and all, and the sin(3i) card stays
++    /// inside it. The card's half height is an estimate: the pictures decide.
++    #[test]
++    fn the_trig_window_holds_its_edge_zeros_and_its_cards() {
++        let tp = trig_plane();
++        let mark = 0.11 / tp.unit();
++        assert!(tp.frame.x.1 - TAU > mark && -TAU - tp.frame.x.0 > mark);
++        let half_card = 0.42;
++        let top_card = tp.p(C::new(0.0, 3.0))[1] - READOUT_DROP[1];
++        let low_card = tp.p(I)[1] - READOUT_DROP[0];
++        assert!(top_card + half_card < tp.frame.top());
++        assert!(top_card - half_card > low_card + half_card);
++    }
++
+     #[test]
+     fn the_tile_is_traced_exactly_and_is_nearly_square() {
+         let s = model::band_step();
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+@@ -112,6 +112,9 @@
+     reading_color::ASK[0],
+     reading_color::ASK[1],
+     reading_color::EACH,
++    reading_color::EACH_REST[0],
++    reading_color::EACH_REST[1],
++    reading_color::RECIPE_RANGE,
+     one_derivative::LABELS[0],
+     one_derivative::LABELS[1],
+     one_derivative::STRETCH,
+@@ -270,6 +273,8 @@
+     gallery::FOUR,
+     gallery::ONE_TILE,
+     gallery::NEXT,
++    gallery::OUT_BOX,
++    gallery::ZERO_AT,
+     turning::AXES[0],
+     turning::AXES[1],
+     turning::ADDING,
+@@ -295,6 +300,7 @@
+     two_planes::KEPT,
+     two_planes::TRADE,
+     two_planes::UNDEFINED,
++    two_planes::RESCALED,
+     loop_sums::SHRINK,
+     loop_sums::DISTANCE,
+     loop_sums::CLOSED,
+@@ -443,6 +449,16 @@
+     two_planes::PERIOD_TEX,
+     two_planes::NONZERO_TEX,
+     two_planes::AFTER_TEX,
++    two_planes::POINT_TEX[0],
++    two_planes::POINT_TEX[1],
++    two_planes::CLIMB_TEX,
++    reading_color::BUMP_TEX,
++    gallery::PANEL_NAMES_TEX[0],
++    gallery::PANEL_NAMES_TEX[1],
++    gallery::PANEL_NAMES_TEX[2],
++    gallery::PANEL_NAMES_TEX[3],
++    gallery::PANEL_NAMES_TEX[4],
++    gallery::PANEL_NAMES_TEX[5],
+     loop_sums::SUM_TEX,
+     loop_sums::PART_TEX[0],
+     loop_sums::PART_TEX[1],
+--- a/explainer_corpus/complex_analysis_visual/src/facts.rs
++++ b/explainer_corpus/complex_analysis_visual/src/facts.rs
+@@ -127,6 +127,7 @@
+     f.add("turn.square.angle_deg", fixed(deg(w2), 0))?;
+ 
+     // 03 two planes
++    f.add("square.circle.in_radius", fixed(0.5_f64, 1))?;
+     f.add("square.circle.out_radius", fixed(0.5_f64.powi(2), 2))?;
+     f.add("identity.circle.turns", turns(Func::Identity, ZERO, 0.5)?)?;
+     f.add("square.circle.turns", turns(Func::Square, ZERO, 0.5)?)?;
+--- a/explainer_corpus/complex_analysis_visual/oracle.py
++++ b/explainer_corpus/complex_analysis_visual/oracle.py
+@@ -191,6 +191,7 @@
+ add("turn.square.angle_deg", fixed(2 * 45.0, 0))
+ 
+ # ---------------------------------------------------------- 03 two planes
++add("square.circle.in_radius", fixed(0.5, 1))
+ add("square.circle.out_radius", fixed(0.5 ** 2, 2))
+ add("identity.circle.turns", turns_rational([1, 0], [1], 0, 0.5))
+ add("square.circle.turns", turns_rational([1, 0, 0], [1], 0, 0.5))
+--- a/explainer_corpus/complex_analysis_visual/docs/storyboard.md
++++ b/explainer_corpus/complex_analysis_visual/docs/storyboard.md
+@@ -118,24 +118,24 @@
+ 
+ | id | words | picture | features | hold/listen |
+ |---|---|---|---|---|
+-| 03_1 | A complex function takes a point and returns a point. Its graph would need four dimensions. Instead, draw two planes side by side. The input plane on the left, the output plane on the right. | Two framed planes, "input z" (blue) left and "output f(z)" (green) right, each with dim axes. | |  |
++| 03_1 | A complex function takes a point and returns a point. Its graph would need four dimensions. Instead, draw two planes side by side. The input plane on the left, the output plane on the right. | Two framed planes, "input z" (blue) left and "output f(z)" (green) right, each with dim axes and ticks at the whole numbers; one window, ±2.3, through 03_5. | |  |
+ | 03_2 | Start with squaring. Lengths multiply and angles add, so squaring squares each length and doubles each angle. Walk a point once around a circle of radius one half. Its image goes around a circle of radius one quarter, twice. | A blue point walks the circle `\|z\| = ½`; its green image walks `\|w\| = ¼` twice, leaving a trail; a turn counter reads "1 turn → 2 turns" (`square.circle.*`). | walker; live readout; formula | |
+ | 03_3 | ⟨predict⟩ Now a grid of straight lines. After squaring, will the vertical lines stay straight? | A blue grid (vertical lines blue, horizontal lines gold, x and y in [−1, 1] step ½); the output plane empty; violet card "straight after z²?" | predict card | listen 4 s |
+ | 03_4 | No. Every vertical line off the axis bends into a parabola, and so does every horizontal one. The two axes fold in half instead. The horizontal axis lands on the positive real ray, and the vertical axis on the negative one. But look where the curves cross. They still meet at right angles everywhere, except at zero. Keep that in mind. It is the first sign of something rigid. | Each input line flows into its image (polyline morph from the line to its z² image, exact pointwise): the off-axis lines x, y = ±½, ±1 become parabolas; the axis lines y = 0 and x = 0 fold onto the rays [0, ∞) and (−∞, 0], each covered twice, drawn with a fold tick at the origin. Small right-angle marks appear at three off-axis crossings in both planes; at the origin's image the two rays meet in a straight angle, marked red. | morph | |
+ | 03_5 | One over z does something else. Points near zero go far away, and far points come close. The unit circle lands on itself as a whole, though each point flips across the horizontal axis. Inside and outside trade places. At zero itself there is no output at all. | Map `1/z`: a blue point inside the unit circle maps outside and back; the unit circle's points are tracked with tick marks that reflect. Zero is crossed out red on the input plane: "1/0 undefined". | |  |
+-| 03_6 | The exponential turns the grid into something familiar. Moving right by one multiplies the output's length by e. Moving up turns the output, a full turn for every two pi you climb. So vertical lines become circles, and horizontal lines become rays from zero. | Map `exp`: input lines x = −1, 0, 1 map to circles of radius 1/e, 1, e (`exp.circle_radii`); input lines y = 0, π/2, π, 3π/2 map to rays. | formula | |
+-| 03_7 | Climb two pi, and you land on exactly the same output. The exponential repeats as you climb, and it never reaches zero. Both facts will come back. | A blue point climbs from 0 to 2πi; its image goes once around the unit circle and returns to 1. Label "exp(z + 2πi) = exp(z)", and "exp(z) ≠ 0". | walker | hold |
++| 03_6 | The exponential turns the grid into something familiar. Moving right by one multiplies the output's length by e. Moving up turns the output, a full turn for every two pi you climb. So vertical lines become circles, and horizontal lines become rays from zero. | Map `exp`: input lines x = −1, 0, 1 map to circles of radius 1/e, 1, e (`exp.circle_radii`); input lines y = π/4, 3π/4, 5π/4, 7π/4 map to rays off the axes. Input and output planes gain new whole-number ticks, and a caption says the windows changed. | formula | |
++| 03_7 | Climb two pi, and you land on exactly the same output. The exponential repeats as you climb, and it never reaches zero. Both facts will come back. | A blue point climbs from 0 to a marked 2πi; its image goes once around the unit circle and returns to 1. Label "exp(z + 2πi) = exp(z)", and "exp(z) ≠ 0". | walker | hold |
+ 
+ ## 04_reading_color (~130 s)
+ 
+ | id | words | picture | features | hold/listen |
+ |---|---|---|---|---|
+-| 04_1 | Two planes show only a few curves at a time. To see a whole function at once, paint the input plane. At each input point, find the output, and colour the point by the output's direction. Pointing right is red. Pointing up is yellow green. Pointing left is teal, and pointing down is violet. | The colour wheel legend (a ring of hue around a small plane: the direction key); then the input plane fills, row strips sweeping in from the top, with the colour plot of `f(z) = z` itself: the wheel. Labels at the four directions. | formula | |
++| 04_1 | Two planes show only a few curves at a time. To see a whole function at once, paint the input plane. At each input point, find the output, and colour the point by the output's direction. Pointing right is red. Pointing up is yellow green. Pointing left is teal, and pointing down is violet. | The colour wheel legend (a ring of hue around a small plane: the direction key); then the input plane fills, row strips sweeping in from the top, with the colour plot of `f(z) = z` itself: the wheel. A probe point on the plot and a needle on the wheel turn together to each direction as the voice names it, and its label comes up. | formula | |
+ | 04_2 | Colour alone hides how big the output is. So brightness climbs in bands. Each time the output's size grows by about one point seven, a new band begins. Thin dark lines also mark every twelfth of a turn in direction. | The same plot gains its brightness bands and twelve phase lines (tracker blends plain hue to the enhanced picture); the legend gains a size scale "band: size × 1.69" (`color.band_ratio`). | |  |
+ | 04_3 | Now square. Every colour appears twice around zero, because squaring doubles each angle. And the colours run around zero in the same order as the wheel itself. | Recolour in place to `z²`; a gold loop around 0 with a small arrow showing the walking direction; along it, the hue sequence red, yellow green, teal, violet passes twice (`color.square.turns`). | arrows | |
+ | 04_4 | Around a point where the output is zero, the colours always cycle in this order. Once for a simple zero, twice for a zero of order two, and so on. That is how to spot a zero, and its order, in a single glance. | A white zero dot at 0 with label "zero of order 2". Once the voice has finished, lower third "precisely: near a zero a of order m, f(z) is about c times (z − a) to the power m, so the hue turns m times as z circles a". | lower third | read 7.5 s |
+ | 04_5 | One over z runs the colours the other way. Around a pole, where the output blows up, the colours cycle backwards. | Recolour to `1/z`; same gold loop; the hue runs red, violet, teal, yellow green; pink pole mark at 0, "simple pole". | |  |
+-| 04_6 | ⟨predict⟩ Here is the bump, one over one plus z squared. Before the colours appear, where do you expect its poles, and how many times will the colours turn around each one? | The plane empty except the faint unit circle; violet card "bump: where are the poles? how many turns?" | predict card | listen 5 s |
++| 04_6 | ⟨predict⟩ Here is the bump, one over one plus z squared. Before the colours appear, where do you expect its poles, and how many times will the colours turn around each one? | The plane empty except the faint unit circle, with the bump's formula over it; violet card "bump: where are the poles? how many turns?" | predict card | listen 5 s |
+ | 04_7 | Two poles, at i and minus i, each with one backwards cycle. And the circle of radius one around zero just touches them. That is the opening puzzle, seen in colour. | Recolour to the bump; pink marks at ±i; the gold circle of radius 1 from chapter 01 returns and touches both; the real axis segment (−1, 1) outlined. | | hold |
+ 
+ ## 05_gallery (~180 s)
+@@ -145,12 +145,12 @@
+ | 05_1 | Polynomials first. z cubed minus one has three zeros, evenly spaced on the unit circle. Far from zero, z cubed swamps the minus one, so a large loop sees the colours cycle three times. Three zeros inside. | Plot of `z³ − 1` over [−2, 2]²; three white zero dots at the cube roots of one (exact, from `Func::zeros`); a gold loop of radius 1.8 with a turn counter reading 3. | phase portrait (RowStrips); live readout | |
+ | 05_2 | Rational functions divide one polynomial by another. Here z minus one, over z plus one squared. A simple zero at one, and at minus one a pole of order two, where the colours run backwards twice. | Plot of `(z − 1)/(z + 1)²`; white dot at 1, pink ring at −1 labelled "pole of order 2". | phase portrait (RowStrips) | |
+ | 05_3 | The exponential has no zeros and no poles anywhere. Its direction depends only on height, and its size only on how far right you are. So its tiles are exact squares, repeating every two pi as you climb. | Plot of `exp z` over x ∈ [−3, 3], y ∈ [−4, 8]; a bracket on the right edge marks one period `2π` (`gallery.exp.period`). | phase portrait (RowStrips) | |
+-| 05_4 | Sine has zeros at every multiple of pi on the real line, and nowhere else. On the real line it never passes one. But off the line it grows fast. Sine of i is about one point one eight i, and sine of three i is about ten i. | Plot of `sin z` over x ∈ [−2π, 2π], y ∈ [−3, 3]; white dots at −2π…2π; two readouts with arrows: `sin(i) ≈ 1.18i`, `sin(3i) ≈ 10.0i` (`gallery.sin.at_i`, `gallery.sin.at_3i`). | phase portrait (RowStrips); live readout; arrows | |
++| 05_4 | Sine has zeros at every multiple of pi on the real line, and nowhere else. On the real line it never passes one. But off the line it grows fast. Sine of i is about one point one eight i, and sine of three i is about ten i. | Plot of `sin z` over x ∈ [−6.6, 6.6], y ∈ [−3.3, 3.3]; white dots at −2π…2π; two readouts with arrows: `sin(i) ≈ 1.18i`, `sin(3i) ≈ 10.0i` (`gallery.sin.at_i`, `gallery.sin.at_3i`). | phase portrait (RowStrips); live readout; arrows | |
+ | 05_5 | Tangent is sine over cosine. Its zeros and poles alternate along the real line. Far above the line, tangent settles toward i, and far below toward minus i, so the colours there go flat. | Plot of `tan z`; alternating white and pink marks; labels "→ i" above, "→ −i" below (`gallery.tan.far`). | phase portrait (RowStrips) | |
+ | 05_6 | The gamma function extends the factorial. Gamma of n plus one is n factorial. It starts as an integral that only makes sense when the real part of z is positive. Yet the picture continues left, with a pole at zero, at minus one, at minus two, and on forever, and no zeros anywhere. Chapter fourteen shows how it gets there. | Plot of `Γ(z)` over x ∈ [−4.5, 4.5], y ∈ [−2.5, 2.5]; a dashed vertical line at Re z = 0 labelled "integral works to the right"; pink marks at 0, −1, −2, −3, −4 (`gallery.gamma.*`). Readouts `Γ(4) = 3! = 6`, `Γ(5) = 4! = 24`. | phase portrait (RowStrips); formula | |
+-| 05_7 | The zeta function starts as one, plus one over two to the s, plus one over three to the s, and so on. That sum only settles when the real part of s is bigger than one. The picture goes further. A single pole at one. Zeros at minus two, minus four, and on. And more zeros climbing the line where the real part is one half. | Wide plot of `ζ(s)` over x ∈ [−7, 3], y ∈ [−3, 3] beside a tall strip x ∈ [−1, 2], y ∈ [0, 32]; dashed line Re s = 1 labelled "series converges to the right"; pink mark at 1; white marks at −2, −4, −6 and at ½ + 14.13i, 21.02i, 25.01i, 30.42i (`gallery.zeta.zeros`); a thin line at Re s = ½. | formula | |
++| 05_7 | The zeta function starts as one, plus one over two to the s, plus one over three to the s, and so on. That sum only settles when the real part of s is bigger than one. The picture goes further. A single pole at one. Zeros at minus two, minus four, and on. And more zeros climbing the line where the real part is one half. | Wide plot of `ζ(s)` over x ∈ [−7, 3], y ∈ [−3, 3] beside a tall strip x ∈ [−1, 2], y ∈ [0, 32]; dashed line Re s = 1 labelled "series converges to the right"; pink mark at 1; white marks at −2, −4, −6 and at ½ + 14.13i, ½ + 21.02i, ½ + 25.01i, ½ + 30.42i (`gallery.zeta.zeros`), each label written whole; a thin line at Re s = ½. The region x ∈ [−1, 2], y ∈ [0, 3] is a gold box on the wide plot and a gold band at the strip's foot, joined by two links at equal heights; the strip runs on above the band. | formula | |
+ | 05_8 | No zero found so far sits off that line. Whether all of them lie on it is the Riemann hypothesis, still unsolved. A picture cannot settle it. | The four marked zeros highlighted on the line; card "Riemann hypothesis: open"; lower third "precisely: this plot shows four zeros, located by Newton's method." No count of verified zeros is spoken or shown (root review, Mail 622): a count needs a dated primary source checked by root first. | lower third | read 3.5 s |
+-| 05_9 | These pictures share a pattern. Zeros and poles are isolated points. Between them, the colours flow smoothly in little tiles that are nearly square. That is not a coincidence. It comes from what a complex derivative demands. | A 2 × 3 mosaic of the gallery, then a zoom into one tile cluster of the cubic showing near-square tiles. | | hold |
++| 05_9 | These pictures share a pattern. Zeros and poles are isolated points. Between them, the colours flow smoothly in little tiles that are nearly square. That is not a coincidence. It comes from what a complex derivative demands. | A 2 × 3 mosaic of the gallery, each panel named, then a zoom into one tile cluster of the cubic showing near-square tiles. | | hold |
+ 
+ ## 06_one_derivative (~170 s)
+ 

@@ -1,0 +1,5 @@
+# Reviewed rate-law candidate02
+
+The three candidate files exactly match WhiteSwan's reviewed changes. Original rate01 is preserved. This supersedes copied rate01 status prose: wording now requires starting height one for uniqueness and identifies only the proportional-rule steps as approximations. Sentence-triggered reveals, explicit height/slope readouts and retained endpoint comparisons are staged. Root replayed both patches with zero fuzz, reran the reviewer's Python checks with zero failures, and checked Rust formatting. These are source checks, not native execution.
+
+Keep the two-panel step construction: it compares two laws under identical initial conditions and earns the limiting curve. Native integration must wire every displayed model number into facts/oracle coverage, register glyph strings and the chapter, reconcile cue identifiers with the expanded exponential script, and bind the prediction hold. None of those steps is claimed complete here. No native build, new pictures, Oliver take, listening, fine sync or independent audiovisual acceptance exists for this chapter.

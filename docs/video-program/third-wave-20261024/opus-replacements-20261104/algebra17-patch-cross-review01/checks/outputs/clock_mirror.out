@@ -1,0 +1,180 @@
+# sentence table check: each cue's offsets count against the script's sentences
+  mismatched cues: none
+
+# positive control: baseline mirror at 30 fps, scale 1, against the render's cue table
+  order: 17_1 17_2 17_3 17_4 17_5 17_6 17_7 17_8 17_14 17_9 17_15 17_16 17_17 17_18 17_11 17_12 17_13
+  largest line-start difference from the render: 0.000 s
+  lines delayed by the picture: [('17_13', 5.002333333333354)]
+  lifecycle findings:
+     102.733 17_5: fade OUT of digit3, not on stage (re-root, F1)
+     102.733 17_5: fade OUT of product3, not on stage (re-root, F1)
+  left on stage after the Hamming wipe: none
+  think gap, prompts end to 17_13 start: last prompt at 363.467, 17_13 at 387.233
+
+# proposed mirror at 30 fps, scale 1
+  order: 17_1 17_2 17_3 17_4 17_5 17_6 17_7 17_8 17_14 17_9 17_15 17_16 17_17 17_18 17_11 17_12 17_13
+  largest line-start difference from the scratch table: 0.000 s
+  lines delayed by the picture: [('17_13', 5.002333333333354)]
+  beats that miss their wait (cue, sentence, seconds late): [('17_13', 1, 1.09)]
+  lifecycle findings: none
+  left on stage after the Hamming wipe: none
+  17_13 starts at 387.233; last prompt fully up at 372.900
+
+# the review's estimated-timing table, against this mirror at 60 fps, scale 1 (final frame grid)
+  17_1   ISBN digits                        starts    5.650 ends    6.000   baseline start    0.950
+  17_1   not a security system              starts   16.950 ends   17.300   baseline start    1.300
+  17_2   weights                            starts   40.083 ends   40.433   baseline start   31.217
+  17_2   running total 0                    starts   47.267 ends   47.617   baseline start   31.567
+  17_2   divisible by 11 line               starts   48.433 ends   48.783   baseline start     none
+  17_3   132 passes                         starts   74.933 ends   75.283   baseline start   76.617
+  17_4   red 7                              starts   81.250 ends   81.600   baseline start   81.250
+  17_4   red 49                             starts   85.583 ends   85.933   baseline start     none
+  17_4   132 + 7 = 139                      starts   85.933 ends   86.283   baseline start   81.600
+  17_4   remainder 7                        starts   93.150 ends   93.500   baseline start     none
+  17_5   rule dS = w dd                     starts  106.300 ends  106.650   baseline start  103.417
+  17_5   caption and labels                 starts  116.583 ends  116.933   baseline start     none
+  17_5   row column 9                       starts  120.083 ends  120.433   baseline start  107.267
+  17_5   prime modulus line                 starts  121.167 ends  121.517   baseline start  107.617
+  17_7   x7 x6                              starts  154.633 ends  154.983   baseline start     none
+  17_7   7x6+6x4=66                         starts  156.433 ends  156.783   baseline start  154.633
+  17_7   digits cross                       starts  157.583 ends  158.583   baseline start  155.783
+  17_7   7x4+6x6=64                         starts  159.383 ends  159.733   baseline start  157.583
+  17_7   dS = (7-6)(4-6)                    starts  162.400 ends  162.750   baseline start  157.933
+  17_7   why line 2                         starts  169.183 ends  169.533   baseline start     none
+  17_7   why line 3                         starts  172.917 ends  173.267   baseline start     none
+  17_7   why line 4                         starts  177.183 ends  177.533   baseline start     none
+  17_8   17_8 wipe                          starts  189.233 ends  189.583   baseline start  180.750
+  17_8   legend                             starts  190.983 ends  191.333   baseline start  182.850
+  17_8   two errors can cancel              starts  194.617 ends  194.967   baseline start  181.100
+  17_11  square thumb                       starts  340.000 ends  340.350   baseline start     none
+  17_11  blue triangle and subgroup line    starts  343.250 ends  343.600   baseline start     none
+  17_11  another triangle                   starts  352.267 ends  352.617   baseline start     none
+  17_11  cosets line                        starts  352.617 ends  352.967   baseline start     none
+  17_11  normal subgroup line               starts  352.967 ends  353.317   baseline start     none
+  17_12  prompt 1                           starts  364.300 ends  364.650   baseline start  362.233
+  17_12  prompt 2                           starts  367.717 ends  368.067   baseline start  362.583
+  17_12  prompt 3                           starts  372.417 ends  372.767   baseline start  362.933
+  17_13  answer 2                           starts  390.917 ends  391.267   baseline start  390.917
+  17_13  hH=H                               starts  397.083 ends  397.433   baseline start  391.267
+  17_15  each row: a coset                  starts  248.383 ends  248.733   baseline start     none
+  17_15  row 7 fills                        starts  251.133 ends  251.533   baseline start  254.383
+  17_15  128/16 = 8                         starts  252.150 ends  252.500   baseline start  255.383
+  17_16  syndrome name                      starts  268.333 ends  268.683   baseline start     none
+  17_18  bit 7 back                         starts  325.650 ends  326.150   baseline start     none
+  17_18  columns out                        starts  326.750 ends  327.100   baseline start     none
+  17_18  parity box and bit                 starts  327.100 ends  327.450   baseline start     none
+  17_18  one flip line                      starts  327.450 ends  327.800   baseline start  326.000
+  17_18  two flips line                     starts  327.800 ends  328.150   baseline start  326.350
+  17_3 walk: starts 62.983, total 132 fully up at 69.683
+
+# long static gaps between any two picture changes (at least 8 s), 60 fps, scale 1
+  baseline:
+     29.57 s     1.650 to   31.217  17_1   after 'not a security system' until 'weights'
+     25.70 s    31.917 to   57.617  17_2   after 'running total 0' until 'column 0 ring'
+     23.83 s   363.283 to  387.117  17_12  after 'prompt 3' until 'prompts out'
+     22.47 s   158.283 to  180.750  17_7   after 'dS = (7-6)(4-6)' until '17_8 wipe'
+     22.30 s   107.967 to  130.267  17_5   after 'prime modulus line' until '17_6 wipe'
+     20.77 s    81.950 to  102.717  17_4   after '132 + 7 = 139' until '17_5 wipe'
+     19.78 s   342.100 to  361.883  17_11  after 'cosets and quotient lines' until '17_12 wipe'
+     18.92 s   134.667 to  153.583  17_6   after '2x3=0 mod 6' until '17_7 wipe'
+     18.52 s   204.633 to  223.150  17_8   after 'the error hides' until '17_9 wipe'
+     13.12 s   183.200 to  196.317  17_8   after 'legend' until 'out shown0'
+     10.35 s   270.433 to  280.783  17_16  after 'stack1 result' until 'place key'
+  proposed:
+     22.78 s    17.300 to   40.083  17_1   after 'not a security system' until 'weights'
+     18.92 s   134.667 to  153.583  17_6   after '2x3=0 mod 6' until '17_7 wipe'
+     18.52 s   204.633 to  223.150  17_8   after 'the error hides' until '17_9 wipe'
+     14.35 s   372.767 to  387.117  17_12  after 'prompt 3' until 'prompts out'
+     14.20 s    48.783 to   62.983  17_2   after 'divisible by 11 line' until 'column 0 ring'
+     11.70 s   177.533 to  189.233  17_7   after 'why line 4' until '17_8 wipe'
+     10.95 s     6.000 to   16.950  17_1   after 'ISBN digits' until 'not a security system'
+      9.93 s   106.650 to  116.583  17_5   after 'rule dS = w dd' until 'caption and labels'
+      9.65 s   271.133 to  280.783  17_16  after 'stack1 result' until 'place key'
+      9.22 s    93.500 to  102.717  17_4   after 'remainder 7' until '17_5 wipe'
+      8.75 s   121.517 to  130.267  17_5   after 'prime modulus line' until '17_6 wipe'
+      8.57 s   353.317 to  361.883  17_11  after 'normal subgroup line' until '17_12 wipe'
+
+# can waits or new beats delay later actions? Voice scaled against fixed picture durations, 60 fps
+  scale = Oliver/scratch line length. Measured on cues that have takes (chapters 10 and 13): 0.87 to 1.25, median 1.07
+  scale 0.75 baseline: lines delayed [('17_4', 2.01), ('17_13', 5.01)]; beats late [('17_8', 4, 0.2), ('17_8', 5, 0.89), ('17_15', 2, 4.19), ('17_15', 3, 2.24)]; lifecycle 2
+  scale 0.75 proposed: lines delayed [('17_13', 5.01)]; beats late [('17_5', 4, 0.41), ('17_8', 4, 0.2), ('17_8', 5, 0.89), ('17_15', 2, 0.34), ('17_17', 4, 0.23), ('17_13', 1, 1.72)]; lifecycle 0
+  scale 0.85 baseline: lines delayed [('17_13', 5.01)]; beats late [('17_8', 5, 0.3), ('17_15', 2, 3.8), ('17_15', 3, 1.55)]; lifecycle 2
+  scale 0.85 proposed: lines delayed [('17_13', 5.01)]; beats late [('17_8', 5, 0.3), ('17_13', 1, 1.44)]; lifecycle 0
+  scale 1.00 baseline: lines delayed [('17_13', 5.0)]; beats late [('17_15', 2, 3.25), ('17_15', 3, 0.53)]; lifecycle 2
+  scale 1.00 proposed: lines delayed [('17_13', 5.0)]; beats late [('17_13', 1, 1.02)]; lifecycle 0
+  scale 1.07 baseline: lines delayed [('17_13', 5.01)]; beats late [('17_15', 2, 2.98), ('17_15', 3, 0.05)]; lifecycle 2
+  scale 1.07 proposed: lines delayed [('17_13', 5.01)]; beats late [('17_13', 1, 0.83)]; lifecycle 0
+  scale 1.25 baseline: lines delayed [('17_13', 5.01)]; beats late [('17_15', 2, 2.31)]; lifecycle 2
+  scale 1.25 proposed: lines delayed [('17_13', 5.01)]; beats late [('17_13', 1, 0.33)]; lifecycle 0
+
+# voice words against picture, proposed, scale 1 and 1.07 (voice by share of characters; estimates)
+  scale 1.0
+    17_3 first number 'zero, twenty-seven'       voice   64.805  picture   63.083  picture leads by   1.72 s
+    17_3 'twenty-seven'                          voice   65.184  picture   63.783  picture leads by   1.40 s
+    17_3 'and two' (last number)                 voice   69.913  picture   69.383  picture leads by   0.53 s
+    17_3 'The total is' sentence 2               voice   70.418  picture   69.583  picture leads by   0.83 s
+    17_7 'exchanging the values'                 voice  160.899  picture  157.583  picture leads by   3.32 s
+    17_8 'Here is a concrete failure'            voice  194.616  picture  189.233  picture leads by   5.38 s
+    17_16 'called the syndrome'                  voice  274.756  picture  268.333  picture leads by   6.42 s
+    17_18 'parity check'                         voice  326.759  picture  327.100  picture leads by  -0.34 s
+    17_18 'correct one flipped bit'              voice  328.492  picture  327.450  picture leads by   1.04 s
+    17_18 'while reporting two'                  voice  329.978  picture  327.800  picture leads by   2.18 s
+    17_18 'instead of miscorrecting'             voice  331.216  picture  325.650  picture leads by   5.57 s
+    17_13 'The four-clock' sentence 1            voice  389.896  picture  390.917  picture leads by  -1.02 s
+    17_5 'Because eleven is prime' s4, caption   voice  121.165  picture  116.583  picture leads by   4.58 s
+  scale 1.07
+    17_3 first number 'zero, twenty-seven'       voice   69.209  picture   67.367  picture leads by   1.84 s
+    17_3 'twenty-seven'                          voice   69.613  picture   68.067  picture leads by   1.55 s
+    17_3 'and two' (last number)                 voice   74.674  picture   73.667  picture leads by   1.01 s
+    17_3 'The total is' sentence 2               voice   75.214  picture   73.867  picture leads by   1.35 s
+    17_7 'exchanging the values'                 voice  171.844  picture  168.217  picture leads by   3.63 s
+    17_8 'Here is a concrete failure'            voice  207.870  picture  202.100  picture leads by   5.77 s
+    17_16 'called the syndrome'                  voice  293.453  picture  286.567  picture leads by   6.89 s
+    17_18 'parity check'                         voice  349.021  picture  349.283  picture leads by  -0.26 s
+    17_18 'correct one flipped bit'              voice  350.875  picture  349.633  picture leads by   1.24 s
+    17_18 'while reporting two'                  voice  352.465  picture  349.983  picture leads by   2.48 s
+    17_18 'instead of miscorrecting'             voice  353.789  picture  347.833  picture leads by   5.96 s
+    17_13 'The four-clock' sentence 1            voice  416.107  picture  416.933  picture leads by  -0.83 s
+    17_5 'Because eleven is prime' s4, caption   voice  129.423  picture  124.517  picture leads by   4.91 s
+
+# new labels against the word they describe, proposed, 60 fps, scale 1
+  'positions holding a 1' over stack 1 after bit 5 is repaired: 294.983 to 298.817, 3.83 s
+  'positions holding a 1' over stack 2 after the miscorrection: 314.517 to 325.650, 11.13 s
+  green 'passes' beside the red 7: 81.600 to 85.233, 3.63 s, on a scale-1 voice
+  chapter length: baseline 413.517, proposed 413.517
+  plays in the mirror: 225
+
+# corrections on the same clock
+  C1     scale 0.75: lifecycle 0; line starts moved none; lines delayed [('17_13', 5.01)]; beats late [('17_5', 4, 0.41), ('17_8', 4, 0.2), ('17_8', 5, 0.89), ('17_15', 2, 0.34), ('17_17', 4, 0.23), ('17_13', 1, 1.72)]
+  C1     scale 0.85: lifecycle 0; line starts moved none; lines delayed [('17_13', 5.01)]; beats late [('17_8', 5, 0.3), ('17_13', 1, 1.44)]
+  C1     scale 1.00: lifecycle 0; line starts moved none; lines delayed [('17_13', 5.0)]; beats late [('17_13', 1, 1.02)]
+  C1     scale 1.07: lifecycle 0; line starts moved none; lines delayed [('17_13', 5.01)]; beats late [('17_13', 1, 0.83)]
+  C1     scale 1.25: lifecycle 0; line starts moved none; lines delayed [('17_13', 5.01)]; beats late [('17_13', 1, 0.33)]
+  C1+C2  scale 0.75: lifecycle 0; line starts moved none; lines delayed [('17_13', 5.01)]; beats late [('17_5', 4, 0.41), ('17_8', 4, 0.2), ('17_8', 5, 0.89), ('17_15', 2, 0.34), ('17_17', 4, 0.23), ('17_13', 1, 1.72)]
+  C1+C2  scale 0.85: lifecycle 0; line starts moved none; lines delayed [('17_13', 5.01)]; beats late [('17_8', 5, 0.3), ('17_13', 1, 1.44)]
+  C1+C2  scale 1.00: lifecycle 0; line starts moved none; lines delayed [('17_13', 5.0)]; beats late [('17_13', 1, 1.02)]
+  C1+C2  scale 1.07: lifecycle 0; line starts moved none; lines delayed [('17_13', 5.01)]; beats late [('17_13', 1, 0.83)]
+  C1+C2  scale 1.25: lifecycle 0; line starts moved none; lines delayed [('17_13', 5.01)]; beats late [('17_13', 1, 0.33)]
+  C1+C2 at scale 1, voice against picture:
+    17_5 'Because eleven is prime', caption      voice  121.165  picture  121.167  picture leads by  -0.00 s
+    17_7 'exchanging the values', lanes start    voice  160.899  picture  160.900  picture leads by  -0.00 s
+    17_7 'changes the total', 64 starts          voice  162.389  picture  163.500  picture leads by  -1.11 s
+    17_7 'by the product', dS starts             voice  163.609  picture  163.850  picture leads by  -0.24 s
+    17_16 'called the syndrome', name            voice  274.756  picture  274.767  picture leads by  -0.01 s
+    17_18 'parity check', box                    voice  326.759  picture  325.650  picture leads by   1.11 s
+    17_18 'correct one flipped bit', line        voice  328.492  picture  328.500  picture leads by  -0.01 s
+    17_18 'while reporting two', bit 7 back      voice  329.978  picture  329.983  picture leads by  -0.01 s
+    17_18 'instead of miscorrecting', line       voice  331.216  picture  331.433  picture leads by  -0.22 s
+    17_18 last beat of sentence 1 ends 331.783; sentence 2 starts 333.073; margin 1.29 s
+  C1+C2 long static gaps (at least 8 s):
+     22.78 s    17.300 to   40.083  17_1   after 'not a security system' until 'weights'
+     18.92 s   134.667 to  153.583  17_6   after '2x3=0 mod 6' until '17_7 wipe'
+     18.52 s   204.633 to  223.150  17_8   after 'the error hides' until '17_9 wipe'
+     14.35 s   372.767 to  387.117  17_12  after 'prompt 3' until 'prompts out'
+     14.20 s    48.783 to   62.983  17_2   after 'divisible by 11 line' until 'column 0 ring'
+     11.70 s   177.533 to  189.233  17_7   after 'why line 4' until '17_8 wipe'
+     10.95 s     6.000 to   16.950  17_1   after 'ISBN digits' until 'not a security system'
+      9.93 s   106.650 to  116.583  17_5   after 'rule dS = w dd' until 'caption and labels'
+      9.22 s    93.500 to  102.717  17_4   after 'remainder 7' until '17_5 wipe'
+      8.75 s   121.517 to  130.267  17_5   after 'prime modulus line' until '17_6 wipe'
+      8.57 s   353.317 to  361.883  17_11  after 'normal subgroup line' until '17_12 wipe'

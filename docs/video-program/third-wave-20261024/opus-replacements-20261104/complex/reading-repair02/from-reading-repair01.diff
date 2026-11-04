@@ -1,0 +1,621 @@
+--- reading-repair01/explainer_corpus/complex_analysis_visual/src/main.rs
++++ reading-repair02/explainer_corpus/complex_analysis_visual/src/main.rs
+@@ -85,7 +85,8 @@
+     }
+ 
+     /// Every `read N s` in the storyboard's hold column is a reading window of that length,
+-    /// and the scenes wait exactly that long (`chapters::READING_WINDOWS`).
++    /// and the scenes wait exactly that long (`chapters::READING_WINDOWS`). On a chapter's
++    /// last cue the cell reads `read N s, hold`: the music breath still follows.
+     #[test]
+     fn every_reading_window_is_in_the_storyboard() {
+         let board = explainer_kit::storyboard::parse(STORYBOARD).unwrap();
+@@ -93,7 +94,8 @@
+             .iter()
+             .flat_map(|c| &c.beats)
+             .filter_map(|b| {
+-                let seconds = b.hold.strip_prefix("read ")?.strip_suffix(" s")?;
++                let cell = b.hold.strip_prefix("read ")?;
++                let seconds = cell.strip_suffix(" s").or_else(|| cell.strip_suffix(" s, hold"))?;
+                 Some((b.id.clone(), seconds.parse::<f64>().unwrap()))
+             })
+             .collect();
+--- reading-repair01/explainer_corpus/complex_analysis_visual/docs/storyboard.md
++++ reading-repair02/explainer_corpus/complex_analysis_visual/docs/storyboard.md
+@@ -133,7 +133,7 @@
+ | 04_1 | Two planes show only a few curves at a time. To see a whole function at once, paint the input plane. At each input point, find the output, and colour the point by the output's direction. Pointing right is red. Pointing up is yellow green. Pointing left is teal, and pointing down is violet. | The colour wheel legend (a ring of hue around a small plane: the direction key); then the input plane fills, row strips sweeping in from the top, with the colour plot of `f(z) = z` itself: the wheel. Labels at the four directions. | formula | |
+ | 04_2 | Colour alone hides how big the output is. So brightness climbs in bands. Each time the output's size grows by about one point seven, a new band begins. Thin dark lines also mark every twelfth of a turn in direction. | The same plot gains its brightness bands and twelve phase lines (tracker blends plain hue to the enhanced picture); the legend gains a size scale "band: size × 1.69" (`color.band_ratio`). | |  |
+ | 04_3 | Now square. Every colour appears twice around zero, because squaring doubles each angle. And the colours run around zero in the same order as the wheel itself. | Recolour in place to `z²`; a gold loop around 0 with a small arrow showing the walking direction; along it, the hue sequence red, yellow green, teal, violet passes twice (`color.square.turns`). | arrows | |
+-| 04_4 | Around a point where the output is zero, the colours always cycle in this order. Once for a simple zero, twice for a zero of order two, and so on. That is how to spot a zero, and its order, in a single glance. | A white zero dot at 0 with label "zero of order 2". Lower third "precisely: near a zero of order m, f(z) ≈ c(z − z₀)ᵐ, so the hue turns m times as z circles z₀". | lower third | read 2.5 s |
++| 04_4 | Around a point where the output is zero, the colours always cycle in this order. Once for a simple zero, twice for a zero of order two, and so on. That is how to spot a zero, and its order, in a single glance. | A white zero dot at 0 with label "zero of order 2". Once the voice has finished, lower third "precisely: near a zero a of order m, f(z) is about c times (z − a) to the power m, so the hue turns m times as z circles a". | lower third | read 7.5 s |
+ | 04_5 | One over z runs the colours the other way. Around a pole, where the output blows up, the colours cycle backwards. | Recolour to `1/z`; same gold loop; the hue runs red, violet, teal, yellow green; pink pole mark at 0, "simple pole". | |  |
+ | 04_6 | ⟨predict⟩ Here is the bump, one over one plus z squared. Before the colours appear, where do you expect its poles, and how many times will the colours turn around each one? | The plane empty except the faint unit circle; violet card "bump: where are the poles? how many turns?" | predict card | listen 5 s |
+ | 04_7 | Two poles, at i and minus i, each with one backwards cycle. And the circle of radius one around zero just touches them. That is the opening puzzle, seen in colour. | Recolour to the bump; pink marks at ±i; the gold circle of radius 1 from chapter 01 returns and touches both; the real axis segment (−1, 1) outlined. | | hold |
+@@ -149,7 +149,7 @@
+ | 05_5 | Tangent is sine over cosine. Its zeros and poles alternate along the real line. Far above the line, tangent settles toward i, and far below toward minus i, so the colours there go flat. | Plot of `tan z`; alternating white and pink marks; labels "→ i" above, "→ −i" below (`gallery.tan.far`). | phase portrait (RowStrips) | |
+ | 05_6 | The gamma function extends the factorial. Gamma of n plus one is n factorial. It starts as an integral that only makes sense when the real part of z is positive. Yet the picture continues left, with a pole at zero, at minus one, at minus two, and on forever, and no zeros anywhere. Chapter fourteen shows how it gets there. | Plot of `Γ(z)` over x ∈ [−4.5, 4.5], y ∈ [−2.5, 2.5]; a dashed vertical line at Re z = 0 labelled "integral works to the right"; pink marks at 0, −1, −2, −3, −4 (`gallery.gamma.*`). Readouts `Γ(4) = 3! = 6`, `Γ(5) = 4! = 24`. | phase portrait (RowStrips); formula | |
+ | 05_7 | The zeta function starts as one, plus one over two to the s, plus one over three to the s, and so on. That sum only settles when the real part of s is bigger than one. The picture goes further. A single pole at one. Zeros at minus two, minus four, and on. And more zeros climbing the line where the real part is one half. | Wide plot of `ζ(s)` over x ∈ [−7, 3], y ∈ [−3, 3] beside a tall strip x ∈ [−1, 2], y ∈ [0, 32]; dashed line Re s = 1 labelled "series converges to the right"; pink mark at 1; white marks at −2, −4, −6 and at ½ + 14.13i, 21.02i, 25.01i, 30.42i (`gallery.zeta.zeros`); a thin line at Re s = ½. | formula | |
+-| 05_8 | No zero found so far sits off that line. Whether all of them lie on it is the Riemann hypothesis, still unsolved. A picture cannot settle it. | The four marked zeros highlighted on the line; card "Riemann hypothesis: open"; lower third "precisely: this plot shows four zeros, located by Newton's method." No count of verified zeros is spoken or shown (root review, Mail 622): a count needs a dated primary source checked by root first. | lower third | read 2 s |
++| 05_8 | No zero found so far sits off that line. Whether all of them lie on it is the Riemann hypothesis, still unsolved. A picture cannot settle it. | The four marked zeros highlighted on the line; card "Riemann hypothesis: open"; lower third "precisely: this plot shows four zeros, located by Newton's method." No count of verified zeros is spoken or shown (root review, Mail 622): a count needs a dated primary source checked by root first. | lower third | read 3.5 s |
+ | 05_9 | These pictures share a pattern. Zeros and poles are isolated points. Between them, the colours flow smoothly in little tiles that are nearly square. That is not a coincidence. It comes from what a complex derivative demands. | A 2 × 3 mosaic of the gallery, then a zoom into one tile cluster of the cubic showing near-square tiles. | | hold |
+ 
+ ## 06_one_derivative (~170 s)
+@@ -171,10 +171,10 @@
+ | id | words | picture | features | hold/listen |
+ |---|---|---|---|---|
+ | 07_1 | Where the derivative is zero, the picture changes. Squaring has derivative zero at zero. Two lines crossing there at a right angle come out as two rays pointing in opposite directions. The angle has doubled, from a right angle to a straight line. | Two planes, `z²` at 0: blue lines along 0° and 90°; green images along 0° and 180°; angle marks 90° → 180° (`critical.angle_*`). | |  |
+-| 07_2 | So a nonzero derivative keeps angles. A map like that is called conformal. A point where the derivative is zero is a critical point, and there angles get multiplied. | A small blue cross at −0.7 + 0.6i and its green image under `z²`, both marked 90° ("derivative ≠ 0: angles kept (conformal)"); then "derivative = 0: a critical point, angles multiplied" and the lower third "precisely: if the first m − 1 derivatives vanish at a point and the m-th does not, angles there are multiplied by m". | lower third | read 3 s |
++| 07_2 | So a nonzero derivative keeps angles. A map like that is called conformal. A point where the derivative is zero is a critical point, and there angles get multiplied. | A small blue cross at −0.7 + 0.6i and its green image under `z²`, both marked 90° ("derivative ≠ 0: angles kept (conformal)"); then "derivative = 0: a critical point, angles multiplied" and the lower third "precisely: if the first m − 1 derivatives vanish at a point and the m-th does not, angles there are multiplied by m". | lower third | read 4.5 s |
+ | 07_3 | ⟨predict⟩ A subtler question. Take the function that sends z to the square of its length. At zero, does it have a complex derivative? | `f(z) = \|z\|² = x² + y²` written; its colour picture (all red: outputs are real and positive, brightness rings); violet card "derivative at 0?" | phase portrait (RowStrips); predict card; formula | listen 5 s |
+ | 07_4 | It does. The ratio is the square of the length of h, divided by h. Its size is the length of h, which shrinks to zero from every direction. So the derivative at zero exists, and it is zero. | `\|h\|²/h = h̄`; three approach paths with readouts shrinking to 0 (`onepoint.at0`). | live readout; formula | |
+-| 07_5 | Move to the point one. Step right, and the ratio heads to two. Step up, and it heads to zero. This function has a complex derivative at exactly one point in the whole plane, and that buys almost nothing. Multiply it by any bounded function at all, smooth or jagged, and the product still has derivative zero at zero. | At z₀ = 1: readouts "→ 2" horizontal, "→ 0" vertical (`onepoint.at1`), red cross. Then a jagged bounded g painted on the plane (polar cells at every scale, hue for direction, \|g\| ≤ 1, no limit at 0) times `\|z\|²`: a whole disk of steps h, and in the ratio's window every ratio from them jumping about but always inside the disk of radius \|h\|; both disks shrink together with a live "inside radius" (`onepoint.squeeze.radii`), and `\|g(h)\|\|h\|²/\|h\| ≤ M\|h\| → 0`: still "derivative 0 at 0". | live readout | |
++| 07_5 | Move to the point one. Step right, and the ratio heads to two. Step up, and it heads to zero. This function has a complex derivative at exactly one point in the whole plane, and that buys almost nothing. Multiply it by any bounded function at all, smooth or jagged, and the product still has derivative zero at zero. | At the point 1: readouts "→ 2" horizontal, "→ 0" vertical (`onepoint.at1`), red cross. Then a jagged bounded g painted on the plane (polar cells at every scale, hue for direction, \|g\| ≤ 1, no limit at 0) times `\|z\|²`: a whole disk of steps h, and in the ratio's window every ratio from them jumping about but always inside the disk of radius \|h\|; both disks shrink together with a live "inside radius" (`onepoint.squeeze.radii`), and `\|g(h)\|\|h\|²/\|h\| ≤ M\|h\| → 0`: still "derivative 0 at 0". | live readout | |
+ | 07_6 | The strong results ahead need more. They need the derivative to exist at every point of an open region, so that around each point there is a small disk where it works everywhere. A function like that is called holomorphic on the region. From here on, every claim carries that condition. | A region drawn as an open blob; at three points small disks inside it; the word "holomorphic on U" with its definition card. | morph | hold |
+ 
+ ## 08_loop_sums (~140 s)
+@@ -185,7 +185,7 @@
+ | 08_2 | Draw each product as an arrow, and lay the arrows tip to tail. For f of z equals z, around the unit circle, the arrows curl around and close up. The total is zero. | Right panel: the 24 product arrows laid tip to tail for `f(z) = z`; they close into a doubled polygon; readout "total = 0" (`loop.z.total`). | live readout; formula; arrows | |
+ | 08_3 | Now one over z. At each step, dividing by z undoes the turn of the step's position, and what is left points straight up. The arrows stack into a column. As the steps shrink, the total becomes two pi i, whatever the size of the circle. | For `1/z`, the arrows stack vertically; readout "24 steps: 6.27i" (`loop.inv.total24`) then "limit: 2πi ≈ 6.28i". The circle grows to radius 2: same column. | live readout; arrows | |
+ | 08_4 | Every other whole power of z gives zero. The arrows always close up. Only one over z survives, and that single fact powers most of what follows. | A row of small tip-to-tail diagrams for z⁻³, z⁻², z⁻¹, z⁰, z¹, z²: all closed except z⁻¹ (`loop.powers.*`). | |  |
+-| 08_5 | Cauchy's theorem says more. If a function is holomorphic on a loop and everywhere inside it, its loop integral is zero. Here is the idea. Cut the inside into tiny squares. Around each one, the function is almost a constant plus a stretch and turn, and those integrate to zero. Neighbouring squares walk their shared edge in opposite directions, so the inner edges cancel, and only the outer loop is left. | A square loop γ tiled by small squares (a square, so the tiling is exact; a disk would leave cut cells at its rim), each with a little circulating arrow; one shared edge's two opposite walks flash, the inner edges cancel; only the boundary stays lit. Lower third "precisely: Goursat's lemma: each square's error shrinks faster than its area; no continuity of f′ is assumed". | lower third; arrows | hold |
++| 08_5 | Cauchy's theorem says more. If a function is holomorphic on a loop and everywhere inside it, its loop integral is zero. Here is the idea. Cut the inside into tiny squares. Around each one, the function is almost a constant plus a stretch and turn, and those integrate to zero. Neighbouring squares walk their shared edge in opposite directions, so the inner edges cancel, and only the outer loop is left. | A square loop γ tiled by small squares (a square, so the tiling is exact; a disk would leave cut cells at its rim), each with a little circulating arrow; one shared edge's two opposite walks flash, the inner edges cancel; only the boundary stays lit. Once the voice has finished, lower third "precisely: Goursat's lemma: each square's error shrinks faster than its area; no continuity of f' is assumed". | lower third; arrows | read 5 s, hold |
+ 
+ ## 09_boundary (~210 s)
+ 
+@@ -195,7 +195,7 @@
+ | 09_2 | Around a circle centred at a, that has a simple meaning. The value at the centre is the average of the values on the circle. This is Cauchy's integral formula. | `f(a) = (1/2πi) ∮ f(z)/(z − a) dz = average of f on the circle`; names to search: "Cauchy's integral formula". | names to search; formula | |
+ | 09_3 | Try it on the bump, on a circle of radius one half around zero. Eight sample points already average to within half a percent of one, which is the bump's value at zero. With sixteen samples, it is off by about fifteen millionths. | The bump's colour picture with a radius ½ gold circle; 8 sample dots, each with its value; live average "1.0039" (`cauchy.r_half.n8`), then 16 dots "1.000015" (`cauchy.r_half.n16`). | phase portrait (RowStrips) | |
+ | 09_4 | ⟨predict⟩ Now take a circle of radius two. The bump is still one at the centre. Is the average around this bigger circle still one? | Radius 2 circle with 16 samples, average hidden; violet card "average = 1?" | predict card | listen 5 s |
+-| 09_5 | It is zero. The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic. Each pole pulls the average down by one half. The formula only holds when the function is holomorphic out to the circle and a little beyond. | Average readout "−0.000015" (`cauchy.r_two.n16`) → "limit 0"; the two pink poles flash with "− ½" each (`cauchy.pole_share`). | live readout | read 2 s |
++| 09_5 | It is zero. The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic. Each pole pulls the average down by one half. The formula only holds when the function is holomorphic out to the circle and a little beyond. | Average readout "−0.000015" (`cauchy.r_two.n16`) → "limit 0"; the two pink poles flash with "− ½" each (`cauchy.pole_share`). With the last sentence, lower third "precisely: Cauchy's formula needs f holomorphic on an open set containing the closed disk: on the circle and inside it". | live readout | read 3 s |
+ | 09_6 | The same circle tells you more than the value. Turn each sample back by its own angle, average, and divide by the radius. That gives the slope at the centre. Turn back by twice the angle and divide by the radius squared, and you get the next coefficient of the recipe. Every derivative at the centre is hidden in the boundary values. | Formula `cₙ = (1/rⁿ) · average of f(a + r e^{iθ}) e^{−inθ}`; for the bump at radius ½, 16 samples: `c₀ ≈ 1, c₁ ≈ 0, c₂ ≈ −1, c₄ ≈ 1` (`cauchy.coef`). | formula | |
+ | 09_7 | Those coefficients build a power series, and Cauchy's formula shows it converges on the largest disk around the centre where the function stays holomorphic. That answers the opening puzzle. The bump is holomorphic everywhere except at i and minus i. From zero they are one unit away, so the recipe works out to radius one, and since the bump blows up at i, no further. | The chapter 01 graph returns below the plane; the radius 1 circle touches ±i; the recipe on (−1, 1) glows. | plot | |
+ | 09_8 | ⟨predict⟩ Recentre the recipe at x equals one. How far along the real line will it work now? | The centre dot slides to 1; the circle shrinks to nothing; violet card "recipe at 1: works from ? to ?" | predict card | listen 6 s |
+@@ -209,7 +209,7 @@
+ | 10_2 | Sine squared plus cosine squared equals one for every real number. Both sides are holomorphic on the whole plane, and they agree along the real line. So the identity holds for every complex number, even where sine and cosine are huge. At three i, sine squared is about minus one hundred, cosine squared is about one hundred and one, and they still add to one. | Readouts at 3i: `sin²(3i) ≈ −100.36`, `cos²(3i) ≈ 101.36`, sum `1` (`rigid.trig.*`). | |  |
+ | 10_3 | Real smooth functions have no such rigidity. This curve is exactly zero for every negative x, then rises smoothly. It agrees with zero on a whole half line, yet it is not zero. Every derivative exists at zero, and every one is zero, so its power series misses the curve completely. | Graph of `e^{−1/x}` (x > 0), 0 (x ≤ 0); the zero recipe drawn in gold along the axis, red gap to the curve. | |  |
+ | 10_4 | ⟨predict⟩ Sine of one over z is zero at one over pi, one over two pi, one over three pi, and so on. Those zeros pile up at zero. Must the function be zero everywhere? | Colour picture of `sin(1/z)` near 0 with white zero dots accumulating at 0; violet card "forced to be 0?" | phase portrait (RowStrips); predict card | listen 5 s |
+-| 10_5 | No. The pile up point is zero, and zero is not in the region, because the function is undefined there. The theorem needs the pile up point inside the region. Nothing forces sine of one over z to vanish, and it doesn't. | Zero crossed out red on the plane: "not in the region"; the condition highlighted on the theorem card. | | read 3 s |
++| 10_5 | No. The pile up point is zero, and zero is not in the region, because the function is undefined there. The theorem needs the pile up point inside the region. Nothing forces sine of one over z to vanish, and it doesn't. | Zero crossed out red on the plane: "not in the region"; the condition highlighted on the theorem card. With "The theorem needs", lower third "precisely: identity theorem: if f and g are holomorphic on a connected open set U and agree on a set with a limit point in U, then f = g on U". | | read 8.5 s |
+ | 10_6 | Rigidity also limits what is possible. A function holomorphic on the whole plane that stays bounded must be constant. That is Liouville's theorem. It is why sine, trapped between minus one and one on the real line, must grow huge somewhere else. | Sine's colour picture returns with its growing brightness bands; names to search: "Liouville's theorem". | phase portrait (RowStrips); names to search | hold |
+ 
+ ## 11_counting (~200 s)
+@@ -221,9 +221,9 @@
+ | 11_3 | Here is a function with a zero at zero point four five and a pole at one point three five. A circle of radius zero point eight encloses only the zero, and the output turns once. Grow the circle to one point seven, and it encloses both. The zero's turn and the pole's turn cancel, so the count is zero. The count is always a net total. An output could circle zero once and then unwind, and it would still count zero. | `f(z) = (z − 0.45)/(z − 1.35)`: loop radius 0.8, counter "1"; loop radius 1.7, counter "0" (`argument.rational.*`); output curves drawn in the right plane, rescaled to fit (at radius 1.7 the image is a circle off zero, swinging about ±42°). On the last two sentences a small inset: a schematic curve that circles 0 once counterclockwise, then once clockwise, counter "+1 − 1 = 0". | live readout; formula | |
+ | 11_4 | At radius one point three five exactly, the loop runs through the pole, and the output shoots off to infinity. There the count has no meaning. The loop must avoid every zero and pole. | Radius 1.35: the output trace is withheld, a red dashed loop and the label "loop through a pole: not allowed". | |  |
+ | 11_5 | ⟨predict⟩ This polynomial, z to the fifth minus three z plus one, has five roots. How many of them lie inside the unit circle? | Colour picture of the quintic with the unit circle; no zero dots yet; violet card "how many roots inside \|z\| = 1?" | phase portrait (RowStrips); predict card | listen 6 s |
+-| 11_6 | One. Walk the unit circle, and the output turns around zero exactly once. On that circle, the minus three z term is always bigger than the other two terms combined, so the output follows minus three z, which turns once. | The walker on the unit circle; output trace turns once (`argument.quintic.unit`), with a faint reference trace of −3z (a circle of radius 3 starting at −3, a half turn ahead of 3z) that the output shadows; inequality card "\|z⁵ + 1\| ≤ 2 < 3 = \|−3z\|"; then white dots appear: one inside at 0.335, four outside (`argument.quintic.inside`, `argument.quintic.smallest`). | walker; formula | read 1.5 s |
++| 11_6 | One. Walk the unit circle, and the output turns around zero exactly once. On that circle, the minus three z term is always bigger than the other two terms combined, so the output follows minus three z, which turns once. | The walker on the unit circle; output trace turns once (`argument.quintic.unit`), with a faint reference trace of −3z (a circle of radius 3 starting at −3, a half turn ahead of 3z) that the output shadows; inequality card "\|z⁵ + 1\| ≤ 2 < 3 = \|−3z\|"; then white dots appear: one inside at 0.335, four outside (`argument.quintic.inside`, `argument.quintic.smallest`). Once the voice has finished, lower third "precisely: output drawn with its direction exact and its size compressed, so every turn around 0 is the function's own". | walker; formula | read 7 s |
+ | 11_7 | The same trick proves that every polynomial has roots. Take one of degree n, starting with z to the n. On a huge circle, z to the n dwarfs the other terms. Picture z to the n as a walker going n times around zero, and the polynomial as a dog on a leash. The leash is shorter than the walker's distance from zero, so the dog circles zero n times too. So there are exactly n roots inside, counted by order. | The quintic on \|z\| = 3: z⁵ (blue walker) and the polynomial (green dog) with a leash; both circle 5 times (`argument.quintic.big`). Names to search: "fundamental theorem of algebra, Rouché's theorem". | walker | |
+-| 11_8 | For programmers. This counts roots inside a loop without finding them. Walk the loop in small steps, add up the change in the output's angle at each step, and divide by a full turn. But samples alone can miss a turn made quickly between them. So bound how fast f can change on the loop, and take steps so small that the output cannot move as far as its distance from zero. Then no turn can hide between samples, and the count is certain. | Code panel (below) slides in; left of it the check runs on a real coarse loop, z⁸ on the unit circle (`argument.coarse.*`). Eight samples all land on 1: "8 samples say 0 turns"; a walker then shows a whole turn hiding in every step: "between the samples: 8 turns". `L = 8`: one step's reach 6.28 ≥ \|a\| = 1, wider than the output window, which is shaded with "reach covers 0"; the refuse line of the code is banded and the row reads "refuse". At 64 steps the reach 0.79 is a teal disk around `a` that misses 0, the row reads "passes", and a card gives "64 steps: 8 turns, certain". | code panel | hold |
++| 11_8 | For programmers. This counts roots inside a loop without finding them. Walk the loop in small steps, add up the change in the output's angle at each step, and divide by a full turn. But samples alone can miss a turn made quickly between them. So bound how fast f can change on the loop, and take steps so small that the output cannot move as far as its distance from zero. Then no turn can hide between samples, and the count is certain. | Code panel (below) slides in; left of it the check runs on a real coarse loop, z⁸ on the unit circle (`argument.coarse.*`). Eight samples all land on 1: "8 samples say 0 turns"; a walker then shows a whole turn hiding in every step: "between the samples: 8 turns". `L = 8`: one step's reach 6.28 ≥ \|a\| = 1, wider than the output window, which is shaded with "reach covers 0"; the refuse line of the code is banded and the row reads "refuse". At 64 steps the reach 0.79 is a teal disk around `a` that misses 0, the row reads "passes", and a card gives "64 steps: 8 turns, certain". The check then stands still with the panel beside it, so the code can be read against what the voice described. | code panel | read 7.5 s, hold |
+ 
+ Code panel for 11_8 (the check is `winding_certified` in `src/model.rs`;
+ the counts the film states come from it, with a derivative bound proved per
+@@ -261,7 +261,7 @@
+ | 13_8 | Add the two. The real parts of p one and p two cancel, and each has imaginary part the square root of two over two. So the residues add to minus i times the square root of two, over four. | p₁ and p₂ as arrows; their sum `i√2` drawn tip to tail; `Σ Res = −i√2/4` (`integral.quartic.sum`). | formula; arrows | |
+ | 13_9 | Multiply by two pi i. The two i's make minus one, which cancels the minus sign, and the area is pi over the square root of two. About two point two two. | `2πi · (−i√2/4) = π√2/2 = π/√2 ≈ 2.22` (`integral.quartic.value`), boxed. | formula | |
+ | 13_10 | And the half circle? On it, the function is at most one over R to the fourth minus one, so that part is at most pi R over R to the fourth minus one. At R equals ten, that is already less than one three hundredth. A numerical sum along the real line agrees with pi over the square root of two. | The half circle lights; the max `\|1/(1 + z⁴)\| ≤ 1/(R⁴ − 1)`, then length × max `πR · 1/(R⁴ − 1) = πR/(R⁴ − 1)`; 0.4189 at R = 2, 0.0031 < 1/300 at R = 10 (`integral.quartic.radii`, `integral.quartic.arc`, `integral.quartic.under`); a Riemann-sum readout 2.2214 (`integral.quartic.numeric`). | live readout; formula | |
+-| 13_11 | One honest note. The real integral converges on its own, because the function falls off fast in both directions. That is what lets us find it as the limit of the stretch from minus R to R. | Lower third "precisely: ∫\|f\| < ∞, so the improper integral equals lim_{R→∞} ∫_{−R}^{R} f; for slowly decaying f that symmetric limit can exist when the integral does not". | lower third | hold |
++| 13_11 | One honest note. The real integral converges on its own, because the function falls off fast in both directions. That is what lets us find it as the limit of the stretch from minus R to R. | While the voice speaks, lower third "precisely: the integral of \|f\| over the line is finite, so the improper integral is the limit of the integral from −R to R". When it has finished, a fuller card replaces that one with its first line in the same place, adding the clause the voice never says: "; for slowly decaying f that symmetric limit can exist when the integral does not". | lower third | read 5 s, hold |
+ 
+ ## 14_continuation (~210 s)
+ 
+@@ -269,7 +269,7 @@
+ |---|---|---|---|---|
+ | 14_1 | The bump's recipe stops at radius one. Is the bump itself stuck inside that circle? Of course not. We know it everywhere. A function given by a series can often be extended beyond where its series works. This is called analytic continuation. | The bump's colour picture with the radius-1 disk outlined; outside the disk the picture is the same function. | phase portrait (RowStrips) | |
+ | 14_2 | The clearest example is one, plus z, plus z squared, and so on. Inside the unit circle it adds up to one over one minus z. At one half, the sums settle on two. At one point two, they grow without limit. But one over one minus z makes perfect sense at one point two. It equals minus five. | Partial sums at 0.5 (blue) and 1.2 (red) as growing columns: `1, 1.5, 1.75 … → 2` and `1, 2.2, 3.64 … 32.2 after 11 terms` (`series.half.*`, `series.one_two.*`); `1/(1 − 1.2) = −5`. | formula; plot | |
+-| 14_3 | Because holomorphic functions are rigid, a function has at most one holomorphic extension to a given connected region. Two extensions that agree on the small disk agree everywhere in that region. You can also build an extension step by step. Re-centre the series at a point inside the disk, and its new disk pokes outside the old one. Chain disks along a path, and you can walk all the way around the pole at one. Each step along the path is forced. Here every path gives back one over one minus z, but that is not always so. | The unit disk; a new disk centred at −0.5 with radius 1.5 (`continuation.first_disk.radius`); then a chain of disks around z = 1, each radius = distance to 1 (`chain_centres`); the chain closes on the first disk with the same values, tick "same function"; a faint "?" where 14_6 will branch. Lower third "precisely: uniqueness is for one connected region; continuation along a path is unique for that path." | lower third; formula | read 2.5 s |
++| 14_3 | Because holomorphic functions are rigid, a function has at most one holomorphic extension to a given connected region. Two extensions that agree on the small disk agree everywhere in that region. You can also build an extension step by step. Re-centre the series at a point inside the disk, and its new disk pokes outside the old one. Chain disks along a path, and you can walk all the way around the pole at one. Each step along the path is forced. Here every path gives back one over one minus z, but that is not always so. | The unit disk; a new disk centred at −0.5 with radius 1.5 (`continuation.first_disk.radius`); then a chain of disks around z = 1, each radius = distance to 1 (`chain_centres`); the chain closes on the first disk with the same values, tick "same function"; a faint "?" where 14_6 will branch. Lower third "precisely: uniqueness is for one connected region; continuation along a path is unique for that path." | lower third; formula | read 5.5 s |
+ | 14_4 | ⟨predict⟩ So what does one plus two plus four plus eight, and so on forever, add up to? | `1 + 2 + 4 + 8 + …` and the formula `1/(1 − z)` at z = 2; violet card "= ?" | predict card; formula | listen 5 s |
+ | 14_5 | It has no sum at all. The partial sums grow without limit. The continued function equals minus one at two, but that is a value of the function, not a sum of the series. Continuation extends the function. It never makes a divergent series converge. The same goes for the famous claim that one plus two plus three, and so on, equals minus one twelfth. Minus one twelfth is the value of the continued zeta function at minus one. The sum itself diverges. | Red partial sums climbing; `1/(1 − 2) = −1` in the function's colour, separated by a vertical bar from "the series diverges"; then `ζ(−1) = −1/12` beside `1 + 2 + 3 + …` diverging (`continuation.zeta_minus1`). | formula; plot | |
+ | 14_6 | A second limit. Continuation can depend on the path. Start with the square root near one, where it is one. Carry it continuously once around zero. When you come back, it has become minus one. The logarithm does the same, gaining two pi i each time around. That story has its own video. | A blue point walks the unit circle from 1; a green arrow `√z` turns half as fast and ends at −1 (`continuation.sqrt.end`); label "√ after one loop: −1". | walker; arrows | |
+--- reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
++++ reading-repair02/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+@@ -45,26 +45,41 @@
+ ];
+ 
+ /// Seconds the picture holds still after these cues (`draw::reading_window`), past the
+-/// voice and the kit's breath, so a `precisely:` card can be read with nothing else being
+-/// said before the next cue clears it. Each is a teaching choice made from the card's text
+-/// and what competes with it, not a measurement of any take or reader. The test
+-/// `every_reading_window_is_in_the_storyboard` checks the list against the storyboard both
+-/// ways; `each_card_outlasts_its_reading_window` checks the order at each site.
++/// voice and the kit's breath, so a `precisely:` card or the code panel can be read with
++/// nothing else being said before it is cleared. Each is a teaching choice made from what the
++/// card means, how long it is and what competes with it, not a measurement of any take or
++/// reader. A viewer cannot read one sentence while listening to another, so speech about
++/// something else counts for nothing, and only speech saying the card's own words can share
++/// the work. Nothing here is limited by the score's `HOLD_MERGE` or the cue sheets'
++/// `--max-gap`: those describe a gap, they do not decide how long a theorem takes to read.
++/// The test `every_reading_window_is_in_the_storyboard` checks the list against the
++/// storyboard both ways; `each_card_outlasts_its_reading_window` checks the order at each
++/// site; `reading_windows_leave_time_for_what_the_voice_leaves_out` checks the seconds.
+ pub const READING_WINDOWS: &[(&str, f64)] = &[
+-    // a relation in words with three letters; the voice is counting turns, not reading it out
+-    ("04_4", 2.5),
++    // a relation in words with three letters, arriving once the voice has stopped: all of it
++    // is read here, and the eye has been on the colours until now
++    ("04_4", 7.5),
+     // one clause on how the plot was made; only the cue's last five words overlap it
+-    ("05_8", 2.0),
+-    // a condition on m − 1 derivatives and its result, as a new heading arrives beside it
+-    ("07_2", 3.0),
+-    // one exact hypothesis; the voice is saying nearly the same thing
+-    ("09_5", 2.0),
+-    // a whole theorem, three hypotheses and a conclusion, beside the condition card
+-    ("10_5", 3.0),
+-    // a note on how the output is drawn, with no argument to follow
+-    ("11_6", 1.5),
++    ("05_8", 3.5),
++    // the voice says angles get multiplied; the condition on m − 1 derivatives is only here
++    ("07_2", 4.5),
++    // a lemma no voice names, arriving when the voice stops; the closing breath adds to this
++    ("08_5", 5.0),
++    // one exact hypothesis; the voice has just said it in plainer words
++    ("09_5", 3.0),
++    // a whole theorem, three hypotheses and a conclusion, beside the condition card, while
++    // the voice's last sentence is about sine of one over z
++    ("10_5", 8.5),
++    // a note on how the output is drawn, arriving once the voice has stopped
++    ("11_6", 7.0),
++    // six lines of code, on screen until now beside a running check: the voice has told the
++    // steps in order, so this is for checking them against the code; a closing breath follows
++    ("11_8", 7.5),
++    // the warning the voice never says, arriving when it stops, with the limit it qualifies
++    // still on the card; a closing breath follows
++    ("13_11", 5.0),
+     // two uniqueness claims told apart, at the end of the longest cue, before a question
+-    ("14_3", 2.5),
++    ("14_3", 5.5),
+ ];
+ 
+ /// Glyph supplements: the scenes' fixed strings, plus the characters the
+@@ -156,6 +171,7 @@
+     real_integral::NUMERIC[0],
+     real_integral::NUMERIC[1],
+     real_integral::HONEST,
++    real_integral::HONEST_SAID,
+     real_integral::SIZE_ALONG,
+     real_integral::READ_R,
+     real_integral::AT_MOST,
+@@ -558,73 +574,240 @@
+         }
+     }
+ 
+-    /// A window is short enough to stay a hold, is in script order, and never sits
+-    /// between a prediction and its answer.
++    /// What each reading window has to give the viewer.
++    struct ToRead {
++        cue: &'static str,
++        /// The text on screen: the card's words, or a panel's lines.
++        shows: &'static [&'static str],
++        /// What the voice does not carry, each a piece of `shows`. Speech about something
++        /// else carries nothing, so such a card lists all of itself.
++        unspoken: &'static [&'static str],
++        /// The card comes only when the voice has stopped, so the fade comes out of the
++        /// clean time.
++        after_voice: bool,
++        /// The chapter's closing music breath, which follows with the card still up (s).
++        closing_breath: f64,
++    }
++
++    /// In the order of `READING_WINDOWS`.
++    const TO_READ: [ToRead; 10] = [
++        ToRead {
++            cue: "04_4",
++            shows: &[reading_color::NEAR_ZERO],
++            unspoken: &[reading_color::NEAR_ZERO],
++            after_voice: true,
++            closing_breath: 0.0,
++        },
++        ToRead {
++            cue: "05_8",
++            shows: &[gallery::FOUR],
++            unspoken: &[gallery::FOUR],
++            after_voice: false,
++            closing_breath: 0.0,
++        },
++        ToRead {
++            cue: "07_2",
++            shows: &[one_point::CRITICAL],
++            unspoken: &["if the first m − 1 derivatives vanish at a point and the m-th does not"],
++            after_voice: false,
++            closing_breath: 0.0,
++        },
++        ToRead {
++            cue: "08_5",
++            shows: &[loop_sums::GOURSAT],
++            unspoken: &[loop_sums::GOURSAT],
++            after_voice: true,
++            closing_breath: 2.0,
++        },
++        ToRead {
++            cue: "09_5",
++            shows: &[boundary::NEEDS],
++            unspoken: &["an open set containing the closed disk"],
++            after_voice: false,
++            closing_breath: 0.0,
++        },
++        ToRead {
++            cue: "10_5",
++            shows: &[rigidity::EXACT],
++            unspoken: &[rigidity::EXACT],
++            after_voice: false,
++            closing_breath: 0.0,
++        },
++        ToRead {
++            cue: "11_6",
++            shows: &[counting::SQUASHED],
++            unspoken: &[counting::SQUASHED],
++            after_voice: true,
++            closing_breath: 0.0,
++        },
++        ToRead {
++            cue: "11_8",
++            shows: &counting::CODE,
++            unspoken: &[
++                "if L * step >= |a|: refuse",
++                "# L bounds |f'| on the loop",
++                "angle(b / a)",
++                "# in (−π, π]",
++                "# zeros − poles inside",
++            ],
++            after_voice: false,
++            closing_breath: 2.0,
++        },
++        ToRead {
++            cue: "13_11",
++            shows: &[real_integral::HONEST],
++            unspoken: &["for slowly decaying f that symmetric limit can exist when the integral does not"],
++            after_voice: true,
++            closing_breath: 2.5,
++        },
++        ToRead {
++            cue: "14_3",
++            shows: &[continuing::PATH_EXACT],
++            unspoken: &[continuing::PATH_EXACT],
++            after_voice: false,
++            closing_breath: 0.0,
++        },
++    ];
++
++    /// Characters per second for prose on a card: the program's rule of thumb, used here only
++    /// as a lower bound. It is not a measurement of any reader, it knows nothing of Oliver's
++    /// pace, and mathematics usually reads slower than prose.
++    const READING_RULE_OF_THUMB: f64 = 15.0;
++    /// `draw::precisely_now`'s fade, and all of `draw::precisely_over`.
++    const CARD_COMES_IN: f64 = 0.4;
++
++    fn rule_of_thumb_s(parts: &[&str]) -> f64 {
++        parts.iter().map(|p| p.chars().count()).sum::<usize>() as f64 / READING_RULE_OF_THUMB
++    }
++
++    /// A window leaves time to read what the voice leaves out, because a viewer cannot read
++    /// one sentence while listening to another; it stops short of a picture held for nothing;
++    /// it is in script order; and it never sits between a prediction and its answer. The
++    /// score's `HOLD_MERGE` and the cue sheets' `--max-gap` set no limit here.
+     #[test]
+-    fn reading_windows_stay_short_and_never_delay_an_answer() {
++    fn reading_windows_leave_time_for_what_the_voice_leaves_out() {
+         let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
+-        for &(id, seconds) in READING_WINDOWS {
++        let listed: Vec<&str> = READING_WINDOWS.iter().map(|&(id, _)| id).collect();
++        let sited: Vec<&str> = TO_READ.iter().map(|read| read.cue).collect();
++        assert_eq!(listed, sited);
++        for (&(id, seconds), read) in READING_WINDOWS.iter().zip(&TO_READ) {
+             assert!(script.text(id).is_some(), "{id} is not a cue");
+-            // under 4 s of silence the score treats the gap as a hold (HOLD_MERGE) and the
+-            // cue sheets do not call it dead air (--max-gap)
+-            assert!(
+-                seconds >= 1.0 && seconds + explainer_kit::narration::BREATH < 4.0,
+-                "{id}: {seconds} s"
+-            );
+             assert!(
+                 PREDICTS.iter().all(|&(asked, _)| asked != id),
+                 "{id}: a window after a question delays its answer"
+             );
++            for piece in read.unspoken {
++                assert!(
++                    read.shows.iter().any(|s| s.contains(*piece)),
++                    "{id}: {piece} is not on screen"
++                );
++            }
++            // a card that comes after the voice has no voice to share the work, except 13_11,
++            // whose earlier words were on screen while the voice said them
++            assert!(
++                !read.after_voice || read.unspoken == read.shows || id == "13_11",
++                "{id}: comes after the voice, so all of it is unspoken"
++            );
++            let lost = if read.after_voice { CARD_COMES_IN } else { 0.0 };
++            let clean = explainer_kit::narration::BREATH - lost + seconds + read.closing_breath;
++            assert!(
++                clean >= rule_of_thumb_s(read.unspoken),
++                "{id}: {clean} s clean is under the rule of thumb for what the voice leaves out"
++            );
++            assert!(
++                clean <= 2.0 * rule_of_thumb_s(read.shows),
++                "{id}: {clean} s is twice what the rule of thumb gives the whole text"
++            );
+         }
+         assert!(READING_WINDOWS.windows(2).all(|w| w[0].0 < w[1].0));
+     }
+ 
++    /// 13_11's card grows: the part the voice carries is the start of the whole, and what
++    /// the whole adds is exactly the clause the voice never says.
++    #[test]
++    fn the_honest_note_only_adds_the_clause_nobody_says() {
++        let added = real_integral::HONEST.strip_prefix(real_integral::HONEST_SAID).unwrap();
++        let [unsaid] = TO_READ[8].unspoken else {
++            panic!("13_11 leaves out one clause");
++        };
++        assert_eq!(added, format!("; {unsaid}"));
++    }
++
+     /// Hold before clear, read from the source because no render can run here: the card
+     /// comes up, then the window, then the next cue with nothing in between, and only
+-    /// that cue's fade clears the card.
++    /// that cue's fade clears the card. On a chapter's last cue the music breath follows
++    /// the window, and the closing fade clears the card.
+     #[test]
+     fn each_card_outlasts_its_reading_window() {
+         let sites = [
+-            ("04_4", "04_5", "exact", include_str!("reading_color.rs")),
+-            ("05_8", "05_9", "four", include_str!("gallery.rs")),
+-            ("07_2", "07_3", "exact", include_str!("one_point.rs")),
+-            ("09_5", "09_6", "needs", include_str!("boundary.rs")),
+-            ("10_5", "10_6", "exact", include_str!("rigidity.rs")),
+-            ("11_6", "11_7", "squashed", include_str!("counting.rs")),
+-            ("14_3", "14_4", "exact", include_str!("continuing.rs")),
++            ("04_4", Some("04_5"), "exact", include_str!("reading_color.rs")),
++            ("05_8", Some("05_9"), "four", include_str!("gallery.rs")),
++            ("07_2", Some("07_3"), "exact", include_str!("one_point.rs")),
++            ("08_5", None, "exact", include_str!("loop_sums.rs")),
++            ("09_5", Some("09_6"), "needs", include_str!("boundary.rs")),
++            ("10_5", Some("10_6"), "exact", include_str!("rigidity.rs")),
++            ("11_6", Some("11_7"), "squashed", include_str!("counting.rs")),
++            ("11_8", None, "panel", include_str!("counting.rs")),
++            ("13_11", None, "note", include_str!("real_integral.rs")),
++            ("14_3", Some("14_4"), "exact", include_str!("continuing.rs")),
+         ];
+         let listed: Vec<&str> = READING_WINDOWS.iter().map(|&(id, _)| id).collect();
+         let sited: Vec<&str> = sites.iter().map(|site| site.0).collect();
+         assert_eq!(listed, sited);
+         let window = "reading_window(&kit, stage, &line)?;";
+         let any_say = "let line = say(&kit, stage, ";
+-        for (cue, next, card, source) in sites {
+-            assert_eq!(cue[..2], next[..2], "{cue}: the next cue is in another chapter");
+-            assert_eq!(source.matches(window).count(), 1, "{cue}: one window in the file");
++        let voice_end = "wait_until(stage, line.end())?;";
++        let is_word = |text: &str, word: &str| {
++            text.split(|c: char| !c.is_alphanumeric() && c != '_')
++                .any(|w| w == word)
++        };
++        for ((cue, next, card, source), read) in sites.into_iter().zip(&TO_READ) {
+             let here = source.find(&format!("{any_say}\"{cue}\")?;")).unwrap();
+-            let then = source.find(&format!("{any_say}\"{next}\")?;")).unwrap();
+-            let shown = source.find(&format!("let {card} = precisely_now(")).unwrap();
+-            let held = source.find(window).unwrap();
+-            assert!(here < shown && shown < held && held < then, "{cue}: out of order");
+-            assert!(!source[here + 1..then].contains(any_say), "{cue}: {next} is not next");
+-            assert!(
+-                source[held + window.len()..then].trim().is_empty(),
+-                "{cue}: {next} waits on more"
+-            );
++            let shown = here + source[here..].find(&format!("let {card} = ")).unwrap();
++            let held = here + source[here..].find(window).unwrap();
++            assert!(shown < held, "{cue}: out of order");
++            if read.after_voice {
++                let arrives = if cue == "13_11" {
++                    here + source[here..].find("precisely_over(stage, said, note)?;").unwrap()
++                } else {
++                    shown
++                };
++                assert!(
++                    source[here..arrives].contains(voice_end),
++                    "{cue}: comes under the voice"
++                );
++                assert!(arrives < held, "{cue}: the window starts before the card is up");
++            }
+             let before = &source[shown..held];
+             assert!(
+                 !before.contains("fade_out") && !before.contains("remove_from_scene"),
+                 "{cue}: cleared early"
+             );
+-            let rest = &source[then + 1..];
+-            let cleared_by = &rest[..rest.find(any_say).unwrap_or(rest.len())];
+-            assert!(cleared_by.contains("fade_out_all"), "{cue}: {next} clears nothing");
+-            assert!(
+-                cleared_by
+-                    .split(|c: char| !c.is_alphanumeric() && c != '_')
+-                    .any(|w| w == card),
+-                "{cue}: {next} does not clear {card}"
+-            );
++            let after = &source[held + window.len()..];
++            if let Some(next) = next {
++                assert_eq!(cue[..2], next[..2], "{cue}: the next cue is in another chapter");
++                let then = here + source[here..].find(&format!("{any_say}\"{next}\")?;")).unwrap();
++                assert!(held < then, "{cue}: out of order");
++                assert!(!source[here + 1..then].contains(any_say), "{cue}: {next} is not next");
++                assert!(
++                    source[held + window.len()..then].trim().is_empty(),
++                    "{cue}: {next} waits on more"
++                );
++                let rest = &source[then + 1..];
++                let cleared_by = &rest[..rest.find(any_say).unwrap_or(rest.len())];
++                assert!(cleared_by.contains("fade_out_all"), "{cue}: {next} clears nothing");
++                assert!(is_word(cleared_by, card), "{cue}: {next} does not clear {card}");
++            } else {
++                let breath = format!("kit.music_breath(stage, {:?})?;", read.closing_breath);
++                assert!(
++                    after.trim_start().starts_with(&breath),
++                    "{cue}: the window is not right before {breath}"
++                );
++                let closing = &after[..after.find("kit.finish(stage)").unwrap()];
++                assert!(!closing.contains(any_say), "{cue}: is not its chapter's last cue");
++                assert!(closing.contains("fade_out_all"), "{cue}: the closing clears nothing");
++                assert!(is_word(closing, card), "{cue}: the closing does not clear {card}");
++            }
+         }
+     }
+ }
+--- reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
++++ reading-repair02/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+@@ -878,9 +878,10 @@
+ 
+ /// A reading window (`chapters::READING_WINDOWS`): the cue finishes, then the kit's breath,
+ /// then the picture holds still for the authored seconds, so the card on screen can be read
+-/// with nothing else being said. It draws and clears nothing; the next cue clears the card.
+-/// Waiting for `line.end()` first is what holds a render with no narrator, where `kit.hold`
+-/// does nothing. The wait is a plain one: no music window, and no silence in any take.
++/// with nothing else being said. It draws and clears nothing; the next cue, or at a chapter's
++/// last cue the closing fade after its music breath, clears the card. Waiting for
++/// `line.end()` first is what holds a render with no narrator, where `kit.hold` does nothing.
++/// The wait is a plain one: no music window, and no silence in any take.
+ pub fn reading_window(kit: &Kit, stage: &mut Stage<'_>, line: &Spoken) -> fmn::Result<()> {
+     let seconds = super::READING_WINDOWS
+         .iter()
+@@ -899,6 +900,25 @@
+     Ok(m)
+ }
+ 
++/// A lower third brought in now that holds the first part of the taller `whole`, which is
++/// built but not yet shown. Bands sit on the foot of the frame, so this shorter one is lifted
++/// until it starts where `whole` will: its first line does not move when `whole` replaces it.
++pub fn precisely_lifted(kit: &Kit, stage: &mut Stage<'_>, text: &str, whole: Mob) -> fmn::Result<Mob> {
++    let m = explainer_kit::props::precisely(kit, stage, text)?;
++    let lift = stage.get_height(whole) - stage.get_height(m);
++    let at = stage.get_center(m);
++    stage.move_to(m, v(at[0], at[1] + lift), ORIGIN);
++    fade_in_all(stage, &[m], 0.4)?;
++    Ok(m)
++}
++
++/// `whole` comes in over `said`, and then `said` goes: a lower third's card is nearly opaque,
++/// so `said` leaves behind it. In all 0.4 s, as long as [`precisely_now`] takes.
++pub fn precisely_over(stage: &mut Stage<'_>, said: Mob, whole: Mob) -> fmn::Result<()> {
++    fade_in_all(stage, &[whole], 0.3)?;
++    fade_out_all(stage, &[said], 0.1)
++}
++
+ /// "names to search:" brought in now; returns it.
+ pub fn names_now(kit: &Kit, stage: &mut Stage<'_>, names: &[&str]) -> fmn::Result<Mob> {
+     let m = explainer_kit::props::names_to_search(kit, stage, names)?;
+@@ -1009,6 +1029,18 @@
+         }
+     }
+ 
++    /// A card that grows brings the whole in before the first part goes, so the band is never
++    /// missing. Read from this file, because no render can run here.
++    #[test]
++    fn a_growing_card_covers_before_it_clears() {
++        let source = include_str!("draw.rs");
++        let head = source.find("pub fn precisely_over(").unwrap();
++        let body = &source[head..head + source[head..].find("\n}\n").unwrap()];
++        let comes = body.find("fade_in_all(stage, &[whole], 0.3)?;").unwrap();
++        let goes = body.find("fade_out_all(stage, &[said], 0.1)").unwrap();
++        assert!(comes < goes);
++    }
++
+     #[test]
+     fn squashing_keeps_direction_and_fits() {
+         for w in [C::new(3.0, 4.0), C::new(-1e6, 2.0), C::new(1e-9, -1e-9)] {
+--- reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs
++++ reading-repair02/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs
+@@ -118,6 +118,9 @@
+         fade_in_all(stage, &zero, 0.3)?;
+         line.wait_sentence(stage, 1)?;
+         fade_in_all(stage, &[order], 0.3)?;
++        // the voice is still asking the eye to count colours around the dot, so the card
++        // comes only when it has finished, and all of it is read in the window below
++        wait_until(stage, line.end())?;
+         let exact = precisely_now(&kit, stage, NEAR_ZERO)?;
+ 
+         // 04_5: 1/z runs the colours backwards around a pole
+--- reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
++++ reading-repair02/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
+@@ -19,7 +19,7 @@
+ 
+ use super::draw::{
+     Plane, chain_arrows, chain_points, dot, fact, fade_in_all, fade_out_all, fit_chain, hero, input, lay_down,
+-    line_style, output, precisely_now, say, value, wait_until,
++    line_style, output, precisely_now, reading_window, say, value, wait_until,
+ };
+ // the residues chapter's chain totals, the turning chapter's rule, 1/z's formula
+ use super::residues::TOTALS;
+@@ -552,7 +552,6 @@
+         let each = kit.text(stage, EACH, 20.0, Palette::dim(), v(right, -1.25))?;
+         fade_in_all(stage, &[linear], 0.4)?;
+         fade_in_all(stage, &[each_zero, each], 0.4)?;
+-        let exact = precisely_now(&kit, stage, GOURSAT)?;
+         line.wait_sentence(stage, 5)?;
+         let colors = [input(), output()];
+         let mut walks = Vec::new();
+@@ -577,6 +576,10 @@
+         fade_in_all(stage, &[lit_outer], 0.4)?;
+         fade_in_all(stage, &left, 0.4)?;
+         wait_until(stage, line.end())?;
++        // the lemma behind "almost": no voice names it, and from "Neighbouring squares" on
++        // the voice and the picture are both on the shared edges, so it comes when they stop
++        let exact = precisely_now(&kit, stage, GOURSAT)?;
++        reading_window(&kit, stage, &line)?;
+         kit.music_breath(stage, 2.0)?;
+         let mut all = vec![
+             cauchy, outer, gamma, walk_on, hypothesis, linear, each_zero, each, exact, lit_outer,
+--- reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
++++ reading-repair02/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+@@ -310,6 +310,9 @@
+             Palette::faint(),
+         )?;
+         fade_in_all(stage, &inside, 0.3)?;
++        // how the output is drawn has nothing to do with the minus three z the voice is on,
++        // so the card comes only when it has finished
++        wait_until(stage, line.end())?;
+         let squashed = precisely_now(&kit, stage, SQUASHED)?;
+ 
+         // 11_7: the dog on a leash: on |z| = 3 both circle 5 times
+@@ -360,6 +363,9 @@
+         stage.play(panel.slide_in(0.8)?)?;
+         let mut last = coarse_loop(&kit, stage, &line, panel.lines[REFUSE_LINE])?;
+         wait_until(stage, line.end())?;
++        // the panel has shared the screen with the running check for the whole cue; now the
++        // check has stopped, so the code can be read against what the voice just described
++        reading_window(&kit, stage, &line)?;
+         kit.music_breath(stage, 2.0)?;
+         last.push(panel.group);
+         fade_out_all(stage, &last, 0.5)?;
+--- reading-repair01/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
++++ reading-repair02/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
+@@ -17,7 +17,7 @@
+ 
+ use super::draw::{
+     Plane, carded, dot, fact, fade_in_all, fade_out_all, faded_line, flat, hero, line_style, pause, pole, pole_mark,
+-    precisely_now, predict, say, shift_all, tween_linear, value, wait_until,
++    precisely_lifted, precisely_over, predict, reading_window, say, shift_all, tween_linear, value, wait_until,
+ };
+ use crate::model::{self, C, ZERO, arc_bound};
+ 
+@@ -61,6 +61,10 @@
+ /// Around the sum's reach: "a numerical sum on [−200, 200]: ".
+ pub const NUMERIC: [&str; 2] = ["a numerical sum on [−", "]: "];
+ pub const HONEST: &str = "the integral of |f| over the line is finite, so the improper integral is the limit of the integral from −R to R; for slowly decaying f that symmetric limit can exist when the integral does not";
++/// As much of [`HONEST`] as 13_11's voice carries: on screen while it speaks, so the warning
++/// the voice never says arrives on its own once it has stopped.
++pub const HONEST_SAID: &str =
++    "the integral of |f| over the line is finite, so the improper integral is the limit of the integral from −R to R";
+ 
+ /// The antiderivative 13_4 shows: its derivative is 1/(1 + x⁴) (tested).
+ pub fn antiderivative(x: f64) -> f64 {
+@@ -635,8 +639,11 @@
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "13_11")?;
+         line.wait_sentence(stage, 1)?;
+-        let note = precisely_now(&kit, stage, HONEST)?;
++        let note = explainer_kit::props::precisely(&kit, stage, HONEST)?;
++        let said = precisely_lifted(&kit, stage, HONEST_SAID, note)?;
+         wait_until(stage, line.end())?;
++        precisely_over(stage, said, note)?;
++        reading_window(&kit, stage, &line)?;
+         kit.music_breath(stage, 2.5)?;
+         let mut all = vec![
+             axis, quartic[0], quartic[1], name, path, unit, a1, a2, total, arc_lit, qmax, qbound, near, far, numeric,

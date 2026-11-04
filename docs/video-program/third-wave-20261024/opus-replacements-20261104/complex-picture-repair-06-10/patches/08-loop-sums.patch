@@ -1,0 +1,267 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
+@@ -18,8 +18,9 @@
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Plane, chain_arrows, chain_points, dot, fact, fade_in_all, fade_out_all, fit_chain, hero, input, lay_down,
+-    line_style, output, precisely_now, reading_window, say, value, wait_until,
++    Plane, arrow_head_points, axis_names, chain_arrows, chain_points, dot, fact, fade_in_all, fade_out_all, fit_chain,
++    flat, hero, input, lay_down, line_style, output, precisely_now, reading_window, say, tween_linear, value,
++    wait_until,
+ };
+ // the residues chapter's chain totals, the turning chapter's rule, 1/z's formula
+ use super::residues::TOTALS;
+@@ -31,7 +32,10 @@
+ pub const SHRINK: &str = "as the steps shrink, ≈ becomes =";
+ pub const PART_TEX: [&str; 4] = [r"z_k", r"f(z_k)", r"\Delta z_k", r"f(z_k)\,\Delta z_k"];
+ pub const IDENTITY_TEX: &str = r"f(z) = z";
++pub const UNIT_CIRCLE: &str = "unit circle";
+ pub const DISTANCE: &str = "distance from the start:";
++/// The chain of 08_2 goes round twice: each product turns twice as fast as the walk.
++pub const LAPS: [&str; 2] = ["the chain's first lap", "second lap, over the first"];
+ pub const CLOSED: &str = "|total| = ";
+ pub const UP: &str = "straight up";
+ pub const HEIGHT: &str = "column height:";
+@@ -48,12 +52,14 @@
+ pub const EACH: &str = "around each small square";
+ pub const CANCEL: [&str; 2] = ["shared edges cancel:", "only the outer loop is left"];
+ pub const GOURSAT: &str =
+-    "Goursat's lemma: each square's error shrinks faster than its area; no continuity of f' is assumed";
++    "by Goursat's lemma each square's error shrinks faster than its area; no continuity of f' is assumed";
+ 
+ /// Steps around the loop (the facts' loop sums use the same count; the
+ /// tests hold the two together), and the finer cut of 08_1.
+ pub const STEPS: usize = 24;
+ pub const FINER: usize = 96;
++/// One finer step as a share of one step of 08_1.
++pub const FINER_STEP: f64 = STEPS as f64 / FINER as f64;
+ /// The step whose product is drawn in 08_1 and 08_3: its value, step and
+ /// product point in well-separated directions.
+ pub const K: usize = 3;
+@@ -151,6 +157,7 @@
+         let arrow = Arrow::new(product_point(ZERO), product_point(w))
+             .thickness(4.0)
+             .color(c)
++            .buff(0.0)
+             .build()?;
+         let arrow = stage.arena_mut().add(arrow);
+         let name = kit.tex(stage, PART_TEX[j + 1], 22.0, c, &[], label_point(w))?;
+@@ -196,19 +203,26 @@
+     Ok(())
+ }
+ 
++/// Where a circulation mark starts and stops, in radians, going anticlockwise.
++const CIRCULATION: (f64, f64) = (0.4, 5.4);
++
++/// The corners of a circulation mark's head, pointing on round the way it turns. A solid
++/// head, since a chord of an arc this small is shorter than an `Arrow` can point.
++pub fn circulation_head(at: Vec3, r: f64) -> Vec<Vec3> {
++    let point = |a: f64| v(at[0] + r * a.cos(), at[1] + r * a.sin());
++    arrow_head_points(point(CIRCULATION.1), point(CIRCULATION.1 - 0.35), 0.16)
++}
++
+ /// A small anticlockwise circulation arrow around `at`, detached.
+-fn circulation(stage: &mut Stage<'_>, at: Vec3, r: f64, color: Srgb) -> fmn::Result<Vec<Mob>> {
+-    let (a0, a1) = (0.4, 0.4 + 5.0);
++fn circulation(stage: &mut Stage<'_>, at: Vec3, r: f64, color: Srgb) -> Vec<Mob> {
++    let (a0, a1) = CIRCULATION;
+     let point = |a: f64| v(at[0] + r * a.cos(), at[1] + r * a.sin());
+     let arc: Vec<Vec3> = (0..=40).map(|j| point(a0 + (a1 - a0) * f64::from(j) / 40.0)).collect();
+     let arc = stage
+         .arena_mut()
+         .add(polyline(arc).style(line_style(color, 3.0)).build());
+-    let tip = Arrow::new(point(a1 - 0.3), point(a1 + 0.25))
+-        .thickness(3.0)
+-        .color(color)
+-        .build()?;
+-    Ok(vec![arc, stage.arena_mut().add(tip)])
++    let tip = Polygon::new(circulation_head(at, r)).style(flat(color, 1.0)).build();
++    vec![arc, stage.arena_mut().add(tip)]
+ }
+ 
+ /// The square loop's corners, anticlockwise from the bottom left, closed.
+@@ -272,15 +286,27 @@
+         let line = say(&kit, stage, "08_1")?;
+         let mut frame = vec![p.border(stage, Palette::faint())?];
+         frame.extend(p.axes(stage)?);
++        frame.extend(axis_names(&kit, stage, &p)?);
+         let ring = p.circle(stage, ZERO, R, hero(), 3.0)?;
++        // which circle, and which way round the walk goes
++        let ring_name = kit.text(stage, UNIT_CIRCLE, 20.0, hero(), p.p(C::polar(1.35, -1.1)))?;
++        let ring_head = stage.arena_mut().add(
++            Polygon::new(arrow_head_points(p.p(C::polar(R, 2.5)), p.p(C::polar(R, 2.3)), 0.24))
++                .style(flat(hero(), 1.0))
++                .build(),
++        );
+         fade_in_all(stage, &frame, 0.4)?;
+-        fade_in_all(stage, &[ring], 0.4)?;
++        fade_in_all(stage, &[ring, ring_head, ring_name], 0.4)?;
+         line.wait_sentence(stage, 1)?;
+         let dots = step_dots(stage, &p, R, STEPS, 0.05);
+         lay_down(stage, &dots, 0.05)?;
+         line.wait_sentence(stage, 2)?;
+         let (a, b, mid) = step(R, K, STEPS);
+-        let chord = Arrow::new(p.p(a), p.p(b)).thickness(4.0).color(input()).build()?;
++        let chord = Arrow::new(p.p(a), p.p(b))
++            .thickness(4.0)
++            .color(input())
++            .buff(0.0)
++            .build()?;
+         let chord = stage.arena_mut().add(chord);
+         let at_mid = dot(stage, p.p(mid), 0.07, output());
+         let mid_name = kit.tex(stage, PART_TEX[0], 22.0, output(), &[], p.p(mid.scale(1.35)))?;
+@@ -295,6 +321,41 @@
+         let fine = step_dots(stage, &p, R, FINER, 0.03);
+         fade_out_all(stage, &dots, 0.3)?;
+         fade_in_all(stage, &fine, 0.5)?;
++        // the one step drawn shrinks with the rest, to the finer cut's size, its product with it
++        let [_, dz, prod] = parts(identity, R, K);
++        let finer = stage.add_value_tracker(1.0);
++        let anchor = stage.arena_mut().add(VMobject::new());
++        stage.add_to_scene(anchor)?;
++        let bits = product.clone();
++        stage.add_updater(
++            anchor,
++            move |s, _| {
++                let t = value(s, finer);
++                let (centre, half) = ((a + b).scale(0.5), (b - a).scale(0.5 * t));
++                if let Ok(m) = Arrow::new(p.p(centre - half), p.p(centre + half))
++                    .thickness(4.0)
++                    .buff(0.0)
++                    .build()
++                {
++                    let _ = s.set_points(chord, m.points());
++                }
++                for (j, w) in [(2, dz), (4, prod)] {
++                    let tip = w.scale(t);
++                    if let Ok(m) = Arrow::new(product_point(ZERO), product_point(tip))
++                        .thickness(4.0)
++                        .buff(0.0)
++                        .build()
++                    {
++                        let _ = s.set_points(bits[j], m.points());
++                    }
++                    s.move_to(bits[j + 1], label_point(tip), ORIGIN);
++                }
++            },
++            true,
++        )?;
++        stage.play(tween_linear(finer, FINER_STEP, 0.9)?)?;
++        stage.clear_updaters(anchor, true);
++        stage.remove_from_scene(anchor);
+         let shrink = kit.text(stage, SHRINK, 20.0, Palette::dim(), v(0.0, 2.55))?;
+         fade_in_all(stage, &[shrink], 0.4)?;
+         wait_until(stage, line.end())?;
+@@ -312,7 +373,15 @@
+         fade_in_all(stage, &[named], 0.4)?;
+         let corners = chain(identity, R);
+         let (origin, scale) = fit_chain(&corners, v(CHAIN_AT.0, CHAIN_AT.1), CHAIN_BOX.0, CHAIN_BOX.1, CHAIN_MAX);
+-        let arrows = chain_arrows(stage, origin, scale, &corners, hero())?;
++        // each product turns twice as fast as the walk, so the chain goes round twice: the
++        // second lap is laid over the first in its own colour, and the picture keeps moving
++        let half = STEPS / 2;
++        let first_lap = chain_arrows(stage, origin, scale, &corners[..=half], hero())?;
++        let second_lap = chain_arrows(stage, origin, scale, &corners[half..], Palette::ink())?;
++        let laps = [
++            kit.text(stage, LAPS[0], 20.0, hero(), side(-0.4))?,
++            kit.text(stage, LAPS[1], 20.0, Palette::ink(), side(-0.4))?,
++        ];
+         let lit = chords(stage, &p, R)?;
+         let distance = stage.add_value_tracker(0.0);
+         let label = kit.text(stage, DISTANCE, 20.0, Palette::dim(), side(0.9))?;
+@@ -327,9 +396,25 @@
+             side(0.3),
+             ORIGIN,
+         )?;
+-        let each = (line.until(stage, "The total is zero", 2.4)? / STEPS as f64).clamp(0.08, 0.3);
+-        lay_in_step(stage, &arrows, &lit, &corners, (distance, distance_of), each)?;
++        // the lap captions' fades come out of the time the chain has
++        let each = ((line.until(stage, "The total is zero", 2.4)? - 0.35) / STEPS as f64).clamp(0.08, 0.3);
++        fade_in_all(stage, &[laps[0]], 0.15)?;
++        lay_in_step(stage, &first_lap, &lit[..half], &corners, (distance, distance_of), each)?;
++        fade_out_all(stage, &[laps[0]], 0.1)?;
++        fade_in_all(stage, &[laps[1]], 0.1)?;
++        lay_in_step(
++            stage,
++            &second_lap,
++            &lit[half..],
++            &corners[half..],
++            (distance, distance_of),
++            each,
++        )?;
++        let mut arrows = first_lap;
++        arrows.extend(second_lap);
+         line.wait_sentence(stage, 2)?;
++        // the total replaces the running distance, and the distance's label goes with it
++        fade_out_all(stage, &[label, laps[1]], 0.2)?;
+         stage.clear_updaters(live, true);
+         let total = kit.text(
+             stage,
+@@ -347,7 +432,8 @@
+         // 08_3: 1/z: every product points straight up; they stack into 2πi
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "08_3")?;
+-        let mut gone = vec![named, label, total, start];
++        // the circle is about to stop being the unit circle
++        let mut gone = vec![named, total, start, ring_name, ring_head];
+         gone.extend(&arrows);
+         gone.extend(&lit);
+         fade_out_all(stage, &gone, 0.4)?;
+@@ -524,6 +610,7 @@
+         )
+         .thickness(5.0)
+         .color(hero())
++        .buff(0.0)
+         .build()?;
+         let walk_on = stage.arena_mut().add(walk_on);
+         let hypothesis = kit.text(stage, HYPOTHESIS, 20.0, Palette::dim(), v(right, 0.95))?;
+@@ -543,7 +630,7 @@
+         let mut turning = Vec::new();
+         for row_k in 0..CELLS {
+             for col in 0..CELLS {
+-                turning.extend(circulation(stage, cell_centre(col, row_k), 0.26, input())?);
++                turning.extend(circulation(stage, cell_centre(col, row_k), 0.26, input()));
+             }
+         }
+         fade_in_all(stage, &turning, 0.6)?;
+@@ -556,7 +643,7 @@
+         let colors = [input(), output()];
+         let mut walks = Vec::new();
+         for ([a, b], &c) in shared_walks().into_iter().zip(&colors) {
+-            let w = Arrow::new(a, b).thickness(4.0).color(c).build()?;
++            let w = Arrow::new(a, b).thickness(4.0).color(c).buff(0.0).build()?;
+             walks.push(stage.arena_mut().add(w));
+         }
+         fade_in_all(stage, &walks, 0.4)?;
+@@ -656,6 +743,30 @@
+     }
+ 
+     #[test]
++    fn the_chain_of_z_is_back_at_its_start_after_half_the_steps() {
++        let pts = chain(identity, R);
++        assert_eq!(pts.len(), STEPS + 1);
++        assert!((pts[STEPS / 2] - pts[0]).abs() < 1e-9);
++        // and so the second lap lies over the first
++        for k in 0..=STEPS / 2 {
++            assert!((pts[k + STEPS / 2] - pts[k]).abs() < 1e-9);
++        }
++    }
++
++    #[test]
++    fn a_circulation_mark_points_the_way_it_turns() {
++        let at = v(1.0, 2.0);
++        let head = circulation_head(at, 0.26);
++        let (tip, back) = (
++            head[0],
++            [(head[1][0] + head[2][0]) / 2.0, (head[1][1] + head[2][1]) / 2.0],
++        );
++        let (rx, ry) = (tip[0] - at[0], tip[1] - at[1]);
++        let (dx, dy) = (tip[0] - back[0], tip[1] - back[1]);
++        assert!(rx * dy - ry * dx > 0.0, "the head points clockwise");
++    }
++
++    #[test]
+     fn the_pictures_fit_and_no_arrow_is_dropped() {
+         let p = circle_plane();
+         assert!(p.contains(C::real(BIG_R)) && p.contains(C::new(0.0, -BIG_R)));

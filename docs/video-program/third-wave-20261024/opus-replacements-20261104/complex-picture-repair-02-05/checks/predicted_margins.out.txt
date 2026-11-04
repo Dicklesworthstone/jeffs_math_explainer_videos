@@ -1,0 +1,38 @@
+   0.009  04 card 'zero of order 2': half width within the estimate the test uses
+   0.050  05_9 lower names under the top row
+   0.050  05_9 lower names over the lower row
+   0.090  05_9 tallest name, the fraction at 20, clear of its panel
+   0.128  03_5 1/0 card clear of the axis tick below it
+   0.172  04 card 'simple pole': half width within the estimate the test uses
+   0.176  05_8 RH card fits the frame
+   0.206  05_8 RH card clear of the zero labels
+   0.207  05_8 strip caption clear of the lower third's top
+   0.247  05_1 box name clear of the count above it
+   0.267  03_6 caption above the safe bottom
+   0.269  03_2 output: word clear of its value
+   0.269  03_2 input: word clear of its value
+   0.291  04 wheel arrow clear of 'positive'
+   0.315  05_7 CONVERGES fits right of the zero labels
+   0.335  05_7 CRITICAL fits right of the zero labels
+   0.440  05_7 zero labels end before the column
+   0.451  03_2 input: value clear of the axis
+   0.451  03_2 output: value clear of the axis
+   0.490  05_9 tallest name inside the safe top
+   0.523  05_7 trivial zeros fit
+   0.598  04_7 notes do not touch, vertically
+   0.757  05_7 top zero label inside the safe top
+   0.770  04 wheel arrow inside the safe top
+   0.772  04_7 range note fits the frame
+   0.896  04_7 per-pole note fits the frame
+   0.918  03_2 output: word clear of the frame
+   0.918  03_2 input: word clear of the frame
+   0.975  05_7 ONE_POLE fits right of the zero labels
+   1.047  05_7 strip caption clear of the wide plot's foot
+   1.196  03_5 1/0 card inside the input frame, left
+   1.306  05_1 box name within its box's width
+   2.312  04_7 range note clear of the picture
+   2.436  04_7 per-pole note clear of the picture
+   3.093  05_7 strip caption fits
+   5.018  03_6 caption fits the frame
+
+36 margins, 0 negative

@@ -1,0 +1,110 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/ratio_ruler.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/ratio_ruler.rs
+@@ -32,6 +32,15 @@
+ const WHITE_KEYS: usize = 43;
+ /// Where the A dots ride above the keyboard.
+ const DOT_Y: f64 = -0.2;
++/// 00_6's preview: the dial's and the grid's centre line, and the row of words
++/// beneath the pictures, below the lowest the grid's corners reach as it turns.
++const PREVIEW_Y: f64 = 0.6;
++const PREVIEW_WORD_Y: f64 = -0.8;
++const DIAL_R: f64 = 0.9;
++/// The preview's grid: its generator, its scene units per grid unit, its lines.
++const SWIRL: crate::model::M2 = [[0.15, -1.2], [1.2, 0.15]];
++const SWIRL_UNIT: f64 = 0.35;
++const SWIRL_REACH: i32 = 2;
+ 
+ fn lin_x(hz: f64, top: f64) -> f64 {
+     LIN_LEFT + (LIN_RIGHT - LIN_LEFT) * hz / top
+@@ -310,7 +319,7 @@
+         kit.until_sentence(stage, "00_3", 3)?;
+         let ratio = kit.text(
+             stage,
+-            "distance between notes = ratio of frequencies",
++            "note interval depends on frequency ratio",
+             26.0,
+             Palette::ink(),
+             v(0.0, -2.75),
+@@ -446,32 +455,44 @@
+     // 1: two rulers, one sliding along the other
+     let a = seg(stage, v(-6.0, 0.6), v(-2.6, 0.6), green, 4.0);
+     let b = seg(stage, v(-5.2, 1.0), v(-1.8, 1.0), teal, 4.0);
+-    let w1 = kit.text(stage, "multiply by sliding", 24.0, Palette::ink(), v(-4.0, -0.4))?;
++    let w1 = kit.text(
++        stage,
++        "multiply by sliding",
++        24.0,
++        Palette::ink(),
++        v(-4.0, PREVIEW_WORD_Y),
++    )?;
+     fade_in_all(stage, &[heading, a, b, w1], 0.6)?;
+     super::draw::shift_all(stage, &[b], v(0.6, 0.0), 1.0)?;
+     kit.until_sentence(stage, "00_6", 2)?;
+     // 2: a small grid swirling under a flow
+     let spin = stage.add_value_tracker(0.0);
+     let grid = stage.always_redraw(move |s| {
+-        let m = crate::model::flow([[0.15, -1.2], [1.2, 0.15]], value(s, spin));
+-        super::draw::grid_under(s, m, v(4.0, 0.6), 0.35, 2, blue, 0.9)
++        let m = crate::model::flow(SWIRL, value(s, spin));
++        super::draw::grid_under(s, m, v(4.0, PREVIEW_Y), SWIRL_UNIT, SWIRL_REACH, blue, 0.9)
+     });
+-    let w3 = kit.text(stage, "motions of the plane", 24.0, Palette::ink(), v(4.0, -0.4))?;
++    let w3 = kit.text(
++        stage,
++        "motions of the plane",
++        24.0,
++        Palette::ink(),
++        v(4.0, PREVIEW_WORD_Y),
++    )?;
+     stage.add_to_scene(grid)?;
+     fade_in_all(stage, &[w3], 0.5)?;
+     play!(stage; tween(spin, 1.0, 2.5)?);
+     kit.until_sentence(stage, "00_6", 3)?;
+     {
+         // 3: a dial whose pointer goes round and round, laps counted
+-        let centre = v(0.0, 0.6);
+-        let dial = super::draw::ring(stage, centre, 0.9, Palette::dim(), 3.0);
++        let centre = v(0.0, PREVIEW_Y);
++        let dial = super::draw::ring(stage, centre, DIAL_R, Palette::dim(), 3.0);
+         let turn = stage.add_value_tracker(0.0);
+         let pointer = stage.always_redraw(move |s| {
+             let a = std::f64::consts::TAU * value(s, turn);
+             let tip = v(centre[0] + 0.8 * a.sin(), centre[1] + 0.8 * a.cos());
+             super::draw::arrow_parts(s, centre, tip, purple, 4.0, 0.2)
+         });
+-        let w2 = kit.text(stage, "laps forgotten", 24.0, Palette::ink(), v(0.0, -0.4))?;
++        let w2 = kit.text(stage, "laps forgotten", 24.0, Palette::ink(), v(0.0, PREVIEW_WORD_Y))?;
+         fade_in_all(stage, &[dial, w2], 0.5)?;
+         stage.add_to_scene(pointer)?;
+         play!(stage; tween(turn, 2.0, 2.0)?);
+@@ -482,7 +503,7 @@
+         "and a transformation no steady flow reaches",
+         24.0,
+         super::draw::warn_c(),
+-        v(4.0, -1.0),
++        v(4.0, PREVIEW_WORD_Y - 0.6),
+     )?;
+     fade_in_all(stage, &[unreachable], 0.5)?;
+     kit.hold(stage)
+@@ -506,6 +527,21 @@
+     }
+ 
+     #[test]
++    fn the_preview_words_clear_the_dial_and_the_grid_through_its_whole_turn() {
++        // a word's top stands 0.13 above its centre line, read from preview frames; leave 0.1 more
++        const { assert!(PREVIEW_Y - DIAL_R > PREVIEW_WORD_Y + 0.13 + 0.1) };
++        let reach = f64::from(SWIRL_REACH);
++        for j in 0..=200 {
++            let m = crate::model::flow(SWIRL, f64::from(j) / 200.0);
++            // the grid is a parallelogram, lowest at a corner
++            for corner in [[reach, reach], [reach, -reach], [-reach, reach], [-reach, -reach]] {
++                let y = PREVIEW_Y + SWIRL_UNIT * crate::model::apply(m, corner)[1];
++                assert!(y > PREVIEW_WORD_Y + 0.13 + 0.1, "{j}: {y}");
++            }
++        }
++    }
++
++    #[test]
+     fn the_linear_ruler_puts_the_guess_right_of_the_truth() {
+         let top = 3520.0;
+         assert!(lin_x(622.25, top) < lin_x(660.0, top));

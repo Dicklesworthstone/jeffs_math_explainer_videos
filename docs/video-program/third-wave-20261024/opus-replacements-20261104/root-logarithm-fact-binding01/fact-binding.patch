@@ -1,0 +1,180 @@
+--- a/explainer_corpus/logarithm_mysteries/src/facts.rs
++++ b/explainer_corpus/logarithm_mysteries/src/facts.rs
+@@ -120,6 +120,8 @@
+         num((model::position(2f64.sqrt(), 2.0) * 1e12).round() / 1e12),
+     )?;
+     f.add("ruler.log2_half", num(model::position(0.5, 2.0)))?;
++    f.add("ruler.change_base_mid", 2_u32.pow(2))?;
++    f.add("ruler.change_base_final", 10)?;
+ 
+     // --- the slide rule (decade scales, positions in decades)
+     let p = |x: f64| model::position(x, 10.0);
+@@ -150,6 +152,11 @@
+ 
+     // --- the real logarithm
+     f.add("real.e", dec(std::f64::consts::E, 3))?;
++    let (product_a, product_b) = (2_u32, 4_u32);
++    f.add("real.product_a", product_a)?;
++    f.add("real.product_b", product_b)?;
++    f.add("real.product_ab", product_a * product_b)?;
++    f.add("real.growth_target", 10_u32.pow(3))?;
+     f.add("real.ln_one_point_oh_one", dec(1.01_f64.ln(), 5))?;
+     f.add("real.rate", num(RATE))?;
+     f.add("real.ln2", dec(2f64.ln(), 3))?;
+@@ -309,7 +316,20 @@
+     #[test]
+     fn the_facts_compute_and_self_check() {
+         let f = facts().unwrap();
+-        assert_eq!(f.len(), 93, "oracle.py prints 93 keys");
++        assert_eq!(f.len(), 99, "oracle.py prints 99 keys");
++    }
++
++    #[test]
++    fn repaired_ruler_labels_describe_the_same_geometry() {
++        let read = |key: &str| fact(key).parse::<f64>().unwrap();
++        assert_eq!(read("ruler.change_base_mid"), 4.0);
++        assert_eq!(read("ruler.change_base_final"), 10.0);
++        let a = read("real.product_a");
++        let b = read("real.product_b");
++        let ab = read("real.product_ab");
++        assert_eq!((a, b, ab), (2.0, 4.0, 8.0));
++        assert!((a.ln() + b.ln() - ab.ln()).abs() < 1e-12);
++        assert_eq!(read("real.growth_target"), 1000.0);
+     }
+ 
+     /// 00_2: "the last step alone fills half the ruler; the first four notes
+--- a/explainer_corpus/logarithm_mysteries/oracle.py
++++ b/explainer_corpus/logarithm_mysteries/oracle.py
+@@ -69,6 +69,8 @@
+ add("ruler.log2_8", num(math.log2(8)))
+ add("ruler.log2_sqrt2", num(round(math.log2(math.sqrt(2)), 12)))
+ add("ruler.log2_half", num(math.log2(0.5)))
++add("ruler.change_base_mid", 2 ** 2)
++add("ruler.change_base_final", 10)
+ 
+ # ---------------------------------------------------------------- slide rule
+ a, b = Fraction(5, 2), Fraction(16, 5)
+@@ -102,6 +104,11 @@
+ 
+ # ---------------------------------------------------------------- real
+ add("real.e", dec(math.e, 3))
++product_a, product_b = Fraction(2), Fraction(4)
++add("real.product_a", num(product_a))
++add("real.product_b", num(product_b))
++add("real.product_ab", num(product_a * product_b))
++add("real.growth_target", 10 ** 3)
+ add("real.ln_one_point_oh_one", dec(math.log(1.01), 5))
+ rate = 0.05
+ add("real.rate", num(rate))
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/building_ruler.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/building_ruler.rs
+@@ -352,21 +352,29 @@
+         let mut retired = later_steps.clone();
+         retired.extend([first, name, samples, true_word]);
+         fade_out_all(stage, &retired, 0.5)?;
+-        play!(stage; tween(reach, model::position(4.0, 2.0), 1.2)?);
+-        let four_step = kit.text(stage, "one step = ×4", 24.0, blue, v(ONE_X + STEP, WORD_Y))?;
++        let mid_base = fact_f64("ruler.change_base_mid")?;
++        let final_base = fact_f64("ruler.change_base_final")?;
++        play!(stage; tween(reach, model::position(mid_base, 2.0), 1.2)?);
++        let four_step = kit.text(
++            stage,
++            &format!("one step = ×{}", fact("ruler.change_base_mid")?),
++            24.0,
++            blue,
++            v(ONE_X + STEP, WORD_Y),
++        )?;
+         swap(stage, &[step_word], &[four_step], 0.4)?;
+         kit.until_sentence(stage, "01_6", 4)?;
+         // ... then on to 10, on the same marks: three now sits at log10 3 of a step
+-        let ten = mark(&kit, stage, 10.0, "10", green)?;
++        let ten = mark(&kit, stage, final_base, fact("ruler.change_base_final")?, green)?;
+         fade_in_all(stage, &ten, 0.4)?;
+         fade_out_all(stage, &[four_step], 0.3)?;
+-        play!(stage; tween(reach, model::position(10.0, 2.0), 1.6)?);
++        play!(stage; tween(reach, model::position(final_base, 2.0), 1.6)?);
+         let ten_step = kit.text(
+             stage,
+-            "now one step = ×10",
++            &format!("now one step = ×{}", fact("ruler.change_base_final")?),
+             24.0,
+             blue,
+-            v((at(1.0) + at(10.0)) / 2.0, WORD_Y),
++            v((at(1.0) + at(final_base)) / 2.0, WORD_Y),
+         )?;
+         fade_in_all(stage, &[ten_step], 0.4)?;
+         kit.until_sentence(stage, "01_6", 5)?;
+@@ -498,7 +506,7 @@
+         let sentence = found(r#"until_sentence(stage, "01_6", 3)"#);
+         let retired = found("retired.extend([first, name, samples, true_word])");
+         let fade = found("fade_out_all(stage, &retired, 0.5)");
+-        let change = found("tween(reach, model::position(4.0, 2.0)");
++        let change = found("tween(reach, model::position(mid_base, 2.0)");
+         assert!(sentence < retired && retired < fade && fade < change);
+         assert!(
+             !scene_source().contains("move_to("),
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs
+@@ -550,29 +550,37 @@
+         fade_in_all(stage, &[product], 0.5)?;
+         // 2 × 4 as lengths: 1 to 2, then a copy of 1 to 4 slid to start where the
+         // first one ends. It lands on 8, the slide rule's move on this ruler.
++        let product_a = fact_f64("real.product_a")?;
++        let product_b = fact_f64("real.product_b")?;
++        let product_ab = fact_f64("real.product_ab")?;
+         let bar_a = seg(
+             stage,
+             v(at(1.0) + 0.03, PRODUCT_ROW_A),
+-            v(at(2.0) - 0.03, PRODUCT_ROW_A),
++            v(at(product_a) - 0.03, PRODUCT_ROW_A),
+             blue,
+             6.0,
+         );
+         let bar_b = seg(
+             stage,
+             v(at(1.0) + 0.03, PRODUCT_ROW_B),
+-            v(at(4.0) - 0.03, PRODUCT_ROW_B),
++            v(at(product_b) - 0.03, PRODUCT_ROW_B),
+             super::draw::slide_c(),
+             6.0,
+         );
+         fade_in_lagged(stage, &[bar_a, bar_b], 0.9, 0.5)?;
+-        shift_all(stage, &[bar_b], v(at(2.0) - at(1.0), 0.0), 1.2)?;
+-        let landing = ring(stage, v(at(8.0), mid_y), 0.18, gold, 3.0);
++        shift_all(stage, &[bar_b], v(at(product_a) - at(1.0), 0.0), 1.2)?;
++        let landing = ring(stage, v(at(product_ab), mid_y), 0.18, gold, 3.0);
+         let landing_word = kit.text_left(
+             stage,
+-            "2 × 4 = 8",
++            &format!(
++                "{} × {} = {}",
++                fact("real.product_a")?,
++                fact("real.product_b")?,
++                fact("real.product_ab")?
++            ),
+             24.0,
+             gold,
+-            v(at(8.0) + 0.3, (PRODUCT_ROW_A + PRODUCT_ROW_B) / 2.0),
++            v(at(product_ab) + 0.3, (PRODUCT_ROW_A + PRODUCT_ROW_B) / 2.0),
+         )?;
+         fade_in_all(stage, &[landing, landing_word], 0.4)?;
+         kit.until_sentence(stage, "04_5", 3)?;
+@@ -750,10 +758,16 @@
+             &[],
+             v(4.4, -1.3),
+         )?;
+-        let thousand_at = 1000f64.log2();
++        let thousand_at = fact_f64("real.growth_target")?.log2();
+         let far_at = g(fact_f64("real.thousand_years")?, thousand_at);
+         let far = dot(stage, far_at, 0.1, green);
+-        let far_word = kit.text_left(stage, "×1000", 20.0, green, v(far_at[0] + 0.22, far_at[1] - 0.2))?;
++        let far_word = kit.text_left(
++            stage,
++            &format!("×{}", fact("real.growth_target")?),
++            20.0,
++            green,
++            v(far_at[0] + 0.22, far_at[1] - 0.2),
++        )?;
+         fade_in_all(stage, &[thousand, far, far_word], 0.5)?;
+         kit.until_sentence(stage, "04_7", 5)?;
+         let mut tens = Vec::new();

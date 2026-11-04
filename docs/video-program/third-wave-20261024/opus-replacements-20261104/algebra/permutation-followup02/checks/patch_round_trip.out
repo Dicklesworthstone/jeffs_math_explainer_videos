@@ -1,0 +1,8 @@
+base + follow-up equals the candidate, all four files: True
+reversed, equals the base: True
+canonical + repair01 + follow-up equals the candidate: True; 0 offset hunks
+repair01, 17, 13, 10, follow-up applies at fuzz 0; 1 offset hunks
+repair01, follow-up, 17, 13, 10 gives identical bytes: True
+17, 13, 10, repair01, follow-up gives identical bytes: True
+oracle on the full chain: 240 lines, no key twice
+oracle on canonical + repair01 + follow-up: 181 lines, no key twice

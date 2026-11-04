@@ -1,0 +1,21 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+@@ -956,7 +956,8 @@ pub fn chain_at(origin: Vec3, scale: f64, z: C) -> Vec3 {
+     v(origin[0] + scale * z.re, origin[1] + scale * z.im)
+ }
+ 
+-/// One arrow per product, laid tip to tail from `origin`, detached.
++/// One arrow per product, laid tip to tail from `origin`, detached. No buffer: at `Arrow`'s
++/// default of 0.25 at each end, an arrow asked to be under 0.5 long comes out pointing backwards.
+ pub fn chain_arrows(stage: &mut Stage<'_>, origin: Vec3, scale: f64, pts: &[C], color: Srgb) -> fmn::Result<Vec<Mob>> {
+     let mut out = Vec::with_capacity(pts.len());
+     for w in pts.windows(2) {
+@@ -964,7 +965,7 @@ pub fn chain_arrows(stage: &mut Stage<'_>, origin: Vec3, scale: f64, pts: &[C],
+         if ((b[0] - a[0]).powi(2) + (b[1] - a[1]).powi(2)).sqrt() < 1e-3 {
+             continue;
+         }
+-        let arrow = Arrow::new(a, b).thickness(3.0).color(color).build()?;
++        let arrow = Arrow::new(a, b).buff(0.0).thickness(3.0).color(color).build()?;
+         out.push(stage.arena_mut().add(arrow));
+     }
+     Ok(out)

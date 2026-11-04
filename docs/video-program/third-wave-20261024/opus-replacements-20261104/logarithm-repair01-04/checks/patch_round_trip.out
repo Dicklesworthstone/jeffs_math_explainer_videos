@@ -1,0 +1,14 @@
+patch: 1710 lines, sha256 696e89f02bb227c3a4128c7cda841b64226c694e8c218c910a6de90ba01c0f49
+base + patch = candidate: yes
+candidate - patch = base: yes
+canonical chapters equal to base/: all four
+canonical support files equal to base/: all five
+canonical + patch = candidate: yes
+  6ed5ef5b9bf170ad9f043e11b208d17b1948190e7fcea137313bf8a3ac05a4c2  base src/chapters/building_ruler.rs
+  e9a6cd9d4d75362a34a22e1ab7c87840c0e1c91edfe15aae860152bc30b6d809  candidate src/chapters/building_ruler.rs
+  c3ec0193b7cee97e30d10438501da201faa715fe673b29005025afc775cc8d4b  base src/chapters/slide_rule.rs
+  6771c36b3ee96e8f35b35da112cad76e3ab8a0df0842de3a5fad551ca78b6e27  candidate src/chapters/slide_rule.rs
+  c753d51b9f0cfddab08645a10eee7cff0afee692ac040d3a2b43a47e89d679f4  base src/chapters/folded_decade.rs
+  acfc7f9c198b3d3d0f99e1b160ec6c2d4e22a4ce28aeb4263deb29df9efa670d  candidate src/chapters/folded_decade.rs
+  eafafef71a9c31b8df893f605d14dd08f0530b12238d6f1c3acb0a7f294fba96  base src/chapters/undoing_growth.rs
+  bb3fd7990f90189ed2bd6cbfe9c34ef0e4b3e9a23ad00ee219f2ac47be73465e  candidate src/chapters/undoing_growth.rs

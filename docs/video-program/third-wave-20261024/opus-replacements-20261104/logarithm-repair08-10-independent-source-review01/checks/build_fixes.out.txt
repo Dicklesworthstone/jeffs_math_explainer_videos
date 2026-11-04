@@ -1,0 +1,8 @@
+r1-const-asserts: alone, exit 0, fuzz or reject []
+r2-family-fade: alone, exit 0, fuzz or reject []
+r3-real-box-tests: alone, exit 0, fuzz or reject []
+r4-window-comment: alone, exit 0, fuzz or reject []
+together, order ['r1', 'r2', 'r3', 'r4'] exits [0, 0, 0, 0] fuzz or reject []
+together, order ['r4', 'r3', 'r2', 'r1'] exits [0, 0, 0, 0] fuzz or reject []
+rustfmt whole crate, all four applied: parse errors: []
+  files with diffs: ['score.rs']

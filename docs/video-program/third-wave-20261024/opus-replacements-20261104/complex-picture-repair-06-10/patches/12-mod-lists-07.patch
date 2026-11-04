@@ -1,0 +1,11 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+@@ -127,6 +127,8 @@
+     one_point::MULTIPLIED,
+     one_point::CRITICAL,
+     one_point::ONE_HUE,
++    one_point::LINE_NAMES[0],
++    one_point::LINE_NAMES[1],
+     one_point::ASK[0],
+     one_point::RATIO,
+     one_point::SETTLES,

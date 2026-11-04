@@ -1,0 +1,40 @@
+ABC d3385e17fc8fe9ed727b94c34dbe4994d0e48fdd5b8834e3eadb228e13ed0205
+ABCD 33a73081c5c40dedac6746094d46983988c42f63ba1c5fc078a9de9e67205306
+git apply --check on a scratch copy of ABC: exit 0 
+patch -p1 forward: exit 0; bytes equal candidate-ABCD: True
+patch -R -p1: exit 0; bytes equal ABC: True
+
+String literals outside the tests
+  AB to ABC: added ['an undo move', 'if we reverse']; removed []
+  ABC to ABCD: added []; removed []
+
+Sentence and phrase waits
+  ABC 13_3: waits at sentences [1, 3, 4, 6]; in order and in range: True
+  ABC 13_7: waits at sentences [1, 1, 2, 3, 4]; in order and in range: True
+  ABC 13_8: waits at sentences [1, 2, 3, 4]; in order and in range: True
+  ABCD 13_3: waits at sentences [1, 3, 4, 5, 6]; in order and in range: True
+  ABCD 13_7: waits at sentences [1, 1, 2, 3, 4]; in order and in range: True
+  ABCD 13_8: waits at sentences [1, 2, 3, 4]; in order and in range: True
+  ABCD phrases: declared 17, rows 17, phrases not in their sentence: none
+  control, altered UNDO phrase: declared 17, rows 17, phrases not in their sentence: [('13_8', '1', 'an undo moves')]
+
+The statements D uses
+  step keeps other callers: 3
+  LONE_RT constant: 1
+  perform helper: 1
+  existing `stage.wait(..)?;` statements (the same discarded result as D2): 8
+  arithmetic.rs named in include_str! under src: []
+
+Formatting
+rustfmt rustfmt 1.10.0-nightly (9085017724 2026-08-30)
+config rustfmt.toml = edition = "2024" max_width = 120
+  ABC: rustfmt exit 0; format diffs 0; parse errors 0
+  ABCD: rustfmt exit 0; format diffs 0; parse errors 0
+  control, misindented line: rustfmt exit 1; format diffs 1; parse errors 0
+      Diff in src/arithmetic.rs:299:
+  control, stray brace: rustfmt exit 1; format diffs 0; parse errors 1
+      error: unexpected closing delimiter: `}`
+  ABCD: diffs in arithmetic.rs 0; parse errors 0; diff list equals ABC's: True
+  both controls fired
+
+[exit 0]

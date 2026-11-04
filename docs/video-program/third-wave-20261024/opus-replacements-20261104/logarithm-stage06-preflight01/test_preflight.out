@@ -1,0 +1,73 @@
+sandbox: 368 files copied; the real tree is only read
+pass positive control, pins on: exit 0; 323 ok, 0 FAIL, 4 WARN  (mode stage; source and plan text only: not compiled, rendered, heard or watched)
+pass positive control, pins off: exit 0
+pass script_character_changed: 8 FAIL; named ['TXT.unit_text_exact', 'TXT.request_files_exact', 'group_consumers.completed']
+pass script_rewords_an_anchor: 12 FAIL; named ['PHR.10_4@39.exact_byte', 'TXT.unit_text_exact']
+pass unit_text_differs: 2 FAIL; named ['TXT.unit_text_exact', 'group_consumers.completed']
+pass unit_removed: 3 FAIL; named ['TXT.units_one_per_cue_in_order', 'group_consumers.completed']
+pass units_reordered: 3 FAIL; named ['TXT.units_one_per_cue_in_order', 'group_consumers.completed']
+pass contract_map_hash_wrong: 3 FAIL; named ['TXT.contract_map_hash', 'group_consumers.completed']
+pass units_bind_oliver12: 5 FAIL; named ['TXT.contract_names_map13']
+pass request_text_differs: 5 FAIL; named ['TXT.request_files_exact', 'CON.request_text']
+pass requests_bind_another_script: 1 FAIL; named ['TXT.requests_bind_script']
+pass older_request_text_differs: 4 FAIL; named ['TXT.older_request_bytes_same']
+pass cue_delta_text_hash_wrong: 1 FAIL; named ['TXT.delta_binds']
+pass chapter_removed_from_registry: 11 FAIL; named ['REG.thirteen', 'REG.every_cue_said_once_in_order']
+pass registry_keys_swapped: 7 FAIL; named ['REG.in_cue_order', 'REG.scene_name_is_key']
+pass scene_name_differs: 1 FAIL; named ['REG.scene_name_is_key']
+pass cue_said_twice: 2 FAIL; named ['REG.every_cue_said_once_in_order']
+pass cue_not_said: 3 FAIL; named ['REG.every_cue_said_once_in_order']
+pass say_without_a_literal: 4 FAIL; named ['REG.nothing_unreadable']
+pass sentence_hook_out_of_range: 3 FAIL; named ['REG.sentence_hooks_in_range']
+pass sentence_hook_on_another_cue: 3 FAIL; named ['REG.sentence_hooks_on_current_cue']
+pass oracle_changed: 2 FAIL; named ['REG.oracle_reproduces']
+pass hold_line_moved: 3 FAIL; named ['HOLD.00_4.marker_line', 'HOLD.census_equals_map']
+pass hold_source_hash_stale: 2 FAIL; named ['HOLD.04_6.source_hash']
+pass source_edited_inside_a_hold_interval: 2 FAIL; named ['HOLD.00_4.interval_hash']
+pass extra_predict: 1 FAIL; named ['HOLD.census_equals_map']
+pass extra_predict_across_lines: 2 FAIL; named ['HOLD.census_equals_map']
+pass second_predict_on_a_line_already_listed: 4 FAIL; named ['HOLD.census_equals_map']
+pass extra_music_breath: 1 FAIL; named ['HOLD.census_equals_map']
+pass extra_wait: 1 FAIL; named ['HOLD.every_other_wait_classified']
+pass scene_emits_its_own_mark: 1 FAIL; named ['HOLD.no_scene_mark']
+pass direction_after_shortened: 3 FAIL; named ['HOLD.after_is_whole_cue', 'CON.direction_contract']
+pass reading_hold_flipped_to_prediction: 3 FAIL; named ['HOLD.census_equals_map', 'HOLD.11_20.marker_line', 'CON.declared_pairs']
+pass hold_names_a_nonadjacent_cue: 3 FAIL; named ['HOLD.00_4.next_cue']
+pass retired_pair_restored: 5 FAIL; named ['HOLD.stale_pairs_gone', 'HOLD.census_equals_map']
+pass disposition_evidence_hash_wrong: 2 FAIL; named ['group_consumers.completed', 'STALE.every_named_path_and_hash']
+pass disposition_proposes_inserted_silence: 2 FAIL; named ['CON.dispositions_all_native']
+pass predict_helper_loses_its_mark: 2 FAIL; named ['HOLD.predict_helper_order', 'HOLD.helpers_and_consumers_unmoved']
+pass theorem_text_shortened: 3 FAIL; named ['HOLD.11_20_rule_lines', 'HOLD.11_20_window']
+pass reading_rate_changed: 2 FAIL; named ['HOLD.11_20_window']
+pass phrase_constant_edited: 3 FAIL; named ['PHR.11_1@320.destination']
+pass hook_moved_to_another_cue: 4 FAIL; named ['PHR.census_equals_plan', 'PHR.every_hook_on_the_cue_being_said']
+pass hook_added: 3 FAIL; named ['PHR.census_equals_plan']
+pass hook_phrase_not_readable: 5 FAIL; named ['REG.nothing_unreadable']
+pass anchor_byte_off_by_one: 3 FAIL; named ['PHR.11_1@321.exact_byte', 'PHR.11_1@321.template']
+pass anchor_sentence_index_wrong: 1 FAIL; named ['PHR.11_5@72.sentence_index']
+pass template_byte_differs: 2 FAIL; named ['PHR.02_1@48.template']
+pass template_loses_a_cue: 3 FAIL; named ['PHR.template_covers_all_cues', 'PHR.template_text_hashes']
+pass anchor_claims_a_measurement: 1 FAIL; named ['PHR.none_measured']
+pass retained_chapter_back_to_stage05: 7 FAIL; named ['ASM.retained.branch_cut.rs']
+pass candidate_is_not_the_patch: 1 FAIL; named ['ASM.replay.complex_turns.rs']
+pass stage_patch_differs_from_reviewed: 1 FAIL; named ['ASM.patch_is_the_reviewed_patch.complex_turns.rs']
+pass undeclared_file_differs: 1 FAIL; named ['ASM.delta_is_exactly_the_repairs']
+pass plan_gains_an_absolute_home: 1 FAIL; named ['STALE.no_absolute_homes']
+pass plan_names_an_older_stage: 2 FAIL; named ['STALE.no_older_stage_names']
+pass source_names_a_map: 1 FAIL; named ['STALE.no_source_names_a_map']
+pass map13_half_installed: 2 FAIL; named ['STALE.map13_not_in_canonical', 'ASM.only_in_canonical']
+pass canonical_source_moved_under_map12: 2 FAIL; named ['STALE.canonical_map12_matches_canonical']
+pass decoys in comments, strings and a test module: exit 0; 0 FAIL []
+pass pins catch an unexpected plan byte: ['PIN.plan.cue-delta.json', 'PIN.binding_receipt']
+pass phrase gate, filled, every anchor marked: exit 0
+pass phrase gate, one anchor without a mark: exit 1
+pass phrase gate, a file the kit would load, missing two anchors: exit 1
+pass phrase gate, text hash differs: exit 1
+pass phrase gate, WAV hash differs: exit 1
+pass phrase gate, a cue missing: exit 1
+pass phrase gate, mark past the end of its take: exit 1
+pass phrase gate, marks out of time order: exit 1
+pass phrase gate, marks out of byte order: exit 1
+pass phrase gate, byte past the end of the text: exit 1
+pass phrase gate, the unfilled template: exit 1
+71 of 71 cases behaved; 0 did not: []

@@ -1,0 +1,17 @@
+transcript lines 22045 read calls 384 results 927
+('02_turning_numbers', 'frame') {'image': 2} distinct with image 1
+('02_turning_numbers', 'sheet') {'image': 143} distinct with image 66
+('03_two_planes', 'frame') {'image': 9} distinct with image 4
+('03_two_planes', 'sheet') {'image': 169} distinct with image 79
+('04_reading_color', 'frame') {'image': 10} distinct with image 5
+('04_reading_color', 'sheet') {'image': 171} distinct with image 80
+('05_gallery', 'frame') {'image': 11, 'removed': 3} distinct with image 5
+('05_gallery', 'sheet') {'image': 295, 'removed': 114} distinct with image 123
+02_turning_numbers sheets with an image recorded: 0-65
+02_turning_numbers sheets never with an image: none
+03_two_planes sheets with an image recorded: 0-78
+03_two_planes sheets never with an image: none
+04_reading_color sheets with an image recorded: 0-79
+04_reading_color sheets never with an image: none
+05_gallery sheets with an image recorded: 0-122
+05_gallery sheets never with an image: none

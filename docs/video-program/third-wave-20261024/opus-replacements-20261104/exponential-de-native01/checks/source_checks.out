@@ -1,0 +1,116 @@
+--- the scene source-order tests, compiled and run for real
+PASS tiny_multipliers: scene tests  test result: ok. 15 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test tests::e_is_named_as_a_special_case_not_the_general_formula ... ok
+     test tests::live_bars_lose_their_updaters_before_they_fade ... ok
+     test tests::the_two_chapters_split_where_the_teaching_turns ... ok
+     test tests::every_phrase_hook_is_in_its_own_line ... ok
+     test tests::outlines_and_open_paths_are_never_recoloured_with_a_fill ... ok
+     test tests::the_series_comparison_waits_for_the_counted_coefficient ... ok
+     test tests::the_think_gap_is_authored_and_the_answer_waits ... ok
+     test tests::the_multiplier_is_earned_before_the_power_is_written ... ok
+     test tests::minus_three_prints_every_kind_of_base ... ok
+     test tests::the_factorial_is_earned_by_the_double_count_before_the_chain_appears ... ok
+     test tests::the_warning_is_seen_before_the_ceilings_rescue_it ... ok
+     test tests::the_negative_input_uses_the_same_ceilings_and_is_measured ... ok
+     test tests::the_cues_run_in_film_order_each_from_its_own_function ... ok
+     test tests::the_debt_is_paid_last_in_its_own_words ... ok
+     test tests::the_cut_is_chosen_before_n_moves ... ok
+PASS only_solution: scene tests  test result: ok. 8 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test tests::the_debts_keep_the_words_the_series_chapter_wrote ... ok
+     test tests::the_assumptions_are_on_screen_and_the_model_question_stays_open ... ok
+     test tests::the_cues_run_in_film_order ... ok
+     test tests::every_phrase_hook_is_in_its_own_line ... ok
+     test tests::the_result_enters_the_ledger_last_and_nothing_runs_back_from_it ... ok
+     test tests::the_think_gap_is_authored_and_the_answer_waits ... ok
+     test tests::the_test_is_built_for_any_y_before_the_rule_is_applied ... ok
+     test tests::the_cancellation_is_shown_before_it_is_used ... ok
+--- a scene test that cannot fail proves nothing
+PASS control: removing 05_5's first hook fails a scene test
+PASS   and it is the_cut_is_chosen…
+PASS control: moving a phrase out of the words is caught fails a scene test
+PASS   and it is every_phrase_hook…
+PASS control: moving n before the cut fails a scene test
+PASS control: showing the answer before the think gap fails a scene test
+PASS   and it is the_think_gap…
+PASS control: dropping the uniqueness row from the not-used list fails a scene test
+PASS   and it is the_result_enters…
+--- rustfmt on scratch copies, repo config (edition 2024, width 120)
+PASS rustfmt clean: tiny_multipliers.rs
+PASS rustfmt clean: only_solution.rs
+PASS rustfmt clean: limit_model.rs
+PASS rustfmt clean: solution_model.rs
+--- cue texts
+  23 cues, 1501 words
+PASS cues 04_1 to 04_6
+PASS cues 05_1 to 05_8
+PASS cues 06_1 to 06_9
+PASS no digits in the words
+PASS no narrator name in the words
+PASS every slice cue is in the integrated script
+PASS the integrated script holds A-C's 18 and D-E's 23  41
+--- skill lint on the slices
+PASS lint limit  lint: 14 lines, 0 errors, 13 warnings -> PASS
+     WARN  1 04_1: 5 sentences; split the line at a picture change
+     WARN  2 04_2: 6 sentences; split the line at a picture change
+     WARN  3 04_3: 5 sentences; split the line at a picture change
+     WARN  4 04_4: 6 sentences; split the line at a picture change
+     WARN  5 04_5: 5 sentences; split the line at a picture change
+     WARN  6 04_6: 5 sentences; split the line at a picture change
+     WARN  7 05_1: 6 sentences; split the line at a picture change
+     WARN  8 05_2: 6 sentences; split the line at a picture change
+     WARN  9 05_3: 6 sentences; split the line at a picture change
+     WARN  10 05_4: 5 sentences; split the line at a picture change
+     WARN  12 05_6: 5 sentences; split the line at a picture change
+     WARN  13 05_7: 7 sentences; split the line at a picture change
+     WARN  14 05_8: 6 sentences; split the line at a picture change
+PASS lint only  lint: 9 lines, 0 errors, 6 warnings -> PASS
+     WARN  2 06_2: 6 sentences; split the line at a picture change
+     WARN  3 06_3: 7 sentences; split the line at a picture change
+     WARN  4 06_4: 5 sentences; split the line at a picture change
+     WARN  5 06_5: 5 sentences; split the line at a picture change
+     WARN  6 06_6: 8 sentences; split the line at a picture change
+     WARN  8 06_8: 6 sentences; split the line at a picture change
+--- every hook in the scenes names a real sentence or a real phrase
+PASS tiny_multipliers: each cue said once, and in its slice  14
+PASS tiny_multipliers: every until_sentence index exists  []
+PASS tiny_multipliers: every phrase occurs exactly once in its cue  4
+PASS tiny_multipliers: no until_clause, which ignores word marks
+  04_1: 5 sentences; hooks at [1, 2, 3, 4]; phrases []
+  04_2: 6 sentences; hooks at [1, 2, 3, 4, 5]; phrases []
+  04_3: 5 sentences; hooks at [1, 2, 3, 4]; phrases []
+  04_4: 6 sentences; hooks at [2, 3, 4, 5]; phrases []
+  04_5: 5 sentences; hooks at [1, 2, 3, 4]; phrases []
+  04_6: 5 sentences; hooks at [1, 2, 3, 4]; phrases []
+  05_1: 6 sentences; hooks at [1, 2, 3, 4, 5]; phrases []
+  05_2: 6 sentences; hooks at [1, 2, 3, 4, 5]; phrases []
+  05_3: 6 sentences; hooks at [1, 2, 3, 4, 5]; phrases ['and after that']
+  05_4: 5 sentences; hooks at [1, 2, 3, 4]; phrases []
+  05_5: 4 sentences; hooks at [1, 2, 3]; phrases ['so push', 'then make']
+  05_6: 5 sentences; hooks at [1, 2, 3, 4]; phrases []
+  05_7: 7 sentences; hooks at [1, 2, 3, 4, 5, 6]; phrases ['and three']
+  05_8: 6 sentences; hooks at [1, 2, 3, 4, 5]; phrases []
+PASS only_solution: each cue said once, and in its slice  9
+PASS only_solution: every until_sentence index exists  []
+PASS only_solution: every phrase occurs exactly once in its cue  5
+PASS only_solution: no until_clause, which ignores word marks
+  06_1: 4 sentences; hooks at [1, 2, 3]; phrases []
+  06_2: 6 sentences; hooks at [1, 2, 3, 4, 5]; phrases []
+  06_3: 7 sentences; hooks at [1, 2, 3, 4, 5, 6]; phrases []
+  06_4: 5 sentences; hooks at [1, 2, 3, 4]; phrases ['and the other', 'and at zero']
+  06_5: 5 sentences; hooks at [1, 2, 3, 4]; phrases ['so the left side']
+  06_6: 8 sentences; hooks at [1, 2, 3, 4, 5, 6, 7]; phrases []
+  06_7: 4 sentences; hooks at [1, 2, 3]; phrases ['with a derivative']
+  06_8: 6 sentences; hooks at [1, 2, 3, 4, 5]; phrases ['so y of t']
+  06_9: 3 sentences; hooks at [1, 2]; phrases []
+--- the debts keep series-chapter words
+PASS chapter 02 wrote it: Why adding inputs multiplies outputs
+PASS   and 06_9 repeats it
+PASS chapter 02 wrote it: Why the stepped approximations reach E
+PASS   and 06_9 repeats it
+PASS chapter 02 wrote it: Why E is the only solution from height one
+PASS   and 06_9 repeats it
+--- nothing earlier in the film claims uniqueness as proved
+  A-C lines with 'only': ['01_5', '02_6']
+    01_5	A curve whose slope equals its height would solve our drawing rule exactly. We have not yet proved that the stepped approximations reach such a curve, or that only o
+    02_6	Call the sum E of x. The shifted coefficient rows now match all the way across: E prime equals E, and E of zero is one. We built a solution to our drawing rule. We s
+RESULT PASS

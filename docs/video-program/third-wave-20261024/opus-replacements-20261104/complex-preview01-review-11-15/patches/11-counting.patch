@@ -1,0 +1,357 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+@@ -10,15 +10,15 @@
+ //! live counters are the walker's sampled turns, which the tests check end
+ //! where the facts do.
+ 
+-use std::f64::consts::TAU;
++use std::f64::consts::{PI, TAU};
+ 
+ use explainer_kit::props::CodePanel;
+ use explainer_kit::{Kit, Palette, v};
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Painter, Plane, Spoken, Walker, carded, dot, fact, fade_in_all, fade_out_all, faded_line, flat, hero, input,
+-    line_style, marks, names_now, output, pause, precisely_now, predict, reading_window, restroke, say, squash,
++    Painter, Plane, Spoken, Walker, carded, dot, fact, fact_f64, fade_in_all, fade_out_all, faded_line, flat, hero,
++    input, line_style, marks, names_now, output, pause, precisely_now, predict, reading_window, restroke, say, squash,
+     tween_linear, value, wait_until, walker, warn,
+ };
+ use super::loop_sums::STEPS_SAID;
+@@ -34,12 +34,24 @@ pub const LOCAL: [&str; 3] = ["simple zero", "zero of order 2", "simple pole"];
+ pub const TURNS: &str = "turns: ";
+ pub const NET: &str = "+1 − 1 = 0";
+ pub const THROUGH_POLE: &str = "loop through a pole: not allowed";
++/// 11_4's readout: the output's true size as the walker nears the pole.
++pub const SIZE_SAYS: &str = "|f| =";
++/// After the distance the walk stopped at: the pole itself has no value to show.
++pub const FROM_POLE: &str = " from the pole";
++pub const OFF_WINDOW: &str = "off the window";
+ pub const ASK: [&str; 2] = ["z⁵ − 3z + 1: how many roots", "inside the unit circle?"];
+ pub const LEASH_TEX: &str = r"|z^5 + 1| \le 2 < 3 = |-3z|";
+ pub const INSIDE: &str = "one root inside, at distance ";
+ pub const SQUASHED: &str =
+     "output drawn with its direction exact and its size compressed, so every turn around 0 is the function's own";
+ pub const WALKER_DOG: [&str; 2] = ["walker: z⁵", "dog: z⁵ − 3z + 1"];
++/// 11_7, before the circle: the claim, then the polynomial it is about.
++pub const ROOTS_CLAIM: &str = "every polynomial has roots";
++pub const DEGREE_N_TEX: &str = r"p(z) = z^n + \cdots";
++/// 11_7 names the general n and huge circle; the picture is this one (tested against `DogWalk`).
++pub const DOG_DRAWN: &str = "drawn: n = 5, on the circle |z| = 3";
++/// 11_7's two lengths, with their bars on one scale.
++pub const DOG_ROWS: [&str; 2] = ["walker's distance from 0: ", "longest leash: "];
+ /// The output window's labels in 11_8: the sample `a` (as the code names it),
+ /// zero, and the disk one step can reach.
+ pub const STEP_SKETCH: [&str; 3] = ["a", "0", "reach L × step"];
+@@ -168,6 +180,8 @@ impl SceneConstruct for Counting {
+             leftover = Self::walk_and_count(&kit, stage, f, ZERO, 0.8, 1.0, local[i], 2.6)?;
+             leftover.extend(mark);
+             leftover.extend(label);
++            // the count has to land before the next fade can take it away
++            pause(stage, COUNT_HOLD)?;
+         }
+ 
+         // 11_2: the rule and what it needs
+@@ -251,24 +265,31 @@ impl SceneConstruct for Counting {
+         let refused = kit.text(stage, THROUGH_POLE, 26.0, warn(), v(3.25, 3.15))?;
+         line.wait_sentence(stage, 0)?;
+         fade_in_all(stage, &[red_loop], 0.5)?;
++        let approach = approach_pole(&kit, stage, &line, inp, out)?;
+         line.wait_sentence(stage, 1)?;
+         fade_in_all(stage, &[refused], 0.4)?;
+ 
+-        // 11_5: the quintic; how many roots inside the unit circle?
++        // 11_5: the quintic; how many roots inside the unit circle? The colouring would show
++        // the answer, so it stays off until the think time is over
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "11_5")?;
+         let mut gone = vec![red_loop, refused];
+         gone.extend(m_marks);
++        gone.extend(approach);
+         fade_out_all(stage, &gone, 0.3)?;
+-        painter.to(stage, Some(Func::Quintic), 1.2)?;
++        painter.to(stage, None, 1.2)?;
++        let plain = inp.axes(stage)?;
+         let unit = inp.circle(stage, ZERO, 1.0, hero(), 4.0)?;
++        fade_in_all(stage, &plain, 0.3)?;
+         fade_in_all(stage, &[unit], 0.4)?;
+         let asked = predict(&kit, stage, &line, &ASK, v(3.25, 3.0))?;
+ 
+-        // 11_6: one; the output follows −3z, which turns once
++        // 11_6: one; the five roots come up with one inside the loop, which stays where it is;
++        // the output follows −3z, which turns once
+         let line = say(&kit, stage, "11_6")?;
+         fade_out_all(stage, &asked, 0.3)?;
+-        fade_out_all(stage, &[unit], 0.2)?;
++        fade_out_all(stage, &plain, 0.2)?;
++        painter.to(stage, Some(Func::Quintic), 0.6)?;
+         let reference = {
+             let mut pts: Vec<Vec3> = (0..=240)
+                 .map(|k| {
+@@ -319,17 +340,23 @@ impl SceneConstruct for Counting {
+         reading_window(&kit, stage, &line)?;
+         let line = say(&kit, stage, "11_7")?;
+         let mut gone = one.clone();
+-        gone.extend([reference, leash, squashed]);
++        gone.extend([reference, leash, squashed, unit]);
+         gone.extend(inside);
+         gone.extend(roots);
+         fade_out_all(stage, &gone, 0.3)?;
+         painter.leave(stage, 0.4)?;
++        let claim = kit.text(stage, ROOTS_CLAIM, 30.0, hero(), v(-3.45, 0.7))?;
++        fade_in_all(stage, &[claim], 0.4)?;
++        line.wait_sentence(stage, 1)?;
++        let degree_n = kit.tex(stage, DEGREE_N_TEX, 36.0, Palette::ink(), &[], v(-3.45, -0.3))?;
++        fade_in_all(stage, &[degree_n], 0.4)?;
+         let wide = Plane::new(v(-3.45, -0.35), 5.6, (-3.6, 3.6), (-3.6, 3.6));
+         let wide_axes = wide.axes(stage)?;
+         let big_loop = wide.circle(stage, ZERO, 3.0, hero(), 5.0)?;
+         let mut wide_all = wide_axes.clone();
+         wide_all.push(big_loop);
+         line.wait_sentence(stage, 2)?;
++        fade_out_all(stage, &[claim, degree_n], 0.3)?;
+         fade_in_all(stage, &wide_all, 0.5)?;
+         let dog = DogWalk::build(&kit, stage, wide, out)?;
+         line.wait_sentence(stage, 3)?;
+@@ -373,6 +400,9 @@ impl SceneConstruct for Counting {
+     }
+ }
+ 
++/// How long each of 11_1's counts stays up once its walk has ended.
++const COUNT_HOLD: f64 = 0.8;
++
+ /// The code line holding the check that refuses.
+ const REFUSE_LINE: usize = 3;
+ 
+@@ -652,9 +682,148 @@ fn derivative_teal() -> Srgb {
+     super::draw::derivative()
+ }
+ 
++/// 11_4's readout row: where "|f| =" ends, and its height.
++const SIZE_ROW: (f64, f64) = (2.75, 2.55);
++/// Where the distance note starts in that row.
++const FROM_POLE_X: f64 = 3.5;
++
++/// The angle still to go to the pole at progress `s` of 11_4's walk: π at the start, and at
++/// the end the angle whose chord is `model::MOEBIUS_NEAR_POLE`. It shrinks by the same factor
++/// in each equal step of `s`, so the size the readout shows climbs steadily and stays finite.
++fn pole_gap(s: f64) -> f64 {
++    let end = 2.0 * (model::MOEBIUS_NEAR_POLE / (2.0 * model::MOEBIUS_POLE)).asin();
++    PI * (end / PI).powf(s.clamp(0.0, 1.0))
++}
++
++/// The walker of 11_4: along |z| = 1.35, anticlockwise from −1.35 towards the pole.
++fn pole_walk(s: f64) -> C {
++    C::polar(model::MOEBIUS_POLE, -pole_gap(s))
++}
++
++/// The true output there. The walk stops short of the pole, so `eval` always has a value.
++fn pole_walk_output(s: f64) -> C {
++    Func::Moebius.eval(pole_walk(s)).unwrap_or(ZERO)
++}
++
++/// Where the output is drawn: true to scale, and held at the window's top edge once it has
++/// gone past (the image of this circle is the straight line Re w = 2/3).
++fn clipped_output(s: f64, top: f64) -> C {
++    let w = pole_walk_output(s);
++    C::new(w.re, w.im.min(top))
++}
++
++/// The progress at which the output leaves the window through `top`: on this circle
++/// w = 2/3 + (i/3)·cot(gap/2), so it leaves where cot(gap/2)/3 = top.
++fn pole_walk_exit(top: f64) -> f64 {
++    let k = (model::MOEBIUS_POLE - model::MOEBIUS_ZERO) / (2.0 * model::MOEBIUS_POLE);
++    let gap = 2.0 * (k / top).atan();
++    (PI / gap).ln() / (PI / pole_gap(1.0)).ln()
++}
++
++/// 11_4's approach: the walker heads for the pole while the true output runs straight up the
++/// output window and leaves it. The readout then carries on, showing |f| climbing, and stops
++/// at a finite value a small distance short of the pole. No value is ever drawn at the pole,
++/// because there is none. Returns everything it left on screen.
++fn approach_pole(kit: &Kit, stage: &mut Stage<'_>, line: &Spoken, inp: Plane, out: Plane) -> fmn::Result<Vec<Mob>> {
++    let top = out.frame.y.1;
++    let walked = stage.add_value_tracker(0.0);
++    let start = out.p(clipped_output(0.0, top));
++    let in_dot = dot(stage, inp.p(pole_walk(0.0)), 0.08, input());
++    let out_dot = dot(stage, start, 0.08, output());
++    let trail = stage
++        .arena_mut()
++        .add(polyline(vec![start, start]).style(line_style(output(), 4.0)).build());
++    let (name_x, row_y) = SIZE_ROW;
++    let name = kit.text(stage, SIZE_SAYS, 26.0, Palette::ink(), v(name_x, row_y))?;
++    stage.move_to(name, v(name_x, row_y), RIGHT);
++    fade_in_all(stage, &[trail, in_dot, out_dot, name], 0.3)?;
++    let number_x = name_x + 0.12;
++    let size = kit.live_value(
++        stage,
++        move |s| pole_walk_output(value(s, walked)).abs(),
++        1,
++        false,
++        26.0,
++        warn(),
++        v(number_x, row_y),
++        LEFT,
++    )?;
++    let anchor = stage.arena_mut().add(VMobject::new());
++    stage.add_to_scene(anchor)?;
++    stage.add_updater(
++        anchor,
++        move |a, _| {
++            let s = value(a, walked);
++            let end = out.p(clipped_output(s, top));
++            a.move_to(in_dot, inp.p(pole_walk(s)), ORIGIN);
++            a.move_to(out_dot, end, ORIGIN);
++            let _ = a.set_points(trail, polyline(vec![start, end]).build().points());
++        },
++        true,
++    )?;
++    let total = line.until(stage, "There the count", 3.0)?;
++    stage.play(tween_linear(walked, pole_walk_exit(top), 0.5 * total)?)?;
++    let edge = out.p(clipped_output(1.0, top));
++    let leaving = Arrow::new(v(edge[0], edge[1] - 0.45), edge)
++        .buff(0.0)
++        .thickness(4.0)
++        .color(output())
++        .build()?;
++    let leaving = stage.arena_mut().add(leaving);
++    let off = kit.text_left(
++        stage,
++        OFF_WINDOW,
++        18.0,
++        Palette::dim(),
++        v(edge[0] + 0.16, edge[1] - 0.22),
++    )?;
++    fade_in_all(stage, &[leaving, off], 0.2)?;
++    stage.play(tween_linear(walked, 1.0, (0.5 * total - 0.2).max(0.5))?)?;
++    stage.clear_updaters(anchor, true);
++    stage.remove_from_scene(anchor);
++    stage.clear_updaters(size, true);
++    let settled = kit.text_left(
++        stage,
++        fact("argument.rational.near_pole.size")?,
++        26.0,
++        warn(),
++        v(number_x, row_y),
++    )?;
++    stage.remove_from_scene(size);
++    stage.add_to_scene(settled)?;
++    let from_pole = kit.text_left(
++        stage,
++        &format!("{}{FROM_POLE}", fact("argument.rational.near_pole.distance")?),
++        20.0,
++        Palette::dim(),
++        v(FROM_POLE_X, row_y),
++    )?;
++    fade_in_all(stage, &[from_pole], 0.2)?;
++    Ok(vec![trail, in_dot, out_dot, name, leaving, off, settled, from_pole])
++}
++
++/// 11_7's rows, above the plane: what is drawn, then the two lengths.
++const DOG_ROW_X: f64 = -6.25;
++const DOG_ROW_Y: [f64; 3] = [3.62, 3.2, 2.82];
++/// The bars start here, right of the longest row, at one scale.
++const DOG_BAR_X: f64 = -3.4;
++const DOG_BAR_PER_UNIT: f64 = 3.0 / 243.0;
++
++/// One of 11_7's length bars, `length` long at the shared scale, at height `y`.
++fn length_bar(stage: &mut Stage<'_>, y: f64, length: f64, color: Srgb) -> Mob {
++    let (x0, x1) = (DOG_BAR_X, DOG_BAR_X + DOG_BAR_PER_UNIT * length);
++    stage.arena_mut().add(
++        Polygon::new(vec![v(x0, y - 0.06), v(x1, y - 0.06), v(x1, y + 0.06), v(x0, y + 0.06)])
++            .style(flat(color, 1.0))
++            .build(),
++    )
++}
++
+ /// The dog on a leash (11_7): on |z| = 3 the walker z⁵ (blue) and the
+ /// polynomial (green) in the output plane, joined by the leash, with the
+-/// dog's trail and a live count of the dog's turns.
++/// dog's trail and a live count of the dog's turns. The leash is far shorter
++/// than the dots are wide at this scale, so two bars on one scale show its
++/// length against the walker's distance.
+ struct DogWalk {
+     walked: Mob,
+     anchor: Mob,
+@@ -723,6 +892,27 @@ impl DogWalk {
+         ];
+         let mut mobs = vec![trail, leash, in_dot, walker_dot, dog_dot];
+         mobs.extend(names);
++        let far = fact_f64("argument.quintic.walker")?;
++        let most = fact_f64("argument.quintic.leash")?;
++        mobs.extend([
++            kit.text_left(stage, DOG_DRAWN, 20.0, Palette::dim(), v(DOG_ROW_X, DOG_ROW_Y[0]))?,
++            kit.text_left(
++                stage,
++                &format!("{}{}", DOG_ROWS[0], fact("argument.quintic.walker")?),
++                20.0,
++                input(),
++                v(DOG_ROW_X, DOG_ROW_Y[1]),
++            )?,
++            kit.text_left(
++                stage,
++                &format!("{}{}", DOG_ROWS[1], fact("argument.quintic.leash")?),
++                20.0,
++                Palette::ink(),
++                v(DOG_ROW_X, DOG_ROW_Y[2]),
++            )?,
++            length_bar(stage, DOG_ROW_Y[1], far, input()),
++            length_bar(stage, DOG_ROW_Y[2], most, Palette::ink()),
++        ]);
+         Ok(Self {
+             walked,
+             anchor,
+@@ -778,6 +968,52 @@ mod tests {
+         }
+     }
+ 
++    #[test]
++    fn the_rows_print_the_lengths_the_walk_really_has() {
++        let far: f64 = fact("argument.quintic.walker").unwrap().parse().unwrap();
++        let most: f64 = fact("argument.quintic.leash").unwrap().parse().unwrap();
++        let mut longest = 0.0_f64;
++        for z in circle(ZERO, 3.0, 720) {
++            let leash = (Func::Quintic.eval(z).unwrap() - z.powi(5)).abs();
++            longest = longest.max(leash);
++            assert!((z.powi(5).abs() - far).abs() < 1e-9);
++        }
++        assert!((longest - most).abs() < 1e-9 && most < far);
++        // the note names the picture: degree 5, on the walk's circle
++        assert_eq!(fact("argument.quintic.big").ok(), Some("5"));
++        assert!(DOG_DRAWN.contains("n = 5") && DOG_DRAWN.contains("|z| = 3"));
++        // the longer bar ends left of the output window
++        let (_, out) = planes();
++        assert!(DOG_BAR_X + DOG_BAR_PER_UNIT * far < out.frame.left());
++    }
++
++    #[test]
++    fn the_walk_to_the_pole_is_finite_and_its_output_runs_up_a_straight_line() {
++        for k in 0..=64 {
++            let s = f64::from(k) / 64.0;
++            let w = pole_walk_output(s);
++            assert!((w.re - 2.0 / 3.0).abs() < 1e-9, "{s}");
++            assert!(w.im >= -1e-9, "{s}");
++            assert!(Func::Moebius.eval(pole_walk(s)).is_some(), "{s}");
++        }
++        assert!((pole_walk(0.0) - C::real(-model::MOEBIUS_POLE)).abs() < 1e-12);
++        let stop = (pole_walk(1.0) - C::real(model::MOEBIUS_POLE)).abs();
++        assert!((stop - model::MOEBIUS_NEAR_POLE).abs() < 1e-12);
++        // the readout ends on the printed size, the row on the printed distance
++        let size: f64 = fact("argument.rational.near_pole.size").unwrap().parse().unwrap();
++        let far: f64 = fact("argument.rational.near_pole.distance").unwrap().parse().unwrap();
++        assert!((pole_walk_output(1.0).abs() - size).abs() < 0.05);
++        assert!((far - model::MOEBIUS_NEAR_POLE).abs() < 1e-12);
++        // the output leaves the window part way, and the clip holds it at the edge after that
++        let (_, out) = planes();
++        let top = out.frame.y.1;
++        let exit = pole_walk_exit(top);
++        assert!(exit > 0.0 && exit < 1.0);
++        assert!((pole_walk_output(exit).im - top).abs() < 1e-9);
++        assert!((clipped_output(1.0, top).im - top).abs() < 1e-12);
++        assert!(out.contains(clipped_output(0.0, top)) && out.contains(clipped_output(1.0, top)));
++    }
++
+     #[test]
+     fn minus_three_z_dominates_on_the_unit_circle_and_turns_once() {
+         for z in circle(ZERO, 1.0, 2000) {

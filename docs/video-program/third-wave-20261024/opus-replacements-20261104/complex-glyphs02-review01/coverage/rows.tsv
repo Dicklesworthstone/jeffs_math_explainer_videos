@@ -1,0 +1,755 @@
+page	top	bottom	left	right	registry_row	kind	chapters	text
+frame_000000.png	135	181	55	411	1	Text	supplement	 (backwards twice)
+frame_000000.png	211	257	55	479	2	Text	supplement	 (outside: it blows up)
+frame_000000.png	287	333	55	146	3	Text	supplement	 < 1/
+frame_000000.png	362	403	55	297	4	Text	supplement	 = the bump
+frame_000000.png	433	466	55	334	5	Text	supplement	 = zeros inside
+frame_000000.png	497	538	55	325	6	Text	supplement	 from the pole
+frame_000000.png	568	599	55	65	7	Text	supplement	 i
+frame_000000.png	632	673	55	290	8	Text	supplement	 samples say 
+frame_000000.png	703	740	55	163	9	Text	supplement	 steps: 
+frame_000000.png	770	799	55	221	10	Text	supplement	 terms at 
+frame_000000.png	834	874	55	261	11	Text	supplement	 terms give 
+frame_000000.png	904	950	55	421	12	Text	supplement	 terms, inside |z| < 
+frame_000001.png	135	163	55	141	13	Text	supplement	 turn
+frame_000001.png	198	238	55	275	14	Text	supplement	 turn, at −i: 
+frame_000001.png	268	297	55	158	15	Text	supplement	 turns
+frame_000001.png	331	371	55	326	16	Text	supplement	 turns, certain
+frame_000001.png	401	416	55	77	17	Text	supplement	 ≈ 
+frame_000001.png	464	510	55	291	18	Text	02_turning_numbers,supplement	(1 + i)² = ?
+frame_000001.png	540	586	55	740	19	Text	12_residues,supplement	(Cauchy's theorem between them)
+frame_000001.png	616	662	55	333	20	Text	14_continuation,supplement	(for Re z > 0)
+frame_000001.png	692	723	55	86	21	Text	06_one_derivative	+
+frame_000001.png	756	790	55	146	22	Text	05_gallery,11_counting	+0.0
+frame_000001.png	820	854	55	144	23	Text	11_counting	+0.1
+frame_000001.png	884	919	55	146	24	Text	11_counting	+0.3
+frame_000001.png	949	984	55	146	25	Text	11_counting	+0.4
+frame_000002.png	135	169	55	145	26	Text	11_counting	+0.5
+frame_000002.png	199	233	55	146	27	Text	11_counting	+0.6
+frame_000002.png	263	298	55	147	28	Text	11_counting	+0.7
+frame_000002.png	328	362	55	146	29	Text	11_counting	+0.8
+frame_000002.png	392	427	55	108	30	Text	11_counting,supplement	+1
+frame_000002.png	457	491	55	280	31	Text	11_counting,supplement	+1 − 1 = 0
+frame_000002.png	521	555	55	305	32	Text	11_counting,supplement	+1 − 2 = −1
+frame_000002.png	585	620	55	146	33	Text	11_counting	+1.0
+frame_000002.png	650	684	55	144	34	Text	05_gallery,11_counting	+1.1
+frame_000002.png	714	748	55	145	35	Text	11_counting	+1.5
+frame_000002.png	778	813	55	146	36	Text	11_counting	+1.9
+frame_000002.png	842	877	55	146	37	Text	11_counting	+2.0
+frame_000002.png	907	941	55	144	38	Text	05_gallery	+2.1
+frame_000003.png	135	169	55	146	39	Text	11_counting	+2.3
+frame_000003.png	199	233	55	146	40	Text	11_counting	+2.6
+frame_000003.png	263	298	55	146	41	Text	05_gallery,11_counting	+3.0
+frame_000003.png	328	362	55	146	42	Text	11_counting	+3.4
+frame_000003.png	392	427	55	146	43	Text	11_counting	+3.8
+frame_000003.png	457	492	55	145	44	Text	11_counting	+4.2
+frame_000003.png	522	556	55	145	45	Text	11_counting	+4.5
+frame_000003.png	586	621	55	146	46	Text	11_counting	+4.9
+frame_000003.png	651	686	55	146	47	Text	11_counting	+5.0
+frame_000003.png	715	753	55	166	48	Text	supplement	, turn 
+frame_000003.png	783	814	55	74	49	Text	02_turning_numbers,03_two_planes,07_one_point,10_rigidity,11_counting,supplement	0
+frame_000003.png	846	892	55	1041	50	Text	10_rigidity,supplement	0 is not in the region: sin(1/z) is undefined there
+frame_000003.png	922	954	55	134	51	Text	03_two_planes,08_loop_sums,10_rigidity	0.00
+frame_000004.png	135	176	55	422	52	Text	11_counting	0.03 from the pole
+frame_000004.png	206	238	55	134	53	Text	07_one_point	0.06
+frame_000004.png	269	301	55	134	54	Text	03_two_planes	0.18
+frame_000004.png	333	365	55	132	55	Text	07_one_point	0.21
+frame_000004.png	396	428	55	134	56	Text	08_loop_sums	0.26
+frame_000004.png	460	492	55	158	57	Text	13_real_integral	0.317
+frame_000004.png	523	555	55	157	58	Text	03_two_planes	0.368
+frame_000004.png	587	619	55	135	59	Text	03_two_planes	0.37
+frame_000004.png	650	682	55	134	60	Text	07_one_point	0.38
+frame_000004.png	713	745	55	134	61	Text	08_loop_sums	0.50
+frame_000004.png	777	809	55	133	62	Text	08_loop_sums	0.52
+frame_000004.png	840	872	55	133	63	Text	07_one_point	0.55
+frame_000004.png	904	936	55	134	64	Text	03_two_planes	0.56
+frame_000005.png	135	167	55	157	65	Text	13_real_integral	0.654
+frame_000005.png	198	230	55	156	66	Text	13_real_integral	0.655
+frame_000005.png	261	294	55	112	67	Text	11_counting	0.7
+frame_000005.png	325	357	55	132	68	Text	08_loop_sums	0.71
+frame_000005.png	388	421	55	134	69	Text	03_two_planes	0.74
+frame_000005.png	452	484	55	134	70	Text	08_loop_sums	0.78
+frame_000005.png	515	547	55	110	71	Text	11_counting	0.8
+frame_000005.png	579	611	55	135	72	Text	08_loop_sums	0.87
+frame_000005.png	642	674	55	134	73	Text	03_two_planes	0.93
+frame_000005.png	706	738	55	135	74	Text	08_loop_sums	0.97
+frame_000005.png	769	812	55	857	75	Text	supplement	0123456789 . , + − × ÷ ≈ → ° i π √ ≥ <
+frame_000005.png	842	872	55	70	76	Text	01_the_bump,07_one_point,09_boundary,14_continuation	1
+frame_000005.png	905	941	55	536	77	Text	14_continuation,supplement	1 + 2 + 4 + 8 + … = ?
+frame_000006.png	135	166	55	131	78	Text	03_two_planes	1.00
+frame_000006.png	198	230	55	155	79	Text	03_two_planes	1.000
+frame_000006.png	261	293	55	129	80	Text	08_loop_sums	1.01
+frame_000006.png	325	357	55	132	81	Text	08_loop_sums	1.04
+frame_000006.png	388	419	55	129	82	Text	03_two_planes	1.11
+frame_000006.png	452	483	55	108	83	Text	11_counting,14_continuation	1.2
+frame_000006.png	515	547	55	129	84	Text	08_loop_sums	1.31
+frame_000006.png	579	611	55	131	85	Text	03_two_planes	1.48
+frame_000006.png	642	674	55	132	86	Text	08_loop_sums	1.57
+frame_000006.png	706	737	55	108	87	Text	11_counting	1.6
+frame_000006.png	769	801	55	131	88	Text	06_one_derivative	1.63
+frame_000006.png	833	865	55	131	89	Text	06_one_derivative	1.75
+frame_000006.png	896	928	55	131	90	Text	08_loop_sums	1.83
+frame_000007.png	135	166	55	131	91	Text	03_two_planes	1.85
+frame_000007.png	198	230	55	132	92	Text	06_one_derivative	1.87
+frame_000007.png	262	307	55	331	93	Text	03_two_planes,supplement	1/0 undefined
+frame_000007.png	337	383	55	118	94	Text	14_continuation	1/2
+frame_000007.png	413	459	55	169	95	Text	supplement	1/2 + 
+frame_000007.png	489	535	55	304	96	Text	05_gallery	1/2 + 14.13i
+frame_000007.png	565	611	55	304	97	Text	05_gallery	1/2 + 21.02i
+frame_000007.png	641	687	55	304	98	Text	05_gallery	1/2 + 25.01i
+frame_000007.png	717	763	55	304	99	Text	05_gallery	1/2 + 30.42i
+frame_000007.png	792	838	55	119	100	Text	10_rigidity,supplement	1/π
+frame_000007.png	868	900	55	95	101	Text	01_the_bump,13_real_integral	10
+frame_000007.png	932	963	55	155	102	Text	13_real_integral	10.00
+frame_000008.png	135	166	55	154	103	Text	10_rigidity	10.02
+frame_000008.png	198	231	55	133	104	Text	13_real_integral	135°
+frame_000008.png	261	294	55	96	105	Text	02_turning_numbers	17
+frame_000008.png	325	357	55	133	106	Text	07_one_point	180°
+frame_000008.png	388	419	55	73	107	Text	06_one_derivative,14_continuation	2
+frame_000008.png	452	484	55	133	108	Text	03_two_planes,06_one_derivative,13_real_integral	2.00
+frame_000008.png	515	548	55	134	109	Text	06_one_derivative	2.04
+frame_000008.png	579	610	55	133	110	Text	08_loop_sums	2.09
+frame_000008.png	642	674	55	157	111	Text	13_real_integral	2.094
+frame_000008.png	706	736	55	131	112	Text	06_one_derivative	2.21
+frame_000008.png	769	801	55	133	113	Text	06_one_derivative	2.25
+frame_000008.png	832	864	55	133	114	Text	08_loop_sums	2.35
+frame_000008.png	896	928	55	133	115	Text	06_one_derivative	2.45
+frame_000009.png	135	166	55	131	116	Text	08_loop_sums	2.61
+frame_000009.png	198	230	55	156	117	Text	03_two_planes	2.718
+frame_000009.png	261	294	55	134	118	Text	08_loop_sums	2.87
+frame_000009.png	325	357	55	97	119	Text	01_the_bump	20
+frame_000009.png	388	420	55	133	120	Text	11_counting	21.0
+frame_000009.png	452	484	55	135	121	Text	13_real_integral	225°
+frame_000009.png	515	556	55	337	122	Text	08_loop_sums	24 steps: 6.27i
+frame_000009.png	585	617	55	111	123	Text	08_loop_sums,12_residues,supplement	2πi
+frame_000009.png	649	681	55	133	124	Text	08_loop_sums	3.13
+frame_000009.png	712	744	55	133	125	Text	08_loop_sums	3.39
+frame_000009.png	776	807	55	133	126	Text	08_loop_sums	3.65
+frame_000009.png	839	871	55	133	127	Text	08_loop_sums	3.92
+frame_000009.png	903	934	55	134	128	Text	11_counting	30.0
+frame_000010.png	135	167	55	135	129	Text	13_real_integral	315°
+frame_000010.png	198	230	55	97	130	Text	01_the_bump	38
+frame_000010.png	261	293	55	88	131	Text	10_rigidity	3i
+frame_000010.png	325	356	55	75	132	Text	11_counting	4
+frame_000010.png	388	421	55	134	133	Text	08_loop_sums	4.18
+frame_000010.png	452	483	55	135	134	Text	08_loop_sums	4.44
+frame_000010.png	515	548	55	134	135	Text	08_loop_sums	4.70
+frame_000010.png	579	611	55	134	136	Text	08_loop_sums	4.96
+frame_000010.png	642	674	55	98	137	Text	01_the_bump	40
+frame_000010.png	706	738	55	113	138	Text	13_real_integral	45°
+frame_000010.png	769	801	55	133	139	Text	13_real_integral	5.00
+frame_000010.png	832	864	55	133	140	Text	08_loop_sums	5.22
+frame_000010.png	896	928	55	133	141	Text	08_loop_sums	5.48
+frame_000011.png	135	167	55	111	142	Text	11_counting	5.7
+frame_000011.png	198	230	55	134	143	Text	08_loop_sums	5.74
+frame_000011.png	261	293	55	74	144	Text	01_the_bump	6
+frame_000011.png	325	357	55	134	145	Text	08_loop_sums	6.00
+frame_000011.png	388	420	55	133	146	Text	10_rigidity	6.05
+frame_000011.png	452	484	55	133	147	Text	15_closing	6.16
+frame_000011.png	515	561	55	901	148	Text	09_boundary	60 terms at 2.6: 212 (outside: it blows up)
+frame_000011.png	591	632	55	787	149	Text	09_boundary	60 terms at 2: 0.200000 = the bump
+frame_000011.png	662	702	55	554	150	Text	11_counting	64 steps: 8 turns, certain
+frame_000011.png	732	764	55	97	151	Text	02_turning_numbers	68
+frame_000011.png	796	827	55	74	152	Text	11_counting	8
+frame_000011.png	859	901	55	487	153	Text	11_counting	8 samples say 0 turns
+frame_000011.png	930	962	55	196	154	Text	11_counting	8 turns
+frame_000012.png	135	166	55	97	155	Text	02_turning_numbers	89
+frame_000012.png	198	230	55	97	156	Text	02_turning_numbers	90
+frame_000012.png	261	294	55	112	157	Text	07_one_point	90°
+frame_000012.png	325	345	55	60	158	Text	supplement	: 
+frame_000012.png	388	418	55	202	159	Text	supplement	: passes
+frame_000012.png	452	485	55	195	160	Text	supplement	: refuse
+frame_000012.png	515	555	55	643	161	Text	10_rigidity	= 0.318, 0.159, 0.106, … → 0
+frame_000012.png	585	627	55	1392	162	Text	09_boundary	Cauchy's formula needs f holomorphic on an open set containing t
+frame_000012.png	657	689	55	488	162	Text	09_boundary	he closed disk: on the
+frame_000012.png	720	763	55	1392	163	Text	supplement	Cauchy's formula needs f holomorphic on an open set containing t
+frame_000012.png	793	825	55	875	163	Text	supplement	he closed disk: on the circle and inside it
+frame_000012.png	856	898	55	572	164	Text	09_boundary	Cauchy's integral formula
+frame_000012.png	928	970	55	612	165	Text	06_one_derivative	Cauchy–Riemann equations
+frame_000013.png	135	166	55	108	166	Text	06_one_derivative,07_one_point,08_loop_sums,09_boundary,10_rigidity	Im
+frame_000013.png	198	239	55	271	167	Text	supplement	L × step = 
+frame_000013.png	268	309	55	612	168	Text	11_counting	L × step = 0.79 < 1: passes
+frame_000013.png	339	380	55	596	169	Text	11_counting	L × step = 6.28 ≥ 1: refuse
+frame_000013.png	410	443	55	520	170	Text	12_residues	Laurent series · residue
+frame_000013.png	473	507	55	438	171	Text	10_rigidity	Liouville's theorem
+frame_000013.png	537	569	55	136	172	Text	13_real_integral,supplement	R =
+frame_000013.png	600	646	55	554	173	Text	13_real_integral	R = 10:  0.0031 < 1/300
+frame_000013.png	676	709	55	348	174	Text	13_real_integral	R = 2:  0.4189
+frame_000013.png	740	772	55	107	175	Text	06_one_derivative,07_one_point,08_loop_sums,09_boundary,10_rigidity	Re
+frame_000013.png	803	836	55	232	176	Text	14_continuation,supplement	Re z = 0
+frame_000013.png	867	908	55	471	177	Text	05_gallery,supplement	Riemann hypothesis:
+frame_000013.png	938	980	55	965	178	Text	15_closing,supplement	The Hidden Geometry of Complex Functions
+frame_000014.png	135	181	55	76	179	Text	supplement	]: 
+frame_000014.png	211	232	55	76	180	Text	11_counting,supplement	a
+frame_000014.png	274	306	55	164	181	Text	09_boundary,supplement	a = 0
+frame_000014.png	338	379	55	345	182	Text	08_loop_sums,supplement	a bigger circle:
+frame_000014.png	409	450	55	666	183	Text	07_one_point,supplement	a complex derivative at 0 only
+frame_000014.png	480	522	55	768	184	Text	07_one_point,supplement	a complex derivative at every point
+frame_000014.png	552	594	55	515	185	Text	06_one_derivative,supplement	a derivative anywhere?
+frame_000014.png	623	666	55	782	186	Text	03_two_planes,supplement	a graph would need four dimensions
+frame_000014.png	695	737	55	346	187	Text	09_boundary,supplement	a little beyond
+frame_000014.png	767	808	55	322	188	Text	15_closing,supplement	a loop counts
+frame_000014.png	838	879	55	799	189	Text	14_continuation,supplement	a new pole at each step: 0, −1, −2, …
+frame_000014.png	908	955	55	503	190	Text	supplement	a numerical sum on [−
+frame_000015.png	135	181	55	841	191	Text	13_real_integral	a numerical sum on [−200, 200]: 2.2214
+frame_000015.png	211	252	55	437	192	Text	05_gallery,supplement	a single pole: s = 1
+frame_000015.png	282	315	55	460	193	Text	06_one_derivative,supplement	a stretch and a turn
+frame_000015.png	345	387	55	967	194	Text	06_one_derivative,supplement	a stretch and a turn: no squash, no reflection
+frame_000015.png	417	458	55	412	195	Text	02_turning_numbers,supplement	adding: tip to tail
+frame_000015.png	488	530	55	258	196	Text	10_rigidity,supplement	agree here
+frame_000015.png	560	601	55	325	197	Text	06_one_derivative,supplement	along a spiral
+frame_000015.png	631	672	55	480	198	Text	14_continuation	analytic continuation
+frame_000015.png	702	736	55	563	199	Text	10_rigidity,supplement	and bounded ⇒ constant
+frame_000015.png	766	807	55	167	200	Text	supplement	angle: 
+frame_000015.png	837	879	55	246	201	Text	02_turning_numbers	angle: 45°
+frame_000015.png	909	950	55	805	202	Text	11_counting	argument principle · winding number
+frame_000016.png	135	176	55	564	203	Text	08_loop_sums,supplement	around each small square
+frame_000016.png	205	246	55	718	204	Text	08_loop_sums,supplement	as the steps shrink, ≈ becomes =
+frame_000016.png	276	309	55	222	205	Text	08_loop_sums	assumed
+frame_000016.png	340	371	55	131	206	Text	supplement	at i: 
+frame_000016.png	403	443	55	607	207	Text	04_reading_color	at i: −1 turn, at −i: −1 turn
+frame_000016.png	473	502	55	205	208	Text	13_real_integral,supplement	at most
+frame_000016.png	536	578	55	946	209	Text	14_continuation,supplement	at most one extension to a connected region
+frame_000016.png	608	647	55	506	210	Text	15_closing,supplement	at most one extension;
+frame_000016.png	677	710	55	243	211	Text	01_the_bump,supplement	at x = 1?
+frame_000016.png	741	783	55	313	212	Text	09_boundary,supplement	average = 1?
+frame_000016.png	813	855	55	259	213	Text	supplement	average of 
+frame_000016.png	884	927	55	519	214	Text	09_boundary	average of 16: 1.000015
+frame_000017.png	135	177	55	545	215	Text	09_boundary	average of 16: −0.000015
+frame_000017.png	206	249	55	450	216	Text	09_boundary	average of 8: 1.0039
+frame_000017.png	278	319	55	478	217	Text	11_counting,supplement	between the samples:
+frame_000017.png	349	390	55	595	218	Text	supplement	bump at 0, then each pole: 
+frame_000017.png	420	461	55	958	219	Text	09_boundary	bump at 0, then each pole: 1 − 0.5 − 0.5 = 0
+frame_000017.png	491	532	55	209	220	Text	supplement	bump ≈ 
+frame_000017.png	562	603	55	330	221	Text	01_the_bump	bump ≈ 0.452
+frame_000017.png	633	675	55	1352	222	Text	08_loop_sums	by Goursat's lemma each square's error shrinks faster than its a
+frame_000017.png	705	747	55	551	222	Text	08_loop_sums	rea; no continuity of f' is
+frame_000017.png	777	819	55	1352	223	Text	supplement	by Goursat's lemma each square's error shrinks faster than its a
+frame_000017.png	849	891	55	737	223	Text	supplement	rea; no continuity of f' is assumed
+frame_000017.png	921	962	55	474	224	Text	06_one_derivative,supplement	change in the output
+frame_000018.png	135	167	55	424	225	Text	09_boundary	circle and inside it
+frame_000018.png	198	231	55	217	226	Text	08_loop_sums,12_residues,supplement	closes: 0
+frame_000018.png	261	303	55	514	227	Text	supplement	colour cycles around 0: 
+frame_000018.png	333	374	55	554	228	Text	04_reading_color	colour cycles around 0: 2
+frame_000018.png	404	446	55	579	229	Text	04_reading_color	colour cycles around 0: −1
+frame_000018.png	476	517	55	349	230	Text	08_loop_sums,supplement	column height:
+frame_000018.png	547	587	55	263	231	Text	01_the_bump,supplement	coming up
+frame_000018.png	617	659	55	656	232	Text	07_one_point	conformal map · critical point
+frame_000018.png	689	730	55	392	233	Text	10_rigidity,supplement	connected region
+frame_000018.png	760	801	55	1006	234	Text	14_continuation,supplement	continuation extends the function, not the sum
+frame_000018.png	831	873	55	734	235	Text	04_reading_color,supplement	dark lines: every twelfth of a turn
+frame_000018.png	903	936	55	407	236	Text	15_closing,supplement	decides the inside
+frame_000019.png	135	176	55	1038	237	Text	07_one_point,supplement	derivative = 0: a critical point, angles multiplied
+frame_000019.png	206	240	55	366	238	Text	07_one_point,supplement	derivative at 0?
+frame_000019.png	269	316	55	833	239	Text	07_one_point,supplement	derivative ≠ 0: angles kept (conformal)
+frame_000019.png	345	387	55	640	240	Text	05_gallery,supplement	direction: set by height alone
+frame_000019.png	417	450	55	527	241	Text	08_loop_sums,supplement	distance from the start:
+frame_000019.png	480	522	55	378	242	Text	11_counting,supplement	dog: z⁵ − 3z + 1
+frame_000019.png	552	593	55	934	243	Text	04_reading_color	domain colouring · enhanced phase portrait
+frame_000019.png	623	656	55	297	244	Text	04_reading_color,supplement	down: violet
+frame_000019.png	687	719	55	187	245	Text	supplement	drawn: 
+frame_000019.png	750	796	55	735	246	Text	14_continuation	drawn: 12 terms, inside |z| < 0.98
+frame_000019.png	826	872	55	749	247	Text	11_counting,supplement	drawn: n = 5, on the circle |z| = 3
+frame_000019.png	902	944	55	1214	248	Text	14_continuation,supplement	drawn: up to the 64th; all of them are dense on the circle
+frame_000020.png	135	176	55	684	249	Text	14_continuation,supplement	each disk stops at the pole at 1
+frame_000020.png	205	246	55	715	250	Text	12_residues,supplement	each small loop: 2πi × its residue
+frame_000020.png	276	318	55	734	251	Text	14_continuation,supplement	each step along the path is forced
+frame_000020.png	348	390	55	648	252	Text	09_boundary,supplement	each turned back by its angle
+frame_000020.png	420	461	55	767	253	Text	09_boundary,supplement	each turned back by twice its angle
+frame_000020.png	491	532	55	552	254	Text	10_rigidity,supplement	every derivative at 0 is 0
+frame_000020.png	562	603	55	432	255	Text	02_turning_numbers,supplement	every point times i
+frame_000020.png	632	674	55	598	256	Text	11_counting,supplement	every polynomial has roots
+frame_000020.png	704	736	55	505	257	Text	06_one_derivative,supplement	exact stretch and turn
+frame_000020.png	767	809	55	493	258	Text	10_rigidity,supplement	f = g on a little curve
+frame_000020.png	839	881	55	843	259	Text	08_loop_sums,supplement	f holomorphic on the loop and inside it
+frame_000020.png	911	952	55	840	260	Text	11_counting,supplement	f is holomorphic inside, except at poles
+frame_000021.png	135	177	55	388	261	Text	11_counting	for programmers
+frame_000021.png	206	240	55	353	262	Text	10_rigidity,supplement	forced to be 0?
+frame_000021.png	270	303	55	277	263	Text	06_one_derivative,supplement	from above
+frame_000021.png	333	375	55	968	264	Text	07_one_point,supplement	from here on: holomorphic on an open region
+frame_000021.png	405	438	55	321	265	Text	15_closing,supplement	from residues
+frame_000021.png	469	511	55	336	266	Text	06_one_derivative,supplement	from the right
+frame_000021.png	541	574	55	346	267	Text	11_counting	function's own
+frame_000021.png	604	646	55	1103	268	Text	11_counting	fundamental theorem of algebra · Rouché's theorem
+frame_000021.png	676	718	55	1155	269	Text	supplement	gold box = gold band. The strip runs on up to Im s = 
+frame_000021.png	748	789	55	1217	270	Text	05_gallery	gold box = gold band. The strip runs on up to Im s = 32
+frame_000021.png	819	861	55	809	271	Text	04_reading_color,supplement	gold segment: where the recipe works
+frame_000021.png	890	931	55	487	272	Text	12_residues,supplement	h holomorphic near p
+frame_000022.png	135	181	55	922	273	Text	14_continuation,supplement	here every path gives 1/(1 − z); not always
+frame_000022.png	211	252	55	694	274	Text	07_one_point	holomorphic function · open set
+frame_000022.png	282	323	55	426	275	Text	07_one_point,supplement	holomorphic on U:
+frame_000022.png	353	394	55	700	276	Text	10_rigidity,supplement	holomorphic on the whole plane
+frame_000022.png	424	466	55	561	277	Text	04_reading_color,supplement	how many turns at each?
+frame_000022.png	495	536	55	374	278	Text	05_gallery,supplement	how: chapter 14
+frame_000022.png	566	597	55	65	279	Text	01_the_bump,06_one_derivative,09_boundary,12_residues,13_real_integral,14_continuation,15_closing,supplement	i
+frame_000022.png	630	671	55	388	280	Text	10_rigidity	identity theorem
+frame_000022.png	701	743	55	724	281	Text	10_rigidity,supplement	identity theorem: agree on points
+frame_000022.png	772	815	55	1374	282	Text	10_rigidity	identity theorem: if f and g are holomorphic on a connected open
+frame_000022.png	844	886	55	544	282	Text	10_rigidity	 set U and agree on a set
+frame_000022.png	916	958	55	1374	283	Text	supplement	identity theorem: if f and g are holomorphic on a connected open
+frame_000023.png	135	177	55	1326	283	Text	supplement	 set U and agree on a set with a limit point in U, then f = g on
+frame_000023.png	206	239	55	87	283	Text	supplement	 U
+frame_000023.png	270	311	55	1328	284	Text	07_one_point	if the first m − 1 derivatives vanish at a point and the m-th do
+frame_000023.png	341	383	55	521	284	Text	07_one_point	es not, angles there are
+frame_000023.png	413	454	55	1328	285	Text	supplement	if the first m − 1 derivatives vanish at a point and the m-th do
+frame_000023.png	484	526	55	859	285	Text	supplement	es not, angles there are multiplied by m
+frame_000023.png	555	597	55	670	286	Text	06_one_derivative,supplement	image drawn moved down by i
+frame_000023.png	627	667	55	673	287	Text	03_two_planes,supplement	imaginary axis → negative ray
+frame_000023.png	697	739	55	341	288	Text	07_one_point,supplement	imaginary line
+frame_000023.png	768	809	55	353	289	Text	02_turning_numbers,supplement	imaginary part
+frame_000023.png	839	879	55	195	290	Text	03_two_planes,supplement	input z
+frame_000023.png	908	941	55	307	291	Text	07_one_point,supplement	inside radius
+frame_000024.png	135	168	55	487	292	Text	11_counting,supplement	inside the unit circle?
+frame_000024.png	198	239	55	756	293	Text	03_two_planes,supplement	inside → outside, outside → inside
+frame_000024.png	269	310	55	390	294	Text	13_real_integral	integral does not
+frame_000024.png	340	382	55	498	295	Text	13_real_integral	integral from −R to R
+frame_000024.png	412	454	55	1357	296	Text	13_real_integral	integral from −R to R; for slowly decaying f that symmetric limi
+frame_000024.png	484	517	55	465	296	Text	13_real_integral	t can exist when the
+frame_000024.png	547	589	55	583	297	Text	05_gallery,supplement	integral works to the right
+frame_000024.png	619	661	55	748	298	Text	06_one_derivative,supplement	is how fast u changes as x changes
+frame_000024.png	691	732	55	1085	299	Text	14_continuation,supplement	it blows up at the 2nd, 4th, 8th, 16th, … roots of 1
+frame_000024.png	762	804	55	813	300	Text	11_counting,supplement	it passes through no zero and no pole
+frame_000024.png	834	875	55	562	301	Text	supplement	largest gap ÷ image side: 
+frame_000024.png	905	946	55	891	302	Text	06_one_derivative	largest gap ÷ image side: 0.088 → 0.0088
+frame_000025.png	135	168	55	221	303	Text	04_reading_color,supplement	left: teal
+frame_000025.png	198	244	55	1012	304	Text	02_turning_numbers,supplement	length = modulus |w|, angle = argument arg w
+frame_000025.png	274	316	55	619	305	Text	02_turning_numbers,08_loop_sums,supplement	lengths multiply, angles add
+frame_000025.png	345	378	55	157	306	Text	supplement	limit: 
+frame_000025.png	409	442	55	198	307	Text	09_boundary	limit: 0
+frame_000025.png	472	505	55	276	308	Text	supplement	limit: 2πi ≈ 
+frame_000025.png	536	569	55	388	309	Text	08_loop_sums	limit: 2πi ≈ 6.28i
+frame_000025.png	599	641	55	510	310	Text	14_continuation,supplement	log gains 2πi each loop
+frame_000025.png	671	712	55	320	311	Text	supplement	longest leash: 
+frame_000025.png	742	784	55	384	312	Text	11_counting	longest leash: 10
+frame_000025.png	813	855	55	710	313	Text	11_counting,supplement	loop through a pole: not allowed
+frame_000025.png	885	931	55	572	314	Text	05_gallery,supplement	more zeros on Re s = 1/2
+frame_000026.png	135	176	55	375	315	Text	07_one_point	multiplied by m
+frame_000026.png	206	252	55	712	316	Text	02_turning_numbers,supplement	multiplying by w: stretch by |w|,
+frame_000026.png	282	320	55	272	317	Text	06_one_derivative,supplement	must agree
+frame_000026.png	350	382	55	386	318	Text	04_reading_color,06_one_derivative,07_one_point,09_boundary,10_rigidity,11_counting,12_residues,14_continuation	names to search:
+frame_000026.png	413	434	55	189	319	Text	02_turning_numbers,supplement	names:
+frame_000026.png	477	518	55	408	320	Text	14_continuation,supplement	natural boundary
+frame_000026.png	548	589	55	492	321	Text	12_residues,supplement	near a pole of order n
+frame_000026.png	619	665	55	1309	322	Text	04_reading_color	near a zero a of order m, f(z) is about c times (z − a) to the p
+frame_000026.png	695	736	55	610	322	Text	04_reading_color	ower m, so the hue turns m
+frame_000026.png	766	812	55	1309	323	Text	supplement	near a zero a of order m, f(z) is about c times (z − a) to the p
+frame_000026.png	842	883	55	1004	323	Text	supplement	ower m, so the hue turns m times as z circles a
+frame_000026.png	913	946	55	504	324	Text	12_residues,supplement	near a zero of order m
+frame_000027.png	135	175	55	219	325	Text	04_reading_color	negative
+frame_000027.png	205	237	55	1046	326	Text	03_two_planes,supplement	new windows: the ticks still mark whole numbers
+frame_000027.png	268	301	55	397	327	Text	supplement	next band: size × 
+frame_000027.png	332	365	55	496	328	Text	04_reading_color	next band: size × 1.69
+frame_000027.png	395	436	55	941	329	Text	05_gallery,supplement	next: what one complex derivative demands
+frame_000027.png	466	507	55	496	330	Text	06_one_derivative,supplement	no complex derivative
+frame_000027.png	537	578	55	423	331	Text	05_gallery,supplement	no zeros anywhere
+frame_000027.png	608	649	55	411	332	Text	05_gallery,supplement	no zeros, no poles
+frame_000027.png	679	712	55	317	333	Text	10_rigidity,supplement	not zero here
+frame_000027.png	742	785	55	470	334	Text	07_one_point,supplement	of the open region U
+frame_000027.png	814	847	55	352	335	Text	11_counting,supplement	off the window
+frame_000027.png	878	918	55	426	336	Text	15_closing,supplement	on an open region:
+frame_000027.png	948	990	55	911	337	Text	10_rigidity,supplement	on the curve, every derivative of f − g is 0,
+frame_000028.png	135	167	55	741	338	Text	10_rigidity,supplement	on the real line: between −1 and 1
+frame_000028.png	198	232	55	668	339	Text	05_gallery,supplement	on the real line: −1 ≤ sin x ≤ 1
+frame_000028.png	262	303	55	602	340	Text	supplement	one root inside, at distance 
+frame_000028.png	332	373	55	722	341	Text	11_counting	one root inside, at distance 0.335
+frame_000028.png	403	445	55	701	342	Text	05_gallery,supplement	one tile of z³ − 1, traced exactly
+frame_000028.png	475	521	55	397	343	Text	08_loop_sums,supplement	only 1/z survives
+frame_000028.png	551	593	55	567	344	Text	08_loop_sums,supplement	only the outer loop is left
+frame_000028.png	623	652	55	149	345	Text	05_gallery,supplement	open
+frame_000028.png	686	727	55	674	346	Text	09_boundary,supplement	opposite samples share a value
+frame_000028.png	757	798	55	1346	347	Text	11_counting	output drawn with its direction exact and its size compressed, s
+frame_000028.png	828	869	55	622	347	Text	11_counting	o every turn around 0 is the
+frame_000028.png	899	940	55	1346	348	Text	supplement	output drawn with its direction exact and its size compressed, s
+frame_000029.png	135	177	55	931	348	Text	supplement	o every turn around 0 is the function's own
+frame_000029.png	207	253	55	271	349	Text	03_two_planes,supplement	output f(z)
+frame_000029.png	283	329	55	590	350	Text	05_gallery,supplement	output f(z), sizes squashed
+frame_000029.png	359	400	55	401	351	Text	15_closing,supplement	paths can branch
+frame_000029.png	430	471	55	798	352	Text	10_rigidity,supplement	piling up at a point inside the region
+frame_000029.png	501	543	55	941	353	Text	10_rigidity,supplement	points piling up at a point inside U: enough
+frame_000029.png	572	613	55	191	354	Text	supplement	pole at 
+frame_000029.png	643	684	55	289	355	Text	11_counting	pole at 1.35
+frame_000029.png	714	756	55	347	356	Text	05_gallery,supplement	pole of order 2
+frame_000029.png	785	825	55	208	357	Text	04_reading_color	positive
+frame_000029.png	855	897	55	236	358	Text	04_reading_color,05_gallery,07_one_point,08_loop_sums,09_boundary,10_rigidity,11_counting,13_real_integral,14_continuation	precisely:
+frame_000029.png	926	972	55	206	359	Text	09_boundary,supplement	r = 1/2
+frame_000030.png	135	165	55	159	360	Text	09_boundary,supplement	r = 2
+frame_000030.png	198	231	55	176	361	Text	supplement	radius 
+frame_000030.png	262	295	55	273	362	Text	03_two_planes	radius 0.25
+frame_000030.png	325	358	55	250	363	Text	03_two_planes	radius 0.5
+frame_000030.png	388	421	55	250	364	Text	11_counting	radius 0.8
+frame_000030.png	452	484	55	212	365	Text	01_the_bump,09_boundary	radius 1
+frame_000030.png	515	548	55	273	366	Text	11_counting	radius 1.35
+frame_000030.png	579	612	55	251	367	Text	11_counting	radius 1.7
+frame_000030.png	642	675	55	231	368	Text	supplement	radius at 
+frame_000030.png	706	739	55	292	369	Text	15_closing	radius at 3?
+frame_000030.png	769	800	55	209	370	Text	supplement	ratio → 
+frame_000030.png	833	864	55	353	371	Text	07_one_point	ratio → 0.0000
+frame_000030.png	896	937	55	343	372	Text	11_counting,supplement	reach L × step
+frame_000031.png	135	168	55	335	373	Text	11_counting,supplement	reach covers 0
+frame_000031.png	198	240	55	535	374	Text	03_two_planes,supplement	real axis → positive ray
+frame_000031.png	269	311	55	313	375	Text	15_closing,supplement	real integrals
+frame_000031.png	341	373	55	214	376	Text	07_one_point,supplement	real line
+frame_000031.png	404	446	55	786	377	Text	07_one_point,supplement	real outputs: one hue, bands for size
+frame_000031.png	476	517	55	226	378	Text	02_turning_numbers,supplement	real part
+frame_000031.png	546	587	55	441	379	Text	09_boundary,supplement	recipe centred at 1:
+frame_000031.png	617	657	55	213	380	Text	supplement	recipe ≈ 
+frame_000031.png	687	727	55	311	381	Text	01_the_bump	recipe ≈ 25.2
+frame_000031.png	757	798	55	1272	382	Text	13_real_integral,supplement	rescaled as R grows: the loop keeps its size, so i and −i close 
+frame_000031.png	828	859	55	91	382	Text	13_real_integral,supplement	in
+frame_000031.png	891	924	55	194	383	Text	supplement	residue 
+frame_000031.png	955	987	55	230	384	Text	12_residues	residue 1
+frame_000032.png	135	167	55	232	385	Text	12_residues	residue 2
+frame_000032.png	198	231	55	374	386	Text	12_residues	residue theorem
+frame_000032.png	261	294	55	257	387	Text	12_residues	residue −1
+frame_000032.png	325	366	55	643	388	Text	03_two_planes,supplement	right angles kept, except at 0
+frame_000032.png	396	438	55	159	389	Text	supplement	right: 
+frame_000032.png	468	509	55	198	390	Text	06_one_derivative	right: 1
+frame_000032.png	539	581	55	348	391	Text	06_one_derivative	right: 1   up: 2
+frame_000032.png	611	652	55	241	392	Text	04_reading_color,supplement	right: red
+frame_000032.png	682	723	55	223	393	Text	supplement	right: → 
+frame_000032.png	753	795	55	261	394	Text	07_one_point	right: → 2
+frame_000032.png	825	866	55	550	395	Text	08_loop_sums,supplement	second lap, over the first
+frame_000032.png	896	937	55	572	396	Text	05_gallery,supplement	series converges: Re s > 1
+frame_000033.png	135	176	55	456	397	Text	08_loop_sums,supplement	shared edges cancel:
+frame_000033.png	206	247	55	280	398	Text	04_reading_color,11_counting,supplement	simple pole
+frame_000033.png	277	318	55	279	399	Text	11_counting,supplement	simple zero
+frame_000033.png	348	389	55	371	400	Text	05_gallery,supplement	simple zero at 1
+frame_000033.png	418	465	55	222	401	Text	supplement	sin(3i) ≈ 
+frame_000033.png	495	541	55	349	402	Text	10_rigidity	sin(3i) ≈ 10.0 i
+frame_000033.png	570	613	55	673	403	Text	05_gallery,supplement	size: set by how far right alone
+frame_000033.png	642	675	55	255	404	Text	14_continuation,supplement	small disk
+frame_000033.png	706	748	55	939	405	Text	10_rigidity,supplement	so f − g = 0 on a disk; step on, disk by disk
+frame_000033.png	778	818	55	434	406	Text	10_rigidity,supplement	so its recipe at 0 is
+frame_000033.png	847	888	55	492	407	Text	10_rigidity,supplement	so on the whole plane
+frame_000033.png	918	960	55	809	408	Text	14_continuation,supplement	step by step: re-centre inside the disk
+frame_000034.png	135	176	55	257	409	Text	06_one_derivative,supplement	step right:
+frame_000034.png	206	243	55	212	410	Text	06_one_derivative,supplement	step up:
+frame_000034.png	273	315	55	390	411	Text	03_two_planes,supplement	straight after z²?
+frame_000034.png	345	387	55	274	412	Text	08_loop_sums,supplement	straight up
+frame_000034.png	416	449	55	190	413	Text	supplement	stretch 
+frame_000034.png	480	521	55	479	414	Text	06_one_derivative	stretch 2.83, turn 45°
+frame_000034.png	551	583	55	383	415	Text	15_closing,supplement	stretch and turn
+frame_000034.png	614	635	55	135	416	Text	13_real_integral,supplement	sum
+frame_000034.png	678	699	55	185	417	Text	supplement	sum = 
+frame_000034.png	741	773	55	376	418	Text	10_rigidity	sum = 1.000000
+frame_000034.png	804	845	55	743	419	Text	12_residues,supplement	sum over the poles inside the loop
+frame_000034.png	875	917	55	434	420	Text	01_the_bump,supplement	terms up to degree
+frame_000034.png	947	988	55	667	421	Text	12_residues,supplement	the big loop = the small loops
+frame_000035.png	135	176	55	326	422	Text	15_closing,supplement	the boundary
+frame_000035.png	206	247	55	248	423	Text	01_the_bump,09_boundary,supplement	the bump
+frame_000035.png	277	319	55	782	424	Text	13_real_integral,supplement	the bump's size along the half circle
+frame_000035.png	349	391	55	811	425	Text	14_continuation,supplement	the bump: defined everywhere but ±i
+frame_000035.png	421	462	55	444	426	Text	08_loop_sums,supplement	the chain's first lap
+frame_000035.png	492	534	55	251	427	Text	06_one_derivative,supplement	the image
+frame_000035.png	564	610	55	1243	428	Text	13_real_integral	the integral of |f| over the line is finite, so the improper int
+frame_000035.png	640	682	55	519	428	Text	13_real_integral	egral is the limit of the
+frame_000035.png	712	758	55	1243	429	Text	supplement	the integral of |f| over the line is finite, so the improper int
+frame_000035.png	787	830	55	980	429	Text	supplement	egral is the limit of the integral from −R to R
+frame_000035.png	859	906	55	1243	430	Text	supplement	the integral of |f| over the line is finite, so the improper int
+frame_000035.png	935	977	55	1308	430	Text	supplement	egral is the limit of the integral from −R to R; for slowly deca
+frame_000036.png	135	177	55	1353	430	Text	supplement	ying f that symmetric limit can exist when the integral does not
+frame_000036.png	206	247	55	820	431	Text	11_counting,supplement	the loop winds once, counterclockwise
+frame_000036.png	277	310	55	438	432	Text	09_boundary,supplement	the next coefficient
+frame_000036.png	341	373	55	228	433	Text	06_one_derivative,07_one_point,supplement	the ratio
+frame_000036.png	404	445	55	252	434	Text	09_boundary,supplement	the recipe
+frame_000036.png	475	516	55	579	435	Text	14_continuation,supplement	the recipe at 0 works here
+frame_000036.png	546	587	55	708	436	Text	14_continuation,supplement	the region here: every z except 1
+frame_000036.png	617	650	55	395	437	Text	08_loop_sums,supplement	the same column
+frame_000036.png	681	723	55	658	438	Text	15_closing,supplement	the same from every direction
+frame_000036.png	753	794	55	441	439	Text	09_boundary,supplement	the samples' values
+frame_000036.png	824	866	55	1125	440	Text	09_boundary,supplement	the second piece is holomorphic: its loop integral is 0
+frame_000036.png	896	937	55	418	441	Text	14_continuation,supplement	the series diverges
+frame_000037.png	135	176	55	508	442	Text	09_boundary,supplement	the slope at the centre
+frame_000037.png	205	251	55	659	443	Text	12_residues,supplement	the sum of the residues of f'/f
+frame_000037.png	281	314	55	490	444	Text	12_residues,supplement	the turns we counted:
+frame_000037.png	345	386	55	1073	445	Text	09_boundary,supplement	the value at the centre = the average on the circle
+frame_000037.png	416	458	55	584	446	Text	10_rigidity,supplement	they agree on the real line
+frame_000037.png	487	530	55	1176	447	Text	05_gallery,supplement	this plot shows four zeros, located by Newton's method
+frame_000037.png	560	592	55	432	448	Text	04_reading_color	times as z circles a
+frame_000037.png	623	665	55	531	449	Text	06_one_derivative,supplement	to keep the image's size
+frame_000037.png	695	728	55	311	450	Text	supplement	total stretch: 
+frame_000037.png	759	791	55	351	451	Text	02_turning_numbers	total stretch: 2
+frame_000037.png	822	855	55	261	452	Text	supplement	total turn: 
+frame_000037.png	886	919	55	339	453	Text	02_turning_numbers	total turn: 90°
+frame_000037.png	949	991	55	507	454	Text	02_turning_numbers,supplement	turn by the angle of w
+frame_000038.png	135	167	55	197	455	Text	02_turning_numbers,supplement	turned:
+frame_000038.png	198	239	55	616	456	Text	11_counting,supplement	turns = zeros − poles inside
+frame_000038.png	269	298	55	169	457	Text	03_two_planes,supplement	turns:
+frame_000038.png	332	361	55	169	458	Text	supplement	turns: 
+frame_000038.png	396	427	55	209	459	Text	11_counting	turns: 0
+frame_000038.png	459	490	55	207	460	Text	11_counting	turns: 1
+frame_000038.png	523	554	55	209	461	Text	11_counting	turns: 2
+frame_000038.png	586	619	55	509	462	Text	05_gallery	turns: 3 = zeros inside
+frame_000038.png	650	681	55	209	463	Text	11_counting	turns: 5
+frame_000038.png	713	744	55	234	464	Text	11_counting	turns: −1
+frame_000038.png	776	823	55	614	465	Text	05_gallery	turns: −2 (backwards twice)
+frame_000038.png	852	895	55	1350	466	Text	14_continuation,supplement	uniqueness is for one connected region; continuation along a pat
+frame_000038.png	924	966	55	554	466	Text	14_continuation,supplement	h is unique for that path
+frame_000039.png	135	167	55	255	467	Text	08_loop_sums,supplement	unit circle
+frame_000039.png	198	227	55	114	468	Text	supplement	up: 
+frame_000039.png	262	303	55	380	469	Text	04_reading_color,supplement	up: yellow green
+frame_000039.png	333	364	55	178	470	Text	supplement	up: → 
+frame_000039.png	396	436	55	217	471	Text	07_one_point	up: → 0
+frame_000039.png	466	506	55	179	472	Text	06_one_derivative	up: −1
+frame_000039.png	535	569	55	552	473	Text	supplement	walker's distance from 0: 
+frame_000039.png	599	633	55	639	474	Text	11_counting	walker's distance from 0: 243
+frame_000039.png	663	695	55	247	475	Text	11_counting,supplement	walker: z⁵
+frame_000039.png	726	767	55	486	476	Text	01_the_bump,supplement	what stops the recipe
+frame_000039.png	797	839	55	628	477	Text	04_reading_color,supplement	where are the bump's poles?
+frame_000039.png	868	910	55	516	478	Text	13_real_integral,supplement	which poles are inside?
+frame_000039.png	940	982	55	868	479	Text	10_rigidity	with a limit point in U, then f = g on U
+frame_000040.png	135	168	55	408	480	Text	09_boundary,supplement	works from ? to ?
+frame_000040.png	198	231	55	234	481	Text	supplement	works on 
+frame_000040.png	262	308	55	501	482	Text	09_boundary	works on (−0.41, 2.41)
+frame_000040.png	337	357	55	78	483	Text	09_boundary,10_rigidity	x
+frame_000040.png	401	421	55	127	484	Text	supplement	x = 
+frame_000040.png	464	495	55	201	485	Text	01_the_bump	x = 1.1
+frame_000040.png	528	560	55	167	486	Text	15_closing	x = 3
+frame_000040.png	591	611	55	123	487	Text	supplement	z = 
+frame_000040.png	655	695	55	617	488	Text	14_continuation	z = 1.2: 11 terms give 32.15
+frame_000040.png	725	771	55	697	489	Text	14_continuation	z = 1/2: 11 terms give 1.999023
+frame_000040.png	801	842	55	570	490	Text	14_continuation	z = 2: 11 terms give 2047
+frame_000040.png	871	900	55	190	491	Text	supplement	zero at 
+frame_000040.png	935	967	55	288	492	Text	11_counting	zero at 0.45
+frame_000041.png	135	167	55	235	493	Text	10_rigidity,supplement	zero here
+frame_000041.png	198	231	55	346	494	Text	04_reading_color,11_counting,supplement	zero of order 2
+frame_000041.png	261	302	55	556	495	Text	05_gallery,supplement	zeros and poles alternate
+frame_000041.png	332	361	55	208	496	Text	supplement	zeros at 
+frame_000041.png	396	442	55	674	497	Text	10_rigidity,supplement	zeros at 1/π, 1/(2π), 1/(3π), …
+frame_000041.png	472	512	55	494	498	Text	05_gallery	zeros at −2, −4, −6, …
+frame_000041.png	542	583	55	312	499	Text	15_closing,supplement	zeros − poles
+frame_000041.png	613	654	55	362	500	Text	12_residues,supplement	zeros − poles =
+frame_000041.png	683	725	55	739	501	Text	05_gallery,supplement	zeros: multiples of π, nowhere else
+frame_000041.png	755	787	55	443	502	Text	06_one_derivative,supplement	zoomed in about 2i
+frame_000041.png	818	860	55	632	503	Text	11_counting,supplement	z⁵ − 3z + 1: how many roots
+frame_000041.png	890	936	55	138	504	Text	11_counting,supplement	|f| =
+frame_000042.png	135	181	55	217	505	Text	10_rigidity,supplement	|sin z| = 
+frame_000042.png	211	257	55	219	506	Text	supplement	|total| = 
+frame_000042.png	286	333	55	410	507	Text	08_loop_sums	|total| = 0.000000
+frame_000042.png	362	408	55	963	508	Text	07_one_point,supplement	|z|² × jagged g, |g| ≤ 1 = M: derivative 0 at 0
+frame_000042.png	438	484	55	503	509	Text	07_one_point,supplement	|z|²: one point, no disk
+frame_000042.png	514	524	55	65	510	Text	02_turning_numbers,supplement	°
+frame_000042.png	578	598	55	76	511	Text	10_rigidity	π
+frame_000042.png	641	673	55	134	512	Text	11_counting	–0.1
+frame_000042.png	705	736	55	135	513	Text	11_counting	–0.6
+frame_000042.png	768	800	55	135	514	Text	05_gallery	–0.8
+frame_000042.png	832	863	55	135	515	Text	11_counting	–1.0
+frame_000042.png	895	927	55	135	516	Text	05_gallery	–1.6
+frame_000043.png	135	166	55	135	517	Text	05_gallery	–2.0
+frame_000043.png	198	233	55	420	518	Text	06_one_derivative	→ 2.000 + 2.000 i
+frame_000043.png	262	304	55	849	519	Text	10_rigidity,supplement	⇒ agree on the whole connected region
+frame_000043.png	334	376	55	493	520	Text	10_rigidity,supplement	⇒ f = g on the whole
+frame_000043.png	406	438	55	159	521	Text	15_closing	−0.16
+frame_000043.png	469	501	55	136	522	Text	09_boundary	−0.5
+frame_000043.png	533	563	55	99	523	Text	09_boundary,14_continuation	−1
+frame_000043.png	596	627	55	100	524	Text	06_one_derivative,11_counting,supplement	−2
+frame_000043.png	660	690	55	91	525	Text	01_the_bump,09_boundary,12_residues,13_real_integral,14_continuation,15_closing,supplement	−i
+frame_000043.png	723	744	55	101	526	Text	10_rigidity	−π
+frame_000043.png	786	825	55	78	527	Text	supplement	√
+frame_000043.png	855	898	55	380	528	Text	supplement	√ after one loop: 
+frame_000043.png	928	971	55	446	529	Text	14_continuation	√ after one loop: −1
+frame_000044.png	135	173	55	283	530	Text	15_closing	√10 ≈ 3.162
+frame_000044.png	203	242	55	261	531	Text	09_boundary	√2 ≈ 1.414
+frame_000044.png	272	287	55	77	532	Text	supplement	≈ 
+frame_000044.png	335	366	55	175	533	Text	13_real_integral	≈ 2.22
+frame_000044.png	399	431	55	244	534	Text	13_real_integral	≈ 3.14159
+frame_000044.png	462	517	55	257	535	Tex	supplement	(1 + i)^2 = 
+frame_000044.png	547	602	55	315	536	Tex	02_turning_numbers	(1 + i)^2 = 2i
+frame_000044.png	632	734	55	958	537	Tex	13_real_integral,supplement	+\\,\\frac{1}{2\\sqrt{2}}\\Big(\\arctan(\\sqrt{2}x+1)+\\arctan(\\sqrt{2}x-1)\\Big)
+frame_000044.png	764	796	55	101	538	Tex	02_turning_numbers,supplement	-1
+frame_000044.png	827	861	55	128	539	Tex	11_counting,supplement	-3z
+frame_000044.png	890	924	55	103	540	Tex	14_continuation	-5
+frame_000044.png	954	988	55	116	541	Tex	13_real_integral,supplement	-R
+frame_000045.png	135	181	55	530	542	Tex	10_rigidity,supplement	0 + 0\\,x + 0\\,x^2 + \\cdots = 0
+frame_000045.png	211	244	55	71	543	Tex	02_turning_numbers,03_two_planes,supplement	1
+frame_000045.png	275	312	55	435	544	Tex	14_continuation,supplement	1 + 2 + 3 + 4 + \\cdots
+frame_000045.png	342	379	55	435	545	Tex	14_continuation,supplement	1 + 2 + 4 + 8 + \\cdots
+frame_000045.png	409	445	55	151	546	Tex	02_turning_numbers,supplement	1 + i
+frame_000045.png	475	575	55	925	547	Tex	14_continuation,supplement	1 + z + z^2 + z^3 + \\cdots = \\frac{1}{1-z} \\qquad (|z| < 1)
+frame_000045.png	605	638	55	141	548	Tex	02_turning_numbers,supplement	1 - i
+frame_000045.png	668	715	55	476	549	Tex	01_the_bump,supplement	1 - x^2 + x^4 - x^6 + \\cdots
+frame_000045.png	745	778	55	147	550	Tex	supplement	2\\pi \\approx 
+frame_000045.png	809	842	55	248	551	Tex	05_gallery	2\\pi \\approx 6.28
+frame_000045.png	872	905	55	124	552	Tex	03_two_planes,supplement	2\\pi i
+frame_000046.png	135	240	55	327	553	Tex	13_real_integral,supplement	2\\pi i \\cdot \\Big(-\\frac{i\\sqrt{2}}{4}\\Big)
+frame_000046.png	270	370	55	305	554	Tex	13_real_integral,supplement	2\\pi i \\cdot \\frac{1}{2i} = \\pi
+frame_000046.png	400	433	55	93	555	Tex	02_turning_numbers,supplement	2i
+frame_000046.png	463	497	55	75	556	Tex	02_turning_numbers,supplement	3
+frame_000046.png	527	563	55	178	557	Tex	02_turning_numbers,supplement	3 + 2i
+frame_000046.png	593	627	55	94	558	Tex	10_rigidity	3i
+frame_000046.png	657	694	55	154	559	Tex	02_turning_numbers,supplement	4 + i
+frame_000046.png	724	734	55	87	560	Tex	06_one_derivative	=
+frame_000046.png	787	895	55	313	561	Tex	13_real_integral,supplement	= \\frac{\\pi\\sqrt{2}}{2} = \\frac{\\pi}{\\sqrt{2}}
+frame_000046.png	925	974	55	307	562	Tex	06_one_derivative	= \\times\\,(2 + 2\\,i)
+frame_000047.png	135	217	55	459	563	Tex	11_counting,supplement	L = \\max_{|z|=1} |f'(z)| = 8
+frame_000047.png	247	281	55	87	564	Tex	13_real_integral,supplement	R
+frame_000047.png	311	345	55	87	565	Tex	07_one_point,10_rigidity,supplement	U
+frame_000047.png	375	479	55	411	566	Tex	13_real_integral,supplement	\\Big|\\frac{1}{1+z^4}\\Big| \\le \\frac{1}{R^4 - 1}
+frame_000047.png	508	622	55	709	567	Tex	13_real_integral,supplement	\\Big|\\int_{\\mathrm{arc}}\\Big| \\le \\pi R \\cdot \\frac{1}{R^2 - 1} = \\frac{\\pi R}{R^2 - 1}
+frame_000047.png	652	766	55	709	568	Tex	13_real_integral,supplement	\\Big|\\int_{\\mathrm{arc}}\\Big| \\le \\pi R \\cdot \\frac{1}{R^4 - 1} = \\frac{\\pi R}{R^4 - 1}
+frame_000047.png	795	838	55	131	569	Tex	08_loop_sums,supplement	\\Delta z_k
+frame_000047.png	868	917	55	299	570	Tex	supplement	\\Gamma(4) = 3! = 
+frame_000048.png	135	183	55	338	571	Tex	05_gallery	\\Gamma(4) = 3! = 6
+frame_000048.png	213	262	55	299	572	Tex	supplement	\\Gamma(5) = 4! = 
+frame_000048.png	292	341	55	363	573	Tex	05_gallery	\\Gamma(5) = 4! = 24
+frame_000048.png	371	420	55	339	574	Tex	05_gallery,supplement	\\Gamma(n+1) = n!
+frame_000048.png	450	498	55	140	575	Tex	05_gallery,supplement	\\Gamma(z)
+frame_000048.png	528	632	55	392	576	Tex	14_continuation,supplement	\\Gamma(z) = \\frac{\\Gamma(z+1)}{z}
+frame_000048.png	662	776	55	520	577	Tex	14_continuation,supplement	\\Gamma(z) = \\int_0^\\infty t^{z-1} e^{-t}\\,dt
+frame_000048.png	806	909	55	486	578	Tex	13_real_integral,supplement	\\Rightarrow\\; \\Big|\\frac{1}{1+z^2}\\Big| \\le \\frac{1}{R^2 - 1}
+frame_000048.png	939	973	55	307	579	Tex	13_real_integral	\\approx -0.35355\\,i
+frame_000049.png	135	190	55	257	580	Tex	supplement	\\cos^2(3i) \\approx 
+frame_000049.png	220	275	55	407	581	Tex	10_rigidity	\\cos^2(3i) \\approx 101.36
+frame_000049.png	305	416	55	210	582	Tex	12_residues,supplement	\\frac{1}{(z-p)^2}
+frame_000049.png	446	549	55	184	583	Tex	01_the_bump,15_closing,supplement	\\frac{1}{1 + x^2}
+frame_000049.png	579	679	55	247	584	Tex	14_continuation,supplement	\\frac{1}{1 - 1.2} = 
+frame_000049.png	709	812	55	184	585	Tex	13_real_integral,supplement	\\frac{1}{1+x^4}
+frame_000049.png	842	941	55	209	586	Tex	supplement	\\frac{1}{1-2} = 
+frame_000050.png	135	234	55	274	587	Tex	14_continuation	\\frac{1}{1-2} = -1
+frame_000050.png	264	375	55	459	588	Tex	13_real_integral,supplement	\\frac{1}{4\\sqrt{2}}\\ln\\frac{x^2+\\sqrt{2}x+1}{x^2-\\sqrt{2}x+1}
+frame_000050.png	405	514	55	153	589	Tex	12_residues,supplement	\\frac{1}{z-p}
+frame_000050.png	544	658	55	222	590	Tex	12_residues,supplement	\\frac{f'}{f} = \\frac{-1}{z}
+frame_000050.png	687	801	55	194	591	Tex	12_residues,supplement	\\frac{f'}{f} = \\frac{1}{z}
+frame_000050.png	831	945	55	194	592	Tex	12_residues,supplement	\\frac{f'}{f} = \\frac{2}{z}
+frame_000051.png	135	248	55	257	593	Tex	12_residues,supplement	\\frac{f'}{f} \\approx \\frac{-n}{z - p}
+frame_000051.png	278	392	55	271	594	Tex	12_residues,supplement	\\frac{f'}{f} \\approx \\frac{m}{z - z_0}
+frame_000051.png	422	526	55	154	595	Tex	09_boundary,supplement	\\frac{f(z)}{z-a}
+frame_000051.png	556	660	55	621	596	Tex	09_boundary,supplement	\\frac{f(z)}{z-a} = \\frac{f(a)}{z-a} + \\frac{f(z)-f(a)}{z-a}
+frame_000051.png	690	794	55	392	597	Tex	06_one_derivative,supplement	\\frac{f(z_0 + h) - f(z_0)}{h}
+frame_000051.png	823	939	55	456	598	Tex	12_residues,supplement	\\frac{g(z)}{h(z)} \\approx \\frac{g(p)}{h'(p)\\,(z-p)}
+frame_000052.png	135	234	55	458	599	Tex	06_one_derivative,supplement	\\frac{u_y + i\\,v_y}{i} = v_y - i\\,u_y
+frame_000052.png	264	376	55	220	600	Tex	05_gallery,supplement	\\frac{z-1}{(z+1)^2}
+frame_000052.png	406	525	55	523	601	Tex	07_one_point,supplement	\\frac{|g(h)|\\,|h|^2}{|h|} \\le M\\,|h| \\to 0
+frame_000052.png	555	663	55	226	602	Tex	07_one_point,supplement	\\frac{|h|^2}{h} = \\bar h
+frame_000052.png	693	727	55	78	603	Tex	08_loop_sums,supplement	\\gamma
+frame_000052.png	757	870	55	734	604	Tex	13_real_integral,supplement	\\int_{-\\infty}^{\\infty} \\frac{dx}{1+x^2} = \\arctan x \\,\\Big|_{-\\infty}^{\\infty} = \\pi
+frame_000053.png	135	239	55	472	605	Tex	15_closing,supplement	\\lim_{h \\to 0}\\frac{f(z_0 + h) - f(z_0)}{h}
+frame_000053.png	268	374	55	264	606	Tex	13_real_integral,supplement	\\mathrm{Im}\\,p = \\frac{\\sqrt{2}}{2}
+frame_000053.png	404	492	55	283	607	Tex	13_real_integral,supplement	\\mathrm{Res}_p = -\\frac{p}{4}
+frame_000053.png	522	628	55	771	608	Tex	13_real_integral,supplement	\\mathrm{Res}_{p_1} + \\mathrm{Res}_{p_2} = -\\frac{p_1 + p_2}{4} = -\\frac{i\\sqrt{2}}{4}
+frame_000053.png	658	761	55	640	609	Tex	12_residues	\\mathrm{Res}_{z=i}\\,\\frac{1}{1+z^2} = \\frac{1}{2i} = -0.5\\,i
+frame_000053.png	791	894	55	374	610	Tex	09_boundary,supplement	\\mathrm{bump} = \\frac{1}{1 + z^2}
+frame_000053.png	924	966	55	328	611	Tex	12_residues,supplement	\\mathrm{residue} = a_{-1}
+frame_000054.png	135	245	55	584	612	Tex	08_loop_sums,supplement	\\oint (a + b\\,(z - z_0))\\,dz = 0
+frame_000054.png	275	388	55	544	613	Tex	09_boundary,supplement	\\oint \\frac{f(z)}{z-a}\\,dz = 2\\pi i\\, f(a)
+frame_000054.png	418	539	55	626	614	Tex	12_residues,supplement	\\oint f(z)\\,dz = 2\\pi i \\sum_k \\mathrm{Res}_{p_k} f
+frame_000054.png	568	689	55	588	615	Tex	08_loop_sums,supplement	\\oint f(z)\\,dz \\approx \\sum_k f(z_k)\\,\\Delta z_k
+frame_000054.png	719	841	55	389	616	Tex	08_loop_sums,supplement	\\oint_{\\gamma} f(z)\\,dz = 0
+frame_000054.png	871	905	55	117	617	Tex	13_real_integral,supplement	\\pi R
+frame_000054.png	935	968	55	144	618	Tex	05_gallery,10_rigidity,supplement	\\sin z
+frame_000055.png	135	183	55	218	619	Tex	10_rigidity,supplement	\\sin(1/z)
+frame_000055.png	213	262	55	231	620	Tex	supplement	\\sin(3i) \\approx 
+frame_000055.png	292	341	55	359	621	Tex	05_gallery	\\sin(3i) \\approx 10.0\\,i
+frame_000055.png	371	420	55	207	622	Tex	supplement	\\sin(i) \\approx 
+frame_000055.png	450	498	55	335	623	Tex	05_gallery	\\sin(i) \\approx 1.18\\,i
+frame_000055.png	528	575	55	431	624	Tex	10_rigidity,supplement	\\sin^2 x + \\cos^2 x = 1
+frame_000055.png	605	660	55	251	625	Tex	supplement	\\sin^2(3i) \\approx 
+frame_000055.png	690	745	55	429	626	Tex	10_rigidity	\\sin^2(3i) \\approx -100.36
+frame_000055.png	775	816	55	100	627	Tex	14_continuation,supplement	\\sqrt{z}
+frame_000055.png	846	946	55	324	628	Tex	05_gallery,supplement	\\tan z = \\frac{\\sin z}{\\cos z}
+frame_000056.png	135	167	55	277	629	Tex	05_gallery,supplement	\\tan z \\to -i
+frame_000056.png	198	231	55	249	630	Tex	05_gallery,supplement	\\tan z \\to i
+frame_000056.png	261	310	55	390	631	Tex	supplement	\\tan(0.4 + 12i) \\approx 
+frame_000056.png	340	389	55	567	632	Tex	05_gallery	\\tan(0.4 + 12i) \\approx 1.0000\\,i
+frame_000056.png	419	468	55	380	633	Tex	supplement	\\tan(0.4 - 12i) \\approx 
+frame_000056.png	498	547	55	585	634	Tex	05_gallery	\\tan(0.4 - 12i) \\approx -1.0000\\,i
+frame_000056.png	576	621	55	319	635	Tex	09_boundary,supplement	\\theta = \\mathrm{its}\\;\\mathrm{angle}
+frame_000056.png	651	676	55	103	636	Tex	03_two_planes,supplement	\\times e
+frame_000056.png	714	766	55	197	637	Tex	06_one_derivative,supplement	\\times\\, f'(z_0)
+frame_000056.png	796	847	55	233	638	Tex	06_one_derivative,supplement	\\to\\, f'(z_0)
+frame_000056.png	877	977	55	368	639	Tex	supplement	\\zeta(-1) = -\\frac{1}{12} \\approx 
+frame_000057.png	135	234	55	595	640	Tex	14_continuation	\\zeta(-1) = -\\frac{1}{12} \\approx -0.083333
+frame_000057.png	264	313	55	129	641	Tex	05_gallery,supplement	\\zeta(s)
+frame_000057.png	343	443	55	556	642	Tex	05_gallery,supplement	\\zeta(s) = 1 + \\frac{1}{2^s} + \\frac{1}{3^s} + \\cdots
+frame_000057.png	473	495	55	76	643	Tex	09_boundary	a
+frame_000057.png	536	578	55	1264	644	Tex	09_boundary	c_0 \\approx 1.000,\\; c_1 \\approx 0.000,\\; c_2 \\approx -1.000,\\; c_3 \\approx 0.000,\\; c_4 \\approx 1.000
+frame_000057.png	608	698	55	370	645	Tex	supplement	c_1 = \\frac{\\mathrm{average}}{r} \\approx 
+frame_000057.png	727	817	55	496	646	Tex	09_boundary	c_1 = \\frac{\\mathrm{average}}{r} \\approx 0.000
+frame_000057.png	847	936	55	370	647	Tex	supplement	c_2 = \\frac{\\mathrm{average}}{r^2} \\approx 
+frame_000058.png	135	224	55	524	648	Tex	09_boundary	c_2 = \\frac{\\mathrm{average}}{r^2} \\approx -1.000
+frame_000058.png	254	354	55	810	649	Tex	09_boundary,supplement	c_n = \\frac{1}{r^n}\\cdot \\mathrm{average}\\;\\mathrm{of}\\; f(a + r e^{i\\theta})\\, e^{-i n \\theta}
+frame_000058.png	384	420	55	88	650	Tex	05_gallery,supplement	e^z
+frame_000058.png	449	486	55	167	651	Tex	03_two_planes,supplement	e^z \\ne 0
+frame_000058.png	516	574	55	616	652	Tex	10_rigidity,supplement	e^{-1/x}\\ (x > 0), \\qquad 0\\ (x \\le 0)
+frame_000058.png	603	647	55	174	653	Tex	supplement	e^{2\\pi i} = 
+frame_000058.png	677	724	55	637	654	Tex	03_two_planes	e^{2\\pi i} = 1.000000 + 0.000000i
+frame_000058.png	754	797	55	272	655	Tex	03_two_planes,supplement	e^{z + 2\\pi i} = e^z
+frame_000058.png	827	876	55	215	656	Tex	12_residues,supplement	f = 1/z
+frame_000058.png	906	950	55	280	657	Tex	06_one_derivative,supplement	f = u + i\\,v
+frame_000059.png	135	179	55	166	658	Tex	12_residues,supplement	f = z
+frame_000059.png	209	262	55	182	659	Tex	12_residues,supplement	f = z^2
+frame_000059.png	292	343	55	523	660	Tex	07_one_point,supplement	f'(z) = 2z, \\quad f'(0) = 0
+frame_000059.png	373	486	55	567	661	Tex	09_boundary,supplement	f(a) = \\frac{1}{2\\pi i}\\oint \\frac{f(z)}{z-a}\\,dz
+frame_000059.png	516	634	55	705	662	Tex	09_boundary,supplement	f(a) = \\frac{1}{2\\pi}\\int_0^{2\\pi} f(a + r e^{i\\theta})\\,d\\theta
+frame_000059.png	664	713	55	134	663	Tex	03_two_planes,supplement	f(z)
+frame_000059.png	743	792	55	291	664	Tex	05_gallery,supplement	f(z) = \\Gamma(z)
+frame_000059.png	821	925	55	337	665	Tex	04_reading_color,supplement	f(z) = \\frac{1}{1 + z^2}
+frame_000060.png	135	234	55	235	666	Tex	03_two_planes,04_reading_color,08_loop_sums,supplement	f(z) = \\frac{1}{z}
+frame_000060.png	264	365	55	683	667	Tex	12_residues,supplement	f(z) = \\frac{a_{-2}}{(z-p)^2} + \\frac{a_{-1}}{z-p} + h(z)
+frame_000060.png	395	506	55	375	668	Tex	05_gallery,supplement	f(z) = \\frac{z-1}{(z+1)^2}
+frame_000060.png	536	585	55	296	669	Tex	05_gallery,supplement	f(z) = \\sin z
+frame_000060.png	615	664	55	243	670	Tex	03_two_planes,05_gallery,supplement	f(z) = e^z
+frame_000060.png	694	743	55	227	671	Tex	04_reading_color,08_loop_sums,supplement	f(z) = z
+frame_000060.png	773	828	55	243	672	Tex	03_two_planes,04_reading_color,06_one_derivative,supplement	f(z) = z^2
+frame_000060.png	858	913	55	317	673	Tex	05_gallery,supplement	f(z) = z^3 - 1
+frame_000061.png	135	190	55	243	674	Tex	11_counting,supplement	f(z) = z^8
+frame_000061.png	220	275	55	485	675	Tex	07_one_point,supplement	f(z) = |z|^2 = x^2 + y^2
+frame_000061.png	305	354	55	457	676	Tex	08_loop_sums,supplement	f(z) \\approx a + b\\,(z - z_0)
+frame_000061.png	384	432	55	150	677	Tex	08_loop_sums,supplement	f(z_k)
+frame_000061.png	462	511	55	241	678	Tex	08_loop_sums,supplement	f(z_k)\\,\\Delta z_k
+frame_000061.png	541	596	55	740	679	Tex	12_residues,supplement	g = 1,\\quad h = 1 + z^2,\\quad h'(z) = 2z
+frame_000061.png	626	661	55	77	680	Tex	06_one_derivative	h
+frame_000061.png	690	802	55	778	681	Tex	13_real_integral,supplement	h = 1 + z^4:\\quad \\mathrm{Res}_p = \\frac{1}{h'(p)} = \\frac{1}{4p^3}
+frame_000061.png	832	883	55	252	682	Tex	12_residues,supplement	h'(i) = 2i
+frame_000062.png	135	250	55	940	683	Tex	12_residues,supplement	h(p) = 0,\\quad h'(p) \\ne 0:\\qquad \\mathrm{Res}_p \\frac{g}{h} = \\frac{g(p)}{h'(p)}
+frame_000062.png	280	369	55	392	684	Tex	12_residues,supplement	h(z) = 1 + \\frac{z-p}{2}
+frame_000062.png	398	431	55	67	685	Tex	02_turning_numbers,03_two_planes,supplement	i
+frame_000062.png	462	495	55	230	686	Tex	02_turning_numbers,supplement	i \\cdot i = -1
+frame_000062.png	525	556	55	79	687	Tex	12_residues	p
+frame_000062.png	589	638	55	356	688	Tex	11_counting,supplement	p(z) = z^n + \\cdots
+frame_000062.png	668	776	55	496	689	Tex	13_real_integral,supplement	p^4 = -1 \\;\\Rightarrow\\; \\frac{1}{p^3} = -p
+frame_000062.png	806	837	55	94	690	Tex	13_real_integral,supplement	p_1
+frame_000062.png	870	908	55	199	691	Tex	13_real_integral,supplement	p_1 + p_2
+frame_000062.png	937	968	55	95	692	Tex	13_real_integral,supplement	p_2
+frame_000063.png	135	164	55	95	693	Tex	06_one_derivative,supplement	u_x
+frame_000063.png	198	238	55	220	694	Tex	06_one_derivative,supplement	u_x + i\\,v_x
+frame_000063.png	268	304	55	201	695	Tex	06_one_derivative,supplement	u_x = v_y
+frame_000063.png	333	369	55	479	696	Tex	supplement	u_x = v_y \\qquad v_x = -u_y
+frame_000063.png	399	435	55	95	697	Tex	06_one_derivative,supplement	u_y
+frame_000063.png	465	494	55	91	698	Tex	06_one_derivative,supplement	v_x
+frame_000063.png	528	564	55	229	699	Tex	06_one_derivative,supplement	v_x = -u_y
+frame_000063.png	594	630	55	91	700	Tex	06_one_derivative,supplement	v_y
+frame_000063.png	660	703	55	424	701	Tex	06_one_derivative,supplement	x + i\\,y \\mapsto x + 2i\\,y
+frame_000063.png	732	775	55	389	702	Tex	06_one_derivative,supplement	x + i\\,y \\mapsto x - i\\,y
+frame_000063.png	804	826	55	75	703	Tex	03_two_planes,06_one_derivative,14_continuation,supplement	z
+frame_000063.png	868	915	55	488	704	Tex	14_continuation,supplement	z + z^2 + z^4 + z^8 + \\cdots
+frame_000064.png	135	191	55	737	705	Tex	09_boundary,supplement	z = a + r e^{i\\theta}:\\quad dz = i\\,(z-a)\\,d\\theta
+frame_000064.png	221	263	55	275	706	Tex	06_one_derivative,supplement	z = x + i\\,y
+frame_000064.png	293	335	55	267	707	Tex	02_turning_numbers,supplement	z = x + iy
+frame_000064.png	365	408	55	190	708	Tex	07_one_point,supplement	z \\mapsto z^2
+frame_000064.png	438	482	55	165	709	Tex	05_gallery,supplement	z^3 - 1
+frame_000064.png	512	555	55	109	710	Tex	08_loop_sums,supplement	z^{-1}
+frame_000064.png	585	629	55	110	711	Tex	08_loop_sums,supplement	z^{-2}
+frame_000064.png	658	702	55	110	712	Tex	08_loop_sums,supplement	z^{-3}
+frame_000064.png	732	775	55	90	713	Tex	08_loop_sums,supplement	z^{0}
+frame_000064.png	805	849	55	89	714	Tex	08_loop_sums,supplement	z^{1}
+frame_000064.png	879	922	55	90	715	Tex	08_loop_sums,supplement	z^{2}
+frame_000065.png	135	175	55	258	716	Tex	06_one_derivative,supplement	z_0 = 1 + i
+frame_000065.png	205	261	55	200	717	Tex	06_one_derivative,supplement	z_0^2 = 2i
+frame_000065.png	291	320	55	89	718	Tex	08_loop_sums,supplement	z_k
+frame_000065.png	354	408	55	330	719	Tex	supplement	|1 + i| = \\sqrt{2} \\approx 
+frame_000065.png	438	492	55	456	720	Tex	02_turning_numbers	|1 + i| = \\sqrt{2} \\approx 1.414
+frame_000065.png	522	577	55	235	721	Tex	13_real_integral,supplement	|z^2| = R^2
+frame_000065.png	607	662	55	641	722	Tex	03_two_planes,supplement	|z^2| = |z|^2, \\quad \\arg z^2 = 2 \\arg z
+frame_000065.png	692	747	55	557	723	Tex	11_counting,supplement	|z^5 + 1| \\le 2 < 3 = |-3z|
+frame_000065.png	777	819	55	1114	724	Mono	supplement	    a = f(loop(k / n)); b = f(loop((k + 1) / n))
+frame_000065.png	849	891	55	1436	725	Mono	supplement	    if L * step >= |a|: refuse    # L bounds |f'| on the loop
+frame_000065.png	921	964	55	1067	726	Mono	supplement	    turns += angle(b / a)         # in (−π, π]
+frame_000066.png	135	164	55	293	727	Mono	11_counting	0000000000
+frame_000066.png	198	227	55	537	728	Mono	11_counting	00000000000000000000
+frame_000066.png	261	304	55	1114	729	Mono	11_counting	a = f(loop(k / n)); b = f(loop((k + 1) / n))
+frame_000066.png	334	363	55	384	730	Mono	11_counting,supplement	for k in 0..n:
+frame_000066.png	397	439	55	1436	731	Mono	11_counting	if L * step >= |a|: refuse    # L bounds |f'| on the loop
+frame_000066.png	469	512	55	1067	732	Mono	11_counting	turns += angle(b / a)         # in (−π, π]
+frame_000066.png	542	584	55	1415	733	Mono	11_counting,supplement	turns /= 2π                       # zeros − poles inside
+frame_000066.png	614	656	55	1075	734	Mono	11_counting,supplement	turns = 0; step = (length of the loop) / n

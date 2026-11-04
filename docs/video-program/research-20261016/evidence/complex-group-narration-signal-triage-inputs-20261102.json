@@ -1,0 +1,52 @@
+{
+  "files": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/research-20261016/evidence/complex-group-narration-signal-triage-20261102.py",
+      "sha256": "e5eb69908f9b8b77ef82b872d65880ff6ea8d53f8de8e76f02744bef08c0970b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/complex_analysis_visual/script.tsv",
+      "sha256": "5722bc1c2b1844bfc7be96ee63d6b3c847f1448a98fd94486d89108da320b931"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/additional-phase-examples-takes-receipt01.json",
+      "sha256": "77ee2743cb6df1be6c9aafe24a1f79fa71ce2c83b4357d84e9523f3ae62a795b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/native-review-units01.json",
+      "sha256": "a3ffc5f6fc49e9260087ba41eb46f375b7e8e63ed6d9cc9543fe8932e84a0a57"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/opening-takes-receipt01.json",
+      "sha256": "3e7ab8121126840ab9fe0b5a7b7207d1c8c64e441f78e8447bd90acd3f308e8e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/raw/additional-phase-examples-take-01.wav",
+      "sha256": "b5761f8ff33442e1a2a9a8c5f73469909a3a9d15866161cead119ae7deb83ea8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/raw/additional-phase-examples-take-02.wav",
+      "sha256": "1ec3152d16478335c522481d9e6a282fedd7e6f8005938daa8e570405dba2258"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/raw/opening-take-01.wav",
+      "sha256": "4e2a2652ecc37d3b5516e194c5829aa4921aa7373496762097a017f4d343be15"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/raw/opening-take-02.wav",
+      "sha256": "f218918e52e8a9098d861a8313e984f053fee720eeddd0515a019d68debb0bcb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/raw/remaining-draft-take-01.wav",
+      "sha256": "9fd6d8073ca6b64a26dad98827ea4d19757f0bc20154af55cff71f71150b3da7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/raw/remaining-draft-take-02.wav",
+      "sha256": "473156495372647bf9f2073e761ea97489c905d0bf83ae0a97075b3fd9661865"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/remaining-draft-takes-receipt01.json",
+      "sha256": "6b989038cd8f680c3b283825197dac067edf871937d157e6500acec3f292bc1f"
+    }
+  ]
+}

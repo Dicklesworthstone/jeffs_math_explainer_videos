@@ -1,0 +1,1581 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/turning.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/turning.rs
+@@ -51,6 +51,14 @@
+ 
+ /// The right-hand column's x.
+ pub const COLUMN: f64 = 4.6;
++/// The radius of the arc that marks 1 + i's angle (02_4 – 02_6), in plane units.
++pub const ANGLE_ARC_R: f64 = 0.45;
++/// How long a gold mark takes to come and to go (02_5, 02_6), seconds.
++pub const PULSE: (f64, f64) = (0.25, 0.4);
++/// How long the recalled eighth of a turn takes to sweep (02_5), seconds.
++pub const SWEEP_S: f64 = 0.7;
++/// How far under a readout its gold mark runs, scene units.
++pub const UNDERLINE_GAP: f64 = 0.06;
+ 
+ /// The grid's lines (x, y in [−1, 1], step ½) and the F glyph's two
+ /// strokes, as plane points; the glyph is asymmetric so a turn shows.
+@@ -107,6 +115,44 @@
+     (0..=48)
+         .map(|k| C::polar(r, a0 + (a1 - a0) * f64::from(k) / 48.0))
+         .collect()
++}
++
++/// A gold underline under each of `rows`, in and out again: the readouts the voice is on.
++fn underline_pulse(stage: &mut Stage<'_>, rows: &[Mob]) -> fmn::Result<()> {
++    let mut lines = Vec::with_capacity(rows.len());
++    for &m in rows {
++        let (at, w, h) = (stage.get_center(m), stage.get_width(m), stage.get_height(m));
++        let y = at[1] - h / 2.0 - UNDERLINE_GAP;
++        let line = polyline(vec![v(at[0] - w / 2.0, y), v(at[0] + w / 2.0, y)])
++            .style(line_style(hero(), 4.0))
++            .build();
++        lines.push(stage.arena_mut().add(line));
++    }
++    fade_in_all(stage, &lines, PULSE.0)?;
++    fade_out_all(stage, &lines, PULSE.1)
++}
++
++/// A gold arc of radius `r` about 0 swept from angle 0 to `to` in the plane `p`, then gone: the
++/// turn acted out again, leaving what was on screen as it was.
++fn sweep_arc(stage: &mut Stage<'_>, p: Plane, r: f64, to: f64, rt: f64) -> fmn::Result<()> {
++    let share = stage.add_value_tracker(0.0);
++    let swept = p.path(stage, &arc(r, 0.0, to * 1e-3), hero(), 7.0)?;
++    stage.add_to_scene(swept)?;
++    let anchor = stage.arena_mut().add(VMobject::new());
++    stage.add_to_scene(anchor)?;
++    stage.add_updater(
++        anchor,
++        move |a, _| {
++            let th = to * value(a, share).max(1e-3);
++            let pts: Vec<Vec3> = arc(r, 0.0, th).into_iter().map(|z| p.p(z)).collect();
++            let _ = a.set_points(swept, polyline(pts).build().points());
++        },
++        true,
++    )?;
++    stage.play(tween(share, 1.0, rt)?)?;
++    stage.clear_updaters(anchor, true);
++    stage.remove_from_scene(anchor);
++    fade_out_all(stage, &[swept], PULSE.1)
+ }
+ 
+ /// The grid and glyph on screen: each mob with the plane points it was
+@@ -360,7 +406,7 @@
+             &[],
+             v(COLUMN, 1.2),
+         )?;
+-        let angle_arc = tp.path(stage, &arc(0.45, 0.0, TURN_BY.arg()), derivative(), 3.0)?;
++        let angle_arc = tp.path(stage, &arc(ANGLE_ARC_R, 0.0, TURN_BY.arg()), derivative(), 3.0)?;
+         let angle_says = kit.text(
+             stage,
+             &format!("{ANGLE}{}{DEGREE}", fact("turn.one_plus_i.angle_deg")?),
+@@ -381,11 +427,19 @@
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "02_5")?;
+         fade_out_all(stage, &[names], 0.3)?;
++        // the voice recalls the turn just made: its angle is swept again, on what is already
++        // on screen, so nothing here answers the question that follows
++        line.wait_for(stage, "an eighth of a turn")?;
++        sweep_arc(stage, tp, ANGLE_ARC_R, TURN_BY.arg(), SWEEP_S)?;
++        underline_pulse(stage, &[angle_says])?;
+         let asked = predict(&kit, stage, &line, &ASK, v(COLUMN, -1.0))?;
+ 
+         // 02_6: a quarter turn and a stretch of 2: (1 + i)² = 2i
+         let line = say(&kit, stage, "02_6")?;
+-        fade_out_all(stage, &asked, 0.3)?;
++        // the question goes, and with it the caption up since 02_4: the voice now uses the rows
++        let mut gone = asked;
++        gone.extend(stretch_turn);
++        fade_out_all(stage, &gone, 0.3)?;
+         let rt = line.until(stage, "So one plus i", 2.5)?;
+         grid.multiply(stage, tp, TURN_BY, TURN_BY, share, rt)?;
+         let total_turn = kit.text(
+@@ -419,6 +473,13 @@
+         line.wait_sentence(stage, 2)?;
+         let rule = kit.text(stage, RULE, 24.0, hero(), v(COLUMN, -2.7))?;
+         fade_in_all(stage, &[rule], 0.4)?;
++        // the rule read off the rows: the two lengths, then the two angles
++        underline_pulse(stage, &[length, total_stretch])?;
++        line.wait_for(stage, "and angles add")?;
++        underline_pulse(stage, &[angle_says, total_turn])?;
++        // the moves the voice now names are the arrows: the grid and the F make room for them
++        line.wait_for(stage, "Every complex derivative")?;
++        fade_out_all(stage, &grid.mobs(), 0.5)?;
+         wait_until(stage, line.end())?;
+         kit.music_breath(stage, 2.0)?;
+         let mut all = vec![
+@@ -434,8 +495,6 @@
+             boxed,
+             rule,
+         ];
+-        all.extend(stretch_turn);
+-        all.extend(grid.mobs());
+         all.extend(frame);
+         fade_out_all(stage, &all, 0.6)?;
+         kit.finish(stage)
+@@ -556,4 +615,130 @@
+         assert!(clear(W2_NAME_AT, TURN_BY * TURN_BY));
+         assert!(turn_plane().contains(W2_NAME_AT));
+     }
+-}
++
++    /// The source between two markers, with the tests left off. Read from the source because
++    /// no render can run here; what it does to the pixels is for the pictures to show.
++    fn between<'a>(source: &'a str, from: &str, to: &str) -> &'a str {
++        let code = &source[..source.find("#[cfg(test)]\nmod tests").unwrap()];
++        let start = code.find(from).unwrap_or_else(|| panic!("{from}"));
++        let end = start + code[start..].find(to).unwrap_or_else(|| panic!("{to}"));
++        &code[start..end]
++    }
++
++    /// 02_5 acts out the eighth of a turn the voice recalls, using only the angle already on
++    /// screen: the answer to its question stays hidden until the question's window is over.
++    #[test]
++    fn the_recalled_turn_moves_and_does_not_answer_the_question() {
++        let beat = between(
++            include_str!("turning.rs"),
++            "say(&kit, stage, \"02_5\")",
++            "let asked = predict(",
++        );
++        let hook = beat.find("line.wait_for(stage, \"an eighth of a turn\")?;").unwrap();
++        let sweep = beat
++            .find("sweep_arc(stage, tp, ANGLE_ARC_R, TURN_BY.arg(), SWEEP_S)?;")
++            .unwrap();
++        assert!(hook < sweep);
++        for answer in ["TURN_BY * TURN_BY", "grid.multiply", "w2_arrow", "total_", "SQUARE_TEX"] {
++            assert!(!beat.contains(answer), "{answer} answers the question early");
++        }
++        // the arc swept is the arc drawn, and it is the 45 degrees the facts state
++        assert_eq!(get("turn.one_plus_i.angle_deg"), "45");
++        assert!((TURN_BY.arg() - PI / 4.0).abs() < 1e-12);
++        assert!(turn_plane().contains(C::polar(ANGLE_ARC_R, TURN_BY.arg())));
++        // a beat, not a scene: the fixed part stays short so a brisk take still reaches the
++        // question's card on its words (`predict` waits for the last sentence, not for this)
++        const { assert!(SWEEP_S + PULSE.1 + PULSE.0 + PULSE.1 < 2.0) };
++    }
++
++    /// 02_6 stops being a still picture: the rule is read off the rows it names, and the two
++    /// arrows stand alone for the last sentence. Nothing that leaves here fades twice.
++    #[test]
++    fn the_last_beat_reads_the_rule_off_the_rows_and_ends_on_the_arrows() {
++        let source = include_str!("turning.rs");
++        let beat = between(source, "say(&kit, stage, \"02_6\")", "kit.finish(stage)");
++        let rule = beat.find("fade_in_all(stage, &[rule], 0.4)?;").unwrap();
++        let lengths = beat.find("underline_pulse(stage, &[length, total_stretch])?;").unwrap();
++        let hook = beat.find("line.wait_for(stage, \"and angles add\")?;").unwrap();
++        let angles = beat
++            .find("underline_pulse(stage, &[angle_says, total_turn])?;")
++            .unwrap();
++        let last = beat
++            .find("line.wait_for(stage, \"Every complex derivative\")?;")
++            .unwrap();
++        let cleared = beat.find("fade_out_all(stage, &grid.mobs(), 0.5)?;").unwrap();
++        let closing = beat.find("kit.music_breath(stage, 2.0)?;").unwrap();
++        assert!(rule < lengths && lengths < hook && hook < angles && angles < last);
++        assert!(last < cleared && cleared < closing);
++        let ending = &beat[closing..];
++        for twice in ["grid.mobs()", "stretch_turn"] {
++            assert!(!ending.contains(twice), "{twice} fades twice");
++        }
++        assert!(ending.contains("w_arrow") && ending.contains("w2_arrow"));
++        // the caption from 02_4 goes as the answer starts
++        let head = &beat[..beat
++            .find("let rt = line.until(stage, \"So one plus i\", 2.5)?;")
++            .unwrap()];
++        assert!(head.contains("gone.extend(stretch_turn);") && head.contains("fade_out_all(stage, &gone, 0.3)?;"));
++    }
++
++    /// The sentence each hook names begins at this byte of the cue.
++    fn sentence_bytes(text: &str) -> Vec<usize> {
++        let mut out = vec![0];
++        for (i, c) in text.char_indices() {
++            if matches!(c, '.' | '?' | '!') && text[i + 1..].starts_with(' ') {
++                out.push(i + 2);
++            }
++        }
++        out
++    }
++
++    /// Every phrase and sentence hook in chapters 02 to 05 is one the voice really says, and
++    /// they run in the order it says them. A phrase the cue lacks fails the render; hooks out
++    /// of order land a picture on words already gone. Hooks read through a variable are left
++    /// to the tests beside them. No hook is a time: every moment is read from the words.
++    #[test]
++    fn every_hook_is_said_and_they_run_in_the_voices_order() {
++        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
++        for source in [
++            include_str!("turning.rs"),
++            include_str!("two_planes.rs"),
++            include_str!("reading_color.rs"),
++            include_str!("gallery.rs"),
++        ] {
++            let code = &source[..source.find("#[cfg(test)]\nmod tests").unwrap()];
++            let says: Vec<usize> = code
++                .match_indices("let line = say(&kit, stage, \"")
++                .map(|(at, _)| at)
++                .collect();
++            assert!(!says.is_empty());
++            for (k, &at) in says.iter().enumerate() {
++                let end = says.get(k + 1).copied().unwrap_or(code.len());
++                let body = &code[at..end];
++                let id = body.split('"').nth(1).unwrap();
++                let text = script.text(id).unwrap_or_else(|| panic!("{id}"));
++                let starts = sentence_bytes(text);
++                let mut hooks: Vec<(usize, usize)> = Vec::new();
++                for form in ["line.wait_for(stage, \"", "line.until(stage, \""] {
++                    for (place, _) in body.match_indices(form) {
++                        let phrase = body[place + form.len()..].split('"').next().unwrap();
++                        let byte = text.find(phrase).unwrap_or_else(|| panic!("{id}: {phrase}"));
++                        hooks.push((place, byte));
++                    }
++                }
++                let form = "line.wait_sentence(stage, ";
++                for (place, _) in body.match_indices(form) {
++                    let n = body[place + form.len()..].split(')').next().unwrap();
++                    if let Ok(n) = n.parse::<usize>() {
++                        let byte = *starts.get(n).unwrap_or_else(|| panic!("{id}: sentence {n}"));
++                        hooks.push((place, byte));
++                    }
++                }
++                hooks.sort_unstable();
++                for pair in hooks.windows(2) {
++                    assert!(pair[0].1 <= pair[1].1, "{id}: hooks out of the voice's order");
++                }
++            }
++        }
++    }
++}
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs
+@@ -33,7 +33,8 @@
+ pub const SQUARE_RULE_TEX: &str = r"|z^2| = |z|^2, \quad \arg z^2 = 2 \arg z";
+ pub const TURNS_LABEL: &str = "turns:";
+ pub const ASK: [&str; 1] = ["straight after z²?"];
+-pub const RAYS: [&str; 2] = ["real axis → positive ray", "imaginary axis → negative ray"];
++/// In the voice's own words: it says "the horizontal axis" and "the vertical axis".
++pub const RAYS: [&str; 2] = ["horizontal axis → positive ray", "vertical axis → negative ray"];
+ pub const KEPT: &str = "right angles kept, except at 0";
+ pub const TRADE: &str = "inside → outside, outside → inside";
+ pub const UNDEFINED: &str = "1/0 undefined";
+@@ -101,7 +102,7 @@
+ pub const TURNS_AT: [(f64, f64); 2] = [(-5.0, -4.2), (2.0, 2.8)];
+ pub const TURNS_Y: f64 = -2.65;
+ /// Where the radii of 03_2 are written: beside their circles, off both axes.
+-pub const RADIUS_AT: [C; 2] = [C::new(0.75, -0.62), C::new(0.62, -0.42)];
++pub const RADIUS_AT: [C; 2] = [C::new(0.8, -0.66), C::new(0.7, -0.5)];
+ /// Where the output's origin is named (03_4), in the gap the images leave around it.
+ pub const FOLD_NAME_AT: C = C::new(-0.09, -0.18);
+ /// The 1/0 card (03_5): outside the unit circle, with a leader back to the crossed-out 0.
+@@ -115,11 +116,63 @@
+ 
+ /// Where the one-line captions sit, under both frames.
+ pub const CAPTION_Y: f64 = -3.5;
++/// The 03_3 question: its countdown ring clear of the output's two axes, and the card itself
++/// between the "1" above it and the tick of −i below it, so it hides no mark of the scale.
++pub const ASK_AT: C = C::new(0.55, -0.65);
+ /// Where e^{2πi}'s computed value is carded in the output plane (03_7).
+ pub const LANDED_AT: C = C::new(0.0, 1.9);
+ 
+ /// The walk of 03_2: once around |z| = ½.
+ pub const WALK_R: f64 = 0.5;
++
++/// The one point that shows the rule of 03_2 before the walk: its length and angle on the left,
++/// the length squared and the angle doubled on the right. A rule's picture, so it carries the
++/// rule's own letters and no number the facts would have to pin.
++pub const RULE_LENGTH: f64 = 1.4;
++pub const RULE_ANGLE: f64 = PI / 6.0;
++/// The arcs that mark the two angles, in plane units.
++pub const RULE_ARC_R: f64 = 0.55;
++/// The rule's pieces as `SQUARE_RULE_TEX` writes them: input's, then output's.
++pub const RULE_LENGTH_TEX: [&str; 2] = [r"|z|", r"|z|^2"];
++pub const RULE_ANGLE_TEX: [&str; 2] = [r"\arg z", r"2 \arg z"];
++/// Where those are written: each length past its arrow's tip, each angle inside its arrow.
++pub const RULE_LENGTH_AT: [C; 2] = [C::new(1.5, 0.85), C::new(1.35, 1.75)];
++pub const RULE_ANGLE_AT: [C; 2] = [C::new(0.92, 0.25), C::new(0.82, 0.48)];
++/// How big those are written.
++pub const RULE_LABEL_SIZE: f64 = 22.0;
++
++/// The point of the rule's picture.
++pub fn rule_point() -> C {
++    C::polar(RULE_LENGTH, RULE_ANGLE)
++}
++
++/// An arc of radius `RULE_ARC_R` about 0, from angle 0 to `to`.
++pub fn rule_arc(to: f64) -> Vec<C> {
++    (0..=32)
++        .map(|k| C::polar(RULE_ARC_R, to * f64::from(k) / 32.0))
++        .collect()
++}
++
++/// How big the radii of 03_2 are written: they are spoken numbers.
++pub const RADIUS_SIZE: f64 = 24.0;
++
++/// The image of the walk of 03_2 at its share `t`, as the two laps it makes: the first half of
++/// the walk draws the first, the second half draws the second over it, so "twice" can be seen.
++/// Each lap has at least two points, because a polyline needs them.
++pub fn image_laps(t: f64) -> (Vec<C>, Vec<C>) {
++    let t = t.clamp(0.0, 1.0);
++    let share = |from: f64, to: f64| -> Vec<C> {
++        let (a, b) = (from, to.max(from + 1e-6));
++        let k = (((b - a) * 240.0).ceil() as usize).max(1);
++        (0..=k)
++            .map(|j| {
++                let z = C::polar(WALK_R, TAU * (a + (b - a) * j as f64 / k as f64));
++                z * z
++            })
++            .collect()
++    };
++    (share(0.0, t.min(0.5)), share(0.5, t.max(0.5)))
++}
+ 
+ /// The grid of 03_3: x and y in [−1, 1], step ½. Vertical lines first,
+ /// then horizontal, each as `n` + 1 points; the axes are the k = 2 lines.
+@@ -152,6 +205,16 @@
+ 
+ /// The points of 03_5's ticks on the unit circle.
+ pub const TICKS: [f64; 4] = [0.6, 2.0, 3.6, 5.0];
++/// The ring left where each tick would have stood: the size of its dot, scene units.
++pub const FLIP_RING: f64 = 0.1;
++/// How much of each flip arrow's ends is left to the ring and the dot, scene units.
++pub const FLIP_BUFF: f64 = 0.1;
++
++/// Where the tick at angle `th` would stand in the output plane, and where 1/z puts it.
++pub fn flip_chord(th: f64) -> (C, C) {
++    let z = C::polar(1.0, th);
++    (z, z.recip())
++}
+ 
+ /// The point that walks out and back along a ray in 03_5: its distance
+ /// from 0 over the walk's share `t`.
+@@ -370,13 +433,62 @@
+         line.wait_sentence(stage, 1)?;
+         let rule = kit.tex(stage, SQUARE_RULE_TEX, 28.0, hero(), &[], caption_at)?;
+         fade_in_all(stage, &[rule], 0.4)?;
++        // the planes are not left empty under the rule: one point shows it, length on these
++        // words and angle on the next, and all of it makes room as the walk starts
++        line.wait_for(stage, "squares each length")?;
++        let (rz, rw) = (rule_point(), rule_point() * rule_point());
++        let rays = [
++            Arrow::new(inp.p(ZERO), inp.p(rz))
++                .buff(0.0)
++                .thickness(4.0)
++                .color(input())
++                .build()?,
++            Arrow::new(out.p(ZERO), out.p(rw))
++                .buff(0.0)
++                .thickness(4.0)
++                .color(output())
++                .build()?,
++        ];
++        let mut shown_rule = Vec::with_capacity(8);
++        for ray in rays {
++            shown_rule.push(stage.arena_mut().add(ray));
++        }
++        for (k, p) in [inp, out].into_iter().enumerate() {
++            let color = if k == 0 { input() } else { output() };
++            shown_rule.push(kit.tex(
++                stage,
++                RULE_LENGTH_TEX[k],
++                RULE_LABEL_SIZE,
++                color,
++                &[],
++                p.p(RULE_LENGTH_AT[k]),
++            )?);
++        }
++        fade_in_all(stage, &shown_rule, 0.4)?;
++        line.wait_for(stage, "doubles each angle")?;
++        let mut angles = Vec::with_capacity(4);
++        for (k, (p, to)) in [(inp, rz.arg()), (out, rw.arg())].into_iter().enumerate() {
++            angles.push(p.path(stage, &rule_arc(to), hero(), 4.0)?);
++            angles.push(kit.tex(
++                stage,
++                RULE_ANGLE_TEX[k],
++                RULE_LABEL_SIZE,
++                hero(),
++                &[],
++                p.p(RULE_ANGLE_AT[k]),
++            )?);
++        }
++        fade_in_all(stage, &angles, 0.4)?;
++        shown_rule.extend(angles);
+         line.wait_sentence(stage, 2)?;
++        fade_out_all(stage, &shown_rule, 0.3)?;
+         let ring_in = inp.circle(stage, ZERO, WALK_R, hero(), 4.0)?;
+         let ring_out = out.circle(stage, ZERO, WALK_R * WALK_R, Palette::faint(), 2.0)?;
+         let walked = stage.add_value_tracker(0.0);
+         let w_in = dot(stage, inp.p(C::real(WALK_R)), 0.08, input());
+         let w_out = dot(stage, out.p(C::real(WALK_R * WALK_R)), 0.06, output());
+         let trail = curve(stage, &out, &[C::real(WALK_R * WALK_R); 2], output(), 4.0);
++        let second_lap = curve(stage, &out, &[C::real(WALK_R * WALK_R); 2], Palette::ink(), 4.0);
+         let anchor = stage.arena_mut().add(VMobject::new());
+         stage.add_to_scene(anchor)?;
+         stage.add_updater(
+@@ -386,14 +498,11 @@
+                 let z = C::polar(WALK_R, TAU * t);
+                 a.move_to(w_in, inp.p(z), ORIGIN);
+                 a.move_to(w_out, out.p(z * z), ORIGIN);
+-                let k = ((t * 240.0).ceil() as usize).max(1);
+-                let pts: Vec<Vec3> = (0..=k)
+-                    .map(|j| {
+-                        let z = C::polar(WALK_R, TAU * t * j as f64 / k as f64);
+-                        out.p(z * z)
+-                    })
+-                    .collect();
+-                let _ = a.set_points(trail, polyline(pts).build().points());
++                let (first, second) = image_laps(t);
++                for (m, lap) in [(trail, first), (second_lap, second)] {
++                    let pts: Vec<Vec3> = lap.into_iter().map(|w| out.p(w)).collect();
++                    let _ = a.set_points(m, polyline(pts).build().points());
++                }
+             },
+             true,
+         )?;
+@@ -405,14 +514,14 @@
+             kit.text(
+                 stage,
+                 &format!("{RADIUS}{}", fact("square.circle.in_radius")?),
+-                20.0,
++                RADIUS_SIZE,
+                 input(),
+                 inp.p(RADIUS_AT[0]),
+             )?,
+             kit.text(
+                 stage,
+                 &format!("{RADIUS}{}", fact("square.circle.out_radius")?),
+-                20.0,
++                RADIUS_SIZE,
+                 output(),
+                 out.p(RADIUS_AT[1]),
+             )?,
+@@ -442,7 +551,11 @@
+         fade_in_all(stage, &[ring_in, ring_out, w_in, w_out, trail], 0.4)?;
+         fade_in_all(stage, &[labels[0], labels[1], radii_said[0], radii_said[1]], 0.3)?;
+         let rt = (line.end() - stage.scene().time().to_f64()).max(3.0);
+-        stage.play(tween_linear(walked, 1.0, rt)?)?;
++        // two halves of one steady walk: the second lap's line comes only when it has a lap
++        stage.play(tween_linear(walked, 0.5, rt / 2.0)?)?;
++        stage.add_to_scene(second_lap)?;
++        stage.add_to_scene(w_out)?;
++        stage.play(tween_linear(walked, 1.0, rt / 2.0)?)?;
+         stage.clear_updaters(anchor, true);
+         for c in counts {
+             stage.clear_updaters(c, true);
+@@ -472,7 +585,7 @@
+         // 03_3: a grid: will the vertical lines stay straight after z²?
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "03_3")?;
+-        let mut gone = vec![rule, ring_in, ring_out, w_in, w_out, trail];
++        let mut gone = vec![rule, ring_in, ring_out, w_in, w_out, trail, second_lap];
+         gone.extend(radii_said);
+         gone.extend(labels);
+         gone.extend(finals);
+@@ -491,7 +604,7 @@
+             copies.push((curve(stage, &out, zs, color, 3.0), zs.clone()));
+         }
+         fade_in_all(stage, &in_lines, 0.5)?;
+-        let asked = predict(&kit, stage, &line, &ASK, out.p(C::new(0.0, 0.4)))?;
++        let asked = predict(&kit, stage, &line, &ASK, out.p(ASK_AT))?;
+ 
+         // 03_4: lines bend into parabolas; the axes fold; right angles are kept but at 0
+         let line = say(&kit, stage, "03_4")?;
+@@ -509,14 +622,9 @@
+         fade_in_all(stage, &axis_mobs, 0.3)?;
+         let rt = line.until(stage, "The horizontal axis lands", 1.5)?;
+         morph(stage, out, &axes, |z| z * z, rt)?;
+-        // the fold: both axes double back at the origin's image, which is named
+-        let fold = curve(
+-            stage,
+-            &out,
+-            &[C::new(0.0, -0.12), C::new(0.0, 0.12)],
+-            Palette::ink(),
+-            4.0,
+-        );
++        // the fold: both axes double back at the origin's image, which is named. A dot, since
++        // both folded axes lie along the real line and a stroke across it would be a third
++        let fold = dot(stage, out.p(ZERO), 0.06, Palette::ink());
+         let fold_name = kit.text(stage, "0", 18.0, Palette::ink(), out.p(FOLD_NAME_AT))?;
+         fade_in_all(stage, &[fold, fold_name], 0.2)?;
+         line.wait_sentence(stage, 3)?;
+@@ -612,6 +720,22 @@
+             fade_in_all(stage, &[b], 0.3)?;
+             ticks.extend([a, b]);
+         }
++        // the flip is performed: where each point would have stood on the right, a ring, and an
++        // arrow straight across the horizontal axis to where it lands
++        line.wait_for(stage, "each point flips")?;
++        let mut flips = Vec::with_capacity(2 * TICKS.len());
++        for (&th, &c) in TICKS.iter().zip(&colors) {
++            let (from, to) = flip_chord(th);
++            let ghost = out.circle(stage, from, FLIP_RING / out.unit(), c, 2.0)?;
++            let chord = Arrow::new(out.p(from), out.p(to))
++                .buff(FLIP_BUFF)
++                .thickness(3.0)
++                .color(c)
++                .build()?;
++            let chord = stage.arena_mut().add(chord);
++            fade_in_all(stage, &[ghost, chord], 0.2)?;
++            flips.extend([ghost, chord]);
++        }
+         line.wait_sentence(stage, 3)?;
+         let trade = kit.text(stage, TRADE, 22.0, Palette::ink(), caption_at)?;
+         fade_in_all(stage, &[trade], 0.4)?;
+@@ -636,6 +760,7 @@
+         gone.extend(cross);
+         gone.extend(circles);
+         gone.extend(ticks);
++        gone.extend(flips);
+         gone.extend(undefined);
+         gone.extend(in_frame);
+         gone.extend(in_scale);
+@@ -664,7 +789,7 @@
+         line.wait_sentence(stage, 1)?;
+         let radii = fact_list("exp.circle_radii")?;
+         let printed: Vec<&str> = fact("exp.circle_radii")?.split(',').collect();
+-        let mut steps = vec![rescaled];
++        let mut steps = Vec::new();
+         for (k, x) in [-1.0, 0.0, 1.0].into_iter().enumerate() {
+             let a = dot(stage, inp.p(C::real(x)), 0.08, input());
+             let b = dot(stage, out.p(C::real(radii[k])), 0.08, output());
+@@ -677,6 +802,8 @@
+         fade_in_all(stage, &[times_e], 0.3)?;
+         steps.push(times_e);
+         line.wait_sentence(stage, 2)?;
++        // a note on the windows, read while the frames arrive; it does not stay for the climb
++        fade_out_all(stage, &[rescaled], 0.3)?;
+         let (vertical, horizontal) = exp_lines(120);
+         let image = |zs: &[C]| zs.iter().map(|&z| z.exp()).collect::<Vec<C>>();
+         let mut drawn = Vec::new();
+@@ -854,16 +981,208 @@
+         assert!(TURNS_Y > inp.frame.bottom() && TURNS_Y < inp.p(C::new(0.0, RADIUS_AT[0].im - 0.2))[1]);
+     }
+ 
+-    /// Radii ½ and ¼ are both written, off both axes and off the circles they name. The half
+-    /// sizes are CMR10 widths at 20 in this window, an estimate: the pictures decide.
++    /// Radii ½ and ¼ are both written, off both axes, off the circles they name and off the
++    /// plane's "1". The half sizes are CMR10 widths at `RADIUS_SIZE` in this window, an
++    /// estimate: the pictures decide.
+     #[test]
+     fn the_walk_radii_stand_off_their_circles_and_the_axes() {
+-        for (at, half, r) in [(RADIUS_AT[0], 0.365, WALK_R), (RADIUS_AT[1], 0.408, WALK_R * WALK_R)] {
++        let half_h = 0.12;
++        const { assert!(RADIUS_SIZE >= 24.0) };
++        for (at, half, r) in [(RADIUS_AT[0], 0.438, WALK_R), (RADIUS_AT[1], 0.49, WALK_R * WALK_R)] {
+             assert!(at.re - half > 0.1, "{at:?}: reaches the axis");
+-            assert!(at.im + 0.1 < -0.1, "{at:?}: reaches the axis");
+-            let near = C::new(at.re - half, at.im + 0.1).abs();
++            assert!(at.im + half_h < -0.1, "{at:?}: reaches the axis");
++            let near = C::new(at.re - half, at.im + half_h).abs();
+             assert!(near > r + 0.1, "{at:?}: reaches its circle");
+-        }
++            assert!(at.im + half_h < UNIT_AT[0].im - 0.06 - 0.05, "{at:?}: reaches the 1");
++        }
++    }
++
++    /// The source of one cue's picture, up to `end`: read from the source because no render can
++    /// run here. What it does to the pixels is for the pictures to show.
++    fn beat(id: &str, end: &str) -> &'static str {
++        let source = include_str!("two_planes.rs");
++        let code = &source[..source.find("#[cfg(test)]\nmod tests").unwrap()];
++        let start = code.find(&format!("say(&kit, stage, \"{id}\")")).unwrap();
++        let stop = start + code[start..].find(end).unwrap();
++        &code[start..stop]
++    }
++
++    /// The same, up to the next cue.
++    fn cue(id: &str, next: &str) -> &'static str {
++        beat(id, &format!("say(&kit, stage, \"{next}\")"))
++    }
++
++    /// The rule's point is what squaring does, and every piece of its picture fits the windows
++    /// and stands clear of the pieces around it. The half sizes are estimates: the pictures decide.
++    #[test]
++    fn the_rule_is_shown_on_one_point_that_squaring_really_sends_there() {
++        let (inp, out) = planes(WALK_HALVES.0, WALK_HALVES.1);
++        let (z, w) = (rule_point(), rule_point() * rule_point());
++        assert!((w.abs() - z.abs() * z.abs()).abs() < 1e-12, "length squared");
++        assert!((w.arg() - 2.0 * z.arg()).abs() < 1e-12, "angle doubled");
++        assert!(inp.contains(z) && out.contains(w));
++        // it is not the walk's circle, so nothing has to be unlearned as the walk starts
++        const { assert!(RULE_LENGTH > 2.0 * WALK_R) };
++        // a length that visibly grows, and an angle that visibly doubles
++        assert!(w.abs() - z.abs() > 0.5 && w.arg() - z.arg() > 0.5);
++        for (p, (length, angle)) in [inp, out]
++            .into_iter()
++            .zip(RULE_LENGTH_AT.into_iter().zip(RULE_ANGLE_AT))
++        {
++            assert!(p.contains(length) && p.contains(angle));
++        }
++        // each angle's name sits between the real axis and its arrow, past its arc
++        for (at, half, arrow) in [(RULE_ANGLE_AT[0], 0.2, z), (RULE_ANGLE_AT[1], 0.26, w)] {
++            let corner = C::new(at.re - half, at.im - 0.1);
++            assert!(corner.abs() > RULE_ARC_R + 0.05 && corner.im > 0.1, "{at:?}");
++            let top_left = C::new(at.re - half, at.im + 0.1);
++            assert!(top_left.arg() < arrow.arg() - 0.05, "{at:?}: reaches its arrow");
++        }
++        // each length's name stands past its arrow's tip, off the plane's names
++        for (at, tip) in [(RULE_LENGTH_AT[0], z), (RULE_LENGTH_AT[1], w)] {
++            assert!((at - tip).abs() > 0.2 && at.abs() > tip.abs(), "{at:?}");
++            for name in UNIT_AT {
++                assert!((at - name).abs() > 0.4, "{at:?}");
++            }
++        }
++        // the arcs run from the real axis to the arrows they measure
++        for to in [z.arg(), w.arg()] {
++            let arc = rule_arc(to);
++            assert!(arc[0].im.abs() < 1e-12 && (arc[arc.len() - 1].arg() - to).abs() < 1e-12);
++        }
++        // the labels are the rule's own pieces, so its glyphs are already on screen
++        assert_eq!(RULE_LENGTH_TEX, [r"|z|", r"|z|^2"]);
++        assert!(SQUARE_RULE_TEX.contains(r"\arg z") && SQUARE_RULE_TEX.contains(r"2 \arg z"));
++        assert!(SQUARE_RULE_TEX.contains(r"|z|^2"));
++    }
++
++    /// "Squares each length and doubles each angle" is not left to the formula row: the point
++    /// comes on those words, and it is off the planes before the walk's ring comes on.
++    #[test]
++    fn the_planes_are_not_empty_under_the_rule() {
++        let two = cue("03_2", "03_3");
++        let order = [
++            "fade_in_all(stage, &[rule], 0.4)?;",
++            "line.wait_for(stage, \"squares each length\")?;",
++            "fade_in_all(stage, &shown_rule, 0.4)?;",
++            "line.wait_for(stage, \"doubles each angle\")?;",
++            "fade_in_all(stage, &angles, 0.4)?;",
++            "line.wait_sentence(stage, 2)?;",
++            "fade_out_all(stage, &shown_rule, 0.3)?;",
++            "let ring_in = ",
++        ];
++        let at: Vec<usize> = order
++            .iter()
++            .map(|s| two.find(s).unwrap_or_else(|| panic!("{s}")))
++            .collect();
++        assert!(at.windows(2).all(|w| w[0] < w[1]), "{at:?}");
++    }
++
++    /// The image goes around twice and the picture can show it: each half of the walk is a
++    /// whole lap of the output's circle, and the second lap starts only as the first closes.
++    #[test]
++    fn each_half_of_the_walk_is_one_lap_of_the_image() {
++        let r = WALK_R * WALK_R;
++        for t in [0.0, 0.1, 0.25, 0.5, 0.75, 1.0] {
++            let (first, second) = image_laps(t);
++            assert!(first.len() >= 2 && second.len() >= 2);
++            for w in first.iter().chain(&second) {
++                assert!((w.abs() - r).abs() < 1e-12);
++            }
++        }
++        let (first, second) = image_laps(0.5);
++        assert!(
++            (first[0] - first[first.len() - 1]).abs() < 1e-5,
++            "the first half closes a lap"
++        );
++        assert!(
++            (second[0] - second[second.len() - 1]).abs() < 1e-3,
++            "the second has not started"
++        );
++        let (first, second) = image_laps(1.0);
++        assert!((first[first.len() - 1] - second[0]).abs() < 1e-12);
++        assert!(
++            (second[0] - second[second.len() - 1]).abs() < 1e-5,
++            "the second half closes a lap"
++        );
++        // walked in two halves that end where the single walk ended, the second lap's line and
++        // the dot over it coming between them, and it fades with the rest
++        let two = cue("03_2", "03_3");
++        let order = [
++            "tween_linear(walked, 0.5, rt / 2.0)",
++            "stage.add_to_scene(second_lap)?;",
++            "stage.add_to_scene(w_out)?;",
++            "tween_linear(walked, 1.0, rt / 2.0)",
++        ];
++        let at: Vec<usize> = order
++            .iter()
++            .map(|s| two.find(s).unwrap_or_else(|| panic!("{s}")))
++            .collect();
++        assert!(at.windows(2).all(|w| w[0] < w[1]), "{at:?}");
++        assert!(cue("03_3", "03_4").contains("trail, second_lap]"));
++    }
++
++    /// The flip the voice names is drawn: each arrow is vertical, crosses the horizontal axis
++    /// at its middle, and is long enough to see past its two ends.
++    #[test]
++    fn each_flip_goes_straight_across_the_horizontal_axis() {
++        let (_, out) = planes(INVERSE_HALVES.0, INVERSE_HALVES.1);
++        for th in TICKS {
++            let (from, to) = flip_chord(th);
++            assert!((from.re - to.re).abs() < 1e-12 && (from.im + to.im).abs() < 1e-12);
++            assert!(out.contains(from) && out.contains(to));
++            let length = (from - to).abs() * out.unit();
++            assert!(length > 2.0 * FLIP_BUFF + 0.5, "{th}: {length}");
++        }
++        let five = cue("03_5", "03_6");
++        let ticks = five.find("ticks.extend([a, b]);").unwrap();
++        let hook = five.find("line.wait_for(stage, \"each point flips\")?;").unwrap();
++        let drawn = five.find("flips.extend([ghost, chord]);").unwrap();
++        let next = five.find("line.wait_sentence(stage, 3)?;").unwrap();
++        assert!(ticks < hook && hook < drawn && drawn < next);
++        assert!(cue("03_6", "03_7").contains("gone.extend(flips);"));
++    }
++
++    /// The question's countdown ring keeps off the output's two axes, and its card hides no mark
++    /// of the scale (it does lie over a stretch of the imaginary axis, as a card may). The card's
++    /// height is `carded_lines`' for one line at 28, and `predict`'s ring hangs under it.
++    #[test]
++    fn the_question_and_its_ring_stand_clear_of_the_axes() {
++        let (_, out) = planes(SQUARE_HALVES.0, SQUARE_HALVES.1);
++        let (at, zero) = (out.p(ASK_AT), out.p(ZERO));
++        let card_h = 28.0 / 48.0 * 0.62 + 0.3;
++        let ring_y = at[1] - card_h / 2.0 - 0.45;
++        let ring_r = 0.26;
++        assert!(at[0] - ring_r > zero[0] + 0.1, "the ring reaches the imaginary axis");
++        assert!(ring_y - ring_r > out.frame.bottom(), "the ring leaves the plane");
++        assert!(
++            at[1] + card_h / 2.0 < out.p(UNIT_AT[0])[1] - 0.09,
++            "the card covers the 1"
++        );
++        assert!(
++            at[1] - card_h / 2.0 > out.p(C::new(0.0, -1.0))[1],
++            "the card covers a tick"
++        );
++        // the card keeps inside its plane: about 8.2 ems at 28 (CMR10), plus its margins
++        let half_w = (8.2 * 28.0 * 0.01 + 0.5) / 2.0;
++        assert!(at[0] - half_w > out.frame.left() && at[0] + half_w < out.frame.right());
++        assert!(cue("03_3", "03_4").contains("out.p(ASK_AT)"));
++    }
++
++    /// The foot labels use the voice's names for the axes, and the note on the new windows goes
++    /// once it has been read.
++    #[test]
++    fn the_labels_say_what_the_voice_says() {
++        let script = explainer_kit::Script::parse(crate::SCRIPT).unwrap();
++        let said = script.text("03_4").unwrap();
++        for (label, word) in RAYS.into_iter().zip(["horizontal axis", "vertical axis"]) {
++            assert!(label.starts_with(word) && said.contains(word), "{label}");
++        }
++        let six = cue("03_6", "03_7");
++        let said = six.find("line.wait_sentence(stage, 2)?;").unwrap();
++        let goes = six.find("fade_out_all(stage, &[rescaled], 0.3)?;").unwrap();
++        assert!(said < goes && !beat("03_7", "kit.music_breath").contains("rescaled"));
++        assert!(!six.contains("vec![rescaled]"), "it would fade twice");
+     }
+ 
+     /// No circle of 03_6 runs through a radius readout.
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs
+@@ -10,8 +10,8 @@
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Painter, Plane, carded_lines, dot, fact, fade_in_all, fade_out_all, hero, line_style, marks, names_now, pole,
+-    precisely_now, predict, reading_window, say, value, wait_until, wheel_legend,
++    Painter, Plane, Walker, carded_lines, dot, fact, fade_in_all, fade_out_all, hero, line_style, marks, names_now,
++    pole, precisely_now, predict, reading_window, say, tween_linear, value, wait_until, wheel_legend,
+ };
+ use super::gallery::minus;
+ use super::loop_sums::IDENTITY_TEX;
+@@ -24,8 +24,7 @@
+ pub const TURNS: &str = "colour cycles around 0: ";
+ pub const ORDER_TWO: &str = "zero of order 2";
+ pub const SIMPLE_POLE: &str = "simple pole";
+-pub const NEAR_ZERO: &str =
+-    "near a zero a of order m, f(z) is about c times (z − a) to the power m, so the hue turns m times as z circles a";
++pub const NEAR_ZERO: &str = "near a zero z = a of order m, f(z) is about c times (z − a) to the power m, so the hue turns m times as z circles a";
+ pub const ASK: [&str; 2] = ["where are the bump's poles?", "how many turns at each?"];
+ pub const EACH: &str = "at i: ";
+ pub const EACH_REST: [&str; 2] = [" turn, at −i: ", " turn"];
+@@ -37,8 +36,14 @@
+ pub const FORMULA_AT: (f64, f64) = (-2.6, 3.4);
+ /// Where a mark's name is carded: under the mark, inside the gold loop.
+ pub const NAME_AT: C = C::new(0.0, -0.36);
++/// The column to the right of the picture, and where the wheel stands in it.
++pub const RIGHT: f64 = 4.55;
++pub const WHEEL_Y: f64 = 2.2;
+ /// The wheel legend's radius.
+ pub const WHEEL_R: f64 = 0.75;
++/// How far under the wheel a walk's turns are counted, and the height of the stated count below.
++pub const COUNT_BELOW: f64 = 0.35;
++pub const STATED_Y: f64 = 0.6;
+ /// The loop's radius.
+ pub const LOOP_R: f64 = 0.9;
+ /// How far around the loop one direction head reaches, radians.
+@@ -54,6 +59,17 @@
+     ("Pointing left is teal", PI),
+     ("pointing down is violet", 3.0 * FRAC_PI_2),
+ ];
++
++/// Where a walk around the gold loop stands at its share `t`.
++pub fn loop_point(t: f64) -> C {
++    C::polar(LOOP_R, TAU * t)
++}
++
++/// The direction of `f`'s output there: where the wheel's needle points, so that the wedge
++/// under the needle is the colour under the walking dot.
++pub fn needle_angle(f: Func, t: f64) -> f64 {
++    f.eval(loop_point(t)).map_or(0.0, |w| w.arg())
++}
+ 
+ /// The picture's window: [−2, 2]², 6.4 units wide, left of centre.
+ pub fn plane() -> Plane {
+@@ -104,6 +120,79 @@
+     vec![at, v(at[0] + r * th.cos(), at[1] + r * th.sin())]
+ }
+ 
++/// A walk around the gold loop: a dot on the loop, the wheel's needle on the colour under that
++/// dot, and the output's turns counted under the wheel as they happen.
++struct LoopWalk {
++    walked: Mob,
++    anchor: Mob,
++    count: Mob,
++    mobs: Vec<Mob>,
++}
++
++impl LoopWalk {
++    /// The dot and the needle arrive at the walk's start; the count is on screen from now.
++    fn start(kit: &Kit, stage: &mut Stage<'_>, f: Func, p: Plane, wheel_at: Vec3) -> fmn::Result<Self> {
++        let walked = stage.add_value_tracker(0.0);
++        let walker = dot(stage, p.p(loop_point(0.0)), 0.09, Palette::ink());
++        let needle = stage.arena_mut().add(
++            polyline(needle_points(wheel_at, WHEEL_R, needle_angle(f, 0.0)))
++                .style(line_style(Palette::ink(), 4.0))
++                .build(),
++        );
++        let anchor = stage.arena_mut().add(VMobject::new());
++        stage.add_to_scene(anchor)?;
++        stage.add_updater(
++            anchor,
++            move |a, _| {
++                let t = value(a, walked);
++                a.move_to(walker, p.p(loop_point(t)), ORIGIN);
++                let _ = a.set_points(
++                    needle,
++                    polyline(needle_points(wheel_at, WHEEL_R, needle_angle(f, t)))
++                        .build()
++                        .points(),
++                );
++            },
++            true,
++        )?;
++        let mobs = vec![walker, needle];
++        fade_in_all(stage, &mobs, 0.25)?;
++        let count = kit.live_value(
++            stage,
++            move |s| Walker::turns_so_far(f, ZERO, LOOP_R, value(s, walked)),
++            1,
++            true,
++            28.0,
++            hero(),
++            v(wheel_at[0], wheel_at[1] - WHEEL_R - COUNT_BELOW),
++            ORIGIN,
++        )?;
++        Ok(Self {
++            walked,
++            anchor,
++            count,
++            mobs,
++        })
++    }
++
++    /// Once around from the start, at a steady pace, with the count from zero.
++    fn lap(&self, stage: &mut Stage<'_>, rt: f64) -> fmn::Result<()> {
++        stage.set_tracker_value(self.walked, 0.0)?;
++        stage.play(tween_linear(self.walked, 1.0, rt)?)?;
++        Ok(())
++    }
++
++    /// Nothing follows the walk any more: what is left for the caller to fade.
++    fn stop(self, stage: &mut Stage<'_>) -> Vec<Mob> {
++        stage.clear_updaters(self.anchor, true);
++        stage.remove_from_scene(self.anchor);
++        stage.clear_updaters(self.count, true);
++        let mut left = self.mobs;
++        left.push(self.count);
++        left
++    }
++}
++
+ pub struct ReadingColor {
+     pub kit: Kit,
+ }
+@@ -116,8 +205,8 @@
+     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+         let kit = self.kit.clone();
+         let p = plane();
+-        let right = 4.55;
+-        let wheel_at = v(right, 2.2);
++        let right = RIGHT;
++        let wheel_at = v(right, WHEEL_Y);
+         let formula_at = v(FORMULA_AT.0, FORMULA_AT.1);
+ 
+         // 04_1: the wheel legend, then the plane painted with f(z) = z
+@@ -190,7 +279,7 @@
+         )?;
+         fade_in_all(stage, &[band], 0.4)?;
+         line.wait_sentence(stage, 3)?;
+-        let phase = kit.text(stage, PHASE, 20.0, Palette::dim(), v(right, -1.2))?;
++        let phase = kit.text(stage, PHASE, 22.0, Palette::ink(), v(right, -1.2))?;
+         fade_in_all(stage, &[phase], 0.4)?;
+ 
+         // 04_3: z²: every colour twice around zero, in the wheel's order
+@@ -199,9 +288,10 @@
+         let mut old = names;
+         old.push(formula);
+         fade_out_all(stage, &old, 0.3)?;
++        // the name comes with what it names, not over the picture it is replacing
++        painter.to(stage, Some(Func::Square), 1.2)?;
+         let squared = kit.tex(stage, FN_TEX[0], 32.0, Palette::ink(), &[], formula_at)?;
+         fade_in_all(stage, &[squared], 0.25)?;
+-        painter.to(stage, Some(Func::Square), 1.2)?;
+         let ring = loop_with_arrow(stage, &p, LOOP_R)?;
+         fade_in_all(stage, &ring, 0.5)?;
+         line.wait_sentence(stage, 1)?;
+@@ -210,9 +300,15 @@
+             &format!("{TURNS}{}", fact("color.square.turns")?),
+             26.0,
+             hero(),
+-            v(right, 0.6),
++            v(right, STATED_Y),
+         )?;
+         fade_in_all(stage, &[count], 0.4)?;
++        // "in the same order as the wheel" is performed, not left for the eye to work out: the
++        // dot walks the loop and the needle runs around the wheel, twice, over the same colours
++        line.wait_sentence(stage, 2)?;
++        let walk = LoopWalk::start(&kit, stage, Func::Square, p, wheel_at)?;
++        let rt = (line.end() - stage.scene().time().to_f64()).max(2.0);
++        walk.lap(stage, rt)?;
+ 
+         // 04_4: the order of a zero, read at a glance
+         kit.hold(stage)?;
+@@ -228,8 +324,14 @@
+             Palette::faint(),
+         )?;
+         fade_in_all(stage, &zero, 0.3)?;
+-        line.wait_sentence(stage, 1)?;
++        // the voice says "cycle in this order" and the walk does it again, around the marked zero
++        let rt = line.until(stage, "Once for a simple zero", 2.0)?;
++        walk.lap(stage, rt)?;
++        line.wait_for(stage, "twice for a zero of order two")?;
+         fade_in_all(stage, &order, 0.3)?;
++        line.wait_sentence(stage, 2)?;
++        let walked = walk.stop(stage);
++        fade_out_all(stage, &walked, 0.3)?;
+         // the voice is still asking the eye to count colours around the dot, so the card
+         // comes only when it has finished, and all of it is read in the window below
+         wait_until(stage, line.end())?;
+@@ -242,22 +344,29 @@
+         old.extend(&order);
+         fade_out_all(stage, &old, 0.3)?;
+         fade_out_all(stage, &zero, 0.2)?;
++        painter.to(stage, Some(Func::Recip), 1.2)?;
+         let inverse = kit.tex(stage, FN_TEX[1], 32.0, Palette::ink(), &[], formula_at)?;
+         fade_in_all(stage, &[inverse], 0.25)?;
+-        painter.to(stage, Some(Func::Recip), 1.2)?;
+         let pole_mark = marks(stage, Func::Recip, &p);
+-        let simple = carded_lines(&kit, stage, &[SIMPLE_POLE], 22.0, pole(), p.p(NAME_AT), pole())?;
++        let simple = carded_lines(&kit, stage, &[SIMPLE_POLE], 22.0, Palette::ink(), p.p(NAME_AT), pole())?;
+         let back = kit.text(
+             stage,
+             &format!("{TURNS}{}", minus(fact("color.recip.turns")?)),
+             26.0,
+             pole(),
+-            v(right, 0.6),
++            v(right, STATED_Y),
+         )?;
+         line.wait_sentence(stage, 1)?;
+-        fade_in_all(stage, &pole_mark, 0.3)?;
+-        fade_in_all(stage, &simple, 0.4)?;
+-        fade_in_all(stage, &[back], 0.3)?;
++        // the mark and what it is called arrive together, so the walk starts while the voice
++        // is still on "backwards": once around, and this needle runs against the wheel's order
++        let mut named = pole_mark.clone();
++        named.extend(&simple);
++        named.push(back);
++        fade_in_all(stage, &named, 0.3)?;
++        let walk = LoopWalk::start(&kit, stage, Func::Recip, p, wheel_at)?;
++        let rt = (line.end() - stage.scene().time().to_f64()).max(2.0);
++        walk.lap(stage, rt)?;
++        let walked = walk.stop(stage);
+ 
+         // 04_6: before the colours appear, where are the bump's poles?
+         kit.hold(stage)?;
+@@ -267,11 +376,12 @@
+         clearing.extend(&simple);
+         clearing.extend(&ring);
+         clearing.extend(&pole_mark);
++        clearing.extend(&walked);
+         fade_out_all(stage, &clearing, 0.4)?;
++        painter.to(stage, None, 0.8)?;
+         // the voice names the bump as the picture clears, so the question has its formula
+         let bump = kit.tex(stage, BUMP_TEX, 32.0, Palette::ink(), &[], formula_at)?;
+         fade_in_all(stage, &[bump], 0.3)?;
+-        painter.to(stage, None, 0.8)?;
+         let unit = p.circle(stage, ZERO, 1.0, Palette::faint(), 3.0)?;
+         let axes = p.axes(stage)?;
+         fade_in_all(stage, &[unit], 0.4)?;
+@@ -295,7 +405,7 @@
+             ),
+             24.0,
+             pole(),
+-            v(right, 0.6),
++            v(right, STATED_Y),
+         )?;
+         fade_in_all(stage, &[each], 0.4)?;
+         line.wait_sentence(stage, 1)?;
+@@ -306,12 +416,15 @@
+                 .build(),
+         );
+         let range_says = kit.text(stage, RECIPE_RANGE, 20.0, hero(), v(right, -0.2))?;
+-        fade_out_all(stage, &[unit], 0.2)?;
+-        fade_in_all(stage, &[touching, segment, range_says], 0.6)?;
+-        // the circle touches the poles: their marks stay on top of it
++        // the circle touches the poles: their marks stay on top of it from its first frame, and
++        // the faint circle goes only once the gold one covers it, so the place is never empty
++        stage.add_to_scene(touching)?;
++        stage.add_to_scene(segment)?;
+         for &m in &bump_marks {
+             stage.add_to_scene(m)?;
+         }
++        fade_in_all(stage, &[touching, segment, range_says], 0.6)?;
++        fade_out_all(stage, &[unit], 0.2)?;
+         line.wait_sentence(stage, 2)?;
+         let search = names_now(&kit, stage, &["domain colouring", "enhanced phase portrait"])?;
+         wait_until(stage, line.end())?;
+@@ -330,7 +443,7 @@
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+-    use crate::model::{I, WHEEL, circle, wheel, winding_count};
++    use crate::model::{I, WHEEL, circle, portrait, wheel, winding_count};
+ 
+     #[test]
+     fn the_window_holds_every_point_the_chapter_marks() {
+@@ -396,6 +509,145 @@
+         assert!((at[1] - c[1]).abs() - half_h > 0.13);
+     }
+ 
++    /// The source of one cue's picture, up to the next cue: read from the source because no
++    /// render can run here. What it does to the pixels is for the pictures to show.
++    fn beat(id: &str, next: &str) -> &'static str {
++        let source = include_str!("reading_color.rs");
++        let code = &source[..source.find("#[cfg(test)]\nmod tests").unwrap()];
++        let start = code.find(&format!("say(&kit, stage, \"{id}\")")).unwrap();
++        let end = start + code[start..].find(next).unwrap();
++        &code[start..end]
++    }
++
++    fn runs_in_order(section: &str, order: &[&str]) {
++        let mut from = 0;
++        for piece in order {
++            let at = section[from..]
++                .find(piece)
++                .unwrap_or_else(|| panic!("{piece}: missing or early"));
++            from += at + piece.len();
++        }
++    }
++
++    /// The needle follows the output, not the point: twice around the wheel for z², once
++    /// against it for 1/z. And the wedge it stands on is the colour under the walking dot
++    /// (`portrait` at enhance 0 is the hue; the bands only change its brightness).
++    #[test]
++    fn the_needle_stands_on_the_colour_under_the_dot() {
++        for (f, turns) in [(Func::Square, 2.0), (Func::Recip, -1.0)] {
++            for k in 0..=96 {
++                let t = f64::from(k) / 96.0 + 0.003;
++                let expected = turns * TAU * t;
++                let off = (needle_angle(f, t) - expected).rem_euclid(TAU);
++                assert!(off.min(TAU - off) < 1e-9, "{f:?} at {t}: {off}");
++                let under_dot = portrait(f.eval(loop_point(t)), 0.0).unwrap();
++                let under_needle = wheel(needle_angle(f, t));
++                for (a, b) in under_dot.into_iter().zip(under_needle) {
++                    assert!((a - b).abs() < 1e-12, "{f:?} at {t}");
++                }
++            }
++        }
++        // a lap closes, so a second lap starts where the first ended
++        assert!((loop_point(0.0) - loop_point(1.0)).abs() < 1e-12);
++    }
++
++    /// What the count reaches on the drawn loop is what the facts and the stated cards say,
++    /// and it stands between the wheel and the stated row. The half heights are estimates.
++    #[test]
++    fn the_walk_counts_what_the_cards_state() {
++        let f = crate::facts::facts().unwrap();
++        for (func, key) in [(Func::Square, "color.square.turns"), (Func::Recip, "color.recip.turns")] {
++            let stated: f64 = f.get(key).unwrap().parse().unwrap();
++            let counted = Walker::turns_so_far(func, ZERO, LOOP_R, 1.0);
++            assert!((counted - stated).abs() < 1e-9, "{key}: {counted}");
++            assert!((Walker::turns_so_far(func, ZERO, LOOP_R, 0.5) - stated / 2.0).abs() < 1e-9);
++        }
++        let y = WHEEL_Y - WHEEL_R - COUNT_BELOW;
++        const { assert!(COUNT_BELOW > 0.2) };
++        assert!(y - 0.15 > STATED_Y + 0.15, "the count reaches the stated row");
++    }
++
++    /// The cycle is walked on the words that name it, and the walk ends in time for the card
++    /// that the reading window protects: nothing moves under its last seconds.
++    #[test]
++    fn the_cycle_is_walked_on_the_words_that_name_it() {
++        runs_in_order(
++            beat("04_3", "say(&kit, stage, \"04_4\")"),
++            &[
++                "painter.to(stage, Some(Func::Square), 1.2)?;",
++                "let squared = ",
++                "fade_in_all(stage, &ring, 0.5)?;",
++                "line.wait_sentence(stage, 2)?;",
++                "LoopWalk::start(&kit, stage, Func::Square, p, wheel_at)?;",
++                "walk.lap(stage, rt)?;",
++            ],
++        );
++        runs_in_order(
++            beat("04_4", "say(&kit, stage, \"04_5\")"),
++            &[
++                "fade_in_all(stage, &zero, 0.3)?;",
++                "line.until(stage, \"Once for a simple zero\", 2.0)?;",
++                "walk.lap(stage, rt)?;",
++                "line.wait_for(stage, \"twice for a zero of order two\")?;",
++                "fade_in_all(stage, &order, 0.3)?;",
++                "line.wait_sentence(stage, 2)?;",
++                "walk.stop(stage);",
++                "fade_out_all(stage, &walked, 0.3)?;",
++                "wait_until(stage, line.end())?;",
++                "let exact = ",
++                "reading_window(&kit, stage, &line)?;",
++            ],
++        );
++        runs_in_order(
++            beat("04_5", "say(&kit, stage, \"04_6\")"),
++            &[
++                "painter.to(stage, Some(Func::Recip), 1.2)?;",
++                "let inverse = ",
++                "line.wait_sentence(stage, 1)?;",
++                "fade_in_all(stage, &named, 0.3)?;",
++                "LoopWalk::start(&kit, stage, Func::Recip, p, wheel_at)?;",
++                "walk.lap(stage, rt)?;",
++                "walk.stop(stage);",
++            ],
++        );
++        let six = beat("04_6", "say(&kit, stage, \"04_7\")");
++        runs_in_order(
++            six,
++            &[
++                "clearing.extend(&walked);",
++                "fade_out_all(stage, &clearing, 0.4)?;",
++                "painter.to(stage, None, 0.8)?;",
++                "let bump = ",
++                "let asked = predict",
++            ],
++        );
++    }
++
++    /// The gold circle touches the poles: from its first frame the marks stand on it, and the
++    /// faint circle under it goes only after it is there.
++    #[test]
++    fn the_gold_never_crosses_the_marks_and_never_leaves_a_gap() {
++        runs_in_order(
++            beat("04_7", "kit.music_breath"),
++            &[
++                "stage.add_to_scene(touching)?;",
++                "stage.add_to_scene(segment)?;",
++                "for &m in &bump_marks {",
++                "stage.add_to_scene(m)?;",
++                "fade_in_all(stage, &[touching, segment, range_says], 0.6)?;",
++                "fade_out_all(stage, &[unit], 0.2)?;",
++            ],
++        );
++    }
++
++    /// The card names the point it uses: "a zero a" reads as a slip, and 04_4's clean window
++    /// (7.7 s at 15 characters a second) holds no more than 115 characters.
++    #[test]
++    fn the_exact_card_names_its_point_and_fits_its_window() {
++        assert!(NEAR_ZERO.contains("zero z = a") && !NEAR_ZERO.contains("zero a "));
++        assert!(NEAR_ZERO.chars().count() <= 115, "{}", NEAR_ZERO.chars().count());
++    }
++
+     /// The formula stands over the picture, inside the frame.
+     #[test]
+     fn the_formula_stands_over_the_picture() {
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
+@@ -61,7 +61,7 @@
+ pub const CRITICAL: &str = "more zeros on Re s = 1/2";
+ pub const SQUASHED: &str = "gold box = gold band. The strip runs on up to Im s = ";
+ pub const RH: [&str; 2] = ["Riemann hypothesis:", "open"];
+-pub const FOUR: &str = "this plot shows four zeros, located by Newton's method";
++pub const FOUR: &str = "this strip shows four zeros, located by Newton's method";
+ pub const ONE_TILE: &str = "one tile of z³ − 1, traced exactly";
+ pub const NEXT: &str = "next: what one complex derivative demands";
+ /// The walker's output box (05_1, 05_2): it says what the box holds, and that sizes are
+@@ -106,11 +106,31 @@
+     Plane::new(v(-2.6, -0.25), 3.2, (-3.0, 3.0), (-4.0, 8.0))
+ }
+ 
++/// Which band and which phase step hold the tile that 05_3 outlines.
++pub const EXP_TILE_BAND: (i32, i32) = (1, 3);
++
++/// One tile of e^z, closed: its four sides on the band and phase lines of the portrait, which
++/// for e^z are straight lines a band step apart, so the square is exact and not an impression.
++pub fn exp_tile() -> Vec<C> {
++    let s = model::band_step();
++    let x = s * (f64::from(EXP_TILE_BAND.0) - model::BAND_OFFSET);
++    let y = s * (f64::from(EXP_TILE_BAND.1) - model::BAND_OFFSET);
++    vec![
++        C::new(x, y),
++        C::new(x + s, y),
++        C::new(x + s, y + s),
++        C::new(x, y + s),
++        C::new(x, y),
++    ]
++}
++
+ /// sin and tan over x ∈ [−6.6, 6.6], y ∈ [−3.3, 3.3] (05_4, 05_5): a little past ±2π, so the
+ /// zeros there sit inside the picture and not on its border.
+ pub fn trig_plane() -> Plane {
+     Plane::new(v(-2.4, -0.1), 8.4, (-6.6, 6.6), (-3.3, 3.3))
+ }
++/// How high the arrow of 05_4 climbs: short of the dot at 3i that it is pointing to.
++pub const CLIMB_STOP: f64 = 2.8;
+ /// How far the sin(3i) readout's card drops below its dot, so it stays inside the picture; the
+ /// sin(i) readout's card is level with its own.
+ pub const READOUT_DROP: [f64; 2] = [0.0, 0.26];
+@@ -124,6 +144,11 @@
+ pub fn zeta_plane() -> Plane {
+     Plane::new(v(-3.4, 0.2), 6.4, (-7.0, 3.0), (-3.0, 3.0))
+ }
++
++/// The seconds of 05_9 from "in little tiles" to the zoom standing ready: the box, the other
++/// five panels clearing together, the zoom, its frame and links. Fixed and short, because the
++/// tile itself comes on the words "nearly square", which are only a few words later.
++pub const TILE_BEATS: [f64; 4] = [0.3, 0.3, 0.5, 0.2];
+ 
+ /// The tall strip x ∈ [−1, 2], y ∈ [0, 32], squashed vertically (its units
+ /// are not square; the label says so).
+@@ -407,8 +432,8 @@
+         let title = kit.tex(stage, TITLES_TEX[1], 34.0, Palette::ink(), &[], title_at)?;
+         fade_in_all(stage, &[title], 0.4)?;
+         line.wait_sentence(stage, 2)?;
+-        let zdp_marks = marks(stage, Func::ZeroDoublePole, &sp);
+-        fade_in_all(stage, &zdp_marks, 0.4)?;
++        // the zero on its words; the pole is held back for its own, a few words on
++        let mut zdp_marks = zero_mark(stage, sp.p(ONE)).to_vec();
+         let mut labels = carded_lines(
+             &kit,
+             stage,
+@@ -418,21 +443,20 @@
+             sp.p(C::new(1.0, -0.42)),
+             Palette::faint(),
+         )?;
+-        labels.extend(carded_lines(
+-            &kit,
+-            stage,
+-            &[POLE2],
+-            20.0,
+-            pole(),
+-            sp.p(C::new(-1.0, 0.62)),
+-            pole(),
+-        )?);
++        fade_in_all(stage, &zdp_marks, 0.3)?;
+         fade_in_all(stage, &labels, 0.3)?;
+         // the walk starts as the voice reaches the pole and lands on its last two words, so
+         // the count is read while they are said and for the breath after them
+         line.wait_for(stage, "and at minus one")?;
+         let out_frame = output_box(&kit, stage)?;
+-        fade_in_all(stage, &out_frame, 0.3)?;
++        let double_pole = pole_mark(stage, sp.p(-ONE));
++        let pole_named = carded_lines(&kit, stage, &[POLE2], 20.0, pole(), sp.p(C::new(-1.0, 0.62)), pole())?;
++        let mut arriving = double_pole.to_vec();
++        arriving.extend(&pole_named);
++        arriving.extend(&out_frame);
++        fade_in_all(stage, &arriving, 0.3)?;
++        zdp_marks.extend(double_pole);
++        labels.extend(pole_named);
+         let stated = format!("{TURNS}{}{ZDP_SAYS}", minus(fact("gallery.zdp.turns_at_minus1")?));
+         let walked = Self::walk_and_count(
+             &kit,
+@@ -481,7 +505,11 @@
+         let across = stage.arena_mut().add(across);
+         let right_says = kit.text(stage, BY_RIGHT, 22.0, Palette::ink(), v(col, 0.4))?;
+         fade_in_all(stage, &[across, right_says], 0.4)?;
+-        line.wait_sentence(stage, 2)?;
++        // "exact squares" is shown on one, and then how far apart the repeats stand
++        line.wait_for(stage, "exact squares")?;
++        let one_square = ep.path(stage, &exp_tile(), hero(), 4.0)?;
++        fade_in_all(stage, &[one_square], 0.3)?;
++        line.wait_for(stage, "repeating every two pi")?;
+         let (b0, b1) = (ep.p(C::new(3.0, 0.0)), ep.p(C::new(3.0, TAU)));
+         let bracket = stage.arena_mut().add(
+             polyline(vec![
+@@ -517,6 +545,7 @@
+                 height_says,
+                 across,
+                 right_says,
++                one_square,
+                 bracket,
+                 period,
+             ],
+@@ -542,7 +571,7 @@
+             stage.add_to_scene(m)?;
+         }
+         line.wait_sentence(stage, 2)?;
+-        let climb = Arrow::new(tp.p(ZERO), tp.p(C::new(0.0, 3.0)))
++        let climb = Arrow::new(tp.p(ZERO), tp.p(C::new(0.0, CLIMB_STOP)))
+             .buff(0.0)
+             .thickness(4.0)
+             .color(Palette::ink())
+@@ -749,6 +778,8 @@
+         fade_in_all(stage, &trivial, 0.4)?;
+         fade_in_all(stage, &[trivial_says], 0.3)?;
+         line.wait_sentence(stage, 5)?;
++        // what has been said about the series and the pole makes room for the strip and its zeros
++        fade_out_all(stage, &[converges, pole_says, zedge], 0.3)?;
+         // the wide picture's [−1, 2] × [0, 3] is the gold box there and the gold band at the
+         // strip's foot; two links join them at the same heights, and the strip runs on above
+         let st = strip_plane();
+@@ -779,6 +810,12 @@
+             v(st.frame.center[0], st.frame.bottom() - 0.25),
+         )?;
+         let critical = kit.text_left(stage, CRITICAL, 22.0, Palette::ink(), v(zcol, ZETA_ROWS[3]))?;
++        // the box's foot runs along the real axis through the pole: from the box's first frame
++        // the pole's mark stands on it, as it was standing on the picture
++        stage.add_to_scene(start_box)?;
++        for &m in &pole1 {
++            stage.add_to_scene(m)?;
++        }
+         fade_in_all(stage, &[start_box, sborder, band, half, squashed, critical], 0.4)?;
+         fade_in_all(stage, &links, 0.3)?;
+         let heights: Vec<&str> = fact("gallery.zeta.zeros")?.split(',').collect();
+@@ -816,10 +853,12 @@
+             })
+             .collect();
+         fade_in_all(stage, &rings, 0.5)?;
+-        line.wait_sentence(stage, 1)?;
++        line.wait_for(stage, "is the Riemann hypothesis")?;
+         let rh = carded_lines(&kit, stage, &RH, 26.0, hero(), v(zcol + 1.2, -1.0), hero())?;
+         fade_in_all(stage, &rh, 0.4)?;
+         line.wait_sentence(stage, 2)?;
++        // the strip's note goes before the lower third comes up over the place it stands
++        fade_out_all(stage, &[squashed], 0.3)?;
+         let four = precisely_now(&kit, stage, FOUR)?;
+         wait_until(stage, line.end())?;
+ 
+@@ -829,15 +868,11 @@
+         let mut gone = vec![
+             zborder,
+             series,
+-            zedge,
+-            converges,
+-            pole_says,
+             trivial_says,
+             start_box,
+             band,
+             sborder,
+             half,
+-            squashed,
+             critical,
+             four,
+         ];
+@@ -883,15 +918,18 @@
+         let (_, cubic) = panels[0];
+         let zp9 = zoom_plane();
+         let boxed = window_box(stage, &cubic, &zp9, hero())?;
+-        fade_in_all(stage, &[boxed], 0.4)?;
+-        // keep the cubic's panel; the others make room for the zoom
++        fade_in_all(stage, &[boxed], TILE_BEATS[0])?;
++        // keep the cubic's panel; the others make room for the zoom, pictures and all at once,
++        // as `Painter::leave` would one by one: there is no time here for five of those
+         let mut leaving: Vec<Mob> = frames[1..].to_vec();
+         leaving.extend(&panel_names[1..]);
+         leaving.extend(panel_marks[1..].concat());
+-        fade_out_all(stage, &leaving, 0.4)?;
+         for p in &painters[1..] {
+-            p.leave(stage, 0.2)?;
+-        }
++            stage.clear_updaters(p.anchor, true);
++            stage.remove_from_scene(p.anchor);
++            leaving.push(p.group);
++        }
++        fade_out_all(stage, &leaving, TILE_BEATS[1])?;
+         let zoom = Painter::build(stage, Some(Func::Cubic), zp9, 1.0)?;
+         let zborder9 = zp9.border(stage, hero())?;
+         let corner = |p: &Plane, x: usize, y: usize| {
+@@ -909,9 +947,12 @@
+                     .add(polyline(vec![a, b]).style(line_style(hero(), 2.0)).build())
+             })
+             .collect();
+-        zoom.show(stage, 0.8)?;
+-        fade_in_all(stage, &[zborder9], 0.3)?;
+-        fade_in_all(stage, &links, 0.3)?;
++        zoom.show(stage, TILE_BEATS[2])?;
++        let mut framing = links.clone();
++        framing.push(zborder9);
++        fade_in_all(stage, &framing, TILE_BEATS[3])?;
++        // the tile the voice is naming, as it names it
++        line.wait_for(stage, "nearly square")?;
+         let outline = zp9.path(stage, &tile(), hero(), 6.0)?;
+         let tile_says = kit.text(stage, ONE_TILE, 20.0, hero(), v(-4.5, -0.6))?;
+         fade_in_all(stage, &[outline, tile_says], 0.5)?;
+@@ -1085,6 +1126,165 @@
+         assert!(top_card - half_card > low_card + half_card);
+     }
+ 
++    /// The source of one cue's picture, up to `next`: read from the source because no render can
++    /// run here. What it does to the pixels is for the pictures to show.
++    fn beat(id: &str, next: &str) -> &'static str {
++        let source = include_str!("gallery.rs");
++        let code = &source[..source.find("#[cfg(test)]\nmod tests").unwrap()];
++        let start = code.find(&format!("say(&kit, stage, \"{id}\")")).unwrap();
++        let end = start + code[start..].find(next).unwrap();
++        &code[start..end]
++    }
++
++    fn runs_in_order(section: &str, order: &[&str]) {
++        let mut from = 0;
++        for piece in order {
++            let at = section[from..]
++                .find(piece)
++                .unwrap_or_else(|| panic!("{piece}: missing or early"));
++            from += at + piece.len();
++        }
++    }
++
++    /// 05_2 draws the marks one at a time, so they have to be the ones the function has: one
++    /// zero and one pole of order two in the window, each on the words that name it.
++    #[test]
++    fn the_zero_and_the_pole_come_on_their_own_words() {
++        let sp = square_plane();
++        let (x, y) = (sp.frame.x, sp.frame.y);
++        assert_eq!(Func::ZeroDoublePole.zeros(x, y), vec![ONE]);
++        assert_eq!(Func::ZeroDoublePole.poles(x, y), vec![(-ONE, 2)]);
++        runs_in_order(
++            beat("05_2", "say(&kit, stage, \"05_3\")"),
++            &[
++                "line.wait_sentence(stage, 2)?;",
++                "zero_mark(stage, sp.p(ONE))",
++                "fade_in_all(stage, &labels, 0.3)?;",
++                "line.wait_for(stage, \"and at minus one\")?;",
++                "pole_mark(stage, sp.p(-ONE))",
++                "fade_in_all(stage, &arriving, 0.3)?;",
++                "Self::walk_and_count(",
++            ],
++        );
++    }
++
++    /// The outlined tile of e^z is exact: four equal sides, on the lines where the portrait
++    /// really steps, with no step inside it, and inside the window clear of the two arrows.
++    #[test]
++    fn the_exponential_tile_is_an_exact_square_on_the_band_lines() {
++        let (s, t, ep) = (model::band_step(), exp_tile(), exp_plane());
++        assert_eq!(t.len(), 5);
++        assert_eq!(t[0], t[4]);
++        for k in 0..4 {
++            assert!(((t[k + 1] - t[k]).abs() - s).abs() < 1e-12, "side {k}");
++        }
++        let shade_at = |x: f64, y: f64| model::shade(C::new(x, y).exp()).unwrap();
++        let (x0, y0) = (t[0].re, t[0].im);
++        let (xm, ym, e) = (x0 + s / 2.0, y0 + s / 2.0, 1e-6);
++        // each side is a step in the picture
++        assert!((shade_at(x0 - e, ym) - shade_at(x0 + e, ym)).abs() > 0.1);
++        assert!((shade_at(x0 + s - e, ym) - shade_at(x0 + s + e, ym)).abs() > 0.1);
++        assert!((shade_at(xm, y0 - e) - shade_at(xm, y0 + e)).abs() > 0.1);
++        assert!((shade_at(xm, y0 + s - e) - shade_at(xm, y0 + s + e)).abs() > 0.1);
++        // and across the tile each direction only climbs, so no step falls inside it
++        for k in 1..64 {
++            let (a, b) = (f64::from(k - 1) / 63.0, f64::from(k) / 63.0);
++            let inset = |u: f64| 1e-6 + (s - 2e-6) * u;
++            assert!(shade_at(x0 + inset(a), ym) < shade_at(x0 + inset(b), ym));
++            assert!(shade_at(xm, y0 + inset(a)) < shade_at(xm, y0 + inset(b)));
++        }
++        for z in &t {
++            assert!(ep.contains(*z));
++            assert!(z.re > -2.55 && z.im > -3.5, "{z:?}: reaches an arrow");
++        }
++        runs_in_order(
++            beat("05_3", "say(&kit, stage, \"05_4\")"),
++            &[
++                "line.wait_for(stage, \"exact squares\")?;",
++                "fade_in_all(stage, &[one_square], 0.3)?;",
++                "line.wait_for(stage, \"repeating every two pi\")?;",
++                "fade_in_all(stage, &[bracket, period], 0.5)?;",
++            ],
++        );
++        assert!(beat("05_4", "say(&kit, stage, \"05_5\")").contains("one_square,"));
++    }
++
++    /// The climb's tip stops short of the dot it points to.
++    #[test]
++    fn the_climb_stops_short_of_the_dot() {
++        let tp = trig_plane();
++        const { assert!(CLIMB_STOP < 3.0) };
++        assert!((3.0 - CLIMB_STOP) * tp.unit() > 0.08 + 0.03);
++        assert!(beat("05_4", "say(&kit, stage, \"05_5\")").contains("C::new(0.0, CLIMB_STOP)"));
++    }
++
++    /// The gold box's foot passes through the pole, so the mark has to be above it from the
++    /// box's first frame; and the column has room before the strip arrives. Nothing is faded
++    /// twice: what leaves here is not on 05_9's list.
++    #[test]
++    fn the_strip_arrives_on_a_clear_column_and_under_the_pole() {
++        let region = shared_region();
++        let (left, right) = (region[0].re.min(region[1].re), region[0].re.max(region[1].re));
++        assert!(region[0].im == 0.0 && region[1].im == 0.0 && left < ONE.re && ONE.re < right);
++        runs_in_order(
++            beat("05_7", "say(&kit, stage, \"05_8\")"),
++            &[
++                "line.wait_sentence(stage, 5)?;",
++                "fade_out_all(stage, &[converges, pole_says, zedge], 0.3)?;",
++                "strip.show(stage, 0.8)?;",
++                "stage.add_to_scene(start_box)?;",
++                "for &m in &pole1 {",
++                "stage.add_to_scene(m)?;",
++                "fade_in_all(stage, &[start_box, sborder, band, half, squashed, critical], 0.4)?;",
++            ],
++        );
++        runs_in_order(
++            beat("05_8", "reading_window"),
++            &[
++                "fade_in_all(stage, &rings, 0.5)?;",
++                "line.wait_for(stage, \"is the Riemann hypothesis\")?;",
++                "fade_in_all(stage, &rh, 0.4)?;",
++                "line.wait_sentence(stage, 2)?;",
++                "fade_out_all(stage, &[squashed], 0.3)?;",
++                "let four = ",
++                "wait_until(stage, line.end())?;",
++            ],
++        );
++        let closing = beat("05_9", "kit.finish");
++        for gone_already in ["zedge", "converges", "pole_says", "squashed"] {
++            assert!(!closing.contains(gone_already), "{gone_already} would fade twice");
++        }
++    }
++
++    /// The tile is there as the voice names it: from "in little tiles" to "nearly square" the
++    /// scene spends a short fixed time and no panel leaves on its own clock. The card says which
++    /// picture it means, and it still fits its reading window.
++    #[test]
++    fn the_tile_is_ready_for_the_words_that_name_it() {
++        const { assert!(TILE_BEATS[0] + TILE_BEATS[1] + TILE_BEATS[2] + TILE_BEATS[3] < 1.8) };
++        let nine = beat("05_9", "kit.finish");
++        runs_in_order(
++            nine,
++            &[
++                "line.wait_for(stage, \"in little tiles\")?;",
++                "fade_in_all(stage, &[boxed], TILE_BEATS[0])?;",
++                "leaving.push(p.group);",
++                "fade_out_all(stage, &leaving, TILE_BEATS[1])?;",
++                "zoom.show(stage, TILE_BEATS[2])?;",
++                "fade_in_all(stage, &framing, TILE_BEATS[3])?;",
++                "line.wait_for(stage, \"nearly square\")?;",
++                "fade_in_all(stage, &[outline, tile_says], 0.5)?;",
++            ],
++        );
++        let from = nine.find("in little tiles").unwrap();
++        let to = nine.find("\"nearly square\"").unwrap();
++        assert!(
++            !nine[from..to].contains(".leave(stage"),
++            "a panel leaves on its own clock"
++        );
++        assert!(FOUR.starts_with("this strip") && FOUR.chars().count() as f64 / 15.0 < 4.1);
++    }
++
+     #[test]
+     fn the_tile_is_traced_exactly_and_is_nearly_square() {
+         let s = model::band_step();

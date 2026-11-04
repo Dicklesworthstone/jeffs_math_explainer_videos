@@ -1,0 +1,32 @@
+function, points read, median and 90th percentile hue error (0 to 1), control's median
+z                04_reading_color/frame-0020.png    n=3720 median 0.009  p90 0.018   conjugate control 0.383
+z^2              04_reading_color/frame-0140.png    n=3709 median 0.013  p90 0.028   conjugate control 0.426
+1/z              04_reading_color/frame-0200.png    n=3719 median 0.016  p90 0.034   conjugate control 0.384
+1/(1+z^2)        04_reading_color/frame-0300.png    n=3551 median 0.013  p90 0.033   conjugate control 0.403
+z^3-1            05_gallery/frame-0030.png          n=3710 median 0.018  p90 0.048   conjugate control 0.344
+(z-1)/(z+1)^2    05_gallery/frame-0082.png          n=3721 median 0.016  p90 0.038   conjugate control 0.286
+e^z              05_gallery/frame-0092.png          n=3721 median 0.017  p90 0.039   conjugate control 0.368
+sin z            05_gallery/frame-0166.png          n=3558 median 0.019  p90 0.062   conjugate control 0.351
+tan z            05_gallery/frame-0200.png          n=3706 median 0.017  p90 0.040   conjugate control 0.539
+gamma            05_gallery/frame-0280.png          n=3542 median 0.021  p90 0.056   conjugate control 0.352
+zeta             05_gallery/frame-0436.png          n=3721 median 0.022  p90 0.049   conjugate control 0.308
+zeta strip       05_gallery/frame-0436.png          n=3721 median 0.019  p90 0.054   conjugate control 0.213
+
+Numbers on screen and in the voice, recomputed
+band ratio e^(tau/12) = 1.6881   card 1.69, voice about 1.7
+sin(i) = 1.1752011936438014j   card 1.18 i
+sin(3i) = 10.017874927409903j   card 10.0 i
+max |sin x| over the plane's real line = 1.000000
+tan(4i), tan(-4i) = 0.000000+0.999329j, -0.000000-0.999329j
+gamma(4), gamma(5) = 6.000000, 24.000000
+z^3 - 1 at its three zeros: [0.0, 0.0, 0.0]
+1/(1+z^2) denominators at i and -i: 0.0, 0.0; |i| = 1
+|zeta(1/2 + 14.1347251i)| = 3.31e-08   card 14.13i
+|zeta(1/2 + 21.0220396i)| = 4.41e-08   card 21.02i
+|zeta(1/2 + 25.0108576i)| = 2.72e-08   card 25.01i
+|zeta(1/2 + 30.4248761i)| = 3.37e-08   card 30.42i
+|zeta(-2)| = 1.21e-12
+|zeta(-4)| = 1.21e-12
+|zeta(-6)| = 1.09e-06
+exp tile: both sides tau/12 = 0.523599 in the plane's own units, so exact squares
+turns by winding, independent: z^2 at 0: 2.0  1/z at 0: -1.0  bump at i: -1.0  bump at -i: -1.0  z^3-1 big loop: 3.0  (z-1)/(z+1)^2 at -1: -2.0

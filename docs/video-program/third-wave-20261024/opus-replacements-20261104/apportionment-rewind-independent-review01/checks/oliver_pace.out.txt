@@ -1,0 +1,4 @@
+takes read: 46 unread: 46 [('01_1', 'an, British and Steady_pvc_sp100_s100_sb100_v4.wav', 'FileNotFoundError'), ('01_1', 'British and Steady_pvc_sp100_s100_sb100_v4 (1).wav', 'FileNotFoundError')]
+words per second, whole take: min 1.80, median 2.33, max 3.00
+fastest: [(3.0, '03_1', 6), (3.0, '03_1', 6), (2.73, '08_2', 40)]
+first receipt keys: ['source', 'voice', 'model', 'stability', 'similarity', 'clone_strength', 'output', 'cue', 'script_sha256', 'submitted_text', 'generation_request_count', 'outputs_created_by_service', 'records', 'review']

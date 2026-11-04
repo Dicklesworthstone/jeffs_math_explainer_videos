@@ -1,0 +1,103 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
+@@ -199,8 +199,8 @@
+     ]
+ }
+ 
+-/// Where the tile is sought: away from the cubic's zeros.
+-pub const TILE_SEED: C = C::new(0.9, 1.1);
++/// Where the tile is sought: away from the cubic's zeros, on a tile that is close to square.
++pub const TILE_SEED: C = C::new(0.55, 0.95);
+ /// Points traced along each side of the tile.
+ pub const TILE_STEPS: usize = 16;
+ 
+@@ -227,7 +227,8 @@
+     let f0 = TILE_SEED * TILE_SEED * TILE_SEED - ONE;
+     let g = (TILE_SEED * TILE_SEED).scale(3.0) / f0;
+     let w0 = f0.ln();
+-    let corner = C::new(s * (w0.re / s).floor(), s * (w0.im / s).floor());
++    let band_below = |x: f64| s * ((x / s + model::BAND_OFFSET).floor() - model::BAND_OFFSET);
++    let corner = C::new(band_below(w0.re), band_below(w0.im));
+     let sides = [(ZERO, ONE), (ONE, ONE + I), (ONE + I, I), (I, ZERO)];
+     let mut out = Vec::with_capacity(4 * TILE_STEPS + 1);
+     for (a, b) in sides {
+@@ -1091,7 +1092,10 @@
+         assert_eq!(t.len(), 4 * TILE_STEPS + 1);
+         for &z in &t {
+             let w = (z * z * z - ONE).ln();
+-            let on = |x: f64| (x / s - (x / s).round()).abs() < 1e-9;
++            let on = |x: f64| {
++                let k = x / s + model::BAND_OFFSET;
++                (k - k.round()).abs() < 1e-9
++            };
+             assert!(on(w.re) || on(w.im), "{z:?}");
+         }
+         let corners: Vec<C> = (0..4).map(|k| t[k * TILE_STEPS]).collect();
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+@@ -661,13 +661,15 @@
+     }
+ }
+ 
+-/// The colour wheel legend: twelve wedges of output direction, with the
+-/// real axis's two ends named, centred at `at`, radius `r`.
++/// The colour wheel legend: twelve wedges of output direction, each centred on its anchor so
++/// that its edges fall where the picture's phase lines do, with the real axis's two ends
++/// named, centred at `at`, radius `r`.
+ pub fn wheel_legend(kit: &Kit, stage: &mut Stage<'_>, at: Vec3, r: f64) -> fmn::Result<Vec<Mob>> {
+     let mut out = Vec::new();
+     let n = model::WHEEL.len();
+     for k in 0..n {
+-        let (a0, a1) = (TAU * k as f64 / n as f64, TAU * (k + 1) as f64 / n as f64);
++        let edge = |j: usize| TAU * (j as f64 - model::BAND_OFFSET) / n as f64;
++        let (a0, a1) = (edge(k), edge(k + 1));
+         let mut pts = vec![at];
+         for j in 0..=6 {
+             let a = a0 + (a1 - a0) * f64::from(j) / 6.0;
+--- a/explainer_corpus/complex_analysis_visual/src/model.rs
++++ b/explainer_corpus/complex_analysis_visual/src/model.rs
+@@ -478,6 +478,14 @@
+     TAU / f64::from(PHASE_LINES)
+ }
+ 
++/// Where the edges of the bands and phase lines sit, as a share of a step past the whole
++/// multiples. At 0 an output of size exactly 1, or pointing exactly along an axis, sits on an
++/// edge, so rounding decides between the brightest and the darkest shade: e^z's column at
++/// x = 0 flips row by row, and tan z, which settles to ±i far from the real line, shows full
++/// bars where it should be flat. Half a step puts those outputs mid-band. Sizes and directions
++/// are unchanged: this moves where the brightness steps fall, and nothing else.
++pub const BAND_OFFSET: f64 = 0.5;
++
+ /// How much the output's size grows from one brightness band to the next.
+ pub fn band_ratio() -> f64 {
+     band_step().exp()
+@@ -529,8 +537,8 @@
+         return None;
+     }
+     let step = band_step();
+-    let size_band = (size.ln() / step).rem_euclid(1.0);
+-    let phase_band = (w.arg().rem_euclid(TAU) / step).rem_euclid(1.0);
++    let size_band = (size.ln() / step + BAND_OFFSET).rem_euclid(1.0);
++    let phase_band = (w.arg().rem_euclid(TAU) / step + BAND_OFFSET).rem_euclid(1.0);
+     Some((0.58 + 0.42 * size_band) * (0.80 + 0.20 * phase_band))
+ }
+ 
+@@ -926,6 +934,18 @@
+             assert!((at(x, y) - at(x + step, y)).abs() < 1e-9);
+             assert!((at(x, y) - at(x, y + step)).abs() < 1e-9);
+         }
++        // size 1 on an axis is mid-band: e^z does not flip across x = 0, at any height
++        for k in 1..40 {
++            let y = 0.37 * f64::from(k);
++            assert!((at(-1e-12, y) - at(1e-12, y)).abs() < 1e-6, "e^z at x = 0, y = {y}");
++        }
++        // and tan z, settling to i, goes flat where the voice says it does
++        let tan = |x: f64, y: f64| shade(Func::Tan.eval(C::new(x, y)).unwrap()).unwrap();
++        let row: Vec<f64> = (0..240)
++            .map(|c| tan(-6.6 + 13.2 * (f64::from(c) + 0.5) / 240.0, 3.0))
++            .collect();
++        let (lo, hi) = row.iter().fold((f64::MAX, 0.0_f64), |(a, b), &s| (a.min(s), b.max(s)));
++        assert!(hi / lo < 1.05, "tan at y = 3: {lo} to {hi}");
+     }
+ 
+     #[test]

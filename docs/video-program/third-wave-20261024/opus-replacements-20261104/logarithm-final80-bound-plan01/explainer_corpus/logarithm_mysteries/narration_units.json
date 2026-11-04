@@ -1,0 +1,576 @@
+{
+  "schema_version": 1,
+  "script_sha256": "f201d2dc57fa9ccac30d475255690a90d6749449014b542d4dea62164f31bf84",
+  "direction_contract": {
+    "schema_version": 1,
+    "topic": "logarithm_mysteries",
+    "script_sha256": "f201d2dc57fa9ccac30d475255690a90d6749449014b542d4dea62164f31bf84",
+    "map": {
+      "path": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json",
+      "sha256": "631dc98c007e1a7c39bfe35264cc0610d3bf430c7467d49fe5fda4957e8674ad"
+    }
+  },
+  "scope": "Candidate full-cue source plan for ElevenLabs Oliver, combined-repair-stage04: 80 units, one per cue, at most 100 words. It says nothing about whether a recording of any cue exists; unchanged wording is not evidence of a usable take. No synthesis, take selection, listening, timing or independent acceptance. No Michael or FrankenTTS.",
+  "units": [
+    {
+      "id": "oliver_00_1",
+      "line_ids": [
+        "00_1"
+      ],
+      "text": "Here are seven notes, all called A, from low on a piano to near the top. In standard tuning their frequencies are fifty-five, a hundred and ten, two hundred and twenty, four hundred and forty, eight hundred and eighty, seventeen sixty and thirty-five twenty vibrations per second."
+    },
+    {
+      "id": "oliver_00_2",
+      "line_ids": [
+        "00_2"
+      ],
+      "text": "Mark them on an ordinary ruler of frequency. The last step alone, from seventeen sixty to thirty-five twenty, fills half the ruler. The first four notes crowd into the first eighth."
+    },
+    {
+      "id": "oliver_00_3",
+      "line_ids": [
+        "00_3"
+      ],
+      "text": "A keyboard spaces them differently. Count every key, black or white, as one step, called a semitone. Each A is twelve semitones above the one before, and every one of those equal climbs doubles the frequency. To a musician, the distance between two notes is set by the ratio of their frequencies, not by their difference."
+    },
+    {
+      "id": "oliver_00_4",
+      "line_ids": [
+        "00_4"
+      ],
+      "text": "So try this. Start at the A of four hundred and forty, and go up six semitones, half of the twelve. What frequency do you reach? Halfway by difference would be six hundred and sixty."
+    },
+    {
+      "id": "oliver_00_5",
+      "line_ids": [
+        "00_5"
+      ],
+      "text": "Six semitones is half the climb, and two of those half climbs must double. So each one multiplies by the same number, the square root of two. The note is about six hundred and twenty-two, not six hundred and sixty. Equal steps on the keyboard are equal ratios."
+    },
+    {
+      "id": "oliver_00_6",
+      "line_ids": [
+        "00_6"
+      ],
+      "text": "A ruler whose equal steps mean equal ratios is what a logarithm builds. For centuries it let people multiply by sliding one strip of wood along another. Push the same idea into the complex numbers, or into the motions of a plane, and it starts to forget things. It can lose count of how many times something went around. It can even meet a transformation that no steady motion produces. We will follow the ruler all the way there."
+    },
+    {
+      "id": "oliver_01_1",
+      "line_ids": [
+        "01_1"
+      ],
+      "text": "First, build that ruler for every positive number, not just for notes. Put one at the start. Choose a length for doubling, and call it one step. Then two sits one step along, four sits two steps along, and eight sits three. Every doubling adds the same length."
+    },
+    {
+      "id": "oliver_01_2",
+      "line_ids": [
+        "01_2"
+      ],
+      "text": "The rule behind it fits in one sentence: the position of a product is the sum of the positions. Halving must undo a doubling, so one half sits one step before the start. And since the square root of two times itself is two, the square root of two sits half a step along."
+    },
+    {
+      "id": "oliver_01_3",
+      "line_ids": [
+        "01_3"
+      ],
+      "text": "Now a harder question. Where does three go? It lies between two and four, so somewhere between one step and two. But where, exactly?"
+    },
+    {
+      "id": "oliver_01_4",
+      "line_ids": [
+        "01_4"
+      ],
+      "text": "Use the rule in reverse. Twelve threes multiplied together make five hundred thirty-one thousand, four hundred and forty-one. Nineteen twos make five hundred twenty-four thousand, two hundred and eighty-eight. Those are less than one and a half percent apart. So twelve copies of three's length almost match nineteen steps, and three sits close to nineteen twelfths of a step."
+    },
+    {
+      "id": "oliver_01_5",
+      "line_ids": [
+        "01_5"
+      ],
+      "text": "You have seen this before, on the keyboard. Nineteen semitones above any A is a note almost exactly three times its frequency. Closer matches between powers pin three down further, and its true position is one point five eight five steps. As long as bigger numbers sit further along, this one rule fixes every position on the ruler."
+    },
+    {
+      "id": "oliver_01_6",
+      "line_ids": [
+        "01_6"
+      ],
+      "text": "This position has a name. Measured in doublings, it is the logarithm base two. The logarithm base two of eight is three, and of three it is about one point five eight five. Choose a different length for the first step and you get a different base. Let one step stand for multiplying by ten, and you get the common logarithm. Every one of these rulers is the same ruler, stretched."
+    },
+    {
+      "id": "oliver_02_1",
+      "line_ids": [
+        "02_1"
+      ],
+      "text": "Now make two copies of the ruler, one fixed and one that slides along it. Mark each from one to ten, with ten one full length along. This is the heart of a slide rule."
+    },
+    {
+      "id": "oliver_02_2",
+      "line_ids": [
+        "02_2"
+      ],
+      "text": "To multiply two point five by three point two, slide the moving ruler until its one sits above two point five. Everything on it is now shifted by two point five's length. Find three point two on the moving ruler. Which number sits directly below it?"
+    },
+    {
+      "id": "oliver_02_3",
+      "line_ids": [
+        "02_3"
+      ],
+      "text": "Eight. The two lengths add, so the numbers multiply. Two point five times three point two is eight. Sliding added the positions, and the markings turned that sum back into a product."
+    },
+    {
+      "id": "oliver_02_4",
+      "line_ids": [
+        "02_4"
+      ],
+      "text": "Now try four times six. Put the one above four and look for six. It has run off the end. The answer, twenty-four, is bigger than ten, and this ruler stops at ten."
+    },
+    {
+      "id": "oliver_02_5",
+      "line_ids": [
+        "02_5"
+      ],
+      "text": "So use the other end. Put the moving ruler's ten above the four instead. Now six sits above two point four. The rule gives the digits, a two and a four, but not the decimal point. Two point four, twenty-four and two hundred and forty all live on the same mark. The person holding the rule keeps track: four times six is between ten and a hundred, so it is twenty-four."
+    },
+    {
+      "id": "oliver_03_1",
+      "line_ids": [
+        "03_1"
+      ],
+      "text": "Why can one mark serve both two point four and twenty-four? Multiplying by ten moves exactly one full ruler length, so every decade repeats the same pattern of marks. So bend one decade into a circle. One full lap of this dial multiplies by ten."
+    },
+    {
+      "id": "oliver_03_2",
+      "line_ids": [
+        "03_2"
+      ],
+      "text": "On the dial, multiplying is turning. Four sits a little past half a lap. Six adds about three quarters of a lap more. Together they pass the top, where one, ten and a hundred meet, and stop on two point four's mark. The extra lap is the factor of ten the straight ruler had no room for."
+    },
+    {
+      "id": "oliver_03_3",
+      "line_ids": [
+        "03_3"
+      ],
+      "text": "The dial remembers the digits, and forgets the laps. To read a number back from a mark, you must also say how many laps you mean. Zero laps gives two point four. One lap gives twenty-four. Minus one lap gives zero point two four."
+    },
+    {
+      "id": "oliver_03_4",
+      "line_ids": [
+        "03_4"
+      ],
+      "text": "Keep this picture of a spiral and its shadow. A mark that can be reached in different numbers of laps is exactly what happens to the logarithm in the complex numbers. There, nobody folds anything by hand. The exponential does the folding by itself."
+    },
+    {
+      "id": "oliver_04_1",
+      "line_ids": [
+        "04_1"
+      ],
+      "text": "But first, the logarithm on its home ground. The exponential function, written e to the x, takes an input and returns a multiplier. Adding inputs multiplies outputs. It equals one at zero, and its slope everywhere equals its height. The companion video builds it from scratch."
+    },
+    {
+      "id": "oliver_04_2",
+      "line_ids": [
+        "04_2"
+      ],
+      "text": "Three facts about it decide everything. It never outputs zero, because e to the x times e to the minus x is e to the zero, which is one. It never outputs a negative number, because it starts at one and could only turn negative by passing through zero. And since its slope is its height, which is positive, it only ever climbs, from near zero on the left to as large as you like on the right. So every positive number is reached exactly once."
+    },
+    {
+      "id": "oliver_04_3",
+      "line_ids": [
+        "04_3"
+      ],
+      "text": "That makes it reversible. The natural logarithm takes a positive number and returns the one input that the exponential sends there. The natural logarithm of one is zero. The natural logarithm of e is one. Zero and the negative numbers have no real logarithm at all, because the exponential never lands on them."
+    },
+    {
+      "id": "oliver_04_4",
+      "line_ids": [
+        "04_4"
+      ],
+      "text": "The mirror image shows something else. Reflecting the graph swaps rise and run. Where the exponential has slope equal to its height, the logarithm at x has slope one over x. At one, that slope is exactly one. So the natural logarithm of one point zero one is almost exactly zero point zero one. A small percentage change becomes the same small step, which is why this base is called natural."
+    },
+    {
+      "id": "oliver_04_5",
+      "line_ids": [
+        "04_5"
+      ],
+      "text": "And this is the ruler again. The natural logarithm is the ruler whose step of one multiplies by e, about two point seven one eight. The position of a product is still the sum of the positions: the logarithm of a times b is the logarithm of a plus the logarithm of b, for positive a and b. Other bases are the same ruler stretched. The logarithm base two of x is the natural logarithm of x, divided by the natural logarithm of two."
+    },
+    {
+      "id": "oliver_04_6",
+      "line_ids": [
+        "04_6"
+      ],
+      "text": "Here is the inverse at work. Money growing continuously at five percent a year is multiplied by e to the zero point zero five t after t years. When has it doubled?"
+    },
+    {
+      "id": "oliver_04_7",
+      "line_ids": [
+        "04_7"
+      ],
+      "text": "Take the natural logarithm of both sides. Zero point zero five t equals the natural logarithm of two, about zero point six nine three. So t is about thirteen point nine years. That is the rule of seventy for quick estimates: divide about seventy by the percentage. To grow a thousandfold takes the natural logarithm of a thousand, six point nine one, divided by zero point zero five. About a hundred and thirty-eight years, close to ten doublings, since two to the tenth is just over a thousand."
+    },
+    {
+      "id": "oliver_05_1",
+      "line_ids": [
+        "05_1"
+      ],
+      "text": "Now let the numbers leave the line. A complex number is a point in the plane, or an arrow from zero to that point. Multiplying two of them multiplies their lengths and adds their angles. Multiplying by i keeps the length the same and turns the arrow a quarter turn. So what is i times i?"
+    },
+    {
+      "id": "oliver_05_2",
+      "line_ids": [
+        "05_2"
+      ],
+      "text": "Two quarter turns make a half turn, so i times i is minus one. Lengths multiply and angles add, so a slide rule for complex numbers needs two rulers. One for length, which multiplies, so it uses the logarithm we just built. And one for angle, which simply adds."
+    },
+    {
+      "id": "oliver_05_20",
+      "line_ids": [
+        "05_20"
+      ],
+      "text": "The complex exponential packs both together. Feed it x plus i times y. The real part x sets the length, e to the x. The imaginary part y sets the angle. For instance, take x to be the logarithm of two, and y to be a half pi: the length is two, the angle a quarter turn, so we land on two i."
+    },
+    {
+      "id": "oliver_05_3",
+      "line_ids": [
+        "05_3"
+      ],
+      "text": "Watch what that does to a grid. On the left is the input plane. Each horizontal line keeps one angle, so it goes to a ray from zero. Each vertical line keeps one length, so it goes to a circle. But a vertical line is infinitely long, and a circle closes after one lap. So each vertical line wraps around its circle again and again."
+    },
+    {
+      "id": "oliver_05_4",
+      "line_ids": [
+        "05_4"
+      ],
+      "text": "Zero and two pi times i are different inputs, and both land on one. So do four pi times i and minus two pi times i. Climbing two pi up the input plane carries the output once around its circle, back to where it started."
+    },
+    {
+      "id": "oliver_05_5",
+      "line_ids": [
+        "05_5"
+      ],
+      "text": "Here is a question. Which inputs land on minus one?"
+    },
+    {
+      "id": "oliver_05_6",
+      "line_ids": [
+        "05_6"
+      ],
+      "text": "Minus one has length one, so the real part of the input is the logarithm of one, which is zero. Its angle is a half turn, pi. But pi plus any whole number of laps points the same way. So the inputs are pi times i, three pi times i, minus pi times i, and so on: a whole column of them, two pi apart. Every one is a logarithm of minus one."
+    },
+    {
+      "id": "oliver_05_7",
+      "line_ids": [
+        "05_7"
+      ],
+      "text": "The same goes for every nonzero number. Its logarithms share one real part, the logarithm of its length, and have a whole column of angles, one for each lap. Only zero is left out. Its length would have to be e to some x, and that is never zero. In the complex numbers, the exponential is a dial that forgets laps, just like the folded slide rule."
+    },
+    {
+      "id": "oliver_06_1",
+      "line_ids": [
+        "06_1"
+      ],
+      "text": "If a number has a whole column of logarithms, can we at least choose one in a sensible, continuous way? Start at one, choose the logarithm zero, and walk the number slowly around the circle of radius one. Keep the logarithm moving smoothly along with it."
+    },
+    {
+      "id": "oliver_06_2",
+      "line_ids": [
+        "06_2"
+      ],
+      "text": "As the number turns, its logarithm climbs straight up, because only the angle changes. A quarter of the way round, the logarithm is pi over two times i. Halfway round, at minus one, it is pi times i. When the number arrives back at one, what is the logarithm?"
+    },
+    {
+      "id": "oliver_06_3",
+      "line_ids": [
+        "06_3"
+      ],
+      "text": "Two pi times i. The number came back. The logarithm did not. It finished one lap higher in the column than where it began. Go around again and it climbs again. Go the other way and it comes back down."
+    },
+    {
+      "id": "oliver_06_4",
+      "line_ids": [
+        "06_4"
+      ],
+      "text": "A loop that does not go around zero behaves differently. Here is a circle off to one side, which zero is not inside. Walk the number once around it, carrying the logarithm along as before. Will the logarithm come back to where it began?"
+    },
+    {
+      "id": "oliver_06_5",
+      "line_ids": [
+        "06_5"
+      ],
+      "text": "It does: it drifts up and down, and returns exactly. What matters is how many times the loop winds around zero. That count is the winding number, and every lap moves the logarithm by two pi times i."
+    },
+    {
+      "id": "oliver_06_6",
+      "line_ids": [
+        "06_6"
+      ],
+      "text": "Could some other choice of logarithm be continuous all the way round? Try the obvious candidate: the logarithm whose angle stays between minus pi and pi. Walk round again, comparing it with ours, and track the gap in whole laps. The gap sits at zero until the number passes minus one, then jumps down a lap, because the candidate's angle leaps from pi to minus pi. So that candidate breaks at minus one."
+    },
+    {
+      "id": "oliver_06_20",
+      "line_ids": [
+        "06_20"
+      ],
+      "text": "Now suppose someone hands us a logarithm that is continuous everywhere on the circle. At every point it differs from ours by a whole number of laps, because both undo the same exponential. A gap that is always a whole number of laps, and varies continuously, can never jump from one whole number to the next, so it stays fixed all the way round."
+    },
+    {
+      "id": "oliver_06_7",
+      "line_ids": [
+        "06_7"
+      ],
+      "text": "Now follow both back to one. Theirs is a function of the point, so it returns to exactly the value it started with. Ours finishes two pi times i higher. So the gap has changed by one lap, and we just saw that it cannot change. That is a contradiction. No continuous logarithm exists on any loop that winds around zero. Something has to give."
+    },
+    {
+      "id": "oliver_07_1",
+      "line_ids": [
+        "07_1"
+      ],
+      "text": "What gives is the freedom to walk all the way around. Draw a line from zero out to infinity, and forbid crossing it. Now no loop can go around zero, and a continuous choice becomes possible. The line is called a branch cut."
+    },
+    {
+      "id": "oliver_07_2",
+      "line_ids": [
+        "07_2"
+      ],
+      "text": "The usual choice removes zero and the negative numbers, and keeps angles strictly between minus pi and pi. The result is the principal logarithm, written with a capital L. On this cut plane it is a single, well behaved function, with derivative one over z at every point, just as on the positive numbers. For example, i has length one and a quarter turn of angle, so Log of i is pi over two times i, and Log of minus i is minus pi over two times i."
+    },
+    {
+      "id": "oliver_07_3",
+      "line_ids": [
+        "07_3"
+      ],
+      "text": "Here is where the cut plane goes. The principal logarithm unrolls it into a horizontal strip, between height minus pi and height pi. Circles become vertical segments. Rays become horizontal lines. Now roll it back, and mark the two sides of the cut: one just above it, one just below. Where will they end up on the strip?"
+    },
+    {
+      "id": "oliver_07_4",
+      "line_ids": [
+        "07_4"
+      ],
+      "text": "They land on opposite edges of the strip, the top edge and the bottom edge. That is because just above the cut the angle is close to pi, and just below it, close to minus pi. So a path that crosses the cut would have to jump by two pi."
+    },
+    {
+      "id": "oliver_07_5",
+      "line_ids": [
+        "07_5"
+      ],
+      "text": "The cut is a choice, not a crack. Cut along the upward imaginary axis instead, and the angles run over a different window, from minus three halves of pi up to a half pi. Or cut along a spiral. Any curve that runs from zero out to infinity without crossing itself will do: in the plane that is left, no loop can wind around zero. Zero is the one point every cut must touch. It is called the branch point."
+    },
+    {
+      "id": "oliver_07_6",
+      "line_ids": [
+        "07_6"
+      ],
+      "text": "Two cautions. On the negative numbers themselves, the usual convention assigns the angle pi, so the principal value exists there too. But it jumps: just below the cut, the angles are close to minus pi. And the principal logarithm undoes the exponential from one side only. Exponentiating the logarithm of z gives back z for every nonzero z. But the logarithm of e to the w gives back w only when the height of w is above minus pi and at most pi. That is the strip, with its top edge added by the convention."
+    },
+    {
+      "id": "oliver_08_1",
+      "line_ids": [
+        "08_1"
+      ],
+      "text": "On the positive numbers, the logarithm of a product is the sum of the logarithms. Does that survive the cut? Take a number of length one, at an angle of three quarters of pi. Square it. The lengths multiply to one, and the angles add to one and a half pi. But the principal logarithm only reports angles in its window, from minus pi up to pi. So what angle will it report for the square?"
+    },
+    {
+      "id": "oliver_08_2",
+      "line_ids": [
+        "08_2"
+      ],
+      "text": "Not one and a half pi: that is outside the window. It reports the same direction as minus a half pi. So the sum of the two logarithms is one and a half pi times i, while the logarithm of the product is minus a half pi times i. They differ by two pi times i, exactly one lap."
+    },
+    {
+      "id": "oliver_08_3",
+      "line_ids": [
+        "08_3"
+      ],
+      "text": "This is the slide rule's decimal point again. When the sum of the angles runs past the window, the chosen logarithm drops a lap, just as the slide rule's reading dropped a factor of ten. The rule that survives is this: the logarithm of a product is the sum of the logarithms, plus a whole number of laps. The rule did not break. It now keeps a lap count. For our square, the count is minus one: one lap down."
+    },
+    {
+      "id": "oliver_08_4",
+      "line_ids": [
+        "08_4"
+      ],
+      "text": "That lap count hides inside a famous puzzle. Minus one is i times i. Write i as the square root of minus one. Combine the two roots into the root of minus one times minus one. That is the root of one, which is one. So minus one equals one. Which step broke?"
+    },
+    {
+      "id": "oliver_08_5",
+      "line_ids": [
+        "08_5"
+      ],
+      "text": "Combining the roots. Here a square root is e to the power of half a logarithm. Each minus one has principal angle pi, so the two roots together turn by pi and point at minus one. But the product, one, has principal angle zero, not two pi. Halving the lost lap leaves a half turn, and a half turn is a factor of minus one. The root of a product equals the product of the roots only up to that sign."
+    },
+    {
+      "id": "oliver_09_1",
+      "line_ids": [
+        "09_1"
+      ],
+      "text": "One more step up. A two by two matrix is a recipe for moving every point of the plane. It says where the two unit arrows go, and everything else follows along. A grid shows the result: turned, stretched, sheared, or flipped. The matrix only says where each point ends up, not how it gets there; the travel comes next."
+    },
+    {
+      "id": "oliver_09_2",
+      "line_ids": [
+        "09_2"
+      ],
+      "text": "Matrices have an exponential too, built from the same series. Here is the picture that matters. A matrix X can be read as a velocity: at each point it gives an arrow saying which way that point moves. Let every point follow its arrow for one unit of time. Where everything ends up is the matrix e to the X."
+    },
+    {
+      "id": "oliver_09_3",
+      "line_ids": [
+        "09_3"
+      ],
+      "text": "A logarithm of a matrix A is then a velocity that carries the plane exactly onto A in one unit of time. So the question of whether a logarithm exists becomes a question about motion. Is there a steady flow that ends at this transformation?"
+    },
+    {
+      "id": "oliver_09_4",
+      "line_ids": [
+        "09_4"
+      ],
+      "text": "Start with a quarter turn. The velocity that turns the plane a quarter turn per unit of time reaches it. But so does one that spins one and a quarter turns per unit of time. So does three quarters of a turn the other way. This is the column of complex logarithms again. Matrices that only turn and scale behave exactly like complex numbers, and so do their exponentials."
+    },
+    {
+      "id": "oliver_10_1",
+      "line_ids": [
+        "10_1"
+      ],
+      "text": "Now the identity, the matrix that leaves every point where it is. Zero velocity is one logarithm. One full turn per unit of time is another. With matrices, there are more."
+    },
+    {
+      "id": "oliver_10_2",
+      "line_ids": [
+        "10_2"
+      ],
+      "text": "Squash the circle into an ellipse. A flow that carries every point once around its own ellipse in one unit of time also brings the whole plane home exactly. Stretch or tilt the ellipse and you get another. The identity has infinitely many real logarithms, and not just a column of them: a whole continuous family."
+    },
+    {
+      "id": "oliver_10_3",
+      "line_ids": [
+        "10_3"
+      ],
+      "text": "Which one should a calculation return? For numbers, the principal logarithm kept the angle within a half turn either way, between minus pi and pi. Matrix flows turn too. Every steady flow of the plane either turns round at a steady rate, sweeping round stretched circles, perhaps spiralling in or out, or does not turn round at all. The zero flow turns by nothing in its unit of time. Each ellipse flow turns a full lap, two pi."
+    },
+    {
+      "id": "oliver_10_4",
+      "line_ids": [
+        "10_4"
+      ],
+      "text": "So use the same rule: keep the turning strictly between minus pi and pi. Whenever a matrix sends no direction to zero or to a negative multiple of itself, exactly one of its logarithms obeys that rule. It is called the principal logarithm, and for a real matrix it is real. For the identity it is the flow that does nothing. On screen is the textbook version, which counts the turning with the imaginary parts of what are called eigenvalues."
+    },
+    {
+      "id": "oliver_11_1",
+      "line_ids": [
+        "11_1"
+      ],
+      "text": "Can every matrix be reached by a steady flow? Try a mirror that flips the plane left to right. Compare a shape with a handedness, like the letter F, before and after. The mirror turns it into its reflection, and each dashed line only pairs a corner with where it lands. Averaging the two matrices, the simplest guess at a halfway point, squashes the whole plane flat onto a line."
+    },
+    {
+      "id": "oliver_11_2",
+      "line_ids": [
+        "11_2"
+      ],
+      "text": "Track the signed area of a unit square while a flow runs. It starts at one. It changes smoothly as the plane moves. And it can never reach zero, because at every moment the flow can be run backwards, so nothing has been squashed flat. A smooth quantity that starts at one and never touches zero stays positive. The mirror has signed area minus one, so no real flow reaches it, not even one that changes its velocity as it runs."
+    },
+    {
+      "id": "oliver_11_3",
+      "line_ids": [
+        "11_3"
+      ],
+      "text": "That factor on signed area is called the determinant. So a real matrix with a negative determinant has no real logarithm. Is a positive determinant enough? Try this one. Double the length along one axis and flip it. Halve the length along the other axis and flip that too. The area is multiplied by plus one. It is even a half turn followed by a stretch. Can a single steady flow end here?"
+    },
+    {
+      "id": "oliver_11_4",
+      "line_ids": [
+        "11_4"
+      ],
+      "text": "No. Suppose some steady flow X did end here, so that A is e to the X. Then X and A commute: doing one and then the other gives the same result in either order. Here is why. A is a sum of powers of X: the identity, plus X, plus a half of X squared, and so on. Multiplying X by any power of X, on either side, gives the next power, so X slides past every term of the sum."
+    },
+    {
+      "id": "oliver_11_5",
+      "line_ids": [
+        "11_5"
+      ],
+      "text": "Now see what commuting costs. Take a vector with two nonzero parts, and send it along both routes: first A and then X, or first X and then A. If X has an entry off its diagonal, the two routes end in different places. Each part of the gap is an off-diagonal entry of X, times the difference between A's two stretches, times one part of the vector. Those stretches differ, so the routes can only agree when every entry off the diagonal is zero."
+    },
+    {
+      "id": "oliver_11_6",
+      "line_ids": [
+        "11_6"
+      ],
+      "text": "So X is diagonal. Its flow only stretches the two axes, each by e raised to a real rate times the time. A real exponential is always positive, so this flow never reverses either axis, but A reverses both. A half turn and a stretch each have a steady flow of their own, and running one after the other gets here. But no single steady flow does both."
+    },
+    {
+      "id": "oliver_11_7",
+      "line_ids": [
+        "11_7"
+      ],
+      "text": "Compare flipping both axes by the same amount. That is a plain half turn, and a steady spin reaches it easily. Why does the argument fail there? Its two stretches are equal, so nothing forces a logarithm to keep the axes, and the spin, which turns every axis, is allowed. In two dimensions that is the whole story: a matrix that sends some direction to a negative multiple of itself has a real logarithm only when it does that to every direction alike, a half turn combined with an equal stretch."
+    },
+    {
+      "id": "oliver_11_20",
+      "line_ids": [
+        "11_20"
+      ],
+      "text": "In higher dimensions, the exact rule, from a nineteen sixty-six paper by Culver, asks that the matrix's blocks for each negative stretch come in matching pairs. On screen is the precise version."
+    },
+    {
+      "id": "oliver_11_8",
+      "line_ids": [
+        "11_8"
+      ],
+      "text": "Allow complex matrices, and the obstacle disappears. A flip is a half turn in a complex direction, with logarithm pi times i. Every invertible complex matrix has a complex logarithm. Only the singular ones, which squash the plane flat, have none, for the same reason zero had none."
+    },
+    {
+      "id": "oliver_12_1",
+      "line_ids": [
+        "12_1"
+      ],
+      "text": "Look back along the way. On the positive numbers the exponential forgets nothing. Every output has exactly one input, and the logarithm is a perfect ruler for ratios, the keyboard and the slide rule."
+    },
+    {
+      "id": "oliver_12_2",
+      "line_ids": [
+        "12_2"
+      ],
+      "text": "Fold the ruler into a dial, and it forgets the decade. In the complex plane the exponential does that folding by itself, and forgets the laps. A branch cut is a decision about laps, and the product rule keeps a lap count."
+    },
+    {
+      "id": "oliver_12_3",
+      "line_ids": [
+        "12_3"
+      ],
+      "text": "With matrices the exponential forgets even more: whole families of flows end in the same place. And some places cannot be reached by any single steady real flow at all. In every setting, a logarithm asks the same question. Which steady motion got us here?"
+    },
+    {
+      "id": "oliver_12_4",
+      "line_ids": [
+        "12_4"
+      ],
+      "text": "One more motion, now in three dimensions. Here is a solid cube, and a marked axis: a rod through the centres of its top and bottom faces. A steady spin about that rod carries every corner round its own circle about the rod, all at the same rate, while the rod itself stays put. Follow one corner: spinning at half a lap per unit of time, after one unit it has gone exactly halfway round its circle. Every other corner has too, so the whole cube has made a half turn about the rod."
+    },
+    {
+      "id": "oliver_12_5",
+      "line_ids": [
+        "12_5"
+      ],
+      "text": "Here is the puzzle. How many different steady spins end at exactly this half turn after one unit of time? Think about the laps, the direction of spin, and the axis."
+    },
+    {
+      "id": "oliver_12_6",
+      "line_ids": [
+        "12_6"
+      ],
+      "text": "Here is the answer, one hint at a time. Laps first: one and a half laps per unit of time also ends here, and so does two and a half, and so does any odd number of half laps."
+    },
+    {
+      "id": "oliver_12_20",
+      "line_ids": [
+        "12_20"
+      ],
+      "text": "Direction next: half a lap the other way lands every corner in the same place. Last, the axis: a finished spin leaves every point of its own axis where it was, and our half turn leaves only the rod's points in place, so any other axis is ruled out. So infinitely many steady spins end here, all about this one rod."
+    },
+    {
+      "id": "oliver_12_21",
+      "line_ids": [
+        "12_21"
+      ],
+      "text": "The two slowest, half a lap each way, turn by exactly pi, the very edge of the principal window, and neither is slower, so this half turn has no principal logarithm. For the number minus one, a convention broke the same tie; here the honest answer is the whole family."
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+Patch checks for the logarithm 08-10 repair stage. Source-level only: no build, no render.
+run at 2026-11-04 10:59:02Z
+git apply --check of each patch against the canonical tree: exit 0, exit 0
+helpers then chapters: every file equals the candidate byte for byte: True
+chapters then helpers: every file equals the candidate byte for byte: True
+shared-draw-helpers.patch alone changes: ['draw.rs']
+chapters-08-10.patch alone changes: ['product_rule.rs', 'matrix_logs.rs', 'doing_nothing.rs', 'storyboard.md']

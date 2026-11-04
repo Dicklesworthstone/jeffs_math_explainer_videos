@@ -1,0 +1,52 @@
+rustc: rustc 1.100.0-nightly (908501772 2026-08-30)
+PASS kit facts shim compiles
+PASS whole registry compiles (rate + series + product)
+PASS every native row has a tab
+883 native rows; prefixes: {'factorials': 667, 'growth': 6, 'limit': 6, 'product': 33, 'rate': 166, 'series': 2, 'slide': 3}
+PASS oracle rate runs  183 rows
+PASS oracle series runs  667 rows
+PASS oracle product runs  33 rows
+sha256 oracle_combined: a7f288a76bf1d1c6e7c5113484624ae891f6068c5466ba3e9425f0674d69c871
+oracle_diff lines: 0
+PASS the kit's own oracle_diff over all three oracles is empty
+PASS no duplicate keys on either side
+PASS dict equality, independent of oracle_diff  883 rows
+PASS row count: old 835, plus series 41, plus product 7  883
+  factorials.tail.4.bound: native 0.12657 | oracle 0.12657
+  factorials.tail.8.bound: native 0.00022 | oracle 0.00022
+  factorials.halving.from: native 3 | oracle 3
+  factorials.match.4.equation: native 4d = 1/6 | oracle 4d = 1/6
+  factorials.match.4.value: native d = 1/24 | oracle d = 1/24
+  factorials.running.4: native 1\cdot 2\cdot 3\cdot 4 | oracle 1\cdot 2\cdot 3\cdot 4
+  factorials.envelope.9: native 0.00396 | oracle 0.00396
+  product.e: native 2.71828 | oracle 2.71828
+  product.ladder.fractions: native 9 | oracle 9
+  old tail rows gone: True
+PASS control: the tampered oracle differs
+PASS control: oracle_diff catches the old printed bound
+PASS tests: facts01 rate_model.rs  test result: ok. 4 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test tests::each_refinement_climbs_above_the_coarser_drawing_and_the_end_gap_shrinks ... ok
+     test tests::displayed_refinements_stay_on_the_same_domain_and_improve_endpoint ... ok
+     test tests::first_step_agrees_but_the_next_slope_does_not ... ok
+     test tests::every_printed_number_is_the_exact_rational_rounded ... ok
+PASS tests: candidate series_model.rs  test result: ok. 9 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test tests::derivative_coefficients_match_the_previous_power ... ok
+     test tests::bound_contains_positive_and_negative_sample_errors ... ok
+     test tests::the_derivative_of_each_term_is_the_previous_term ... ok
+     test tests::the_hypothesis_is_exact_at_its_edge ... ok
+     test tests::the_printed_bounds_are_rounded_up_and_still_contain_the_true_tail ... ok
+     test tests::the_table_prints_the_exact_equations ... ok
+     test tests::every_ratio_is_the_exact_step_between_two_bars ... ok
+     test tests::the_running_products_are_the_factorials ... ok
+     test tests::every_tail_bar_sits_under_its_ceiling_at_every_input ... ok
+PASS tests: candidate product_model.rs  test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+     test tests::factorial_weights_are_exact_binomial_coefficients ... ok
+     test tests::the_line_marks_every_step_once_and_in_its_own_group ... ok
+     test tests::diagonals_have_every_term_once_and_no_truncated_degree ... ok
+     test tests::the_named_constant_is_e ... ok
+     test tests::every_printed_cell_is_exact ... ok
+PASS registry crate compiles in test cfg
+PASS tests: whole registry crate  test result: ok. 20 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+PASS clippy-driver -D warnings on the models (normal cfg)
+PASS clippy-driver -D warnings on the models (test cfg)
+RESULT PASS

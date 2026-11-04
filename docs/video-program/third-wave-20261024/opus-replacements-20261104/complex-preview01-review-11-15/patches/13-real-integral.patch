@@ -1,0 +1,207 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
+@@ -19,6 +19,7 @@ use super::draw::{
+     Plane, carded, dot, fact, fade_in_all, fade_out_all, faded_line, flat, hero, line_style, pause, pole, pole_mark,
+     precisely_lifted, precisely_over, predict, reading_window, say, shift_all, tween_linear, value, wait_until,
+ };
++use super::the_bump::{POLE_I, POLE_MINUS_I};
+ use crate::model::{self, C, ZERO, arc_bound};
+ 
+ pub const BUMP_AREA_TEX: &str =
+@@ -46,8 +47,15 @@ pub const RES_TEX: &str = r"\mathrm{Res}_p = \frac{1}{4p^3}";
+ pub const FOURTH_TEX: &str = r"p^4 = -1 \;\Rightarrow\; \frac{1}{p^3} = -p";
+ pub const MINUS_P_TEX: &str = r"\mathrm{Res}_p = -\frac{p}{4}";
+ pub const SUM_TEX: &str = r"\mathrm{Res}_{p_1} + \mathrm{Res}_{p_2} = -\frac{p_1 + p_2}{4} = -\frac{i\sqrt{2}}{4}";
+-pub const VALUE_TEX: &str =
+-    r"2\pi i \cdot \Big(-\frac{i\sqrt{2}}{4}\Big) = \frac{\pi\sqrt{2}}{2} = \frac{\pi}{\sqrt{2}}";
++/// 13_9 in two steps: "Multiply by two pi i", then the cancellation the voice walks through.
++pub const VALUE_TEX: &str = r"2\pi i \cdot \Big(-\frac{i\sqrt{2}}{4}\Big)";
++pub const VALUE_RESULT_TEX: &str = r"= \frac{\pi\sqrt{2}}{2} = \frac{\pi}{\sqrt{2}}";
++/// 13_2's other end of the segment; `R_TEX` names the near one.
++pub const MINUS_R_TEX: &str = "-R";
++/// 13_8's yellow arrow, which is the poles' sum and not yet the residues' sum.
++pub const TOTAL_TEX: &str = r"p_1 + p_2";
++/// 13_8's second arrow, −(p₁ + p₂)/4: the residues' sum points down.
++pub const SUM_NAME: &str = "sum";
+ /// 13_10: the same mechanism for 1/(1 + z⁴): the max, then length × max.
+ pub const QUARTIC_MAX_TEX: &str = r"\Big|\frac{1}{1+z^4}\Big| \le \frac{1}{R^4 - 1}";
+ pub const QUARTIC_ARC_TEX: &str =
+@@ -172,9 +180,10 @@ fn length_label_at(u: &Frame2, r: f64) -> Vec3 {
+ }
+ 
+ /// Where "R" sits beside the spoke from 0 to the walking point at angle
+-/// `th`: off its middle, on the clockwise side (below it at the start).
++/// `th`: past its middle, on the clockwise side (below it at the start). Past the middle
++/// because the middle of the upright spoke, at R = 2, is the pole at i.
+ fn r_name_at(p: &Plane, r: f64, th: f64) -> Vec3 {
+-    p.p(C::polar(r / 2.0, th) + C::polar(0.25, th - PI / 2.0))
++    p.p(C::polar(r * 0.72, th) + C::polar(0.25, th - PI / 2.0))
+ }
+ 
+ /// The graph of `f` with the area under it shaded: `[area, curve]`.
+@@ -201,10 +210,12 @@ fn area(stage: &mut Stage<'_>, g: &Frame2, f: impl Fn(f64) -> f64) -> [Mob; 2] {
+ /// Arrows along the contour: one on the segment, one at the top of the arc.
+ fn contour_arrows(stage: &mut Stage<'_>, p: &Plane, r: f64) -> fmn::Result<Vec<Mob>> {
+     let along = Arrow::new(p.p(C::real(0.2)), p.p(C::real(0.8)))
++        .buff(0.0)
+         .thickness(4.0)
+         .color(hero())
+         .build()?;
+     let back = Arrow::new(p.p(C::polar(r, PI / 2.0 - 0.15)), p.p(C::polar(r, PI / 2.0 + 0.15)))
++        .buff(0.0)
+         .thickness(4.0)
+         .color(hero())
+         .build()?;
+@@ -249,14 +260,22 @@ impl SceneConstruct for RealIntegral {
+         let axes = p.axes(stage)?;
+         fade_in_all(stage, &axes, 0.4)?;
+         let path = p.path(stage, &contour(r), hero(), 5.0)?;
+-        let arrows = contour_arrows(stage, &p, r)?;
++        let mut arrows = contour_arrows(stage, &p, r)?;
++        // the voice names both ends and the pole: so does the picture
++        arrows.push(kit.tex(stage, MINUS_R_TEX, 24.0, Palette::ink(), &[], p.p(C::new(-r, -0.3)))?);
++        arrows.push(kit.tex(stage, R_TEX, 24.0, Palette::ink(), &[], p.p(C::new(r, -0.3)))?);
+         fade_in_all(stage, &[path], 0.8)?;
+         fade_in_all(stage, &arrows, 0.3)?;
+         line.wait_sentence(stage, 1)?;
+         let inside = pole_mark(stage, p.p(C::new(0.0, 1.0)));
+         let outside = pole_mark(stage, p.p(C::new(0.0, -1.0)));
++        let pole_names = [
++            kit.text(stage, POLE_I, 24.0, pole(), p.p(C::new(-0.28, 1.0)))?,
++            kit.text(stage, POLE_MINUS_I, 24.0, pole(), p.p(C::new(0.36, -1.0)))?,
++        ];
+         fade_in_all(stage, &inside, 0.3)?;
+         fade_in_all(stage, &outside, 0.3)?;
++        fade_in_all(stage, &pole_names, 0.3)?;
+         // set_opacity also writes fill alpha, which would fill the ring: dim its stroke only
+         stage.set_opacity(outside[0], 0.35, true);
+         stage.set_stroke(outside[1], None, None, Some(0.35), None, true);
+@@ -451,6 +470,7 @@ impl SceneConstruct for RealIntegral {
+         ];
+         gone.extend(inside);
+         gone.extend(outside);
++        gone.extend(pole_names);
+         fade_out_all(stage, &gone, 0.4)?;
+         let quartic = area(stage, &g, |x| 1.0 / (1.0 + x.powi(4)));
+         let name = kit.tex(stage, QUARTIC_TEX, 36.0, Palette::ink(), &[], v(right, 2.8))?;
+@@ -474,9 +494,15 @@ impl SceneConstruct for RealIntegral {
+         fade_out_all(stage, &messy, 0.3)?;
+         let roots = model::quartic_roots();
+         let mut dims = Vec::new();
++        let (mut dims_above, mut dims_below) = (Vec::new(), Vec::new());
+         for &q in &roots {
+             let d = super::draw::dot(stage, p.p(q), 0.08, Palette::dim());
+             dims.push(d);
++            if q.im < 0.0 {
++                dims_below.push(d);
++            } else {
++                dims_above.push(d);
++            }
+         }
+         let unit = p.circle(stage, ZERO, 1.0, Palette::faint(), 2.0)?;
+         line.wait_sentence(stage, 1)?;
+@@ -507,6 +533,8 @@ impl SceneConstruct for RealIntegral {
+             lit.push(kit.tex(stage, n, 30.0, pole(), &[], p.p(*q + C::new(0.0, 0.32)))?);
+         }
+         line.wait_sentence(stage, 1)?;
++        // the angles have done their work, and the two upper ones would crowd the names
++        fade_out_all(stage, &deg_labels, 0.3)?;
+         fade_in_all(stage, &lit, 0.4)?;
+ 
+         // 13_7: residue 1/(4p³) = −p/4
+@@ -526,20 +554,41 @@ impl SceneConstruct for RealIntegral {
+         let line = say(&kit, stage, "13_8")?;
+         fade_out_all(stage, &[res, fourth], 0.3)?;
+         let (p1, p2) = (upper[0], upper[1]);
+-        let a1 = Arrow::new(p.p(ZERO), p.p(p1)).thickness(4.0).color(pole()).build()?;
+-        let a2 = Arrow::new(p.p(p1), p.p(p1 + p2)).thickness(4.0).color(pole()).build()?;
++        // tip to tail, so no buffer: each arrow starts where the last one ends
++        let a1 = Arrow::new(p.p(ZERO), p.p(p1))
++            .buff(0.0)
++            .thickness(4.0)
++            .color(pole())
++            .build()?;
++        let a2 = Arrow::new(p.p(p1), p.p(p1 + p2))
++            .buff(0.0)
++            .thickness(4.0)
++            .color(pole())
++            .build()?;
+         let a1 = stage.arena_mut().add(a1);
+         let a2 = stage.arena_mut().add(a2);
+         line.wait_sentence(stage, 1)?;
+         fade_in_all(stage, &[a1], 0.4)?;
+         fade_in_all(stage, &[a2], 0.4)?;
+         let total = Arrow::new(p.p(ZERO), p.p(p1 + p2))
++            .buff(0.0)
+             .thickness(5.0)
+             .color(hero())
+             .build()?;
+         let total = stage.arena_mut().add(total);
+-        fade_in_all(stage, &[total], 0.4)?;
++        let total_name = kit.tex(stage, TOTAL_TEX, 24.0, hero(), &[], p.p(p1 + p2 + C::new(0.62, 0.02)))?;
++        fade_in_all(stage, &[total, total_name], 0.4)?;
+         line.wait_sentence(stage, 2)?;
++        // the residues' sum is −(p₁ + p₂)/4: a quarter of that arrow, turned to point down
++        let sum_tip = (p1 + p2).scale(-0.25);
++        let sum_arrow = Arrow::new(p.p(ZERO), p.p(sum_tip))
++            .buff(0.0)
++            .thickness(5.0)
++            .color(hero())
++            .build()?;
++        let sum_arrow = stage.arena_mut().add(sum_arrow);
++        let sum_name = kit.text_left(stage, SUM_NAME, 22.0, hero(), p.p(C::new(0.14, sum_tip.im + 0.02)))?;
++        fade_in_all(stage, &[sum_arrow, sum_name], 0.4)?;
+         let sum = kit.tex(stage, SUM_TEX, 30.0, Palette::ink(), &[], v(right, -1.3))?;
+         let im = fact("integral.quartic.sum")?
+             .split(',')
+@@ -557,9 +606,13 @@ impl SceneConstruct for RealIntegral {
+         // 13_9: × 2πi: π/√2 ≈ 2.22
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "13_9")?;
+-        fade_out_all(stage, &[minus_p, sum, sum_value], 0.3)?;
+-        let worked = kit.tex(stage, VALUE_TEX, 32.0, Palette::ink(), &[], v(right, 1.0))?;
++        fade_out_all(stage, &[minus_p, sum, sum_value, sum_arrow, sum_name], 0.3)?;
++        let worked = kit.tex(stage, VALUE_TEX, 32.0, Palette::ink(), &[], v(right, 1.6))?;
+         fade_in_all(stage, &[worked], 0.5)?;
++        // the result waits for the cancellation the voice walks through
++        line.wait_sentence(stage, 1)?;
++        let worked_result = kit.tex(stage, VALUE_RESULT_TEX, 32.0, Palette::ink(), &[], v(right, 0.75))?;
++        fade_in_all(stage, &[worked_result], 0.5)?;
+         line.wait_sentence(stage, 2)?;
+         let boxed = carded(
+             &kit,
+@@ -577,7 +630,7 @@ impl SceneConstruct for RealIntegral {
+         // last radius, under 1/300 there; a numerical sum agrees
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "13_10")?;
+-        fade_out_all(stage, &[worked], 0.3)?;
++        fade_out_all(stage, &[worked, worked_result], 0.3)?;
+         shift_all(stage, &boxed, 0.0, QUARTIC_LIFT, 0.4)?;
+         let arc_lit = p.path(stage, &arc(r), Palette::ink(), 8.0)?;
+         fade_in_all(stage, &[arc_lit], 0.4)?;
+@@ -640,6 +693,8 @@ impl SceneConstruct for RealIntegral {
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "13_11")?;
+         line.wait_sentence(stage, 1)?;
++        // the card is about to cover the lower half plane: the two poles there go first
++        fade_out_all(stage, &dims_below, 0.3)?;
+         let note = explainer_kit::props::precisely(&kit, stage, HONEST)?;
+         let said = precisely_lifted(&kit, stage, HONEST_SAID, note)?;
+         wait_until(stage, line.end())?;
+@@ -647,13 +702,12 @@ impl SceneConstruct for RealIntegral {
+         reading_window(&kit, stage, &line)?;
+         kit.music_breath(stage, 2.5)?;
+         let mut all = vec![
+-            axis, quartic[0], quartic[1], name, path, unit, a1, a2, total, arc_lit, qmax, qbound, near, far, numeric,
+-            note,
++            axis, quartic[0], quartic[1], name, path, unit, a1, a2, total, total_name, arc_lit, qmax, qbound, near,
++            far, numeric, note,
+         ];
+         all.extend(axes);
+         all.extend(arrows);
+-        all.extend(dims);
+-        all.extend(deg_labels);
++        all.extend(dims_above);
+         all.extend(lit);
+         all.extend(boxed);
+         fade_out_all(stage, &all, 0.6)?;

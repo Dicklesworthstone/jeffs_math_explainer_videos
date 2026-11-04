@@ -1,0 +1,645 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs
+@@ -23,12 +23,20 @@
+ //! 2005.21, section 4 Fact 1) fails; Log(−1) = iπ is the complex
+ //! convention of chapter 07.
+ //!
++//! Picture repair after the independent review of this chapter (F1–F7). A
++//! point of a face stays inside the solid's inscribed ball, so its path can
++//! never be seen; the drag is shown by the pin, a copy of the rod's upper stub
++//! carried with the cube, whose tip stays outside the solid in every pose. The
++//! spins run at constant speed, and their length comes from the sentence they
++//! illustrate.
++//!
+ //! Rebuild candidate for `mx-video-program-program-87do.63`; uncompiled,
+ //! unrendered, unlistened.
+ 
+ use std::f64::consts::{PI, SQRT_2, TAU};
+ 
+-use explainer_kit::{Kit, Palette, play, tween, v};
++use explainer_kit::narration::{frames_covering, wait_frames};
++use explainer_kit::{Kit, Palette, play, v};
+ use fmn::mobject::Stage as Arena;
+ use fmn::prelude::*;
+ 
+@@ -37,7 +45,7 @@
+     faded_line, flat, lap_c, number_c, path, position_c, precisely, predict, ring, seg, slide_c, swap, title, value,
+     warn_c,
+ };
+-use crate::model::{self, M2};
++use crate::model;
+ 
+ pub struct WhatItForgets {
+     pub kit: Kit,
+@@ -66,6 +74,12 @@
+ /// Panel D: the plane's zero and scene units per unit.
+ const FLOWS_C: [f64; 2] = [2.0, -1.55];
+ const FLOWS_U: f64 = 0.32;
++/// The one place every flow of panel D leaves from and comes home to, and
++/// the ring that marks it.
++const SHARED_START: [f64; 2] = [1.6, 0.0];
++const SHARED_RING_R: f64 = 0.13;
++/// Panel C: the left edge of the two lines beside its column of logarithms.
++const PLANE_WORDS_X: f64 = -3.1;
+ /// The take-away: the cube's centre and half edge in scene units. The
+ /// marked axis, the rod, is vertical through the centres of the top and
+ /// bottom faces, drawn `ROD_REACH` half edges each way from the centre.
+@@ -79,6 +93,15 @@
+ /// The corner followed round its circle, and the top face's centre.
+ const CORNER: P3 = [1.0, 1.0, 1.0];
+ const TOP_CENTRE: P3 = [0.0, 1.0, 0.0];
++/// The tip of 12_6's pin, the rod's upper stub carried with the cube by a spin
++/// about another axis. A point of the top face stays within radius 1, inside
++/// the inscribed ball, so the solid hides its whole path in every pose. This
++/// tip is at radius `ROD_REACH`, beyond the corners' √3, so it never enters
++/// the solid and its path can be drawn through the same depth test.
++const PIN_TIP: P3 = [0.0, ROD_REACH, 0.0];
++/// How far the other axis is drawn each way from the centre: both ends leave
++/// the cube's outline, so it reads as a line through the solid.
++const OTHER_REACH: f64 = 3.0;
+ /// The fixed view: yaw about the vertical, then pitch toward us, degrees.
+ const YAW_DEG: f64 = 35.0;
+ const PITCH_DEG: f64 = 20.0;
+@@ -86,6 +109,17 @@
+ const TURNING_X: f64 = 3.9;
+ const TURNING_Y: f64 = -2.0;
+ const TURNING_PER_PI: f64 = 0.62;
++/// 12_6's third sentence as shares of its length, from even word spacing
++/// over its 34 words (a proposal until fine sync): the red spin ends with "where
++/// it was", holds through "and our half turn leaves", goes back for "only the
++/// rod's points", and the chip comes with "so any other axis is ruled out".
++const AXIS_SPIN_END: f64 = 0.45;
++const AXIS_RESET: f64 = 0.60;
++const AXIS_CHIP: f64 = 0.79;
++/// 12_6's fifth sentence: the tie appears as the voice reaches "the very edge".
++const TIE_AT: f64 = 0.45;
++/// The shortest a spin may run when its sentence leaves little room, seconds.
++const MIN_RUN: f64 = 1.0;
+ 
+ fn turning_at(angle: f64) -> Vec3 {
+     v(TURNING_X + TURNING_PER_PI * angle / PI, TURNING_Y)
+@@ -291,6 +325,47 @@
+     format!("{} {unit}{way}", half_laps(rate))
+ }
+ 
++/// Where the point `p` of the cube has been from time 0 to `now` in the steady
++/// spin of `rate` laps per unit time about the unit axis `axis`.
++fn spin_path(axis: P3, rate: f64, p: P3, now: f64) -> Vec<P3> {
++    let laps = (rate * now).abs();
++    if laps < 1e-6 {
++        return Vec::new();
++    }
++    let n = ((laps * 96.0).ceil() as usize).max(2);
++    (0..=n)
++        .map(|k| turn(axis, TAU * rate * now * k as f64 / n as f64, p))
++        .collect()
++}
++
++/// The line along the unit vector `a`, `reach` half edges each way from the
++/// centre, in pieces short enough for the depth test.
++fn axis_points(a: P3, reach: f64) -> Vec<P3> {
++    let n = (reach * 40.0).ceil() as i32;
++    (0..=n)
++        .map(|k| {
++            let t = reach * (2.0 * f64::from(k) / f64::from(n) - 1.0);
++            [a[0] * t, a[1] * t, a[2] * t]
++        })
++        .collect()
++}
++
++/// The pin in `pose`, from the top face's centre to its tip, in pieces short
++/// enough for the depth test.
++fn pin_points(pose: Pose) -> Vec<P3> {
++    let (a, b) = (turn(pose.0, pose.1, TOP_CENTRE), turn(pose.0, pose.1, PIN_TIP));
++    (0..=24)
++        .map(|k| {
++            let f = f64::from(k) / 24.0;
++            [
++                a[0] + (b[0] - a[0]) * f,
++                a[1] + (b[1] - a[1]) * f,
++                a[2] + (b[2] - a[2]) * f,
++            ]
++        })
++        .collect()
++}
++
+ /// 12_4–12_6's take-away as trackers for one redraw: the clock (0 to 1),
+ /// the spin rate in laps per unit time, which axis turns (0 the rod, 1 the
+ /// other axis), and switches for the corners' circles and the followed
+@@ -317,22 +392,13 @@
+ 
+     /// Where the point `p` of the cube has been from time 0 to `now`.
+     fn path(self, s: &Arena, p: P3, now: f64) -> Vec<P3> {
+-        let laps = (value(s, self.rate) * now).abs();
+-        if laps < 1e-6 {
+-            return Vec::new();
+-        }
+-        let n = ((laps * 96.0).ceil() as usize).max(2);
+-        (0..=n)
+-            .map(|k| {
+-                let (axis, angle) = self.pose_at(s, now * k as f64 / n as f64);
+-                turn(axis, angle, p)
+-            })
+-            .collect()
++        let (axis, _) = self.pose_at(s, now);
++        spin_path(axis, value(s, self.rate), p, now)
+     }
+ 
+     /// The whole picture, back to front: the visible faces, then whatever
+-    /// of the circles, the rod, the other axis and the traces the solid
+-    /// leaves in view, then the marks.
++    /// of the circles, the pin, the rod, the other axis and the traces the
++    /// solid leaves in view, then the marks.
+     fn draw(self, s: &mut Arena) -> Mob {
+         let now = value(s, self.time);
+         let pose = self.pose_at(s, now);
+@@ -352,28 +418,31 @@
+                 add_runs(s, g, unhidden_runs(&ring, pose), Palette::ink(), 2.0, 0.55);
+             }
+         }
+-        let line = |a: P3| -> Vec<P3> {
+-            (0..=80)
+-                .map(|k| {
+-                    let t = ROD_REACH * (f64::from(k) / 40.0 - 1.0);
+-                    [a[0] * t, a[1] * t, a[2] * t]
+-                })
+-                .collect()
+-        };
+-        add_runs(s, g, unhidden_runs(&line(ROD), pose), gold, 5.0, 1.0);
+         if !on_rod {
+-            add_runs(s, g, unhidden_runs(&line(unit(OTHER_AXIS)), pose), red, 4.0, 1.0);
+-            let dragged = self.path(s, TOP_CENTRE, now);
++            // under the gold rod: at the spin's start the rod lies over its copy
++            add_runs(s, g, unhidden_runs(&pin_points(pose), pose), red, 3.5, 1.0);
++        }
++        add_runs(s, g, unhidden_runs(&axis_points(ROD, ROD_REACH), pose), gold, 5.0, 1.0);
++        if !on_rod {
++            let other = axis_points(unit(OTHER_AXIS), OTHER_REACH);
++            add_runs(s, g, unhidden_runs(&other, pose), red, 4.0, 1.0);
++            let dragged = self.path(s, PIN_TIP, now);
+             add_runs(s, g, unhidden_runs(&dragged, pose), red, 3.0, 0.9);
+         }
+-        if on_rod && value(s, self.follow) > 0.5 {
++        if value(s, self.follow) > 0.5 {
++            // the rings mark the half turn's start and end whatever now spins, so
++            // a spin about another axis shows its corner missing the end ring
+             add_mark(s, g, CORNER, pose, 0.13, gold, true);
+             add_mark(s, g, turn(ROD, PI, CORNER), pose, 0.2, gold, true);
++            let moving = if on_rod { gold } else { red };
+             let trace = self.path(s, CORNER, now);
+-            add_runs(s, g, unhidden_runs(&trace, pose), gold, 3.0, 0.9);
+-            add_mark(s, g, turn(pose.0, pose.1, CORNER), pose, 0.09, gold, false);
++            add_runs(s, g, unhidden_runs(&trace, pose), moving, 3.0, 0.9);
++            add_mark(s, g, turn(pose.0, pose.1, CORNER), pose, 0.09, moving, false);
+         }
+         add_mark(s, g, turn(pose.0, pose.1, TOP_CENTRE), pose, 0.07, gold, false);
++        if !on_rod {
++            add_mark(s, g, turn(pose.0, pose.1, PIN_TIP), pose, 0.07, red, false);
++        }
+         g
+     }
+ }
+@@ -391,12 +460,54 @@
+         .collect()
+ }
+ 
+-/// Where the flow of the ellipse (a, b, tilt) carries its start P·(1, 0)
+-/// after time `t`: e^{t·2πPJP⁻¹} applied to it.
++/// Where the flow of the ellipse (a, b, tilt) carries the shared start after
++/// time `t`: e^{t·2πPJP⁻¹} applied to it. All the flows leave one place, part,
++/// and come home together at t = 1. They also meet once at t = 1/2, at the
++/// opposite point, because each half-time flow is −I.
+ fn orbit_point(a: f64, b: f64, tilt: f64, t: f64) -> [f64; 2] {
+-    let p: M2 = model::mmul(model::rotation(tilt), [[a, 0.0], [0.0, b]]);
+-    let start = model::apply(p, [1.0, 0.0]);
+-    model::apply(model::flow(model::ellipse_generator(a, b, tilt), t), start)
++    model::apply(model::flow(model::ellipse_generator(a, b, tilt), t), SHARED_START)
++}
++
++/// A tracker's move at constant speed: this chapter's word is "steady", and
++/// `tween` takes the engine's default easing.
++fn steady(tracker: Mob, to: f64, run_time: f64) -> fmn::Result<AnimBuilder> {
++    Ok(tracker
++        .animate()
++        .set_anim_args(AnimateArgs {
++            run_time: Some(run_time),
++            rate_func: Some(fmn::core::rate::linear),
++            ..AnimateArgs::default()
++        })?
++        .set_value(to)?)
++}
++
++/// How long sentence `j` of a line lasts, from the line's sentence starts;
++/// `None` for its last sentence, or without a narrator.
++fn sentence_len(starts: &[f64], j: usize) -> Option<f64> {
++    Some(starts.get(j + 1)? - starts.get(j)?)
++}
++
++/// A run time for a motion that begins `used` seconds into sentence `j` and
++/// must end `margin` seconds before the next sentence, so that the next
++/// `until_sentence` still has something to wait for. `fallback` without
++/// sentence times.
++fn room(starts: &[f64], j: usize, used: f64, margin: f64, fallback: f64) -> f64 {
++    sentence_len(starts, j).map_or(fallback, |len| (len - used - margin).max(MIN_RUN))
++}
++
++/// Wait until `share` of sentence `j` of line `id` has gone by, the sentence
++/// having begun at scene time `began`; nothing if that moment has passed, or
++/// without sentence times.
++fn until_share(kit: &Kit, stage: &mut Stage<'_>, id: &str, j: usize, began: f64, share: f64) -> fmn::Result<()> {
++    let Some(len) = sentence_len(&kit.sentence_starts(id), j) else {
++        return Ok(());
++    };
++    let (now, fps) = (stage.scene().time().to_f64(), stage.scene().time().fps());
++    let at = began + share * len;
++    if at > now {
++        wait_frames(stage, frames_covering(at - now, fps))?;
++    }
++    Ok(())
+ }
+ 
+ fn flows_screen(q: [f64; 2]) -> Vec3 {
+@@ -562,8 +673,14 @@
+             red,
+             4.0,
+         );
+-        let cut_word = kit.text_left(stage, "a cut chooses the laps", 18.0, red, v(-2.85, -1.2))?;
+-        let rule = kit.text_left(stage, "Log zw = Log z + Log w + 2πik", 18.0, purple, v(-2.85, -1.7))?;
++        let cut_word = kit.text_left(stage, "a cut chooses the laps", 18.0, red, v(PLANE_WORDS_X, -1.2))?;
++        let rule = kit.text_left(
++            stage,
++            "Log zw = Log z + Log w + 2πik",
++            18.0,
++            purple,
++            v(PLANE_WORDS_X, -1.7),
++        )?;
+         fade_in_all(stage, &[cut, cut_word], 0.4)?;
+         fade_in_all(stage, &[rule], 0.4)?;
+ 
+@@ -577,7 +694,7 @@
+                 .collect();
+             orbits.push(path(stage, pts, Palette::dim(), 2.0));
+         }
+-        let home = dot(stage, flows_screen([0.0, 0.0]), 0.04, Palette::dim());
++        let home = ring(stage, flows_screen(SHARED_START), SHARED_RING_R, Palette::ink(), 2.5);
+         let clock = stage.add_value_tracker(0.0);
+         let all: Vec<(f64, f64, f64)> = std::iter::once((1.0, 1.0, 0.0)).chain(specs.iter().copied()).collect();
+         let movers = stage.always_redraw(move |s: &mut Arena| {
+@@ -605,7 +722,7 @@
+         fade_in_all(stage, &orbits, 0.4)?;
+         fade_in_all(stage, &[home], 0.2)?;
+         stage.add_to_scene(movers)?;
+-        play!(stage; tween(clock, 1.0, 2.6)?);
++        play!(stage; steady(clock, 1.0, 2.6)?);
+         fade_in_all(stage, &[cap_d], 0.4)?;
+         kit.until_sentence(stage, "12_3", 1)?;
+         let unreached = kit.text_left(stage, "diag(−2, −½):", 20.0, red, v(3.4, -1.0))?;
+@@ -674,9 +791,11 @@
+             v(0.6, 2.3),
+         )?;
+         fade_in_all(stage, &[circle_word], 0.4)?;
+-        // a quarter lap and back: the corners slide round, the rod stays put
+-        play!(stage; tween(pz.time, 0.5, 1.8)?);
+-        play!(stage; tween(pz.time, 0.0, 1.2)?);
++        // one steady lap across the sentence: the corners sweep their circles and
++        // the rod stays put; a whole lap ends where it began, so the reset is unseen
++        let lap = room(&kit.sentence_starts("12_4"), 2, 0.4, 0.6, 3.0);
++        play!(stage; steady(pz.time, 1.0 / half_rate, lap)?);
++        stage.set_tracker_value(pz.time, 0.0)?;
+         kit.until_sentence(stage, "12_4", 3)?;
+         stage.set_tracker_value(pz.follow, 1.0)?;
+         let spin_word = |r: f64| format!("spin: {} per unit of time", laps_text(r));
+@@ -705,7 +824,10 @@
+             LEFT,
+         )?;
+         fade_in_all(stage, &[time_word, laps_word], 0.3)?;
+-        play!(stage; tween(pz.time, 1.0, 3.0)?);
++        // the corner arrives as the sentence says it does: the swap and the fade
++        // above take 0.6 s of it
++        let to_half_way = room(&kit.sentence_starts("12_4"), 3, 0.6, 0.8, 3.0);
++        play!(stage; steady(pz.time, 1.0, to_half_way)?);
+         kit.until_sentence(stage, "12_4", 4)?;
+         let half = kit.text_left(
+             stage,
+@@ -756,7 +878,7 @@
+             let word = kit.text_left(stage, &spin_word(r), 22.0, purple, v(0.6, 2.3))?;
+             swap(stage, &[rate_shown], &[word], 0.3)?;
+             rate_shown = word;
+-            play!(stage; tween(pz.time, 1.0, 2.4 + 0.4 * r)?);
++            play!(stage; steady(pz.time, 1.0, 2.4 + 0.4 * r)?);
+         }
+         let laps_chip = kit.text_left(
+             stage,
+@@ -778,7 +900,7 @@
+         let word = kit.text_left(stage, &spin_word(back_rate), 22.0, blue, v(0.6, 2.3))?;
+         swap(stage, &[rate_shown], &[word], 0.3)?;
+         rate_shown = word;
+-        play!(stage; tween(pz.time, 1.0, 2.6)?);
++        play!(stage; steady(pz.time, 1.0, 2.6)?);
+         let way_chip = kit.text_left(
+             stage,
+             &format!("direction: {} the other way too", laps_text(half_rate)),
+@@ -788,6 +910,7 @@
+         )?;
+         fade_in_all(stage, &[way_chip], 0.4)?;
+         kit.until_sentence(stage, "12_6", 3)?;
++        let axis_began = stage.scene().time().to_f64();
+         // the axis: half a lap about another line drags the top face's
+         // centre off the rod, while that line's own points stay put
+         stage.set_tracker_value(pz.time, 0.0)?;
+@@ -801,7 +924,16 @@
+             v(0.6, 2.3),
+         )?;
+         swap(stage, &[rate_shown], &[word], 0.3)?;
+-        play!(stage; tween(pz.time, 1.0, 2.8)?);
++        let red_spin =
++            sentence_len(&kit.sentence_starts("12_6"), 3).map_or(2.8, |len| (AXIS_SPIN_END * len - 0.3).max(MIN_RUN));
++        play!(stage; steady(pz.time, 1.0, red_spin)?);
++        // hold the miss, then back to the half turn about the rod, its top
++        // face's centre on the rod in plain view for "only the rod's points"
++        until_share(&kit, stage, "12_6", 3, axis_began, AXIS_RESET)?;
++        stage.set_tracker_value(pz.other, 0.0)?;
++        let back = kit.text_left(stage, &spin_word(half_rate), 22.0, purple, v(0.6, 2.3))?;
++        swap(stage, &[word], &[back], 0.3)?;
++        until_share(&kit, stage, "12_6", 3, axis_began, AXIS_CHIP)?;
+         let axis_chip = kit.text_left(
+             stage,
+             "axis: only the rod; another axis drags the top off it",
+@@ -810,11 +942,6 @@
+             v(0.6, 0.4),
+         )?;
+         fade_in_all(stage, &[axis_chip], 0.4)?;
+-        stage.wait(0.6)?;
+-        // back to the half turn about the rod
+-        stage.set_tracker_value(pz.other, 0.0)?;
+-        let back = kit.text_left(stage, &spin_word(half_rate), 22.0, purple, v(0.6, 2.3))?;
+-        swap(stage, &[word], &[back], 0.3)?;
+         kit.until_sentence(stage, "12_6", 4)?;
+         let so = kit.text_left(
+             stage,
+@@ -825,6 +952,7 @@
+         )?;
+         fade_in_all(stage, &[so], 0.4)?;
+         kit.until_sentence(stage, "12_6", 5)?;
++        let tie_began = stage.scene().time().to_f64();
+         // the turning line of 10_3: these spins turn by ±π, ±3π, …; the
+         // two slowest sit on the open ends of the principal window
+         let mut marks = vec![seg(
+@@ -876,7 +1004,11 @@
+         fade_in_all(stage, &marks, 0.4)?;
+         fade_in_all(stage, &[window, line_word], 0.4)?;
+         fade_in_all(stage, &ends, 0.5)?;
++        // the tie as the voice reaches the window's edge, and the conclusion only
++        // once the voice has said it
++        until_share(&kit, stage, "12_6", 5, tie_began, TIE_AT)?;
+         fade_in_all(stage, &[tie], 0.4)?;
++        kit.until_sentence(stage, "12_6", 6)?;
+         let source = precisely(
+             &kit,
+             stage,
+@@ -886,8 +1018,6 @@
+                 half_laps(lap_and_half)
+             ),
+         )?;
+-        fade_in_all(stage, &[source], 0.4)?;
+-        kit.until_sentence(stage, "12_6", 6)?;
+         let convention = kit.text_left(
+             stage,
+             "for the number −1, Log(−1) = iπ by convention",
+@@ -895,7 +1025,7 @@
+             Palette::dim(),
+             v(1.4, -3.1),
+         )?;
+-        fade_in_all(stage, &[convention], 0.4)?;
++        fade_in_all(stage, &[source, convention], 0.4)?;
+         kit.finish(stage)
+     }
+ }
+@@ -912,6 +1042,43 @@
+         (unit(axis), TAU * rate * time)
+     }
+ 
++    /// The screen length of the stretches a depth test keeps.
++    fn drawn(runs: &[Vec<Vec3>]) -> f64 {
++        runs.iter()
++            .flat_map(|r| r.windows(2))
++            .map(|w| (w[1][0] - w[0][0]).hypot(w[1][1] - w[0][1]))
++            .sum()
++    }
++
++    /// Text advances: CMR10 widths, em × size × 0.01 scene units, within 2%
++    /// of lint-measured lines; unlisted characters count as wide.
++    fn em(c: char) -> f64 {
++        match c {
++            'i' | 'l' | ',' | '.' | ':' | ';' | '!' | '[' | ']' => 0.278,
++            'j' | 'f' => 0.306,
++            ' ' | '-' => 0.333,
++            'I' => 0.361,
++            'r' | 's' | 't' | '(' | ')' => 0.39,
++            'a' | 'c' | 'e' | 'z' => 0.444,
++            'g' | 'o' | '^' | '/' | '0'..='9' => 0.5,
++            'k' | 'q' | 'v' | 'x' | 'y' => 0.528,
++            'b' | 'd' | 'h' | 'n' | 'p' | 'u' => 0.556,
++            'L' => 0.625,
++            'w' => 0.722,
++            '=' | '+' | '−' | '×' | '±' | '<' | '>' => 0.778,
++            'm' => 0.833,
++            _ => 0.75,
++        }
++    }
++
++    fn width(s: &str, size: f64) -> f64 {
++        s.chars().map(em).sum::<f64>() * size * 0.01
++    }
++
++    /// The layout lint's limit for text, and a little room for the table's error.
++    const TEXT_RIGHT: f64 = 7.11 - 0.25;
++    const WIDTH_ROOM: f64 = 1.03;
++
+     #[test]
+     fn a_half_turn_is_reached_by_odd_half_turns_either_way_about_the_rod() {
+         let minus = [-ROD[0], -ROD[1], -ROD[2]];
+@@ -970,11 +1137,74 @@
+         let top = turn(unit(OTHER_AXIS), PI, TOP_CENTRE);
+         assert!(close3(turn(ROD, PI, TOP_CENTRE), TOP_CENTRE));
+         assert!(top[0].hypot(top[2]) > 0.9, "{top:?}");
+-        // and it ends on a face turned toward the viewer, so the drag shows
++        // and it ends on a face turned toward the viewer, so its dot ends in view
+         assert!(close3(top, [-1.0, 0.0, 0.0]) && !hidden(top, pose(OTHER_AXIS, 0.5, 1.0)));
+     }
+ 
+     #[test]
++    fn a_spin_about_another_axis_draws_the_drag_and_the_miss() {
++        let n = unit(OTHER_AXIS);
++        for j in 1..=40 {
++            let t = f64::from(j) / 40.0;
++            let p = pose(OTHER_AXIS, 0.5, t);
++            // why the pin exists: the depth test takes every bit of the top
++            // centre's path, which stays inside the solid
++            assert!(
++                drawn(&unhidden_runs(&spin_path(n, 0.5, TOP_CENTRE, t), p)) < 1e-12,
++                "{t}"
++            );
++            // the pin's tip is outside the solid, and in this view never behind it
++            let arc = spin_path(n, 0.5, PIN_TIP, t);
++            let whole: Vec<Vec3> = arc.iter().map(|&q| project(q)).collect();
++            let shown = drawn(&unhidden_runs(&arc, p));
++            assert!((shown - drawn(&[whole])).abs() < 1e-9, "{t}: {shown}");
++            assert!(!hidden(turn(p.0, p.1, PIN_TIP), p), "{t}");
++            // most of the pin stays in view, even while the top face looks away
++            assert!(drawn(&unhidden_runs(&pin_points(p), p)) > 0.8, "{t}");
++            // the corner's start and end rings stay in view for the whole spin
++            assert!(!hidden(CORNER, p) && !hidden(turn(ROD, PI, CORNER), p), "{t}");
++        }
++        // a guard on what is drawn, not on where things end
++        for t in [0.25, 0.5, 0.75, 1.0] {
++            let p = pose(OTHER_AXIS, 0.5, t);
++            let corner = drawn(&unhidden_runs(&spin_path(n, 0.5, CORNER, t), p));
++            assert!(corner > 0.9, "{t}: {corner}");
++            assert!(drawn(&unhidden_runs(&spin_path(n, 0.5, PIN_TIP, t), p)) > 0.85, "{t}");
++        }
++        // the miss: the corner lands in view, one edge from its end ring, and so
++        // does every corner, though the outline is the same cube
++        let end = pose(OTHER_AXIS, 0.5, 1.0);
++        assert!(close3(turn(n, PI, CORNER), [-1.0, -1.0, -1.0]) && !hidden(turn(n, PI, CORNER), end));
++        for &c in &CORNERS {
++            let (a, b) = (turn(n, PI, c), turn(ROD, PI, c));
++            let gap = ((a[0] - b[0]).powi(2) + (a[1] - b[1]).powi(2) + (a[2] - b[2]).powi(2)).sqrt();
++            assert!((gap - 2.0).abs() < 1e-9, "{c:?}: {gap}");
++            assert!(CORNERS.iter().any(|&q| close3(a, q)), "{c:?}");
++        }
++        // the other axis shows well beyond the solid at both ends of the spin
++        for t in [0.0, 1.0] {
++            let p = pose(OTHER_AXIS, 0.5, t);
++            assert!(drawn(&unhidden_runs(&axis_points(n, OTHER_REACH), p)) > 2.0, "{t}");
++        }
++    }
++
++    #[test]
++    fn a_motion_ends_before_the_next_sentence_starts() {
++        let starts = [0.0, 3.0, 13.0, 21.0];
++        assert_eq!(sentence_len(&starts, 1), Some(10.0));
++        assert_eq!(sentence_len(&starts, 3), None);
++        assert_eq!(sentence_len(&[], 0), None);
++        // what comes before, the run and the margin fill the sentence exactly
++        let run = room(&starts, 1, 0.4, 0.6, 3.0);
++        assert!((0.4 + run + 0.6 - 10.0).abs() < 1e-12);
++        // no sentence times: the fallback; hardly any room: still a visible motion
++        assert!((room(&[], 1, 0.4, 0.6, 3.0) - 3.0).abs() < 1e-12);
++        assert!((room(&[0.0, 0.5], 0, 0.4, 0.6, 3.0) - MIN_RUN).abs() < 1e-12);
++        const { assert!(0.0 < AXIS_SPIN_END && AXIS_SPIN_END < AXIS_RESET) };
++        const { assert!(AXIS_RESET < AXIS_CHIP && AXIS_CHIP < 1.0 && TIE_AT < 1.0) };
++    }
++
++    #[test]
+     fn the_viewer_sees_three_faces_and_never_a_face_from_behind() {
+         let w = toward_viewer();
+         let (sy, cy, sp, cp) = view();
+@@ -1035,16 +1265,28 @@
+     }
+ 
+     #[test]
+-    fn every_ellipse_flow_comes_home_at_one_and_stays_on_its_ellipse() {
++    fn every_ellipse_flow_leaves_one_place_parts_and_comes_home_there() {
+         let specs = ellipses("2,1,0;1.6,0.7,30").unwrap();
++        let near = |p: [f64; 2], q: [f64; 2]| (p[0] - q[0]).abs() < 1e-9 && (p[1] - q[1]).abs() < 1e-9;
++        let mut parted = Vec::new();
+         for (a, b, tilt) in std::iter::once((1.0, 1.0, 0.0)).chain(specs) {
++            assert!(near(orbit_point(a, b, tilt, 0.0), SHARED_START));
++            assert!(near(orbit_point(a, b, tilt, 1.0), SHARED_START));
++            // they meet once more, at the opposite point: each half-time flow is −I
++            let opposite = [-SHARED_START[0], -SHARED_START[1]];
++            assert!(near(orbit_point(a, b, tilt, 0.5), opposite));
++            // and each stays on its own ellipse: P·R(2πt)·P⁻¹ applied to the start
+             let p = model::mmul(model::rotation(tilt), [[a, 0.0], [0.0, b]]);
+-            let start = orbit_point(a, b, tilt, 0.0);
+-            let end = orbit_point(a, b, tilt, 1.0);
+-            assert!((start[0] - end[0]).abs() < 1e-9 && (start[1] - end[1]).abs() < 1e-9);
++            let turned = model::mmul(model::mmul(p, model::rotation(TAU * 0.3)), model::inverse(p));
+             let mid = orbit_point(a, b, tilt, 0.3);
+-            let on = model::apply(p, [(TAU * 0.3).cos(), (TAU * 0.3).sin()]);
+-            assert!((mid[0] - on[0]).abs() < 1e-9 && (mid[1] - on[1]).abs() < 1e-9);
++            assert!(near(mid, model::apply(turned, SHARED_START)));
++            parted.push(mid);
++        }
++        // the dots really are in different places between the meetings
++        for (k, p) in parted.iter().enumerate() {
++            for q in &parted[k + 1..] {
++                assert!((p[0] - q[0]).hypot(p[1] - q[1]) > 0.3, "{p:?} {q:?}");
++            }
+         }
+     }
+ 
+@@ -1057,17 +1299,25 @@
+         for k in -2..=1 {
+             assert!(inside(column_at(k), PANELS[2]));
+         }
+-        for (a, b, tilt) in [(2.0, 1.0, 0.0), (1.6, 0.7, 30f64.to_radians())] {
++        for (a, b, tilt) in [(1.0, 1.0, 0.0), (2.0, 1.0, 0.0), (1.6, 0.7, 30f64.to_radians())] {
+             for j in 0..32 {
+-                assert!(inside(
+-                    flows_screen(orbit_point(a, b, tilt, f64::from(j) / 32.0)),
+-                    PANELS[3]
+-                ));
++                let q = flows_screen(orbit_point(a, b, tilt, f64::from(j) / 32.0));
++                assert!(inside(q, PANELS[3]));
++                // clear of the words at x 3.4 and the caption at y −2.65
++                assert!(q[0] < 3.2 && q[1] > -2.4, "{q:?}");
+             }
+         }
++        // the two lines beside panel C's column stay inside its right border
++        let border = PANELS[2][0] + HALF_W;
++        for (s, size) in [
++            ("a cut chooses the laps", 18.0),
++            ("Log zw = Log z + Log w + 2πik", 18.0),
++        ] {
++            assert!(PLANE_WORDS_X + width(s, size) * WIDTH_ROOM < border, "{s}");
++        }
+         // the cube, the rod and the other axis stay left of the text column
+         // at x 0.6 and between the title and the bottom line
+-        for (axis, rate) in [(ROD, 2.5), (OTHER_AXIS, 0.5)] {
++        for (axis, rate, reach) in [(ROD, 2.5, ROD_REACH), (OTHER_AXIS, 0.5, OTHER_REACH)] {
+             for j in 0..=40 {
+                 let (a, angle) = pose(axis, rate, f64::from(j) / 40.0);
+                 for &p in &CORNERS {
+@@ -1076,15 +1326,24 @@
+                 }
+             }
+             let n = unit(axis);
+-            for k in [-ROD_REACH, ROD_REACH] {
++            for k in [-reach, reach] {
+                 let q = project([n[0] * k, n[1] * k, n[2] * k]);
+                 assert!(q[0] < -0.6 && q[1] > -3.0 && q[1] < 2.9, "{q:?}");
+             }
+         }
+-        assert!(project([0.0, ROD_REACH + 0.3, 0.0])[1] < 3.0);
++        let rod_word_y = project([0.0, ROD_REACH + 0.3, 0.0])[1];
++        assert!(rod_word_y < 3.0);
++        // the pin's whole sweep stays on the picture, left of the text column
++        // and below the rod's name
++        for &p in &spin_path(unit(OTHER_AXIS), 0.5, PIN_TIP, 1.0) {
++            let q = project(p);
++            assert!(
++                q[0] > -6.8 && q[0] < -0.6 && q[1] > -3.0 && q[1] < rod_word_y - 0.18,
++                "{q:?}"
++            );
++        }
+         // the turning line and its labels fit between x 1.4 and the edge
+         assert!(turning_at(-3.4 * PI)[0] > 1.4 && turning_at(3.4 * PI)[0] < 6.6);
+-        let width = |s: &str, size: f64| s.chars().count() as f64 * 0.55 * size / 144.0;
+         for (s, size, x) in [
+             ("each corner keeps to a circle about the rod", 20.0, 0.6),
+             ("spin: ½ lap the other way per unit of time", 22.0, 0.6),
+@@ -1095,10 +1354,10 @@
+             ("how far each of these spins turns in one unit of time:", 20.0, 1.4),
+             ("the slowest two, ±π, tie on the window's open edge", 20.0, 1.4),
+         ] {
+-            assert!(x + width(s, size) < 6.9, "{s}");
++            assert!(x + width(s, size) * WIDTH_ROOM < TEXT_RIGHT, "{s}");
+         }
+         let fine = "precisely: spins ending here: ±½, ±1½, … laps per unit time about the rod; eigenvalue −1, so no principal log (Higham §4 Fact 1)";
+-        assert!(width(fine, 22.0) < 13.6);
++        assert!(width(fine, 22.0) * WIDTH_ROOM < 2.0 * TEXT_RIGHT);
+         // the panels clear the title and the frame edge
+         assert!(PANELS[0][1] + HALF_H < 3.0 && PANELS[2][1] - HALF_H > -3.4);
+         assert!(PANELS[1][0] + HALF_W < 7.0);

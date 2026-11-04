@@ -1,0 +1,381 @@
+--- a/oracle.py
++++ b/oracle.py
+@@ -27,6 +27,26 @@
+ for m in range(SIDE):
+     rows.append((f"product.diagonal.{m}.cells", sum(1 for i in range(SIDE) for j in range(SIDE) if i + j == m)))
+     rows.append((f"product.total.{m}.denominator", sum(comb(m, k) for k in range(m + 1)) * factorial(m) // 2**m))
+-assert len(rows) == len(dict(rows)) == 26
++
++# 03_7. E(1) between an exact partial sum and that sum plus a bound on its tail, so the printed digits are proved.
++partial = sum((Fraction(1, factorial(k)) for k in range(25)), Fraction())
++tail = Fraction(2, factorial(25))
++assert f"{float(partial):.5f}" == f"{float(partial + tail):.5f}" == "2.71828"
++rows.append(("product.e", f"{float(partial):.5f}"))
++LOW, HIGH, STEPS = -2, 3, 4
++marks = [Fraction(j, STEPS) for j in range(LOW * STEPS, HIGH * STEPS + 1)]
++whole = [q for q in marks if q >= 0 and q.denominator == 1]
++fractions = [q for q in marks if q > 0 and q.denominator != 1]
++negatives = [q for q in marks if q < 0]
++assert len(whole) + len(fractions) + len(negatives) == len(marks)
++rows.extend([
++    ("product.ladder.low", LOW),
++    ("product.ladder.high", HIGH),
++    ("product.ladder.steps", STEPS),
++    ("product.ladder.whole", len(whole)),
++    ("product.ladder.fractions", len(fractions)),
++    ("product.ladder.negatives", len(negatives)),
++])
++assert len(rows) == len(dict(rows)) == 33
+ for key, value in rows:
+     print(f"{key}\t{value}")
+--- a/product_grid.rs
++++ b/product_grid.rs
+@@ -1,6 +1,10 @@
+-//! Native staged product-grid proof, not yet compiled or reviewed as pictures.
+-use crate::product_model::{SIDE, cell_tex, diagonal, total_tex};
+-use explainer_kit::{Kit, Palette, Timed, stroke_style, v};
++//! Native staged product-grid proof. Type-checked at the pin; never rendered.
++use crate::product_model::{
++    LADDER_HIGH, LADDER_LOW, SIDE, cell_tex, diagonal, e_label, ladder_fractions, ladder_negatives, ladder_whole,
++    total_tex,
++};
++use explainer_kit::narration::{frames_covering, wait_frames};
++use explainer_kit::{Kit, Palette, Timed, dot_cloud, rect, stroke_style, v};
+ use fmn::prelude::*;
+ pub struct ProductGrid {
+     pub kit: Kit,
+@@ -11,6 +15,7 @@
+     "What is the degree-two diagonal?",
+     "Complete diagonals: degrees 0 through 3",
+     "Absolute convergence permits regrouping",
++    "the inputs we have earned",
+ ];
+ pub const TEX: &[&str] = &[
+     r"\frac{x^2}{2}+xy+\frac{y^2}{2}",
+@@ -24,12 +29,48 @@
+     r"\sum_{m=0}^{\infty}\frac{(x+y)^m}{m!}=E(x+y)",
+     r"E'=E>0",
+     r"E(x)=E(x/2)^2",
++    r"E(2)=e\cdot e,\quad E(3)=e^3",
++    r"E\left(\tfrac12\right)^2=e\ \text{and}\ E>0,\ \text{so}\ E\left(\tfrac12\right)=e^{1/2}",
++    r"E(-x)=\frac{1}{E(x)}",
++    r"E(x)=e^x",
+ ];
+ /// The diagonal totals stay in one column, so the terms of E(x+y) build up in view.
+ const TOTALS_X: f64 = 1.9;
+ const TOTAL_Y: [f64; 4] = [1.7, 0.9, -0.05, -1.05];
+ /// The working formulas, in a second column clear of the totals.
+ const WORK_X: f64 = 4.7;
++/// The 03_7 line, from LADDER_LOW to LADDER_HIGH.
++const LADDER_Y: f64 = -1.35;
++/// Word for word from 03_2 and 03_7: these two sentences carry more than one reveal.
++const ROWS_SENTENCE: &str = "Instead of collecting the products by rows, collect them by total degree.";
++const LADDER_SENTENCE: &str = "Roots give fractions, reciprocals give negatives, and continuity fills in the rest.";
++fn ladder_x(input: f64) -> f64 {
++    -4.0 + 1.6 * (input - f64::from(LADDER_LOW))
++}
++/// Wait for `clause` of sentence `j`: the sentence's real window, shared out by its characters. An estimate inside
++/// a sentence, not a heard boundary. Nothing if that moment has passed, or without a narrator.
++fn until_clause(k: &Kit, s: &mut Stage<'_>, id: &str, j: usize, sentence: &str, clause: &str) -> fmn::Result<()> {
++    let Some(narrator) = k.narrator.as_ref() else {
++        return Ok(());
++    };
++    let Some(from) = narrator.sentence_at(id, j) else {
++        return Ok(());
++    };
++    let end = narrator
++        .sentence_at(id, 0)
++        .zip(narrator.length(id))
++        .map(|(began, length)| began + length);
++    let Some(to) = narrator.sentence_at(id, j + 1).or(end) else {
++        return Ok(());
++    };
++    let byte = sentence.find(clause).expect("the clause is in its sentence");
++    let at = from + (to - from) * byte as f64 / sentence.len() as f64;
++    let (now, fps) = (s.scene().time().to_f64(), s.scene().time().fps());
++    if at > now {
++        wait_frames(s, frames_covering(at - now, fps))?;
++    }
++    Ok(())
++}
+ fn reveal(s: &mut Stage<'_>, m: Mob) -> fmn::Result<()> {
+     let a = fade_in(s.arena_mut(), m, ORIGIN, 1.0)?;
+     s.play(a.rt(0.35))?;
+@@ -74,6 +115,37 @@
+     s.play_prepared(animations)?;
+     Ok(())
+ }
++fn paint(s: &mut Stage<'_>, m: Mob, color: Srgb) -> fmn::Result<Box<dyn Animation>> {
++    let a = m
++        .animate()
++        .set_anim_args(AnimateArgs {
++            run_time: Some(0.3),
++            ..AnimateArgs::default()
++        })?
++        .set_color_with_opacity(color, 1.0)?;
++    s.prepare(a)
++}
++/// Each complete diagonal takes one colour and its total takes the same one, so the terms of E(x+y) can be
++/// read back to the squares they came from. Squares past degree three stay dim: this corner cuts their diagonals.
++fn link_diagonals(s: &mut Stage<'_>, cells: &[(usize, usize, Mob)], totals: &[Mob]) -> fmn::Result<()> {
++    let colors = [Palette::teal(), Palette::purple(), Palette::hero(), Palette::ink()];
++    let mut animations = Vec::new();
++    for &(i, j, m) in cells {
++        let color = colors.get(i + j).copied().unwrap_or_else(Palette::dim);
++        animations.push(paint(s, m, color)?);
++    }
++    for (&m, &color) in totals.iter().zip(colors.iter()) {
++        animations.push(paint(s, m, color)?);
++    }
++    s.play_prepared(animations)?;
++    Ok(())
++}
++/// A cloud of input marks on the 03_7 line.
++fn ladder_marks(s: &mut Stage<'_>, inputs: &[f64], color: Srgb, radius: f64) -> Mob {
++    let points: Vec<Vec3> = inputs.iter().map(|&x| v(ladder_x(x), LADDER_Y)).collect();
++    let colors = vec![color; points.len()];
++    s.arena_mut().add(dot_cloud(&points, &colors, radius))
++}
+ impl SceneConstruct for ProductGrid {
+     fn name(&self) -> &str {
+         "03_product_grid"
+@@ -153,6 +225,22 @@
+         objects.push(corner);
+         k.hold(s)?;
+         k.say(s, "03_2")?;
++        // A row first, then a line along one diagonal: the change of reading is seen before degree zero lands.
++        let row = rect(v(-4.85, 0.9), 5.4, 1.0, stroke_style(Palette::yellow(), 3.0))?;
++        let row = s.arena_mut().add(row);
++        reveal(s, row)?;
++        until_clause(&k, s, "03_2", 0, ROWS_SENTENCE, "collect them")?;
++        let along = Line::new(v(-4.55, -1.86), v(0.2, 1.66))
++            .style(stroke_style(Palette::yellow(), 4.0))
++            .build()?;
++        let along = s.arena_mut().add(along);
++        k.allow_crossing(along);
++        let row_out = fade_out(s.arena_mut(), row, ORIGIN, 1.0)?;
++        let along_in = fade_in(s.arena_mut(), along, ORIGIN, 1.0)?;
++        let swap = vec![s.prepare(row_out.rt(0.35))?, s.prepare(along_in.rt(0.35))?];
++        s.play_prepared(swap)?;
++        k.until_sentence(s, "03_2", 1)?;
++        hide(s, along)?;
+         let mut totals = Vec::new();
+         for (degree, sentence) in [(0, 1), (1, 2), (2, 4)] {
+             k.until_sentence(s, "03_2", sentence)?;
+@@ -213,6 +301,7 @@
+         let permission = k.text(s, TEXT[4], 22.0, Palette::gold(), v(0.0, -3.1))?;
+         reveal(s, permission)?;
+         k.until_sentence(s, "03_5", 2)?;
++        link_diagonals(s, &cells, &totals)?;
+         let series = k.tex(s, TEX[8], 27.0, Palette::green(), &[], v(WORK_X, -1.05))?;
+         reveal(s, series)?;
+         k.until_sentence(s, "03_5", 3)?;
+@@ -241,6 +330,67 @@
+         k.until_sentence(s, "03_6", 4)?;
+         let increasing = k.tex(s, TEX[9], 31.0, Palette::green(), &[], v(0.0, -1.9))?;
+         reveal(s, increasing)?;
++        k.hold(s)?;
++
++        k.say(s, "03_7")?;
++        let mut fades = Vec::new();
++        for m in [nonzero, half, increasing] {
++            let a = fade_out(s.arena_mut(), m, ORIGIN, 1.0)?;
++            fades.push(s.prepare(a.rt(0.3))?);
++        }
++        s.play_prepared(fades)?;
++        // The input line starts empty. Each thing the law earns marks more of it, until none of it is left out.
++        let axis = Line::new(
++            v(ladder_x(f64::from(LADDER_LOW)), LADDER_Y),
++            v(ladder_x(f64::from(LADDER_HIGH)), LADDER_Y),
++        )
++        .style(stroke_style(Palette::dim(), 2.0))
++        .build()?;
++        let axis = s.arena_mut().add(axis);
++        let mut line_parts = vec![axis, k.text(s, TEXT[5], 23.0, Palette::dim(), v(0.0, -2.35))?];
++        for input in LADDER_LOW..=LADDER_HIGH {
++            line_parts.push(k.tex(
++                s,
++                &input.to_string(),
++                22.0,
++                Palette::dim(),
++                &[],
++                v(ladder_x(f64::from(input)), LADDER_Y - 0.4),
++            )?);
++        }
++        reveal_all(s, &line_parts, 0.35)?;
++
++        k.until_sentence(s, "03_7", 1)?;
++        let named = format!(r"e=E(1)=1+1+\frac12+\frac16+\cdots\approx {}", e_label());
++        let name = k.tex(s, &named, 29.0, Palette::hero(), &[], v(0.0, 2.2))?;
++        reveal(s, name)?;
++
++        k.until_sentence(s, "03_7", 2)?;
++        let integers = k.tex(s, TEX[11], 28.0, Palette::blue(), &[], v(0.0, 1.35))?;
++        let whole_marks = ladder_marks(s, &ladder_whole(), Palette::blue(), 0.09);
++        reveal_all(s, &[integers, whole_marks], 0.4)?;
++
++        k.until_sentence(s, "03_7", 3)?;
++        let roots = k.tex(s, TEX[12], 28.0, Palette::green(), &[], v(0.0, 0.55))?;
++        let fraction_marks = ladder_marks(s, &ladder_fractions(), Palette::green(), 0.07);
++        reveal_all(s, &[roots, fraction_marks], 0.4)?;
++        until_clause(&k, s, "03_7", 3, LADDER_SENTENCE, "reciprocals")?;
++        let reciprocal = k.tex(s, TEX[13], 28.0, Palette::gold(), &[], v(0.0, -0.3))?;
++        let negative_marks = ladder_marks(s, &ladder_negatives(), Palette::gold(), 0.07);
++        reveal_all(s, &[reciprocal, negative_marks], 0.4)?;
++        until_clause(&k, s, "03_7", 3, LADDER_SENTENCE, "continuity")?;
++        let solid = Line::new(
++            v(ladder_x(f64::from(LADDER_LOW)), LADDER_Y),
++            v(ladder_x(f64::from(LADDER_HIGH)), LADDER_Y),
++        )
++        .style(stroke_style(Palette::hero(), 5.0))
++        .build()?;
++        let solid = s.arena_mut().add(solid);
++        s.play(show_creation(solid).rt(0.9))?;
++
++        k.until_sentence(s, "03_7", 4)?;
++        let earned = k.tex(s, TEX[14], 42.0, Palette::hero(), &[], v(0.0, -3.05))?;
++        reveal(s, earned)?;
+         k.finish(s)
+     }
+ }
+@@ -290,4 +440,44 @@
+             "TEX[9]",
+         ]);
+     }
++    #[test]
++    fn the_change_of_reading_is_seen_before_degree_zero_lands() {
++        assert_in_order(&[
++            r#"k.say(s, "03_2")?;"#,
++            "let row = rect(",
++            r#"until_clause(&k, s, "03_2", 0, ROWS_SENTENCE, "collect them")?;"#,
++            "let along = Line::new(",
++            r#"k.until_sentence(s, "03_2", 1)?;"#,
++            "hide(s, along)?;",
++            "color_diagonal(s, &cells, degree)?;",
++        ]);
++    }
++    #[test]
++    fn each_diagonal_and_its_total_share_a_colour_on_the_key_sentence() {
++        assert_in_order(&[
++            r#"until_sentence(s, "03_5", 2)"#,
++            "link_diagonals(s, &cells, &totals)?;",
++            "TEX[8]",
++            r#"until_sentence(s, "03_5", 3)"#,
++        ]);
++    }
++    #[test]
++    fn the_name_is_earned_in_the_order_the_voice_earns_it() {
++        assert_in_order(&[
++            r#"k.say(s, "03_7")?;"#,
++            r#"until_sentence(s, "03_7", 1)"#,
++            "e_label()",
++            r#"until_sentence(s, "03_7", 2)"#,
++            "TEX[11]",
++            r#"until_sentence(s, "03_7", 3)"#,
++            "TEX[12]",
++            r#"until_clause(&k, s, "03_7", 3, LADDER_SENTENCE, "reciprocals")?;"#,
++            "TEX[13]",
++            r#"until_clause(&k, s, "03_7", 3, LADDER_SENTENCE, "continuity")?;"#,
++            "show_creation(solid)",
++            r#"until_sentence(s, "03_7", 4)"#,
++            "TEX[14]",
++            "k.finish(s)",
++        ]);
++    }
+ }
+--- a/product_model.rs
++++ b/product_model.rs
+@@ -1,5 +1,9 @@
+ //! Complete low-degree diagonals of an infinite series-product grid.
+ pub const SIDE: usize = 4;
++/// The line 03_7 marks: integers from LADDER_LOW to LADDER_HIGH, in steps of 1/LADDER_STEPS.
++pub const LADDER_LOW: i32 = -2;
++pub const LADDER_HIGH: i32 = 3;
++pub const LADDER_STEPS: i32 = 4;
+ pub fn factorial(n: usize) -> u64 {
+     (1..=n as u64).product()
+ }
+@@ -36,6 +40,33 @@
+         _ => format!(r"\frac{{(x+y)^{{{m}}}}}{{{}}}", factorial(m)),
+     }
+ }
++/// E(1) to five places, from the partial sums of the series itself.
++pub fn e_label() -> String {
++    let mut term = 1.0;
++    let mut total = 1.0;
++    for k in 1..=20 {
++        term /= f64::from(k);
++        total += term;
++    }
++    format!("{total:.5}")
++}
++/// The marks on the 03_7 line, by what earns them. The law gives the whole numbers from zero up.
++pub fn ladder_whole() -> Vec<f64> {
++    (0..=LADDER_HIGH).map(f64::from).collect()
++}
++/// Positive roots give the positive fractions.
++pub fn ladder_fractions() -> Vec<f64> {
++    (1..LADDER_HIGH * LADDER_STEPS)
++        .filter(|j| j % LADDER_STEPS != 0)
++        .map(|j| f64::from(j) / f64::from(LADDER_STEPS))
++        .collect()
++}
++/// Reciprocals give everything below zero.
++pub fn ladder_negatives() -> Vec<f64> {
++    (LADDER_LOW * LADDER_STEPS..0)
++        .map(|j| f64::from(j) / f64::from(LADDER_STEPS))
++        .collect()
++}
+ /// Export every denominator the grid prints, the totals beside it and the spoken cell count.
+ pub fn append_facts(facts: &mut explainer_kit::Facts) -> Result<(), String> {
+     facts.add("product.side", SIDE)?;
+@@ -52,6 +83,13 @@
+         facts.add(&format!("product.diagonal.{m}.cells"), diagonal(m).len())?;
+         facts.add(&format!("product.total.{m}.denominator"), factorial(m))?;
+     }
++    facts.add("product.e", e_label())?;
++    facts.add("product.ladder.low", LADDER_LOW)?;
++    facts.add("product.ladder.high", LADDER_HIGH)?;
++    facts.add("product.ladder.steps", LADDER_STEPS)?;
++    facts.add("product.ladder.whole", ladder_whole().len())?;
++    facts.add("product.ladder.fractions", ladder_fractions().len())?;
++    facts.add("product.ladder.negatives", ladder_negatives().len())?;
+     Ok(())
+ }
+ #[cfg(test)]
+@@ -85,4 +123,23 @@
+         assert_eq!(cell_tex(3, 3), r"\frac{x^{3}y^{3}}{36}");
+         assert_eq!(total_tex(3), r"\frac{(x+y)^{3}}{6}");
+     }
++    #[test]
++    fn the_named_constant_is_e() {
++        assert_eq!(e_label(), format!("{:.5}", 1f64.exp()));
++        assert_eq!(e_label(), "2.71828");
++    }
++    #[test]
++    fn the_line_marks_every_step_once_and_in_its_own_group() {
++        let mut all = ladder_negatives();
++        all.extend(ladder_whole());
++        all.extend(ladder_fractions());
++        all.sort_by(f64::total_cmp);
++        let span = (LADDER_HIGH - LADDER_LOW) * LADDER_STEPS;
++        assert_eq!(all.len(), span as usize + 1);
++        for (j, x) in all.iter().enumerate() {
++            assert_eq!(*x, f64::from(LADDER_LOW) + j as f64 / f64::from(LADDER_STEPS));
++        }
++        assert!(ladder_negatives().iter().all(|x| *x < 0.0));
++        assert!(ladder_fractions().iter().all(|x| *x > 0.0 && x.fract() != 0.0));
++    }
+ }
+--- a/script-slice.tsv
++++ b/script-slice.tsv
+@@ -1,6 +1,7 @@
+ 03_1	We built E from its power series. Why should adding inputs multiply outputs? Put the terms of E of x across the top, and the terms of E of y down the side. Each square contains one product. The complete grid goes on forever. We are showing its first corner, not pretending that sixteen products are the whole answer.
+ 03_2	Instead of collecting the products by rows, collect them by total degree. Degree zero has just one square, containing one. Degree one has two squares: x and y. Their sum is x plus y. Now inspect the three squares of degree two. Before we combine them, can you recognize their sum?
+ 03_3	They give x squared over two, plus x y, plus y squared over two. Factor out one half. Inside the brackets is x squared plus two x y plus y squared: the square of x plus y. So this diagonal contributes x plus y, squared, divided by two. The factorial in the denominator has survived.
+-03_4	The degree-three diagonal works the same way. In general, multiplying a degree-m diagonal by m factorial gives the binomial coefficients. The binomial theorem combines that diagonal into x plus y to the m, divided by m factorial. We have shown the complete diagonals through degree three here. Higher ones continue beyond the visible corner.
+-03_5	There is one analytic permission slip. Both series converge absolutely, so their product can be regrouped by diagonals without changing its sum. The diagonals are precisely the terms of E at x plus y. Therefore E of x times E of y equals E of x plus y. The multiplication law came from the factorials and convergence, not from naming the function exponential.
++03_4	The degree-three diagonal works the same way. In general, multiplying a degree-m diagonal by m factorial gives the binomial coefficients. The binomial theorem combines that diagonal into the sum x plus y, raised to the m, divided by m factorial. We have shown the complete diagonals through degree three here. Higher ones continue beyond the visible corner.
++03_5	There is one analytic permission slip. Both series converge absolutely, so their product can be regrouped by diagonals without changing its sum. The diagonals are precisely the terms of E at the sum, x plus y. Therefore E of x times E of y equals E of the sum, x plus y. The multiplication law came from the factorials and convergence, not from naming the function exponential.
+ 03_6	Set y equal to minus x. The product is E of zero, which is one, so E never vanishes. For a real x, apply the same law to two copies of half x. E of x is the square of a nonzero real number, so it is positive. Since its derivative is itself, it is increasing. Those familiar properties now follow from what we built.
++03_7	Now we can name it. Call E of one by the letter e. The law says E of two is e times e, and E of three is e cubed. Roots give fractions, reciprocals give negatives, and continuity fills in the rest. That is when writing E of x as e to the x becomes a result, not a label.

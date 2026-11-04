@@ -1,0 +1,40 @@
+{
+ "map": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver10.json",
+ "map_sha256": "341356cda34ac129fbca1988699f9f20f1cb583d63a5463f780226a13ab3c5b4",
+ "script_sha256": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e",
+ "note": "Replace only these fields. Rows and sections not listed do not change. Derived by the frozen binder's build() on canonical + this patch, and each row re-read here. Valid only for this exact file hash; a later edit to real_integral.rs moves them again.",
+ "rows": [
+  {
+   "cue": "13_5",
+   "next_cue": "13_6",
+   "kind": "prediction",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+   "old": {
+    "sha256": "906d4bd803b12031555ae79ff3062b0d65044aa275b5cd9f55507dddce2d82bb",
+    "line": 593,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 1.2))?;"
+   },
+   "new": {
+    "sha256": "a5ef573dfa68325272a5d7f588fb910b2d99ea6538752616a51e92c3904d61ed",
+    "line": 631,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 1.2))?;"
+   }
+  },
+  {
+   "cue": "13_11",
+   "next_cue": "14_1",
+   "kind": "reading",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+   "old": {
+    "sha256": "906d4bd803b12031555ae79ff3062b0d65044aa275b5cd9f55507dddce2d82bb",
+    "line": 775,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   },
+   "new": {
+    "sha256": "a5ef573dfa68325272a5d7f588fb910b2d99ea6538752616a51e92c3904d61ed",
+    "line": 813,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   }
+  }
+ ]
+}

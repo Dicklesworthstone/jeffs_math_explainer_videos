@@ -1,0 +1,36 @@
+PASS  the_plates_are_the_films parsed: 5 files, 9 literals
+
+Other lanes' staged patches
+PASS  5 patches found
+  complex02-05-repair03/complex02-05-repair03.patch 49205a2a577c03b273935609701ddf04e602278245c6fd438fb08331f98b96d2
+    touches: gallery.rs, reading_color.rs, turning.rs, two_planes.rs
+PASS  complex02-05-repair03.patch: touches draw.rs or main.rs: no; moves a pinned literal: no
+  patches/06-one-derivative.patch aa3bdf95753793b7139d9531686d28deb4434a30f61d997e7a6a3886a1a55bb2
+    touches: one_derivative.rs
+PASS  06-one-derivative.patch: touches draw.rs or main.rs: no; moves a pinned literal: no
+  patches/07-one-point.patch 5f26db201643c60ad061c47dd8e0955342d7c3ef47ec51aa096ecb8dddba7762
+    touches: one_point.rs
+PASS  07-one-point.patch: touches draw.rs or main.rs: no; moves a pinned literal: no
+  patches/08-loop-sums.patch fcf2b239ff876a5e8b96e65ec09516c937c6d829aff98b73669b4434d16b35b3
+    touches: loop_sums.rs
+PASS  08-loop-sums.patch: touches draw.rs or main.rs: no; moves a pinned literal: no
+  patches/09-boundary.patch 30b82a476d058f8ca03e76ae9718f2c016807120d838e1a2b22d665a707ff530
+    touches: boundary.rs
+PASS  09-boundary.patch: touches draw.rs or main.rs: no; moves a pinned literal: no
+
+The source scans, on the candidate's text
+PASS  every_colour_picture_is_crisp: 'RowStrips::build(stage' appears 1, wants 1
+PASS  every_colour_picture_is_crisp: 'blended_rows(stage' appears 1, wants 1
+PASS  every_colour_picture_is_crisp: 'Picture::build(' appears 2, wants 2
+PASS  every_colour_picture_is_crisp: 'crisp(stage, picture.rows(), cell_h, style);' appears 1, wants 1
+PASS  the_plates_are_the_films: reading_color.rs contains Plane::new(v(-2.6, -0.25), 6.4, (-2.0, 2.0), (-2.0, 2.0))
+PASS  the_plates_are_the_films: gallery.rs contains Plane::new(v(-2.4, -0.1), 8.4, (-6.6, 6.6), (-3.3, 3.3))
+PASS  the_plates_are_the_films: gallery.rs contains pub const TILE_SEED: C = C::new(0.55, 0.95);
+PASS  the_plates_are_the_films: gallery.rs contains pub const TILE_STEPS: usize = 16;
+PASS  the_plates_are_the_films: rigidity.rs contains Plane::new(v(-2.8, 0.0), 5.6, (-0.42, 0.42), (-0.42, 0.42))
+PASS  the_plates_are_the_films: rigidity.rs contains Plane::new(v(-2.8, -0.3), 6.0, (-4.0, 4.0), (-3.5, 3.5))
+PASS  the_plates_are_the_films: residues.rs contains [-4.9, -1.7, 1.5].map(|x| Plane::new(v(x, -1.0), 2.8, (-1.2, 1.2), (-1.2, 1.2)))
+PASS  the_plates_are_the_films: residues.rs contains Plane::new(v(-3.4, -0.3), 5.0, (-2.0, 2.0), (-2.0, 2.0))
+PASS  the_plates_are_the_films: continuing.rs contains Plane::new(v(-3.3, -0.35), 5.6, (-2.5, 2.5), (-2.5, 2.5))
+
+RESULT OK

@@ -1,0 +1,53 @@
+--- 11_2: (z - 1)/(z + 1)^2 on |z| = 1.6, the bound facts.rs now certifies
+ok   least |f| on the loop: 0.08876
+ok   derivative bound (3 + r)/0.6^3: 21.296
+ok   bound >= the true max |f'| (equal at z = -1.6): 21.296
+ok   one step's reach < least |f|: 0.05227
+ok   sampled turns: -1.0
+ok   the live counter's 720 samples: largest step, turns: (0.0412, -1.0)
+ok   smallest output as drawn, scene units (test asks > 0.3): 0.3392
+ok   the squash keeps the turns: -1.0
+--- 11_3: inset direction marks
+ok   outer chord, scene units: 0.386
+ok   inner chord, scene units: 0.273
+--- 11_5: the ring of the question
+ok   ring centre: (4.4, 1.788)
+ok   clear of the top edge: 0.062
+ok   clear of the output's x axis: 1.838
+ok   clear of the output's y axis: 0.85
+ok   card bottom above the window: 0.088
+--- 11_6: the name -3z against the walk
+ok   largest output radius: 0.953
+ok   name radius less margin (test asks > that): 1.216
+--- 11_8: the reach carried round
+ok   reach: 0.7854
+ok   next sample inside the reach: 0.7654
+ok   disk inside the window +-2: 1.7854
+ok   'reach covers 0' above the window's top edge: (2.09, 1.95)
+ok   'reach L x step' clear of the y axis: (-2.479, -2.55)
+ok   'reach L x step' clear of the disk at rest: 0.416
+--- 12_2: direction marks
+ok   small mark chord, scene units: 0.246
+ok   big mark chord, scene units: 0.676
+ok   corridor at 2.521 rad misses the big mark 1.75..2.1: 2.521
+ok   corridor at 0.785 rad misses the big mark 1.75..2.1: 0.785
+ok   corridor at -1.571 rad misses the big mark 1.75..2.1: -1.571
+--- 13_3: the plane's poles and note
+ok   note row below the plane: (-3.25, -2.973)
+ok   note's estimated span: (-6.0, 0.0)
+ok   i drawn at 1.00 when R = 2: same fraction of the radius: 0.0
+ok   i drawn at 0.40 when R = 5: same fraction of the radius: 0.0
+ok   i drawn at 0.20 when R = 10: same fraction of the radius: 0.0
+--- 13_7: the residue
+ok   1/(4p^3) = -p/4: 0.0
+ok   Im p = sqrt(2)/2: -0.0
+ok   1/(4p^3) = -p/4: 0.0
+ok   Im p = sqrt(2)/2: 0.0
+--- 14_2: the small disk
+ok   right of the second chart (right edge 2.7): 4.25
+ok   above the value's row: 0.7
+ok   inside the lint limit: 6.15
+--- 14_3: 'small disk' at (-0.47, 0.3), size 18
+ok   clear of the y axis: -0.056
+ok   clear of the disk's rim: (-0.884, -0.921)
+RESULT PASS

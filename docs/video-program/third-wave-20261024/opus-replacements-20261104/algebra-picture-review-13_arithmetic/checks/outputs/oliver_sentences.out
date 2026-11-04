@@ -1,0 +1,95 @@
+corrections: {"13_6": "exact Flip/The flips/The final/Track openings", "13_11": "exact Together/Our square/Numbers under/But positive openings; do not split colon at Zero"}
+limits: "Recognition only, not hearing or fine-sync acceptance.13_10 package/packaged disagreement remains."
+
+13_1 take01-large.json
+     0.00  Now we can stop describing a move by the entire history of how we made it.
+     4.60  Two sequences represent the same symmetry when they send every corner to the same destinat
+    10.70  The machine might take a long route, but its final action is one of these eight.
+
+13_2 take01-large.json
+     0.00  Let's give the quarter turn a short name: R.
+     3.54  Let S mean the horizontal flip.
+     6.76  We write a sequence as a product, with the rightmost action performed first.
+    11.56  That is the same convention used when one function is placed inside another.
+    16.12  So R S means flip first, then turn.
+    20.42  We will keep the pictures beside the symbols until that order feels natural.
+
+13_3 take01-large.json
+     0.00  Try a calculation.
+     1.84  Do a quarter turn and then another quarter turn.
+     5.42  The result is the half turn in our rack.
+     8.18  We write R squared.
+    10.42  Three quarter turns give R cubed.
+    13.12  Four return every corner to its starting position.
+    16.62  That result is called the identity, written E.
+
+13_4 take01-large.json
+     0.00  What does S squared do?
+     2.06  Flip once, then flip again across the same horizontal hinge.
+     6.72  Every corner returns.
+     8.90  So, S squared is also E.
+    12.00  This does not mean S and R are the same move.
+    15.40  It means these two particular sequences finish in the same arrangement.
+
+13_5 take01-large.json
+     0.00  Here is the calculation from our opening, expressed in this language.
+     4.60  Turning and then flipping gives SR.
+     8.10  Flipping and then turning gives RS.
+    11.56  We can see different colored corners, so these are different elements of the rack.
+    16.64  A product of actions remembers its order.
+
+13_6 take01-large.json
+     0.00  There is still a useful rule relating them: flip, turn a quarter turn, and flip again.
+     6.50  The flips reverse our sense of clockwise and counterclockwise.
+    10.64  The final result is the same as a quarter turn in the opposite direction.
+    15.14  Track all four corners to check it.
+    17.66  SRS equals R inverse, which is also R cubed.
+
+13_7 take01-large.json
+     0.00  That rule lets us simplify complicated words.
+     3.42  Whenever a flip sits to the left of a turn, we can move the flip past the turn if we rever
+    10.22  Pairs of flips cancel, and groups of four quarter turns cancel.
+    14.94  Eventually, every word becomes a rotation, possibly followed on the right by one flip.
+    21.02  Those are exactly the two rows of our rack.
+
+13_8 take01-large.json
+     0.00  We have found an arithmetic whose answers are actions.
+     4.00  Combining any two entries stays inside the rack, and each entry has an undo move.
+    10.28  A quarter turn is undone by three quarter turns.
+    13.82  A half turn undoes itself.
+    16.12  Every reflection undoes itself too, though different reflections use different axes.
+
+13_9 take01-large.json
+     0.00  Before we call this a group, one distinction matters.
+     3.68  Swapping two moves can change the result.
+     6.78  Merely changing where we put parentheses cannot.
+    10.30  If three actions are performed in the same order, grouping the first two into one instruct
+    18.84  That is associativity.
+    21.00  It is a statement about grouping, not a license to reorder.
+
+13_10 take01-large.json
+     0.00  To see why this holds beyond a square, take any object and three functions.
+     5.44  Applying the innermost function, then the next, then the last, gives the same output wheth
+    16.08  Function composition is associative because the actual sequence of applications has not ch
+
+13_11 take01-large.json
+     0.00  closure, associativity, an identity, and an inverse for every element.
+     5.62  Together, these properties define a group.
+     9.00  Our square symmetries give one concrete example.
+    12.50  Numbers under Addition give another.
+    15.18  Zero does nothing, and adding the negative undoes an addition.
+    20.00  But positive integers under Addition do not form a group, because most additions cannot be
+
+13_12 take01-large.json
+     0.00  These requirements are not a ceremonial checklist.
+     3.74  Closure makes calculations stay within our vocabulary.
+     7.58  Associativity lets us package a long calculation into steps.
+    12.22  The identity gives a neutral action.
+    15.10  Inverses let us solve equations by undoing operations.
+    19.60  Next, we will see how these four properties make deductions possible without knowing what 
+
+seconds of animation each 13_12 beat asks for before the next may start:
+   closure        1.85
+   associativity  4.10
+   identity       2.05
+   inverse        4.00

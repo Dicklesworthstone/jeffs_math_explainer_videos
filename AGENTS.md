@@ -3,6 +3,16 @@
 > Guidelines for AI coding agents working in this repository: a monorepo of
 > narrated 4K math explainer videos built with franken_manim and FrankenTTS.
 
+> **Owner update, 2026-10-31:** Current narration uses ElevenLabs, not Michael
+> or FrankenTTS. The Oliver replacements documented in the catalog and
+> `docs/video-program/third-wave-20261024/TODO.md` are recent examples; this
+> does not establish an exclusive ElevenLabs voice for every future video.
+> Older Michael/FrankenTTS directions below describe historical work and do not
+> authorize new Michael synthesis or auditions. In particular, inspect the
+> actual route before running `./x`: a historical default is not the current
+> narration choice. Preserve all takes and prior receipts. ASR, hashes and
+> technical checks do not substitute for actual listening or fine-sync review.
+
 ---
 
 ## RULE 0 — THE FUNDAMENTAL OVERRIDE PREROGATIVE
@@ -40,7 +50,7 @@ If I tell you to do something, even if it goes against what follows below, YOU M
 
 This repository makes narrated, 3Blue1Brown-style 4K math explainer videos that explain deep mathematics so clearly that a curious 14-year-old follows them, a working programmer could implement the idea afterwards, and a professional mathematician finds nothing incorrect or misleading. Never by dumbing down: by the right picture, the right tiny example, the right order, and formulas that are earned.
 
-Every video is a Rust program written against **franken_manim**'s native `fmn` facade (native TeX, no LaTeX, no Python), narrated by **FrankenTTS** (`ftts`; one preset voice per video, the owner's choice: `michael` for every published cut, chosen for all of them on 2026-10-12. The first cuts of capture_recapture (`matt`), hoeffding_d (`robert`) and raptorq_gf256 (`leo`) are kept as Private comparisons; `./x` still defaults capture_recapture and hoeffding_d to their first voice, and their michael cuts are `VOICE=michael` variants under `variants/michael/`; every other video is `michael` natively) with every take scored by **FrankenWhisper** (`fw`), and scored by this repository's own procedural sound engine. Every number is computed and oracle-checked; every frame is looked at; nothing is announced until it passes its gate.
+Video scenes use **franken_manim**'s native `fmn` facade (native TeX, no LaTeX, no Python); the current owner direction is ElevenLabs narration, with the exact voice and takes recorded per cut. Earlier, on 2026-10-12, the owner selected `michael` in **FrankenTTS** for the then-published cuts. The first cuts of capture_recapture (`matt`), hoeffding_d (`robert`) and raptorq_gf256 (`leo`) were kept as Private comparisons; `./x` historically defaulted capture_recapture and hoeffding_d to their first voice, and their michael cuts used `VOICE=michael` variants under `variants/michael/`. Those defaults and recordings are historical, not current narration authorization. FrankenWhisper can help check words, and this repository provides a procedural sound engine; neither technical evidence nor a transcript establishes listening acceptance. Every number is computed and oracle-checked; visual and release review must be reported at its actual scope.
 
 **Start at [`docs/video-program/README.md`](docs/video-program/README.md) for every video, from an unapproved idea to a public cut.** Its `catalog.json` owns stable video identities, editorial decisions, cuts and publication records; `.beads` owns work status, assignees and dependencies. Do not create a second active video backlog. Historical publications do not close independent release or repair tasks, and inclusion in the catalog does not authorize production.
 
@@ -49,7 +59,7 @@ The original production architecture and doctrine remain in [`docs/planning/COMP
 ### What we stand on
 
 - **franken_manim** (github.com/Dicklesworthstone/franken_manim): the animation engine. Consumed as a git dependency pinned by revision; never edited from here (see below).
-- **FrankenTTS** (`ftts`) and **FrankenWhisper** (`fw`): the voice and the ears.
+- **ElevenLabs** is the current narration provider by owner direction. **FrankenTTS** (`ftts`) and historical Michael takes remain preserved; **FrankenWhisper** (`fw`) supplies fallible transcript evidence, not listening acceptance.
 - **The three explainer skills** under `~/.claude/skills/` (franken-manim-mega-skill; math-explainer-videos-end-to-end-with-franken-manim-frankentts; natural-sounding-narration-with-frankentts): the engine reference, the production phases and template, and the narration pipeline. They are referenced by path (`SKILLS` in `project.env`), never vendored or edited from this repository; other sessions own their publishing.
 
 ---
@@ -71,7 +81,7 @@ These come from the explainer skills and from the incidents that produced them. 
 2. **Every number on screen or in the narration comes from the explainer's `facts`**, computed by the scene from the data it draws and pinned against an independent oracle (`./x <slug> facts-check`). A typed number is a defect.
 3. **Every always/never sentence is tested at its edges before it is voiced.**
 4. **Every name and term is looked up and its pronunciation verified** (lookup, respell, probe against a control and a decoy, lock into `lexicon.json` with sources) before narration. The owner's pronunciation overrides every source.
-5. **Choose bounded coherent narration units.** Owner amendment 2026-10-17: use FrankenTTS Michael with his approved English accent, accepted B as the reference, contextual whole-thought takes/repairs and authored semantic pauses. Sentence synthesis remains a comparison route, not a universal requirement. Follow the current canonical narration skill and `docs/video-program/NARRATION-CONSISTENCY.md`. Pin the actual executable, model, voice conditioning, text, seed and emitted generation receipt; seed 0 can equal omitted, while positive seeds produce candidates in tested builds. Neither one request nor a resident proves unbroken context, and replay does not generalize across builds/backends. Transcript, speaker/accent scores and EOS evidence do not establish listening acceptance. Other models primarily support diagnosis.
+5. **Choose bounded coherent narration units.** The owner directs ElevenLabs for current narration. Preserve exact submitted text, voice/model/settings when available, full retained takes, generated receipts and authored semantic pauses. The 2026-10-17 FrankenTTS Michael, accepted-B and seed-specific directions are historical and superseded for new voice selection; see `docs/video-program/NARRATION-CONSISTENCY.md`. A single request does not prove unbroken context. Transcript, speaker/accent scores and endpoint evidence do not establish listening acceptance. Other models primarily support diagnosis.
 6. **Look at every frame:** the layout lint, contact sheets and cue sheets are read as images before a draft counts as reviewed.
 7. **4K60 finals with explicit encoder quality and one encoder for every chapter and segment** (a camera-route segment goes through the same runner-wrapped encoder as the retained route, or the stream-copy join breaks).
 8. **Chapter boundaries follow the teaching.** The owner's 2026-10-24 direction supersedes the old ~85 s editorial cap: preserve useful intuition, motivation and inspection time, and split at conceptual boundaries when helpful. `tools/storyboard.py` reports longer estimates as advisory. Do not cut explanation or rush narration to meet that estimate. Actual engine resource limits and coherent TTS take limits remain separate constraints.

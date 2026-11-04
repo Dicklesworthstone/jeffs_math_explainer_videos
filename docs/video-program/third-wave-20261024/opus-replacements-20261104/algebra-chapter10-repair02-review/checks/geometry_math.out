@@ -1,0 +1,35 @@
+source: CLOCK (-3.0, -0.1), RING_R 1.9, PANEL_X 2.9, TABLE_X (3.0, 4.2, 5.4), TABLE_MARK_Y -0.05
+
+The box around the successful column (10_3)
+  box x 4.925..5.875, y -0.400..2.200
+  ok   the tick (y -0.17..0.11) is inside the box
+  gap below the tick's centreline 0.23; the old box's bottom edge was at 0.05, crossing the tick (frame-0155)
+  ok   orbit text ends at 933 px, box starts at 1083 px
+  ok   and clear at the 1.25 pulse too, box then starts at 1073 px
+  ok   pulsed top 2.52 stays under the title, whose bottom is near y 2.9
+  gap above the '3' (top near y 1.7) is 0.50, below the tick 0.23: not centred, not a collision
+
+The recap's clock and panel (10_11)
+  formula at 32 pt: 4.05 wide, 0.74 tall
+  ok   dial right edge -1.10 clears formula left edge 0.88
+  ok   formula right edge 4.92 is on screen (half width 7.11)
+  ok   formula top -0.23 clears pulsed ord(8)=3 bottom 0.25
+
+The path pulse: Indicate scales about the path's own centre (baseline frame 256 shows this motion)
+  triangle y -1.050..1.800; its centre 0.375, the clock's -0.1
+  at the 1.25 peak: apex y 2.156, base y -1.406; ring top 1.800, '+8' label centre y 2.100
+  so the apex reaches the label for the middle of the 0.6 s pulse (finding F5)
+
+The numbers on screen, recomputed from the definitions
+  ok   walk of +8 on 12: [0, 8, 4], first return after 3 moves
+  ok   n/gcd(n,k) = 12/4 = 3
+  ok   exponents in H on the line: [-8, -4, 0, 4, 8, 12]
+  ok   smallest positive exponent 4 divides every one
+  ok   5 chunks of 4, from -8 to 12
+  ok   <g^4> on the clock is [0, 4, 8]
+
+The recap reuses TeX the chapter already sets
+  ok   ord(8)=3: the recap's format! evaluates to the literal 10_2 already sets
+  ok   the formula: the same format string as 10_5, set at 32 pt instead of 36
+
+GEOMETRY AND MATH OK

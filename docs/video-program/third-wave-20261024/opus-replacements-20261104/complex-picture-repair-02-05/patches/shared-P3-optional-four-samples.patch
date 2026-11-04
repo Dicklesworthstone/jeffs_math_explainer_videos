@@ -1,0 +1,38 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+@@ -496,8 +496,9 @@
+ // --------------------------------------------------------- colour pictures
+ 
+ /// The colour of each cell of the picture of `f` over `plane`, `cols` × `rows`
+-/// (row 0 at the top); unpainted (the background) where f is undefined.
+-/// `enhance` 0 is hue alone, 1 the full enhanced portrait.
++/// (row 0 at the top), the mean of four samples inside the cell, so an edge between bands is
++/// softened by a cell instead of stepping by one; unpainted (the background) where f is
++/// undefined. `enhance` 0 is hue alone, 1 the full enhanced portrait.
+ pub fn portrait_colors(
+     f: impl Fn(C) -> Option<C>,
+     plane: &Plane,
+@@ -506,12 +507,22 @@
+     enhance: f64,
+ ) -> Vec<Vec<Srgb>> {
+     let (x, y) = (plane.frame.x, plane.frame.y);
++    // a quarter of a cell from its centre, each way
++    let (dx, dy) = ((x.1 - x.0) / cols as f64 / 4.0, (y.1 - y.0) / rows as f64 / 4.0);
+     (0..rows)
+         .map(|r| {
+             (0..cols)
+                 .map(|c| {
+                     let z = model::cell_input(x, y, cols, rows, r, c);
+-                    model::portrait(f(z), enhance).map(rgb).unwrap_or_else(ground)
++                    let mut mean = Srgb { r: 0.0, g: 0.0, b: 0.0 };
++                    for (sx, sy) in [(-1.0, -1.0), (1.0, -1.0), (-1.0, 1.0), (1.0, 1.0)] {
++                        let at = C::new(z.re + sx * dx, z.im + sy * dy);
++                        let one = model::portrait(f(at), enhance).map(rgb).unwrap_or_else(ground);
++                        mean.r += one.r / 4.0;
++                        mean.g += one.g / 4.0;
++                        mean.b += one.b / 4.0;
++                    }
++                    mean
+                 })
+                 .collect()
+         })

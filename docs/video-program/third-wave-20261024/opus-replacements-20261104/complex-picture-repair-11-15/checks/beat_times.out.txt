@@ -1,0 +1,66 @@
+
+11_1: scratch length 19.63 s, 5 sentences
+  sentence 2                             voice   6.26  picture ready   1.30  late  0.00
+    walk 0: room 4.45, walked 2.60, count held until 10.36, sentence over at 12.21
+  sentence 3                             voice  12.21  picture ready  10.36  late  0.00
+    walk 1: room 1.05, walked 1.80, count held until 16.21, sentence over at 15.46
+  sentence 4                             voice  15.46  picture ready  16.21  late  0.75
+    walk 2: room 1.22, walked 1.80, count held until 20.21, sentence over at 19.63
+  ends at  20.21; voice ends  19.63; over by  0.58
+
+11_2: scratch length 22.32 s, 4 sentences
+    walk: room 1.89, walked 2.60
+  sentence 1                             voice   3.49  picture ready   4.20  late  0.71
+  'each counted'                         voice   8.44  picture ready   4.70  late  0.00
+  sentence 2                             voice  10.32  picture ready   8.74  late  0.00
+  sentence 3                             voice  12.56  picture ready  10.72  late  0.00
+  ends at  14.86; voice ends  22.32; over by  0.00
+
+11_3: scratch length 31.94 s, 6 sentences
+  sentence 1                             voice   7.00  picture ready   2.00  late  0.00
+  sentence 2                             voice  13.70  picture ready  10.40  late  0.00
+  sentence 3                             voice  18.16  picture ready  18.00  late  0.00
+  sentence 4                             voice  23.24  picture ready  18.16  late  0.00
+  ends at  23.74; voice ends  31.94; over by  0.00
+
+11_8: scratch length 32.71 s, 6 sentences
+  'take steps'                           voice  21.78  picture ready  19.09  late  0.00
+  'cannot move'                          voice  24.47  picture ready  22.88  late  0.00
+    the reach is carried round in 3.24 s
+  sentence 5                             voice  27.92  picture ready  27.92  late  0.00
+  ends at  28.32; voice ends  32.71; over by  0.00
+
+12_2: scratch length 19.63 s, 3 sentences
+  sentence 1                             voice   5.84  picture ready   4.00  late  0.00
+  sentence 2                             voice   8.29  picture ready   6.24  late  0.00
+  'the residue is'                       voice  14.55  picture ready   8.69  late  0.00
+  ends at  14.95; voice ends  19.63; over by  0.00
+
+13_2: scratch length 17.71 s, 4 sentences
+    the segment is walked in 2.88 s
+    the half circle is walked in 4.01 s
+  sentence 1                             voice   7.99  picture ready   8.39  late  0.40
+  sentence 2                             voice  11.26  picture ready   9.29  late  0.00
+  ends at  11.26; voice ends  17.71; over by  0.00
+
+13_8: scratch length 15.78 s, 3 sentences
+  sentence 1                             voice   1.10  picture ready   0.30  late  0.00
+  'each has imaginary part'              voice   4.98  picture ready   2.30  late  0.00
+  sentence 2                             voice   9.79  picture ready   5.38  late  0.00
+  ends at  10.59; voice ends  15.78; over by  0.00
+
+14_2: scratch length 23.09 s, 6 sentences
+  sentence 1                             voice   5.15  picture ready   1.40  late  0.00
+  sentence 2                             voice   9.90  picture ready   5.55  late  0.00
+  sentence 3                             voice  12.87  picture ready  12.22  late  0.00
+  sentence 4                             voice  16.33  picture ready  14.89  late  0.00
+  sentence 5                             voice  21.40  picture ready  16.83  late  0.00
+  ends at  21.70; voice ends  23.09; over by  0.00
+
+14_3: scratch length 38.09 s, 7 sentences
+  sentence 1                             voice   8.63  picture ready   2.10  late  0.00
+  sentence 3                             voice  17.56  picture ready   9.13  late  0.00
+  sentence 4                             voice  24.31  picture ready  18.46  late  0.00
+  sentence 5                             voice  30.04  picture ready  27.71  late  0.00
+  sentence 6                             voice  32.65  picture ready  33.14  late  0.49
+  ends at  33.94; voice ends  38.09; over by  0.00

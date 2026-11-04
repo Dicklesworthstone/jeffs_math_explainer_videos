@@ -1,0 +1,122 @@
+== 1. head and tail at each slot; arcs that touch or cross on one side of the row
+ok   11_4 and 11_12 (1 3 5): slot 1 head -0.16, tail +0.16
+ok   11_4 and 11_12 (1 3 5): slot 3 head -0.16, tail +0.16
+ok   11_4 and 11_12 (1 3 5): slot 5 head -0.16, tail +0.16
+     11_4 and 11_12 (1 3 5): baseline touching/crossing (3, 0); candidate (0, 0)
+ok   11_4 and 11_12 (1 3 5): no head or tail shares a point
+ok   11_4 and 11_12 (1 3 5): no crossing added
+ok   11_15 (1 2 3 4): slot 1 head -0.16, tail +0.16
+ok   11_15 (1 2 3 4): slot 2 head -0.16, tail +0.16
+ok   11_15 (1 2 3 4): slot 3 head -0.16, tail +0.16
+ok   11_15 (1 2 3 4): slot 4 head -0.16, tail +0.16
+     11_15 (1 2 3 4): baseline touching/crossing (4, 0); candidate (0, 0)
+ok   11_15 (1 2 3 4): no head or tail shares a point
+ok   11_15 (1 2 3 4): no crossing added
+ok   11_22 six-cycle: slot 2 head -0.16, tail +0.16
+ok   11_22 six-cycle: slot 3 head -0.16, tail +0.16
+ok   11_22 six-cycle: slot 5 head -0.16, tail +0.16
+ok   11_22 six-cycle: slot 9 head +0.16, tail -0.16
+ok   11_22 six-cycle: slot 8 head +0.16, tail -0.16
+ok   11_22 six-cycle: slot 6 head +0.16, tail -0.16
+     11_22 six-cycle: baseline touching/crossing (6, 1); candidate (0, 1)
+ok   11_22 six-cycle: no head or tail shares a point
+ok   11_22 six-cycle: no crossing added
+ok   swap (2, 6) keeps one shared anchor pair
+ok   swap (5, 6) keeps one shared anchor pair
+ok   swap (4, 7) keeps one shared anchor pair
+
+== 2. Arc tops, baseline and candidate, against the lowest edge of the words above (size/100 tall about)
+ok   11_4 closing: top 2.34 -> 2.39, words begin 2.80
+ok   11_4 wrong: top 2.33 -> 2.43, words begin 2.80
+ok   11_12 closing: top 2.59 -> 2.64, words begin 2.86
+ok   11_22 five to nine (head moved out): top 2.27 -> 2.27, words begin 2.86
+ok   11_22 six to two: top 2.27 -> 2.27, words begin 2.86
+
+== 3. The moved slot numbers (L)
+ok   slot 1 number at (-3.2, 1.92): 0.62 from the nearest link
+ok   slot 2 number at (4.7, -1.72): 3.37 from the nearest link
+ok   slot 2 number clears the written inverse (top -2.17)
+ok   slot 3 number at (3.2, 1.92): 0.62 from the nearest link
+ok   slot 4 number at (-3.2, -1.72): 0.62 from the nearest link
+ok   slot 4 number clears the written inverse (top -2.17)
+
+== 4. Truth of what the new pictures say
+ok   AA: after one out-shuffle of ten, card 2 is in slot 3, so 'Card 2 went from slot 2 to slot 3' holds
+ok   AA: slots 1 and 10 stay, so the first moving trail starts at 2
+ok   AH: after 3 stages every token is back on its own line
+ok   AG: stage 4 sends tokens exactly as stage 1 did
+ok   T: the demonstration ends with the row at home, for the uncounted start of sentence 1
+ok   AC: 2 fixed, 1 swap, 6 cycles of length 8
+ok   AD: the pulse joins lcm(1,2,8)=8 with the counter at 8
+
+== 5. New or changed words, width at 0.50 em a character, half-frame 7.11
+ok   'Transposition: swap two labels': 4.80 wide at x 0.0
+ok   'Gold: even': 1.30 wide at x -0.15
+ok   'Gold: even' clears both blocks of cells
+ok   'Blue: odd': 1.17 wide at x -0.15
+ok   'Blue: odd' clears both blocks of cells
+ok   'Card 2 went from slot 2 to slot 3': 4.46 wide at x 0.0
+ok   'By size: 2 fixed, 1 swap, 6 cycles of length 8': 6.21 wide at x 0.0
+ok   'After 3 stages: all data back on their starting lines': 7.16 wide at x 0.0
+ok   'Stage 4': 0.77 wide at x 3.9
+
+== 6. Sentence waits in order, within the chapter's counts
+ok   11_1: [1, 3] of 4
+ok   11_2: [1, 2, 3, 4] of 5
+ok   11_3: [3, 4, 5, 6, 7] of 8
+ok   11_4: [1, 2, 3, 4, 5, 6] of 7
+ok   11_5: [2, 3, 4] of 5
+ok   11_6: [1] of 3
+ok   11_7: [2, 1] of 3
+ok   11_8: [1, 2, 3, 4] of 5
+ok   11_9: [1, 2, 3, 4] of 5
+ok   11_10: [1, 2, 3, 4, 5, 6] of 8
+ok   11_11: [1, 2, 3, 4] of 5
+ok   11_12: [1, 2, 3, 4] of 6
+ok   11_13: [1, 2, 3, 4, 5] of 6
+ok   11_14: [1, 2, 3, 4, 5] of 6
+ok   11_15: [1, 2, 3] of 4
+ok   11_16: [1, 2, 3] of 4
+ok   11_17: [1, 2, 3, 4] of 5
+ok   11_18: [1, 2, 3, 4] of 5
+ok   11_19: [1, 2] of 3
+ok   11_20: [1, 2, 3, 4, 5, 6, 7] of 8
+ok   11_21: [1, 2, 3, 4, 5] of 6
+ok   11_22: [1, 2, 3, 4] of 5
+ok   11_23: [1, 2, 3] of 4
+ok   11_24: [1, 2, 3] of 4
+ok   11_25: [1, 2, 3] of 4
+ok   11_26: [1, 2, 3, 4] of 5
+ok   11_27: [1, 2, 3, 4, 5] of 6
+ok   swap_name: bound once, new, and used
+ok   swap_cards: bound once, new, and used
+ok   even_key: bound once, new, and used
+ok   odd_key: bound once, new, and used
+ok   reading: bound once, new, and used
+ok   fourth: bound once, new, and used
+ok   swap_caption: helper and the five sites
+ok   exchange: five sites moved, the rest untouched
+ok   gone: every line back
+ok   gone: above_top(4), above_top(2)
+ok   gone: above_top(0), above_top(2)
+ok   gone: above_top(4), above_top(0)
+
+== 7. Budgets on the scratch voice (a cue's length spread over its words)
+ok   I         11_5 sentences 0..1: window  5.08 s, block  0.40 ->  1.70 s
+ok   I         11_5 sentences 2..2: window  8.99 s, block  0.80 ->  1.20 s
+ok   T         11_20 sentences 0..0: window  7.00 s, block  0.40 ->  3.50 s
+ok   V         11_21 sentences 3..3: window  6.23 s, block  1.20 ->  2.20 s
+ok   AA        11_22 sentences 2..2: window  9.76 s, block  7.70 ->  8.10 s
+ok   AA        11_22 sentences 3..3: window  5.08 s, block  3.10 ->  3.50 s
+ok   AE        11_25 sentences 0..0: window  5.09 s, block  1.40 ->  1.90 s
+ok   AE 645.5  11_25 sentences 2..2: window  6.66 s, block  4.36 ->  4.86 s
+ok   AE 657.5  11_26 sentences 1..1: window  5.47 s, block  0.30 ->  0.80 s
+ok   AI        11_26 sentences 3..3: window  5.87 s, block  2.50 ->  3.00 s
+ok   AG        11_26 sentences 4..4: window  5.47 s, block  1.10 ->  1.10 s
+ok   AM        11_27 sentences 1..1: window  2.72 s, block  2.39 ->  2.69 s
+ok   G         11_14 sentences 3..3: window  8.99 s, block  0.30 ->  0.80 s
+ok   J         11_17 sentences 4..4: window  6.64 s, block  0.30 ->  0.80 s
+
+AD pushes 11_25 and everything after it by 1.2 s (0.6 pulse + 0.6 hold). X moves the sr picture by up to 0.35 s.
+
+FAILS: none

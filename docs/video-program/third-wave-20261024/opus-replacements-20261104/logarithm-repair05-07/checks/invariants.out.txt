@@ -1,0 +1,23 @@
+ok   script.tsv is still 3e4e34af7090e448
+ok   complex_turns: baseline hash d1f2d72555ee7f10
+ok   complex_turns: 33 say/until_sentence/hold anchors unchanged, in order
+ok   complex_turns: 2 predict call(s) unchanged
+ok   complex_turns: no absolute home path
+     complex_turns: 3 play! calls, 35 fade_in_all, 3 swap
+ok   lifting_loops: baseline hash b409ace64e13fafb
+ok   lifting_loops: 34 say/until_sentence/hold anchors unchanged, in order
+ok   lifting_loops: 2 predict call(s) unchanged
+ok   lifting_loops: no absolute home path
+     lifting_loops: 15 play! calls, 34 fade_in_all, 4 swap
+ok   branch_cut: baseline hash c3fd774e9172cdbe
+ok   branch_cut: 30 say/until_sentence/hold anchors unchanged, in order
+ok   branch_cut: 1 predict call(s) unchanged
+ok   branch_cut: no absolute home path
+     branch_cut: 9 play! calls, 29 fade_in_all, 7 swap
+working tree still equals baseline: {'complex_turns': True, 'lifting_loops': True, 'branch_cut': True}
+ok   complex_turns: prediction cue "05_1" still said
+ok   complex_turns: prediction cue "05_5" still said
+ok   lifting_loops: prediction cue "06_2" still said
+ok   lifting_loops: prediction cue "06_4" still said
+ok   branch_cut: prediction cue "07_3" still said
+RESULT: PASS

@@ -1,0 +1,17 @@
+{
+  "utc": "2026-11-04T14:13:14.845771+00:00",
+  "oracle_rows": 625,
+  "canonical_modified": false,
+  "native_comparison": "not run, queued native lane prerequisites still active",
+  "source_binding": "scene plot_x/ORDERS/PLOT_SEGMENTS/RADIUS/TAIL_ORDER and append_facts share model",
+  "hashes": {
+    "source-check01.json": "a9d7724a99cfc5cc08df798db4f4aea7b11bffee218c256688ce77f8065a58c5",
+    "series_model.rs": "058392239fd864f88ea9ec9ba79508192c243a3e933d5cb3712e63c2c54165bc",
+    "README.md": "f521030184e00496379e45ae9f21370e2542e0e8542863b2ed7fe5c60fc0bec7",
+    "oracle.py": "f18530ae11973f838c18016bc6a60cb18c997fdbc5f99c9dd6e4737f9ebc0edc",
+    "source-check02.json": "c3d209c88802be48fce85ec01de8c946fe86d17b01ab5c27a21a855333495fff",
+    "script-slice.tsv": "fe8480fbdef3524caee8e53ec507010ed052700319176a12d920282b4c23fef7",
+    "oracle01.tsv": "ebf22c6c83fc2027d05dbf8d234229bce1c7e295dfc91e9d07e738a08aeda9a1",
+    "factorials.rs": "5b7ecd2ae11e9bc718a3cbc95499d26e59f2beaad306ebe2de28210522ce54a8"
+  }
+}

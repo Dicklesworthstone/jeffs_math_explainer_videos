@@ -1,0 +1,43 @@
+== 11_12 (1 3 5) above row
+  baseline : shaft crossings 0; head to the next link at its slot, min 0.001; head to any other link, min 0.001; top 2.59 vs title 2.86; nearest slot number 0.144
+  candidate: shaft crossings 0; head to the next link at its slot, min 0.057; head to any other link, min 0.057; top 2.64 vs title 2.86; nearest slot number 0.145
+    1->3: arc -1.2; tip -0.227 from slot 3's centre; shaft bulge +0.41; ring at mid-hop +0.46 from the row; same side: True; travels right and tip is right of its base
+    3->5: arc -1.2; tip -0.227 from slot 5's centre; shaft bulge +0.41; ring at mid-hop +0.46 from the row; same side: True; travels right and tip is right of its base
+    5->1: arc +1.2; tip -0.094 from slot 1's centre; shaft bulge +0.98; ring at mid-hop +0.93 from the row; same side: True; travels left and tip is left of its base
+== 11_15 (1 2 3 4) above row
+  baseline : shaft crossings 0; head to the next link at its slot, min 0.002; head to any other link, min 0.002; top 2.36 vs title 2.86; nearest slot number 0.143
+  candidate: shaft crossings 0; head to the next link at its slot, min 0.070; head to any other link, min 0.070; top 2.41 vs title 2.86; nearest slot number 0.145
+    1->2: arc -1.2; tip -0.228 from slot 2's centre; shaft bulge +0.18; ring at mid-hop +0.23 from the row; same side: True; travels right and tip is right of its base
+    2->3: arc -1.2; tip -0.228 from slot 3's centre; shaft bulge +0.18; ring at mid-hop +0.23 from the row; same side: True; travels right and tip is right of its base
+    3->4: arc -1.2; tip -0.228 from slot 4's centre; shaft bulge +0.18; ring at mid-hop +0.23 from the row; same side: True; travels right and tip is right of its base
+    4->1: arc +1.2; tip -0.094 from slot 1's centre; shaft bulge +0.74; ring at mid-hop +0.70 from the row; same side: True; travels left and tip is left of its base
+== 11_22 (2 3 5 9 8 6) above deck
+  baseline : shaft crossings 1; head to the next link at its slot, min 0.002; head to any other link, min 0.002; top 2.27 vs title 2.85; nearest slot number 0.136
+  candidate: shaft crossings 1; head to the next link at its slot, min 0.099; head to any other link, min 0.099; top 2.27 vs title 2.85; nearest slot number 0.131
+    2->3: arc -1.0; tip -0.232 from slot 3's centre; shaft bulge +0.11; ring at mid-hop +0.15 from the row; same side: True; travels right and tip is right of its base
+    3->5: arc -1.0; tip -0.231 from slot 5's centre; shaft bulge +0.26; ring at mid-hop +0.31 from the row; same side: True; travels right and tip is right of its base
+    5->9: arc -1.0; tip +0.089 from slot 9's centre; shaft bulge +0.61; ring at mid-hop +0.61 from the row; same side: True; travels right and tip is right of its base
+    9->8: arc +1.0; tip +0.232 from slot 8's centre; shaft bulge +0.11; ring at mid-hop +0.15 from the row; same side: True; travels left and tip is left of its base
+    8->6: arc +1.0; tip +0.231 from slot 6's centre; shaft bulge +0.26; ring at mid-hop +0.31 from the row; same side: True; travels left and tip is left of its base
+    6->2: arc +1.0; tip -0.089 from slot 2's centre; shaft bulge +0.61; ring at mid-hop +0.61 from the row; same side: True; travels left and tip is left of its base
+== 11_4 (1 3 5) above top row
+  baseline : shaft crossings 0; head to the next link at its slot, min 0.001; head to any other link, min 0.001; top 2.34 vs equation 2.80; nearest slot number 0.144
+  candidate: shaft crossings 0; head to the next link at its slot, min 0.057; head to any other link, min 0.057; top 2.39 vs equation 2.80; nearest slot number 0.145
+    1->3: arc -1.2; tip -0.227 from slot 3's centre; shaft bulge +0.41; ring at mid-hop +0.46 from the row; same side: True; travels right and tip is right of its base
+    3->5: arc -1.2; tip -0.227 from slot 5's centre; shaft bulge +0.41; ring at mid-hop +0.46 from the row; same side: True; travels right and tip is right of its base
+    5->1: arc +1.2; tip -0.094 from slot 1's centre; shaft bulge +0.98; ring at mid-hop +0.93 from the row; same side: True; travels left and tip is left of its base
+== 11_4 wrong arrow: slot 5 to slot 3, ends on the head of 1->3
+  distance between the two tips 0.108 (the same anchor; each trimmed 0.08 along its own arc)
+  wrong crosses 3->5: 0; wrong crosses 1->3: 0; wrong top 2.43 vs equation 2.80
+== swaps keep one double-headed arc: how far one shaft strays from the other, over the shared middle
+  11_12 (2 6): stray 0.0058; lowest point -0.35
+  11_15 (5 6): stray 0.0013; lowest point 0.35
+  11_22 (4 7): stray 0.0035; lowest point 0.12
+== at each slot of the candidate: arriving head against leaving tail, in units and in 4K pixels (270 a unit)
+  11_12 (1 3 5) above row: slot 3: 0.454 (122 px); slot 5: 0.057 (15 px); slot 1: 0.098 (26 px)
+  11_15 (1 2 3 4) above row: slot 2: 0.455 (123 px); slot 3: 0.455 (123 px); slot 4: 0.070 (19 px); slot 1: 0.099 (27 px)
+  11_22 (2 3 5 9 8 6) above deck: slot 3: 0.463 (125 px); slot 5: 0.461 (125 px); slot 9: 0.099 (27 px); slot 8: 0.463 (125 px); slot 6: 0.461 (125 px); slot 2: 0.099 (27 px)
+== the same minimum if LINK_SEP changed; nothing here proposes changing it before a picture is seen
+  0.16: 11_12 gap 0.057 top 2.64; 11_15 gap 0.070 top 2.41; 11_22 gap 0.099 top 2.27
+  0.20: 11_12 gap 0.096 top 2.65; 11_15 gap 0.109 top 2.42; 11_22 gap 0.179 top 2.27
+  0.24: 11_12 gap 0.134 top 2.66; 11_15 gap 0.147 top 2.43; 11_22 gap 0.259 top 2.27

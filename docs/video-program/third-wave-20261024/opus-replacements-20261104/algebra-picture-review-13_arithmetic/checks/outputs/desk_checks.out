@@ -1,0 +1,40 @@
+--- arity_check: baseline exit 0, 47 lines; last: UNKNOWN with_capacity x1 e.g. src/permutations.rs:4605
+    A: exit 0; 47 lines; 4 changed
+        - calls checked: 3607; problems: 7
+        + calls checked: 3601; problems: 7
+        - second pass, by name only: 4584 calls, 10 hits
+        + second pass, by name only: 4583 calls, 10 hits
+    AB: exit 0; 47 lines; 4 changed
+        - calls checked: 3607; problems: 7
+        + calls checked: 3644; problems: 7
+        - second pass, by name only: 4584 calls, 10 hits
+        + second pass, by name only: 4593 calls, 10 hits
+--- scope_check: baseline exit 0, 12 lines; last: scope problems: 11
+    A: exit 0; 12 lines; 2 changed
+        - NOT IN SCOPE (prod) src/arithmetic.rs:743 cfg() [unknown]
+        + NOT IN SCOPE (prod) src/arithmetic.rs:767 cfg() [unknown]
+    AB: exit 0; 12 lines; 2 changed
+        - NOT IN SCOPE (prod) src/arithmetic.rs:743 cfg() [unknown]
+        + NOT IN SCOPE (prod) src/arithmetic.rs:824 cfg() [unknown]
+--- shape_check: baseline exit 0, 4 lines; last: shape problems: 0
+    A: exit 0; 4 lines; 4 changed
+        - sized const arrays checked: 83
+        + sized const arrays checked: 84
+        - argument shapes compared: 6467
+        + argument shapes compared: 6491
+    AB: exit 0; 4 lines; 4 changed
+        - sized const arrays checked: 83
+        + sized const arrays checked: 85
+        - argument shapes compared: 6467
+        + argument shapes compared: 6618
+--- unused_check: baseline exit 0, 3 lines; last: bindings checked: 2816; problems: 2
+    A: exit 0; 3 lines; 2 changed
+        - bindings checked: 2816; problems: 2
+        + bindings checked: 2818; problems: 2
+    AB: exit 0; 3 lines; 2 changed
+        - bindings checked: 2816; problems: 2
+        + bindings checked: 2836; problems: 2
+--- desk_check: baseline exit 0, 50 lines; last: desk problems 49
+    A: exit 0; 50 lines; 0 changed
+    AB: exit 0; 50 lines; 0 changed
+work folder: <scratch>/alg13/desk-094642

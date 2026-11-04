@@ -1,0 +1,106 @@
+--- a/explainer_corpus/apportionment/src/chapters/both_promises.rs
++++ b/explainer_corpus/apportionment/src/chapters/both_promises.rs
+@@ -497,11 +497,8 @@
+         let take = glow(stage, taken, Palette::hero())?;
+         fade_in_all(stage, &[take], 0.4)?;
+         let c15 = counters(&kit, stage, &history[15])?;
+-        morph_all(
+-            stage,
+-            &c_j.iter().copied().zip(c15.iter().copied()).collect::<Vec<_>>(),
+-            0.5,
+-        )?;
++        // Only Birch changes; morphing the other digits distorts equal values.
++        morph_all(stage, &[(c_j[BIRCH], c15[BIRCH])], 0.5)?;
+         s.wait_for(stage, "which beats Ash's second")?;
+         let ash_glow = glow(stage, ash2, Palette::dim())?;
+         fade_in_all(stage, &[ash_glow], 0.3)?;
+@@ -540,6 +537,7 @@
+             v(-3.6, -3.3),
+         )?;
+         fade_in_all(stage, &[r16], 0.4)?;
++        pause(stage, 1.0)?;
+ 
+         // 12_4 both promises: no take backs by construction, the quota
+         // promise by Balinski and Young's theorem; the film's own argument
+@@ -631,7 +629,8 @@
+         fade_in_lagged(stage, &fracs, 0.9, 0.3)?;
+         s.wait_for(stage, "so each tile is as long as")?;
+         let firsts: Vec<Tile> = (0..3).map(|i| tile(&tiles, i, 1)).collect::<fmn::Result<_>>()?;
+-        flash_all(stage, &firsts.iter().map(|t| t.outline).collect::<Vec<_>>(), 1.0)?;
++        // Preserve tile length during the highlight.
++        pulse_all(stage, &firsts.iter().map(|t| t.outline).collect::<Vec<_>>(), None, 1.0)?;
+         let mut lens = Vec::new();
+         for (t, phrase) in firsts
+             .iter()
+@@ -935,6 +934,14 @@
+             chips.push(chip(stage, i, Palette::ink())?);
+         }
+         chips.push(chip(stage, seats_n, Palette::red())?);
++        let need_t = kit.text_left(
++            stage,
++            "handed out since then",
++            22.0,
++            Palette::dim(),
++            v(NEED_X, PANEL_Y[0]),
++        )?;
++        fade_in_all(stage, &[need_t], 0.3)?;
+         fade_in_lagged(stage, &chips[..seats_n], 0.9, 0.2)?;
+         s.wait_for(stage, "and the missing tile too")?;
+         fade_in_all(stage, &chips[seats_n..], 0.3)?;
+@@ -956,6 +963,14 @@
+             .iter()
+             .map(|t| tile_rect(stage, t, flat(Palette::faint(), 0.45)))
+             .collect::<fmn::Result<_>>()?;
++        let legend3 = kit.text(
++            stage,
++            "solid: real up to then, hollow: only supposed, grey: ruled out",
++            18.0,
++            Palette::dim(),
++            v(0.0, LEGEND_Y),
++        )?;
++        morph_all(stage, &[(legend, legend3)], 0.4)?;
+         fade_in_all(stage, &[before.clone(), vec![wait_t]].concat(), 0.4)?;
+         pulse_all(stage, &then_mark[..1], None, 0.5)?;
+         s.wait_for(stage, "or the rule would have picked a tile ending sooner")?;
+@@ -982,6 +997,7 @@
+             ));
+         let band = stage.arena_mut().add(band);
+         fade_in_all(stage, &[after.clone(), vec![band]].concat(), 0.4)?;
++        stage.scene_mut().bring_to_front(&[gone, ask, wait_t])?;
+         pulse_all(stage, &mark[..1], Some(PULSE_WHITE), 0.5)?;
+ 
+         // 12_9 the stretch holds fewer whole tiles than the supposition needs
+@@ -1006,8 +1022,8 @@
+             ));
+         }
+         s.wait_for(stage, "So all those tiles fit inside the stretch")?;
+-        // a ring on every whole tile inside, the missing one's stays red, so
+-        // the rings always count what the labels below them say
++        // Chips count hypothetical tiles; rings show capacity in the next sentence.
++        pulse_all(stage, &chips, None, 0.6)?;
+         let fit: Vec<Mob> = inside
+             .iter()
+             .filter(|t| !(t.town == missing.town && t.k == missing.k))
+@@ -1016,18 +1032,19 @@
+         if fit.len() + 1 != fits {
+             return Err(fail("12_9: the rings do not count the whole tiles inside".into()));
+         }
+-        fade_in_lagged(stage, &fit, 1.0, 0.2)?;
+         s.wait_for(stage, "one more of them than seats added")?;
+-        let need_t = kit.text_left(
++        let need_count = kit.text_left(
+             stage,
+             &format!("{seats_n} seats from then to now: {seats_n} + 1 = {need} tiles"),
+             22.0,
+             Palette::red(),
+             v(NEED_X, PANEL_Y[0]),
+         )?;
+-        fade_in_all(stage, &[need_t], 0.4)?;
++        morph_all(stage, &[(need_t, need_count)], 0.4)?;
+         pulse_all(stage, &chips[seats_n..], None, 0.6)?;
+         s.wait_for(stage, "But each town's row fits at most")?;
++        fade_in_lagged(stage, &fit, 1.0, 0.2)?;
++        stage.scene_mut().bring_to_front(&[gone, ask, wait_t])?;
+         let mut bounds = Vec::new();
+         for (i, &n) in counts.iter().enumerate() {
+             bounds.push(kit.text(

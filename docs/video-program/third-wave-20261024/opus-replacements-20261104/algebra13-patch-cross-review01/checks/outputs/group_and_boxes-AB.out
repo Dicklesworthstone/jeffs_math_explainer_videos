@@ -1,0 +1,125 @@
+== 1 Elem against matrices, d4_group's rule rewritten from its definition
+ok   d4_group.rs has the rule and the TeX table mirrored here
+ok   all 64 products equal composed matrices, left acting last
+
+== 2 closure.product
+ok   CLOSURE_PAIR is ('S', 'R')
+ok   s r = r^3s, which main.rs emits through .tex()
+ok   main.rs emits p.mul(q).tex(), not .name(), so the fact is ASCII r^3s
+ok   s r composed: the turn acts first, as 13_5 says for s r
+ok   s r = r inverse s, the rule 13_7 states
+     oracle rows: baseline 240, candidate 240; differing keys ['arithmetic.closure.product']
+ok   exactly one oracle key changes
+ok   it moves from rs to r^3s, equal to the Rust side
+ok   it now equals swap.ab, the same product 13_9 uses
+
+== 3 tile poses against names, using the candidate's own move lists
+ok   left at t=0: e
+ok   left at t=2: r^2
+ok   left at t=3: r^3
+ok   left at t=4: e
+ok   left at t=5: s
+ok   left at t=6: e
+ok   left at t=8: rs
+ok   right at t=0: e
+ok   right at t=2: r^3s
+ok   13_5's r s and s r are different elements
+ok   13_1: the long route ends where one quarter-turn ends
+ok   13_6: flip, turn, flip equals the opposite quarter-turn
+ok   13_6: and r cubed
+ok   13_9: both tiles at t=1 show s
+ok   13_9: both tiles at t=2 show rs
+ok   13_9: both tiles at t=3 show r^3
+
+== 4 13_7 and 13_12 algebra
+ok   s r = r⁻¹ s, the rewrite of the first two factors
+ok   after moving the flip: r⁻¹ s s r² s
+ok   after the pair cancels: r⁻¹ r² s
+ok   after the turns combine: r s
+ok   r (r³s) = s
+ok   x = r⁻¹ s = r³s, and it is the only solution
+ok   e r = r = r e
+ok   closure frames land on rack slots 4, 1 and 7
+
+== 5 13_10 trail boxes, from the candidate's constants
+ok   FIRST_TWO_TRAIL is defined as mirrored
+ok   LAST_TWO_TRAIL is defined as mirrored
+ok   machines are x+2, 3x, x-1
+ok   trail [1, 3, 9, 8]
+ok   row 1 box (-5.75, 0.35) holds values [1, 3, 9]: g∘h takes 1 to 9
+ok   row 2 box (-3.35, 3.35) holds values [3, 9, 8]: f∘g takes 3 to 8
+ok   row 1 box holds the first two arrows, not the third
+ok   row 2 box holds the last two arrows, not the first
+ok   row labels name the package each box holds
+ok   the author's D1 arithmetic: baseline boxes would read 3 to 15 and 9 to 26 as packages
+ok   gold package ('-4.2', '1.2') wraps machines h and g only
+ok   gold package ('-1.2', '4.2') wraps machines g and f only
+
+== 6 waits and phrases, every cue in the candidate
+ok   13_1: 3 sentences
+ok   13_2: 6 sentences
+ok   13_3: 7 sentences
+ok   13_4: 6 sentences
+ok   13_5: 5 sentences
+ok   13_6: 5 sentences
+ok   13_7: 5 sentences
+ok   13_8: 5 sentences
+ok   13_9: 6 sentences
+ok   13_10: 3 sentences
+ok   13_11: 5 sentences
+ok   13_12: 6 sentences
+ok   13_1 waits [1] are in range
+ok   13_1 waits run in order
+ok   13_2 waits [1, 2, 4] are in range
+ok   13_2 waits run in order
+ok   13_3 waits [6] are in range
+ok   13_3 waits run in order
+ok   13_4 waits [1, 5] are in range
+ok   13_4 waits run in order
+ok   13_5 waits [1, 2] are in range
+ok   13_5 waits run in order
+ok   13_6 waits [1, 3] are in range
+ok   13_6 waits run in order
+ok   13_7 waits [1, 2, 3, 4] are in range
+ok   13_7 waits run in order
+ok   13_8 waits [2, 3, 4] are in range
+ok   13_8 waits run in order
+ok   13_9 waits [1, 2, 4, 5] are in range
+ok   13_9 waits run in order
+ok   13_10 waits [1, 2] are in range
+ok   13_10 waits run in order
+ok   13_11 waits [1, 2, 3, 4] are in range
+ok   13_11 waits run in order
+ok   13_12 waits [1, 2, 3, 4, 5] are in range
+ok   13_12 waits run in order
+ok   PHRASES declares 15, lists 15
+ok   13_1 sentence 2 contains 'its final action'
+ok   13_6 sentence 4 contains 's r s equals'
+ok   13_9 sentence 3 contains 'grouping the first two'
+ok   13_10 sentence 0 contains 'any object'
+ok   13_10 sentence 0 contains 'three functions'
+ok   13_10 sentence 1 contains 'package the first two'
+ok   13_10 sentence 1 contains 'or the last two'
+ok   13_11 sentence 0 contains 'Closure'
+ok   13_11 sentence 0 contains 'associativity'
+ok   13_11 sentence 0 contains 'an identity'
+ok   13_11 sentence 0 contains 'an inverse'
+ok   13_11 sentence 3 contains 'zero does nothing'
+ok   13_11 sentence 3 contains 'adding the negative'
+ok   13_11 sentence 4 contains 'because most additions'
+ok   13_12 sentence 5 contains 'without knowing'
+ok   each of 11 named until_phrase calls is guarded by a PHRASES row
+ok   the loop over LAW_PHRASES is guarded by its four rows
+
+== 7 caption text against caption's math arms
+ok   no non-ASCII caption reaches kit.text (20 literals, 15 arms): []
+     arms not used by a literal: ['e']
+ok   13_11 caption uses U+2212
+ok   U+2212 is already in the crate's text glyph list and another film's text
+
+== 8 stale or dead text the patch left
+FAIL the 13_12 closure comment names the new pair
+     left reaches t=8 of 9 moves; right reaches t=2 of 5 moves
+     `pose(&LEFT, 9.)` and `pose(&RIGHT, 5.)` in the test: True
+
+1 failures

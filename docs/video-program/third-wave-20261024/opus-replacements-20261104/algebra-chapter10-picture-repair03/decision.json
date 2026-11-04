@@ -1,0 +1,20 @@
+{
+  "utc": "2026-11-04T13:44:38.416356+00:00",
+  "review": "docs/video-program/third-wave-20261024/opus-replacements-20261104/algebra-chapter10-repair02-review/REVIEW.md",
+  "adopted": [
+    "F1 phrase-timed recap",
+    "F2 sentence3/5 result reveals",
+    "F3 title reading window before exponent-line build",
+    "F4 remove misleading exponent-dot pulse",
+    "F5 pulse order label only",
+    "F6 sentence/phrase test coverage"
+  ],
+  "before_sha256": "105f5cf8be10bcc25579a57912fcc8d1a08eaad275a855854b418c9c7bcf0d0c",
+  "candidate_sha256": "bee439fdad35eb75a22a05d32d4e9aad059feabac0456fbfd29e24746b391d46",
+  "canonical_changed": false,
+  "native_build": false,
+  "actual_repaired_picture_review": false,
+  "listening": false,
+  "fine_sync": false,
+  "notes": "Root read complete review and proposed diff. Timing estimates remain provisional; preserve all recordings. Native re-show behavior, exact schedules and visual clearance still require guarded preview."
+}

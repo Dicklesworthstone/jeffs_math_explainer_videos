@@ -1,0 +1,409 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs
+@@ -15,8 +15,8 @@
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Painter, Plane, card, dot, fact, fade_in_all, fade_out_all, faded_line, flat, ground, group, hero, line_style,
+-    names_now, output, pause, precisely_now, predict, reading_window, say, wait_until, warn,
++    Painter, Plane, axis_names, card, carded, dot, fact, fade_in_all, fade_out_all, faded_line, flat, ground, group,
++    hero, line_style, names_now, output, precisely_now, predict, reading_window, say, wait_until, warn,
+ };
+ use super::one_point::{BLOB_CENTRE, blob};
+ use crate::model::{C, Func, ZERO};
+@@ -48,6 +48,15 @@
+ pub const EXACT: &str = "identity theorem: if f and g are holomorphic on a connected open set U and agree on a set with a limit point in U, then f = g on U";
+ pub const LIOUVILLE: [&str; 2] = ["holomorphic on the whole plane", "and bounded ⇒ constant"];
+ pub const REAL_BOUND: &str = "on the real line: between −1 and 1";
++pub const AGREE_HERE: &str = "agree here";
++pub const ZERO_HERE: &str = "zero here";
++pub const NOT_ZERO_HERE: &str = "not zero here";
++pub const SIN_RECIP_TEX: &str = r"\sin(1/z)";
++pub const SIN_Z_TEX: &str = r"\sin z";
++pub const FIRST_ZERO: &str = "1/π";
++pub const SIZE: &str = "|sin z| = ";
++/// How high the dot of 10_6 climbs the imaginary axis: to 3i, the reading of 10_2.
++pub const CLIMB: f64 = 3.0;
+ 
+ /// The little curve where f and g are given to agree (scene points inside U).
+ pub fn curve() -> Vec<Vec3> {
+@@ -137,7 +146,8 @@
+ 
+ /// The window of sin(1/z) in 10_4–10_5.
+ pub fn sin_recip_plane() -> Plane {
+-    Plane::new(v(-2.8, -0.3), 5.6, (-0.42, 0.42), (-0.42, 0.42))
++    // centred, so that its foot stops above where a two-line lower third starts
++    Plane::new(v(-2.8, 0.0), 5.6, (-0.42, 0.42), (-0.42, 0.42))
+ }
+ 
+ /// The window of sine in 10_6.
+@@ -193,9 +203,14 @@
+         let mut disks = Vec::new();
+         for (at, r) in chain() {
+             let d = disk(stage, at, r)?;
+-            fade_in_all(stage, &[d], 0.22)?;
++            fade_in_all(stage, &[d], 0.18)?;
+             disks.push(d);
+         }
++        // "they agree everywhere": all of U, margin and all
++        let whole = stage
++            .arena_mut()
++            .add(Polygon::new(edge.clone()).style(flat(hero(), 0.18)).build());
++        fade_in_all(stage, &[whole], 0.3)?;
+         line.wait_sentence(stage, 3)?;
+         let q = v(BLOB_CENTRE[0] + 0.6, BLOB_CENTRE[1] - 0.2);
+         let mut piling = Vec::new();
+@@ -215,7 +230,7 @@
+         // 10_2: sin² + cos² = 1 leaves the real line
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "10_2")?;
+-        let mut gone = vec![fill, rim, u_name, little, pile_says, search, why[0], why[1]];
++        let mut gone = vec![fill, whole, rim, u_name, little, pile_says, search, why[0], why[1]];
+         gone.extend(theorem);
+         gone.extend(disks);
+         gone.extend(piling);
+@@ -223,6 +238,7 @@
+         let tp = trig_plane();
+         let mut frame = vec![tp.border(stage, Palette::faint())?];
+         frame.extend(tp.axes(stage)?);
++        frame.extend(axis_names(&kit, stage, &tp)?);
+         let identity = kit.tex(stage, IDENTITY_TEX, 34.0, Palette::ink(), &[], v(right, 2.6))?;
+         fade_in_all(stage, &frame, 0.4)?;
+         fade_in_all(stage, &[identity], 0.4)?;
+@@ -233,7 +249,16 @@
+                 .build(),
+         );
+         let real_says = kit.text(stage, REAL_LINE, 22.0, hero(), v(right, 1.8))?;
+-        fade_in_all(stage, &[real, real_says], 0.5)?;
++        let agree_here = carded(
++            &kit,
++            stage,
++            AGREE_HERE,
++            20.0,
++            Palette::ink(),
++            tp.p(C::new(2.1, -0.5)),
++            hero(),
++        )?;
++        fade_in_all(stage, &[real, real_says, agree_here[0], agree_here[1]], 0.5)?;
+         line.wait_sentence(stage, 2)?;
+         let spread = stage.add_value_tracker(0.0);
+         let sheet = stage
+@@ -292,7 +317,17 @@
+         // 10_3: a smooth real function zero on a half line, yet not zero
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "10_3")?;
+-        let mut gone = vec![identity, real, real_says, sheet, spread_says, at, at_name];
++        let mut gone = vec![
++            identity,
++            real,
++            real_says,
++            agree_here[0],
++            agree_here[1],
++            sheet,
++            spread_says,
++            at,
++            at_name,
++        ];
+         gone.extend(frame);
+         gone.extend(rows);
+         fade_out_all(stage, &gone, 0.5)?;
+@@ -317,7 +352,9 @@
+             .arena_mut()
+             .add(polyline(pts).style(line_style(Palette::ink(), 5.0)).build());
+         let smooth_tex = kit.tex(stage, SMOOTH_TEX, 30.0, Palette::ink(), &[], v(-1.4, 2.6))?;
+-        fade_in_all(stage, &[x_axis, y_axis, smooth_tex], 0.4)?;
++        let axis_end = g.p(g.x.1, 0.0);
++        let x_name = kit.text(stage, "x", 22.0, Palette::dim(), v(axis_end[0] + 0.18, axis_end[1]))?;
++        fade_in_all(stage, &[x_axis, y_axis, x_name, smooth_tex], 0.4)?;
+         line.wait_sentence(stage, 1)?;
+         fade_in_all(stage, &[curve_m], 0.8)?;
+         line.wait_sentence(stage, 2)?;
+@@ -326,7 +363,12 @@
+                 .style(faded_line(hero(), 10.0, 0.6))
+                 .build(),
+         );
+-        fade_in_all(stage, &[half_line], 0.4)?;
++        // the half line and the part that is not on it, each named on its own words
++        let zero_here = kit.text(stage, ZERO_HERE, 20.0, hero(), g.p(-1.5, 0.1))?;
++        let not_zero_here = kit.text(stage, NOT_ZERO_HERE, 20.0, Palette::ink(), g.p(2.2, 0.82))?;
++        fade_in_all(stage, &[half_line, zero_here], 0.4)?;
++        line.wait_for(stage, "yet it is not zero")?;
++        fade_in_all(stage, &[not_zero_here], 0.3)?;
+         line.wait_sentence(stage, 3)?;
+         let derivs = kit.text(stage, DERIVS, 22.0, Palette::ink(), v(5.1, 1.2))?;
+         let recipe_at = kit.text(stage, RECIPE_AT, 22.0, Palette::ink(), v(5.1, 0.6))?;
+@@ -357,9 +399,12 @@
+         let mut gone = vec![
+             x_axis,
+             y_axis,
++            x_name,
+             curve_m,
+             smooth_tex,
+             half_line,
++            zero_here,
++            not_zero_here,
+             derivs,
+             recipe_at,
+             recipe_tex,
+@@ -369,9 +414,19 @@
+         fade_out_all(stage, &gone, 0.5)?;
+         let sp = sin_recip_plane();
+         let painter = Painter::build(stage, Some(Func::SinRecip), sp, 1.0)?;
+-        let border = sp.border(stage, Palette::faint())?;
++        let mut sp_frame = sp.axes(stage)?;
++        sp_frame.extend(axis_names(&kit, stage, &sp)?);
++        sp_frame.push(sp.border(stage, Palette::faint())?);
++        sp_frame.push(kit.tex(
++            stage,
++            SIN_RECIP_TEX,
++            30.0,
++            Palette::ink(),
++            &[],
++            v(sp.frame.left() + 0.9, sp.frame.top() + 0.3),
++        )?);
+         painter.show(stage, 1.0)?;
+-        fade_in_all(stage, &[border], 0.3)?;
++        fade_in_all(stage, &sp_frame, 0.3)?;
+         let mut zeros = Vec::new();
+         for k in 1..=12 {
+             for s in [1.0, -1.0] {
+@@ -381,8 +436,6 @@
+                 zeros.push(dot(stage, sp.p(z), r, Palette::ink()));
+             }
+         }
+-        line.wait_sentence(stage, 1)?;
+-        fade_in_all(stage, &zeros, 0.6)?;
+         let zs: Vec<&str> = fact("rigid.sin_recip.zeros")?.split(',').collect();
+         let listed = [
+             kit.text(stage, ZEROS[0], 20.0, Palette::ink(), v(right, 2.6))?,
+@@ -394,14 +447,45 @@
+                 v(right, 2.2),
+             )?,
+         ];
+-        fade_in_all(stage, &listed, 0.4)?;
++        // the first three zeros as the voice says each, a pair at a time, then all the rest
++        // on "and so on"; the question then has the pile-up to look at
++        let first_zero = carded(
++            &kit,
++            stage,
++            FIRST_ZERO,
++            18.0,
++            Palette::ink(),
++            sp.p(C::new(1.0 / PI, -0.07)),
++            Palette::faint(),
++        )?;
++        line.wait_for(stage, "one over pi")?;
++        let mut first = zeros[..4].to_vec();
++        first.extend([first_zero[0], first_zero[1], listed[0]]);
++        fade_in_all(stage, &first, 0.2)?;
++        line.wait_for(stage, "one over two pi")?;
++        fade_in_all(stage, &zeros[4..8], 0.2)?;
++        line.wait_for(stage, "one over three pi")?;
++        fade_in_all(stage, &zeros[8..12], 0.2)?;
++        line.wait_for(stage, "and so on")?;
++        fade_in_all(stage, &zeros[12..], 0.5)?;
++        line.wait_sentence(stage, 1)?;
++        fade_in_all(stage, &[listed[1]], 0.4)?;
+         let asked = predict(&kit, stage, &line, &ASK, v(right, 0.9))?;
+ 
+         // 10_5: no: the pile-up point 0 is not in the region
+         let line = say(&kit, stage, "10_5")?;
+         fade_out_all(stage, &asked, 0.3)?;
+         line.wait_sentence(stage, 1)?;
+-        let cross = red_cross(stage, sp.p(ZERO))?;
++        let mut cross = red_cross(stage, sp.p(ZERO))?;
++        cross.extend(carded(
++            &kit,
++            stage,
++            "0",
++            20.0,
++            Palette::ink(),
++            sp.p(C::new(0.0, 0.07)),
++            warn(),
++        )?);
+         let not_in = kit.text(stage, NOT_IN, 18.0, warn(), v(right, 1.6))?;
+         fade_in_all(stage, &cross, 0.3)?;
+         fade_in_all(stage, &[not_in], 0.4)?;
+@@ -414,7 +498,8 @@
+         // 10_6: Liouville: bounded and entire means constant; sine must grow
+         reading_window(&kit, stage, &line)?;
+         let line = say(&kit, stage, "10_6")?;
+-        let mut gone = vec![border, listed[0], listed[1], not_in, exact];
++        let mut gone = vec![listed[0], listed[1], first_zero[0], first_zero[1], not_in, exact];
++        gone.extend(sp_frame);
+         gone.extend(zeros);
+         gone.extend(cross);
+         gone.extend(theorem_card);
+@@ -422,9 +507,31 @@
+         painter.leave(stage, 0.5)?;
+         let sn = sine_plane();
+         let sine = Painter::build(stage, Some(Func::Sin), sn, 1.0)?;
+-        let sine_border = sn.border(stage, Palette::faint())?;
++        let mut sn_frame = sn.axes(stage)?;
++        sn_frame.extend(axis_names(&kit, stage, &sn)?);
++        sn_frame.push(sn.border(stage, Palette::faint())?);
++        sn_frame.push(kit.tex(
++            stage,
++            SIN_Z_TEX,
++            30.0,
++            Palette::ink(),
++            &[],
++            v(sn.frame.left() + 0.7, sn.frame.top() + 0.3),
++        )?);
++        // the plate's pinwheels are its zeros: name the three in view
++        for (x, s) in [(-PI, "−π"), (0.0, "0"), (PI, "π")] {
++            sn_frame.extend(carded(
++                &kit,
++                stage,
++                s,
++                20.0,
++                Palette::ink(),
++                sn.p(C::new(x, -0.62)),
++                Palette::faint(),
++            )?);
++        }
+         sine.show(stage, 1.0)?;
+-        fade_in_all(stage, &[sine_border], 0.3)?;
++        fade_in_all(stage, &sn_frame, 0.3)?;
+         line.wait_sentence(stage, 1)?;
+         let liouville = [
+             kit.text(stage, LIOUVILLE[0], 22.0, hero(), v(right, 2.6))?,
+@@ -441,9 +548,50 @@
+         );
+         let bound = kit.text(stage, REAL_BOUND, 22.0, Palette::ink(), v(right, 1.4))?;
+         fade_in_all(stage, &[real_line, bound], 0.4)?;
+-        pause(stage, 0.6)?;
++        // "must grow huge": a dot climbs from 0 to 3i, its size read as it goes
++        line.wait_for(stage, "must grow huge")?;
+         let s3: Vec<&str> = fact("gallery.sin.at_3i")?.split(',').collect();
+-        let at = dot(stage, sn.p(C::new(0.0, 3.0)), 0.09, Palette::ink());
++        let climb = stage.add_value_tracker(0.0);
++        let at = dot(stage, sn.p(ZERO), 0.09, Palette::ink());
++        let trail = sn.path(stage, &[ZERO, C::new(0.0, 1e-3)], hero(), 4.0)?;
++        let size_says = kit.text_left(stage, SIZE, 24.0, hero(), v(2.7, 0.6))?;
++        fade_in_all(stage, &[trail, at, size_says], 0.2)?;
++        let size = kit.live_value(
++            stage,
++            move |s| C::new(0.0, super::draw::value(s, climb)).sin().abs(),
++            2,
++            false,
++            24.0,
++            hero(),
++            v(3.95, 0.6),
++            LEFT,
++        )?;
++        let anchor = stage.arena_mut().add(VMobject::new());
++        stage.add_to_scene(anchor)?;
++        stage.add_updater(
++            anchor,
++            move |a, _| {
++                let y = super::draw::value(a, climb).max(1e-3);
++                a.move_to(at, sn.p(C::new(0.0, y)), ORIGIN);
++                let _ = a.set_points(trail, polyline(vec![sn.p(ZERO), sn.p(C::new(0.0, y))]).build().points());
++            },
++            true,
++        )?;
++        stage.play(super::draw::tween_linear(climb, CLIMB, 1.2)?)?;
++        stage.clear_updaters(anchor, true);
++        stage.remove_from_scene(anchor);
++        stage.clear_updaters(size, true);
++        stage.remove_from_scene(size);
++        stage.remove_from_scene(size_says);
++        let at_name = carded(
++            &kit,
++            stage,
++            "3i",
++            22.0,
++            Palette::ink(),
++            sn.p(C::new(0.85, CLIMB)),
++            Palette::faint(),
++        )?;
+         let big = kit.text(
+             stage,
+             &format!("{}{}{}", SIN_3I[0], s3[1], SIN_3I[1]),
+@@ -451,23 +599,23 @@
+             hero(),
+             v(right, 0.6),
+         )?;
+-        fade_in_all(stage, &[at, big], 0.4)?;
++        fade_in_all(stage, &[at_name[0], at_name[1], big], 0.3)?;
+         wait_until(stage, line.end())?;
+         kit.music_breath(stage, 2.0)?;
+-        fade_out_all(
+-            stage,
+-            &[
+-                sine_border,
+-                liouville[0],
+-                liouville[1],
+-                search,
+-                real_line,
+-                bound,
+-                at,
+-                big,
+-            ],
+-            0.5,
+-        )?;
++        let mut all = vec![
++            liouville[0],
++            liouville[1],
++            search,
++            real_line,
++            bound,
++            at,
++            trail,
++            at_name[0],
++            at_name[1],
++            big,
++        ];
++        all.extend(sn_frame);
++        fade_out_all(stage, &all, 0.5)?;
+         sine.leave(stage, 0.5)?;
+         kit.finish(stage)
+     }
+@@ -498,14 +646,17 @@
+     Ok(out)
+ }
+ 
++/// How far a cross's arms reach: short of the innermost zero drawn, 1/(12π), on `sin_recip_plane`.
++pub const CROSS_ARM: f64 = 0.12;
++
+ /// A red cross at `at`.
+ fn red_cross(stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Vec<Mob>> {
+-    let d = 0.25;
++    let d = CROSS_ARM;
+     let a = polyline(vec![v(at[0] - d, at[1] - d), v(at[0] + d, at[1] + d)])
+-        .style(line_style(warn(), 7.0))
++        .style(line_style(warn(), 5.0))
+         .build();
+     let b = polyline(vec![v(at[0] - d, at[1] + d), v(at[0] + d, at[1] - d)])
+-        .style(line_style(warn(), 7.0))
++        .style(line_style(warn(), 5.0))
+         .build();
+     Ok(vec![stage.arena_mut().add(a), stage.arena_mut().add(b)])
+ }
+@@ -573,6 +724,25 @@
+     }
+ 
+     #[test]
++    fn the_climb_ends_on_the_reading_and_the_cross_leaves_the_zeros_showing() {
++        let s3: f64 = crate::facts::facts()
++            .unwrap()
++            .get("gallery.sin.at_3i")
++            .unwrap()
++            .split(',')
++            .nth(1)
++            .unwrap()
++            .parse()
++            .unwrap();
++        assert!((C::new(0.0, CLIMB).sin().abs() - s3.abs()).abs() < 0.01);
++        assert!(sine_plane().contains(C::new(0.85, CLIMB)));
++        // the innermost zero drawn sits outside the cross, in scene units along the real axis
++        let sp = sin_recip_plane();
++        let inner = sp.p(C::real(1.0 / (12.0 * PI)))[0] - sp.p(ZERO)[0];
++        assert!(inner > CROSS_ARM);
++    }
++
++    #[test]
+     fn the_zeros_drawn_are_zeros_and_pile_up_at_zero() {
+         let sp = sin_recip_plane();
+         for k in 1..=12 {

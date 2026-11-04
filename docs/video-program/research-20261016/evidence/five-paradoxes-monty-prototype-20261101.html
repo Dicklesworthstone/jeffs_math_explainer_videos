@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monty Hall: three possible worlds</title>
+<style>
+  :root { color-scheme: dark; font-family: ui-sans-serif, system-ui, sans-serif; background: #0a1424; color: #eff5fc; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: clamp(20px, 4vw, 56px); }
+  main { max-width: 1200px; margin: auto; }
+  .eyebrow { color: #73d8cb; letter-spacing: .14em; font-weight: 700; font-size: .76rem; text-transform: uppercase; }
+  h1 { font-size: clamp(2rem, 4.5vw, 3.9rem); letter-spacing: -.035em; margin: .3em 0; line-height: 1.05; }
+  .intro { max-width: 850px; color: #c7d3e3; line-height: 1.55; font-size: 1.1rem; }
+  .rules { border-left: 3px solid #73d8cb; background: #12243a; padding: 15px 20px; line-height: 1.5; margin: 26px 0; }
+  .rules strong { color: #a5eee5; }
+  .grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+  .world { background: #14263c; border: 1px solid #35516b; border-radius: 16px; padding: 18px; }
+  .world h2 { font-size: 1rem; margin: 0 0 8px; color: #c9d9eb; }
+  .world .hint { min-height: 2.6em; color: #a9bbcf; font-size: .92rem; line-height: 1.35; }
+  .doors { display: flex; gap: 8px; margin: 18px 0 12px; }
+  .door { flex: 1; text-align: center; background: #355a76; border: 2px solid #7193ab; border-radius: 9px 9px 3px 3px; padding: 18px 4px 12px; min-width: 0; }
+  .door.pick { border-color: #ffd47d; background: #604b34; }
+  .door.open { background: #1a3545; border-style: dashed; color: #bfd5df; }
+  .door strong { display: block; font-size: clamp(1rem,2.2vw,1.5rem); }
+  .door span { display: block; font-size: .72rem; margin-top: 9px; min-height: 2.5em; }
+  .result { border-radius: 8px; padding: 11px; font-weight: 700; min-height: 3em; background: #203951; }
+  .result.win { background: #123e3c; color: #98eee1; }
+  .result.lose { background: #4c3540; color: #ffd0d8; }
+  button { font: inherit; border: 0; border-radius: 9px; background: #ffd47d; color: #122033; padding: 13px 20px; font-weight: 750; cursor: pointer; }
+  button:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+  .controls { display: flex; flex-wrap: wrap; gap: 18px; align-items: center; margin: 26px 0 10px; }
+  #summary { font-weight: 700; font-size: 1.15rem; }
+  .note { color: #9db0c6; font-size: .9rem; line-height: 1.5; }
+  @media (max-width: 750px) { .grid { grid-template-columns: 1fr; } .world .hint { min-height: 0; } }
+</style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Five paradoxes · visual prototype 01</p>
+  <h1>Three possible places for the car.</h1>
+  <p class="intro">You pick door 1. Should you switch after the host opens a goat door? First, make a prediction. Then reveal all three equally likely car locations.</p>
+  <div class="rules"><strong>Host rules:</strong> The host knows where the car is, always opens an unchosen door with a goat, and always offers a switch. If both unchosen doors have goats, this illustration opens door 2.</div>
+  <div class="grid" id="worlds" aria-label="Three possible car locations"></div>
+  <div class="controls"><button id="reveal" type="button" aria-expanded="false">Reveal the three cases</button><span id="summary" aria-live="polite"></span></div>
+  <p class="note">The three car locations are equally likely. This shows the overall always-switch strategy; it does not claim a probability conditional on a particular named door being opened under every possible host tie-breaking rule.</p>
+</main>
+<script>
+'use strict';
+const worlds = document.getElementById('worlds');
+const reveal = document.getElementById('reveal');
+const summary = document.getElementById('summary');
+let shown = false;
+function render() {
+  worlds.replaceChildren();
+  for (let car = 1; car <= 3; car++) {
+    const host = [2,3].find(d => d !== car);
+    const other = [2,3].find(d => d !== host);
+    const win = other === car;
+    const card = document.createElement('section');
+    card.className = 'world';
+    const title = document.createElement('h2');
+    title.textContent = shown ? `Case ${car} · car behind door ${car}` : `Possible world ${car}`;
+    const hint = document.createElement('div');
+    hint.className = 'hint';
+    hint.textContent = shown ? `The host opens door ${host}. Your switch goes to door ${other}.` : 'Your first choice is door 1.';
+    const doors = document.createElement('div');
+    doors.className = 'doors';
+    for (let d = 1; d <= 3; d++) {
+      const box = document.createElement('div');
+      box.className = 'door' + (d === 1 ? ' pick' : '') + (shown && d === host ? ' open' : '');
+      const label = document.createElement('strong');
+      label.textContent = d;
+      const state = document.createElement('span');
+      state.textContent = shown ? (d === car ? 'CAR' : 'GOAT') + (d === host ? ' · OPEN' : '') : (d === 1 ? 'YOUR PICK' : 'CLOSED');
+      box.append(label, state); doors.append(box);
+    }
+    const result = document.createElement('div');
+    result.className = 'result' + (shown ? (win ? ' win' : ' lose') : '');
+    result.textContent = shown ? (win ? 'Switch wins' : 'Switch loses') : 'Outcome hidden';
+    card.append(title, hint, doors, result); worlds.append(card);
+  }
+  reveal.textContent = shown ? 'Hide the outcomes' : 'Reveal the three cases';
+  reveal.setAttribute('aria-expanded', String(shown));
+  summary.textContent = shown ? 'Switch wins in 2 of 3 cases.' : '';
+}
+reveal.addEventListener('click', () => { shown = !shown; render(); });
+render();
+</script>
+</body>
+</html>

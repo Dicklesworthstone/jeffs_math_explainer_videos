@@ -1,0 +1,321 @@
+
+=== self-test: a clean synthetic run ===
+run clean: 1280x720, 90.0 px a unit, residual window 9 px rows
+
+A. Row seams. Each cell: rms % of the row residual, lowest, highest (luma), and the share of pixel rows at least 1 luma dark. One dark row is the picture's own (the background cell at a zero). A share of them is a lattice.
+   vs tile: the row means' difference from the same subject's tile: rms, lowest, highest.
+  z
+    now              1.76%   -8.29   +2.04  21.1%   vs tile  3.125  -10.27   +0.00
+    overlap          0.08%   -1.18   +0.84   0.2%   vs tile  0.161   -2.19   +0.32
+    tile             0.08%   -1.57   +0.93   0.4%   vs tile  0.000   +0.00   +0.00
+    flat_control     1.75%   -8.17   +2.22  21.5%
+  tan
+    now              1.76%   -6.30   +2.64  20.6%   vs tile  2.348   -7.80   +0.00
+    overlap          0.35%   -1.66   +1.76   0.8%   vs tile  0.441   -2.98   +0.92
+    tile             0.37%   -1.61   +1.71   2.2%   vs tile  0.000   +0.00   +0.00
+
+B. The mirror against the frame, row residuals. r on the same rows, r one row off, and rms of frame and mirror. Pixels: rms of 255 over the plate.
+  z         now    r +1.000 off1 -0.356  rms 2.671 / 2.670  pixels 0.29
+  z         tile   r +0.997 off1 +0.056  rms 0.127 / 0.129  pixels 0.29
+  tan       now    r +1.000 off1 -0.342  rms 1.961 / 1.962  pixels 0.29
+  tan       tile   r +0.999 off1 +0.229  rms 0.416 / 0.416  pixels 0.29
+
+C. Against truth, encoded 0..255 over the plate: rms at this size, rms after a 2x2 box, largest neighbour jump in luma. A reference, not a target, and not a judgement of the picture.
+
+D. Fades. Each frame against its ideal, the scene's hold frame at the frame's fitted opacity. opacity, pixel rms of 255 over the plate, then the row means' lowest and highest difference in luma.
+  z now: 7 frames
+     0  0.264    1.26    -0.64   +3.68
+     1  0.744    0.79    -0.37   +2.09
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.744    0.79    -0.37   +2.09
+     5  0.264    1.26    -0.64   +3.68
+     6  0.000    0.00    -0.00   -0.00
+  z overlap: 7 frames
+     0  0.326   10.95   -10.59  +17.35
+     1  0.806    6.67    -6.10  +10.95
+     2  1.000    0.00    -0.00   +0.00
+     3  1.000    0.00    -0.00   +0.00
+     4  0.806    6.67    -6.10  +10.95
+     5  0.326   10.95   -10.59  +17.35
+     6  0.000    0.00    -0.00   -0.00
+  z tile: 7 frames
+     0  0.260    0.33    -0.06   +0.33
+     1  0.740    0.38    -0.05   +0.13
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.740    0.38    -0.05   +0.13
+     5  0.260    0.33    -0.06   +0.33
+     6  0.000    0.00    -0.00   -0.00
+
+E. Vertex colours in pixels. Hold frame against the same candidate's still, then flat_control against now: rms of 255 over the plate, and the largest difference.
+  z now: hold vs still rms 0.000, largest 0.0
+  z overlap: hold vs still rms 0.000, largest 0.0
+  z tile: hold vs still rms 0.000, largest 0.0
+  z flat_control vs now: rms 70.10
+
+F. Repaints. First frame against last, rms of 255, and the last frame's luma against the mirror's picture of the target, z^3-1 on the same plate.
+
+G. Cost, from this run's receipt and files. Not a promise of what a chapter costs.
+  kind, subject, candidate, frames, rows x cols, evaluate s, build s, s a frame, MB a frame, records
+
+Controls
+  PASS  now shows seams on z: 21.1% of rows dark, lowest -8.29 luma
+  PASS  the mirror lands on now's rows on z: r +1.000
+  PASS  flat_control fails the colour test: rms 70.10
+  PASS  Mail 2167's overlap shows bright rows mid-fade: highest +17.35 luma
+  PASS  z now fade was caught mid-way: 4 of 7 frames
+  PASS  z overlap fade was caught mid-way: 4 of 7 frames
+  PASS  z tile fade was caught mid-way: 4 of 7 frames
+  PASS  no receipt line reports moved or missing records: 0 lines
+
+=== self-test: planted, tile drawn with now's seams ===
+run seamy_tile: 1280x720, 90.0 px a unit, residual window 9 px rows
+
+A. Row seams. Each cell: rms % of the row residual, lowest, highest (luma), and the share of pixel rows at least 1 luma dark. One dark row is the picture's own (the background cell at a zero). A share of them is a lattice.
+   vs tile: the row means' difference from the same subject's tile: rms, lowest, highest.
+  z
+    now              1.76%   -8.29   +2.04  21.1%   vs tile  0.000   +0.00   +0.00
+    overlap          0.08%   -1.18   +0.84   0.2%   vs tile  3.066   -0.53  +10.27
+    tile             1.76%   -8.29   +2.04  21.1%   vs tile  0.000   +0.00   +0.00
+    flat_control     1.75%   -8.17   +2.22  21.5%
+  tan
+    now              1.76%   -6.30   +2.64  20.6%   vs tile  0.000   +0.00   +0.00
+    overlap          0.35%   -1.66   +1.76   0.8%   vs tile  2.228   -2.41   +7.79
+    tile             1.76%   -6.30   +2.64  20.6%   vs tile  0.000   +0.00   +0.00
+
+B. The mirror against the frame, row residuals. r on the same rows, r one row off, and rms of frame and mirror. Pixels: rms of 255 over the plate.
+  z         now    r +1.000 off1 -0.356  rms 2.671 / 2.670  pixels 0.29
+  z         tile   r +0.004 off1 +0.167  rms 2.671 / 0.129  pixels 3.31
+  tan       now    r +1.000 off1 -0.342  rms 1.961 / 1.962  pixels 0.29
+  tan       tile   r -0.012 off1 +0.151  rms 1.961 / 0.416  pixels 2.62
+
+C. Against truth, encoded 0..255 over the plate: rms at this size, rms after a 2x2 box, largest neighbour jump in luma. A reference, not a target, and not a judgement of the picture.
+
+D. Fades. Each frame against its ideal, the scene's hold frame at the frame's fitted opacity. opacity, pixel rms of 255 over the plate, then the row means' lowest and highest difference in luma.
+  z now: 7 frames
+     0  0.264    1.26    -0.64   +3.68
+     1  0.744    0.79    -0.37   +2.09
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.744    0.79    -0.37   +2.09
+     5  0.264    1.26    -0.64   +3.68
+     6  0.000    0.00    -0.00   -0.00
+  z overlap: 7 frames
+     0  0.326   10.95   -10.59  +17.35
+     1  0.806    6.67    -6.10  +10.95
+     2  1.000    0.00    -0.00   +0.00
+     3  1.000    0.00    -0.00   +0.00
+     4  0.806    6.67    -6.10  +10.95
+     5  0.326   10.95   -10.59  +17.35
+     6  0.000    0.00    -0.00   -0.00
+  z tile: 7 frames
+     0  0.264    1.26    -0.64   +3.68
+     1  0.744    0.79    -0.37   +2.09
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.744    0.79    -0.37   +2.09
+     5  0.264    1.26    -0.64   +3.68
+     6  0.000    0.00    -0.00   -0.00
+
+E. Vertex colours in pixels. Hold frame against the same candidate's still, then flat_control against now: rms of 255 over the plate, and the largest difference.
+  z now: hold vs still rms 0.000, largest 0.0
+  z overlap: hold vs still rms 0.000, largest 0.0
+  z tile: hold vs still rms 0.000, largest 0.0
+  z flat_control vs now: rms 70.10
+
+F. Repaints. First frame against last, rms of 255, and the last frame's luma against the mirror's picture of the target, z^3-1 on the same plate.
+
+G. Cost, from this run's receipt and files. Not a promise of what a chapter costs.
+  kind, subject, candidate, frames, rows x cols, evaluate s, build s, s a frame, MB a frame, records
+
+=== self-test: planted, tile's colours flattened in the middle of its fade ===
+run flat_fade: 1280x720, 90.0 px a unit, residual window 9 px rows
+
+A. Row seams. Each cell: rms % of the row residual, lowest, highest (luma), and the share of pixel rows at least 1 luma dark. One dark row is the picture's own (the background cell at a zero). A share of them is a lattice.
+   vs tile: the row means' difference from the same subject's tile: rms, lowest, highest.
+  z
+    now              1.76%   -8.29   +2.04  21.1%   vs tile  3.125  -10.27   +0.00
+    overlap          0.08%   -1.18   +0.84   0.2%   vs tile  0.161   -2.19   +0.32
+    tile             0.08%   -1.57   +0.93   0.4%   vs tile  0.000   +0.00   +0.00
+    flat_control     1.75%   -8.17   +2.22  21.5%
+  tan
+    now              1.76%   -6.30   +2.64  20.6%   vs tile  2.348   -7.80   +0.00
+    overlap          0.35%   -1.66   +1.76   0.8%   vs tile  0.441   -2.98   +0.92
+    tile             0.37%   -1.61   +1.71   2.2%   vs tile  0.000   +0.00   +0.00
+
+B. The mirror against the frame, row residuals. r on the same rows, r one row off, and rms of frame and mirror. Pixels: rms of 255 over the plate.
+  z         now    r +1.000 off1 -0.356  rms 2.671 / 2.670  pixels 0.29
+  z         tile   r +0.997 off1 +0.056  rms 0.127 / 0.129  pixels 0.29
+  tan       now    r +1.000 off1 -0.342  rms 1.961 / 1.962  pixels 0.29
+  tan       tile   r +0.999 off1 +0.229  rms 0.416 / 0.416  pixels 0.29
+
+C. Against truth, encoded 0..255 over the plate: rms at this size, rms after a 2x2 box, largest neighbour jump in luma. A reference, not a target, and not a judgement of the picture.
+
+D. Fades. Each frame against its ideal, the scene's hold frame at the frame's fitted opacity. opacity, pixel rms of 255 over the plate, then the row means' lowest and highest difference in luma.
+  z now: 7 frames
+     0  0.264    1.26    -0.64   +3.68
+     1  0.744    0.79    -0.37   +2.09
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.744    0.79    -0.37   +2.09
+     5  0.264    1.26    -0.64   +3.68
+     6  0.000    0.00    -0.00   -0.00
+  z overlap: 7 frames
+     0  0.326   10.95   -10.59  +17.35
+     1  0.806    6.67    -6.10  +10.95
+     2  1.000    0.00    -0.00   +0.00
+     3  1.000    0.00    -0.00   +0.00
+     4  0.806    6.67    -6.10  +10.95
+     5  0.326   10.95   -10.59  +17.35
+     6  0.000    0.00    -0.00   -0.00
+  z tile: 7 frames
+     0  0.181   37.59   +10.06  +23.40
+     1  0.516   60.36   +15.95  +37.41
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.516   60.36   +15.95  +37.41
+     5  0.181   37.59   +10.06  +23.40
+     6  0.000    0.00    -0.00   -0.00
+
+E. Vertex colours in pixels. Hold frame against the same candidate's still, then flat_control against now: rms of 255 over the plate, and the largest difference.
+  z now: hold vs still rms 0.000, largest 0.0
+  z overlap: hold vs still rms 0.000, largest 0.0
+  z tile: hold vs still rms 0.000, largest 0.0
+  z flat_control vs now: rms 70.10
+
+F. Repaints. First frame against last, rms of 255, and the last frame's luma against the mirror's picture of the target, z^3-1 on the same plate.
+
+G. Cost, from this run's receipt and files. Not a promise of what a chapter costs.
+  kind, subject, candidate, frames, rows x cols, evaluate s, build s, s a frame, MB a frame, records
+
+=== self-test: planted, flat_control not actually flat ===
+run not_flat: 1280x720, 90.0 px a unit, residual window 9 px rows
+
+A. Row seams. Each cell: rms % of the row residual, lowest, highest (luma), and the share of pixel rows at least 1 luma dark. One dark row is the picture's own (the background cell at a zero). A share of them is a lattice.
+   vs tile: the row means' difference from the same subject's tile: rms, lowest, highest.
+  z
+    now              1.76%   -8.29   +2.04  21.1%   vs tile  3.125  -10.27   +0.00
+    overlap          0.08%   -1.18   +0.84   0.2%   vs tile  0.161   -2.19   +0.32
+    tile             0.08%   -1.57   +0.93   0.4%   vs tile  0.000   +0.00   +0.00
+    flat_control     1.76%   -8.29   +2.04  21.1%
+  tan
+    now              1.76%   -6.30   +2.64  20.6%   vs tile  2.348   -7.80   +0.00
+    overlap          0.35%   -1.66   +1.76   0.8%   vs tile  0.441   -2.98   +0.92
+    tile             0.37%   -1.61   +1.71   2.2%   vs tile  0.000   +0.00   +0.00
+
+B. The mirror against the frame, row residuals. r on the same rows, r one row off, and rms of frame and mirror. Pixels: rms of 255 over the plate.
+  z         now    r +1.000 off1 -0.356  rms 2.671 / 2.670  pixels 0.29
+  z         tile   r +0.997 off1 +0.056  rms 0.127 / 0.129  pixels 0.29
+  tan       now    r +1.000 off1 -0.342  rms 1.961 / 1.962  pixels 0.29
+  tan       tile   r +0.999 off1 +0.229  rms 0.416 / 0.416  pixels 0.29
+
+C. Against truth, encoded 0..255 over the plate: rms at this size, rms after a 2x2 box, largest neighbour jump in luma. A reference, not a target, and not a judgement of the picture.
+
+D. Fades. Each frame against its ideal, the scene's hold frame at the frame's fitted opacity. opacity, pixel rms of 255 over the plate, then the row means' lowest and highest difference in luma.
+  z now: 7 frames
+     0  0.264    1.26    -0.64   +3.68
+     1  0.744    0.79    -0.37   +2.09
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.744    0.79    -0.37   +2.09
+     5  0.264    1.26    -0.64   +3.68
+     6  0.000    0.00    -0.00   -0.00
+  z overlap: 7 frames
+     0  0.326   10.95   -10.59  +17.35
+     1  0.806    6.67    -6.10  +10.95
+     2  1.000    0.00    -0.00   +0.00
+     3  1.000    0.00    -0.00   +0.00
+     4  0.806    6.67    -6.10  +10.95
+     5  0.326   10.95   -10.59  +17.35
+     6  0.000    0.00    -0.00   -0.00
+  z tile: 7 frames
+     0  0.260    0.33    -0.06   +0.33
+     1  0.740    0.38    -0.05   +0.13
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.740    0.38    -0.05   +0.13
+     5  0.260    0.33    -0.06   +0.33
+     6  0.000    0.00    -0.00   -0.00
+
+E. Vertex colours in pixels. Hold frame against the same candidate's still, then flat_control against now: rms of 255 over the plate, and the largest difference.
+  z now: hold vs still rms 0.000, largest 0.0
+  z overlap: hold vs still rms 0.000, largest 0.0
+  z tile: hold vs still rms 0.000, largest 0.0
+  z flat_control vs now: rms 0.00
+
+F. Repaints. First frame against last, rms of 255, and the last frame's luma against the mirror's picture of the target, z^3-1 on the same plate.
+
+G. Cost, from this run's receipt and files. Not a promise of what a chapter costs.
+  kind, subject, candidate, frames, rows x cols, evaluate s, build s, s a frame, MB a frame, records
+
+=== self-test: planted, the overlap candidate drawn without overlap ===
+run no_overlap: 1280x720, 90.0 px a unit, residual window 9 px rows
+
+A. Row seams. Each cell: rms % of the row residual, lowest, highest (luma), and the share of pixel rows at least 1 luma dark. One dark row is the picture's own (the background cell at a zero). A share of them is a lattice.
+   vs tile: the row means' difference from the same subject's tile: rms, lowest, highest.
+  z
+    now              1.76%   -8.29   +2.04  21.1%   vs tile  3.125  -10.27   +0.00
+    overlap          0.08%   -1.57   +0.93   0.4%   vs tile  0.000   +0.00   +0.00
+    tile             0.08%   -1.57   +0.93   0.4%   vs tile  0.000   +0.00   +0.00
+    flat_control     1.75%   -8.17   +2.22  21.5%
+  tan
+    now              1.76%   -6.30   +2.64  20.6%   vs tile  2.348   -7.80   +0.00
+    overlap          0.37%   -1.61   +1.71   2.2%   vs tile  0.000   +0.00   +0.00
+    tile             0.37%   -1.61   +1.71   2.2%   vs tile  0.000   +0.00   +0.00
+
+B. The mirror against the frame, row residuals. r on the same rows, r one row off, and rms of frame and mirror. Pixels: rms of 255 over the plate.
+  z         now    r +1.000 off1 -0.356  rms 2.671 / 2.670  pixels 0.29
+  z         tile   r +0.997 off1 +0.056  rms 0.127 / 0.129  pixels 0.29
+  tan       now    r +1.000 off1 -0.342  rms 1.961 / 1.962  pixels 0.29
+  tan       tile   r +0.999 off1 +0.229  rms 0.416 / 0.416  pixels 0.29
+
+C. Against truth, encoded 0..255 over the plate: rms at this size, rms after a 2x2 box, largest neighbour jump in luma. A reference, not a target, and not a judgement of the picture.
+
+D. Fades. Each frame against its ideal, the scene's hold frame at the frame's fitted opacity. opacity, pixel rms of 255 over the plate, then the row means' lowest and highest difference in luma.
+  z now: 7 frames
+     0  0.264    1.26    -0.64   +3.68
+     1  0.744    0.79    -0.37   +2.09
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.744    0.79    -0.37   +2.09
+     5  0.264    1.26    -0.64   +3.68
+     6  0.000    0.00    -0.00   -0.00
+  z overlap: 7 frames
+     0  0.260    0.33    -0.06   +0.33
+     1  0.740    0.38    -0.05   +0.13
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.740    0.38    -0.05   +0.13
+     5  0.260    0.33    -0.06   +0.33
+     6  0.000    0.00    -0.00   -0.00
+  z tile: 7 frames
+     0  0.260    0.33    -0.06   +0.33
+     1  0.740    0.38    -0.05   +0.13
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.740    0.38    -0.05   +0.13
+     5  0.260    0.33    -0.06   +0.33
+     6  0.000    0.00    -0.00   -0.00
+
+E. Vertex colours in pixels. Hold frame against the same candidate's still, then flat_control against now: rms of 255 over the plate, and the largest difference.
+  z now: hold vs still rms 0.000, largest 0.0
+  z overlap: hold vs still rms 0.000, largest 0.0
+  z tile: hold vs still rms 0.000, largest 0.0
+  z flat_control vs now: rms 70.10
+
+F. Repaints. First frame against last, rms of 255, and the last frame's luma against the mirror's picture of the target, z^3-1 on the same plate.
+
+G. Cost, from this run's receipt and files. Not a promise of what a chapter costs.
+  kind, subject, candidate, frames, rows x cols, evaluate s, build s, s a frame, MB a frame, records
+
+=== self-test result ===
+PASS  clean run passes every control
+PASS  tile is free of a dark lattice where now is not
+PASS  overlap's mid-fade rows are brighter than tile's
+PASS  tile's fade stays on its ideal
+PASS  a seamy tile is caught: its rows read dark
+PASS  flattened colours in a fade are caught: pixels far off the ideal
+PASS  the flat control's own failure is caught
+PASS  a bright-row detector with nothing to detect fails its control
+SELF-TEST OK

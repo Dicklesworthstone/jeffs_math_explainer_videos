@@ -1,0 +1,1686 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs
+@@ -58,6 +58,26 @@
+ const XS: [f64; 5] = [-1.0, -0.5, 0.0, 0.5, 1.0];
+ /// How much further out each lap of the wound trace is drawn (drawing aid).
+ const LAP_SPREAD: f64 = 0.045;
++/// Lines over the output plane start just right of its axis, which would
++/// otherwise run through them.
++const OVER_OUT: [f64; 2] = [OUT.centre[0] + 0.15, 2.6];
++const CLOSES: &str = "the circle closes after one lap";
++const DIAL: &str = "a dial that forgets laps";
++/// "laps:" and its live count, past the end of the 45° ray.
++const LAPS_X: f64 = OUT.centre[0] + 2.35;
++const LAPS_VALUE_X: f64 = OUT.centre[0] + 3.15;
++const LAPS_Y: f64 = 1.7;
++/// The drawing aid's note, under the output plane and left of "output".
++const AID: &str = "each lap drawn a little further out, to keep the laps apart";
++const AID_AT: [f64; 2] = [OUT.centre[0] - 0.4, -3.5];
++const OUT_WORD_AT: [f64; 2] = [OUT.centre[0] + 2.6, -3.25];
++/// "0: no logarithm", outside every ring, with a leader back to zero.
++const ZERO_WORD: &str = "0: no logarithm";
++const ZERO_WORD_AT: [f64; 2] = [OUT.centre[0] + 2.2, -2.6];
++/// The rule for 05_6's column, with its k defined on screen.
++const EACH: &str = r"e^{(\pi + 2\pi k) i} = -1,\ \ k \text{ whole}";
++const SETS_LEN: &str = r"x \text{ sets the length, } e^{x}";
++const SETS_ANG: &str = r"y \text{ sets the angle}";
+ 
+ /// The input kπi as a label: "0" for k = 0, else "kπi".
+ fn pi_i(k: i64) -> String {
+@@ -89,6 +109,54 @@
+             OUT.p(C::polar(r, y))
+         })
+         .collect()
++}
++
++/// The point i's name, left of the axis: right of it, the gold zw shaft runs
++/// through it.
++fn i_name_at() -> Vec3 {
++    ARROWS.p(C::new(-0.2, 1.15))
++}
++
++/// The worked arrow's name, left of the axis: right of it stands "zw".
++fn two_i_word_at(two_i: C) -> Vec3 {
++    ARROWS.p(two_i.add(C::new(-0.55, 0.0)))
++}
++
++/// A column mark's label. The link from 0 to the output's 1 is level with the
++/// mark, so that label stands above it; the slanted links clear the others.
++fn mark_label_at(at: Vec3, k: f64) -> Vec3 {
++    v(at[0] + 0.85, if k.abs() < 0.5 { at[1] + 0.2 } else { at[1] })
++}
++
++/// The lap bracket's words, past the end of the strip's gridlines.
++fn lap_word_at() -> Vec3 {
++    let (a, b) = (IN.p(C::new(0.55, 0.0)), IN.p(C::new(0.55, TAU)));
++    v(a[0] + 0.35, (a[1] + b[1]) / 2.0)
++}
++
++/// 05_2's worked line, typeset so that its exponent is one.
++fn example_words(len: &str) -> String {
++    format!(r"\text{{length }} e^{{\ln {len}}} = {len},\ \text{{angle a quarter turn}}")
++}
++
++/// The generic number's words, above the outermost ring and left of the axis.
++fn generic_word(kit: &Kit, stage: &mut Stage<'_>, length: f64, turns: f64, gz: C) -> fmn::Result<Mob> {
++    kit.text(
++        stage,
++        &format!("length {length}, angle {turns}π"),
++        20.0,
++        answer_c(),
++        v(OUT.p(gz)[0] - 0.5, 2.4),
++    )
++}
++
++/// A thin leader from just outside the ring round zero to its word's top left
++/// corner (`left`, `top`).
++fn zero_leader(left: f64, top: f64) -> (Vec3, Vec3) {
++    let to = v(left + 0.15, top + 0.04);
++    let (dx, dy) = (to[0] - OUT.centre[0], to[1] - OUT.centre[1]);
++    let from = 0.2 / dx.hypot(dy);
++    (v(OUT.centre[0] + dx * from, OUT.centre[1] + dy * from), to)
+ }
+ 
+ impl SceneConstruct for ComplexTurns {
+@@ -161,7 +229,7 @@
+         kit.until_sentence(stage, "05_1", 4)?;
+         // a prediction: i itself is a quarter turn of 1, so what is i × i?
+         let i_dot = dot(stage, ARROWS.p(C::new(0.0, 1.0)), 0.09, gold);
+-        let i_name = kit.text_left(stage, "i", 26.0, gold, ARROWS.p(C::new(0.12, 1.15)))?;
++        let i_name = kit.text_left(stage, "i", 26.0, gold, i_name_at())?;
+         let ask_i = kit.text_left(stage, "i × i = ?", 26.0, gold, v(1.0, -0.2))?;
+         fade_in_all(stage, &[i_dot, i_name, ask_i], 0.4)?;
+         predict(&kit, stage, v(2.5, -0.62), 3.0)?;
+@@ -263,10 +331,10 @@
+         swap(stage, &[heading], &[heading2], 0.4)?;
+         fade_in_all(stage, &[both], 0.6)?;
+         kit.until_sentence(stage, "05_2", 6)?;
+-        let sets_len = kit.text_left(stage, "x sets the length, e^x", 24.0, blue, v(left_x, -2.35))?;
++        let sets_len = kit.tex_left(stage, SETS_LEN, 24.0, blue, &[], v(left_x, -2.35))?;
+         fade_in_all(stage, &[sets_len], 0.4)?;
+         kit.until_sentence(stage, "05_2", 7)?;
+-        let sets_ang = kit.text_left(stage, "y sets the angle", 24.0, purple, v(left_x, -2.85))?;
++        let sets_ang = kit.tex_left(stage, SETS_ANG, 24.0, purple, &[], v(left_x, -2.85))?;
+         fade_in_all(stage, &[sets_ang], 0.4)?;
+         kit.until_sentence(stage, "05_2", 8)?;
+         // worked: x = ln 2 gives length 2, y = π/2 a quarter turn: out comes 2i
+@@ -281,21 +349,9 @@
+             &[],
+             v(3.9, 1.3),
+         )?;
+-        let example_word = kit.text_left(
+-            stage,
+-            &format!("length e^(ln {len}) = {len}, angle a quarter turn"),
+-            22.0,
+-            Palette::ink(),
+-            v(left_x, 0.55),
+-        )?;
++        let example_word = kit.tex_left(stage, &example_words(&len), 22.0, Palette::ink(), &[], v(left_x, 0.55))?;
+         let two_i_arrow = arrow(stage, ARROWS.p(C::new(0.0, 0.0)), ARROWS.p(two_i), blue, 4.5)?;
+-        let two_i_word = kit.text_left(
+-            stage,
+-            &format!("{len}i"),
+-            26.0,
+-            blue,
+-            ARROWS.p(two_i.add(C::new(0.15, 0.0))),
+-        )?;
++        let two_i_word = kit.text_left(stage, &format!("{len}i"), 26.0, blue, two_i_word_at(two_i))?;
+         swap(stage, &[lengths, angles, times_i], &[example, example_word], 0.4)?;
+         fade_in_all(stage, &[two_i_arrow, two_i_word], 0.5)?;
+ 
+@@ -338,7 +394,7 @@
+         }
+         let in_word = kit.text(stage, "input x + iy", 22.0, blue, v(IN.centre[0], -3.25))?;
+         let out_axes = OUT.axes(stage)?;
+-        let out_word = kit.text(stage, "output", 22.0, green, v(OUT.centre[0] + 2.6, -3.25))?;
++        let out_word = kit.text(stage, "output", 22.0, green, v(OUT_WORD_AT[0], OUT_WORD_AT[1]))?;
+         fade_in_all(stage, &strip, 0.6)?;
+         fade_in_all(stage, &[in_word, out_axes, out_word], 0.5)?;
+         kit.until_sentence(stage, "05_3", 2)?;
+@@ -425,16 +481,10 @@
+         stage.add_to_scene(climber)?;
+         play!(stage; tween(climb, TAU, 2.6)?);
+         kit.until_sentence(stage, "05_3", 4)?;
+-        let closes = kit.text(
+-            stage,
+-            "the circle closes after one lap",
+-            22.0,
+-            Palette::ink(),
+-            v(OUT.centre[0], 2.6),
+-        )?;
++        let closes = kit.text_left(stage, CLOSES, 22.0, Palette::ink(), v(OVER_OUT[0], OVER_OUT[1]))?;
+         fade_in_all(stage, &[closes], 0.4)?;
+         kit.until_sentence(stage, "05_3", 5)?;
+-        let laps_word = kit.text_left(stage, "laps:", 24.0, purple, v(OUT.centre[0] + 1.9, 1.7))?;
++        let laps_word = kit.text_left(stage, "laps:", 24.0, purple, v(LAPS_X, LAPS_Y))?;
+         let laps = kit.live_value(
+             stage,
+             move |s| (value(s, climb) / TAU).floor(),
+@@ -442,16 +492,10 @@
+             false,
+             26.0,
+             purple,
+-            v(OUT.centre[0] + 2.7, 1.7),
++            v(LAPS_VALUE_X, LAPS_Y),
+             LEFT,
+         )?;
+-        let aid = kit.text(
+-            stage,
+-            "each lap drawn a little further out, to keep the laps apart",
+-            18.0,
+-            Palette::dim(),
+-            v(OUT.centre[0], -2.8),
+-        )?;
++        let aid = kit.text(stage, AID, 18.0, Palette::dim(), v(AID_AT[0], AID_AT[1]))?;
+         fade_in_all(stage, &[laps_word, aid], 0.4)?;
+         play!(stage; tween(climb, 3.0 * PI, 2.2)?);
+         // every vertical line wraps its own circle
+@@ -494,7 +538,7 @@
+                 continue;
+             }
+             marks.push(dot(stage, at, 0.09, purple));
+-            marks.push(kit.text(stage, &pi_i(k as i64), 18.0, purple, v(at[0] + 0.85, at[1]))?);
++            marks.push(kit.text(stage, &pi_i(k as i64), 18.0, purple, mark_label_at(at, k))?);
+             lands.push(at);
+         }
+         fade_in_all(stage, &[one_dot, one_word], 0.4)?;
+@@ -523,20 +567,17 @@
+             purple,
+             3.0,
+         );
+-        let lap_word = kit.text_left(
+-            stage,
+-            "2π up = one lap round",
+-            20.0,
+-            purple,
+-            v(bracket_a[0] + 0.2, (bracket_a[1] + bracket_b[1]) / 2.0),
+-        )?;
++        let lap_word = kit.text_left(stage, "2π up = one lap round", 20.0, purple, lap_word_at())?;
+         fade_in_all(stage, &[bracket, lap_word], 0.5)?;
+ 
+         // 05_5: which inputs land on −1?
+         kit.say(stage, "05_5")?;
+         let mut tidy = marks.clone();
+         tidy.extend(links.iter().copied());
+-        tidy.extend([bracket, lap_word, one_dot, one_word, climber, laps, laps_word, aid]);
++        // the blue x = 0 column leaves too: it would give away 05_6's first step
++        tidy.extend([
++            bracket, lap_word, one_dot, one_word, climber, laps, laps_word, aid, v_line,
++        ]);
+         fade_out_all(stage, &tidy, 0.5)?;
+         kit.until_sentence(stage, "05_5", 1)?;
+         let minus = OUT.p(C::new(-1.0, 0.0));
+@@ -550,12 +591,15 @@
+         kit.say(stage, "05_6")?;
+         let len_one = ring(stage, OUT.centre, OUT.scale, blue, 3.5);
+         let real_zero = kit.text(stage, "length 1 → x = ln 1 = 0", 20.0, blue, v(IN.centre[0] + 2.4, 1.6))?;
+-        fade_in_all(stage, &[len_one, real_zero], 0.5)?;
++        fade_in_all(stage, &[len_one, real_zero, v_line], 0.5)?;
++        // −1 stays a whole gold dot on top of each stroke that passes through it
++        stage.add_to_scene(target)?;
+         kit.until_sentence(stage, "05_6", 1)?;
+         let half = seg(stage, OUT.p(C::new(0.0, 0.0)), minus, green, 4.0);
+         let pi_line = seg(stage, IN.p(C::new(IN_X.0, PI)), IN.p(C::new(IN_X.1, PI)), green, 3.5);
+         let angle_word = kit.text(stage, "angle π", 20.0, green, v(IN.centre[0] + 2.4, 1.05))?;
+         fade_in_all(stage, &[half, pi_line, angle_word], 0.5)?;
++        stage.add_to_scene(target)?;
+         kit.until_sentence(stage, "05_6", 2)?;
+         let mut more = Vec::new();
+         for k in [-3i64, -1, 3] {
+@@ -581,14 +625,7 @@
+         let apart = kit.text(stage, "2π apart", 20.0, purple, v(IN.centre[0] + 2.4, 0.5))?;
+         fade_in_all(stage, &[apart], 0.4)?;
+         kit.until_sentence(stage, "05_6", 4)?;
+-        let each = kit.tex(
+-            stage,
+-            r"e^{(\pi + 2\pi k) i} = -1",
+-            30.0,
+-            gold,
+-            &[],
+-            v(IN.centre[0] + 2.6, -0.1),
+-        )?;
++        let each = kit.tex(stage, EACH, 30.0, gold, &[], v(IN.centre[0] + 2.6, -0.1))?;
+         fade_in_all(stage, &[each], 0.5)?;
+ 
+         // 05_7: every nonzero number has a column; zero has none
+@@ -597,13 +634,7 @@
+         let (glen, gang) = (generic[0], generic[1] * PI);
+         let gz = C::polar(glen, gang);
+         let g_dot = dot(stage, OUT.p(gz), 0.11, gold);
+-        let g_word = kit.text(
+-            stage,
+-            &format!("length {}, angle {}π", glen, generic[1]),
+-            20.0,
+-            gold,
+-            v(OUT.p(gz)[0] - 0.4, OUT.p(gz)[1] + 0.4),
+-        )?;
++        let g_word = generic_word(&kit, stage, glen, generic[1], gz)?;
+         let g_ray = seg(stage, OUT.p(C::new(0.0, 0.0)), OUT.p(gz), gold, 3.0);
+         let mut olds = col.clone();
+         olds.extend(more.iter().copied());
+@@ -645,14 +676,13 @@
+         fade_in_all(stage, &[g_laps], 0.4)?;
+         kit.until_sentence(stage, "05_7", 2)?;
+         let zero = ring(stage, OUT.centre, 0.16, red, 4.0);
+-        let zero_word = kit.text(
+-            stage,
+-            "0: no logarithm",
+-            22.0,
+-            red,
+-            v(OUT.centre[0] + 1.25, OUT.centre[1] - 0.45),
+-        )?;
+-        fade_in_all(stage, &[zero, zero_word], 0.5)?;
++        let zero_word = kit.text(stage, ZERO_WORD, 22.0, red, v(ZERO_WORD_AT[0], ZERO_WORD_AT[1]))?;
++        let (from, to) = zero_leader(
++            stage.get_bounding_box_point(zero_word, LEFT)[0],
++            stage.get_bounding_box_point(zero_word, UP)[1],
++        );
++        let leader = seg(stage, from, to, red, 1.5);
++        fade_in_all(stage, &[zero, zero_word, leader], 0.5)?;
+         kit.until_sentence(stage, "05_7", 3)?;
+         let never = kit.tex(
+             stage,
+@@ -664,7 +694,7 @@
+         )?;
+         fade_in_all(stage, &[never], 0.5)?;
+         kit.until_sentence(stage, "05_7", 4)?;
+-        let dial = kit.text(stage, "a dial that forgets laps", 26.0, purple, v(OUT.centre[0], 2.6))?;
++        let dial = kit.text_left(stage, DIAL, 26.0, purple, v(OVER_OUT[0], OVER_OUT[1]))?;
+         fade_in_all(stage, &[dial], 0.5)?;
+         kit.finish(stage)
+     }
+@@ -672,7 +702,207 @@
+ 
+ #[cfg(test)]
+ mod tests {
++    use fmn::scene::{NullSceneSink, RuntimeConfig};
++
+     use super::*;
++
++    /// The safe area's half width and half height.
++    const SAFE: [f64; 2] = [6.96, 3.85];
++
++    /// Run `f` as a scene's `construct`, headless, at 10 fps.
++    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
++        struct Probe<F>(F);
++        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
++            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
++                (self.0)(stage)
++            }
++        }
++        let config = RuntimeConfig {
++            fps: 10,
++            ..RuntimeConfig::default()
++        };
++        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
++    }
++
++    /// A mobject's typeset box: left, right, bottom, top.
++    fn box_of(stage: &Stage<'_>, m: Mob) -> [f64; 4] {
++        [
++            stage.get_bounding_box_point(m, LEFT)[0],
++            stage.get_bounding_box_point(m, RIGHT)[0],
++            stage.get_bounding_box_point(m, DOWN)[1],
++            stage.get_bounding_box_point(m, UP)[1],
++        ]
++    }
++
++    /// The top of the outermost ring.
++    fn outer_ring_top() -> f64 {
++        OUT.centre[1] + OUT.scale * XS[XS.len() - 1].exp()
++    }
++
++    #[test]
++    fn the_names_of_i_and_two_i_stand_left_of_the_axis_clear_of_zw() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let zw = fact_list("complex.mul_zw")?;
++            let pc = C::polar(zw[0], deg(zw[1]));
++            let worked = fact_list("complex.worked")?;
++            let two_i = C::polar(worked[0], deg(worked[1]));
++            let zw_word = kit.text(stage, "zw", 28.0, Palette::ink(), ARROWS.p(pc.scale(1.12)))?;
++            let two_word = kit.text_left(stage, "2i", 26.0, Palette::ink(), two_i_word_at(two_i))?;
++            let i_word = kit.text_left(stage, "i", 26.0, Palette::ink(), i_name_at())?;
++            let zw_left = box_of(stage, zw_word)[0];
++            for word in [two_word, i_word] {
++                let right = box_of(stage, word)[1];
++                assert!(right < ARROWS.centre[0] - 0.05, "a name reaches the axis");
++                assert!(right < zw_left, "a name reaches zw");
++            }
++            // i's name stays outside the unit circle, whose top it stands beside
++            let [_, right, bottom, _] = box_of(stage, i_word);
++            let nearest = (right - ARROWS.centre[0]).hypot(bottom - ARROWS.centre[1]);
++            assert!(nearest > ARROWS.scale + 0.02, "corner at radius {nearest}");
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_lines_over_the_output_plane_clear_its_axis_and_outer_ring() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let closes = kit.text_left(stage, CLOSES, 22.0, Palette::ink(), v(OVER_OUT[0], OVER_OUT[1]))?;
++            let dial = kit.text_left(stage, DIAL, 26.0, Palette::ink(), v(OVER_OUT[0], OVER_OUT[1]))?;
++            for line in [closes, dial] {
++                let [left, right, bottom, top] = box_of(stage, line);
++                assert!(left > OUT.centre[0] + 0.1, "the axis reaches a line");
++                assert!(bottom > outer_ring_top() + 0.05, "the outer ring reaches a line");
++                assert!(right < SAFE[0] && top < 3.2, "a line leaves its place");
++            }
++            // the generic number's words share that height, left of the axis
++            let generic = fact_list("complex.generic")?;
++            let gz = C::polar(generic[0], generic[1] * PI);
++            let word = generic_word(&kit, stage, generic[0], generic[1], gz)?;
++            let [_, right, bottom, _] = box_of(stage, word);
++            assert!(right < OUT.centre[0] - 0.05, "the words reach the axis");
++            assert!(bottom > outer_ring_top() + 0.05, "the outer ring reaches the words");
++            assert_eq!(generic, vec![2.0, 0.6]);
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_lap_count_and_the_aid_clear_the_rays_the_axis_and_the_output_word() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let laps = kit.text_left(stage, "laps:", 24.0, Palette::ink(), v(LAPS_X, LAPS_Y))?;
++            let [left, right, _, _] = box_of(stage, laps);
++            let ray_end = image(C::new(IN_X.1, PI / 4.0));
++            assert!(left > ray_end[0] + 0.05, "the 45° ray reaches the word");
++            assert!(right < LAPS_VALUE_X - 0.05, "the word reaches its count");
++            const { assert!(LAPS_VALUE_X + 0.4 < SAFE[0]) };
++            let aid = kit.text(stage, AID, 18.0, Palette::ink(), v(AID_AT[0], AID_AT[1]))?;
++            let out = kit.text(stage, "output", 22.0, Palette::ink(), v(OUT_WORD_AT[0], OUT_WORD_AT[1]))?;
++            let [left, right, bottom, top] = box_of(stage, aid);
++            assert!(right < box_of(stage, out)[0] - 0.05, "the aid reaches the output word");
++            assert!(top < OUT.centre[1] - OUT.half_h, "the axis reaches the aid");
++            assert!(bottom > -SAFE[1] && left > -SAFE[0], "the aid leaves the safe area");
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_no_logarithm_word_clears_every_ring_and_its_leader_misses_the_rays() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let word = kit.text(
++                stage,
++                ZERO_WORD,
++                22.0,
++                Palette::ink(),
++                v(ZERO_WORD_AT[0], ZERO_WORD_AT[1]),
++            )?;
++            let [left, right, bottom, top] = box_of(stage, word);
++            let nearest = (left - OUT.centre[0]).hypot(top - OUT.centre[1]);
++            assert!(
++                nearest > OUT.scale * XS[XS.len() - 1].exp() + 0.1,
++                "the outer ring reaches the word"
++            );
++            let ray_end = image(C::new(IN_X.1, -PI / 4.0));
++            assert!(top < ray_end[1], "the −45° ray reaches the word");
++            assert!(right < SAFE[0] && bottom > -SAFE[1], "the word leaves the safe area");
++            // the leader leaves the ring outward and stops short of the word
++            let (from, to) = zero_leader(left, top);
++            assert!(to[1] > top && to[0] > left && to[0] < right);
++            let reach = (from[0] - OUT.centre[0]).hypot(from[1] - OUT.centre[1]);
++            assert!((reach - 0.2).abs() < 1e-12);
++            // and lies at least 5° from every ray of the grid
++            let angle = (to[1] - OUT.centre[1]).atan2(to[0] - OUT.centre[0]);
++            let off = (angle - (angle / (PI / 4.0)).round() * PI / 4.0).abs();
++            assert!(off > deg(5.0), "the leader lies {off} rad from a ray");
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_strip_labels_clear_its_lines_and_the_link_to_one() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let at_zero = IN.p(C::new(0.0, 0.0));
++            let zero = kit.text(stage, &pi_i(0), 18.0, Palette::ink(), mark_label_at(at_zero, 0.0))?;
++            assert!(
++                box_of(stage, zero)[2] > at_zero[1] + 0.02,
++                "the level link strikes through 0"
++            );
++            // other labels stay level with their marks
++            let at_two = IN.p(C::new(0.0, TAU));
++            assert_eq!(mark_label_at(at_two, 2.0)[1], at_two[1]);
++            // the bracket's words start past the end of the gridlines
++            let words = kit.text_left(stage, "2π up = one lap round", 20.0, Palette::ink(), lap_word_at())?;
++            let line_end = IN.p(C::new(IN_X.1, 0.0))[0];
++            assert!(
++                box_of(stage, words)[0] > line_end + 0.05,
++                "a gridline reaches the words"
++            );
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_typeset_cards_fit_their_places() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            // the rule for the column, between the strip and the output rings
++            let each = kit.tex(stage, EACH, 30.0, Palette::ink(), &[], v(IN.centre[0] + 2.6, -0.1))?;
++            let [left, right, _, _] = box_of(stage, each);
++            assert!(left > IN.p(C::new(IN_X.1, 0.0))[0] + 0.05, "the rule reaches the strip");
++            let outer = OUT.centre[0] - OUT.scale * XS[XS.len() - 1].exp();
++            assert!(right < outer - 0.05, "the rule reaches the outer ring");
++            // the cards that replaced plain carets
++            let example = example_words("2");
++            for (card, size, y) in [
++                (SETS_LEN, 24.0, -2.35),
++                (SETS_ANG, 24.0, -2.85),
++                (example.as_str(), 22.0, 0.55),
++            ] {
++                let m = kit.tex_left(stage, card, size, Palette::ink(), &[], v(1.0, y))?;
++                assert!(box_of(stage, m)[1] < SAFE[0], "{card} leaves the safe area");
++            }
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn a_dot_added_again_after_the_strokes_through_it_is_drawn_over_them() {
++        run(|stage| {
++            let target = dot(stage, OUT.p(C::new(-1.0, 0.0)), 0.12, answer_c());
++            let through = ring(stage, OUT.centre, OUT.scale, position_c(), 3.5);
++            fade_in_all(stage, &[target], 0.1)?;
++            fade_in_all(stage, &[through], 0.1)?;
++            stage.add_to_scene(target)?;
++            let order = stage.roots();
++            let at = |m: Mob| order.iter().position(|&r| r == m).expect("in the scene");
++            assert!(at(target) > at(through));
++            Ok(())
++        });
++    }
+ 
+     #[test]
+     fn horizontal_lines_go_to_rays_and_vertical_lines_to_circles() {
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs
+@@ -22,8 +22,8 @@
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Plane, answer_c, dot, fact, fact_list, fade_in_all, fade_out_all, flat, lap_c, line_style, number_c, pi_label,
+-    position_c, predict, ring, seg, slide_c, swap, title, value, warn_c,
++    Plane, answer_c, arrow_parts, dot, fact, fact_list, fade_in_all, fade_out_all, flat, lap_c, line_style, number_c,
++    pi_label, position_c, predict, ring, seg, slide_c, swap, title, value, warn_c,
+ };
+ use crate::model::{self, C};
+ 
+@@ -57,6 +57,23 @@
+ const GAUGE_Y: f64 = -0.3;
+ const RUNG: f64 = 0.85;
+ const SAMPLES: usize = 240;
++/// The tall axis's tick labels; its "0" sits a little further out, clear of
++/// the base line.
++const TICK_LABEL_X: f64 = W.centre[0] - 0.55;
++const ZERO_TICK_X: f64 = W.centre[0] - 0.6;
++/// The lap bracket and its word, left of the tick labels, so that the word can
++/// never read as part of a label.
++const LAP_STUB_X: f64 = W.centre[0] - 0.8;
++const LAP_BRACKET_X: f64 = W.centre[0] - 0.9;
++const LAP_WORD_X: f64 = W.centre[0] - 1.35;
++/// 06_6's inset, the candidate's own jump: its axis stands beside the tall
++/// one, at the same scale, raised so that a true 2π stays on screen.
++const JUMP_X: f64 = 1.95;
++const JUMP_ZERO_Y: f64 = -1.3;
++/// A trail shorter than this many laps is not drawn: it would only be a speck.
++const MIN_TRAIL: f64 = 0.005;
++const THEOREM: &str = "no continuous logarithm on a loop that winds around 0";
++const DIFFER: &str = r"e^{L(z)} = z = e^{\ell(z)} \;\Rightarrow\; L(z) - \ell(z) = 2\pi i\,k,\ \ k \text{ whole}";
+ 
+ fn unit_point(turn: f64) -> C {
+     C::polar(1.0, TAU * turn)
+@@ -80,6 +97,114 @@
+ fn principal_gap(turn: f64) -> f64 {
+     let ours = TAU * turn;
+     ((model::wrap(ours) - ours) / TAU).round()
++}
++
++/// The tall axis's label for kπi.
++fn tick_label(kit: &Kit, stage: &mut Stage<'_>, k: i64) -> fmn::Result<Mob> {
++    let at = W.p(C::new(0.0, k as f64 * PI));
++    kit.text(
++        stage,
++        &format!("{}i", pi_label(k)),
++        18.0,
++        Palette::dim(),
++        v(TICK_LABEL_X, at[1]),
++    )
++}
++
++/// The tall axis's label for its base, the logarithm the walk starts from.
++fn zero_tick_label(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
++    kit.text(stage, "0", 18.0, Palette::dim(), v(ZERO_TICK_X, W.centre[1]))
++}
++
++/// "one lap", beside its bracket and level with the bracket's middle.
++fn lap_word_label(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
++    let middle = (W.p(C::new(0.0, 0.0))[1] + W.p(C::new(0.0, TAU))[1]) / 2.0;
++    kit.text(stage, "one lap", 20.0, lap_c(), v(LAP_WORD_X, middle))
++}
++
++/// The tall axis's name, kept near its top once the proof needs the space
++/// below it.
++fn tall_axis_word(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
++    kit.text(
++        stage,
++        "its logarithm",
++        22.0,
++        position_c(),
++        v(W.centre[0] - 1.0, W.p(C::new(0.0, 4.4 * PI))[1]),
++    )
++}
++
++/// "0 is not inside", right of the number's own axis and under both circles.
++fn outside_word(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
++    kit.text_left(
++        stage,
++        "0 is not inside",
++        20.0,
++        slide_c(),
++        v(Z.centre[0] + 0.15, Z.centre[1] - 1.6),
++    )
++}
++
++/// The ends of the candidate's jump, πi and −πi, on the inset's own axis.
++fn jump_ends() -> (Vec3, Vec3) {
++    (
++        v(JUMP_X, JUMP_ZERO_Y + W.scale * PI),
++        v(JUMP_X, JUMP_ZERO_Y - W.scale * PI),
++    )
++}
++
++/// 06_6's words for the candidate's jump, from the fact behind them.
++fn jump_words() -> fmn::Result<String> {
++    let gaps = fact_list("loop.principal_gap")?;
++    Ok(format!(
++        "candidate: πi → −πi, gap {} → {}",
++        super::draw::shown(&format!("{}", gaps[0])),
++        super::draw::shown(&format!("{}", gaps[1]))
++    ))
++}
++
++/// The inset: a short axis of its own marked πi, 0 and −πi, the jump's arrow
++/// from πi down to −πi, a true 2π at the tall axis's scale, and its words.
++/// Returns the arrow, the words and the axis with its marks.
++fn jump_inset(kit: &Kit, stage: &mut Stage<'_>, words: &str) -> fmn::Result<(Mob, Mob, Vec<Mob>)> {
++    let (top, bottom) = jump_ends();
++    let mut axis = vec![seg(
++        stage,
++        v(JUMP_X, top[1] + 0.12),
++        v(JUMP_X, bottom[1] - 0.12),
++        Palette::faint(),
++        2.5,
++    )];
++    for (y, label) in [(top[1], "πi"), (JUMP_ZERO_Y, "0"), (bottom[1], "−πi")] {
++        axis.push(seg(
++            stage,
++            v(JUMP_X - 0.08, y),
++            v(JUMP_X + 0.08, y),
++            Palette::faint(),
++            2.0,
++        ));
++        axis.push(kit.text(stage, label, 18.0, Palette::dim(), v(JUMP_X - 0.4, y))?);
++    }
++    let jump = arrow_parts(stage.arena_mut(), top, bottom, warn_c(), 3.5, 0.2);
++    let word = kit.text_left(stage, words, 20.0, warn_c(), v(JUMP_X + 0.25, JUMP_ZERO_Y))?;
++    Ok((jump, word, axis))
++}
++
++/// The closing theorem, under the proof's formula and clear of the tall axis.
++fn theorem_line(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
++    kit.text(stage, THEOREM, 26.0, answer_c(), v(1.2, -3.55))
++}
++
++/// Two logarithms of one number differ by whole laps.
++fn differ_line(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
++    kit.tex(
++        stage,
++        DIFFER,
++        28.0,
++        Palette::ink(),
++        &[(r"L(z)", slide_c()), (r"\ell(z)", position_c())],
++        v(1.2, -3.0),
++    )
+ }
+ 
+ impl SceneConstruct for LiftingLoops {
+@@ -122,14 +247,9 @@
+                 Palette::faint(),
+                 2.0,
+             ));
+-            ticks.push(kit.text(
+-                stage,
+-                &format!("{}i", pi_label(k)),
+-                18.0,
+-                Palette::dim(),
+-                v(at[0] - 0.55, at[1]),
+-            )?);
++            ticks.push(tick_label(&kit, stage, k)?);
+         }
++        ticks.push(zero_tick_label(&kit, stage)?);
+         let w_word = kit.text(stage, "its logarithm", 22.0, blue, v(W.centre[0] + 0.3, -3.25))?;
+         fade_in_all(stage, &[heading, z_axes, z_circle, z_word], 0.6)?;
+         fade_in_all(stage, &ticks, 0.5)?;
+@@ -261,21 +381,15 @@
+         let lap = super::draw::path(
+             stage,
+             vec![
+-                v(base[0] - 0.35, base[1]),
+-                v(base[0] - 0.45, base[1]),
+-                v(top[0] - 0.45, top[1]),
+-                v(top[0] - 0.35, top[1]),
++                v(LAP_STUB_X, base[1]),
++                v(LAP_BRACKET_X, base[1]),
++                v(LAP_BRACKET_X, top[1]),
++                v(LAP_STUB_X, top[1]),
+             ],
+             purple,
+             3.0,
+         );
+-        let lap_word = kit.text(
+-            stage,
+-            "one lap",
+-            20.0,
+-            purple,
+-            v(base[0] - 1.05, (base[1] + top[1]) / 2.0),
+-        )?;
++        let lap_word = lap_word_label(&kit, stage)?;
+         fade_in_all(stage, &[lap, lap_word], 0.5)?;
+         kit.until_sentence(stage, "06_3", 4)?;
+         fade_out_all(stage, &[not_back, back, back_word, quarter, half], 0.3)?;
+@@ -299,14 +413,9 @@
+         let ring_path = model::circle_path(C::new(side[0], 0.0), side[1], 1.0, SAMPLES);
+         let side_lift = model::lift(&ring_path);
+         let side_circle = ring(stage, Z.p(C::new(side[0], 0.0)), Z.scale * side[1], teal, 2.5);
+-        let outside = kit.text_left(
+-            stage,
+-            "0 is not inside",
+-            20.0,
+-            teal,
+-            v(Z.centre[0] - 0.4, Z.centre[1] - 1.6),
+-        )?;
+-        fade_in_all(stage, &[side_circle, outside], 0.4)?;
++        let outside = outside_word(&kit, stage)?;
++        // the gold dot leaves: this walk starts elsewhere, on the side circle
++        swap(stage, &[one], &[side_circle, outside], 0.4)?;
+         kit.until_sentence(stage, "06_4", 2)?;
+         let lift_start = side_lift[0];
+         let progress = stage.add_value_tracker(0.0);
+@@ -395,7 +504,10 @@
+         )?;
+         let heading2 = title(&kit, stage, "Could one logarithm work all the way round?")?;
+         swap(stage, &[heading], &[heading2], 0.4)?;
+-        fade_in_all(stage, &ticks, 0.4)?;
++        let tall_word = tall_axis_word(&kit, stage)?;
++        let mut again = ticks.clone();
++        again.extend([one, tall_word]);
++        fade_in_all(stage, &again, 0.4)?;
+         kit.until_sentence(stage, "06_6", 1)?;
+         stage.set_tracker_value(turn, 0.0)?;
+         let candidate = kit.text_left(
+@@ -410,8 +522,11 @@
+         let walk2 = stage.always_redraw(move |s: &mut Arena| {
+             let t = value(s, turn).max(1e-3);
+             let g = s.add(VMobject::new());
+-            let w_trail: Vec<Vec3> = unit_lift(t).iter().map(|&w| W.p(w)).collect();
+-            let m = s.add(polyline(w_trail).style(line_style(blue, 3.5)).build());
++            if t > MIN_TRAIL {
++                let w_trail: Vec<Vec3> = unit_lift(t).iter().map(|&w| W.p(w)).collect();
++                let m = s.add(polyline(w_trail).style(line_style(blue, 3.5)).build());
++                let _ = s.attach(g, m);
++            }
+             let a = s.add(
+                 Dot::new()
+                     .point(Z.p(unit_point(t)))
+@@ -419,7 +534,6 @@
+                     .style(flat(green, 1.0))
+                     .build(),
+             );
+-            let _ = s.attach(g, m);
+             let _ = s.attach(g, a);
+             g
+         });
+@@ -453,39 +567,22 @@
+         play!(stage; tween(turn, 0.45, 2.6)?);
+         kit.until_sentence(stage, "06_6", 3)?;
+         play!(stage; tween(turn, 0.6, 1.6)?);
+-        let gaps = fact_list("loop.principal_gap")?;
+-        let at_pi = W.p(C::new(0.0, PI));
+         let minus_one = ring(stage, Z.p(C::new(-1.0, 0.0)), 0.2, red, 3.5);
+-        let drop = super::draw::arrow(
+-            stage,
+-            v(at_pi[0] + 0.45, at_pi[1]),
+-            v(at_pi[0] + 0.45, at_pi[1] - 1.1),
+-            red,
+-            3.5,
+-        )?;
+-        let drop_word = kit.text_left(
+-            stage,
+-            &format!(
+-                "candidate: πi → −πi, gap {} → {}",
+-                super::draw::shown(&format!("{}", gaps[0])),
+-                super::draw::shown(&format!("{}", gaps[1]))
+-            ),
+-            20.0,
+-            red,
+-            v(at_pi[0] + 0.65, at_pi[1] - 0.55),
+-        )?;
+-        fade_in_all(stage, &[minus_one, drop, drop_word], 0.4)?;
++        let (jump, jump_word, jump_axis) = jump_inset(&kit, stage, &jump_words()?)?;
++        let mut drop = jump_axis;
++        drop.extend([jump, jump_word]);
++        let mut breaking = vec![minus_one];
++        breaking.extend(drop.iter().copied());
++        fade_in_all(stage, &breaking, 0.4)?;
+         play!(stage; tween(turn, 0.97, 1.8)?);
+         kit.until_sentence(stage, "06_6", 4)?;
+         let breaks = kit.text_left(stage, "it breaks at −1", 22.0, red, v(read_x - 0.2, 1.45))?;
+         fade_in_all(stage, &[breaks], 0.4)?;
+         kit.until_sentence(stage, "06_6", 5)?;
+-        fade_out_all(
+-            stage,
+-            &[cand_marker, candidate, minus_one, drop, drop_word, breaks],
+-            0.4,
+-        )?;
+-        stage.set_tracker_value(turn, 0.0)?;
++        breaking.extend([cand_marker, candidate, breaks]);
++        fade_out_all(stage, &breaking, 0.4)?;
++        // our walk runs back to the start, so nothing jumps in one frame
++        play!(stage; tween(turn, 0.0, 0.6)?);
+         let suppose = kit.text_left(
+             stage,
+             "suppose L is a continuous logarithm on the circle",
+@@ -496,27 +593,25 @@
+         // theirs, while it shadows ours: drawn just right of our path
+         let theirs = stage.always_redraw(move |s: &mut Arena| {
+             let t = value(s, turn).max(1e-3);
+-            let pts: Vec<Vec3> = unit_lift(t)
+-                .iter()
+-                .map(|&w| {
+-                    let q = W.p(w);
+-                    v(q[0] + 0.16, q[1])
+-                })
+-                .collect();
+-            s.add(polyline(pts).style(line_style(teal, 2.5)).build())
++            let g = s.add(VMobject::new());
++            if t > MIN_TRAIL {
++                let pts: Vec<Vec3> = unit_lift(t)
++                    .iter()
++                    .map(|&w| {
++                        let q = W.p(w);
++                        v(q[0] + 0.16, q[1])
++                    })
++                    .collect();
++                let m = s.add(polyline(pts).style(line_style(teal, 2.5)).build());
++                let _ = s.attach(g, m);
++            }
++            g
+         });
+         stage.add_to_scene(theirs)?;
+         let marker = dot(stage, rung(0.0), 0.13, teal);
+         fade_in_all(stage, &[suppose, marker], 0.4)?;
+         kit.until_sentence(stage, "06_6", 6)?;
+-        let differ = kit.tex(
+-            stage,
+-            r"e^{L(z)} = z = e^{\ell(z)} \;\Rightarrow\; L(z) - \ell(z) = 2\pi i\,k,\ \ k \text{ whole}",
+-            28.0,
+-            Palette::ink(),
+-            &[(r"L(z)", teal), (r"\ell(z)", blue)],
+-            v(1.2, -3.0),
+-        )?;
++        let differ = differ_line(&kit, stage)?;
+         fade_in_all(stage, &[differ], 0.5)?;
+         kit.until_sentence(stage, "06_6", 7)?;
+         // it may only sit on a rung: any move between rungs would be a jump
+@@ -571,13 +666,7 @@
+         let contradiction = kit.text(stage, "contradiction", 30.0, red, v(read_x + 1.4, 1.4))?;
+         fade_in_all(stage, &[contradiction], 0.4)?;
+         kit.until_sentence(stage, "06_7", 5)?;
+-        let theorem = kit.text(
+-            stage,
+-            "no continuous logarithm on a loop that winds around 0",
+-            26.0,
+-            gold,
+-            v(0.6, 0.8),
+-        )?;
++        let theorem = theorem_line(&kit, stage)?;
+         fade_in_all(stage, &[theorem], 0.6)?;
+         kit.finish(stage)
+     }
+@@ -585,7 +674,37 @@
+ 
+ #[cfg(test)]
+ mod tests {
++    use fmn::scene::{NullSceneSink, RuntimeConfig};
++
+     use super::*;
++
++    /// The safe area's half width and half height.
++    const SAFE: [f64; 2] = [6.96, 3.85];
++
++    /// Run `f` as a scene's `construct`, headless, at 10 fps.
++    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
++        struct Probe<F>(F);
++        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
++            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
++                (self.0)(stage)
++            }
++        }
++        let config = RuntimeConfig {
++            fps: 10,
++            ..RuntimeConfig::default()
++        };
++        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
++    }
++
++    /// A mobject's typeset box: left, right, bottom, top.
++    fn box_of(stage: &Stage<'_>, m: Mob) -> [f64; 4] {
++        [
++            stage.get_bounding_box_point(m, LEFT)[0],
++            stage.get_bounding_box_point(m, RIGHT)[0],
++            stage.get_bounding_box_point(m, DOWN)[1],
++            stage.get_bounding_box_point(m, UP)[1],
++        ]
++    }
+ 
+     #[test]
+     fn the_carried_logarithm_climbs_two_pi_per_lap_and_back() {
+@@ -619,11 +738,115 @@
+             assert_eq!(principal_gap(t), want, "{t}");
+         }
+         assert_eq!(super::super::draw::fact("loop.principal_gap").unwrap(), "0,-1");
+-        // the drop arrow and its words stay inside the tall panel's column
+-        let at_pi = W.p(C::new(0.0, PI));
+-        assert!(at_pi[1] - 1.1 > W.p(C::new(0.0, 0.0))[1] - 0.2);
+-        let words = "candidate: πi → −πi, gap 0 → −1".chars().count() as f64;
+-        assert!(at_pi[0] + 0.65 + words * 0.55 * 20.0 / 144.0 < GAUGE_X - 0.8);
++    }
++
++    #[test]
++    fn the_candidates_jump_is_drawn_two_pi_long_at_the_tall_axis_scale() {
++        let (top, bottom) = jump_ends();
++        assert!(((top[1] - bottom[1]) / W.scale - TAU).abs() < 1e-12);
++        assert!(((top[1] + bottom[1]) / 2.0 - JUMP_ZERO_Y).abs() < 1e-12);
++        run(|stage| {
++            let kit = Kit::new()?;
++            let words = jump_words()?;
++            assert_eq!(words, "candidate: πi → −πi, gap 0 → −1");
++            let (jump, word, axis) = jump_inset(&kit, stage, &words)?;
++            // the arrow as drawn, head included, is the whole jump
++            assert!((stage.get_height(jump) / W.scale - TAU).abs() < 1e-6);
++            assert!((stage.get_center(jump)[0] - JUMP_X).abs() < 1e-6);
++            let [word_left, word_right, _, _] = box_of(stage, word);
++            assert!(
++                word_right < GAUGE_X - 0.25 - 0.1,
++                "the words reach the gauge: {word_right}"
++            );
++            assert!(word_left > JUMP_X + 0.1, "the words reach the arrow");
++            for m in axis {
++                let [left, right, bottom, _] = box_of(stage, m);
++                assert!(left > W.centre[0] + 0.2, "the inset reaches the tall axis");
++                assert!(right < word_left, "the inset reaches its words");
++                assert!(bottom > -SAFE[1], "the inset leaves the safe area");
++            }
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_lap_word_stands_outside_a_bracket_that_clears_every_tick_label() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let zero = zero_tick_label(&kit, stage)?;
++            let mut labels = vec![zero];
++            for k in 1..=4 {
++                labels.push(tick_label(&kit, stage, k)?);
++            }
++            for label in labels {
++                assert!(
++                    box_of(stage, label)[0] > LAP_STUB_X + 0.05,
++                    "a label reaches the bracket"
++                );
++            }
++            // the base line starts right of the "0" it belongs to
++            assert!(box_of(stage, zero)[1] < W.p(C::new(-1.2, 0.0))[0] - 0.03);
++            let word = lap_word_label(&kit, stage)?;
++            let [left, right, _, _] = box_of(stage, word);
++            assert!(right < LAP_BRACKET_X - 0.05, "the word reaches its bracket");
++            assert!(
++                left > Z.centre[0] + Z.half_w + 0.05,
++                "the word reaches the number's panel"
++            );
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_theorem_stands_clear_of_the_tall_axis_and_the_formula_above_it() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let theorem = theorem_line(&kit, stage)?;
++            let differ = differ_line(&kit, stage)?;
++            let z_word = kit.text(stage, "the number z", 22.0, Palette::ink(), v(Z.centre[0], -3.25))?;
++            let [left, right, bottom, top] = box_of(stage, theorem);
++            assert!(top < box_of(stage, differ)[2], "the theorem reaches the formula");
++            assert!(top < W.p(C::new(0.0, -0.4))[1], "the tall axis crosses the theorem");
++            assert!(bottom > -SAFE[1] && right < SAFE[0], "the theorem leaves the safe area");
++            assert!(left > box_of(stage, z_word)[1], "the theorem reaches the number's name");
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_side_circle_note_clears_the_axis_and_both_circles() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let word = outside_word(&kit, stage)?;
++            let [left, _, _, top] = box_of(stage, word);
++            assert!(left > Z.centre[0] + 0.05, "the number's axis crosses the note");
++            let side = fact_list("loop.side")?;
++            assert!(
++                top < Z.centre[1] - Z.scale * side[1],
++                "the side circle crosses the note"
++            );
++            assert!(top < Z.centre[1] - Z.scale, "the unit circle crosses the note");
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_tall_axis_keeps_its_name_clear_of_labels_and_panels() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let word = tall_axis_word(&kit, stage)?;
++            let four = tick_label(&kit, stage, 4)?;
++            let [left, right, bottom, _] = box_of(stage, word);
++            assert!(bottom > box_of(stage, four)[3], "the name reaches the top tick label");
++            assert!(right < W.centre[0] - 0.1, "the name reaches the axis");
++            assert!(left > Z.centre[0] + Z.half_w, "the name reaches the number's panel");
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn a_trail_too_short_to_draw_is_shorter_than_its_own_stroke() {
++        const { assert!(W.scale * TAU * MIN_TRAIL < 0.02) };
+     }
+ 
+     #[test]
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs
+@@ -25,8 +25,8 @@
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Plane, answer_c, arc_points, dashed, dot, fact_list, fade_in_all, fade_out_all, flat, lap_c, line_style, number_c,
+-    position_c, precisely, predict, ring, seg, swap, title, value, warn_c,
++    Plane, answer_c, arc_points, dashed, dot, fact_list, fade_in_all, fade_out_all, faded_line, flat, lap_c,
++    line_style, number_c, position_c, precisely, predict, ring, seg, swap, title, value, warn_c,
+ };
+ use crate::model::C;
+ 
+@@ -62,21 +62,56 @@
+ /// two stay apart on screen: just above (gold) and just below (purple).
+ const MARKED: f64 = 0.07;
+ 
++/// The cut's stroke on its own, and thinner once its two sides are marked, so
++/// gold and purple keep the line between them.
++const CUT_W: f64 = 6.0;
++const CUT_BETWEEN_SIDES_W: f64 = 2.5;
++/// The ring round the removed zero.
++const ZERO_RING: f64 = 0.13;
++const ZERO_RING_W: f64 = 3.5;
++/// How far into the unrolling the cut and the zero ring have gone. They mark
++/// points of the plane, and the strip has no such points: its w = 0 is the
++/// image of z = 1, and z → 0 runs off to the left.
++const PLANE_ONLY: f64 = 0.08;
++
++/// How strongly the plane's own marks show, part way `m` to the strip.
++fn plane_marks(m: f64) -> f64 {
++    (1.0 - m / PLANE_ONLY).clamp(0.0, 1.0)
++}
++
++/// The strip's two edges on screen.
++const STRIP_TOP: f64 = Z.centre[1] + W_SCALE * PI;
++const STRIP_BOTTOM: f64 = Z.centre[1] - W_SCALE * PI;
++/// Where the words beside the strip start, and the right-hand column.
++const BESIDE_STRIP: f64 = Z.centre[0] + 1.65;
++const COLUMN: f64 = 0.9;
++/// Where 07_6's live angle starts, just past the words that name it.
++const ANGLE_VALUE_X: f64 = COLUMN + 2.2;
++
+ /// 07_3's question and 07_4's answer, as screen text.
+ const ASK: &str = "where do the two sides go?";
+-const TO_TOP: &str = "just above → the top edge";
+-const TO_BOTTOM: &str = "just below → the bottom edge";
++const TO_TOP: &str = "just above → top edge";
++const TO_BOTTOM: &str = "just below → bottom edge";
+ const NEAR: &str = "angle just above the cut: near π; just below: near −π";
+-
+-/// The cut plane part way `m` to Log's strip; with `sides`, the cut's two
+-/// sides marked (07_3 keeps them hidden until it asks where they go).
+-fn grid(s: &mut Arena, m: f64, sides: bool) -> Mob {
++const CIRCLES: &str = "circles |z| = r  →  vertical segments at ln r";
++const RAYS_TO_LINES: &str = "rays at angle θ  →  horizontal lines at height θ";
++const OFF_LEFT: &str = "z → 0: off to the left";
++const ANY_CURVE: &str = "any curve from 0 out to infinity that never crosses itself";
++const ANGLE_WORDS: &str = "principal angle, in π:";
++const TOP_KEPT: &str = "top edge: included";
++const BOTTOM_LEFT_OUT: &str = "bottom edge: left out";
++
++/// The cut plane part way `m` to Log's strip, at opacity `alpha`; `sides` from
++/// 0 to 1 brings in the cut's two marked sides (07_3 keeps them hidden until
++/// it asks where they go). The cut and the zero ring are drawn here so that
++/// they can only ever stand on the plane.
++fn grid(s: &mut Arena, m: f64, sides: f64, alpha: f64) -> Mob {
+     let g = s.add(VMobject::new());
+     for &r in &RADII {
+         let pts: Vec<Vec3> = (0..=72)
+             .map(|k| unroll(r, -PI + SIDE + (TAU - 2.0 * SIDE) * f64::from(k) / 72.0, m))
+             .collect();
+-        let c = s.add(polyline(pts).style(line_style(position_c(), 2.5)).build());
++        let c = s.add(polyline(pts).style(faded_line(position_c(), 2.5, alpha)).build());
+         let _ = s.attach(g, c);
+     }
+     for &k in &RAYS {
+@@ -84,19 +119,94 @@
+         let pts: Vec<Vec3> = (0..=40)
+             .map(|j| unroll(R_MIN + (R_MAX - R_MIN) * f64::from(j) / 40.0, th, m))
+             .collect();
+-        let c = s.add(polyline(pts).style(line_style(number_c(), 2.5)).build());
++        let c = s.add(polyline(pts).style(faded_line(number_c(), 2.5, alpha)).build());
+         let _ = s.attach(g, c);
+     }
+-    if sides {
++    if sides > 0.0 {
+         for (th, c) in [(PI - MARKED, answer_c()), (-PI + MARKED, lap_c())] {
+             let pts: Vec<Vec3> = (0..=40)
+                 .map(|j| unroll(R_MIN + (R_MAX - R_MIN) * f64::from(j) / 40.0, th, m))
+                 .collect();
+-            let l = s.add(polyline(pts).style(line_style(c, 5.0)).build());
++            let l = s.add(polyline(pts).style(faded_line(c, 5.0, alpha * sides)).build());
+             let _ = s.attach(g, l);
+         }
+     }
++    let marks = alpha * plane_marks(m);
++    if marks > 0.0 {
++        let width = CUT_W + (CUT_BETWEEN_SIDES_W - CUT_W) * sides;
++        let cut = s.add(
++            polyline(vec![Z.p(C::new(0.0, 0.0)), Z.p(C::new(-Z.half_w, 0.0))])
++                .style(faded_line(warn_c(), width, marks))
++                .build(),
++        );
++        let zero = s.add(
++            polyline(arc_points(Z.centre, ZERO_RING, 0.0, TAU, 40))
++                .style(faded_line(warn_c(), ZERO_RING_W, marks))
++                .build(),
++        );
++        let _ = s.attach(g, cut);
++        let _ = s.attach(g, zero);
++    }
+     g
++}
++
++/// "blocked", clear of the unit circle it stops at.
++fn blocked_word(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
++    kit.text(stage, "blocked", 20.0, warn_c(), Z.p(C::new(-1.3, 0.75)))
++}
++
++/// The words for the cut's two sides, outside the outer circle so that no
++/// circle runs through them, and above and below the marked lines.
++fn side_words(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<[Mob; 2]> {
++    Ok([
++        kit.text(stage, "just above", 20.0, answer_c(), Z.p(C::new(-2.95, 0.45)))?,
++        kit.text(stage, "just below", 20.0, lap_c(), Z.p(C::new(-2.95, -0.45)))?,
++    ])
++}
++
++/// 07_4's answer, beside the strip.
++fn edge_labels(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<[Mob; 2]> {
++    Ok([
++        kit.text_left(stage, TO_TOP, 20.0, answer_c(), v(BESIDE_STRIP, STRIP_TOP - 0.4))?,
++        kit.text_left(stage, TO_BOTTOM, 20.0, lap_c(), v(BESIDE_STRIP, STRIP_BOTTOM + 0.4))?,
++    ])
++}
++
++/// What the strip says about zero in place of the ring: its image has run off
++/// to the left of the strip.
++fn off_left_note(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
++    kit.text_left(stage, OFF_LEFT, 18.0, Palette::dim(), v(-6.7, Z.centre[1]))
++}
++
++/// The dashed path a short walk across the cut would need, on the strip: from
++/// the gold line near the top edge to the purple line near the bottom edge.
++fn leap_ends() -> (Vec3, Vec3) {
++    (unroll(1.2, PI - MARKED, 1.0), unroll(1.2, -PI + MARKED, 1.0))
++}
++
++/// 07_6's last sentence as a picture: the strip again, its top edge solid gold
++/// because the convention adds it, its bottom edge dashed because it stays out.
++fn closing_strip(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<[Mob; 5]> {
++    let (from, to) = (Z.centre[0] - 1.5, Z.centre[0] + 1.5);
++    let plane = grid(stage.arena_mut(), 1.0, 0.0, 1.0);
++    let top = seg(stage, v(from, STRIP_TOP), v(to, STRIP_TOP), answer_c(), 4.0);
++    let bottom = dashed(
++        stage,
++        v(from, STRIP_BOTTOM),
++        v(to, STRIP_BOTTOM),
++        Palette::dim(),
++        2.0,
++        12,
++    )?;
++    let kept = kit.text_left(stage, TOP_KEPT, 20.0, answer_c(), v(BESIDE_STRIP, STRIP_TOP))?;
++    let left_out = kit.text_left(
++        stage,
++        BOTTOM_LEFT_OUT,
++        20.0,
++        Palette::dim(),
++        v(BESIDE_STRIP, STRIP_BOTTOM),
++    )?;
++    Ok([plane, top, bottom, kept, left_out])
+ }
+ 
+ /// Log's imaginary part in units of π, ±½, as screen text: "πi/2", "−πi/2".
+@@ -111,8 +221,9 @@
+     })
+ }
+ 
+-/// The spiral cut's growth per radian, and the angle where it reaches the
+-/// panel's edge (radius `Z.half_h`): from there it runs on out of view.
++/// The spiral cut's growth per radian, and where its drawing starts. The
++/// drawing stops at radius `Z.half_h`, inside the frame; only the card says
++/// that the cut goes on to infinity.
+ const SPIRAL_K: f64 = 0.18;
+ const SPIRAL_START: f64 = -5.0 * PI;
+ 
+@@ -137,7 +248,7 @@
+     fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+         let kit = self.kit.clone();
+         let (green, blue, gold, purple, red) = (number_c(), position_c(), answer_c(), lap_c(), warn_c());
+-        let right = 0.9;
++        let right = COLUMN;
+ 
+         // 07_1: forbid one line from zero to infinity
+         kit.say(stage, "07_1")?;
+@@ -146,7 +257,7 @@
+         let circle = Z.unit_circle(stage);
+         fade_in_all(stage, &[heading, axes, circle], 0.6)?;
+         kit.until_sentence(stage, "07_1", 1)?;
+-        let cut = seg(stage, Z.p(C::new(0.0, 0.0)), Z.p(C::new(-Z.half_w, 0.0)), red, 6.0);
++        let cut = seg(stage, Z.p(C::new(0.0, 0.0)), Z.p(C::new(-Z.half_w, 0.0)), red, CUT_W);
+         let cut_word = kit.text(stage, "no crossing", 22.0, red, Z.p(C::new(-1.9, 0.35)))?;
+         fade_in_all(stage, &[cut, cut_word], 0.6)?;
+         kit.until_sentence(stage, "07_1", 2)?;
+@@ -175,7 +286,7 @@
+         });
+         stage.add_to_scene(walker)?;
+         play!(stage; tween(walk, 0.47, 2.2)?);
+-        let stop = kit.text(stage, "blocked", 20.0, red, Z.p(C::new(-1.0, 0.75)))?;
++        let stop = blocked_word(&kit, stage)?;
+         fade_in_all(stage, &[stop], 0.3)?;
+         play!(stage; tween(walk, -0.47, 3.0)?);
+         let possible = kit.text_left(
+@@ -201,7 +312,7 @@
+             &[],
+             v(3.9, 1.25),
+         )?;
+-        let zero = ring(stage, Z.centre, 0.13, red, 3.5);
++        let zero = ring(stage, Z.centre, ZERO_RING, red, ZERO_RING_W);
+         fade_in_all(stage, &[removed, zero], 0.5)?;
+         kit.until_sentence(stage, "07_2", 1)?;
+         let log = kit.tex(
+@@ -257,68 +368,50 @@
+         fade_out_all(stage, &worked, 0.3)?;
+         let morph = stage.add_value_tracker(0.0);
+         let sides = stage.add_value_tracker(0.0);
+-        let unrolled = stage.always_redraw(move |s: &mut Arena| grid(s, value(s, morph), value(s, sides) > 0.5));
++        let grid_alpha = stage.add_value_tracker(0.0);
++        let unrolled =
++            stage.always_redraw(move |s: &mut Arena| grid(s, value(s, morph), value(s, sides), value(s, grid_alpha)));
+         stage.add_to_scene(unrolled)?;
+-        fade_out_all(stage, &[cut, name], 0.3)?;
++        fade_out_all(stage, &[name], 0.3)?;
++        // the grid fades in with its own cut and zero ring over the old ones,
++        // which then leave unseen; from here the grid decides when they show
++        play!(stage; tween(grid_alpha, 1.0, 0.4)?);
++        fade_out_all(stage, &[cut, zero], 0.1)?;
+         kit.until_sentence(stage, "07_3", 1)?;
+         play!(stage; tween(morph, 1.0, 3.6)?);
+         let top = dashed(
+             stage,
+-            v(Z.centre[0] - 1.5, Z.centre[1] + W_SCALE * PI),
+-            v(Z.centre[0] + 1.5, Z.centre[1] + W_SCALE * PI),
++            v(Z.centre[0] - 1.5, STRIP_TOP),
++            v(Z.centre[0] + 1.5, STRIP_TOP),
+             Palette::dim(),
+             2.0,
+             12,
+         )?;
+         let bottom = dashed(
+             stage,
+-            v(Z.centre[0] - 1.5, Z.centre[1] - W_SCALE * PI),
+-            v(Z.centre[0] + 1.5, Z.centre[1] - W_SCALE * PI),
++            v(Z.centre[0] - 1.5, STRIP_BOTTOM),
++            v(Z.centre[0] + 1.5, STRIP_BOTTOM),
+             Palette::dim(),
+             2.0,
+             12,
+         )?;
+-        let top_word = kit.text_left(
+-            stage,
+-            "height π",
+-            20.0,
+-            Palette::dim(),
+-            v(Z.centre[0] + 1.65, Z.centre[1] + W_SCALE * PI),
+-        )?;
+-        let bottom_word = kit.text_left(
+-            stage,
+-            "height −π",
+-            20.0,
+-            Palette::dim(),
+-            v(Z.centre[0] + 1.65, Z.centre[1] - W_SCALE * PI),
+-        )?;
+-        fade_in_all(stage, &[top, bottom, top_word, bottom_word], 0.5)?;
++        let top_word = kit.text_left(stage, "height π", 20.0, Palette::dim(), v(BESIDE_STRIP, STRIP_TOP))?;
++        let bottom_word = kit.text_left(stage, "height −π", 20.0, Palette::dim(), v(BESIDE_STRIP, STRIP_BOTTOM))?;
++        let off_left = off_left_note(&kit, stage)?;
++        fade_in_all(stage, &[top, bottom, top_word, bottom_word, off_left], 0.5)?;
+         kit.until_sentence(stage, "07_3", 2)?;
+-        let circles = kit.text_left(
+-            stage,
+-            "circles |z| = r  →  vertical segments at ln r",
+-            22.0,
+-            blue,
+-            v(right, -1.95),
+-        )?;
++        let circles = kit.text_left(stage, CIRCLES, 22.0, blue, v(right, -1.95))?;
+         fade_in_all(stage, &[circles], 0.4)?;
+         kit.until_sentence(stage, "07_3", 3)?;
+-        let rays = kit.text_left(
+-            stage,
+-            "rays at angle θ  →  horizontal lines at height θ",
+-            22.0,
+-            green,
+-            v(right, -2.45),
+-        )?;
++        let rays = kit.text_left(stage, RAYS_TO_LINES, 22.0, green, v(right, -2.45))?;
+         fade_in_all(stage, &[rays], 0.4)?;
+         kit.until_sentence(stage, "07_3", 4)?;
+         // back to the cut plane, and mark the cut's two sides (the strip's
+         // height marks leave meanwhile: fade_out restores them for 07_4)
+-        fade_out_all(stage, &[top, bottom, top_word, bottom_word], 0.3)?;
++        fade_out_all(stage, &[top, bottom, top_word, bottom_word, off_left], 0.3)?;
+         play!(stage; tween(morph, 0.0, 2.0)?);
+-        stage.set_tracker_value(sides, 1.0)?;
+-        let above_word = kit.text(stage, "just above", 20.0, gold, Z.p(C::new(-1.9, 0.4)))?;
+-        let below_word = kit.text(stage, "just below", 20.0, purple, Z.p(C::new(-1.9, -0.4)))?;
++        play!(stage; tween(sides, 1.0, 0.4)?);
++        let [above_word, below_word] = side_words(&kit, stage)?;
+         fade_in_all(stage, &[above_word, below_word], 0.4)?;
+         kit.until_sentence(stage, "07_3", 5)?;
+         let ask = kit.text_left(stage, ASK, 24.0, gold, v(right, 2.3))?;
+@@ -329,24 +422,11 @@
+         kit.say(stage, "07_4")?;
+         fade_out_all(stage, &[above_word, below_word], 0.3)?;
+         play!(stage; tween(morph, 1.0, 3.0)?);
+-        let to_top = kit.text_left(
+-            stage,
+-            TO_TOP,
+-            20.0,
+-            gold,
+-            v(Z.centre[0] + 1.65, Z.centre[1] + W_SCALE * PI - 0.4),
+-        )?;
+-        let to_bottom = kit.text_left(
+-            stage,
+-            TO_BOTTOM,
+-            20.0,
+-            purple,
+-            v(Z.centre[0] + 1.65, Z.centre[1] - W_SCALE * PI + 0.4),
+-        )?;
++        let [to_top, to_bottom] = edge_labels(&kit, stage)?;
+         swap(
+             stage,
+             &[ask],
+-            &[top, bottom, top_word, bottom_word, to_top, to_bottom],
++            &[top, bottom, top_word, bottom_word, off_left, to_top, to_bottom],
+             0.4,
+         )?;
+         kit.until_sentence(stage, "07_4", 1)?;
+@@ -354,9 +434,8 @@
+         fade_in_all(stage, &[near], 0.4)?;
+         kit.until_sentence(stage, "07_4", 2)?;
+         // a short path across the cut: on the strip it would leap 2π
+-        let x = Z.centre[0] + W_SCALE * 1.2f64.ln();
+-        let above = v(x, Z.centre[1] + W_SCALE * (PI - 0.25));
+-        let below = v(x, Z.centre[1] - W_SCALE * (PI - 0.25));
++        let (above, below) = leap_ends();
++        let x = above[0];
+         let leap = dashed(stage, above, below, red, 3.0, 14)?;
+         let ends = [dot(stage, above, 0.09, red), dot(stage, below, 0.09, red)];
+         let leap_word = kit.text(
+@@ -382,19 +461,23 @@
+                 bottom,
+                 top_word,
+                 bottom_word,
++                off_left,
+                 circles,
+                 rays,
+                 to_top,
+                 to_bottom,
+                 near,
++                removed,
++                log,
++                deriv,
++                where_,
+             ],
+             0.4,
+         )?;
+         play!(stage; tween(morph, 0.0, 2.4)?);
+-        fade_out_all(stage, &[unrolled], 0.4)?;
+         let axes2 = Z.axes(stage)?;
+         let usual = seg(stage, Z.p(C::new(0.0, 0.0)), Z.p(C::new(-Z.half_w, 0.0)), red, 5.0);
+-        fade_in_all(stage, &[axes2, usual], 0.4)?;
++        swap(stage, &[unrolled], &[axes2, usual, zero], 0.4)?;
+         let choice = kit.text_left(stage, "a choice, not a crack", 24.0, Palette::ink(), v(right, -1.95))?;
+         fade_in_all(stage, &[choice], 0.4)?;
+         kit.until_sentence(stage, "07_5", 1)?;
+@@ -413,25 +496,19 @@
+         let spiral = super::draw::path(stage, spiral_cut(), red, 4.0);
+         swap(stage, &[upward, window], &[spiral], 0.8)?;
+         kit.until_sentence(stage, "07_5", 3)?;
+-        let any = kit.text_left(
+-            stage,
+-            "any curve from 0 out to infinity that never crosses itself",
+-            22.0,
+-            Palette::ink(),
+-            v(right, -2.55),
+-        )?;
++        let any = kit.text_left(stage, ANY_CURVE, 22.0, Palette::ink(), v(right, -2.55))?;
+         fade_in_all(stage, &[any], 0.4)?;
+         kit.until_sentence(stage, "07_5", 4)?;
+         let point = ring(stage, Z.centre, 0.2, gold, 4.0);
+         fade_out_all(stage, &[zero], 0.2)?;
+         fade_in_all(stage, &[point], 0.4)?;
+         kit.until_sentence(stage, "07_5", 5)?;
+-        let branch = kit.text(stage, "branch point", 26.0, gold, Z.p(C::new(0.9, -0.45)))?;
++        let branch = kit.text_left(stage, "branch point", 26.0, gold, v(right, -3.05))?;
+         fade_in_all(stage, &[branch], 0.4)?;
+ 
+         // 07_6: two cautions — the convention on the cut, the one-sided inverse
+         kit.say(stage, "07_6")?;
+-        fade_out_all(stage, &[spiral, choice, any, removed, log, deriv, where_], 0.5)?;
++        fade_out_all(stage, &[spiral, choice, any, branch], 0.5)?;
+         let heading2 = title(&kit, stage, "Two cautions")?;
+         swap(stage, &[heading], &[heading2], 0.4)?;
+         let usual2 = seg(stage, Z.p(C::new(0.0, 0.0)), Z.p(C::new(-Z.half_w, 0.0)), red, 5.0);
+@@ -462,20 +539,22 @@
+             )
+         });
+         stage.add_to_scene(slider)?;
+-        let angle_word = kit.text_left(stage, "principal angle, in π:", 22.0, purple, v(right, 0.85))?;
+-        let _angle = kit.live_value(
++        let angle_word = kit.text_left(stage, ANGLE_WORDS, 22.0, purple, v(right, 0.85))?;
++        let angle = kit.live_value(
+             stage,
+             move |s| crate::model::wrap(PI * value(s, slide)) / PI,
+             3,
+             true,
+             26.0,
+             purple,
+-            v(right + 3.3, 0.85),
++            v(ANGLE_VALUE_X, 0.85),
+             LEFT,
+         )?;
+         fade_in_all(stage, &[angle_word], 0.3)?;
+         play!(stage; tween(slide, 1.15, 3.0)?);
+         kit.until_sentence(stage, "07_6", 3)?;
++        // the first caution is done: its moving dot and number leave with it
++        fade_out_all(stage, &[slider, angle_word, angle], 0.3)?;
+         let one_side = kit.text_left(
+             stage,
+             "Log undoes exp from one side only",
+@@ -513,20 +592,55 @@
+         )?;
+         fade_in_all(stage, &[only], 0.5)?;
+         fade_in_all(stage, &[example], 0.4)?;
+-        kit.until_sentence(stage, "07_6", 6)?;
++        // the fine print comes with the statement it qualifies, so it has time
++        // to be read before the chapter ends
+         let fine = precisely(
+             &kit,
+             stage,
+             "Log is holomorphic off (−∞, 0] with −π < Im < π; with Arg(−x) = π for x > 0, Im Log fills −π < Im ≤ π (DLMF 4.2)",
+         )?;
+         fade_in_all(stage, &[fine], 0.5)?;
++        kit.until_sentence(stage, "07_6", 6)?;
++        // "That is the strip, with its top edge added by the convention."
++        let strip = closing_strip(&kit, stage)?;
++        swap(stage, &[axes2, usual2, circle2, on_cut, point], &strip, 0.5)?;
+         kit.finish(stage)
+     }
+ }
+ 
+ #[cfg(test)]
+ mod tests {
++    use fmn::scene::{NullSceneSink, RuntimeConfig};
++
+     use super::*;
++
++    /// The safe area's half width and half height.
++    const SAFE: [f64; 2] = [6.96, 3.85];
++
++    /// Run `f` as a scene's `construct`, headless, at 10 fps.
++    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
++        struct Probe<F>(F);
++        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
++            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
++                (self.0)(stage)
++            }
++        }
++        let config = RuntimeConfig {
++            fps: 10,
++            ..RuntimeConfig::default()
++        };
++        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
++    }
++
++    /// A mobject's typeset box: left, right, bottom, top.
++    fn box_of(stage: &Stage<'_>, m: Mob) -> [f64; 4] {
++        [
++            stage.get_bounding_box_point(m, LEFT)[0],
++            stage.get_bounding_box_point(m, RIGHT)[0],
++            stage.get_bounding_box_point(m, DOWN)[1],
++            stage.get_bounding_box_point(m, UP)[1],
++        ]
++    }
+ 
+     #[test]
+     fn unrolling_sends_circles_to_verticals_and_rays_to_horizontals() {
+@@ -618,16 +732,169 @@
+     }
+ 
+     #[test]
+-    fn the_question_and_answer_labels_fit_beside_the_strip() {
+-        let width = |s: &str, size: f64| s.chars().count() as f64 * 0.55 * size / 144.0;
+-        let label_x = Z.centre[0] + 1.65;
+-        // the strip itself ends left of the labels
+-        assert!(unroll(R_MAX, 0.0, 1.0)[0] < label_x);
+-        // the edge labels end before the right-hand column, which starts at 0.9
+-        assert!(label_x + width(TO_TOP, 20.0) < 0.9);
+-        assert!(label_x + width(TO_BOTTOM, 20.0) < 0.9);
+-        // the question and the angle line stay on screen
+-        assert!(0.9 + width(ASK, 24.0) < 6.8);
+-        assert!(0.9 + width(NEAR, 22.0) < 6.8);
+-    }
+-}
++    fn the_labels_beside_the_strip_end_before_the_cards_in_their_rows() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            // the strip itself ends left of the labels
++            assert!(unroll(R_MAX, 0.0, 1.0)[0] < BESIDE_STRIP);
++            let [to_top, to_bottom] = edge_labels(&kit, stage)?;
++            let rays = kit.text_left(stage, RAYS_TO_LINES, 22.0, Palette::ink(), v(COLUMN, -2.45))?;
++            let circles = kit.text_left(stage, CIRCLES, 22.0, Palette::ink(), v(COLUMN, -1.95))?;
++            let rays_left = box_of(stage, rays)[0];
++            assert!(
++                box_of(stage, to_bottom)[1] < rays_left - 0.15,
++                "the bottom label reaches the rays card"
++            );
++            assert!(
++                box_of(stage, to_top)[1] < COLUMN - 0.15,
++                "the top label reaches the column"
++            );
++            // every card in that column stays on screen
++            let ask = kit.text_left(stage, ASK, 24.0, Palette::ink(), v(COLUMN, 2.3))?;
++            let near = kit.text_left(stage, NEAR, 22.0, Palette::ink(), v(COLUMN, -2.95))?;
++            for card in [rays, circles, ask, near] {
++                assert!(box_of(stage, card)[1] < SAFE[0], "a card leaves the safe area");
++            }
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_words_for_the_two_sides_clear_every_circle_and_the_marked_lines() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let outer = RADII[RADII.len() - 1];
++            // how far the marked lines stray from the axis at their outer end
++            let line = R_MAX * MARKED.sin();
++            for word in side_words(&kit, stage)? {
++                let [left, right, bottom, top] = box_of(stage, word);
++                let near = (bottom - Z.centre[1]).abs().min((top - Z.centre[1]).abs());
++                let outer_left = Z.centre[0] - (outer * outer - near * near).sqrt();
++                assert!(right < outer_left - 0.05, "the outer circle crosses a side word");
++                assert!(left > -SAFE[0], "a side word leaves the safe area");
++                assert!(near > line + 0.05, "a side word sits on its marked line");
++            }
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_blocked_word_clears_the_unit_circle() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let word = blocked_word(&kit, stage)?;
++            let [_, right, bottom, _] = box_of(stage, word);
++            // the box's corner nearest the origin stays outside the circle
++            let nearest = (right - Z.centre[0]).hypot(bottom - Z.centre[1]);
++            assert!(nearest > Z.scale + 0.05, "corner at radius {nearest}");
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_removed_zero_and_the_cut_stand_on_the_plane_and_never_on_the_strip() {
++        // where the ring would sit on the strip is w = 0, the image of z = 1
++        let w0 = unroll(1.0, 0.0, 1.0);
++        assert!((w0[0] - Z.centre[0]).abs() < 1e-12 && (w0[1] - Z.centre[1]).abs() < 1e-12);
++        // while points near zero run off the left of the frame
++        assert!(unroll(1e-4, 0.0, 1.0)[0] < -7.11);
++        assert_eq!(plane_marks(0.0), 1.0);
++        assert_eq!(plane_marks(PLANE_ONLY), 0.0);
++        assert_eq!(plane_marks(1.0), 0.0);
++        run(|stage| {
++            let kit = Kit::new()?;
++            let lines = RADII.len() + RAYS.len();
++            let on_plane = grid(stage.arena_mut(), 0.0, 0.0, 1.0);
++            let leaving = grid(stage.arena_mut(), PLANE_ONLY, 0.0, 1.0);
++            let on_strip = grid(stage.arena_mut(), 1.0, 0.0, 1.0);
++            // the parent, the lines, and on the plane the cut and the ring
++            assert_eq!(stage.family(on_plane).len(), 1 + lines + 2);
++            assert_eq!(stage.family(leaving).len(), 1 + lines);
++            assert_eq!(stage.family(on_strip).len(), 1 + lines);
++            // the marked sides do not change that
++            let sides_on_strip = grid(stage.arena_mut(), 1.0, 1.0, 1.0);
++            assert_eq!(stage.family(sides_on_strip).len(), 1 + lines + 2);
++            let sides_on_plane = grid(stage.arena_mut(), 0.0, 1.0, 1.0);
++            assert_eq!(stage.family(sides_on_plane).len(), 1 + lines + 2 + 2);
++            // only the cut reaches the panel's left edge, and it goes with the plane
++            assert!((box_of(stage, on_plane)[0] - (Z.centre[0] - Z.half_w)).abs() < 1e-6);
++            assert!(box_of(stage, leaving)[0] > Z.centre[0] - Z.half_w + 0.1);
++            // the note in the ring's place clears the strip and the frame
++            let note = off_left_note(&kit, stage)?;
++            let [left, right, _, _] = box_of(stage, note);
++            assert!(left > -SAFE[0], "the zero note leaves the safe area");
++            assert!(
++                right < unroll(R_MIN, 0.0, 1.0)[0] - 0.1,
++                "the zero note reaches the strip"
++            );
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_leap_runs_between_the_two_marked_lines() {
++        let (above, below) = leap_ends();
++        // both ends stand at one x, on the marked lines just inside the edges
++        assert!((above[0] - below[0]).abs() < 1e-12);
++        assert!((above[1] - (STRIP_TOP - W_SCALE * MARKED)).abs() < 1e-9);
++        assert!((below[1] - (STRIP_BOTTOM + W_SCALE * MARKED)).abs() < 1e-9);
++        // so the drawn leap is the words' 2π, less the drawn offset each side
++        assert!(((above[1] - below[1]) / W_SCALE - (TAU - 2.0 * MARKED)).abs() < 1e-12);
++    }
++
++    #[test]
++    fn the_branch_point_word_clears_the_spiral_and_the_card_above_it() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let word = kit.text_left(stage, "branch point", 26.0, Palette::ink(), v(COLUMN, -3.05))?;
++            let any = kit.text_left(stage, ANY_CURVE, 22.0, Palette::ink(), v(COLUMN, -2.55))?;
++            let [left, right, bottom, top] = box_of(stage, word);
++            assert!(top < box_of(stage, any)[2], "the word reaches the card above it");
++            assert!(bottom > -SAFE[1] && right < SAFE[0], "the word leaves the safe area");
++            for p in spiral_cut() {
++                let clear = p[0] < left - 0.05 || p[0] > right + 0.05 || p[1] < bottom - 0.05 || p[1] > top + 0.05;
++                assert!(clear, "the spiral crosses the word at {p:?}");
++            }
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_closing_strip_shows_the_two_edges_two_pi_apart() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let [plane, top, bottom, kept, left_out] = closing_strip(&kit, stage)?;
++            let (t, b) = (stage.get_center(top)[1], stage.get_center(bottom)[1]);
++            assert!(((t - b) / W_SCALE - TAU).abs() < 1e-6, "edges {t} and {b}");
++            // no ring and no cut on this strip, and the lines stay between its edges
++            assert_eq!(stage.family(plane).len(), 1 + RADII.len() + RAYS.len());
++            let [_, _, grid_bottom, grid_top] = box_of(stage, plane);
++            assert!(grid_top < t && grid_bottom > b);
++            // each edge's word sits on its row and ends before the column
++            for (word, edge) in [(kept, t), (left_out, b)] {
++                let [left, right, _, _] = box_of(stage, word);
++                assert!(left > unroll(R_MAX, 0.0, 1.0)[0], "a word reaches the strip");
++                assert!(right < COLUMN - 0.15, "a word reaches the column");
++                assert!((stage.get_center(word)[1] - edge).abs() < 1e-6);
++            }
++            // the top edge is the one Log reaches: Arg(−1) = π
++            assert!((C::new(-1.0, 0.0).log().im - PI).abs() < 1e-12);
++            assert!((unroll(1.0, PI, 1.0)[1] - t).abs() < 1e-12);
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_live_angle_starts_just_past_the_words_that_name_it() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let words = kit.text_left(stage, ANGLE_WORDS, 22.0, Palette::ink(), v(COLUMN, 0.85))?;
++            let right = box_of(stage, words)[1];
++            assert!(
++                right + 0.1 < ANGLE_VALUE_X && ANGLE_VALUE_X - right < 0.5,
++                "gap from {right}"
++            );
++            Ok(())
++        });
++    }
++}

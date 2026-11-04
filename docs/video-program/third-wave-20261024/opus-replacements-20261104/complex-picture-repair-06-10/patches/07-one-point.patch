@@ -1,0 +1,191 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs
+@@ -18,9 +18,9 @@
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Painter, Plane, carded_lines, derivative, dot, fact, fade_in_all, fade_out_all, faded_line, flat, group, hero,
+-    input, line_style, names_now, output, precisely_now, predict, reading_window, rgb, say, tween_linear, value,
+-    wait_until, warn, zero_mark,
++    Painter, Plane, axis_names, carded, carded_lines, derivative, dot, fact, fade_in_all, fade_out_all, faded_line,
++    flat, group, hero, input, line_style, names_now, output, precisely_now, predict, reading_window, rgb, say,
++    tween_linear, value, wait_until, warn, zero_mark,
+ };
+ use crate::model::{self, C, Func, ZERO};
+ 
+@@ -39,7 +39,9 @@
+ pub const RIGHT_UP: [&str; 2] = ["right: → ", "up: → "];
+ pub const ONLY_HERE: &str = "a complex derivative at 0 only";
+ pub const SQUEEZE_TEX: &str = r"\frac{|g(h)|\,|h|^2}{|h|} \le M\,|h| \to 0";
+-pub const PRODUCT: &str = "|z|² × jagged g, |g| ≤ 1: derivative 0 at 0";
++pub const PRODUCT: &str = "|z|² × jagged g, |g| ≤ 1 = M: derivative 0 at 0";
++/// Which line of 07_1 is which, each on its own ray.
++pub const LINE_NAMES: [&str; 2] = ["real line", "imaginary line"];
+ pub const INSIDE_RADIUS: &str = "inside radius";
+ pub const HOLOMORPHIC: [&str; 3] = [
+     "holomorphic on U:",
+@@ -230,10 +232,13 @@
+         let mut frame = vec![inp.border(stage, input())?, out.border(stage, output())?];
+         frame.extend(inp.axes(stage)?);
+         frame.extend(out.axes(stage)?);
++        frame.extend(axis_names(&kit, stage, &inp)?);
++        frame.extend(axis_names(&kit, stage, &out)?);
+         let map_arrow = stage.arena_mut().add(
+             Arrow::new(v(-0.6, -0.15), v(0.6, -0.15))
+                 .thickness(4.0)
+                 .color(Palette::dim())
++                .buff(0.0)
+                 .build()?,
+         );
+         let map = kit.tex(stage, MAP_TEX, 28.0, Palette::ink(), &[], v(0.0, 0.35))?;
+@@ -246,15 +251,35 @@
+         // the lines grow out from 0 both ways; their images grow as r²
+         let grow = stage.add_value_tracker(0.0);
+         let tiny = 1e-3;
++        // one colour per line and its ray, so the two rays read as two and each has its source
+         let in_lines = [
+             inp.path(stage, &[C::real(-tiny), C::real(tiny)], input(), 5.0)?,
+-            inp.path(stage, &[C::new(0.0, -tiny), C::new(0.0, tiny)], input(), 5.0)?,
++            inp.path(stage, &[C::new(0.0, -tiny), C::new(0.0, tiny)], output(), 5.0)?,
+         ];
+         let out_rays = [
+-            out.path(stage, &[ZERO, C::real(tiny)], output(), 5.0)?,
++            out.path(stage, &[ZERO, C::real(tiny)], input(), 5.0)?,
+             out.path(stage, &[ZERO, C::real(-tiny)], output(), 5.0)?,
+         ];
+-        fade_in_all(stage, &[in_lines[0], in_lines[1], out_rays[0], out_rays[1]], 0.2)?;
++        let line_names = [
++            kit.text(stage, LINE_NAMES[0], 18.0, input(), inp.p(C::new(0.75, -0.16)))?,
++            kit.text(stage, LINE_NAMES[1], 18.0, output(), inp.p(C::new(0.4, 1.12)))?,
++            kit.text(stage, LINE_NAMES[0], 18.0, input(), out.p(C::new(0.8, -0.16)))?,
++            kit.text(stage, LINE_NAMES[1], 18.0, output(), out.p(C::new(-0.72, -0.16)))?,
++        ];
++        fade_in_all(
++            stage,
++            &[
++                in_lines[0],
++                in_lines[1],
++                out_rays[0],
++                out_rays[1],
++                line_names[0],
++                line_names[1],
++                line_names[2],
++                line_names[3],
++            ],
++            0.2,
++        )?;
+         let anchor = stage.arena_mut().add(VMobject::new());
+         stage.add_to_scene(anchor)?;
+         stage.add_updater(
+@@ -319,7 +344,7 @@
+                 &format!("{}°", fact("critical.angle_out")?),
+                 26.0,
+                 hero(),
+-                out.p(C::new(0.0, 0.5)),
++                out.p(C::new(0.42, 0.42)),
+             )?,
+         ];
+         fade_in_all(stage, &angles, 0.4)?;
+@@ -373,6 +398,7 @@
+         let mut gone = frame;
+         gone.extend(in_lines);
+         gone.extend(out_rays);
++        gone.extend(line_names);
+         gone.extend([in_arc, out_arc, multiplied, exact, kept_in, kept_out]);
+         gone.extend(angles);
+         gone.extend(cross_in);
+@@ -383,11 +409,23 @@
+         line.wait_sentence(stage, 1)?;
+         let painter = Painter::build(stage, Some(Func::AbsSquare), p, 1.0)?;
+         let border = p.border(stage, Palette::faint())?;
++        let p_names = axis_names(&kit, stage, &p)?;
+         let formula = kit.tex(stage, ABS_TEX, 32.0, Palette::ink(), &[], v(right, 2.6))?;
+         let hue = kit.text(stage, ONE_HUE, 20.0, Palette::dim(), v(right, 1.95))?;
+         painter.show(stage, 1.0)?;
+         fade_in_all(stage, &[border, formula, hue], 0.4)?;
+-        let origin = zero_mark(stage, p.p(ZERO));
++        fade_in_all(stage, &p_names, 0.2)?;
++        let o = p.p(ZERO);
++        let mut origin = zero_mark(stage, o).to_vec();
++        origin.extend(carded(
++            &kit,
++            stage,
++            "0",
++            22.0,
++            Palette::ink(),
++            v(o[0] + 0.45, o[1] - 0.38),
++            Palette::faint(),
++        )?);
+         fade_in_all(stage, &origin, 0.3)?;
+         let asked = predict(&kit, stage, &line, &ASK, v(right, 0.6))?;
+ 
+@@ -473,13 +511,24 @@
+         fade_out_all(stage, &gone, 0.4)?;
+         let one = C::real(1.0);
+         let at_one = dot(stage, p.p(one), 0.08, input());
+-        fade_in_all(stage, &[at_one], 0.3)?;
++        let o1 = p.p(one);
++        let one_name = carded(
++            &kit,
++            stage,
++            "1",
++            22.0,
++            Palette::ink(),
++            v(o1[0], o1[1] - 0.4),
++            Palette::faint(),
++        )?;
++        fade_in_all(stage, &[at_one, one_name[0], one_name[1]], 0.3)?;
+         let at1: Vec<&str> = fact("onepoint.at1")?.split(',').collect();
+         line.wait_sentence(stage, 1)?;
+         let step_right = stage.arena_mut().add(
+             Arrow::new(p.p(one), p.p(one + C::real(0.6)))
+                 .thickness(4.0)
+                 .color(input())
++                .buff(0.0)
+                 .build()?,
+         );
+         let r1 = kit.text(
+@@ -495,6 +544,7 @@
+             Arrow::new(p.p(one), p.p(one + C::new(0.0, 0.6)))
+                 .thickness(4.0)
+                 .color(input())
++                .buff(0.0)
+                 .build()?,
+         );
+         let r2 = kit.text(
+@@ -514,7 +564,17 @@
+         // whole disk of steps h, and every ratio from them inside the disk of
+         // radius |h| in the ratio's window; the disks shrink together
+         line.wait_sentence(stage, 4)?;
+-        let mut gone = vec![at_one, step_right, step_up, r1, r2, only, formula];
++        let mut gone = vec![
++            at_one,
++            one_name[0],
++            one_name[1],
++            step_right,
++            step_up,
++            r1,
++            r2,
++            only,
++            formula,
++        ];
+         gone.extend(cross);
+         gone.extend(origin);
+         fade_out_all(stage, &gone, 0.4)?;
+@@ -607,6 +667,7 @@
+         let line = say(&kit, stage, "07_6")?;
+         let mut gone = lit;
+         gone.extend([mosaic, border, squeeze, product_says, inside_end]);
++        gone.extend(p_names);
+         fade_out_all(stage, &gone, 0.5)?;
+         line.wait_sentence(stage, 1)?;
+         let edge = blob(96);
+@@ -675,7 +736,7 @@
+         stage.play(tween_linear(grow, 1.0, 1.6)?)?;
+         stage.clear_updaters(anchor, true);
+         let lone = dot(stage, v(2.0, -2.4), 0.07, warn());
+-        let lone_says = kit.text(stage, LONE, 20.0, Palette::dim(), v(4.1, -2.4))?;
++        let lone_says = kit.text_left(stage, LONE, 20.0, Palette::ink(), v(2.2, -2.4))?;
+         fade_in_all(stage, &[lone, lone_says], 0.4)?;
+         line.wait_sentence(stage, 2)?;
+         let definition = carded_lines(&kit, stage, &HOLOMORPHIC, 24.0, Palette::ink(), v(right, 1.2), hero())?;

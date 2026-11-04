@@ -1,0 +1,1687 @@
+{
+  "created_utc": "2026-11-02T14:46:08.972961+00:00",
+  "scope": "Listening preparation only; all takes unlistened and unselected. Hashes/text are not speech, timing, performance or acceptance proof.",
+  "projects": [
+    {
+      "title": "Five paradoxes",
+      "script": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/five_math_paradoxes/script.tsv",
+      "script_sha256": "171679c3a9d2eed7c499c5dac602352d6dff383a966c93ef25b075c2e3e15a54",
+      "cues": [
+        {
+          "cue": "00_1",
+          "script": "A game show host opens a door, and switching gives you the better chance. One machine passes inspection more often on each kind of part, yet trails overall. A runner crosses infinitely many checkpoints and still catches a tortoise. These are not tricks where math stops working. Each one asks us to look more carefully at what the picture leaves out. Here are five favorites, and the small idea that makes each one click.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/opening-takes-receipt01.json",
+          "receipt_sha256": "c0fe3c60b98b4936c9762aac28a1e926bb5da4b530f5bf59921b90017b67478d",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/opening-take-01.wav",
+              "sha256": "c74c2bfd2724c45fffd7548ef7188106a6cfe175db54a3605c5f3ef70c6f66d2",
+              "frames": 1405440,
+              "sample_rate": 48000,
+              "seconds": 29.28
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/opening-take-02.wav",
+              "sha256": "6390cf059ceba0faac92c3146931ed4990b579d2a7662eb584ca7e9083a1d0c0",
+              "frames": 1413120,
+              "sample_rate": 48000,
+              "seconds": 29.44
+            }
+          ]
+        },
+        {
+          "cue": "01_1",
+          "script": "There is a car behind one door and a goat behind each of the others. You choose a door. The host knows where the car is, always opens a different door with a goat, and always gives you the chance to switch. Should you?",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/monty-01_1-takes-receipt01.json",
+          "receipt_sha256": "7043029b23a9b967b91bd28e880287cc677bac326afb1967ee70144eb28a83b4",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_1-take-01.wav",
+              "sha256": "aaee753c4f0290f44c53fc29ac3ec357e0397a2f12cd89db7ad2a51196531182",
+              "frames": 714240,
+              "sample_rate": 48000,
+              "seconds": 14.88
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_1-take-02.wav",
+              "sha256": "9b8bcdc61bc0ccace6766749331455a546cbc6f1308b1fc7dbd6c91fe59797b7",
+              "frames": 710400,
+              "sample_rate": 48000,
+              "seconds": 14.8
+            }
+          ]
+        },
+        {
+          "cue": "01_2",
+          "script": "Imagine that you always choose the first door. The car is equally likely to be behind any of the three doors.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/monty-01_2-takes-receipt01.json",
+          "receipt_sha256": "cc39d4bd804dbe6b81daca5a2f4ff6a276e7cccd8b72368620f3c7044b152c35",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_2-take-01.wav",
+              "sha256": "bacd7a7880bf1a963d2a8c378f966e9276a178786a0a609df4528de4a44dab1e",
+              "frames": 349440,
+              "sample_rate": 48000,
+              "seconds": 7.28
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_2-take-02.wav",
+              "sha256": "86b73ceb46f92e95707c809ea531c4feded068e03102057543c0f066b2fe9877",
+              "frames": 357120,
+              "sample_rate": 48000,
+              "seconds": 7.44
+            }
+          ]
+        },
+        {
+          "cue": "01_3",
+          "script": "If it is behind your first choice, switching loses. If it is behind either other door, the host must reveal the remaining goat, and switching wins. One losing case, two winning cases. The chance of winning by always switching is two out of three.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/monty-01_3-takes-receipt01.json",
+          "receipt_sha256": "5a5d293115d9f4b526f887ea77fab9ef0df7912e67d38a9dda4e679e97e370ee",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_3-take-01.wav",
+              "sha256": "59633c6d2df10d9234bbca79e988a8e2ff76ccdb46adf34b99cf4e8a3325ed5a",
+              "frames": 848640,
+              "sample_rate": 48000,
+              "seconds": 17.68
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_3-take-02.wav",
+              "sha256": "80e0d181ede61437ee71a2533d49a078b830b88504368cc2ff5c93bed4db08e4",
+              "frames": 844800,
+              "sample_rate": 48000,
+              "seconds": 17.6
+            }
+          ]
+        },
+        {
+          "cue": "01_4",
+          "script": "The key is that the host's action follows a rule. If the host opens doors at random, or offers a switch only sometimes, this calculation need not apply.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/monty-01_4-takes-receipt01.json",
+          "receipt_sha256": "b1395c8d9713fc2413f1ce7c6456162752e24048ca808eca8b16376c60e3964d",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_4-take-01.wav",
+              "sha256": "16edf069b9d21043cf9fb2f410357c377c985aec0bf918cb52201308e8f629f6",
+              "frames": 514560,
+              "sample_rate": 48000,
+              "seconds": 10.72
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_4-take-02.wav",
+              "sha256": "d243dc3a3e0b3f201fcb454049987f620076424159ed171099357148fe0129ae",
+              "frames": 514560,
+              "sample_rate": 48000,
+              "seconds": 10.72
+            }
+          ]
+        },
+        {
+          "cue": "02_1",
+          "script": "How many people must be in a room before there is more than a fifty-fifty chance that some two share a birthday?",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/birthday-02_1-takes-receipt01.json",
+          "receipt_sha256": "715c8597a183dcf02a8916c456a664087ca379d9e6180776a832828d2bf191fd",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_1-take01.wav",
+              "sha256": "250891100c069696d0b3a8087419735ac38b49d82bc796ede14d384e1d117f35",
+              "frames": 334080,
+              "sample_rate": 48000,
+              "seconds": 6.96
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_1-take02.wav",
+              "sha256": "91a41953bb91ac6174dff0d5bc85cf8739932257b1c9b3ef990b2123aea830cb",
+              "frames": 334080,
+              "sample_rate": 48000,
+              "seconds": 6.96
+            }
+          ]
+        },
+        {
+          "cue": "02_2",
+          "script": "Under a simple model, only twenty-three. Not a match to your birthday: a match between any pair.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/birthday-02_2-takes-receipt01.json",
+          "receipt_sha256": "400c5c913aeffaaaed8a45e1304f5c84e6244dade3eccd5e3681417e5d578534",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_2-take01.wav",
+              "sha256": "7eb42eadf069de1981334b3ded4cb06ca19028c5161578a0f4995ef4fa566141",
+              "frames": 337920,
+              "sample_rate": 48000,
+              "seconds": 7.04
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_2-take02.wav",
+              "sha256": "db8fe1c47300015920a062b170e8d6da6102dbf97d707c9c93ae03abe352cf6d",
+              "frames": 345600,
+              "sample_rate": 48000,
+              "seconds": 7.2
+            }
+          ]
+        },
+        {
+          "cue": "02_3",
+          "script": "Assume each birthday is independently and uniformly distributed among three hundred and sixty-five days. It is easier to count the opposite: nobody matches. After the first person, the second must avoid one day, so that chance is three hundred and sixty-four out of three hundred and sixty-five. The third must avoid two days, giving three hundred and sixty-three out of three hundred and sixty-five, and so on.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/birthday-02_3-takes-receipt01.json",
+          "receipt_sha256": "42f473ed884741069622cbe51a187d3ac507b7412c8f14bbaaffa83ec85fb173",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_3-take01.wav",
+              "sha256": "3a19465be786b4e2b6834597952bc7fcd4d678a0fce6c36a43b1f7bdd9d89a76",
+              "frames": 1332480,
+              "sample_rate": 48000,
+              "seconds": 27.76
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_3-take02.wav",
+              "sha256": "3750f80e84e53c558ad2032ee69d40fd9945afe18156820d1f43e3017603abe1",
+              "frames": 1332480,
+              "sample_rate": 48000,
+              "seconds": 27.76
+            }
+          ]
+        },
+        {
+          "cue": "02_4",
+          "script": "Multiply those no-match probabilities through person twenty-three. The result is about forty-nine point two seven percent. The chance of at least one match is the remainder: about fifty point seven three percent.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/birthday-02_4-takes-receipt01.json",
+          "receipt_sha256": "e8a71e3388a85fe9e0c17b6708825091e8492b809c35b65de30668ac0c760d90",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_4-take01.wav",
+              "sha256": "e435989f46f95de8e12a2b67b826815aad8b7e8951889b982f179343234e1b73",
+              "frames": 660480,
+              "sample_rate": 48000,
+              "seconds": 13.76
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_4-take02.wav",
+              "sha256": "b5ff158ac433e6a55803b2353078ffc88d89ddb3c9f2ef405bff00f73235713b",
+              "frames": 664320,
+              "sample_rate": 48000,
+              "seconds": 13.84
+            }
+          ]
+        },
+        {
+          "cue": "02_5",
+          "script": "There are two hundred and fifty-three possible pairs, which helps explain the surprise. But those pairs are not independent, so simply multiplying a per-pair probability two hundred and fifty-three times would not be the calculation we just did.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/birthday-02_5-takes-receipt01.json",
+          "receipt_sha256": "a94e67be4bd2541393e1a08ded0d47ef3c5327b99e1014e187aafbf81ebec497",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_5-take01.wav",
+              "sha256": "7094e35327a04c8a0428971a7dd90d03422d1af6560a84d96b87575e7f75cada",
+              "frames": 752640,
+              "sample_rate": 48000,
+              "seconds": 15.68
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_5-take02.wav",
+              "sha256": "4db41f16f67bfd67c256b37463cd70a97788b047b78b38efba86b74c25fbc1eb",
+              "frames": 741120,
+              "sample_rate": 48000,
+              "seconds": 15.44
+            }
+          ]
+        },
+        {
+          "cue": "03_1",
+          "script": "Two machines each make easy and hard parts, which then get inspected. On easy parts, nine out of ten from machine A pass; for B, it is seventy-two out of ninety. A leads, ninety percent to eighty percent.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/simpson-03_1-takes-receipt01.json",
+          "receipt_sha256": "5adb4e74b147fb152fbf2e3e53eb07931818475db8b4f7403a59a69305c05f72",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_1-take01.wav",
+              "sha256": "1150f48eac66999f0b4f00a71bcf088735c628d7a36e027776851623a68c800d",
+              "frames": 802560,
+              "sample_rate": 48000,
+              "seconds": 16.72
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_1-take02.wav",
+              "sha256": "a014b70684af483f11354357d720a107684dfb507ea71f0e2520299191a51f96",
+              "frames": 798720,
+              "sample_rate": 48000,
+              "seconds": 16.64
+            }
+          ]
+        },
+        {
+          "cue": "03_2",
+          "script": "On hard parts, eighteen out of ninety from A pass; for B, one out of ten passes. A leads again, twenty percent to ten percent.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/simpson-03_2-takes-receipt01.json",
+          "receipt_sha256": "ca8d9e36d87b1c028fcf220d7f84bda9bd40b448d0fc1fc232a29ac0bf67e925",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_2-take01.wav",
+              "sha256": "e4a51fd1ffd4ace8d8273e485d4804b6bd45ec5506f8c739fe6d6ba8c817ae21",
+              "frames": 522240,
+              "sample_rate": 48000,
+              "seconds": 10.88
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_2-take02.wav",
+              "sha256": "67a51ee4a77f03e95191f0066e56a739a0b09707956b35dfade3eea4bd236aa6",
+              "frames": 526080,
+              "sample_rate": 48000,
+              "seconds": 10.96
+            }
+          ]
+        },
+        {
+          "cue": "03_3",
+          "script": "Now combine the parts. A has twenty-seven passes out of one hundred; B has seventy-three out of one hundred. B leads overall. How? A made mostly hard parts and B made mostly easy parts. The overall rates weight the two categories differently.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/simpson-03_3-takes-receipt01.json",
+          "receipt_sha256": "ed09d3ac9e999aa4736d054d7398cae0275b77f21259779056891bb092dde9da",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_3-take01.wav",
+              "sha256": "35f46c5688cac62753bb5e78a303809a43f2bdfa8059dd6721e834a39e5550a3",
+              "frames": 940800,
+              "sample_rate": 48000,
+              "seconds": 19.6
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_3-take02.wav",
+              "sha256": "63d202997c49103c72a95524719b21a723868692ff7dd10a0e02f6db8fedeb2b",
+              "frames": 948480,
+              "sample_rate": 48000,
+              "seconds": 19.76
+            }
+          ]
+        },
+        {
+          "cue": "03_4",
+          "script": "Both statements can be true: A has a higher pass rate at each difficulty, and B has a higher rate across all their parts. Which comparison answers your question depends on the context; the reversal alone does not prove what caused the results.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/simpson-03_4-takes-receipt01.json",
+          "receipt_sha256": "2b62e40b9275ac9da9184df95acfed44d916bf3a9e8910fc2076e6657b645045",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_4-take01.wav",
+              "sha256": "1593e5dca08e2cd8471a6a74f87cede2e7f121235fb9eaafc6ecb9422b02e2f4",
+              "frames": 810240,
+              "sample_rate": 48000,
+              "seconds": 16.88
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_4-take02.wav",
+              "sha256": "a09b26c3c80abf5648e8e6a016fb814d792d90b619075a77377efc8229bbcdba",
+              "frames": 821760,
+              "sample_rate": 48000,
+              "seconds": 17.12
+            }
+          ]
+        },
+        {
+          "cue": "04_1",
+          "script": "A tortoise starts one hundred metres ahead. Achilles runs ten metres per second; the tortoise moves at one. First Achilles reaches the tortoise's starting point, but the tortoise has moved on. When he reaches that new point, it has moved again. There are infinitely many of these stages. How can he ever catch it?",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/zeno-04_1-takes-receipt01.json",
+          "receipt_sha256": "c727c3cd87c5c548a3f323a5bdbc77c5b0ccbb6ebc92728115043d0032bc4252",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/zeno-04_1-take01.wav",
+              "sha256": "a46018c28f72c244b9706d5157adfcf5ee7bdc1cb637932b00ae5443546b2404",
+              "frames": 1032960,
+              "sample_rate": 48000,
+              "seconds": 21.52
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/zeno-04_1-take02.wav",
+              "sha256": "2d7bc13f3844dd9f7b7a61f1c4d9e8b32f8f1cfdb51fd40ac156666a373945f7",
+              "frames": 1029120,
+              "sample_rate": 48000,
+              "seconds": 21.44
+            }
+          ]
+        },
+        {
+          "cue": "04_2",
+          "script": "The stages get shorter. The first takes ten seconds, the next one second, then a tenth, then a hundredth, and so on. Their sum approaches ten plus ten ninths, or one hundred ninths seconds: about eleven point one one seconds.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/zeno-04_2-takes-receipt01.json",
+          "receipt_sha256": "921e5a78271276e19c0b90022153daf92b1a55e1da865ab832cb9335bc16a8b1",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/zeno-04_2-take01.wav",
+              "sha256": "26b3ff0a77cdc6193f338b516343af363ded2543603d7723425326d7c1b25e01",
+              "frames": 883200,
+              "sample_rate": 48000,
+              "seconds": 18.4
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/zeno-04_2-take02.wav",
+              "sha256": "bc9901dfb33f962e0ea8904197b22bd778d5b4b31715a49bbc2ec7f65a426ee3",
+              "frames": 879360,
+              "sample_rate": 48000,
+              "seconds": 18.32
+            }
+          ]
+        },
+        {
+          "cue": "04_3",
+          "script": "The usual constant-speed model gives the same answer directly: Achilles closes the hundred-metre gap at nine metres per second. Infinitely many positive stage times can have a finite limit. This answers the arithmetic challenge in that model; the deeper philosophical questions about motion and infinity have a longer history.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/zeno-04_3-takes-receipt01.json",
+          "receipt_sha256": "67a6195f301f1519ac221e680288d631d6aa2d822bb101306734a8d92d1467da",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/zeno-04_3-take01.wav",
+              "sha256": "f0cd5bc008d9af3f3b6a77a003bee9d7d3734537bc6383a97f3d94406cd3cfec",
+              "frames": 1052160,
+              "sample_rate": 48000,
+              "seconds": 21.92
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/zeno-04_3-take02.wav",
+              "sha256": "a9a9f3f686ea013285eb457203e49d062b6d6a97a61418ee4d7045b274076e4e",
+              "frames": 1044480,
+              "sample_rate": 48000,
+              "seconds": 21.76
+            }
+          ]
+        },
+        {
+          "cue": "05_1",
+          "script": "Imagine a hotel with rooms numbered one, two, three, and so on without end. Every room has one guest. A new guest arrives. Can everyone have a room?",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/hotel-05_1-takes-receipt01.json",
+          "receipt_sha256": "7f2b5ac4ef41cd507f82bfe56f258349ecf904ff6e1341e1fd23679388167b34",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/hotel-05_1-take01.wav",
+              "sha256": "05ee7d3f3c0ce6e41f536eace771a1b1295d8da60d6478046cc05be8ffaf44c5",
+              "frames": 599040,
+              "sample_rate": 48000,
+              "seconds": 12.48
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/hotel-05_1-take02.wav",
+              "sha256": "371a322915f1624fcc7a32260188a08bd46b4963c942619a353a5cccc57d618f",
+              "frames": 602880,
+              "sample_rate": 48000,
+              "seconds": 12.56
+            }
+          ]
+        },
+        {
+          "cue": "05_2",
+          "script": "Assign the guest in room one to room two, the guest in room two to room three, and in general the guest in room n to room n plus one. Now assign the new guest room one. Every original guest has a distinct room. The new guest has one too, and every room is assigned: room one to the newcomer, and room k, for k at least two, to the former guest from room k minus one.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/hotel-05_2-takes-receipt01.json",
+          "receipt_sha256": "b4622740ed303764466a33146f692d9f5c1cb4c1b3bc0179996d7a5a7ebc39d5",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/hotel-05_2-take01.wav",
+              "sha256": "0eaf176c2dfd57dfa970842eb27d01fffac7b181803edd1bd896ab2859882e90",
+              "frames": 1405440,
+              "sample_rate": 48000,
+              "seconds": 29.28
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/hotel-05_2-take02.wav",
+              "sha256": "9ab4c321e1dd3c21ed5f8c396532c676745a3e1d6b7f15d985eeec48a25942f1",
+              "frames": 1409280,
+              "sample_rate": 48000,
+              "seconds": 29.36
+            }
+          ]
+        },
+        {
+          "cue": "05_3",
+          "script": "That is impossible for a finite hotel. For an infinite set, a one-to-one matching can pair the whole set with a proper part of itself. This is a mathematical assignment, not a practical plan for moving infinitely many people.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/hotel-05_3-takes-receipt01.json",
+          "receipt_sha256": "aba8e473c0dcf9ce0a1b0a58771f942863598518d9367332cf915cf4d6cdfa1b",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/hotel-05_3-take01.wav",
+              "sha256": "d78cef7bedff250f9836b0d7da5cc3920be545ebba2388f5ad29c6ef20b80708",
+              "frames": 729600,
+              "sample_rate": 48000,
+              "seconds": 15.2
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/hotel-05_3-take02.wav",
+              "sha256": "73249974ada10620ae2cbf3abdd1a51791c32de22bd6961886fb8de5b65bea7d",
+              "frames": 733440,
+              "sample_rate": 48000,
+              "seconds": 15.28
+            }
+          ]
+        },
+        {
+          "cue": "06_1",
+          "script": "Five surprises, five questions: what does the host know, which pairs count, how are averages weighted, what happens to the total time, and can every guest be matched to a room? A paradox is often a sign that an ordinary intuition has wandered outside the conditions where it works.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/closing-takes-receipt01.json",
+          "receipt_sha256": "473de15465e53ef4bf8f910ba6ca214566d88d3afe38aaf7c67e5f4ff780b78f",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/closing-take-01.wav",
+              "sha256": "59ec53d5a08d655cffbdcdd55a668ce6d2dbd0745c6ee330dfdaeeee4ad1121e",
+              "frames": 1052160,
+              "sample_rate": 48000,
+              "seconds": 21.92
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/closing-take-02.wav",
+              "sha256": "72f609541d2ad4856fad9185e32dee9edc8b985732fca29bce0ccf85c59bd771",
+              "frames": 1059840,
+              "sample_rate": 48000,
+              "seconds": 22.08
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Abstract algebra",
+      "script": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/abstract_algebra_visual/script.tsv",
+      "script_sha256": "d046477e8a1d1a2c94fd52e1794f29d144542b7e94f949a4567052a381eefdfc",
+      "cues": [
+        {
+          "cue": "01_1",
+          "script": "Turn a square a quarter turn and its outline still fits the same frame. Flip it across a line through its center and it fits again. Mark the corners and you can tell the moves apart. There are eight ways to take the square onto itself: four rotations and four reflections.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/opening-01_1-takes-receipt01.json",
+          "receipt_sha256": "71ee09a4f790c06a8815def6fe47eed8f91e7490bb407b1f03f1b1a6308498f8",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/opening-01_1-take-01.wav",
+              "sha256": "df75bb47f6de7bb8a007a9f5e598248fda9fddbebae0a3573af498939db17d0e",
+              "frames": 879360,
+              "sample_rate": 48000,
+              "seconds": 18.32
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/opening-01_1-take-02.wav",
+              "sha256": "5e015fc9e65f2eaf6bf9bb5ba73f8613b52c8ab9499b6dcd392a006ec743ed82",
+              "frames": 883200,
+              "sample_rate": 48000,
+              "seconds": 18.4
+            }
+          ]
+        },
+        {
+          "cue": "01_2",
+          "script": "What if we stop asking what the square is made of and instead ask how its moves combine? That change of question opens the door to abstract algebra.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/opening-01_2-takes-receipt01.json",
+          "receipt_sha256": "cd3bdfcf9364670a9ea06538188d5a8c67870368a12d019b97977cd7ec40b4e1",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/opening-01_2-take-01.wav",
+              "sha256": "0f3e8b7aae40f438acce11c5fb15e57cd99057fb49e1753f3ed69f2d7e73a2f3",
+              "frames": 499200,
+              "sample_rate": 48000,
+              "seconds": 10.4
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/opening-01_2-take-02.wav",
+              "sha256": "36d6e19aea67150ba882058266a67a45aa2db4f6f9e539056deb74a1136cc291",
+              "frames": 499200,
+              "sample_rate": 48000,
+              "seconds": 10.4
+            }
+          ]
+        },
+        {
+          "cue": "02_1",
+          "script": "Do one symmetry and then another. The result is another symmetry. There is a do-nothing move. Every move can be undone by another move. And the way we group a sequence of three moves does not change their order or their result. Those are the group rules: closure, identity, inverses and associativity.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/group-02_1-takes-receipt01.json",
+          "receipt_sha256": "4b28d9f2aed66a40e6361dbebbfc3455cf8846fd60deb0e70e578cc82a88efe5",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/group-02_1-take-01.wav",
+              "sha256": "b105c01b15895e6b6aee91b7896d988dbdf38adb69e41f2190908c6a6cf263c7",
+              "frames": 1079040,
+              "sample_rate": 48000,
+              "seconds": 22.48
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/group-02_1-take-02.wav",
+              "sha256": "026b3584ded50be202f48872e73a4095fe99bb5cc715ac900fbae9b2ac783cd0",
+              "frames": 1094400,
+              "sample_rate": 48000,
+              "seconds": 22.8
+            }
+          ]
+        },
+        {
+          "cue": "02_2",
+          "script": "Associativity doesn't mean we may swap moves. Try a quarter turn followed by a flip. Now undo that and try the flip followed by the turn.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/group-02_2-takes-receipt01.json",
+          "receipt_sha256": "ef26bcb6a5efa1e5b49902da3802cdc56851c2e32cf7858549cce0a68c5eaa8b",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/group-02_2-take-01.wav",
+              "sha256": "f7fbf3a59a230a8a9df57dab9f0d0f35367734b8713b5f93ad7d6e07c42ad9d5",
+              "frames": 506880,
+              "sample_rate": 48000,
+              "seconds": 10.56
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/group-02_2-take-02.wav",
+              "sha256": "f84408cffb88406b3fe7dbf521f61c8cbb7deba9ca4243a12b75e8c31ff97eee",
+              "frames": 499200,
+              "sample_rate": 48000,
+              "seconds": 10.4
+            }
+          ]
+        },
+        {
+          "cue": "02_3",
+          "script": "The square lands in two different labeled arrangements. This group is noncommutative.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/group-02_3-takes-receipt01.json",
+          "receipt_sha256": "35ee5382bab8793359420d6becce2b33b424698f0ee2c7d978740046edd6fe6a",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/group-02_3-take-01.wav",
+              "sha256": "3a56e54a20ef1c2afb8055b5dd576d74c31adff4b8d8544a4344b4a5de9b244e",
+              "frames": 284160,
+              "sample_rate": 48000,
+              "seconds": 5.92
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/group-02_3-take-02.wav",
+              "sha256": "2f90c7b6233bc6057fe97e77b1df092d4057d35a944d0aab7e6edab02ba1edf8",
+              "frames": 284160,
+              "sample_rate": 48000,
+              "seconds": 5.92
+            }
+          ]
+        },
+        {
+          "cue": "03_1",
+          "script": "Keep just the rotations. The do-nothing move, a quarter turn, a half turn and a three-quarter turn still form a group under the same operation. That smaller group is a subgroup.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/subgroup-03_1-takes-receipt01.json",
+          "receipt_sha256": "9b05913ff0ebafb35ed04fbe0a374e24a780a116eda8d20ac169d4d08ae47734",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/subgroup-03_1-take01.wav",
+              "sha256": "0d73c8a756ea492352fbcba76226459397db59214def680e5bf677c2ede456b2",
+              "frames": 614400,
+              "sample_rate": 48000,
+              "seconds": 12.8
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/subgroup-03_1-take02.wav",
+              "sha256": "2032a0a921fdfbb3eb7cec998f1ae86d49c9b6e26eaefefed23f06300bd64fa1",
+              "frames": 622080,
+              "sample_rate": 48000,
+              "seconds": 12.96
+            }
+          ]
+        },
+        {
+          "cue": "03_2",
+          "script": "Starting from the identity and repeatedly applying a quarter turn visits all four rotations before returning home. One move generates the whole rotation subgroup, so it is cyclic. The order of that move is four: the first positive number of repetitions that returns us to identity. The order of the full square group is eight: the number of its moves. Same word, two related but different counts.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/subgroup-03_2-takes-receipt01.json",
+          "receipt_sha256": "2aa0b4634493eba9b0b6e5a531ba9701cffb4405e79f8ddb98d7d14fb128f391",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/subgroup-03_2-take01.wav",
+              "sha256": "53c3a8c52beb7925170186895a25baa52d503ba57fd614dbf4eaad5885c2962d",
+              "frames": 1317120,
+              "sample_rate": 48000,
+              "seconds": 27.44
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/subgroup-03_2-take02.wav",
+              "sha256": "f2176d474893f26c806869059e03a6d1b4844e8937693e6e583b0e6523ce2edd",
+              "frames": 1328640,
+              "sample_rate": 48000,
+              "seconds": 27.68
+            }
+          ]
+        },
+        {
+          "cue": "04_1",
+          "script": "Now fix the horizontal flip. Which square symmetries give the same result whether we do them before or after that flip? Those moves form its centralizer.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/centralizer-04_1-takes-receipt01.json",
+          "receipt_sha256": "a2f93035df747d088ed90b0f415878ae182d42fd3f401314d8dec32bf7e29127",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/centralizer-04_1-take01.wav",
+              "sha256": "ceca0e195180ae92e34eeb7bb26d91c4168279f5dc22456106bcc52f241948a2",
+              "frames": 518400,
+              "sample_rate": 48000,
+              "seconds": 10.8
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/centralizer-04_1-take02.wav",
+              "sha256": "993156076e2f6daa43b57090e0010e5f25ac11d4d91b9e22fb5a84a630cb22e4",
+              "frames": 522240,
+              "sample_rate": 48000,
+              "seconds": 10.88
+            }
+          ]
+        },
+        {
+          "cue": "04_2",
+          "script": "The identity works. So do the half turn, the horizontal flip itself, and the vertical flip. But a quarter turn does not: it changes which reflection line we are using. The centralizer gathers exactly the moves that commute with this chosen move.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/centralizer-04_2-takes-receipt01.json",
+          "receipt_sha256": "bd467a50cc9c2961fcd2a807f0c981401dca8cbaa7fef7b045394933020f0248",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/centralizer-04_2-take01.wav",
+              "sha256": "2705d01f12df4a9a5491e2868c0f0d705a4e53a6f42b8491c14a89f676d24eb8",
+              "frames": 829440,
+              "sample_rate": 48000,
+              "seconds": 17.28
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/centralizer-04_2-take02.wav",
+              "sha256": "439a2585ec1e07c88d634f5ba63bb2be1375e09debabab526dcd2187cafc2c54",
+              "frames": 814080,
+              "sample_rate": 48000,
+              "seconds": 16.96
+            }
+          ]
+        },
+        {
+          "cue": "05_1",
+          "script": "A clock identifies numbers that differ by a whole number of turns.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/cosets-05_1-takes-receipt01.json",
+          "receipt_sha256": "8393900f900809b9626778b6b0d59be62d43e9cc3508b8a2c3b78b9a9641ba55",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/cosets-05_1-take01.wav",
+              "sha256": "51934cc5e139db1c17811254d5304d0d746a9642f4207a402dfc6277382f594b",
+              "frames": 211200,
+              "sample_rate": 48000,
+              "seconds": 4.4
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/cosets-05_1-take02.wav",
+              "sha256": "83b608db53c7a1fc10f23279514408c6b40b7fdd9e6f4296b4922711ed766684",
+              "frames": 211200,
+              "sample_rate": 48000,
+              "seconds": 4.4
+            }
+          ]
+        },
+        {
+          "cue": "05_2",
+          "script": "One, five and nine all land on the same position on a four-step clock. That is an equivalence class: a collection of things we have decided to treat as the same, according to a rule that is reflexive, symmetric and transitive.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/cosets-05_2-takes-receipt01.json",
+          "receipt_sha256": "205fd5cab0afb5bd133006bf44fb9d492ae4f3d1cccd9a4c537089b03d965682",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/cosets-05_2-take01.wav",
+              "sha256": "bc8f83656a0afc5a0fe43f3a52626bd1b3401a8fdc09f9b5dfa36277283bc034",
+              "frames": 733440,
+              "sample_rate": 48000,
+              "seconds": 15.28
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/cosets-05_2-take02.wav",
+              "sha256": "2c7ccb2f77c0378c33ca345f6a18feaccf87e287d4c2005ac1da45868da968d6",
+              "frames": 752640,
+              "sample_rate": 48000,
+              "seconds": 15.68
+            }
+          ]
+        },
+        {
+          "cue": "05_3",
+          "script": "A subgroup gives us a way to make classes of group elements. Say two moves are equivalent when one differs from the other by a move inside the subgroup. The classes are called cosets. If the group is finite, every coset has the same size as the subgroup, and the cosets partition the group.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/cosets-05_3-takes-receipt01.json",
+          "receipt_sha256": "9257b8eae56230d8fe8e01764afbd427516703a8c3e7da1f9cb6f8e9d256d922",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/cosets-05_3-take01.wav",
+              "sha256": "42c4545f19bf716b37867d05258f6412fa050841725d2c224cc061fae7714c69",
+              "frames": 975360,
+              "sample_rate": 48000,
+              "seconds": 20.32
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/cosets-05_3-take02.wav",
+              "sha256": "859c28cc47b8a74f21f5919813aa1c1c37242e1f7bf9954d5d23bef6e3a700b1",
+              "frames": 975360,
+              "sample_rate": 48000,
+              "seconds": 20.32
+            }
+          ]
+        },
+        {
+          "cue": "06_1",
+          "script": "We might try to multiply two classes by choosing one representative from each, multiplying those moves, and asking which class contains the result. But that only makes sense if the answer does not depend on our choices.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/ambiguous-06_1-takes-receipt01.json",
+          "receipt_sha256": "47da2164ede818818adf2a5796f41159898990d3d5ccef9110b2fdb3cc9ab23a",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/ambiguous-06_1-take01.wav",
+              "sha256": "b5c073d6156cd42a79b7850811a997fcbdd67bed2becc22d880a23c614504dda",
+              "frames": 679680,
+              "sample_rate": 48000,
+              "seconds": 14.16
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/ambiguous-06_1-take02.wav",
+              "sha256": "40136525fc57e854a47e22af971bd5e58faf43c8c201bfc6742c8429e11458af",
+              "frames": 660480,
+              "sample_rate": 48000,
+              "seconds": 13.76
+            }
+          ]
+        },
+        {
+          "cue": "06_2",
+          "script": "For the subgroup containing just the identity and our flip, it can depend on the choice. The identity and the flip lie in the same class. Multiply the class of the quarter turn using the identity, and you get the class of the quarter turn. Use the flip instead, and you get a different class. So this proposed class multiplication is ambiguous.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/ambiguous-06_2-takes-receipt01.json",
+          "receipt_sha256": "17f18f43d9839fecd116543cf49acf736a23a09d1bf451797d46fefc6370a303",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/ambiguous-06_2-take01.wav",
+              "sha256": "2eb0170a3c1c0d2473a30daee6d64e4369726f200ef3d21c39336d9000362608",
+              "frames": 1056000,
+              "sample_rate": 48000,
+              "seconds": 22.0
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/ambiguous-06_2-take02.wav",
+              "sha256": "ce683dc8c07db694b36e890070a025f65ec4198144fbc26c84e1b1a320544fe8",
+              "frames": 1086720,
+              "sample_rate": 48000,
+              "seconds": 22.64
+            }
+          ]
+        },
+        {
+          "cue": "07_1",
+          "script": "A normal subgroup is exactly the kind for which this multiplication is well defined. For the square, take all four rotations. There are two classes: rotations and reflections. Two rotations give a rotation; a rotation and a reflection give a reflection; two reflections give a rotation. These two classes form a quotient group.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/rotation-quotient-07_1-takes-receipt01.json",
+          "receipt_sha256": "4a25759eb7e0e12fa543c27fe16dedd59b940cbd1763d89e8321631488aba41f",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/rotation-quotient-07_1-take01.wav",
+              "sha256": "b1daa8ba954df2cd9e35136c4472c6aa771c349eb9dc94b1c4e57c44ab4be578",
+              "frames": 1182720,
+              "sample_rate": 48000,
+              "seconds": 24.64
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/rotation-quotient-07_1-take02.wav",
+              "sha256": "e429b7beeff888489810e1b9388239dc260ea8ff49ad1b75fa7a16e23e878e3a",
+              "frames": 1178880,
+              "sample_rate": 48000,
+              "seconds": 24.56
+            }
+          ]
+        },
+        {
+          "cue": "07_2",
+          "script": "The problem is not that the representative changed. The problem is that, after another move changes our point of view, the difference we agreed to ignore can turn into a difference we did not agree to ignore. A normal subgroup keeps every one of those transported differences inside the same subgroup. Then all choices of representative lead to the same class.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/rotation-quotient-07_2-takes-receipt01.json",
+          "receipt_sha256": "9145ebff4991c373f036fab8b763285eb5362aaf9b83a02bf85fdeb2ea453cbe",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/rotation-quotient-07_2-take01.wav",
+              "sha256": "a0b11813aaee1887346b7767cf7db5c90fd38ecfdd0adc33d8f4f4b7de1752ea",
+              "frames": 1136640,
+              "sample_rate": 48000,
+              "seconds": 23.68
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/rotation-quotient-07_2-take02.wav",
+              "sha256": "730942cb53a6874b38d556a77e8e6d8c3591cbef0eea50ec480f73a0b564a7a0",
+              "frames": 1128960,
+              "sample_rate": 48000,
+              "seconds": 23.52
+            }
+          ]
+        },
+        {
+          "cue": "08_1",
+          "script": "Imagine a vision system that should recognize this marked square after any quarter turn. Those rotated pictures belong to one class. Now mirror the square. Because this particular mark has no mirror symmetry even after a rotation, its mirror belongs to a different class. The quotient distinguishes rotation moves from reflection moves. Whether an image reveals that difference depends on the mark: a mirror-symmetric mark cannot.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/vision-08_1-takes-receipt01.json",
+          "receipt_sha256": "5b12fe1273d14fefd843e755fc9d81ed1faf6170e5226a8428d25c7cd47c92f1",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/vision-08_1-take01.wav",
+              "sha256": "db2b7f7ef3ccdee8779dc1b9d72cbe25c948574e242bcb8d2bb54d2669400b42",
+              "frames": 1432320,
+              "sample_rate": 48000,
+              "seconds": 29.84
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/vision-08_1-take02.wav",
+              "sha256": "63bf9f807f5c33aa1305c31a06362d029962446617d619bfffab62ec371ca7e5",
+              "frames": 1413120,
+              "sample_rate": 48000,
+              "seconds": 29.44
+            }
+          ]
+        },
+        {
+          "cue": "08_2",
+          "script": "The same language studies molecular symmetries, error-detecting codes, and transformations in engineering. Those applications have different groups and assumptions; the square is our model, not a proof that every real object has these eight symmetries. Gallian's book itself includes a check-digit application based on a different dihedral group.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/vision-08_2-takes-receipt01.json",
+          "receipt_sha256": "04b19e1c06778b6557004810db9d608d78d7174d691b62d566a60aed245003a3",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/vision-08_2-take01.wav",
+              "sha256": "a8a8ed3c9ce7d88ecd4c422b64fe11e61e23e3b61b2d5417b1d1c4269c7dc59c",
+              "frames": 1059840,
+              "sample_rate": 48000,
+              "seconds": 22.08
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/vision-08_2-take02.wav",
+              "sha256": "ca2f23a0db324d4dcfda987efc51840d1dccb9dd8d3ac35729f58897d5a8803c",
+              "frames": 1052160,
+              "sample_rate": 48000,
+              "seconds": 21.92
+            }
+          ]
+        },
+        {
+          "cue": "09_1",
+          "script": "Use a code that accepts three-bit strings only when they have an even number of ones. Send one zero one, with two ones. If the last bit flips, the receiver sees one zero zero, which has only one. The odd count reveals an error. But two flipped bits preserve the even count, so this check can miss them.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/parity-supplement-takes-receipt01.json",
+          "receipt_sha256": "d90c1b046f0d5c6b44f6f295e46bcbdf4e652edf3c54c4c1a6d71f9eb2d101fc",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/parity-supplement-take-01.wav",
+              "sha256": "ed1e1c43a9c00e9aca6d5ddb322be58f4d8487e0b1de80f8455629e12e962a0e",
+              "frames": 1056000,
+              "sample_rate": 48000,
+              "seconds": 22.0
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/parity-supplement-take-02.wav",
+              "sha256": "7be126334cd773e515a3db04528b69ed49dffa8c90a9c544f2ccf0d8e301bfcb",
+              "frames": 1032960,
+              "sample_rate": 48000,
+              "seconds": 21.52
+            }
+          ]
+        },
+        {
+          "cue": "10_1",
+          "script": "We began with moves of a square. A group let us compose them. A centralizer asked which moves can trade order. An equivalence relation let us group moves into classes. A normal subgroup made those classes into a new group without ambiguity. Abstract algebra gives us a precise way to decide which differences matter, and which ones we can safely forget.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/closing-takes-receipt01.json",
+          "receipt_sha256": "dbe34544fd75bf0bc444cf223c03de86da20313e764f44f7ba2f5e5124b6ccb6",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/closing-take-01.wav",
+              "sha256": "5a6c88a37772946b72ec81fa80cfac40ee60e75fee7f3988f0ed710476c75a5a",
+              "frames": 1182720,
+              "sample_rate": 48000,
+              "seconds": 24.64
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/closing-take-02.wav",
+              "sha256": "ea00dba4b93c4f8a87c57f535f21cb9348c607efb6e19dce35364854026d84fb",
+              "frames": 1175040,
+              "sample_rate": 48000,
+              "seconds": 24.48
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Exponential",
+      "script": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/exponential_magic/script.tsv",
+      "script_sha256": "077cd2f02e8b50745a71b439ef8badaed63f4df7a161b76d27ff44f884f781ec",
+      "cues": [
+        {
+          "cue": "00_1",
+          "script": "Before pocket calculators, engineers could multiply by moving two rulers. Line up a one with a two.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/opening-00_1-takes-receipt01.json",
+          "receipt_sha256": "c309fb62402ed8abf21564dca4af638609868375825897e014d7ba290bad9537",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/opening-00_1-take-01.wav",
+              "sha256": "4fbe8ee34287d7a1c0eb676324290295f2784aaeafc73d8ef5ab978bd95c8821",
+              "frames": 368640,
+              "sample_rate": 48000,
+              "seconds": 7.68
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/opening-00_1-take-02.wav",
+              "sha256": "88003b0b2447d07c0151f41b871e1a7f47f67fc5d18f1c9a4e566e354bc8ce5f",
+              "frames": 364800,
+              "sample_rate": 48000,
+              "seconds": 7.6
+            }
+          ]
+        },
+        {
+          "cue": "00_2",
+          "script": "Find a three on the moving scale, and beneath it is a six. Why does sliding add distances while the numbers multiply? The answer leads to a function that describes growth, decay, charging circuits, heat and even rotations. The exponential is not a bag of unrelated miracles. One idea sits underneath them.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/opening-00_2-corrected-takes-receipt01.json",
+          "receipt_sha256": "aa8a50fcd4706d031764d83f76786c120d206db929e75ce475ab393f623cd9f9",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/opening-00_2-corrected-take-01.wav",
+              "sha256": "52b0f6ab1bbf8ab2960a6ca8c2fab30374f27a453f5efd2ee4dc315d5fecbabb",
+              "frames": 1075200,
+              "sample_rate": 48000,
+              "seconds": 22.4
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/opening-00_2-corrected-take-02.wav",
+              "sha256": "f31a9d83647b6bd38f168e27c740d79ed4add771baa3fc5db45c189bf1111149",
+              "frames": 1071360,
+              "sample_rate": 48000,
+              "seconds": 22.32
+            }
+          ]
+        },
+        {
+          "cue": "01_1",
+          "script": "If a quantity doubles for each unit of time, then three units multiply it by two, three times: eight. Two more units multiply it by four.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/property-01_1-takes-receipt01.json",
+          "receipt_sha256": "db823705082876c24a0dd8c0cd6c00c42783f659f311d0a6f813e2db0c5a40d9",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/property-01_1-take01.wav",
+              "sha256": "100c2ece6a14d5467337113c09ffc10aed101541fe805c2375b543997dfbd6db",
+              "frames": 510720,
+              "sample_rate": 48000,
+              "seconds": 10.64
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/property-01_1-take02.wav",
+              "sha256": "a198ca1ecc38c1352698d890db9891e4b993240e7561df667dcc326cd39281b5",
+              "frames": 503040,
+              "sample_rate": 48000,
+              "seconds": 10.48
+            }
+          ]
+        },
+        {
+          "cue": "01_2",
+          "script": "Together the five units multiply by thirty-two. That is the rule: the multiplier for one interval followed by another is the product of their separate multipliers. In symbols, f of x plus y equals f of x times f of y.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/property-01_2-takes-receipt01.json",
+          "receipt_sha256": "f70631a596f5d98587259dfa7b9824c1453ca0694555f5993270195a6250dfa6",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/property-01_2-take01.wav",
+              "sha256": "3cd88f1f37d34e40d08b3500786b0d304d84742bb261d6782a88ad7b4837d56d",
+              "frames": 848640,
+              "sample_rate": 48000,
+              "seconds": 17.68
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/property-01_2-take02.wav",
+              "sha256": "b424074741ab1888805496cc4e0be0ee51c16930b987577e2c5850c4109c4c3b",
+              "frames": 833280,
+              "sample_rate": 48000,
+              "seconds": 17.36
+            }
+          ]
+        },
+        {
+          "cue": "01_3",
+          "script": "That rule is what turns adding lengths into multiplying numbers. A logarithmic ruler puts a number at a position proportional to its logarithm. A physical slide adds positions, so its markings multiply. Reversing the idea, a logarithm converts multiplication back into addition.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/property-01_3-takes-receipt01.json",
+          "receipt_sha256": "089c8030787a32d4234926f5062e4d6520c63cd8107915e6f9ed688ba1108a72",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/property-01_3-take01.wav",
+              "sha256": "7293a90ebd172c0da3a49841c042fef6d0e70671a8935e87f982efc7e6eded4e",
+              "frames": 975360,
+              "sample_rate": 48000,
+              "seconds": 20.32
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/property-01_3-take02.wav",
+              "sha256": "4a41a17de11f88e2066d6e9f8426088d4261a1357433c2cfbaf2ef2c85c7b603",
+              "frames": 967680,
+              "sample_rate": 48000,
+              "seconds": 20.16
+            }
+          ]
+        },
+        {
+          "cue": "02_1",
+          "script": "Every positive exponential base has the addition-to-multiplication rule. What makes the base e special? Measure x in the natural units where the curve starts at one and its initial slope is also one. Then the same little step has the same proportional effect wherever we stand.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/derivative-02_1-takes-receipt01.json",
+          "receipt_sha256": "c310796228edd502aaf11a6dea6bc74a6e6a68e5682fd93f1acdde0b4d440128",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/derivative-02_1-take01.wav",
+              "sha256": "907ac27ed71bc52b0a49211c54fb8ff96d2e5408b4d10520ca0fcd9d1c68a0a4",
+              "frames": 929280,
+              "sample_rate": 48000,
+              "seconds": 19.36
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/derivative-02_1-take02.wav",
+              "sha256": "b3f4a7f86c01bc3b8efb27490b5cc55f7b2f390113e2fedff8149ddac1d16338",
+              "frames": 921600,
+              "sample_rate": 48000,
+              "seconds": 19.2
+            }
+          ]
+        },
+        {
+          "cue": "02_2",
+          "script": "For a differentiable function with the multiplication rule, compare f at x plus a tiny h with f at x. The first is f of x times f of h. So the change near x is f of x times the change near zero. Divide by h and let h shrink: f prime of x equals f of x times f prime of zero. Choose the one with initial slope one, and its derivative is itself.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/derivative-02_2-takes-receipt01.json",
+          "receipt_sha256": "3054074df41c23b968639fa26b5c99df72335365f1ec2e2b97bd44bc662a5f0b",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/derivative-02_2-take01.wav",
+              "sha256": "394d9e5171e13072e7bdad6154b435486730fed8e9ded064142bfddf682d115e",
+              "frames": 1463040,
+              "sample_rate": 48000,
+              "seconds": 30.48
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/derivative-02_2-take02.wav",
+              "sha256": "38b090bc36405a62692a7d0bf1f8908617883a9541702c6a8f6a12cbc1f22be0",
+              "frames": 1436160,
+              "sample_rate": 48000,
+              "seconds": 29.92
+            }
+          ]
+        },
+        {
+          "cue": "03_1",
+          "script": "There are several ways to build this function. One starts with repeated small multipliers: for a fixed number x, take one plus x divided by n and multiply that by itself n times.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/definitions-03_1-takes-receipt01.json",
+          "receipt_sha256": "00a0f93269f56269b43ab688531d524d2b7a721637fa39fdc04535d1a954d50d",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_1-take01.wav",
+              "sha256": "53c768a71d17473b54f640d8067203d55994fc34931261d74332af3b0e7209c8",
+              "frames": 675840,
+              "sample_rate": 48000,
+              "seconds": 14.08
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_1-take02.wav",
+              "sha256": "dbb527f801fe1afb81d2bc28bfbf767d5512eb00cb4ee0abbc0815ffd68cc9ad",
+              "frames": 672000,
+              "sample_rate": 48000,
+              "seconds": 14.0
+            }
+          ]
+        },
+        {
+          "cue": "03_2",
+          "script": "As n grows, the result approaches e to the x.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/definitions-03_2-takes-receipt01.json",
+          "receipt_sha256": "000bdf6f5ab00ccadad947e284321ef6b334ab73e6cb4e1c579be2094054f142",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_2-take01.wav",
+              "sha256": "73e69fb14de4c6f43c25aad2c6670cbd9ea998fef36a88b8bfad999aba575a31",
+              "frames": 203520,
+              "sample_rate": 48000,
+              "seconds": 4.24
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_2-take02.wav",
+              "sha256": "36811b1ea45f26ffca1df7ace9b8d34929e626ce5acc962591bef4138f0060d1",
+              "frames": 203520,
+              "sample_rate": 48000,
+              "seconds": 4.24
+            }
+          ]
+        },
+        {
+          "cue": "03_3",
+          "script": "A second asks for the curve whose height and slope match everywhere, starting at height one. A third adds a series: one, plus x, plus x squared over two factorial, plus x cubed over three factorial, and so on.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/definitions-03_3-takes-receipt01.json",
+          "receipt_sha256": "f2ca45b53874885004c368233842294fd331b6573dafdd0a2a59f589185953eb",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_3-take01.wav",
+              "sha256": "515a925ec3432e62017f4176c6f57dd7cf0c717f0a4ecdd04f2993b8ae8580cf",
+              "frames": 764160,
+              "sample_rate": 48000,
+              "seconds": 15.92
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_3-take02.wav",
+              "sha256": "d756b8b07ea17860ee64e910bcca9422208424099bc54fb9082296ac817f4073",
+              "frames": 791040,
+              "sample_rate": 48000,
+              "seconds": 16.48
+            }
+          ]
+        },
+        {
+          "cue": "03_4",
+          "script": "They meet because they describe the same growth law. The series can be differentiated term by term and gives back itself with starting value one. Uniqueness of that initial-value problem identifies it with the rate-law curve. The small-step limit reaches the same curve. These are three constructions of one object, not three unrelated coincidences.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/definitions-03_4-takes-receipt01.json",
+          "receipt_sha256": "cdf2ab05b472fa248da928715e95b7e34c36de130bf72ab0ddf6ed2807922593",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_4-take01.wav",
+              "sha256": "8532f5520e66fc78970db3ce95d76d9cf9530bfbec5a48ac3fa7196842962854",
+              "frames": 1148160,
+              "sample_rate": 48000,
+              "seconds": 23.92
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_4-take02.wav",
+              "sha256": "b33981803d5236222c385f7fea9ca9c6e3482bd4c72db714d8dc91f536ad1a13",
+              "frames": 1152000,
+              "sample_rate": 48000,
+              "seconds": 24.0
+            }
+          ]
+        },
+        {
+          "cue": "04_1",
+          "script": "The same pattern turns up whenever the instantaneous rate is proportional to what remains or what has accumulated. A radioactive sample with a fixed decay constant has an exponentially declining expected number of undecayed nuclei. An ideal capacitor charging through a resistor approaches its final voltage with an exponential gap. Under Newton's cooling model, the temperature difference from a constant-temperature room decays exponentially. A first-order chemical reaction follows an exponential concentration under its model assumptions. Money under a constant continuously compounded rate grows by the same equation; real interest rates and cash flows need not be constant.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/applications-04_1-takes-receipt01.json",
+          "receipt_sha256": "4126c6fb6f4487afd3736f7796974835d073a016b280eca0a9a4e4105ec6348d",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/applications-04_1-take01.wav",
+              "sha256": "6dcb6e3a6a798dc622b901083550952f06dd88f71b7082eeb82301ea08cd608e",
+              "frames": 2150400,
+              "sample_rate": 48000,
+              "seconds": 44.8
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/applications-04_1-take02.wav",
+              "sha256": "46938df8086ae34e81e2dd8f3917565a53cd763a001c1adfa96682ec67ad7276",
+              "frames": 2131200,
+              "sample_rate": 48000,
+              "seconds": 44.4
+            }
+          ]
+        },
+        {
+          "cue": "04_2",
+          "script": "And exponential growth is not a promise of growth forever. In a population, limited resources or changing behavior can make the simple model fail.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/applications-04_2-takes-receipt01.json",
+          "receipt_sha256": "fcf9599b390cd24199cd7f94e62a91082f0c50fd619fa67d0dd56ac0337b3f57",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/applications-04_2-take01.wav",
+              "sha256": "649711fba1cd07686a6e5700daaedfd41b96c465f1a81cc8b59e7bc482079e4e",
+              "frames": 499200,
+              "sample_rate": 48000,
+              "seconds": 10.4
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/applications-04_2-take02.wav",
+              "sha256": "4db813b2767de9d4b019f3a15ab3a366d1162cbe31519155e62ee92e43d417a5",
+              "frames": 506880,
+              "sample_rate": 48000,
+              "seconds": 10.56
+            }
+          ]
+        },
+        {
+          "cue": "05_1",
+          "script": "Put an imaginary unit in the exponent, and the picture changes.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/rotation-05_1-takes-receipt01.json",
+          "receipt_sha256": "c496afd32f485a2b2a8dda058d0fd5e136a4b7b38380cdd5bd8fdb8ac863b4fd",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/rotation-05_1-take01.wav",
+              "sha256": "998e56adc8c53b1efa0ad066de2a7ea704b27692a179864dee00ed24aaf818da",
+              "frames": 207360,
+              "sample_rate": 48000,
+              "seconds": 4.32
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/rotation-05_1-take02.wav",
+              "sha256": "7e27acf065d74052271560ade31da9baed3bc53e9bf1492852347d700c3425f0",
+              "frames": 199680,
+              "sample_rate": 48000,
+              "seconds": 4.16
+            }
+          ]
+        },
+        {
+          "cue": "05_2",
+          "script": "The exponential traces a circle: cosine t plus i sine t. Multiplying by i turns an arrow through a right angle, so the same derivative rule now says the motion points along the circle rather than straight outward. Change in proportion to the current state can describe rotation as well as growth.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/rotation-05_2-takes-receipt01.json",
+          "receipt_sha256": "3b0c356c10a51ca957fa49efda923c0020231a665155a3472c8ded6aed86725a",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/rotation-05_2-take01.wav",
+              "sha256": "4c823a9b821bdf0e72858aa162012f12328d2843a216a64d4cddaaa9d5b3e622",
+              "frames": 1002240,
+              "sample_rate": 48000,
+              "seconds": 20.88
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/rotation-05_2-take02.wav",
+              "sha256": "fd76742720a76d0caf93fb15ba1f1c5c72f8eb8721b431f9155404d812c9ae0f",
+              "frames": 1021440,
+              "sample_rate": 48000,
+              "seconds": 21.28
+            }
+          ]
+        },
+        {
+          "cue": "06_1",
+          "script": "One rule links the ruler, the rate law, and the curve: add inputs, multiply outputs. The exponential is the forward machine. But what if we know the output and ask for the input? That is the logarithm. On the real number line it works beautifully. On a circle, the same destination can hide more than one journey.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/closing-takes-receipt01.json",
+          "receipt_sha256": "f4ac2d6d1cfb6a9bbe3462d0b5026875786c964dcecb8118e1fb62cef6fd072f",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/closing-take-01.wav",
+              "sha256": "89ca35d814524d0a9d40f353508224050b33da0a9ded73c542e8ec61c4e7322d",
+              "frames": 1144320,
+              "sample_rate": 48000,
+              "seconds": 23.84
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/closing-take-02.wav",
+              "sha256": "84b895574df15d33d3c20a873f6548babbc9500841de02a5c036a9d069fb5043",
+              "frames": 1152000,
+              "sample_rate": 48000,
+              "seconds": 24.0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Logarithm",
+      "script": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/logarithm_mysteries/script.tsv",
+      "script_sha256": "15eb9ae95f70979792771e4eda35af03fb4b0d5a517aaadda4dbb5471649e6e7",
+      "cues": [
+        {
+          "cue": "00_1",
+          "script": "Suppose a balance grows continuously at a rate equal to its current amount per year. How long until it doubles?",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/opening-00_1-takes-receipt01.json",
+          "receipt_sha256": "e01c6aa5137b2b5918c5c22c7ff5d38ef8b55cc8ffa8159e020b360901b9c35f",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/opening-00_1-take01.wav",
+              "sha256": "940d3940ec281d3d43edd97b495a0b68b176fa3711e1a6ec9fb8dec23a932235",
+              "frames": 376320,
+              "sample_rate": 48000,
+              "seconds": 7.84
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/opening-00_1-take02.wav",
+              "sha256": "3a619d971ff0372e61abca0792adef68f99169fae7ba4724c9d122f1ef5a733d",
+              "frames": 380160,
+              "sample_rate": 48000,
+              "seconds": 7.92
+            }
+          ]
+        },
+        {
+          "cue": "00_2",
+          "script": "After a time t, its multiplier is e to the t, so doubling asks when e to the t equals two. The answer is the natural logarithm of two, about zero point six nine years. A logarithm finds the missing input of an exponential. But what if the input also records turns, and several different numbers lead to the same point? Then undoing the exponential needs a choice. And when numbers become matrices, even the question ‘can it be undone?’ gets subtler.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/opening-00_2-takes-receipt01.json",
+          "receipt_sha256": "f81ed9a533d46a16ce4e6679cf0c1b6ebee81725eaf24d5335cd39e5d50420b8",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/opening-00_2-take01.wav",
+              "sha256": "a52cd14748e36ffdb4f79bd6583aa65c6b16efec72c0e0111e4f0e069c42f8e0",
+              "frames": 1624320,
+              "sample_rate": 48000,
+              "seconds": 33.84
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/opening-00_2-take02.wav",
+              "sha256": "b6b69f23f3ad174557803bc9864bf3c6deb200f30071967b99daf70dcc6463cc",
+              "frames": 1632000,
+              "sample_rate": 48000,
+              "seconds": 34.0
+            }
+          ]
+        },
+        {
+          "cue": "01_1",
+          "script": "The real exponential rises continuously from values near zero to arbitrarily large values. It never reaches zero, and it never visits a negative output. So every positive real number has exactly one real input: its natural logarithm. What input gives e?",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/real-inverse-01_1-takes-receipt01.json",
+          "receipt_sha256": "fef8e51ce2653990259de8188cb07bfbf3f293e809f3476f1e439b2970b0bb6d",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/real-inverse-01_1-take01.wav",
+              "sha256": "6afc4737639af22d66e76079c5b973afbff869f34517c8536181aabaad445f8a",
+              "frames": 948480,
+              "sample_rate": 48000,
+              "seconds": 19.76
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/real-inverse-01_1-take02.wav",
+              "sha256": "50f4c3ca628aedf2ecab9caa2fbfca8594fcf862bd78d4abb9628f20943d2845",
+              "frames": 971520,
+              "sample_rate": 48000,
+              "seconds": 20.24
+            }
+          ]
+        },
+        {
+          "cue": "01_2",
+          "script": "The logarithm of e is one. The logarithm of one is zero. The logarithm of zero is not a real number, nor is the real logarithm of a negative number.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/real-inverse-01_2-takes-receipt01.json",
+          "receipt_sha256": "bb08d675ba7f3919f6a652bf7c5c9739569d353f002fafcea94d3978ed313121",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/real-inverse-01_2-take01.wav",
+              "sha256": "92730e8756874ee40acf30522d3d1328bd5f557ad1d24fa7c8b380fc0ac529dd",
+              "frames": 587520,
+              "sample_rate": 48000,
+              "seconds": 12.24
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/real-inverse-01_2-take02.wav",
+              "sha256": "d21bc48fb97070e5fe164392a1ec5ad9a30b30461715d4715ea6635cd3a50674",
+              "frames": 576000,
+              "sample_rate": 48000,
+              "seconds": 12.0
+            }
+          ]
+        },
+        {
+          "cue": "01_3",
+          "script": "Since exponentials turn adding inputs into multiplying outputs, their real inverse turns multiplication into addition: log of a times b is log a plus log b, when a and b are positive. That is the idea built into the slide rule.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/real-inverse-01_3-takes-receipt01.json",
+          "receipt_sha256": "51a36b3ec5058f19759b72f67fd3fb9ffcc838931baedf4651d28f66da544d02",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/real-inverse-01_3-take01.wav",
+              "sha256": "9d64424cac46ae9c8f1a9f0ce749f15572e971e9862e4f31162858c9c196a8e6",
+              "frames": 875520,
+              "sample_rate": 48000,
+              "seconds": 18.24
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/real-inverse-01_3-take02.wav",
+              "sha256": "456ff3f24cb94a99ed955a75496511c9c973dc7f5b8f327c3a076b496ba238fb",
+              "frames": 867840,
+              "sample_rate": 48000,
+              "seconds": 18.08
+            }
+          ]
+        },
+        {
+          "cue": "02_1",
+          "script": "For complex numbers, the exponential can rotate as well as scale. Add two pi i to the input and the output makes one complete extra turn, returning to the same point. So the exponential of zero and the exponential of two pi i are both one. There is no single global inverse that returns every original input.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/winding-02_1-takes-receipt01.json",
+          "receipt_sha256": "1b4e0aa36cd4f6378f4e7b4d2c1dd51d4769bbd2cd4847787ffa293029e22558",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/winding-02_1-take01.wav",
+              "sha256": "5d7ecdd1c9ed57f5ff0dc7b1dc34a20ff01f34428cefaaf8f5cd886642452a7f",
+              "frames": 1121280,
+              "sample_rate": 48000,
+              "seconds": 23.36
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/winding-02_1-take02.wav",
+              "sha256": "3cdd1691535004c4c7276a7874f40acedf40577353b2c17a913b9997091d6422",
+              "frames": 1086720,
+              "sample_rate": 48000,
+              "seconds": 22.64
+            }
+          ]
+        },
+        {
+          "cue": "02_2",
+          "script": "For a nonzero complex number with radius r and one angle theta, every logarithm has real part log r and imaginary part theta plus any whole number of complete turns. Zero is still excluded: the complex exponential never outputs zero.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/winding-02_2-takes-receipt01.json",
+          "receipt_sha256": "8fc94302da9e700174ef09f0d15b7b9c18413abdce16e73274bb1bd651f82752",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/winding-02_2-take01.wav",
+              "sha256": "24abf61817b33aacc56f1013d28db80969df31d30143c38df6ddb2ed34484ed3",
+              "frames": 894720,
+              "sample_rate": 48000,
+              "seconds": 18.64
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/winding-02_2-take02.wav",
+              "sha256": "ab1f13f83ba2ef48c15335165d773d8859449c3a022106b1266bebf5246332bd",
+              "frames": 898560,
+              "sample_rate": 48000,
+              "seconds": 18.72
+            }
+          ]
+        },
+        {
+          "cue": "03_1",
+          "script": "To make one continuous choice, we restrict where we allow ourselves to travel. A common choice removes the nonpositive real axis and uses angles strictly between minus pi and pi. On that slit plane, the principal logarithm is a single analytic function. The cut marks where our chosen angle would jump; it is a choice of domain, not a crack in space.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/branch-03_1-takes-receipt01.json",
+          "receipt_sha256": "62eb7c81f24380e79fddf2cc93acdbcf61ae5e4e079e74152140f88d563399fc",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/branch-03_1-take01.wav",
+              "sha256": "d79fbcbecbbb6b02dfd991a673c4062bed1b9a25b4f5e310cde2f8c2ee3c1ac7",
+              "frames": 1178880,
+              "sample_rate": 48000,
+              "seconds": 24.56
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/branch-03_1-take02.wav",
+              "sha256": "4b3ac414d225c8f0320d3b982b9bcc5319762f59934fc573e0a0180222ee43b9",
+              "frames": 1190400,
+              "sample_rate": 48000,
+              "seconds": 24.8
+            }
+          ]
+        },
+        {
+          "cue": "03_2",
+          "script": "Why do we need a restriction? Follow a continuously unwrapped angle around a full loop. It comes back two pi higher even though the point is where it started. A single-valued continuous choice cannot assign both values to that same point.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/branch-03_2-takes-receipt01.json",
+          "receipt_sha256": "3bd8d673d92c3d6dde01ee2d49b889d8ba005765c399e9721a3894178aff5fe2",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/branch-03_2-take01.wav",
+              "sha256": "d596916cbd17511d152c5ace88945fe373021b5f607126e9281ec37113aaa839",
+              "frames": 779520,
+              "sample_rate": 48000,
+              "seconds": 16.24
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/branch-03_2-take02.wav",
+              "sha256": "932a59abbe71fe05b6c55084ad624a4e5e78761d787d2b32718dec09884579b9",
+              "frames": 779520,
+              "sample_rate": 48000,
+              "seconds": 16.24
+            }
+          ]
+        },
+        {
+          "cue": "04_1",
+          "script": "Even after choosing a branch, log of a product need not equal the sum of the chosen logs. If two angles are each three quarters of pi, their sum is one and a half pi.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/product-04_1-takes-receipt01.json",
+          "receipt_sha256": "b0c030cffd5fff58309b788dd5bfea39ad0adcb36b9086b7c39d12035ddd5766",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/product-04_1-take01.wav",
+              "sha256": "b425238909925a690851d387f8ca03172d1bc318ebb9e273d9f453857da1fcae",
+              "frames": 579840,
+              "sample_rate": 48000,
+              "seconds": 12.08
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/product-04_1-take02.wav",
+              "sha256": "28f2e848fb31bc4a3f2753cfddf31a3b81c7fe6b2debc3238479d95006eb20dd",
+              "frames": 579840,
+              "sample_rate": 48000,
+              "seconds": 12.08
+            }
+          ]
+        },
+        {
+          "cue": "04_2",
+          "script": "The product lands at the same point as minus half pi. On the principal branch the two answers differ by one full turn: two pi i. The real rule did not become nonsense; its domain and the meaning of the logarithm changed.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/product-04_2-takes-receipt01.json",
+          "receipt_sha256": "3da482143eec4406b8e7bbb90fe8d756cc33887c825d137e80f0d1e178be1ae2",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/product-04_2-take01.wav",
+              "sha256": "26a08f0e47664d992e48ef4315ed280ae1ede56e308d2da1b6fcedce285d57eb",
+              "frames": 783360,
+              "sample_rate": 48000,
+              "seconds": 16.32
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/product-04_2-take02.wav",
+              "sha256": "36ab4b71f3589c4577d125decac18bc23cdc8e33305ed1dbcd926b4b867b4ad5",
+              "frames": 779520,
+              "sample_rate": 48000,
+              "seconds": 16.24
+            }
+          ]
+        },
+        {
+          "cue": "05_1",
+          "script": "For a square matrix A, a matrix logarithm means a matrix X whose matrix exponential is A. These can be non-unique even among real matrices: doing nothing and making a full turn both return a two-dimensional grid to its starting position.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/matrix-05_1-takes-receipt01.json",
+          "receipt_sha256": "204f50b14d401f269041ecd11d0b5bbb5f2c5dcec6e7ae32b5e6f7a078395b1d",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/matrix-05_1-take01.wav",
+              "sha256": "eae844b0b5c289133e2f33ac453c0f22f0009897f46172ef06bda814b984566b",
+              "frames": 871680,
+              "sample_rate": 48000,
+              "seconds": 18.16
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/matrix-05_1-take02.wav",
+              "sha256": "5295056a8f67bb199425843fe2d515cbeffa8f9768a7852e4143a70c4989d64f",
+              "frames": 871680,
+              "sample_rate": 48000,
+              "seconds": 18.16
+            }
+          ]
+        },
+        {
+          "cue": "05_2",
+          "script": "Some transformations cannot be reached by exponentiating any real matrix. A mirror reflection has negative determinant, while the determinant of a real matrix exponential is always positive. But if we allow complex matrices, that same reflection can have a complex logarithm. So the answer depends on what kind of logarithm we ask for.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/matrix-05_2-takes-receipt01.json",
+          "receipt_sha256": "6a61da3e2dd78d8947025d3756f4a2508ad336a0faae40a48d7e99de57581785",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/matrix-05_2-take01.wav",
+              "sha256": "1fe30065f608540b417b82be322929c7818b673a5f4d8de8fd3f3b3351258109",
+              "frames": 1125120,
+              "sample_rate": 48000,
+              "seconds": 23.44
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/matrix-05_2-take02.wav",
+              "sha256": "e5cb63e94b2808ca59b9993b0c77ba3830402d40ac7a0b85a8a063848bca7ac1",
+              "frames": 1125120,
+              "sample_rate": 48000,
+              "seconds": 23.44
+            }
+          ]
+        },
+        {
+          "cue": "06_1",
+          "script": "The real logarithm reverses growth. In the complex plane it must also account for turns. With matrices it asks which transformations a continuous exponential motion can reach. The mystery is not that the inverse failed. It is that we discovered what information the forward map can forget.",
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/closing-06_1-takes-receipt01.json",
+          "receipt_sha256": "1d0265702ddabee3d6f8c8dbf180841b878a53edd013ddab4ae5f2bc434cc219",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/closing-06_1-take01.wav",
+              "sha256": "36207ed3ddeca0a433fb9013fcfa04f4e3f7de51b81bf1954904f8f8e00bb22c",
+              "frames": 990720,
+              "sample_rate": 48000,
+              "seconds": 20.64
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/closing-06_1-take02.wav",
+              "sha256": "0632dba613e2907ba8ebcb33bfd74b9b279aff4c782bfb6a05f686b839b07a21",
+              "frames": 986880,
+              "sample_rate": 48000,
+              "seconds": 20.56
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Complex analysis",
+      "script": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/complex_analysis_visual/script.tsv",
+      "script_sha256": "5722bc1c2b1844bfc7be96ee63d6b3c847f1448a98fd94486d89108da320b931",
+      "groups": [
+        {
+          "name": "Opening",
+          "covered_script_cues": [
+            "00_1"
+          ],
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/opening-takes-receipt01.json",
+          "receipt_sha256": "3e7ab8121126840ab9fe0b5a7b7207d1c8c64e441f78e8447bd90acd3f308e8e",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/raw/opening-take-01.wav",
+              "sha256": "4e2a2652ecc37d3b5516e194c5829aa4921aa7373496762097a017f4d343be15",
+              "frames": 894720,
+              "sample_rate": 48000,
+              "seconds": 18.64
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/raw/opening-take-02.wav",
+              "sha256": "f218918e52e8a9098d861a8313e984f053fee720eeddd0515a019d68debb0bcb",
+              "frames": 894720,
+              "sample_rate": 48000,
+              "seconds": 18.64
+            }
+          ]
+        },
+        {
+          "name": "Color examples addition",
+          "covered_script_cues": [
+            "01_2"
+          ],
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/additional-phase-examples-takes-receipt01.json",
+          "receipt_sha256": "77ee2743cb6df1be6c9aafe24a1f79fa71ce2c83b4357d84e9523f3ae62a795b",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/raw/additional-phase-examples-take-01.wav",
+              "sha256": "b5761f8ff33442e1a2a9a8c5f73469909a3a9d15866161cead119ae7deb83ea8",
+              "frames": 698880,
+              "sample_rate": 48000,
+              "seconds": 14.56
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/raw/additional-phase-examples-take-02.wav",
+              "sha256": "1ec3152d16478335c522481d9e6a282fedd7e6f8005938daa8e570405dba2258",
+              "frames": 679680,
+              "sample_rate": 48000,
+              "seconds": 14.16
+            }
+          ]
+        },
+        {
+          "name": "Remaining draft",
+          "covered_script_cues": [
+            "01_1",
+            "02_1",
+            "02_2",
+            "03_1",
+            "03_2",
+            "04_1",
+            "04_2",
+            "05_1",
+            "05_2",
+            "05_3",
+            "06_1",
+            "06_2",
+            "07_1"
+          ],
+          "receipt": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/remaining-draft-takes-receipt01.json",
+          "receipt_sha256": "6b989038cd8f680c3b283825197dac067edf871937d157e6500acec3f292bc1f",
+          "takes": [
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/raw/remaining-draft-take-01.wav",
+              "sha256": "9fd6d8073ca6b64a26dad98827ea4d19757f0bc20154af55cff71f71150b3da7",
+              "frames": 13512960,
+              "sample_rate": 48000,
+              "seconds": 281.52
+            },
+            {
+              "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/raw/remaining-draft-take-02.wav",
+              "sha256": "473156495372647bf9f2073e761ea97489c905d0bf83ae0a97075b3fd9661865",
+              "frames": 13463040,
+              "sample_rate": 48000,
+              "seconds": 280.48
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

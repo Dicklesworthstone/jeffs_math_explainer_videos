@@ -1,0 +1,261 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
+@@ -16,8 +16,9 @@
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Plane, carded, dot, fact, fade_in_all, fade_out_all, faded_line, flat, hero, line_style, pause, pole, pole_mark,
+-    precisely_lifted, precisely_over, predict, reading_window, say, shift_all, tween_linear, value, wait_until,
++    Plane, carded, dot, fact, fade_in_all, fade_out_all, faded_line, flat, ground, hero, line_style, pause, pole,
++    pole_mark, precisely_lifted, precisely_over, predict, reading_window, say, shift_all, tween_linear, value,
++    wait_until,
+ };
+ use super::the_bump::{POLE_I, POLE_MINUS_I};
+ use crate::model::{self, C, ZERO, arc_bound};
+@@ -209,9 +210,32 @@
+ /// Where "R" sits beside the spoke from 0 to the walking point at angle
+ /// `th`: past its middle, on the clockwise side (below it at the start). Past the middle
+ /// because the middle of the upright spoke, at R = 2, is the pole at i.
++fn r_name_z(r: f64, th: f64) -> C {
++    C::polar(r * 0.72, th) + C::polar(0.25, th - PI / 2.0)
++}
++
++/// The same, as a scene point.
+ fn r_name_at(p: &Plane, r: f64, th: f64) -> Vec3 {
+-    p.p(C::polar(r * 0.72, th) + C::polar(0.25, th - PI / 2.0))
+-}
++    p.p(r_name_z(r, th))
++}
++
++/// The walk's angles over which "R" comes in. On the clockwise side it starts under the segment
++/// and has to cross it, so it stays away until that is over; until then the "R" that names the
++/// segment's end also names the spoke lying along it.
++const R_NAME_SHOWN: [f64; 2] = [0.28, 0.42];
++
++/// How much of "R" and its backing shows at walk angle `th`.
++fn r_name_opacity(th: f64) -> f64 {
++    ((th - R_NAME_SHOWN[0]) / (R_NAME_SHOWN[1] - R_NAME_SHOWN[0])).clamp(0.0, 1.0)
++}
++
++/// How far left of the axis the pole's "i" is written, and how far right "−i", in plane units.
++const POLE_NAME_X: f64 = -0.28;
++const MINUS_POLE_NAME_X: f64 = 0.36;
++/// Dark backings under the walk's two names, the pole mark's own device, in scene units. The axis
++/// goes behind "R" and the spoke behind "i", so neither line ever runs through lettering.
++const R_BACK: f64 = 0.135;
++const I_BACK: f64 = 0.1;
+ 
+ /// The graph of `f` with the area under it shaded: `[area, curve]`.
+ fn area(stage: &mut Stage<'_>, g: &Frame2, f: impl Fn(f64) -> f64) -> [Mob; 2] {
+@@ -325,8 +349,8 @@
+         let inside = pole_mark(stage, p.p(C::new(0.0, 1.0)));
+         let outside = pole_mark(stage, p.p(C::new(0.0, -1.0)));
+         let pole_names = [
+-            kit.text(stage, POLE_I, 24.0, pole(), p.p(C::new(-0.28, 1.0)))?,
+-            kit.text(stage, POLE_MINUS_I, 24.0, pole(), p.p(C::new(0.36, -1.0)))?,
++            kit.text(stage, POLE_I, 24.0, pole(), p.p(C::new(POLE_NAME_X, 1.0)))?,
++            kit.text(stage, POLE_MINUS_I, 24.0, pole(), p.p(C::new(MINUS_POLE_NAME_X, -1.0)))?,
+         ];
+         fade_in_all(stage, &inside, 0.3)?;
+         fade_in_all(stage, &outside, 0.3)?;
+@@ -367,6 +391,8 @@
+                 .build(),
+         );
+         let r_name = kit.tex(stage, R_TEX, 24.0, Palette::ink(), &[], r_name_at(&p, r, 0.0))?;
++        let r_back = dot(stage, r_name_at(&p, r, 0.0), R_BACK, ground());
++        let i_back = dot(stage, p.p(C::new(POLE_NAME_X, 1.0)), I_BACK, ground());
+         let u_axis = stage.arena_mut().add(
+             polyline(vec![u.p(u.x.0, 0.0), u.p(u.x.1, 0.0)])
+                 .style(faded_line(Palette::dim(), 2.0, 0.9))
+@@ -378,8 +404,16 @@
+                 .style(line_style(Palette::ink(), 3.0))
+                 .build(),
+         );
+-        fade_in_all(stage, &[zdot, spoke, r_name, zsq, u_axis, along], 0.4)?;
++        // the spoke sweeps every point of the half disk, so it has to pass the pole and its name:
++        // rooted first, it goes behind them and behind the segment's arrow
++        stage.add_to_scene(spoke)?;
++        for m in [arrows[0], i_back, inside[0], inside[1], pole_names[0]] {
++            stage.add_to_scene(m)?;
++        }
++        fade_in_all(stage, &[zdot, spoke, zsq, u_axis, along], 0.4)?;
+         stage.add_to_scene(trace)?;
++        stage.add_to_scene(r_back)?;
++        stage.add_to_scene(r_name)?;
+         let walk = stage.add_value_tracker(0.0);
+         let anchor = stage.arena_mut().add(VMobject::new());
+         stage.add_to_scene(anchor)?;
+@@ -391,6 +425,10 @@
+                 a.move_to(zdot, p.p(z), ORIGIN);
+                 let _ = a.set_points(spoke, polyline(vec![p.p(ZERO), p.p(z)]).build().points());
+                 a.move_to(r_name, r_name_at(&p, r, th), ORIGIN);
++                a.move_to(r_back, r_name_at(&p, r, th), ORIGIN);
++                let shown = r_name_opacity(th);
++                a.set_opacity(r_name, shown, true);
++                a.set_opacity(r_back, shown, true);
+                 let _ = a.set_points(trace, polyline(profile(&u, r, th)).build().points());
+             },
+             true,
+@@ -413,7 +451,7 @@
+         let length = kit.tex(stage, LENGTH_TEX, 26.0, Palette::ink(), &[], length_label_at(&u, r))?;
+         fade_in_all(stage, &[arc_lit, floor, length], 0.4)?;
+         line.wait_sentence(stage, 2)?;
+-        fade_out_all(stage, &[zdot, spoke, r_name], 0.3)?;
++        fade_out_all(stage, &[zdot, spoke, r_name, r_back, i_back], 0.3)?;
+         let rect = stage
+             .arena_mut()
+             .add(polyline(length_by_max(&u, r)).style(flat(hero(), 0.3)).build());
+@@ -476,8 +514,8 @@
+                 for m in outside {
+                     a.move_to(m, p.p(C::new(0.0, -k)), ORIGIN);
+                 }
+-                a.move_to(pole_names[0], p.p(C::new(-0.28, k)), ORIGIN);
+-                a.move_to(pole_names[1], p.p(C::new(0.36, -k)), ORIGIN);
++                a.move_to(pole_names[0], p.p(C::new(POLE_NAME_X, k)), ORIGIN);
++                a.move_to(pole_names[1], p.p(C::new(MINUS_POLE_NAME_X, -k)), ORIGIN);
+             },
+             true,
+         )?;
+@@ -943,6 +981,142 @@
+         }
+     }
+ 
++    /// What the walk's names have to stay clear of, in plane units. The half sizes of the two
++    /// names and the ring are measured on the 720p pictures of `complex-combined-picture-frames02`
++    /// (frames 88 and 100): the walk's "R" is 0.08 × 0.085, "i" is 0.021 × 0.08, the ring 0.107.
++    const R_GLYPH: (f64, f64) = (0.08, 0.085);
++    const I_GLYPH: (f64, f64) = (0.021, 0.08);
++    const MINUS_I_GLYPH: (f64, f64) = (0.085, 0.08);
++    const RING: f64 = 0.107;
++    /// The segment's arrow, measured on frame 130: its head starts here and reaches this far off
++    /// the line.
++    const ARROW_HEAD_FROM: f64 = 0.55;
++    const ARROW_HEAD_HALF: f64 = 0.145;
++
++    /// A stroke's half width in plane units: 0.01 scene units wide per unit of `width`.
++    fn half_line(p: &Plane, width: f64) -> f64 {
++        width * 0.01 / 2.0 / p.unit()
++    }
++
++    /// Every angle of the walk, a fifth of a degree apart.
++    fn walk_angles() -> impl Iterator<Item = f64> {
++        (0..=900).map(|k| PI * f64::from(k) / 900.0)
++    }
++
++    #[test]
++    fn the_walks_r_is_never_shown_across_the_segment() {
++        let p = plane();
++        let r = model::ARC_RADII[0];
++        let (mut crossed, segment) = (false, half_line(&p, 5.0));
++        for th in walk_angles() {
++            let z = r_name_z(r, th);
++            // it does cross the line on its way up, so the wait is doing something
++            let touches = z.im.abs() < R_GLYPH.1 + segment + 0.03;
++            crossed |= touches;
++            if touches {
++                assert!(r_name_opacity(th) < 1e-12, "shown across the segment at {th}");
++            }
++            // nor does its backing notch the loop the moment it can show at all
++            if r_name_opacity(th) > 0.0 {
++                assert!(z.im - R_BACK / p.unit() > segment, "backing on the segment at {th}");
++            }
++        }
++        assert!(crossed);
++        // it is all there well before it passes the pole, and stays to the end of the walk
++        assert!(r_name_opacity(0.0) < 1e-12 && r_name_opacity(R_NAME_SHOWN[1]) > 1.0 - 1e-12);
++        assert!(walk_angles().all(|th| th < R_NAME_SHOWN[1] || r_name_opacity(th) > 1.0 - 1e-12));
++        const { assert!(R_NAME_SHOWN[0] < R_NAME_SHOWN[1] && R_NAME_SHOWN[1] < PI / 4.0) };
++    }
++
++    #[test]
++    fn the_walks_r_and_its_backing_keep_off_everything_else() {
++        let p = plane();
++        let r = model::ARC_RADII[0];
++        let back = R_BACK / p.unit();
++        // the backing covers the letter, so the axis cannot show through it
++        assert!(R_GLYPH.0.hypot(R_GLYPH.1) < back);
++        let ring_back = 0.13 / p.unit();
++        let i_at = C::new(POLE_NAME_X, 1.0);
++        for th in walk_angles().filter(|&th| r_name_opacity(th) > 0.0) {
++            let z = r_name_z(r, th);
++            // off the spoke, measured square to it, whichever way the spoke points
++            let off_spoke = z.re * th.sin() - z.im * th.cos();
++            assert!(off_spoke - back - half_line(&p, 2.5) > 0.1, "spoke at {th}");
++            // off the pole and its name
++            assert!((z - C::new(0.0, 1.0)).abs() - back - ring_back > 0.15, "pole at {th}");
++            assert!((z - i_at).abs() - back - I_BACK / p.unit() > 0.15, "i at {th}");
++            // well inside the half circle and its arrow
++            assert!(z.abs() + back < r - ARROW_HEAD_HALF - 0.2, "half circle at {th}");
++            // off the segment's arrow
++            let over_arrow = z.re + back > 0.2 && z.re - back < 0.8;
++            assert!(!over_arrow || z.im - back > ARROW_HEAD_HALF + 0.1, "arrow at {th}");
++        }
++    }
++
++    #[test]
++    fn the_poles_name_keeps_its_backing_off_the_axis_and_the_ring() {
++        let p = plane();
++        let back = I_BACK / p.unit();
++        assert!(I_GLYPH.0.hypot(I_GLYPH.1) < back, "the backing covers the letter");
++        assert!(POLE_NAME_X + back + half_line(&p, 2.0) < -0.1, "and leaves the axis");
++        assert!(-POLE_NAME_X - back > RING + 0.05, "and does not cut the ring");
++        // the spoke does reach both, which is why they go on top of it
++        let at_height_one = |th: f64| th.cos() / th.sin();
++        assert!(walk_angles().any(|th| th > 0.1 && at_height_one(th).abs() < RING));
++        assert!(walk_angles().any(|th| th > 0.1 && (at_height_one(th) - POLE_NAME_X).abs() < I_GLYPH.0));
++    }
++
++    #[test]
++    fn the_poles_names_stay_clear_as_they_close_in() {
++        let p = plane();
++        let first = model::ARC_RADII[0];
++        // the widest the segment gets: lit, as it is just after the poles are nearest
++        let segment = half_line(&p, 8.0);
++        let last = model::ARC_RADII[model::ARC_RADII.len() - 1];
++        for k in 0..=200 {
++            let at = first + (last - first) * f64::from(k) / 200.0;
++            let h = pole_height(first, at);
++            // "i" and its ring stay above the segment, "−i" and its ring below it
++            assert!(h - I_GLYPH.1 - segment > 0.05, "i at R = {at}");
++            assert!(h - RING - segment > 0.04, "ring at R = {at}");
++            assert!(h - MINUS_I_GLYPH.1 - segment > 0.05, "−i at R = {at}");
++        }
++        // "−i" is written left of the arrow's head, at every height
++        const { assert!(MINUS_POLE_NAME_X + MINUS_I_GLYPH.0 < ARROW_HEAD_FROM - 0.05) };
++    }
++
++    #[test]
++    fn the_spoke_passes_behind_the_pole_and_both_stay_on_screen() {
++        let source = include_str!("real_integral.rs");
++        let code = &source[..source.find("#[cfg(test)]\nmod tests").unwrap()];
++        let from = code.find("say(&kit, stage, \"13_3\")").unwrap();
++        let three = &code[from..from + code[from..].find("say(&kit, stage, \"13_4\")").unwrap()];
++        let order = [
++            "let r_back = dot(stage, r_name_at(&p, r, 0.0), R_BACK, ground());",
++            "stage.add_to_scene(spoke)?;",
++            "for m in [arrows[0], i_back, inside[0], inside[1], pole_names[0]] {",
++            "fade_in_all(stage, &[zdot, spoke, zsq, u_axis, along], 0.4)?;",
++            "stage.add_to_scene(r_back)?;",
++            "stage.add_to_scene(r_name)?;",
++            "a.move_to(r_back, r_name_at(&p, r, th), ORIGIN);",
++            "a.set_opacity(r_name, shown, true);",
++            "a.set_opacity(r_back, shown, true);",
++            "line.wait_for(stage, \"so the bump\")?;",
++            "line.wait_sentence(stage, 2)?;",
++            "fade_out_all(stage, &[zdot, spoke, r_name, r_back, i_back], 0.3)?;",
++            "let rect = stage",
++        ];
++        let at: Vec<usize> = order
++            .iter()
++            .map(|s| three.find(s).unwrap_or_else(|| panic!("{s}")))
++            .collect();
++        assert!(at.windows(2).all(|w| w[0] < w[1]), "{at:?}");
++        // the poles and their names outlast the radius: they are still there as R grows
++        assert!(three.contains("a.move_to(pole_names[0], p.p(C::new(POLE_NAME_X, k)), ORIGIN);"));
++        let next = &code[from + three.len()..];
++        assert!(next.contains("gone.extend(inside);") && next.contains("gone.extend(pole_names);"));
++    }
++
+     #[test]
+     fn the_sum_of_the_upper_poles_is_i_root_two() {
+         let up: Vec<C> = model::quartic_roots().into_iter().filter(|q| q.im > 0.0).collect();

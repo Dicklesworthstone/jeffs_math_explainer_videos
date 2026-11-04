@@ -1,0 +1,45 @@
+files scanned: 2532
+--- source unreachable.rs: 30 files
+   explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+   STAGING/logarithm-final80-bound-plan01/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+   STAGING/logarithm-final80-bound-plan01/hold-audit.json
+   STAGING/logarithm-final80-bound-plan01/inputs.sha256
+   STAGING/logarithm-final80-bound-plan01/phrase-anchors.json
+   STAGING/logarithm-repair11-12-followup01/candidate.sha256
+   ROOT_RUN/combined-build-repair02/before-build03-map12.json
+   ROOT_RUN/combined-build-repair02/before-map12.json
+   ROOT_RUN/combined-build-repair02/build-inputs.json
+   ROOT_RUN/combined-build-repair02/build-inputs03.json
+   ROOT_RUN/combined-build-repair02/glyphs-inputs01.json
+   ROOT_RUN/combined-integration01/before-manifest.json
+   ROOT_RUN/combined-integration01/build-inputs.json
+   ROOT_RUN/combined-integration01/integration.json
+   ROOT_RUN/combined-preview01/frames-inputs.json
+   ROOT_RUN/combined-preview01/inputs.json
+   ROOT_RUN/combined-repair-stage05/bound-plan/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+   ROOT_RUN/combined-repair-stage05/bound-plan/hold-audit.json
+   ROOT_RUN/combined-repair-stage05/bound-plan/inputs.sha256
+   ROOT_RUN/combined-repair-stage05/bound-plan/phrase-anchors.json
+   ROOT_RUN/final80-root-check01/scratch/planted/direction-duplicated/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+   ROOT_RUN/final80-root-check01/scratch/planted/direction-not-at-cue-end/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+   ROOT_RUN/final80-root-check01/scratch/planted/map-bytes-changed/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+   ROOT_RUN/final80-root-check01/scratch/planted/oliver11-direction-back/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+   ROOT_RUN/final80-root-check01/scratch/planted/phrase-not-in-cue/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+   ROOT_RUN/final80-root-check01/scratch/planted/unit-dropped/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+   ROOT_RUN/final80-root-check01/scratch/planted/unit-over-100-words/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+   ROOT_RUN/final80-root-check01/scratch/planted/unit-text-changed/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+   ROOT_RUN/final80-root-check01/scratch/planted/units-reordered/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+   ROOT_RUN/final80-root-check01/scratch/rehearsal/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+--- map oliver12: 5 files
+   explainer_corpus/logarithm_mysteries/narration_units.json
+   ROOT_RUN/combined-build-repair02/build-inputs03.json
+   ROOT_RUN/combined-build-repair02/glyphs-inputs01.json
+   ROOT_RUN/combined-preview01/frames-inputs.json
+   ROOT_RUN/combined-preview01/inputs.json
+--- units: 4 files
+   ROOT_RUN/combined-build-repair02/build-inputs03.json
+   ROOT_RUN/combined-build-repair02/glyphs-inputs01.json
+   ROOT_RUN/combined-preview01/frames-inputs.json
+   ROOT_RUN/combined-preview01/inputs.json
+
+[exit 0]

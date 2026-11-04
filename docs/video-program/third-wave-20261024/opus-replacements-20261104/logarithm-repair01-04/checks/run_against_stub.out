@@ -1,0 +1,556 @@
+-- rustc, the stand-in crates
+
+######## base ########
+-- rustc --test
+running 41 tests
+test chapters::building_ruler::tests::every_mark_from_a_half_to_ten_fits_the_ruler ... ok
+test chapters::building_ruler::tests::twelve_threes_overshoot_nineteen_doublings_by_a_sliver ... ok
+test chapters::folded_decade::tests::four_then_six_stops_on_two_point_four_after_one_lap ... ok
+test chapters::folded_decade::tests::the_bend_starts_on_the_long_ruler_and_ends_on_the_dial ... ok
+test chapters::folded_decade::tests::the_spiral_readings_share_one_shadow_and_fit_the_frame ... ok
+test chapters::slide_rule::tests::four_times_six_overflows_onto_the_screen_then_the_other_index_reads_two_point_four ... ok
+test chapters::slide_rule::tests::sliding_to_two_point_five_puts_three_point_two_over_eight ... ok
+test chapters::slide_rule::tests::the_scales_fit_the_frame ... ok
+test chapters::undoing_growth::tests::the_flip_is_the_mirror_in_y_equals_x_and_fixes_the_line ... ok
+test chapters::undoing_growth::tests::the_flipped_curve_is_the_graph_of_ln ... ok
+test chapters::undoing_growth::tests::the_growth_panel_holds_ten_doublings_and_the_thousandfold_point ... ok
+test chapters::undoing_growth::tests::the_probe_meets_the_curve_inside_the_window_for_the_heights_shown ... ok
+test facts::tests::columns_of_logarithms ... ok
+test facts::tests::doubling_and_thousandfold_times ... ok
+test facts::tests::loops_and_winding_numbers ... ok
+test facts::tests::powers_pin_three_between_two_and_four ... ok
+test facts::tests::six_keys_up_is_the_square_root_of_two ... ok
+test facts::tests::small_ratios_become_small_steps ... ok
+test facts::tests::the_exponential_hits_each_positive_number_once ... ok
+test facts::tests::the_facts_compute_and_self_check ... ok
+test facts::tests::the_identity_has_a_continuum_of_logarithms ... ok
+test facts::tests::the_linear_ruler_crowds_the_low_notes ... ok
+test facts::tests::the_product_rule_keeps_a_lap_count ... ok
+test facts::tests::the_slide_rule_examples_read_as_spoken ... ok
+test facts::tests::unreachable_by_real_flows_reachable_in_complex ... ok
+test model::tests::carrying_the_logarithm_once_around_zero_climbs_one_lap ... ok
+test model::tests::ellipse_flows_bring_the_plane_home ... ok
+test model::tests::every_lap_of_a_logarithm_exponentiates_to_the_same_number ... ok
+test model::tests::flows_never_reach_zero_area ... ok
+test model::tests::no_principal_logarithm_exactly_when_a_direction_goes_to_zero_or_reverses ... ok
+test model::tests::principal_angles_live_in_minus_pi_to_pi ... ok
+test model::tests::the_decade_fold_keeps_digits_and_counts_laps ... ok
+test model::tests::the_principal_logarithm_always_exponentiates_back_and_turns_less_than_pi ... ok
+test model::tests::the_principal_logarithm_picks_the_flow_turning_less_than_a_half_turn ... ok
+test model::tests::the_product_rule_drops_a_lap_past_the_window ... ok
+test model::tests::the_ruler_adds_where_numbers_multiply ... ok
+test model::tests::the_series_exponential_matches_rotations_and_determinants ... ok
+test model::tests::the_square_root_puzzle_breaks_at_combining_the_roots ... ok
+test model::tests::three_speeds_reach_the_same_quarter_turn ... ok
+test model::tests::turning_rates_of_the_flows_on_screen ... ok
+test model::tests::whatever_commutes_with_the_flip_pair_keeps_its_axes ... ok
+
+test result: ok. 41 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+-- rustc
+-- scene run at 2.68 words per second
+== 01_building_ruler at 2.68 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+01_1	0.0	17.9	-2.0	0.0	0
+01_2	18.3	20.1	-5.7	0.0	0
+01_3	38.9	9.0	+4.2	0.0	0
+01_4	52.1	22.0	-1.2	0.0	0
+01_5	74.5	21.6	-5.6	0.0	0
+01_6	96.5	26.5	+0.0	0.0	0
+chapter ends at 123.0 s
+0 object-ledger problems
+3 estimated overlaps at rest (seconds on screen)
+   25.8  "19 doublings" outside the safe frame (x 6.35 ± 0.61, y -2.35)
+    6.6  "8" meets "10"
+    7.0  "one step" meets a blue stroke
+1 estimated overlaps seen only while a tracker runs
+  (in motion) "19 doublings" outside the safe frame (x 6.35 ± 0.61, y -2.35)
+== 02_slide_rule at 2.68 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+02_1	0.0	13.1	-2.2	0.0	0
+02_2	13.5	17.2	+4.2	0.0	0
+02_3	34.9	11.9	-4.8	0.0	1
+02_4	47.2	12.3	-5.0	0.2	1
+02_5	59.9	26.5	-0.0	0.0	0
+chapter ends at 86.4 s
+0 object-ledger problems
+7 estimated overlaps at rest (seconds on screen)
+   22.7  "1" outside the safe frame (x -9.18 ± 0.06, y 1.20)
+   33.7  "10" meets a red stroke
+   12.9  "10" outside the safe frame (x 6.82 ± 0.11, y 1.20)
+   20.6  "6" meets a hero stroke
+    9.2  "6" meets a red stroke
+   19.1  "8" meets a hero stroke
+   22.7  "C" outside the safe frame (x -9.68 ± 0.09, y 0.62)
+0 estimated overlaps seen only while a tracker runs
+== 03_folded_decade at 2.68 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+03_1	0.0	16.8	-0.9	0.9	3
+03_2	17.2	21.3	-4.7	0.0	0
+03_3	38.9	16.4	-2.1	0.0	0
+03_4	55.7	16.4	+0.0	0.0	0
+chapter ends at 72.1 s
+0 object-ledger problems
+6 estimated overlaps at rest (seconds on screen)
+   19.3  "0.24" meets a purple stroke
+   23.5  "2.4" meets a purple stroke
+   21.2  "24" meets a purple stroke
+   18.9  "240" meets a purple stroke
+   15.5  "a spiral, and its shadow" meets a purple stroke
+   24.7  "one mark on the dial" meets a hero stroke
+0 estimated overlaps seen only while a tracker runs
+== 04_undoing_growth at 2.68 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+04_1	0.0	17.2	-1.0	1.2	4
+04_2	17.6	32.1	+2.2	0.0	0
+04_3	51.9	19.8	-6.2	0.0	0
+04_4	72.1	26.5	-6.0	0.6	2
+04_5	99.0	31.3	-6.7	0.0	0
+04_6	130.7	11.9	+4.3	0.0	0
+04_7	146.9	32.8	-0.0	0.0	0
+chapter ends at 179.7 s
+0 object-ledger problems
+3 estimated overlaps at rest (seconds on screen)
+   17.5  "1" meets "\\ln 2 \\approx 0.693"
+   17.5  "2" meets "\\ln 2 \\approx 0.693"
+    0.4  "2" meets a hero stroke
+12 estimated overlaps seen only while a tracker runs
+  (in motion) "1" meets a hero stroke
+  (in motion) "1" meets a red stroke
+  (in motion) "2" meets a hero stroke
+  (in motion) "2" meets a red stroke
+  (in motion) "3" meets a red stroke
+  (in motion) "y = e^{x}" meets a blue stroke
+  (in motion) "y = e^{x}" meets a green stroke
+  (in motion) "y = e^{x}" meets a hero stroke
+  (in motion) "−1" meets a green stroke
+  (in motion) "−1" meets a red stroke
+  (in motion) "−2" meets a green stroke
+  (in motion) "−2" meets a red stroke
+-- scene run at 2.3 words per second
+== 01_building_ruler at 2.3 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+01_1	0.0	20.9	-2.4	0.0	0
+01_2	21.3	23.5	-6.9	0.0	0
+01_3	45.1	10.4	+4.2	0.0	0
+01_4	59.8	25.7	-2.3	0.0	0
+01_5	85.9	25.2	-6.6	0.0	0
+01_6	111.5	30.9	+0.0	0.0	0
+chapter ends at 142.4 s
+0 object-ledger problems
+3 estimated overlaps at rest (seconds on screen)
+   30.5  "19 doublings" outside the safe frame (x 6.35 ± 0.61, y -2.35)
+    8.1  "8" meets "10"
+    8.2  "one step" meets a blue stroke
+1 estimated overlaps seen only while a tracker runs
+  (in motion) "19 doublings" outside the safe frame (x 6.35 ± 0.61, y -2.35)
+== 02_slide_rule at 2.3 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+02_1	0.0	15.2	-2.6	0.0	0
+02_2	15.6	20.0	+4.2	0.0	0
+02_3	39.9	13.9	-5.7	0.0	0
+02_4	54.2	14.3	-6.0	0.0	0
+02_5	68.9	30.9	+0.0	0.0	0
+chapter ends at 99.8 s
+0 object-ledger problems
+7 estimated overlaps at rest (seconds on screen)
+   26.8  "1" outside the safe frame (x -9.18 ± 0.06, y 1.20)
+   39.3  "10" meets a red stroke
+   15.1  "10" outside the safe frame (x 6.82 ± 0.11, y 1.20)
+   24.1  "6" meets a hero stroke
+   10.6  "6" meets a red stroke
+   21.5  "8" meets a hero stroke
+   26.8  "C" outside the safe frame (x -9.68 ± 0.09, y 0.62)
+0 estimated overlaps seen only while a tracker runs
+== 03_folded_decade at 2.3 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+03_1	0.0	19.6	-1.8	0.5	3
+03_2	20.0	24.8	-5.6	0.0	0
+03_3	45.1	19.1	-2.5	0.0	0
+03_4	64.7	19.1	+0.0	0.0	0
+chapter ends at 83.8 s
+0 object-ledger problems
+6 estimated overlaps at rest (seconds on screen)
+   22.5  "0.24" meets a purple stroke
+   27.4  "2.4" meets a purple stroke
+   24.7  "24" meets a purple stroke
+   22.1  "240" meets a purple stroke
+   18.2  "a spiral, and its shadow" meets a purple stroke
+   29.5  "one mark on the dial" meets a hero stroke
+0 estimated overlaps seen only while a tracker runs
+== 04_undoing_growth at 2.3 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+04_1	0.0	20.0	-2.2	0.5	4
+04_2	20.4	37.4	+1.6	0.0	0
+04_3	59.4	23.0	-7.3	0.0	0
+04_4	82.9	30.9	-7.1	0.2	2
+04_5	114.1	36.5	-7.9	0.0	0
+04_6	151.1	13.9	+4.3	0.0	0
+04_7	169.2	38.3	+0.0	0.0	0
+chapter ends at 207.5 s
+0 object-ledger problems
+3 estimated overlaps at rest (seconds on screen)
+   20.5  "1" meets "\\ln 2 \\approx 0.693"
+   20.5  "2" meets "\\ln 2 \\approx 0.693"
+    0.4  "2" meets a hero stroke
+12 estimated overlaps seen only while a tracker runs
+  (in motion) "1" meets a hero stroke
+  (in motion) "1" meets a red stroke
+  (in motion) "2" meets a hero stroke
+  (in motion) "2" meets a red stroke
+  (in motion) "3" meets a red stroke
+  (in motion) "y = e^{x}" meets a blue stroke
+  (in motion) "y = e^{x}" meets a green stroke
+  (in motion) "y = e^{x}" meets a hero stroke
+  (in motion) "−1" meets a green stroke
+  (in motion) "−1" meets a red stroke
+  (in motion) "−2" meets a green stroke
+  (in motion) "−2" meets a red stroke
+-- scene run at 3.1 words per second
+== 01_building_ruler at 3.1 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+01_1	0.0	15.5	-1.6	0.0	0
+01_2	15.9	17.4	-4.7	0.0	0
+01_3	33.7	7.7	+4.3	0.0	0
+01_4	45.7	19.0	-0.3	0.0	0
+01_5	65.1	18.7	-4.7	0.0	0
+01_6	84.2	22.9	+0.0	0.0	0
+chapter ends at 107.1 s
+0 object-ledger problems
+3 estimated overlaps at rest (seconds on screen)
+   22.0  "19 doublings" outside the safe frame (x 6.35 ± 0.61, y -2.35)
+    5.4  "8" meets "10"
+    6.0  "one step" meets a blue stroke
+1 estimated overlaps seen only while a tracker runs
+  (in motion) "19 doublings" outside the safe frame (x 6.35 ± 0.61, y -2.35)
+== 02_slide_rule at 3.1 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+02_1	0.0	11.3	-1.8	0.0	0
+02_2	11.7	14.8	+4.2	0.0	0
+02_3	30.8	10.3	-4.1	0.1	1
+02_4	41.5	10.6	-4.3	0.4	1
+02_5	52.5	22.9	-0.0	0.0	0
+chapter ends at 75.4 s
+0 object-ledger problems
+7 estimated overlaps at rest (seconds on screen)
+   19.3  "1" outside the safe frame (x -9.18 ± 0.06, y 1.20)
+   29.1  "10" meets a red stroke
+   11.0  "10" outside the safe frame (x 6.82 ± 0.11, y 1.20)
+   17.8  "6" meets a hero stroke
+    7.9  "6" meets a red stroke
+   17.1  "8" meets a hero stroke
+   19.3  "C" outside the safe frame (x -9.68 ± 0.09, y 0.62)
+0 estimated overlaps seen only while a tracker runs
+== 03_folded_decade at 3.1 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+03_1	0.0	14.5	-0.2	1.2	3
+03_2	14.9	18.4	-4.0	0.0	0
+03_3	33.7	14.2	-1.7	0.0	0
+03_4	48.3	14.2	+0.0	0.0	0
+chapter ends at 62.5 s
+0 object-ledger problems
+6 estimated overlaps at rest (seconds on screen)
+   16.7  "0.24" meets a purple stroke
+   20.3  "2.4" meets a purple stroke
+   18.3  "24" meets a purple stroke
+   16.3  "240" meets a purple stroke
+   13.3  "a spiral, and its shadow" meets a purple stroke
+   20.8  "one mark on the dial" meets a hero stroke
+0 estimated overlaps seen only while a tracker runs
+== 04_undoing_growth at 3.1 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+04_1	0.0	14.8	-0.1	1.8	4
+04_2	15.2	27.7	+2.7	0.0	0
+04_3	45.7	17.1	-5.3	0.0	0
+04_4	63.2	22.9	-5.1	1.0	2
+04_5	86.5	27.1	-5.7	0.0	0
+04_6	114.0	10.3	+4.3	0.0	0
+04_7	128.6	28.4	-0.0	0.0	0
+chapter ends at 157.0 s
+0 object-ledger problems
+3 estimated overlaps at rest (seconds on screen)
+   15.1  "1" meets "\\ln 2 \\approx 0.693"
+   15.1  "2" meets "\\ln 2 \\approx 0.693"
+    0.4  "2" meets a hero stroke
+12 estimated overlaps seen only while a tracker runs
+  (in motion) "1" meets a hero stroke
+  (in motion) "1" meets a red stroke
+  (in motion) "2" meets a hero stroke
+  (in motion) "2" meets a red stroke
+  (in motion) "3" meets a red stroke
+  (in motion) "y = e^{x}" meets a blue stroke
+  (in motion) "y = e^{x}" meets a green stroke
+  (in motion) "y = e^{x}" meets a hero stroke
+  (in motion) "−1" meets a green stroke
+  (in motion) "−1" meets a red stroke
+  (in motion) "−2" meets a green stroke
+  (in motion) "−2" meets a red stroke
+
+######## candidate ########
+-- rustc --test
+running 75 tests
+test chapters::building_ruler::tests::base_two_claims_leave_before_the_step_changes_and_no_mark_moves ... ok
+test chapters::building_ruler::tests::equal_lengths_keep_a_visible_gap_after_their_round_caps ... ok
+test chapters::building_ruler::tests::every_mark_from_a_half_to_ten_fits_the_ruler ... ok
+test chapters::building_ruler::tests::neighbouring_labels_never_touch_so_eight_and_ten_stay_two_numbers ... ok
+test chapters::building_ruler::tests::the_half_steps_clear_the_step_words_and_the_caption_below ... ok
+test chapters::building_ruler::tests::the_hunter_rests_mid_gap_well_away_from_the_answer ... ok
+test chapters::building_ruler::tests::the_later_doublings_go_with_the_first_step_so_one_bar_is_left ... ok
+test chapters::building_ruler::tests::the_rows_stop_short_of_labels_that_stay_inside_the_safe_frame ... ok
+test chapters::building_ruler::tests::the_step_bar_lands_on_the_mark_its_words_name ... ok
+test chapters::building_ruler::tests::twelve_threes_overshoot_nineteen_doublings_by_a_sliver ... ok
+test chapters::folded_decade::tests::every_reading_clears_the_helix ... ok
+test chapters::folded_decade::tests::four_then_six_stops_on_two_point_four_after_one_lap ... ok
+test chapters::folded_decade::tests::the_bend_starts_on_the_long_ruler_and_ends_on_the_dial ... ok
+test chapters::folded_decade::tests::the_floor_caption_starts_past_the_tilted_tick ... ok
+test chapters::folded_decade::tests::the_hero_tick_stays_dark_until_the_turn_lands ... ok
+test chapters::folded_decade::tests::the_landing_number_clears_the_ring_the_tick_and_the_dial_numerals ... ok
+test chapters::folded_decade::tests::the_lap_words_leave_with_their_arc_and_return_by_the_counter ... ok
+test chapters::folded_decade::tests::the_new_title_and_the_caption_arrive_on_the_first_sentence_of_03_3 ... ok
+test chapters::folded_decade::tests::the_right_panel_has_its_caption_while_the_voice_describes_it ... ok
+test chapters::folded_decade::tests::the_spiral_caption_sits_under_the_floor_inside_the_frame ... ok
+test chapters::folded_decade::tests::the_spiral_readings_share_one_shadow_and_fit_the_frame ... ok
+test chapters::slide_rule::tests::c_keeps_its_name_on_screen_clear_of_the_ten_ring ... ok
+test chapters::slide_rule::tests::four_times_six_overflows_onto_the_screen_then_the_other_index_reads_two_point_four ... ok
+test chapters::slide_rule::tests::sliding_to_two_point_five_puts_three_point_two_over_eight ... ok
+test chapters::slide_rule::tests::the_card_changes_on_the_new_question_before_the_slide_home ... ok
+test chapters::slide_rule::tests::the_overflow_marks_leave_before_the_other_index_moves_in ... ok
+test chapters::slide_rule::tests::the_printed_lengths_are_fractions_of_one_full_length ... ok
+test chapters::slide_rule::tests::the_reading_line_passes_the_ticks_and_stops_short_of_the_numbers ... ok
+test chapters::slide_rule::tests::the_scales_fit_the_frame ... ok
+test chapters::slide_rule::tests::the_slide_waits_for_words_that_are_in_the_first_sentence ... ok
+test chapters::undoing_growth::tests::each_live_red_mark_starts_exactly_on_its_still_original ... ok
+test chapters::undoing_growth::tests::the_closing_rows_start_well_right_of_the_dashed_line ... ok
+test chapters::undoing_growth::tests::the_flip_is_the_mirror_in_y_equals_x_and_fixes_the_line ... ok
+test chapters::undoing_growth::tests::the_flip_labels_keep_clear_of_each_other_the_names_and_the_mirror ... ok
+test chapters::undoing_growth::tests::the_flipped_curve_is_the_graph_of_ln ... ok
+test chapters::undoing_growth::tests::the_flipped_triangle_has_slope_one_over_x ... ok
+test chapters::undoing_growth::tests::the_growth_panel_holds_ten_doublings_and_the_thousandfold_point ... ok
+test chapters::undoing_growth::tests::the_law_goes_with_04_2_and_the_formula_waits_for_its_name ... ok
+test chapters::undoing_growth::tests::the_ln_two_label_clears_the_tick_labels_and_the_red_bar ... ok
+test chapters::undoing_growth::tests::the_probe_meets_the_curve_inside_the_window_for_the_heights_shown ... ok
+test chapters::undoing_growth::tests::the_product_law_is_drawn_two_lengths_landing_on_eight ... ok
+test chapters::undoing_growth::tests::the_red_marks_land_where_the_logarithm_really_has_no_value ... ok
+test chapters::undoing_growth::tests::the_ruler_is_on_screen_when_the_voice_says_ruler ... ok
+test chapters::undoing_growth::tests::the_still_red_marks_go_as_the_live_ones_take_over_before_the_flip ... ok
+test chapters::undoing_growth::tests::the_tangent_climbs_only_inside_its_sentence_and_under_the_title ... ok
+test chapters::undoing_growth::tests::the_think_bar_sits_under_its_question_and_clear_of_the_next_row ... ok
+test facts::tests::columns_of_logarithms ... ok
+test facts::tests::doubling_and_thousandfold_times ... ok
+test facts::tests::loops_and_winding_numbers ... ok
+test facts::tests::powers_pin_three_between_two_and_four ... ok
+test facts::tests::six_keys_up_is_the_square_root_of_two ... ok
+test facts::tests::small_ratios_become_small_steps ... ok
+test facts::tests::the_exponential_hits_each_positive_number_once ... ok
+test facts::tests::the_facts_compute_and_self_check ... ok
+test facts::tests::the_identity_has_a_continuum_of_logarithms ... ok
+test facts::tests::the_linear_ruler_crowds_the_low_notes ... ok
+test facts::tests::the_product_rule_keeps_a_lap_count ... ok
+test facts::tests::the_slide_rule_examples_read_as_spoken ... ok
+test facts::tests::unreachable_by_real_flows_reachable_in_complex ... ok
+test model::tests::carrying_the_logarithm_once_around_zero_climbs_one_lap ... ok
+test model::tests::ellipse_flows_bring_the_plane_home ... ok
+test model::tests::every_lap_of_a_logarithm_exponentiates_to_the_same_number ... ok
+test model::tests::flows_never_reach_zero_area ... ok
+test model::tests::no_principal_logarithm_exactly_when_a_direction_goes_to_zero_or_reverses ... ok
+test model::tests::principal_angles_live_in_minus_pi_to_pi ... ok
+test model::tests::the_decade_fold_keeps_digits_and_counts_laps ... ok
+test model::tests::the_principal_logarithm_always_exponentiates_back_and_turns_less_than_pi ... ok
+test model::tests::the_principal_logarithm_picks_the_flow_turning_less_than_a_half_turn ... ok
+test model::tests::the_product_rule_drops_a_lap_past_the_window ... ok
+test model::tests::the_ruler_adds_where_numbers_multiply ... ok
+test model::tests::the_series_exponential_matches_rotations_and_determinants ... ok
+test model::tests::the_square_root_puzzle_breaks_at_combining_the_roots ... ok
+test model::tests::three_speeds_reach_the_same_quarter_turn ... ok
+test model::tests::turning_rates_of_the_flows_on_screen ... ok
+test model::tests::whatever_commutes_with_the_flip_pair_keeps_its_axes ... ok
+
+test result: ok. 75 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.02s
+-- rustc
+-- clippy-driver -D warnings, with and without tests
+(clippy clean)
+-- scene run at 2.68 words per second
+== 01_building_ruler at 2.68 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+01_1	0.0	17.9	-2.0	0.0	0
+01_2	18.3	20.1	-5.7	0.0	0
+01_3	38.9	9.0	+4.2	0.0	0
+01_4	52.1	22.0	-1.2	0.0	0
+01_5	74.5	21.6	-5.6	0.0	0
+01_6	96.5	26.5	+0.0	0.0	0
+chapter ends at 123.0 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 02_slide_rule at 2.68 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+02_1	0.0	13.1	-2.2	0.0	0
+02_2	13.5	17.2	+4.2	0.0	0
+02_3	34.9	11.9	-4.8	0.0	1
+02_4	47.2	12.3	-5.0	0.2	1
+02_5	59.9	26.5	-0.0	0.0	0
+chapter ends at 86.4 s
+0 object-ledger problems
+2 estimated overlaps at rest (seconds on screen)
+   22.7  "1" outside the safe frame (x -9.18 ± 0.06, y 1.20)
+   12.9  "10" outside the safe frame (x 6.82 ± 0.11, y 1.20)
+0 estimated overlaps seen only while a tracker runs
+== 03_folded_decade at 2.68 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+03_1	0.0	16.8	-0.9	0.9	3
+03_2	17.2	21.3	-4.7	0.0	0
+03_3	38.9	16.4	-2.1	0.0	0
+03_4	55.7	16.4	+0.0	0.0	0
+chapter ends at 72.1 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 04_undoing_growth at 2.68 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+04_1	0.0	17.2	-1.0	1.2	4
+04_2	17.6	32.1	+2.5	0.0	0
+04_3	52.2	19.8	-6.2	0.0	0
+04_4	72.4	26.5	-6.0	0.9	2
+04_5	99.3	31.3	-6.7	0.0	0
+04_6	131.0	11.9	+4.3	0.0	0
+04_7	147.2	32.8	-0.0	0.0	0
+chapter ends at 180.0 s
+0 object-ledger problems
+1 estimated overlaps at rest (seconds on screen)
+    0.4  "2" meets a hero stroke
+12 estimated overlaps seen only while a tracker runs
+  (in motion) "1" meets a hero stroke
+  (in motion) "1" meets a red stroke
+  (in motion) "2" meets a hero stroke
+  (in motion) "2" meets a red stroke
+  (in motion) "3" meets a red stroke
+  (in motion) "y = e^{x}" meets a hero stroke
+  (in motion) "−1" meets a blue stroke
+  (in motion) "−1" meets a green stroke
+  (in motion) "−1" meets a red stroke
+  (in motion) "−2" meets a blue stroke
+  (in motion) "−2" meets a green stroke
+  (in motion) "−2" meets a red stroke
+-- scene run at 2.3 words per second
+== 01_building_ruler at 2.3 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+01_1	0.0	20.9	-2.4	0.0	0
+01_2	21.3	23.5	-6.9	0.0	0
+01_3	45.1	10.4	+4.2	0.0	0
+01_4	59.8	25.7	-2.3	0.0	0
+01_5	85.9	25.2	-6.6	0.0	0
+01_6	111.5	30.9	+0.0	0.0	0
+chapter ends at 142.4 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 02_slide_rule at 2.3 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+02_1	0.0	15.2	-2.6	0.0	0
+02_2	15.6	20.0	+4.2	0.0	0
+02_3	39.9	13.9	-5.7	0.0	0
+02_4	54.2	14.3	-6.0	0.0	0
+02_5	68.9	30.9	+0.0	0.0	0
+chapter ends at 99.8 s
+0 object-ledger problems
+2 estimated overlaps at rest (seconds on screen)
+   26.8  "1" outside the safe frame (x -9.18 ± 0.06, y 1.20)
+   15.1  "10" outside the safe frame (x 6.82 ± 0.11, y 1.20)
+0 estimated overlaps seen only while a tracker runs
+== 03_folded_decade at 2.3 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+03_1	0.0	19.6	-1.8	0.5	3
+03_2	20.0	24.8	-5.6	0.0	0
+03_3	45.1	19.1	-2.5	0.0	0
+03_4	64.7	19.1	+0.0	0.0	0
+chapter ends at 83.8 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 04_undoing_growth at 2.3 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+04_1	0.0	20.0	-2.2	0.5	4
+04_2	20.4	37.4	+1.9	0.0	0
+04_3	59.7	23.0	-7.3	0.0	0
+04_4	83.2	30.9	-7.1	0.4	2
+04_5	114.4	36.5	-7.9	0.0	0
+04_6	151.4	13.9	+4.3	0.0	0
+04_7	169.5	38.3	+0.0	0.0	0
+chapter ends at 207.8 s
+0 object-ledger problems
+1 estimated overlaps at rest (seconds on screen)
+    0.4  "2" meets a hero stroke
+12 estimated overlaps seen only while a tracker runs
+  (in motion) "1" meets a hero stroke
+  (in motion) "1" meets a red stroke
+  (in motion) "2" meets a hero stroke
+  (in motion) "2" meets a red stroke
+  (in motion) "3" meets a red stroke
+  (in motion) "y = e^{x}" meets a hero stroke
+  (in motion) "−1" meets a blue stroke
+  (in motion) "−1" meets a green stroke
+  (in motion) "−1" meets a red stroke
+  (in motion) "−2" meets a blue stroke
+  (in motion) "−2" meets a green stroke
+  (in motion) "−2" meets a red stroke
+-- scene run at 3.1 words per second
+== 01_building_ruler at 3.1 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+01_1	0.0	15.5	-1.6	0.0	0
+01_2	15.9	17.4	-4.7	0.0	0
+01_3	33.7	7.7	+4.3	0.0	0
+01_4	45.7	19.0	-0.3	0.0	0
+01_5	65.1	18.7	-4.7	0.0	0
+01_6	84.2	22.9	+0.0	0.0	0
+chapter ends at 107.1 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 02_slide_rule at 3.1 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+02_1	0.0	11.3	-1.8	0.0	0
+02_2	11.7	14.8	+4.2	0.0	0
+02_3	30.8	10.3	-4.1	0.1	1
+02_4	41.5	10.6	-4.3	0.4	1
+02_5	52.5	22.9	-0.0	0.0	0
+chapter ends at 75.4 s
+0 object-ledger problems
+2 estimated overlaps at rest (seconds on screen)
+   19.3  "1" outside the safe frame (x -9.18 ± 0.06, y 1.20)
+   11.0  "10" outside the safe frame (x 6.82 ± 0.11, y 1.20)
+0 estimated overlaps seen only while a tracker runs
+== 03_folded_decade at 3.1 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+03_1	0.0	14.5	-0.2	1.2	3
+03_2	14.9	18.4	-4.0	0.0	0
+03_3	33.7	14.2	-1.7	0.3	2
+03_4	48.3	14.2	+0.0	0.0	0
+chapter ends at 62.5 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 04_undoing_growth at 3.1 words per second
+id	start	voice	picture_over	latest_beat	in_sentence
+04_1	0.0	14.8	-0.1	1.8	4
+04_2	15.2	27.7	+3.0	0.0	0
+04_3	46.0	17.1	-5.3	0.0	0
+04_4	63.5	22.9	-5.1	1.2	2
+04_5	86.8	27.1	-5.7	0.0	0
+04_6	114.3	10.3	+4.3	0.0	0
+04_7	128.9	28.4	-0.0	0.0	0
+chapter ends at 157.3 s
+0 object-ledger problems
+1 estimated overlaps at rest (seconds on screen)
+    0.4  "2" meets a hero stroke
+12 estimated overlaps seen only while a tracker runs
+  (in motion) "1" meets a hero stroke
+  (in motion) "1" meets a red stroke
+  (in motion) "2" meets a hero stroke
+  (in motion) "2" meets a red stroke
+  (in motion) "3" meets a red stroke
+  (in motion) "y = e^{x}" meets a hero stroke
+  (in motion) "−1" meets a blue stroke
+  (in motion) "−1" meets a green stroke
+  (in motion) "−1" meets a red stroke
+  (in motion) "−2" meets a blue stroke
+  (in motion) "−2" meets a green stroke
+  (in motion) "−2" meets a red stroke

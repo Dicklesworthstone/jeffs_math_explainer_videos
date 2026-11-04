@@ -1,0 +1,12 @@
+--- counting
+  read by eye 11_1: sentence(i + 2)
+  read by eye 11_1: sentence(i + 3)
+  read by eye 11_2: wait_for(NEEDS_SAID[i])
+--- residues
+--- real_integral
+--- continuing
+--- closing
+NEEDS_SAID in 11_2, in order: ['It needs', 'passes through', 'and a function'] True ; sentence 3 at 180 phrases at [180, 230, 262]
+11_1 sentences: 5 (the loop reads sentence(i + 2) and sentence(i + 3) for i < 2)
+anchors checked 111
+RESULT PASS

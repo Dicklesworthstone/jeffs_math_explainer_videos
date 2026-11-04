@@ -1,0 +1,27 @@
+== preview02: the anchor must fail
+FAIL preview02
+     BAD label ink over the window, 0 teal pixels
+     BAD old place empty before the sweep
+     ok  no red label left in the slot
+     ok  sweep 0: slot unchanged, 0 of 2442 pixels differ
+     ok  sweep 1: slot unchanged, 0 of 2442 pixels differ
+     ok  sweep 2: slot unchanged, 0 of 2442 pixels differ
+     ok  sweep 3: slot unchanged, 0 of 2442 pixels differ
+     ok  sweep 4: slot unchanged, 0 of 2442 pixels differ
+     ok  the disk travels across these frames, by 123 px
+     ok  one of them is the crossing moment: 540 teal pixels pass through the old place
+== desk composites: the anchor must pass
+PASS composites
+     ok  label ink over the window, 270 teal pixels
+     ok  label ink x 360 to 461, y 164 to 179: 95 to 112 wide, whole inside the slot
+     ok  label centred over the window at x 410.5, within 4
+     ok  old place empty before the sweep
+     ok  no red label left in the slot
+     ok  sweep 0: slot unchanged, 0 of 2442 pixels differ
+     ok  sweep 1: slot unchanged, 0 of 2442 pixels differ
+     ok  sweep 2: slot unchanged, 0 of 2442 pixels differ
+     ok  sweep 3: slot unchanged, 0 of 2442 pixels differ
+     ok  sweep 4: slot unchanged, 0 of 2442 pixels differ
+     ok  the disk travels across these frames, by 123 px
+     ok  one of them is the crossing moment: 249 teal pixels pass through the old place
+RESULT PASS

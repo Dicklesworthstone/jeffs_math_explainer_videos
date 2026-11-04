@@ -1,0 +1,18 @@
+stage04 as it is: exit 1; 80 cues, 364 sentences, 80 said; 27 failures
+  14 name a retired, unregistered file: ['bookends.rs', 'matrix_log.rs', 'product_law.rs', 'real_inverse.rs', 'winding.rs']
+  13 others:
+    folded_decade.rs: until_sentence(03_3, 1) while 03_4 is the current line
+    folded_decade.rs: until_sentence(03_3, 1) goes backwards
+    folded_decade.rs: until_sentence(03_4, 1) goes backwards
+    undoing_growth.rs: until_sentence(04_3, 1) while 04_7 is the current line
+    undoing_growth.rs: until_sentence(04_3, 1) goes backwards
+    undoing_growth.rs: until_sentence(04_2, 3) while 04_7 is the current line
+    undoing_growth.rs: until_sentence(04_2, 3) goes backwards
+    undoing_growth.rs: until_sentence(04_2, 4) while 04_7 is the current line
+    undoing_growth.rs: until_sentence(04_4, 1) while 04_7 is the current line
+    undoing_growth.rs: until_sentence(04_4, 1) goes backwards
+    undoing_growth.rs: 04_5 said after 04_7
+    undoing_growth.rs: until_sentence(04_5, 1) goes backwards
+    04_5: said 2 times (undoing_growth.rs, undoing_growth.rs)
+registered scene code only: exit 0; 80 cues, 364 sentences, 80 said; 0 failures; last line 'OK'
+So the failures above come from the retired files and from strings in test modules. Source text only; nothing compiled.

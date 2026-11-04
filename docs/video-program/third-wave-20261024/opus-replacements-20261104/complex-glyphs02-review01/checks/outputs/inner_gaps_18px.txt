@@ -1,0 +1,8 @@
+ 23 px  page 51  row 595  y481-504  \frac{f(z)}{z-a}
+ 22 px  page 50  row 589  y461-483  \frac{1}{z-p}
+ 19 px  page 52  row 600  y298-317  \frac{z-1}{(z+1)^2}
+ 19 px  page 50  row 589  y439-458  \frac{1}{z-p}
+ 19 px  page 49  row 585  y742-761  \frac{1}{1+x^4}
+ 19 px  page 49  row 583  y480-499  \frac{1}{1 + x^2}
+ 19 px  page 49  row 582  y338-357  \frac{1}{(z-p)^2}
+7 gaps of at least 18 px

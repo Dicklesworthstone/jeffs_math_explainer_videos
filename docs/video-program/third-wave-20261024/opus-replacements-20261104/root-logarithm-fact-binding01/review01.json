@@ -1,0 +1,35 @@
+{
+  "created_at": "2026-11-04T11:02:04.977018+00:00",
+  "scope": "Apply AFTER logarithm-repair01-04 author patch. Does not touch canonical frozen render inputs.",
+  "changes": [
+    "Six facts bind new base-change labels, product-law bars/result and1000 growth label to their geometry.",
+    "Adds Rust arithmetic/geometry identity test; updates exact facts denominator93to99.",
+    "Updates existing source-order assertion to match fact-derived variable, retaining its original ordering condition."
+  ],
+  "checks": [
+    "Python oracle exits0:99 unique keys,93 prior values identical,6 new values verified.",
+    "rustfmt --check exits0 for all3 changed Rust files."
+  ],
+  "not_run": [
+    "native Rust tests",
+    "native Clippy/build",
+    "Rust versus Python fact comparison",
+    "glyph rendering",
+    "new scene pictures",
+    "listening",
+    "fine sync",
+    "independent final AV"
+  ],
+  "hashes": {
+    "fact-binding.patch": "e3d55266c37fedfe23fcaa31e81ec2844227eb726a4bbab1b6c94a2942d4ef32",
+    "oracle-result01.tsv": "35a4d899b2c7a0f8f9ae4943bef9ab87e4889a1e057a966af37eff13c2a27eb4",
+    "candidate/oracle.py": "fc8fbf0adc32570023f869c97839feca1ad8e3bcc14777e7f5e169fddd8f2dc9",
+    "base/oracle.py": "05a0dc9c669b5a554db48bce396053d030a04c4ddc606d478d08a49d53a06f0e",
+    "base/src/facts.rs": "7bf886f9762f1904389cd553d2f10da6f0ae23dd6fd625faa57bcc1ff727a0d2",
+    "base/src/chapters/undoing_growth.rs": "bb3fd7990f90189ed2bd6cbfe9c34ef0e4b3e9a23ad00ee219f2ac47be73465e",
+    "base/src/chapters/building_ruler.rs": "e9a6cd9d4d75362a34a22e1ab7c87840c0e1c91edfe15aae860152bc30b6d809",
+    "candidate/src/facts.rs": "d187e97a9828d90a3a542bb79cbeadb669f3675232801a99fc33d69a4ead894f",
+    "candidate/src/chapters/undoing_growth.rs": "a19945fb4731925e289406d36f14f68942bcc92ea7f1b95884684a5ec99d2010",
+    "candidate/src/chapters/building_ruler.rs": "ae125e5ec9ec9bd6df073d90c9a9b77f80a9c202c04ad6803ea6ef3b8a3f903a"
+  }
+}

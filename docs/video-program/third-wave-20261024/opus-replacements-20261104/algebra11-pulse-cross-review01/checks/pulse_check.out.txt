@@ -1,0 +1,111 @@
+--- A. root's files and the hunk
+PASS candidate/permutations.rs is the bound file  4f861c3b6704
+PASS candidate02/permutations.rs is the bound file  0ba22ebd8903
+PASS candidate/narration-direction-map-oliver25.json is the bound file  1cd112090153
+PASS candidate02/narration-direction-map-oliver25.json is the bound file  129b3ef924a7
+PASS baseline permutations.rs equals canonical
+PASS baseline script.tsv equals canonical
+PASS root's patch applies to candidate at fuzz 0, with no offset  patching file permutations.rs
+PASS patched candidate has candidate02's hash
+PASS and it reverses to candidate
+PASS the two files differ in one contiguous place  [('replace', 808, 809, 808, 818)]
+removed: ['let a = fmn::animation::indicate(stage.arena_mut(), mob, 1.25, None)?.rt(0.6);']
+added:
+            // Scale the family without repainting it: a filled card's dark numeral
+            // must stay distinct from its coloured disk throughout the emphasis.
+            let a = mob
+                .animate()
+                .set_anim_args(AnimateArgs {
+                    run_time: Some(0.6),
+                    rate_func: Some(fmn::core::rate::there_and_back),
+                    ..AnimateArgs::default()
+                })?
+                .scale(1.25)?;
+PASS net +9 lines  10 for 1
+PASS the hunk sits in fn pulse  line 806
+PASS candidate02 has no `indicate`
+PASS candidate02 has no `yellow`
+PASS candidate02 has no `add_updater`
+--- B. the map rows
+PASS same number of visual holds  16
+changed rows (cue, candidate line, candidate02 line): [('11_2', 4115, 4124), ('11_3', 4165, 4174), ('11_12', 4177, 4186), ('11_15', 4189, 4198), ('11_6', 4276, 4285), ('11_10', 4333, 4342)]
+PASS exactly six rows changed, each by +9, each naming candidate02's hash
+PASS nothing else in the map changed
+PASS every permutations row's line holds its marker in candidate02
+PASS the nearest say above every permutations row is that row's cue
+PASS candidate02's units name candidate02's map hash
+PASS and no longer name the prior map
+--- C. the call sites
+PASS chapter 11 script rows read  27
+ 1412 undo_and_disjoint      11_4 sentence index 5: pulse(stage, &[top.cards[3], bottom.cards[3]])?;
+        voice from there: So the trails form disjoint cycles.
+ 1557 witness_proof          11_11 sentence index 1: pulse(stage, &[chips[REVERSES_IN_PLACE].frame])?;
+        voice from there: The difference between the two swapped labels reverses.
+ 2637 loops_why              11_14 sentence index 4: pulse(stage, &[board.row.cards[3]])?;
+        voice from there: Card four never moves, so it adds no condition.
+ 3066 even_subgroup          11_20 sentence index 2: pulse(stage, &[count.mob])?;
+        voice from there: They are not an empty collection, because doing nothing takes zero swaps, and zero is even.
+ 3130 even_subgroup          11_20 sentence index 6: pulse(stage, &[test])?;
+        voice from there: So a times b inverse stays even, and the test passes.
+ 3197 twelve_of_twenty_four  11_21 sentence index 2: pulse(stage, &[left_cells[0], right_cells[0]])?;
+        voice from there: Follow every arrangement by one extra swap of the first two cards.
+ 3205 twelve_of_twenty_four  11_21 sentence index 3: pulse(stage, &right_cells)?;
+        voice from there: Each even arrangement becomes odd, each odd one becomes even, and doing it twice changes nothing.
+ 3206 twelve_of_twenty_four  11_21 sentence index 3: pulse(stage, &left_cells)?;
+        voice from there: Each even arrangement becomes odd, each odd one becomes even, and doing it twice changes nothing.
+ 3590 shuffle_for_real       11_23 sentence index 3: pulse(stage, &[scene.notes[0]])?;
+        voice from there: One shuffle was enough to read the cycles, and the cycles gave us that number.
+ 3773 full_deck              11_24 sentence index 3: pulse(stage, &[scene.notes[3], scene.count.mob])?;
+        voice from there: Watch the staircase break apart and come back.
+ 3836 other_way              11_25 sentence index 3: pulse(stage, &[out_return, in_return])?;
+        voice from there: Watching the hands would not tell you that, but the cycle lengths do.
+ 4085 construct              11_1 sentence index 3: pulse(stage, &[cards[0]])?;
+        voice from there: Let's follow card one to its new position, then the card it displaced, until the trail closes.
+ 4093 construct              11_2 sentence index 2: pulse(stage, &[cards[1]])?;
+        voice from there: The label two stays where it is, and we can omit that one-element cycle.
+PASS 13 call sites  13
+PASS no chapter 11 line says yellow, flash, highlight, lit, lights up or glow
+PASS rustfmt --check on candidate02 (max_width 120)
+--- D. the test patch
+PASS the test patch applies to candidate02 at fuzz 0, with no offset  patching file permutations.rs
+patched permutations.rs sha256 64bbaa3a3a37816a0a40d23ca474a0dc9aed23db45a9323b53303d2a084c422f
+patch sha256 04ac3a348d90d3b01135f238a598872c7cd115546dde2107fc2920a9d1a8442f
+PASS only appends: every candidate02 line keeps its number  4854 then 5083
+PASS every permutations row's line still holds its marker
+rows whose sha256 would follow: 6
+PASS rustfmt --check on the patched file (max_width 120)
+--- E. type-check, on a scratch copy of the crate with the patched file
+PASS fmn metadata was built from the a399d62 checkout
+PASS explainer_score metadata from the current tree
+PASS explainer_kit metadata from the current tree
+PASS rustc -D warnings, normal cfg
+PASS rustc -D warnings, test cfg (the new module compiles)
+PASS clippy-driver -D warnings, normal cfg
+PASS clippy-driver -D warnings, test cfg
+--- E2. positive controls: the type-check really reads the module, in test cfg only
+PASS a type error planted in pulse_tests fails the test cfg
+PASS and the error is that one
+PASS the same plant does not touch the normal cfg
+PASS a Clippy-only fault planted in pulse_tests passes rustc -D warnings
+PASS and fails clippy-driver -D warnings in test cfg
+PASS with the planted lint
+--- F. controls: each mutated pulse must still compile, so that a native failure is an assertion and not a build error
+PASS control A's line is the one root removed
+PASS control A old indicate: the edit lands once inside fn pulse
+PASS control A old indicate: compiles in test cfg
+PASS control B no rate_func: the edit lands once inside fn pulse
+PASS control B no rate_func: compiles in test cfg
+PASS control C scale 1.0: the edit lands once inside fn pulse
+PASS control C scale 1.0: compiles in test cfg
+PASS control D run_time 0.5: the edit lands once inside fn pulse
+PASS control D run_time 0.5: compiles in test cfg
+--- G. what this reviewer already wrote that sits in the base
+PASS every non-empty line my earlier follow-up added is in candidate02  22 of 22
+PASS and none of those lines is in the pulse hunk
+PASS my earlier review named the scale-only remedy
+--- H. outside this hunk: other chapters' flat indicate, source only
+other files' indicate calls: 12 ['applications.rs:963', 'arithmetic.rs:764', 'axioms.rs:453', 'axioms.rs:604', 'centralizer.rs:229', 'cosets.rs:542', 'cyclic.rs:773', 'subgroups.rs:194', 'subgroups.rs:293', 'subgroups.rs:536', 'subgroups.rs:574', 'transitivity.rs:145']
+PASS 12 indicate calls outside permutations.rs
+PASS transitivity.rs:685-686 groups a disk with a dark number
+PASS and transitivity.rs:694 pulses three of them through the flat indicate at :145
+RESULT PASS

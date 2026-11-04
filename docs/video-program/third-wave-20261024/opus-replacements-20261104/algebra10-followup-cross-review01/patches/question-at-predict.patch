@@ -1,0 +1,11 @@
+--- a/explainer_corpus/abstract_algebra_expanded/src/cyclic.rs
++++ b/explainer_corpus/abstract_algebra_expanded/src/cyclic.rs
+@@ -448,7 +448,7 @@
+         opening.push(marker);
+         fade(stage, &opening, true)?;
+         // The question waits for the move it asks about.
+-        k.until_sentence(stage, "10_1", 3)?;
++        k.until_sentence(stage, "10_1", 4)?;
+         fade(stage, &[question], true)?;
+         k.hold(stage)?;
+         stage.wait(3.0)?;

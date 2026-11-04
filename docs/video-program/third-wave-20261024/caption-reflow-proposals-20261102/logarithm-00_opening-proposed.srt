@@ -1,0 +1,49 @@
+1
+00:00:00,600 --> 00:00:06,500
+Suppose a balance grows continuously at a
+rate equal to its current amount per year.
+
+2
+00:00:06,500 --> 00:00:08,440
+How long until it doubles?
+
+3
+00:00:12,067 --> 00:00:16,335
+After a time t, its multiplier is
+e to the t,
+
+4
+00:00:16,335 --> 00:00:20,507
+so doubling asks when e to the t equals
+two.
+
+5
+00:00:20,507 --> 00:00:26,627
+The answer is the natural logarithm of
+two, about zero point six nine years.
+
+6
+00:00:26,627 --> 00:00:30,587
+A logarithm finds the missing input of an
+exponential.
+
+7
+00:00:30,587 --> 00:00:33,552
+But what if the input also records
+turns, and
+
+8
+00:00:33,552 --> 00:00:36,787
+several different numbers lead to the same
+point?
+
+9
+00:00:36,787 --> 00:00:40,187
+Then undoing the exponential needs a
+choice.
+
+10
+00:00:40,187 --> 00:00:45,907
+And when numbers become matrices, even the
+question ‘can it be undone?’ gets subtler.
+

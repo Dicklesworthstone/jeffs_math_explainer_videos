@@ -1,0 +1,28 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+@@ -593,7 +593,6 @@
+     ..PLATE_NOW
+ };
+ /// Tiling rows, colours running along each row.
+-#[allow(dead_code)] // for examples/plate_lab.rs, until root chooses
+ pub const PLATE_BLEND: PlateStyle = PlateStyle {
+     blend: true,
+     ..PLATE_TILE
+@@ -621,7 +620,7 @@
+     ..PLATE_BLEND
+ };
+ /// The style the film's pictures use.
+-pub const PLATE: PlateStyle = PLATE_NOW;
++pub const PLATE: PlateStyle = PLATE_BLEND;
+ 
+ /// Rows that meet as `style` says. At the engine's default band of 1.5 px the background shows
+ /// through at each boundary between rows, which reads as fine stripes across the picture; a
+@@ -1538,7 +1537,7 @@
+     /// Choosing a picture for the film is a decision: this changes with it.
+     #[test]
+     fn the_film_draws_what_it_drew() {
+-        assert_eq!(PLATE, PLATE_NOW);
++        assert_eq!(PLATE, PLATE_BLEND);
+     }
+ 
+     #[test]

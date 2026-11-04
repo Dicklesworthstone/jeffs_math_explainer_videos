@@ -1,0 +1,15 @@
+scratch cues: 67  with an Oliver take01: 23
+cue files: 10_cyclic.cues.tsv, 11_permutations.cues.tsv, 13_arithmetic.cues.tsv, 17_applications.cues.tsv
+Oliver/scratch length: min 0.866  p10 0.988  median 1.074  p90 1.196  max 1.247
+  chapter 10: 11 cues, median 1.074
+  chapter 13: 12 cues, median 1.078
+  shortest 13_1: 0.866
+  shortest 13_7: 0.978
+  shortest 10_7: 0.988
+  shortest 10_9: 0.994
+  shortest 10_8: 1.016
+  longest  10_10: 1.151
+  longest  13_3: 1.186
+  longest  13_12: 1.196
+  longest  13_8: 1.198
+  longest  13_11: 1.247

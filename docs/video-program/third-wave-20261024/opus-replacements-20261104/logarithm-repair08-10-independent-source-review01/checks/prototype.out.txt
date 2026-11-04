@@ -1,0 +1,4 @@
+2piJ                 error 2.66e-15  kept with slack 292/292  kept without 0/292
+ellipse 2,1,0        error 2.66e-15  kept with slack 292/292  kept without 2/292
+ellipse 1.6,.7,30    error 1.44e-14  kept with slack 292/292  kept without 262/292
+stretch x=+-2: lands at 3.0000000000000018; kept with slack 194/194; without 0/194

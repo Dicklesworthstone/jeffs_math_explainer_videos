@@ -1,0 +1,880 @@
+{
+  "files": [
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/research-20261016/evidence/paired-original-narration-signal-triage-20261102.py",
+      "sha256": "4a7885f51681258140a7451494dc70202a4a64d33ea521993349fc48a0c52a61"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/listening-handoff-five-new-videos-20261102.json",
+      "sha256": "795fae4d2f423cb47f90194609b2bf06798e84c48d21404c3014a3d8c2b735c4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/abstract_algebra_visual/script.tsv",
+      "sha256": "d046477e8a1d1a2c94fd52e1794f29d144542b7e94f949a4567052a381eefdfc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/exponential_magic/script.tsv",
+      "sha256": "077cd2f02e8b50745a71b439ef8badaed63f4df7a161b76d27ff44f884f781ec"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/five_math_paradoxes/script.tsv",
+      "sha256": "171679c3a9d2eed7c499c5dac602352d6dff383a966c93ef25b075c2e3e15a54"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/explainer_corpus/logarithm_mysteries/script.tsv",
+      "sha256": "15eb9ae95f70979792771e4eda35af03fb4b0d5a517aaadda4dbb5471649e6e7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/ambiguous-06_1-takes-receipt01.json",
+      "sha256": "47da2164ede818818adf2a5796f41159898990d3d5ccef9110b2fdb3cc9ab23a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/ambiguous-06_2-takes-receipt01.json",
+      "sha256": "17f18f43d9839fecd116543cf49acf736a23a09d1bf451797d46fefc6370a303"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/centralizer-04_1-takes-receipt01.json",
+      "sha256": "a2f93035df747d088ed90b0f415878ae182d42fd3f401314d8dec32bf7e29127"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/centralizer-04_2-takes-receipt01.json",
+      "sha256": "bd467a50cc9c2961fcd2a807f0c981401dca8cbaa7fef7b045394933020f0248"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/closing-takes-receipt01.json",
+      "sha256": "dbe34544fd75bf0bc444cf223c03de86da20313e764f44f7ba2f5e5124b6ccb6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/cosets-05_1-takes-receipt01.json",
+      "sha256": "8393900f900809b9626778b6b0d59be62d43e9cc3508b8a2c3b78b9a9641ba55"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/cosets-05_2-takes-receipt01.json",
+      "sha256": "205fd5cab0afb5bd133006bf44fb9d492ae4f3d1cccd9a4c537089b03d965682"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/cosets-05_3-takes-receipt01.json",
+      "sha256": "9257b8eae56230d8fe8e01764afbd427516703a8c3e7da1f9cb6f8e9d256d922"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/group-02_1-takes-receipt01.json",
+      "sha256": "4b28d9f2aed66a40e6361dbebbfc3455cf8846fd60deb0e70e578cc82a88efe5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/group-02_2-takes-receipt01.json",
+      "sha256": "ef26bcb6a5efa1e5b49902da3802cdc56851c2e32cf7858549cce0a68c5eaa8b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/group-02_3-takes-receipt01.json",
+      "sha256": "35ee5382bab8793359420d6becce2b33b424698f0ee2c7d978740046edd6fe6a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/opening-01_1-takes-receipt01.json",
+      "sha256": "71ee09a4f790c06a8815def6fe47eed8f91e7490bb407b1f03f1b1a6308498f8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/opening-01_2-takes-receipt01.json",
+      "sha256": "cd3bdfcf9364670a9ea06538188d5a8c67870368a12d019b97977cd7ec40b4e1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/parity-supplement-takes-receipt01.json",
+      "sha256": "d90c1b046f0d5c6b44f6f295e46bcbdf4e652edf3c54c4c1a6d71f9eb2d101fc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/ambiguous-06_1-take01.wav",
+      "sha256": "b5c073d6156cd42a79b7850811a997fcbdd67bed2becc22d880a23c614504dda"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/ambiguous-06_1-take02.wav",
+      "sha256": "40136525fc57e854a47e22af971bd5e58faf43c8c201bfc6742c8429e11458af"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/ambiguous-06_2-take01.wav",
+      "sha256": "2eb0170a3c1c0d2473a30daee6d64e4369726f200ef3d21c39336d9000362608"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/ambiguous-06_2-take02.wav",
+      "sha256": "ce683dc8c07db694b36e890070a025f65ec4198144fbc26c84e1b1a320544fe8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/centralizer-04_1-take01.wav",
+      "sha256": "ceca0e195180ae92e34eeb7bb26d91c4168279f5dc22456106bcc52f241948a2"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/centralizer-04_1-take02.wav",
+      "sha256": "993156076e2f6daa43b57090e0010e5f25ac11d4d91b9e22fb5a84a630cb22e4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/centralizer-04_2-take01.wav",
+      "sha256": "2705d01f12df4a9a5491e2868c0f0d705a4e53a6f42b8491c14a89f676d24eb8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/centralizer-04_2-take02.wav",
+      "sha256": "439a2585ec1e07c88d634f5ba63bb2be1375e09debabab526dcd2187cafc2c54"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/closing-take-01.wav",
+      "sha256": "5a6c88a37772946b72ec81fa80cfac40ee60e75fee7f3988f0ed710476c75a5a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/closing-take-02.wav",
+      "sha256": "ea00dba4b93c4f8a87c57f535f21cb9348c607efb6e19dce35364854026d84fb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/cosets-05_1-take01.wav",
+      "sha256": "51934cc5e139db1c17811254d5304d0d746a9642f4207a402dfc6277382f594b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/cosets-05_1-take02.wav",
+      "sha256": "83b608db53c7a1fc10f23279514408c6b40b7fdd9e6f4296b4922711ed766684"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/cosets-05_2-take01.wav",
+      "sha256": "bc8f83656a0afc5a0fe43f3a52626bd1b3401a8fdc09f9b5dfa36277283bc034"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/cosets-05_2-take02.wav",
+      "sha256": "2c7ccb2f77c0378c33ca345f6a18feaccf87e287d4c2005ac1da45868da968d6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/cosets-05_3-take01.wav",
+      "sha256": "42c4545f19bf716b37867d05258f6412fa050841725d2c224cc061fae7714c69"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/cosets-05_3-take02.wav",
+      "sha256": "859c28cc47b8a74f21f5919813aa1c1c37242e1f7bf9954d5d23bef6e3a700b1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/group-02_1-take-01.wav",
+      "sha256": "b105c01b15895e6b6aee91b7896d988dbdf38adb69e41f2190908c6a6cf263c7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/group-02_1-take-02.wav",
+      "sha256": "026b3584ded50be202f48872e73a4095fe99bb5cc715ac900fbae9b2ac783cd0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/group-02_2-take-01.wav",
+      "sha256": "f7fbf3a59a230a8a9df57dab9f0d0f35367734b8713b5f93ad7d6e07c42ad9d5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/group-02_2-take-02.wav",
+      "sha256": "f84408cffb88406b3fe7dbf521f61c8cbb7deba9ca4243a12b75e8c31ff97eee"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/group-02_3-take-01.wav",
+      "sha256": "3a56e54a20ef1c2afb8055b5dd576d74c31adff4b8d8544a4344b4a5de9b244e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/group-02_3-take-02.wav",
+      "sha256": "2f90c7b6233bc6057fe97e77b1df092d4057d35a944d0aab7e6edab02ba1edf8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/opening-01_1-take-01.wav",
+      "sha256": "df75bb47f6de7bb8a007a9f5e598248fda9fddbebae0a3573af498939db17d0e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/opening-01_1-take-02.wav",
+      "sha256": "5e015fc9e65f2eaf6bf9bb5ba73f8613b52c8ab9499b6dcd392a006ec743ed82"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/opening-01_2-take-01.wav",
+      "sha256": "0f3e8b7aae40f438acce11c5fb15e57cd99057fb49e1753f3ed69f2d7e73a2f3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/opening-01_2-take-02.wav",
+      "sha256": "36d6e19aea67150ba882058266a67a45aa2db4f6f9e539056deb74a1136cc291"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/parity-supplement-take-01.wav",
+      "sha256": "ed1e1c43a9c00e9aca6d5ddb322be58f4d8487e0b1de80f8455629e12e962a0e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/parity-supplement-take-02.wav",
+      "sha256": "7be126334cd773e515a3db04528b69ed49dffa8c90a9c544f2ccf0d8e301bfcb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/rotation-quotient-07_1-take01.wav",
+      "sha256": "b1daa8ba954df2cd9e35136c4472c6aa771c349eb9dc94b1c4e57c44ab4be578"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/rotation-quotient-07_1-take02.wav",
+      "sha256": "e429b7beeff888489810e1b9388239dc260ea8ff49ad1b75fa7a16e23e878e3a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/rotation-quotient-07_2-take01.wav",
+      "sha256": "a0b11813aaee1887346b7767cf7db5c90fd38ecfdd0adc33d8f4f4b7de1752ea"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/rotation-quotient-07_2-take02.wav",
+      "sha256": "730942cb53a6874b38d556a77e8e6d8c3591cbef0eea50ec480f73a0b564a7a0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/subgroup-03_1-take01.wav",
+      "sha256": "0d73c8a756ea492352fbcba76226459397db59214def680e5bf677c2ede456b2"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/subgroup-03_1-take02.wav",
+      "sha256": "2032a0a921fdfbb3eb7cec998f1ae86d49c9b6e26eaefefed23f06300bd64fa1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/subgroup-03_2-take01.wav",
+      "sha256": "53c3a8c52beb7925170186895a25baa52d503ba57fd614dbf4eaad5885c2962d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/subgroup-03_2-take02.wav",
+      "sha256": "f2176d474893f26c806869059e03a6d1b4844e8937693e6e583b0e6523ce2edd"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/vision-08_1-take01.wav",
+      "sha256": "db2b7f7ef3ccdee8779dc1b9d72cbe25c948574e242bcb8d2bb54d2669400b42"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/vision-08_1-take02.wav",
+      "sha256": "63bf9f807f5c33aa1305c31a06362d029962446617d619bfffab62ec371ca7e5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/vision-08_2-take01.wav",
+      "sha256": "a8a8ed3c9ce7d88ecd4c422b64fe11e61e23e3b61b2d5417b1d1c4269c7dc59c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/raw/vision-08_2-take02.wav",
+      "sha256": "ca2f23a0db324d4dcfda987efc51840d1dccb9dd8d3ac35729f58897d5a8803c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/rotation-quotient-07_1-takes-receipt01.json",
+      "sha256": "4a25759eb7e0e12fa543c27fe16dedd59b940cbd1763d89e8321631488aba41f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/rotation-quotient-07_2-takes-receipt01.json",
+      "sha256": "9145ebff4991c373f036fab8b763285eb5362aaf9b83a02bf85fdeb2ea453cbe"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/subgroup-03_1-takes-receipt01.json",
+      "sha256": "9b05913ff0ebafb35ed04fbe0a374e24a780a116eda8d20ac169d4d08ae47734"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/subgroup-03_2-takes-receipt01.json",
+      "sha256": "2aa0b4634493eba9b0b6e5a531ba9701cffb4405e79f8ddb98d7d14fb128f391"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/vision-08_1-takes-receipt01.json",
+      "sha256": "5b12fe1273d14fefd843e755fc9d81ed1faf6170e5226a8428d25c7cd47c92f1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/vision-08_2-takes-receipt01.json",
+      "sha256": "04b19e1c06778b6557004810db9d608d78d7174d691b62d566a60aed245003a3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/applications-04_1-takes-receipt01.json",
+      "sha256": "4126c6fb6f4487afd3736f7796974835d073a016b280eca0a9a4e4105ec6348d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/applications-04_2-takes-receipt01.json",
+      "sha256": "fcf9599b390cd24199cd7f94e62a91082f0c50fd619fa67d0dd56ac0337b3f57"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/closing-takes-receipt01.json",
+      "sha256": "f4ac2d6d1cfb6a9bbe3462d0b5026875786c964dcecb8118e1fb62cef6fd072f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/definitions-03_1-takes-receipt01.json",
+      "sha256": "00a0f93269f56269b43ab688531d524d2b7a721637fa39fdc04535d1a954d50d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/definitions-03_2-takes-receipt01.json",
+      "sha256": "000bdf6f5ab00ccadad947e284321ef6b334ab73e6cb4e1c579be2094054f142"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/definitions-03_3-takes-receipt01.json",
+      "sha256": "f2ca45b53874885004c368233842294fd331b6573dafdd0a2a59f589185953eb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/definitions-03_4-takes-receipt01.json",
+      "sha256": "cdf2ab05b472fa248da928715e95b7e34c36de130bf72ab0ddf6ed2807922593"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/derivative-02_1-takes-receipt01.json",
+      "sha256": "c310796228edd502aaf11a6dea6bc74a6e6a68e5682fd93f1acdde0b4d440128"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/derivative-02_2-takes-receipt01.json",
+      "sha256": "3054074df41c23b968639fa26b5c99df72335365f1ec2e2b97bd44bc662a5f0b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/opening-00_1-takes-receipt01.json",
+      "sha256": "c309fb62402ed8abf21564dca4af638609868375825897e014d7ba290bad9537"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/opening-00_2-corrected-takes-receipt01.json",
+      "sha256": "aa8a50fcd4706d031764d83f76786c120d206db929e75ce475ab393f623cd9f9"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/property-01_1-takes-receipt01.json",
+      "sha256": "db823705082876c24a0dd8c0cd6c00c42783f659f311d0a6f813e2db0c5a40d9"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/property-01_2-takes-receipt01.json",
+      "sha256": "f70631a596f5d98587259dfa7b9824c1453ca0694555f5993270195a6250dfa6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/property-01_3-takes-receipt01.json",
+      "sha256": "089c8030787a32d4234926f5062e4d6520c63cd8107915e6f9ed688ba1108a72"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/applications-04_1-take01.wav",
+      "sha256": "6dcb6e3a6a798dc622b901083550952f06dd88f71b7082eeb82301ea08cd608e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/applications-04_1-take02.wav",
+      "sha256": "46938df8086ae34e81e2dd8f3917565a53cd763a001c1adfa96682ec67ad7276"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/applications-04_2-take01.wav",
+      "sha256": "649711fba1cd07686a6e5700daaedfd41b96c465f1a81cc8b59e7bc482079e4e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/applications-04_2-take02.wav",
+      "sha256": "4db813b2767de9d4b019f3a15ab3a366d1162cbe31519155e62ee92e43d417a5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/closing-take-01.wav",
+      "sha256": "89ca35d814524d0a9d40f353508224050b33da0a9ded73c542e8ec61c4e7322d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/closing-take-02.wav",
+      "sha256": "84b895574df15d33d3c20a873f6548babbc9500841de02a5c036a9d069fb5043"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_1-take01.wav",
+      "sha256": "53c768a71d17473b54f640d8067203d55994fc34931261d74332af3b0e7209c8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_1-take02.wav",
+      "sha256": "dbb527f801fe1afb81d2bc28bfbf767d5512eb00cb4ee0abbc0815ffd68cc9ad"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_2-take01.wav",
+      "sha256": "73e69fb14de4c6f43c25aad2c6670cbd9ea998fef36a88b8bfad999aba575a31"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_2-take02.wav",
+      "sha256": "36811b1ea45f26ffca1df7ace9b8d34929e626ce5acc962591bef4138f0060d1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_3-take01.wav",
+      "sha256": "515a925ec3432e62017f4176c6f57dd7cf0c717f0a4ecdd04f2993b8ae8580cf"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_3-take02.wav",
+      "sha256": "d756b8b07ea17860ee64e910bcca9422208424099bc54fb9082296ac817f4073"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_4-take01.wav",
+      "sha256": "8532f5520e66fc78970db3ce95d76d9cf9530bfbec5a48ac3fa7196842962854"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/definitions-03_4-take02.wav",
+      "sha256": "b33981803d5236222c385f7fea9ca9c6e3482bd4c72db714d8dc91f536ad1a13"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/derivative-02_1-take01.wav",
+      "sha256": "907ac27ed71bc52b0a49211c54fb8ff96d2e5408b4d10520ca0fcd9d1c68a0a4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/derivative-02_1-take02.wav",
+      "sha256": "b3f4a7f86c01bc3b8efb27490b5cc55f7b2f390113e2fedff8149ddac1d16338"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/derivative-02_2-take01.wav",
+      "sha256": "394d9e5171e13072e7bdad6154b435486730fed8e9ded064142bfddf682d115e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/derivative-02_2-take02.wav",
+      "sha256": "38b090bc36405a62692a7d0bf1f8908617883a9541702c6a8f6a12cbc1f22be0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/opening-00_1-take-01.wav",
+      "sha256": "4fbe8ee34287d7a1c0eb676324290295f2784aaeafc73d8ef5ab978bd95c8821"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/opening-00_1-take-02.wav",
+      "sha256": "88003b0b2447d07c0151f41b871e1a7f47f67fc5d18f1c9a4e566e354bc8ce5f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/opening-00_2-corrected-take-01.wav",
+      "sha256": "52b0f6ab1bbf8ab2960a6ca8c2fab30374f27a453f5efd2ee4dc315d5fecbabb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/opening-00_2-corrected-take-02.wav",
+      "sha256": "f31a9d83647b6bd38f168e27c740d79ed4add771baa3fc5db45c189bf1111149"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/property-01_1-take01.wav",
+      "sha256": "100c2ece6a14d5467337113c09ffc10aed101541fe805c2375b543997dfbd6db"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/property-01_1-take02.wav",
+      "sha256": "a198ca1ecc38c1352698d890db9891e4b993240e7561df667dcc326cd39281b5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/property-01_2-take01.wav",
+      "sha256": "3cd88f1f37d34e40d08b3500786b0d304d84742bb261d6782a88ad7b4837d56d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/property-01_2-take02.wav",
+      "sha256": "b424074741ab1888805496cc4e0be0ee51c16930b987577e2c5850c4109c4c3b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/property-01_3-take01.wav",
+      "sha256": "7293a90ebd172c0da3a49841c042fef6d0e70671a8935e87f982efc7e6eded4e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/property-01_3-take02.wav",
+      "sha256": "4a41a17de11f88e2066d6e9f8426088d4261a1357433c2cfbaf2ef2c85c7b603"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/rotation-05_1-take01.wav",
+      "sha256": "998e56adc8c53b1efa0ad066de2a7ea704b27692a179864dee00ed24aaf818da"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/rotation-05_1-take02.wav",
+      "sha256": "7e27acf065d74052271560ade31da9baed3bc53e9bf1492852347d700c3425f0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/rotation-05_2-take01.wav",
+      "sha256": "4c823a9b821bdf0e72858aa162012f12328d2843a216a64d4cddaaa9d5b3e622"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/raw/rotation-05_2-take02.wav",
+      "sha256": "fd76742720a76d0caf93fb15ba1f1c5c72f8eb8721b431f9155404d812c9ae0f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/rotation-05_1-takes-receipt01.json",
+      "sha256": "c496afd32f485a2b2a8dda058d0fd5e136a4b7b38380cdd5bd8fdb8ac863b4fd"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-exponential-20261101/rotation-05_2-takes-receipt01.json",
+      "sha256": "3b0c356c10a51ca957fa49efda923c0020231a665155a3472c8ded6aed86725a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/birthday-02_1-takes-receipt01.json",
+      "sha256": "715c8597a183dcf02a8916c456a664087ca379d9e6180776a832828d2bf191fd"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/birthday-02_2-takes-receipt01.json",
+      "sha256": "400c5c913aeffaaaed8a45e1304f5c84e6244dade3eccd5e3681417e5d578534"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/birthday-02_3-takes-receipt01.json",
+      "sha256": "42f473ed884741069622cbe51a187d3ac507b7412c8f14bbaaffa83ec85fb173"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/birthday-02_4-takes-receipt01.json",
+      "sha256": "e8a71e3388a85fe9e0c17b6708825091e8492b809c35b65de30668ac0c760d90"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/birthday-02_5-takes-receipt01.json",
+      "sha256": "a94e67be4bd2541393e1a08ded0d47ef3c5327b99e1014e187aafbf81ebec497"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/closing-takes-receipt01.json",
+      "sha256": "473de15465e53ef4bf8f910ba6ca214566d88d3afe38aaf7c67e5f4ff780b78f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/hotel-05_1-takes-receipt01.json",
+      "sha256": "7f2b5ac4ef41cd507f82bfe56f258349ecf904ff6e1341e1fd23679388167b34"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/hotel-05_2-takes-receipt01.json",
+      "sha256": "b4622740ed303764466a33146f692d9f5c1cb4c1b3bc0179996d7a5a7ebc39d5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/hotel-05_3-takes-receipt01.json",
+      "sha256": "aba8e473c0dcf9ce0a1b0a58771f942863598518d9367332cf915cf4d6cdfa1b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/monty-01_1-takes-receipt01.json",
+      "sha256": "7043029b23a9b967b91bd28e880287cc677bac326afb1967ee70144eb28a83b4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/monty-01_2-takes-receipt01.json",
+      "sha256": "cc39d4bd804dbe6b81daca5a2f4ff6a276e7cccd8b72368620f3c7044b152c35"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/monty-01_3-takes-receipt01.json",
+      "sha256": "5a5d293115d9f4b526f887ea77fab9ef0df7912e67d38a9dda4e679e97e370ee"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/monty-01_4-takes-receipt01.json",
+      "sha256": "b1395c8d9713fc2413f1ce7c6456162752e24048ca808eca8b16376c60e3964d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/opening-takes-receipt01.json",
+      "sha256": "c0fe3c60b98b4936c9762aac28a1e926bb5da4b530f5bf59921b90017b67478d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_1-take01.wav",
+      "sha256": "250891100c069696d0b3a8087419735ac38b49d82bc796ede14d384e1d117f35"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_1-take02.wav",
+      "sha256": "91a41953bb91ac6174dff0d5bc85cf8739932257b1c9b3ef990b2123aea830cb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_2-take01.wav",
+      "sha256": "7eb42eadf069de1981334b3ded4cb06ca19028c5161578a0f4995ef4fa566141"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_2-take02.wav",
+      "sha256": "db8fe1c47300015920a062b170e8d6da6102dbf97d707c9c93ae03abe352cf6d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_3-take01.wav",
+      "sha256": "3a19465be786b4e2b6834597952bc7fcd4d678a0fce6c36a43b1f7bdd9d89a76"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_3-take02.wav",
+      "sha256": "3750f80e84e53c558ad2032ee69d40fd9945afe18156820d1f43e3017603abe1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_4-take01.wav",
+      "sha256": "e435989f46f95de8e12a2b67b826815aad8b7e8951889b982f179343234e1b73"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_4-take02.wav",
+      "sha256": "b5ff158ac433e6a55803b2353078ffc88d89ddb3c9f2ef405bff00f73235713b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_5-take01.wav",
+      "sha256": "7094e35327a04c8a0428971a7dd90d03422d1af6560a84d96b87575e7f75cada"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/birthday-02_5-take02.wav",
+      "sha256": "4db41f16f67bfd67c256b37463cd70a97788b047b78b38efba86b74c25fbc1eb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/closing-take-01.wav",
+      "sha256": "59ec53d5a08d655cffbdcdd55a668ce6d2dbd0745c6ee330dfdaeeee4ad1121e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/closing-take-02.wav",
+      "sha256": "72f609541d2ad4856fad9185e32dee9edc8b985732fca29bce0ccf85c59bd771"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/hotel-05_1-take01.wav",
+      "sha256": "05ee7d3f3c0ce6e41f536eace771a1b1295d8da60d6478046cc05be8ffaf44c5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/hotel-05_1-take02.wav",
+      "sha256": "371a322915f1624fcc7a32260188a08bd46b4963c942619a353a5cccc57d618f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/hotel-05_2-take01.wav",
+      "sha256": "0eaf176c2dfd57dfa970842eb27d01fffac7b181803edd1bd896ab2859882e90"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/hotel-05_2-take02.wav",
+      "sha256": "9ab4c321e1dd3c21ed5f8c396532c676745a3e1d6b7f15d985eeec48a25942f1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/hotel-05_3-take01.wav",
+      "sha256": "d78cef7bedff250f9836b0d7da5cc3920be545ebba2388f5ad29c6ef20b80708"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/hotel-05_3-take02.wav",
+      "sha256": "73249974ada10620ae2cbf3abdd1a51791c32de22bd6961886fb8de5b65bea7d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_1-take-01.wav",
+      "sha256": "aaee753c4f0290f44c53fc29ac3ec357e0397a2f12cd89db7ad2a51196531182"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_1-take-02.wav",
+      "sha256": "9b8bcdc61bc0ccace6766749331455a546cbc6f1308b1fc7dbd6c91fe59797b7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_2-take-01.wav",
+      "sha256": "bacd7a7880bf1a963d2a8c378f966e9276a178786a0a609df4528de4a44dab1e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_2-take-02.wav",
+      "sha256": "86b73ceb46f92e95707c809ea531c4feded068e03102057543c0f066b2fe9877"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_3-take-01.wav",
+      "sha256": "59633c6d2df10d9234bbca79e988a8e2ff76ccdb46adf34b99cf4e8a3325ed5a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_3-take-02.wav",
+      "sha256": "80e0d181ede61437ee71a2533d49a078b830b88504368cc2ff5c93bed4db08e4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_4-take-01.wav",
+      "sha256": "16edf069b9d21043cf9fb2f410357c377c985aec0bf918cb52201308e8f629f6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/monty-01_4-take-02.wav",
+      "sha256": "d243dc3a3e0b3f201fcb454049987f620076424159ed171099357148fe0129ae"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/opening-take-01.wav",
+      "sha256": "c74c2bfd2724c45fffd7548ef7188106a6cfe175db54a3605c5f3ef70c6f66d2"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/opening-take-02.wav",
+      "sha256": "6390cf059ceba0faac92c3146931ed4990b579d2a7662eb584ca7e9083a1d0c0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_1-take01.wav",
+      "sha256": "1150f48eac66999f0b4f00a71bcf088735c628d7a36e027776851623a68c800d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_1-take02.wav",
+      "sha256": "a014b70684af483f11354357d720a107684dfb507ea71f0e2520299191a51f96"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_2-take01.wav",
+      "sha256": "e4a51fd1ffd4ace8d8273e485d4804b6bd45ec5506f8c739fe6d6ba8c817ae21"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_2-take02.wav",
+      "sha256": "67a51ee4a77f03e95191f0066e56a739a0b09707956b35dfade3eea4bd236aa6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_3-take01.wav",
+      "sha256": "35f46c5688cac62753bb5e78a303809a43f2bdfa8059dd6721e834a39e5550a3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_3-take02.wav",
+      "sha256": "63d202997c49103c72a95524719b21a723868692ff7dd10a0e02f6db8fedeb2b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_4-take01.wav",
+      "sha256": "1593e5dca08e2cd8471a6a74f87cede2e7f121235fb9eaafc6ecb9422b02e2f4"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/simpson-03_4-take02.wav",
+      "sha256": "a09b26c3c80abf5648e8e6a016fb814d792d90b619075a77377efc8229bbcdba"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/zeno-04_1-take01.wav",
+      "sha256": "a46018c28f72c244b9706d5157adfcf5ee7bdc1cb637932b00ae5443546b2404"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/zeno-04_1-take02.wav",
+      "sha256": "2d7bc13f3844dd9f7b7a61f1c4d9e8b32f8f1cfdb51fd40ac156666a373945f7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/zeno-04_2-take01.wav",
+      "sha256": "26b3ff0a77cdc6193f338b516343af363ded2543603d7723425326d7c1b25e01"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/zeno-04_2-take02.wav",
+      "sha256": "bc9901dfb33f962e0ea8904197b22bd778d5b4b31715a49bbc2ec7f65a426ee3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/zeno-04_3-take01.wav",
+      "sha256": "f0cd5bc008d9af3f3b6a77a003bee9d7d3734537bc6383a97f3d94406cd3cfec"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/raw/zeno-04_3-take02.wav",
+      "sha256": "a9a9f3f686ea013285eb457203e49d062b6d6a97a61418ee4d7045b274076e4e"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/simpson-03_1-takes-receipt01.json",
+      "sha256": "5adb4e74b147fb152fbf2e3e53eb07931818475db8b4f7403a59a69305c05f72"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/simpson-03_2-takes-receipt01.json",
+      "sha256": "ca8d9e36d87b1c028fcf220d7f84bda9bd40b448d0fc1fc232a29ac0bf67e925"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/simpson-03_3-takes-receipt01.json",
+      "sha256": "ed09d3ac9e999aa4736d054d7398cae0275b77f21259779056891bb092dde9da"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/simpson-03_4-takes-receipt01.json",
+      "sha256": "2b62e40b9275ac9da9184df95acfed44d916bf3a9e8910fc2076e6657b645045"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/zeno-04_1-takes-receipt01.json",
+      "sha256": "c727c3cd87c5c548a3f323a5bdbc77c5b0ccbb6ebc92728115043d0032bc4252"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/zeno-04_2-takes-receipt01.json",
+      "sha256": "921e5a78271276e19c0b90022153daf92b1a55e1da865ab832cb9335bc16a8b1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-five-paradoxes-20261101/zeno-04_3-takes-receipt01.json",
+      "sha256": "67a6195f301f1519ac221e680288d631d6aa2d822bb101306734a8d92d1467da"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/branch-03_1-takes-receipt01.json",
+      "sha256": "62eb7c81f24380e79fddf2cc93acdbcf61ae5e4e079e74152140f88d563399fc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/branch-03_2-takes-receipt01.json",
+      "sha256": "3bd8d673d92c3d6dde01ee2d49b889d8ba005765c399e9721a3894178aff5fe2"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/closing-06_1-takes-receipt01.json",
+      "sha256": "1d0265702ddabee3d6f8c8dbf180841b878a53edd013ddab4ae5f2bc434cc219"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/matrix-05_1-takes-receipt01.json",
+      "sha256": "204f50b14d401f269041ecd11d0b5bbb5f2c5dcec6e7ae32b5e6f7a078395b1d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/matrix-05_2-takes-receipt01.json",
+      "sha256": "6a61da3e2dd78d8947025d3756f4a2508ad336a0faae40a48d7e99de57581785"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/opening-00_1-takes-receipt01.json",
+      "sha256": "e01c6aa5137b2b5918c5c22c7ff5d38ef8b55cc8ffa8159e020b360901b9c35f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/opening-00_2-takes-receipt01.json",
+      "sha256": "f81ed9a533d46a16ce4e6679cf0c1b6ebee81725eaf24d5335cd39e5d50420b8"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/product-04_1-takes-receipt01.json",
+      "sha256": "b0c030cffd5fff58309b788dd5bfea39ad0adcb36b9086b7c39d12035ddd5766"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/product-04_2-takes-receipt01.json",
+      "sha256": "3da482143eec4406b8e7bbb90fe8d756cc33887c825d137e80f0d1e178be1ae2"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/branch-03_1-take01.wav",
+      "sha256": "d79fbcbecbbb6b02dfd991a673c4062bed1b9a25b4f5e310cde2f8c2ee3c1ac7"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/branch-03_1-take02.wav",
+      "sha256": "4b3ac414d225c8f0320d3b982b9bcc5319762f59934fc573e0a0180222ee43b9"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/branch-03_2-take01.wav",
+      "sha256": "d596916cbd17511d152c5ace88945fe373021b5f607126e9281ec37113aaa839"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/branch-03_2-take02.wav",
+      "sha256": "932a59abbe71fe05b6c55084ad624a4e5e78761d787d2b32718dec09884579b9"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/closing-06_1-take01.wav",
+      "sha256": "36207ed3ddeca0a433fb9013fcfa04f4e3f7de51b81bf1954904f8f8e00bb22c"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/closing-06_1-take02.wav",
+      "sha256": "0632dba613e2907ba8ebcb33bfd74b9b279aff4c782bfb6a05f686b839b07a21"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/matrix-05_1-take01.wav",
+      "sha256": "eae844b0b5c289133e2f33ac453c0f22f0009897f46172ef06bda814b984566b"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/matrix-05_1-take02.wav",
+      "sha256": "5295056a8f67bb199425843fe2d515cbeffa8f9768a7852e4143a70c4989d64f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/matrix-05_2-take01.wav",
+      "sha256": "1fe30065f608540b417b82be322929c7818b673a5f4d8de8fd3f3b3351258109"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/matrix-05_2-take02.wav",
+      "sha256": "e5cb63e94b2808ca59b9993b0c77ba3830402d40ac7a0b85a8a063848bca7ac1"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/opening-00_1-take01.wav",
+      "sha256": "940d3940ec281d3d43edd97b495a0b68b176fa3711e1a6ec9fb8dec23a932235"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/opening-00_1-take02.wav",
+      "sha256": "3a619d971ff0372e61abca0792adef68f99169fae7ba4724c9d122f1ef5a733d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/opening-00_2-take01.wav",
+      "sha256": "a52cd14748e36ffdb4f79bd6583aa65c6b16efec72c0e0111e4f0e069c42f8e0"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/opening-00_2-take02.wav",
+      "sha256": "b6b69f23f3ad174557803bc9864bf3c6deb200f30071967b99daf70dcc6463cc"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/product-04_1-take01.wav",
+      "sha256": "b425238909925a690851d387f8ca03172d1bc318ebb9e273d9f453857da1fcae"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/product-04_1-take02.wav",
+      "sha256": "28f2e848fb31bc4a3f2753cfddf31a3b81c7fe6b2debc3238479d95006eb20dd"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/product-04_2-take01.wav",
+      "sha256": "26a08f0e47664d992e48ef4315ed280ae1ede56e308d2da1b6fcedce285d57eb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/product-04_2-take02.wav",
+      "sha256": "36ab4b71f3589c4577d125decac18bc23cdc8e33305ed1dbcd926b4b867b4ad5"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/real-inverse-01_1-take01.wav",
+      "sha256": "6afc4737639af22d66e76079c5b973afbff869f34517c8536181aabaad445f8a"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/real-inverse-01_1-take02.wav",
+      "sha256": "50f4c3ca628aedf2ecab9caa2fbfca8594fcf862bd78d4abb9628f20943d2845"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/real-inverse-01_2-take01.wav",
+      "sha256": "92730e8756874ee40acf30522d3d1328bd5f557ad1d24fa7c8b380fc0ac529dd"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/real-inverse-01_2-take02.wav",
+      "sha256": "d21bc48fb97070e5fe164392a1ec5ad9a30b30461715d4715ea6635cd3a50674"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/real-inverse-01_3-take01.wav",
+      "sha256": "9d64424cac46ae9c8f1a9f0ce749f15572e971e9862e4f31162858c9c196a8e6"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/real-inverse-01_3-take02.wav",
+      "sha256": "456ff3f24cb94a99ed955a75496511c9c973dc7f5b8f327c3a076b496ba238fb"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/winding-02_1-take01.wav",
+      "sha256": "5d7ecdd1c9ed57f5ff0dc7b1dc34a20ff01f34428cefaaf8f5cd886642452a7f"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/winding-02_1-take02.wav",
+      "sha256": "3cdd1691535004c4c7276a7874f40acedf40577353b2c17a913b9997091d6422"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/winding-02_2-take01.wav",
+      "sha256": "24abf61817b33aacc56f1013d28db80969df31d30143c38df6ddb2ed34484ed3"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/raw/winding-02_2-take02.wav",
+      "sha256": "ab1f13f83ba2ef48c15335165d773d8859449c3a022106b1266bebf5246332bd"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/real-inverse-01_1-takes-receipt01.json",
+      "sha256": "fef8e51ce2653990259de8188cb07bfbf3f293e809f3476f1e439b2970b0bb6d"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/real-inverse-01_2-takes-receipt01.json",
+      "sha256": "bb08d675ba7f3919f6a652bf7c5c9739569d353f002fafcea94d3978ed313121"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/real-inverse-01_3-takes-receipt01.json",
+      "sha256": "51a36b3ec5058f19759b72f67fd3fb9ffcc838931baedf4651d28f66da544d02"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/winding-02_1-takes-receipt01.json",
+      "sha256": "1b4e0aa36cd4f6378f4e7b4d2c1dd51d4769bbd2cd4847787ffa293029e22558"
+    },
+    {
+      "path": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/winding-02_2-takes-receipt01.json",
+      "sha256": "8fc94302da9e700174ef09f0d15b7b9c18413abdce16e73274bb1bd651f82752"
+    }
+  ]
+}

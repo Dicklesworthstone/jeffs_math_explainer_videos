@@ -1,0 +1,9 @@
+fmn rmeta: target/debug/deps/libfmn-d0eee55d0a1f71a0.rmeta
+PASS fmn metadata was built from the a399d62 checkout
+PASS explainer_score metadata from current source
+PASS explainer_kit metadata from current source
+PASS rustc -D warnings: scenes and models type-check against pinned fmn, normal cfg
+PASS rustc: same crate in test cfg
+PASS clippy-driver -D warnings, normal cfg
+PASS clippy-driver -D warnings, test cfg
+RESULT PASS

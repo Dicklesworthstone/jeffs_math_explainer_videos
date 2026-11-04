@@ -1,0 +1,65 @@
+--- canonical
+  contacts over the walk, walker angle in degrees; seconds at the scratch rate of 55.6 deg/s
+    R across the gold segment                 5.6 to   14.1   0.15 s  R on top; line through the letter
+    R on the imaginary axis                  96.4 to  103.3   0.12 s  axis shows through the letter
+    spoke over the pole ring                 83.3 to   96.7   0.24 s  spoke through the ring
+    spoke over the name i                   103.9 to  107.3   0.06 s  spoke through the letter
+    spoke over the segment's arrow head       0.1 to   14.7   0.26 s  spoke over the head
+  smallest clearances, plane units (1 unit = 93.75 px at 720p)
+    R to spoke                             +0.121
+    growth: i to lit segment               +0.082
+    growth: ring to lit segment            +0.055
+    growth: -i to lit segment              +0.082
+    growth: -i to arrow head               +0.105
+    growth: i to ring                      +0.152
+    growth: -i to ring                     +0.168
+  frame 93's pose, walker 98.75 deg:
+    spoke to ring ink +0.035; spoke to i letter +0.093; R centre x +0.028
+--- with this repair
+  contacts over the walk, walker angle in degrees; seconds at the scratch rate of 55.6 deg/s
+    R across the gold segment              none
+    R on the imaginary axis                  96.4 to  103.3   0.12 s  behind R's backing
+    spoke over the pole ring                 83.3 to   96.7   0.24 s  behind the ring's backing
+    spoke over the name i                   103.9 to  107.3   0.06 s  behind i's backing
+    spoke over the segment's arrow head       0.1 to   14.7   0.26 s  behind the head
+    (cost) spoke hidden at height 1          82.9 to   97.1   0.26 s  the rest of the spoke stays drawn
+    (cost) spoke hidden at height 1         100.5 to  110.6   0.18 s  the rest of the spoke stays drawn
+  smallest clearances, plane units (1 unit = 93.75 px at 720p)
+    R to spoke                             +0.121
+    R backing to spoke                     +0.108
+    R backing to segment                   +0.006
+    R backing to pole backing              +0.207
+    R backing to i backing                 +0.197
+    R backing to half circle arrow         +0.264
+    R backing past the letter              +0.013
+    i backing to axis                      +0.174
+    i backing to ring ink                  +0.077
+    i backing past the letter              +0.013
+    growth: i to lit segment               +0.082
+    growth: ring to lit segment            +0.055
+    growth: -i to lit segment              +0.082
+    growth: -i to arrow head               +0.105
+    growth: i to ring                      +0.152
+    growth: -i to ring                     +0.168
+  frame 93's pose, walker 98.75 deg:
+    spoke to ring ink +0.035; spoke to i letter +0.093; R centre x +0.028
+--- canonical faults: ['R across the gold segment', 'r_axis', 'ring', 'name', 'arrow', 'backings not faded with the spoke']
+--- repair faults: []
+--- planted faults, each must be caught
+    caught  R shown from the start: ['R across the gold segment', 'R backing to segment -0.404 under 0.001']
+    caught  R comes in too early: ['R across the gold segment', 'R backing to segment -0.257 under 0.001']
+    caught  R backing too small: ['r_axis', 'R backing past the letter -0.027 under 0.005']
+    caught  R backing too big: ['R backing to spoke -0.022 under 0.05', 'R backing to segment -0.125 under 0.001']
+    caught  i backing too small: ['i backing past the letter -0.033 under 0.005']
+    caught  i backing into the ring: ['R backing to i backing 0.093 under 0.1', 'i backing to axis 0.070 under 0.1']
+    caught  i name moved onto the axis: ['i backing to axis 0.044 under 0.1', 'i backing to ring ink -0.053 under 0.05']
+    caught  -i name onto the arrow: ['growth: -i to arrow head -0.035 under 0.05']
+    caught  R pushed toward the spoke: ['R to spoke 0.031 under 0.05', 'R backing to spoke 0.018 under 0.05']
+    caught  R pushed onto the pole: ['R across the gold segment', 'R backing to segment -0.089 under 0.001']
+    caught  nothing re-added over the spoke: ['ring', 'name']
+    caught  ring not re-added: ['ring']
+    caught  name's backing not re-added: ['name']
+    caught  arrow not re-added: ['arrow']
+    caught  backings left behind: ['backings not faded with the spoke']
+    caught  still fades R in with the rest: ['R across the gold segment', 'R backing to segment -0.404 under 0.001']
+missed: []

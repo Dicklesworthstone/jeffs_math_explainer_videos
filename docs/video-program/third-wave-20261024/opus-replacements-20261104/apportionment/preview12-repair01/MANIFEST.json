@@ -1,0 +1,70 @@
+{
+  "stage": "preview12-repair01",
+  "bead": "mx-video-program-program-87do.30",
+  "grant": "Agent Mail 1269",
+  "patch": {
+    "path": "preview12-repair01.patch",
+    "sha256": "910636402ec6c0ba35842e21077061564fde0dab2786d151e055a5a2d6ef31b4",
+    "strip": 1,
+    "apply_from": "repository root"
+  },
+  "files": [
+    {
+      "path": "explainer_corpus/apportionment/docs/narration-direction-map-oliver03.json",
+      "base_sha256": "317f821a32e6a804d176ff7f309b9d9564ff6405c0a937b9f701d99bb8459c9a",
+      "candidate_sha256": "3fc8199165851dc2d8f8e14a61f8f68150032f5751393ee49a6923981ba16f44",
+      "changed": true
+    },
+    {
+      "path": "explainer_corpus/apportionment/docs/storyboard.md",
+      "base_sha256": "31bf5bf4fd382a4015bc28564e3aad6cddfa0ddbf025a500f12ecefb6ff98fa5",
+      "candidate_sha256": "85d3b36b4a9bb11d38b5c7d3839ad142296e82a1afb47e92eb03bf50eaaccfb1",
+      "changed": true
+    },
+    {
+      "path": "explainer_corpus/apportionment/narration_units.json",
+      "base_sha256": "7adcd8ad17bddd524ec8d14660671dec5ddffcf1fb48d15c6f280b51767930e7",
+      "candidate_sha256": "7b2024b64bb8eb7d2d1fce9ec5f256d08f2d1ac8cc1780a6e5b48bd737d39002",
+      "changed": true
+    },
+    {
+      "path": "explainer_corpus/apportionment/oracle.py",
+      "base_sha256": "56009064259c3fbacf426a6962501507096e1ce07797e6b49fe0aee7c43442e5",
+      "candidate_sha256": "d9a5a6ab098cae541ad7b3ebd5aca90c0dfb43f34fe7f03ed7e91e94b2a9b803",
+      "changed": true
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/both_promises.rs",
+      "base_sha256": "81d2f0aa92091dc961aa5072234bea9ac6e5a914d6751d1f36171f7ccb9f4739",
+      "candidate_sha256": "da41049bbaf9d9fe0514cf33bc416effccd4035a4a35d8a0a03a303e159fa9cc",
+      "changed": true
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/facts.rs",
+      "base_sha256": "ec55517c9544e275a8ba3b639b07be2690e347dc564bac93849d6874f3d3faa6",
+      "candidate_sha256": "b26bf1e409958a2ac9fb430f215cc19b4dbe6f3b350e0f28820a9056f1a18c8c",
+      "changed": true
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/model.rs",
+      "base_sha256": "91baa9ca3f1d050de21375050f6f881401df7de7471c4fe0aa6e46f74ef2c5cf",
+      "candidate_sha256": "d7bb080faba88e63bf1261f81b49b54bf5c5b9b36191caf9fe321e1d140d6f6b",
+      "changed": true
+    }
+  ],
+  "read_but_unchanged": [
+    {
+      "path": "explainer_corpus/apportionment/script.tsv",
+      "sha256": "cfcec06911c7d94efa6b7b29a820be9bf73a608810b4b57085f02f5b95939313"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/draw.rs",
+      "sha256": "dd385ed5f45f09ffb8c0d8563829601bb147460bc16c7d4cbbf08245a7b23ba4"
+    },
+    {
+      "path": "explainer_corpus/apportionment/docs/description.md",
+      "sha256": "0c87d6bcdabea1120bdd0b89cc45ffe370c6f1c5de363446aa6959a5eb84cf75"
+    }
+  ],
+  "not_done": "no compile, Clippy, Cargo test, render, listening, fine sync or AV acceptance"
+}

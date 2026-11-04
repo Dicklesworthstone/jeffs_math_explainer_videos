@@ -1,0 +1,54 @@
+finding	cue	sentence	base	candidate at 2.68, 2.3, 3.1	claim
+1.12	01_1	before-next	fail	pass/pass/pass	the title does not ask the question before the voice does
+1.4	01_1	4	fail	pass/pass/pass	the three doublings show as three lengths with visible gaps
+1.5	01_2	before-next	fail	pass/pass/pass	the half steps show as separate lengths
+1.5	01_2	before-next	fail	pass/pass/pass	"one step" clears every blue stroke
+1.8	01_3	before-next	fail	pass/pass/pass	the hunter rests at least 0.15 away from the true place of 3
+1.6	01_4	before-next	fail	pass/pass/pass	both compressed rows keep visible gaps between their pieces
+1.7	01_4	before-next	fail	pass/pass/pass	"19 doublings" ends inside the safe frame
+1.9	01_5	before-next	fail	pass/pass/pass	the keyboard line replaces the power row
+1.3	01_6	4	fail	pass/pass/pass	no base-two claim survives into the base-ten sentence
+1.10	01_6	4	fail	pass/pass/pass	the third sentence has a concrete picture: a step of ×4
+1.1	01_6	before-next	fail	pass/pass/pass	one blue bar under the ruler, from the 1 mark to the 10 mark
+1.2	01_6	before-next	fail	pass/pass/pass	the labels "8" and "10" stay clearly apart
+1.13	01_6	before-next	fail	pass/pass/pass	the marks did not move: 8 is still three old steps along
+2.4	02_1	2	fail	pass/pass/pass	the full-length caption states its unit
+2.1	02_2	before-next	fail	pass/pass/pass	the gold line leaves D's 8 whole
+2.1	02_4	before-next	fail	pass/pass/pass	the red line leaves C's 6 whole
+2.2	02_4	before-next	fail	pass/pass/pass	the red end tick leaves D's 10 whole
+2.2	02_5	2	fail	pass/pass/pass	the overflow's red marks and words have left
+2.1	02_5	before-next	fail	pass/pass/pass	the gold line leaves C's 6 whole
+2.7	02_5	before-next	fail	pass/pass/pass	C's name is on screen
+2.9	02_5	before-next	fail	pass/pass/pass	"one mark" has a bracket over the three rows
+3.1	03_2	1	fail	pass/pass/pass	"one lap = ×10" has gone with its arc
+3.3	03_2	3	fail	pass/pass/pass	no gold tick shows the landing before the turn
+3.3	03_2	4	fail	pass/pass/pass	the dial says 2.4 on landing
+3.1	03_2	before-next	fail	pass/pass/pass	"one lap = ×10" serves the sentence about the extra lap, by the counter
+3.4	03_3	1	fail	pass/pass/pass	the title has moved on to the laps
+3.5	03_3	1	fail	pass/pass/pass	"the dial shows only the mark" has lasted through the first sentence
+3.3	03_3	2	fail	pass/pass/pass	the floor caption names the 2.4 mark
+3.6	03_3	2	fail	pass/pass/pass	the floor caption clears the tilted tick
+3.10	03_3	2	fail	pass/pass/pass	one dashed drop, not four overlaid
+3.9	03_4	0	fail	pass/pass/pass	the readings clear the helix
+3.7	03_4	2	fail	pass/pass/pass	the right panel has its caption while the voice describes it
+3.2	03_4	before-next	fail	pass/pass/pass	the spiral's caption clears the helix
+4.5	04_2	4	fail	pass/pass/pass	the tangent has run up the curve by the end of the climbing sentence
+4.10	04_3	1	fail	pass/pass/pass	the stale law has left
+4.11	04_3	1	fail	pass/pass/pass	the formula has not arrived before its name is spoken
+4.9	04_3	3	fail	pass/pass/pass	a ring marks the point (0, 1) for ln 1 = 0
+4.2	04_3	before-next	fail	pass/pass/pass	ln 2's label clears the tick labels 1 and 2
+4.11	04_3	before-next	fail	pass/pass/pass	the words natural logarithm meet the symbol ln
+4.1	04_4	2	fail	pass/pass/pass	no red bar is left on ln's outputs, the negative y-axis
+4.1	04_4	2	fail	pass/pass/pass	the bar lies on the negative x-axis: the inputs with no logarithm
+4.1	04_4	2	fail	pass/pass/pass	the dashed floor has become ln's wall, on the y-axis
+4.1	04_4	2	fail	pass/pass/pass	the red words say what the red marks now mean
+4.6	04_4	2	fail	pass/pass/pass	the triangle's legs are labelled after the flip
+4.16	04_4	4	fail	pass/pass/pass	the triangle has gone before the tangent crosses it
+4.17	04_4	before-next	fail	pass/pass/pass	ln 1.01 uses approximately-equals throughout
+4.12	04_5	1	fail	pass/pass/pass	the ruler's spine is up by the end of the first sentence
+4.3	04_5	3	fail	pass/pass/pass	the product law is drawn: blue 1 to 2, teal 2 to 8, labelled 2 × 4 = 8
+4.18	04_5	before-next	fail	pass/pass/pass	the base-two word uses a true subscript
+4.14	04_7	before-next	fail	pass/pass/pass	the card names the rule of seventy and the dot says ×1000
+4.18	04_7	before-next	fail	pass/pass/pass	the drop at the doubling time has a number at its foot
+4.4	04_7	before-next	fail	pass/pass/pass	the closing rows start well right of the dashed ×2 line, in two rows
+52 claims, 0 problems

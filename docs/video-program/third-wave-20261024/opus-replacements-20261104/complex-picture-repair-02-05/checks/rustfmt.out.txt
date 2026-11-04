@@ -1,0 +1,3 @@
+rustfmt --check --edition 2024, repo rustfmt.toml, src/main.rs of canonical with candidate/ laid over it
+29 Rust files reached through main.rs's modules
+exit 0

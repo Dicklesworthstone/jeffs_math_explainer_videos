@@ -1,0 +1,73 @@
+{
+  "topic": "logarithm_mysteries",
+  "source": {
+    "path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+    "baseline_sha256": "43c8dac362df7fac8d6c974b3c108a25dee677faac85d093bfdafc1564db6527",
+    "patched_sha256": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee"
+  },
+  "line_count": {
+    "baseline": 2305,
+    "patched": 2305
+  },
+  "lines_changed": [
+    1309,
+    1662,
+    1910
+  ],
+  "changes": [
+    {
+      "line": 1309,
+      "cue": "11_6",
+      "binding": "positive",
+      "what": "kit.tex string shown from sentence 2 to the end of the cue; size 22, teal, at v(right, -0.05)",
+      "old": "r\"e^{tp} > 0 \\text{ for all real } t \\text{ and } p\\text{: no axis reverses}\",",
+      "new": "r\"e^{tp} > 0 \\text{ for real } t \\text{ and } p\\text{: } e^{tX} \\text{ reverses no axis}\",",
+      "old_line_sha256": "28e946e29ed0ae2b52f6aa5b0b7252b808eaa7bb5c757adc18bd0cbcc9077ea0",
+      "new_line_sha256": "8ac95bd16d01140307ccd3d94748af0a658d9ee4efe726a3dc7a1758716e7670"
+    },
+    {
+      "line": 1662,
+      "cue": "11_8",
+      "binding": "singular",
+      "what": "kit.tex string faded in with like_zero after until_sentence(stage, \"11_8\", 3); size 28, red, at v(0.0, -1.85)",
+      "old": "r\"\\operatorname{det} A = 0 \\quad\\text{but}\\quad \\operatorname{det} e^{X} = e^{\\operatorname{tr} X} \\neq 0\",",
+      "new": "r\"\\text{singular } S\\text{: } \\operatorname{det} S = 0 \\quad\\text{but}\\quad \\operatorname{det} e^{X} = e^{\\operatorname{tr} X} \\neq 0\",",
+      "old_line_sha256": "23d81c4dcb83dab128c8776854f69cf499faf3ab05076fe2006eac59c400efa9",
+      "new_line_sha256": "2bd3a326a4a139ddc67f93428c597851592811f91e11a10fb58cc2bccd4719d2"
+    },
+    {
+      "line": 1910,
+      "cue": "test",
+      "binding": "the_panels_and_text_column_fit",
+      "what": "width mirror of the line 1309 string",
+      "old": "(\"etp > 0 for all real t and p: no axis reverses\", 22.0, 2.2),",
+      "new": "(\"etp > 0 for real t and p: etX reverses no axis\", 22.0, 2.2),",
+      "old_line_sha256": "e09b1c0ebad842e9012371ada2770a22a95ad1955e643391d0c91e39702b12fb",
+      "new_line_sha256": "72c2bc970d08bfc40862840319ff39095c064c148e5365c3dcd3fa0f31c46761"
+    }
+  ],
+  "narration": {
+    "wording_delta": [],
+    "script_tsv_sha256": "f201d2dc57fa9ccac30d475255690a90d6749449014b542d4dea62164f31bf84",
+    "statement": "script.tsv and every unit text are untouched. The patch changes two on-screen strings and one test mirror."
+  },
+  "holds_on_this_file": [
+    {
+      "cue": "11_3",
+      "next_cue": "11_4",
+      "kind": "prediction",
+      "line": 1070,
+      "interval_sha256": "e34e65ad69a71865c956f2cf6e3d5270433370e8b6e79e5f8defc221555771db",
+      "changes": false
+    },
+    {
+      "cue": "11_20",
+      "next_cue": "11_8",
+      "kind": "reading",
+      "line": 1590,
+      "interval_sha256": "36386b6b24e173600d4e20b7f70e4285a825196f9000b114b109f834182d2953",
+      "changes": false
+    }
+  ],
+  "only_source_hash_changes_in_those_holds": true
+}

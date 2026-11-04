@@ -1,0 +1,16 @@
+image	time	sha256	seen
+frame-0081	36.000	c53ba2383b9ac157172084c462dd8e9667b75b6c0c7fe4c7209da034747f6c8a	D2 holds: s under a brown tile mid-turn; r on the left is correct
+frame-0125	55.000	b745df048a64ff353a22d14ed0975762195405fea941355c17e3c4bc358d4986	r² under a tile already turning toward r³; a D2 site not in the author's table
+frame-0151	65.000	6f4646f46372d376065c08cc2d138f1a30ab3ad383420837d47d4b59e889f91e	D2 holds: r⁴ = e under a brown tile mid-flip; right tile e is correct
+frame-0270	119.000	43d07b35122009cc35359df53d15d5f98beb36109c7e8ee03084248c4810cd65	both tiles identical (3 4 / 2 1): s r s and r⁻¹ agree in pixels; relation already up, D3 holds
+frame-0303	132.500	35690cee0db8bf0e1c500f29ca37370f133e8ea1cf4519f37d669ac02bc09006	D7 holds: r⁻¹, a gap, r², s; rule shown is s r s = r⁻¹
+frame-0358	157.000	adca044d14a601b3a8f4f4aaed0e9c53fa9fa6856c55ed779b2c20930217f5db	L5 holds: disc 2 ends about y 524, r starts about y 528; disc reach about 1.82 units, BELOW_TURNING comment fair
+frame-0371	163.500	05324d067037f77429a836bd3419667cdb7ecb312d63b28346706b46859e59cd	L5 holds: disc 1 close above Half-turn, then half-turn
+frame-0407	178.500	e131e188085cd0097faeb57bf4272edb917818284c53464d32124f606ceb77d9	D10 holds: lit s over the idle right tile while the left flips
+frame-0423	186.500	6cc4f512f5eae9aad21566878d8e1a6a89915547e1ad2c427705a17cf5374553	D10 holds: lit s over the idle left tile while the right flips
+frame-0480	212.000	d4f6ca89ce30ed9b2a6c327bd329fbf1309e570357e79d30531e280904e564f5	D1 holds: 3 to 9 boxed under f∘(g∘h), 9 to 8 boxed under (f∘g)∘h; values 1 3 9 8 right
+frame-0510	225.000	c3a880a3e6f6ad53948d5df97bccb9c165801b285a3b55f3605c7a87ef2a4efd	rack geometry row_frame must clear: outline top about y 316, frame top would be 308; name bottom about 553, frame bottom 560
+frame-0555	244.500	491e3de8f021fa7b6ab2f695ec394c76cab346ee8813ad0e5190c173caa0b19e	D14 holds: r s = rs, frames on r, s, landed on rs
+frame-0566	250.000	9f0d6951add8cc6118a47f0950cee57f8d5e9e0589f5ff768e7129a07c8985d9	D5 site: three lines whole, Bundle a long instruction; algebra right
+frame-0579	256.500	4f20973ca8726fa6ee4ea4aaa31dd31848a592e2433a23372006b86eed04f904	D5 site: r x = s to r (r³s) = s, frame on r³s; algebra right
+sheet-014	23.500	306a08afdf2cffafa77497c8497a8407b2074e573c774a4ee9718e9d2017466a	cells 56 to 59, t 23.5 to 25.0: frame 56 no s; 57 s under the unflipped tile; 58, 59 s while the flip runs (finding F4)

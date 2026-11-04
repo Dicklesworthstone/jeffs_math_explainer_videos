@@ -1,0 +1,12 @@
+candidate ae70d701b9b5515d | staged c00c98e4f6b4b309
+  n3-rewind.patch 8e726f41c6d6ab41
+  grey-key.patch 2ed99396251ab675
+n3-rewind -> grey-key [('n3-rewind', 0, []), ('grey-key', 0, [])] result c00c98e4f6b4b309 | equals staged: True
+   rustfmt --check exit 0 | parse errors: []
+grey-key -> n3-rewind [('grey-key', 0, []), ('n3-rewind', 0, [])] result c00c98e4f6b4b309 | equals staged: True
+   rustfmt --check exit 0 | parse errors: []
+n3-rewind [('n3-rewind', 0, [])] result 7e2ed19ef7317786 | equals staged: False
+   rustfmt --check exit 0 | parse errors: []
+grey-key [('grey-key', 0, [])] result 020f6ad6d144933a | equals staged: False
+   rustfmt --check exit 0 | parse errors: []
+candidate to staged: +26 -8 lines

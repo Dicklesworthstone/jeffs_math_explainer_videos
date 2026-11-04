@@ -1,0 +1,25 @@
+--- a/crates/explainer_kit/src/encode.rs
++++ b/crates/explainer_kit/src/encode.rs
+@@ -42,9 +42,10 @@
+ use fmn::rendering::{CameraConfig, RenderError, RenderOptions, RenderReport};
+ use fmn::scene::{CameraRig, Scene};
+ 
+-/// fmn's raw-input cap raised from 64 GiB (≈ 92 s of 4K60) to 256 GiB: an
+-/// 85 s chapter limit stays editorial pacing, not a safety margin.
+-pub const MAX_OUTPUT_BYTES: u64 = 256 << 30;
++/// Cumulative raw-frame input budget for long-form chapters: 1 TiB.
++/// Frames stream through the encoder; this is not a disk allocation.
++/// Encoded-artifact, free-space and per-job guards remain separate.
++pub const MAX_OUTPUT_BYTES: u64 = 1 << 40;
+ /// The encoded-artifact cap raised from 8 GiB to 32 GiB.
+ pub const MAX_ARTIFACT_BYTES: u64 = 32 << 30;
+ 
+@@ -545,7 +546,7 @@
+     #[test]
+     fn both_routes_get_the_same_capability_and_raised_caps() {
+         let o = delivery_options("out.mp4", RenderFormat::Mp4, Quality::delivery()).unwrap();
+-        assert_eq!(o.max_output_bytes, 256 << 30);
++        assert_eq!(o.max_output_bytes, 1 << 40);
+         assert_eq!(o.ffmpeg_limits.max_artifact_bytes, 32 << 30);
+         assert!(o.ffmpeg.is_some());
+         // the camera route refuses a video render without that capability

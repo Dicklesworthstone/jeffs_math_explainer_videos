@@ -1,0 +1,81 @@
+sheet	frames	time_from	time_to	observation
+000	0-3	0.000	0.800	blank at 0.0/0.5; title fades in at 0.6, legible 0.8
+001	4-7	1.000	2.000	digits fade in 1.0-1.5; note up by 1.5
+002-016	8-67	2.500	30.815	static hold of title, ten digits, note; no change for about 29 s (17_1 ends 30.615)
+017	68-71	31.000	31.500	weights x10..x1 fade in at 31.233-31.5, as 17_2 opens; letter x used for times
+018	72-75	31.733	33.000	Running total: 0 fades in by 32.0; all of 17_2's picture done 1 s after line start
+019	76-79	33.500	35.000	static, weights, total 0, note still up
+020-031	80-127	35.500	57.500	static 17_2 hold; Running total: 0 and note unchanged for about 25 s; nothing shows divisible by eleven
+032	128-131	57.633	58.133	17_3 ring fades in round first column, product 0 fading in; loop starts with the line
+033-042	132-171	58.500	78.000	ring steps column by column at 1.9 s each; total 27,69,93,117,120,130,132 reached frame 169 at 77.0; passes line up by frame 171 at 78.0
+043-044	172-179	78.500	80.500	hold with 132 = 12 x 11: passes above note; tight but legible
+045	180-183	80.567	81.067	17_4 ring at fourth column at line start; frame 183 at 81.067 six, 42, total, passes all fading together
+046	184-187	81.500	83.000	7 and 49 red by 81.5; 132 + 7 = 139 and Remainder 7 up by 82.0, 1.4 s into the line
+047-051	188-207	83.500	93.000	static 17_4 hold; conclusion on screen throughout
+052-056	208-227	93.500	102.121	static 17_4 hold to line end
+057	228-231	102.321	102.933	GHOST: frames 230 (102.733) and 231 (102.933) old 6 over red 7 and old 42 over red 49 at full opacity then fading; 228-229 clean
+058	232-235	103.000	104.000	frame 232 ghost still faintly visible in fade; heading, then DeltaS = w Delta d, caption
+059-060	236-243	104.500	108.000	two rows d and 7d mod 11 fill left to right; neither row labelled on screen; Prime modulus caption starting 108.0
+061-072	244-291	108.500	130.300	static 17_5 hold about 22 s; Prime modulus line up from 108.5 well ahead of Because eleven is prime; row labels never appear
+073	292-295	130.500	131.500	old fade; Why the extra assumption matters; six residues on implied circle; +3 at right; no outline
+074-075	296-303	132.000	135.500	ring 0 to 3 straight through centre, back to 0; 2 x 3 = 0 (mod 6) up by 135.0
+076-083	304-335	136.000	151.500	static hold of 17_6; ring stays on 0
+084-085	336-343	152.000	153.633	17_6 static to line end
+086	344-347	153.833	154.500	old fade; Swap the fourth and fifth symbols; digits fading in (y 1.5)
+087-089	348-359	155.000	160.500	66 sum by 155.0; digits 6 and 4 swap in lanes 155.5-157.5; 64 sum by 158.0; DeltaS=(7-6)(4-6)=-2 by 158.5; all done about 4.9 s after line start; no weight row: 7 and 6 in formula unlabelled weights; 6 has two roles
+090-099	360-399	161.000	180.087	static 17_7 hold about 21.6 s; voice concrete example never named; formula on screen long before spoken explanation
+100	400-403	180.187	180.800	17_7 hold through the gap; cue 17_8 starts at 180.800 with no change yet
+101	404-407	181.000	182.000	old fade at 181.0; Two errors can cancel by 181.3 (title about 0.5 s into a line opening on adjacent swaps); digits and weights by 182.0
+102	408-411	182.500	184.000	Weighted total: 132; wheel fades in 183.0; green wheel 0 tight under x 3 weight label; gold marker under the 0
+103-108	412-435	184.500	196.000	static hold; title says Two errors can cancel while voice is still on swaps and identical symbols
+109	436-439	196.500	198.000	first digit out 196.5, red 1 at 197.0; First change adds 10 fading in 197.0; total 142 red by 198.0
+110	440-443	198.500	200.000	marker travels clockwise 0 to 10 through 2-3, 8; reaches 10 by 200.0
+111	444-447	200.500	202.000	second digit swaps to red 8 by 201.0; +45 = 4 x 11 + 1 by 201.5; total 187 fading in at 202.0
+112	448-451	202.500	204.000	white 187; marker 10 back to 0 by 204.0, net move of one step; arithmetic matches 4 x 11 + 1
+113	452-455	204.500	206.000	red limit line Two changed digits. Remainder 0. The error hides. by 204.5; marker at 0 under green 0
+114-115	456-463	206.500	209.562	static to 17_8 line end at 209.662; wheel 0 still crowded under x 3
+116-123	464-495	209.662	222.500	17_8 static continues through 17_14 (210.267 to 222.590); no change for the whole 17_14 line
+124	496-499	222.590	223.200	still 17_8 picture; 17_9 opens at 223.200
+125	500-503	223.400	224.000	old fades 223.4-223.5; A code that repairs one flipped bit; word boxes fading in at 224.0; no ghost visible
+126-128	504-515	224.500	230.000	word 0110011, gold at 1,2,4, blue at 3,5,6,7, position labels; data note Blue/Gold by 229.5
+129-130	516-523	230.500	234.000	grid outline 232.5; top row green sweep 233.0-234.0; 8 rows x 16 cols
+131-132	524-531	234.500	238.000	count 16 of 2^7 = 128 by 235.0; layout clear
+133-136	532-547	238.500	244.000	XOR rows 0110011 XOR 1110000 = 1000011 by 239.0; hold; 17_15 opens at 243.833 with no change; XOR fading 244.0
+137-138	548-555	244.033	247.000	XOR and data note gone by 244.5; grid and word only; nothing moves until 248.5
+139-143	556-575	247.500	257.000	rows fill one at a time 248.5 to 255.0, row colours shade green to gold; 128/16 = 8 fades in 255.5, up by 256.0; no coset label on screen
+144-147	576-591	257.500	263.500	row labels none, bit 1..7 sweep in 259.0-260.0; static to 17_15 end 263.079 and through gap
+148-149	592-599	263.700	266.000	128/16=8 fades 263.9; ring on none row col 7 at 264.2; bit 5 flips gold at 265.0; ring glides through rows 265.5, on bit 5 row by 266.0
+150-151	600-607	266.500	270.000	static until 268.5; labels 000-111 at right by 268.5; stack rows 2->010,3->011,5->101,6->110,7->111 sweeping 268.5-270.0; stack rows have no heading
+152-155	608-623	270.500	278.000	XOR = 101 by 270.5; arithmetic verified against word 0110111; hold; layout clear
+156-157	624-631	278.500	282.000	hold; empty place key 4 2 1 fades in 280.5-281.0
+158-159	632-639	282.500	286.000	hold of empty key
+160-161	640-647	286.500	290.000	XOR line pulses 286.5; digits 1 0 1 in key by 287.5; worths 4 0 1 gold by 289.0-289.5
+162-163	648-655	290.500	294.000	sum 4 + 0 + 1 = 5 fading in 292.0, up by 292.5; row label 101 highlighted gold by 293.0; crowded right column but no overlap
+164-165	656-663	294.500	297.846	repair: bit 5 flips back green by 295.0; ring glides up rows to none by 296.0 and holds; row label returns to dim by 296.5; line ends 297.946
+166-167	664-671	297.946	299.067	hold through gap; 17_17 opens 298.567; stack, key digits, sum fade by 299.0; empty key boxes remain; quotient frame starts drawing as a small gold dot 299.0, partial at 299.067
+168-171	672-687	299.500	306.500	quotient frame round labels by 299.5; keeps the row by 300.0; forgets the column fading in 302.0, dim grey, near bottom edge; static; empty key boxes linger
+172-173	688-695	307.000	310.500	word back to 0110011-with-green; bit 2 flips gold 308.0, bit 5 gold 308.5; ring glides to row bit 7 col 3 by 310.0; stack 3,5,6,7 sweeping 310.0-311.0
+174-175	696-703	311.000	314.500	XOR = 111 by 311.5; digits 1 1 1 by 313.0; worths 4 2 1 by 313.5; sum 4 + 2 + 1 = 7 by 314.0; bit 7 flips red by 314.5
+176-177	704-711	315.000	318.500	ring glides to none row col 3 by 315.5; red and green column frames draw 316.0, done 316.5; decoded 0010110, but sent 0110011 by 316.5; no overlaps
+178-179	712-719	319.000	322.000	static hold to 17_17 end 322.044; mathematically consistent with source mirror to be checked; ring on red column
+180-181	720-727	322.044	323.500	verdict decoded... fades 322.867-323.0 at 17_18 start; Related codes: long used in computer memory by 323.167; miscorrected word, stack, key and red/green column frames all stay
+182-183	728-735	324.000	327.500	empty purple parity box and parity label by 326.0; One flip line by 326.5; Two flips line fading 326.5, full by 327.0; parity box never shows a digit; both lines sit over the leftover two-flip example (XOR = 111, red 0 at bit 7)
+184-186	736-747	328.000	333.400	static; Two flips line tight above red and green frames and grid; forgets the column still at the bottom until cross-fade; summary The quotient keeps exactly what it was built to keep up by 333.4
+187	748-751	333.500	334.000	summary near bottom edge, brighter than forgets line; lint anchor 333.7 frame 749 shows the line fully on screen, not clipped; wording built to keep vs spoken designed to keep
+188-191	752-767	334.200	338.652	static 17_18 with word, stack, key, parity lines, frames and summary all up; line ends 338.452
+192	768-771	338.700	339.267	hold through gap; 17_11 opens 339.067; whole Hamming picture fades 339.267
+193	772-775	339.500	340.500	Follow the operation; twelve clock labels with no outline; Moves that stay together by 340.5
+194-195	776-783	341.000	344.000	four triangles draw 341.0-342.0; caption lines by 342.5, 3.4 s into the line; no square, nothing for isomorphism; maths: triangles are the cosets of {0,4,8}
+196-203	784-815	344.500	358.700	17_11 static hold, no change at all; no square, no isomorphism picture, no mention of the triangles' link to caption colours beyond blue; hold continues past this range
+204-205	816-823	359.000	361.500	17_11 static to line end 361.390
+206	824-827	361.590	362.500	hold through gap; 17_12 opens 362.000; old fading 362.2; prompt 1 up by 362.5
+207	828-831	363.000	364.000	prompts 2 and 3 by 363.0-363.5; all up by 363.7, 1.7 s into line; prompts centred so numerals 1. 2. 3. do not align; prompt 2 says equal where voice says isomorphic; no answer visible
+208-211	832-847	364.500	371.500	static quiz prompts; no answer pixels
+212-219	848-879	372.000	384.500	static quiz prompts through line end 381.631 and into the silent think gap; no answer pixels
+220-221	880-887	385.000	387.500	prompts held through think gap to 17_13 start 387.233; no answer pixel before it; prompts fading at 387.433-387.5
+222	888-891	387.733	388.700	Answers you can test with the moves; clock fades in; ring on 0, 6 gold by 388.5
+223	892-895	389.000	390.500	ring 0 to 6 straight down through empty centre by 389.5-390.0, back up 390.5
+224	896-899	391.000	392.500	answer 2 lines by 391.5; hH=H (h in H) by 392.0; Closure line by 392.5, about 5.3 s into the line; all three answers up
+225-227	900-911	393.000	398.000	static answers hold; clock has no outline; six and zero gold
+228-236	912-947	398.500	413.218	static 17_13 answers hold to line end 413.018 and past
+237	948	413.383	413.383	last sampled frame; same picture; last sheet holds one tile only

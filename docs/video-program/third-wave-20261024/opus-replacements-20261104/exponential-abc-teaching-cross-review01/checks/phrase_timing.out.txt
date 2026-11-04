@@ -1,0 +1,65 @@
+PASS phrase_seconds and the Kit's sentence functions compile, cut verbatim
+--- A. no marks: the two rules agree (scratch voice at 2.6 words/s, then invented uneven onsets)
+PASS 02_4: the constant is in the slice
+PASS 02_4: 'and that differentiating' occurs once in the whole line
+    02_4 s4 'and that differentiating': until_clause 14.260 s, until_phrase 14.260 s
+PASS 02_6: the constant is in the slice
+PASS 02_6: 'why adding' occurs once in the whole line
+    02_6 s3 'why adding': until_clause 13.882 s, until_phrase 13.882 s
+PASS 02_6: the constant is in the slice
+PASS 02_6: 'why the stepped' occurs once in the whole line
+    02_6 s3 'why the stepped': until_clause 16.644 s, until_phrase 16.644 s
+PASS 02_6: the constant is in the slice
+PASS 02_6: 'why it is' occurs once in the whole line
+    02_6 s3 'why it is': until_clause 20.497 s, until_phrase 20.497 s
+PASS 03_2: the constant is in the slice
+PASS 03_2: 'collect them' occurs once in the whole line
+    03_2 s0 'collect them': until_clause 3.138 s, until_phrase 3.138 s
+PASS 03_7: the constant is in the slice
+PASS 03_7: 'reciprocals' occurs once in the whole line
+    03_7 s3 'reciprocals': until_clause 11.538 s, until_phrase 11.538 s
+PASS 03_7: the constant is in the slice
+PASS 03_7: 'continuity' occurs once in the whole line
+    03_7 s3 'continuity': until_clause 14.315 s, until_phrase 14.315 s
+PASS the two rules give the same time at every call site  largest difference 0.00e+00 s
+PASS 'collect them' does not match 'collecting the'
+--- B. a planted word mark
+PASS 02_4 'and that differentiating': until_phrase takes the mark and ignores one on another byte; until_clause stays +0.70 s off it
+PASS 02_6 'why adding': until_phrase takes the mark and ignores one on another byte; until_clause stays +0.70 s off it
+PASS 02_6 'why the stepped': until_phrase takes the mark and ignores one on another byte; until_clause stays +0.70 s off it
+PASS 02_6 'why it is': until_phrase takes the mark and ignores one on another byte; until_clause stays +0.70 s off it
+PASS 03_2 'collect them': until_phrase takes the mark and ignores one on another byte; until_clause stays +0.70 s off it
+PASS 03_7 'reciprocals': until_phrase takes the mark and ignores one on another byte; until_clause stays +0.70 s off it
+PASS 03_7 'continuity': until_phrase takes the mark and ignores one on another byte; until_clause stays +0.70 s off it
+PASS neither until_clause reads phrase_marks
+--- C. drift: what happens when the script moves and the code does not
+PASS the phrase is reworded away: until_phrase refuses  ERR the line has no phrase "reciprocals"
+    until_clause on the same script still returns 11.580 s from the stale constant, with no error
+PASS a colon becomes a full stop in 02_6: until_clause's fixed s3 lands -4.17 s from the phrase; until_phrase follows the text
+PASS a narrator with a different sentence count: until_phrase refuses  ERR the line has 5 sentences, but the narrator timed 2
+PASS the unmerged canonical script's 03_2 is another line: until_phrase refuses  ERR the line has no phrase "collect them"
+    until_clause against that line: 2.559 s, no error
+--- D. the module's own tests, cut with phrase_seconds and run
+PASS the tests compile
+    test tests::a_narrator_that_splits_the_line_differently_is_an_error ... ok
+    test tests::a_word_mark_wins_over_the_share ... ok
+    test tests::without_a_mark_the_phrase_takes_its_share_of_its_own_sentence ... ok
+    test tests::a_mark_on_another_word_is_not_used ... ok
+    test tests::a_phrase_the_line_lacks_is_an_error ... ok
+    test result: ok. 5 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+PASS the tests pass
+PASS control: a mark looked up on the wrong byte fails the tests
+--- E. draft timing of the 03_7 wording option
+PASS the option differs from the slice
+PASS still five sentences, so every until_sentence index stands
+    line length at scratch rate 23.48 s -> 24.25 s; sentence 3 opens 9.63 s -> 10.55 s
+PASS 'reciprocals' still resolves
+PASS 'continuity' still resolves
+--- F. how far a character share sits from word marks, on one other film's Oliver takes
+PASS the golay script is the one the marks were made from
+    basis as the file states it: automatic recognition estimates, not heard boundaries
+    unit ids naming Oliver in external-units.json: 41
+    cues used 41 of 41
+    every word inside a sentence: n 584; absolute median 0.23 s, p90 0.50, p95 0.58, max 0.79; at or over 0.25 s 45%, at or over 0.5 s 10%; signed mean +0.22 s
+    words right after a comma or colon: n 57; absolute median 0.18 s, p90 0.45, p95 0.48, max 0.65; at or over 0.25 s 35%, at or over 0.5 s 4%; signed mean +0.14 s
+RESULT PASS

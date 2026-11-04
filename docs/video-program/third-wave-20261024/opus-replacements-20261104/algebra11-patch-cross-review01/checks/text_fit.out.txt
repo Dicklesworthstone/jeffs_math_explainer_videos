@@ -1,0 +1,14 @@
+left and right limits for the keys are the two cell blocks' inner edges, cell width taken from '1234' at size 24
+'1234' at 24: 0.48 wide; right cell ends -2.26; next block's left cell starts 1.96
+I              4.32 wide, x -2.16 to +2.16; inside -7.11 to +7.11: True; missing glyphs []; 'Transposition: swap two labels'
+V              1.22 wide, x -0.76 to +0.46; inside -2.25 to +1.95: True; missing glyphs []; 'Gold: even'
+V              1.09 wide, x -0.70 to +0.40; inside -2.25 to +1.95: True; missing glyphs []; 'Blue: odd'
+AA             3.91 wide, x -1.95 to +1.95; inside -7.11 to +7.11: True; missing glyphs []; 'Card 2 went from slot 2 to slot 3'
+AC             5.20 wide, x -2.60 to +2.60; inside -7.11 to +7.11: True; missing glyphs []; 'By size: 2 fixed, 1 swap, 6 cycles of length 8'
+AH             5.98 wide, x -2.99 to +2.99; inside -7.11 to +7.11: True; missing glyphs []; 'After 3 stages: all data back on their starting lines'
+AG             0.71 wide, x +3.55 to +4.25; inside -7.11 to +7.11: True; missing glyphs []; 'Stage 4'
+follow-up V    0.57 wide, x -0.44 to +0.14; inside -2.25 to +1.95: True; missing glyphs []; 'Even'
+follow-up V    0.49 wide, x -0.40 to +0.10; inside -2.25 to +1.95: True; missing glyphs []; 'Odd'
+follow-up AA   4.92 wide, x -2.46 to +2.46; inside -7.11 to +7.11: True; missing glyphs []; 'Card 2 went from position 2 to position 3'
+follow-up AH   6.05 wide, x -3.03 to +3.03; inside -7.11 to +7.11: True; missing glyphs []; 'After 3 stages: all data back on their starting wires'
+follow-up AH   4.51 wide, x -2.26 to +2.26; inside -7.11 to +7.11: True; missing glyphs []; 'The same shuffle, on eight wires'

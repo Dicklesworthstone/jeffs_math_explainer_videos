@@ -1,0 +1,16 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/draw.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/draw.rs
+@@ -171,10 +171,10 @@
+     group(stage, &parts)
+ }
+ 
+-/// A solid arrow.
++/// A solid arrow: a stroked shaft and a filled head. (`Arrow` at this pin is one
++/// closed polygon, so a stroke style only outlines it and the head looks hollow.)
+ pub fn arrow(stage: &mut Stage<'_>, a: Vec3, b: Vec3, c: Srgb, w: f64) -> fmn::Result<Mob> {
+-    let m = Arrow::new(a, b).buff(0.0).style(line_style(c, w)).build()?;
+-    Ok(stage.arena_mut().add(m))
++    Ok(arrow_parts(stage.arena_mut(), a, b, c, w, 0.22))
+ }
+ 
+ /// An arrow as a closure can rebuild it inside `always_redraw`: shaft and a

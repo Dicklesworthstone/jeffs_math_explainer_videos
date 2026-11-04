@@ -1,0 +1,9 @@
+{
+  "status": "staged, not integrated or compiled or visually validated",
+  "reason": [
+    "129s rotating corner crosses check caption; move caption left outside tile sweep",
+    "140s cleanup re-fades already hidden undo/x labels causing flash; omit from cleanup"
+  ],
+  "original_sha256": "420e9e4d707f5c251ea018f498c5f1869c5c247fa7f3e61ebffc9914fc135ebe",
+  "candidate_sha256": "d204a79b24946d79d71197f3b90c9b2400b245a7753c7049fa5af808cd4b2ffa"
+}

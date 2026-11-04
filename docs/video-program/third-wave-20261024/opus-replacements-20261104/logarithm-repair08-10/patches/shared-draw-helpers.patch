@@ -1,0 +1,129 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/draw.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/draw.rs
+@@ -479,6 +479,20 @@
+ 
+ // ---------------------------------------------------------- matrices
+ 
++/// Clear space between a matrix card's two columns, per unit of text size:
++/// 0.25 scene units at size 30, so a small card grows only as its text does.
++const CARD_COLUMN_GAP: f64 = 0.25 / 30.0;
++/// Clear space between a matrix card's widest entry and its bracket, the same way.
++const CARD_BRACKET_GAP: f64 = 0.10 / 30.0;
++
++/// A card's half column spacing and bracket half width, from its widest
++/// entry: narrow entries keep the spacing they always had, and only wide ones
++/// push the columns and brackets apart.
++fn card_widths(size: f64, widest: f64) -> (f64, f64) {
++    let dx = (size * 0.011).max((widest + size * CARD_COLUMN_GAP) / 2.0);
++    (dx, dx + (size * 0.0095).max(widest / 2.0 + size * CARD_BRACKET_GAP))
++}
++
+ /// A 2×2 matrix card from primitives (TeX matrices are avoided at this
+ /// pin): four entries and two drawn brackets, centred at `at`.
+ pub fn matrix_card(
+@@ -489,18 +503,26 @@
+     size: f64,
+     c: Srgb,
+ ) -> fmn::Result<Mob> {
+-    // fmn text: one em is size / 144 scene units; an entry like "−0.5" is
+-    // about two em wide. Columns sit 3.2 em apart, rows 1.6 em.
+-    let (dx, dy) = (size * 0.011, size * 0.0055);
+-    let mut parts = Vec::new();
++    // the entries are typeset first, so their measured widths set the columns
++    let dy = size * 0.0055;
++    let mut placed = Vec::new();
++    let mut widest: f64 = 0.0;
+     for (i, row) in entries.iter().enumerate() {
+         for (j, e) in row.iter().enumerate() {
+-            let x = at[0] + if j == 0 { -dx } else { dx };
+             let y = at[1] + if i == 0 { dy } else { -dy };
+-            parts.push(kit.text(stage, &shown(e), size, c, v(x, y))?);
++            let m = kit.text(stage, &shown(e), size, c, v(at[0], y))?;
++            widest = widest.max(stage.get_width(m));
++            placed.push((m, j, y));
+         }
+     }
+-    let (w, h, lip) = (dx + size * 0.0095, dy + size * 0.0055, size * 0.003);
++    let (dx, w) = card_widths(size, widest);
++    let mut parts = Vec::new();
++    for (m, j, y) in placed {
++        let x = at[0] + if j == 0 { -dx } else { dx };
++        stage.move_to(m, v(x, y), ORIGIN);
++        parts.push(m);
++    }
++    let (h, lip) = (dy + size * 0.0055, size * 0.003);
+     for side in [-1.0, 1.0] {
+         let x = at[0] + side * w;
+         let pts = vec![
+@@ -538,6 +560,16 @@
+     g
+ }
+ 
++/// How far past a clip box a point may land and still count as inside. A line
++/// drawn exactly on the box must survive the rounding of a flow's arithmetic:
++/// a flow that is home gives the identity only to about 1e-15.
++const CLIP_SLACK: f64 = 1e-9;
++
++/// Whether a grid point's image lies inside the clip box.
++fn inside_clip(q: [f64; 2], clip: f64) -> bool {
++    q[0].abs() <= clip + CLIP_SLACK && q[1].abs() <= clip + CLIP_SLACK
++}
++
+ /// As [`grid_under`], lines x = k and y = k for |k| ≤ n, but kept only
+ /// where the image lies within `clip` plane units of the centre, each line
+ /// split where it leaves that box: a flow that stretches far corners (an
+@@ -566,7 +598,7 @@
+                 let t = -reach + reach * j as f64 / samples as f64;
+                 let p = if vertical { [f64::from(k), t] } else { [t, f64::from(k)] };
+                 let q = crate::model::apply(m, p);
+-                if q[0].abs() <= clip && q[1].abs() <= clip {
++                if inside_clip(q, clip) {
+                     if let Some(run) = runs.last_mut() {
+                         run.push(at(q));
+                     }
+@@ -644,3 +676,45 @@
+             .collect()
+     }
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++
++    #[test]
++    fn a_line_on_the_clip_box_survives_a_flows_rounding() {
++        // the stretch flow of chapter 10 lands the line x = 2 here at t = 1
++        assert!(inside_clip([3.0000000000000018, 0.0], 3.0));
++        assert!(inside_clip([0.0, -3.0000000000000018], 3.0));
++        // and a point really outside the box stays out
++        assert!(!inside_clip([3.001, 0.0], 3.0));
++        assert!(!inside_clip([0.0, 3.001], 3.0));
++    }
++
++    #[test]
++    fn card_columns_and_brackets_clear_the_widest_entry() {
++        for (size, widest) in [(34.0, 1.039), (30.0, 0.767), (30.0, 0.617), (26.0, 0.332), (32.0, 0.16)] {
++            let (dx, w) = card_widths(size, widest);
++            assert!(2.0 * dx - widest >= size * CARD_COLUMN_GAP - 1e-12, "{size} {widest}");
++            assert!(
++                w - (dx + widest / 2.0) >= size * CARD_BRACKET_GAP - 1e-12,
++                "{size} {widest}"
++            );
++        }
++    }
++
++    #[test]
++    fn a_small_card_grows_only_as_its_text_does() {
++        // "−1" at size 20: a small card stays within 0.01 of its old half width
++        let (_, w) = card_widths(20.0, 0.256);
++        assert!((w - (20.0 * 0.011 + 20.0 * 0.0095)).abs() < 0.01, "{w}");
++    }
++
++    #[test]
++    fn narrow_entries_keep_the_cards_old_spacing() {
++        // one digit at the size of the identity card
++        let (dx, w) = card_widths(32.0, 0.16);
++        assert_eq!(dx, 32.0 * 0.011);
++        assert_eq!(w, 32.0 * 0.011 + 32.0 * 0.0095);
++    }
++}

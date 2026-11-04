@@ -1,0 +1,163 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs
+@@ -35,7 +35,8 @@
+ const Z: Plane = Plane {
+     centre: [-4.1, -0.3, 0.0],
+     scale: 1.25,
+-    half_w: 2.9,
++    // the axis's left end stays inside the safe area, at -6.90
++    half_w: 2.8,
+     half_h: 2.7,
+ };
+ /// The logarithm's plane, tall: zero near the bottom so two laps fit.
+@@ -73,7 +74,9 @@
+ /// A trail shorter than this many laps is not drawn: it would only be a speck.
+ const MIN_TRAIL: f64 = 0.005;
+ const THEOREM: &str = "no continuous logarithm on a loop that winds around 0";
+-const DIFFER: &str = r"e^{L(z)} = z = e^{\ell(z)} \;\Rightarrow\; L(z) - \ell(z) = 2\pi i\,k,\ \ k \text{ whole}";
++/// Ours carries no `(z)`: it is the value carried along the walk, and back at 1
++/// it is not the value it began with. Only L is a function of the point.
++const DIFFER: &str = r"e^{L(z)} = z = e^{\ell} \;\Rightarrow\; L(z) - \ell = 2\pi i\,k,\ \ k \text{ whole}";
+ 
+ fn unit_point(turn: f64) -> C {
+     C::polar(1.0, TAU * turn)
+@@ -134,15 +137,26 @@
+     )
+ }
+ 
+-/// "0 is not inside", right of the number's own axis and under both circles.
++/// "0 is not inside", under the side circle it is about: under the unit circle
++/// it would read as a claim about that one, which does hold 0.
+ fn outside_word(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
+     kit.text_left(
+         stage,
+         "0 is not inside",
+         20.0,
+         slide_c(),
+-        v(Z.centre[0] + 0.15, Z.centre[1] - 1.6),
++        v(Z.centre[0] + 1.5, Z.centre[1] - 1.6),
+     )
++}
++
++/// The point 0 itself, which every loop is now measured against: a small dot and
++/// its name, inside the unit circle and clear of both axes. It stays to the end,
++/// because the closing theorem is about loops that wind around it.
++fn zero_mark(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<(Mob, Mob)> {
++    let at = Z.p(C::new(0.0, 0.0));
++    let mark = dot(stage, at, 0.06, Palette::ink());
++    let word = kit.text(stage, "0", 20.0, Palette::ink(), v(at[0] - 0.2, at[1] - 0.22))?;
++    Ok((mark, word))
+ }
+ 
+ /// The ends of the candidate's jump, πi and −πi, on the inset's own axis.
+@@ -202,7 +216,7 @@
+         DIFFER,
+         28.0,
+         Palette::ink(),
+-        &[(r"L(z)", slide_c()), (r"\ell(z)", position_c())],
++        &[(r"L(z)", slide_c()), (r"\ell", position_c())],
+         v(1.2, -3.0),
+     )
+ }
+@@ -328,6 +342,8 @@
+             v(read_x, read_y - 0.5),
+         )?;
+         fade_in_all(stage, &[straight], 0.4)?;
++        // "as the number turns": it keeps turning under the words, short of the quarter
++        play!(stage; tween(turn, 0.2, 2.4)?);
+         kit.until_sentence(stage, "06_2", 1)?;
+         play!(stage; tween(turn, climbs[0] / 2.0, 1.4)?);
+         let quarter = kit.text_left(
+@@ -361,7 +377,7 @@
+         kit.say(stage, "06_3")?;
+         play!(stage; tween(turn, climbs[2] / 2.0, 0.8)?);
+         let top = W.p(C::new(0.0, TAU));
+-        let answer = kit.text_left(stage, "2πi", 26.0, gold, v(top[0] + 0.25, top[1]))?;
++        let answer = kit.text_left(stage, "2πi", 26.0, gold, v(top[0] + 0.3, top[1]))?;
+         swap(stage, &[ask], &[answer], 0.4)?;
+         kit.until_sentence(stage, "06_3", 1)?;
+         let back = ring(stage, Z.p(C::new(1.0, 0.0)), 0.2, green, 3.0);
+@@ -415,7 +431,8 @@
+         let side_circle = ring(stage, Z.p(C::new(side[0], 0.0)), Z.scale * side[1], teal, 2.5);
+         let outside = outside_word(&kit, stage)?;
+         // the gold dot leaves: this walk starts elsewhere, on the side circle
+-        swap(stage, &[one], &[side_circle, outside], 0.4)?;
++        let (zero_dot, zero_word) = zero_mark(&kit, stage)?;
++        swap(stage, &[one], &[side_circle, outside, zero_dot, zero_word], 0.4)?;
+         kit.until_sentence(stage, "06_4", 2)?;
+         let lift_start = side_lift[0];
+         let progress = stage.add_value_tracker(0.0);
+@@ -612,7 +629,10 @@
+         fade_in_all(stage, &[suppose, marker], 0.4)?;
+         kit.until_sentence(stage, "06_20", 1)?;
+         let differ = differ_line(&kit, stage)?;
+-        fade_in_all(stage, &[differ], 0.5)?;
++        // the formula's letter for the carried value, where "ours" is written
++        let ours_right = stage.get_bounding_box_point(ours, RIGHT)[0];
++        let ours_name = kit.tex_left(stage, r"(\ell)", 22.0, blue, &[], v(ours_right + 0.12, 1.95))?;
++        fade_in_all(stage, &[differ, ours_name], 0.5)?;
+         kit.until_sentence(stage, "06_20", 2)?;
+         // it may only sit on a rung: any move between rungs would be a jump
+         let jump = kit.text(
+@@ -623,9 +643,10 @@
+             v(GAUGE_X, rung(-2.75)[1]),
+         )?;
+         fade_in_all(stage, &[jump], 0.4)?;
++        play!(stage; tween(turn, 0.97, 4.0)?);
++        // the sentence's last words: it lands after the walk has shown it
+         let fixed = kit.text(stage, "fixed", 22.0, teal, v(GAUGE_X - 0.8, rung(0.0)[1]))?;
+         fade_in_all(stage, &[fixed], 0.3)?;
+-        play!(stage; tween(turn, 0.97, 4.0)?);
+ 
+         // 06_7: back at one, theirs must return; ours is 2πi higher
+         kit.say(stage, "06_7")?;
+@@ -818,9 +839,11 @@
+         run(|stage| {
+             let kit = Kit::new()?;
+             let word = outside_word(&kit, stage)?;
+-            let [left, _, _, top] = box_of(stage, word);
++            let [left, right, _, top] = box_of(stage, word);
+             assert!(left > Z.centre[0] + 0.05, "the number's axis crosses the note");
+             let side = fact_list("loop.side")?;
++            let under = Z.p(C::new(side[0], 0.0))[0];
++            assert!(((left + right) / 2.0 - under).abs() < 0.1, "the note leaves its circle");
+             assert!(
+                 top < Z.centre[1] - Z.scale * side[1],
+                 "the side circle crosses the note"
+@@ -845,6 +868,36 @@
+     }
+ 
+     #[test]
++    fn zero_is_marked_inside_the_unit_circle_clear_of_both_axes() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let (_, word) = zero_mark(&kit, stage)?;
++            let [left, right, bottom, top] = box_of(stage, word);
++            assert!(right < Z.centre[0] - 0.03, "the upright axis reaches the name");
++            assert!(top < Z.centre[1] - 0.03, "the level axis reaches the name");
++            let far = (left - Z.centre[0]).hypot(bottom - Z.centre[1]);
++            assert!(far < Z.scale - 0.1, "the unit circle reaches the name");
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_formula_gives_ours_no_argument_because_ours_is_not_a_function_of_the_point() {
++        assert!(DIFFER.contains(r"L(z) - \ell ="));
++        assert!(!DIFFER.contains(r"\ell("));
++        // back at 1 the carried value is one lap above where it began
++        let lift = unit_lift(1.0);
++        let (first, last) = (lift[0], lift[lift.len() - 1]);
++        assert!((first.re - last.re).abs() < 1e-9);
++        assert!((last.im - first.im - TAU).abs() < 1e-9);
++    }
++
++    #[test]
++    fn the_numbers_axis_stays_inside_the_safe_area() {
++        const { assert!(Z.centre[0] - Z.half_w > -SAFE[0]) };
++    }
++
++    #[test]
+     fn a_trail_too_short_to_draw_is_shorter_than_its_own_stroke() {
+         const { assert!(W.scale * TAU * MIN_TRAIL < 0.02) };
+     }

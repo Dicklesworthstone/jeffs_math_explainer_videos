@@ -1,0 +1,70 @@
+1
+00:00:00,600 --> 00:00:03,480
+There are several ways to build this
+function.
+
+2
+00:00:03,480 --> 00:00:09,080
+One starts with repeated small
+multipliers: for a fixed number x,
+
+3
+00:00:09,080 --> 00:00:14,680
+take one plus x divided by n and multiply
+that by itself n times.
+
+4
+00:00:18,333 --> 00:00:22,573
+As n grows, the result approaches
+e to the x.
+
+5
+00:00:23,200 --> 00:00:26,099
+A second asks for the curve
+whose height and
+
+6
+00:00:26,099 --> 00:00:29,200
+slope match everywhere, starting at height
+one.
+
+7
+00:00:29,200 --> 00:00:34,292
+A third adds a series: one, plus x, plus x
+squared over two
+
+8
+00:00:34,292 --> 00:00:39,120
+factorial, plus x cubed over three
+factorial, and so on.
+
+9
+00:00:39,733 --> 00:00:43,213
+They meet because they describe the same
+growth law.
+
+10
+00:00:43,213 --> 00:00:46,397
+The series can be differentiated term by
+term
+
+11
+00:00:46,397 --> 00:00:49,653
+and gives back itself with starting value
+one.
+
+12
+00:00:49,653 --> 00:00:54,853
+Uniqueness of that initial-value problem
+identifies it with the rate-law curve.
+
+13
+00:00:54,853 --> 00:00:58,133
+The small-step limit reaches the same
+curve.
+
+14
+00:00:58,133 --> 00:01:03,653
+These are three constructions of one
+object, not three unrelated coincidences.
+

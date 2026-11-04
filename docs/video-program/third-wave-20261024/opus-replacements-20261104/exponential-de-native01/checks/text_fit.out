@@ -1,0 +1,193 @@
+coverage of the non-ASCII characters these scenes send to Text (fallback chain CM, Noto Sans Math, Plex):
+  '≤' U+2264: served by math
+  '×' U+00D7: served by math
+  '′' U+2032: served by math
+
+=== tiny_multipliers
+  ok  steps_multiply: text  3.50 wide,  -1.75 to  1.75, y  3.35  Why the steps reach E
+  UNRESOLVED steps_multiply: '&y.to_string()' at (STEP_LEFT - 0.25, step_point(0, step_point(t1, h / 2.0)[1])
+  UNRESOLVED steps_multiply: 'r"\\text{width}\\ \\frac14"' at (step_point((t1 + t2) / 2.0, h), step_point(t1, h)[1] - 0.32)
+  UNRESOLVED steps_multiply: 'r"\\frac14h"' at (step_point(t2, h)[0] + 0.5, step_point(t2, h)[1] - 0.1)
+  ok  steps_multiply: tex  0.97 wide,  -3.69 to -2.71, y  1.40  h+\frac14h
+  ok  steps_multiply: tex  2.44 wide,  -4.42 to -1.98, y  0.50  =\left(1+\frac14\right)h=\frac54h
+  UNRESOLVED steps_multiply: 'r"\\times\\frac54", 22.0, Palette::gold(),' at (LEFT_X, -0.55)
+  UNRESOLVED steps_multiply: '&rate_one_label(4)' at (step_point(t_end, y_end)[0] + , step_point(t_end, y_end)[1])
+  UNRESOLVED steps_multiply: '&format!("= {}", rate_one_label(4))' at (LEFT_X, -1.3)
+  ok  rate_and_cells: text  1.61 wide,   1.94 to  3.56, y -3.05  one unit of time
+  ok  rate_and_cells: tex  1.10 wide,  -3.75 to -2.65, y  2.10  y'=xy
+  ok  rate_and_cells: tex  2.58 wide,  -4.49 to -1.91, y  1.25  \text{each cell}\ \times\left(1+\frac{x}{n}\right)
+  UNRESOLVED rate_and_cells: 'CELL_MULTIPLIER,\n            20.0,\n     ' at (LEFT_X, 0.35)
+  ok  rate_and_cells: tex  2.25 wide,  -4.33 to -2.07, y -0.55  x=1:\quad\left(1+\frac1n\right)^n
+  UNRESOLVED rate_and_cells: '&rate_one_label(n)' at (step_point(t, y)[0] + 0.5, step_point(t, y)[1])
+  UNRESOLVED graph: '&x.to_string()' at (graph_point(f64::from(x), 0.0), GRAPH_BASE - 0.28)
+  UNRESOLVED graph: '&y.to_string()' at (GRAPH_LEFT - 0.25, graph_point, 1.75)
+  UNRESOLVED endpoints_on_the_graph: '&format!("{SWEEP_CELLS} cells")' at (GRAPH_RIGHT_X, 2.3)
+  UNRESOLVED endpoints_on_the_graph: '&format!("x={x}")' at (GRAPH_RIGHT_X, top)
+  UNRESOLVED endpoints_on_the_graph: '&format!("endpoint {end}")' at (GRAPH_RIGHT_X, top - 0.4)
+  UNRESOLVED endpoints_on_the_graph: '&format!("series {series}")' at (GRAPH_RIGHT_X, top - 0.75)
+  ok  endpoints_on_the_graph: text  2.76 wide,  -3.98 to -1.22, y  1.85  Near is still not a proof
+  ok  endpoints_on_the_graph: text  4.34 wide,  -4.77 to -0.43, y  1.85  Why should that limit be our series?
+  ok  endpoints_on_the_graph: tex  1.38 wide,  -3.29 to -1.91, y  0.95  \left(1+\frac{x}{n}\right)^n
+  ok  choices_sort: tex  3.72 wide,  -1.86 to  1.86, y  2.45  \text{each cell: keep}\ 1,\ \text{or take}\ \frac{x}{n}
+  ok  choices_sort: text  0.55 wide,  -6.32 to -5.78, y  1.45  power
+  ok  choices_sort: text  0.45 wide,  -6.27 to -5.83, y -1.45  ways
+  UNRESOLVED choices_sort: 'power' at (column_x(count), POWER_Y)
+  UNRESOLVED choices_sort: '&ways(count).to_string()' at (column_x(count), WAYS_Y)
+  ok  choices_sort: text  0.92 wide,  -6.51 to -5.59, y -2.00  coefficient
+  ok  choices_sort: text  0.49 wide,  -6.30 to -5.80, y -2.55  series
+  ok  choices_sort: tex  2.83 wide,  -1.41 to  1.41, y -3.30  x^2:\quad 6\cdot\frac{x}{4}\cdot\frac{x}{4}=\frac{6}{16}x^
+  UNRESOLVED choices_sort: '&strip_coefficient(count)' at (column_x(count), COEFFICIENT_Y)
+  UNRESOLVED choices_sort: '&coefficient(count)' at (column_x(count), SERIES_Y)
+  UNRESOLVED picked_strip: 'name' at (at[0] + PICK_CELL / 2.0, PICK_Y + PICK_HEIGHT + 0.2)
+  ok  count_in_general: tex  3.02 wide,  -4.11 to -1.09, y  2.50  \text{pick}\ k\ \text{cells out of}\ n
+  ok  count_in_general: tex  4.30 wide,  -4.75 to -0.45, y  1.60  n(n-1)(n-2)\cdots(n-k+1)
+  ok  count_in_general: tex  3.05 wide,   2.37 to  5.43, y  1.60  n=4,\ k=2:\quad 4\cdot 3=12
+  ok  count_in_general: tex  3.40 wide,  -4.30 to -0.90, y  0.60  \text{each set counted}\ k!\ \text{times}
+  ok  count_in_general: tex  0.76 wide,   3.52 to  4.28, y  0.60  2!=2
+  ok  count_in_general: tex  4.27 wide,  -4.74 to -0.46, y -1.05  \binom{n}{k}=\frac{n(n-1)\cdots(n-k+1)}{k!}
+  ok  count_in_general: tex  1.15 wide,   3.33 to  4.47, y -1.05  \frac{4\cdot 3}{2!}=6
+  ok  chain_appears: tex  5.11 wide,  -2.55 to  2.55, y  1.90  \binom{n}{k}\left(\frac{x}{n}\right)^k=\frac{x^k}{k!}\cdot
+  ok  chain_appears: tex  5.73 wide,  -2.86 to  2.86, y  0.55  =\frac{x^k}{k!}\cdot 1\cdot\left(1-\frac1n\right)\left(1-\
+  ok  chain_appears: tex  4.26 wide,  -2.13 to  2.13, y -0.95  n=4,\ k=2:\quad\frac{x^2}{2!}\cdot 1\cdot\frac34=\frac{6}{
+  ok  chain_appears: tex  3.93 wide,  -1.96 to  1.96, y -2.25  k>n:\quad\text{the factor}\ 1-\frac{n}{n}=0
+  UNRESOLVED fill_readings: '&format!("n = {n}")' at (1.4, READ_Y)
+  UNRESOLVED fill_readings: '&format!("column {FILL_NEAR}: {}", colum' at (4.6, READ_Y + 0.2)
+  UNRESOLVED fill_readings: '&format!("column {FILL_FAR}: {}", column' at (4.6, READ_Y - 0.2)
+  ok  columns_fill: text  4.23 wide,  -2.12 to  2.12, y  3.35  Does the whole sum arrive?
+  ok  columns_fill: tex  4.15 wide,  -5.38 to -1.22, y  2.45  \text{chain}=1\cdot\left(1-\frac1n\right)\cdots\left(1-\fr
+  ok  columns_fill: text  0.84 wide,  -0.42 to  0.42, y -2.82  column k
+  UNRESOLVED columns_fill: '&tick.to_string()' at (fill_x(tick), FILL_BASE - 0.28)
+  ok  columns_fill: text  2.48 wide,   1.16 to  3.64, y  1.30  full: the series coefficient
+  ok  columns_fill: text  3.31 wide,  -1.65 to  1.65, y -3.50  Must the whole sum arrive?
+  ok  warning_sum: text  2.41 wide,  -1.20 to  1.20, y  1.55  Not enough by itself
+  ok  warning_sum: tex  2.08 wide,  -4.34 to -2.26, y  2.45  n\ \text{terms, each}\ \frac1n
+  ok  warning_sum: text  0.73 wide,   5.84 to  6.56, y  1.30  total: 1
+  ok  warning_sum: text  2.16 wide,  -0.08 to  2.08, y -1.20  the weight moves out
+  UNRESOLVED ceilings_hold: '&i.to_string()' at (bar_x(i), BAR_INDEX_Y)
+  UNRESOLVED ceilings_hold: '&format!("x={RADIUS}")' at (-4.6, NAME_Y)
+  ok  ceilings_hold: tex  2.81 wide,   2.35 to  5.15, y  1.60  k\leq n:\quad 0\leq\text{chain}\leq 1
+  ok  ceilings_hold: tex  2.12 wide,   2.69 to  4.81, y  1.00  k>n:\quad\text{chain}=0
+  ok  ceilings_hold: tex  2.06 wide,   2.72 to  4.78, y  2.40  \left|\binom{n}{k}\left(\frac{x}{n}\right)^k\right|\leq\fr
+  ok  ceilings_hold: text  4.15 wide,   1.67 to  5.83, y  0.10  The warning sum has no such ceilings
+  ok  ceilings_hold: tex  4.19 wide,   1.65 to  5.85, y -0.65  1+\frac12+\frac13+\frac14+\cdots\ \text{has no limit}
+  ok  gaps_and_cut: tex  2.34 wide,   2.58 to  4.92, y  2.40  \left|E(x)-\left(1+\frac{x}{n}\right)^n\right|
+  ok  gaps_and_cut: tex  2.77 wide,   2.37 to  5.13, y  1.55  \leq\sum_k\frac{|x|^k}{k!}\left(1-\text{chain}\right)
+  UNRESOLVED gaps_and_cut: '&format!("aim: distance below {AIM}")' at (CARD_X, 0.85)
+  UNRESOLVED gaps_and_cut: '"cut"' at (cut_x(EARLY_CUT), BAR_BASE + CUT_HEIGHT + 0.2)
+  UNRESOLVED gaps_and_cut: '&i.to_string()' at (inset_x(i), INSET_BASE - 0.25)
+  UNRESOLVED gaps_and_cut: '&format!("zoom ×{ZOOM}")' at (6.05, INSET_BASE + 0.9)
+  UNRESOLVED gaps_and_cut: '&format!("tail after {EARLY_CUT} ≤ {}: t' at (CARD_X, 0.45)
+  UNRESOLVED tail_then_head: '&format!("tail after {CUT} ≤ {}", tail_p' at (CARD_X, 0.45)
+  UNRESOLVED tail_then_head: '&format!("{n} cells: head ≤ {}", up_labe' at (CARD_X, -1.15)
+  ok  negative_input: tex  0.48 wide,  -5.14 to -4.66, y  2.10  x=
+  ok  negative_input: tex  3.35 wide,   2.07 to  5.43, y  1.60  \text{signs}:\ +,\ -,\ +,\ -,\ \ldots
+  ok  negative_input: tex  3.44 wide,   2.03 to  5.47, y  0.75  \left|\text{term at}\ {-x}\right|=\left|\text{term at}\ x\
+  UNRESOLVED negative_input: '&format!("{last} cells, total ≤ {}", tot' at (CARD_X, -0.1)
+  UNRESOLVED negative_input: '&format!(r"x={RADIUS}:\\ \\text{{distance}' at (CARD_X, -0.6)
+  UNRESOLVED negative_input: '&format!(r"x={}:\\ \\text{{distance}}\\ {:.' at (CARD_X, -1.1)
+  UNRESOLVED edge_table: '&format!("x={EDGE_INPUT}")' at (CELLS_X, 2.55)
+  ok  edge_table: text  0.42 wide,  -5.21 to -4.79, y  2.20  cells
+  ok  edge_table: tex  0.63 wide,  -3.32 to -2.68, y  2.30  1+\frac{x}{n}
+  ok  edge_table: tex  0.93 wide,  -1.07 to -0.13, y  2.30  \left(1+\frac{x}{n}\right)^n
+  UNRESOLVED edge_table: '&n.to_string()' at (CELLS_X, row_y(row))
+  UNRESOLVED edge_table: '&edge_base(n)' at (BASE_X, row_y(row))
+  UNRESOLVED edge_table: '&edge_value(n)' at (VALUE_X, row_y(row))
+  UNRESOLVED edge_table: '&format!(r"E({EDGE_INPUT})={:.4}", e_val' at (VALUE_X - 0.6, row_y(EDGE_COUN, row_y(1) + 0.2)
+  UNRESOLVED edge_table: 'NO_DECAY' at (NOTE_X, row_y(1) - 0.2)
+  UNRESOLVED edge_table: 'POSITIVE' at (NOTE_X, row_y(4) - 0.2)
+  ok  edge_table: text  4.16 wide,  -2.08 to  2.08, y -2.75  Same chain, same ceilings, for every n
+  ok  edge_table: text  4.73 wide,  -2.37 to  2.37, y -3.30  No steady climb needed, no logarithm used
+  ok  payoff: tex  3.51 wide,  -4.36 to -0.84, y  1.80  \lim_{n\to\infty}\left(1+\frac{x}{n}\right)^n=E(x)
+  ok  payoff: text  1.67 wide,  -3.43 to -1.77, y  1.15  for every real x
+  ok  payoff: text  3.55 wide,  -4.37 to -0.83, y  0.60  bigger input: a later cut, more cells
+  ok  payoff: tex  3.64 wide,  -4.42 to -0.78, y -0.10  x=1:\quad\lim_{n\to\infty}\left(1+\frac1n\right)^n=e
+  UNRESOLVED payoff: '&format!("e = {}", e_label())' at (graph_point(1.0, 0.0)[0] + 1.2, 2.85)
+  ok  payoff: text  4.56 wide,  -2.28 to  2.28, y -3.62  Why the stepped approximations reach E
+  extra: strings built with format!, at their printed values
+  ok   2.63 wide,   2.43 to  5.07  tail after 4 ≤ 0.04: too big
+  ok   2.64 wide,   2.43 to  5.07  1024 cells: head ≤ 0.00492
+  ok   2.48 wide,   2.51 to  4.99  total ≤ 0.00514 < 0.01
+  ok   2.64 wide,   2.43 to  5.07  1024 cells, total ≤ 0.00514
+  ok   2.04 wide,   3.58 to  5.62  column 100: 0.00000
+  unresolved calls, left to the layout lint: 43
+  overlaps among resolved text in one function (a superset of what shares the screen):
+    endpoints_on_the_graph: 'Near is still not a proof' / 'Why should that limit be our serie'
+  1 pairs
+
+=== only_solution
+  UNRESOLVED axes: '"1"' at (panel.left - 0.22, panel.at(0.0, 1.0)[1])
+  UNRESOLVED axes: '&panel.top.to_string()' at (panel.left - 0.22, panel.at(0.0, panel.top)[1])
+  UNRESOLVED axes: '&x.to_string()' at (panel.at(x, 0.0)[0], panel.base - 0.28)
+  ok  function_panel: tex  0.52 wide,  -2.61 to -2.09, y  0.20  E(x)
+  ok  function_panel: text  0.14 wide,  -1.07 to -0.93, y -0.65  ?
+  ok  the_question: text  5.43 wide,  -2.71 to  2.71, y  3.35  Could another curve obey the rule?
+  ok  the_question: tex  2.55 wide,   2.23 to  4.77, y  2.20  y'=y,\quad y(0)=1
+  ok  the_question: text  4.88 wide,   1.06 to  5.94, y  1.05  Proved: the stepped approximations reach E
+  ok  the_question: text  4.94 wide,   1.03 to  5.97, y  0.35  Not yet: that every solution follows the steps
+  ok  the_question: text  4.76 wide,   1.12 to  5.88, y -0.75  Why E is the only solution from height one
+  ok  the_test: tex  1.74 wide,   2.63 to  4.37, y  2.30  y(x)E(-x)
+  ok  the_test: tex  2.17 wide,   2.41 to  4.59, y  1.35  \frac{d}{dx}\left(y(x)E(-x)\right)
+  ok  the_test: tex  1.99 wide,   1.06 to  3.04, y  0.45  =y'(x)E(-x)
+  ok  the_test: tex  2.21 wide,   3.64 to  5.86, y  0.45  +y(x)\frac{d}{dx}E(-x)
+  ok  the_test: tex  4.72 wide,   1.14 to  5.86, y -0.55  \frac{d}{dx}E(-x)=-E'(-x)=-E(-x)
+  ok  the_test: text  2.46 wide,   2.27 to  4.73, y -1.20  chain rule, then E′ = E
+  ok  the_test: tex  4.85 wide,   1.07 to  5.93, y -2.20  \frac{d}{dx}\left(y(x)E(-x)\right)=\left(y'(x)-y(x)\right)
+  UNRESOLVED product_axes: 'PRODUCT_NAME' at (PRODUCT.at(0.9, 0.0)[0], PRODUCT.at(0.0, PRODUCT.top)[1)
+  ok  test_on_failures: text  0.83 wide,  -2.42 to -1.58, y -1.70  degree 2
+  UNRESOLVED test_on_failures: '&defect_tex(DEGREES[0])' at (2.3, -2.1)
+  ok  test_on_failures: text  0.83 wide,  -3.12 to -2.28, y -0.35  degree 4
+  UNRESOLVED test_on_failures: '&defect_tex(DEGREES[1])' at (4.7, -2.1)
+  ok  test_on_failures: tex  1.33 wide,  -5.46 to -4.14, y  1.75  E(-x)\neq 0
+  ok  test_on_failures: tex  1.94 wide,  -3.17 to -1.23, y  1.75  \text{level}\iff y'=y
+  ok  test_on_failures: tex  2.29 wide,   2.35 to  4.65, y  1.75  y'=y,\quad y(0)=1
+  ok  test_on_failures: text  3.22 wide,  -1.61 to  1.61, y -3.50  What must its product do?
+  UNRESOLVED it_stays_level: 'PLUS_PART' at (at[0] + 0.85, at[1] + rise - 0.1)
+  ok  it_stays_level: tex  1.90 wide,  -5.65 to -3.75, y  1.20  +y(x)E(-x)
+  UNRESOLVED it_stays_level: 'MINUS_PART' at (at[0] + 0.85, at[1] - rise + 0.1)
+  ok  it_stays_level: tex  1.90 wide,  -3.05 to -1.15, y  1.20  -y(x)E(-x)
+  ok  it_stays_level: tex  2.71 wide,  -4.75 to -2.05, y  0.20  \frac{d}{dx}\left(y(x)E(-x)\right)=0
+  ok  it_stays_level: text  3.77 wide,  -5.28 to -1.52, y -0.60  zero slope on an interval: constant
+  ok  it_stays_level: tex  3.61 wide,  -5.20 to -1.60, y -1.30  x=0:\quad y(0)E(0)=1\cdot 1=1
+  ok  it_stays_level: tex  2.50 wide,  -4.65 to -2.15, y -2.40  y(x)E(-x)=1
+  ok  multiply_through: tex  2.21 wide,   2.40 to  4.60, y  2.30  y(x)E(-x)=1
+  ok  multiply_through: tex  3.05 wide,   1.97 to  5.03, y  1.45  y(x)E(-x)E(x)=E(x)
+  ok  multiply_through: tex  2.06 wide,   2.47 to  4.53, y  0.65  E(x)E(-x)=1
+  ok  multiply_through: text  2.19 wide,   2.41 to  4.59, y  0.15  from the product grid
+  ok  multiply_through: tex  1.74 wide,   2.63 to  4.37, y -0.65  y(x)=E(x)
+  ok  multiply_through: tex  4.20 wide,   1.40 to  5.60, y -1.75  y'=y,\ y(0)=1\quad\iff\quad y=E
+  ok  no_circle: text  2.31 wide,  -1.16 to  1.16, y  3.35  Is this a circle?
+  UNRESOLVED no_circle: 'SERIES_BOX, 25.0, Palette::blue(), &[], ' at (-4.3, 1.75)
+  UNRESOLVED no_circle: 'GRID_BOX, 25.0, Palette::green(), &[], g' at (-4.3, -0.95)
+  UNRESOLVED no_circle: 'RESULT_BOX, 25.0, Palette::hero(), &[], ' at (0.0, -2.0)
+  ok  no_circle: text  0.92 wide,  -4.56 to -3.64, y -2.70  not used:
+  UNRESOLVED no_circle: 'name' at (x, -2.7)
+  ok  the_gap: text  4.94 wide,  -2.47 to  2.47, y  3.35  The word interval is doing work
+  UNRESOLVED the_gap: '&PIECES.top.to_string()' at (PIECES.left - 0.22, PIECES.at(0.0, PIECES.top)[1])
+  UNRESOLVED the_gap: '&x.to_string()' at (PIECES.at(x, 0.0)[0], PIECES.base - 0.28)
+  UNRESOLVED the_gap: 'NEAR_NAME' at (PIECES.at(0.55, 0.0)[0], PIECES.at(0.0, 0.9)[1])
+  UNRESOLVED the_gap: 'FAR_NAME' at (PIECES.at(-1.3, 0.0)[0], -0.9)
+  UNRESOLVED the_gap: 'GAP_NAME' at ((PIECES.at(FAR_PIECE.1, 0.0)[0, PIECES.base + PIECES.height + )
+  ok  the_gap: tex  2.70 wide,   2.15 to  4.85, y  2.30  y'=y\ \text{on both pieces}
+  UNRESOLVED the_gap: '&format!(r"3E(x)\\cdot E(-x)={FAR_MULTIPL' at (RIGHT_X, 1.6)
+  ok  the_gap: tex  2.12 wide,   2.44 to  4.56, y  0.85  E(x)\cdot E(-x)=1
+  ok  the_gap: text  4.65 wide,   1.18 to  5.82, y -0.35  one unbroken interval containing the start
+  ok  the_gap: text  2.91 wide,   2.04 to  4.96, y -1.00  a derivative at every point
+  ok  any_constant_rate: text  2.78 wide,  -1.39 to  1.39, y  3.35  Any constant rate
+  ok  any_constant_rate: tex  1.17 wide,  -3.98 to -2.82, y  2.30  y'=ky
+  ok  any_constant_rate: tex  1.69 wide,  -4.24 to -2.56, y  1.65  y(t)E(-kt)
+  ok  any_constant_rate: tex  4.82 wide,  -5.91 to -1.09, y  0.95  \frac{d}{dt}\left(y(t)E(-kt)\right)=\left(y'-ky\right)E(-k
+  ok  any_constant_rate: tex  2.59 wide,  -4.69 to -2.11, y  0.10  y(t)=y(0)E(kt)
+  UNRESOLVED any_constant_rate: '&RATE_START.to_string()' at (RATE_PANEL.left - 0.22, RATE_PANEL.at(0.0, RATE_START))
+  UNRESOLVED any_constant_rate: '&format!(r"t={RATE_END}")' at (RATE_PANEL.at(RATE_END, 0.0)[0, RATE_PANEL.base - 0.28)
+  UNRESOLVED any_constant_rate: '&format!(r"k={name}:\\ {}", rate_label(ra' at (end[0] + 1.15, end[1])
+  UNRESOLVED any_constant_rate: 'r"y(0)=0:\\ y=0"' at (RATE_PANEL.at(1.0, 0.0)[0], RATE_PANEL.base + 0.22)
+  ok  any_constant_rate: tex  3.98 wide,  -5.39 to -1.41, y -1.05  k\ \text{in}\ \frac{1}{\text{time}},\ \text{so}\ kt\ \text
+  ok  any_constant_rate: text  5.85 wide,  -2.93 to  2.93, y -3.50  Does a real quantity obey this? Ask each application.
+  ok  three_doors: text  4.81 wide,  -2.41 to  2.41, y  3.35  Three constructions, one object
+  UNRESOLVED three_doors: 'tex, 25.0, color, &[], at)?);\n        ar' at (x, -0.85)
+  UNRESOLVED three_doors: 'debt' at (0.0, -1.6 - 0.6 * row as f64)
+  extra: strings built with format!, at their printed values
+  unresolved calls, left to the layout lint: 24
+  overlaps among resolved text in one function (a superset of what shares the screen):
+  0 pairs
+RESULT PASS

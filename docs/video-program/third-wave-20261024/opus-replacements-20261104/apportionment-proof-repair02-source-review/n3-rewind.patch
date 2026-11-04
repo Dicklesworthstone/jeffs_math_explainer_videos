@@ -1,0 +1,49 @@
+--- a/explainer_corpus/apportionment/src/chapters/both_promises.rs
++++ b/explainer_corpus/apportionment/src/chapters/both_promises.rs
+@@ -43,6 +43,8 @@
+ const RANKED: usize = 17;
+ /// 12_7's walk: seconds for the marker to move one house size.
+ const STEP: f64 = 0.3;
++/// 12_8's rewind: seconds for one fill to leave, then for the marker to step back.
++const REWIND_STEP: f64 = 0.12;
+ /// 12_9's three bounds, one per town.
+ const BOUND_X: [f64; 3] = [-4.3, 0.0, 4.3];
+ /// 12_8 and 12_9: the count panel under the axis, one row per step. Row 0
+@@ -862,7 +864,6 @@
+         fade_in_all(stage, &[now_t], 0.3)?;
+         s.wait_for(stage, "Suppose one were")?;
+         let (mx0, mx1) = tile_span(&missing);
+-        fade_out_all(stage, &since_then, 0.4)?;
+         let gone = ring(stage, &missing, Palette::red());
+         let ask = kit.text(
+             stage,
+@@ -878,12 +879,18 @@
+             Palette::red(),
+             v(0.0, 3.3),
+         )?;
+-        fade_in_all(stage, &[gone, ask, suppose], 0.4)?;
++        // Words only: no tile is named while a fill after `then` is in view.
++        fade_in_all(stage, &[suppose], 0.4)?;
+         s.wait_for(stage, "Go back to the last moment")?;
+         let then = stage.add_value_tracker(to as f64);
+         let then_mark = marker(stage, then, to as f64, Palette::ink())?;
+         fade_in_all(stage, &then_mark, 0.3)?;
+-        run_tracker(stage, then, from as f64, 1.6)?;
++        // 12_7's walk in reverse, newest hand-out first: every state passed
++        // through is the real run at the marker, so no row ever shows a hole.
++        for (i, &f) in since_then.iter().enumerate().rev() {
++            fade_out_all(stage, &[f], REWIND_STEP)?;
++            run_tracker(stage, then, (from_h + i) as f64, REWIND_STEP)?;
++        }
+         let then_t = kit.text(
+             stage,
+             "then",
+@@ -899,6 +906,8 @@
+             v(0.0, LEGEND_Y),
+         )?;
+         fade_in_all(stage, &[then_t, legend], 0.3)?;
++        // The missing tile's fill has gone by now, so its ring never sits on one.
++        fade_in_all(stage, &[gone, ask], 0.3)?;
+         s.wait_for(stage, "a tile that ends later than the missing one")?;
+         // what the rule really handed out at `then`, reaching past the missing tile's end
+         let later_ring = ring(stage, &later, Palette::ink());

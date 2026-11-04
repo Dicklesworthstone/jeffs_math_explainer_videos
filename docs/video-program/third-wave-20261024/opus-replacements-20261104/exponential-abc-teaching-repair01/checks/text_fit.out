@@ -1,0 +1,58 @@
+coverage of the non-ASCII characters these scenes send to Text (fallback chain CM, Noto Sans Math, Plex):
+  '≤' U+2264: served by math
+  '×' U+00D7: served by math
+text extents (scene units):
+  ok  rate_law:  4.08 wide,  -2.04 to  2.04  'Next: construct an exact solution'
+  ok  factorials:  4.83 wide,  -2.41 to  2.41  'Where the factorials come from'
+  ok  factorials:  2.05 wide,  -2.73 to -0.67  'What must a be?'
+  ok  factorials:  0.82 wide,  -5.76 to -4.94  'function'
+  ok  factorials:  1.00 wide,  -5.85 to -4.85  'derivative'
+  ok  factorials:  1.26 wide,  -5.98 to -4.72  'denominator'
+  ok  factorials:  0.93 wide,  -4.37 to -3.43  'constant'
+  ok  factorials:  2.63 wide,  -1.31 to  1.31  'partial sums on fixed axes'
+  ok  factorials:  4.64 wide,  -2.32 to  2.32  'A finite polynomial loses its highest power'
+  ok  factorials:  3.26 wide,  -1.63 to  1.63  'The infinite tail needs a proof'
+  ok  factorials:  2.19 wide,  -1.10 to  1.10  'Does the sum exist?'
+  ok  factorials:  3.93 wide,  -1.96 to  1.96  'May we differentiate term by term?'
+  ok  factorials:  5.24 wide,  -2.62 to  2.62  'Uniform convergence on every bounded interval'
+  ok  factorials:  3.37 wide,   2.22 to  5.58  '|x| ≤ 1.5, degree 4: tail ≤ 0.12657'
+  ok  factorials:  0.99 wide,   4.90 to  5.90  'zoom ×16'
+  ok  factorials:  4.18 wide,  -2.09 to  2.09  'Why adding inputs multiplies outputs'
+  ok  factorials:  4.56 wide,  -2.28 to  2.28  'Why the stepped approximations reach E'
+  ok  factorials:  4.76 wide,  -2.38 to  2.38  'Why E is the only solution from height one'
+  ok  product_grid:  2.65 wide,  -1.32 to  1.32  'the inputs we have earned'
+the two rows that sit on the table's 1.1-unit columns, neighbour by neighbour:
+  ok    equations: 'a = 1' then '2b = 1': gap 0.42
+  ok    equations: '2b = 1' then '3c = 1/2': gap 0.24
+  ok    equations: '3c = 1/2' then '4d = 1/6': gap 0.11
+  ok    solved: 'a = 1' then 'b = 1/2': gap 0.36
+  ok    solved: 'b = 1/2' then 'c = 1/6': gap 0.24
+  ok    solved: 'c = 1/6' then 'd = 1/24': gap 0.18
+  ok    ratio row: '3/2' then '3/4': gap 0.32
+  ok    ratio row: '3/4' then '1/2': gap 0.32
+  ok    ratio row: '1/2' then '3/8': gap 0.32
+  ok    ratio row: '3/8' then '3/10': gap 0.26
+  ok    ratio row: '3/10' then '1/4': gap 0.26
+  ok    ratio row: '1/4' then '3/14': gap 0.26
+  ok    ratio row: '3/14' then '3/16': gap 0.20
+  ok    coefficients: '1' then '1': gap 0.98
+  ok    coefficients: '1' then '1/2': gap 0.85
+  ok    coefficients: '1/2' then '1/6': gap 0.73
+  ok    coefficients: '1/6' then '1/24': gap 0.66
+TeX, ESTIMATED extents (a rough upper estimate, not a measurement):
+  ok  rate_law:  2.89 wide,   1.31 to  4.19  y'=y,\quad y(0)=1
+  ok  factorials:  2.55 wide,   2.63 to  5.17  y'=y,\quad y(0)=1
+  ok  factorials:  3.04 wide,   2.38 to  5.42  u_{k+1}=\frac{u_k}{k+1},\quad u_0=1
+  ok  factorials:  4.42 wide,   1.69 to  6.11  \frac{|x|}{k+1}\leq\frac{R}{k+1}\leq\frac12\quad(k+1\geq 2R)
+  ok  factorials:  5.43 wide,   1.19 to  6.61  \sum_{k=N+1}^{\infty}\frac{|x|^k}{k!}\leq\frac{R^{N+1}}{(N+1
+  ok  factorials:  3.08 wide,   2.36 to  5.44  =\frac{2R^{N+1}}{(N+1)!}\quad(N+2\geq 2R)
+  ok  factorials:  2.11 wide,  -4.05 to -1.95  \frac{d}{dx}\frac{x^k}{k!}=\frac{x^{k-1}}{(k-1)!}
+  ok  factorials:  5.23 wide,  -2.61 to  2.61  E(x)=\sum_{k=0}^{\infty}\frac{x^k}{k!},\quad E'=E,\quad E(0)
+  ok  factorials:  3.61 wide,  -1.80 to  1.80  y=E\ \text{solves}\ y'=y,\ y(0)=1
+  ok  product_grid:  5.86 wide,  -2.93 to  2.93  e=E(1)=1+1+\frac12+\frac16+\cdots\approx 2.71828
+  ok  product_grid:  3.13 wide,  -1.56 to  1.56  E(2)=e\cdot e,\quad E(3)=e^3
+  ok  product_grid:  4.53 wide,  -2.26 to  2.26  E\left(\tfrac12\right)^2=e\ \text{and}\ E>0,\ \text{so}\ E\l
+  ok  product_grid:  1.97 wide,  -0.98 to  0.98  E(-x)=\frac{1}{E(x)}
+  ok  product_grid:  1.84 wide,  -0.92 to  0.92  E(x)=e^x
+bars and neighbours: the 02_5 right panel starts at about x = 1.19 ; the last main bar ends at -0.20
+RESULT PASS

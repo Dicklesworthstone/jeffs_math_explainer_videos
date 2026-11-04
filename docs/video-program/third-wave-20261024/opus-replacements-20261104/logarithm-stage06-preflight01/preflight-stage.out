@@ -1,0 +1,329 @@
+ok   PIN.script  f201d2dc57fa9cca
+ok   PIN.units
+ok   PIN.map
+ok   PIN.plan.hold-audit.json
+ok   PIN.plan.phrase-anchors.json
+ok   PIN.plan.phrase-timings-unmeasured-template.json
+ok   PIN.plan.direction-dispositions-proposed.json
+ok   PIN.plan.cue-delta.json
+ok   PIN.plan.inputs.sha256
+ok   PIN.chapter.undoing_growth.rs
+ok   PIN.chapter.complex_turns.rs
+ok   PIN.chapter.lifting_loops.rs
+ok   PIN.chapter.doing_nothing.rs
+ok   PIN.chapter.unreachable.rs
+ok   PIN.binding_receipt  8 plan files equal root's guarded run's log; different: []
+ok   INPUT.plan_inputs_unmoved  116 binder inputs; moved: []
+ok   ASM.patch_is_the_reviewed_patch.undoing_growth.rs  04-undoing_growth.patch
+ok   ASM.base_bytes.undoing_growth.rs  8e26f3e4ae1e12b6
+ok   ASM.replay.undoing_growth.rs  base + patch at zero fuzz == staged candidate; patch exit 0
+ok   ASM.patch_is_the_reviewed_patch.complex_turns.rs  05-complex_turns.patch
+ok   ASM.base_bytes.complex_turns.rs  d5f202afb97debce
+ok   ASM.replay.complex_turns.rs  base + patch at zero fuzz == staged candidate; patch exit 0
+ok   ASM.patch_is_the_reviewed_patch.lifting_loops.rs  06-lifting_loops.patch
+ok   ASM.base_bytes.lifting_loops.rs  78af9acdd126c120
+ok   ASM.replay.lifting_loops.rs  base + patch at zero fuzz == staged candidate; patch exit 0
+ok   ASM.patch_is_the_reviewed_patch.doing_nothing.rs  interval.patch
+ok   ASM.base_bytes.doing_nothing.rs  535e985522f976fe
+ok   ASM.replay.doing_nothing.rs  base + patch at zero fuzz == staged candidate; patch exit 0
+ok   ASM.patch_is_the_reviewed_patch.unreachable.rs  logarithm11-labels.patch
+ok   ASM.base_bytes.unreachable.rs  43c8dac362df7fac
+ok   ASM.replay.unreachable.rs  base + patch at zero fuzz == staged candidate; patch exit 0
+ok   ASM.retained.branch_cut.rs  193c4733de9f9081; stage05's stale 27edc168fbc47c1d is not back
+ok   ASM.retained_refreshed.branch_cut.rs  the kept copy of what it replaced
+ok   ASM.retained.what_it_forgets.rs  e938b750ce579fae; stage05's stale 0b4c269bd3078c6a is not back
+ok   ASM.retained_refreshed.what_it_forgets.rs  the kept copy of what it replaced
+ok   ASM.delta_is_exactly_the_repairs  differ from canonical: ['narration_units.json', 'src/chapters/complex_turns.rs', 'src/chapters/doing_nothing.rs', 'src/chapters/lifting_loops.rs', 'src/chapters/undoing_growth.rs', 'src/chapters/unreachable.rs']
+ok   ASM.only_in_stage  ['src/chapters/doing_nothing.rs.orig']
+ok   ASM.only_in_canonical  ['docs/narration-direction-map-oliver12.json']
+WARN ASM.stage_crate_units_are_stale  stage06's crate holds 14 units for script 15eb9ae95f70, bound to narration-direction-map-oliver11.json. Install the bound-plan copy; never copy this one.
+WARN ASM.stray_orig  stage06's chapters hold doing_nothing.rs.orig, carried from stage04 and stage05. mod.rs does not declare it, so it does not compile. Do not install it.
+ok   TXT.eighty_cues  80
+ok   TXT.cue_ids
+ok   TXT.chapters_contiguous  13 chapters; ids are not numeric order (05_20 follows 05_2)
+ok   TXT.clean_text  no stray spaces; every cue ends a sentence
+ok   TXT.no_digits  numbers spelled for the narrator
+ok   TXT.ascii  no typographic characters to mismatch
+ok   TXT.units_bind_script
+ok   TXT.units_one_per_cue_in_order  80 units
+ok   TXT.unit_ids
+ok   TXT.unit_text_exact  different: []
+ok   TXT.unit_word_bound  max 95, total 4592
+ok   TXT.contract_names_map13  explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver13.json
+ok   TXT.contract_map_hash
+ok   TXT.contract_script_and_topic
+ok   TXT.requests_bind_script
+ok   TXT.requests_one_per_cue
+ok   TXT.request_files_exact  the text that would go to Oliver; different: []
+ok   TXT.requests_script_bytes  the script file requests.json names holds the same bytes
+WARN TXT.requests_name_older_stage  requests.json's script_path is combined-repair-stage04; its hash matches, so this is a label, not a wrong binding
+ok   TXT.no_stray_request_text  []
+ok   TXT.delta_binds
+ok   TXT.delta_matches_requests  cue-delta and requests.json name the same older request
+ok   TXT.older_request_bytes_same  each older request id's text is byte-equal to its final cue; different: []
+ok   REG.thirteen  13 registered
+ok   REG.in_cue_order  one chapter per cue prefix, in order
+ok   REG.modules_declared
+ok   REG.files_present
+ok   REG.only_helpers_unregistered  ['draw', 'thumbnail']
+ok   REG.audit_agrees
+ok   REG.audit_hashes  different: []
+ok   REG.scene_name_is_key  each scene's name() returns its registry key; different: []
+ok   REG.unregistered_listed  ['bookends.rs', 'doing_nothing.rs.orig', 'matrix_log.rs', 'product_law.rs', 'real_inverse.rs', 'winding.rs']
+ok   REG.last_render_used_these_keys  the argv of root's last preview names exactly these chapters
+ok   REG.nothing_unreadable  []
+ok   REG.every_cue_said_once_in_order  80 says
+ok   REG.each_said_by_its_chapter  []
+ok   REG.each_chapter_finishes  one kit.finish per chapter
+ok   REG.check_cues_passes  the crate's own checker, exit 0, last line 'OK';
+ok   REG.sentence_hooks_in_range  282 literal hooks name a sentence their cue has; bad: []
+ok   REG.sentence_hook_count  282 found, audit says 282
+ok   REG.computed_sentence_hooks_listed  [('product_rule.rs', 339, '08_4')]
+ok   REG.sentence_hooks_on_current_cue  hooks off the cue being said are only the listed helper: [('undoing_growth.rs', 112, '04_2')]
+ok   REG.oracle_reproduces  102 oracle facts; Rust's facts are root's build check
+ok   HOLD.map_binds_script
+ok   HOLD.counts  15 holds, 15 overrides, {'prediction': 13, 'reading': 2}
+ok   HOLD.in_script_order
+ok   HOLD.overrides_pair_rows
+ok   HOLD.after_is_whole_cue  every direction covers its whole cue
+ok   HOLD.role_and_video
+ok   HOLD.census_equals_map  source has 15 hold calls; only in source []; only in map []
+ok   HOLD.00_4.source_hash  ratio_ruler.rs 92cf028b124f
+ok   HOLD.00_4.marker_line  ratio_ruler.rs:371 predict(&kit, stage, v(3.6, -2.75), 3.0)?;
+ok   HOLD.00_4.interval_hash  say at 330
+ok   HOLD.00_4.next_cue  00_5
+ok   HOLD.00_4.before_next_say  before the answer's cue
+ok   HOLD.01_3.source_hash  building_ruler.rs ae125e5ec9ec
+ok   HOLD.01_3.marker_line  building_ruler.rs:187 predict(&kit, stage, v(3.8, -2.9), 3.0)?;
+ok   HOLD.01_3.interval_hash  say at 162
+ok   HOLD.01_3.next_cue  01_4
+ok   HOLD.01_3.before_next_say  before the answer's cue
+ok   HOLD.02_2.source_hash  slide_rule.rs eea4d01d96fd
+ok   HOLD.02_2.marker_line  slide_rule.rs:204 predict(&kit, stage, v(4.7, -2.75), 3.0)?;
+ok   HOLD.02_2.interval_hash  say at 147
+ok   HOLD.02_2.next_cue  02_3
+ok   HOLD.02_2.before_next_say  before the answer's cue
+ok   HOLD.04_6.source_hash  undoing_growth.rs 754ea3125c2f
+ok   HOLD.04_6.marker_line  undoing_growth.rs:749 predict(&kit, stage, v(4.6, THINK_BAR_Y), 3.0)?;
+ok   HOLD.04_6.interval_hash  say at 674
+ok   HOLD.04_6.next_cue  04_7
+ok   HOLD.04_6.before_next_say  before the answer's cue
+ok   HOLD.05_1.source_hash  complex_turns.rs 2cc2ba7723e2
+ok   HOLD.05_1.marker_line  complex_turns.rs:245 predict(&kit, stage, v(2.5, -0.62), 3.0)?;
+ok   HOLD.05_1.interval_hash  say at 185
+ok   HOLD.05_1.next_cue  05_2
+ok   HOLD.05_1.before_next_say  before the answer's cue
+ok   HOLD.05_5.source_hash  complex_turns.rs 2cc2ba7723e2
+ok   HOLD.05_5.marker_line  complex_turns.rs:623 predict(&kit, stage, v(OUT.centre[0], -2.75), 3.0)?;
+ok   HOLD.05_5.interval_hash  say at 611
+ok   HOLD.05_5.next_cue  05_6
+ok   HOLD.05_5.before_next_say  before the answer's cue
+ok   HOLD.06_2.source_hash  lifting_loops.rs ca34aef0523c
+ok   HOLD.06_2.marker_line  lifting_loops.rs:374 predict(&kit, stage, v(Z.centre[0], 2.55), 2.6)?;
+ok   HOLD.06_2.interval_hash  say at 335
+ok   HOLD.06_2.next_cue  06_3
+ok   HOLD.06_2.before_next_say  before the answer's cue
+ok   HOLD.06_4.source_hash  lifting_loops.rs ca34aef0523c
+ok   HOLD.06_4.marker_line  lifting_loops.rs:475 predict(&kit, stage, v(2.4, 1.8), 2.6)?;
+ok   HOLD.06_4.interval_hash  say at 417
+ok   HOLD.06_4.next_cue  06_5
+ok   HOLD.06_4.before_next_say  before the answer's cue
+ok   HOLD.07_3.source_hash  branch_cut.rs 193c4733de9f
+ok   HOLD.07_3.marker_line  branch_cut.rs:419 predict(&kit, stage, v(right + 1.7, 1.95), 3.0)?;
+ok   HOLD.07_3.interval_hash  say at 366
+ok   HOLD.07_3.next_cue  07_4
+ok   HOLD.07_3.before_next_say  before the answer's cue
+ok   HOLD.08_1.source_hash  product_rule.rs e9019c828710
+ok   HOLD.08_1.marker_line  product_rule.rs:221 predict(&kit, stage, v(3.6, 0.6), 3.0)?;
+ok   HOLD.08_1.interval_hash  say at 108
+ok   HOLD.08_1.next_cue  08_2
+ok   HOLD.08_1.before_next_say  before the answer's cue
+ok   HOLD.08_4.source_hash  product_rule.rs e9019c828710
+ok   HOLD.08_4.marker_line  product_rule.rs:346 predict(&kit, stage, v(right + 2.5, -2.75), 3.0)?;
+ok   HOLD.08_4.interval_hash  say at 317
+ok   HOLD.08_4.next_cue  08_5
+ok   HOLD.08_4.before_next_say  before the answer's cue
+ok   HOLD.10_4.source_hash  doing_nothing.rs eeee764f0fe5
+ok   HOLD.10_4.marker_line  doing_nothing.rs:602 kit.music_breath(stage, FINE_PRINT_S - read_for)?;
+ok   HOLD.10_4.interval_hash  say at 537
+ok   HOLD.10_4.next_cue  11_1
+ok   HOLD.11_3.source_hash  unreachable.rs a676dac78580
+ok   HOLD.11_3.marker_line  unreachable.rs:1070 predict(&kit, stage, v(right + 1.6, -1.4), 3.0)?;
+ok   HOLD.11_3.interval_hash  say at 963
+ok   HOLD.11_3.next_cue  11_4
+ok   HOLD.11_3.before_next_say  before the answer's cue
+ok   HOLD.11_20.source_hash  unreachable.rs a676dac78580
+ok   HOLD.11_20.marker_line  unreachable.rs:1590 kit.music_breath(stage, rule_read + row_reads.iter().sum::<f
+ok   HOLD.11_20.interval_hash  say at 1501
+ok   HOLD.11_20.next_cue  11_8
+ok   HOLD.12_5.source_hash  what_it_forgets.rs e938b750ce57
+ok   HOLD.12_5.marker_line  what_it_forgets.rs:1123 predict(&kit, stage, v(2.6, -2.1), 3.4)?;
+ok   HOLD.12_5.interval_hash  say at 1099
+ok   HOLD.12_5.next_cue  12_6
+ok   HOLD.12_5.before_next_say  before the answer's cue
+ok   HOLD.predict_helper_order  draw::predict holds, marks, waits THINK, fades, in that order
+ok   HOLD.no_scene_mark  no scene emits a mark itself, so only draw::predict can extend a caption: []
+ok   HOLD.every_other_wait_classified  25 waits and finishes; only in source []; only in audit []
+ok   HOLD.helpers_and_consumers_unmoved  15 helper and 7 consumer rows, hash and line; moved: []
+ok   HOLD.shared_helpers  4 shared files; moved: []
+ok   HOLD.stale_pairs_gone  oliver11's four retired pairs
+ok   HOLD.11_20_rule_lines  159 characters from the source's own literals
+ok   HOLD.11_20_row_verdicts  107 characters; missing: []
+ok   HOLD.11_20_window  17.7333 s after voice end plus breath, at 15.0 characters a second
+ok   HOLD.10_4_conditional  the window is a property of the take, and can be zero
+ok   PHR.binds_script
+ok   PHR.none_measured  24 anchors, no invented seconds
+ok   PHR.census_equals_plan  30 hook calls; only in source []; only in plan []
+ok   PHR.direct_mark_readers  [('undoing_growth.rs', '04_2')]
+ok   PHR.every_hook_on_the_cue_being_said  []
+ok   PHR.02_1@48.exact_byte  'one that slides'; a word start the mark producer can hit
+ok   PHR.02_1@48.sentence_index  sentence 0
+ok   PHR.02_1@48.hashes  slide_rule.rs
+ok   PHR.02_1@48.destination  1 source site(s) wait on this phrase of 02_1; []
+ok   PHR.02_1@48.template
+ok   PHR.02_2@47.exact_byte  'slide the moving'; a word start the mark producer can hit
+ok   PHR.02_2@47.sentence_index  sentence 0
+ok   PHR.02_2@47.hashes  slide_rule.rs
+ok   PHR.02_2@47.destination  1 source site(s) wait on this phrase of 02_2; []
+ok   PHR.02_2@47.template
+ok   PHR.04_2@306.exact_byte  'it only ever climbs'; a word start the mark producer can hit
+ok   PHR.04_2@306.sentence_index  sentence 3
+ok   PHR.04_2@306.hashes  undoing_growth.rs
+ok   PHR.04_2@306.destination  2 source site(s) wait on this phrase of 04_2; []
+ok   PHR.04_2@306.template
+ok   PHR.10_3@208.exact_byte  'turns round at a steady'; a word start the mark producer can hit
+ok   PHR.10_3@208.sentence_index  sentence 3
+ok   PHR.10_3@208.hashes  doing_nothing.rs
+ok   PHR.10_3@208.destination  2 source site(s) wait on this phrase of 10_3; []
+ok   PHR.10_3@208.template
+ok   PHR.10_3@302.exact_byte  'or does not turn'; a word start the mark producer can hit
+ok   PHR.10_3@302.sentence_index  sentence 3
+ok   PHR.10_3@302.hashes  doing_nothing.rs
+ok   PHR.10_3@302.destination  2 source site(s) wait on this phrase of 10_3; []
+ok   PHR.10_3@302.template
+ok   PHR.10_4@39.exact_byte  'strictly between'; a word start the mark producer can hit
+ok   PHR.10_4@39.sentence_index  sentence 0
+ok   PHR.10_4@39.hashes  doing_nothing.rs
+ok   PHR.10_4@39.destination  1 source site(s) wait on this phrase of 10_4; []
+ok   PHR.10_4@39.template
+ok   PHR.11_1@320.exact_byte  'a halfway point'; a word start the mark producer can hit
+ok   PHR.11_1@320.sentence_index  sentence 4
+ok   PHR.11_1@320.hashes  unreachable.rs
+ok   PHR.11_1@320.destination  1 source site(s) wait on this phrase of 11_1; []
+ok   PHR.11_1@320.template
+ok   PHR.11_1@337.exact_byte  'squashes the whole plane'; a word start the mark producer can hit
+ok   PHR.11_1@337.sentence_index  sentence 4
+ok   PHR.11_1@337.hashes  unreachable.rs
+ok   PHR.11_1@337.destination  1 source site(s) wait on this phrase of 11_1; []
+ok   PHR.11_1@337.template
+ok   PHR.11_2@185.exact_byte  'run backwards'; a word start the mark producer can hit
+ok   PHR.11_2@185.sentence_index  sentence 3
+ok   PHR.11_2@185.hashes  unreachable.rs
+ok   PHR.11_2@185.destination  1 source site(s) wait on this phrase of 11_2; []
+ok   PHR.11_2@185.template
+ok   PHR.11_5@72.exact_byte  'send it along both routes'; a word start the mark producer can hit
+ok   PHR.11_5@72.sentence_index  sentence 1
+ok   PHR.11_5@72.hashes  unreachable.rs
+ok   PHR.11_5@72.destination  1 source site(s) wait on this phrase of 11_5; []
+ok   PHR.11_5@72.template
+ok   PHR.11_5@178.exact_byte  'the two routes end in different places'; a word start the mark producer can hit
+ok   PHR.11_5@178.sentence_index  sentence 2
+ok   PHR.11_5@178.hashes  unreachable.rs
+ok   PHR.11_5@178.destination  1 source site(s) wait on this phrase of 11_5; []
+ok   PHR.11_5@178.template
+ok   PHR.11_6@273.exact_byte  'running one after the other'; a word start the mark producer can hit
+ok   PHR.11_6@273.sentence_index  sentence 3
+ok   PHR.11_6@273.hashes  unreachable.rs
+ok   PHR.11_6@273.destination  1 source site(s) wait on this phrase of 11_6; []
+ok   PHR.11_6@273.template
+ok   PHR.11_7@174.exact_byte  'so nothing forces a logarithm to keep th'; a word start the mark producer can hit
+ok   PHR.11_7@174.sentence_index  sentence 3
+ok   PHR.11_7@174.hashes  unreachable.rs
+ok   PHR.11_7@174.destination  1 source site(s) wait on this phrase of 11_7; []
+ok   PHR.11_7@174.template
+ok   PHR.11_7@226.exact_byte  'the spin, which turns every axis'; a word start the mark producer can hit
+ok   PHR.11_7@226.sentence_index  sentence 3
+ok   PHR.11_7@226.hashes  unreachable.rs
+ok   PHR.11_7@226.destination  2 source site(s) wait on this phrase of 11_7; []
+ok   PHR.11_7@226.template
+ok   PHR.11_7@315.exact_byte  'a matrix that sends some direction'; a word start the mark producer can hit
+ok   PHR.11_7@315.sentence_index  sentence 4
+ok   PHR.11_7@315.hashes  unreachable.rs
+ok   PHR.11_7@315.destination  1 source site(s) wait on this phrase of 11_7; []
+ok   PHR.11_7@315.template
+ok   PHR.11_7@404.exact_byte  'only when it does that to every directio'; a word start the mark producer can hit
+ok   PHR.11_7@404.sentence_index  sentence 4
+ok   PHR.11_7@404.hashes  unreachable.rs
+ok   PHR.11_7@404.destination  2 source site(s) wait on this phrase of 11_7; []
+ok   PHR.11_7@404.template
+ok   PHR.11_7@453.exact_byte  'a half turn combined with an equal stret'; a word start the mark producer can hit
+ok   PHR.11_7@453.sentence_index  sentence 4
+ok   PHR.11_7@453.hashes  unreachable.rs
+ok   PHR.11_7@453.destination  2 source site(s) wait on this phrase of 11_7; []
+ok   PHR.11_7@453.template
+ok   PHR.11_20@91.exact_byte  "the matrix's blocks for each negative st"; a word start the mark producer can hit
+ok   PHR.11_20@91.sentence_index  sentence 0
+ok   PHR.11_20@91.hashes  unreachable.rs
+ok   PHR.11_20@91.destination  2 source site(s) wait on this phrase of 11_20; []
+ok   PHR.11_20@91.template
+ok   PHR.11_20@137.exact_byte  'come in matching pairs'; a word start the mark producer can hit
+ok   PHR.11_20@137.sentence_index  sentence 0
+ok   PHR.11_20@137.hashes  unreachable.rs
+ok   PHR.11_20@137.destination  2 source site(s) wait on this phrase of 11_20; []
+ok   PHR.11_20@137.template
+ok   PHR.12_1@167.exact_byte  'the keyboard and the slide rule'; a word start the mark producer can hit
+ok   PHR.12_1@167.sentence_index  sentence 2
+ok   PHR.12_1@167.hashes  what_it_forgets.rs
+ok   PHR.12_1@167.destination  1 source site(s) wait on this phrase of 12_1; []
+ok   PHR.12_1@167.template
+ok   PHR.12_6@89.exact_byte  'also ends here'; a word start the mark producer can hit
+ok   PHR.12_6@89.sentence_index  sentence 1
+ok   PHR.12_6@89.hashes  what_it_forgets.rs
+ok   PHR.12_6@89.destination  1 source site(s) wait on this phrase of 12_6; []
+ok   PHR.12_6@89.template
+ok   PHR.12_6@105.exact_byte  'and so does two and a half'; a word start the mark producer can hit
+ok   PHR.12_6@105.sentence_index  sentence 1
+ok   PHR.12_6@105.hashes  what_it_forgets.rs
+ok   PHR.12_6@105.destination  1 source site(s) wait on this phrase of 12_6; []
+ok   PHR.12_6@105.template
+ok   PHR.12_21@192.exact_byte  'a convention broke the same tie'; a word start the mark producer can hit
+ok   PHR.12_21@192.sentence_index  sentence 1
+ok   PHR.12_21@192.hashes  what_it_forgets.rs
+ok   PHR.12_21@192.destination  1 source site(s) wait on this phrase of 12_21; []
+ok   PHR.12_21@192.template
+ok   PHR.12_21@230.exact_byte  'the honest answer is the whole family'; a word start the mark producer can hit
+ok   PHR.12_21@230.sentence_index  sentence 1
+ok   PHR.12_21@230.hashes  what_it_forgets.rs
+ok   PHR.12_21@230.destination  1 source site(s) wait on this phrase of 12_21; []
+ok   PHR.12_21@230.template
+ok   PHR.04_2_constant  climb_onset reads the anchor's constant, directly from phrase_marks
+ok   PHR.template_covers_all_cues  the loader needs an entry for every cue
+ok   PHR.template_text_hashes
+ok   PHR.template_mark_count
+ok   PHR.template_cannot_load  an unfilled template is refused by the loader's own rules
+ok   PHR.filled_shape_would_load  the template's shape, with stand-in values, passes the loader's rules and the anchor gate: []
+ok   PHR.destination_file  <narration dir>/phrase-timings.json, read only when the file exists
+ok   PHR.share_hooks_in_range  3 sentence-share hooks; []
+ok   CON.read_units  real coherent_narration.read_units, directions required
+ok   CON.direction_contract  real direction_contract: 15 directions, each at its cue's last word
+ok   CON.dispositions_bind_map
+ok   CON.dispositions_all_native  no inserted silence proposed
+ok   CON.review_directions  real review_directions, evidence hashes included; it reads paths from the cwd, so assemble from the repo root
+ok   CON.check_dispositions  real check_dispositions: every hold ends its cue, against the sentence rows an assembly would write
+ok   CON.check_dispositions_control  the same call refuses 00_4 when its last sentence is gone
+ok   CON.request_text  what unit_spans will demand of an Oliver receipt equals the request file, for 80 of 80; different: []
+ok   CON.declared_pairs  narration_delivery's filter finds 13 prediction pairs
+ok   CON.prediction_end  real prediction_end with a mark after all 80 cues extends the 13 declared predictions, and neither reading hold; extended 13
+ok   CON.delivery_refuses_stage_path  topic must be in this repository: a voiced consumer cannot run on the staged path, so integration comes first
+WARN CON.director_map_shape  narration_director.validate_map on map13 as written: KeyError('policy'). Oliver maps carry no policy or range_s (oliver12 is refused the same way), so this is not a regression. A director audit needs a derived map.
+ok   CON.director_holds_valid  with policy and range_s added in memory, real validate_map accepts all 15 holds: evidence hashes and adjacent cues
+ok   STALE.every_named_path_and_hash  78 path and hash pairs in the plan resolve in the tree checked; bad: []
+ok   STALE.no_absolute_homes  8 plan files
+ok   STALE.no_older_stage_names  {}
+ok   STALE.oliver11_only_as_history  named only in the map's scope note and the binder's input list: ['explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver13.json', 'inputs.sha256']
+ok   STALE.no_source_names_a_map  no source, doc or test in the crate names a map: []
+ok   STALE.canonical_still_binds_map12  canonical is self-consistent until integration
+ok   STALE.canonical_map12_matches_canonical  different: []
+info STALE.holds_canonical_would_refuse_today  8 of 15 until integration, by design: ['04_6', '05_1', '05_5', '06_2', '06_4', '10_4', '11_3', '11_20']
+ok   STALE.map13_not_in_canonical  nothing half-installed
+323 ok, 0 FAIL, 4 WARN  (mode stage; source and plan text only: not compiled, rendered, heard or watched)

@@ -1,0 +1,23 @@
+bound sha {'de3c7b10d96e856ab218d07463a33aa57f97acd41188b1dc267556cfd28e3c68'}
+
+== baseline: sha256 de3c7b10d96e856ab218d07463a33aa57f97acd41188b1dc267556cfd28e3c68
+k.hold lines in file: [4020, 4070, 4082, 4094, 4160, 4217]
+  11_2->11_3 (reading): say 3983, hold [4020], next say 4023; bound line 4020 still; line after the hold: 'stage.wait(1.0)?;'
+  11_3->11_4 (reading): say 4023, hold [4070], next say 4073; bound line 4070 still; line after the hold: 'stage.wait(1.0)?;'
+  11_12->11_13 (prediction): say 4079, hold [4082], next say 4085; bound line 4082 still; line after the hold: 'stage.wait(3.0)?;'
+  11_15->11_16 (prediction): say 4091, hold [4094], next say 4097; bound line 4094 still; line after the hold: 'stage.wait(3.0)?;'
+  11_6->11_7 (prediction): say 4140, hold [4160], next say 4163; bound line 4160 still; line after the hold: 'stage.wait(3.0)?;'
+  11_10->11_22 (prediction): say 4214, hold [4217], next say 4220; bound line 4217 still; line after the hold: 'stage.wait(3.0)?;'
+  say-to-next-say text unchanged from baseline, per row: {'11_2': True, '11_3': True, '11_12': True, '11_15': True, '11_6': True, '11_10': True}
+  11_24->11_25: k.hold between its says: [] | map row: False
+
+== candidate: sha256 521089439e9d0f173b3ccdb5630db9422d1a12a2ef1a24ce49b76380c922684a
+k.hold lines in file: [4108, 4158, 4170, 4182, 4269, 4326]
+  11_2->11_3 (reading): say 4071, hold [4108], next say 4111; bound line 4020 moved by 88; line after the hold: 'stage.wait(1.0)?;'
+  11_3->11_4 (reading): say 4111, hold [4158], next say 4161; bound line 4070 moved by 88; line after the hold: 'stage.wait(1.0)?;'
+  11_12->11_13 (prediction): say 4167, hold [4170], next say 4173; bound line 4082 moved by 88; line after the hold: 'stage.wait(3.0)?;'
+  11_15->11_16 (prediction): say 4179, hold [4182], next say 4185; bound line 4094 moved by 88; line after the hold: 'stage.wait(3.0)?;'
+  11_6->11_7 (prediction): say 4249, hold [4269], next say 4272; bound line 4160 moved by 109; line after the hold: 'stage.wait(3.0)?;'
+  11_10->11_22 (prediction): say 4323, hold [4326], next say 4329; bound line 4217 moved by 109; line after the hold: 'stage.wait(3.0)?;'
+  say-to-next-say text unchanged from baseline, per row: {'11_2': True, '11_3': True, '11_12': True, '11_15': True, '11_6': True, '11_10': True}
+  11_24->11_25: k.hold between its says: [] | map row: False

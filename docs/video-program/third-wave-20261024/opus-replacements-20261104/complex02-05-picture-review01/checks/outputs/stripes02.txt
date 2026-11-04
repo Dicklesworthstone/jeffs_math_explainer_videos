@@ -1,0 +1,33 @@
+patch | frame | rows: mean luma, rms, rms %, peak-to-peak, period px | columns: rms %, period px
+04 f(z)=z, upper left, no needle | 04_reading_color/frame-0020.png | 170.8, 2.95, 1.73%, 10.5, 3.14 | 0.05%, 4.00
+04 f(z)=z, lower left, no needle | 04_reading_color/frame-0020.png | 140.8, 2.54, 1.80%, 9.9, 3.14 | 0.06%, 4.00
+04 f(z)=z, lower right, no needle | 04_reading_color/frame-0020.png | 129.3, 2.35, 1.82%, 8.8, 3.14 | 0.03%, 8.13
+background beside the picture (control) | 04_reading_color/frame-0020.png | 16.2, 0.00, 0.00%, 0.0, 2.01 | 0.00%, 2.03
+
+same still picture, different frames: correlation of the row residuals (near 1 means the picture draws it)
+04_reading_color/frame-0020.png vs 04_reading_color/frame-0024.png: 1.000
+04_reading_color/frame-0020.png vs 04_reading_color/frame-0028.png: 1.000
+04_reading_color/frame-0024.png vs 04_reading_color/frame-0028.png: 1.000
+
+first 24 row residuals, frame-0020 upper left:
++0.8 +1.4 +1.4 +0.6 +1.6 -3.1 +1.6 +1.9 -8.0 +1.9 +1.7 -1.0 +1.5 +1.4 +0.0 +1.6 +1.9 -7.4 +1.8 +1.7 -4.7 +2.0 +0.8 +1.6
+
+different functions, same plane geometry: rows rms % / period px
+z | 04_reading_color/frame-0020.png | 1.70% / 3.14 | 1.79% / 3.14
+z squared | 04_reading_color/frame-0143.png | 1.69% / 3.14 | 1.75% / 3.14
+1/z | 04_reading_color/frame-0205.png | 1.63% / 3.14 | 1.83% / 3.14
+bump | 04_reading_color/frame-0290.png | 1.66% / 3.14 | 1.67% / 3.14
+
+row-residual correlation between functions (unshifted, then shifted one row as the negative control)
+upper left: z vs z squared: +0.967, shifted -0.301
+upper left: z vs 1/z: +0.947, shifted -0.284
+upper left: z vs bump: +0.966, shifted -0.330
+upper left: z squared vs 1/z: +0.923, shifted -0.308
+upper left: z squared vs bump: +0.950, shifted -0.351
+upper left: 1/z vs bump: +0.925, shifted -0.316
+lower left: z vs z squared: +0.974, shifted -0.365
+lower left: z vs 1/z: +0.957, shifted -0.374
+lower left: z vs bump: +0.944, shifted -0.320
+lower left: z squared vs 1/z: +0.950, shifted -0.373
+lower left: z squared vs bump: +0.936, shifted -0.322
+lower left: 1/z vs bump: +0.944, shifted -0.291

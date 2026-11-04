@@ -1,0 +1,106 @@
+zoom plate centre, from gallery.rs tile(): 0.613822+1.063171j
+Cost on the 6.4 x 6.4 plate, from the layouts, as a multiple of the film now. Not timed.
+candidate                                           rows  cols   evals  x now curves/row  x now  records  x now
+S0 cells 0.035, steps (film now)                     183   183   33489    1.0        185   1.00   135237   1.00
+S1 P3: four samples, steps                           183   183  133956    4.0        185   1.00   135237   1.00
+S2 cells 0.0175, steps                               366   366  133956    4.0        368   1.99   538386   3.98
+S3 cells 0.035, blend                                183   183   33489    1.0        186   1.01    68991   0.51
+S4 rows 0.0175, cols 0.035, blend                    366   183   66978    2.0        186   1.01   137982   1.02
+S5 rows 0.0117, cols 0.035, blend                    549   183  100467    3.0        186   1.01   206973   1.53
+S6 cells 0.0175, blend                               366   366  133956    4.0        369   1.99   271938   2.01
+S7 rows 0.0175, cols 0.035, four samples, blend      366   183  267912    8.0        186   1.01   137982   1.02
+S8 cells 0.0117, blend                               549   549  301401    9.0        552   2.98   608841   4.50
+S9 cells 0.00875, blend                              731   731  534361   16.0        734   3.97  1076763   7.96
+evals: model evaluations per repaint (twice during a crossfade). curves/row: what each pixel's nearest-segment loop
+walks, so raster work per pixel scales with it. records: colour records rewritten per frame of a fade or repaint.
+
+z^2, reading plate, window (500, 1100, 300, 900), truth's largest neighbour jump 56 luma
+candidate                                           rms 4K  rms 1080  row period px  lattice luma
+S0 cells 0.035, steps (film now)                      7.26      6.50           9.44          0.03
+S1 P3: four samples, steps                            6.13      5.47           9.44          0.02
+S2 cells 0.0175, steps                                4.94      3.97           4.72          0.02
+S3 cells 0.035, blend                                 6.19      5.67           9.44          0.02
+S4 rows 0.0175, cols 0.035, blend                     5.15      4.56           4.72          0.01
+S5 rows 0.0117, cols 0.035, blend                     4.81      4.21           3.15          0.02
+S6 cells 0.0175, blend                                4.13      3.44           4.72          0.02
+S7 rows 0.0175, cols 0.035, four samples, blend       4.54      3.98           4.72          0.01
+S8 cells 0.0117, blend                                3.17      2.41           3.15          0.02
+S9 cells 0.00875, blend                               2.57      1.76           2.36          0.01
+
+z^3-1, zoom plate, window (2120, 2720, 900, 1500), truth's largest neighbour jump 63 luma
+candidate                                           rms 4K  rms 1080  row period px  lattice luma
+S0 cells 0.035, steps (film now)                      5.09      4.58           9.44          0.03
+S1 P3: four samples, steps                            4.24      3.79           9.44          0.03
+S2 cells 0.0175, steps                                3.43      2.77           4.72          0.02
+S3 cells 0.035, blend                                 4.31      3.92           9.44          0.03
+S4 rows 0.0175, cols 0.035, blend                     3.42      3.01           4.72          0.01
+S5 rows 0.0117, cols 0.035, blend                     3.18      2.73           3.15          0.01
+S6 cells 0.0175, blend                                2.87      2.37           4.72          0.02
+S7 rows 0.0175, cols 0.035, four samples, blend       3.06      2.66           4.72          0.01
+S8 cells 0.0117, blend                                2.19      1.65           3.15          0.01
+S9 cells 0.00875, blend                               1.75      1.19           2.36          0.01
+
+tan, trig plate, window (900, 1500, 900, 1400), truth's largest neighbour jump 74 luma
+candidate                                           rms 4K  rms 1080  row period px  lattice luma
+S0 cells 0.035, steps (film now)                     11.33     10.25           9.45          0.23
+S1 P3: four samples, steps                            9.27      8.27           9.45          0.23
+S2 cells 0.0175, steps                                7.82      6.36           4.73          0.12
+S3 cells 0.035, blend                                 9.79      9.01           9.45          0.23
+S4 rows 0.0175, cols 0.035, blend                     8.48      7.63           4.73          0.11
+S5 rows 0.0117, cols 0.035, blend                     8.15      7.33           3.15          0.07
+S6 cells 0.0175, blend                                6.58      5.59           4.73          0.11
+S7 rows 0.0175, cols 0.035, four samples, blend       7.52      6.71           4.73          0.11
+S8 cells 0.0117, blend                                5.19      4.10           3.15          0.07
+S9 cells 0.00875, blend                               4.17      3.06           2.36          0.06
+
+sin(1/z), rigidity plate, window (860, 1460, 480, 1040), truth's largest neighbour jump 78 luma
+candidate                                           rms 4K  rms 1080  row period px  lattice luma
+S0 cells 0.035, steps (film now)                     17.86     16.15           9.45          0.19
+S1 P3: four samples, steps                           14.25     12.67           9.45          0.16
+S2 cells 0.0175, steps                               13.15     10.82           4.72          0.11
+S3 cells 0.035, blend                                15.72     14.43           9.45          0.17
+S4 rows 0.0175, cols 0.035, blend                    13.90     12.45           4.72          0.08
+S5 rows 0.0117, cols 0.035, blend                    13.32     11.81           3.15          0.05
+S6 cells 0.0175, blend                               11.31      9.61           4.72          0.08
+S7 rows 0.0175, cols 0.035, four samples, blend      11.90     10.47           4.72          0.05
+S8 cells 0.0117, blend                                8.98      7.06           3.15          0.06
+S9 cells 0.00875, blend                               7.49      5.51           2.36          0.09
+
+sin z, rigidity plate, window (860, 1460, 860, 1460), truth's largest neighbour jump 77 luma
+candidate                                           rms 4K  rms 1080  row period px  lattice luma
+S0 cells 0.035, steps (film now)                     10.15      9.25           9.45          0.14
+S1 P3: four samples, steps                            8.36      7.52           9.45          0.13
+S2 cells 0.0175, steps                                6.95      5.68           4.73          0.06
+S3 cells 0.035, blend                                 9.03      8.36           9.45          0.13
+S4 rows 0.0175, cols 0.035, blend                     7.16      6.28           4.73          0.06
+S5 rows 0.0117, cols 0.035, blend                     6.42      5.61           3.15          0.05
+S6 cells 0.0175, blend                                6.13      5.10           4.73          0.06
+S7 rows 0.0175, cols 0.035, four samples, blend       6.23      5.41           4.73          0.06
+S8 cells 0.0117, blend                                4.73      3.63           3.15          0.04
+S9 cells 0.00875, blend                               3.88      2.87           2.36          0.04
+
+1/z, residues small plate, window (2100, 2550, 1130, 1580), truth's largest neighbour jump 74 luma
+candidate                                           rms 4K  rms 1080  row period px  lattice luma
+S0 cells 0.035, steps (film now)                     10.70      9.59           9.45          0.20
+S1 P3: four samples, steps                            9.00      8.03           9.45          0.21
+S2 cells 0.0175, steps                                7.77      6.33           4.72          0.12
+S3 cells 0.035, blend                                 9.25      8.50           9.45          0.20
+S4 rows 0.0175, cols 0.035, blend                     8.03      7.27           4.72          0.12
+S5 rows 0.0117, cols 0.035, blend                     7.66      6.82           3.15          0.07
+S6 cells 0.0175, blend                                6.59      5.59           4.72          0.12
+S7 rows 0.0175, cols 0.035, four samples, blend       7.16      6.37           4.72          0.11
+S8 cells 0.0117, blend                                5.09      3.98           3.15          0.07
+S9 cells 0.00875, blend                               4.23      3.16           2.36          0.07
+
+1/(1+z^2), continuation plate, window (700, 1300, 550, 1150), truth's largest neighbour jump 75 luma
+candidate                                           rms 4K  rms 1080  row period px  lattice luma
+S0 cells 0.035, steps (film now)                     10.09      9.11           9.45          0.13
+S1 P3: four samples, steps                            8.35      7.45           9.45          0.12
+S2 cells 0.0175, steps                                6.99      5.67           4.72          0.06
+S3 cells 0.035, blend                                 8.68      8.00           9.45          0.13
+S4 rows 0.0175, cols 0.035, blend                     7.40      6.68           4.72          0.05
+S5 rows 0.0117, cols 0.035, blend                     7.09      6.38           3.15          0.07
+S6 cells 0.0175, blend                                5.87      5.00           4.72          0.06
+S7 rows 0.0175, cols 0.035, four samples, blend       6.63      5.93           4.72          0.04
+S8 cells 0.0117, blend                                4.52      3.56           3.15          0.07
+S9 cells 0.00875, blend                               3.68      2.67           2.36          0.03

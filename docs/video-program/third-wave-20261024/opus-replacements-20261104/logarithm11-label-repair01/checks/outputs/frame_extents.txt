@@ -1,0 +1,7 @@
+teal positive line       frame-0400.png label 400 t 183.5    1280x720: x  2.200 ..  6.343, drawn 4.144, estimate 4.175, estimate/drawn 1.008
+teal axes line           frame-0400.png label 400 t 183.5    1280x720: x  2.200 ..  5.666, drawn 3.466, estimate 3.595, estimate/drawn 1.037
+purple stage line        frame-0400.png label 400 t 183.5    1280x720: x  2.200 ..  6.499, drawn 4.299, estimate 4.268, estimate/drawn 0.993
+closing singular line    frame-0598.png label 598 t 273.783  1280x720: x -2.133 ..  2.133, drawn 4.266, estimate 4.247, estimate/drawn 0.996
+closing like_zero line   frame-0598.png label 598 t 273.783  1280x720: x -2.322 ..  2.322, drawn 4.644, estimate 4.579, estimate/drawn 0.986
+
+[exit 0]

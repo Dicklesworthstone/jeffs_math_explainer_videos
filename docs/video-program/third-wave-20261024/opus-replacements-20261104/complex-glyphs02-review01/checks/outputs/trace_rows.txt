@@ -1,0 +1,73 @@
+modules declared in chapters/mod.rs: boundary closing continuing counting draw gallery loop_sums one_derivative one_point reading_color real_integral residues rigidity the_bump thumbnail turning two_planes
+
+# F1 z sub 0
+  #594 Tex [12_residues,supplement] "\\frac{f'}{f} \\approx \\frac{m}{z - z_0}"
+     exact literal at: residues:31
+  #597 Tex [06_one_derivative,supplement] '\\frac{f(z_0 + h) - f(z_0)}{h}'
+     exact literal at: closing:28, one_derivative:26
+  #605 Tex [15_closing,supplement] '\\lim_{h \\to 0}\\frac{f(z_0 + h) - f(z_0)}{h}'
+     exact literal at: closing:28
+  #612 Tex [08_loop_sums,supplement] '\\oint (a + b\\,(z - z_0))\\,dz = 0'
+     exact literal at: loop_sums:51
+  #637 Tex [06_one_derivative,supplement] "\\times\\, f'(z_0)"
+     exact literal at: one_derivative:47
+  #638 Tex [06_one_derivative,supplement] "\\to\\, f'(z_0)"
+     exact literal at: one_derivative:44
+  #676 Tex [08_loop_sums,supplement] 'f(z) \\approx a + b\\,(z - z_0)'
+     exact literal at: loop_sums:50
+  #716 Tex [06_one_derivative,supplement] 'z_0 = 1 + i'
+     exact literal at: one_derivative:211, mod(supplement):407
+  #717 Tex [06_one_derivative,supplement] 'z_0^2 = 2i'
+     exact literal at: one_derivative:217, mod(supplement):408
+
+# F2 theta
+  #635 Tex [09_boundary,supplement] '\\theta = \\mathrm{its}\\;\\mathrm{angle}'
+     exact literal at: boundary:36
+  #649 Tex [09_boundary,supplement] 'c_n = \\frac{1}{r^n}\\cdot \\mathrm{average}\\;\\mathrm{of}\\; f(a + r e^{i\\theta})\\, e^{-i n \\theta}'
+     exact literal at: boundary:59
+  #662 Tex [09_boundary,supplement] 'f(a) = \\frac{1}{2\\pi}\\int_0^{2\\pi} f(a + r e^{i\\theta})\\,d\\theta'
+     exact literal at: boundary:48
+  #705 Tex [09_boundary,supplement] 'z = a + r e^{i\\theta}:\\quad dz = i\\,(z-a)\\,d\\theta'
+     exact literal at: boundary:47
+
+# F3 bar minus
+  #723 Tex [11_counting,supplement] '|z^5 + 1| \\le 2 < 3 = |-3z|'
+     exact literal at: counting:50
+
+# F4 Plex superscripts
+  #18 Text [02_turning_numbers,supplement] '(1 + i)² = ?'
+     exact literal at: turning:33
+  #242 Text [11_counting,supplement] 'dog: z⁵ − 3z + 1'
+     exact literal at: counting:56
+  #342 Text [05_gallery,supplement] 'one tile of z³ − 1, traced exactly'
+     exact literal at: gallery:65
+  #411 Text [03_two_planes,supplement] 'straight after z²?'
+     exact literal at: two_planes:35, two_planes:472
+  #475 Text [11_counting,supplement] 'walker: z⁵'
+     exact literal at: counting:56
+  #503 Text [11_counting,supplement] 'z⁵ − 3z + 1: how many roots'
+     exact literal at: counting:49
+  #508 Text [07_one_point,supplement] '|z|² × jagged g, |g| ≤ 1 = M: derivative 0 at 0'
+     exact literal at: one_point:42
+  #509 Text [07_one_point,supplement] '|z|²: one point, no disk'
+     exact literal at: one_point:51
+
+# F5 note, en dash numbers
+  #512 Text [11_counting] '–0.1'
+     exact literal at: none (built by format! or a helper)
+  #513 Text [11_counting] '–0.6'
+     exact literal at: none (built by format! or a helper)
+  #514 Text [05_gallery] '–0.8'
+     exact literal at: none (built by format! or a helper)
+  #515 Text [11_counting] '–1.0'
+     exact literal at: none (built by format! or a helper)
+  #516 Text [05_gallery] '–1.6'
+     exact literal at: none (built by format! or a helper)
+  #517 Text [05_gallery] '–2.0'
+     exact literal at: none (built by format! or a helper)
+
+# measure strings
+  #727 Mono [11_counting] '0000000000'
+     exact literal at: none (built by format! or a helper)
+  #728 Mono [11_counting] '00000000000000000000'
+     exact literal at: none (built by format! or a helper)

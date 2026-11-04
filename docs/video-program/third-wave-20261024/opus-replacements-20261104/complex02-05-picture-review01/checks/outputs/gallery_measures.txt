@@ -1,0 +1,40 @@
+patch | frame | rows: mean luma, rms, rms %, period px | columns: rms %, period px
+z^3 - 1, upper left | frame-0008.png | 118.0, 2.02, 1.71%, 3.11 | 0.57%, 11.20
+e^z, upper left | frame-0091.png | 105.6, 4.02, 3.81%, 8.25 | 7.66%, 8.36
+sin, top | frame-0131.png | 104.6, 9.81, 9.38%, 7.00 | 3.22%, 10.03
+tan, top flat | frame-0217.png | 131.8, 2.41, 1.83%, 3.23 | 0.06%, 9.81
+tan, bottom flat | frame-0217.png | 93.0, 1.80, 1.94%, 3.25 | 0.05%, 8.41
+zeta, upper left | frame-0321.png | 111.2, 2.94, 2.65%, 3.15 | 1.47%, 23.20
+zoom, lower left | frame-0473.png | 118.9, 1.99, 1.68%, 3.13 | 0.30%, 8.13
+background (control) | frame-0217.png | 16.2, 0.00, 0.00%, 2.02 | 0.00%, 2.01
+
+sin against tan, same plane, same rows (unshifted, then shifted one row as the negative control)
+top: +0.141, shifted +0.012
+bottom: +0.166, shifted -0.213
+
+05-A comb on e^z. Plane x 262..550, 48 px a unit, so x = 0 is column 406.
+Measure: rows 110..650, centre column against the mean of its neighbours 4 px away; a comb flips sign from row to row
+preview01 frame-0092 (positive control), column 406: mean |row-to-row change| 7.18, mean |difference| 26.48
+preview01 frame-0092 (positive control), column 440: mean |row-to-row change| 1.42, mean |difference| 1.14
+preview01 frame-0092 (positive control): column means 386..427: 90 89 91 96 97 96 103 103 104 110 110 111 117 117 117 123 124 124 96 87 86 86 83 83 85 90 90 90 97 97 97 104 104 104 111 111 111 116 118 117 119 124
+preview02 frame-0091, column 406: mean |row-to-row change| 1.25, mean |difference| 1.26
+preview02 frame-0091, column 440: mean |row-to-row change| 1.98, mean |difference| 28.10
+preview02 frame-0091: column means 386..427: 119 119 121 126 126 127 134 133 134 84 84 85 91 91 92 97 99 99 104 105 106 107 112 112 114 119 120 120 126 127 127 78 78 78 85 85 85 91 92 92 93 99
+
+05-F bars on tan. Plane x 46..802 cut into 16 bars of pi, the review's measure. Mean luma per bar, max/min.
+On preview02 frame-0217 the two cards start at x 530 and x 523, so its rows stop at bar 10, x 518.
+preview01 frame-0200 (positive control), row 200: [181, 105, 85, 145, 181, 106, 85, 145, 181, 106, 85, 145, 181, 106, 85, 145], max/min 2.14
+preview01 frame-0200 (positive control), row 260: [173, 109, 90, 143, 174, 109, 90, 143, 173, 109, 90, 143, 174, 109, 90, 143], max/min 1.94
+preview02 frame-0217, row 200: [131, 131, 132, 131, 131, 132, 132, 131, 131, 132], max/min 1.01
+preview02 frame-0217, row 260: [126, 131, 138, 131, 126, 133, 138, 129, 126, 135], max/min 1.10
+preview02 frame-0217, below the line, row 530: [93, 94, 94, 93, 93, 93, 94, 92, 93, 94], max/min 1.01
+preview02 frame-0217, below the line, row 480: [89, 96, 96, 90, 90, 96, 95, 90, 91, 97], max/min 1.08
+
+Row lattice on tan, frame-0217: rows folded on a period. Coherence 1 is a perfect comb; phase is in degrees, from y = 179
+period 3.00: upper 0.14 at +69, lower 0.17 at +84, phase gap 15
+period 3.05: upper 0.31 at +1, lower 0.33 at +111, phase gap 110
+period 3.10: upper 0.46 at -61, lower 0.47 at +164, phase gap 134
+period 3.15: upper 0.56 at -121, lower 0.56 at -120, phase gap 1
+period 3.20: upper 0.57 at -179, lower 0.57 at -24, phase gap 155
+period 3.25: upper 0.50 at +124, lower 0.51 at +92, phase gap 33
+period 3.30: upper 0.37 at +69, lower 0.38 at -134, phase gap 157

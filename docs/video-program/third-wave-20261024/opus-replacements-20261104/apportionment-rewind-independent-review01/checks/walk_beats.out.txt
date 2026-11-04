@@ -1,0 +1,15 @@
+ 2.0 w/s 30 fps: rewind ends   7.93, ring in   8.53, says 'the missing one'  13.46, last beat ends  35.37 of  37.90; late: {'Could a passed tile ever': 0.3}
+ 2.0 w/s 60 fps: rewind ends   7.93, ring in   8.53, says 'the missing one'  13.46, last beat ends  35.33 of  37.90; late: {'Could a passed tile ever': 0.3}
+ 2.6 w/s 30 fps: rewind ends   6.63, ring in   7.23, says 'the missing one'  10.38, last beat ends  27.50 of  29.25; late: {'Could a passed tile ever': 0.3}
+ 2.6 w/s 60 fps: rewind ends   6.62, ring in   7.22, says 'the missing one'  10.38, last beat ends  27.48 of  29.25; late: {'Could a passed tile ever': 0.3}
+ 3.0 w/s 30 fps: rewind ends   6.03, ring in   6.63, says 'the missing one'   9.02, last beat ends  24.00 of  25.40; late: {'Could a passed tile ever': 0.3}
+ 3.0 w/s 60 fps: rewind ends   6.03, ring in   6.63, says 'the missing one'   9.02, last beat ends  23.98 of  25.40; late: {'Could a passed tile ever': 0.3}
+3.25 w/s 30 fps: rewind ends   5.73, ring in   6.33, says 'the missing one'   8.33, last beat ends  22.27 of  23.48; late: {'Could a passed tile ever': 0.3}
+3.25 w/s 60 fps: rewind ends   5.73, ring in   6.33, says 'the missing one'   8.33, last beat ends  22.23 of  23.48; late: {'Could a passed tile ever': 0.3}
+ 3.5 w/s 30 fps: rewind ends   5.50, ring in   6.10, says 'the missing one'   7.75, last beat ends  20.77 of  21.83; late: {'Could a passed tile ever': 0.3, 'a tile that ends later t': 0.01}
+ 3.5 w/s 60 fps: rewind ends   5.48, ring in   6.08, says 'the missing one'   7.75, last beat ends  20.75 of  21.83; late: {'Could a passed tile ever': 0.3}
+3.75 w/s 30 fps: rewind ends   5.27, ring in   5.87, says 'the missing one'   7.24, last beat ends  19.47 of  20.40; late: {'Could a passed tile ever': 0.3, 'a tile that ends later t': 0.17}
+3.75 w/s 60 fps: rewind ends   5.27, ring in   5.87, says 'the missing one'   7.24, last beat ends  19.45 of  20.40; late: {'Could a passed tile ever': 0.3, 'a tile that ends later t': 0.17}
+ 4.0 w/s 30 fps: rewind ends   5.10, ring in   5.70, says 'the missing one'   6.80, last beat ends  18.33 of  19.15; late: {'Could a passed tile ever': 0.3, 'Suppose one were': 0.06, 'a tile that ends later t': 0.35}
+ 4.0 w/s 60 fps: rewind ends   5.08, ring in   5.68, says 'the missing one'   6.80, last beat ends  18.32 of  19.15; late: {'Could a passed tile ever': 0.3, 'Suppose one were': 0.04, 'a tile that ends later t': 0.34}
+the ring would first miss the words 'the missing one' at about 5.25 words a second

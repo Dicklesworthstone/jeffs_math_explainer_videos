@@ -1,0 +1,22 @@
+rustc --edition 2024 --test on the lifted helpers and tests (see pure_harness.py); not the crate, no fmn
+rustc 1.100.0-nightly (908501772 2026-08-30)
+--- pure11 (12 new tests of unreachable.rs, plus model.rs own tests)
+test tests::a_half_turn_with_an_equal_stretch_has_a_real_logarithm_that_commutes_with_every_x ... ok
+test tests::a_run_ends_by_its_moment_within_its_limits ... ok
+test tests::a_phrase_lands_on_its_mark_or_on_its_share_of_the_measured_sentence ... ok
+test tests::a_real_spin_with_any_shear_that_reaches_a_negative_stretch_reaches_it_in_every_direction ... ok
+test tests::the_average_collapses_the_whole_plane_onto_the_axis_without_turning_back ... ok
+test tests::the_block_rows_follow_the_rule_and_each_verdict_says_what_the_rule_says ... ok
+test tests::the_midpoints_of_the_dashes_are_where_the_average_sends_the_corners ... ok
+test tests::the_sweep_words_and_block_rows_stay_out_of_the_text_column ... ok
+test tests::the_sweep_stays_on_the_panel ... ok
+test tests::the_sweep_marks_exactly_the_directions_sent_straight_back ... ok
+test tests::the_half_lap_turns_each_axis_away_and_lays_it_back_on_itself_reversed ... ok
+test tests::every_phrase_hook_is_in_its_line_once_and_they_come_in_spoken_order ... ok
+test result: ok. 28 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+--- pure12 (4 new tests of what_it_forgets.rs, plus model.rs own tests)
+test tests::a_phrase_lands_on_its_mark_or_on_its_share_of_the_measured_sentence ... ok
+test tests::a_spin_ends_by_its_moment_within_its_limits ... ok
+test tests::the_one_mark_is_on_the_rim_labelled_and_clear_of_its_neighbours ... ok
+test tests::the_lap_hooks_are_in_the_second_sentence_once_and_in_spoken_order ... ok
+test result: ok. 20 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s

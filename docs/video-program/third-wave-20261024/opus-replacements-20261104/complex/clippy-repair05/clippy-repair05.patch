@@ -1,0 +1,215 @@
+diff --git a/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs b/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+index cea5a29..eae8953 100644
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+@@ -843,7 +843,7 @@ mod tests {
+         // rows stay under the windows and above the lower third
+         assert!(COARSE_ROWS[0] < out.frame.bottom() && COARSE_ROWS[3] > -2.78);
+         assert!(COARSE_TITLE_AT.1 > out.frame.top());
+-        assert!(COARSE_ROW_X >= -6.96);
++        const { assert!(COARSE_ROW_X >= -6.96) };
+     }
+ 
+     #[test]
+diff --git a/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs b/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+index cd3b3ad..db66e1a 100644
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+@@ -412,6 +412,7 @@ impl Plane {
+         self.frame.width / (self.frame.x.1 - self.frame.x.0)
+     }
+ 
++    #[cfg(test)]
+     pub fn contains(&self, z: C) -> bool {
+         z.re >= self.frame.x.0 && z.re <= self.frame.x.1 && z.im >= self.frame.y.0 && z.im <= self.frame.y.1
+     }
+@@ -802,12 +803,6 @@ impl Walker {
+         stage.play(tween_linear(self.walked, 1.0, rt)?)?;
+         Ok(())
+     }
+-
+-    /// Everything the walker drew, for a fade (updater cleared first).
+-    pub fn leave(&self, stage: &mut Stage<'_>, rt: f64) -> fmn::Result<()> {
+-        stage.clear_updaters(self.anchor, true);
+-        fade_out_all(stage, &self.mobs, rt)
+-    }
+ }
+ 
+ // ------------------------------------------------------------ predictions
+diff --git a/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs b/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs
+index b684092..d31f42e 100644
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs
+@@ -801,7 +801,7 @@ mod tests {
+         let p = painted();
+         assert!(MOSAIC_REACH < p.frame.x.1 && MOSAIC_REACH < p.frame.y.1);
+         // the mosaic reaches in past the steps' last disk
+-        assert!(MOSAIC_CORE < model::SQUEEZE_RADII[1]);
++        const { assert!(MOSAIC_CORE < model::SQUEEZE_RADII[1]) };
+         // the row under the ratio's window stays above the lower third
+         assert!(inset().frame.bottom() - 0.32 > -2.78);
+     }
+diff --git a/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs b/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
+index 1ec58e8..a5cb2b4 100644
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
+@@ -37,7 +37,7 @@ pub const SIZE_ALONG: &str = "its size along the half circle";
+ pub const READ_R: &str = "R =";
+ pub const AT_MOST: &str = "at most";
+ pub const QUARTIC_TEX: &str = r"\frac{1}{1+x^4}";
+-/// The antiderivative of 13_4, in two lines (it is [`antiderivative`]).
++/// The antiderivative of 13_4, in two lines (the tests check it as `antiderivative`).
+ pub const ANTIDERIVATIVE_TEX: [&str; 2] = [
+     r"\frac{1}{4\sqrt{2}}\ln\frac{x^2+\sqrt{2}x+1}{x^2-\sqrt{2}x+1}",
+     r"+\,\frac{1}{2\sqrt{2}}\Big(\arctan(\sqrt{2}x+1)+\arctan(\sqrt{2}x-1)\Big)",
+@@ -63,6 +63,7 @@ pub const NUMERIC: [&str; 2] = ["a numerical sum on [−", "]: "];
+ pub const HONEST: &str = "the integral of |f| over the line is finite, so the improper integral is the limit of the integral from −R to R; for slowly decaying f that symmetric limit can exist when the integral does not";
+ 
+ /// The antiderivative 13_4 shows: its derivative is 1/(1 + x⁴) (tested).
++#[cfg(test)]
+ pub fn antiderivative(x: f64) -> f64 {
+     let r = 2.0_f64.sqrt();
+     (1.0 / (4.0 * r)) * ((x * x + r * x + 1.0) / (x * x - r * x + 1.0)).ln()
+diff --git a/explainer_corpus/complex_analysis_visual/src/chapters/residues.rs b/explainer_corpus/complex_analysis_visual/src/chapters/residues.rs
+index 9917c4a..e6badd6 100644
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/residues.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/residues.rs
+@@ -5,7 +5,7 @@
+ //! 08: the negative square and the holomorphic part close up, and the
+ //! 1/(z − p) term stacks into the 2πi column.
+ 
+-use std::f64::consts::{FRAC_PI_4, TAU};
++use std::f64::consts::FRAC_PI_4;
+ 
+ use explainer_kit::{Kit, Palette, v};
+ use fmn::prelude::*;
+@@ -321,6 +321,8 @@ impl SceneConstruct for Residues {
+ 
+ #[cfg(test)]
+ mod tests {
++    use std::f64::consts::TAU;
++
+     use super::*;
+ 
+     #[test]
+@@ -355,7 +357,7 @@ mod tests {
+             }
+             assert!(plane().contains(q));
+         }
+-        assert!(BIG_R < 1.6);
++        const { assert!(BIG_R < 1.6) };
+     }
+ 
+     #[test]
+diff --git a/explainer_corpus/complex_analysis_visual/src/model.rs b/explainer_corpus/complex_analysis_visual/src/model.rs
+index b721908..035d230 100644
+--- a/explainer_corpus/complex_analysis_visual/src/model.rs
++++ b/explainer_corpus/complex_analysis_visual/src/model.rs
+@@ -9,6 +9,7 @@
+ //! draws; the chapters and `facts.rs` read from it. `oracle.py` recomputes
+ //! the printed values independently (Python, other algorithms).
+ 
++use std::cmp::Ordering;
+ use std::f64::consts::{PI, TAU};
+ use std::ops::{Add, Div, Mul, Neg, Sub};
+ 
+@@ -83,6 +84,7 @@ impl C {
+     }
+ 
+     /// The principal square root.
++    #[cfg(test)]
+     pub fn sqrt(self) -> Self {
+         Self::polar(self.abs().sqrt(), self.arg() / 2.0)
+     }
+@@ -144,7 +146,8 @@ impl Mul for C {
+ impl Div for C {
+     type Output = C;
+     fn div(self, o: C) -> C {
+-        self * o.recip()
++        // a ÷ b is a × (1/b), through `Mul` itself so the two cannot drift apart
++        Mul::mul(self, o.recip())
+     }
+ }
+ 
+@@ -346,7 +349,7 @@ pub fn zeta_zero_near(guess: C) -> Option<C> {
+ pub const ZETA_ZERO_HEIGHTS: [f64; 4] = [
+     14.134_725_141_734_694,
+     21.022_039_638_771_555,
+-    25.010_857_580_145_689,
++    25.010_857_580_145_69,
+     30.424_876_125_859_513,
+ ];
+ 
+@@ -380,8 +383,6 @@ pub enum Func {
+     SinRecip,
+     /// Σ z^(2ⁿ), n = 0 … 11, drawn only inside |z| < 0.98.
+     Lacunary,
+-    /// 1/(1 + z⁴).
+-    Quartic,
+ }
+ 
+ /// Where the counting example's zero and pole sit.
+@@ -421,7 +422,6 @@ impl Func {
+                 }
+                 sum
+             }
+-            Func::Quartic => (ONE + z.powi(4)).recip(),
+         };
+         finite(w)
+     }
+@@ -460,7 +460,6 @@ impl Func {
+             Func::Gamma => (0..=8).map(|k| (C::real(-f64::from(k)), 1)).collect(),
+             Func::Zeta => vec![(ONE, 1)],
+             Func::Moebius => vec![(C::real(MOEBIUS_POLE), 1)],
+-            Func::Quartic => quartic_roots().iter().map(|&p| (p, 1)).collect(),
+             _ => Vec::new(),
+         };
+         all.into_iter().filter(|(z, _)| inside(z)).collect()
+@@ -646,7 +645,11 @@ pub fn winding_count(f: impl Fn(C) -> Option<C>, path: &[C]) -> Option<i64> {
+ pub fn winding_certified(f: impl Fn(C) -> Option<C>, centre: C, r: f64, n: usize, lipschitz: f64) -> Option<i64> {
+     let values: Vec<C> = circle(centre, r, n).into_iter().map(&f).collect::<Option<_>>()?;
+     let reach = lipschitz * TAU * r / n as f64;
+-    if values.iter().any(|w| !(reach < w.abs())) {
++    // only a strict "less" passes: a tie fails, and a NaN compares as neither
++    if values
++        .iter()
++        .any(|w| reach.partial_cmp(&w.abs()) != Some(Ordering::Less))
++    {
+         return None;
+     }
+     let total: f64 = (0..n).map(|k| (values[(k + 1) % n] / values[k]).arg()).sum();
+@@ -1010,6 +1013,34 @@ mod tests {
+         assert_eq!(winding_certified(m, ZERO, MOEBIUS_POLE, 4096, f64::MAX), None);
+     }
+ 
++    #[test]
++    fn a_tie_or_a_nan_never_certifies_a_winding() {
++        fn constant(w: f64) -> impl Fn(C) -> Option<C> {
++            move |_| Some(C::real(w))
++        }
++        let (r, l, n) = (1.0, 3.0, 64_usize);
++        // the certificate's own reach, computed the way it computes it
++        let reach = l * TAU * r / n as f64;
++        // a constant clear of the reach has no turns, and passes
++        assert_eq!(winding_certified(constant(2.0 * reach), ZERO, r, n, l), Some(0));
++        // equal to the reach, it fails: the test is strict
++        assert_eq!(winding_certified(constant(reach), ZERO, r, n, l), None);
++        // a NaN on either side fails, and so does an unbounded reach
++        assert_eq!(winding_certified(constant(f64::NAN), ZERO, r, n, l), None);
++        assert_eq!(winding_certified(constant(1.0), ZERO, r, n, f64::NAN), None);
++        assert_eq!(winding_certified(constant(1.0), ZERO, r, n, f64::INFINITY), None);
++    }
++
++    #[test]
++    fn division_is_the_product_with_the_reciprocal() {
++        let (a, b) = (C::new(3.0, -2.0), C::new(0.7, 1.9));
++        let (q, p) = (a / b, a * b.recip());
++        assert_eq!((q.re.to_bits(), q.im.to_bits()), (p.re.to_bits(), p.im.to_bits()));
++        // a zero divisor stays non-finite, which `finite` turns into `None`
++        assert!(!(a / ZERO).is_finite());
++        assert_eq!(finite(a / ZERO), None);
++    }
++
+     #[test]
+     fn the_derivative_story_numbers() {
+         let z0 = C::new(1.0, 1.0);

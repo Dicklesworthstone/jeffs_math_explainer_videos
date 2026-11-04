@@ -1,0 +1,162 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+@@ -14,7 +14,7 @@
+ 
+ use explainer_kit::narration::{frames_covering, wait_frames};
+ use explainer_kit::props::RowStrips;
+-use explainer_kit::{Facts, Frame2, Kit, Palette, Script, hex, tween, v};
++use explainer_kit::{Facts, Frame2, Kit, Palette, Script, Timed, hex, tween, v};
+ use fmn::mobject::Stage as Arena;
+ use fmn::prelude::*;
+ 
+@@ -630,12 +630,14 @@
+         let current = self.funcs.borrow().1;
+         *self.funcs.borrow_mut() = (current, f);
+         stage.set_tracker_value(self.blend, 0.0)?;
+-        stage.play(tween(self.blend, 1.0, rt)?)
++        stage.play(tween(self.blend, 1.0, rt)?)?;
++        Ok(())
+     }
+ 
+     /// Blend towards the enhanced portrait (`e` = 1) or plain hue (0).
+     pub fn enhance_to(&self, stage: &mut Stage<'_>, e: f64, rt: f64) -> fmn::Result<()> {
+-        stage.play(tween(self.enhance, e, rt)?)
++        stage.play(tween(self.enhance, e, rt)?)?;
++        Ok(())
+     }
+ 
+     /// Stop repainting and fade out.
+@@ -797,7 +799,8 @@
+ 
+     /// Walk the whole loop in `rt` seconds at a steady pace.
+     pub fn walk(&self, stage: &mut Stage<'_>, rt: f64) -> fmn::Result<()> {
+-        stage.play(tween_linear(self.walked, 1.0, rt)?)
++        stage.play(tween_linear(self.walked, 1.0, rt)?)?;
++        Ok(())
+     }
+ 
+     /// Everything the walker drew, for a fade (updater cleared first).
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/closing.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/closing.rs
+@@ -196,10 +196,10 @@
+                 .build(),
+         );
+         let guide = |x: f64| -> fmn::Result<VMobject> {
+-            DashedLine::new(g.p(x, g.y.0), g.p(x, g.y.1))
++            Ok(DashedLine::new(g.p(x, g.y.0), g.p(x, g.y.1))
+                 .dash_length(0.09)
+                 .style(faded_line(Palette::dim(), 2.0, 0.8))
+-                .build()
++                .build()?)
+         };
+         let guides = [stage.arena_mut().add(guide(-1.0)?), stage.arena_mut().add(guide(1.0)?)];
+         let formula = kit.tex(stage, BUMP_TEX, 36.0, Palette::ink(), &[], v(-0.6, 3.4))?;
+@@ -408,7 +408,7 @@
+     use super::*;
+ 
+     fn get(key: &str) -> &'static str {
+-        crate::facts::facts().unwrap().get(key).unwrap()
++        fact(key).unwrap()
+     }
+ 
+     #[test]
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs
+@@ -196,10 +196,10 @@
+         kit.hold(stage)?;
+         let line = say(&kit, stage, "01_3")?;
+         let guide = |x: f64| -> fmn::Result<VMobject> {
+-            DashedLine::new(g.p(x, g.y.0), g.p(x, g.y.1))
++            Ok(DashedLine::new(g.p(x, g.y.0), g.p(x, g.y.1))
+                 .dash_length(0.09)
+                 .style(faded_line(Palette::dim(), 2.0, 0.8))
+-                .build()
++                .build()?)
+         };
+         let guides = [stage.arena_mut().add(guide(-1.0)?), stage.arena_mut().add(guide(1.0)?)];
+         fade_in_all(stage, &guides, 0.4)?;
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs
+@@ -246,16 +246,11 @@
+                 let sv = value(s, side);
+                 let _ = s.set_points(
+                     sq,
+-                    polyline(square_edge(Z0, sv, 30).iter().map(|&z| inp.p(z)).collect())
+-                        .build()
+-                        .points(),
+-                );
+-                let _ = s.set_points(
+-                    img,
+-                    polyline(kept_size(sv).iter().map(|&w| out.p(w)).collect())
++                    polyline(square_edge(Z0, sv, 30).iter().map(|&z| inp.p(z)))
+                         .build()
+                         .points(),
+                 );
++                let _ = s.set_points(img, polyline(kept_size(sv).iter().map(|&w| out.p(w))).build().points());
+             },
+             true,
+         )?;
+@@ -428,7 +423,7 @@
+         .map(|k| c + C::polar(r, a0 + (a1 - a0) * f64::from(k) / 20.0))
+         .collect();
+     let n = pts.len();
+-    let body = polyline(pts.iter().map(|&z| p.p(z)).collect())
++    let body = polyline(pts.iter().map(|&z| p.p(z)))
+         .style(line_style(color, 3.0))
+         .build();
+     let head = Arrow::new(p.p(pts[n - 3]), p.p(pts[n - 1]))
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+@@ -663,7 +663,7 @@
+     fn build(kit: &Kit, stage: &mut Stage<'_>, wide: Plane, out: Plane) -> fmn::Result<Self> {
+         let walked = stage.add_value_tracker(0.0);
+         let r = 3.0;
+-        let at = |t: f64| C::polar(r, TAU * t);
++        let at = move |t: f64| C::polar(r, TAU * t);
+         let w = |z: C| squash(z.powi(5), DOG_S, OUT_R);
+         let d = |z: C| squash(Func::Quintic.eval(z).unwrap_or(ZERO), DOG_S, OUT_R);
+         let z0 = at(0.0);
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs
+@@ -649,7 +649,7 @@
+     use super::*;
+ 
+     fn get(key: &str) -> &'static str {
+-        crate::facts::facts().unwrap().get(key).unwrap()
++        fact(key).unwrap()
+     }
+ 
+     #[test]
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/turning.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/turning.rs
+@@ -437,7 +437,7 @@
+     use super::*;
+ 
+     fn get(key: &str) -> &'static str {
+-        crate::facts::facts().unwrap().get(key).unwrap()
++        fact(key).unwrap()
+     }
+ 
+     #[test]
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs
+@@ -846,7 +846,7 @@
+     use crate::chapters::draw::Walker;
+ 
+     fn get(key: &str) -> &'static str {
+-        crate::facts::facts().unwrap().get(key).unwrap()
++        fact(key).unwrap()
+     }
+ 
+     #[test]
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs
+@@ -593,7 +593,7 @@
+     use crate::facts::fixed;
+ 
+     fn get(key: &str) -> &'static str {
+-        crate::facts::facts().unwrap().get(key).unwrap()
++        fact(key).unwrap()
+     }
+ 
+     #[test]

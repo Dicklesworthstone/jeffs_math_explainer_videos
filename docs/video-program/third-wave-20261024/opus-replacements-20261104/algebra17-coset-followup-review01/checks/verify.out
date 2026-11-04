@@ -1,0 +1,260 @@
+== BIND: inputs against Mail 2049 and earlier stages
+ok   baseline source | 7cc3f0d08b61087206144a6f187b2ce1a21059632c4aec8aa95a1a9a46f90bef
+ok   candidate source | 9d3ed41d35cc887924bad5c38a2bc16e9f2efb65e57465560dde836f5af2e363
+ok   candidate02 source, Mail 2049
+ok   candidate02 script, Mail 2049
+ok   baseline script
+ok   candidate is the C1C2 stack I already reviewed, byte for byte
+ok   canonical source is still the baseline: root's bridge is not installed
+ok   canonical script is still the baseline
+ok   stage02 carries candidate02's source
+ok   stage02 carries candidate02's script
+
+== BIND: root's patch, candidate to candidate02
+ok   one file, one hunk | ['--- candidate/applications.rs', '+++ candidate02/applications.rs']
+ok   my hunk walker reaches candidate02, compared in full
+ok   reverse returns candidate
+ok   patch(1) --fuzz=0 forward
+ok   patch(1) --fuzz=0 reverse
+ok   candidate02 passes rustfmt
+ok   the patch only adds: comment, wait, fade c, tex, fade, and removes nothing | 5
+
+== BIND: only two cue texts move, and only as Mail 2049 says
+ok   rows changed | ['17_12', '17_13']
+ok   17_12 changes only its sentence 3
+ok   17_13 adds one sentence at index 3, keeps the others in order
+ok   sentence 3 opens 'Now apply' | Now apply the original coset representative on the left of every result: the same elements form the same coset.
+
+== BIND: units and the proposed map
+ok   186 units
+ok   unit 17_12 text equals the script row
+ok   unit 17_13 text equals the script row
+ok   units name the script
+ok   proposed map is the one the units contract names | d188cc6d207f21ba84ed12bc6ed884eff8c1a8d9297f841c3cb9ee7de20ea803
+ok   one override and one hold row differ from the baseline map
+ok   the 17_12 row's 'after' is the new cue, whole
+ok   the map holds no row for 17_13
+ok   hold row binds candidate02, line 606, the marker | k.hold(stage)?;
+ok   line 607 is the authored 5 s, line 608 says 17_13
+ok   stage02 map hash, its assembly note
+ok   stage02 repeats the same bindings
+
+== BIND: takes
+ok   no chapter 17 WAV under root's algebra folder, by name, so no take is lost to a wording change | 0
+ok   control: the newest coverage file lists 17_12 and 17_13 as missing
+ok   control: the same search does find takes for chapter 10
+
+== INDEX: the kit's split, written again, against each wait
+ok   17_13 waits are 1, 2, 3 in that order | [1, 2, 3]
+ok   17_12 has one wait, i + 1 over three prompts
+ok   17_12 has five sentences | 5
+ok   17_13 has five sentences | 5
+ok   17_12 sentence 1 opens 'Find the subgroup'
+ok   17_12 sentence 2 opens 'Decide whether'
+ok   17_12 sentence 3 opens 'Finally'
+ok   17_13 sentence 1 opens 'The four-clock'
+ok   17_13 sentence 2 opens 'And multiplying'
+ok   17_13 sentence 3 opens 'Now apply'
+ok   no colon or semicolon splits a sentence, so 'result:' stays inside sentence 3
+ok   control: my split gives the baseline 17_13 four sentences
+ok   control: on the baseline text, index 3 would land on 'These are small', with no error from the kit
+ok   no test in candidate02 names 17_12 or 17_13: nothing would catch that
+ok   test mirror passes on candidate02 | None
+ok   test mirror fails on the baseline script | 17_13 sentence 3: Now apply
+ok   test mirror fails if a colon becomes a full stop | 17_13 sentence 3: Now apply
+
+== MATHS: my own permutations, rightmost move first
+ok   the square has 8 moves
+ok   H = {e, s} is not normal in the square: left and right cosets differ
+ok   H = {swap, e} is not normal in S3
+ok   S3: (gh)H = gH in all 12 cases
+ok   S3: hH = H
+ok   S3: (gh)H = g(hH), element by element
+ok   S3: wrong side, (hg)H = gH fails in 4 of 12
+ok   S3: RIGHT coset, H(gh) = Hg fails in 4 of 12: the sentence is false for a right coset
+ok   S3: right cosets do absorb on the left, H(hg) = Hg
+ok   square: (gh)H = gH in all 16 cases
+ok   square: hH = H
+ok   square: (gh)H = g(hH), element by element
+ok   square: wrong side, (hg)H = gH fails in 4 of 16
+ok   square: RIGHT coset, H(gh) = Hg fails in 4 of 16: the sentence is false for a right coset
+ok   square: right cosets do absorb on the left, H(hg) = Hg
+ok   the film's own coset: Hr (14_14 says it holds r and s r) has r and s r
+ok   the film's own coset: multiply r on the right by s, and H(rs) is a different set | [(1, 0, 3, 2), (3, 0, 1, 2)]
+ok   the same two letters on the left coset: (rs)H = rH
+ok   my wrong-side list equals root's four counterexamples | [(0, 2, 1), (1, 2, 0), (2, 0, 1), (2, 1, 0)]
+ok   root's cases count equals mine
+
+== MATHS: controls that must fail or differ
+ok   control: {e, r} is not a subgroup, and hH = H fails
+ok   control: with it, (gh)H = gH fails too
+ok   control: a closed set of maps without inverses keeps results inside and still loses elements: the inverse clause earns its place
+ok   the other reading convention changes which moves are which, not the identity
+
+== MODEL: controls against the baseline cue sheet
+ok   17_12 length 19.631 is the scratch rule | 19.63076923076923
+ok   17_13 length 25.785 is the scratch rule | 25.784615384615382
+ok   line + breath + 5 s reaches the next cue, to one frame | 387.231
+ok   the kit shares out speech only, with the pad left out
+
+== MODEL: which rule the render follows, on decoded frames of the baseline preview
+ok   the source waits for 17_8 sentence 5, then fades the red label in at once
+     17_8 sentence 5: speech rule 204.002, padded rule 204.328
+ok   33 frames decoded, none kept
+ok   first ink at 204.067: the next frame after the speech rule, one frame
+ok   the padded rule would be 0.3 s later than the ink, so it is not what renders
+ok   control: no ink before the wait, and the whole label by the end | (0, 4084)
+
+== MODEL: my older numbers carry the pad, and the difference is small
+ok   17_12 sentence 1: picture review said 364.415; padded rule gives 364.415; the kit's rule gives 364.366
+ok   17_12 sentence 2: picture review said 367.821; padded rule gives 367.821; the kit's rule gives 367.702
+ok   17_12 sentence 3: picture review said 372.528; padded rule gives 372.528; the kit's rule gives 372.313
+ok   17_13 sentence 2: picture review said 397.185; padded rule gives 397.185; the kit's rule gives 397.031
+ok   C1C2 text, scale 0.75: sentence 1 late 1.72 in that review; reproduced 1.72 with the pad scaled; 1.75 by the kit's rule
+ok   C1C2 text, scale 0.85: sentence 1 late 1.44 in that review; reproduced 1.44 with the pad scaled; 1.47 by the kit's rule
+ok   C1C2 text, scale 1.0: sentence 1 late 1.02 in that review; reproduced 1.02 with the pad scaled; 1.06 by the kit's rule
+ok   C1C2 text, scale 1.07: sentence 1 late 0.83 in that review; reproduced 0.83 with the pad scaled; 0.87 by the kit's rule
+ok   C1C2 text, scale 1.25: sentence 1 late 0.33 in that review; reproduced 0.33 with the pad scaled; 0.38 by the kit's rule
+
+== MODEL: candidate02 and the staged forms, by voice scale
+     scale   17_12    17_13  think  s1 late  s2 late  s3 late  eq stays  'the same elements' after eq
+      0.75   15.69    24.92  13.11     1.73     0.00     0.00     10.11     2.81
+ok   scale 0.75: the sentence 1 lateness does not carry into sentence 2 or 3
+ok   scale 0.75: at least 5 s of think time after the last prompt
+ok   scale 0.75: prompt 3 stays long enough at 15 characters a second, old wording | 13.46
+ok   scale 0.75: the equation stays long enough at 15 characters a second | 10.11
+      0.85   17.73    28.19  14.10     1.46     0.00     0.00     11.42     3.28
+ok   scale 0.85: the sentence 1 lateness does not carry into sentence 2 or 3
+ok   scale 0.85: at least 5 s of think time after the last prompt
+ok   scale 0.85: prompt 3 stays long enough at 15 characters a second, old wording | 14.45
+ok   scale 0.85: the equation stays long enough at 15 characters a second | 11.42
+      1.00   20.78    33.09  15.60     1.04     0.00     0.00     13.38     3.98
+ok   scale 1.0: the sentence 1 lateness does not carry into sentence 2 or 3
+ok   scale 1.0: at least 5 s of think time after the last prompt
+ok   scale 1.0: prompt 3 stays long enough at 15 characters a second, old wording | 15.95
+ok   scale 1.0: the equation stays long enough at 15 characters a second | 13.38
+      1.07   22.21    35.38  16.29     0.85     0.00     0.00     14.29     4.31
+ok   scale 1.07: the sentence 1 lateness does not carry into sentence 2 or 3
+ok   scale 1.07: at least 5 s of think time after the last prompt
+ok   scale 1.07: prompt 3 stays long enough at 15 characters a second, old wording | 16.64
+ok   scale 1.07: the equation stays long enough at 15 characters a second | 14.29
+      1.25   25.88    41.27  18.08     0.35     0.00     0.00     16.65     5.15
+ok   scale 1.25: the sentence 1 lateness does not carry into sentence 2 or 3
+ok   scale 1.25: at least 5 s of think time after the last prompt
+ok   scale 1.25: prompt 3 stays long enough at 15 characters a second, old wording | 18.43
+ok   scale 1.25: the equation stays long enough at 15 characters a second | 16.65
+     with W1, W2 and patch A
+      0.75   16.84    25.50  14.11     1.76     0.00     0.00     11.20     3.98
+ok   scale 0.75: W1 + W2 + A keep the same guarantees, with the new prompt
+      1.00   22.32    33.86  16.92     1.07     0.00     0.00     14.72     5.42
+ok   scale 1.0: W1 + W2 + A keep the same guarantees, with the new prompt
+      1.07   23.86    36.20  17.71     0.88     0.00     0.00     15.70     5.82
+ok   scale 1.07: W1 + W2 + A keep the same guarantees, with the new prompt
+      1.25   27.80    42.23  19.74     0.39     0.00     0.00     18.24     6.86
+ok   scale 1.25: W1 + W2 + A keep the same guarantees, with the new prompt
+     chapter grows 8.46 s at scale 1 from candidate02; W1 + W2 add 2.31 s more
+     new sentence 3: 19 words, 7.12 s at scale 1
+     17_12: 53 words
+ok   17_12 stays under 100 words and each sentence under 28 | 19
+     17_13: 85 words
+ok   17_13 stays under 100 words and each sentence under 28 | 24
+     17_12 W1: 57 words
+ok   17_12 W1 stays under 100 words and each sentence under 28 | 23
+     17_13 W2: 87 words
+ok   17_13 W2 stays under 100 words and each sentence under 28 | 24
+     Oliver take01 over scratch length, this preview's other chapters: 23 cues, min 0.866, median 1.074, max 1.247
+ok   the 0.75 to 1.25 scales cover the measured median, and chapter 17 itself is unmeasured
+
+== PIXELS: baseline frames; c, d, a, b sit at the same coordinates in candidate02
+ok   baseline and candidate02 share k.tex(stage, r"hH=H\quad(h\in H)",
+ok   baseline and candidate02 share v(0., -2.5)
+ok   baseline and candidate02 share v(2., 1.4)
+ok   baseline and candidate02 share v(2., 0.3)
+ok   text law, 'Answers you can test with the ' 34 pt: law 5.53, ink 5.56
+ok   text law, 'Four-clock: a move needs four ' 25 pt: law 4.13, ink 4.17
+ok   text law, 'Two toggles: every move repeat' 24 pt: law 5.03, ink 5.06
+ok   text law, 'Closure keeps it in. The inver' 23 pt: law 5.59, ink 5.62
+ok   text law, the old prompt 3 at 27 pt on frame 836: law 7.09, ink 7.13
+     c ink x 0.73..3.27, y -1.16..-0.83
+     d ink x -2.81..2.81, y -2.60..-2.39
+ok   the \quad in hH=H (h in H) is the widest gap in c | [(808, 840)]
+ok   TeX law, hH=H at 32 pt: law 1.14, ink 1.14
+ok   TeX law, (h in H) at 32 pt: law 1.09, ink 1.04
+     (gh)H=g(hH)=gH at 32 pt, by the law: 2.98 units
+     at v(2, -1.75): x 0.51..3.49, y -1.91..-1.58
+ok   font metrics: g reaches -205.0, the parenthesis -250.0; H rises to 683.0, the parenthesis 750.0: c's height serves
+ok   patch A's slot is empty on the baseline frame
+ok   control: the same box raised to c's row does find ink
+ok   it clears c by 39 px and d by 44 px
+ok   it stays in the safe frame and right of the clock
+ok   clock ink ends at x -1.43, left of the equation by 175 px
+
+== PIXELS: the new prompt's width
+     new 7.44, old 7.09, prompt 2 7.28; from x -3.6 the new one ends at 3.84
+ok   it ends inside the safe frame
+ok   it is no wider than prompt 2 by more than half a unit
+ok   every character the new prompt adds is in the glyph list | [',', 'H', 'f', 'l', 'm']
+ok   the one character outside the list, the full stop, is in the old prompt, which frame 836 shows
+ok   the equation's letters are already typeset in chapter 14 and 17
+
+== STAGED: each source patch against candidate02
+ok   A: one file, a/ b/ paths
+ok   A: reverse returns candidate02
+ok   A: patch(1) --fuzz=0 forward equals my walker
+ok   A: patch(1) --fuzz=0 reverse
+ok   A: passes rustfmt
+ok   A: the hold stays at line 606
+     A  8e4f8c4934ba77955d14246aba2d3816fbd503c4a34de81e25f0fe92baaaeded
+ok   B: one file, a/ b/ paths
+ok   B: reverse returns candidate02
+ok   B: patch(1) --fuzz=0 forward equals my walker
+ok   B: patch(1) --fuzz=0 reverse
+ok   B: passes rustfmt
+ok   B: the hold stays at line 606
+     B  b8b43e16630dd25d5e5cf0f6b65cbf10a0146b479faf8bd9d498b97d8f29eb3f
+ok   C: one file, a/ b/ paths
+ok   C: reverse returns candidate02
+ok   C: patch(1) --fuzz=0 forward equals my walker
+ok   C: patch(1) --fuzz=0 reverse
+ok   C: passes rustfmt
+ok   C: the hold stays at line 606
+     C  54d80092a5edca19a9a1f13a9076abe02370ad940be461c09cf1a03aed3fd298
+ok   the three commute
+ok   all three pass rustfmt
+     A + B + C  24bcac595ae9476519ca69fbe6558e5db0c60547b677eacb0c76df3b697d43e5
+ok   control: rustfmt refuses a misformatted copy
+
+== STAGED: what A, B and C change and leave
+ok   A: no fade-out of c remains, and c still fades in once
+ok   A: the equation is made once and shown once, at y -1.75
+ok   A: c is still bound, so nothing is left unused
+ok   B: only the third prompt's text moves
+ok   B: still three prompts
+ok   C: adds one test and touches no scene line
+ok   C: its table is the six waits, and each row holds on candidate02 | 6
+ok   C: uses the same helpers as the test beside it
+
+== STAGED: the spoken wording, reporting only
+ok   W1: script row only
+ok   W1: reverse returns candidate02's script
+ok   W1: only 17_12 differs
+ok   W1: only its sentence 3
+ok   W1: says left coset; the mirror still passes
+ok   W2: still five sentences, sentence 3 opens the same, the mirror still passes
+ok   W1 fallback: still five sentences
+ok   no line of the film says "coset's", so the fallback's possessive is untried; W1 avoids it
+ok   associativity has been spoken before chapter 17, in 06_6: parentheses, same order
+ok   14_14 names both sides before the question
+ok   14_5 already says representatives 'name' a coset, so prompt B's verb has a precedent
+ok   14_15 already wrote k as g times a correction h
+ok   no digit, slash, bracket or dash in 'Finally, pick a left cos'
+ok   no digit, slash, bracket or dash in 'on the left of every res'
+     W1 script         6d3e6f263295c4718651143c37b6b7d855c1c4384ae6a34f609e13f116166ede
+     W1 + W2 script    9c983cae910562d1ca75e41c316cb88f25dbb8fbc062f730ea87f223bc250400
+ok   W1 + W2 change exactly one row each
+
+== END
+ok   canonical source still the baseline at the end of this run
+ok   candidate02 unchanged at the end of this run
+
+0 FAIL

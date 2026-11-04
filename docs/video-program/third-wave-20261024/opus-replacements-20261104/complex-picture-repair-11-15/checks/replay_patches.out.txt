@@ -1,0 +1,79 @@
+patches applied one by one to a fresh copy of baseline/
+  shared-facts.patch: git apply exit 0  sha256 eca530d87d2cb16b6974c6ff10f3fd9bc33cf12f18340f7fee3bfa549e165b6c
+  11-counting.patch: git apply exit 0  sha256 d0d16b019ea9862cf9c705b3d5d2642b28c779bf9ecaa502bf0c0a1e98d69450
+  12-residues.patch: git apply exit 0  sha256 77d0331a3e67840befb5e6909fa284775b82cc3c95395575a57fb1b8b4caace8
+  13-real-integral.patch: git apply exit 0  sha256 62b6199dd4dda7b881076bc0fe6df74bddd7b700afd707f70cb8cf8dd8e11156
+  14-continuing.patch: git apply exit 0  sha256 91c63b2180ede81a2e3897ed99704ee13c60a7d0af54b9750803683eb5ce57a6
+  15-closing.patch: git apply exit 0  sha256 66704997aee3a734d4bbcd2fe9e37ab7add2711b00f9811630de855a7cdd79ae
+  16-storyboard.patch: git apply exit 0  sha256 4baab8f806bfd8b8fcefc8317aa81e074a971a21e62d757fca6e8e34894dcd15
+  shared-registry.patch: git apply exit 0  sha256 8d3e3d22af4a4c30f3318064377d85d20df721d683c25af684dd7420977daf83
+  shared-chain-arrows-fallback.patch: git apply exit 0  sha256 2ecb308676b0d1f1983a79a04bee2cac35ef62480937a1e726ef23bd07cb09e1
+file by file: baseline against the canonical file now, replay against candidate/
+  oracle.py: baseline=canonical True; replay=candidate True; candidate f06810f7aee32d1d
+  src/facts.rs: baseline=canonical True; replay=candidate True; candidate cc19abaffb73de8d
+  src/model.rs: baseline=canonical True; replay=candidate True; candidate f2d2a349dafa7887
+  src/chapters/counting.rs: baseline=canonical True; replay=candidate True; candidate 0ecda9cf1bfa26ed
+  src/chapters/residues.rs: baseline=canonical True; replay=candidate True; candidate 575675bcb6aa236d
+  src/chapters/real_integral.rs: baseline=canonical True; replay=candidate True; candidate 906d4bd803b12031
+  src/chapters/continuing.rs: baseline=canonical True; replay=candidate True; candidate 088034785bc2588f
+  src/chapters/closing.rs: baseline=canonical True; replay=candidate True; candidate 65ba58acfb383e70
+  docs/storyboard.md: baseline=canonical True; replay=candidate True; candidate dc857a8c4051407e
+  src/chapters/mod.rs: baseline=canonical True; replay=candidate True; candidate d9784ceed7b37d1b
+  src/chapters/draw.rs: baseline=canonical True; replay=candidate True; candidate e6db5143e707ad06
+script.tsv: the candidate carries no copy; canonical sha256 2968b0fd76540cbc
+stacked on the other lanes' patches to the same files; the 06-10 helper owns chain_arrows here
+  theirs complex-picture-repair-02-05/patches/chapters-02-05.patch: git apply exit 0
+  theirs complex-picture-repair-02-05/patches/shared-P1-crisp-strips.patch: git apply exit 0
+  theirs complex-picture-repair-02-05/patches/shared-P2-half-step-bands.patch: git apply exit 0
+  theirs complex-picture-repair-02-05/patches/shared-P3-optional-four-samples.patch: git apply exit 0
+  theirs complex-picture-repair-06-10/patches/00-draw-helpers.patch: git apply exit 0
+  theirs complex-picture-repair-06-10/patches/06-one-derivative.patch: git apply exit 0
+  theirs complex-picture-repair-06-10/patches/07-one-point.patch: git apply exit 0
+  theirs complex-picture-repair-06-10/patches/08-loop-sums.patch: git apply exit 0
+  theirs complex-picture-repair-06-10/patches/09-boundary.patch: git apply exit 0
+  theirs complex-picture-repair-06-10/patches/10-rigidity.patch: git apply exit 0
+  theirs complex-picture-repair-06-10/patches/11-storyboard.patch: git apply exit 0
+  theirs complex-picture-repair-06-10/patches/12-mod-lists-06.patch: git apply exit 0
+  theirs complex-picture-repair-06-10/patches/12-mod-lists-07.patch: git apply exit 0
+  theirs complex-picture-repair-06-10/patches/12-mod-lists-08.patch: git apply exit 0
+  theirs complex-picture-repair-06-10/patches/12-mod-lists-09.patch: git apply exit 0
+  theirs complex-picture-repair-06-10/patches/12-mod-lists-10.patch: git apply exit 0
+  mine shared-facts.patch: git apply exit 0
+  mine 11-counting.patch: git apply exit 0
+  mine 12-residues.patch: git apply exit 0
+  mine 13-real-integral.patch: git apply exit 0
+  mine 14-continuing.patch: git apply exit 0
+  mine 15-closing.patch: git apply exit 0
+  mine 16-storyboard.patch: git apply exit 0
+  mine shared-registry.patch: git apply exit 0
+  chain_arrows has buff(0.0) with their patch alone: True
+the registry's duplicate-value test, by checks/registry_check.py, over all lanes stacked
+  TEXT: baseline 237 entries, candidate 293; unresolved 0; duplicate values 0; added 56; removed 0
+  TEX: baseline 130 entries, candidate 164; unresolved 0; duplicate values 1; added 34; removed 0
+    DUPLICATE '\\sin z'  NOT from this lane: tell root and the two owners
+  MONO: baseline 6 entries, candidate 6; unresolved 0; duplicate values 0; added 0; removed 0
+rustfmt --check, edition 2024, repo rustfmt.toml; parse and format only
+  src/chapters/closing.rs: exit 0
+  src/chapters/continuing.rs: exit 0
+  src/chapters/counting.rs: exit 0
+  src/chapters/draw.rs: exit 0
+  src/chapters/mod.rs: exit 0
+  src/chapters/real_integral.rs: exit 0
+  src/chapters/residues.rs: exit 0
+  src/facts.rs: exit 0
+  src/model.rs: exit 0
+oracle.py: rows printed by canonical and by candidate, and the rows only the candidate has
+  canonical: exit 0, 120 rows
+  candidate: exit 0, 130 rows
+  new: argument.rational.near_pole.distance = 0.03
+  new: argument.rational.near_pole.size = 30.0
+  new: argument.rational.zero = 0.45
+  new: argument.rational.pole = 1.35
+  new: argument.rational.radii = 0.8,1.7
+  new: argument.several.turns = -1
+  new: argument.quintic.walker = 243
+  new: argument.quintic.leash = 10
+  new: series.doubling.at = 2
+  new: series.doubling.n10 = 2047
+  canonical rows changed or gone: 0
+all of the above passed

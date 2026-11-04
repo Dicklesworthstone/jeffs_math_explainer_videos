@@ -1,0 +1,14 @@
+anchor	cue	where_on_the_voice	walker_deg	old_preview02_time_s	old_frames02_frame	must_show_on_the_native_picture
+A1	13_3	walk starts: cue start + 1.1 s	0	37.23	89 (37.0, before the walk)	Spoke lies on the right half of the segment. No second R under the segment; only the fixed R and -R
+A2	13_3	walk	10	37.41	none	Still no walking R, and the gold segment unbroken. Spoke passes behind the segment's arrow head
+A3	13_3	walk	16	37.52	90 (37.5, 15.15 deg)	R just starting to show, above the segment. No dark notch in the gold line under it
+A4	13_3	walk	24	37.66	none	R fully shown, in its place right of the spoke
+A5	13_3	walk	83.3	38.73	none	Spoke reaching the ring's backing: it goes behind the ring, not over it
+A6	13_3	walk	90	38.85	none	Spoke upright over the axis, hidden behind the ring. Ring is clean with no white line through its centre
+A7	13_3	walk	98.75	39.00	93 (39.0)	Same pose as root's frame 93. Spoke passes between i and the ring. Axis stops at the edge of R's backing and does not run through the letter
+A8	13_3	walk	100	39.03	none	R centred on the axis: letter clean
+A9	13_3	walk	105.6	39.13	none	Spoke behind i: letter clean and a short gap in the spoke. Judge whether the gap looks like a break or a pass-behind
+A10	13_3	walk ends: phrase "so the bump"	180	40.46	96 (40.5)	R above the segment, clear of -R. Walker at -R
+A11	13_3	sentence 2 + 0.3 s: "So that part of the loop"	180	between 47.5 and 48.0	110 (still there), 111 (gone)	Spoke, walker, R gone, and no dark disc left anywhere. Ring and i still there, unchanged
+A12	13_3	R readout 5.00, after phrase "which shrinks"	none	55.0	125	Poles at height 0.4. Names and rings clear of the segment
+A13	13_3	R readout at 10, and on past phrase "All of pi"	none	57.5	130	Poles at height 0.2, nearest. i and its ring above the segment, -i and its ring below it, -i left of the arrow head

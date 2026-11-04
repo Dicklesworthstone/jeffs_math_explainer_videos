@@ -1,0 +1,134 @@
+== 09: sampled means of the bump, summed directly
+PASS r 1/2, 8 samples: shown 1.0039  [computed 1.003921569, formatted 1.0039]
+PASS r 1/2, 16 samples: shown 1.000015  [computed 1.000015259, formatted 1.000015]
+PASS r 2, 16 samples: shown −0.000015  [computed -1.52590219e-05, formatted −0.000015]
+PASS means are real
+PASS voice: within half a percent of one  [0.00392]
+PASS voice: about fifteen millionths  [1.526e-05]
+PASS closed form 8 samples 1/(1-r^8)
+PASS closed form 16 samples 1/(1-r^16)
+== 09: residues of bump/z at the poles (the card's minus one half)
+PASS pole 1j: shown −0.5  [computed -0.5, formatted −0.5]
+PASS pole (-0-1j): shown −0.5  [computed -0.5, formatted −0.5]
+PASS 1 - 0.5 - 0.5 = 0
+== 09: coefficients from the sampled formula at r = 1/2, 16 samples
+PASS c_0: shown 1.000  [computed 1.000015259, formatted 1.000]
+PASS c_1: shown 0.000  [computed 0, formatted 0.000]
+PASS c_2: shown −1.000  [computed -1.000015259, formatted −1.000]
+     c_2 unrounded -1.0000153; mean of the turned-twice values -0.2500038
+PASS c_3: shown 0.000  [computed 0, formatted 0.000]
+PASS c_4: shown 1.000  [computed 1.000015259, formatted 1.000]
+PASS panel: mean turned twice sits at -0.25
+PASS panel: turned-twice values take 8 distinct places
+PASS panel: turned-once values take 16 distinct places
+== 09: radius and the recipe recentred at 1
+PASS radius from 1 to i: shown 1.414  [computed 1.414213562, formatted 1.414]
+PASS left end: shown −0.41  [computed -0.4142135624, formatted −0.41]
+PASS right end: shown 2.41  [computed 2.414213562, formatted 2.41]
+PASS 60 terms at 2: shown 0.200000  [computed 0.2000000002, formatted 0.200000]
+PASS 60 terms at 2.6: shown 212  [computed 212.1784223, formatted 212]
+     bump(2.6) = 0.12887; so 212 is the recipe failing, as the row says
+PASS the 2.6 row lies outside the range
+PASS the 2 row lies inside the range
+== 06: z^2 at 1 + i
+PASS |f'| stretch: shown 2.83  [computed 2.828427125, formatted 2.83]
+PASS turn degrees: shown 45  [computed 45, formatted 45]
+PASS grid [2 -2; 2 2]
+PASS gap at side 0.5: shown 0.088  [computed 0.08838834765, formatted 0.088]
+PASS gap at side 0.05: shown 0.0088  [computed 0.008838834765, formatted 0.0088]
+PASS reflection: right 1, up -1
+PASS doubling: right 1, up 2
+     plane scales: left 4.6/2.4 = 1.917, right 4.6/3.2 = 1.437; a right unit is 0.75 of a left unit,
+     so a stretch of 2.83 draws at 2.12 times the blue arrow's length. Frames measured about 2.1.
+== 07
+PASS (-0.7+0.6i)^2 = 0.13-0.84i  [(0.12999999999999995-0.84j)]
+PASS |h|^2/h = conj(h)
+PASS |z|^2 at 1: right tends to 2
+PASS |z|^2 at 1: up tends to 0
+== 08: the chain, 24 steps round the unit circle, sampled at each arc's midpoint
+PASS one step: shown 0.26  [computed 0.2610523844, formatted 0.26]
+PASS f = z, distance after 1: shown 0.26  [computed 0.2610523844, formatted 0.26]
+PASS f = z, distance after 2: shown 0.50  [computed 0.5043144803, formatted 0.50]
+PASS f = z, distance after 4: shown 0.87  [computed 0.8734983029, formatted 0.87]
+PASS f = z, distance after 6: shown 1.01  [computed 1.008628961, formatted 1.01]
+PASS f = z, distance after 7: shown 0.97  [computed 0.9742607622, formatted 0.97]
+PASS f = z, distance after 9: shown 0.71  [computed 0.7132083777, formatted 0.71]
+PASS f = z, distance after 11: shown 0.26  [computed 0.2610523844, formatted 0.26]
+PASS f = z, distance after 12: shown 0.00  [computed 2.737127597e-16, formatted 0.00]
+PASS f = z, distance after 13: shown 0.26  [computed 0.2610523844, formatted 0.26]
+PASS f = z, distance after 15: shown 0.71  [computed 0.7132083777, formatted 0.71]
+PASS f = z, distance after 17: shown 0.97  [computed 0.9742607622, formatted 0.97]
+PASS f = z, distance after 18: shown 1.01  [computed 1.008628961, formatted 1.01]
+PASS f = z, distance after 20: shown 0.87  [computed 0.8734983029, formatted 0.87]
+PASS f = z, distance after 22: shown 0.50  [computed 0.5043144803, formatted 0.50]
+PASS f = z, distance after 23: shown 0.26  [computed 0.2610523844, formatted 0.26]
+PASS f = z, distance after 24: shown 0.00  [computed 7.890837414e-16, formatted 0.00]
+PASS |total| for f = z: shown 0.000000  [computed 7.890837414e-16, formatted 0.000000]
+PASS f = 1/z: every product points straight up
+PASS f = 1/z, column after 1: shown 0.26  [computed 0.2610523844, formatted 0.26]
+PASS f = 1/z, column after 6: shown 1.57  [computed 1.566314307, formatted 1.57]
+PASS f = 1/z, column after 11: shown 2.87  [computed 2.871576229, formatted 2.87]
+PASS f = 1/z, column after 16: shown 4.18  [computed 4.176838151, formatted 4.18]
+PASS f = 1/z, column after 21: shown 5.48  [computed 5.482100073, formatted 5.48]
+PASS f = 1/z, column after 24: shown 6.27  [computed 6.265257227, formatted 6.27]
+PASS limit 2 pi: shown 6.28  [computed 6.283185307, formatted 6.28]
+PASS a bigger circle gives the same column
+     z^-3: total 1.9e-15, ring radius 0.504
+PASS z^-3 closes up
+     z^-2: total 2.3e-16, ring radius 1.000
+PASS z^-2 closes up
+     z^0: total 2.2e-16, ring radius 1.000
+PASS z^0 closes up
+     z^1: total 7.9e-16, ring radius 0.504
+PASS z^1 closes up
+     z^2: total 1.6e-15, ring radius 0.341
+PASS z^2 closes up
+== Desk geometry behind proposed corrections; none of this was rendered
+     09-N2: a = 0 at p.p(1.05, -0.4): x 404.8-492.8, y 395.8-440.8
+PASS 09-N2 clears the lower -0.5 card (top y 455)  [gap 14.2 px]
+PASS 09-N2 clears the r = 1/2 ring, dot radius 5  [gap 9.0 px]
+PASS 09-N2 clears the a label (right end about 368)
+PASS 09-N2 old position agrees with the measured card (x 384-472)
+     09-N1: caption at v(right + 0.2, -0.75) spans x 908-1128, panel axis 893, panel right 1225
+PASS 09-N1 clears the axis
+PASS 09-N1 stays in the panel
+     07-N1: Re ends about 592; arrow tail at v(-0.42, ...) is x 602, right plane starts 721
+PASS 07-N1 clears Re
+     09-N3: 'x' glyph half width about 0.055; today's edge margin 7.11 - 6.7 - 0.18 - half = 0.176
+PASS 09-N3 at axis_end + 0.11 gives 0.25
+     08-N2: mark radius 0.26 assumed; today's chord 0.0905 vs head 0.16; proposed chord 0.1586
+PASS 08-N2 proposed chord reaches the head's length
+PASS 08-N2 proposed head passes the film's own sign test  [cross 0.248]
+PASS 08-N2 proposed base midpoint lands on the arc  [off by 0.0014]
+== Word share on the scratch voice: an estimate, for ordering only
+PASS 06_one_derivative cues read  [9]
+PASS 07_one_point cues read  [6]
+PASS 08_loop_sums cues read  [5]
+PASS 09_boundary cues read  [9]
+     06_1 'Do the same': word 16 of 56, about 6.9 s
+     06_1 'Step from z': word 23 of 56, about 9.6 s
+     06_1 'divide the change': word 33 of 56, about 13.5 s
+     06_1 'As h shrinks': word 41 of 56, about 16.7 s
+     06_1 'settle': word 49 of 56, about 19.8 s
+     06_5 'which turns the answer': word 44 of 57, about 98.4 s
+     06_9 'A reflection reverses': word 18 of 43, about 162.6 s
+     06_9 'Squashing fails': word 32 of 43, about 168.1 s
+     06_9 'Double every height': word 35 of 43, about 169.3 s
+     07_2 'conformal': word 12 of 29, about 22.9 s
+     07_2 'A point where': word 13 of 29, about 23.3 s
+     07_2 'critical point': word 22 of 29, about 26.9 s
+     07_6 'small disk': word 27 of 51, about 100.3 s
+     08_3 'dividing by z': word 7 of 46, about 38.9 s
+     08_3 'The arrows stack': word 24 of 46, about 45.5 s
+     08_3 'whatever the size': word 40 of 46, about 51.8 s
+     08_4 'Only one over z': word 13 of 27, about 60.0 s
+     08_4 'survives': word 17 of 27, about 61.6 s
+     09_3 'Eight sample': word 14 of 43, about 44.3 s
+     09_5 'swallowed': word 7 of 47, about 74.6 s
+     09_5 'Each pole': word 21 of 47, about 80.1 s
+     09_5 'The formula only': word 30 of 47, about 83.7 s
+== Controls: this check must be able to fail
+FAIL control, wrong mean: shown 1.0040  [computed 1.003921569, formatted 1.0039]
+FAIL control, wrong recipe value: shown 213  [computed 212.1784223, formatted 212]
+PASS both planted wrong strings failed  [2]
+RESULT 85 PASS, 0 FAIL

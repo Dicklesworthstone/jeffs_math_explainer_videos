@@ -1,0 +1,10 @@
+unchanged copy: caught by None
+old prediction caption left up: caught by overlap (expected overlap)
+fades out a caption already gone: caught by ledger (expected ledger)
+moves a card before it appears: caught by ledger (expected ledger)
+waits on a sentence the cue lacks: caught by scene (expected scene)
+speaks two cues out of script order: caught by scene (expected scene)
+uses a board after moving it away: caught by rustc (expected rustc)
+the wrong shuffle for the deck: caught by scene (expected scene)
+a slip that does not change parity: caught by test (expected test)
+0 surprises

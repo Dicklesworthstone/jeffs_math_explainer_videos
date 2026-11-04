@@ -1,0 +1,81 @@
+cue	words	chars	sentences	status	exact_local_recordings	recordings_holding_an_exact_sentence	provider_history	submitted	older_request_id	split_cue	hold	phrase_anchor_bytes	request_file_exact	text_sha256
+00_1	47	280	2	MISSING: needs an exact Oliver take	0	0	Here are seven notes; No matches until October 28, 2026; Continue searching briefly loaded then same cutoff returned	False	00_1	False			True	2986667cb17d47efc5b01a53a482cacb77df7f13d9750fe736547c800a2e769e
+00_2	31	181	3	MISSING: needs an exact Oliver take	0	0	Mark them on an ordinary ruler; No matches until October 28, 2026	False	00_2	False			True	9cff4b6074ce932b6916fa76fbef35e08e31592ca5e96c93482a256ee2c340a4
+00_3	56	321	4	MISSING: needs an exact Oliver take	0	0	not checked	False	00_3	False			True	dc1be524334bc27463ec71666c38080f737eb3ced12b12c92a840123bd8c30bc
+00_4	35	182	4	MISSING: needs an exact Oliver take	0	0	not checked	False	00_4	False	prediction		True	28aa0759d8ed2062f3854570f9cbc06427f2b43a5604e98ac9526161e564f320
+00_5	48	260	4	MISSING: needs an exact Oliver take	0	0	not checked	False	00_5	False			True	8b3d94121540f03dfa1199ed97718bf27762b175db4167368fefd3eb5a2d4aa5
+00_6	79	430	6	MISSING: needs an exact Oliver take	0	0	not checked	False	00_6	False			True	be8fe805a35e2a4a9b270702dfbb9c71a34fd2278ea287b80269d6acc411fb63
+01_1	48	260	5	MISSING: needs an exact Oliver take	0	0	not checked	False	01_1	False			True	d71a0bd05870ac964963abd4780102349f6794df6dd4f16ea24e7aa67347f7ba
+01_2	54	270	3	MISSING: needs an exact Oliver take	0	0	not checked	False	01_2	False			True	5df547825cd019fbc45286199a55a4a03309eab34eb4c79fb90637c659e1625e
+01_3	24	132	4	MISSING: needs an exact Oliver take	0	0	not checked	False	01_3	False	prediction		True	23f240c35831923a7b47c4dd276719054eb553fa5678c5178e0c9a5260191db3
+01_4	59	376	5	MISSING: needs an exact Oliver take	0	0	not checked	False	01_4	False			True	e1b96d8cf4625bf2b933ff51eda76d2514fe12635e7b7c61442e410754614937
+01_5	58	332	4	MISSING: needs an exact Oliver take	0	0	not checked	False	01_5	False			True	f920c76a7ff45f6070c64a0a7921d1c198ddced03b7104a90dbb33d1d8a9df49
+01_6	71	380	6	MISSING: needs an exact Oliver take	0	0	not checked	False	01_6	False			True	342fd8f544892c434e4d2d9dcf4bb0fc142ac85ecb36a3cbd9879f6840ead31a
+02_1	35	167	3	MISSING: needs an exact Oliver take	0	0	not checked	False	02_1	False		48	True	3110c66e2647d397a38e81a4c77370c9efd4237bd4d9d720ba4af25e454e60af
+02_2	46	249	4	MISSING: needs an exact Oliver take	0	0	not checked	False	02_2	False	prediction	47	True	bd5822b91f2700d5f2ee189d831ccc47b9253c4e58b4775488af71e4849fc33e
+02_3	32	182	4	MISSING: needs an exact Oliver take	0	0	not checked	False	02_3	False			True	4ee6f9d52f173dd7b438f74cd7415fc60bf2f0382ff1febb9533d4647ab3cefd
+02_4	33	162	4	MISSING: needs an exact Oliver take	0	0	not checked	False	02_4	False			True	be1cfbe625776b45a9b80fc54f8db6cb074612edcc82b075f4213609d08cde0f
+02_5	71	368	6	MISSING: needs an exact Oliver take	0	0	not checked	False	02_5	False			True	3dc26bb4527bc899fa42b3fbc41ee2e1eef0482d535192db49ddd83d3174bb73
+03_1	45	245	4	MISSING: needs an exact Oliver take	0	0	not checked	False	03_1	False			True	620d844f25db5f2fdb93d5b803a017906d3727213f5ad4e037d6b258bf9bd0f1
+03_2	57	286	5	MISSING: needs an exact Oliver take	0	0	not checked	False	03_2	False			True	d304b7e87991505e3506d506110c2f1f8ded34313abb5c97575120510f0b6ded
+03_3	44	229	5	MISSING: needs an exact Oliver take	0	0	not checked	False	03_3	False			True	4ce29b0933cf7eb5fc8fbe78de804c33749308e5245693fc4a128076568e81c0
+03_4	44	248	4	MISSING: needs an exact Oliver take	0	0	not checked	False	03_4	False			True	90eba9a70789356e6faa42e6e0451c0ddd2a6285dbc87bf19b8910588b6ed57d
+04_1	46	276	5	MISSING: needs an exact Oliver take	0	0	not checked	False	04_1	False			True	997e38ce5b39b255bbc6bbc8d29ae0a81128337ce65602a1f23f4802aa4d0aba
+04_2	86	441	5	MISSING: needs an exact Oliver take	0	0	not checked	False	04_2	False		306	True	9a338a180e93a78f67ad49208255c0aff009c897e0acdf254f8937ce0d11f2bc
+04_3	53	310	5	MISSING: needs an exact Oliver take	0	0	not checked	False	04_3	False			True	e9e79bdcb58af233281c77b77c62a032a6117222f5cd0aa34b41f2018d19bdd8
+04_4	71	391	6	MISSING: needs an exact Oliver take	0	0	not checked	False	04_4	False			True	6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6
+04_5	84	430	5	MISSING: needs an exact Oliver take	0	0	not checked	False	04_5	False			True	226e67d7c75fc45c65227f9822543bc92d79d1dcd1a26a15e833d6405ce2e30b
+04_6	32	163	3	MISSING: needs an exact Oliver take	0	0	not checked	False	04_6	False	prediction		True	000edc3ec870fa4557e707caf46603afc19b7763b217de7486ceda3587da509e
+04_7	88	495	6	MISSING: needs an exact Oliver take	0	0	not checked	False	04_7	False			True	cafb538e311e358ac817af1d9e9ef817822b4e9c427de8ca4625ba0713f5e5d5
+05_1	56	287	5	MISSING: needs an exact Oliver take	0	0	not checked	False	05_1	False	prediction		True	5f6674fe362915c5d650bb70dd3d9605991bb2dbf2498419edd312881652c583
+05_2	49	261	4	MISSING: needs an exact Oliver take	0	0	not checked	False	05_2-part1	True			True	dd0ff44d3de36b7d6cc519f538d1fbae67b1ae904e1d65eb2debff35071327a8
+05_20	63	290	5	MISSING: needs an exact Oliver take	0	0	not checked	False	05_2-part2	True			True	9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc
+05_3	65	331	6	MISSING: needs an exact Oliver take	0	0	not checked	False	05_3	False			True	3f267c4eb390bcfa1d3de96c16a5b9a5f6ab8ee1133752f5774bab63b1cd6868
+05_4	45	219	3	MISSING: needs an exact Oliver take	0	0	not checked	False	05_4	False			True	bb0c9ce590095004ece1dc001770a2f1c8042a733e3cb9cb1bfdcd3a2a9ea339
+05_5	10	51	2	MISSING: needs an exact Oliver take	0	0	not checked	False	05_5	False	prediction		True	4577d97df6052667c611277cd7a4c43425b6f7a7c98b8e290d042448b0ae0cef
+05_6	73	337	5	MISSING: needs an exact Oliver take	0	0	not checked	False	05_6	False			True	0efab2f833ca962cd86edf6f77cdb5f32154eafb24784b95f05d91a249102862
+05_7	67	347	5	MISSING: needs an exact Oliver take	0	0	not checked	False	05_7	False			True	7a6573c709b24613761472e08ab82557ac55afba998347efff5c02050d2b31e6
+06_1	46	254	3	MISSING: needs an exact Oliver take	0	0	not checked	False	06_1	False			True	b260807f31f65927962909683d5af815e2128a0ad7500d0749e6511c19680aca
+06_2	49	259	4	MISSING: needs an exact Oliver take	0	0	not checked	False	06_2	False	prediction		True	90fece638d89ab1eadbff4cf4913267724cbae1356011dc343b1290f12584f77
+06_3	40	200	6	MISSING: needs an exact Oliver take	0	0	not checked	False	06_3	False			True	a909ab31e6173129dcafbbf8a38bf663d6d3a140ce01c2c0e68253ebe77b2db0
+06_4	44	236	4	MISSING: needs an exact Oliver take	0	0	not checked	False	06_4	False	prediction		True	435f54c3f9eca4b39e3dd6806b59768e4331e73a57651040c7c24092d149d6ec
+06_5	38	198	3	MISSING: needs an exact Oliver take	0	0	not checked	False	06_5	False			True	219bc78c759868e8fb229188e8f757704428cf81e9cae40655a75b14506cc8c3
+06_6	73	403	5	MISSING: needs an exact Oliver take	0	0	not checked	False	06_6-part1	True			True	4ca49ca95c948df0d25fa3732e00976bab13395ffff27dcb07bda094b73129e4
+06_20	64	345	3	MISSING: needs an exact Oliver take	0	0	not checked	False	06_6-part2	True			True	a82f172588e91e1dc63da895fd4a760ec655fd41ff1b6c9faad669ae434a3e80
+06_7	65	341	7	MISSING: needs an exact Oliver take	0	0	not checked	False	06_7	False			True	0f56c61839a683a4aa7ef25eb221e6912ca2c4c1fec023c68c5fe6d3ae995c7f
+07_1	43	223	4	MISSING: needs an exact Oliver take	0	0	not checked	False	07_1	False			True	3ea7fd2865464049d0e9b916cdee0ac38a457d8eff28b4889ece8d9f8d70cf07
+07_2	88	448	4	MISSING: needs an exact Oliver take	0	0	not checked	False	07_2	False			True	c3936a28ed7e1a198aff633ab96603bdbd141f3c618713c5d82ab4d0b32c54e9
+07_3	58	321	6	MISSING: needs an exact Oliver take	0	0	not checked	False	07_3	False	prediction		True	4ae58d37d06c67306feecf8d1053a54b39ea6a1079e435396a01b037b24d4ea9
+07_4	50	235	3	MISSING: needs an exact Oliver take	0	0	not checked	False	07_4	False			True	09556df40a49b999dd4344dc7ca0f643250191844c40937d050d8d7faafef77c
+07_5	80	403	6	MISSING: needs an exact Oliver take	0	0	not checked	False	07_5	False			True	7de9ef93c93969396f634dc19d6e8134b5d0280509bdbd8827ac63a85b1f4bd6
+07_6	95	507	7	MISSING: needs an exact Oliver take	0	0	not checked	False	07_6	False			True	7f99cba22a033160d648cf21f48d99f6d7ee5bb373932960cd081d8918acb2f5
+08_1	76	387	7	MISSING: needs an exact Oliver take	0	0	not checked	False	08_1	False	prediction		True	75556c6aef00b2c0f2bab3027e52d1baf9f1b42642e73678834d431a5cf145e3
+08_2	59	274	4	MISSING: needs an exact Oliver take	0	0	not checked	False	08_2	False			True	3d6d4f49585844a2ed7029ecbd5e858c586bea74f2bd30c75f6184a872ccb98f
+08_3	80	408	6	MISSING: needs an exact Oliver take	0	0	not checked	False	08_3	False			True	ce2bc329699435775aa76055e5e654dac19a240a7da6e7c8da245a4fc19b7232
+08_4	53	257	7	MISSING: needs an exact Oliver take	0	0	not checked	False	08_4	False	prediction		True	f449fbee18eb2cce67e3306905853d7bc3c9eee26b041aa2d064baa8b3e537b7
+08_5	81	397	6	MISSING: needs an exact Oliver take	0	0	not checked	False	08_5	False			True	f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216
+09_1	60	317	5	MISSING: needs an exact Oliver take	0	0	not checked	False	09_1	False			True	37a3a14b437e8357bc2a6953184629a044f80f1fcb1280f9a21de23143acfc6d
+09_2	60	306	5	MISSING: needs an exact Oliver take	0	0	not checked	False	09_2	False			True	bce7e8e43ac65a8ba7a5ed18138685910855233783a6f80f1d085f3a3f42c430
+09_3	45	239	3	MISSING: needs an exact Oliver take	0	0	not checked	False	09_3	False			True	f3de2e233a6f198038ac654b013d128c4d0a65d30ffc238fe1f18e175811e5a8
+09_4	69	370	6	MISSING: needs an exact Oliver take	0	0	not checked	False	09_4	False			True	e2c776e31453e1db043fb7b1da039189f57ff5220278957bce1b8aa49adc6095
+10_1	31	171	4	MISSING: needs an exact Oliver take	0	0	not checked	False	10_1	False			True	6fcaeb2f87ad17f8fd6a7eb67b088c7f0b0af6145df048b992777669a1ca1c1b
+10_2	56	313	4	MISSING: needs an exact Oliver take	0	0	not checked	False	10_2	False			True	e77f6de70aafae27bb15ba7d62011beb6bf2d22402b4174274b5f985409c95c8
+10_3	78	428	6	MISSING: needs an exact Oliver take	0	0	not checked	False	10_3	False		208,302	True	9645f0e4958247f106e8c2f80155996e2346302c6b34f78bd366dd1112de4baf
+10_4	80	441	5	MISSING: needs an exact Oliver take	0	0	not checked	False	10_4	False	reading	39	True	29473bc1659d0ff4d32211f6a5c8ef8abb4374e1b9fb892622eed2e13936bbe4
+11_1	70	379	5	MISSING: needs an exact Oliver take	0	0	not checked	False	11_1	False		320,337	True	9aef00838aedeef5c81aa071586dca516ef9fd475e205c03105594838079ec5d
+11_2	81	427	6	MISSING: needs an exact Oliver take	0	0	not checked	False	11_2	False		185	True	bac00f42e30c5450cea48e0db3786af3a9384ddaeb583ea96e86504b7a21e8e7
+11_3	73	389	9	MISSING: needs an exact Oliver take	0	0	not checked	False	11_3	False	prediction		True	70e19e8aa243ef1ff9adcefcf18c96379c5103d26114a8c2a8c3e067383f59db
+11_4	82	369	6	MISSING: needs an exact Oliver take	0	0	not checked	False	11_4	False			True	e94e48675f20ac0ffc624decd4531399dc8a3589f9d9a315cdf0f63885909bdc
+11_5	85	443	5	MISSING: needs an exact Oliver take	0	0	not checked	False	11_5	False		72,178	True	dd0d230909c00dfe74523c3976ad06a759e2afb459e9e8cb252003b1b7615db8
+11_6	68	348	5	MISSING: needs an exact Oliver take	0	0	not checked	False	11_6	False		273	True	ad421c6d611bf9a635d80375ebff4dc413eacbcf8a9906b80cbddab97c73c68d
+11_7	91	496	5	MISSING: needs an exact Oliver take	0	0	not checked	False	11_7-part1	True		174,226,315,404,453	True	aae9225a2dbb2a4dcb828e9ffa870f0d24bf4f04a9e7608021366f3622a01fcc
+11_20	32	194	2	MISSING: needs an exact Oliver take	0	0	not checked	False	11_7-part2	True	reading	91,137	True	ec2b4681dc12338d1dd19df6e5866524d0811c18d3f5732a9a8235f96b4f5f02
+11_8	48	281	4	MISSING: needs an exact Oliver take	0	0	not checked	False	11_8	False			True	b35df432f6f28808909eeb0dec8c25e7e5189993487489e3169a0e089eabd297
+12_1	34	199	3	MISSING: needs an exact Oliver take	0	0	not checked	False	12_1	False		167	True	8ac919312c336ca94988b10063a842dbaeaa2932594199ac44a55a19fae3d8d9
+12_2	42	221	3	MISSING: needs an exact Oliver take	0	0	not checked	False	12_2	False			True	b412f190e36981bd7ad4336f007bc2987490c4098304ef4ff56a0d49a36d860d
+12_3	45	255	4	MISSING: needs an exact Oliver take	0	0	not checked	False	12_3	False			True	e50368a2cdc197d77542a976d02e3207da2384b9d7840a1645bb2d3cc64d7169
+12_4	94	480	5	MISSING: needs an exact Oliver take	0	0	not checked	False	12_4	False			True	94ed881c39edcc7cd15235e3691ae6d3d91203ef54ab3c451f82ec27c400aa93
+12_5	31	164	3	MISSING: needs an exact Oliver take	0	0	not checked	False	12_5	False	prediction		True	e8dd93058126905677716cedcfba6b70413abbf62d2f2bb3a028bcd03b6bb9a7
+12_6	39	173	2	MISSING: needs an exact Oliver take	0	0	not checked	False	12_6-part1	True		89,105	True	c85377e98085cd3000ec836f675c05662c9be4bcff432de7620c669d208e1962
+12_20	61	314	3	MISSING: needs an exact Oliver take	0	0	not checked	False	12_6-part2	True			True	246388046e76374e4bf7519b3fb92168e46f98211860f262af30225cfda517db
+12_21	50	268	2	MISSING: needs an exact Oliver take	0	0	not checked	False	12_6-part3	True		192,230	True	0fe204023b8a52a75088216367d1e84e5aa423baa89f7ec2e583c5c1ff558762

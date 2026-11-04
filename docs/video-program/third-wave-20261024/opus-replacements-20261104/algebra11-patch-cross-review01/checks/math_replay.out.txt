@@ -1,0 +1,46 @@
+== 11_4: inverse and commuting
+(1 3 4)^-1 = (1 4 3): True
+(1 3 5)(2 6) = (2 6)(1 3 5): True
+(2 6)(3 5 1) is the same map: True | 4 fixed: True
+Frame 0186, cards after the forward run: card -> slot {1: 3, 2: 2, 3: 4, 4: 1} | the frame shows card 1 in slot 3, 3 in 4, 4 in 1, 2 in 2
+
+== 11_5: the swap shown is the example's first swap
+(1 3 4) = (1 4)(1 3): True
+(1 3 4) = (3 4)(1 4): True
+  length 2: 1 swaps rebuild it: True
+  length 3: 2 swaps rebuild it: True
+  length 4: 3 swaps rebuild it: True
+  length 5: 4 swaps rebuild it: True
+  length 6: 5 swaps rebuild it: True
+  length 7: 6 swaps rebuild it: True
+  length 8: 7 swaps rebuild it: True
+
+== 11_20: the patched trades compose and undo
+after two trades: [2, 3, 1, 4] (a three-cycle, so two swaps compose into something new)
+after undoing them in reverse: [1, 2, 3, 4] | home: True
+
+== 11_21: the key against the cells
+even 12 odd 12 | swapping the first two sends every even cell to an odd cell: True
+moved 0: 1 moved 4: 3 moved 3: 8
+Sentence 5 repaints 1 green and 3 hero. Gold cells left: 8 of 12. 'Gold: even' then covers two thirds of the even cells.
+
+== 11_22: ten cards
+deal: {1: 1, 6: 2, 2: 3, 7: 4, 3: 5, 8: 6, 4: 7, 9: 8, 5: 9, 10: 10}
+moving cycles: [[2, 3, 5, 9, 8, 6], [4, 7]] | fixed: [1, 10] | lcm: 6
+card now in each slot after one shuffle: [1, 6, 2, 7, 3, 8, 4, 9, 5, 10] | frame 1276 reads 1 6 2 7 3 8 4 9 5 10
+every arrow from slot N lands on card N: True
+ring at rest shows a different card number from its slot, per slot of the six-cycle: {2: 6, 3: 2, 5: 3, 9: 5, 8: 9, 6: 8}
+'Card 2 went from slot 2 to slot 3': True
+
+== 11_24 to 11_26: fifty-two cards and eight wires
+out-shuffle lengths: {1: 2, 2: 1, 8: 6} | lcm(1,2,8) = 8 | swap: [[18, 35]] | fixed: [1, 52]
+'By size' is a statement about the strip's order: cycle lengths sorted, true positions interleaved: [1, 1, 2] first long cycle: [2, 3, 5, 9, 17, 33, 14, 27]
+in-shuffle lengths: [52] | 52 / 8 = 6.5
+out-shuffle keeps the top card on top: True | in-shuffle sends it to second place: True
+after 8 in-shuffles, cards home: 0 (the patch only delays this caption; the number comes from out_of_place)
+eight wires: [[1], [2, 3, 5], [4, 7, 6], [8]] | order 3
+  stage 1: every token home: False
+  stage 2: every token home: False
+  stage 3: every token home: True
+  stage 4: every token home: False
+stage 4 leaves every token where stage 1 did: True

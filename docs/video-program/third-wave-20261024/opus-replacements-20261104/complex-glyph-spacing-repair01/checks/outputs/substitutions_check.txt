@@ -1,0 +1,15 @@
+ok F1 closing.rs:28 old_groups=ok new_groups=ok chars 43->51 z_0 2->0 thin-sub 2
+ok F3 counting.rs:50 old_groups=ok new_groups=ok chars 27->29 z_0 0->0 thin-sub 0
+ok F1 loop_sums.rs:50 old_groups=ok new_groups=ok chars 29->33 z_0 1->0 thin-sub 1
+ok F1 loop_sums.rs:51 old_groups=ok new_groups=ok chars 32->36 z_0 1->0 thin-sub 1
+ok F1 mod.rs:407 old_groups=ok new_groups=ok chars 11->15 z_0 1->0 thin-sub 1
+ok F1 mod.rs:408 old_groups=ok new_groups=ok chars 10->14 z_0 1->0 thin-sub 1
+ok F1 one_derivative.rs:26 old_groups=ok new_groups=ok chars 29->37 z_0 2->0 thin-sub 2
+ok F1 one_derivative.rs:44 old_groups=ok new_groups=ok chars 13->17 z_0 1->0 thin-sub 1
+ok F1 one_derivative.rs:47 old_groups=ok new_groups=ok chars 16->20 z_0 1->0 thin-sub 1
+ok F1 one_derivative.rs:211 old_groups=ok new_groups=ok chars 11->15 z_0 1->0 thin-sub 1
+ok F1 one_derivative.rs:217 old_groups=ok new_groups=ok chars 10->14 z_0 1->0 thin-sub 1
+ok F1 residues.rs:31 old_groups=ok new_groups=ok chars 38->42 z_0 1->0 thin-sub 1
+edits 12; mismatches 0; unlisted raw strings 0
+
+[exit 0]

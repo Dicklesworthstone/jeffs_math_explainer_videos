@@ -1,0 +1,29 @@
+mirrored assertions passed: 79
+anchors in their sentences: 15
+until_sentence indexes in range: 36
+k.say order equals script row order: 11_1 11_2 11_3 11_4 11_5 11_6 11_7 11_11 11_8 11_9 11_10
+facts agree with oracle.py: 23 permutations.* keys; oracle prints 148 lines
+add_facts registers the same 23 keys, read from the Rust source
+  permutations.bad_map_arrivals	2,0,1
+  permutations.chip_destinations	4,2,6,1,5,3
+  permutations.chips_start	1,3,7,2,6,4
+  permutations.chips_swapped	-2,-3,4,-1,6,7
+  permutations.corner_count	24
+  permutations.delta_start	1008
+  permutations.delta_swapped	-1008
+  permutations.disjoint_final	5,6,1,4,3,2
+  permutations.edge_keeping	8
+  permutations.edge_keeping_arrangements	1234,1432,2143,2341,3214,3412,4123,4321
+  permutations.flip_images	2,1,4,3
+  permutations.half_images	3,4,1,2
+  permutations.half_swaps	2
+  permutations.inverse_images	4,2,1,3
+  permutations.quarter_images	4,1,2,3
+  permutations.quarter_swaps	3
+  permutations.route_three_arrangements	2,1,4,8;2,4,1,8;4,2,1,8
+  permutations.route_three_deltas	1008,-1008,1008,-1008
+  permutations.rs_images	1,4,3,2
+  permutations.sr_images	3,2,1,4
+  permutations.trade_broken_edges	2-3,4-1
+  permutations.witness	1,2,4,8
+  permutations.witness_swapped	4,2,1,8

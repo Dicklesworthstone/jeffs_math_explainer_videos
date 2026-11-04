@@ -1,0 +1,163 @@
+--- 04_1: climbing by a fraction of your height multiplies it
+ok   height 1: h + h/4 = 5h/4
+ok   height 5/4: h + h/4 = 5h/4
+ok   height 7/3: h + h/4 = 5h/4
+ok   four steps make (5/4)^4 = 625/256  [2.44141]
+--- 04_4: four cells
+ok   sixteen ways, sorted by how many took x
+ok   six pairs of cells take x squared
+ok   six times a quarter times a quarter is six sixteenths
+--- 04_5, 04_6: the exact statement, including past k = n
+ok   n=1 k=0: falling product over k! is the choose count
+ok   n=1 k=1: falling product over k! is the choose count
+ok   n=1 k=2: falling product over k! is the choose count
+ok   n=2 k=0: falling product over k! is the choose count
+ok   n=2 k=2: falling product over k! is the choose count
+ok   n=2 k=3: falling product over k! is the choose count
+ok   n=3 k=0: falling product over k! is the choose count
+ok   n=3 k=3: falling product over k! is the choose count
+ok   n=3 k=4: falling product over k! is the choose count
+ok   n=4 k=0: falling product over k! is the choose count
+ok   n=4 k=4: falling product over k! is the choose count
+ok   n=4 k=5: falling product over k! is the choose count
+ok   n=5 k=0: falling product over k! is the choose count
+ok   n=5 k=5: falling product over k! is the choose count
+ok   n=5 k=6: falling product over k! is the choose count
+ok   n=8 k=0: falling product over k! is the choose count
+ok   n=8 k=8: falling product over k! is the choose count
+ok   n=8 k=9: falling product over k! is the choose count
+ok   n=16 k=0: falling product over k! is the choose count
+ok   n=16 k=16: falling product over k! is the choose count
+ok   n=16 k=17: falling product over k! is the choose count
+ok   n=64 k=0: falling product over k! is the choose count
+ok   n=64 k=64: falling product over k! is the choose count
+ok   n=64 k=65: falling product over k! is the choose count
+ok   binom(n,k)/n^k = chain(n,k)/k! for every n and k tried, k up to n+5
+ok   six sixteenths = one half times one times three quarters
+ok   and that product is written in the cue's order
+ok   n=1: asking for n+1 cells makes one factor exactly zero, 1 - n/n
+ok   n=2: asking for n+1 cells makes one factor exactly zero, 1 - n/n
+ok   n=3: asking for n+1 cells makes one factor exactly zero, 1 - n/n
+ok   n=4: asking for n+1 cells makes one factor exactly zero, 1 - n/n
+ok   n=5: asking for n+1 cells makes one factor exactly zero, 1 - n/n
+ok   n=8: asking for n+1 cells makes one factor exactly zero, 1 - n/n
+ok   n=16: asking for n+1 cells makes one factor exactly zero, 1 - n/n
+ok   n=64: asking for n+1 cells makes one factor exactly zero, 1 - n/n
+--- 05_3: the sentence 'until k passes n, each factor lies between zero and one, and after that the chain is zero'
+ok   n=1: every factor j = 0..n lies in [0,1]
+ok   n=1: the factor at j = n+1 is negative, so 'each factor' alone would be false  [-1]
+ok   n=1: every chain past k = n is zero, negative factor or not
+ok   n=1: every whole chain lies in [0,1]
+ok   n=2: every factor j = 0..n lies in [0,1]
+ok   n=2: the factor at j = n+1 is negative, so 'each factor' alone would be false  [-1/2]
+ok   n=2: every chain past k = n is zero, negative factor or not
+ok   n=2: every whole chain lies in [0,1]
+ok   n=3: every factor j = 0..n lies in [0,1]
+ok   n=3: the factor at j = n+1 is negative, so 'each factor' alone would be false  [-1/3]
+ok   n=3: every chain past k = n is zero, negative factor or not
+ok   n=3: every whole chain lies in [0,1]
+ok   n=4: every factor j = 0..n lies in [0,1]
+ok   n=4: the factor at j = n+1 is negative, so 'each factor' alone would be false  [-1/4]
+ok   n=4: every chain past k = n is zero, negative factor or not
+ok   n=4: every whole chain lies in [0,1]
+ok   n=5: every factor j = 0..n lies in [0,1]
+ok   n=5: the factor at j = n+1 is negative, so 'each factor' alone would be false  [-1/5]
+ok   n=5: every chain past k = n is zero, negative factor or not
+ok   n=5: every whole chain lies in [0,1]
+ok   n=8: every factor j = 0..n lies in [0,1]
+ok   n=8: the factor at j = n+1 is negative, so 'each factor' alone would be false  [-1/8]
+ok   n=8: every chain past k = n is zero, negative factor or not
+ok   n=8: every whole chain lies in [0,1]
+ok   n=16: every factor j = 0..n lies in [0,1]
+ok   n=16: the factor at j = n+1 is negative, so 'each factor' alone would be false  [-1/16]
+ok   n=16: every chain past k = n is zero, negative factor or not
+ok   n=16: every whole chain lies in [0,1]
+ok   n=64: every factor j = 0..n lies in [0,1]
+ok   n=64: the factor at j = n+1 is negative, so 'each factor' alone would be false  [-1/64]
+ok   n=64: every chain past k = n is zero, negative factor or not
+ok   n=64: every whole chain lies in [0,1]
+--- 05_3: 'no larger than the series term', at both signs and an edge
+ok   |term| <= |x|^k/k! at every x, n and k tried
+ok   equality happens, so the ceiling cannot be lowered: k = 0 and k = 1, n = 1
+--- 05_2: the warning sum
+ok   4 terms of 1/4 total exactly one
+ok   16 terms of 1/16 total exactly one
+ok   40 terms of 1/40 total exactly one
+ok   100 terms of 1/100 total exactly one
+ok   column three shrinks along the printed counts
+--- 05_3: 'its column k can reach one over k, and those add up without limit'
+ok   column 1 exists only for n >= 1; its largest value is 1/1, at n = 1
+ok   column 3 exists only for n >= 3; its largest value is 1/3, at n = 3
+ok   column 7 exists only for n >= 7; its largest value is 1/7, at n = 7
+ok   each doubling of the harmonic sum adds at least one half: no bound
+  a series ceiling, by contrast, sums to E(|x|): 4.48169
+--- 05_4, 05_5: gaps, tail and head, as the cue's order says
+ok   x=3/2 n=64: distance <= head gaps + series tail  [distance 0.07690, bound 0.07697]
+ok   x=3/2 n=256: distance <= head gaps + series tail  [distance 0.01958, bound 0.01968]
+ok   x=3/2 n=1024: distance <= head gaps + series tail  [distance 0.00492, bound 0.00504]
+ok   x=-3/2 n=64: distance <= head gaps + series tail  [distance 0.00395, bound 0.07697]
+ok   x=-3/2 n=256: distance <= head gaps + series tail  [distance 0.00098, bound 0.01968]
+ok   x=-3/2 n=1024: distance <= head gaps + series tail  [distance 0.00025, bound 0.00504]
+--- 05_4: the first cut is too big for the aim, and the second is not
+ok   tail after 4 is above one hundredth  [0.08325]
+ok   tail after 8 is below one hundredth  [0.00012]
+  n=64: head 0.07685, total 0.07697
+  n=256: head 0.01956, total 0.01968
+  n=1024: head 0.00491, total 0.00504
+ok   at 1024 cells the head plus the tail is below one hundredth  [0.00504]
+ok   at 256 cells this bound is still above the aim: the green row is the last one, on purpose  [0.01968]
+ok   05_6: same bars in absolute value at minus three halves
+ok   05_6: odd terms negative, even terms positive
+--- 05_7: minus three, and every statement about its base
+ok   1 cells: the base is -2
+ok   2 cells: the base is -1/2
+ok   3 cells: the base is 0
+ok   4 cells: the base is 1/4
+ok   one cell gives minus two
+ok   two cells give one quarter
+ok   three cells give exactly zero
+ok   four cells give almost nothing  [0.0039]
+ok   a positive multiplier in every step needs more than three cells
+ok   it does not climb steadily: up to one quarter, then down to zero
+ok   past three cells, the printed values climb
+ok   and they stay below E(-3)
+--- 05_8: the swap, and the walks
+ok   rate 3/2 for time 1: each step multiplies by 1 + (rate)(time)/n
+ok   rate -3 for time 1: each step multiplies by 1 + (rate)(time)/n
+ok   rate 1/2 for time 2: each step multiplies by 1 + (rate)(time)/n
+ok   rate x for time 1 = rate 1 for time x: the same product, step by step
+ok   the drawn walks to minus three use 4 and 16 steps, so neither crosses zero
+ok   x = 1 is one case of the limit, written with its own n; e is not the general formula
+--- 06_2: the test, from coefficients, with the chain rule's sign
+ok   degree 2: d/dx(y E(-x)) = (y' - y) E(-x), coefficient by coefficient below order 11
+ok   degree 3: d/dx(y E(-x)) = (y' - y) E(-x), coefficient by coefficient below order 11
+ok   degree 4: d/dx(y E(-x)) = (y' - y) E(-x), coefficient by coefficient below order 11
+ok   degree 7: d/dx(y E(-x)) = (y' - y) E(-x), coefficient by coefficient below order 11
+ok   d/dx E(-x) = -E(-x), term by term: the chain rule's minus sign
+--- 06_3: the failures
+ok   degree 2: y' - y is exactly -x^2/2, the lost top term
+ok   degree 2: starts at height one
+ok   degree 4: y' - y is exactly -x^4/24, the lost top term
+ok   degree 4: starts at height one
+--- 06_3: 'On these axes, degree four breaks the rule less', tried at its edge
+ok   |x| <= 3/2: x^4/24 < x^2/2, so the claim holds across the panel
+ok   at x^2 = 12 the two defects are equal
+ok   past x^2 = 12, degree four breaks it more, which is why the cue says 'On these axes'
+ok   the panel's edge x = 3/2 is well inside that
+--- 06_4, 06_5: the proof's arithmetic at its premises
+ok   E(x)E(-x) = 1: every Cauchy coefficient above order zero vanishes
+ok   E' = E term by term: k / k! = 1/(k-1)!
+ok   E(0) = 1
+--- 06_7: the gap
+ok   the pieces are separated, and only the near one contains the start
+ok   the two pieces read different constants, 3 and 1, and the rule never joined them
+--- 06_8: the edges of the rate law
+ok   k=1/2: d/dt E(kt) = k E(kt), term by term
+ok   k=0: d/dt E(kt) = k E(kt), term by term
+ok   k=-1/2: d/dt E(kt) = k E(kt), term by term
+ok   k=3: d/dt E(kt) = k E(kt), term by term
+ok   a zero start stays at zero: 0 times E(kt) is 0 for every k
+--- 06_6: the ledger has one direction: what the premises rest on
+  premise E'=E: series term by term, chapter 02
+  premise E(x)E(-x)=1: series product in the grid, chapter 03
+RESULT PASS

@@ -1,0 +1,16 @@
+{
+  "utc": "2026-11-04T05:09:53.885540+00:00",
+  "base_sha256": "0964b994f5183ba9074bad9234edf8d27ee91daf798a1b4c0b516ad8b780a6be",
+  "candidate_sha256": "3c75113418c10ab15833b5b6cac2765f6bc04b14a2cacdb5d698668dfac2899e",
+  "script_sha256": "e5ba1c3e83692e6128aca93591d9f0b27482bd267402bd7b5b493f3428559261",
+  "changed": "11_3 static equations replaced by native three-column moving-card route and reversed-order replay. Sentence anchors corrected to3,4,5 for one,three,two; unchanged narration.",
+  "checks": [
+    "rustfmt parsed/formatted candidate successfully"
+  ],
+  "remaining": [
+    "Compile/test/clippy in guarded lane after active frozen preview ends",
+    "Actual glyph and chapter picture review",
+    "11_2 cycle trace,11_4 inverse/disjoint cycles,11_5 transposition decomposition and11_7 parity mechanism still need stronger visual treatment",
+    "Listening/fine-sync/independent AV/full-film publication not accepted"
+  ]
+}

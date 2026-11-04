@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "updated_on": "2026-10-27",
+  "updated_on": "2026-11-03",
   "work_tracker": ".beads",
   "consumer": "Channel owner and video producers",
   "authority": "Canonical video identity, editorial decisions and publication records. Beads owns task status, assignee and dependencies. Inclusion is not production approval. Historical observations are dated, not fresh verification.",
@@ -68,7 +68,8 @@
           },
           "generation_provenance": "unknown",
           "evidence_refs": [
-            "docs/publish/MANIFEST.md"
+            "docs/publish/MANIFEST.md",
+            "narration_lab/third-wave-20261024/root/elevenlabs-crofton-20261028/caption-repair-publication-receipt01.json"
           ],
           "milestones": [
             {
@@ -157,7 +158,8 @@
           "revision_id": "legacy-C9xOzbLIARg",
           "visibility": "public",
           "evidence_refs": [
-            "docs/publish/MANIFEST.md"
+            "docs/publish/MANIFEST.md",
+            "narration_lab/third-wave-20261024/root/elevenlabs-crofton-20261028/caption-repair-publication-receipt01.json"
           ],
           "evidence_state": "historical_record",
           "recorded_as_of": "2026-10-15"
@@ -255,7 +257,8 @@
           },
           "generation_provenance": "unknown",
           "evidence_refs": [
-            "docs/publish/MANIFEST.md"
+            "docs/publish/MANIFEST.md",
+            "narration_lab/third-wave-20261024/root/elevenlabs-crofton-20261028/caption-repair-publication-receipt01.json"
           ],
           "milestones": [
             {
@@ -386,7 +389,8 @@
           "revision_id": "legacy-KNxRE255i-o",
           "visibility": "public",
           "evidence_refs": [
-            "docs/publish/MANIFEST.md"
+            "docs/publish/MANIFEST.md",
+            "narration_lab/third-wave-20261024/root/elevenlabs-crofton-20261028/caption-repair-publication-receipt01.json"
           ],
           "evidence_state": "historical_record",
           "recorded_as_of": "2026-10-15"
@@ -395,7 +399,7 @@
     },
     {
       "video_id": "raptorq_gf256",
-      "working_title": "The Arithmetic Where 3 \u00d7 7 = 9",
+      "working_title": "The Arithmetic Where 3 × 7 = 9",
       "work_epic": "mx-e-b-qyy",
       "production_approval": "historical_granted",
       "decisions": [
@@ -577,6 +581,36 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "oliver-4k60-20261030",
+          "label": "ElevenLabs Oliver 4K60 replacement",
+          "voice": "oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-raptor-20261028/final-picture01/raptorq_gf256_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "8374923f922eaacca87803bdfa111c0ad817008e0f11fe08155e786f856de7af"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "104 complete Oliver recordings via ElevenLabs UI; 4K60 master, 332 timed captions and 17 native score QA passes. Original and repaired variants preserved.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-raptor-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-raptor-20261028/final-picture01-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-raptor-20261028/final-picture01-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-30",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-raptor-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions; original unlisted. Continuous listening, fine synchronization and independent audiovisual acceptance remain open."
         }
       ],
       "publications": [
@@ -597,12 +631,25 @@
           "external_id": "uWDPs9JIwEk",
           "url": "https://www.youtube.com/watch?v=uWDPs9JIwEk",
           "revision_id": "legacy-uWDPs9JIwEk",
-          "visibility": "public",
+          "visibility": "unlisted",
           "evidence_refs": [
-            "docs/publish/MANIFEST.md"
+            "docs/publish/MANIFEST.md",
+            "narration_lab/third-wave-20261024/root/elevenlabs-raptor-20261028/publication-receipt01.json"
           ],
-          "evidence_state": "historical_record",
-          "recorded_as_of": "2026-10-15"
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-10-30"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "zkAx4TmfFKk",
+          "url": "https://youtu.be/zkAx4TmfFKk",
+          "revision_id": "oliver-4k60-20261030",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-30",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-raptor-20261028/publication-receipt01.json"
+          ]
         }
       ]
     },
@@ -764,6 +811,36 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "oliver-4k60-20261030",
+          "label": "The Algorithm Lamport Is Proudest Of",
+          "voice": "Oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-bakery-20261028/final-picture02/bakery_algorithm_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "194dbe03f944a560da5f4647a67d3a3ff4992ed33f5677dc94ba8234da7b74f2"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "85 complete Oliver recordings via ElevenLabs UI; 4K60 master, 252 timed captions and 13 native score QA passes.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-bakery-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-bakery-20261028/final-picture02-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-bakery-20261028/final-picture02-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-30",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-bakery-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions. Listening, fine synchronization, independent audiovisual acceptance and conflicting 07_4 recognition remain open."
         }
       ],
       "publications": [
@@ -784,12 +861,25 @@
           "external_id": "eXU6NC2fuCw",
           "url": "https://www.youtube.com/watch?v=eXU6NC2fuCw",
           "revision_id": "legacy-eXU6NC2fuCw",
-          "visibility": "public",
+          "visibility": "unlisted",
           "evidence_refs": [
-            "docs/publish/MANIFEST.md"
+            "docs/publish/MANIFEST.md",
+            "narration_lab/third-wave-20261024/root/elevenlabs-bakery-20261028/publication-receipt01.json"
           ],
-          "evidence_state": "historical_record",
-          "recorded_as_of": "2026-10-15"
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-10-30"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "impIs5kyzQM",
+          "url": "https://youtu.be/impIs5kyzQM",
+          "revision_id": "oliver-4k60-20261030",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-30",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-bakery-20261028/publication-receipt01.json"
+          ]
         }
       ]
     },
@@ -1091,6 +1181,36 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "oliver-4k60-20261030",
+          "label": "ElevenLabs Oliver 4K60 replacement",
+          "voice": "oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-robot-20261028/final-picture01/lie_robotics_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "8cdadcb52b202519c876899302051f34c34011e53da28a9fda2384540e1e30fe"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "83 complete Oliver recordings via ElevenLabs UI; 4K60 master, 271 timed captions and 15 native score QA passes; chapter 08 joint labels repaired after sampled picture review.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-robot-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-robot-20261028/final-picture01-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-robot-20261028/final-picture01-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-30",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-robot-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions; original unlisted. Continuous listening, fine synchronization and independent audiovisual acceptance remain open."
         }
       ],
       "publications": [
@@ -1099,12 +1219,25 @@
           "external_id": "G9P5aDGMAGU",
           "url": "https://www.youtube.com/watch?v=G9P5aDGMAGU",
           "revision_id": "legacy-G9P5aDGMAGU",
-          "visibility": "public",
+          "visibility": "unlisted",
           "evidence_refs": [
-            "docs/publish/MANIFEST.md"
+            "docs/publish/MANIFEST.md",
+            "narration_lab/third-wave-20261024/root/elevenlabs-robot-20261028/publication-receipt01.json"
           ],
-          "evidence_state": "historical_record",
-          "recorded_as_of": "2026-10-15"
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-10-30"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "vbdMILhyrRs",
+          "url": "https://youtu.be/vbdMILhyrRs",
+          "revision_id": "oliver-4k60-20261030",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-30",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-robot-20261028/publication-receipt01.json"
+          ]
         }
       ]
     },
@@ -1484,6 +1617,36 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "oliver-4k60-20261030",
+          "label": "The One Idea Behind Bridges, Concert Halls and Economies",
+          "voice": "Oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-eigen-20261028/final01/eigen_engineering_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "f07856c1931cd20472931cd6a5599b33e7d80cf1bbe149180c7e26ccadc7db0a"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "83 complete Oliver recordings via ElevenLabs UI; native 4K60 master and 223 timed captions.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-eigen-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-eigen-20261028/final01-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-eigen-20261028/final01-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-30",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-eigen-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions. Continuous listening and fine synchronization remain open."
         }
       ],
       "publications": [
@@ -1492,19 +1655,32 @@
           "external_id": "tBfbz7qU4hU",
           "url": "https://www.youtube.com/watch?v=tBfbz7qU4hU",
           "revision_id": "legacy-tBfbz7qU4hU",
+          "visibility": "unlisted",
+          "evidence_refs": [
+            "docs/publish/MANIFEST.md",
+            "narration_lab/third-wave-20261024/root/elevenlabs-eigen-20261028/publication-receipt01.json"
+          ],
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-10-30"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "-cO79mCkuaw",
+          "url": "https://youtu.be/-cO79mCkuaw",
+          "revision_id": "oliver-4k60-20261030",
           "visibility": "public",
           "evidence_refs": [
-            "docs/publish/MANIFEST.md"
+            "narration_lab/third-wave-20261024/root/elevenlabs-eigen-20261028/publication-receipt01.json"
           ],
-          "evidence_state": "historical_record",
-          "recorded_as_of": "2026-10-15"
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-10-30"
         }
       ]
     },
     {
       "video_id": "square_packing",
       "working_title": "Why turning a square can make the whole box smaller",
-      "pitch": "Five unit squares; construct a side `2 + \u221a2/2` container, distinguish a feasible construction from a lower bound, then explain why local motion and global optimality differ. Contacts and forbidden regions, not a gallery of records.",
+      "pitch": "Five unit squares; construct a side `2 + √2/2` container, distinguish a feasible construction from a lower bound, then explain why local motion and global optimality differ. Contacts and forbidden regions, not a gallery of records.",
       "work_epic": "mx-video-program-program-87do.5",
       "production_approval": "explicit_current_grant",
       "decisions": [
@@ -1725,6 +1901,36 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "oliver-4k60-20261029",
+          "label": "Why Turning a Square Can Make the Whole Box Smaller",
+          "voice": "Oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-square-packing-20261028/final01/square_packing_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "0fafbbc337a1782fe61f83fa602c4e4aca93b9e23e59f5e69245f03d25c1b3fe"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "63 complete Oliver recordings via ElevenLabs UI; native 4K60 master and 140 timed captions.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-square-packing-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-square-packing-20261028/final01-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-square-packing-20261028/final01-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-29",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-square-packing-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions. Continuous listening and fine synchronization remain open."
         }
       ],
       "publications": [
@@ -1748,14 +1954,27 @@
           "external_id": "UZ4Eqb9atgE",
           "url": "https://www.youtube.com/watch?v=UZ4Eqb9atgE",
           "revision_id": "measured-native-4k60-20261019",
-          "visibility": "public",
-          "recorded_as_of": "2026-10-19",
+          "visibility": "unlisted",
+          "recorded_as_of": "2026-10-29",
           "evidence_state": "pass",
           "evidence_refs": [
             "https://www.youtube.com/watch?v=UZ4Eqb9atgE",
             "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/square_packing/publication.json",
-            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/youtube-three-revised-public-20261020.ax.txt"
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/youtube-three-revised-public-20261020.ax.txt",
+            "narration_lab/third-wave-20261024/root/elevenlabs-square-packing-20261028/publication-receipt01.json"
           ]
+        },
+        {
+          "venue": "youtube",
+          "external_id": "2FYcftwZsvg",
+          "url": "https://youtu.be/2FYcftwZsvg",
+          "revision_id": "oliver-4k60-20261029",
+          "visibility": "public",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-square-packing-20261028/publication-receipt01.json"
+          ],
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-10-29"
         }
       ]
     },
@@ -1951,7 +2170,7 @@
             },
             "evidence_state": "fail"
           },
-          "generation_provenance": "Full 3840x2160/60fps H.264 BT.709 scored export: 14893 frames, 248.216667 seconds, 48 kHz stereo AAC and 79 embedded English captions covering 74 sentences. One bounded following-context seed2 repair replaces the truncated chapter01 ending; its target ends at source sample521040 and excludes96480 context samples. The up/Its seam is at129662 after the measured release. All41 selected cues were reconstructed exactly. All four final timelines match the refreshed score inputs, native PCM replay null checks and score QA pass, and layout files are empty. Full software and VideoToolbox hardware decodes pass with zero errors. All decoded frames of unchanged chapters02\u201304 equal the previously reviewed 4K export; root additionally viewed all ten new chapter01 cues, two-second samples, question/reveal and ending samples, and three final-master joins. These are technical and sampled visual observations, not continuous listening. Detailed source mappings are in the cue assembly; empty artifact input lists mean incomplete catalog lineage.",
+          "generation_provenance": "Full 3840x2160/60fps H.264 BT.709 scored export: 14893 frames, 248.216667 seconds, 48 kHz stereo AAC and 79 embedded English captions covering 74 sentences. One bounded following-context seed2 repair replaces the truncated chapter01 ending; its target ends at source sample521040 and excludes96480 context samples. The up/Its seam is at129662 after the measured release. All41 selected cues were reconstructed exactly. All four final timelines match the refreshed score inputs, native PCM replay null checks and score QA pass, and layout files are empty. Full software and VideoToolbox hardware decodes pass with zero errors. All decoded frames of unchanged chapters02–04 equal the previously reviewed 4K export; root additionally viewed all ten new chapter01 cues, two-second samples, question/reveal and ending samples, and three final-master joins. These are technical and sampled visual observations, not continuous listening. Detailed source mappings are in the cue assembly; empty artifact input lists mean incomplete catalog lineage.",
           "evidence_refs": [
             "mx-video-program-program-87do.6.7",
             "mx-video-program-program-87do.2.11",
@@ -2001,7 +2220,7 @@
             "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/golay_echoes/chapters.json",
             "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/golay_echoes/publication.json"
           ],
-          "disposition": "Published with the owner's explicit 2026-10-19 instruction to render the revised cuts at full resolution and replace the YouTube uploads. Independent resolution-delta review passed (Agent Mail 4492). YouTube 2160p60 and uploaded English captions verified. Publication authority is recorded separately from audio acceptance: no naturalness, accent, pronunciation or listening verdict is inferred. Earlier rejected uploads remain private and every prior cut is preserved. The master evidence_state remains unknown for full perceptual acceptance; technical checks passed.",
+          "disposition": "Published with the owner's explicit 2026-10-19 instruction to render the revised cuts at full resolution and replace the YouTube uploads. Independent resolution-delta review passed (Agent Mail 4492). YouTube 2160p60 and uploaded English captions verified. Publication authority is recorded separately from audio acceptance: no naturalness, accent, pronunciation or listening verdict is inferred. Earlier rejected uploads remain private and every prior cut is preserved. The master evidence_state remains unknown for full perceptual acceptance; technical checks passed. Unlisted on 2026-10-29 after the Oliver replacement was published and verified.",
           "milestones": [
             {
               "stage": "master_recorded",
@@ -2021,6 +2240,36 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "oliver-4k60-20261029",
+          "label": "Two Bad Echoes Can Make One Perfect Measurement",
+          "voice": "Oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-golay-20261028/final01/golay_echoes_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "54f50e08f70abe654c5f854d399158a9dae6fb4394b78199ee2dc6531c7f977d"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "41 complete Oliver recordings through ElevenLabs UI retained without time stretching; native 4K60 master and 82 timed captions.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-golay-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-golay-20261028/final01-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-golay-20261028/viewed-pictures02.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-29",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-golay-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement, 2160p60 and uploaded English captions verified. Continuous listening and fine synchronization remain unaccepted."
         }
       ],
       "publications": [
@@ -2044,14 +2293,27 @@
           "external_id": "6LdOikGUhj4",
           "url": "https://www.youtube.com/watch?v=6LdOikGUhj4",
           "revision_id": "measured-native-4k60-20261019",
-          "visibility": "public",
-          "recorded_as_of": "2026-10-19",
+          "visibility": "unlisted",
+          "recorded_as_of": "2026-10-29",
           "evidence_state": "pass",
           "evidence_refs": [
             "https://www.youtube.com/watch?v=6LdOikGUhj4",
             "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/golay_echoes/publication.json",
-            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/youtube-three-revised-public-20261020.ax.txt"
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/youtube-three-revised-public-20261020.ax.txt",
+            "narration_lab/third-wave-20261024/root/elevenlabs-golay-20261028/publication-receipt01.json"
           ]
+        },
+        {
+          "venue": "youtube",
+          "external_id": "EG9QGuo1IB8",
+          "url": "https://youtu.be/EG9QGuo1IB8",
+          "revision_id": "oliver-4k60-20261029",
+          "visibility": "public",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-golay-20261028/publication-receipt01.json"
+          ],
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-10-29"
         }
       ]
     },
@@ -2225,7 +2487,7 @@
             "narration_lab/production-20261018/independent-opus-review-20261019/final4k-p_values_medical",
             "narration_lab/production-20261019/measured-redo-central/final4k-20261019/p_values_medical/native/fuchsia-review-pane-20261020.txt"
           ],
-          "disposition": "Published under the owner's explicit full-resolution replacement instruction. FuchsiaHawk completed independent visual checks of the actual native 4K output: sampled frame comparisons, dense text, card holds, all six rings, five joins and ending; no visual defect reported. Weekly quota interrupted the final package check and overall verdict, and TanElm handoff4499 was also quota-limited. Root completed the package check against exact revised captions, native chapter times, original thumbnail and saved YouTube metadata. No final independent package verdict is claimed. YouTube Public/Published, 2160p60, English captions and no notices verified. Publication authority is separate from audio acceptance: no naturalness, accent, pronunciation or listening verdict is inferred. Earlier rejected uploads remain private; all cuts are preserved. Master evidence_state remains unknown for full perceptual acceptance; technical checks passed.",
+          "disposition": "Published under the owner's explicit full-resolution replacement instruction. FuchsiaHawk completed independent visual checks of the actual native 4K output: sampled frame comparisons, dense text, card holds, all six rings, five joins and ending; no visual defect reported. Weekly quota interrupted the final package check and overall verdict, and TanElm handoff4499 was also quota-limited. Root completed the package check against exact revised captions, native chapter times, original thumbnail and saved YouTube metadata. No final independent package verdict is claimed. YouTube Public/Published, 2160p60, English captions and no notices verified. Publication authority is separate from audio acceptance: no naturalness, accent, pronunciation or listening verdict is inferred. Earlier rejected uploads remain private; all cuts are preserved. Master evidence_state remains unknown for full perceptual acceptance; technical checks passed. Unlisted on 2026-10-29 after the Oliver replacement was published and verified.",
           "milestones": [
             {
               "stage": "master_recorded",
@@ -2246,6 +2508,36 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "oliver-4k60-20261029",
+          "label": "Why P-Values Confuse Even Doctors",
+          "voice": "Oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-pvalue-20261028/final01/p_values_medical_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "054031faf812442384c17591da20db76f0b8e63e20bd1db05e9124afc1288705"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "56 complete Oliver recordings via ElevenLabs UI; native 4K60 master and 115 timed captions.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-pvalue-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-pvalue-20261028/final01-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-pvalue-20261028/final01-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-29",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-pvalue-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions. Continuous listening and fine synchronization remain open."
         }
       ],
       "publications": [
@@ -2269,15 +2561,28 @@
           "external_id": "KI2CzpbyTUQ",
           "url": "https://www.youtube.com/watch?v=KI2CzpbyTUQ",
           "revision_id": "measured-native-4k60-20261019",
-          "visibility": "public",
-          "recorded_as_of": "2026-10-19",
+          "visibility": "unlisted",
+          "recorded_as_of": "2026-10-29",
           "evidence_state": "pass",
           "evidence_refs": [
             "https://www.youtube.com/watch?v=KI2CzpbyTUQ",
             "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/p_values_medical/upload-private.json",
             "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/p_values_medical/publication.json",
-            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/youtube-three-revised-public-20261020.ax.txt"
+            "narration_lab/production-20261019/measured-redo-central/final4k-20261019/publication/youtube-three-revised-public-20261020.ax.txt",
+            "narration_lab/third-wave-20261024/root/elevenlabs-pvalue-20261028/publication-receipt01.json"
           ]
+        },
+        {
+          "venue": "youtube",
+          "external_id": "lIQnulUOAI8",
+          "url": "https://youtu.be/lIQnulUOAI8",
+          "revision_id": "oliver-4k60-20261029",
+          "visibility": "public",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-pvalue-20261028/publication-receipt01.json"
+          ],
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-10-29"
         }
       ]
     },
@@ -2404,7 +2709,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/randomized_response-expanded-review01.mp4",
@@ -2481,6 +2786,36 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "oliver-4k60-20261030",
+          "label": "How to Learn a Crowd's Secret with Private Coin Flips",
+          "voice": "Oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-randomized-response-20261028/final-picture01/randomized_response_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "e6809fce919b38c78b6e03d5cb0651dfcdc438368824957f7a94274975aa3b7e"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "99 complete Oliver recordings via ElevenLabs UI; 4K60 master, 207 timed captions and 13 native score QA passes; chapter 08 reference line repaired after sampled visual review.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-randomized-response-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-randomized-response-20261028/final-picture01-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-randomized-response-20261028/final-picture01-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-30",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-randomized-response-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions; original unlisted. Recognition 07_3 miss/missed remains provisional. Continuous listening, fine synchronization and independent audiovisual acceptance remain open."
         }
       ],
       "publications": [
@@ -2489,19 +2824,32 @@
           "external_id": "0_w08vCm9DA",
           "url": "https://www.youtube.com/watch?v=0_w08vCm9DA",
           "revision_id": "paced-final-review01-20261023",
-          "visibility": "public",
-          "recorded_as_of": "2026-10-23",
+          "visibility": "unlisted",
+          "recorded_as_of": "2026-10-30",
           "evidence_state": "pass",
           "evidence_refs": [
-            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-randomized-response-20261028/publication-receipt01.json"
+          ]
+        },
+        {
+          "venue": "youtube",
+          "external_id": "vXFqcU8s51E",
+          "url": "https://youtu.be/vXFqcU8s51E",
+          "revision_id": "oliver-4k60-20261030",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-30",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-randomized-response-20261028/publication-receipt01.json"
           ]
         }
       ]
     },
     {
       "video_id": "discrete_tomography",
-      "working_title": "Two shadows can lie\u2014even when every number is right",
-      "pitch": "Binary discrete tomography; identical row/column sums, 2\u00d72 switching components, flow reconstruction, feasibility versus uniqueness.",
+      "working_title": "Two shadows can lie—even when every number is right",
+      "pitch": "Binary discrete tomography; identical row/column sums, 2×2 switching components, flow reconstruction, feasibility versus uniqueness.",
       "work_epic": "mx-video-program-program-87do.9",
       "production_approval": "explicit_current_grant",
       "decisions": [
@@ -2621,7 +2969,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/discrete_tomography-expanded-review01.mp4",
@@ -2698,6 +3046,36 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "oliver-4k60-20261030",
+          "label": "Can You Rebuild a Picture from Its Shadows?",
+          "voice": "Oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-tomography-20261028/final01/discrete_tomography_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "ef8e1998abbc897931e4a0d535e75a101ec25488031c40de15f45dea0c48f8dd"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "92 complete Oliver recordings via ElevenLabs UI; 4K60 master, 207 timed captions, 11 native score QA passes.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-tomography-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-tomography-20261028/final01-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-tomography-20261028/final01-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-30",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-tomography-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions. Continuous listening, fine synchronization and independent audiovisual acceptance remain open."
         }
       ],
       "publications": [
@@ -2706,11 +3084,24 @@
           "external_id": "nNTu_2eUULw",
           "url": "https://www.youtube.com/watch?v=nNTu_2eUULw",
           "revision_id": "paced-final-review01-20261023",
-          "visibility": "public",
-          "recorded_as_of": "2026-10-23",
+          "visibility": "unlisted",
+          "recorded_as_of": "2026-10-30",
           "evidence_state": "pass",
           "evidence_refs": [
-            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-tomography-20261028/publication-receipt01.json"
+          ]
+        },
+        {
+          "venue": "youtube",
+          "external_id": "4UlrpwfBidg",
+          "url": "https://youtu.be/4UlrpwfBidg",
+          "revision_id": "oliver-4k60-20261030",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-30",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-tomography-20261028/publication-receipt01.json"
           ]
         }
       ]
@@ -2742,7 +3133,7 @@
     {
       "video_id": "good_turing",
       "working_title": "How much of the next sample will be something you've never seen?",
-      "pitch": "Good\u2013Turing missing mass from singleton counts; distinguish probability mass from number of unseen species. Animate a frequency-of-frequencies table.",
+      "pitch": "Good–Turing missing mass from singleton counts; distinguish probability mass from number of unseen species. Animate a frequency-of-frequencies table.",
       "work_epic": "mx-video-program-program-87do.11",
       "production_approval": "not_requested",
       "decisions": [
@@ -2790,6 +3181,15 @@
             "docs/video-program/third-wave-20261024/MOR_CASE.md",
             "docs/video-program/third-wave-20261024/SELECTION.md"
           ]
+        },
+        {
+          "on": "2026-10-28",
+          "decision": "published",
+          "by": "owner explicit request and root UI verification",
+          "reason": "Finish and publish the five films; public native 4K60 release, timed English captions and YouTube checks verified.",
+          "source_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/german_tank/publication-receipt.json"
+          ]
         }
       ],
       "source_refs": [
@@ -2797,8 +3197,98 @@
         "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
       ],
       "related_video_ids": [],
-      "revisions": [],
-      "publications": []
+      "revisions": [
+        {
+          "revision_id": "michael-4k60-20261028",
+          "label": "How Much Can Five Serial Numbers Reveal?",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/german_tank/final02/german_tank_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "7bc2350e03209a03ab811b25f551d1348c6696f155f8c0bc6ee4593cf5aa6b88"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "105 complete retained raw speech streams across 155 canonical cue placements; source audio preserved",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/german_tank/publication-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/german_tank/upload-inputs03.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/german_tank/final-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/german_tank/final-pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/german_tank/encoded-audio03.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/german_tank/release-check03.log"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-28",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/german_tank/publication-receipt.json"
+              ]
+            }
+          ],
+          "disposition": "Owner-authorized public release; nominal loudness exception, two layout flags, joins and auditory/continuous audiovisual/independent acceptance limits remain explicit."
+        },
+        {
+          "revision_id": "oliver-4k60-20261030",
+          "label": "ElevenLabs Oliver 4K60 replacement",
+          "voice": "oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-german-20261028/final01/german_tank_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "5c762a55bc160b49e7d9c145aa938fcb65338c81f1bbcd1455a6fc3d521db2dc"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "155 complete Oliver recordings via ElevenLabs UI; 4K60 master, 532 timed captions and 16 native score QA passes. Original takes preserved.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-german-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-german-20261028/final01-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-german-20261028/final01-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-30",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-german-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions; original unlisted. Continuous listening, fine synchronization and independent audiovisual acceptance remain open."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "gWiO0HYfsMM",
+          "url": "https://youtu.be/gWiO0HYfsMM",
+          "revision_id": "michael-4k60-20261028",
+          "visibility": "unlisted",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/german_tank/publication-receipt.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-german-20261028/publication-receipt01.json"
+          ],
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-10-30"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "2Q9Y7p8zCCU",
+          "url": "https://youtu.be/2Q9Y7p8zCCU",
+          "revision_id": "oliver-4k60-20261030",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-30",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-german-20261028/publication-receipt01.json"
+          ]
+        }
+      ]
     },
     {
       "video_id": "inspection_paradox",
@@ -2852,25 +3342,56 @@
               "algorithm": "sha256",
               "value": "ba123b057286003ce833a8e0d61569368dd5f17c7db0686d9552091e28d2a301"
             },
-            "evidence_state": "verified_current"
+            "evidence_state": "unknown"
           },
           "generation_provenance": "Retained complete 71-unit narration plan, 92 cue placements; original takes preserved",
           "evidence_refs": [
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/publication-receipt.json",
             "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/final-technical-verification.json",
-            "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/final-pictures-viewed.json"
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/final-pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/publication-metadata-amendment01.json"
           ],
           "milestones": [
             {
-              "stage": "published",
+              "stage": "uploaded",
               "recorded_as_of": "2026-10-27",
-              "evidence_state": "verified_current",
+              "evidence_state": "pass",
               "evidence_refs": [
                 "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/publication-receipt.json"
               ]
             }
           ],
-          "disposition": "Public release authorized by owner; auditory acceptance limits retained in receipt."
+          "disposition": "Original release retained; unlisted after the Oliver replacement was published. Auditory acceptance limits remain."
+        },
+        {
+          "revision_id": "oliver-4k60-20261028",
+          "label": "Why Your Bus Wait Is Longer Than You Expect",
+          "voice": "Oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-oliver-pilot-20261028/final04/inspection_paradox_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "f3b0d1fcd6b16b4ae9ff6edf01fa451a0337f5b0802321f70aac98dd201d0fe8"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "92 complete Oliver recordings generated through the ElevenLabs UI and retained without trimming or time stretching.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-oliver-pilot-20261028/publication-oliver01/publication-receipt.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-oliver-pilot-20261028/final04-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-oliver-pilot-20261028/final04-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-28",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-oliver-pilot-20261028/publication-oliver01/publication-receipt.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement approved by owner; continuous listening and fine synchronization remain unaccepted."
         }
       ],
       "publications": [
@@ -2879,12 +3400,26 @@
           "external_id": "ELxgByPW13s",
           "url": "https://youtu.be/ELxgByPW13s",
           "revision_id": "michael-4k60-20261027",
+          "visibility": "unlisted",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/publication-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/publication-metadata-amendment01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-oliver-pilot-20261028/publication-oliver01/publication-receipt.json"
+          ],
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-10-28"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "a1Bp0_CLDx8",
+          "url": "https://youtu.be/a1Bp0_CLDx8",
+          "revision_id": "oliver-4k60-20261028",
           "visibility": "public",
           "evidence_refs": [
-            "narration_lab/third-wave-20261024/root/five-film-release-20261027/inspection_paradox/publication-receipt.json"
+            "narration_lab/third-wave-20261024/root/elevenlabs-oliver-pilot-20261028/publication-oliver01/publication-receipt.json"
           ],
-          "evidence_state": "verified_current",
-          "recorded_as_of": "2026-10-27"
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-10-28"
         }
       ]
     },
@@ -2938,14 +3473,115 @@
             "docs/video-program/third-wave-20261024/MOR_CASE.md",
             "docs/video-program/third-wave-20261024/SELECTION.md"
           ]
+        },
+        {
+          "on": "2026-10-28",
+          "decision": "published",
+          "by": "owner explicit request and root UI verification",
+          "reason": "Finish and publish the five films; public native 4K60 release, timed English captions and YouTube checks verified.",
+          "source_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/publication-receipt.json"
+          ]
         }
       ],
       "source_refs": [
         "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
       ],
       "related_video_ids": [],
-      "revisions": [],
-      "publications": []
+      "revisions": [
+        {
+          "revision_id": "michael-4k60-20261028",
+          "label": "How Two Losing Games Can Win",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/final02/parrondo_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "bae23549cea7eb3c8c9a44b8c700e44f00d302ff56e89b892b983084211f0770"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "128 complete unchanged retained raw speech streams across169 canonical cue placements; source audio preserved",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/publication-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/upload-inputs03.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/final-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/final-pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/encoded-audio03.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/release-check03.log",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/publication-metadata-amendment01.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-28",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/publication-receipt.json"
+              ]
+            }
+          ],
+          "disposition": "Owner-authorized public release; nominal loudness exception, joins and auditory/continuousAV/independent acceptance limits remain explicit."
+        },
+        {
+          "revision_id": "oliver-4k60-20261030",
+          "label": "ElevenLabs Oliver 4K60 replacement",
+          "voice": "oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-parrondo-20261028/final02/parrondo_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "00756f624030d46e4162559e2d2910e57bd45e42cbe854e2e523be386522f0e6"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "169 complete Oliver recordings via ElevenLabs UI; 4K60 master, 587 timed captions and 18 native score QA passes. Original takes preserved.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-parrondo-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-parrondo-20261028/final02-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-parrondo-20261028/final02-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-30",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-parrondo-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions; original unlisted. Continuous listening, fine synchronization and independent audiovisual acceptance remain open."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "oW5XXB0zk-c",
+          "url": "https://youtu.be/oW5XXB0zk-c",
+          "revision_id": "michael-4k60-20261028",
+          "visibility": "unlisted",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/publication-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/parrondo/publication-metadata-amendment01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-parrondo-20261028/publication-receipt01.json"
+          ],
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-10-30"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "JdQn0Mwk_yA",
+          "url": "https://youtu.be/JdQn0Mwk_yA",
+          "revision_id": "oliver-4k60-20261030",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-30",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-parrondo-20261028/publication-receipt01.json"
+          ]
+        }
+      ]
     },
     {
       "video_id": "braess",
@@ -3109,7 +3745,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/resistor_random_walk-expanded-review01.mp4",
@@ -3187,6 +3823,36 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "oliver-4k60-20261030",
+          "label": "Why a Random Walk Knows the Voltage",
+          "voice": "Oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-resistor-20261028/final01/resistor_random_walk_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "d426083147a9f785d82e3262904b2982ddfbb6db29727e91a1c77f83f1835373"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "81 complete Oliver recordings via ElevenLabs UI; 4K60 master, 191 timed captions and 11 native score QA passes.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-resistor-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-resistor-20261028/final01-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-resistor-20261028/final01-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-30",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-resistor-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions. Continuous listening, fine synchronization and independent audiovisual acceptance remain open."
         }
       ],
       "publications": [
@@ -3195,11 +3861,24 @@
           "external_id": "dy08JbIQ2GI",
           "url": "https://www.youtube.com/watch?v=dy08JbIQ2GI",
           "revision_id": "paced-final-4k60-20261024",
-          "visibility": "public",
-          "recorded_as_of": "2026-10-24",
+          "visibility": "unlisted",
+          "recorded_as_of": "2026-10-30",
           "evidence_state": "pass",
           "evidence_refs": [
-            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-remaining-publication01/resistor_random_walk/publication-receipt131.json"
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-remaining-publication01/resistor_random_walk/publication-receipt131.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-resistor-20261028/publication-receipt01.json"
+          ]
+        },
+        {
+          "venue": "youtube",
+          "external_id": "A0Nu7LhJYlw",
+          "url": "https://youtu.be/A0Nu7LhJYlw",
+          "revision_id": "oliver-4k60-20261030",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-30",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-resistor-20261028/publication-receipt01.json"
           ]
         }
       ]
@@ -3222,9 +3901,12 @@
         }
       ],
       "source_refs": [
-        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
+        "docs/video-program/research-20261016/evidence/rotor-router-brief-20261031.md"
       ],
-      "related_video_ids": [],
+      "related_video_ids": [
+        "resistor_random_walk"
+      ],
       "revisions": [],
       "publications": []
     },
@@ -3255,7 +3937,7 @@
     {
       "video_id": "maxwell_cremona",
       "working_title": "The second drawing that tells you whether a structure can hold itself up",
-      "pitch": "Maxwell\u2013Cremona reciprocal diagrams: equilibrium force polygons, a dual graph, and a lifted surface.",
+      "pitch": "Maxwell–Cremona reciprocal diagrams: equilibrium force polygons, a dual graph, and a lifted surface.",
       "work_epic": "mx-video-program-program-87do.21",
       "production_approval": "not_requested",
       "decisions": [
@@ -3279,7 +3961,7 @@
     {
       "video_id": "crofton",
       "working_title": "Measure a curve by throwing lines at it",
-      "pitch": "Cauchy\u2013Crofton through projection and intersection counts; define the distribution of lines before averaging.",
+      "pitch": "Cauchy–Crofton through projection and intersection counts; define the distribution of lines before averaging.",
       "work_epic": "mx-video-program-program-87do.22",
       "production_approval": "explicit_current_grant",
       "decisions": [
@@ -3287,7 +3969,7 @@
           "on": "2026-10-16",
           "decision": "inbox",
           "by": "planning intake; owner response where stated",
-          "reason": "Reserve. A satisfying exact theorem; generic \u201crandom needles find \u03c0\u201d would be too familiar.",
+          "reason": "Reserve. A satisfying exact theorem; generic “random needles find π” would be too familiar.",
           "source_refs": [
             "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
           ]
@@ -3302,14 +3984,116 @@
             "docs/video-program/third-wave-20261024/MOR_CASE.md",
             "docs/video-program/third-wave-20261024/SELECTION.md"
           ]
+        },
+        {
+          "on": "2026-10-28",
+          "decision": "published",
+          "by": "owner explicit request and root UI verification",
+          "reason": "Owner-authorized public 4K60 release with timed English captions; auditory and independent acceptance remain separate.",
+          "source_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/crofton/publication-receipt.json"
+          ]
         }
       ],
       "source_refs": [
         "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
       ],
       "related_video_ids": [],
-      "revisions": [],
-      "publications": []
+      "revisions": [
+        {
+          "revision_id": "michael-4k60-20261028",
+          "label": "Measure a Curve Without Following It",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/crofton/final02/crofton_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "e96023f2f2db921cce2d981f7c08ef4f3083ba0d3e88ec8e61bebe4e88a5a791"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "222 complete retained raw speech streams across 277 canonical cue placements; source audio preserved",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/crofton/publication-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/crofton/upload-inputs03.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/crofton/final-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/crofton/final-pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/crofton/repair-final-pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/crofton/layout-final-pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/crofton/encoded-audio03.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/crofton/release-check03.log",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/crofton/publication-timecode-amendment01/verification.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-28",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/crofton/publication-receipt.json"
+              ]
+            }
+          ],
+          "disposition": "Owner-authorized public release. 219 unique selected final frames viewed; 48 native layout flags retained with observations. Nominal loudness exception, fast captions, joins, listening and independent acceptance limits remain explicit."
+        },
+        {
+          "revision_id": "oliver-4k60-20261031",
+          "label": "ElevenLabs Oliver 4K60 replacement",
+          "voice": "oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-crofton-20261028/final-picture01/crofton_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "823da7e4ef8364482146531fbab1e185e3c0faecf20d756acfa6663559159ab0"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "277 complete Oliver recordings retained; 4K60 master, 1247 timed captions and 28 native score QA passes. Original takes preserved.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-crofton-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-crofton-20261028/final-picture01-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-crofton-20261028/final-picture01-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-31",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-crofton-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions; original unlisted. Continuous listening, fine synchronization and independent audiovisual acceptance remain open."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "aSIuUuLVJkc",
+          "url": "https://youtu.be/aSIuUuLVJkc",
+          "revision_id": "michael-4k60-20261028",
+          "visibility": "unlisted",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/crofton/publication-receipt.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-crofton-20261028/publication-receipt01.json"
+          ],
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-10-31"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "PPkIXy3yBIg",
+          "url": "https://youtu.be/PPkIXy3yBIg",
+          "revision_id": "oliver-4k60-20261031",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-31",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-crofton-20261028/publication-receipt01.json"
+          ]
+        }
+      ]
     },
     {
       "video_id": "freivalds",
@@ -3434,7 +4218,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/freivalds-expanded-review01.mp4",
@@ -3511,6 +4295,36 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "oliver-4k60-repaired-20261030",
+          "label": "How to Check a Billion Multiplications with a Million",
+          "voice": "Oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-freivalds-20261028/final02/freivalds_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "e3f28424fabb4ec5d164bb225f2b4d0029574e189c41a97412c1b1f415bf2582"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "87 complete Oliver recordings via ElevenLabs UI; corrected 4K60 master, 202 timed captions, 11 native score QA passes.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-freivalds-20261028/publication-receipt02.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-freivalds-20261028/final02-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-freivalds-20261028/final02-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-30",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-freivalds-20261028/publication-receipt02.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions. Continuous listening and fine synchronization remain open."
         }
       ],
       "publications": [
@@ -3519,11 +4333,24 @@
           "external_id": "2IXHk72Reb0",
           "url": "https://www.youtube.com/watch?v=2IXHk72Reb0",
           "revision_id": "paced-final-review01-20261023",
-          "visibility": "public",
-          "recorded_as_of": "2026-10-23",
+          "visibility": "unlisted",
+          "recorded_as_of": "2026-10-30",
           "evidence_state": "pass",
           "evidence_refs": [
-            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json"
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-publication01/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-freivalds-20261028/publication-receipt02.json"
+          ]
+        },
+        {
+          "venue": "youtube",
+          "external_id": "-0u-7-noYbI",
+          "url": "https://youtu.be/-0u-7-noYbI",
+          "revision_id": "oliver-4k60-repaired-20261030",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-30",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-freivalds-20261028/publication-receipt02.json"
           ]
         }
       ]
@@ -3631,7 +4458,7 @@
     {
       "video_id": "steiner_tree",
       "working_title": "Why the shortest connecting network adds a point nobody asked for",
-      "pitch": "Steiner trees; derive the 120\u00b0 junction by local length variation, then show topology choices and local/global distinction.",
+      "pitch": "Steiner trees; derive the 120° junction by local length variation, then show topology choices and local/global distinction.",
       "work_epic": "mx-video-program-program-87do.28",
       "production_approval": "not_requested",
       "decisions": [
@@ -3654,7 +4481,7 @@
     },
     {
       "video_id": "stable_matching",
-      "working_title": "The matching that is stable\u2014and still rewards someone for lying",
+      "working_title": "The matching that is stable—and still rewards someone for lying",
       "pitch": "Deferred acceptance, stability, proposer advantage, and a concrete manipulation example under stated roles.",
       "work_epic": "mx-video-program-program-87do.29",
       "production_approval": "not_requested",
@@ -3681,7 +4508,7 @@
       "working_title": "How adding a seat can make a state lose one",
       "pitch": "Apportionment: a fully worked Alabama paradox, quotas versus divisor methods, and precisely stated incompatible fairness requirements.",
       "work_epic": "mx-video-program-program-87do.30",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-16",
@@ -3691,14 +4518,68 @@
           "source_refs": [
             "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
           ]
+        },
+        {
+          "on": "2026-11-03",
+          "decision": "selected",
+          "by": "owner request",
+          "reason": "The owner directed production of all newly discussed videos and authorized production work. The video is in progress; this does not imply publication or independent acceptance.",
+          "source_refs": [
+            "docs/video-program/third-wave-20261024/TODO.md"
+          ]
         }
       ],
       "source_refs": [
-        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md"
+        "docs/video-program/research-20261016/WIZARD_IDEAS_CODEX.md",
+        "docs/video-program/research-20261016/evidence/apportionment-brief-20261031.md"
       ],
       "related_video_ids": [],
-      "revisions": [],
-      "publications": []
+      "revisions": [
+        {
+          "revision_id": "oliver-4k60-20261103",
+          "label": "When Adding a Seat Makes One Disappear",
+          "voice": "oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-render-work01/apportionment_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "5f5298e22ac5da6bba2e743a953c84216d3636e7825a99e6160c7005132676d0"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "ElevenLabs Oliver narration, native 4K60 master and manually uploaded timed English captions; original takes retained.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-apportionment-20261103/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-apportionment-20261103/final-pictures-viewed01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/apportionment-final-verify01/verification.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-11-03",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-apportionment-20261103/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public and watch-verified 2160p60 with uploaded English; continuous listening, fine sync and independent human review remain open."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "lXODB3infLI",
+          "url": "https://youtu.be/lXODB3infLI",
+          "revision_id": "oliver-4k60-20261103",
+          "visibility": "public",
+          "recorded_as_of": "2026-11-03",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-apportionment-20261103/publication-receipt01.json"
+          ]
+        }
+      ]
     },
     {
       "video_id": "necklace_splitting",
@@ -3823,6 +4704,208 @@
       "publications": []
     },
     {
+      "video_id": "exponential_magic",
+      "working_title": "The Magic of the Exponential",
+      "pitch": "An introductory visual explanation of exponentials, their equivalent definitions, rate laws, applications and the logarithmic scales behind slide rules.",
+      "work_epic": "mx-video-program-program-87do.62",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-11-01",
+          "decision": "selected",
+          "by": "owner request",
+          "reason": "The owner requested an introductory exponential video and a sister logarithm video; script and production remain in progress, and publication is not implied.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/exponential-logarithm-sister-videos-20261101.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/evidence/exponential-logarithm-sister-videos-20261101.md",
+        "https://postalmuseum.si.edu/object-group/slide-rules/linear-slide-rules",
+        "https://dlmf.nist.gov/4.2"
+      ],
+      "related_video_ids": [
+        "logarithm_mysteries",
+        "matrix_exponential"
+      ],
+      "revisions": [],
+      "publications": []
+    },
+    {
+      "video_id": "logarithm_mysteries",
+      "working_title": "The Mysteries of the Logarithm",
+      "pitch": "A sister video tracing the inverse of the exponential from positive real numbers through complex branches and into matrix logarithms.",
+      "work_epic": "mx-video-program-program-87do.63",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-11-01",
+          "decision": "selected",
+          "by": "owner request",
+          "reason": "The owner requested a sister video on logarithms, inverse exponentials, complex domains and higher-dimensional extensions; script and production remain in progress, and publication is not implied.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/exponential-logarithm-sister-videos-20261101.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/evidence/exponential-logarithm-sister-videos-20261101.md",
+        "https://dlmf.nist.gov/4.2",
+        "https://nhigham.com/2020/11/17/what-is-the-matrix-logarithm/"
+      ],
+      "related_video_ids": [
+        "exponential_magic",
+        "matrix_exponential"
+      ],
+      "revisions": [
+        {
+          "revision_id": "oliver-4k60-20261103",
+          "label": "Why Logarithms Need Branch Cuts",
+          "voice": "oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-machine-render-work01/logarithm_mysteries_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "54d172424e9c614b16fd761952858baa4ed0c8c939aad590ad34f54040dbba84"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "14 retained ElevenLabs Oliver cue recordings, native 4K60 master, 64 timed captions; original takes preserved.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/publication-receipt03.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-machine-verify01/verification.json",
+            "narration_lab/third-wave-20261024/root/six-machine-screened-production-20261103/logarithm-machine-pictures-viewed01.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-11-03",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/publication-receipt03.json"
+              ]
+            }
+          ],
+          "disposition": "Public and watch-verified 2160p60 with uploaded English; opening caption placement cleared in sampled player frames. ASR disagreement, continuous listening, fine sync and independent human review remain open."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "kyVVPo958Iw",
+          "url": "https://youtu.be/kyVVPo958Iw",
+          "revision_id": "oliver-4k60-20261103",
+          "visibility": "public",
+          "recorded_as_of": "2026-11-03",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-20261102/publication-receipt03.json"
+          ]
+        }
+      ]
+    },
+    {
+      "video_id": "abstract_algebra_visual",
+      "working_title": "The Hidden Algebra of a Square",
+      "pitch": "An intuitive visual introduction to groups, centralizers, equivalence classes, cosets and quotient groups, using square symmetries as a continuing example.",
+      "work_epic": "mx-video-program-program-87do.64",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-11-01",
+          "decision": "selected",
+          "by": "owner request",
+          "reason": "The owner requested a visual introduction inspired by the early chapters of Joseph Gallian's book; development is underway and publication is not implied.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/abstract-algebra-visual-story-20261101.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/evidence/abstract-algebra-visual-story-20261101.md",
+        "https://prod.cengageasia.com/title/default/detail?isbn=9781305657960"
+      ],
+      "related_video_ids": [
+        "lie_robotics"
+      ],
+      "revisions": [
+        {
+          "revision_id": "oliver-4k60-20261103",
+          "label": "Abstract Algebra Made Visual: From Symmetry to Quotient Groups",
+          "voice": "oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/abstract-machine-render-work01/abstract_algebra_visual_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "9c5272ae652a116ea4eeb16554887e26b013653d512d1a8877b97fa1b098c658"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "ElevenLabs Oliver narration, native 4K60 master and manually uploaded timed English captions; retained takes preserved.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/abstract-machine-verify01/verification.json",
+            "narration_lab/third-wave-20261024/root/six-machine-screened-production-20261103/abstract-final-pictures-viewed01.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-11-03",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public and watch-verified 2160p60 with uploaded English; continuous listening, fine sync and independent human review remain open."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "XNxUIk1UsIQ",
+          "url": "https://youtu.be/XNxUIk1UsIQ",
+          "revision_id": "oliver-4k60-20261103",
+          "visibility": "public",
+          "recorded_as_of": "2026-11-03",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-abstract-algebra-20261101/publication-receipt01.json"
+          ]
+        }
+      ]
+    },
+    {
+      "video_id": "five_math_paradoxes",
+      "working_title": "Five Math Paradoxes That Make Sense Once You See Them",
+      "pitch": "A requested five-part video using explicit assumptions and visual explanations for classic paradoxes of chance, averages, motion and infinity. The lineup is a working editorial selection and the teaching distinction needs further testing.",
+      "work_epic": "mx-video-program-program-87do.61",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-11-01",
+          "decision": "selected",
+          "by": "owner request; working lineup by author",
+          "reason": "The owner explicitly requested making a clear video about five counterintuitive math paradoxes. This selects the concept, not the unreviewed exact lineup, a finished video or publication.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/five-paradoxes-brief-20261101.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/evidence/five-paradoxes-brief-20261101.md",
+        "https://getinfinityinsights.com/courses/math-that-surprises-you/paradoxes-that-fool-you/"
+      ],
+      "related_video_ids": [
+        "probability_paradoxes",
+        "birthday_hash_collisions",
+        "inspection_paradox"
+      ],
+      "revisions": [],
+      "publications": []
+    },
+    {
       "video_id": "probability_paradoxes",
       "working_title": "Monty Hall, boy/girl and St Petersburg puzzles",
       "pitch": "An intake bundle needing one precise question. Birthday and Benford have their own records. Extensive existing coverage.",
@@ -3898,10 +4981,10 @@
     },
     {
       "video_id": "complex_analysis",
-      "working_title": "Visual complex analysis",
-      "pitch": "Broad intake; argument principle is a separate focused candidate.",
+      "working_title": "The Beautiful Geometry of Complex Functions",
+      "pitch": "A visual journey from complex-plane mappings and holomorphic rigidity to winding, residues, a real integral and analytic continuation.",
       "work_epic": "mx-video-program-program-87do.39",
-      "production_approval": "not_requested",
+      "production_approval": "explicit_current_grant",
       "decisions": [
         {
           "on": "2026-10-16",
@@ -3911,13 +4994,25 @@
           "source_refs": [
             "https://x.com/buzhang923/status/2111155507922931861"
           ]
+        },
+        {
+          "on": "2026-11-01",
+          "decision": "selected",
+          "by": "owner request",
+          "reason": "Owner requested a visual complex-analysis video spanning colorful function examples, holomorphicity, residues, real integration, winding and analytic continuation. Preserve the original intake history; publication and acceptance are separate.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/complex-analysis-visual-story-20261101.md"
+          ]
         }
       ],
       "source_refs": [
-        "https://x.com/buzhang923/status/2111155507922931861"
+        "https://x.com/buzhang923/status/2111155507922931861",
+        "docs/video-program/research-20261016/evidence/complex-analysis-visual-story-20261101.md"
       ],
       "related_video_ids": [
-        "argument_principle"
+        "argument_principle",
+        "exponential_magic",
+        "logarithm_mysteries"
       ],
       "revisions": [],
       "publications": []
@@ -4098,18 +5193,119 @@
             "docs/video-program/third-wave-20261024/MOR_CASE.md",
             "docs/video-program/third-wave-20261024/SELECTION.md"
           ]
+        },
+        {
+          "on": "2026-10-28",
+          "decision": "published",
+          "by": "owner explicit request and root UI verification",
+          "reason": "Owner-authorized public 4K60 release with timed English captions; auditory and independent acceptance remain separate.",
+          "source_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/shamir_secret_sharing/publication-receipt.json"
+          ]
         }
       ],
       "source_refs": [
         "docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md#20-the-future-corpus"
       ],
       "related_video_ids": [],
-      "revisions": [],
-      "publications": []
+      "revisions": [
+        {
+          "revision_id": "michael-4k60-20261028",
+          "label": "How to Share a Secret Among Five People",
+          "voice": "michael",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/shamir_secret_sharing/final02/shamir_secret_sharing_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "d63864185c5b9a4a4b6a6ff4c97715a1447e1c0cd143794f3ac1ae96a866c86e"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "135 complete retained raw speech streams across 172 canonical cue placements; source audio preserved",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/shamir_secret_sharing/publication-receipt.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/shamir_secret_sharing/upload-inputs03.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/shamir_secret_sharing/final-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/shamir_secret_sharing/final-pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/shamir_secret_sharing/repair-final-pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/shamir_secret_sharing/layout-final-pictures-viewed.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/shamir_secret_sharing/encoded-audio03.json",
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/shamir_secret_sharing/release-check03.log"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-28",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/five-film-release-20261027/shamir_secret_sharing/publication-receipt.json"
+              ]
+            }
+          ],
+          "disposition": "Owner-authorized public release. 97 sampled final frames viewed; four authored cut/cancellation flags retained. Nominal loudness exception, fast captions, joins, listening and independent acceptance limits remain explicit."
+        },
+        {
+          "revision_id": "oliver-4k60-20261030",
+          "label": "ElevenLabs Oliver 4K60 replacement",
+          "voice": "oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-shamir-20261028/final01/shamir_secret_sharing_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "ecbb04fb8091151849bdf1e5cbd0c96c32c68adcd09e6124f0308d24feb547a7"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "172 complete Oliver recordings via ElevenLabs UI; 4K60 master, 662 timed captions and 23 native score QA passes. Original takes preserved.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-shamir-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-shamir-20261028/final01-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-shamir-20261028/final01-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-30",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-shamir-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions; original unlisted. Continuous listening, fine synchronization and independent audiovisual acceptance remain open."
+        }
+      ],
+      "publications": [
+        {
+          "venue": "youtube",
+          "external_id": "ACT1taIJfU8",
+          "url": "https://youtu.be/ACT1taIJfU8",
+          "revision_id": "michael-4k60-20261028",
+          "visibility": "unlisted",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/five-film-release-20261027/shamir_secret_sharing/publication-receipt.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-shamir-20261028/publication-receipt01.json"
+          ],
+          "evidence_state": "pass",
+          "recorded_as_of": "2026-10-30"
+        },
+        {
+          "venue": "youtube",
+          "external_id": "XNV_U18Wec0",
+          "url": "https://youtu.be/XNV_U18Wec0",
+          "revision_id": "oliver-4k60-20261030",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-30",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-shamir-20261028/publication-receipt01.json"
+          ]
+        }
+      ]
     },
     {
       "video_id": "reed_solomon_qr",
-      "working_title": "Reed\u2013Solomon and QR codes",
+      "working_title": "Reed–Solomon and QR codes",
       "pitch": "Error correction and an honest code-capacity example.",
       "work_epic": "mx-video-program-program-87do.47",
       "production_approval": "not_requested",
@@ -4325,7 +5521,7 @@
     },
     {
       "video_id": "diffie_hellman",
-      "working_title": "Diffie\u2013Hellman",
+      "working_title": "Diffie–Hellman",
       "pitch": "Public key exchange, hardness assumptions and authentication limits.",
       "work_epic": "mx-video-program-program-87do.56",
       "production_approval": "not_requested",
@@ -4433,7 +5629,7 @@
             },
             "evidence_state": "unknown"
           },
-          "generation_provenance": "Complete native 1920x1080p60 narrated review cut: 53185 frames, 886.416667s, 12 chapters, 256 timed captions covering 233 sentences. Existing Michael-reference route with selected original takes and sample-preserving cue assembly; exact source and narration lineage is in the input and chapter receipts. Every captured chapter soundtrack replayed bit for bit through the native mixer; full master decode passed. Caption text and native timing were verified, with at most 1ms rounding difference. Root viewed actual chapter frames and master opening/join/ending samples. These are sampled visual and technical checks. The catalog does not enumerate the full artifact graph; detailed lineage remains in the pinned receipts. The 12-chapter cut uses 36 seed 2 first takes, all actual EOS, without pickups. Three cue-boundary repairs retain all source samples exactly once. Chapter 12 has a measured six-second reading-hold repair; other 11 rendered chapter files are copied exactly. Native mark-to-answer prediction intervals range 4.55\u20135.05s. 91/108 normalized assembled-cue ASR checks match; 17 recognition ambiguities remain documented.",
+          "generation_provenance": "Complete native 1920x1080p60 narrated review cut: 53185 frames, 886.416667s, 12 chapters, 256 timed captions covering 233 sentences. Existing Michael-reference route with selected original takes and sample-preserving cue assembly; exact source and narration lineage is in the input and chapter receipts. Every captured chapter soundtrack replayed bit for bit through the native mixer; full master decode passed. Caption text and native timing were verified, with at most 1ms rounding difference. Root viewed actual chapter frames and master opening/join/ending samples. These are sampled visual and technical checks. The catalog does not enumerate the full artifact graph; detailed lineage remains in the pinned receipts. The 12-chapter cut uses 36 seed 2 first takes, all actual EOS, without pickups. Three cue-boundary repairs retain all source samples exactly once. Chapter 12 has a measured six-second reading-hold repair; other 11 rendered chapter files are copied exactly. Native mark-to-answer prediction intervals range 4.55–5.05s. 91/108 normalized assembled-cue ASR checks match; 17 recognition ambiguities remain documented.",
           "evidence_refs": [
             "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/review-cut01/verification.json",
             "narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/review-cut01/inputs.json",
@@ -4491,7 +5687,7 @@
         },
         {
           "revision_id": "expanded-review01-20261021",
-          "label": "Complete substantive 10\u201315 minute narrated and scored 1080p60 review cut",
+          "label": "Complete substantive 10–15 minute narrated and scored 1080p60 review cut",
           "voice": "michael",
           "master": {
             "path": "narration_lab/production-20261020/second-wave-central/owner-review/epsilon_delta-expanded-review01.mp4",
@@ -4569,6 +5765,36 @@
               ]
             }
           ]
+        },
+        {
+          "revision_id": "oliver-4k60-20261030",
+          "label": "ElevenLabs Oliver 4K60 replacement",
+          "voice": "oliver",
+          "master": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-epsilon-20261028/final01/epsilon_delta_master.mp4",
+            "digest": {
+              "algorithm": "sha256",
+              "value": "8eda12a5d69d3500e40084a720046a0fdb10bc4f954d0c1ab4ad0c7eb0423016"
+            },
+            "evidence_state": "unknown"
+          },
+          "generation_provenance": "106 complete Oliver recordings via ElevenLabs UI; 4K60 master, 252 timed captions and 12 native score QA passes.",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-epsilon-20261028/publication-receipt01.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-epsilon-20261028/final01-technical-verification.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-epsilon-20261028/final01-pictures-viewed.json"
+          ],
+          "milestones": [
+            {
+              "stage": "uploaded",
+              "recorded_as_of": "2026-10-30",
+              "evidence_state": "pass",
+              "evidence_refs": [
+                "narration_lab/third-wave-20261024/root/elevenlabs-epsilon-20261028/publication-receipt01.json"
+              ]
+            }
+          ],
+          "disposition": "Public replacement verified 2160p60 and uploaded English captions; original unlisted. Continuous listening, fine synchronization and independent audiovisual acceptance remain open; 11_6 and 10_1 recognition mismatches unresolved."
         }
       ],
       "publications": [
@@ -4577,14 +5803,66 @@
           "external_id": "ctVHmGixNr4",
           "url": "https://www.youtube.com/watch?v=ctVHmGixNr4",
           "revision_id": "paced-final-4k60-20261024",
-          "visibility": "public",
-          "recorded_as_of": "2026-10-24",
+          "visibility": "unlisted",
+          "recorded_as_of": "2026-10-30",
           "evidence_state": "pass",
           "evidence_refs": [
-            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-remaining-publication01/epsilon_delta/publication-receipt131.json"
+            "narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/paced-review-02/youtube-remaining-publication01/epsilon_delta/publication-receipt131.json",
+            "narration_lab/third-wave-20261024/root/elevenlabs-epsilon-20261028/publication-receipt01.json"
+          ]
+        },
+        {
+          "venue": "youtube",
+          "external_id": "viSMBKsfAzc",
+          "url": "https://youtu.be/viSMBKsfAzc",
+          "revision_id": "oliver-4k60-20261030",
+          "visibility": "public",
+          "recorded_as_of": "2026-10-30",
+          "evidence_state": "pass",
+          "evidence_refs": [
+            "narration_lab/third-wave-20261024/root/elevenlabs-epsilon-20261028/publication-receipt01.json"
           ]
         }
       ]
+    },
+    {
+      "video_id": "stokes_theorem_visual",
+      "working_title": "The Boundary Trick Behind Stokes’ Theorem",
+      "pitch": "A visual path from the fundamental theorem of calculus through circulation, flux and an n-dimensional Stokes proof, with a careful bridge to manifolds and physical applications.",
+      "work_epic": "mx-video-program-program-87do.65",
+      "production_approval": "explicit_current_grant",
+      "decisions": [
+        {
+          "on": "2026-11-02",
+          "decision": "shortlisted",
+          "by": "owner request; author research intake",
+          "reason": "The owner proposed a visual and intuitive Stokes theorem video from one through higher dimensions, including an actual proof and physical applications. The treatment and its production sequence remain open; selection is not publication or independent acceptance.",
+          "source_refs": [
+            "docs/video-program/research-20261016/evidence/stokes-theorem-visual-brief-20261102.md"
+          ]
+        },
+        {
+          "on": "2026-11-03",
+          "decision": "selected",
+          "by": "owner request",
+          "reason": "The owner directed production of all newly discussed videos and authorized production work. The video is in progress; this does not imply publication or independent acceptance.",
+          "source_refs": [
+            "docs/video-program/third-wave-20261024/TODO.md"
+          ]
+        }
+      ],
+      "source_refs": [
+        "docs/video-program/research-20261016/evidence/stokes-theorem-visual-brief-20261102.md",
+        "https://math.mit.edu/~dyatlov/18.155/155-notes.pdf",
+        "https://math.stanford.edu/~eliash/Public/177-2015/52htext-2015.pdf",
+        "https://openstax.org/books/calculus-volume-3/pages/6-7-stokes-theorem"
+      ],
+      "related_video_ids": [
+        "complex_analysis",
+        "visual_proofs"
+      ],
+      "revisions": [],
+      "publications": []
     }
   ],
   "coverage": {

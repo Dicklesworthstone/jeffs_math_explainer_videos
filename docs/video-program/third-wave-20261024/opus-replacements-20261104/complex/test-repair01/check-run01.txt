@@ -1,0 +1,66 @@
+$ python3 -I -B check_test_repair.py REPO EMPTY_SCRATCH   (exit 0)
+
+# baseline
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
+ok   canonical base hash explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs
+ok   build03 log hash
+ok   dependency unchanged explainer_corpus/complex_analysis_visual/src/model.rs
+ok   dependency unchanged explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+ok   dependency unchanged crates/explainer_kit/src/plot.rs
+# patch
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
+ok   differs explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs
+ok   patch regenerates byte for byte
+ok   patch -p1 applies to canonical
+ok   applied equals candidate explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
+ok   applied equals candidate explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs
+ok   patch -R reverses
+ok   reversed equals canonical explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
+ok   reversed equals canonical explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs
+# scope: tests only, nothing weakened
+ok   real_integral: no byte changes before #[cfg(test)]
+ok   real_integral: 6 tests, same count
+ok   two_planes: no byte changes before #[cfg(test)]
+ok   two_planes: 5 tests, same count
+ok   real_integral: every old assertion is still there, byte for byte
+ok   two_planes: only the exact frame comparison is replaced
+ok   assertions added: {'real_integral': 1, 'two_planes': 2}
+ok   shares no file with reading-repair01: either order applies
+# rustfmt, whole module tree (canonical + this overlay)
+ok   rustfmt --check
+# build03's panics, reproduced on canonical
+ok   canonical contour: ('root', None, 1)
+ok   the log has that panic
+ok   canonical frames: ('frame', '([-3.5, -0.35, 0.0], 5.4, 5.4)', '([-3.5, -0.35, 0.0], 5.4, 5.400000000000001)')
+ok   the mirror's two printed tuples are the log's, character for character
+ok   the diameter is one chord of the 122-point path
+     that chord turns z − e^(iπ/4) by 2.3856 rad; the guard allows 1.5708
+# the candidate
+ok   contour test passes in the mirror: None
+ok   8 near-edge rows read from the Rust text
+ok   2705 samples; largest step 0.3779 rad, guard 1.5708
+ok   frame test and its tail pass in the mirror: None
+ok   5 mismatched layouts all told apart
+     height bound 2.398e-15 scene units; a 4K pixel is about 3.703e-03
+# planted defects, each must be caught by the mirror
+ok   caught: near-edge row flipped: ((0.0, 1.99), 1, 0)
+ok   caught: row below the diameter flipped: ((0.0, -0.01), 0, 1)
+ok   caught: no refinement: raw chords: ('root', None, 1)
+ok   caught: steps too long for the near-edge rows: ((1.98, 0.01), None, 1)
+ok   caught: the lower half circle: ('root', 0, 1)
+ok   caught: diameter walked backwards: ((0.0, 0.01), 0, 1)
+ok   caught: a radius that misses the poles: ('root', 0, 1)
+ok   caught: bound zero: the build03 failure again: ('frame', '([-3.5, -0.35, 0.0], 5.4, 5.4)', '([-3.5, -0.35, 0.0], 5.4, 5.400000000000001)')
+ok   caught: bound wide enough to pass a 1e-9 change: ('negative', '([-3.5, -0.35, 0.0], 5.4, 5.400000001227274)', True)
+ok   caught: both planes on one spot: ('negative', '([-3.5, -0.35, 0.0], 5.4, 5.4)', True)
+ok   caught: planes() stops being square: ('control', 'the recipe itself', False)
+ok   caught: the tail: the walk leaves its half: ('walk', 1.0, (1.5, 1.5))
+ok   caught: the tail: unequal scales: ('unit', '([-3.5, -0.35, 0.0], 5.4, 5.400000000000001)', '([3.5, -0.35, 0.0], 5.4, 5.4)')
+# hashes
+3de21386fe140c53194dda487f00acf5eaf2c2c6a67a59817dc82a3db11a9352  test-repair01.patch
+aaba3d401adb5cbfa4232c3af68f0291209f3b9ffd9776deb2d77077d94a9f86  baseline.json
+789d59d4aee3eb160e22361c3090e0cb3cb8c410177207e375f2b0949542a112  check_test_repair.py
+afc7b069c011af6c2ea8dd1eb528f4a3c7df71006fe655cf073c59392aa5d712  explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs
+6867302c7f7e7dd833457f1a8f2851007b425124d54fa0d718c76e7fb02e0e28  explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs
+
+ALL PASS

@@ -1,0 +1,51 @@
+== bundle hashes
+11 files in HASHES.sha256, 0 differ
+ee414efcc1077b70d7e6db51a5b307180ab4602ba6aa13f7f457ce046fa50bdc README.md
+3ac0eedf91c4b7033fe555b38241fa8f750bbc0ac44f7f574755560b2150a6e4 REVIEW.md
+34826dbe9063666f71fbe389236cd1939359dc29b70e8f47b9cc7f831f6e70c9 PROGRESS.md
+a0e3c53ba6ad0fa1d93d743a90dfc4ba5668e5698b557f39334c889957fc2e68 HASHES.sha256
+380bb1b17e2c6c897c7e0ffbe581e2f4fc20733889186b29c89d47d5565da54b patches/permutations.patch
+de3c7b10d96e856ab218d07463a33aa57f97acd41188b1dc267556cfd28e3c68 baseline/permutations.rs
+521089439e9d0f173b3ccdb5630db9422d1a12a2ef1a24ce49b76380c922684a candidate/permutations.rs
+de3c7b10d96e856ab218d07463a33aa57f97acd41188b1dc267556cfd28e3c68 canonical explainer_corpus/abstract_algebra_expanded/src/permutations.rs
+83619d48676b32d5d93bf7527477aa752a902dd16927c548e4b3052cc2d689c0 canonical explainer_corpus/abstract_algebra_expanded/script.tsv
+7f05be9377a54b2c4e1a03ca83b563eb87d90734818273d59d95cea566784d4a canonical explainer_corpus/abstract_algebra_expanded/docs/narration-direction-map-oliver24.json
+canonical equals baseline: True
+script bytes in bundle equal canonical: no script copy in bundle's baseline
+
+== patch at fuzz 0, forward and reverse, in a temporary tree
+forward exit 0 | result equals expected: True | rejects: False
+reverse exit 0 | result equals expected: True | rejects: False
+
+== the same patch applied by an independent hunk walker
+hunks 32, added 158, removed 32; result equals candidate: True
+
+== where the change falls
+first tests module starts at baseline line 4243
+hunks starting inside tests: [4668]
+#[test] count baseline 31 candidate 32
+
+== cue order and sentence indices
+k.say order identical: True
+until_sentence indices past their cue's sentences: []
+narration_units.json: sha 4d7b7c0f3437e9de6501ba1527cc37924f48d3ad0c4cad34a9c4d789424b470d; 27 chapter 11 units; one cue each: True; text equals the script: True; binds script 83619d48676b and map 7f05be9377a5
+
+== display-string census of the patch: literals only on + or only on - lines
+  new     "11_5"
+  new     "After {order} stages: all data back on their starting lines"
+  new     "Blue: odd"
+  new     "By size: 2 fixed, 1 swap, 6 cycles of length 8"
+  new     "Card {from} went from slot {from} to slot {to}"
+  new     "Gold: even"
+  new     "Stage {}"
+  new     "Transposition: swap two labels"
+  new     "slot {}"
+  removed "2 fixed, 1 swap, 6 cycles of length 8"
+  removed "After {order} stages: every line back where it began"
+
+== old strings anywhere else in the crate
+  every line back where it began -> ['explainer_corpus/abstract_algebra_expanded/src/permutations.rs']
+  2 fixed, 1 swap, 6 cycles of length 8 -> ['explainer_corpus/abstract_algebra_expanded/src/permutations.rs']
+
+== rustfmt parse and format, candidate on a temporary copy
+rustfmt --check exit 0 | stderr lines 0 | diff lines 0

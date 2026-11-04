@@ -1,0 +1,52 @@
+--- a/explainer_corpus/apportionment/src/chapters/both_promises.rs
++++ b/explainer_corpus/apportionment/src/chapters/both_promises.rs
+@@ -61,6 +61,8 @@
+ const WAIT_T_DY: f64 = 0.63;
+ /// Under "suppose", over `then` and `now`: which tiles are real.
+ const LEGEND_Y: f64 = 2.95;
++/// Where the key's third state starts, right of the legend's two.
++const LEGEND_KEY_X: f64 = 2.0;
+ /// 12_1's think ring: left of the list, so it covers no card.
+ const PREDICT_AT: (f64, f64) = (1.2, -2.9);
+ /// For pulsing a line already drawn in the highlight's yellow.
+@@ -971,15 +973,15 @@
+             .iter()
+             .map(|t| tile_rect(stage, t, flat(Palette::faint(), 0.45)))
+             .collect::<fmn::Result<_>>()?;
+-        let legend3 = kit.text(
++        // The key's third state arrives with the first grey; the words already up stay still.
++        let grey_key = kit.text_left(
+             stage,
+-            "solid: real up to then, hollow: only supposed, grey: ruled out",
++            "grey: ruled out",
+             18.0,
+             Palette::dim(),
+-            v(0.0, LEGEND_Y),
++            v(LEGEND_KEY_X, LEGEND_Y),
+         )?;
+-        morph_all(stage, &[(legend, legend3)], 0.4)?;
+-        fade_in_all(stage, &[before.clone(), vec![wait_t]].concat(), 0.4)?;
++        fade_in_all(stage, &[before.clone(), vec![wait_t, grey_key]].concat(), 0.4)?;
+         pulse_all(stage, &then_mark[..1], None, 0.5)?;
+         s.wait_for(stage, "or the rule would have picked a tile ending sooner")?;
+         // the missing tile ends sooner than the one the rule really picked
+@@ -1116,6 +1118,7 @@
+                 suppose,
+                 then_t,
+                 legend,
++                grey_key,
+                 or_zero,
+                 wait_t,
+                 later_veil,
+@@ -1319,5 +1322,11 @@
+         // the legend sits between "suppose" and the `then` and `now` labels
+         clears(3.3 - half(22.0), LEGEND_Y + half(18.0));
+         clears(LEGEND_Y - half(18.0), TILE_Y[0] + 0.75 + half(22.0));
++        // its third state stays clear of the two already up, inside the frame
++        clears(
++            LEGEND_KEY_X,
++            wide("solid: real up to then, hollow: only supposed", 18.0) / 2.0,
++        );
++        clears(SAFE_X, LEGEND_KEY_X + wide("grey: ruled out", 18.0));
+     }
+ }

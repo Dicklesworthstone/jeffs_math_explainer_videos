@@ -1,0 +1,32 @@
+1
+00:00:00,600 --> 00:00:04,206
+One rule links the ruler,
+the rate law, and
+
+2
+00:00:04,206 --> 00:00:07,640
+the curve: add inputs, multiply outputs.
+
+3
+00:00:07,640 --> 00:00:10,680
+The exponential is the forward machine.
+
+4
+00:00:10,680 --> 00:00:14,600
+But what if we know the output and ask for
+the input?
+
+5
+00:00:14,600 --> 00:00:16,620
+That is the logarithm.
+
+6
+00:00:16,620 --> 00:00:19,900
+On the real number line it works
+beautifully.
+
+7
+00:00:19,900 --> 00:00:24,440
+On a circle, the same destination can hide
+more than one journey.
+

@@ -1,0 +1,23 @@
+Part 1: the proposed rewind, newest hand-out first
+  undo h13 Cedar  9 -> marker 12: [1, 3, 8] = real run at 12
+  undo h12 Birch  3 -> marker 11: [1, 2, 8] = real run at 11
+  undo h11 Cedar  8 -> marker 10: [1, 2, 7] = real run at 10
+  undo h10 Cedar  7 -> marker  9: [1, 2, 6] = real run at 9
+  undo h 9 Ash  1 -> marker  8: [0, 2, 6] = real run at 8
+  undo h 8 Cedar  6 -> marker  7: [0, 2, 5] = real run at 7
+  undo h 7 Cedar  5 -> marker  6: [0, 2, 4] = real run at 6
+every state is the real run at the marker, no row has a hole: yes
+at landing [0, 2, 4]; Cedar 5 is unfilled when its ring lands: yes
+Cedar 5 is filled until h7 is undone, the last step: its fill leaves just before the marker reaches 6
+
+Part 2: word windows on scratch lengths. tol = how much faster than scratch the voice could run here before the picture passes the next phrase
+phrase                                         starts  window  base  cand   tol    N3   tol
+Suppose one were                               170.44    1.43  0.80  0.80  1.78  0.40  3.57
+Go back to the last moment                     171.87    3.73  2.20  2.20  1.69  2.77  1.35
+Every tile handed out since then               182.17    2.69  0.90  1.20  2.25
+and the missing tile too                       184.87    2.06  0.30  0.60  3.43
+had not been entered at that moment            186.93    2.93  1.10  1.50  1.96
+So all those tiles fit inside the stretch      197.30    6.13  1.00  0.60 10.22
+one more of them than seats added              203.43    3.83  1.00  1.00  3.83
+But each town's row fits at most               207.26    6.05  1.20  2.20  2.75
+fps note: 14 steps of 0.12 s cost 1.867 s at 30 fps and 1.867 s at 60 fps

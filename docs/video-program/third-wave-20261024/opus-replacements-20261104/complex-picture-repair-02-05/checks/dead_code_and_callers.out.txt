@@ -1,0 +1,73 @@
+-- imports in the touched files are used in non-test code
+  note chapters/draw.rs: Timed reads as unused here and in the baseline (a trait import)
+  done
+-- items this repair added are used outside tests, or are cfg(test)
+  ok   model.rs: BAND_OFFSET: 5 use(s) outside tests
+  ok   chapters/turning.rs: TURN_NAMES_AT: 1 use(s) outside tests
+  ok   chapters/turning.rs: W2_NAME_AT: 1 use(s) outside tests
+  ok   chapters/turning.rs: W_NAME_AT: 1 use(s) outside tests
+  ok   chapters/turning.rs: reaching_arrow: 1 use(s) outside tests
+  ok   chapters/reading_color.rs: BUMP_TEX: 7 use(s) outside tests
+  ok   chapters/reading_color.rs: EACH_REST: 4 use(s) outside tests
+  ok   chapters/reading_color.rs: FORMULA_AT: 2 use(s) outside tests
+  ok   chapters/reading_color.rs: HEAD_SWEEP: 1 use(s) outside tests
+  ok   chapters/reading_color.rs: LOOP_R: 6 use(s) outside tests
+  ok   chapters/reading_color.rs: NAMED: 1 use(s) outside tests
+  ok   chapters/reading_color.rs: NAME_AT: 2 use(s) outside tests
+  ok   chapters/reading_color.rs: PROBE_ANGLE: 3 use(s) outside tests
+  ok   chapters/reading_color.rs: PROBE_R: 2 use(s) outside tests
+  ok   chapters/reading_color.rs: RECIPE_RANGE: 2 use(s) outside tests
+  ok   chapters/reading_color.rs: WHEEL_R: 4 use(s) outside tests
+  ok   chapters/reading_color.rs: needle_points: 2 use(s) outside tests
+  ok   chapters/reading_color.rs: solid_head: 2 use(s) outside tests
+  ok   chapters/reading_color.rs: wheel_way: 1 use(s) outside tests
+  ok   chapters/draw.rs: crisp: 2 use(s) outside tests
+  ok   chapters/gallery.rs: OUT_BOX: 2 use(s) outside tests
+  ok   chapters/gallery.rs: PANEL_NAMES_TEX: 7 use(s) outside tests
+  ok   chapters/gallery.rs: PANEL_NAME_Y: 1 use(s) outside tests
+  ok   chapters/gallery.rs: READOUT_DROP: 1 use(s) outside tests
+  ok   chapters/gallery.rs: SHARED_TOP: 4 use(s) outside tests
+  ok   chapters/gallery.rs: ZERO_AT: 2 use(s) outside tests
+  ok   chapters/gallery.rs: ZERO_LABEL_GAP: 1 use(s) outside tests
+  ok   chapters/gallery.rs: ZETA_COLUMN: 1 use(s) outside tests
+  ok   chapters/gallery.rs: ZETA_ROWS: 4 use(s) outside tests
+  ok   chapters/gallery.rs: output_box: 2 use(s) outside tests
+  ok   chapters/gallery.rs: shared_region: 2 use(s) outside tests
+  ok   chapters/gallery.rs: strip_links: 1 use(s) outside tests
+  ok   chapters/two_planes.rs: CLIMB_NAME_AT: 1 use(s) outside tests
+  ok   chapters/two_planes.rs: CLIMB_TEX: 2 use(s) outside tests
+  ok   chapters/two_planes.rs: FOLD_NAME_AT: 1 use(s) outside tests
+  ok   chapters/two_planes.rs: POINT_TEX: 4 use(s) outside tests
+  ok   chapters/two_planes.rs: RADIUS_AT: 2 use(s) outside tests
+  ok   chapters/two_planes.rs: RADIUS_LABEL_HALF: 2 use(s) outside tests
+  ok   chapters/two_planes.rs: RESCALED: 2 use(s) outside tests
+  ok   chapters/two_planes.rs: TICK: 6 use(s) outside tests
+  ok   chapters/two_planes.rs: TURNS_AT: 6 use(s) outside tests
+  ok   chapters/two_planes.rs: TURNS_Y: 6 use(s) outside tests
+  ok   chapters/two_planes.rs: UNDEFINED_AT: 1 use(s) outside tests
+  ok   chapters/two_planes.rs: UNDEFINED_HALF_H: 0 use(s) outside tests (cfg(test))
+  ok   chapters/two_planes.rs: UNDEFINED_LEADER: 2 use(s) outside tests
+  ok   chapters/two_planes.rs: UNIT_AT: 1 use(s) outside tests
+  ok   chapters/two_planes.rs: UNIT_TEX: 1 use(s) outside tests
+  ok   chapters/two_planes.rs: WINDOW: 6 use(s) outside tests
+  ok   chapters/two_planes.rs: scale_marks: 4 use(s) outside tests
+  ok   chapters/two_planes.rs: whole_ticks: 2 use(s) outside tests
+-- callers of the shared changes, from canonical
+  Painter::build (P1 crisp): 19
+    chapters/boundary.rs:146, chapters/continuing.rs:229, chapters/continuing.rs:540, chapters/continuing.rs:572, chapters/counting.rs:139, chapters/gallery.rs:307, chapters/gallery.rs:394, chapters/gallery.rs:460, chapters/gallery.rs:571, chapters/gallery.rs:639, chapters/gallery.rs:696, chapters/gallery.rs:784, chapters/gallery.rs:805, chapters/one_point.rs:384, chapters/reading_color.rs:62, chapters/residues.rs:233, chapters/residues.rs:285, chapters/rigidity.rs:371, chapters/rigidity.rs:424
+  draw::portrait (P1 crisp): 2
+    chapters/draw.rs:526, chapters/the_bump.rs:367
+  draw::portrait_colors (P3): 3
+    chapters/draw.rs:501, chapters/draw.rs:528, chapters/draw.rs:572
+  model::portrait, model::shade (P2): 4
+    chapters/draw.rs:514, model.rs:519, model.rs:526, model.rs:924 (test)
+  wheel_legend (P2): 2
+    chapters/draw.rs:654, chapters/reading_color.rs:59
+  band_step (P2): 6
+    chapters/gallery.rs:176, chapters/gallery.rs:933 (test), model.rs:477, model.rs:483, model.rs:531, model.rs:923 (test)
+  TILE_SEED, tile (P2): 8
+    chapters/gallery.rs:153, chapters/gallery.rs:175, chapters/gallery.rs:177, chapters/gallery.rs:178, chapters/gallery.rs:187, chapters/gallery.rs:196, chapters/gallery.rs:825, chapters/gallery.rs:934 (test)
+  RowStrips::build (other pictures): 2
+    chapters/draw.rs:530, chapters/draw.rs:577
+
+0 failed

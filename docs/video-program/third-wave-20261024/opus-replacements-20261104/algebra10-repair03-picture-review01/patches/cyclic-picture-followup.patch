@@ -1,0 +1,219 @@
+--- a/explainer_corpus/abstract_algebra_expanded/src/cyclic.rs
++++ b/explainer_corpus/abstract_algebra_expanded/src/cyclic.rs
+@@ -154,13 +154,14 @@
+ const NAME_D_PHRASE: &str = "call that exponent d";
+ const EVERY_PHRASE: &str = "and every element of H";
+ const THEOREM_TAIL_PHRASE: &str = "of a cyclic group";
++const ROTATIONS_PHRASE: &str = "so this group is not";
+ const RECAP_WALK_PHRASE: &str = "repeating a move";
+ const RECAP_ORDER_PHRASE: &str = "measures its order";
+ const RECAP_PREDICT_PHRASE: &str = "predicts that return";
+ const RECAP_DIVIDE_PHRASE: &str = "divide exponents";
+ const RECAP_STEP_PHRASE: &str = "the smallest positive step";
+ #[cfg(test)]
+-const PHRASES: [(&str, usize, &str); 12] = [
++const PHRASES: [(&str, usize, &str); 13] = [
+     ("10_3", 4, POSITIONS_PHRASE),
+     ("10_4", 2, K_SPLIT_PHRASE),
+     ("10_6", 2, GENERATORS_PHRASE),
+@@ -168,6 +169,7 @@
+     ("10_7", 4, SMALLEST_PHRASE),
+     ("10_7", 4, NAME_D_PHRASE),
+     ("10_9", 2, EVERY_PHRASE),
++    ("10_10", 5, ROTATIONS_PHRASE),
+     ("10_11", 0, RECAP_WALK_PHRASE),
+     ("10_11", 0, RECAP_ORDER_PHRASE),
+     ("10_11", 1, RECAP_PREDICT_PHRASE),
+@@ -443,8 +445,11 @@
+         );
+         let mut opening = vec![title, ring_mob];
+         opening.extend(&hours);
+-        opening.extend([question, marker]);
++        opening.push(marker);
+         fade(stage, &opening, true)?;
++        // The question waits for the move it asks about.
++        k.until_sentence(stage, "10_1", 3)?;
++        fade(stage, &[question], true)?;
+         k.hold(stage)?;
+         stage.wait(3.0)?;
+         k.say(stage, "10_2")?;
+@@ -496,10 +501,22 @@
+             v(2.3, -1.35),
+         )?;
+         fade(stage, &[order_tex], true)?;
++        // The other meaning of "order": the size of the whole group.
++        k.until_sentence(stage, "10_2", 7)?;
++        let group_size = k.text(
++            stage,
++            &format!("Whole clock group: {N} elements"),
++            28.0,
++            Palette::ink(),
++            v(2.3, -2.15),
++        )?;
++        fade(stage, &[group_size], true)?;
++        k.until_sentence(stage, "10_2", 8)?;
++        pulse(stage, &[order_tex, group_size])?;
+ 
+         // ---- 10_3: m moves total 8m; the first total twelve divides -------------
+         k.say(stage, "10_3")?;
+-        d4g::hide(stage, &[question, trail], 0.4)?;
++        d4g::hide(stage, &[question, trail, group_size], 0.4)?;
+         k.until_sentence(stage, "10_3", 1)?;
+         let mut table = vec![
+             k.tex(stage, "m", 30.0, Palette::ink(), &[], v(TABLE_LABEL_X, TABLE_Y[0]))?,
+@@ -659,13 +676,6 @@
+         )?;
+         d4g::show(stage, &[n_split], 0.3)?;
+         until_phrase(stage, &k, "10_4", 2, K_SPLIT_PHRASE)?;
+-        // One move of k hours crosses k' whole blocks.
+-        let hop = disc(stage, position(0, MARK_R), 0.12, Palette::hero());
+-        d4g::show(stage, &[hop], 0.2)?;
+-        for passed in 1..=K / d {
+-            step_round(stage, hop, (passed - 1) * d, d, 0.08)?;
+-            pulse(stage, &[block_labels[(passed % (N / d)) as usize]])?;
+-        }
+         let k_split = k.tex(
+             stage,
+             &format!(r"k=d\,k'={d}\cdot{}", K / d),
+@@ -675,6 +685,13 @@
+             v(PANEL_X, RULE_Y[4]),
+         )?;
+         d4g::show(stage, &[k_split], 0.3)?;
++        // One move of k hours crosses k' whole blocks.
++        let hop = disc(stage, position(0, MARK_R), 0.12, Palette::hero());
++        d4g::show(stage, &[hop], 0.2)?;
++        for passed in 1..=K / d {
++            step_round(stage, hop, (passed - 1) * d, d, 0.08)?;
++            pulse(stage, &[block_labels[(passed % (N / d)) as usize]])?;
++        }
+         d4g::hide(stage, &[hop], 0.3)?;
+         k.until_sentence(stage, "10_4", 3)?;
+         let coprime = k.tex(
+@@ -869,11 +886,12 @@
+                 v(x, GRID_Y[2]),
+             )?);
+         }
+-        d4g::show(stage, &row_names[..2], 0.3)?;
++        d4g::show(stage, &row_names[..1], 0.3)?;
+         appear(stage, &moves, 0.3, 0.3)?;
+-        appear(stage, &divisors, 0.3, 0.3)?;
++        // The question stands over the moves alone; the rows that answer it wait for the voice.
+         k.until_sentence(stage, "10_6", 2)?;
+-        d4g::show(stage, &row_names[2..], 0.3)?;
++        d4g::show(stage, &row_names[1..], 0.3)?;
++        appear(stage, &divisors, 0.3, 0.3)?;
+         appear(stage, &orders, 0.3, 0.3)?;
+         pulse(stage, &[rule])?;
+         until_phrase(stage, &k, "10_6", 2, GENERATORS_PHRASE)?;
+@@ -1283,6 +1301,7 @@
+         let labels = [1, 5, 7, 11];
+         let table_title = k.text(stage, "Multiply modulo 12", 27.0, Palette::blue(), v(-2.9, 1.35))?;
+         table.push(table_title);
++        let mut squared = Vec::new();
+         for (i, &value) in labels.iter().enumerate() {
+             let x = -4.1 + i as f64 * 0.8;
+             let y = -0.1 - i as f64 * 0.68;
+@@ -1290,13 +1309,18 @@
+             table.push(k.text(stage, &value.to_string(), 25.0, Palette::hero(), v(-4.9, y))?);
+             for (j, &other) in labels.iter().enumerate() {
+                 let x = -4.1 + j as f64 * 0.8;
+-                table.push(k.text(
++                let cell = k.text(
+                     stage,
+                     &((value * other) % 12).to_string(),
+                     25.0,
+                     Palette::ink(),
+                     v(x, y),
+-                )?);
++                )?;
++                table.push(cell);
++                // The three squares the voice names, not 1 times 1.
++                if i == j && value != 1 {
++                    squared.push((cell, Palette::hero()));
++                }
+             }
+         }
+         let squares = k.tex(
+@@ -1314,15 +1338,47 @@
+             Palette::green(),
+             v(2.5, -1.15),
+         )?;
+-        fade(stage, &table, true)?;
++        // A group with four elements: its names first, the table when the voice reaches it.
++        fade(stage, &table[..1], true)?;
++        k.until_sentence(stage, "10_10", 1)?;
++        fade(stage, &table[1..], true)?;
++        k.until_sentence(stage, "10_10", 2)?;
++        let each_coprime = k.text(
++            stage,
++            &format!("Each relatively prime to {N}"),
++            28.0,
++            Palette::ink(),
++            v(2.5, 1.15),
++        )?;
++        fade(stage, &[each_coprime], true)?;
+         k.until_sentence(stage, "10_10", 3)?;
+         fade(stage, &[squares], true)?;
++        tint(stage, &squared, 0.4)?;
++        k.until_sentence(stage, "10_10", 4)?;
++        let unit_orders = k.tex(
++            stage,
++            r"\operatorname{ord}(5)=\operatorname{ord}(7)=\operatorname{ord}(11)=2",
++            32.0,
++            Palette::hero(),
++            &[],
++            v(2.5, -0.5),
++        )?;
++        fade(stage, &[unit_orders], true)?;
+         k.until_sentence(stage, "10_10", 5)?;
+         fade(stage, &[no], true)?;
++        until_phrase(stage, &k, "10_10", 5, ROTATIONS_PHRASE)?;
++        let rotations = k.text(
++            stage,
++            "Not the four rotations of a square",
++            27.0,
++            Palette::ink(),
++            v(2.5, -1.8),
++        )?;
++        fade(stage, &[rotations], true)?;
+         k.say(stage, "10_11")?;
+         // Return to the actual objects named by each summary sentence.
+         // All values and paths reuse the chapter's oracle-checked model.
+-        table.extend([squares, no]);
++        table.extend([each_coprime, squares, unit_orders, no, rotations]);
+         d4g::hide(stage, &table, 0.4)?;
+         let recap_dial = dial(stage, &k, CLOCK, RING_R, K)?;
+         let recap_path = tour(stage, CLOCK, RING_R, K, Palette::gold());
+@@ -1466,6 +1522,24 @@
+     }
+ 
+     #[test]
++    fn the_units_square_to_one_so_none_generates_all_four() {
++        let units = generators(N);
++        assert_eq!(units, [1, 5, 7, 11]);
++        for &u in &units {
++            assert_eq!(common_divisor(u, N), 1, "{u}");
++            for &w in &units {
++                assert!(units.contains(&((u * w) % N)), "{u} times {w}");
++            }
++            // The table's diagonal: every square is 1, so the powers of u are only 1 and u.
++            assert_eq!((u * u) % N, 1, "{u} squared");
++            for power in 0..4 {
++                let reached = u.pow(power) % N;
++                assert!(reached == 1 || reached == u, "{u} to the {power}");
++            }
++        }
++    }
++
++    #[test]
+     fn every_waited_phrase_is_in_its_sentence() {
+         for (cue, j, phrase) in PHRASES {
+             let text = line_text(cue).expect("the cue is in the script");
+@@ -1473,6 +1547,7 @@
+             assert!(text[from..to].contains(phrase), "{cue} sentence {j}: {phrase}");
+         }
+         for (cue, sentences) in [
++            ("10_1", 5),
+             ("10_2", 9),
+             ("10_3", 5),
+             ("10_4", 4),

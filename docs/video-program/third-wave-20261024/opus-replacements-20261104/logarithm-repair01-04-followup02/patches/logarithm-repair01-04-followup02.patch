@@ -1,0 +1,270 @@
+--- a/explainer_corpus/logarithm_mysteries/oracle.py
++++ b/explainer_corpus/logarithm_mysteries/oracle.py
+@@ -108,14 +108,15 @@ product_a, product_b = Fraction(2), Fraction(4)
+ add("real.product_a", num(product_a))
+ add("real.product_b", num(product_b))
+ add("real.product_ab", num(product_a * product_b))
+-add("real.growth_target", 10 ** 3)
++growth_target = 10 ** 3
++add("real.growth_target", growth_target)
+ add("real.ln_one_point_oh_one", dec(math.log(1.01), 5))
+ rate = 0.05
+ add("real.rate", num(rate))
+ add("real.ln2", dec(math.log(2), 3))
+ add("real.double_years", dec(math.log(2) / rate, 1))
+-add("real.ln_thousand", dec(math.log(1000), 2))
+-add("real.thousand_years", round(math.log(1000) / rate))
++add("real.ln_thousand", dec(math.log(growth_target), 2))
++add("real.thousand_years", round(math.log(growth_target) / rate))
+ add("real.two_pow10", 2 ** 10)
+ add("real.ten_doublings_years", dec(10 * math.log(2) / rate, 1))
+ add("real.rule_of_seventy", dec(100 * math.log(2), 1))
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs
+@@ -41,6 +41,8 @@ const HAIR_REACH: f64 = 0.42;
+ const C_NAME_DX: f64 = 0.5;
+ /// The words the first slide waits for, in 02_2's first sentence.
+ const SLIDE_PHRASE: &str = "slide the moving";
++/// The words the nudge waits for, in 02_1's first sentence.
++const NUDGE_PHRASE: &str = "one that slides";
+ const SCRIPT: &str = include_str!("../../script.tsv");
+ 
+ fn d_scale() -> Decade {
+@@ -124,6 +126,7 @@ impl SceneConstruct for SlideRule {
+         let c_name = kit.text(stage, "C", 26.0, teal, v(ONE_X - 0.5, C_Y))?;
+         fade_in_all(stage, &[moving, c_name], 0.7)?;
+         // "one that slides along it": it does, a little, and comes back
++        until_phrase(stage, &kit, "02_1", NUDGE_PHRASE)?;
+         shift_all(stage, &[moving, c_name], v(0.8, 0.0), 0.6)?;
+         shift_all(stage, &[moving, c_name], v(-0.8, 0.0), 0.6)?;
+         let mut offset = 0.0;
+@@ -152,7 +155,7 @@ impl SceneConstruct for SlideRule {
+         let d_len = seg(stage, v(d.x(1.0), D_BAR_Y), v(d.x(a), D_BAR_Y), blue, 6.0);
+         let d_len_word = kit.text(
+             stage,
+-            fact("slide.pos_a")?,
++            &format!("{} of a full length", fact("slide.pos_a")?),
+             22.0,
+             blue,
+             v((d.x(1.0) + d.x(a)) / 2.0, D_BAR_Y - 0.32),
+@@ -465,6 +468,21 @@ mod tests {
+         assert!(found("until_phrase(stage, &kit, \"02_2\", SLIDE_PHRASE)") < found("v(shift_a, 0.0)"));
+     }
+ 
++    #[test]
++    fn the_nudge_waits_for_its_words_and_is_back_before_the_next_sentence() {
++        let text = SCRIPT
++            .lines()
++            .find_map(|row| row.strip_prefix("02_1\t"))
++            .expect("02_1 is in the script");
++        let phrase = text.find(NUDGE_PHRASE).expect("the phrase is in 02_1");
++        assert!(phrase < text.find(". ").expect("02_1 has several sentences"));
++        let wait = found("until_phrase(stage, &kit, \"02_1\", NUDGE_PHRASE)");
++        let out = found("v(0.8, 0.0)");
++        let back = found("v(-0.8, 0.0)");
++        let next = found("kit.until_sentence(stage, \"02_1\", 1)");
++        assert!(wait < out && out < back && back < next);
++    }
++
+     #[test]
+     fn the_overflow_marks_leave_before_the_other_index_moves_in() {
+         let fade = found("&[six, index, off_line, off, ghost, beyond, end, stops, c_name]");
+@@ -492,5 +510,9 @@ mod tests {
+             assert!(((d.x(x) - d.x(1.0)) / LEN - printed).abs() < 0.001, "{x}");
+         }
+         assert!(found("one full length = 1") > 0);
++        // the first length carries its unit: "0.398 of a full length" is 9.06 ems at
++        // 22 points, narrower than its own bar
++        assert!(found("\"{} of a full length\"") > 0);
++        assert!(9.06 * 22.0 * 0.01 < d.x(2.5) - d.x(1.0));
+     }
+ }
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs
+@@ -17,6 +17,8 @@
+ 
+ use std::f64::consts::{E, PI};
+ 
++use std::collections::HashMap;
++
+ use explainer_kit::{Kit, Palette, play, tween, v};
+ use fmn::mobject::Stage as Arena;
+ use fmn::prelude::*;
+@@ -75,6 +77,40 @@ fn tangent_points(a: f64) -> Vec<Vec3> {
+ /// How far the climbing tangent of 04_2 rises: it stays under the title.
+ const CLIMB_FROM: f64 = -2.2;
+ const CLIMB_TO: f64 = 0.95;
++/// The words the climb belongs to, in sentence 3 of 04_2.
++const CLIMB_PHRASE: &str = "it only ever climbs";
++/// The climb ends this long before the next sentence.
++const CLIMB_CLEAR: f64 = 0.3;
++/// The climb never takes less than this.
++const CLIMB_SHORTEST: f64 = 2.0;
++const SCRIPT: &str = include_str!("../../script.tsv");
++
++/// When `CLIMB_PHRASE` begins, in scene seconds. `said` is when 04_2 began; `s3`
++/// and `s4` are when its sentences 3 and 4 begin. A word-onset mark at exactly the
++/// phrase's byte wins (`marks` as `Narrator::phrase_marks` returns them: bound to
++/// this take and this text, though still not a heard boundary). Without one, the
++/// phrase's share of its sentence's characters interpolates between the two
++/// onsets: a rougher estimate, never measured timing.
++fn climb_onset(text: &str, said: f64, s3: f64, s4: f64, marks: &HashMap<usize, f64>) -> Option<f64> {
++    let byte = text.find(CLIMB_PHRASE)?;
++    if let Some(&seconds) = marks.get(&byte) {
++        return Some(said + seconds);
++    }
++    let from = text[..byte].rfind(". ").map_or(0, |k| k + 2);
++    let to = text[byte..].find(". ").map_or(text.len(), |k| byte + k + 1);
++    let share = text[from..byte].chars().count() as f64 / text[from..to].chars().count() as f64;
++    Some(s3 + (s4 - s3) * share)
++}
++
++/// When the climb starts and when the next sentence begins, in scene seconds,
++/// once 04_2 has been said. `None` without a narrator.
++fn climb_window(kit: &Kit) -> Option<(f64, f64)> {
++    let n = kit.narrator.as_ref()?;
++    let (s3, s4) = (n.sentence_at("04_2", 3)?, n.sentence_at("04_2", 4)?);
++    let said = s3 - n.sentence_starts("04_2").get(3).copied()?;
++    let text = SCRIPT.lines().find_map(|row| row.strip_prefix("04_2\t"))?;
++    Some((climb_onset(text, said, s3, s4, &n.phrase_marks("04_2"))?, s4))
++}
+ 
+ /// The dashes of the red floor y = 0, carried part way `m` across the mirror:
+ /// e^x's floor becomes the logarithm's wall at x = 0.
+@@ -305,7 +341,16 @@ impl SceneConstruct for UndoingGrowth {
+         });
+         stage.add_to_scene(climb_line)?;
+         stage.add_to_scene(climb_dot)?;
+-        play!(stage; tween(climb, CLIMB_TO, 4.0)?);
++        // it waits at the low end for those words, then moves through "from near
++        // zero on the left to as large as you like on the right"
++        let run = match climb_window(&kit) {
++            Some((onset, next)) => {
++                super::draw::wait_until(stage, onset)?;
++                (next - stage.scene().time().to_f64() - CLIMB_CLEAR).max(CLIMB_SHORTEST)
++            }
++            None => 4.0,
++        };
++        play!(stage; tween(climb, CLIMB_TO, run)?);
+         kit.until_sentence(stage, "04_2", 4)?;
+         fade_out_all(stage, &[climb_line, climb_dot], 0.3)?;
+         // a horizontal probe at height c meets the curve once for c > 0
+@@ -427,7 +472,6 @@ impl SceneConstruct for UndoingGrowth {
+         )?;
+         let line_yx = dashed(stage, p(LO, LO), p(HI, HI), Palette::dim(), 2.0, 26)?;
+         fade_in_all(stage, &[line_yx], 0.5)?;
+-        kit.until_sentence(stage, "04_4", 1)?;
+         // a slope triangle rides along: run k, rise k·e^a; flipped, the legs trade
+         let tri = stage.always_redraw(move |s: &mut Arena| {
+             let m = value(s, mirror);
+@@ -463,6 +507,8 @@ impl SceneConstruct for UndoingGrowth {
+         });
+         stage.add_to_scene(wall)?;
+         stage.add_to_scene(barred)?;
++        // the legs stay named until the sentence that swaps them
++        kit.until_sentence(stage, "04_4", 1)?;
+         fade_out_all(stage, &[name, run0, rise0, floor, nowhere], 0.25)?;
+         play!(stage; tween(mirror, 1.0, 2.6)?);
+         let ln_name = kit.tex(stage, r"y = \ln x", 34.0, blue, &[], p(2.75, 1.7))?;
+@@ -747,7 +793,8 @@ impl SceneConstruct for UndoingGrowth {
+         let thousand = kit.tex(
+             stage,
+             &format!(
+-                r"t = \frac{{\ln 1000}}{{{}}} \approx \frac{{{}}}{{{}}} \approx {}",
++                r"t = \frac{{\ln {}}}{{{}}} \approx \frac{{{}}}{{{}}} \approx {}",
++                fact("real.growth_target")?,
+                 fact("real.rate")?,
+                 fact("real.ln_thousand")?,
+                 fact("real.rate")?,
+@@ -933,14 +980,51 @@ mod tests {
+     fn the_tangent_climbs_only_inside_its_sentence_and_under_the_title() {
+         let three = found(r#"kit.until_sentence(stage, "04_2", 3)"#);
+         let four = found(r#"kit.until_sentence(stage, "04_2", 4)"#);
+-        let climb = found("tween(climb, CLIMB_TO, 4.0)");
+-        assert!(three < climb && climb < four);
++        let onset = found("super::draw::wait_until(stage, onset)");
++        let climb = found("tween(climb, CLIMB_TO, run)");
++        assert!(three < onset && onset < climb && climb < four);
+         let top = tangent_points(CLIMB_TO)[1];
+         assert!(top[1] < 3.0, "{top:?}");
+         let left = tangent_points(CLIMB_FROM)[0];
+         assert!(left[0] > -6.86, "{left:?}");
+     }
+ 
++    #[test]
++    fn a_phrase_mark_beats_the_estimate_for_when_the_climb_starts() {
++        let text = SCRIPT
++            .lines()
++            .find_map(|row| row.strip_prefix("04_2\t"))
++            .expect("04_2 is in the script");
++        assert_eq!(text.matches(CLIMB_PHRASE).count(), 1);
++        let byte = text.find(CLIMB_PHRASE).expect("the phrase is in 04_2");
++        // climb_window reads sentences 3 and 4, so the phrase must stay in sentence 3
++        assert_eq!(text[..byte].matches(". ").count(), 3);
++        // a mark at exactly this byte is seconds into the line, whatever the sentences say
++        let marked = HashMap::from([(byte, 17.5)]);
++        assert_eq!(climb_onset(text, 10.0, 20.0, 30.0, &marked), Some(27.5));
++        // a mark on any other word is ignored; 54 of the sentence's 139 characters come first
++        let elsewhere = HashMap::from([(byte + 1, 17.5)]);
++        let estimate = climb_onset(text, 10.0, 20.0, 30.0, &elsewhere).expect("the phrase is in 04_2");
++        assert!((estimate - (20.0 + 10.0 * 54.0 / 139.0)).abs() < 1e-9, "{estimate}");
++        assert_eq!(climb_onset(text, 10.0, 20.0, 30.0, &HashMap::new()), Some(estimate));
++        assert_eq!(climb_onset("Some other line.", 10.0, 20.0, 30.0, &HashMap::new()), None);
++    }
++
++    #[test]
++    fn the_legs_stay_named_until_the_sentence_that_swaps_them() {
++        let named = found("fade_in_all(stage, &[run0, rise0], 0.4)");
++        let sentence = found(r#"kit.until_sentence(stage, "04_4", 1)"#);
++        let fade = found("&[name, run0, rise0, floor, nowhere]");
++        let flip = found("tween(mirror, 1.0, 2.6)");
++        assert!(named < sentence && sentence < fade && fade < flip);
++    }
++
++    #[test]
++    fn the_thousandfold_formula_reads_its_target_from_the_facts() {
++        assert!(!scene_source().contains(r"\ln 1000"));
++        assert!(found(r"\frac{{\ln {}}}") < found(r#"fact("real.growth_target")?"#));
++    }
++
+     #[test]
+     fn the_product_law_is_drawn_two_lengths_landing_on_eight() {
+         let (a, b) = (ruler_x(2.0) - ruler_x(1.0), ruler_x(4.0) - ruler_x(1.0));
+--- a/explainer_corpus/logarithm_mysteries/src/facts.rs
++++ b/explainer_corpus/logarithm_mysteries/src/facts.rs
+@@ -156,13 +156,17 @@ pub fn facts() -> Result<Facts, String> {
+     f.add("real.product_a", product_a)?;
+     f.add("real.product_b", product_b)?;
+     f.add("real.product_ab", product_a * product_b)?;
+-    f.add("real.growth_target", 10_u32.pow(3))?;
++    let growth_target = 10_u32.pow(3);
++    f.add("real.growth_target", growth_target)?;
+     f.add("real.ln_one_point_oh_one", dec(1.01_f64.ln(), 5))?;
+     f.add("real.rate", num(RATE))?;
+     f.add("real.ln2", dec(2f64.ln(), 3))?;
+     f.add("real.double_years", dec(2f64.ln() / RATE, 1))?;
+-    f.add("real.ln_thousand", dec(1000f64.ln(), 2))?;
+-    f.add("real.thousand_years", (1000f64.ln() / RATE).round() as i64)?;
++    f.add("real.ln_thousand", dec(f64::from(growth_target).ln(), 2))?;
++    f.add(
++        "real.thousand_years",
++        (f64::from(growth_target).ln() / RATE).round() as i64,
++    )?;
+     f.add("real.two_pow10", 2_u32.pow(10))?;
+     f.add("real.ten_doublings_years", dec(10.0 * 2f64.ln() / RATE, 1))?;
+     f.add("real.rule_of_seventy", dec(100.0 * 2f64.ln(), 1))?;
+@@ -418,6 +422,14 @@ mod tests {
+     fn doubling_and_thousandfold_times() {
+         assert_eq!(fact("real.double_years"), "13.9");
+         assert_eq!(fact("real.thousand_years"), "138");
++        // both thousandfold numbers follow the same target as the graph's label
++        let target: f64 = fact("real.growth_target").parse().unwrap();
++        let ln_target: f64 = fact("real.ln_thousand").parse().unwrap();
++        assert!((target.ln() - ln_target).abs() < 0.005);
++        assert_eq!(
++            fact("real.thousand_years"),
++            ((target.ln() / RATE).round() as i64).to_string()
++        );
+         let ten: f64 = fact("real.ten_doublings_years").parse().unwrap();
+         assert!(ten > 138.0 && ten < 139.0);
+         let two_pow10: u32 = fact("real.two_pow10").parse().unwrap();

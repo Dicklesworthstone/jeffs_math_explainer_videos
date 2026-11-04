@@ -1,0 +1,46 @@
+phrases, 12_8 and 12_9
+  ok   exactly these 18 beats in this order (found 18)
+F1: hypothetical against actual
+  ok   at 'Could': fills past now fade and the marker returns to now
+  ok   at 'Suppose': the fills handed out after then fade
+  ok   before any red ring: no moment shows a run with a hole
+  ok   '?' on the missing tile, and the red line
+  ok   the missing tile comes from the model, not a literal
+  ok   no trace of the old Cedar 8
+  ok   the legend names the two kinds of tile
+  ok   the later tile is ringed, with its end and the missing tile's, from facts
+  ok   a guard ties the model's proof to the run the chapter drew
+  ok   a guard ties the fading fills to the seats handed out after then
+  ok   at 'no passed tile': the supposition goes first, then the run returns
+  ok   the run returns as fresh fills of the real seats, in the fills' one shade
+  ok   and says so, from the history
+  ok   the restored seats are checked against the facts
+  ok   at 'never hands out': veils on the tiles not entered at now
+  ok   22 supposed mobjects created, all faded (left: [])
+  ok   the ink marker goes too
+  ok   and none is faded twice ([])
+F2: stroke-only quota boxes
+  ok   no refill anywhere in the chapter (it filled the outlines)
+  ok   12_10 morphs into stroked green copies
+  ok   and refill is no longer imported
+F3: rings match the labels
+  ok   rings on the whole tiles inside; the missing one keeps its red ring
+  ok   a guard: hero rings plus the red one equal the count
+  ok   both kinds of ring leave together, so no moment shows 4 beside '= 5'
+  ok   the band no longer flashes at 1.25x (it hid what it framed)
+F4: dependencies at their phrases
+  ok   'had not been entered': tiles started before then are veiled, then's line pulses, the wait is named
+  ok   'ending sooner': the two tiles compared pulse
+  ok   'ends by now': a beat now exists; tiles past now are veiled, now's line pulses, the band frames what is left
+  ok   'and the missing tile too': the eighth chip, red
+  ok   'one more of them': that chip pulses beside the count
+  ok   'never holds more': a bracket gives room for seven, the eighth has none
+  ok   the only 1.25x flash in the proof is on the sum, a text (F7 stays out of it)
+  ok   pulses recolor at scale 1.0: no tile grows
+F5: the prediction ring clears 2,000
+  ok   12_1 calls think at its own spot, on one line for the plan's binding
+  ok   think_here is gone from this chapter
+No change to what is spoken
+  ok   12_1 to 12_10 in order, once each (10)
+
+PASS (source text only: no compile, no render)

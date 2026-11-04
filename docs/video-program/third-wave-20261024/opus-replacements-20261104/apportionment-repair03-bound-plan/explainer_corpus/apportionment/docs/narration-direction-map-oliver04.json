@@ -1,0 +1,305 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "apportionment": "cfcec06911c7d94efa6b7b29a820be9bf73a608810b4b57085f02f5b95939313"
+  },
+  "overrides": [
+    {
+      "video": "apportionment",
+      "cue": "01_3",
+      "after": "Now the council grows to sixteen seats. Nobody moves, nobody is born, and no population changes at all. There is simply one more seat to hand out, under exactly the same rule. What happens to Ash?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "02_4",
+      "after": "The obvious move is to round each share to the nearest whole number. At fifteen seats that works, because two plus three plus ten is fifteen. Will rounding to the nearest always give the right total?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "03_3",
+      "after": "The tails are point five four for Ash, point four six for Birch, and nothing at all for Cedar. Who gets the leftover seat?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "04_3",
+      "after": "Ash's tail is now point six four. Birch's is point six nine. Cedar's is point six seven. Which two towns get the two leftover seats?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "05_3",
+      "after": "At fifteen seats, Ash's hand is ahead of Birch's, and Cedar's points straight up at zero. Turn every hand by its own step. Which hand ends up in front?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "06_1",
+      "after": "Add one more seat, seventeen in all. Does Ash get its seat back?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "07_2",
+      "after": "Thomas Jefferson's rule keeps the rounding and changes the yardstick instead. It always rounds down, and it adjusts how many people count as one seat. To hand out one more seat, should that number go up or down?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "08_3",
+      "after": "The first fifteen signposts give one, three, eleven. Whose signpost comes sixteenth?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "09_1",
+      "after": "Jefferson's rule never takes a seat back. But look at Cedar at fifteen seats. It gets eleven. Does that keep the quota promise?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "10_3",
+      "after": "Between always down and always up sits the compromise, round to the nearest. What does that give at fifteen seats?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "11_1",
+      "after": "Webster's rule looks like the best of both families. Can it ever break the quota promise?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "12_1",
+      "after": "Jefferson broke the quota promise at fifteen seats by giving Cedar its eleventh seat. Suppose a rule refuses any seat that would lift a town above its share rounded up. Who gets the fifteenth seat instead?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "13_3",
+      "after": "Before the census, Hamilton gave one, four, eleven. What does it give now?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "14_3",
+      "after": "One city of eight hundred twenty four people and four villages of forty four people each share ten seats. The city's share is eight point two four, and each village's is point four four. So the quota promise lets the city have eight seats or nine. Which choice is safe?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "15_3",
+      "after": "Here is one to try yourself. Under Webster's rule, suppose Cedar grows while Ash and Birch stay exactly the same, and the council stays at fifteen seats. Can Ash ever gain a seat?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "apportionment",
+      "cue": "01_3",
+      "next_cue": "01_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/one_more_seat.rs",
+      "sha256": "d7a8b5e66053ed0ac4e9fc2a3fcd8684a862a22016cdffe3206e873bd5bacc5a",
+      "line": 86,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "02_4",
+      "next_cue": "02_5",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/shares.rs",
+      "sha256": "836a2bc808714b2b463960ec2e6ca4e5ae9332cbe527aab4003fbd8efa648b2c",
+      "line": 231,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "03_3",
+      "next_cue": "03_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/largest_tails.rs",
+      "sha256": "d15246943cc8828c3491a9712039d77900d705ffacb8ad7f2f07e769e8a82b10",
+      "line": 106,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "04_3",
+      "next_cue": "04_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/sixteenth.rs",
+      "sha256": "d65ef2d84a7a3b6d5b133c956e5fd1694f9173c398f4af476f167111293ae618",
+      "line": 146,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "05_3",
+      "next_cue": "05_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/dials.rs",
+      "sha256": "ba3db7f7ec45ed58fad570d54ef9d0d49aa394fe6b7c79517f3c4a946f0c93a0",
+      "line": 152,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "06_1",
+      "next_cue": "06_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/not_every_time.rs",
+      "sha256": "d3e88f7bcad146b9078ddc7d84588f6569339cd59cd3b2c225aa963bfadf7c94",
+      "line": 58,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "07_2",
+      "next_cue": "07_3",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/yardstick.rs",
+      "sha256": "49a858d0a3dfde135e40b0012a664503447b0b36780d5d63d44b618d99ca0ec5",
+      "line": 109,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "08_3",
+      "next_cue": "08_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/signposts.rs",
+      "sha256": "16f6ff6285f205309cd9462d725f1cee152eb9311adb062ff815ac85a6f4663c",
+      "line": 121,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "09_1",
+      "next_cue": "09_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/cost.rs",
+      "sha256": "18d7b7df003c12fa2aaee0a6e8bf8c7c94cc78e4a93817a2d5ffd505ddb407e5",
+      "line": 57,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "10_3",
+      "next_cue": "10_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/rounding_rules.rs",
+      "sha256": "d5baaecdde2dd7d50b1cc8cbef60b177f6bf2e647709c181c3b9022aa04163f5",
+      "line": 189,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "11_1",
+      "next_cue": "11_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/webster_quota.rs",
+      "sha256": "14dab3d4a7f8724334b740fbb863e86d3ed000f6880a1ff1863669913cc17ed1",
+      "line": 124,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "12_1",
+      "next_cue": "12_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/both_promises.rs",
+      "sha256": "c00c98e4f6b4b3094cfcd8643ecea1d61e5157963459b589aecdd17aa34c9144",
+      "line": 351,
+      "marker": "let q = think(&kit, stage, v(PREDICT_AT.0, PREDICT_AT.1))?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "13_3",
+      "next_cue": "13_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/population.rs",
+      "sha256": "f7e75ed4eaf8892c736430a7618f6b8d5adf450f0cdea1253c7e76b41a20636a",
+      "line": 185,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "14_3",
+      "next_cue": "14_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/no_rule.rs",
+      "sha256": "aceba2952c63fd44692d5015958eb76e1ce96c87f63ac17cf7212c62815cbd5e",
+      "line": 289,
+      "marker": "let q = think(&kit, stage, v(5.6, -0.4))?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "15_3",
+      "next_cue": "15_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/recap.rs",
+      "sha256": "3be379158a19314eb954aa9749c3b352080e96dd3214cbda6b3a165a436cd0bb",
+      "line": 180,
+      "marker": "let q = think_here(&kit, stage)?;",
+      "basis": "draw::think holds the cue to completion, marks predict, then a four-second authored visual wait (THINK_S) before the next cue; no listening claim."
+    }
+  ],
+  "hold_kinds": {
+    "prediction": 15,
+    "reading": 0
+  },
+  "helpers": [
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/draw.rs",
+      "sha256": "dd385ed5f45f09ffb8c0d8563829601bb147460bc16c7d4cbbf08245a7b23ba4",
+      "line": 1106,
+      "marker": "pub const THINK_S: f64 = 4.0;"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/draw.rs",
+      "sha256": "dd385ed5f45f09ffb8c0d8563829601bb147460bc16c7d4cbbf08245a7b23ba4",
+      "line": 1115,
+      "marker": "pub fn think(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {"
+    },
+    {
+      "path": "explainer_corpus/apportionment/src/chapters/draw.rs",
+      "sha256": "dd385ed5f45f09ffb8c0d8563829601bb147460bc16c7d4cbbf08245a7b23ba4",
+      "line": 1161,
+      "marker": "pub fn think_here(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {"
+    }
+  ],
+  "scope": "Candidate rebuild (bead .30), combined-repair-stage03: 15 authored prediction windows and no authored reading window, bound to staged source. A row exists only where the source adds a prediction or reading wait; see source-audit.json for every other wait and why it has no row. The both_promises.rs and sixteenth.rs hashes are the proposed staged bytes, not the installed canonical files. No take, listening, timing or independent acceptance."
+}
