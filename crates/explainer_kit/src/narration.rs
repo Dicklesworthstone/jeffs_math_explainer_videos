@@ -562,6 +562,8 @@ pub struct Narrator {
     /// Where each sentence of a line starts in it (seconds from the line's
     /// start): from the narration's `report.json`, or estimated.
     starts: HashMap<String, Vec<f64>>,
+    /// Optional source-bound automatic word timing estimates, keyed by script byte offset.
+    phrase_marks: HashMap<String, HashMap<usize, f64>>,
     /// When each line said in this chapter started (scene seconds).
     said_at: RefCell<HashMap<String, f64>>,
     gain_db: f64,
@@ -864,6 +866,7 @@ impl Narrator {
     /// The report must describe this script and account for each WAV's
     /// length, so a reworded line cannot silently reuse an old read.
     pub fn load(script: &Script, dir: &Path, gain_db: f64) -> io::Result<Rc<Self>> {
+        let bad = |message: String| io::Error::new(io::ErrorKind::InvalidData, message);
         let mut files = HashMap::new();
         let mut lengths = HashMap::new();
         let mut edges = HashMap::new();
@@ -900,11 +903,59 @@ impl Narrator {
             }
             starts.insert(id.clone(), onsets.clone());
         }
+        let mut phrase_marks = HashMap::new();
+        let timing_path = dir.join("phrase-timings.json");
+        if timing_path.exists() {
+            let timing: serde_json::Value = serde_json::from_slice(&std::fs::read(timing_path)?)
+                .map_err(|e| io::Error::new(io::ErrorKind::InvalidData, e))?;
+            let cues = timing["cues"]
+                .as_object()
+                .ok_or_else(|| bad("phrase timings: no cues".into()))?;
+            for (id, text) in script.lines() {
+                let entry = cues.get(id).ok_or_else(|| {
+                    bad(format!("phrase timings: no entry for {id}; provide a complete cue map"))
+                })?;
+                if entry["wav_sha256"].as_str() != Some(files[id].sha256.as_str()) {
+                    return Err(bad(format!("phrase timing WAV differs for {id}")));
+                }
+                if entry["text_sha256"].as_str() != Some(digest::sha256_hex(text.as_bytes()).as_str()) {
+                    return Err(bad(format!("phrase timing text differs for {id}")));
+                }
+                let mut marks = HashMap::new();
+                let mut previous = 0.0;
+                let mut previous_byte = None;
+                for row in entry["marks"]
+                    .as_array()
+                    .ok_or_else(|| bad("phrase timings: no marks".into()))?
+                {
+                    let at = row["byte"]
+                        .as_u64()
+                        .ok_or_else(|| bad("phrase timings: bad offset".into()))? as usize;
+                    let time = row["seconds"]
+                        .as_f64()
+                        .ok_or_else(|| bad("phrase timings: bad time".into()))?;
+                    if at >= text.len()
+                        || !text.is_char_boundary(at)
+                        || !time.is_finite()
+                        || time < previous
+                        || time >= lengths[id]
+                        || previous_byte.is_some_and(|byte| at <= byte)
+                        || marks.insert(at, time).is_some()
+                    {
+                        return Err(bad(format!("invalid phrase timing for {id}")));
+                    }
+                    previous = time;
+                    previous_byte = Some(at);
+                }
+                phrase_marks.insert(id.clone(), marks);
+            }
+        }
         Ok(Rc::new(Self {
             dir: Some(dir.to_path_buf()),
             files,
             lengths,
             starts,
+            phrase_marks,
             said_at: RefCell::new(HashMap::new()),
             gain_db,
             busy_until: Cell::new(0.0),
@@ -940,6 +991,7 @@ impl Narrator {
             files: HashMap::new(),
             lengths,
             starts,
+            phrase_marks: HashMap::new(),
             said_at: RefCell::new(HashMap::new()),
             gain_db: GAIN_DB,
             busy_until: Cell::new(0.0),
@@ -1001,6 +1053,11 @@ impl Narrator {
     /// or, for the scratch voice, shares of the line by sentence length.
     pub fn sentence_starts(&self, id: &str) -> Vec<f64> {
         self.starts.get(id).cloned().unwrap_or_default()
+    }
+
+    /// Optional word-onset estimates for a cue; these are not heard boundaries.
+    pub fn phrase_marks(&self, id: &str) -> HashMap<usize, f64> {
+        self.phrase_marks.get(id).cloned().unwrap_or_default()
     }
 
     /// The scene time sentence `j` of line `id` starts at, once the line has
@@ -1724,6 +1781,53 @@ mod tests {
         let report = serde_json::json!({"meta": {"rate": 48_000}, "lines": lines});
         std::fs::write(dir.join("report.json"), report.to_string()).unwrap();
         dir
+    }
+
+    #[test]
+    fn phrase_timings_require_matching_audio_and_text_and_ordered_offsets() {
+        let script = Script::parse("01_1\tHello world.\n").unwrap();
+        let dir = narration("phrase_timings", &script, &[take(0.0, 1.0, 0.0)]);
+        let file = dir.join("phrase-timings.json");
+        let audio = digest::sha256_hex(&std::fs::read(dir.join("01_1.wav")).unwrap());
+        let mut data = serde_json::json!({"cues": {"01_1": {
+            "wav_sha256": audio,
+            "text_sha256": digest::sha256_hex(b"Hello world."),
+            "marks": [{"byte": 0, "seconds": 0.1}, {"byte": 6, "seconds": 0.6}]
+        }}});
+        let load = |data: &serde_json::Value| {
+            std::fs::write(&file, data.to_string()).unwrap();
+            Narrator::load(&script, &dir, 0.0)
+        };
+        assert_eq!(load(&data).unwrap().phrase_marks("01_1").get(&6), Some(&0.6));
+        data["cues"]["01_1"]["text_sha256"] = "wrong".into();
+        assert!(load(&data).is_err());
+        data["cues"]["01_1"]["text_sha256"] = digest::sha256_hex(b"Hello world.").into();
+        data["cues"]["01_1"]["wav_sha256"] = "wrong".into();
+        assert!(load(&data).is_err());
+        data["cues"]["01_1"]["wav_sha256"] = audio.into();
+        data["cues"]["01_1"]["marks"][1]["byte"] = 0.into();
+        assert!(load(&data).is_err());
+    }
+
+    #[test]
+    fn incomplete_phrase_timing_maps_return_an_error_without_panicking() {
+        let script = Script::parse("01_1\tHello world.\n01_2\tAnother cue.\n").unwrap();
+        let dir = narration("partial_phrase_timings", &script, &[take(0.0, 1.0, 0.0), take(0.0, 1.0, 0.0)]);
+        let audio = digest::sha256_hex(&std::fs::read(dir.join("01_2.wav")).unwrap());
+        let data = serde_json::json!({"cues": {"01_2": {
+            "wav_sha256": audio,
+            "text_sha256": digest::sha256_hex(b"Another cue."),
+            "marks": []
+        }}});
+        std::fs::write(dir.join("phrase-timings.json"), data.to_string()).unwrap();
+        let err = Narrator::load(&script, &dir, 0.0).err().expect("incomplete map must fail");
+        assert_eq!(err.kind(), io::ErrorKind::InvalidData);
+        assert!(err.to_string().contains("phrase timings: no entry for 01_1"), "{err}");
+
+        std::fs::write(dir.join("phrase-timings.json"), r#"{"cues":[]}"#).unwrap();
+        let err = Narrator::load(&script, &dir, 0.0).err().expect("malformed map must fail");
+        assert_eq!(err.kind(), io::ErrorKind::InvalidData);
+        assert!(err.to_string().contains("phrase timings: no cues"), "{err}");
     }
 
     /// Synthetic source slices exercise the real loader, not listening quality.

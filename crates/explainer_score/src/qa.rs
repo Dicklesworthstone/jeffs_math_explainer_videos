@@ -125,7 +125,7 @@ pub struct ScoreFacts {
     pub chords: Vec<ChordSpan>,
     pub phrases: Vec<(f64, f64)>,
     pub no_fly: (f64, f64),
-    /// Authored silences inside the chapter: where the stem must be exactly
+    /// Declared authored/composed silences inside the chapter: where the stem must be exactly
     /// zero (from each fade's end to the music's return).
     pub silences: Vec<(f64, f64)>,
     /// The authored silences of the chapter that no `silence_end` mark closes
@@ -747,7 +747,7 @@ pub fn evaluate(
         }
     }
     r.push("rule6_identical_notes_10s", rule6 as f64, "= 0", Some(rule6 == 0), "");
-    // an authored silence's fade out, zero span and fade back in are a level
+    // a declared authored/composed silence's fade out, zero span and fade back in are a level
     // the score moves on purpose, not beating: skipped as a sonified window is
     let mut busy = f.sonified.clone();
     busy.extend(f.silences.iter().map(|&(s, e)| (s - SILENCE_FADE, e + RETURN_FADE)));

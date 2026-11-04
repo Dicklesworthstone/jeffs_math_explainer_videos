@@ -251,12 +251,33 @@ def prediction_end(line, following, fps, predicts, outputs, declared, offset):
     return None
 
 
+def external_plan(topic, narration, canonical):
+    """Accept a separately bound one-cue-per-take UI plan, without changing the canonical plan."""
+    path = narration / 'external-units.json'
+    if not path.exists():
+        return canonical
+    external = json.loads(path.read_text())
+    current = json.loads(canonical.read_text())
+    require(external.get('direction_contract') == current.get('direction_contract'),
+            'external plan changes the canonical direction contract')
+    require(all(len(unit.get('line_ids', [])) == 1 for unit in external.get('units', [])),
+            'external UI plan requires exactly one cue per take')
+    assembly = json.loads((narration / 'assembly.json').read_text())
+    for record in assembly['manifest']['units']:
+        receipt = json.loads(Path(record['generation_receipt']).read_text())
+        require(receipt.get('source') == 'ElevenLabs UI, Oliver',
+                'external plan requires an explicitly identified UI source')
+    return path
+
+
 def verify(args):
     topic = args.topic.resolve()
     require(topic.parent == REPO/'explainer_corpus', 'topic must be in this repository')
     script, units = topic/'script.tsv', topic/'narration_units.json'
     if args.review_units is not None:
         units = review_plan(args)
+    else:
+        units = external_plan(topic, args.narration, units)
     require(json.loads(units.read_text())['direction_contract']['topic'] == topic.name,
             'plan names a different topic')
     texts = coherent.read_script(script)
@@ -318,7 +339,8 @@ def verify(args):
                 offset += int(next(r[1] for r in data if r[0] == 'frames')) / fps
     return {'consumer': args.consumer, 'topic': topic.name, 'verified_cues': len(outputs),
             'selected_cues': len(selected), 'chapter_scope': scope,
-            'plan_mode': 'lab-review' if args.review_units is not None else 'canonical',
+            'plan_mode': ('lab-review' if args.review_units is not None else
+                          'external-ui' if units.name == 'external-units.json' else 'canonical'),
             'promotion': False, 'listening_acceptance': False,
             'directed_caption_segments': caption_segments, 'prediction_holds': prediction_holds}
 

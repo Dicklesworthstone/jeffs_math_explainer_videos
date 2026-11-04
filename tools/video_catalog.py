@@ -3,6 +3,7 @@
 
 uv run --no-project --with jsonschema python3 -I tools/video_catalog.py validate
 uv run --no-project --with jsonschema python3 -I tools/video_catalog.py show hoeffding_d
+uv run --no-project --with jsonschema python3 -I tools/video_catalog.py board
 
 Structural validity and recorded hashes are not fresh file verification or
 publication authority. This tool never writes the catalog, Beads or gate state.
@@ -12,9 +13,10 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import subprocess
+import sys
 from collections import deque
 from pathlib import Path, PurePosixPath
-import sys
 
 from jsonschema import Draft202012Validator
 
@@ -169,6 +171,171 @@ def cut_lineage(data, video_id: str, revision_id: str) -> dict:
     }
 
 
+def board_rows(data, issues, blocked, children, root=ROOT):
+    """Derive a read-only view; dated records remain observations, not live proof."""
+    def reference(ref):
+        if ref in by_id:
+            return {"ref": ref, "state": "tracker_issue_exists"}
+        if ref.startswith("mx-") and "/" not in ref:
+            return {"ref": ref, "state": "tracker_issue_missing"}
+        if ref.startswith(("https://", "http://")):
+            return {"ref": ref, "state": "external_not_checked"}
+        path, separator, _anchor = ref.partition("#")
+        if not safe_path(path):
+            return {"ref": ref, "state": "unresolved_reference"}
+        state = "local_missing"
+        if (root / path).exists():
+            state = "local_exists_anchor_unchecked" if separator else "local_exists"
+        return {"ref": ref, "state": state}
+
+    by_id = {issue["id"]: issue for issue in issues}
+    blocked_by = {issue["id"]: issue["blocked_by"] for issue in blocked}
+    artifacts = {item["artifact_id"]: item for item in data.get("artifacts", [])}
+    rows = []
+    for video in data["videos"]:
+        anchor = video.get("work_epic")
+        seen, pending = set(), [anchor] if anchor else []
+        while pending:
+            issue_id = pending.pop()
+            if issue_id in seen:
+                continue
+            seen.add(issue_id)
+            pending.extend(children.get(issue_id, []))
+        work = []
+        for issue_id in sorted(seen):
+            issue = by_id.get(issue_id)
+            if issue is None:
+                work.append({"id": issue_id, "status": "unknown", "title": "Tracker entry missing"})
+            elif issue["status"] not in ("closed", "tombstone"):
+                work.append({"id": issue_id, "title": issue["title"], "status": issue["status"],
+                             "labels": issue.get("labels", []),
+                             "blocked_by": blocked_by.get(issue_id, [])})
+        revisions = []
+        for cut in video["revisions"]:
+            master = cut.get("master")
+            refs = cut.get("artifact_refs", {})
+            revisions.append({"revision_id": cut["revision_id"], "label": cut["label"],
+                              "voice": cut["voice"], "generation_provenance": cut["generation_provenance"],
+                              "master": master,
+                              "master_path_exists": (root / master["path"]).is_file() if master else None,
+                              "artifacts": [{**artifacts[ref], "path_exists": (root / artifacts[ref]["path"]).is_file(),
+                                             "evidence_refs_health": [reference(link) for link in artifacts[ref]["evidence_refs"]]}
+                                            for ids in refs.values() for ref in ids],
+                              "unrecorded_artifact_roles": [role for role in ROLES if role not in refs],
+                              "evidence_refs": [reference(ref) for ref in cut.get("evidence_refs", [])],
+                              "milestones": [{**m, "evidence_refs_health": [reference(ref) for ref in m["evidence_refs"]]}
+                                             for m in cut.get("milestones", [])],
+                              "publications": [{**p, "evidence_refs_health": [reference(ref) for ref in p["evidence_refs"]]}
+                                               for p in video["publications"] if p["revision_id"] == cut["revision_id"]]})
+        decision = video["decisions"][-1] if video["decisions"] else None
+        rows.append({"video_id": video["video_id"], "title": video["working_title"],
+                     "approval": video["production_approval"], "editorial_decision": decision,
+                     "source_refs": [reference(ref) for ref in video.get("source_refs", [])],
+                     "recorded_public_revisions": [p["revision_id"] for p in video["publications"]
+                                                   if p["visibility"] == "public"],
+                     "work_epic": anchor, "tracker_anchor_state": "recorded" if anchor in by_id else "unknown",
+                     "work": work, "revisions": revisions})
+    return rows
+
+
+def tracker_snapshot(data):
+    """Read supported br envelopes, including the actual parent-child graph."""
+    warnings = []
+    def call(*args):
+        result = subprocess.run(["br", *args, "--json", "--no-auto-import", "--no-auto-flush"], cwd=ROOT, text=True,
+                                capture_output=True, check=False)
+        if result.returncode:
+            raise ValueError(f"br {' '.join(args)} failed ({result.returncode}): {result.stderr.strip()}")
+        if result.stderr.strip():
+            warnings.append(result.stderr.strip())
+        return json.loads(result.stdout)
+    warnings.append("Automatic tracker import and export are disabled; the board reads the local database as-is.")
+    try:
+        sync = call("sync", "--status")
+        if sync.get("workspace_health") != "healthy" or sync.get("coverage_drift"):
+            warnings.append("Tracker sync health: " + str(sync.get("workspace_health", "unknown")) +
+                            "; DB and JSONL may differ (dirty count: " + str(sync.get("dirty_count", "unknown")) + ").")
+    except (ValueError, json.JSONDecodeError) as exc:
+        warnings.append("Tracker sync status unavailable: " + str(exc))
+    issues = call("list", "--all", "--limit", "0")["issues"]
+    blocked = call("blocked", "--limit", "0")["issues"]
+    by_id = {issue["id"]: issue for issue in issues}
+    children, seen = {}, set()
+    pending = [v["work_epic"] for v in data["videos"] if v.get("work_epic")]
+    while pending:
+        issue_id = pending.pop()
+        if issue_id in seen:
+            continue
+        seen.add(issue_id)
+        issue = by_id.get(issue_id)
+        if not issue or not issue.get("dependent_count"):
+            continue
+        details = call("show", issue_id)[0]
+        child_ids = [d["id"] for d in details.get("dependents", []) if d["dependency_type"] == "parent-child"]
+        children[issue_id] = child_ids
+        pending.extend(child_ids)
+    return issues, blocked, children, warnings
+
+
+def print_board(result):
+    """Render a compact human-readable view without converting observations into gates."""
+    attention = {"local_missing", "tracker_issue_missing", "unresolved_reference",
+                 "local_exists_anchor_unchecked", "external_not_checked"}
+    print(f"Catalog updated {result['catalog_updated_on']}; {len(result['videos'])} video(s) in view")
+    print(result["claim_scope"])
+    if result["tracker_warning"]:
+        print("Tracker warning: " + result["tracker_warning"])
+    for video in result["videos"]:
+        decision = video["editorial_decision"] or {}
+        print(f"\n{video['video_id']} | {video['title']} | approval: {video['approval']} | "
+              f"decision: {decision.get('decision', 'unknown')} ({decision.get('on', 'date unknown')})")
+        for ref in video["source_refs"]:
+            if ref["state"] in attention:
+                print(f"  {ref['state']}: {ref['ref']}")
+        if not video["revisions"]:
+            print("  Cuts: none recorded")
+        for cut in video["revisions"]:
+            master = "no master recorded" if cut["master_path_exists"] is None else (
+                "master path exists" if cut["master_path_exists"] else "master path missing")
+            master_evidence = (cut["master"] or {}).get("evidence_state", "unknown")
+            print(f"  {cut['revision_id']} | {cut['label']} | voice: {cut['voice']} | {master} | "
+                  f"master evidence: {master_evidence} | "
+                  f"unrecorded artifact roles: {', '.join(cut['unrecorded_artifact_roles']) or 'none'}")
+            for artifact in cut["artifacts"]:
+                existence = "exists" if artifact["path_exists"] else "missing"
+                print(f"    recorded {artifact['kind']}: {artifact['evidence_state']} | "
+                      f"path {existence}: {artifact['path']}")
+                for ref in artifact["evidence_refs_health"]:
+                    if ref["state"] in attention:
+                        print(f"      {ref['state']}: {ref['ref']}")
+            for milestone in cut["milestones"]:
+                print(f"    recorded {milestone['stage']}: {milestone['evidence_state']} "
+                      f"as of {milestone['recorded_as_of']}")
+                for ref in milestone["evidence_refs_health"]:
+                    if ref["state"] in attention:
+                        print(f"      {ref['state']}: {ref['ref']}")
+            for publication in cut["publications"]:
+                print(f"    {publication['visibility']} as of {publication.get('recorded_as_of', 'unknown')}: "
+                      f"{publication['url']} | evidence: {publication.get('evidence_state', 'unknown')}")
+                for ref in publication["evidence_refs_health"]:
+                    if ref["state"] in attention:
+                        print(f"      {ref['state']}: {ref['ref']}")
+            for ref in cut["evidence_refs"]:
+                if ref["state"] in attention:
+                    print(f"    {ref['state']}: {ref['ref']}")
+        if video["tracker_anchor_state"] != "recorded":
+            print("  Tracker anchor: unknown")
+        for issue in video["work"]:
+            blockers = ", ".join(issue.get("blocked_by", [])) or "none recorded"
+            print(f"  {issue['id']} | {issue['status']} | {issue['title']} | blocked by: {blockers}")
+    if result["unmapped_lane_work"]:
+        print("\nMatching lane work outside mapped video epics:")
+        for issue in result["unmapped_lane_work"]:
+            print(f"  {issue['id']} | {issue['status']} | {issue['title']} | "
+                  f"blocked by: {', '.join(issue['blocked_by']) or 'none recorded'}")
+    print("\n" + result["lane_scope"])
+
+
 def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--catalog", type=Path, default=CATALOG)
@@ -177,6 +344,11 @@ def main(argv=None) -> int:
     show = commands.add_parser("show")
     show.add_argument("video_id")
     show.add_argument("--revision")
+    board = commands.add_parser("board", help="derive a read-only view from catalog and local Beads")
+    board.add_argument("--lane", help="filter by a recorded Beads lane label, for example narration")
+    board.add_argument("--decision", help="filter by the latest recorded editorial decision")
+    board.add_argument("--blocker", help="filter by recorded blocking issue ID")
+    board.add_argument("--format", choices=("json", "text"), default="json")
     args = parser.parse_args(argv)
     try:
         data = read_json(args.catalog)
@@ -190,6 +362,33 @@ def main(argv=None) -> int:
                       "revisions": sum(len(v["revisions"]) for v in data["videos"]),
                       "artifacts": len(data.get("artifacts", [])),
                       "claim_scope": "Structure and references only; recorded evidence is not requalified."}
+        elif args.command == "board":
+            issues, blocked, children, warnings = tracker_snapshot(data)
+            rows = board_rows(data, issues, blocked, children)
+            unmapped_lane_work = []
+            if args.lane:
+                lane = args.lane if args.lane.startswith("lane:") else "lane:" + args.lane
+                mapped = {work["id"] for row in rows for work in row["work"]}
+                blocked_by = {item["id"]: item["blocked_by"] for item in blocked}
+                unmapped_lane_work = [{"id": item["id"], "title": item["title"], "status": item["status"],
+                                       "blocked_by": blocked_by.get(item["id"], [])}
+                                      for item in issues if item["id"] not in mapped
+                                      and item["status"] not in ("closed", "tombstone")
+                                      and lane in item.get("labels", [])]
+                rows = [row for row in rows if any(lane in work.get("labels", []) for work in row["work"])]
+            if args.decision:
+                rows = [row for row in rows if (row["editorial_decision"] or {}).get("decision") == args.decision]
+            if args.blocker:
+                rows = [row for row in rows if any(args.blocker in work.get("blocked_by", []) for work in row["work"])]
+                unmapped_lane_work = [work for work in unmapped_lane_work if args.blocker in work["blocked_by"]]
+            result = {"catalog_updated_on": data["updated_on"], "videos": rows,
+                      "tracker_warning": " | ".join(dict.fromkeys(warnings)) if warnings else None,
+                      "unmapped_lane_work": unmapped_lane_work,
+                      "lane_scope": "Video rows use explicitly labelled unfinished work under that video epic; other matching work is listed separately, without an editorial decision, and unlabelled work is not guessed.",
+                      "claim_scope": "Recorded dates and tracker state are observations; no live publication, byte, listening or release qualification. Tracker reads are not atomic."}
+            if args.format == "text":
+                print_board(result)
+                return 0
         else:
             videos = [v for v in data["videos"] if v["video_id"] == args.video_id]
             if not videos:
@@ -203,7 +402,7 @@ def main(argv=None) -> int:
                       "cuts": [cut_lineage(data, args.video_id, r["revision_id"]) for r in revisions]}
         print(json.dumps(result, indent=2, ensure_ascii=False))
         return 0
-    except (OSError, ValueError) as error:
+    except (OSError, ValueError, subprocess.SubprocessError) as error:
         print(json.dumps({"valid": False, "errors": [str(error)]}, indent=2))
         return 1
 

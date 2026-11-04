@@ -421,6 +421,35 @@ class CoherentTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             m.verify(out)
 
+    def test_external_ui_source_binds_text_audio_and_complete_cue(self):
+        original, _ = self.source()
+        wav = Path(original['wav'])
+        mp3 = self.root / 'download.mp3'
+        mp3.write_bytes(b'illustrative downloaded bytes')
+        unit = {'id': '01u1', 'line_ids': ['01_1'], 'text': 'Four pulses. They return.'}
+        info = m.cache.wav_identity(wav)
+        receipt = {'source': 'ElevenLabs UI, Oliver', 'records': [{
+            'cue': '01_1', 'text': unit['text'], 'wav': str(wav),
+            'wav_sha256': info['sha256'], 'samples': info['frames'], 'rate': 24000,
+            'source': str(mp3), 'source_sha256': m.cache.digest(mp3)}]}
+        receipt_path = self.root / 'external.json'
+        receipt_path.write_text(json.dumps(receipt))
+        record = {'wav': str(wav), 'generation_receipt': str(receipt_path),
+                  'sha256': info['sha256'], 'sentence_ends': [1000, 2400],
+                  'gap_after_samples': [0, 0]}
+        rows = m.unit_spans(unit, m.read_script(self.script), record)
+        self.assertEqual(len(rows), 2)
+        self.assertEqual(b''.join(row[2] for row in rows), m.wav_pcm(wav)[1])
+        receipt['records'][0]['text'] = 'Four pulses. They vanish.'
+        receipt_path.write_text(json.dumps(receipt))
+        with self.assertRaisesRegex(ValueError, 'external source'):
+            m.unit_spans(unit, m.read_script(self.script), record)
+        receipt['records'][0]['text'] = unit['text']
+        receipt_path.write_text(json.dumps(receipt))
+        mp3.write_bytes(b'changed download')
+        with self.assertRaisesRegex(ValueError, 'external source'):
+            m.unit_spans(unit, m.read_script(self.script), record)
+
     def test_source_gap_overlap_cap_and_content_refused(self):
         record, receipt = self.source()
         script = m.read_script(self.script)

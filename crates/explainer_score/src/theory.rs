@@ -288,16 +288,24 @@ pub fn voice_lead(chord: &Chord, voices: usize, prev: Option<&Voicing>, reg: &Re
             None => options[options.len() / 2],
         }
     };
-    let mut best: Option<(i64, Vec<i32>)> = None;
+    let mut best: Option<(bool, i64, Vec<i32>)> = None;
     let mut stack = Vec::with_capacity(voices);
     search(&candidates, 0, voices, &mut stack, &mut |cand: &[i32]| {
+        // QA requires no rough adjacent bed voices. Prefer any available clean
+        // voicing before optimizing motion and chord-tone coverage. If the
+        // register offers none, keep the lowest-cost candidate and let QA
+        // report that the constraint cannot be met.
+        let has_rough_pair = cand.windows(2).any(|w| rough(w[0], w[1]));
         let cost = voicing_cost(cand, &want, prev, reg.centre, bass);
-        if best.as_ref().is_none_or(|(c, _)| cost < *c) {
-            best = Some((cost, cand.to_vec()));
+        if best
+            .as_ref()
+            .is_none_or(|(rough, c, _)| (has_rough_pair, cost) < (*rough, *c))
+        {
+            best = Some((has_rough_pair, cost, cand.to_vec()));
         }
     });
     let upper = best
-        .map(|(_, v)| v)
+        .map(|(_, _, v)| v)
         .unwrap_or_else(|| candidates.iter().take(voices).copied().collect());
     Voicing { bass, upper }
 }
@@ -582,6 +590,29 @@ mod tests {
             }
         }
         assert!(rough(60, 63) && rough(69, 71) && !rough(60, 64) && !rough(72, 74));
+    }
+
+    #[test]
+    fn inspection_progression_avoids_rough_pairs_in_olivers_register() {
+        let reg = Register::from_f0(95.2, 228.6);
+        let progression = [
+            Chord::six_nine(2),
+            Chord::new(11, &[0, 3, 7, 10]),
+            Chord::dom7sus4(4),
+            Chord::sus4(9),
+        ];
+        for offset in 0..progression.len() {
+            let mut prev = None;
+            for i in 0..16 {
+                let chord = &progression[(i + offset) % progression.len()];
+                let voiced = voice_lead(chord, 4, prev.as_ref(), &reg);
+                assert!(
+                    voiced.upper.windows(2).all(|w| !rough(w[0], w[1])),
+                    "{chord:?}: {voiced:?}"
+                );
+                prev = Some(voiced);
+            }
+        }
     }
 
     #[test]

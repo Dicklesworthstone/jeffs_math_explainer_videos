@@ -767,8 +767,10 @@ impl CueKind {
     }
 }
 
-/// An authored silence (`kit.mark(stage, "silence:<name>")`, optionally
-/// closed by `"silence_end:<name>"`), in seconds from the video's start.
+/// A declared music silence: authored (`kit.mark(stage, "silence:<name>")`, optionally
+/// closed by `"silence_end:<name>"`) or explicitly composed as `score-rest:N`,
+/// in seconds from the video's start. The following mark placement rules
+/// describe authored silences; composed rests carry explicit fade/end times.
 /// Placed at a sentence (just before `kit.say`), the music fades out in the
 /// pause before it (`fade_start` to `fade_end`: up to [`SILENCE_FADE`] long,
 /// ending up to [`KEY_LEAD`] before that sentence, never starting before the
@@ -788,7 +790,7 @@ pub struct SilenceSpan {
     pub fade_end: f64,
     pub back: f64,
     pub back_end: f64,
-    /// A `silence_end:<name>` mark closes it; without one `back` was inferred.
+    /// An end mark or explicit composed end closes it; otherwise `back` was inferred.
     pub closed: bool,
     /// How many narration lines have audio inside [`fade_end`, `back`).
     pub lines: usize,
@@ -991,25 +993,23 @@ fn release_long_bed(chords: &mut [ChordSpan], held: &[(f64, f64)]) -> Vec<(f64, 
     rests
 }
 
-/// Fade only the harmonic bed (including its effects tail), without moving
-/// any narration or melodic event. No step when a new chord resumes.
-fn apply_bed_rests(bed: &mut Stereo, rests: &[(f64, f64)]) {
-    for &(start, end) in rests {
-        let first = ((start - 1.0).max(0.0) * FS).round() as usize;
-        let last = (((end + 0.5) * FS).round() as usize).min(bed.len());
-        for i in first..last {
-            let t = i as f64 / FS;
-            let gain = if t < start {
-                1.0 - rcos(t - (start - 1.0))
-            } else if t < end {
-                0.0
-            } else {
-                rcos((t - end) / 0.5)
-            };
-            bed.l[i] *= gain;
-            bed.r[i] *= gain;
-        }
-    }
+/// Declare composed rests through the same verified final-bus silence path
+/// as authored rests. This keeps carry/duck/effects from lifting their tails,
+/// and makes QA check actual zero samples and distinguish fades from beating.
+fn composed_rests(rests: &[(f64, f64)], lines: &[(f64, f64)]) -> Vec<SilenceSpan> {
+    rests
+        .iter()
+        .enumerate()
+        .map(|(k, &(start, end))| SilenceSpan {
+            name: format!("score-rest:{k}"),
+            fade_start: (start - 1.0).max(0.0),
+            fade_end: start,
+            back: end,
+            back_end: end + 0.5,
+            closed: true,
+            lines: lines.iter().filter(|&&(a, b)| a < end && b > start).count(),
+        })
+        .collect()
 }
 
 /// A rendered score with everything QA needs to judge it.
@@ -1049,7 +1049,7 @@ pub struct Score {
     /// What the bed bus was lowered by to hold [`UNDER_SPEECH_LU`] under
     /// speech (dB, ≤ 0; 0 when the open-loop level already held it).
     pub bed_trim_db: f64,
-    /// The authored silences (seconds), where the stem is exactly zero.
+    /// Declared authored/composed silences (seconds), where the stem is exactly zero.
     pub silences: Vec<SilenceSpan>,
     /// The listen windows that carry a sonification (start, end; seconds):
     /// the scene's sound, not the score's, there.
@@ -2542,6 +2542,7 @@ fn compose(
     let mut silences = silences;
     let firsts: Vec<f64> = phrases.iter().map(|p| p.0).collect();
     return_with(&mut silences, &firsts);
+    silences.extend(composed_rests(&bed_rests, &line_spans));
 
     // rule 7 for as long as a note sounds: a melody, answer or cue note held
     // into a chord it would clash with is released at that chord's change;
@@ -2637,7 +2638,6 @@ fn compose(
             }
         }
         let mut sum = bed_bus(identity, &events, n, &send, &room);
-        apply_bed_rests(&mut sum, &bed_rests);
         drop(send);
         sum.scale(db_to_gain(v_ref + identity.bed_lu - ref_bed + bed_trim_db));
         let melody = melody_bus(&events, n);
@@ -2950,7 +2950,14 @@ mod tests {
             l: vec![1.0; 24 * 48000],
             r: vec![1.0; 24 * 48000],
         };
-        apply_bed_rests(&mut bed, &rests);
+        let declared = composed_rests(&rests, &[(0.0, 21.0)]);
+        assert_eq!(declared[0].name, "score-rest:0");
+        assert!(declared[0].closed);
+        assert_eq!(declared[0].lines, 1);
+        for (i, gain) in silence_gain(&declared, bed.len()).into_iter().enumerate() {
+            bed.l[i] *= gain;
+            bed.r[i] *= gain;
+        }
         assert_eq!(bed.l[13 * 48000], 1.0);
         assert!(bed.l[15 * 48000..22 * 48000].iter().all(|&x| x == 0.0));
         assert_eq!(bed.l[23 * 48000], 1.0);

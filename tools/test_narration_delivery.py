@@ -46,6 +46,40 @@ class DirectedSegmentTests(unittest.TestCase):
         self.assertEqual(narration_delivery.directed_segments(report, 'x', 12.5), got[:1])
 
 
+class ExternalPlanTests(unittest.TestCase):
+    def test_external_plan_requires_canonical_directions_and_ui_receipt(self):
+        import tempfile
+        root = Path(tempfile.mkdtemp(prefix='external-plan-contract-'))
+        canonical = root/'canonical.json'
+        canonical.write_text(json.dumps({'direction_contract': {'topic': 'example'}}))
+        narration = root/'narration'
+        narration.mkdir()
+        self.assertEqual(narration_delivery.external_plan(root, narration, canonical), canonical)
+        plan = narration/'external-units.json'
+        external = {'direction_contract': {'topic': 'example'},
+                    'units': [{'line_ids': ['01_1']}]}
+        plan.write_text(json.dumps(external))
+        receipt = root/'receipt.json'
+        receipt.write_text(json.dumps({'source': 'ElevenLabs UI, Oliver'}))
+        (narration/'assembly.json').write_text(json.dumps({'manifest': {'units': [
+            {'generation_receipt': str(receipt)}]}}))
+        self.assertEqual(narration_delivery.external_plan(root, narration, canonical), plan)
+        external['direction_contract'] = {'topic': 'other'}
+        plan.write_text(json.dumps(external))
+        with self.assertRaisesRegex(ValueError, 'direction contract'):
+            narration_delivery.external_plan(root, narration, canonical)
+        external['direction_contract'] = {'topic': 'example'}
+        external['units'][0]['line_ids'].append('01_2')
+        plan.write_text(json.dumps(external))
+        with self.assertRaisesRegex(ValueError, 'one cue'):
+            narration_delivery.external_plan(root, narration, canonical)
+        external['units'][0]['line_ids'] = ['01_1']
+        plan.write_text(json.dumps(external))
+        receipt.write_text(json.dumps({'source': 'other'}))
+        with self.assertRaisesRegex(ValueError, 'UI source'):
+            narration_delivery.external_plan(root, narration, canonical)
+
+
 class SegmentedScoreTests(unittest.TestCase):
     def test_exact_parts_and_every_bound_placement_are_required(self):
         import hashlib

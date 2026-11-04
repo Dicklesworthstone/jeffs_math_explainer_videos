@@ -271,16 +271,32 @@ def unit_spans(unit, script, record):
     receipt_path = Path(record["generation_receipt"]).resolve(strict=True)
     receipt = json.loads(receipt_path.read_text())
     info, pcm = wav_pcm(wav_path)
-    if info != receipt["wav"] or info["sha256"] != record["sha256"]:
-        raise ValueError("source audio no longer matches generation receipt")
     context_after = record.get("context_after")
-    if receipt["returncode"] != 0 or receipt["request"]["submitted_text"] != request_text(unit, script, context_after):
-        raise ValueError("generation request does not contain this unit's script")
-    cache.validate_generation(receipt["generation"], receipt["request"], receipt["completion"])
-    if receipt["completion"]["event"] != "run_complete" or receipt["completion"]["exit_code"] != 0:
-        raise ValueError("generation has no successful terminal event")
-    if receipt["generation"]["output"]["samples"] != info["frames"]:
-        raise ValueError("generation sample count differs from source WAV")
+    if receipt.get('source') == 'ElevenLabs UI, Oliver':
+        # UI exports are not native FrankenTTS receipts. Keep that distinction:
+        # the record binds the downloaded MP3, decoded WAV and submitted cue,
+        # but does not claim an independently signed provider receipt or hearing.
+        if context_after is not None or len(unit['line_ids']) != 1:
+            raise ValueError('external UI takes require one complete cue without context crop')
+        matches = [row for row in receipt['records'] if row['cue'] == unit['line_ids'][0]]
+        if len(matches) != 1:
+            raise ValueError('external receipt must identify exactly one source per cue')
+        row = matches[0]
+        if (row['text'] != request_text(unit, script) or Path(row['wav']).resolve(strict=True) != wav_path
+                or row['wav_sha256'] != info['sha256'] or record['sha256'] != info['sha256']
+                or row['samples'] != info['frames'] or row['rate'] != info['sample_rate']
+                or cache.digest(row['source']) != row['source_sha256']):
+            raise ValueError('external source, text or decoded audio changed')
+    else:
+        if info != receipt["wav"] or info["sha256"] != record["sha256"]:
+            raise ValueError("source audio no longer matches generation receipt")
+        if receipt["returncode"] != 0 or receipt["request"]["submitted_text"] != request_text(unit, script, context_after):
+            raise ValueError("generation request does not contain this unit's script")
+        cache.validate_generation(receipt["generation"], receipt["request"], receipt["completion"])
+        if receipt["completion"]["event"] != "run_complete" or receipt["completion"]["exit_code"] != 0:
+            raise ValueError("generation has no successful terminal event")
+        if receipt["generation"]["output"]["samples"] != info["frames"]:
+            raise ValueError("generation sample count differs from source WAV")
     parts = [(cue, sentence) for cue in unit["line_ids"] for sentence in sentences(script[cue])]
     ends, gaps = record["sentence_ends"], record["gap_after_samples"]
     if len(ends) != len(parts) or len(gaps) != len(parts):

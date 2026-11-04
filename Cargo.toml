@@ -8,6 +8,13 @@ members = ["crates/*", "explainer_corpus/*"]
 exclude = [
     # Session hooks may write here; this preserved state is not a crate.
     "explainer_corpus/.ee",
+    # New video model is under development; integrate it with a lockfile update
+    # when the scene crate is ready for workspace qualification.
+    "explainer_corpus/five_math_paradoxes",
+    "explainer_corpus/abstract_algebra_visual",
+    "explainer_corpus/exponential_magic",
+    "explainer_corpus/logarithm_mysteries",
+    "explainer_corpus/complex_analysis_visual",
 ]
 
 [workspace.package]
