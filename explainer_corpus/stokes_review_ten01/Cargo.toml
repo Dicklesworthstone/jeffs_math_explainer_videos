@@ -1,0 +1,13 @@
+[package]
+name = "stokes_review_ten01"
+version = "0.1.0"
+edition = "2024"
+publish = false
+description = "A native visual introduction to generalized Stokes theorem"
+
+[workspace]
+
+[dependencies]
+fmn = { git = "https://github.com/Dicklesworthstone/franken_manim", rev = "a399d626c43ecc852a5c795288979f52b446bc5c", features = ["ffmpeg"] }
+explainer_kit = { path = "/Users/jemanuel/projects/jeffs_math_explainer_videos/crates/explainer_kit" }
+explainer_score = { path = "/Users/jemanuel/projects/jeffs_math_explainer_videos/crates/explainer_score" }

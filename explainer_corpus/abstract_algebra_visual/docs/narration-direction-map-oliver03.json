@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "abstract_algebra_visual": "18713966076b8f0639c6a8fc43d51faf721ac877ba3e8fa3411b8e4409741d07"
+  },
+  "overrides": [
+    {
+      "video": "abstract_algebra_visual",
+      "cue": "02_2",
+      "after": "Associativity doesn't mean we may swap moves. Try a quarter turn followed by a flip. Now undo that and try the flip followed by the turn.",
+      "role": "visual",
+      "reason": "Native prediction hold follows this cue; question may be visual rather than spoken."
+    },
+    {
+      "video": "abstract_algebra_visual",
+      "cue": "03_1",
+      "after": "Keep just the rotations. The do-nothing move, a quarter turn, a half turn and a three-quarter turn still form a group under the same operation. That smaller group is a subgroup.",
+      "role": "visual",
+      "reason": "Native prediction hold follows this cue; question may be visual rather than spoken."
+    },
+    {
+      "video": "abstract_algebra_visual",
+      "cue": "04_1",
+      "after": "Now fix the horizontal flip. Which square symmetries give the same result whether we do them before or after that flip? Those moves form its centralizer.",
+      "role": "visual",
+      "reason": "Native prediction hold follows this cue; question may be visual rather than spoken."
+    },
+    {
+      "video": "abstract_algebra_visual",
+      "cue": "05_1",
+      "after": "A clock identifies numbers that differ by a whole number of turns.",
+      "role": "visual",
+      "reason": "Native prediction hold follows this cue; question may be visual rather than spoken."
+    },
+    {
+      "video": "abstract_algebra_visual",
+      "cue": "06_1",
+      "after": "We might try to multiply two classes by choosing one representative from each, multiplying those moves, and asking which class contains the result. But that only makes sense if the answer does not depend on our choices.",
+      "role": "visual",
+      "reason": "Native prediction hold follows this cue; question may be visual rather than spoken."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "abstract_algebra_visual",
+      "cue": "02_2",
+      "next_cue": "02_3",
+      "kind": "prediction",
+      "path": "explainer_corpus/abstract_algebra_visual/src/chapters/group.rs",
+      "sha256": "d5441610e518277b599bb590094cdef19f09a0fcad3b59c5b2971457f01748c0",
+      "line": 106,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native prediction hold lies between source cues; not an audible pause claim."
+    },
+    {
+      "video": "abstract_algebra_visual",
+      "cue": "03_1",
+      "next_cue": "03_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/abstract_algebra_visual/src/chapters/subgroup.rs",
+      "sha256": "fd9bdcd6ab4cd5690f2236195ccf02f3f03a7dc5a84ff5e60a8eb3a9df0a41fa",
+      "line": 75,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native prediction hold lies between source cues; not an audible pause claim."
+    },
+    {
+      "video": "abstract_algebra_visual",
+      "cue": "04_1",
+      "next_cue": "04_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/abstract_algebra_visual/src/chapters/centralizer.rs",
+      "sha256": "ef10c2abc25fa0ab4896c0a9d237c2a1926baaed0f98bd04f9dc28eac4fd5dc7",
+      "line": 80,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native prediction hold lies between source cues; not an audible pause claim."
+    },
+    {
+      "video": "abstract_algebra_visual",
+      "cue": "05_1",
+      "next_cue": "05_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/abstract_algebra_visual/src/chapters/cosets.rs",
+      "sha256": "5a748f79495f5e380a9b7a553dc1e22cf76b26df475f0c91a4a1c42234f0c56e",
+      "line": 71,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native prediction hold lies between source cues; not an audible pause claim."
+    },
+    {
+      "video": "abstract_algebra_visual",
+      "cue": "06_1",
+      "next_cue": "06_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/abstract_algebra_visual/src/chapters/quotient.rs",
+      "sha256": "8191b5a4e590f02e910809540f43aa73aa6e13a0754862ecda4a0d37221edf4c",
+      "line": 66,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native prediction hold lies between source cues; not an audible pause claim."
+    }
+  ],
+  "scope": "Source-checked prediction holds only; no listening, content, timing or acceptance claim."
+}

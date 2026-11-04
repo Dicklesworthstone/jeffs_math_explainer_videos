@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "apportionment": "84c83681e11e063cadb210ed6a86ca37b1ddd0d55a5e6373c7aebfd68f1dc540"
+  },
+  "overrides": [
+    {
+      "video": "apportionment",
+      "cue": "01_2",
+      "after": "One allocation rule gives A two seats, B three, and C ten. Now add a sixteenth seat. What can happen to A?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    },
+    {
+      "video": "apportionment",
+      "cue": "03_1",
+      "after": "What if we add one more?",
+      "role": "visual",
+      "reason": "Prediction pause after this complete cue before the next cue."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "apportionment",
+      "cue": "01_2",
+      "next_cue": "01_3",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/seat_disappears.rs",
+      "sha256": "92e10cdc4a2d4545efd46fdd5a862bb7d04b2e52988577be80adbaf7a6e4c815",
+      "line": 59,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Hold the cue to completion, then three-second authored visual wait before the next cue; no listening claim."
+    },
+    {
+      "video": "apportionment",
+      "cue": "03_1",
+      "next_cue": "03_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/apportionment/src/chapters/seventeen.rs",
+      "sha256": "532de8dd742005c5f45a7323c1406da9106c21babf5b74ab2e1fb880fafe8906",
+      "line": 23,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Hold the cue to completion, then three-second authored visual wait before the next cue; no listening claim."
+    }
+  ],
+  "scope": "Source-bound provisional visual directions rebound after import-only build repair; no audio, sync, build or independent acceptance."
+}

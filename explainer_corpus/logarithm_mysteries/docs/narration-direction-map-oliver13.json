@@ -1,0 +1,393 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "logarithm_mysteries": "f201d2dc57fa9ccac30d475255690a90d6749449014b542d4dea62164f31bf84"
+  },
+  "overrides": [
+    {
+      "video": "logarithm_mysteries",
+      "cue": "00_4",
+      "after": "So try this. Start at the A of four hundred and forty, and go up six semitones, half of the twelve. What frequency do you reach? Halfway by difference would be six hundred and sixty.",
+      "role": "visual",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "01_3",
+      "after": "Now a harder question. Where does three go? It lies between two and four, so somewhere between one step and two. But where, exactly?",
+      "role": "visual",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "02_2",
+      "after": "To multiply two point five by three point two, slide the moving ruler until its one sits above two point five. Everything on it is now shifted by two point five's length. Find three point two on the moving ruler. Which number sits directly below it?",
+      "role": "visual",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "04_6",
+      "after": "Here is the inverse at work. Money growing continuously at five percent a year is multiplied by e to the zero point zero five t after t years. When has it doubled?",
+      "role": "visual",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "05_1",
+      "after": "Now let the numbers leave the line. A complex number is a point in the plane, or an arrow from zero to that point. Multiplying two of them multiplies their lengths and adds their angles. Multiplying by i keeps the length the same and turns the arrow a quarter turn. So what is i times i?",
+      "role": "visual",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "05_5",
+      "after": "Here is a question. Which inputs land on minus one?",
+      "role": "visual",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "06_2",
+      "after": "As the number turns, its logarithm climbs straight up, because only the angle changes. A quarter of the way round, the logarithm is pi over two times i. Halfway round, at minus one, it is pi times i. When the number arrives back at one, what is the logarithm?",
+      "role": "visual",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "06_4",
+      "after": "A loop that does not go around zero behaves differently. Here is a circle off to one side, which zero is not inside. Walk the number once around it, carrying the logarithm along as before. Will the logarithm come back to where it began?",
+      "role": "visual",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "07_3",
+      "after": "Here is where the cut plane goes. The principal logarithm unrolls it into a horizontal strip, between height minus pi and height pi. Circles become vertical segments. Rays become horizontal lines. Now roll it back, and mark the two sides of the cut: one just above it, one just below. Where will they end up on the strip?",
+      "role": "visual",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "08_1",
+      "after": "On the positive numbers, the logarithm of a product is the sum of the logarithms. Does that survive the cut? Take a number of length one, at an angle of three quarters of pi. Square it. The lengths multiply to one, and the angles add to one and a half pi. But the principal logarithm only reports angles in its window, from minus pi up to pi. So what angle will it report for the square?",
+      "role": "visual",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "08_4",
+      "after": "That lap count hides inside a famous puzzle. Minus one is i times i. Write i as the square root of minus one. Combine the two roots into the root of minus one times minus one. That is the root of one, which is one. So minus one equals one. Which step broke?",
+      "role": "visual",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "10_4",
+      "after": "So use the same rule: keep the turning strictly between minus pi and pi. Whenever a matrix sends no direction to zero or to a negative multiple of itself, exactly one of its logarithms obeys that rule. It is called the principal logarithm, and for a real matrix it is real. For the identity it is the flow that does nothing. On screen is the textbook version, which counts the turning with the imaginary parts of what are called eigenvalues.",
+      "role": "visual",
+      "reason": "Source-bound native reading hold follows complete cue; full recordings must be preserved."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "11_3",
+      "after": "That factor on signed area is called the determinant. So a real matrix with a negative determinant has no real logarithm. Is a positive determinant enough? Try this one. Double the length along one axis and flip it. Halve the length along the other axis and flip that too. The area is multiplied by plus one. It is even a half turn followed by a stretch. Can a single steady flow end here?",
+      "role": "visual",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "11_20",
+      "after": "In higher dimensions, the exact rule, from a nineteen sixty-six paper by Culver, asks that the matrix's blocks for each negative stretch come in matching pairs. On screen is the precise version.",
+      "role": "visual",
+      "reason": "Source-bound native reading hold follows complete cue; full recordings must be preserved."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "12_5",
+      "after": "Here is the puzzle. How many different steady spins end at exactly this half turn after one unit of time? Think about the laps, the direction of spin, and the axis.",
+      "role": "visual",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "logarithm_mysteries",
+      "cue": "00_4",
+      "next_cue": "00_5",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/ratio_ruler.rs",
+      "sha256": "92cf028b124f8a3732218cbe31505e5351f86fea5bad180c0d3c97240e077bfd",
+      "line": 371,
+      "marker": "predict(&kit, stage, v(3.6, -2.75), 3.0)?;",
+      "interval_sha256": "86bf44bb70227da9e2f416862ba78a056faaaa05b3b7955e8bc009d769001515",
+      "basis": "Direct registered scene cue interval and native hold call. Source only; not audible or picture acceptance.",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/ratio_ruler.rs",
+        "sha256": "92cf028b124f8a3732218cbe31505e5351f86fea5bad180c0d3c97240e077bfd"
+      }
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "01_3",
+      "next_cue": "01_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/building_ruler.rs",
+      "sha256": "ae125e5ec9ec9bd6df073d90c9a9b77f80a9c202c04ad6803ea6ef3b8a3f903a",
+      "line": 187,
+      "marker": "predict(&kit, stage, v(3.8, -2.9), 3.0)?;",
+      "interval_sha256": "c91208d7f0b162d3967239d2dcccbe23cd679366a42cf833f7f35bd1fbd4c358",
+      "basis": "Direct registered scene cue interval and native hold call. Source only; not audible or picture acceptance.",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/building_ruler.rs",
+        "sha256": "ae125e5ec9ec9bd6df073d90c9a9b77f80a9c202c04ad6803ea6ef3b8a3f903a"
+      }
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "02_2",
+      "next_cue": "02_3",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs",
+      "sha256": "eea4d01d96fd4853ff541e0f55264178a09428079200dd9397b148a3976ab7e4",
+      "line": 204,
+      "marker": "predict(&kit, stage, v(4.7, -2.75), 3.0)?;",
+      "interval_sha256": "e45bdd98eeb62a82c547c28c645a4416ef1cc35c19bcfaff38420281e2a38c07",
+      "basis": "Direct registered scene cue interval and native hold call. Source only; not audible or picture acceptance.",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs",
+        "sha256": "eea4d01d96fd4853ff541e0f55264178a09428079200dd9397b148a3976ab7e4"
+      }
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "04_6",
+      "next_cue": "04_7",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs",
+      "sha256": "754ea3125c2f7e89440807772713fe57584c96937be3ec0ac8c52d86645cf323",
+      "line": 749,
+      "marker": "predict(&kit, stage, v(4.6, THINK_BAR_Y), 3.0)?;",
+      "interval_sha256": "b2d1d76b8f9fbd9eaa730d0c96aba14999df1e10304ef8e99526d92ebdc91c17",
+      "basis": "Direct registered scene cue interval and native hold call. Source only; not audible or picture acceptance.",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs",
+        "sha256": "754ea3125c2f7e89440807772713fe57584c96937be3ec0ac8c52d86645cf323"
+      }
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "05_1",
+      "next_cue": "05_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+      "sha256": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+      "line": 245,
+      "marker": "predict(&kit, stage, v(2.5, -0.62), 3.0)?;",
+      "interval_sha256": "5256ae12dfc74fb4a9a30cb3394b4281c7736b52efdc0345e57b565b0fd27859",
+      "basis": "Direct registered scene cue interval and native hold call. Source only; not audible or picture acceptance.",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+        "sha256": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead"
+      }
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "05_5",
+      "next_cue": "05_6",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+      "sha256": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+      "line": 623,
+      "marker": "predict(&kit, stage, v(OUT.centre[0], -2.75), 3.0)?;",
+      "interval_sha256": "93a300682e33fcfeac462b8e81696af114f96e9739a3647ac1748c3d62189dc5",
+      "basis": "Direct registered scene cue interval and native hold call. Source only; not audible or picture acceptance.",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+        "sha256": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead"
+      }
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "06_2",
+      "next_cue": "06_3",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs",
+      "sha256": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+      "line": 374,
+      "marker": "predict(&kit, stage, v(Z.centre[0], 2.55), 2.6)?;",
+      "interval_sha256": "9c1ce6b4868ea9b3fb693ba0290c40ac292aa2b9846d50c883c0cf432e7eb9a7",
+      "basis": "Direct registered scene cue interval and native hold call. Source only; not audible or picture acceptance.",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs",
+        "sha256": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e"
+      }
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "06_4",
+      "next_cue": "06_5",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs",
+      "sha256": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+      "line": 475,
+      "marker": "predict(&kit, stage, v(2.4, 1.8), 2.6)?;",
+      "interval_sha256": "7651918d6c2ca7643ab83eae2e4942bdac5c324220c195fe8594389e80c8c78a",
+      "basis": "Direct registered scene cue interval and native hold call. Source only; not audible or picture acceptance.",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs",
+        "sha256": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e"
+      }
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "07_3",
+      "next_cue": "07_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs",
+      "sha256": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+      "line": 419,
+      "marker": "predict(&kit, stage, v(right + 1.7, 1.95), 3.0)?;",
+      "interval_sha256": "8b3000fdb4e3c1154faad8bc7de6e1b6652e0c8177bdbfb7328a893022bb08b6",
+      "basis": "Direct registered scene cue interval and native hold call. Source only; not audible or picture acceptance.",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs",
+        "sha256": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd"
+      }
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "08_1",
+      "next_cue": "08_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs",
+      "sha256": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+      "line": 221,
+      "marker": "predict(&kit, stage, v(3.6, 0.6), 3.0)?;",
+      "interval_sha256": "1d498942e2bc12a7a6d206cbb4335719700682561c2357709722c252726d86b6",
+      "basis": "Direct registered scene cue interval and native hold call. Source only; not audible or picture acceptance.",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs",
+        "sha256": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0"
+      }
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "08_4",
+      "next_cue": "08_5",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs",
+      "sha256": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+      "line": 346,
+      "marker": "predict(&kit, stage, v(right + 2.5, -2.75), 3.0)?;",
+      "interval_sha256": "23b0206f29d4163576b78273cad64e3466d033d5bf8310f0821dacbe00769786",
+      "basis": "Direct registered scene cue interval and native hold call. Source only; not audible or picture acceptance.",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs",
+        "sha256": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0"
+      }
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "10_4",
+      "next_cue": "11_1",
+      "kind": "reading",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs",
+      "sha256": "eeee764f0fe5fd3cd45263ada9a87f22b3e05a48b120ca2ba4f862cdf7a27143",
+      "line": 602,
+      "marker": "kit.music_breath(stage, FINE_PRINT_S - read_for)?;",
+      "interval_sha256": "eb79bd6b505c3dc00074e026184177378cbb3dd599501f35ea47b890a497bf6c",
+      "basis": "Direct registered scene cue interval and native conditional reading hold. Source only; the window's length depends on the take, and it can be zero. Not audible or picture acceptance.",
+      "reason": "Source-bound native reading hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs",
+        "sha256": "eeee764f0fe5fd3cd45263ada9a87f22b3e05a48b120ca2ba4f862cdf7a27143"
+      }
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "11_3",
+      "next_cue": "11_4",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "sha256": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+      "line": 1070,
+      "marker": "predict(&kit, stage, v(right + 1.6, -1.4), 3.0)?;",
+      "interval_sha256": "e34e65ad69a71865c956f2cf6e3d5270433370e8b6e79e5f8defc221555771db",
+      "basis": "Direct registered scene cue interval and native hold call. Source only; not audible or picture acceptance.",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "sha256": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee"
+      }
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "11_20",
+      "next_cue": "11_8",
+      "kind": "reading",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "sha256": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+      "line": 1590,
+      "marker": "kit.music_breath(stage, rule_read + row_reads.iter().sum::<f64>())?;",
+      "interval_sha256": "36386b6b24e173600d4e20b7f70e4285a825196f9000b114b109f834182d2953",
+      "basis": "Direct registered scene cue interval and native reading hold; 159 + 107 characters at 15 a second, from the source's literals. Source only; not audible or picture acceptance.",
+      "reason": "Source-bound native reading hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "sha256": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee"
+      }
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "12_5",
+      "next_cue": "12_6",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs",
+      "sha256": "e938b750ce579faed820ae7ddd0d289819f7148bdfb991dc99f24d35d6f8491b",
+      "line": 1123,
+      "marker": "predict(&kit, stage, v(2.6, -2.1), 3.4)?;",
+      "interval_sha256": "b238a92968284627ce972479bb1c5a93ac5f5df33efee0b17ddea5d362c8387f",
+      "basis": "Direct registered scene cue interval and native hold call. Source only; not audible or picture acceptance.",
+      "reason": "Source-bound native prediction hold follows complete cue; full recordings must be preserved.",
+      "evidence": {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs",
+        "sha256": "e938b750ce579faed820ae7ddd0d289819f7148bdfb991dc99f24d35d6f8491b"
+      }
+    }
+  ],
+  "hold_kinds": {
+    "prediction": 13,
+    "reading": 2
+  },
+  "shared_helpers": [
+    {
+      "path": "crates/explainer_kit/src/kit.rs",
+      "sha256": "ef035faf236498e7485fb60a66d862b383e1a5040fa17962e1633596ed99e106"
+    },
+    {
+      "path": "crates/explainer_kit/src/narration.rs",
+      "sha256": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/draw.rs",
+      "sha256": "2a4e84504bab636433cd419b2c9990986d7c549bf05aa3432d33bd5a9b60fe28"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/main.rs",
+      "sha256": "b45e720b6ce9d63a933946d0b12fb978044512b9ff10309fa7ba3a9ef52f54e1"
+    }
+  ],
+  "scope": "Candidate final 80-cue map, combined-repair-stage06: 13 prediction holds and 2 reading holds, each bound to staged source. Replaces oliver11's four stale pairs, which name the retired seven-chapter draft. Hashes are the proposed staged bytes, not installed canonical files. Authored coverage only: no silence is added to any take, and no take, measured timing, listening or independent acceptance is claimed. ElevenLabs Oliver; no Michael or FrankenTTS."
+}

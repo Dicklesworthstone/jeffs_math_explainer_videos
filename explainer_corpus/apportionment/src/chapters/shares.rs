@@ -1,0 +1,419 @@
+//! 02 Seats do not come in fractions: one seat per 2,600 people, the
+//! shares 1.54, 3.46, 10.00, and rounding each share on its own missing the
+//! total at 14 and 16 seats. Numbers from `model::share` and `model::naive`.
+//!
+//! One set of objects carries the idea: the three bars slide into the line,
+//! go back to their rows as share bands, and the row's numbers gather into
+//! the table's row for 15 seats. `Transform` keeps its source handle and the
+//! target is only a shape, so everything after a morph uses the source.
+
+use explainer_kit::{Kit, Palette, Timed, rect, v};
+use fmn::prelude::*;
+
+use super::draw::{
+    READ_SIZE, READ_X, ROW_Y, Rows, fade_in_all, fade_in_lagged, fade_out_all, flash_all, flat, line_style, morph_all,
+    move_all, pause, refill, say, stroke, think_here, town_color, wait_until, wipe,
+};
+use crate::model::{self, ASH, POP, decimal, grouped, share};
+
+pub struct Shares {
+    pub kit: Kit,
+}
+
+/// The council this chapter divides.
+const HOUSE: u64 = 15;
+/// The single line of everyone: 39,000 people across this width, at a height
+/// halfway between Ash's grid and Birch's, so the bars can wait between the
+/// rows until the voice sends each one home.
+const LINE_X0: f64 = -5.85;
+const LINE_W: f64 = 11.7;
+const LINE_Y: f64 = 0.75;
+/// "39,000 people ÷ 15 seats" over the line: the first part's centre and the
+/// second part's left edge, so that the whole is centred.
+const EVERYONE_Y: f64 = 1.6;
+const EVERYONE_X: f64 = -0.74;
+const DIVISOR_X: f64 = 0.25;
+/// The header line of the rows: the rule for a share, and its other name.
+const HEADER_Y: f64 = 2.75;
+/// One digit at the readouts' size: a longer population starts this far to
+/// the left per extra digit, so that the three rows' "÷" and "=" line up.
+const READ_DIGIT: f64 = 0.5 * READ_SIZE * 0.01;
+/// The rounded value's arrow and the value, right of the longest readout.
+const ARROW_X: f64 = 3.75;
+const VALUE_X: f64 = 4.11;
+/// The spacing of a table row's three rounded values.
+const ROUNDED_GAP: f64 = 0.62;
+
+/// One row of the table, built detached so that each part can come in on the
+/// words that read it.
+struct TableRow {
+    seats: Mob,
+    shares: Vec<Mob>,
+    rounded: Vec<Mob>,
+    total: Mob,
+    /// How far the total misses the house, when it does.
+    miss: Option<Mob>,
+}
+
+/// Morph each pair and fade `also` in, all in one play, `rt` seconds.
+fn morph_and_fade_in(stage: &mut Stage<'_>, pairs: &[(Mob, Mob)], also: &[Mob], rt: f64) -> fmn::Result<()> {
+    let mut anims: Vec<Box<dyn Animation>> = Vec::new();
+    for &(m, target) in pairs {
+        anims.push(stage.prepare(Transform::new(m, target).rt(rt))?);
+    }
+    for &m in also {
+        let a = fade_in(stage.arena_mut(), m, ORIGIN, 1.0)?;
+        anims.push(stage.prepare(a.rt(rt))?);
+    }
+    stage.play_prepared(anims)?;
+    Ok(())
+}
+
+impl SceneConstruct for Shares {
+    fn name(&self) -> &str {
+        "02_shares"
+    }
+
+    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
+        let kit = self.kit.clone();
+        let total = model::total(&POP);
+        let per_seat = total / HOUSE;
+        let per_seat_text = grouped(u128::from(per_seat));
+        let scale = LINE_W / total as f64;
+
+        // 02_1 everyone on one line, cut into fifteen equal pieces
+        let s = say(&kit, stage, "02_1")?;
+        let mut bars = Vec::new();
+        for i in 0..3 {
+            let w = POP[i] as f64 * scale;
+            let bar = rect(v(-4.5, ROW_Y[i] - 0.18), w, 0.36, flat(town_color(i), 0.75))?;
+            bars.push(stage.arena_mut().add(bar));
+        }
+        fade_in_lagged(stage, &bars, 1.2, 0.3)?;
+        s.wait_for(stage, "Together the towns")?;
+        let mut x = LINE_X0;
+        let mut moves = Vec::new();
+        for i in 0..3 {
+            let w = POP[i] as f64 * scale;
+            moves.push((bars[i], v(x + w / 2.0, LINE_Y)));
+            x += w;
+        }
+        move_all(stage, &moves, 1.2)?;
+        let everyone = kit.text(
+            stage,
+            &format!("{} people", grouped(u128::from(total))),
+            30.0,
+            Palette::ink(),
+            v(0.0, EVERYONE_Y),
+        )?;
+        fade_in_all(stage, &[everyone], 0.5)?;
+        s.wait_for(stage, "Fifteen seats")?;
+        move_all(stage, &[(everyone, v(EVERYONE_X, EVERYONE_Y))], 0.4)?;
+        let divisor = kit.text_left(
+            stage,
+            &format!("÷ {HOUSE} seats"),
+            30.0,
+            Palette::ink(),
+            v(DIVISOR_X, EVERYONE_Y),
+        )?;
+        fade_in_all(stage, &[divisor], 0.4)?;
+        let mut ticks = Vec::new();
+        for k in 0..=HOUSE {
+            let tx = LINE_X0 + LINE_W * k as f64 / HOUSE as f64;
+            ticks.push(stroke(
+                stage,
+                vec![v(tx, LINE_Y - 0.32), v(tx, LINE_Y + 0.32)],
+                line_style(Palette::ink(), 2.5, 0.9),
+            ));
+        }
+        fade_in_lagged(stage, &ticks, 1.5, 0.2)?;
+        s.wait_for(stage, "one seat for every")?;
+        let x1 = LINE_X0 + LINE_W / HOUSE as f64;
+        let brace = stroke(
+            stage,
+            vec![
+                v(LINE_X0, LINE_Y - 0.45),
+                v(LINE_X0, LINE_Y - 0.6),
+                v(x1, LINE_Y - 0.6),
+                v(x1, LINE_Y - 0.45),
+            ],
+            line_style(Palette::hero(), 3.0, 1.0),
+        );
+        let per = kit.text(
+            stage,
+            &format!("{per_seat_text} people = 1 seat"),
+            24.0,
+            Palette::hero(),
+            v(LINE_X0 + 1.4, LINE_Y - 0.95),
+        )?;
+        fade_in_all(stage, &[brace, per], 0.6)?;
+
+        // 02_2 each town's share: the line stays up for the rule, then its own
+        // bars go back to their rows. The hold and pause keep the wipe's timing.
+        kit.hold(stage)?;
+        pause(stage, 0.6)?;
+        let s = say(&kit, stage, "02_2")?;
+        s.wait_for(stage, "population divided")?;
+        let rule_text = kit.text(
+            stage,
+            &format!("share = people ÷ {per_seat_text}"),
+            30.0,
+            Palette::ink(),
+            v(0.0, HEADER_Y),
+        )?;
+        fade_in_all(stage, &[rule_text], 0.5)?;
+        wait_until(stage, s.at("Ash's share")? - 1.1)?;
+        let mut line_parts = ticks;
+        line_parts.extend([everyone, divisor, brace, per]);
+        fade_out_all(stage, &line_parts, 0.4)?;
+        let rows = Rows::build(&kit, stage, &POP, HOUSE, 12)?;
+        let mut first = rows.names.clone();
+        first.extend(&rows.grids);
+        fade_in_all(stage, &first, 0.6)?;
+        let mut reads = Vec::new();
+        for i in 0..3 {
+            let people = grouped(u128::from(POP[i]));
+            let x = READ_X - READ_DIGIT * (people.len() as f64 - 5.0);
+            let text = format!("{people} ÷ {per_seat_text} = {}", decimal(share(&POP, i, HOUSE), 2));
+            reads.push(kit.text_left(stage, &text, READ_SIZE, town_color(i), v(x, ROW_Y[i]))?);
+        }
+        for (i, phrase) in [(0, "Ash's share"), (1, "Birch's is"), (2, "Cedar's is")] {
+            s.wait_for(stage, phrase)?;
+            morph_and_fade_in(
+                stage,
+                &[(bars[i], rows.bands[i][0])],
+                &[rows.bands[i][1], reads[i]],
+                0.7,
+            )?;
+        }
+        s.wait_for(stage, "call this exact number")?;
+        let quota = kit.text(stage, "share = quota", 26.0, Palette::dim(), v(4.6, HEADER_Y))?;
+        fade_in_all(stage, &[quota], 0.5)?;
+
+        // 02_3 a seat is a person: each share owes a whole number, still unknown
+        let s = say(&kit, stage, "02_3")?;
+        s.wait_for(stage, "Nobody can sit")?;
+        flash_all(stage, &[rows.bands[ASH][1]], 1.0)?;
+        s.wait_for(stage, "Each share has")?;
+        let mut arrows = Vec::new();
+        let mut marks = Vec::new();
+        for (i, &y) in ROW_Y.iter().enumerate() {
+            arrows.push(kit.text_left(stage, "→", READ_SIZE, town_color(i), v(ARROW_X, y))?);
+            marks.push(kit.text_left(stage, "?", READ_SIZE, town_color(i), v(VALUE_X, y))?);
+        }
+        let mut owed = arrows.clone();
+        owed.extend(&marks);
+        fade_in_all(stage, &owed, 0.5)?;
+        s.wait_for(stage, "add up to exactly")?;
+        let need = kit.text(
+            stage,
+            &format!("? + ? + ? = {HOUSE}"),
+            32.0,
+            Palette::ink(),
+            v(-1.6, -2.75),
+        )?;
+        fade_in_all(stage, &[need], 0.5)?;
+
+        // 02_4 round each to the nearest: fine at fifteen
+        let s = say(&kit, stage, "02_4")?;
+        let r15 = model::naive(&POP, HOUSE);
+        s.wait_for(stage, "round each share")?;
+        let mut rounding = Vec::new();
+        for (i, n) in r15.iter().enumerate() {
+            let value = kit.text_left(stage, &n.to_string(), READ_SIZE, town_color(i), v(VALUE_X, ROW_Y[i]))?;
+            rounding.push((marks[i], value));
+        }
+        morph_all(stage, &rounding, 0.6)?;
+        s.wait_for(stage, "because two plus")?;
+        let sum = format!("{} + {} + {} = {}", r15[0], r15[1], r15[2], r15.iter().sum::<u64>());
+        let sum15 = kit.text(stage, &sum, 32.0, Palette::green(), v(-1.6, -2.75))?;
+        morph_all(stage, &[(need, sum15)], 0.7)?;
+        let q = think_here(&kit, stage)?;
+
+        // 02_5 the table: the row just seen gathers into its place, then 14 and
+        // 16 arrive on the words that read them. "17" lands on "hand out", not on
+        // its own word, so its flash ends inside the line: a coherent seam into
+        // 02_6 would allow no overrun.
+        let s = say(&kit, stage, "02_5")?;
+        let mut rest = rows.names.clone();
+        rest.extend(&rows.grids);
+        rest.extend(&bars);
+        rest.extend(rows.bands.iter().map(|b| b[1]));
+        rest.extend(&arrows);
+        rest.extend([rule_text, quota, q]);
+        fade_out_all(stage, &rest, 0.4)?;
+        let cols = [-5.2, -3.2, -1.6, 0.0, 2.3, 4.6];
+        let heads = ["seats", "Ash", "Birch", "Cedar", "rounded", "total"];
+        let mut head = Vec::new();
+        for (c, h) in heads.iter().enumerate() {
+            let color = if (1..=3).contains(&c) {
+                town_color(c - 1)
+            } else {
+                Palette::dim()
+            };
+            head.push(kit.text(stage, h, 24.0, color, v(cols[c], 2.2))?);
+        }
+        // the rule stays out of what 02_6 dims: dim would brighten a faint line
+        let mut others = head.clone();
+        let table_rule = stroke(
+            stage,
+            vec![v(-6.0, 1.85), v(5.8, 1.85)],
+            line_style(Palette::faint(), 2.0, 0.8),
+        );
+        head.push(table_rule);
+        let mut table = Vec::new();
+        for (r, h) in [HOUSE - 1, HOUSE, HOUSE + 1].into_iter().enumerate() {
+            let y = 1.2 - 1.0 * r as f64;
+            let rounded = model::naive(&POP, h);
+            let sum: u64 = rounded.iter().sum();
+            let seats = kit.text(stage, &h.to_string(), 28.0, Palette::ink(), v(cols[0], y))?;
+            let mut shares = Vec::new();
+            for i in 0..3 {
+                shares.push(kit.text(
+                    stage,
+                    &decimal(share(&POP, i, h), 2),
+                    28.0,
+                    town_color(i),
+                    v(cols[i + 1], y),
+                )?);
+            }
+            let mut picks = Vec::new();
+            for (i, n) in rounded.iter().enumerate() {
+                let at = v(cols[4] + (i as f64 - 1.0) * ROUNDED_GAP, y);
+                picks.push(kit.text(stage, &n.to_string(), 28.0, town_color(i), at)?);
+            }
+            let total = kit.text(
+                stage,
+                &sum.to_string(),
+                32.0,
+                if sum == h { Palette::green() } else { Palette::red() },
+                v(cols[5], y),
+            )?;
+            let miss = if sum == h {
+                None
+            } else {
+                let label = if sum < h {
+                    format!("{} short", h - sum)
+                } else {
+                    format!("{} over", sum - h)
+                };
+                Some(kit.text_left(stage, &label, 20.0, Palette::red(), v(cols[5] + 0.55, y))?)
+            };
+            table.push(TableRow {
+                seats,
+                shares,
+                rounded: picks,
+                total,
+                miss,
+            });
+        }
+        let (low, exact, high) = (&table[0], &table[1], &table[2]);
+        let mut gather = vec![(need, exact.total)];
+        for i in 0..3 {
+            gather.push((reads[i], exact.shares[i]));
+            gather.push((marks[i], exact.rounded[i]));
+        }
+        let mut arriving = head.clone();
+        arriving.push(exact.seats);
+        morph_and_fade_in(stage, &gather, &arriving, 0.7)?;
+        s.wait_for(stage, "At fourteen")?;
+        fade_in_all(stage, &[low.seats], 0.3)?;
+        for (i, phrase) in ["one point four four", "three point two three", "nine point three three"]
+            .into_iter()
+            .enumerate()
+        {
+            s.wait_for(stage, phrase)?;
+            fade_in_all(stage, &[low.shares[i]], 0.4)?;
+        }
+        s.wait_for(stage, "Every one rounds down")?;
+        fade_in_all(stage, &low.rounded, 0.5)?;
+        s.wait_for(stage, "a seat short")?;
+        fade_in_all(stage, &[low.total], 0.4)?;
+        flash_all(stage, &[low.total], 0.7)?;
+        s.wait_for(stage, "At sixteen")?;
+        let mut high_lead = vec![high.seats];
+        high_lead.extend(&high.shares);
+        fade_in_lagged(stage, &high_lead, 1.2, 0.25)?;
+        s.wait_for(stage, "every share rounds up")?;
+        fade_in_all(stage, &high.rounded, 0.5)?;
+        s.wait_for(stage, "hand out")?;
+        fade_in_all(stage, &[high.total], 0.4)?;
+        flash_all(stage, &[high.total], 0.7)?;
+
+        // 02_6 the total is what ties them together, and what is left to settle.
+        // The row for 15 is the surviving sources: its targets never reach the scene.
+        let s = say(&kit, stage, "02_6")?;
+        s.wait_for(stage, "the total")?;
+        others.push(exact.seats);
+        others.extend(&reads);
+        others.extend(&marks);
+        for row in [low, high] {
+            others.push(row.seats);
+            others.extend(&row.shares);
+            others.extend(&row.rounded);
+        }
+        let dim: Vec<(Mob, Srgb, f64)> = others.iter().map(|&m| (m, Palette::dim(), 0.35)).collect();
+        refill(stage, &dim, 0.6)?;
+        flash_all(stage, &[low.total, need, high.total], 1.0)?;
+        s.wait_for(stage, "a way to settle")?;
+        let misses: Vec<Mob> = table.iter().filter_map(|row| row.miss).collect();
+        fade_in_all(stage, &misses, 0.5)?;
+
+        // 02_7 two families: both frames at once, each label on its words, and
+        // the chosen card lit with its words still readable
+        wipe(&kit, stage)?;
+        let s = say(&kit, stage, "02_7")?;
+        let mut cards = Vec::new();
+        for (j, label) in ["compare what is left over", "change the people per seat"]
+            .iter()
+            .enumerate()
+        {
+            let x = if j == 0 { -3.3 } else { 3.3 };
+            let bg = Rectangle::new()
+                .width(5.6)
+                .height(1.4)
+                .corner_radius(0.12)
+                .style(line_style(Palette::ink(), 3.0, 0.8))
+                .build()?
+                .moved_to(v(x, 0.4));
+            let bg = stage.arena_mut().add(bg);
+            let t = kit.text(stage, label, 28.0, Palette::ink(), v(x, 0.4))?;
+            cards.push([bg, t]);
+        }
+        fade_in_all(stage, &[cards[0][0], cards[1][0]], 0.5)?;
+        s.wait_for(stage, "One keeps")?;
+        fade_in_all(stage, &[cards[0][1]], 0.6)?;
+        s.wait_for(stage, "The other changes")?;
+        fade_in_all(stage, &[cards[1][1]], 0.6)?;
+        s.wait_for(stage, "The paradox lives")?;
+        flash_all(stage, &cards[0], 1.0)?;
+        let on_gold = explainer_kit::hex(explainer_kit::BACKGROUND);
+        refill(
+            stage,
+            &[(cards[0][0], Palette::hero(), 1.0), (cards[0][1], on_gold, 1.0)],
+            0.5,
+        )?;
+        pause(stage, 0.6)?;
+        kit.finish(stage)
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::HOUSE;
+    use crate::model::{self, POP, Ratio, decimal, share};
+
+    /// The rows print "people ÷ 2,600 = share": true only while 2,600 divides
+    /// the total exactly, and then equal to the model's share, not just close.
+    #[test]
+    fn the_drawn_division_is_the_share() {
+        let total = model::total(&POP);
+        let per_seat = total / HOUSE;
+        assert_eq!(per_seat * HOUSE, total);
+        for (i, &people) in POP.iter().enumerate() {
+            let drawn = Ratio::new(u128::from(people), u128::from(per_seat));
+            assert_eq!(drawn, share(&POP, i, HOUSE), "{}", model::NAMES[i]);
+            assert_eq!(decimal(drawn, 2), decimal(share(&POP, i, HOUSE), 2));
+        }
+    }
+}

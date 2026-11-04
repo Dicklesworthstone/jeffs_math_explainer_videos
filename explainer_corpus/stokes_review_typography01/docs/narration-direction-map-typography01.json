@@ -1,0 +1,371 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "stokes_review_typography01": "29774db1fa3133c107b931a9dfb56eef38575707e2630958788066db2554093f"
+  },
+  "overrides": [
+    {
+      "video": "stokes_review_typography01",
+      "cue": "01_1",
+      "after": "Imagine that we walk around the edge of one square, keeping the square on our left. Now add a second square next to it, and walk around that one the same way. On their shared edge, the two walks go in opposite directions. If we add both walks, which edges survive?",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "02_1",
+      "after": "On a line, a boundary is just a pair of endpoints, with a sign. The boundary of the interval from a to b is b minus a. If we cut the interval in two, the cut point is the positive end of one piece and the negative end of the other. Add the boundaries and that point disappears.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "03_1",
+      "after": "For a region on a plane, the boundary is no longer a pair of points. It is a collection of oriented curves. Give each little tile a counterclockwise boundary. Neighboring tiles traverse their common edge in opposite directions, so the signed contributions from that edge cancel. When we add every tile, the outside edge survives.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "04_1",
+      "after": "Here is a one-form simple enough to calculate by hand: omega equals x times d y. Go around the unit square counterclockwise. Which edge contributes anything? Take a moment.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "04_2",
+      "after": "Along the horizontal edges, d y is zero. Along the left edge, x is zero. On the right edge, x is one and y increases by one, so the whole boundary integral is one. The exterior derivative of x d y is d x wedge d y. On the unit square, its integral is the area, also one.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "05_1",
+      "after": "Now lift the interior of a disk into a cap, keeping the circular rim fixed. This curved surface sits in three-dimensional space, but it is still two-dimensional: two coordinates locate a point on it. Orient the cap upward. The matching boundary direction is counterclockwise when viewed from above. Your right hand links the two: curl your fingers with the rim and your thumb points along the chosen normal.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "06_1",
+      "after": "Now the object itself is three-dimensional. Its boundary is a two-dimensional surface. Build a solid out of cubes and give each cube outward-facing arrows. On a shared face, the two outward directions oppose each other. Their flux contributions cancel. Only flux through the outside surface remains.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "07_1",
+      "after": "Here is a trap. Imagine an annulus: a region with a hole in its middle. Its outside edge is a boundary. Is that the whole boundary? Decide which way each edge should be traversed.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "07_2",
+      "after": "The inner edge is a boundary too, with the opposite orientation. Consider the angular one-form, minus y d x plus x d y, divided by x squared plus y squared. On this annulus it is smooth, and its exterior derivative is zero. The outer integral is two pi; the clockwise inner integral is minus two pi. Together they give zero, exactly as the theorem predicts.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "08_1",
+      "after": "We have integrated values at points, one-forms along curves, and area-type quantities over surfaces. The dimension tells us what kind of object we integrate. At each point, a k-form is an alternating multilinear rule on k tangent directions. In pictures, it assigns an oriented quantity to a tiny k-dimensional piece: scaling a direction scales the result, and swapping two directions reverses its sign. Its exterior derivative is a k-plus-one-form: it measures the boundary accumulation around a tiny piece one dimension higher.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "09_1",
+      "after": "Orient an n-dimensional box using the coordinate order one through n. An n-minus-one-form has one term for each missing coordinate. We can write each coefficient beside the wedge of every coordinate differential except the missing one. Choose an alternating sign for each term. That sign is bookkeeping for the orientation of the corresponding faces.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "09_2",
+      "after": "For example, in three dimensions, minus f two d x wedge d z is the same form as plus f two d z wedge d x. Swap the order and the sign flips. The minus sign is not a new physical effect; it keeps the orientation consistent when we put the directions in our chosen order.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "09_3",
+      "after": "Now take the exterior derivative. For each coefficient, its differential includes a contribution in every coordinate direction. What happens when we wedge one of those differentials with the differentials already in the term?",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "10_1",
+      "after": "A wedge product vanishes if the same differential appears twice. Every direction already present disappears. Only the derivative in the missing direction survives. Moving that differential into coordinate order produces exactly the sign that cancels the sign we placed in front of the term.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "11_1",
+      "after": "Fix all coordinates except the i-th. Integrating the derivative in that direction gives the coefficient on the upper face minus the coefficient on the lower face. Now integrate those differences over the remaining coordinates. Fubini's theorem lets us perform the integrations in this order for our smooth functions on a bounded box.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "12_1",
+      "after": "What about a curved manifold? The box proof is the local engine, but there are real steps left. We use orientation-preserving coordinate charts. Interior charts look locally like ordinary space; boundary charts look locally like a half-space. We also use a partition of unity: smooth weights, supported inside the charts, that add to one.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "13_1",
+      "after": "Apply the local identity to each weighted piece and add. The weights sum to one, so the pieces reassemble the original form on the boundary. Inside, differentiating the weights produces extra terms, but together they contain the derivative of the sum of the weights. That sum is the constant one, whose derivative is zero. The extra terms cancel.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "14_1",
+      "after": "Now for a physical payoff. Hold a wire loop fixed, and let the magnetic field through it change. Faraday's law says that the circulation of the electric field around the loop equals minus the rate of change of magnetic flux through the surface. The minus sign is the direction dictated by the law, not a new sign invented by Stokes.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "15_1",
+      "after": "The common pattern is not that the boundary tells us every detail of the interior. Different interior changes can cancel. The theorem says that the particular accumulation described by an exterior derivative is exactly balanced by the original quantity on the oriented boundary, when its hypotheses hold.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "15_2",
+      "after": "Take the boundary of a boundary and the signed corners cancel. The matching operation on forms also squares to zero: take an exterior derivative twice and you get zero. Those facts fit the same structure, but they do not prove Stokes on their own. The theorem is the bridge between integration, the boundary and the exterior derivative.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "stokes_review_typography01",
+      "cue": "01_1",
+      "next_cue": "01_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/opening.rs",
+      "sha256": "c895a3faeb8e690fd9c4fab311497693703a2359a3fe8353d14460ba31d890b1",
+      "line": 54,
+      "marker": "        kit.say(stage,\"01_1\")?;kit.hold(stage)?;kit.mark(stage,\"predict\");stage.wait(3.0)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "02_1",
+      "next_cue": "02_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/opening.rs",
+      "sha256": "c895a3faeb8e690fd9c4fab311497693703a2359a3fe8353d14460ba31d890b1",
+      "line": 78,
+      "marker": "        let cancel=kit.text(stage,\"Interior endpoints cancel\",26.0,Palette::green(),v(0.0,-1.75))?;fade(stage,&[cancel],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "03_1",
+      "next_cue": "03_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/edges.rs",
+      "sha256": "1e6a96ec5a114226689c75a3d1c8a485f2dae409e89f9de7fa7d3a006ba5515d",
+      "line": 30,
+      "marker": "        fade(stage,&[surviving],true)?; kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "04_1",
+      "next_cue": "04_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/unit_square.rs",
+      "sha256": "81385b351af8af2d8d8d697a974763f23d035ef1a6cc11301a008c2015b038f6",
+      "line": 19,
+      "marker": "        kit.say(stage,\"04_1\")?;kit.hold(stage)?;kit.mark(stage,\"predict\");stage.wait(3.0)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "04_2",
+      "next_cue": "04_3",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/unit_square.rs",
+      "sha256": "81385b351af8af2d8d8d697a974763f23d035ef1a6cc11301a008c2015b038f6",
+      "line": 32,
+      "marker": "        kit.until_sentence(stage,\"04_2\",3)?; fade(stage,&[area],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "05_1",
+      "next_cue": "05_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/cap.rs",
+      "sha256": "1f0787c68307f0ea9d2d8f49ad3dba200b07cd515bc0fc736df4cb1d3483f2a8",
+      "line": 38,
+      "marker": "  let mut directed=Vec::new();for t in [0.3,2.4,4.5] {directed.extend(arrow(stage,projected(1.0,t,false),projected(1.0,t+0.35,false),Palette::hero())?);}fade(stage,&directed,true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "06_1",
+      "next_cue": "06_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/volume.rs",
+      "sha256": "01deefa4792dbd109273eac35fd7a33a141c363cb39d49f533a5bc4571098894",
+      "line": 32,
+      "marker": "  let outer=kit.text(stage,\"Internal flux cancels; outer surface remains\",24.0,Palette::green(),v(0.0,-2.15))?;fade(stage,&[outer],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "07_1",
+      "next_cue": "07_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/annulus.rs",
+      "sha256": "404362908b391607c23c6df25832869cf63fb76aae9acac6db4854d022b35dc0",
+      "line": 23,
+      "marker": "  kit.say(stage,\"07_1\")?;kit.hold(stage)?;kit.mark(stage,\"predict\");stage.wait(3.0)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "07_2",
+      "next_cue": "07_3",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/annulus.rs",
+      "sha256": "404362908b391607c23c6df25832869cf63fb76aae9acac6db4854d022b35dc0",
+      "line": 29,
+      "marker": "  kit.until_sentence(stage,\"07_2\",3)?;let sums=kit.text(stage,\"outer: 2\u03c0  +  inner: \u22122\u03c0  = 0\",24.0,Palette::green(),v(2.7,-1.05))?;fade(stage,&[sums],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "08_1",
+      "next_cue": "08_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/dimensions.rs",
+      "sha256": "342a51ccee22b1539a6252ffa337a48e69104aa56a4db10fea0c9b2b58cd0830",
+      "line": 19,
+      "marker": "  kit.until_sentence(stage,\"08_1\",4)?;let ext=kit.text(stage,\"d maps k-forms to (k+1)-forms\",24.0,Palette::green(),v(0.0,-3.1))?;fade(stage,&[ext],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "09_1",
+      "next_cue": "09_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/missing.rs",
+      "sha256": "9710d6af95ce16d89bb65b173a0aad8b40149c219874fcc7d20898009523f064",
+      "line": 18,
+      "marker": "  kit.until_sentence(stage,\"09_1\",3)?;fade(stage,&[note],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "09_2",
+      "next_cue": "09_3",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/missing.rs",
+      "sha256": "9710d6af95ce16d89bb65b173a0aad8b40149c219874fcc7d20898009523f064",
+      "line": 28,
+      "marker": "  kit.until_sentence(stage,\"09_2\",1)?;fade(stage,&[dx_first,dz_second],false)?;fade(stage,&[dx_second,dz_first],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "09_3",
+      "next_cue": "10_1",
+      "kind": "prediction",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/missing.rs",
+      "sha256": "9710d6af95ce16d89bb65b173a0aad8b40149c219874fcc7d20898009523f064",
+      "line": 34,
+      "marker": "  fade(stage,&[general,wedge,df],true)?;kit.until_sentence(stage,\"09_3\",2)?;fade(stage,&[question],true)?;kit.hold(stage)?;kit.mark(stage,\"predict\");stage.wait(3.0)?;kit.finish(stage)",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "10_1",
+      "next_cue": "10_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/wedges.rs",
+      "sha256": "93851e0ed78c2bd56dcc500f4e92e15f3eb6e8518909c95c5942a7c05bcf5901",
+      "line": 14,
+      "marker": "  kit.until_sentence(stage,\"10_1\",3)?;let signs=kit.text(stage,\"\u2212\u2202\u1d67f\u2082 dy \u2227 dx \u2227 dz  =  +\u2202\u1d67f\u2082 dx \u2227 dy \u2227 dz\",27.0,Palette::green(),v(0.0,-1.1))?;let note=kit.text(stage,\"One swap cancels the earlier minus\",24.0,Palette::ink(),v(0.0,-2.0))?;fade(stage,&[signs,note],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "11_1",
+      "next_cue": "11_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/box_proof.rs",
+      "sha256": "afca2db5cd9c125a18fe6de2038730ce69cd4d90c81f8f68250a4d5006132498",
+      "line": 18,
+      "marker": "  kit.until_sentence(stage,\"11_1\",3)?;let fubini=kit.text(stage,\"Smooth on a bounded box: use Fubini\",23.0,Palette::dim(),v(2.8,-0.4))?;fade(stage,&[fubini],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "12_1",
+      "next_cue": "12_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/charts.rs",
+      "sha256": "a0e6de5a1c8844c6734c47032021089920c02808aebf898667dd60cabf0393e7",
+      "line": 17,
+      "marker": "  kit.until_sentence(stage,\"12_1\",4)?; let weights=kit.text(stage,\"smooth weights: supported in charts\",22.0,Palette::ink(),v(2.7,-1.0))?;let sum=kit.text(stage,\"rho_1 + rho_2 + \u00b7\u00b7\u00b7 = 1\",25.0,Palette::hero(),v(2.7,-1.75))?;fade(stage,&[weights,sum],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "13_1",
+      "next_cue": "13_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/assemble.rs",
+      "sha256": "4fcd99829030c752fa8570f15d9e5cd357aff63ba43063a887f0aeffc933c114",
+      "line": 13,
+      "marker": "  kit.until_sentence(stage,\"13_1\",4)?;let cancel=kit.text(stage,\"Extra weight-derivative terms cancel\",25.0,Palette::green(),v(2.6,-1.35))?;fade(stage,&[cancel],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "14_1",
+      "next_cue": "14_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/faraday.rs",
+      "sha256": "59d39ed57eab447a623cfbe3c880b545bb24cf97eb7098d6f7bd562d8b3f9ba3",
+      "line": 12,
+      "marker": "  kit.until_sentence(stage,\"14_1\",2)?;let mut circulation=Vec::new();for t in [0.1_f64,1.7,3.3,4.9] {circulation.extend(arrow(stage,point(t),point(t-0.35),Palette::hero())?);}fade(stage,&circulation,true)?;let direction=kit.text(stage,\"E circulates clockwise\",21.0,Palette::hero(),v(-3.3,-1.65))?;fade(stage,&[direction],true)?;let law=kit.text(stage,\"\u222e E \u00b7 dl = \u2212 d/dt \u222b B \u00b7 n dA\",27.0,Palette::hero(),v(2.5,1.0))?;fade(stage,&[law],true)?;kit.until_sentence(stage,\"14_1\",3)?;let note=kit.text(stage,\"minus sign comes from Faraday's law\",21.0,Palette::ink(),v(2.5,-0.1))?;fade(stage,&[note],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "15_1",
+      "next_cue": "15_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/return_scene.rs",
+      "sha256": "02d169060653b31b31c45d0f44c857a2f3df585b76ddeb66b20af0caf47290ab",
+      "line": 9,
+      "marker": "  let kit=self.kit.clone();let title=kit.text(stage,\"What the boundary actually tells us\",34.0,Palette::ink(),v(0.0,3.0))?;let balance=kit.text(stage,\"\u222b on M d\u03c9  =  \u222b on \u2202M \u03c9\",34.0,Palette::hero(),v(0.0,1.6))?;let caveat=kit.text(stage,\"Different interior changes can cancel\",26.0,Palette::ink(),v(0.0,0.55))?;fade(stage,&[title,balance],true)?;kit.say(stage,\"15_1\")?;kit.until_sentence(stage,\"15_1\",1)?;fade(stage,&[caveat],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_typography01",
+      "cue": "15_2",
+      "next_cue": "15_3",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_typography01/src/chapters/return_scene.rs",
+      "sha256": "02d169060653b31b31c45d0f44c857a2f3df585b76ddeb66b20af0caf47290ab",
+      "line": 10,
+      "marker": "  kit.say(stage,\"15_2\")?;fade(stage,&[balance,caveat],false)?;let mut square=Vec::new();for (a,b) in [((-4.8,-1.0),(-2.0,-1.0)),((-2.0,-1.0),(-2.0,1.1)),((-2.0,1.1),(-4.8,1.1)),((-4.8,1.1),(-4.8,-1.0))] {square.extend(arrow(stage,a,b,Palette::blue())?);}fade(stage,&square,true)?;let mut signs=Vec::new();let mut zeros=Vec::new();for (x,y) in [(-4.8,-1.0),(-2.0,-1.0),(-2.0,1.1),(-4.8,1.1)] {let label_y=if y<0.0 {y-0.35} else {y+0.35};signs.push(kit.text(stage,\"+ \u2212\",23.0,Palette::hero(),v(x,label_y))?);zeros.push(kit.text(stage,\"0\",23.0,Palette::green(),v(x,label_y))?);}fade(stage,&signs,true)?;stage.wait(2.0)?;fade(stage,&signs,false)?;fade(stage,&zeros,true)?;let corners=kit.text(stage,\"signed endpoints cancel at every corner\",22.0,Palette::ink(),v(-3.4,-1.8))?;let twice=kit.text(stage,\"boundary of boundary = 0\",27.0,Palette::hero(),v(2.5,1.1))?;fade(stage,&[corners,twice],true)?;kit.until_sentence(stage,\"15_2\",1)?;let dd=kit.text(stage,\"d(d\u03c9) = 0\",29.0,Palette::green(),v(2.5,0.2))?;fade(stage,&[dd],true)?;kit.until_sentence(stage,\"15_2\",2)?;let caution=kit.text(stage,\"These identities alone do not prove Stokes\",22.0,Palette::dim(),v(2.5,-0.8))?;fade(stage,&[caution],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    }
+  ],
+  "scope": "Eight-chapter scratch; unlistened, not production acceptance."
+}

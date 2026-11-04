@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "stokes_review_six01": "e6ba977c78ce2d2afcc1bbc34fccc23388718e114825c1b19325533369abac52"
+  },
+  "overrides": [
+    {
+      "video": "stokes_review_six01",
+      "cue": "01_1",
+      "after": "Imagine that we walk around the edge of one square, keeping the square on our left. Now add a second square next to it, and walk around that one the same way. On their shared edge, the two walks go in opposite directions. If we add both walks, which edges survive?",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_six01",
+      "cue": "02_1",
+      "after": "On a line, a boundary is just a pair of endpoints, with a sign. The boundary of the interval from a to b is b minus a. If we cut the interval in two, the cut point is the positive end of one piece and the negative end of the other. Add the boundaries and that point disappears.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_six01",
+      "cue": "03_1",
+      "after": "For a region on a plane, the boundary is no longer a pair of points. It is a collection of oriented curves. Give each little tile a counterclockwise boundary. Neighboring tiles traverse their common edge in opposite directions, so the signed contributions from that edge cancel. When we add every tile, the outside edge survives.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_six01",
+      "cue": "04_1",
+      "after": "Here is a one-form simple enough to calculate by hand: omega equals x times d y. Go around the unit square counterclockwise. Which edge contributes anything? Take a moment.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_six01",
+      "cue": "04_2",
+      "after": "Along the horizontal edges, d y is zero. Along the left edge, x is zero. On the right edge, x is one and y increases by one, so the whole boundary integral is one. The exterior derivative of x d y is d x wedge d y. On the unit square, its integral is the area, also one.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_six01",
+      "cue": "05_1",
+      "after": "Now lift the interior of a disk into a cap, keeping the circular rim fixed. This curved surface sits in three-dimensional space, but it is still two-dimensional: two coordinates locate a point on it. Orient the cap upward. The matching boundary direction is counterclockwise when viewed from above. Your right hand links the two: curl your fingers with the rim and your thumb points along the chosen normal.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_six01",
+      "cue": "06_1",
+      "after": "Now the object itself is three-dimensional. Its boundary is a two-dimensional surface. Build a solid out of cubes and give each cube outward-facing arrows. On a shared face, the two outward directions oppose each other. Their flux contributions cancel. Only flux through the outside surface remains.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "stokes_review_six01",
+      "cue": "01_1",
+      "next_cue": "01_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/stokes_review_six01/src/chapters/opening.rs",
+      "sha256": "c895a3faeb8e690fd9c4fab311497693703a2359a3fe8353d14460ba31d890b1",
+      "line": 54,
+      "marker": "        kit.say(stage,\"01_1\")?;kit.hold(stage)?;kit.mark(stage,\"predict\");stage.wait(3.0)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_six01",
+      "cue": "02_1",
+      "next_cue": "02_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_six01/src/chapters/opening.rs",
+      "sha256": "c895a3faeb8e690fd9c4fab311497693703a2359a3fe8353d14460ba31d890b1",
+      "line": 78,
+      "marker": "        let cancel=kit.text(stage,\"Interior endpoints cancel\",26.0,Palette::green(),v(0.0,-1.75))?;fade(stage,&[cancel],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_six01",
+      "cue": "03_1",
+      "next_cue": "03_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_six01/src/chapters/edges.rs",
+      "sha256": "1e6a96ec5a114226689c75a3d1c8a485f2dae409e89f9de7fa7d3a006ba5515d",
+      "line": 30,
+      "marker": "        fade(stage,&[surviving],true)?; kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_six01",
+      "cue": "04_1",
+      "next_cue": "04_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/stokes_review_six01/src/chapters/unit_square.rs",
+      "sha256": "81385b351af8af2d8d8d697a974763f23d035ef1a6cc11301a008c2015b038f6",
+      "line": 19,
+      "marker": "        kit.say(stage,\"04_1\")?;kit.hold(stage)?;kit.mark(stage,\"predict\");stage.wait(3.0)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_six01",
+      "cue": "04_2",
+      "next_cue": "04_3",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_six01/src/chapters/unit_square.rs",
+      "sha256": "81385b351af8af2d8d8d697a974763f23d035ef1a6cc11301a008c2015b038f6",
+      "line": 32,
+      "marker": "        kit.until_sentence(stage,\"04_2\",3)?; fade(stage,&[area],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_six01",
+      "cue": "05_1",
+      "next_cue": "05_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_six01/src/chapters/cap.rs",
+      "sha256": "3b86b3736885b254d683c387d4925958a757a209051b41a993166e2604fb9375",
+      "line": 31,
+      "marker": "  let mut directed=Vec::new();for t in [0.3,2.4,4.5] {directed.extend(arrow(stage,projected(1.0,t,false),projected(1.0,t+0.35,false),Palette::hero())?);}fade(stage,&directed,true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_six01",
+      "cue": "06_1",
+      "next_cue": "06_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_six01/src/chapters/volume.rs",
+      "sha256": "b2fcfe3bd36b2149057aad2484b3b7d0f2cfaad097d56a2b8b5ccb50eb0d013a",
+      "line": 32,
+      "marker": "  let outer=kit.text(stage,\"Internal flux cancels; outer surface remains\",24.0,Palette::green(),v(0.0,-2.15))?;fade(stage,&[outer],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    }
+  ],
+  "scope": "Six-chapter scratch; unlistened, not production acceptance."
+}

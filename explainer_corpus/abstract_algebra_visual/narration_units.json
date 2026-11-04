@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "script_sha256": "d046477e8a1d1a2c94fd52e1794f29d144542b7e94f949a4567052a381eefdfc",
+  "units": [
+    {
+      "id": "oliver_01_1",
+      "line_ids": [
+        "01_1"
+      ],
+      "text": "Turn a square a quarter turn and its outline still fits the same frame. Flip it across a line through its center and it fits again. Mark the corners and you can tell the moves apart. There are eight ways to take the square onto itself: four rotations and four reflections."
+    },
+    {
+      "id": "oliver_01_2",
+      "line_ids": [
+        "01_2"
+      ],
+      "text": "What if we stop asking what the square is made of and instead ask how its moves combine? That change of question opens the door to abstract algebra."
+    },
+    {
+      "id": "oliver_02_1",
+      "line_ids": [
+        "02_1"
+      ],
+      "text": "Do one symmetry and then another. The result is another symmetry. There is a do-nothing move. Every move can be undone by another move. And the way we group a sequence of three moves does not change their order or their result. Those are the group rules: closure, identity, inverses and associativity."
+    },
+    {
+      "id": "oliver_02_2",
+      "line_ids": [
+        "02_2"
+      ],
+      "text": "Associativity doesn't mean we may swap moves. Try a quarter turn followed by a flip. Now undo that and try the flip followed by the turn."
+    },
+    {
+      "id": "oliver_02_3",
+      "line_ids": [
+        "02_3"
+      ],
+      "text": "The square lands in two different labeled arrangements. This group is noncommutative."
+    },
+    {
+      "id": "oliver_03_1",
+      "line_ids": [
+        "03_1"
+      ],
+      "text": "Keep just the rotations. The do-nothing move, a quarter turn, a half turn and a three-quarter turn still form a group under the same operation. That smaller group is a subgroup."
+    },
+    {
+      "id": "oliver_03_2",
+      "line_ids": [
+        "03_2"
+      ],
+      "text": "Starting from the identity and repeatedly applying a quarter turn visits all four rotations before returning home. One move generates the whole rotation subgroup, so it is cyclic. The order of that move is four: the first positive number of repetitions that returns us to identity. The order of the full square group is eight: the number of its moves. Same word, two related but different counts."
+    },
+    {
+      "id": "oliver_04_1",
+      "line_ids": [
+        "04_1"
+      ],
+      "text": "Now fix the horizontal flip. Which square symmetries give the same result whether we do them before or after that flip? Those moves form its centralizer."
+    },
+    {
+      "id": "oliver_04_2",
+      "line_ids": [
+        "04_2"
+      ],
+      "text": "The identity works. So do the half turn, the horizontal flip itself, and the vertical flip. But a quarter turn does not: it changes which reflection line we are using. The centralizer gathers exactly the moves that commute with this chosen move."
+    },
+    {
+      "id": "oliver_05_1",
+      "line_ids": [
+        "05_1"
+      ],
+      "text": "A clock identifies numbers that differ by a whole number of turns."
+    },
+    {
+      "id": "oliver_05_2",
+      "line_ids": [
+        "05_2"
+      ],
+      "text": "One, five and nine all land on the same position on a four-step clock. That is an equivalence class: a collection of things we have decided to treat as the same, according to a rule that is reflexive, symmetric and transitive."
+    },
+    {
+      "id": "oliver_05_3",
+      "line_ids": [
+        "05_3"
+      ],
+      "text": "A subgroup gives us a way to make classes of group elements. Say two moves are equivalent when one differs from the other by a move inside the subgroup. The classes are called cosets. If the group is finite, every coset has the same size as the subgroup, and the cosets partition the group."
+    },
+    {
+      "id": "oliver_06_1",
+      "line_ids": [
+        "06_1"
+      ],
+      "text": "We might try to multiply two classes by choosing one representative from each, multiplying those moves, and asking which class contains the result. But that only makes sense if the answer does not depend on our choices."
+    },
+    {
+      "id": "oliver_06_2",
+      "line_ids": [
+        "06_2"
+      ],
+      "text": "For the subgroup containing just the identity and our flip, it can depend on the choice. The identity and the flip lie in the same class. Multiply the class of the quarter turn using the identity, and you get the class of the quarter turn. Use the flip instead, and you get a different class. So this proposed class multiplication is ambiguous."
+    },
+    {
+      "id": "oliver_07_1",
+      "line_ids": [
+        "07_1"
+      ],
+      "text": "A normal subgroup is exactly the kind for which this multiplication is well defined. For the square, take all four rotations. There are two classes: rotations and reflections. Two rotations give a rotation; a rotation and a reflection give a reflection; two reflections give a rotation. These two classes form a quotient group."
+    },
+    {
+      "id": "oliver_07_2",
+      "line_ids": [
+        "07_2"
+      ],
+      "text": "The problem is not that the representative changed. The problem is that, after another move changes our point of view, the difference we agreed to ignore can turn into a difference we did not agree to ignore. A normal subgroup keeps every one of those transported differences inside the same subgroup. Then all choices of representative lead to the same class."
+    },
+    {
+      "id": "oliver_08_1",
+      "line_ids": [
+        "08_1"
+      ],
+      "text": "Imagine a vision system that should recognize this marked square after any quarter turn. Those rotated pictures belong to one class. Now mirror the square. Because this particular mark has no mirror symmetry even after a rotation, its mirror belongs to a different class. The quotient distinguishes rotation moves from reflection moves. Whether an image reveals that difference depends on the mark: a mirror-symmetric mark cannot."
+    },
+    {
+      "id": "oliver_08_2",
+      "line_ids": [
+        "08_2"
+      ],
+      "text": "The same language studies molecular symmetries, error-detecting codes, and transformations in engineering. Those applications have different groups and assumptions; the square is our model, not a proof that every real object has these eight symmetries. Gallian's book itself includes a check-digit application based on a different dihedral group."
+    },
+    {
+      "id": "oliver_09_1",
+      "line_ids": [
+        "09_1"
+      ],
+      "text": "Use a code that accepts three-bit strings only when they have an even number of ones. Send one zero one, with two ones. If the last bit flips, the receiver sees one zero zero, which has only one. The odd count reveals an error. But two flipped bits preserve the even count, so this check can miss them."
+    },
+    {
+      "id": "oliver_10_1",
+      "line_ids": [
+        "10_1"
+      ],
+      "text": "We began with moves of a square. A group let us compose them. A centralizer asked which moves can trade order. An equivalence relation let us group moves into classes. A normal subgroup made those classes into a new group without ambiguity. Abstract algebra gives us a precise way to decide which differences matter, and which ones we can safely forget."
+    }
+  ],
+  "direction_contract": {
+    "schema_version": 1,
+    "topic": "abstract_algebra_visual",
+    "script_sha256": "d046477e8a1d1a2c94fd52e1794f29d144542b7e94f949a4567052a381eefdfc",
+    "map": {
+      "path": "explainer_corpus/abstract_algebra_visual/docs/narration-direction-map-oliver11.json",
+      "sha256": "61e728c6499ec410c5479c629e3084912619b02634887344f12dfa199cead5d1"
+    }
+  },
+  "scope": "Lab review plan only; single-cue units do not claim multi-cue recordings have been split or accepted."
+}

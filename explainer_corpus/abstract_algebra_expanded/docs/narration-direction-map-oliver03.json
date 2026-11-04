@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "abstract_algebra_expanded": "1cc36c3b06c761bc15e982e2a954fa62485ec3718c5837ba34571788f66875b9"
+  },
+  "overrides": [
+    {
+      "video": "abstract_algebra_expanded",
+      "cue": "01_1",
+      "after": "It is eleven o'clock. Five hours pass. Where will the marker land?",
+      "role": "visual",
+      "reason": "A source-checked native prediction hold follows this cue."
+    },
+    {
+      "video": "abstract_algebra_expanded",
+      "cue": "03_2",
+      "after": "Does this rule have the transitive property? If the first is close to the second, and the second is close to the third, must the first be close to the third?",
+      "role": "visual",
+      "reason": "A source-checked native prediction hold follows this cue."
+    },
+    {
+      "video": "abstract_algebra_expanded",
+      "cue": "04_2",
+      "after": "How many quarter-turns altogether will return every marked corner to its starting position?",
+      "role": "visual",
+      "reason": "A source-checked native prediction hold follows this cue."
+    },
+    {
+      "video": "abstract_algebra_expanded",
+      "cue": "05_1",
+      "after": "Compare two sequences. On the left, turn the square a quarter-turn and then flip it across the horizontal line. On the right, flip first and then turn. Will the marked corners finish in the same places?",
+      "role": "visual",
+      "reason": "A source-checked native prediction hold follows this cue."
+    },
+    {
+      "video": "abstract_algebra_expanded",
+      "cue": "08_2",
+      "after": "Now try a different selection: keep the identity, a quarter-turn, and a half-turn, but leave out the three-quarter-turn. Is this selection closed under the same operation?",
+      "role": "visual",
+      "reason": "A source-checked native prediction hold follows this cue."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "abstract_algebra_expanded",
+      "cue": "01_1",
+      "next_cue": "01_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/abstract_algebra_expanded/src/opening.rs",
+      "sha256": "ac993d2c6df3889cface0bb99f207278d61205374a346fc0df1b6641188e5527",
+      "line": 57,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Source-only hold between cues; not an auditory pause claim."
+    },
+    {
+      "video": "abstract_algebra_expanded",
+      "cue": "03_2",
+      "next_cue": "03_3",
+      "kind": "prediction",
+      "path": "explainer_corpus/abstract_algebra_expanded/src/transitivity.rs",
+      "sha256": "7495079bbe7ec13e641209d1442b368c2cf86e9a6509714a40615a0b347775f9",
+      "line": 57,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Source-only hold between cues; not an auditory pause claim."
+    },
+    {
+      "video": "abstract_algebra_expanded",
+      "cue": "04_2",
+      "next_cue": "04_3",
+      "kind": "prediction",
+      "path": "explainer_corpus/abstract_algebra_expanded/src/square.rs",
+      "sha256": "65e8ff1898802daf291da629f1cfc5b4b5bc38775035e5bdfbb936038a1a23cd",
+      "line": 99,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Source-only hold between cues; not an auditory pause claim."
+    },
+    {
+      "video": "abstract_algebra_expanded",
+      "cue": "05_1",
+      "next_cue": "05_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/abstract_algebra_expanded/src/composition.rs",
+      "sha256": "a476b26d9eb47edaff886b31ce35c4bc37739bc1e3cb1bfb4a99690ea9e3d18c",
+      "line": 110,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Source-only hold between cues; not an auditory pause claim."
+    },
+    {
+      "video": "abstract_algebra_expanded",
+      "cue": "08_2",
+      "next_cue": "08_3",
+      "kind": "prediction",
+      "path": "explainer_corpus/abstract_algebra_expanded/src/subgroups.rs",
+      "sha256": "90ed4b17675a1e17fb1b30e00df473383e4bfd10f2d3ee7b4b7368278a5d642b",
+      "line": 54,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Source-only hold between cues; not an auditory pause claim."
+    }
+  ],
+  "scope": "Source-bound native holds; no listening or fine-sync claim."
+}

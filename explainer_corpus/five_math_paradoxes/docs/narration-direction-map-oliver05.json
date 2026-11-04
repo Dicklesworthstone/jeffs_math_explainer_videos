@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "five_math_paradoxes": "171679c3a9d2eed7c499c5dac602352d6dff383a966c93ef25b075c2e3e15a54"
+  },
+  "overrides": [
+    {
+      "video": "five_math_paradoxes",
+      "cue": "01_1",
+      "after": "There is a car behind one door and a goat behind each of the others. You choose a door. The host knows where the car is, always opens a different door with a goat, and always gives you the chance to switch. Should you?",
+      "role": "visual",
+      "reason": "Native prediction hold follows this cue; on-screen question may differ from spoken text."
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "02_1",
+      "after": "How many people must be in a room before there is more than a fifty-fifty chance that some two share a birthday?",
+      "role": "visual",
+      "reason": "Native prediction hold follows this cue; on-screen question may differ from spoken text."
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "03_2",
+      "after": "On hard parts, eighteen out of ninety from A pass; for B, one out of ten passes. A leads again, twenty percent to ten percent.",
+      "role": "visual",
+      "reason": "Native prediction hold follows this cue; on-screen question may differ from spoken text."
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "04_1",
+      "after": "A tortoise starts one hundred metres ahead. Achilles runs ten metres per second; the tortoise moves at one. First Achilles reaches the tortoise's starting point, but the tortoise has moved on. When he reaches that new point, it has moved again. There are infinitely many of these stages. How can he ever catch it?",
+      "role": "visual",
+      "reason": "Native prediction hold follows this cue; on-screen question may differ from spoken text."
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "05_1",
+      "after": "Imagine a hotel with rooms numbered one, two, three, and so on without end. Every room has one guest. A new guest arrives. Can everyone have a room?",
+      "role": "visual",
+      "reason": "Native prediction hold follows this cue; on-screen question may differ from spoken text."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "five_math_paradoxes",
+      "cue": "01_1",
+      "next_cue": "01_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/five_math_paradoxes/src/chapters/monty.rs",
+      "sha256": "d58299aa3a219805f0abc5a350446f443ac16d1a9164fef8446c10f6158bf688",
+      "line": 61,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native prediction hold lies between source cues; not an audible pause claim."
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "02_1",
+      "next_cue": "02_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/five_math_paradoxes/src/chapters/birthday.rs",
+      "sha256": "5c225f5fa1ced6803bc91f6eba1ed5153242e7471a9a6ac3c4ce7632012b5de1",
+      "line": 51,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native prediction hold lies between source cues; not an audible pause claim."
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "03_2",
+      "next_cue": "03_3",
+      "kind": "prediction",
+      "path": "explainer_corpus/five_math_paradoxes/src/chapters/simpson.rs",
+      "sha256": "086855b9616e49bca463d2251cc3e5c2ffadef7bcee4768ea922cafd2c48bce3",
+      "line": 62,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native prediction hold lies between source cues; not an audible pause claim."
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "04_1",
+      "next_cue": "04_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/five_math_paradoxes/src/chapters/zeno.rs",
+      "sha256": "38aaf3c990a9188d0271dc6585448722f3b5ef7af5f13821d7b24b213c0a3bc8",
+      "line": 48,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native prediction hold lies between source cues; not an audible pause claim."
+    },
+    {
+      "video": "five_math_paradoxes",
+      "cue": "05_1",
+      "next_cue": "05_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/five_math_paradoxes/src/chapters/hotel.rs",
+      "sha256": "2ffce6a61e42eb1243306642f36df3e9e0b3037d45486e3e963a54c1c3f61c52",
+      "line": 57,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native prediction hold lies between source cues; not an audible pause claim."
+    }
+  ],
+  "scope": "Source-checked prediction holds only; no listening, content, timing or acceptance claim."
+}

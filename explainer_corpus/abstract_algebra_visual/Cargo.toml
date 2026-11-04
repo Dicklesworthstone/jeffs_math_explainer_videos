@@ -1,0 +1,13 @@
+[package]
+name = "abstract_algebra_visual"
+version = "0.1.0"
+edition = "2024"
+publish = false
+description = "A visual introduction to square-symmetry groups"
+
+[workspace]
+
+[dependencies]
+fmn = { git = "https://github.com/Dicklesworthstone/franken_manim", rev = "a399d626c43ecc852a5c795288979f52b446bc5c", features = ["ffmpeg"] }
+explainer_kit = { path = "../../crates/explainer_kit" }
+explainer_score = { path = "../../crates/explainer_score" }

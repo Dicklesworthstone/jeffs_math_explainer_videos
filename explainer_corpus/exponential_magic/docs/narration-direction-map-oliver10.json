@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "exponential_magic": "077cd2f02e8b50745a71b439ef8badaed63f4df7a161b76d27ff44f884f781ec"
+  },
+  "overrides": [
+    {
+      "video": "exponential_magic",
+      "cue": "00_1",
+      "after": "Before pocket calculators, engineers could multiply by moving two rulers. Line up a one with a two.",
+      "role": "visual",
+      "reason": "Native visual prediction hold occurs between this cue and the next; the on-screen question may differ from spoken text."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "01_1",
+      "after": "If a quantity doubles for each unit of time, then three units multiply it by two, three times: eight. Two more units multiply it by four.",
+      "role": "visual",
+      "reason": "Native visual prediction hold occurs between this cue and the next; the on-screen question may differ from spoken text."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "02_1",
+      "after": "Every positive exponential base has the addition-to-multiplication rule. What makes the base e special? Measure x in the natural units where the curve starts at one and its initial slope is also one. Then the same little step has the same proportional effect wherever we stand.",
+      "role": "visual",
+      "reason": "Native visual prediction hold occurs between this cue and the next; the on-screen question may differ from spoken text."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "03_1",
+      "after": "There are several ways to build this function. One starts with repeated small multipliers: for a fixed number x, take one plus x divided by n and multiply that by itself n times.",
+      "role": "visual",
+      "reason": "Native visual prediction hold occurs between this cue and the next; the on-screen question may differ from spoken text."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "04_1",
+      "after": "The same pattern turns up whenever the instantaneous rate is proportional to what remains or what has accumulated. A radioactive sample with a fixed decay constant has an exponentially declining expected number of undecayed nuclei. An ideal capacitor charging through a resistor approaches its final voltage with an exponential gap. Under Newton's cooling model, the temperature difference from a constant-temperature room decays exponentially. A first-order chemical reaction follows an exponential concentration under its model assumptions. Money under a constant continuously compounded rate grows by the same equation; real interest rates and cash flows need not be constant.",
+      "role": "visual",
+      "reason": "Native visual prediction hold occurs between this cue and the next; the on-screen question may differ from spoken text."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "05_1",
+      "after": "Put an imaginary unit in the exponent, and the picture changes.",
+      "role": "visual",
+      "reason": "Native visual prediction hold occurs between this cue and the next; the on-screen question may differ from spoken text."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "exponential_magic",
+      "cue": "00_1",
+      "next_cue": "00_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/exponential_magic/src/chapters/slide_rule.rs",
+      "sha256": "eb112eb53454454702683fd1129c0f74ac982e27baae01f76628e4ca54faa2f6",
+      "line": 87,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native visual prediction hold occurs between these script cues; not an audible pause claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "01_1",
+      "next_cue": "01_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/exponential_magic/src/chapters/property.rs",
+      "sha256": "f835ac1a4668a56346a9a75c001459d902888676513525d9ef5a1dc606c70210",
+      "line": 49,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native visual prediction hold occurs between these script cues; not an audible pause claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "02_1",
+      "next_cue": "02_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/exponential_magic/src/chapters/derivative.rs",
+      "sha256": "e5abb1801e83132b091335bfd20d9fcfc1a8ad58926a5adb4416963d1735cd35",
+      "line": 58,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native visual prediction hold occurs between these script cues; not an audible pause claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "03_1",
+      "next_cue": "03_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/exponential_magic/src/chapters/definitions.rs",
+      "sha256": "ac6f97173c8cdbdb93efbd6580b4625b592cb47d8ac1ff71372612f74674740a",
+      "line": 47,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native visual prediction hold occurs between these script cues; not an audible pause claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "04_1",
+      "next_cue": "04_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/exponential_magic/src/chapters/applications.rs",
+      "sha256": "8414abc41d497784d0747c151c6d48dcb1c471819b6a7f275820d9ec6c11448a",
+      "line": 63,
+      "marker": "stage.wait(3.0)?;",
+      "basis": "Narration hold precedes the question; the three-second visual prediction wait follows the question and precedes 04_2. No audible-pause or listening claim."
+    },
+    {
+      "video": "exponential_magic",
+      "cue": "05_1",
+      "next_cue": "05_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/exponential_magic/src/chapters/rotation.rs",
+      "sha256": "1dbcdb9aae48c99903ce8aa499d9c4b48a95cb084195a9a63e9009c49f39d2bc",
+      "line": 41,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native visual prediction hold occurs between these script cues; not an audible pause claim."
+    }
+  ],
+  "scope": "Source-checked prediction holds only; no listening, content, timing or acceptance claim."
+}

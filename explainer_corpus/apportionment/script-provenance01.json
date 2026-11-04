@@ -1,0 +1,134 @@
+{
+  "status": "Provisional source-derived native production script; no synthesis, render, listening or independent review",
+  "source": "docs/video-program/research-20261016/evidence/apportionment-narration-draft-20261101.md",
+  "source_sha256": "5d6a69e3e83d99a822a81a52766d5d79b1e97d379120c330ffdbfbaa345be307",
+  "script_sha256": "84c83681e11e063cadb210ed6a86ca37b1ddd0d55a5e6373c7aebfd68f1dc540",
+  "cues": [
+    {
+      "cue": "01_1",
+      "text_sha256": "b89a1823902e52a5211d072e6732839e8b1e84943559e34d9425416f0dfecc94",
+      "characters": 190
+    },
+    {
+      "cue": "01_2",
+      "text_sha256": "9c65cf5c296aeba8d6ba46fa0640fdba940f3b950152ff9d074a7bb3decfeb66",
+      "characters": 106
+    },
+    {
+      "cue": "01_3",
+      "text_sha256": "380474b8d1ea0be80599903033d18a1a1a31ebb1e6f69789affdac7fc876bc6a",
+      "characters": 238
+    },
+    {
+      "cue": "02_1",
+      "text_sha256": "6dcdaa96d2bc7377950cad961e25193bf3a0a8d38ba78b25d3af657f8c4fd816",
+      "characters": 316
+    },
+    {
+      "cue": "02_2",
+      "text_sha256": "7712c72a58fd8d8efc0fb776a634ebd01dfcf179e615c654fa759d94030811b1",
+      "characters": 233
+    },
+    {
+      "cue": "02_3",
+      "text_sha256": "37c6dcb6f29353227c1c5277c934f69136a2507a4c22de245f2d006487ed17c6",
+      "characters": 321
+    },
+    {
+      "cue": "02_4",
+      "text_sha256": "c40dc8ec2d72cf769bc491d1d2d7c40fae084288c3014bfc89c468528904bfd9",
+      "characters": 210
+    },
+    {
+      "cue": "03_1",
+      "text_sha256": "3d28f91fc0370f35e20dc034272a001b0e3463a86adac6af1490aab4bae3d0e9",
+      "characters": 24
+    },
+    {
+      "cue": "03_2",
+      "text_sha256": "7ee0f04561c92021f1eeebc9c3c749375b3f77297d21cf0e8b91f6b5725a1b81",
+      "characters": 167
+    },
+    {
+      "cue": "03_3",
+      "text_sha256": "999c1f63d1c5222655e44c80979529eae375af1d80a18a9ad33166c1bee1c734",
+      "characters": 96
+    },
+    {
+      "cue": "04_1",
+      "text_sha256": "8392b853824d6f9521686ec7fc6ff071ed4d0287994415dca84a9a3790beda69",
+      "characters": 298
+    },
+    {
+      "cue": "04_2",
+      "text_sha256": "95fb78d194a5db39a1f1829beac1e22a5f9e05f46512755d5493ef52709a3900",
+      "characters": 300
+    },
+    {
+      "cue": "04_3",
+      "text_sha256": "76789e5e198d16e1193f197f2f7ca92a1c2b7846ef892316e47418d2a5820060",
+      "characters": 161
+    },
+    {
+      "cue": "04_4",
+      "text_sha256": "c9299fa3caa98eb029a86c7947d738f37ddb5e1f5984707e4b0404e7b13738e1",
+      "characters": 316
+    },
+    {
+      "cue": "05_1",
+      "text_sha256": "02aafaffc1a0362f00a43b8d53c1de2848f5548fd568687ee8cdb90db5526974",
+      "characters": 139
+    },
+    {
+      "cue": "05_2",
+      "text_sha256": "d445232f29437686fe20486a806a98fa40a9a1a2069fec0fa8631491c6835b6f",
+      "characters": 226
+    },
+    {
+      "cue": "05_3",
+      "text_sha256": "135c156f5ddf8201a28fd49d76cf65c09aa7f53c0dace33cecf3d6fc5b143f25",
+      "characters": 395
+    },
+    {
+      "cue": "06_1",
+      "text_sha256": "08873eed2defc18f1130a05516e97d00391d716ed7bd56f8e3e5e725ca534b29",
+      "characters": 314
+    },
+    {
+      "cue": "06_2",
+      "text_sha256": "8b23f06da5ba6ae3239dd80d47c451eea32f98158de3bb926fa4843d90205746",
+      "characters": 206
+    },
+    {
+      "cue": "07_1",
+      "text_sha256": "ce3aabb87184c08d33477d091e809dd623e7407c6e217a1fcffe71679d2be47b",
+      "characters": 294
+    },
+    {
+      "cue": "07_2",
+      "text_sha256": "02c73c61d2de4793c3341499ec52d93ff7b7bada199337399344fd56a291e8ca",
+      "characters": 339
+    },
+    {
+      "cue": "08_1",
+      "text_sha256": "b85801389cf3aeb4c0640393c43f43e6d36a38f8aceace00e8620c42ba437368",
+      "characters": 233
+    },
+    {
+      "cue": "08_2",
+      "text_sha256": "7592154928e7d39f2cc6fd790cfa03f6e5716c8ed27f6d9d5bc2c84b2e7c3a81",
+      "characters": 219
+    }
+  ],
+  "count": 23,
+  "remaining": [
+    "independent math and pedagogy review",
+    "native FrankenManim scenes and exact numerical oracles",
+    "ElevenLabs Oliver synthesis and retained-take bindings",
+    "guarded build, timeline, score, render and master",
+    "full picture, caption, recognition and technical review",
+    "continuous listening and fine-sync remain unclaimed",
+    "publication separately authorized"
+  ],
+  "cue_split": "Original 03_1 split after the question to preserve the authored prediction hold; original text and order unchanged."
+}

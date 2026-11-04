@@ -1,0 +1,163 @@
+{
+  "schema_version": 1,
+  "script_sha256": "171679c3a9d2eed7c499c5dac602352d6dff383a966c93ef25b075c2e3e15a54",
+  "units": [
+    {
+      "id": "oliver_00_1",
+      "line_ids": [
+        "00_1"
+      ],
+      "text": "A game show host opens a door, and switching gives you the better chance. One machine passes inspection more often on each kind of part, yet trails overall. A runner crosses infinitely many checkpoints and still catches a tortoise. These are not tricks where math stops working. Each one asks us to look more carefully at what the picture leaves out. Here are five favorites, and the small idea that makes each one click."
+    },
+    {
+      "id": "oliver_01_1",
+      "line_ids": [
+        "01_1"
+      ],
+      "text": "There is a car behind one door and a goat behind each of the others. You choose a door. The host knows where the car is, always opens a different door with a goat, and always gives you the chance to switch. Should you?"
+    },
+    {
+      "id": "oliver_01_2",
+      "line_ids": [
+        "01_2"
+      ],
+      "text": "Imagine that you always choose the first door. The car is equally likely to be behind any of the three doors."
+    },
+    {
+      "id": "oliver_01_3",
+      "line_ids": [
+        "01_3"
+      ],
+      "text": "If it is behind your first choice, switching loses. If it is behind either other door, the host must reveal the remaining goat, and switching wins. One losing case, two winning cases. The chance of winning by always switching is two out of three."
+    },
+    {
+      "id": "oliver_01_4",
+      "line_ids": [
+        "01_4"
+      ],
+      "text": "The key is that the host's action follows a rule. If the host opens doors at random, or offers a switch only sometimes, this calculation need not apply."
+    },
+    {
+      "id": "oliver_02_1",
+      "line_ids": [
+        "02_1"
+      ],
+      "text": "How many people must be in a room before there is more than a fifty-fifty chance that some two share a birthday?"
+    },
+    {
+      "id": "oliver_02_2",
+      "line_ids": [
+        "02_2"
+      ],
+      "text": "Under a simple model, only twenty-three. Not a match to your birthday: a match between any pair."
+    },
+    {
+      "id": "oliver_02_3",
+      "line_ids": [
+        "02_3"
+      ],
+      "text": "Assume each birthday is independently and uniformly distributed among three hundred and sixty-five days. It is easier to count the opposite: nobody matches. After the first person, the second must avoid one day, so that chance is three hundred and sixty-four out of three hundred and sixty-five. The third must avoid two days, giving three hundred and sixty-three out of three hundred and sixty-five, and so on."
+    },
+    {
+      "id": "oliver_02_4",
+      "line_ids": [
+        "02_4"
+      ],
+      "text": "Multiply those no-match probabilities through person twenty-three. The result is about forty-nine point two seven percent. The chance of at least one match is the remainder: about fifty point seven three percent."
+    },
+    {
+      "id": "oliver_02_5",
+      "line_ids": [
+        "02_5"
+      ],
+      "text": "There are two hundred and fifty-three possible pairs, which helps explain the surprise. But those pairs are not independent, so simply multiplying a per-pair probability two hundred and fifty-three times would not be the calculation we just did."
+    },
+    {
+      "id": "oliver_03_1",
+      "line_ids": [
+        "03_1"
+      ],
+      "text": "Two machines each make easy and hard parts, which then get inspected. On easy parts, nine out of ten from machine A pass; for B, it is seventy-two out of ninety. A leads, ninety percent to eighty percent."
+    },
+    {
+      "id": "oliver_03_2",
+      "line_ids": [
+        "03_2"
+      ],
+      "text": "On hard parts, eighteen out of ninety from A pass; for B, one out of ten passes. A leads again, twenty percent to ten percent."
+    },
+    {
+      "id": "oliver_03_3",
+      "line_ids": [
+        "03_3"
+      ],
+      "text": "Now combine the parts. A has twenty-seven passes out of one hundred; B has seventy-three out of one hundred. B leads overall. How? A made mostly hard parts and B made mostly easy parts. The overall rates weight the two categories differently."
+    },
+    {
+      "id": "oliver_03_4",
+      "line_ids": [
+        "03_4"
+      ],
+      "text": "Both statements can be true: A has a higher pass rate at each difficulty, and B has a higher rate across all their parts. Which comparison answers your question depends on the context; the reversal alone does not prove what caused the results."
+    },
+    {
+      "id": "oliver_04_1",
+      "line_ids": [
+        "04_1"
+      ],
+      "text": "A tortoise starts one hundred metres ahead. Achilles runs ten metres per second; the tortoise moves at one. First Achilles reaches the tortoise's starting point, but the tortoise has moved on. When he reaches that new point, it has moved again. There are infinitely many of these stages. How can he ever catch it?"
+    },
+    {
+      "id": "oliver_04_2",
+      "line_ids": [
+        "04_2"
+      ],
+      "text": "The stages get shorter. The first takes ten seconds, the next one second, then a tenth, then a hundredth, and so on. Their sum approaches ten plus ten ninths, or one hundred ninths seconds: about eleven point one one seconds."
+    },
+    {
+      "id": "oliver_04_3",
+      "line_ids": [
+        "04_3"
+      ],
+      "text": "The usual constant-speed model gives the same answer directly: Achilles closes the hundred-metre gap at nine metres per second. Infinitely many positive stage times can have a finite limit. This answers the arithmetic challenge in that model; the deeper philosophical questions about motion and infinity have a longer history."
+    },
+    {
+      "id": "oliver_05_1",
+      "line_ids": [
+        "05_1"
+      ],
+      "text": "Imagine a hotel with rooms numbered one, two, three, and so on without end. Every room has one guest. A new guest arrives. Can everyone have a room?"
+    },
+    {
+      "id": "oliver_05_2",
+      "line_ids": [
+        "05_2"
+      ],
+      "text": "Assign the guest in room one to room two, the guest in room two to room three, and in general the guest in room n to room n plus one. Now assign the new guest room one. Every original guest has a distinct room. The new guest has one too, and every room is assigned: room one to the newcomer, and room k, for k at least two, to the former guest from room k minus one."
+    },
+    {
+      "id": "oliver_05_3",
+      "line_ids": [
+        "05_3"
+      ],
+      "text": "That is impossible for a finite hotel. For an infinite set, a one-to-one matching can pair the whole set with a proper part of itself. This is a mathematical assignment, not a practical plan for moving infinitely many people."
+    },
+    {
+      "id": "oliver_06_1",
+      "line_ids": [
+        "06_1"
+      ],
+      "text": "Five surprises, five questions: what does the host know, which pairs count, how are averages weighted, what happens to the total time, and can every guest be matched to a room? A paradox is often a sign that an ordinary intuition has wandered outside the conditions where it works."
+    }
+  ],
+  "direction_contract": {
+    "schema_version": 1,
+    "topic": "five_math_paradoxes",
+    "script_sha256": "171679c3a9d2eed7c499c5dac602352d6dff383a966c93ef25b075c2e3e15a54",
+    "map": {
+      "path": "explainer_corpus/five_math_paradoxes/docs/narration-direction-map-oliver07.json",
+      "sha256": "cfba5341c92c27ef43a17813536cabc5d528af32c68d23afce46dc606178b5e8"
+    }
+  },
+  "scope": "Lab review plan only; single-cue units do not claim multi-cue recordings have been split or accepted."
+}

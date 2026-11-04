@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "stokes_review_four01": "d55e70c8b6a10a23fb6000e3d5e3243c08005dbf6489a44e02ba382b64f65904"
+  },
+  "overrides": [
+    {
+      "video": "stokes_review_four01",
+      "cue": "01_1",
+      "after": "Imagine that we walk around the edge of one square, keeping the square on our left. Now add a second square next to it, and walk around that one the same way. On their shared edge, the two walks go in opposite directions. If we add both walks, which edges survive?",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_four01",
+      "cue": "02_1",
+      "after": "On a line, a boundary is just a pair of endpoints, with a sign. The boundary of the interval from a to b is b minus a. If we cut the interval in two, the cut point is the positive end of one piece and the negative end of the other. Add the boundaries and that point disappears.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_four01",
+      "cue": "03_1",
+      "after": "For a region on a plane, the boundary is no longer a pair of points. It is a collection of oriented curves. Give each little tile a counterclockwise boundary. Neighboring tiles traverse their common edge in opposite directions, so the signed contributions from that edge cancel. When we add every tile, the outside edge survives.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_four01",
+      "cue": "04_1",
+      "after": "Here is a one-form simple enough to calculate by hand: omega equals x times d y. Go around the unit square counterclockwise. Which edge contributes anything? Take a moment.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    },
+    {
+      "video": "stokes_review_four01",
+      "cue": "04_2",
+      "after": "Along the horizontal edges, d y is zero. Along the left edge, x is zero. On the right edge, x is one and y increases by one, so the whole boundary integral is one. The exterior derivative of x d y is d x wedge d y. On the unit square, its integral is the area, also one.",
+      "role": "visual",
+      "reason": "Native scratch visual hold; no listening claim."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "stokes_review_four01",
+      "cue": "01_1",
+      "next_cue": "01_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/stokes_review_four01/src/chapters/opening.rs",
+      "sha256": "b118b660b3709cfa75f9328e1875e0fd2173c1143657114979c9e942a1e5ba63",
+      "line": 54,
+      "marker": "        kit.say(stage,\"01_1\")?;kit.hold(stage)?;kit.mark(stage,\"predict\");stage.wait(3.0)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_four01",
+      "cue": "02_1",
+      "next_cue": "02_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_four01/src/chapters/opening.rs",
+      "sha256": "b118b660b3709cfa75f9328e1875e0fd2173c1143657114979c9e942a1e5ba63",
+      "line": 77,
+      "marker": "        kit.say(stage,\"02_1\")?;kit.hold(stage)?;fade(stage,&inside,false)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_four01",
+      "cue": "03_1",
+      "next_cue": "03_2",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_four01/src/chapters/edges.rs",
+      "sha256": "12673345e80766538be18abdcd1e4b2c2aebf7c1f1329cfd2175a4f3e06159bc",
+      "line": 25,
+      "marker": "        kit.say(stage,\"03_1\")?; kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_four01",
+      "cue": "04_1",
+      "next_cue": "04_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/stokes_review_four01/src/chapters/unit_square.rs",
+      "sha256": "81385b351af8af2d8d8d697a974763f23d035ef1a6cc11301a008c2015b038f6",
+      "line": 19,
+      "marker": "        kit.say(stage,\"04_1\")?;kit.hold(stage)?;kit.mark(stage,\"predict\");stage.wait(3.0)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    },
+    {
+      "video": "stokes_review_four01",
+      "cue": "04_2",
+      "next_cue": "04_3",
+      "kind": "reading",
+      "path": "explainer_corpus/stokes_review_four01/src/chapters/unit_square.rs",
+      "sha256": "81385b351af8af2d8d8d697a974763f23d035ef1a6cc11301a008c2015b038f6",
+      "line": 32,
+      "marker": "        kit.until_sentence(stage,\"04_2\",3)?; fade(stage,&[area],true)?;kit.hold(stage)?;",
+      "basis": "Scratch source hold checked; not an audible pause claim."
+    }
+  ],
+  "scope": "Four-chapter scratch; unlistened, not production acceptance."
+}

@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "script_sha256": "d55e70c8b6a10a23fb6000e3d5e3243c08005dbf6489a44e02ba382b64f65904",
+  "units": [
+    {
+      "id": "oliver_01_1",
+      "line_ids": [
+        "01_1"
+      ],
+      "text": "Imagine that we walk around the edge of one square, keeping the square on our left. Now add a second square next to it, and walk around that one the same way. On their shared edge, the two walks go in opposite directions. If we add both walks, which edges survive?"
+    },
+    {
+      "id": "oliver_01_2",
+      "line_ids": [
+        "01_2"
+      ],
+      "text": "The interior seam cancels. Only the outside edge is left. That small cancellation is the visible side of a theorem that connects a change inside a region to an accumulation around its boundary. We will start on a line, build up to surfaces and volumes, and then prove the same pattern in any dimension. At the end, it will explain one of Maxwell's equations."
+    },
+    {
+      "id": "oliver_02_1",
+      "line_ids": [
+        "02_1"
+      ],
+      "text": "On a line, a boundary is just a pair of endpoints, with a sign. The boundary of the interval from a to b is b minus a. If we cut the interval in two, the cut point is the positive end of one piece and the negative end of the other. Add the boundaries and that point disappears."
+    },
+    {
+      "id": "oliver_02_2",
+      "line_ids": [
+        "02_2"
+      ],
+      "text": "The same cancellation happens with changes of a function. The change across the whole interval is the sum of the changes across its pieces. For a continuously differentiable function, the fundamental theorem of calculus says that adding the derivative over the interval gives the value at b minus the value at a. This is our first Stokes theorem: an integral over an interval equals a signed value on its boundary."
+    },
+    {
+      "id": "oliver_03_1",
+      "line_ids": [
+        "03_1"
+      ],
+      "text": "For a region on a plane, the boundary is no longer a pair of points. It is a collection of oriented curves. Give each little tile a counterclockwise boundary. Neighboring tiles traverse their common edge in opposite directions, so the signed contributions from that edge cancel. When we add every tile, the outside edge survives."
+    },
+    {
+      "id": "oliver_03_2",
+      "line_ids": [
+        "03_2"
+      ],
+      "text": "What are we adding along those edges? One useful answer is work: along a small step, take the component of a vector field in the direction of that step. Reverse the step and the contribution changes sign. A differential one-form is a general rule for assigning such a signed contribution to a small oriented step. The vector field is a familiar picture; the one-form is the object we integrate."
+    },
+    {
+      "id": "oliver_04_1",
+      "line_ids": [
+        "04_1"
+      ],
+      "text": "Here is a one-form simple enough to calculate by hand: omega equals x times d y. Go around the unit square counterclockwise. Which edge contributes anything? Take a moment."
+    },
+    {
+      "id": "oliver_04_2",
+      "line_ids": [
+        "04_2"
+      ],
+      "text": "Along the horizontal edges, d y is zero. Along the left edge, x is zero. On the right edge, x is one and y increases by one, so the whole boundary integral is one. The exterior derivative of x d y is d x wedge d y. On the unit square, its integral is the area, also one."
+    },
+    {
+      "id": "oliver_04_3",
+      "line_ids": [
+        "04_3"
+      ],
+      "text": "That wedge symbol records oriented area. Reversing the region reverses its induced boundary direction, and both sides change sign. Signs are part of the geometry, not an optional decoration."
+    }
+  ],
+  "direction_contract": {
+    "schema_version": 1,
+    "topic": "stokes_theorem_visual",
+    "script_sha256": "d55e70c8b6a10a23fb6000e3d5e3243c08005dbf6489a44e02ba382b64f65904",
+    "map": {
+      "path": "explainer_corpus/stokes_theorem_visual/docs/narration-direction-map-stokes-scratch01.json",
+      "sha256": "b985edfcadc1666b101c2388038b9caa1a626ae332dd14f6f67d92c330e8af3b"
+    }
+  },
+  "scope": "Four-chapter scratch candidates, unlistened and unselected."
+}
