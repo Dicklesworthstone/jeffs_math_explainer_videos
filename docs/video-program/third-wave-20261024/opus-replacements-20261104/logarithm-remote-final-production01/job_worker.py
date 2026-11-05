@@ -16,6 +16,7 @@ import shutil
 import socket
 import subprocess
 import sys
+import time
 import wave
 
 CONFIG = json.loads(pathlib.Path(__file__).with_suffix(".config.json").read_text())
@@ -54,6 +55,17 @@ def finished_ok(job):
     return (r.get("admitted") is True and r.get("exit") == 0 and bool(r.get("finished"))
             and r.get("inputs_sha256") == r.get("final_inputs_sha256")
             and not r.get("stopped_for_resource_limit") and "error" not in r)
+
+
+def live_receipt(path):
+    """This job's receipt, while the guard owns it. The guard rewrites it in place just after starting the job, so a
+    read can land inside that write. A receipt that never parses refuses."""
+    for _ in range(100):
+        try:
+            return json.loads(path.read_text())
+        except json.JSONDecodeError:
+            time.sleep(0.1)
+    refuse("the guard's receipt never settled: " + str(path))
 
 
 def rows(path):
@@ -330,7 +342,7 @@ def main():
     receipt = JOB / "resource-receipt.json"
     if not receipt.is_file():
         refuse("launch only through the guard: " + str(receipt) + " is missing")
-    started = json.loads(receipt.read_text())
+    started = live_receipt(receipt)
     command = started.get("command")
     if (not isinstance(command, list) or len(command) != 4 or command[1:] != ["-I", "-B", CONFIG["script"]]
             or "exit" in started or started.get("admitted") is not True):

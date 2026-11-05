@@ -326,7 +326,7 @@ class Case:
         (n / "phrase-timings.json").write_text("{}\n")
         self.write_json(self.jobs / ASSEMBLE / "audio-comparison.json", {"cues": 80})
         rebind_receipt = self.jobs / REBIND / "resource-receipt.json"
-        self.write_json(self.assemble_inputs, {"files": [{"path": str(rebind_receipt), "sha256": sha(rebind_receipt)}]})
+        self.write_json(self.assemble_inputs, {"files": [{"path": str(self.bin), "sha256": sha(self.bin)}, {"path": str(rebind_receipt), "sha256": sha(rebind_receipt)}]})
         self.receipt(ASSEMBLE, ["python3", "assemble"], sha(self.assemble_inputs))
         self.write_binding()
         # timeline and score
@@ -662,6 +662,7 @@ def binding_tests(base):
     refused("bound narration file moved", "moved since the binding", lambda c: (c.n / "00_1.wav").write_bytes(b"moved"))
     refused("timeline script is not what its guard ran", "guard ran", lambda c: c.edit_json(c.jobs / TIMELINE / "resource-receipt.json", lambda r: r.update(command=["python3", "other.py"])))
     refused("rebind row absent", "names 0 rebind jobs", lambda c: rebind_rows(c, []))
+    refused("assembly froze another binary", "froze another binary", assembly_other_binary)
     refused("two rebind rows", "names 2 rebind jobs", lambda c: rebind_rows(c, [REBIND_FAILED, REBIND]))
     refused("assembly names the failed rebind", f"{REBIND_FAILED} is failed", lambda c: rebind_rows(c, [REBIND_FAILED]))
     refused("rebind receipt changed since the assembly", "not the one the assembly froze", lambda c: c.edit_json(c.jobs / REBIND / "resource-receipt.json", lambda r: r.update(extra=1)))
@@ -678,9 +679,19 @@ def timeline_elsewhere(c):
     c.edit_json(c.jobs / TIMELINE / "timeline-summary.json", lambda d: d["chapters"][3].update(timeline_sha256=sha(path)))
 
 
+def assembly_other_binary(c):
+    rebind_rows(c, [REBIND])
+    rows = json.loads(c.assemble_inputs.read_text())["files"]
+    rows[0]["sha256"] = "0" * 64
+    c.write_json(c.assemble_inputs, {"files": rows})
+    digest = sha(c.assemble_inputs)
+    c.edit_json(c.jobs / ASSEMBLE / "resource-receipt.json", lambda r: r.update(inputs_sha256=digest, final_inputs_sha256=digest))
+    c.edit_json(c.binding_path, lambda d: d["files"].update({str(c.assemble_inputs): digest}))
+
+
 def rebind_rows(c, jobs):
     rows = [{"path": str(c.jobs / j / "resource-receipt.json"), "sha256": sha(c.jobs / j / "resource-receipt.json")} for j in jobs]
-    c.write_json(c.assemble_inputs, {"files": rows})
+    c.write_json(c.assemble_inputs, {"files": [{"path": str(c.bin), "sha256": sha(c.bin)}, *rows]})
     digest = sha(c.assemble_inputs)
     c.edit_json(c.jobs / ASSEMBLE / "resource-receipt.json", lambda r: r.update(inputs_sha256=digest, final_inputs_sha256=digest))
     c.edit_json(c.binding_path, lambda d: d["files"].update({str(c.assemble_inputs): digest}))
@@ -763,6 +774,32 @@ def picture_tests(base):
     render_refused("no soundtrack", {"no_track": [first]}, "no soundtrack capture")
 
 
+def receipt_race_tests(base):
+    """The preserved guard rewrites its receipt with write_text just after it starts the job. One rehearsal job died
+    reading it mid-write, so this holds the worker to the empty file and the half file that read can meet."""
+    folder = base / "receipt-race"
+    folder.mkdir()
+    worker = folder / "worker.py"
+    shutil.copyfile(BUNDLE / "job_worker.py", worker)
+    worker.with_suffix(".config.json").write_text(json.dumps({"lane": str(folder), "job": "race", "tools": {}}))
+    spec = importlib.util.spec_from_file_location("worker_copy", worker)
+    W = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(W)
+    receipt = folder / "resource-receipt.json"
+    for name, partial in (("empty", ""), ("half-written", '{"admitted": tr')):
+        receipt.write_text(partial)
+        threading.Timer(0.4, receipt.write_text, ['{"admitted": true}\n']).start()
+        record(f"worker: a read of a {name} live receipt waits for the whole one", W.live_receipt(receipt) == {"admitted": True}, name)
+    receipt.write_text('{"admitted": tr')
+    W.time = types.SimpleNamespace(sleep=lambda seconds: None)
+    try:
+        W.live_receipt(receipt)
+        stopped = None
+    except SystemExit as stop:
+        stopped = stop.code
+    record("worker: a receipt that never parses refuses", stopped == 1, stopped)
+
+
 def host_tests(base):
     def refused(name, phrase, change, code=None):
         c = Case(base, "host-" + name.replace(" ", "-"))
@@ -809,7 +846,7 @@ def main():
         raise SystemExit("SCRATCH and RESULTS must not exist")
     base.mkdir(parents=True)
     os.chdir(REAL)
-    for group in (contract_tests, resume_tests, comparison_tests, binding_tests, picture_tests, host_tests):
+    for group in (contract_tests, resume_tests, comparison_tests, binding_tests, picture_tests, receipt_race_tests, host_tests):
         group(base)
     counts = {"tests": len(results), "passed": sum(r["pass"] for r in results), "failed": sum(not r["pass"] for r in results)}
     data = {"driver_sha256": sha(BUNDLE / "render_master_remote.py"), "worker_sha256": sha(BUNDLE / "job_worker.py"),

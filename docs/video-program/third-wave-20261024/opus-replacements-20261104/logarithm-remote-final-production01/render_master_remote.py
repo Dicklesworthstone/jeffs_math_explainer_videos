@@ -259,7 +259,9 @@ def rebind_job(binding, assemble_receipt):
     manifests = [p for p, h in binding["files"].items() if h == assemble_receipt.get("inputs_sha256")]
     need(len(manifests) == 1, f"the binding holds {len(manifests)} files with the hash {ASSEMBLE}'s guard froze, not one")
     manifest = Path(manifests[0])
-    named = [(m[1], row["sha256"]) for row in read(manifest)["files"] for m in [REBIND_RECEIPT.fullmatch(row["path"])] if m]
+    frozen_rows = read(manifest)["files"]
+    need(any(row["path"] == str(BIN) and row["sha256"] == sha(BIN) for row in frozen_rows), f"{manifest.name} froze another binary than {BIN.name}")
+    named = [(m[1], row["sha256"]) for row in frozen_rows for m in [REBIND_RECEIPT.fullmatch(row["path"])] if m]
     need(len(named) == 1, f"{manifest.name} names {len(named)} rebind jobs, not one")
     job, frozen = named[0]
     path = JOBS / job / "resource-receipt.json"
