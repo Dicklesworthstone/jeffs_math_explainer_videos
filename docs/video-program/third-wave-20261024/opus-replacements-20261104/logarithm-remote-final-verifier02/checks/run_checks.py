@@ -1,6 +1,6 @@
 """Checks for verify_remote_final.py. From the repository root, where FRESH_SCRATCH does not exist:
 
-    python3 -I -B .../logarithm-remote-final-verifier01/checks/run_checks.py FRESH_SCRATCH
+    python3 -I -B .../logarithm-remote-final-verifier02/checks/run_checks.py FRESH_SCRATCH
 
 Read-only on the repository; writes only under FRESH_SCRATCH. No SSH, no guard, no real ffmpeg or ffprobe, no strict
 decode, no render, no synthesis, no listening and no viewing. It runs on the local host, so every worker fact is a
@@ -8,6 +8,7 @@ STAND-IN: the helper's HOST is patched in this process for the fixture, after th
 The stage09 records are real and validate the helper's behaviour only: they accept nothing about a new master.
 
   G1  the helper against the sealed final-picture verifier, definition by definition; anchors.json byte-identical
+  G1b the helper against verifier01, definition by definition; verifier01 still equals its recorded hashes
   G2  real stage09 data, no anchors: the plan equals the sealed 1356 pictures, frames, seconds and reasons
   G3  anchors on the real stage09 schedule: every old frame comes back; the required sites are all present
   G4  the plan with anchors keeps all old frames and reasons, and names the anchor first
@@ -15,10 +16,13 @@ The stage09 records are real and validate the helper's behaviour only: they acce
       with it, and `was` changes nothing
   G6  planted refusals of the anchor resolver
   G7  the 15 real holds and the closing arithmetic, with planted faults
-  G8  a whole STAND-IN fixture in the remote layout: passes, and refuses each planted fault, the tool pins included
+  G8  a whole STAND-IN fixture in the remote layout, a failed rebind01 beside a good rebind02: passes, and refuses each
+      planted fault, the rebind identity and the tool pins included
+  G8b --master-job: a retry passes where the base job failed; every other name is refused
   G9  the command line and run_job with STAND-IN ffmpeg, ffprobe and strict check: no media is read or written
   G10 no home or scratch path in the delivered files
-  G11 root's real remote records: build manifest, guard pins, transfer lists and the two files still to transfer
+  G11 root's real remote records: build manifest, guard pins, transfer lists and the two files root transferred
+  G12 Ruby's and Lavender's real sources, as read: the names and forms this helper relies on
 """
 import argparse
 import ast
@@ -46,6 +50,11 @@ FOLDER = (REPO / D.HELPER).parent
 HELPER = REPO / D.HELPER
 BASE_DIR = REPO / D.P / "logarithm-final-picture-verifier01"
 BASE = BASE_DIR / "verify_final_picture.py"
+PARENT_DIR = REPO / D.P / "logarithm-remote-final-verifier01"
+PARENT = PARENT_DIR / "verify_remote_final.py"
+RUBY = REPO / D.P / "logarithm-remote-mac-mini-max01"
+RUBY02 = REPO / D.P / "logarithm-remote-continuation02"
+LAVENDER = REPO / D.P / "logarithm-remote-final-production01"
 REMOTE = REPO / D.EL / "remote-mac-mini-max01"
 RENDER_MASTER = REPO / D.S / "render-master01.py"
 SHIFT = {"04_undoing_growth": 24, "12_what_it_forgets": 420}
@@ -68,7 +77,14 @@ def whole_diff():
     """docs/final-picture-to-remote.diff, recomputed, so that the delivered diff cannot drift from the helper."""
     return "".join(difflib.unified_diff(BASE.read_text().splitlines(True), HELPER.read_text().splitlines(True), n=3,
                                         fromfile="logarithm-final-picture-verifier01/verify_final_picture.py",
-                                        tofile="logarithm-remote-final-verifier01/verify_remote_final.py"))
+                                        tofile="logarithm-remote-final-verifier02/verify_remote_final.py"))
+
+
+def revision_diff():
+    """docs/remote01-to-remote02.diff, recomputed, so that it cannot drift either."""
+    return "".join(difflib.unified_diff(PARENT.read_text().splitlines(True), HELPER.read_text().splitlines(True), n=3,
+                                        fromfile="logarithm-remote-final-verifier01/verify_remote_final.py",
+                                        tofile="logarithm-remote-final-verifier02/verify_remote_final.py"))
 
 
 def definitions(path):
@@ -138,7 +154,7 @@ def main():
     added = sorted(k for k in new if k not in old)
     removed = sorted(k for k in old if k not in new)
     want_changed = ["BINDING_SCHEMA", "Ctx", "JOB_TEMPLATE", "PINS", "SCOPE", "STAGE", "bind_master", "check", "gather", "main", "read_schedule", "run_job", "verify_job", "write_job"]
-    want_added = ["COMPARISONS", "HOST", "MIN_PILLOW", "O_REL", "REMOTE_GUARD_PINS_REL", "REMOTE_GUARD_REL", "RENDER_ATTEMPT", "TOOLS_SCHEMA", "check_comparisons", "check_pillow", "check_tool_path", "check_tools",
+    want_added = ["COMPARISONS", "HOST", "MIN_PILLOW", "O_REL", "REBIND_JOB", "REBIND_TOOL", "REMOTE_GUARD_PINS_REL", "REMOTE_GUARD_REL", "RENDER_ATTEMPT", "TOOLS_SCHEMA", "check_comparisons", "check_pillow", "check_rebind", "check_tool_path", "check_tools",
                   "on_host", "pillow_version", "tool_path", "tool_row", "write_tools"]
     must_keep = ["parse_timeline", "schedule", "layout_anchors", "parse_captions", "sentence_onsets", "wav_seconds", "read_script", "registry",
                  "check_captions", "check_phrases", "media_facts", "loudness_summary", "make_sheets", "decode_lines",
@@ -156,6 +172,20 @@ def main():
           f"measurements, sheets, gates, plan and resolver among them; {len(changed)} changed: {changed}; {len(added)} added: {added}; removed: {removed} (PATH lookup, "
           f"replaced by pins); every earlier pin stays and {len(V.PINS) - len(base_pins)} are added; docs/final-picture-to-remote.diff is this change exactly; the retired "
           f"film's frame count is nowhere in the helper or the anchors")
+
+    parent = definitions(PARENT)
+    changed2 = sorted(k for k in parent if k in new and parent[k] != new[k])
+    added2 = sorted(k for k in new if k not in parent)
+    removed2 = sorted(k for k in parent if k not in new)
+    as_left = dict(reversed(line.split(maxsplit=1)) for line in (FOLDER / "docs/verifier01-as-left.sha256").read_text().splitlines())
+    left_files = sorted(str(p.relative_to(PARENT_DIR)) for p in PARENT_DIR.rglob("*") if p.is_file())
+    left_ok = sorted(as_left) == left_files and all(sha(PARENT_DIR / rel) == digest for rel, digest in as_left.items())
+    check("G1b-against-verifier01", changed2 == ["Ctx", "bind_master", "check", "gather", "main", "run_job", "verify_job", "write_job"]
+          and added2 == ["REBIND_JOB", "REBIND_TOOL", "check_rebind"] and not removed2 and "check_binding" in same and "write_tools" not in changed2 and "ran" in same
+          and "receipt_ok" in same and (FOLDER / "docs/remote01-to-remote02.diff").read_text() == revision_diff() and left_ok,
+          f"verifier01 keeps its {len(left_files)} files at their recorded hashes (it was never sealed: docs/verifier01-as-left.sha256 is the record); "
+          f"{len(changed2)} definitions changed: {changed2}; {len(added2)} added: {added2}; none removed; receipt_ok, ran, check_binding and write_tools are unchanged; "
+          f"docs/remote01-to-remote02.diff is this change exactly")
 
     # ------------------------------------------------------------------ G2
     args = (data["chapters"], data["placements"], data["timelines"], data["script"], data["onsets"], data["holds"], data["marks"], data["layouts"])
@@ -419,12 +449,16 @@ def main():
 
     crate_rows = tree_rows(crate)
     build_inputs.write_text(json.dumps({"files": [{"path": str(p), "sha256": sha(p)} for p in crate_rows]}, indent=2))
-    assemble_inputs.write_text(json.dumps({"files": [{"path": str(p), "sha256": sha(p)} for p in (crate / "script.tsv", crate / "narration_units.json", map17)]}, indent=2))
     py = sys.executable
-    build_job, assemble_job, rebind_job = f"{V.STAGE}-build01", f"{V.STAGE}-assemble01", f"{V.STAGE}-rebind01"
+    build_job, assemble_job, rebind_failed, rebind_job = f"{V.STAGE}-build01", f"{V.STAGE}-assemble01", f"{V.STAGE}-rebind01", f"{V.STAGE}-rebind02"
     tl, sc, mjob = f"{V.STAGE}-timeline01", f"{V.STAGE}-score01", f"{V.STAGE}-master01"
     job_folder(build_job, {"chapters.txt": "\n".join(V.CHAPTERS) + "\n"}, "BUILD fixture", ["/bin/bash", str(O / "build01.sh")], build_inputs)
-    job_folder(rebind_job, {"rebind-receipt.json": "{}"}, "REBIND fixture", [py, "-I", "-B", str(O / "rebind01.py")], build_inputs)
+    rebind_tool = scratch / "stand-in-helper" / V.REBIND_TOOL  # named in receipts only, never run
+    job_folder(rebind_failed, {}, "AssertionError: a source WAV is missing", [py, "-I", "-B", str(rebind_tool), "--apply"], build_inputs)
+    failed_receipt, rreceipt = lane / rebind_failed / "resource-receipt.json", lane / rebind_job / "resource-receipt.json"
+    failed_receipt.write_text(json.dumps({**json.loads(failed_receipt.read_text()), "exit": 1}))
+    job_folder(rebind_job, {}, "REBIND fixture", [py, "-I", "-B", str(rebind_tool), "--apply"], build_inputs)
+    assemble_inputs.write_text(json.dumps({"files": [{"path": str(p), "sha256": sha(p)} for p in (crate / "script.tsv", crate / "narration_units.json", map17, rreceipt, binary)]}, indent=2))
     wavs = {cue: sha(narration / f"{cue}.wav") for cue in cues}
     job_folder(assemble_job, {"audio-comparison.json": json.dumps({"cues": 80, "wav_sha256": wavs, "phrase_timings_sha256": sha(narration / "phrase-timings.json"),
                                                                    "all_full_wavs_byte_identical": True, "all_phrase_timings_byte_identical": True})},
@@ -497,7 +531,7 @@ def main():
     master_start = tick()
     mreceipt = lane / mjob / "resource-receipt.json"
     mreceipt.write_text(json.dumps(receipt([py, "-I", "-B", str(script_path)], inputs_path, master_start)))
-    breceipt, rreceipt = lane / build_job / "resource-receipt.json", lane / rebind_job / "resource-receipt.json"
+    breceipt, areceipt = lane / build_job / "resource-receipt.json", lane / assemble_job / "resource-receipt.json"
 
     def namespace(**extra):
         return argparse.Namespace(lane=str(lane), jobs=str(jobs), crate=str(crate), narration=str(narration), integration=str(integration), binding=str(binding), tools=str(tools_json), series="01", **extra)
@@ -515,7 +549,7 @@ def main():
     def field(path, **fields):
         return js(path, lambda d: d.update(fields))
 
-    def reseal(follow_map=True):
+    def reseal(follow_map=True, keep_rows=False):
         """A consistent forgery: everything downstream of the plant re-hashed, so that only the planted fact can decide."""
         if follow_map:
             r = json.loads((narration / "report.json").read_text())
@@ -523,8 +557,18 @@ def main():
             (narration / "report.json").write_text(json.dumps(r, sort_keys=True))
         for holder in (breceipt, rreceipt):
             b = json.loads(holder.read_text())
-            b["inputs_sha256"] = b["final_inputs_sha256"] = sha(build_inputs)
+            stable = b["inputs_sha256"] == b["final_inputs_sha256"]  # a plant of unstable inputs must survive this
+            b["inputs_sha256"] = sha(build_inputs)
+            b["final_inputs_sha256"] = b["inputs_sha256"] if stable else b["final_inputs_sha256"]
             holder.write_text(json.dumps(b))
+        frozen = json.loads(assemble_inputs.read_text())
+        for row in frozen["files"]:
+            if not keep_rows and Path(row["path"]).is_file():
+                row["sha256"] = sha(row["path"])
+        assemble_inputs.write_text(json.dumps(frozen, indent=2))
+        a_now = json.loads(areceipt.read_text())
+        a_now["inputs_sha256"] = a_now["final_inputs_sha256"] = sha(assemble_inputs)
+        areceipt.write_text(json.dumps(a_now))
         d = json.loads(binding.read_text())
         d["approved"]["integration_sha256"] = sha(integration)
         d["crate"] = {str(p.relative_to(crate)): sha(p) for p in tree_rows(crate)}
@@ -539,10 +583,10 @@ def main():
         m["inputs_sha256"] = m["final_inputs_sha256"] = sha(inputs_path)
         mreceipt.write_text(json.dumps(m))
 
-    protected = [narration / "report.json", breceipt, rreceipt, binding, inputs_path, mreceipt]
+    protected = [narration / "report.json", breceipt, rreceipt, assemble_inputs, areceipt, binding, inputs_path, mreceipt]
 
     @contextlib.contextmanager
-    def planted(edits, seal=False, after=(), follow_map=True):
+    def planted(edits, seal=False, after=(), follow_map=True, keep_rows=False):
         keep = {p: p.read_bytes() for p, _ in [*edits, *after]}
         if seal:
             keep.update({p: p.read_bytes() for p in protected if p not in keep})
@@ -550,7 +594,7 @@ def main():
             for p, fn in edits:
                 p.write_bytes(fn(p.read_bytes()))
             if seal:
-                reseal(follow_map)
+                reseal(follow_map, keep_rows)
             for p, fn in after:
                 p.write_bytes(fn(p.read_bytes()))
             yield
@@ -575,6 +619,18 @@ def main():
         def change(d):
             d["files"] = [r for r in d["files"] if not r["path"].endswith(path_end)]
         return js(inputs_path, change)
+
+    def rebind_row(d):
+        return next(r for r in d["files"] if r["path"] == str(rreceipt))
+
+    def rebind_row_at(path):
+        return js(assemble_inputs, lambda d: rebind_row(d).update(path=str(path)))
+
+    def no_rebind_row(d):
+        d["files"].remove(rebind_row(d))
+
+    def two_rebind_rows(d):
+        d["files"].append({"path": str(failed_receipt), "sha256": sha(failed_receipt)})
 
     def build_row_other(d):
         next(r for r in d["files"] if r["path"].endswith("/unreachable.rs"))["sha256"] = "0" * 64
@@ -628,8 +684,30 @@ def main():
         "build failed": ([field(breceipt, exit=101)], {"seal": True}, f"{build_job} did not pass"),
         "assembly failed": ([field(lane / assemble_job / "resource-receipt.json", exit=1)], {"seal": True}, f"{assemble_job} did not pass"),
         "rebind failed": ([field(rreceipt, exit=1)], {"seal": True}, f"{rebind_job} did not pass"),
-        "the rebind started before the build ended": ([field(rreceipt, started="2026-11-06T00:00:00.000000+00:00")], {"seal": True}, "started before"),
-        "the assembly started before the rebind ended": ([field(lane / assemble_job / "resource-receipt.json", started="2026-11-06T00:00:00.000000+00:00")], {"seal": True}, "started before"),
+        "the rebind not admitted": ([field(rreceipt, admitted=False)], {"seal": True}, f"{rebind_job} did not pass"),
+        "the rebind stopped for a resource limit": ([field(rreceipt, stopped_for_resource_limit=True)], {"seal": True}, f"{rebind_job} did not pass"),
+        "the rebind's inputs changed during its run": ([field(rreceipt, final_inputs_sha256="0" * 64)], {"seal": True}, f"{rebind_job} did not pass"),
+        "the rebind never finished": ([js(rreceipt, lambda d: d.pop("finished") and None)], {"seal": True}, f"{rebind_job} did not pass"),
+        "the rebind recorded an error": ([field(rreceipt, error="x")], {"seal": True}, f"{rebind_job} did not pass"),
+        "the assembly froze the failed rebind01": ([rebind_row_at(failed_receipt)], {"seal": True}, f"{rebind_failed} did not pass"),
+        "the assembly froze no rebind": ([js(assemble_inputs, no_rebind_row)], {"seal": True}, "names 0 rebind receipts"),
+        "the assembly froze two rebinds": ([js(assemble_inputs, two_rebind_rows)], {"seal": True}, "names 2 rebind receipts"),
+        "a look-alike rebind job name": ([rebind_row_at(lane / f"{rebind_job}-x" / "resource-receipt.json")], {"seal": True}, "names 0 rebind receipts"),
+        "a rebind receipt off the lane": ([rebind_row_at(scratch / "elsewhere" / rebind_job / "resource-receipt.json")], {"seal": True}, "is not on this lane"),
+        "not the rebind receipt the assembly froze": ([js(assemble_inputs, lambda d: rebind_row(d).update(sha256="0" * 64))], {"seal": True, "keep_rows": True}, f"not the one {assemble_job} froze"),
+        "the assembly froze another binary": ([js(assemble_inputs, lambda d: next(r for r in d["files"] if r["path"] == str(binary)).update(sha256="0" * 64))], {"seal": True, "keep_rows": True}, "froze another binary"),
+        "the assembly froze no binary": ([js(assemble_inputs, lambda d: d["files"].remove(next(r for r in d["files"] if r["path"] == str(binary))))], {"seal": True}, "froze another binary"),
+        "the binding lost the assembly manifest": ([], {"seal": True, "after": [js(binding, lambda d: d["files"].pop(str(assemble_inputs)) and None)]}, "no one bound file is the assembly's"),
+        "the assembly manifest changed after its job": ([drop_manifest_row("/assemble-inputs01.json")], {"seal": True, "after": [(assemble_inputs, lambda d: d + b" ")]}, "is not the manifest"),
+        "the master did not bind the assembly manifest": ([drop_manifest_row("/assemble-inputs01.json")], {"seal": True}, "did not bind assemble-inputs01.json"),
+        "the master did not bind the rebind receipt": ([drop_manifest_row(f"{rebind_job}/resource-receipt.json")], {"seal": True}, f"did not bind {rebind_job}'s receipt"),
+        "the rebind job ran --check": ([field(rreceipt, command=[py, "-I", "-B", str(rebind_tool), "--check"])], {"seal": True}, "the guard's receipt ran"),
+        "the rebind job ran another tool": ([field(rreceipt, command=[py, "-I", "-B", str(scratch / "other.py"), "--apply"])], {"seal": True}, "the guard's receipt ran"),
+        "bash ran the rebind": ([field(rreceipt, command=["/bin/bash", "-I", "-B", str(rebind_tool), "--apply"])], {"seal": True}, "the guard's receipt ran"),
+        "the rebind ran in another phase": ([field(rreceipt, phase="asr")], {"seal": True}, "the guard's receipt ran"),
+        "the rebind started before the build ended": ([field(rreceipt, started="2026-11-06T00:00:00.000000+00:00")], {"seal": True}, f"{rebind_job} started before {build_job} finished"),
+        "the assembly started before the rebind ended": ([field(rreceipt, finished="2026-11-06T01:58:00.000000+00:00")], {"seal": True}, f"{assemble_job} started before {rebind_job} finished"),
+        "the assembly started before the build ended": ([field(areceipt, started="2026-11-06T00:00:00.000000+00:00")], {"seal": True}, f"{assemble_job} started before {build_job} finished"),
         "the master ran under other tools": ([set_cfg("tools_sha256", "0" * 64)], {"seal": True}, "ran under another tools file"),
         "a render attempt -r1": ([set_cfg("render_jobs", {**render_jobs, V.CHAPTERS[0]: render_jobs[V.CHAPTERS[0]] + "-r1"})], {"seal": True}, "render job"),
         "the master did not bind integration.json": ([drop_manifest_row("/integration.json")], {"seal": True}, "did not bind integration.json"),
@@ -722,21 +800,56 @@ def main():
     V.ANCHORS = scratch / "no-such-anchors.json"
     anchors_gone = refusal(V.gather, c)
     V.ANCHORS = saved
+    with planted([(failed_receipt, lambda _raw: b"not json: the failed attempt is never read")]):
+        unread = refusal(V.gather, c)
+    earlier = module("verifier01_as_read", PARENT)  # the defect itself: on this same good film, verifier01 stops at the failed job
+    earlier.HOST = V.HOST
+    try:
+        earlier.gather(earlier.Ctx(namespace()))
+        earlier_said = None
+    except earlier.Refused as error:
+        earlier_said = clean(str(error))
     wrong = [n for n in cases if not (out[n] and cases[n][2] in out[n])]
     relative = refusal(V.Ctx, argparse.Namespace(**{**vars(namespace()), "integration": "integration.json"}))
     again = refusal(V.gather, c)
     check("G8-fixture-gates", not wrong and result["total_frames"] == 116689 and len(result["placements"]) == 80 and len(result["chapters"]) == 13
+          and result["rebind"]["job"] == rebind_job and result["rebind"]["receipt_sha256"] == sha(rreceipt) and unread is None
+          and earlier_said == f"{rebind_failed} did not pass"
           and all(retired.values()) and "retired stage09 master" in retired["RETIRED_MASTER"] and "retired stage09 binary" in retired["RETIRED_BINARY"]
           and len(seven["sources"]) == 7 and "no such cue" in anchor_refused and "is missing" in anchors_gone and "must be an absolute path" in relative and again is None
           and wrote_tools == 0 and "the contact sheets need 99.0" in (old_pillow or "") and "exists: tools never replaces" in (tools_again or "") and "absolute --out" in (tools_relative or "")
           and "runs only on mac-mini-max" in (real_host or "") and "runs only on mac-mini-max" in (real_tools or ""),
           f"The real HOST refuses here ({real_host!r}), for `tools` as well. Then, with HOST patched in this process, a STAND-IN fixture in the remote layout: root's real worker text and old config shape, its sorted manifest, sys.executable receipts, the real integration record's rows, real WAVs "
-          f"by read-only link, synthetic timelines, stand-in media, a stand-in oliver17, and a tools file written by the real `tools` command from stand-in tools. gather passes with 13 chapters, 80 cues, {result['total_frames']} frames, "
+          f"by read-only link, synthetic timelines, stand-in media, a stand-in oliver17, and a tools file written by the real `tools` command from stand-in tools. A failed {rebind_failed} stays on the lane beside the good {rebind_job}, as on the worker. "
+          f"gather names {result['rebind']['job']} from the binding, and still passes when the failed attempt's receipt is not even JSON, so it is never read. On this same film verifier01 refuses ({earlier_said!r}), which is the defect this revision repairs. gather passes with 13 chapters, 80 cues, {result['total_frames']} frames, "
           f"{len(result['sources'])} source changes, {len(result['pause_sites'])} holds, {len(result['anchors'])} anchors and {len(result['samples'])} pictures. "
           f"{len(cases)} planted faults refused, each by its expected gate"
           + (f"; WRONG: {[(n, out[n]) for n in wrong]}" if wrong else "") + f"; a seventh changed source passes and is reported ({len(seven['sources'])} rows); "
           f"8 more refused: retired master, retired binary, a relative path, an unresolved anchors file, a missing anchors file, too old a Pillow, a tools file that exists, a relative tools path; after all of it the fixture passes again")
     print("  G8 detail: " + clean("; ".join(f"{n} -> {out[n]}" for n in cases)), flush=True)
+
+    # ------------------------------------------------------------------ G8b a master retry
+    mjob2 = f"{mjob}-r2"
+    script_r2, config_r2, inputs_r2 = jobs / f"{mjob2}.py", jobs / f"{mjob2}.config.json", jobs / f"{mjob2}-inputs.json"
+    script_r2.write_bytes(script_path.read_bytes())
+    config_r2.write_text(json.dumps(dict(cfg, job=mjob2, script=str(script_r2)), indent=2))
+    swap = {str(script_path): str(script_r2), str(config_path): str(config_r2)}
+    inputs_r2.write_text(json.dumps({"files": [{"path": swap.get(r["path"], r["path"]), "sha256": sha(swap.get(r["path"], r["path"]))}
+                                               for r in json.loads(inputs_path.read_text())["files"]]}, indent=2))
+    (lane / mjob2).mkdir()
+    for name in ("master-summary.json", "command.log"):
+        (lane / mjob2 / name).write_bytes((lane / mjob / name).read_bytes())
+    (lane / mjob2 / "resource-receipt.json").write_text(json.dumps(receipt([py, "-I", "-B", str(script_r2)], inputs_r2, tick())))
+    retry_ctx = V.Ctx(namespace(master_job=mjob2))
+    with planted([field(mreceipt, exit=1)]):
+        base_refused = refusal(V.gather, c)
+        retried = V.gather(retry_ctx)
+    no_such = refusal(V.gather, V.Ctx(namespace(master_job=f"{mjob}-r3")))
+    names_bad = {name: refusal(V.Ctx, namespace(master_job=name)) for name in (f"{mjob}-r1", f"{mjob}-r10", f"{V.STAGE}-master02", "other", f"{mjob}-r2 ")}
+    check("G8b-master-retry", "did not pass: exit 1" in (base_refused or "") and retried["master"]["cfg"]["job"] == mjob2 and "is missing" in (no_such or "")
+          and all(v and "--master-job" in v for v in names_bad.values()) and V.Ctx(namespace()).master_job == mjob,
+          f"with {mjob} failed, the default refuses it ({base_refused!r}) and --master-job {mjob2} passes every gate on its own receipt, script, config and manifest; an attempt that does not exist -> {no_such!r}; "
+          f"refused names: {list(names_bad)}. A STAND-IN of the retry: same fixture bytes, new job")
 
     # ------------------------------------------------------------------ G9 the command line and the job, with stand-in tools
     common = ["--lane", str(lane), "--jobs", str(jobs), "--crate", str(crate), "--narration", str(narration), "--series", "01",
@@ -764,13 +877,15 @@ def main():
     twice = cli("write-job", "--verify", "01", "--job-dir", str(vdir))
     early = cli("verify-job", "--verify", "01", "--job-dir", str(vdir))
     check("G9a-command-line", code_c == 0 and facts.get("chapters") == 13 and facts.get("cues") == 80 and facts.get("total_frames") == 116689 and code_w == 0 and current and bound_ok
+          and facts.get("rebind_job") == rebind_job and job_cfg.get("rebind_job") == rebind_job and job_cfg.get("rebind_receipt_sha256") == sha(rreceipt)
+          and {str(rreceipt), str(assemble_inputs)} <= {r["path"] for r in vrows} and str(failed_receipt) not in {r["path"] for r in vrows}
           and written.get("job") == "logarithm-remote-verify01" and written.get("input_rows") == len(vrows)
           and written.get("launch_from_repo_root_on_worker", "").startswith(f"{py} -I -B {V.REMOTE_GUARD_REL} --phase native --job logarithm-remote-verify01 --inputs ")
           and job_cfg.get("ffmpeg") == fake_ffmpeg and job_cfg.get("ffprobe") == fake_ffprobe and job_cfg["tools"] == json.loads(tools_json.read_text())
           and len(job_cfg.get("samples", [])) == facts.get("pictures_planned") and twice[0] == 1 and "exists: use a new --verify number" in twice[1]
           and early[0] == 1 and "resource-receipt.json is missing" in early[1],
           f"`check` passes ({facts.get('total_frames')} frames from the timelines, {facts.get('anchors')} anchors in {facts.get('anchor_rows')} rows, {facts.get('pictures_planned')} pictures, "
-          f"{facts.get('sheets_planned')} sheets). `write-job` writes job {written.get('job')} with {len(vrows)} current input rows, the script first, binding the config, integration, binding, "
+          f"{facts.get('sheets_planned')} sheets). `write-job` writes job {written.get('job')} with {len(vrows)} current input rows, the script first, binding the rebind receipt, the assembly manifest, the config, integration, binding, "
           f"anchors, map, audio record, changed sources, tools file, tools and interpreter, and prints root's remote guard line, launched by nobody here. Writing it again is refused ({twice[1]!r}); `verify-job` before any "
           f"launch is refused ({early[1]!r})")
 
@@ -821,6 +936,8 @@ def main():
         return [field(vjson, **fields)]
 
     tampered = {"comparisons edited": (vedit(comparisons={}), "verification.json's comparisons differ"),
+                "rebind job edited": (vedit(rebind_job=rebind_failed), "verification.json's rebind_job differ"),
+                "rebind receipt hash edited": (vedit(rebind_receipt_sha256="0" * 64), "verification.json's rebind_receipt_sha256 differ"),
                 "anchor ledger edited": (vedit(anchors=[]), "verification.json's anchors differ"),
                 "tools hash edited": (vedit(tools_sha256="0" * 64), "verification.json's tools_sha256 differ"),
                 "worker edited": (vedit(worker={"host": "elsewhere"}), "names other worker tools"),
@@ -882,6 +999,7 @@ def main():
     untouched = sorted(p.name for p in (guarded_lane / job2).iterdir()) == ["resource-receipt.json"]
     gave = [n for n in made["strict_video_notes"] if n.startswith("note: PATH gives ")]
     check("G9b-job-with-stand-in-tools", code == 0 and passed["frames"] == 116689 and all(k in made for k in old_keys) and asr_proof["sha256"] == made["sha256"]
+          and made["rebind_job"] == rebind_job and made["rebind_receipt_sha256"] == sha(rreceipt)
           and attempts == {"": True, "-r2": True, "-r9": True, "-r1": False, "-r10": False}
           and gave == [f"note: PATH gives {fake_ffmpeg} and {fake_ffprobe}"] and made["worker"]["ffmpeg"]["path"] == fake_ffmpeg and passed.get("verification_sha256") == sha(vjson)
           and stale_code == 1 and off_code == 1 and written_nothing and "this host's ffmpeg is not" in stale_text.getvalue()
@@ -892,7 +1010,7 @@ def main():
           f"STAND-IN ffmpeg, ffprobe and strict check; no media read or written; real caption screen on the fixture SRT; {len(sub_samples)} of the {len(job_cfg['samples'])} planned pictures, "
           f"all one blank test image. run_job's control flow completes under a receipt recording an absolute interpreter, and verify-job passes. verification.json keeps every "
           f"version 02 key ({old_keys[:5]} and the rest), with frames {made['frames']} taken from the fixture's timelines, placement and chapter rows of the same keys as the sealed record, and adds anchors, pause_sites, closing, source_changes, "
-          f"integration_sha256, binding_sha256, tools_sha256, comparisons and worker. The strict stand-in reports that PATH gives exactly the pinned tools. Root's real asr01.py bound_proof accepts this verification.json as written (read-only import, paths pointed at the fixture, no ASR). A tool moved after write-job and a run off the worker each refuse before anything is written. Refused after the run: " + "; ".join(f"{n} -> {outcome2[n]!r}" for n in tampered)
+          f"integration_sha256, binding_sha256, tools_sha256, comparisons, worker, rebind_job and rebind_receipt_sha256. The strict stand-in reports that PATH gives exactly the pinned tools. Root's real asr01.py bound_proof accepts this verification.json as written (read-only import, paths pointed at the fixture, no ASR). A tool moved after write-job and a run off the worker each refuse before anything is written. Refused after the run: " + "; ".join(f"{n} -> {outcome2[n]!r}" for n in tampered)
           + f"; an anchor off its picture -> {off_picture!r}. `ran` accepts python3 and an absolute python3.NN only; a job under a bash receipt -> {refused_run!r}, nothing written; restored, verify-job passes")
 
     # ------------------------------------------------------------------ G10 delivered files carry no local path
@@ -918,12 +1036,53 @@ def main():
     on_remote = sorted(p for p, digest in pins_abs.items() if sent.get(p) == digest)
     to_send = sorted(rel for rel, digest in V.PINS.items() if str(REPO / rel) not in sent)
     guard_pinned = {str(REPO / V.GUARD_REL), str(REPO / V.GUARD_SOURCE_REL)} <= {row["path"] for row in json.loads((REMOTE / "guard-pins01.json").read_text())["files"]}
+    arrived = json.loads((REMOTE / "verifier-support-transfer01.json").read_text())
     check("G11-real-remote-records", sorted(compiled) == sorted(V.STAGE09_SOURCES) and script_row == V.SCRIPT_SHA256 and all(sha(REPO / rel) == digest for rel, digest in V.PINS.items())
           and guard_pinned and len(on_remote) == 4 and to_send == sorted(row["path"] for row in extra["files"])
+          and arrived["files"] == extra["files"] and arrived["host"] == "mac-mini-max" and arrived["transfer_exit"] == 0 and arrived["remote_sha256_matches"] is True
           and all(V.PINS[row["path"]] == row["sha256"] == sha(REPO / row["path"]) for row in extra["files"]),
           f"root's real build-inputs01.json ({len(real_build)} rows) pins all {len(compiled)} repaired sources at their integrated hashes and the script at its pin; all {len(V.PINS)} helper pins "
           f"equal the files here; {len(on_remote)} are in root's transfer or launch records at the pinned hash; the {len(to_send)} that are not are exactly transfer-extra01.json: "
-          f"{[Path(x).name for x in to_send]}. These are local copies of root's records: nothing here reached the worker")
+          f"{[Path(x).name for x in to_send]}, and root's verifier-support-transfer01.json records both on mac-mini-max with matching hashes. These are local copies of root's records: nothing here reached the worker")
+
+    # ------------------------------------------------------------------ G12 what this helper relies on, in the peers' real sources
+    ruby_helper, ruby_shell = RUBY02 / "remote_audio_after_build02.py", RUBY02 / "remote_continuation02.sh"
+    ruby = ruby_helper.read_text()
+    ruby01 = (RUBY / "remote_audio_after_build01.py").read_text()
+    pipeline = (RUBY / "remote_pipeline01.py").read_text()
+    apply_at, row_at, assembly_at = ruby.find("A.launch(REBIND, REBIND_INPUTS"), ruby.find("rows[str(receipt)] = A.sha(receipt)"), ruby.find("A.launch(A.ASSEMBLY, ASSEMBLE_INPUTS")
+    ruby_rows = dict(reversed(line.split(maxsplit=1)) for line in (RUBY02 / "SHA256SUMS").read_text().splitlines())
+    ruby_facts = {"continuation02 is at its seal": sha(RUBY02 / "SHA256SUMS").startswith("066dc9f8bfbc2c4d") and all(sha(RUBY02 / rel) == digest for rel, digest in ruby_rows.items()),
+                  "rebind02 is the job": "REBIND = 'logarithm-remote-rebind02'" in ruby,
+                  "it runs --apply": "A.launch(REBIND, REBIND_INPUTS, rows, [sys.executable, '-I', '-B', str(A.H), '--apply'])" in ruby,
+                  "the assembly freezes its receipt, once, after it ran": -1 < apply_at < row_at < assembly_at and ruby.count("resource-receipt.json") == 1,
+                  "the guard phase is native": "'--phase', 'native'" in ruby01,
+                  "the helper's name": f"/{V.REBIND_TOOL}'" in ruby01,
+                  "the assembly manifest stays": "ASSEMBLE_INPUTS = A.O / 'assemble-inputs01.json'" in ruby,
+                  "the pipeline helper is sealed01's": "logarithm-remote-mac-mini-max01/remote_pipeline01.py" in ruby_shell.read_text(),
+                  "the binding's schema stays": f'"schema": "{V.BINDING_SCHEMA}"' in pipeline,
+                  "the binding holds the assembly manifest": "files = {str(p): sha(p) for p in (spans, bound, BUILD_INPUTS, ASSEMBLE_INPUTS," in pipeline}
+    driver_path, worker_path = LAVENDER / "render_master_remote.py", LAVENDER / "job_worker.py"
+    driver = driver_path.read_text()
+    worker_copy = scratch / "lavender-worker-copy" / "job.py"
+    worker_copy.parent.mkdir()
+    worker_copy.write_text(worker_path.read_text())
+    worker_copy.with_suffix(".config.json").write_text('{"probe": 1}')
+    lines = {n.targets[0].id: ast.literal_eval(n.value) for n in ast.parse(driver).body
+             if isinstance(n, ast.Assign) and isinstance(n.targets[0], ast.Name) and n.targets[0].id.endswith("_SUCCESS")}
+    read_keys = ("step", "job", "lane", "narration", "render_work", "chapters", "cues", "timeline_job", "render_jobs", "binary", "binary_sha256", "argv", "captions_argv", "tools_sha256")
+    lavender_facts = {"read_config takes the real worker's config line": V.read_config(worker_copy) == {"probe": 1},
+                      "the four success lines agree": lines == {k: getattr(V, k) for k in ("TIMELINE_SUCCESS", "SCORE_SUCCESS", "RENDER_SUCCESS", "MASTER_SUCCESS")},
+                      "the same rebind pattern": r"logarithm-remote-rebind\d\d" in driver,
+                      "the same attempts": 'return [base] + [f"{base}-r{n}" for n in range(2, 10)]' in driver,
+                      "the config holds every key read here": all(f'"{k}"' in driver for k in read_keys),
+                      "the master binds both manifests and the rebind job's tree": 'BUILD_INPUTS, f["assemble_inputs"]' in driver and 'f["prior_jobs"][1]' in driver,
+                      "no path-string test of the binary": ".mentions(" not in driver and ".mentions(" not in worker_path.read_text()}
+    own_text = HELPER.read_text()
+    check("G12-peers-real-sources", all(ruby_facts.values()) and all(lavender_facts.values()) and ".mentions(" not in own_text and "read_bytes" not in own_text,
+          f"continuation02 at its seal; Lavender's files as read, unsealed at this reading: driver {sha(driver_path)[:12]}, worker {sha(worker_path)[:12]}. Ruby: "
+          + "; ".join(f"{k} {v}" for k, v in ruby_facts.items()) + ". Lavender: " + "; ".join(f"{k} {v}" for k, v in lavender_facts.items())
+          + ". This helper has no path-string test of the binary either: it only hashes it. Source text only: neither peer's code was run here")
 
     print(f"REMOTE VERIFIER CHECKS: {'PASS' if all(results) else 'FAIL'} ({sum(results)}/{len(results)})")
     return 0 if all(results) else 1

@@ -512,14 +512,18 @@ def check_binding(c, m):
 def check_rebind(c, m, binding):
     """The rebind this assembly used, by hash: the binding holds the assembly's guard manifest, that manifest holds one
     rebind receipt, and the master froze that same receipt. No job name is assumed, so a failed attempt can stay on the
-    lane, unread. Every receipt gate applies to the job named, and its receipt must show the rebind helper's --apply."""
+    lane, unread. Every receipt gate applies to the job named, and its receipt must show the rebind helper's --apply.
+    That manifest also pins the binary, a record of it apart from the binding, so it must be the one the master ran."""
     ar, br = m["assemble_receipt"], m["build_receipt"]
     manifests = [path for path, digest in binding["files"].items() if digest == ar["inputs_sha256"]]
     need(len(manifests) == 1, f"{c.binding.name}: no one bound file is the assembly's guard manifest")
     manifest = Path(manifests[0])
     need(manifest.is_file() and sha(manifest) == ar["inputs_sha256"], f"{manifest.name} is not the manifest {c.assemble_job}'s guard froze")
     need(manifest.resolve() in m["bound"], f"{c.master_job}: the guard did not bind {manifest.name}")
-    rows = [(Path(row["path"]), row["sha256"]) for row in load(manifest)["files"]
+    frozen = load(manifest)["files"]
+    need(any(same(row["path"], m["cfg"]["binary"]) and row["sha256"] == m["cfg"]["binary_sha256"] for row in frozen),
+         f"{manifest.name} froze another binary than {c.master_job} ran")
+    rows = [(Path(row["path"]), row["sha256"]) for row in frozen
             if Path(row["path"]).name == "resource-receipt.json" and re.fullmatch(REBIND_JOB, Path(row["path"]).parent.name) is not None]
     need(len(rows) == 1, f"{manifest.name} names {len(rows)} rebind receipts, not one")
     path, digest = rows[0]

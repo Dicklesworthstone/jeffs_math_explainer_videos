@@ -43,7 +43,8 @@ The 166 rows are:
 
 - The names `logarithm-remote-assemble01`, `-timeline01`, `-score01` and `O/assemble-inputs01.json`, all still unused.
 - `remote_pipeline01.py` and `remote_assemble01.py` run from sealed01, checked by its seal. `rebind_audio.py` is checked by its hash.
-- Narration path, `O/remote-binding01.json`, `O/job-scripts` and the comparison paths.
+- Narration path, `O/job-scripts` and the comparison paths.
+- `O/remote-binding01.json`, with schema `logarithm-remote-binding-v1` and no new key. The rebind still runs `rebind_audio.py --apply` under phase `native`.
 - Root's `O/guard01.py` runs every job, so all limits are root's. ASR's 12 GiB is untouched.
 
 `O/assemble-inputs01.json` keeps exactly one `resource-receipt.json` row for a rebind job, now rebind02's. Lavender's driver and Bronze's verifier can derive the rebind identity from that row.

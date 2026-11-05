@@ -8,7 +8,7 @@ import json
 from pathlib import Path
 
 P = "docs/video-program/third-wave-20261024/opus-replacements-20261104"
-HELPER = Path(P) / "logarithm-remote-final-verifier01/verify_remote_final.py"
+HELPER = Path(P) / "logarithm-remote-final-verifier02/verify_remote_final.py"
 LANE = Path("narration_lab/third-wave-20261024/root/five-film-release-20261027")
 EL = Path("narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104")
 S = EL / "final-picture-repair01"

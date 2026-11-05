@@ -1,0 +1,54 @@
+A. sources and the real freeze
+PASS  every Python file parses  [Python 3.14.6]
+PASS  the controller parses under macOS /bin/bash
+PASS  only the rebind names are new
+PASS  the failed job and its manifest are never reused
+PASS  sealed01 loads by its seal, and its pipeline and assembly name no rebind job
+PASS  refuses: a sealed helper at another hash
+PASS  the rebind and assembly helpers are the sealed ones
+PASS  the freeze is the sealed rows plus 166  [4483 + 166]
+PASS  it holds all 80 takes, their 80 download receipts and the voice binding
+PASS  every take hash equals the decode receipt
+PASS  it holds the raw manifest, the binary, the cargo config, this helper
+PASS  the unit plan stays out and no provider original got in
+PASS  no target path got in
+PASS  refuses: a raw row dropped
+PASS  refuses: a raw hash that differs from the file
+PASS  refuses: a binary other than the one the build proved
+PASS  refuses: another cargo config
+PASS  the real cargo config is the bytes root read remotely
+B. every file the real audio tools open
+PASS  rebind --check: read 351 files, none outside the freeze
+PASS  rebind --check: all on the transfer lists
+PASS  coherent check: read 5 files, none outside the freeze
+PASS  coherent check: all on the transfer lists
+PASS  coherent verify: read 249 files, none outside the freeze
+PASS  coherent verify: all on the transfer lists
+PASS  delivery contract: read 250 files, none outside the freeze
+PASS  delivery contract: all on the transfer lists
+PASS  positive control: the sealed01 rows alone miss exactly the 80 takes  [80 files]
+PASS  the real --check predicts the four pinned outputs
+PASS  the files the sealed gates and job writer name are on the transfer lists
+C. main() on tiny files, with a stand-in guard and rebind helper
+PASS  rebind02 runs, then --verify, then assemble01  [['logarithm-remote-rebind02 --apply', 'logarithm-remote-assemble01 remote_assemble01.py']]
+PASS  the assembly manifest names one rebind receipt, rebind02's (Lavender's rule)  [['SCRATCH/flow/happy/S/jobs/logarithm-remote-rebind02/resource-receipt.json']]
+PASS  the assembly manifest holds the five rebind rows, the rebind manifest none of them
+PASS  a used rebind02 launches nothing and runs no --check
+PASS  a used assemble01 launches nothing and runs no --check
+PASS  a used timeline01 launches nothing and runs no --check
+PASS  a used score01 launches nothing and runs no --check
+PASS  an existing rebind output launches nothing
+PASS  a moved prediction launches nothing
+PASS  rebind outputs off prediction stop before the assembly  [holds-bound01.json]
+PASS  the seal check passes on matching files
+PASS  the seal check refuses a changed file
+PASS  the seal check refuses another seal
+D. the real controller with a logging stand-in for python3
+PASS  the controller makes exactly these calls, in order, sealed01's pipeline at its own seal  [11 calls]
+PASS  its last line says render was not launched
+PASS  a refused sealed01 stops everything after it  [1 calls]
+PASS  a failed audio step stops everything after it  [2 calls]
+PASS  a refused binding stops everything after it  [3 calls]
+PASS  a refused timeline guard stops everything after it  [5 calls]
+PASS  a missing approval launches nothing
+ALL 49/49 PASS. No real guard, rebind, assembly, kit, timeline or score ran.

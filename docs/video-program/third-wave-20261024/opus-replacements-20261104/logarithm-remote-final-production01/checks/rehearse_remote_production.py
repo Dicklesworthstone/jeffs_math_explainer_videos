@@ -552,13 +552,19 @@ def resume_tests(base):
     record("D1: an unfinished receipt is running while the lane is held, crashed when it is free", free["why"] == "crashed" and busy["why"] == "running", [free["why"], busy["why"]])
 
     c = Case(base, "partial-launch")
-    good = c.pins.read_text()
-    c.pins.write_text(good.replace('"sha256": "', '"sha256": "0', 1))
+    c.jobs.chmod(0o555)  # the guard cannot make the job's folder: a launch that fails before any job exists
     first = c.run("run")
+    c.jobs.chmod(0o755)
     left = sorted(p.name for p in c.scripts.iterdir() if p.name != ".driver.lock")
-    c.pins.write_text(good)
     second = c.run("run")
-    record("D1: a launch the guard refused leaves no job, and the rerun takes its identical files", first.returncode != 0 and len(left) == 3 and not (c.jobs / c.job(CHAPTERS[0])).exists() and second.returncode == 0, len(left))
+    record("D1: a launch that made no job leaves no job, and the rerun takes its identical files", first.returncode != 0 and len(left) == 3 and second.returncode == 0 and c.state(MASTER)["exit"] == 0, len(left))
+
+    c = Case(base, "stale-launch")
+    c.jobs.chmod(0o555)
+    c.run("run")
+    c.jobs.chmod(0o755)
+    (c.s / "spans01.json").write_text('{"moved": true}\n')
+    record("D1: files from a launch with other inputs are never reused", said(c.run("run"), "exists with other bytes") and not (c.jobs / c.job(CHAPTERS[0])).exists(), "refused")
 
     c = Case(base, "refused-freeze")
     tool = c.s / "workspace/tools/narration_cache.py"
@@ -700,7 +706,7 @@ def picture_tests(base):
     last = CHAPTERS[12]
 
     def moved(name, target, phrase):
-        c = Case(base, "moved-" + name)
+        c = Case(base, "changed-" + name)
         c.hooks["after:" + last] = [{"do": "append", "path": str(target(c))}]
         c.write_hooks()
         done = c.run("run")

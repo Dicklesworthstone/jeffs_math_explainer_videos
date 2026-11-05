@@ -650,8 +650,8 @@ def run(a, retries):
             verify_render(chapter, job, f)
         f = gather(a)
         chapters, status, renders = plan(f, retries)
-        need(renders is not None, "not every chapter is done")
         stop_if_blocked(chapters, status)
+        need(renders is not None, "not every chapter is done")
         if status["state"] == "done":
             print(f"DONE {status['job']}: passed, hashes hold, not launched", flush=True)
         else:

@@ -1,0 +1,45 @@
+PASS fixture-alias: the fixture repository sits behind a symlink, as on ts1
+PASS check-mode
+PASS end-to-end: the start script ran the job through the real guard
+PASS real-guard-receipt: the real guard admitted and closed the job
+PASS summary: the original exit 1 stays in the record
+PASS original-untouched: the original receipt is unchanged
+PASS manifest-binds-evidence: all rows are logical, and the evidence is frozen
+PASS logical-strings: the guard ran the logical path
+PASS second-start-refused
+PASS refuse-build-exit-0: AssertionError: Qualifier applies only to the original exit 1
+PASS refuse-build-exit-101: AssertionError: Qualifier applies only to the original exit 1
+PASS refuse-build-unfinished: AssertionError: Build is not terminal
+PASS refuse-build-resource-stop: AssertionError: Build stopped by the guard
+PASS refuse-build-guard-error: AssertionError: Build stopped by the guard
+PASS refuse-build-inputs-moved: AssertionError: Build inputs moved
+PASS refuse-build-policy: AssertionError: Guard policy changed
+PASS refuse-build-command: AssertionError: Build ran another command
+PASS refuse-controller-exit: AssertionError: Controller exit differs
+PASS refuse-other-module: AssertionError: Build failed some other way
+PASS refuse-other-line: AssertionError: Failure is not at the oracle import
+PASS refuse-other-import: AssertionError: Failure is not at the oracle import
+PASS refuse-second-traceback: AssertionError: More than one traceback
+PASS refuse-clippy-error: AssertionError: Build log has another error
+PASS refuse-no-lock-pass: AssertionError: Lock check missing
+PASS refuse-tests-one-fewer: AssertionError: Test result differs
+PASS refuse-tests-one-failed: AssertionError: Test result differs
+PASS refuse-test-line-failed: AssertionError: Test lines differ
+PASS refuse-no-clippy-finish: AssertionError: Expected test, build and clippy to finish
+PASS refuse-steps-out-of-order: AssertionError: Build steps out of order
+PASS refuse-no-native-facts: AssertionError: Native facts missing
+PASS refuse-oracle-wrote: AssertionError: Oracle wrote output
+PASS refuse-chapters-present: AssertionError: Build went past its oracle line
+PASS refuse-target-differs: AssertionError: Binary differs from the pinned target
+PASS refuse-binary-differs: AssertionError: Binary differs from the pinned target
+PASS refuse-source-row-changed: AssertionError: <fixture>/source-row-changed/logical/repo/source-row.txt
+PASS refuse-env-failed: AssertionError: complex-remote-oracle-env01
+PASS refuse-env-missing-python: FileNotFoundError: [Errno 2] No such file or directory: '<fixture>/env-missing-python/logi
+PASS refuse-foreign-root: AssertionError: Manifest root is not this repository
+PASS refuse-macos-facts-changed: AssertionError: macOS facts changed
+PASS refuse-duplicate-job: AssertionError: Duplicate qualification refused
+PASS stop-oracle-differs: AssertionError: Native facts differ from the oracle; both retained
+PASS stop-original-facts-differ: AssertionError: Native facts differ from the original build
+PASS stop-chapter-registry: AssertionError: Chapter registry differs
+PASS stop-binary-facts-fail: AssertionError: ('facts-native', 3)
+RESULT PASS, 0 failed

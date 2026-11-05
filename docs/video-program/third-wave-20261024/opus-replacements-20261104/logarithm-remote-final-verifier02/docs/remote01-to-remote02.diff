@@ -1,0 +1,162 @@
+--- logarithm-remote-final-verifier01/verify_remote_final.py
++++ logarithm-remote-final-verifier02/verify_remote_final.py
+@@ -30,6 +30,7 @@
+   tools       --out T --ffmpeg F --ffprobe P
+               measures this host's python3, Pillow, ffmpeg and ffprobe and writes a new tools file
+   check       --lane L --jobs J --crate C --narration N --series SS --integration I --binding B --tools T
++              [--master-job logarithm-remote-master01-rN]
+               read only: all gates above, the master's command binding, the 13-chapter schedule, exact captions and
+               the picture plan
+   write-job   ... --verify NN --job-dir D
+@@ -65,6 +66,8 @@
+ TOOLS_SCHEMA = "logarithm-remote-tools-v1"
+ COMPARISONS = {"schedule": "schedule-comparison01.json", "score": "score-comparison01.json"}  # beside the binding: RubyRaven's O files
+ RENDER_ATTEMPT = r"(-r[2-9])?"  # LavenderPike's contract: render_jobs names the attempt that succeeded
++REBIND_JOB = re.escape(STAGE) + r"-rebind\d\d"  # which one is read from the binding, never assumed: see check_rebind
++REBIND_TOOL = "rebind_audio.py"
+ MIN_PILLOW = (10, 1)  # make_sheets: ImageDraw.text(font_size=...)
+ TOPIC = "logarithm_mysteries"
+ FPS = 60
+@@ -390,11 +393,12 @@
+             setattr(self, key, value)
+         need(re.fullmatch(r"\d\d", a.series or "") is not None, "--series must be two digits")
+         self.series = a.series
+-        self.master_job = f"{STAGE}-master{a.series}"
++        base = f"{STAGE}-master{a.series}"
++        self.master_job = getattr(a, "master_job", None) or base  # LavenderPike's driver can name a retry, as for a render
++        need(re.fullmatch(re.escape(base) + RENDER_ATTEMPT, self.master_job) is not None, f"--master-job {self.master_job}: only {base} or its -r2 to -r9 attempts")
+         self.timeline_job = f"{STAGE}-timeline{a.series}"
+         self.score_job = f"{STAGE}-score{a.series}"
+         self.build_job = f"{STAGE}-build{a.series}"
+-        self.rebind_job = f"{STAGE}-rebind{a.series}"
+         self.assemble_job = f"{STAGE}-assemble{a.series}"
+         self.work = self.lane / f"{STAGE}-render-work{a.series}"
+         self.verify_job = None
+@@ -475,16 +479,15 @@
+     sr = load(c.lane / c.score_job / "resource-receipt.json")
+     need(receipt_ok(sr) and last_line(c.lane / c.score_job / "command.log") == SCORE_SUCCESS, f"{c.score_job} did not pass")
+     br, ar = load(c.lane / c.build_job / "resource-receipt.json"), load(c.lane / c.assemble_job / "resource-receipt.json")
+-    rb = load(c.lane / c.rebind_job / "resource-receipt.json")
+     need(receipt_ok(br), f"{c.build_job} did not pass")
+-    need(receipt_ok(rb), f"{c.rebind_job} did not pass")
+     need(receipt_ok(ar), f"{c.assemble_job} did not pass")
+-    order = [(c.build_job, br, c.rebind_job, rb), (c.rebind_job, rb, c.assemble_job, ar), (c.assemble_job, ar, c.timeline_job, tr), (c.timeline_job, tr, c.score_job, sr)]
++    # The rebind between the build and the assembly is check_rebind's: only the binding says which job it was.
++    order = [(c.build_job, br, c.assemble_job, ar), (c.assemble_job, ar, c.timeline_job, tr), (c.timeline_job, tr, c.score_job, sr)]
+     order += [(c.score_job, sr, job, rr) for job, rr in render_receipts.items()]
+     order += [(job, rr, c.master_job, r) for job, rr in render_receipts.items()]
+     for early, done, late, began in order:
+         need(stamp(done, "finished") <= stamp(began, "started"), f"{late} started before {early} finished")
+-    return {"cfg": cfg, "bound": bound, "outputs": outputs, "renders": renders, "build_receipt": br,
++    return {"cfg": cfg, "bound": bound, "outputs": outputs, "renders": renders, "build_receipt": br, "assemble_receipt": ar,
+             "master_job": {"script_sha256": sha(script), "inputs_sha256": r["inputs_sha256"], "binary_sha256": cfg["binary_sha256"]}}
+ 
+ 
+@@ -504,6 +507,39 @@
+     manifests = [path for path, digest in b["files"].items() if digest == m["build_receipt"]["inputs_sha256"]]
+     need(len(manifests) == 1, f"{c.binding.name}: no one bound file is the build's guard manifest")
+     return b, {row["path"]: row["sha256"] for row in load(manifests[0])["files"]}
++
++
++def check_rebind(c, m, binding):
++    """The rebind this assembly used, by hash: the binding holds the assembly's guard manifest, that manifest holds one
++    rebind receipt, and the master froze that same receipt. No job name is assumed, so a failed attempt can stay on the
++    lane, unread. Every receipt gate applies to the job named, and its receipt must show the rebind helper's --apply.
++    That manifest also pins the binary, a record of it apart from the binding, so it must be the one the master ran."""
++    ar, br = m["assemble_receipt"], m["build_receipt"]
++    manifests = [path for path, digest in binding["files"].items() if digest == ar["inputs_sha256"]]
++    need(len(manifests) == 1, f"{c.binding.name}: no one bound file is the assembly's guard manifest")
++    manifest = Path(manifests[0])
++    need(manifest.is_file() and sha(manifest) == ar["inputs_sha256"], f"{manifest.name} is not the manifest {c.assemble_job}'s guard froze")
++    need(manifest.resolve() in m["bound"], f"{c.master_job}: the guard did not bind {manifest.name}")
++    frozen = load(manifest)["files"]
++    need(any(same(row["path"], m["cfg"]["binary"]) and row["sha256"] == m["cfg"]["binary_sha256"] for row in frozen),
++         f"{manifest.name} froze another binary than {c.master_job} ran")
++    rows = [(Path(row["path"]), row["sha256"]) for row in frozen
++            if Path(row["path"]).name == "resource-receipt.json" and re.fullmatch(REBIND_JOB, Path(row["path"]).parent.name) is not None]
++    need(len(rows) == 1, f"{manifest.name} names {len(rows)} rebind receipts, not one")
++    path, digest = rows[0]
++    job = path.parent.name
++    need(same(path.parent.parent, c.lane), f"{job}: its receipt is not on this lane: {path}")
++    need(path.is_file() and sha(path) == digest, f"{job}: its receipt is not the one {c.assemble_job} froze")
++    r = load(path)
++    need(receipt_ok(r), f"{job} did not pass: exit {r.get('exit')}, error {r.get('error')}")
++    command = r.get("command")
++    need(r.get("phase") == "native" and isinstance(command, list) and len(command) == 5 and command[1:3] == ["-I", "-B"]
++         and re.fullmatch(r"python3(\.\d+)?", Path(command[0]).name) is not None and Path(command[3]).name == REBIND_TOOL and command[4] == "--apply",
++         f"{job}: the guard's receipt ran {command}, not {REBIND_TOOL} --apply")
++    for early, done, late, began in ((c.build_job, br, job, r), (job, r, c.assemble_job, ar)):
++        need(stamp(done, "finished") <= stamp(began, "started"), f"{late} started before {early} finished")
++    need(path.resolve() in m["bound"], f"{c.master_job}: the guard did not bind {job}'s receipt")
++    return {"job": job, "receipt": path, "receipt_sha256": digest, "manifest": manifest}
+ 
+ 
+ def check_comparisons(c):
+@@ -869,6 +905,7 @@
+     for name in ("report.json", "phrase-timings.json"):
+         need((c.narration / name).resolve() in m["bound"], f"the master did not bind narration {name}")
+     binding, built = check_binding(c, m)
++    rebind = check_rebind(c, m, binding)
+     integration, sources = check_sources(c, m, built)
+     check_audio(c, m, script)
+     comparisons = check_comparisons(c)
+@@ -895,13 +932,13 @@
+             "layout_findings": {ch: len(v) for ch, v in layouts.items()}, "samples": samples,
+             "anchors": anchor_ledger(samples, anchors), "pause_sites": list(sites.values()), "closing": closing, "sources": sources,
+             "integration_sha256": sha(c.integration), "binding_sha256": sha(c.binding), "map_sha256": map_sha256, "tools": tools,
+-            "tools_sha256": sha(c.tools), "comparisons": comparisons}
++            "tools_sha256": sha(c.tools), "comparisons": comparisons, "rebind": rebind}
+ 
+ 
+ def check(c):
+     f = gather(c)
+     return {"master": str(f["master"]["outputs"]["master"]), "master_sha256": sha(f["master"]["outputs"]["master"]),
+-            "master_job": f["master"]["master_job"], "chapters": len(f["chapters"]), "cues": len(f["placements"]),
++            "master_job": f["master"]["master_job"], "rebind_job": f["rebind"]["job"], "chapters": len(f["chapters"]), "cues": len(f["placements"]),
+             "total_frames": f["total_frames"], "seconds": round(f["total_frames"] / FPS, 3), "captions": f["captions"],
+             "holds": f["holds"], "phrase_marks": f["phrase_marks"], "layout_findings": f["layout_findings"],
+             "source_changes": f["sources"], "integration_sha256": f["integration_sha256"], "binding_sha256": f["binding_sha256"],
+@@ -958,7 +995,8 @@
+            "expect": EXPECT, "samples": f["samples"], "success": VERIFY_SUCCESS, "scope": SCOPE,
+            "anchors": f["anchors"], "pause_sites": f["pause_sites"], "closing": f["closing"], "source_changes": f["sources"],
+            "integration_sha256": f["integration_sha256"], "binding_sha256": f["binding_sha256"], "tools": f["tools"],
+-           "tools_sha256": f["tools_sha256"], "comparisons": f["comparisons"]}
++           "tools_sha256": f["tools_sha256"], "comparisons": f["comparisons"],
++           "rebind_job": f["rebind"]["job"], "rebind_receipt_sha256": f["rebind"]["receipt_sha256"]}
+     c.job_dir.mkdir(parents=True, exist_ok=True)
+     text = JOB_TEMPLATE.replace("@@JOB@@", job).replace("@@HELPER@@", cfg["helper_sha256"])
+     with open(script, "x") as handle:
+@@ -973,6 +1011,7 @@
+     paths += [c.crate / rel for rel in ("script.tsv", DIRECTION_MAP, "src/chapters/mod.rs", "narration_units.json")]
+     paths += [c.jobs / f"{c.master_job}.config.json", c.integration, c.binding, ANCHORS]
+     paths += [c.lane / c.assemble_job / "audio-comparison.json"] + [c.binding.parent / name for name in COMPARISONS.values()]
++    paths += [f["rebind"]["manifest"], f["rebind"]["receipt"]]
+     have = {p.resolve() for p in paths}
+     paths += [c.crate.parents[1] / row["path"] for row in f["sources"] if (c.crate.parents[1] / row["path"]).resolve() not in have]
+     need(len({p.resolve() for p in paths}) == len(paths), "an input row repeats")
+@@ -1093,6 +1132,7 @@
+                 "anchors": cfg["anchors"], "pause_sites": cfg["pause_sites"], "closing": cfg["closing"],
+                 "source_changes": cfg["source_changes"], "integration_sha256": cfg["integration_sha256"],
+                 "binding_sha256": cfg["binding_sha256"], "tools_sha256": cfg["tools_sha256"], "comparisons": cfg["comparisons"],
++                "rebind_job": cfg["rebind_job"], "rebind_receipt_sha256": cfg["rebind_receipt_sha256"],
+                 "worker": {"host": HOST, "python3": cfg["tools"]["python3"], "ffmpeg": cfg["tools"]["ffmpeg"], "ffprobe": cfg["tools"]["ffprobe"]},
+                 "scope": cfg["scope"]}, indent=2) + "\n")
+         for row in decodes:
+@@ -1134,7 +1174,8 @@
+     need(last_line(folder / "strict-video-verification.log") == "VERIFY PASS", f"{job}: the strict log does not end with VERIFY PASS")
+     need(any((folder / "decode-logs").glob("verify_decode.*")), f"{job}: the strict check's decode logs are missing")
+     need(load(folder / "caption-screen.json")["srt_sha256"] == cfg["srt"]["sha256"], f"{job}: the caption screen read another SRT")
+-    for key in ("anchors", "pause_sites", "closing", "source_changes", "integration_sha256", "binding_sha256", "tools_sha256", "comparisons"):
++    for key in ("anchors", "pause_sites", "closing", "source_changes", "integration_sha256", "binding_sha256", "tools_sha256", "comparisons",
++                "rebind_job", "rebind_receipt_sha256"):
+         need(v.get(key) == cfg[key], f"{job}: verification.json's {key} differ from the job's")
+     frames = [p["frame"] for p in v["pictures"]]
+     lost = [a["id"] for a in cfg["anchors"] if frames[a["picture"] - 1] != a["frame"]]
+@@ -1156,6 +1197,7 @@
+     for name in ("--lane", "--jobs", "--crate", "--narration", "--series", "--integration", "--binding", "--tools"):
+         parser.add_argument(name)
+     parser.add_argument("--verify")
++    parser.add_argument("--master-job")
+     parser.add_argument("--job-dir")
+     for name in ("--out", "--ffmpeg", "--ffprobe"):
+         parser.add_argument(name)
