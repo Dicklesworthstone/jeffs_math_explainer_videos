@@ -1,0 +1,11 @@
+--- a/src/chapters/complex_turns.rs
++++ b/src/chapters/complex_turns.rs
+@@ -715,7 +715,7 @@
+         }
+         let g_label = kit.text(
+             stage,
+-            &format!("real part ln {} = {}", glen, fact("complex.generic_ln_len")?),
++            &format!("real part ln {} ≈ {}", glen, fact("complex.generic_ln_len")?),
+             20.0,
+             blue,
+             v(IN.centre[0] + 2.5, 1.6),

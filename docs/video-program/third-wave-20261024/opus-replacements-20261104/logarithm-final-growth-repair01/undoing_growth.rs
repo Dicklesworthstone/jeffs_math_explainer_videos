@@ -844,7 +844,8 @@ impl SceneConstruct for UndoingGrowth {
             &[],
             v(4.4, -1.3),
         )?;
-        reword(stage, &[thousand], &[thousand_answer, far, far_word], 0.4)?;
+        fade_out_all(stage, &[thousand], 0.2)?;
+        fade_in_all(stage, &[thousand_answer, far, far_word], 0.2)?;
         let mut tens = Vec::new();
         for d in 1..=DOUBLINGS {
             let t = f64::from(d) * 2f64.ln() / rate;

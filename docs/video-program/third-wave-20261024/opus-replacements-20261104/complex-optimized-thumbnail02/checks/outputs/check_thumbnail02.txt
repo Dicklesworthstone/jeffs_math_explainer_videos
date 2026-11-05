@@ -1,0 +1,14 @@
+PASS a-parse: the helper and start script parse, and wait_and_launch reads P.MANIFEST, never T.MANIFEST
+PASS a-pins: the four helpers load under their pins, and those match the 01 seal and the score helper's own pin
+PASS a-names: job, manifest and stage folder are new and unused, and no 01 thumbnail job exists
+PASS f-01-defect: 01 on the same fixture binds neither the preview nor the score helper, nor the preview rows: the defect root found
+PASS f-manifest: the 02 manifest holds every preview manifest row, that manifest, the four imports, the helper, its start script and the preview results
+PASS f-guard-argv: the guard gets the same phase and the new job, manifest and child
+PASS f-render: the fake binary output decodes at 3840x2160; review and publication stay open
+PASS f-wrong-size: a wrong-size thumbnail is refused and writes no receipt
+PASS f-row-changed-at-render: a preview manifest row that changes before the child runs is refused
+PASS f-row-changed-at-launch: a changed preview manifest row is refused before any manifest or job
+PASS f-upstream-failed: a preview exit of 1 launches nothing
+PASS s-start: the script records the exit code under the new names, and a second start is refused
+PASS p-sealed: the 01 seal and its helpers are byte-identical, and the real 02 names are still unused
+RESULT PASS, 0 failed

@@ -633,7 +633,6 @@ impl SceneConstruct for ComplexTurns {
         let target_word = kit.text(stage, "−1", 28.0, gold, v(minus[0] - 0.35, minus[1] + 0.35))?;
         let which = kit.text(stage, "which inputs?", 24.0, gold, v(IN.centre[0] + 2.2, 2.25))?;
         fade_in_all(stage, &[target, target_word, which], 0.5)?;
-        // under the question: lower right, the bar crossed the output plane's axis
         predict(&kit, stage, v(IN.centre[0] + 2.2, 1.85), 3.0)?;
 
         // 05_6: length 1 → real part 0; angle π + laps → a column

@@ -1,0 +1,523 @@
+{
+  "counts": {
+    "tests": 86,
+    "passed": 86,
+    "failed": 0
+  },
+  "rehearsal": {
+    "source": "root's approved final source and integration.json, copied; paths rewritten to the copy",
+    "verification": {
+      "units": 80,
+      "cues": 80,
+      "directions_resolved": 15,
+      "dispositions": 15,
+      "sentence_rows": 364,
+      "cue_rows_equal_prepared02": 80,
+      "cue_samples_equal_prepared02": 80
+    },
+    "holds_changed": [
+      {
+        "cue": "04_6",
+        "changed": [
+          "source_sha256"
+        ],
+        "before": "predict(&kit, stage, v(4.6, THINK_BAR_Y), 3.0)?;",
+        "after": "predict(&kit, stage, v(4.6, THINK_BAR_Y), 3.0)?;"
+      },
+      {
+        "cue": "05_1",
+        "changed": [
+          "source_sha256"
+        ],
+        "before": "predict(&kit, stage, v(2.5, -0.62), 3.0)?;",
+        "after": "predict(&kit, stage, v(2.5, -0.62), 3.0)?;"
+      },
+      {
+        "cue": "05_5",
+        "changed": [
+          "source_sha256",
+          "marker",
+          "interval_sha256"
+        ],
+        "before": "predict(&kit, stage, v(OUT.centre[0], -2.75), 3.0)?;",
+        "after": "predict(&kit, stage, v(IN.centre[0] + 2.2, 1.85), 3.0)?;"
+      },
+      {
+        "cue": "06_2",
+        "changed": [
+          "source_sha256",
+          "marker",
+          "interval_sha256"
+        ],
+        "before": "predict(&kit, stage, v(Z.centre[0], 2.55), 2.6)?;",
+        "after": "predict(&kit, stage, v(read_x + 1.3, read_y - 1.4), 2.6)?;"
+      },
+      {
+        "cue": "06_4",
+        "changed": [
+          "source_sha256"
+        ],
+        "before": "predict(&kit, stage, v(2.4, 1.8), 2.6)?;",
+        "after": "predict(&kit, stage, v(2.4, 1.8), 2.6)?;"
+      },
+      {
+        "cue": "11_3",
+        "changed": [
+          "source_sha256"
+        ],
+        "before": "predict(&kit, stage, v(right + 1.6, -1.4), 3.0)?;",
+        "after": "predict(&kit, stage, v(right + 1.6, -1.4), 3.0)?;"
+      },
+      {
+        "cue": "11_20",
+        "changed": [
+          "source_sha256"
+        ],
+        "before": "kit.music_breath(stage, rule_read + row_reads.iter().sum::<f64>())?;",
+        "after": "kit.music_breath(stage, rule_read + row_reads.iter().sum::<f64>())?;"
+      },
+      {
+        "cue": "12_5",
+        "changed": [
+          "source_sha256"
+        ],
+        "before": "predict(&kit, stage, v(2.6, -2.1), 3.4)?;",
+        "after": "predict(&kit, stage, v(2.6, -2.1), 3.4)?;"
+      }
+    ],
+    "map17_sha256": "e9cc0e4bd497ebd5d67e788103a6a6d67a0ced64ffa54ad039f08e938cc21d93",
+    "units_sha256": "7cb6dbcd0b99d30b2d81cedc75d6046709935bc39ad2ad351439ed25228c2ed6"
+  },
+  "results": [
+    {
+      "name": "originals_check_without_integration",
+      "pass": true,
+      "detail": "exit 3"
+    },
+    {
+      "name": "apply_without_integration_writes_nothing",
+      "pass": true,
+      "detail": "rebind_audio: refused: integration.json is absent: nothing may be written"
+    },
+    {
+      "name": "gate_integration_absent",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: integration.json is absent: nothing may be written"
+    },
+    {
+      "name": "gate_not_approved",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: integration.json does not approve this source"
+    },
+    {
+      "name": "gate_other_script",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: integration.json names a different script"
+    },
+    {
+      "name": "gate_audio_changed",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: integration.json does not say the audio is unchanged"
+    },
+    {
+      "name": "gate_other_workspace",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: integration.json names another workspace"
+    },
+    {
+      "name": "gate_short_file_list",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: all_pre_rebind_files is not 51 rows"
+    },
+    {
+      "name": "gate_wrong_before_hash",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: explainer_corpus/logarithm_mysteries/Cargo.toml: approved before-hash differs from the initial copy"
+    },
+    {
+      "name": "gate_changed_file_unlisted",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: changed_files differs from the workspace: ['explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs', 'explainer_corpus/logarithm_mysteries/src/chapters/draw.rs', 'explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs', 'explainer_corpus/logarit"
+    },
+    {
+      "name": "gate_files_row_differs",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: a files row differs from all_pre_rebind_files"
+    },
+    {
+      "name": "gate_unapproved_edit",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: explainer_corpus/logarithm_mysteries/src/chapters/draw.rs: the workspace differs from the approved hash"
+    },
+    {
+      "name": "gate_extra_file",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: files outside the 51 copied: ['explainer_corpus/logarithm_mysteries/src/chapters/extra.rs']"
+    },
+    {
+      "name": "gate_missing_file",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: copied files are missing: ['explainer_corpus/logarithm_mysteries/oracle.py']"
+    },
+    {
+      "name": "gate_frozen_script",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: changed files that must not change: ['explainer_corpus/logarithm_mysteries/script.tsv']"
+    },
+    {
+      "name": "gate_frozen_units",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: changed files that must not change: ['explainer_corpus/logarithm_mysteries/narration_units.json']"
+    },
+    {
+      "name": "gate_frozen_tool",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: changed files that must not change: ['tools/coherent_narration.py']"
+    },
+    {
+      "name": "gate_frozen_cargo_toml",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: changed files that must not change: ['explainer_corpus/logarithm_mysteries/Cargo.toml']"
+    },
+    {
+      "name": "gate_frozen_cargo_lock",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: changed files that must not change: ['explainer_corpus/logarithm_mysteries/Cargo.lock']"
+    },
+    {
+      "name": "gate_frozen_map16",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: changed files that must not change: ['explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver16.json']"
+    },
+    {
+      "name": "hold_predict_removed",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: predict calls moved, went or arrived: missing ['00_4'], extra [], 12 calls"
+    },
+    {
+      "name": "hold_predict_extra",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: predict calls moved, went or arrived: missing [], extra ['01_1'], 14 calls"
+    },
+    {
+      "name": "hold_predict_moved_past_next_say",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: predict calls moved, went or arrived: missing ['02_2'], extra ['02_3'], 13 calls"
+    },
+    {
+      "name": "hold_predict_multi_line",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: 00_4: ratio_ruler.rs:371 is not a whole one-line call: predict("
+    },
+    {
+      "name": "hold_code_after_predict",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: 00_4: code between predict and the next say: [{'line': 372, 'code': 'stage.wait(1.0)?;'}]"
+    },
+    {
+      "name": "hold_breath_mid_film",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: undocumented kit.music_breath at [('building_ruler.rs', 133, '01_2')]"
+    },
+    {
+      "name": "hold_reading_marker_changed",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: 10_4: the reading marker changed: kit.music_breath(stage, FINE_PRINT_S - read_for + 0.0)?;"
+    },
+    {
+      "name": "hold_reading_literals_changed",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: 11_20: the literals behind the reading basis changed; map17's basis needs root's review"
+    },
+    {
+      "name": "say_removed",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: registered chapters do not say every script cue once, in order"
+    },
+    {
+      "name": "say_duplicated",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: registered chapters do not say every script cue once, in order"
+    },
+    {
+      "name": "helper_think_changed",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: explainer_corpus/logarithm_mysteries/src/chapters/draw.rs: helper marker 'pub const THINK: f64 = 4.0;' is on 0 lines"
+    },
+    {
+      "name": "helper_predict_order",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: draw::predict no longer holds, marks, breathes and fades in that order"
+    },
+    {
+      "name": "helper_bar_fade_changed",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: explainer_corpus/logarithm_mysteries/src/chapters/draw.rs: helper marker 'fade_out_all(stage, &[bar, probe], 0.25)' is on 0 lines"
+    },
+    {
+      "name": "closing_undocumented",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: kit.music_breath after the last cue is not documented"
+    },
+    {
+      "name": "closing_key_missing",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: integration.json has no editorial_closing_hold key"
+    },
+    {
+      "name": "closing_wrong_cue",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: editorial_closing_hold names the wrong cue"
+    },
+    {
+      "name": "closing_wrong_file",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: editorial_closing_hold names the wrong file"
+    },
+    {
+      "name": "closing_wrong_marker",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: editorial_closing_hold names a different marker"
+    },
+    {
+      "name": "closing_wrong_hold_seconds",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: hold_seconds differs from the source's 5.5"
+    },
+    {
+      "name": "closing_wrong_fade_seconds",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: fade_seconds differs from the source's 1.5"
+    },
+    {
+      "name": "closing_claims_map_row",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: editorial_closing_hold claims a map row"
+    },
+    {
+      "name": "closing_claims_timing",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: editorial_closing_hold claims timing no build has measured"
+    },
+    {
+      "name": "closing_before_recording_end",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: editorial_closing_hold is not after the complete recording"
+    },
+    {
+      "name": "closing_absent_from_source",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: editorial_closing_hold needs one breath in 12_21, found 0"
+    },
+    {
+      "name": "closing_second_breath",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: editorial_closing_hold needs one breath in 12_21, found 2"
+    },
+    {
+      "name": "closing_extra_step",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: between the closing breath and the finish, only one fade is allowed: ['stage.wait(1.0)?;', 'fade_all(stage, CLOSING_FADE)?;']"
+    },
+    {
+      "name": "original_tampered",
+      "pass": true,
+      "detail": "exit 1: rebind_audio: refused: original explainer_corpus/logarithm_mysteries/src/chapters/draw.rs does not match initial-copy.json"
+    },
+    {
+      "name": "check_passes_and_writes_nothing",
+      "pass": true,
+      "detail": "exit 0 "
+    },
+    {
+      "name": "verify_before_apply_refused",
+      "pass": true,
+      "detail": "rebind_audio: refused: --verify needs a finished --apply"
+    },
+    {
+      "name": "apply_passes",
+      "pass": true,
+      "detail": "exit 0 "
+    },
+    {
+      "name": "apply_touches_only_the_named_files",
+      "pass": true,
+      "detail": "['holds-bound01.json', 'narration_units-before-rebind01.json', 'rebind-report01.json', 'spans01.json', 'workspace/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver17.json', 'workspace/explainer_corpus/logarithm_mysteries/narration_units.json']"
+    },
+    {
+      "name": "apply_leaves_integration_immutable",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "apply_equals_prediction",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "map16_and_script_unchanged",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "map17_keeps_overrides_kinds_scripts",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "map17_names_predecessor",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "map17_rows_match_source_by_independent_reading",
+      "pass": true,
+      "detail": "[]"
+    },
+    {
+      "name": "map17_is_a_real_rebind",
+      "pass": true,
+      "detail": "['04_6', '05_1', '05_5', '06_2', '06_4', '11_3', '11_20', '12_5']"
+    },
+    {
+      "name": "units_change_only_the_map_binding",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "before_units_preserved",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "spans_keep_units_and_boundary_review",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "spans_bind_new_units",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "dispositions_differ_only_in_line_and_evidence",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "dispositions_cite_map17_lines",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "dispositions_bind_the_audit",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "closing_hold_is_separate",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "no_wav_written",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "copied_tool_check_cli",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "verify_passes",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "second_apply_refused",
+      "pass": true,
+      "detail": "rebind_audio: refused: files outside the 51 copied: ['explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver17.json']"
+    },
+    {
+      "name": "check_after_apply_refused",
+      "pass": true,
+      "detail": "rebind_audio: refused: files outside the 51 copied: ['explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver17.json']"
+    },
+    {
+      "name": "verify_catches_source_edit",
+      "pass": true,
+      "detail": "rebind_audio: refused: explainer_corpus/logarithm_mysteries/src/chapters/draw.rs: the workspace differs from the approved hash"
+    },
+    {
+      "name": "verify_catches_spans_edit",
+      "pass": true,
+      "detail": "rebind_audio: refused: spans01.json differs from what the approved source gives"
+    },
+    {
+      "name": "verify_catches_map17_edit",
+      "pass": true,
+      "detail": "rebind_audio: refused: narration-direction-map-oliver17.json differs from what the approved source gives"
+    },
+    {
+      "name": "verify_catches_units_edit",
+      "pass": true,
+      "detail": "rebind_audio: refused: narration_units.json differs from what the approved source gives"
+    },
+    {
+      "name": "verify_catches_audit_edit",
+      "pass": true,
+      "detail": "rebind_audio: refused: holds-bound01.json differs from what the approved source gives"
+    },
+    {
+      "name": "verify_catches_preserved_units_edit",
+      "pass": true,
+      "detail": "rebind_audio: refused: the preserved unit plan changed"
+    },
+    {
+      "name": "verify_passes_after_restoring",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "control_changed_gap",
+      "pass": true,
+      "detail": "spans changed outside metadata"
+    },
+    {
+      "name": "control_changed_review",
+      "pass": true,
+      "detail": "spans changed outside metadata"
+    },
+    {
+      "name": "control_wrong_evidence_hash",
+      "pass": true,
+      "detail": "direction disposition evidence changed"
+    },
+    {
+      "name": "control_missing_disposition",
+      "pass": true,
+      "detail": "every selected authored direction needs an explicit assembly disposition"
+    },
+    {
+      "name": "control_empty_reason",
+      "pass": true,
+      "detail": "direction disposition needs a concrete action and reason"
+    },
+    {
+      "name": "control_reference_row_differs",
+      "pass": true,
+      "detail": "sentence rows differ from prepared02's report"
+    },
+    {
+      "name": "control_samples_differ",
+      "pass": true,
+      "detail": "04_7: samples differ from prepared02"
+    },
+    {
+      "name": "second_rehearsal_byte_equal",
+      "pass": true,
+      "detail": ""
+    }
+  ]
+}

@@ -371,7 +371,6 @@ impl SceneConstruct for LiftingLoops {
         play!(stage; tween(turn, 0.93, 1.6)?);
         let ask = kit.text_left(stage, "back at 1: logarithm = ?", 22.0, gold, v(read_x, read_y - 1.0))?;
         fade_in_all(stage, &[ask], 0.4)?;
-        // under the question: over the z plane, the pause line would cross its axis
         predict(&kit, stage, v(read_x + 1.3, read_y - 1.4), 2.6)?;
 
         // 06_3: 2πi. The number came back; the logarithm did not.

@@ -1,0 +1,76 @@
+PASS a-parse: all three helpers load and all three start scripts parse
+PASS a-pins: verify pins master, master pins render, render pins the five sealed files, and one pictures module serves all three
+PASS a-no-bypass: launch, each chapter child and the master all run check_review, and no mode skips it
+PASS a-delivery: 4K60, CRF 16, lint, master and captions use the release binary, and every timeout equals root's
+PASS a-verify-same-checks: the verifier makes the same shared-check and picture-selection calls as root's and still records pictures_viewed false
+PASS a-names: all names are the ones root confirmed, unused, and the master path is the one root gave
+PASS v-valid: a complete hash-bound review of every sheet passes
+PASS v-no-viewer: refused
+PASS v-no-viewer-field: refused
+PASS v-not-viewed: refused
+PASS v-no-scope: refused
+PASS v-vague-scope: refused
+PASS v-open-defect: refused
+PASS v-chapters-short: refused
+PASS v-sheet-dropped: refused
+PASS v-sheet-hash: refused
+PASS v-sheet-extra: refused
+PASS v-extraction-hash: refused
+PASS v-summary-hash: refused
+PASS v-sheet-gone-from-both: a sheet removed from the folder and the review together is refused from the extraction alone
+PASS v-preview-changed: a preview movie changed after review is refused
+PASS v-missing-review: --all with no review refuses before any manifest or job
+PASS r-render-exit: refused (CalledProcessError) with no summary
+PASS r-failed-blocks-all: as in root's helper, a failed chapter stops --all, with no automatic retry, and stays preserved
+PASS r-timeline-differs: refused (Final table differs) with no summary
+PASS r-cues-differs: refused (Final table differs) with no summary
+PASS r-cuelog-differs: refused (Preview score rows differ) with no summary
+PASS r-layout-missing: refused (Rendered lint report missing) with no summary
+PASS r-res-wrong: refused (assert (v['width'], v['height'], v['avg_frame_ra) with no summary
+PASS r-capture-missing: refused (missing soundtrack capture) with no summary
+PASS r-capture-short: refused (assert (wav.getframerate(), wav.getnchannels(), ) with no summary
+PASS r-guard-policy: refused (Guard policy changed) with no summary
+PASS r-input-changed: refused (assert T.sha(Path(row['path'])) == row['sha256']) with no summary
+PASS r-existing-movie: refused (Existing render preserved) with no summary
+PASS e-render: 15 guarded chapters render, each with real ffprobe at 3840x2160, 60/1
+PASS e-resume: a second --all reruns nothing
+PASS e-guard-argv: the guard gets the same phase and the new job, manifest and child
+PASS e-manifest: each chapter manifest binds the pictures manifest rows, all imports, the helper, its start script, the review, every sheet and the guard
+PASS e-capture: the summary binds the exact-length capture, the movie and the three tables
+PASS m-master-exit: refused (CalledProcessError) with no summary
+PASS m-proof-missing: refused (Missing native soundtrack replay proof) with no summary
+PASS m-captions-exit: refused (CalledProcessError) with no summary
+PASS m-master-wrong: refused (assert (v['width'], v['height'], v['avg_frame_ra) with no summary
+PASS m-srt-empty: refused (assert OUTPUTS['srt'].stat().st_size and OUTPUTS) with no summary
+PASS m-guard-policy: refused (Guard policy changed) with no summary
+PASS w-no-master: the verifier refuses before any manifest or job when no successful master exists
+PASS m-chapter-incomplete: a missing chapter refuses before any manifest or job
+PASS m-capture-changed: a capture changed after its chapter refuses
+PASS m-existing-output: an existing output is kept and refused
+PASS e-master: the master runs, with real ffprobe at 3840x2160, 60/1 and 540 frames
+PASS e-null-test-proof: all 15 proof lines and all 15 captures are in the summary, in chapter order
+PASS e-captions: master, SRT and VTT are hash-bound, and no baseline equivalence is claimed
+PASS e-master-manifest: the master manifest binds both helpers, its start script, the review, the chapter manifests and every chapter file
+PASS w-master-changed: a master changed after mastering refuses before any manifest or job
+PASS w-tool-pin: a strict check or caption screen off its pin is refused
+PASS w-guard-policy: refused (Guard policy changed) with no verification.json
+PASS w-input-changed: refused (assert T.sha(Path(row['path'])) == row['sha256']) with no verification.json
+PASS e-verify: the verifier finishes on the fixture master
+PASS e-strict-real: the real pinned strict check, full decode, frame and A/V facts and ebur128 all ran on the fixture master
+PASS e-captions-real: SRT equals VTT and the script, whole and per cue, over the 105 real cue texts, and the real caption screen ran
+PASS e-final-sheets: 248 final frames at master time and 62 sheets are extracted and hash-bound
+PASS e-samples: cue, sentence, phrase and hold samples are kept; a persistence line only in the final lint and a line only in the preview lint both get samples
+PASS e-no-picture-claim: verification.json records pictures_viewed false, says the preview review does not carry over, and names the review scope
+PASS e-verify-manifest: the manifest binds all three helpers, all pins, the shared checks, both tools, the master outputs and the review
+PASS e-verify-argv: the guard gets the same phase and the new job, manifest and child
+PASS w-duplicate: a second verifier refuses and keeps the first result
+PASS w-caption-text: refused (the captions' text differs from the script) with no verification.json
+PASS w-caption-differs: refused (SRT and VTT differ) with no verification.json
+PASS w-master-quiet: refused (CalledProcessError) with no verification.json
+PASS s-render: the script passes only --all, records the exit code under the new names, and refuses a second start
+PASS s-master: the script passes only --launch, records the exit code under the new names, and refuses a second start
+PASS s-verify: the script passes only --launch, records the exit code under the new names, and refuses a second start
+PASS x-real-capture: the capture check reads a real logarithm capture at 48 kHz, 16-bit stereo, frames x 800 samples
+PASS x-real-proof: the proof-line parse reads logarithm's real master log, 13 of 13 chapters in order
+PASS p-preserved: root's three final helpers and the three seals are byte-identical, and the real names are still unused
+RESULT PASS, 0 failed

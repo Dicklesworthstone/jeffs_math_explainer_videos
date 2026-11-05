@@ -1,0 +1,132 @@
+{
+  "driver_sha256": "752fe43f73a99a415752ee12cc07e2ac417daf2cfac0a46dca6a70f7b8798776",
+  "old_worker_sha256": "c43e7b8301a0ecd085667b1fa57b38e46354ba933bb87dd4ade73f85cf3c9fb0",
+  "guard_sha256": "1c19a9b8f817c3bca06e18fd0785ac21c3cb935be715d67ecc41e4e39d1f5097",
+  "guard_source_sha256": "819746fb33110d6c133e184812c80a00562d848816f623078ad86f0fb1a316da",
+  "counts": {
+    "tests": 19,
+    "passed": 19,
+    "failed": 0
+  },
+  "results": [
+    {
+      "name": "template: the real driver's edits apply to the real old worker",
+      "pass": true,
+      "detail": "Template parses; original worker read. No jobs or manifests written."
+    },
+    {
+      "name": "chain: 13 renders and the master pass the real guard and the edited worker",
+      "pass": true,
+      "detail": {
+        "exit": 0,
+        "jobs": 14
+      }
+    },
+    {
+      "name": "chain: the guard's command equals the worker's sys.executable check",
+      "pass": true,
+      "detail": "same interpreter path"
+    },
+    {
+      "name": "chain: one script, config and manifest per job",
+      "pass": true,
+      "detail": 14
+    },
+    {
+      "name": "chain: the master summary names master, srt, vtt and 13 soundtracks",
+      "pass": true,
+      "detail": [
+        "master",
+        "scope",
+        "soundtracks",
+        "srt",
+        "vtt"
+      ]
+    },
+    {
+      "name": "chain: a render manifest carries the build's rows",
+      "pass": true,
+      "detail": "target/geometry-kit01/debug/logarithm_mysteries.d"
+    },
+    {
+      "name": "chain: the master manifest freezes the render work folder",
+      "pass": true,
+      "detail": 78
+    },
+    {
+      "name": "control: changed cue table stops the chain at that chapter",
+      "pass": true,
+      "detail": "full cue table differs"
+    },
+    {
+      "name": "control: changed timeline row stops the chain at that chapter",
+      "pass": true,
+      "detail": "differs from the 60 fps timeline"
+    },
+    {
+      "name": "control: missing lint stops the chain at that chapter",
+      "pass": true,
+      "detail": "rendered lint is missing"
+    },
+    {
+      "name": "control: short soundtrack stops the chain at that chapter",
+      "pass": true,
+      "detail": "not the whole soundtrack"
+    },
+    {
+      "name": "finding 2: the chain runs with a failed comparison on disk and with no stem files at all",
+      "pass": true,
+      "detail": {
+        "stem_files": 0,
+        "comparison": "hard_failures present"
+      }
+    },
+    {
+      "name": "finding 4: the job's binary hash ignores the binding's",
+      "pass": true,
+      "detail": "config takes the file's current hash"
+    },
+    {
+      "name": "finding 1: one non-admission fails the name; a rerun with a healthy host still refuses",
+      "pass": true,
+      "detail": {
+        "first": "subprocess.CalledProcessError: Command '['/opt/homebrew/opt/python@3.1",
+        "second": "AssertionError: logarithm-final-picture-render-00_ratio_ruler-01"
+      }
+    },
+    {
+      "name": "finding 1: a failure at chapter 02 leaves 00 and 01 done; a rerun refuses at chapter 00",
+      "pass": true,
+      "detail": {
+        "finished": 2
+      }
+    },
+    {
+      "name": "finding 1: a refused freeze leaves script, config and an empty manifest; the restored rerun still refuses",
+      "pass": true,
+      "detail": {
+        "left": 3,
+        "rows": 2
+      }
+    },
+    {
+      "name": "finding 3: a build row no render reads moves during chapter 05: the finished chapter's job fails and the chain stops",
+      "pass": true,
+      "detail": {
+        "worker_exit": 0,
+        "error": "ValueError('reviewed input changed: /pri"
+      }
+    },
+    {
+      "name": "finding 5: a chapter movie changed after its render passes the master's freeze and worker",
+      "pass": true,
+      "detail": "the manifest froze the changed bytes"
+    },
+    {
+      "name": "finding 6: a caption refusal fails the job after the master is written, with no summary",
+      "pass": true,
+      "detail": "master kept, job failed"
+    }
+  ],
+  "scope": "Throwaway repositories with a stand-in binary. No real job, build, render, audio or lane was involved."
+}

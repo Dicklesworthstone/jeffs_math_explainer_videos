@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "topic": "logarithm_mysteries",
+  "mode": "check",
+  "limits": [
+    "Source text and hashes only. Nothing was compiled, built, rendered, assembled, synthesized or timed by this helper.",
+    "A marker in source is not evidence that a hold plays as intended; native timing stays open.",
+    "No listening, fine-sync, visual or independent acceptance is claimed."
+  ],
+  "integration_sha256": "8f7c4a9f45c4dd256536d8d5992bd14ebef44ac4fc80e5563f84c9de2bce5952",
+  "approved_changed_files": [
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+      "before_sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+      "sha256": "678812f166e9ec4b8ef8125283672bf28aa4ba0add0c14a58a4a6f6077800ad8"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/draw.rs",
+      "before_sha256": "2a4e84504bab636433cd419b2c9990986d7c549bf05aa3432d33bd5a9b60fe28",
+      "sha256": "060504c6b72acdc32758a417db67a87e206a6f464bfbb125d6f21c29d95a83be"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs",
+      "before_sha256": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346",
+      "sha256": "daf5b18dd4d54714df652acf558b9068f48d573e88e60d205f0ff6ef45f34dfb"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs",
+      "before_sha256": "4dc4c555122d9cd5423d7094336c1d5e6f7f9afb77d6850a38bc0148c20180ef",
+      "sha256": "350ce26fcfd353347f32bc5f8c82ebfc084cb71caae8e5794e03f39756b458fa"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "before_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "sha256": "ba25565067fd68fb3f51f8eee3a1a381df05985e9ef5f35d3cb1d6bb40da0e53"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs",
+      "before_sha256": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+      "sha256": "5d04fefaef89cc7b2f2f98b006a54ca9181226904b6c9eb509466246dd649982"
+    }
+  ],
+  "counts": {
+    "cues": 80,
+    "prediction_holds": 13,
+    "reading_holds": 2,
+    "holds_with_a_changed_marker": 2,
+    "holds_with_a_changed_interval": 2,
+    "holds_with_a_changed_line": 0
+  },
+  "editorial_closing_hold": {
+    "cue": "12_21",
+    "file": "what_it_forgets.rs",
+    "source_sha256": "5d04fefaef89cc7b2f2f98b006a54ca9181226904b6c9eb509466246dd649982",
+    "say_line": 1221,
+    "marker_line": 1311,
+    "marker": "kit.music_breath(stage, CLOSING_HOLD)?;",
+    "finish_line": 1313,
+    "interval_sha256": "50d5096350439ff582cbf4262f16ba510c0d1c67ffc9b9828d16b69a8e1a7777",
+    "hold_seconds": 5.5,
+    "fade_seconds": 1.5,
+    "fade_marker": "fade_all(stage, CLOSING_FADE)?;",
+    "after_complete_recording": true,
+    "prediction_or_reading_direction_row": false,
+    "native_timing_verified": false,
+    "note": "Separate from the 15 map holds: it has no next cue, so it can be neither a map row nor a disposition."
+  },
+  "other_waits_diff": {
+    "added": [],
+    "removed": []
+  },
+  "verification": {
+    "units": 80,
+    "cues": 80,
+    "directions_resolved": 15,
+    "dispositions": 15,
+    "sentence_rows": 364,
+    "cue_rows_equal_prepared02": 80,
+    "cue_samples_equal_prepared02": 80
+  },
+  "tool_check_cli": null,
+  "outputs_sha256": {
+    "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver17.json": "e9cc0e4bd497ebd5d67e788103a6a6d67a0ced64ffa54ad039f08e938cc21d93",
+    "explainer_corpus/logarithm_mysteries/narration_units.json": "7cb6dbcd0b99d30b2d81cedc75d6046709935bc39ad2ad351439ed25228c2ed6",
+    "holds-bound01.json": "ff1ece5acfa8fe5f2fff52efb683ed76ac1b010330c526d46b64cdc2bfaa808c",
+    "spans01.json": "32d75a3e89c07a2791ef8a954f15769915a26c5d9d3ced5ec7eb2c5761c5b8c0"
+  }
+}

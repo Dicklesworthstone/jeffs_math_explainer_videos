@@ -1,0 +1,6 @@
+patch -p1 on scratch copies of the two baselines
+patching file explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs
+patching file explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs
+patch exit 0
+unreachable.rs equals the candidate
+what_it_forgets.rs equals the candidate

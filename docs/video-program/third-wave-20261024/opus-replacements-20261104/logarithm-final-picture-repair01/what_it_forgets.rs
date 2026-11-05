@@ -41,7 +41,7 @@ use std::collections::HashMap;
 use std::f64::consts::{PI, SQRT_2, TAU};
 
 use explainer_kit::narration::{frames_covering, wait_frames};
-use explainer_kit::{BACKGROUND, Kit, Palette, Script, hex, play, tween, v};
+use explainer_kit::{BACKGROUND, Kit, Palette, Script, fade_all, hex, play, tween, v};
 use fmn::mobject::Stage as Arena;
 use fmn::prelude::*;
 
@@ -1306,6 +1306,10 @@ impl SceneConstruct for WhatItForgets {
             family.push(dot(stage, turning_at(PI * k), 0.1, gold));
         }
         fade_in_all(stage, &family, 0.4)?;
+        // the film's end: the last line finishes first, then the card is left to be read, and only
+        // then does everything fade to the background. No line follows
+        kit.music_breath(stage, CLOSING_HOLD)?;
+        fade_all(stage, CLOSING_FADE)?;
         kit.finish(stage)
     }
 }
@@ -1313,6 +1317,11 @@ impl SceneConstruct for WhatItForgets {
 /// The closing footer: `draw::precisely`'s words, in ink and clear of the frame's edge. It stands after the film's
 /// code so that no held line moves.
 const FOOTER_Y: f64 = -3.4;
+
+/// After the last word the finished card stays this long for reading, in a window of its own,
+/// then fades this long, in seconds. Chosen for the eye, not timed to any voice.
+const CLOSING_HOLD: f64 = 5.5;
+const CLOSING_FADE: f64 = 1.5;
 
 fn footer(kit: &Kit, stage: &mut Stage<'_>, words: &str) -> fmn::Result<Mob> {
     kit.text(
@@ -1773,6 +1782,26 @@ mod tests {
         // the panels clear the title and the frame edge
         assert!(PANELS[0][1] + HALF_H < 3.0 && PANELS[2][1] - HALF_H > -3.4);
         assert!(PANELS[1][0] + HALF_W < 7.0);
+    }
+
+    /// The film ends on the finished card: the last line runs out, the card is held for
+    /// reading, and only then does everything fade. Nothing is said after the last line.
+    #[test]
+    fn the_closing_card_is_held_after_the_last_line_and_then_fades() {
+        let film = include_str!("what_it_forgets.rs").split("#[cfg(test)]").next().unwrap();
+        let order = [
+            r#"kit.say(stage, "12_21")?;"#,
+            "fade_in_all(stage, &family, 0.4)?;",
+            "kit.music_breath(stage, CLOSING_HOLD)?;",
+            "fade_all(stage, CLOSING_FADE)?;",
+            "kit.finish(stage)",
+        ];
+        let at = order.map(|step| {
+            assert_eq!(film.matches(step).count(), 1, "{step}");
+            film.find(step).unwrap()
+        });
+        assert!(at.windows(2).all(|w| w[0] < w[1]));
+        assert!(!film[at[0] + order[0].len()..].contains("kit.say("));
     }
 
     #[test]

@@ -1,0 +1,319 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs
+@@ -54,7 +54,7 @@
+ use std::f64::consts::PI;
+ 
+ use explainer_kit::narration::{frames_covering, wait_frames};
+-use explainer_kit::{BACKGROUND, Kit, Palette, Script, hex, play, tween, v};
++use explainer_kit::{BACKGROUND, Kit, Palette, Script, Timed, hex, play, tween, v};
+ use fmn::mobject::Stage as Arena;
+ use fmn::prelude::*;
+ 
+@@ -797,14 +797,14 @@
+         let avg_a = kit.text_left(
+             stage,
+             &format!(
+-                "the average ½(I + mirror) has det {}:",
++                "the average ½(I + mirror) has det {}",
+                 fact("matrix.mirror_average_det")?
+             ),
+             22.0,
+             red,
+             v(right, 0.1),
+         )?;
+-        fade_in_all(stage, &[avg_a], 0.5)?;
++        let det_gloss = fade_in_with_gloss(&kit, stage, avg_a, v(right, -0.35))?;
+         // the average sends each corner to the middle of its dash: all on one line
+         until_phrase(&kit, stage, "11_1", HALFWAY)?;
+         let mids = chord_midpoints(mirror).map(|p| dot(stage, p, 0.07, red));
+@@ -829,14 +829,14 @@
+             "it squashes the plane flat onto a line",
+             22.0,
+             red,
+-            v(right, -0.35),
++            v(right, -0.8),
+         )?;
+         fade_in_all(stage, &[whole_line, avg_b], 0.4)?;
+ 
+         // 11_2: the signed area along a flow starts at 1 and never reaches 0
+         kit.say(stage, "11_2")?;
+         let mut first_picture = vec![
+-            collapsing, before_f, after_f, ends_note, flat_f, whole_line, avg_a, avg_b,
++            collapsing, before_f, after_f, ends_note, flat_f, whole_line, avg_a, det_gloss, avg_b,
+         ];
+         first_picture.extend(mids);
+         fade_out_all(stage, &first_picture, 0.4)?;
+@@ -955,7 +955,7 @@
+         let liouville = footer(
+             &kit,
+             stage,
+-            "for any real linear flow, steady or not, det = exp(∫ trace dt) > 0 (Liouville)",
++            "for any real linear flow, steady or not, det (signed area) = exp(∫ trace dt) > 0, trace = diagonal sum (Liouville)",
+         )?;
+         fade_in_all(stage, &[mirror_mark, mirror_word, liouville], 0.5)?;
+ 
+@@ -1194,7 +1194,7 @@
+         let route_b = kit.text_left(stage, "first X, then A", 22.0, slide_c(), v(right, 0.0))?;
+         // the routes fade in over the waiting probe, then go live in the same slot
+         let first_routes = routes(stage.arena_mut(), flip_pair, candidate(base, 1.0), u, false);
+-        swap(stage, &[probe_alone], &[first_routes, route_a, route_b], 0.4)?;
++        let sample = swap_in_sample(&kit, stage, base, probe_alone, [first_routes, route_a, route_b])?;
+         let test = stage.always_redraw(move |s: &mut Arena| {
+             let xs = candidate(base, value(s, off));
+             routes(s, flip_pair, xs, u, value(s, gap_on) > 0.5)
+@@ -1241,7 +1241,7 @@
+         )?;
+         fade_in_all(stage, &[why_a, why_b, why_c], 0.5)?;
+         kit.until_sentence(stage, "11_5", 4)?;
+-        play!(stage; tween(off, 0.0, 2.6)?);
++        tween_leaving(stage, off, 0.0, &sample, 2.6)?;
+         let only_diag = kit.text_left(stage, "the ends meet only when b = c = 0", 24.0, gold, v(right, -2.45))?;
+         fade_in_all(stage, &[only_diag], 0.4)?;
+ 
+@@ -1617,14 +1617,7 @@
+         let flip = kit.tex(stage, r"e^{i\pi} = -1", 34.0, Palette::ink(), &[], v(0.0, 2.2))?;
+         fade_in_all(stage, &[flip], 0.4)?;
+         let big = format!("{}", -pair[0]);
+-        let complex_log = kit.tex(
+-            stage,
+-            &format!(r"\log A = \operatorname{{diag}}(\ln {big} + i\pi,\ -\ln {big} + i\pi)"),
+-            32.0,
+-            blue,
+-            &[],
+-            v(0.0, 1.3),
+-        )?;
++        let complex_log = kit.tex(stage, &complex_log_tex(&big), 32.0, blue, &[], v(0.0, 1.3))?;
+         let check = kit.tex(
+             stage,
+             &format!(r"e^{{\ln {big} + i\pi}} = -{big}, \qquad e^{{-\ln {big} + i\pi}} = -\tfrac{{1}}{{{big}}}"),
+@@ -1659,7 +1652,7 @@
+         kit.until_sentence(stage, "11_8", 3)?;
+         let singular = kit.tex(
+             stage,
+-            r"\text{singular } S\text{: } \operatorname{det} S = 0 \quad\text{but}\quad \operatorname{det} e^{X} = e^{\operatorname{tr} X} \neq 0",
++            r"\text{singular } S\text{: } \operatorname{det} S = 0 \quad\text{but}\quad \operatorname{det} e^{X} = e^{\operatorname{trace} X} \neq 0",
+             28.0,
+             red,
+             &[],
+@@ -1691,6 +1684,74 @@
+     )
+ }
+ 
++/// 11_5's sample of X, in the gap the gauge left: its words, then a card on the row of the A
++/// and X cards, its centre this far along. Like the footers, it stands after the film's code.
++const SAMPLE_WORD_Y: f64 = 1.7;
++const SAMPLE_ROW_Y: f64 = 1.05;
++const SAMPLE_CARD_X: f64 = GAP_X + 1.35;
++const SAMPLE_CARD_SIZE: f64 = 24.0;
++
++/// 11_1 is the first "det" on screen, 11_3 the first the voice says, so its words fade in with
++/// `line` and stand under it, at `at`.
++const DET_GLOSS: &str = "(det = determinant, the signed area factor)";
++
++fn fade_in_with_gloss(kit: &Kit, stage: &mut Stage<'_>, line: Mob, at: Vec3) -> fmn::Result<Mob> {
++    let gloss = kit.text_left(stage, DET_GLOSS, 20.0, Palette::dim(), at)?;
++    fade_in_all(stage, &[line, gloss], 0.5)?;
++    Ok(gloss)
++}
++
++/// 11_8's logarithm of A: named as one complex logarithm, since this A has no principal one.
++fn complex_log_tex(big: &str) -> String {
++    format!(
++        r"\text{{a complex logarithm: }} X = \operatorname{{diag}}(\ln {big} + i\pi,\ -\ln {big} + i\pi),\quad e^{{X}} = A"
++    )
++}
++
++/// The numbers 11_5's arrows are drawn from. This X is not 11_4's sample flow, so the card
++/// says so and prints the same fact that drives the arrows. The column's letters stay general.
++fn sample_x(kit: &Kit, stage: &mut Stage<'_>, base: M2) -> fmn::Result<[Mob; 3]> {
++    let word = kit.text_left(
++        stage,
++        "here X is a new sample:",
++        18.0,
++        Palette::dim(),
++        v(GAP_X, SAMPLE_WORD_Y),
++    )?;
++    let name = kit.text_left(stage, "X =", SAMPLE_CARD_SIZE, position_c(), v(GAP_X, SAMPLE_ROW_Y))?;
++    let [[a, b], [c, d]] = base.map(|row| row.map(|x| x.to_string()));
++    let card = matrix_card(
++        kit,
++        stage,
++        [[a.as_str(), b.as_str()], [c.as_str(), d.as_str()]],
++        v(SAMPLE_CARD_X, SAMPLE_ROW_Y),
++        SAMPLE_CARD_SIZE,
++        position_c(),
++    )?;
++    Ok([word, name, card])
++}
++
++/// The routes take the probe's place and arrive with the sample that drives them.
++fn swap_in_sample(kit: &Kit, stage: &mut Stage<'_>, base: M2, out: Mob, routes: [Mob; 3]) -> fmn::Result<[Mob; 3]> {
++    let sample = sample_x(kit, stage, base)?;
++    let mut inn = routes.to_vec();
++    inn.extend(sample);
++    swap(stage, &[out], &inn, 0.4)?;
++    Ok(sample)
++}
++
++/// A tracker's tween, with `leaving` fading out over the same time: once the off-diagonal
++/// entries start to shrink, the printed sample no longer holds.
++fn tween_leaving(stage: &mut Stage<'_>, tracker: Mob, to: f64, leaving: &[Mob], rt: f64) -> fmn::Result<()> {
++    let mut anims = vec![stage.prepare(tween(tracker, to, rt)?)?];
++    for &m in leaving {
++        let a = fade_out(stage.arena_mut(), m, ORIGIN, 1.0)?;
++        anims.push(stage.prepare(a.rt(rt))?);
++    }
++    stage.play_prepared(anims)?;
++    Ok(())
++}
++
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+@@ -1902,6 +1963,57 @@
+             let e = model::C::new(l, PI).exp();
+             assert!((e.re - target).abs() < 1e-12 && e.im.abs() < 1e-12);
+         }
++        // the flip pair's eigenvalues lie on the negative axis, so it has no principal
++        // logarithm: the screen names this X one logarithm, never log A
++        let film = include_str!("unreachable.rs").split("#[cfg(test)]").next().unwrap();
++        assert!(!film.contains(r"\log A"));
++        assert!(film.contains(r"\text{{a complex logarithm: }} X = "));
++        assert!(film.contains(r"e^{{X}} = A"));
++    }
++
++    /// The numbers beside 11_5's arrows are the arrows' own: the card prints the fact that
++    /// drives them (`BASE` is pinned to it above), and every part of it stands in the gap.
++    #[test]
++    fn the_sample_x_prints_the_candidate_and_stands_in_the_gap() {
++        let film = include_str!("unreachable.rs").split("#[cfg(test)]").next().unwrap();
++        assert!(film.contains(r#"let base = fact_matrix("matrix.probe_candidate")?;"#));
++        assert!(film.contains("swap_in_sample(&kit, stage, base, probe_alone,"));
++        // the earlier sample keeps its own words, in 11_4
++        assert_eq!(film.matches("(here X is the sample flow from before)").count(), 1);
++        // the printed entries leave as the live ones shrink, before the line that closes the beat
++        let fading = film.find("tween_leaving(stage, off, 0.0, &sample, 2.6)?;").unwrap();
++        assert!(fading < film.find("the ends meet only when b = c = 0").unwrap());
++        super::super::draw::probe_scene(|stage| {
++            let kit = Kit::new()?;
++            let [word, name, card] = sample_x(&kit, stage, BASE)?;
++            let panel = CENTRE[0] + UNIT * CLIP;
++            for (m, label) in [(word, "word"), (name, "name"), (card, "card")] {
++                assert!(stage.get_bounding_box_point(m, LEFT)[0] > panel + 0.15, "{label}");
++                assert!(stage.get_bounding_box_point(m, RIGHT)[0] < 2.2 - 0.15, "{label}");
++            }
++            assert!(stage.get_bounding_box_point(name, RIGHT)[0] < stage.get_bounding_box_point(card, LEFT)[0] - 0.1);
++            assert!(stage.get_bounding_box_point(word, DOWN)[1] > stage.get_bounding_box_point(card, UP)[1] + 0.1);
++            Ok(())
++        });
++    }
++
++    /// The formula and the gloss this pass made longer, on real glyphs, at the film's own
++    /// size and place. The width table above is only an estimate of them.
++    #[test]
++    fn the_longer_formula_and_gloss_fit_on_real_glyphs() {
++        let film = include_str!("unreachable.rs").split("#[cfg(test)]").next().unwrap();
++        assert!(film.contains("kit.tex(stage, &complex_log_tex(&big), 32.0, blue, &[], v(0.0, 1.3))?;"));
++        assert!(film.contains("fade_in_with_gloss(&kit, stage, avg_a, v(right, -0.35))?;"));
++        super::super::draw::probe_scene(|stage| {
++            let kit = Kit::new()?;
++            let big = format!("{}", -PAIR.0);
++            let formula = kit.tex(stage, &complex_log_tex(&big), 32.0, Palette::ink(), &[], v(0.0, 1.3))?;
++            assert!(stage.get_bounding_box_point(formula, LEFT)[0] > -TEXT_RIGHT);
++            assert!(stage.get_bounding_box_point(formula, RIGHT)[0] < TEXT_RIGHT);
++            let gloss = kit.text_left(stage, DET_GLOSS, 20.0, Palette::dim(), v(2.2, -0.35))?;
++            assert!(stage.get_bounding_box_point(gloss, RIGHT)[0] < TEXT_RIGHT);
++            Ok(())
++        });
+     }
+ 
+     /// The notes are rounded and say so. Each is what the live readout prints while
+@@ -1935,7 +2047,7 @@
+         super::super::draw::probe_scene(|stage| {
+             let kit = Kit::new()?;
+             for words in [
+-                "for any real linear flow, steady or not, det = exp(∫ trace dt) > 0 (Liouville)",
++                "for any real linear flow, steady or not, det (signed area) = exp(∫ trace dt) > 0, trace = diagonal sum (Liouville)",
+                 "Culver, Proc. AMS 17 (1966) 1146–1151, as stated by Higham (Handbook of Linear Algebra) and Gallier (Thm 3.4)",
+                 "Gallier, arXiv 0805.0245, Theorem 3.3, proved via the Jordan form",
+             ] {
+@@ -1960,7 +2072,8 @@
+         const { assert!(CENTRE[0] + UNIT * CLIP < GAUGE_X - 0.6) };
+         for (s, size, x) in [
+             ("dashes pair each corner with where it lands", 20.0, 2.2),
+-            ("the average ½(I + mirror) has det 0:", 22.0, 2.2),
++            ("the average ½(I + mirror) has det 0", 22.0, 2.2),
++            (DET_GLOSS, 20.0, 2.2),
+             ("it squashes the plane flat onto a line", 22.0, 2.2),
+             ("starts at 1, never touches 0: stays positive", 22.0, 2.2),
+             ("(here X is the sample flow from before)", 18.0, 2.2),
+@@ -1996,7 +2109,7 @@
+         assert!(width("every invertible complex matrix has a complex logarithm", 26.0) < 13.6);
+         assert!(width("A = diag(−2, −½): no real logarithm", 24.0) < 13.6);
+         for line in [
+-            "for any real linear flow, steady or not, det = exp(∫ trace dt) > 0 (Liouville)",
++            "for any real linear flow, steady or not, det (signed area) = exp(∫ trace dt) > 0, trace = diagonal sum (Liouville)",
+             "Culver, Proc. AMS 17 (1966) 1146–1151, as stated by Higham (Handbook of Linear Algebra) and Gallier (Thm 3.4)",
+             "Gallier, arXiv 0805.0245, Theorem 3.3, proved via the Jordan form",
+         ] {
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs
+@@ -41,7 +41,7 @@
+ use std::f64::consts::{PI, SQRT_2, TAU};
+ 
+ use explainer_kit::narration::{frames_covering, wait_frames};
+-use explainer_kit::{BACKGROUND, Kit, Palette, Script, hex, play, tween, v};
++use explainer_kit::{BACKGROUND, Kit, Palette, Script, fade_all, hex, play, tween, v};
+ use fmn::mobject::Stage as Arena;
+ use fmn::prelude::*;
+ 
+@@ -1306,6 +1306,10 @@
+             family.push(dot(stage, turning_at(PI * k), 0.1, gold));
+         }
+         fade_in_all(stage, &family, 0.4)?;
++        // the film's end: the last line finishes first, then the card is left to be read, and only
++        // then does everything fade to the background. No line follows
++        kit.music_breath(stage, CLOSING_HOLD)?;
++        fade_all(stage, CLOSING_FADE)?;
+         kit.finish(stage)
+     }
+ }
+@@ -1314,6 +1318,11 @@
+ /// code so that no held line moves.
+ const FOOTER_Y: f64 = -3.4;
+ 
++/// After the last word the finished card stays this long for reading, in a window of its own,
++/// then fades this long, in seconds. Chosen for the eye, not timed to any voice.
++const CLOSING_HOLD: f64 = 5.5;
++const CLOSING_FADE: f64 = 1.5;
++
+ fn footer(kit: &Kit, stage: &mut Stage<'_>, words: &str) -> fmn::Result<Mob> {
+     kit.text(
+         stage,
+@@ -1775,6 +1784,26 @@
+         assert!(PANELS[1][0] + HALF_W < 7.0);
+     }
+ 
++    /// The film ends on the finished card: the last line runs out, the card is held for
++    /// reading, and only then does everything fade. Nothing is said after the last line.
++    #[test]
++    fn the_closing_card_is_held_after_the_last_line_and_then_fades() {
++        let film = include_str!("what_it_forgets.rs").split("#[cfg(test)]").next().unwrap();
++        let order = [
++            r#"kit.say(stage, "12_21")?;"#,
++            "fade_in_all(stage, &family, 0.4)?;",
++            "kit.music_breath(stage, CLOSING_HOLD)?;",
++            "fade_all(stage, CLOSING_FADE)?;",
++            "kit.finish(stage)",
++        ];
++        let at = order.map(|step| {
++            assert_eq!(film.matches(step).count(), 1, "{step}");
++            film.find(step).unwrap()
++        });
++        assert!(at.windows(2).all(|w| w[0] < w[1]));
++        assert!(!film[at[0] + order[0].len()..].contains("kit.say("));
++    }
++
+     #[test]
+     fn the_closing_words_are_in_ink_and_clear_of_the_edge_and_each_other() {
+         let film = include_str!("what_it_forgets.rs").split("#[cfg(test)]").next().unwrap();

@@ -1617,14 +1617,7 @@ impl SceneConstruct for Unreachable {
         let flip = kit.tex(stage, r"e^{i\pi} = -1", 34.0, Palette::ink(), &[], v(0.0, 2.2))?;
         fade_in_all(stage, &[flip], 0.4)?;
         let big = format!("{}", -pair[0]);
-        let complex_log = kit.tex(
-            stage,
-            &format!(r"\text{{a complex logarithm: }} X = \operatorname{{diag}}(\ln {big} + i\pi,\ -\ln {big} + i\pi),\quad e^{{X}} = A"),
-            32.0,
-            blue,
-            &[],
-            v(0.0, 1.3),
-        )?;
+        let complex_log = kit.tex(stage, &complex_log_tex(&big), 32.0, blue, &[], v(0.0, 1.3))?;
         let check = kit.tex(
             stage,
             &format!(r"e^{{\ln {big} + i\pi}} = -{big}, \qquad e^{{-\ln {big} + i\pi}} = -\tfrac{{1}}{{{big}}}"),
@@ -1700,16 +1693,19 @@ const SAMPLE_CARD_SIZE: f64 = 24.0;
 
 /// 11_1 is the first "det" on screen, 11_3 the first the voice says, so its words fade in with
 /// `line` and stand under it, at `at`.
+const DET_GLOSS: &str = "(det = determinant, the signed area factor)";
+
 fn fade_in_with_gloss(kit: &Kit, stage: &mut Stage<'_>, line: Mob, at: Vec3) -> fmn::Result<Mob> {
-    let gloss = kit.text_left(
-        stage,
-        "(det = determinant, the signed area factor)",
-        20.0,
-        Palette::dim(),
-        at,
-    )?;
+    let gloss = kit.text_left(stage, DET_GLOSS, 20.0, Palette::dim(), at)?;
     fade_in_all(stage, &[line, gloss], 0.5)?;
     Ok(gloss)
+}
+
+/// 11_8's logarithm of A: named as one complex logarithm, since this A has no principal one.
+fn complex_log_tex(big: &str) -> String {
+    format!(
+        r"\text{{a complex logarithm: }} X = \operatorname{{diag}}(\ln {big} + i\pi,\ -\ln {big} + i\pi),\quad e^{{X}} = A"
+    )
 }
 
 /// The numbers 11_5's arrows are drawn from. This X is not 11_4's sample flow, so the card
@@ -1736,13 +1732,7 @@ fn sample_x(kit: &Kit, stage: &mut Stage<'_>, base: M2) -> fmn::Result<[Mob; 3]>
 }
 
 /// The routes take the probe's place and arrive with the sample that drives them.
-fn swap_in_sample(
-    kit: &Kit,
-    stage: &mut Stage<'_>,
-    base: M2,
-    out: Mob,
-    routes: [Mob; 3],
-) -> fmn::Result<[Mob; 3]> {
+fn swap_in_sample(kit: &Kit, stage: &mut Stage<'_>, base: M2, out: Mob, routes: [Mob; 3]) -> fmn::Result<[Mob; 3]> {
     let sample = sample_x(kit, stage, base)?;
     let mut inn = routes.to_vec();
     inn.extend(sample);
@@ -1981,23 +1971,18 @@ mod tests {
         assert!(film.contains(r"e^{{X}} = A"));
     }
 
-    /// The numbers beside 11_5's arrows are the arrows' own: the card prints the fact, every
-    /// part of it stands in the gap, and its entries give the gap the live readout shows.
+    /// The numbers beside 11_5's arrows are the arrows' own: the card prints the fact that
+    /// drives them (`BASE` is pinned to it above), and every part of it stands in the gap.
     #[test]
     fn the_sample_x_prints_the_candidate_and_stands_in_the_gap() {
         let film = include_str!("unreachable.rs").split("#[cfg(test)]").next().unwrap();
+        assert!(film.contains(r#"let base = fact_matrix("matrix.probe_candidate")?;"#));
+        assert!(film.contains("swap_in_sample(&kit, stage, base, probe_alone,"));
         // the earlier sample keeps its own words, in 11_4
         assert_eq!(film.matches("(here X is the sample flow from before)").count(), 1);
-        let (fading, column) = (film.find("tween_leaving(stage, off").unwrap(), film.find("the ends meet").unwrap());
-        assert!(fading < column, "the sample leaves as the entries shrink");
-        let parts = [
-            (BASE[0][1] * (PAIR.1 - PAIR.0) * PROBE[1]),
-            (BASE[1][0] * (PAIR.0 - PAIR.1) * PROBE[0]),
-        ];
-        assert_eq!(
-            format!("{:.2}", parts[0].hypot(parts[1])),
-            fact("matrix.probe_gap").unwrap()
-        );
+        // the printed entries leave as the live ones shrink, before the line that closes the beat
+        let fading = film.find("tween_leaving(stage, off, 0.0, &sample, 2.6)?;").unwrap();
+        assert!(fading < film.find("the ends meet only when b = c = 0").unwrap());
         super::super::draw::probe_scene(|stage| {
             let kit = Kit::new()?;
             let [word, name, card] = sample_x(&kit, stage, BASE)?;
@@ -2008,6 +1993,25 @@ mod tests {
             }
             assert!(stage.get_bounding_box_point(name, RIGHT)[0] < stage.get_bounding_box_point(card, LEFT)[0] - 0.1);
             assert!(stage.get_bounding_box_point(word, DOWN)[1] > stage.get_bounding_box_point(card, UP)[1] + 0.1);
+            Ok(())
+        });
+    }
+
+    /// The formula and the gloss this pass made longer, on real glyphs, at the film's own
+    /// size and place. The width table above is only an estimate of them.
+    #[test]
+    fn the_longer_formula_and_gloss_fit_on_real_glyphs() {
+        let film = include_str!("unreachable.rs").split("#[cfg(test)]").next().unwrap();
+        assert!(film.contains("kit.tex(stage, &complex_log_tex(&big), 32.0, blue, &[], v(0.0, 1.3))?;"));
+        assert!(film.contains("fade_in_with_gloss(&kit, stage, avg_a, v(right, -0.35))?;"));
+        super::super::draw::probe_scene(|stage| {
+            let kit = Kit::new()?;
+            let big = format!("{}", -PAIR.0);
+            let formula = kit.tex(stage, &complex_log_tex(&big), 32.0, Palette::ink(), &[], v(0.0, 1.3))?;
+            assert!(stage.get_bounding_box_point(formula, LEFT)[0] > -TEXT_RIGHT);
+            assert!(stage.get_bounding_box_point(formula, RIGHT)[0] < TEXT_RIGHT);
+            let gloss = kit.text_left(stage, DET_GLOSS, 20.0, Palette::dim(), v(2.2, -0.35))?;
+            assert!(stage.get_bounding_box_point(gloss, RIGHT)[0] < TEXT_RIGHT);
             Ok(())
         });
     }
@@ -2043,7 +2047,7 @@ mod tests {
         super::super::draw::probe_scene(|stage| {
             let kit = Kit::new()?;
             for words in [
-                "for any real linear flow, steady or not, det = exp(∫ trace dt) > 0 (Liouville)",
+                "for any real linear flow, steady or not, det (signed area) = exp(∫ trace dt) > 0, trace = diagonal sum (Liouville)",
                 "Culver, Proc. AMS 17 (1966) 1146–1151, as stated by Higham (Handbook of Linear Algebra) and Gallier (Thm 3.4)",
                 "Gallier, arXiv 0805.0245, Theorem 3.3, proved via the Jordan form",
             ] {
@@ -2068,7 +2072,8 @@ mod tests {
         const { assert!(CENTRE[0] + UNIT * CLIP < GAUGE_X - 0.6) };
         for (s, size, x) in [
             ("dashes pair each corner with where it lands", 20.0, 2.2),
-            ("the average ½(I + mirror) has det 0:", 22.0, 2.2),
+            ("the average ½(I + mirror) has det 0", 22.0, 2.2),
+            (DET_GLOSS, 20.0, 2.2),
             ("it squashes the plane flat onto a line", 22.0, 2.2),
             ("starts at 1, never touches 0: stays positive", 22.0, 2.2),
             ("(here X is the sample flow from before)", 18.0, 2.2),
@@ -2104,7 +2109,7 @@ mod tests {
         assert!(width("every invertible complex matrix has a complex logarithm", 26.0) < 13.6);
         assert!(width("A = diag(−2, −½): no real logarithm", 24.0) < 13.6);
         for line in [
-            "for any real linear flow, steady or not, det = exp(∫ trace dt) > 0 (Liouville)",
+            "for any real linear flow, steady or not, det (signed area) = exp(∫ trace dt) > 0, trace = diagonal sum (Liouville)",
             "Culver, Proc. AMS 17 (1966) 1146–1151, as stated by Higham (Handbook of Linear Algebra) and Gallier (Thm 3.4)",
             "Gallier, arXiv 0805.0245, Theorem 3.3, proved via the Jordan form",
         ] {

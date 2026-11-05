@@ -1,0 +1,92 @@
+PASS c-new-names: four new jobs, none of them an old name, and neither they nor the new stage folder exist
+PASS c-no-stale-exits: the old exit files really hold 1 and no controller names them, inputs04 or the debug job[]
+PASS c-timeouts: score keeps 7200 s and preview keeps 14400 s; none inherits the recovery limit; only the wait is 48 h
+PASS c-real-check-thumbnail: frozen inputs, guard policy and unused names hold, nothing launched
+PASS c-real-check-pictures: frozen inputs, guard policy and unused names hold, nothing launched
+PASS e-score: wait, manifest, guard, child and success file; old exit files of 1 in the real tree were not consulted
+PASS e-preview: wait, manifest, guard, child and success file; old exit files of 1 in the real tree were not consulted
+PASS e-pictures: wait, manifest, guard, child and success file; old exit files of 1 in the real tree were not consulted
+PASS e-thumbnail: wait, manifest, guard, child and success file; old exit files of 1 in the real tree were not consulted
+PASS e-guard-argv: the guard gets the same phase and the new job, manifest and child
+PASS e-manifests: each manifest holds the frozen rows, the helper, its start script and every earlier job file
+PASS e-preview-summary: 15 chapters, real ffprobe on each movie, the one planted lint row counted, no baseline claim
+PASS e-extraction: 31 real frames extracted with ffmpeg, a sheet per chapter, lint read from the rendered preview only, viewing not claimed
+PASS e-thumbnail-receipt: decoded at 3840x2160; review and publication stay open
+PASS r-failed-timeline: score refused (assert d.get('admitted') is True and d.get('exit') == 0, job); no success file; the next controller launched nothing
+PASS r-unfinished-timeline: score refused (Timeline is not successfully complete); no success file; the next controller launched nothing
+PASS r-guard-policy-timeline: score refused (Guard policy changed); no success file; the next controller launched nothing
+PASS r-debug-binary: score refused (Timeline binary differs); no success file; the next controller launched nothing
+PASS r-baseline-claim: score refused (Full baseline equivalence cannot be claimed); no success file; the next controller launched nothing
+PASS r-prior-differs: score refused (Prior table differs); no success file; the next controller launched nothing
+PASS r-table-edited: score refused (New table changed); no success file; the next controller launched nothing
+PASS r-missing-chapter: score refused (assert {p.stem.removesuffix('.timeline')); no success file; the next controller launched nothing
+PASS r-missing-cue-log: score refused (for chapter in T.CHAPTERS for table in T.TABLES); no success file; the next controller launched nothing
+PASS r-cue-order: score refused (assert seen == ordered); no success file; the next controller launched nothing
+PASS r-cue-count: score refused (assert seen == ordered); no success file; the next controller launched nothing
+PASS r-frozen-input: score refused (assert sha(Path(row['path'])) == row['sha256']); no success file; the next controller launched nothing
+PASS r-duplicate-job: score refused (Duplicate score refused); no success file; the next controller launched nothing
+PASS r-guard-policy-score: score refused (Guard policy changed); no success file; the next controller launched nothing
+PASS r-existing-score: score refused (Preserve existing score outputs); no success file; the next controller launched nothing
+PASS r-existing-score-kept: the earlier output is still there
+PASS r-score-exit: score refused (CalledProcessError); no success file; the next controller launched nothing
+PASS r-qa-fail: score refused (assert report['chapter'] == chapter and report['passed'] is True); no success file; the next controller launched nothing
+PASS r-qa-metric: score refused (assert report['metrics'] and all(m.get('pass') is True); no success file; the next controller launched nothing
+PASS r-qa-missing: score refused (assert {p.stem for p in qa_folder.glob('*.json')} == set(T.CHAPTERS)); no success file; the next controller launched nothing
+PASS r-qa-edited: preview refused (assert S.sha(path) == digest); no success file; the next controller launched nothing
+PASS r-no-score-receipt: preview refused (assert T.success(S.JOB)); no success file; the next controller launched nothing
+PASS r-existing-preview: preview refused (Existing preview must be preserved); no success file; the next controller launched nothing
+PASS r-existing-preview-kept: the earlier output is still there
+PASS r-render-exit: preview refused (CalledProcessError); no success file; the next controller launched nothing
+PASS r-timeline-differs: preview refused (Preview table differs: 06_); no success file; the next controller launched nothing
+PASS r-cues-differs: preview refused (Preview table differs: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-row: preview refused (Preview cue log differs: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-foreign: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-noscore: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-wrong-chapter: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-score-hash: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-score-bytes: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-score-frame: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-score-fps: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-score-offset: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-score-offsetbits: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-score-gain: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-score-gainbits: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-score-rate: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-score-channels: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-score-samples: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-cuelog-score-start: preview refused (Preview score rows differ: 06_); no success file; the next controller launched nothing
+PASS r-score-parts-gap: preview refused (Preview score rows differ: 02_); no success file; the next controller launched nothing
+PASS r-score-parts-short: preview refused (Preview score rows differ: 02_); no success file; the next controller launched nothing
+PASS r-lint-missing: preview refused (Rendered lint report missing: 10_); no success file; the next controller launched nothing
+PASS r-mp4-missing: preview refused (assert {p.stem for p in OUT.glob('*.mp4')} == set(T.CHAPTERS)); no success file; the next controller launched nothing
+PASS r-frames-short: preview refused (assert int(v['nb_frames']) == frames); no success file; the next controller launched nothing
+PASS r-no-audio: preview refused (assert len(video) == len(audio) == 1); no success file; the next controller launched nothing
+PASS r-preview-file-changed: preview refused (assert S.sha(Path(row['path'])) == row['sha256']); no success file; the next controller launched nothing
+PASS r-lint-removed: pictures refused (Required rendered layout report missing); no success file
+PASS r-no-preview-receipt: pictures refused (assert T.success(P.JOB)); no success file
+PASS r-thumb-size: thumbnail refused (assert im.format == 'PNG' and im.size == (3840, 2160)); no success file
+PASS w-upstream-failed: a timeline exit of 1 refuses before any manifest or job
+PASS w-expired: no exit file: the wait ends with nothing launched, and a job in progress is not read
+PASS w-late: the wait passes on the poll after the exit file appears
+PASS s-start: the script writes the helper's output and its exit code to the new names
+PASS s-second-start: a second start is refused and leaves the first start's log and exit file alone
+PASS x-real-pass: 13 real logarithm chapters pass (9 whole stems, 4 segmented), and in all 13 plain equality would have failed
+PASS x-real-damage: score row dropped on real tables is refused
+PASS x-real-damage: foreign row added on real tables is refused
+PASS x-real-damage: narration row changed on real tables is refused
+PASS x-real-damage: sha256 changed on real tables is refused
+PASS x-real-damage: bytes changed on real tables is refused
+PASS x-real-damage: frame changed on real tables is refused
+PASS x-real-damage: fps changed on real tables is refused
+PASS x-real-damage: offset changed on real tables is refused
+PASS x-real-damage: offset_bits changed on real tables is refused
+PASS x-real-damage: gain_db changed on real tables is refused
+PASS x-real-damage: gain_bits changed on real tables is refused
+PASS x-real-damage: rate changed on real tables is refused
+PASS x-real-damage: channels changed on real tables is refused
+PASS x-real-damage: frames changed on real tables is refused
+PASS x-real-damage: start_sample changed on real tables is refused
+PASS x-real-damage: offset and its bits moved one sample together on real tables is refused
+PASS p-preserved: all 32 old helper, sealed recovery and failed-run files are byte-identical
+PASS p-nothing-launched: the real job names and stage folder are still unused
+RESULT PASS, 0 failed

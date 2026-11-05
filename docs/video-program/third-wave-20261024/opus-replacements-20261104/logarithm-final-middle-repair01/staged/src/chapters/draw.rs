@@ -345,22 +345,10 @@ pub fn precisely(kit: &Kit, stage: &mut Stage<'_>, words: &str) -> fmn::Result<M
 /// a proposal until heard against the voice).
 pub const THINK: f64 = 4.0;
 
-/// The line under every prediction bar, at the size of the fine print.
-const PAUSE_WORDS: &str = "pause for more time";
-const PAUSE_SIZE: f64 = 22.0;
-/// From the bar's centre down to the line's centre.
-const PAUSE_DROP: f64 = 0.27;
-
-/// The pause line of a bar centred at `at`, detached.
-fn pause_line(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
-    kit.text(stage, PAUSE_WORDS, PAUSE_SIZE, Palette::dim(), v(at[0], at[1] - PAUSE_DROP))
-}
-
 /// Leave the viewer `THINK` seconds with the question: the current line
 /// finishes, the music has the gap to itself, and only then does a thin bar
-/// drain under `at`, over its pause line, while the picture holds still.
-/// Nothing is revealed before it ends. The hold moves no cue: the gap's own
-/// wait reaches the same frame.
+/// drain under `at` while the picture holds still. Nothing is revealed before
+/// it ends. The hold moves no cue: the gap's own wait reaches the same frame.
 pub fn predict(kit: &Kit, stage: &mut Stage<'_>, at: Vec3, width: f64) -> fmn::Result<()> {
     kit.hold(stage)?;
     kit.mark(stage, "predict");
@@ -381,12 +369,9 @@ pub fn predict(kit: &Kit, stage: &mut Stage<'_>, at: Vec3, width: f64) -> fmn::R
         m
     });
     stage.add_to_scene(bar)?;
-    // the line comes and goes with the bar: neither spends any of the gap
-    let pause = pause_line(kit, stage, at)?;
-    stage.add_to_scene(pause)?;
-    // a bare probe in the scene drives the tracker by the clock, so the bar
-    // drains during the music's own gap rather than in a played animation
-    let probe = stage.arena_mut().add(VMobject::new());
+    // the pause line doubles as the probe: in the scene it drives the tracker by the
+    // clock, so the bar drains during the music's own gap, and it fades with the bar
+    let probe = pause_line(kit, stage, at)?;
     stage.add_to_scene(probe)?;
     let drained = stage.add_dt_updater(
         probe,
@@ -401,7 +386,19 @@ pub fn predict(kit: &Kit, stage: &mut Stage<'_>, at: Vec3, width: f64) -> fmn::R
     }
     kit.music_breath(stage, THINK)?;
     stage.clear_updaters(probe, true);
-    fade_out_all(stage, &[bar, pause, probe], 0.25)
+    fade_out_all(stage, &[bar, probe], 0.25)
+}
+
+/// The line under every prediction bar, at the size of the fine print.
+const PAUSE_WORDS: &str = "pause for more time";
+const PAUSE_SIZE: f64 = 22.0;
+/// From the bar's centre down to the line's centre.
+const PAUSE_DROP: f64 = 0.27;
+
+/// The pause line of a bar centred at `at`, detached.
+fn pause_line(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
+    let below = v(at[0], at[1] - PAUSE_DROP);
+    kit.text(stage, PAUSE_WORDS, PAUSE_SIZE, Palette::dim(), below)
 }
 
 // ------------------------------------------------------------ the ruler

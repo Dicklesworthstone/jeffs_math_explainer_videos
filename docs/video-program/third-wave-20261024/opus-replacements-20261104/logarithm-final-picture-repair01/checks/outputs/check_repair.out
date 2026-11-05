@@ -1,0 +1,52 @@
+TIMING computed, not measured; baseline frames from the verification record
+  chapter 11 16550 frames, unchanged
+  chapter 12 9837 -> 10257 frames (163.95 s -> 170.95 s)
+  hold from local frame 9837 (163.95 s), 330 frames
+  fade from local frame 10167 (169.45 s), 90 frames
+  film 116245 -> 116665 frames (1937.42 s -> 1944.42 s), before root's 04_7 delta
+PASS baseline unreachable.rs: c822e8b46796e79e
+PASS baseline what_it_forgets.rs: 6951d3b2f1573876
+PASS patch touches two files: 2 files
+PASS patch rebuilds both candidates: every context line matched
+PASS control: patch refuses a changed baseline: unreachable.rs: line 57 does not match the patch
+PASS workspace unreachable.rs: byte equal to the before copy
+PASS workspace what_it_forgets.rs: byte equal to the before copy
+PASS map row 11_3: line, marker, interval, file hash
+PASS map row 11_20: line, marker, interval, file hash
+PASS map row 12_5: line, marker, interval, file hash
+PASS sample entries are the fact: facts.rs and oracle.py agree: 0.4 0.6 / -0.5 -0.3; card prints them with Rust to_string
+PASS gap of the sample: hypot of the two parts 1.1715, shown 1.17
+PASS hold 11_3: unreachable.rs say line 963, hold line 1070; baseline reproduces the stored hash True; candidate unchanged True
+PASS hold 11_20: unreachable.rs say line 1501, hold line 1590; baseline reproduces the stored hash True; candidate unchanged True
+PASS hold 12_5: what_it_forgets.rs say line 1099, hold line 1123; baseline reproduces the stored hash True; candidate unchanged True
+PASS cue order unreachable.rs: 68 cue references
+PASS cue order what_it_forgets.rs: 37 cue references
+PASS chapter 11 changed lines: baseline ranges [(57, 57), (800, 800), (807, 807), (832, 832), (839, 839), (958, 958), (1197, 1197), (1244, 1244), (1620, 1627), (1662, 1662)]
+PASS chapter 11 clock lines pinned: fade 0.5, swap 0.4, tween 2.6 keep their run times
+PASS other changed lines hold no clock call: text, place, list and import only
+PASS helpers play only the listed calls: ['fade_in_all(stage, &[line, gloss], 0.5)?;', 'swap(stage, &[out], &inn, 0.4)?;', 'stage.play_prepared(anims)?;']
+PASS tween and fades share one run time: tween_leaving plays both in one play_prepared
+PASS chapter 12 changed lines: line 44 import; lines 1309 to 1312 added; lines 1 to 1308 otherwise same
+PASS closing order: 12_21, card, hold, fade, finish
+PASS F2 no log A: film names one complex logarithm, e^X = A
+PASS F2 formula has one source: the native test builds the film's helper at the film's size and place
+PASS F1 glosses: Liouville footer in film and twice in tests; tr spelled out; colon gone
+PASS M1 sample bound to its fact: no number typed; 11_4's sample words kept
+PASS gloss right edge estimate: 6.08 < 6.86
+PASS footer width estimate: 11.76 < 13.6
+PASS sample word estimate: right 0.76 < 2.05
+PASS sample card estimate: card -0.47 to 0.87; name ends -0.69
+PASS closing adds 7.0 s: 330 + 90 frames
+PASS baseline frames: 16550, 9837, 116245
+PASS control: a line added above hold 11_3: fails hold 11_3
+PASS control: a word changed inside hold 12_5: fails hold 12_5
+PASS control: tween 2.6 -> 2.7: fails chapter 11 clock lines pinned
+PASS control: log A restored: fails F2 no log A
+PASS control: hold before the card: fails chapter 12 changed lines
+PASS control: old footer restored: fails F1 glosses
+PASS control: typed sample: fails M1 sample bound to its fact
+PASS no absolute path or user name in the bundle: []
+CANDIDATE HASHES (new file sha256 for the map rows; lines, markers and intervals above are unchanged)
+  unreachable.rs c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7 -> ba25565067fd68fb3f51f8eee3a1a381df05985e9ef5f35d3cb1d6bb40da0e53
+  what_it_forgets.rs 6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28 -> 5d04fefaef89cc7b2f2f98b006a54ca9181226904b6c9eb509466246dd649982
+42 checks, 0 failed. Not compiled, not tested in Cargo, not rendered, not heard.

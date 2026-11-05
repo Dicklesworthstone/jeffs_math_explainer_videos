@@ -1,0 +1,58 @@
+--- before/undoing_growth.rs
++++ undoing_growth.rs
+@@ -804,6 +804,34 @@
+         let thousand = kit.tex(
+             stage,
+             &format!(
++                r"t = \frac{{\ln {}}}{{{}}} \approx \frac{{{}}}{{{}}}",
++                fact("real.growth_target")?,
++                fact("real.rate")?,
++                fact("real.ln_thousand")?,
++                fact("real.rate")?
++            ),
++            30.0,
++            green,
++            &[],
++            v(4.4, -1.3),
++        )?;
++        let thousand_at = fact_f64("real.growth_target")?.log2();
++        let far_at = g(fact_f64("real.thousand_years")?, thousand_at);
++        let far = dot(stage, far_at, 0.1, green);
++        let far_word = kit.text_left(
++            stage,
++            &format!("×{}", fact("real.growth_target")?),
++            20.0,
++            green,
++            v(far_at[0] + 0.22, far_at[1] - 0.2),
++        )?;
++        fade_in_all(stage, &[thousand], 0.5)?;
++        kit.until_sentence(stage, "04_7", 5)?;
++        // The numerical answer belongs to "About a hundred and thirty-eight
++        // years", not the preceding sentence that sets up the division.
++        let thousand_answer = kit.tex(
++            stage,
++            &format!(
+                 r"t = \frac{{\ln {}}}{{{}}} \approx \frac{{{}}}{{{}}} \approx {}",
+                 fact("real.growth_target")?,
+                 fact("real.rate")?,
+@@ -816,18 +844,8 @@
+             &[],
+             v(4.4, -1.3),
+         )?;
+-        let thousand_at = fact_f64("real.growth_target")?.log2();
+-        let far_at = g(fact_f64("real.thousand_years")?, thousand_at);
+-        let far = dot(stage, far_at, 0.1, green);
+-        let far_word = kit.text_left(
+-            stage,
+-            &format!("×{}", fact("real.growth_target")?),
+-            20.0,
+-            green,
+-            v(far_at[0] + 0.22, far_at[1] - 0.2),
+-        )?;
+-        fade_in_all(stage, &[thousand, far, far_word], 0.5)?;
+-        kit.until_sentence(stage, "04_7", 5)?;
++        fade_out_all(stage, &[thousand], 0.2)?;
++        fade_in_all(stage, &[thousand_answer, far, far_word], 0.2)?;
+         let mut tens = Vec::new();
+         for d in 1..=DOUBLINGS {
+             let t = f64::from(d) * 2f64.ln() / rate;

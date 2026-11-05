@@ -1,0 +1,99 @@
+helper 797b4394d407; version 4 debd6f757ba5; integration 8f7c4a9f45c4
+A. real outputs, read only
+PASS  the table rules hold on stage09's real timeline02  [13 chapters, 116245 frames]
+PASS  stems and QA hold on stage09's real score02, with its 26 null metrics
+PASS  that includes the split stems  [04_undoing_growth 05_complex_turns 06_lifting_loops 11_unreachable]
+PASS  stage09 against itself reports zero deltas
+PASS  root's real build-inputs01.json binds every file the build gate requires  [30 required of 4347]
+PASS  and none of its rows has moved
+PASS  the binary gate: stage09's real binary names its own crate, not the repaired one
+PASS  the hold gate passes all 15 map16 holds on stage09's own source
+PASS  and refuses exactly the holds in changed files on the repaired source  [04_6 05_1 05_5 06_2 06_4 11_3 11_20 12_5]
+A. comparison rules on copies of stage09's real tables
+PASS  an unpredicted change is reported and refuses nothing  [+60 frames]
+PASS  a changed cue order is a hard failure
+PASS  changed cue audio is a hard failure
+B. scratch repository
+PASS  why the hold gate exists: coherent verify passes the repaired source with the stale map
+PASS  Lavender's real rebind --apply on the scratch stage  [rebind_audio.py 072e74a5f520, exit 0 ]
+PASS  stand-in build through the real guard
+PASS  root's real assemble01.py through the real guard
+C. refusals before anything is bound
+PASS  ready passes on real-format receipts, rebind and assembly  [102 fact rows, map oliver17.json]
+PASS  the assembled narration binds map17  [narration-direction-map-oliver17.json]
+PASS  ready wrote nothing
+PASS  refuses: build receipt with exit 1  [REFUSED: logarithm-final-picture-build01 is not a successful stable run: admitted True, exit 1, finished True, inputs stable True, resource stop False]
+PASS  refuses: build receipt with not admitted  [REFUSED: logarithm-final-picture-build01 is not a successful stable run: admitted False, exit 0, finished True, inputs stable True, resource stop Fals]
+PASS  refuses: build receipt with resource stop  [REFUSED: logarithm-final-picture-build01 is not a successful stable run: admitted True, exit 0, finished True, inputs stable True, resource stop True,]
+PASS  refuses: build receipt with an error  [REFUSED: logarithm-final-picture-build01 is not a successful stable run: admitted True, exit 0, finished True, inputs stable True, resource stop False]
+PASS  refuses: build receipt with inputs changed during the run  [REFUSED: logarithm-final-picture-build01 is not a successful stable run: admitted True, exit 0, finished True, inputs stable False, resource stop Fals]
+PASS  refuses: build receipt with no finish  [REFUSED: logarithm-final-picture-build01 is not a successful stable run: admitted True, exit 0, finished False, inputs stable True, resource stop Fals]
+PASS  refuses: assembly receipt with exit 1  [REFUSED: logarithm-final-picture-assemble01 is not a successful stable run: admitted True, exit 1, finished True, inputs stable True, resource stop Fa]
+PASS  refuses: a receipt for another script  [REFUSED: logarithm-final-picture-build01 ran ['/bin/bash', 'other.sh'], not SCRATCH/repo/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-r]
+PASS  refuses: no build receipt  [REFUSED: no guard receipt for logarithm-final-picture-build01]
+PASS  poll: unfinished is waiting
+PASS  poll: a half-written receipt is waiting
+PASS  poll: a failed job is failed
+PASS  poll: a good job is ready
+PASS  refuses: the wrong integration hash  [REFUSED: integration.json is fe14c9637f19, root approved 000000000000]
+PASS  refuses: the wrong holds hash  [REFUSED: holds-bound01.json is 18fb86ab1e09, root approved 000000000000]
+PASS  refuses: no holds-bound01.json, which the assembly froze  [REFUSED: logarithm-final-picture-assemble01: its frozen inputs moved after it ran: ['SCRATCH/repo/narration_lab/third-wave-20261024/root/elevenlabs-lo]
+PASS  refuses: an integration that does not approve  [REFUSED: integration.json does not approve this source with unchanged audio]
+PASS  refuses: a preserved unit plan that is not the integrated one  [REFUSED: explainer_corpus/logarithm_mysteries/narration_units.json is not the integrated file]
+PASS  refuses: a source edited after integration  [REFUSED: explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs is not the integrated file]
+PASS  refuses: a manifest that is not the frozen one  [REFUSED: logarithm-final-picture-build01: build-inputs01.json is not the manifest its guard froze]
+PASS  refuses: a frozen manifest that does not bind oracle.py  [REFUSED: logarithm-final-picture-build01: build-inputs01.json does not bind ['SCRATCH/repo/narration_lab/third-wave-20261024/root/elevenlabs-logarithm]
+PASS  refuses: a build input moved after the build  [REFUSED: logarithm-final-picture-build01: its frozen inputs moved after it ran: ['SCRATCH/repo/narration_lab/third-wave-20261024/root/elevenlabs-logar]
+PASS  refuses: no binary  [REFUSED: no binary at SCRATCH/repo/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/final-picture-repair01/logarithm_myste]
+PASS  refuses: a binary compiled for another crate  [REFUSED: the binary was not compiled for the repaired workspace's crate]
+PASS  refuses: a changed WAV  [REFUSED: 09_1.wav differs from stage09]
+PASS  refuses: changed phrase timings  [REFUSED: phrase-timings.json differs from stage09]
+PASS  refuses: an assembly that does not record identity  [REFUSED: the assembly does not record byte-identical audio]
+PASS  refuses: oracle facts that differ  [REFUSED: native and oracle facts differ]
+PASS  refuses: a binary whose facts differ from its record  [REFUSED: the binary's facts differs from its build record]
+PASS  refuses: twelve chapters  [REFUSED: the build's chapter registry is not the 13 chapters: ['01_building_ruler', '02_slide_rule', '03_folded_decade', '04_undoing_growth', '05_comp]
+PASS  refuses: a changed tool  [REFUSED: workspace tools/narration_cache.py: sha256 d729ce2201e7, expected 47331efd3952 (SCRATCH/repo/narration_lab/third-wave-20261024/root/elevenlab]
+PASS  refuses: an audit whose hold differs from the map  [REFUSED: hold 04_6: the map and audit differ]
+PASS  refuses: an audit whose closing marker left its line  [REFUSED: closing hold 12_21 in what_it_forgets.rs: the marker left line 1311]
+PASS  refuses: an audit naming the old map  [REFUSED: the narration and holds-bound01.json bind different maps]
+PASS  refuses: an audit missing a hold  [REFUSED: the map and the audit list different holds]
+PASS  refuses: an audit of another integration  [REFUSED: holds-bound01.json audits another integration]
+PASS  refuses: the real coherent verify rejecting a changed report  [REFUSED: coherent verify refused: coherent-narration: report hash changed]
+PASS  refuses: a step before the binding exists  [REFUSED: no binding SCRATCH/repo/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/final-picture-repair01/final-picture-bin]
+PASS  the seal command
+PASS  the seal command refuses a changed bundle file
+C. controllers launch nothing when they must not
+PASS  a wrong seal launches nothing
+PASS  a failed build launches nothing
+PASS  unapproved holds launch nothing
+PASS  a deadline launches nothing
+B. both real controllers, end to end
+PASS  the timeline controller finishes  [Timeline finished, verified and compared; score not launched]
+PASS  the job ran under the real guard, from version 4's unchanged template
+PASS  its frozen inputs bind the binary, narration, holds, map, integration and both prior receipts  [158 rows]
+PASS  the comparison reports the stand-in's actual deltas, not equality  [film +444 frames, +7.4 s]
+C. tables after the timeline
+PASS  verify-step passes the 13 full tables
+PASS  refuses: a missing table  [REFUSED: missing table 09_matrix_logs.cues.tsv]
+PASS  refuses: cues out of script order  [REFUSED: 09_matrix_logs: the tables' cues are not the script's]
+PASS  refuses: a cue playing old narration  [REFUSED: 09_1: plays outside the narration]
+PASS  refuses: a cue log hash that is not the WAV's  [REFUSED: 09_1: the cue log's hash is not the WAV's]
+PASS  refuses: cues.tsv disagreeing with the timeline  [REFUSED: 09_1: cues.tsv and the timeline disagree]
+PASS  refuses: a cue running past the end  [REFUSED: 09_1: runs past the chapter's end]
+PASS  refuses: a timeline that moved after its summary  [REFUSED: 09_matrix_logs: timeline moved]
+PASS  refuses: a second timeline job  [REFUSED: SCRATCH/repo/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/final-picture-repair01/jobs/logarithm-final-picture]
+PASS  refuses: a second comparison  [REFUSED: SCRATCH/repo/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/final-picture-repair01/schedule-comparison01.json e]
+PASS  refuses: a second binding  [REFUSED: SCRATCH/repo/narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/final-picture-repair01/final-picture-binding01.json]
+PASS  a failed timeline launches no score
+PASS  the score controller finishes  [Score finished, verified and compared; render not launched]
+PASS  the score comparison reports the changed stems and the QA change  [04_undoing_growth 12_what_it_forgets]
+C. stems and QA after the score
+PASS  verify-step passes 13 stems and QA reports, with their null metrics
+PASS  refuses: a failed QA metric under a passed report  [REFUSED: 09_matrix_logs: QA failed ['finite']]
+PASS  refuses: a QA length that is not the chapter's  [REFUSED: 09_matrix_logs: QA measured length [1], not 4407200]
+PASS  refuses: a stem shorter than its header  [REFUSED: 09_matrix_logs.music.f32.wav: the data is shorter than its header says]
+PASS  refuses: a stem one chapter frame short  [REFUSED: 09_matrix_logs: the stem holds 4406400 samples; the chapter needs 4407200]
+PASS  refuses: a missing QA report  [FileNotFoundError: [Errno 2] No such file or directory: 'SCRATCH/repo/narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-fina]
+PASS  root's real render-master01.py prerequisites hold on these outputs  [render-master01.py 752fe43f73a9 ]
+PASS  the real repair folder and lane got none of this run's outputs
+ALL 89/89 PASS. Stand-in kit and build; no real build, assembly, timeline or score ran.

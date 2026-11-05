@@ -1,0 +1,31 @@
+{
+  "recorded_utc": "2026-11-05T21:18:21+00:00",
+  "findings": [
+    "F1 det and trace appear without saying what they are",
+    "F2 log A on screen for a matrix with no principal logarithm",
+    "F3 the film stops 0.78 s after the last word with no fade or closing hold",
+    "M1 11_5's arrows use a concrete X the card never gives"
+  ],
+  "review": "logarithm-final-review-pane169-01",
+  "original_workspace": "logarithm-stage09-workspace01",
+  "originals": {
+    "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs": {
+      "original_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "candidate_sha256": "ba25565067fd68fb3f51f8eee3a1a381df05985e9ef5f35d3cb1d6bb40da0e53"
+    },
+    "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs": {
+      "original_sha256": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+      "candidate_sha256": "5d04fefaef89cc7b2f2f98b006a54ca9181226904b6c9eb509466246dd649982"
+    }
+  },
+  "change": "Picture only. Chapter 11 keeps its clock. Chapter 12 adds a 5.5 s reading hold and a 1.5 s fade after the complete last cue. No script, take, audio or fact changed.",
+  "held_lines_moved": false,
+  "narration_changed": false,
+  "production_source_unchanged": true,
+  "rustfmt_check": true,
+  "compiled": false,
+  "cargo_tests_run": false,
+  "rendered": false,
+  "listened": false,
+  "fine_sync_accepted": false
+}

@@ -1,0 +1,125 @@
+{
+ "files": {
+  "draw.rs": {
+   "sha256_base": "2a4e84504bab636433cd419b2c9990986d7c549bf05aa3432d33bd5a9b60fe28",
+   "sha256_staged": "060504c6b72acdc32758a417db67a87e206a6f464bfbb125d6f21c29d95a83be",
+   "lines_base": 779,
+   "lines_staged": 806,
+   "changed_lines": "first difference at line 372"
+  },
+  "complex_turns.rs": {
+   "sha256_base": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+   "sha256_staged": "678812f166e9ec4b8ef8125283672bf28aa4ba0add0c14a58a4a6f6077800ad8",
+   "lines_base": 1257,
+   "lines_staged": 1257,
+   "changed_lines": [
+    636,
+    718
+   ]
+  },
+  "lifting_loops.rs": {
+   "sha256_base": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346",
+   "sha256_staged": "daf5b18dd4d54714df652acf558b9068f48d573e88e60d205f0ff6ef45f34dfb",
+   "lines_base": 1056,
+   "lines_staged": 1056,
+   "changed_lines": [
+    374
+   ]
+  }
+ },
+ "holds": [
+  {
+   "cue": "05_1",
+   "file": "complex_turns.rs",
+   "say_line": 185,
+   "marker_line": 245,
+   "next_say_line": 249,
+   "marker_old": "predict(&kit, stage, v(2.5, -0.62), 3.0)?;",
+   "marker_new": "predict(&kit, stage, v(2.5, -0.62), 3.0)?;",
+   "interval_old": "5256ae12dfc74fb4a9a30cb3394b4281c7736b52efdc0345e57b565b0fd27859",
+   "interval_new": "5256ae12dfc74fb4a9a30cb3394b4281c7736b52efdc0345e57b565b0fd27859",
+   "interval_changed": false,
+   "baseline_reproduces_recorded_interval": true
+  },
+  {
+   "cue": "05_5",
+   "file": "complex_turns.rs",
+   "say_line": 624,
+   "marker_line": 636,
+   "next_say_line": 639,
+   "marker_old": "predict(&kit, stage, v(OUT.centre[0], -2.75), 3.0)?;",
+   "marker_new": "predict(&kit, stage, v(IN.centre[0] + 2.2, 1.85), 3.0)?;",
+   "interval_old": "93a300682e33fcfeac462b8e81696af114f96e9739a3647ac1748c3d62189dc5",
+   "interval_new": "7e85717991f92e0e27d49b641c2754fb4062db5f56c1fb730a16b99f7370d220",
+   "interval_changed": true,
+   "baseline_reproduces_recorded_interval": true
+  },
+  {
+   "cue": "06_2",
+   "file": "lifting_loops.rs",
+   "say_line": 335,
+   "marker_line": 374,
+   "next_say_line": 377,
+   "marker_old": "predict(&kit, stage, v(Z.centre[0], 2.55), 2.6)?;",
+   "marker_new": "predict(&kit, stage, v(read_x + 1.3, read_y - 1.4), 2.6)?;",
+   "interval_old": "9c1ce6b4868ea9b3fb693ba0290c40ac292aa2b9846d50c883c0cf432e7eb9a7",
+   "interval_new": "ea604094c5df34006a99f6717b1aac553864996314d0b2010ca1ee2ccd356ce5",
+   "interval_changed": true,
+   "baseline_reproduces_recorded_interval": true
+  },
+  {
+   "cue": "06_4",
+   "file": "lifting_loops.rs",
+   "say_line": 417,
+   "marker_line": 475,
+   "next_say_line": 478,
+   "marker_old": "predict(&kit, stage, v(2.4, 1.8), 2.6)?;",
+   "marker_new": "predict(&kit, stage, v(2.4, 1.8), 2.6)?;",
+   "interval_old": "7651918d6c2ca7643ab83eae2e4942bdac5c324220c195fe8594389e80c8c78a",
+   "interval_new": "7651918d6c2ca7643ab83eae2e4942bdac5c324220c195fe8594389e80c8c78a",
+   "interval_changed": false,
+   "baseline_reproduces_recorded_interval": true
+  }
+ ],
+ "old_hash_named_in": {
+  "WS:docs/narration-direction-map-oliver15.json": {
+   "draw.rs": 1,
+   "complex_turns.rs": 4,
+   "lifting_loops.rs": 4
+  },
+  "WS:docs/narration-direction-map-oliver16.json": {
+   "draw.rs": 1,
+   "complex_turns.rs": 4,
+   "lifting_loops.rs": 4
+  },
+  "stage09:candidate/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json": {
+   "draw.rs": 1,
+   "complex_turns.rs": 4,
+   "lifting_loops.rs": 4
+  },
+  "stage09:candidate/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver16.json": {
+   "draw.rs": 1,
+   "complex_turns.rs": 4,
+   "lifting_loops.rs": 4
+  },
+  "stage09:bound-plan/phrase-anchors.json": {
+   "complex_turns.rs": 4,
+   "lifting_loops.rs": 2
+  },
+  "stage09:bound-plan/inputs.sha256": {
+   "draw.rs": 1,
+   "complex_turns.rs": 1,
+   "lifting_loops.rs": 1
+  },
+  "stage09:bound-plan/hold-audit.json": {
+   "draw.rs": 5,
+   "complex_turns.rs": 3,
+   "lifting_loops.rs": 3
+  },
+  "stage09:bound-plan/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver16.json": {
+   "draw.rs": 1,
+   "complex_turns.rs": 4,
+   "lifting_loops.rs": 4
+  }
+ }
+}

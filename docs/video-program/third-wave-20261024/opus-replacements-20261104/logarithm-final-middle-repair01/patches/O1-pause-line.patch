@@ -1,0 +1,65 @@
+--- a/src/chapters/draw.rs
++++ b/src/chapters/draw.rs
+@@ -369,9 +369,9 @@
+         m
+     });
+     stage.add_to_scene(bar)?;
+-    // a bare probe in the scene drives the tracker by the clock, so the bar
+-    // drains during the music's own gap rather than in a played animation
+-    let probe = stage.arena_mut().add(VMobject::new());
++    // the pause line doubles as the probe: in the scene it drives the tracker by the
++    // clock, so the bar drains during the music's own gap, and it fades with the bar
++    let probe = pause_line(kit, stage, at)?;
+     stage.add_to_scene(probe)?;
+     let drained = stage.add_dt_updater(
+         probe,
+@@ -389,6 +389,18 @@
+     fade_out_all(stage, &[bar, probe], 0.25)
+ }
+ 
++/// The line under every prediction bar, at the size of the fine print.
++const PAUSE_WORDS: &str = "pause for more time";
++const PAUSE_SIZE: f64 = 22.0;
++/// From the bar's centre down to the line's centre.
++const PAUSE_DROP: f64 = 0.27;
++
++/// The pause line of a bar centred at `at`, detached.
++fn pause_line(kit: &Kit, stage: &mut Stage<'_>, at: Vec3) -> fmn::Result<Mob> {
++    let below = v(at[0], at[1] - PAUSE_DROP);
++    kit.text(stage, PAUSE_WORDS, PAUSE_SIZE, Palette::dim(), below)
++}
++
+ // ------------------------------------------------------------ the ruler
+ 
+ /// A decade scale: 1 at `one` and 10 a `length` to its right; marks for
+@@ -775,4 +787,19 @@
+         assert_eq!(dx, 32.0 * 0.011);
+         assert_eq!(w, 32.0 * 0.011 + 32.0 * 0.0095);
+     }
++
++    #[test]
++    fn the_pause_line_stays_under_the_narrowest_bar() {
++        probe_scene(|stage| {
++            let kit = Kit::new()?;
++            let line = pause_line(&kit, stage, ORIGIN)?;
++            // the narrowest bar is 2.6 wide, so it runs ±1.3 about `at`
++            let half = stage.get_width(line) / 2.0;
++            assert!(half < 1.3 - 0.1, "half width {half}");
++            // the bar's lower edge is at −0.035
++            let top = stage.get_bounding_box_point(line, UP)[1];
++            assert!(top < -0.035 - 0.1, "top {top}");
++            Ok(())
++        });
++    }
+ }
+--- a/src/chapters/lifting_loops.rs
++++ b/src/chapters/lifting_loops.rs
+@@ -371,7 +371,7 @@
+         play!(stage; tween(turn, 0.93, 1.6)?);
+         let ask = kit.text_left(stage, "back at 1: logarithm = ?", 22.0, gold, v(read_x, read_y - 1.0))?;
+         fade_in_all(stage, &[ask], 0.4)?;
+-        predict(&kit, stage, v(Z.centre[0], 2.55), 2.6)?;
++        predict(&kit, stage, v(read_x + 1.3, read_y - 1.4), 2.6)?;
+ 
+         // 06_3: 2πi. The number came back; the logarithm did not.
+         kit.say(stage, "06_3")?;

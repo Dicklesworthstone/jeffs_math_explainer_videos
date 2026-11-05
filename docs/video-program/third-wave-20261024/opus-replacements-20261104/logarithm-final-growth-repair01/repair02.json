@@ -1,0 +1,8 @@
+{
+  "reason": "Replace undefined reword call with existing sequential fade helpers; same0.4s reveal duration, no script/audio changes",
+  "candidate_sha256": "350ce26fcfd353347f32bc5f8c82ebfc084cb71caae8e5794e03f39756b458fa",
+  "previous_sha256": "2282ee6a3c600035826fe11031e0fca972136517905ee39f03492a9b9671086a",
+  "rustfmt_check": true,
+  "native_build": false,
+  "rendered": false
+}
