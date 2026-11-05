@@ -46,6 +46,8 @@ HOLD_AUDIT = f"{EL}/combined-repair-stage09/bound-plan/hold-audit.json"
 RATE, HOP = 24000, 240
 QUIET_DB, BODY_DB, MIN_RUN, PAUSE = -60.0, -40.0, 5, 15
 EARLY, TIGHT, NEAR = 10, 20, 30  # frames
+JOIN_FLAGS = ("before_pause", "early", "late", "short_pause", "tight", "blip", "pause_not_within_0.3s", "no_pause")
+MARK_FLAGS = ("before_pause", "early", "late", "blip", "pause_not_within_0.3s", "no_pause")
 BLIP_ANSWERS = [("00_6", 1), ("04_5", 1), ("05_4", 1), ("06_6", 2), ("06_6", 4), ("08_2", 1), ("08_2", 3)]
 PRIORITY = ["00_5", "04_4", "08_5"]
 READ = {}
@@ -318,8 +320,7 @@ def main():
                "parameters": {"frame_s": 0.01, "quiet_db": QUIET_DB, "body_db": BODY_DB, "min_run_s": 0.05, "pause_s": 0.15,
                               "early_s": 0.10, "tight_s": 0.20, "boundary_window_s": 1.0, "mark_window_s": 0.5},
                "join_flags": {f: [f"{r['cue']} s{r['sentence']}" for r in rows] for f, rows in flagged.items()},
-               "mark_flags": {f: [f"{r['cue']} b{r['byte']}" for r in marks if f in r["flags"]] for f in
-                              ("before_pause", "early", "late", "tight", "no_pause", "blip")},
+               "mark_flags": {f: [f"{r['cue']} b{r['byte']}" for r in marks if f in r["flags"]] for f in MARK_FLAGS},
                "priority": {cue: {"edges": next(e for e in edges if e["cue"] == cue), "joins": [r for r in joins if r["cue"] == cue],
                                   "marks": [r for r in marks if r["cue"] == cue]} for cue in PRIORITY},
                "blip_answers": [next(r for r in joins if r["cue"] == c and r["sentence"] == n) for c, n in BLIP_ANSWERS],
@@ -330,7 +331,7 @@ def main():
     print(f"chain: {len(cues)} cues, {len(joins)} boundaries, {len(marks)} marks; problems: {problems or 'none'}")
     for f, rows in flagged.items():
         print(f"join {f}: {len(rows)}" + (": " + ", ".join(f"{r['cue']} s{r['sentence']}" for r in rows) if rows else ""))
-    for f in ("before_pause", "early", "late", "tight", "no_pause", "blip"):
+    for f in MARK_FLAGS:
         got = summary["mark_flags"][f]
         print(f"mark {f}: {len(got)}" + (": " + ", ".join(got) if got else ""))
     print(f"discrepant cues {len(discrepant)}: {len(diffs)} recognizer differences located")
