@@ -1,0 +1,22 @@
+PASS guard-pins: both pinned guard files match their hashes
+PASS guard-host: on another host guard01.py refuses before doing anything
+PASS guard-thresholds: native 10, ASR 12, stop 8, per job 4, work 56, target growth 20
+PASS guard-siblings: overrides take effect when sampled, a missing target counts as 0, and the siblings count apart
+PASS guard-baseline: baseline and lock follow WORK and ROOT into O, and the guard never reads the provenance copy
+PASS source-current: 4308 rows, all equal to the current local bytes
+PASS source-against-freeze: no row shared with the local build freeze changed
+PASS source-dropped: 67 local-only rows: 59 old target artifacts and 8 others that build01.sh does not name; cargo reads one, see found-config
+PASS source-transferred: every manifest row is in a transfer list
+PASS source-named: every file build01.sh names is frozen
+PASS source-repairs: the six chapters equal their repair files byte for byte
+PASS build-pinned: pinned nightly, locked and offline cargo, and a target that must start absent
+PASS build-growth: closest real builds grew 0.72 GiB (release test and build) and 1.34 GiB (debug with clippy), against the 4 GiB cap
+PASS build-facts: facts.rs, model.rs and oracle.py are unchanged since stage09, and its binary and the oracle match byte for byte over 102 rows
+PASS local-no-duplicate: no local final-picture job, binary or exit file exists
+PASS found-units: narration_units.json is frozen for the remote build, and the rebind rewrites it; the local chain excludes it and refuses it
+PASS found-units-only: no other rebind output is a frozen row
+PASS found-config: the cargo config is in the local freeze but not the remote manifest or transfer lists, and the local bytes equal the hash root read on the remote
+PASS found-binary: the binary lands in O before clippy and the facts check, and no job file records its hash
+PASS found-guard-wiring: both local continuations hard-code the original guard, not guard01.py
+PASS next-step-transferred: all 276 inputs of the rebind and assembly are in the transfer lists
+RESULT PASS, 0 failed

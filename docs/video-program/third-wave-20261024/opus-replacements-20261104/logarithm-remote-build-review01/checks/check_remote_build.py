@@ -89,8 +89,9 @@ def source_checks(remote, local, lists):
     check('source-current', len(remote) == 4308 and not missing and not differ, '4308 rows, all equal to the current local bytes')
     check('source-against-freeze', not [p for p in set(remote) & set(local) if remote[p] != local[p]], 'no row shared with the local build freeze changed')
     only_local = [p for p in set(local) - set(remote) if '/target/' not in p]
-    check('source-dropped', len(only_local) == 8 and len(set(local) - set(remote)) == 67,
-          '67 local-only rows: 59 old target artifacts and 8 others, none named by build01.sh except the config in found-config')
+    script = (O / 'build01.sh').read_text()
+    check('source-dropped', len(only_local) == 8 and len(set(local) - set(remote)) == 67 and not [p for p in only_local if Path(p).name in script],
+          '67 local-only rows: 59 old target artifacts and 8 others that build01.sh does not name; cargo reads one, see found-config')
     check('source-transferred', not set(remote) - lists, 'every manifest row is in a transfer list')
     text = (O / 'build01.sh').read_text()
     W = Path(next(p for p in remote if p.endswith('/engine-budget.toml'))).parent
