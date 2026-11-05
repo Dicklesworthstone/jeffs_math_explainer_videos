@@ -1,3 +1,17 @@
+## Current production handoff — 2026-11-05T06:22:00.424401+00:00
+
+- **Priority:** finish complex analysis and logarithm first. Use native FrankenManim; keep depth and motivation. No publication until final checks and actual review.
+- **Voice:** logarithm stays ElevenLabs Oliver; all other new films use Frederick Surrey. Preserve all old takes and failed attempts.
+- [x] Logarithm stage09: all 80 current cues assembled; decode, preparation, assembly and timing jobs passed with stable input hashes. 33 provisional phrase marks installed. No speed/pitch changes.
+- [x] Logarithm workspace build02: actual guarded exit0, 241 tests and strict Clippy; all 13 chapters. Correct workspace binary `e88e58e0`; old compiled-path failure preserved.
+- [ ] Ruby: finish and seal render-preparation02 against actual audio and build02. Root then replay, bind, launch guarded timeline, inspect schedules/layout, score, narrated render, master and final verification. No stage09 narrated render launched yet.
+- [ ] Bronze: independent review of final verification helper. Lavender: actual assembled-audio joins and provisional timing inspection. White: Frederick timing repairs and explicit05_1 submission-resolution support. All four CC panes observed active.
+- [x] Complex Frederick: 48/105 cue pairs retained (96 full WAVs), through08_2; 57 cues unsubmitted. New07_4–07_6 and08_1–08_2 generated once each after provider-history checks.
+- [x] Recognition through ingest08:82 takes processed, ten latest transcripts read; numeric formatting and nonzero/non-zero tokenization differences only.
+- [ ] Recognition plan09-a1 already launched once in persistent tmux `oliver-complex-frederick-recognition09` for12 takes07_3–07_6/08_1–08_2; frozen inputs `e13e203c`. Inspect actual receipt before ingest; never duplicate.
+- [ ] Cue05_1 retains both historical submission records; explicit resolution repair is in progress, not installed. Do not regenerate or delete evidence.
+- [ ] Listening, fine synchronization, independent final audiovisual acceptance, final pictures/captions and publication remain open. ASR and technical success do not close them.
+
 2026-11-05T06:15:13.447486+00:00: Complex07_3 Frederick generatedonce, bothcomplete distinct48kWAVs retained:43/105cuepairs86takes62unsubmitted. Recognitionplan08-a1 terminalexit0/no stop; ingest08 processed10/10zero failed,82totalprocessed. All10transcripts read:06_7numericformatting/07_2non-zero tokenization only; root-transcript-review01.json. No listening/fine-sync/finalAV acceptance. Log ws-build02 alreadyactualPASS; fourworkers continue renderintegration, independentverification, actualjoininspection and Frederickrepairs.
 
 2026-11-05T06:13:03.966658+00:00: Logarithm ws-build02 ACTUAL terminalexit0 stable4313bindings; build-verifyPASS241tests/strictClippy/13chapters. Binarye88e58e0 correctly namesWS inall4units; oldbinary preserved. Audio80cues/33provisionalmarks ready; Ruby renderadaptation active, Bronze independentverifier, Lavender actualjoins, White Frederickrepairs. Complex06_7/07_1/07_2 generatedonce each with freshproviderhistory;6complete distinctWAVs retained,42/105cuepairs84takes63unsubmitted. Guarded recognitionplan08-a1 launched on10newtakes afterbuildsuccess, frozen0e307f4b; neverduplicate.05_1 stillrefusedforambiguoussubmission, repairinprogress notinstalled. Listening/fine-sync/finalAV and publication OPEN.
