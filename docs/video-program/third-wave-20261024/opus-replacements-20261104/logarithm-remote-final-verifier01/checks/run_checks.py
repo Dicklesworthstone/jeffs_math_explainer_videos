@@ -138,7 +138,7 @@ def main():
     added = sorted(k for k in new if k not in old)
     removed = sorted(k for k in old if k not in new)
     want_changed = ["BINDING_SCHEMA", "Ctx", "JOB_TEMPLATE", "PINS", "SCOPE", "STAGE", "bind_master", "check", "gather", "main", "read_schedule", "run_job", "verify_job", "write_job"]
-    want_added = ["HOST", "MIN_PILLOW", "O_REL", "REMOTE_GUARD_PINS_REL", "REMOTE_GUARD_REL", "RENDER_ATTEMPT", "TOOLS_SCHEMA", "check_pillow", "check_tool_path", "check_tools",
+    want_added = ["COMPARISONS", "HOST", "MIN_PILLOW", "O_REL", "REMOTE_GUARD_PINS_REL", "REMOTE_GUARD_REL", "RENDER_ATTEMPT", "TOOLS_SCHEMA", "check_comparisons", "check_pillow", "check_tool_path", "check_tools",
                   "on_host", "pillow_version", "tool_path", "tool_row", "write_tools"]
     must_keep = ["parse_timeline", "schedule", "layout_anchors", "parse_captions", "sentence_onsets", "wav_seconds", "read_script", "registry",
                  "check_captions", "check_phrases", "media_facts", "loudness_summary", "make_sheets", "decode_lines",
@@ -347,10 +347,10 @@ def main():
     real_tools = refusal(V.write_tools, argparse.Namespace(out=str(scratch / "t.json"), ffmpeg="/x", ffprobe="/x"))
     V.HOST = socket.gethostname().split(".")[0].lower()  # this process only: every worker fact below is a stand-in
     S, O = scratch / "S", scratch / "O"
-    lane, jobs, narration, ws = O / "jobs", O / "render-jobs01", O / "narration01", S / "workspace"
+    lane, jobs, narration, ws = O / "jobs", O / "render-jobs01", O / "jobs" / f"{V.STAGE}-assemble01" / "narration01", S / "workspace"
     crate = ws / "explainer_corpus/logarithm_mysteries"
     work = lane / f"{V.STAGE}-render-work01"
-    for folder in (lane, jobs, narration, crate / "docs", crate / "src/chapters", work, O / "audio-jobs01"):
+    for folder in (lane, jobs, narration, crate / "docs", crate / "src/chapters", work, O / "job-scripts"):
         folder.mkdir(parents=True)
     source = REPO / D.CRATE
     for rel in ["script.tsv", "narration_units.json"] + [f"src/chapters/{p.name}" for p in sorted((source / "src/chapters").glob("*.rs"))]:
@@ -405,7 +405,7 @@ def main():
 
     def job_folder(name, files, line, command, inputs):
         folder = lane / name
-        folder.mkdir()
+        folder.mkdir(exist_ok=True)  # the assemble job already holds narration01
         start = tick()
         for rel, body in files.items():
             (folder / rel).parent.mkdir(parents=True, exist_ok=True)
@@ -447,12 +447,12 @@ def main():
         summary_rows.append({"chapter": ch, "frames": t["frames"], "cues": [x["id"] for x in t["lines"]], "timeline_sha256": sha(work / f"{ch}.timeline.tsv")})
         offset += t["frames"]
     total_fixture = offset
-    timeline_inputs = O / "audio-jobs01" / f"{tl}-inputs.json"
+    timeline_inputs = O / "job-scripts" / f"{tl}-inputs.json"
     timeline_inputs.write_text(json.dumps({"files": [{"path": str(crate / "script.tsv"), "sha256": sha(crate / "script.tsv")}]}))
     job_folder(tl, {"timeline-summary.json": json.dumps({"fps": 60, "chapters": summary_rows, "cues": 80, "total_frames": total_fixture}),
                     **{f"timeline-output/{ch}.timeline.tsv": texts[ch] for ch in V.CHAPTERS}},
-               V.TIMELINE_SUCCESS, ["python3", "-I", "-B", str(O / "audio-jobs01" / f"{tl}.py")], timeline_inputs)
-    job_folder(sc, {"scored/stems/qa/stand-in.json": "{}"}, V.SCORE_SUCCESS, ["python3", "-I", "-B", str(O / "audio-jobs01" / f"{sc}.py")], timeline_inputs)
+               V.TIMELINE_SUCCESS, ["python3", "-I", "-B", str(O / "job-scripts" / f"{tl}.py")], timeline_inputs)
+    job_folder(sc, {"scored/stems/qa/stand-in.json": "{}"}, V.SCORE_SUCCESS, ["python3", "-I", "-B", str(O / "job-scripts" / f"{sc}.py")], timeline_inputs)
     render_jobs = {ch: f"{V.STAGE}-render-{ch}-01" for ch in V.CHAPTERS}
     soundtracks = {}
     for ch, job in render_jobs.items():
@@ -485,8 +485,11 @@ def main():
     binding_body = {"schema": V.BINDING_SCHEMA, "approved": {"integration_sha256": sha(integration)}, "build": {"job": build_job, "binary": str(binary), "binary_sha256": sha(binary)},
                     "audio": {"narration": str(narration)}, "voice": "STAND-IN", "cues": 80, "chapters": 13, "crate": {str(p.relative_to(crate)): sha(p) for p in crate_rows},
                     "direction": {"map": f"explainer_corpus/logarithm_mysteries/{V.DIRECTION_MAP}", "map_sha256": sha(map17), "holds": 15, "closing_hold_cue": "12_21"},
-                    "files": {str(build_inputs): sha(build_inputs)}}
+                    "helper_sha256": "STAND-IN", "remote_helper_sha256": "STAND-IN",
+                    "files": {str(build_inputs): sha(build_inputs), str(assemble_inputs): sha(assemble_inputs)}}
     binding.write_text(json.dumps(binding_body, indent=1))
+    (O / "schedule-comparison01.json").write_text(json.dumps({"hard_failures": [], "not_as_predicted": [], "chapters": [], "cues": []}))
+    (O / "score-comparison01.json").write_text(json.dumps({"hard_failures": [], "fingerprint_before": {}, "fingerprint_after": {}}))
     inputs_path.write_text(json.dumps({"files": [{"path": str(p), "sha256": sha(p)} for p in bound_paths]}, indent=2))
     (lane / mjob).mkdir()
     (lane / mjob / "master-summary.json").write_text(json.dumps({k: {"path": str(p), "sha256": sha(p)} for k, p in (("master", master), ("srt", srt), ("vtt", vtt))}))
@@ -526,7 +529,7 @@ def main():
         d["approved"]["integration_sha256"] = sha(integration)
         d["crate"] = {str(p.relative_to(crate)): sha(p) for p in tree_rows(crate)}
         d["direction"]["map_sha256"] = sha(map17)
-        d["files"] = {str(build_inputs): sha(build_inputs)}
+        d["files"] = {str(build_inputs): sha(build_inputs), str(assemble_inputs): sha(assemble_inputs)}
         binding.write_text(json.dumps(d, indent=1))
         rows_now = json.loads(inputs_path.read_text())
         for row in rows_now["files"]:
@@ -585,6 +588,12 @@ def main():
     def stale_hold(d):
         d["visual_holds"][0]["sha256"] = "0" * 64
 
+    def retimed(ch, change):
+        """One consistent edit of a chapter's schedule: the render's copy, the timeline job's copy and the summary's hash."""
+        new_hash = hashlib.sha256(change((work / f"{ch}.timeline.tsv").read_bytes())).hexdigest()
+        return [(work / f"{ch}.timeline.tsv", change), (lane / tl / "timeline-output" / f"{ch}.timeline.tsv", change),
+                js(lane / tl / "timeline-summary.json", lambda d: next(x for x in d["chapters"] if x["chapter"] == ch).update(timeline_sha256=new_hash))]
+
     def report_map(**fields):
         return js(narration / "report.json", lambda d: d["meta"]["direction_contract"]["binding"]["contract"]["map"].update(fields))
 
@@ -626,6 +635,9 @@ def main():
         "the master did not bind integration.json": ([drop_manifest_row("/integration.json")], {"seal": True}, "did not bind integration.json"),
         "the master did not bind the map": ([drop_manifest_row(V.DIRECTION_MAP)], {"seal": True}, "did not bind the crate's"),
         "the master did not bind the unit plan": ([drop_manifest_row("/narration_units.json")], {"seal": True}, "did not bind the crate's"),
+        "schedule comparison hard failure": ([field(O / "schedule-comparison01.json", hard_failures=["x"])], {}, "hard failures"),
+        "score comparison hard failure": ([field(O / "score-comparison01.json", hard_failures=["x"])], {}, "hard failures"),
+        "a comparison with no failure list": ([js(O / "score-comparison01.json", lambda d: d.pop("hard_failures") and None or d.clear())], {}, "hard failures"),
         "a timeline with a comment added": ([(work / "05_complex_turns.timeline.tsv", lambda d: d + b"# same schedule, other bytes\n")], {"seal": True}, "timeline bytes differ"),
         "a summary with another timeline hash": ([js(lane / tl / "timeline-summary.json", lambda d: d["chapters"][3].update(timeline_sha256="0" * 64))], {"seal": True}, "timeline bytes differ"),
         "timeline failed": ([field(lane / tl / "resource-receipt.json", exit=1)], {"seal": True}, f"{tl} did not pass"),
@@ -664,9 +676,9 @@ def main():
         "a stale hold row": ([js(map17, stale_hold)], {"seal": True}, "stale source hash"),
         "audio record not identical": ([field(lane / assemble_job / "audio-comparison.json", all_full_wavs_byte_identical=False)], {"seal": True}, "does not record byte-identical audio"),
         "a WAV off the audio record": ([js(lane / assemble_job / "audio-comparison.json", lambda d: d["wav_sha256"].update({"05_1": "0" * 64}))], {"seal": True}, "WAVs differ from the assembly's record"),
-        "the closing breath is gone": ([(work / "12_what_it_forgets.timeline.tsv", strip_breath)], {"seal": True}, "one closing breath"),
+        "the closing breath is gone": (retimed("12_what_it_forgets", strip_breath), {"seal": True}, "one closing breath"),
         "the closing record is gone": ([js(integration, lambda d: d.pop("editorial_closing_hold") and None)], {"seal": True}, "editorial_closing_hold names None"),
-        "a predict mark is gone": ([(work / "00_ratio_ruler.timeline.tsv", lambda d: b"\n".join(x for x in d.split(b"\n") if not x.startswith(b"mark\tpredict")))], {"seal": True}, "predict mark"),
+        "a predict mark is gone": (retimed("00_ratio_ruler", lambda d: b"\n".join(x for x in d.split(b"\n") if not x.startswith(b"mark\tpredict"))), {"seal": True}, "predict mark"),
         "a registry without a chapter": ([(crate / "src/chapters/mod.rs", lambda d: d.replace(b'key: "12_what_it_forgets",', b'key_gone: "12",'))], {}, "registry is not the 13"),
         "a script of 79 cues": ([(crate / "script.tsv", lambda d: b"\n".join(x for x in d.split(b"\n") if not x.startswith(b"12_21\t")))], {}, "the script has 79 cues"),
         "a script of 81 cues": ([(crate / "script.tsv", lambda d: d + b"12_22\tAn extra cue.\n")], {}, "the script has 81 cues"),
@@ -747,7 +759,7 @@ def main():
     current = bool(vrows) and vrows[0]["path"] == str(vscript) and all(Path(r["path"]).is_file() and sha(r["path"]) == r["sha256"] for r in vrows)
     named = {Path(r["path"]).name for r in vrows}
     bound_ok = {f"{mjob}.config.json", "integration.json", binding.name, "anchors.json", "unreachable.rs", "what_it_forgets.rs", "draw.rs", "audio-comparison.json",
-                Path(V.DIRECTION_MAP).name, "tools01.json", "ffmpeg", "ffprobe", Path(sys.executable).name, "guard01.py", "guard-pins01.json"} <= named
+                Path(V.DIRECTION_MAP).name, "tools01.json", "schedule-comparison01.json", "score-comparison01.json", "ffmpeg", "ffprobe", Path(sys.executable).name, "guard01.py", "guard-pins01.json"} <= named
     job_cfg = V.read_config(vscript) if vscript.is_file() else {}
     twice = cli("write-job", "--verify", "01", "--job-dir", str(vdir))
     early = cli("verify-job", "--verify", "01", "--job-dir", str(vdir))
@@ -808,7 +820,8 @@ def main():
     def vedit(**fields):
         return [field(vjson, **fields)]
 
-    tampered = {"anchor ledger edited": (vedit(anchors=[]), "verification.json's anchors differ"),
+    tampered = {"comparisons edited": (vedit(comparisons={}), "verification.json's comparisons differ"),
+                "anchor ledger edited": (vedit(anchors=[]), "verification.json's anchors differ"),
                 "tools hash edited": (vedit(tools_sha256="0" * 64), "verification.json's tools_sha256 differ"),
                 "worker edited": (vedit(worker={"host": "elsewhere"}), "names other worker tools"),
                 "closing edited": (vedit(closing={}), "verification.json's closing differ"),
@@ -879,7 +892,7 @@ def main():
           f"STAND-IN ffmpeg, ffprobe and strict check; no media read or written; real caption screen on the fixture SRT; {len(sub_samples)} of the {len(job_cfg['samples'])} planned pictures, "
           f"all one blank test image. run_job's control flow completes under a receipt recording an absolute interpreter, and verify-job passes. verification.json keeps every "
           f"version 02 key ({old_keys[:5]} and the rest), with frames {made['frames']} taken from the fixture's timelines, placement and chapter rows of the same keys as the sealed record, and adds anchors, pause_sites, closing, source_changes, "
-          f"integration_sha256, binding_sha256, tools_sha256 and worker. The strict stand-in reports that PATH gives exactly the pinned tools. Root's real asr01.py bound_proof accepts this verification.json as written (read-only import, paths pointed at the fixture, no ASR). A tool moved after write-job and a run off the worker each refuse before anything is written. Refused after the run: " + "; ".join(f"{n} -> {outcome2[n]!r}" for n in tampered)
+          f"integration_sha256, binding_sha256, tools_sha256, comparisons and worker. The strict stand-in reports that PATH gives exactly the pinned tools. Root's real asr01.py bound_proof accepts this verification.json as written (read-only import, paths pointed at the fixture, no ASR). A tool moved after write-job and a run off the worker each refuse before anything is written. Refused after the run: " + "; ".join(f"{n} -> {outcome2[n]!r}" for n in tampered)
           + f"; an anchor off its picture -> {off_picture!r}. `ran` accepts python3 and an absolute python3.NN only; a job under a bash receipt -> {refused_run!r}, nothing written; restored, verify-job passes")
 
     # ------------------------------------------------------------------ G10 delivered files carry no local path

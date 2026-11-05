@@ -1,0 +1,63 @@
+A. sources and overrides
+PASS  every Python file parses  [Python 3.14.6]
+PASS  the controller parses under macOS /bin/bash
+PASS  job names follow root's
+PASS  jobs run in O/jobs, scripts sit in O/job-scripts, target is O/target
+PASS  the binary is root's and the narration is inside the assemble job
+PASS  the sealed default narration argument was replaced
+PASS  the loaded sealed helper uses these gates and this seal
+PASS  stage09's jobs resolve to the old lane
+PASS  the binding is the name agreed with Bronze
+PASS  no continuation names the old lane or the local guard
+A. entry points, on the real tree, before any job exists
+PASS  gates() reads only names that exist on M  [23 names; []]
+PASS  gates() reads only names that exist on H  [4 names; []]
+PASS  gates() reads only names that exist on N  [3 names; []]
+PASS  the seal command passes both bundles and sees stage09's jobs  [{
+  "seal": "PASS"
+}
+]
+PASS  the seal command refuses another hash
+PASS  refuses: stage09's job not transferred
+PASS  refuses: a tree whose paths are not spelled as in root's manifest
+PASS  poll answers through the sealed command line  [waiting
+]
+PASS  ready reaches the first receipt gate here: the pins hold and no remote job exists  [REFUSED: no guard receipt for logarithm-remote-build01
+]
+PASS  a step before the binding refuses  [ion_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01/remote-binding01.json: bind needs the receipts and approvals first
+]
+PASS  none of that wrote into O
+A. real inputs, read only
+PASS  root's manifest binds the unit plan, so the plain local freeze would refuse
+PASS  the real rebind freeze: no target row, no unit plan, every row transferred or in this bundle  [4483 rows; []]
+PASS  the rows the rebind needs are in it
+PASS  it binds the 80 retained Oliver WAVs  [80]
+PASS  Lavender's real --check runs under this Python and predicts root's holds hash
+PASS  the real coherent verify runs under this Python on the 80 retained WAVs
+PASS  the sealed table gate holds on stage09's 13 chapters under this Python
+PASS  the transfer list exists, lists real files, and holds what this needs  [105 files]
+B. the real gates on tiny files
+PASS  a rewritten unit plan passes when the preserved file is what the build froze
+PASS  refuses: a manifest that is not the frozen one
+PASS  refuses: a preserved plan that is not the frozen one
+PASS  refuses: any other frozen row that moved
+PASS  refuses: a manifest that does not bind what the gate requires
+PASS  the wait: no receipt is not success
+PASS  the wait: a half-written receipt is not success
+PASS  the wait: an unfinished job is not success
+PASS  the wait: a good receipt is success
+PASS  the wait stops on exit 1
+PASS  the wait stops on not admitted
+PASS  the wait stops on a resource stop
+PASS  the wait stops on an error
+PASS  the wait stops on moved inputs
+C. the real controller with a logging stand-in for python3
+PASS  the controller makes exactly these calls, in order  [11 calls]
+PASS  its last line says render was not launched
+PASS  a refused seal stops everything after it  [1 calls]
+PASS  a failed audio step stops everything after it  [2 calls]
+PASS  a refused binding stops everything after it  [3 calls]
+PASS  a refused timeline guard stops everything after it  [5 calls]
+PASS  a timeline hard failure stops everything after it  [7 calls]
+PASS  a missing approval launches nothing
+ALL 51/51 PASS. No guard, rebind, assembly, kit, timeline or score ran.

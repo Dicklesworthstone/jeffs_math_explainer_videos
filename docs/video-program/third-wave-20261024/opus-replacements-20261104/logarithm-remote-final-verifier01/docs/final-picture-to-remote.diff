@@ -70,7 +70,7 @@
  import subprocess
  import sys
  import wave
-@@ -57,7 +60,11 @@
+@@ -57,7 +60,12 @@
  HERE = Path(__file__).resolve()
  REPO = HERE.parents[5]
  ANCHORS = HERE.parent / "anchors.json"
@@ -78,12 +78,13 @@
 +STAGE = "logarithm-remote"
 +HOST = "mac-mini-max"  # root's guard01.py refuses any other host, and so does this helper
 +TOOLS_SCHEMA = "logarithm-remote-tools-v1"
++COMPARISONS = {"schedule": "schedule-comparison01.json", "score": "score-comparison01.json"}  # beside the binding: RubyRaven's O files
 +RENDER_ATTEMPT = r"(-r[2-9])?"  # LavenderPike's contract: render_jobs names the attempt that succeeded
 +MIN_PILLOW = (10, 1)  # make_sheets: ImageDraw.text(font_size=...)
  TOPIC = "logarithm_mysteries"
  FPS = 60
  CHAPTERS = ["00_ratio_ruler", "01_building_ruler", "02_slide_rule", "03_folded_decade", "04_undoing_growth",
-@@ -67,7 +74,7 @@
+@@ -67,7 +75,7 @@
  DIRECTION_MAP = "docs/narration-direction-map-oliver17.json"
  HOLD_KINDS = {"prediction": 13, "reading": 2}
  PREDICT_FADE_FRAMES = 15  # draw.rs predict: fade_out_all(&[bar, probe], 0.25) between the think and the next cue
@@ -92,7 +93,7 @@
  # The retired stage09 film: a fresh master can be neither, and the script and the audio stay.
  RETIRED_MASTER = "00236d1a6915ff968235a30ab59769b02125ece0fee482e4fa3154c265ac7c24"
  RETIRED_BINARY = "e88e58e03b69b18f9e7c77dbeb4d810bc1b660637074b86746a6b98e497cda08"
-@@ -96,6 +103,9 @@
+@@ -96,6 +104,9 @@
  M_REL = "narration_lab/third-wave-20261024/root/six-machine-screened-production-20261103"
  STRICT_REL = f"{M_REL}/verify_video_preserve_logs01.sh"
  SCREEN_REL = f"{M_REL}/caption-interval-audit01.py"
@@ -102,7 +103,7 @@
  GUARD_REL = f"{P_REL}/engine-secondary-validation01/guard_owner56g_target20g.py"
  GUARD_SOURCE_REL = ("narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/"
                      "run_bounded_phase_oliver_owner48g_target14g_20261102.py")
-@@ -104,11 +114,13 @@
+@@ -104,11 +115,13 @@
      SCREEN_REL: "3cc2643615ce5263b01d429ae6f72326c95e777af3e7f29ef9266a05155fa0c4",
      GUARD_REL: "1c19a9b8f817c3bca06e18fd0785ac21c3cb935be715d67ecc41e4e39d1f5097",
      GUARD_SOURCE_REL: "819746fb33110d6c133e184812c80a00562d848816f623078ad86f0fb1a316da",
@@ -118,7 +119,7 @@
           "acceptance is claimed.")
  STAMP = r"(\d\d):([0-5]\d):([0-5]\d)[{d}](\d{{3}})"
  # verify_video_preserve_logs01.sh lines 173 and 175: the software decode always runs first, with -xerror
-@@ -132,6 +144,74 @@
+@@ -132,6 +145,74 @@
  def load(path):
      need(Path(path).is_file(), f"{path} is missing")
      return json.loads(Path(path).read_text(encoding="utf-8"))
@@ -193,7 +194,7 @@
  
  
  def receipt_ok(r):
-@@ -303,7 +383,7 @@
+@@ -303,7 +384,7 @@
  
  class Ctx:
      def __init__(self, a):
@@ -202,7 +203,7 @@
              value = Path(getattr(a, key))
              need(value.is_absolute(), f"--{key} must be an absolute path")
              setattr(self, key, value)
-@@ -313,12 +393,13 @@
+@@ -313,12 +394,13 @@
          self.timeline_job = f"{STAGE}-timeline{a.series}"
          self.score_job = f"{STAGE}-score{a.series}"
          self.build_job = f"{STAGE}-build{a.series}"
@@ -217,7 +218,7 @@
          self.job_dir = Path(a.job_dir) if getattr(a, "job_dir", None) else None
          need(self.job_dir is None or self.job_dir.is_absolute(), "--job-dir must be an absolute path")
  
-@@ -378,7 +459,7 @@
+@@ -378,7 +460,7 @@
      renders, render_receipts = {}, {}
      for ch in CHAPTERS:
          job = cfg["render_jobs"][ch]
@@ -226,7 +227,7 @@
          rr = load(c.lane / job / "resource-receipt.json")
          need(receipt_ok(rr) and ran(rr, c.jobs / f"{job}.py"), f"{job} did not pass")
          need(last_line(c.lane / job / "command.log") == RENDER_SUCCESS, f"{job}: the log does not end with the render's success line")
-@@ -393,9 +474,11 @@
+@@ -393,9 +475,11 @@
      sr = load(c.lane / c.score_job / "resource-receipt.json")
      need(receipt_ok(sr) and last_line(c.lane / c.score_job / "command.log") == SCORE_SUCCESS, f"{c.score_job} did not pass")
      br, ar = load(c.lane / c.build_job / "resource-receipt.json"), load(c.lane / c.assemble_job / "resource-receipt.json")
@@ -239,7 +240,25 @@
      order += [(c.score_job, sr, job, rr) for job, rr in render_receipts.items()]
      order += [(job, rr, c.master_job, r) for job, rr in render_receipts.items()]
      for early, done, late, began in order:
-@@ -638,6 +721,8 @@
+@@ -420,6 +504,17 @@
+     manifests = [path for path, digest in b["files"].items() if digest == m["build_receipt"]["inputs_sha256"]]
+     need(len(manifests) == 1, f"{c.binding.name}: no one bound file is the build's guard manifest")
+     return b, {row["path"]: row["sha256"] for row in load(manifests[0])["files"]}
++
++
++def check_comparisons(c):
++    """The stage09 comparisons, a second lock after the master's: a hard failure refuses here too. A move other than
++    the predicted one is reported for root, never judged here."""
++    found = {}
++    for step, name in COMPARISONS.items():
++        path, doc = c.binding.parent / name, load(c.binding.parent / name)
++        need(doc.get("hard_failures") == [], f"{name}: hard failures {doc.get('hard_failures')}")
++        found[step] = {"sha256": sha(path), "not_as_predicted": doc.get("not_as_predicted", [])}
++    return found
+ 
+ 
+ def check_sources(c, m, built):
+@@ -638,6 +733,8 @@
               f"{ch}: the 4K render's schedule differs from the 60 fps timeline")
          need(t["chapter"] == ch and t["fps"] == FPS and t["frames"] == item["frames"] and [x["id"] for x in t["lines"]] == item["cues"],
               f"{ch}: the timeline differs from the timeline summary")
@@ -248,7 +267,7 @@
          for line in t["lines"]:
              wav = c.narration / f"{line['id']}.wav"
              need(same(line["wav"], wav), f"{line['id']}: the line plays {line['wav']}, not the bound narration")
-@@ -755,14 +840,20 @@
+@@ -755,19 +852,26 @@
  
  
  def gather(c):
@@ -270,22 +289,28 @@
      for name in ("report.json", "phrase-timings.json"):
          need((c.narration / name).resolve() in m["bound"], f"the master did not bind narration {name}")
      binding, built = check_binding(c, m)
-@@ -790,7 +881,8 @@
+     integration, sources = check_sources(c, m, built)
+     check_audio(c, m, script)
++    comparisons = check_comparisons(c)
+     summary_path = c.lane / c.timeline_job / "timeline-summary.json"
+     need(summary_path.resolve() in m["bound"], "the master did not bind the timeline summary")
+     chapters, placements, timelines, total = read_schedule(c, script, load(summary_path), m["bound"])
+@@ -790,7 +894,8 @@
              "captions": captions, "holds": len(holds), "phrase_marks": sum(len(v) for v in marks.values()),
              "layout_findings": {ch: len(v) for ch, v in layouts.items()}, "samples": samples,
              "anchors": anchor_ledger(samples, anchors), "pause_sites": list(sites.values()), "closing": closing, "sources": sources,
 -            "integration_sha256": sha(c.integration), "binding_sha256": sha(c.binding), "map_sha256": map_sha256}
 +            "integration_sha256": sha(c.integration), "binding_sha256": sha(c.binding), "map_sha256": map_sha256, "tools": tools,
-+            "tools_sha256": sha(c.tools)}
++            "tools_sha256": sha(c.tools), "comparisons": comparisons}
  
  
  def check(c):
-@@ -802,13 +894,13 @@
+@@ -802,13 +907,13 @@
              "source_changes": f["sources"], "integration_sha256": f["integration_sha256"], "binding_sha256": f["binding_sha256"],
              "direction_map_sha256": f["map_sha256"], "pause_sites": f["pause_sites"], "closing": f["closing"], "anchors": len(f["anchors"]),
              "anchor_rows": len({a["id"] for a in f["anchors"]}), "pictures_planned": len(f["samples"]),
 -            "sheets_planned": math.ceil(len(f["samples"]) / 4), "not_claimed": SCOPE}
-+            "sheets_planned": math.ceil(len(f["samples"]) / 4), "tools": f["tools"], "tools_sha256": f["tools_sha256"], "not_claimed": SCOPE}
++            "sheets_planned": math.ceil(len(f["samples"]) / 4), "tools": f["tools"], "tools_sha256": f["tools_sha256"], "comparisons": f["comparisons"], "not_claimed": SCOPE}
  
  
  # ---------------------------------------------------------------- the guarded job
@@ -296,7 +321,7 @@
  (sha256 @@HELPER@@). Launch only through root's guard from the repository root; the guard binds every input.
  Technical checks and extracted pictures only: no listening, picture viewing, fine sync or acceptance is claimed.
  """
-@@ -825,7 +917,7 @@
+@@ -825,7 +930,7 @@
          if hashlib.file_digest(handle, "sha256").hexdigest() != CONFIG["helper_sha256"]:
              print("REFUSED: the verification helper moved", flush=True)
              return 1
@@ -305,7 +330,7 @@
      helper = importlib.util.module_from_spec(spec)
      spec.loader.exec_module(helper)
      return helper.run_job(CONFIG)
-@@ -834,12 +926,6 @@
+@@ -834,12 +939,6 @@
  if __name__ == "__main__":
      sys.exit(main())
  '''
@@ -318,7 +343,7 @@
  
  
  def write_job(c):
-@@ -855,15 +941,16 @@
+@@ -855,15 +954,16 @@
             "srt": {"path": str(out["srt"]), "sha256": sha(out["srt"])}, "vtt": {"path": str(out["vtt"]), "sha256": sha(out["vtt"])},
             "master_job": c.master_job, "series": c.series, "total_frames": f["total_frames"], "fps": FPS,
             "chapters": f["chapters"], "placements": f["placements"], "captions": f["captions"],
@@ -328,7 +353,7 @@
             "anchors": f["anchors"], "pause_sites": f["pause_sites"], "closing": f["closing"], "source_changes": f["sources"],
 -           "integration_sha256": f["integration_sha256"], "binding_sha256": f["binding_sha256"]}
 +           "integration_sha256": f["integration_sha256"], "binding_sha256": f["binding_sha256"], "tools": f["tools"],
-+           "tools_sha256": f["tools_sha256"]}
++           "tools_sha256": f["tools_sha256"], "comparisons": f["comparisons"]}
      c.job_dir.mkdir(parents=True, exist_ok=True)
      text = JOB_TEMPLATE.replace("@@JOB@@", job).replace("@@HELPER@@", cfg["helper_sha256"])
      with open(script, "x") as handle:
@@ -338,7 +363,14 @@
      paths += [out["master"], out["srt"], out["vtt"], c.jobs / f"{c.master_job}.py", c.jobs / f"{c.master_job}-inputs.json"]
      paths += [c.lane / c.master_job / name for name in ("resource-receipt.json", "command.log", "master-summary.json")]
      paths += [c.lane / c.timeline_job / "timeline-summary.json"]
-@@ -878,9 +965,10 @@
+@@ -872,15 +972,16 @@
+     paths += [c.narration / name for name in ("report.json", "phrase-timings.json")] + [c.narration / f"{cue}.wav" for cue in f["script"]]
+     paths += [c.crate / rel for rel in ("script.tsv", DIRECTION_MAP, "src/chapters/mod.rs", "narration_units.json")]
+     paths += [c.jobs / f"{c.master_job}.config.json", c.integration, c.binding, ANCHORS]
+-    paths += [c.lane / c.assemble_job / "audio-comparison.json"]
++    paths += [c.lane / c.assemble_job / "audio-comparison.json"] + [c.binding.parent / name for name in COMPARISONS.values()]
+     have = {p.resolve() for p in paths}
+     paths += [c.crate.parents[1] / row["path"] for row in f["sources"] if (c.crate.parents[1] / row["path"]).resolve() not in have]
      need(len({p.resolve() for p in paths}) == len(paths), "an input row repeats")
      with open(inputs, "x") as handle:
          handle.write(json.dumps({"files": [{"path": str(p), "sha256": sha(p)} for p in paths]}, indent=2) + "\n")
@@ -350,7 +382,7 @@
  
  
  def media_facts(probe, video_packets, total_frames):
-@@ -937,6 +1025,9 @@
+@@ -937,6 +1038,9 @@
          started = json.loads(receipt.read_text())
          need(ran(started, cfg["script"]) and "exit" not in started and started.get("admitted") is True,
               "the guard's receipt for this job does not show this script running")
@@ -360,7 +392,7 @@
          master = cfg["master"]["path"]
          for key in ("master", "srt", "vtt"):
              need(sha(cfg[key]["path"]) == cfg[key]["sha256"], f"the {key} moved since the job was written")
-@@ -945,7 +1036,7 @@
+@@ -945,7 +1049,7 @@
          for old in sorted(job.glob("frame-*")) + sorted(job.glob("sheet-*")):
              need(False, f"{old.name} exists already")  # ffmpeg -n would keep it and still exit 0
          (job / "decode-logs").mkdir()
@@ -369,18 +401,18 @@
          with (job / "strict-video-verification.log").open("x") as log:
              done = subprocess.run(["bash", cfg["strict"], master], stdout=log, stderr=subprocess.STDOUT, env=env, timeout=14400)
          need(done.returncode == 0 and last_line(job / "strict-video-verification.log") == "VERIFY PASS", "root's strict video check failed")
-@@ -988,7 +1079,9 @@
+@@ -988,7 +1092,9 @@
                  "pictures": pictures, "sheets": sheets, "sheet_sha256": sheet_sha256, "pictures_viewed": False,
                  "anchors": cfg["anchors"], "pause_sites": cfg["pause_sites"], "closing": cfg["closing"],
                  "source_changes": cfg["source_changes"], "integration_sha256": cfg["integration_sha256"],
 -                "binding_sha256": cfg["binding_sha256"], "scope": cfg["scope"]}, indent=2) + "\n")
-+                "binding_sha256": cfg["binding_sha256"], "tools_sha256": cfg["tools_sha256"],
++                "binding_sha256": cfg["binding_sha256"], "tools_sha256": cfg["tools_sha256"], "comparisons": cfg["comparisons"],
 +                "worker": {"host": HOST, "python3": cfg["tools"]["python3"], "ffmpeg": cfg["tools"]["ffmpeg"], "ffprobe": cfg["tools"]["ffprobe"]},
 +                "scope": cfg["scope"]}, indent=2) + "\n")
          for row in decodes:
              print(row, flush=True)
          print(f"{len(pictures)} pictures in {len(sheets)} sheets await root's viewing.", flush=True)
-@@ -1000,6 +1093,7 @@
+@@ -1000,6 +1106,7 @@
  
  
  def verify_job(c):
@@ -388,12 +420,12 @@
      need(c.verify_job and c.job_dir, "verify-job needs --verify NN and --job-dir D")
      job, folder = c.verify_job, c.lane / c.verify_job
      script, inputs = c.job_dir / f"{job}.py", c.job_dir / f"{job}-inputs.json"
-@@ -1027,12 +1121,15 @@
+@@ -1027,12 +1134,15 @@
      need(last_line(folder / "strict-video-verification.log") == "VERIFY PASS", f"{job}: the strict log does not end with VERIFY PASS")
      need(any((folder / "decode-logs").glob("verify_decode.*")), f"{job}: the strict check's decode logs are missing")
      need(load(folder / "caption-screen.json")["srt_sha256"] == cfg["srt"]["sha256"], f"{job}: the caption screen read another SRT")
 -    for key in ("anchors", "pause_sites", "closing", "source_changes", "integration_sha256", "binding_sha256"):
-+    for key in ("anchors", "pause_sites", "closing", "source_changes", "integration_sha256", "binding_sha256", "tools_sha256"):
++    for key in ("anchors", "pause_sites", "closing", "source_changes", "integration_sha256", "binding_sha256", "tools_sha256", "comparisons"):
          need(v.get(key) == cfg[key], f"{job}: verification.json's {key} differ from the job's")
      frames = [p["frame"] for p in v["pictures"]]
      lost = [a["id"] for a in cfg["anchors"] if frames[a["picture"] - 1] != a["frame"]]
@@ -406,7 +438,7 @@
              "strict_video_decodes": v["strict_video_decodes"],
              "encoded_loudness": v["encoded_loudness"],
              "caption_screen": v["caption_screen"], "pictures": len(v["pictures"]), "sheets": len(v["sheets"]), "sheets_folder": str(folder),
-@@ -1042,13 +1139,20 @@
+@@ -1042,13 +1152,20 @@
  
  def main(argv=None):
      parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)

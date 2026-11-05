@@ -63,6 +63,7 @@ ANCHORS = HERE.parent / "anchors.json"
 STAGE = "logarithm-remote"
 HOST = "mac-mini-max"  # root's guard01.py refuses any other host, and so does this helper
 TOOLS_SCHEMA = "logarithm-remote-tools-v1"
+COMPARISONS = {"schedule": "schedule-comparison01.json", "score": "score-comparison01.json"}  # beside the binding: RubyRaven's O files
 RENDER_ATTEMPT = r"(-r[2-9])?"  # LavenderPike's contract: render_jobs names the attempt that succeeded
 MIN_PILLOW = (10, 1)  # make_sheets: ImageDraw.text(font_size=...)
 TOPIC = "logarithm_mysteries"
@@ -505,6 +506,17 @@ def check_binding(c, m):
     return b, {row["path"]: row["sha256"] for row in load(manifests[0])["files"]}
 
 
+def check_comparisons(c):
+    """The stage09 comparisons, a second lock after the master's: a hard failure refuses here too. A move other than
+    the predicted one is reported for root, never judged here."""
+    found = {}
+    for step, name in COMPARISONS.items():
+        path, doc = c.binding.parent / name, load(c.binding.parent / name)
+        need(doc.get("hard_failures") == [], f"{name}: hard failures {doc.get('hard_failures')}")
+        found[step] = {"sha256": sha(path), "not_as_predicted": doc.get("not_as_predicted", [])}
+    return found
+
+
 def check_sources(c, m, built):
     """integration.json's changed rows are the repaired film: each leaves its stage09 hash, is on disk at its new hash,
     is bound by the master and was compiled by the build. Extra changed rows are allowed and reported: a compile repair
@@ -859,6 +871,7 @@ def gather(c):
     binding, built = check_binding(c, m)
     integration, sources = check_sources(c, m, built)
     check_audio(c, m, script)
+    comparisons = check_comparisons(c)
     summary_path = c.lane / c.timeline_job / "timeline-summary.json"
     need(summary_path.resolve() in m["bound"], "the master did not bind the timeline summary")
     chapters, placements, timelines, total = read_schedule(c, script, load(summary_path), m["bound"])
@@ -882,7 +895,7 @@ def gather(c):
             "layout_findings": {ch: len(v) for ch, v in layouts.items()}, "samples": samples,
             "anchors": anchor_ledger(samples, anchors), "pause_sites": list(sites.values()), "closing": closing, "sources": sources,
             "integration_sha256": sha(c.integration), "binding_sha256": sha(c.binding), "map_sha256": map_sha256, "tools": tools,
-            "tools_sha256": sha(c.tools)}
+            "tools_sha256": sha(c.tools), "comparisons": comparisons}
 
 
 def check(c):
@@ -894,7 +907,7 @@ def check(c):
             "source_changes": f["sources"], "integration_sha256": f["integration_sha256"], "binding_sha256": f["binding_sha256"],
             "direction_map_sha256": f["map_sha256"], "pause_sites": f["pause_sites"], "closing": f["closing"], "anchors": len(f["anchors"]),
             "anchor_rows": len({a["id"] for a in f["anchors"]}), "pictures_planned": len(f["samples"]),
-            "sheets_planned": math.ceil(len(f["samples"]) / 4), "tools": f["tools"], "tools_sha256": f["tools_sha256"], "not_claimed": SCOPE}
+            "sheets_planned": math.ceil(len(f["samples"]) / 4), "tools": f["tools"], "tools_sha256": f["tools_sha256"], "comparisons": f["comparisons"], "not_claimed": SCOPE}
 
 
 # ---------------------------------------------------------------- the guarded job
@@ -945,7 +958,7 @@ def write_job(c):
            "expect": EXPECT, "samples": f["samples"], "success": VERIFY_SUCCESS, "scope": SCOPE,
            "anchors": f["anchors"], "pause_sites": f["pause_sites"], "closing": f["closing"], "source_changes": f["sources"],
            "integration_sha256": f["integration_sha256"], "binding_sha256": f["binding_sha256"], "tools": f["tools"],
-           "tools_sha256": f["tools_sha256"]}
+           "tools_sha256": f["tools_sha256"], "comparisons": f["comparisons"]}
     c.job_dir.mkdir(parents=True, exist_ok=True)
     text = JOB_TEMPLATE.replace("@@JOB@@", job).replace("@@HELPER@@", cfg["helper_sha256"])
     with open(script, "x") as handle:
@@ -959,7 +972,7 @@ def write_job(c):
     paths += [c.narration / name for name in ("report.json", "phrase-timings.json")] + [c.narration / f"{cue}.wav" for cue in f["script"]]
     paths += [c.crate / rel for rel in ("script.tsv", DIRECTION_MAP, "src/chapters/mod.rs", "narration_units.json")]
     paths += [c.jobs / f"{c.master_job}.config.json", c.integration, c.binding, ANCHORS]
-    paths += [c.lane / c.assemble_job / "audio-comparison.json"]
+    paths += [c.lane / c.assemble_job / "audio-comparison.json"] + [c.binding.parent / name for name in COMPARISONS.values()]
     have = {p.resolve() for p in paths}
     paths += [c.crate.parents[1] / row["path"] for row in f["sources"] if (c.crate.parents[1] / row["path"]).resolve() not in have]
     need(len({p.resolve() for p in paths}) == len(paths), "an input row repeats")
@@ -1079,7 +1092,7 @@ def run_job(cfg):
                 "pictures": pictures, "sheets": sheets, "sheet_sha256": sheet_sha256, "pictures_viewed": False,
                 "anchors": cfg["anchors"], "pause_sites": cfg["pause_sites"], "closing": cfg["closing"],
                 "source_changes": cfg["source_changes"], "integration_sha256": cfg["integration_sha256"],
-                "binding_sha256": cfg["binding_sha256"], "tools_sha256": cfg["tools_sha256"],
+                "binding_sha256": cfg["binding_sha256"], "tools_sha256": cfg["tools_sha256"], "comparisons": cfg["comparisons"],
                 "worker": {"host": HOST, "python3": cfg["tools"]["python3"], "ffmpeg": cfg["tools"]["ffmpeg"], "ffprobe": cfg["tools"]["ffprobe"]},
                 "scope": cfg["scope"]}, indent=2) + "\n")
         for row in decodes:
@@ -1121,7 +1134,7 @@ def verify_job(c):
     need(last_line(folder / "strict-video-verification.log") == "VERIFY PASS", f"{job}: the strict log does not end with VERIFY PASS")
     need(any((folder / "decode-logs").glob("verify_decode.*")), f"{job}: the strict check's decode logs are missing")
     need(load(folder / "caption-screen.json")["srt_sha256"] == cfg["srt"]["sha256"], f"{job}: the caption screen read another SRT")
-    for key in ("anchors", "pause_sites", "closing", "source_changes", "integration_sha256", "binding_sha256", "tools_sha256"):
+    for key in ("anchors", "pause_sites", "closing", "source_changes", "integration_sha256", "binding_sha256", "tools_sha256", "comparisons"):
         need(v.get(key) == cfg[key], f"{job}: verification.json's {key} differ from the job's")
     frames = [p["frame"] for p in v["pictures"]]
     lost = [a["id"] for a in cfg["anchors"] if frames[a["picture"] - 1] != a["frame"]]
