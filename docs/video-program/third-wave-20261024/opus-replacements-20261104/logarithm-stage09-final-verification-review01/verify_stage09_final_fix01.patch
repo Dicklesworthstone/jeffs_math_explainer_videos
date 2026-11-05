@@ -1,0 +1,71 @@
+--- a/logarithm-stage09-final-verification01/verify_stage09_final.py
++++ b/logarithm-stage09-final-verification-review01/verify_stage09_final_fix01.py
+@@ -459,7 +459,9 @@
+     need(summary_path.resolve() in m["bound"], "the master did not bind the timeline summary")
+     chapters, placements, timelines, total = read_schedule(c, script, load(summary_path), m["bound"])
+     report = load(c.narration / "report.json")
+-    need(list(report["lines"]) == list(script), "report.json's cues differ from the script")
++    # The canonical assembler writes report.json with sorted keys (narration_cache.encoded), and the kit reads its
++    # lines as a map: compare the cue set. The order is checked on the timelines' placements (read_schedule).
++    need(sorted(report["lines"]) == sorted(script), "report.json's cues differ from the script")
+     captions = check_captions(m["outputs"]["srt"].read_text(encoding="utf-8"), m["outputs"]["vtt"].read_text(encoding="utf-8"),
+                               script, report, placements, total)
+     holds = {}
+@@ -621,7 +623,10 @@
+         with (job / "strict-video-verification.log").open("x") as log:
+             done = subprocess.run(["bash", cfg["strict"], master], stdout=log, stderr=subprocess.STDOUT, env=env, timeout=14400)
+         need(done.returncode == 0 and last_line(job / "strict-video-verification.log") == "VERIFY PASS", "root's strict video check failed")
+-        notes = [row for row in (job / "strict-video-verification.log").read_text(errors="replace").splitlines() if row.startswith("note:")]
++        strict_rows = (job / "strict-video-verification.log").read_text(errors="replace").splitlines()
++        notes = [row for row in strict_rows if row.startswith("note:")]
++        # root's script keeps one decode log, rewritten by its second decode: its summary lines are the record of both
++        decodes = [row for row in strict_rows if row.startswith("full decode (")]
+         probe = json.loads(subprocess.run([cfg["ffprobe"], "-v", "error", "-show_streams", "-show_format", "-of", "json", master],
+                                           check=True, capture_output=True, text=True, timeout=600).stdout)
+         packets = subprocess.run([cfg["ffprobe"], "-v", "error", "-select_streams", "V:0", "-count_packets", "-show_entries",
+@@ -641,18 +646,20 @@
+             subprocess.run([cfg["ffmpeg"], "-nostdin", "-n", "-v", "error", "-xerror", "-ss", f"{s['frame'] / FPS:.9f}", "-i", master,
+                             "-frames:v", "1", "-vf", "scale=960:540", str(path)], check=True, timeout=180)
+             need(path.is_file() and path.stat().st_size > 0, f"ffmpeg wrote no picture for frame {s['frame']}")
+-            pictures.append({**s, "path": str(path)})
++            pictures.append({**s, "path": str(path), "sha256": sha(path)})
+         sheets = make_sheets(pictures, job)
++        sheet_sha256 = [sha(path) for path in sheets]
+         with (job / "verification.json").open("x") as handle:
+             handle.write(json.dumps({
+                 "video": master, "sha256": cfg["master"]["sha256"], "srt_sha256": cfg["srt"]["sha256"], "vtt_sha256": cfg["vtt"]["sha256"],
+                 "master_job": cfg["master_job"], "frames": cfg["total_frames"], "fps": FPS, "chapters": cfg["chapters"],
+                 "placements": cfg["placements"], "captions": cfg["captions"], "media": media, "strict_video_check": "passed",
+-                "strict_video_notes": notes,
++                "strict_video_notes": notes, "strict_video_decodes": decodes,
+                 "encoded_loudness": loud, "caption_screen": {"caption_count": screen["caption_count"],
+                 "over_20_characters_per_second": len(screen["over_20_characters_per_second"]),
+                 "lines_over_42_characters": len(screen["lines_over_42_characters"])},
+-                "pictures": pictures, "sheets": sheets, "pictures_viewed": False, "scope": cfg["scope"]}, indent=2) + "\n")
++                "pictures": pictures, "sheets": sheets, "sheet_sha256": sheet_sha256, "pictures_viewed": False,
++                "scope": cfg["scope"]}, indent=2) + "\n")
+         print(f"{len(pictures)} pictures in {len(sheets)} sheets await root's viewing.", flush=True)
+         print(cfg["success"], flush=True)
+         return 0
+@@ -675,13 +682,19 @@
+     v = load(folder / "verification.json")
+     need(v["sha256"] == cfg["master"]["sha256"] == sha(cfg["master"]["path"]) and v["frames"] == cfg["total_frames"], f"{job}: master or frames")
+     need([p["frame"] for p in v["pictures"]] == [s["frame"] for s in cfg["samples"]], f"{job}: the pictures are not the planned ones")
+-    need(all(Path(p["path"]).is_file() for p in v["pictures"]), f"{job}: a picture is missing")
+-    need(len(v["sheets"]) == math.ceil(len(v["pictures"]) / 4) and all(Path(s).is_file() for s in v["sheets"]), f"{job}: a sheet is missing")
++    need(all(Path(p["path"]).is_file() and sha(p["path"]) == p["sha256"] for p in v["pictures"]), f"{job}: a picture is missing or changed")
++    need(len(v["sheets"]) == math.ceil(len(v["pictures"]) / 4) == len(v["sheet_sha256"])
++         and all(Path(s).is_file() and sha(s) == h for s, h in zip(v["sheets"], v["sheet_sha256"])), f"{job}: a sheet is missing or changed")
++    for key in ("srt", "vtt"):
++        need(sha(cfg[key]["path"]) == cfg[key]["sha256"], f"{job}: the {key} changed since the job was written")
++    need(v["strict_video_decodes"] and ": 0 error lines, ffmpeg exit 0, " in v["strict_video_decodes"][0],
++         f"{job}: verification.json does not record root's clean software decode")
+     need(v["pictures_viewed"] is False, f"{job}: verification.json claims the pictures were viewed; only root views them")
+     need(last_line(folder / "strict-video-verification.log") == "VERIFY PASS", f"{job}: the strict log does not end with VERIFY PASS")
+     need(any((folder / "decode-logs").glob("verify_decode.*")), f"{job}: the strict check's decode logs are missing")
+     need(load(folder / "caption-screen.json")["srt_sha256"] == cfg["srt"]["sha256"], f"{job}: the caption screen read another SRT")
+     return {"job": job, "master_sha256": v["sha256"], "frames": v["frames"], "media": v["media"], "strict_video_notes": v["strict_video_notes"],
++            "strict_video_decodes": v["strict_video_decodes"],
+             "encoded_loudness": v["encoded_loudness"],
+             "caption_screen": v["caption_screen"], "pictures": len(v["pictures"]), "sheets": len(v["sheets"]), "sheets_folder": str(folder),
+             "pictures_viewed": False, "open": "root views every sheet; listening, fine sync, final ASR and acceptance remain root's"}

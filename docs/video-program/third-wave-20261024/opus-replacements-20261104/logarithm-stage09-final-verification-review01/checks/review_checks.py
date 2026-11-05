@@ -20,6 +20,9 @@ launches a guard job, renders, assembles, decodes production audio, listens or v
        timeline, and the job's -ss extraction equal to an exact frame-number pick on frames where the picture moves
   K07  what verify-job proves after the run, on a stand-in finished job: replaced sheets, pictures and SRT (F2)
   K08  root's strict check keeps one decode log, rewritten by its second decode (F3)
+  K09  the staged fix (verify_stage09_final_fix01.py = sealed helper + .patch): the real report accepted, a missing or
+       extra cue refused, the K07 tampers refused; Lavender's own checks pass on it (lavender_checks_on_fix.py, run
+       first, writes checks/outputs/lavender-run_checks-on-fix01.txt, which K09 reads)
 """
 import argparse
 import hashlib
@@ -330,59 +333,71 @@ def main():
           f"{sizes[0] // 1000}-{sizes[-1] // 1000} kB")
 
     # ------------------------------------------------------------------ K07 what verify-job proves after the run
-    lane, jobs = scratch / "lane", scratch / "jobs"
-    job = f"{V.STAGE}-final-verify01"
-    folder = lane / job
-    for d in (lane, jobs, folder, folder / "decode-logs"):
-        d.mkdir(parents=True, exist_ok=True)
-    media = scratch / "media"
-    media.mkdir()
-    (media / "master.mp4").write_bytes(b"STAND-IN master: not a video\n")
-    (media / "captions.srt").write_text("1\n00:00:00,000 --> 00:00:01,000\nSTAND-IN caption\n\n")
-    samples = [{"frame": f, "seconds": f / 60, "reasons": ["stand-in"]} for f in (0, 60, 120, 180, 240)]
-    cfg = {"job": job, "lane": str(lane), "script": str(jobs / f"{job}.py"), "master": {"path": str(media / "master.mp4"),
-           "sha256": sha(media / "master.mp4")}, "srt": {"path": str(media / "captions.srt"), "sha256": sha(media / "captions.srt")},
-           "total_frames": 300, "samples": samples}
-    (jobs / f"{job}.py").write_text("# STAND-IN job script\nCONFIG = json.loads(" + repr(json.dumps(cfg)) + ")\n")
-    pictures = []
-    for i, s in enumerate(samples, 1):
-        (folder / f"frame-{i:04d}.png").write_bytes(f"STAND-IN picture {i}\n".encode())
-        pictures.append({**s, "path": str(folder / f"frame-{i:04d}.png")})
-    sheets = []
-    for k in (1, 2):
-        (folder / f"sheet-{k:03d}.jpg").write_bytes(f"STAND-IN sheet {k}\n".encode())
-        sheets.append(str(folder / f"sheet-{k:03d}.jpg"))
-    (folder / "verification.json").write_text(json.dumps({"sha256": cfg["master"]["sha256"], "frames": 300, "media": {},
-                                                          "strict_video_notes": [], "encoded_loudness": {}, "caption_screen": {},
-                                                          "pictures": pictures, "sheets": sheets, "pictures_viewed": False}))
-    (folder / "strict-video-verification.log").write_text("STAND-IN\nVERIFY PASS\n")
-    (folder / "decode-logs" / "verify_decode.STANDIN").write_text("")
-    (folder / "caption-screen.json").write_text(json.dumps({"srt_sha256": cfg["srt"]["sha256"]}))
-    (folder / "command.log").write_text("STAND-IN\n" + V.VERIFY_SUCCESS + "\n")
-    inputs = jobs / f"{job}-inputs.json"
-    inputs.write_text(json.dumps({"files": [{"path": cfg["script"], "sha256": sha(cfg["script"])},
-                                            {"path": str(media / "captions.srt"), "sha256": cfg["srt"]["sha256"]}]}))
-    (folder / "resource-receipt.json").write_text(json.dumps({"admitted": True, "phase": "native", "exit": 0, "finished": "stand-in",
-                                                             "command": ["python3", "-I", "-B", cfg["script"]],
-                                                             "inputs_sha256": sha(inputs), "final_inputs_sha256": sha(inputs)}))
-    ctx = types.SimpleNamespace(verify_job=job, job_dir=jobs, lane=lane)
+    def finished_job(root, module, hashed):
+        """A stand-in finished job holding every file verify-job reads, in the shape run_job writes them; with `hashed`,
+        also the fields the staged fix's run_job adds. Returns (verdict(), the files a tamper edits)."""
+        lane, jobs, media = root / "lane", root / "jobs", root / "media"
+        job = f"{module.STAGE}-final-verify01"
+        folder = lane / job
+        for d in (lane, jobs, folder, folder / "decode-logs", media):
+            d.mkdir(parents=True, exist_ok=True)
+        (media / "master.mp4").write_bytes(b"STAND-IN master: not a video\n")
+        (media / "captions.srt").write_text("1\n00:00:00,000 --> 00:00:01,000\nSTAND-IN caption\n\n")
+        (media / "captions.vtt").write_text("WEBVTT\n\n00:00:00.000 --> 00:00:01.000\nSTAND-IN caption\n\n")
+        samples = [{"frame": f, "seconds": f / 60, "reasons": ["stand-in"]} for f in (0, 60, 120, 180, 240)]
+        cfg = {"job": job, "lane": str(lane), "script": str(jobs / f"{job}.py"), "total_frames": 300, "samples": samples,
+               **{key: {"path": str(media / name), "sha256": sha(media / name)}
+                  for key, name in (("master", "master.mp4"), ("srt", "captions.srt"), ("vtt", "captions.vtt"))}}
+        (jobs / f"{job}.py").write_text("# STAND-IN job script\nCONFIG = json.loads(" + repr(json.dumps(cfg)) + ")\n")
+        pictures, sheets = [], []
+        for i, s in enumerate(samples, 1):
+            (folder / f"frame-{i:04d}.png").write_bytes(f"STAND-IN picture {i}\n".encode())
+            pictures.append({**s, "path": str(folder / f"frame-{i:04d}.png")})
+        for k in (1, 2):
+            (folder / f"sheet-{k:03d}.jpg").write_bytes(f"STAND-IN sheet {k}\n".encode())
+            sheets.append(str(folder / f"sheet-{k:03d}.jpg"))
+        record = {"sha256": cfg["master"]["sha256"], "frames": 300, "media": {}, "strict_video_notes": [], "encoded_loudness": {},
+                  "caption_screen": {}, "pictures": pictures, "sheets": sheets, "pictures_viewed": False}
+        if hashed:
+            for p in pictures:
+                p["sha256"] = sha(p["path"])
+            record["sheet_sha256"] = [sha(s) for s in sheets]
+            record["strict_video_decodes"] = ["full decode (video + audio, software, stops at the first error): 0 error lines, "
+                                              "ffmpeg exit 0, 7 s"]
+        (folder / "verification.json").write_text(json.dumps(record))
+        (folder / "strict-video-verification.log").write_text("STAND-IN\nVERIFY PASS\n")
+        (folder / "decode-logs" / "verify_decode.STANDIN").write_text("")
+        (folder / "caption-screen.json").write_text(json.dumps({"srt_sha256": cfg["srt"]["sha256"]}))
+        (folder / "command.log").write_text("STAND-IN\n" + module.VERIFY_SUCCESS + "\n")
+        inputs = jobs / f"{job}-inputs.json"
+        inputs.write_text(json.dumps({"files": [{"path": cfg["script"], "sha256": sha(cfg["script"])}]}))
+        (folder / "resource-receipt.json").write_text(json.dumps({"admitted": True, "phase": "native", "exit": 0, "finished": "stand-in",
+                                                                 "command": ["python3", "-I", "-B", cfg["script"]],
+                                                                 "inputs_sha256": sha(inputs), "final_inputs_sha256": sha(inputs)}))
+        ctx = types.SimpleNamespace(verify_job=job, job_dir=jobs, lane=lane)
 
-    def verdict():
-        try:
-            V.verify_job(ctx)
-            return "passes"
-        except V.Refused as error:
-            return f"refused: {error}"
+        def verdict():
+            try:
+                module.verify_job(ctx)
+                return "passes"
+            except module.Refused as error:
+                return f"refused: {clean(str(error))}"
+        edits = {"a sheet replaced by other bytes": folder / "sheet-001.jpg", "a picture replaced": folder / "frame-0003.png",
+                 "the SRT changed after the job": media / "captions.srt"}
+        return verdict, edits
 
+    def tamper(verdict, edits):
+        out = {}
+        for name, path in edits.items():
+            original = path.read_bytes()
+            path.write_bytes(original + b"REPLACED\n")
+            out[name] = verdict()
+            path.write_bytes(original)
+        return out
+
+    verdict, edits = finished_job(scratch / "sealed-job", V, False)
     before = verdict()
-    tampered = {}
-    edits = {"a sheet replaced by other bytes": folder / "sheet-001.jpg", "a picture replaced": folder / "frame-0003.png",
-             "the SRT changed after the job (still a bound input)": media / "captions.srt"}
-    for name, path in edits.items():
-        original = path.read_bytes()
-        path.write_bytes(original + b"REPLACED\n")
-        tampered[name] = verdict()
-        path.write_bytes(original)
+    tampered = tamper(verdict, edits)
     check("K07-verify-job-after-the-run", before == "passes" and all(v == "passes" for v in tampered.values()),
           f"stand-in finished job with every file verify-job reads: it {before}; then, one at a time and restored: "
           + "; ".join(f"{n} -> verify-job {v}" for n, v in tampered.items())
@@ -397,6 +412,46 @@ def main():
           "then the hardware second opinion when it runs, VERIFY_HWACCEL=auto gives videotoolbox on macOS): the kept "
           "decode-logs/verify_decode.* holds the last decode only. The software result survives only as the strict log's "
           "'full decode (...)' line and its first five error lines (finding F3)")
+
+    # ------------------------------------------------------------------ K09 the staged fix
+    fixed_path = REPO / P / "logarithm-stage09-final-verification-review01/verify_stage09_final_fix01.py"
+    patch_path = fixed_path.with_suffix(".patch")
+    X = load("verify_stage09_final_fix01", fixed_path)
+    import difflib
+    diff = "".join(difflib.unified_diff((LAV / "verify_stage09_final.py").read_text().splitlines(keepends=True),
+                                        fixed_path.read_text().splitlines(keepends=True),
+                                        "a/logarithm-stage09-final-verification01/verify_stage09_final.py",
+                                        "b/logarithm-stage09-final-verification-review01/verify_stage09_final_fix01.py"))
+    plus = sum(1 for x in diff.splitlines() if x.startswith("+") and not x.startswith("+++"))
+    minus = sum(1 for x in diff.splitlines() if x.startswith("-") and not x.startswith("---"))
+    lines = fixed_path.read_text().splitlines()
+    starts = [int(h.split("+")[1].split(",")[0]) for h in re.findall(r"^@@ [^@]+ @@", diff, re.M)]
+    owners = [next(x for x in reversed(lines[:s + 3]) if x.startswith("def ")).split("(")[0][4:] for s in starts]
+    new_gate = next(x for x in lines if 'need(sorted(report["lines"]) == sorted(script)' in x).strip()
+    gate_on = {}
+    for name, rep in (("the real report", real), ("a report without 11_20", {"lines": {k: v for k, v in real["lines"].items() if k != "11_20"}}),
+                      ("a report with an extra cue", {"lines": {**real["lines"], "13_1": []}})):
+        try:
+            exec(new_gate, {"need": X.need, "report": rep, "script": script})
+            gate_on[name] = "accepted"
+        except X.Refused:
+            gate_on[name] = "refused"
+    verdict2, edits2 = finished_job(scratch / "fixed-job", X, True)
+    before2 = verdict2()
+    tampered2 = tamper(verdict2, edits2)
+    lavender_on_fix = (REPO / P / "logarithm-stage09-final-verification-review01/checks/outputs/lavender-run_checks-on-fix01.txt")
+    lav_text = lavender_on_fix.read_text() if lavender_on_fix.is_file() else ""
+    check("K09-staged-fix", diff == patch_path.read_text() and (plus, minus, len(starts)) == (20, 7, 4)
+          and owners == ["gather", "run_job", "run_job", "verify_job"] and X.REPO == REPO
+          and gate_on == {"the real report": "accepted", "a report without 11_20": "refused", "a report with an extra cue": "refused"}
+          and before2 == "passes" and all(v.startswith("refused") for v in tampered2.values())
+          and f"helper sha256 {sha(fixed_path)};" in lav_text and "FINAL-VERIFICATION CHECKS: PASS (11/11)" in lav_text,
+          f"verify_stage09_final_fix01.py {sha(fixed_path)[:8]} = the sealed helper plus verify_stage09_final_fix01.patch "
+          f"(+{plus}/-{minus}, {len(starts)} hunks in {owners}); its REPO resolves to this repository. The fixed gate on the "
+          f"real report: " + ", ".join(f"{k} {v}" for k, v in gate_on.items()) + f". The same stand-in job in the fixed "
+          f"shape: verify-job {before2}; " + "; ".join(f"{n} -> {v}" for n, v in tampered2.items())
+          + ". Lavender's own run_checks.py, unchanged, passes 11/11 on the fixed helper "
+          "(checks/outputs/lavender-run_checks-on-fix01.txt; its F11 run wrote the decode line and the hashes)")
 
     print(f"REVIEW CHECKS: {'PASS' if all(results) else 'FAIL'} ({sum(results)}/{len(results)})")
     return 0 if all(results) else 1
