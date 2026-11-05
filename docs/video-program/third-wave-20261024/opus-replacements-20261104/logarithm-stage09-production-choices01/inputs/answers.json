@@ -1,0 +1,1112 @@
+{
+ "schema": "audio-preparation-answers-v1",
+ "binding_sha256": "2d7f4731d373b5089686f5d345834faeb1a7238dc15007abfc7b4fab420d6803",
+ "answers": {
+  "provenance:00_1:00_1-download03.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "provenance:00_1:00_1-download04.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "voice:04_3:04_3-download01.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "voice:04_3:04_3-download02.wav": {
+   "decision": null,
+   "by": null,
+   "basis": null
+  },
+  "onset:00_4:s2:00_4-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.53 s quiet run, at 8.35 s (body at or above -40 dBFS at 8.36 s); the recognizer's onset 8.0 s is 0.35 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 200400
+  },
+  "onset:00_4:s3:00_4-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.5 s quiet run, at 10.37 s (body at or above -40 dBFS at 10.39 s); the recognizer's onset 10.08 s is 0.29 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 248880
+  },
+  "onset:00_4:s2:00_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.62 s quiet run, at 8.48 s (body at or above -40 dBFS at 8.49 s); the recognizer's onset 8.0 s is 0.48 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 203520
+  },
+  "onset:00_4:s3:00_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.45 s quiet run, at 10.35 s (body at or above -40 dBFS at 10.38 s); the recognizer's onset 10.08 s is 0.27 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 248400
+  },
+  "onset:00_5:s3:00_5-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.5 s quiet run, at 15.14 s (body at or above -40 dBFS at 15.14 s); the recognizer's onset 14.82 s is 0.32 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 363360
+  },
+  "onset:00_6:s1:00_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.36 s quiet run, at 5.47 s (body at or above -40 dBFS at 5.6 s); the recognizer's onset 5.1 s is 0.37 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 131280
+  },
+  "onset:00_6:s2:00_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.68 s quiet run, at 11.44 s (body at or above -40 dBFS at 11.45 s); the recognizer's onset 10.8 s is 0.64 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 274560
+  },
+  "onset:00_6:s3:00_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.47 s quiet run, at 18.78 s (body at or above -40 dBFS at 18.79 s); the recognizer's onset 18.4 s is 0.38 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 450720
+  },
+  "onset:00_6:s4:00_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.32 s quiet run, at 22.45 s (body at or above -40 dBFS at 22.47 s); the recognizer's onset 22.02 s is 0.43 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 538800
+  },
+  "onset:00_6:s5:00_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.65 s quiet run, at 27.04 s (body at or above -40 dBFS at 27.05 s); the recognizer's onset 26.5 s is 0.54 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 648960
+  },
+  "onset:01_1:s1:01_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.55 s quiet run, at 5.4 s (body at or above -40 dBFS at 5.42 s); the recognizer's onset 5.02 s is 0.38 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 129600
+  },
+  "onset:01_1:s2:01_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.4 s quiet run, at 7.21 s (body at or above -40 dBFS at 7.25 s); the recognizer's onset 7.0 s is 0.21 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 173040
+  },
+  "onset:01_1:s3:01_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.44 s quiet run, at 10.74 s (body at or above -40 dBFS at 10.76 s); the recognizer's onset 10.42 s is 0.32 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 257760
+  },
+  "onset:01_1:s4:01_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.51 s quiet run, at 17.22 s (body at or above -40 dBFS at 17.23 s); the recognizer's onset 17.0 s is 0.22 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 413280
+  },
+  "onset:01_1:s1:01_1-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.58 s quiet run, at 5.44 s (body at or above -40 dBFS at 5.44 s); the recognizer's onset 5.06 s is 0.38 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 130560
+  },
+  "onset:01_1:s3:01_1-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.43 s quiet run, at 10.57 s (body at or above -40 dBFS at 10.6 s); the recognizer's onset 10.28 s is 0.29 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 253680
+  },
+  "onset:01_1:s4:01_1-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.5 s quiet run, at 17.22 s (body at or above -40 dBFS at 17.24 s); the recognizer's onset 17.0 s is 0.22 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 413280
+  },
+  "onset:01_3:s1:01_3-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.5 s quiet run, at 2.19 s (body at or above -40 dBFS at 2.2 s); the recognizer's onset 1.78 s is 0.41 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 52560
+  },
+  "onset:01_3:s1:01_3-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.47 s quiet run, at 2.13 s (body at or above -40 dBFS at 2.14 s); the recognizer's onset 1.74 s is 0.39 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 51120
+  },
+  "onset:01_3:s2:01_3-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.59 s quiet run, at 4.09 s (body at or above -40 dBFS at 4.12 s); the recognizer's onset 3.64 s is 0.45 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 98160
+  },
+  "onset:01_3:s3:01_3-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.51 s quiet run, at 9.77 s (body at or above -40 dBFS at 9.86 s); the recognizer's onset 9.4 s is 0.37 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 234480
+  },
+  "onset:01_4:s2:01_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.53 s quiet run, at 8.63 s (body at or above -40 dBFS at 8.64 s); the recognizer's onset 8.3 s is 0.33 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 207120
+  },
+  "onset:01_4:s3:01_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.46 s quiet run, at 13.85 s (body at or above -40 dBFS at 13.88 s); the recognizer's onset 13.5 s is 0.35 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 332400
+  },
+  "onset:02_2:s1:02_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.48 s quiet run, at 8.33 s (body at or above -40 dBFS at 8.35 s); the recognizer's onset 8.0 s is 0.33 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 199920
+  },
+  "onset:02_2:s2:02_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.54 s quiet run, at 12.34 s (body at or above -40 dBFS at 12.37 s); the recognizer's onset 12.0 s is 0.34 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 296160
+  },
+  "onset:02_2:s3:02_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.53 s quiet run, at 15.46 s (body at or above -40 dBFS at 15.47 s); the recognizer's onset 15.08 s is 0.38 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 371040
+  },
+  "onset:02_3:s1:02_3-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.4 s quiet run, at 1.03 s (body at or above -40 dBFS at 1.05 s); the recognizer's onset 0.6 s is 0.43 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 24720
+  },
+  "onset:02_3:s1:02_3-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.37 s quiet run, at 0.93 s (body at or above -40 dBFS at 0.96 s); the recognizer's onset 0.54 s is 0.39 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 22320
+  },
+  "onset:02_5:s5:02_5-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.54 s quiet run, at 20.17 s (body at or above -40 dBFS at 20.2 s); the recognizer's onset 19.779999 s is 0.39 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 484080
+  },
+  "onset:02_5:s5:02_5-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.43 s quiet run, at 20.33 s (body at or above -40 dBFS at 20.36 s); the recognizer's onset 20.0 s is 0.33 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 487920
+  },
+  "onset:03_2:s3:03_2-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.54 s quiet run, at 9.52 s (body at or above -40 dBFS at 9.52 s); the recognizer's onset 9.16 s is 0.36 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 228480
+  },
+  "onset:03_2:s4:03_2-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.49 s quiet run, at 16.5 s (body at or above -40 dBFS at 16.53 s); the recognizer's onset 16.16 s is 0.34 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 396000
+  },
+  "onset:04_5:s1:04_5-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.39 s quiet run, at 2.44 s (body at or above -40 dBFS at 2.61 s); the recognizer's onset 2.24 s is 0.2 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 58560
+  },
+  "onset:04_5:s2:04_5-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.56 s quiet run, at 10.08 s (body at or above -40 dBFS at 10.11 s); the recognizer's onset 9.62 s is 0.46 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 241920
+  },
+  "onset:04_5:s3:04_5-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.76 s quiet run, at 21.94 s (body at or above -40 dBFS at 21.95 s); the recognizer's onset 21.619999 s is 0.32 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 526560
+  },
+  "onset:04_6:s2:04_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.42 s quiet run, at 11.38 s (body at or above -40 dBFS at 11.4 s); the recognizer's onset 11.02 s is 0.36 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 273120
+  },
+  "onset:04_6:s2:04_6-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.53 s quiet run, at 11.26 s (body at or above -40 dBFS at 11.26 s); the recognizer's onset 10.78 s is 0.48 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 270240
+  },
+  "onset:04_7:s2:04_7-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.49 s quiet run, at 10.74 s (body at or above -40 dBFS at 10.75 s); the recognizer's onset 10.36 s is 0.38 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 257760
+  },
+  "onset:04_7:s3:04_7-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.49 s quiet run, at 14.59 s (body at or above -40 dBFS at 14.62 s); the recognizer's onset 14.259999 s is 0.33 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 350160
+  },
+  "onset:04_7:s4:04_7-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.48 s quiet run, at 20.74 s (body at or above -40 dBFS at 20.75 s); the recognizer's onset 20.32 s is 0.42 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 497760
+  },
+  "anchor:05_20:b225:05_20-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.48 s quiet run, at 19.69 s (body at or above -40 dBFS at 19.81 s); the recognizer's onset 19.4 s is 0.29 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 472560
+  },
+  "onset:05_20:s2:05_20-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.55 s quiet run, at 6.69 s (body at or above -40 dBFS at 6.7 s); the recognizer's onset 6.24 s is 0.45 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 160560
+  },
+  "onset:05_20:s3:05_20-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.4 s quiet run, at 10.45 s (body at or above -40 dBFS at 10.61 s); the recognizer's onset 10.24 s is 0.21 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 250800
+  },
+  "onset:05_20:s4:05_20-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.56 s quiet run, at 13.76 s (body at or above -40 dBFS at 13.78 s); the recognizer's onset 13.44 s is 0.32 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 330240
+  },
+  "onset:05_4:s1:05_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.44 s quiet run, at 5.8 s (body at or above -40 dBFS at 5.97 s); the recognizer's onset 5.56 s is 0.24 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 139200
+  },
+  "onset:05_4:s2:05_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.59 s quiet run, at 10.31 s (body at or above -40 dBFS at 10.32 s); the recognizer's onset 9.9 s is 0.41 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 247440
+  },
+  "onset:05_5:s1:05_5-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.43 s quiet run, at 1.72 s (body at or above -40 dBFS at 1.76 s); the recognizer's onset 1.32 s is 0.4 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 41280
+  },
+  "onset:05_5:s1:05_5-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.4 s quiet run, at 1.69 s (body at or above -40 dBFS at 1.71 s); the recognizer's onset 1.32 s is 0.37 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 40560
+  },
+  "onset:05_6:s1:05_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.59 s quiet run, at 7.31 s (body at or above -40 dBFS at 7.34 s); the recognizer's onset 7.0 s is 0.31 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 175440
+  },
+  "onset:05_6:s2:05_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.51 s quiet run, at 10.5 s (body at or above -40 dBFS at 10.54 s); the recognizer's onset 10.2 s is 0.3 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 252000
+  },
+  "onset:05_6:s3:05_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.52 s quiet run, at 14.86 s (body at or above -40 dBFS at 14.87 s); the recognizer's onset 14.6 s is 0.26 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 356640
+  },
+  "onset:05_6:s4:05_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.5 s quiet run, at 24.65 s (body at or above -40 dBFS at 24.66 s); the recognizer's onset 24.4 s is 0.25 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 591600
+  },
+  "onset:05_6:s1:05_6-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.56 s quiet run, at 7.38 s (body at or above -40 dBFS at 7.39 s); the recognizer's onset 7.0 s is 0.38 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 177120
+  },
+  "onset:05_6:s2:05_6-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.52 s quiet run, at 10.45 s (body at or above -40 dBFS at 10.48 s); the recognizer's onset 10.08 s is 0.37 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 250800
+  },
+  "onset:05_6:s3:05_6-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.49 s quiet run, at 14.66 s (body at or above -40 dBFS at 14.67 s); the recognizer's onset 14.299999 s is 0.36 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 351840
+  },
+  "onset:05_6:s4:05_6-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.43 s quiet run, at 24.44 s (body at or above -40 dBFS at 24.45 s); the recognizer's onset 24.139999 s is 0.3 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 586560
+  },
+  "onset:06_1:s1:06_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.53 s quiet run, at 7.12 s (body at or above -40 dBFS at 7.14 s); the recognizer's onset 6.76 s is 0.36 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 170880
+  },
+  "onset:06_1:s2:06_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.55 s quiet run, at 14.31 s (body at or above -40 dBFS at 14.33 s); the recognizer's onset 13.86 s is 0.45 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 343440
+  },
+  "onset:06_1:s1:06_1-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.58 s quiet run, at 7.05 s (body at or above -40 dBFS at 7.06 s); the recognizer's onset 6.74 s is 0.31 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 169200
+  },
+  "onset:06_1:s2:06_1-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.55 s quiet run, at 14.46 s (body at or above -40 dBFS at 14.47 s); the recognizer's onset 14.08 s is 0.38 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 347040
+  },
+  "onset:06_2:s1:06_2-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.6 s quiet run, at 6.47 s (body at or above -40 dBFS at 6.49 s); the recognizer's onset 6.14 s is 0.33 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 155280
+  },
+  "onset:06_2:s2:06_2-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.51 s quiet run, at 11.73 s (body at or above -40 dBFS at 11.74 s); the recognizer's onset 11.5 s is 0.23 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 281520
+  },
+  "onset:06_2:s3:06_2-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.73 s quiet run, at 16.32 s (body at or above -40 dBFS at 16.32 s); the recognizer's onset 16.0 s is 0.32 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 391680
+  },
+  "onset:06_2:s1:06_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.64 s quiet run, at 6.58 s (body at or above -40 dBFS at 6.59 s); the recognizer's onset 6.24 s is 0.34 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 157920
+  },
+  "onset:06_2:s2:06_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.59 s quiet run, at 11.89 s (body at or above -40 dBFS at 11.91 s); the recognizer's onset 11.52 s is 0.37 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 285360
+  },
+  "onset:06_2:s3:06_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.81 s quiet run, at 16.55 s (body at or above -40 dBFS at 16.56 s); the recognizer's onset 16.0 s is 0.55 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 397200
+  },
+  "onset:06_20:s1:06_20-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.45 s quiet run, at 5.41 s (body at or above -40 dBFS at 5.49 s); the recognizer's onset 5.12 s is 0.29 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 129840
+  },
+  "onset:06_20:s2:06_20-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.59 s quiet run, at 12.7 s (body at or above -40 dBFS at 12.71 s); the recognizer's onset 12.179999 s is 0.52 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 304800
+  },
+  "onset:06_20:s1:06_20-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.49 s quiet run, at 5.41 s (body at or above -40 dBFS at 5.46 s); the recognizer's onset 5.06 s is 0.35 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 129840
+  },
+  "onset:06_20:s2:06_20-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.53 s quiet run, at 12.66 s (body at or above -40 dBFS at 12.68 s); the recognizer's onset 12.2 s is 0.46 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 303840
+  },
+  "onset:06_3:s1:06_3-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.63 s quiet run, at 2.42 s (body at or above -40 dBFS at 2.45 s); the recognizer's onset 2.0 s is 0.42 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 58080
+  },
+  "onset:06_3:s2:06_3-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.38 s quiet run, at 4.15 s (body at or above -40 dBFS at 4.2 s); the recognizer's onset 3.88 s is 0.27 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 99600
+  },
+  "onset:06_3:s3:06_3-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.34 s quiet run, at 6.27 s (body at or above -40 dBFS at 6.35 s); the recognizer's onset 5.98 s is 0.29 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 150480
+  },
+  "onset:06_3:s4:06_3-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.68 s quiet run, at 10.41 s (body at or above -40 dBFS at 10.42 s); the recognizer's onset 10.099999 s is 0.31 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 249840
+  },
+  "onset:06_3:s5:06_3-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.56 s quiet run, at 13.27 s (body at or above -40 dBFS at 13.29 s); the recognizer's onset 12.92 s is 0.35 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 318480
+  },
+  "onset:06_3:s1:06_3-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.54 s quiet run, at 2.31 s (body at or above -40 dBFS at 2.34 s); the recognizer's onset 1.94 s is 0.37 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 55440
+  },
+  "onset:06_3:s2:06_3-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.33 s quiet run, at 4.06 s (body at or above -40 dBFS at 4.1 s); the recognizer's onset 3.78 s is 0.28 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 97440
+  },
+  "onset:06_3:s3:06_3-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.36 s quiet run, at 5.97 s (body at or above -40 dBFS at 6.11 s); the recognizer's onset 5.76 s is 0.21 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 143280
+  },
+  "onset:06_3:s4:06_3-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.49 s quiet run, at 9.85 s (body at or above -40 dBFS at 9.86 s); the recognizer's onset 9.559999 s is 0.29 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 236400
+  },
+  "onset:06_3:s5:06_3-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.43 s quiet run, at 12.65 s (body at or above -40 dBFS at 12.66 s); the recognizer's onset 12.34 s is 0.31 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 303600
+  },
+  "onset:06_5:s1:06_5-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.31 s quiet run, at 4.81 s (body at or above -40 dBFS at 4.93 s); the recognizer's onset 4.58 s is 0.23 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 115440
+  },
+  "onset:06_5:s2:06_5-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.35 s quiet run, at 8.93 s (body at or above -40 dBFS at 9.08 s); the recognizer's onset 8.72 s is 0.21 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 214320
+  },
+  "onset:06_6:s1:06_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.57 s quiet run, at 4.5 s (body at or above -40 dBFS at 4.5 s); the recognizer's onset 4.0 s is 0.5 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 108000
+  },
+  "onset:06_6:s2:06_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.63 s quiet run, at 10.88 s (body at or above -40 dBFS at 11.02 s); the recognizer's onset 10.5 s is 0.38 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 261120
+  },
+  "onset:06_6:s3:06_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.62 s quiet run, at 16.39 s (body at or above -40 dBFS at 16.4 s); the recognizer's onset 16.0 s is 0.39 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 393360
+  },
+  "onset:06_6:s4:06_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.48 s quiet run, at 25.91 s (body at or above -40 dBFS at 26.04 s); the recognizer's onset 25.48 s is 0.43 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 621840
+  },
+  "onset:06_6:s1:06_6-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.51 s quiet run, at 4.62 s (body at or above -40 dBFS at 4.65 s); the recognizer's onset 4.26 s is 0.36 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 110880
+  },
+  "onset:06_6:s2:06_6-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.56 s quiet run, at 11.17 s (body at or above -40 dBFS at 11.18 s); the recognizer's onset 10.64 s is 0.53 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 268080
+  },
+  "onset:06_6:s3:06_6-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.6 s quiet run, at 16.58 s (body at or above -40 dBFS at 16.59 s); the recognizer's onset 16.18 s is 0.4 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 397920
+  },
+  "onset:06_6:s4:06_6-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.48 s quiet run, at 26.18 s (body at or above -40 dBFS at 26.19 s); the recognizer's onset 25.84 s is 0.34 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 628320
+  },
+  "onset:06_7:s2:06_7-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.52 s quiet run, at 8.42 s (body at or above -40 dBFS at 8.44 s); the recognizer's onset 8.1 s is 0.32 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 202080
+  },
+  "onset:06_7:s3:06_7-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.4 s quiet run, at 11.81 s (body at or above -40 dBFS at 11.83 s); the recognizer's onset 11.6 s is 0.21 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 283440
+  },
+  "onset:06_7:s4:06_7-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.37 s quiet run, at 17.03 s (body at or above -40 dBFS at 17.06 s); the recognizer's onset 16.8 s is 0.23 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 408720
+  },
+  "onset:06_7:s5:06_7-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.4 s quiet run, at 19.07 s (body at or above -40 dBFS at 19.09 s); the recognizer's onset 18.84 s is 0.23 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 457680
+  },
+  "onset:06_7:s6:06_7-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.45 s quiet run, at 23.97 s (body at or above -40 dBFS at 23.98 s); the recognizer's onset 23.719999 s is 0.25 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 575280
+  },
+  "onset:06_7:s2:06_7-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.49 s quiet run, at 8.34 s (body at or above -40 dBFS at 8.36 s); the recognizer's onset 8.02 s is 0.32 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 200160
+  },
+  "onset:06_7:s3:06_7-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.44 s quiet run, at 11.75 s (body at or above -40 dBFS at 11.76 s); the recognizer's onset 11.4 s is 0.35 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 282000
+  },
+  "onset:06_7:s4:06_7-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.42 s quiet run, at 16.79 s (body at or above -40 dBFS at 16.83 s); the recognizer's onset 16.52 s is 0.27 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 402960
+  },
+  "onset:06_7:s5:06_7-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.4 s quiet run, at 18.81 s (body at or above -40 dBFS at 18.84 s); the recognizer's onset 18.6 s is 0.21 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 451440
+  },
+  "onset:06_7:s6:06_7-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.42 s quiet run, at 23.76 s (body at or above -40 dBFS at 23.77 s); the recognizer's onset 23.519999 s is 0.24 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 570240
+  },
+  "onset:07_2:s1:07_2-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.6 s quiet run, at 7.67 s (body at or above -40 dBFS at 7.69 s); the recognizer's onset 7.12 s is 0.55 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 184080
+  },
+  "onset:07_2:s2:07_2-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.56 s quiet run, at 12.4 s (body at or above -40 dBFS at 12.43 s); the recognizer's onset 11.98 s is 0.42 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 297600
+  },
+  "onset:07_2:s3:07_2-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.56 s quiet run, at 21.38 s (body at or above -40 dBFS at 21.42 s); the recognizer's onset 20.98 s is 0.4 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 513120
+  },
+  "onset:07_2:s1:07_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.58 s quiet run, at 7.65 s (body at or above -40 dBFS at 7.66 s); the recognizer's onset 7.12 s is 0.53 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 183600
+  },
+  "onset:07_2:s2:07_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.49 s quiet run, at 12.33 s (body at or above -40 dBFS at 12.35 s); the recognizer's onset 11.92 s is 0.41 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 295920
+  },
+  "onset:07_2:s3:07_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.52 s quiet run, at 21.22 s (body at or above -40 dBFS at 21.26 s); the recognizer's onset 20.82 s is 0.4 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 509280
+  },
+  "onset:07_4:s1:07_4-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.69 s quiet run, at 5.47 s (body at or above -40 dBFS at 5.49 s); the recognizer's onset 5.0 s is 0.47 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 131280
+  },
+  "onset:07_4:s2:07_4-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.62 s quiet run, at 12.98 s (body at or above -40 dBFS at 12.98 s); the recognizer's onset 12.42 s is 0.56 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 311520
+  },
+  "onset:07_4:s1:07_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.6 s quiet run, at 5.3 s (body at or above -40 dBFS at 5.33 s); the recognizer's onset 4.94 s is 0.36 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 127200
+  },
+  "onset:07_4:s2:07_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.61 s quiet run, at 12.79 s (body at or above -40 dBFS at 12.8 s); the recognizer's onset 12.32 s is 0.47 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 306960
+  },
+  "onset:07_6:s1:07_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.52 s quiet run, at 1.66 s (body at or above -40 dBFS at 1.7 s); the recognizer's onset 1.22 s is 0.44 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 39840
+  },
+  "onset:07_6:s6:07_6-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.59 s quiet run, at 35.03 s (body at or above -40 dBFS at 35.07 s); the recognizer's onset 34.639999 s is 0.39 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 840720
+  },
+  "onset:07_6:s1:07_6-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.67 s quiet run, at 1.84 s (body at or above -40 dBFS at 1.87 s); the recognizer's onset 1.3 s is 0.54 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 44160
+  },
+  "onset:08_1:s1:08_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.58 s quiet run, at 5.94 s (body at or above -40 dBFS at 5.95 s); the recognizer's onset 5.42 s is 0.52 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 142560
+  },
+  "onset:08_1:s2:08_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.68 s quiet run, at 7.75 s (body at or above -40 dBFS at 7.76 s); the recognizer's onset 7.26 s is 0.49 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 186000
+  },
+  "onset:08_1:s3:08_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.49 s quiet run, at 12.42 s (body at or above -40 dBFS at 12.43 s); the recognizer's onset 12.16 s is 0.26 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 298080
+  },
+  "onset:08_1:s4:08_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.58 s quiet run, at 13.68 s (body at or above -40 dBFS at 13.71 s); the recognizer's onset 13.299999 s is 0.38 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 328320
+  },
+  "onset:08_1:s5:08_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.6 s quiet run, at 18.81 s (body at or above -40 dBFS at 18.82 s); the recognizer's onset 18.34 s is 0.47 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 451440
+  },
+  "onset:08_1:s6:08_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.58 s quiet run, at 25.12 s (body at or above -40 dBFS at 25.13 s); the recognizer's onset 24.699999 s is 0.42 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 602880
+  },
+  "onset:08_1:s1:08_1-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.56 s quiet run, at 5.86 s (body at or above -40 dBFS at 5.88 s); the recognizer's onset 5.4 s is 0.46 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 140640
+  },
+  "onset:08_1:s2:08_1-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.83 s quiet run, at 7.81 s (body at or above -40 dBFS at 7.81 s); the recognizer's onset 7.2 s is 0.61 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 187440
+  },
+  "onset:08_1:s3:08_1-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.5 s quiet run, at 12.42 s (body at or above -40 dBFS at 12.43 s); the recognizer's onset 12.12 s is 0.3 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 298080
+  },
+  "onset:08_1:s4:08_1-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.51 s quiet run, at 13.58 s (body at or above -40 dBFS at 13.73 s); the recognizer's onset 13.36 s is 0.22 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 325920
+  },
+  "onset:08_1:s5:08_1-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.62 s quiet run, at 18.88 s (body at or above -40 dBFS at 18.89 s); the recognizer's onset 18.42 s is 0.46 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 453120
+  },
+  "onset:08_1:s6:08_1-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.58 s quiet run, at 25.2 s (body at or above -40 dBFS at 25.22 s); the recognizer's onset 24.8 s is 0.4 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 604800
+  },
+  "onset:08_2:s1:08_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.33 s quiet run, at 4.26 s (body at or above -40 dBFS at 4.38 s); the recognizer's onset 4.0 s is 0.26 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 102240
+  },
+  "onset:08_2:s2:08_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.52 s quiet run, at 8.35 s (body at or above -40 dBFS at 8.36 s); the recognizer's onset 8.0 s is 0.35 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 200400
+  },
+  "onset:08_2:s3:08_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.46 s quiet run, at 17.54 s (body at or above -40 dBFS at 17.73 s); the recognizer's onset 17.279999 s is 0.26 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 420960
+  },
+  "onset:09_2:s1:09_2-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.51 s quiet run, at 4.58 s (body at or above -40 dBFS at 4.63 s); the recognizer's onset 4.28 s is 0.3 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 109920
+  },
+  "onset:09_2:s2:09_2-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.52 s quiet run, at 7.19 s (body at or above -40 dBFS at 7.2 s); the recognizer's onset 6.84 s is 0.35 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 172560
+  },
+  "onset:09_2:s3:09_2-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.52 s quiet run, at 15.3 s (body at or above -40 dBFS at 15.32 s); the recognizer's onset 14.98 s is 0.32 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 367200
+  },
+  "onset:09_2:s4:09_2-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.43 s quiet run, at 19.22 s (body at or above -40 dBFS at 19.26 s); the recognizer's onset 18.879999 s is 0.34 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 461280
+  },
+  "onset:09_2:s1:09_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.5 s quiet run, at 4.69 s (body at or above -40 dBFS at 4.71 s); the recognizer's onset 4.38 s is 0.31 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 112560
+  },
+  "onset:09_2:s2:09_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.48 s quiet run, at 7.21 s (body at or above -40 dBFS at 7.23 s); the recognizer's onset 6.88 s is 0.33 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 173040
+  },
+  "onset:09_2:s3:09_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.48 s quiet run, at 14.93 s (body at or above -40 dBFS at 14.95 s); the recognizer's onset 14.599999 s is 0.33 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 358320
+  },
+  "onset:09_2:s4:09_2-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.38 s quiet run, at 18.62 s (body at or above -40 dBFS at 18.65 s); the recognizer's onset 18.32 s is 0.3 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 446880
+  },
+  "onset:09_3:s1:09_3-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.58 s quiet run, at 8.26 s (body at or above -40 dBFS at 8.27 s); the recognizer's onset 7.86 s is 0.4 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 198240
+  },
+  "onset:09_3:s2:09_3-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.58 s quiet run, at 13.81 s (body at or above -40 dBFS at 13.84 s); the recognizer's onset 13.44 s is 0.37 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 331440
+  },
+  "onset:09_3:s1:09_3-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.57 s quiet run, at 8.34 s (body at or above -40 dBFS at 8.35 s); the recognizer's onset 8.0 s is 0.34 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 200160
+  },
+  "onset:09_3:s2:09_3-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.51 s quiet run, at 13.58 s (body at or above -40 dBFS at 13.61 s); the recognizer's onset 13.2 s is 0.38 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 325920
+  },
+  "onset:10_1:s3:10_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.51 s quiet run, at 11.44 s (body at or above -40 dBFS at 11.45 s); the recognizer's onset 11.099999 s is 0.34 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 274560
+  },
+  "onset:10_1:s1:10_1-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.5 s quiet run, at 5.37 s (body at or above -40 dBFS at 5.39 s); the recognizer's onset 5.12 s is 0.25 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 128880
+  },
+  "onset:10_4:s3:10_4-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.52 s quiet run, at 20.5 s (body at or above -40 dBFS at 20.54 s); the recognizer's onset 20.08 s is 0.42 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 492000
+  },
+  "onset:10_4:s4:10_4-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.61 s quiet run, at 24.34 s (body at or above -40 dBFS at 24.35 s); the recognizer's onset 24.059999 s is 0.28 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 584160
+  },
+  "onset:10_4:s1:10_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.57 s quiet run, at 6.14 s (body at or above -40 dBFS at 6.17 s); the recognizer's onset 5.66 s is 0.48 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 147360
+  },
+  "onset:10_4:s2:10_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.5 s quiet run, at 15.09 s (body at or above -40 dBFS at 15.11 s); the recognizer's onset 14.839999 s is 0.25 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 362160
+  },
+  "onset:10_4:s3:10_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.51 s quiet run, at 20.39 s (body at or above -40 dBFS at 20.4 s); the recognizer's onset 19.959999 s is 0.43 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 489360
+  },
+  "onset:10_4:s4:10_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.69 s quiet run, at 24.26 s (body at or above -40 dBFS at 24.29 s); the recognizer's onset 24.039999 s is 0.22 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 582240
+  },
+  "onset:11_1:s1:11_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.44 s quiet run, at 3.38 s (body at or above -40 dBFS at 3.43 s); the recognizer's onset 3.0 s is 0.38 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 81120
+  },
+  "onset:11_1:s2:11_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.52 s quiet run, at 6.8 s (body at or above -40 dBFS at 6.85 s); the recognizer's onset 6.5 s is 0.3 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 163200
+  },
+  "onset:11_1:s3:11_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.53 s quiet run, at 12.0 s (body at or above -40 dBFS at 12.01 s); the recognizer's onset 11.54 s is 0.46 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 288000
+  },
+  "onset:11_1:s4:11_1-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.49 s quiet run, at 18.78 s (body at or above -40 dBFS at 18.8 s); the recognizer's onset 18.52 s is 0.26 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 450720
+  },
+  "onset:11_20:s1:11_20-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.62 s quiet run, at 11.11 s (body at or above -40 dBFS at 11.14 s); the recognizer's onset 10.679999 s is 0.43 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 266640
+  },
+  "onset:11_20:s1:11_20-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.58 s quiet run, at 11.28 s (body at or above -40 dBFS at 11.3 s); the recognizer's onset 10.8 s is 0.48 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 270720
+  },
+  "onset:11_4:s1:11_4-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.3 s quiet run, at 1.07 s (body at or above -40 dBFS at 1.09 s); the recognizer's onset 0.8 s is 0.27 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 25680
+  },
+  "onset:11_4:s2:11_4-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.61 s quiet run, at 7.28 s (body at or above -40 dBFS at 7.32 s); the recognizer's onset 7.0 s is 0.28 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 174720
+  },
+  "onset:11_4:s3:11_4-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.49 s quiet run, at 14.34 s (body at or above -40 dBFS at 14.36 s); the recognizer's onset 14.12 s is 0.22 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 344160
+  },
+  "onset:11_4:s4:11_4-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.47 s quiet run, at 15.65 s (body at or above -40 dBFS at 15.66 s); the recognizer's onset 15.259999 s is 0.39 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 375600
+  },
+  "onset:11_4:s5:11_4-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.61 s quiet run, at 23.26 s (body at or above -40 dBFS at 23.28 s); the recognizer's onset 23.0 s is 0.26 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 558240
+  },
+  "onset:11_4:s1:11_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.49 s quiet run, at 1.13 s (body at or above -40 dBFS at 1.14 s); the recognizer's onset 0.74 s is 0.39 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 27120
+  },
+  "onset:11_4:s2:11_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.22 s quiet run, at 6.9 s (body at or above -40 dBFS at 7.0 s); the recognizer's onset 6.62 s is 0.28 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 165600
+  },
+  "onset:11_4:s3:11_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.57 s quiet run, at 14.17 s (body at or above -40 dBFS at 14.19 s); the recognizer's onset 13.82 s is 0.35 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 340080
+  },
+  "onset:11_4:s4:11_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.52 s quiet run, at 15.55 s (body at or above -40 dBFS at 15.57 s); the recognizer's onset 15.12 s is 0.43 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 373200
+  },
+  "onset:11_4:s5:11_4-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.64 s quiet run, at 23.3 s (body at or above -40 dBFS at 23.32 s); the recognizer's onset 23.019999 s is 0.28 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 559200
+  },
+  "onset:11_8:s1:11_8-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.79 s quiet run, at 4.72 s (body at or above -40 dBFS at 4.75 s); the recognizer's onset 4.14 s is 0.58 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 113280
+  },
+  "onset:11_8:s2:11_8-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.5 s quiet run, at 10.82 s (body at or above -40 dBFS at 10.82 s); the recognizer's onset 10.44 s is 0.38 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 259680
+  },
+  "onset:11_8:s3:11_8-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.48 s quiet run, at 15.05 s (body at or above -40 dBFS at 15.08 s); the recognizer's onset 14.68 s is 0.37 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 361200
+  },
+  "onset:12_20:s1:12_20-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.58 s quiet run, at 6.21 s (body at or above -40 dBFS at 6.23 s); the recognizer's onset 6.0 s is 0.21 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 149040
+  },
+  "onset:12_21:s1:12_21-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.92 s quiet run, at 13.23 s (body at or above -40 dBFS at 13.26 s); the recognizer's onset 12.5 s is 0.73 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 317520
+  },
+  "onset:12_21:s1:12_21-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.64 s quiet run, at 13.15 s (body at or above -40 dBFS at 13.18 s); the recognizer's onset 12.679999 s is 0.47 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 315600
+  },
+  "onset:12_3:s1:12_3-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.46 s quiet run, at 7.6 s (body at or above -40 dBFS at 7.64 s); the recognizer's onset 7.2 s is 0.4 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 182400
+  },
+  "onset:12_3:s2:12_3-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.8 s quiet run, at 13.13 s (body at or above -40 dBFS at 13.14 s); the recognizer's onset 12.559999 s is 0.57 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 315120
+  },
+  "onset:12_3:s3:12_3-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.59 s quiet run, at 17.34 s (body at or above -40 dBFS at 17.36 s); the recognizer's onset 16.9 s is 0.44 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 416160
+  },
+  "onset:08_5:s1:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.67 s quiet run, at 2.23 s (body at or above -40 dBFS at 2.26 s); the recognizer's onset 1.64 s is 0.59 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 53520
+  },
+  "onset:08_5:s2:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.57 s quiet run, at 7.09 s (body at or above -40 dBFS at 7.1 s); the recognizer's onset 6.7 s is 0.39 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 170160
+  },
+  "onset:08_5:s3:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.63 s quiet run, at 15.28 s (body at or above -40 dBFS at 15.3 s); the recognizer's onset 14.719999 s is 0.56 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 366720
+  },
+  "onset:08_5:s4:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download01.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.66 s quiet run, at 20.75 s (body at or above -40 dBFS at 20.77 s); the recognizer's onset 20.359999 s is 0.39 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 498000
+  },
+  "onset:08_5:s2:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: the vowel of 'each' rises at 6.97-6.99 s after the 0.50 s pause; the first frame above -60 dBFS (6.86 s, sample 164640) is a small blip, so the answer is placed at 6.96 s (timing inspection 8c18a243, probe 4); not heard",
+   "sample_24k": 167040
+  },
+  "onset:08_5:s3:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.56 s quiet run, at 15.28 s (body at or above -40 dBFS at 15.29 s); the recognizer's onset 14.82 s is 0.46 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 366720
+  },
+  "onset:08_5:s4:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.54 s quiet run, at 20.69 s (body at or above -40 dBFS at 20.71 s); the recognizer's onset 20.32 s is 0.37 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 496560
+  },
+  "onset:08_5:s5:narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download02.wav": {
+   "decision": "sample",
+   "by": "BronzeJaguar, provisional for root (Mail 4153)",
+   "basis": "energy: first 10 ms frame above -60 dBFS after a 0.52 s quiet run, at 27.41 s (body at or above -40 dBFS at 27.44 s); the recognizer's onset 27.059999 s is 0.35 s earlier (timing inspection 8c18a243); not heard",
+   "sample_24k": 657840
+  }
+ }
+}

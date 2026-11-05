@@ -1,0 +1,7 @@
+helper 08a26927; selection 9c47f58f; answers 8f9a0cd0
+V1 PASS: in step: docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-audio-preparation01/report (5 files, 4 questions)
+V2 PASS: binding 2d7f4731; load_selection accepts 80 cues in script order; {'download01': 65, 'download02': 15}
+V3 PASS: check_answers applies 92 sample answers (of 181 in the file; the rest name recordings not selected); blocking questions ['provenance:00_1:00_1-download03.wav', 'provenance:00_1:00_1-download04.wav'] do not touch the selection; open advisory questions on the selection: ['voice:04_3:04_3-download01.wav']
+V4 PASS: resolved_points accepts all 80 chosen recordings at ceil(n/2): 284 onsets, 33 marks; smallest lead of a mark over its sentence onset 1.59 s (12_21 b192), smallest room 1.580001 s (05_20 b276); refused []
+V5 PASS: 92 onsets moved by their answers, all later: 0.20 to 0.73 s (median 0.38 s); no mark answer applies to the selection
+RESULT PASS: 5 pass, 0 fail

@@ -1,0 +1,703 @@
+#!/usr/bin/env python3
+"""Final technical verification of the logarithm stage09 master (bead 87do.63, BlueSalmon Mail 4124).
+
+LavenderPike, 2026-11-05. Adapted from root's Nov 3 final verifiers (`final-verify01.py` for apportionment,
+`logarithm-verify01.py`), root's strict video check `verify_video_preserve_logs01.sh`, root's caption screen
+`caption-interval-audit01.py` and root's encoded-loudness job (ebur128 under the guard). It reads the outputs of
+RubyRaven's render route (`prepare_stage09_render.py`, sealed 9ddc2003) and changes none of them.
+
+From the repository root (every path is an argument; absolute paths):
+
+  check       --lane L --jobs J --crate C --narration N --series SS
+              read only: the master's command binding, the 13-chapter schedule, exact captions and the picture plan
+  write-job   ... --verify NN --job-dir D
+              writes D/logarithm-stage09-final-verifyNN.py and its guard inputs, then prints the guard line
+  verify-job  ... --verify NN --job-dir D
+              after root's guarded run: its receipt, log, measurements and the extracted pictures
+
+L is the guard's lane, J the folder holding the render route's job scripts (WS/jobs), C the workspace crate
+(WS/explainer_corpus/logarithm_mysteries), N the bound narration (O/narration), SS the render series.
+
+Nothing here launches a job, views a picture, listens, or accepts the film. Root launches the printed guard line,
+views every sheet, and owns the final review.
+"""
+import argparse
+import ast
+import hashlib
+import json
+import math
+import os
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import sys
+import wave
+
+HERE = Path(__file__).resolve()
+REPO = HERE.parents[5]
+STAGE = "logarithm-stage09"
+TOPIC = "logarithm_mysteries"
+FPS = 60
+CHAPTERS = ["00_ratio_ruler", "01_building_ruler", "02_slide_rule", "03_folded_decade", "04_undoing_growth",
+            "05_complex_turns", "06_lifting_loops", "07_branch_cut", "08_product_rule", "09_matrix_logs",
+            "10_doing_nothing", "11_unreachable", "12_what_it_forgets"]
+CUES = 80
+DIRECTION_MAP = "docs/narration-direction-map-oliver16.json"
+# The render route's exact success lines (prepare_stage09_render.py 9ddc2003, SUCCESS).
+TIMELINE_SUCCESS = "TIMELINE PASS: 13 chapters at 60 fps; 80 cue placements in script order."
+RENDER_SUCCESS = "RENDER PASS: 4K60 chapter; frame and cue schedule equals the 60 fps timeline."
+MASTER_SUCCESS = ("MASTER WRITTEN: candidate master and captions; strict verify, pictures, ASR, caption screen, "
+                  "loudness and listening remain.")
+VERIFY_SUCCESS = ("FINAL VERIFY PASS: strict video check, frame count, A/V length and exact captions passed; "
+                  "every sheet still needs root's viewing.")
+P_REL = "docs/video-program/third-wave-20261024/opus-replacements-20261104"
+M_REL = "narration_lab/third-wave-20261024/root/six-machine-screened-production-20261103"
+STRICT_REL = f"{M_REL}/verify_video_preserve_logs01.sh"
+SCREEN_REL = f"{M_REL}/caption-interval-audit01.py"
+GUARD_REL = f"{P_REL}/engine-secondary-validation01/guard_owner56g_target20g.py"
+GUARD_SOURCE_REL = ("narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/"
+                    "run_bounded_phase_oliver_owner48g_target14g_20261102.py")
+PINS = {
+    STRICT_REL: "3f4c68dbdcb02c1c90ff03cb4f20afc36792b7f20c6cc111a5eef21617a11410",
+    SCREEN_REL: "3cc2643615ce5263b01d429ae6f72326c95e777af3e7f29ef9266a05155fa0c4",
+    GUARD_REL: "1c19a9b8f817c3bca06e18fd0785ac21c3cb935be715d67ecc41e4e39d1f5097",
+    GUARD_SOURCE_REL: "819746fb33110d6c133e184812c80a00562d848816f623078ad86f0fb1a316da",
+}
+EXPECT = {"EXPECT_RES": "3840x2160", "EXPECT_FPS": "60", "EXPECT_BT709": "1", "EXPECT_LUFS": "-16", "EXPECT_TP_MAX": "-1.0"}
+OUTPUTS = ("strict-video-verification.log", "encoded-loudness.log", "caption-screen.json", "verification.json")
+SCOPE = ("Technical checks and extracted pictures of the logarithm stage09 master only (ElevenLabs Oliver). No "
+         "listening, picture viewing, fine sync, ASR, independent review or publication acceptance is claimed.")
+STAMP = r"(\d\d):([0-5]\d):([0-5]\d)[{d}](\d{{3}})"
+
+
+class Refused(Exception):
+    pass
+
+
+def need(ok, message):
+    if not ok:
+        raise Refused(message)
+
+
+def sha(path):
+    with open(path, "rb") as handle:
+        return hashlib.file_digest(handle, "sha256").hexdigest()
+
+
+def load(path):
+    need(Path(path).is_file(), f"{path} is missing")
+    return json.loads(Path(path).read_text(encoding="utf-8"))
+
+
+def receipt_ok(r):
+    return (r.get("admitted") is True and r.get("exit") == 0 and bool(r.get("finished"))
+            and r.get("inputs_sha256") == r.get("final_inputs_sha256")
+            and not r.get("stopped_for_resource_limit") and "error" not in r)
+
+
+def last_line(path):
+    lines = [x for x in Path(path).read_text(errors="replace").splitlines() if x.strip()] if Path(path).is_file() else []
+    return lines[-1] if lines else None
+
+
+def norm(text):
+    return " ".join(text.split())
+
+
+# ---------------------------------------------------------------- parsers of the kit's own files
+
+def read_script(path):
+    """coherent_narration.read_script's rule: blank and '#' rows skipped, then exactly `cue<TAB>text`."""
+    rows = {}
+    for number, row in enumerate(Path(path).read_text(encoding="utf-8").splitlines(), 1):
+        if not row.strip() or row.startswith("#"):
+            continue
+        cells = row.split("\t")
+        need(len(cells) == 2 and re.fullmatch(r"\d\d_\d+", cells[0]) and cells[1].strip(),
+             f"script row {number} is not cue<TAB>text")
+        need(cells[0] not in rows, f"script cue {cells[0]} repeats")
+        rows[cells[0]] = cells[1]
+    need(rows, "the script is empty")
+    return rows
+
+
+def registry(crate):
+    """The crate's chapter registry, in order (`key: "..."` in src/chapters/mod.rs)."""
+    return re.findall(r'^\s*key: "([^"]+)",$', (Path(crate) / "src/chapters/mod.rs").read_text(), re.M)
+
+
+def parse_timeline(text, name):
+    """explainer_score::timeline::ChapterTimeline::parse, record for record."""
+    t = {"chapter": None, "fps": 0, "frames": 0, "lines": [], "marks": [], "breaths": [], "listens": []}
+
+    def integer(f, k, n):
+        need(k < len(f) and re.fullmatch(r"\d+", f[k]), f"{name} line {n}: bad integer")
+        return int(f[k])
+
+    def number(f, k, n):
+        try:
+            return float(f[k])
+        except (IndexError, ValueError):
+            raise Refused(f"{name} line {n}: bad number") from None
+
+    for n, raw in enumerate(text.split("\n"), 1):
+        line = raw.rstrip("\r")
+        if not line or line.startswith("#"):
+            continue
+        f = line.split("\t")
+        if f[0] == "chapter":
+            need(len(f) > 1, f"{name} line {n}: missing name")
+            t["chapter"] = f[1]
+        elif f[0] == "fps":
+            t["fps"] = integer(f, 1, n)
+        elif f[0] == "frames":
+            t["frames"] = integer(f, 1, n)
+        elif f[0] == "line":
+            need(len(f) == 5, f"{name} line {n}: line needs id, start_frame, gain_db, path")
+            t["lines"].append({"id": f[1], "start": integer(f, 2, n), "gain_db": number(f, 3, n), "wav": f[4]})
+        elif f[0] == "mark":
+            t["marks"].append({"label": f[1] if len(f) > 1 else "", "frame": integer(f, 2, n)})
+        elif f[0] == "breath":
+            t["breaths"].append({"frame": integer(f, 1, n), "seconds": number(f, 2, n)})
+        elif f[0] == "listen":
+            need(len(f) <= 5, f"{name} line {n}: listen needs frame, seconds, label and at most a path")
+            t["listens"].append({"frame": integer(f, 1, n), "seconds": number(f, 2, n)})
+        else:
+            raise Refused(f"{name} line {n}: unknown record {f[0]!r}")
+    need(t["fps"] != 0, f"{name}: missing fps")
+    ids = [x["id"] for x in t["lines"]]
+    need(len(set(ids)) == len(ids), f"{name}: a line id repeats")
+    return t
+
+
+def schedule(t):
+    return (t["chapter"], t["fps"], t["frames"], [(x["id"], x["start"], x["gain_db"], x["wav"]) for x in t["lines"]])
+
+
+def layout_anchors(text, name):
+    """Layout rows are `checkpoint<TAB>kind<TAB>detail`; both of the kit's checkpoint forms end ` @<t.t>s`."""
+    found = []
+    for row in text.split("\n"):
+        if not row.strip():
+            continue
+        m = re.fullmatch(r".* @([0-9]+\.[0-9])s", row.split("\t")[0])
+        need(m is not None, f"{name}: unrecognized layout finding: {row[:90]}")
+        found.append((round(float(m.group(1)) * FPS), row))
+    return found
+
+
+def parse_captions(text, vtt):
+    """The kit's exact writers (captions.rs to_srt / to_vtt): `k\\nS --> E\\nline[\\nline]\\n\\n`, VTT without k."""
+    name = "VTT" if vtt else "SRT"
+    if vtt:
+        need(text.startswith("WEBVTT\n\n"), "VTT: no WEBVTT header")
+        text = text[len("WEBVTT\n\n"):]
+    need(text.endswith("\n\n"), f"{name}: does not end with an empty line")
+    stamp = STAMP.format(d="." if vtt else ",")
+    out = []
+    for k, block in enumerate(text[:-2].split("\n\n"), 1):
+        lines = block.split("\n")
+        if not vtt:
+            need(lines[0] == str(k), f"SRT caption {k}: numbered {lines[0]!r}")
+            lines = lines[1:]
+        m = re.fullmatch(f"{stamp} --> {stamp}", lines[0])
+        need(m is not None, f"{name} caption {k}: malformed time line {lines[0]!r}")
+        g = [int(x) for x in m.groups()]
+        start = ((g[0] * 60 + g[1]) * 60 + g[2]) * 1000 + g[3]
+        end = ((g[4] * 60 + g[5]) * 60 + g[6]) * 1000 + g[7]
+        need(1 <= len(lines) - 1 <= 2 and all(x.strip() for x in lines[1:]), f"{name} caption {k}: needs one or two text lines")
+        out.append((start, end, tuple(lines[1:])))
+    return out
+
+
+def sentence_onsets(report):
+    """explainer_kit narration::report_starts: running out_samples + gap_after_samples, over meta.rate."""
+    rate = report.get("meta", {}).get("rate")
+    need(isinstance(rate, (int, float)) and rate > 0, "report.json: no positive meta.rate")
+    out = {}
+    for cue, rows in report["lines"].items():
+        t, starts = 0, []
+        for k, s in enumerate(rows):
+            need(isinstance(s.get("out_samples"), int) and isinstance(s.get("gap_after_samples"), int),
+                 f"report.json: {cue} sentence {k} has no sample counts")
+            starts.append(t / rate)
+            t += s["out_samples"] + s["gap_after_samples"]
+        out[cue] = starts
+    return out
+
+
+def wav_seconds(path):
+    with wave.open(str(path)) as w:
+        return w.getnframes() / w.getframerate()
+
+
+# ---------------------------------------------------------------- the static checks
+
+class Ctx:
+    def __init__(self, a):
+        for key in ("lane", "jobs", "crate", "narration"):
+            value = Path(getattr(a, key))
+            need(value.is_absolute(), f"--{key} must be an absolute path")
+            setattr(self, key, value)
+        need(re.fullmatch(r"\d\d", a.series or "") is not None, "--series must be two digits")
+        self.series = a.series
+        self.master_job = f"{STAGE}-master{a.series}"
+        self.timeline_job = f"{STAGE}-timeline{a.series}"
+        self.score_job = f"{STAGE}-score{a.series}"
+        self.work = self.lane / f"{STAGE}-render-work{a.series}"
+        self.verify_job = None
+        if getattr(a, "verify", None):
+            need(re.fullmatch(r"\d\d", a.verify) is not None, "--verify must be two digits")
+            self.verify_job = f"{STAGE}-final-verify{a.verify}"
+        self.job_dir = Path(a.job_dir) if getattr(a, "job_dir", None) else None
+        need(self.job_dir is None or self.job_dir.is_absolute(), "--job-dir must be an absolute path")
+
+
+def read_config(script):
+    match = re.search(r"^CONFIG = json\.loads\((.*)\)$", Path(script).read_text(), re.M)
+    need(match is not None, f"{script} has no CONFIG line")
+    return json.loads(ast.literal_eval(match.group(1)))
+
+
+def same(a, b):
+    return Path(a).resolve() == Path(b).resolve()
+
+
+def bind_master(c, cues):
+    """The master job ran the bound command through the guard, and nothing it bound has moved since."""
+    script, inputs = c.jobs / f"{c.master_job}.py", c.jobs / f"{c.master_job}-inputs.json"
+    folder = c.lane / c.master_job
+    r = load(folder / "resource-receipt.json")
+    need(r.get("phase") == "native" and r.get("command") == ["python3", "-I", "-B", str(script)],
+         f"{c.master_job}: the guard's receipt ran {r.get('command')}, not {script}")
+    need(receipt_ok(r), f"{c.master_job} did not pass: exit {r.get('exit')}, error {r.get('error')}")
+    need(inputs.is_file() and r["inputs_sha256"] == sha(inputs), f"{c.master_job}: the guard's input hash is not {inputs.name}")
+    rows = json.loads(inputs.read_text())["files"]
+    need(rows and rows[0]["path"] == str(script) and rows[0]["sha256"] == sha(script), f"{c.master_job}: the script moved")
+    moved = [row["path"] for row in rows if not Path(row["path"]).is_file() or sha(row["path"]) != row["sha256"]]
+    need(not moved, f"{c.master_job}: {len(moved)} bound inputs moved since it ran, first {moved[:2]}")
+    bound = {Path(row["path"]).resolve() for row in rows}
+    cfg = read_config(script)
+    need(cfg.get("step") == "master" and cfg.get("job") == c.master_job and same(cfg.get("lane"), c.lane),
+         f"{c.master_job}: the script is another step, job or lane")
+    need(same(cfg["narration"], c.narration), f"{c.master_job}: the master used narration {cfg['narration']}")
+    need(same(cfg["render_work"], c.work), f"{c.master_job}: the master wrote {cfg['render_work']}, not {c.work}")
+    need(cfg["chapters"] == CHAPTERS and cfg["cues"] == cues, f"{c.master_job}: the script's chapters or cues differ")
+    need(cfg["timeline_job"] == c.timeline_job and list(cfg["render_jobs"]) == CHAPTERS,
+         f"{c.master_job}: the script names another timeline or chapter set")
+    binary = cfg["binary"]
+    need(Path(binary).resolve() in bound and sha(binary) == cfg["binary_sha256"], f"{c.master_job}: the binary is not the bound one")
+    n, work = cfg["narration"], cfg["render_work"]
+    stems = str(Path(cfg["lane"]) / c.score_job / "scored/stems")
+    need(cfg["argv"] == [binary, "master", "--narration", n, "--score", stems, "--out", work],
+         f"{c.master_job}: the master command is {cfg['argv']}")
+    need(cfg["captions_argv"] == [binary, "captions", "all", "--narration", n, "--out", work],
+         f"{c.master_job}: the captions command is {cfg['captions_argv']}")
+    need(last_line(folder / "command.log") == MASTER_SUCCESS, f"{c.master_job}: the log does not end with the master's success line")
+    s = load(folder / "master-summary.json")
+    outputs = {"master": c.work / f"{TOPIC}_master.mp4", "srt": c.work / f"{TOPIC}.en.srt", "vtt": c.work / f"{TOPIC}.en.vtt"}
+    for key, path in outputs.items():
+        need(same(s[key]["path"], path), f"{c.master_job}: master-summary names {s[key]['path']} for {key}")
+        need(path.is_file() and sha(path) == s[key]["sha256"], f"{c.master_job}: the {key} changed since the master job")
+    renders = {}
+    for ch in CHAPTERS:
+        job = cfg["render_jobs"][ch]
+        need(re.fullmatch(re.escape(f"{STAGE}-render-{ch}-{c.series}") + r"(-r[1-9])?", job) is not None, f"{ch}: render job {job}")
+        rr = load(c.lane / job / "resource-receipt.json")
+        need(receipt_ok(rr) and rr.get("command") == ["python3", "-I", "-B", str(c.jobs / f"{job}.py")], f"{job} did not pass")
+        need(last_line(c.lane / job / "command.log") == RENDER_SUCCESS, f"{job}: the log does not end with the render's success line")
+        rs = load(c.lane / job / "render-summary.json")
+        need(rs["chapter"] == ch and sha(c.work / f"{ch}.mp4") == rs["mp4_sha256"], f"{job}: {ch}.mp4 is not the file it rendered")
+        for ext in ("mp4", "timeline.tsv", "layout.tsv"):
+            need((c.work / f"{ch}.{ext}").resolve() in bound, f"{c.master_job} did not bind {ch}.{ext}")
+        renders[ch] = {"job": job, "mp4_sha256": rs["mp4_sha256"]}
+    tr = load(c.lane / c.timeline_job / "resource-receipt.json")
+    need(receipt_ok(tr) and last_line(c.lane / c.timeline_job / "command.log") == TIMELINE_SUCCESS, f"{c.timeline_job} did not pass")
+    return {"cfg": cfg, "bound": bound, "outputs": outputs, "renders": renders,
+            "master_job": {"script_sha256": sha(script), "inputs_sha256": r["inputs_sha256"], "binary_sha256": cfg["binary_sha256"]}}
+
+
+def read_schedule(c, script, summary, bound):
+    need(summary.get("fps") == FPS and [x["chapter"] for x in summary["chapters"]] == CHAPTERS and summary["cues"] == len(script),
+         f"{c.timeline_job}: the summary is not 13 chapters at 60 fps with {len(script)} cues")
+    offset, chapters, placements, timelines = 0, [], [], {}
+    for item in summary["chapters"]:
+        ch = item["chapter"]
+        path, reference = c.work / f"{ch}.timeline.tsv", c.lane / c.timeline_job / "timeline-output" / f"{ch}.timeline.tsv"
+        need(reference.resolve() in bound, f"the master did not bind the timeline job's {ch}.timeline.tsv")
+        t = parse_timeline(path.read_text(), path.name)
+        need(schedule(t) == schedule(parse_timeline(reference.read_text(), reference.name)),
+             f"{ch}: the 4K render's schedule differs from the 60 fps timeline")
+        need(t["chapter"] == ch and t["fps"] == FPS and t["frames"] == item["frames"] and [x["id"] for x in t["lines"]] == item["cues"],
+             f"{ch}: the timeline differs from the timeline summary")
+        for line in t["lines"]:
+            wav = c.narration / f"{line['id']}.wav"
+            need(same(line["wav"], wav), f"{line['id']}: the line plays {line['wav']}, not the bound narration")
+            seconds = wav_seconds(wav)
+            need(line["start"] / FPS + seconds <= t["frames"] / FPS + 0.001, f"{line['id']}: runs past the end of {ch}")
+            placements.append({"cue": line["id"], "chapter": ch, "start_frame": offset + line["start"], "duration_s": seconds})
+        chapters.append({"chapter": ch, "start_frame": offset, "frames": t["frames"], "timeline_sha256": sha(path)})
+        timelines[ch] = t
+        offset += t["frames"]
+    need(offset == summary["total_frames"], f"the chapters sum to {offset} frames, the timeline summary says {summary['total_frames']}")
+    need([p["cue"] for p in placements] == list(script), "the cue placements differ from the script order")
+    return chapters, placements, timelines, offset
+
+
+def check_captions(srt_text, vtt_text, script, report, placements, total_frames):
+    """SRT = VTT exactly; in order, inside the video; the text equals the script, as a whole and cue by cue."""
+    srt, vtt = parse_captions(srt_text, False), parse_captions(vtt_text, True)
+    if srt != vtt:
+        k = next((i for i, (x, y) in enumerate(zip(srt, vtt)) if x != y), min(len(srt), len(vtt)))
+        raise Refused(f"SRT and VTT differ at caption {k + 1} ({len(srt)} SRT, {len(vtt)} VTT captions)")
+    limit = round(total_frames * 1000 / FPS) + 1
+    previous = 0
+    for k, (start, end, _lines) in enumerate(srt, 1):
+        need(0 <= start < end <= limit, f"caption {k}: {start}-{end} ms is empty or outside the video's {limit} ms")
+        need(start >= previous, f"caption {k} starts at {start} ms, before caption {k - 1} ends at {previous} ms")
+        previous = end
+    need(norm(" ".join(" ".join(x[2]) for x in srt)) == norm(" ".join(script.values())), "the captions' text differs from the script")
+    starts = [(p["cue"], p["start_frame"] * 1000 / FPS) for p in placements]
+    by_cue = {cue: [] for cue in script}
+    for start, _end, lines in srt:
+        earlier = [cue for cue, at in starts if at <= start + 1.0]  # the kit rounds caption times to the millisecond
+        need(earlier, f"a caption at {start} ms starts before the first cue")
+        by_cue[earlier[-1]].append(" ".join(lines))
+    for cue, text in script.items():
+        got = norm(" ".join(by_cue[cue]))
+        need(got == norm(text), f"{cue}: the captions shown during this cue read {got[:70]!r}, the script {norm(text)[:70]!r}")
+        need(norm(" ".join(s["sentence"] for s in report["lines"][cue])) == norm(text), f"{cue}: the narration report's sentences differ from the script")
+    return {"caption_blocks": len(srt), "srt_equals_vtt": True, "text_equals_script": "whole and per cue",
+            "last_caption_end_ms": previous, "video_ms": limit - 1}
+
+
+def check_phrases(phrases, script, narration):
+    """The installed phrase-timings.json (prepare_audio.py cmd_timings), checked by the kit's own load rule."""
+    marks = {}
+    for cue, entry in phrases["cues"].items():
+        need(cue in script, f"phrase-timings.json names unknown cue {cue}")
+        wav = narration / f"{cue}.wav"
+        need(entry["wav_sha256"] == sha(wav) and entry["text_sha256"] == hashlib.sha256(script[cue].encode()).hexdigest(),
+             f"{cue}: phrase timings were made for another WAV or text")
+        seconds, prev_t, prev_b = wav_seconds(wav), 0.0, -1
+        for m in entry["marks"]:
+            need(0 <= m["seconds"] < seconds and m["seconds"] >= prev_t and m["byte"] > prev_b,
+                 f"{cue}: the mark at byte {m['byte']} breaks the kit's order or range rule")
+            prev_t, prev_b = m["seconds"], m["byte"]
+        if entry["marks"]:
+            marks[cue] = entry["marks"]
+    return marks
+
+
+def plan_samples(chapters, placements, timelines, script, onsets, holds, marks, layouts):
+    """Root's sampling (opening, middle, closing, every 10 s, cue start/middle/end, sentences and half a second after,
+    post-cue holds, layout findings) plus each hold's last frame, the timelines' marks and every phrase mark."""
+    samples = {}
+    by_chapter = {x["chapter"]: x for x in chapters}
+
+    def add(ch, local, reason):
+        info = by_chapter[ch]
+        if 0 <= local < info["frames"]:
+            samples.setdefault(info["start_frame"] + local, []).append(reason)
+
+    order = [p["cue"] for p in placements]
+    for x in chapters:
+        ch, frames = x["chapter"], x["frames"]
+        for local, label in ((min(180, frames - 1), "opening"), (frames // 2, "middle"), (max(0, frames - 120), "closing")):
+            add(ch, local, f"{ch} {label}")
+        for local in range(0, frames, 600):
+            add(ch, local, f"{ch} periodic 10s")
+        for m in timelines[ch]["marks"]:
+            add(ch, m["frame"], f"{ch} mark {m['label']}")
+            add(ch, m["frame"] + 30, f"{ch} mark {m['label']} plus half second")
+        anchors = layouts.get(ch, [])
+        for anchor, row in anchors:
+            for delta in (-12, 0, 12, 60, 120):
+                add(ch, anchor + delta, f"{ch} layout {row}")
+        if anchors:
+            for local in range(min(a for a, _ in anchors) + 300, frames, 300):
+                add(ch, local, f"{ch} layout later sample")
+    for i, p in enumerate(placements):
+        ch, cue = p["chapter"], p["cue"]
+        start = p["start_frame"] - by_chapter[ch]["start_frame"]
+        length = round(p["duration_s"] * FPS)
+        for delta, label in ((0, "cue start"), (round(p["duration_s"] * 30), "cue middle"), (max(0, length - 12), "cue end")):
+            add(ch, start + delta, f"{cue} {label}")
+        for k, at in enumerate(onsets[cue], 1):
+            add(ch, start + round(at * FPS), f"{cue} sentence {k}")
+            add(ch, start + round(at * FPS) + 30, f"{cue} sentence {k} plus half second")
+        for m in marks.get(cue, []):
+            words = " ".join(script[cue].encode()[m["byte"]:].decode(errors="replace").split()[:4])
+            for delta, label in ((0, "at"), (30, "plus 0.5 s"), (60, "plus 1 s"), (120, "plus 2 s")):
+                add(ch, start + round(m["seconds"] * FPS) + delta, f"{cue} phrase byte {m['byte']} '{words}' {label}")
+        if cue in holds:
+            hold = holds[cue]
+            nxt = placements[i + 1] if i + 1 < len(placements) else None
+            need(hold["next_cue"] == (nxt["cue"] if nxt else None), f"{cue}: the hold map's next cue {hold['next_cue']} is not the film's")
+            until = (nxt["start_frame"] - by_chapter[ch]["start_frame"]) if nxt and nxt["chapter"] == ch else by_chapter[ch]["frames"]
+            for delta in (12, 60, 120):
+                if start + length + delta < until:
+                    add(ch, start + length + delta, f"{cue} post-cue {hold['kind']} hold")
+            add(ch, until - 12, f"{cue} {hold['kind']} hold, last moment before {hold['next_cue']}")
+    need(order == list(script), "placements are out of script order")
+    return [{"frame": f, "seconds": f / FPS, "reasons": r} for f, r in sorted(samples.items())]
+
+
+def gather(c):
+    for rel, digest in PINS.items():
+        need(sha(REPO / rel) == digest, f"root's {rel} is not the pinned {digest[:12]}")
+    need(registry(c.crate) == CHAPTERS, "the crate's chapter registry is not the 13 stage09 chapters")
+    script = read_script(c.crate / "script.tsv")
+    need(len(script) == CUES, f"the script has {len(script)} cues, not {CUES}")
+    m = bind_master(c, list(script))
+    for rel in ("script.tsv", DIRECTION_MAP, "src/chapters/mod.rs"):
+        need((c.crate / rel).resolve() in m["bound"], f"the master did not bind the crate's {rel}")
+    for name in ("report.json", "phrase-timings.json"):
+        need((c.narration / name).resolve() in m["bound"], f"the master did not bind narration {name}")
+    summary_path = c.lane / c.timeline_job / "timeline-summary.json"
+    need(summary_path.resolve() in m["bound"], "the master did not bind the timeline summary")
+    chapters, placements, timelines, total = read_schedule(c, script, load(summary_path), m["bound"])
+    report = load(c.narration / "report.json")
+    need(list(report["lines"]) == list(script), "report.json's cues differ from the script")
+    captions = check_captions(m["outputs"]["srt"].read_text(encoding="utf-8"), m["outputs"]["vtt"].read_text(encoding="utf-8"),
+                              script, report, placements, total)
+    holds = {}
+    for h in load(c.crate / DIRECTION_MAP)["visual_holds"]:
+        need(h["cue"] in script and h["cue"] not in holds, f"hold map: {h['cue']}")
+        holds[h["cue"]] = h
+    marks = check_phrases(load(c.narration / "phrase-timings.json"), script, c.narration)
+    layouts = {ch: layout_anchors((c.work / f"{ch}.layout.tsv").read_text(), f"{ch}.layout.tsv") for ch in CHAPTERS}
+    samples = plan_samples(chapters, placements, timelines, script, sentence_onsets(report), holds, marks, layouts)
+    return {"script": script, "master": m, "chapters": chapters, "placements": placements, "total_frames": total,
+            "captions": captions, "holds": len(holds), "phrase_marks": sum(len(v) for v in marks.values()),
+            "layout_findings": {ch: len(v) for ch, v in layouts.items()}, "samples": samples}
+
+
+def check(c):
+    f = gather(c)
+    return {"master": str(f["master"]["outputs"]["master"]), "master_sha256": sha(f["master"]["outputs"]["master"]),
+            "master_job": f["master"]["master_job"], "chapters": len(f["chapters"]), "cues": len(f["placements"]),
+            "total_frames": f["total_frames"], "seconds": round(f["total_frames"] / FPS, 3), "captions": f["captions"],
+            "holds": f["holds"], "phrase_marks": f["phrase_marks"], "layout_findings": f["layout_findings"],
+            "pictures_planned": len(f["samples"]), "sheets_planned": math.ceil(len(f["samples"]) / 4), "not_claimed": SCOPE}
+
+
+# ---------------------------------------------------------------- the guarded job
+
+JOB_TEMPLATE = r'''#!/usr/bin/env python3
+"""@@JOB@@: final technical verification of the logarithm stage09 master. Written by verify_stage09_final.py
+(sha256 @@HELPER@@). Launch only through root's guard from the repository root; the guard binds every input.
+Technical checks and extracted pictures only: no listening, picture viewing, fine sync or acceptance is claimed.
+"""
+import hashlib
+import importlib.util
+import json
+import sys
+
+CONFIG = json.loads(@@CONFIG@@)
+
+
+def main():
+    with open(CONFIG["helper"], "rb") as handle:
+        if hashlib.file_digest(handle, "sha256").hexdigest() != CONFIG["helper_sha256"]:
+            print("REFUSED: the verification helper moved", flush=True)
+            return 1
+    spec = importlib.util.spec_from_file_location("verify_stage09_final", CONFIG["helper"])
+    helper = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(helper)
+    return helper.run_job(CONFIG)
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+'''
+
+
+def tool(name):
+    found = shutil.which(name)
+    need(found is not None, f"{name} is not on PATH")
+    return str(Path(found).resolve())
+
+
+def write_job(c):
+    need(c.verify_job and c.job_dir, "write-job needs --verify NN and --job-dir D")
+    f = gather(c)
+    job = c.verify_job
+    script, inputs = c.job_dir / f"{job}.py", c.job_dir / f"{job}-inputs.json"
+    for path in (script, inputs, c.lane / job):
+        need(not path.exists(), f"{path} exists: use a new --verify number")
+    out = f["master"]["outputs"]
+    cfg = {"job": job, "lane": str(c.lane), "script": str(script), "helper": str(HERE), "helper_sha256": sha(HERE),
+           "master": {"path": str(out["master"]), "sha256": sha(out["master"])},
+           "srt": {"path": str(out["srt"]), "sha256": sha(out["srt"])}, "vtt": {"path": str(out["vtt"]), "sha256": sha(out["vtt"])},
+           "master_job": c.master_job, "series": c.series, "total_frames": f["total_frames"], "fps": FPS,
+           "chapters": f["chapters"], "placements": f["placements"], "captions": f["captions"],
+           "strict": str(REPO / STRICT_REL), "screen": str(REPO / SCREEN_REL), "ffmpeg": tool("ffmpeg"), "ffprobe": tool("ffprobe"),
+           "expect": EXPECT, "samples": f["samples"], "success": VERIFY_SUCCESS, "scope": SCOPE}
+    c.job_dir.mkdir(parents=True, exist_ok=True)
+    text = JOB_TEMPLATE.replace("@@JOB@@", job).replace("@@HELPER@@", cfg["helper_sha256"])
+    with open(script, "x") as handle:
+        handle.write(text.replace("@@CONFIG@@", repr(json.dumps(cfg, indent=1))))
+    paths = [script, HERE] + [REPO / rel for rel in PINS] + [Path(cfg["ffmpeg"]), Path(cfg["ffprobe"])]
+    paths += [out["master"], out["srt"], out["vtt"], c.jobs / f"{c.master_job}.py", c.jobs / f"{c.master_job}-inputs.json"]
+    paths += [c.lane / c.master_job / name for name in ("resource-receipt.json", "command.log", "master-summary.json")]
+    paths += [c.lane / c.timeline_job / "timeline-summary.json"]
+    paths += [c.work / f"{ch}.{ext}" for ch in CHAPTERS for ext in ("timeline.tsv", "layout.tsv")]
+    paths += [c.lane / c.timeline_job / "timeline-output" / f"{ch}.timeline.tsv" for ch in CHAPTERS]
+    paths += [c.narration / name for name in ("report.json", "phrase-timings.json")] + [c.narration / f"{cue}.wav" for cue in f["script"]]
+    paths += [c.crate / rel for rel in ("script.tsv", DIRECTION_MAP, "src/chapters/mod.rs")]
+    need(len({p.resolve() for p in paths}) == len(paths), "an input row repeats")
+    with open(inputs, "x") as handle:
+        handle.write(json.dumps({"files": [{"path": str(p), "sha256": sha(p)} for p in paths]}, indent=2) + "\n")
+    return {"job": job, "script": str(script), "script_sha256": sha(script), "inputs": str(inputs), "inputs_sha256": sha(inputs),
+            "input_rows": len(paths), "pictures_planned": len(f["samples"]), "sheets_planned": math.ceil(len(f["samples"]) / 4),
+            "launch_from_repo_root": f"python3 -I -B {GUARD_REL} --phase native --job {job} --inputs {inputs} -- python3 -I -B {script}"}
+
+
+def media_facts(probe, video_packets, total_frames):
+    """The master's streams, its frame count against the chapters' timelines, and the kit's A/V length gate."""
+    video = [s for s in probe["streams"] if s["codec_type"] == "video" and not s.get("disposition", {}).get("attached_pic")]
+    audio = [s for s in probe["streams"] if s["codec_type"] == "audio"]
+    need(len(video) == 1 and len(audio) == 1 and len(probe["streams"]) == 2, "the master is not one video and one audio stream")
+    v, a = video[0], audio[0]
+    need((v["codec_name"], v["width"], v["height"], v["r_frame_rate"]) == ("h264", 3840, 2160, "60/1"),
+         f"video is {v['codec_name']} {v['width']}x{v['height']} at {v['r_frame_rate']}")
+    need((a["codec_name"], int(a["sample_rate"]), a["channels"]) == ("aac", 48000, 2),
+         f"audio is {a['codec_name']} {a['sample_rate']} Hz, {a['channels']} channels")
+    need(video_packets == total_frames, f"the master has {video_packets} video frames; the chapters' timelines sum to {total_frames}")
+    picture = total_frames / FPS
+    need(abs(float(v["duration"]) - picture) <= 1 / FPS, f"the video lasts {v['duration']} s, the timelines {picture:.6f} s")
+    need(abs(float(a["duration"]) - picture) <= 1024 / 48000 + 1e-3,
+         f"the audio lasts {a['duration']} s, the picture {picture:.6f} s (the kit allows one AAC frame)")
+    return {"video": "h264 3840x2160 60/1", "audio": "aac 48000 Hz stereo", "video_frames": video_packets,
+            "video_seconds": float(v["duration"]), "audio_seconds": float(a["duration"]), "picture_seconds": picture}
+
+
+def loudness_summary(text):
+    tail = text[text.rfind("Summary:"):] if "Summary:" in text else ""
+    found = {key: re.search(rf"{key}:\s+(-?[0-9.]+|-inf)", tail) for key in ("I", "LRA", "Peak")}
+    need(all(found.values()), "the ebur128 log has no Summary with I, LRA and true peak")
+    return {"integrated_lufs": found["I"].group(1), "lra_lu": found["LRA"].group(1), "true_peak_dbtp": found["Peak"].group(1)}
+
+
+def make_sheets(pictures, job):
+    from PIL import Image, ImageDraw
+    sheets = []
+    for start in range(0, len(pictures), 4):
+        batch = pictures[start:start + 4]
+        sheet = Image.new("RGB", (1920, 580 * math.ceil(len(batch) / 2)), "#111827")
+        draw = ImageDraw.Draw(sheet)
+        for i, p in enumerate(batch):
+            x, y = (i % 2) * 960, (i // 2) * 580
+            with Image.open(p["path"]) as img:
+                sheet.paste(img, (x, y))
+            more = f" (+{len(p['reasons']) - 1})" if len(p["reasons"]) > 1 else ""
+            draw.text((x + 10, y + 548), f"{p['seconds']:.2f}s f{p['frame']} | {p['reasons'][0][:78]}{more}", fill="white", font_size=17)
+        path = job / f"sheet-{start // 4 + 1:03d}.jpg"
+        sheet.save(path, quality=92)
+        sheets.append(str(path))
+    return sheets
+
+
+def run_job(cfg):
+    job = Path(cfg["lane"]) / cfg["job"]
+    try:
+        receipt = job / "resource-receipt.json"
+        need(receipt.is_file(), f"launch only through the guard: {receipt} is missing")
+        started = json.loads(receipt.read_text())
+        need(started.get("command") == ["python3", "-I", "-B", cfg["script"]] and "exit" not in started
+             and started.get("admitted") is True, "the guard's receipt for this job does not show this script running")
+        master = cfg["master"]["path"]
+        for key in ("master", "srt", "vtt"):
+            need(sha(cfg[key]["path"]) == cfg[key]["sha256"], f"the {key} moved since the job was written")
+        for name in OUTPUTS:
+            need(not (job / name).exists(), f"{name} exists already")
+        env = dict(os.environ, **cfg["expect"])
+        with (job / "strict-video-verification.log").open("x") as log:
+            done = subprocess.run(["bash", cfg["strict"], master], stdout=log, stderr=subprocess.STDOUT, env=env, timeout=14400)
+        need(done.returncode == 0 and last_line(job / "strict-video-verification.log") == "VERIFY PASS", "root's strict video check failed")
+        probe = json.loads(subprocess.run([cfg["ffprobe"], "-v", "error", "-show_streams", "-show_format", "-of", "json", master],
+                                          check=True, capture_output=True, text=True, timeout=600).stdout)
+        packets = subprocess.run([cfg["ffprobe"], "-v", "error", "-select_streams", "V:0", "-count_packets", "-show_entries",
+                                  "stream=nb_read_packets", "-of", "csv=p=0", master], check=True, capture_output=True, text=True, timeout=3600)
+        media = media_facts(probe, int(packets.stdout.strip()), cfg["total_frames"])
+        with (job / "encoded-loudness.log").open("x") as log:
+            subprocess.run([cfg["ffmpeg"], "-nostdin", "-hide_banner", "-nostats", "-i", master, "-vn", "-af", "ebur128=peak=true",
+                            "-f", "null", "-"], stdout=log, stderr=subprocess.STDOUT, check=True, timeout=14400)
+        loud = loudness_summary((job / "encoded-loudness.log").read_text(errors="replace"))
+        subprocess.run([sys.executable, "-I", "-B", cfg["screen"], cfg["srt"]["path"], str(cfg["total_frames"]), str(FPS),
+                        str(job / "caption-screen.json")], check=True, capture_output=True, text=True, timeout=600)
+        screen = json.loads((job / "caption-screen.json").read_text())
+        pictures = []
+        for i, s in enumerate(cfg["samples"], 1):
+            path = job / f"frame-{i:04d}.png"
+            subprocess.run([cfg["ffmpeg"], "-nostdin", "-n", "-v", "error", "-xerror", "-ss", f"{s['frame'] / FPS:.9f}", "-i", master,
+                            "-frames:v", "1", "-vf", "scale=960:540", str(path)], check=True, timeout=180)
+            pictures.append({**s, "path": str(path)})
+        sheets = make_sheets(pictures, job)
+        with (job / "verification.json").open("x") as handle:
+            handle.write(json.dumps({
+                "video": master, "sha256": cfg["master"]["sha256"], "srt_sha256": cfg["srt"]["sha256"], "vtt_sha256": cfg["vtt"]["sha256"],
+                "master_job": cfg["master_job"], "frames": cfg["total_frames"], "fps": FPS, "chapters": cfg["chapters"],
+                "placements": cfg["placements"], "captions": cfg["captions"], "media": media, "strict_video_check": "passed",
+                "encoded_loudness": loud, "caption_screen": {"caption_count": screen["caption_count"],
+                "over_20_characters_per_second": len(screen["over_20_characters_per_second"]),
+                "lines_over_42_characters": len(screen["lines_over_42_characters"])},
+                "pictures": pictures, "sheets": sheets, "pictures_viewed": False, "scope": cfg["scope"]}, indent=2) + "\n")
+        print(f"{len(pictures)} pictures in {len(sheets)} sheets await root's viewing.", flush=True)
+        print(cfg["success"], flush=True)
+        return 0
+    except Refused as refusal:
+        print(f"REFUSED: {refusal}", flush=True)
+        return 1
+
+
+def verify_job(c):
+    need(c.verify_job and c.job_dir, "verify-job needs --verify NN and --job-dir D")
+    job, folder = c.verify_job, c.lane / c.verify_job
+    script, inputs = c.job_dir / f"{job}.py", c.job_dir / f"{job}-inputs.json"
+    r = load(folder / "resource-receipt.json")
+    need(r.get("phase") == "native" and r.get("command") == ["python3", "-I", "-B", str(script)], f"{job}: the receipt ran {r.get('command')}")
+    need(receipt_ok(r), f"{job} did not pass: exit {r.get('exit')}, error {r.get('error')}")
+    need(r["inputs_sha256"] == sha(inputs) and json.loads(inputs.read_text())["files"][0]["sha256"] == sha(script), f"{job}: inputs or script moved")
+    need(last_line(folder / "command.log") == VERIFY_SUCCESS, f"{job}: the log does not end with the success line")
+    cfg = read_config(script)
+    need(cfg["job"] == job and same(cfg["lane"], c.lane), f"{job}: the script names another job or lane")
+    v = load(folder / "verification.json")
+    need(v["sha256"] == cfg["master"]["sha256"] == sha(cfg["master"]["path"]) and v["frames"] == cfg["total_frames"], f"{job}: master or frames")
+    need([p["frame"] for p in v["pictures"]] == [s["frame"] for s in cfg["samples"]], f"{job}: the pictures are not the planned ones")
+    need(all(Path(p["path"]).is_file() for p in v["pictures"]), f"{job}: a picture is missing")
+    need(len(v["sheets"]) == math.ceil(len(v["pictures"]) / 4) and all(Path(s).is_file() for s in v["sheets"]), f"{job}: a sheet is missing")
+    need(v["pictures_viewed"] is False and last_line(folder / "strict-video-verification.log") == "VERIFY PASS", f"{job}: strict log")
+    need(load(folder / "caption-screen.json")["srt_sha256"] == cfg["srt"]["sha256"], f"{job}: the caption screen read another SRT")
+    return {"job": job, "master_sha256": v["sha256"], "frames": v["frames"], "media": v["media"], "encoded_loudness": v["encoded_loudness"],
+            "caption_screen": v["caption_screen"], "pictures": len(v["pictures"]), "sheets": len(v["sheets"]), "sheets_folder": str(folder),
+            "pictures_viewed": False, "open": "root views every sheet; listening, fine sync, final ASR and acceptance remain root's"}
+
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("command", choices=["check", "write-job", "verify-job"])
+    for name in ("--lane", "--jobs", "--crate", "--narration", "--series"):
+        parser.add_argument(name, required=True)
+    parser.add_argument("--verify")
+    parser.add_argument("--job-dir")
+    a = parser.parse_args(argv)
+    try:
+        c = Ctx(a)
+        if a.command == "check":
+            result = {"check": "PASS", **check(c)}
+        elif a.command == "write-job":
+            result = {"write_job": "WRITTEN", **write_job(c)}
+        else:
+            result = {"verify_job": "PASS", **verify_job(c)}
+    except Refused as refusal:
+        print(f"REFUSED: {refusal}")
+        return 1
+    print(json.dumps(result, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

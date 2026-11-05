@@ -1,0 +1,9 @@
+162 recordings of 80 cues screened; flagged recordings 1
+  08_2-download01.wav: join: s1 pause 0.07 s (short_quiet_run)
+decided by: {'R2': 1, 'R4': 27, 'R5': 52}
+download01 chosen 65, download02 15
+answers: 181 sample answers for every recognizer_early point; applying to the selection 92; questions left open 4
+9c47f58f11c61f1c3639cf63203a3abae2bff3e48b159de190e35172414e392e  selection.json
+8f9a0cd0fe196a0a0586b79b9f1bd68b4f1c9593d32f20ef03e4d13b372c269d  answers.json
+5ff1bee3d67b75ef647bd62a12315883298da3f965b8b610e5af3b8136045a14  evidence.tsv
+f0c3678ccdc340c15a5bbe335a9e04f45456d0ba312e512fb649303b74ae58b6  choices.tsv

@@ -1,0 +1,163 @@
+cue	file	path	eligible	seconds	peak_dbfs	full_scale_samples	longest_full_scale_run	lead_s	tail_s	longest_internal_quiet_s	median_speech_dbfs	shortest_boundary_pause_s	recognizer_early_points	recognizer_differences	flags
+00_1	00_1-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_1-download01.wav	True	19.52	-0.79	0	0	0.06	0.16	0.53	-22.1	0.53	0	replace 'a'->'one'; delete 'and'->''; delete 'and'->''; delete 'and'->''; insert ''->'eighty 1760'; replace 'eighty seventeen sixty and thirty five twenty'->'3520'	
+00_1	00_1-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_1-download02.wav	True	19.52	-1.04	0	0	0.06	0.18	0.33	-21.9	0.31	0	replace 'a'->'one'; delete 'and'->''; delete 'and'->''; delete 'and'->''; insert ''->'eighty 1760'; replace 'eighty seventeen sixty and thirty five twenty'->'3520'	
+00_1	00_1-download03.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_1-download03.wav	False	19.52	-1.04	0	0	0.06	0.18	0.33	-21.9	0.31	0		
+00_1	00_1-download04.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_1-download04.wav	False	19.52	-1.04	0	0	0.06	0.18	0.33	-21.9	0.31	0		
+00_2	00_2-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_2-download01.wav	True	12.72	-3.06	0	0	0.04	0.23	0.53	-22.0	0.44	0	replace 'seventeen sixty'->'1760'; replace 'thirty five twenty'->'3520'	
+00_2	00_2-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_2-download02.wav	True	12.88	-2.48	0	0	0.03	0.22	0.52	-22.2	0.42	0	replace 'seventeen sixty'->'1760'; replace 'thirty five twenty'->'3520'	
+00_3	00_3-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_3-download01.wav	True	23.12	-0.83	0	0	0.09	0.21	0.63	-22.2	0.41	0		
+00_3	00_3-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_3-download02.wav	True	23.36	-0.58	0	0	0.08	0.18	0.7	-22.3	0.47	0		
+00_4	00_4-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_4-download01.wav	True	13.68	-1.62	0	0	0.02	0.22	0.53	-22.7	0.42	2	delete 'and'->''; delete 'and'->''	
+00_4	00_4-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_4-download02.wav	True	13.76	-0.59	0	0	0.05	0.28	0.62	-22.8	0.44	2	delete 'and'->''; delete 'and'->''	
+00_5	00_5-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_5-download01.wav	True	18.24	-1.05	0	0	0.01	0.29	0.44	-22.2	0.18	0	delete 'and'->''; delete 'and'->''	
+00_5	00_5-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_5-download02.wav	True	18.48	-1.55	0	0	0.04	0.24	0.5	-22.3	0.17	1	delete 'and'->''; delete 'and'->''	
+00_6	00_6-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_6-download01.wav	True	29.76	-1.18	0	0	0.07	0.23	0.68	-21.7	0.32	5		
+00_6	00_6-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_6-download02.wav	True	29.6	-0.99	0	0	0.09	0.24	0.59	-22.0	0.22	0		
+01_1	01_1-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_1-download01.wav	True	19.76	-0.63	0	0	0.05	0.27	0.55	-21.9	0.4	4		
+01_1	01_1-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_1-download02.wav	True	19.76	-0.86	0	0	0.03	0.27	0.58	-22.0	0.43	3		
+01_2	01_2-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_2-download01.wav	True	19.92	-1.44	0	0	0.08	0.23	0.61	-22.2	0.5	0		
+01_2	01_2-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_2-download02.wav	True	19.84	-0.4	0	0	0.08	0.26	0.56	-22.2	0.51	0		
+01_3	01_3-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_3-download01.wav	True	11.36	-4.58	0	0	0.04	0.21	0.6	-22.9	0.5	1		
+01_3	01_3-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_3-download02.wav	True	11.44	-3.54	0	0	0.04	0.16	0.59	-22.4	0.47	3		
+01_4	01_4-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_4-download01.wav	True	24.72	-1.04	0	0	0.06	0.13	0.49	-22.0	0.39	0	delete 'thousand'->''; delete 'and'->''; delete 'thousand'->''; delete 'and'->''; replace 'three's'->'threes'	
+01_4	01_4-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_4-download02.wav	True	25.2	-0.94	0	0	0.08	0.15	0.53	-21.8	0.39	2	delete 'thousand'->''; delete 'and'->''; delete 'thousand'->''; delete 'and'->''; replace 'three's'->'threes'	
+01_5	01_5-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_5-download01.wav	True	22.96	-1.06	0	0	0.06	0.24	0.57	-21.8	0.35	0		
+01_5	01_5-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_5-download02.wav	True	23.2	-1.04	0	0	0.06	0.19	0.62	-21.8	0.51	0		
+01_6	01_6-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_6-download01.wav	True	26.88	-1.26	0	0	0.09	0.23	0.56	-22.1	0.48	0		
+01_6	01_6-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_6-download02.wav	True	26.56	-0.64	0	0	0.04	0.22	0.55	-22.1	0.43	0		
+02_1	02_1-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_1-download01.wav	True	12.96	-1.68	0	0	0.06	0.22	0.5	-21.7	0.5	0		
+02_1	02_1-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_1-download02.wav	True	12.88	-4.07	0	0	0.07	0.2	0.56	-21.7	0.54	0		
+02_2	02_2-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_2-download01.wav	True	17.84	-1.6	0	0	0.04	0.22	0.53	-21.9	0.46	0	replace 'five's'->'five s'	
+02_2	02_2-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_2-download02.wav	True	17.76	-0.46	0	0	0.08	0.21	0.54	-22.0	0.48	3	replace 'five's'->'five s'	
+02_3	02_3-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_3-download01.wav	True	13.36	-0.53	0	0	0.06	0.2	0.51	-22.0	0.4	1		
+02_3	02_3-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_3-download02.wav	True	13.52	-0.86	0	0	0.06	0.19	0.58	-22.1	0.37	1		
+02_4	02_4-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_4-download01.wav	True	13.28	-2.15	0	0	0.03	0.23	0.56	-22.1	0.42	0		
+02_4	02_4-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_4-download02.wav	True	13.28	-2.37	0	0	0.04	0.25	0.51	-21.8	0.37	0		
+02_5	02_5-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_5-download01.wav	True	27.6	-1.36	0	0	0.02	0.19	0.54	-22.1	0.35	1	delete 'and'->''; replace 'a'->'one'	
+02_5	02_5-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_5-download02.wav	True	27.68	-2.12	0	0	0.04	0.24	0.58	-22.2	0.33	1	delete 'and'->''; replace 'a'->'one'	
+03_1	03_1-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_1-download01.wav	True	18.88	-3.85	0	0	0.03	0.17	0.53	-21.8	0.4	0		
+03_1	03_1-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_1-download02.wav	True	19.12	-3.97	0	0	0.05	0.23	0.46	-21.9	0.4	0		
+03_2	03_2-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_2-download01.wav	True	20.96	-0.7	0	0	0.08	0.18	0.54	-21.8	0.33	2	replace 'four's'->'four s'	
+03_2	03_2-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_2-download02.wav	True	21.28	-0.55	0	0	0.09	0.22	0.57	-22.0	0.43	0	replace 'four's'->'four s'	
+03_3	03_3-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_3-download01.wav	True	17.84	-3.19	0	0	0.09	0.26	0.57	-22.0	0.46	0		
+03_3	03_3-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_3-download02.wav	True	18.16	-3.15	0	0	0.07	0.2	0.62	-22.1	0.42	0		
+03_4	03_4-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_4-download01.wav	True	16.8	-1.36	0	0	0.07	0.24	0.56	-21.8	0.23	0		
+03_4	03_4-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_4-download02.wav	True	16.96	-2.06	0	0	0.04	0.24	0.51	-22.0	0.45	0		
+04_1	04_1-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_1-download01.wav	True	20.64	-0.56	0	0	0.06	0.26	0.54	-22.1	0.47	0		
+04_1	04_1-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_1-download02.wav	True	20.4	-0.43	0	0	0.06	0.19	0.55	-22.2	0.44	0		
+04_2	04_2-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_2-download01.wav	True	31.76	-0.87	0	0	0.06	0.22	0.71	-22.3	0.44	0		
+04_2	04_2-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_2-download02.wav	True	31.76	-0.41	0	0	0.06	0.21	0.71	-22.3	0.44	0		
+04_3	04_3-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_3-download01.wav	True	20.88	-1.95	0	0	0.02	0.19	0.56	-21.8	0.43	0		
+04_3	04_3-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_3-download02.wav	True	21.12	-3.68	0	0	0.04	0.2	0.49	-21.6	0.45	0		
+04_4	04_4-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/04_4-download01.wav	True	30.24	-0.69	0	0	0.08	0.22	0.55	-21.8	0.35	0		
+04_4	04_4-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/04_4-download02.wav	True	30.0	-0.66	0	0	0.09	0.22	0.51	-21.9	0.37	0		
+04_5	04_5-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_5-download01.wav	True	32.08	-0.61	0	0	0.09	0.25	0.76	-22.0	0.39	3		
+04_5	04_5-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_5-download02.wav	True	31.6	-0.74	0	0	0.08	0.24	0.63	-21.8	0.42	0		
+04_6	04_6-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_6-download01.wav	True	12.64	-1.56	0	0	0.04	0.22	0.49	-22.0	0.42	1		
+04_6	04_6-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_6-download02.wav	True	12.48	-1.69	0	0	0.04	0.23	0.53	-22.3	0.48	1		
+04_7	04_7-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_7-download01.wav	True	36.24	-1.89	0	0	0.05	0.23	0.49	-22.2	0.36	3	replace 'thousandfold'->'thousand fold'; replace 'a'->'one'; delete 'and'->''; replace 'tenth'->'ten th'	
+04_7	04_7-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_7-download02.wav	True	36.08	-1.09	0	0	0.07	0.23	0.57	-22.1	0.4	0	replace 'a'->'one'; delete 'and'->''; replace 'tenth'->'ten th'	
+05_1	05_1-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_1-download01.wav	True	22.0	-0.96	0	0	0.04	0.2	0.59	-21.7	0.53	0		
+05_1	05_1-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_1-download02.wav	True	22.08	-0.57	0	0	0.04	0.28	0.72	-21.5	0.45	0		
+05_2	05_2-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_2-download01.wav	True	20.24	-0.98	0	0	0.05	0.22	0.47	-22.3	0.21	0		
+05_2	05_2-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_2-download02.wav	True	20.48	-0.53	0	0	0.05	0.18	0.5	-22.2	0.46	0		
+05_20	05_20-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_20-download01.wav	True	25.28	-0.49	0	0	0.08	0.24	0.56	-22.1	0.3	0		
+05_20	05_20-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_20-download02.wav	True	25.12	-0.46	0	0	0.09	0.24	0.56	-22.1	0.34	4		
+05_3	05_3-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_3-download01.wav	True	23.92	-2.77	0	0	0.04	0.26	0.48	-22.1	0.36	0		
+05_3	05_3-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_3-download02.wav	True	24.72	-0.77	0	0	0.06	0.22	0.52	-22.2	0.41	0		
+05_4	05_4-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_4-download01.wav	True	17.12	-2.06	0	0	0.02	0.21	0.77	-21.7	0.32	0		
+05_4	05_4-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_4-download02.wav	True	16.56	-0.62	0	0	0.04	0.16	0.59	-21.8	0.44	2		
+05_5	05_5-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_5-download01.wav	True	4.4	-3.4	0	0	0.05	0.19	0.43	-21.0	0.43	1		
+05_5	05_5-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_5-download02.wav	True	4.32	-5.37	0	0	0.07	0.19	0.4	-21.6	0.4	1		
+05_6	05_6-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_6-download01.wav	True	27.68	-0.39	0	0	0.03	0.23	0.59	-22.1	0.5	4		
+05_6	05_6-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_6-download02.wav	True	27.44	-0.35	0	0	0.04	0.27	0.56	-22.2	0.43	4		
+05_7	05_7-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_7-download01.wav	True	25.92	-0.56	0	0	0.08	0.19	0.81	-22.2	0.36	0	replace 'nonzero'->'non zero'	
+05_7	05_7-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_7-download02.wav	True	25.76	-0.6	0	0	0.06	0.18	0.84	-22.0	0.41	0	replace 'nonzero'->'non zero'	
+06_1	06_1-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_1-download01.wav	True	17.2	-2.89	0	0	0.09	0.18	0.55	-21.4	0.53	2		
+06_1	06_1-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_1-download02.wav	True	17.44	-2.57	0	0	0.04	0.23	0.58	-21.4	0.55	2		
+06_2	06_2-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_2-download01.wav	True	20.0	-0.56	0	0	0.08	0.23	0.73	-22.0	0.51	3		
+06_2	06_2-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_2-download02.wav	True	20.24	-1.16	0	0	0.08	0.22	0.81	-21.8	0.59	3		
+06_3	06_3-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_3-download01.wav	True	15.84	-0.99	0	0	0.03	0.2	0.68	-21.7	0.34	5		
+06_3	06_3-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_3-download02.wav	True	15.2	-2.14	0	0	0.02	0.17	0.54	-21.7	0.33	5		
+06_4	06_4-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_4-download01.wav	True	16.4	-2.95	0	0	0.02	0.23	0.63	-21.4	0.5	0		
+06_4	06_4-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_4-download02.wav	True	16.48	-3.36	0	0	0.07	0.24	0.62	-21.2	0.59	0		
+06_5	06_5-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_5-download01.wav	True	15.44	-1.25	0	0	0.07	0.16	0.36	-21.9	0.32	0		
+06_5	06_5-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_5-download02.wav	True	15.36	-0.49	0	0	0.06	0.24	0.35	-22.0	0.31	2		
+06_6	06_6-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_6-download01.wav	True	28.56	-1.02	0	0	0.07	0.19	0.63	-22.0	0.48	4		
+06_6	06_6-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_6-download02.wav	True	28.72	-0.61	0	0	0.07	0.22	0.6	-22.0	0.48	4		
+06_20	06_20-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_20-download01.wav	True	22.88	-0.61	0	0	0.03	0.23	0.59	-21.7	0.45	2		
+06_20	06_20-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_20-download02.wav	True	22.8	-0.85	0	0	0.07	0.21	0.53	-21.7	0.49	2		
+06_7	06_7-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_7-download01.wav	True	25.6	-0.95	0	0	0.07	0.25	0.52	-22.0	0.37	5		
+06_7	06_7-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_7-download02.wav	True	25.28	-0.65	0	0	0.04	0.23	0.49	-21.7	0.4	5		
+07_1	07_1-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_1-download01.wav	True	16.72	-0.73	0	0	0.05	0.25	0.53	-21.5	0.46	0		
+07_1	07_1-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_1-download02.wav	True	16.56	-1.85	0	0	0.06	0.25	0.53	-21.3	0.44	0		
+07_2	07_2-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_2-download01.wav	True	33.92	-0.86	0	0	0.08	0.16	0.6	-22.2	0.56	3		
+07_2	07_2-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_2-download02.wav	True	33.36	-0.59	0	0	0.08	0.21	0.58	-22.2	0.49	3		
+07_3	07_3-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_3-download01.wav	True	24.48	-1.84	0	0	0.06	0.2	0.65	-22.0	0.38	0		
+07_3	07_3-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_3-download02.wav	True	23.52	-1.37	0	0	0.04	0.17	0.6	-21.9	0.36	0		
+07_4	07_4-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_4-download01.wav	True	17.2	-2.63	0	0	0.08	0.25	0.69	-22.4	0.62	2		
+07_4	07_4-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_4-download02.wav	True	16.72	-1.44	0	0	0.04	0.2	0.61	-22.4	0.6	2		
+07_5	07_5-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_5-download01.wav	True	30.16	-0.75	0	0	0.05	0.22	0.69	-21.8	0.45	0		
+07_5	07_5-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_5-download02.wav	True	29.6	-0.54	0	0	0.05	0.25	0.61	-21.9	0.42	0		
+07_6	07_6-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_6-download01.wav	True	38.88	-0.46	0	0	0.05	0.18	0.62	-21.9	0.47	2	replace 'nonzero'->'non zero'	
+07_6	07_6-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_6-download02.wav	True	38.72	-0.7	0	0	0.05	0.23	0.67	-22.0	0.4	1	replace 'nonzero'->'non zero'	
+08_1	08_1-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_1-download01.wav	True	27.92	-0.54	0	0	0.07	0.22	0.68	-22.2	0.49	6	replace 'quarters'->'over four'	
+08_1	08_1-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_1-download02.wav	True	27.76	-1.08	0	0	0.09	0.27	0.83	-22.1	0.5	6	replace 'quarters'->'over four'	
+08_2	08_2-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_2-download01.wav	True	22.0	-0.81	0	0	0.03	0.13	0.54	-21.8	0.07	0		join: s1 pause 0.07 s (short_quiet_run)
+08_2	08_2-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_2-download02.wav	True	22.0	-0.65	0	0	0.03	0.12	0.52	-22.0	0.33	3		
+08_3	08_3-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_3-download01.wav	True	29.2	-1.56	0	0	0.04	0.23	0.67	-21.9	0.33	0		
+08_3	08_3-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_3-download02.wav	True	29.12	-1.0	0	0	0.04	0.32	0.71	-22.1	0.29	0		
+08_4	08_4-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_4-download01.wav	True	22.0	-0.71	0	0	0.03	0.19	0.54	-21.9	0.45	0		
+08_4	08_4-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_4-download02.wav	True	22.24	-0.64	0	0	0.04	0.22	0.6	-21.9	0.43	0		
+08_5	08_5-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download01.wav	True	32.4	-0.91	0	0	0.07	0.22	0.67	-22.3	0.57	4		
+08_5	08_5-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-download02.wav	True	32.32	-0.69	0	0	0.09	0.23	0.59	-22.3	0.5	4		
+09_1	09_1-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_1-download01.wav	True	23.92	-1.59	0	0	0.02	0.21	0.63	-21.8	0.22	0		
+09_1	09_1-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_1-download02.wav	True	23.84	-0.89	0	0	0.1	0.22	0.58	-22.0	0.27	0	replace 'by'->'x'	
+09_2	09_2-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_2-download01.wav	True	22.8	-0.61	0	0	0.03	0.21	0.52	-22.0	0.43	4	replace 'too'->'two'	
+09_2	09_2-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_2-download02.wav	True	22.16	-0.63	0	0	0.09	0.22	0.5	-21.7	0.38	4		
+09_3	09_3-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_3-download01.wav	True	17.2	-0.78	0	0	0.08	0.23	0.58	-21.5	0.58	2		
+09_3	09_3-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_3-download02.wav	True	16.96	-1.02	0	0	0.08	0.22	0.57	-21.3	0.51	2		
+09_4	09_4-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_4-download01.wav	True	24.96	-2.86	0	0	0.05	0.22	0.56	-22.0	0.29	0		
+09_4	09_4-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_4-download02.wav	True	24.96	-2.58	0	0	0.02	0.21	0.63	-22.0	0.49	0		
+10_1	10_1-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_1-download01.wav	True	13.44	-0.65	0	0	0.05	0.19	0.51	-21.5	0.44	1		
+10_1	10_1-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_1-download02.wav	True	13.52	-3.1	0	0	0.03	0.22	0.52	-21.6	0.4	1		
+10_2	10_2-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_2-download01.wav	True	22.32	-1.15	0	0	0.02	0.25	0.56	-21.6	0.53	0		
+10_2	10_2-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_2-download02.wav	True	22.64	-0.89	0	0	0.02	0.21	0.58	-22.0	0.49	0		
+10_3	10_3-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_3-download01.wav	True	31.52	-0.47	0	0	0.03	0.24	0.54	-21.9	0.46	0	replace 'too'->'two'; replace 'spiralling'->'spiraling'	
+10_3	10_3-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_3-download02.wav	True	31.28	-0.54	0	0	0.04	0.23	0.56	-21.7	0.45	0	replace 'too'->'two'; replace 'spiralling'->'spiraling'	
+10_4	10_4-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_4-download01.wav	True	31.2	-2.31	0	0	0.03	0.18	0.61	-22.0	0.48	2		
+10_4	10_4-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_4-download02.wav	True	31.12	-0.97	0	0	0.02	0.23	0.69	-22.0	0.5	4		
+11_1	11_1-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_1-download01.wav	True	26.16	-0.42	0	0	0.09	0.16	0.53	-21.8	0.44	4		
+11_1	11_1-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_1-download02.wav	True	26.0	-0.5	0	0	0.04	0.14	0.5	-21.8	0.43	0		
+11_2	11_2-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_2-download01.wav	True	30.72	-0.6	0	0	0.04	0.21	0.58	-21.8	0.35	0		
+11_2	11_2-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_2-download02.wav	True	30.88	-0.76	0	0	0.07	0.22	0.65	-21.8	0.33	0		
+11_3	11_3-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_3-download01.wav	True	29.04	-1.57	0	0	0.05	0.24	0.59	-21.8	0.36	0		
+11_3	11_3-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_3-download02.wav	True	28.96	-1.66	0	0	0.04	0.23	0.58	-21.7	0.43	0		
+11_4	11_4-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_4-download01.wav	True	32.16	-0.55	0	0	0.06	0.19	0.61	-22.3	0.3	5		
+11_4	11_4-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_4-download02.wav	True	32.32	-0.41	0	0	0.04	0.17	0.64	-22.2	0.22	5		
+11_5	11_5-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_5-download01.wav	True	32.72	-0.4	0	0	0.03	0.19	0.62	-22.0	0.43	0	replace 'nonzero'->'non zero'	
+11_5	11_5-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_5-download02.wav	True	33.36	-0.57	0	0	0.05	0.18	0.63	-22.2	0.49	0	replace 'nonzero'->'non zero'	
+11_6	11_6-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_6-download01.wav	True	27.36	-0.88	0	0	0.02	0.19	0.6	-21.9	0.33	0		
+11_6	11_6-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_6-download02.wav	True	26.8	-0.61	0	0	0.04	0.25	0.6	-21.8	0.29	0		
+11_7	11_7-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_7-download01.wav	True	34.72	-1.22	0	0	0.04	0.2	0.6	-22.0	0.39	0		
+11_7	11_7-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_7-download02.wav	True	34.56	-0.84	0	0	0.03	0.2	0.62	-22.1	0.41	0		
+11_20	11_20-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_20-download01.wav	True	13.52	-0.54	0	0	0.07	0.21	0.62	-22.0	0.62	1	replace 'nineteen sixty six'->'1966'	
+11_20	11_20-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_20-download02.wav	True	13.76	-0.89	0	0	0.05	0.22	0.58	-21.9	0.58	1	replace 'nineteen sixty six'->'1966'	
+11_8	11_8-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_8-download01.wav	True	21.44	-0.81	0	0	0.07	0.19	0.79	-22.4	0.48	3		
+11_8	11_8-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_8-download02.wav	True	21.2	-0.96	0	0	0.03	0.17	0.65	-22.4	0.45	0		
+12_1	12_1-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_1-download01.wav	True	14.56	-0.55	0	0	0.04	0.17	0.43	-21.7	0.36	0		
+12_1	12_1-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_1-download02.wav	True	14.8	-0.61	0	0	0.04	0.18	0.44	-21.9	0.41	0		
+12_2	12_2-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_2-download01.wav	True	15.28	-2.07	0	0	0.06	0.24	0.63	-22.0	0.58	0	replace 'laps'->'lapse'; replace 'laps'->'lapse'	
+12_2	12_2-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_2-download02.wav	True	15.2	-1.34	0	0	0.05	0.24	0.54	-22.2	0.49	0	replace 'laps'->'lapse'; replace 'laps'->'lapse'	
+12_3	12_3-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_3-download01.wav	True	19.6	-1.52	0	0	0.09	0.23	0.8	-21.8	0.46	3		
+12_3	12_3-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_3-download02.wav	True	19.52	-0.53	0	0	0.05	0.2	0.73	-21.9	0.55	0		
+12_4	12_4-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_4-download01.wav	True	34.56	-0.82	0	0	0.03	0.23	0.66	-22.0	0.55	0	replace 'centres'->'centers'; replace 'too'->'two'	
+12_4	12_4-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_4-download02.wav	True	35.44	-0.65	0	0	0.04	0.22	0.62	-22.0	0.47	0	replace 'centres'->'centers'; replace 'too'->'two'	
+12_5	12_5-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_5-download01.wav	True	12.32	-3.05	0	0	0.04	0.17	0.54	-22.0	0.5	0		
+12_5	12_5-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_5-download02.wav	True	12.32	-2.2	0	0	0.05	0.18	0.55	-21.9	0.53	0		
+12_6	12_6-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_6-download01.wav	True	13.76	-1.92	0	0	0.06	0.24	0.69	-21.7	0.69	0		
+12_6	12_6-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_6-download02.wav	True	13.28	-1.72	0	0	0.05	0.19	0.6	-22.0	0.6	0		
+12_20	12_20-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_20-download01.wav	True	23.92	-1.53	0	0	0.06	0.28	0.52	-22.0	0.51	0		
+12_20	12_20-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_20-download02.wav	True	24.48	-0.54	0	0	0.04	0.3	0.58	-22.0	0.55	1		
+12_21	12_21-download01.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_21-download01.wav	True	20.4	-0.83	0	0	0.09	0.24	0.92	-21.6	0.92	1		
+12_21	12_21-download02.wav	narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_21-download02.wav	True	20.4	-1.85	0	0	0.08	0.21	0.64	-21.7	0.64	1		
