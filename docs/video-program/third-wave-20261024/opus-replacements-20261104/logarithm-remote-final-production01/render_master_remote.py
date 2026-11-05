@@ -51,7 +51,7 @@ GUARD, PINS, LANE_LOCK = O / "guard01.py", O / "guard-pins01.json", O / "expande
 BIN = O / "logarithm_mysteries-release01"
 BINDING, TOOLS = O / "remote-binding01.json", O / "tools01.json"
 SCHEDULE, SCORED = O / "schedule-comparison01.json", O / "score-comparison01.json"
-BUILD_INPUTS, ASSEMBLE_INPUTS = O / "build-inputs01.json", O / "assemble-inputs01.json"
+BUILD_INPUTS = O / "build-inputs01.json"
 WORKSPACE = S / "workspace"
 CRATE = WORKSPACE / "explainer_corpus/logarithm_mysteries"
 KIT_TOOLS = [WORKSPACE / "tools" / name for name in ("coherent_narration.py", "narration_cache.py", "narration_delivery.py")]
@@ -253,18 +253,22 @@ def comparison(path):
 
 
 def rebind_job(binding, assemble_receipt):
-    """The rebind that fed this assembly, read from the manifest the assembly's guard froze. A failed earlier attempt
-    can stay on the lane: no assembly names it. The job's name is never assumed here."""
-    need(ASSEMBLE_INPUTS.is_file() and sha(ASSEMBLE_INPUTS) == assemble_receipt.get("inputs_sha256"),
-         f"{ASSEMBLE}: {ASSEMBLE_INPUTS.name} is not the manifest its guard froze")
-    need(binding["files"].get(str(ASSEMBLE_INPUTS)) == sha(ASSEMBLE_INPUTS), f"the binding does not hold {ASSEMBLE_INPUTS.name}")
-    named = [(m[1], row["sha256"]) for row in read(ASSEMBLE_INPUTS)["files"] for m in [REBIND_RECEIPT.fullmatch(row["path"])] if m]
-    need(len(named) == 1, f"{ASSEMBLE_INPUTS.name} names {len(named)} rebind jobs, not one")
+    """The rebind that fed this assembly, with no job or manifest name assumed. The binding holds the manifest whose
+    hash the assembly's guard froze, and that manifest holds the one rebind receipt the assembly read. A failed earlier
+    attempt can stay on the lane: no assembly names it. The rule is the one in Bronze's verifier."""
+    manifests = [p for p, h in binding["files"].items() if h == assemble_receipt.get("inputs_sha256")]
+    need(len(manifests) == 1, f"the binding holds {len(manifests)} files with the hash {ASSEMBLE}'s guard froze, not one")
+    manifest = Path(manifests[0])
+    named = [(m[1], row["sha256"]) for row in read(manifest)["files"] for m in [REBIND_RECEIPT.fullmatch(row["path"])] if m]
+    need(len(named) == 1, f"{manifest.name} names {len(named)} rebind jobs, not one")
     job, frozen = named[0]
     path = JOBS / job / "resource-receipt.json"
     need(path.is_file() and sha(path) == frozen, f"{job}: its receipt is not the one the assembly froze")
-    settled(job)
-    return job
+    r = settled(job)
+    command = r.get("command")
+    need(r.get("phase") == "native" and isinstance(command, list) and len(command) >= 2
+         and Path(command[-2]).name == "rebind_audio.py" and command[-1] == "--apply", f"{job} did not run rebind_audio.py --apply: {command}")
+    return job, manifest
 
 
 def prior_config(job, line):
@@ -318,7 +322,7 @@ def score_facts(frames):
         need(lengths == [count * 800], f"{chapter}: QA measured length {lengths}, the chapter needs {count * 800}")
 
 
-def approved(data, path, flag, value, surprises):
+def approved(path, flag, value, surprises):
     """Reported deltas stop the chain until root names the exact comparison it read. Nothing passes by being ignored."""
     if surprises or value:
         need(value == sha(path), f"{path.name} reports {surprises}: root must read it and pass {flag} {sha(path)}")
@@ -345,12 +349,12 @@ def gather(a):
     moved = [p for p, h in b["files"].items() if not Path(p).is_file() or sha(p) != h]
     moved += [rel for rel, h in b["crate"].items() if not (CRATE / rel).is_file() or sha(CRATE / rel) != h]
     need(not moved, f"{len(moved)} bound files moved since the binding, first {moved[:2]}")
-    rebind = rebind_job(b, assemble_receipt)
+    rebind, assemble_inputs = rebind_job(b, assemble_receipt)
     prior_config(TIMELINE, TIMELINE_SUCCESS)
     score_config = prior_config(SCORE, SCORE_SUCCESS)
     need(str(JOBS / TIMELINE / "timeline-output") in score_config["argv"], "the score did not read this timeline")
-    order = [read(JOBS / job / "resource-receipt.json") for job in (BUILD, rebind)] + [assemble_receipt, timeline_receipt, score_receipt]
-    need(build_receipt == order[0] and all(stamp(x, "finished") <= stamp(y, "started") for x, y in zip(order, order[1:])),
+    order = [build_receipt, read(JOBS / rebind / "resource-receipt.json"), assemble_receipt, timeline_receipt, score_receipt]
+    need(all(stamp(x, "finished") <= stamp(y, "started") for x, y in zip(order, order[1:])),
          "build, rebind, assembly, timeline and score did not run in that order")
     listed = subprocess.run([str(BIN), "chapters"], capture_output=True, text=True, timeout=60)
     need(listed.returncode == 0 and listed.stdout.splitlines() == CHAPTERS, "the binary's chapter registry differs")
@@ -363,11 +367,11 @@ def gather(a):
     need(map_path.is_file() and sha(map_path) == bound_map["sha256"] == b["direction"]["map_sha256"], "the narration's map is not the bound one")
     holds = [[r["cue"], r["next_cue"]] for r in read(map_path)["visual_holds"] if r.get("video") == TOPIC and r.get("kind") == "prediction"]
     need(len(holds) == PREDICTIONS, f"the bound map has {len(holds)} prediction holds")
-    approved(schedule, SCHEDULE, "--approved-schedule-sha256", a.approved_schedule_sha256, schedule["not_as_predicted"])
+    approved(SCHEDULE, "--approved-schedule-sha256", a.approved_schedule_sha256, schedule["not_as_predicted"])
     unexplained = sorted(set(scored["stems_changed"]) - set(schedule["chapters_changed"]))
-    approved(scored, SCORED, "--approved-score-sha256", a.approved_score_sha256, unexplained)
+    approved(SCORED, "--approved-score-sha256", a.approved_score_sha256, unexplained)
     return {"tools": tools, "binding": b, "binary_sha256": binary, "cues": cues, "frames": frames, "prediction": holds,
-            "prior_jobs": [BUILD, rebind, ASSEMBLE, TIMELINE, SCORE], "map": map_path,
+            "prior_jobs": [BUILD, rebind, ASSEMBLE, TIMELINE, SCORE], "map": map_path, "assemble_inputs": assemble_inputs,
             "comparisons": {"not_as_predicted": schedule["not_as_predicted"], "chapters_changed": schedule["chapters_changed"],
                             "stems_changed": scored["stems_changed"], "film": schedule.get("film")}}
 
@@ -432,7 +436,7 @@ def narration_reads():
 
 def input_rows(f, extra=()):
     """What a render or master reads, and nothing it doesn't: no build tree, no engine source, no target folder."""
-    paths = {BIN, BINDING, TOOLS, SCHEDULE, SCORED, GUARD, PINS, BUILD_INPUTS, ASSEMBLE_INPUTS, *BOUND_FILES, *KIT_TOOLS, f["map"]}
+    paths = {BIN, BINDING, TOOLS, SCHEDULE, SCORED, GUARD, PINS, BUILD_INPUTS, f["assemble_inputs"], *BOUND_FILES, *KIT_TOOLS, f["map"]}
     paths.update(Path(row["path"]) for row in read(PINS)["files"])
     paths.update(Path(f["tools"][name]["path"]) for name in ("python3", "ffmpeg", "ffprobe"))
     paths.update(CRATE / rel for rel in f["binding"]["crate"])
@@ -572,7 +576,7 @@ def set_aside(job, paths):
     print(f"ASIDE {job}: {len(paths)} paths in {folder}", flush=True)
 
 
-def plan(a, f, retries):
+def plan(f, retries):
     chapters = {}
     for chapter in CHAPTERS:
         base = f"logarithm-remote-render-{chapter}-01"
@@ -596,7 +600,7 @@ def check(a, retries):
     except Pending as pending:
         print(json.dumps({"ready": False, "pending": str(pending)}, indent=2))
         return 3
-    chapters, master, _ = plan(a, f, retries)
+    chapters, master, _ = plan(f, retries)
     blocked = [c for c, s in [*chapters.items(), ("master", master)] if s["state"] == "blocked"]
     print(json.dumps({"ready": not blocked, "blocked": blocked, "rebind_job": f["prior_jobs"][1], "comparisons": f["comparisons"],
                       "frames": sum(f["frames"].values()), "tools": {k: f["tools"][k]["path"] for k in ("python3", "ffmpeg", "ffprobe")},
@@ -629,7 +633,7 @@ def run(a, retries):
         except BlockingIOError:
             raise Refused("another render_master_remote.py run holds this lane") from None
         f = ready(a)
-        stop_if_blocked(*plan(a, f, retries)[:2])
+        stop_if_blocked(*plan(f, retries)[:2])
         for chapter in CHAPTERS:
             f = gather(a)  # every input again, as of this launch
             base = f"logarithm-remote-render-{chapter}-01"
@@ -645,7 +649,7 @@ def run(a, retries):
             launch(job, config_for("render", job, f, chapter), f)
             verify_render(chapter, job, f)
         f = gather(a)
-        chapters, status, renders = plan(a, f, retries)
+        chapters, status, renders = plan(f, retries)
         need(renders is not None, "not every chapter is done")
         stop_if_blocked(chapters, status)
         if status["state"] == "done":

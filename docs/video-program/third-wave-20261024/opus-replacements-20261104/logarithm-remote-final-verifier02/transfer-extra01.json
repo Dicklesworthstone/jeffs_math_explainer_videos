@@ -1,0 +1,13 @@
+{
+  "about": "Files the verifier needs on the worker that are in none of root's transfer records. Paths are relative to the repository root; send this whole bundle as well.",
+  "files": [
+    {
+      "path": "narration_lab/third-wave-20261024/root/six-machine-screened-production-20261103/verify_video_preserve_logs01.sh",
+      "sha256": "3f4c68dbdcb02c1c90ff03cb4f20afc36792b7f20c6cc111a5eef21617a11410"
+    },
+    {
+      "path": "narration_lab/third-wave-20261024/root/six-machine-screened-production-20261103/caption-interval-audit01.py",
+      "sha256": "3cc2643615ce5263b01d429ae6f72326c95e777af3e7f29ef9266a05155fa0c4"
+    }
+  ]
+}

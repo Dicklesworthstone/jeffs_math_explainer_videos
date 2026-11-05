@@ -1,0 +1,464 @@
+--- logarithm-final-picture-verifier01/verify_final_picture.py
++++ logarithm-remote-final-verifier01/verify_remote_final.py
+@@ -1,11 +1,18 @@
+ #!/usr/bin/env python3
+-"""Final technical verification of the repaired logarithm master (bead 87do.63, BlueSalmon's final-picture task).
+-
+-This is verify_stage09_final.py version 02 (sealed e8e19275, written by LavenderPike with BronzeJaguar's reviewed fix,
+-and the verifier of the retired stage09 master), adapted by BronzeJaguar, 2026-11-05. Every stage09 check is kept; four changed form,
+-named in HANDOFF.md: the map binding (report.json's hash plus the binding's crate row, not a master row), the script row (by name,
+-not first), the interpreter in receipts (`ran`) and the render's success line.
+-docs/v2-to-final-picture.diff is the whole change. Added:
++"""Final technical verification of the repaired logarithm master on the remote worker (bead 87do.63).
++
++This is verify_final_picture.py (sealed deb12d24, BronzeJaguar, itself verify_stage09_final.py version 02, sealed
++e8e19275) moved to root's remote lane on mac-mini-max, by BronzeJaguar, 2026-11-05. docs/final-picture-to-remote.diff
++is the whole change. Every check of that helper stays. The change is:
++
++  names     the remote jobs, lane, guard, binding and bound files
++  host      every command refuses off mac-mini-max: the master, tools and job records exist only there
++  tools     python3, ffmpeg and ffprobe come from a tools file measured on the worker, by path and hash. PATH is never
++            inherited: the strict check runs with the pinned folders first, and refuses if another ffmpeg would answer
++  sheets    Pillow is proved at check time, because a contact sheet is the job's last step
++  record    verification.json gains `worker` and `tools_sha256`; every earlier key stays
++
++The gates, from the earlier helper:
+ 
+   G1  a fresh master: not the retired master or binary; build, assembly, timeline, score, 13 renders and master are
+       all successful, stable guard receipts, in that order in time.
+@@ -18,26 +25,21 @@
+       sample X and one-logarithm formula, and the closing. Each resolves on the NEW schedule as a base plus a frame
+       offset. A base that does not resolve refuses. Old film frames are never read here.
+ 
+-It reads the outputs of root's render-master01.py (stage09's worker, with its CONFIG in a sidecar .config.json, a
+-guard manifest sorted by path, sys.executable in the receipts and its own render success line) and
+-prepare_final_picture_pipeline.py (timeline, score, binding). It changes none of them.
+-
+-From the repository root (every path is an argument; absolute paths):
+-
+-  check       --lane L --jobs J --crate C --narration N --series SS --integration I --binding B
++On the worker, from the repository root (every path is an argument; absolute paths):
++
++  tools       --out T --ffmpeg F --ffprobe P
++              measures this host's python3, Pillow, ffmpeg and ffprobe and writes a new tools file
++  check       --lane L --jobs J --crate C --narration N --series SS --integration I --binding B --tools T
+               read only: all gates above, the master's command binding, the 13-chapter schedule, exact captions and
+               the picture plan
+   write-job   ... --verify NN --job-dir D
+-              writes D/logarithm-final-picture-verifyNN.py and its guard inputs, then prints the guard line
++              writes D/logarithm-remote-verifyNN.py and its guard inputs, then prints the guard line
+   verify-job  ... --verify NN --job-dir D
+               after root's guarded run: its receipt, log, measurements, the extracted pictures and the anchor ledger
+ 
+-L is the guard's lane, J the folder holding the render and master job scripts (S/render-jobs01), C the workspace crate
+-(S/workspace/explainer_corpus/logarithm_mysteries), N the bound narration (S/narration01), SS the render series,
+-I S/integration.json, B S/final-picture-binding01.json.
+-
+-Nothing here launches a job, views a picture, listens, or accepts the film. Root launches the printed guard line,
+-views every sheet, and owns the final review.
++L is the remote guard's job folder (O/jobs). HANDOFF.md names the others. Nothing here launches a job, connects to a
++host, views a picture, listens, or accepts the film. Root launches the printed guard line, fetches the sheets, views
++every one, and owns the final review.
+ """
+ import argparse
+ import ast
+@@ -50,6 +52,7 @@
+ from pathlib import Path
+ import re
+ import shutil
++import socket
+ import subprocess
+ import sys
+ import wave
+@@ -57,7 +60,12 @@
+ HERE = Path(__file__).resolve()
+ REPO = HERE.parents[5]
+ ANCHORS = HERE.parent / "anchors.json"
+-STAGE = "logarithm-final-picture"
++STAGE = "logarithm-remote"
++HOST = "mac-mini-max"  # root's guard01.py refuses any other host, and so does this helper
++TOOLS_SCHEMA = "logarithm-remote-tools-v1"
++COMPARISONS = {"schedule": "schedule-comparison01.json", "score": "score-comparison01.json"}  # beside the binding: RubyRaven's O files
++RENDER_ATTEMPT = r"(-r[2-9])?"  # LavenderPike's contract: render_jobs names the attempt that succeeded
++MIN_PILLOW = (10, 1)  # make_sheets: ImageDraw.text(font_size=...)
+ TOPIC = "logarithm_mysteries"
+ FPS = 60
+ CHAPTERS = ["00_ratio_ruler", "01_building_ruler", "02_slide_rule", "03_folded_decade", "04_undoing_growth",
+@@ -67,7 +75,7 @@
+ DIRECTION_MAP = "docs/narration-direction-map-oliver17.json"
+ HOLD_KINDS = {"prediction": 13, "reading": 2}
+ PREDICT_FADE_FRAMES = 15  # draw.rs predict: fade_out_all(&[bar, probe], 0.25) between the think and the next cue
+-BINDING_SCHEMA = "logarithm-final-picture-binding-v1"
++BINDING_SCHEMA = "logarithm-remote-binding-v1"
+ # The retired stage09 film: a fresh master can be neither, and the script and the audio stay.
+ RETIRED_MASTER = "00236d1a6915ff968235a30ab59769b02125ece0fee482e4fa3154c265ac7c24"
+ RETIRED_BINARY = "e88e58e03b69b18f9e7c77dbeb4d810bc1b660637074b86746a6b98e497cda08"
+@@ -96,6 +104,9 @@
+ M_REL = "narration_lab/third-wave-20261024/root/six-machine-screened-production-20261103"
+ STRICT_REL = f"{M_REL}/verify_video_preserve_logs01.sh"
+ SCREEN_REL = f"{M_REL}/caption-interval-audit01.py"
++O_REL = "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01"
++REMOTE_GUARD_REL = f"{O_REL}/guard01.py"
++REMOTE_GUARD_PINS_REL = f"{O_REL}/guard-pins01.json"
+ GUARD_REL = f"{P_REL}/engine-secondary-validation01/guard_owner56g_target20g.py"
+ GUARD_SOURCE_REL = ("narration_lab/production-20261020/second-wave-central/duration-and-storage-20261020/root/"
+                     "run_bounded_phase_oliver_owner48g_target14g_20261102.py")
+@@ -104,11 +115,13 @@
+     SCREEN_REL: "3cc2643615ce5263b01d429ae6f72326c95e777af3e7f29ef9266a05155fa0c4",
+     GUARD_REL: "1c19a9b8f817c3bca06e18fd0785ac21c3cb935be715d67ecc41e4e39d1f5097",
+     GUARD_SOURCE_REL: "819746fb33110d6c133e184812c80a00562d848816f623078ad86f0fb1a316da",
++    REMOTE_GUARD_REL: "cc57457f1ca26f1d4ddb5780e2f7cf4160860bbd456057d380fcb6c028c27291",
++    REMOTE_GUARD_PINS_REL: "0501d7b831717ac6f9be30eb0d7bcbdaccfcbcde238ba52f9f8b7bded606bbb6",
+ }
+ EXPECT = {"EXPECT_RES": "3840x2160", "EXPECT_FPS": "60", "EXPECT_BT709": "1", "EXPECT_LUFS": "-16", "EXPECT_TP_MAX": "-1.0"}
+ OUTPUTS = ("strict-video-verification.log", "decode-logs", "encoded-loudness.log", "caption-screen.json", "verification.json")
+-SCOPE = ("Technical checks and extracted pictures of the repaired logarithm master only (retained ElevenLabs Oliver "
+-         "recordings). No listening, picture viewing, motion review, fine sync, ASR, independent review or publication "
++SCOPE = ("Technical checks and extracted pictures of the repaired logarithm master only, on mac-mini-max (retained "
++         "ElevenLabs Oliver recordings). No listening, picture viewing, motion review, fine sync, ASR, independent review or publication "
+          "acceptance is claimed.")
+ STAMP = r"(\d\d):([0-5]\d):([0-5]\d)[{d}](\d{{3}})"
+ # verify_video_preserve_logs01.sh lines 173 and 175: the software decode always runs first, with -xerror
+@@ -132,6 +145,74 @@
+ def load(path):
+     need(Path(path).is_file(), f"{path} is missing")
+     return json.loads(Path(path).read_text(encoding="utf-8"))
++
++
++def on_host():
++    """The worker's records, master and tools are real only on the worker."""
++    name = socket.gethostname().split(".")[0].lower()
++    need(name == HOST, f"this is {name}: the remote verifier runs only on {HOST}")
++
++
++def pillow_version():
++    try:
++        import PIL
++    except ImportError:
++        return None
++    return PIL.__version__
++
++
++def tool_row(path):
++    done = subprocess.run([path, "-version"], check=True, capture_output=True, text=True, timeout=60)
++    return {"path": str(Path(path).resolve()), "sha256": sha(path), "version": done.stdout.splitlines()[0]}
++
++
++def write_tools(a):
++    """Measures this host: what a job will run, by real path and hash, never a local assumption."""
++    on_host()
++    for name in ("out", "ffmpeg", "ffprobe"):
++        value = getattr(a, name)
++        need(value and Path(value).is_absolute(), f"tools needs an absolute --{name}")
++    out = Path(a.out)
++    need(not out.exists(), f"{out} exists: tools never replaces a file")
++    # the interpreter as launched, not its Cellar target: launching that target directly is a different command line
++    body = {"schema": TOOLS_SCHEMA, "host": HOST,
++            "python3": {"path": sys.executable, "sha256": sha(sys.executable), "version": sys.version.split()[0], "pillow": pillow_version()},
++            "ffmpeg": tool_row(a.ffmpeg), "ffprobe": tool_row(a.ffprobe)}
++    check_pillow(body)
++    with open(out, "x") as handle:
++        handle.write(json.dumps(body, indent=2) + "\n")
++    return {"tools": str(out), "tools_sha256": sha(out), **body}
++
++
++def check_pillow(tools):
++    live = pillow_version()
++    parts = tuple(int(x) for x in re.findall(r"\d+", live or "")[:2])
++    need(live is not None and parts >= MIN_PILLOW, f"this python3 has Pillow {live}: the contact sheets need {MIN_PILLOW[0]}.{MIN_PILLOW[1]} or later")
++    need(tools["python3"]["pillow"] == live, f"the tools file says Pillow {tools['python3']['pillow']}, this python3 has {live}")
++
++
++def check_tools(tools, label):
++    """This host, this interpreter and these exact files, or a refusal."""
++    need(tools.get("schema") == TOOLS_SCHEMA and tools.get("host") == HOST, f"{label}: not a {TOOLS_SCHEMA} for {HOST}")
++    for name in ("python3", "ffmpeg", "ffprobe"):
++        row = tools[name]
++        need(Path(row["path"]).is_absolute() and Path(row["path"]).is_file() and sha(row["path"]) == row["sha256"],
++             f"{label}: this host's {name} is not {row['path']} {row['sha256'][:12]}")
++    need(same(sys.executable, tools["python3"]["path"]), f"{label}: this interpreter is {sys.executable}, not {tools['python3']['path']}")
++    check_pillow(tools)
++
++
++def tool_path(tools):
++    """PATH for root's strict check, which finds both tools by name: pinned folders first, then the system's only."""
++    return os.pathsep.join(dict.fromkeys([str(Path(tools[name]["path"]).parent) for name in ("ffmpeg", "ffprobe")] + ["/usr/bin", "/bin"]))
++
++
++def check_tool_path(tools):
++    path = tool_path(tools)
++    for name in ("ffmpeg", "ffprobe"):
++        found = shutil.which(name, path=path)
++        need(found is not None and same(found, tools[name]["path"]), f"PATH {path} finds {name} at {found}, not the pinned {tools[name]['path']}")
++    return path
+ 
+ 
+ def receipt_ok(r):
+@@ -303,7 +384,7 @@
+ 
+ class Ctx:
+     def __init__(self, a):
+-        for key in ("lane", "jobs", "crate", "narration", "integration", "binding"):
++        for key in ("lane", "jobs", "crate", "narration", "integration", "binding", "tools"):
+             value = Path(getattr(a, key))
+             need(value.is_absolute(), f"--{key} must be an absolute path")
+             setattr(self, key, value)
+@@ -313,12 +394,13 @@
+         self.timeline_job = f"{STAGE}-timeline{a.series}"
+         self.score_job = f"{STAGE}-score{a.series}"
+         self.build_job = f"{STAGE}-build{a.series}"
++        self.rebind_job = f"{STAGE}-rebind{a.series}"
+         self.assemble_job = f"{STAGE}-assemble{a.series}"
+         self.work = self.lane / f"{STAGE}-render-work{a.series}"
+         self.verify_job = None
+         if getattr(a, "verify", None):
+             need(re.fullmatch(r"\d\d", a.verify) is not None, "--verify must be two digits")
+-            self.verify_job = f"{STAGE}-verify{a.verify}"  # root's name for this job: logarithm-final-picture-verify01
++            self.verify_job = f"{STAGE}-verify{a.verify}"
+         self.job_dir = Path(a.job_dir) if getattr(a, "job_dir", None) else None
+         need(self.job_dir is None or self.job_dir.is_absolute(), "--job-dir must be an absolute path")
+ 
+@@ -378,7 +460,7 @@
+     renders, render_receipts = {}, {}
+     for ch in CHAPTERS:
+         job = cfg["render_jobs"][ch]
+-        need(re.fullmatch(re.escape(f"{STAGE}-render-{ch}-{c.series}") + r"(-r[1-9])?", job) is not None, f"{ch}: render job {job}")
++        need(re.fullmatch(re.escape(f"{STAGE}-render-{ch}-{c.series}") + RENDER_ATTEMPT, job) is not None, f"{ch}: render job {job}")
+         rr = load(c.lane / job / "resource-receipt.json")
+         need(receipt_ok(rr) and ran(rr, c.jobs / f"{job}.py"), f"{job} did not pass")
+         need(last_line(c.lane / job / "command.log") == RENDER_SUCCESS, f"{job}: the log does not end with the render's success line")
+@@ -393,9 +475,11 @@
+     sr = load(c.lane / c.score_job / "resource-receipt.json")
+     need(receipt_ok(sr) and last_line(c.lane / c.score_job / "command.log") == SCORE_SUCCESS, f"{c.score_job} did not pass")
+     br, ar = load(c.lane / c.build_job / "resource-receipt.json"), load(c.lane / c.assemble_job / "resource-receipt.json")
++    rb = load(c.lane / c.rebind_job / "resource-receipt.json")
+     need(receipt_ok(br), f"{c.build_job} did not pass")
++    need(receipt_ok(rb), f"{c.rebind_job} did not pass")
+     need(receipt_ok(ar), f"{c.assemble_job} did not pass")
+-    order = [(c.build_job, br, c.timeline_job, tr), (c.assemble_job, ar, c.timeline_job, tr), (c.timeline_job, tr, c.score_job, sr)]
++    order = [(c.build_job, br, c.rebind_job, rb), (c.rebind_job, rb, c.assemble_job, ar), (c.assemble_job, ar, c.timeline_job, tr), (c.timeline_job, tr, c.score_job, sr)]
+     order += [(c.score_job, sr, job, rr) for job, rr in render_receipts.items()]
+     order += [(job, rr, c.master_job, r) for job, rr in render_receipts.items()]
+     for early, done, late, began in order:
+@@ -420,6 +504,17 @@
+     manifests = [path for path, digest in b["files"].items() if digest == m["build_receipt"]["inputs_sha256"]]
+     need(len(manifests) == 1, f"{c.binding.name}: no one bound file is the build's guard manifest")
+     return b, {row["path"]: row["sha256"] for row in load(manifests[0])["files"]}
++
++
++def check_comparisons(c):
++    """The stage09 comparisons, a second lock after the master's: a hard failure refuses here too. A move other than
++    the predicted one is reported for root, never judged here."""
++    found = {}
++    for step, name in COMPARISONS.items():
++        path, doc = c.binding.parent / name, load(c.binding.parent / name)
++        need(doc.get("hard_failures") == [], f"{name}: hard failures {doc.get('hard_failures')}")
++        found[step] = {"sha256": sha(path), "not_as_predicted": doc.get("not_as_predicted", [])}
++    return found
+ 
+ 
+ def check_sources(c, m, built):
+@@ -638,6 +733,8 @@
+              f"{ch}: the 4K render's schedule differs from the 60 fps timeline")
+         need(t["chapter"] == ch and t["fps"] == FPS and t["frames"] == item["frames"] and [x["id"] for x in t["lines"]] == item["cues"],
+              f"{ch}: the timeline differs from the timeline summary")
++        # root's asr01.py compares these hashes byte for byte: a difference has to stop here, not after this job
++        need(sha(path) == sha(reference) == item["timeline_sha256"], f"{ch}: the render's, timeline job's and summary's timeline bytes differ")
+         for line in t["lines"]:
+             wav = c.narration / f"{line['id']}.wav"
+             need(same(line["wav"], wav), f"{line['id']}: the line plays {line['wav']}, not the bound narration")
+@@ -755,19 +852,26 @@
+ 
+ 
+ def gather(c):
++    on_host()
++    tools = load(c.tools)
++    check_tools(tools, c.tools.name)
++    check_tool_path(tools)
+     for rel, digest in PINS.items():
+         need(sha(REPO / rel) == digest, f"root's {rel} is not the pinned {digest[:12]}")
+     need(registry(c.crate) == CHAPTERS, "the crate's chapter registry is not the 13 chapters")
+     script = read_script(c.crate / "script.tsv")
+     need(len(script) == CUES, f"the script has {len(script)} cues, not {CUES}")
+     m = bind_master(c, list(script))
+-    for rel in ("script.tsv", "src/chapters/mod.rs"):
++    for rel in ("script.tsv", "src/chapters/mod.rs", "narration_units.json", DIRECTION_MAP):
+         need((c.crate / rel).resolve() in m["bound"], f"the master did not bind the crate's {rel}")
++    need(c.integration.resolve() in m["bound"], "the master did not bind integration.json")
++    need(m["cfg"].get("tools_sha256") == sha(c.tools), f"{c.master_job} ran under another tools file: the master and this check must name one ffmpeg")
+     for name in ("report.json", "phrase-timings.json"):
+         need((c.narration / name).resolve() in m["bound"], f"the master did not bind narration {name}")
+     binding, built = check_binding(c, m)
+     integration, sources = check_sources(c, m, built)
+     check_audio(c, m, script)
++    comparisons = check_comparisons(c)
+     summary_path = c.lane / c.timeline_job / "timeline-summary.json"
+     need(summary_path.resolve() in m["bound"], "the master did not bind the timeline summary")
+     chapters, placements, timelines, total = read_schedule(c, script, load(summary_path), m["bound"])
+@@ -790,7 +894,8 @@
+             "captions": captions, "holds": len(holds), "phrase_marks": sum(len(v) for v in marks.values()),
+             "layout_findings": {ch: len(v) for ch, v in layouts.items()}, "samples": samples,
+             "anchors": anchor_ledger(samples, anchors), "pause_sites": list(sites.values()), "closing": closing, "sources": sources,
+-            "integration_sha256": sha(c.integration), "binding_sha256": sha(c.binding), "map_sha256": map_sha256}
++            "integration_sha256": sha(c.integration), "binding_sha256": sha(c.binding), "map_sha256": map_sha256, "tools": tools,
++            "tools_sha256": sha(c.tools), "comparisons": comparisons}
+ 
+ 
+ def check(c):
+@@ -802,13 +907,13 @@
+             "source_changes": f["sources"], "integration_sha256": f["integration_sha256"], "binding_sha256": f["binding_sha256"],
+             "direction_map_sha256": f["map_sha256"], "pause_sites": f["pause_sites"], "closing": f["closing"], "anchors": len(f["anchors"]),
+             "anchor_rows": len({a["id"] for a in f["anchors"]}), "pictures_planned": len(f["samples"]),
+-            "sheets_planned": math.ceil(len(f["samples"]) / 4), "not_claimed": SCOPE}
++            "sheets_planned": math.ceil(len(f["samples"]) / 4), "tools": f["tools"], "tools_sha256": f["tools_sha256"], "comparisons": f["comparisons"], "not_claimed": SCOPE}
+ 
+ 
+ # ---------------------------------------------------------------- the guarded job
+ 
+ JOB_TEMPLATE = r'''#!/usr/bin/env python3
+-"""@@JOB@@: final technical verification of the repaired logarithm master. Written by verify_final_picture.py
++"""@@JOB@@: final technical verification of the repaired logarithm master. Written by verify_remote_final.py
+ (sha256 @@HELPER@@). Launch only through root's guard from the repository root; the guard binds every input.
+ Technical checks and extracted pictures only: no listening, picture viewing, fine sync or acceptance is claimed.
+ """
+@@ -825,7 +930,7 @@
+         if hashlib.file_digest(handle, "sha256").hexdigest() != CONFIG["helper_sha256"]:
+             print("REFUSED: the verification helper moved", flush=True)
+             return 1
+-    spec = importlib.util.spec_from_file_location("verify_final_picture", CONFIG["helper"])
++    spec = importlib.util.spec_from_file_location("verify_remote_final", CONFIG["helper"])
+     helper = importlib.util.module_from_spec(spec)
+     spec.loader.exec_module(helper)
+     return helper.run_job(CONFIG)
+@@ -834,12 +939,6 @@
+ if __name__ == "__main__":
+     sys.exit(main())
+ '''
+-
+-
+-def tool(name):
+-    found = shutil.which(name)
+-    need(found is not None, f"{name} is not on PATH")
+-    return str(Path(found).resolve())
+ 
+ 
+ def write_job(c):
+@@ -855,15 +954,16 @@
+            "srt": {"path": str(out["srt"]), "sha256": sha(out["srt"])}, "vtt": {"path": str(out["vtt"]), "sha256": sha(out["vtt"])},
+            "master_job": c.master_job, "series": c.series, "total_frames": f["total_frames"], "fps": FPS,
+            "chapters": f["chapters"], "placements": f["placements"], "captions": f["captions"],
+-           "strict": str(REPO / STRICT_REL), "screen": str(REPO / SCREEN_REL), "ffmpeg": tool("ffmpeg"), "ffprobe": tool("ffprobe"),
++           "strict": str(REPO / STRICT_REL), "screen": str(REPO / SCREEN_REL), "ffmpeg": f["tools"]["ffmpeg"]["path"], "ffprobe": f["tools"]["ffprobe"]["path"],
+            "expect": EXPECT, "samples": f["samples"], "success": VERIFY_SUCCESS, "scope": SCOPE,
+            "anchors": f["anchors"], "pause_sites": f["pause_sites"], "closing": f["closing"], "source_changes": f["sources"],
+-           "integration_sha256": f["integration_sha256"], "binding_sha256": f["binding_sha256"]}
++           "integration_sha256": f["integration_sha256"], "binding_sha256": f["binding_sha256"], "tools": f["tools"],
++           "tools_sha256": f["tools_sha256"], "comparisons": f["comparisons"]}
+     c.job_dir.mkdir(parents=True, exist_ok=True)
+     text = JOB_TEMPLATE.replace("@@JOB@@", job).replace("@@HELPER@@", cfg["helper_sha256"])
+     with open(script, "x") as handle:
+         handle.write(text.replace("@@CONFIG@@", repr(json.dumps(cfg, indent=1))))
+-    paths = [script, HERE] + [REPO / rel for rel in PINS] + [Path(cfg["ffmpeg"]), Path(cfg["ffprobe"])]
++    paths = [script, HERE] + [REPO / rel for rel in PINS] + [Path(cfg["ffmpeg"]), Path(cfg["ffprobe"]), Path(f["tools"]["python3"]["path"]), c.tools]
+     paths += [out["master"], out["srt"], out["vtt"], c.jobs / f"{c.master_job}.py", c.jobs / f"{c.master_job}-inputs.json"]
+     paths += [c.lane / c.master_job / name for name in ("resource-receipt.json", "command.log", "master-summary.json")]
+     paths += [c.lane / c.timeline_job / "timeline-summary.json"]
+@@ -872,15 +972,16 @@
+     paths += [c.narration / name for name in ("report.json", "phrase-timings.json")] + [c.narration / f"{cue}.wav" for cue in f["script"]]
+     paths += [c.crate / rel for rel in ("script.tsv", DIRECTION_MAP, "src/chapters/mod.rs", "narration_units.json")]
+     paths += [c.jobs / f"{c.master_job}.config.json", c.integration, c.binding, ANCHORS]
+-    paths += [c.lane / c.assemble_job / "audio-comparison.json"]
++    paths += [c.lane / c.assemble_job / "audio-comparison.json"] + [c.binding.parent / name for name in COMPARISONS.values()]
+     have = {p.resolve() for p in paths}
+     paths += [c.crate.parents[1] / row["path"] for row in f["sources"] if (c.crate.parents[1] / row["path"]).resolve() not in have]
+     need(len({p.resolve() for p in paths}) == len(paths), "an input row repeats")
+     with open(inputs, "x") as handle:
+         handle.write(json.dumps({"files": [{"path": str(p), "sha256": sha(p)} for p in paths]}, indent=2) + "\n")
++    python = f["tools"]["python3"]["path"]
+     return {"job": job, "script": str(script), "script_sha256": sha(script), "inputs": str(inputs), "inputs_sha256": sha(inputs),
+             "input_rows": len(paths), "pictures_planned": len(f["samples"]), "sheets_planned": math.ceil(len(f["samples"]) / 4),
+-            "launch_from_repo_root": f"python3 -I -B {GUARD_REL} --phase native --job {job} --inputs {inputs} -- python3 -I -B {script}"}
++            "launch_from_repo_root_on_worker": f"{python} -I -B {REMOTE_GUARD_REL} --phase native --job {job} --inputs {inputs} -- {python} -I -B {script}"}
+ 
+ 
+ def media_facts(probe, video_packets, total_frames):
+@@ -937,6 +1038,9 @@
+         started = json.loads(receipt.read_text())
+         need(ran(started, cfg["script"]) and "exit" not in started and started.get("admitted") is True,
+              "the guard's receipt for this job does not show this script running")
++        on_host()
++        check_tools(cfg["tools"], "the job's tools")
++        tool_dirs = check_tool_path(cfg["tools"])
+         master = cfg["master"]["path"]
+         for key in ("master", "srt", "vtt"):
+             need(sha(cfg[key]["path"]) == cfg[key]["sha256"], f"the {key} moved since the job was written")
+@@ -945,7 +1049,7 @@
+         for old in sorted(job.glob("frame-*")) + sorted(job.glob("sheet-*")):
+             need(False, f"{old.name} exists already")  # ffmpeg -n would keep it and still exit 0
+         (job / "decode-logs").mkdir()
+-        env = dict(os.environ, **cfg["expect"], TMPDIR=str(job / "decode-logs"))  # root's strict check keeps its decode logs here
++        env = dict(os.environ, **cfg["expect"], PATH=tool_dirs, TMPDIR=str(job / "decode-logs"))  # root's strict check keeps its decode logs here
+         with (job / "strict-video-verification.log").open("x") as log:
+             done = subprocess.run(["bash", cfg["strict"], master], stdout=log, stderr=subprocess.STDOUT, env=env, timeout=14400)
+         need(done.returncode == 0 and last_line(job / "strict-video-verification.log") == "VERIFY PASS", "root's strict video check failed")
+@@ -988,7 +1092,9 @@
+                 "pictures": pictures, "sheets": sheets, "sheet_sha256": sheet_sha256, "pictures_viewed": False,
+                 "anchors": cfg["anchors"], "pause_sites": cfg["pause_sites"], "closing": cfg["closing"],
+                 "source_changes": cfg["source_changes"], "integration_sha256": cfg["integration_sha256"],
+-                "binding_sha256": cfg["binding_sha256"], "scope": cfg["scope"]}, indent=2) + "\n")
++                "binding_sha256": cfg["binding_sha256"], "tools_sha256": cfg["tools_sha256"], "comparisons": cfg["comparisons"],
++                "worker": {"host": HOST, "python3": cfg["tools"]["python3"], "ffmpeg": cfg["tools"]["ffmpeg"], "ffprobe": cfg["tools"]["ffprobe"]},
++                "scope": cfg["scope"]}, indent=2) + "\n")
+         for row in decodes:
+             print(row, flush=True)
+         print(f"{len(pictures)} pictures in {len(sheets)} sheets await root's viewing.", flush=True)
+@@ -1000,6 +1106,7 @@
+ 
+ 
+ def verify_job(c):
++    on_host()
+     need(c.verify_job and c.job_dir, "verify-job needs --verify NN and --job-dir D")
+     job, folder = c.verify_job, c.lane / c.verify_job
+     script, inputs = c.job_dir / f"{job}.py", c.job_dir / f"{job}-inputs.json"
+@@ -1027,12 +1134,15 @@
+     need(last_line(folder / "strict-video-verification.log") == "VERIFY PASS", f"{job}: the strict log does not end with VERIFY PASS")
+     need(any((folder / "decode-logs").glob("verify_decode.*")), f"{job}: the strict check's decode logs are missing")
+     need(load(folder / "caption-screen.json")["srt_sha256"] == cfg["srt"]["sha256"], f"{job}: the caption screen read another SRT")
+-    for key in ("anchors", "pause_sites", "closing", "source_changes", "integration_sha256", "binding_sha256"):
++    for key in ("anchors", "pause_sites", "closing", "source_changes", "integration_sha256", "binding_sha256", "tools_sha256", "comparisons"):
+         need(v.get(key) == cfg[key], f"{job}: verification.json's {key} differ from the job's")
+     frames = [p["frame"] for p in v["pictures"]]
+     lost = [a["id"] for a in cfg["anchors"] if frames[a["picture"] - 1] != a["frame"]]
+     need(not lost, f"{job}: {len(lost)} anchors are not on their pictures, first {lost[:2]}")
+-    return {"job": job, "master_sha256": v["sha256"], "frames": v["frames"], "media": v["media"], "strict_video_notes": v["strict_video_notes"],
++    need(v.get("worker", {}).get("host") == HOST and all(v["worker"].get(k) == cfg["tools"][k] for k in ("python3", "ffmpeg", "ffprobe")),
++         f"{job}: verification.json names other worker tools")
++    return {"job": job, "verification_sha256": sha(folder / "verification.json"), "master_sha256": v["sha256"], "frames": v["frames"], "media": v["media"],
++            "strict_video_notes": v["strict_video_notes"],
+             "strict_video_decodes": v["strict_video_decodes"],
+             "encoded_loudness": v["encoded_loudness"],
+             "caption_screen": v["caption_screen"], "pictures": len(v["pictures"]), "sheets": len(v["sheets"]), "sheets_folder": str(folder),
+@@ -1042,13 +1152,20 @@
+ 
+ def main(argv=None):
+     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+-    parser.add_argument("command", choices=["check", "write-job", "verify-job"])
+-    for name in ("--lane", "--jobs", "--crate", "--narration", "--series", "--integration", "--binding"):
+-        parser.add_argument(name, required=True)
++    parser.add_argument("command", choices=["tools", "check", "write-job", "verify-job"])
++    for name in ("--lane", "--jobs", "--crate", "--narration", "--series", "--integration", "--binding", "--tools"):
++        parser.add_argument(name)
+     parser.add_argument("--verify")
+     parser.add_argument("--job-dir")
++    for name in ("--out", "--ffmpeg", "--ffprobe"):
++        parser.add_argument(name)
+     a = parser.parse_args(argv)
+     try:
++        if a.command == "tools":
++            print(json.dumps({"tools_written": "WRITTEN", **write_tools(a)}, indent=2))
++            return 0
++        for name in ("lane", "jobs", "crate", "narration", "series", "integration", "binding", "tools"):
++            need(getattr(a, name), f"{a.command} needs --{name}")
+         c = Ctx(a)
+         if a.command == "check":
+             result = {"check": "PASS", **check(c)}
