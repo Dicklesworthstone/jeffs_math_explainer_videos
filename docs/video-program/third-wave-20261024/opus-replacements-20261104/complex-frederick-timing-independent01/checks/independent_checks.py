@@ -736,12 +736,18 @@ def section_hygiene():
     say("== 12. Hygiene of this bundle")
     machine = re.compile(r"/Users/|/home/|/var/folders|jemanuel|scratchpad|claude-501|@gmail")  # hygiene-pattern
     pronoun = re.compile(r"\b(he|she|his|her|him|hers|himself|herself)\b", re.I)  # hygiene-pattern
-    files = sorted(p for p in BUNDLE.rglob("*") if p.is_file() and p.name != "SHA256SUMS")
-    dirty = [str(p.relative_to(BUNDLE)) for p in files if any(
+    # Gitignored __pycache__ folders (written by editor hooks, never by these -B runs) are not part of the bundle.
+    files = sorted(p for p in BUNDLE.rglob("*") if p.is_file() and p.name != "SHA256SUMS"
+                   and "__pycache__" not in p.relative_to(BUNDLE).parts)
+    names = [str(p.relative_to(BUNDLE)) for p in files]
+    want = ["REVIEW.md", "checks/independent_checks.py", "checks/outputs/independent_checks.txt",
+            "patch/bridge-fixes.diff"]
+    dirty = [n for n, p in zip(names, files) if any(
         (machine.search(x) or pronoun.search(x)) and not x.endswith("# hygiene-pattern")
-        for x in p.read_text(encoding="utf-8").splitlines())]
-    check("h1-hygiene", not dirty, f"{len(files)} files, no machine path, user name, address or gendered pronoun"
-                                   f"{(' ' + str(dirty)) if dirty else ''}")
+        for x in p.read_text(encoding="utf-8", errors="replace").splitlines())]
+    check("h1-hygiene", names == want and not dirty,
+          f"exactly the {len(want)} bundle files, with no machine path, user name, address or gendered pronoun"
+          f"{(' ' + str(dirty)) if dirty else ''}{(' ' + str(names)) if names != want else ''}")
 
 
 def main():
