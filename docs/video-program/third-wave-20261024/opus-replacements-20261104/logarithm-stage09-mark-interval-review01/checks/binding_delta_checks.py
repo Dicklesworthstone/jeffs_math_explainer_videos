@@ -108,8 +108,9 @@ def main():
         line = int(h.group(1)) + 3
         hunks.append(next(re.match(r"def (\w+)", b[k]).group(1) for k in range(line, -1, -1) if b[k].startswith("def ")))
     same = {f: function_source(src_l1, f) == function_source(src_both, f) for f in L1_FUNCTIONS}
-    report("B02", diff == patch and (plus, minus) == (7, 3) and hunks == ["cmd_prepare", "cmd_timings"] and all(same.values()),
-           f"diff(L1 staged, combined) equals the delta patch: {diff == patch}; +{plus}/-{minus}; hunks in {hunks}; "
+    report("B02", diff == patch and (plus, minus) == (8, 3) and hunks == ["cmd_prepare", "cmd_timings"] and all(same.values()),
+           f"diff(L1 staged, combined) equals the delta patch: {diff == patch}; +{plus}/-{minus} (HANDOFF line 21 says +7/-3, its "
+           f"P02 row +1/-1 and +7/-2); hunks in {hunks}; "
            f"L1 functions byte-identical: {same}")
 
     # B03

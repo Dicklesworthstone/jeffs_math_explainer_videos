@@ -1,0 +1,152 @@
+diff --git a/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-timing-bridge01/frederick_timing_bridge.py b/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-timing-bridge01/frederick_timing_bridge.py
+index 4a8a108..b6e899e 100644
+--- a/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-timing-bridge01/frederick_timing_bridge.py
++++ b/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-timing-bridge01/frederick_timing_bridge.py
+@@ -37,6 +37,7 @@ from pathlib import Path
+ import re
+ import subprocess
+ import sys
++import tempfile
+ import wave
+ 
+ sys.dont_write_bytecode = True  # dependencies and the workspace assembler are imported; leave no __pycache__
+@@ -616,6 +617,16 @@ def recognitions(lane, jobs, script, takes_dir):
+             problems.append("transcripts.json changed since ingest")
+         if sha_file(lane / ing["plan"] / "frozen-inputs.json") != ing["frozen_inputs_sha256"]:
+             problems.append("the plan's frozen-inputs.json changed since ingest")
++        # plan.json (where each take names its request and downloads receipts) is read below, so bind it, and
++        # every receipt it names, to the frozen inputs the guard hashed before and after recognition.
++        frozen = load_json(lane / ing["plan"] / "frozen-inputs.json").get("files", [])
++        pinned = [f for f in frozen if f.get("role") == "plan"]
++        if len(pinned) != 1 or Path(pinned[0]["path"]).name != "plan.json" \
++                or Path(pinned[0]["path"]).parent.name != ing["plan"] \
++                or pinned[0]["sha256"] != sha_file(lane / ing["plan"] / "plan.json"):
++            problems.append(f"{ing['plan']}/plan.json is not the plan its guard froze")
++        frozen_receipts = {(Path(f["path"]).parent.name, Path(f["path"]).name): f["sha256"]
++                           for f in frozen if f.get("role") == "receipt"}
+         ingests.append({"ingest": name, "plan": ing["plan"], "job": ing["job"], "processed": len(ing["processed"]),
+                         "failed": len(ing["failed"]), "run_complete": ing["run_complete"]})
+         if not ing["processed"]:
+@@ -654,6 +665,11 @@ def recognitions(lane, jobs, script, takes_dir):
+             path = Path(take["path"])
+             if not path.is_file() or sha_file(path) != take["sha256"]:
+                 raise Refused(f"{take['name']}: the WAV changed or is missing since the plan")
++            for kind, held in sorted(take["receipts"].items()):
++                if Path(held["name"]).name != held["name"] \
++                        or frozen_receipts.get((path.parent.name, held["name"])) != held["sha256"]:
++                    raise Refused(f"{name}: {take['name']}: its {kind} receipt {held['name']!r} is not a bare name in "
++                                  "the take folder that the guard froze at this hash")
+             request = Path(take["path"]).parent / take["receipts"]["request"]["name"]
+             takes.append({"cue": take["cue"], "file": take["name"], "path": rel(path), "sha256": take["sha256"],
+                           "pcm_sha256": take["pcm_sha256"], "frames": take["frames"], "rate": take["sample_rate"],
+@@ -982,7 +998,7 @@ def resolve(take, applied, frames24):
+     marks = []
+     for m in take["anchors"]:
+         a = applied.get(m["id"], {})
+-        base = {"byte": m["byte"], "byte_end": m["byte_end"], "phrase": m["phrase"]}
++        base = {"byte": m["byte"], "byte_end": m["byte_end"], "phrase": m["phrase"], "sentence": m["sentence"]}
+         if m["status"] == "sentence_onset":
+             onset = starts[m["sentence"] - 1]
+             marks.append(dict(base, sample_24k=onset["sample_24k"], basis=f"sentence {m['sentence']} onset: "
+@@ -996,12 +1012,16 @@ def resolve(take, applied, frames24):
+             raise Refused(f"{m['id']}: no mark")
+         marks.append(dict(base, sample_24k=point[0], basis=point[1], window_s=point[2], abuts_previous_word=point[3],
+                           cross_checks=m.get("supplementary", [])))
+-    previous = -1
++    previous, bounds = -1, [0] + ends
+     for mark in marks:
+         mark["seconds"] = mark["sample_24k"] / RATE_OUT
+         if not previous <= mark["sample_24k"] < frames24:
+             raise Refused(f"{take['cue']} {take['file']}: the mark at byte {mark['byte']} ({mark['sample_24k']}) breaks "
+                           "the kit's order or range rule")
++        k = mark["sentence"]
++        if not bounds[k] <= mark["sample_24k"] < bounds[k + 1]:
++            raise Refused(f"{take['cue']} {take['file']}: the mark at byte {mark['byte']} ({mark['sample_24k']}) lies "
++                          f"outside its sentence {k}, samples [{bounds[k]}, {bounds[k + 1]})")
+         previous = mark["sample_24k"]
+     return starts, ends, marks
+ 
+@@ -1040,6 +1060,15 @@ def cmd_decode(args):
+                 or data.get("text") != report["script"][cue] or data.get("voice") != intake.VOICE:
+             problems.append(f"{cue}: the request {request.name} changed or does not name this cue, text and voice")
+             continue
++        downloads = Path(take["downloads"]["path"])
++        listing = load_json(downloads) if downloads.is_file() else {}
++        if not downloads.is_file() or sha_file(downloads) != take["downloads"]["sha256"] \
++                or listing.get("cue") != cue or listing.get("request") != request.name \
++                or not any(isinstance(t, dict) and Path(str(t.get("path", ""))).name == take["file"]
++                           and t.get("sha256") == take["sha256"] for t in listing.get("takes") or []):
++            problems.append(f"{cue}: the downloads receipt {downloads.name} changed or does not list {take['file']} "
++                            f"from {request.name}")
++            continue
+         dst = out / "decoded" / f"{cue}.wav"
+         dst.parent.mkdir(exist_ok=True)
+         subprocess.run([args.ffmpeg, *FFMPEG_ARGS, "-i", take["path"], *FFMPEG_OUT, str(dst)], check=True, timeout=300)
+@@ -1112,7 +1141,7 @@ def dry_run(tool, files, spans_path, chapter):
+     return voice, lines
+ 
+ 
+-def check_decoded(receipt, receipt_path, chosen, report, selection, chapter):
++def check_decoded(receipt, receipt_path, chosen, report, selection, chapter, ffmpeg="ffmpeg"):
+     intake = dep("intake")
+     problems = []
+     bridge = receipt.get("bridge") or {}
+@@ -1135,6 +1164,15 @@ def check_decoded(receipt, receipt_path, chosen, report, selection, chapter):
+                 take["request"]["sha256"]) or sha_file(wav) != row["wav_sha256"] or params != (1, 2, RATE_OUT) \
+                 or frames != row["samples"] or frames != expected_frames(take) or row["rate"] != RATE_OUT:
+             problems.append(f"{row['cue']}: the decoded file, its receipt row and the selected take disagree")
++    if problems:
++        return problems
++    # The rows are the decode's own statement: re-derive every take's samples from its source.
++    with tempfile.TemporaryDirectory() as again:
++        for row in receipt["records"]:
++            take, check = chosen[row["cue"]], Path(again) / f"{row['cue']}.wav"
++            subprocess.run([ffmpeg, *FFMPEG_ARGS, "-i", take["path"], *FFMPEG_OUT, str(check)], check=True, timeout=300)
++            if wav_info(check)[2] != wav_info(Path(row["wav"]))[2]:
++                problems.append(f"{row['cue']}: the decoded PCM is not this take's conversion with the decode arguments")
+     return problems
+ 
+ 
+@@ -1146,7 +1184,7 @@ def cmd_prepare(args):
+     if not receipt_path.is_file():
+         raise Refused(f"no decode receipt in {args.decoded}")
+     receipt = load_json(receipt_path)
+-    problems = check_decoded(receipt, receipt_path, chosen, report, args.selection, args.chapter)
++    problems = check_decoded(receipt, receipt_path, chosen, report, args.selection, args.chapter, args.ffmpeg)
+     if problems:
+         raise Refused("\n".join(problems))
+     rows = {r["cue"]: r for r in receipt["records"]}
+@@ -1225,6 +1263,7 @@ def cmd_prepare(args):
+                     "sha256": sha_file(args.answers) if args.answers else None, "applied": applied},
+         "decode_receipt": {"path": rel(receipt_path), "sha256": sha_file(receipt_path)},
+         "spans_sha256": sha_file(out / "spans.json"), "voice": voice,
++        "phrase_marks_plan_sha256": sha_file(out / "phrase-marks-plan.json"),
+         "recognition": report["coverage"]["recognition"],
+         "claim": "Source-bound preparation. Selection and answers are root's; nothing here was heard or accepted."}))
+     print(f"prepared {len(units)} units into {rel(out)}; dry run accepted {len(lines)} cues; next, from the "
+@@ -1246,6 +1285,8 @@ def cmd_timings(args):
+         raise Refused("the prepared folder was made for another stage05 source side; timings never carry over")
+     if sha_file(spans_path) != receipt["spans_sha256"]:
+         raise Refused("spans.json changed since prepare")
++    if sha_file(prepared / "phrase-marks-plan.json") != receipt.get("phrase_marks_plan_sha256"):
++        raise Refused("phrase-marks-plan.json changed since prepare (its marks become phrase-timings.json)")
+     for _src, dst, pin in workspace_copies(files):
+         if sha_file(prepared / "workspace" / dst) != pin:
+             raise Refused(f"workspace copy {dst} changed")
+@@ -1289,12 +1330,15 @@ def cmd_timings(args):
+         planned = [s["sample_24k"] for s in plan[cue]["sentence_starts_24k"]]
+         if onsets != planned:
+             problems.append(f"{cue}: report sentence onsets {onsets} differ from the prepared starts {planned}")
+-        marks, previous_t, previous_b = [], 0.0, -1
++        marks, previous_t, previous_b, bounds = [], 0.0, -1, planned + [frames]
+         for m in plan[cue]["marks"]:
+             seconds = m["sample_24k"] / RATE_OUT
++            k = m.get("sentence")
+             if not (0 <= seconds < frames / params[2]) or seconds < previous_t or m["byte"] <= previous_b \
+                     or m["byte"] >= len(script[cue].encode("utf-8")):
+                 problems.append(f"{cue}: the mark at byte {m['byte']} ({seconds} s) breaks the kit's order or range rule")
++            elif type(k) is not int or not 0 <= k < len(planned) or not bounds[k] <= m["sample_24k"] < bounds[k + 1]:
++                problems.append(f"{cue}: the mark at byte {m['byte']} ({m['sample_24k']}) lies outside its sentence {k}")
+             previous_t, previous_b = seconds, m["byte"]
+             marks.append({"byte": m["byte"], "seconds": seconds, "sample_24k": m["sample_24k"], "phrase": m["phrase"],
+                           "basis": m["basis"], "window_s": m["window_s"],
