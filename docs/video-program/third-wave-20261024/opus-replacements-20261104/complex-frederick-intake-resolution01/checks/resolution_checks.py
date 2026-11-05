@@ -167,6 +167,9 @@ def case(name, plant, needle, resolved=True):
     plant(fx)
     code, out, err = fx.run("plan")
     reasons = refused_of(out) if code == 0 else [err.strip()]
+    # The fixture downloads receipt holds absolute take paths, so its hash depends on the scratch folder: label it.
+    now = at(fx, "05_1-downloads01.json")["sha256"][:12]
+    reasons = [r.replace(f"at {now}", "at <downloads01 hash now>") for r in reasons]
     hit = next((r for r in reasons if needle in r), None)
     planned = sorted({n[:4] for n in fx.inputs("plan-01")})
     check(name, code == 0 and hit and planned == ["01_1", "01_2"] and len(fx.inputs("plan-01")) == 4,

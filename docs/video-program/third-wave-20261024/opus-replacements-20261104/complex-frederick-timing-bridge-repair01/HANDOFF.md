@@ -36,7 +36,7 @@ Nothing in the candidate removes a file or uses a temporary folder (d3).
 | `patch/delta-from-review01.diff` | the reviewed file `7d689793` → candidate (+49 −14): what changed since the review |
 | `checks/bridge_selftest.py` | the author's self-test, copied unchanged (`ab7f53ff`); next to the candidate, it tests the candidate |
 | `checks/repair_checks.py` | my checks |
-| `checks/outputs/repair_checks.txt` | their transcript: 15 PASS, 0 FAIL |
+| `checks/outputs/repair_checks.txt` | their transcript: 14 PASS, 0 FAIL |
 
 ## What the checks show (`checks/outputs/repair_checks.txt`)
 

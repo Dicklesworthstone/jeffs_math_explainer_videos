@@ -1,1 +1,22 @@
-placeholder: replaced by the transcript of checks/repair_checks.py before sealing
+== 1. Pins
+PASS p1-pins: 8 sources plus 20 lane files at their pins; the candidate is 47069583 and its self-test copy is the author's ab7f53ff; the bridge seal f31fd5c5 and the review seal 48e58568 both verify
+== 2. The candidate as diffs (apply them to copies, never to the sealed folder)
+PASS d1-diffs-apply: bridge-repair01.diff (+84 -5) turns the sealed bridge into the candidate 47069583 and passes `git apply --check` on the sealed file in place; the review's patch gives the reviewed 7d689793, and delta-from-review01.diff (+49 -14) turns that into the candidate
+PASS d2-delta-scope: against the reviewed file only ['check_decoded', 'cmd_prepare', 'cmd_timings', 'retain_conversions'] differ (['retain_conversions'] is new); check_decoded is again byte-identical to the sealed bridge's; the only import removed is tempfile; every other function, class and constant is unchanged, so the review's F1, F2 and F4 code is the code reviewed
+PASS d3-nothing-removes-files: the candidate names no temporary-folder or file-removal call (none); the sealed bridge names none either; the reviewed patch named ['TemporaryDirectory', 'tempfile']
+== 3. The author's 37 checks on the sealed bridge (a) and the candidate (c)
+PASS s1-selftest-both: both pass 37/37 with identical transcripts; in the candidate's world, prepare kept 6 conversions (01_1.wav..01_6.wav) and the author's timings run accepted them
+== 4. The report on a frozen copy of root's lane (plans and ingests 01-05)
+PASS r1-report-unchanged: sealed and candidate exit 0 with byte-identical outputs (62 takes of 31 cues, 14 questions)
+== 5. Retained conversions, in the candidate's self-test world
+PASS w0-world-restored: n22's one-space edit of 01_2-request01.json removed; the world again has the plan's request hash
+PASS v1-prepare-keeps-conversions: the candidate's prepare exits 0 and keeps 6 conversions in its --out/decode-verification/, each at the hash in decode-verification.json, whose hash the prepare receipt carries; each has the decoded PCM (6/6 byte-identical files); spans.json and phrase-marks-plan.json equal the reviewed patch's, which keeps nothing
+PASS v2-reviewed-patch-removed-its-conversions: the reviewed patch refuses (01_4: the decoded PCM is not this take's conversion with the decode arguments), so it converted the takes and compared them, yet its TMPDIR holds 0 entries afterwards and it wrote no --out: TemporaryDirectory removed every conversion (root's preservation finding)
+PASS v3-candidate-keeps-the-evidence: the candidate refuses with the same message, keeps all 6 conversions in its --out (01_4 marked not matching; its kept file is the true conversion, not the changed decode), writes REFUSED.txt and no spans; its TMPDIR stays empty (0 entries)
+PASS v4-exclusive-folders: retain_conversions refuses an existing decode-verification/ (FileExistsError) and leaves the planted file alone; prepare into an existing --out is refused (--out SCRATCH/v/prepared-c exists; give a new folder (nothing is overwritten)) and its 14 files are unchanged
+PASS v5-timings-binds-the-kept-files: timings accepts a copy of the author's prepared folder (phrase-timings-fragment-01.json for 6 cues (7 marks) in SCRATCH/v/timings-copy); it refuses, writing nothing, when 01_3's kept conversion is changed in one byte (01_3: the retained conversion SCRATCH/v/prepared-changed/decode-verification/01_3.wav is missing or changed since prepare), moved aside, or decode-verification.json is edited (decode-verification.json is missing or changed since prepare)
+== 6. The review's F1, F2 and F4 plants, on the candidate
+PASS f1-f4-still-refused: F1 prepare (onset answered past the byte-65 mark): 01_2 01_2-download01.wav: the mark at byte 65 (108000) lies outside its sentence 1, samples [120000, 213600), and no --out is written, since intervals are checked before any conversion; F4: phrase-marks-plan.json changed since prepare (its marks become phrase-timings.json); F1 timings (hash forged): 01_2: the mark at byte 65 (70000) lies outside its sentence 1; F2 decode: 01_3: the downloads receipt 01_3-downloads01.json changed or does not list 01_3-download01.wav from 01_3-request01.json
+== 7. Hygiene of this bundle
+PASS h1-hygiene: exactly the 7 bundle files, with no machine path, user name, address or gendered pronoun
+RESULT PASS, 0 failed
