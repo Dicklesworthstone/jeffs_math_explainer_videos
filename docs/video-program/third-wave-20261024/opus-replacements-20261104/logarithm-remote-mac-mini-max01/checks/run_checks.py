@@ -7,9 +7,11 @@ Root barred large fixture writes while the local disk is short, so this has no e
 including the real freeze and Lavender's --check. B runs the real gate and wait functions on tiny files. C runs the real
 controller with a logging stand-in for python3. No guard, rebind, assembly, kit, timeline or score ran here.
 """
+import ast
 import contextlib
 import hashlib
 import importlib.util
+import inspect
 import json
 import os
 import shutil
@@ -90,6 +92,45 @@ def static():
     record("no continuation names the old lane or the local guard",
            "five-film-release" not in text + (BUNDLE / "remote_assemble01.py").read_text() + (BUNDLE / "remote_continuation01.sh").read_text()
            and "guard_owner56g" not in text)
+
+
+def names_in(function, module, label):
+    """Every label.attribute read in a function that has not run here must exist on the loaded module."""
+    tree = ast.parse(inspect.getsource(function))
+    names = {n.attr for n in ast.walk(tree) if isinstance(n, ast.Attribute) and isinstance(n.value, ast.Name) and n.value.id == label}
+    return sorted(n for n in names if not hasattr(module, n)), len(names)
+
+
+def cli(*args):
+    return subprocess.run([sys.executable, "-I", "-B", str(BUNDLE / "remote_pipeline01.py"), *args], cwd=REAL, capture_output=True, text=True, timeout=120)
+
+
+def entry_points():
+    print("A. entry points, on the real tree, before any job exists", flush=True)
+    for label, module in (("M", M), ("H", H), ("N", P.N)):
+        absent, count = names_in(P.gates, module, label)
+        record(f"gates() reads only names that exist on {label}", not absent, f"{count} names; {absent}")
+    digest = sha(BUNDLE / "SHA256SUMS")
+    done = cli("seal", "--sums", digest)
+    record("the seal command passes both bundles and sees stage09's jobs", done.returncode == 0 and '"PASS"' in done.stdout, done.stdout[-160:])
+    done = cli("seal", "--sums", "0" * 64)
+    record("the seal command refuses another hash", done.returncode == 1 and "not the seal" in done.stdout)
+    kept = dict(M.PRIOR)
+    M.PRIOR["score"] = str(SCRATCH / "not-transferred")
+    record("refuses: stage09's job not transferred", refused(lambda: P.seal(digest), "has not been transferred"))
+    M.PRIOR.update(kept)
+    script = P.BUILD_SCRIPT
+    P.BUILD_SCRIPT = SCRATCH / "build01.sh"
+    record("refuses: a tree whose paths are not spelled as in root's manifest", refused(lambda: P.seal(digest), "path differs from root's"))
+    P.BUILD_SCRIPT = script
+    done = cli("poll", "--job", "logarithm-remote-build01")
+    record("poll answers through the sealed command line", done.returncode == 0 and done.stdout.strip() == "waiting", done.stdout)
+    done = cli("ready", "--integration-sha256", sha(M.S / "integration.json"), "--holds-sha256", "f" * 64)
+    record("ready reaches the first receipt gate here: the pins hold and no remote job exists", done.returncode == 1
+           and "no guard receipt for logarithm-remote-build01" in done.stdout, done.stdout[-160:])
+    done = cli("step", "--step", "timeline")
+    record("a step before the binding refuses", done.returncode == 1 and "no binding" in done.stdout, done.stdout[-160:])
+    record("none of that wrote into O", not (O / "jobs").exists() and not (O / "job-scripts").exists() and not M.BINDING.exists())
 
 
 def real_inputs():
@@ -230,6 +271,7 @@ def controller():
 
 def main():
     static()
+    entry_points()
     real_inputs()
     tiny_gates()
     controller()
