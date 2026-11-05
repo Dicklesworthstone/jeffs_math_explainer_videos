@@ -1,0 +1,46 @@
+{
+  "reason": "attempt03 engine-test03 exit 101: native_render.rs:244 got Emitter(ReservationAbandoned { sequence: 0 }) for the frame-table refusal (F1, the facade traded only Pipeline(_) for the stage failure)",
+  "integrated_by": "RubyRaven, independent reviewer and integrator; root authorized applying White's exact sealed patch, inputs05 and attempt04 from engine-lint",
+  "sealed_bundle": {
+    "folder": "engine-budget-error-propagation01 (WhiteSwan)",
+    "SHA256SUMS": "08d7c1d2c29588bf52738f6f6e802d2b0c23626a49555e396b79fc478f7320a2",
+    "engine-budget-error-propagation.patch": "b1aa06483d0736a492a8faef7e556bd1a84ded45cdd9dda208ad725c1ccc9a33",
+    "expected-engine.sha256": "60b49980d2c4aa62724e77e5feca1b24bd8f946f9d50eb56b55add20d3d6ba08",
+    "baseline-engine.sha256": "45b849b9319b58eb5cc60a428be16693fd91f677c051836b58d7076e48a1ea18",
+    "HANDOFF.md": "9db67e76da33ae209cad2649322db17ab1b772372b76267754be24d8f26f2560"
+  },
+  "review": {
+    "draft": "patch 779d47ae reviewed by source reading and a scratch apply (Mail 3581): applies to the stacked bytes, sink errors keep their identity (emitter fail is first-wins), the first-frame refusal is covered; D1 = a timing window for a refusal at frame k >= 1",
+    "sealed_delta": "rendering.rs d213a338 and compiled.rs 326a7048 equal the reviewed draft byte for byte; the test changed e1d30377 -> 80148eb6 only by retry_publishes (an immediate retry with default budgets and an unheld VirtualFs publishes), checked against VirtualFs's in-memory atomic writer",
+    "residual": "HANDOFF records D1 as R1 (fmn-runtime; a publish of an earlier frame inside a refusing worker's drop-to-cancel window records Stage{Emit, ReservationAbandoned} first). Not fixed here; root decides. If it occurs, the held-sink test fails rather than hiding it."
+  },
+  "runner_change": {
+    "preserved": "before-f1-run_validation.py, sha256 9cd36c802be46f978c62489cee9dad94b7bcdf87e5886d45bf4f594bff65f1e0",
+    "now": "run_validation.py, sha256 4ac53f38f41616471a3eea76eee974fb48aeeb3db6f4d0f0154ae2e0ad12d490",
+    "edits": [
+      "STACK gains a fourth entry: White's sealed patch and expected hashes, read in place",
+      "the fmn integration tuple gains --test slow_sink_budget_refusal (engine-build and engine-test)",
+      "engine-build gains cargo test -p fmn --lib --no-run; engine-test runs the one F1 library test filtered by its own name, with must = that name",
+      "the integration step's must is the crates/fmn/tests/ names plus the probe; the library name is required by its own step",
+      "self-test: 23 tests, 2 ignored (unchanged names), exactly one library test, both slow-sink tests named"
+    ],
+    "unchanged": "guard, caps, lane, attempts' order, every assertion, every other job and command"
+  },
+  "stage_change": {
+    "method": "git apply of the sealed patch on the stage engine, after baseline-engine.sha256 OK and git apply --check exit 0; expected-engine.sha256 OK after; no .rej or .orig",
+    "preserved": {
+      "manifests/before-f1-rendering.rs": "0a90d4881017b1bdec02d5184497be77a33fd74f6329449aad567d6bd6d32592",
+      "manifests/before-f1-compiled.rs": "28b2a6f23142214d19b31878cb3ea4f0844466e9a0b51f0cb9581a36fbf243ce"
+    },
+    "pixels": "pixels/combined (written by engine-test03, 20 frames) moved aside as pixels/combined-attempt03-written, so attempt04 writes a fresh folder and no attempt03 frame can stand in; pixels/combined-attempt03 is the earlier byte-identical copy; pixels/base untouched"
+  },
+  "inputs": "inputs05.tsv (sha256 be06edd4ff09569760c56a25d84a962387e954d47fbad452df31bf94331b0be8) is inputs04.tsv's 326 rows unchanged plus the two sealed F1 rows, 328 rows; every non-source input matched it before launch",
+  "checks_before_launch": [
+    "a fresh copy of root's unpatched fmn and fmn-render equals the stage's manifests/unpatched.json (12 files)",
+    "the runner's own apply_stack on that copy applies all four entries, each matching its sealed hashes; a second call changes nothing (14 files)",
+    "the stage equals that fresh replay in all 14 stack files, so apply_stack returns at once on the stage",
+    "run_validation.py --self-test: passed (23 tests, 2 ignored, 1 library; guard cases unchanged)",
+    "no validation tmux session or process remained and no process held the lane lock"
+  ],
+  "not_checked": "compile, Clippy and the tests themselves: they run in attempt04"
+}

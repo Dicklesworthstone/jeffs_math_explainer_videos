@@ -1,0 +1,8 @@
+PASS t0-stage04-not-installed: exit 1, expected 1; first failure: FAIL narration_units.json is the bound units e776c860 (now 3c4f53d7)
+PASS t1-installed: exit 0, expected 0
+PASS t2-installed-strays-moved-aside: exit 0, expected 0
+PASS t3-stage03-units-installed: exit 1, expected 1; first failure: FAIL narration_units.json is the bound units e776c860 (now 3f79968b)
+PASS t4-installed-plus-one-byte-in-the_bump: exit 1, expected 1; first failure: FAIL every other stage04 file is present with stage04's hash (50 files): ['explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs']
+PASS t5-installed-receipt-omits-the-map: exit 1, expected 1; first failure: FAIL the new receipt lists exactly the 56 files on disk with their hashes
+PASS t6-installed-plus-an-extra-file: exit 1, expected 1; first failure: FAIL no other new file: ['explainer_corpus/complex_analysis_visual/src/chapters/closing.rs.bak']
+SELFTEST: PASS (7/7)

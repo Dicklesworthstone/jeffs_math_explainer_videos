@@ -1,0 +1,45 @@
+stage04 receipt 295c27e3; script.tsv 12442480: 105 cues, all texts distinct
+not a take receipt (its records name no audio path): narration_lab/third-wave-20261024/root/elevenlabs-complex-analysis-20261101/additional-phase-recognition-review01.json
+recordings: 42 WAV (4 rebuild, 38 sibling), 21 receipts, 21 distinct submitted texts
+receipt fields stated: 206; agree with the file: 206; disagree: 0
+pcm_sha256 method reproduces every downloads receipt in the rebuild lab: True
+submitted text equals the receipt's source text file (where one is named): ['None', 'True']
+download-name setting tokens vs receipt stability/similarity (recorded, not interpreted): [('pvc_s50_sim75_v4', 0.5, 0.75, 4), ('pvc_sp100_s100_sb100_v4', 0.5, 0.75, 32), ('s50_v4', 0.5, 0.75, 6)]
+current: [('01_1', '01_1-download01.wav'), ('01_1', '01_1-download02.wav'), ('11_7', '11_7-download01.wav'), ('11_7', '11_7-download02.wav')]
+superseded: 38 recordings
+audio no receipt names (text unknown, never current): none
+pairs whose two takes are byte-identical PCM: []
+a stage04 cue inside a longer take: none
+stage04 cues sharing a whole sentence with a superseded take: ['12_3']
+prepared-only folder narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/narration-request-preparation01: requests requests01.json, made for script 2968b0fd, 105 texts, 103 byte-equal to stage04, differ: ['11_7', '15_2']; submitted flags ['None']; its matches_preparation01 claims hold: True
+  status, as the folder states it: prepared only; no synthesis or take selection
+prepared-only folder narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/narration-request-stage04-01: requests requests.json, made for script 12442480, 105 texts, 105 byte-equal to stage04, differ: []; submitted flags ['False']; its matches_preparation01 claims hold: True
+  status, as the folder states it: Exact text preparation only. No synthesis. Pending sealed reuse inventory establishes already recorded11_7; never blindly regenerate. Stage04 binder remains in progress.
+exact stage04 cue texts in recording records: 4 files, 2 cues
+exact stage04 cue texts in prepared-only records: 208 files, 105 cues
+exact stage04 cue texts in service records: 0 files, 0 cues
+exact stage04 cue texts in plans and reviews records: 68 files, 103 cues
+recording records with an exact stage04 cue text: [('01_1', 'narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/ui-takes-stage04-01/01_1-request01.json'), ('01_1', 'narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/ui-takes-stage04-01/01_1.txt'), ('11_7', 'narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/counting-oliver02/11_7-request01.json'), ('11_7', 'narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/counting-oliver02/11_7.txt')]
+service records with an exact stage04 cue text and no retained recording: none
+submission record ui-takes-stage04-01/01_1-submission01.json: names request 01_1-request01.json, its text is stage04 01_1; submitted True; retained recordings of that request: ['01_1-download01.wav', '01_1-download02.wav']
+stage04 cues submitted to the service with no retained recording (pending-download): none
+prepared-only folders made for the stage04 script: ['narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/narration-request-stage04-01']
+stage04 plan narration_units.json 3c4f53d7 pins script ['2968b0fd']; units 105; unit text differs from the script at ['11_7', '15_2']
+cues: 2 current, 0 pending-download, 103 missing; words 4638 in all, 4497 without a retained recording
+  chapter 01: 6 cues, 5 missing (219 words); current: ['01_1']
+  chapter 02: 6 cues, 6 missing (214 words)
+  chapter 03: 7 cues, 7 missing (276 words)
+  chapter 04: 7 cues, 7 missing (248 words)
+  chapter 05: 9 cues, 9 missing (386 words)
+  chapter 06: 9 cues, 9 missing (411 words)
+  chapter 07: 6 cues, 6 missing (244 words)
+  chapter 08: 5 cues, 5 missing (231 words)
+  chapter 09: 9 cues, 9 missing (387 words)
+  chapter 10: 6 cues, 6 missing (276 words)
+  chapter 11: 8 cues, 7 missing (370 words); current: ['11_7']
+  chapter 12: 4 cues, 4 missing (166 words)
+  chapter 13: 11 cues, 11 missing (442 words)
+  chapter 14: 8 cues, 8 missing (472 words)
+  chapter 15: 4 cues, 4 missing (155 words)
+derived complex audio in five-film-release: 174 files, 730.1 MB; equal to a recording (file or PCM): 0
+files read: 1119; changed during the run: none

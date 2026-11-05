@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "topic": "complex_analysis_visual",
+  "claim": "Text audit of Rust source and plan files. Uncompiled, unrendered, unsynthesised, unheard. Word moments are estimates until Oliver's takes are aligned. No take, duration, listening, picture or independent acceptance.",
+  "receipt": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage04-integration01.json",
+    "sha256": "295c27e3cd17f84f39bde8f7a191e7ec3a29035d6fcbe62d0f1a2bd6c94fb00b",
+    "changed": [
+      "explainer_corpus/complex_analysis_visual/docs/storyboard.md",
+      "explainer_corpus/complex_analysis_visual/script.tsv",
+      "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs"
+    ],
+    "differs_from_stage03": [
+      "explainer_corpus/complex_analysis_visual/docs/storyboard.md",
+      "explainer_corpus/complex_analysis_visual/script.tsv",
+      "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs"
+    ],
+    "named_but_unchanged": [],
+    "declared_successor": "stage04: stage03 + complex-stage03-review-fixes01 F3 F4 F5 F6",
+    "film_code_equal_to_stage03": {
+      "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs": true,
+      "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs": true
+    },
+    "f2_strays_moved_aside": []
+  },
+  "script_delta": "F3",
+  "differences": [
+    {
+      "file": "map",
+      "path": "$.scripts.complex_analysis_visual",
+      "old": "1e24aba8b520f2e61e8b2bc392a218b664cf5556ad788ceca17fbc45bb92efab",
+      "new": "12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3",
+      "allowed": true
+    },
+    {
+      "file": "map",
+      "path": "$.visual_holds[15].sha256",
+      "old": "c1df16ea04d4283d490598ccabe039cdc846be96458668d63544aef9ac81d36a",
+      "new": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9",
+      "allowed": true
+    },
+    {
+      "file": "map",
+      "path": "$.visual_holds[16].sha256",
+      "old": "c1df16ea04d4283d490598ccabe039cdc846be96458668d63544aef9ac81d36a",
+      "new": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9",
+      "allowed": true
+    },
+    {
+      "file": "map",
+      "path": "$.visual_holds[17].sha256",
+      "old": "c1df16ea04d4283d490598ccabe039cdc846be96458668d63544aef9ac81d36a",
+      "new": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9",
+      "allowed": true
+    },
+    {
+      "file": "map",
+      "path": "$.helpers[0].sha256",
+      "old": "865599e94331038782be128189fc1acb642e1d00b2f7fe32bd9fe68c958951b9",
+      "new": "3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db",
+      "allowed": true
+    },
+    {
+      "file": "map",
+      "path": "$.helpers[1].sha256",
+      "old": "865599e94331038782be128189fc1acb642e1d00b2f7fe32bd9fe68c958951b9",
+      "new": "3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db",
+      "allowed": true
+    },
+    {
+      "file": "map",
+      "path": "$.helpers[3].sha256",
+      "old": "865599e94331038782be128189fc1acb642e1d00b2f7fe32bd9fe68c958951b9",
+      "new": "3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db",
+      "allowed": true
+    },
+    {
+      "file": "units",
+      "path": "$.script_sha256",
+      "old": "1e24aba8b520f2e61e8b2bc392a218b664cf5556ad788ceca17fbc45bb92efab",
+      "new": "12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3",
+      "allowed": true
+    },
+    {
+      "file": "units",
+      "path": "$.direction_contract.script_sha256",
+      "old": "1e24aba8b520f2e61e8b2bc392a218b664cf5556ad788ceca17fbc45bb92efab",
+      "new": "12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3",
+      "allowed": true
+    },
+    {
+      "file": "units",
+      "path": "$.direction_contract.map.sha256",
+      "old": "5439408653e6df3d13b070d3f270b113eec86ba2921977a055772f9d85f8c0d6",
+      "new": "70888624edd6e930b383b277b50f8da5e39ac94f1a661c71b7f0e9575362f20c",
+      "allowed": true
+    },
+    {
+      "file": "units",
+      "path": "$.units[102].text",
+      "old": "Everything since came from one demand. The complex derivative must be the same from every direction. On an open region, that makes every small piece of the map a stretch and a turn. It lets boundary values decide the inside. It lets a loop count zeros and poles, and it turns a real integral into a sum of residues. It allows at most one extension to a given connected region, though not always everywhere, and along different paths a continuation can branch.",
+      "new": "Everything since came from one demand. The complex derivative must be the same from every direction. On an open region, that makes every small piece of the map a stretch and a turn. It lets boundary values decide the inside. It lets a loop count zeros and poles, and it turns a real integral into a sum of residues. It allows at most one extension to a given connected region, though there may be none, and along different paths a continuation can branch.",
+      "allowed": true
+    }
+  ]
+}

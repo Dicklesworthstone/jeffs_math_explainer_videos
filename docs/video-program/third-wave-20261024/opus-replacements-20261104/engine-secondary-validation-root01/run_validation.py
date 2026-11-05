@@ -44,12 +44,22 @@ GUARD = HERE / "guard_owner56g_target20g.py"
 PROBE = HERE / "secondary_default_pixels.rs"
 INPUTS = HERE / "inputs.tsv"
 T, S, V = O / "engine-secondary-budget01", O / "engine-secondary-camera-budget01", O / "engine-geometry-validation02"
+# White's sealed F1 repair: a worker's budget refusal keeps its name behind a slow sink.
+W = O / "engine-budget-error-propagation01"
+# White's sealed R1 repair: a refused frame outranks the emit failure its dropped slot caused.
+P = O / "engine-budget-error-precedence02"
 STACK = (
     (T / "engine-frame-table-limits.patch", T / "expected-engine.sha256"),
     (S / "engine-camera-limits.patch", S / "expected-engine.sha256"),
     (Path(__file__).resolve().parent / "test-type-alias01.patch",
      Path(__file__).resolve().parent / "expected-type-alias01.sha256"),
+    (W / "engine-budget-error-propagation.patch", W / "expected-engine.sha256"),
+    (P / "engine-budget-error-precedence.patch", P / "expected-engine.sha256"),
 )
+# fmn's library tests from F1 and R1, which no other step runs; each runs alone, by name.
+FMN_LIB = "crates/fmn/src/"
+# R1 changed the runtime's coordinator, so the whole fmn-runtime crate is tested.
+RUNTIME = "crates/fmn-runtime/"
 TOOLS = ("verify_patched_lock.py", "instantiate_config.py", "repoint_lab.py", "engine-budget.config.toml.in")
 TREES = ("engine", "repo-view", "crate")
 PINNED_LOCKS = ("Cargo.lock.pinned", "Cargo.lock.view-pinned")
@@ -271,7 +281,8 @@ def jobs(stage):
     budget = ("--config", str(stage / "budget.toml"))
     added = tests_added()
     fmn = ("-p", "fmn", "--test", "native_render", "--test", "native_bundle_pipeline",
-           "--test", "native_camera_pipeline", "--test", "secondary_default_pixels")
+           "--test", "native_camera_pipeline", "--test", "secondary_default_pixels",
+           "--test", "slow_sink_budget_refusal")
     base = ("-p", "fmn", "--test", "secondary_default_pixels", "--test", "native_camera_pipeline")
     kit_tests = ("-p", "explainer_kit", "--lib", "--test", "options_hook_routes", "--test", "camera_chapter",
                  "--test", "glyph_probe", "--test", "cli_pipeline")
@@ -296,6 +307,9 @@ def jobs(stage):
         return e(*cargo("test", "-p", "fmn-render", "--test", test), "--", "--ignored", "--exact", name,
                  must=(name,), timed=True, limit=HOUR)
 
+    def lib_test(name):  # Filtered by its own name; `must` proves it ran and passed.
+        return e(*cargo("test", "-p", "fmn", "--lib"), "--", name, must=(name,), limit=HOUR)
+
     changed = [*patched_files(), f"crates/fmn/tests/{PROBE.name}"]
     return {
         # Resolves all three workspaces and proves the locks; compiles nothing.
@@ -317,18 +331,23 @@ def jobs(stage):
         # Bound: complex-geometry-native-check03 grew 0.35 GiB.
         "engine-lint": Job(0.35, [
             e("rustfmt", "--check", "--edition", "2024", "--config", "skip_children=true", *changed),
-            e(*cargo("clippy", "-p", "fmn-render", "-p", "fmn", "--all-targets"), "--", "-D", "warnings"),
+            e(*cargo("clippy", "-p", "fmn-render", "-p", "fmn", "-p", "fmn-runtime", "--all-targets"),
+              "--", "-D", "warnings"),
         ]),
         # Same stage path as base-build, so Cargo replaces those artifacts. Same bound.
         "engine-build": Job(1.68, [
             e(*cargo("test", "-p", "fmn-render", "--no-run")),
             e(*cargo("test", *fmn, "--no-run")),
+            e(*cargo("test", "-p", "fmn", "--lib", "--no-run")),
+            e(*cargo("test", "-p", "fmn-runtime", "--no-run")),
         ]),
         # Ordinary budget tests: serial and worker, camera and affine, lowered and raised.
         "engine-test": Job(0.0, [
             e(*cargo("test", "-p", "fmn-render", "--no-fail-fast"), must=names("crates/fmn-render/"), limit=HOUR),
+            e(*cargo("test", "-p", "fmn-runtime", "--no-fail-fast"), must=names(RUNTIME), limit=HOUR),
             e(*cargo("test", *fmn, "--no-fail-fast"), env={"FMN_DEFAULT_PIXELS_OUT": str(stage / "pixels/combined")},
-              must=(*names("crates/fmn/"), probe_name), limit=HOUR),
+              must=(*names("crates/fmn/tests/"), probe_name), limit=HOUR),
+            *(lib_test(name) for name in names(FMN_LIB)),
             e(call=lambda: pixel_faults(stage / "pixels/base", stage / "pixels/combined")),
         ]),
         # The two controls over the real defaults. Their memory is printed, not assumed.
@@ -512,12 +531,32 @@ def preserved_test_directory():
 def self_test():
     # Test names come from the patches, so a typo cannot pass a run that never ran the test.
     added = tests_added()
-    assert len(added) == 20 and sum(skip for _, _, skip in added) == 2, added
+    assert len(added) == 29 and sum(skip for _, _, skip in added) == 2, added
     assert {name for _, name, skip in added if skip} == {
         "a_monotone_budget_above_the_default_is_admitted_and_the_default_still_refuses",
         "a_working_byte_budget_above_the_default_is_admitted_and_the_default_still_refuses",
     }
-    print(f"pass: {len(added)} tests from the two patches, 2 ignored")
+    # Every fmn test is run by one step: an integration target in the `fmn` tuple, or the library.
+    fmn_files = {file for file, _, _ in added if file.startswith("crates/fmn/")}
+    assert all(file.startswith(("crates/fmn/tests/", FMN_LIB)) for file in fmn_files), fmn_files
+    assert [(file, name) for file, name, skip in added if file.startswith(FMN_LIB)] == [
+        ("crates/fmn/src/rendering.rs", "only_a_closed_stream_or_an_abandoned_slot_is_traded_for_the_stage_failure"),
+        ("crates/fmn/src/rendering/pipeline.rs", "only_an_abandoned_output_slot_names_the_frame_behind_an_emit_failure"),
+        ("crates/fmn/src/rendering/pipeline.rs", "a_refusal_that_abandons_its_slot_while_frame_0_publishes_keeps_its_name"),
+        ("crates/fmn/src/rendering/pipeline.rs", "a_sink_failure_published_before_a_later_refusal_stays_the_sinks"),
+    ], added
+    assert {name for file, name, _ in added if file == "crates/fmn/tests/slow_sink_budget_refusal.rs"} == {
+        "a_worker_budget_refusal_behind_a_held_sink_keeps_its_name_and_publishes_nothing",
+        "a_genuine_sink_failure_stays_the_sinks_and_publishes_nothing",
+    }
+    assert [(file, name, skip) for file, name, skip in added if file.startswith(RUNTIME)] == [
+        ("crates/fmn-runtime/src/pipeline.rs", name, False) for name in (
+            "an_emit_failure_reporting_a_later_frame_yields_to_that_frames_own_failure",
+            "a_sinks_own_emit_failure_stands_when_a_later_frame_fails",
+            "an_emit_failure_reporting_another_frame_is_not_replaced_by_this_one",
+        )
+    ], added
+    print(f"pass: {len(added)} tests from the stack, 2 ignored, 4 in fmn's library, 3 in fmn-runtime's")
 
     seen = scan(io.StringIO("test a::b::c ... ok\ntest d ... FAILED\ntest e ... ignored, slow\n"
                             "test result: ok. 3 passed; 0 failed\ntest result: FAILED. 4 passed; 1 failed\n"

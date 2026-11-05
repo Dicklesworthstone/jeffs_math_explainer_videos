@@ -1,0 +1,70 @@
+== A pinned inputs
+PASS A P/complex-stage03-binder01/binder/bind_oliver_plan.py: 26e10809c39b
+PASS A P/complex02-05-cross-review04/binder/bind_oliver_plan.py: 26e10809c39b
+PASS A L/combined-repair-stage03-integration01.json: 3f652c2d8bc5
+PASS A L/combined-repair-stage04-integration01.json: 295c27e3cd17
+PASS A crates/explainer_kit/src/kit.rs: ef035faf2364
+PASS A crates/explainer_kit/src/narration.rs: 8072720d8ff8
+PASS A P/complex-stage03-cross-review01/proposed/hold-rebind-stage03.json: aa7450d4c790
+PASS A P/complex11-counting-teaching02/holds/narration-direction-map-oliver11.json: 759e0eba1d40
+PASS A P/complex11-counting-teaching02/patches/narration-units.patch: 34199ed235b1
+PASS A P/complex-stage03-review-fixes01/patches/F3-15_2-clause.patch: 0fa7cb79a416
+PASS A P/complex-stage03-review-fixes01/patches/F4-turning-one-sample-guard.patch: 8e90cf7e7fa0
+PASS A P/complex-stage03-review-fixes01/patches/F5-budget-painted-planes.patch: f3f5907519ed
+PASS A P/complex-stage03-review-fixes01/patches/F6-storyboard-quotes.patch: ad92990c8217
+PASS A P/complex-stage03-binder01/baseline/canonical-oliver10/narration_units.json: 3c4f53d79738
+PASS A P/complex-stage03-binder01/baseline/canonical-oliver10/narration-direction-map-oliver10.json: 341356cda34a
+PASS A P/complex-stage03-binder01/baseline/canonical-oliver10/source-audit.json: d3423e0d20d4
+PASS A P/complex-stage03-binder01/baseline/canonical-oliver10/script.tsv: 2968b0fd7654
+== B sealed bound plans in step
+PASS B --check stage04: in step (stage04, script delta F3): 105 units, 105 cues, 15 chapters; 13 prediction and 10
+PASS B --check stage03: in step (stage03, script delta none): 105 units, 105 cues, 15 chapters; 13 prediction and 
+== C independent recomputation
+PASS C stage04 receipt lists exactly the 55 files on disk with their hashes: 55
+PASS C stage04 differs from stage03 in exactly the four declared files, at the declared hashes: counting.rs, draw.rs, script.tsv, storyboard.md
+PASS C stage04 script is stage03's with only the F3 clause: 12442480d7e7
+PASS C 15_2 keeps six sentences; sentences 0-4 byte-equal; no other cue changes
+PASS C storyboard differs only at 134, 138, 151, 284; 284's words equal the new 15_2: [134, 138, 151, 284]
+PASS C counting.rs: film code before its test module byte-equal, tests differ
+PASS C draw.rs: film code before its test module byte-equal, tests differ
+PASS C stage04 units: 105 units equal the script, bound to it and to the oliver12 map's bytes
+PASS C every oliver12 row's file hash and marker line hold in stage04 (23 holds, 5 helpers)
+PASS C oliver12 vs stage03's binding: six row hashes and the script hash, no line or marker: ['11_5', '11_6', '11_8', 'pub fn precisely_over', 'pub fn predict', 'pub fn reading_window']
+PASS C oliver12 vs oliver10: 20 holds + 5 helpers move; only 03_3's marker changes: 25 rows
+PASS C phrase hooks: a separate scan finds the same 93 (cue, phrase) pairs as the strict audit: []
+PASS C every phrase occurs once in its cue and starts a word: []
+PASS C 11_7's reviewed hooks: source lines 525-573 and the sentences they name
+PASS C closing: 15_2's hooks; after each beat's voice end only comments, the pause, kit.hold, the next say
+PASS C no absolute path in the bound plans or the baseline: []
+== D real mismatches in scratch mirrors
+PASS D d00 unchanged mirror binds stage04 to the sealed bytes: exit 0
+PASS D d01-stale-receipt one byte appended to a pinned input: exit 3; STALE: narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage04-integration01.json is d1baa2583de5b8db22cf7d
+PASS D d02-stale-kit one byte appended to a pinned input: exit 3; STALE: crates/explainer_kit/src/narration.rs is 9e83a1fbcdb7d22c89095d290acc2d2e94c8de4597e17b5e0eca8fc3270dbf16, pinned 8072720d8ff86b91ad35d6904e148
+PASS D d03-stale-binder one byte appended to a pinned input: exit 3; STALE: docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-binder01/binder/bind_oliver_plan.py is 4bca9486d591a16aebd806
+PASS D d04-stale-f3-patch one byte appended to a pinned input: exit 3; STALE: docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-review-fixes01/patches/F3-15_2-clause.patch is 9b74382e6c0a3e
+PASS D d05 stage03's real script.tsv in stage04: exit 1; REFUSED: successor receipt: explainer_corpus/complex_analysis_visual/script.tsv differs from its receipt hash
+PASS D d06 canonical's real counting.rs (0ecda9cf) in stage04: exit 1; REFUSED: successor receipt: explainer_corpus/complex_analysis_visual/src/chapters/counting.rs differs from its receipt hash
+PASS D d07 forged receipt and pin with no source change still binds: exit 0
+PASS D d08 S3 NAMED middle phrase: binder alone exit 0; wrapper exit 1; REFUSED: S3 reading_color.rs: source gives ['Pointing right is red', 'up is yellow green', 'Pointing left is teal', 'pointing down is violet'] for lin
+PASS D d09 S3 walk_and_count call-site literals swapped: binder alone exit 0; wrapper exit 1; REFUSED: S3 gallery.rs: call-site literals give {'05_1': ['backwards twice'], '05_2': ['Three zeros inside']} for let rt = line.until(stage, phrase, 2
+PASS D d10 S6 11_7 dog wait reverted to sentence 3: binder alone exit 0; wrapper exit 1; REFUSED: S6 cue 11_7's hooks no longer match its reviewed table: [('wait_for', 'complex polynomial', 0, 'The same trick proves that every noncons'), (
+PASS D d11 S1 11_7 hook on a phrase said three times: binder alone exit 0; wrapper exit 1; REFUSED: S1 11_7 counting.rs:554: phrase 'z to the n' occurs 3 times in the cue
+PASS D d12 S2 08_3 phrases swapped out of spoken order: binder alone exit 0; wrapper exit 1; REFUSED: S2 08_3 loop_sums.rs:488: wait_sentence 3 lands at char 153, before the previous hook (until 'whatever the size' at char 202, line 486)
+PASS D d13 S4 something arrives between 15_1's voice end and its beat: binder alone exit 0; wrapper exit 1; REFUSED: S4 closing.rs: between 15_1's voice end and 15_2 the source is not just `pause(stage, 1.0)?;` and kit.hold: fade_in_all(stage, &[ring], 0.2)?
+PASS D d14 binder guard surfaced: 15_2's beat lengthened: binder alone exit 1; wrapper exit 1; REFUSED: binder: closing.rs:349 pause after the voice-end wait of 15_2: an unclassified post-voice hold; read it and classify it as reading or not
+PASS D d15 cross-check: 04_4 reading window 7.5 -> 8 s in table and storyboard: binder alone exit 0; wrapper exit 1; REFUSED: cross-check: the map is not Lavender's delta applied to teaching02's oliver11 (bad old rows [])
+PASS D d16 a second script change beside F3 (03_1, script and storyboard): binder alone exit 0; wrapper exit 1; REFUSED: script.tsv 21916758a2bb is neither stage03's 1e24aba8b520 nor stage03's with the one declared change (complex-stage03-cross-review01 F3: 15_2
+PASS D d17 F3 in the script, storyboard left at stage03's: binder alone exit 1; wrapper exit 1; REFUSED: successor: explainer_corpus/complex_analysis_visual/docs/storyboard.md is 14078cdbf66e, declared e204cf7726da (from 57508d96103f)
+PASS D d18 an undeclared file changes in stage04 (a the_bump comment): binder alone exit 0; wrapper exit 1; REFUSED: successor: explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs differs from stage03 and is not in the declared successor (stage
+PASS D d19 film code of a declared file changes, declared hash forged to match: exit 1; REFUSED: successor: explainer_corpus/complex_analysis_visual/src/chapters/counting.rs's film code (everything before its one `#[cfg(test)] mod tests`)
+PASS D d19b draw.rs film code below its `#[cfg(test)] pub fn contains` (line 416) changes, declared hash forged: exit 1; REFUSED: successor: explainer_corpus/complex_analysis_visual/src/chapters/draw.rs's film code (everything before its one `#[cfg(test)] mod tests`) dif
+PASS D d20 F2 strays moved aside (renamed out, kept) still binds and is recorded: exit 0
+PASS D d21 the bound plan installed in stage04 still binds (installed equals binding): exit 0
+PASS D d22 stage03's units installed in stage04: exit 1; REFUSED: successor: explainer_corpus/complex_analysis_visual/narration_units.json is installed but is not this binding
+PASS D d23 OUT inside the stage04 tree: exit 2; refused: OUT <scratch>/mirrors/d23-out/narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage04/bound lies i
+PASS D d24 OUT inside another bundle: exit 2; refused: OUT <scratch>/mirrors/d23-out/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-cross-review01/bound lies in 
+PASS D d25 map version oliver11: exit 2; refused: map version oliver11 is already used for complex_analysis_visual or is not a plain name
+PASS D d26 OUT holds a file with other bytes: exit 1; REFUSED: strict-audit.json exists in OUT with other bytes; bind into a new OUT
+PASS D d27 --check on a stale OUT: exit 1; STALE: explainer_corpus/complex_analysis_visual/narration_units.json
+64 checks, 0 failed
+FAILURES: none

@@ -1,0 +1,415 @@
+--- a/crates/fmn/src/rendering.rs
++++ b/crates/fmn/src/rendering.rs
+@@ -618,6 +618,22 @@
+     }
+ }
+ 
++impl RenderError {
++    /// Whether this capture failure can stand in for a frame-stage error that
++    /// the pipeline still holds. A closed admission stream is one. An output
++    /// slot abandoned by a worker is the other: a worker that refuses a frame
++    /// drops its reservation as it returns, before it raises cancellation, so
++    /// a capture waiting on a full output ring (a slow sink) can wake to the
++    /// abandonment first. A sink's own failure is recorded first, wins over
++    /// any later abandonment, and is never in this set.
++    fn may_hide_stage_failure(&self) -> bool {
++        matches!(
++            self,
++            Self::Pipeline(_) | Self::Emitter(EmitterError::ReservationAbandoned { .. })
++        )
++    }
++}
++
+ /// Render one native scene and atomically publish the requested artifact.
+ ///
+ /// Static scenes with no explicit capture receive one final-state frame.
+@@ -1093,14 +1109,16 @@
+     }
+ 
+     /// Return a failure recorded during capture, after joining the workers
+-    /// whose closed stream may be hiding the original stage error.
++    /// whose closed stream or abandoned output slot may be hiding the
++    /// original stage error.
+     fn surface_failure(&mut self) -> Result<(), RenderError> {
+         let Some(error) = self.failure.take() else {
+             return Ok(());
+         };
+-        // A closed admission stream can hide the original worker failure.
+-        // Wake output waiters before joining raster/conversion workers.
+-        if matches!(&error, RenderError::Pipeline(_)) {
++        // A closed admission stream or an abandoned output slot can hide the
++        // original worker failure. Wake output waiters before joining
++        // raster/conversion workers. Joined cleanly, the capture error stands.
++        if error.may_hide_stage_failure() {
+             if let Some(emitter) = &self.emitter {
+                 emitter.cancel();
+             }
+@@ -1381,3 +1399,38 @@
+         }
+     }
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use fmn_output::SinkFailure;
++
++    #[test]
++    fn only_a_closed_stream_or_an_abandoned_slot_is_traded_for_the_stage_failure() {
++        assert!(RenderError::Pipeline(FrameStreamError::Closed).may_hide_stage_failure());
++        let abandoned = EmitterError::ReservationAbandoned { sequence: 2 };
++        assert!(RenderError::Emitter(abandoned).may_hide_stage_failure());
++        let sink = || Arc::<str>::from("y4m");
++        for kept in [
++            EmitterError::SinkFailed {
++                sink: sink(),
++                sequence: Some(0),
++                source: SinkFailure::new("full disk"),
++            },
++            EmitterError::SinkPanicked {
++                sink: sink(),
++                sequence: Some(0),
++            },
++            EmitterError::ReliableSinkWouldBlock {
++                sink: sink(),
++                sequence: 0,
++            },
++            EmitterError::Cancelled,
++            EmitterError::Closed,
++        ] {
++            let error = RenderError::Emitter(kept);
++            assert!(!error.may_hide_stage_failure(), "{error:?}");
++        }
++        assert!(!RenderError::InvalidOptions("fps must be nonzero").may_hide_stage_failure());
++    }
++}
+--- a/crates/fmn/src/rendering/compiled.rs
++++ b/crates/fmn/src/rendering/compiled.rs
+@@ -92,7 +92,7 @@
+             "compiled pipeline was already finalized",
+         ))?;
+         if let Err(error) = pipeline.capture_compiled(job, u64::from(index)) {
+-            if matches!(&error, RenderError::Pipeline(_)) {
++            if error.may_hide_stage_failure() {
+                 if let Some(emitter) = &sink.emitter {
+                     emitter.cancel();
+                 }
+--- /dev/null
++++ b/crates/fmn/tests/slow_sink_budget_refusal.rs
+@@ -0,0 +1,316 @@
++//! A worker's budget refusal keeps its name behind a slow sink, and a sink's own failure stays
++//! the sink's.
++//!
++//! The output ring has `frames_in_flight` slots, and a slot comes back only after the sink has
++//! taken its frame. Here the sink holds frame 0's write until the scene returns. With three slots
++//! and one render team, frames 1 and 2 are then in flight behind it, and the scene's capture of
++//! frame 3 waits on the full ring. Frame 2 is refused on its worker, which drops its slot as it
++//! returns and raises cancellation only afterwards. The waiting capture therefore wakes to
++//! `ReservationAbandoned`, which is not the refusal.
++//!
++//! No sleep orders anything. The held write is released only once the scene has returned, which
++//! it can do only after one of its captures has failed. The watchdog turns a hang into a failed
++//! test and never passes one.
++
++use std::path::{Path, PathBuf};
++use std::sync::atomic::{AtomicBool, Ordering};
++use std::sync::{Arc, Condvar, Mutex};
++use std::time::Duration;
++
++use fmn::prelude::*;
++use fmn::rendering::RenderError;
++use fmn_config::config::{DeterminismMode, ThreadPolicy};
++use fmn_platform::fs::{
++    AtomicDirectoryWriter, AtomicFileWriter, FileSystem, FsError, FsNodeKind, PreparedAtomicFile,
++    VirtualFs,
++};
++
++/// Far longer than any render here; reached only when the scene never returns.
++const WATCHDOG: Duration = Duration::from_secs(30);
++/// Each round must pass whatever the thread order. More rounds give a regression more chances
++/// to show.
++const ROUNDS: usize = 8;
++
++/// The writer's second call carries frame 0; the first carries the stream header.
++const FIRST_FRAME_WRITE: usize = 1;
++
++#[derive(Clone, Copy)]
++enum FirstFrame {
++    /// Hold the write until the scene has returned, then let it through.
++    Hold,
++    /// Refuse the write, as a full disk would.
++    Fail,
++}
++
++struct Gate {
++    open: Mutex<bool>,
++    opened: Condvar,
++    held: AtomicBool,
++}
++
++impl Gate {
++    fn new() -> Arc<Self> {
++        Arc::new(Self {
++            open: Mutex::new(false),
++            opened: Condvar::new(),
++            held: AtomicBool::new(false),
++        })
++    }
++
++    fn open(&self) {
++        *self.open.lock().unwrap() = true;
++        self.opened.notify_all();
++    }
++
++    /// Wait until the gate opens. False when the watchdog expired first.
++    fn wait(&self) -> bool {
++        let open = self.open.lock().unwrap();
++        if !*open {
++            self.held.store(true, Ordering::SeqCst);
++        }
++        let (open, _) = self
++            .opened
++            .wait_timeout_while(open, WATCHDOG, |open| !*open)
++            .unwrap();
++        *open
++    }
++
++    /// Whether frame 0's write was waiting when the gate was closed. Reported, not asserted: the
++    /// refusal may come before the output thread reaches the write.
++    fn held(&self) -> bool {
++        self.held.load(Ordering::SeqCst)
++    }
++}
++
++/// Opens the gate when the scene returns or unwinds.
++struct OpenOnDrop(Arc<Gate>);
++
++impl Drop for OpenOnDrop {
++    fn drop(&mut self) {
++        self.0.open();
++    }
++}
++
++struct GatedWriter {
++    inner: Box<dyn AtomicFileWriter>,
++    destination: PathBuf,
++    first_frame: FirstFrame,
++    gate: Arc<Gate>,
++    writes: usize,
++}
++
++impl AtomicFileWriter for GatedWriter {
++    fn write(&mut self, bytes: &[u8]) -> Result<(), FsError> {
++        let call = self.writes;
++        self.writes += 1;
++        if call == FIRST_FRAME_WRITE {
++            let refusal = match self.first_frame {
++                FirstFrame::Hold if self.gate.wait() => None,
++                FirstFrame::Hold => Some("the watchdog expired before the scene returned"),
++                FirstFrame::Fail => Some("injected sink failure"),
++            };
++            if let Some(message) = refusal {
++                return Err(FsError::Io {
++                    path: self.destination.clone(),
++                    err: std::io::Error::other(message),
++                });
++            }
++        }
++        self.inner.write(bytes)
++    }
++
++    fn prepare(self: Box<Self>) -> Result<Box<dyn PreparedAtomicFile>, FsError> {
++        let Self { inner, .. } = *self;
++        inner.prepare()
++    }
++}
++
++/// [`VirtualFs`] with the first frame of every streamed file held or refused.
++struct GatedFs {
++    inner: Arc<VirtualFs>,
++    first_frame: FirstFrame,
++    gate: Arc<Gate>,
++}
++
++impl FileSystem for GatedFs {
++    fn identity(&self) -> &'static str {
++        "fmn.test.gated_virtual_file_system/v1"
++    }
++
++    fn node_kind_no_follow(&self, path: &Path) -> Result<Option<FsNodeKind>, FsError> {
++        self.inner.node_kind_no_follow(path)
++    }
++
++    fn create_dir(&self, path: &Path) -> Result<bool, FsError> {
++        self.inner.create_dir(path)
++    }
++
++    fn read(&self, path: &Path) -> Result<Vec<u8>, FsError> {
++        self.inner.read(path)
++    }
++
++    fn read_bounded(&self, path: &Path, max_bytes: usize) -> Result<Vec<u8>, FsError> {
++        self.inner.read_bounded(path, max_bytes)
++    }
++
++    fn write_atomic(&self, path: &Path, bytes: &[u8]) -> Result<(), FsError> {
++        self.inner.write_atomic(path, bytes)
++    }
++
++    fn begin_atomic_file(
++        self: Arc<Self>,
++        path: &Path,
++    ) -> Result<Box<dyn AtomicFileWriter>, FsError> {
++        let inner = Arc::clone(&self.inner).begin_atomic_file(path)?;
++        Ok(Box::new(GatedWriter {
++            inner,
++            destination: path.to_path_buf(),
++            first_frame: self.first_frame,
++            gate: Arc::clone(&self.gate),
++            writes: 0,
++        }))
++    }
++
++    fn begin_atomic_directory(
++        self: Arc<Self>,
++        path: &Path,
++    ) -> Result<Box<dyn AtomicDirectoryWriter>, FsError> {
++        Arc::clone(&self.inner).begin_atomic_directory(path)
++    }
++
++    fn create_new(&self, path: &Path, bytes: &[u8]) -> Result<bool, FsError> {
++        self.inner.create_new(path, bytes)
++    }
++
++    fn remove_file(&self, path: &Path) -> Result<(), FsError> {
++        self.inner.remove_file(path)
++    }
++
++    fn remove_dir_all(&self, path: &Path) -> Result<(), FsError> {
++        self.inner.remove_dir_all(path)
++    }
++
++    fn exists(&self, path: &Path) -> bool {
++        self.inner.exists(path)
++    }
++
++    fn list_dir(&self, path: &Path) -> Result<Vec<PathBuf>, FsError> {
++        self.inner.list_dir(path)
++    }
++
++    fn count_dir_entries_bounded(&self, path: &Path, max_entries: usize) -> Result<usize, FsError> {
++        self.inner.count_dir_entries_bounded(path, max_entries)
++    }
++}
++
++fn gated(first_frame: FirstFrame) -> (Arc<Gate>, Arc<VirtualFs>, Arc<GatedFs>) {
++    let gate = Gate::new();
++    let files = Arc::new(VirtualFs::new());
++    let fs = Arc::new(GatedFs {
++        inner: Arc::clone(&files),
++        first_frame,
++        gate: Arc::clone(&gate),
++    });
++    (gate, files, fs)
++}
++
++/// One render team rasterizes in frame order; three slots put frames 1 and 2 in flight while
++/// frame 0 waits in the sink. An offline certified plan has at least three slots, so the
++/// requested three is what it gets.
++fn options(path: &str) -> RenderOptions {
++    let mut options = RenderOptions::new(path).expect("bundled defaults");
++    options.format = RenderFormat::Y4m;
++    options.config.camera.resolution = (96, 64);
++    options.config.camera.fps = 10;
++    options.config.sizes.frame_height = 4.0;
++    options.config.determinism.mode = DeterminismMode::Certified;
++    options.config.render.threads = ThreadPolicy::Fixed(1);
++    options.frames_in_flight = 3;
++    options
++}
++
++/// A circle that starts far left of the 6-unit-wide frame and arrives at its centre on frame 2.
++///
++/// Frames 0 and 1 (centre at x = -10 and x = -5) bin into no tile, so with no tile references
++/// allowed they render and frame 2 is refused on its worker. The wait asks for frame 3, the
++/// capture that finds the ring full.
++struct ArrivingCircle {
++    gate: Arc<Gate>,
++}
++
++impl SceneConstruct for ArrivingCircle {
++    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
++        let _open = OpenOnDrop(Arc::clone(&self.gate));
++        let circle = stage.add(Circle::new().radius(0.6).color(WHITE))?;
++        stage.set_fill(circle, Some(WHITE), Some(1.0), None, true);
++        stage.shift(circle, [-10.0, 0.0, 0.0]);
++        stage.play(
++            circle
++                .animate()
++                .set_anim_args(AnimateArgs {
++                    run_time: Some(0.2),
++                    rate_func: Some(fmn::core::rate::linear),
++                    ..AnimateArgs::default()
++                })?
++                .shift([10.0, 0.0, 0.0])?,
++        )?;
++        stage.wait(0.2)?;
++        Ok(())
++    }
++}
++
++#[test]
++fn a_worker_budget_refusal_behind_a_held_sink_keeps_its_name_and_publishes_nothing() {
++    for round in 0..ROUNDS {
++        let (gate, files, fs) = gated(FirstFrame::Hold);
++        let mut refused = options("/refused.y4m");
++        refused.frame_table_limits.binning.max_tile_references = 0;
++        let mut scene = ArrivingCircle {
++            gate: Arc::clone(&gate),
++        };
++        let Err(error) = render_with_fs(&mut scene, refused, fs) else {
++            panic!("round {round}: frame 2 needs a macrotile reference and none is allowed");
++        };
++        let words = format!("{error:?}");
++        let context = format!("round {round}, frame 0 held: {}: {words}", gate.held());
++        assert!(matches!(error, RenderError::Pipeline(_)), "{context}");
++        assert!(
++            words.contains("resource: \"macrotile references\"") && words.contains("limit: 0"),
++            "{context}"
++        );
++        assert!(!words.contains("ReservationAbandoned"), "{context}");
++        assert!(!files.exists(Path::new("/refused.y4m")), "{context}");
++        retry_publishes(&files, "/refused.y4m");
++    }
++}
++
++/// The failed render joined its workers and left the destination free: an immediate retry with
++/// default budgets and an unheld sink publishes there.
++fn retry_publishes(files: &Arc<VirtualFs>, path: &str) {
++    let mut retry = ArrivingCircle { gate: Gate::new() };
++    if let Err(error) = render_with_fs(&mut retry, options(path), files.clone()) {
++        panic!("retry to {path}: {error:?}");
++    }
++    assert!(files.exists(Path::new(path)), "retry to {path}: nothing");
++}
++
++#[test]
++fn a_genuine_sink_failure_stays_the_sinks_and_publishes_nothing() {
++    let (gate, files, fs) = gated(FirstFrame::Fail);
++    // Default budgets: every frame renders, so the only failure is the sink's.
++    let Err(error) = render_with_fs(&mut ArrivingCircle { gate }, options("/failed.y4m"), fs)
++    else {
++        panic!("the sink refused frame 0");
++    };
++    let words = format!("{error:?}");
++    assert!(
++        words.contains("SinkFailed") && words.contains("injected sink failure"),
++        "{words}"
++    );
++    assert!(
++        !words.contains("ReservationAbandoned") && !words.contains("LimitExceeded"),
++        "{words}"
++    );
++    assert!(!files.exists(Path::new("/failed.y4m")));
++    retry_publishes(&files, "/failed.y4m");
++}

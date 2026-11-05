@@ -1,0 +1,125 @@
+== A. The bytes the patches are made against
+PASS receipt is the one reviewed
+PASS script.tsv: receipt and disk are 1e24aba8
+PASS docs/storyboard.md: receipt and disk are 57508d96
+PASS src/chapters/counting.rs: receipt and disk are c1df16ea
+PASS src/chapters/draw.rs: receipt and disk are 865599e9
+PASS src/chapters/argument.rs (read only): disk equals the receipt
+PASS src/chapters/bookends.rs (read only): disk equals the receipt
+PASS src/chapters/boundary.rs (read only): disk equals the receipt
+PASS src/chapters/cauchy.rs (read only): disk equals the receipt
+PASS src/chapters/closing.rs (read only): disk equals the receipt
+PASS src/chapters/continuation.rs (read only): disk equals the receipt
+PASS src/chapters/continuing.rs (read only): disk equals the receipt
+PASS src/chapters/derivative.rs (read only): disk equals the receipt
+PASS src/chapters/domain_color.rs (read only): disk equals the receipt
+PASS src/chapters/gallery.rs (read only): disk equals the receipt
+PASS src/chapters/integral.rs (read only): disk equals the receipt
+PASS src/chapters/loop_sums.rs (read only): disk equals the receipt
+PASS src/chapters/mod.rs (read only): disk equals the receipt
+PASS src/chapters/one_derivative.rs (read only): disk equals the receipt
+PASS src/chapters/one_point.rs (read only): disk equals the receipt
+PASS src/chapters/reading_color.rs (read only): disk equals the receipt
+PASS src/chapters/real_integral.rs (read only): disk equals the receipt
+PASS src/chapters/residues.rs (read only): disk equals the receipt
+PASS src/chapters/rigidity.rs (read only): disk equals the receipt
+PASS src/chapters/the_bump.rs (read only): disk equals the receipt
+PASS src/chapters/thumbnail.rs (read only): disk equals the receipt
+PASS src/chapters/turning.rs (read only): disk equals the receipt
+PASS src/chapters/two_planes.rs (read only): disk equals the receipt
+PASS src/main.rs (read only): disk equals the receipt
+PASS src/facts.rs (read only): disk equals the receipt
+PASS src/model.rs (read only): disk equals the receipt
+PASS src/score.rs (read only): disk equals the receipt
+PASS src/plate_layout.rs (read only): disk equals the receipt
+PASS narration_units.json (read only): disk equals the receipt
+
+== B. The patches are the edits, byte for byte
+PASS patches/F3-15_2-clause.patch regenerates byte-equal
+PASS patches/F3-15_2-clause.patch names only relative stage paths
+PASS patches/F4-turning-one-sample-guard.patch regenerates byte-equal
+PASS patches/F4-turning-one-sample-guard.patch names only relative stage paths
+PASS patches/F5-budget-painted-planes.patch regenerates byte-equal
+PASS patches/F5-budget-painted-planes.patch names only relative stage paths
+PASS patches/F6-storyboard-quotes.patch regenerates byte-equal
+PASS patches/F6-storyboard-quotes.patch names only relative stage paths
+
+== C. Each patch applies alone, and all apply in either order, exactly (GNU patch, scratch copies)
+PASS alone-F3: applies with no offset or fuzz, gives the edits, leaves no .orig/.rej
+PASS alone-F4: applies with no offset or fuzz, gives the edits, leaves no .orig/.rej
+PASS alone-F5: applies with no offset or fuzz, gives the edits, leaves no .orig/.rej
+PASS alone-F6: applies with no offset or fuzz, gives the edits, leaves no .orig/.rej
+PASS all-forward: applies with no offset or fuzz, gives the edits, leaves no .orig/.rej
+PASS all-reverse: applies with no offset or fuzz, gives the edits, leaves no .orig/.rej
+     script.tsv: 1e24aba8 -> 12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3
+     docs/storyboard.md: 57508d96 -> e204cf7726dadefe46dccb419e0cc0a641acbeeb4e884c3f55ff6d39a980536b
+     src/chapters/counting.rs: c1df16ea -> d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9
+     src/chapters/draw.rs: 865599e9 -> 3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db
+
+== D. F3: 15_2's last clause
+PASS script: only 15_2 changes, and nothing is added or removed
+PASS script: 15_2 is the proposed sentence
+PASS 15_2 keeps six sentences; sentences 0-4 untouched
+PASS 15_2 sentence 5 differs only in the clause
+PASS 15_2 has no digit
+PASS closing.rs 15_2 hooks: sentences 1-5 and one phrase  [sentences [1, 2, 3, 4, 5], phrases ['and it turns a real integral']]
+PASS every 15_2 hook still lands: each phrase once, in the same sentence; last sentence index exists
+PASS storyboard 15_2 words equal the script (before; main.rs check_video compares them)
+PASS storyboard 15_2 words equal the script (after; main.rs check_video compares them)
+PASS the stage plan holds the old 15_2 clause once and not the new one (the binder updates it)
+     script.tsv sha256 after F3: 12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3
+
+== E. F4: the turning field's one-sample guard
+PASS counting.rs film code is byte-equal
+PASS the guard is one test, in the test module
+PASS counting tests that count source text still count the same: Some(Func::Quintic) = 3
+PASS PlateStyle.samples is pub u32 and PLATE is a pub const
+PASS PLATE's samples today: 1 (so the guard holds)  [PLATE_CELLS4 <- PLATE_BLEND <- PLATE_TILE <- PLATE_NOW]
+PASS what the guard is about is still there: draw.rs `if samples <= 1`
+PASS what the guard is about is still there: counting.rs builds with portrait
+PASS what the guard is about is still there: counting.rs repaints with portrait_colors
+
+== F. F5: the budget test reads the planes the film paints
+PASS draw.rs film code is byte-equal
+PASS gallery and reading_color are modules of chapters
+PASS the test's four planes exist as pub fns
+PASS PLATE_CELLS4 cells are CELL / 4 both ways
+PASS chapters/mod.rs declares 17 modules, draw and thumbnail among them
+PASS gallery.rs `st` is 2.0 x 5.9
+PASS gallery.rs `p` is 4.2 x 2.6
+PASS gallery.rs `zp9` is 5.0 x 5.0
+PASS residues.rs `sp` is 2.8 x 2.8
+PASS the_bump.rs `small` is 1.5 x 1.5
+PASS counting.rs `inp` is 5.6 x 5.6
+PASS every painted call site in the 17 compiled chapter files is in the table, and every table row is painted  [21 call sites; []]
+PASS widest painted picture: 960 columns, 05's sin and Gamma only  [[('gallery', 'gp'), ('gallery', 'tp')]]
+PASS tallest painted picture: 731 rows, 04's plane and 05's exp only  [[('gallery', 'ep'), ('reading_color', 'p')]]
+PASS the new test's asserts hold for its four planes (mirror)  [[(960, 480), (960, 533), (731, 731), (366, 731)]]
+PASS the old test's bound would refuse the widest painted picture (why F5)
+
+== G. F6: the storyboard quotes what the film draws
+PASS the band ratio the film shows is 1.69
+PASS storyboard 04_2: quotes the film's strings  [['next band: size × 1.69']]
+PASS storyboard 04_2: only the picture cell changes; five cells
+PASS storyboard 04_6: quotes the film's strings  [["where are the bump's poles?", 'how many turns at each?']]
+PASS storyboard 04_6: only the picture cell changes; five cells
+PASS storyboard 05_7: quotes the film's strings  [['series converges: Re s > 1']]
+PASS storyboard 05_7: only the picture cell changes; five cells
+PASS storyboard: lines 134, 138, 151 (F6) and 284 (F3) change, no line added  [[134, 138, 151, 284]]
+
+== H. What the hold rows need after the fixes (map = teaching02 oliver11 + cross-review01 delta)
+PASS all 28 rows bind stage03 as it stands
+PASS rows on patched files keep their line and marker; only the file sha changes  [visual_holds:11_5:counting.rs:440; visual_holds:11_6:counting.rs:503; visual_holds:11_8:counting.rs:604; helpers:helper:draw.rs:1112; helpers:helper:draw.rs:1166; helpers:helper:draw.rs:1198]
+     src/chapters/counting.rs: rows' sha256 c1df16ea -> d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9
+     src/chapters/draw.rs: rows' sha256 865599e9 -> 3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db
+PASS the map's scripts field binds stage03's script today
+     scripts.complex_analysis_visual after F3: 12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3
+
+== I. rustfmt --check (scratch copies; the repo's rustfmt.toml and toolchain)
+PASS rustfmt --check after/counting.rs: clean
+PASS rustfmt --check after/draw.rs: clean
+PASS rustfmt --check before/counting.rs: clean
+PASS rustfmt --check before/draw.rs: clean
+PASS rustfmt --check control/draw.rs: refused (control)
+
+FAILURES: none

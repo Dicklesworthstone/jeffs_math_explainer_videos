@@ -1,0 +1,26 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/draw.rs
+@@ -1605,11 +1605,18 @@
+ 
+     #[test]
+     fn a_full_picture_stays_within_the_strip_budget() {
+-        // the widest picture the chapters draw: 6.4 × 6.4 scene units
+-        let p = Plane::new(v(0.0, 0.0), 6.4, (-2.0, 2.0), (-2.0, 2.0));
+-        let (cols, rows) = picture_cells(&p, &PLATE);
+-        assert!(rows <= 800 && cols <= 800, "{cols} × {rows}");
+-        assert!(rows < explainer_kit::GROUP_TRANSFORM_LIMIT);
++        // the widest pictures the chapters paint (05's sin and Γ, 8.4 wide) and the tallest
++        // (04's plane and 05's exp, 6.4 high)
++        for p in [
++            super::super::gallery::trig_plane(),
++            super::super::gallery::gamma_plane(),
++            super::super::reading_color::plane(),
++            super::super::gallery::exp_plane(),
++        ] {
++            let (cols, rows) = picture_cells(&p, &PLATE);
++            assert!(rows <= 800 && cols <= 960, "{cols} × {rows}");
++            assert!(rows < explainer_kit::GROUP_TRANSFORM_LIMIT);
++        }
+     }
+ 
+     #[test]

@@ -1,0 +1,3767 @@
+{
+  "schema_version": 1,
+  "topic": "complex_analysis_visual",
+  "claim": "Text audit of Rust source and plan files. Uncompiled, unrendered, unsynthesised, unheard. Word moments are estimates until Oliver's takes are aligned. No take, duration, listening, picture or independent acceptance.",
+  "mode": "stage04",
+  "crate": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage04/explainer_corpus/complex_analysis_visual",
+  "receipt": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage04-integration01.json",
+    "sha256": "295c27e3cd17f84f39bde8f7a191e7ec3a29035d6fcbe62d0f1a2bd6c94fb00b",
+    "changed": [
+      "explainer_corpus/complex_analysis_visual/docs/storyboard.md",
+      "explainer_corpus/complex_analysis_visual/script.tsv",
+      "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs"
+    ],
+    "differs_from_stage03": [
+      "explainer_corpus/complex_analysis_visual/docs/storyboard.md",
+      "explainer_corpus/complex_analysis_visual/script.tsv",
+      "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs"
+    ],
+    "named_but_unchanged": [],
+    "declared_successor": "stage04: stage03 + complex-stage03-review-fixes01 F3 F4 F5 F6",
+    "film_code_equal_to_stage03": {
+      "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs": true,
+      "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs": true
+    },
+    "f2_strays_moved_aside": []
+  },
+  "script": {
+    "sha256": "12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3",
+    "delta": "F3",
+    "declared_change": {
+      "finding": "complex-stage03-cross-review01 F3",
+      "cue": "15_2",
+      "old": "though not always everywhere",
+      "new": "though there may be none",
+      "script_sha256": "12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3"
+    }
+  },
+  "pins": {
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-binder01/binder/bind_oliver_plan.py": "26e10809c39b497cec168e19f462ae13cef74f74bcd671db1ab54fbe07e2efd0",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex02-05-cross-review04/binder/bind_oliver_plan.py": "26e10809c39b497cec168e19f462ae13cef74f74bcd671db1ab54fbe07e2efd0",
+    "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage03-integration01.json": "3f652c2d8bc510fbbd62e027b9db57943d8d5a1c3e297c0fecdfb87de6dec5e2",
+    "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage04-integration01.json": "295c27e3cd17f84f39bde8f7a191e7ec3a29035d6fcbe62d0f1a2bd6c94fb00b",
+    "crates/explainer_kit/src/kit.rs": "ef035faf236498e7485fb60a66d862b383e1a5040fa17962e1633596ed99e106",
+    "crates/explainer_kit/src/narration.rs": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-cross-review01/proposed/hold-rebind-stage03.json": "aa7450d4c7908e23a35548edb0545d6c51fe5e21011509f9ca0761b77191f9ea",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex11-counting-teaching02/holds/narration-direction-map-oliver11.json": "759e0eba1d40fbd2ff4f715719493dccc35eed27da0f730c6e8c8344a7f1bb91",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex11-counting-teaching02/patches/narration-units.patch": "34199ed235b12d8a243a47c22550f76af63963418c668f46286478ff62df2c23",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-binder01/baseline/canonical-oliver10/narration_units.json": "3c4f53d7973857295e4f99de681e8537ead08676d1ebdfe9625e69b4bc86702a",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-binder01/baseline/canonical-oliver10/narration-direction-map-oliver10.json": "341356cda34ac129fbca1988699f9f20f1cb583d63a5463f780226a13ab3c5b4",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-binder01/baseline/canonical-oliver10/source-audit.json": "d3423e0d20d4067a3c44e5e1b828795f6380ec395ae1ebf9a4de0e7b256d425f",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-binder01/baseline/canonical-oliver10/script.tsv": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-review-fixes01/patches/F3-15_2-clause.patch": "0fa7cb79a41615885a96f7917832ac4021ce172b86c8edffa18067f1ac4b2320",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-review-fixes01/patches/F4-turning-one-sample-guard.patch": "8e90cf7e7fa0aa47813a2ac5e07ce66ce2637f07b02d98c359487da5f03328b8",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-review-fixes01/patches/F5-budget-painted-planes.patch": "f3f5907519ed2234046ba82a87cb6e6bf6d24947525d5e99a3eb026c4e1dcd7a",
+    "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-review-fixes01/patches/F6-storyboard-quotes.patch": "ad92990c8217ea74656d981eebb8591c390e12eb33e205a76340a5bd89018341"
+  },
+  "binder": {
+    "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-binder01/binder/bind_oliver_plan.py",
+    "sha256": "26e10809c39b497cec168e19f462ae13cef74f74bcd671db1ab54fbe07e2efd0",
+    "original": "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex02-05-cross-review04/binder/bind_oliver_plan.py",
+    "author": "RubyRaven (complex02-05-cross-review04), on BronzeJaguar's earlier binder"
+  },
+  "map": {
+    "version": "oliver12",
+    "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver12.json",
+    "sha256": "70888624edd6e930b383b277b50f8da5e39ac94f1a661c71b7f0e9575362f20c"
+  },
+  "units": {
+    "path": "explainer_corpus/complex_analysis_visual/narration_units.json",
+    "sha256": "e776c860dcfa66c277ef0e188437cade034f0427d19efa4c975dde313d9b51c6"
+  },
+  "findings": [
+    "hygiene: 3 .orig files and 1 .ee/ files in the crate (Lavender F2)"
+  ],
+  "strict": {
+    "S1_phrases_checked": 94,
+    "S2_cues_with_hooks": 99,
+    "S2_hooks": 334,
+    "S3_dynamic": [
+      {
+        "file": "counting.rs",
+        "call": "let until = if i < 2 { line.sentence(i + 3)? } else { line.end() };",
+        "table": [
+          3,
+          4
+        ],
+        "from_source": [
+          3,
+          4
+        ],
+        "how": "i < 2 over 3 iterations; the last walk lands on line.end()",
+        "equal": true
+      },
+      {
+        "file": "counting.rs",
+        "call": "line.wait_for(stage, NEEDS_SAID[i])?;",
+        "table": [
+          "It needs",
+          "passes through",
+          "and a function"
+        ],
+        "from_source": [
+          "It needs",
+          "passes through",
+          "and a function"
+        ],
+        "how": "NEEDS_SAID[i] for i over NEEDS (3)",
+        "equal": true
+      },
+      {
+        "file": "counting.rs",
+        "call": "line.wait_sentence(stage, i + 2)?;",
+        "table": [
+          2,
+          3,
+          4
+        ],
+        "from_source": [
+          2,
+          3,
+          4
+        ],
+        "how": "i over 3 iterations: for (i, (f, name)) in [Func::Identity, Func::Square, Func::Recip] .into_iter() .zip(LOCAL) .enumerate()",
+        "equal": true
+      },
+      {
+        "file": "gallery.rs",
+        "call": "let rt = line.until(stage, phrase, 2.5)?;",
+        "table": {
+          "05_1": [
+            "Three zeros inside"
+          ],
+          "05_2": [
+            "backwards twice"
+          ]
+        },
+        "from_source": {
+          "05_1": [
+            "Three zeros inside"
+          ],
+          "05_2": [
+            "backwards twice"
+          ]
+        },
+        "how": "helper parameter, from the literal at each call site",
+        "equal": true
+      },
+      {
+        "file": "gallery.rs",
+        "call": "line.wait_for(stage, phrase)?;",
+        "table": [
+          "a pole at zero",
+          "at minus one",
+          "at minus two"
+        ],
+        "from_source": [
+          "a pole at zero",
+          "at minus one",
+          "at minus two"
+        ],
+        "how": "named.get(k) over fact_list(\"gallery.gamma.poles\"): the first len(named) poles are named",
+        "equal": true
+      },
+      {
+        "file": "reading_color.rs",
+        "call": "line.wait_for(stage, phrase)?;",
+        "table": [
+          "Pointing right is red",
+          "Pointing up is yellow green",
+          "Pointing left is teal",
+          "pointing down is violet"
+        ],
+        "from_source": [
+          "Pointing right is red",
+          "Pointing up is yellow green",
+          "Pointing left is teal",
+          "pointing down is violet"
+        ],
+        "how": "NAMED's phrases zipped with names from DIRECTIONS (4)",
+        "equal": true
+      },
+      {
+        "file": "the_bump.rs",
+        "call": "line.wait_for(stage, phrase)?;",
+        "table": [
+          "plus x to the fourth",
+          "minus x to the sixth"
+        ],
+        "from_source": [
+          "plus x to the fourth",
+          "minus x to the sixth"
+        ],
+        "how": "loop array: for (deg, phrase) in [(4.0, \"plus x to the fourth\"), (6.0, \"minus x to the sixth\")]",
+        "equal": true
+      }
+    ],
+    "S4_post_voice_beats": [
+      {
+        "file": "closing.rs",
+        "cue": "15_1",
+        "next_cue": "15_2",
+        "voice_end_line": 306,
+        "beat_line": 308,
+        "beat": "pause(stage, 1.0)?;",
+        "beat_seconds_in_source": 1.0,
+        "hold_line": 311,
+        "between_voice_end_and_next_say": "only comments, the beat and kit.hold",
+        "last_hook": {
+          "line": 276,
+          "call": "wait_for",
+          "value": "at i and minus i"
+        },
+        "fades_after_last_hook_in_source": [
+          {
+            "line": 297,
+            "marker": "fade_in_all(stage, &pole_mobs, 0.5)?;",
+            "seconds": 0.5
+          },
+          {
+            "line": 305,
+            "marker": "fade_in_all(stage, &[ring], 0.5)?;",
+            "seconds": 0.5
+          }
+        ],
+        "why": "The film's first picture, answered: a moment before the wipe."
+      },
+      {
+        "file": "closing.rs",
+        "cue": "15_2",
+        "next_cue": "15_3",
+        "voice_end_line": 347,
+        "beat_line": 349,
+        "beat": "pause(stage, 1.2)?;",
+        "beat_seconds_in_source": 1.2,
+        "hold_line": 352,
+        "between_voice_end_and_next_say": "only comments, the beat and kit.hold",
+        "last_hook": {
+          "line": 333,
+          "call": "wait_sentence",
+          "value": 5
+        },
+        "fades_after_last_hook_in_source": [
+          {
+            "line": 342,
+            "marker": "fade_in_all(stage, &picture, 0.5)?;",
+            "seconds": 0.5
+          },
+          {
+            "line": 343,
+            "marker": "fade_in_all(stage, &caption, 0.4)?;",
+            "seconds": 0.4
+          }
+        ],
+        "why": "The finished recap strip: a moment before it goes."
+      }
+    ],
+    "S6_reviewed_cues": {
+      "11_7": {
+        "reviewed": [
+          [
+            "wait_for",
+            "complex polynomial",
+            0,
+            "The same trick proves"
+          ],
+          [
+            "sentence",
+            1,
+            1,
+            "Divide by its leading coefficient"
+          ],
+          [
+            "wait_sentence",
+            1,
+            1,
+            "Divide by its leading coefficient"
+          ],
+          [
+            "until",
+            "which leaves",
+            1,
+            "Divide by its leading coefficient"
+          ],
+          [
+            "wait_for",
+            "with z",
+            2,
+            "Now it starts with z"
+          ],
+          [
+            "wait_sentence",
+            3,
+            3,
+            "On a huge circle"
+          ],
+          [
+            "wait_sentence",
+            4,
+            4,
+            "Picture z to the n as a walker"
+          ],
+          [
+            "sentence",
+            6,
+            6,
+            "So there are exactly n roots inside"
+          ]
+        ],
+        "matches": true
+      },
+      "15_2": {
+        "reviewed": [
+          [
+            "wait_sentence",
+            1,
+            1,
+            "The complex derivative must be the same"
+          ],
+          [
+            "wait_sentence",
+            2,
+            2,
+            "On an open region"
+          ],
+          [
+            "wait_sentence",
+            3,
+            3,
+            "It lets boundary values decide"
+          ],
+          [
+            "wait_sentence",
+            4,
+            4,
+            "It lets a loop count zeros"
+          ],
+          [
+            "wait_for",
+            "and it turns a real integral",
+            4,
+            "It lets a loop count zeros"
+          ],
+          [
+            "wait_sentence",
+            5,
+            5,
+            "It allows at most one extension"
+          ]
+        ],
+        "matches": true
+      }
+    },
+    "problems": []
+  },
+  "cross_checks": {
+    "map_equals_lavender_delta_on_teaching02_oliver11": true,
+    "lavender_rows": 25,
+    "carried_to_stage04": {
+      "script": "12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3",
+      "row_sha_from_stage04_receipt": [
+        [
+          "visual_holds",
+          "11_5",
+          "prediction"
+        ],
+        [
+          "visual_holds",
+          "11_6",
+          "reading"
+        ],
+        [
+          "visual_holds",
+          "11_8",
+          "reading"
+        ],
+        [
+          "helpers",
+          "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+          "pub fn predict"
+        ],
+        [
+          "helpers",
+          "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+          "pub fn reading_window"
+        ],
+        [
+          "helpers",
+          "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+          "pub fn precisely_over"
+        ]
+      ]
+    },
+    "units_equal_teaching02_patched_plan_but_for_the_map": true,
+    "note": "Checks of the binding against two independent proposals. Nothing is edited from them."
+  },
+  "successor_plan_differences": [
+    {
+      "file": "map",
+      "path": "$.scripts.complex_analysis_visual",
+      "old": "1e24aba8b520f2e61e8b2bc392a218b664cf5556ad788ceca17fbc45bb92efab",
+      "new": "12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3",
+      "allowed": true
+    },
+    {
+      "file": "map",
+      "path": "$.visual_holds[15].sha256",
+      "old": "c1df16ea04d4283d490598ccabe039cdc846be96458668d63544aef9ac81d36a",
+      "new": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9",
+      "allowed": true
+    },
+    {
+      "file": "map",
+      "path": "$.visual_holds[16].sha256",
+      "old": "c1df16ea04d4283d490598ccabe039cdc846be96458668d63544aef9ac81d36a",
+      "new": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9",
+      "allowed": true
+    },
+    {
+      "file": "map",
+      "path": "$.visual_holds[17].sha256",
+      "old": "c1df16ea04d4283d490598ccabe039cdc846be96458668d63544aef9ac81d36a",
+      "new": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9",
+      "allowed": true
+    },
+    {
+      "file": "map",
+      "path": "$.helpers[0].sha256",
+      "old": "865599e94331038782be128189fc1acb642e1d00b2f7fe32bd9fe68c958951b9",
+      "new": "3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db",
+      "allowed": true
+    },
+    {
+      "file": "map",
+      "path": "$.helpers[1].sha256",
+      "old": "865599e94331038782be128189fc1acb642e1d00b2f7fe32bd9fe68c958951b9",
+      "new": "3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db",
+      "allowed": true
+    },
+    {
+      "file": "map",
+      "path": "$.helpers[3].sha256",
+      "old": "865599e94331038782be128189fc1acb642e1d00b2f7fe32bd9fe68c958951b9",
+      "new": "3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db",
+      "allowed": true
+    },
+    {
+      "file": "units",
+      "path": "$.script_sha256",
+      "old": "1e24aba8b520f2e61e8b2bc392a218b664cf5556ad788ceca17fbc45bb92efab",
+      "new": "12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3",
+      "allowed": true
+    },
+    {
+      "file": "units",
+      "path": "$.direction_contract.script_sha256",
+      "old": "1e24aba8b520f2e61e8b2bc392a218b664cf5556ad788ceca17fbc45bb92efab",
+      "new": "12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3",
+      "allowed": true
+    },
+    {
+      "file": "units",
+      "path": "$.direction_contract.map.sha256",
+      "old": "5439408653e6df3d13b070d3f270b113eec86ba2921977a055772f9d85f8c0d6",
+      "new": "70888624edd6e930b383b277b50f8da5e39ac94f1a661c71b7f0e9575362f20c",
+      "allowed": true
+    },
+    {
+      "file": "units",
+      "path": "$.units[102].text",
+      "old": "Everything since came from one demand. The complex derivative must be the same from every direction. On an open region, that makes every small piece of the map a stretch and a turn. It lets boundary values decide the inside. It lets a loop count zeros and poles, and it turns a real integral into a sum of residues. It allows at most one extension to a given connected region, though not always everywhere, and along different paths a continuation can branch.",
+      "new": "Everything since came from one demand. The complex derivative must be the same from every direction. On an open region, that makes every small piece of the map a stretch and a turn. It lets boundary values decide the inside. It lets a loop count zeros and poles, and it turns a real integral into a sum of residues. It allows at most one extension to a given connected region, though there may be none, and along different paths a continuation can branch.",
+      "allowed": true
+    }
+  ],
+  "promotion_hygiene": {
+    "orig_files": [
+      "src/chapters/counting.rs.orig",
+      "src/chapters/mod.rs.orig",
+      "src/chapters/one_derivative.rs.orig"
+    ],
+    "hook_state": [
+      ".ee/hook-state/session_start_orient.last.json"
+    ],
+    "unregistered_chapter_files_ignored": [
+      "explainer_corpus/complex_analysis_visual/src/chapters/argument.rs",
+      "explainer_corpus/complex_analysis_visual/src/chapters/bookends.rs",
+      "explainer_corpus/complex_analysis_visual/src/chapters/cauchy.rs",
+      "explainer_corpus/complex_analysis_visual/src/chapters/continuation.rs",
+      "explainer_corpus/complex_analysis_visual/src/chapters/derivative.rs",
+      "explainer_corpus/complex_analysis_visual/src/chapters/domain_color.rs",
+      "explainer_corpus/complex_analysis_visual/src/chapters/integral.rs"
+    ],
+    "note": "The binder reads neither the .orig files nor .ee/. Move them aside before promotion (Lavender F2)."
+  },
+  "hooks": {
+    "01_1": [
+      {
+        "file": "the_bump.rs",
+        "line": 137,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 34,
+        "sentence": 1,
+        "sentence_text": "One over one plus x squared."
+      },
+      {
+        "file": "the_bump.rs",
+        "line": 138,
+        "call": "until",
+        "value": "It has no corners",
+        "char": 127,
+        "sentence": 3,
+        "sentence_text": "It has no corners and no gaps, and it never blows up."
+      }
+    ],
+    "01_2": [
+      {
+        "file": "the_bump.rs",
+        "line": 176,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 43,
+        "sentence": 1,
+        "sentence_text": "One, minus x squared, plus x to the fourth, minus x to the sixth, and so on."
+      },
+      {
+        "file": "the_bump.rs",
+        "line": 179,
+        "call": "wait_for",
+        "value": "plus x to the fourth",
+        "char": 65,
+        "sentence": 1,
+        "sentence_text": "One, minus x squared, plus x to the fourth, minus x to the sixth, and so on.",
+        "note": "loop iteration 0"
+      },
+      {
+        "file": "the_bump.rs",
+        "line": 179,
+        "call": "wait_for",
+        "value": "minus x to the sixth",
+        "char": 87,
+        "sentence": 1,
+        "sentence_text": "One, minus x squared, plus x to the fourth, minus x to the sixth, and so on.",
+        "note": "loop iteration 1"
+      }
+    ],
+    "01_3": [
+      {
+        "file": "the_bump.rs",
+        "line": 210,
+        "call": "wait_for",
+        "value": "At one point one",
+        "char": 119,
+        "sentence": 2,
+        "sentence_text": "At one point one, the recipe up to x to the fortieth gives about twenty five."
+      },
+      {
+        "file": "the_bump.rs",
+        "line": 235,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 197,
+        "sentence": 3,
+        "sentence_text": "The bump itself is less than one half there."
+      }
+    ],
+    "01_4": [],
+    "01_5": [
+      {
+        "file": "the_bump.rs",
+        "line": 271,
+        "call": "wait_for",
+        "value": "Let x be a complex number",
+        "char": 39,
+        "sentence": 1,
+        "sentence_text": "Let x be a complex number, and the bump has two points where it blows up."
+      },
+      {
+        "file": "the_bump.rs",
+        "line": 278,
+        "call": "wait_for",
+        "value": "They sit at i",
+        "char": 113,
+        "sentence": 2,
+        "sentence_text": "They sit at i and minus i, one unit above and below zero."
+      },
+      {
+        "file": "the_bump.rs",
+        "line": 288,
+        "call": "wait_for",
+        "value": "A recipe built at zero",
+        "char": 171,
+        "sentence": 3,
+        "sentence_text": "A recipe built at zero only works inside the largest circle around zero that avoids them."
+      },
+      {
+        "file": "the_bump.rs",
+        "line": 309,
+        "call": "wait_for",
+        "value": "That circle has radius one",
+        "char": 261,
+        "sentence": 4,
+        "sentence_text": "That circle has radius one."
+      }
+    ],
+    "01_6": [
+      {
+        "file": "the_bump.rs",
+        "line": 327,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 114,
+        "sentence": 2,
+        "sentence_text": "By the end, the same idea will count roots we never find and compute a real area from points off the line."
+      },
+      {
+        "file": "the_bump.rs",
+        "line": 333,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 221,
+        "sentence": 3,
+        "sentence_text": "First, we need a way to see complex functions at all."
+      }
+    ],
+    "02_1": [
+      {
+        "file": "turning.rs",
+        "line": 241,
+        "call": "wait_for",
+        "value": "how far right",
+        "char": 60,
+        "sentence": 1,
+        "sentence_text": "Its first part says how far right, its second part how far up."
+      },
+      {
+        "file": "turning.rs",
+        "line": 252,
+        "call": "wait_for",
+        "value": "how far up",
+        "char": 91,
+        "sentence": 1,
+        "sentence_text": "Its first part says how far right, its second part how far up."
+      },
+      {
+        "file": "turning.rs",
+        "line": 263,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 103,
+        "sentence": 2,
+        "sentence_text": "We write it as x plus i y, and draw it as an arrow from zero."
+      }
+    ],
+    "02_2": [
+      {
+        "file": "turning.rs",
+        "line": 313,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 58,
+        "sentence": 1,
+        "sentence_text": "Multiplying does something more interesting."
+      },
+      {
+        "file": "turning.rs",
+        "line": 321,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 103,
+        "sentence": 2,
+        "sentence_text": "Multiply every point of the plane by i, and the whole plane turns a quarter turn about zero."
+      },
+      {
+        "file": "turning.rs",
+        "line": 338,
+        "call": "wait_for",
+        "value": "and the whole plane turns",
+        "char": 143,
+        "sentence": 2,
+        "sentence_text": "Multiply every point of the plane by i, and the whole plane turns a quarter turn about zero."
+      }
+    ],
+    "02_3": [
+      {
+        "file": "turning.rs",
+        "line": 378,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 56,
+        "sentence": 2,
+        "sentence_text": "That is all that i squared equals minus one means."
+      }
+    ],
+    "02_4": [
+      {
+        "file": "turning.rs",
+        "line": 397,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 59,
+        "sentence": 1,
+        "sentence_text": "It stretches by that number's length and turns by its angle."
+      },
+      {
+        "file": "turning.rs",
+        "line": 419,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 120,
+        "sentence": 2,
+        "sentence_text": "Multiply by one plus i, and the plane grows by the square root of two and turns an eighth of a turn."
+      }
+    ],
+    "02_5": [
+      {
+        "file": "turning.rs",
+        "line": 432,
+        "call": "wait_for",
+        "value": "an eighth of a turn",
+        "char": 37,
+        "sentence": 0,
+        "sentence_text": "Multiplying by one plus i once makes an eighth of a turn."
+      }
+    ],
+    "02_6": [
+      {
+        "file": "turning.rs",
+        "line": 443,
+        "call": "until",
+        "value": "So one plus i",
+        "char": 88,
+        "sentence": 1,
+        "sentence_text": "So one plus i, squared, is two i."
+      },
+      {
+        "file": "turning.rs",
+        "line": 460,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 88,
+        "sentence": 1,
+        "sentence_text": "So one plus i, squared, is two i."
+      },
+      {
+        "file": "turning.rs",
+        "line": 473,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 122,
+        "sentence": 2,
+        "sentence_text": "Lengths multiply and angles add."
+      },
+      {
+        "file": "turning.rs",
+        "line": 478,
+        "call": "wait_for",
+        "value": "and angles add",
+        "char": 139,
+        "sentence": 2,
+        "sentence_text": "Lengths multiply and angles add."
+      },
+      {
+        "file": "turning.rs",
+        "line": 481,
+        "call": "wait_for",
+        "value": "Every complex derivative",
+        "char": 172,
+        "sentence": 4,
+        "sentence_text": "Every complex derivative in this video will be one of these stretch and turn moves."
+      }
+    ],
+    "03_1": [
+      {
+        "file": "two_planes.rs",
+        "line": 405,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 54,
+        "sentence": 1,
+        "sentence_text": "Its graph would need four dimensions."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 408,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 92,
+        "sentence": 2,
+        "sentence_text": "Instead, draw two planes side by side."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 419,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 131,
+        "sentence": 3,
+        "sentence_text": "The input plane on the left, the output plane on the right."
+      }
+    ],
+    "03_2": [
+      {
+        "file": "two_planes.rs",
+        "line": 433,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 21,
+        "sentence": 1,
+        "sentence_text": "Lengths multiply and angles add, so squaring squares each length and doubles each angle."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 438,
+        "call": "wait_for",
+        "value": "squares each length",
+        "char": 66,
+        "sentence": 1,
+        "sentence_text": "Lengths multiply and angles add, so squaring squares each length and doubles each angle."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 468,
+        "call": "wait_for",
+        "value": "doubles each angle",
+        "char": 90,
+        "sentence": 1,
+        "sentence_text": "Lengths multiply and angles add, so squaring squares each length and doubles each angle."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 483,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 110,
+        "sentence": 2,
+        "sentence_text": "Walk a point once around a circle of radius one half."
+      }
+    ],
+    "03_3": [],
+    "03_4": [
+      {
+        "file": "two_planes.rs",
+        "line": 618,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 4,
+        "sentence": 1,
+        "sentence_text": "Every vertical line off the axis bends into a parabola, and so does every horizontal one."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 619,
+        "call": "until",
+        "value": "The two axes fold",
+        "char": 94,
+        "sentence": 2,
+        "sentence_text": "The two axes fold in half instead."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 623,
+        "call": "until",
+        "value": "The horizontal axis lands",
+        "char": 129,
+        "sentence": 3,
+        "sentence_text": "The horizontal axis lands on the positive real ray, and the vertical axis on the negative one."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 630,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 129,
+        "sentence": 3,
+        "sentence_text": "The horizontal axis lands on the positive real ray, and the vertical axis on the negative one."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 636,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 224,
+        "sentence": 4,
+        "sentence_text": "But look where the curves cross."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 644,
+        "call": "wait_sentence",
+        "value": 5,
+        "char": 257,
+        "sentence": 5,
+        "sentence_text": "They still meet at right angles everywhere, except at zero."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 662,
+        "call": "wait_for",
+        "value": "except at zero",
+        "char": 301,
+        "sentence": 5,
+        "sentence_text": "They still meet at right angles everywhere, except at zero."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 664,
+        "call": "wait_sentence",
+        "value": 7,
+        "char": 336,
+        "sentence": 7,
+        "sentence_text": "It is the first sign of something rigid."
+      }
+    ],
+    "03_5": [
+      {
+        "file": "two_planes.rs",
+        "line": 683,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 32,
+        "sentence": 1,
+        "sentence_text": "Points near zero go far away, and far points come close."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 704,
+        "call": "until",
+        "value": "The unit circle",
+        "char": 89,
+        "sentence": 2,
+        "sentence_text": "The unit circle lands on itself as a whole, though each point flips across the horizontal axis."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 725,
+        "call": "wait_for",
+        "value": "each point flips",
+        "char": 140,
+        "sentence": 2,
+        "sentence_text": "The unit circle lands on itself as a whole, though each point flips across the horizontal axis."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 739,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 185,
+        "sentence": 3,
+        "sentence_text": "Inside and outside trade places."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 742,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 218,
+        "sentence": 4,
+        "sentence_text": "At zero itself there is no output at all."
+      }
+    ],
+    "03_6": [
+      {
+        "file": "two_planes.rs",
+        "line": 789,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 56,
+        "sentence": 1,
+        "sentence_text": "Moving right by one multiplies the output's length by e."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 804,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 113,
+        "sentence": 2,
+        "sentence_text": "Moving up turns the output, a full turn for every two pi you climb."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 825,
+        "call": "until",
+        "value": "So vertical lines",
+        "char": 181,
+        "sentence": 3,
+        "sentence_text": "So vertical lines become circles, and horizontal lines become rays from zero."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 827,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 181,
+        "sentence": 3,
+        "sentence_text": "So vertical lines become circles, and horizontal lines become rays from zero."
+      }
+    ],
+    "03_7": [
+      {
+        "file": "two_planes.rs",
+        "line": 874,
+        "call": "until",
+        "value": "The exponential repeats",
+        "char": 55,
+        "sentence": 1,
+        "sentence_text": "The exponential repeats as you climb, and it never reaches zero."
+      },
+      {
+        "file": "two_planes.rs",
+        "line": 888,
+        "call": "wait_for",
+        "value": "and it never reaches zero",
+        "char": 93,
+        "sentence": 1,
+        "sentence_text": "The exponential repeats as you climb, and it never reaches zero."
+      }
+    ],
+    "04_1": [
+      {
+        "file": "reading_color.rs",
+        "line": 218,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 45,
+        "sentence": 1,
+        "sentence_text": "To see a whole function at once, paint the input plane."
+      },
+      {
+        "file": "reading_color.rs",
+        "line": 226,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 101,
+        "sentence": 2,
+        "sentence_text": "At each input point, find the output, and colour the point by the output's direction."
+      },
+      {
+        "file": "reading_color.rs",
+        "line": 259,
+        "call": "wait_for",
+        "value": "Pointing right is red",
+        "char": 187,
+        "sentence": 3,
+        "sentence_text": "Pointing right is red.",
+        "note": "loop iteration 0"
+      },
+      {
+        "file": "reading_color.rs",
+        "line": 259,
+        "call": "wait_for",
+        "value": "Pointing up is yellow green",
+        "char": 210,
+        "sentence": 4,
+        "sentence_text": "Pointing up is yellow green.",
+        "note": "loop iteration 1"
+      },
+      {
+        "file": "reading_color.rs",
+        "line": 259,
+        "call": "wait_for",
+        "value": "Pointing left is teal",
+        "char": 239,
+        "sentence": 5,
+        "sentence_text": "Pointing left is teal, and pointing down is violet.",
+        "note": "loop iteration 2"
+      },
+      {
+        "file": "reading_color.rs",
+        "line": 259,
+        "call": "wait_for",
+        "value": "pointing down is violet",
+        "char": 266,
+        "sentence": 5,
+        "sentence_text": "Pointing left is teal, and pointing down is violet.",
+        "note": "loop iteration 3"
+      }
+    ],
+    "04_2": [
+      {
+        "file": "reading_color.rs",
+        "line": 270,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 42,
+        "sentence": 1,
+        "sentence_text": "So brightness climbs in bands."
+      },
+      {
+        "file": "reading_color.rs",
+        "line": 272,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 73,
+        "sentence": 2,
+        "sentence_text": "Each time the output's size grows by about one point seven, a new band begins."
+      },
+      {
+        "file": "reading_color.rs",
+        "line": 281,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 152,
+        "sentence": 3,
+        "sentence_text": "Thin dark lines also mark every twelfth of a turn in direction."
+      }
+    ],
+    "04_3": [
+      {
+        "file": "reading_color.rs",
+        "line": 297,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 12,
+        "sentence": 1,
+        "sentence_text": "Every colour appears twice around zero, because squaring doubles each angle."
+      },
+      {
+        "file": "reading_color.rs",
+        "line": 308,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 89,
+        "sentence": 2,
+        "sentence_text": "And the colours run around zero in the same order as the wheel itself."
+      }
+    ],
+    "04_4": [
+      {
+        "file": "reading_color.rs",
+        "line": 328,
+        "call": "until",
+        "value": "Once for a simple zero",
+        "char": 81,
+        "sentence": 1,
+        "sentence_text": "Once for a simple zero, twice for a zero of order two, and so on."
+      },
+      {
+        "file": "reading_color.rs",
+        "line": 330,
+        "call": "wait_for",
+        "value": "twice for a zero of order two",
+        "char": 105,
+        "sentence": 1,
+        "sentence_text": "Once for a simple zero, twice for a zero of order two, and so on."
+      },
+      {
+        "file": "reading_color.rs",
+        "line": 332,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 147,
+        "sentence": 2,
+        "sentence_text": "That is how to spot a zero, and its order, in a single glance."
+      }
+    ],
+    "04_5": [
+      {
+        "file": "reading_color.rs",
+        "line": 359,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 43,
+        "sentence": 1,
+        "sentence_text": "Around a pole, where the output blows up, the colours cycle backwards."
+      }
+    ],
+    "04_6": [],
+    "04_7": [
+      {
+        "file": "reading_color.rs",
+        "line": 411,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 60,
+        "sentence": 1,
+        "sentence_text": "And the circle of radius one around zero just touches them."
+      },
+      {
+        "file": "reading_color.rs",
+        "line": 428,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 120,
+        "sentence": 2,
+        "sentence_text": "That is the opening puzzle, seen in colour."
+      }
+    ],
+    "05_1": [
+      {
+        "file": "gallery.rs",
+        "line": 400,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 19,
+        "sentence": 1,
+        "sentence_text": "z cubed minus one has three zeros, evenly spaced on the unit circle."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 405,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 88,
+        "sentence": 2,
+        "sentence_text": "Far from zero, z cubed swamps the minus one, so a large loop sees the colours cycle three times."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 370,
+        "call": "until",
+        "value": "Three zeros inside",
+        "char": 185,
+        "sentence": 3,
+        "sentence_text": "Three zeros inside.",
+        "via": "walk_and_count called at gallery.rs:409",
+        "call_site_line": 409
+      }
+    ],
+    "05_2": [
+      {
+        "file": "gallery.rs",
+        "line": 434,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 96,
+        "sentence": 2,
+        "sentence_text": "A simple zero at one, and at minus one a pole of order two, where the colours run backwards twice."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 450,
+        "call": "wait_for",
+        "value": "and at minus one",
+        "char": 118,
+        "sentence": 2,
+        "sentence_text": "A simple zero at one, and at minus one a pole of order two, where the colours run backwards twice."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 370,
+        "call": "until",
+        "value": "backwards twice",
+        "char": 178,
+        "sentence": 2,
+        "sentence_text": "A simple zero at one, and at minus one a pole of order two, where the colours run backwards twice.",
+        "via": "walk_and_count called at gallery.rs:461",
+        "call_site_line": 461
+      }
+    ],
+    "05_3": [
+      {
+        "file": "gallery.rs",
+        "line": 492,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 52,
+        "sentence": 1,
+        "sentence_text": "Its direction depends only on height, and its size only on how far right you are."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 500,
+        "call": "wait_for",
+        "value": "and its size",
+        "char": 90,
+        "sentence": 1,
+        "sentence_text": "Its direction depends only on height, and its size only on how far right you are."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 509,
+        "call": "wait_for",
+        "value": "exact squares",
+        "char": 151,
+        "sentence": 2,
+        "sentence_text": "So its tiles are exact squares, repeating every two pi as you climb."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 512,
+        "call": "wait_for",
+        "value": "repeating every two pi",
+        "char": 166,
+        "sentence": 2,
+        "sentence_text": "So its tiles are exact squares, repeating every two pi as you climb."
+      }
+    ],
+    "05_4": [
+      {
+        "file": "gallery.rs",
+        "line": 565,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 75,
+        "sentence": 1,
+        "sentence_text": "On the real line it never passes one."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 573,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 113,
+        "sentence": 2,
+        "sentence_text": "But off the line it grows fast."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 581,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 145,
+        "sentence": 3,
+        "sentence_text": "Sine of i is about one point one eight i, and sine of three i is about ten i."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 608,
+        "call": "wait_for",
+        "value": "and sine of three i",
+        "char": 187,
+        "sentence": 3,
+        "sentence_text": "Sine of i is about one point one eight i, and sine of three i is about ten i.",
+        "note": "in a loop, source order"
+      }
+    ],
+    "05_5": [
+      {
+        "file": "gallery.rs",
+        "line": 623,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 29,
+        "sentence": 1,
+        "sentence_text": "Its zeros and poles alternate along the real line."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 628,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 80,
+        "sentence": 2,
+        "sentence_text": "Far above the line, tangent settles toward i, and far below toward minus i, so the colours there go flat."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 646,
+        "call": "wait_for",
+        "value": "and far below",
+        "char": 126,
+        "sentence": 2,
+        "sentence_text": "Far above the line, tangent settles toward i, and far below toward minus i, so the colours there go flat."
+      }
+    ],
+    "05_6": [
+      {
+        "file": "gallery.rs",
+        "line": 679,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 42,
+        "sentence": 1,
+        "sentence_text": "Gamma of n plus one is n factorial."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 699,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 78,
+        "sentence": 2,
+        "sentence_text": "It starts as an integral that only makes sense when the real part of z is positive."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 713,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 162,
+        "sentence": 3,
+        "sentence_text": "Yet the picture continues left, with a pole at zero, at minus one, at minus two, and on forever, and no zeros anywhere."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 719,
+        "call": "wait_for",
+        "value": "a pole at zero",
+        "char": 199,
+        "sentence": 3,
+        "sentence_text": "Yet the picture continues left, with a pole at zero, at minus one, at minus two, and on forever, and no zeros anywhere.",
+        "note": "loop iteration 0"
+      },
+      {
+        "file": "gallery.rs",
+        "line": 719,
+        "call": "wait_for",
+        "value": "at minus one",
+        "char": 215,
+        "sentence": 3,
+        "sentence_text": "Yet the picture continues left, with a pole at zero, at minus one, at minus two, and on forever, and no zeros anywhere.",
+        "note": "loop iteration 1"
+      },
+      {
+        "file": "gallery.rs",
+        "line": 719,
+        "call": "wait_for",
+        "value": "at minus two",
+        "char": 229,
+        "sentence": 3,
+        "sentence_text": "Yet the picture continues left, with a pole at zero, at minus one, at minus two, and on forever, and no zeros anywhere.",
+        "note": "loop iteration 2"
+      },
+      {
+        "file": "gallery.rs",
+        "line": 725,
+        "call": "wait_for",
+        "value": "and no zeros anywhere",
+        "char": 259,
+        "sentence": 3,
+        "sentence_text": "Yet the picture continues left, with a pole at zero, at minus one, at minus two, and on forever, and no zeros anywhere."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 728,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 282,
+        "sentence": 4,
+        "sentence_text": "Chapter fourteen shows how it gets there."
+      }
+    ],
+    "05_7": [
+      {
+        "file": "gallery.rs",
+        "line": 749,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 102,
+        "sentence": 1,
+        "sentence_text": "That sum only settles when the real part of s is bigger than one."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 756,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 168,
+        "sentence": 2,
+        "sentence_text": "The picture goes further."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 758,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 194,
+        "sentence": 3,
+        "sentence_text": "A single pole at one."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 763,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 216,
+        "sentence": 4,
+        "sentence_text": "Zeros at minus two, minus four, and on."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 780,
+        "call": "wait_sentence",
+        "value": 5,
+        "char": 256,
+        "sentence": 5,
+        "sentence_text": "And more zeros climbing the line where the real part is one half."
+      }
+    ],
+    "05_8": [
+      {
+        "file": "gallery.rs",
+        "line": 856,
+        "call": "wait_for",
+        "value": "is the Riemann hypothesis",
+        "char": 71,
+        "sentence": 1,
+        "sentence_text": "Whether all of them lie on it is the Riemann hypothesis, still unsolved."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 859,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 114,
+        "sentence": 2,
+        "sentence_text": "A picture cannot settle it."
+      }
+    ],
+    "05_9": [
+      {
+        "file": "gallery.rs",
+        "line": 913,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 32,
+        "sentence": 1,
+        "sentence_text": "Zeros and poles are isolated points."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 917,
+        "call": "wait_for",
+        "value": "in little tiles",
+        "char": 109,
+        "sentence": 2,
+        "sentence_text": "Between them, the colours flow smoothly in little tiles that are nearly square."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 955,
+        "call": "wait_for",
+        "value": "nearly square",
+        "char": 134,
+        "sentence": 2,
+        "sentence_text": "Between them, the colours flow smoothly in little tiles that are nearly square."
+      },
+      {
+        "file": "gallery.rs",
+        "line": 959,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 176,
+        "sentence": 4,
+        "sentence_text": "It comes from what a complex derivative demands."
+      }
+    ],
+    "06_1": [
+      {
+        "file": "one_derivative.rs",
+        "line": 235,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 124,
+        "sentence": 2,
+        "sentence_text": "Step from z by a small complex number h, and divide the change in the output by h."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 259,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 207,
+        "sentence": 3,
+        "sentence_text": "As h shrinks to zero, that ratio should settle on one complex number, the derivative."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 278,
+        "call": "until",
+        "value": "that ratio should settle",
+        "char": 229,
+        "sentence": 3,
+        "sentence_text": "As h shrinks to zero, that ratio should settle on one complex number, the derivative."
+      }
+    ],
+    "06_2": [
+      {
+        "file": "one_derivative.rs",
+        "line": 311,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 47,
+        "sentence": 1,
+        "sentence_text": "From the right, from above, along a spiral.",
+        "note": "in a loop, source order"
+      }
+    ],
+    "06_3": [
+      {
+        "file": "one_derivative.rs",
+        "line": 400,
+        "call": "wait_for",
+        "value": "the function moves",
+        "char": 80,
+        "sentence": 1,
+        "sentence_text": "If the ratio is the same number from every direction, then near z, the function moves every small arrow the same way."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 422,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 131,
+        "sentence": 2,
+        "sentence_text": "It multiplies it by the derivative."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 425,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 167,
+        "sentence": 3,
+        "sentence_text": "And multiplying by a complex number is a stretch and a turn."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 450,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 228,
+        "sentence": 4,
+        "sentence_text": "So a tiny square around z lands as a tiny square, bigger and turned, but still square."
+      }
+    ],
+    "06_4": [
+      {
+        "file": "one_derivative.rs",
+        "line": 474,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 154,
+        "sentence": 2,
+        "sentence_text": "Shrink the square, and its image gets ever closer to exactly that."
+      }
+    ],
+    "06_5": [
+      {
+        "file": "one_derivative.rs",
+        "line": 540,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 35,
+        "sentence": 1,
+        "sentence_text": "Call the output's parts u and v."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 543,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 68,
+        "sentence": 2,
+        "sentence_text": "Step to the right, and the ratio becomes how fast u and v change as x changes."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 554,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 147,
+        "sentence": 3,
+        "sentence_text": "Step up, by i times a small number, and you also divide by i, which turns the answer back a quarter turn."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 561,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 253,
+        "sentence": 4,
+        "sentence_text": "The two answers must agree."
+      }
+    ],
+    "06_6": [
+      {
+        "file": "one_derivative.rs",
+        "line": 576,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 26,
+        "sentence": 1,
+        "sentence_text": "The rate of u along x equals the rate of v along y."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 579,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 78,
+        "sentence": 2,
+        "sentence_text": "The rate of v along x is minus the rate of u along y."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 582,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 132,
+        "sentence": 3,
+        "sentence_text": "These are the Cauchy Riemann equations."
+      }
+    ],
+    "06_7": [
+      {
+        "file": "one_derivative.rs",
+        "line": 594,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 94,
+        "sentence": 1,
+        "sentence_text": "For squaring at one plus i, the four rates are two, minus two, two, and two."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 601,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 171,
+        "sentence": 2,
+        "sentence_text": "That grid is exactly multiplication by two plus two i."
+      }
+    ],
+    "06_8": [
+      {
+        "file": "one_derivative.rs",
+        "line": 633,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 22,
+        "sentence": 1,
+        "sentence_text": "Reflect the plane across the horizontal axis."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 656,
+        "call": "until",
+        "value": "It sends",
+        "char": 68,
+        "sentence": 2,
+        "sentence_text": "It sends x plus i y to x minus i y."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 660,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 68,
+        "sentence": 2,
+        "sentence_text": "It sends x plus i y to x minus i y."
+      }
+    ],
+    "06_9": [
+      {
+        "file": "one_derivative.rs",
+        "line": 669,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 9,
+        "sentence": 1,
+        "sentence_text": "Step to the right, and the ratio is one."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 678,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 50,
+        "sentence": 2,
+        "sentence_text": "Step up, and the ratio is minus one."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 687,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 87,
+        "sentence": 3,
+        "sentence_text": "A reflection reverses every little square, and no stretch and turn can do that."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 692,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 167,
+        "sentence": 4,
+        "sentence_text": "Squashing fails too."
+      },
+      {
+        "file": "one_derivative.rs",
+        "line": 711,
+        "call": "wait_sentence",
+        "value": 5,
+        "char": 188,
+        "sentence": 5,
+        "sentence_text": "Double every height, and squares become tall rectangles."
+      }
+    ],
+    "07_1": [
+      {
+        "file": "one_point.rs",
+        "line": 251,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 51,
+        "sentence": 1,
+        "sentence_text": "Squaring has derivative zero at zero."
+      },
+      {
+        "file": "one_point.rs",
+        "line": 254,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 89,
+        "sentence": 2,
+        "sentence_text": "Two lines crossing there at a right angle come out as two rays pointing in opposite directions."
+      },
+      {
+        "file": "one_point.rs",
+        "line": 315,
+        "call": "until",
+        "value": "The angle has doubled",
+        "char": 185,
+        "sentence": 3,
+        "sentence_text": "The angle has doubled, from a right angle to a straight line."
+      }
+    ],
+    "07_2": [
+      {
+        "file": "one_point.rs",
+        "line": 390,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 38,
+        "sentence": 1,
+        "sentence_text": "A map like that is called conformal."
+      },
+      {
+        "file": "one_point.rs",
+        "line": 392,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 75,
+        "sentence": 2,
+        "sentence_text": "A point where the derivative is zero is a critical point, and there angles get multiplied."
+      }
+    ],
+    "07_3": [
+      {
+        "file": "one_point.rs",
+        "line": 413,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 20,
+        "sentence": 1,
+        "sentence_text": "Take the function that sends z to the square of its length."
+      }
+    ],
+    "07_4": [
+      {
+        "file": "one_point.rs",
+        "line": 440,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 9,
+        "sentence": 1,
+        "sentence_text": "The ratio is the square of the length of h, divided by h."
+      },
+      {
+        "file": "one_point.rs",
+        "line": 456,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 67,
+        "sentence": 2,
+        "sentence_text": "Its size is the length of h, which shrinks to zero from every direction."
+      },
+      {
+        "file": "one_point.rs",
+        "line": 499,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 140,
+        "sentence": 3,
+        "sentence_text": "So the derivative at zero exists, and it is zero."
+      }
+    ],
+    "07_5": [
+      {
+        "file": "one_point.rs",
+        "line": 530,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 23,
+        "sentence": 1,
+        "sentence_text": "Step right, and the ratio heads to two."
+      },
+      {
+        "file": "one_point.rs",
+        "line": 546,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 63,
+        "sentence": 2,
+        "sentence_text": "Step up, and it heads to zero."
+      },
+      {
+        "file": "one_point.rs",
+        "line": 564,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 94,
+        "sentence": 3,
+        "sentence_text": "This function has a complex derivative at exactly one point in the whole plane, and that buys almost nothing."
+      },
+      {
+        "file": "one_point.rs",
+        "line": 570,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 204,
+        "sentence": 4,
+        "sentence_text": "Multiply it by any bounded function at all, smooth or jagged, and the product still has derivative zero at zero."
+      },
+      {
+        "file": "one_point.rs",
+        "line": 637,
+        "call": "wait_for",
+        "value": "and the product",
+        "char": 266,
+        "sentence": 4,
+        "sentence_text": "Multiply it by any bounded function at all, smooth or jagged, and the product still has derivative zero at zero."
+      }
+    ],
+    "07_6": [
+      {
+        "file": "one_point.rs",
+        "line": 676,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 36,
+        "sentence": 1,
+        "sentence_text": "They need the derivative to exist at every point of an open region, so that around each point there is a small disk where it works everywhere."
+      },
+      {
+        "file": "one_point.rs",
+        "line": 745,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 179,
+        "sentence": 2,
+        "sentence_text": "A function like that is called holomorphic on the region."
+      },
+      {
+        "file": "one_point.rs",
+        "line": 749,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 237,
+        "sentence": 3,
+        "sentence_text": "From here on, every claim carries that condition."
+      }
+    ],
+    "08_1": [
+      {
+        "file": "loop_sums.rs",
+        "line": 313,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 52,
+        "sentence": 1,
+        "sentence_text": "Walk around a loop in small steps."
+      },
+      {
+        "file": "loop_sums.rs",
+        "line": 316,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 87,
+        "sentence": 2,
+        "sentence_text": "At each step, take the function's value there, and multiply it by the step, as a complex number."
+      },
+      {
+        "file": "loop_sums.rs",
+        "line": 330,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 184,
+        "sentence": 3,
+        "sentence_text": "Then add all those products."
+      },
+      {
+        "file": "loop_sums.rs",
+        "line": 333,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 213,
+        "sentence": 4,
+        "sentence_text": "As the steps shrink, the total is the contour integral around the loop."
+      }
+    ],
+    "08_2": [
+      {
+        "file": "loop_sums.rs",
+        "line": 413,
+        "call": "until",
+        "value": "The total is zero",
+        "char": 145,
+        "sentence": 2,
+        "sentence_text": "The total is zero."
+      },
+      {
+        "file": "loop_sums.rs",
+        "line": 428,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 145,
+        "sentence": 2,
+        "sentence_text": "The total is zero."
+      }
+    ],
+    "08_3": [
+      {
+        "file": "loop_sums.rs",
+        "line": 455,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 16,
+        "sentence": 1,
+        "sentence_text": "At each step, dividing by z undoes the turn of the step's position, and what is left points straight up."
+      },
+      {
+        "file": "loop_sums.rs",
+        "line": 465,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 121,
+        "sentence": 2,
+        "sentence_text": "The arrows stack into a column."
+      },
+      {
+        "file": "loop_sums.rs",
+        "line": 486,
+        "call": "until",
+        "value": "As the steps shrink",
+        "char": 153,
+        "sentence": 3,
+        "sentence_text": "As the steps shrink, the total becomes two pi i, whatever the size of the circle."
+      },
+      {
+        "file": "loop_sums.rs",
+        "line": 488,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 153,
+        "sentence": 3,
+        "sentence_text": "As the steps shrink, the total becomes two pi i, whatever the size of the circle."
+      },
+      {
+        "file": "loop_sums.rs",
+        "line": 507,
+        "call": "wait_for",
+        "value": "whatever the size",
+        "char": 202,
+        "sentence": 3,
+        "sentence_text": "As the steps shrink, the total becomes two pi i, whatever the size of the circle."
+      }
+    ],
+    "08_4": [
+      {
+        "file": "loop_sums.rs",
+        "line": 576,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 41,
+        "sentence": 1,
+        "sentence_text": "The arrows always close up.",
+        "note": "in a loop, source order"
+      },
+      {
+        "file": "loop_sums.rs",
+        "line": 582,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 69,
+        "sentence": 2,
+        "sentence_text": "Only one over z survives, and that single fact powers most of what follows."
+      }
+    ],
+    "08_5": [
+      {
+        "file": "loop_sums.rs",
+        "line": 611,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 28,
+        "sentence": 1,
+        "sentence_text": "If a function is holomorphic on a loop and everywhere inside it, its loop integral is zero."
+      },
+      {
+        "file": "loop_sums.rs",
+        "line": 636,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 138,
+        "sentence": 3,
+        "sentence_text": "Cut the inside into tiny squares."
+      },
+      {
+        "file": "loop_sums.rs",
+        "line": 646,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 172,
+        "sentence": 4,
+        "sentence_text": "Around each one, the function is almost a constant plus a stretch and turn, and those integrate to zero."
+      },
+      {
+        "file": "loop_sums.rs",
+        "line": 659,
+        "call": "wait_sentence",
+        "value": 5,
+        "char": 277,
+        "sentence": 5,
+        "sentence_text": "Neighbouring squares walk their shared edge in opposite directions, so the inner edges cancel, and only the outer loop is left."
+      },
+      {
+        "file": "loop_sums.rs",
+        "line": 667,
+        "call": "wait_for",
+        "value": "so the inner edges cancel",
+        "char": 345,
+        "sentence": 5,
+        "sentence_text": "Neighbouring squares walk their shared edge in opposite directions, so the inner edges cancel, and only the outer loop is left."
+      },
+      {
+        "file": "loop_sums.rs",
+        "line": 672,
+        "call": "wait_for",
+        "value": "only the outer loop is left",
+        "char": 376,
+        "sentence": 5,
+        "sentence_text": "Neighbouring squares walk their shared edge in opposite directions, so the inner edges cancel, and only the outer loop is left."
+      }
+    ],
+    "09_1": [
+      {
+        "file": "boundary.rs",
+        "line": 183,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 20,
+        "sentence": 1,
+        "sentence_text": "Take a function holomorphic on a disk and a little beyond its edge, and divide it by z minus a, where a is the centre."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 204,
+        "call": "wait_for",
+        "value": "divide it by",
+        "char": 92,
+        "sentence": 1,
+        "sentence_text": "Take a function holomorphic on a disk and a little beyond its edge, and divide it by z minus a, where a is the centre."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 207,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 139,
+        "sentence": 2,
+        "sentence_text": "Near a, that quotient looks like f of a, times one over z minus a."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 218,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 206,
+        "sentence": 3,
+        "sentence_text": "The rest is holomorphic, and integrates to zero."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 230,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 255,
+        "sentence": 4,
+        "sentence_text": "So the loop integral is two pi i times f of a."
+      }
+    ],
+    "09_2": [
+      {
+        "file": "boundary.rs",
+        "line": 241,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 57,
+        "sentence": 1,
+        "sentence_text": "The value at the centre is the average of the values on the circle."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 245,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 125,
+        "sentence": 2,
+        "sentence_text": "This is Cauchy's integral formula."
+      }
+    ],
+    "09_3": [
+      {
+        "file": "boundary.rs",
+        "line": 293,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 64,
+        "sentence": 1,
+        "sentence_text": "Eight sample points already average to within half a percent of one, which is the bump's value at zero."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 308,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 168,
+        "sentence": 2,
+        "sentence_text": "With sixteen samples, it is off by about fifteen millionths."
+      }
+    ],
+    "09_4": [
+      {
+        "file": "boundary.rs",
+        "line": 329,
+        "call": "wait_sentence",
+        "value": 0,
+        "char": 0,
+        "sentence": 0,
+        "sentence_text": "Now take a circle of radius two."
+      }
+    ],
+    "09_5": [
+      {
+        "file": "boundary.rs",
+        "line": 364,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 12,
+        "sentence": 1,
+        "sentence_text": "The bigger circle has swallowed the poles at i and minus i, where the bump is not holomorphic."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 373,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 107,
+        "sentence": 2,
+        "sentence_text": "Each pole pulls the average down by one half."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 402,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 153,
+        "sentence": 3,
+        "sentence_text": "The formula only holds when the function is holomorphic out to the circle and a little beyond."
+      }
+    ],
+    "09_6": [
+      {
+        "file": "boundary.rs",
+        "line": 482,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 47,
+        "sentence": 1,
+        "sentence_text": "Turn each sample back by its own angle, average, and divide by the radius."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 487,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 122,
+        "sentence": 2,
+        "sentence_text": "That gives the slope at the centre."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 498,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 158,
+        "sentence": 3,
+        "sentence_text": "Turn back by twice the angle and divide by the radius squared, and you get the next coefficient of the recipe."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 514,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 269,
+        "sentence": 4,
+        "sentence_text": "Every derivative at the centre is hidden in the boundary values."
+      }
+    ],
+    "09_7": [
+      {
+        "file": "boundary.rs",
+        "line": 598,
+        "call": "wait_for",
+        "value": "the largest disk",
+        "char": 84,
+        "sentence": 0,
+        "sentence_text": "Those coefficients build a power series, and Cauchy's formula shows it converges on the largest disk around the centre where the function stays holomorphic."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 615,
+        "call": "until",
+        "value": "That answers",
+        "char": 157,
+        "sentence": 1,
+        "sentence_text": "That answers the opening puzzle."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 619,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 190,
+        "sentence": 2,
+        "sentence_text": "The bump is holomorphic everywhere except at i and minus i."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 633,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 250,
+        "sentence": 3,
+        "sentence_text": "From zero they are one unit away, so the recipe works out to radius one, and since the bump blows up at i, no further."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 651,
+        "call": "wait_for",
+        "value": "no further",
+        "char": 357,
+        "sentence": 3,
+        "sentence_text": "From zero they are one unit away, so the recipe works out to radius one, and since the bump blows up at i, no further."
+      }
+    ],
+    "09_8": [],
+    "09_9": [
+      {
+        "file": "boundary.rs",
+        "line": 719,
+        "call": "until",
+        "value": "So the new recipe",
+        "char": 55,
+        "sentence": 1,
+        "sentence_text": "So the new recipe works from about minus point four one to about two point four one."
+      },
+      {
+        "file": "boundary.rs",
+        "line": 752,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 140,
+        "sentence": 2,
+        "sentence_text": "A computer check of sixty terms agrees."
+      }
+    ],
+    "10_1": [
+      {
+        "file": "rigidity.rs",
+        "line": 191,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 94,
+        "sentence": 2,
+        "sentence_text": "If they agree along any little curve, they agree everywhere."
+      },
+      {
+        "file": "rigidity.rs",
+        "line": 214,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 155,
+        "sentence": 3,
+        "sentence_text": "Even agreeing on a sequence of points that piles up at a point inside the region is enough."
+      }
+    ],
+    "10_2": [
+      {
+        "file": "rigidity.rs",
+        "line": 245,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 67,
+        "sentence": 1,
+        "sentence_text": "Both sides are holomorphic on the whole plane, and they agree along the real line."
+      },
+      {
+        "file": "rigidity.rs",
+        "line": 262,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 150,
+        "sentence": 2,
+        "sentence_text": "So the identity holds for every complex number, even where sine and cosine are huge."
+      },
+      {
+        "file": "rigidity.rs",
+        "line": 282,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 235,
+        "sentence": 3,
+        "sentence_text": "At three i, sine squared is about minus one hundred, cosine squared is about one hundred and one, and they still add to one."
+      }
+    ],
+    "10_3": [
+      {
+        "file": "rigidity.rs",
+        "line": 358,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 45,
+        "sentence": 1,
+        "sentence_text": "This curve is exactly zero for every negative x, then rises smoothly."
+      },
+      {
+        "file": "rigidity.rs",
+        "line": 360,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 115,
+        "sentence": 2,
+        "sentence_text": "It agrees with zero on a whole half line, yet it is not zero."
+      },
+      {
+        "file": "rigidity.rs",
+        "line": 370,
+        "call": "wait_for",
+        "value": "yet it is not zero",
+        "char": 157,
+        "sentence": 2,
+        "sentence_text": "It agrees with zero on a whole half line, yet it is not zero."
+      },
+      {
+        "file": "rigidity.rs",
+        "line": 372,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 177,
+        "sentence": 3,
+        "sentence_text": "Every derivative exists at zero, and every one is zero, so its power series misses the curve completely."
+      }
+    ],
+    "10_4": [
+      {
+        "file": "rigidity.rs",
+        "line": 461,
+        "call": "wait_for",
+        "value": "one over pi",
+        "char": 30,
+        "sentence": 0,
+        "sentence_text": "Sine of one over z is zero at one over pi, one over two pi, one over three pi, and so on."
+      },
+      {
+        "file": "rigidity.rs",
+        "line": 465,
+        "call": "wait_for",
+        "value": "one over two pi",
+        "char": 43,
+        "sentence": 0,
+        "sentence_text": "Sine of one over z is zero at one over pi, one over two pi, one over three pi, and so on."
+      },
+      {
+        "file": "rigidity.rs",
+        "line": 467,
+        "call": "wait_for",
+        "value": "one over three pi",
+        "char": 60,
+        "sentence": 0,
+        "sentence_text": "Sine of one over z is zero at one over pi, one over two pi, one over three pi, and so on."
+      },
+      {
+        "file": "rigidity.rs",
+        "line": 469,
+        "call": "wait_for",
+        "value": "and so on",
+        "char": 79,
+        "sentence": 0,
+        "sentence_text": "Sine of one over z is zero at one over pi, one over two pi, one over three pi, and so on."
+      },
+      {
+        "file": "rigidity.rs",
+        "line": 471,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 90,
+        "sentence": 1,
+        "sentence_text": "Those zeros pile up at zero."
+      }
+    ],
+    "10_5": [
+      {
+        "file": "rigidity.rs",
+        "line": 478,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 4,
+        "sentence": 1,
+        "sentence_text": "The pile up point is zero, and zero is not in the region, because the function is undefined there."
+      },
+      {
+        "file": "rigidity.rs",
+        "line": 492,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 103,
+        "sentence": 2,
+        "sentence_text": "The theorem needs the pile up point inside the region."
+      }
+    ],
+    "10_6": [
+      {
+        "file": "rigidity.rs",
+        "line": 535,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 39,
+        "sentence": 1,
+        "sentence_text": "A function holomorphic on the whole plane that stays bounded must be constant."
+      },
+      {
+        "file": "rigidity.rs",
+        "line": 541,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 118,
+        "sentence": 2,
+        "sentence_text": "That is Liouville's theorem."
+      },
+      {
+        "file": "rigidity.rs",
+        "line": 543,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 147,
+        "sentence": 3,
+        "sentence_text": "It is why sine, trapped between minus one and one on the real line, must grow huge somewhere else."
+      },
+      {
+        "file": "rigidity.rs",
+        "line": 552,
+        "call": "wait_for",
+        "value": "must grow huge",
+        "char": 215,
+        "sentence": 3,
+        "sentence_text": "It is why sine, trapped between minus one and one on the real line, must grow huge somewhere else."
+      }
+    ],
+    "11_1": [
+      {
+        "file": "counting.rs",
+        "line": 207,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 81,
+        "sentence": 2,
+        "sentence_text": "Around a simple zero, the output makes one full turn, the same way you walk.",
+        "note": "loop iteration 0"
+      },
+      {
+        "file": "counting.rs",
+        "line": 226,
+        "call": "sentence",
+        "value": 3,
+        "char": 158,
+        "sentence": 3,
+        "sentence_text": "Around a zero of order two, it makes two.",
+        "note": "loop iteration 0"
+      },
+      {
+        "file": "counting.rs",
+        "line": 207,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 158,
+        "sentence": 3,
+        "sentence_text": "Around a zero of order two, it makes two.",
+        "note": "loop iteration 1"
+      },
+      {
+        "file": "counting.rs",
+        "line": 226,
+        "call": "sentence",
+        "value": 4,
+        "char": 200,
+        "sentence": 4,
+        "sentence_text": "Around a simple pole, it makes one turn the other way.",
+        "note": "loop iteration 1"
+      },
+      {
+        "file": "counting.rs",
+        "line": 207,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 200,
+        "sentence": 4,
+        "sentence_text": "Around a simple pole, it makes one turn the other way.",
+        "note": "loop iteration 2"
+      }
+    ],
+    "11_2": [
+      {
+        "file": "counting.rs",
+        "line": 244,
+        "call": "sentence",
+        "value": 1,
+        "char": 50,
+        "sentence": 1,
+        "sentence_text": "So the number of turns equals the zeros inside minus the poles inside, each counted by its order."
+      },
+      {
+        "file": "counting.rs",
+        "line": 255,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 50,
+        "sentence": 1,
+        "sentence_text": "So the number of turns equals the zeros inside minus the poles inside, each counted by its order."
+      },
+      {
+        "file": "counting.rs",
+        "line": 259,
+        "call": "wait_for",
+        "value": "each counted",
+        "char": 121,
+        "sentence": 1,
+        "sentence_text": "So the number of turns equals the zeros inside minus the poles inside, each counted by its order."
+      },
+      {
+        "file": "counting.rs",
+        "line": 281,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 148,
+        "sentence": 2,
+        "sentence_text": "This is the argument principle."
+      },
+      {
+        "file": "counting.rs",
+        "line": 284,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 180,
+        "sentence": 3,
+        "sentence_text": "It needs a loop that winds once counterclockwise, passes through no zero or pole, and a function that is holomorphic inside except at poles."
+      },
+      {
+        "file": "counting.rs",
+        "line": 288,
+        "call": "wait_for",
+        "value": "It needs",
+        "char": 180,
+        "sentence": 3,
+        "sentence_text": "It needs a loop that winds once counterclockwise, passes through no zero or pole, and a function that is holomorphic inside except at poles.",
+        "note": "loop iteration 0"
+      },
+      {
+        "file": "counting.rs",
+        "line": 288,
+        "call": "wait_for",
+        "value": "passes through",
+        "char": 230,
+        "sentence": 3,
+        "sentence_text": "It needs a loop that winds once counterclockwise, passes through no zero or pole, and a function that is holomorphic inside except at poles.",
+        "note": "loop iteration 1"
+      },
+      {
+        "file": "counting.rs",
+        "line": 288,
+        "call": "wait_for",
+        "value": "and a function",
+        "char": 262,
+        "sentence": 3,
+        "sentence_text": "It needs a loop that winds once counterclockwise, passes through no zero or pole, and a function that is holomorphic inside except at poles.",
+        "note": "loop iteration 2"
+      }
+    ],
+    "11_3": [
+      {
+        "file": "counting.rs",
+        "line": 332,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 91,
+        "sentence": 1,
+        "sentence_text": "A circle of radius zero point eight encloses only the zero, and the output turns once."
+      },
+      {
+        "file": "counting.rs",
+        "line": 353,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 178,
+        "sentence": 2,
+        "sentence_text": "Grow the circle to one point seven, and it encloses both."
+      },
+      {
+        "file": "counting.rs",
+        "line": 378,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 302,
+        "sentence": 4,
+        "sentence_text": "The count is always a net total."
+      }
+    ],
+    "11_4": [
+      {
+        "file": "counting.rs",
+        "line": 420,
+        "call": "wait_sentence",
+        "value": 0,
+        "char": 0,
+        "sentence": 0,
+        "sentence_text": "At radius one point three five exactly, the loop runs through the pole, and the output shoots off to infinity."
+      },
+      {
+        "file": "counting.rs",
+        "line": 1148,
+        "call": "until",
+        "value": "There the count",
+        "char": 111,
+        "sentence": 1,
+        "sentence_text": "There the count has no meaning.",
+        "via": "approach_pole called at counting.rs:422",
+        "call_site_line": 422
+      },
+      {
+        "file": "counting.rs",
+        "line": 423,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 111,
+        "sentence": 1,
+        "sentence_text": "There the count has no meaning."
+      }
+    ],
+    "11_5": [],
+    "11_6": [
+      {
+        "file": "counting.rs",
+        "line": 474,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 74,
+        "sentence": 2,
+        "sentence_text": "On that circle, the minus three z term is always bigger than the other two terms combined, so the output follows minus three z, which turns once."
+      }
+    ],
+    "11_7": [
+      {
+        "file": "counting.rs",
+        "line": 525,
+        "call": "wait_for",
+        "value": "complex polynomial",
+        "char": 45,
+        "sentence": 0,
+        "sentence_text": "The same trick proves that every nonconstant complex polynomial has roots."
+      },
+      {
+        "file": "counting.rs",
+        "line": 529,
+        "call": "sentence",
+        "value": 1,
+        "char": 75,
+        "sentence": 1,
+        "sentence_text": "Divide by its leading coefficient, which leaves its roots unchanged."
+      },
+      {
+        "file": "counting.rs",
+        "line": 532,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 75,
+        "sentence": 1,
+        "sentence_text": "Divide by its leading coefficient, which leaves its roots unchanged."
+      },
+      {
+        "file": "counting.rs",
+        "line": 536,
+        "call": "until",
+        "value": "which leaves",
+        "char": 110,
+        "sentence": 1,
+        "sentence_text": "Divide by its leading coefficient, which leaves its roots unchanged."
+      },
+      {
+        "file": "counting.rs",
+        "line": 554,
+        "call": "wait_for",
+        "value": "with z",
+        "char": 158,
+        "sentence": 2,
+        "sentence_text": "Now it starts with z to the n, for some positive integer n."
+      },
+      {
+        "file": "counting.rs",
+        "line": 563,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 204,
+        "sentence": 3,
+        "sentence_text": "On a huge circle, z to the n dwarfs the other terms."
+      },
+      {
+        "file": "counting.rs",
+        "line": 571,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 257,
+        "sentence": 4,
+        "sentence_text": "Picture z to the n as a walker going n times around zero, and the polynomial as a dog on a leash."
+      },
+      {
+        "file": "counting.rs",
+        "line": 573,
+        "call": "sentence",
+        "value": 6,
+        "char": 451,
+        "sentence": 6,
+        "sentence_text": "So there are exactly n roots inside, counted by order."
+      }
+    ],
+    "11_8": [
+      {
+        "file": "counting.rs",
+        "line": 792,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 71,
+        "sentence": 2,
+        "sentence_text": "Walk the loop in small steps, add up the change in the output's angle at each step, and divide by a full turn.",
+        "via": "coarse_loop called at counting.rs:600",
+        "call_site_line": 600
+      },
+      {
+        "file": "counting.rs",
+        "line": 814,
+        "call": "until",
+        "value": "But samples",
+        "char": 182,
+        "sentence": 3,
+        "sentence_text": "But samples alone can miss a turn made quickly between them.",
+        "via": "coarse_loop called at counting.rs:600",
+        "call_site_line": 600
+      },
+      {
+        "file": "counting.rs",
+        "line": 838,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 182,
+        "sentence": 3,
+        "sentence_text": "But samples alone can miss a turn made quickly between them.",
+        "via": "coarse_loop called at counting.rs:600",
+        "call_site_line": 600
+      },
+      {
+        "file": "counting.rs",
+        "line": 880,
+        "call": "until",
+        "value": "So bound",
+        "char": 243,
+        "sentence": 4,
+        "sentence_text": "So bound how fast f can change on the loop, and take steps so small that the output cannot move as far as its distance from zero.",
+        "via": "coarse_loop called at counting.rs:600",
+        "call_site_line": 600
+      },
+      {
+        "file": "counting.rs",
+        "line": 898,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 243,
+        "sentence": 4,
+        "sentence_text": "So bound how fast f can change on the loop, and take steps so small that the output cannot move as far as its distance from zero.",
+        "via": "coarse_loop called at counting.rs:600",
+        "call_site_line": 600
+      },
+      {
+        "file": "counting.rs",
+        "line": 937,
+        "call": "wait_for",
+        "value": "take steps",
+        "char": 291,
+        "sentence": 4,
+        "sentence_text": "So bound how fast f can change on the loop, and take steps so small that the output cannot move as far as its distance from zero.",
+        "via": "coarse_loop called at counting.rs:600",
+        "call_site_line": 600
+      },
+      {
+        "file": "counting.rs",
+        "line": 970,
+        "call": "wait_for",
+        "value": "cannot move",
+        "char": 327,
+        "sentence": 4,
+        "sentence_text": "So bound how fast f can change on the loop, and take steps so small that the output cannot move as far as its distance from zero.",
+        "via": "coarse_loop called at counting.rs:600",
+        "call_site_line": 600
+      },
+      {
+        "file": "counting.rs",
+        "line": 996,
+        "call": "sentence",
+        "value": 5,
+        "char": 373,
+        "sentence": 5,
+        "sentence_text": "Then no turn can hide between samples, and the count is certain.",
+        "via": "coarse_loop called at counting.rs:600",
+        "call_site_line": 600
+      },
+      {
+        "file": "counting.rs",
+        "line": 1002,
+        "call": "wait_sentence",
+        "value": 5,
+        "char": 373,
+        "sentence": 5,
+        "sentence_text": "Then no turn can hide between samples, and the count is certain.",
+        "via": "coarse_loop called at counting.rs:600",
+        "call_site_line": 600
+      }
+    ],
+    "12_1": [
+      {
+        "file": "residues.rs",
+        "line": 133,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 44,
+        "sentence": 1,
+        "sentence_text": "Near a pole, a function looks like a few negative powers of z minus p, plus something holomorphic."
+      },
+      {
+        "file": "residues.rs",
+        "line": 144,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 143,
+        "sentence": 2,
+        "sentence_text": "Around a small loop, all of those terms integrate to zero, except one over z minus p."
+      },
+      {
+        "file": "residues.rs",
+        "line": 172,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 229,
+        "sentence": 3,
+        "sentence_text": "Its coefficient is called the residue."
+      }
+    ],
+    "12_2": [
+      {
+        "file": "residues.rs",
+        "line": 237,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 69,
+        "sentence": 1,
+        "sentence_text": "That is the residue theorem."
+      },
+      {
+        "file": "residues.rs",
+        "line": 239,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 98,
+        "sentence": 2,
+        "sentence_text": "For a simple pole of g over h, where h is zero but its derivative is not, the residue is g over the derivative of h, both at the pole."
+      },
+      {
+        "file": "residues.rs",
+        "line": 244,
+        "call": "wait_for",
+        "value": "the residue is",
+        "char": 172,
+        "sentence": 2,
+        "sentence_text": "For a simple pole of g over h, where h is zero but its derivative is not, the residue is g over the derivative of h, both at the pole."
+      }
+    ],
+    "12_3": [
+      {
+        "file": "residues.rs",
+        "line": 265,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 39,
+        "sentence": 1,
+        "sentence_text": "Near a zero of order m, f prime over f has residue m."
+      },
+      {
+        "file": "residues.rs",
+        "line": 275,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 93,
+        "sentence": 2,
+        "sentence_text": "Near a pole of order n, its residue is minus n.",
+        "note": "in a loop, source order"
+      }
+    ],
+    "12_4": [
+      {
+        "file": "residues.rs",
+        "line": 338,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 77,
+        "sentence": 1,
+        "sentence_text": "At i, that is two i."
+      },
+      {
+        "file": "residues.rs",
+        "line": 343,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 98,
+        "sentence": 2,
+        "sentence_text": "So the residue of the bump at i is one over two i."
+      }
+    ],
+    "13_1": [
+      {
+        "file": "real_integral.rs",
+        "line": 301,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 21,
+        "sentence": 1,
+        "sentence_text": "What is the area under the bump, along the whole real line?"
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 304,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 112,
+        "sentence": 3,
+        "sentence_text": "The antiderivative is the arctangent, and the area is pi."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 308,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 170,
+        "sentence": 4,
+        "sentence_text": "Here is a second way, with no antiderivative at all."
+      }
+    ],
+    "13_10": [
+      {
+        "file": "real_integral.rs",
+        "line": 748,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 21,
+        "sentence": 1,
+        "sentence_text": "On it, the function is at most one over R to the fourth minus one, so that part is at most pi R over R to the fourth minus one."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 751,
+        "call": "wait_for",
+        "value": "so that part",
+        "char": 88,
+        "sentence": 1,
+        "sentence_text": "On it, the function is at most one over R to the fourth minus one, so that part is at most pi R over R to the fourth minus one."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 778,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 149,
+        "sentence": 2,
+        "sentence_text": "At R equals ten, that is already less than one three hundredth."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 787,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 213,
+        "sentence": 3,
+        "sentence_text": "A numerical sum along the real line agrees with pi over the square root of two."
+      }
+    ],
+    "13_11": [
+      {
+        "file": "real_integral.rs",
+        "line": 806,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 17,
+        "sentence": 1,
+        "sentence_text": "The real integral converges on its own, because the function falls off fast in both directions."
+      }
+    ],
+    "13_2": [
+      {
+        "file": "real_integral.rs",
+        "line": 339,
+        "call": "until",
+        "value": "then come back",
+        "char": 44,
+        "sentence": 0,
+        "sentence_text": "Walk along the real line from minus R to R, then come back along a big half circle above it."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 342,
+        "call": "until",
+        "value": "Inside this loop",
+        "char": 93,
+        "sentence": 1,
+        "sentence_text": "Inside this loop sits one pole, at i."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 348,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 93,
+        "sentence": 1,
+        "sentence_text": "Inside this loop sits one pole, at i."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 361,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 131,
+        "sentence": 2,
+        "sentence_text": "So the loop integral is two pi i, times one over two i."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 364,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 187,
+        "sentence": 3,
+        "sentence_text": "That is exactly pi."
+      }
+    ],
+    "13_3": [
+      {
+        "file": "real_integral.rs",
+        "line": 436,
+        "call": "until",
+        "value": "so the bump",
+        "char": 52,
+        "sentence": 0,
+        "sentence_text": "On the half circle, z squared has length R squared, so the bump is at most one over R squared minus one."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 440,
+        "call": "wait_for",
+        "value": "so the bump",
+        "char": 52,
+        "sentence": 0,
+        "sentence_text": "On the half circle, z squared has length R squared, so the bump is at most one over R squared minus one."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 446,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 105,
+        "sentence": 1,
+        "sentence_text": "The half circle has length pi R."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 453,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 138,
+        "sentence": 2,
+        "sentence_text": "So that part of the loop is at most pi R over R squared minus one, which shrinks to zero as R grows."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 488,
+        "call": "wait_for",
+        "value": "which shrinks",
+        "char": 205,
+        "sentence": 2,
+        "sentence_text": "So that part of the loop is at most pi R over R squared minus one, which shrinks to zero as R grows."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 498,
+        "call": "until",
+        "value": "All of pi",
+        "char": 239,
+        "sentence": 3,
+        "sentence_text": "All of pi comes from the real line."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 554,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 239,
+        "sentence": 3,
+        "sentence_text": "All of pi comes from the real line."
+      }
+    ],
+    "13_4": [
+      {
+        "file": "real_integral.rs",
+        "line": 590,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 19,
+        "sentence": 1,
+        "sentence_text": "One over one plus x to the fourth."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 593,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 54,
+        "sentence": 2,
+        "sentence_text": "Its antiderivative exists, but it looks like this."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 599,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 105,
+        "sentence": 3,
+        "sentence_text": "Instead, use the same loop."
+      }
+    ],
+    "13_5": [
+      {
+        "file": "real_integral.rs",
+        "line": 621,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 58,
+        "sentence": 1,
+        "sentence_text": "They sit on the unit circle at forty five, one hundred thirty five, two hundred twenty five and three hundred fifteen degrees."
+      }
+    ],
+    "13_6": [
+      {
+        "file": "real_integral.rs",
+        "line": 648,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 29,
+        "sentence": 1,
+        "sentence_text": "Call them p one and p two."
+      }
+    ],
+    "13_7": [
+      {
+        "file": "real_integral.rs",
+        "line": 658,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 103,
+        "sentence": 1,
+        "sentence_text": "Because p to the fourth is minus one, one over p cubed is minus p."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 661,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 170,
+        "sentence": 2,
+        "sentence_text": "So each residue is minus p over four."
+      }
+    ],
+    "13_8": [
+      {
+        "file": "real_integral.rs",
+        "line": 683,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 13,
+        "sentence": 1,
+        "sentence_text": "The real parts of p one and p two cancel, and each has imaginary part the square root of two over two."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 694,
+        "call": "wait_for",
+        "value": "each has imaginary part",
+        "char": 59,
+        "sentence": 1,
+        "sentence_text": "The real parts of p one and p two cancel, and each has imaginary part the square root of two over two."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 697,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 116,
+        "sentence": 2,
+        "sentence_text": "So the residues add to minus i times the square root of two, over four."
+      }
+    ],
+    "13_9": [
+      {
+        "file": "real_integral.rs",
+        "line": 724,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 22,
+        "sentence": 1,
+        "sentence_text": "The two i's make minus one, which cancels the minus sign, and the area is pi over the square root of two."
+      },
+      {
+        "file": "real_integral.rs",
+        "line": 727,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 128,
+        "sentence": 2,
+        "sentence_text": "About two point two two."
+      }
+    ],
+    "14_1": [
+      {
+        "file": "continuing.rs",
+        "line": 280,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 39,
+        "sentence": 1,
+        "sentence_text": "Is the bump itself stuck inside that circle?"
+      },
+      {
+        "file": "continuing.rs",
+        "line": 285,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 84,
+        "sentence": 2,
+        "sentence_text": "Of course not."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 287,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 99,
+        "sentence": 3,
+        "sentence_text": "We know it everywhere."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 310,
+        "call": "wait_sentence",
+        "value": 5,
+        "char": 204,
+        "sentence": 5,
+        "sentence_text": "This is called analytic continuation."
+      }
+    ],
+    "14_2": [
+      {
+        "file": "continuing.rs",
+        "line": 327,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 64,
+        "sentence": 1,
+        "sentence_text": "Inside the unit circle it adds up to one over one minus z."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 332,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 123,
+        "sentence": 2,
+        "sentence_text": "At one half, the sums settle on two."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 363,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 160,
+        "sentence": 3,
+        "sentence_text": "At one point two, they grow without limit."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 393,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 203,
+        "sentence": 4,
+        "sentence_text": "But one over one minus z makes perfect sense at one point two."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 397,
+        "call": "wait_sentence",
+        "value": 5,
+        "char": 266,
+        "sentence": 5,
+        "sentence_text": "It equals minus five."
+      }
+    ],
+    "14_3": [
+      {
+        "file": "continuing.rs",
+        "line": 449,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 119,
+        "sentence": 1,
+        "sentence_text": "Two extensions that agree on the small disk agree everywhere in that region."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 464,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 242,
+        "sentence": 3,
+        "sentence_text": "Re-centre the series at a point inside the disk, and its new disk pokes outside the old one."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 478,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 335,
+        "sentence": 4,
+        "sentence_text": "Chain disks along a path, and you can walk all the way around the pole at one."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 509,
+        "call": "wait_sentence",
+        "value": 5,
+        "char": 414,
+        "sentence": 5,
+        "sentence_text": "Each step along the path is forced.",
+        "note": "in a loop, source order"
+      },
+      {
+        "file": "continuing.rs",
+        "line": 515,
+        "call": "wait_sentence",
+        "value": 6,
+        "char": 450,
+        "sentence": 6,
+        "sentence_text": "Here every path gives back one over one minus z, but that is not always so."
+      }
+    ],
+    "14_4": [],
+    "14_5": [
+      {
+        "file": "continuing.rs",
+        "line": 539,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 22,
+        "sentence": 1,
+        "sentence_text": "The partial sums grow without limit."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 551,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 59,
+        "sentence": 2,
+        "sentence_text": "The continued function equals minus one at two, but that is a value of the function, not a sum of the series."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 566,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 169,
+        "sentence": 3,
+        "sentence_text": "Continuation extends the function."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 569,
+        "call": "wait_sentence",
+        "value": 5,
+        "char": 248,
+        "sentence": 5,
+        "sentence_text": "The same goes for the famous claim that one plus two plus three, and so on, equals minus one twelfth."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 572,
+        "call": "wait_sentence",
+        "value": 6,
+        "char": 350,
+        "sentence": 6,
+        "sentence_text": "Minus one twelfth is the value of the continued zeta function at minus one."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 582,
+        "call": "wait_sentence",
+        "value": 7,
+        "char": 426,
+        "sentence": 7,
+        "sentence_text": "The sum itself diverges."
+      }
+    ],
+    "14_6": [
+      {
+        "file": "continuing.rs",
+        "line": 621,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 53,
+        "sentence": 2,
+        "sentence_text": "Start with the square root near one, where it is one."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 659,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 107,
+        "sentence": 3,
+        "sentence_text": "Carry it continuously once around zero."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 660,
+        "call": "until",
+        "value": "When you come back",
+        "char": 147,
+        "sentence": 4,
+        "sentence_text": "When you come back, it has become minus one."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 672,
+        "call": "wait_sentence",
+        "value": 5,
+        "char": 192,
+        "sentence": 5,
+        "sentence_text": "The logarithm does the same, gaining two pi i each time around."
+      }
+    ],
+    "14_7": [
+      {
+        "file": "continuing.rs",
+        "line": 688,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 56,
+        "sentence": 2,
+        "sentence_text": "This series adds z, z squared, z to the fourth, z to the eighth, and on, doubling the power each time."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 705,
+        "call": "wait_for",
+        "value": "near a dense set",
+        "char": 200,
+        "sentence": 3,
+        "sentence_text": "It converges inside the unit circle, but near a dense set of points on the edge it blows up."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 725,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 252,
+        "sentence": 4,
+        "sentence_text": "No continuation can cross the circle anywhere."
+      }
+    ],
+    "14_8": [
+      {
+        "file": "continuing.rs",
+        "line": 751,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 65,
+        "sentence": 1,
+        "sentence_text": "Gamma's integral only works to the right of the vertical line through zero."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 762,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 141,
+        "sentence": 2,
+        "sentence_text": "But gamma of z equals gamma of z plus one, divided by z."
+      },
+      {
+        "file": "continuing.rs",
+        "line": 765,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 198,
+        "sentence": 3,
+        "sentence_text": "Use that to step left, one strip at a time, and each step adds a new pole, at zero, minus one, minus two, and on."
+      }
+    ],
+    "15_1": [
+      {
+        "file": "closing.rs",
+        "line": 253,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 35,
+        "sentence": 1,
+        "sentence_text": "Its recipe stopped at one because of two points we could not see from the line, at i and minus i."
+      },
+      {
+        "file": "closing.rs",
+        "line": 257,
+        "call": "wait_for",
+        "value": "because of two points",
+        "char": 61,
+        "sentence": 1,
+        "sentence_text": "Its recipe stopped at one because of two points we could not see from the line, at i and minus i."
+      },
+      {
+        "file": "closing.rs",
+        "line": 276,
+        "call": "wait_for",
+        "value": "at i and minus i",
+        "char": 115,
+        "sentence": 1,
+        "sentence_text": "Its recipe stopped at one because of two points we could not see from the line, at i and minus i."
+      }
+    ],
+    "15_2": [
+      {
+        "file": "closing.rs",
+        "line": 321,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 39,
+        "sentence": 1,
+        "sentence_text": "The complex derivative must be the same from every direction."
+      },
+      {
+        "file": "closing.rs",
+        "line": 329,
+        "call": "wait_sentence",
+        "value": 2,
+        "char": 101,
+        "sentence": 2,
+        "sentence_text": "On an open region, that makes every small piece of the map a stretch and a turn.",
+        "note": "in a loop, source order"
+      },
+      {
+        "file": "closing.rs",
+        "line": 330,
+        "call": "wait_sentence",
+        "value": 3,
+        "char": 182,
+        "sentence": 3,
+        "sentence_text": "It lets boundary values decide the inside.",
+        "note": "in a loop, source order"
+      },
+      {
+        "file": "closing.rs",
+        "line": 331,
+        "call": "wait_sentence",
+        "value": 4,
+        "char": 225,
+        "sentence": 4,
+        "sentence_text": "It lets a loop count zeros and poles, and it turns a real integral into a sum of residues.",
+        "note": "in a loop, source order"
+      },
+      {
+        "file": "closing.rs",
+        "line": 332,
+        "call": "wait_for",
+        "value": "and it turns a real integral",
+        "char": 263,
+        "sentence": 4,
+        "sentence_text": "It lets a loop count zeros and poles, and it turns a real integral into a sum of residues.",
+        "note": "in a loop, source order"
+      },
+      {
+        "file": "closing.rs",
+        "line": 333,
+        "call": "wait_sentence",
+        "value": 5,
+        "char": 316,
+        "sentence": 5,
+        "sentence_text": "It allows at most one extension to a given connected region, though there may be none, and along different paths a continuation can branch.",
+        "note": "in a loop, source order"
+      }
+    ],
+    "15_3": [
+      {
+        "file": "closing.rs",
+        "line": 389,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 31,
+        "sentence": 1,
+        "sentence_text": "Centre the bump's recipe at x equals three."
+      }
+    ],
+    "15_4": [
+      {
+        "file": "closing.rs",
+        "line": 414,
+        "call": "wait_for",
+        "value": "the square root of ten",
+        "char": 41,
+        "sentence": 0,
+        "sentence_text": "To the poles at i and minus i, which are the square root of ten away."
+      },
+      {
+        "file": "closing.rs",
+        "line": 455,
+        "call": "wait_sentence",
+        "value": 1,
+        "char": 70,
+        "sentence": 1,
+        "sentence_text": "About three point one six in each direction."
+      }
+    ]
+  },
+  "limits": [
+    "Source text only: not compiled, not run by Cargo or Clippy, not rendered, not synthesised, not heard.",
+    "Hook positions are characters in the cue text. Times are estimates until Oliver word marks exist.",
+    "Reading and prediction seconds are authored pauses in source, not measurements.",
+    "Not independent: BronzeJaguar wrote parts of these scenes and earlier repairs."
+  ]
+}

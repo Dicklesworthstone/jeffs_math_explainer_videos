@@ -1,0 +1,48 @@
+{
+  "reason": "attempt04 engine-test04 exit 101: slow_sink_budget_refusal round 1 returned Stage{0, Emit, Emitter(ReservationAbandoned{1})}; frame 1's refusal lost to first-wins in fmn-runtime's coordinator (R1)",
+  "integrated_by": "RubyRaven, independent reviewer and integrator; root's Mail 3643 authorized review, integration on verified source bindings and attempt05 from engine-lint after White's seal",
+  "sealed_bundle": {
+    "folder": "engine-budget-error-precedence02 (WhiteSwan, sealed 2026-11-05T03:01:17Z, Mail 3660)",
+    "SHA256SUMS": "fb8441be4bcfb37b71d608b87fc291b1b5f1504d04750b43e60c53824b00c016",
+    "engine-budget-error-precedence.patch": "3546a7d43d4d208c490a8dc31909fa96f51d7c8182f17253f272c2a7de2f8adc",
+    "expected-engine.sha256": "0311124858441800b18fe5769b3e236a87585f7c6c665d265c4c35e2c0b4a964",
+    "baseline-engine.sha256": "6be7c3983a6f44e5523b45fd1f5513a86c26fae896f1edf85c240b0a73018196",
+    "HANDOFF.md": "70f5001e2e29fd0f79630080175ecd9d816783af7e3bb9e917480e0455acfa43"
+  },
+  "review": {
+    "draft": "Mail 3664: source reading against the attempt04 stage bytes; no defect found. The refused frame's own completion always arrives (final drain), awaiting_cause is set only for a first failure, emitter and pipeline sequences are the same value, a sink failure is recorded under the drain's lock before waiters wake and names no frame, counters are unchanged; every cross-crate name and signature the six tests use exists",
+    "sealed_delta": "patch, expected, baseline and checks are byte-identical to the reviewed draft; only HANDOFF.md was reworded (687b4182 -> 70f5001e)",
+    "regression_strength": "slow_sink_budget_refusal keeps ROUNDS = 8 and its 8 assert lines; only comments and one panic message change"
+  },
+  "runner_change": {
+    "preserved": "before-r1-run_validation.py, sha256 4ac53f38f41616471a3eea76eee974fb48aeeb3db6f4d0f0154ae2e0ad12d490 (the attempt04 runner)",
+    "now": "run_validation.py, sha256 14617a224701637bda77c2e6b44a025efaa7f5f3e89e2b30d8e799b5b57ec2dd",
+    "edits": [
+      "STACK gains a fifth entry: White's sealed R1 patch and expected hashes, read in place",
+      "engine-lint Clippy -D warnings adds -p fmn-runtime (all targets), so the changed coordinator and its new tests are linted",
+      "engine-build adds cargo test -p fmn-runtime --no-run",
+      "engine-test adds the whole cargo test -p fmn-runtime --no-fail-fast, which must report its 3 new tests ok by name; the fmn library tests (F1's and R1's 3) each run alone, filtered by name, with must = that name",
+      "self-test: 29 tests, 2 ignored (unchanged names), 4 in fmn's library, 3 in fmn-runtime's"
+    ],
+    "unchanged": "guard, caps, lane, job order, every assertion, every other job and command"
+  },
+  "stage_change": {
+    "method": "git apply of the sealed patch on the stage engine, after the bundle's SHA256SUMS, baseline-engine.sha256 and git apply --check passed; expected-engine.sha256 OK after; no .rej or .orig",
+    "preserved": {
+      "manifests/before-r1-fmn-runtime-pipeline.rs": "83b3324636c5a0d5b3b54be9b97e411fb744a84a962c1a7b2afa106d88d06845",
+      "manifests/before-r1-fmn-rendering-pipeline.rs": "2e4df1ca1ef0b67cfb694ffcacbada5e8630be5f20bc0ee9810fa37ddd72b079",
+      "manifests/before-r1-slow_sink_budget_refusal.rs": "80148eb6582c3f2092d3f4a6eb8ffc1bd053c5b26c15fd165f91f162181c2876"
+    },
+    "pixels": "pixels/combined (written by engine-test04, 20 frames, equal to pixels/combined-attempt04) moved aside as pixels/combined-attempt04-written, so attempt05 writes a fresh folder; base and all attempt03/04 copies untouched"
+  },
+  "inputs": "inputs06.tsv (sha256 20cd2acd0cf333c1d8fdde7f01c8f1b2dcb88d7d6d3b61f4d28072ef39cd1bd6) is inputs05.tsv's 328 rows unchanged plus the two sealed R1 rows, 330 rows; every non-source input matched it before launch",
+  "checks_before_launch": [
+    "a fresh copy of root's unpatched fmn, fmn-render and fmn-runtime equals the stage's manifests/unpatched.json (12 files), and its fmn-runtime pipeline.rs equals R1's sealed baseline and the stage's before-copy",
+    "the runner's own apply_stack on that copy applies all five entries, each matching its sealed hashes; a second call changes nothing (15 files)",
+    "the stage equals that fresh replay in all 15 stack files, so apply_stack returns at once on the stage",
+    "run_validation.py --self-test: passed",
+    "no validation tmux session or process remained and no process held the lane lock"
+  ],
+  "not_added": "White's optional fmn-conformance --test frame_pipeline / --test ordered_emitter and an fmn-python portal build: the hook is a provided method with a default, so other implementors compile unchanged; engine-fronts still checks fmn-cli and fmn-conformance's library. Root may add them.",
+  "not_checked": "compile, Clippy and the tests themselves: they run in attempt05"
+}

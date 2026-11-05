@@ -1,0 +1,33 @@
+-- baseline
+  PASS stage crates/fmn-runtime/src/pipeline.rs is the baseline 83b3324636c5
+  PASS stage crates/fmn/src/rendering/pipeline.rs is the baseline 2e4df1ca1ef0
+  PASS stage crates/fmn/tests/slow_sink_budget_refusal.rs is the baseline 80148eb6582c
+  PASS stage crates/fmn/src/rendering.rs carries sealed F1 d213a338cbec
+  PASS stage crates/fmn/src/rendering/compiled.rs carries sealed F1 326a704821b3
+  PASS stage crates/fmn/tests/slow_sink_budget_refusal.rs carries sealed F1 80148eb6582c
+  PASS F1 bundle HANDOFF.md unchanged
+  PASS F1 bundle baseline-engine.sha256 unchanged
+  PASS F1 bundle checks/source-checks.out unchanged
+  PASS F1 bundle checks/source_checks.py unchanged
+  PASS F1 bundle engine-budget-error-propagation.patch unchanged
+  PASS F1 bundle expected-engine.sha256 unchanged
+-- replay
+  PASS git apply --check exit 0 
+  PASS patch -p1 exit 0: patching file crates/fmn-runtime/src/pipeline.rs / patching file crates/fmn/src/rendering/pipeline.rs / patching file crates/fmn/tests/slow_sink_budget_refusal.rs
+  PASS patched crates/fmn-runtime/src/pipeline.rs is c4d546ffdf64
+  PASS patched crates/fmn/src/rendering/pipeline.rs is 7a79bfafd008
+  PASS patched crates/fmn/tests/slow_sink_budget_refusal.rs is 92802f8fecf4
+  PASS no .rej or .orig files
+-- regression strength
+  PASS slow-sink test: outside comments only the panic message changes (281 code lines)
+  PASS slow-sink test keeps its 8 assert lines
+  PASS slow-sink test keeps 8 rounds
+  hook definitions: crates/fmn-runtime/src/pipeline.rs:156, crates/fmn-runtime/src/pipeline.rs:2493, crates/fmn/src/rendering/pipeline.rs:301, crates/fmn/src/rendering/pipeline.rs:874
+  PASS 4 hook definitions: the runtime default, the facade, and one test stage each
+  PASS one coordinator constructor call
+  PASS error, panic and disconnection of a frame go through fail_frame
+-- rustfmt (format only)
+  rustfmt 1.10.0-nightly (9085017724 2026-08-30)
+  PASS rustfmt --check (runner flags) on 3 files exit 0
+
+RESULT PASS

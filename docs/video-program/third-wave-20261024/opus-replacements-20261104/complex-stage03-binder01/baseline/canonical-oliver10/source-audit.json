@@ -1,0 +1,5641 @@
+{
+  "schema_version": 1,
+  "topic": "complex_analysis_visual",
+  "claim": "Text audit of Rust source. Uncompiled, unrendered. No take, duration, listening or acceptance.",
+  "script_sha256": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e",
+  "map_version": "oliver10",
+  "sources": [
+    {
+      "path": "explainer_corpus/complex_analysis_visual/script.tsv",
+      "sha256": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/docs/storyboard.md",
+      "sha256": "be30f73484bd69cb3654121c0aec46e59b651ee783f8d85a4227426612db07ff"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/main.rs",
+      "sha256": "dcc3e6281e42f7bbc6f0b068122d9086547a0f75221b1652eebe3278946327c1"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs",
+      "sha256": "328d2acbc247eccc090340b825cc6764582ebe4337a8dc20089ea9fa001e1b59"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+      "sha256": "65ba58acfb383e706bdeb7fb2d949335272ceb1f031b662ffdbab531cd36c19e"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+      "sha256": "088034785bc2588f9517d15218889f061d0b2de10fd64b363af50f1c7480b2be"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+      "sha256": "0ecda9cf1bfa26ed385b94b92b9316c786186f20ee01fcdda33524d6c81ae5b1"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+      "sha256": "4eba4bb18b989ac7075519031913ad4974e471a495a56a80fde4f796d9159545"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs",
+      "sha256": "6f310eb739ec3e5e6a085de42e31dd2be27b9c95dff3e82953530efacf1fed02"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs",
+      "sha256": "cf383504cdc80652acf4dacf13ba6b99cc6c679cb859749618dd559ab95f695d"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+      "sha256": "57c46d67161490cbadc96e9ccad6ae6eb821c54d4bd257f3233735792a529b5e"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs",
+      "sha256": "b67231d94cafe4f5e93b103b3ed7179e5008aeb63c9a64f2abe5777b44fe5981"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs",
+      "sha256": "43b6f1c323c5f71506e618bdcec5dec71ddc302c24e604186259fb026963e80c"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs",
+      "sha256": "dc98bcee3fc0c5b43fa7fc8601bf4a397dc508bfbd2574e4c809c0ad7d7572d0"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs",
+      "sha256": "906d4bd803b12031555ae79ff3062b0d65044aa275b5cd9f55507dddce2d82bb"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/residues.rs",
+      "sha256": "575675bcb6aa236d51bd4745a2246056b877deecae0c9367251396a08f5c176b"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/rigidity.rs",
+      "sha256": "c577e2c02049aa468f2d5c3ad935d74004b5e321901a2cd73c1f1f54c1b0187e"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/the_bump.rs",
+      "sha256": "8e93012e5b7598b9a99ffcdb07e436341f052d1175455f5581e108ee86e6ddb3"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/thumbnail.rs",
+      "sha256": "5d90834bba4b0d6acf8f3c437ca66dab046f1c4823e3b773616f4d4d665c2c65"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/turning.rs",
+      "sha256": "2b4dd9a1e41e5e484e243d0fad0c5d4f3d66f92247d6a75104828989361e0e32"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs",
+      "sha256": "d8f547c95cef1dda2d15e5512934b5412929fdf575f658ea69c8a3e29e291361"
+    }
+  ],
+  "kit_sources": [
+    {
+      "path": "crates/explainer_kit/src/kit.rs",
+      "sha256": "ef035faf236498e7485fb60a66d862b383e1a5040fa17962e1633596ed99e106",
+      "definitions": [
+        {
+          "line": 290,
+          "marker": "pub fn say(&self, stage: &mut Stage<'_>, id: &str) -> fmn::Result<()> {"
+        },
+        {
+          "line": 304,
+          "marker": "pub fn hold(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {"
+        },
+        {
+          "line": 201,
+          "marker": "pub fn finish(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {"
+        },
+        {
+          "line": 345,
+          "marker": "pub fn music_breath(&self, stage: &mut Stage<'_>, seconds: f64) -> fmn::Result<()> {"
+        },
+        {
+          "line": 356,
+          "marker": "pub fn listen(&self, stage: &mut Stage<'_>, seconds: f64, label: &str) -> fmn::Result<()> {"
+        }
+      ]
+    },
+    {
+      "path": "crates/explainer_kit/src/narration.rs",
+      "sha256": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8",
+      "definitions": [
+        {
+          "line": 1135,
+          "marker": "fn gap_before(&self, next: &str) -> f64 {"
+        },
+        {
+          "line": 1164,
+          "marker": "pub fn hold(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {"
+        },
+        {
+          "line": 1182,
+          "marker": "pub fn say(&self, stage: &mut Stage<'_>, id: &str) -> fmn::Result<()> {"
+        },
+        {
+          "line": 1268,
+          "marker": "pub fn music_breath(&self, stage: &mut Stage<'_>, seconds: f64) -> fmn::Result<()> {"
+        },
+        {
+          "line": 1274,
+          "marker": "pub fn listen(&self, stage: &mut Stage<'_>, seconds: f64, label: &str) -> fmn::Result<()> {"
+        },
+        {
+          "line": 1302,
+          "marker": "fn window(&self, stage: &mut Stage<'_>, seconds: f64, label: Option<&str>) -> fmn::Result<()> {"
+        }
+      ]
+    }
+  ],
+  "kit_breath_s": 0.6,
+  "crate_line_gaps": "Constant",
+  "counts": {
+    "cues": 105,
+    "units": 105,
+    "chapters": 15,
+    "say_calls": 105,
+    "non_literal_say_arguments": 0,
+    "words_total": 4623,
+    "words_max": 98,
+    "cues_over_90_words": [
+      "14_3"
+    ],
+    "adjacent_pairs_over_100_words": 27,
+    "predict_calls": 13,
+    "predicts_rows": 13,
+    "prediction_holds": 13,
+    "reading_holds": 10,
+    "reading_windows_total_s": 57.0,
+    "reading_windows_by_chapter_s": {
+      "04": 7.5,
+      "05": 3.5,
+      "07": 4.5,
+      "08": 5.0,
+      "09": 3.0,
+      "10": 8.5,
+      "11": 14.5,
+      "13": 5.0,
+      "14": 5.5
+    },
+    "music_breath_calls": 16,
+    "music_breath_cues": 15,
+    "timing_calls_in_chapter_construct": {
+      "finish": 15,
+      "helper": 6,
+      "hold": 70,
+      "music_breath": 16,
+      "names_now": 12,
+      "pause": 7,
+      "precisely_lifted": 1,
+      "precisely_now": 8,
+      "precisely_over": 1,
+      "predict": 13,
+      "reading_window": 10,
+      "sentence": 3,
+      "until": 19,
+      "wait_for": 45,
+      "wait_sentence": 229,
+      "wait_until": 56
+    },
+    "storyboard_hold_column": {
+      "": 70,
+      "hold": 12,
+      "listen 4 s": 1,
+      "listen 5 s": 9,
+      "listen 6 s": 3,
+      "read 3 s": 1,
+      "read 3.5 s": 1,
+      "read 4.5 s": 1,
+      "read 5 s, hold": 2,
+      "read 5.5 s": 1,
+      "read 7 s": 1,
+      "read 7.5 s": 1,
+      "read 7.5 s, hold": 1,
+      "read 8.5 s": 1
+    },
+    "sentence_rule_mismatches": []
+  },
+  "meanings": {
+    "predict": "Native prediction window after the cue: no narration; the picture waits. Not silence in the take.",
+    "reading_window": "Native reading window after the cue: the voice ends, then the kit's breath, then the authored seconds with the card or panel up and nothing drawn or cleared. Not silence in the take; a proposed pause, not a measured reading time. On a chapter's last cue the closing music breath follows with the card still up.",
+    "kit.music_breath": "Native music window after the cue: no narration; the score plays alone. Not silence in the take.",
+    "kit.hold": "Native wait for the voice to end plus the kit's breath. Not authored for reading or thinking.",
+    "kit.finish": "Calls kit.hold, then closes the chapter.",
+    "wait_until(line.end())": "The picture waits for the voice to end. No time is added after it.",
+    "wait_for / wait_sentence / until / sentence": "Lands a picture on words while the voice runs. Word moments are estimates until takes are aligned.",
+    "pause": "A picture beat placed before the cue's voice-end wait in source order. Whether the voice is still running then needs measured takes."
+  },
+  "draw_helpers": {
+    "say_forward": {
+      "line": 94,
+      "marker": "kit.say(stage, id)?;"
+    },
+    "predict": [
+      {
+        "line": 877,
+        "call": "wait_last",
+        "marker": "line.wait_last(stage)?;"
+      },
+      {
+        "line": 880,
+        "call": "hold",
+        "marker": "kit.hold(stage)?;"
+      },
+      {
+        "line": 881,
+        "call": "mark",
+        "marker": "kit.mark(stage, \"predict\");"
+      },
+      {
+        "line": 911,
+        "call": "listen",
+        "marker": "kit.listen(stage, seconds, &format!(\"{}:{}\", kit.chapter, line.id))?;"
+      },
+      {
+        "line": 912,
+        "call": "wait_until",
+        "marker": "wait_until(stage, start + seconds)?;"
+      }
+    ],
+    "reading_window": [
+      {
+        "line": 931,
+        "call": "wait_until",
+        "marker": "wait_until(stage, line.end())?;"
+      },
+      {
+        "line": 932,
+        "call": "hold",
+        "marker": "kit.hold(stage)?;"
+      },
+      {
+        "line": 933,
+        "call": "pause",
+        "marker": "pause(stage, seconds)"
+      }
+    ]
+  },
+  "non_literal_wait_arguments": [
+    {
+      "file": "counting.rs",
+      "lines": [
+        215
+      ],
+      "call": "let until = if i < 2 { line.sentence(i + 3)? } else { line.end() };",
+      "resolved_from": "for (i, (f, name)) in [Func::Identity, Func::Square, Func::Recip]",
+      "values": [
+        3,
+        4
+      ],
+      "note": "i runs over the three functions; the third walk lands on line.end()."
+    },
+    {
+      "file": "counting.rs",
+      "lines": [
+        277
+      ],
+      "call": "line.wait_for(stage, NEEDS_SAID[i])?;",
+      "resolved_from": "const NEEDS_SAID: [&str; 3] = [\"It needs\", \"passes through\", \"and a function\"];",
+      "values": [
+        "It needs",
+        "passes through",
+        "and a function"
+      ],
+      "note": null
+    },
+    {
+      "file": "counting.rs",
+      "lines": [
+        196
+      ],
+      "call": "line.wait_sentence(stage, i + 2)?;",
+      "resolved_from": "for (i, (f, name)) in [Func::Identity, Func::Square, Func::Recip]",
+      "values": [
+        2,
+        3,
+        4
+      ],
+      "note": null
+    },
+    {
+      "file": "gallery.rs",
+      "lines": [
+        345
+      ],
+      "call": "let rt = line.until(stage, phrase, 2.5)?;",
+      "resolved_from": "fn walk_and_count(",
+      "values": {
+        "05_1": [
+          "Three zeros inside"
+        ],
+        "05_2": [
+          "backwards twice"
+        ]
+      },
+      "note": "walk_and_count's phrase: a literal at each of its two calls in construct, one per cue."
+    },
+    {
+      "file": "gallery.rs",
+      "lines": [
+        690
+      ],
+      "call": "line.wait_for(stage, phrase)?;",
+      "resolved_from": "let named = [\"a pole at zero\", \"at minus one\", \"at minus two\"];",
+      "values": [
+        "a pole at zero",
+        "at minus one",
+        "at minus two"
+      ],
+      "note": null
+    },
+    {
+      "file": "reading_color.rs",
+      "lines": [
+        170
+      ],
+      "call": "line.wait_for(stage, phrase)?;",
+      "resolved_from": "(\"pointing down is violet\", 3.0 * FRAC_PI_2),",
+      "values": [
+        "Pointing right is red",
+        "Pointing up is yellow green",
+        "Pointing left is teal",
+        "pointing down is violet"
+      ],
+      "note": "NAMED's four phrases, zipped with the four direction names."
+    },
+    {
+      "file": "the_bump.rs",
+      "lines": [
+        179
+      ],
+      "call": "line.wait_for(stage, phrase)?;",
+      "resolved_from": "for (deg, phrase) in [(4.0, \"plus x to the fourth\"), (6.0, \"minus x to the sixth\")] {",
+      "values": [
+        "plus x to the fourth",
+        "minus x to the sixth"
+      ],
+      "note": null
+    }
+  ],
+  "post_voice_beats": [
+    {
+      "file": "closing.rs",
+      "cue": "15_1",
+      "call": "pause(stage, 1.0)?;",
+      "why": "The film's first picture, answered: a moment before the wipe."
+    },
+    {
+      "file": "closing.rs",
+      "cue": "15_2",
+      "call": "pause(stage, 1.2)?;",
+      "why": "The finished recap strip: a moment before it goes."
+    }
+  ],
+  "prediction_holds": [
+    {
+      "cue": "01_4",
+      "next_cue": "01_5",
+      "window_s_in_source": 5.0,
+      "predicts_line": 32,
+      "predicts_marker": "(\"01_4\", 5.0),",
+      "file": "the_bump.rs",
+      "call_line": 245,
+      "call_marker": "let asked = predict(&kit, stage, &line, &ASK, v(4.9, 3.0))?;",
+      "question": "So what stops the recipe at exactly one?",
+      "timing_calls_between_predict_and_next_say": 0
+    },
+    {
+      "cue": "02_5",
+      "next_cue": "02_6",
+      "window_s_in_source": 5.0,
+      "predicts_line": 33,
+      "predicts_marker": "(\"02_5\", 5.0),",
+      "file": "turning.rs",
+      "call_line": 384,
+      "call_marker": "let asked = predict(&kit, stage, &line, &ASK, v(COLUMN, -1.0))?;",
+      "question": "Which number is one plus i, squared?",
+      "timing_calls_between_predict_and_next_say": 0
+    },
+    {
+      "cue": "03_3",
+      "next_cue": "03_4",
+      "window_s_in_source": 4.0,
+      "predicts_line": 34,
+      "predicts_marker": "(\"03_3\", 4.0),",
+      "file": "two_planes.rs",
+      "call_line": 494,
+      "call_marker": "let asked = predict(&kit, stage, &line, &ASK, out.p(C::new(0.0, 0.4)))?;",
+      "question": "After squaring, will the vertical lines stay straight?",
+      "timing_calls_between_predict_and_next_say": 0
+    },
+    {
+      "cue": "04_6",
+      "next_cue": "04_7",
+      "window_s_in_source": 5.0,
+      "predicts_line": 35,
+      "predicts_marker": "(\"04_6\", 5.0),",
+      "file": "reading_color.rs",
+      "call_line": 279,
+      "call_marker": "let asked = predict(&kit, stage, &line, &ASK, v(right - 0.15, 0.75))?;",
+      "question": "Before the colours appear, where do you expect its poles, and how many times will the colours turn around each one?",
+      "timing_calls_between_predict_and_next_say": 0
+    },
+    {
+      "cue": "06_8",
+      "next_cue": "06_9",
+      "window_s_in_source": 5.0,
+      "predicts_line": 36,
+      "predicts_marker": "(\"06_8\", 5.0),",
+      "file": "one_derivative.rs",
+      "call_line": 650,
+      "call_marker": "let asked = predict(&kit, stage, &line, &ASK, v(4.2, 2.4))?;",
+      "question": "Does it have a complex derivative anywhere?",
+      "timing_calls_between_predict_and_next_say": 0
+    },
+    {
+      "cue": "07_3",
+      "next_cue": "07_4",
+      "window_s_in_source": 5.0,
+      "predicts_line": 37,
+      "predicts_marker": "(\"07_3\", 5.0),",
+      "file": "one_point.rs",
+      "call_line": 430,
+      "call_marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 0.6))?;",
+      "question": "At zero, does it have a complex derivative?",
+      "timing_calls_between_predict_and_next_say": 0
+    },
+    {
+      "cue": "09_4",
+      "next_cue": "09_5",
+      "window_s_in_source": 5.0,
+      "predicts_line": 38,
+      "predicts_marker": "(\"09_4\", 5.0),",
+      "file": "boundary.rs",
+      "call_line": 337,
+      "call_marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, -2.0))?;",
+      "question": "Is the average around this bigger circle still one?",
+      "timing_calls_between_predict_and_next_say": 0
+    },
+    {
+      "cue": "09_8",
+      "next_cue": "09_9",
+      "window_s_in_source": 6.0,
+      "predicts_line": 39,
+      "predicts_marker": "(\"09_8\", 6.0),",
+      "file": "boundary.rs",
+      "call_line": 681,
+      "call_marker": "let asked = predict(&kit, stage, &line, &ASK_RECENTRE, v(3.9, 2.2))?;",
+      "question": "How far along the real line will it work now?",
+      "timing_calls_between_predict_and_next_say": 0
+    },
+    {
+      "cue": "10_4",
+      "next_cue": "10_5",
+      "window_s_in_source": 5.0,
+      "predicts_line": 40,
+      "predicts_marker": "(\"10_4\", 5.0),",
+      "file": "rigidity.rs",
+      "call_line": 473,
+      "call_marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 0.9))?;",
+      "question": "Must the function be zero everywhere?",
+      "timing_calls_between_predict_and_next_say": 0
+    },
+    {
+      "cue": "11_5",
+      "next_cue": "11_6",
+      "window_s_in_source": 6.0,
+      "predicts_line": 41,
+      "predicts_marker": "(\"11_5\", 6.0),",
+      "file": "counting.rs",
+      "call_line": 429,
+      "call_marker": "let asked = predict(&kit, stage, &line, &ASK, v(ASK_AT.0, ASK_AT.1))?;",
+      "question": "How many of them lie inside the unit circle?",
+      "timing_calls_between_predict_and_next_say": 0
+    },
+    {
+      "cue": "13_5",
+      "next_cue": "13_6",
+      "window_s_in_source": 5.0,
+      "predicts_line": 42,
+      "predicts_marker": "(\"13_5\", 5.0),",
+      "file": "real_integral.rs",
+      "call_line": 593,
+      "call_marker": "let asked = predict(&kit, stage, &line, &ASK, v(right, 1.2))?;",
+      "question": "Which ones lie inside the half circle loop?",
+      "timing_calls_between_predict_and_next_say": 0
+    },
+    {
+      "cue": "14_4",
+      "next_cue": "14_5",
+      "window_s_in_source": 5.0,
+      "predicts_line": 43,
+      "predicts_marker": "(\"14_4\", 5.0),",
+      "file": "continuing.rs",
+      "call_line": 522,
+      "call_marker": "let asked = predict(&kit, stage, &line, &ASK, v(0.0, 1.4))?;",
+      "question": "So what does one plus two plus four plus eight, and so on forever, add up to?",
+      "timing_calls_between_predict_and_next_say": 0
+    },
+    {
+      "cue": "15_3",
+      "next_cue": "15_4",
+      "window_s_in_source": 6.0,
+      "predicts_line": 44,
+      "predicts_marker": "(\"15_3\", 6.0),",
+      "file": "closing.rs",
+      "call_line": 369,
+      "call_marker": "let asked = predict(&kit, stage, &line, &[ask.as_str()], v(ASK_AT.0, ASK_AT.1))?;",
+      "question": "How far will it reach?",
+      "timing_calls_between_predict_and_next_say": 0
+    }
+  ],
+  "reading_windows": [
+    {
+      "cue": "04_4",
+      "next_cue": "04_5",
+      "window_s_in_source": 7.5,
+      "table_line": 61,
+      "table_marker": "(\"04_4\", 7.5),",
+      "file": "reading_color.rs",
+      "call_line": 239,
+      "call_marker": "reading_window(&kit, stage, &line)?;",
+      "card": "exact",
+      "card_const": "NEAR_ZERO",
+      "card_line": 236,
+      "card_chars": 111,
+      "whole_text_at_rule_of_thumb_s": 7.4,
+      "arrives": "after_voice",
+      "closes_chapter": false,
+      "closing_breath_s_in_source": 0.0,
+      "closing_fade_s_in_source": 0.0,
+      "silence_after_voice_s_in_source": 8.1,
+      "clean_s_in_source": 7.7,
+      "expected_cue_sheet_warning": "gap: 8.1 s of silence before 04_5"
+    },
+    {
+      "cue": "05_8",
+      "next_cue": "05_9",
+      "window_s_in_source": 3.5,
+      "table_line": 63,
+      "table_marker": "(\"05_8\", 3.5),",
+      "file": "gallery.rs",
+      "call_line": 827,
+      "call_marker": "reading_window(&kit, stage, &line)?;",
+      "card": "four",
+      "card_const": "FOUR",
+      "card_line": 823,
+      "card_chars": 54,
+      "whole_text_at_rule_of_thumb_s": 3.6,
+      "arrives": "under_voice",
+      "closes_chapter": false,
+      "closing_breath_s_in_source": 0.0,
+      "closing_fade_s_in_source": 0.0,
+      "silence_after_voice_s_in_source": 4.1,
+      "clean_s_in_source": 4.1,
+      "expected_cue_sheet_warning": "gap: 4.1 s of silence before 05_9"
+    },
+    {
+      "cue": "07_2",
+      "next_cue": "07_3",
+      "window_s_in_source": 4.5,
+      "table_line": 65,
+      "table_marker": "(\"07_2\", 4.5),",
+      "file": "one_point.rs",
+      "call_line": 396,
+      "call_marker": "reading_window(&kit, stage, &line)?;",
+      "card": "exact",
+      "card_const": "CRITICAL",
+      "card_line": 392,
+      "card_chars": 104,
+      "whole_text_at_rule_of_thumb_s": 6.93,
+      "arrives": "under_voice",
+      "closes_chapter": false,
+      "closing_breath_s_in_source": 0.0,
+      "closing_fade_s_in_source": 0.0,
+      "silence_after_voice_s_in_source": 5.1,
+      "clean_s_in_source": 5.1,
+      "expected_cue_sheet_warning": "gap: 5.1 s of silence before 07_3"
+    },
+    {
+      "cue": "08_5",
+      "next_cue": "09_1",
+      "window_s_in_source": 5.0,
+      "table_line": 67,
+      "table_marker": "(\"08_5\", 5.0),",
+      "file": "loop_sums.rs",
+      "call_line": 669,
+      "call_marker": "reading_window(&kit, stage, &line)?;",
+      "card": "exact",
+      "card_const": "GOURSAT",
+      "card_line": 668,
+      "card_chars": 99,
+      "whole_text_at_rule_of_thumb_s": 6.6,
+      "arrives": "after_voice",
+      "closes_chapter": true,
+      "closing_breath_s_in_source": 2.0,
+      "closing_fade_s_in_source": 0.6,
+      "silence_after_voice_s_in_source": 7.6,
+      "clean_s_in_source": 7.2,
+      "expected_cue_sheet_warning": "tail: 8.2 s of picture after the chapter's last line"
+    },
+    {
+      "cue": "09_5",
+      "next_cue": "09_6",
+      "window_s_in_source": 3.0,
+      "table_line": 69,
+      "table_marker": "(\"09_5\", 3.0),",
+      "file": "boundary.rs",
+      "call_line": 402,
+      "call_marker": "reading_window(&kit, stage, &line)?;",
+      "card": "needs",
+      "card_const": "NEEDS",
+      "card_line": 398,
+      "card_chars": 107,
+      "whole_text_at_rule_of_thumb_s": 7.13,
+      "arrives": "under_voice",
+      "closes_chapter": false,
+      "closing_breath_s_in_source": 0.0,
+      "closing_fade_s_in_source": 0.0,
+      "silence_after_voice_s_in_source": 3.6,
+      "clean_s_in_source": 3.6,
+      "expected_cue_sheet_warning": null
+    },
+    {
+      "cue": "10_5",
+      "next_cue": "10_6",
+      "window_s_in_source": 8.5,
+      "table_line": 72,
+      "table_marker": "(\"10_5\", 8.5),",
+      "file": "rigidity.rs",
+      "call_line": 499,
+      "call_marker": "reading_window(&kit, stage, &line)?;",
+      "card": "exact",
+      "card_const": "EXACT",
+      "card_line": 495,
+      "card_chars": 130,
+      "whole_text_at_rule_of_thumb_s": 8.67,
+      "arrives": "under_voice",
+      "closes_chapter": false,
+      "closing_breath_s_in_source": 0.0,
+      "closing_fade_s_in_source": 0.0,
+      "silence_after_voice_s_in_source": 9.1,
+      "clean_s_in_source": 9.1,
+      "expected_cue_sheet_warning": "gap: 9.1 s of silence before 10_6"
+    },
+    {
+      "cue": "11_6",
+      "next_cue": "11_7",
+      "window_s_in_source": 7.0,
+      "table_line": 74,
+      "table_marker": "(\"11_6\", 7.0),",
+      "file": "counting.rs",
+      "call_line": 492,
+      "call_marker": "reading_window(&kit, stage, &line)?;",
+      "card": "squashed",
+      "card_const": "SQUASHED",
+      "card_line": 489,
+      "card_chars": 107,
+      "whole_text_at_rule_of_thumb_s": 7.13,
+      "arrives": "after_voice",
+      "closes_chapter": false,
+      "closing_breath_s_in_source": 0.0,
+      "closing_fade_s_in_source": 0.0,
+      "silence_after_voice_s_in_source": 7.6,
+      "clean_s_in_source": 7.2,
+      "expected_cue_sheet_warning": "gap: 7.6 s of silence before 11_7"
+    },
+    {
+      "cue": "11_8",
+      "next_cue": "12_1",
+      "window_s_in_source": 7.5,
+      "table_line": 77,
+      "table_marker": "(\"11_8\", 7.5),",
+      "file": "counting.rs",
+      "call_line": 547,
+      "call_marker": "reading_window(&kit, stage, &line)?;",
+      "card": "panel",
+      "card_const": "CODE",
+      "card_line": 540,
+      "card_chars": 267,
+      "whole_text_at_rule_of_thumb_s": 17.8,
+      "arrives": "under_voice",
+      "closes_chapter": true,
+      "closing_breath_s_in_source": 2.0,
+      "closing_fade_s_in_source": 0.5,
+      "silence_after_voice_s_in_source": 10.1,
+      "clean_s_in_source": 10.1,
+      "expected_cue_sheet_warning": "tail: 10.6 s of picture after the chapter's last line"
+    },
+    {
+      "cue": "13_11",
+      "next_cue": "14_1",
+      "window_s_in_source": 5.0,
+      "table_line": 80,
+      "table_marker": "(\"13_11\", 5.0),",
+      "file": "real_integral.rs",
+      "call_line": 775,
+      "call_marker": "reading_window(&kit, stage, &line)?;",
+      "card": "note",
+      "card_const": "HONEST",
+      "card_line": 771,
+      "card_chars": 192,
+      "whole_text_at_rule_of_thumb_s": 12.8,
+      "arrives": "after_voice",
+      "closes_chapter": true,
+      "closing_breath_s_in_source": 2.5,
+      "closing_fade_s_in_source": 0.6,
+      "silence_after_voice_s_in_source": 8.1,
+      "clean_s_in_source": 7.7,
+      "expected_cue_sheet_warning": "tail: 8.7 s of picture after the chapter's last line"
+    },
+    {
+      "cue": "14_3",
+      "next_cue": "14_4",
+      "window_s_in_source": 5.5,
+      "table_line": 82,
+      "table_marker": "(\"14_3\", 5.5),",
+      "file": "continuing.rs",
+      "call_line": 512,
+      "call_marker": "reading_window(&kit, stage, &line)?;",
+      "card": "exact",
+      "card_const": "PATH_EXACT",
+      "card_line": 508,
+      "card_chars": 89,
+      "whole_text_at_rule_of_thumb_s": 5.93,
+      "arrives": "under_voice",
+      "closes_chapter": false,
+      "closing_breath_s_in_source": 0.0,
+      "closing_fade_s_in_source": 0.0,
+      "silence_after_voice_s_in_source": 6.1,
+      "clean_s_in_source": 6.1,
+      "expected_cue_sheet_warning": "gap: 6.1 s of silence before 14_4"
+    }
+  ],
+  "unregistered_files_ignored": [
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/argument.rs",
+      "sha256": "cc5a8d963de7a3a583c332875cb88337b97b2bc00b27d1b9e6420cbddf17920a"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/bookends.rs",
+      "sha256": "9a44d4cea2cecdb51368619c62e29bff6fae565c58ff37b63701b5d17594092b"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/cauchy.rs",
+      "sha256": "5993b8bda652d951f7946813f2b81da88b7f232f791c564964bf5d5254f80c66"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuation.rs",
+      "sha256": "3fa49900014690913ec0a987f42c7fe615424719414e762a1b31bab16aaca23e"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/derivative.rs",
+      "sha256": "6e5176b980bfea4ab7d9291c0138fe345be21ad0e9c2f9adab83a898b13bfdbc"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/domain_color.rs",
+      "sha256": "9b3f2728ec74e2886155429a16e4efa06e9eb2642c9629d71bf7f9d2c1f03496"
+    },
+    {
+      "path": "explainer_corpus/complex_analysis_visual/src/chapters/integral.rs",
+      "sha256": "1ce4ea7ef3d6f80e97bc5a585d25f9dfdc155c10365c970a866a6b577234eb41"
+    }
+  ],
+  "music_windows": [
+    {
+      "cue": "01_6",
+      "next_cue": "02_1",
+      "seconds_in_source": "2.0",
+      "file": "the_bump.rs",
+      "line": 335,
+      "marker": "kit.music_breath(stage, 2.0)?;"
+    },
+    {
+      "cue": "02_6",
+      "next_cue": "03_1",
+      "seconds_in_source": "2.0",
+      "file": "turning.rs",
+      "line": 423,
+      "marker": "kit.music_breath(stage, 2.0)?;"
+    },
+    {
+      "cue": "03_7",
+      "next_cue": "04_1",
+      "seconds_in_source": "2.0",
+      "file": "two_planes.rs",
+      "line": 766,
+      "marker": "kit.music_breath(stage, 2.0)?;"
+    },
+    {
+      "cue": "04_7",
+      "next_cue": "05_1",
+      "seconds_in_source": "2.0",
+      "file": "reading_color.rs",
+      "line": 318,
+      "marker": "kit.music_breath(stage, 2.0)?;"
+    },
+    {
+      "cue": "05_9",
+      "next_cue": "06_1",
+      "seconds_in_source": "2.0",
+      "file": "gallery.rs",
+      "line": 922,
+      "marker": "kit.music_breath(stage, 2.0)?;"
+    },
+    {
+      "cue": "06_9",
+      "next_cue": "07_1",
+      "seconds_in_source": "2.0",
+      "file": "one_derivative.rs",
+      "line": 718,
+      "marker": "kit.music_breath(stage, 2.0)?;"
+    },
+    {
+      "cue": "07_6",
+      "next_cue": "08_1",
+      "seconds_in_source": "2.0",
+      "file": "one_point.rs",
+      "line": 749,
+      "marker": "kit.music_breath(stage, 2.0)?;"
+    },
+    {
+      "cue": "08_5",
+      "next_cue": "09_1",
+      "seconds_in_source": "2.0",
+      "file": "loop_sums.rs",
+      "line": 670,
+      "marker": "kit.music_breath(stage, 2.0)?;"
+    },
+    {
+      "cue": "09_9",
+      "next_cue": "10_1",
+      "seconds_in_source": "2.0",
+      "file": "boundary.rs",
+      "line": 776,
+      "marker": "kit.music_breath(stage, 2.0)?;"
+    },
+    {
+      "cue": "10_6",
+      "next_cue": "11_1",
+      "seconds_in_source": "2.0",
+      "file": "rigidity.rs",
+      "line": 604,
+      "marker": "kit.music_breath(stage, 2.0)?;"
+    },
+    {
+      "cue": "11_8",
+      "next_cue": "12_1",
+      "seconds_in_source": "2.0",
+      "file": "counting.rs",
+      "line": 548,
+      "marker": "kit.music_breath(stage, 2.0)?;"
+    },
+    {
+      "cue": "12_4",
+      "next_cue": "13_1",
+      "seconds_in_source": "2.0",
+      "file": "residues.rs",
+      "line": 358,
+      "marker": "kit.music_breath(stage, 2.0)?;"
+    },
+    {
+      "cue": "13_11",
+      "next_cue": "14_1",
+      "seconds_in_source": "2.5",
+      "file": "real_integral.rs",
+      "line": 776,
+      "marker": "kit.music_breath(stage, 2.5)?;"
+    },
+    {
+      "cue": "14_8",
+      "next_cue": "15_1",
+      "seconds_in_source": "2.0",
+      "file": "continuing.rs",
+      "line": 786,
+      "marker": "kit.music_breath(stage, 2.0)?;"
+    },
+    {
+      "cue": "15_4",
+      "next_cue": null,
+      "seconds_in_source": "1.5",
+      "file": "closing.rs",
+      "line": 425,
+      "marker": "kit.music_breath(stage, 1.5)?;"
+    },
+    {
+      "cue": "15_4",
+      "next_cue": null,
+      "seconds_in_source": "3.0",
+      "file": "closing.rs",
+      "line": 435,
+      "marker": "kit.music_breath(stage, 3.0)?;"
+    }
+  ],
+  "reading_tasks_without_a_native_hold": [
+    {
+      "cue": "04_7",
+      "file": "reading_color.rs",
+      "line": 316,
+      "call": "names_now",
+      "marker": "let search = names_now(&kit, stage, &[\"domain colouring\", \"enhanced phase portrait\"])?;",
+      "text_chars": 42,
+      "last_sync_before": "line.wait_sentence(stage, 2)?;",
+      "last_sync_sentence": 2,
+      "cue_sentences": 3,
+      "cue_words_left_at_most": 8
+    },
+    {
+      "cue": "06_6",
+      "file": "one_derivative.rs",
+      "line": 570,
+      "call": "names_now",
+      "marker": "let search = names_now(&kit, stage, &[\"Cauchy–Riemann equations\"])?;",
+      "text_chars": 24,
+      "last_sync_before": "line.wait_sentence(stage, 3)?;",
+      "last_sync_sentence": 3,
+      "cue_sentences": 4,
+      "cue_words_left_at_most": 6
+    },
+    {
+      "cue": "07_2",
+      "file": "one_point.rs",
+      "line": 387,
+      "call": "names_now",
+      "marker": "let names = names_now(&kit, stage, &[\"conformal map\", \"critical point\"])?;",
+      "text_chars": 30,
+      "last_sync_before": "line.wait_sentence(stage, 1)?;",
+      "last_sync_sentence": 1,
+      "cue_sentences": 3,
+      "cue_words_left_at_most": 23
+    },
+    {
+      "cue": "07_6",
+      "file": "one_point.rs",
+      "line": 744,
+      "call": "names_now",
+      "marker": "let search = names_now(&kit, stage, &[\"holomorphic function\", \"open set\"])?;",
+      "text_chars": 31,
+      "last_sync_before": "line.wait_sentence(stage, 2)?;",
+      "last_sync_sentence": 2,
+      "cue_sentences": 4,
+      "cue_words_left_at_most": 18
+    },
+    {
+      "cue": "09_2",
+      "file": "boundary.rs",
+      "line": 241,
+      "call": "names_now",
+      "marker": "let search = names_now(&kit, stage, &[\"Cauchy's integral formula\"])?;",
+      "text_chars": 25,
+      "last_sync_before": "line.wait_sentence(stage, 2)?;",
+      "last_sync_sentence": 2,
+      "cue_sentences": 3,
+      "cue_words_left_at_most": 5
+    },
+    {
+      "cue": "10_1",
+      "file": "rigidity.rs",
+      "line": 227,
+      "call": "names_now",
+      "marker": "let search = names_now(&kit, stage, &[\"identity theorem\"])?;",
+      "text_chars": 16,
+      "last_sync_before": "line.wait_sentence(stage, 3)?;",
+      "last_sync_sentence": 3,
+      "cue_sentences": 4,
+      "cue_words_left_at_most": 18
+    },
+    {
+      "cue": "10_6",
+      "file": "rigidity.rs",
+      "line": 542,
+      "call": "names_now",
+      "marker": "let search = names_now(&kit, stage, &[\"Liouville's theorem\"])?;",
+      "text_chars": 19,
+      "last_sync_before": "line.wait_sentence(stage, 2)?;",
+      "last_sync_sentence": 2,
+      "cue_sentences": 4,
+      "cue_words_left_at_most": 23
+    },
+    {
+      "cue": "11_2",
+      "file": "counting.rs",
+      "line": 271,
+      "call": "names_now",
+      "marker": "let search = names_now(&kit, stage, &[\"argument principle\", \"winding number\"])?;",
+      "text_chars": 35,
+      "last_sync_before": "line.wait_sentence(stage, 2)?;",
+      "last_sync_sentence": 2,
+      "cue_sentences": 4,
+      "cue_words_left_at_most": 29
+    },
+    {
+      "cue": "11_7",
+      "file": "counting.rs",
+      "line": 529,
+      "call": "names_now",
+      "marker": "let search = names_now(&kit, stage, &[\"fundamental theorem of algebra\", \"Rouché's theorem\"])?;",
+      "text_chars": 49,
+      "last_sync_before": "let rt = (line.sentence(5)? - stage.scene().time().to_f64()).max(5.0);",
+      "last_sync_sentence": 5,
+      "cue_sentences": 6,
+      "cue_words_left_at_most": 10
+    },
+    {
+      "cue": "12_1",
+      "file": "residues.rs",
+      "line": 175,
+      "call": "names_now",
+      "marker": "let search = names_now(&kit, stage, &[\"Laurent series\", \"residue\"])?;",
+      "text_chars": 24,
+      "last_sync_before": "line.wait_sentence(stage, 3)?;",
+      "last_sync_sentence": 3,
+      "cue_sentences": 4,
+      "cue_words_left_at_most": 6
+    },
+    {
+      "cue": "12_2",
+      "file": "residues.rs",
+      "line": 238,
+      "call": "names_now",
+      "marker": "let search = names_now(&kit, stage, &[\"residue theorem\"])?;",
+      "text_chars": 15,
+      "last_sync_before": "line.wait_sentence(stage, 1)?;",
+      "last_sync_sentence": 1,
+      "cue_sentences": 3,
+      "cue_words_left_at_most": 35
+    },
+    {
+      "cue": "14_1",
+      "file": "continuing.rs",
+      "line": 302,
+      "call": "names_now",
+      "marker": "let search = names_now(&kit, stage, &[\"analytic continuation\"])?;",
+      "text_chars": 21,
+      "last_sync_before": "line.wait_sentence(stage, 5)?;",
+      "last_sync_sentence": 5,
+      "cue_sentences": 6,
+      "cue_words_left_at_most": 5
+    }
+  ],
+  "not_in_the_film": [
+    {
+      "file": "thumbnail.rs",
+      "line": 86,
+      "marker": "stage.wait(1.0)?;"
+    }
+  ],
+  "cues": [
+    {
+      "cue": "01_1",
+      "unit": "oliver_01_1",
+      "next_cue": "01_2",
+      "next_cue_crosses_chapter": false,
+      "words": 45,
+      "words_with_next_cue": 79,
+      "sentences": 5,
+      "file": "the_bump.rs",
+      "line": 82,
+      "marker": "let line = say(&kit, stage, \"01_1\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 137,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 138,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"It has no corners\", 3.0)?;"
+        },
+        {
+          "line": 153,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "01_2",
+      "unit": "oliver_01_2",
+      "next_cue": "01_3",
+      "next_cue_crosses_chapter": false,
+      "words": 34,
+      "words_with_next_cue": 82,
+      "sentences": 3,
+      "file": "the_bump.rs",
+      "line": 154,
+      "marker": "let line = say(&kit, stage, \"01_2\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 176,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 179,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, phrase)?;",
+          "resolved": {
+            "from": "for (deg, phrase) in [(4.0, \"plus x to the fourth\"), (6.0, \"minus x to the sixth\")] {",
+            "values": [
+              "plus x to the fourth",
+              "minus x to the sixth"
+            ]
+          }
+        },
+        {
+          "line": 196,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "01_3",
+      "unit": "oliver_01_3",
+      "next_cue": "01_4",
+      "next_cue_crosses_chapter": false,
+      "words": 48,
+      "words_with_next_cue": 72,
+      "sentences": 4,
+      "file": "the_bump.rs",
+      "line": 197,
+      "marker": "let line = say(&kit, stage, \"01_3\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 208,
+          "call": "pause",
+          "source": "pause(stage, 0.3)?;"
+        },
+        {
+          "line": 210,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"At one point one\")?;"
+        },
+        {
+          "line": 235,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 239,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "01_4",
+      "unit": "oliver_01_4",
+      "next_cue": "01_5",
+      "next_cue_crosses_chapter": false,
+      "words": 24,
+      "words_with_next_cue": 83,
+      "sentences": 3,
+      "file": "the_bump.rs",
+      "line": 240,
+      "marker": "let line = say(&kit, stage, \"01_4\")?;",
+      "voice_end_calls": [
+        "predict"
+      ],
+      "calls": [
+        {
+          "line": 245,
+          "call": "predict",
+          "source": "let asked = predict(&kit, stage, &line, &ASK, v(4.9, 3.0))?;"
+        }
+      ]
+    },
+    {
+      "cue": "01_5",
+      "unit": "oliver_01_5",
+      "next_cue": "01_6",
+      "next_cue_crosses_chapter": false,
+      "words": 59,
+      "words_with_next_cue": 113,
+      "sentences": 5,
+      "file": "the_bump.rs",
+      "line": 248,
+      "marker": "let line = say(&kit, stage, \"01_5\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 271,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"Let x be a complex number\")?;"
+        },
+        {
+          "line": 278,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"They sit at i\")?;"
+        },
+        {
+          "line": 288,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"A recipe built at zero\")?;"
+        },
+        {
+          "line": 309,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"That circle has radius one\")?;"
+        },
+        {
+          "line": 325,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "01_6",
+      "unit": "oliver_01_6",
+      "next_cue": "02_1",
+      "next_cue_crosses_chapter": true,
+      "words": 54,
+      "words_with_next_cue": 92,
+      "sentences": 4,
+      "file": "the_bump.rs",
+      "line": 326,
+      "marker": "let line = say(&kit, stage, \"01_6\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 327,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 331,
+          "call": "pause",
+          "source": "pause(stage, 0.6)?;"
+        },
+        {
+          "line": 333,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 334,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 335,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 2.0)?;"
+        },
+        {
+          "line": 350,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    },
+    {
+      "cue": "02_1",
+      "unit": "oliver_02_1",
+      "next_cue": "02_2",
+      "next_cue_crosses_chapter": false,
+      "words": 38,
+      "words_with_next_cue": 71,
+      "sentences": 3,
+      "file": "turning.rs",
+      "line": 187,
+      "marker": "let line = say(&kit, stage, \"02_1\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 195,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"how far right\")?;"
+        },
+        {
+          "line": 206,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"how far up\")?;"
+        },
+        {
+          "line": 217,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 230,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 233,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "02_2",
+      "unit": "oliver_02_2",
+      "next_cue": "02_3",
+      "next_cue_crosses_chapter": false,
+      "words": 33,
+      "words_with_next_cue": 57,
+      "sentences": 3,
+      "file": "turning.rs",
+      "line": 234,
+      "marker": "let line = say(&kit, stage, \"02_2\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 267,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 275,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 292,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"and the whole plane turns\")?;"
+        },
+        {
+          "line": 295,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 298,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "02_3",
+      "unit": "oliver_02_3",
+      "next_cue": "02_4",
+      "next_cue_crosses_chapter": false,
+      "words": 24,
+      "words_with_next_cue": 67,
+      "sentences": 3,
+      "file": "turning.rs",
+      "line": 299,
+      "marker": "let line = say(&kit, stage, \"02_3\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 332,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 335,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 338,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "02_4",
+      "unit": "oliver_02_4",
+      "next_cue": "02_5",
+      "next_cue_crosses_chapter": false,
+      "words": 43,
+      "words_with_next_cue": 70,
+      "sentences": 3,
+      "file": "turning.rs",
+      "line": 339,
+      "marker": "let line = say(&kit, stage, \"02_4\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 351,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 373,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 378,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 381,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "02_5",
+      "unit": "oliver_02_5",
+      "next_cue": "02_6",
+      "next_cue_crosses_chapter": false,
+      "words": 27,
+      "words_with_next_cue": 76,
+      "sentences": 3,
+      "file": "turning.rs",
+      "line": 382,
+      "marker": "let line = say(&kit, stage, \"02_5\")?;",
+      "voice_end_calls": [
+        "predict"
+      ],
+      "calls": [
+        {
+          "line": 384,
+          "call": "predict",
+          "source": "let asked = predict(&kit, stage, &line, &ASK, v(COLUMN, -1.0))?;"
+        }
+      ]
+    },
+    {
+      "cue": "02_6",
+      "unit": "oliver_02_6",
+      "next_cue": "03_1",
+      "next_cue_crosses_chapter": true,
+      "words": 49,
+      "words_with_next_cue": 84,
+      "sentences": 5,
+      "file": "turning.rs",
+      "line": 387,
+      "marker": "let line = say(&kit, stage, \"02_6\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 389,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"So one plus i\", 2.5)?;"
+        },
+        {
+          "line": 406,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 419,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 422,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 423,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 2.0)?;"
+        },
+        {
+          "line": 441,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    },
+    {
+      "cue": "03_1",
+      "unit": "oliver_03_1",
+      "next_cue": "03_2",
+      "next_cue_crosses_chapter": false,
+      "words": 35,
+      "words_with_next_cue": 74,
+      "sentences": 4,
+      "file": "two_planes.rs",
+      "line": 322,
+      "marker": "let line = say(&kit, stage, \"03_1\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 342,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 345,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 356,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 362,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 365,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "03_2",
+      "unit": "oliver_03_2",
+      "next_cue": "03_3",
+      "next_cue_crosses_chapter": false,
+      "words": 39,
+      "words_with_next_cue": 53,
+      "sentences": 4,
+      "file": "two_planes.rs",
+      "line": 366,
+      "marker": "let line = say(&kit, stage, \"03_2\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 370,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 373,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 473,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "03_3",
+      "unit": "oliver_03_3",
+      "next_cue": "03_4",
+      "next_cue_crosses_chapter": false,
+      "words": 14,
+      "words_with_next_cue": 83,
+      "sentences": 2,
+      "file": "two_planes.rs",
+      "line": 474,
+      "marker": "let line = say(&kit, stage, \"03_3\")?;",
+      "voice_end_calls": [
+        "predict"
+      ],
+      "calls": [
+        {
+          "line": 494,
+          "call": "predict",
+          "source": "let asked = predict(&kit, stage, &line, &ASK, out.p(C::new(0.0, 0.4)))?;"
+        }
+      ]
+    },
+    {
+      "cue": "03_4",
+      "unit": "oliver_03_4",
+      "next_cue": "03_5",
+      "next_cue_crosses_chapter": false,
+      "words": 69,
+      "words_with_next_cue": 117,
+      "sentences": 8,
+      "file": "two_planes.rs",
+      "line": 497,
+      "marker": "let line = say(&kit, stage, \"03_4\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 505,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 506,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"The two axes fold\", 2.0)?;"
+        },
+        {
+          "line": 510,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"The horizontal axis lands\", 1.5)?;"
+        },
+        {
+          "line": 522,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 528,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 536,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 5)?;"
+        },
+        {
+          "line": 554,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"except at zero\")?;"
+        },
+        {
+          "line": 556,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 7)?;"
+        },
+        {
+          "line": 560,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 563,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "03_5",
+      "unit": "oliver_03_5",
+      "next_cue": "03_6",
+      "next_cue_crosses_chapter": false,
+      "words": 48,
+      "words_with_next_cue": 92,
+      "sentences": 5,
+      "file": "two_planes.rs",
+      "line": 564,
+      "marker": "let line = say(&kit, stage, \"03_5\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 575,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 596,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"The unit circle\", 2.5)?;"
+        },
+        {
+          "line": 615,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 618,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 630,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 633,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "03_6",
+      "unit": "oliver_03_6",
+      "next_cue": "03_7",
+      "next_cue_crosses_chapter": false,
+      "words": 44,
+      "words_with_next_cue": 71,
+      "sentences": 4,
+      "file": "two_planes.rs",
+      "line": 634,
+      "marker": "let line = say(&kit, stage, \"03_6\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 664,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 679,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 698,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"So vertical lines\", 2.0)?;"
+        },
+        {
+          "line": 700,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 719,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 722,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "03_7",
+      "unit": "oliver_03_7",
+      "next_cue": "04_1",
+      "next_cue_crosses_chapter": true,
+      "words": 27,
+      "words_with_next_cue": 81,
+      "sentences": 3,
+      "file": "two_planes.rs",
+      "line": 723,
+      "marker": "let line = say(&kit, stage, \"03_7\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 747,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"The exponential repeats\", 2.5)?;"
+        },
+        {
+          "line": 761,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"and it never reaches zero\")?;"
+        },
+        {
+          "line": 765,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 766,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 2.0)?;"
+        },
+        {
+          "line": 775,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    },
+    {
+      "cue": "04_1",
+      "unit": "oliver_04_1",
+      "next_cue": "04_2",
+      "next_cue_crosses_chapter": false,
+      "words": 54,
+      "words_with_next_cue": 94,
+      "sentences": 6,
+      "file": "reading_color.rs",
+      "line": 124,
+      "marker": "let line = say(&kit, stage, \"04_1\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 129,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 137,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 170,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, phrase)?;",
+          "resolved": {
+            "from": "(\"pointing down is violet\", 3.0 * FRAC_PI_2),",
+            "values": [
+              "Pointing right is red",
+              "Pointing up is yellow green",
+              "Pointing left is teal",
+              "pointing down is violet"
+            ],
+            "note": "NAMED's four phrases, zipped with the four direction names."
+          }
+        },
+        {
+          "line": 176,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "04_2",
+      "unit": "oliver_04_2",
+      "next_cue": "04_3",
+      "next_cue_crosses_chapter": false,
+      "words": 40,
+      "words_with_next_cue": 67,
+      "sentences": 4,
+      "file": "reading_color.rs",
+      "line": 177,
+      "marker": "let line = say(&kit, stage, \"04_2\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 181,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 183,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 192,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 197,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "04_3",
+      "unit": "oliver_04_3",
+      "next_cue": "04_4",
+      "next_cue_crosses_chapter": false,
+      "words": 27,
+      "words_with_next_cue": 71,
+      "sentences": 3,
+      "file": "reading_color.rs",
+      "line": 198,
+      "marker": "let line = say(&kit, stage, \"04_3\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 207,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 218,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "04_4",
+      "unit": "oliver_04_4",
+      "next_cue": "04_5",
+      "next_cue_crosses_chapter": false,
+      "words": 44,
+      "words_with_next_cue": 65,
+      "sentences": 3,
+      "file": "reading_color.rs",
+      "line": 219,
+      "marker": "let line = say(&kit, stage, \"04_4\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "reading_window"
+      ],
+      "calls": [
+        {
+          "line": 231,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 235,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 236,
+          "call": "precisely_now",
+          "source": "let exact = precisely_now(&kit, stage, NEAR_ZERO)?;"
+        },
+        {
+          "line": 239,
+          "call": "reading_window",
+          "source": "reading_window(&kit, stage, &line)?;"
+        }
+      ]
+    },
+    {
+      "cue": "04_5",
+      "unit": "oliver_04_5",
+      "next_cue": "04_6",
+      "next_cue_crosses_chapter": false,
+      "words": 21,
+      "words_with_next_cue": 52,
+      "sentences": 2,
+      "file": "reading_color.rs",
+      "line": 240,
+      "marker": "let line = say(&kit, stage, \"04_5\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 257,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 263,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "04_6",
+      "unit": "oliver_04_6",
+      "next_cue": "04_7",
+      "next_cue_crosses_chapter": false,
+      "words": 31,
+      "words_with_next_cue": 62,
+      "sentences": 2,
+      "file": "reading_color.rs",
+      "line": 264,
+      "marker": "let line = say(&kit, stage, \"04_6\")?;",
+      "voice_end_calls": [
+        "predict"
+      ],
+      "calls": [
+        {
+          "line": 279,
+          "call": "predict",
+          "source": "let asked = predict(&kit, stage, &line, &ASK, v(right - 0.15, 0.75))?;"
+        }
+      ]
+    },
+    {
+      "cue": "04_7",
+      "unit": "oliver_04_7",
+      "next_cue": "05_1",
+      "next_cue_crosses_chapter": true,
+      "words": 31,
+      "words_with_next_cue": 68,
+      "sentences": 3,
+      "file": "reading_color.rs",
+      "line": 282,
+      "marker": "let line = say(&kit, stage, \"04_7\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 301,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 315,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 316,
+          "call": "names_now",
+          "source": "let search = names_now(&kit, stage, &[\"domain colouring\", \"enhanced phase portrait\"])?;"
+        },
+        {
+          "line": 317,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 318,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 2.0)?;"
+        },
+        {
+          "line": 326,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    },
+    {
+      "cue": "05_1",
+      "unit": "oliver_05_1",
+      "next_cue": "05_2",
+      "next_cue_crosses_chapter": false,
+      "words": 37,
+      "words_with_next_cue": 73,
+      "sentences": 4,
+      "file": "gallery.rs",
+      "line": 368,
+      "marker": "let line = say(&kit, stage, \"05_1\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 375,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 380,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 384,
+          "call": "helper:walk_and_count",
+          "source": "let walked = Self::walk_and_count(",
+          "inner": [
+            {
+              "line": 345,
+              "call": "until",
+              "source": "let rt = line.until(stage, phrase, 2.5)?;"
+            }
+          ]
+        },
+        {
+          "line": 395,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 398,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "05_2",
+      "unit": "oliver_05_2",
+      "next_cue": "05_3",
+      "next_cue_crosses_chapter": false,
+      "words": 36,
+      "words_with_next_cue": 74,
+      "sentences": 3,
+      "file": "gallery.rs",
+      "line": 399,
+      "marker": "let line = say(&kit, stage, \"05_2\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 409,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 433,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"and at minus one\")?;"
+        },
+        {
+          "line": 437,
+          "call": "helper:walk_and_count",
+          "source": "let walked = Self::walk_and_count(",
+          "inner": [
+            {
+              "line": 345,
+              "call": "until",
+              "source": "let rt = line.until(stage, phrase, 2.5)?;"
+            }
+          ]
+        },
+        {
+          "line": 448,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 451,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "05_3",
+      "unit": "oliver_05_3",
+      "next_cue": "05_4",
+      "next_cue_crosses_chapter": false,
+      "words": 38,
+      "words_with_next_cue": 87,
+      "sentences": 3,
+      "file": "gallery.rs",
+      "line": 452,
+      "marker": "let line = say(&kit, stage, \"05_3\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 468,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 476,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"and its size\")?;"
+        },
+        {
+          "line": 484,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 505,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 508,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "05_4",
+      "unit": "oliver_05_4",
+      "next_cue": "05_5",
+      "next_cue_crosses_chapter": false,
+      "words": 49,
+      "words_with_next_cue": 83,
+      "sentences": 4,
+      "file": "gallery.rs",
+      "line": 509,
+      "marker": "let line = say(&kit, stage, \"05_4\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 536,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 544,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 552,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 579,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"and sine of three i\")?;"
+        },
+        {
+          "line": 582,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 585,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "05_5",
+      "unit": "oliver_05_5",
+      "next_cue": "05_6",
+      "next_cue_crosses_chapter": false,
+      "words": 34,
+      "words_with_next_cue": 95,
+      "sentences": 3,
+      "file": "gallery.rs",
+      "line": 586,
+      "marker": "let line = say(&kit, stage, \"05_5\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 594,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 599,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 617,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"and far below\")?;"
+        },
+        {
+          "line": 635,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 638,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "05_6",
+      "unit": "oliver_05_6",
+      "next_cue": "05_7",
+      "next_cue_crosses_chapter": false,
+      "words": 61,
+      "words_with_next_cue": 128,
+      "sentences": 5,
+      "file": "gallery.rs",
+      "line": 639,
+      "marker": "let line = say(&kit, stage, \"05_6\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 650,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 670,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 684,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 690,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, phrase)?;",
+          "resolved": {
+            "from": "let named = [\"a pole at zero\", \"at minus one\", \"at minus two\"];",
+            "values": [
+              "a pole at zero",
+              "at minus one",
+              "at minus two"
+            ]
+          }
+        },
+        {
+          "line": 696,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"and no zeros anywhere\")?;"
+        },
+        {
+          "line": 699,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 702,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 705,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "05_7",
+      "unit": "oliver_05_7",
+      "next_cue": "05_8",
+      "next_cue_crosses_chapter": false,
+      "words": 67,
+      "words_with_next_cue": 94,
+      "sentences": 6,
+      "file": "gallery.rs",
+      "line": 706,
+      "marker": "let line = say(&kit, stage, \"05_7\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 720,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 727,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 729,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 734,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 751,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 5)?;"
+        },
+        {
+          "line": 802,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 805,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "05_8",
+      "unit": "oliver_05_8",
+      "next_cue": "05_9",
+      "next_cue_crosses_chapter": false,
+      "words": 27,
+      "words_with_next_cue": 64,
+      "sentences": 3,
+      "file": "gallery.rs",
+      "line": 806,
+      "marker": "let line = say(&kit, stage, \"05_8\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "reading_window"
+      ],
+      "calls": [
+        {
+          "line": 819,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 822,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 823,
+          "call": "precisely_now",
+          "source": "let four = precisely_now(&kit, stage, FOUR)?;"
+        },
+        {
+          "line": 824,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 827,
+          "call": "reading_window",
+          "source": "reading_window(&kit, stage, &line)?;"
+        }
+      ]
+    },
+    {
+      "cue": "05_9",
+      "unit": "oliver_05_9",
+      "next_cue": "06_1",
+      "next_cue_crosses_chapter": true,
+      "words": 37,
+      "words_with_next_cue": 93,
+      "sentences": 5,
+      "file": "gallery.rs",
+      "line": 828,
+      "marker": "let line = say(&kit, stage, \"05_9\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 878,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 882,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"in little tiles\")?;"
+        },
+        {
+          "line": 918,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 921,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 922,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 2.0)?;"
+        },
+        {
+          "line": 929,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    },
+    {
+      "cue": "06_1",
+      "unit": "oliver_06_1",
+      "next_cue": "06_2",
+      "next_cue_crosses_chapter": false,
+      "words": 56,
+      "words_with_next_cue": 95,
+      "sentences": 4,
+      "file": "one_derivative.rs",
+      "line": 182,
+      "marker": "let line = say(&kit, stage, \"06_1\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 222,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 246,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 265,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"that ratio should settle\", 1.2)?.min(2.0);"
+        },
+        {
+          "line": 273,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "06_2",
+      "unit": "oliver_06_2",
+      "next_cue": "06_3",
+      "next_cue_crosses_chapter": false,
+      "words": 39,
+      "words_with_next_cue": 99,
+      "sentences": 4,
+      "file": "one_derivative.rs",
+      "line": 274,
+      "marker": "let line = say(&kit, stage, \"06_2\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 298,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 383,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "06_3",
+      "unit": "oliver_06_3",
+      "next_cue": "06_4",
+      "next_cue_crosses_chapter": false,
+      "words": 60,
+      "words_with_next_cue": 104,
+      "sentences": 5,
+      "file": "one_derivative.rs",
+      "line": 384,
+      "marker": "let line = say(&kit, stage, \"06_3\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 387,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"the function moves\")?;"
+        },
+        {
+          "line": 409,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 412,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 437,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 451,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "06_4",
+      "unit": "oliver_06_4",
+      "next_cue": "06_5",
+      "next_cue_crosses_chapter": false,
+      "words": 44,
+      "words_with_next_cue": 101,
+      "sentences": 3,
+      "file": "one_derivative.rs",
+      "line": 452,
+      "marker": "let line = say(&kit, stage, \"06_4\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 461,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 498,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "06_5",
+      "unit": "oliver_06_5",
+      "next_cue": "06_6",
+      "next_cue_crosses_chapter": false,
+      "words": 57,
+      "words_with_next_cue": 94,
+      "sentences": 5,
+      "file": "one_derivative.rs",
+      "line": 499,
+      "marker": "let line = say(&kit, stage, \"06_5\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 527,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 530,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 541,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 548,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 560,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "06_6",
+      "unit": "oliver_06_6",
+      "next_cue": "06_7",
+      "next_cue_crosses_chapter": false,
+      "words": 37,
+      "words_with_next_cue": 82,
+      "sentences": 4,
+      "file": "one_derivative.rs",
+      "line": 561,
+      "marker": "let line = say(&kit, stage, \"06_6\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 563,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 566,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 569,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 570,
+          "call": "names_now",
+          "source": "let search = names_now(&kit, stage, &[\"Cauchy–Riemann equations\"])?;"
+        },
+        {
+          "line": 573,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "06_7",
+      "unit": "oliver_06_7",
+      "next_cue": "06_8",
+      "next_cue_crosses_chapter": false,
+      "words": 45,
+      "words_with_next_cue": 75,
+      "sentences": 3,
+      "file": "one_derivative.rs",
+      "line": 574,
+      "marker": "let line = say(&kit, stage, \"06_7\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 581,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 588,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 600,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "06_8",
+      "unit": "oliver_06_8",
+      "next_cue": "06_9",
+      "next_cue_crosses_chapter": false,
+      "words": 30,
+      "words_with_next_cue": 73,
+      "sentences": 4,
+      "file": "one_derivative.rs",
+      "line": 601,
+      "marker": "let line = say(&kit, stage, \"06_8\")?;",
+      "voice_end_calls": [
+        "predict"
+      ],
+      "calls": [
+        {
+          "line": 620,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 643,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"It sends\", 1.2)?.min(2.2);"
+        },
+        {
+          "line": 647,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 650,
+          "call": "predict",
+          "source": "let asked = predict(&kit, stage, &line, &ASK, v(4.2, 2.4))?;"
+        }
+      ]
+    },
+    {
+      "cue": "06_9",
+      "unit": "oliver_06_9",
+      "next_cue": "07_1",
+      "next_cue_crosses_chapter": true,
+      "words": 43,
+      "words_with_next_cue": 86,
+      "sentences": 6,
+      "file": "one_derivative.rs",
+      "line": 653,
+      "marker": "let line = say(&kit, stage, \"06_9\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 656,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 665,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 674,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 679,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 694,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 5)?;"
+        },
+        {
+          "line": 717,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 718,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 2.0)?;"
+        },
+        {
+          "line": 735,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    },
+    {
+      "cue": "07_1",
+      "unit": "oliver_07_1",
+      "next_cue": "07_2",
+      "next_cue_crosses_chapter": false,
+      "words": 43,
+      "words_with_next_cue": 72,
+      "sentences": 4,
+      "file": "one_point.rs",
+      "line": 231,
+      "marker": "let line = say(&kit, stage, \"07_1\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 247,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 250,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 311,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"The angle has doubled\", 2.5)?;"
+        },
+        {
+          "line": 353,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "07_2",
+      "unit": "oliver_07_2",
+      "next_cue": "07_3",
+      "next_cue_crosses_chapter": false,
+      "words": 29,
+      "words_with_next_cue": 52,
+      "sentences": 3,
+      "file": "one_point.rs",
+      "line": 354,
+      "marker": "let line = say(&kit, stage, \"07_2\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "reading_window"
+      ],
+      "calls": [
+        {
+          "line": 386,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 387,
+          "call": "names_now",
+          "source": "let names = names_now(&kit, stage, &[\"conformal map\", \"critical point\"])?;"
+        },
+        {
+          "line": 388,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 392,
+          "call": "precisely_now",
+          "source": "let exact = precisely_now(&kit, stage, CRITICAL)?;"
+        },
+        {
+          "line": 393,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 396,
+          "call": "reading_window",
+          "source": "reading_window(&kit, stage, &line)?;"
+        }
+      ]
+    },
+    {
+      "cue": "07_3",
+      "unit": "oliver_07_3",
+      "next_cue": "07_4",
+      "next_cue_crosses_chapter": false,
+      "words": 23,
+      "words_with_next_cue": 62,
+      "sentences": 3,
+      "file": "one_point.rs",
+      "line": 397,
+      "marker": "let line = say(&kit, stage, \"07_3\")?;",
+      "voice_end_calls": [
+        "predict"
+      ],
+      "calls": [
+        {
+          "line": 409,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 430,
+          "call": "predict",
+          "source": "let asked = predict(&kit, stage, &line, &ASK, v(right, 0.6))?;"
+        }
+      ]
+    },
+    {
+      "cue": "07_4",
+      "unit": "oliver_07_4",
+      "next_cue": "07_5",
+      "next_cue_crosses_chapter": false,
+      "words": 39,
+      "words_with_next_cue": 98,
+      "sentences": 4,
+      "file": "one_point.rs",
+      "line": 433,
+      "marker": "let line = say(&kit, stage, \"07_4\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 436,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 452,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 495,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 506,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "07_5",
+      "unit": "oliver_07_5",
+      "next_cue": "07_6",
+      "next_cue_crosses_chapter": false,
+      "words": 59,
+      "words_with_next_cue": 110,
+      "sentences": 5,
+      "file": "one_point.rs",
+      "line": 507,
+      "marker": "let line = say(&kit, stage, \"07_5\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 526,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 542,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 560,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 566,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 633,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"and the product\")?;"
+        },
+        {
+          "line": 663,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 666,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "07_6",
+      "unit": "oliver_07_6",
+      "next_cue": "08_1",
+      "next_cue_crosses_chapter": true,
+      "words": 51,
+      "words_with_next_cue": 104,
+      "sentences": 4,
+      "file": "one_point.rs",
+      "line": 667,
+      "marker": "let line = say(&kit, stage, \"07_6\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 672,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 741,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 744,
+          "call": "names_now",
+          "source": "let search = names_now(&kit, stage, &[\"holomorphic function\", \"open set\"])?;"
+        },
+        {
+          "line": 745,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 748,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 749,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 2.0)?;"
+        },
+        {
+          "line": 755,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    },
+    {
+      "cue": "08_1",
+      "unit": "oliver_08_1",
+      "next_cue": "08_2",
+      "next_cue_crosses_chapter": false,
+      "words": 53,
+      "words_with_next_cue": 87,
+      "sentences": 5,
+      "file": "loop_sums.rs",
+      "line": 286,
+      "marker": "let line = say(&kit, stage, \"08_1\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 300,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 303,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 317,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 320,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 361,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 364,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "08_2",
+      "unit": "oliver_08_2",
+      "next_cue": "08_3",
+      "next_cue_crosses_chapter": false,
+      "words": 34,
+      "words_with_next_cue": 80,
+      "sentences": 3,
+      "file": "loop_sums.rs",
+      "line": 365,
+      "marker": "let line = say(&kit, stage, \"08_2\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 400,
+          "call": "until",
+          "source": "let each = ((line.until(stage, \"The total is zero\", 2.4)? - 0.35) / STEPS as f64).clamp(0.08, 0.3);"
+        },
+        {
+          "line": 415,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 430,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 433,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "08_3",
+      "unit": "oliver_08_3",
+      "next_cue": "08_4",
+      "next_cue_crosses_chapter": false,
+      "words": 46,
+      "words_with_next_cue": 73,
+      "sentences": 4,
+      "file": "loop_sums.rs",
+      "line": 434,
+      "marker": "let line = say(&kit, stage, \"08_3\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 442,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 448,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 469,
+          "call": "until",
+          "source": "let each = (line.until(stage, \"As the steps shrink\", 2.4)? / STEPS as f64).clamp(0.06, 0.25);"
+        },
+        {
+          "line": 471,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 490,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"whatever the size\")?;"
+        },
+        {
+          "line": 520,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 523,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "08_4",
+      "unit": "oliver_08_4",
+      "next_cue": "08_5",
+      "next_cue_crosses_chapter": false,
+      "words": 27,
+      "words_with_next_cue": 98,
+      "sentences": 3,
+      "file": "loop_sums.rs",
+      "line": 524,
+      "marker": "let line = say(&kit, stage, \"08_4\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 559,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 565,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 584,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 587,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "08_5",
+      "unit": "oliver_08_5",
+      "next_cue": "09_1",
+      "next_cue_crosses_chapter": true,
+      "words": 71,
+      "words_with_next_cue": 135,
+      "sentences": 6,
+      "file": "loop_sums.rs",
+      "line": 588,
+      "marker": "let line = say(&kit, stage, \"08_5\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "reading_window",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 594,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 619,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 629,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 642,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 5)?;"
+        },
+        {
+          "line": 650,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"so the inner edges cancel\")?;"
+        },
+        {
+          "line": 655,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"only the outer loop is left\")?;"
+        },
+        {
+          "line": 665,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 668,
+          "call": "precisely_now",
+          "source": "let exact = precisely_now(&kit, stage, GOURSAT)?;"
+        },
+        {
+          "line": 669,
+          "call": "reading_window",
+          "source": "reading_window(&kit, stage, &line)?;"
+        },
+        {
+          "line": 670,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 2.0)?;"
+        },
+        {
+          "line": 676,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    },
+    {
+      "cue": "09_1",
+      "unit": "oliver_09_1",
+      "next_cue": "09_2",
+      "next_cue_crosses_chapter": false,
+      "words": 64,
+      "words_with_next_cue": 94,
+      "sentences": 5,
+      "file": "boundary.rs",
+      "line": 170,
+      "marker": "let line = say(&kit, stage, \"09_1\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 178,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 199,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"divide it by\")?;"
+        },
+        {
+          "line": 202,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 213,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 225,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 230,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "09_2",
+      "unit": "oliver_09_2",
+      "next_cue": "09_3",
+      "next_cue_crosses_chapter": false,
+      "words": 30,
+      "words_with_next_cue": 73,
+      "sentences": 3,
+      "file": "boundary.rs",
+      "line": 231,
+      "marker": "let line = say(&kit, stage, \"09_2\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 236,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 240,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 241,
+          "call": "names_now",
+          "source": "let search = names_now(&kit, stage, &[\"Cauchy's integral formula\"])?;"
+        },
+        {
+          "line": 244,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "09_3",
+      "unit": "oliver_09_3",
+      "next_cue": "09_4",
+      "next_cue_crosses_chapter": false,
+      "words": 43,
+      "words_with_next_cue": 67,
+      "sentences": 3,
+      "file": "boundary.rs",
+      "line": 245,
+      "marker": "let line = say(&kit, stage, \"09_3\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 288,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 291,
+          "call": "helper:sample_round",
+          "source": "let (dots8, mean8) = sample_round(stage, &p, &vp, 0.5, few)?;",
+          "inner": [
+            {
+              "line": 806,
+              "call": "pause",
+              "source": "pause(stage, 0.3)?;"
+            }
+          ]
+        },
+        {
+          "line": 303,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 307,
+          "call": "helper:sample_round",
+          "source": "let (dots16, mean16) = sample_round(stage, &p, &vp, 0.5, many)?;",
+          "inner": [
+            {
+              "line": 806,
+              "call": "pause",
+              "source": "pause(stage, 0.3)?;"
+            }
+          ]
+        },
+        {
+          "line": 318,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "09_4",
+      "unit": "oliver_09_4",
+      "next_cue": "09_5",
+      "next_cue_crosses_chapter": false,
+      "words": 24,
+      "words_with_next_cue": 71,
+      "sentences": 3,
+      "file": "boundary.rs",
+      "line": 319,
+      "marker": "let line = say(&kit, stage, \"09_4\")?;",
+      "voice_end_calls": [
+        "predict"
+      ],
+      "calls": [
+        {
+          "line": 324,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 0)?;"
+        },
+        {
+          "line": 337,
+          "call": "predict",
+          "source": "let asked = predict(&kit, stage, &line, &ASK, v(right, -2.0))?;"
+        }
+      ]
+    },
+    {
+      "cue": "09_5",
+      "unit": "oliver_09_5",
+      "next_cue": "09_6",
+      "next_cue_crosses_chapter": false,
+      "words": 47,
+      "words_with_next_cue": 109,
+      "sentences": 4,
+      "file": "boundary.rs",
+      "line": 340,
+      "marker": "let line = say(&kit, stage, \"09_5\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "reading_window"
+      ],
+      "calls": [
+        {
+          "line": 359,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 368,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 397,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 398,
+          "call": "precisely_now",
+          "source": "let needs = precisely_now(&kit, stage, NEEDS)?;"
+        },
+        {
+          "line": 399,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 402,
+          "call": "reading_window",
+          "source": "reading_window(&kit, stage, &line)?;"
+        }
+      ]
+    },
+    {
+      "cue": "09_6",
+      "unit": "oliver_09_6",
+      "next_cue": "09_7",
+      "next_cue_crosses_chapter": false,
+      "words": 62,
+      "words_with_next_cue": 127,
+      "sentences": 5,
+      "file": "boundary.rs",
+      "line": 403,
+      "marker": "let line = say(&kit, stage, \"09_6\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 477,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 482,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 493,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 509,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 526,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 529,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "09_7",
+      "unit": "oliver_09_7",
+      "next_cue": "09_8",
+      "next_cue_crosses_chapter": false,
+      "words": 65,
+      "words_with_next_cue": 82,
+      "sentences": 4,
+      "file": "boundary.rs",
+      "line": 530,
+      "marker": "let line = say(&kit, stage, \"09_7\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 593,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"the largest disk\")?;"
+        },
+        {
+          "line": 610,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"That answers\", 1.6)?.min(3.0);"
+        },
+        {
+          "line": 614,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 628,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 646,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"no further\")?;"
+        },
+        {
+          "line": 651,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "09_8",
+      "unit": "oliver_09_8",
+      "next_cue": "09_9",
+      "next_cue_crosses_chapter": false,
+      "words": 17,
+      "words_with_next_cue": 52,
+      "sentences": 2,
+      "file": "boundary.rs",
+      "line": 652,
+      "marker": "let line = say(&kit, stage, \"09_8\")?;",
+      "voice_end_calls": [
+        "predict"
+      ],
+      "calls": [
+        {
+          "line": 681,
+          "call": "predict",
+          "source": "let asked = predict(&kit, stage, &line, &ASK_RECENTRE, v(3.9, 2.2))?;"
+        }
+      ]
+    },
+    {
+      "cue": "09_9",
+      "unit": "oliver_09_9",
+      "next_cue": "10_1",
+      "next_cue_crosses_chapter": true,
+      "words": 35,
+      "words_with_next_cue": 77,
+      "sentences": 3,
+      "file": "boundary.rs",
+      "line": 684,
+      "marker": "let line = say(&kit, stage, \"09_9\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 714,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"So the new recipe\", 1.6)?;"
+        },
+        {
+          "line": 747,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 775,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 776,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 2.0)?;"
+        },
+        {
+          "line": 798,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    },
+    {
+      "cue": "10_1",
+      "unit": "oliver_10_1",
+      "next_cue": "10_2",
+      "next_cue_crosses_chapter": false,
+      "words": 42,
+      "words_with_next_cue": 107,
+      "sentences": 4,
+      "file": "rigidity.rs",
+      "line": 172,
+      "marker": "let line = say(&kit, stage, \"10_1\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 191,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 214,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 227,
+          "call": "names_now",
+          "source": "let search = names_now(&kit, stage, &[\"identity theorem\"])?;"
+        },
+        {
+          "line": 228,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 231,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "10_2",
+      "unit": "oliver_10_2",
+      "next_cue": "10_3",
+      "next_cue_crosses_chapter": false,
+      "words": 65,
+      "words_with_next_cue": 116,
+      "sentences": 4,
+      "file": "rigidity.rs",
+      "line": 232,
+      "marker": "let line = say(&kit, stage, \"10_2\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 245,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 262,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 282,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 315,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 318,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "10_3",
+      "unit": "oliver_10_3",
+      "next_cue": "10_4",
+      "next_cue_crosses_chapter": false,
+      "words": 51,
+      "words_with_next_cue": 85,
+      "sentences": 4,
+      "file": "rigidity.rs",
+      "line": 319,
+      "marker": "let line = say(&kit, stage, \"10_3\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 358,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 360,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 370,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"yet it is not zero\")?;"
+        },
+        {
+          "line": 372,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 394,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 397,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "10_4",
+      "unit": "oliver_10_4",
+      "next_cue": "10_5",
+      "next_cue_crosses_chapter": false,
+      "words": 34,
+      "words_with_next_cue": 76,
+      "sentences": 3,
+      "file": "rigidity.rs",
+      "line": 398,
+      "marker": "let line = say(&kit, stage, \"10_4\")?;",
+      "voice_end_calls": [
+        "predict"
+      ],
+      "calls": [
+        {
+          "line": 461,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"one over pi\")?;"
+        },
+        {
+          "line": 465,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"one over two pi\")?;"
+        },
+        {
+          "line": 467,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"one over three pi\")?;"
+        },
+        {
+          "line": 469,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"and so on\")?;"
+        },
+        {
+          "line": 471,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 473,
+          "call": "predict",
+          "source": "let asked = predict(&kit, stage, &line, &ASK, v(right, 0.9))?;"
+        }
+      ]
+    },
+    {
+      "cue": "10_5",
+      "unit": "oliver_10_5",
+      "next_cue": "10_6",
+      "next_cue_crosses_chapter": false,
+      "words": 42,
+      "words_with_next_cue": 84,
+      "sentences": 4,
+      "file": "rigidity.rs",
+      "line": 476,
+      "marker": "let line = say(&kit, stage, \"10_5\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "reading_window"
+      ],
+      "calls": [
+        {
+          "line": 478,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 492,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 495,
+          "call": "precisely_now",
+          "source": "let exact = precisely_now(&kit, stage, EXACT)?;"
+        },
+        {
+          "line": 496,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 499,
+          "call": "reading_window",
+          "source": "reading_window(&kit, stage, &line)?;"
+        }
+      ]
+    },
+    {
+      "cue": "10_6",
+      "unit": "oliver_10_6",
+      "next_cue": "11_1",
+      "next_cue_crosses_chapter": true,
+      "words": 42,
+      "words_with_next_cue": 92,
+      "sentences": 4,
+      "file": "rigidity.rs",
+      "line": 500,
+      "marker": "let line = say(&kit, stage, \"10_6\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 535,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 541,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 542,
+          "call": "names_now",
+          "source": "let search = names_now(&kit, stage, &[\"Liouville's theorem\"])?;"
+        },
+        {
+          "line": 543,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 552,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"must grow huge\")?;"
+        },
+        {
+          "line": 603,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 604,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 2.0)?;"
+        },
+        {
+          "line": 620,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    },
+    {
+      "cue": "11_1",
+      "unit": "oliver_11_1",
+      "next_cue": "11_2",
+      "next_cue_crosses_chapter": false,
+      "words": 50,
+      "words_with_next_cue": 107,
+      "sentences": 5,
+      "file": "counting.rs",
+      "line": 183,
+      "marker": "let line = say(&kit, stage, \"11_1\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 196,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, i + 2)?;",
+          "resolved": {
+            "from": "for (i, (f, name)) in [Func::Identity, Func::Square, Func::Recip]",
+            "values": [
+              2,
+              3,
+              4
+            ]
+          }
+        },
+        {
+          "line": 215,
+          "call": "sentence",
+          "source": "let until = if i < 2 { line.sentence(i + 3)? } else { line.end() };",
+          "resolved": {
+            "from": "for (i, (f, name)) in [Func::Identity, Func::Square, Func::Recip]",
+            "values": [
+              3,
+              4
+            ],
+            "note": "i runs over the three functions; the third walk lands on line.end()."
+          }
+        },
+        {
+          "line": 222,
+          "call": "pause",
+          "source": "pause(stage, COUNT_HOLD)?;"
+        },
+        {
+          "line": 226,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "11_2",
+      "unit": "oliver_11_2",
+      "next_cue": "11_3",
+      "next_cue_crosses_chapter": false,
+      "words": 57,
+      "words_with_next_cue": 139,
+      "sentences": 4,
+      "file": "counting.rs",
+      "line": 227,
+      "marker": "let line = say(&kit, stage, \"11_2\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 233,
+          "call": "sentence",
+          "source": "let room = line.sentence(1)? - stage.scene().time().to_f64() - RING_IN - WALKER_IN;"
+        },
+        {
+          "line": 244,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 248,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"each counted\")?;"
+        },
+        {
+          "line": 270,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 271,
+          "call": "names_now",
+          "source": "let search = names_now(&kit, stage, &[\"argument principle\", \"winding number\"])?;"
+        },
+        {
+          "line": 273,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 277,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, NEEDS_SAID[i])?;",
+          "resolved": {
+            "from": "const NEEDS_SAID: [&str; 3] = [\"It needs\", \"passes through\", \"and a function\"];",
+            "values": [
+              "It needs",
+              "passes through",
+              "and a function"
+            ]
+          }
+        },
+        {
+          "line": 292,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "11_3",
+      "unit": "oliver_11_3",
+      "next_cue": "11_4",
+      "next_cue_crosses_chapter": false,
+      "words": 82,
+      "words_with_next_cue": 116,
+      "sentences": 6,
+      "file": "counting.rs",
+      "line": 293,
+      "marker": "let line = say(&kit, stage, \"11_3\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 321,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 342,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 367,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 392,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "11_4",
+      "unit": "oliver_11_4",
+      "next_cue": "11_5",
+      "next_cue_crosses_chapter": false,
+      "words": 34,
+      "words_with_next_cue": 57,
+      "sentences": 3,
+      "file": "counting.rs",
+      "line": 393,
+      "marker": "let line = say(&kit, stage, \"11_4\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 409,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 0)?;"
+        },
+        {
+          "line": 411,
+          "call": "helper:approach_pole",
+          "source": "let approach = approach_pole(&kit, stage, &line, inp, out)?;",
+          "inner": [
+            {
+              "line": 1004,
+              "call": "until",
+              "source": "let total = line.until(stage, \"There the count\", 3.0)?;"
+            }
+          ]
+        },
+        {
+          "line": 412,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 417,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "11_5",
+      "unit": "oliver_11_5",
+      "next_cue": "11_6",
+      "next_cue_crosses_chapter": false,
+      "words": 23,
+      "words_with_next_cue": 63,
+      "sentences": 2,
+      "file": "counting.rs",
+      "line": 418,
+      "marker": "let line = say(&kit, stage, \"11_5\")?;",
+      "voice_end_calls": [
+        "predict"
+      ],
+      "calls": [
+        {
+          "line": 429,
+          "call": "predict",
+          "source": "let asked = predict(&kit, stage, &line, &ASK, v(ASK_AT.0, ASK_AT.1))?;"
+        }
+      ]
+    },
+    {
+      "cue": "11_6",
+      "unit": "oliver_11_6",
+      "next_cue": "11_7",
+      "next_cue_crosses_chapter": false,
+      "words": 40,
+      "words_with_next_cue": 122,
+      "sentences": 3,
+      "file": "counting.rs",
+      "line": 433,
+      "marker": "let line = say(&kit, stage, \"11_6\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "reading_window"
+      ],
+      "calls": [
+        {
+          "line": 463,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 488,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 489,
+          "call": "precisely_now",
+          "source": "let squashed = precisely_now(&kit, stage, SQUASHED)?;"
+        },
+        {
+          "line": 492,
+          "call": "reading_window",
+          "source": "reading_window(&kit, stage, &line)?;"
+        }
+      ]
+    },
+    {
+      "cue": "11_7",
+      "unit": "oliver_11_7",
+      "next_cue": "11_8",
+      "next_cue_crosses_chapter": false,
+      "words": 82,
+      "words_with_next_cue": 166,
+      "sentences": 6,
+      "file": "counting.rs",
+      "line": 493,
+      "marker": "let line = say(&kit, stage, \"11_7\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 502,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 510,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 514,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 516,
+          "call": "sentence",
+          "source": "let rt = (line.sentence(5)? - stage.scene().time().to_f64()).max(5.0);"
+        },
+        {
+          "line": 529,
+          "call": "names_now",
+          "source": "let search = names_now(&kit, stage, &[\"fundamental theorem of algebra\", \"Rouché's theorem\"])?;"
+        },
+        {
+          "line": 532,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "11_8",
+      "unit": "oliver_11_8",
+      "next_cue": "12_1",
+      "next_cue_crosses_chapter": true,
+      "words": 84,
+      "words_with_next_cue": 134,
+      "sentences": 6,
+      "file": "counting.rs",
+      "line": 533,
+      "marker": "let line = say(&kit, stage, \"11_8\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "reading_window",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 543,
+          "call": "helper:coarse_loop",
+          "source": "let mut last = coarse_loop(&kit, stage, &line, panel.lines[REFUSE_LINE])?;",
+          "inner": [
+            {
+              "line": 646,
+              "call": "wait_sentence",
+              "source": "line.wait_sentence(stage, 2)?;"
+            },
+            {
+              "line": 665,
+              "call": "until",
+              "source": "let each = line.until(stage, \"But samples\", 2.0)? / samples.len() as f64;"
+            },
+            {
+              "line": 670,
+              "call": "pause",
+              "source": "pause(stage, (each - 0.1).max(0.04))?;"
+            },
+            {
+              "line": 689,
+              "call": "wait_sentence",
+              "source": "line.wait_sentence(stage, 3)?;"
+            },
+            {
+              "line": 731,
+              "call": "until",
+              "source": "let rt = line.until(stage, \"So bound\", 1.8)?;"
+            },
+            {
+              "line": 749,
+              "call": "wait_sentence",
+              "source": "line.wait_sentence(stage, 4)?;"
+            },
+            {
+              "line": 787,
+              "call": "wait_for",
+              "source": "line.wait_for(stage, \"take steps\")?;"
+            },
+            {
+              "line": 831,
+              "call": "wait_for",
+              "source": "line.wait_for(stage, \"cannot move\")?;"
+            },
+            {
+              "line": 852,
+              "call": "sentence",
+              "source": "let rt = (line.sentence(5)? - stage.scene().time().to_f64()).max(1.6);"
+            },
+            {
+              "line": 858,
+              "call": "wait_sentence",
+              "source": "line.wait_sentence(stage, 5)?;"
+            }
+          ]
+        },
+        {
+          "line": 544,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 547,
+          "call": "reading_window",
+          "source": "reading_window(&kit, stage, &line)?;"
+        },
+        {
+          "line": 548,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 2.0)?;"
+        },
+        {
+          "line": 551,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    },
+    {
+      "cue": "12_1",
+      "unit": "oliver_12_1",
+      "next_cue": "12_2",
+      "next_cue_crosses_chapter": false,
+      "words": 50,
+      "words_with_next_cue": 100,
+      "sentences": 4,
+      "file": "residues.rs",
+      "line": 125,
+      "marker": "let line = say(&kit, stage, \"12_1\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 133,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 144,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 172,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 175,
+          "call": "names_now",
+          "source": "let search = names_now(&kit, stage, &[\"Laurent series\", \"residue\"])?;"
+        },
+        {
+          "line": 176,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 179,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "12_2",
+      "unit": "oliver_12_2",
+      "next_cue": "12_3",
+      "next_cue_crosses_chapter": false,
+      "words": 50,
+      "words_with_next_cue": 81,
+      "sentences": 3,
+      "file": "residues.rs",
+      "line": 180,
+      "marker": "let line = say(&kit, stage, \"12_2\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 232,
+          "call": "pause",
+          "source": "pause(stage, 0.4)?;"
+        },
+        {
+          "line": 237,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 238,
+          "call": "names_now",
+          "source": "let search = names_now(&kit, stage, &[\"residue theorem\"])?;"
+        },
+        {
+          "line": 239,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 244,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"the residue is\")?;"
+        },
+        {
+          "line": 246,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 249,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "12_3",
+      "unit": "oliver_12_3",
+      "next_cue": "12_4",
+      "next_cue_crosses_chapter": false,
+      "words": 31,
+      "words_with_next_cue": 66,
+      "sentences": 3,
+      "file": "residues.rs",
+      "line": 250,
+      "marker": "let line = say(&kit, stage, \"12_3\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 265,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 275,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 314,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 317,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "12_4",
+      "unit": "oliver_12_4",
+      "next_cue": "13_1",
+      "next_cue_crosses_chapter": true,
+      "words": 35,
+      "words_with_next_cue": 77,
+      "sentences": 3,
+      "file": "residues.rs",
+      "line": 318,
+      "marker": "let line = say(&kit, stage, \"12_4\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 338,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 343,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 357,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 358,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 2.0)?;"
+        },
+        {
+          "line": 363,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    },
+    {
+      "cue": "13_1",
+      "unit": "oliver_13_1",
+      "next_cue": "13_2",
+      "next_cue_crosses_chapter": false,
+      "words": 42,
+      "words_with_next_cue": 87,
+      "sentences": 5,
+      "file": "real_integral.rs",
+      "line": 270,
+      "marker": "let line = say(&kit, stage, \"13_1\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 277,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 280,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 284,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 288,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "13_2",
+      "unit": "oliver_13_2",
+      "next_cue": "13_3",
+      "next_cue_crosses_chapter": false,
+      "words": 45,
+      "words_with_next_cue": 105,
+      "sentences": 4,
+      "file": "real_integral.rs",
+      "line": 289,
+      "marker": "let line = say(&kit, stage, \"13_2\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 315,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"then come back\", 1.4)?;"
+        },
+        {
+          "line": 318,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"Inside this loop\", 1.6)?;"
+        },
+        {
+          "line": 324,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 337,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 340,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 356,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "13_3",
+      "unit": "oliver_13_3",
+      "next_cue": "13_4",
+      "next_cue_crosses_chapter": false,
+      "words": 60,
+      "words_with_next_cue": 85,
+      "sentences": 4,
+      "file": "real_integral.rs",
+      "line": 357,
+      "marker": "let line = say(&kit, stage, \"13_3\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 398,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"so the bump\", 1.5)?;"
+        },
+        {
+          "line": 402,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"so the bump\")?;"
+        },
+        {
+          "line": 408,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 415,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 450,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"which shrinks\")?;"
+        },
+        {
+          "line": 460,
+          "call": "until",
+          "source": "let total = line.until(stage, \"All of pi\", 2.4)?;"
+        },
+        {
+          "line": 487,
+          "call": "pause",
+          "source": "pause(stage, 0.15 * total / stops.len() as f64)?;"
+        },
+        {
+          "line": 516,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 523,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "13_4",
+      "unit": "oliver_13_4",
+      "next_cue": "13_5",
+      "next_cue_crosses_chapter": false,
+      "words": 25,
+      "words_with_next_cue": 67,
+      "sentences": 4,
+      "file": "real_integral.rs",
+      "line": 524,
+      "marker": "let line = say(&kit, stage, \"13_4\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 552,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 555,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 561,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 567,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "13_5",
+      "unit": "oliver_13_5",
+      "next_cue": "13_6",
+      "next_cue_crosses_chapter": false,
+      "words": 42,
+      "words_with_next_cue": 55,
+      "sentences": 3,
+      "file": "real_integral.rs",
+      "line": 568,
+      "marker": "let line = say(&kit, stage, \"13_5\")?;",
+      "voice_end_calls": [
+        "predict"
+      ],
+      "calls": [
+        {
+          "line": 583,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 593,
+          "call": "predict",
+          "source": "let asked = predict(&kit, stage, &line, &ASK, v(right, 1.2))?;"
+        }
+      ]
+    },
+    {
+      "cue": "13_6",
+      "unit": "oliver_13_6",
+      "next_cue": "13_7",
+      "next_cue_crosses_chapter": false,
+      "words": 13,
+      "words_with_next_cue": 57,
+      "sentences": 2,
+      "file": "real_integral.rs",
+      "line": 596,
+      "marker": "let line = say(&kit, stage, \"13_6\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 610,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 616,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "13_7",
+      "unit": "oliver_13_7",
+      "next_cue": "13_8",
+      "next_cue_crosses_chapter": false,
+      "words": 44,
+      "words_with_next_cue": 84,
+      "sentences": 3,
+      "file": "real_integral.rs",
+      "line": 617,
+      "marker": "let line = say(&kit, stage, \"13_7\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 620,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 623,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 628,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "13_8",
+      "unit": "oliver_13_8",
+      "next_cue": "13_9",
+      "next_cue_crosses_chapter": false,
+      "words": 40,
+      "words_with_next_cue": 72,
+      "sentences": 3,
+      "file": "real_integral.rs",
+      "line": 629,
+      "marker": "let line = say(&kit, stage, \"13_8\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 645,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 656,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"each has imaginary part\")?;"
+        },
+        {
+          "line": 659,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 680,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "13_9",
+      "unit": "oliver_13_9",
+      "next_cue": "13_10",
+      "next_cue_crosses_chapter": false,
+      "words": 32,
+      "words_with_next_cue": 94,
+      "sentences": 3,
+      "file": "real_integral.rs",
+      "line": 681,
+      "marker": "let line = say(&kit, stage, \"13_9\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 686,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 689,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 704,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "13_10",
+      "unit": "oliver_13_10",
+      "next_cue": "13_11",
+      "next_cue_crosses_chapter": false,
+      "words": 62,
+      "words_with_next_cue": 99,
+      "sentences": 4,
+      "file": "real_integral.rs",
+      "line": 705,
+      "marker": "let line = say(&kit, stage, \"13_10\")?;",
+      "voice_end_calls": [
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 710,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 713,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"so that part\")?;"
+        },
+        {
+          "line": 740,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 749,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 766,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "13_11",
+      "unit": "oliver_13_11",
+      "next_cue": "14_1",
+      "next_cue_crosses_chapter": true,
+      "words": 37,
+      "words_with_next_cue": 79,
+      "sentences": 3,
+      "file": "real_integral.rs",
+      "line": 767,
+      "marker": "let line = say(&kit, stage, \"13_11\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "reading_window",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 768,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 772,
+          "call": "precisely_lifted",
+          "source": "let said = precisely_lifted(&kit, stage, HONEST_SAID, note)?;"
+        },
+        {
+          "line": 773,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 774,
+          "call": "precisely_over",
+          "source": "precisely_over(stage, said, note)?;"
+        },
+        {
+          "line": 775,
+          "call": "reading_window",
+          "source": "reading_window(&kit, stage, &line)?;"
+        },
+        {
+          "line": 776,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 2.5)?;"
+        },
+        {
+          "line": 787,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    },
+    {
+      "cue": "14_1",
+      "unit": "oliver_14_1",
+      "next_cue": "14_2",
+      "next_cue_crosses_chapter": false,
+      "words": 42,
+      "words_with_next_cue": 101,
+      "sentences": 6,
+      "file": "continuing.rs",
+      "line": 262,
+      "marker": "let line = say(&kit, stage, \"14_1\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 271,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 276,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 278,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 301,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 5)?;"
+        },
+        {
+          "line": 302,
+          "call": "names_now",
+          "source": "let search = names_now(&kit, stage, &[\"analytic continuation\"])?;"
+        },
+        {
+          "line": 303,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 307,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "14_2",
+      "unit": "oliver_14_2",
+      "next_cue": "14_3",
+      "next_cue_crosses_chapter": false,
+      "words": 59,
+      "words_with_next_cue": 157,
+      "sentences": 6,
+      "file": "continuing.rs",
+      "line": 308,
+      "marker": "let line = say(&kit, stage, \"14_2\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 318,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 323,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 354,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 384,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 388,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 5)?;"
+        },
+        {
+          "line": 400,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 403,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "14_3",
+      "unit": "oliver_14_3",
+      "next_cue": "14_4",
+      "next_cue_crosses_chapter": false,
+      "words": 98,
+      "words_with_next_cue": 115,
+      "sentences": 7,
+      "file": "continuing.rs",
+      "line": 404,
+      "marker": "let line = say(&kit, stage, \"14_3\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "reading_window"
+      ],
+      "calls": [
+        {
+          "line": 440,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 454,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 467,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 496,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 5)?;"
+        },
+        {
+          "line": 505,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 6)?;"
+        },
+        {
+          "line": 508,
+          "call": "precisely_now",
+          "source": "let exact = precisely_now(&kit, stage, PATH_EXACT)?;"
+        },
+        {
+          "line": 509,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 512,
+          "call": "reading_window",
+          "source": "reading_window(&kit, stage, &line)?;"
+        }
+      ]
+    },
+    {
+      "cue": "14_4",
+      "unit": "oliver_14_4",
+      "next_cue": "14_5",
+      "next_cue_crosses_chapter": false,
+      "words": 17,
+      "words_with_next_cue": 100,
+      "sentences": 1,
+      "file": "continuing.rs",
+      "line": 513,
+      "marker": "let line = say(&kit, stage, \"14_4\")?;",
+      "voice_end_calls": [
+        "predict"
+      ],
+      "calls": [
+        {
+          "line": 522,
+          "call": "predict",
+          "source": "let asked = predict(&kit, stage, &line, &ASK, v(0.0, 1.4))?;"
+        }
+      ]
+    },
+    {
+      "cue": "14_5",
+      "unit": "oliver_14_5",
+      "next_cue": "14_6",
+      "next_cue_crosses_chapter": false,
+      "words": 83,
+      "words_with_next_cue": 136,
+      "sentences": 8,
+      "file": "continuing.rs",
+      "line": 525,
+      "marker": "let line = say(&kit, stage, \"14_5\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 530,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 542,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 557,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 560,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 5)?;"
+        },
+        {
+          "line": 563,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 6)?;"
+        },
+        {
+          "line": 573,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 7)?;"
+        },
+        {
+          "line": 576,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 579,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "14_6",
+      "unit": "oliver_14_6",
+      "next_cue": "14_7",
+      "next_cue_crosses_chapter": false,
+      "words": 53,
+      "words_with_next_cue": 111,
+      "sentences": 7,
+      "file": "continuing.rs",
+      "line": 580,
+      "marker": "let line = say(&kit, stage, \"14_6\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 612,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 650,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 651,
+          "call": "until",
+          "source": "let rt = line.until(stage, \"When you come back\", 2.5)?;"
+        },
+        {
+          "line": 663,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 5)?;"
+        },
+        {
+          "line": 666,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 669,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "14_7",
+      "unit": "oliver_14_7",
+      "next_cue": "14_8",
+      "next_cue_crosses_chapter": false,
+      "words": 58,
+      "words_with_next_cue": 120,
+      "sentences": 5,
+      "file": "continuing.rs",
+      "line": 670,
+      "marker": "let line = say(&kit, stage, \"14_7\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 679,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 696,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"near a dense set\")?;"
+        },
+        {
+          "line": 716,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 4)?;"
+        },
+        {
+          "line": 720,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 723,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "14_8",
+      "unit": "oliver_14_8",
+      "next_cue": "15_1",
+      "next_cue_crosses_chapter": true,
+      "words": 62,
+      "words_with_next_cue": 91,
+      "sentences": 4,
+      "file": "continuing.rs",
+      "line": 724,
+      "marker": "let line = say(&kit, stage, \"14_8\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 742,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 753,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 2)?;"
+        },
+        {
+          "line": 756,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 3)?;"
+        },
+        {
+          "line": 785,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 786,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 2.0)?;"
+        },
+        {
+          "line": 791,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    },
+    {
+      "cue": "15_1",
+      "unit": "oliver_15_1",
+      "next_cue": "15_2",
+      "next_cue_crosses_chapter": false,
+      "words": 29,
+      "words_with_next_cue": 111,
+      "sentences": 2,
+      "file": "closing.rs",
+      "line": 189,
+      "marker": "let line = say(&kit, stage, \"15_1\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 225,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 229,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"because of two points\")?;"
+        },
+        {
+          "line": 248,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"at i and minus i\")?;"
+        },
+        {
+          "line": 276,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 278,
+          "call": "pause",
+          "source": "pause(stage, 1.0)?;"
+        },
+        {
+          "line": 281,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "15_2",
+      "unit": "oliver_15_2",
+      "next_cue": "15_3",
+      "next_cue_crosses_chapter": false,
+      "words": 82,
+      "words_with_next_cue": 101,
+      "sentences": 6,
+      "file": "closing.rs",
+      "line": 282,
+      "marker": "let line = say(&kit, stage, \"15_2\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "hold"
+      ],
+      "calls": [
+        {
+          "line": 291,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 299,
+          "call": "wait_sentence",
+          "source": "0 => line.wait_sentence(stage, 2)?,"
+        },
+        {
+          "line": 300,
+          "call": "wait_sentence",
+          "source": "1 => line.wait_sentence(stage, 3)?,"
+        },
+        {
+          "line": 301,
+          "call": "wait_sentence",
+          "source": "2 => line.wait_sentence(stage, 4)?,"
+        },
+        {
+          "line": 302,
+          "call": "wait_for",
+          "source": "3 => line.wait_for(stage, \"and it turns a real integral\")?,"
+        },
+        {
+          "line": 303,
+          "call": "wait_sentence",
+          "source": "_ => line.wait_sentence(stage, 5)?,"
+        },
+        {
+          "line": 317,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 319,
+          "call": "pause",
+          "source": "pause(stage, 1.2)?;"
+        },
+        {
+          "line": 322,
+          "call": "hold",
+          "source": "kit.hold(stage)?;"
+        }
+      ]
+    },
+    {
+      "cue": "15_3",
+      "unit": "oliver_15_3",
+      "next_cue": "15_4",
+      "next_cue_crosses_chapter": false,
+      "words": 19,
+      "words_with_next_cue": 43,
+      "sentences": 3,
+      "file": "closing.rs",
+      "line": 323,
+      "marker": "let line = say(&kit, stage, \"15_3\")?;",
+      "voice_end_calls": [
+        "predict"
+      ],
+      "calls": [
+        {
+          "line": 357,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 369,
+          "call": "predict",
+          "source": "let asked = predict(&kit, stage, &line, &[ask.as_str()], v(ASK_AT.0, ASK_AT.1))?;"
+        }
+      ]
+    },
+    {
+      "cue": "15_4",
+      "unit": "oliver_15_4",
+      "next_cue": null,
+      "next_cue_crosses_chapter": false,
+      "words": 24,
+      "words_with_next_cue": null,
+      "sentences": 2,
+      "file": "closing.rs",
+      "line": 372,
+      "marker": "let line = say(&kit, stage, \"15_4\")?;",
+      "voice_end_calls": [
+        "wait_until(line.end())",
+        "music_breath",
+        "music_breath",
+        "finish"
+      ],
+      "calls": [
+        {
+          "line": 380,
+          "call": "wait_for",
+          "source": "line.wait_for(stage, \"the square root of ten\")?;"
+        },
+        {
+          "line": 413,
+          "call": "wait_sentence",
+          "source": "line.wait_sentence(stage, 1)?;"
+        },
+        {
+          "line": 424,
+          "call": "wait_until",
+          "source": "wait_until(stage, line.end())?;"
+        },
+        {
+          "line": 425,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 1.5)?;"
+        },
+        {
+          "line": 435,
+          "call": "music_breath",
+          "source": "kit.music_breath(stage, 3.0)?;"
+        },
+        {
+          "line": 437,
+          "call": "finish",
+          "source": "kit.finish(stage)"
+        }
+      ]
+    }
+  ]
+}

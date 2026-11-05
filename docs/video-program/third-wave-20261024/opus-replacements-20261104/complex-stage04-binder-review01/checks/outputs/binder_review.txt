@@ -1,0 +1,52 @@
+PASS pin elevenlabs-complex-rebuild-20261104/combined-repair-stage04-integration01.json: 295c27e3
+PASS pin complex_analysis_visual/script.tsv: 12442480
+PASS pin complex_analysis_visual/narration_units.json: 3c4f53d7
+PASS pin complex-stage03-binder01/SHA256SUMS: c66742a0
+PASS pin docs/narration-direction-map-oliver12.json: 70888624
+PASS pin complex_analysis_visual/narration_units.json: e776c860
+PASS pin src/narration.rs: 8072720d
+PASS pin complex-stage04-audio-reuse01/SHA256SUMS: 6336b565
+PASS BronzeJaguar's sealed bundle verifies against its SHA256SUMS: 0 mismatches
+PASS stage04 script has 105 cues
+PASS kit sentences(), draw.rs sentence_offsets() and coherent_narration sentences() split all 105 cues alike: disagree at none
+NOTE draw.rs Spoken uses measured sentence starts only when their count equals sentence_offsets' count, and falls back to a character share silently; agreement above means no cue falls back once report.json exists
+PASS each of the 105 cues is said exactly once in the 17 compiled modules: 17 modules, 105 cues said, repeats none
+PASS 305 literal hooks at their call sites: each phrase once in its cue at a word start (apostrophe counts as inside a word), each sentence index in range: none
+NOTE 10 literal hook calls sit in helpers or on receivers bound elsewhere; the binder expands those at their call sites, this scan does not
+NOTE cues whose literal call sites, read top to bottom, step backwards in the text: none
+PASS every literal call-site hook found here is in the strict audit's table at the same cue, file, line, call and value: missing from theirs: none
+PASS helper hook counting.rs:792 wait_sentence 2 is expanded by the audit and fits its cue(s): ['11_8']
+PASS helper hook counting.rs:814 until 'But samples' is expanded by the audit and fits its cue(s): ['11_8']
+PASS helper hook counting.rs:838 wait_sentence 3 is expanded by the audit and fits its cue(s): ['11_8']
+PASS helper hook counting.rs:880 until 'So bound' is expanded by the audit and fits its cue(s): ['11_8']
+PASS helper hook counting.rs:898 wait_sentence 4 is expanded by the audit and fits its cue(s): ['11_8']
+PASS helper hook counting.rs:937 wait_for 'take steps' is expanded by the audit and fits its cue(s): ['11_8']
+PASS helper hook counting.rs:970 wait_for 'cannot move' is expanded by the audit and fits its cue(s): ['11_8']
+PASS helper hook counting.rs:996 sentence 5 is expanded by the audit and fits its cue(s): ['11_8']
+PASS helper hook counting.rs:1002 wait_sentence 5 is expanded by the audit and fits its cue(s): ['11_8']
+PASS helper hook counting.rs:1148 until 'There the count' is expanded by the audit and fits its cue(s): ['11_4']
+NOTE strict audit rows: 334; matched by this literal scan: 305; the rest are helper expansions, loop unrolls and dynamic values (S2/S3), which this scan does not re-derive
+PASS the strict audit's char and sentence of every phrase hook equal first-occurrence find() on the stage04 text: none
+PASS all 28 map rows: file hash equals stage04's and the marker is the text of its line: none
+PASS map holds are exactly mod.rs PREDICTS (prediction) and READING_WINDOWS (reading): 13 + 10
+PASS each hold's next_cue is the script's next cue: none
+PASS the 23 overrides quote their cue's stage04 text byte for byte, one per hold: none
+PASS bound units: 105 one-cue units in script order, each text the stage04 cue, script and map hashes right
+NOTE installed stage04 units (3c4f53d7) differ from the bound ones in units ['11_7', '15_2'], and in script_sha256 2968b0fd -> 12442480, map oliver10.json -> oliver12.json
+PASS stage04 differs from stage03 in exactly the four files its receipt names: ['storyboard.md', 'script.tsv', 'counting.rs', 'draw.rs']
+PASS counting.rs: film code (before `#[cfg(test)] mod tests {`) byte-equal in stage03 and stage04: 1313 lines
+PASS draw.rs: film code (before `#[cfg(test)] mod tests {`) byte-equal in stage03 and stage04: 1285 lines
+strict audit hooks by call: [('sentence', 6), ('until', 26), ('wait_for', 68), ('wait_sentence', 234)]
+  240 sentence hooks take measured sentence onsets once the take's report.json exists (narration.rs:884-905); 94 phrase hooks stay character-share estimates inside their sentence (draw.rs:142-157) unless a phrase-timings.json bound to the WAV and text hashes exists (narration.rs:906-951); line.end() takes the WAV length
+15_2: 83 words, 455 chars, 6 sentences; sentence 5 is 139 chars: 'It allows at most one extension to a given connected region, though there may be none, and along different paths a continuation can branch.'
+15_2 before F3: sentence 5 143 chars; sentences 0-4 byte-equal: True
+measured: WAV seconds per word of the four existing current Oliver takes (file length, not aligned): [('01_1', 0.3751), ('01_1', 0.3804), ('11_7', 0.3958), ('11_7', 0.4)]
+  scratch kit estimate (2.6 words/s + 0.4 s): line 32.32 s; panels lit at 7.02, 12.70, 15.68, 18.34, 22.06; caption complete at 22.96; overrun into the next panel: none; each panel complete for 25.60, 19.92, 16.95, 14.28, 10.56 s before the strip starts to fade; last panel complete for 10.56 s, of which 9.36 s under the voice
+  Oliver file rate 0.375 s/word: line 31.13 s; panels lit at 6.91, 12.45, 15.40, 18.00, 21.62; caption complete at 22.52; overrun into the next panel: none; each panel complete for 24.52, 18.98, 16.04, 13.44, 9.81 s before the strip starts to fade; last panel complete for 9.81 s, of which 8.61 s under the voice
+  Oliver file rate 0.400 s/word: line 33.20 s; panels lit at 7.37, 13.28, 16.42, 19.19, 23.06; caption complete at 23.96; overrun into the next panel: none; each panel complete for 26.13, 20.22, 17.08, 14.31, 10.44 s before the strip starts to fade; last panel complete for 10.44 s, of which 9.24 s under the voice
+15_2 after the voice: wait_until(line.end()) then pause(1.2) (closing.rs:347-349). main.rs:39 sets LineGaps::Constant, so kit.hold (closing.rs:352) waits only to busy_until + BREATH (0.6 s) and say(15_3) to busy_until + BREATH: both already past. The strip is held 1.2 s after the voice (rounded up to a frame), not 1.2 + 0.6 s, then fades over 0.5 s under 15_3.
+the same holds under LineGaps::Thought: hold waits at most BREATH, and say waits class_gap(15_2, 15_3) = Beat 0.81 s less the takes' quiet edges (15_3 opens 'One', not a topic opener or connective), under 1.2 s
+PASS closing.rs CAPTIONS are the five two-line captions used above
+caption chars (both lines): 34, 30, 31, 27, 38; chars/15 (the map's own lower-bound rule of thumb): 2.3, 2.0, 2.1, 1.8, 2.5 s
+sealed audio inventory: recordings of stage04 15_2: 0; recordings whose text holds either 15_2 clause: none
+FAILURES: none

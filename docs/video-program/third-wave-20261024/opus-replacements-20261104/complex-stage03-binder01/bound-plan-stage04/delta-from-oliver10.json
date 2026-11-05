@@ -1,0 +1,2608 @@
+{
+  "schema_version": 1,
+  "topic": "complex_analysis_visual",
+  "claim": "Text audit of Rust source and plan files. Uncompiled, unrendered, unsynthesised, unheard. Word moments are estimates until Oliver's takes are aligned. No take, duration, listening, picture or independent acceptance.",
+  "base": {
+    "map": "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage03-binder01/baseline/canonical-oliver10/narration-direction-map-oliver10.json",
+    "map_sha256": "341356cda34ac129fbca1988699f9f20f1cb583d63a5463f780226a13ab3c5b4",
+    "note": "canonical's oliver10, rebuilt byte for byte by the pinned binder from canonical at seal time"
+  },
+  "new": {
+    "crate": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/combined-repair-stage04/explainer_corpus/complex_analysis_visual",
+    "map_version": "oliver12",
+    "map_sha256": "70888624edd6e930b383b277b50f8da5e39ac94f1a661c71b7f0e9575362f20c",
+    "script_delta": "F3"
+  },
+  "script": {
+    "cues_changed": [
+      {
+        "cue": "11_7",
+        "old": "The same trick proves that every polynomial has roots. Take one of degree n, starting with z to the n. On a huge circle, z to the n dwarfs the other terms. Picture z to the n as a walker going n times around zero, and the polynomial as a dog on a leash. The leash is shorter than the walker's distance from zero, so the dog circles zero n times too. So there are exactly n roots inside, counted by order.",
+        "new": "The same trick proves that every nonconstant complex polynomial has roots. Divide by its leading coefficient, which leaves its roots unchanged. Now it starts with z to the n, for some positive integer n. On a huge circle, z to the n dwarfs the other terms. Picture z to the n as a walker going n times around zero, and the polynomial as a dog on a leash. The leash is shorter than the walker's distance from zero, so the dog circles zero n times too. So there are exactly n roots inside, counted by order."
+      },
+      {
+        "cue": "15_2",
+        "old": "Everything since came from one demand. The complex derivative must be the same from every direction. On an open region, that makes every small piece of the map a stretch and a turn. It lets boundary values decide the inside. It lets a loop count zeros and poles, and it turns a real integral into a sum of residues. It allows at most one extension to a given connected region, though not always everywhere, and along different paths a continuation can branch.",
+        "new": "Everything since came from one demand. The complex derivative must be the same from every direction. On an open region, that makes every small piece of the map a stretch and a turn. It lets boundary values decide the inside. It lets a loop count zeros and poles, and it turns a real integral into a sum of residues. It allows at most one extension to a given connected region, though there may be none, and along different paths a continuation can branch."
+      }
+    ]
+  },
+  "units": {
+    "direction_contract": [
+      {
+        "path": "$.script_sha256",
+        "old": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e",
+        "new": "12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3"
+      },
+      {
+        "path": "$.map.path",
+        "old": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver10.json",
+        "new": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver12.json"
+      },
+      {
+        "path": "$.map.sha256",
+        "old": "341356cda34ac129fbca1988699f9f20f1cb583d63a5463f780226a13ab3c5b4",
+        "new": "70888624edd6e930b383b277b50f8da5e39ac94f1a661c71b7f0e9575362f20c"
+      }
+    ],
+    "script_sha256": {
+      "old": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e",
+      "new": "12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3"
+    },
+    "units_changed": [
+      {
+        "id": "oliver_11_7",
+        "old_text": "The same trick proves that every polynomial has roots. Take one of degree n, starting with z to the n. On a huge circle, z to the n dwarfs the other terms. Picture z to the n as a walker going n times around zero, and the polynomial as a dog on a leash. The leash is shorter than the walker's distance from zero, so the dog circles zero n times too. So there are exactly n roots inside, counted by order.",
+        "new_text": "The same trick proves that every nonconstant complex polynomial has roots. Divide by its leading coefficient, which leaves its roots unchanged. Now it starts with z to the n, for some positive integer n. On a huge circle, z to the n dwarfs the other terms. Picture z to the n as a walker going n times around zero, and the polynomial as a dog on a leash. The leash is shorter than the walker's distance from zero, so the dog circles zero n times too. So there are exactly n roots inside, counted by order."
+      },
+      {
+        "id": "oliver_15_2",
+        "old_text": "Everything since came from one demand. The complex derivative must be the same from every direction. On an open region, that makes every small piece of the map a stretch and a turn. It lets boundary values decide the inside. It lets a loop count zeros and poles, and it turns a real integral into a sum of residues. It allows at most one extension to a given connected region, though not always everywhere, and along different paths a continuation can branch.",
+        "new_text": "Everything since came from one demand. The complex derivative must be the same from every direction. On an open region, that makes every small piece of the map a stretch and a turn. It lets boundary values decide the inside. It lets a loop count zeros and poles, and it turns a real integral into a sum of residues. It allows at most one extension to a given connected region, though there may be none, and along different paths a continuation can branch."
+      }
+    ],
+    "unit_count": {
+      "old": 105,
+      "new": 105
+    }
+  },
+  "map": {
+    "visual_holds": [
+      {
+        "row": [
+          "02_5",
+          "prediction"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "2b4dd9a1e41e5e484e243d0fad0c5d4f3d66f92247d6a75104828989361e0e32",
+            "new": "24bffa50a914c21cc1457c5056c740a3f25149baf9c140630b2b47e0380b11ec"
+          },
+          "line": {
+            "old": 384,
+            "new": 435
+          }
+        }
+      },
+      {
+        "row": [
+          "03_3",
+          "prediction"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "d8f547c95cef1dda2d15e5512934b5412929fdf575f658ea69c8a3e29e291361",
+            "new": "98cd46c5cc825095600ae431ae22c142a65c7b0cb8d2507d4c4ba0644ca3c432"
+          },
+          "line": {
+            "old": 494,
+            "new": 607
+          },
+          "marker": {
+            "old": "let asked = predict(&kit, stage, &line, &ASK, out.p(C::new(0.0, 0.4)))?;",
+            "new": "let asked = predict(&kit, stage, &line, &ASK, out.p(ASK_AT))?;"
+          }
+        }
+      },
+      {
+        "row": [
+          "04_4",
+          "reading"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "dc98bcee3fc0c5b43fa7fc8601bf4a397dc508bfbd2574e4c809c0ad7d7572d0",
+            "new": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+          },
+          "line": {
+            "old": 239,
+            "new": 341
+          }
+        }
+      },
+      {
+        "row": [
+          "04_6",
+          "prediction"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "dc98bcee3fc0c5b43fa7fc8601bf4a397dc508bfbd2574e4c809c0ad7d7572d0",
+            "new": "8c79f5a1fc4cc18655b73a2f8755fec26fe0af586bcb2d426b018dd3f2ce932d"
+          },
+          "line": {
+            "old": 279,
+            "new": 389
+          }
+        }
+      },
+      {
+        "row": [
+          "05_8",
+          "reading"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "6f310eb739ec3e5e6a085de42e31dd2be27b9c95dff3e82953530efacf1fed02",
+            "new": "bff74a1524c71d7bd4ed517e35303c15e801241462d19d192d92afb04312f16c"
+          },
+          "line": {
+            "old": 827,
+            "new": 866
+          }
+        }
+      },
+      {
+        "row": [
+          "06_8",
+          "prediction"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "b67231d94cafe4f5e93b103b3ed7179e5008aeb63c9a64f2abe5777b44fe5981",
+            "new": "4f0154ec82bb787cdbee4d11d308eea25ca6cc1164f7f4bdb1d908f8d54df29c"
+          },
+          "line": {
+            "old": 650,
+            "new": 663
+          }
+        }
+      },
+      {
+        "row": [
+          "07_2",
+          "reading"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "43b6f1c323c5f71506e618bdcec5dec71ddc302c24e604186259fb026963e80c",
+            "new": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+          },
+          "line": {
+            "old": 396,
+            "new": 400
+          }
+        }
+      },
+      {
+        "row": [
+          "07_3",
+          "prediction"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "43b6f1c323c5f71506e618bdcec5dec71ddc302c24e604186259fb026963e80c",
+            "new": "76a8bf1dc2ae4725d13cfee5b666d063b1cdbf00fc0d8c616dcbe43797e97b00"
+          },
+          "line": {
+            "old": 430,
+            "new": 434
+          }
+        }
+      },
+      {
+        "row": [
+          "08_5",
+          "reading"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "cf383504cdc80652acf4dacf13ba6b99cc6c679cb859749618dd559ab95f695d",
+            "new": "f7a46143d709797ff03e748b4b8efad68d9379fea31b8ce0cd6de0d2f25de6d8"
+          },
+          "line": {
+            "old": 669,
+            "new": 686
+          }
+        }
+      },
+      {
+        "row": [
+          "09_4",
+          "prediction"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "328d2acbc247eccc090340b825cc6764582ebe4337a8dc20089ea9fa001e1b59",
+            "new": "69e41733fd0e4d4e24f4ca1eb59cdf8c718ce07a8507e75a4e0a469331432c64"
+          },
+          "line": {
+            "old": 337,
+            "new": 342
+          }
+        }
+      },
+      {
+        "row": [
+          "09_5",
+          "reading"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "328d2acbc247eccc090340b825cc6764582ebe4337a8dc20089ea9fa001e1b59",
+            "new": "69e41733fd0e4d4e24f4ca1eb59cdf8c718ce07a8507e75a4e0a469331432c64"
+          },
+          "line": {
+            "old": 402,
+            "new": 407
+          }
+        }
+      },
+      {
+        "row": [
+          "09_8",
+          "prediction"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "328d2acbc247eccc090340b825cc6764582ebe4337a8dc20089ea9fa001e1b59",
+            "new": "69e41733fd0e4d4e24f4ca1eb59cdf8c718ce07a8507e75a4e0a469331432c64"
+          },
+          "line": {
+            "old": 681,
+            "new": 686
+          }
+        }
+      },
+      {
+        "row": [
+          "11_5",
+          "prediction"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "0ecda9cf1bfa26ed385b94b92b9316c786186f20ee01fcdda33524d6c81ae5b1",
+            "new": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9"
+          },
+          "line": {
+            "old": 429,
+            "new": 440
+          }
+        }
+      },
+      {
+        "row": [
+          "11_6",
+          "reading"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "0ecda9cf1bfa26ed385b94b92b9316c786186f20ee01fcdda33524d6c81ae5b1",
+            "new": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9"
+          },
+          "line": {
+            "old": 492,
+            "new": 503
+          }
+        }
+      },
+      {
+        "row": [
+          "11_8",
+          "reading"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "0ecda9cf1bfa26ed385b94b92b9316c786186f20ee01fcdda33524d6c81ae5b1",
+            "new": "d41d414134c4ffc553df9773bc1b082fab376f1a4344d248ab7bdb3f443fe8f9"
+          },
+          "line": {
+            "old": 547,
+            "new": 604
+          }
+        }
+      },
+      {
+        "row": [
+          "13_5",
+          "prediction"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "906d4bd803b12031555ae79ff3062b0d65044aa275b5cd9f55507dddce2d82bb",
+            "new": "a5ef573dfa68325272a5d7f588fb910b2d99ea6538752616a51e92c3904d61ed"
+          },
+          "line": {
+            "old": 593,
+            "new": 631
+          }
+        }
+      },
+      {
+        "row": [
+          "13_11",
+          "reading"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "906d4bd803b12031555ae79ff3062b0d65044aa275b5cd9f55507dddce2d82bb",
+            "new": "a5ef573dfa68325272a5d7f588fb910b2d99ea6538752616a51e92c3904d61ed"
+          },
+          "line": {
+            "old": 775,
+            "new": 813
+          }
+        }
+      },
+      {
+        "row": [
+          "14_3",
+          "reading"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "088034785bc2588f9517d15218889f061d0b2de10fd64b363af50f1c7480b2be",
+            "new": "c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b"
+          },
+          "line": {
+            "old": 512,
+            "new": 522
+          }
+        }
+      },
+      {
+        "row": [
+          "14_4",
+          "prediction"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "088034785bc2588f9517d15218889f061d0b2de10fd64b363af50f1c7480b2be",
+            "new": "c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b"
+          },
+          "line": {
+            "old": 522,
+            "new": 531
+          }
+        }
+      },
+      {
+        "row": [
+          "15_3",
+          "prediction"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "65ba58acfb383e706bdeb7fb2d949335272ceb1f031b662ffdbab531cd36c19e",
+            "new": "373a0340a0f86d1bd3c899e218a7ea7c1f7993e1a4914a2d6a1f238c27d5b93e"
+          },
+          "line": {
+            "old": 369,
+            "new": 402
+          }
+        }
+      }
+    ],
+    "helpers": [
+      {
+        "row": [
+          "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+          "pub fn predict"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "4eba4bb18b989ac7075519031913ad4974e471a495a56a80fde4f796d9159545",
+            "new": "3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db"
+          },
+          "line": {
+            "old": 871,
+            "new": 1112
+          }
+        }
+      },
+      {
+        "row": [
+          "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+          "pub fn reading_window"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "4eba4bb18b989ac7075519031913ad4974e471a495a56a80fde4f796d9159545",
+            "new": "3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db"
+          },
+          "line": {
+            "old": 925,
+            "new": 1166
+          }
+        }
+      },
+      {
+        "row": [
+          "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+          "pub const PREDICTS: &["
+        ],
+        "changed": {
+          "sha256": {
+            "old": "57c46d67161490cbadc96e9ccad6ae6eb821c54d4bd257f3233735792a529b5e",
+            "new": "9ddf5283a8d298d9466bacd0e60c9203bdb857049702daf7971bce40c2b4541b"
+          }
+        }
+      },
+      {
+        "row": [
+          "explainer_corpus/complex_analysis_visual/src/chapters/draw.rs",
+          "pub fn precisely_over"
+        ],
+        "changed": {
+          "sha256": {
+            "old": "4eba4bb18b989ac7075519031913ad4974e471a495a56a80fde4f796d9159545",
+            "new": "3f1c581dbc028a4d1a50a46d15028a0e005e0a76cf58709c6fbbbce2d30ea2db"
+          },
+          "line": {
+            "old": 957,
+            "new": 1198
+          }
+        }
+      },
+      {
+        "row": [
+          "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+          "pub const READING_WINDOWS: &["
+        ],
+        "changed": {
+          "sha256": {
+            "old": "57c46d67161490cbadc96e9ccad6ae6eb821c54d4bd257f3233735792a529b5e",
+            "new": "9ddf5283a8d298d9466bacd0e60c9203bdb857049702daf7971bce40c2b4541b"
+          }
+        }
+      }
+    ],
+    "other_fields": [
+      {
+        "path": "$.scripts.complex_analysis_visual",
+        "old": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e",
+        "new": "12442480d7e74ca49e31ca9f6f437715e3d7151b706ff4a3815139bfa67c0fc3"
+      }
+    ]
+  },
+  "hooks_per_cue": {
+    "changed": [
+      {
+        "cue": "02_5",
+        "file": "turning.rs",
+        "say_line": {
+          "old": 382,
+          "new": 428
+        },
+        "removed": [],
+        "added": [
+          {
+            "call": "wait_for",
+            "source": "line.wait_for(stage, \"an eighth of a turn\")?;"
+          }
+        ],
+        "reordered_only": false,
+        "voice_end_calls": {
+          "old": [
+            "predict"
+          ],
+          "new": [
+            "predict"
+          ]
+        }
+      },
+      {
+        "cue": "02_6",
+        "file": "turning.rs",
+        "say_line": {
+          "old": 387,
+          "new": 438
+        },
+        "removed": [],
+        "added": [
+          {
+            "call": "wait_for",
+            "source": "line.wait_for(stage, \"and angles add\")?;"
+          },
+          {
+            "call": "wait_for",
+            "source": "line.wait_for(stage, \"Every complex derivative\")?;"
+          }
+        ],
+        "reordered_only": false,
+        "voice_end_calls": {
+          "old": [
+            "wait_until(line.end())",
+            "music_breath",
+            "finish"
+          ],
+          "new": [
+            "wait_until(line.end())",
+            "music_breath",
+            "finish"
+          ]
+        }
+      },
+      {
+        "cue": "03_2",
+        "file": "two_planes.rs",
+        "say_line": {
+          "old": 366,
+          "new": 429
+        },
+        "removed": [],
+        "added": [
+          {
+            "call": "wait_for",
+            "source": "line.wait_for(stage, \"squares each length\")?;"
+          },
+          {
+            "call": "wait_for",
+            "source": "line.wait_for(stage, \"doubles each angle\")?;"
+          }
+        ],
+        "reordered_only": false,
+        "voice_end_calls": {
+          "old": [
+            "hold"
+          ],
+          "new": [
+            "hold"
+          ]
+        }
+      },
+      {
+        "cue": "03_3",
+        "file": "two_planes.rs",
+        "say_line": {
+          "old": 474,
+          "new": 587
+        },
+        "removed": [
+          {
+            "call": "predict",
+            "source": "let asked = predict(&kit, stage, &line, &ASK, out.p(C::new(0.0, 0.4)))?;"
+          }
+        ],
+        "added": [
+          {
+            "call": "predict",
+            "source": "let asked = predict(&kit, stage, &line, &ASK, out.p(ASK_AT))?;"
+          }
+        ],
+        "reordered_only": false,
+        "voice_end_calls": {
+          "old": [
+            "predict"
+          ],
+          "new": [
+            "predict"
+          ]
+        }
+      },
+      {
+        "cue": "03_5",
+        "file": "two_planes.rs",
+        "say_line": {
+          "old": 564,
+          "new": 672
+        },
+        "removed": [],
+        "added": [
+          {
+            "call": "wait_for",
+            "source": "line.wait_for(stage, \"each point flips\")?;"
+          }
+        ],
+        "reordered_only": false,
+        "voice_end_calls": {
+          "old": [
+            "wait_until(line.end())",
+            "hold"
+          ],
+          "new": [
+            "wait_until(line.end())",
+            "hold"
+          ]
+        }
+      },
+      {
+        "cue": "04_3",
+        "file": "reading_color.rs",
+        "say_line": {
+          "old": 198,
+          "new": 287
+        },
+        "removed": [],
+        "added": [
+          {
+            "call": "wait_sentence",
+            "source": "line.wait_sentence(stage, 2)?;"
+          }
+        ],
+        "reordered_only": false,
+        "voice_end_calls": {
+          "old": [
+            "hold"
+          ],
+          "new": [
+            "hold"
+          ]
+        }
+      },
+      {
+        "cue": "04_4",
+        "file": "reading_color.rs",
+        "say_line": {
+          "old": 219,
+          "new": 315
+        },
+        "removed": [
+          {
+            "call": "wait_sentence",
+            "source": "line.wait_sentence(stage, 1)?;"
+          }
+        ],
+        "added": [
+          {
+            "call": "until",
+            "source": "let rt = line.until(stage, \"Once for a simple zero\", 2.0)?;"
+          },
+          {
+            "call": "wait_for",
+            "source": "line.wait_for(stage, \"twice for a zero of order two\")?;"
+          },
+          {
+            "call": "wait_sentence",
+            "source": "line.wait_sentence(stage, 2)?;"
+          }
+        ],
+        "reordered_only": false,
+        "voice_end_calls": {
+          "old": [
+            "wait_until(line.end())",
+            "reading_window"
+          ],
+          "new": [
+            "wait_until(line.end())",
+            "reading_window"
+          ]
+        }
+      },
+      {
+        "cue": "05_3",
+        "file": "gallery.rs",
+        "say_line": {
+          "old": 452,
+          "new": 476
+        },
+        "removed": [
+          {
+            "call": "wait_sentence",
+            "source": "line.wait_sentence(stage, 2)?;"
+          }
+        ],
+        "added": [
+          {
+            "call": "wait_for",
+            "source": "line.wait_for(stage, \"exact squares\")?;"
+          },
+          {
+            "call": "wait_for",
+            "source": "line.wait_for(stage, \"repeating every two pi\")?;"
+          }
+        ],
+        "reordered_only": false,
+        "voice_end_calls": {
+          "old": [
+            "wait_until(line.end())",
+            "hold"
+          ],
+          "new": [
+            "wait_until(line.end())",
+            "hold"
+          ]
+        }
+      },
+      {
+        "cue": "05_8",
+        "file": "gallery.rs",
+        "say_line": {
+          "old": 806,
+          "new": 843
+        },
+        "removed": [
+          {
+            "call": "wait_sentence",
+            "source": "line.wait_sentence(stage, 1)?;"
+          }
+        ],
+        "added": [
+          {
+            "call": "wait_for",
+            "source": "line.wait_for(stage, \"is the Riemann hypothesis\")?;"
+          }
+        ],
+        "reordered_only": false,
+        "voice_end_calls": {
+          "old": [
+            "wait_until(line.end())",
+            "reading_window"
+          ],
+          "new": [
+            "wait_until(line.end())",
+            "reading_window"
+          ]
+        }
+      },
+      {
+        "cue": "05_9",
+        "file": "gallery.rs",
+        "say_line": {
+          "old": 828,
+          "new": 867
+        },
+        "removed": [],
+        "added": [
+          {
+            "call": "wait_for",
+            "source": "line.wait_for(stage, \"nearly square\")?;"
+          }
+        ],
+        "reordered_only": false,
+        "voice_end_calls": {
+          "old": [
+            "wait_until(line.end())",
+            "music_breath",
+            "finish"
+          ],
+          "new": [
+            "wait_until(line.end())",
+            "music_breath",
+            "finish"
+          ]
+        }
+      },
+      {
+        "cue": "11_7",
+        "file": "counting.rs",
+        "say_line": {
+          "old": 493,
+          "new": 504
+        },
+        "removed": [
+          {
+            "call": "wait_sentence",
+            "source": "line.wait_sentence(stage, 2)?;"
+          },
+          {
+            "call": "sentence",
+            "source": "let rt = (line.sentence(5)? - stage.scene().time().to_f64()).max(5.0);"
+          }
+        ],
+        "added": [
+          {
+            "call": "wait_for",
+            "source": "line.wait_for(stage, \"complex polynomial\")?;"
+          },
+          {
+            "call": "sentence",
+            "source": "let rt = (line.sentence(1)? - stage.scene().time().to_f64()).clamp(0.7, 1.4);"
+          },
+          {
+            "call": "until",
+            "source": "let rt = line.until(stage, \"which leaves\", 1.2)?;"
+          },
+          {
+            "call": "wait_for",
+            "source": "line.wait_for(stage, \"with z\")?;"
+          },
+          {
+            "call": "wait_sentence",
+            "source": "line.wait_sentence(stage, 4)?;"
+          },
+          {
+            "call": "sentence",
+            "source": "let rt = (line.sentence(6)? - stage.scene().time().to_f64()).max(5.0);"
+          }
+        ],
+        "reordered_only": false,
+        "voice_end_calls": {
+          "old": [
+            "hold"
+          ],
+          "new": [
+            "hold"
+          ]
+        }
+      }
+    ],
+    "moved": [
+      {
+        "cue": "02_1",
+        "file": "turning.rs",
+        "say_line": {
+          "old": 187,
+          "new": 233
+        },
+        "line_shifts": [
+          46
+        ]
+      },
+      {
+        "cue": "02_2",
+        "file": "turning.rs",
+        "say_line": {
+          "old": 234,
+          "new": 280
+        },
+        "line_shifts": [
+          46
+        ]
+      },
+      {
+        "cue": "02_3",
+        "file": "turning.rs",
+        "say_line": {
+          "old": 299,
+          "new": 345
+        },
+        "line_shifts": [
+          46
+        ]
+      },
+      {
+        "cue": "02_4",
+        "file": "turning.rs",
+        "say_line": {
+          "old": 339,
+          "new": 385
+        },
+        "line_shifts": [
+          46
+        ]
+      },
+      {
+        "cue": "03_1",
+        "file": "two_planes.rs",
+        "say_line": {
+          "old": 322,
+          "new": 385
+        },
+        "line_shifts": [
+          63
+        ]
+      },
+      {
+        "cue": "03_4",
+        "file": "two_planes.rs",
+        "say_line": {
+          "old": 497,
+          "new": 610
+        },
+        "line_shifts": [
+          108,
+          113
+        ]
+      },
+      {
+        "cue": "03_6",
+        "file": "two_planes.rs",
+        "say_line": {
+          "old": 634,
+          "new": 758
+        },
+        "line_shifts": [
+          124,
+          125,
+          127
+        ]
+      },
+      {
+        "cue": "03_7",
+        "file": "two_planes.rs",
+        "say_line": {
+          "old": 723,
+          "new": 850
+        },
+        "line_shifts": [
+          127
+        ]
+      },
+      {
+        "cue": "04_1",
+        "file": "reading_color.rs",
+        "say_line": {
+          "old": 124,
+          "new": 213
+        },
+        "line_shifts": [
+          89
+        ]
+      },
+      {
+        "cue": "04_2",
+        "file": "reading_color.rs",
+        "say_line": {
+          "old": 177,
+          "new": 266
+        },
+        "line_shifts": [
+          89
+        ]
+      },
+      {
+        "cue": "04_5",
+        "file": "reading_color.rs",
+        "say_line": {
+          "old": 240,
+          "new": 342
+        },
+        "line_shifts": [
+          102,
+          109
+        ]
+      },
+      {
+        "cue": "04_6",
+        "file": "reading_color.rs",
+        "say_line": {
+          "old": 264,
+          "new": 373
+        },
+        "line_shifts": [
+          109,
+          110
+        ]
+      },
+      {
+        "cue": "04_7",
+        "file": "reading_color.rs",
+        "say_line": {
+          "old": 282,
+          "new": 392
+        },
+        "line_shifts": [
+          110,
+          113
+        ]
+      },
+      {
+        "cue": "05_1",
+        "file": "gallery.rs",
+        "say_line": {
+          "old": 368,
+          "new": 393
+        },
+        "line_shifts": [
+          25
+        ]
+      },
+      {
+        "cue": "05_2",
+        "file": "gallery.rs",
+        "say_line": {
+          "old": 399,
+          "new": 424
+        },
+        "line_shifts": [
+          17,
+          24,
+          25
+        ]
+      },
+      {
+        "cue": "05_4",
+        "file": "gallery.rs",
+        "say_line": {
+          "old": 509,
+          "new": 537
+        },
+        "line_shifts": [
+          28,
+          29
+        ]
+      },
+      {
+        "cue": "05_5",
+        "file": "gallery.rs",
+        "say_line": {
+          "old": 586,
+          "new": 615
+        },
+        "line_shifts": [
+          29
+        ]
+      },
+      {
+        "cue": "05_6",
+        "file": "gallery.rs",
+        "say_line": {
+          "old": 639,
+          "new": 668
+        },
+        "line_shifts": [
+          29
+        ]
+      },
+      {
+        "cue": "05_7",
+        "file": "gallery.rs",
+        "say_line": {
+          "old": 706,
+          "new": 735
+        },
+        "line_shifts": [
+          29,
+          37
+        ]
+      },
+      {
+        "cue": "06_1",
+        "file": "one_derivative.rs",
+        "say_line": {
+          "old": 182,
+          "new": 188
+        },
+        "line_shifts": [
+          6,
+          13
+        ]
+      },
+      {
+        "cue": "06_2",
+        "file": "one_derivative.rs",
+        "say_line": {
+          "old": 274,
+          "new": 287
+        },
+        "line_shifts": [
+          13
+        ]
+      },
+      {
+        "cue": "06_3",
+        "file": "one_derivative.rs",
+        "say_line": {
+          "old": 384,
+          "new": 397
+        },
+        "line_shifts": [
+          13
+        ]
+      },
+      {
+        "cue": "06_4",
+        "file": "one_derivative.rs",
+        "say_line": {
+          "old": 452,
+          "new": 465
+        },
+        "line_shifts": [
+          13
+        ]
+      },
+      {
+        "cue": "06_5",
+        "file": "one_derivative.rs",
+        "say_line": {
+          "old": 499,
+          "new": 512
+        },
+        "line_shifts": [
+          13
+        ]
+      },
+      {
+        "cue": "06_6",
+        "file": "one_derivative.rs",
+        "say_line": {
+          "old": 561,
+          "new": 574
+        },
+        "line_shifts": [
+          13
+        ]
+      },
+      {
+        "cue": "06_7",
+        "file": "one_derivative.rs",
+        "say_line": {
+          "old": 574,
+          "new": 587
+        },
+        "line_shifts": [
+          13
+        ]
+      },
+      {
+        "cue": "06_8",
+        "file": "one_derivative.rs",
+        "say_line": {
+          "old": 601,
+          "new": 614
+        },
+        "line_shifts": [
+          13
+        ]
+      },
+      {
+        "cue": "06_9",
+        "file": "one_derivative.rs",
+        "say_line": {
+          "old": 653,
+          "new": 666
+        },
+        "line_shifts": [
+          13,
+          14,
+          17
+        ]
+      },
+      {
+        "cue": "07_1",
+        "file": "one_point.rs",
+        "say_line": {
+          "old": 231,
+          "new": 234
+        },
+        "line_shifts": [
+          3,
+          4
+        ]
+      },
+      {
+        "cue": "07_2",
+        "file": "one_point.rs",
+        "say_line": {
+          "old": 354,
+          "new": 358
+        },
+        "line_shifts": [
+          4
+        ]
+      },
+      {
+        "cue": "07_3",
+        "file": "one_point.rs",
+        "say_line": {
+          "old": 397,
+          "new": 401
+        },
+        "line_shifts": [
+          4
+        ]
+      },
+      {
+        "cue": "07_4",
+        "file": "one_point.rs",
+        "say_line": {
+          "old": 433,
+          "new": 437
+        },
+        "line_shifts": [
+          4
+        ]
+      },
+      {
+        "cue": "07_5",
+        "file": "one_point.rs",
+        "say_line": {
+          "old": 507,
+          "new": 511
+        },
+        "line_shifts": [
+          4
+        ]
+      },
+      {
+        "cue": "07_6",
+        "file": "one_point.rs",
+        "say_line": {
+          "old": 667,
+          "new": 671
+        },
+        "line_shifts": [
+          4
+        ]
+      },
+      {
+        "cue": "08_1",
+        "file": "loop_sums.rs",
+        "say_line": {
+          "old": 286,
+          "new": 299
+        },
+        "line_shifts": [
+          13
+        ]
+      },
+      {
+        "cue": "08_2",
+        "file": "loop_sums.rs",
+        "say_line": {
+          "old": 365,
+          "new": 378
+        },
+        "line_shifts": [
+          13
+        ]
+      },
+      {
+        "cue": "08_3",
+        "file": "loop_sums.rs",
+        "say_line": {
+          "old": 434,
+          "new": 447
+        },
+        "line_shifts": [
+          13,
+          17
+        ]
+      },
+      {
+        "cue": "08_4",
+        "file": "loop_sums.rs",
+        "say_line": {
+          "old": 524,
+          "new": 541
+        },
+        "line_shifts": [
+          17
+        ]
+      },
+      {
+        "cue": "08_5",
+        "file": "loop_sums.rs",
+        "say_line": {
+          "old": 588,
+          "new": 605
+        },
+        "line_shifts": [
+          17
+        ]
+      },
+      {
+        "cue": "09_1",
+        "file": "boundary.rs",
+        "say_line": {
+          "old": 170,
+          "new": 175
+        },
+        "line_shifts": [
+          5
+        ]
+      },
+      {
+        "cue": "09_2",
+        "file": "boundary.rs",
+        "say_line": {
+          "old": 231,
+          "new": 236
+        },
+        "line_shifts": [
+          5
+        ]
+      },
+      {
+        "cue": "09_3",
+        "file": "boundary.rs",
+        "say_line": {
+          "old": 245,
+          "new": 250
+        },
+        "line_shifts": [
+          5
+        ]
+      },
+      {
+        "cue": "09_4",
+        "file": "boundary.rs",
+        "say_line": {
+          "old": 319,
+          "new": 324
+        },
+        "line_shifts": [
+          5
+        ]
+      },
+      {
+        "cue": "09_5",
+        "file": "boundary.rs",
+        "say_line": {
+          "old": 340,
+          "new": 345
+        },
+        "line_shifts": [
+          5
+        ]
+      },
+      {
+        "cue": "09_6",
+        "file": "boundary.rs",
+        "say_line": {
+          "old": 403,
+          "new": 408
+        },
+        "line_shifts": [
+          5
+        ]
+      },
+      {
+        "cue": "09_7",
+        "file": "boundary.rs",
+        "say_line": {
+          "old": 530,
+          "new": 535
+        },
+        "line_shifts": [
+          5
+        ]
+      },
+      {
+        "cue": "09_8",
+        "file": "boundary.rs",
+        "say_line": {
+          "old": 652,
+          "new": 657
+        },
+        "line_shifts": [
+          5
+        ]
+      },
+      {
+        "cue": "09_9",
+        "file": "boundary.rs",
+        "say_line": {
+          "old": 684,
+          "new": 689
+        },
+        "line_shifts": [
+          5
+        ]
+      },
+      {
+        "cue": "11_1",
+        "file": "counting.rs",
+        "say_line": {
+          "old": 183,
+          "new": 194
+        },
+        "line_shifts": [
+          11
+        ]
+      },
+      {
+        "cue": "11_2",
+        "file": "counting.rs",
+        "say_line": {
+          "old": 227,
+          "new": 238
+        },
+        "line_shifts": [
+          11
+        ]
+      },
+      {
+        "cue": "11_3",
+        "file": "counting.rs",
+        "say_line": {
+          "old": 293,
+          "new": 304
+        },
+        "line_shifts": [
+          11
+        ]
+      },
+      {
+        "cue": "11_4",
+        "file": "counting.rs",
+        "say_line": {
+          "old": 393,
+          "new": 404
+        },
+        "line_shifts": [
+          11
+        ]
+      },
+      {
+        "cue": "11_5",
+        "file": "counting.rs",
+        "say_line": {
+          "old": 418,
+          "new": 429
+        },
+        "line_shifts": [
+          11
+        ]
+      },
+      {
+        "cue": "11_6",
+        "file": "counting.rs",
+        "say_line": {
+          "old": 433,
+          "new": 444
+        },
+        "line_shifts": [
+          11
+        ]
+      },
+      {
+        "cue": "11_8",
+        "file": "counting.rs",
+        "say_line": {
+          "old": 533,
+          "new": 590
+        },
+        "line_shifts": [
+          57
+        ]
+      },
+      {
+        "cue": "13_1",
+        "file": "real_integral.rs",
+        "say_line": {
+          "old": 270,
+          "new": 294
+        },
+        "line_shifts": [
+          24
+        ]
+      },
+      {
+        "cue": "13_2",
+        "file": "real_integral.rs",
+        "say_line": {
+          "old": 289,
+          "new": 313
+        },
+        "line_shifts": [
+          24
+        ]
+      },
+      {
+        "cue": "13_3",
+        "file": "real_integral.rs",
+        "say_line": {
+          "old": 357,
+          "new": 381
+        },
+        "line_shifts": [
+          24,
+          38
+        ]
+      },
+      {
+        "cue": "13_4",
+        "file": "real_integral.rs",
+        "say_line": {
+          "old": 524,
+          "new": 562
+        },
+        "line_shifts": [
+          38
+        ]
+      },
+      {
+        "cue": "13_5",
+        "file": "real_integral.rs",
+        "say_line": {
+          "old": 568,
+          "new": 606
+        },
+        "line_shifts": [
+          38
+        ]
+      },
+      {
+        "cue": "13_6",
+        "file": "real_integral.rs",
+        "say_line": {
+          "old": 596,
+          "new": 634
+        },
+        "line_shifts": [
+          38
+        ]
+      },
+      {
+        "cue": "13_7",
+        "file": "real_integral.rs",
+        "say_line": {
+          "old": 617,
+          "new": 655
+        },
+        "line_shifts": [
+          38
+        ]
+      },
+      {
+        "cue": "13_8",
+        "file": "real_integral.rs",
+        "say_line": {
+          "old": 629,
+          "new": 667
+        },
+        "line_shifts": [
+          38
+        ]
+      },
+      {
+        "cue": "13_9",
+        "file": "real_integral.rs",
+        "say_line": {
+          "old": 681,
+          "new": 719
+        },
+        "line_shifts": [
+          38
+        ]
+      },
+      {
+        "cue": "13_10",
+        "file": "real_integral.rs",
+        "say_line": {
+          "old": 705,
+          "new": 743
+        },
+        "line_shifts": [
+          38
+        ]
+      },
+      {
+        "cue": "13_11",
+        "file": "real_integral.rs",
+        "say_line": {
+          "old": 767,
+          "new": 805
+        },
+        "line_shifts": [
+          38
+        ]
+      },
+      {
+        "cue": "14_1",
+        "file": "continuing.rs",
+        "say_line": {
+          "old": 262,
+          "new": 271
+        },
+        "line_shifts": [
+          9
+        ]
+      },
+      {
+        "cue": "14_2",
+        "file": "continuing.rs",
+        "say_line": {
+          "old": 308,
+          "new": 317
+        },
+        "line_shifts": [
+          9
+        ]
+      },
+      {
+        "cue": "14_3",
+        "file": "continuing.rs",
+        "say_line": {
+          "old": 404,
+          "new": 413
+        },
+        "line_shifts": [
+          9,
+          10,
+          11,
+          13
+        ]
+      },
+      {
+        "cue": "14_4",
+        "file": "continuing.rs",
+        "say_line": {
+          "old": 513,
+          "new": 523
+        },
+        "line_shifts": [
+          9,
+          10
+        ]
+      },
+      {
+        "cue": "14_5",
+        "file": "continuing.rs",
+        "say_line": {
+          "old": 525,
+          "new": 534
+        },
+        "line_shifts": [
+          9
+        ]
+      },
+      {
+        "cue": "14_6",
+        "file": "continuing.rs",
+        "say_line": {
+          "old": 580,
+          "new": 589
+        },
+        "line_shifts": [
+          9
+        ]
+      },
+      {
+        "cue": "14_7",
+        "file": "continuing.rs",
+        "say_line": {
+          "old": 670,
+          "new": 679
+        },
+        "line_shifts": [
+          9
+        ]
+      },
+      {
+        "cue": "14_8",
+        "file": "continuing.rs",
+        "say_line": {
+          "old": 724,
+          "new": 733
+        },
+        "line_shifts": [
+          9
+        ]
+      },
+      {
+        "cue": "15_1",
+        "file": "closing.rs",
+        "say_line": {
+          "old": 189,
+          "new": 217
+        },
+        "line_shifts": [
+          28,
+          30
+        ]
+      },
+      {
+        "cue": "15_2",
+        "file": "closing.rs",
+        "say_line": {
+          "old": 282,
+          "new": 312
+        },
+        "line_shifts": [
+          30
+        ]
+      },
+      {
+        "cue": "15_3",
+        "file": "closing.rs",
+        "say_line": {
+          "old": 323,
+          "new": 353
+        },
+        "line_shifts": [
+          30,
+          32,
+          33
+        ]
+      },
+      {
+        "cue": "15_4",
+        "file": "closing.rs",
+        "say_line": {
+          "old": 372,
+          "new": 405
+        },
+        "line_shifts": [
+          33,
+          34,
+          42,
+          43
+        ]
+      }
+    ],
+    "unchanged": 16
+  },
+  "chapter_closing_tails": [
+    {
+      "file": "boundary.rs",
+      "state": "moved",
+      "old": {
+        "cue": "09_9",
+        "calls": [
+          {
+            "line": 775,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 776,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 798,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "09_9",
+        "calls": [
+          {
+            "line": 780,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 781,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 803,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "closing.rs",
+      "state": "moved",
+      "old": {
+        "cue": "15_4",
+        "calls": [
+          {
+            "line": 424,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 425,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 1.5)?;"
+          },
+          {
+            "line": 435,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 3.0)?;"
+          },
+          {
+            "line": 437,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "15_4",
+        "calls": [
+          {
+            "line": 466,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 467,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 1.5)?;"
+          },
+          {
+            "line": 478,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 3.0)?;"
+          },
+          {
+            "line": 480,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "continuing.rs",
+      "state": "moved",
+      "old": {
+        "cue": "14_8",
+        "calls": [
+          {
+            "line": 785,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 786,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 791,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "14_8",
+        "calls": [
+          {
+            "line": 794,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 795,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 800,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "counting.rs",
+      "state": "moved",
+      "old": {
+        "cue": "11_8",
+        "calls": [
+          {
+            "line": 544,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 547,
+            "call": "reading_window",
+            "source": "reading_window(&kit, stage, &line)?;"
+          },
+          {
+            "line": 548,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 551,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "11_8",
+        "calls": [
+          {
+            "line": 601,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 604,
+            "call": "reading_window",
+            "source": "reading_window(&kit, stage, &line)?;"
+          },
+          {
+            "line": 605,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 608,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "gallery.rs",
+      "state": "moved",
+      "old": {
+        "cue": "05_9",
+        "calls": [
+          {
+            "line": 921,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 922,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 929,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "05_9",
+        "calls": [
+          {
+            "line": 962,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 963,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 970,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "loop_sums.rs",
+      "state": "moved",
+      "old": {
+        "cue": "08_5",
+        "calls": [
+          {
+            "line": 665,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 669,
+            "call": "reading_window",
+            "source": "reading_window(&kit, stage, &line)?;"
+          },
+          {
+            "line": 670,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 676,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "08_5",
+        "calls": [
+          {
+            "line": 682,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 686,
+            "call": "reading_window",
+            "source": "reading_window(&kit, stage, &line)?;"
+          },
+          {
+            "line": 687,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 693,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "one_derivative.rs",
+      "state": "moved",
+      "old": {
+        "cue": "06_9",
+        "calls": [
+          {
+            "line": 717,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 718,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 735,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "06_9",
+        "calls": [
+          {
+            "line": 734,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 735,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 749,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "one_point.rs",
+      "state": "moved",
+      "old": {
+        "cue": "07_6",
+        "calls": [
+          {
+            "line": 748,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 749,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 755,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "07_6",
+        "calls": [
+          {
+            "line": 752,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 753,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 759,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "reading_color.rs",
+      "state": "moved",
+      "old": {
+        "cue": "04_7",
+        "calls": [
+          {
+            "line": 317,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 318,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 326,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "04_7",
+        "calls": [
+          {
+            "line": 430,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 431,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 439,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "real_integral.rs",
+      "state": "moved",
+      "old": {
+        "cue": "13_11",
+        "calls": [
+          {
+            "line": 773,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 775,
+            "call": "reading_window",
+            "source": "reading_window(&kit, stage, &line)?;"
+          },
+          {
+            "line": 776,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.5)?;"
+          },
+          {
+            "line": 787,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "13_11",
+        "calls": [
+          {
+            "line": 811,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 813,
+            "call": "reading_window",
+            "source": "reading_window(&kit, stage, &line)?;"
+          },
+          {
+            "line": 814,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.5)?;"
+          },
+          {
+            "line": 825,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "residues.rs",
+      "state": "unchanged",
+      "old": {
+        "cue": "12_4",
+        "calls": [
+          {
+            "line": 357,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 358,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 363,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "12_4",
+        "calls": [
+          {
+            "line": 357,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 358,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 363,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "rigidity.rs",
+      "state": "unchanged",
+      "old": {
+        "cue": "10_6",
+        "calls": [
+          {
+            "line": 603,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 604,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 620,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "10_6",
+        "calls": [
+          {
+            "line": 603,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 604,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 620,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "the_bump.rs",
+      "state": "unchanged",
+      "old": {
+        "cue": "01_6",
+        "calls": [
+          {
+            "line": 331,
+            "call": "pause",
+            "source": "pause(stage, 0.6)?;"
+          },
+          {
+            "line": 334,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 335,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 350,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "01_6",
+        "calls": [
+          {
+            "line": 331,
+            "call": "pause",
+            "source": "pause(stage, 0.6)?;"
+          },
+          {
+            "line": 334,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 335,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 350,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "turning.rs",
+      "state": "moved",
+      "old": {
+        "cue": "02_6",
+        "calls": [
+          {
+            "line": 422,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 423,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 441,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "02_6",
+        "calls": [
+          {
+            "line": 483,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 484,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 500,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    },
+    {
+      "file": "two_planes.rs",
+      "state": "moved",
+      "old": {
+        "cue": "03_7",
+        "calls": [
+          {
+            "line": 765,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 766,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 775,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      },
+      "new": {
+        "cue": "03_7",
+        "calls": [
+          {
+            "line": 892,
+            "call": "wait_until",
+            "source": "wait_until(stage, line.end())?;"
+          },
+          {
+            "line": 893,
+            "call": "music_breath",
+            "source": "kit.music_breath(stage, 2.0)?;"
+          },
+          {
+            "line": 902,
+            "call": "finish",
+            "source": "kit.finish(stage)"
+          }
+        ]
+      }
+    }
+  ],
+  "dynamic_values": [
+    {
+      "file": "counting.rs",
+      "call": "let until = if i < 2 { line.sentence(i + 3)? } else { line.end() };",
+      "table": [
+        3,
+        4
+      ],
+      "from_source": [
+        3,
+        4
+      ],
+      "how": "i < 2 over 3 iterations; the last walk lands on line.end()",
+      "equal": true
+    },
+    {
+      "file": "counting.rs",
+      "call": "line.wait_for(stage, NEEDS_SAID[i])?;",
+      "table": [
+        "It needs",
+        "passes through",
+        "and a function"
+      ],
+      "from_source": [
+        "It needs",
+        "passes through",
+        "and a function"
+      ],
+      "how": "NEEDS_SAID[i] for i over NEEDS (3)",
+      "equal": true
+    },
+    {
+      "file": "counting.rs",
+      "call": "line.wait_sentence(stage, i + 2)?;",
+      "table": [
+        2,
+        3,
+        4
+      ],
+      "from_source": [
+        2,
+        3,
+        4
+      ],
+      "how": "i over 3 iterations: for (i, (f, name)) in [Func::Identity, Func::Square, Func::Recip] .into_iter() .zip(LOCAL) .enumerate()",
+      "equal": true
+    },
+    {
+      "file": "gallery.rs",
+      "call": "let rt = line.until(stage, phrase, 2.5)?;",
+      "table": {
+        "05_1": [
+          "Three zeros inside"
+        ],
+        "05_2": [
+          "backwards twice"
+        ]
+      },
+      "from_source": {
+        "05_1": [
+          "Three zeros inside"
+        ],
+        "05_2": [
+          "backwards twice"
+        ]
+      },
+      "how": "helper parameter, from the literal at each call site",
+      "equal": true
+    },
+    {
+      "file": "gallery.rs",
+      "call": "line.wait_for(stage, phrase)?;",
+      "table": [
+        "a pole at zero",
+        "at minus one",
+        "at minus two"
+      ],
+      "from_source": [
+        "a pole at zero",
+        "at minus one",
+        "at minus two"
+      ],
+      "how": "named.get(k) over fact_list(\"gallery.gamma.poles\"): the first len(named) poles are named",
+      "equal": true
+    },
+    {
+      "file": "reading_color.rs",
+      "call": "line.wait_for(stage, phrase)?;",
+      "table": [
+        "Pointing right is red",
+        "Pointing up is yellow green",
+        "Pointing left is teal",
+        "pointing down is violet"
+      ],
+      "from_source": [
+        "Pointing right is red",
+        "Pointing up is yellow green",
+        "Pointing left is teal",
+        "pointing down is violet"
+      ],
+      "how": "NAMED's phrases zipped with names from DIRECTIONS (4)",
+      "equal": true
+    },
+    {
+      "file": "the_bump.rs",
+      "call": "line.wait_for(stage, phrase)?;",
+      "table": [
+        "plus x to the fourth",
+        "minus x to the sixth"
+      ],
+      "from_source": [
+        "plus x to the fourth",
+        "minus x to the sixth"
+      ],
+      "how": "loop array: for (deg, phrase) in [(4.0, \"plus x to the fourth\"), (6.0, \"minus x to the sixth\")]",
+      "equal": true
+    }
+  ],
+  "post_voice_beats": [
+    {
+      "file": "closing.rs",
+      "cue": "15_1",
+      "next_cue": "15_2",
+      "voice_end_line": 306,
+      "beat_line": 308,
+      "beat": "pause(stage, 1.0)?;",
+      "beat_seconds_in_source": 1.0,
+      "hold_line": 311,
+      "between_voice_end_and_next_say": "only comments, the beat and kit.hold",
+      "last_hook": {
+        "line": 276,
+        "call": "wait_for",
+        "value": "at i and minus i"
+      },
+      "fades_after_last_hook_in_source": [
+        {
+          "line": 297,
+          "marker": "fade_in_all(stage, &pole_mobs, 0.5)?;",
+          "seconds": 0.5
+        },
+        {
+          "line": 305,
+          "marker": "fade_in_all(stage, &[ring], 0.5)?;",
+          "seconds": 0.5
+        }
+      ],
+      "why": "The film's first picture, answered: a moment before the wipe."
+    },
+    {
+      "file": "closing.rs",
+      "cue": "15_2",
+      "next_cue": "15_3",
+      "voice_end_line": 347,
+      "beat_line": 349,
+      "beat": "pause(stage, 1.2)?;",
+      "beat_seconds_in_source": 1.2,
+      "hold_line": 352,
+      "between_voice_end_and_next_say": "only comments, the beat and kit.hold",
+      "last_hook": {
+        "line": 333,
+        "call": "wait_sentence",
+        "value": 5
+      },
+      "fades_after_last_hook_in_source": [
+        {
+          "line": 342,
+          "marker": "fade_in_all(stage, &picture, 0.5)?;",
+          "seconds": 0.5
+        },
+        {
+          "line": 343,
+          "marker": "fade_in_all(stage, &caption, 0.4)?;",
+          "seconds": 0.4
+        }
+      ],
+      "why": "The finished recap strip: a moment before it goes."
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+@@ -1815,6 +1815,14 @@
+         assert!(film.contains("            ROOT_WALK_SQUASH,\n            fact(\"argument.quintic.unit\")?,"));
+     }
+ 
++    /// `Turning` builds with `portrait`, which colours at the plate's samples per cell, and
++    /// repaints with `portrait_colors`, which takes one. They agree only at one sample, so the
++    /// takeover and the turn back to 11_6's colours are exact only while `PLATE` keeps one.
++    #[test]
++    fn the_turning_field_repaints_as_the_plate_paints() {
++        assert_eq!(super::super::draw::PLATE.samples, 1);
++    }
++
+     /// 11_7's acted picture follows its words, and keeps its roots on screen and unmoved from the
+     /// moment they are the subject until the wide plane replaces them.
+     #[test]

@@ -1,0 +1,781 @@
+--- a/crates/fmn-runtime/src/pipeline.rs
++++ b/crates/fmn-runtime/src/pipeline.rs
+@@ -142,6 +142,23 @@
+         rasterized: Self::Rasterized,
+         output_team: &TeamPlan,
+     ) -> Result<Self::Output, Self::Error>;
++
++    /// The later frame whose own failure an emit callback's `error` reports,
++    /// if it reports nothing else.
++    ///
++    /// A failing stage can disturb shared output state before its error
++    /// reaches the coordinator. For example, an ordered emitter whose
++    /// reservation was dropped refuses to publish earlier frames. That emit
++    /// failure is still recorded first, and cancellation follows as usual.
++    /// But when this names a frame, the named frame's own stage error, panic
++    /// or disconnection replaces it when it arrives. The default names no
++    /// frame, so every emit failure stands as recorded.
++    fn emit_failure_caused_by(_error: &Self::Error) -> Option<u64>
++    where
++        Self: Sized,
++    {
++        None
++    }
+ }
+ 
+ /// Cloneable cooperative stop request.
+@@ -536,7 +553,7 @@
+         let mut coordinator = std::thread::scope(|scope| {
+             let requested = self.plan.render_teams.len().saturating_add(2);
+             let mut spawned = 0;
+-            let mut state = Coordinator::new();
++            let mut state = Coordinator::new(S::emit_failure_caused_by);
+             let (completion_tx, completion_rx) = channel();
+             let (raster_tx, raster_rx) = sync_channel(self.plan.frames_in_flight.max(1));
+ 
+@@ -1170,16 +1187,22 @@
+     outputs: BTreeMap<u64, Work<O>>,
+     terminal: BTreeSet<u64>,
+     error: Option<PipelineError<E>>,
++    // While `error` is an emit failure that only reports this frame's own
++    // failure, that failure replaces it on arrival.
++    awaiting_cause: Option<u64>,
++    caused_by: fn(&E) -> Option<u64>,
+ }
+ 
+ impl<O, E> Coordinator<O, E> {
+-    fn new() -> Self {
++    fn new(caused_by: fn(&E) -> Option<u64>) -> Self {
+         Self {
+             order: VecDeque::new(),
+             outstanding: BTreeSet::new(),
+             outputs: BTreeMap::new(),
+             terminal: BTreeSet::new(),
+             error: None,
++            awaiting_cause: None,
++            caused_by,
+         }
+     }
+ 
+@@ -1203,6 +1226,23 @@
+         }
+     }
+ 
++    // Frame `sequence`'s own failure. It replaces an emit failure that only
++    // reported it; otherwise the first failure stands.
++    fn fail_frame(
++        &mut self,
++        sequence: u64,
++        error: PipelineError<E>,
++        cancellation: &CancellationToken,
++    ) {
++        if self.awaiting_cause == Some(sequence) {
++            self.awaiting_cause = None;
++            self.error = Some(error);
++            cancellation.cancel();
++        } else {
++            self.fail(error, cancellation);
++        }
++    }
++
+     fn fail_without_cancel(&mut self, error: PipelineError<E>) {
+         if self.error.is_none() {
+             self.error = Some(error);
+@@ -1347,7 +1387,8 @@
+                 drop(permit);
+                 self.terminal.insert(sequence);
+                 self.outstanding.remove(&sequence);
+-                self.fail(
++                self.fail_frame(
++                    sequence,
+                     PipelineError::Stage {
+                         sequence: Some(sequence),
+                         stage,
+@@ -1364,7 +1405,8 @@
+                 drop(permit);
+                 self.terminal.insert(sequence);
+                 self.outstanding.remove(&sequence);
+-                self.fail(
++                self.fail_frame(
++                    sequence,
+                     PipelineError::CallbackPanicked {
+                         sequence: Some(sequence),
+                         stage,
+@@ -1380,7 +1422,8 @@
+                 drop(permit);
+                 self.terminal.insert(sequence);
+                 self.outstanding.remove(&sequence);
+-                self.fail(
++                self.fail_frame(
++                    sequence,
+                     PipelineError::StageDisconnected {
+                         sequence: Some(sequence),
+                         stage,
+@@ -1448,6 +1491,10 @@
+                     );
+                 }
+                 Ok(Err(source)) => {
++                    // Only the first failure can wait for its cause.
++                    if !self.failed() {
++                        self.awaiting_cause = (self.caused_by)(&source);
++                    }
+                     self.fail(
+                         PipelineError::Stage {
+                             sequence: Some(sequence),
+@@ -1695,6 +1742,7 @@
+     use crate::plan::{ExecutionPlan, OutputPixelFormat, PlanRequest, RenderIntent, SurfaceSpec};
+     use fmn_platform::clock::FakeClock;
+     use fmn_platform::topology::HardwareTopology;
++    use std::sync::{Condvar, Mutex, PoisonError};
+ 
+     #[derive(Debug)]
+     struct Arithmetic;
+@@ -2353,4 +2401,206 @@
+                 .contains("scene:7;play:2;frame:0;phase:raster")
+         );
+     }
++
++    /// Far longer than any race here; reached only when the choreography hangs.
++    const WATCHDOG: Duration = Duration::from_secs(30);
++
++    #[derive(Debug, Clone, Copy, PartialEq, Eq)]
++    enum Race {
++        /// A frame's own refusal on its worker.
++        Refused(u64),
++        /// An emit failure that only reports this frame's dropped output.
++        Abandoned(u64),
++        /// The sink's own failure.
++        Sink,
++    }
++
++    #[derive(Clone, Copy)]
++    enum Failing {
++        Returns,
++        Panics,
++    }
++
++    #[derive(Default)]
++    struct Marks {
++        second_yielded: bool,
++        first_emitting: bool,
++        second_failed: bool,
++    }
++
++    /// Orders one race without sleeping. Frame 0 finishes its raster only once
++    /// frame 1 has been yielded, so frame 1 is submitted before frame 0 can
++    /// reach emit. Frame 1 fails only once frame 0's emit has begun, and that
++    /// emit returns only once frame 1 has failed. The coordinator runs emit
++    /// itself, so it records frame 0's emit failure before it can receive
++    /// frame 1's.
++    struct Choreography {
++        marks: Mutex<Marks>,
++        changed: Condvar,
++        failing: Failing,
++    }
++
++    impl Choreography {
++        fn mark(&self, set: impl FnOnce(&mut Marks)) {
++            set(&mut self.marks.lock().unwrap_or_else(PoisonError::into_inner));
++            self.changed.notify_all();
++        }
++
++        /// A hang panics instead, and the pipeline reports the panic.
++        fn wait(&self, what: &str, done: impl Fn(&Marks) -> bool) {
++            let marks = self.marks.lock().unwrap_or_else(PoisonError::into_inner);
++            let (_marks, wait) = self
++                .changed
++                .wait_timeout_while(marks, WATCHDOG, |marks| !done(marks))
++                .unwrap_or_else(PoisonError::into_inner);
++            assert!(!wait.timed_out(), "watchdog expired waiting for {what}");
++        }
++    }
++
++    struct Racing {
++        choreography: Choreography,
++    }
++
++    impl PipelineStages for Racing {
++        type Frame = u64;
++        type Prepared = u64;
++        type Rasterized = u64;
++        type Output = u64;
++        type Error = Race;
++
++        fn prepare(&self, frame: u64, _team: &TeamPlan) -> Result<u64, Self::Error> {
++            Ok(frame)
++        }
++
++        fn rasterize(&self, frame: u64, _team: &TeamPlan) -> Result<u64, Self::Error> {
++            let choreography = &self.choreography;
++            if frame == 0 {
++                choreography.wait("frame 1 to be yielded", |marks| marks.second_yielded);
++                return Ok(frame);
++            }
++            choreography.wait("frame 0's emit", |marks| marks.first_emitting);
++            choreography.mark(|marks| marks.second_failed = true);
++            match choreography.failing {
++                Failing::Returns => Err(Race::Refused(frame)),
++                Failing::Panics => panic!("frame {frame} panicked on its worker"),
++            }
++        }
++
++        fn convert(&self, frame: u64, _team: &TeamPlan) -> Result<u64, Self::Error> {
++            Ok(frame)
++        }
++
++        fn emit_failure_caused_by(error: &Race) -> Option<u64> {
++            match error {
++                Race::Abandoned(frame) => Some(*frame),
++                Race::Refused(_) | Race::Sink => None,
++            }
++        }
++    }
++
++    /// Frame 0's emit returns `emit_error` after frame 1 has failed.
++    fn race(emit_error: Race, failing: Failing) -> PipelineFailure<Race> {
++        let plan = plan(2, RenderIntent::Offline);
++        assert_eq!(plan.frames_in_flight, 2, "frames 0 and 1 must overlap");
++        let stages = Racing {
++            choreography: Choreography {
++                marks: Mutex::default(),
++                changed: Condvar::new(),
++                failing,
++            },
++        };
++        let choreography = &stages.choreography;
++        let events = (0..2).map(|sequence| {
++            if sequence == 1 {
++                choreography.mark(|marks| marks.second_yielded = true);
++            }
++            PipelineEvent::<_, ()>::frame(sequence, sequence)
++        });
++        FramePipeline::new(&plan, &stages)
++            .run(
++                events,
++                |sequence, _| {
++                    assert_eq!(sequence, 0, "only frame 0 can reach emit");
++                    choreography.mark(|marks| marks.first_emitting = true);
++                    choreography.wait("frame 1 to fail", |marks| marks.second_failed);
++                    Err(emit_error)
++                },
++                |(), _| Ok(()),
++            )
++            .expect_err("frame 0's emit fails")
++    }
++
++    #[test]
++    fn an_emit_failure_reporting_a_later_frame_yields_to_that_frames_own_failure() {
++        let failure = race(Race::Abandoned(1), Failing::Returns);
++        assert!(
++            matches!(
++                failure.error,
++                PipelineError::Stage {
++                    sequence: Some(1),
++                    stage: PipelineStage::Raster,
++                    source: Race::Refused(1),
++                }
++            ),
++            "{:?}",
++            failure.error
++        );
++        assert_eq!(failure.stats.emitted, 0);
++        assert_eq!(failure.stats.outstanding_slots, 0);
++
++        let failure = race(Race::Abandoned(1), Failing::Panics);
++        assert!(
++            matches!(
++                failure.error,
++                PipelineError::CallbackPanicked {
++                    sequence: Some(1),
++                    stage: PipelineStage::Raster,
++                }
++            ),
++            "{:?}",
++            failure.error
++        );
++        assert_eq!(failure.stats.emitted, 0);
++        assert_eq!(failure.stats.outstanding_slots, 0);
++    }
++
++    #[test]
++    fn a_sinks_own_emit_failure_stands_when_a_later_frame_fails() {
++        let failure = race(Race::Sink, Failing::Returns);
++        assert!(
++            matches!(
++                failure.error,
++                PipelineError::Stage {
++                    sequence: Some(0),
++                    stage: PipelineStage::Emit,
++                    source: Race::Sink,
++                }
++            ),
++            "{:?}",
++            failure.error
++        );
++        assert_eq!(failure.stats.emitted, 0);
++        assert_eq!(failure.stats.outstanding_slots, 0);
++    }
++
++    #[test]
++    fn an_emit_failure_reporting_another_frame_is_not_replaced_by_this_one() {
++        // Frame 2 is never submitted, so its own failure never comes. Frame
++        // 1's failure must not stand in for it.
++        let failure = race(Race::Abandoned(2), Failing::Returns);
++        assert!(
++            matches!(
++                failure.error,
++                PipelineError::Stage {
++                    sequence: Some(0),
++                    stage: PipelineStage::Emit,
++                    source: Race::Abandoned(2),
++                }
++            ),
++            "{:?}",
++            failure.error
++        );
++        assert_eq!(failure.stats.emitted, 0);
++        assert_eq!(failure.stats.outstanding_slots, 0);
++    }
+ }
+--- a/crates/fmn/src/rendering/pipeline.rs
++++ b/crates/fmn/src/rendering/pipeline.rs
+@@ -292,6 +292,20 @@
+     ) -> Result<FrameReservation, Self::Error> {
+         Ok(output)
+     }
++
++    // A worker that refuses a frame drops that frame's output slot as it
++    // returns, before its refusal reaches the coordinator. Publishing an
++    // earlier frame in between fails with the abandonment. The runtime keeps
++    // that failure only until the refused frame's own error arrives. A sink's
++    // own failure names no frame and always stands.
++    fn emit_failure_caused_by(error: &NativeFrameError) -> Option<u64> {
++        match error {
++            NativeFrameError::Emitter(EmitterError::ReservationAbandoned { sequence }) => {
++                Some(*sequence)
++            }
++            _ => None,
++        }
++    }
+ }
+ 
+ // Direct binary16 kernels: no frame-sized RGBA8 intermediate per frame (PG-6).
+@@ -715,3 +729,328 @@
+         }
+     }
+ }
++
++#[cfg(test)]
++mod tests {
++    use super::*;
++    use fmn_frame::FrameLayout;
++    use fmn_output::{
++        EmitterConfig, FrameSink, OrderedEmitter, SinkBinding, SinkFailure, SinkWrite,
++    };
++    use fmn_platform::topology::HardwareTopology;
++    use fmn_runtime::{
++        FramePipeline, PipelineError, PipelineEvent, PipelineStage, PlanRequest, RenderIntent,
++        SurfaceSpec,
++    };
++    use std::sync::{Arc, Condvar, PoisonError};
++    use std::time::Duration;
++
++    /// Far longer than any race here; reached only when the choreography hangs.
++    const WATCHDOG: Duration = Duration::from_secs(30);
++    const REFUSAL: &str = "refused on its worker";
++
++    fn caused_by(error: &NativeFrameError) -> Option<u64> {
++        <NativeFrameStages as PipelineStages>::emit_failure_caused_by(error)
++    }
++
++    #[test]
++    fn only_an_abandoned_output_slot_names_the_frame_behind_an_emit_failure() {
++        let abandoned = EmitterError::ReservationAbandoned { sequence: 3 };
++        assert_eq!(caused_by(&NativeFrameError::Emitter(abandoned)), Some(3));
++        let sink = || Arc::<str>::from("y4m");
++        for stands in [
++            EmitterError::SinkFailed {
++                sink: sink(),
++                sequence: Some(0),
++                source: SinkFailure::new("full disk"),
++            },
++            EmitterError::SinkPanicked {
++                sink: sink(),
++                sequence: Some(0),
++            },
++            EmitterError::ReliableSinkWouldBlock {
++                sink: sink(),
++                sequence: 0,
++            },
++            EmitterError::Cancelled,
++            EmitterError::Closed,
++        ] {
++            let words = format!("{stands:?}");
++            assert_eq!(
++                caused_by(&NativeFrameError::Emitter(stands)),
++                None,
++                "{words}"
++            );
++        }
++        assert_eq!(caused_by(&NativeFrameError::WorkerState(REFUSAL)), None);
++    }
++
++    #[derive(Default)]
++    struct Marks {
++        refused_yielded: bool,
++        may_refuse: bool,
++        refused_dropped: bool,
++    }
++
++    /// Orders the race on a real output ring, without sleeping.
++    ///
++    /// Frame 0's raster finishes only once the refused frame has been yielded,
++    /// so every frame holds its slot before frame 0 can reach emit. The
++    /// refused frame's worker refuses only when an emit lets it, and it drops
++    /// its slot before saying so. The emit that let it waits for that.
++    struct Choreography {
++        marks: Mutex<Marks>,
++        changed: Condvar,
++    }
++
++    impl Choreography {
++        fn mark(&self, set: impl FnOnce(&mut Marks)) {
++            set(&mut self.marks.lock().unwrap_or_else(PoisonError::into_inner));
++            self.changed.notify_all();
++        }
++
++        /// A hang panics instead, and the pipeline reports the panic.
++        fn wait(&self, what: &str, done: impl Fn(&Marks) -> bool) {
++            let marks = self.marks.lock().unwrap_or_else(PoisonError::into_inner);
++            let (_marks, wait) = self
++                .changed
++                .wait_timeout_while(marks, WATCHDOG, |marks| !done(marks))
++                .unwrap_or_else(PoisonError::into_inner);
++            assert!(!wait.timed_out(), "watchdog expired waiting for {what}");
++        }
++    }
++
++    /// Frame `refused` is refused on its worker, which drops its real output
++    /// slot on the way out, as `NativeFrameStages::rasterize` does on any
++    /// error. The emit-failure rule is the facade's own.
++    struct Refusing {
++        refused: u64,
++        choreography: Choreography,
++    }
++
++    impl PipelineStages for Refusing {
++        type Frame = FrameReservation;
++        type Prepared = FrameReservation;
++        type Rasterized = FrameReservation;
++        type Output = FrameReservation;
++        type Error = NativeFrameError;
++
++        fn prepare(
++            &self,
++            output: FrameReservation,
++            _: &TeamPlan,
++        ) -> Result<FrameReservation, Self::Error> {
++            Ok(output)
++        }
++
++        fn rasterize(
++            &self,
++            output: FrameReservation,
++            _: &TeamPlan,
++        ) -> Result<FrameReservation, Self::Error> {
++            let choreography = &self.choreography;
++            if output.sequence() != self.refused {
++                if output.sequence() == 0 {
++                    choreography.wait("the refused frame's slot", |marks| marks.refused_yielded);
++                }
++                return Ok(output);
++            }
++            choreography.wait("an emit to let the refusal through", |marks| {
++                marks.may_refuse
++            });
++            drop(output);
++            choreography.mark(|marks| marks.refused_dropped = true);
++            Err(NativeFrameError::WorkerState(REFUSAL))
++        }
++
++        fn convert(
++            &self,
++            output: FrameReservation,
++            _: &TeamPlan,
++        ) -> Result<FrameReservation, Self::Error> {
++            Ok(output)
++        }
++
++        fn emit_failure_caused_by(error: &NativeFrameError) -> Option<u64> {
++            caused_by(error)
++        }
++    }
++
++    /// Takes every frame, or fails frame 0's write as a full disk would.
++    struct Sink {
++        fails: bool,
++    }
++
++    impl FrameSink for Sink {
++        fn write_frame(
++            &mut self,
++            sequence: u64,
++            _frame: &FrameBuffer,
++        ) -> Result<SinkWrite, SinkFailure> {
++            if self.fails {
++                Err(SinkFailure::new(format!("full disk at frame {sequence}")))
++            } else {
++                Ok(SinkWrite::Consumed)
++            }
++        }
++    }
++
++    /// A ring of `frames` slots behind a plan with as many frames in flight.
++    fn ring(frames: usize, sink: Sink) -> (ExecutionPlan, OrderedEmitter) {
++        let plan = ExecutionPlan::derive(
++            PlanRequest::standard(
++                RenderIntent::Offline,
++                SurfaceSpec::lumen(64, 64),
++                OutputPixelFormat::Rgba8,
++            )
++            .with_max_frames_in_flight(frames),
++            &HardwareTopology::fallback(16),
++            None,
++        )
++        .expect("plan");
++        assert_eq!(
++            plan.frames_in_flight, frames,
++            "the race needs every frame in flight"
++        );
++        let layout = FrameLayout::tight(PixelFormat::Rgba8, 4, 4).expect("layout");
++        let config = EmitterConfig::new(layout, frames, 0).expect("ring");
++        let emitter =
++            OrderedEmitter::new(config, vec![SinkBinding::reliable("y4m", sink)]).expect("emitter");
++        (plan, emitter)
++    }
++
++    fn refusing(refused: u64) -> Refusing {
++        Refusing {
++            refused,
++            choreography: Choreography {
++                marks: Mutex::default(),
++                changed: Condvar::new(),
++            },
++        }
++    }
++
++    #[test]
++    fn a_refusal_that_abandons_its_slot_while_frame_0_publishes_keeps_its_name() {
++        let (plan, emitter) = ring(2, Sink { fails: false });
++        let stages = refusing(1);
++        let choreography = &stages.choreography;
++        let handle = emitter.handle();
++        let events = (0..2).map(|sequence| {
++            let output = handle
++                .reserve(sequence)
++                .expect("a slot per frame in flight");
++            if sequence == 1 {
++                choreography.mark(|marks| marks.refused_yielded = true);
++            }
++            PipelineEvent::<_, ()>::frame(sequence, output)
++        });
++        let failure = FramePipeline::new(&plan, &stages)
++            .run(
++                events,
++                |sequence, output: FrameReservation| {
++                    assert_eq!(sequence, 0, "only frame 0 can reach emit");
++                    choreography.mark(|marks| marks.may_refuse = true);
++                    choreography.wait("frame 1's slot to drop", |marks| marks.refused_dropped);
++                    // The facade's own emit.
++                    output.publish().map_err(NativeFrameError::Emitter)
++                },
++                |(), _| Ok(()),
++            )
++            .expect_err("frame 1 is refused");
++        assert!(
++            matches!(
++                failure.error,
++                PipelineError::Stage {
++                    sequence: Some(1),
++                    stage: PipelineStage::Raster,
++                    source: NativeFrameError::WorkerState(REFUSAL),
++                }
++            ),
++            "{:?}",
++            failure.error
++        );
++        assert_eq!(failure.stats.emitted, 0);
++        assert_eq!(failure.stats.outstanding_slots, 0);
++        // The ring itself still records the abandonment, and it published nothing.
++        let ring = emitter.finish().expect_err("frame 1's slot was abandoned");
++        assert_eq!(
++            ring.error,
++            EmitterError::ReservationAbandoned { sequence: 1 }
++        );
++        assert_eq!(ring.report.stats.published, 0);
++        assert_eq!(ring.report.stats.emitted, 0);
++    }
++
++    #[test]
++    fn a_sink_failure_published_before_a_later_refusal_stays_the_sinks() {
++        let (plan, emitter) = ring(3, Sink { fails: true });
++        let stages = refusing(2);
++        let choreography = &stages.choreography;
++        let handle = emitter.handle();
++        let events = (0..3).map(|sequence| {
++            let output = handle
++                .reserve(sequence)
++                .expect("a slot per frame in flight");
++            if sequence == 2 {
++                choreography.mark(|marks| marks.refused_yielded = true);
++            }
++            PipelineEvent::<_, ()>::frame(sequence, output)
++        });
++        let failure = FramePipeline::new(&plan, &stages)
++            .run(
++                events,
++                |sequence, output: FrameReservation| {
++                    if sequence == 1 {
++                        // The ring stays full until the drain frees frame 0's
++                        // slot, and the drain records the sink's failure as it
++                        // does. Reserving frame 3 returns only with that failure.
++                        let recorded = handle
++                            .reserve(3)
++                            .expect_err("the ring is full until the sink fails");
++                        assert!(
++                            matches!(recorded, EmitterError::SinkFailed { .. }),
++                            "{recorded:?}"
++                        );
++                        choreography.mark(|marks| marks.may_refuse = true);
++                        choreography.wait("frame 2's slot to drop", |marks| marks.refused_dropped);
++                    }
++                    // The facade's own emit.
++                    output.publish().map_err(NativeFrameError::Emitter)
++                },
++                |(), _| Ok(()),
++            )
++            .expect_err("the sink fails");
++        assert!(
++            matches!(
++                &failure.error,
++                PipelineError::Stage {
++                    sequence: Some(1),
++                    stage: PipelineStage::Emit,
++                    source: NativeFrameError::Emitter(EmitterError::SinkFailed {
++                        sequence: Some(0),
++                        ..
++                    }),
++                }
++            ),
++            "{:?}",
++            failure.error
++        );
++        // Frame 0 was published before its write failed; nothing later was.
++        assert_eq!(failure.stats.emitted, 1);
++        assert_eq!(failure.stats.outstanding_slots, 0);
++        let ring = emitter.finish().expect_err("the sink failed");
++        assert!(
++            matches!(
++                ring.error,
++                EmitterError::SinkFailed {
++                    sequence: Some(0),
++                    ..
++                }
++            ),
++            "{:?}",
++            ring.error
++        );
++        assert_eq!(ring.report.stats.published, 1);
++        assert_eq!(ring.report.stats.emitted, 0);
++    }
++}
+--- a/crates/fmn/tests/slow_sink_budget_refusal.rs
++++ b/crates/fmn/tests/slow_sink_budget_refusal.rs
+@@ -2,11 +2,20 @@
+ //! the sink's.
+ //!
+ //! The output ring has `frames_in_flight` slots, and a slot comes back only after the sink has
+-//! taken its frame. Here the sink holds frame 0's write until the scene returns. With three slots
+-//! and one render team, frames 1 and 2 are then in flight behind it, and the scene's capture of
+-//! frame 3 waits on the full ring. Frame 2 is refused on its worker, which drops its slot as it
+-//! returns and raises cancellation only afterwards. The waiting capture therefore wakes to
+-//! `ReservationAbandoned`, which is not the refusal.
++//! taken its frame. Here the sink holds frame 0's write until the scene returns. Frame 1 is
++//! refused on its worker, which drops frame 1's slot as it returns, before the refusal reaches the
++//! coordinator. Nothing orders that drop against the coordinator's publication of frame 0:
++//!
++//! - Published first, frame 0 waits in the sink while frames 1 and 2 hold the other two slots.
++//!   The scene's next capture wakes to `ReservationAbandoned`, which is not the refusal. The
++//!   facade then joins the pipeline for the refusal.
++//! - Dropped first, the publication of frame 0 itself fails with `ReservationAbandoned`, and the
++//!   coordinator records that failure first. The runtime keeps it only until frame 1's own
++//!   refusal arrives.
++//!
++//! Either way the caller must get the refusal by name. This test drives the real facade and
++//! cannot choose the order. The unit tests in `fmn-runtime`'s pipeline and in
++//! `rendering::pipeline` force the second order with condvars and check both outcomes.
+ //!
+ //! No sleep orders anything. The held write is released only once the scene has returned, which
+ //! it can do only after one of its captures has failed. The watchdog turns a hang into a failed
+@@ -27,8 +36,8 @@
+ 
+ /// Far longer than any render here; reached only when the scene never returns.
+ const WATCHDOG: Duration = Duration::from_secs(30);
+-/// Each round must pass whatever the thread order. More rounds give a regression more chances
+-/// to show.
++/// Each round must name the refusal in either order. More rounds give both orders, and any
++/// regression, more chances to show.
+ const ROUNDS: usize = 8;
+ 
+ /// The writer's second call carries frame 0; the first carries the stream header.
+@@ -75,8 +84,9 @@
+         *open
+     }
+ 
+-    /// Whether frame 0's write was waiting when the gate was closed. Reported, not asserted: the
+-    /// refusal may come before the output thread reaches the write.
++    /// Whether frame 0's write was waiting when the gate was closed. Reported, not asserted:
++    /// frame 0 never reaches the sink when frame 1's slot drops before its publication, and
++    /// otherwise the output thread may not reach the write before the scene returns.
+     fn held(&self) -> bool {
+         self.held.load(Ordering::SeqCst)
+     }
+@@ -214,9 +224,9 @@
+     (gate, files, fs)
+ }
+ 
+-/// One render team rasterizes in frame order; three slots put frames 1 and 2 in flight while
+-/// frame 0 waits in the sink. An offline certified plan has at least three slots, so the
+-/// requested three is what it gets.
++/// One render team rasterizes in frame order, so frame 1 is refused right after frame 0's
++/// raster. Three slots let frames 1 and 2 be in flight while frame 0 waits in the sink. An
++/// offline certified plan has at least three slots, so the requested three is what it gets.
+ fn options(path: &str) -> RenderOptions {
+     let mut options = RenderOptions::new(path).expect("bundled defaults");
+     options.format = RenderFormat::Y4m;
+@@ -229,11 +239,12 @@
+     options
+ }
+ 
+-/// A circle that starts far left of the 6-unit-wide frame and arrives at its centre on frame 2.
++/// A circle that starts far left of the 6-unit-wide frame and arrives at its centre on frame 1.
+ ///
+-/// Frames 0 and 1 (centre at x = -10 and x = -5) bin into no tile, so with no tile references
+-/// allowed they render and frame 2 is refused on its worker. The wait asks for frame 3, the
+-/// capture that finds the ring full.
++/// Each frame is captured after time advances. The 0.2 s move at 10 fps therefore puts the
++/// centre at x = -5 on frame 0 and at x = 0 on frame 1, and the 0.2 s wait adds frames 2 and 3
++/// at x = 0. Frame 0 bins into no tile, so with no tile references allowed it renders and frame
++/// 1 is refused on its worker. Frame 3 is the capture that can find the ring full.
+ struct ArrivingCircle {
+     gate: Arc<Gate>,
+ }
+@@ -269,7 +280,7 @@
+             gate: Arc::clone(&gate),
+         };
+         let Err(error) = render_with_fs(&mut scene, refused, fs) else {
+-            panic!("round {round}: frame 2 needs a macrotile reference and none is allowed");
++            panic!("round {round}: frame 1 needs a macrotile reference and none is allowed");
+         };
+         let words = format!("{error:?}");
+         let context = format!("round {round}, frame 0 held: {}: {words}", gate.held());

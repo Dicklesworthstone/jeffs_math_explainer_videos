@@ -1,0 +1,17 @@
+-- baseline
+  PASS stage crates/fmn/src/rendering.rs is the baseline 0a90d4881017
+  PASS stage crates/fmn/src/rendering/compiled.rs is the baseline 28b2a6f23142
+  PASS stage has no slow_sink_budget_refusal.rs yet
+-- replay
+  PASS git apply --check exit 0 
+  PASS patch -p1 exit 0: patching file crates/fmn/src/rendering.rs / patching file crates/fmn/src/rendering/compiled.rs / patching file crates/fmn/tests/slow_sink_budget_refusal.rs
+  PASS patched crates/fmn/src/rendering.rs is d213a338cbec
+  PASS patched crates/fmn/src/rendering/compiled.rs is 326a704821b3
+  PASS patched crates/fmn/tests/slow_sink_budget_refusal.rs is 80148eb6582c
+  PASS no .rej or .orig files
+-- rustfmt (format only)
+  rustfmt 1.10.0-nightly (9085017724 2026-08-30)
+  PASS rustfmt --check crates/fmn/src/rendering.rs exit 0
+  PASS rustfmt --check crates/fmn/tests/slow_sink_budget_refusal.rs exit 0
+
+RESULT PASS
