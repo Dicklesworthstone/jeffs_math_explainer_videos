@@ -1,0 +1,66 @@
+{
+  "at": "2026-11-05T03:17:42.642891+00:00",
+  "rows": [
+    [
+      "complex analysis",
+      4638,
+      455,
+      10,
+      105,
+      "50-60%"
+    ],
+    [
+      "logarithm",
+      4592,
+      4592,
+      80,
+      80,
+      "60-70%"
+    ],
+    [
+      "abstract algebra",
+      10232,
+      2850,
+      62,
+      186,
+      "45-55%"
+    ],
+    [
+      "apportionment",
+      4129,
+      0,
+      0,
+      93,
+      "55-65%"
+    ],
+    [
+      "five paradoxes",
+      875,
+      875,
+      21,
+      21,
+      "35-45%"
+    ],
+    [
+      "Stokes",
+      1902,
+      1902,
+      34,
+      34,
+      "40-50%"
+    ]
+  ],
+  "columns": [
+    "video",
+    "current_script_words",
+    "old_voice_saved_words",
+    "saved_cues",
+    "script_cues",
+    "editorial_completion_estimate_after_voice_switch"
+  ],
+  "aggregate_words": 26368,
+  "aggregate_saved": 10674,
+  "aggregate_percent": 40.480885922330096,
+  "exponential": "Expanded full script not locked; excluded from denominator. A-C native build passed, D-I incomplete.",
+  "limits": "Current script snapshots, not irrevocably finalized wording. Paradox and Stokes existing candidates held pending depth review; counts do not imply final scope accepted. Count script words once, not per take. Overall completion estimates are judgment, not measured checklist percentages. Frederick synthesis has not begun. Listening/fine-sync/independent final AV remain open."
+}

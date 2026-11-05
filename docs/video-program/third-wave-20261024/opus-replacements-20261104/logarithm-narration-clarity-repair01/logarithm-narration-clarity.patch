@@ -1,0 +1,42 @@
+--- a/explainer_corpus/logarithm_mysteries/script.tsv
++++ b/explainer_corpus/logarithm_mysteries/script.tsv
+@@ -25,7 +25,7 @@
+ 04_1	But first, the logarithm on its home ground. The exponential function, written e to the x, takes an input and returns a multiplier. Adding inputs multiplies outputs. It equals one at zero, and its slope everywhere equals its height. The companion video builds it from scratch.
+ 04_2	Three facts about it decide everything. It never outputs zero, because e to the x times e to the minus x is e to the zero, which is one. It never outputs a negative number, because it starts at one and could only turn negative by passing through zero. And since its slope is its height, which is positive, it only ever climbs, from near zero on the left to as large as you like on the right. So every positive number is reached exactly once.
+ 04_3	That makes it reversible. The natural logarithm takes a positive number and returns the one input that the exponential sends there. The natural logarithm of one is zero. The natural logarithm of e is one. Zero and the negative numbers have no real logarithm at all, because the exponential never lands on them.
+-04_4	The mirror image shows something else. Reflecting the graph swaps rise and run. Where the exponential has slope equal to its height, the logarithm at x has slope one over x. At one, that slope is exactly one. So the natural logarithm of one point zero one is almost exactly zero point zero one. A small percentage change becomes the same small step, which is why this base is called natural.
++04_4	The mirror image shows something else. Reflecting the graph swaps rise and run. Where the exponential has slope equal to its height, the logarithm at x has slope one over x. At one, that slope is exactly one. So the natural logarithm of one point zero one is almost exactly zero point zero one. A small percentage change becomes the same small step, which is why base e is called natural.
+ 04_5	And this is the ruler again. The natural logarithm is the ruler whose step of one multiplies by e, about two point seven one eight. The position of a product is still the sum of the positions: the logarithm of a times b is the logarithm of a plus the logarithm of b, for positive a and b. Other bases are the same ruler stretched. The logarithm base two of x is the natural logarithm of x, divided by the natural logarithm of two.
+ 04_6	Here is the inverse at work. Money growing continuously at five percent a year is multiplied by e to the zero point zero five t after t years. When has it doubled?
+ 04_7	Take the natural logarithm of both sides. Zero point zero five t equals the natural logarithm of two, about zero point six nine three. So t is about thirteen point nine years. That is the rule of seventy for quick estimates: divide about seventy by the percentage. To grow a thousandfold takes the natural logarithm of a thousand, six point nine one, divided by zero point zero five. About a hundred and thirty-eight years, close to ten doublings, since two to the tenth is just over a thousand.
+@@ -55,7 +55,7 @@
+ 08_2	Not one and a half pi: that is outside the window. It reports the same direction as minus a half pi. So the sum of the two logarithms is one and a half pi times i, while the logarithm of the product is minus a half pi times i. They differ by two pi times i, exactly one lap.
+ 08_3	This is the slide rule's decimal point again. When the sum of the angles runs past the window, the chosen logarithm drops a lap, just as the slide rule's reading dropped a factor of ten. The rule that survives is this: the logarithm of a product is the sum of the logarithms, plus a whole number of laps. The rule did not break. It now keeps a lap count. For our square, the count is minus one: one lap down.
+ 08_4	That lap count hides inside a famous puzzle. Minus one is i times i. Write i as the square root of minus one. Combine the two roots into the root of minus one times minus one. That is the root of one, which is one. So minus one equals one. Which step broke?
+-08_5	Combining the roots. Here a square root is e to the power of half a logarithm. Each minus one has principal angle pi, so the two roots together turn by pi and point at minus one. But the product, one, has principal angle zero, not two pi. Halving the lost lap leaves a half turn, and a half turn is a factor of minus one. The root of a product equals the product of the roots only up to that sign.
++08_5	Combining the roots. Here a square root is e to the power of half a logarithm. Each minus one has principal angle pi, so the two roots together turn by pi and point at minus one. But the product, one, has principal angle zero, not two pi. Taking half of the lost lap leaves a half turn, and a half turn is a factor of minus one. The root of a product equals the product of the roots only up to that sign.
+ 09_1	One more step up. A two by two matrix is a recipe for moving every point of the plane. It says where the two unit arrows go, and everything else follows along. A grid shows the result: turned, stretched, sheared, or flipped. The matrix only says where each point ends up, not how it gets there; the travel comes next.
+ 09_2	Matrices have an exponential too, built from the same series. Here is the picture that matters. A matrix X can be read as a velocity: at each point it gives an arrow saying which way that point moves. Let every point follow its arrow for one unit of time. Where everything ends up is the matrix e to the X.
+ 09_3	A logarithm of a matrix A is then a velocity that carries the plane exactly onto A in one unit of time. So the question of whether a logarithm exists becomes a question about motion. Is there a steady flow that ends at this transformation?
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs
+@@ -429,7 +429,7 @@
+         let one_dot = dot(stage, Z.p(C::new(1.0, 0.0)), DOT_R, gold);
+         fade_in_all(stage, &[root1, not_two, one_dot], 0.5)?;
+         kit.until_sentence(stage, "08_5", 4)?;
+-        // "Halving the lost lap": the lap, halved, and no sign yet
++        // "Taking half of the lost lap": the lap, halved, and no sign yet
+         let halved = kit.tex(stage, HALVED, 26.0, purple, &[], Z.p(C::new(0.0, -1.55)))?;
+         let halving = halved_part(&kit, stage, halved)?;
+         fade_in_all(stage, &[halving], 0.5)?;
+@@ -719,8 +719,8 @@
+     fn the_half_turn_and_its_sign_wait_for_their_words_and_the_whole_line_stays() {
+         let script = explainer_kit::Script::parse(SCRIPT).unwrap();
+         let text = script.text("08_5").expect("08_5 is in the script");
+-        // once each, starting a word, in spoken order, both inside "Halving ..."
+-        let open = text.find("Halving the lost lap").expect("08_5 has the halving");
++        // once each, starting a word, in spoken order, both inside "Taking half ..."
++        let open = text.find("Taking half of the lost lap").expect("08_5 has the halving");
+         let close = text.find("The root of a product").expect("08_5 has its last sentence");
+         let mut after = open;
+         for phrase in [HALF_TURN_PHRASE, FACTOR_PHRASE] {

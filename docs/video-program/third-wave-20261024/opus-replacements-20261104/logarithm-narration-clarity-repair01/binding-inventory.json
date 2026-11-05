@@ -1,0 +1,247 @@
+{
+ "schema_version": 1,
+ "topic": "logarithm_mysteries",
+ "claim": "Computed by checks/source_checks.py from the stage08 candidate and root's bound-plan03, read only. Source text and hashes only: nothing compiled, rendered, synthesized, measured or heard.",
+ "voice": "Owner direction 2026-11-05T03:14:34Z: ElevenLabs Frederick Surrey for new production. Every take listed here is Oliver, historical and test input only; root verifies the provider voice and synthesizes.",
+ "patch": {
+  "sha256": "2463334a21069f8d725ef722b362bc8b29aebe22a1b4f98bee0e77e4d515f736",
+  "against": "combined-repair-stage08/candidate"
+ },
+ "script": {
+  "path": "explainer_corpus/logarithm_mysteries/script.tsv",
+  "old": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+  "new": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a"
+ },
+ "cues": [
+  {
+   "cue": "04_4",
+   "sentence_index": 5,
+   "sentences": 6,
+   "old_sentence": "A small percentage change becomes the same small step, which is why this base is called natural.",
+   "new_sentence": "A small percentage change becomes the same small step, which is why base e is called natural.",
+   "old_text_sha256": "6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6",
+   "new_text_sha256": "7e4e96121ff25f997a75bc882f70884bd61b3b039203e8df9c9d46fe545d2e83",
+   "words": [
+    71,
+    71
+   ],
+   "chars": [
+    391,
+    388
+   ]
+  },
+  {
+   "cue": "08_5",
+   "sentence_index": 4,
+   "sentences": 6,
+   "old_sentence": "Halving the lost lap leaves a half turn, and a half turn is a factor of minus one.",
+   "new_sentence": "Taking half of the lost lap leaves a half turn, and a half turn is a factor of minus one.",
+   "old_text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+   "new_text_sha256": "8e26bcb04dba0673057649b76a1fce2ce0375bcc1ff1a8fffb7d8379c13f4d82",
+   "words": [
+    81,
+    83
+   ],
+   "chars": [
+    397,
+    404
+   ]
+  }
+ ],
+ "source": {
+  "path": "explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs",
+  "old": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+  "new": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635",
+  "lines_changed": [
+   432,
+   722,
+   723
+  ],
+  "line_count": 830,
+  "unchanged": {
+   "explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs": "4dc4c555122d9cd5423d7094336c1d5e6f7f9afb77d6850a38bc0148c20180ef"
+  }
+ },
+ "map_rebind": {
+  "path": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json",
+  "sha256": "c94f0077f37974a12bba098dcf65d6afa4ed6082686ef41d15608897ca0e9cd4",
+  "scripts.logarithm_mysteries": {
+   "old": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+   "new": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a"
+  },
+  "visual_holds": [
+   {
+    "cue": "08_1",
+    "fields": [
+     "sha256",
+     "evidence.sha256"
+    ],
+    "old": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+    "new": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635",
+    "line": 221,
+    "interval_sha256_unchanged": "1d498942e2bc12a7a6d206cbb4335719700682561c2357709722c252726d86b6"
+   },
+   {
+    "cue": "08_4",
+    "fields": [
+     "sha256",
+     "evidence.sha256"
+    ],
+    "old": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+    "new": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635",
+    "line": 346,
+    "interval_sha256_unchanged": "23b0206f29d4163576b78273cad64e3466d033d5bf8310f0821dacbe00769786"
+   }
+  ],
+  "naming": "root's call; the file name says oliver"
+ },
+ "units_rebind": {
+  "path": "explainer_corpus/logarithm_mysteries/narration_units.json",
+  "sha256": "0e27709b2db1dad6df0c0db49264ec9b69a021f7eae7323e62cd7f2ac853771c",
+  "script_sha256": {
+   "old": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+   "new": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a"
+  },
+  "direction_contract.script_sha256": {
+   "old": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+   "new": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a"
+  },
+  "direction_contract.map": "the rebound map's path and hash, root's call",
+  "texts": [
+   {
+    "id": "oliver_04_4",
+    "old_text_sha256": "6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6",
+    "new_text_sha256": "7e4e96121ff25f997a75bc882f70884bd61b3b039203e8df9c9d46fe545d2e83"
+   },
+   {
+    "id": "oliver_08_5",
+    "old_text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+    "new_text_sha256": "8e26bcb04dba0673057649b76a1fce2ce0375bcc1ff1a8fffb7d8379c13f4d82"
+   }
+  ]
+ },
+ "phrase_anchors": [
+  {
+   "cue": "08_5",
+   "const": "HALF_TURN_PHRASE",
+   "phrase": "leaves a half turn",
+   "hook_lines": [
+    438
+   ],
+   "old": {
+    "byte": 260,
+    "byte_end": 278,
+    "word_index": 51,
+    "sentence_index": 4,
+    "cue_text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+    "source_sha256": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db"
+   },
+   "new": {
+    "byte": 267,
+    "byte_end": 285,
+    "word_index": 53,
+    "sentence_index": 4,
+    "cue_text_sha256": "8e26bcb04dba0673057649b76a1fce2ce0375bcc1ff1a8fffb7d8379c13f4d82",
+    "source_sha256": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635"
+   }
+  },
+  {
+   "cue": "08_5",
+   "const": "FACTOR_PHRASE",
+   "phrase": "a factor of minus one",
+   "hook_lines": [
+    456
+   ],
+   "old": {
+    "byte": 299,
+    "byte_end": 320,
+    "word_index": 60,
+    "sentence_index": 4,
+    "cue_text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+    "source_sha256": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db"
+   },
+   "new": {
+    "byte": 306,
+    "byte_end": 327,
+    "word_index": 62,
+    "sentence_index": 4,
+    "cue_text_sha256": "8e26bcb04dba0673057649b76a1fce2ce0375bcc1ff1a8fffb7d8379c13f4d82",
+    "source_sha256": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635"
+   }
+  }
+ ],
+ "hold_audit": {
+  "product_rule.rs_holds": [
+   {
+    "cue": "08_1",
+    "say_line": 108,
+    "marker_line": 221,
+    "interval_sha256": "1d498942e2bc12a7a6d206cbb4335719700682561c2357709722c252726d86b6"
+   },
+   {
+    "cue": "08_4",
+    "say_line": 317,
+    "marker_line": 346,
+    "interval_sha256": "23b0206f29d4163576b78273cad64e3466d033d5bf8310f0821dacbe00769786"
+   }
+  ],
+  "words_total": [
+   4592,
+   4594
+  ],
+  "words": {
+   "04_4": [
+    71,
+    71
+   ],
+   "08_5": [
+    81,
+    83
+   ]
+  }
+ },
+ "requests_superseded": [
+  {
+   "cue": "04_4",
+   "list": "narration-request-final80-02/requests.json",
+   "text_path": "narration-request-final80-01/04_4.txt",
+   "text_sha256": "6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6"
+  },
+  {
+   "cue": "08_5",
+   "list": "narration-request-final80-02/requests.json",
+   "text_path": "narration-request-final80-01/08_5.txt",
+   "text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216"
+  }
+ ],
+ "oliver_takes_of_the_old_text": [
+  {
+   "cue": "04_4",
+   "file": "ui-takes01/04_4-download01.wav",
+   "sha256": "de3abb952c675c2112c949813b2d70f962b95a3adf90d8f3289c6a4e29dce9ab",
+   "voice": "Oliver"
+  },
+  {
+   "cue": "04_4",
+   "file": "ui-takes01/04_4-download02.wav",
+   "sha256": "573d2360f72d4c8d451cd684ff8b3febf68168b24add6b070886433080185164",
+   "voice": "Oliver"
+  },
+  {
+   "cue": "08_5",
+   "file": "ui-takes01/08_5-download01.wav",
+   "sha256": "9b5d2b73ec6400569a32e03fe2c0d2b91c19308565ea6ee433b9ca99ca0d1ae5",
+   "voice": "Oliver"
+  },
+  {
+   "cue": "08_5",
+   "file": "ui-takes01/08_5-download02.wav",
+   "sha256": "5ec634e9c591e1768d69ea5195e6b07b91a3da1c6c7cecefa07799b3a269c493",
+   "voice": "Oliver"
+  }
+ ],
+ "oliver_receipts_matching_text": {
+  "before": 80,
+  "after": 78
+ }
+}

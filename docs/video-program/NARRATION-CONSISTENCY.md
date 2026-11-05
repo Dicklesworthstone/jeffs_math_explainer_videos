@@ -1,3 +1,11 @@
+# Current voice assignment: Frederick Surrey, except logarithm
+
+> Owner refinement, 2026-11-05T03:22:06.708616+00:00: switch all new videos to ElevenLabs Frederick Surrey except logarithm. Orchestrator will retain Oliver for logarithm because its full current narration is already saved, addressing the two reviewed wording issues with targeted Oliver replacements if integrated. Do not regenerate the whole logarithm in Frederick. Complex analysis, abstract algebra, apportionment, exponential, five paradoxes and Stokes use Frederick. Preserve every old take. Prior general Frederick direction below is superseded for logarithm only. No mixed-voice final cuts; listening and fine-sync acceptance remain separate.
+
+# Current voice: ElevenLabs Frederick Surrey
+
+> Owner direction, 2026-11-05T03:14:34.065785+00:00: use Frederick Surrey on ElevenLabs for new videos. This supersedes Oliver for new production, including the current complex-analysis and logarithm rebuilds. Preserve all existing Oliver takes, receipts and published videos. Do not mix narrator voices within a final cut. Verify the exact provider voice identity and record settings before new synthesis; voice selection is not listening or fine-sync acceptance.
+
 # Michael continuity and cadence — 2026-10-17 UTC
 
 > **Historical handoff, superseded for future voice selection:** On 2026-10-31
