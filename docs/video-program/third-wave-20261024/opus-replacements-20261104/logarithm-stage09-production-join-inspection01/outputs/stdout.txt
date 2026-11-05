@@ -1,0 +1,20 @@
+chain: 80 cues, 284 boundaries, 33 marks; problems: none
+join before_pause: 0
+join early: 9: 03_2 s3, 03_2 s4, 05_7 s1, 05_7 s2, 06_5 s1, 06_5 s2, 09_1 s4, 10_4 s1, 10_4 s2
+join late: 12: 00_3 s1, 00_4 s1, 01_3 s2, 01_3 s3, 01_4 s1, 03_2 s2, 07_6 s2, 07_6 s3, 07_6 s4, 07_6 s5, 08_4 s1, 12_20 s2
+join short_pause: 0
+join tight: 1: 00_5 s1
+join blip: 2: 03_1 s3, 04_4 s1
+join pause_not_within_0.3s: 0
+join no_pause: 0
+mark before_pause: 3: 04_2 b306, 11_7 b174, 11_7 b404
+mark early: 1: 10_3 b302
+mark blip: 1: 12_1 b167
+mark pause_not_within_0.3s: 1: 12_21 b230
+mark no_pause: 19: 02_1 b48, 03_3 b35, 05_20 b180, 05_20 b214, 05_20 b276, 06_6 b267, 06_6 b338, 08_5 b267, 08_5 b306, 10_3 b208, 10_4 b39, 11_1 b320, 11_1 b337, 11_2 b185, 11_5 b72, 11_20 b91, 11_20 b137, 12_6 b89, 12_21 b192
+cue edge sound_in_first_10ms: 3: 00_5, 04_3, 09_4
+cue edge sound_in_last_10ms: 4: 01_2, 07_6, 11_5, 12_2
+cue edge rise_in_last_10ms: 4: 01_2, 07_6, 11_5, 12_2
+hold cues: 00_4 prediction tail 0.15 s, 01_3 prediction tail 0.14 s, 02_2 prediction tail 0.14 s, 04_6 prediction tail 0.14 s, 05_1 prediction tail 0.1 s, 05_5 prediction tail 0.09 s, 06_2 prediction tail 0.13 s, 06_4 prediction tail 0.15 s, 07_3 prediction tail 0.11 s, 08_1 prediction tail 0.15 s, 08_4 prediction tail 0.11 s, 10_4 reading tail 0.15 s, 11_3 prediction tail 0.14 s, 11_20 reading tail 0.11 s, 12_5 prediction tail 0.13 s
+discrepant cues 17: 36 recognizer differences located
+input digest c3c96e450a9fdfc8a27e4f1453af98a803527502863b27a7951d5e7fa0d01718
