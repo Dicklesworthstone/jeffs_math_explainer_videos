@@ -1,0 +1,1 @@
+placeholder: replaced by the transcript of checks/repair_checks.py before sealing

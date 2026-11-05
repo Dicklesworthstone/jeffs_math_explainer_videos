@@ -1,0 +1,179 @@
+diff --git a/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-audio-preparation01/frederick_intake.py b/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-audio-preparation01/frederick_intake.py
+index 48ebdc7..d52800b 100644
+--- a/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-audio-preparation01/frederick_intake.py
++++ b/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-audio-preparation01/frederick_intake.py
+@@ -15,6 +15,12 @@ Run from the repository root with python3 -I -B. Every subcommand reads the reta
+                        close a plan that will not be run, so its WAVs become eligible again.
+   status  --lane DIR   print what plan would do now; writes nothing.
+ 
++Each downloads receipt rests on exactly one submission receipt that binds its request. When two or more bind it
++(a failed attempt and its retry), root may author one CUE-submission-resolutionNN.json that names, at their current
++hashes, the request, the downloads receipt, the selected submission with its submitted state, and each superseded
++submission with the CUE-submission-observationNN.json that supersedes it; see check_resolution. Nothing else, and
++no free text, decides which submission counts. The plan rests the takes on the resolution and every file it names.
++
+ The tool never runs fw, the guard, synthesis, builds or renders. It never reads Oliver timings: retained Oliver
+ WAVs and receipts are read only for hashes, so that an Oliver recording under a Frederick label is refused. It never edits
+ a receipt, a WAV, or an earlier plan, ingest or release. Recognized word times are provisional DTW marks, not
+@@ -75,7 +81,11 @@ NAMES = {
+     "submission": re.compile(r"(\d\d_\d+)-submission(\d\d)\.json"),
+     "downloads": re.compile(r"(\d\d_\d+)-downloads(\d\d)\.json"),
+     "wav": re.compile(r"(\d\d_\d+)-download(\d\d)\.wav"),
++    "resolution": re.compile(r"(\d\d_\d+)-submission-resolution(\d\d)\.json"),
++    "observation": re.compile(r"(\d\d_\d+)-submission-observation(\d\d)\.json"),
+ }
++RESOLUTION_SCHEMA = "frederick-submission-resolution-v1"
++RESOLUTION_KEYS = {"schema", "cue", "request", "downloads", "selected", "superseded", "by", "basis", "at", "listening"}
+ LIMITS = ("Intake and recognition bookkeeping only. No listening, take selection, fine sync or acceptance. "
+           "Recognized word times are provisional DTW marks; Oliver timings are never read or reused.")
+ 
+@@ -360,6 +370,134 @@ def binds(submission, request_name, request_sha):
+     return (by_name is None or by_name == request_name) and (by_hash is None or by_hash == request_sha)
+ 
+ 
++def instant(value):
++    """An ISO 8601 time that names its zone, or None."""
++    try:
++        moment = datetime.datetime.fromisoformat(value)
++    except (TypeError, ValueError):
++        return None
++    return moment if moment.tzinfo is not None else None
++
++
++def check_resolution(takes_dir, cue, receipt, listing, digests, binders, groups):
++    """Root's explicit choice among two or more submission receipts that bind one request (a failed attempt and its
++    retry). digests holds the hashes of the request and downloads bytes already checked; binders the
++    (name, submission, digest) of every submission receipt of the cue that binds the request.
++
++    Returns None when the cue has no resolution of this request, so the one-submission rule stands. Otherwise
++    returns (reasons, generations, rests). The resolution must be the cue's only one; name this request and this
++    downloads receipt at those hashes; name as `selected` and `superseded` exactly the receipts that bind the
++    request, at their hashes; give each superseded receipt a CUE-submission-observationNN.json, at its hash, whose
++    `supersedes` begins with that receipt's name; and state the selected attempt's submitted state, which must agree
++    with anything that receipt states itself. Its times must run in order. Every named file stays in the folder."""
++    names = sorted(n for n, owner in groups["resolution"].items() if owner == cue)
++    if not names:
++        return None
++    if len(names) > 1:
++        return [f"{len(names)} submission resolutions for {cue} ({', '.join(names)}); expected at most one"], None, {}
++    name = names[0]
++    res, digest = read_receipt(takes_dir / name)
++    rests = {"resolution": {"name": name, "sha256": digest}}
++    if not isinstance(res, dict) or not isinstance(res.get("request"), dict):
++        return [f"unreadable submission resolution {name}"], None, rests
++    if res["request"].get("name") != listing.get("request"):
++        return None  # a resolution of another request of this cue
++    said = f"resolution {name}"
++    if set(res) != RESOLUTION_KEYS or res.get("schema") != RESOLUTION_SCHEMA or res.get("cue") != cue \
++            or not all(isinstance(res.get(k), str) and res[k].strip() for k in ("by", "basis")) \
++            or res.get("listening") is not False or instant(res.get("at")) is None:
++        return [f"{said}: not a {RESOLUTION_SCHEMA} for {cue} with exactly the keys {sorted(RESOLUTION_KEYS)}, "
++                "non-empty by and basis, an ISO time with its zone, and listening false"], None, rests
++    reasons, bound = [], {n: (s, d) for n, s, d in binders}
++
++    def entry_of(value, keys, label):
++        if isinstance(value, dict) and set(value) == keys and isinstance(value.get("name"), str):
++            return value
++        reasons.append(f"{said}: {label} must be an object with exactly the keys {sorted(keys)}")
++        return None
++
++    request = entry_of(res["request"], {"name", "sha256"}, "request")
++    if request and request["sha256"] != digests["request"]:
++        reasons.append(f"{said}: names {request['name']} at {str(request['sha256'])[:12]}, but it is "
++                       f"{str(digests['request'])[:12]} now")
++    downloads = entry_of(res["downloads"], {"name", "sha256"}, "downloads")
++    if downloads and (downloads["name"], downloads["sha256"]) != (receipt, digests["downloads"]):
++        reasons.append(f"{said}: names the downloads receipt {downloads['name']} at {str(downloads['sha256'])[:12]}, "
++                       f"not {receipt} at {str(digests['downloads'])[:12]}")
++    selected = entry_of(res["selected"], {"name", "sha256", "submitted", "generation_requests"}, "selected")
++    superseded = res["superseded"] if isinstance(res["superseded"], list) and res["superseded"] else []
++    if not superseded:
++        reasons.append(f"{said}: superseded must list at least one submission receipt")
++    olds = [entry_of(x, {"name", "sha256", "evidence"}, f"superseded entry {i}") for i, x in enumerate(superseded, 1)]
++    named = [x["name"] for x in [selected, *olds] if x]
++    for x in (x for x in [selected, *olds] if x):
++        if x["name"] in bound and bound[x["name"]][1] != x["sha256"]:
++            reasons.append(f"{said}: {x['name']} is {bound[x['name']][1][:12]} now, not the stated "
++                           f"{str(x['sha256'])[:12]}")
++    if len(set(named)) != len(named):
++        reasons.append(f"{said}: names one submission receipt twice ({', '.join(named)})")
++    if len(bound) < 2:
++        reasons.append(f"{said}: only {len(bound)} submission receipt binds {listing.get('request')}; there is nothing "
++                       "to resolve")
++    elif set(named) != set(bound):
++        reasons.append(f"{said}: the submission receipts binding {listing.get('request')} are {sorted(bound)}, but it "
++                       f"names {named}")
++    evidence = []
++    for old in (x for x in olds if x):
++        proof = entry_of(old["evidence"], {"name", "sha256"}, f"the evidence for {old['name']}")
++        data, sha = (read_receipt(takes_dir / proof["name"]) if proof and groups["observation"].get(proof["name"]) == cue
++                     else (None, None))
++        if proof and (not isinstance(data, dict) or sha != proof["sha256"]):
++            reasons.append(f"{said}: the evidence for {old['name']} must be a {cue}-submission-observationNN.json in "
++                           f"the take folder at the stated hash; {proof['name']!r} is not")
++        elif proof and not (isinstance(data.get("supersedes"), str) and (
++                data["supersedes"] == old["name"] or data["supersedes"].startswith(old["name"] + " "))):
++            reasons.append(f"{said}: {proof['name']} supersedes {data.get('supersedes')!r}, not {old['name']}")
++        elif proof:
++            evidence.append((old, proof, data))
++    generations = selected.get("generation_requests") if selected else None
++    if not selected or selected["submitted"] is not True or type(generations) is not int or generations < 1:
++        reasons.append(f"{said}: the selected state must be submitted true with a positive integer "
++                       "generation_requests")
++        generations = None
++    elif selected["name"] in bound:
++        own, contrary = bound[selected["name"]][0], []
++        if own.get("submitted", True) is not True:
++            contrary.append("submitted")
++        if "submitted_once" in own and (own["submitted_once"] is not True or generations != 1):
++            contrary.append("submitted_once")
++        if "generation_requests" in own and (type(own["generation_requests"]) is not int
++                                             or own["generation_requests"] != generations):
++            contrary.append("generation_requests")
++        if own.get("cue", cue) != cue:
++            contrary.append("cue")
++        if contrary:
++            reasons.append(f"{said}: the selected state contradicts {selected['name']}'s own {', '.join(contrary)}")
++    if reasons:
++        return reasons, None, rests
++    times = {"resolution": instant(res["at"]), "downloads": instant(listing.get("at")),
++             "selected": instant(bound[selected["name"]][0].get("at"))}
++    late = [f"{k} has no ISO time with its zone" for k in ("downloads", "selected") if times[k] is None]
++    if not late:
++        if times["selected"] > times["downloads"]:
++            late.append(f"{selected['name']} is later than {receipt}")
++        if times["resolution"] < times["downloads"]:
++            late.append(f"the resolution is earlier than {receipt}")
++    for old, proof, data in evidence:
++        tried, seen = instant(bound[old["name"]][0].get("at")), instant(data.get("at"))
++        if tried is None or seen is None:
++            late.append(f"{old['name']} or {proof['name']} has no ISO time with its zone")
++        elif not tried <= seen <= times["resolution"]:
++            late.append(f"{proof['name']} must come after {old['name']} and before the resolution")
++    if late:
++        return [f"{said}: times out of order: {'; '.join(late)}"], None, rests
++    rests["submission"] = {"name": selected["name"], "sha256": selected["sha256"]}
++    for number, (old, proof, _data) in enumerate(evidence, 1):
++        rests[f"superseded{number:02d}"] = {"name": old["name"], "sha256": old["sha256"]}
++        rests[f"superseded{number:02d}_evidence"] = {"name": proof["name"], "sha256": proof["sha256"]}
++    return [], generations, rests
++
++
+ def check_receipt(takes_dir, receipt, cue, script, other, groups):
+     """Reasons to refuse one downloads receipt, its take records, and the receipts it rests on."""
+     reasons, takes = [], []
+@@ -411,7 +549,13 @@ def check_receipt(takes_dir, receipt, cue, script, other, groups):
+         else:
+             others.append(name)
+     generations = None
+-    if len(submissions) != 1:
++    digests = {"request": request_sha, "downloads": rests["downloads"]["sha256"]}
++    resolution = check_resolution(takes_dir, cue, receipt, data, digests, submissions, groups)
++    if resolution is not None:
++        why, generations, chosen = resolution
++        reasons += why
++        rests.update(chosen)
++    elif len(submissions) != 1:
+         reasons.append(f"{len(submissions)} submission receipts bind {request_name!r}; expected one"
+                        + (f" ({', '.join(others)} bind another request or are unreadable)" if others else ""))
+     else:

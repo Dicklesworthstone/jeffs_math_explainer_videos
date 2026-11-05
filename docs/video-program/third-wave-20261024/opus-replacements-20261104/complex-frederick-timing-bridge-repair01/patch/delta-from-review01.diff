@@ -1,0 +1,127 @@
+diff --git a/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-timing-bridge01/frederick_timing_bridge.py b/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-timing-bridge01/frederick_timing_bridge.py
+index b6e899e..b28b8cf 100644
+--- a/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-timing-bridge01/frederick_timing_bridge.py
++++ b/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-timing-bridge01/frederick_timing_bridge.py
+@@ -15,9 +15,12 @@ units, direction map and chapter sources, and writes only into a NEW folder give
+   prepare  Root's run. Root's selection, root's answers and the decode receipt give the span manifest (whole
+            takes, sentence ends at recognizer onsets or root's samples, no inserted silence), the map's visual-hold
+            dispositions, a workspace with byte copies of the pinned assembler, its cache module and the stage05
+-           map, and the exact assemble command. The spans are dry-run through that assembler code first.
++           map, and the exact assemble command. The spans are dry-run through that assembler code first. Each
++           selected take is first converted again into the new decode-verification/ folder and compared with its
++           decoded PCM; those conversions are kept, and their hashes go in decode-verification.json.
+   timings  Root's run, after root's assemble. Verifies the assembly with the same assembler code, checks every
+-           cue is its decoded take sample for sample, mirrors the kit's report and phrase-timing checks, and
++           cue is its decoded take sample for sample, and that the retained conversions are unchanged; it
++           mirrors the kit's report and phrase-timing checks, and
+            writes phrase-timings.json (every script cue) or a chapter fragment, which the kit cannot load alone.
+ 
+ Recognizer times are estimates, never heard boundaries. A whisper-cpp word segment often starts where the previous
+@@ -37,7 +40,6 @@ from pathlib import Path
+ import re
+ import subprocess
+ import sys
+-import tempfile
+ import wave
+ 
+ sys.dont_write_bytecode = True  # dependencies and the workspace assembler are imported; leave no __pycache__
+@@ -1141,7 +1143,7 @@ def dry_run(tool, files, spans_path, chapter):
+     return voice, lines
+ 
+ 
+-def check_decoded(receipt, receipt_path, chosen, report, selection, chapter, ffmpeg="ffmpeg"):
++def check_decoded(receipt, receipt_path, chosen, report, selection, chapter):
+     intake = dep("intake")
+     problems = []
+     bridge = receipt.get("bridge") or {}
+@@ -1164,18 +1166,41 @@ def check_decoded(receipt, receipt_path, chosen, report, selection, chapter, ffm
+                 take["request"]["sha256"]) or sha_file(wav) != row["wav_sha256"] or params != (1, 2, RATE_OUT) \
+                 or frames != row["samples"] or frames != expected_frames(take) or row["rate"] != RATE_OUT:
+             problems.append(f"{row['cue']}: the decoded file, its receipt row and the selected take disagree")
+-    if problems:
+-        return problems
+-    # The rows are the decode's own statement: re-derive every take's samples from its source.
+-    with tempfile.TemporaryDirectory() as again:
+-        for row in receipt["records"]:
+-            take, check = chosen[row["cue"]], Path(again) / f"{row['cue']}.wav"
+-            subprocess.run([ffmpeg, *FFMPEG_ARGS, "-i", take["path"], *FFMPEG_OUT, str(check)], check=True, timeout=300)
+-            if wav_info(check)[2] != wav_info(Path(row["wav"]))[2]:
+-                problems.append(f"{row['cue']}: the decoded PCM is not this take's conversion with the decode arguments")
+     return problems
+ 
+ 
++def retain_conversions(out, receipt, chosen, ffmpeg):
++    """The decode receipt's rows are the decode's own statement, so prepare converts every selected take again, with
++    the decode arguments, into OUT/decode-verification/ (a new folder: it refuses one that exists) and compares the
++    PCM. Every conversion is kept as evidence, matching or not, and OUT/decode-verification.json records its hash."""
++    folder = out / "decode-verification"
++    folder.mkdir()
++    version = subprocess.run([ffmpeg, "-version"], capture_output=True, text=True, check=True).stdout.splitlines()[0]
++    files, problems = [], []
++    for row in receipt["records"]:
++        take, again = chosen[row["cue"]], folder / f"{row['cue']}.wav"
++        subprocess.run([ffmpeg, *FFMPEG_ARGS, "-i", take["path"], *FFMPEG_OUT, str(again)], check=True, timeout=300)
++        pcm = wav_info(again)[2]
++        same = pcm == wav_info(Path(row["wav"]))[2]
++        files.append({"cue": row["cue"], "source": take["path"], "source_sha256": take["sha256"], "wav": rel(again),
++                      "sha256": sha_file(again), "pcm_sha256": sha_bytes(pcm), "decoded": row["wav"],
++                      "decoded_sha256": row["wav_sha256"], "matches_decoded": same})
++        if not same:
++            problems.append(f"{row['cue']}: the decoded PCM is not this take's conversion with the decode arguments")
++    record = {"schema": SCHEMA, "kind": "decode-verification", "folder": rel(folder),
++              "ffmpeg": {"version": version, "arguments": FFMPEG_ARGS + ["-i", "SOURCE"] + FFMPEG_OUT + ["TARGET"]},
++              "files": files, "kept": "every conversion stays in this folder as evidence; nothing is removed"}
++    write_new(out / "decode-verification.json", dumps(record))
++    if problems:
++        write_new(out / "REFUSED.txt", "The decoded PCM is not the conversion of its selected take:\n"
++                  + "".join(f"  {p}\n" for p in problems)
++                  + "The conversions in decode-verification/ and their hashes in decode-verification.json are kept "
++                    "as evidence. Nothing was prepared; decode again and prepare into a new folder.\n")
++        raise Refused("\n".join(problems) + f"\nsee {rel(out / 'REFUSED.txt')}")
++    return {"path": rel(out / "decode-verification.json"), "sha256": sha_file(out / "decode-verification.json"),
++            "files": len(files)}
++
++
+ def cmd_prepare(args):
+     report = build_report(Path(args.crate), Path(args.lane), Path(args.jobs), Path(args.takes), args.supplement)
+     sel, chosen = load_selection(args.selection, report, args.chapter)
+@@ -1184,7 +1209,7 @@ def cmd_prepare(args):
+     if not receipt_path.is_file():
+         raise Refused(f"no decode receipt in {args.decoded}")
+     receipt = load_json(receipt_path)
+-    problems = check_decoded(receipt, receipt_path, chosen, report, args.selection, args.chapter, args.ffmpeg)
++    problems = check_decoded(receipt, receipt_path, chosen, report, args.selection, args.chapter)
+     if problems:
+         raise Refused("\n".join(problems))
+     rows = {r["cue"]: r for r in receipt["records"]}
+@@ -1216,6 +1241,7 @@ def cmd_prepare(args):
+     dispositions = [{k: d[k] for k in ("override_index", "cue", "kind", "reason", "evidence")}
+                     for d in side["dispositions"] if d["cue"] in chosen]
+     out = make_out(args.out)
++    verification = retain_conversions(out, receipt, chosen, args.ffmpeg)
+     basis = ("Complete ElevenLabs Frederick Surrey takes, converted to 24 kHz only. Sentence ends are recognizer word "
+              "onsets (estimates; an onset can sit in the pause before its word) except where root's answers give "
+              "samples. No samples removed, no silence inserted, no gain, time or pitch processing.")
+@@ -1262,6 +1288,7 @@ def cmd_prepare(args):
+         "answers": {"path": rel(args.answers) if args.answers else None,
+                     "sha256": sha_file(args.answers) if args.answers else None, "applied": applied},
+         "decode_receipt": {"path": rel(receipt_path), "sha256": sha_file(receipt_path)},
++        "decode_verification": verification,
+         "spans_sha256": sha_file(out / "spans.json"), "voice": voice,
+         "phrase_marks_plan_sha256": sha_file(out / "phrase-marks-plan.json"),
+         "recognition": report["coverage"]["recognition"],
+@@ -1287,6 +1314,14 @@ def cmd_timings(args):
+         raise Refused("spans.json changed since prepare")
+     if sha_file(prepared / "phrase-marks-plan.json") != receipt.get("phrase_marks_plan_sha256"):
+         raise Refused("phrase-marks-plan.json changed since prepare (its marks become phrase-timings.json)")
++    held = receipt.get("decode_verification") or {}
++    verified = prepared / "decode-verification.json"
++    if not verified.is_file() or sha_file(verified) != held.get("sha256"):
++        raise Refused("decode-verification.json is missing or changed since prepare")
++    for kept in load_json(verified)["files"]:
++        again = prepared / "decode-verification" / f"{kept['cue']}.wav"
++        if not kept["matches_decoded"] or not again.is_file() or sha_file(again) != kept["sha256"]:
++            raise Refused(f"{kept['cue']}: the retained conversion {rel(again)} is missing or changed since prepare")
+     for _src, dst, pin in workspace_copies(files):
+         if sha_file(prepared / "workspace" / dst) != pin:
+             raise Refused(f"workspace copy {dst} changed")
