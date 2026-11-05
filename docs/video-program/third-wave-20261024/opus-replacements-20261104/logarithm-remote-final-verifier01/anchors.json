@@ -1,0 +1,3970 @@
+{
+ "schema": "logarithm-final-picture-anchors-v1",
+ "about": "Each row is a base resolved on the new schedule, plus frame offsets. `was` is the stage09 film frame for each offset, kept for people and the positive control. The helper never reads it. Sentence numbers are 1-based.",
+ "stage09_verification_sha256": "22fb77188d6e9d86a0c9499e7a81db782d4b29830d1ddb4be40fe4dd3003fd62",
+ "review_seals": {
+  "pane167": "c67b5b8f7b9c31dcf54061b1e7e8236046cfc084b68d06c46bc594aa96c2ebfe",
+  "pane168": "7bfd5f08573af2aff4f82b77180f846ec43245f9aef1577e4bdc5a702dc8ee88",
+  "pane169": "41501db0878d567659e11ef3ae43372d9aff799e3c589b41bd181f2b483ad854"
+ },
+ "rows": [
+  {
+   "id": "p167-O1.1",
+   "finding": "p167-O1",
+   "base": "sentence:04_7:4",
+   "offsets": [
+    0,
+    30,
+    212
+   ],
+   "note": "answer led sentence 6",
+   "was": [
+    36245,
+    36275,
+    36457
+   ]
+  },
+  {
+   "id": "p167-O1.2",
+   "finding": "p167-O1",
+   "base": "sentence:04_7:5",
+   "offsets": [
+    0,
+    30,
+    42
+   ],
+   "note": "answer led sentence 6",
+   "was": [
+    36614,
+    36644,
+    36656
+   ]
+  },
+  {
+   "id": "p167-O1.3",
+   "finding": "p167-O1",
+   "base": "sentence:04_7:6",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "answer led sentence 6",
+   "was": [
+    37122,
+    37152
+   ]
+  },
+  {
+   "id": "p167-O2.1",
+   "finding": "p167-O2",
+   "base": "sentence:02_4:2",
+   "offsets": [
+    30,
+    80,
+    92,
+    104,
+    152
+   ],
+   "note": "C 10 tight on right edge",
+   "was": [
+    18840,
+    18890,
+    18902,
+    18914,
+    18962
+   ]
+  },
+  {
+   "id": "p167-O2.2",
+   "finding": "p167-O2",
+   "base": "sentence:02_4:3",
+   "offsets": [
+    0,
+    11,
+    30,
+    39
+   ],
+   "note": "C 10 tight on right edge",
+   "was": [
+    19011,
+    19022,
+    19041,
+    19050
+   ]
+  },
+  {
+   "id": "p167-O2.3",
+   "finding": "p167-O2",
+   "base": "sentence:02_4:4",
+   "offsets": [
+    0,
+    30,
+    83,
+    318
+   ],
+   "note": "C 10 tight on right edge",
+   "was": [
+    19119,
+    19149,
+    19202,
+    19437
+   ]
+  },
+  {
+   "id": "p167-O2.4",
+   "finding": "p167-O2",
+   "base": "sentence:02_5:1",
+   "offsets": [
+    0,
+    17,
+    30
+   ],
+   "note": "C 10 tight on right edge",
+   "was": [
+    19485,
+    19502,
+    19515
+   ]
+  },
+  {
+   "id": "p167-O3.1",
+   "finding": "p167-O3",
+   "base": "sentence:02_5:2",
+   "offsets": [
+    0,
+    30,
+    87,
+    99,
+    111,
+    159,
+    195,
+    219
+   ],
+   "note": "C left end off frame",
+   "was": [
+    19607,
+    19637,
+    19694,
+    19706,
+    19718,
+    19766,
+    19802,
+    19826
+   ]
+  },
+  {
+   "id": "p167-O3.2",
+   "finding": "p167-O3",
+   "base": "sentence:02_5:3",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "C left end off frame",
+   "was": [
+    19838,
+    19868
+   ]
+  },
+  {
+   "id": "p167-O3.3",
+   "finding": "p167-O3",
+   "base": "sentence:02_5:4",
+   "offsets": [
+    0,
+    30,
+    72,
+    283
+   ],
+   "note": "C left end off frame",
+   "was": [
+    20030,
+    20060,
+    20102,
+    20313
+   ]
+  },
+  {
+   "id": "p167-O3.4",
+   "finding": "p167-O3",
+   "base": "sentence:02_5:5",
+   "offsets": [
+    0,
+    30,
+    59
+   ],
+   "note": "C left end off frame",
+   "was": [
+    20343,
+    20373,
+    20402
+   ]
+  },
+  {
+   "id": "p167-O3.5",
+   "finding": "p167-O3",
+   "base": "sentence:02_5:6",
+   "offsets": [
+    0,
+    7,
+    30,
+    307,
+    362,
+    434
+   ],
+   "note": "C left end off frame",
+   "was": [
+    20695,
+    20702,
+    20725,
+    21002,
+    21057,
+    21129
+   ]
+  },
+  {
+   "id": "p167-O3.6",
+   "finding": "p167-O3",
+   "base": "chapter_start:03_folded_decade",
+   "offsets": [
+    0
+   ],
+   "note": "C left end off frame",
+   "was": [
+    21177
+   ]
+  },
+  {
+   "id": "p167-C1.1",
+   "finding": "p167-C1",
+   "base": "sentence:04_2:5",
+   "offsets": [
+    120
+   ],
+   "note": "heavy operator glyphs",
+   "was": [
+    28980
+   ]
+  },
+  {
+   "id": "p167-C1.2",
+   "finding": "p167-C1",
+   "base": "sentence:04_7:6",
+   "offsets": [
+    134
+   ],
+   "note": "heavy operator glyphs",
+   "was": [
+    37256
+   ]
+  },
+  {
+   "id": "p167-C2.1",
+   "finding": "p167-C2",
+   "base": "sentence:04_4:4",
+   "offsets": [
+    30,
+    107
+   ],
+   "note": "upright caption variables",
+   "was": [
+    31348,
+    31425
+   ]
+  },
+  {
+   "id": "p167-C2.2",
+   "finding": "p167-C2",
+   "base": "sentence:04_4:5",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "upright caption variables",
+   "was": [
+    31528,
+    31558
+   ]
+  },
+  {
+   "id": "p167-C2.3",
+   "finding": "p167-C2",
+   "base": "sentence:04_4:6",
+   "offsets": [
+    394
+   ],
+   "note": "upright caption variables",
+   "was": [
+    32320
+   ]
+  },
+  {
+   "id": "p167-C2.4",
+   "finding": "p167-C2",
+   "base": "sentence:04_5:1",
+   "offsets": [
+    0,
+    30,
+    87
+   ],
+   "note": "upright caption variables",
+   "was": [
+    32369,
+    32399,
+    32456
+   ]
+  },
+  {
+   "id": "p167-C2.5",
+   "finding": "p167-C2",
+   "base": "sentence:04_5:2",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "upright caption variables",
+   "was": [
+    32515,
+    32545
+   ]
+  },
+  {
+   "id": "p167-C2.6",
+   "finding": "p167-C2",
+   "base": "sentence:04_5:3",
+   "offsets": [
+    0,
+    30,
+    82,
+    357,
+    682
+   ],
+   "note": "upright caption variables",
+   "was": [
+    32974,
+    33004,
+    33056,
+    33331,
+    33656
+   ]
+  },
+  {
+   "id": "p167-C2.7",
+   "finding": "p167-C2",
+   "base": "sentence:04_5:4",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "upright caption variables",
+   "was": [
+    33685,
+    33715
+   ]
+  },
+  {
+   "id": "p167-C2.8",
+   "finding": "p167-C2",
+   "base": "sentence:04_5:5",
+   "offsets": [
+    0,
+    30,
+    387
+   ],
+   "note": "upright caption variables",
+   "was": [
+    33869,
+    33899,
+    34256
+   ]
+  },
+  {
+   "id": "p167-C2.9",
+   "finding": "p167-C2",
+   "base": "sentence:05_1:2",
+   "offsets": [
+    30
+   ],
+   "note": "upright caption variables",
+   "was": [
+    37825
+   ]
+  },
+  {
+   "id": "p167-C2.10",
+   "finding": "p167-C2",
+   "base": "sentence:05_1:3",
+   "offsets": [
+    0,
+    19,
+    30,
+    115
+   ],
+   "note": "upright caption variables",
+   "was": [
+    38162,
+    38181,
+    38192,
+    38277
+   ]
+  },
+  {
+   "id": "p167-C2.11",
+   "finding": "p167-C2",
+   "base": "sentence:05_1:4",
+   "offsets": [
+    0,
+    30,
+    331
+   ],
+   "note": "upright caption variables",
+   "was": [
+    38450,
+    38480,
+    38781
+   ]
+  },
+  {
+   "id": "p167-C3.1",
+   "finding": "p167-C3",
+   "base": "sentence:03_2:1",
+   "offsets": [
+    30,
+    48
+   ],
+   "note": "0 before its label",
+   "was": [
+    22412,
+    22430
+   ]
+  },
+  {
+   "id": "p167-U1.1",
+   "finding": "p167-U1",
+   "base": "sentence:00_1:2",
+   "offsets": [
+    532
+   ],
+   "note": "was a sampling gap",
+   "was": [
+    909
+   ]
+  },
+  {
+   "id": "p167-U1.2",
+   "finding": "p167-U1",
+   "base": "sentence:04_7:5",
+   "offsets": [
+    275
+   ],
+   "note": "was a sampling gap",
+   "was": [
+    36889
+   ]
+  },
+  {
+   "id": "p167-U1.3",
+   "finding": "p167-U1",
+   "base": "sentence:04_5:2",
+   "offsets": [
+    245
+   ],
+   "note": "was a sampling gap",
+   "was": [
+    32760
+   ]
+  },
+  {
+   "id": "p167-U1.4",
+   "finding": "p167-U1",
+   "base": "sentence:04_7:2",
+   "offsets": [
+    241
+   ],
+   "note": "was a sampling gap",
+   "was": [
+    35803
+   ]
+  },
+  {
+   "id": "p167-U1b.1",
+   "finding": "p167-U1b",
+   "base": "voice_end:04_2",
+   "offsets": [
+    27
+   ],
+   "note": "line at -0.84, red, count 0",
+   "was": [
+    29100
+   ]
+  },
+  {
+   "id": "p167-seen.1",
+   "finding": "p167-seen",
+   "base": "sentence:00_3:3",
+   "offsets": [
+    197
+   ],
+   "note": "concern closed by a full frame",
+   "was": [
+    2745
+   ]
+  },
+  {
+   "id": "p167-seen.2",
+   "finding": "p167-seen",
+   "base": "sentence:00_6:1",
+   "offsets": [
+    30
+   ],
+   "note": "concern closed by a full frame",
+   "was": [
+    5755
+   ]
+  },
+  {
+   "id": "p167-seen.3",
+   "finding": "p167-seen",
+   "base": "sentence:00_6:2",
+   "offsets": [
+    127,
+    277
+   ],
+   "note": "concern closed by a full frame",
+   "was": [
+    6180,
+    6330
+   ]
+  },
+  {
+   "id": "p167-fade.1",
+   "finding": "p167-fade",
+   "base": "sentence:01_5:2",
+   "offsets": [
+    30
+   ],
+   "note": "cross-fade ghost",
+   "was": [
+    12737
+   ]
+  },
+  {
+   "id": "p167-fade.2",
+   "finding": "p167-fade",
+   "base": "sentence:04_5:1",
+   "offsets": [
+    30
+   ],
+   "note": "cross-fade ghost",
+   "was": [
+    32399
+   ]
+  },
+  {
+   "id": "p167-judge.1",
+   "finding": "p167-judge",
+   "base": "sentence:02_2:3",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "visible during hold, judged",
+   "was": [
+    17194,
+    17224
+   ]
+  },
+  {
+   "id": "p167-judge.2",
+   "finding": "p167-judge",
+   "base": "sentence:02_2:4",
+   "offsets": [
+    0,
+    24,
+    30,
+    132
+   ],
+   "note": "visible during hold, judged",
+   "was": [
+    17378,
+    17402,
+    17408,
+    17510
+   ]
+  },
+  {
+   "id": "p167-judge.3",
+   "finding": "p167-judge",
+   "base": "voice_end:02_2",
+   "offsets": [
+    12
+   ],
+   "note": "visible during hold, judged",
+   "was": [
+    17534
+   ]
+  },
+  {
+   "id": "p167-judge.4",
+   "finding": "p167-judge",
+   "base": "hold:02_2:start",
+   "offsets": [
+    0,
+    23,
+    30,
+    83,
+    243
+   ],
+   "note": "visible during hold, judged",
+   "was": [
+    17559,
+    17582,
+    17589,
+    17642,
+    17802
+   ]
+  },
+  {
+   "id": "p167-judge.5",
+   "finding": "p167-judge",
+   "base": "sentence:02_3:1",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "visible during hold, judged",
+   "was": [
+    17814,
+    17844
+   ]
+  },
+  {
+   "id": "p167-judge.6",
+   "finding": "p167-judge",
+   "base": "sentence:02_3:2",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "visible during hold, judged",
+   "was": [
+    17876,
+    17906
+   ]
+  },
+  {
+   "id": "p167-judge.7",
+   "finding": "p167-judge",
+   "base": "sentence:04_6:3",
+   "offsets": [
+    30,
+    61
+   ],
+   "note": "visible during hold, judged",
+   "was": [
+    35036,
+    35067
+   ]
+  },
+  {
+   "id": "p167-judge.8",
+   "finding": "p167-judge",
+   "base": "voice_end:04_6",
+   "offsets": [
+    12
+   ],
+   "note": "visible during hold, judged",
+   "was": [
+    35091
+   ]
+  },
+  {
+   "id": "p167-judge.9",
+   "finding": "p167-judge",
+   "base": "hold:04_6:start",
+   "offsets": [
+    0,
+    24,
+    30,
+    84,
+    243
+   ],
+   "note": "visible during hold, judged",
+   "was": [
+    35115,
+    35139,
+    35145,
+    35199,
+    35358
+   ]
+  },
+  {
+   "id": "p167-judge.10",
+   "finding": "p167-judge",
+   "base": "sentence:04_7:1",
+   "offsets": [
+    0,
+    30,
+    86
+   ],
+   "note": "visible during hold, judged",
+   "was": [
+    35370,
+    35400,
+    35456
+   ]
+  },
+  {
+   "id": "p167-judge.11",
+   "finding": "p167-judge",
+   "base": "sentence:04_7:2",
+   "offsets": [
+    0
+   ],
+   "note": "visible during hold, judged",
+   "was": [
+    35562
+   ]
+  },
+  {
+   "id": "p167-answer.1",
+   "finding": "p167-answer",
+   "base": "sentence:00_5:2",
+   "offsets": [
+    30
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    4941
+   ]
+  },
+  {
+   "id": "p167-answer.2",
+   "finding": "p167-answer",
+   "base": "sentence:00_5:3",
+   "offsets": [
+    30
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    5234
+   ]
+  },
+  {
+   "id": "p167-answer.3",
+   "finding": "p167-answer",
+   "base": "sentence:01_4:2",
+   "offsets": [
+    30
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    11177
+   ]
+  },
+  {
+   "id": "p167-answer.4",
+   "finding": "p167-answer",
+   "base": "sentence:01_4:4",
+   "offsets": [
+    30
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    11835
+   ]
+  },
+  {
+   "id": "p167-answer.5",
+   "finding": "p167-answer",
+   "base": "sentence:01_4:5",
+   "offsets": [
+    0,
+    30,
+    364
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    11983,
+    12013,
+    12347
+   ]
+  },
+  {
+   "id": "p167-answer.6",
+   "finding": "p167-answer",
+   "base": "sentence:02_3:1",
+   "offsets": [
+    30
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    17844
+   ]
+  },
+  {
+   "id": "p167-answer.7",
+   "finding": "p167-answer",
+   "base": "sentence:04_7:3",
+   "offsets": [
+    30
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    36044
+   ]
+  },
+  {
+   "id": "p168-O2.1",
+   "finding": "p168-O2",
+   "base": "sentence:05_7:2",
+   "offsets": [
+    0,
+    30,
+    206
+   ],
+   "note": "ln 2 approx, was = 0.693",
+   "was": [
+    46975,
+    47005,
+    47181
+   ]
+  },
+  {
+   "id": "p168-O2.2",
+   "finding": "p168-O2",
+   "base": "sentence:05_7:3",
+   "offsets": [
+    0,
+    30,
+    77
+   ],
+   "note": "ln 2 approx, was = 0.693",
+   "was": [
+    47501,
+    47531,
+    47578
+   ]
+  },
+  {
+   "id": "p168-O2.3",
+   "finding": "p168-O2",
+   "base": "sentence:05_7:4",
+   "offsets": [
+    0,
+    30,
+    153
+   ],
+   "note": "ln 2 approx, was = 0.693",
+   "was": [
+    47628,
+    47658,
+    47781
+   ]
+  },
+  {
+   "id": "p168-O2.4",
+   "finding": "p168-O2",
+   "base": "sentence:05_7:5",
+   "offsets": [
+    0,
+    30,
+    322,
+    393
+   ],
+   "note": "ln 2 approx, was = 0.693",
+   "was": [
+    47950,
+    47980,
+    48272,
+    48343
+   ]
+  },
+  {
+   "id": "p168-O2.5",
+   "finding": "p168-O2",
+   "base": "voice_end:05_7",
+   "offsets": [
+    26
+   ],
+   "note": "ln 2 approx, was = 0.693",
+   "was": [
+    48381
+   ]
+  },
+  {
+   "id": "p168-O3.1",
+   "finding": "p168-O3",
+   "base": "hold:05_5:start",
+   "offsets": [
+    30
+   ],
+   "note": "bar under question, was on axis",
+   "was": [
+    44878
+   ]
+  },
+  {
+   "id": "p168-O4.1",
+   "finding": "p168-O4",
+   "base": "sentence:06_1:2",
+   "offsets": [
+    89
+   ],
+   "note": "gap before pi i in readout",
+   "was": [
+    48944
+   ]
+  },
+  {
+   "id": "p168-O4.2",
+   "finding": "p168-O4",
+   "base": "hold:06_2:start",
+   "offsets": [
+    30
+   ],
+   "note": "gap before pi i in readout",
+   "was": [
+    50777
+   ]
+  },
+  {
+   "id": "p168-O5.1",
+   "finding": "p168-O5",
+   "base": "sentence:06_4:3",
+   "offsets": [
+    0
+   ],
+   "note": "teal circle past axis end",
+   "was": [
+    52525
+   ]
+  },
+  {
+   "id": "p168-O5.2",
+   "finding": "p168-O5",
+   "base": "hold:06_4:start",
+   "offsets": [
+    178
+   ],
+   "note": "teal circle past axis end",
+   "was": [
+    53192
+   ]
+  },
+  {
+   "id": "p168-O6.1",
+   "finding": "p168-O6",
+   "base": "hold:07_3:start",
+   "offsets": [
+    0
+   ],
+   "note": "small alignment item",
+   "was": [
+    63616
+   ]
+  },
+  {
+   "id": "p168-O6.2",
+   "finding": "p168-O6",
+   "base": "sentence:07_6:2",
+   "offsets": [
+    0
+   ],
+   "note": "small alignment item",
+   "was": [
+    66895
+   ]
+  },
+  {
+   "id": "p168-O6.3",
+   "finding": "p168-O6",
+   "base": "sentence:08_4:5",
+   "offsets": [
+    30
+   ],
+   "note": "small alignment item",
+   "was": [
+    75208
+   ]
+  },
+  {
+   "id": "p168-O6.4",
+   "finding": "p168-O6",
+   "base": "sentence:08_5:1",
+   "offsets": [
+    30
+   ],
+   "note": "small alignment item",
+   "was": [
+    75933
+   ]
+  },
+  {
+   "id": "p168-U1.1",
+   "finding": "p168-U1",
+   "base": "hold:06_2:start",
+   "offsets": [
+    30
+   ],
+   "note": "06_2 hold may telegraph",
+   "was": [
+    50777
+   ]
+  },
+  {
+   "id": "p168-U2.1",
+   "finding": "p168-U2",
+   "base": "sentence:05_6:5",
+   "offsets": [
+    0,
+    30,
+    170
+   ],
+   "note": "k whole wording",
+   "was": [
+    46582,
+    46612,
+    46752
+   ]
+  },
+  {
+   "id": "p168-U2.2",
+   "finding": "p168-U2",
+   "base": "sentence:05_7:1",
+   "offsets": [
+    0
+   ],
+   "note": "k whole wording",
+   "was": [
+    46800
+   ]
+  },
+  {
+   "id": "p168-U2.3",
+   "finding": "p168-U2",
+   "base": "sentence:06_20:2",
+   "offsets": [
+    30,
+    361
+   ],
+   "note": "k whole wording",
+   "was": [
+    56337,
+    56668
+   ]
+  },
+  {
+   "id": "p168-U2.4",
+   "finding": "p168-U2",
+   "base": "sentence:06_20:3",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "k whole wording",
+   "was": [
+    56744,
+    56774
+   ]
+  },
+  {
+   "id": "p168-U4.1",
+   "finding": "p168-U4",
+   "base": "sentence:07_4:3",
+   "offsets": [
+    30,
+    241
+   ],
+   "note": "may read as abrupt",
+   "was": [
+    64680,
+    64891
+   ]
+  },
+  {
+   "id": "p168-U4.2",
+   "finding": "p168-U4",
+   "base": "sentence:07_5:1",
+   "offsets": [
+    0,
+    24
+   ],
+   "note": "may read as abrupt",
+   "was": [
+    64939,
+    64963
+   ]
+  },
+  {
+   "id": "p168-U4.3",
+   "finding": "p168-U4",
+   "base": "sentence:07_6:7",
+   "offsets": [
+    0,
+    30,
+    156,
+    227
+   ],
+   "note": "may read as abrupt",
+   "was": [
+    68869,
+    68899,
+    69025,
+    69096
+   ]
+  },
+  {
+   "id": "p168-U5.1",
+   "finding": "p168-U5",
+   "base": "sentence:06_20:1",
+   "offsets": [
+    30
+   ],
+   "note": "rewind shows no gap dot",
+   "was": [
+    56012
+   ]
+  },
+  {
+   "id": "p168-U6.1",
+   "finding": "p168-U6",
+   "base": "sentence:07_2:4",
+   "offsets": [
+    30
+   ],
+   "note": "Log i ahead of the voice?",
+   "was": [
+    61352
+   ]
+  },
+  {
+   "id": "p168-U7.1",
+   "finding": "p168-U7",
+   "base": "sentence:07_6:2",
+   "offsets": [
+    468
+   ],
+   "note": "readout near +-1 unseen",
+   "was": [
+    67363
+   ]
+  },
+  {
+   "id": "p168-U7.2",
+   "finding": "p168-U7",
+   "base": "sentence:07_6:3",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "readout near +-1 unseen",
+   "was": [
+    67387,
+    67417
+   ]
+  },
+  {
+   "id": "p168-U7.3",
+   "finding": "p168-U7",
+   "base": "sentence:07_6:4",
+   "offsets": [
+    0
+   ],
+   "note": "readout near +-1 unseen",
+   "was": [
+    67726
+   ]
+  },
+  {
+   "id": "p168-seen.1",
+   "finding": "p168-seen",
+   "base": "sentence:05_5:2",
+   "offsets": [
+    130
+   ],
+   "note": "candidate dismissed on a 4K crop",
+   "was": [
+    44781
+   ]
+  },
+  {
+   "id": "p168-seen.2",
+   "finding": "p168-seen",
+   "base": "sentence:05_7:1",
+   "offsets": [
+    0
+   ],
+   "note": "candidate dismissed on a 4K crop",
+   "was": [
+    46800
+   ]
+  },
+  {
+   "id": "p168-seen.3",
+   "finding": "p168-seen",
+   "base": "sentence:05_3:6",
+   "offsets": [
+    246
+   ],
+   "note": "candidate dismissed on a 4K crop",
+   "was": [
+    43469
+   ]
+  },
+  {
+   "id": "p168-seen.4",
+   "finding": "p168-seen",
+   "base": "sentence:06_7:2",
+   "offsets": [
+    30
+   ],
+   "note": "candidate dismissed on a 4K crop",
+   "was": [
+    57585
+   ]
+  },
+  {
+   "id": "p168-seen.5",
+   "finding": "p168-seen",
+   "base": "sentence:07_5:2",
+   "offsets": [
+    420
+   ],
+   "note": "candidate dismissed on a 4K crop",
+   "was": [
+    65563
+   ]
+  },
+  {
+   "id": "p168-seen.6",
+   "finding": "p168-seen",
+   "base": "sentence:07_5:5",
+   "offsets": [
+    30
+   ],
+   "note": "candidate dismissed on a 4K crop",
+   "was": [
+    66445
+   ]
+  },
+  {
+   "id": "p168-seen.7",
+   "finding": "p168-seen",
+   "base": "sentence:08_5:5",
+   "offsets": [
+    30
+   ],
+   "note": "candidate dismissed on a 4K crop",
+   "was": [
+    77178
+   ]
+  },
+  {
+   "id": "p168-seen.8",
+   "finding": "p168-seen",
+   "base": "sentence:07_4:2",
+   "offsets": [
+    164
+   ],
+   "note": "candidate dismissed on a 4K crop",
+   "was": [
+    64363
+   ]
+  },
+  {
+   "id": "p168-seen.9",
+   "finding": "p168-seen",
+   "base": "sentence:08_3:6",
+   "offsets": [
+    258
+   ],
+   "note": "candidate dismissed on a 4K crop",
+   "was": [
+    74244
+   ]
+  },
+  {
+   "id": "p168-answer.1",
+   "finding": "p168-answer",
+   "base": "sentence:05_2:1",
+   "offsets": [
+    30,
+    153
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    39258,
+    39381
+   ]
+  },
+  {
+   "id": "p168-answer.2",
+   "finding": "p168-answer",
+   "base": "sentence:05_6:1",
+   "offsets": [
+    30
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    45133
+   ]
+  },
+  {
+   "id": "p168-answer.3",
+   "finding": "p168-answer",
+   "base": "sentence:06_3:2",
+   "offsets": [
+    0
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    51147
+   ]
+  },
+  {
+   "id": "p168-answer.4",
+   "finding": "p168-answer",
+   "base": "sentence:06_5:2",
+   "offsets": [
+    0
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    53543
+   ]
+  },
+  {
+   "id": "p168-answer.5",
+   "finding": "p168-answer",
+   "base": "sentence:07_4:1",
+   "offsets": [
+    183
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    64054
+   ]
+  },
+  {
+   "id": "p168-answer.6",
+   "finding": "p168-answer",
+   "base": "sentence:07_4:2",
+   "offsets": [
+    0
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    64199
+   ]
+  },
+  {
+   "id": "p168-answer.7",
+   "finding": "p168-answer",
+   "base": "sentence:08_2:1",
+   "offsets": [
+    30
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    71178
+   ]
+  },
+  {
+   "id": "p168-answer.8",
+   "finding": "p168-answer",
+   "base": "sentence:08_2:2",
+   "offsets": [
+    30
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    71434
+   ]
+  },
+  {
+   "id": "p168-answer.9",
+   "finding": "p168-answer",
+   "base": "sentence:08_5:1",
+   "offsets": [
+    30
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    75933
+   ]
+  },
+  {
+   "id": "p169-F3.1",
+   "finding": "p169-F3",
+   "base": "sentence:12_21:2",
+   "offsets": [
+    418
+   ],
+   "note": "old stop, no closing hold",
+   "was": [
+    116197
+   ]
+  },
+  {
+   "id": "p169-F3.2",
+   "finding": "p169-F3",
+   "base": "voice_end:12_21",
+   "offsets": [
+    10,
+    35
+   ],
+   "note": "old stop, no closing hold",
+   "was": [
+    116219,
+    116244
+   ]
+  },
+  {
+   "id": "p169-F1.1",
+   "finding": "p169-F1",
+   "base": "sentence:11_1:5",
+   "offsets": [
+    30,
+    37,
+    177,
+    207
+   ],
+   "note": "det before it is spoken",
+   "was": [
+    91051,
+    91058,
+    91198,
+    91228
+   ]
+  },
+  {
+   "id": "p169-F1.2",
+   "finding": "p169-F1",
+   "base": "sentence:11_2:6",
+   "offsets": [
+    0,
+    18,
+    30,
+    491
+   ],
+   "note": "det before it is spoken",
+   "was": [
+    92840,
+    92858,
+    92870,
+    93331
+   ]
+  },
+  {
+   "id": "p169-F1.3",
+   "finding": "p169-F1",
+   "base": "sentence:11_3:1",
+   "offsets": [
+    0,
+    30,
+    78
+   ],
+   "note": "det before it is spoken",
+   "was": [
+    93380,
+    93410,
+    93458
+   ]
+  },
+  {
+   "id": "p169-F1.4",
+   "finding": "p169-F1",
+   "base": "sentence:11_3:2",
+   "offsets": [
+    0
+   ],
+   "note": "det before it is spoken",
+   "was": [
+    93615
+   ]
+  },
+  {
+   "id": "p169-F1.5",
+   "finding": "p169-F1",
+   "base": "voice_end:11_2",
+   "offsets": [
+    35
+   ],
+   "note": "det before it is spoken",
+   "was": [
+    93378
+   ]
+  },
+  {
+   "id": "p169-F2.1",
+   "finding": "p169-F2",
+   "base": "sentence:11_8:1",
+   "offsets": [
+    30
+   ],
+   "note": "X with e^X = A, was log A",
+   "was": [
+    105115
+   ]
+  },
+  {
+   "id": "p169-F2.2",
+   "finding": "p169-F2",
+   "base": "sentence:11_8:2",
+   "offsets": [
+    0,
+    30,
+    90,
+    360
+   ],
+   "note": "X with e^X = A, was log A",
+   "was": [
+    105368,
+    105398,
+    105458,
+    105728
+   ]
+  },
+  {
+   "id": "p169-F2.3",
+   "finding": "p169-F2",
+   "base": "sentence:11_8:3",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "X with e^X = A, was log A",
+   "was": [
+    105734,
+    105764
+   ]
+  },
+  {
+   "id": "p169-F2.4",
+   "finding": "p169-F2",
+   "base": "sentence:11_8:4",
+   "offsets": [
+    0,
+    30,
+    70,
+    300,
+    371
+   ],
+   "note": "X with e^X = A, was log A",
+   "was": [
+    105988,
+    106018,
+    106058,
+    106288,
+    106359
+   ]
+  },
+  {
+   "id": "p169-M1.1",
+   "finding": "p169-M1",
+   "base": "sentence:11_5:2",
+   "offsets": [
+    176,
+    206,
+    236,
+    296
+   ],
+   "note": "concrete X must be labelled",
+   "was": [
+    97703,
+    97733,
+    97763,
+    97823
+   ]
+  },
+  {
+   "id": "p169-M1.2",
+   "finding": "p169-M1",
+   "base": "sentence:11_5:3",
+   "offsets": [
+    0,
+    26,
+    30,
+    151,
+    162,
+    192,
+    222,
+    250,
+    282
+   ],
+   "note": "concrete X must be labelled",
+   "was": [
+    98107,
+    98133,
+    98137,
+    98258,
+    98269,
+    98299,
+    98329,
+    98357,
+    98389
+   ]
+  },
+  {
+   "id": "p169-M1.3",
+   "finding": "p169-M1",
+   "base": "sentence:11_5:4",
+   "offsets": [
+    0,
+    30,
+    426
+   ],
+   "note": "concrete X must be labelled",
+   "was": [
+    98432,
+    98462,
+    98858
+   ]
+  },
+  {
+   "id": "p169-M1.4",
+   "finding": "p169-M1",
+   "base": "sentence:11_5:5",
+   "offsets": [
+    0,
+    30,
+    362
+   ],
+   "note": "concrete X must be labelled",
+   "was": [
+    98964,
+    98994,
+    99326
+   ]
+  },
+  {
+   "id": "p169-M1.5",
+   "finding": "p169-M1",
+   "base": "sentence:11_6:1",
+   "offsets": [
+    0
+   ],
+   "note": "concrete X must be labelled",
+   "was": [
+    99375
+   ]
+  },
+  {
+   "id": "p169-P1.1",
+   "finding": "p169-P1",
+   "base": "sentence:09_2:3",
+   "offsets": [
+    466
+   ],
+   "note": "grid cut on vertical lines",
+   "was": [
+    80283
+   ]
+  },
+  {
+   "id": "p169-P1.2",
+   "finding": "p169-P1",
+   "base": "sentence:09_2:4",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "grid cut on vertical lines",
+   "was": [
+    80304,
+    80334
+   ]
+  },
+  {
+   "id": "p169-P1.3",
+   "finding": "p169-P1",
+   "base": "sentence:09_2:5",
+   "offsets": [
+    0,
+    30,
+    98,
+    203
+   ],
+   "note": "grid cut on vertical lines",
+   "was": [
+    80539,
+    80569,
+    80637,
+    80742
+   ]
+  },
+  {
+   "id": "p169-P1.4",
+   "finding": "p169-P1",
+   "base": "sentence:09_3:1",
+   "offsets": [
+    0,
+    30,
+    93
+   ],
+   "note": "grid cut on vertical lines",
+   "was": [
+    80790,
+    80820,
+    80883
+   ]
+  },
+  {
+   "id": "p169-P1.5",
+   "finding": "p169-P1",
+   "base": "sentence:09_3:2",
+   "offsets": [
+    0,
+    20,
+    30,
+    197
+   ],
+   "note": "grid cut on vertical lines",
+   "was": [
+    81286,
+    81306,
+    81316,
+    81483
+   ]
+  },
+  {
+   "id": "p169-P1.6",
+   "finding": "p169-P1",
+   "base": "sentence:09_3:3",
+   "offsets": [
+    0,
+    30,
+    191
+   ],
+   "note": "grid cut on vertical lines",
+   "was": [
+    81619,
+    81649,
+    81810
+   ]
+  },
+  {
+   "id": "p169-P1.7",
+   "finding": "p169-P1",
+   "base": "sentence:09_4:1",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "grid cut on vertical lines",
+   "was": [
+    81858,
+    81888
+   ]
+  },
+  {
+   "id": "p169-P1.8",
+   "finding": "p169-P1",
+   "base": "sentence:09_4:2",
+   "offsets": [
+    0
+   ],
+   "note": "grid cut on vertical lines",
+   "was": [
+    81992
+   ]
+  },
+  {
+   "id": "p169-P2.1",
+   "finding": "p169-P2",
+   "base": "sentence:09_2:5",
+   "offsets": [
+    30,
+    98,
+    203
+   ],
+   "note": "-0.97 with the zero dropped",
+   "was": [
+    80569,
+    80637,
+    80742
+   ]
+  },
+  {
+   "id": "p169-P2.2",
+   "finding": "p169-P2",
+   "base": "sentence:09_3:1",
+   "offsets": [
+    0
+   ],
+   "note": "-0.97 with the zero dropped",
+   "was": [
+    80790
+   ]
+  },
+  {
+   "id": "p169-P3.1",
+   "finding": "p169-P3",
+   "base": "sentence:09_4:5",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "text past title-safe line",
+   "was": [
+    82722,
+    82752
+   ]
+  },
+  {
+   "id": "p169-P3.2",
+   "finding": "p169-P3",
+   "base": "sentence:09_4:6",
+   "offsets": [
+    0,
+    30,
+    344,
+    355,
+    416
+   ],
+   "note": "text past title-safe line",
+   "was": [
+    82928,
+    82958,
+    83272,
+    83283,
+    83344
+   ]
+  },
+  {
+   "id": "p169-P3.3",
+   "finding": "p169-P3",
+   "base": "chapter_start:10_doing_nothing",
+   "offsets": [
+    0
+   ],
+   "note": "text past title-safe line",
+   "was": [
+    83392
+   ]
+  },
+  {
+   "id": "p169-P3.4",
+   "finding": "p169-P3",
+   "base": "sentence:10_3:6",
+   "offsets": [
+    30,
+    199
+   ],
+   "note": "text past title-safe line",
+   "was": [
+    87357,
+    87526
+   ]
+  },
+  {
+   "id": "p169-P3.5",
+   "finding": "p169-P3",
+   "base": "sentence:10_4:1",
+   "offsets": [
+    0,
+    17,
+    286
+   ],
+   "note": "text past title-safe line",
+   "was": [
+    87575,
+    87592,
+    87861
+   ]
+  },
+  {
+   "id": "p169-P3.6",
+   "finding": "p169-P3",
+   "base": "sentence:10_4:2",
+   "offsets": [
+    0,
+    30,
+    257
+   ],
+   "note": "text past title-safe line",
+   "was": [
+    87935,
+    87965,
+    88192
+   ]
+  },
+  {
+   "id": "p169-P3.7",
+   "finding": "p169-P3",
+   "base": "sentence:11_5:1",
+   "offsets": [
+    30
+   ],
+   "note": "text past title-safe line",
+   "was": [
+    97405
+   ]
+  },
+  {
+   "id": "p169-P3.8",
+   "finding": "p169-P3",
+   "base": "sentence:11_5:2",
+   "offsets": [
+    0,
+    30,
+    131
+   ],
+   "note": "text past title-safe line",
+   "was": [
+    97527,
+    97557,
+    97658
+   ]
+  },
+  {
+   "id": "p169-P3.9",
+   "finding": "p169-P3",
+   "base": "sentence:11_7:1",
+   "offsets": [
+    205
+   ],
+   "note": "text past title-safe line",
+   "was": [
+    101258
+   ]
+  },
+  {
+   "id": "p169-P3.10",
+   "finding": "p169-P3",
+   "base": "sentence:11_7:2",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "text past title-safe line",
+   "was": [
+    101259,
+    101289
+   ]
+  },
+  {
+   "id": "p169-P3.11",
+   "finding": "p169-P3",
+   "base": "sentence:11_7:3",
+   "offsets": [
+    0
+   ],
+   "note": "text past title-safe line",
+   "was": [
+    101565
+   ]
+  },
+  {
+   "id": "p169-P4.1",
+   "finding": "p169-P4",
+   "base": "sentence:10_1:3",
+   "offsets": [
+    30
+   ],
+   "note": "clipped flow loses outer edge",
+   "was": [
+    83946
+   ]
+  },
+  {
+   "id": "p169-P4.2",
+   "finding": "p169-P4",
+   "base": "sentence:10_1:4",
+   "offsets": [
+    0
+   ],
+   "note": "clipped flow loses outer edge",
+   "was": [
+    84114
+   ]
+  },
+  {
+   "id": "p169-P4.3",
+   "finding": "p169-P4",
+   "base": "sentence:10_2:2",
+   "offsets": [
+    0
+   ],
+   "note": "clipped flow loses outer edge",
+   "was": [
+    84444
+   ]
+  },
+  {
+   "id": "p169-P4.4",
+   "finding": "p169-P4",
+   "base": "sentence:10_2:4",
+   "offsets": [
+    30
+   ],
+   "note": "clipped flow loses outer edge",
+   "was": [
+    85187
+   ]
+  },
+  {
+   "id": "p169-P4.5",
+   "finding": "p169-P4",
+   "base": "sentence:10_3:3",
+   "offsets": [
+    30
+   ],
+   "note": "clipped flow loses outer edge",
+   "was": [
+    86311
+   ]
+  },
+  {
+   "id": "p169-P4.6",
+   "finding": "p169-P4",
+   "base": "sentence:10_3:4",
+   "offsets": [
+    129
+   ],
+   "note": "clipped flow loses outer edge",
+   "was": [
+    86551
+   ]
+  },
+  {
+   "id": "p169-P5.1",
+   "finding": "p169-P5",
+   "base": "sentence:11_3:5",
+   "offsets": [
+    87
+   ],
+   "note": "arrow along the yellow arm",
+   "was": [
+    94249
+   ]
+  },
+  {
+   "id": "p169-P5.2",
+   "finding": "p169-P5",
+   "base": "sentence:11_3:6",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "arrow along the yellow arm",
+   "was": [
+    94354,
+    94384
+   ]
+  },
+  {
+   "id": "p169-P5.3",
+   "finding": "p169-P5",
+   "base": "sentence:11_3:7",
+   "offsets": [
+    0,
+    30,
+    80
+   ],
+   "note": "arrow along the yellow arm",
+   "was": [
+    94578,
+    94608,
+    94658
+   ]
+  },
+  {
+   "id": "p169-P5.4",
+   "finding": "p169-P5",
+   "base": "sentence:11_3:8",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "arrow along the yellow arm",
+   "was": [
+    94761,
+    94791
+   ]
+  },
+  {
+   "id": "p169-P5.5",
+   "finding": "p169-P5",
+   "base": "sentence:11_3:9",
+   "offsets": [
+    0,
+    30,
+    140
+   ],
+   "note": "arrow along the yellow arm",
+   "was": [
+    94966,
+    94996,
+    95106
+   ]
+  },
+  {
+   "id": "p169-P5.6",
+   "finding": "p169-P5",
+   "base": "voice_end:11_3",
+   "offsets": [
+    12
+   ],
+   "note": "arrow along the yellow arm",
+   "was": [
+    95130
+   ]
+  },
+  {
+   "id": "p169-P5.7",
+   "finding": "p169-P5",
+   "base": "hold:11_3:start",
+   "offsets": [
+    0,
+    24,
+    30,
+    84,
+    104,
+    243
+   ],
+   "note": "arrow along the yellow arm",
+   "was": [
+    95154,
+    95178,
+    95184,
+    95238,
+    95258,
+    95397
+   ]
+  },
+  {
+   "id": "p169-P5.8",
+   "finding": "p169-P5",
+   "base": "sentence:11_4:1",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "arrow along the yellow arm",
+   "was": [
+    95409,
+    95439
+   ]
+  },
+  {
+   "id": "p169-P6.1",
+   "finding": "p169-P6",
+   "base": "sentence:11_4:5",
+   "offsets": [
+    26
+   ],
+   "note": "weakest label contrast",
+   "was": [
+    96374
+   ]
+  },
+  {
+   "id": "p169-P6.2",
+   "finding": "p169-P6",
+   "base": "sentence:11_6:4",
+   "offsets": [
+    237
+   ],
+   "note": "weakest label contrast",
+   "was": [
+    100675
+   ]
+  },
+  {
+   "id": "p169-P6.3",
+   "finding": "p169-P6",
+   "base": "sentence:11_7:5",
+   "offsets": [
+    258
+   ],
+   "note": "weakest label contrast",
+   "was": [
+    102516
+   ]
+  },
+  {
+   "id": "p169-P6.4",
+   "finding": "p169-P6",
+   "base": "sentence:11_20:1",
+   "offsets": [
+    583
+   ],
+   "note": "weakest label contrast",
+   "was": [
+    103756
+   ]
+  },
+  {
+   "id": "p169-P6.5",
+   "finding": "p169-P6",
+   "base": "sentence:12_4:3",
+   "offsets": [
+    370
+   ],
+   "note": "weakest label contrast",
+   "was": [
+    110547
+   ]
+  },
+  {
+   "id": "p169-P6.6",
+   "finding": "p169-P6",
+   "base": "sentence:12_4:5",
+   "offsets": [
+    30
+   ],
+   "note": "weakest label contrast",
+   "was": [
+    111300
+   ]
+  },
+  {
+   "id": "p169-P6.7",
+   "finding": "p169-P6",
+   "base": "sentence:12_21:2",
+   "offsets": [
+    418
+   ],
+   "note": "weakest label contrast",
+   "was": [
+    116197
+   ]
+  },
+  {
+   "id": "p169-P8.1",
+   "finding": "p169-P8",
+   "base": "sentence:11_7:5",
+   "offsets": [
+    200,
+    228,
+    258,
+    318,
+    509,
+    539,
+    569,
+    629,
+    703,
+    733,
+    763,
+    800,
+    823,
+    866
+   ],
+   "note": "old rows beside the new",
+   "was": [
+    102458,
+    102486,
+    102516,
+    102576,
+    102767,
+    102797,
+    102827,
+    102887,
+    102961,
+    102991,
+    103021,
+    103058,
+    103081,
+    103124
+   ]
+  },
+  {
+   "id": "p169-P8.2",
+   "finding": "p169-P8",
+   "base": "sentence:11_20:1",
+   "offsets": [
+    0,
+    30,
+    370,
+    400,
+    406,
+    430,
+    485,
+    490,
+    523,
+    553
+   ],
+   "note": "old rows beside the new",
+   "was": [
+    103173,
+    103203,
+    103543,
+    103573,
+    103579,
+    103603,
+    103658,
+    103663,
+    103696,
+    103726
+   ]
+  },
+  {
+   "id": "p169-H1.1",
+   "finding": "p169-H1",
+   "base": "sentence:11_20:2",
+   "offsets": [
+    132
+   ],
+   "note": "11_20 row walk",
+   "was": [
+    103972
+   ]
+  },
+  {
+   "id": "p169-H1.2",
+   "finding": "p169-H1",
+   "base": "voice_end:11_20",
+   "offsets": [
+    12
+   ],
+   "note": "11_20 row walk",
+   "was": [
+    103996
+   ]
+  },
+  {
+   "id": "p169-H1.3",
+   "finding": "p169-H1",
+   "base": "hold:11_20:start",
+   "offsets": [
+    23,
+    83,
+    237,
+    837,
+    1052
+   ],
+   "note": "11_20 row walk",
+   "was": [
+    104044,
+    104104,
+    104258,
+    104858,
+    105073
+   ]
+  },
+  {
+   "id": "p169-H1.4",
+   "finding": "p169-H1",
+   "base": "sentence:11_8:1",
+   "offsets": [
+    0
+   ],
+   "note": "11_20 row walk",
+   "was": [
+    105085
+   ]
+  },
+  {
+   "id": "p169-U2.1",
+   "finding": "p169-U2",
+   "base": "sentence:10_4:4",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    88805,
+    88835
+   ]
+  },
+  {
+   "id": "p169-U2.2",
+   "finding": "p169-U2",
+   "base": "sentence:10_4:5",
+   "offsets": [
+    0,
+    30,
+    357,
+    400
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    89035,
+    89065,
+    89392,
+    89435
+   ]
+  },
+  {
+   "id": "p169-U2.3",
+   "finding": "p169-U2",
+   "base": "voice_end:10_4",
+   "offsets": [
+    12
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    89459
+   ]
+  },
+  {
+   "id": "p169-U2.4",
+   "finding": "p169-U2",
+   "base": "hold:10_4:start",
+   "offsets": [
+    24,
+    84,
+    255,
+    363
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    89507,
+    89567,
+    89738,
+    89846
+   ]
+  },
+  {
+   "id": "p169-U2.5",
+   "finding": "p169-U2",
+   "base": "chapter_start:11_unreachable",
+   "offsets": [
+    0
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    89858
+   ]
+  },
+  {
+   "id": "p169-U2.6",
+   "finding": "p169-U2",
+   "base": "sentence:11_2:6",
+   "offsets": [
+    0,
+    18,
+    30,
+    491
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    92840,
+    92858,
+    92870,
+    93331
+   ]
+  },
+  {
+   "id": "p169-U2.7",
+   "finding": "p169-U2",
+   "base": "sentence:11_3:1",
+   "offsets": [
+    0,
+    30,
+    78
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    93380,
+    93410,
+    93458
+   ]
+  },
+  {
+   "id": "p169-U2.8",
+   "finding": "p169-U2",
+   "base": "sentence:11_3:2",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    93615,
+    93645
+   ]
+  },
+  {
+   "id": "p169-U2.9",
+   "finding": "p169-U2",
+   "base": "sentence:11_3:3",
+   "offsets": [
+    0,
+    30,
+    122
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    93936,
+    93966,
+    94058
+   ]
+  },
+  {
+   "id": "p169-U2.10",
+   "finding": "p169-U2",
+   "base": "sentence:11_7:5",
+   "offsets": [
+    823,
+    866
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    103081,
+    103124
+   ]
+  },
+  {
+   "id": "p169-U2.11",
+   "finding": "p169-U2",
+   "base": "sentence:11_20:1",
+   "offsets": [
+    0,
+    30,
+    370,
+    400,
+    406,
+    430,
+    485,
+    490,
+    523,
+    553,
+    583,
+    643
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    103173,
+    103203,
+    103543,
+    103573,
+    103579,
+    103603,
+    103658,
+    103663,
+    103696,
+    103726,
+    103756,
+    103816
+   ]
+  },
+  {
+   "id": "p169-U2.12",
+   "finding": "p169-U2",
+   "base": "sentence:11_20:2",
+   "offsets": [
+    0,
+    30,
+    132
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    103840,
+    103870,
+    103972
+   ]
+  },
+  {
+   "id": "p169-U2.13",
+   "finding": "p169-U2",
+   "base": "voice_end:11_20",
+   "offsets": [
+    12
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    103996
+   ]
+  },
+  {
+   "id": "p169-U2.14",
+   "finding": "p169-U2",
+   "base": "hold:11_20:start",
+   "offsets": [
+    23,
+    83,
+    237,
+    837,
+    1052
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    104044,
+    104104,
+    104258,
+    104858,
+    105073
+   ]
+  },
+  {
+   "id": "p169-U2.15",
+   "finding": "p169-U2",
+   "base": "sentence:11_8:1",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    105085,
+    105115
+   ]
+  },
+  {
+   "id": "p169-U2.16",
+   "finding": "p169-U2",
+   "base": "sentence:11_8:2",
+   "offsets": [
+    0,
+    30,
+    90,
+    360
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    105368,
+    105398,
+    105458,
+    105728
+   ]
+  },
+  {
+   "id": "p169-U2.17",
+   "finding": "p169-U2",
+   "base": "sentence:11_8:3",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    105734,
+    105764
+   ]
+  },
+  {
+   "id": "p169-U2.18",
+   "finding": "p169-U2",
+   "base": "sentence:11_8:4",
+   "offsets": [
+    0,
+    30,
+    70,
+    300,
+    371
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    105988,
+    106018,
+    106058,
+    106288,
+    106359
+   ]
+  },
+  {
+   "id": "p169-U2.19",
+   "finding": "p169-U2",
+   "base": "sentence:12_21:2",
+   "offsets": [
+    30,
+    95,
+    125,
+    155,
+    215,
+    229,
+    273,
+    303,
+    333,
+    346,
+    393,
+    418
+   ],
+   "note": "footer may meet captions",
+   "was": [
+    115809,
+    115874,
+    115904,
+    115934,
+    115994,
+    116008,
+    116052,
+    116082,
+    116112,
+    116125,
+    116172,
+    116197
+   ]
+  },
+  {
+   "id": "p169-U4.1",
+   "finding": "p169-U4",
+   "base": "sentence:09_1:3",
+   "offsets": [
+    158
+   ],
+   "note": "stretched state between tiles",
+   "was": [
+    78483
+   ]
+  },
+  {
+   "id": "p169-U4.2",
+   "finding": "p169-U4",
+   "base": "sentence:09_1:4",
+   "offsets": [
+    0,
+    19,
+    30
+   ],
+   "note": "stretched state between tiles",
+   "was": [
+    78615,
+    78634,
+    78645
+   ]
+  },
+  {
+   "id": "p169-answer.1",
+   "finding": "p169-answer",
+   "base": "sentence:11_4:1",
+   "offsets": [
+    30
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    95439
+   ]
+  },
+  {
+   "id": "p169-answer.2",
+   "finding": "p169-answer",
+   "base": "sentence:12_6:2",
+   "offsets": [
+    30,
+    135,
+    191,
+    221
+   ],
+   "note": "first answer after a hold",
+   "was": [
+    112903,
+    113008,
+    113064,
+    113094
+   ]
+  },
+  {
+   "id": "join-J1.1",
+   "finding": "join-J1",
+   "base": "sentence:02_3:4",
+   "offsets": [
+    157,
+    180
+   ],
+   "note": "for a listener: turned or turn",
+   "was": [
+    18463,
+    18486
+   ]
+  },
+  {
+   "id": "join-J2.1",
+   "finding": "join-J2",
+   "base": "sentence:04_4:6",
+   "offsets": [
+    323,
+    324
+   ],
+   "note": "for a listener: a small step?",
+   "was": [
+    32249,
+    32250
+   ]
+  },
+  {
+   "id": "join-J3.1",
+   "finding": "join-J3",
+   "base": "sentence:04_4:6",
+   "offsets": [
+    392
+   ],
+   "note": "for a listener: end of 04_4",
+   "was": [
+    32318
+   ]
+  },
+  {
+   "id": "join-J3.2",
+   "finding": "join-J3",
+   "base": "voice_end:04_4",
+   "offsets": [
+    0
+   ],
+   "note": "for a listener: end of 04_4",
+   "was": [
+    32332
+   ]
+  },
+  {
+   "id": "join-J4.1",
+   "finding": "join-J4",
+   "base": "sentence:04_3:1",
+   "offsets": [
+    0
+   ],
+   "note": "for a listener: start of 04_3",
+   "was": [
+    29229
+   ]
+  },
+  {
+   "id": "root-seen.1",
+   "finding": "root-seen",
+   "base": "sentence:05_1:3",
+   "offsets": [
+    115
+   ],
+   "note": "root viewed this sheet",
+   "was": [
+    38277
+   ]
+  },
+  {
+   "id": "root-seen.2",
+   "finding": "root-seen",
+   "base": "sentence:05_1:4",
+   "offsets": [
+    0,
+    30,
+    331
+   ],
+   "note": "root viewed this sheet",
+   "was": [
+    38450,
+    38480,
+    38781
+   ]
+  },
+  {
+   "id": "root-seen.3",
+   "finding": "root-seen",
+   "base": "sentence:05_1:5",
+   "offsets": [
+    0,
+    30,
+    140
+   ],
+   "note": "root viewed this sheet",
+   "was": [
+    38785,
+    38815,
+    38925
+   ]
+  },
+  {
+   "id": "root-seen.4",
+   "finding": "root-seen",
+   "base": "voice_end:05_1",
+   "offsets": [
+    12
+   ],
+   "note": "root viewed this sheet",
+   "was": [
+    38949
+   ]
+  },
+  {
+   "id": "root-seen.5",
+   "finding": "root-seen",
+   "base": "hold:05_5:start",
+   "offsets": [
+    24,
+    30,
+    84,
+    243
+   ],
+   "note": "root viewed this sheet",
+   "was": [
+    44872,
+    44878,
+    44932,
+    45091
+   ]
+  },
+  {
+   "id": "root-seen.6",
+   "finding": "root-seen",
+   "base": "sentence:05_7:1",
+   "offsets": [
+    30
+   ],
+   "note": "root viewed this sheet",
+   "was": [
+    46830
+   ]
+  },
+  {
+   "id": "root-seen.7",
+   "finding": "root-seen",
+   "base": "sentence:05_7:2",
+   "offsets": [
+    0,
+    30,
+    206
+   ],
+   "note": "root viewed this sheet",
+   "was": [
+    46975,
+    47005,
+    47181
+   ]
+  },
+  {
+   "id": "root-seen.8",
+   "finding": "root-seen",
+   "base": "sentence:08_5:6",
+   "offsets": [
+    0,
+    30,
+    209,
+    281
+   ],
+   "note": "root viewed this sheet",
+   "was": [
+    77554,
+    77584,
+    77763,
+    77835
+   ]
+  },
+  {
+   "id": "root-seen.9",
+   "finding": "root-seen",
+   "base": "sentence:11_8:1",
+   "offsets": [
+    30
+   ],
+   "note": "root viewed this sheet",
+   "was": [
+    105115
+   ]
+  },
+  {
+   "id": "root-seen.10",
+   "finding": "root-seen",
+   "base": "sentence:11_8:2",
+   "offsets": [
+    0,
+    30,
+    90
+   ],
+   "note": "root viewed this sheet",
+   "was": [
+    105368,
+    105398,
+    105458
+   ]
+  },
+  {
+   "id": "root-seen.11",
+   "finding": "root-seen",
+   "base": "sentence:12_21:2",
+   "offsets": [
+    333,
+    346,
+    393,
+    418
+   ],
+   "note": "root viewed this sheet",
+   "was": [
+    116112,
+    116125,
+    116172,
+    116197
+   ]
+  },
+  {
+   "id": "join-00-01.1",
+   "finding": "join-00-01",
+   "base": "chapter_end:00_ratio_ruler",
+   "offsets": [
+    -1
+   ],
+   "note": "last frame before the join",
+   "was": [
+    7546
+   ]
+  },
+  {
+   "id": "join-00-01.2",
+   "finding": "join-00-01",
+   "base": "chapter_start:01_building_ruler",
+   "offsets": [
+    0
+   ],
+   "note": "first frame after the join",
+   "was": [
+    7547
+   ]
+  },
+  {
+   "id": "join-01-02.1",
+   "finding": "join-01-02",
+   "base": "chapter_end:01_building_ruler",
+   "offsets": [
+    -1
+   ],
+   "note": "last frame before the join",
+   "was": [
+    15601
+   ]
+  },
+  {
+   "id": "join-01-02.2",
+   "finding": "join-01-02",
+   "base": "chapter_start:02_slide_rule",
+   "offsets": [
+    0
+   ],
+   "note": "first frame after the join",
+   "was": [
+    15602
+   ]
+  },
+  {
+   "id": "join-02-03.1",
+   "finding": "join-02-03",
+   "base": "chapter_end:02_slide_rule",
+   "offsets": [
+    -1
+   ],
+   "note": "last frame before the join",
+   "was": [
+    21176
+   ]
+  },
+  {
+   "id": "join-02-03.2",
+   "finding": "join-02-03",
+   "base": "chapter_start:03_folded_decade",
+   "offsets": [
+    0
+   ],
+   "note": "first frame after the join",
+   "was": [
+    21177
+   ]
+  },
+  {
+   "id": "join-03-04.1",
+   "finding": "join-03-04",
+   "base": "chapter_end:03_folded_decade",
+   "offsets": [
+    -1
+   ],
+   "note": "last frame before the join",
+   "was": [
+    25855
+   ]
+  },
+  {
+   "id": "join-03-04.2",
+   "finding": "join-03-04",
+   "base": "chapter_start:04_undoing_growth",
+   "offsets": [
+    0
+   ],
+   "note": "first frame after the join",
+   "was": [
+    25856
+   ]
+  },
+  {
+   "id": "join-04-05.1",
+   "finding": "join-04-05",
+   "base": "chapter_end:04_undoing_growth",
+   "offsets": [
+    -1
+   ],
+   "note": "last frame before the join",
+   "was": [
+    37580
+   ]
+  },
+  {
+   "id": "join-04-05.2",
+   "finding": "join-04-05",
+   "base": "chapter_start:05_complex_turns",
+   "offsets": [
+    0
+   ],
+   "note": "first frame after the join",
+   "was": [
+    37581
+   ]
+  },
+  {
+   "id": "join-05-06.1",
+   "finding": "join-05-06",
+   "base": "chapter_end:05_complex_turns",
+   "offsets": [
+    -1
+   ],
+   "note": "last frame before the join",
+   "was": [
+    48391
+   ]
+  },
+  {
+   "id": "join-05-06.2",
+   "finding": "join-05-06",
+   "base": "chapter_start:06_lifting_loops",
+   "offsets": [
+    0
+   ],
+   "note": "first frame after the join",
+   "was": [
+    48392
+   ]
+  },
+  {
+   "id": "join-06-07.1",
+   "finding": "join-06-07",
+   "base": "chapter_end:06_lifting_loops",
+   "offsets": [
+    -1
+   ],
+   "note": "last frame before the join",
+   "was": [
+    58962
+   ]
+  },
+  {
+   "id": "join-06-07.2",
+   "finding": "join-06-07",
+   "base": "chapter_start:07_branch_cut",
+   "offsets": [
+    0
+   ],
+   "note": "first frame after the join",
+   "was": [
+    58963
+   ]
+  },
+  {
+   "id": "join-07-08.1",
+   "finding": "join-07-08",
+   "base": "chapter_end:07_branch_cut",
+   "offsets": [
+    -1
+   ],
+   "note": "last frame before the join",
+   "was": [
+    69144
+   ]
+  },
+  {
+   "id": "join-07-08.2",
+   "finding": "join-07-08",
+   "base": "chapter_start:08_product_rule",
+   "offsets": [
+    0
+   ],
+   "note": "first frame after the join",
+   "was": [
+    69145
+   ]
+  },
+  {
+   "id": "join-08-09.1",
+   "finding": "join-08-09",
+   "base": "chapter_end:08_product_rule",
+   "offsets": [
+    -1
+   ],
+   "note": "last frame before the join",
+   "was": [
+    77882
+   ]
+  },
+  {
+   "id": "join-08-09.2",
+   "finding": "join-08-09",
+   "base": "chapter_start:09_matrix_logs",
+   "offsets": [
+    0
+   ],
+   "note": "first frame after the join",
+   "was": [
+    77883
+   ]
+  },
+  {
+   "id": "join-09-10.1",
+   "finding": "join-09-10",
+   "base": "chapter_end:09_matrix_logs",
+   "offsets": [
+    -1
+   ],
+   "note": "last frame before the join",
+   "was": [
+    83391
+   ]
+  },
+  {
+   "id": "join-09-10.2",
+   "finding": "join-09-10",
+   "base": "chapter_start:10_doing_nothing",
+   "offsets": [
+    0
+   ],
+   "note": "first frame after the join",
+   "was": [
+    83392
+   ]
+  },
+  {
+   "id": "join-10-11.1",
+   "finding": "join-10-11",
+   "base": "chapter_end:10_doing_nothing",
+   "offsets": [
+    -1
+   ],
+   "note": "last frame before the join",
+   "was": [
+    89857
+   ]
+  },
+  {
+   "id": "join-10-11.2",
+   "finding": "join-10-11",
+   "base": "chapter_start:11_unreachable",
+   "offsets": [
+    0
+   ],
+   "note": "first frame after the join",
+   "was": [
+    89858
+   ]
+  },
+  {
+   "id": "join-11-12.1",
+   "finding": "join-11-12",
+   "base": "chapter_end:11_unreachable",
+   "offsets": [
+    -1
+   ],
+   "note": "last frame before the join",
+   "was": [
+    106407
+   ]
+  },
+  {
+   "id": "join-11-12.2",
+   "finding": "join-11-12",
+   "base": "chapter_start:12_what_it_forgets",
+   "offsets": [
+    0
+   ],
+   "note": "first frame after the join",
+   "was": [
+    106408
+   ]
+  },
+  {
+   "id": "pause-00_4.1",
+   "finding": "pause-00_4",
+   "base": "hold:00_4:start",
+   "offsets": [
+    0,
+    30,
+    120
+   ],
+   "note": "pause line on, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-00_4.2",
+   "finding": "pause-00_4",
+   "base": "hold:00_4:think_end",
+   "offsets": [
+    -1,
+    7
+   ],
+   "note": "pause line, last full, then fading",
+   "was": null
+  },
+  {
+   "id": "pause-00_4.3",
+   "finding": "pause-00_4",
+   "base": "hold:00_4:next",
+   "offsets": [
+    0
+   ],
+   "note": "next cue, line gone, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-01_3.1",
+   "finding": "pause-01_3",
+   "base": "hold:01_3:start",
+   "offsets": [
+    0,
+    30,
+    120
+   ],
+   "note": "pause line on, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-01_3.2",
+   "finding": "pause-01_3",
+   "base": "hold:01_3:think_end",
+   "offsets": [
+    -1,
+    7
+   ],
+   "note": "pause line, last full, then fading",
+   "was": null
+  },
+  {
+   "id": "pause-01_3.3",
+   "finding": "pause-01_3",
+   "base": "hold:01_3:next",
+   "offsets": [
+    0
+   ],
+   "note": "next cue, line gone, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-02_2.1",
+   "finding": "pause-02_2",
+   "base": "hold:02_2:start",
+   "offsets": [
+    0,
+    30,
+    120
+   ],
+   "note": "pause line on, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-02_2.2",
+   "finding": "pause-02_2",
+   "base": "hold:02_2:think_end",
+   "offsets": [
+    -1,
+    7
+   ],
+   "note": "pause line, last full, then fading",
+   "was": null
+  },
+  {
+   "id": "pause-02_2.3",
+   "finding": "pause-02_2",
+   "base": "hold:02_2:next",
+   "offsets": [
+    0
+   ],
+   "note": "next cue, line gone, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-04_6.1",
+   "finding": "pause-04_6",
+   "base": "hold:04_6:start",
+   "offsets": [
+    0,
+    30,
+    120
+   ],
+   "note": "pause line on, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-04_6.2",
+   "finding": "pause-04_6",
+   "base": "hold:04_6:think_end",
+   "offsets": [
+    -1,
+    7
+   ],
+   "note": "pause line, last full, then fading",
+   "was": null
+  },
+  {
+   "id": "pause-04_6.3",
+   "finding": "pause-04_6",
+   "base": "hold:04_6:next",
+   "offsets": [
+    0
+   ],
+   "note": "next cue, line gone, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-05_1.1",
+   "finding": "pause-05_1",
+   "base": "hold:05_1:start",
+   "offsets": [
+    0,
+    30,
+    120
+   ],
+   "note": "pause line on, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-05_1.2",
+   "finding": "pause-05_1",
+   "base": "hold:05_1:think_end",
+   "offsets": [
+    -1,
+    7
+   ],
+   "note": "pause line, last full, then fading",
+   "was": null
+  },
+  {
+   "id": "pause-05_1.3",
+   "finding": "pause-05_1",
+   "base": "hold:05_1:next",
+   "offsets": [
+    0
+   ],
+   "note": "next cue, line gone, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-05_5.1",
+   "finding": "pause-05_5",
+   "base": "hold:05_5:start",
+   "offsets": [
+    0,
+    30,
+    120
+   ],
+   "note": "pause line on, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-05_5.2",
+   "finding": "pause-05_5",
+   "base": "hold:05_5:think_end",
+   "offsets": [
+    -1,
+    7
+   ],
+   "note": "pause line, last full, then fading",
+   "was": null
+  },
+  {
+   "id": "pause-05_5.3",
+   "finding": "pause-05_5",
+   "base": "hold:05_5:next",
+   "offsets": [
+    0
+   ],
+   "note": "next cue, line gone, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-06_2.1",
+   "finding": "pause-06_2",
+   "base": "hold:06_2:start",
+   "offsets": [
+    0,
+    30,
+    120
+   ],
+   "note": "pause line on, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-06_2.2",
+   "finding": "pause-06_2",
+   "base": "hold:06_2:think_end",
+   "offsets": [
+    -1,
+    7
+   ],
+   "note": "pause line, last full, then fading",
+   "was": null
+  },
+  {
+   "id": "pause-06_2.3",
+   "finding": "pause-06_2",
+   "base": "hold:06_2:next",
+   "offsets": [
+    0
+   ],
+   "note": "next cue, line gone, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-06_4.1",
+   "finding": "pause-06_4",
+   "base": "hold:06_4:start",
+   "offsets": [
+    0,
+    30,
+    120
+   ],
+   "note": "pause line on, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-06_4.2",
+   "finding": "pause-06_4",
+   "base": "hold:06_4:think_end",
+   "offsets": [
+    -1,
+    7
+   ],
+   "note": "pause line, last full, then fading",
+   "was": null
+  },
+  {
+   "id": "pause-06_4.3",
+   "finding": "pause-06_4",
+   "base": "hold:06_4:next",
+   "offsets": [
+    0
+   ],
+   "note": "next cue, line gone, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-07_3.1",
+   "finding": "pause-07_3",
+   "base": "hold:07_3:start",
+   "offsets": [
+    0,
+    30,
+    120
+   ],
+   "note": "pause line on, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-07_3.2",
+   "finding": "pause-07_3",
+   "base": "hold:07_3:think_end",
+   "offsets": [
+    -1,
+    7
+   ],
+   "note": "pause line, last full, then fading",
+   "was": null
+  },
+  {
+   "id": "pause-07_3.3",
+   "finding": "pause-07_3",
+   "base": "hold:07_3:next",
+   "offsets": [
+    0
+   ],
+   "note": "next cue, line gone, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-08_1.1",
+   "finding": "pause-08_1",
+   "base": "hold:08_1:start",
+   "offsets": [
+    0,
+    30,
+    120
+   ],
+   "note": "pause line on, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-08_1.2",
+   "finding": "pause-08_1",
+   "base": "hold:08_1:think_end",
+   "offsets": [
+    -1,
+    7
+   ],
+   "note": "pause line, last full, then fading",
+   "was": null
+  },
+  {
+   "id": "pause-08_1.3",
+   "finding": "pause-08_1",
+   "base": "hold:08_1:next",
+   "offsets": [
+    0
+   ],
+   "note": "next cue, line gone, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-08_4.1",
+   "finding": "pause-08_4",
+   "base": "hold:08_4:start",
+   "offsets": [
+    0,
+    30,
+    120
+   ],
+   "note": "pause line on, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-08_4.2",
+   "finding": "pause-08_4",
+   "base": "hold:08_4:think_end",
+   "offsets": [
+    -1,
+    7
+   ],
+   "note": "pause line, last full, then fading",
+   "was": null
+  },
+  {
+   "id": "pause-08_4.3",
+   "finding": "pause-08_4",
+   "base": "hold:08_4:next",
+   "offsets": [
+    0
+   ],
+   "note": "next cue, line gone, no answer",
+   "was": null
+  },
+  {
+   "id": "reading-10_4.1",
+   "finding": "reading-10_4",
+   "base": "hold:10_4:start",
+   "offsets": [
+    0,
+    120
+   ],
+   "note": "reading hold",
+   "was": null
+  },
+  {
+   "id": "reading-10_4.2",
+   "finding": "reading-10_4",
+   "base": "hold:10_4:think_end",
+   "offsets": [
+    -1
+   ],
+   "note": "reading hold, last frame",
+   "was": null
+  },
+  {
+   "id": "pause-11_3.1",
+   "finding": "pause-11_3",
+   "base": "hold:11_3:start",
+   "offsets": [
+    0,
+    30,
+    120
+   ],
+   "note": "pause line on, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-11_3.2",
+   "finding": "pause-11_3",
+   "base": "hold:11_3:think_end",
+   "offsets": [
+    -1,
+    7
+   ],
+   "note": "pause line, last full, then fading",
+   "was": null
+  },
+  {
+   "id": "pause-11_3.3",
+   "finding": "pause-11_3",
+   "base": "hold:11_3:next",
+   "offsets": [
+    0
+   ],
+   "note": "next cue, line gone, no answer",
+   "was": null
+  },
+  {
+   "id": "reading-11_20.1",
+   "finding": "reading-11_20",
+   "base": "hold:11_20:start",
+   "offsets": [
+    0,
+    120
+   ],
+   "note": "reading hold",
+   "was": null
+  },
+  {
+   "id": "reading-11_20.2",
+   "finding": "reading-11_20",
+   "base": "hold:11_20:think_end",
+   "offsets": [
+    -1
+   ],
+   "note": "reading hold, last frame",
+   "was": null
+  },
+  {
+   "id": "pause-12_5.1",
+   "finding": "pause-12_5",
+   "base": "hold:12_5:start",
+   "offsets": [
+    0,
+    30,
+    120
+   ],
+   "note": "pause line on, no answer",
+   "was": null
+  },
+  {
+   "id": "pause-12_5.2",
+   "finding": "pause-12_5",
+   "base": "hold:12_5:think_end",
+   "offsets": [
+    -1,
+    7
+   ],
+   "note": "pause line, last full, then fading",
+   "was": null
+  },
+  {
+   "id": "pause-12_5.3",
+   "finding": "pause-12_5",
+   "base": "hold:12_5:next",
+   "offsets": [
+    0
+   ],
+   "note": "next cue, line gone, no answer",
+   "was": null
+  },
+  {
+   "id": "rep-04-reveal.1",
+   "finding": "rep-04-reveal",
+   "base": "sentence:04_7:5",
+   "offsets": [
+    30,
+    60
+   ],
+   "note": "04_7 fraction only, no answer yet",
+   "was": null
+  },
+  {
+   "id": "rep-04-reveal.2",
+   "finding": "rep-04-reveal",
+   "base": "sentence:04_7:6",
+   "offsets": [
+    -12,
+    0,
+    12,
+    24,
+    30,
+    60
+   ],
+   "note": "04_7 answer reveal",
+   "was": null
+  },
+  {
+   "id": "rep-04-reveal.3",
+   "finding": "rep-04-reveal",
+   "base": "voice_end:04_7",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "04_7 after the voice, new tail",
+   "was": null
+  },
+  {
+   "id": "rep-11-gloss.1",
+   "finding": "rep-11-gloss",
+   "base": "sentence:11_1:5",
+   "offsets": [
+    0,
+    30,
+    60
+   ],
+   "note": "11_1 det gloss fading in",
+   "was": null
+  },
+  {
+   "id": "rep-11-gloss.2",
+   "finding": "rep-11-gloss",
+   "base": "phrase:11_1:a halfway point",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "11_1 gloss beside the halfway point",
+   "was": null
+  },
+  {
+   "id": "rep-11-gloss.3",
+   "finding": "rep-11-gloss",
+   "base": "phrase:11_1:squashes the whole plane",
+   "offsets": [
+    0,
+    30
+   ],
+   "note": "11_1 gloss with avg_b moved",
+   "was": null
+  },
+  {
+   "id": "rep-11-gloss.4",
+   "finding": "rep-11-gloss",
+   "base": "cue:11_2",
+   "offsets": [
+    -12,
+    12,
+    30
+   ],
+   "note": "11_1 gloss clears at 11_2",
+   "was": null
+  },
+  {
+   "id": "rep-11-gloss.5",
+   "finding": "rep-11-gloss",
+   "base": "sentence:11_2:6",
+   "offsets": [
+    30,
+    60
+   ],
+   "note": "11_2 footer: det, trace gloss",
+   "was": null
+  },
+  {
+   "id": "rep-11-gloss.6",
+   "finding": "rep-11-gloss",
+   "base": "phrase:11_2:run backwards",
+   "offsets": [
+    0,
+    60
+   ],
+   "note": "11_2 before the footer",
+   "was": null
+  },
+  {
+   "id": "rep-11-sample.1",
+   "finding": "rep-11-sample",
+   "base": "phrase:11_5:send it along both routes",
+   "offsets": [
+    0,
+    12,
+    24,
+    60,
+    120
+   ],
+   "note": "11_5 here X is a new sample",
+   "was": null
+  },
+  {
+   "id": "rep-11-sample.2",
+   "finding": "rep-11-sample",
+   "base": "sentence:11_5:5",
+   "offsets": [
+    -12,
+    0,
+    78,
+    156,
+    180
+   ],
+   "note": "11_5 sample X card, arrows run",
+   "was": null
+  },
+  {
+   "id": "rep-11-sample.3",
+   "finding": "rep-11-sample",
+   "base": "phrase:11_5:the two routes end in different places",
+   "offsets": [
+    0,
+    60
+   ],
+   "note": "11_5 routes end apart",
+   "was": null
+  },
+  {
+   "id": "rep-11-formula.1",
+   "finding": "rep-11-formula",
+   "base": "sentence:11_8:2",
+   "offsets": [
+    0,
+    24,
+    60,
+    120
+   ],
+   "note": "11_8 a complex logarithm, e^X = A",
+   "was": null
+  },
+  {
+   "id": "rep-11-formula.2",
+   "finding": "rep-11-formula",
+   "base": "sentence:11_8:4",
+   "offsets": [
+    0,
+    30,
+    60
+   ],
+   "note": "11_8 singular, e^trace X",
+   "was": null
+  },
+  {
+   "id": "rep-11-formula.3",
+   "finding": "rep-11-formula",
+   "base": "chapter_end:11_unreachable",
+   "offsets": [
+    -60,
+    -1
+   ],
+   "note": "11_8 last frames of the chapter",
+   "was": null
+  },
+  {
+   "id": "rep-12-closing.1",
+   "finding": "rep-12-closing",
+   "base": "voice_end:12_21",
+   "offsets": [
+    0,
+    12,
+    24,
+    36
+   ],
+   "note": "12_21 last word, family fade",
+   "was": null
+  },
+  {
+   "id": "rep-12-closing.2",
+   "finding": "rep-12-closing",
+   "base": "closing:hold_start",
+   "offsets": [
+    0,
+    30,
+    165
+   ],
+   "note": "closing hold",
+   "was": null
+  },
+  {
+   "id": "rep-12-closing.3",
+   "finding": "rep-12-closing",
+   "base": "closing:hold_end",
+   "offsets": [
+    -1,
+    0,
+    22,
+    45,
+    67
+   ],
+   "note": "closing fade",
+   "was": null
+  },
+  {
+   "id": "rep-12-closing.4",
+   "finding": "rep-12-closing",
+   "base": "closing:end",
+   "offsets": [
+    -1
+   ],
+   "note": "last frame of the film",
+   "was": null
+  }
+ ]
+}
