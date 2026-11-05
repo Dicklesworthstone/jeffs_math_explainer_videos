@@ -1,0 +1,202 @@
+--- docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-render-preparation02/prepare_stage09_render.py	2026-11-05 01:20:47.691793083 -0500
++++ docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-render-preparation03/prepare_stage09_render.py	2026-11-05 01:41:27.646985813 -0500
+@@ -1,5 +1,24 @@
+ #!/usr/bin/env python3
+-"""Logarithm stage09 narrated render preparation, version 2 (BlueSalmon Mails 4108 and 4245, bead 87do.63).
++"""Logarithm stage09 narrated render preparation, version 3 (BlueSalmon Mail 4410, bead 87do.63).
++
++Version 3 is the sealed version 2 (render-preparation02, b867aaa2) with one repair; docs/v2-to-v3.diff lists every
++changed line. The kit's master null-tests each chapter's captured soundtrack, the last of
++WORK/soundtrack/<CH>/soundtrack_0.wav, _1, ... before the first gap (cli.rs master_video), which render --crf writes
++(encode.rs QualityRunner::capture). Version 2 bound none of them. Version 3:
++- render job: records the capture the kit will consume (path, sha256, count) in render-summary.json, and refuses
++  when the render left none;
++- render verify, and the master's input rows: that exact capture, still the kit's choice and unmoved;
++- master job: CONFIG names each chapter's capture; before the kit runs, the job refuses if the kit would choose
++  another file or the bytes differ, and master-summary.json records the captures it consumed;
++- predecessors written by version 2 (b867aaa2, pinned) are accepted, so root's timeline01 needs no rerun; a job
++  written by any other helper is refused. Everything else, including bind's checks, is version 2's.
++
++    python3 -I -B prepare_stage09_render.py bind         --w W --ws WS --build 02 --audio O --attempt 02
++    python3 -I -B prepare_stage09_render.py verify-step  --w W --ws WS --binding 02 --series 01 --step timeline
++    python3 -I -B prepare_stage09_render.py step         --w W --ws WS --binding 02 --series 01 --step score
++        then verify-step, render --chapter CH (x13, --retry N) and master, each verified before the next
++
++Version 2's description follows.
+ 
+ Version 2 is the sealed version 1 (render-preparation01, 9ddc2003) with the bind adapted; docs/v1-to-v2.diff
+ lists every changed line. Root runs every step.
+@@ -65,6 +84,9 @@
+ RENDER_V1_SHA = "9ddc2003aa666844214aace166343bb37c1d5baeb6b62abb252f517c634b5388"  # installed the workspace
+ RECOVERY_REL = f"{P_REL}/logarithm-stage09-ws-build-recovery01/recover_ws_build.py"
+ RECOVERY_SHA = "00a18c996f0b7393ed5cebca1bba0706cfd2cda7423f20a0d7d0008c7db9225f"
++RENDER_V2_REL = f"{P_REL}/logarithm-stage09-render-preparation02/prepare_stage09_render.py"  # wrote root's timeline01
++RENDER_V2_SHA = "b867aaa2076aabaf4d42216a2bb29b771dbde4d3270f55d40ea1f13a453563b2"
++WRITTEN_BY = re.compile(r"Written by prepare_stage09_render\.py \(sha256 ([0-9a-f]{64})\)")
+ VOICE = {"provider": "ElevenLabs", "name": "Oliver"}  # owner: logarithm keeps Oliver; no mixed voice
+ RECEIPT_SOURCE = "ElevenLabs UI, Oliver"
+ # The narration tools the kit and the assembly use, as root installed them (working tree, Mail 3920 bytes).
+@@ -324,7 +346,7 @@
+     need(not out.exists(), f"{out} exists: use a new attempt number")
+     facts = audio_facts(c, audio)
+     binding = {
+-        "schema": "logarithm-stage09-render-narration-binding-v2", "helper_sha256": sha(HERE), "ws": str(c.ws),
++        "schema": "logarithm-stage09-render-narration-binding-v3", "helper_sha256": sha(HERE), "ws": str(c.ws),
+         "workspace_binding_sha256": sha(c.ws_binding),
+         "build": {"attempt": build_nn, "job": build["job"], "binary": build["binary"], "binary_sha256": build["binary_sha256"],
+                   "verified_by": build["verified_by"]},
+@@ -367,6 +389,41 @@
+     return c.lane / f"{STAGE}-render-work{series}"
+ 
+ 
++def kit_capture(work, chapter):
++    """The capture the kit's master null-tests: the last of soundtrack_0.wav, _1, ... before the first gap
++    (cli.rs master_video: `(0..).map(..).take_while(|p| p.exists()).last()`). None when there is none."""
++    folder = Path(work) / "soundtrack" / chapter
++    n = 0
++    while (folder / f"soundtrack_{n}.wav").exists():
++        n += 1
++    return folder / f"soundtrack_{n - 1}.wav" if n else None
++
++
++def check_capture(job, work, chapter, track):
++    """A recorded capture is still the kit's choice and unmoved."""
++    need(isinstance(track, dict) and set(track) >= {"path", "sha256"},
++         f"{job}: its summary records no soundtrack capture (written before version 3)")
++    chosen = kit_capture(work, chapter)
++    need(chosen is not None and str(chosen) == track["path"],
++         f"{job}: the kit's master would null-test {chosen}, not the recorded {track['path']}")
++    need(chosen.is_file() and sha(chosen) == track["sha256"], f"{job}: the soundtrack capture {chosen.name} moved")
++
++
++def written_by(c, script, rows):
++    """The helper that wrote a job: this one, or version 2 (root's timeline01), with the guard binding its bytes."""
++    m = WRITTEN_BY.search(Path(script).read_text())
++    need(m is not None, f"{script} names no helper")
++    digest = m.group(1)
++    if digest == sha(HERE):
++        path = HERE
++    else:
++        need(digest == RENDER_V2_SHA, f"{Path(script).name} was written by helper {digest[:12]}, not version 2 or 3")
++        path = REPO / RENDER_V2_REL
++        pinned(path, RENDER_V2_SHA, "render preparation version 2")
++    need({"path": str(path), "sha256": digest} in rows, f"{Path(script).name}: the guard did not bind the helper that wrote it")
++    return digest
++
++
+ SUCCESS = {
+     "timeline": "TIMELINE PASS: 13 chapters at 60 fps; 80 cue placements in script order.",
+     "preview": "PREVIEW RENDERED: 13 chapters at 960x540, 30 fps, real narration; pictures and sound not reviewed.",
+@@ -400,11 +457,14 @@
+     folder = c.lane / job
+     paths = [folder / "resource-receipt.json", folder / "command.log"]
+     if job.startswith(f"{STAGE}-render-"):
+-        chapter = json.loads((folder / "render-summary.json").read_text())["chapter"]
++        s = json.loads((folder / "render-summary.json").read_text())
++        chapter = s["chapter"]
+         work = render_work(c, series)
++        check_capture(job, work, chapter, s.get("soundtrack"))
+         paths += [folder / "render-summary.json"]
+         paths += [work / f"{chapter}.{ext}" for ext in ("mp4", "timeline.tsv", "cuelog.tsv", "cues.tsv", "layout.tsv")
+                   if (work / f"{chapter}.{ext}").is_file()]
++        paths += [Path(s["soundtrack"]["path"])]  # the capture the kit's master null-tests
+     else:
+         paths += [folder / rel for rel in sorted(tree(folder)) if rel not in ("resource-receipt.json", "command.log")]
+     return paths
+@@ -434,6 +494,8 @@
+                        "--score", str(sc / "scored/stems"), "--out", str(work), "--lint", "--crf", "16", "--preset", "veryfast"]
+     else:
+         cfg["render_jobs"] = dict(zip(CHAPTERS, cfg["after"][2:]))
++        cfg["soundtracks"] = {ch: {k: json.loads((c.lane / name / "render-summary.json").read_text())["soundtrack"][k]
++                                   for k in ("path", "sha256")} for ch, name in cfg["render_jobs"].items()}
+         cfg["argv"] = [binary, "master", "--narration", n, "--score", str(sc / "scored/stems"), "--out", str(work)]
+         cfg["captions_argv"] = [binary, "captions", "all", "--narration", n, "--out", str(work)]
+     return cfg
+@@ -498,7 +560,9 @@
+          f"{job}: the receipt ran {r.get('command')}")
+     need(receipt_ok(r), f"{job} did not pass: exit {r.get('exit')}, error {r.get('error')}")
+     need(r["inputs_sha256"] == sha(files["inputs"]), f"{job}: the guard's input hash is not this job's inputs file")
+-    need(json.loads(files["inputs"].read_text())["files"][0]["sha256"] == sha(files["script"]), f"{job}: the script moved")
++    rows = json.loads(files["inputs"].read_text())["files"]
++    need(rows[0]["sha256"] == sha(files["script"]), f"{job}: the script moved")
++    written_by(c, files["script"], rows)
+     cfg = read_config(files["script"])
+     need(cfg["job"] == job and cfg["lane"] == str(c.lane), f"{job}: the script names another job or lane")
+     need(cfg["narration"] == b["audio"]["narration"] and cfg["binary_sha256"] == b["build"]["binary_sha256"],
+@@ -538,11 +602,19 @@
+         need(s["chapter"] == cfg["chapter"] and sha(work / f"{s['chapter']}.mp4") == s["mp4_sha256"], f"{job}: chapter file moved")
+         reference = c.lane / cfg["timeline_job"] / "timeline-output" / f"{s['chapter']}.timeline.tsv"
+         need(schedule(reference) == schedule(work / f"{s['chapter']}.timeline.tsv"), f"{job}: schedule differs from the timeline")
+-        return {"chapter": s["chapter"], "mp4_sha256": s["mp4_sha256"], "layout_findings": s["layout_findings"]}
++        check_capture(job, work, s["chapter"], s.get("soundtrack"))
++        return {"chapter": s["chapter"], "mp4_sha256": s["mp4_sha256"], "layout_findings": s["layout_findings"],
++                "soundtrack": s["soundtrack"]}
+     s = json.loads((folder / "master-summary.json").read_text())
+     for key in ("master", "srt", "vtt"):
+         need(sha(s[key]["path"]) == s[key]["sha256"], f"{job}: {key} moved")
+-    return {k: s[k]["sha256"] for k in ("master", "srt", "vtt")}
++    need(s.get("soundtracks") == cfg["soundtracks"], f"{job}: the master consumed other captures than its CONFIG names")
++    for chapter, render_job in cfg["render_jobs"].items():
++        rs = json.loads((c.lane / render_job / "render-summary.json").read_text())
++        need({k: rs["soundtrack"][k] for k in ("path", "sha256")} == cfg["soundtracks"][chapter],
++             f"{job}: {chapter}'s capture is not the one {render_job} recorded")
++        check_capture(job, cfg["render_work"], chapter, cfg["soundtracks"][chapter])
++    return {**{k: s[k]["sha256"] for k in ("master", "srt", "vtt")}, "soundtracks": len(s["soundtracks"])}
+ 
+ 
+ def read_config(script):
+@@ -614,6 +686,15 @@
+     return len([line for line in pathlib.Path(path).read_text().splitlines() if line.strip()]) if pathlib.Path(path).is_file() else None
+ 
+ 
++def capture(work, chapter):
++    """The kit master's choice: the last of soundtrack_0.wav, _1, ... before the first gap."""
++    folder = pathlib.Path(work) / "soundtrack" / chapter
++    n = 0
++    while (folder / ("soundtrack_%d.wav" % n)).exists():
++        n += 1
++    return folder / ("soundtrack_%d.wav" % (n - 1)) if n else None
++
++
+ def run(argv, timeout):
+     print("RUN " + " ".join(argv), flush=True)
+     subprocess.run(argv, check=True, timeout=timeout)
+@@ -687,9 +768,14 @@
+     reference = LANE / CONFIG["timeline_job"] / "timeline-output" / (chapter + ".timeline.tsv")
+     if schedule(reference) != schedule(work / (chapter + ".timeline.tsv")):
+         refuse(chapter + ": the frame and cue schedule differs from the 60 fps timeline")
++    track = capture(work, chapter)
++    if track is None or not track.is_file():
++        refuse(chapter + ": the render left no soundtrack capture for the master's null test")
+     summary("render-summary.json", {"chapter": chapter, "mp4_sha256": sha(work / (chapter + ".mp4")),
+                                     "timeline_sha256": sha(work / (chapter + ".timeline.tsv")),
+-                                    "layout_findings": findings(work / (chapter + ".layout.tsv"))})
++                                    "layout_findings": findings(work / (chapter + ".layout.tsv")),
++                                    "soundtrack": {"path": str(track), "sha256": sha(track),
++                                                   "captures": int(track.stem.rsplit("_", 1)[1]) + 1}})
+ 
+ 
+ def master():
+@@ -702,9 +788,21 @@
+     for chapter in CONFIG["render_jobs"]:
+         if not (work / (chapter + ".mp4")).is_file():
+             refuse(chapter + ".mp4 is missing")
++    consumed = {}
++    for chapter, want in CONFIG["soundtracks"].items():
++        track = capture(work, chapter)
++        if track is None or str(track) != want["path"] or sha(track) != want["sha256"]:
++            refuse(chapter + ": the kit would null-test another soundtrack capture than its render recorded")
++        consumed[chapter] = {"path": str(track), "sha256": want["sha256"]}
+     run(CONFIG["argv"], 14400)
+     run(CONFIG["captions_argv"], 1200)
+-    summary("master-summary.json", {k: {"path": str(p), "sha256": sha(p)} for k, p in outputs.items()})
++    for chapter, want in consumed.items():
++        track = capture(work, chapter)
++        if track is None or str(track) != want["path"] or sha(track) != want["sha256"]:
++            refuse(chapter + ": the soundtrack capture changed while the master ran")
++    data = {k: {"path": str(p), "sha256": sha(p)} for k, p in outputs.items()}
++    data["soundtracks"] = consumed
++    summary("master-summary.json", data)
+ 
+ 
+ def main():

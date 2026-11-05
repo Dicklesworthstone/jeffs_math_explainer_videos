@@ -1,0 +1,121 @@
+--- a/logarithm-stage09-final-verification01/verify_stage09_final.py
++++ b/logarithm-stage09-final-verification02/verify_stage09_final.py
+@@ -1,5 +1,16 @@
+ #!/usr/bin/env python3
+ """Final technical verification of the logarithm stage09 master (bead 87do.63, BlueSalmon Mail 4124).
++
++Version 02 (root Mail 4376). It is version 01 (final-verification01, a0dc3d50) with BronzeJaguar's reviewed fix
++(final-verification-review01, def2f967; his staged ea9cd27f), plus small additions marked "added here":
++  F1  report.json's cues are compared as a set: the canonical assembler writes them sorted, and the kit reads a map.
++  F2  run_job hashes every picture and sheet; verify-job re-hashes them and the SRT and VTT. Added here: verify-job
++      also requires verification.json's SRT and VTT hashes to equal the job's, and refuses, rather than failing with
++      a KeyError, when verification.json lacks the version 02 fields.
++  F3  root's strict check keeps one decode log, rewritten by its second decode, so its `full decode (...)` lines are
++      recorded in verification.json. Added here: run_job and verify-job require the first to be the clean software
++      decode, by the script's exact label; verify-job requires the recorded lines to equal the strict log's; and
++      run_job prints them to the job's log.
+ 
+ LavenderPike, 2026-11-05. Adapted from root's Nov 3 final verifiers (`final-verify01.py` for apportionment,
+ `logarithm-verify01.py`), root's strict video check `verify_video_preserve_logs01.sh`, root's caption screen
+@@ -69,6 +80,8 @@
+ SCOPE = ("Technical checks and extracted pictures of the logarithm stage09 master only (ElevenLabs Oliver). No "
+          "listening, picture viewing, fine sync, ASR, independent review or publication acceptance is claimed.")
+ STAMP = r"(\d\d):([0-5]\d):([0-5]\d)[{d}](\d{{3}})"
++# verify_video_preserve_logs01.sh lines 173 and 175: the software decode always runs first, with -xerror
++SOFTWARE_DECODE = "full decode (video + audio, software, stops at the first error): 0 error lines, ffmpeg exit 0, "
+ 
+ 
+ class Refused(Exception):
+@@ -103,6 +116,17 @@
+ 
+ def norm(text):
+     return " ".join(text.split())
++
++
++def decode_lines(text):
++    """Root's strict check prints one `full decode (...)` line per decode: the software one, then the hardware second
++    opinion when it runs. It keeps a single decode log, which the second decode rewrites, so these lines are the
++    record of both."""
++    return [row for row in text.splitlines() if row.startswith("full decode (")]
++
++
++def software_decode_clean(decodes):
++    return isinstance(decodes, list) and bool(decodes) and isinstance(decodes[0], str) and decodes[0].startswith(SOFTWARE_DECODE)
+ 
+ 
+ # ---------------------------------------------------------------- parsers of the kit's own files
+@@ -459,7 +483,9 @@
+     need(summary_path.resolve() in m["bound"], "the master did not bind the timeline summary")
+     chapters, placements, timelines, total = read_schedule(c, script, load(summary_path), m["bound"])
+     report = load(c.narration / "report.json")
+-    need(list(report["lines"]) == list(script), "report.json's cues differ from the script")
++    # The canonical assembler writes report.json with sorted keys (narration_cache.encoded), and the kit reads its
++    # lines as a map: compare the cue set. The order is checked on the timelines' placements (read_schedule).
++    need(sorted(report["lines"]) == sorted(script), "report.json's cues differ from the script")
+     captions = check_captions(m["outputs"]["srt"].read_text(encoding="utf-8"), m["outputs"]["vtt"].read_text(encoding="utf-8"),
+                               script, report, placements, total)
+     holds = {}
+@@ -621,7 +647,11 @@
+         with (job / "strict-video-verification.log").open("x") as log:
+             done = subprocess.run(["bash", cfg["strict"], master], stdout=log, stderr=subprocess.STDOUT, env=env, timeout=14400)
+         need(done.returncode == 0 and last_line(job / "strict-video-verification.log") == "VERIFY PASS", "root's strict video check failed")
+-        notes = [row for row in (job / "strict-video-verification.log").read_text(errors="replace").splitlines() if row.startswith("note:")]
++        strict_text = (job / "strict-video-verification.log").read_text(errors="replace")
++        notes = [row for row in strict_text.splitlines() if row.startswith("note:")]
++        # root's script keeps one decode log, rewritten by its second decode: its summary lines are the record of both
++        decodes = decode_lines(strict_text)
++        need(software_decode_clean(decodes), "the strict log does not record a clean software decode")
+         probe = json.loads(subprocess.run([cfg["ffprobe"], "-v", "error", "-show_streams", "-show_format", "-of", "json", master],
+                                           check=True, capture_output=True, text=True, timeout=600).stdout)
+         packets = subprocess.run([cfg["ffprobe"], "-v", "error", "-select_streams", "V:0", "-count_packets", "-show_entries",
+@@ -641,18 +671,22 @@
+             subprocess.run([cfg["ffmpeg"], "-nostdin", "-n", "-v", "error", "-xerror", "-ss", f"{s['frame'] / FPS:.9f}", "-i", master,
+                             "-frames:v", "1", "-vf", "scale=960:540", str(path)], check=True, timeout=180)
+             need(path.is_file() and path.stat().st_size > 0, f"ffmpeg wrote no picture for frame {s['frame']}")
+-            pictures.append({**s, "path": str(path)})
++            pictures.append({**s, "path": str(path), "sha256": sha(path)})
+         sheets = make_sheets(pictures, job)
++        sheet_sha256 = [sha(path) for path in sheets]
+         with (job / "verification.json").open("x") as handle:
+             handle.write(json.dumps({
+                 "video": master, "sha256": cfg["master"]["sha256"], "srt_sha256": cfg["srt"]["sha256"], "vtt_sha256": cfg["vtt"]["sha256"],
+                 "master_job": cfg["master_job"], "frames": cfg["total_frames"], "fps": FPS, "chapters": cfg["chapters"],
+                 "placements": cfg["placements"], "captions": cfg["captions"], "media": media, "strict_video_check": "passed",
+-                "strict_video_notes": notes,
++                "strict_video_notes": notes, "strict_video_decodes": decodes,
+                 "encoded_loudness": loud, "caption_screen": {"caption_count": screen["caption_count"],
+                 "over_20_characters_per_second": len(screen["over_20_characters_per_second"]),
+                 "lines_over_42_characters": len(screen["lines_over_42_characters"])},
+-                "pictures": pictures, "sheets": sheets, "pictures_viewed": False, "scope": cfg["scope"]}, indent=2) + "\n")
++                "pictures": pictures, "sheets": sheets, "sheet_sha256": sheet_sha256, "pictures_viewed": False,
++                "scope": cfg["scope"]}, indent=2) + "\n")
++        for row in decodes:
++            print(row, flush=True)
+         print(f"{len(pictures)} pictures in {len(sheets)} sheets await root's viewing.", flush=True)
+         print(cfg["success"], flush=True)
+         return 0
+@@ -675,13 +709,22 @@
+     v = load(folder / "verification.json")
+     need(v["sha256"] == cfg["master"]["sha256"] == sha(cfg["master"]["path"]) and v["frames"] == cfg["total_frames"], f"{job}: master or frames")
+     need([p["frame"] for p in v["pictures"]] == [s["frame"] for s in cfg["samples"]], f"{job}: the pictures are not the planned ones")
+-    need(all(Path(p["path"]).is_file() for p in v["pictures"]), f"{job}: a picture is missing")
+-    need(len(v["sheets"]) == math.ceil(len(v["pictures"]) / 4) and all(Path(s).is_file() for s in v["sheets"]), f"{job}: a sheet is missing")
++    need(all(Path(p["path"]).is_file() and sha(p["path"]) == p.get("sha256") for p in v["pictures"]), f"{job}: a picture is missing or changed")
++    sheet_hashes = v.get("sheet_sha256", [])
++    need(len(v["sheets"]) == math.ceil(len(v["pictures"]) / 4) == len(sheet_hashes)
++         and all(Path(s).is_file() and sha(s) == h for s, h in zip(v["sheets"], sheet_hashes)), f"{job}: a sheet is missing or changed")
++    for key in ("srt", "vtt"):
++        need(sha(cfg[key]["path"]) == cfg[key]["sha256"], f"{job}: the {key} changed since the job was written")
++        need(v.get(f"{key}_sha256") == cfg[key]["sha256"], f"{job}: verification.json names another {key}")
++    need(software_decode_clean(v.get("strict_video_decodes")), f"{job}: verification.json does not record root's clean software decode")
++    need(v["strict_video_decodes"] == decode_lines((folder / "strict-video-verification.log").read_text(errors="replace")),
++         f"{job}: verification.json's decode lines differ from the strict log's")
+     need(v["pictures_viewed"] is False, f"{job}: verification.json claims the pictures were viewed; only root views them")
+     need(last_line(folder / "strict-video-verification.log") == "VERIFY PASS", f"{job}: the strict log does not end with VERIFY PASS")
+     need(any((folder / "decode-logs").glob("verify_decode.*")), f"{job}: the strict check's decode logs are missing")
+     need(load(folder / "caption-screen.json")["srt_sha256"] == cfg["srt"]["sha256"], f"{job}: the caption screen read another SRT")
+     return {"job": job, "master_sha256": v["sha256"], "frames": v["frames"], "media": v["media"], "strict_video_notes": v["strict_video_notes"],
++            "strict_video_decodes": v["strict_video_decodes"],
+             "encoded_loudness": v["encoded_loudness"],
+             "caption_screen": v["caption_screen"], "pictures": len(v["pictures"]), "sheets": len(v["sheets"]), "sheets_folder": str(folder),
+             "pictures_viewed": False, "open": "root views every sheet; listening, fine sync, final ASR and acceptance remain root's"}

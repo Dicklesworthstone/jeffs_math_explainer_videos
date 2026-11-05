@@ -1,0 +1,25 @@
+PASS A1 actual old output (Nov 2 render work): the helper's and the job's capture rule both pick each chapter's capture, not the kit's set-aside copy; each is 48 kHz S16 stereo and exactly frame_to_sample(frames) long, the length the master's null test requires: 00_opening soundtrack_0.wav 2232000; 01_real_inverse soundtrack_0.wav 2672000; 02_winding soundtrack_0.wav 2242400; 03_branch_cut soundtrack_0.wav 2213600; 04_principal_product soundtrack_0.wav 1594400; 05_matrix_log soundtrack_0.wav 2223200; 06_closing soundtrack_0.wav 1048800; set aside, not chosen: ['soundtrack/previous/04_principal_product.v1/soundtrack_0.wav']
+PASS A2 check-audio on root's real prepared01 passes (version 2's audio checks, unchanged): 181 files
+PASS A3 build-verify passes root's real ws-build02 (read-only): binary e88e58e03b69
+PASS A4 version 2 is preserved: its seal 352a8107 verifies and its helper is b867aaa2: 5 files
+PASS A5 root's real timeline01 (its job script and inputs file only): row 0 is the script, written by version 2 b867aaa2, whose bytes the guard's rows bind, so version 3 accepts its writer: 239 rows
+PASS B0 setup as root ran it: ws-build02, version 2's binding01 and timeline01 (real coherent verify), which version 2 verifies: exits (0, 0, 0, 0, 0)
+PASS B1 version 3 binds the real audio to build02 as binding02, beside version 2's binding01: 181 bound files
+PASS T1 version 3 accepts version 2's timeline01 as it stands (no rerun): writer b867aaa2, pinned and bound by the guard: 13 chapters, 80 cues
+PASS T2 a job written by any other helper is refused, and so is a version 2 job whose rows lack version 2's bytes: logarithm-stage09-timeline01.py was written by helper 000000000000, not version 2 or 3 | logarithm-stage09-timeline01.py: the guard did not bind the helper that wrote it
+PASS T3 the score step consumes timeline01: written by version 3, its rows bind timeline01's outputs; it runs and verifies: 255 input rows, SCORE PASS: all 13 chapter score QA reports passed.
+PASS R1 regression, missing capture: a render that leaves no soundtrack capture fails in its own job: REFUSED: 00_ratio_ruler: the render left no soundtrack capture for the master's null test
+PASS R2 the retry records the capture the kit will null-test: the last of soundtrack_0 and _1, its hash and count: SCRATCH/lane/logarithm-stage09-render-work01/soundtrack/00_ratio_ruler/soundtrack_1.wav, captures 2
+PASS R3 the other 12 chapters render and verify, each with its own capture recorded: 12/12
+PASS G0 the omission repaired here: for the same render job, version 2's rows (what its master freezes) bind no capture; version 3's are version 2's plus the kit's choice: version 2 8 rows, version 3 9; added SCRATCH/lane/logarithm-stage09-render-work01/soundtrack/05_complex_turns/soundtrack_1.wav
+PASS G1 regression, changed capture: one byte changed after the render; verify-step and the master step both refuse: REFUSED: logarithm-stage09-render-05_complex_turns-01: the soundtrack capture soundtrack_1.wav moved | REFUSED: logarithm-stage09-render-05_complex_turns-01: the soundtrack capture soundtrack_1.wav moved
+PASS G2 the kit's gap rule: a stray soundtrack_3 after a gap is not the kit's choice (still passes); with soundtrack_2 the kit would null-test soundtrack_3, so verify refuses: REFUSED: logarithm-stage09-render-05_complex_turns-01: the kit's master would null-test SCRATCH/lane/logarithm-stage09-render-work01/soundtrack/05_complex_turns/soundtrack_3.wav, not the recorded SCRA
+PASS G3 a render summary without a capture (version 2's shape) is refused: REFUSED: logarithm-stage09-render-05_complex_turns-01: its summary records no soundtrack capture (written before version 3)
+PASS M1 the master step names each chapter's recorded capture in CONFIG and binds all 13 in its frozen inputs; chapter 00 is the retry's: 401 input rows, 13 capture rows
+PASS M2 regression in the master job itself (its master() called directly, no guard): a new capture the kit would choose instead, and one changed byte of the recorded capture, each refused before the kit runs, nothing written: REFUSED: 07_branch_cut: the kit would null-test another soundtrack capture than its render recorded | REFUSED: 07_branch_cut: the kit would null-test another soundtrack capture than its render recorded
+PASS M3 the master runs: its summary records the 13 captures it consumed, the stand-in kit null-tested the same files, and verify-step passes: 13 captures
+PASS M4 regression after the master: a changed capture is refused: REFUSED: logarithm-stage09-master01: the soundtrack capture soundtrack_1.wav moved
+PASS S1 everything else is version 2's: 12 helper functions, bind except its schema name, the success lines, SCOPE, and 13 job-template functions (timeline among them): 12/12 helper, 13/13 template
+PASS S2 timeline01 was only read: its folder is byte-for-byte unchanged by version 3's checks
+PASS U1 real inputs untouched: prepared01 and its timings, the Nov 2 render work (bytes and times), version 2's bundle, the installed helper and its receipt; no new binding or job in root's workspace, no new narrated job in the lane
+24 PASS, 0 FAIL

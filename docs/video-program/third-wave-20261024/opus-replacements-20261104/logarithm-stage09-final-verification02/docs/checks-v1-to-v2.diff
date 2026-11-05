@@ -1,0 +1,331 @@
+--- a/logarithm-stage09-final-verification01/checks/run_checks.py
++++ b/logarithm-stage09-final-verification02/checks/run_checks.py
+@@ -1,14 +1,25 @@
+-"""Checks for verify_stage09_final.py (bead 87do.63, BlueSalmon Mail 4124). From the repository root:
+-
+-    python3 -I -B .../logarithm-stage09-final-verification01/checks/run_checks.py FRESH_SCRATCH --w W
++"""Checks for verify_stage09_final.py version 02 (bead 87do.63, BlueSalmon Mails 4124 and 4376). From the repository root:
++
++    python3 -I -B .../logarithm-stage09-final-verification02/checks/run_checks.py FRESH_SCRATCH --w W
+ 
+ LavenderPike. Read-only on the repository and on W (root's geometry stage, for the stage09 crate); writes only under
+-FRESH_SCRATCH. The parsers run on real kit outputs already in root's release lane: the Nov 2 logarithm machine render
+-(7 chapters, 64 captions, its real master probed with ffprobe and one frame decoded), the logarithm and apportionment
+-rebuild previews' 79 non-empty layout files, and a real ebur128 log. The planted faults are byte edits of copies in
+-scratch. The command-binding fixture uses RubyRaven's sealed render helper's own JOB_TEMPLATE and step_config, with
+-stand-in media files that are labelled as such. Nothing here renders, assembles, launches a guard job, listens or
+-views a picture.
++FRESH_SCRATCH. F1-F11 are version 01's checks, kept, now run on version 02. Changes:
++  - F5 leaves out the lane's logarithm-stage09-* folders, where root's live production jobs write.
++  - F11 binds scratch copies of the real SRT and VTT, so F14 can change them, and it asserts the new fields.
++F12-F15 are new, for BronzeJaguar's F1-F3 (final-verification-review01):
++  F12  root's real stage09 report.json bytes (sorted keys), bound into the F10 fixture: version 02 `check` passes,
++       version 01 refuses
++  F13  the same report missing 11_20, or with an extra cue: refused by the cue-set gate
++  F14  after the run: a replaced picture, a replaced sheet, a changed SRT or VTT, a verification.json naming another
++       SRT: verify-job refuses each
++  F15  the decode record: one line with VERIFY_HWACCEL=none (F11); a second real run with root's default `auto`
++       records both decodes; planted records refused
++The parsers run on real kit outputs already in root's release lane: the Nov 2 logarithm machine render (7 chapters,
++64 captions; its real master probed with ffprobe and decoded), the logarithm and apportionment rebuild previews' 79
++non-empty layout files, and a real ebur128 log. Root's stage09 production report.json is read, never written. The
++planted faults are byte edits of copies in scratch. The command-binding fixture uses RubyRaven's sealed render helper's
++own JOB_TEMPLATE and step_config, with stand-in media files that are labelled as such. Nothing here renders, assembles,
++launches a guard job, listens or views a picture.
+ """
+ import argparse
+ import contextlib
+@@ -29,8 +40,15 @@
+ 
+ REPO = Path.cwd()
+ P = "docs/video-program/third-wave-20261024/opus-replacements-20261104"
+-HERE = f"{P}/logarithm-stage09-final-verification01"
++HERE = f"{P}/logarithm-stage09-final-verification02"
+ HELPER = REPO / HERE / "verify_stage09_final.py"
++V1_HELPER = REPO / P / "logarithm-stage09-final-verification01/verify_stage09_final.py"
++V1_HELPER_SHA = "cca858048738e2c1d314a81f0644000bc0e1a20fdf3119755bcd4ca987933ce6"
++REVIEW_FIX = REPO / P / "logarithm-stage09-final-verification-review01/verify_stage09_final_fix01.py"
++REVIEW_FIX_SHA = "ea9cd27f0add44ee2fd833c8ba33d02e1b8e7b83cc3a1680247b345a37f0ba14"
++PROD_REPORT = REPO / ("narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/"
++                      "production-audio-stage09-01/prepared01/narration/report.json")
++PROD_REPORT_SHA = "77dd97b08cd34498b60ef4d06ac3539f34e074ebadfd97b05733d4d05585b000"
+ RENDER_HELPER = REPO / P / "logarithm-stage09-render-preparation01/prepare_stage09_render.py"
+ RENDER_HELPER_SHA = "9ddc2003aa666844214aace166343bb37c1d5baeb6b62abb252f517c634b5388"
+ LANE = REPO / "narration_lab/third-wave-20261024/root/five-film-release-20261027"
+@@ -202,7 +220,9 @@
+           + "; ".join(f"{k} -> {v!r}"[:110] for k, v in bad.items()))
+ 
+     # ------------------------------------------------------------------ F5 every real non-empty layout file in the lane
+-    layouts = sorted(p for p in glob.glob(str(LANE / "*/*.layout.tsv")) + glob.glob(str(LANE / "*/*/*.layout.tsv")) if os.path.getsize(p))
++    layouts = sorted(p for p in glob.glob(str(LANE / "*/*.layout.tsv")) + glob.glob(str(LANE / "*/*/*.layout.tsv"))
++                     if os.path.getsize(p) and not Path(p).relative_to(LANE).parts[0].startswith("logarithm-stage09-"))
++    # root's live stage09 jobs write in logarithm-stage09-* folders of this lane: left out, never read
+     rows = 0
+     for path in layouts:
+         rows += len(V.layout_anchors(Path(path).read_text(), Path(path).name))
+@@ -437,6 +457,66 @@
+           f"guard line; writing it again is refused ({again[1]!r}); `verify-job` before any launch is refused ({early[1]!r}); "
+           f"an SRT edited after the master is refused by `check` ({stale[1]!r})")
+ 
++    # ------------------------------------------------------------------ F12 root's real stage09 report bytes (sorted keys)
++    assert sha(V1_HELPER) == V1_HELPER_SHA and sha(REVIEW_FIX) == REVIEW_FIX_SHA
++    real_bytes = PROD_REPORT.read_bytes()  # read only; every change below is to the fixture's copy
++    real = json.loads(real_bytes)
++    real_order, script_order = list(real["lines"]), list(script)
++    moved = [(i, x, y) for i, (x, y) in enumerate(zip(real_order, script_order)) if x != y]
++    report_path = narration / "report.json"
++
++    def rebound(new_bytes):
++        """The fixture's report replaced; the master's inputs row and guard receipt re-hashed to match (a consistent bind),
++        so that only the report's content can decide the outcome."""
++        def inputs_edit(data):
++            d = json.loads(data)
++            row = next(r for r in d["files"] if r["path"] == str(report_path))
++            row["sha256"] = hashlib.sha256(new_bytes).hexdigest()
++            return (json.dumps(d, indent=2) + "\n").encode()
++
++        def receipt_edit(data):
++            d = json.loads(data)
++            d["inputs_sha256"] = d["final_inputs_sha256"] = hashlib.sha256(inputs_edit(inputs_path.read_bytes())).hexdigest()
++            return (json.dumps(d) + "\n").encode()
++        return [(receipt_path, receipt_edit), (inputs_path, inputs_edit), (report_path, lambda _d: new_bytes)]
++
++    def cli_of(helper, *args):
++        r = subprocess.run([sys.executable, "-I", "-B", str(helper), *args, *common], cwd=REPO, capture_output=True, text=True)
++        return r.returncode, clean(r.stdout.strip())
++
++    gate_refusal = (1, "REFUSED: report.json's cues differ from the script")
++    with planted(*rebound(real_bytes)):
++        v2_real = cli_of(HELPER, "check")
++        v1_real = cli_of(V1_HELPER, "check")
++    facts_real = json.loads(v2_real[1]) if v2_real[0] == 0 else {}
++    restored = cli("check")
++    check("F12-real-report-key-order", sha(PROD_REPORT) == PROD_REPORT_SHA and real_order == sorted(real_order)
++          and sorted(real_order) == sorted(script_order) and len(moved) == 17 and v2_real[0] == 0 and facts_real.get("cues") == 80
++          and v1_real == gate_refusal and restored[0] == 0,
++          f"root's real report.json ({PROD_REPORT_SHA[:12]}, read only) lists the script's 80 cues sorted as text, as the "
++          f"canonical assembler writes it (narration_cache.encoded, sort_keys); {len(moved)} of 80 positions differ from the "
++          f"script, first {moved[:2]}. Its exact bytes, bound into the F10 fixture (the master's inputs row and receipt "
++          f"re-hashed to match): version 02 `check` passes ({facts_real.get('chapters')} chapters, {facts_real.get('cues')} cues, "
++          f"{facts_real.get('pictures_planned')} planned pictures); version 01 `check` on the same files is refused "
++          f"({v1_real[1]!r}); with the fixture restored, version 02 passes again")
++
++    # ------------------------------------------------------------------ F13 a report missing a cue, or with an extra one
++    def variant(change):
++        d = json.loads(real_bytes)
++        change(d["lines"])
++        return json.dumps(d, sort_keys=True, indent=2).encode()
++
++    variants = {"without 11_20": variant(lambda lines: lines.pop("11_20")),
++                "without 00_1": variant(lambda lines: lines.pop("00_1")),
++                "with an extra cue 13_1": variant(lambda lines: lines.__setitem__("13_1", lines["12_21"]))}
++    outcomes = {}
++    for name, data in variants.items():
++        with planted(*rebound(data)):
++            outcomes[name] = cli("check")
++    check("F13-report-cue-set", all(o == gate_refusal for o in outcomes.values()) and cli("check")[0] == 0,
++          "root's real report changed (sorted keys kept) and bound consistently into the fixture: "
++          + "; ".join(f"{name} -> {o[1]!r}" for name, o in outcomes.items()) + "; restored, it passes again")
++
+     # ------------------------------------------------------------------ F8 the job runs only under its own guard receipt
+     jlane, jdir = scratch / "job-lane", scratch / "job-dir"
+     jlane.mkdir()
+@@ -495,27 +575,32 @@
+           f"screen reads the real SRT: {screen.stdout.strip()}")
+ 
+     # ------------------------------------------------------------------ F11 run_job and verify-job end to end, real master
+-    flane, fjobs = scratch / "full-lane", scratch / "full-jobs"
+-    for folder in (flane, fjobs):
++    flane, fjobs, fcaps = scratch / "full-lane", scratch / "full-jobs", scratch / "full-captions"
++    for folder in (flane, fjobs, fcaps):
+         folder.mkdir()
+-    fjob = f"{V.STAGE}-final-verify09"
+-    fscript, finputs = fjobs / f"{fjob}.py", fjobs / f"{fjob}-inputs.json"
+     take = [samples[i] for i in (0, len(samples) // 4, len(samples) // 2, 3 * len(samples) // 4, len(samples) - 1)]
+-    srt_old, vtt_old = OLD_WORK / "logarithm_mysteries.en.srt", OLD_WORK / "logarithm_mysteries.en.vtt"
+-    fcfg = {"job": fjob, "lane": str(flane), "script": str(fscript), "helper": str(HELPER), "helper_sha256": sha(HELPER),
+-            "master": {"path": str(master), "sha256": sha(master)}, "srt": {"path": str(srt_old), "sha256": sha(srt_old)},
+-            "vtt": {"path": str(vtt_old), "sha256": sha(vtt_old)}, "master_job": "logarithm-machine-master01 (Nov 2, real)",
+-            "series": "01", "total_frames": total, "fps": 60, "chapters": chapters, "placements": placements, "captions": facts,
+-            "strict": str(REPO / V.STRICT_REL), "screen": str(REPO / V.SCREEN_REL), "ffmpeg": V.tool("ffmpeg"),
+-            "ffprobe": V.tool("ffprobe"), "expect": V.EXPECT, "samples": take, "success": V.VERIFY_SUCCESS, "scope": V.SCOPE}
+-    body = V.JOB_TEMPLATE.replace("@@JOB@@", fjob).replace("@@HELPER@@", sha(HELPER))
+-    fscript.write_text(body.replace("@@CONFIG@@", repr(json.dumps(fcfg, indent=1))))
+-    finputs.write_text(json.dumps({"files": [{"path": str(p), "sha256": sha(p)} for p in (fscript, HELPER, master, srt_old, vtt_old)]}) + "\n")
+-    receipt = {"admitted": True, "phase": "native", "command": ["python3", "-I", "-B", str(fscript)], "inputs_sha256": sha(finputs)}
+-
+-    def emulated_run(cfg_now):
++    # copies of the real Nov 2 captions, so that F14 can change them; the real files are only read
++    srt_old, vtt_old = fcaps / "logarithm_mysteries.en.srt", fcaps / "logarithm_mysteries.en.vtt"
++    shutil.copyfile(OLD_WORK / "logarithm_mysteries.en.srt", srt_old)
++    shutil.copyfile(OLD_WORK / "logarithm_mysteries.en.vtt", vtt_old)
++
++    def full_job(number):
++        fjob = f"{V.STAGE}-final-verify{number}"
++        fscript, finputs = fjobs / f"{fjob}.py", fjobs / f"{fjob}-inputs.json"
++        fcfg = {"job": fjob, "lane": str(flane), "script": str(fscript), "helper": str(HELPER), "helper_sha256": sha(HELPER),
++                "master": {"path": str(master), "sha256": sha(master)}, "srt": {"path": str(srt_old), "sha256": sha(srt_old)},
++                "vtt": {"path": str(vtt_old), "sha256": sha(vtt_old)}, "master_job": "logarithm-machine-master01 (Nov 2, real)",
++                "series": "01", "total_frames": total, "fps": 60, "chapters": chapters, "placements": placements, "captions": facts,
++                "strict": str(REPO / V.STRICT_REL), "screen": str(REPO / V.SCREEN_REL), "ffmpeg": V.tool("ffmpeg"),
++                "ffprobe": V.tool("ffprobe"), "expect": V.EXPECT, "samples": take, "success": V.VERIFY_SUCCESS, "scope": V.SCOPE}
++        body = V.JOB_TEMPLATE.replace("@@JOB@@", fjob).replace("@@HELPER@@", sha(HELPER))
++        fscript.write_text(body.replace("@@CONFIG@@", repr(json.dumps(fcfg, indent=1))))
++        finputs.write_text(json.dumps({"files": [{"path": str(p), "sha256": sha(p)} for p in (fscript, HELPER, master, srt_old, vtt_old)]}) + "\n")
++        return fjob, fcfg, {"admitted": True, "phase": "native", "command": ["python3", "-I", "-B", str(fscript)], "inputs_sha256": sha(finputs)}
++
++    def emulated_run(cfg_now, hwaccel):
+         saved_hw = os.environ.get("VERIFY_HWACCEL")
+-        os.environ["VERIFY_HWACCEL"] = "none"  # the test skips root's second (hardware) decode
++        os.environ["VERIFY_HWACCEL"] = hwaccel
+         log = io.StringIO()
+         try:
+             with contextlib.redirect_stdout(log):
+@@ -527,22 +612,31 @@
+                 os.environ["VERIFY_HWACCEL"] = saved_hw
+         return result, log.getvalue()
+ 
++    def finish(fjob, fcfg, receipt, hwaccel):
++        (flane / fjob).mkdir()
++        (flane / fjob / "resource-receipt.json").write_text(json.dumps(receipt))
++        code, run_log = emulated_run(fcfg, hwaccel)
++        (flane / fjob / "command.log").write_text(run_log)
++        receipt.update(exit=code, finished="emulated guard", final_inputs_sha256=receipt["inputs_sha256"])
++        (flane / fjob / "resource-receipt.json").write_text(json.dumps(receipt))
++        return code, run_log, types.SimpleNamespace(verify_job=fjob, job_dir=fjobs, lane=flane)
++
++    def timeless(rows):
++        """The decode lines end with the seconds each decode took: left out of the transcript, so runs compare equal."""
++        return [re.sub(r", [0-9]+ s$", ", <seconds> s", row) for row in rows]
++
++    fjob, fcfg, receipt = full_job("09")
+     # a job folder that already holds a frame is refused before any measurement (ffmpeg -n would keep the old picture)
+     stale_job = dict(fcfg, job=f"{V.STAGE}-final-verify08")
+     (flane / stale_job["job"]).mkdir()
+     (flane / stale_job["job"] / "resource-receipt.json").write_text(json.dumps(receipt))
+     (flane / stale_job["job"] / "frame-0003.png").write_bytes(b"left from an earlier attempt")
+-    stale_code, stale_log = emulated_run(stale_job)
++    stale_code, stale_log = emulated_run(stale_job, "none")
+     stale_clean = sorted(p.name for p in (flane / stale_job["job"]).iterdir()) == ["frame-0003.png", "resource-receipt.json"]
+-    (flane / fjob).mkdir()
+-    (flane / fjob / "resource-receipt.json").write_text(json.dumps(receipt))
+-    code, run_log = emulated_run(fcfg)
+-    (flane / fjob / "command.log").write_text(run_log)
+-    receipt.update(exit=code, finished="emulated guard", final_inputs_sha256=receipt["inputs_sha256"])
+-    (flane / fjob / "resource-receipt.json").write_text(json.dumps(receipt))
+-    fctx = types.SimpleNamespace(verify_job=fjob, job_dir=fjobs, lane=flane)
++    code, run_log, fctx = finish(fjob, fcfg, receipt, "none")  # the test skips root's second (hardware) decode here; F15 runs it
+     passed = V.verify_job(fctx)
+-    produced = json.loads((flane / fjob / "verification.json").read_text())
++    vjson = flane / fjob / "verification.json"
++    produced = json.loads(vjson.read_text())
+     sheet = Path(produced["sheets"][0])
+     aside = sheet.with_name(sheet.name + ".moved-aside")
+     sheet.rename(aside)  # moved aside, never removed, and moved back below
+@@ -550,24 +644,97 @@
+         missing_sheet = refusal(V.verify_job, fctx)
+     finally:
+         aside.rename(sheet)
+-    with planted((flane / fjob / "verification.json", lambda d: d.replace(b'"pictures_viewed": false', b'"pictures_viewed": true'))):
++    with planted((vjson, lambda d: d.replace(b'"pictures_viewed": false', b'"pictures_viewed": true'))):
+         viewed = refusal(V.verify_job, fctx)
+     decode_logs = sorted(p.name.split(".")[0] for p in (flane / fjob / "decode-logs").iterdir())
++    hashes_ok = (all(sha(p["path"]) == p["sha256"] for p in produced["pictures"])
++                 and [sha(s) for s in produced["sheets"]] == produced["sheet_sha256"])
+     check("F11-job-end-to-end", code == 0 and passed["frames"] == 17783 and passed["pictures"] == 5 and passed["sheets"] == 2
+           and produced["strict_video_check"] == "passed" and produced["pictures_viewed"] is False and decode_logs == ["verify_decode"]
+           and passed["strict_video_notes"] == ["note: -19.7 LUFS is below -16 because the true peak (-1.5 dBTP) sits at the ceiling "
+                                                "(fixed-gain master)"]
++          and hashes_ok and len(passed["strict_video_decodes"]) == 1 and passed["strict_video_decodes"][0].startswith(V.SOFTWARE_DECODE)
++          and run_log.strip().splitlines()[-1] == V.VERIFY_SUCCESS
+           and stale_code == 1 and stale_log.strip() == "REFUSED: frame-0003.png exists already" and stale_clean
+           and "a sheet is missing" in (missing_sheet or "") and "claims the pictures were viewed" in (viewed or ""),
+           f"a job folder already holding frame-0003.png is refused before any measurement ({stale_log.strip()!r}; nothing written); "
+-          f"run_job under an emulated guard receipt on the real Nov 2 master, five planned pictures: root's strict check "
+-          f"(EXPECT 3840x2160, 60, BT.709, -16 LUFS, -1.0 dBTP; software decode only here) passed, its decode log kept in the job's "
+-          f"decode-logs/, and its note is carried into verification.json: {passed['strict_video_notes']}; {passed['media']['video_frames']} "
+-          f"frames, video {passed['media']['video_seconds']} s, audio {passed['media']['audio_seconds']} s; encoded loudness "
+-          f"I {passed['encoded_loudness']['integrated_lufs']} LUFS, LRA {passed['encoded_loudness']['lra_lu']} LU, true peak "
+-          f"{passed['encoded_loudness']['true_peak_dbtp']} dBTP; caption screen {passed['caption_screen']}; {passed['pictures']} "
+-          f"pictures in {passed['sheets']} sheets; the log ends with the success line; verify-job passes, and refuses a missing "
+-          f"sheet ({missing_sheet!r}) and a verification.json that claims viewing ({viewed!r})")
++          f"run_job under an emulated guard receipt on the real Nov 2 master (captions: scratch copies of the real SRT and VTT), "
++          f"five planned pictures: root's strict check (EXPECT 3840x2160, 60, BT.709, -16 LUFS, -1.0 dBTP; VERIFY_HWACCEL=none "
++          f"here) passed, its decode log kept in the job's decode-logs/, its note carried into verification.json: "
++          f"{passed['strict_video_notes']}, and its decode line: {timeless(passed['strict_video_decodes'])}; "
++          f"{passed['media']['video_frames']} frames, video {passed['media']['video_seconds']} s, audio "
++          f"{passed['media']['audio_seconds']} s; encoded loudness I {passed['encoded_loudness']['integrated_lufs']} LUFS, LRA "
++          f"{passed['encoded_loudness']['lra_lu']} LU, true peak {passed['encoded_loudness']['true_peak_dbtp']} dBTP; caption screen "
++          f"{passed['caption_screen']}; {passed['pictures']} pictures in {passed['sheets']} sheets, each with its sha256 in "
++          f"verification.json; the log ends with the success line; verify-job passes, and refuses a missing sheet "
++          f"({missing_sheet!r}) and a verification.json that claims viewing ({viewed!r})")
++
++    # ------------------------------------------------------------------ F14 after the run: pictures, sheets and captions re-hashed
++    pictures_made = [Path(p["path"]) for p in produced["pictures"]]
++    sheets_made = [Path(s) for s in produced["sheets"]]
++
++    def vjson_with(**fields):
++        return [(vjson, lambda d: (json.dumps({**json.loads(d), **fields}, indent=2) + "\n").encode())]
++
++    tampers = {
++        "a picture replaced by another picture's bytes": ([(pictures_made[2], lambda _d: pictures_made[3].read_bytes())],
++                                                          "a picture is missing or changed"),
++        "a sheet replaced by the other sheet's bytes": ([(sheets_made[0], lambda _d: sheets_made[1].read_bytes())],
++                                                        "a sheet is missing or changed"),
++        "verification.json without its sheet hashes": (vjson_with(sheet_sha256=[]), "a sheet is missing or changed"),
++        "the SRT changed after the job": ([(srt_old, lambda d: d.replace(b"\n2\n", b"\n3\n", 1))], "the srt changed since the job was written"),
++        "the VTT changed after the job": ([(vtt_old, lambda d: d + b"\n")], "the vtt changed since the job was written"),
++        "verification.json names another SRT": (vjson_with(srt_sha256="0" * 64), "verification.json names another srt"),
++    }
++    tampered = {}
++    for name, (edits, _want) in tampers.items():
++        with planted(*edits):
++            tampered[name] = refusal(V.verify_job, fctx)
++    again_ok = refusal(V.verify_job, fctx) is None
++    check("F14-hashes-after-the-run", all(tampered[n] and tampers[n][1] in tampered[n] for n in tampers) and again_ok,
++          "on F11's finished job, one change at a time and restored: "
++          + "; ".join(f"{n} -> {tampered[n]!r}" for n in tampers) + "; after each is restored, verify-job passes again")
++
++    # ------------------------------------------------------------------ F15 the decode record, with root's default second decode
++    hw = {"Darwin": "videotoolbox"}.get(os.uname().sysname)
++    fjob2, fcfg2, receipt2 = full_job("07")
++    code2, run_log2, fctx2 = finish(fjob2, fcfg2, receipt2, "auto")
++    passed2 = V.verify_job(fctx2) if code2 == 0 else {}
++    vjson2 = flane / fjob2 / "verification.json"
++    decodes2 = json.loads(vjson2.read_text())["strict_video_decodes"] if vjson2.is_file() else []
++    strict2 = (flane / fjob2 / "strict-video-verification.log").read_text(errors="replace")
++    kept2 = sorted(p.name.split(".")[0] for p in (flane / fjob2 / "decode-logs").iterdir())
++    second_ok = (len(decodes2) == 2 and decodes2[1].startswith(f"full decode (video + audio, hwaccel {hw}, second opinion): ")) if hw \
++        else len(decodes2) == 1
++
++    def decodes_edit(path, change):
++        return [(path, lambda d: (json.dumps({**json.loads(d), "strict_video_decodes": change(json.loads(d)["strict_video_decodes"])},
++                                             indent=2) + "\n").encode())]
++
++    record_plants = {
++        "the software line reads 1 error line": (decodes_edit(vjson, lambda x: [x[0].replace(": 0 error lines,", ": 1 error lines,")] + x[1:]),
++                                                 "does not record root's clean software decode"),
++        "the software line reads ffmpeg exit 69": (decodes_edit(vjson, lambda x: [x[0].replace("ffmpeg exit 0,", "ffmpeg exit 69,")] + x[1:]),
++                                                   "does not record root's clean software decode"),
++        "no decode line recorded": (decodes_edit(vjson, lambda x: []), "does not record root's clean software decode"),
++        "the hardware line first": (decodes_edit(vjson2, lambda x: x[1:] + x[:1]), "does not record root's clean software decode"),
++        "the hardware line dropped from the record": (decodes_edit(vjson2, lambda x: x[:1]), "decode lines differ from the strict log's"),
++    }
++    recorded = {}
++    for name, (edits, _want) in record_plants.items():
++        context = fctx2 if edits[0][0] == vjson2 else fctx
++        with planted(*edits):
++            recorded[name] = refusal(V.verify_job, context)
++    check("F15-decode-record", code2 == 0 and passed2.get("frames") == 17783 and second_ok and decodes2[0].startswith(V.SOFTWARE_DECODE)
++          and decodes2 == V.decode_lines(strict2) and kept2 == ["verify_decode"]
++          and run_log2.strip().splitlines()[-1] == V.VERIFY_SUCCESS
++          and all(recorded[n] and record_plants[n][1] in recorded[n] for n in record_plants)
++          and refusal(V.verify_job, fctx) is None and refusal(V.verify_job, fctx2) is None,
++          f"a second run of the same job with VERIFY_HWACCEL=auto, root's default ({hw or 'no hardware decoder on this host'}): "
++          f"root's strict check passed; verification.json records {len(decodes2)} decode lines, equal to the strict log's: "
++          f"{timeless(decodes2)}; the job keeps one decode log ({kept2}), which holds the last decode; notes "
++          f"{passed2.get('strict_video_notes')}; verify-job passes. Planted in verification.json and refused: "
++          + "; ".join(f"{n} -> {recorded[n]!r}" for n in record_plants) + "; restored, both jobs pass again")
+ 
+     print(f"FINAL-VERIFICATION CHECKS: {'PASS' if all(results) else 'FAIL'} ({sum(results)}/{len(results)})")
+     return 0 if all(results) else 1

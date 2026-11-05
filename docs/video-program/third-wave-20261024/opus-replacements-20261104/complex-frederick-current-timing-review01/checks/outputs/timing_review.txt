@@ -1,0 +1,109 @@
+== 1. Pins
+PASS p1-pins: the repaired bridge 47069583 and its seal d5a413dd (7 files) verify; the 36 lane files the report reads (plans and ingests 01-09) and root's targeted-small01 job are at their pins; the bridge checks its own source pins as it runs
+== 2. The repaired bridge's read-only report on a pinned copy of the lane
+PASS r1-report: source: 85 hook sites, 93 anchors in 51 cues, 0 anchor problems, 23 dispositions; recognition read: 94 takes, sentence onsets 264/266 supported, anchor marks 56/94 supported (+38 at sentence onsets); 20 questions, 20 blocking
+NOTE r2: root's lane has moved on (plan-10 new): only the pinned copy is read
+== 3. Content questions: the recognizer's raw text at each difference
+PASS c1-content-raw-text: all 18 content questions; the fw records' raw text at each difference is as stated: 9 notation (x^40, 1/2 and 1/4, -i, 1+i and 2+2i, non-zero), 4 same sound (Sign, routes), 1 open (02_4 'term'), 4 held (02_5, 08_2)
+   content:01_3:01_3-download01.wav: notation: replace 'to the fortieth' -> 'forty' raw 'x^40 gives'
+   content:01_3:01_3-download02.wav: notation: replace 'to the fortieth' -> 'forty' raw 'x^40 gives'
+   content:01_6:01_6-download01.wav: same_sound: replace 'roots' -> 'routes' raw 'count routes we'
+   content:01_6:01_6-download02.wav: same_sound: replace 'roots' -> 'routes' raw 'count routes we'
+   content:02_4:02_4-download02.wav: open: replace 'turn' -> 'term' raw 'a term.'
+   content:02_5:02_5-download01.wav: held: delete 'one plus i' -> '' raw 'by once'; replace 'turn' -> 'term' raw 'a term. What'; delete 'one plus i' -> '' raw 'is squared?'; small.en: replace 'turn' -> 'term' raw 'a term. What'
+   content:02_5:02_5-download02.wav: held: delete 'one plus i' -> '' raw 'by once'; replace 'turn' -> 'term' raw 'a term. What'; delete 'one plus i' -> '' raw 'is squared?'; small.en: replace 'turn' -> 'term' raw 'a term. What'
+   content:03_2:03_2-download01.wav: notation: replace 'half' -> 'over two' raw '1/2. Its'; replace 'quarter' -> 'over four' raw '1/4, twice.'
+   content:04_7:04_7-download01.wav: notation: delete 'minus' -> '' raw 'and -i,'
+   content:04_7:04_7-download02.wav: notation: delete 'minus' -> '' raw 'and -i,'
+   content:05_4:05_4-download01.wav: same_sound: replace 'sine' -> 'sign' raw 'Sign has'; replace 'sine' -> 'sign' raw 'fast. Sign of'; replace 'sine' -> 'sign' raw 'and sign of'
+   content:05_4:05_4-download02.wav: same_sound: replace 'sine' -> 'sign' raw 'Sign has'; replace 'sine' -> 'sign' raw 'fast. Sign of'; replace 'sine' -> 'sign' raw 'and sign of'
+   content:06_4:06_4-download01.wav: notation: delete 'plus' -> '' raw '1+i'; delete 'plus' -> '' raw '1+i,'; delete 'plus' -> '' raw '2+2i.'
+   content:06_4:06_4-download02.wav: notation: delete 'plus' -> '' raw '1+i'; delete 'plus' -> '' raw '1+i,'; delete 'plus' -> '' raw '2 + 2i.'
+   content:07_2:07_2-download01.wav: notation: replace 'nonzero' -> 'non zero' raw 'a non-zero derivative'
+   content:07_2:07_2-download02.wav: notation: replace 'nonzero' -> 'non zero' raw 'a non-zero derivative'
+   content:08_2:08_2-download01.wav: held: delete 'of z equals' -> '' raw 'f = z,'
+   content:08_2:08_2-download02.wav: held: delete 'of z equals' -> '' raw 'f = z,'
+== 4. Timing: every onset and mark against its take's own level envelope
+   mark supported at_onset: 2
+   mark supported in_pause: 22
+   mark supported not_assessed: 32
+   onset candidate in_pause: 1
+   onset candidate inside_word: 1
+   onset supported at_onset: 33
+   onset supported before_pause: 1
+   onset supported in_pause: 168
+   onset supported inside_word: 61
+   onset supported not_assessed: 1
+PASS e1-envelope: 322 points in 94 takes (264 supported onsets, the 2 candidates for the 2 open onsets, 56 supported marks); 62 start inside their word (late by at least 0.035 s, at most 0.490 s, measured from body); 191 lie in the pause before their word (rise minus start: median 0.100 s, max 0.455 s); every take's WAV is at its plan hash
+   late 0.490 s: onset:03_5:s3:03_5-download01.wav 'inside' start 14.08 after pause [13.08, 13.57] body 13.59
+   late 0.395 s: onset:02_4:s2:02_4-download02.wav 'multiply' start 8.86 after pause [7.93, 8.45] body 8.465
+   late 0.375 s: onset:01_6:s1:01_6-download02.wav 'complex' start 5.24 after pause [4.43, 4.85] body 4.865
+   late 0.360 s: onset:01_6:s1:01_6-download01.wav 'complex' start 5.08 after pause [4.285, 4.705] body 4.72
+   late 0.345 s: onset:02_6:s2:02_6-download02.wav 'lengths' start 9.5 after pause [8.615, 9.125] body 9.155
+   late 0.285 s: onset:02_6:s2:02_6-download01.wav 'lengths' start 9.68 after pause [8.855, 9.37] body 9.395
+   late 0.270 s: onset:04_1:s3:04_1-download02.wav 'pointing' start 12.92 after pause [12.175, 12.64] body 12.65
+   late 0.265 s: onset:06_6:s3:06_6-download02.wav 'these' start 11.12 after pause [10.3, 10.815] body 10.855
+   late 0.260 s: onset:04_1:s3:04_1-download01.wav 'pointing' start 12.92 after pause [12.215, 12.645] body 12.66
+   late 0.255 s: onset:02_6:s4:02_6-download02.wav 'every' start 13.5 after pause [12.78, 13.23] body 13.245
+   late 0.255 s: onset:04_7:s2:04_7-download01.wav 'that' start 9.84 after pause [9.125, 9.555] body 9.585
+   late 0.250 s: onset:04_4:s2:04_4-download02.wav 'that' start 10.78 after pause [9.975, 10.495] body 10.53
+   late 0.250 s: onset:06_1:s2:06_1-download01.wav 'step' start 8.6 after pause [8.015, 8.31] body 8.35
+   late 0.245 s: onset:03_5:s1:03_5-download01.wav 'points' start 3.1 after pause [2.38, 2.835] body 2.855
+   late 0.245 s: onset:06_1:s2:06_1-download02.wav 'step' start 8.68 after pause [8.01, 8.395] body 8.435
+   late 0.240 s: onset:02_6:s4:02_6-download01.wav 'every' start 13.86 after pause [13.21, 13.6] body 13.62
+   late 0.225 s: onset:04_3:s1:04_3-download02.wav 'every' start 1.82 after pause [1.095, 1.575] body 1.595
+   late 0.205 s: onset:05_4:s3:05_4-download01.wav 'sine' start 10.86 after pause [10.29, 10.615] body 10.655
+   late 0.185 s: onset:04_4:s2:04_4-download01.wav 'that' start 10.78 after pause [10.135, 10.57] body 10.595
+   late 0.140 s: onset:06_5:s1:06_5-download01.wav 'call' start 2.58 after pause [1.995, 2.425] body 2.44
+   late 0.140 s: onset:06_7:s2:06_7-download01.wav 'that' start 13.56 after pause [12.875, 13.385] body 13.42
+   late 0.135 s: onset:02_6:s3:02_6-download02.wav 'hold' start 12.14 after pause [11.575, 11.94] body 12.005
+   late 0.125 s: onset:06_5:s1:06_5-download02.wav 'call' start 2.46 after pause [1.975, 2.325] body 2.335
+   late 0.105 s: onset:03_2:s3:03_2-download02.wav 'its' start 12.52 after pause [12.05, 12.405] body 12.415
+   late 0.105 s: onset:06_1:s3:06_1-download01.wav 'as' start 14.76 after pause [14.17, 14.64] body 14.655
+   late 0.100 s: onset:06_1:s3:06_1-download02.wav 'as' start 14.74 after pause [14.155, 14.625] body 14.64
+   late 0.100 s: onset:06_2:s3:06_2-download01.wav 'that' start 12.18 after pause [11.625, 12.03] body 12.08
+   late 0.095 s: onset:01_2:s1:01_2-download01.wav 'one' start 3.2 after pause [2.675, 3.09] body 3.105
+   late 0.095 s: onset:02_3:s2:02_3-download01.wav 'that' start 5.54 after pause [4.93, 5.405] body 5.445
+   late 0.095 s: onset:02_5:s2:02_5-download01.wav 'which' start 7.46 after pause [6.885, 7.355] body 7.365 (held)
+   late 0.095 s: onset:05_7:s1:05_7-download02.wav 'that' start 7.38 after pause [6.77, 7.26] body 7.285
+   late 0.095 s: onset:07_3:s1:07_3-download01.wav 'take' start 2.04 after pause [1.405, 1.925] body 1.945
+   late 0.090 s: onset:02_6:s1:02_6-download02.wav 'so' start 5.76 after pause [5.1, 5.635] body 5.67
+   late 0.085 s: onset:01_5:s4:01_5-download02.wav 'that' start 19.3 after pause [18.69, 19.18] body 19.215
+   late 0.085 s: onset:07_5:s3:07_5-download01.wav 'this' start 7.54 after pause [6.89, 7.43] body 7.455
+   late 0.080 s: onset:01_5:s4:01_5-download01.wav 'that' start 19.2 after pause [18.68, 19.09] body 19.12
+   late 0.080 s: onset:02_5:s1:02_5-download01.wav 'what' start 4.6 after pause [3.95, 4.505] body 4.52 (held)
+   late 0.080 s: onset:04_1:s2:04_1-download02.wav 'at' start 7.4 after pause [6.77, 7.3] body 7.32
+   late 0.075 s: onset:02_6:s1:02_6-download01.wav 'so' start 5.82 after pause [5.195, 5.715] body 5.745
+   late 0.075 s: onset:06_2:s3:06_2-download02.wav 'that' start 12.36 after pause [11.81, 12.245] body 12.285
+   late 0.075 s: onset:07_4:s3:07_4-download01.wav 'so' start 10.68 after pause [10.075, 10.57] body 10.605
+   late 0.070 s: onset:07_3:s2:07_3-download01.wav 'at' start 5.86 after pause [5.285, 5.78] body 5.79
+   late 0.065 s: onset:03_1:s1:03_1-download01.wav 'its' start 4.0 after pause [3.395, 3.925] body 3.935
+   late 0.065 s: onset:03_1:s1:03_1-download02.wav 'its' start 4.0 after pause [3.465, 3.91] body 3.935
+   late 0.060 s: onset:02_3:s1:02_3-download01.wav 'it' start 3.24 after pause [2.775, 3.145] body 3.18
+   late 0.060 s: onset:05_7:s1:05_7-download01.wav 'that' start 7.52 after pause [6.89, 7.425] body 7.46
+   late 0.055 s: onset:01_2:s1:01_2-download02.wav 'one' start 3.24 after pause [2.75, 3.175] body 3.185
+   late 0.055 s: onset:04_1:s2:04_1-download01.wav 'at' start 7.38 after pause [6.795, 7.305] body 7.325
+   late 0.055 s: onset:07_4:s2:07_4-download01.wav 'its' start 5.76 after pause [5.195, 5.685] body 5.705
+   late 0.050 s: onset:02_1:s1:02_1-download01.wav 'its' start 3.16 after pause [2.595, 3.095] body 3.11
+   late 0.050 s: onset:02_6:s3:02_6-download01.wav 'hold' start 12.44 after pause [11.865, 12.32] body 12.39
+   late 0.050 s: onset:03_5:s4:03_5-download01.wav 'at' start 16.62 after pause [16.075, 16.545] body 16.57
+   late 0.050 s: onset:06_4:s1:06_4-download01.wav 'it' start 6.64 after pause [6.135, 6.58] body 6.59
+   late 0.050 s: onset:06_4:s1:06_4-download02.wav 'it' start 6.9 after pause [6.395, 6.825] body 6.85
+   late 0.050 s: onset:07_6:s3:07_6-download02.wav 'from' start 14.94 after pause [14.345, 14.805] body 14.89
+   late 0.040 s: onset:01_6:s2:01_6-download02.wav 'by' start 7.42 after pause [6.915, 7.365] body 7.38
+   late 0.040 s: onset:06_6:s2:06_6-download02.wav 'the' start 6.5 after pause [5.905, 6.435] body 6.46
+   late 0.040 s: onset:07_6:s3:07_6-download01.wav 'from' start 15.26 after pause [14.73, 15.155] body 15.22
+   late 0.035 s: onset:01_1:s4:01_1-download02.wav 'we' start 14.56 after pause [14.06, 14.515] body 14.525
+   late 0.035 s: onset:04_1:s5:04_1-download02.wav 'pointing' start 16.92 after pause [16.5, 16.87] body 16.885
+   late 0.035 s: onset:06_1:s1:06_1-download01.wav 'do' start 6.16 after pause [5.515, 6.105] body 6.125
+   late 0.035 s: onset:06_1:s1:06_1-download02.wav 'do' start 6.12 after pause [5.5, 6.065] body 6.085
+PASS e2-one-word: between body and the recognizer start the sound never drops below -50 dBFS for more than 0.02 s, so it is one stretch of sound, not a breath then a word: 60 of 62 never drop below -50 dBFS; the others: 06_1 06_1-download02 0.005 s, 06_1 06_1-download01 0.010 s
+   before the pause: onset:03_4:s1:03_4-download02.wav 'every' start 0.64, pause [0.79, 0.89], body 0.925: no proposal
+PASS x1-independent-recognizer: on the 6 points root's targeted-small01 (small.en) also places, every point the envelope finds late in large-v3-turbo is not late in small.en: s1 02_5-download01 turbo 4.6 inside_word, small.en 4.5 in_pause; s2 02_5-download01 turbo 7.46 inside_word, small.en 7.32 in_pause; b37 02_5-download01 turbo 2.76 not_assessed, small.en 2.7 not_assessed; s1 02_5-download02 turbo 4.4 in_pause, small.en 4.44 in_pause; s2 02_5-download02 turbo 7.2 in_pause, small.en 7.2 in_pause; b37 02_5-download02 turbo 2.68 not_assessed, small.en 2.64 not_assessed
+== 5. The proposals through the bridge's own resolve()
+PASS s1-resolve: without answers the bridge resolves 92 of 94 takes (the 2 without: ['05_4-download01.wav', '05_4-download02.wav']); with the 61 onset and 0 mark proposals it resolves all 94 under its sentence-order, range and mark rules; 9 sentence-onset marks follow their moved onsets
+== 6. candidates.json
+PASS w1-candidates: candidates.json (241ac7106a95): 74 proposals ({'sample': 60, 'use_candidate': 1, 'proceed': 13}), every one with by null; held cues and open content carry none
+== 7. Hygiene of this bundle
+PASS h1-hygiene: exactly the 4 bundle files; candidates.json is byte-identical to this run's; no machine path, user name, address or gendered pronoun
+RESULT PASS, 0 failed

@@ -1,0 +1,7034 @@
+{
+ "schema": "complex-frederick-current-timing-review-v1",
+ "claim": "Readings of root's recognition records and of each take's own level envelope, bound to the hashes below. Every proposal has `by: null`: the bridge refuses it until root decides and signs it. Nothing here was heard, decoded, measured by ear or accepted.",
+ "inputs": {
+  "bridge": {
+   "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-timing-bridge-repair01/frederick_timing_bridge.py",
+   "sha256": "47069583af82e2aa28688f1ed4179f3b40694450f2bf282acff3549aaf406a39"
+  },
+  "source_sha256": "7188f725b110e4bfb2faa87e74d447d008f737143c8cb3bb2e645d728271705f",
+  "lane": {
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage05-recognition01",
+   "files": {
+    "plan-01/plan.json": "cb9ae156d97567bc2eb4cf871dcceb9c9eed0ac35df634aa9223233aacea3419",
+    "plan-01/frozen-inputs.json": "54acd3096bc0c08cc54df0a7d24db5bda9a9b9e228593258de96673e09b7c473",
+    "ingest-01/ingest.json": "b3f24232e71b6c3e6d6d03147aa46317e6d3ee7f8d305a734860cf6311b4a84a",
+    "ingest-01/transcripts.json": "db2d0b13e716004b65e3bba2f16210cc3fcdf75cf3def6cb4433344530dae436",
+    "plan-02/plan.json": "8d63900896b4b5737b903fb2cad2c37cfa070c7113d7f0d0d7d889066c91475b",
+    "plan-02/frozen-inputs.json": "aaeba9acf529152342c5942b23eb55beae26a20ff326f1aba96d256cb0c29cb4",
+    "ingest-02/ingest.json": "22b4ebb2e08c1bceb7a09be64246b4ba3747bec74c728629ebb529082213edee",
+    "ingest-02/transcripts.json": "6637cf5de0dd6d9a61eb348c7d7c30175bc4ce276692d600fb87d2b15b8540b1",
+    "plan-03/plan.json": "bb32e783855475fdcd1a93d55a9bf5a63d87314d7fad3adeab3f621969e7d20e",
+    "plan-03/frozen-inputs.json": "327456005cb394af01f4cf35acb1c484124090509c9d3b073983eff01bada38b",
+    "ingest-03/ingest.json": "9463a6825fe8e023b53c5747f78dabffa2fc7812d0ff2e2f1a67faa8f7e4d11d",
+    "ingest-03/transcripts.json": "3b0ff70ffc8b6cadf7b2697f2641a1f221a93524236128671834160d5df1cf71",
+    "plan-04/plan.json": "5382ffe6f8cc633899e42d5e09dd86f8cf0ccb593f27bbb28a5925e6c10408d2",
+    "plan-04/frozen-inputs.json": "f5a8c19588e9f1af3b96bb7f8b5e54a26eab57b45e1f1cb8052f80a49f9b3a62",
+    "ingest-04/ingest.json": "9eb272028a29b1cfb9b039e35132a550721aa3779d926747b3ba2c54964c8f36",
+    "ingest-04/transcripts.json": "b1e0c9001daa7e920fa252c8c71a8704db9b39829b9c38f2dad3f478feb41a58",
+    "plan-05/plan.json": "02d0b3443ffa01f4884bebafa191ade7f57f76bd76eee2c899920dae53ddac54",
+    "plan-05/frozen-inputs.json": "c7e8fafc82795a094c6afaf689da122e7edf92444dcece26682a7db451180ec5",
+    "ingest-05/ingest.json": "33a2d387ab4cf21bf573d21e5af8e8ab0aac307489fc9d7723328f4787f0d8af",
+    "ingest-05/transcripts.json": "a1636c9c3b808c512d319de4bbf65201b63a30edaa54c5b003086a8d4fce59f1",
+    "plan-06/plan.json": "45fb55e52aa206f5b3bc7e6677683e350c1cc9a93689cdcc4a44e936b7d12723",
+    "plan-06/frozen-inputs.json": "c99060f3fa40531d4fe461034f98ae0b2ba28cee8f3b6a7d0f5e53c1a5712b69",
+    "ingest-06/ingest.json": "b41205b1f65762b8a1a24a6023ee23e7f8f6f2f8017fc6b8a10a0717ba967668",
+    "ingest-06/transcripts.json": "68abf4f6ed41e2a1869c5ab3f8977ae0db3206642623de2a951bf2e00a2a0460",
+    "plan-07/plan.json": "2758f1c4ee1c202c5ad87ab3b0b59ac9d0b7656ce62408b0d38351341647b845",
+    "plan-07/frozen-inputs.json": "ba701d39fc2ab579fd436a246dedcfa4c1474bb914be3bc94149de9074808a94",
+    "ingest-07/ingest.json": "fc10e44b1164f47c5d3becd2c64e23069e249f9470b78068cf5e54514f848cfe",
+    "ingest-07/transcripts.json": "3fa932c27b9df4c4b25cb1f90f8495766cd477499826f12abbb3be8cc21b12d5",
+    "plan-08/plan.json": "26e1ae7338a83b3eba666d925f6ae64e221abedd1705ad5b2bf0422895afc55f",
+    "plan-08/frozen-inputs.json": "0e307f4be77639c14acb6478dbbb0b57217188f7140e2361f2e76ae0ea69397b",
+    "ingest-08/ingest.json": "8170bd5ce34c2a3ff35698bf680d61defa626b039f0c1844568388f0fa22047b",
+    "ingest-08/transcripts.json": "39a1936d48dfb99544a3e2c80599211af4e08455fe7c014cda225465605e54f6",
+    "plan-09/plan.json": "150c3a0f0a7232fec03e6585af33873ae44c895f6574878d118976c2d603d661",
+    "plan-09/frozen-inputs.json": "e13e203ce63835e0e815e6996783adde311124d2fbfb76a1b3427a3dc574766f",
+    "ingest-09/ingest.json": "5390d6e1e0dc61bbd05137d88a7e4dd7aa143e46cb383bd25e209ca4808d2041",
+    "ingest-09/transcripts.json": "28a8056eae39f2719d9ad7629151aba74221edd199239039270a230bc74691ab"
+   }
+  },
+  "supplement": {
+   "job": "narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-frederick-targeted-small01",
+   "manifest": "narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-targeted-small01/inputs.json",
+   "command_log_sha256": "6d7c6216917a82f6cf30dfb406335efc3e7dbb5ad7a504378b35236b5fbbc80b",
+   "resource_receipt_sha256": "ba98ad86093e993d055f0eb8735b3496c0b8abeb21f37a0001c1fdb213a53b34"
+  },
+  "report_outputs_sha256": {
+   "answers-template.json": "31f7a327665db7c82d3036b3f0f0da5a97de561dad202eab3e2f504b2a62aefd",
+   "coverage.json": "bd5d300dca110a36bae580e5eefce9aa16de57836e8ea4fc39a10031fed63fc2",
+   "questions.json": "e101b98f96f574fe58a824be55caadd61611bbaa0ce1a58f07c32153d31d98ff",
+   "source.json": "4aafa73728c88d503073bd97cfcc8dfab1f106dcb363b995bff8465a24a0f78e",
+   "takes.json": "00805de82594a7ed0dcc30238c55b56424c6a3f7d31571cb3d520b97c8b50efe"
+  }
+ },
+ "envelope_rule": "A pause is a run of at least 0.06 s of 5 ms frames at or below -70 dBFS. A point is assessed only when such a pause lies wholly after the start of the previous recognized word and ends by the point's own segment end. The pause used is the last of those that began by the recognizer start, so the sound after it can only be this word (or a breath before it). 'leave' is that pause's end. 'body' is the first frame at or above -30 dBFS after leave, where the word is clearly sounding. inside_word: the recognizer start is more than 0.03 s after body, so a boundary there puts the first part of the word in the sentence before; late_by_s = start - body is a lower bound. at_onset: within (leave, body + 0.03]. in_pause: at or before leave. before_pause: no such pause began by the start, and the start lies more than 0.03 s before the first one in the window, in sound that precedes it. not_assessed: no such pause (connected speech, or the previous word starts inside the pause).",
+ "held": {
+  "02_5": "hearing open: large-v3-turbo writes nothing for both 'one plus i', small.en (targeted-small01) writes them; root's instruction keeps the cue open",
+  "08_2": "f(z)=z uncertain pending root's queued targeted-small02; root's instruction keeps the cue open"
+ },
+ "content": [
+  {
+   "id": "content:01_3:01_3-download01.wav",
+   "cue": "01_3",
+   "file": "01_3-download01.wav",
+   "take_sha256": "b29261f6d00f31a4554e702df034b355d0f4f44d7251bf8d17d5e1ff7c56f0b4",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 4
+   },
+   "class": "notation",
+   "reading": "the recognizer wrote the script's words as notation, which the normalizer reads as other words",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "to the fortieth",
+     "recognized": "forty",
+     "raw": "x^40 gives",
+     "raw_segments": [
+      28,
+      29
+     ]
+    }
+   ]
+  },
+  {
+   "id": "content:01_3:01_3-download02.wav",
+   "cue": "01_3",
+   "file": "01_3-download02.wav",
+   "take_sha256": "9f9e1f8ea2d1688842799ebddbc90b64590d05397f95a377e7c243bdea1584f2",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 5
+   },
+   "class": "notation",
+   "reading": "the recognizer wrote the script's words as notation, which the normalizer reads as other words",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "to the fortieth",
+     "recognized": "forty",
+     "raw": "x^40 gives",
+     "raw_segments": [
+      29,
+      30
+     ]
+    }
+   ]
+  },
+  {
+   "id": "content:01_6:01_6-download01.wav",
+   "cue": "01_6",
+   "file": "01_6-download01.wav",
+   "take_sha256": "be20a9b3b26bf5e3bc38ce29c18dd3297e331ffc7d257f7e50754bcf9f7fb928",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 10
+   },
+   "class": "same_sound",
+   "reading": "the recognizer spelled a word that sounds like the script's word ('Sign' for sine; 'routes' for roots, which British English says alike)",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "roots",
+     "recognized": "routes",
+     "raw": "count routes we",
+     "raw_segments": [
+      28,
+      30
+     ]
+    }
+   ]
+  },
+  {
+   "id": "content:01_6:01_6-download02.wav",
+   "cue": "01_6",
+   "file": "01_6-download02.wav",
+   "take_sha256": "0d5463cbf841b6e29a98085a9a3109ef47a28df2993f05e5d665b493a84eaa26",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 11
+   },
+   "class": "same_sound",
+   "reading": "the recognizer spelled a word that sounds like the script's word ('Sign' for sine; 'routes' for roots, which British English says alike)",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "roots",
+     "recognized": "routes",
+     "raw": "count routes we",
+     "raw_segments": [
+      28,
+      30
+     ]
+    }
+   ]
+  },
+  {
+   "id": "content:02_4:02_4-download02.wav",
+   "cue": "02_4",
+   "file": "02_4-download02.wav",
+   "take_sha256": "7a53ec2efad97f9f0dce89299395cc7f8f5c58c4c1ec7920ce0035b0122a9247",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 19
+   },
+   "class": "open",
+   "reading": "the recognizer wrote a different word ('term' for turn); only hearing settles it",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "turn",
+     "recognized": "term",
+     "raw": "a term.",
+     "raw_segments": [
+      41,
+      42
+     ]
+    }
+   ]
+  },
+  {
+   "id": "content:02_5:02_5-download01.wav",
+   "cue": "02_5",
+   "file": "02_5-download01.wav",
+   "take_sha256": "72d04b4b2f39e6ca61d606ab93b18b8fbb8ca2ee0eac16f26e100e067b47f890",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 20
+   },
+   "class": "held",
+   "reading": "held by root's instruction",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "one plus i",
+     "recognized": "",
+     "raw": "by once",
+     "raw_segments": [
+      1,
+      2
+     ]
+    },
+    {
+     "op": "replace",
+     "script": "turn",
+     "recognized": "term",
+     "raw": "a term. What",
+     "raw_segments": [
+      7,
+      9
+     ]
+    },
+    {
+     "op": "delete",
+     "script": "one plus i",
+     "recognized": "",
+     "raw": "is squared?",
+     "raw_segments": [
+      19,
+      20
+     ]
+    }
+   ],
+   "small_en": {
+    "job": "complex-frederick-targeted-small01",
+    "record_index": 0,
+    "differences": [
+     {
+      "op": "replace",
+      "script": "turn",
+      "recognized": "term",
+      "raw": "a term. What",
+      "raw_segments": [
+       10,
+       12
+      ]
+     }
+    ]
+   },
+   "held": "hearing open: large-v3-turbo writes nothing for both 'one plus i', small.en (targeted-small01) writes them; root's instruction keeps the cue open"
+  },
+  {
+   "id": "content:02_5:02_5-download02.wav",
+   "cue": "02_5",
+   "file": "02_5-download02.wav",
+   "take_sha256": "0d21f5e41df026fa5a60e9d1725b4ec833518dd3fef77d7e2e71a8978ba10d9c",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 21
+   },
+   "class": "held",
+   "reading": "held by root's instruction",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "one plus i",
+     "recognized": "",
+     "raw": "by once",
+     "raw_segments": [
+      1,
+      2
+     ]
+    },
+    {
+     "op": "replace",
+     "script": "turn",
+     "recognized": "term",
+     "raw": "a term. What",
+     "raw_segments": [
+      7,
+      9
+     ]
+    },
+    {
+     "op": "delete",
+     "script": "one plus i",
+     "recognized": "",
+     "raw": "is squared?",
+     "raw_segments": [
+      19,
+      20
+     ]
+    }
+   ],
+   "small_en": {
+    "job": "complex-frederick-targeted-small01",
+    "record_index": 1,
+    "differences": [
+     {
+      "op": "replace",
+      "script": "turn",
+      "recognized": "term",
+      "raw": "a term. What",
+      "raw_segments": [
+       10,
+       12
+      ]
+     }
+    ]
+   },
+   "held": "hearing open: large-v3-turbo writes nothing for both 'one plus i', small.en (targeted-small01) writes them; root's instruction keeps the cue open"
+  },
+  {
+   "id": "content:03_2:03_2-download01.wav",
+   "cue": "03_2",
+   "file": "03_2-download01.wav",
+   "take_sha256": "e3a2203422a91b55980e094add107b8c2b91c1e79c301b7f242a51d1b116d949",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "record_index": 26
+   },
+   "class": "notation",
+   "reading": "the recognizer wrote the script's words as notation, which the normalizer reads as other words",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "half",
+     "recognized": "over two",
+     "raw": "1/2. Its",
+     "raw_segments": [
+      26,
+      27
+     ]
+    },
+    {
+     "op": "replace",
+     "script": "quarter",
+     "recognized": "over four",
+     "raw": "1/4, twice.",
+     "raw_segments": [
+      35,
+      36
+     ]
+    }
+   ]
+  },
+  {
+   "id": "content:04_7:04_7-download01.wav",
+   "cue": "04_7",
+   "file": "04_7-download01.wav",
+   "take_sha256": "e085951ca8c5b37ddd4517c39cfb4d6456d46b05ddb08f9198bd98556b71f47f",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-04-a1",
+    "command_log_sha256": "d779c7d6d6262b94ad118ae1ac704130f0b78e13fa7bb4054e1bd17cff478e01",
+    "record_index": 0
+   },
+   "class": "notation",
+   "reading": "the recognizer wrote the script's words as notation, which the normalizer reads as other words",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "minus",
+     "recognized": "",
+     "raw": "and -i,",
+     "raw_segments": [
+      4,
+      5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "content:04_7:04_7-download02.wav",
+   "cue": "04_7",
+   "file": "04_7-download02.wav",
+   "take_sha256": "a8c5bbfbd1be78fa18701c4904cf3fddbde565731349ecc34d3a30ae788ef31f",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-04-a1",
+    "command_log_sha256": "d779c7d6d6262b94ad118ae1ac704130f0b78e13fa7bb4054e1bd17cff478e01",
+    "record_index": 1
+   },
+   "class": "notation",
+   "reading": "the recognizer wrote the script's words as notation, which the normalizer reads as other words",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "minus",
+     "recognized": "",
+     "raw": "and -i,",
+     "raw_segments": [
+      4,
+      5
+     ]
+    }
+   ]
+  },
+  {
+   "id": "content:05_4:05_4-download01.wav",
+   "cue": "05_4",
+   "file": "05_4-download01.wav",
+   "take_sha256": "3f9d95d3feba6848a31f3550663ea3513129a434f8ce385210dde8707c969e8b",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-04-a1",
+    "command_log_sha256": "d779c7d6d6262b94ad118ae1ac704130f0b78e13fa7bb4054e1bd17cff478e01",
+    "record_index": 6
+   },
+   "class": "same_sound",
+   "reading": "the recognizer spelled a word that sounds like the script's word ('Sign' for sine; 'routes' for roots, which British English says alike)",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "sine",
+     "recognized": "sign",
+     "raw": "Sign has",
+     "raw_segments": [
+      0,
+      1
+     ]
+    },
+    {
+     "op": "replace",
+     "script": "sine",
+     "recognized": "sign",
+     "raw": "fast. Sign of",
+     "raw_segments": [
+      29,
+      31
+     ]
+    },
+    {
+     "op": "replace",
+     "script": "sine",
+     "recognized": "sign",
+     "raw": "and sign of",
+     "raw_segments": [
+      36,
+      38
+     ]
+    }
+   ]
+  },
+  {
+   "id": "content:05_4:05_4-download02.wav",
+   "cue": "05_4",
+   "file": "05_4-download02.wav",
+   "take_sha256": "b77877fda62b9b6d8af9dfae257d851219412e386fa44460632a4d271c831719",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-04-a1",
+    "command_log_sha256": "d779c7d6d6262b94ad118ae1ac704130f0b78e13fa7bb4054e1bd17cff478e01",
+    "record_index": 7
+   },
+   "class": "same_sound",
+   "reading": "the recognizer spelled a word that sounds like the script's word ('Sign' for sine; 'routes' for roots, which British English says alike)",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "sine",
+     "recognized": "sign",
+     "raw": "Sign has",
+     "raw_segments": [
+      0,
+      1
+     ]
+    },
+    {
+     "op": "replace",
+     "script": "sine",
+     "recognized": "sign",
+     "raw": "fast. Sign of",
+     "raw_segments": [
+      29,
+      31
+     ]
+    },
+    {
+     "op": "replace",
+     "script": "sine",
+     "recognized": "sign",
+     "raw": "and sign of",
+     "raw_segments": [
+      36,
+      38
+     ]
+    }
+   ]
+  },
+  {
+   "id": "content:06_4:06_4-download01.wav",
+   "cue": "06_4",
+   "file": "06_4-download01.wav",
+   "take_sha256": "d73e94b9559fcc5ce218958cc19bdd759fceb45bd0b5153d0a9f0f308a74708f",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-07-a1",
+    "command_log_sha256": "31bf2d8a312d24d8295ea565c6c8b76fce99eeed1ede0332db7b758c13409bb2",
+    "record_index": 0
+   },
+   "class": "notation",
+   "reading": "the recognizer wrote the script's words as notation, which the normalizer reads as other words",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "plus",
+     "recognized": "",
+     "raw": "1+i",
+     "raw_segments": [
+      2,
+      2
+     ]
+    },
+    {
+     "op": "delete",
+     "script": "plus",
+     "recognized": "",
+     "raw": "1+i,",
+     "raw_segments": [
+      7,
+      7
+     ]
+    },
+    {
+     "op": "delete",
+     "script": "plus",
+     "recognized": "",
+     "raw": "2+2i.",
+     "raw_segments": [
+      10,
+      10
+     ]
+    }
+   ]
+  },
+  {
+   "id": "content:06_4:06_4-download02.wav",
+   "cue": "06_4",
+   "file": "06_4-download02.wav",
+   "take_sha256": "1a85a5f3db4cff9dc74ac8031593736b72ebad8fa4d88308865a8b419e1cdca3",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-07-a1",
+    "command_log_sha256": "31bf2d8a312d24d8295ea565c6c8b76fce99eeed1ede0332db7b758c13409bb2",
+    "record_index": 1
+   },
+   "class": "notation",
+   "reading": "the recognizer wrote the script's words as notation, which the normalizer reads as other words",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "plus",
+     "recognized": "",
+     "raw": "1+i",
+     "raw_segments": [
+      2,
+      2
+     ]
+    },
+    {
+     "op": "delete",
+     "script": "plus",
+     "recognized": "",
+     "raw": "1+i,",
+     "raw_segments": [
+      7,
+      7
+     ]
+    },
+    {
+     "op": "delete",
+     "script": "plus",
+     "recognized": "",
+     "raw": "2 + 2i.",
+     "raw_segments": [
+      10,
+      12
+     ]
+    }
+   ]
+  },
+  {
+   "id": "content:07_2:07_2-download01.wav",
+   "cue": "07_2",
+   "file": "07_2-download01.wav",
+   "take_sha256": "e22aa08dee2c6f6652fea708de62158bf5660f0e4824ffd52733471582f49609",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-08-a1",
+    "command_log_sha256": "be3c236d52b9b6139a69149c52a5d9036cd5a3be05ef5396ecbc9428a2b7506d",
+    "record_index": 8
+   },
+   "class": "notation",
+   "reading": "the recognizer wrote the script's words as notation, which the normalizer reads as other words",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "nonzero",
+     "recognized": "non zero",
+     "raw": "a non-zero derivative",
+     "raw_segments": [
+      1,
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "id": "content:07_2:07_2-download02.wav",
+   "cue": "07_2",
+   "file": "07_2-download02.wav",
+   "take_sha256": "378ab070c3dbffa7eb1326f8116ab642b33fafccf1b4d58acfed6fb6d13aa78d",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-08-a1",
+    "command_log_sha256": "be3c236d52b9b6139a69149c52a5d9036cd5a3be05ef5396ecbc9428a2b7506d",
+    "record_index": 9
+   },
+   "class": "notation",
+   "reading": "the recognizer wrote the script's words as notation, which the normalizer reads as other words",
+   "differences": [
+    {
+     "op": "replace",
+     "script": "nonzero",
+     "recognized": "non zero",
+     "raw": "a non-zero derivative",
+     "raw_segments": [
+      1,
+      3
+     ]
+    }
+   ]
+  },
+  {
+   "id": "content:08_2:08_2-download01.wav",
+   "cue": "08_2",
+   "file": "08_2-download01.wav",
+   "take_sha256": "bae2b74862a188b714a466579a197fdd33ff8422b44eb8179ccdacb9316699c1",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-09-a1",
+    "command_log_sha256": "efc535cfacdc5d3cbc6e4fdb1c26440b781565b8ba984b874c31fa657a5ff72f",
+    "record_index": 10
+   },
+   "class": "held",
+   "reading": "held by root's instruction",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "of z equals",
+     "recognized": "",
+     "raw": "f = z,",
+     "raw_segments": [
+      14,
+      16
+     ]
+    }
+   ],
+   "held": "f(z)=z uncertain pending root's queued targeted-small02; root's instruction keeps the cue open"
+  },
+  {
+   "id": "content:08_2:08_2-download02.wav",
+   "cue": "08_2",
+   "file": "08_2-download02.wav",
+   "take_sha256": "9365b3ef6e23241eb33d89dc7137fedae17f30b0ca006e71a9e8c4638c762728",
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-09-a1",
+    "command_log_sha256": "efc535cfacdc5d3cbc6e4fdb1c26440b781565b8ba984b874c31fa657a5ff72f",
+    "record_index": 11
+   },
+   "class": "held",
+   "reading": "held by root's instruction",
+   "differences": [
+    {
+     "op": "delete",
+     "script": "of z equals",
+     "recognized": "",
+     "raw": "f = z,",
+     "raw_segments": [
+      14,
+      16
+     ]
+    }
+   ],
+   "held": "f(z)=z uncertain pending root's queued targeted-small02; root's instruction keeps the cue open"
+  }
+ ],
+ "late_points": [
+  {
+   "id": "onset:01_1:s4:01_1-download02.wav",
+   "cue": "01_1",
+   "file": "01_1-download02.wav",
+   "take_sha256": "0b4d423ab2c865cbfe4acad81dd5b2a219ab542d1982ebc3a242935af849c253",
+   "kind": "onset",
+   "point": "supported",
+   "word": "we",
+   "asr_window_s": [
+    14.56,
+    14.599999
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 349440,
+   "previous_word": {
+    "w": "up",
+    "window_s": [
+     13.62,
+     14.56
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 1,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 39
+   },
+   "class": "inside_word",
+   "pause_s": [
+    14.06,
+    14.515
+   ],
+   "rise_s": 14.52,
+   "body_s": 14.525,
+   "late_by_s": 0.035,
+   "body_to_start": {
+    "min_dbfs": -29.8,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:01_2:s1:01_2-download01.wav",
+   "cue": "01_2",
+   "file": "01_2-download01.wav",
+   "take_sha256": "4c70db02ed0faa52abf4a0405e1ba67cc9d95b2db558c350af5c2b5bd8e40d2e",
+   "kind": "onset",
+   "point": "supported",
+   "word": "one",
+   "asr_window_s": [
+    3.2,
+    3.68
+   ],
+   "abuts_previous_word": false,
+   "sample_24k_now": 76800,
+   "previous_word": {
+    "w": "it",
+    "window_s": [
+     2.32,
+     3.0
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 2,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 9
+   },
+   "class": "inside_word",
+   "pause_s": [
+    2.675,
+    3.09
+   ],
+   "rise_s": 3.09,
+   "body_s": 3.105,
+   "late_by_s": 0.095,
+   "body_to_start": {
+    "min_dbfs": -29.2,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:01_2:s1:01_2-download02.wav",
+   "cue": "01_2",
+   "file": "01_2-download02.wav",
+   "take_sha256": "9402105c58a3b18df8478596c4da79109edc0a9f197882706a570b5017b8b536",
+   "kind": "onset",
+   "point": "supported",
+   "word": "one",
+   "asr_window_s": [
+    3.24,
+    4.08
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 77760,
+   "previous_word": {
+    "w": "it",
+    "window_s": [
+     2.42,
+     3.24
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 3,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 9
+   },
+   "class": "inside_word",
+   "pause_s": [
+    2.75,
+    3.175
+   ],
+   "rise_s": 3.18,
+   "body_s": 3.185,
+   "late_by_s": 0.055,
+   "body_to_start": {
+    "min_dbfs": -35.7,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:01_5:s4:01_5-download01.wav",
+   "cue": "01_5",
+   "file": "01_5-download01.wav",
+   "take_sha256": "71599db532f4ed379aeacaf5d8704e4fdc727227eb56219c485627db98027032",
+   "kind": "onset",
+   "point": "supported",
+   "word": "that",
+   "asr_window_s": [
+    19.2,
+    19.279999
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 460800,
+   "previous_word": {
+    "w": "them",
+    "window_s": [
+     18.299999,
+     19.2
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 8,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 54
+   },
+   "class": "inside_word",
+   "pause_s": [
+    18.68,
+    19.09
+   ],
+   "rise_s": 19.095,
+   "body_s": 19.12,
+   "late_by_s": 0.08,
+   "body_to_start": {
+    "min_dbfs": -29.0,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:01_5:s4:01_5-download02.wav",
+   "cue": "01_5",
+   "file": "01_5-download02.wav",
+   "take_sha256": "fc4a7b79399edb709012d63a1e2f7433e642c13c5d96b29a8a8c33a9832ef2e2",
+   "kind": "onset",
+   "point": "supported",
+   "word": "that",
+   "asr_window_s": [
+    19.3,
+    19.359999
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 463200,
+   "previous_word": {
+    "w": "them",
+    "window_s": [
+     18.34,
+     19.3
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 9,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 54
+   },
+   "class": "inside_word",
+   "pause_s": [
+    18.69,
+    19.18
+   ],
+   "rise_s": 19.185,
+   "body_s": 19.215,
+   "late_by_s": 0.085,
+   "body_to_start": {
+    "min_dbfs": -25.6,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:01_6:s1:01_6-download01.wav",
+   "cue": "01_6",
+   "file": "01_6-download01.wav",
+   "take_sha256": "be20a9b3b26bf5e3bc38ce29c18dd3297e331ffc7d257f7e50754bcf9f7fb928",
+   "kind": "onset",
+   "point": "supported",
+   "word": "complex",
+   "asr_window_s": [
+    5.08,
+    5.081
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 121920,
+   "previous_word": {
+    "w": "it",
+    "window_s": [
+     3.96,
+     5.08
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 10,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 16
+   },
+   "class": "inside_word",
+   "pause_s": [
+    4.285,
+    4.705
+   ],
+   "rise_s": 4.705,
+   "body_s": 4.72,
+   "late_by_s": 0.36,
+   "body_to_start": {
+    "min_dbfs": -37.9,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:01_6:s1:01_6-download02.wav",
+   "cue": "01_6",
+   "file": "01_6-download02.wav",
+   "take_sha256": "0d5463cbf841b6e29a98085a9a3109ef47a28df2993f05e5d665b493a84eaa26",
+   "kind": "onset",
+   "point": "supported",
+   "word": "complex",
+   "asr_window_s": [
+    5.24,
+    5.241
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 125760,
+   "previous_word": {
+    "w": "it",
+    "window_s": [
+     4.14,
+     5.24
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 11,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 16
+   },
+   "class": "inside_word",
+   "pause_s": [
+    4.43,
+    4.85
+   ],
+   "rise_s": 4.85,
+   "body_s": 4.865,
+   "late_by_s": 0.375,
+   "body_to_start": {
+    "min_dbfs": -40.7,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:01_6:s2:01_6-download02.wav",
+   "cue": "01_6",
+   "file": "01_6-download02.wav",
+   "take_sha256": "0d5463cbf841b6e29a98085a9a3109ef47a28df2993f05e5d665b493a84eaa26",
+   "kind": "onset",
+   "point": "supported",
+   "word": "by",
+   "asr_window_s": [
+    7.42,
+    7.48
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 178080,
+   "previous_word": {
+    "w": "rigid",
+    "window_s": [
+     6.26,
+     7.42
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 11,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 21
+   },
+   "class": "inside_word",
+   "pause_s": [
+    6.915,
+    7.365
+   ],
+   "rise_s": 7.365,
+   "body_s": 7.38,
+   "late_by_s": 0.04,
+   "body_to_start": {
+    "min_dbfs": -25.4,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:02_1:s1:02_1-download01.wav",
+   "cue": "02_1",
+   "file": "02_1-download01.wav",
+   "take_sha256": "77f627c6d58d0a8e3473252dde69489d9f66d10195115aeb04c178f7752ac586",
+   "kind": "onset",
+   "point": "supported",
+   "word": "its",
+   "asr_window_s": [
+    3.16,
+    3.24
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 75840,
+   "previous_word": {
+    "w": "plane",
+    "window_s": [
+     1.98,
+     3.16
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 12,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 9
+   },
+   "class": "inside_word",
+   "pause_s": [
+    2.595,
+    3.095
+   ],
+   "rise_s": 3.1,
+   "body_s": 3.11,
+   "late_by_s": 0.05,
+   "body_to_start": {
+    "min_dbfs": -36.1,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:02_3:s1:02_3-download01.wav",
+   "cue": "02_3",
+   "file": "02_3-download01.wav",
+   "take_sha256": "9bc007fafcde7a1ab2d5a6cad98734144c487538b58daafbb0ad8cb8e6cdb189",
+   "kind": "onset",
+   "point": "supported",
+   "word": "it",
+   "asr_window_s": [
+    3.24,
+    3.26
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 77760,
+   "previous_word": {
+    "w": "turn",
+    "window_s": [
+     2.2,
+     3.24
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 16,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 8
+   },
+   "class": "inside_word",
+   "pause_s": [
+    2.775,
+    3.145
+   ],
+   "rise_s": 3.145,
+   "body_s": 3.18,
+   "late_by_s": 0.06,
+   "body_to_start": {
+    "min_dbfs": -41.6,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:02_3:s2:02_3-download01.wav",
+   "cue": "02_3",
+   "file": "02_3-download01.wav",
+   "take_sha256": "9bc007fafcde7a1ab2d5a6cad98734144c487538b58daafbb0ad8cb8e6cdb189",
+   "kind": "onset",
+   "point": "supported",
+   "word": "that",
+   "asr_window_s": [
+    5.54,
+    5.541
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 132960,
+   "previous_word": {
+    "w": "one",
+    "window_s": [
+     4.4,
+     5.54
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 16,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 14
+   },
+   "class": "inside_word",
+   "pause_s": [
+    4.93,
+    5.405
+   ],
+   "rise_s": 5.405,
+   "body_s": 5.445,
+   "late_by_s": 0.095,
+   "body_to_start": {
+    "min_dbfs": -23.9,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:02_4:s2:02_4-download02.wav",
+   "cue": "02_4",
+   "file": "02_4-download02.wav",
+   "take_sha256": "7a53ec2efad97f9f0dce89299395cc7f8f5c58c4c1ec7920ce0035b0122a9247",
+   "kind": "onset",
+   "point": "supported",
+   "word": "multiply",
+   "asr_window_s": [
+    8.86,
+    8.94
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 212640,
+   "previous_word": {
+    "w": "angle",
+    "window_s": [
+     7.36,
+     8.86
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 19,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 21
+   },
+   "class": "inside_word",
+   "pause_s": [
+    7.93,
+    8.45
+   ],
+   "rise_s": 8.455,
+   "body_s": 8.465,
+   "late_by_s": 0.395,
+   "body_to_start": {
+    "min_dbfs": -48.9,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:02_5:s1:02_5-download01.wav",
+   "cue": "02_5",
+   "file": "02_5-download01.wav",
+   "take_sha256": "72d04b4b2f39e6ca61d606ab93b18b8fbb8ca2ee0eac16f26e100e067b47f890",
+   "kind": "onset",
+   "point": "supported",
+   "word": "what",
+   "asr_window_s": [
+    4.6,
+    4.64
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 110400,
+   "previous_word": {
+    "w": "term",
+    "window_s": [
+     3.52,
+     4.6
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 20,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 9
+   },
+   "class": "inside_word",
+   "pause_s": [
+    3.95,
+    4.505
+   ],
+   "rise_s": 4.51,
+   "body_s": 4.52,
+   "late_by_s": 0.08,
+   "body_to_start": {
+    "min_dbfs": -26.3,
+    "longest_below_-50dbfs_s": 0.0
+   },
+   "small_en": [
+    {
+     "job": "complex-frederick-targeted-small01",
+     "window_s": [
+      4.5,
+      4.62
+     ],
+     "class": "in_pause"
+    }
+   ]
+  },
+  {
+   "id": "onset:02_5:s2:02_5-download01.wav",
+   "cue": "02_5",
+   "file": "02_5-download01.wav",
+   "take_sha256": "72d04b4b2f39e6ca61d606ab93b18b8fbb8ca2ee0eac16f26e100e067b47f890",
+   "kind": "onset",
+   "point": "supported",
+   "word": "which",
+   "asr_window_s": [
+    7.46,
+    7.56
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 179040,
+   "previous_word": {
+    "w": "twice",
+    "window_s": [
+     6.08,
+     7.46
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 20,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 17
+   },
+   "class": "inside_word",
+   "pause_s": [
+    6.885,
+    7.355
+   ],
+   "rise_s": 7.36,
+   "body_s": 7.365,
+   "late_by_s": 0.095,
+   "body_to_start": {
+    "min_dbfs": -27.3,
+    "longest_below_-50dbfs_s": 0.0
+   },
+   "small_en": [
+    {
+     "job": "complex-frederick-targeted-small01",
+     "window_s": [
+      7.32,
+      7.54
+     ],
+     "class": "in_pause"
+    }
+   ]
+  },
+  {
+   "id": "onset:02_6:s1:02_6-download01.wav",
+   "cue": "02_6",
+   "file": "02_6-download01.wav",
+   "take_sha256": "446187d04406ea5bee5c4fb8fccd69f602364134d0e6792beb026922f1b0bcaf",
+   "kind": "onset",
+   "point": "supported",
+   "word": "so",
+   "asr_window_s": [
+    5.82,
+    5.96
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 139680,
+   "previous_word": {
+    "w": "two",
+    "window_s": [
+     4.74,
+     5.82
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 22,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 17
+   },
+   "class": "inside_word",
+   "pause_s": [
+    5.195,
+    5.715
+   ],
+   "rise_s": 5.72,
+   "body_s": 5.745,
+   "late_by_s": 0.075,
+   "body_to_start": {
+    "min_dbfs": -29.5,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:02_6:s2:02_6-download01.wav",
+   "cue": "02_6",
+   "file": "02_6-download01.wav",
+   "take_sha256": "446187d04406ea5bee5c4fb8fccd69f602364134d0e6792beb026922f1b0bcaf",
+   "kind": "onset",
+   "point": "supported",
+   "word": "lengths",
+   "asr_window_s": [
+    9.68,
+    9.8
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 232320,
+   "previous_word": {
+    "w": "i",
+    "window_s": [
+     8.179999,
+     9.68
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 22,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 24
+   },
+   "class": "inside_word",
+   "pause_s": [
+    8.855,
+    9.37
+   ],
+   "rise_s": 9.375,
+   "body_s": 9.395,
+   "late_by_s": 0.285,
+   "body_to_start": {
+    "min_dbfs": -45.8,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:02_6:s3:02_6-download01.wav",
+   "cue": "02_6",
+   "file": "02_6-download01.wav",
+   "take_sha256": "446187d04406ea5bee5c4fb8fccd69f602364134d0e6792beb026922f1b0bcaf",
+   "kind": "onset",
+   "point": "supported",
+   "word": "hold",
+   "asr_window_s": [
+    12.44,
+    12.58
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 298560,
+   "previous_word": {
+    "w": "add",
+    "window_s": [
+     11.24,
+     12.44
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 22,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 29
+   },
+   "class": "inside_word",
+   "pause_s": [
+    11.865,
+    12.32
+   ],
+   "rise_s": 12.335,
+   "body_s": 12.39,
+   "late_by_s": 0.05,
+   "body_to_start": {
+    "min_dbfs": -30.6,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:02_6:s4:02_6-download01.wav",
+   "cue": "02_6",
+   "file": "02_6-download01.wav",
+   "take_sha256": "446187d04406ea5bee5c4fb8fccd69f602364134d0e6792beb026922f1b0bcaf",
+   "kind": "onset",
+   "point": "supported",
+   "word": "every",
+   "asr_window_s": [
+    13.86,
+    13.9
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 332640,
+   "previous_word": {
+    "w": "that",
+    "window_s": [
+     12.82,
+     13.86
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 22,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 33
+   },
+   "class": "inside_word",
+   "pause_s": [
+    13.21,
+    13.6
+   ],
+   "rise_s": 13.605,
+   "body_s": 13.62,
+   "late_by_s": 0.24,
+   "body_to_start": {
+    "min_dbfs": -31.6,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:02_6:s1:02_6-download02.wav",
+   "cue": "02_6",
+   "file": "02_6-download02.wav",
+   "take_sha256": "482033b9292c36919c1747ec042a36d7b7fc9d4ba4f88f6668543136df882900",
+   "kind": "onset",
+   "point": "supported",
+   "word": "so",
+   "asr_window_s": [
+    5.76,
+    5.82
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 138240,
+   "previous_word": {
+    "w": "two",
+    "window_s": [
+     4.66,
+     5.76
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 23,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 17
+   },
+   "class": "inside_word",
+   "pause_s": [
+    5.1,
+    5.635
+   ],
+   "rise_s": 5.64,
+   "body_s": 5.67,
+   "late_by_s": 0.09,
+   "body_to_start": {
+    "min_dbfs": -35.5,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:02_6:s2:02_6-download02.wav",
+   "cue": "02_6",
+   "file": "02_6-download02.wav",
+   "take_sha256": "482033b9292c36919c1747ec042a36d7b7fc9d4ba4f88f6668543136df882900",
+   "kind": "onset",
+   "point": "supported",
+   "word": "lengths",
+   "asr_window_s": [
+    9.5,
+    9.599999
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 228000,
+   "previous_word": {
+    "w": "i",
+    "window_s": [
+     7.9,
+     9.5
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 23,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 24
+   },
+   "class": "inside_word",
+   "pause_s": [
+    8.615,
+    9.125
+   ],
+   "rise_s": 9.145,
+   "body_s": 9.155,
+   "late_by_s": 0.345,
+   "body_to_start": {
+    "min_dbfs": -39.5,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:02_6:s3:02_6-download02.wav",
+   "cue": "02_6",
+   "file": "02_6-download02.wav",
+   "take_sha256": "482033b9292c36919c1747ec042a36d7b7fc9d4ba4f88f6668543136df882900",
+   "kind": "onset",
+   "point": "supported",
+   "word": "hold",
+   "asr_window_s": [
+    12.14,
+    12.179999
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 291360,
+   "previous_word": {
+    "w": "add",
+    "window_s": [
+     10.96,
+     12.14
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 23,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 29
+   },
+   "class": "inside_word",
+   "pause_s": [
+    11.575,
+    11.94
+   ],
+   "rise_s": 11.945,
+   "body_s": 12.005,
+   "late_by_s": 0.135,
+   "body_to_start": {
+    "min_dbfs": -31.4,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:02_6:s4:02_6-download02.wav",
+   "cue": "02_6",
+   "file": "02_6-download02.wav",
+   "take_sha256": "482033b9292c36919c1747ec042a36d7b7fc9d4ba4f88f6668543136df882900",
+   "kind": "onset",
+   "point": "supported",
+   "word": "every",
+   "asr_window_s": [
+    13.5,
+    13.54
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 324000,
+   "previous_word": {
+    "w": "that",
+    "window_s": [
+     12.42,
+     13.5
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 23,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 33
+   },
+   "class": "inside_word",
+   "pause_s": [
+    12.78,
+    13.23
+   ],
+   "rise_s": 13.235,
+   "body_s": 13.245,
+   "late_by_s": 0.255,
+   "body_to_start": {
+    "min_dbfs": -23.8,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:03_1:s1:03_1-download01.wav",
+   "cue": "03_1",
+   "file": "03_1-download01.wav",
+   "take_sha256": "06870fc9947b148d41e33f3d2e8c6e3cf9de0712a767b1fbcd67d3c77711c4cb",
+   "kind": "onset",
+   "point": "supported",
+   "word": "its",
+   "asr_window_s": [
+    4.0,
+    4.06
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 96000,
+   "previous_word": {
+    "w": "point",
+    "window_s": [
+     2.98,
+     4.0
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 24,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 10
+   },
+   "class": "inside_word",
+   "pause_s": [
+    3.395,
+    3.925
+   ],
+   "rise_s": 3.925,
+   "body_s": 3.935,
+   "late_by_s": 0.065,
+   "body_to_start": {
+    "min_dbfs": -33.6,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:03_1:s1:03_1-download02.wav",
+   "cue": "03_1",
+   "file": "03_1-download02.wav",
+   "take_sha256": "6870213deb062f069d49256751dbe9fddf175ce93f96a57e191ce35202626c79",
+   "kind": "onset",
+   "point": "supported",
+   "word": "its",
+   "asr_window_s": [
+    4.0,
+    4.06
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 96000,
+   "previous_word": {
+    "w": "point",
+    "window_s": [
+     3.02,
+     4.0
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 25,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 10
+   },
+   "class": "inside_word",
+   "pause_s": [
+    3.465,
+    3.91
+   ],
+   "rise_s": 3.915,
+   "body_s": 3.935,
+   "late_by_s": 0.065,
+   "body_to_start": {
+    "min_dbfs": -42.4,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:03_2:s3:03_2-download02.wav",
+   "cue": "03_2",
+   "file": "03_2-download02.wav",
+   "take_sha256": "e71b9e2a948cca09daa96a2f7a2decbf0b10e5c6bdbf47dd071f10ff66ae7182",
+   "kind": "onset",
+   "point": "supported",
+   "word": "its",
+   "asr_window_s": [
+    12.52,
+    12.559999
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 300480,
+   "previous_word": {
+    "w": "half",
+    "window_s": [
+     11.0,
+     12.52
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 27,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 27
+   },
+   "class": "inside_word",
+   "pause_s": [
+    12.05,
+    12.405
+   ],
+   "rise_s": 12.405,
+   "body_s": 12.415,
+   "late_by_s": 0.105,
+   "body_to_start": {
+    "min_dbfs": -38.5,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:03_5:s1:03_5-download01.wav",
+   "cue": "03_5",
+   "file": "03_5-download01.wav",
+   "take_sha256": "b29aeb6c2a70f31fb308e237590c05dca169b6251b75674b7ba87e633d20f1a5",
+   "kind": "onset",
+   "point": "supported",
+   "word": "points",
+   "asr_window_s": [
+    3.1,
+    3.101
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 74400,
+   "previous_word": {
+    "w": "else",
+    "window_s": [
+     1.7,
+     3.1
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 32,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 6
+   },
+   "class": "inside_word",
+   "pause_s": [
+    2.38,
+    2.835
+   ],
+   "rise_s": 2.85,
+   "body_s": 2.855,
+   "late_by_s": 0.245,
+   "body_to_start": {
+    "min_dbfs": -33.0,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:03_5:s3:03_5-download01.wav",
+   "cue": "03_5",
+   "file": "03_5-download01.wav",
+   "take_sha256": "b29aeb6c2a70f31fb308e237590c05dca169b6251b75674b7ba87e633d20f1a5",
+   "kind": "onset",
+   "point": "supported",
+   "word": "inside",
+   "asr_window_s": [
+    14.08,
+    14.099999
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 337920,
+   "previous_word": {
+    "w": "axis",
+    "window_s": [
+     12.48,
+     14.08
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 32,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 34
+   },
+   "class": "inside_word",
+   "pause_s": [
+    13.08,
+    13.57
+   ],
+   "rise_s": 13.575,
+   "body_s": 13.59,
+   "late_by_s": 0.49,
+   "body_to_start": {
+    "min_dbfs": -32.0,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:03_5:s4:03_5-download01.wav",
+   "cue": "03_5",
+   "file": "03_5-download01.wav",
+   "take_sha256": "b29aeb6c2a70f31fb308e237590c05dca169b6251b75674b7ba87e633d20f1a5",
+   "kind": "onset",
+   "point": "supported",
+   "word": "at",
+   "asr_window_s": [
+    16.62,
+    16.68
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 398880,
+   "previous_word": {
+    "w": "places",
+    "window_s": [
+     15.32,
+     16.62
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-01-a1",
+    "record_index": 32,
+    "command_log_sha256": "b656d1cb5b6e00ba416e0fe8e7aa47fb79fc1e5b7c00058eeb8d94b02cc7b064",
+    "segment_index": 39
+   },
+   "class": "inside_word",
+   "pause_s": [
+    16.075,
+    16.545
+   ],
+   "rise_s": 16.555,
+   "body_s": 16.57,
+   "late_by_s": 0.05,
+   "body_to_start": {
+    "min_dbfs": -24.1,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:04_1:s2:04_1-download01.wav",
+   "cue": "04_1",
+   "file": "04_1-download01.wav",
+   "take_sha256": "071ddc33c4fe99955ae2e01cb006e600b0b29a236df8ec3f25e12e3a480b7483",
+   "kind": "onset",
+   "point": "supported",
+   "word": "at",
+   "asr_window_s": [
+    7.38,
+    7.42
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 177120,
+   "previous_word": {
+    "w": "plane",
+    "window_s": [
+     6.22,
+     7.38
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-02-a1",
+    "record_index": 2,
+    "command_log_sha256": "e2797254329fb5cbac715cdb45da94c5e6bdd36d08e1c5770365e6f8aebdac31",
+    "segment_index": 21
+   },
+   "class": "inside_word",
+   "pause_s": [
+    6.795,
+    7.305
+   ],
+   "rise_s": 7.31,
+   "body_s": 7.325,
+   "late_by_s": 0.055,
+   "body_to_start": {
+    "min_dbfs": -25.3,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:04_1:s3:04_1-download01.wav",
+   "cue": "04_1",
+   "file": "04_1-download01.wav",
+   "take_sha256": "071ddc33c4fe99955ae2e01cb006e600b0b29a236df8ec3f25e12e3a480b7483",
+   "kind": "onset",
+   "point": "supported",
+   "word": "pointing",
+   "asr_window_s": [
+    12.92,
+    13.0
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 310080,
+   "previous_word": {
+    "w": "direction",
+    "window_s": [
+     11.52,
+     12.92
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-02-a1",
+    "record_index": 2,
+    "command_log_sha256": "e2797254329fb5cbac715cdb45da94c5e6bdd36d08e1c5770365e6f8aebdac31",
+    "segment_index": 36
+   },
+   "class": "inside_word",
+   "pause_s": [
+    12.215,
+    12.645
+   ],
+   "rise_s": 12.65,
+   "body_s": 12.66,
+   "late_by_s": 0.26,
+   "body_to_start": {
+    "min_dbfs": -32.4,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:04_1:s2:04_1-download02.wav",
+   "cue": "04_1",
+   "file": "04_1-download02.wav",
+   "take_sha256": "b15625b7189359761178d14b934edbbf080dcf5d9f4dda9e436d94c08d093889",
+   "kind": "onset",
+   "point": "supported",
+   "word": "at",
+   "asr_window_s": [
+    7.4,
+    7.44
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 177600,
+   "previous_word": {
+    "w": "plane",
+    "window_s": [
+     6.2,
+     7.4
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-02-a1",
+    "record_index": 3,
+    "command_log_sha256": "e2797254329fb5cbac715cdb45da94c5e6bdd36d08e1c5770365e6f8aebdac31",
+    "segment_index": 21
+   },
+   "class": "inside_word",
+   "pause_s": [
+    6.77,
+    7.3
+   ],
+   "rise_s": 7.31,
+   "body_s": 7.32,
+   "late_by_s": 0.08,
+   "body_to_start": {
+    "min_dbfs": -35.7,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:04_1:s3:04_1-download02.wav",
+   "cue": "04_1",
+   "file": "04_1-download02.wav",
+   "take_sha256": "b15625b7189359761178d14b934edbbf080dcf5d9f4dda9e436d94c08d093889",
+   "kind": "onset",
+   "point": "supported",
+   "word": "pointing",
+   "asr_window_s": [
+    12.92,
+    12.98
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 310080,
+   "previous_word": {
+    "w": "direction",
+    "window_s": [
+     11.5,
+     12.92
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-02-a1",
+    "record_index": 3,
+    "command_log_sha256": "e2797254329fb5cbac715cdb45da94c5e6bdd36d08e1c5770365e6f8aebdac31",
+    "segment_index": 36
+   },
+   "class": "inside_word",
+   "pause_s": [
+    12.175,
+    12.64
+   ],
+   "rise_s": 12.645,
+   "body_s": 12.65,
+   "late_by_s": 0.27,
+   "body_to_start": {
+    "min_dbfs": -33.8,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:04_1:s5:04_1-download02.wav",
+   "cue": "04_1",
+   "file": "04_1-download02.wav",
+   "take_sha256": "b15625b7189359761178d14b934edbbf080dcf5d9f4dda9e436d94c08d093889",
+   "kind": "onset",
+   "point": "supported",
+   "word": "pointing",
+   "asr_window_s": [
+    16.92,
+    17.16
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 406080,
+   "previous_word": {
+    "w": "green",
+    "window_s": [
+     15.58,
+     16.92
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-02-a1",
+    "record_index": 3,
+    "command_log_sha256": "e2797254329fb5cbac715cdb45da94c5e6bdd36d08e1c5770365e6f8aebdac31",
+    "segment_index": 44
+   },
+   "class": "inside_word",
+   "pause_s": [
+    16.5,
+    16.87
+   ],
+   "rise_s": 16.88,
+   "body_s": 16.885,
+   "late_by_s": 0.035,
+   "body_to_start": {
+    "min_dbfs": -29.6,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:04_3:s1:04_3-download02.wav",
+   "cue": "04_3",
+   "file": "04_3-download02.wav",
+   "take_sha256": "1724c820dd1dc3c7410fd960a2da310105e7a51dada3e8aa031c92234f9b494c",
+   "kind": "onset",
+   "point": "supported",
+   "word": "every",
+   "asr_window_s": [
+    1.82,
+    1.86
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 43680,
+   "previous_word": {
+    "w": "square",
+    "window_s": [
+     0.3,
+     1.82
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-03-a1",
+    "record_index": 1,
+    "command_log_sha256": "b79ce5ecc10e2e7c00a38dda0979a37dcadace78dd98ee463258ce1f94754606",
+    "segment_index": 2
+   },
+   "class": "inside_word",
+   "pause_s": [
+    1.095,
+    1.575
+   ],
+   "rise_s": 1.585,
+   "body_s": 1.595,
+   "late_by_s": 0.225,
+   "body_to_start": {
+    "min_dbfs": -32.3,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:04_4:s2:04_4-download01.wav",
+   "cue": "04_4",
+   "file": "04_4-download01.wav",
+   "take_sha256": "ba60d90ec0d712fc39ac8e5e30100c19fa42e72abe32fe1a4cc8ab46f5be0761",
+   "kind": "onset",
+   "point": "supported",
+   "word": "that",
+   "asr_window_s": [
+    10.78,
+    10.82
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 258720,
+   "previous_word": {
+    "w": "on",
+    "window_s": [
+     9.8,
+     10.78
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-03-a1",
+    "record_index": 2,
+    "command_log_sha256": "b79ce5ecc10e2e7c00a38dda0979a37dcadace78dd98ee463258ce1f94754606",
+    "segment_index": 30
+   },
+   "class": "inside_word",
+   "pause_s": [
+    10.135,
+    10.57
+   ],
+   "rise_s": 10.58,
+   "body_s": 10.595,
+   "late_by_s": 0.185,
+   "body_to_start": {
+    "min_dbfs": -32.8,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:04_4:s2:04_4-download02.wav",
+   "cue": "04_4",
+   "file": "04_4-download02.wav",
+   "take_sha256": "d11dfc4f1c93f64ba6ac3a0498a431cd2d39aac3c0e16f75d16cc63ef3bf7c5e",
+   "kind": "onset",
+   "point": "supported",
+   "word": "that",
+   "asr_window_s": [
+    10.78,
+    10.82
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 258720,
+   "previous_word": {
+    "w": "on",
+    "window_s": [
+     9.639999,
+     10.78
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-03-a1",
+    "record_index": 3,
+    "command_log_sha256": "b79ce5ecc10e2e7c00a38dda0979a37dcadace78dd98ee463258ce1f94754606",
+    "segment_index": 30
+   },
+   "class": "inside_word",
+   "pause_s": [
+    9.975,
+    10.495
+   ],
+   "rise_s": 10.5,
+   "body_s": 10.53,
+   "late_by_s": 0.25,
+   "body_to_start": {
+    "min_dbfs": -34.2,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:04_7:s2:04_7-download01.wav",
+   "cue": "04_7",
+   "file": "04_7-download01.wav",
+   "take_sha256": "e085951ca8c5b37ddd4517c39cfb4d6456d46b05ddb08f9198bd98556b71f47f",
+   "kind": "onset",
+   "point": "supported",
+   "word": "that",
+   "asr_window_s": [
+    9.84,
+    9.92
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 236160,
+   "previous_word": {
+    "w": "them",
+    "window_s": [
+     8.74,
+     9.84
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-04-a1",
+    "record_index": 0,
+    "command_log_sha256": "d779c7d6d6262b94ad118ae1ac704130f0b78e13fa7bb4054e1bd17cff478e01",
+    "segment_index": 22
+   },
+   "class": "inside_word",
+   "pause_s": [
+    9.125,
+    9.555
+   ],
+   "rise_s": 9.555,
+   "body_s": 9.585,
+   "late_by_s": 0.255,
+   "body_to_start": {
+    "min_dbfs": -33.6,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:05_4:s3:05_4-download01.wav",
+   "cue": "05_4",
+   "file": "05_4-download01.wav",
+   "take_sha256": "3f9d95d3feba6848a31f3550663ea3513129a434f8ce385210dde8707c969e8b",
+   "kind": "onset",
+   "point": "candidate",
+   "word": "sine",
+   "asr_window_s": [
+    10.86,
+    10.92
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 260640,
+   "previous_word": {
+    "w": "fast",
+    "window_s": [
+     9.46,
+     10.86
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-04-a1",
+    "record_index": 6,
+    "command_log_sha256": "d779c7d6d6262b94ad118ae1ac704130f0b78e13fa7bb4054e1bd17cff478e01",
+    "segment_index": 30
+   },
+   "class": "inside_word",
+   "pause_s": [
+    10.29,
+    10.615
+   ],
+   "rise_s": 10.62,
+   "body_s": 10.655,
+   "late_by_s": 0.205,
+   "body_to_start": {
+    "min_dbfs": -27.4,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:05_7:s1:05_7-download01.wav",
+   "cue": "05_7",
+   "file": "05_7-download01.wav",
+   "take_sha256": "817f044e021da9ada719026d615e25fe2c1a42489a72f57c562797e7376d3651",
+   "kind": "onset",
+   "point": "supported",
+   "word": "that",
+   "asr_window_s": [
+    7.52,
+    7.58
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 180480,
+   "previous_word": {
+    "w": "on",
+    "window_s": [
+     6.52,
+     7.52
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-06-a1",
+    "record_index": 0,
+    "command_log_sha256": "8d91a334d62a12bc3214785c732245da19a3b0508c959db4bafc27d8f08d62fa",
+    "segment_index": 19
+   },
+   "class": "inside_word",
+   "pause_s": [
+    6.89,
+    7.425
+   ],
+   "rise_s": 7.43,
+   "body_s": 7.46,
+   "late_by_s": 0.06,
+   "body_to_start": {
+    "min_dbfs": -20.8,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:05_7:s1:05_7-download02.wav",
+   "cue": "05_7",
+   "file": "05_7-download02.wav",
+   "take_sha256": "8b2247e4b02b73656d597784694b7a7768bdd746bdbceeb28193eabf506209e6",
+   "kind": "onset",
+   "point": "supported",
+   "word": "that",
+   "asr_window_s": [
+    7.38,
+    7.42
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 177120,
+   "previous_word": {
+    "w": "on",
+    "window_s": [
+     6.4,
+     7.38
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-06-a1",
+    "record_index": 1,
+    "command_log_sha256": "8d91a334d62a12bc3214785c732245da19a3b0508c959db4bafc27d8f08d62fa",
+    "segment_index": 19
+   },
+   "class": "inside_word",
+   "pause_s": [
+    6.77,
+    7.26
+   ],
+   "rise_s": 7.26,
+   "body_s": 7.285,
+   "late_by_s": 0.095,
+   "body_to_start": {
+    "min_dbfs": -31.8,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:06_1:s1:06_1-download01.wav",
+   "cue": "06_1",
+   "file": "06_1-download01.wav",
+   "take_sha256": "56d1a31ff4dec6681cbef5786f811e178bf12310d3916d7eae83943f292851d5",
+   "kind": "onset",
+   "point": "supported",
+   "word": "do",
+   "asr_window_s": [
+    6.16,
+    6.2
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 147840,
+   "previous_word": {
+    "w": "in",
+    "window_s": [
+     4.92,
+     6.16
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-06-a1",
+    "record_index": 2,
+    "command_log_sha256": "8d91a334d62a12bc3214785c732245da19a3b0508c959db4bafc27d8f08d62fa",
+    "segment_index": 16
+   },
+   "class": "inside_word",
+   "pause_s": [
+    5.515,
+    6.105
+   ],
+   "rise_s": 6.115,
+   "body_s": 6.125,
+   "late_by_s": 0.035,
+   "body_to_start": {
+    "min_dbfs": -22.3,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:06_1:s2:06_1-download01.wav",
+   "cue": "06_1",
+   "file": "06_1-download01.wav",
+   "take_sha256": "56d1a31ff4dec6681cbef5786f811e178bf12310d3916d7eae83943f292851d5",
+   "kind": "onset",
+   "point": "supported",
+   "word": "step",
+   "asr_window_s": [
+    8.6,
+    8.601
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 206400,
+   "previous_word": {
+    "w": "function",
+    "window_s": [
+     7.28,
+     8.6
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-06-a1",
+    "record_index": 2,
+    "command_log_sha256": "8d91a334d62a12bc3214785c732245da19a3b0508c959db4bafc27d8f08d62fa",
+    "segment_index": 23
+   },
+   "class": "inside_word",
+   "pause_s": [
+    8.015,
+    8.31
+   ],
+   "rise_s": 8.315,
+   "body_s": 8.35,
+   "late_by_s": 0.25,
+   "body_to_start": {
+    "min_dbfs": -58.7,
+    "longest_below_-50dbfs_s": 0.01
+   }
+  },
+  {
+   "id": "onset:06_1:s3:06_1-download01.wav",
+   "cue": "06_1",
+   "file": "06_1-download01.wav",
+   "take_sha256": "56d1a31ff4dec6681cbef5786f811e178bf12310d3916d7eae83943f292851d5",
+   "kind": "onset",
+   "point": "supported",
+   "word": "as",
+   "asr_window_s": [
+    14.76,
+    14.82
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 354240,
+   "previous_word": {
+    "w": "h",
+    "window_s": [
+     13.54,
+     14.76
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-06-a1",
+    "record_index": 2,
+    "command_log_sha256": "8d91a334d62a12bc3214785c732245da19a3b0508c959db4bafc27d8f08d62fa",
+    "segment_index": 41
+   },
+   "class": "inside_word",
+   "pause_s": [
+    14.17,
+    14.64
+   ],
+   "rise_s": 14.645,
+   "body_s": 14.655,
+   "late_by_s": 0.105,
+   "body_to_start": {
+    "min_dbfs": -26.2,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:06_1:s1:06_1-download02.wav",
+   "cue": "06_1",
+   "file": "06_1-download02.wav",
+   "take_sha256": "a1eaccdf9239dcf82b5a62690392472f9c52f1cc7cc67c3e4af780c45b8c4161",
+   "kind": "onset",
+   "point": "supported",
+   "word": "do",
+   "asr_window_s": [
+    6.12,
+    6.16
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 146880,
+   "previous_word": {
+    "w": "in",
+    "window_s": [
+     4.94,
+     6.12
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-06-a1",
+    "record_index": 3,
+    "command_log_sha256": "8d91a334d62a12bc3214785c732245da19a3b0508c959db4bafc27d8f08d62fa",
+    "segment_index": 16
+   },
+   "class": "inside_word",
+   "pause_s": [
+    5.5,
+    6.065
+   ],
+   "rise_s": 6.07,
+   "body_s": 6.085,
+   "late_by_s": 0.035,
+   "body_to_start": {
+    "min_dbfs": -22.9,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:06_1:s2:06_1-download02.wav",
+   "cue": "06_1",
+   "file": "06_1-download02.wav",
+   "take_sha256": "a1eaccdf9239dcf82b5a62690392472f9c52f1cc7cc67c3e4af780c45b8c4161",
+   "kind": "onset",
+   "point": "supported",
+   "word": "step",
+   "asr_window_s": [
+    8.68,
+    8.7
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 208320,
+   "previous_word": {
+    "w": "function",
+    "window_s": [
+     7.32,
+     8.68
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-06-a1",
+    "record_index": 3,
+    "command_log_sha256": "8d91a334d62a12bc3214785c732245da19a3b0508c959db4bafc27d8f08d62fa",
+    "segment_index": 23
+   },
+   "class": "inside_word",
+   "pause_s": [
+    8.01,
+    8.395
+   ],
+   "rise_s": 8.4,
+   "body_s": 8.435,
+   "late_by_s": 0.245,
+   "body_to_start": {
+    "min_dbfs": -55.6,
+    "longest_below_-50dbfs_s": 0.005
+   }
+  },
+  {
+   "id": "onset:06_1:s3:06_1-download02.wav",
+   "cue": "06_1",
+   "file": "06_1-download02.wav",
+   "take_sha256": "a1eaccdf9239dcf82b5a62690392472f9c52f1cc7cc67c3e4af780c45b8c4161",
+   "kind": "onset",
+   "point": "supported",
+   "word": "as",
+   "asr_window_s": [
+    14.74,
+    14.799999
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 353760,
+   "previous_word": {
+    "w": "h",
+    "window_s": [
+     13.58,
+     14.74
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-06-a1",
+    "record_index": 3,
+    "command_log_sha256": "8d91a334d62a12bc3214785c732245da19a3b0508c959db4bafc27d8f08d62fa",
+    "segment_index": 41
+   },
+   "class": "inside_word",
+   "pause_s": [
+    14.155,
+    14.625
+   ],
+   "rise_s": 14.625,
+   "body_s": 14.64,
+   "late_by_s": 0.1,
+   "body_to_start": {
+    "min_dbfs": -31.2,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:06_2:s3:06_2-download01.wav",
+   "cue": "06_2",
+   "file": "06_2-download01.wav",
+   "take_sha256": "64fbcdb94c2f15f2a9552454460a34e0c67482362e36f6b018304b9dc5b506a8",
+   "kind": "onset",
+   "point": "supported",
+   "word": "that",
+   "asr_window_s": [
+    12.18,
+    12.24
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 292320,
+   "previous_word": {
+    "w": "answer",
+    "window_s": [
+     10.96,
+     12.18
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-06-a1",
+    "record_index": 4,
+    "command_log_sha256": "8d91a334d62a12bc3214785c732245da19a3b0508c959db4bafc27d8f08d62fa",
+    "segment_index": 31
+   },
+   "class": "inside_word",
+   "pause_s": [
+    11.625,
+    12.03
+   ],
+   "rise_s": 12.03,
+   "body_s": 12.08,
+   "late_by_s": 0.1,
+   "body_to_start": {
+    "min_dbfs": -36.1,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:06_2:s3:06_2-download02.wav",
+   "cue": "06_2",
+   "file": "06_2-download02.wav",
+   "take_sha256": "981a8a49d47134fea733a29028c752fbd884ceead7e6b70ae7ab3c01b18045f5",
+   "kind": "onset",
+   "point": "supported",
+   "word": "that",
+   "asr_window_s": [
+    12.36,
+    12.42
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 296640,
+   "previous_word": {
+    "w": "answer",
+    "window_s": [
+     11.099999,
+     12.36
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-06-a1",
+    "record_index": 5,
+    "command_log_sha256": "8d91a334d62a12bc3214785c732245da19a3b0508c959db4bafc27d8f08d62fa",
+    "segment_index": 31
+   },
+   "class": "inside_word",
+   "pause_s": [
+    11.81,
+    12.245
+   ],
+   "rise_s": 12.255,
+   "body_s": 12.285,
+   "late_by_s": 0.075,
+   "body_to_start": {
+    "min_dbfs": -28.2,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:06_4:s1:06_4-download01.wav",
+   "cue": "06_4",
+   "file": "06_4-download01.wav",
+   "take_sha256": "d73e94b9559fcc5ce218958cc19bdd759fceb45bd0b5153d0a9f0f308a74708f",
+   "kind": "onset",
+   "point": "supported",
+   "word": "it",
+   "asr_window_s": [
+    6.64,
+    6.68
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 159360,
+   "previous_word": {
+    "w": "i",
+    "window_s": [
+     4.64,
+     6.64
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-07-a1",
+    "record_index": 0,
+    "command_log_sha256": "31bf2d8a312d24d8295ea565c6c8b76fce99eeed1ede0332db7b758c13409bb2",
+    "segment_index": 11
+   },
+   "class": "inside_word",
+   "pause_s": [
+    6.135,
+    6.58
+   ],
+   "rise_s": 6.58,
+   "body_s": 6.59,
+   "late_by_s": 0.05,
+   "body_to_start": {
+    "min_dbfs": -31.3,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:06_4:s1:06_4-download02.wav",
+   "cue": "06_4",
+   "file": "06_4-download02.wav",
+   "take_sha256": "1a85a5f3db4cff9dc74ac8031593736b72ebad8fa4d88308865a8b419e1cdca3",
+   "kind": "onset",
+   "point": "supported",
+   "word": "it",
+   "asr_window_s": [
+    6.9,
+    6.94
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 165600,
+   "previous_word": {
+    "w": "i",
+    "window_s": [
+     5.62,
+     6.9
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-07-a1",
+    "record_index": 1,
+    "command_log_sha256": "31bf2d8a312d24d8295ea565c6c8b76fce99eeed1ede0332db7b758c13409bb2",
+    "segment_index": 13
+   },
+   "class": "inside_word",
+   "pause_s": [
+    6.395,
+    6.825
+   ],
+   "rise_s": 6.825,
+   "body_s": 6.85,
+   "late_by_s": 0.05,
+   "body_to_start": {
+    "min_dbfs": -35.6,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:06_5:s1:06_5-download01.wav",
+   "cue": "06_5",
+   "file": "06_5-download01.wav",
+   "take_sha256": "4e7d9a81dc3e91e02755879d9424bcad26eb8cc2596a4c9383de4d638b890bf5",
+   "kind": "onset",
+   "point": "supported",
+   "word": "call",
+   "asr_window_s": [
+    2.58,
+    2.6
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 61920,
+   "previous_word": {
+    "w": "coordinates",
+    "window_s": [
+     1.08,
+     2.58
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-08-a1",
+    "record_index": 0,
+    "command_log_sha256": "be3c236d52b9b6139a69149c52a5d9036cd5a3be05ef5396ecbc9428a2b7506d",
+    "segment_index": 6
+   },
+   "class": "inside_word",
+   "pause_s": [
+    1.995,
+    2.425
+   ],
+   "rise_s": 2.435,
+   "body_s": 2.44,
+   "late_by_s": 0.14,
+   "body_to_start": {
+    "min_dbfs": -30.2,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:06_5:s1:06_5-download02.wav",
+   "cue": "06_5",
+   "file": "06_5-download02.wav",
+   "take_sha256": "dff12fa59dec4f87d500a04a31a662ed7d102273c2bead3360622f153fbe8964",
+   "kind": "onset",
+   "point": "supported",
+   "word": "call",
+   "asr_window_s": [
+    2.46,
+    2.5
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 59040,
+   "previous_word": {
+    "w": "coordinates",
+    "window_s": [
+     1.08,
+     2.46
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-08-a1",
+    "record_index": 1,
+    "command_log_sha256": "be3c236d52b9b6139a69149c52a5d9036cd5a3be05ef5396ecbc9428a2b7506d",
+    "segment_index": 6
+   },
+   "class": "inside_word",
+   "pause_s": [
+    1.975,
+    2.325
+   ],
+   "rise_s": 2.325,
+   "body_s": 2.335,
+   "late_by_s": 0.125,
+   "body_to_start": {
+    "min_dbfs": -30.4,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:06_6:s2:06_6-download02.wav",
+   "cue": "06_6",
+   "file": "06_6-download02.wav",
+   "take_sha256": "f1edf94baeaef843685cf3965a73d8f0207d235980f5cee39ea3bd7365ce7cf9",
+   "kind": "onset",
+   "point": "supported",
+   "word": "the",
+   "asr_window_s": [
+    6.5,
+    6.52
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 156000,
+   "previous_word": {
+    "w": "y",
+    "window_s": [
+     5.26,
+     6.5
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-08-a1",
+    "record_index": 3,
+    "command_log_sha256": "be3c236d52b9b6139a69149c52a5d9036cd5a3be05ef5396ecbc9428a2b7506d",
+    "segment_index": 17
+   },
+   "class": "inside_word",
+   "pause_s": [
+    5.905,
+    6.435
+   ],
+   "rise_s": 6.44,
+   "body_s": 6.46,
+   "late_by_s": 0.04,
+   "body_to_start": {
+    "min_dbfs": -29.4,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:06_6:s3:06_6-download02.wav",
+   "cue": "06_6",
+   "file": "06_6-download02.wav",
+   "take_sha256": "f1edf94baeaef843685cf3965a73d8f0207d235980f5cee39ea3bd7365ce7cf9",
+   "kind": "onset",
+   "point": "supported",
+   "word": "these",
+   "asr_window_s": [
+    11.12,
+    11.139999
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 266880,
+   "previous_word": {
+    "w": "y",
+    "window_s": [
+     9.7,
+     11.12
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-08-a1",
+    "record_index": 3,
+    "command_log_sha256": "be3c236d52b9b6139a69149c52a5d9036cd5a3be05ef5396ecbc9428a2b7506d",
+    "segment_index": 31
+   },
+   "class": "inside_word",
+   "pause_s": [
+    10.3,
+    10.815
+   ],
+   "rise_s": 10.82,
+   "body_s": 10.855,
+   "late_by_s": 0.265,
+   "body_to_start": {
+    "min_dbfs": -30.6,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:06_7:s2:06_7-download01.wav",
+   "cue": "06_7",
+   "file": "06_7-download01.wav",
+   "take_sha256": "c1cbe41c4a246cce05285d2b03935bf10906d1c13af48425db39d0f84f051466",
+   "kind": "onset",
+   "point": "supported",
+   "word": "that",
+   "asr_window_s": [
+    13.56,
+    13.62
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 325440,
+   "previous_word": {
+    "w": "two",
+    "window_s": [
+     12.34,
+     13.56
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-08-a1",
+    "record_index": 4,
+    "command_log_sha256": "be3c236d52b9b6139a69149c52a5d9036cd5a3be05ef5396ecbc9428a2b7506d",
+    "segment_index": 35
+   },
+   "class": "inside_word",
+   "pause_s": [
+    12.875,
+    13.385
+   ],
+   "rise_s": 13.385,
+   "body_s": 13.42,
+   "late_by_s": 0.14,
+   "body_to_start": {
+    "min_dbfs": -33.7,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:07_3:s1:07_3-download01.wav",
+   "cue": "07_3",
+   "file": "07_3-download01.wav",
+   "take_sha256": "a6066f8654369d672a7f833d6ec0a22d878b76d520fbd36dd72a6b5469e42a02",
+   "kind": "onset",
+   "point": "supported",
+   "word": "take",
+   "asr_window_s": [
+    2.04,
+    2.1
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 48960,
+   "previous_word": {
+    "w": "question",
+    "window_s": [
+     0.62,
+     2.04
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-09-a1",
+    "record_index": 0,
+    "command_log_sha256": "efc535cfacdc5d3cbc6e4fdb1c26440b781565b8ba984b874c31fa657a5ff72f",
+    "segment_index": 3
+   },
+   "class": "inside_word",
+   "pause_s": [
+    1.405,
+    1.925
+   ],
+   "rise_s": 1.925,
+   "body_s": 1.945,
+   "late_by_s": 0.095,
+   "body_to_start": {
+    "min_dbfs": -25.9,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:07_3:s2:07_3-download01.wav",
+   "cue": "07_3",
+   "file": "07_3-download01.wav",
+   "take_sha256": "a6066f8654369d672a7f833d6ec0a22d878b76d520fbd36dd72a6b5469e42a02",
+   "kind": "onset",
+   "point": "supported",
+   "word": "at",
+   "asr_window_s": [
+    5.86,
+    5.94
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 140640,
+   "previous_word": {
+    "w": "length",
+    "window_s": [
+     4.7,
+     5.86
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-09-a1",
+    "record_index": 0,
+    "command_log_sha256": "efc535cfacdc5d3cbc6e4fdb1c26440b781565b8ba984b874c31fa657a5ff72f",
+    "segment_index": 15
+   },
+   "class": "inside_word",
+   "pause_s": [
+    5.285,
+    5.78
+   ],
+   "rise_s": 5.78,
+   "body_s": 5.79,
+   "late_by_s": 0.07,
+   "body_to_start": {
+    "min_dbfs": -28.7,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:07_4:s2:07_4-download01.wav",
+   "cue": "07_4",
+   "file": "07_4-download01.wav",
+   "take_sha256": "355a56b6ffadb4286bab2247c7ad950581faba79bc294584cd3b8873154909d0",
+   "kind": "onset",
+   "point": "supported",
+   "word": "its",
+   "asr_window_s": [
+    5.76,
+    5.86
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 138240,
+   "previous_word": {
+    "w": "h",
+    "window_s": [
+     4.64,
+     5.76
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-09-a1",
+    "record_index": 2,
+    "command_log_sha256": "efc535cfacdc5d3cbc6e4fdb1c26440b781565b8ba984b874c31fa657a5ff72f",
+    "segment_index": 15
+   },
+   "class": "inside_word",
+   "pause_s": [
+    5.195,
+    5.685
+   ],
+   "rise_s": 5.695,
+   "body_s": 5.705,
+   "late_by_s": 0.055,
+   "body_to_start": {
+    "min_dbfs": -30.6,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:07_4:s3:07_4-download01.wav",
+   "cue": "07_4",
+   "file": "07_4-download01.wav",
+   "take_sha256": "355a56b6ffadb4286bab2247c7ad950581faba79bc294584cd3b8873154909d0",
+   "kind": "onset",
+   "point": "supported",
+   "word": "so",
+   "asr_window_s": [
+    10.68,
+    10.74
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 256320,
+   "previous_word": {
+    "w": "direction",
+    "window_s": [
+     9.38,
+     10.68
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-09-a1",
+    "record_index": 2,
+    "command_log_sha256": "efc535cfacdc5d3cbc6e4fdb1c26440b781565b8ba984b874c31fa657a5ff72f",
+    "segment_index": 29
+   },
+   "class": "inside_word",
+   "pause_s": [
+    10.075,
+    10.57
+   ],
+   "rise_s": 10.575,
+   "body_s": 10.605,
+   "late_by_s": 0.075,
+   "body_to_start": {
+    "min_dbfs": -29.5,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:07_5:s3:07_5-download01.wav",
+   "cue": "07_5",
+   "file": "07_5-download01.wav",
+   "take_sha256": "c36200dd7b7b81b8aba077b5bbc5e37142046aa60329a7cbbf5a59b35cf76d89",
+   "kind": "onset",
+   "point": "supported",
+   "word": "this",
+   "asr_window_s": [
+    7.54,
+    7.6
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 180960,
+   "previous_word": {
+    "w": "zero",
+    "window_s": [
+     6.28,
+     7.54
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-09-a1",
+    "record_index": 4,
+    "command_log_sha256": "efc535cfacdc5d3cbc6e4fdb1c26440b781565b8ba984b874c31fa657a5ff72f",
+    "segment_index": 20
+   },
+   "class": "inside_word",
+   "pause_s": [
+    6.89,
+    7.43
+   ],
+   "rise_s": 7.43,
+   "body_s": 7.455,
+   "late_by_s": 0.085,
+   "body_to_start": {
+    "min_dbfs": -31.3,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:07_6:s3:07_6-download01.wav",
+   "cue": "07_6",
+   "file": "07_6-download01.wav",
+   "take_sha256": "efe2f1ca2c0caea406b9c56d8cfa62eeea937664889817a0276fba83bb299ecd",
+   "kind": "onset",
+   "point": "supported",
+   "word": "from",
+   "asr_window_s": [
+    15.26,
+    15.32
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 366240,
+   "previous_word": {
+    "w": "region",
+    "window_s": [
+     14.2,
+     15.26
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-09-a1",
+    "record_index": 6,
+    "command_log_sha256": "efc535cfacdc5d3cbc6e4fdb1c26440b781565b8ba984b874c31fa657a5ff72f",
+    "segment_index": 43
+   },
+   "class": "inside_word",
+   "pause_s": [
+    14.73,
+    15.155
+   ],
+   "rise_s": 15.155,
+   "body_s": 15.22,
+   "late_by_s": 0.04,
+   "body_to_start": {
+    "min_dbfs": -24.9,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  },
+  {
+   "id": "onset:07_6:s3:07_6-download02.wav",
+   "cue": "07_6",
+   "file": "07_6-download02.wav",
+   "take_sha256": "ed18a19a81ea4bc7f798b8a7bb22cf15e4f3b89472ae7b77aa97cb0c729fc55a",
+   "kind": "onset",
+   "point": "supported",
+   "word": "from",
+   "asr_window_s": [
+    14.94,
+    14.98
+   ],
+   "abuts_previous_word": true,
+   "sample_24k_now": 358560,
+   "previous_word": {
+    "w": "region",
+    "window_s": [
+     13.82,
+     14.94
+    ]
+   },
+   "recognition": {
+    "job": "complex-frederick-stage05-recognition01-plan-09-a1",
+    "record_index": 7,
+    "command_log_sha256": "efc535cfacdc5d3cbc6e4fdb1c26440b781565b8ba984b874c31fa657a5ff72f",
+    "segment_index": 43
+   },
+   "class": "inside_word",
+   "pause_s": [
+    14.345,
+    14.805
+   ],
+   "rise_s": 14.815,
+   "body_s": 14.89,
+   "late_by_s": 0.05,
+   "body_to_start": {
+    "min_dbfs": -22.8,
+    "longest_below_-50dbfs_s": 0.0
+   }
+  }
+ ],
+ "other_points": [
+  {
+   "id": "onset:01_1:s1:01_1-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    2.92,
+    3.16
+   ],
+   "pause_s": [
+    2.53,
+    2.865
+   ],
+   "body_s": 2.905
+  },
+  {
+   "id": "onset:01_1:s2:01_1-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    5.28,
+    5.76
+   ],
+   "pause_s": [
+    5.13,
+    5.635
+   ],
+   "body_s": 5.67,
+   "early_by_s": 0.36
+  },
+  {
+   "id": "onset:01_1:s3:01_1-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    10.179999,
+    10.679999
+   ],
+   "pause_s": [
+    10.12,
+    10.59
+   ],
+   "body_s": 10.62,
+   "early_by_s": 0.41
+  },
+  {
+   "id": "onset:01_1:s4:01_1-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    14.38,
+    14.88
+   ],
+   "pause_s": [
+    14.305,
+    14.775
+   ],
+   "body_s": 14.795,
+   "early_by_s": 0.4
+  },
+  {
+   "id": "onset:01_1:s1:01_1-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    2.72,
+    2.98
+   ],
+   "pause_s": [
+    2.335,
+    2.69
+   ],
+   "body_s": 2.72
+  },
+  {
+   "id": "onset:01_1:s2:01_1-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    5.1,
+    5.58
+   ],
+   "pause_s": [
+    4.945,
+    5.465
+   ],
+   "body_s": 5.49,
+   "early_by_s": 0.37
+  },
+  {
+   "id": "onset:01_1:s3:01_1-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.92,
+    10.42
+   ],
+   "pause_s": [
+    9.89,
+    10.325
+   ],
+   "body_s": 10.35,
+   "early_by_s": 0.41
+  },
+  {
+   "id": "onset:01_2:s2:01_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.04,
+    9.54
+   ],
+   "pause_s": [
+    8.88,
+    9.315
+   ],
+   "body_s": 9.33,
+   "early_by_s": 0.28
+  },
+  {
+   "id": "anchor:01_2:b65:01_2-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    5.16,
+    5.5
+   ]
+  },
+  {
+   "id": "anchor:01_2:b87:01_2-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    6.66,
+    7.02
+   ]
+  },
+  {
+   "id": "onset:01_2:s2:01_2-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.54,
+    9.78
+   ],
+   "pause_s": [
+    9.09,
+    9.555
+   ],
+   "body_s": 9.565,
+   "early_by_s": 0.02
+  },
+  {
+   "id": "anchor:01_2:b65:01_2-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    5.32,
+    5.68
+   ]
+  },
+  {
+   "id": "anchor:01_2:b87:01_2-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    6.84,
+    7.16
+   ]
+  },
+  {
+   "id": "onset:01_3:s1:01_3-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.16,
+    6.48
+   ],
+   "pause_s": [
+    5.72,
+    6.245
+   ],
+   "body_s": 6.28,
+   "early_by_s": 0.1
+  },
+  {
+   "id": "onset:01_3:s2:01_3-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    8.96,
+    9.179999
+   ],
+   "pause_s": [
+    8.57,
+    9.05
+   ],
+   "body_s": 9.075,
+   "early_by_s": 0.1
+  },
+  {
+   "id": "onset:01_3:s3:01_3-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    14.48,
+    14.679999
+   ],
+   "pause_s": [
+    14.095,
+    14.585
+   ],
+   "body_s": 14.605,
+   "early_by_s": 0.105
+  },
+  {
+   "id": "onset:01_3:s1:01_3-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.1,
+    6.56
+   ],
+   "pause_s": [
+    5.795,
+    6.345
+   ],
+   "body_s": 6.375,
+   "early_by_s": 0.26
+  },
+  {
+   "id": "onset:01_3:s2:01_3-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.0,
+    9.16
+   ],
+   "pause_s": [
+    8.55,
+    9.04
+   ],
+   "body_s": 9.055,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:01_3:s3:01_3-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    14.12,
+    14.62
+   ],
+   "pause_s": [
+    14.075,
+    14.545
+   ],
+   "body_s": 14.57,
+   "early_by_s": 0.43
+  },
+  {
+   "id": "onset:01_4:s1:01_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    2.76,
+    2.88
+   ],
+   "pause_s": [
+    2.415,
+    2.805
+   ],
+   "body_s": 2.82,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:01_4:s2:01_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    5.44,
+    5.6
+   ],
+   "pause_s": [
+    5.04,
+    5.475
+   ],
+   "body_s": 5.51,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:01_4:s1:01_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    2.76,
+    2.88
+   ],
+   "pause_s": [
+    2.435,
+    2.805
+   ],
+   "body_s": 2.815,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:01_4:s2:01_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    5.5,
+    5.66
+   ],
+   "pause_s": [
+    5.04,
+    5.525
+   ],
+   "body_s": 5.56,
+   "early_by_s": 0.035
+  },
+  {
+   "id": "onset:01_5:s1:01_5-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    2.96,
+    3.22
+   ],
+   "pause_s": [
+    2.535,
+    3.015
+   ],
+   "body_s": 3.02,
+   "early_by_s": 0.055
+  },
+  {
+   "id": "onset:01_5:s2:01_5-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    8.1,
+    8.179999
+   ],
+   "pause_s": [
+    7.67,
+    8.09
+   ],
+   "body_s": 8.11
+  },
+  {
+   "id": "onset:01_5:s3:01_5-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    13.16,
+    13.28
+   ],
+   "pause_s": [
+    12.72,
+    13.205
+   ],
+   "body_s": 13.22,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:01_5:s1:01_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    2.9,
+    3.16
+   ],
+   "pause_s": [
+    2.44,
+    2.96
+   ],
+   "body_s": 2.975,
+   "early_by_s": 0.065
+  },
+  {
+   "id": "onset:01_5:s2:01_5-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    8.2,
+    8.28
+   ],
+   "pause_s": [
+    7.66,
+    8.175
+   ],
+   "body_s": 8.205
+  },
+  {
+   "id": "onset:01_5:s3:01_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    13.24,
+    13.38
+   ],
+   "pause_s": [
+    12.695,
+    13.285
+   ],
+   "body_s": 13.305,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:01_6:s2:01_6-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    7.24,
+    7.3
+   ],
+   "pause_s": [
+    6.78,
+    7.2
+   ],
+   "body_s": 7.215
+  },
+  {
+   "id": "onset:01_6:s3:01_6-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    14.12,
+    14.759999
+   ],
+   "pause_s": [
+    13.73,
+    14.15
+   ],
+   "body_s": 14.27,
+   "early_by_s": 0.04
+  },
+  {
+   "id": "onset:01_6:s3:01_6-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    14.24,
+    15.08
+   ],
+   "pause_s": [
+    13.87,
+    14.425
+   ],
+   "body_s": 14.515,
+   "early_by_s": 0.19
+  },
+  {
+   "id": "onset:02_1:s2:02_1-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    7.94,
+    8.0
+   ],
+   "pause_s": [
+    7.475,
+    7.91
+   ],
+   "body_s": 7.925
+  },
+  {
+   "id": "anchor:02_1:b60:02_1-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    4.06,
+    4.3
+   ]
+  },
+  {
+   "id": "anchor:02_1:b91:02_1-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    6.32,
+    6.64
+   ]
+  },
+  {
+   "id": "onset:02_1:s1:02_1-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    2.76,
+    3.18
+   ],
+   "pause_s": [
+    2.62,
+    3.03
+   ],
+   "body_s": 3.06,
+   "early_by_s": 0.27
+  },
+  {
+   "id": "onset:02_1:s2:02_1-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    7.58,
+    8.02
+   ],
+   "pause_s": [
+    7.53,
+    7.9
+   ],
+   "body_s": 7.91,
+   "early_by_s": 0.325
+  },
+  {
+   "id": "anchor:02_1:b60:02_1-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    4.06,
+    4.3
+   ]
+  },
+  {
+   "id": "anchor:02_1:b91:02_1-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    6.32,
+    6.66
+   ]
+  },
+  {
+   "id": "onset:02_2:s1:02_2-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    3.88,
+    4.54
+   ],
+   "pause_s": [
+    3.395,
+    3.845
+   ],
+   "body_s": 3.88
+  },
+  {
+   "id": "onset:02_2:s2:02_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.68,
+    7.24
+   ],
+   "pause_s": [
+    6.22,
+    6.725
+   ],
+   "body_s": 6.74,
+   "early_by_s": 0.05
+  },
+  {
+   "id": "anchor:02_2:b143:02_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.36,
+    9.58
+   ],
+   "pause_s": [
+    9.295,
+    9.485
+   ],
+   "body_s": 9.52,
+   "early_by_s": 0.125
+  },
+  {
+   "id": "onset:02_2:s1:02_2-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.92,
+    4.58
+   ],
+   "pause_s": [
+    3.485,
+    3.955
+   ],
+   "body_s": 3.965,
+   "early_by_s": 0.035
+  },
+  {
+   "id": "onset:02_2:s2:02_2-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    6.62,
+    7.12
+   ],
+   "pause_s": [
+    6.19,
+    6.615
+   ],
+   "body_s": 6.63
+  },
+  {
+   "id": "anchor:02_2:b143:02_2-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.16,
+    9.4
+   ],
+   "pause_s": [
+    9.135,
+    9.305
+   ],
+   "body_s": 9.35,
+   "early_by_s": 0.155
+  },
+  {
+   "id": "onset:02_3:s1:02_3-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.12,
+    3.24
+   ],
+   "pause_s": [
+    2.72,
+    3.14
+   ],
+   "body_s": 3.15,
+   "early_by_s": 0.02
+  },
+  {
+   "id": "onset:02_3:s2:02_3-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    5.42,
+    5.56
+   ],
+   "pause_s": [
+    4.955,
+    5.415
+   ],
+   "body_s": 5.45
+  },
+  {
+   "id": "onset:02_4:s1:02_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.92,
+    4.3
+   ],
+   "pause_s": [
+    3.79,
+    4.17
+   ],
+   "body_s": 4.195,
+   "early_by_s": 0.26
+  },
+  {
+   "id": "onset:02_4:s2:02_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    8.48,
+    8.98
+   ],
+   "pause_s": [
+    7.91,
+    8.485
+   ],
+   "body_s": 8.515,
+   "early_by_s": 0.005
+  },
+  {
+   "id": "onset:02_4:s1:02_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.84,
+    4.22
+   ],
+   "pause_s": [
+    3.675,
+    4.115
+   ],
+   "body_s": 4.135,
+   "early_by_s": 0.275
+  },
+  {
+   "id": "anchor:02_5:b37:02_5-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    2.76,
+    2.92
+   ]
+  },
+  {
+   "id": "onset:02_5:s1:02_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    4.4,
+    4.62
+   ],
+   "pause_s": [
+    3.9,
+    4.445
+   ],
+   "body_s": 4.485,
+   "early_by_s": 0.05
+  },
+  {
+   "id": "onset:02_5:s2:02_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    7.2,
+    7.46
+   ],
+   "pause_s": [
+    6.76,
+    7.24
+   ],
+   "body_s": 7.27,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "anchor:02_5:b37:02_5-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    2.68,
+    2.84
+   ]
+  },
+  {
+   "id": "anchor:02_6:b139:02_6-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    10.3,
+    10.76
+   ]
+  },
+  {
+   "id": "anchor:02_6:b139:02_6-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    10.04,
+    10.5
+   ]
+  },
+  {
+   "id": "onset:03_1:s2:03_1-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.5,
+    7.34
+   ],
+   "pause_s": [
+    6.09,
+    6.565
+   ],
+   "body_s": 6.58,
+   "early_by_s": 0.07
+  },
+  {
+   "id": "onset:03_1:s3:03_1-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.54,
+    10.02
+   ],
+   "pause_s": [
+    9.49,
+    9.895
+   ],
+   "body_s": 9.95,
+   "early_by_s": 0.36
+  },
+  {
+   "id": "onset:03_1:s2:03_1-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.46,
+    7.34
+   ],
+   "pause_s": [
+    6.11,
+    6.515
+   ],
+   "body_s": 6.545,
+   "early_by_s": 0.06
+  },
+  {
+   "id": "onset:03_1:s3:03_1-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.52,
+    9.98
+   ],
+   "pause_s": [
+    9.46,
+    9.865
+   ],
+   "body_s": 9.905,
+   "early_by_s": 0.345
+  },
+  {
+   "id": "onset:03_2:s1:03_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    1.7,
+    2.36
+   ],
+   "pause_s": [
+    1.505,
+    1.94
+   ],
+   "body_s": 1.95,
+   "early_by_s": 0.24
+  },
+  {
+   "id": "onset:03_2:s2:03_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    8.42,
+    8.98
+   ],
+   "pause_s": [
+    8.235,
+    8.795
+   ],
+   "body_s": 8.805,
+   "early_by_s": 0.375
+  },
+  {
+   "id": "onset:03_2:s3:03_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    12.16,
+    12.66
+   ],
+   "pause_s": [
+    12.12,
+    12.5
+   ],
+   "body_s": 12.51,
+   "early_by_s": 0.345
+  },
+  {
+   "id": "anchor:03_2:b66:03_2-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    5.32,
+    5.86
+   ]
+  },
+  {
+   "id": "anchor:03_2:b90:03_2-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    7.0,
+    7.34
+   ]
+  },
+  {
+   "id": "onset:03_2:s1:03_2-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    1.88,
+    2.28
+   ],
+   "pause_s": [
+    1.45,
+    1.885
+   ],
+   "body_s": 1.9,
+   "early_by_s": 0.005
+  },
+  {
+   "id": "onset:03_2:s2:03_2-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    8.56,
+    8.8
+   ],
+   "pause_s": [
+    8.085,
+    8.585
+   ],
+   "body_s": 8.615,
+   "early_by_s": 0.03
+  },
+  {
+   "id": "anchor:03_2:b66:03_2-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    5.24,
+    5.72
+   ]
+  },
+  {
+   "id": "anchor:03_2:b90:03_2-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    6.78,
+    7.2
+   ]
+  },
+  {
+   "id": "onset:03_3:s1:03_3-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    2.4,
+    2.66
+   ],
+   "pause_s": [
+    2.04,
+    2.4
+   ],
+   "body_s": 2.42,
+   "early_by_s": 0.0
+  },
+  {
+   "id": "onset:03_3:s1:03_3-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    2.48,
+    2.76
+   ],
+   "pause_s": [
+    2.145,
+    2.455
+   ],
+   "body_s": 2.515
+  },
+  {
+   "id": "onset:03_4:s1:03_4-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    0.7,
+    1.22
+   ]
+  },
+  {
+   "id": "onset:03_4:s2:03_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.7,
+    7.14
+   ],
+   "pause_s": [
+    6.595,
+    7.06
+   ],
+   "body_s": 7.08,
+   "early_by_s": 0.365
+  },
+  {
+   "id": "onset:03_4:s3:03_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.62,
+    9.98
+   ],
+   "pause_s": [
+    9.44,
+    9.91
+   ],
+   "body_s": 9.935,
+   "early_by_s": 0.295
+  },
+  {
+   "id": "onset:03_4:s4:03_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    15.24,
+    15.78
+   ],
+   "pause_s": [
+    15.19,
+    15.68
+   ],
+   "body_s": 15.695,
+   "early_by_s": 0.445
+  },
+  {
+   "id": "onset:03_4:s5:03_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    17.440001,
+    17.72
+   ],
+   "pause_s": [
+    17.315,
+    17.67
+   ],
+   "body_s": 17.69,
+   "early_by_s": 0.24
+  },
+  {
+   "id": "onset:03_4:s6:03_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    21.92,
+    22.4
+   ],
+   "pause_s": [
+    21.76,
+    22.225
+   ],
+   "body_s": 22.24,
+   "early_by_s": 0.305
+  },
+  {
+   "id": "onset:03_4:s7:03_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    23.24,
+    23.539999
+   ],
+   "pause_s": [
+    23.225,
+    23.465
+   ],
+   "body_s": 23.49,
+   "early_by_s": 0.235
+  },
+  {
+   "id": "anchor:03_4:b301:03_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    20.24,
+    20.859999
+   ],
+   "pause_s": [
+    20.085,
+    20.355
+   ],
+   "body_s": 20.37,
+   "early_by_s": 0.12
+  },
+  {
+   "id": "onset:03_4:s1:03_4-download02.wav",
+   "class": "before_pause",
+   "asr_window_s": [
+    0.64,
+    1.18
+   ],
+   "pause_s": [
+    0.79,
+    0.89
+   ],
+   "body_s": 0.925
+  },
+  {
+   "id": "onset:03_4:s2:03_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.66,
+    7.04
+   ],
+   "pause_s": [
+    6.57,
+    6.965
+   ],
+   "body_s": 6.99,
+   "early_by_s": 0.31
+  },
+  {
+   "id": "onset:03_4:s3:03_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.48,
+    9.88
+   ],
+   "pause_s": [
+    9.345,
+    9.795
+   ],
+   "body_s": 9.82,
+   "early_by_s": 0.32
+  },
+  {
+   "id": "onset:03_4:s4:03_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    15.08,
+    15.52
+   ],
+   "pause_s": [
+    14.995,
+    15.44
+   ],
+   "body_s": 15.45,
+   "early_by_s": 0.365
+  },
+  {
+   "id": "onset:03_4:s5:03_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    17.24,
+    17.52
+   ],
+   "pause_s": [
+    17.13,
+    17.43
+   ],
+   "body_s": 17.455,
+   "early_by_s": 0.2
+  },
+  {
+   "id": "onset:03_4:s6:03_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    21.559999,
+    22.0
+   ],
+   "pause_s": [
+    21.475,
+    21.83
+   ],
+   "body_s": 21.85,
+   "early_by_s": 0.27
+  },
+  {
+   "id": "onset:03_4:s7:03_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    22.84,
+    23.139999
+   ],
+   "pause_s": [
+    22.815,
+    23.065
+   ],
+   "body_s": 23.095,
+   "early_by_s": 0.23
+  },
+  {
+   "id": "anchor:03_4:b301:03_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    19.879999,
+    20.539999
+   ],
+   "pause_s": [
+    19.745,
+    20.025
+   ],
+   "body_s": 20.045,
+   "early_by_s": 0.155
+  },
+  {
+   "id": "onset:03_5:s2:03_5-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    7.56,
+    7.6
+   ],
+   "pause_s": [
+    7.015,
+    7.505
+   ],
+   "body_s": 7.535
+  },
+  {
+   "id": "anchor:03_5:b140:03_5-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    10.4,
+    10.7
+   ]
+  },
+  {
+   "id": "onset:03_5:s1:03_5-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    2.76,
+    3.0
+   ],
+   "pause_s": [
+    2.22,
+    2.74
+   ],
+   "body_s": 2.75
+  },
+  {
+   "id": "onset:03_5:s2:03_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    7.38,
+    7.48
+   ],
+   "pause_s": [
+    6.865,
+    7.38
+   ],
+   "body_s": 7.415,
+   "early_by_s": 0.015
+  },
+  {
+   "id": "onset:03_5:s3:03_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    13.34,
+    13.88
+   ],
+   "pause_s": [
+    12.84,
+    13.365
+   ],
+   "body_s": 13.38,
+   "early_by_s": 0.025
+  },
+  {
+   "id": "onset:03_5:s4:03_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    16.32,
+    16.48
+   ],
+   "pause_s": [
+    15.915,
+    16.345
+   ],
+   "body_s": 16.37,
+   "early_by_s": 0.025
+  },
+  {
+   "id": "anchor:03_5:b140:03_5-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    10.16,
+    10.46
+   ]
+  },
+  {
+   "id": "onset:03_6:s1:03_6-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.68,
+    4.02
+   ],
+   "pause_s": [
+    3.245,
+    3.725
+   ],
+   "body_s": 3.735,
+   "early_by_s": 0.05
+  },
+  {
+   "id": "onset:03_6:s2:03_6-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    7.84,
+    8.179999
+   ],
+   "pause_s": [
+    7.38,
+    7.89
+   ],
+   "body_s": 7.905,
+   "early_by_s": 0.06
+  },
+  {
+   "id": "onset:03_6:s3:03_6-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    13.0,
+    13.28
+   ],
+   "pause_s": [
+    12.585,
+    13.045
+   ],
+   "body_s": 13.075,
+   "early_by_s": 0.05
+  },
+  {
+   "id": "onset:03_6:s1:03_6-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.6,
+    3.96
+   ],
+   "pause_s": [
+    3.2,
+    3.675
+   ],
+   "body_s": 3.69,
+   "early_by_s": 0.075
+  },
+  {
+   "id": "onset:03_6:s2:03_6-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    7.84,
+    8.179999
+   ],
+   "pause_s": [
+    7.415,
+    7.88
+   ],
+   "body_s": 7.905,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:03_6:s3:03_6-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    12.96,
+    13.179999
+   ],
+   "pause_s": [
+    12.535,
+    13.01
+   ],
+   "body_s": 13.04,
+   "early_by_s": 0.055
+  },
+  {
+   "id": "onset:03_7:s1:03_7-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    4.04,
+    4.18
+   ],
+   "pause_s": [
+    3.545,
+    4.065
+   ],
+   "body_s": 4.095,
+   "early_by_s": 0.025
+  },
+  {
+   "id": "onset:03_7:s2:03_7-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    8.22,
+    8.44
+   ],
+   "pause_s": [
+    7.885,
+    8.24
+   ],
+   "body_s": 8.26,
+   "early_by_s": 0.025
+  },
+  {
+   "id": "anchor:03_7:b93:03_7-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    6.28,
+    6.44
+   ]
+  },
+  {
+   "id": "onset:03_7:s1:03_7-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    3.88,
+    3.94
+   ],
+   "pause_s": [
+    3.46,
+    3.835
+   ],
+   "body_s": 3.865
+  },
+  {
+   "id": "onset:03_7:s2:03_7-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    8.14,
+    8.36
+   ],
+   "pause_s": [
+    7.78,
+    8.16
+   ],
+   "body_s": 8.18,
+   "early_by_s": 0.025
+  },
+  {
+   "id": "anchor:03_7:b93:03_7-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.08,
+    6.28
+   ],
+   "pause_s": [
+    6.05,
+    6.13
+   ],
+   "body_s": 6.215,
+   "early_by_s": 0.12
+  },
+  {
+   "id": "onset:04_1:s1:04_1-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    3.34,
+    3.4
+   ],
+   "pause_s": [
+    2.86,
+    3.3
+   ],
+   "body_s": 3.32
+  },
+  {
+   "id": "onset:04_1:s4:04_1-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    14.46,
+    14.839999
+   ],
+   "pause_s": [
+    14.18,
+    14.55
+   ],
+   "body_s": 14.565,
+   "early_by_s": 0.09
+  },
+  {
+   "id": "onset:04_1:s5:04_1-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    17.0,
+    17.24
+   ],
+   "pause_s": [
+    16.525,
+    16.965
+   ],
+   "body_s": 16.98
+  },
+  {
+   "id": "anchor:04_1:b266:04_1-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    18.859999,
+    19.199999
+   ]
+  },
+  {
+   "id": "onset:04_1:s1:04_1-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    3.38,
+    3.42
+   ],
+   "pause_s": [
+    2.815,
+    3.33
+   ],
+   "body_s": 3.355
+  },
+  {
+   "id": "onset:04_1:s4:04_1-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    14.46,
+    14.839999
+   ],
+   "pause_s": [
+    14.2,
+    14.55
+   ],
+   "body_s": 14.57,
+   "early_by_s": 0.1
+  },
+  {
+   "id": "anchor:04_1:b266:04_1-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    18.779999,
+    19.119999
+   ]
+  },
+  {
+   "id": "onset:04_2:s1:04_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.36,
+    3.56
+   ],
+   "pause_s": [
+    2.89,
+    3.4
+   ],
+   "body_s": 3.43,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:04_2:s2:04_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    5.88,
+    6.1
+   ],
+   "pause_s": [
+    5.47,
+    5.92
+   ],
+   "body_s": 5.94,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:04_2:s3:04_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    11.16,
+    11.52
+   ],
+   "pause_s": [
+    10.75,
+    11.18
+   ],
+   "body_s": 11.365,
+   "early_by_s": 0.03
+  },
+  {
+   "id": "onset:04_2:s1:04_2-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.36,
+    3.58
+   ],
+   "pause_s": [
+    2.905,
+    3.38
+   ],
+   "body_s": 3.415,
+   "early_by_s": 0.03
+  },
+  {
+   "id": "onset:04_2:s2:04_2-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.04,
+    6.24
+   ],
+   "pause_s": [
+    5.625,
+    6.05
+   ],
+   "body_s": 6.07,
+   "early_by_s": 0.02
+  },
+  {
+   "id": "onset:04_2:s3:04_2-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    11.26,
+    11.599999
+   ],
+   "pause_s": [
+    10.855,
+    11.27
+   ],
+   "body_s": 11.45,
+   "early_by_s": 0.02
+  },
+  {
+   "id": "onset:04_3:s1:04_3-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    1.22,
+    1.86
+   ],
+   "pause_s": [
+    1.08,
+    1.57
+   ],
+   "body_s": 1.59,
+   "early_by_s": 0.355
+  },
+  {
+   "id": "onset:04_3:s2:04_3-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    6.88,
+    6.9
+   ],
+   "pause_s": [
+    6.315,
+    6.825
+   ],
+   "body_s": 6.855
+  },
+  {
+   "id": "onset:04_3:s2:04_3-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.5,
+    7.0
+   ],
+   "pause_s": [
+    6.515,
+    6.905
+   ],
+   "body_s": 6.935,
+   "early_by_s": 0.415
+  },
+  {
+   "id": "onset:04_4:s1:04_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    5.32,
+    5.58
+   ],
+   "pause_s": [
+    4.905,
+    5.32
+   ],
+   "body_s": 5.345,
+   "early_by_s": 0.0
+  },
+  {
+   "id": "anchor:04_4:b105:04_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.96,
+    7.48
+   ],
+   "pause_s": [
+    6.805,
+    7.185
+   ],
+   "body_s": 7.205,
+   "early_by_s": 0.225
+  },
+  {
+   "id": "onset:04_4:s1:04_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    5.26,
+    5.52
+   ],
+   "pause_s": [
+    4.825,
+    5.275
+   ],
+   "body_s": 5.295,
+   "early_by_s": 0.015
+  },
+  {
+   "id": "anchor:04_4:b105:04_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    7.04,
+    7.44
+   ],
+   "pause_s": [
+    6.75,
+    7.105
+   ],
+   "body_s": 7.13,
+   "early_by_s": 0.07
+  },
+  {
+   "id": "onset:04_5:s1:04_5-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.12,
+    3.4
+   ],
+   "pause_s": [
+    2.73,
+    3.145
+   ],
+   "body_s": 3.165,
+   "early_by_s": 0.025
+  },
+  {
+   "id": "onset:04_5:s1:04_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.08,
+    3.34
+   ],
+   "pause_s": [
+    2.67,
+    3.105
+   ],
+   "body_s": 3.115,
+   "early_by_s": 0.025
+  },
+  {
+   "id": "onset:04_6:s1:04_6-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    4.12,
+    4.4
+   ],
+   "pause_s": [
+    3.71,
+    4.15
+   ],
+   "body_s": 4.165,
+   "early_by_s": 0.03
+  },
+  {
+   "id": "onset:04_6:s1:04_6-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.9,
+    4.48
+   ],
+   "pause_s": [
+    3.79,
+    4.225
+   ],
+   "body_s": 4.24,
+   "early_by_s": 0.33
+  },
+  {
+   "id": "onset:04_7:s1:04_7-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    5.1,
+    5.5
+   ],
+   "pause_s": [
+    4.925,
+    5.415
+   ],
+   "body_s": 5.425,
+   "early_by_s": 0.32
+  },
+  {
+   "id": "onset:04_7:s1:04_7-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    5.1,
+    5.46
+   ],
+   "pause_s": [
+    4.97,
+    5.36
+   ],
+   "body_s": 5.375,
+   "early_by_s": 0.265
+  },
+  {
+   "id": "onset:04_7:s2:04_7-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.24,
+    9.86
+   ],
+   "pause_s": [
+    9.075,
+    9.505
+   ],
+   "body_s": 9.57,
+   "early_by_s": 0.27
+  },
+  {
+   "id": "onset:05_2:s1:05_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.6,
+    4.38
+   ],
+   "pause_s": [
+    3.215,
+    3.625
+   ],
+   "body_s": 3.7,
+   "early_by_s": 0.035
+  },
+  {
+   "id": "onset:05_2:s2:05_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    7.72,
+    7.84
+   ],
+   "pause_s": [
+    7.28,
+    7.765
+   ],
+   "body_s": 7.775,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "anchor:05_2:b118:05_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.5,
+    9.84
+   ],
+   "pause_s": [
+    9.43,
+    9.765
+   ],
+   "body_s": 9.775,
+   "early_by_s": 0.265
+  },
+  {
+   "id": "anchor:05_2:b178:05_2-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    13.2,
+    13.72
+   ]
+  },
+  {
+   "id": "onset:05_2:s1:05_2-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.6,
+    4.38
+   ],
+   "pause_s": [
+    3.245,
+    3.635
+   ],
+   "body_s": 3.72,
+   "early_by_s": 0.035
+  },
+  {
+   "id": "onset:05_2:s2:05_2-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    7.68,
+    7.82
+   ],
+   "pause_s": [
+    7.275,
+    7.71
+   ],
+   "body_s": 7.75,
+   "early_by_s": 0.035
+  },
+  {
+   "id": "anchor:05_2:b118:05_2-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.34,
+    9.66
+   ],
+   "pause_s": [
+    9.315,
+    9.56
+   ],
+   "body_s": 9.585,
+   "early_by_s": 0.22
+  },
+  {
+   "id": "anchor:05_2:b178:05_2-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    13.04,
+    13.54
+   ]
+  },
+  {
+   "id": "onset:05_3:s1:05_3-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    4.08,
+    4.34
+   ],
+   "pause_s": [
+    3.705,
+    4.195
+   ],
+   "body_s": 4.205,
+   "early_by_s": 0.115
+  },
+  {
+   "id": "onset:05_3:s2:05_3-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.52,
+    9.7
+   ],
+   "pause_s": [
+    9.09,
+    9.575
+   ],
+   "body_s": 9.61,
+   "early_by_s": 0.06
+  },
+  {
+   "id": "anchor:05_3:b90:05_3-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.5,
+    6.7
+   ],
+   "pause_s": [
+    6.44,
+    6.61
+   ],
+   "body_s": 6.63,
+   "early_by_s": 0.115
+  },
+  {
+   "id": "anchor:05_3:b151:05_3-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    10.54,
+    10.96
+   ]
+  },
+  {
+   "id": "anchor:05_3:b166:05_3-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    11.82,
+    12.28
+   ],
+   "pause_s": [
+    11.815,
+    11.93
+   ],
+   "body_s": 11.945,
+   "early_by_s": 0.115
+  },
+  {
+   "id": "onset:05_3:s1:05_3-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    4.18,
+    4.4
+   ],
+   "pause_s": [
+    3.72,
+    4.25
+   ],
+   "body_s": 4.285,
+   "early_by_s": 0.08
+  },
+  {
+   "id": "onset:05_3:s2:05_3-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.62,
+    9.8
+   ],
+   "pause_s": [
+    9.225,
+    9.68
+   ],
+   "body_s": 9.71,
+   "early_by_s": 0.06
+  },
+  {
+   "id": "anchor:05_3:b90:05_3-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.58,
+    6.78
+   ],
+   "pause_s": [
+    6.525,
+    6.655
+   ],
+   "body_s": 6.695,
+   "early_by_s": 0.08
+  },
+  {
+   "id": "anchor:05_3:b151:05_3-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    10.66,
+    11.08
+   ]
+  },
+  {
+   "id": "anchor:05_3:b166:05_3-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    11.94,
+    12.38
+   ]
+  },
+  {
+   "id": "onset:05_4:s1:05_4-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    5.44,
+    5.5
+   ],
+   "pause_s": [
+    4.99,
+    5.405
+   ],
+   "body_s": 5.42
+  },
+  {
+   "id": "onset:05_4:s2:05_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    7.78,
+    8.34
+   ],
+   "pause_s": [
+    7.745,
+    8.23
+   ],
+   "body_s": 8.25,
+   "early_by_s": 0.45
+  },
+  {
+   "id": "anchor:05_4:b187:05_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    13.58,
+    13.9
+   ],
+   "pause_s": [
+    13.595,
+    13.795
+   ],
+   "body_s": 13.84,
+   "early_by_s": 0.22
+  },
+  {
+   "id": "onset:05_4:s1:05_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    5.28,
+    5.44
+   ],
+   "pause_s": [
+    4.905,
+    5.32
+   ],
+   "body_s": 5.355,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:05_4:s2:05_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    8.0,
+    8.16
+   ],
+   "pause_s": [
+    7.575,
+    8.05
+   ],
+   "body_s": 8.07,
+   "early_by_s": 0.055
+  },
+  {
+   "id": "onset:05_4:s3:05_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    10.44,
+    10.78
+   ],
+   "pause_s": [
+    10.125,
+    10.455
+   ],
+   "body_s": 10.495,
+   "early_by_s": 0.025
+  },
+  {
+   "id": "anchor:05_4:b187:05_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    13.219999,
+    13.58
+   ],
+   "pause_s": [
+    13.145,
+    13.49
+   ],
+   "body_s": 13.52,
+   "early_by_s": 0.27
+  },
+  {
+   "id": "onset:05_5:s1:05_5-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    2.7,
+    3.0
+   ],
+   "pause_s": [
+    2.405,
+    2.82
+   ],
+   "body_s": 2.835,
+   "early_by_s": 0.12
+  },
+  {
+   "id": "onset:05_5:s2:05_5-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.16,
+    6.52
+   ],
+   "pause_s": [
+    5.76,
+    6.225
+   ],
+   "body_s": 6.375,
+   "early_by_s": 0.075
+  },
+  {
+   "id": "anchor:05_5:b126:05_5-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.42,
+    9.74
+   ],
+   "pause_s": [
+    9.345,
+    9.655
+   ],
+   "body_s": 9.685,
+   "early_by_s": 0.235
+  },
+  {
+   "id": "onset:05_5:s1:05_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    2.52,
+    3.02
+   ],
+   "pause_s": [
+    2.375,
+    2.84
+   ],
+   "body_s": 2.86,
+   "early_by_s": 0.325
+  },
+  {
+   "id": "onset:05_5:s2:05_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    5.96,
+    6.5
+   ],
+   "pause_s": [
+    5.7,
+    6.2
+   ],
+   "body_s": 6.28,
+   "early_by_s": 0.245
+  },
+  {
+   "id": "anchor:05_5:b126:05_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    9.3,
+    9.58
+   ],
+   "pause_s": [
+    9.25,
+    9.49
+   ],
+   "body_s": 9.52,
+   "early_by_s": 0.195
+  },
+  {
+   "id": "onset:05_6:s1:05_6-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.06,
+    3.38
+   ],
+   "pause_s": [
+    2.62,
+    3.105
+   ],
+   "body_s": 3.12,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:05_6:s2:05_6-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    6.4,
+    6.48
+   ],
+   "pause_s": [
+    5.9,
+    6.355
+   ],
+   "body_s": 6.385
+  },
+  {
+   "id": "onset:05_6:s3:05_6-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    11.4,
+    11.54
+   ],
+   "pause_s": [
+    10.96,
+    11.44
+   ],
+   "body_s": 11.47,
+   "early_by_s": 0.05
+  },
+  {
+   "id": "onset:05_6:s4:05_6-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    20.4,
+    20.74
+   ],
+   "pause_s": [
+    19.91,
+    20.45
+   ],
+   "body_s": 20.49,
+   "early_by_s": 0.055
+  },
+  {
+   "id": "anchor:05_6:b199:05_6-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    13.58,
+    13.7
+   ]
+  },
+  {
+   "id": "anchor:05_6:b215:05_6-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    14.719999,
+    14.96
+   ]
+  },
+  {
+   "id": "anchor:05_6:b229:05_6-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    15.82,
+    16.039999
+   ],
+   "pause_s": [
+    15.795,
+    15.93
+   ],
+   "body_s": 15.96,
+   "early_by_s": 0.125
+  },
+  {
+   "id": "anchor:05_6:b259:05_6-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    18.48,
+    18.52
+   ],
+   "pause_s": [
+    18.135,
+    18.425
+   ],
+   "body_s": 18.45
+  },
+  {
+   "id": "onset:05_6:s1:05_6-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    3.08,
+    3.4
+   ],
+   "pause_s": [
+    2.615,
+    3.07
+   ],
+   "body_s": 3.135
+  },
+  {
+   "id": "onset:05_6:s2:05_6-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    6.5,
+    6.58
+   ],
+   "pause_s": [
+    5.995,
+    6.47
+   ],
+   "body_s": 6.48
+  },
+  {
+   "id": "onset:05_6:s3:05_6-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    11.52,
+    11.7
+   ],
+   "pause_s": [
+    11.16,
+    11.585
+   ],
+   "body_s": 11.62,
+   "early_by_s": 0.07
+  },
+  {
+   "id": "onset:05_6:s4:05_6-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    20.68,
+    21.039999
+   ],
+   "pause_s": [
+    20.16,
+    20.755
+   ],
+   "body_s": 20.78,
+   "early_by_s": 0.075
+  },
+  {
+   "id": "anchor:05_6:b199:05_6-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    13.639999,
+    13.759999
+   ]
+  },
+  {
+   "id": "anchor:05_6:b215:05_6-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    14.78,
+    15.04
+   ],
+   "pause_s": [
+    14.77,
+    14.89
+   ],
+   "body_s": 14.94,
+   "early_by_s": 0.115
+  },
+  {
+   "id": "anchor:05_6:b229:05_6-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    15.96,
+    16.24
+   ],
+   "pause_s": [
+    15.91,
+    16.11
+   ],
+   "body_s": 16.15,
+   "early_by_s": 0.15
+  },
+  {
+   "id": "anchor:05_6:b259:05_6-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    18.72,
+    18.779999
+   ],
+   "pause_s": [
+    18.37,
+    18.685
+   ],
+   "body_s": 18.72
+  },
+  {
+   "id": "onset:05_7:s2:05_7-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    11.96,
+    12.04
+   ],
+   "pause_s": [
+    11.425,
+    11.94
+   ],
+   "body_s": 11.965
+  },
+  {
+   "id": "onset:05_7:s3:05_7-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    13.32,
+    13.66
+   ],
+   "pause_s": [
+    13.175,
+    13.575
+   ],
+   "body_s": 13.59,
+   "early_by_s": 0.265
+  },
+  {
+   "id": "onset:05_7:s4:05_7-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    15.7,
+    16.199999
+   ],
+   "pause_s": [
+    15.315,
+    15.72
+   ],
+   "body_s": 15.74,
+   "early_by_s": 0.02
+  },
+  {
+   "id": "onset:05_7:s5:05_7-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    18.959999,
+    19.459999
+   ],
+   "pause_s": [
+    18.925,
+    19.34
+   ],
+   "body_s": 19.355,
+   "early_by_s": 0.385
+  },
+  {
+   "id": "onset:05_7:s2:05_7-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    11.84,
+    11.92
+   ],
+   "pause_s": [
+    11.255,
+    11.8
+   ],
+   "body_s": 11.845
+  },
+  {
+   "id": "onset:05_7:s3:05_7-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    13.179999,
+    13.52
+   ],
+   "pause_s": [
+    13.055,
+    13.44
+   ],
+   "body_s": 13.455,
+   "early_by_s": 0.265
+  },
+  {
+   "id": "onset:05_7:s4:05_7-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    15.48,
+    15.98
+   ],
+   "pause_s": [
+    15.1,
+    15.505
+   ],
+   "body_s": 15.545,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:05_7:s5:05_7-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    18.619999,
+    19.199999
+   ],
+   "pause_s": [
+    18.625,
+    19.07
+   ],
+   "body_s": 19.09,
+   "early_by_s": 0.455
+  },
+  {
+   "id": "anchor:06_1:b229:06_1-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    16.379999,
+    16.66
+   ],
+   "pause_s": [
+    16.305,
+    16.485
+   ],
+   "body_s": 16.52,
+   "early_by_s": 0.12
+  },
+  {
+   "id": "anchor:06_1:b229:06_1-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    16.24,
+    16.52
+   ]
+  },
+  {
+   "id": "onset:06_2:s1:06_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.28,
+    3.68
+   ],
+   "pause_s": [
+    3.115,
+    3.515
+   ],
+   "body_s": 3.6,
+   "early_by_s": 0.24
+  },
+  {
+   "id": "onset:06_2:s2:06_2-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    6.94,
+    7.0
+   ],
+   "pause_s": [
+    6.47,
+    6.91
+   ],
+   "body_s": 6.935
+  },
+  {
+   "id": "onset:06_2:s1:06_2-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.54,
+    3.74
+   ],
+   "pause_s": [
+    3.205,
+    3.59
+   ],
+   "body_s": 3.67,
+   "early_by_s": 0.055
+  },
+  {
+   "id": "onset:06_2:s2:06_2-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    7.12,
+    7.2
+   ],
+   "pause_s": [
+    6.55,
+    7.095
+   ],
+   "body_s": 7.125
+  },
+  {
+   "id": "onset:06_3:s1:06_3-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    1.08,
+    1.48
+   ],
+   "pause_s": [
+    0.945,
+    1.365
+   ],
+   "body_s": 1.385,
+   "early_by_s": 0.29
+  },
+  {
+   "id": "onset:06_3:s2:06_3-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    8.76,
+    9.22
+   ],
+   "pause_s": [
+    8.71,
+    9.09
+   ],
+   "body_s": 9.12,
+   "early_by_s": 0.33
+  },
+  {
+   "id": "onset:06_3:s3:06_3-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    11.139999,
+    11.559999
+   ],
+   "pause_s": [
+    11.08,
+    11.44
+   ],
+   "body_s": 11.46,
+   "early_by_s": 0.31
+  },
+  {
+   "id": "onset:06_3:s4:06_3-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    15.16,
+    15.7
+   ],
+   "pause_s": [
+    15.12,
+    15.57
+   ],
+   "body_s": 15.605,
+   "early_by_s": 0.415
+  },
+  {
+   "id": "anchor:06_3:b80:06_3-download01.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    5.32,
+    5.82
+   ]
+  },
+  {
+   "id": "onset:06_3:s1:06_3-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    1.08,
+    1.52
+   ],
+   "pause_s": [
+    0.935,
+    1.415
+   ],
+   "body_s": 1.435,
+   "early_by_s": 0.345
+  },
+  {
+   "id": "onset:06_3:s2:06_3-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    8.88,
+    9.44
+   ],
+   "pause_s": [
+    8.85,
+    9.315
+   ],
+   "body_s": 9.335,
+   "early_by_s": 0.44
+  },
+  {
+   "id": "onset:06_3:s3:06_3-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    11.36,
+    11.759999
+   ],
+   "pause_s": [
+    11.285,
+    11.66
+   ],
+   "body_s": 11.68,
+   "early_by_s": 0.305
+  },
+  {
+   "id": "onset:06_3:s4:06_3-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    15.259999,
+    15.7
+   ],
+   "pause_s": [
+    15.195,
+    15.57
+   ],
+   "body_s": 15.605,
+   "early_by_s": 0.315
+  },
+  {
+   "id": "anchor:06_3:b80:06_3-download02.wav",
+   "class": "not_assessed",
+   "asr_window_s": [
+    5.38,
+    5.88
+   ]
+  },
+  {
+   "id": "onset:06_4:s2:06_4-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    10.88,
+    11.24
+   ],
+   "pause_s": [
+    10.39,
+    10.9
+   ],
+   "body_s": 10.95,
+   "early_by_s": 0.035
+  },
+  {
+   "id": "onset:06_4:s2:06_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    11.12,
+    11.46
+   ],
+   "pause_s": [
+    10.62,
+    11.125
+   ],
+   "body_s": 11.175,
+   "early_by_s": 0.015
+  },
+  {
+   "id": "onset:06_5:s2:06_5-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    5.18,
+    5.76
+   ],
+   "pause_s": [
+    4.995,
+    5.49
+   ],
+   "body_s": 5.52,
+   "early_by_s": 0.31
+  },
+  {
+   "id": "onset:06_5:s3:06_5-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    11.04,
+    11.62
+   ],
+   "pause_s": [
+    10.89,
+    11.295
+   ],
+   "body_s": 11.34,
+   "early_by_s": 0.26
+  },
+  {
+   "id": "onset:06_5:s4:06_5-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    18.68,
+    19.119999
+   ],
+   "pause_s": [
+    18.535,
+    19.015
+   ],
+   "body_s": 19.05,
+   "early_by_s": 0.345
+  },
+  {
+   "id": "onset:06_5:s2:06_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    4.84,
+    5.4
+   ],
+   "pause_s": [
+    4.72,
+    5.12
+   ],
+   "body_s": 5.165,
+   "early_by_s": 0.29
+  },
+  {
+   "id": "onset:06_5:s3:06_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    10.62,
+    11.2
+   ],
+   "pause_s": [
+    10.465,
+    10.85
+   ],
+   "body_s": 10.895,
+   "early_by_s": 0.24
+  },
+  {
+   "id": "onset:06_5:s4:06_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    18.119999,
+    18.5
+   ],
+   "pause_s": [
+    17.995,
+    18.42
+   ],
+   "body_s": 18.44,
+   "early_by_s": 0.3
+  },
+  {
+   "id": "onset:06_6:s1:06_6-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    1.82,
+    2.2
+   ],
+   "pause_s": [
+    1.68,
+    2.1
+   ],
+   "body_s": 2.13,
+   "early_by_s": 0.285
+  },
+  {
+   "id": "onset:06_6:s2:06_6-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.16,
+    6.56
+   ],
+   "pause_s": [
+    6.01,
+    6.465
+   ],
+   "body_s": 6.485,
+   "early_by_s": 0.305
+  },
+  {
+   "id": "onset:06_6:s3:06_6-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    10.719999,
+    11.38
+   ],
+   "pause_s": [
+    10.605,
+    11.045
+   ],
+   "body_s": 11.075,
+   "early_by_s": 0.335
+  },
+  {
+   "id": "onset:06_6:s1:06_6-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    1.74,
+    2.1
+   ],
+   "pause_s": [
+    1.61,
+    2.005
+   ],
+   "body_s": 2.03,
+   "early_by_s": 0.27
+  },
+  {
+   "id": "onset:06_7:s1:06_7-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    6.92,
+    7.0
+   ],
+   "pause_s": [
+    6.425,
+    6.88
+   ],
+   "body_s": 6.94
+  },
+  {
+   "id": "onset:06_7:s1:06_7-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.94,
+    7.1
+   ],
+   "pause_s": [
+    6.425,
+    6.98
+   ],
+   "body_s": 7.035,
+   "early_by_s": 0.05
+  },
+  {
+   "id": "onset:06_7:s2:06_7-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    13.32,
+    13.599999
+   ],
+   "pause_s": [
+    12.88,
+    13.375
+   ],
+   "body_s": 13.4,
+   "early_by_s": 0.055
+  },
+  {
+   "id": "onset:07_1:s1:07_1-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.56,
+    4.12
+   ],
+   "pause_s": [
+    3.15,
+    3.59
+   ],
+   "body_s": 3.63,
+   "early_by_s": 0.04
+  },
+  {
+   "id": "onset:07_1:s2:07_1-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.84,
+    7.06
+   ],
+   "pause_s": [
+    6.35,
+    6.88
+   ],
+   "body_s": 6.9,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:07_1:s3:07_1-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    12.76,
+    12.9
+   ],
+   "pause_s": [
+    12.28,
+    12.795
+   ],
+   "body_s": 12.83,
+   "early_by_s": 0.04
+  },
+  {
+   "id": "onset:07_1:s1:07_1-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.64,
+    4.2
+   ],
+   "pause_s": [
+    3.14,
+    3.685
+   ],
+   "body_s": 3.73,
+   "early_by_s": 0.055
+  },
+  {
+   "id": "onset:07_1:s2:07_1-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.84,
+    7.06
+   ],
+   "pause_s": [
+    6.375,
+    6.895
+   ],
+   "body_s": 6.915,
+   "early_by_s": 0.06
+  },
+  {
+   "id": "onset:07_1:s3:07_1-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    12.6,
+    12.759999
+   ],
+   "pause_s": [
+    12.12,
+    12.66
+   ],
+   "body_s": 12.685,
+   "early_by_s": 0.07
+  },
+  {
+   "id": "onset:07_2:s1:07_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.38,
+    3.48
+   ],
+   "pause_s": [
+    2.98,
+    3.395
+   ],
+   "body_s": 3.425,
+   "early_by_s": 0.015
+  },
+  {
+   "id": "onset:07_2:s2:07_2-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.24,
+    6.36
+   ],
+   "pause_s": [
+    5.75,
+    6.26
+   ],
+   "body_s": 6.275,
+   "early_by_s": 0.025
+  },
+  {
+   "id": "onset:07_2:s1:07_2-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.46,
+    3.56
+   ],
+   "pause_s": [
+    3.07,
+    3.475
+   ],
+   "body_s": 3.495,
+   "early_by_s": 0.025
+  },
+  {
+   "id": "onset:07_2:s2:07_2-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.34,
+    6.48
+   ],
+   "pause_s": [
+    5.82,
+    6.36
+   ],
+   "body_s": 6.38,
+   "early_by_s": 0.025
+  },
+  {
+   "id": "onset:07_3:s1:07_3-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    1.48,
+    2.02
+   ],
+   "pause_s": [
+    1.325,
+    1.825
+   ],
+   "body_s": 1.84,
+   "early_by_s": 0.345
+  },
+  {
+   "id": "onset:07_3:s2:07_3-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    5.3,
+    5.78
+   ],
+   "pause_s": [
+    5.13,
+    5.625
+   ],
+   "body_s": 5.64,
+   "early_by_s": 0.335
+  },
+  {
+   "id": "onset:07_4:s1:07_4-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    1.28,
+    1.36
+   ],
+   "pause_s": [
+    0.85,
+    1.265
+   ],
+   "body_s": 1.295
+  },
+  {
+   "id": "onset:07_4:s1:07_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    1.24,
+    1.36
+   ],
+   "pause_s": [
+    0.85,
+    1.265
+   ],
+   "body_s": 1.295,
+   "early_by_s": 0.03
+  },
+  {
+   "id": "onset:07_4:s2:07_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    5.56,
+    5.76
+   ],
+   "pause_s": [
+    5.2,
+    5.605
+   ],
+   "body_s": 5.615,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:07_4:s3:07_4-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    10.32,
+    10.5
+   ],
+   "pause_s": [
+    9.99,
+    10.375
+   ],
+   "body_s": 10.41,
+   "early_by_s": 0.065
+  },
+  {
+   "id": "onset:07_5:s1:07_5-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    1.54,
+    2.06
+   ],
+   "pause_s": [
+    1.38,
+    1.73
+   ],
+   "body_s": 1.78,
+   "early_by_s": 0.2
+  },
+  {
+   "id": "onset:07_5:s2:07_5-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    4.48,
+    5.04
+   ],
+   "pause_s": [
+    4.325,
+    4.745
+   ],
+   "body_s": 4.795,
+   "early_by_s": 0.27
+  },
+  {
+   "id": "onset:07_5:s4:07_5-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    14.299999,
+    15.12
+   ],
+   "pause_s": [
+    14.14,
+    14.625
+   ],
+   "body_s": 14.65,
+   "early_by_s": 0.335
+  },
+  {
+   "id": "anchor:07_5:b266:07_5-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    18.539999,
+    18.859999
+   ],
+   "pause_s": [
+    18.545,
+    18.77
+   ],
+   "body_s": 18.805,
+   "early_by_s": 0.235
+  },
+  {
+   "id": "onset:07_5:s1:07_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    1.54,
+    2.0
+   ],
+   "pause_s": [
+    1.37,
+    1.69
+   ],
+   "body_s": 1.73,
+   "early_by_s": 0.155
+  },
+  {
+   "id": "onset:07_5:s2:07_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    4.4,
+    4.96
+   ],
+   "pause_s": [
+    4.25,
+    4.665
+   ],
+   "body_s": 4.71,
+   "early_by_s": 0.27
+  },
+  {
+   "id": "onset:07_5:s3:07_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.86,
+    7.38
+   ],
+   "pause_s": [
+    6.755,
+    7.265
+   ],
+   "body_s": 7.3,
+   "early_by_s": 0.41
+  },
+  {
+   "id": "onset:07_5:s4:07_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    14.02,
+    14.799999
+   ],
+   "pause_s": [
+    13.79,
+    14.345
+   ],
+   "body_s": 14.35,
+   "early_by_s": 0.325
+  },
+  {
+   "id": "anchor:07_5:b266:07_5-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    18.16,
+    18.42
+   ],
+   "pause_s": [
+    18.1,
+    18.34
+   ],
+   "body_s": 18.37,
+   "early_by_s": 0.19
+  },
+  {
+   "id": "onset:07_6:s1:07_6-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    2.8,
+    2.88
+   ],
+   "pause_s": [
+    2.285,
+    2.77
+   ],
+   "body_s": 2.805
+  },
+  {
+   "id": "onset:07_6:s2:07_6-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    11.5,
+    11.639999
+   ],
+   "pause_s": [
+    10.98,
+    11.545
+   ],
+   "body_s": 11.585,
+   "early_by_s": 0.05
+  },
+  {
+   "id": "onset:07_6:s1:07_6-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    2.78,
+    2.84
+   ],
+   "pause_s": [
+    2.225,
+    2.745
+   ],
+   "body_s": 2.77
+  },
+  {
+   "id": "onset:07_6:s2:07_6-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    11.18,
+    11.3
+   ],
+   "pause_s": [
+    10.635,
+    11.23
+   ],
+   "body_s": 11.25,
+   "early_by_s": 0.05
+  },
+  {
+   "id": "onset:08_1:s1:08_1-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    4.0,
+    4.26
+   ],
+   "pause_s": [
+    3.485,
+    4.035
+   ],
+   "body_s": 4.055,
+   "early_by_s": 0.04
+  },
+  {
+   "id": "onset:08_1:s2:08_1-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.68,
+    6.84
+   ],
+   "pause_s": [
+    6.315,
+    6.725
+   ],
+   "body_s": 6.745,
+   "early_by_s": 0.045
+  },
+  {
+   "id": "onset:08_1:s3:08_1-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    12.68,
+    13.04
+   ],
+   "pause_s": [
+    12.33,
+    12.725
+   ],
+   "body_s": 12.75,
+   "early_by_s": 0.05
+  },
+  {
+   "id": "onset:08_1:s4:08_1-download01.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    15.12,
+    15.299999
+   ],
+   "pause_s": [
+    14.71,
+    15.155
+   ],
+   "body_s": 15.165,
+   "early_by_s": 0.04
+  },
+  {
+   "id": "onset:08_1:s1:08_1-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    3.88,
+    4.18
+   ],
+   "pause_s": [
+    3.41,
+    3.945
+   ],
+   "body_s": 3.975,
+   "early_by_s": 0.075
+  },
+  {
+   "id": "onset:08_1:s2:08_1-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    6.6,
+    6.78
+   ],
+   "pause_s": [
+    6.26,
+    6.65
+   ],
+   "body_s": 6.685,
+   "early_by_s": 0.075
+  },
+  {
+   "id": "onset:08_1:s3:08_1-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    12.52,
+    12.88
+   ],
+   "pause_s": [
+    12.145,
+    12.575
+   ],
+   "body_s": 12.605,
+   "early_by_s": 0.065
+  },
+  {
+   "id": "onset:08_1:s4:08_1-download02.wav",
+   "class": "in_pause",
+   "asr_window_s": [
+    14.84,
+    15.04
+   ],
+   "pause_s": [
+    14.415,
+    14.9
+   ],
+   "body_s": 14.915,
+   "early_by_s": 0.065
+  },
+  {
+   "id": "onset:08_2:s1:08_2-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    4.6,
+    4.7
+   ],
+   "pause_s": [
+    4.05,
+    4.545
+   ],
+   "body_s": 4.635
+  },
+  {
+   "id": "onset:08_2:s2:08_2-download01.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    10.72,
+    10.8
+   ],
+   "pause_s": [
+    10.3,
+    10.71
+   ],
+   "body_s": 10.735
+  },
+  {
+   "id": "onset:08_2:s1:08_2-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    4.7,
+    4.76
+   ],
+   "pause_s": [
+    4.055,
+    4.6
+   ],
+   "body_s": 4.69
+  },
+  {
+   "id": "onset:08_2:s2:08_2-download02.wav",
+   "class": "at_onset",
+   "asr_window_s": [
+    10.78,
+    10.84
+   ],
+   "pause_s": [
+    10.36,
+    10.74
+   ],
+   "body_s": 10.765
+  }
+ ],
+ "proposed_answers": {
+  "schema": "complex-frederick-answers-v1",
+  "source_sha256": "7188f725b110e4bfb2faa87e74d447d008f737143c8cb3bb2e645d728271705f",
+  "answers": {
+   "content:01_3:01_3-download01.wav": {
+    "decision": "proceed",
+    "by": null,
+    "basis": "the recognizer's raw text: 'x^40 gives': the recognizer wrote the script's words as notation, which the normalizer reads as other words; a transcript reading, no listening"
+   },
+   "content:01_3:01_3-download02.wav": {
+    "decision": "proceed",
+    "by": null,
+    "basis": "the recognizer's raw text: 'x^40 gives': the recognizer wrote the script's words as notation, which the normalizer reads as other words; a transcript reading, no listening"
+   },
+   "content:01_6:01_6-download01.wav": {
+    "decision": "proceed",
+    "by": null,
+    "basis": "the recognizer's raw text: 'count routes we': the recognizer spelled a word that sounds like the script's word ('Sign' for sine; 'routes' for roots, which British English says alike); a transcript reading, no listening"
+   },
+   "content:01_6:01_6-download02.wav": {
+    "decision": "proceed",
+    "by": null,
+    "basis": "the recognizer's raw text: 'count routes we': the recognizer spelled a word that sounds like the script's word ('Sign' for sine; 'routes' for roots, which British English says alike); a transcript reading, no listening"
+   },
+   "content:03_2:03_2-download01.wav": {
+    "decision": "proceed",
+    "by": null,
+    "basis": "the recognizer's raw text: '1/2. Its'; '1/4, twice.': the recognizer wrote the script's words as notation, which the normalizer reads as other words; a transcript reading, no listening"
+   },
+   "content:04_7:04_7-download01.wav": {
+    "decision": "proceed",
+    "by": null,
+    "basis": "the recognizer's raw text: 'and -i,': the recognizer wrote the script's words as notation, which the normalizer reads as other words; a transcript reading, no listening"
+   },
+   "content:04_7:04_7-download02.wav": {
+    "decision": "proceed",
+    "by": null,
+    "basis": "the recognizer's raw text: 'and -i,': the recognizer wrote the script's words as notation, which the normalizer reads as other words; a transcript reading, no listening"
+   },
+   "content:05_4:05_4-download01.wav": {
+    "decision": "proceed",
+    "by": null,
+    "basis": "the recognizer's raw text: 'Sign has'; 'fast. Sign of'; 'and sign of': the recognizer spelled a word that sounds like the script's word ('Sign' for sine; 'routes' for roots, which British English says alike); a transcript reading, no listening"
+   },
+   "content:05_4:05_4-download02.wav": {
+    "decision": "proceed",
+    "by": null,
+    "basis": "the recognizer's raw text: 'Sign has'; 'fast. Sign of'; 'and sign of': the recognizer spelled a word that sounds like the script's word ('Sign' for sine; 'routes' for roots, which British English says alike); a transcript reading, no listening"
+   },
+   "content:06_4:06_4-download01.wav": {
+    "decision": "proceed",
+    "by": null,
+    "basis": "the recognizer's raw text: '1+i'; '1+i,'; '2+2i.': the recognizer wrote the script's words as notation, which the normalizer reads as other words; a transcript reading, no listening"
+   },
+   "content:06_4:06_4-download02.wav": {
+    "decision": "proceed",
+    "by": null,
+    "basis": "the recognizer's raw text: '1+i'; '1+i,'; '2 + 2i.': the recognizer wrote the script's words as notation, which the normalizer reads as other words; a transcript reading, no listening"
+   },
+   "content:07_2:07_2-download01.wav": {
+    "decision": "proceed",
+    "by": null,
+    "basis": "the recognizer's raw text: 'a non-zero derivative': the recognizer wrote the script's words as notation, which the normalizer reads as other words; a transcript reading, no listening"
+   },
+   "content:07_2:07_2-download02.wav": {
+    "decision": "proceed",
+    "by": null,
+    "basis": "the recognizer's raw text: 'a non-zero derivative': the recognizer wrote the script's words as notation, which the normalizer reads as other words; a transcript reading, no listening"
+   },
+   "onset:01_1:s4:01_1-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 348360,
+    "by": null,
+    "basis": "the recognizer start 14.56 s is 0.035 s after the word sounds (body 14.525 s); this is the end of the take's pause [14.06, 14.515] s; envelope reading, no listening"
+   },
+   "onset:01_2:s1:01_2-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 74160,
+    "by": null,
+    "basis": "the recognizer start 3.2 s is 0.095 s after the word sounds (body 3.105 s); this is the end of the take's pause [2.675, 3.09] s; envelope reading, no listening"
+   },
+   "onset:01_2:s1:01_2-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 76200,
+    "by": null,
+    "basis": "the recognizer start 3.24 s is 0.055 s after the word sounds (body 3.185 s); this is the end of the take's pause [2.75, 3.175] s; envelope reading, no listening"
+   },
+   "onset:01_5:s4:01_5-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 458160,
+    "by": null,
+    "basis": "the recognizer start 19.2 s is 0.08 s after the word sounds (body 19.12 s); this is the end of the take's pause [18.68, 19.09] s; envelope reading, no listening"
+   },
+   "onset:01_5:s4:01_5-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 460320,
+    "by": null,
+    "basis": "the recognizer start 19.3 s is 0.085 s after the word sounds (body 19.215 s); this is the end of the take's pause [18.69, 19.18] s; envelope reading, no listening"
+   },
+   "onset:01_6:s1:01_6-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 112920,
+    "by": null,
+    "basis": "the recognizer start 5.08 s is 0.36 s after the word sounds (body 4.72 s); this is the end of the take's pause [4.285, 4.705] s; envelope reading, no listening"
+   },
+   "onset:01_6:s1:01_6-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 116400,
+    "by": null,
+    "basis": "the recognizer start 5.24 s is 0.375 s after the word sounds (body 4.865 s); this is the end of the take's pause [4.43, 4.85] s; envelope reading, no listening"
+   },
+   "onset:01_6:s2:01_6-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 176760,
+    "by": null,
+    "basis": "the recognizer start 7.42 s is 0.04 s after the word sounds (body 7.38 s); this is the end of the take's pause [6.915, 7.365] s; envelope reading, no listening"
+   },
+   "onset:02_1:s1:02_1-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 74280,
+    "by": null,
+    "basis": "the recognizer start 3.16 s is 0.05 s after the word sounds (body 3.11 s); this is the end of the take's pause [2.595, 3.095] s; envelope reading, no listening"
+   },
+   "onset:02_3:s1:02_3-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 75480,
+    "by": null,
+    "basis": "the recognizer start 3.24 s is 0.06 s after the word sounds (body 3.18 s); this is the end of the take's pause [2.775, 3.145] s; envelope reading, no listening"
+   },
+   "onset:02_3:s2:02_3-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 129720,
+    "by": null,
+    "basis": "the recognizer start 5.54 s is 0.095 s after the word sounds (body 5.445 s); this is the end of the take's pause [4.93, 5.405] s; envelope reading, no listening"
+   },
+   "onset:02_4:s2:02_4-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 202800,
+    "by": null,
+    "basis": "the recognizer start 8.86 s is 0.395 s after the word sounds (body 8.465 s); this is the end of the take's pause [7.93, 8.45] s; envelope reading, no listening"
+   },
+   "onset:02_6:s1:02_6-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 137160,
+    "by": null,
+    "basis": "the recognizer start 5.82 s is 0.075 s after the word sounds (body 5.745 s); this is the end of the take's pause [5.195, 5.715] s; envelope reading, no listening"
+   },
+   "onset:02_6:s1:02_6-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 135240,
+    "by": null,
+    "basis": "the recognizer start 5.76 s is 0.09 s after the word sounds (body 5.67 s); this is the end of the take's pause [5.1, 5.635] s; envelope reading, no listening"
+   },
+   "onset:02_6:s2:02_6-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 224880,
+    "by": null,
+    "basis": "the recognizer start 9.68 s is 0.285 s after the word sounds (body 9.395 s); this is the end of the take's pause [8.855, 9.37] s; envelope reading, no listening"
+   },
+   "onset:02_6:s2:02_6-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 219000,
+    "by": null,
+    "basis": "the recognizer start 9.5 s is 0.345 s after the word sounds (body 9.155 s); this is the end of the take's pause [8.615, 9.125] s; envelope reading, no listening"
+   },
+   "onset:02_6:s3:02_6-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 295680,
+    "by": null,
+    "basis": "the recognizer start 12.44 s is 0.05 s after the word sounds (body 12.39 s); this is the end of the take's pause [11.865, 12.32] s; envelope reading, no listening"
+   },
+   "onset:02_6:s3:02_6-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 286560,
+    "by": null,
+    "basis": "the recognizer start 12.14 s is 0.135 s after the word sounds (body 12.005 s); this is the end of the take's pause [11.575, 11.94] s; envelope reading, no listening"
+   },
+   "onset:02_6:s4:02_6-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 326400,
+    "by": null,
+    "basis": "the recognizer start 13.86 s is 0.24 s after the word sounds (body 13.62 s); this is the end of the take's pause [13.21, 13.6] s; envelope reading, no listening"
+   },
+   "onset:02_6:s4:02_6-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 317520,
+    "by": null,
+    "basis": "the recognizer start 13.5 s is 0.255 s after the word sounds (body 13.245 s); this is the end of the take's pause [12.78, 13.23] s; envelope reading, no listening"
+   },
+   "onset:03_1:s1:03_1-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 94200,
+    "by": null,
+    "basis": "the recognizer start 4.0 s is 0.065 s after the word sounds (body 3.935 s); this is the end of the take's pause [3.395, 3.925] s; envelope reading, no listening"
+   },
+   "onset:03_1:s1:03_1-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 93840,
+    "by": null,
+    "basis": "the recognizer start 4.0 s is 0.065 s after the word sounds (body 3.935 s); this is the end of the take's pause [3.465, 3.91] s; envelope reading, no listening"
+   },
+   "onset:03_2:s3:03_2-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 297720,
+    "by": null,
+    "basis": "the recognizer start 12.52 s is 0.105 s after the word sounds (body 12.415 s); this is the end of the take's pause [12.05, 12.405] s; envelope reading, no listening"
+   },
+   "onset:03_5:s1:03_5-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 68040,
+    "by": null,
+    "basis": "the recognizer start 3.1 s is 0.245 s after the word sounds (body 2.855 s); this is the end of the take's pause [2.38, 2.835] s; envelope reading, no listening"
+   },
+   "onset:03_5:s3:03_5-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 325680,
+    "by": null,
+    "basis": "the recognizer start 14.08 s is 0.49 s after the word sounds (body 13.59 s); this is the end of the take's pause [13.08, 13.57] s; envelope reading, no listening"
+   },
+   "onset:03_5:s4:03_5-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 397080,
+    "by": null,
+    "basis": "the recognizer start 16.62 s is 0.05 s after the word sounds (body 16.57 s); this is the end of the take's pause [16.075, 16.545] s; envelope reading, no listening"
+   },
+   "onset:04_1:s2:04_1-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 175320,
+    "by": null,
+    "basis": "the recognizer start 7.38 s is 0.055 s after the word sounds (body 7.325 s); this is the end of the take's pause [6.795, 7.305] s; envelope reading, no listening"
+   },
+   "onset:04_1:s2:04_1-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 175200,
+    "by": null,
+    "basis": "the recognizer start 7.4 s is 0.08 s after the word sounds (body 7.32 s); this is the end of the take's pause [6.77, 7.3] s; envelope reading, no listening"
+   },
+   "onset:04_1:s3:04_1-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 303480,
+    "by": null,
+    "basis": "the recognizer start 12.92 s is 0.26 s after the word sounds (body 12.66 s); this is the end of the take's pause [12.215, 12.645] s; envelope reading, no listening"
+   },
+   "onset:04_1:s3:04_1-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 303360,
+    "by": null,
+    "basis": "the recognizer start 12.92 s is 0.27 s after the word sounds (body 12.65 s); this is the end of the take's pause [12.175, 12.64] s; envelope reading, no listening"
+   },
+   "onset:04_1:s5:04_1-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 404880,
+    "by": null,
+    "basis": "the recognizer start 16.92 s is 0.035 s after the word sounds (body 16.885 s); this is the end of the take's pause [16.5, 16.87] s; envelope reading, no listening"
+   },
+   "onset:04_3:s1:04_3-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 37800,
+    "by": null,
+    "basis": "the recognizer start 1.82 s is 0.225 s after the word sounds (body 1.595 s); this is the end of the take's pause [1.095, 1.575] s; envelope reading, no listening"
+   },
+   "onset:04_4:s2:04_4-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 253680,
+    "by": null,
+    "basis": "the recognizer start 10.78 s is 0.185 s after the word sounds (body 10.595 s); this is the end of the take's pause [10.135, 10.57] s; envelope reading, no listening"
+   },
+   "onset:04_4:s2:04_4-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 251880,
+    "by": null,
+    "basis": "the recognizer start 10.78 s is 0.25 s after the word sounds (body 10.53 s); this is the end of the take's pause [9.975, 10.495] s; envelope reading, no listening"
+   },
+   "onset:04_7:s2:04_7-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 229320,
+    "by": null,
+    "basis": "the recognizer start 9.84 s is 0.255 s after the word sounds (body 9.585 s); this is the end of the take's pause [9.125, 9.555] s; envelope reading, no listening"
+   },
+   "onset:05_4:s3:05_4-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 254760,
+    "by": null,
+    "basis": "the recognizer's 'sign' starts at 10.86 s, 0.205 s after the word sounds (body 10.655 s); this is the end of the take's pause [10.29, 10.615] s; envelope reading, no listening"
+   },
+   "onset:05_4:s3:05_4-download02.wav": {
+    "decision": "use_candidate",
+    "by": null,
+    "basis": "the recognizer's 'sign' in this slot starts at 10.44 s, inside the take's pause [10.125, 10.455] s just before the word sounds (body 10.495 s); envelope reading, no listening"
+   },
+   "onset:05_7:s1:05_7-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 178200,
+    "by": null,
+    "basis": "the recognizer start 7.52 s is 0.06 s after the word sounds (body 7.46 s); this is the end of the take's pause [6.89, 7.425] s; envelope reading, no listening"
+   },
+   "onset:05_7:s1:05_7-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 174240,
+    "by": null,
+    "basis": "the recognizer start 7.38 s is 0.095 s after the word sounds (body 7.285 s); this is the end of the take's pause [6.77, 7.26] s; envelope reading, no listening"
+   },
+   "onset:06_1:s1:06_1-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 146520,
+    "by": null,
+    "basis": "the recognizer start 6.16 s is 0.035 s after the word sounds (body 6.125 s); this is the end of the take's pause [5.515, 6.105] s; envelope reading, no listening"
+   },
+   "onset:06_1:s1:06_1-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 145560,
+    "by": null,
+    "basis": "the recognizer start 6.12 s is 0.035 s after the word sounds (body 6.085 s); this is the end of the take's pause [5.5, 6.065] s; envelope reading, no listening"
+   },
+   "onset:06_1:s2:06_1-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 199440,
+    "by": null,
+    "basis": "the recognizer start 8.6 s is 0.25 s after the word sounds (body 8.35 s); this is the end of the take's pause [8.015, 8.31] s; envelope reading, no listening"
+   },
+   "onset:06_1:s2:06_1-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 201480,
+    "by": null,
+    "basis": "the recognizer start 8.68 s is 0.245 s after the word sounds (body 8.435 s); this is the end of the take's pause [8.01, 8.395] s; envelope reading, no listening"
+   },
+   "onset:06_1:s3:06_1-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 351360,
+    "by": null,
+    "basis": "the recognizer start 14.76 s is 0.105 s after the word sounds (body 14.655 s); this is the end of the take's pause [14.17, 14.64] s; envelope reading, no listening"
+   },
+   "onset:06_1:s3:06_1-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 351000,
+    "by": null,
+    "basis": "the recognizer start 14.74 s is 0.1 s after the word sounds (body 14.64 s); this is the end of the take's pause [14.155, 14.625] s; envelope reading, no listening"
+   },
+   "onset:06_2:s3:06_2-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 288720,
+    "by": null,
+    "basis": "the recognizer start 12.18 s is 0.1 s after the word sounds (body 12.08 s); this is the end of the take's pause [11.625, 12.03] s; envelope reading, no listening"
+   },
+   "onset:06_2:s3:06_2-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 293880,
+    "by": null,
+    "basis": "the recognizer start 12.36 s is 0.075 s after the word sounds (body 12.285 s); this is the end of the take's pause [11.81, 12.245] s; envelope reading, no listening"
+   },
+   "onset:06_4:s1:06_4-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 157920,
+    "by": null,
+    "basis": "the recognizer start 6.64 s is 0.05 s after the word sounds (body 6.59 s); this is the end of the take's pause [6.135, 6.58] s; envelope reading, no listening"
+   },
+   "onset:06_4:s1:06_4-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 163800,
+    "by": null,
+    "basis": "the recognizer start 6.9 s is 0.05 s after the word sounds (body 6.85 s); this is the end of the take's pause [6.395, 6.825] s; envelope reading, no listening"
+   },
+   "onset:06_5:s1:06_5-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 58200,
+    "by": null,
+    "basis": "the recognizer start 2.58 s is 0.14 s after the word sounds (body 2.44 s); this is the end of the take's pause [1.995, 2.425] s; envelope reading, no listening"
+   },
+   "onset:06_5:s1:06_5-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 55800,
+    "by": null,
+    "basis": "the recognizer start 2.46 s is 0.125 s after the word sounds (body 2.335 s); this is the end of the take's pause [1.975, 2.325] s; envelope reading, no listening"
+   },
+   "onset:06_6:s2:06_6-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 154440,
+    "by": null,
+    "basis": "the recognizer start 6.5 s is 0.04 s after the word sounds (body 6.46 s); this is the end of the take's pause [5.905, 6.435] s; envelope reading, no listening"
+   },
+   "onset:06_6:s3:06_6-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 259560,
+    "by": null,
+    "basis": "the recognizer start 11.12 s is 0.265 s after the word sounds (body 10.855 s); this is the end of the take's pause [10.3, 10.815] s; envelope reading, no listening"
+   },
+   "onset:06_7:s2:06_7-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 321240,
+    "by": null,
+    "basis": "the recognizer start 13.56 s is 0.14 s after the word sounds (body 13.42 s); this is the end of the take's pause [12.875, 13.385] s; envelope reading, no listening"
+   },
+   "onset:07_3:s1:07_3-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 46200,
+    "by": null,
+    "basis": "the recognizer start 2.04 s is 0.095 s after the word sounds (body 1.945 s); this is the end of the take's pause [1.405, 1.925] s; envelope reading, no listening"
+   },
+   "onset:07_3:s2:07_3-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 138720,
+    "by": null,
+    "basis": "the recognizer start 5.86 s is 0.07 s after the word sounds (body 5.79 s); this is the end of the take's pause [5.285, 5.78] s; envelope reading, no listening"
+   },
+   "onset:07_4:s2:07_4-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 136440,
+    "by": null,
+    "basis": "the recognizer start 5.76 s is 0.055 s after the word sounds (body 5.705 s); this is the end of the take's pause [5.195, 5.685] s; envelope reading, no listening"
+   },
+   "onset:07_4:s3:07_4-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 253680,
+    "by": null,
+    "basis": "the recognizer start 10.68 s is 0.075 s after the word sounds (body 10.605 s); this is the end of the take's pause [10.075, 10.57] s; envelope reading, no listening"
+   },
+   "onset:07_5:s3:07_5-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 178320,
+    "by": null,
+    "basis": "the recognizer start 7.54 s is 0.085 s after the word sounds (body 7.455 s); this is the end of the take's pause [6.89, 7.43] s; envelope reading, no listening"
+   },
+   "onset:07_6:s3:07_6-download01.wav": {
+    "decision": "sample",
+    "sample_24k": 363720,
+    "by": null,
+    "basis": "the recognizer start 15.26 s is 0.04 s after the word sounds (body 15.22 s); this is the end of the take's pause [14.73, 15.155] s; envelope reading, no listening"
+   },
+   "onset:07_6:s3:07_6-download02.wav": {
+    "decision": "sample",
+    "sample_24k": 355320,
+    "by": null,
+    "basis": "the recognizer start 14.94 s is 0.05 s after the word sounds (body 14.89 s); this is the end of the take's pause [14.345, 14.805] s; envelope reading, no listening"
+   }
+  }
+ }
+}
