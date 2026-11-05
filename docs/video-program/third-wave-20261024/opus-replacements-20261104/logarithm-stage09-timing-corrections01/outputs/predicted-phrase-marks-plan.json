@@ -1,0 +1,268 @@
+{
+ "claim": "Not a phrase-timings.json: the assembled WAV hashes do not exist yet. `timings` writes the real file after assembly.",
+ "cues": {
+  "00_1": [],
+  "00_2": [],
+  "00_3": [],
+  "00_4": [],
+  "00_5": [],
+  "00_6": [],
+  "01_1": [],
+  "01_2": [],
+  "01_3": [],
+  "01_4": [],
+  "01_5": [],
+  "01_6": [],
+  "02_1": [
+   {
+    "byte": 48,
+    "seconds": 3.52,
+    "basis": "recognizer onset"
+   }
+  ],
+  "02_2": [
+   {
+    "byte": 47,
+    "seconds": 3.5,
+    "basis": "recognizer onset"
+   }
+  ],
+  "02_3": [],
+  "02_4": [],
+  "02_5": [],
+  "03_1": [],
+  "03_2": [],
+  "03_3": [
+   {
+    "byte": 35,
+    "seconds": 2.14,
+    "basis": "recognizer onset"
+   }
+  ],
+  "03_4": [],
+  "04_1": [],
+  "04_2": [
+   {
+    "byte": 306,
+    "seconds": 22.09,
+    "basis": "sample given by BronzeJaguar, provisional for root (Mail 4383): timing-corrections01: the recognizer starts the phrase 'it' at 21.859999 s, abutting the previous word (word 0.42 s, previous 0.74 s); the PCM pause 21.95-22.09 s stays at or below -56.4 dB in every 1 ms window, and speech-level voiced sound (autocorrelation 0.952 at 131.9 Hz) begins at 22.195 s, 0.335 s after the recognizer's onset; sample = the 10 ms leave frame 22.09 s, as for the 92 answers of production-choices01; in the other take (04_2-download02.wav) the recognizer's onset is -0.21 s from leave, the same direction; not heard"
+   }
+  ],
+  "04_3": [],
+  "04_4": [],
+  "04_5": [],
+  "04_6": [],
+  "04_7": [],
+  "05_1": [],
+  "05_2": [],
+  "05_20": [
+   {
+    "byte": 180,
+    "seconds": 15.58,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 214,
+    "seconds": 18.02,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 225,
+    "seconds": 19.5,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 276,
+    "seconds": 23.699999,
+    "basis": "recognizer onset"
+   }
+  ],
+  "05_3": [],
+  "05_4": [],
+  "05_5": [],
+  "05_6": [],
+  "05_7": [],
+  "06_1": [],
+  "06_2": [],
+  "06_3": [],
+  "06_4": [],
+  "06_5": [],
+  "06_6": [
+   {
+    "byte": 267,
+    "seconds": 18.440001,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 338,
+    "seconds": 23.24,
+    "basis": "recognizer onset"
+   }
+  ],
+  "06_20": [],
+  "06_7": [],
+  "07_1": [],
+  "07_2": [],
+  "07_3": [],
+  "07_4": [],
+  "07_5": [],
+  "07_6": [],
+  "08_1": [],
+  "08_2": [],
+  "08_3": [],
+  "08_4": [],
+  "08_5": [
+   {
+    "byte": 267,
+    "seconds": 22.42,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 306,
+    "seconds": 25.379999,
+    "basis": "recognizer onset"
+   }
+  ],
+  "09_1": [],
+  "09_2": [],
+  "09_3": [],
+  "09_4": [],
+  "10_1": [],
+  "10_2": [],
+  "10_3": [
+   {
+    "byte": 208,
+    "seconds": 15.059999,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 302,
+    "seconds": 21.459999,
+    "basis": "recognizer onset"
+   }
+  ],
+  "10_4": [
+   {
+    "byte": 39,
+    "seconds": 2.76,
+    "basis": "recognizer onset"
+   }
+  ],
+  "11_1": [
+   {
+    "byte": 320,
+    "seconds": 21.74,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 337,
+    "seconds": 22.639999,
+    "basis": "recognizer onset"
+   }
+  ],
+  "11_2": [
+   {
+    "byte": 185,
+    "seconds": 12.84,
+    "basis": "recognizer onset"
+   }
+  ],
+  "11_3": [],
+  "11_4": [],
+  "11_5": [
+   {
+    "byte": 72,
+    "seconds": 5.46,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 178,
+    "seconds": 15.32,
+    "basis": "recognizer onset"
+   }
+  ],
+  "11_6": [
+   {
+    "byte": 273,
+    "seconds": 21.66,
+    "basis": "recognizer onset"
+   }
+  ],
+  "11_7": [
+   {
+    "byte": 174,
+    "seconds": 12.82,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 226,
+    "seconds": 16.379999,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 315,
+    "seconds": 23.38,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 404,
+    "seconds": 28.559999,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 453,
+    "seconds": 31.8,
+    "basis": "recognizer onset"
+   }
+  ],
+  "11_20": [
+   {
+    "byte": 91,
+    "seconds": 6.16,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 137,
+    "seconds": 8.72,
+    "basis": "recognizer onset"
+   }
+  ],
+  "11_8": [],
+  "12_1": [
+   {
+    "byte": 167,
+    "seconds": 12.5,
+    "basis": "recognizer onset"
+   }
+  ],
+  "12_2": [],
+  "12_3": [],
+  "12_4": [],
+  "12_5": [],
+  "12_6": [
+   {
+    "byte": 89,
+    "seconds": 7.38,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 105,
+    "seconds": 9.08,
+    "basis": "recognizer onset"
+   }
+  ],
+  "12_20": [],
+  "12_21": [
+   {
+    "byte": 192,
+    "seconds": 14.82,
+    "basis": "recognizer onset"
+   },
+   {
+    "byte": 230,
+    "seconds": 17.779999,
+    "basis": "recognizer onset"
+   }
+  ]
+ }
+}

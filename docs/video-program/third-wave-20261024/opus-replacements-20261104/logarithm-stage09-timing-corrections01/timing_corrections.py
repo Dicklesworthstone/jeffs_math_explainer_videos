@@ -22,7 +22,9 @@ Read-only on every input. It writes only FRESH_OUT:
                              root's prepared01 receipt and plan, exactly five points change, the assembler's dry run
                              (on a scratch copy of the prepared01 workspace) accepts the changed spans, and unit_spans
                              gives all 80 cues the same PCM with only 07_6's rows changed; the predicted rows and mark
-  scratch/                   the dry run's spans and workspace copy (not for use)
+  predicted-spans.json       the exact bytes prepare writes as spans.json with answers02 and prepared01's other
+  predicted-phrase-marks-plan.json   inputs (--reviewer BlueSalmon): the same writer reproduces prepared01's two files
+  scratch/                   the dry run's workspace copy (not for use)
 
 Nothing is decoded, assembled, rendered or heard. Levels and periodicity are measurements, not listening.
 """
@@ -442,11 +444,12 @@ def main(argv):
     receipt = json.loads(Path(f"{PREP}/prepare-receipt.json").read_text())
     plan = json.loads(Path(f"{PREP}/phrase-marks-plan.json").read_text())["cues"]
     need(receipt["answers"]["sha256"] == PINS[ANSWERS01] and receipt["answers"]["applied"] == ap1, "root's prepare applied other answers")
-    changes, resolved2 = [], {}
+    changes, resolved2, resolved_m1 = [], {}, {}
     for cue, t in chosen.items():
         entry = by_file[(cue, os.path.basename(t["rel"]))]
         _p, frames24, _pcm = pa.wav_info(f"{NARR}/{cue}.wav")
         s1, e1, m1 = pa.resolved_points(entry, ap1, frames24, script[cue])
+        resolved_m1[cue] = m1
         s2, e2, m2 = pa.resolved_points(entry, ap2, frames24, script[cue])
         need(receipt["cues"][cue]["sentence_starts_24k"] == [{"sample": s, "basis": w} for s, w in s1], f"{cue}: replay differs from root's receipt")
         need(plan[cue] == m1, f"{cue}: replay differs from root's phrase-marks plan")
@@ -474,8 +477,14 @@ def main(argv):
         need(rec["sentence_ends"] == pa.resolved_points(by_file[(cue, os.path.basename(chosen[cue]["rel"]))], ap1, frames24, script[cue])[1],
              f"{cue}: root's spans.json ends differ from the replay")
         rec["sentence_ends"] = resolved2[cue][1]
-    (scratch / "spans02-dry-run.json").write_text(json.dumps(spans2, indent=2) + "\n")
-    accepted = pa.dry_run(str(scratch / "workspace/tools/coherent_narration.py"), b, str(scratch / "spans02-dry-run.json"), None)
+    # exact bytes prepare will write with answers02 and the same --reviewer, selection and decode: proven on prepared01's
+    need((json.dumps(spans1, indent=2) + "\n").encode() == Path(f"{PREP}/spans.json").read_bytes(), "spans.json format")
+    plan_doc = json.loads(Path(f"{PREP}/phrase-marks-plan.json").read_text())
+    need(pa.dumps({"claim": plan_doc["claim"], "cues": {cue: resolved_m1[cue] for cue in chosen}}).encode()
+         == Path(f"{PREP}/phrase-marks-plan.json").read_bytes(), "phrase-marks-plan.json format or order")
+    (out / "predicted-spans.json").write_text(json.dumps(spans2, indent=2) + "\n")
+    (out / "predicted-phrase-marks-plan.json").write_text(pa.dumps({"claim": plan_doc["claim"], "cues": {cue: resolved2[cue][2] for cue in chosen}}))
+    accepted = pa.dry_run(str(scratch / "workspace/tools/coherent_narration.py"), b, str(out / "predicted-spans.json"), None)
     mod = pa.import_assembler(str(scratch / "workspace/tools/coherent_narration.py"), "tc")
     kscript, kunits = mod.read_units(Path(b["script"]), Path(b["units"]), True)
     report = json.loads(Path(f"{NARR}/report.json").read_text())

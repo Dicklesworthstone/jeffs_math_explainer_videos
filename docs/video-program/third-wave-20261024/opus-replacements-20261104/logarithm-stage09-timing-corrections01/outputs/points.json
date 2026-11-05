@@ -1,0 +1,2376 @@
+[
+ {
+  "id": "anchor:04_2:b306:04_2-download01.wav",
+  "cue": "04_2",
+  "file": "04_2-download01.wav",
+  "selected": true,
+  "kind": "anchor",
+  "word": "it",
+  "phrase": "it only ever climbs",
+  "script_before": "slope is its height, which is positive, ",
+  "script_after": "it only ever climbs, from near zero on t",
+  "byte": 306,
+  "recognizer": {
+   "onset_s": 21.859999,
+   "sample_24k": 524640,
+   "context": [
+    {
+     "word": "is",
+     "start_s": 20.98,
+     "end_s": 21.12,
+     "dur_s": 0.14,
+     "here": false
+    },
+    {
+     "word": "positive",
+     "start_s": 21.12,
+     "end_s": 21.86,
+     "dur_s": 0.74,
+     "here": false
+    },
+    {
+     "word": "it",
+     "start_s": 21.86,
+     "end_s": 22.28,
+     "dur_s": 0.42,
+     "here": true
+    },
+    {
+     "word": "only",
+     "start_s": 22.28,
+     "end_s": 22.6,
+     "dur_s": 0.32,
+     "here": false
+    },
+    {
+     "word": "ever",
+     "start_s": 22.6,
+     "end_s": 22.94,
+     "dur_s": 0.34,
+     "here": false
+    }
+   ],
+   "previous_word_dur_s": 0.74,
+   "word_dur_s": 0.42
+  },
+  "energy_10ms": {
+   "status": "short_quiet_run",
+   "class": null,
+   "pause_start_s": 21.95,
+   "pause_s": 0.14,
+   "leave_s": 22.09,
+   "leave_24k": 530160,
+   "body_s": 22.19,
+   "body_24k": 532560,
+   "delta_leave_s": 0.23,
+   "delta_body_s": 0.33
+  },
+  "pcm": {
+   "lead_in_10ms": [
+    {
+     "at_s": 22.09,
+     "db_10ms": -59.1,
+     "r": 0.329,
+     "f0_hz": 90.6,
+     "zcr": 0.089
+    },
+    {
+     "at_s": 22.1,
+     "db_10ms": -57.2,
+     "r": 0.369,
+     "f0_hz": 83.0,
+     "zcr": 0.092
+    },
+    {
+     "at_s": 22.11,
+     "db_10ms": -56.2,
+     "r": 0.399,
+     "f0_hz": 137.1,
+     "zcr": 0.111
+    },
+    {
+     "at_s": 22.12,
+     "db_10ms": -52.6,
+     "r": 0.392,
+     "f0_hz": 137.1,
+     "zcr": 0.115
+    },
+    {
+     "at_s": 22.13,
+     "db_10ms": -49.9,
+     "r": 0.388,
+     "f0_hz": 255.3,
+     "zcr": 0.089
+    },
+    {
+     "at_s": 22.14,
+     "db_10ms": -58.4,
+     "r": 0.45,
+     "f0_hz": 83.3,
+     "zcr": 0.051
+    },
+    {
+     "at_s": 22.15,
+     "db_10ms": -59.9,
+     "r": 0.606,
+     "f0_hz": 73.6,
+     "zcr": 0.076
+    },
+    {
+     "at_s": 22.16,
+     "db_10ms": -54.7,
+     "r": 0.257,
+     "f0_hz": 252.6,
+     "zcr": 0.157
+    },
+    {
+     "at_s": 22.17,
+     "db_10ms": -56.5,
+     "r": 0.25,
+     "f0_hz": 198.3,
+     "zcr": 0.213
+    },
+    {
+     "at_s": 22.18,
+     "db_10ms": -44.7,
+     "r": 0.685,
+     "f0_hz": 143.7,
+     "zcr": 0.181
+    }
+   ],
+   "pause_s": [
+    21.95,
+    22.09
+   ],
+   "pause_len_s": 0.14,
+   "pause_1ms_median_db": -64.4,
+   "pause_1ms_max_db": -56.4,
+   "pause_peak_sample": 77,
+   "pause_peak_dbfs": -52.6,
+   "leave_to_speech_1ms_db": [
+    -56.9,
+    -60.8,
+    -61.3,
+    -56.5,
+    -64.6,
+    -63.0,
+    -59.9,
+    -58.5,
+    -57.6,
+    -58.6,
+    -57.9,
+    -59.2,
+    -62.3,
+    -63.1,
+    -62.6,
+    -60.2,
+    -54.6,
+    -52.7,
+    -54.6,
+    -59.0,
+    -61.0,
+    -60.8,
+    -67.1,
+    -59.3,
+    -52.2,
+    -57.3,
+    -59.7,
+    -55.2,
+    -52.5,
+    -55.0,
+    -51.1,
+    -53.1,
+    -55.4,
+    -55.7,
+    -48.5,
+    -54.1,
+    -52.5,
+    -52.0,
+    -56.5,
+    -53.5
+   ],
+   "speech_1ms_s": 22.195,
+   "speech_minus_leave_s": 0.105,
+   "voicing": [
+    {
+     "from_speech_ms": 0,
+     "db_10ms": -19.5,
+     "r": 0.794,
+     "f0_hz": 133.3,
+     "zcr": 0.077
+    },
+    {
+     "from_speech_ms": 10,
+     "db_10ms": -16.6,
+     "r": 0.952,
+     "f0_hz": 131.9,
+     "zcr": 0.074
+    },
+    {
+     "from_speech_ms": 20,
+     "db_10ms": -19.5,
+     "r": 0.889,
+     "f0_hz": 131.1,
+     "zcr": 0.063
+    },
+    {
+     "from_speech_ms": 30,
+     "db_10ms": -20.5,
+     "r": 0.805,
+     "f0_hz": 129.7,
+     "zcr": 0.048
+    },
+    {
+     "from_speech_ms": 40,
+     "db_10ms": -19.6,
+     "r": 0.721,
+     "f0_hz": 128.3,
+     "zcr": 0.052
+    },
+    {
+     "from_speech_ms": 50,
+     "db_10ms": -22.6,
+     "r": 0.696,
+     "f0_hz": 113.7,
+     "zcr": 0.081
+    },
+    {
+     "from_speech_ms": 60,
+     "db_10ms": -29.4,
+     "r": 0.522,
+     "f0_hz": 113.2,
+     "zcr": 0.105
+    },
+    {
+     "from_speech_ms": 70,
+     "db_10ms": -32.9,
+     "r": 0.278,
+     "f0_hz": 75.9,
+     "zcr": 0.124
+    },
+    {
+     "from_speech_ms": 80,
+     "db_10ms": -35.8,
+     "r": 0.379,
+     "f0_hz": 75.2,
+     "zcr": 0.144
+    },
+    {
+     "from_speech_ms": 90,
+     "db_10ms": -35.4,
+     "r": 0.408,
+     "f0_hz": 71.0,
+     "zcr": 0.147
+    },
+    {
+     "from_speech_ms": 100,
+     "db_10ms": -34.0,
+     "r": 0.338,
+     "f0_hz": 71.2,
+     "zcr": 0.228
+    }
+   ],
+   "voicing_best": {
+    "from_speech_ms": 10,
+    "r": 0.952,
+    "f0_hz": 131.9
+   },
+   "recognizer_minus_speech_s": -0.335,
+   "db_10ms_at_recognizer": -59.3
+  },
+  "checks": {
+   "script_opens_here": true,
+   "recognizer_abuts_previous_word": true,
+   "recognizer_off_leave_by_50ms_or_more": true,
+   "pause_100ms_every_1ms_below_minus_50db": true,
+   "speech_level_within_120ms_of_leave": true,
+   "voiced_in_first_100ms_of_speech": true,
+   "recognizer_side": true,
+   "other_take_same_direction": true
+  },
+  "other_take": {
+   "file": "04_2-download02.wav",
+   "recognizer_minus_leave_s": -0.21
+  },
+  "proposal": {
+   "decision": "sample",
+   "sample_24k": 530160
+  }
+ },
+ {
+  "id": "anchor:04_2:b306:04_2-download02.wav",
+  "cue": "04_2",
+  "file": "04_2-download02.wav",
+  "selected": false,
+  "kind": "anchor",
+  "word": "it",
+  "phrase": "it only ever climbs",
+  "script_before": "slope is its height, which is positive, ",
+  "script_after": "it only ever climbs, from near zero on t",
+  "byte": 306,
+  "recognizer": {
+   "onset_s": 21.779999,
+   "sample_24k": 522720,
+   "context": [
+    {
+     "word": "is",
+     "start_s": 20.88,
+     "end_s": 21.0,
+     "dur_s": 0.12,
+     "here": false
+    },
+    {
+     "word": "positive",
+     "start_s": 21.0,
+     "end_s": 21.78,
+     "dur_s": 0.78,
+     "here": false
+    },
+    {
+     "word": "it",
+     "start_s": 21.78,
+     "end_s": 22.16,
+     "dur_s": 0.38,
+     "here": true
+    },
+    {
+     "word": "only",
+     "start_s": 22.16,
+     "end_s": 22.5,
+     "dur_s": 0.34,
+     "here": false
+    },
+    {
+     "word": "ever",
+     "start_s": 22.5,
+     "end_s": 22.86,
+     "dur_s": 0.36,
+     "here": false
+    }
+   ],
+   "previous_word_dur_s": 0.78,
+   "word_dur_s": 0.38
+  },
+  "energy_10ms": {
+   "status": "short_quiet_run",
+   "class": null,
+   "pause_start_s": 21.86,
+   "pause_s": 0.13,
+   "leave_s": 21.99,
+   "leave_24k": 527760,
+   "body_s": 22.06,
+   "body_24k": 529440,
+   "delta_leave_s": 0.21,
+   "delta_body_s": 0.28
+  },
+  "pcm": {
+   "lead_in_10ms": [
+    {
+     "at_s": 21.99,
+     "db_10ms": -58.0,
+     "r": 0.39,
+     "f0_hz": 94.7,
+     "zcr": 0.054
+    },
+    {
+     "at_s": 22.0,
+     "db_10ms": -66.1,
+     "r": 0.297,
+     "f0_hz": 80.7,
+     "zcr": 0.033
+    },
+    {
+     "at_s": 22.01,
+     "db_10ms": -67.1,
+     "r": 0.811,
+     "f0_hz": 72.0,
+     "zcr": 0.023
+    },
+    {
+     "at_s": 22.02,
+     "db_10ms": -62.1,
+     "r": 0.58,
+     "f0_hz": 70.8,
+     "zcr": 0.067
+    },
+    {
+     "at_s": 22.03,
+     "db_10ms": -58.4,
+     "r": 0.313,
+     "f0_hz": 70.3,
+     "zcr": 0.129
+    },
+    {
+     "at_s": 22.04,
+     "db_10ms": -52.6,
+     "r": 0.213,
+     "f0_hz": 170.2,
+     "zcr": 0.161
+    },
+    {
+     "at_s": 22.05,
+     "db_10ms": -45.0,
+     "r": 0.645,
+     "f0_hz": 144.1,
+     "zcr": 0.135
+    }
+   ],
+   "pause_s": [
+    21.86,
+    21.99
+   ],
+   "pause_len_s": 0.13,
+   "pause_1ms_median_db": -66.8,
+   "pause_1ms_max_db": -57.4,
+   "pause_peak_sample": 84,
+   "pause_peak_dbfs": -51.8,
+   "leave_to_speech_1ms_db": [
+    -56.6,
+    -55.7,
+    -54.6,
+    -56.4,
+    -58.2,
+    -59.8,
+    -58.7,
+    -63.7,
+    -63.1,
+    -64.2,
+    -64.5,
+    -68.1,
+    -61.5,
+    -65.0,
+    -65.9,
+    -65.2,
+    -69.4,
+    -71.5,
+    -73.1,
+    -68.7,
+    -66.0,
+    -70.3,
+    -67.4,
+    -64.6,
+    -65.7,
+    -69.5,
+    -74.1,
+    -69.6,
+    -66.3,
+    -65.1,
+    -62.9,
+    -63.6,
+    -68.0,
+    -74.9,
+    -67.4,
+    -62.9,
+    -60.4,
+    -59.7,
+    -58.8,
+    -59.7
+   ],
+   "speech_1ms_s": 22.062,
+   "speech_minus_leave_s": 0.072,
+   "voicing": [
+    {
+     "from_speech_ms": 0,
+     "db_10ms": -28.2,
+     "r": 0.451,
+     "f0_hz": 128.0,
+     "zcr": 0.059
+    },
+    {
+     "from_speech_ms": 10,
+     "db_10ms": -16.1,
+     "r": 0.638,
+     "f0_hz": 127.7,
+     "zcr": 0.034
+    },
+    {
+     "from_speech_ms": 20,
+     "db_10ms": -18.9,
+     "r": 0.946,
+     "f0_hz": 125.0,
+     "zcr": 0.022
+    },
+    {
+     "from_speech_ms": 30,
+     "db_10ms": -20.2,
+     "r": 0.919,
+     "f0_hz": 125.0,
+     "zcr": 0.015
+    },
+    {
+     "from_speech_ms": 40,
+     "db_10ms": -19.2,
+     "r": 0.858,
+     "f0_hz": 125.0,
+     "zcr": 0.01
+    },
+    {
+     "from_speech_ms": 50,
+     "db_10ms": -21.1,
+     "r": 0.712,
+     "f0_hz": 119.1,
+     "zcr": 0.009
+    },
+    {
+     "from_speech_ms": 60,
+     "db_10ms": -28.5,
+     "r": 0.753,
+     "f0_hz": 108.4,
+     "zcr": 0.015
+    },
+    {
+     "from_speech_ms": 70,
+     "db_10ms": -31.8,
+     "r": 0.491,
+     "f0_hz": 107.9,
+     "zcr": 0.018
+    },
+    {
+     "from_speech_ms": 80,
+     "db_10ms": -36.2,
+     "r": 0.483,
+     "f0_hz": 71.9,
+     "zcr": 0.019
+    },
+    {
+     "from_speech_ms": 90,
+     "db_10ms": -37.9,
+     "r": 0.223,
+     "f0_hz": 70.7,
+     "zcr": 0.019
+    },
+    {
+     "from_speech_ms": 100,
+     "db_10ms": -45.4,
+     "r": 0.337,
+     "f0_hz": 300.0,
+     "zcr": 0.023
+    }
+   ],
+   "voicing_best": {
+    "from_speech_ms": 20,
+    "r": 0.946,
+    "f0_hz": 125.0
+   },
+   "recognizer_minus_speech_s": -0.282,
+   "db_10ms_at_recognizer": -62.9
+  },
+  "checks": {
+   "script_opens_here": true,
+   "recognizer_abuts_previous_word": true,
+   "recognizer_off_leave_by_50ms_or_more": true,
+   "pause_100ms_every_1ms_below_minus_50db": true,
+   "speech_level_within_120ms_of_leave": true,
+   "voiced_in_first_100ms_of_speech": true,
+   "recognizer_side": true,
+   "other_take_same_direction": true
+  },
+  "other_take": {
+   "file": "04_2-download01.wav",
+   "recognizer_minus_leave_s": -0.23
+  },
+  "proposal": {
+   "decision": "sample",
+   "sample_24k": 527760
+  }
+ },
+ {
+  "id": "onset:07_6:s2:07_6-download01.wav",
+  "cue": "07_6",
+  "file": "07_6-download01.wav",
+  "selected": true,
+  "kind": "onset",
+  "word": "but",
+  "phrase": null,
+  "script_before": "o the principal value exists there too. ",
+  "script_after": "But it jumps: just below the cut, the an",
+  "byte": 134,
+  "recognizer": {
+   "onset_s": 10.12,
+   "sample_24k": 242880,
+   "context": [
+    {
+     "word": "there",
+     "start_s": 8.44,
+     "end_s": 8.8,
+     "dur_s": 0.36,
+     "here": false
+    },
+    {
+     "word": "too",
+     "start_s": 8.8,
+     "end_s": 10.12,
+     "dur_s": 1.32,
+     "here": false
+    },
+    {
+     "word": "but",
+     "start_s": 10.12,
+     "end_s": 10.18,
+     "dur_s": 0.06,
+     "here": true
+    },
+    {
+     "word": "it",
+     "start_s": 10.18,
+     "end_s": 10.46,
+     "dur_s": 0.28,
+     "here": false
+    },
+    {
+     "word": "jumps",
+     "start_s": 10.46,
+     "end_s": 11.82,
+     "dur_s": 1.36,
+     "here": false
+    }
+   ],
+   "previous_word_dur_s": 1.32,
+   "word_dur_s": 0.06
+  },
+  "energy_10ms": {
+   "status": "pause",
+   "class": "within",
+   "pause_start_s": 9.38,
+   "pause_s": 0.54,
+   "leave_s": 9.92,
+   "leave_24k": 238080,
+   "body_s": 9.96,
+   "body_24k": 239040,
+   "delta_leave_s": -0.2,
+   "delta_body_s": -0.16
+  },
+  "pcm": {
+   "lead_in_10ms": [
+    {
+     "at_s": 9.92,
+     "db_10ms": -57.1,
+     "r": 0.207,
+     "f0_hz": 71.9,
+     "zcr": 0.146
+    },
+    {
+     "at_s": 9.93,
+     "db_10ms": -60.3,
+     "r": 0.35,
+     "f0_hz": 175.2,
+     "zcr": 0.172
+    },
+    {
+     "at_s": 9.94,
+     "db_10ms": -62.9,
+     "r": 0.755,
+     "f0_hz": 151.9,
+     "zcr": 0.124
+    },
+    {
+     "at_s": 9.95,
+     "db_10ms": -54.5,
+     "r": 0.397,
+     "f0_hz": 81.1,
+     "zcr": 0.081
+    }
+   ],
+   "pause_s": [
+    9.38,
+    9.92
+   ],
+   "pause_len_s": 0.54,
+   "pause_1ms_median_db": -84.7,
+   "pause_1ms_max_db": -56.0,
+   "pause_peak_sample": 70,
+   "pause_peak_dbfs": -53.4,
+   "leave_to_speech_1ms_db": [
+    -71.1,
+    -68.7,
+    -63.9,
+    -62.9,
+    -63.9,
+    -54.7,
+    -55.7,
+    -50.9,
+    -58.0,
+    -57.0,
+    -55.9,
+    -56.6,
+    -56.5,
+    -61.7,
+    -65.1,
+    -63.4,
+    -68.2,
+    -64.3,
+    -67.9,
+    -66.3,
+    -66.1,
+    -71.0,
+    -66.1,
+    -66.3,
+    -68.8,
+    -66.5,
+    -62.0,
+    -61.7,
+    -61.3,
+    -57.3,
+    -61.9,
+    -60.1,
+    -57.7,
+    -64.0,
+    -57.9,
+    -55.7,
+    -57.8,
+    -49.0,
+    -50.1,
+    -55.1
+   ],
+   "speech_1ms_s": 9.966,
+   "speech_minus_leave_s": 0.046,
+   "voicing": [
+    {
+     "from_speech_ms": 0,
+     "db_10ms": -18.1,
+     "r": 0.706,
+     "f0_hz": 120.6,
+     "zcr": 0.013
+    },
+    {
+     "from_speech_ms": 10,
+     "db_10ms": -22.3,
+     "r": 0.949,
+     "f0_hz": 115.9,
+     "zcr": 0.013
+    },
+    {
+     "from_speech_ms": 20,
+     "db_10ms": -23.4,
+     "r": 0.959,
+     "f0_hz": 119.4,
+     "zcr": 0.011
+    },
+    {
+     "from_speech_ms": 30,
+     "db_10ms": -25.3,
+     "r": 0.659,
+     "f0_hz": 143.7,
+     "zcr": 0.022
+    },
+    {
+     "from_speech_ms": 40,
+     "db_10ms": -27.4,
+     "r": 0.58,
+     "f0_hz": 133.3,
+     "zcr": 0.036
+    },
+    {
+     "from_speech_ms": 50,
+     "db_10ms": -30.0,
+     "r": 0.61,
+     "f0_hz": 131.1,
+     "zcr": 0.044
+    },
+    {
+     "from_speech_ms": 60,
+     "db_10ms": -16.8,
+     "r": 0.683,
+     "f0_hz": 131.1,
+     "zcr": 0.052
+    },
+    {
+     "from_speech_ms": 70,
+     "db_10ms": -16.3,
+     "r": 0.675,
+     "f0_hz": 131.1,
+     "zcr": 0.053
+    },
+    {
+     "from_speech_ms": 80,
+     "db_10ms": -18.2,
+     "r": 0.428,
+     "f0_hz": 133.3,
+     "zcr": 0.051
+    },
+    {
+     "from_speech_ms": 90,
+     "db_10ms": -17.5,
+     "r": 0.307,
+     "f0_hz": 140.4,
+     "zcr": 0.057
+    },
+    {
+     "from_speech_ms": 100,
+     "db_10ms": -20.0,
+     "r": 0.436,
+     "f0_hz": 161.1,
+     "zcr": 0.067
+    }
+   ],
+   "voicing_best": {
+    "from_speech_ms": 20,
+    "r": 0.959,
+    "f0_hz": 119.4
+   },
+   "recognizer_minus_speech_s": 0.154,
+   "db_10ms_at_recognizer": -22.0
+  },
+  "checks": {
+   "script_opens_here": true,
+   "recognizer_abuts_previous_word": true,
+   "recognizer_off_leave_by_50ms_or_more": true,
+   "pause_100ms_every_1ms_below_minus_50db": true,
+   "speech_level_within_120ms_of_leave": true,
+   "voiced_in_first_100ms_of_speech": true,
+   "recognizer_side": true,
+   "other_take_same_direction": true
+  },
+  "other_take": {
+   "file": "07_6-download02.wav",
+   "recognizer_minus_leave_s": 0.17
+  },
+  "proposal": {
+   "decision": "sample",
+   "sample_24k": 238080
+  }
+ },
+ {
+  "id": "onset:07_6:s2:07_6-download02.wav",
+  "cue": "07_6",
+  "file": "07_6-download02.wav",
+  "selected": false,
+  "kind": "onset",
+  "word": "but",
+  "phrase": null,
+  "script_before": "o the principal value exists there too. ",
+  "script_after": "But it jumps: just below the cut, the an",
+  "byte": 134,
+  "recognizer": {
+   "onset_s": 10.2,
+   "sample_24k": 244800,
+   "context": [
+    {
+     "word": "there",
+     "start_s": 8.62,
+     "end_s": 8.94,
+     "dur_s": 0.32,
+     "here": false
+    },
+    {
+     "word": "too",
+     "start_s": 8.94,
+     "end_s": 10.2,
+     "dur_s": 1.26,
+     "here": false
+    },
+    {
+     "word": "but",
+     "start_s": 10.2,
+     "end_s": 10.26,
+     "dur_s": 0.06,
+     "here": true
+    },
+    {
+     "word": "it",
+     "start_s": 10.26,
+     "end_s": 10.54,
+     "dur_s": 0.28,
+     "here": false
+    },
+    {
+     "word": "jumps",
+     "start_s": 10.54,
+     "end_s": 11.9,
+     "dur_s": 1.36,
+     "here": false
+    }
+   ],
+   "previous_word_dur_s": 1.26,
+   "word_dur_s": 0.06
+  },
+  "energy_10ms": {
+   "status": "pause",
+   "class": "within",
+   "pause_start_s": 9.51,
+   "pause_s": 0.52,
+   "leave_s": 10.03,
+   "leave_24k": 240720,
+   "body_s": 10.06,
+   "body_24k": 241440,
+   "delta_leave_s": -0.17,
+   "delta_body_s": -0.14
+  },
+  "pcm": {
+   "lead_in_10ms": [
+    {
+     "at_s": 10.03,
+     "db_10ms": -51.6,
+     "r": 0.612,
+     "f0_hz": 70.1,
+     "zcr": 0.018
+    },
+    {
+     "at_s": 10.04,
+     "db_10ms": -44.1,
+     "r": 0.455,
+     "f0_hz": 70.1,
+     "zcr": 0.035
+    },
+    {
+     "at_s": 10.05,
+     "db_10ms": -46.7,
+     "r": 0.828,
+     "f0_hz": 180.5,
+     "zcr": 0.033
+    }
+   ],
+   "pause_s": [
+    9.51,
+    10.03
+   ],
+   "pause_len_s": 0.52,
+   "pause_1ms_median_db": -69.8,
+   "pause_1ms_max_db": -57.5,
+   "pause_peak_sample": 63,
+   "pause_peak_dbfs": -54.3,
+   "leave_to_speech_1ms_db": [
+    -68.2,
+    -62.9,
+    -66.1,
+    -68.1,
+    -65.6,
+    -60.1,
+    -50.5,
+    -51.0,
+    -49.3,
+    -44.2,
+    -45.4,
+    -45.2,
+    -44.6,
+    -48.6,
+    -60.5,
+    -46.6,
+    -41.7,
+    -40.6,
+    -41.3,
+    -45.0,
+    -46.4,
+    -54.0,
+    -54.9,
+    -48.9,
+    -43.1,
+    -42.4,
+    -45.6,
+    -47.0,
+    -49.7,
+    -52.9,
+    -57.1,
+    -53.8,
+    -54.7,
+    -50.5,
+    -52.0,
+    -41.0,
+    -37.4
+   ],
+   "speech_1ms_s": 10.066,
+   "speech_minus_leave_s": 0.036,
+   "voicing": [
+    {
+     "from_speech_ms": 0,
+     "db_10ms": -27.5,
+     "r": 0.652,
+     "f0_hz": 72.3,
+     "zcr": 0.007
+    },
+    {
+     "from_speech_ms": 10,
+     "db_10ms": -25.4,
+     "r": 0.709,
+     "f0_hz": 164.4,
+     "zcr": 0.012
+    },
+    {
+     "from_speech_ms": 20,
+     "db_10ms": -28.4,
+     "r": 0.75,
+     "f0_hz": 162.7,
+     "zcr": 0.019
+    },
+    {
+     "from_speech_ms": 30,
+     "db_10ms": -26.5,
+     "r": 0.721,
+     "f0_hz": 164.4,
+     "zcr": 0.024
+    },
+    {
+     "from_speech_ms": 40,
+     "db_10ms": -13.6,
+     "r": 0.551,
+     "f0_hz": 166.7,
+     "zcr": 0.028
+    },
+    {
+     "from_speech_ms": 50,
+     "db_10ms": -16.1,
+     "r": 0.39,
+     "f0_hz": 179.1,
+     "zcr": 0.033
+    },
+    {
+     "from_speech_ms": 60,
+     "db_10ms": -16.3,
+     "r": 0.501,
+     "f0_hz": 185.3,
+     "zcr": 0.031
+    },
+    {
+     "from_speech_ms": 70,
+     "db_10ms": -16.6,
+     "r": 0.631,
+     "f0_hz": 192.8,
+     "zcr": 0.038
+    },
+    {
+     "from_speech_ms": 80,
+     "db_10ms": -17.0,
+     "r": 0.709,
+     "f0_hz": 199.2,
+     "zcr": 0.043
+    },
+    {
+     "from_speech_ms": 90,
+     "db_10ms": -18.2,
+     "r": 0.794,
+     "f0_hz": 206.0,
+     "zcr": 0.043
+    },
+    {
+     "from_speech_ms": 100,
+     "db_10ms": -19.4,
+     "r": 0.8,
+     "f0_hz": 211.5,
+     "zcr": 0.046
+    }
+   ],
+   "voicing_best": {
+    "from_speech_ms": 100,
+    "r": 0.8,
+    "f0_hz": 211.5
+   },
+   "recognizer_minus_speech_s": 0.134,
+   "db_10ms_at_recognizer": -23.8
+  },
+  "checks": {
+   "script_opens_here": true,
+   "recognizer_abuts_previous_word": true,
+   "recognizer_off_leave_by_50ms_or_more": true,
+   "pause_100ms_every_1ms_below_minus_50db": true,
+   "speech_level_within_120ms_of_leave": true,
+   "voiced_in_first_100ms_of_speech": true,
+   "recognizer_side": true,
+   "other_take_same_direction": true
+  },
+  "other_take": {
+   "file": "07_6-download01.wav",
+   "recognizer_minus_leave_s": 0.2
+  },
+  "proposal": {
+   "decision": "sample",
+   "sample_24k": 240720
+  }
+ },
+ {
+  "id": "onset:07_6:s3:07_6-download01.wav",
+  "cue": "07_6",
+  "file": "07_6-download01.wav",
+  "selected": true,
+  "kind": "onset",
+  "word": "and",
+  "phrase": null,
+  "script_before": " cut, the angles are close to minus pi. ",
+  "script_after": "And the principal logarithm undoes the e",
+  "byte": 202,
+  "recognizer": {
+   "onset_s": 16.0,
+   "sample_24k": 384000,
+   "context": [
+    {
+     "word": "minus",
+     "start_s": 14.28,
+     "end_s": 14.64,
+     "dur_s": 0.36,
+     "here": false
+    },
+    {
+     "word": "pi",
+     "start_s": 14.64,
+     "end_s": 16.0,
+     "dur_s": 1.36,
+     "here": false
+    },
+    {
+     "word": "and",
+     "start_s": 16.0,
+     "end_s": 16.04,
+     "dur_s": 0.04,
+     "here": true
+    },
+    {
+     "word": "the",
+     "start_s": 16.04,
+     "end_s": 16.14,
+     "dur_s": 0.1,
+     "here": false
+    },
+    {
+     "word": "principal",
+     "start_s": 16.14,
+     "end_s": 16.52,
+     "dur_s": 0.38,
+     "here": false
+    }
+   ],
+   "previous_word_dur_s": 1.36,
+   "word_dur_s": 0.04
+  },
+  "energy_10ms": {
+   "status": "pause",
+   "class": "within",
+   "pause_start_s": 15.3,
+   "pause_s": 0.62,
+   "leave_s": 15.92,
+   "leave_24k": 382080,
+   "body_s": 15.95,
+   "body_24k": 382800,
+   "delta_leave_s": -0.08,
+   "delta_body_s": -0.05
+  },
+  "pcm": {
+   "lead_in_10ms": [
+    {
+     "at_s": 15.92,
+     "db_10ms": -53.5,
+     "r": 0.238,
+     "f0_hz": 162.2,
+     "zcr": 0.261
+    },
+    {
+     "at_s": 15.93,
+     "db_10ms": -54.4,
+     "r": 0.406,
+     "f0_hz": 80.0,
+     "zcr": 0.243
+    }
+   ],
+   "pause_s": [
+    15.3,
+    15.92
+   ],
+   "pause_len_s": 0.62,
+   "pause_1ms_median_db": -84.7,
+   "pause_1ms_max_db": -55.7,
+   "pause_peak_sample": 87,
+   "pause_peak_dbfs": -51.5,
+   "leave_to_speech_1ms_db": [
+    -68.2,
+    -63.3,
+    -57.1,
+    -54.1,
+    -53.5,
+    -47.9,
+    -51.9,
+    -57.1,
+    -54.1,
+    -52.3,
+    -53.6,
+    -52.0,
+    -52.7,
+    -56.0,
+    -56.7,
+    -58.3,
+    -54.6,
+    -56.2,
+    -56.0,
+    -52.2,
+    -54.7,
+    -43.1,
+    -43.0,
+    -42.3,
+    -41.3,
+    -38.8
+   ],
+   "speech_1ms_s": 15.945,
+   "speech_minus_leave_s": 0.025,
+   "voicing": [
+    {
+     "from_speech_ms": 0,
+     "db_10ms": -40.6,
+     "r": 0.161,
+     "f0_hz": 74.8,
+     "zcr": 0.119
+    },
+    {
+     "from_speech_ms": 10,
+     "db_10ms": -19.8,
+     "r": 0.426,
+     "f0_hz": 127.7,
+     "zcr": 0.077
+    },
+    {
+     "from_speech_ms": 20,
+     "db_10ms": -28.4,
+     "r": 0.604,
+     "f0_hz": 127.0,
+     "zcr": 0.046
+    },
+    {
+     "from_speech_ms": 30,
+     "db_10ms": -17.5,
+     "r": 0.756,
+     "f0_hz": 127.0,
+     "zcr": 0.035
+    },
+    {
+     "from_speech_ms": 40,
+     "db_10ms": -15.3,
+     "r": 0.847,
+     "f0_hz": 126.3,
+     "zcr": 0.029
+    },
+    {
+     "from_speech_ms": 50,
+     "db_10ms": -19.0,
+     "r": 0.914,
+     "f0_hz": 123.1,
+     "zcr": 0.019
+    },
+    {
+     "from_speech_ms": 60,
+     "db_10ms": -19.7,
+     "r": 0.943,
+     "f0_hz": 122.4,
+     "zcr": 0.019
+    },
+    {
+     "from_speech_ms": 70,
+     "db_10ms": -20.4,
+     "r": 0.985,
+     "f0_hz": 123.1,
+     "zcr": 0.019
+    },
+    {
+     "from_speech_ms": 80,
+     "db_10ms": -18.4,
+     "r": 0.996,
+     "f0_hz": 122.4,
+     "zcr": 0.02
+    },
+    {
+     "from_speech_ms": 90,
+     "db_10ms": -18.3,
+     "r": 0.985,
+     "f0_hz": 121.8,
+     "zcr": 0.03
+    },
+    {
+     "from_speech_ms": 100,
+     "db_10ms": -20.2,
+     "r": 0.903,
+     "f0_hz": 121.2,
+     "zcr": 0.033
+    }
+   ],
+   "voicing_best": {
+    "from_speech_ms": 80,
+    "r": 0.996,
+    "f0_hz": 122.4
+   },
+   "recognizer_minus_speech_s": 0.055,
+   "db_10ms_at_recognizer": -18.5
+  },
+  "checks": {
+   "script_opens_here": true,
+   "recognizer_abuts_previous_word": true,
+   "recognizer_off_leave_by_50ms_or_more": true,
+   "pause_100ms_every_1ms_below_minus_50db": true,
+   "speech_level_within_120ms_of_leave": true,
+   "voiced_in_first_100ms_of_speech": true,
+   "recognizer_side": true,
+   "other_take_same_direction": true
+  },
+  "other_take": {
+   "file": "07_6-download02.wav",
+   "recognizer_minus_leave_s": 0.09
+  },
+  "proposal": {
+   "decision": "sample",
+   "sample_24k": 382080
+  }
+ },
+ {
+  "id": "onset:07_6:s3:07_6-download02.wav",
+  "cue": "07_6",
+  "file": "07_6-download02.wav",
+  "selected": false,
+  "kind": "onset",
+  "word": "and",
+  "phrase": null,
+  "script_before": " cut, the angles are close to minus pi. ",
+  "script_after": "And the principal logarithm undoes the e",
+  "byte": 202,
+  "recognizer": {
+   "onset_s": 15.78,
+   "sample_24k": 378720,
+   "context": [
+    {
+     "word": "minus",
+     "start_s": 14.08,
+     "end_s": 14.42,
+     "dur_s": 0.34,
+     "here": false
+    },
+    {
+     "word": "pi",
+     "start_s": 14.42,
+     "end_s": 15.78,
+     "dur_s": 1.36,
+     "here": false
+    },
+    {
+     "word": "and",
+     "start_s": 15.78,
+     "end_s": 15.8,
+     "dur_s": 0.02,
+     "here": true
+    },
+    {
+     "word": "the",
+     "start_s": 15.8,
+     "end_s": 15.9,
+     "dur_s": 0.1,
+     "here": false
+    },
+    {
+     "word": "principal",
+     "start_s": 15.9,
+     "end_s": 16.28,
+     "dur_s": 0.38,
+     "here": false
+    }
+   ],
+   "previous_word_dur_s": 1.36,
+   "word_dur_s": 0.02
+  },
+  "energy_10ms": {
+   "status": "pause",
+   "class": "within",
+   "pause_start_s": 15.08,
+   "pause_s": 0.61,
+   "leave_s": 15.69,
+   "leave_24k": 376560,
+   "body_s": 15.71,
+   "body_24k": 377040,
+   "delta_leave_s": -0.09,
+   "delta_body_s": -0.07
+  },
+  "pcm": {
+   "lead_in_10ms": [
+    {
+     "at_s": 15.69,
+     "db_10ms": -55.5,
+     "r": 0.286,
+     "f0_hz": 78.8,
+     "zcr": 0.173
+    },
+    {
+     "at_s": 15.7,
+     "db_10ms": -44.9,
+     "r": 0.326,
+     "f0_hz": 196.7,
+     "zcr": 0.164
+    }
+   ],
+   "pause_s": [
+    15.08,
+    15.69
+   ],
+   "pause_len_s": 0.61,
+   "pause_1ms_median_db": -84.5,
+   "pause_1ms_max_db": -57.3,
+   "pause_peak_sample": 79,
+   "pause_peak_dbfs": -52.4,
+   "leave_to_speech_1ms_db": [
+    -60.2,
+    -61.9,
+    -63.2,
+    -57.4,
+    -56.6,
+    -57.6,
+    -59.2,
+    -58.1,
+    -51.6,
+    -49.8,
+    -53.9,
+    -46.3,
+    -48.0,
+    -43.4,
+    -45.2,
+    -47.3,
+    -45.8,
+    -43.7,
+    -41.2,
+    -43.8,
+    -42.7,
+    -41.8,
+    -38.4
+   ],
+   "speech_1ms_s": 15.712,
+   "speech_minus_leave_s": 0.022,
+   "voicing": [
+    {
+     "from_speech_ms": 0,
+     "db_10ms": -35.9,
+     "r": 0.594,
+     "f0_hz": 134.1,
+     "zcr": 0.073
+    },
+    {
+     "from_speech_ms": 10,
+     "db_10ms": -15.0,
+     "r": 0.727,
+     "f0_hz": 133.7,
+     "zcr": 0.034
+    },
+    {
+     "from_speech_ms": 20,
+     "db_10ms": -17.4,
+     "r": 0.828,
+     "f0_hz": 130.1,
+     "zcr": 0.014
+    },
+    {
+     "from_speech_ms": 30,
+     "db_10ms": -16.1,
+     "r": 0.8,
+     "f0_hz": 128.3,
+     "zcr": 0.013
+    },
+    {
+     "from_speech_ms": 40,
+     "db_10ms": -19.1,
+     "r": 0.903,
+     "f0_hz": 123.7,
+     "zcr": 0.009
+    },
+    {
+     "from_speech_ms": 50,
+     "db_10ms": -19.6,
+     "r": 0.951,
+     "f0_hz": 122.4,
+     "zcr": 0.008
+    },
+    {
+     "from_speech_ms": 60,
+     "db_10ms": -20.6,
+     "r": 0.988,
+     "f0_hz": 123.1,
+     "zcr": 0.009
+    },
+    {
+     "from_speech_ms": 70,
+     "db_10ms": -18.4,
+     "r": 0.994,
+     "f0_hz": 123.4,
+     "zcr": 0.01
+    },
+    {
+     "from_speech_ms": 80,
+     "db_10ms": -19.1,
+     "r": 0.975,
+     "f0_hz": 125.0,
+     "zcr": 0.01
+    },
+    {
+     "from_speech_ms": 90,
+     "db_10ms": -20.3,
+     "r": 0.922,
+     "f0_hz": 127.7,
+     "zcr": 0.014
+    },
+    {
+     "from_speech_ms": 100,
+     "db_10ms": -21.2,
+     "r": 0.893,
+     "f0_hz": 131.1,
+     "zcr": 0.019
+    }
+   ],
+   "voicing_best": {
+    "from_speech_ms": 70,
+    "r": 0.994,
+    "f0_hz": 123.4
+   },
+   "recognizer_minus_speech_s": 0.068,
+   "db_10ms_at_recognizer": -19.6
+  },
+  "checks": {
+   "script_opens_here": true,
+   "recognizer_abuts_previous_word": true,
+   "recognizer_off_leave_by_50ms_or_more": true,
+   "pause_100ms_every_1ms_below_minus_50db": true,
+   "speech_level_within_120ms_of_leave": true,
+   "voiced_in_first_100ms_of_speech": true,
+   "recognizer_side": true,
+   "other_take_same_direction": true
+  },
+  "other_take": {
+   "file": "07_6-download01.wav",
+   "recognizer_minus_leave_s": 0.08
+  },
+  "proposal": {
+   "decision": "sample",
+   "sample_24k": 376560
+  }
+ },
+ {
+  "id": "onset:07_6:s4:07_6-download01.wav",
+  "cue": "07_6",
+  "file": "07_6-download01.wav",
+  "selected": true,
+  "kind": "onset",
+  "word": "exponentiating",
+  "phrase": null,
+  "script_before": "oes the exponential from one side only. ",
+  "script_after": "Exponentiating the logarithm of z gives ",
+  "byte": 273,
+  "recognizer": {
+   "onset_s": 20.96,
+   "sample_24k": 503040,
+   "context": [
+    {
+     "word": "side",
+     "start_s": 19.28,
+     "end_s": 19.62,
+     "dur_s": 0.34,
+     "here": false
+    },
+    {
+     "word": "only",
+     "start_s": 19.62,
+     "end_s": 20.96,
+     "dur_s": 1.34,
+     "here": false
+    },
+    {
+     "word": "exponentiating",
+     "start_s": 20.96,
+     "end_s": 21.64,
+     "dur_s": 0.68,
+     "here": true
+    },
+    {
+     "word": "the",
+     "start_s": 21.64,
+     "end_s": 21.8,
+     "dur_s": 0.16,
+     "here": false
+    },
+    {
+     "word": "logarithm",
+     "start_s": 21.8,
+     "end_s": 22.38,
+     "dur_s": 0.58,
+     "here": false
+    }
+   ],
+   "previous_word_dur_s": 1.34,
+   "word_dur_s": 0.68
+  },
+  "energy_10ms": {
+   "status": "pause",
+   "class": "within",
+   "pause_start_s": 20.31,
+   "pause_s": 0.51,
+   "leave_s": 20.82,
+   "leave_24k": 499680,
+   "body_s": 20.83,
+   "body_24k": 499920,
+   "delta_leave_s": -0.14,
+   "delta_body_s": -0.13
+  },
+  "pcm": {
+   "lead_in_10ms": [],
+   "pause_s": [
+    20.31,
+    20.82
+   ],
+   "pause_len_s": 0.51,
+   "pause_1ms_median_db": -84.7,
+   "pause_1ms_max_db": -56.5,
+   "pause_peak_sample": 92,
+   "pause_peak_dbfs": -51.0,
+   "leave_to_speech_1ms_db": [
+    -56.7,
+    -45.9,
+    -44.6,
+    -41.3,
+    -40.0,
+    -43.2,
+    -42.6,
+    -40.6,
+    -41.7,
+    -39.9
+   ],
+   "speech_1ms_s": 20.829,
+   "speech_minus_leave_s": 0.009,
+   "voicing": [
+    {
+     "from_speech_ms": 0,
+     "db_10ms": -21.9,
+     "r": 0.466,
+     "f0_hz": 161.1,
+     "zcr": 0.107
+    },
+    {
+     "from_speech_ms": 10,
+     "db_10ms": -14.1,
+     "r": 0.474,
+     "f0_hz": 162.2,
+     "zcr": 0.081
+    },
+    {
+     "from_speech_ms": 20,
+     "db_10ms": -16.9,
+     "r": 0.338,
+     "f0_hz": 81.1,
+     "zcr": 0.071
+    },
+    {
+     "from_speech_ms": 30,
+     "db_10ms": -17.8,
+     "r": 0.407,
+     "f0_hz": 193.5,
+     "zcr": 0.062
+    },
+    {
+     "from_speech_ms": 40,
+     "db_10ms": -17.6,
+     "r": 0.651,
+     "f0_hz": 196.7,
+     "zcr": 0.057
+    },
+    {
+     "from_speech_ms": 50,
+     "db_10ms": -18.4,
+     "r": 0.808,
+     "f0_hz": 210.5,
+     "zcr": 0.064
+    },
+    {
+     "from_speech_ms": 60,
+     "db_10ms": -18.9,
+     "r": 0.892,
+     "f0_hz": 216.2,
+     "zcr": 0.099
+    },
+    {
+     "from_speech_ms": 70,
+     "db_10ms": -23.3,
+     "r": 0.717,
+     "f0_hz": 216.2,
+     "zcr": 0.143
+    },
+    {
+     "from_speech_ms": 80,
+     "db_10ms": -38.4,
+     "r": 0.207,
+     "f0_hz": 244.9,
+     "zcr": 0.23
+    },
+    {
+     "from_speech_ms": 90,
+     "db_10ms": -43.5,
+     "r": 0.324,
+     "f0_hz": 166.7,
+     "zcr": 0.321
+    },
+    {
+     "from_speech_ms": 100,
+     "db_10ms": -35.2,
+     "r": 0.206,
+     "f0_hz": 150.0,
+     "zcr": 0.395
+    }
+   ],
+   "voicing_best": {
+    "from_speech_ms": 60,
+    "r": 0.892,
+    "f0_hz": 216.2
+   },
+   "recognizer_minus_speech_s": 0.131,
+   "db_10ms_at_recognizer": -21.0
+  },
+  "checks": {
+   "script_opens_here": true,
+   "recognizer_abuts_previous_word": true,
+   "recognizer_off_leave_by_50ms_or_more": true,
+   "pause_100ms_every_1ms_below_minus_50db": true,
+   "speech_level_within_120ms_of_leave": true,
+   "voiced_in_first_100ms_of_speech": true,
+   "recognizer_side": true,
+   "other_take_same_direction": true
+  },
+  "other_take": {
+   "file": "07_6-download02.wav",
+   "recognizer_minus_leave_s": 0.15
+  },
+  "proposal": {
+   "decision": "sample",
+   "sample_24k": 499680
+  }
+ },
+ {
+  "id": "onset:07_6:s4:07_6-download02.wav",
+  "cue": "07_6",
+  "file": "07_6-download02.wav",
+  "selected": false,
+  "kind": "onset",
+  "word": "exponentiating",
+  "phrase": null,
+  "script_before": "oes the exponential from one side only. ",
+  "script_after": "Exponentiating the logarithm of z gives ",
+  "byte": 273,
+  "recognizer": {
+   "onset_s": 20.66,
+   "sample_24k": 495840,
+   "context": [
+    {
+     "word": "side",
+     "start_s": 19.04,
+     "end_s": 19.4,
+     "dur_s": 0.36,
+     "here": false
+    },
+    {
+     "word": "only",
+     "start_s": 19.4,
+     "end_s": 20.66,
+     "dur_s": 1.26,
+     "here": false
+    },
+    {
+     "word": "exponentiating",
+     "start_s": 20.66,
+     "end_s": 21.32,
+     "dur_s": 0.66,
+     "here": true
+    },
+    {
+     "word": "the",
+     "start_s": 21.32,
+     "end_s": 21.48,
+     "dur_s": 0.16,
+     "here": false
+    },
+    {
+     "word": "logarithm",
+     "start_s": 21.48,
+     "end_s": 22.04,
+     "dur_s": 0.56,
+     "here": false
+    }
+   ],
+   "previous_word_dur_s": 1.26,
+   "word_dur_s": 0.66
+  },
+  "energy_10ms": {
+   "status": "pause",
+   "class": "within",
+   "pause_start_s": 20.11,
+   "pause_s": 0.4,
+   "leave_s": 20.51,
+   "leave_24k": 492240,
+   "body_s": 20.55,
+   "body_24k": 493200,
+   "delta_leave_s": -0.15,
+   "delta_body_s": -0.11
+  },
+  "pcm": {
+   "lead_in_10ms": [
+    {
+     "at_s": 20.51,
+     "db_10ms": -58.1,
+     "r": 0.167,
+     "f0_hz": 300.0,
+     "zcr": 0.146
+    },
+    {
+     "at_s": 20.52,
+     "db_10ms": -59.0,
+     "r": 0.257,
+     "f0_hz": 105.0,
+     "zcr": 0.188
+    },
+    {
+     "at_s": 20.53,
+     "db_10ms": -50.8,
+     "r": 0.574,
+     "f0_hz": 200.0,
+     "zcr": 0.143
+    }
+   ],
+   "pause_s": [
+    20.11,
+    20.51
+   ],
+   "pause_len_s": 0.4,
+   "pause_1ms_median_db": -68.3,
+   "pause_1ms_max_db": -57.7,
+   "pause_peak_sample": 86,
+   "pause_peak_dbfs": -51.6,
+   "leave_to_speech_1ms_db": [
+    -69.8,
+    -67.4,
+    -62.8,
+    -57.9,
+    -54.1,
+    -54.3,
+    -57.3,
+    -62.8,
+    -57.8,
+    -58.6,
+    -59.0,
+    -60.3,
+    -58.4,
+    -57.4,
+    -58.8,
+    -57.8,
+    -61.1,
+    -61.2,
+    -57.5,
+    -60.1,
+    -58.1,
+    -55.7,
+    -55.2,
+    -53.9,
+    -51.1,
+    -49.8,
+    -53.0,
+    -53.4,
+    -49.3,
+    -45.0,
+    -43.6,
+    -48.0,
+    -42.9,
+    -39.6
+   ],
+   "speech_1ms_s": 20.543,
+   "speech_minus_leave_s": 0.033,
+   "voicing": [
+    {
+     "from_speech_ms": 0,
+     "db_10ms": -33.3,
+     "r": 0.523,
+     "f0_hz": 130.8,
+     "zcr": 0.076
+    },
+    {
+     "from_speech_ms": 10,
+     "db_10ms": -15.9,
+     "r": 0.653,
+     "f0_hz": 130.8,
+     "zcr": 0.043
+    },
+    {
+     "from_speech_ms": 20,
+     "db_10ms": -14.0,
+     "r": 0.571,
+     "f0_hz": 129.4,
+     "zcr": 0.038
+    },
+    {
+     "from_speech_ms": 30,
+     "db_10ms": -16.6,
+     "r": 0.742,
+     "f0_hz": 129.0,
+     "zcr": 0.026
+    },
+    {
+     "from_speech_ms": 40,
+     "db_10ms": -19.3,
+     "r": 0.749,
+     "f0_hz": 126.3,
+     "zcr": 0.019
+    },
+    {
+     "from_speech_ms": 50,
+     "db_10ms": -20.7,
+     "r": 0.798,
+     "f0_hz": 120.6,
+     "zcr": 0.037
+    },
+    {
+     "from_speech_ms": 60,
+     "db_10ms": -25.2,
+     "r": 0.554,
+     "f0_hz": 115.7,
+     "zcr": 0.088
+    },
+    {
+     "from_speech_ms": 70,
+     "db_10ms": -33.7,
+     "r": 0.207,
+     "f0_hz": 97.2,
+     "zcr": 0.151
+    },
+    {
+     "from_speech_ms": 80,
+     "db_10ms": -38.2,
+     "r": 0.207,
+     "f0_hz": 104.6,
+     "zcr": 0.221
+    },
+    {
+     "from_speech_ms": 90,
+     "db_10ms": -32.7,
+     "r": 0.188,
+     "f0_hz": 72.2,
+     "zcr": 0.266
+    },
+    {
+     "from_speech_ms": 100,
+     "db_10ms": -22.9,
+     "r": 0.178,
+     "f0_hz": 78.4,
+     "zcr": 0.291
+    }
+   ],
+   "voicing_best": {
+    "from_speech_ms": 50,
+    "r": 0.798,
+    "f0_hz": 120.6
+   },
+   "recognizer_minus_speech_s": 0.117,
+   "db_10ms_at_recognizer": -20.1
+  },
+  "checks": {
+   "script_opens_here": true,
+   "recognizer_abuts_previous_word": true,
+   "recognizer_off_leave_by_50ms_or_more": true,
+   "pause_100ms_every_1ms_below_minus_50db": true,
+   "speech_level_within_120ms_of_leave": true,
+   "voiced_in_first_100ms_of_speech": true,
+   "recognizer_side": true,
+   "other_take_same_direction": true
+  },
+  "other_take": {
+   "file": "07_6-download01.wav",
+   "recognizer_minus_leave_s": 0.14
+  },
+  "proposal": {
+   "decision": "sample",
+   "sample_24k": 492240
+  }
+ },
+ {
+  "id": "onset:07_6:s5:07_6-download01.wav",
+  "cue": "07_6",
+  "file": "07_6-download01.wav",
+  "selected": true,
+  "kind": "onset",
+  "word": "but",
+  "phrase": null,
+  "script_before": " of z gives back z for every nonzero z. ",
+  "script_after": "But the logarithm of e to the w gives ba",
+  "byte": 341,
+  "recognizer": {
+   "onset_s": 26.5,
+   "sample_24k": 636000,
+   "context": [
+    {
+     "word": "zero",
+     "start_s": 24.72,
+     "end_s": 25.38,
+     "dur_s": 0.66,
+     "here": false
+    },
+    {
+     "word": "z",
+     "start_s": 25.38,
+     "end_s": 26.5,
+     "dur_s": 1.12,
+     "here": false
+    },
+    {
+     "word": "but",
+     "start_s": 26.5,
+     "end_s": 26.56,
+     "dur_s": 0.06,
+     "here": true
+    },
+    {
+     "word": "the",
+     "start_s": 26.56,
+     "end_s": 26.66,
+     "dur_s": 0.1,
+     "here": false
+    },
+    {
+     "word": "logarithm",
+     "start_s": 26.66,
+     "end_s": 27.22,
+     "dur_s": 0.56,
+     "here": false
+    }
+   ],
+   "previous_word_dur_s": 1.12,
+   "word_dur_s": 0.06
+  },
+  "energy_10ms": {
+   "status": "pause",
+   "class": "within",
+   "pause_start_s": 25.98,
+   "pause_s": 0.47,
+   "leave_s": 26.45,
+   "leave_24k": 634800,
+   "body_s": 26.46,
+   "body_24k": 635040,
+   "delta_leave_s": -0.05,
+   "delta_body_s": -0.04
+  },
+  "pcm": {
+   "lead_in_10ms": [
+    {
+     "at_s": 26.45,
+     "db_10ms": -51.3,
+     "r": 0.778,
+     "f0_hz": 162.2,
+     "zcr": 0.117
+    }
+   ],
+   "pause_s": [
+    25.98,
+    26.45
+   ],
+   "pause_len_s": 0.47,
+   "pause_1ms_median_db": -85.5,
+   "pause_1ms_max_db": -58.1,
+   "pause_peak_sample": 64,
+   "pause_peak_dbfs": -54.2,
+   "leave_to_speech_1ms_db": [
+    -67.1,
+    -61.7,
+    -60.9,
+    -58.1,
+    -55.5,
+    -49.9,
+    -50.9,
+    -53.4,
+    -51.3,
+    -44.2,
+    -39.2
+   ],
+   "speech_1ms_s": 26.46,
+   "speech_minus_leave_s": 0.01,
+   "voicing": [
+    {
+     "from_speech_ms": 0,
+     "db_10ms": -23.0,
+     "r": 0.589,
+     "f0_hz": 123.1,
+     "zcr": 0.066
+    },
+    {
+     "from_speech_ms": 10,
+     "db_10ms": -13.1,
+     "r": 0.839,
+     "f0_hz": 123.1,
+     "zcr": 0.053
+    },
+    {
+     "from_speech_ms": 20,
+     "db_10ms": -16.1,
+     "r": 0.78,
+     "f0_hz": 122.4,
+     "zcr": 0.041
+    },
+    {
+     "from_speech_ms": 30,
+     "db_10ms": -17.8,
+     "r": 0.674,
+     "f0_hz": 120.0,
+     "zcr": 0.029
+    },
+    {
+     "from_speech_ms": 40,
+     "db_10ms": -22.4,
+     "r": 0.56,
+     "f0_hz": 108.1,
+     "zcr": 0.019
+    },
+    {
+     "from_speech_ms": 50,
+     "db_10ms": -25.2,
+     "r": 0.523,
+     "f0_hz": 107.6,
+     "zcr": 0.008
+    },
+    {
+     "from_speech_ms": 60,
+     "db_10ms": -27.0,
+     "r": 0.272,
+     "f0_hz": 106.2,
+     "zcr": 0.015
+    },
+    {
+     "from_speech_ms": 70,
+     "db_10ms": -33.5,
+     "r": 0.012,
+     "f0_hz": 70.2,
+     "zcr": 0.074
+    },
+    {
+     "from_speech_ms": 80,
+     "db_10ms": -38.3,
+     "r": 0.13,
+     "f0_hz": 292.7,
+     "zcr": 0.162
+    },
+    {
+     "from_speech_ms": 90,
+     "db_10ms": -46.2,
+     "r": 0.258,
+     "f0_hz": 206.9,
+     "zcr": 0.191
+    },
+    {
+     "from_speech_ms": 100,
+     "db_10ms": -43.9,
+     "r": 0.399,
+     "f0_hz": 141.2,
+     "zcr": 0.197
+    }
+   ],
+   "voicing_best": {
+    "from_speech_ms": 10,
+    "r": 0.839,
+    "f0_hz": 123.1
+   },
+   "recognizer_minus_speech_s": 0.04,
+   "db_10ms_at_recognizer": -22.4
+  },
+  "checks": {
+   "script_opens_here": true,
+   "recognizer_abuts_previous_word": true,
+   "recognizer_off_leave_by_50ms_or_more": true,
+   "pause_100ms_every_1ms_below_minus_50db": true,
+   "speech_level_within_120ms_of_leave": true,
+   "voiced_in_first_100ms_of_speech": true,
+   "recognizer_side": true,
+   "other_take_same_direction": true
+  },
+  "other_take": {
+   "file": "07_6-download02.wav",
+   "recognizer_minus_leave_s": 0.04
+  },
+  "proposal": {
+   "decision": "sample",
+   "sample_24k": 634800
+  }
+ },
+ {
+  "id": "onset:07_6:s5:07_6-download02.wav",
+  "cue": "07_6",
+  "file": "07_6-download02.wav",
+  "selected": false,
+  "kind": "onset",
+  "word": "but",
+  "phrase": null,
+  "script_before": " of z gives back z for every nonzero z. ",
+  "script_after": "But the logarithm of e to the w gives ba",
+  "byte": 341,
+  "recognizer": {
+   "onset_s": 26.120001,
+   "sample_24k": 626880,
+   "context": [
+    {
+     "word": "zero",
+     "start_s": 24.4,
+     "end_s": 25.08,
+     "dur_s": 0.68,
+     "here": false
+    },
+    {
+     "word": "z",
+     "start_s": 25.08,
+     "end_s": 26.12,
+     "dur_s": 1.04,
+     "here": false
+    },
+    {
+     "word": "but",
+     "start_s": 26.12,
+     "end_s": 26.18,
+     "dur_s": 0.06,
+     "here": true
+    },
+    {
+     "word": "the",
+     "start_s": 26.18,
+     "end_s": 26.28,
+     "dur_s": 0.1,
+     "here": false
+    },
+    {
+     "word": "logarithm",
+     "start_s": 26.28,
+     "end_s": 26.84,
+     "dur_s": 0.56,
+     "here": false
+    }
+   ],
+   "previous_word_dur_s": 1.04,
+   "word_dur_s": 0.06
+  },
+  "energy_10ms": {
+   "status": "pause",
+   "class": "within",
+   "pause_start_s": 25.67,
+   "pause_s": 0.41,
+   "leave_s": 26.08,
+   "leave_24k": 625920,
+   "body_s": 26.09,
+   "body_24k": 626160,
+   "delta_leave_s": -0.04,
+   "delta_body_s": -0.03
+  },
+  "pcm": {
+   "lead_in_10ms": [],
+   "pause_s": [
+    25.67,
+    26.08
+   ],
+   "pause_len_s": 0.41,
+   "pause_1ms_median_db": -85.4,
+   "pause_1ms_max_db": -60.3,
+   "pause_peak_sample": 69,
+   "pause_peak_dbfs": -53.5,
+   "leave_to_speech_1ms_db": [
+    -65.2,
+    -64.7,
+    -57.7,
+    -54.1,
+    -52.6,
+    -47.5,
+    -43.6,
+    -41.3,
+    -34.8
+   ],
+   "speech_1ms_s": 26.088,
+   "speech_minus_leave_s": 0.008,
+   "voicing": [
+    {
+     "from_speech_ms": 0,
+     "db_10ms": -31.6,
+     "r": 0.526,
+     "f0_hz": 126.3,
+     "zcr": 0.045
+    },
+    {
+     "from_speech_ms": 10,
+     "db_10ms": -12.7,
+     "r": 0.724,
+     "f0_hz": 126.3,
+     "zcr": 0.031
+    },
+    {
+     "from_speech_ms": 20,
+     "db_10ms": -16.8,
+     "r": 0.862,
+     "f0_hz": 126.0,
+     "zcr": 0.023
+    },
+    {
+     "from_speech_ms": 30,
+     "db_10ms": -18.7,
+     "r": 0.741,
+     "f0_hz": 126.0,
+     "zcr": 0.016
+    },
+    {
+     "from_speech_ms": 40,
+     "db_10ms": -20.4,
+     "r": 0.452,
+     "f0_hz": 121.8,
+     "zcr": 0.008
+    },
+    {
+     "from_speech_ms": 50,
+     "db_10ms": -25.8,
+     "r": 0.017,
+     "f0_hz": 70.1,
+     "zcr": 0.005
+    },
+    {
+     "from_speech_ms": 60,
+     "db_10ms": -30.8,
+     "r": 0.476,
+     "f0_hz": 74.1,
+     "zcr": 0.038
+    },
+    {
+     "from_speech_ms": 70,
+     "db_10ms": -33.8,
+     "r": 0.19,
+     "f0_hz": 289.2,
+     "zcr": 0.074
+    },
+    {
+     "from_speech_ms": 80,
+     "db_10ms": -43.8,
+     "r": 0.186,
+     "f0_hz": 255.3,
+     "zcr": 0.134
+    },
+    {
+     "from_speech_ms": 90,
+     "db_10ms": -47.7,
+     "r": 0.121,
+     "f0_hz": 81.5,
+     "zcr": 0.15
+    },
+    {
+     "from_speech_ms": 100,
+     "db_10ms": -31.4,
+     "r": 0.31,
+     "f0_hz": 70.9,
+     "zcr": 0.125
+    }
+   ],
+   "voicing_best": {
+    "from_speech_ms": 20,
+    "r": 0.862,
+    "f0_hz": 126.0
+   },
+   "recognizer_minus_speech_s": 0.032,
+   "db_10ms_at_recognizer": -18.4
+  },
+  "checks": {
+   "script_opens_here": true,
+   "recognizer_abuts_previous_word": true,
+   "recognizer_off_leave_by_50ms_or_more": false,
+   "pause_100ms_every_1ms_below_minus_50db": true,
+   "speech_level_within_120ms_of_leave": true,
+   "voiced_in_first_100ms_of_speech": true,
+   "recognizer_side": true,
+   "other_take_same_direction": true
+  },
+  "other_take": {
+   "file": "07_6-download01.wav",
+   "recognizer_minus_leave_s": 0.05
+  },
+  "proposal": {
+   "decision": null,
+   "unresolved": [
+    "recognizer_off_leave_by_50ms_or_more"
+   ]
+  }
+ }
+]

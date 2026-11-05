@@ -1,0 +1,197 @@
+{
+ "answers01_applied": 92,
+ "answers02_applied": 97,
+ "answers02_sha256": "075c83bd99081ef2e7b749f17c71dda50ade228f35d647e80ecdc99ae67abdca",
+ "replay_equals_root_prepared01": true,
+ "changes": [
+  {
+   "cue": "04_2",
+   "point": "b306",
+   "from_s": 21.859999,
+   "to_s": 22.09,
+   "shift_s": 0.23
+  },
+  {
+   "cue": "07_6",
+   "point": "s2",
+   "from_24k": 242880,
+   "to_24k": 238080,
+   "shift_s": -0.2
+  },
+  {
+   "cue": "07_6",
+   "point": "s3",
+   "from_24k": 384000,
+   "to_24k": 382080,
+   "shift_s": -0.08
+  },
+  {
+   "cue": "07_6",
+   "point": "s4",
+   "from_24k": 503040,
+   "to_24k": 499680,
+   "shift_s": -0.14
+  },
+  {
+   "cue": "07_6",
+   "point": "s5",
+   "from_24k": 636000,
+   "to_24k": 634800,
+   "shift_s": -0.05
+  }
+ ],
+ "dry_run_cues_accepted": 80,
+ "unit_spans_pcm_unchanged_cues": 80,
+ "report_rows_changed": [
+  "07_6"
+ ],
+ "marks_changed": [
+  "04_2 b306"
+ ],
+ "predicted": {
+  "wav_sha256_unchanged": {
+   "00_1": "da0c8222d218b86d7cde3bbfc172cf4ecc8210dae3838a7ba59d2e153e12a964",
+   "00_2": "973de53e6606d0d9e92bb0efd48267a1045a7486aad378129cf27ea9a4e6b245",
+   "00_3": "263bf07a038691c2b8fedcafc686d27d11070d64761bb84ee7bcd665b34e97cf",
+   "00_4": "0e31173f697e47d9f9b436bfb99b353a4de8f3c218c30446b3346a66b9c5305d",
+   "00_5": "243db2f6a11c28a623b8146bdcfc226f80bf563b6e6ec46b9c386310755b2f48",
+   "00_6": "462aec1957132d4fed69b72c5f3c1ee9c72969da9d5bc31300c056f7be5dbce3",
+   "01_1": "7fa884a59448321e9c2178acc9a781eb110166242c3ad97a4ddf80696a55a32e",
+   "01_2": "e4ecaba471a9e501bcb657900e2927c059f74547f1ad421bdaa213ed116a6227",
+   "01_3": "5df27a86b6ea2a78c58b7036538e7d9e53569ca180afb7e6d03e017b2d3ebee7",
+   "01_4": "49ab5ec2c6d769c1127816109944546554b95fe93df37971c9639336563a0eb1",
+   "01_5": "05bb927f95ecf8409eea5e587716076441d3b83960828e93cb98dca38d78b2bb",
+   "01_6": "5dc2a5efd9762e5797424f943e0bd003020d7bfd6123c2348c7614950c824bab",
+   "02_1": "7d94804e63ef65c2e2e2fa24d2ce52e71dbf28f6a033d46f9f84502624f9780c",
+   "02_2": "398f5950da717b9e671d4685d59457484bc9549cd4959d7458ae431a10c72c79",
+   "02_3": "1b862a916ed3389dd68b0683ddeab608355d937e73b5b61e1335c3865688529b",
+   "02_4": "c8dbf46745d4f5ec5a1b034a6f904bbf3e434d33f1a09e0d0baef4610df00dd4",
+   "02_5": "6acc58c8b46d7d87cead6c6833849328a0592189b3ac52c5fdc3ba7c2befedc0",
+   "03_1": "10fa69ef2030c44d931a38a452a4a71dd85911fef4223f65a6b8cb1f23f67596",
+   "03_2": "cd914147fc110a7e7888cd4bab966f75c0f31f8cda5d1732871e33ba12c6cb9f",
+   "03_3": "331e1beb41f054aff306b8c50d5fbcd8f4a1ee57ea3a38ec864aa2106be38664",
+   "03_4": "ff7c43c0bd3ce447850be802340ab43adecc97a892f816e688b5ba033b56a9a1",
+   "04_1": "24d371d7b2f118a6dea075a6c905788261a005ee628422b295893c96f1bc313c",
+   "04_2": "675a3f0648a6c8918f37f80cd473d0af4461b406cfe3fc32e7c801e2198dfde7",
+   "04_3": "fcebbaa0f44321fc88d6f12fcfdcc0a04e0ed76f2a4df0ae5e1de4ccd55ff47a",
+   "04_4": "597dab14911e07ee5a65b63312fcd79d243bddb484c38c7c4c4da137d0c21798",
+   "04_5": "e0119fdb9da5bced581e993ee5417a68686347c984b51d879ce919470a5c4401",
+   "04_6": "13fc355212c2fe6ac07126caf5f6c446109cd680373605123be31fdd055da075",
+   "04_7": "15e729519ff591fc881f1aac1665c6d05491f695a902b431969a6c7f9a798ff4",
+   "05_1": "a45623c9ffc3c1f7678d975132b7d195edc289c9bbed19f2f3a6697b97fddd7b",
+   "05_2": "5ef221f78db07059573752754667a611ccc125c5e1c146c04345dbd5ed168748",
+   "05_20": "594137e6d5eac76bd8743453fa51db3ad1f0c5279f2bce2e201d69e8b91e7aac",
+   "05_3": "b99f03d8858126acf95c7cdd0eea0c0d3eecb885ae7fcfe7b29d6d37babeb426",
+   "05_4": "54c4b7843fa5541de61b81ddeb139e93da40c9fdf4580b06453354221ec3840e",
+   "05_5": "a9c223b4d279c3364db6b4f35ca111ec46884e83a22a1c760d92e533d06bb338",
+   "05_6": "210f33dc0b5ee837a001a822af708eb49ef16af0af8d04483cdf14c63d5b4389",
+   "05_7": "8fb9921820f1ef353ed936039da76087ea15bb91d072dde29836cfefc30e5c6f",
+   "06_1": "29cc595ec323b153098132b510a738cf88d33d66db8b1243048a1727b669bf02",
+   "06_2": "0eaf8c56df110297bf763d2e25266ef0ad7584c97f8f8810d484d7be9b99dea8",
+   "06_3": "f099ce2ce655abcde999e1492605ed4c4c779a6a1722956dbc31fe71e2195c58",
+   "06_4": "dac51479f0dd9357fb3bc60e8447b44761fc94d433fbd02d4750dd2d77c8b6ef",
+   "06_5": "1863e66389928f1067bf1589aa85f4b0e07c3a345fe8c07dbf7241dbaf65071f",
+   "06_6": "e243867b3bbf854b006bea665ca349793f7bdca087f85949bf680ff40245a675",
+   "06_20": "b1bc36a0f9dd57b617a18a30425f8989c7b0a66b6d8ece7905e216ac7fd5a05a",
+   "06_7": "9f648c8190bc9189c3d89457636e959b8abf9c86d0ecd25a3dae3b9189ffac95",
+   "07_1": "9391bdefabc07f1b3e56f349f1d873f5795acb991d92a13b3b36d8b17d6c3400",
+   "07_2": "063df1811bb91691f0f9993c4a6fe67dba2909a5731d0254fa246b9e12d471bf",
+   "07_3": "19208de1f2ee7ed806fd6f8511ff139c7f8ce8809ac89b07d9de9313749374b0",
+   "07_4": "a3bc58bfb8173d569ec75fa701d1b1c553576838df67ad02ff03c81a48e6fb80",
+   "07_5": "3813a5ace4228e2c7283a8eae28ac59118722b141ff1df9d13943389deac3703",
+   "07_6": "e721d74dc09e48deb022c5c2d09c9461274bbec268b1aa587c8dbe1d473b8cab",
+   "08_1": "2249613c6e93e92980899db9218508f885c7558c5790366852f50d376b43bd09",
+   "08_2": "cba9a5040b82e9b5268a5beea11964205b6b559b35f18fb55b7e448509c95ae8",
+   "08_3": "cd48a616a91494f43f970e9adfdb6fe565c23c891f8baed7ff29783462eed14f",
+   "08_4": "e9b590cf280becfa113bfc3031d58f4b4292fdf00c4340ed30d6a3f03016f1eb",
+   "08_5": "bd5aff4861ecb7a50c137fe7ef8aad2bfd38e0a91e0367001cc3c4f629413f27",
+   "09_1": "0f42a18fc16b76c5134a0acb7146a1a20e921e92e6ef6eb7fccfd92dd04caea4",
+   "09_2": "7336eec1e13e71457b71df76c316d1532f3d82faef62e5c59d6ab80dbd0a057c",
+   "09_3": "16eea7f63a40576ff1bf2f91c88b6d42a8018e729494ba37fa300d1b0a08c896",
+   "09_4": "b0502c40b365dece2a42a069b6b974a1a1a46350fbb86c89bbad44700f6c8075",
+   "10_1": "3839e93640734f9e14d0dcfa950b7e3368bd4da99d1c1e59436755a027f9aa76",
+   "10_2": "cdd4e83d6b78d515ffea83a061ce4043843840323fec16580ee78652511068de",
+   "10_3": "e70b9a0974df49057b85a214f882a16868e9581d70726117ecfc5f356e127a5d",
+   "10_4": "ee8fd6944c7c5e77df0e241aa81d9a3069b5322098ed47f409688b0e8b9e767c",
+   "11_1": "44b8cf6992c1aa2f06e36dca0bc0b855ca2fd60b1ed2615ffdf7f44da44ab4d5",
+   "11_2": "f39b425901f6a8d860b76aa01ff7c867a453229f2ce815868f66eacf4232108f",
+   "11_3": "e2374b310d209a839a4a54a50f92cd027ec1661a2bce9f2906cad1e9a4d2b0b2",
+   "11_4": "69feb5a34085a7dcd73ebfba746206e3f2ee3b24834e92d9cd01fe74a71d37d7",
+   "11_5": "740f215dcef308474dd04b2e00db60fcea3831c435fe2f744c495e24b5831094",
+   "11_6": "024288eea6a052e62caf879ad66897542a5baebd84556a3aebeda400dc7425c0",
+   "11_7": "ab854495bc9d5d2ebe96befc6f8253e88a2f449ad12813583150b2ed8e354941",
+   "11_20": "51802d403ba05c02b0c678647de0c98fdfca16624720ef2e815b2bc4023ad5e8",
+   "11_8": "9871b3867810e41f29742679087b5fa69914a51f18bf5adff3b69d545797ae68",
+   "12_1": "3b0e554b6100088dd55d1473e9327f15c8a6e04be7dc187498ef2055452744c8",
+   "12_2": "147a083b20a028fff79b8b7643039fa339708d65a890c4b2094f2f209227287c",
+   "12_3": "e78096dc5ab4ea5812ebf509e5e546189101b335fed49404109bb07d31af3de5",
+   "12_4": "87c332e76a42218f6063c39787e01bbd0908eefe4101d207e1ce7d982ab66e5b",
+   "12_5": "fa2b0d687c6005f29ecea4a9777ed56ac5b53cf23c11a15f73909042ce2f6dc4",
+   "12_6": "7d78841ea448ceeb7b99c7a42426a56e23c148dff810e2f1e1d007c050a96fe8",
+   "12_20": "1cce584d1d4a7026a6c05aa4ea0035f0a0a0ab2ef5d0d21265571ec8e780a3b4",
+   "12_21": "1db5625d500b731345d13b4330850468908afeb3c109634519f2bbe0e7daebc3"
+  },
+  "report_lines_changed": {
+   "07_6": [
+    {
+     "start": 0.0,
+     "end": 1.66,
+     "out_samples": 39840,
+     "source_in_sample": 0,
+     "source_out_sample": 39840
+    },
+    {
+     "start": 1.66,
+     "end": 9.92,
+     "out_samples": 198240,
+     "source_in_sample": 39840,
+     "source_out_sample": 238080
+    },
+    {
+     "start": 9.92,
+     "end": 15.92,
+     "out_samples": 144000,
+     "source_in_sample": 238080,
+     "source_out_sample": 382080
+    },
+    {
+     "start": 15.92,
+     "end": 20.82,
+     "out_samples": 117600,
+     "source_in_sample": 382080,
+     "source_out_sample": 499680
+    },
+    {
+     "start": 20.82,
+     "end": 26.45,
+     "out_samples": 135120,
+     "source_in_sample": 499680,
+     "source_out_sample": 634800
+    },
+    {
+     "start": 26.45,
+     "end": 35.03,
+     "out_samples": 205920,
+     "source_in_sample": 634800,
+     "source_out_sample": 840720
+    },
+    {
+     "start": 35.03,
+     "end": 38.88,
+     "out_samples": 92400,
+     "source_in_sample": 840720,
+     "source_out_sample": 933120
+    }
+   ]
+  },
+  "phrase_timings_04_2_marks": [
+   {
+    "byte": 306,
+    "seconds": 22.09,
+    "basis": "sample given by BronzeJaguar, provisional for root (Mail 4383): timing-corrections01: the recognizer starts the phrase 'it' at 21.859999 s, abutting the previous word (word 0.42 s, previous 0.74 s); the PCM pause 21.95-22.09 s stays at or below -56.4 dB in every 1 ms window, and speech-level voiced sound (autocorrelation 0.952 at 131.9 Hz) begins at 22.195 s, 0.335 s after the recognizer's onset; sample = the 10 ms leave frame 22.09 s, as for the 92 answers of production-choices01; in the other take (04_2-download02.wav) the recognizer's onset is -0.21 s from leave, the same direction; not heard"
+   }
+  ],
+  "checked_here": "unit_spans on all 80 cues: the same PCM as root's narration WAVs under both span sets, and only 07_6's report rows change; phrase marks: only 04_2 b306 changes",
+  "not_run_here": "the assembler's assemble and the helper's timings commands (they write production files); their receipts will name the new prepare receipt and spans"
+ }
+}
