@@ -80,7 +80,7 @@ def run(helper, *args, ws=WS, scratch=True):
     extra = ["--ws", str(ws)] + (["--receipts", str(LANE), "--target-root", str(TARGET)] if scratch else [])
     p = subprocess.run([sys.executable, "-I", "-B", str(helper), *map(str, args), "--w", str(W), *extra], cwd=REPO,
                        capture_output=True, text=True, timeout=900)
-    return p.returncode, p.stdout + p.stderr
+    return p.returncode, clean(p.stdout + p.stderr)  # cleaned before any caller cuts it, so no path is left half-shortened
 
 
 def result(out):
@@ -245,6 +245,9 @@ def main():
            f"prepare receipt {a['audio']['prepare_receipt_sha256'][:12]}, selection by {a['audio']['selection']['by']}")
     code, out = run(HELPER, "build-verify", "--attempt", "01", ws=REAL_WS, scratch=False)
     record("A2 build-verify refuses ws-build01", code == 1 and refused(out, "reused build01's units"), out.strip())
+    code, out = run(HELPER, "check-audio", "--audio", REAL_O.relative_to(REPO), ws=REAL_WS, scratch=False)
+    record("A4 a relative --audio is refused before anything runs (usage, exit 2)", code == 2 and "--audio must be absolute" in out,
+           out.strip().splitlines()[-1] if out.strip() else "")
     code, out = run(HELPER, "build-verify", "--attempt", "02", ws=REAL_WS, scratch=False)
     v = result(out)
     record("A3 build-verify passes root's real ws-build02 (read-only): recovery checks, 4 units from the workspace",
@@ -256,7 +259,7 @@ def main():
     shutil.copytree(REAL_O, COPY)
     shutil.copytree(f"{REAL_O}-timings", f"{COPY}-timings")
     code, out = run(HELPER, "check-audio", "--audio", COPY, ws=REAL_WS, scratch=False)
-    record("A3 the scratch copy passes as the original does (positive control)", code == 0, out.strip()[-200:] if code else "")
+    record("P0 the scratch copy passes as the original does (positive control)", code == 0, out.strip()[-200:] if code else "")
     pr, tr = COPY / "prepare-receipt.json", Path(f"{COPY}-timings/timings-receipt.json")
     pt, installed = Path(f"{COPY}-timings/phrase-timings.json"), COPY / "narration/phrase-timings.json"
     old_tool = f"{V2.AUDIO_REL}/prepare_audio.py prepare"
@@ -360,12 +363,14 @@ def main():
            "stand-in's timelines; it ends with the success line",
            code_t == 0 and lines[-1] == V2.SUCCESS["timeline"], lines[-1] if lines else "no log")
     code, out = run(HELPER, "verify-step", "--binding", "01", "--series", "01", "--step", "timeline")
-    record("S3 verify-step passes: 13 chapters at 60 fps, 80 cues in script order", code == 0 and result(out).get("cues") == 80,
-           out.strip()[:200])
+    v = result(out)
+    record("S3 verify-step passes: 13 chapters at 60 fps, 80 cues in script order", code == 0 and v.get("cues") == 80,
+           out.strip()[:200] if code else f"{v['chapters']} chapters, {v['cues']} cues, {v['total_frames']} stand-in frames")
     code, out = run(HELPER, "step", "--binding", "01", "--series", "01", "--step", "score")
     rows = json.loads((WS / f"jobs/{STAGE}-score01-inputs.json").read_text())["files"] if code == 0 else []
     record("S4 the score step is written after the timeline verifies; its inputs bind the timeline outputs",
-           code == 0 and any(r["path"].endswith("timeline-summary.json") for r in rows), out.strip()[:200])
+           code == 0 and any(r["path"].endswith("timeline-summary.json") for r in rows),
+           out.strip()[:200] if code else f"{len(rows)} input rows")
     same = [name for name in ("job_name", "job_files", "render_work", "latest_render", "predecessors", "output_rows",
                               "step_config", "write_step", "verify_job", "read_config", "verify_step", "load_binding")
             if inspect.getsource(getattr(V2, name)) == inspect.getsource(getattr(V1, name))]

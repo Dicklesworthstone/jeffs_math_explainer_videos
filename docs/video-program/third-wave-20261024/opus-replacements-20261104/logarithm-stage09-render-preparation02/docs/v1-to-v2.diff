@@ -1,0 +1,403 @@
+--- logarithm-stage09-render-preparation01/prepare_stage09_render.py
++++ logarithm-stage09-render-preparation02/prepare_stage09_render.py
+@@ -1,5 +1,28 @@
+ #!/usr/bin/env python3
+-"""Logarithm stage09 narrated render preparation (BlueSalmon Mail 3999, bead 87do.63). Root runs every step.
++"""Logarithm stage09 narrated render preparation, version 2 (BlueSalmon Mails 4108 and 4245, bead 87do.63).
++
++Version 2 is the sealed version 1 (render-preparation01, 9ddc2003) with the bind adapted; docs/v1-to-v2.diff
++lists every changed line. Root runs every step.
++- Audio: the installed helper P/logarithm-stage09-audio-preparation02/prepare_audio.py (54df274a, root's
++  integration receipt; Bronze's c6c854ce plus LavenderPike's L1 and O3 fixes). Both receipts must name it as their
++  tool, and the prepare receipt's phrase_marks_plan_sha256 must equal the plan's hash. The binding (2d7f4731) and
++  its sealed bundle (2bb8e280) are unchanged.
++- Build: attempt 02 or later, verified by the recovery helper's strict build-verify (ws-build-recovery01,
++  00a18c99), which also runs version 1's. The workspace stays the one version 1 installed (its binding names
++  9ddc2003); install and build-script are version 1's and the recovery helper's, so they are not repeated here.
++- check-audio runs every audio check of bind, including the real coherent verify and delivery contract on the
++  workspace's tool copies, and writes nothing. step, verify-step, the job template and its success lines are
++  version 1's, unchanged.
++
++    python3 -I -B prepare_stage09_render.py check-audio  --w W --ws WS --audio O
++    python3 -I -B prepare_stage09_render.py build-verify --w W --ws WS --attempt 02
++    python3 -I -B prepare_stage09_render.py bind         --w W --ws WS --build 02 --audio O --attempt 01
++    python3 -I -B prepare_stage09_render.py step         --w W --ws WS --binding 01 --series 01 --step timeline
++    python3 -I -B prepare_stage09_render.py verify-step  --w W --ws WS --binding 01 --series 01 --step timeline
++        steps in order: timeline, preview (optional), score, render --chapter CH (x13, --retry N), master
++
++O is the prepared folder (for stage09: EL/production-audio-stage09-01/prepared01, with prepared01-timings
++beside it). Version 1's description follows.
+ 
+ Why a workspace. Root's stage09 build01 binary (187e119d) was compiled with its topic at W/logarithm-stage09
+ (main.rs passes env!("CARGO_MANIFEST_DIR")). Before a narrated render, captions, score or master, the kit runs
+@@ -11,15 +34,6 @@
+ audio preparation has produced real production receipts, binds that narration and writes the guarded narrated
+ jobs one step at a time. Nothing is promoted, and nothing here launches, compiles or renders.
+ 
+-    python3 -I -B prepare_stage09_render.py check        --w W
+-    python3 -I -B prepare_stage09_render.py install      --w W --ws WS
+-    python3 -I -B prepare_stage09_render.py build-script --w W --ws WS --attempt 01   (then root's guard line)
+-    python3 -I -B prepare_stage09_render.py build-verify --w W --ws WS --attempt 01
+-    python3 -I -B prepare_stage09_render.py bind         --w W --ws WS --build 01 --audio O --attempt 01
+-    python3 -I -B prepare_stage09_render.py step         --w W --ws WS --binding 01 --series 01 --step timeline
+-    python3 -I -B prepare_stage09_render.py verify-step  --w W --ws WS --binding 01 --series 01 --step timeline
+-        steps in order: timeline, preview (optional), score, render --chapter CH (x13, --retry N), master
+-
+ Run from the repository root. W and WS are absolute; WS is new and outside the repository, because the
+ installed manifest and every generated job name absolute scratch paths. O is the audio preparation's prepared
+ folder (its narration/ and the sibling O-timings/). --receipts and --target-root exist for the checks' scratch
+@@ -31,8 +45,6 @@
+ import importlib.util
+ import json
+ import re
+-import shlex
+-import shutil
+ import subprocess
+ import sys
+ from pathlib import Path
+@@ -46,7 +58,13 @@
+ AUDIO_REL = f"{P_REL}/logarithm-stage09-audio-preparation01"
+ AUDIO_SUMS_SHA = "2bb8e2800fd4d403ebd7bc73f8f6515b53a227125dc6a418fdd74e5e4c40bb13"  # the bundle LavenderPike reviewed
+ AUDIO_BINDING_SHA = "2d7f4731d373b5089686f5d345834faeb1a7238dc15007abfc7b4fab420d6803"
+-AUDIO_HELPER_SHA = "c6c854ce62f86ecb4025a9999e883ff04e28a29492788fec05c9060238cdb1e3"
++INSTALLED_REL = f"{P_REL}/logarithm-stage09-audio-preparation02/prepare_audio.py"  # root's installed audio helper
++INSTALLED_SHA = "54df274a468be6122251efa7e4ccd7e11477fc8a93522e66de484ffb9be4eb0d"
++INSTALLED_FROM_SHA = "08a269279c47f3a3639ac2458b378135ecca620af9fd246d6b9291eaabd28b14"  # plan-binding-fix01 staged
++INTEGRATION_REL = "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/stage09-audio-integration02/integration-receipt01.json"
++RENDER_V1_SHA = "9ddc2003aa666844214aace166343bb37c1d5baeb6b62abb252f517c634b5388"  # installed the workspace
++RECOVERY_REL = f"{P_REL}/logarithm-stage09-ws-build-recovery01/recover_ws_build.py"
++RECOVERY_SHA = "00a18c996f0b7393ed5cebca1bba0706cfd2cda7423f20a0d7d0008c7db9225f"
+ VOICE = {"provider": "ElevenLabs", "name": "Oliver"}  # owner: logarithm keeps Oliver; no mixed voice
+ RECEIPT_SOURCE = "ElevenLabs UI, Oliver"
+ # The narration tools the kit and the assembly use, as root installed them (working tree, Mail 3920 bytes).
+@@ -149,46 +167,10 @@
+ 
+ # ---------------------------------------------------------------- workspace
+ 
+-def install(c):
+-    facts = check(c)
+-    ws = c.ws
+-    need(not ws.exists() and not ws.is_symlink(), f"refusing to overwrite {ws}")
+-    need(ws.parent.is_dir(), f"{ws.parent} does not exist")
+-    real = ws.parent.resolve() / ws.name
+-    need(not real.is_relative_to(REPO.resolve()), "--ws is inside the repository: it names absolute scratch paths")
+-    for forbidden in (c.w / "engine", c.w / "repo-view", c.w / "logarithm-stage08", c.native.stage):
+-        need(not real.is_relative_to(forbidden.resolve()), f"--ws is inside {forbidden}")
+-    rows = c.stage_rows()
+-    need(tree(c.native.stage) == rows, "W/logarithm-stage09 differs from root's stage binding")
+-    ws.mkdir()
+-    for rel in sorted(rows):
+-        (c.crate / rel).parent.mkdir(parents=True, exist_ok=True)
+-        shutil.copy2(c.native.stage / rel, c.crate / rel)
+-    c.tools.mkdir()
+-    for name in TOOLS:
+-        shutil.copy2(REPO / "tools" / name, c.tools / name)
+-    binding = {
+-        "schema": "logarithm-stage09-render-workspace-v1",
+-        "helper_sha256": sha(HERE), "native_helper_sha256": NATIVE_SHA,
+-        "w": str(c.w), "ws": str(ws), "from_stage": str(c.native.stage),
+-        "from_stage_binding_sha256": sha(c.w / f"{STAGE}-source-binding01.json"),
+-        "crate": {rel: sha(c.crate / rel) for rel in sorted(rows)},
+-        "tools": {name: sha(c.tools / name) for name in TOOLS},
+-        "build01_binary": BUILD01_BINARY,
+-        "why": "The kit runs <topic>/../../tools/narration_delivery.py, which requires <its repository>/explainer_corpus/"
+-               "<topic>. This layout gives the same 48 crate bytes that root's build01 compiled such a repository; "
+-               "the tools are byte copies of the repository's. Only the crate's location changes.",
+-    }
+-    write_new(c.ws_binding, json.dumps(binding, indent=2) + "\n")
+-    verify_ws(c)
+-    return {"ws": str(ws), "crate_files": len(rows), "tools": len(TOOLS), "workspace_binding_sha256": sha(c.ws_binding),
+-            "build01_binary": facts["build01"]["stage09_binary"]}
+-
+-
+ def verify_ws(c):
+-    need(c.ws is not None and c.ws_binding.is_file(), "no workspace binding: run install first")
++    need(c.ws is not None and c.ws_binding.is_file(), "no workspace binding: version 1 installs the workspace")
+     b = json.loads(c.ws_binding.read_text())
+-    need(b.get("helper_sha256") == sha(HERE), "the workspace was installed by another version of this helper")
++    need(b.get("helper_sha256") == RENDER_V1_SHA, "the workspace was not installed by version 1 (9ddc2003)")
+     need(b["w"] == str(c.w) and b["ws"] == str(c.ws), "the workspace binding names another W or WS")
+     rows = c.stage_rows()
+     need(tree(c.crate) == rows == b["crate"], "the workspace crate differs from root's stage09 bytes")
+@@ -199,118 +181,23 @@
+ 
+ # ---------------------------------------------------------------- guarded rebuild
+ 
+-def build_paths(c, nn):
+-    job = f"{STAGE}-ws-build{nn}"
+-    return {"job": job, "script": c.ws / f"{job}.sh", "inputs": c.ws / f"{job}-inputs.json",
+-            "before": c.ws / f"before-{job}-binary", "after": c.ws / f"{job}-binary",
+-            "sums": c.ws / f"{job}-binaries.sha256", "receipt": c.lane / job}
+-
+-
+-def build_text(c, j, before_sha):
+-    q = shlex.quote
+-    if before_sha is None:
+-        preserve = ['[ ! -e "$B" ] || refuse "a shared binary appeared after this script was written"']
+-    else:
+-        preserve = [f'[ -f "$B" ] && [ "$(sha "$B")" = {before_sha} ] || refuse "the shared binary is not the one this script preserves"',
+-                    'cp -p "$B" "$BEFORE"',
+-                    f'[ "$(sha "$BEFORE")" = {before_sha} ] || refuse "the preserved copy differs"']
+-    lines = [
+-        f"# {j['job']}: the stage09 tests, binary and strict Clippy built from the render workspace, so the binary's",
+-        f"# topic is WS/{CRATE}. Written by prepare_stage09_render.py (sha256 {sha(HERE)}).",
+-        "# Same engine (W/engine-budget.toml) and cargo lines as logarithm-stage09-build01; launch only through the guard.",
+-        "set -eu",
+-        'refuse() { echo "REFUSED: $1" >&2; exit 1; }',
+-        "sha() { shasum -a 256 \"$1\" | cut -d ' ' -f 1; }",
+-        f"W={q(str(c.w))}",
+-        f"WS={q(str(c.ws))}",
+-        f"R={q(str(REPO))}",
+-        f"T={q(str(c.target))}",
+-        '[ "${CARGO_TARGET_DIR:-}" = "$T" ] || refuse "CARGO_TARGET_DIR is not the guard\'s target"',
+-        "export CARGO_INCREMENTAL=0",
+-        "export RCH_SHIM_LOCAL_IDE=1",
+-        'export CARGO_TARGET_DIR="$CARGO_TARGET_DIR/geometry-kit01"',
+-        'cd "$R"',
+-        f'M="$WS/{CRATE}/Cargo.toml"',
+-        'B="$CARGO_TARGET_DIR/debug/logarithm_mysteries"',
+-        f'BEFORE="$WS/{j["before"].name}"',
+-        f'AFTER="$WS/{j["after"].name}"',
+-        f'SUMS="$WS/{j["sums"].name}"',
+-        'for f in "$BEFORE" "$AFTER" "$SUMS"; do [ ! -e "$f" ] || refuse "$f exists"; done',
+-        *preserve,
+-        f'python3 -I -B "$R/{N.LOCK_CHECK_REL}" "$W/{STAGE}-original-Cargo.lock" "$WS/{CRATE}/Cargo.lock"',
+-        'cargo test --locked --offline --config "$W/engine-budget.toml" --manifest-path "$M" --all-targets',
+-        'cargo build --locked --offline --config "$W/engine-budget.toml" --manifest-path "$M" --bin logarithm_mysteries',
+-        'cp -p "$B" "$AFTER"',
+-        'cargo clippy --locked --offline --config "$W/engine-budget.toml" --manifest-path "$M" --all-targets --no-deps -- -D warnings',
+-        'cmp "$B" "$AFTER" || refuse "Clippy changed the shared binary"',
+-        f'(cd "$WS" && shasum -a 256 {"" if before_sha is None else q(j["before"].name) + " "}{q(j["after"].name)}) > "$SUMS"',
+-        '"$AFTER" chapters',
+-    ]
+-    return "\n".join(lines) + "\n"
+-
+-
+-def build_rows(c, j):
+-    paths = [j["script"], c.ws_binding, *(c.crate / rel for rel in sorted(c.stage_rows())), *(c.tools / n for n in TOOLS)]
+-    stage = c.native.stage
+-    paths += [stage / rel for rel in sorted(tree(stage))]
+-    paths += [c.w / f"{STAGE}-source-binding01.json", c.w / f"{STAGE}-original-Cargo.toml", c.w / f"{STAGE}-original-Cargo.lock"]
+-    paths += [c.w / name for name in (f"before-{STAGE}-build01-binary", f"{STAGE}-build01-binary", f"{STAGE}-build01-binaries.sha256")]
+-    for sub in ("engine", "repo-view"):
+-        paths += [c.w / sub / rel for rel in sorted(tree(c.w / sub))]
+-    paths += [c.w / rel for rel in N.W_PIN if "/" not in rel]
+-    paths += [REPO / NATIVE_REL, REPO / NATIVE_REL.replace("prepare_stage09_native.py", "SHA256SUMS"), HERE]
+-    paths += [REPO / rel for rel in N.TOOL_PIN]
+-    shared = c.target / "geometry-kit01"
+-    paths += [shared / rel for rel in N.FILM_BINARIES if (shared / rel).is_file()]
+-    need(len(set(paths)) == len(paths), "an input row repeats")
+-    return [{"path": str(p), "sha256": sha(p)} for p in paths]
+-
+-
+-def build_script(c, nn):
+-    check(c)
+-    verify_ws(c)
+-    j = build_paths(c, nn)
+-    for key in ("script", "inputs", "before", "after", "sums", "receipt"):
+-        need(not j[key].exists() and not j[key].is_symlink(), f"{j[key]} exists: use a new attempt number")
+-    shared = c.target / "geometry-kit01/debug/logarithm_mysteries"
+-    before_sha = sha(shared) if shared.is_file() else None
+-    need(before_sha is not None or not shared.exists(), f"{shared} is not a regular file")
+-    write_new(j["script"], build_text(c, j, before_sha))
+-    rows = build_rows(c, j)
+-    write_new(j["inputs"], json.dumps({"files": rows}, indent=2) + "\n")
+-    return {"job": j["job"], "script_sha256": sha(j["script"]), "inputs_sha256": sha(j["inputs"]), "input_rows": len(rows),
+-            "preserves": before_sha or "absent (nothing to preserve)", "preserves_build01_binary": before_sha == BUILD01_BINARY,
+-            "launch_from_repo_root": f"python3 -I -B {N.GUARD_REL} --phase native --job {j['job']} "
+-                                     f"--inputs {j['inputs']} -- sh {j['script']}"}
++def load_recovery():
++    """The recovery helper, by hash. It loads version 1 by hash in turn."""
++    path = REPO / RECOVERY_REL
++    digest = hashlib.sha256(path.read_bytes()).hexdigest()
++    need(digest == RECOVERY_SHA, f"the recovery helper is {digest[:12]}, expected {RECOVERY_SHA[:12]}")
++    spec = importlib.util.spec_from_file_location("recover_ws_build", path)
++    module = importlib.util.module_from_spec(spec)
++    spec.loader.exec_module(module)
++    return module
+ 
+ 
+ def build_verify(c, nn):
++    """Attempt 02 or later in its own target: version 1's checks plus the compile and output-path proofs."""
+     verify_ws(c)
+-    j = build_paths(c, nn)
+-    need((j["receipt"] / "resource-receipt.json").is_file(), f"no guard receipt for {j['job']}")
+-    r = json.loads((j["receipt"] / "resource-receipt.json").read_text())
+-    need(r.get("phase") == "native" and r.get("command") == ["sh", str(j["script"])], f"the receipt ran {r.get('command')}")
+-    need(receipt_ok(r), f"the job did not pass: exit {r.get('exit')}, error {r.get('error')}")
+-    need(r["inputs_sha256"] == sha(j["inputs"]), "the guard's input hash is not this attempt's inputs file")
+-    need(json.loads(j["inputs"].read_text())["files"][0]["sha256"] == sha(j["script"]), "the script moved after launch")
+-    log = (j["receipt"] / "command.log").read_text(errors="replace")
+-    need("PASS: the 19 packages are path copies, every other record is identical" in log, "lock check did not pass")
+-    results = re.findall(r"^test result: .*$", log, re.M)
+-    need(len(results) == 1 and results[0].startswith(
+-        f"test result: ok. {N.TESTS} passed; 0 failed; 0 ignored; 0 measured; 0 filtered out"), f"test results: {results}")
+-    tail = [line for line in log.splitlines() if line.strip()][-len(CHAPTERS):]
+-    need(tail == CHAPTERS, f"the chapters listing ends {tail[-3:]}")
+-    sums = dict(reversed(line.split("  ", 1)) for line in j["sums"].read_text().splitlines())
+-    need(sums.get(j["after"].name) == sha(j["after"]), "the workspace binary copy moved")
+-    if j["before"].exists():
+-        need(sums.get(j["before"].name) == sha(j["before"]), "the preserved binary moved")
+-    data = j["after"].read_bytes()
+-    topic, old = mentions(data, c.crate), mentions(data, c.native.stage)
+-    need(topic > 0, "the new binary does not name the workspace topic")
+-    need(old == 0, f"the new binary still names W/logarithm-stage09 ({old} times)")
+-    return {"job": j["job"], "tests": f"{N.TESTS} passed", "clippy": "-D warnings, exit 0 (set -e)", "chapters": len(CHAPTERS),
+-            "binary": str(j["after"]), "binary_sha256": sums[j["after"].name],
+-            "preserved_binary": sums.get(j["before"].name, "none"), "workspace_topic_mentions": topic}
++    need(nn != "01", "ws-build01 reused build01's units (Mail 4120); bind attempt 02 or later")
++    result = load_recovery().build_verify(c, nn)
++    return {**result, "verified_by": f"recover_ws_build.py {RECOVERY_SHA[:12]} build-verify"}
+ 
+ 
+ # ---------------------------------------------------------------- audio binding
+@@ -325,21 +212,34 @@
+     return subprocess.run(argv, cwd=REPO, capture_output=True, text=True, timeout=900)
+ 
+ 
+-def bind(c, build_nn, audio, mm):
+-    check(c)
+-    build = build_verify(c, build_nn)
+-    out = c.ws / f"narration-binding{mm}.json"
+-    need(not out.exists(), f"{out} exists: use a new attempt number")
++def installed_helper(integration):
++    """Root's installed audio helper: its bytes and root's integration receipt for them."""
++    pinned(REPO / INSTALLED_REL, INSTALLED_SHA, "the installed audio helper")
++    r = json.loads(Path(integration).read_text())
++    need(r.get("installed") == INSTALLED_REL and r.get("installed_sha256") == INSTALLED_SHA
++         and r.get("source_sha256") == INSTALLED_FROM_SHA, f"the integration receipt names another helper: {r.get('installed')}")
++    need(r.get("listening") is False and r.get("production_assembly") is False and r.get("fine_sync") is False,
++         "the integration receipt claims more than an installed helper")
++    return r
++
++
++def audio_facts(c, audio):
++    """Every audio check of bind, read-only: receipts, files, coherent verify and the kit's delivery contract."""
+     a = audio_paths(audio)
+     pr_path = a["prepared"] / "prepare-receipt.json"
+     need(pr_path.is_file(), f"no prepare receipt at {pr_path}: the real audio preparation has not run")
+-    for rel in ("SHA256SUMS", "bindings/logarithm-stage09-oliver.json", "prepare_audio.py"):
+-        pinned(REPO / AUDIO_REL / rel, {"SHA256SUMS": AUDIO_SUMS_SHA, "prepare_audio.py": AUDIO_HELPER_SHA}.get(rel, AUDIO_BINDING_SHA),
+-               f"audio preparation {rel}")
++    for rel in ("SHA256SUMS", "bindings/logarithm-stage09-oliver.json"):
++        pinned(REPO / AUDIO_REL / rel, AUDIO_SUMS_SHA if rel == "SHA256SUMS" else AUDIO_BINDING_SHA, f"audio preparation {rel}")
++    integration = REPO / INTEGRATION_REL
++    installed_helper(integration)
+     pr = json.loads(pr_path.read_text())
+     want = {"sha256": AUDIO_BINDING_SHA, "use": "production", "voice": VOICE}
+     need({k: pr.get("binding", {}).get(k) for k in want} == want, f"prepare receipt binding {pr.get('binding')}")
+     need(pr.get("production") is True and pr.get("chapter") is None, "the prepare receipt is not a whole-film production run")
++    need(pr.get("tool") == f"{INSTALLED_REL} prepare", f"the prepare receipt was written by {pr.get('tool')}")
++    plan = a["prepared"] / "phrase-marks-plan.json"
++    need(plan.is_file() and pr.get("phrase_marks_plan_sha256") == sha(plan),
++         "phrase-marks-plan.json is not the plan the prepare receipt bound (phrase_marks_plan_sha256)")
+     cues = script_cues(c.crate / "script.tsv")
+     need(list(pr.get("cues", {})) == cues, f"the prepare receipt covers {len(pr.get('cues', {}))} cues, not the script's 80")
+     spans = a["prepared"] / "spans.json"
+@@ -359,6 +259,7 @@
+     need(tr_path.is_file(), f"no timings receipt at {tr_path}")
+     tr = json.loads(tr_path.read_text())
+     need({k: tr.get("binding", {}).get(k) for k in want} == want and tr.get("production") is True, "timings receipt binding")
++    need(tr.get("tool") == f"{INSTALLED_REL} timings", f"the timings receipt was written by {tr.get('tool')}")
+     need(tr.get("cues") == len(cues) and tr.get("file") == "phrase-timings.json", "the timings receipt is not whole-film")
+     need(tr.get("assembly_sha256") == sha(n / "assembly.json") and tr.get("report_sha256") == sha(n / "report.json"),
+          "the timings receipt names another assembly")
+@@ -389,7 +290,7 @@
+     contract = json.loads(d.stdout)
+     need(contract.get("verified_cues") == contract.get("selected_cues") == len(cues) and contract.get("topic") == TOPIC
+          and contract.get("chapter_scope") is None and contract.get("promotion") is False, f"contract result {contract}")
+-    files = {str(p): sha(p) for p in (pr_path, spans, decode, tr_path, timings_file)}
++    files = {str(p): sha(p) for p in (pr_path, plan, spans, decode, tr_path, timings_file, integration, REPO / INSTALLED_REL)}
+     files.update({str(n / rel): h for rel, h in tree(n).items()})
+     for record in dr.get("records", []):
+         wav = Path(record["wav"]) if Path(record["wav"]).is_absolute() else REPO / record["wav"]
+@@ -397,20 +298,43 @@
+         files[str(wav)] = record["wav_sha256"]
+     bound_plan = REPO / N.EL_REL / "combined-repair-stage09/bound-plan"
+     files.update({str(bound_plan / rel): h for rel, h in tree(bound_plan).items()})
++    audio_record = {**{k: str(v) for k, v in a.items()}, "binding_sha256": AUDIO_BINDING_SHA, "sums_sha256": AUDIO_SUMS_SHA,
++                    "helper": INSTALLED_REL, "helper_sha256": INSTALLED_SHA, "integration_receipt": INTEGRATION_REL,
++                    "integration_receipt_sha256": sha(integration), "prepare_receipt_sha256": sha(pr_path),
++                    "phrase_marks_plan_sha256": sha(plan), "timings_receipt_sha256": sha(tr_path),
++                    "phrase_timings_sha256": sha(timings_file), "marks": tr.get("marks"),
++                    "selection": {k: pr.get("selection", {}).get(k) for k in ("sha256", "by")},
++                    "answers_sha256": pr.get("answers", {}).get("sha256")}
++    return {"audio": audio_record, "voice": VOICE, "cues": len(cues), "plan_mode": contract.get("plan_mode"),
++            "checks": {"coherent_verify": verify_argv, "delivery_contract": contract_argv}, "files": files}
++
++
++def check_audio(c, audio):
++    check(c)
++    verify_ws(c)
++    facts = audio_facts(c, audio)
++    return {**{k: v for k, v in facts.items() if k != "files"}, "bound_files": len(facts["files"]),
++            "wrote": "nothing (bind writes the binding once a verified build exists)"}
++
++
++def bind(c, build_nn, audio, mm):
++    check(c)
++    build = build_verify(c, build_nn)
++    out = c.ws / f"narration-binding{mm}.json"
++    need(not out.exists(), f"{out} exists: use a new attempt number")
++    facts = audio_facts(c, audio)
+     binding = {
+-        "schema": "logarithm-stage09-render-narration-binding-v1", "helper_sha256": sha(HERE), "ws": str(c.ws),
++        "schema": "logarithm-stage09-render-narration-binding-v2", "helper_sha256": sha(HERE), "ws": str(c.ws),
+         "workspace_binding_sha256": sha(c.ws_binding),
+-        "build": {"attempt": build_nn, "job": build["job"], "binary": build["binary"], "binary_sha256": build["binary_sha256"]},
+-        "audio": {**{k: str(v) for k, v in a.items()}, "binding_sha256": AUDIO_BINDING_SHA, "helper_sha256": AUDIO_HELPER_SHA,
+-                  "sums_sha256": AUDIO_SUMS_SHA},
+-        "voice": VOICE, "cues": len(cues), "plan_mode": contract.get("plan_mode"),
+-        "checks": {"coherent_verify": verify_argv, "delivery_contract": contract_argv},
+-        "files": files,
++        "build": {"attempt": build_nn, "job": build["job"], "binary": build["binary"], "binary_sha256": build["binary_sha256"],
++                  "verified_by": build["verified_by"]},
++        **{k: v for k, v in facts.items() if k != "files"},
++        "files": facts["files"],
+         "claim": "Technical binding of real production receipts only. Nothing here was heard, rendered or accepted.",
+     }
+     write_new(out, json.dumps(binding, indent=2) + "\n")
+-    return {"binding": str(out), "binding_sha256": sha(out), "bound_files": len(files), "plan_mode": contract.get("plan_mode"),
+-            "binary_sha256": build["binary_sha256"], "voice": VOICE}
++    return {"binding": str(out), "binding_sha256": sha(out), "bound_files": len(facts["files"]),
++            "plan_mode": facts["plan_mode"], "binary_sha256": build["binary_sha256"], "voice": VOICE}
+ 
+ 
+ def load_binding(c, mm):
+@@ -808,7 +732,7 @@
+ 
+ def main(argv=None):
+     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+-    parser.add_argument("command", choices=["check", "install", "build-script", "build-verify", "bind", "step", "verify-step"])
++    parser.add_argument("command", choices=["check", "check-audio", "build-verify", "bind", "step", "verify-step"])
+     parser.add_argument("--w", required=True)
+     parser.add_argument("--ws")
+     parser.add_argument("--attempt")
+@@ -825,20 +749,22 @@
+     two = re.compile(r"\d\d")
+     if a.command != "check" and not a.ws:
+         parser.error(f"{a.command} needs --ws")
+-    if a.command in ("build-script", "build-verify", "bind") and not two.fullmatch(a.attempt or ""):
++    if a.command in ("build-verify", "bind") and not two.fullmatch(a.attempt or ""):
+         parser.error(f"{a.command} needs --attempt NN")
+     if a.command == "bind" and not (two.fullmatch(a.build or "") and a.audio):
+         parser.error("bind needs --build NN and --audio O")
++    if a.command == "check-audio" and not a.audio:
++        parser.error("check-audio needs --audio O")
++    if a.audio and not Path(a.audio).is_absolute():
++        parser.error("--audio must be absolute: the binding, the kit and the jobs name it verbatim")
+     if a.command in ("step", "verify-step") and not (two.fullmatch(a.binding or "") and two.fullmatch(a.series or "") and a.step):
+         parser.error(f"{a.command} needs --binding NN, --series NN and --step")
+     try:
+         c = Ctx(a)
+         if a.command == "check":
+             result = {"check": "PASS", **check(c)}
+-        elif a.command == "install":
+-            result = {"install": "PASS", **install(c)}
+-        elif a.command == "build-script":
+-            result = {"build_script": "WRITTEN", **build_script(c, a.attempt)}
++        elif a.command == "check-audio":
++            result = {"check_audio": "PASS", **check_audio(c, a.audio)}
+         elif a.command == "build-verify":
+             result = {"build_verify": "PASS", **build_verify(c, a.attempt)}
+         elif a.command == "bind":

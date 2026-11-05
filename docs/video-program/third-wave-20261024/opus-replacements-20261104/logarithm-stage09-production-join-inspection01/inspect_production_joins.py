@@ -14,11 +14,17 @@ Energy rule (BronzeJaguar's timing inspection, 8c18a243, applied here to the 24 
 -60 dBFS after a run; body is the first frame at or above -40 dBFS at or after leave.
 
 For each sentence boundary (the sample where one sentence's caption and beat end and the next begin) and each phrase
-mark, the pause is the quiet run containing the point if it lasts 0.15 s or more, else the longest quiet run within
-+-1.0 s (+-0.5 s for marks), the nearer on a tie. The point is then before the pause (inside the previous speech), in the
-pause (before_leave_s ahead of the next speech), or after leave (after_body_s > 0 means the next speech was already at
-body level). Flags: before_pause; early (in the pause, 0.10 s or more before leave); late (after body); tight (pause
-under 0.20 s); no_pause (no run of 0.15 s within the window); blip (a further quiet run between leave and body).
+mark, the pause is the longest quiet run within 0.30 s of the point. With none that close, the nearest run within
++-1.0 s (+-0.5 s for marks) is reported and nothing is concluded from it (pause_not_within_0.3s); with none at all,
+no_pause. Against its pause the point is before the pause (inside sound that precedes it), in the pause (before_leave_s
+ahead of the next sound), or after leave (after_body_s > 0: the next sound had already reached body level). Flags:
+before_pause; early (in the pause, 0.10 s or more before leave); late (boundaries only: after body); short_pause and
+tight (boundaries only: pause under 0.15 s / 0.20 s); blip (a further quiet run between leave and body). A mark that
+follows a pause is never called late, because the sound after the pause may be the word before the mark. For marks the
+lowest frame within 0.10 s is also given: a dip marks a junction between words in continuous speech.
+
+Cue edges: lead and tail to the first and last frame above -60 dBFS (and -40 dBFS); sound in the first or last 10 ms;
+a rise of 15 dB or more into the last 10 ms; each compared with the same frames of the 48 kHz source.
 """
 import argparse
 import array
@@ -155,6 +161,7 @@ def place(db, runs, k, window, join):
         row["after_leave_s"] = s2(k - b)
         if body is not None and k > body:
             row["after_body_s"] = s2(k - body)
+            row["max_db_body_to_point"] = max(db[body:k])  # speech level (about -15 to -25) or a softer sound
             if join:  # for a mark, speech after the pause may be the previous word: energy cannot tell
                 flags.append("late")
     if join and b - a < PAUSE:
@@ -238,13 +245,34 @@ def main():
         db = levels(data)
         runs = quiet_runs(db)
         peak = max(abs(x) for x in data)
-        speech = [k for k, v in enumerate(db) if v > QUIET_DB]
+
+        def level(d, a, b):
+            s = sum(x * x for x in d[a:b])
+            return round(20 * math.log10(math.sqrt(s / (b - a)) / 32768), 1) if s else -120.0
+
+        h = sparams[2] // 100
+        src_edges = {"first_frame_db": level(sdata, 0, h), "last_two_frames_db": [level(sdata, len(sdata) - 2 * h, len(sdata) - h),
+                                                                                  level(sdata, len(sdata) - h, len(sdata))],
+                     "last_sample": sdata[-1]}
+        edge_flags = (["sound_in_first_10ms"] if db[0] > QUIET_DB else []) + (["sound_in_last_10ms"] if db[-1] > QUIET_DB else []) + \
+            (["rise_in_last_10ms"] if db[-1] > QUIET_DB and db[-1] > db[-2] + 15 else [])
+        ms = RATE // 1000  # 1 ms levels of the first or last 20 ms of a flagged edge, with the largest sample there
+        detail = {}
+        if "sound_in_first_10ms" in edge_flags:
+            detail["first_20ms_1ms_db"] = [level(data, i * ms, (i + 1) * ms) for i in range(20)]
+            detail["first_20ms_max_abs"] = max(abs(x) for x in data[:20 * ms])
+        if "sound_in_last_10ms" in edge_flags:
+            detail["last_20ms_1ms_db"] = [level(data, len(data) - (20 - i) * ms, len(data) - (19 - i) * ms) for i in range(20)]
+            detail["last_20ms_max_abs"] = max(abs(x) for x in data[-20 * ms:])
+        speech =[k for k, v in enumerate(db) if v > QUIET_DB]
         bodies = [k for k, v in enumerate(db) if v >= BODY_DB]
         edges.append({"cue": cue, "seconds": round(len(data) / RATE, 3), "samples": len(data), "sentences": len(rows),
                       "lead_s": s2(speech[0]), "body_lead_s": s2(bodies[0]), "tail_s": s2(len(db) - 1 - speech[-1]),
                       "body_tail_s": s2(len(db) - 1 - bodies[-1]), "first_frame_db": db[0], "last_frame_db": db[-1],
                       "peak_dbfs": round(20 * math.log10(peak / 32768), 2), "full_scale_samples": sum(1 for x in data if x in (32767, -32768)),
-                      "hold": hold_kind.get(cue), "hold_floor_after_voice_s": hold_floor.get(cue), "recording": rec["recording"]})
+                      "hold": hold_kind.get(cue), "hold_floor_after_voice_s": hold_floor.get(cue), "recording": rec["recording"],
+                      "last_two_frames_db": db[-2:], "first_samples": list(data[:3]), "last_samples": list(data[-3:]),
+                      "source_48k": src_edges, "edge_flags": edge_flags, "edge_detail": detail})
         result = recognitions[rec["recording_path"]]["result"]
         canon, obs, match, _run, _replaced = H.align(text, result)
         offsets = [x for x, _ in H.kit_sentences(text)]
@@ -280,16 +308,18 @@ def main():
             for op, i1, i2, j1, j2 in difflib.SequenceMatcher(a=a_words, b=o_words, autojunk=False).get_opcodes():
                 if op == "equal":
                     continue
-                if j2 > j1:
-                    t0, t1 = obs[j1]["start"], obs[j2 - 1]["end"]
-                else:
-                    t0 = obs[j1 - 1]["end"] if j1 > 0 else 0.0
-                    t1 = obs[j1]["start"] if j1 < len(obs) else len(data) / RATE
+                # a numeral the recognizer wrote as one segment ('110') expands to several words with that segment's
+                # times, so a span is min start to max end; a deletion spans the segments on both sides of the gap
+                around = obs[j1:j2] if j2 > j1 else obs[max(0, j1 - 1):j1 + 1]
+                t0 = min(x["start"] for x in around) if around else 0.0
+                t1 = max(x["end"] for x in around) if around else len(data) / RATE
+                segs = sorted({x["seg"] for x in around})
+                heard_segments = " | ".join(result["segments"][si]["text"].strip() for si in segs)
                 char = canon[i1][1] if i1 < len(canon) else canon[-1][1]
                 near = [f"s{n} boundary" for n, s in enumerate(starts, 1) if t0 - 0.3 <= s / RATE <= t1 + 0.3]
                 near += [f"mark b{m['byte']}" for m in timings["cues"][cue]["marks"] if t0 - 0.3 <= m["seconds"] <= t1 + 0.3]
                 diffs.append({"cue": cue, "op": op, "script": " ".join(a_words[i1:i2]), "heard": " ".join(o_words[j1:j2]),
-                              "start_s": round(t0, 2), "end_s": round(t1, 2), "start_24k": round(t0 * RATE), "end_24k": round(t1 * RATE),
+                              "recognizer_segments": heard_segments, "start_s": round(t0, 2), "end_s": round(t1, 2), "start_24k": round(t0 * RATE), "end_24k": round(t1 * RATE),
                               "sentence": sentence_of(char), "near": near})
     if timings["prepare_receipt_sha256"] != sha(f"{PROD}/prepared01/prepare-receipt.json") or \
             Path(f"{NARR}/phrase-timings.json").read_bytes() != Path(note(f"{PROD}/prepared01-timings/phrase-timings.json")).read_bytes():
@@ -314,13 +344,15 @@ def main():
 
     tsv("joins.tsv", joins, ["cue", "sentence", "sample_24k", "seconds", "basis", "first_word", "recognizer_word_start_s", "bronze_class",
                              "level_db", "position", "before_pause_s", "into_pause_s", "before_leave_s", "after_leave_s", "after_body_s",
-                             "pause", "quiet_runs_between_leave_and_body", "flags"])
+                             "max_db_body_to_point", "pause", "quiet_runs_between_leave_and_body", "flags"])
     tsv("marks.tsv", marks, ["cue", "byte", "seconds", "words", "sentence", "from_sentence_onset_s", "to_next_boundary_s", "recognizer_word",
                              "recognizer_start_s", "previous_word_end_s", "level_db", "position", "before_pause_s", "into_pause_s",
                              "before_leave_s", "after_leave_s", "after_body_s", "speech_since_s", "dip_db", "dip_offset_s", "pause", "flags"])
     tsv("cue-edges.tsv", edges, ["cue", "recording", "seconds", "samples", "sentences", "lead_s", "body_lead_s", "tail_s", "body_tail_s",
-                                 "first_frame_db", "last_frame_db", "peak_dbfs", "full_scale_samples", "hold", "hold_floor_after_voice_s"])
-    tsv("discrepancies.tsv", diffs, ["cue", "sentence", "op", "script", "heard", "start_s", "end_s", "start_24k", "end_24k", "near"])
+                                 "first_frame_db", "last_frame_db", "last_two_frames_db", "first_samples", "last_samples", "source_48k",
+                                 "edge_flags", "edge_detail", "peak_dbfs", "full_scale_samples", "hold", "hold_floor_after_voice_s"])
+    tsv("discrepancies.tsv", diffs, ["cue", "sentence", "op", "script", "heard", "recognizer_segments", "start_s", "end_s", "start_24k",
+                                     "end_24k", "near"])
     flagged = {f: sorted((r for r in joins if f in r["flags"]), key=lambda r: (r["cue"], r["sentence"])) for f in JOIN_FLAGS}
     summary = {"chain": chain, "inputs": dict(sorted(READ.items())),
                "parameters": {"frame_s": 0.01, "quiet_db": QUIET_DB, "body_db": BODY_DB, "min_run_s": 0.05, "pause_s": 0.15,
@@ -340,6 +372,10 @@ def main():
     for f in MARK_FLAGS:
         got = summary["mark_flags"][f]
         print(f"mark {f}: {len(got)}" + (": " + ", ".join(got) if got else ""))
+    for f in ("sound_in_first_10ms", "sound_in_last_10ms", "rise_in_last_10ms"):
+        got = [e["cue"] for e in edges if f in e["edge_flags"]]
+        print(f"cue edge {f}: {len(got)}" + (": " + ", ".join(got) if got else ""))
+    print("hold cues: " + ", ".join(f"{e['cue']} {e['hold']} tail {e['tail_s']} s" for e in edges if e["hold"]))
     print(f"discrepant cues {len(discrepant)}: {len(diffs)} recognizer differences located")
     print("input digest", hashlib.sha256(json.dumps(summary["inputs"], sort_keys=True).encode()).hexdigest())
     return 0 if not problems else 1

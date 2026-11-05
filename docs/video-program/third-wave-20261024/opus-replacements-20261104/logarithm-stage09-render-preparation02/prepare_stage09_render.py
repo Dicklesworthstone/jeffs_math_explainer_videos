@@ -755,6 +755,8 @@ def main(argv=None):
         parser.error("bind needs --build NN and --audio O")
     if a.command == "check-audio" and not a.audio:
         parser.error("check-audio needs --audio O")
+    if a.audio and not Path(a.audio).is_absolute():
+        parser.error("--audio must be absolute: the binding, the kit and the jobs name it verbatim")
     if a.command in ("step", "verify-step") and not (two.fullmatch(a.binding or "") and two.fullmatch(a.series or "") and a.step):
         parser.error(f"{a.command} needs --binding NN, --series NN and --step")
     try:

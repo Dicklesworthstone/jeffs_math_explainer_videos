@@ -1,0 +1,27 @@
+PASS A1 check-audio on root's real prepared01: installed helper 54df274a wrote both receipts, plan hash bound, real coherent verify and 13-chapter delivery contract pass: 181 files, 33 marks, plan 1302b36a3ca9, prepare receipt 0b30ba1fa1c3, selection by BlueSalmon
+PASS A2 build-verify refuses ws-build01: REFUSED: ws-build01 reused build01's units (Mail 4120); bind attempt 02 or later
+PASS A4 a relative --audio is refused before anything runs (usage, exit 2): prepare_stage09_render.py: error: --audio must be absolute: the binding, the kit and the jobs name it verbatim
+PASS A3 build-verify passes root's real ws-build02 (read-only): recovery checks, 4 units from the workspace: binary e88e58e03b69b18f9e7c77dbeb4d810bc1b660637074b86746a6b98e497cda08, units 4, recover_ws_build.py 00a18c996f0b build-verify
+PASS P0 the scratch copy passes as the original does (positive control)
+PASS P1 one byte of phrase-marks-plan.json changed after prepare: REFUSED: phrase-marks-plan.json is not the plan the prepare receipt bound (phrase_marks_plan_sha256)
+PASS P2 a prepare receipt without phrase_marks_plan_sha256 (version 1 shape): REFUSED: phrase-marks-plan.json is not the plan the prepare receipt bound (phrase_marks_plan_sha256)
+PASS P3 a prepare receipt written by Bronze's original helper: REFUSED: the prepare receipt was written by docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-audio-preparation01/prepare_audio.py prepare
+PASS P4 a timings receipt written by the staged (uninstalled) helper: REFUSED: the timings receipt was written by docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-plan-binding-fix01/staged/prepare_audio.py timings
+PASS P5 the installed phrase-timings.json differs from the timings output: REFUSED: phrase-timings.json is not installed in the narration (timings-receipt 'install' line)
+PASS P6 a Frederick prepare receipt: REFUSED: prepare receipt binding {'path': 'docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-audio-preparation01/bindings/logarithm-stage09-oliver.json', 'sha256': '2
+PASS P7 one sample of 06_5.wav changed, phrase timings re-forged to match: the real coherent verify refuses: REFUSED: coherent_narration verify refused: coherent-narration: cue 06_5 does not reconstruct sample-for-sample
+PASS P8 an integration receipt for other installed bytes: the integration receipt names another helper: docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-audio-preparation02/prepare_audio.py
+PASS P9 an integration receipt that claims listening: the integration receipt claims more than an installed helper
+PASS B1 version 2's build-verify on the emulated ws-build02 delegates to the recovery helper and passes: recover_ws_build.py 00a18c996f0b build-verify
+PASS B2 the sealed version 1 bind would accept these receipts but records Bronze's c6c854ce and no plan hash: version 1 binding09 in scratch
+PASS B3 version 2 binds the real production audio to the emulated build02: 181 files, plan mode canonical
+PASS B4 a binding is written once: REFUSED: SCRATCH/ws/narration-binding01.json exists: use a new attempt number
+PASS B5 bind refuses build 01: REFUSED: ws-build01 reused build01's units (Mail 4120); bind attempt 02 or later
+PASS B6 version 2 steps refuse version 1's binding: REFUSED: the narration binding is another helper's or WS's
+PASS S1 the timeline step is written: header names version 2, CONFIG keeps version 1's keys, real coherent verify argv: 239 input rows
+PASS S2 under the emulated guard the job runs the real coherent verify on the production narration, then the stand-in's timelines; it ends with the success line: TIMELINE PASS: 13 chapters at 60 fps; 80 cue placements in script order.
+PASS S3 verify-step passes: 13 chapters at 60 fps, 80 cues in script order: 13 chapters, 80 cues, 17160 stand-in frames
+PASS S4 the score step is written after the timeline verifies; its inputs bind the timeline outputs: 255 input rows
+PASS S5 the narrated route is version 1's: JOB_TEMPLATE, SUCCESS, SCOPE and every step function unchanged: 12/12 functions identical
+PASS U1 real inputs untouched: prepared01 and its timings (bytes and times), installed helper, integration receipt; no binding or job in root's workspace, no narrated job in the lane
+26 PASS, 0 FAIL
