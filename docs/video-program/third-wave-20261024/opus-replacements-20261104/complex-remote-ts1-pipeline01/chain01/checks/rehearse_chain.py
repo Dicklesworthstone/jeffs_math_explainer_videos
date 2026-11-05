@@ -123,17 +123,23 @@ class Chain(Q.Tree):
         (env / 'env/bin').mkdir(parents=True)
         (env / 'env/bin/python').symlink_to(sys.executable)
         write(env / 'resource-receipt.json', json.dumps(Q.receipt('env', [], 'x', 0)))
-        write(self.O / 'fake-config.json', json.dumps({
-            'case': case, 'facts': Q.FACTS, 'chapters': Q.CHAPTERS, 'cues': self.cues, 'frames': FRAMES, 'narration': str(self.N),
-            'physical_narration': str(self.N.resolve()), 'timeline_out': str(self.J / 'complex-remote-timeline01/timeline-output')}))
+        for name in ('ffmpeg', 'ffprobe'):
+            (Path(self.env['HOME']) / '.local/bin' / name).symlink_to(shutil.which(name))
+        self.config('baseline')
         shutil.copy(shared / 'tiny.mp4', self.O / 'fake-tiny.mp4')
         text = FAKE.replace('PYTHON', sys.executable)
         for path in (self.O / 'complex_analysis_visual-release01', self.O / 'target/release/complex_analysis_visual'):
             write(path, text, 0o755)
         self.failed()
+        self.config(case)
         self.lists()
         self.pin()
         self.pin_chain()
+
+    def config(self, case):
+        write(self.O / 'fake-config.json', json.dumps({
+            'case': case, 'facts': Q.FACTS, 'chapters': Q.CHAPTERS, 'cues': self.cues, 'frames': FRAMES, 'narration': str(self.N),
+            'physical_narration': str(self.N.resolve()), 'timeline_out': str(self.J / 'complex-remote-timeline01/timeline-output')}))
 
     def narration(self):
         phrases, lines = {}, {}
@@ -265,7 +271,7 @@ AFTER_QUALIFY = {
 }
 FAKE_CASES = {
     'physical-path': ('timeline', 'ts1 tables differ from the macOS run'),
-    'qa-fail': ('score', 'chapter'),
+    'qa-fail': ('score', 'AssertionError: 04_reading_color'),
     'score-path-physical': ('preview', 'Preview score rows differ: 06_'),
     'lint-missing': ('preview', 'Rendered lint report missing: 10_'),
 }
@@ -303,8 +309,10 @@ def main():
         check('pictures-not-viewed', x['pictures_viewed'] is False and x['samples'] and len({sample['chapter'] for sample in x['samples']}) == 15 and sheets, f"{len(x['samples'])} pictures, {len(sheets)} sheets, none marked viewed")
         rows = {row['path'] for row in json.loads((t.O / 'chain-pictures-inputs01.json').read_text())['files']}
         wanted = [t.J / 'complex-remote-build01/resource-receipt.json', t.J / 'complex-remote-qualify01/qualification-summary.json', t.N / 'report.json', t.R / 'closure-row.bin',
-                  t.J / 'complex-remote-preview01/preview-summary.json', t.helper_chain]
+                  t.J / 'complex-remote-preview01/preview-summary.json', t.helper_chain, Path(shutil.which('ffmpeg')).resolve()]
         check('last-manifest-carries-chain', all(str(p) in rows for p in wanted) and not [p for p in rows if p.startswith(str(t.physical))], 'evidence from every stage reaches the last manifest, by logical paths')
+        first = {row['path'] for row in json.loads((t.O / 'chain-timeline-inputs01.json').read_text())['files']}
+        check('timeline-freezes-ffmpeg', str(Path(shutil.which('ffmpeg')).resolve()) in first, 'every later manifest carries that row')
         run = t.stage('timeline')
         check('second-start-refused', run.returncode == 1 and 'refused' in run.stderr)
         run = subprocess.run(['bash', str(t.R / CHAIN / 'start-chain01.sh'), 'nonsense'], env=t.env, capture_output=True, text=True)

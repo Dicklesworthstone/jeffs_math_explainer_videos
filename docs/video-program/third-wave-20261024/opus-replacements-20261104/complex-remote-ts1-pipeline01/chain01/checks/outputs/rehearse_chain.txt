@@ -1,0 +1,30 @@
+PASS check-before-qualify: ok
+PASS qualifier-first: the sealed qualifier ran through its own start script
+PASS stage-timeline: the real guard admitted and closed the job
+PASS stage-score: the real guard admitted and closed the job
+PASS stage-preview: the real guard admitted and closed the job
+PASS stage-pictures: the real guard admitted and closed the job
+PASS timeline-summary: no full baseline equivalence is claimed
+PASS prior-tables-line-exact: logical paths keep tables equal to the macOS strings
+PASS pictures-not-viewed: 88 pictures, 15 sheets, none marked viewed
+PASS last-manifest-carries-chain: evidence from every stage reaches the last manifest, by logical paths
+PASS timeline-freezes-ffmpeg: every later manifest carries that row
+PASS second-start-refused
+PASS unknown-stage-refused
+PASS refuse-qualifier-exit: RuntimeError: Upstream controller failed; nothing launched: ['qualify-controller01.exit']
+PASS refuse-relabelled-build: AssertionError: Original build was relabelled
+PASS refuse-relabelled-exit: AssertionError: Original build was relabelled
+PASS refuse-qualified-other-binary: AssertionError: Qualified binary differs
+PASS refuse-original-receipt-edited: AssertionError: Original evidence changed
+PASS refuse-original-log-edited: AssertionError: Original evidence changed
+PASS refuse-audio-rows-changed: AssertionError: Audio transfer rows changed
+PASS refuse-closure-list-changed: AssertionError: Narration closure changed
+PASS refuse-closure-file-missing: FileNotFoundError: [Errno 2] No such file or directory: '<fixture>/closure-file-missing/lo
+PASS refuse-stray-take: AssertionError: File set changed: 1 paths, first ['<fixture>/stray-take/logical/repo/narra
+PASS refuse-macos-tables-differ: AssertionError: ts1 tables differ from the macOS run: ['02_turning_numbers.cues.tsv']
+PASS refuse-macos-facts-differ: AssertionError: ts1 facts differ from macOS
+PASS stop-physical-path: AssertionError: ts1 tables differ from the macOS run: ['01_the_bump.timeline.tsv', '01_the
+PASS stop-qa-fail: AssertionError: 04_reading_color
+PASS stop-score-path-physical: AssertionError: Preview score rows differ: 06_one_derivative.cuelog.tsv
+PASS stop-lint-missing: AssertionError: Rendered lint report missing: 10_rigidity.layout.tsv
+RESULT PASS, 0 failed

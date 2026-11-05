@@ -149,7 +149,8 @@ def base_rows():
         assert files.setdefault(row['path'], row['sha256']) == row['sha256'], row['path']
     for root in (N, NATIVE / 'workspace'):
         listed = {path for path in files if path.startswith(str(root) + '/')}
-        assert listed == {str(p) for p in root.rglob('*') if p.is_file()}, f'File set changed: {root}'
+        different = sorted(listed ^ {str(p) for p in root.rglob('*') if p.is_file()})
+        assert not different, f'File set changed: {len(different)} paths, first {different[:3]}'
     for path, digest in files.items():
         assert sha(path) == digest, path
     return files
@@ -159,7 +160,7 @@ def stage_files(stage):
     if stage == 'timeline':
         files = base_rows()
         rows = read(Q.MANIFEST)['files']
-        paths = [Q.MANIFEST, AUDIO_ROWS, CLOSURE, ME, START, *Q.job_files(Q.JOB)]
+        paths = [Q.MANIFEST, AUDIO_ROWS, CLOSURE, ME, START, tool('ffmpeg'), *Q.job_files(Q.JOB)]
     else:
         prior = UPSTREAM[stage][-1]
         files = {}
@@ -182,8 +183,10 @@ def child_gate(stage):
     assert d.get('admitted') is True and 'exit' not in d
     assert d['command'] == child_command(stage)
     assert d['policy'] == POLICY, 'Guard policy changed'
-    for row in read(manifest(stage))['files']:
+    rows = read(manifest(stage))['files']
+    for row in rows:
         assert sha(row['path']) == row['sha256'], row['path']
+    assert str(tool('ffmpeg')) in {row['path'] for row in rows}, 'Child resolves an ffmpeg outside the manifest'
 
 
 def check_facts(folder):
@@ -525,9 +528,10 @@ def run_pictures():
 
 def check_tools(stage):
     tool('python3')
-    if stage == 'preview':
+    if stage in ('timeline', 'preview'):  # the binary encodes through ffmpeg in both
         encoders = subprocess.check_output([str(tool('ffmpeg')), '-hide_banner', '-encoders'], text=True, timeout=60)
         assert 'libx264' in encoders, 'ffmpeg has no libx264'
+    if stage == 'preview':
         tool('ffprobe')
     if stage == 'pictures':
         tool('ffmpeg')
