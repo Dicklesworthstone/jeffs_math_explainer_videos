@@ -1,0 +1,9 @@
+{
+  "driver_sha256": "c2f1fe297980e4e1a520d065c0d6b585fff87873490fc59090285610e95368c6",
+  "python": "3.14.6",
+  "tool_exit": 0,
+  "files_opened": 250,
+  "outside_the_frozen_rows": [],
+  "positive_control_files_only_narration_reads_covers": 162,
+  "scope": "The Python delivery contract on stage09's narration. Rust kit reads are not traced. Nothing was rendered, heard or viewed."
+}

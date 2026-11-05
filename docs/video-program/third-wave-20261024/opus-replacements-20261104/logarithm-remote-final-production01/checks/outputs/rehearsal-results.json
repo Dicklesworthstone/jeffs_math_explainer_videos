@@ -1,0 +1,635 @@
+{
+  "driver_sha256": "c2f1fe297980e4e1a520d065c0d6b585fff87873490fc59090285610e95368c6",
+  "worker_sha256": "bf3f696311e147a0a4525722f39b593d1c25ac4e65c0020269aa880430a95f88",
+  "guard01_sha256": "cc57457f1ca26f1d4ddb5780e2f7cf4160860bbd456057d380fcb6c028c27291",
+  "guard_sha256": "1c19a9b8f817c3bca06e18fd0785ac21c3cb935be715d67ecc41e4e39d1f5097",
+  "guard_source_sha256": "819746fb33110d6c133e184812c80a00562d848816f623078ad86f0fb1a316da",
+  "bronze_verifier_sha256": "361fe7334b1a3c332e4d7b19a8bba01457e1bf85f62459dc407474069d12c20d",
+  "python": "3.14.6",
+  "counts": {
+    "tests": 120,
+    "passed": 120,
+    "failed": 0
+  },
+  "results": [
+    {
+      "name": "check: ready, 13 chapters to do, the rebind read from the assembly",
+      "pass": true,
+      "detail": "logarithm-remote-rebind02"
+    },
+    {
+      "name": "check: changes no file",
+      "pass": true,
+      "detail": 349
+    },
+    {
+      "name": "chain: 13 renders and the master pass root's real guard",
+      "pass": true,
+      "detail": {
+        "exit": 0,
+        "jobs": 14
+      }
+    },
+    {
+      "name": "chain: every job ends with Bronze's agreed success line",
+      "pass": true,
+      "detail": "14 logs"
+    },
+    {
+      "name": "chain: each job script is the worker byte for byte",
+      "pass": true,
+      "detail": 14
+    },
+    {
+      "name": "chain: the config line is the agreed sidecar form",
+      "pass": true,
+      "detail": "exact"
+    },
+    {
+      "name": "chain: the guard ran the pinned python3",
+      "pass": true,
+      "detail": "resolved"
+    },
+    {
+      "name": "chain: the kit's PATH finds exactly the pinned tools",
+      "pass": true,
+      "detail": "3 tools"
+    },
+    {
+      "name": "D3: no manifest holds a target or engine row",
+      "pass": true,
+      "detail": "14 manifests"
+    },
+    {
+      "name": "rebind: the manifests hold the job the assembly named, not the failed one",
+      "pass": true,
+      "detail": "logarithm-remote-rebind02"
+    },
+    {
+      "name": "master manifest: binds every file on Bronze's list and the agreed additions",
+      "pass": true,
+      "detail": 94
+    },
+    {
+      "name": "manifests: the takes and receipts coherent verify reopens are bound",
+      "pass": true,
+      "detail": "3 samples"
+    },
+    {
+      "name": "summaries keep the agreed keys and add the evidence",
+      "pass": true,
+      "detail": [
+        "binary_sha256",
+        "binding_sha256",
+        "captions",
+        "master"
+      ]
+    },
+    {
+      "name": "D6: the summary holds the 13 holds, 364 sentences and 13 replays",
+      "pass": true,
+      "detail": "13/364/13"
+    },
+    {
+      "name": "master config: the agreed argv and captions_argv",
+      "pass": true,
+      "detail": "exact"
+    },
+    {
+      "name": "render config: 4K60, CRF 16, lint, veryfast, this narration and these stems",
+      "pass": true,
+      "detail": "exact"
+    },
+    {
+      "name": "Bronze's own bind_master accepts this master job",
+      "pass": true,
+      "detail": "361fe7334b1a"
+    },
+    {
+      "name": "Bronze's own check_binding and check_rebind take the rebind this master froze",
+      "pass": true,
+      "detail": "logarithm-remote-rebind02"
+    },
+    {
+      "name": "resume: a second run launches nothing and exits 0",
+      "pass": true,
+      "detail": 14
+    },
+    {
+      "name": "worker: a script run again by hand refuses",
+      "pass": true,
+      "detail": "guard's finished receipt"
+    },
+    {
+      "name": "D1: a failure stops the chain; earlier chapters stand",
+      "pass": true,
+      "detail": "2 done"
+    },
+    {
+      "name": "D1: a rerun never retries by itself, even when the cause has cleared",
+      "pass": true,
+      "detail": "no new job"
+    },
+    {
+      "name": "D1: check names the blocked chapter and the retry root may pass",
+      "pass": true,
+      "detail": [
+        "02_slide_rule"
+      ]
+    },
+    {
+      "name": "D1: a retry names the next attempt, not any attempt",
+      "pass": true,
+      "detail": "r3 refused"
+    },
+    {
+      "name": "D1: a chapter that passed cannot be retried",
+      "pass": true,
+      "detail": "r2 refused"
+    },
+    {
+      "name": "D1: a chapter with no attempt cannot be retried",
+      "pass": true,
+      "detail": "r2 refused"
+    },
+    {
+      "name": "D1: --retry takes known names only",
+      "pass": true,
+      "detail": "99_x refused"
+    },
+    {
+      "name": "D1: the named retry finishes the film from there",
+      "pass": true,
+      "detail": "-r2 used"
+    },
+    {
+      "name": "D1: the failed attempt's outputs are moved aside whole, never deleted",
+      "pass": true,
+      "detail": "aside"
+    },
+    {
+      "name": "D1: earlier chapters were not launched again",
+      "pass": true,
+      "detail": "same receipt"
+    },
+    {
+      "name": "D1: a host that would be refused uses up no job name",
+      "pass": true,
+      "detail": "no folder"
+    },
+    {
+      "name": "D1: the same name then runs",
+      "pass": true,
+      "detail": "base names"
+    },
+    {
+      "name": "D1: a guard non-admission stops the chain, stays stopped, and a named retry recovers",
+      "pass": true,
+      "detail": "-r2"
+    },
+    {
+      "name": "D1: a resource stop is a failed attempt",
+      "pass": true,
+      "detail": "failed"
+    },
+    {
+      "name": "D1: a passed job whose movie changed is not skipped",
+      "pass": true,
+      "detail": "unverified"
+    },
+    {
+      "name": "D1: root can retry it, and the changed bytes are kept",
+      "pass": true,
+      "detail": "aside"
+    },
+    {
+      "name": "D1: an unfinished receipt is running while the lane is held, crashed when it is free",
+      "pass": true,
+      "detail": [
+        "crashed",
+        "running"
+      ]
+    },
+    {
+      "name": "D1: a launch that made no job leaves no job, and the rerun takes its identical files",
+      "pass": true,
+      "detail": 3
+    },
+    {
+      "name": "D1: files from a launch with other inputs are never reused",
+      "pass": true,
+      "detail": "refused"
+    },
+    {
+      "name": "D1: a refused freeze writes no script, config or manifest",
+      "pass": true,
+      "detail": "folder empty"
+    },
+    {
+      "name": "D1: a second driver refuses",
+      "pass": true,
+      "detail": "lock held"
+    },
+    {
+      "name": "D7 stays, recoverable: a caption refusal stops the job, and a named master retry finishes",
+      "pass": true,
+      "detail": "-r2"
+    },
+    {
+      "name": "D2: an unwritten comparison is pending, exit 3",
+      "pass": true,
+      "detail": "exit 3"
+    },
+    {
+      "name": "D2: run without a wait refuses and launches nothing",
+      "pass": true,
+      "detail": "no job"
+    },
+    {
+      "name": "D2: run waits for the comparison, then goes on",
+      "pass": true,
+      "detail": "waited"
+    },
+    {
+      "name": "D2: a hard failure refuses at once, even with a wait",
+      "pass": true,
+      "detail": "no wait"
+    },
+    {
+      "name": "D2: a half-written comparison is pending, not passed",
+      "pass": true,
+      "detail": "exit 3"
+    },
+    {
+      "name": "D2: a comparison without the key refuses",
+      "pass": true,
+      "detail": "None"
+    },
+    {
+      "name": "D2: an unpredicted move stops until root names the file it read",
+      "pass": true,
+      "detail": "no flag"
+    },
+    {
+      "name": "D2: the wrong hash stops too",
+      "pass": true,
+      "detail": "wrong"
+    },
+    {
+      "name": "D2: root's exact hash passes",
+      "pass": true,
+      "detail": "exact"
+    },
+    {
+      "name": "D2: a stem changed in an unmoved chapter stops until named",
+      "pass": true,
+      "detail": "06_lifting_loops"
+    },
+    {
+      "name": "D2: a failed score refuses at once, even with a wait",
+      "pass": true,
+      "detail": "no wait"
+    },
+    {
+      "name": "D2: an absent prior job is pending",
+      "pass": true,
+      "detail": "exit 3"
+    },
+    {
+      "name": "score: a missing stem refuses",
+      "pass": true,
+      "detail": "03_folded_decade"
+    },
+    {
+      "name": "score: a QA length that is not frames x 800 refuses",
+      "pass": true,
+      "detail": "03_folded_decade"
+    },
+    {
+      "name": "score: a failed QA report refuses",
+      "pass": true,
+      "detail": "03_folded_decade"
+    },
+    {
+      "name": "D4: binding names another binary hash refuses",
+      "pass": true,
+      "detail": "the binding says"
+    },
+    {
+      "name": "D4: binding names another binary path refuses",
+      "pass": true,
+      "detail": "the binding names the binary"
+    },
+    {
+      "name": "D4: binding names another narration refuses",
+      "pass": true,
+      "detail": "the binding names the narration"
+    },
+    {
+      "name": "D4: binary changed after the build refuses",
+      "pass": true,
+      "detail": "the binding says"
+    },
+    {
+      "name": "D4: timeline ran another binary refuses",
+      "pass": true,
+      "detail": "its binary is"
+    },
+    {
+      "name": "D4: timeline ran another narration refuses",
+      "pass": true,
+      "detail": "its narration is"
+    },
+    {
+      "name": "D4: score ran another binary hash refuses",
+      "pass": true,
+      "detail": "its binary_sha256 is"
+    },
+    {
+      "name": "D4: score read another timeline refuses",
+      "pass": true,
+      "detail": "did not read this timeline"
+    },
+    {
+      "name": "D4: timeline row plays outside the narration refuses",
+      "pass": true,
+      "detail": "outside the bound narration"
+    },
+    {
+      "name": "D4: crate file moved after the binding refuses",
+      "pass": true,
+      "detail": "moved since the binding"
+    },
+    {
+      "name": "D4: bound narration file moved refuses",
+      "pass": true,
+      "detail": "moved since the binding"
+    },
+    {
+      "name": "D4: timeline script is not what its guard ran refuses",
+      "pass": true,
+      "detail": "guard ran"
+    },
+    {
+      "name": "D4: rebind row absent refuses",
+      "pass": true,
+      "detail": "names 0 rebind jobs"
+    },
+    {
+      "name": "D4: assembly froze another binary refuses",
+      "pass": true,
+      "detail": "froze another binary"
+    },
+    {
+      "name": "D4: two rebind rows refuses",
+      "pass": true,
+      "detail": "names 2 rebind jobs"
+    },
+    {
+      "name": "D4: assembly names the failed rebind refuses",
+      "pass": true,
+      "detail": "logarithm-remote-rebind01 is failed"
+    },
+    {
+      "name": "D4: rebind receipt changed since the assembly refuses",
+      "pass": true,
+      "detail": "not the one the assembly froze"
+    },
+    {
+      "name": "D4: binding does not hold the assembly's manifest refuses",
+      "pass": true,
+      "detail": "files with the hash"
+    },
+    {
+      "name": "D4: rebind receipt shows another command refuses",
+      "pass": true,
+      "detail": "did not run rebind_audio.py --apply"
+    },
+    {
+      "name": "D4: rebind receipt lost its phase refuses",
+      "pass": true,
+      "detail": "did not run rebind_audio.py --apply"
+    },
+    {
+      "name": "D4: jobs out of order refuses",
+      "pass": true,
+      "detail": "did not run in that order"
+    },
+    {
+      "name": "D4: map holds lost a prediction refuses",
+      "pass": true,
+      "detail": "prediction holds"
+    },
+    {
+      "name": "D5: movie changed after its render stops the chain before the master",
+      "pass": true,
+      "detail": "not the file"
+    },
+    {
+      "name": "D5: timeline-table changed after its render stops the chain before the master",
+      "pass": true,
+      "detail": "not the file"
+    },
+    {
+      "name": "D5: cue-table changed after its render stops the chain before the master",
+      "pass": true,
+      "detail": "not the file"
+    },
+    {
+      "name": "D5: lint-table changed after its render stops the chain before the master",
+      "pass": true,
+      "detail": "not the file"
+    },
+    {
+      "name": "D5: soundtrack changed after its render stops the chain before the master",
+      "pass": true,
+      "detail": "soundtrack capture moved"
+    },
+    {
+      "name": "D5: a movie changed while the master ran fails the job, with no summary",
+      "pass": true,
+      "detail": "after the master"
+    },
+    {
+      "name": "D6: a lost prediction hold fails the master, with no summary",
+      "pass": true,
+      "detail": "planned 12 prediction holds"
+    },
+    {
+      "name": "D6: a different hold fails the master, with no summary",
+      "pass": true,
+      "detail": "planned 13 prediction holds"
+    },
+    {
+      "name": "D6: a hold missing from the captions fails the master, with no summary",
+      "pass": true,
+      "detail": "the captions lost the prediction holds"
+    },
+    {
+      "name": "D6: 363 sentences fails the master, with no summary",
+      "pass": true,
+      "detail": "report 363 sentences"
+    },
+    {
+      "name": "D6: a missing replay line fails the master, with no summary",
+      "pass": true,
+      "detail": "replay lines"
+    },
+    {
+      "name": "D6: the wrong frame count fails the master, with no summary",
+      "pass": true,
+      "detail": "the film has 78"
+    },
+    {
+      "name": "D6: a promoted plan fails the master, with no summary",
+      "pass": true,
+      "detail": "plan line differs"
+    },
+    {
+      "name": "D6: captions that disagree fails the master, with no summary",
+      "pass": true,
+      "detail": "the SRT has"
+    },
+    {
+      "name": "D6: a master that is not 4K fails the master, with no summary",
+      "pass": true,
+      "detail": "not the 4K60 picture"
+    },
+    {
+      "name": "D6: a master short of frames fails the master, with no summary",
+      "pass": true,
+      "detail": "holds 77 frames"
+    },
+    {
+      "name": "output: 1080p fails that chapter, with no summary",
+      "pass": true,
+      "detail": "not the 4K60 picture"
+    },
+    {
+      "name": "output: 30 fps fails that chapter, with no summary",
+      "pass": true,
+      "detail": "not the 4K60 picture"
+    },
+    {
+      "name": "output: hevc fails that chapter, with no summary",
+      "pass": true,
+      "detail": "not the 4K60 picture"
+    },
+    {
+      "name": "output: a missing frame fails that chapter, with no summary",
+      "pass": true,
+      "detail": "holds 5 frames"
+    },
+    {
+      "name": "output: no audio fails that chapter, with no summary",
+      "pass": true,
+      "detail": "1 video and 0 audio"
+    },
+    {
+      "name": "output: mono audio fails that chapter, with no summary",
+      "pass": true,
+      "detail": "not 48 kHz stereo AAC"
+    },
+    {
+      "name": "output: CRF 23 fails that chapter, with no summary",
+      "pass": true,
+      "detail": "x264's own record of CRF 16"
+    },
+    {
+      "name": "output: no x264 header fails that chapter, with no summary",
+      "pass": true,
+      "detail": "x264's own record of CRF 16"
+    },
+    {
+      "name": "output: a changed cue table fails that chapter, with no summary",
+      "pass": true,
+      "detail": "full cue table differs"
+    },
+    {
+      "name": "output: a changed timeline row fails that chapter, with no summary",
+      "pass": true,
+      "detail": "differs from the 60 fps timeline"
+    },
+    {
+      "name": "output: missing lint fails that chapter, with no summary",
+      "pass": true,
+      "detail": "rendered lint is missing"
+    },
+    {
+      "name": "output: a short soundtrack fails that chapter, with no summary",
+      "pass": true,
+      "detail": "not the whole soundtrack"
+    },
+    {
+      "name": "output: no soundtrack fails that chapter, with no summary",
+      "pass": true,
+      "detail": "no soundtrack capture"
+    },
+    {
+      "name": "worker: a read of a empty live receipt waits for the whole one",
+      "pass": true,
+      "detail": "empty"
+    },
+    {
+      "name": "worker: a read of a half-written live receipt waits for the whole one",
+      "pass": true,
+      "detail": "half-written"
+    },
+    {
+      "name": "worker: a receipt that never parses refuses",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "name": "tools: ffmpeg changed after it was measured refuses",
+      "pass": true,
+      "detail": "this host's ffmpeg"
+    },
+    {
+      "name": "tools: no libx264 refuses",
+      "pass": true,
+      "detail": "no libx264"
+    },
+    {
+      "name": "tools: tools file for another host refuses",
+      "pass": true,
+      "detail": "is not a"
+    },
+    {
+      "name": "tools: another python3 refuses",
+      "pass": true,
+      "detail": "this python3 is"
+    },
+    {
+      "name": "tools: another ffprobe earlier on PATH refuses",
+      "pass": true,
+      "detail": "PATH"
+    },
+    {
+      "name": "tools: unmeasured tools refuses",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "seal: a wrong seal refuses",
+      "pass": true,
+      "detail": "SHA256SUMS"
+    },
+    {
+      "name": "seal: a changed worker refuses",
+      "pass": true,
+      "detail": "job_worker.py"
+    },
+    {
+      "name": "host: the driver refuses off its host",
+      "pass": true,
+      "detail": "host"
+    }
+  ],
+  "limits": [
+    "The binary, sbh, ffmpeg, ffprobe and all prior jobs are stand-ins, so no real kit, x264, null test, caption or file format ran.",
+    "Three literals change in the fixture copies: the host name in the driver and in guard01.py, and the 10 GiB admission floor and 8 GiB stop in the driver and guard, because the local disk is short.",
+    "Timings, resource stops at real sizes and the remote host itself were not exercised."
+  ],
+  "scope": "Throwaway repositories with a stand-in binary. No real job, build, render, audio or lane was involved."
+}

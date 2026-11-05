@@ -1,0 +1,72 @@
+{
+  "worker_sha256": "bf3f696311e147a0a4525722f39b593d1c25ac4e65c0020269aa880430a95f88",
+  "python": "3.14.6",
+  "accepted": {
+    "plans": [
+      "captions",
+      "master"
+    ],
+    "prediction_holds": 13,
+    "replays": 13,
+    "report": {
+      "gain_db": -1.28,
+      "lufs": -20.12,
+      "true_peak_dbtp": -1.5,
+      "frames": 116245,
+      "audio_seconds": 1937.416,
+      "picture_seconds": 1937.417
+    },
+    "captions": {
+      "sentences": 364,
+      "captions": 475
+    },
+    "timing": {
+      "last_end_ms": 1936817
+    },
+    "chapter": "00_ratio_ruler",
+    "chapter_media": {
+      "codec_name": "h264",
+      "profile": "High",
+      "width": 3840,
+      "height": 2160,
+      "r_frame_rate": "60/1",
+      "pix_fmt": "yuv420p",
+      "color_space": "bt709",
+      "frames": 7547,
+      "audio": {
+        "codec_name": "aac",
+        "sample_rate": "48000",
+        "channels": 2
+      },
+      "x264": "x264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec -",
+      "rate_control": "crf 16.0",
+      "duration": "125.783333"
+    },
+    "master_media": {
+      "codec_name": "h264",
+      "profile": "High",
+      "width": 3840,
+      "height": 2160,
+      "r_frame_rate": "60/1",
+      "pix_fmt": "yuv420p",
+      "color_space": "bt709",
+      "frames": 116245,
+      "audio": {
+        "codec_name": "aac",
+        "sample_rate": "48000",
+        "channels": 2
+      },
+      "x264": "x264 - core 165 r3222 b35605a - H.264/MPEG-4 AVC codec -",
+      "rate_control": "crf 16.0",
+      "duration": "1937.416667"
+    }
+  },
+  "negative_controls": {
+    "a lost hold refuses": true,
+    "a lost replay line refuses": true,
+    "a promoted plan refuses": true,
+    "a hold that left the captions refuses": true,
+    "the wrong movie length refuses": true
+  },
+  "scope": "Stage09's real files through the worker's parsers. These are not the repaired film's files; nothing was rendered, heard or viewed."
+}
