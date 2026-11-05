@@ -277,6 +277,25 @@ for i in extra_late:
     print(f"    {i}: {p['word']!r} window {p['window_s']} pause {p['pause_s']} body {p['body_s']}; his class "
           f"{p['white']['class'] if p['white'] else None} {p['white']}")
 print(f"  in WhiteSwan's late list but not inside_word by my rule: {missed}")
+
+# lag = recognizer start minus the first sound after the pause: no body threshold, so soft onsets count fully
+answered = [pid for pid in late_ids if points[pid].get("answer")]
+floor_lag = min(points[i]["window_s"][0] - white[i]["pause_s"][1] for i in answered)
+print(f"\n  lag from the first sound (his pause end) to the recognizer start: his {len(answered)} answered points "
+      f"start at {floor_lag:.3f} s; onsets outside his late list with at least that lag:")
+same_lag = []
+for p in sorted(points.values(), key=lambda q: q["id"]):
+    w = p["white"]
+    if p["kind"] != "onset" or p["id"] in set(late_ids) or not w or not w.get("pause_s"):
+        continue
+    lag = p["window_s"][0] - w["pause_s"][1]
+    if lag >= floor_lag - 1e-9:
+        p["lag_s"] = round(lag, 3)
+        p["provisional_sample_24k"] = round(w["pause_s"][1] * 24000)
+        same_lag.append(p["id"])
+        print(f"    {p['id']}: {p['word']!r} start {p['window_s'][0]}, his pause end {w['pause_s'][1]} (mine {p['pause_s'][1]}), "
+              f"lag {lag:.3f} s, his class {w['class']}; round(pause end x 24000) = {p['provisional_sample_24k']}"
+              + ("  HELD" if p["cue"] in held else ""))
 disagree = sorted((p["id"], p["class"], p["white"]["class"]) for p in points.values()
                   if p["white"] and p["white"]["class"] != p["class"])
 print(f"  class disagreements over all points: {len(disagree)}")
@@ -286,7 +305,8 @@ for row in disagree:
 # ----------------------------------------------------------------------------- 3. the two timing questions and 03_4
 
 print("\n3. Questions and single points")
-for pid in ("onset:05_4:s3:05_4-download02.wav", "onset:05_4:s3:05_4-download01.wav", "onset:03_4:s1:03_4-download02.wav"):
+for pid in ("onset:05_4:s3:05_4-download02.wav", "onset:05_4:s3:05_4-download01.wav", "onset:03_4:s1:03_4-download02.wav",
+            "anchor:03_2:b90:03_2-download02.wav", "anchor:03_2:b90:03_2-download01.wav"):
     p = points[pid]
     print(f"  {pid}: word {p['word']!r}, status {p['status']}, window {p['window_s']}, previous {p['previous_word']}, "
           f"my pause {p.get('pause_s')} body {p.get('body_s')} class {p['class']}; his {p['white']}; "
@@ -320,8 +340,59 @@ for row in cand["content"]:
         ctx = " ".join(f"[{s['start_sec']:.2f}-{s['end_sec']:.2f}]{s['text']!r}" for s in segs[max(0, k0 - 3):k1 + 4])
         print(f"    raw segments {k0}-{k1} +-3: {ctx}")
 
-json.dump({"schema": "complex-frederick-current-timing-independent-v1",
-           "white_sums": WHITE_SUMS, "bridge_sha256": BRIDGE_SHA, "source_sha256": report["side"]["sha256"],
-           "method": __doc__.split("Method")[1].strip(), "points": [points[k] for k in sorted(points)]},
-          (SCR / "review.json").open("x"), indent=1)
+# ----------------------------------------------------------------------------- 4b. the bridge's own resolve()
+
+print("\n4b. The bridge's resolve() on all 94 takes (answers signed 'independent-check' in memory only)")
+timing = {k: v for k, v in answers.items() if v["decision"] in ("sample", "use_candidate")}
+extra = {pid: {"decision": "sample", "sample_24k": points[pid]["provisional_sample_24k"]} for pid in same_lag
+         if points[pid]["cue"] not in held}
+for label, chosen_answers in (("no answers", {}), ("WhiteSwan's 61 timing answers", timing),
+                              ("his 61 plus the 6 same-lag onsets", {**timing, **extra})):
+    ok, refusals = 0, []
+    for take in report["takes"].values():
+        applied = {k: dict(v, by="independent-check", basis="checks only") for k, v in chosen_answers.items()
+                   if k.rsplit(":", 1)[1] == take["file"] and k.split(":")[1] == take["cue"]}
+        try:
+            bridge.resolve(take, applied, bridge.expected_frames(take))
+            ok += 1
+        except Exception as error:  # the bridge's Refused
+            refusals.append(f"{take['cue']} {take['file']}: {str(error)[:90]}")
+    print(f"  {label}: {ok}/{len(report['takes'])} takes resolve" + (f"; refused: {refusals}" if refusals else ""))
+
+# ----------------------------------------------------------------------------- 5. held cues: durations only
+
+print("\n5. Held cues 02_5 and 08_2: sound stretches (split at >= 0.15 s at or below -60 dBFS) and the recognizers' words")
+sup_log = REPO / sup["job"] / "command.log"
+if sha(sup_log) != sup["command_log_sha256"]:
+    fail("targeted-small01 command.log moved")
+sup_records = [json.loads(line) for line in sup_log.read_text(encoding="utf-8").splitlines() if line.startswith("{")]
+for (cue, name), take in sorted(report["takes"].items()):
+    if cue not in held:
+        continue
+    db = takes_meta[(cue, name)]["db"]
+    stretches, a, quiet_ms, last = [], None, 0, 0
+    for k, v in enumerate(db):
+        if v > QUIET:
+            a, quiet_ms, last = (k if a is None else a), 0, k
+        else:
+            quiet_ms += 1
+            if a is not None and quiet_ms >= 150:
+                stretches.append((a / 1000, (last + 10) / 1000))
+                a = None
+    if a is not None:
+        stretches.append((a / 1000, (last + 10) / 1000))
+    print(f"  {cue} {name}: " + " ".join(f"[{s:.2f}-{e:.2f}]{e - s:.2f}s" for s, e in stretches))
+    words = takes_meta[(cue, name)]["segments"]
+    print("    large-v3-turbo: " + " ".join(f"[{s['start_sec']:.2f}-{s['end_sec']:.2f}]{s['text']}" for s in words))
+    for r in sup_records:
+        if Path(r["input"]).resolve() == (REPO / take["path"]).resolve():
+            segs = r["report"]["result"]["segments"]
+            print("    small.en:       " + " ".join(f"[{s['start_sec']:.2f}-{s['end_sec']:.2f}]{s['text']}" for s in segs))
+
+with (SCR / "review.json").open("x") as handle:
+    json.dump({"schema": "complex-frederick-current-timing-independent-v1",
+               "white_sums": WHITE_SUMS, "bridge_sha256": BRIDGE_SHA, "source_sha256": report["side"]["sha256"],
+               "method": __doc__.split("Method")[1].strip(), "same_lag_onsets": same_lag,
+               "points": [points[k] for k in sorted(points)]}, handle, indent=1)
+    handle.write("\n")
 print(f"\nwrote SCRATCH/review.json ({len(points)} points)")

@@ -139,7 +139,11 @@ def read_only_state():
     paths += sorted(p for p in OLD.iterdir() if p.is_file())
     for folder in SEALS:
         paths += sorted(p for p in (P / folder).rglob("*") if p.is_file() and "__pycache__" not in p.parts)
-    return {str(p): (sha(p), os.stat(p).st_mtime_ns) for p in paths}
+    state = {}
+    for p in paths:  # the Nov 2 mp4s are large: size and time for those, bytes for the rest
+        st = os.stat(p)
+        state[str(p)] = (sha(p) if st.st_size < 64 << 20 else None, st.st_size, st.st_mtime_ns)
+    return state
 
 
 BEFORE = read_only_state()
@@ -309,7 +313,7 @@ record("K4b final-verification02's master gate on the v3 master: it accepts it, 
        ok_before and code_before == 0 and bound_captures == 13 and not ok_flip and "bound inputs moved" in said_flip
        and code_flip != 0 and "moved" in out_flip and ok_after,
        f"before: {said_before}; v3 verify-step exit {code_before}; capture rows bound by the master {bound_captures}; "
-       f"one byte of {capture.name} ({capture.parent.name}) changed: final-verification02 refused ({tail(said_flip, 90)}), "
+       f"one byte of {capture.name} ({capture.parent.name}) changed: final-verification02 refused ({said_flip.split(', first')[0]}), "
        f"v3 verify-step refused ({tail(out_flip, 90)}); restored: accepted again {ok_after}")
 
 # ---------------------------------------------------------------- K5 L1: the render job records any bytes as the capture
