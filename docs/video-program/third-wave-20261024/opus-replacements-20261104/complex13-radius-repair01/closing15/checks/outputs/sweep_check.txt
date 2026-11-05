@@ -1,0 +1,50 @@
+canonical: 8 faults
+   circle crosses the name -i
+   circle crosses the name i
+   15_1: ring is above the poles' marks
+   15_3-15_4: old is above the poles' marks
+   15_3-15_4: ring is above centre_name
+   15_3-15_4: ring is above says
+   15_3-15_4: ring is above the poles' marks
+   15_3-15_4: spokes is above the poles' marks
+  sweep on canonical:
+     sqrt10: circle crosses it at r 1.107-2.300, 0.532 s, preview02 65.15-65.68 s
+     x=3: circle crosses it at r 0.324-0.663, 0.151 s, preview02 64.80-64.95 s
+     i: circle crosses it at r 2.757-3.006, 0.111 s, preview02 65.88-66.00 s
+     -i: circle crosses it at r 2.612-3.006, 0.175 s, preview02 65.82-66.00 s
+repair: 0 faults
+  sweep on the repair (crossings are now behind a backing):
+     sqrt10: circle crosses it at r 1.107-2.300, 0.532 s, preview02 65.15-65.68 s
+     x=3: circle crosses it at r 0.324-0.663, 0.151 s, preview02 64.80-64.95 s
+     i: circle never reaches it; nearest 0.402 past the finished rim
+     -i: circle never reaches it; nearest 0.402 past the finished rim
+captions on the repair, widths scaled to the measured longest:
+   'on an open region:': about 1.46 scene units
+   'stretch and turn': about 1.29 scene units
+   'the boundary': about 1.06 scene units
+   'decides the inside': about 1.38 scene units
+   'output turns count': about 1.50 scene units
+   'zeros − poles': about 1.04 scene units
+   'real integrals': about 1.02 scene units
+   'from residues': about 1.05 scene units
+   'at most one extension;': about 1.78 scene units
+   'paths can branch': about 1.36 scene units
+   "a loop's output turns": about 1.67 scene units
+   'count zeros − poles': about 1.55 scene units
+plant: no re-add in 15_1: CAUGHT (1); Rust-test text mirror fails
+plant: no re-add at the old ring: CAUGHT (1); Rust-test text mirror fails
+plant: no re-add at the spokes: CAUGHT (1); Rust-test text mirror fails
+plant: ring rooted on its own: CAUGHT (3); Rust-test text mirror fails
+plant: marks left out over the ring: CAUGHT (1); Rust-test text mirror fails
+plant: backs never fade out: CAUGHT (2); Rust-test text mirror fails
+plant: helper puts the top first: CAUGHT (6); Rust-test text mirror passes
+plant: i back on the right of the axis: CAUGHT (2); Rust-test text mirror passes
+plant: -i back on the right of the axis: CAUGHT (2); Rust-test text mirror passes
+plant: backing far too big: CAUGHT (2); Rust-test text mirror passes
+plant: x = 3 up on the axis: CAUGHT (2); Rust-test text mirror passes
+plant: caption too long: CAUGHT (1); Rust-test text mirror passes
+plants caught: 12/12
+Rust-test text mirror on the repair: all hold
+Rust-test text mirror on canonical (must fail): 6 problems
+anchor formula's constants in the staged file: all there
+RESULT pass

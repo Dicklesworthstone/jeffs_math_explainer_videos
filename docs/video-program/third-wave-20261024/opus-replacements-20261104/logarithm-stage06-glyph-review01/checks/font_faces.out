@@ -1,0 +1,31 @@
+CM Roman: 235654 B, sha256 c7cdebc16fc4, ok
+  698 code points mapped
+CM Typewriter: 214526 B, sha256 5647bcfccd1a, ok
+  682 code points mapped
+IBM Plex Sans: 200500 B, sha256 975dcda37d80, ok
+  895 code points mapped
+Noto Sans Math: 72908 B, sha256 634b9964bd8a, ok
+  639 code points mapped
+
+# characters by the face that draws them
+  Text from CM Roman: ascii [!%'()+,-./0123456789:;<=>?ABCDEFGHIJLMNOPSTWX[]abcdefghijklmnopqrstuvwxyz|] other: §(U+00A7) °(U+00B0) ±(U+00B1) ÷(U+00F7) θ(U+03B8) π(U+03C0) –(U+2013) …(U+2026) √(U+221A)
+  Text from IBM Plex Sans: ascii [] other: ²(U+00B2) ½(U+00BD) ₂(U+2082)
+  Text from Noto Sans Math: ascii [] other: ×(U+00D7) →(U+2192) ↔(U+2194) ⇒(U+21D2) −(U+2212) ∞(U+221E) ∫(U+222B) ≈(U+2248) ≠(U+2260) ≤(U+2264)
+
+# rows that use a character outside the row's own face
+  Text ² U+00B2 from IBM Plex Sans: 1 rows: [287]
+  Text ½ U+00BD from IBM Plex Sans: 19 rows: [66, 160, 161, 162, 254, 258, 259, 322, 373, 395, 396, 397, 398, 399, 410, 443, 455, 466, 492]
+  Text ₂ U+2082 from IBM Plex Sans: 1 rows: [66]
+  Text × U+00D7 from Noto Sans Math: 38 rows: [66, 105, 110, 111, 121, 135, 136, 137, 138, 160, 165, 254, 263, 270, 291, 301, 302, 325, 327, 329, 346, 350, 353, 357, 364, 456, 457, 458, 459, 460, 461, 462, 463, 464, 465, 466, 467, 496]
+  Text → U+2192 from Noto Sans Math: 9 rows: [4, 66, 246, 248, 313, 315, 323, 377, 452]
+  Text ↔ U+2194 from Noto Sans Math: 2 rows: [66, 436]
+  Text ⇒ U+21D2 from Noto Sans Math: 2 rows: [372, 478]
+  Text − U+2212 from Noto Sans Math: 44 rows: [66, 160, 161, 162, 163, 164, 189, 217, 224, 245, 246, 254, 258, 272, 286, 287, 296, 302, 307, 317, 335, 367, 371, 372, 373, 393, 443, 470, 479, 480, 481, 482, 483, 484, 485, 486, 487, 488, 489, 490, 491, 492, 493, 494]
+  Text ∞ U+221E from Noto Sans Math: 3 rows: [66, 367, 372]
+  Text ∫ U+222B from Noto Sans Math: 2 rows: [66, 370]
+  Text ≈ U+2248 from Noto Sans Math: 5 rows: [66, 261, 328, 364, 382]
+  Text ≠ U+2260 from Noto Sans Math: 1 rows: [66]
+  Text ≤ U+2264 from Noto Sans Math: 2 rows: [66, 367]
+
+# Text or Mono rows with at least one fallback glyph: 100; captured from a chapter: 99
+  00_ratio_ruler:3 01_building_ruler:5 02_slide_rule:6 03_folded_decade:6 04_undoing_growth:11 05_complex_turns:13 06_lifting_loops:7 07_branch_cut:9 08_product_rule:4 09_matrix_logs:6 10_doing_nothing:5 11_unreachable:24 12_what_it_forgets:16

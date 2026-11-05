@@ -1,0 +1,27 @@
+ok   patch sha256 49205a2a577c03b273935609701ddf04e602278245c6fd438fb08331f98b96d2
+ok   replay on canonical: applied with full context, all 4 files equal the staged copies
+ok   replay on candidate: applied with full context, all 4 files equal the staged copies
+ok   control: a changed context line refuses the patch
+ok   controls: missing, repeated, mid-word, cut-short and out-of-range hooks are all caught
+ok   85 literal hooks judged on the staged source
+ok   order within each of 27 cues checked
+     against canonical: kept 71, added 14, removed 3
+ok   phrase-hooks.tsv matches this independent read
+
+cue	file:line	call	hook	byte	count_in_cue	spoken_from_there
+02_5	turning.rs:432	wait_for	an eighth of a turn	37	1	an eighth of a turn. What happens if you m
+02_6	turning.rs:478	wait_for	and angles add	139	1	and angles add. Hold on to that. Every com
+02_6	turning.rs:481	wait_for	Every complex derivative	172	1	Every complex derivative in this video wil
+03_2	two_planes.rs:438	wait_for	squares each length	66	1	squares each length and doubles each angle
+03_2	two_planes.rs:468	wait_for	doubles each angle	90	1	doubles each angle. Walk a point once arou
+03_5	two_planes.rs:725	wait_for	each point flips	140	1	each point flips across the horizontal axi
+04_3	reading_color.rs:308	wait_sentence	2	89	1	And the colours run around zero in the sam
+04_4	reading_color.rs:328	until	Once for a simple zero	81	1	Once for a simple zero, twice for a zero o
+04_4	reading_color.rs:330	wait_for	twice for a zero of order two	105	1	twice for a zero of order two, and so on. 
+04_4	reading_color.rs:332	wait_sentence	2	147	1	That is how to spot a zero, and its order,
+05_3	gallery.rs:509	wait_for	exact squares	151	1	exact squares, repeating every two pi as y
+05_3	gallery.rs:512	wait_for	repeating every two pi	166	1	repeating every two pi as you climb.
+05_8	gallery.rs:856	wait_for	is the Riemann hypothesis	71	1	is the Riemann hypothesis, still unsolved.
+05_9	gallery.rs:955	wait_for	nearly square	134	1	nearly square. That is not a coincidence. 
+
+0 failures

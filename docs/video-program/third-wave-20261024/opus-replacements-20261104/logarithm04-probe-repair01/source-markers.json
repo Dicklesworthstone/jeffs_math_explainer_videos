@@ -1,0 +1,80 @@
+{
+  "topic": "logarithm_mysteries",
+  "source": {
+    "path": "explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs",
+    "baseline_sha256": "754ea3125c2f7e89440807772713fe57584c96937be3ec0ac8c52d86645cf323",
+    "patched_sha256": "4dc4c555122d9cd5423d7094336c1d5e6f7f9afb77d6850a38bc0148c20180ef"
+  },
+  "line_count": {
+    "baseline": 1097,
+    "patched": 1135
+  },
+  "scene_lines_changed": [
+    360,
+    402,
+    551
+  ],
+  "added_after_scene": {
+    "from_line": 861,
+    "what": "PROBE_START and PROBE_REST, between the impl's closing brace and #[cfg(test)]"
+  },
+  "changes": [
+    {
+      "line": 360,
+      "cue": "04_2",
+      "what": "the probe's start, the top of its whole path: under the name, over the tick label 2",
+      "old": "let c = stage.add_value_tracker(2.6);",
+      "new": "let c = stage.add_value_tracker(PROBE_START);",
+      "old_line_sha256": "49e5d74035999aac0f3517bf1427b29b61085a6f232d900488e1c3e6d8d8f1ed",
+      "new_line_sha256": "3a3d4b36c11174879140bceeb2b0552eaf75f2465dc5fcaa985985bdc8879c8b"
+    },
+    {
+      "line": 402,
+      "cue": "04_2",
+      "what": "the probe's rest, half way between the tick labels 1 and 2; run time unchanged",
+      "old": "play!(stage; tween(c, 2.0, 1.6)?);",
+      "new": "play!(stage; tween(c, PROBE_REST, 1.6)?);",
+      "old_line_sha256": "7ae09e64e150c52b4457d0030e32f438edf8198b943d5cc35cb6ec3f473f5ada",
+      "new_line_sha256": "f32b6f9e89952a48dbacb10934fee579d189ef722beaacbc43b3d97157ad0b95"
+    },
+    {
+      "line": 551,
+      "cue": "04_4",
+      "what": "the standalone caption says about",
+      "old": "let natural = kit.text_left(stage, \"+1% in x  →  +0.01 in ln x\", 24.0, gold, v(1.0, -1.3))?;",
+      "new": "let natural = kit.text_left(stage, \"+1% in x  →  about +0.01 in ln x\", 24.0, gold, v(1.0, -1.3))?;",
+      "old_line_sha256": "b9b7e2a0b4c35d55659c64349de4d5ab9b3a6f9dc83e52e8ce2b4c11aabf65b8",
+      "new_line_sha256": "646af010e355e93de62d5c7ee5ea6ed6de74cce2651f8d22977d85862a12dc47"
+    }
+  ],
+  "map13_hold_delta": [
+    {
+      "cue": "04_6",
+      "next_cue": "04_7",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs",
+      "sha256": {
+        "old": "754ea3125c2f7e89440807772713fe57584c96937be3ec0ac8c52d86645cf323",
+        "new": "4dc4c555122d9cd5423d7094336c1d5e6f7f9afb77d6850a38bc0148c20180ef"
+      },
+      "evidence_sha256": {
+        "old": "754ea3125c2f7e89440807772713fe57584c96937be3ec0ac8c52d86645cf323",
+        "new": "4dc4c555122d9cd5423d7094336c1d5e6f7f9afb77d6850a38bc0148c20180ef"
+      },
+      "line": {
+        "old": 749,
+        "new": 749
+      },
+      "marker": {
+        "old": "predict(&kit, stage, v(4.6, THINK_BAR_Y), 3.0)?;",
+        "new": "predict(&kit, stage, v(4.6, THINK_BAR_Y), 3.0)?;"
+      },
+      "interval_sha256": {
+        "old": "b2d1d76b8f9fbd9eaa730d0c96aba14999df1e10304ef8e99526d92ebdc91c17",
+        "new": "b2d1d76b8f9fbd9eaa730d0c96aba14999df1e10304ef8e99526d92ebdc91c17"
+      }
+    }
+  ],
+  "binder_sites_delta": [],
+  "phrase_anchor_delta": [],
+  "cue_text_delta": []
+}

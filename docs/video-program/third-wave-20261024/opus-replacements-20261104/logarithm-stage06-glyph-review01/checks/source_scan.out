@@ -1,0 +1,42 @@
+# composition
+  Counter({'Text': 496, 'Tex': 92})
+  captured from a chapter and in the supplement 0; captured only 587; supplement only 1
+
+# non-ASCII characters, by kind
+  Text: §(U+00A7)x1 °(U+00B0)x5 ±(U+00B1)x6 ²(U+00B2)x1 ½(U+00BD)x22 ×(U+00D7)x43 ÷(U+00F7)x2 θ(U+03B8)x3 π(U+03C0)x49 –(U+2013)x7 …(U+2026)x4 ₂(U+2082)x1 →(U+2192)x10 ↔(U+2194)x2 ⇒(U+21D2)x2 −(U+2212)x59 √(U+221A)x6 ∞(U+221E)x3 ∫(U+222B)x2 ≈(U+2248)x5 ≠(U+2260)x1 ≤(U+2264)x2
+  Tex: 
+  Mono: 
+
+# Text or Mono rows holding TeX-looking markup (^ _ \ $ { }): 0
+
+# Text rows with ASCII hyphen beside a digit or as a sign: 0
+
+# Text rows with an ASCII apostrophe beside a letter used as a prime or an asterisk: 0
+
+# Text rows with ascii x between numbers: 0
+
+# Number artefacts: exponents, NaN, inf, negative zero, doubled signs, long decimals: 1
+    66 Text supplement                         '0123456789 . , : ; ( ) [ ] = + − × ÷ ± ½ ≈ ≠ ≤ < > ∞ ∫ √ π θ ° ₂ → ↔ – … ? ! Hz % a b c d e i k t x y z A I J X'
+
+# TeX control sequences used
+  \ x31 \,x15 \;x5 \Rightarrowx4 \approxx13 \cdotx1 \cosx1 \ellx3 \fracx10 \iffx2 \inftyx1 \lex1 \leftx2 \leftrightarrowx1 \lnx25 \logx11 \longleftrightarrowx1 \mathrmx7 \neqx4 \operatornamex23 \pix42 \pmx1 \qquadx5 \quadx11 \rightx2 \sinx1 \sqrtx11 \textx44 \tfracx18 \timesx4
+
+# TeX rows with a bare run of 3+ letters outside text commands (would set as italic product): 0
+
+# TeX rows with non-ASCII source: 0
+
+# TeX rows with words separated by a plain space (spaces vanish in math): 0
+
+# longest rows
+   559 Tex  len  131 '\\text{singular } S\\text{: } \\operatorname{det} S = 0 \\quad\\text{but}\\quad \\operatorname{de'
+   372 Text len  129 'precisely: no eigenvalue of A in (−∞, 0] ⇒ one logarithm has all eigenvalues −π < Im < π; '
+   373 Text len  128 'precisely: spins ending here: ±½, ±1½, … laps per unit time about the rod; eigenvalue −1, '
+   367 Text len  123 'precisely: Log is holomorphic off (−∞, 0] with −π < Im < π; with Arg(−x) = π for x > 0, Im'
+   365 Text len  120 'precisely: Culver, Proc. AMS 17 (1966) 1146–1151, as stated by Higham (Handbook of Linear '
+   514 Tex  len  120 'X = \\left(\\tfrac{\\pi}{2} + 2\\pi k\\right) J \\quad\\longleftrightarrow\\quad \\log i = \\left(\\t'
+   540 Tex  len  120 '\\operatorname{Log} z + \\operatorname{Log} z = \\tfrac{3}{2}\\pi\\,i, \\qquad \\operatorname{Log'
+    66 Text len  111 '0123456789 . , : ; ( ) [ ] = + − × ÷ ± ½ ≈ ≠ ≤ < > ∞ ∫ √ π θ ° ₂ → ↔ – … ? ! Hz % a b c d '
+   368 Text len  104 'precisely: a working slide rule reads about three significant figures; the user places the'
+   369 Text len  102 'precisely: equal temperament with A4 = 440 Hz (ISO 16); real pianos are often tuned slight'
+   555 Tex  len  102 '\\text{length } 1 \\times 1 = 1, \\quad \\text{angle } \\tfrac{3}{4}\\pi + \\tfrac{3}{4}\\pi = \\tf'
+   370 Text len   89 'precisely: for any real linear flow, steady or not, det = exp(∫ trace dt) > 0 (Liouville)'

@@ -1,0 +1,101 @@
+--- a/explainer_corpus/complex_analysis_visual/examples/plate_lab.rs
++++ b/explainer_corpus/complex_analysis_visual/examples/plate_lab.rs
+@@ -91,6 +91,12 @@
+ fn small_plane() -> Plane {
+     Plane::new(v(1.5, -1.0), 2.8, (-1.2, 1.2), (-1.2, 1.2))
+ }
++fn lacunary_plane() -> Plane {
++    Plane::new(v(-3.0, -0.35), 5.4, (-1.05, 1.05), (-1.05, 1.05))
++}
++fn painted_plane() -> Plane {
++    Plane::new(v(-2.8, -0.25), 5.4, (-2.0, 2.0), (-2.0, 2.0))
++}
+ fn residue_bump_plane() -> Plane {
+     Plane::new(v(-3.4, -0.3), 5.0, (-2.0, 2.0), (-2.0, 2.0))
+ }
+@@ -101,7 +107,7 @@
+ /// Hue alone (`z`), then each enhanced kind of picture that was flagged: flat bands (`tan`), the
+ /// zoom's large cells, chapter 10's two plates (Mail 2542), chapter 12's smallest plate and its
+ /// bump (Mail 2591), and chapter 14's opening plate (Mail 2614).
+-const SUBJECTS: [Subject; 9] = [
++const SUBJECTS: [Subject; 11] = [
+     Subject {
+         key: "z",
+         func: Func::Identity,
+@@ -154,6 +160,18 @@
+         key: "openbump",
+         func: Func::Bump,
+         plane: opening_bump_plane,
++        enhance: 1.0,
++    },
++    Subject {
++        key: "lacunary",
++        func: Func::Lacunary,
++        plane: lacunary_plane,
++        enhance: 1.0,
++    },
++    Subject {
++        key: "abs2",
++        func: Func::AbsSquare,
++        plane: painted_plane,
+         enhance: 1.0,
+     },
+ ];
+@@ -176,7 +194,7 @@
+ }
+ 
+ /// Every candidate. `now` is the positive control: it has to show the seams.
+-const CANDIDATES: [Candidate; 11] = [
++const CANDIDATES: [Candidate; 12] = [
+     candidate("now", PLATE_NOW),
+     // Mail 2167's overlap, and one of 0.6 px at 4K: what a fade does to double-covered rows
+     candidate(
+@@ -212,6 +230,13 @@
+     candidate("blend", PLATE_BLEND),
+     candidate("rows2", PLATE_ROWS2),
+     candidate("cells2", PLATE_CELLS2),
++    candidate(
++        "cells2_p3",
++        PlateStyle {
++            samples: 2,
++            ..PLATE_CELLS2
++        },
++    ),
+     candidate("cells4", PLATE_CELLS4),
+     Candidate {
+         key: "flat_control",
+@@ -293,11 +318,13 @@
+         &["recip", "bump", "openbump"],
+         &["now", "tile", "blend", "rows2", "cells2"],
+     );
+-    add(Kind::Still, &["z2", "sinrecip"], &["cells4"]);
++    add(Kind::Still, &["lacunary"], &["now", "tile", "rows2", "cells2"]);
++    add(Kind::Still, &["abs2"], &["now", "cells2"]);
++    add(Kind::Still, &["sinrecip"], &["cells2_p3"]);
+     add(Kind::Still, &["z"], &["tile_raw", "flat_control"]);
+-    add(Kind::Fade, &["z"], &["now", "overlap", "overlap06", "tile", "blend"]);
++    add(Kind::Fade, &["z"], &["now", "tile", "rows2", "cells2"]);
+     add(Kind::Fade, &["tan", "bump"], &["now", "tile", "blend"]);
+-    add(Kind::Repaint, &["z2"], &["now", "blend", "rows2"]);
++    add(Kind::Repaint, &["z2"], &["now", "blend", "rows2", "cells2"]);
+     out
+ }
+ 
+@@ -760,13 +787,16 @@
+         assert!(residues.contains("Plane::new(v(-3.4, -0.3), 5.0, (-2.0, 2.0), (-2.0, 2.0))"));
+         let continuing = include_str!("../src/chapters/continuing.rs");
+         assert!(continuing.contains("Plane::new(v(-3.3, -0.35), 5.6, (-2.5, 2.5), (-2.5, 2.5))"));
++        assert!(continuing.contains("Plane::new(v(-3.0, -0.35), 5.4, (-1.05, 1.05), (-1.05, 1.05))"));
++        let one_point = include_str!("../src/chapters/one_point.rs");
++        assert!(one_point.contains("Plane::new(v(-2.8, -0.25), 5.4, (-2.0, 2.0), (-2.0, 2.0))"));
+     }
+ 
+     #[test]
+     fn the_full_plan_fits_and_has_its_controls() {
+         let jobs = plan();
+         let total: u64 = jobs.iter().map(|j| j.kind.frames()).sum();
+-        assert_eq!(total, 67 + 77 + 9);
++        assert_eq!(total, 72 + 70 + 12);
+         assert!(total <= FRAME_LIMIT);
+         assert!(jobs.iter().any(|j| j.candidate.flatten));
+         assert!(jobs.iter().any(|j| j.candidate.key == "now" && j.kind == Kind::Fade));

@@ -1,0 +1,23 @@
+1280 720 44.0
+row y 403 big steps at x: [268, 280, 281, 286, 287, 294, 319, 344, 347, 370, 395, 417, 442, 468, 493, 518, 544]
+computed x lines: [267.8, 292.9, 318.0, 343.2, 368.3, 393.4, 418.6, 443.7, 468.8, 494.0, 519.1, 544.2]
+col x 430 luma steps at y: [113, 114, 164, 189, 214, 290, 315, 340, 365, 390, 391, 441, 466, 491, 592, 617, 642, 643, 644, 649, 650]
+computed y lines: [641.9, 616.7, 591.6, 566.5, 541.3, 516.2, 491.1, 465.9, 440.8, 415.7, 390.5, 365.4, 340.3, 315.1, 290.0, 264.9, 239.7, 214.6, 189.5, 164.3, 139.2, 114.1]
+gold on this frame (255, 216, 105)
+tile y band -5: y -2.88..-2.36  contrast of gold to the pixels under its outline: min 2.95 mean 5.62
+tile y band -4: y -2.36..-1.83  contrast of gold to the pixels under its outline: min 3.54 mean 6.09
+tile y band -3: y -1.83..-1.31  contrast of gold to the pixels under its outline: min 3.27 mean 6.02
+tile y band -2: y -1.31..-0.79  contrast of gold to the pixels under its outline: min 3.11 mean 5.83
+tile y band -1: y -0.79..-0.26  contrast of gold to the pixels under its outline: min 2.81 mean 5.59
+tile y band 0: y -0.26.. 0.26  contrast of gold to the pixels under its outline: min 2.81 mean 5.61
+tile y band 1: y  0.26.. 0.79  contrast of gold to the pixels under its outline: min 2.51 mean 5.09
+tile y band 2: y  0.79.. 1.31  contrast of gold to the pixels under its outline: min 1.90 mean 4.17
+tile y band 3: y  1.31.. 1.83  contrast of gold to the pixels under its outline: min 1.90 mean 3.90  <= repair
+tile y band 4: y  1.83.. 2.36  contrast of gold to the pixels under its outline: min 1.92 mean 4.01
+tile y band 5: y  2.36.. 2.88  contrast of gold to the pixels under its outline: min 1.87 mean 4.05
+tile y band 6: y  2.88.. 3.40  contrast of gold to the pixels under its outline: min 1.87 mean 4.19
+tile y band 7: y  3.40.. 3.93  contrast of gold to the pixels under its outline: min 2.11 mean 4.85
+tile y band 8: y  3.93.. 4.45  contrast of gold to the pixels under its outline: min 2.54 mean 5.52
+tile y band 9: y  4.45.. 4.97  contrast of gold to the pixels under its outline: min 3.26 mean 5.91
+tile y band 10: y  4.97.. 5.50  contrast of gold to the pixels under its outline: min 2.82 mean 5.68
+tile y band 11: y  5.50.. 6.02  contrast of gold to the pixels under its outline: min 2.79 mean 5.37

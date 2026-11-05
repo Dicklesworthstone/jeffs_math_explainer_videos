@@ -1,0 +1,398 @@
+{
+  "schema": "logarithm05-08-teaching-anchors-v1",
+  "baseline": {
+    "candidate": "combined-repair-stage07/candidate",
+    "files_sha256": {
+      "complex_turns.rs": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+      "lifting_loops.rs": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+      "branch_cut.rs": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+      "product_rule.rs": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0"
+    },
+    "script_sha256": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+    "draw_sha256": "2a4e84504bab636433cd419b2c9990986d7c549bf05aa3432d33bd5a9b60fe28"
+  },
+  "staged_sha256": {
+    "complex_turns.rs": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+    "lifting_loops.rs": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346",
+    "branch_cut.rs": "c1159c3727a1f1d83351d2c837027c563455df6ebc2de32a2db5973d56cbc401",
+    "product_rule.rs": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db"
+  },
+  "patch_sha256": "1aafaaa84671c95e5a49340882efbe32aaea2ab7b74ba4ab149a1636dd90db34",
+  "lines": {
+    "complex_turns.rs": {
+      "film_lines_added": 126,
+      "film_lines_removed": 16,
+      "test_lines_added": 107,
+      "lines_old": 1041,
+      "lines_new": 1256
+    },
+    "lifting_loops.rs": {
+      "film_lines_added": 82,
+      "film_lines_removed": 4,
+      "test_lines_added": 65,
+      "lines_old": 913,
+      "lines_new": 1055
+    },
+    "branch_cut.rs": {
+      "film_lines_added": 12,
+      "film_lines_removed": 12,
+      "test_lines_added": 20,
+      "lines_old": 905,
+      "lines_new": 924
+    },
+    "product_rule.rs": {
+      "film_lines_added": 153,
+      "film_lines_removed": 11,
+      "test_lines_added": 154,
+      "lines_old": 534,
+      "lines_new": 829
+    }
+  },
+  "timing_rule": "Anchor on the cue, sentence and phrase. Old times are stage06's scratch voice, not Oliver. Old frame numbers are labels in logarithm-stage06-frames01/<chapter>, counted from 0. Old frames show the state being replaced.",
+  "provisional": "Without a word mark at a phrase's byte, a hook falls back on the phrase's character share of its measured sentence. That is a provisional estimate, not a heard boundary. measured_seconds stays null in phrase-anchors-proposed.json.",
+  "hold_table": "hold-table.json",
+  "phrase_anchors": "phrase-anchors-proposed.json",
+  "binder_rows": "binder-rows.json",
+  "phrase_hooks": [
+    {
+      "cue": "05_20",
+      "phrase": "the logarithm of two",
+      "byte": 180,
+      "byte_end": 200,
+      "sentence_index": 4,
+      "word_index": 37,
+      "measured_seconds": null
+    },
+    {
+      "cue": "05_20",
+      "phrase": "a half pi",
+      "byte": 214,
+      "byte_end": 223,
+      "sentence_index": 4,
+      "word_index": 45,
+      "measured_seconds": null
+    },
+    {
+      "cue": "05_20",
+      "phrase": "the length is two",
+      "byte": 225,
+      "byte_end": 242,
+      "sentence_index": 4,
+      "word_index": 48,
+      "measured_seconds": null
+    },
+    {
+      "cue": "05_20",
+      "phrase": "land on two i",
+      "byte": 276,
+      "byte_end": 289,
+      "sentence_index": 4,
+      "word_index": 59,
+      "measured_seconds": null
+    },
+    {
+      "cue": "06_6",
+      "phrase": "passes minus one",
+      "byte": 267,
+      "byte_end": 283,
+      "sentence_index": 3,
+      "word_index": 48,
+      "measured_seconds": null
+    },
+    {
+      "cue": "06_6",
+      "phrase": "leaps from pi to minus pi",
+      "byte": 338,
+      "byte_end": 363,
+      "sentence_index": 3,
+      "word_index": 60,
+      "measured_seconds": null
+    },
+    {
+      "cue": "08_5",
+      "phrase": "leaves a half turn",
+      "byte": 260,
+      "byte_end": 278,
+      "sentence_index": 4,
+      "word_index": 51,
+      "measured_seconds": null
+    },
+    {
+      "cue": "08_5",
+      "phrase": "a factor of minus one",
+      "byte": 299,
+      "byte_end": 320,
+      "sentence_index": 4,
+      "word_index": 60,
+      "measured_seconds": null
+    }
+  ],
+  "anchors": [
+    {
+      "id": "C1-x",
+      "repair": "C1",
+      "chapter": "05_complex_turns",
+      "cue": "05_20",
+      "when": "phrase \"the logarithm of two\"",
+      "old_frames": [
+        {
+          "frame": 134,
+          "scratch_voice_seconds": 60.0
+        },
+        {
+          "frame": 136,
+          "scratch_voice_seconds": 60.6
+        }
+      ],
+      "expect": "Only e^{ln 2 + iy} on the right, blue, where the whole line will stand. No equals sign, no arrow, no 2i label. Lengths, angles and times-i have left at the sentence's start.",
+      "fails_if": "The equals sign, the arrow or the 2i label shows, or the line stands before these words."
+    },
+    {
+      "id": "C1-y",
+      "repair": "C1",
+      "chapter": "05_complex_turns",
+      "cue": "05_20",
+      "when": "phrase \"a half pi\"",
+      "old_frames": [
+        {
+          "frame": 136,
+          "scratch_voice_seconds": 60.6
+        }
+      ],
+      "expect": "iy gives way to i pi/2 inside the exponent, and e^{ln 2 + stays still through the crossfade. Still no equals sign.",
+      "fails_if": "The shared glyphs jump, the old and new exponents read as a smear for longer than the 0.3 s fade, or the answer shows."
+    },
+    {
+      "id": "C1-length",
+      "repair": "C1",
+      "chapter": "05_complex_turns",
+      "cue": "05_20",
+      "when": "phrase \"the length is two\"",
+      "old_frames": [
+        {
+          "frame": 150,
+          "scratch_voice_seconds": 66.0
+        }
+      ],
+      "expect": "The words card at the left fades in. The line on the right holds, with no answer and no arrow.",
+      "fails_if": "The card arrives before this phrase, or the arrow comes with it."
+    },
+    {
+      "id": "C1-land",
+      "repair": "C1",
+      "chapter": "05_complex_turns",
+      "cue": "05_20",
+      "when": "phrase \"land on two i\", to the end of the cue",
+      "old_frames": [
+        {
+          "frame": 158,
+          "scratch_voice_seconds": 70.0
+        },
+        {
+          "frame": 168,
+          "scratch_voice_seconds": 72.733
+        }
+      ],
+      "expect": "= 2i joins the line, with the left glyphs still. Then the arrow from 0 to 2i and its 2i label fade in during \"two i\". The finished picture matches old frame 168.",
+      "fails_if": "Any of the three pieces shows before \"land\", or they have not settled when the cue ends."
+    },
+    {
+      "id": "C1-out",
+      "repair": "C1",
+      "chapter": "05_complex_turns",
+      "cue": "05_3",
+      "when": "the cue's start",
+      "old_frames": [
+        {
+          "frame": 168,
+          "scratch_voice_seconds": 72.733
+        }
+      ],
+      "expect": "The worked line, card, arrow and label leave once, with everything else in the old list. The two stages do not flash back.",
+      "fails_if": "A stage reappears for a frame or stays behind after the fade."
+    },
+    {
+      "id": "C2",
+      "repair": "C2",
+      "chapter": "05_complex_turns",
+      "cue": "05_3",
+      "when": "the climb past the strip's top",
+      "old_frames": [
+        {
+          "frame": 215,
+          "scratch_voice_seconds": 94.5
+        },
+        {
+          "frame": 216,
+          "scratch_voice_seconds": 95.0
+        },
+        {
+          "frame": 217,
+          "scratch_voice_seconds": 95.5
+        },
+        {
+          "frame": 218,
+          "scratch_voice_seconds": 96.0
+        },
+        {
+          "frame": 227,
+          "scratch_voice_seconds": 98.533
+        }
+      ],
+      "expect": "The input dot leaves the 3 pi tick and runs up the goes-on arrow, fading, and is gone at the arrow's tip before the laps read 2. The output winds on alone.",
+      "fails_if": "The dot rests on the 3 pi tick while the laps read 2 or 3, leaves the arrow, or comes back."
+    },
+    {
+      "id": "L1-wait",
+      "repair": "L1",
+      "chapter": "06_lifting_loops",
+      "cue": "06_6",
+      "when": "sentence 3, up to \"passes minus one\"",
+      "old_frames": [
+        {
+          "frame": 267,
+          "scratch_voice_seconds": 113.5
+        },
+        {
+          "frame": 268,
+          "scratch_voice_seconds": 114.0
+        },
+        {
+          "frame": 269,
+          "scratch_voice_seconds": 114.5
+        }
+      ],
+      "expect": "The walk stands short of -1 at turn 0.45, the gap gauge at zero, no ring at -1, no inset.",
+      "fails_if": "The dot passes -1, the gauge moves, or the ring or inset shows."
+    },
+    {
+      "id": "L1-cross",
+      "repair": "L1",
+      "chapter": "06_lifting_loops",
+      "cue": "06_6",
+      "when": "phrase \"passes minus one\"",
+      "old_frames": [
+        {
+          "frame": 271,
+          "scratch_voice_seconds": 115.5
+        },
+        {
+          "frame": 273,
+          "scratch_voice_seconds": 116.5
+        }
+      ],
+      "expect": "The red ring at -1 fades in, then the dot crosses and the gauge drops a lap, about 1 s after the phrase starts.",
+      "fails_if": "The gauge drops before the phrase, or more than about 2 s after it."
+    },
+    {
+      "id": "L1-inset",
+      "repair": "L1",
+      "chapter": "06_lifting_loops",
+      "cue": "06_6",
+      "when": "phrase \"leaps from pi to minus pi\", up to sentence 4",
+      "old_frames": [
+        {
+          "frame": 271,
+          "scratch_voice_seconds": 115.5
+        },
+        {
+          "frame": 283,
+          "scratch_voice_seconds": 121.5
+        }
+      ],
+      "expect": "The jump arrow, its caption and axis fade in on these words. The walk finishes before \"So that candidate breaks\", where \"it breaks at -1\" appears.",
+      "fails_if": "The inset shows before \"leaps\", or the walk is still moving when sentence 4 starts."
+    },
+    {
+      "id": "B8",
+      "repair": "B8",
+      "chapter": "07_branch_cut",
+      "cue": "07_5",
+      "when": "from \"Or cut along a spiral\"",
+      "old_frames": [
+        {
+          "frame": 262,
+          "scratch_voice_seconds": 114.5
+        },
+        {
+          "frame": 265,
+          "scratch_voice_seconds": 116.0
+        }
+      ],
+      "expect": "Zoomed at zero (compare the review's zooms/07-f0264-spiral.png): separate turns, about 0.9 scene units apart, and one strand leaving the ring round zero. The spiral still runs from zero to the frame's edge.",
+      "fails_if": "Turns merge, the strand crosses itself, or it does not reach zero."
+    },
+    {
+      "id": "R10-dot",
+      "repair": "R10",
+      "chapter": "08_product_rule",
+      "cue": "08_5",
+      "when": "sentence 3, \"But the product\"",
+      "old_frames": [
+        {
+          "frame": 276,
+          "scratch_voice_seconds": 125.0
+        },
+        {
+          "frame": 287,
+          "scratch_voice_seconds": 130.5
+        }
+      ],
+      "expect": "A gold dot at +1 fades in with the gold row, opposite the green dot at -1.",
+      "fails_if": "The dot is absent, sits off the ring's +1, or arrives apart from its row."
+    },
+    {
+      "id": "R10-halving",
+      "repair": "R10",
+      "chapter": "08_product_rule",
+      "cue": "08_5",
+      "when": "sentence 4, \"Halving the lost lap\"",
+      "old_frames": [
+        {
+          "frame": 298,
+          "scratch_voice_seconds": 136.0
+        }
+      ],
+      "expect": "Only \\tfrac{1}{2}(2 pi i) = pi i in purple, on the corner the whole line will stand on. No sign yet.",
+      "fails_if": "e^{pi i} = -1 shows yet."
+    },
+    {
+      "id": "R10-arc",
+      "repair": "R10",
+      "chapter": "08_product_rule",
+      "cue": "08_5",
+      "when": "phrase \"leaves a half turn\"",
+      "old_frames": [
+        {
+          "frame": 298,
+          "scratch_voice_seconds": 136.0
+        },
+        {
+          "frame": 302,
+          "scratch_voice_seconds": 138.0
+        }
+      ],
+      "expect": "A purple arc with a head sweeps over the top of the ring from +1 to -1 in 1.6 s, then \"half turn\" fades in outside the ring at its upper right, clear of the ring, the axis, the definition and the column.",
+      "fails_if": "The arc starts before the phrase, touches a dot, a green arc or a row of text, runs under the ring, or the word collides with anything. Its head must stop short of the green dot."
+    },
+    {
+      "id": "R10-sign",
+      "repair": "R10",
+      "chapter": "08_product_rule",
+      "cue": "08_5",
+      "when": "phrase \"a factor of minus one\"",
+      "old_frames": [
+        {
+          "frame": 310,
+          "scratch_voice_seconds": 142.0
+        },
+        {
+          "frame": 325,
+          "scratch_voice_seconds": 148.183
+        }
+      ],
+      "expect": ", e^{pi i} = -1 joins the purple line with the left glyphs still, and the finished line matches old frame 325. Then the gold \\sqrt{zw} row on sentence 5, as before.",
+      "fails_if": "The sign shows before the phrase, the shared glyphs jump, or the finished line differs from the old string or place."
+    }
+  ]
+}

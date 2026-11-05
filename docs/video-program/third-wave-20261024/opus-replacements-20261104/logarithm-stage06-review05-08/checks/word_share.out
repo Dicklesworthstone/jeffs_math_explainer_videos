@@ -1,0 +1,74 @@
+cue	phrase	words_from	words_to	letters_from	letters_to
+05_20	For instance	59.4	60.2	60.3	61.4
+05_20	the length is two	66.1	67.6	66.3	68.0
+05_20	so we land on two i	69.6	71.9	70.2	71.9
+05_3	Watch what that does to a grid	72.5	75.3	72.5	75.0
+05_3	again and again	96.8	97.9	96.6	97.9
+05_6	two pi apart	150.2	151.4	150.0	151.2
+05_7	whole column of angles	163.3	164.9	163.8	165.6
+05_7	a dial	177.0	177.8	176.8	177.4
+05_7	the folded slide rule	179.7	181.3	179.5	181.3
+06_1	walk the number slowly around the circle	11.6	14.4	11.2	14.1
+06_2	only the angle changes	23.2	24.8	24.0	25.7
+06_4	Walk the number once around it	68.9	71.3	68.4	70.7
+06_6	The gap sits at zero until	113.3	115.6	113.8	115.7
+06_6	passes minus one	116.4	117.6	116.5	117.8
+06_6	jumps down a lap	118.0	119.5	118.1	119.4
+06_6	leaps from pi to minus pi	121.1	123.4	121.5	123.4
+06_6	So that candidate breaks	123.4	125.0	123.4	125.2
+06_20	stays fixed	149.4	150.2	149.5	150.4
+06_7	Theirs is a function	154.7	156.3	154.6	156.1
+06_7	Ours finishes	161.4	162.2	161.0	162.1
+06_7	So the gap has changed	164.1	166.1	163.8	165.5
+06_7	That is a contradiction	170.4	171.9	169.3	171.1
+06_7	No continuous logarithm	171.9	173.1	171.1	172.9
+06_7	Something has to give	176.2	177.8	176.1	177.8
+07_1	forbid crossing	8.5	9.3	7.9	9.1
+07_2	with derivative one over z	33.7	35.7	35.6	37.7
+07_2	For example	39.2	40.0	41.4	42.4
+07_2	Log of i	44.2	45.4	46.2	46.8
+07_2	Log of minus i	48.1	49.7	49.0	50.1
+07_4	So a path that crosses	94.8	96.7	95.2	97.1
+07_4	jump by two pi	98.7	100.3	98.9	100.3
+07_5	The cut is a choice, not a crack	100.9	104.0	100.9	103.5
+07_5	from minus three halves of pi	109.8	112.2	110.4	112.7
+07_5	Or cut along a spiral	114.1	116.1	114.0	115.8
+07_5	without crossing itself	119.6	120.7	119.3	121.2
+07_5	no loop can wind around zero	123.9	126.2	123.9	126.2
+07_5	the branch point	130.9	132.0	130.6	132.0
+07_6	But it jumps	140.8	142.0	142.4	143.4
+07_6	above minus pi and at most pi	162.2	164.9	162.8	165.1
+07_6	That is the strip	164.9	166.5	165.1	166.5
+08_1	three quarters of pi	12.3	13.9	12.3	14.0
+08_1	Square it	13.9	14.6	14.0	14.8
+08_1	the angles add to one and a half pi	17.0	20.5	17.3	20.2
+08_1	But the principal logarithm	20.5	22.0	20.2	22.3
+08_1	So what angle	26.7	27.9	26.8	27.9
+08_2	It reports	39.4	40.2	39.4	40.3
+08_2	So the sum	43.3	44.5	43.6	44.5
+08_2	while the logarithm of the product	49.2	51.5	48.9	51.8
+08_2	They differ	54.3	55.1	54.2	55.2
+08_3	When the sum of the angles	61.9	64.3	62.3	64.4
+08_3	drops a lap	67.0	68.2	67.6	68.6
+08_3	dropped a factor of ten	70.5	72.4	71.1	73.1
+08_3	The rule that survives	72.4	74.0	73.1	74.8
+08_3	plus a whole number of laps	79.1	81.4	79.8	82.0
+08_3	It now keeps a lap count	83.3	85.7	83.9	85.9
+08_3	For our square	85.7	86.9	85.9	87.1
+08_4	Minus one is	93.7	94.9	94.2	95.3
+08_4	Write i	96.1	96.9	96.2	96.8
+08_4	Combine	99.6	100.0	99.5	100.1
+08_4	That is the root	104.7	106.3	104.8	106.1
+08_4	So minus one equals one	108.2	110.2	107.9	109.9
+08_4	Which step broke	110.2	111.4	109.9	111.4
+08_5	Here a square root	117.4	119.0	117.9	119.4
+08_5	Each minus one	122.5	123.7	122.5	123.7
+08_5	so the two roots together	125.2	127.2	125.6	127.7
+08_5	turn by pi	127.2	128.3	127.7	128.6
+08_5	point at minus one	128.7	130.3	128.9	130.5
+08_5	But the product	130.3	131.5	130.5	131.8
+08_5	Halving the lost lap	134.6	136.1	135.2	136.9
+08_5	a half turn is a factor of minus one	138.1	141.6	138.8	141.8
+08_5	a factor of minus one	139.6	141.6	140.0	141.8
+08_5	The root of a product	141.6	143.5	141.8	143.5
+08_5	only up to that sign	145.9	147.8	146.1	147.8

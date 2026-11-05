@@ -1,0 +1,119 @@
+--- a/crates/fmn/tests/native_bundle_pipeline.rs
++++ b/crates/fmn/tests/native_bundle_pipeline.rs
+@@ -1,7 +1,8 @@
+ //! Compiled artifacts must reconstruct on real render teams, with no new law.
+ 
+ use fmn::rendering::{
+-    NativeFramePipeline, RenderError, RenderFormat, RenderOptions, render_bundle_with_fs,
++    NativeFramePipeline, RenderError, RenderFormat, RenderOptions, RenderPlanLimits,
++    render_bundle_with_fs,
+ };
+ use fmn_anim::{Timeline, prepare_animation};
+ use fmn_core::{rate, rng::RngRoot};
+@@ -13,8 +14,8 @@
+ use fmn_platform::fs::{FileSystem, VirtualFs};
+ use fmn_platform::topology::HardwareTopology;
+ use fmn_render::{
+-    Camera, EngineIdentity, FrameConfig, RetainedFrameRenderer, RetainedFrameRendererConfig,
+-    ScreenMap, Tiling, Viewport,
++    Camera, EngineIdentity, FrameConfig, RenderPlan, RetainedFrameRenderer,
++    RetainedFrameRendererConfig, ScreenMap, Tiling, Viewport,
+ };
+ use fmn_runtime::{ExecutionPlan, OutputPixelFormat, PlanRequest, RenderIntent, SurfaceSpec};
+ use fmn_scene::timeline_bundle::{
+@@ -273,6 +274,95 @@
+     render_bundle_with_fs(&bytes, options("/retry", 4, false), fs).unwrap();
+ }
+ 
++/// One stroke with paint on every record, the shape that retains profile knots. It holds still,
++/// so every frame asks for the same style row, and the demand is exact however the frames fall
++/// across the workers.
++fn painted_bundle() -> Vec<u8> {
++    let mut records = RecordBuffer::new(RecordSchema::vmobject(), 5).unwrap();
++    records.write_range(
++        "point",
++        0,
++        &[
++            -2.0, 0.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 2.0, 0.0, 0.0,
++        ],
++    );
++    records.write_range("stroke_width", 0, &[40.0; 5]);
++    records.write_range(
++        "stroke_rgba",
++        0,
++        &[
++            1.0, 0.0, 0.0, 1.0, 0.8, 0.2, 0.0, 1.0, 0.6, 0.4, 0.0, 1.0, 0.4, 0.6, 0.0, 1.0, 0.2,
++            0.8, 0.0, 1.0,
++        ],
++    );
++    let mut stage = Stage::new();
++    let mob = stage.add(Mobject::from_buffer(records));
++    stage.add_to_scene(mob).unwrap();
++    let mut timeline = Timeline::new(8).unwrap();
++    timeline.wait(0.5).unwrap();
++    export_timeline_bundle(timeline, &mut stage, &RngRoot::from_seed(17)).unwrap()
++}
++
++#[test]
++fn a_declared_plan_budget_reaches_the_compiled_workers_on_both_routes() {
++    let bytes = painted_bundle();
++    // Read from a plan no worker touches, so a worker's own answer cannot supply it.
++    let stage = TimelineBundle::from_bytes(&bytes)
++        .unwrap()
++        .stage_at(0)
++        .unwrap();
++    let mut serial = RenderPlan::new();
++    serial.sync(&stage, 0).unwrap();
++    let demand = serial.styles().profile_knots() as u64;
++    assert!(demand > 1, "the fixture lost its per-record paint");
++
++    let declared = |path: &str, camera: bool, knots: Option<u64>| {
++        let mut options = options(path, 4, camera);
++        options.format = RenderFormat::PngSequence;
++        if let Some(max_retained_profile_knots) = knots {
++            options.plan_limits = RenderPlanLimits {
++                max_retained_profile_knots,
++                ..RenderPlanLimits::default()
++            };
++        }
++        options
++    };
++    let frames = |fs: &VirtualFs, path: &str| -> Vec<Vec<u8>> {
++        (0..4)
++            .map(|index| {
++                fs.read(&Path::new(path).join(format!("frame_{index:06}.png")))
++                    .unwrap()
++            })
++            .collect()
++    };
++    for camera in [false, true] {
++        let fs = Arc::new(VirtualFs::new());
++        // Compiled frames are reconstructed and compiled only inside a render worker. The
++        // default admits this scene, so a worker that kept it would render one knot short.
++        let Err(error) = render_bundle_with_fs(
++            &bytes,
++            declared("/short", camera, Some(demand - 1)),
++            fs.clone(),
++        ) else {
++            panic!("camera route {camera}: a worker admitted one knot over its declared budget");
++        };
++        assert!(matches!(error, RenderError::Pipeline(_)), "{error:?}");
++        let words = format!("{error:?}");
++        let refusal = format!(
++            "resource: \"retained profile knots\", requested: {demand}, limit: {}",
++            demand - 1
++        );
++        assert!(words.contains(&refusal), "{words}");
++        assert!(!fs.exists(Path::new("/short")));
++
++        // The exact demand is admitted on every frame, and a budget never moves a pixel.
++        render_bundle_with_fs(&bytes, declared("/exact", camera, Some(demand)), fs.clone())
++            .unwrap();
++        render_bundle_with_fs(&bytes, declared("/default", camera, None), fs.clone()).unwrap();
++        assert_eq!(frames(&fs, "/exact"), frames(&fs, "/default"));
++    }
++}
++
+ #[test]
+ fn empty_bundle_and_existing_native_outputs_are_not_silently_replaced() {
+     let mut stage = Stage::new();

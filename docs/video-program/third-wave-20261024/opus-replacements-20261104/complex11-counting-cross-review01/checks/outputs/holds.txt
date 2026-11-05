@@ -1,0 +1,107 @@
+PASS 11_5 on C2+C3: marker scan 440 equals the binder's 440
+PASS 11_6 on C2+C3: marker scan 503 equals the binder's 503
+PASS 11_8 on C2+C3: marker scan 604 equals the binder's 604
+{
+ "S": {
+  "counting_sha256": "dba35730d15b3c5e4ff7fb0fe7444265424b920d87861562b11d8468f9d290e4",
+  "rows": {
+   "11_5": {
+    "line": 440,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, v(ASK_AT.0, ASK_AT.1))?;"
+   },
+   "11_6": {
+    "line": 503,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   },
+   "11_8": {
+    "line": 604,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   }
+  }
+ },
+ "C1": {
+  "counting_sha256": "d227e5e089ecbde0dc5bd0638a1f4d600f89b66c18abc07906f1f8a1bb0690ec",
+  "rows": {
+   "11_5": {
+    "line": 440,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, v(ASK_AT.0, ASK_AT.1))?;"
+   },
+   "11_6": {
+    "line": 503,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   },
+   "11_8": {
+    "line": 604,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   }
+  }
+ },
+ "C3": {
+  "counting_sha256": "cb996633b61066cb6861e638b8b3aa2657856b96044314fccfbd079f04bce2f0",
+  "rows": {
+   "11_5": {
+    "line": 440,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, v(ASK_AT.0, ASK_AT.1))?;"
+   },
+   "11_6": {
+    "line": 503,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   },
+   "11_8": {
+    "line": 604,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   }
+  }
+ },
+ "C1+C3": {
+  "counting_sha256": "d5763e3f090f17b81748fdcfa1753a7af8588e97a03d44e0557322a14cf75be7",
+  "rows": {
+   "11_5": {
+    "line": 440,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, v(ASK_AT.0, ASK_AT.1))?;"
+   },
+   "11_6": {
+    "line": 503,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   },
+   "11_8": {
+    "line": 604,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   }
+  }
+ },
+ "C2+C3": {
+  "counting_sha256": "cdc154ec074aa446b96cae783fa7e26b0fec3b9cf18e9c16ed19284aab22e32c",
+  "rows": {
+   "11_5": {
+    "line": 440,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, v(ASK_AT.0, ASK_AT.1))?;"
+   },
+   "11_6": {
+    "line": 503,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   },
+   "11_8": {
+    "line": 604,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   }
+  }
+ },
+ "C1+C2+C3": {
+  "counting_sha256": "f3fc8e3535b916e01782f0d627b53aed6c56d9a0261ace1306221bbf4a553bd5",
+  "rows": {
+   "11_5": {
+    "line": 440,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, v(ASK_AT.0, ASK_AT.1))?;"
+   },
+   "11_6": {
+    "line": 503,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   },
+   "11_8": {
+    "line": 604,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   }
+  }
+ }
+}

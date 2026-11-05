@@ -1,0 +1,299 @@
+kind	chapter	item	frames	t_first_s	t_last_s	sha256_16	image_returned
+sheet	00_ratio_ruler	sheet-000.png	0-3	0.000	0.800	d95fdb0240231381	yes
+sheet	00_ratio_ruler	sheet-001.png	4-7	1.000	2.000	6876cf76ce1b7d9e	yes
+sheet	00_ratio_ruler	sheet-002.png	8-11	2.500	4.000	953dcd243537ef21	yes
+sheet	00_ratio_ruler	sheet-003.png	12-15	4.500	6.000	f46bb5153039bf81	yes
+sheet	00_ratio_ruler	sheet-004.png	16-19	6.500	8.000	bdcf5352efee0583	yes
+sheet	00_ratio_ruler	sheet-005.png	20-23	8.500	10.000	e2d56c90855ab527	yes
+sheet	00_ratio_ruler	sheet-006.png	24-27	10.500	12.000	5dadbf5c63496536	yes
+sheet	00_ratio_ruler	sheet-007.png	28-31	12.500	14.000	89a14d0f12b628d3	yes
+sheet	00_ratio_ruler	sheet-008.png	32-35	14.500	16.000	e2a8654d5f4167b3	yes
+sheet	00_ratio_ruler	sheet-009.png	36-39	16.500	18.000	24084cfc765bd7e0	yes
+sheet	00_ratio_ruler	sheet-010.png	40-43	18.500	19.077	ddf1551a7b7dec19	yes
+sheet	00_ratio_ruler	sheet-011.png	44-47	19.277	19.900	c9ba9e63e71c1f59	yes
+sheet	00_ratio_ruler	sheet-012.png	48-51	20.000	21.000	45acf4b31e320705	yes
+sheet	00_ratio_ruler	sheet-013.png	52-55	21.500	23.000	a07481d87ad458f9	yes
+sheet	00_ratio_ruler	sheet-014.png	56-59	23.500	25.000	9b012428c30697c1	yes
+sheet	00_ratio_ruler	sheet-015.png	60-63	25.500	27.000	57c3094669d42386	yes
+sheet	00_ratio_ruler	sheet-016.png	64-67	27.500	29.000	a30bb52ce8c15648	yes
+sheet	00_ratio_ruler	sheet-017.png	68-71	29.500	31.000	bbf5557d06ba621f	yes
+sheet	00_ratio_ruler	sheet-018.png	72-75	31.500	32.023	a634fdcd02f8f286	yes
+sheet	00_ratio_ruler	sheet-019.png	76-79	32.223	32.833	8714440915b62378	yes
+sheet	00_ratio_ruler	sheet-020.png	80-83	33.000	34.000	4a0e686c9d917879	yes
+sheet	00_ratio_ruler	sheet-021.png	84-87	34.500	36.000	96c07c43e671f1a9	yes
+sheet	00_ratio_ruler	sheet-022.png	88-91	36.500	38.000	982a1c7fcbaa9d8a	yes
+sheet	00_ratio_ruler	sheet-023.png	92-95	38.500	40.000	09a06df9f5be7d2f	yes
+sheet	00_ratio_ruler	sheet-024.png	96-99	40.500	42.000	9b62d06a65cee7b1	yes
+sheet	00_ratio_ruler	sheet-025.png	100-103	42.500	44.000	c2be9d7d335cdfe5	yes
+sheet	00_ratio_ruler	sheet-026.png	104-107	44.500	46.000	51d09af1eb7fb617	yes
+sheet	00_ratio_ruler	sheet-027.png	108-111	46.500	48.000	fd4c7e01b4ddf7d8	yes
+sheet	00_ratio_ruler	sheet-028.png	112-115	48.500	50.000	3a0d23b6afa3bd10	yes
+sheet	00_ratio_ruler	sheet-029.png	116-119	50.500	52.000	2da4eafac3f80d45	yes
+sheet	00_ratio_ruler	sheet-030.png	120-123	52.500	54.000	d1d48e7de3c38379	yes
+sheet	00_ratio_ruler	sheet-031.png	124-127	54.471	54.771	6aae56d9a48a9d9c	yes
+sheet	00_ratio_ruler	sheet-032.png	128-131	55.000	55.500	f1602a52f3e0ebae	yes
+sheet	00_ratio_ruler	sheet-033.png	132-135	55.700	57.000	0b1180d440428af6	yes
+sheet	00_ratio_ruler	sheet-034.png	136-139	57.500	59.000	6d06de600c6247d4	yes
+sheet	00_ratio_ruler	sheet-035.png	140-143	59.500	61.000	56b5e0ee505c2b47	yes
+sheet	00_ratio_ruler	sheet-036.png	144-147	61.500	63.000	733fc3063148e62c	yes
+sheet	00_ratio_ruler	sheet-037.png	148-151	63.500	65.000	56419aad98383056	yes
+sheet	00_ratio_ruler	sheet-038.png	152-155	65.500	67.000	b429d8218bfe5a5f	yes
+sheet	00_ratio_ruler	sheet-039.png	156-159	67.500	68.962	a43613d8c9637032	yes
+sheet	00_ratio_ruler	sheet-040.png	160-163	69.000	69.500	a3380e011b68d62b	yes
+sheet	00_ratio_ruler	sheet-041.png	164-167	70.000	71.500	d253249dfece65ab	yes
+sheet	00_ratio_ruler	sheet-042.png	168-171	72.000	73.500	5abef75cc0cb68c5	yes
+sheet	00_ratio_ruler	sheet-043.png	172-175	73.933	74.433	bf8f003451892ebc	yes
+sheet	00_ratio_ruler	sheet-044.png	176-179	74.500	76.000	7dffa3722cd76398	yes
+sheet	00_ratio_ruler	sheet-045.png	180-183	76.500	78.000	8d0f6b447cfd8281	yes
+sheet	00_ratio_ruler	sheet-046.png	184-187	78.500	80.000	639d955f7348be6c	yes
+sheet	00_ratio_ruler	sheet-047.png	188-191	80.500	82.000	0f5f88026da54c3e	yes
+sheet	00_ratio_ruler	sheet-048.png	192-195	82.500	84.000	2c39bd6bfa0e466f	yes
+sheet	00_ratio_ruler	sheet-049.png	196-199	84.500	86.000	9b780cdbc76173f4	yes
+sheet	00_ratio_ruler	sheet-050.png	200-203	86.500	88.000	b6e9b8892f024ba2	yes
+sheet	00_ratio_ruler	sheet-051.png	204-207	88.500	90.000	3ffc3497959bdbdc	yes
+sheet	00_ratio_ruler	sheet-052.png	208-211	90.500	92.000	ba6ab1414d17462b	yes
+sheet	00_ratio_ruler	sheet-053.png	212-215	92.500	92.995	918796b5cec81cc8	yes
+sheet	00_ratio_ruler	sheet-054.png	216-219	93.000	93.600	16b9abeaef5288bb	yes
+sheet	00_ratio_ruler	sheet-055.png	220-223	93.900	95.000	db597f1daa449a19	yes
+sheet	00_ratio_ruler	sheet-056.png	224-227	95.500	97.000	d4ef39145cdb2c19	yes
+sheet	00_ratio_ruler	sheet-057.png	228-231	97.500	99.000	e3ab061770da8800	yes
+sheet	00_ratio_ruler	sheet-058.png	232-235	99.500	101.000	a092cefe4cdc681a	yes
+sheet	00_ratio_ruler	sheet-059.png	236-239	101.500	103.000	43fe972eaee33ce6	yes
+sheet	00_ratio_ruler	sheet-060.png	240-243	103.500	105.000	0d078d966eebb1c2	yes
+sheet	00_ratio_ruler	sheet-061.png	244-247	105.500	107.000	11b3127ea407f209	yes
+sheet	00_ratio_ruler	sheet-062.png	248-251	107.500	109.000	ae56965a16b3ecf6	yes
+sheet	00_ratio_ruler	sheet-063.png	252-255	109.500	111.000	47ab10fc47d6a94d	yes
+sheet	00_ratio_ruler	sheet-064.png	256-259	111.500	113.000	281f69a708f53380	yes
+sheet	00_ratio_ruler	sheet-065.png	260-263	113.500	115.000	1c51a78c51a7e69b	yes
+sheet	00_ratio_ruler	sheet-066.png	264-267	115.500	117.000	ecfcb2964a26dc14	yes
+sheet	00_ratio_ruler	sheet-067.png	268-271	117.500	119.000	59513abaf8aa57ca	yes
+sheet	00_ratio_ruler	sheet-068.png	272-275	119.500	121.000	bc9071d4d79831a4	yes
+sheet	00_ratio_ruler	sheet-069.png	276-279	121.500	123.000	bc8c80c8ae3b0096	yes
+sheet	00_ratio_ruler	sheet-070.png	280-283	123.500	124.185	a83ea9908341b7cb	yes
+sheet	00_ratio_ruler	sheet-071.png	284-285	124.385	124.550	73fc925743cc9275	yes
+sheet	01_building_ruler	sheet-000.png	0-3	0.000	0.800	0e5867e8d24c0e49	yes
+sheet	01_building_ruler	sheet-001.png	4-7	1.000	2.000	51ac49b79062a425	yes
+sheet	01_building_ruler	sheet-002.png	8-11	2.500	4.000	e18b68d369baf6a4	yes
+sheet	01_building_ruler	sheet-003.png	12-15	4.500	6.000	cad3b9fd9c400e21	yes
+sheet	01_building_ruler	sheet-004.png	16-19	6.500	8.000	b48a6e3f89802f91	yes
+sheet	01_building_ruler	sheet-005.png	20-23	8.500	10.000	52d4ac726b876717	yes
+sheet	01_building_ruler	sheet-006.png	24-27	10.500	12.000	b1c9ca8fce531bdd	yes
+sheet	01_building_ruler	sheet-007.png	28-31	12.500	14.000	60a3b6a08d2aa92f	yes
+sheet	01_building_ruler	sheet-008.png	32-35	14.500	16.000	cabbedd09055a00a	yes
+sheet	01_building_ruler	sheet-009.png	36-39	16.500	18.000	d27b2c3aa403450f	yes
+sheet	01_building_ruler	sheet-010.png	40-43	18.500	19.462	8b3360aa53dd40c6	yes
+sheet	01_building_ruler	sheet-011.png	44-47	19.500	20.067	d2a8cc157e4e2b35	yes
+sheet	01_building_ruler	sheet-012.png	48-51	20.267	21.000	8e8bdcce92542664	yes
+sheet	01_building_ruler	sheet-013.png	52-55	21.500	23.000	a7cc3d303b79697d	yes
+sheet	01_building_ruler	sheet-014.png	56-59	23.500	25.000	2a3ad045ad3bb92c	yes
+sheet	01_building_ruler	sheet-015.png	60-63	25.500	27.000	e3d3e1ba2b4f222c	yes
+sheet	01_building_ruler	sheet-016.png	64-67	27.500	29.000	c49e8290deea9efb	yes
+sheet	01_building_ruler	sheet-017.png	68-71	29.500	31.000	2c9d1800f8093a11	yes
+sheet	01_building_ruler	sheet-018.png	72-75	31.500	33.000	e0a5a47847bf509c	yes
+sheet	01_building_ruler	sheet-019.png	76-79	33.500	35.000	947a015a485a5cb3	yes
+sheet	01_building_ruler	sheet-020.png	80-83	35.500	37.000	3a2f32caccead16e	yes
+sheet	01_building_ruler	sheet-021.png	84-87	37.500	39.000	c95a6095bffce5b5	yes
+sheet	01_building_ruler	sheet-022.png	88-91	39.500	41.000	7bdeb5e77569e44c	yes
+sheet	01_building_ruler	sheet-023.png	92-95	41.136	41.500	c59f19ffe3b08801	yes
+sheet	01_building_ruler	sheet-024.png	96-99	41.867	42.367	e503c7cf4c1ebaa7	yes
+sheet	01_building_ruler	sheet-025.png	100-103	42.500	44.000	40070901d1cd4ae1	yes
+sheet	01_building_ruler	sheet-026.png	104-107	44.500	46.000	9f59df7933fc3fd5	yes
+sheet	01_building_ruler	sheet-027.png	108-111	46.500	48.000	7acf17e857b17bab	yes
+sheet	01_building_ruler	sheet-028.png	112-115	48.500	50.000	84dd12da307c5fd2	yes
+sheet	01_building_ruler	sheet-029.png	116-119	50.500	51.498	bbaedb70c4443192	yes
+sheet	01_building_ruler	sheet-030.png	120-123	51.500	52.500	e11eb41333492537	yes
+sheet	01_building_ruler	sheet-031.png	124-127	53.000	54.500	27fc498180b7adf8	yes
+sheet	01_building_ruler	sheet-032.png	128-131	55.000	56.367	e24ed2c2ffcf3cb1	yes
+sheet	01_building_ruler	sheet-033.png	132-135	56.500	57.000	d8923bac7d6bb2e9	yes
+sheet	01_building_ruler	sheet-034.png	136-139	57.500	59.000	0f0b2000100009bf	yes
+sheet	01_building_ruler	sheet-035.png	140-143	59.500	61.000	a468b2aa23fee287	yes
+sheet	01_building_ruler	sheet-036.png	144-147	61.500	63.000	20a29f575441901b	yes
+sheet	01_building_ruler	sheet-037.png	148-151	63.500	65.000	4d240740c11fb065	yes
+sheet	01_building_ruler	sheet-038.png	152-155	65.500	67.000	5c50e795b5a92806	yes
+sheet	01_building_ruler	sheet-039.png	156-159	67.500	69.000	445894342342de3f	yes
+sheet	01_building_ruler	sheet-040.png	160-163	69.500	71.000	f8266263b6dc84ca	yes
+sheet	01_building_ruler	sheet-041.png	164-167	71.500	73.000	cbb488548c135496	yes
+sheet	01_building_ruler	sheet-042.png	168-171	73.500	75.000	a899c1fe0c6355df	yes
+sheet	01_building_ruler	sheet-043.png	172-175	75.500	76.000	4d4c06ac31da18e6	yes
+sheet	01_building_ruler	sheet-044.png	176-179	76.500	77.500	723e2514ba38312e	yes
+sheet	01_building_ruler	sheet-045.png	180-183	77.600	79.000	4389cb0a3dd47cc4	yes
+sheet	01_building_ruler	sheet-046.png	184-187	79.359	79.659	b1b6eb6d87a2551e	yes
+sheet	01_building_ruler	sheet-047.png	188-191	80.000	80.500	3881ffad35a7294f	yes
+sheet	01_building_ruler	sheet-048.png	192-195	80.567	82.000	be0ce791d9481645	yes
+sheet	01_building_ruler	sheet-049.png	196-199	82.500	84.000	11f29d0de50eae10	yes
+sheet	01_building_ruler	sheet-050.png	200-203	84.500	86.000	f13cf67d55528723	yes
+sheet	01_building_ruler	sheet-051.png	204-207	86.500	88.000	ae726ea357f8a977	yes
+sheet	01_building_ruler	sheet-052.png	208-211	88.500	90.000	f58d03dfe9e70533	yes
+sheet	01_building_ruler	sheet-053.png	212-215	90.500	92.000	e887d541ef5ca3e7	yes
+sheet	01_building_ruler	sheet-054.png	216-219	92.500	94.000	0d33113844f407bd	yes
+sheet	01_building_ruler	sheet-055.png	220-223	94.500	96.000	aadb78c47f85f07d	yes
+sheet	01_building_ruler	sheet-056.png	224-227	96.500	98.000	83e5002989d3fb5a	yes
+sheet	01_building_ruler	sheet-057.png	228-231	98.500	100.000	7a33fad65b4e9906	yes
+sheet	01_building_ruler	sheet-058.png	232-235	100.500	102.000	5cf0696e4927ac4c	yes
+sheet	01_building_ruler	sheet-059.png	236-239	102.500	102.975	b3d5fd86009ab97c	yes
+sheet	01_building_ruler	sheet-060.png	240-243	103.000	103.600	c9b072a20a3d91ab	yes
+sheet	01_building_ruler	sheet-061.png	244-247	103.900	105.000	0343e4e7809f9d1b	yes
+sheet	01_building_ruler	sheet-062.png	248-251	105.500	107.000	63c50ccab7c86cb7	yes
+sheet	01_building_ruler	sheet-063.png	252-255	107.500	109.000	3776b6e0f28171af	yes
+sheet	01_building_ruler	sheet-064.png	256-259	109.500	111.000	ab9d57449e70908a	yes
+sheet	01_building_ruler	sheet-065.png	260-263	111.500	113.000	e9e327dcf2f0ccd3	yes
+sheet	01_building_ruler	sheet-066.png	264-267	113.500	115.000	27277fd20b4701e8	yes
+sheet	01_building_ruler	sheet-067.png	268-271	115.500	117.000	5e4e5d5600192ba6	yes
+sheet	01_building_ruler	sheet-068.png	272-275	117.500	119.000	049501db3d939a11	yes
+sheet	01_building_ruler	sheet-069.png	276-279	119.500	121.000	9146269e48fed596	yes
+sheet	01_building_ruler	sheet-070.png	280-283	121.500	123.000	d4e1e6e2817c8563	yes
+sheet	01_building_ruler	sheet-071.png	284-287	123.500	125.000	ac49a1dbd5173a8e	yes
+sheet	01_building_ruler	sheet-072.png	288-291	125.500	127.000	ca6c14033ccbc0bf	yes
+sheet	01_building_ruler	sheet-073.png	292-295	127.500	129.000	972b6751e2f09793	yes
+sheet	01_building_ruler	sheet-074.png	296-299	129.500	131.000	0b7f405b582fe128	yes
+sheet	01_building_ruler	sheet-075.png	300-303	131.008	131.483	8602cc3d0f202aa3	yes
+sheet	02_slide_rule	sheet-000.png	0-3	0.000	0.800	08af70f40b1154b7	yes
+sheet	02_slide_rule	sheet-001.png	4-7	1.000	2.000	53f3a60a6bf40f0e	yes
+sheet	02_slide_rule	sheet-002.png	8-11	2.500	4.000	27c9379b3fe67fb5	yes
+sheet	02_slide_rule	sheet-003.png	12-15	4.500	6.000	41a6ad84b1bb704a	yes
+sheet	02_slide_rule	sheet-004.png	16-19	6.500	8.000	019cc9dd99cbf5f3	yes
+sheet	02_slide_rule	sheet-005.png	20-23	8.500	10.000	e2d7b2a36ed87cd2	yes
+sheet	02_slide_rule	sheet-006.png	24-27	10.500	12.000	49adeba3251abc45	yes
+sheet	02_slide_rule	sheet-007.png	28-31	12.500	14.000	b85c6888470866e6	yes
+sheet	02_slide_rule	sheet-008.png	32-35	14.362	14.662	d1dd86b8ed2d6a5f	yes
+sheet	02_slide_rule	sheet-009.png	36-39	15.000	15.500	ac8ada71502dd0ba	yes
+sheet	02_slide_rule	sheet-010.png	40-43	15.567	17.000	9312c80abb87b46c	yes
+sheet	02_slide_rule	sheet-011.png	44-47	17.500	19.000	7cf35a1d34070a0b	yes
+sheet	02_slide_rule	sheet-012.png	48-51	19.500	21.000	028edb6ce6282a48	yes
+sheet	02_slide_rule	sheet-013.png	52-55	21.500	23.000	11d9283fe83e2061	yes
+sheet	02_slide_rule	sheet-014.png	56-59	23.500	25.000	ed579752eeb7265e	yes
+sheet	02_slide_rule	sheet-015.png	60-63	25.500	27.000	f71548a83b7c7d39	yes
+sheet	02_slide_rule	sheet-016.png	64-67	27.500	29.000	c34a71cd106081c2	yes
+sheet	02_slide_rule	sheet-017.png	68-71	29.500	30.600	c20603c8533b0c54	yes
+sheet	02_slide_rule	sheet-018.png	72-75	30.700	31.500	ebf06c61f4cfad2b	yes
+sheet	02_slide_rule	sheet-019.png	76-79	31.700	32.700	e05565c85e8b7e5d	yes
+sheet	02_slide_rule	sheet-020.png	80-83	33.000	33.359	7151ace5e0a0101d	yes
+sheet	02_slide_rule	sheet-021.png	84-87	33.500	35.000	45748b8052115154	yes
+sheet	02_slide_rule	sheet-022.png	88-91	35.500	37.000	d14c16a9ed3c0549	yes
+sheet	02_slide_rule	sheet-023.png	92-95	37.500	38.233	f3dbf9499a49ce44	yes
+sheet	02_slide_rule	sheet-024.png	96-99	38.500	39.500	5335cf6c3c03d6dd	yes
+sheet	02_slide_rule	sheet-025.png	100-103	40.000	41.500	e3c29575f1aef9a8	yes
+sheet	02_slide_rule	sheet-026.png	104-107	42.000	43.500	4086ba006cde9060	yes
+sheet	02_slide_rule	sheet-027.png	108-111	44.000	45.500	6265dd55ec233533	yes
+sheet	02_slide_rule	sheet-028.png	112-115	46.000	47.500	eea1c1a228d40174	yes
+sheet	02_slide_rule	sheet-029.png	116-119	48.000	49.500	a7a8b70cec7e3783	yes
+sheet	02_slide_rule	sheet-030.png	120-123	50.000	50.741	e6ff23bfb370c17e	yes
+sheet	02_slide_rule	sheet-031.png	124-127	50.941	51.500	e11e3826bc6f8549	yes
+sheet	02_slide_rule	sheet-032.png	128-131	51.567	52.500	cb49909a808df2dd	yes
+sheet	02_slide_rule	sheet-033.png	132-135	53.000	54.500	99788463b3dc3c37	yes
+sheet	02_slide_rule	sheet-034.png	136-139	54.700	55.500	883895ee74c92d44	yes
+sheet	02_slide_rule	sheet-035.png	140-143	55.800	56.700	3e085c4802c53b45	yes
+sheet	02_slide_rule	sheet-036.png	144-147	56.800	57.800	6b36027be575c0f5	yes
+sheet	02_slide_rule	sheet-037.png	148-151	58.000	59.000	05ece21ee6bb0279	yes
+sheet	02_slide_rule	sheet-038.png	152-155	59.500	61.000	d8f863844de5fe32	yes
+sheet	02_slide_rule	sheet-039.png	156-159	61.500	63.000	81a217284c7ea33b	yes
+sheet	02_slide_rule	sheet-040.png	160-163	63.500	64.459	cecb40c3d1a59600	yes
+sheet	02_slide_rule	sheet-041.png	164-167	64.500	65.067	2bfa3c014ed5dee1	yes
+sheet	02_slide_rule	sheet-042.png	168-171	65.267	66.000	5c938bb5290e87d7	yes
+sheet	02_slide_rule	sheet-043.png	172-175	66.500	68.000	a6c65fbe5f831d6b	yes
+sheet	02_slide_rule	sheet-044.png	176-179	68.300	68.600	dc63c127a4f412bc	yes
+sheet	02_slide_rule	sheet-045.png	180-183	69.000	70.000	6f9d5b28d57d11b1	yes
+sheet	02_slide_rule	sheet-046.png	184-187	70.400	70.800	7fec1e8997afaa38	yes
+sheet	02_slide_rule	sheet-047.png	188-191	71.000	72.000	2496077b72e3e27f	yes
+sheet	02_slide_rule	sheet-048.png	192-195	72.500	73.500	c6e4568ddb27af23	yes
+sheet	02_slide_rule	sheet-049.png	196-199	74.000	75.500	77a7acd1f5ed52af	yes
+sheet	02_slide_rule	sheet-050.png	200-203	76.000	77.500	98be6407bc8b2f11	yes
+sheet	02_slide_rule	sheet-051.png	204-207	78.000	79.500	4b0b493214e96ab1	yes
+sheet	02_slide_rule	sheet-052.png	208-211	80.000	81.500	8ec3ea3fab2577aa	yes
+sheet	02_slide_rule	sheet-053.png	212-215	82.000	83.500	139c899397fff678	yes
+sheet	02_slide_rule	sheet-054.png	216-219	84.000	85.500	e403c0c8b970f192	yes
+sheet	02_slide_rule	sheet-055.png	220-223	86.000	87.500	4ac3cca5c7192204	yes
+sheet	02_slide_rule	sheet-056.png	224-227	88.000	89.500	0bd67b17b16ba4e7	yes
+sheet	02_slide_rule	sheet-057.png	228-231	90.000	91.500	050d87019db9e81c	yes
+sheet	02_slide_rule	sheet-058.png	232-235	92.000	92.775	c96a8f83f8149df8	yes
+sheet	02_slide_rule	sheet-059.png	236-237	92.975	93.150	e114c1a410302d43	yes
+sheet	03_folded_decade	sheet-000.png	0-3	0.000	0.800	694846f3f75b202f	yes
+sheet	03_folded_decade	sheet-001.png	4-7	1.000	2.000	051e74b52962a852	yes
+sheet	03_folded_decade	sheet-002.png	8-11	2.500	4.000	b89a5a3a87e5bb23	yes
+sheet	03_folded_decade	sheet-003.png	12-15	4.500	6.000	20fc2f8de3fca7a0	yes
+sheet	03_folded_decade	sheet-004.png	16-19	6.500	8.000	51c73919eb08e891	yes
+sheet	03_folded_decade	sheet-005.png	20-23	8.500	10.000	4128acea96f5cbe1	yes
+sheet	03_folded_decade	sheet-006.png	24-27	10.500	12.000	fc474949df0c51dc	yes
+sheet	03_folded_decade	sheet-007.png	28-31	12.500	14.000	12a0ad12c6ebeeef	yes
+sheet	03_folded_decade	sheet-008.png	32-35	14.500	16.000	0d5e5296d1b3d782	yes
+sheet	03_folded_decade	sheet-009.png	36-39	16.500	18.000	c349f7fc4f678fd0	yes
+sheet	03_folded_decade	sheet-010.png	40-43	18.208	18.508	a6be39f2ccf20445	yes
+sheet	03_folded_decade	sheet-011.png	44-47	18.933	19.433	67cd38ef292b06b0	yes
+sheet	03_folded_decade	sheet-012.png	48-51	19.500	21.000	44f046b1d2973718	yes
+sheet	03_folded_decade	sheet-013.png	52-55	21.500	23.000	973f61e6562238a5	yes
+sheet	03_folded_decade	sheet-014.png	56-59	23.500	25.000	ce914730193e4614	yes
+sheet	03_folded_decade	sheet-015.png	60-63	25.500	27.000	7cd98906840b976c	yes
+sheet	03_folded_decade	sheet-016.png	64-67	27.500	29.000	610b066002eb7b87	yes
+sheet	03_folded_decade	sheet-017.png	68-71	29.500	31.000	5c4f4ec9dc7ae8d7	yes
+sheet	03_folded_decade	sheet-018.png	72-75	31.500	33.000	396dfc273de535ff	yes
+sheet	03_folded_decade	sheet-019.png	76-79	33.500	35.000	d61b33b1a262e431	yes
+sheet	03_folded_decade	sheet-020.png	80-83	35.500	37.000	44f5fee4b5195559	yes
+sheet	03_folded_decade	sheet-021.png	84-87	37.500	39.000	c11c0dafb65868f9	yes
+sheet	03_folded_decade	sheet-022.png	88-91	39.500	41.000	57c9717a8f3047a0	yes
+sheet	03_folded_decade	sheet-023.png	92-95	41.156	41.500	a3623983374c3cd7	yes
+sheet	03_folded_decade	sheet-024.png	96-99	41.867	42.367	e72bede89da244f3	yes
+sheet	03_folded_decade	sheet-025.png	100-103	42.500	44.000	04064062b7c44229	yes
+sheet	03_folded_decade	sheet-026.png	104-107	44.500	46.000	78bb154777127b9e	yes
+sheet	03_folded_decade	sheet-027.png	108-111	46.500	48.000	742cd815ff55ccd4	yes
+sheet	03_folded_decade	sheet-028.png	112-115	48.500	50.000	b8da7491506abd0c	yes
+sheet	03_folded_decade	sheet-029.png	116-119	50.100	50.500	4718e3d94f1b3b03	yes
+sheet	03_folded_decade	sheet-030.png	120-123	51.000	52.000	35997df50326da07	yes
+sheet	03_folded_decade	sheet-031.png	124-127	52.200	53.500	d86773965333731d	yes
+sheet	03_folded_decade	sheet-032.png	128-131	54.000	55.500	4798cb11231012a2	yes
+sheet	03_folded_decade	sheet-033.png	132-135	56.000	57.500	4350e721e0baf8b2	yes
+sheet	03_folded_decade	sheet-034.png	136-139	58.000	59.090	e64732659c58e265	yes
+sheet	03_folded_decade	sheet-035.png	140-143	59.190	59.800	76111e80f90d6729	yes
+sheet	03_folded_decade	sheet-036.png	144-147	60.000	60.500	955adbc632170e98	yes
+sheet	03_folded_decade	sheet-037.png	148-151	60.600	61.500	ed41bec295570cca	yes
+sheet	03_folded_decade	sheet-038.png	152-155	62.000	63.000	52260bf7d2af7b5f	yes
+sheet	03_folded_decade	sheet-039.png	156-159	63.500	65.000	d1af2cbc18c32ade	yes
+sheet	03_folded_decade	sheet-040.png	160-163	65.500	67.000	5a85cc1342160520	yes
+sheet	03_folded_decade	sheet-041.png	164-167	67.500	69.000	99aa15e58a020944	yes
+sheet	03_folded_decade	sheet-042.png	168-171	69.500	71.000	7d19c95d430edef9	yes
+sheet	03_folded_decade	sheet-043.png	172-175	71.500	73.000	113f827754869cf8	yes
+sheet	03_folded_decade	sheet-044.png	176-179	73.500	75.000	2460d7a6d5105d45	yes
+sheet	03_folded_decade	sheet-045.png	180-183	75.500	77.000	3830eefbe982f9d8	yes
+sheet	03_folded_decade	sheet-046.png	184-187	77.023	77.483	a85ef8d4cb8de66f	yes
+frame	00_ratio_ruler	frame-0093.png	93	39.000	39.000	7a2605a25a4ad7a7	yes
+frame	00_ratio_ruler	frame-0206.png	206	89.500	89.500	d2960825bacfb51e	yes
+frame	01_building_ruler	frame-0180.png	180	77.600	77.600	04ecd3f74e7676a4	yes
+frame	01_building_ruler	frame-0287.png	287	125.000	125.000	72187be6ace52f53	yes
+frame	01_building_ruler	frame-0293.png	293	128.000	128.000	5b574a07cc14ea71	yes
+frame	02_slide_rule	frame-0015.png	15	6.000	6.000	89cb349f91cb45c1	yes
+frame	02_slide_rule	frame-0040.png	40	15.567	15.567	fdae76c164aca785	yes
+frame	02_slide_rule	frame-0060.png	60	25.500	25.500	d3c17d22657a3f06	yes
+frame	02_slide_rule	frame-0100.png	100	40.000	40.000	ebbaf4a507673197	yes
+frame	02_slide_rule	frame-0103.png	103	41.500	41.500	cac2be2d8d605190	yes
+frame	02_slide_rule	frame-0225.png	225	88.500	88.500	da436744873cc100	yes
+frame	03_folded_decade	frame-0020.png	20	8.500	8.500	1bba061f72733d54	yes
+frame	03_folded_decade	frame-0047.png	47	19.433	19.433	b772290f30e38002	yes
+crop		crops06/00_f151_660					yes
+crop		crops06/00_f197_strike					yes
+crop		crops06/00_f206_stack					yes
+crop		crops06/01_f182_right					yes
+crop		crops06/01_f225_grey					yes
+crop		crops06/02_f065_ring32					yes
+crop		crops06/02_f072_hairline_8					yes
+crop		crops06/02_f096_rings					yes
+crop		crops06/02_f138_right10					yes
+crop		crops06/02_f143_six_off					yes
+crop		crops06/02_f190_left_edge					yes
+crop		crops06/02_f225_hedge					yes
+crop		crops06/02_f225_stack					yes
+crop		crops06/03_f075_ring24					yes
+crop		crops06/03_f120_goldmark					yes
+crop		crops06/03_f136_rows					yes
+crop		crops06/03_f144_keep					yes
+crop		crops06/03_f165_captions					yes
+crop		crops06/03_f181_panel					yes
+crop		crops06b/00_f018_full					yes
+crop		crops06b/00_f187_full					yes
+crop		crops06b/00_f280_full					yes
+crop		crops06b/01_f173_19doublings					yes
+crop		crops06b/01_f200_full					yes
+crop		crops06b/03_f046					yes
+crop		crops06b/03_f048					yes
+crop		crops06b/03_f096_full					yes
+crop		crops06b/03_f100_full					yes
+crop		crops06b/03_f103_full					yes
+crop		crops06b/03_f187_full					yes

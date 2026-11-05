@@ -1,0 +1,13 @@
+pass: 20 tests from the two patches, 2 ignored
+pass: only `ok` lines count as run, and memory lines are read
+pass: pixel comparison catches a changed frame, an extra frame and a missing route
+pass: tree digests catch an edit and a rename
+pass: admitted just inside the caps
+pass: refused: free under 10 GiB
+pass: refused: work at 56 GiB
+pass: refused: target growth over 20 GiB
+pass: stopped: free under 8 GiB
+pass: stopped: job grew over 4 GiB
+pass: stopped: work over 56 GiB
+pass: stopped: target growth over 20 GiB
+self-test passed: Python only; nothing was compiled, rendered or queued

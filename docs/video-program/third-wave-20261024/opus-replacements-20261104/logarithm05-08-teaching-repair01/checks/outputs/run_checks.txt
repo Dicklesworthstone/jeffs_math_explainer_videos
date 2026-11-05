@@ -1,0 +1,323 @@
+== baseline and patch
+PASS complex_turns.rs in the candidate is the file this repair was written against: 2cc2ba7723e2733e
+PASS lifting_loops.rs in the candidate is the file this repair was written against: ca34aef0523ceadc
+PASS branch_cut.rs in the candidate is the file this repair was written against: 193c4733de9f9081
+PASS product_rule.rs in the candidate is the file this repair was written against: e9019c828710207b
+PASS src/chapters/draw.rs in the candidate is the bytes read: 2a4e84504bab6364
+PASS script.tsv in the candidate is the bytes read: b89eab600a6c99cd
+PASS the staged tree holds these four chapter files and nothing else: 4 files
+PASS the patch applies to the candidate's four files by git apply and gives the staged bytes
+PASS and reverses to the baseline bytes
+staged complex_turns.rs 93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a
+staged lifting_loops.rs 01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346
+staged branch_cut.rs c1159c3727a1f1d83351d2c837027c563455df6ebc2de32a2db5973d56cbc401
+staged product_rule.rs f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db
+patch 1aafaaa84671c95e5a49340882efbe32aaea2ab7b74ba4ab149a1636dd90db34
+
+== what the patch changes
+  complex_turns.rs: {'film_lines_added': 126, 'film_lines_removed': 16, 'test_lines_added': 107, 'lines_old': 1041, 'lines_new': 1256}
+  lifting_loops.rs: {'film_lines_added': 82, 'film_lines_removed': 4, 'test_lines_added': 65, 'lines_old': 913, 'lines_new': 1055}
+  branch_cut.rs: {'film_lines_added': 12, 'film_lines_removed': 12, 'test_lines_added': 20, 'lines_old': 905, 'lines_new': 924}
+  product_rule.rs: {'film_lines_added': 153, 'film_lines_removed': 11, 'test_lines_added': 154, 'lines_old': 534, 'lines_new': 829}
+PASS complex_turns.rs: the same cues are said, in the same order: 8 cues
+PASS complex_turns.rs: every old sentence hook stays, in the same order: 25 hooks
+PASS complex_turns.rs: no time from a take is added
+PASS lifting_loops.rs: the same cues are said, in the same order: 8 cues
+PASS lifting_loops.rs: every old sentence hook stays, in the same order: 26 hooks
+PASS lifting_loops.rs: no time from a take is added
+PASS branch_cut.rs: the same cues are said, in the same order: 6 cues
+PASS branch_cut.rs: every old sentence hook stays, in the same order: 24 hooks
+PASS branch_cut.rs: no time from a take is added
+PASS product_rule.rs: the same cues are said, in the same order: 5 cues
+PASS product_rule.rs: every old sentence hook stays, in the same order: 20 hooks
+PASS product_rule.rs: no time from a take is added
+
+== rustfmt --check, the repo's settings
+PASS complex_turns.rs is rustfmt-clean
+PASS lifting_loops.rs is rustfmt-clean
+PASS branch_cut.rs is rustfmt-clean
+PASS product_rule.rs is rustfmt-clean
+
+== mirrors.py: the geometry and timing arithmetic
+== B8, the spiral
+  baseline: start_r 0.0296, end_r 2.7000, least_turn_gap 0.0633, turns_in_zero_ring 1.3038, turns_in_branch_ring 1.6896, radius_only_grows True, in_frame True
+  staged: start_r 0.0000, end_r 2.7000, least_turn_gap 0.9000, turns_in_zero_ring 0.1400, turns_in_branch_ring 0.2200, radius_only_grows True, in_frame True
+PASS the baseline spiral fails, so the check can fail
+PASS the baseline's inner turns stood barely a stroke apart: 0.063 against stroke 0.04
+PASS the staged spiral passes
+PASS plant: twelve turns fails
+PASS the outer end stays where it was, near the negative axis
+
+== C2, the input dot
+PASS the baseline dot fails: it waits at the strip's top, whole: (9.42477796076938, 1.0)
+PASS the staged dot passes: gone by y = 11.025, climb ends at 20.420
+PASS the dot's last place is the arrow's tip, inside the safe area: y 3.157
+
+== R10, the half turn
+  least clear of a dot 0.045, of the green arcs 0.797; y 0.270 to 1.735
+PASS it never reaches a dot, cap included, by more than the test's margin
+PASS it never reaches the green arcs
+PASS it stays above the cut and under the axis's top end
+PASS it runs counter-clockwise through the top, as e^{πi} does
+PASS start and end sit one gap from +1 and −1
+PASS 1 · e^{πi} = −1
+PASS plant: with no gap the arc reaches both dots
+  word box, estimated: x -2.95 to -2.18, y 1.38 to 1.52; corner 1.789 from the centre
+PASS the word clears the ring and the half turn's stroke
+PASS the word clears the right-hand column and the definition
+
+== the phrase rule, the Rust test's own numbers
+PASS eleven of twenty characters
+PASS a measured mark wins
+
+== timing fit, estimates: every hook, its time, and how late the picture reaches it (>0 is late)
+  the crossing of −1 falls 0.432 of the way through the 1.6 s tween, under the engine's smooth easing, so 0.99 s after "passes minus one" starts
+  05_20 scale 1.0, length 24.631
+     12.995  +0.000  sentence 4
+     15.288  -1.893  the logarithm of two
+     18.176  -2.488  a half pi
+     19.110  -0.634  the length is two
+     23.442  -3.932  land on two i
+     24.242  last picture settled; voice ends 24.631
+  06_6 scale 1.0, length 28.477
+     16.182  +0.000  sentence 3
+     18.887  -2.705  passes minus one
+     23.941  -3.154  leaps from pi to minus pi
+     25.792  -0.251  sentence 4
+     26.192  last picture settled; voice ends 28.477
+  08_5 scale 1.0, length 31.554
+     14.227  +0.000  sentence 3
+     18.996  -4.269  sentence 4
+     20.685  -1.189  leaves a half turn
+     23.823  -1.238  a factor of minus one
+     25.593  -1.470  sentence 5
+     26.093  last picture settled; voice ends 31.554
+  05_20 scale 0.85: latest arrival +0.000 s; 0.211 s of voice left after the last picture
+  05_20 scale 1.00: latest arrival +0.000 s; 0.389 s of voice left after the last picture
+  05_20 scale 1.02: latest arrival +0.000 s; 0.413 s of voice left after the last picture
+  05_20 scale 1.15: latest arrival +0.000 s; 0.567 s of voice left after the last picture
+  06_6 scale 0.85: latest arrival +0.027 s; 1.856 s of voice left after the last picture
+  06_6 scale 1.00: latest arrival +0.000 s; 2.285 s of voice left after the last picture
+  06_6 scale 1.02: latest arrival +0.000 s; 2.339 s of voice left after the last picture
+  06_6 scale 1.15: latest arrival +0.000 s; 2.688 s of voice left after the last picture
+  08_5 scale 0.85: latest arrival +0.000 s; 4.567 s of voice left after the last picture
+  08_5 scale 1.00: latest arrival +0.000 s; 5.461 s of voice left after the last picture
+  08_5 scale 1.02: latest arrival +0.000 s; 5.580 s of voice left after the last picture
+  08_5 scale 1.15: latest arrival +0.000 s; 6.355 s of voice left after the last picture
+PASS at scale 0.85 to 1.15 no picture arrives more than 0.6 s late at its hook
+PASS and no last picture outlasts its voice, so no later cue moves
+
+== positive control: the same model on the baseline's order
+PASS C1: the baseline's answer led its words by 3 s or more: 10.45 s
+PASS L1: the baseline's drop led "passes minus one" by over 1 s: 2.01 s
+PASS L1: the baseline's inset led "leaps" by 3 s or more: 6.16 s
+PASS R10: the baseline's sign led its words by 3 s or more: 4.83 s
+
+FAILURES: none
+PASS mirrors.py passes
+
+== source_conditions.py: the Rust tests' text conditions, with baseline controls and plants
+== source order and phrases, as the Rust tests state them
+PASS C1 complex_turns.rs: the staged film's order
+PASS C1 complex_turns.rs: its phrases, once each, each starting a word, in spoken order, in the right sentence
+PASS C1 complex_turns.rs: positive control, the baseline fails the same order
+PASS L1 lifting_loops.rs: the staged film's order
+PASS L1 lifting_loops.rs: its phrases, once each, each starting a word, in spoken order, in the right sentence
+PASS L1 lifting_loops.rs: positive control, the baseline fails the same order
+PASS R10 product_rule.rs: the staged film's order
+PASS R10 product_rule.rs: its phrases, once each, each starting a word, in spoken order, in the right sentence
+PASS R10 product_rule.rs: positive control, the baseline fails the same order
+
+== the other conditions
+PASS C1: a swapped-out stage is never in a later fade list
+PASS C1: the whole line is the one faded with the old list
+PASS C1: the stages hold no answer
+PASS C1: the whole line's string is unchanged
+PASS C2: the clamp is gone and the arrow's literal is the constant
+PASS C2: no comment says the dot waits
+PASS B8: the old constants are gone, and the stroke is one constant
+PASS R10: the whole line's string is unchanged, and the first stage is its start
+PASS R10: its placement is unchanged
+PASS R10: every other row of the explanation stays
+PASS complex_turns.rs: one phrase_marks use, one wait_frames call, one source of the script
+PASS lifting_loops.rs: one phrase_marks use, one wait_frames call, one source of the script
+PASS product_rule.rs: one phrase_marks use, one wait_frames call, one source of the script
+
+== plants: a defect in the staged text must fail a row
+PASS plant C1: the answer before its phrase is caught: swap(stage, &[example_xy], &[example], 0.3)
+PASS plant L1: the inset before its phrase is caught: jump_inset(&kit, stage, &jump_words()?)
+PASS plant R10: the sign before its phrase is caught: swap(stage, &[halving], &[halved], 0.3)
+PASS plant a phrase that is not in the sentence is caught
+
+FAILURES: none
+PASS source_conditions.py passes
+
+== bindings.py: holds, finishes, anchors, the rows the binder needs
+holds, say and marker lines old -> new, interval changed?
+  05_1 complex_turns.rs 185-245 -> 185-245 next say 249 -> 249 changed False 5256ae12dfc74fb4
+  05_5 complex_turns.rs 611-623 -> 624-636 next say 626 -> 639 changed False 93a300682e33fcfe
+  06_2 lifting_loops.rs 335-374 -> 335-374 next say 377 -> 377 changed False 9c1ce6b4868ea9b3
+  06_4 lifting_loops.rs 417-475 -> 417-475 next say 478 -> 478 changed False 7651918d6c2ca764
+  07_3 branch_cut.rs 366-419 -> 366-419 next say 422 -> 422 changed False 8b3000fdb4e3c115
+  08_1 product_rule.rs 108-221 -> 108-221 next say 224 -> 224 changed False 1d498942e2bc12a7
+  08_4 product_rule.rs 317-346 -> 317-346 next say 349 -> 349 changed False 23b0206f29d41635
+finishes {'complex_turns.rs': {'old_line': 736, 'new_line': 749}, 'lifting_loops.rs': {'old_line': 692, 'new_line': 699}, 'branch_cut.rs': {'old_line': 607, 'new_line': 607}, 'product_rule.rs': {'old_line': 449, 'new_line': 468}}
+  complex_turns.rs: say 8 -> 8, until_sentence 25 -> 25, until_phrase_calls 0 -> 4, phrase_marks_uses 0 -> 1, wait_frames_calls 0 -> 1, lines 1041 -> 1256
+  lifting_loops.rs: say 8 -> 8, until_sentence 26 -> 26, until_phrase_calls 0 -> 2, phrase_marks_uses 0 -> 1, wait_frames_calls 0 -> 1, lines 913 -> 1055
+  branch_cut.rs: say 6 -> 6, until_sentence 24 -> 24, until_phrase_calls 0 -> 0, phrase_marks_uses 0 -> 0, wait_frames_calls 0 -> 0, lines 905 -> 924
+  product_rule.rs: say 5 -> 5, until_sentence 21 -> 21, until_phrase_calls 0 -> 2, phrase_marks_uses 0 -> 1, wait_frames_calls 0 -> 1, lines 534 -> 829
+anchors
+  05_20 byte 180-200 sentence 4 word 37 TAKE_X_PHRASE complex_turns.rs:369 'the logarithm of two'
+  05_20 byte 214-223 sentence 4 word 45 TAKE_Y_PHRASE complex_turns.rs:371 'a half pi'
+  05_20 byte 225-242 sentence 4 word 48 LENGTH_PHRASE complex_turns.rs:373 'the length is two'
+  05_20 byte 276-289 sentence 4 word 59 LAND_PHRASE complex_turns.rs:375 'land on two i'
+  06_6 byte 267-283 sentence 3 word 48 PASSES_PHRASE lifting_loops.rs:587 'passes minus one'
+  06_6 byte 338-363 sentence 3 word 60 LEAPS_PHRASE lifting_loops.rs:593 'leaps from pi to minus pi'
+  08_5 byte 260-278 sentence 4 word 51 HALF_TURN_PHRASE product_rule.rs:438 'leaves a half turn'
+  08_5 byte 299-320 sentence 4 word 60 FACTOR_PHRASE product_rule.rs:456 'a factor of minus one'
+sites [['complex_turns.rs', 845, 'word_sync_helper', "Inside until_phrase: waits to a phrase's time, inside the voice."], ['lifting_loops.rs', 769, 'word_sync_helper', "Inside until_phrase: waits to a phrase's time, inside the voice."], ['product_rule.rs', 606, 'word_sync_helper', "Inside until_phrase: waits to a phrase's time, inside the voice."]]
+receipts {'integration-teaching-repair01.json': ['src/chapters/complex_turns.rs', 'src/chapters/lifting_loops.rs', 'src/chapters/branch_cut.rs', 'src/chapters/product_rule.rs']}
+added anchors 8
+OK: 7 holds, no interval text changed
+PASS bindings.py passes
+
+== recognition_evidence.py: the 05_20 hooks against root's two word-row sets; provisional, no take selected
+PASS the log is the bytes root named: 8d20c0079989fd2d
+PASS the take list is the bytes root named: 28983ebf376f2b26
+PASS two takes are bound to this cue, on the script's words: 05_20-download01.wav, 05_20-download02.wav
+PASS the film's hooks are read from its source: the logarithm of two, a half pi, the length is two, land on two i
+PASS the film holds none of the recognized times
+PASS 05_20-download01.wav: status ok
+PASS 05_20-download02.wav: status ok
+PASS both takes have word rows
+PASS 05_20-download01.wav: the sentence's first word lines up
+
+05_20-download01.wav: sentence starts 13.50, voice ends 25.27
+  hook                   word row  fallback  fallback minus row
+PASS 05_20-download01.wav: 'the logarithm of two' lines up with its word row: the
+  the logarithm of two      15.58     15.82  +0.24
+PASS 05_20-download01.wav: 'a half pi' lines up with its word row: a
+  a half pi                 18.02     18.74  +0.72
+PASS 05_20-download01.wav: 'the length is two' lines up with its word row: the
+  the length is two         19.50     19.69  +0.19
+PASS 05_20-download01.wav: 'land on two i' lines up with its word row: land
+  land on two i             23.70     24.07  +0.37
+  the word row for "two i", which this model writes 2i: 24.20 to 25.27
+  marks: settled pictures
+    the logarithm of two   starts  15.58  settled  15.98  the picture before it settled 1.68 s ahead of this hook
+PASS 05_20-download01.wav, marks: the picture before 'the logarithm of two' has settled by then
+    a half pi              starts  18.02  settled  18.32  the picture before it settled 2.04 s ahead of this hook
+PASS 05_20-download01.wav, marks: the picture before 'a half pi' has settled by then
+    the length is two      starts  19.50  settled  19.90  the picture before it settled 1.18 s ahead of this hook
+PASS 05_20-download01.wav, marks: the picture before 'the length is two' has settled by then
+    land on two i          starts  23.70  settled  24.50  the picture before it settled 3.80 s ahead of this hook
+PASS 05_20-download01.wav, marks: the picture before 'land on two i' has settled by then
+PASS 05_20-download01.wav, marks: the last picture settles inside the voice: 0.77 s left
+    the answer has settled +0.20 s before the row for "two i" starts, inside "land on two i"
+PASS 05_20-download01.wav: the answer leads its row by under half a second, and starts on "land"
+  fallback: settled pictures
+    the logarithm of two   starts  15.82  settled  16.22  the picture before it settled 1.92 s ahead of this hook
+PASS 05_20-download01.wav, fallback: the picture before 'the logarithm of two' has settled by then
+    a half pi              starts  18.74  settled  19.04  the picture before it settled 2.52 s ahead of this hook
+PASS 05_20-download01.wav, fallback: the picture before 'a half pi' has settled by then
+    the length is two      starts  19.69  settled  20.09  the picture before it settled 0.65 s ahead of this hook
+PASS 05_20-download01.wav, fallback: the picture before 'the length is two' has settled by then
+    land on two i          starts  24.07  settled  24.87  the picture before it settled 3.98 s ahead of this hook
+PASS 05_20-download01.wav, fallback: the picture before 'land on two i' has settled by then
+PASS 05_20-download01.wav, fallback: the last picture settles inside the voice: 0.40 s left
+PASS 05_20-download01.wav: the row two words before "land" is "so"
+  on "so we land on two i" the answer would settle at 23.40: 0.30 s before "land", 0.80 s before "two i"
+PASS 05_20-download01.wav: hooked on "so we land", the answer would settle before "land" is said
+  hooked on "two i" with the fallback, the last picture would settle at 25.55, voice ends 25.27
+PASS 05_20-download01.wav: hooked on "two i", the fallback's last picture would outlast the voice
+PASS 05_20-download02.wav: the sentence's first word lines up
+
+05_20-download02.wav: sentence starts 13.44, voice ends 25.11
+  hook                   word row  fallback  fallback minus row
+PASS 05_20-download02.wav: 'the logarithm of two' lines up with its word row: the
+  the logarithm of two      15.70     15.74  +0.04
+PASS 05_20-download02.wav: 'a half pi' lines up with its word row: a
+  a half pi                 18.22     18.64  +0.42
+PASS 05_20-download02.wav: 'the length is two' lines up with its word row: the
+  the length is two         19.40     19.57  +0.17
+PASS 05_20-download02.wav: 'land on two i' lines up with its word row: land
+  land on two i             23.56     23.92  +0.36
+  the word row for "two i", which this model writes 2i: 24.08 to 25.11
+  marks: settled pictures
+    the logarithm of two   starts  15.70  settled  16.10  the picture before it settled 1.86 s ahead of this hook
+PASS 05_20-download02.wav, marks: the picture before 'the logarithm of two' has settled by then
+    a half pi              starts  18.22  settled  18.52  the picture before it settled 2.12 s ahead of this hook
+PASS 05_20-download02.wav, marks: the picture before 'a half pi' has settled by then
+    the length is two      starts  19.40  settled  19.80  the picture before it settled 0.88 s ahead of this hook
+PASS 05_20-download02.wav, marks: the picture before 'the length is two' has settled by then
+    land on two i          starts  23.56  settled  24.36  the picture before it settled 3.76 s ahead of this hook
+PASS 05_20-download02.wav, marks: the picture before 'land on two i' has settled by then
+PASS 05_20-download02.wav, marks: the last picture settles inside the voice: 0.75 s left
+    the answer has settled +0.22 s before the row for "two i" starts, inside "land on two i"
+PASS 05_20-download02.wav: the answer leads its row by under half a second, and starts on "land"
+  fallback: settled pictures
+    the logarithm of two   starts  15.74  settled  16.14  the picture before it settled 1.90 s ahead of this hook
+PASS 05_20-download02.wav, fallback: the picture before 'the logarithm of two' has settled by then
+    a half pi              starts  18.64  settled  18.94  the picture before it settled 2.50 s ahead of this hook
+PASS 05_20-download02.wav, fallback: the picture before 'a half pi' has settled by then
+    the length is two      starts  19.57  settled  19.97  the picture before it settled 0.64 s ahead of this hook
+PASS 05_20-download02.wav, fallback: the picture before 'the length is two' has settled by then
+    land on two i          starts  23.92  settled  24.72  the picture before it settled 3.94 s ahead of this hook
+PASS 05_20-download02.wav, fallback: the picture before 'land on two i' has settled by then
+PASS 05_20-download02.wav, fallback: the last picture settles inside the voice: 0.39 s left
+PASS 05_20-download02.wav: the row two words before "land" is "so"
+  on "so we land on two i" the answer would settle at 23.22: 0.34 s before "land", 0.86 s before "two i"
+PASS 05_20-download02.wav: hooked on "so we land", the answer would settle before "land" is said
+  hooked on "two i" with the fallback, the last picture would settle at 25.40, voice ends 25.11
+PASS 05_20-download02.wav: hooked on "two i", the fallback's last picture would outlast the voice
+
+FAILURES: none
+PASS recognition_evidence.py passes
+
+== binder_dry_run.py: binder01's build() in scratch mirrors
+binder01 sha256 4de1eec4f611aec3b1a14a68e08f43d71e271f53d9f8b92cfe1fb63a7c8660be
+baseline, pins untouched	BUILT
+staged, binder as is	STOP: bind_final80: ('complex_turns.rs', 845): a wait this audit has not classified: explainer_kit::narration::wait_frames(stage, explainer_kit::narration::frames_covering(at - now, fps))?;
+staged, proposed rows	BUILT
+plant: hooks out of spoken order	STOP: bind_final80: 05_20: the source reaches its phrases out of spoken order
+OK
+PASS binder_dry_run.py passes
+
+== docs/check_cues.py on a scratch copy of the candidate with these four files
+OK
+PASS check_cues.py passes on the scratch copy
+
+== old frames cited by the anchors, read from each chapter's sampling.json
+  C1-x 05_complex_turns f134 60.000, f136 60.600
+PASS C1-x: its cue is in the script
+  C1-y 05_complex_turns f136 60.600
+PASS C1-y: its cue is in the script
+  C1-length 05_complex_turns f150 66.000
+PASS C1-length: its cue is in the script
+  C1-land 05_complex_turns f158 70.000, f168 72.733
+PASS C1-land: its cue is in the script
+  C1-out 05_complex_turns f168 72.733
+PASS C1-out: its cue is in the script
+  C2 05_complex_turns f215 94.500, f216 95.000, f217 95.500, f218 96.000, f227 98.533
+PASS C2: its cue is in the script
+  L1-wait 06_lifting_loops f267 113.500, f268 114.000, f269 114.500
+PASS L1-wait: its cue is in the script
+  L1-cross 06_lifting_loops f271 115.500, f273 116.500
+PASS L1-cross: its cue is in the script
+  L1-inset 06_lifting_loops f271 115.500, f283 121.500
+PASS L1-inset: its cue is in the script
+  B8 07_branch_cut f262 114.500, f265 116.000
+PASS B8: its cue is in the script
+  R10-dot 08_product_rule f276 125.000, f287 130.500
+PASS R10-dot: its cue is in the script
+  R10-halving 08_product_rule f298 136.000
+PASS R10-halving: its cue is in the script
+  R10-arc 08_product_rule f298 136.000, f302 138.000
+PASS R10-arc: its cue is in the script
+  R10-sign 08_product_rule f310 142.000, f325 148.183
+PASS R10-sign: its cue is in the script
+PASS the markers name eight hooks, all unmeasured
+PASS the binder rows hold five sets: added_anchors, fallback, phrase_mark_uses, receipts, sites
+PASS the hold table holds seven rows
+
+FAILURES: none

@@ -1,0 +1,370 @@
+--- logarithm-stage07-binder02/bind_final80-stage07-r2.py
++++ logarithm-stage07-binder03/bind_final80-stage07-r3.py
+@@ -1,21 +1,24 @@
+ #!/usr/bin/env python3
+-"""Bind the final 80-cue logarithm narration plan to combined-repair-stage07/candidate, revision 2.
++"""Bind the final 80-cue logarithm narration plan to combined-repair-stage07/candidate, revision 3.
+ 
+     python3 -I -B <this file> [--check] [--out DIR] [--final-out REPO_RELATIVE_DIR]
+     python3 -I -B <this file> --print-pins
+ 
+-Run from the repo root. Revision of logarithm-stage07-binder01's binder, which stays sealed. It
+-adds two bindings: White's phrase anchor on 03_3 "forgets", read directly by folded_decade.rs
+-(logarithm-opening-oliver-timing01/source-markers.json), and root's request list for the current
+-script (narration-request-final80-02/requests.json). Chapters 05-08's pending source changes are
+-not here; they will be a separate update.
++Run from the repo root. Revision of logarithm-stage07-binder02's binder, which stays sealed. It
++binds LavenderPike's chapter 05-08 teaching repair (logarithm05-08-teaching-repair01), which root
++integrated into the candidate with integration-partial07.json: four chapter files, eight phrase
++anchors read through local until_phrase helpers, three new word-sync waits, and seven holds whose
++file hash changes, one of them (05_5) on moved lines. Every added row must equal the repair's sealed
++hold-table.json, binder-rows.json and phrase-anchors-proposed.json, and the receipt must name the
++sealed patch and every before and after hash. The map takes a new name, oliver15, because its hold
++hashes differ from the oliver14 that binder02 bound and root wrote to stage07/bound-plan.
+ 
+ Reads stage07's candidate bytes (script b89eab60, with the 01_5 rounding wording), the kit, the
+-tools, root's request files, stage06's bound plan and binder01's plan (both for comparison only).
++tools, root's request files, stage06's bound plan and binder02's plan (both for comparison only).
+ Writes only under --out, by default bound-plan next to this file, and refuses canonical and the
+ candidate as a target:
+ 
+   explainer_corpus/logarithm_mysteries/narration_units.json
+-  explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver14.json
++  explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json
+   hold-audit.json                          the 13 predictions, two readings, every other wait
+   phrase-anchors.json                      every exact-byte phrase anchor; no seconds
+@@ -24,5 +27,5 @@
+   cue-delta.json                           each final cue against root's request text
+   stage07-delta.json                       holds, waits, hooks and anchors against stage06
+-  increment-delta.json                     every change in the plan against binder01's
++  increment-delta.json                     every change in the plan against binder02's
+   inputs.sha256                            every input's bytes, for shasum -a 256 -c
+ 
+@@ -59,8 +62,9 @@
+ STAGE = STAGE07_ROOT / "candidate" / REL
+ CH = STAGE / "src/chapters"
+-OWN_FOLDER = "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02"
++OWN_FOLDER = "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03"
+ FINAL_OUT = f"{OWN_FOLDER}/bound-plan"
+-# Canonical already holds a stage06 oliver13 bound to script f201d2dc, so this map needs a new name.
+-MAP_NAME = "narration-direction-map-oliver14.json"
++# Canonical holds a stage06 oliver13; binder02's oliver14 is in stage07/bound-plan with the chapter 05-08
++# hashes from before the teaching repair. This map binds other bytes, so it needs a new name.
++MAP_NAME = "narration-direction-map-oliver15.json"
+ STALE_MAP = "narration-direction-map-oliver11.json"
+ EXPECTED_SCRIPT = "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e"
+@@ -79,7 +83,22 @@
+ OPUS = Path("docs/video-program/third-wave-20261024/opus-replacements-20261104")
+ WHITE_MARKERS = OPUS / "logarithm-opening-oliver-timing01/source-markers.json"
+-BINDER01_PLAN = OPUS / "logarithm-stage07-binder01/bound-plan"
++BINDER02_PLAN = OPUS / "logarithm-stage07-binder02/bound-plan"
++TEACHING = OPUS / "logarithm05-08-teaching-repair01"
++TEACHING_FILES = {
++    "patch": TEACHING / "logarithm05-08-teaching.patch",
++    "holds": TEACHING / "hold-table.json",
++    "rows": TEACHING / "binder-rows.json",
++    "anchors": TEACHING / "phrase-anchors-proposed.json",
++    "sums": TEACHING / "SHA256SUMS",
++}
++TEACHING_RECEIPT = "integration-partial07.json"
++TEACHING_CHAPTERS = ("complex_turns.rs", "lifting_loops.rs", "branch_cut.rs", "product_rule.rs")
+ WHITE_ANCHORS = {("03_3", "forgets")}
+-ADDED_ANCHORS = set(WHITE_ANCHORS)  # anchors stage06 lacks; a later update adds its own
++TEACHING_ANCHORS = {
++    ("05_20", "the logarithm of two"), ("05_20", "a half pi"), ("05_20", "the length is two"), ("05_20", "land on two i"),
++    ("06_6", "passes minus one"), ("06_6", "leaps from pi to minus pi"),
++    ("08_5", "leaves a half turn"), ("08_5", "a factor of minus one"),
++}
++ADDED_ANCHORS = WHITE_ANCHORS | TEACHING_ANCHORS  # anchors stage06 lacks
+ # Which integration receipt names which stage07 file; the file's current hash must appear in it.
+ RECEIPTS = {
+@@ -90,4 +109,5 @@
+     "integration-partial05.json": ("src/chapters/what_it_forgets.rs",),
+     "integration-partial06.json": ("src/chapters/folded_decade.rs",),
++    TEACHING_RECEIPT: tuple(f"src/chapters/{name}" for name in TEACHING_CHAPTERS),
+ }
+ # Every other crate file this reads, at the same path in stage06 and stage07. Stage06's bytes are
+@@ -104,5 +124,5 @@
+     "inputs.sha256",
+ )
+-BINDER01_PLAN_FILES = (
++BINDER02_PLAN_FILES = (
+     f"{REL}/narration_units.json",
+     f"{REL}/docs/narration-direction-map-oliver14.json",
+@@ -140,5 +160,5 @@
+ ]
+ HOOK_HELPER_LINE = re.compile(r"\bfn (until_phrase|phrase_time)\(|phrase_time\(kit, (id|cue), phrase\)")
+-PHRASE_MARK_USES = {"folded_decade.rs": 1, "slide_rule.rs": 1, "undoing_growth.rs": 1, "doing_nothing.rs": 1, "unreachable.rs": 1, "what_it_forgets.rs": 1}
++PHRASE_MARK_USES = {"complex_turns.rs": 1, "lifting_loops.rs": 1, "product_rule.rs": 1, "folded_decade.rs": 1, "slide_rule.rs": 1, "undoing_growth.rs": 1, "doing_nothing.rs": 1, "unreachable.rs": 1, "what_it_forgets.rs": 1}
+ SENTENCE_HOOKS = [
+     (re.compile(r'kit\.until_sentence\(stage, "(\d\d_\d+)", (\d+)\)'), "until_sentence"),
+@@ -152,4 +172,7 @@
+ 
+ FALLBACK = {
++    "complex_turns.rs": "Without a mark at this byte: the phrase's character share of its measured sentence (complex_turns.rs phrase_seconds). Provisional.",
++    "lifting_loops.rs": "Without a mark at this byte: the phrase's character share of its measured sentence (lifting_loops.rs phrase_seconds). Provisional.",
++    "product_rule.rs": "Without a mark at this byte: the phrase's character share of its measured sentence (product_rule.rs phrase_seconds). Provisional.",
+     "folded_decade.rs": "Without a mark at this byte: DIGITS_SHARE of the span from sentence 0 to sentence 1 (folded_decade.rs lay_beats). Provisional.",
+     "slide_rule.rs": "Without a mark at this byte: the phrase's character share of the cue's first sentence (slide_rule.rs phrase_time). Provisional.",
+@@ -166,4 +189,7 @@
+     ("slide_rule.rs", 102): ("word_sync_helper", "Inside until_phrase: waits to a phrase's time, inside the voice."),
+     ("undoing_growth.rs", 351): ("word_sync", "Waits to the onset of \"it only ever climbs\", inside 04_2."),
++    ("complex_turns.rs", 845): ("word_sync_helper", "Inside until_phrase: waits to a phrase's time, inside the voice."),
++    ("lifting_loops.rs", 769): ("word_sync_helper", "Inside until_phrase: waits to a phrase's time, inside the voice."),
++    ("product_rule.rs", 606): ("word_sync_helper", "Inside until_phrase: waits to a phrase's time, inside the voice."),
+     ("matrix_logs.rs", 206): ("picture_pacing", "Shows each named matrix for 0.9 s, in a loop inside 09_1. Whether a pass outlasts its sentence is not fixed by source."),
+     ("doing_nothing.rs", 215): ("word_sync_helper", "Inside until_phrase: waits to a phrase's time, inside the voice."),
+@@ -203,9 +229,9 @@
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/bookends.rs": "f5a5a48e6402b5f82022e1c2b302d526e7ff0491c9d73357811b0a09bb035555",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/explainer_corpus/logarithm_mysteries/src/chapters/bookends.rs": "f5a5a48e6402b5f82022e1c2b302d526e7ff0491c9d73357811b0a09bb035555",
+-    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
++    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs": "c1159c3727a1f1d83351d2c837027c563455df6ebc2de32a2db5973d56cbc401",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/building_ruler.rs": "ae125e5ec9ec9bd6df073d90c9a9b77f80a9c202c04ad6803ea6ef3b8a3f903a",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/explainer_corpus/logarithm_mysteries/src/chapters/building_ruler.rs": "ae125e5ec9ec9bd6df073d90c9a9b77f80a9c202c04ad6803ea6ef3b8a3f903a",
+-    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
++    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs": "7f445be212c586093d2092113b086d809dcc189619985baf1c8f0c407c709b47",
+@@ -217,5 +243,5 @@
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs": "acfd77f46c2378c98ec77d1b5e7d0f2cb9c15f2bc3d209d80ba690c8fcc26e5e",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs": "acfc7f9c198b3d3d0f99e1b160ec6c2d4e22a4ce28aeb4263deb29df9efa670d",
+-    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
++    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/matrix_log.rs": "d6ee8a2b63b4bb69b684fbefdec0633ac41fd02b20d758af1f24edf8b89d2e12",
+@@ -227,5 +253,5 @@
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/product_law.rs": "21134bccc57bcc5b324666bf1ffbfd31f294d9ad496cf6397ff52a11eeafada6",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/explainer_corpus/logarithm_mysteries/src/chapters/product_law.rs": "21134bccc57bcc5b324666bf1ffbfd31f294d9ad496cf6397ff52a11eeafada6",
+-    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
++    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/ratio_ruler.rs": "198d4a0586369258d845a21ee857eeb51e34357b61fe40398e5789379a6b5fd1",
+@@ -251,4 +277,5 @@
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/integration-partial05.json": "6a437e6e52fd35bd9580ad2890c221a2b01a26c2c8954d8a16fc5dddcac3cfe0",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/integration-partial06.json": "52928856607173bd1e535a332ebc37a4a214457803e3479cc41e425d4c8408a5",
++    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/integration-partial07.json": "4b1751d5bc3170f6b3c779616b1dd4c8c8f190ec678b2ebd5337cc6a5c058db3",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/oracle04.tsv": "f5c028cea6ca71e3a3519a430af484079d0c7a445d0b771a9c3b00d754258540",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/before-rounding-wording01/script.tsv": "f201d2dc57fa9ccac30d475255690a90d6749449014b542d4dea62164f31bf84",
+@@ -268,13 +295,22 @@
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/bound-plan/cue-delta.json": "125a049a035dc3f7db59e8fc1931591358e625b5231d64e3ba9ad19e3275d988",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/bound-plan/inputs.sha256": "b4926a8f35044f8ba7b686c266bd2a6695a7b7a17bf73c1cab34f31e98bb418d",
+-    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/explainer_corpus/logarithm_mysteries/narration_units.json": "61a1f622d083a700e3749bb6a4b92c61625231033ab5aef6dcfacc16c71d7b8f",
+-    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver14.json": "6a326cdee5ab9e8b2055bcb2aa77ffeb16c493df16f4d0e464e448175a97cf66",
+-    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/hold-audit.json": "151c4e6d81aad1a31bca8fdec30184b69d1d180546534bdfda51890a77628d1a",
+-    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/phrase-anchors.json": "31a3af5097ad2a2a005058e11d1dedceb19f0089b7a0a6002011f9435f7da244",
+-    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/phrase-timings-unmeasured-template.json": "fd1e12d9e5ba1b8b4fc7dc296ffa388937c2b853edc81e7d2910b9f66d706760",
+-    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/direction-dispositions-proposed.json": "986609984d8325809c516937dcf97acfe963d5f8bae0ad3f151246dcc7b3a299",
+-    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/cue-delta.json": "88da78a400ac8cef325de8db94483f70e263ddd8b2ba2923df6d905ceba00514",
+-    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/stage07-delta.json": "a1f0ea092079c0c0f48b6e366c415ac3a2fa532f0642b98e7c55cae44a996f33",
+-    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/inputs.sha256": "6ed20e477482a2703b2c73b27e00f2f10ec97eb87a7b13fb6738dac8f99aea67",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/explainer_corpus/logarithm_mysteries/narration_units.json": "61a1f622d083a700e3749bb6a4b92c61625231033ab5aef6dcfacc16c71d7b8f",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver14.json": "6a326cdee5ab9e8b2055bcb2aa77ffeb16c493df16f4d0e464e448175a97cf66",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/phrase-anchors.json": "603ba46d1b2893a8f4428ebb5f655d2785416d28cf4629b824e50e3dc82e1c15",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/phrase-timings-unmeasured-template.json": "901392b45e57c559b9159ea19ed3abe240eab0bc9f088adf448ba2c2b7febb1b",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/direction-dispositions-proposed.json": "8b4fe095a7965ce6f834acecd350da62f114bb19be3f0900617b35f8a27b4baa",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/cue-delta.json": "2263bb51a62e41972cd12adca21660b67b515f2fda9781291e6761a4bb56cdac",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/stage07-delta.json": "08f106ac727bbae2512d740d7cd4cda292a9d76e721dc422f73fc58c4c07535a",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/inputs.sha256": "cafb258539f9c3d2ea4ad6a438c2afb662945b24bf4368837d5393b20e8eca3c",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm05-08-teaching-repair01/logarithm05-08-teaching.patch": "1aafaaa84671c95e5a49340882efbe32aaea2ab7b74ba4ab149a1636dd90db34",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm05-08-teaching-repair01/hold-table.json": "24c7ac0c693d43a91c6ff68e86eba63cdf1683d9908d36050781ecabeb4bddf0",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm05-08-teaching-repair01/binder-rows.json": "8492714dfcc8ad9c8e4a2dd2c704f546eb59ad324b0de0e250b8e6385543e574",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm05-08-teaching-repair01/phrase-anchors-proposed.json": "4c180bcdee55d433d6bf5298d3cc6d2a71ac515d8fc07c22734e64ea2595726b",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm05-08-teaching-repair01/SHA256SUMS": "f4e2589d4dfd0c57a014b1b2119f58b5915579a3ee126f071fdb5784cafcaf6f",
++    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/before-teaching05-08-01/complex_turns.rs": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
++    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/before-teaching05-08-01/lifting_loops.rs": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
++    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/before-teaching05-08-01/branch_cut.rs": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
++    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/before-teaching05-08-01/product_rule.rs": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+     "crates/explainer_kit/src/kit.rs": "ef035faf236498e7485fb60a66d862b383e1a5040fa17962e1633596ed99e106",
+     "crates/explainer_kit/src/narration.rs": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8",
+@@ -299,6 +335,7 @@
+ MAP_SCOPE = (
+     "Candidate final 80-cue map, combined-repair-stage07/candidate: 13 prediction holds and 2 reading holds, "
+-    "each bound to staged source. Proposed successor to stage06's oliver13, which binds script f201d2dc and "
+-    "stage06's chapter bytes; like it, replaces oliver11's four stale pairs, which name the retired "
++    "each bound to staged source, after the chapter 05-08 teaching repair. Proposed successor to oliver14, "
++    "which binds the same script and holds with the chapter 05-08 bytes from before that repair, and to "
++    "stage06's oliver13, which binds script f201d2dc; like them, replaces oliver11's four stale pairs, which name the retired "
+     "seven-chapter draft. Hashes are the proposed staged bytes, not installed canonical files. Authored "
+     "coverage only: no silence is added to any take, and no take, measured timing, listening or independent "
+@@ -323,5 +360,7 @@
+     rows += [CURRENT_REQUESTS, WHITE_MARKERS]
+     rows += [STAGE06_PLAN / p for p in STAGE06_PLAN_FILES]
+-    rows += [BINDER01_PLAN / p for p in BINDER01_PLAN_FILES]
++    rows += [BINDER02_PLAN / p for p in BINDER02_PLAN_FILES]
++    rows += list(TEACHING_FILES.values())
++    rows += [STAGE07_ROOT / "before-teaching05-08-01" / name for name in TEACHING_CHAPTERS]
+     rows += [Path(p) for p in SHARED_FILES]
+     return [str(p) for p in rows]
+@@ -604,4 +643,62 @@
+ 
+ 
++def teaching_rows(anchor_rows, hold_rows, file_hash):
++    """Every added row must equal the teaching repair's sealed files, and the receipt must be root's for its patch."""
++    sums = dict(reversed(line.split("  ", 1)) for line in TEACHING_FILES["sums"].read_text(encoding="utf-8").splitlines() if line.strip())
++    for key in ("patch", "holds", "rows", "anchors"):
++        rel = TEACHING_FILES[key].relative_to(TEACHING).as_posix()
++        if sums.get(rel) != file_sha(TEACHING_FILES[key]):
++            stop(f"{rel} is not the bytes the repair's SHA256SUMS seals")
++    receipt = json.loads((STAGE07_ROOT / TEACHING_RECEIPT).read_text(encoding="utf-8"))
++    if receipt.get("patch_sha256") != file_sha(TEACHING_FILES["patch"]):
++        stop(f"{TEACHING_RECEIPT} names another patch")
++    changed = {Path(r["path"]).name: r for r in receipt.get("changed", [])}
++    if sorted(changed) != sorted(TEACHING_CHAPTERS) or any(not r["path"].startswith(f"{REL}/src/chapters/") for r in changed.values()):
++        stop(f"{TEACHING_RECEIPT} does not name exactly the four repaired chapters")
++    holds = json.loads(TEACHING_FILES["holds"].read_text(encoding="utf-8"))
++    for name in TEACHING_CHAPTERS:
++        before = STAGE07_ROOT / "before-teaching05-08-01" / name
++        per = holds["per_file"][name]["sha256"]
++        if changed[name]["after"] != file_hash[name] or per["new"] != file_hash[name] or sums.get(f"{REL}/src/chapters/{name}") != file_hash[name]:
++            stop(f"{name}: the candidate's bytes are not the repair's sealed after-bytes")
++        if changed[name]["before"] != file_sha(before) or per["old"] != file_sha(before) or file_sha(STAGE06_CH / name) != file_sha(before):
++            stop(f"{name}: root's preserved original is not the repair's before-bytes")
++    for flag in ("native_validation", "picture_acceptance", "listening"):
++        if receipt.get(flag) is not False:
++            stop(f"{TEACHING_RECEIPT} claims {flag}")
++    rows = json.loads(TEACHING_FILES["rows"].read_text(encoding="utf-8"))
++    if rows["phrase_mark_uses"] != {n: PHRASE_MARK_USES[n] for n in rows["phrase_mark_uses"]} or sorted(rows["phrase_mark_uses"]) != sorted(set(TEACHING_CHAPTERS) - {"branch_cut.rs"}):
++        stop("PHRASE_MARK_USES differs from the repair's binder-rows.json")
++    if rows["fallback"] != {n: FALLBACK[n] for n in rows["fallback"]}:
++        stop("FALLBACK differs from the repair's binder-rows.json")
++    if {(n, line): kind for n, line, kind, _ in rows["sites"]} != {k: v[0] for k, v in SITES.items() if k[0] in TEACHING_CHAPTERS}:
++        stop("the SITES rows for the repaired chapters differ from the repair's binder-rows.json")
++    if {tuple(r) for r in rows["added_anchors"]} != TEACHING_ANCHORS:
++        stop("the added anchors differ from the repair's binder-rows.json")
++    proposed = json.loads(TEACHING_FILES["anchors"].read_text(encoding="utf-8"))["anchors"]
++    if {(r["cue"], r["phrase"]) for r in proposed} != TEACHING_ANCHORS or len(proposed) != len(TEACHING_ANCHORS):
++        stop("phrase-anchors-proposed.json no longer proposes exactly the eight anchors")
++    for want in proposed:
++        got = next((r for r in anchor_rows if (r["cue"], r["phrase"]) == (want["cue"], want["phrase"])), None)
++        if got is None:
++            stop(f"{want['cue']}: no anchor on the phrase the repair proposes, {want['phrase']!r}")
++        for field in want:
++            if got[field] != want[field]:
++                stop(f"{want['cue']} {want['phrase']!r}: {field} is {got[field]!r}, the repair says {want[field]!r}")
++    by_cue = {r["cue"]: r for r in hold_rows}
++    for want in holds["holds"]:
++        got = by_cue.get(want["cue"])
++        new = want["new"]
++        if got is None or (got["file"], got["next_cue"], got["marker"], got["source_sha256"], got["say_line"], got["marker_line"], got["next_say_line"], got["interval_sha256"]) != (want["file"], want["next_cue"], want["marker"], new["sha256"], new["say_line"], new["marker_line"], new["next_say_line"], new["interval_sha256"]):
++            stop(f"{want['cue']}: the hold differs from the repair's hold-table.json")
++    if sorted(r["cue"] for r in hold_rows if r["file"] in TEACHING_CHAPTERS) != sorted(h["cue"] for h in holds["holds"]):
++        stop("the holds in the repaired chapters are not the repair's seven")
++    return {
++        "receipt": {"path": str(STAGE07_ROOT / TEACHING_RECEIPT), "sha256": file_sha(STAGE07_ROOT / TEACHING_RECEIPT)},
++        "patch": {"path": str(TEACHING_FILES["patch"]), "sha256": file_sha(TEACHING_FILES["patch"])},
++        "sealed_rows": {k: {"path": str(TEACHING_FILES[k]), "sha256": file_sha(TEACHING_FILES[k])} for k in ("holds", "rows", "anchors")},
++    }
++
++
+ def json_changes(old, new, path="$"):
+     """Every difference between two JSON values, by path."""
+@@ -623,50 +720,41 @@
+ 
+ 
++def scope_by_hash(change):
++    """The map's scope note is recorded here by hash. Its text names the stale oliver11 map, and
++    RubyRaven's STALE.oliver11_only_as_history census allows that name only in the map and in
++    inputs.sha256. Each plan's map holds the text itself."""
++    if change["path"] != "$.scope":
++        return change
++    return {"path": "$.scope", "old_sha256": sha(change["old"].encode("utf-8")), "new_sha256": sha(change["new"].encode("utf-8")), "text": "recorded by hash; each plan's map holds its scope note"}
++
++
+ def increment_compare(outputs):
+-    """Every change in the plan against binder01's sealed plan."""
++    """Every change in the plan against binder02's sealed plan. The request rows must not change."""
+     rows = []
+-    for name in BINDER01_PLAN_FILES:
+-        old_text = (BINDER01_PLAN / name).read_text(encoding="utf-8")
+-        new_text = outputs[name.replace("narration-direction-map-oliver14.json", MAP_NAME)]
+-        row = {"file": name, "binder01_sha256": sha(old_text.encode("utf-8")), "binder02_sha256": sha(new_text.encode("utf-8")), "identical": old_text == new_text}
++    for name in BINDER02_PLAN_FILES:
++        old_text = (BINDER02_PLAN / name).read_text(encoding="utf-8")
++        new_name = name.replace("narration-direction-map-oliver14.json", MAP_NAME)
++        new_text = outputs[new_name]
++        row = {"file": new_name, "binder02_file": name, "binder02_sha256": sha(old_text.encode("utf-8")), "binder03_sha256": sha(new_text.encode("utf-8")), "identical": old_text == new_text}
+         if name == "inputs.sha256":
+             a, b = old_text.splitlines(), new_text.splitlines()
+             row["lines_added"] = [x for x in b if x not in a]
+             row["lines_removed"] = [x for x in a if x not in b]
+-        elif name == "stage07-delta.json":
+-            # Reported by path, without the rows that only repeat the anchor list.
+-            row["changes"] = json_changes(json.loads(old_text), json.loads(new_text))
+-        elif name == "cue-delta.json":
+-            old_doc, new_doc = json.loads(old_text), json.loads(new_text)
+-            moved = [o["cue"] for o, n in zip(old_doc["cues"], new_doc["cues"]) if (o["current_request"]["path"], o["current_request"]["sha256"]) != (n["current_request"]["path"], n["current_request"]["sha256"])]
+-            if moved:
+-                stop(f"the current request file changed for {moved}")
+-            row["current_request_files_changed"] = moved
+-            row["current_request_rows_gained"] = ["submitted", "submission_state", "retained_pair_receipt"]
+-            for doc in (old_doc, new_doc):
+-                for c in doc["cues"]:
+-                    c["current_request"] = {k: c["current_request"][k] for k in ("path", "sha256")}
+-            row["changes"] = json_changes(old_doc, new_doc)
+-        elif name == "direction-dispositions-proposed.json":
+-            # Every row's evidence names hold-audit's new bytes; anything else would be a real change.
+-            changes = json_changes(json.loads(old_text), json.loads(new_text))
+-            other = [c for c in changes if not re.fullmatch(r"\$\.direction_dispositions\[\d+\]\.evidence\.(path|sha256)", c["path"])]
+-            if other:
+-                stop(f"the dispositions changed beyond their evidence: {other[:2]}")
+-            row["evidence_rows_changed"] = len(changes) // 2
+-            row["note"] = "Only each row's evidence path and hash, which name this plan's hold-audit.json."
+         elif not row["identical"]:
+-            row["changes"] = json_changes(json.loads(old_text), json.loads(new_text))
++            row["changes"] = [scope_by_hash(c) for c in json_changes(json.loads(old_text), json.loads(new_text))]
++        if name == "cue-delta.json" and not row["identical"]:
++            stop("the cue delta changed, but the teaching repair changes no cue and no request")
+         rows.append(row)
+-    same = {r["file"] for r in rows if r["identical"]}
+-    for must in (f"{REL}/narration_units.json", f"{REL}/docs/{MAP_NAME}"):
+-        if must not in same:
+-            stop(f"{must} changed, but a phrase mark and a request list should not change it")
+     return {
+         "schema_version": 1,
+         "claim": "Text comparison of two plans. Nothing compiled, rendered, measured or heard. No take is selected; selection for all 80 cues remains pending.",
+-        "from": str(BINDER01_PLAN),
+-        "added": ["03_3 'forgets' anchor, direct reader in folded_decade.rs (White's source-markers.json)", "root's narration-request-final80-02 list as each cue's current request"],
+-        "not_included": "Chapters 05-08's pending source changes. They will be a separate update.",
++        "from": str(BINDER02_PLAN),
++        "added": [
++            "LavenderPike's chapter 05-08 teaching repair, integrated by root with integration-partial07.json",
++            "eight phrase anchors (05_20, 06_6, 08_5), read through until_phrase; three word-sync waits",
++            "seven holds rebound to the repaired files' hashes; 05_5's say and marker lines move 13 lines",
++            "the map under a new name, oliver15",
++        ],
++        "map_name": {"binder02": "narration-direction-map-oliver14.json", "binder03": MAP_NAME},
+         "files": rows,
+     }
+@@ -1387,4 +1475,5 @@
+     anchor_rows.sort(key=lambda r: (cues.index(r["cue"]), r["byte"]))
+     white = white_markers(anchor_rows, script_sha, file_hash)
++    teaching = teaching_rows(anchor_rows, prediction_audit, file_hash)
+     literal_readers = set()
+     for name in names:
+@@ -1514,5 +1603,5 @@
+         "topic": TOPIC,
+         "claim": "Text audit of Rust source at combined-repair-stage07/candidate. Uncompiled here, unrendered, unmeasured, unheard. Author/source binding, not independent AV or listening acceptance.",
+-        "open_for_root": ["native build and tests of these exact bytes", "01_5 synthesis, and selecting a take for all 80 cues", "measured phrase-timings.json, including 03_3's mark", "Oliver sync, the reading windows on real lengths, listening", "independent AV acceptance"],
++        "open_for_root": ["native build and tests of these exact bytes", "selecting a take for all 80 cues", "measured phrase-timings.json, including 03_3's mark and the eight 05-08 marks", "Oliver sync, the reading windows on real lengths, listening", "independent AV acceptance"],
+         "no_invented_silence": "No row adds silence to a take. Every hold is a native visual hold after a complete cue; the proposed dispositions are all native_visual_hold. Floors below are the source's own constants, not measurements.",
+         "narration": "ElevenLabs Oliver. No Michael or FrankenTTS.",
+@@ -1549,4 +1638,8 @@
+         "consumers": consumers,
+         "registered_chapters": [{"key": k, "file": n, "sha256": file_hash[n]} for k, n in reg],
++        "teaching_repair_05_08": {
++            "note": "LavenderPike's chapter 05-08 teaching repair, integrated by root. Its seven holds, three word-sync waits and eight anchors above equal its sealed rows; the receipt names its patch and every before and after hash. Source binding only, not native, picture or listening acceptance.",
++            **teaching,
++        },
+         "unregistered_files_ignored": ignored,
+         "cues": cue_rows,
+@@ -1597,5 +1690,7 @@
+     inputs += [Path(r["text_path"]) for r in final80["requests"]]
+     inputs += [STAGE06_PLAN / p for p in STAGE06_PLAN_FILES]
+-    inputs += [BINDER01_PLAN / p for p in BINDER01_PLAN_FILES]
++    inputs += [BINDER02_PLAN / p for p in BINDER02_PLAN_FILES]
++    inputs += list(TEACHING_FILES.values())
++    inputs += [STAGE07_ROOT / "before-teaching05-08-01" / name for name in TEACHING_CHAPTERS]
+     inputs += [STAGE06_CH / n for n in names]
+     inputs += [CH / "mod.rs", CH / "draw.rs"] + [CH / n for n in names]

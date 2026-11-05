@@ -1,0 +1,86 @@
+== frames: scale, ground and glyph sizes on preview02 (canonical, scratch voice)
+PASS frames are (1280, 720); 90.00 px per scene unit, 93.75 per plane unit
+PASS ground() (14, 17, 22) is the frame's ground to 3 levels: corners (12, 17, 20), (12, 17, 20): a backing is ground on ground
+PASS the ring's middle on frame 88 (370.0, 416.5) is at z = i by the formula (370.0, 416.6)
+     ring outer half width 0.107 plane units (at 40 levels)
+     'i' box (341, 409, 346, 424), half 0.027 x 0.080 plane, centre off by -0.2, -0.1 px
+PASS i_back (9.0 px) covers the letter's far corner (8.1 px) to within a pixel
+     moving 'R' at the walk's end on frame 100: box (227, 479, 243, 495), half 0.085 x 0.085 plane, centre off by +0.0, +0.1 px
+PASS r_back (12.2 px) covers R's far corner (11.4 px) to within a pixel
+== what lies under the two backings, frame 88
+     the letter at 14 levels: box (341, 408, 348, 424)
+PASS under i_back: 56 pixels off ground, all of them the letter: rooted at full paint, it shows nothing until the spoke reaches it
+PASS under R's path, th in [0.28, pi]: 72 pixels off ground, all on the axis (x = 370 +- 2.5)
+     the axis under R's path spans y 362..385 at 720p; the union has 9934 pixels
+PASS frame 93: the right-hand panel never reaches R's path
+PASS frame 96: the right-hand panel never reaches R's path
+PASS frame 105: the right-hand panel never reaches R's path
+== R's and i's places while they wait for the fade-out at sentence 2, frames 96 to 111
+     frame 96 (40.5 s): inside R's backing (227, 479, 243, 495), inside i's (341, 409, 346, 424)
+PASS frame 96: only R lies within its backing's end place
+PASS frame 96: only the letter lies within i's backing
+     frame 100 (42.5 s): inside R's backing (227, 479, 243, 495), inside i's (341, 409, 346, 424)
+PASS frame 100: only R lies within its backing's end place
+PASS frame 100: only the letter lies within i's backing
+     frame 105 (45.0 s): inside R's backing (227, 479, 243, 495), inside i's (341, 409, 346, 424)
+PASS frame 105: only R lies within its backing's end place
+PASS frame 105: only the letter lies within i's backing
+     frame 108 (46.5 s): inside R's backing (227, 479, 243, 495), inside i's (341, 409, 346, 424)
+PASS frame 108: only R lies within its backing's end place
+PASS frame 108: only the letter lies within i's backing
+     frame 110 (47.5 s): inside R's backing (227, 479, 243, 495), inside i's (341, 409, 346, 424)
+PASS frame 110: only R lies within its backing's end place
+PASS frame 110: only the letter lies within i's backing
+     frame 111 (48.0 s): inside R's backing None, inside i's (341, 409, 346, 424)
+PASS frame 111: only the letter lies within i's backing
+PASS frame 111: R has gone and nothing else is there, so the backing's fade shows nothing
+== contact bands, 0.01 degree steps; half sizes measured above
+     walker on frames 90-95: 37.5 s 14.8, 38.0 s 43.0, 38.5 s 70.8, 39.0 s 98.8, 39.5 s 126.8, 40.0 s 154.7
+PASS steady walk measured here: starts 37.23 s (cue 36.1 + 1.1 = 37.2), lasts 3.22 s, worst fit 0.18 degrees: tween_linear holds and T0 holds
+     R's box on the gold segment (canonical)      5.6-14.1                   0.153 s scratch, 0.071 s floor
+     R's backing on the gold segment, if shown    3.8-15.9                   0.216 s scratch, 0.101 s floor
+     R's box on the axis                          96.1-103.6                 0.133 s scratch, 0.062 s floor
+     R's backing notching the axis                94.4-105.3                 0.195 s scratch, 0.091 s floor
+     spoke touching the mark's dark dot           82.1-97.9                  0.281 s scratch, 0.131 s floor
+     spoke touching the letter i                  102.6-109.1                0.117 s scratch, 0.055 s floor
+     spoke touching i_back                        99.7-111.6                 0.213 s scratch, 0.099 s floor
+     spoke clear of both discs for 1.82 degrees between them: 2.0 frames at 60 fps, scratch rate
+     that is a clear spoke, moving; only a short chord is ever hidden: at most 23 px by the mark, 18 px by i_back, of a spoke 188 px long
+     i_back's band against the letter's alone: 1.82 x
+PASS the handoff's letter band (103.9-107.3, 0.06 s) and hidden band (100.5-110.6, 0.18 s) read at height 1 only: both grow a little, its conclusion stands
+PASS R's box leaves the segment at 14.13 degrees, before R starts to show at 16.04
+PASS R's backing is at zero wherever it would notch the gold on the way up (band ends 15.88)
+PASS and it does not come back down to the gold at the walk's end
+     ramp 16.04 to 24.06 degrees: 0.143 s scratch, 4.0 frames at the 1.5 s floor
+== clearances of R's backing, th over the shown range, plane units (px at 720p)
+     the spoke                      +0.108 (+10.2 px)
+PASS clear of the spoke
+     the half circle                +0.385 (+36.1 px)
+PASS clear of the half circle
+     the mark's dark dot            +0.207 (+19.4 px)
+PASS clear of the mark's dark dot
+     i_back                         +0.197 (+18.5 px)
+PASS clear of i_back
+     the gold segment               +0.004 (+0.4 px)
+PASS clear of the gold segment
+     (that smallest gap is at the ramp's first step, opacity zero: the disc is rising away from the gold as it appears)
+== i_back's own clearances
+     the axis (i_back)              +0.174 (+16.4 px)
+PASS clear of the axis (i_back)
+     the mark's dark dot (i_back)   +0.059 (+5.6 px)
+PASS clear of the mark's dark dot (i_back)
+== the growth, R from 2 to 10, with the poles closing in and the names following (i_back is gone by then)
+     height of the pole: 1.000 down to 0.200
+     ring to lit segment            +0.055 (+5.2 px)
+PASS clear of ring to lit segment
+     letter i to lit segment        +0.082 (+7.7 px)
+PASS clear of letter i to lit segment
+== teaching: R arrives before the voice says it (share of letters, not a measured word time)
+PASS R is fully up before 'R squared' whenever 'so the bump' comes later than 1.65 s into the cue; the phrase has 52 letters. Scratch: 4.32 s
+== 14_3: the chain on the plane
+PASS its unit is 1: the mark's dot is 0.13 plane units
+PASS no path piece comes near the pole: nearest chord 0.924 from it
+PASS the chain's centres are all 1 from the pole, so all eight rims meet there
+PASS the walker moves along the chords: its edge stays 0.844 from the pole, 0.714 from the backing
+PASS frame 103: the name 1 is 10.3 px clear of the mark's backing at 720p, measured to its nearest pixel; the handoff's '12 px' is +1.7 px off
+RESULT PASS

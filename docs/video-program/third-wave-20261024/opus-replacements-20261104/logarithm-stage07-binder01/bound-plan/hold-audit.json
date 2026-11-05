@@ -1,0 +1,1847 @@
+{
+  "schema_version": 1,
+  "topic": "logarithm_mysteries",
+  "claim": "Text audit of Rust source at combined-repair-stage07/candidate. Uncompiled here, unrendered, unmeasured, unheard. Author/source binding, not independent AV or listening acceptance.",
+  "open_for_root": [
+    "native build and tests of these exact bytes",
+    "01_5 synthesis and a take for every cue",
+    "measured phrase-timings.json",
+    "Oliver sync, the reading windows on real lengths, listening",
+    "independent AV acceptance"
+  ],
+  "no_invented_silence": "No row adds silence to a take. Every hold is a native visual hold after a complete cue; the proposed dispositions are all native_visual_hold. Floors below are the source's own constants, not measurements.",
+  "narration": "ElevenLabs Oliver. No Michael or FrankenTTS.",
+  "script_sha256": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+  "map": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver14.json",
+  "kit": {
+    "line_gaps": "Constant",
+    "breath_s": 0.6,
+    "think_s": 4.0,
+    "predict_bar_fade_s": 0.25
+  },
+  "counts": {
+    "cues": 80,
+    "units": 80,
+    "registered_chapters": 13,
+    "words_total": 4592,
+    "words_max": 95,
+    "prediction_holds": 13,
+    "reading_holds": 2,
+    "other_waits": 13,
+    "chapter_finishes": 13,
+    "literal_sentence_hooks": 285,
+    "phrase_anchors": 24,
+    "predictions_not_ending_in_a_question": [
+      "00_4",
+      "12_5"
+    ]
+  },
+  "prediction_holds": [
+    {
+      "cue": "00_4",
+      "next_cue": "00_5",
+      "next_cue_crosses_chapter": false,
+      "file": "ratio_ruler.rs",
+      "source_sha256": "198d4a0586369258d845a21ee857eeb51e34357b61fe40398e5789379a6b5fd1",
+      "say_line": 330,
+      "marker_line": 371,
+      "marker": "predict(&kit, stage, v(3.6, -2.75), 3.0)?;",
+      "next_say_line": 374,
+      "interval_sha256": "86bf44bb70227da9e2f416862ba78a056faaaa05b3b7955e8bc009d769001515",
+      "cue_text": "So try this. Start at the A of four hundred and forty, and go up six semitones, half of the twelve. What frequency do you reach? Halfway by difference would be six hundred and sixty.",
+      "cue_text_sha256": "28aa0759d8ed2062f3854570f9cbc06427f2b43a5604e98ac9526161e564f320",
+      "cue_words": 35,
+      "final_sentence": "Halfway by difference would be six hundred and sixty.",
+      "code_between_marker_and_next_say": [],
+      "final_sentence_is_question": false,
+      "helper": "draw::predict",
+      "source_floor_after_voice_s": 4.85,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "think_s": 4.0,
+        "bar_fade_s": 0.25
+      },
+      "floor_note": "Voice end plus breath, the mark, THINK of music, the bar's fade, then the next say, up to frame rounding. A floor: a picture that outlasts the voice delays kit.hold, which source alone cannot rule out. None of it is silence in any take.",
+      "storyboard_answered_in": "00_5"
+    },
+    {
+      "cue": "01_3",
+      "next_cue": "01_4",
+      "next_cue_crosses_chapter": false,
+      "file": "building_ruler.rs",
+      "source_sha256": "ae125e5ec9ec9bd6df073d90c9a9b77f80a9c202c04ad6803ea6ef3b8a3f903a",
+      "say_line": 162,
+      "marker_line": 187,
+      "marker": "predict(&kit, stage, v(3.8, -2.9), 3.0)?;",
+      "next_say_line": 190,
+      "interval_sha256": "c91208d7f0b162d3967239d2dcccbe23cd679366a42cf833f7f35bd1fbd4c358",
+      "cue_text": "Now a harder question. Where does three go? It lies between two and four, so somewhere between one step and two. But where, exactly?",
+      "cue_text_sha256": "23f240c35831923a7b47c4dd276719054eb553fa5678c5178e0c9a5260191db3",
+      "cue_words": 24,
+      "final_sentence": "But where, exactly?",
+      "code_between_marker_and_next_say": [],
+      "final_sentence_is_question": true,
+      "helper": "draw::predict",
+      "source_floor_after_voice_s": 4.85,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "think_s": 4.0,
+        "bar_fade_s": 0.25
+      },
+      "floor_note": "Voice end plus breath, the mark, THINK of music, the bar's fade, then the next say, up to frame rounding. A floor: a picture that outlasts the voice delays kit.hold, which source alone cannot rule out. None of it is silence in any take.",
+      "storyboard_answered_in": "01_4"
+    },
+    {
+      "cue": "02_2",
+      "next_cue": "02_3",
+      "next_cue_crosses_chapter": false,
+      "file": "slide_rule.rs",
+      "source_sha256": "68d4b011fb4d90033ef1ae69aedef1639e12c11ce3624dbb5c378152d39b1ecd",
+      "say_line": 147,
+      "marker_line": 204,
+      "marker": "predict(&kit, stage, v(4.7, -2.75), 3.0)?;",
+      "next_say_line": 207,
+      "interval_sha256": "20094536ae2191f558b6ca76bc94b089e10f8fbe2bf78647b08036b306a75215",
+      "cue_text": "To multiply two point five by three point two, slide the moving ruler until its one sits above two point five. Everything on it is now shifted by two point five's length. Find three point two on the moving ruler. Which number sits directly below it?",
+      "cue_text_sha256": "bd5822b91f2700d5f2ee189d831ccc47b9253c4e58b4775488af71e4849fc33e",
+      "cue_words": 46,
+      "final_sentence": "Which number sits directly below it?",
+      "code_between_marker_and_next_say": [],
+      "final_sentence_is_question": true,
+      "helper": "draw::predict",
+      "source_floor_after_voice_s": 4.85,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "think_s": 4.0,
+        "bar_fade_s": 0.25
+      },
+      "floor_note": "Voice end plus breath, the mark, THINK of music, the bar's fade, then the next say, up to frame rounding. A floor: a picture that outlasts the voice delays kit.hold, which source alone cannot rule out. None of it is silence in any take.",
+      "storyboard_answered_in": "02_3"
+    },
+    {
+      "cue": "04_6",
+      "next_cue": "04_7",
+      "next_cue_crosses_chapter": false,
+      "file": "undoing_growth.rs",
+      "source_sha256": "4dc4c555122d9cd5423d7094336c1d5e6f7f9afb77d6850a38bc0148c20180ef",
+      "say_line": 674,
+      "marker_line": 749,
+      "marker": "predict(&kit, stage, v(4.6, THINK_BAR_Y), 3.0)?;",
+      "next_say_line": 752,
+      "interval_sha256": "b2d1d76b8f9fbd9eaa730d0c96aba14999df1e10304ef8e99526d92ebdc91c17",
+      "cue_text": "Here is the inverse at work. Money growing continuously at five percent a year is multiplied by e to the zero point zero five t after t years. When has it doubled?",
+      "cue_text_sha256": "000edc3ec870fa4557e707caf46603afc19b7763b217de7486ceda3587da509e",
+      "cue_words": 32,
+      "final_sentence": "When has it doubled?",
+      "code_between_marker_and_next_say": [],
+      "final_sentence_is_question": true,
+      "helper": "draw::predict",
+      "source_floor_after_voice_s": 4.85,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "think_s": 4.0,
+        "bar_fade_s": 0.25
+      },
+      "floor_note": "Voice end plus breath, the mark, THINK of music, the bar's fade, then the next say, up to frame rounding. A floor: a picture that outlasts the voice delays kit.hold, which source alone cannot rule out. None of it is silence in any take.",
+      "storyboard_answered_in": "04_7"
+    },
+    {
+      "cue": "05_1",
+      "next_cue": "05_2",
+      "next_cue_crosses_chapter": false,
+      "file": "complex_turns.rs",
+      "source_sha256": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+      "say_line": 185,
+      "marker_line": 245,
+      "marker": "predict(&kit, stage, v(2.5, -0.62), 3.0)?;",
+      "next_say_line": 249,
+      "interval_sha256": "5256ae12dfc74fb4a9a30cb3394b4281c7736b52efdc0345e57b565b0fd27859",
+      "cue_text": "Now let the numbers leave the line. A complex number is a point in the plane, or an arrow from zero to that point. Multiplying two of them multiplies their lengths and adds their angles. Multiplying by i keeps the length the same and turns the arrow a quarter turn. So what is i times i?",
+      "cue_text_sha256": "5f6674fe362915c5d650bb70dd3d9605991bb2dbf2498419edd312881652c583",
+      "cue_words": 56,
+      "final_sentence": "So what is i times i?",
+      "code_between_marker_and_next_say": [],
+      "final_sentence_is_question": true,
+      "helper": "draw::predict",
+      "source_floor_after_voice_s": 4.85,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "think_s": 4.0,
+        "bar_fade_s": 0.25
+      },
+      "floor_note": "Voice end plus breath, the mark, THINK of music, the bar's fade, then the next say, up to frame rounding. A floor: a picture that outlasts the voice delays kit.hold, which source alone cannot rule out. None of it is silence in any take.",
+      "storyboard_answered_in": "05_2"
+    },
+    {
+      "cue": "05_5",
+      "next_cue": "05_6",
+      "next_cue_crosses_chapter": false,
+      "file": "complex_turns.rs",
+      "source_sha256": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+      "say_line": 611,
+      "marker_line": 623,
+      "marker": "predict(&kit, stage, v(OUT.centre[0], -2.75), 3.0)?;",
+      "next_say_line": 626,
+      "interval_sha256": "93a300682e33fcfeac462b8e81696af114f96e9739a3647ac1748c3d62189dc5",
+      "cue_text": "Here is a question. Which inputs land on minus one?",
+      "cue_text_sha256": "4577d97df6052667c611277cd7a4c43425b6f7a7c98b8e290d042448b0ae0cef",
+      "cue_words": 10,
+      "final_sentence": "Which inputs land on minus one?",
+      "code_between_marker_and_next_say": [],
+      "final_sentence_is_question": true,
+      "helper": "draw::predict",
+      "source_floor_after_voice_s": 4.85,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "think_s": 4.0,
+        "bar_fade_s": 0.25
+      },
+      "floor_note": "Voice end plus breath, the mark, THINK of music, the bar's fade, then the next say, up to frame rounding. A floor: a picture that outlasts the voice delays kit.hold, which source alone cannot rule out. None of it is silence in any take.",
+      "storyboard_answered_in": "05_6"
+    },
+    {
+      "cue": "06_2",
+      "next_cue": "06_3",
+      "next_cue_crosses_chapter": false,
+      "file": "lifting_loops.rs",
+      "source_sha256": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+      "say_line": 335,
+      "marker_line": 374,
+      "marker": "predict(&kit, stage, v(Z.centre[0], 2.55), 2.6)?;",
+      "next_say_line": 377,
+      "interval_sha256": "9c1ce6b4868ea9b3fb693ba0290c40ac292aa2b9846d50c883c0cf432e7eb9a7",
+      "cue_text": "As the number turns, its logarithm climbs straight up, because only the angle changes. A quarter of the way round, the logarithm is pi over two times i. Halfway round, at minus one, it is pi times i. When the number arrives back at one, what is the logarithm?",
+      "cue_text_sha256": "90fece638d89ab1eadbff4cf4913267724cbae1356011dc343b1290f12584f77",
+      "cue_words": 49,
+      "final_sentence": "When the number arrives back at one, what is the logarithm?",
+      "code_between_marker_and_next_say": [],
+      "final_sentence_is_question": true,
+      "helper": "draw::predict",
+      "source_floor_after_voice_s": 4.85,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "think_s": 4.0,
+        "bar_fade_s": 0.25
+      },
+      "floor_note": "Voice end plus breath, the mark, THINK of music, the bar's fade, then the next say, up to frame rounding. A floor: a picture that outlasts the voice delays kit.hold, which source alone cannot rule out. None of it is silence in any take.",
+      "storyboard_answered_in": "06_3"
+    },
+    {
+      "cue": "06_4",
+      "next_cue": "06_5",
+      "next_cue_crosses_chapter": false,
+      "file": "lifting_loops.rs",
+      "source_sha256": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+      "say_line": 417,
+      "marker_line": 475,
+      "marker": "predict(&kit, stage, v(2.4, 1.8), 2.6)?;",
+      "next_say_line": 478,
+      "interval_sha256": "7651918d6c2ca7643ab83eae2e4942bdac5c324220c195fe8594389e80c8c78a",
+      "cue_text": "A loop that does not go around zero behaves differently. Here is a circle off to one side, which zero is not inside. Walk the number once around it, carrying the logarithm along as before. Will the logarithm come back to where it began?",
+      "cue_text_sha256": "435f54c3f9eca4b39e3dd6806b59768e4331e73a57651040c7c24092d149d6ec",
+      "cue_words": 44,
+      "final_sentence": "Will the logarithm come back to where it began?",
+      "code_between_marker_and_next_say": [],
+      "final_sentence_is_question": true,
+      "helper": "draw::predict",
+      "source_floor_after_voice_s": 4.85,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "think_s": 4.0,
+        "bar_fade_s": 0.25
+      },
+      "floor_note": "Voice end plus breath, the mark, THINK of music, the bar's fade, then the next say, up to frame rounding. A floor: a picture that outlasts the voice delays kit.hold, which source alone cannot rule out. None of it is silence in any take.",
+      "storyboard_answered_in": "06_5"
+    },
+    {
+      "cue": "07_3",
+      "next_cue": "07_4",
+      "next_cue_crosses_chapter": false,
+      "file": "branch_cut.rs",
+      "source_sha256": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+      "say_line": 366,
+      "marker_line": 419,
+      "marker": "predict(&kit, stage, v(right + 1.7, 1.95), 3.0)?;",
+      "next_say_line": 422,
+      "interval_sha256": "8b3000fdb4e3c1154faad8bc7de6e1b6652e0c8177bdbfb7328a893022bb08b6",
+      "cue_text": "Here is where the cut plane goes. The principal logarithm unrolls it into a horizontal strip, between height minus pi and height pi. Circles become vertical segments. Rays become horizontal lines. Now roll it back, and mark the two sides of the cut: one just above it, one just below. Where will they end up on the strip?",
+      "cue_text_sha256": "4ae58d37d06c67306feecf8d1053a54b39ea6a1079e435396a01b037b24d4ea9",
+      "cue_words": 58,
+      "final_sentence": "Where will they end up on the strip?",
+      "code_between_marker_and_next_say": [],
+      "final_sentence_is_question": true,
+      "helper": "draw::predict",
+      "source_floor_after_voice_s": 4.85,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "think_s": 4.0,
+        "bar_fade_s": 0.25
+      },
+      "floor_note": "Voice end plus breath, the mark, THINK of music, the bar's fade, then the next say, up to frame rounding. A floor: a picture that outlasts the voice delays kit.hold, which source alone cannot rule out. None of it is silence in any take.",
+      "storyboard_answered_in": "07_4"
+    },
+    {
+      "cue": "08_1",
+      "next_cue": "08_2",
+      "next_cue_crosses_chapter": false,
+      "file": "product_rule.rs",
+      "source_sha256": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+      "say_line": 108,
+      "marker_line": 221,
+      "marker": "predict(&kit, stage, v(3.6, 0.6), 3.0)?;",
+      "next_say_line": 224,
+      "interval_sha256": "1d498942e2bc12a7a6d206cbb4335719700682561c2357709722c252726d86b6",
+      "cue_text": "On the positive numbers, the logarithm of a product is the sum of the logarithms. Does that survive the cut? Take a number of length one, at an angle of three quarters of pi. Square it. The lengths multiply to one, and the angles add to one and a half pi. But the principal logarithm only reports angles in its window, from minus pi up to pi. So what angle will it report for the square?",
+      "cue_text_sha256": "75556c6aef00b2c0f2bab3027e52d1baf9f1b42642e73678834d431a5cf145e3",
+      "cue_words": 76,
+      "final_sentence": "So what angle will it report for the square?",
+      "code_between_marker_and_next_say": [],
+      "final_sentence_is_question": true,
+      "helper": "draw::predict",
+      "source_floor_after_voice_s": 4.85,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "think_s": 4.0,
+        "bar_fade_s": 0.25
+      },
+      "floor_note": "Voice end plus breath, the mark, THINK of music, the bar's fade, then the next say, up to frame rounding. A floor: a picture that outlasts the voice delays kit.hold, which source alone cannot rule out. None of it is silence in any take.",
+      "storyboard_answered_in": "08_2"
+    },
+    {
+      "cue": "08_4",
+      "next_cue": "08_5",
+      "next_cue_crosses_chapter": false,
+      "file": "product_rule.rs",
+      "source_sha256": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+      "say_line": 317,
+      "marker_line": 346,
+      "marker": "predict(&kit, stage, v(right + 2.5, -2.75), 3.0)?;",
+      "next_say_line": 349,
+      "interval_sha256": "23b0206f29d4163576b78273cad64e3466d033d5bf8310f0821dacbe00769786",
+      "cue_text": "That lap count hides inside a famous puzzle. Minus one is i times i. Write i as the square root of minus one. Combine the two roots into the root of minus one times minus one. That is the root of one, which is one. So minus one equals one. Which step broke?",
+      "cue_text_sha256": "f449fbee18eb2cce67e3306905853d7bc3c9eee26b041aa2d064baa8b3e537b7",
+      "cue_words": 53,
+      "final_sentence": "Which step broke?",
+      "code_between_marker_and_next_say": [],
+      "final_sentence_is_question": true,
+      "helper": "draw::predict",
+      "source_floor_after_voice_s": 4.85,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "think_s": 4.0,
+        "bar_fade_s": 0.25
+      },
+      "floor_note": "Voice end plus breath, the mark, THINK of music, the bar's fade, then the next say, up to frame rounding. A floor: a picture that outlasts the voice delays kit.hold, which source alone cannot rule out. None of it is silence in any take.",
+      "storyboard_answered_in": "08_5"
+    },
+    {
+      "cue": "11_3",
+      "next_cue": "11_4",
+      "next_cue_crosses_chapter": false,
+      "file": "unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "say_line": 963,
+      "marker_line": 1070,
+      "marker": "predict(&kit, stage, v(right + 1.6, -1.4), 3.0)?;",
+      "next_say_line": 1074,
+      "interval_sha256": "e34e65ad69a71865c956f2cf6e3d5270433370e8b6e79e5f8defc221555771db",
+      "cue_text": "That factor on signed area is called the determinant. So a real matrix with a negative determinant has no real logarithm. Is a positive determinant enough? Try this one. Double the length along one axis and flip it. Halve the length along the other axis and flip that too. The area is multiplied by plus one. It is even a half turn followed by a stretch. Can a single steady flow end here?",
+      "cue_text_sha256": "70e19e8aa243ef1ff9adcefcf18c96379c5103d26114a8c2a8c3e067383f59db",
+      "cue_words": 73,
+      "final_sentence": "Can a single steady flow end here?",
+      "code_between_marker_and_next_say": [],
+      "final_sentence_is_question": true,
+      "helper": "draw::predict",
+      "source_floor_after_voice_s": 4.85,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "think_s": 4.0,
+        "bar_fade_s": 0.25
+      },
+      "floor_note": "Voice end plus breath, the mark, THINK of music, the bar's fade, then the next say, up to frame rounding. A floor: a picture that outlasts the voice delays kit.hold, which source alone cannot rule out. None of it is silence in any take.",
+      "storyboard_answered_in": "11_4–11_6"
+    },
+    {
+      "cue": "12_5",
+      "next_cue": "12_6",
+      "next_cue_crosses_chapter": false,
+      "file": "what_it_forgets.rs",
+      "source_sha256": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+      "say_line": 1099,
+      "marker_line": 1123,
+      "marker": "predict(&kit, stage, v(2.6, -2.1), 3.4)?;",
+      "next_say_line": 1126,
+      "interval_sha256": "b238a92968284627ce972479bb1c5a93ac5f5df33efee0b17ddea5d362c8387f",
+      "cue_text": "Here is the puzzle. How many different steady spins end at exactly this half turn after one unit of time? Think about the laps, the direction of spin, and the axis.",
+      "cue_text_sha256": "e8dd93058126905677716cedcfba6b70413abbf62d2f2bb3a028bcd03b6bb9a7",
+      "cue_words": 31,
+      "final_sentence": "Think about the laps, the direction of spin, and the axis.",
+      "code_between_marker_and_next_say": [],
+      "final_sentence_is_question": false,
+      "helper": "draw::predict",
+      "source_floor_after_voice_s": 4.85,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "think_s": 4.0,
+        "bar_fade_s": 0.25
+      },
+      "floor_note": "Voice end plus breath, the mark, THINK of music, the bar's fade, then the next say, up to frame rounding. A floor: a picture that outlasts the voice delays kit.hold, which source alone cannot rule out. None of it is silence in any take.",
+      "storyboard_answered_in": "12_6"
+    }
+  ],
+  "reading_holds": [
+    {
+      "cue": "10_4",
+      "next_cue": "11_1",
+      "next_cue_crosses_chapter": true,
+      "file": "doing_nothing.rs",
+      "source_sha256": "7f445be212c586093d2092113b086d809dcc189619985baf1c8f0c407c709b47",
+      "say_line": 537,
+      "marker_line": 602,
+      "marker": "kit.music_breath(stage, FINE_PRINT_S - read_for)?;",
+      "next_say_line": null,
+      "interval_sha256": "9fe875942e620939da7839720e40e029c830cfe152247ae59de1db3c4c2d8927",
+      "cue_text": "So use the same rule: keep the turning strictly between minus pi and pi. Whenever a matrix sends no direction to zero or to a negative multiple of itself, exactly one of its logarithms obeys that rule. It is called the principal logarithm, and for a real matrix it is real. For the identity it is the flow that does nothing. On screen is the textbook version, which counts the turning with the imaginary parts of what are called eigenvalues.",
+      "cue_text_sha256": "29473bc1659d0ff4d32211f6a5c8ef8abb4374e1b9fb892622eed2e13936bbe4",
+      "cue_words": 80,
+      "final_sentence": "On screen is the textbook version, which counts the turning with the imaginary parts of what are called eigenvalues.",
+      "code_between_marker_and_next_say": [],
+      "source_floor_after_voice_s": 0.6,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "window_s": null
+      },
+      "window_seconds": null,
+      "window_formula": "FINE_PRINT_S - read_for, only if read_for < FINE_PRINT_S",
+      "conditional": true,
+      "note": "Conditional, and the chapter's last hold. read_for runs from when the fine print has faded in to voice end plus breath, so the window's length is a property of the take, and it can be zero. No number is claimed until a take is measured. The next cue is the first line of chapter 11, across a chapter join. No predict mark, so no caption is extended.",
+      "line_evidence": {
+        "shown_from": 597,
+        "hold": 598,
+        "read_for": 600,
+        "condition": 601,
+        "window": 602,
+        "finish": 604,
+        "floor_const": 72
+      },
+      "fine_print": {
+        "textbook": "turning rate of the flow of X = imaginary part of an eigenvalue of X",
+        "source": "no eigenvalue of A in (−∞, 0] ⇒ one logarithm has all eigenvalues −π < Im < π; real if A is (Higham; Gallier Thm 3.11)",
+        "prefix": "precisely: "
+      },
+      "source_const_includes_prefix": true,
+      "fine_print_chars": 197,
+      "floor_seconds_from_shown": 13.2,
+      "characters_per_second_at_floor": 14.924
+    },
+    {
+      "cue": "11_20",
+      "next_cue": "11_8",
+      "next_cue_crosses_chapter": false,
+      "file": "unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "say_line": 1501,
+      "marker_line": 1590,
+      "marker": "kit.music_breath(stage, rule_read + row_reads.iter().sum::<f64>())?;",
+      "next_say_line": 1594,
+      "interval_sha256": "4a4e6c72d1f92e5e88e7430c03e0f0f062e3e7972184736bfc911a4313fae5e0",
+      "cue_text": "In higher dimensions, the exact rule, from a nineteen sixty-six paper by Culver, asks that the matrix's blocks for each negative stretch come in matching pairs. On screen is the precise version.",
+      "cue_text_sha256": "ec2b4681dc12338d1dd19df6e5866524d0811c18d3f5732a9a8235f96b4f5f02",
+      "cue_words": 32,
+      "final_sentence": "On screen is the precise version.",
+      "code_between_marker_and_next_say": [
+        {
+          "line": 1591,
+          "code": "stage.clear_updaters(reading_clock, true);"
+        }
+      ],
+      "conditional": false,
+      "source_floor_after_voice_s": 18.3333,
+      "floor_composition": {
+        "breath_s": 0.6,
+        "window_s": 17.7333
+      },
+      "window_formula": "(rule_chars + row_chars) / READING_RATE",
+      "note": "Unconditional. The clock starts at voice end plus breath; the next cue's say waits for the window. A music window, not silence in any take. Root may shorten the row walk after listening; the rule's 10.6 s is the floor. No predict mark, so no caption is extended.",
+      "line_evidence": {
+        "theorem_const": 155,
+        "rate_const": 165,
+        "rule_seconds": 641,
+        "block_examples": 618,
+        "hold": 1555,
+        "rule_read": 1556,
+        "row_reads": 1557,
+        "window": 1590,
+        "next_say": 1594
+      },
+      "rule_lines": [
+        "A real matrix has a real logarithm exactly",
+        "when it is invertible and, for every negative",
+        "eigenvalue, its Jordan blocks of each size",
+        "occur an even number of times."
+      ],
+      "rule_chars": 159,
+      "row_verdicts": [
+        "matching pair: real log",
+        "no partners: no real log",
+        "−2 paired, 3 positive: real log",
+        "one size-2 block: no real log"
+      ],
+      "row_chars": 107,
+      "characters_per_second": 15.0,
+      "rule_seconds": 10.6,
+      "row_seconds": 7.1333,
+      "window_seconds": 17.7333,
+      "matrix_blocks_mixed": "-2,-2,3"
+    }
+  ],
+  "removed_pairs": [
+    {
+      "cue": "00_1",
+      "next_cue": "00_2",
+      "old_kind": "prediction",
+      "old_path": "explainer_corpus/logarithm_mysteries/src/chapters/bookends.rs",
+      "old_line": 33,
+      "old_marker": "kit.hold(stage)?;",
+      "old_file_registered": false,
+      "old_file_bytes_match_row": true,
+      "old_marker_still_at_old_line": true,
+      "old_after_is_final_cue_text": false,
+      "old_after_in_final_cue": false,
+      "final_cue_says_at": {
+        "file": "ratio_ruler.rs",
+        "line": 136,
+        "cue": "00_1"
+      },
+      "final_cue_text": "Here are seven notes, all called A, from low on a piano to near the top. In standard tuning their frequencies are fifty-five, a hundred and ten, two hundred and twenty, four hundred and forty, eight hundred and eighty, seventeen sixty and thirty-five twenty vibrations per second.",
+      "windows_in_final_interval": [],
+      "other_waits_in_final_interval": []
+    },
+    {
+      "cue": "01_1",
+      "next_cue": "01_2",
+      "old_kind": "prediction",
+      "old_path": "explainer_corpus/logarithm_mysteries/src/chapters/real_inverse.rs",
+      "old_line": 55,
+      "old_marker": "kit.hold(stage)?;",
+      "old_file_registered": false,
+      "old_file_bytes_match_row": true,
+      "old_marker_still_at_old_line": true,
+      "old_after_is_final_cue_text": false,
+      "old_after_in_final_cue": false,
+      "final_cue_says_at": {
+        "file": "building_ruler.rs",
+        "line": 98,
+        "cue": "01_1"
+      },
+      "final_cue_text": "First, build that ruler for every positive number, not just for notes. Put one at the start. Choose a length for doubling, and call it one step. Then two sits one step along, four sits two steps along, and eight sits three. Every doubling adds the same length.",
+      "windows_in_final_interval": [],
+      "other_waits_in_final_interval": []
+    },
+    {
+      "cue": "03_1",
+      "next_cue": "03_2",
+      "old_kind": "prediction",
+      "old_path": "explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs",
+      "old_line": 52,
+      "old_marker": "stage.wait(3.0)?;",
+      "old_file_registered": true,
+      "old_file_bytes_match_row": false,
+      "old_marker_still_at_old_line": false,
+      "old_after_is_final_cue_text": false,
+      "old_after_in_final_cue": false,
+      "final_cue_says_at": {
+        "file": "folded_decade.rs",
+        "line": 144,
+        "cue": "03_1"
+      },
+      "final_cue_text": "Why can one mark serve both two point four and twenty-four? Multiplying by ten moves exactly one full ruler length, so every decade repeats the same pattern of marks. So bend one decade into a circle. One full lap of this dial multiplies by ten.",
+      "windows_in_final_interval": [],
+      "other_waits_in_final_interval": []
+    },
+    {
+      "cue": "04_1",
+      "next_cue": "04_2",
+      "old_kind": "prediction",
+      "old_path": "explainer_corpus/logarithm_mysteries/src/chapters/product_law.rs",
+      "old_line": 86,
+      "old_marker": "kit.hold(stage)?;",
+      "old_file_registered": false,
+      "old_file_bytes_match_row": true,
+      "old_marker_still_at_old_line": true,
+      "old_after_is_final_cue_text": false,
+      "old_after_in_final_cue": false,
+      "final_cue_says_at": {
+        "file": "undoing_growth.rs",
+        "line": 203,
+        "cue": "04_1"
+      },
+      "final_cue_text": "But first, the logarithm on its home ground. The exponential function, written e to the x, takes an input and returns a multiplier. Adding inputs multiplies outputs. It equals one at zero, and its slope everywhere equals its height. The companion video builds it from scratch.",
+      "windows_in_final_interval": [],
+      "other_waits_in_final_interval": []
+    }
+  ],
+  "other_waits": [
+    {
+      "file": "ratio_ruler.rs",
+      "line": 210,
+      "cue": "00_2",
+      "marker": "stage.wait(0.18)?;",
+      "class": "picture_pacing",
+      "note": "Paces the note dots of the opening, 0.18 s each, in a loop, now inside 00_2. No hold for a viewer."
+    },
+    {
+      "file": "ratio_ruler.rs",
+      "line": 509,
+      "cue": "00_6",
+      "marker": "kit.hold(stage)",
+      "class": "helper_tail",
+      "note": "Last line of preview(), called for 00_6 directly before kit.finish, which holds to the same point. No added window."
+    },
+    {
+      "file": "ratio_ruler.rs",
+      "line": 555,
+      "cue": "00_6",
+      "marker": "super::draw::wait_until(stage, at)?;",
+      "class": "word_sync_helper",
+      "note": "Inside read_out: waits to a character share of 00_1's second sentence, inside the voice. The census lists it under 00_6 because the helper follows preview() in the file; it runs during 00_1, called at :203. An estimate from source, not a measured time."
+    },
+    {
+      "file": "slide_rule.rs",
+      "line": 102,
+      "cue": null,
+      "marker": "wait_frames(stage, frames_covering(at - now, fps))?;",
+      "class": "word_sync_helper",
+      "note": "Inside until_phrase: waits to a phrase's time, inside the voice."
+    },
+    {
+      "file": "undoing_growth.rs",
+      "line": 351,
+      "cue": "04_2",
+      "marker": "super::draw::wait_until(stage, onset)?;",
+      "class": "word_sync",
+      "note": "Waits to the onset of \"it only ever climbs\", inside 04_2."
+    },
+    {
+      "file": "matrix_logs.rs",
+      "line": 206,
+      "cue": "09_1",
+      "marker": "stage.wait(0.9)?;",
+      "class": "picture_pacing",
+      "note": "Shows each named matrix for 0.9 s, in a loop inside 09_1. Whether a pass outlasts its sentence is not fixed by source."
+    },
+    {
+      "file": "doing_nothing.rs",
+      "line": 215,
+      "cue": null,
+      "marker": "wait_frames(stage, frames_covering(at - now, fps))?;",
+      "class": "word_sync_helper",
+      "note": "Inside until_phrase: waits to a phrase's time, inside the voice."
+    },
+    {
+      "file": "doing_nothing.rs",
+      "line": 598,
+      "cue": "10_4",
+      "marker": "kit.hold(stage)?;",
+      "class": "reading_voice_end",
+      "note": "10_4's reading hold starts its arithmetic here. See reading_holds."
+    },
+    {
+      "file": "unreachable.rs",
+      "line": 288,
+      "cue": null,
+      "marker": "wait_frames(stage, frames_covering(at - now, fps))?;",
+      "class": "word_sync_helper",
+      "note": "Inside until_phrase: waits to a phrase's time, inside the voice."
+    },
+    {
+      "file": "unreachable.rs",
+      "line": 1555,
+      "cue": "11_20",
+      "marker": "kit.hold(stage)?;",
+      "class": "reading_voice_end",
+      "note": "11_20's reading clock starts when this returns. See reading_holds."
+    },
+    {
+      "file": "what_it_forgets.rs",
+      "line": 556,
+      "cue": null,
+      "marker": "wait_frames(stage, frames_covering(at - now, fps))?;",
+      "class": "word_sync_helper",
+      "note": "Inside until_share: waits to a share of a sentence, inside the voice."
+    },
+    {
+      "file": "what_it_forgets.rs",
+      "line": 634,
+      "cue": null,
+      "marker": "wait_frames(stage, frames_covering(at - now, fps))?;",
+      "class": "word_sync_helper",
+      "note": "Inside until_phrase: waits to a phrase's time, inside the voice."
+    },
+    {
+      "file": "what_it_forgets.rs",
+      "line": 1145,
+      "cue": "12_6",
+      "marker": "stage.wait(ARRIVAL_HOLD)?;",
+      "class": "picture_pacing",
+      "note": "ARRIVAL_HOLD, 0.5 s on an arrival, then until_phrase, inside 12_6."
+    }
+  ],
+  "chapter_finishes": [
+    {
+      "file": "ratio_ruler.rs",
+      "line": 443,
+      "cue": "00_6",
+      "marker": "kit.finish(stage)"
+    },
+    {
+      "file": "building_ruler.rs",
+      "line": 397,
+      "cue": "01_6",
+      "marker": "kit.finish(stage)"
+    },
+    {
+      "file": "slide_rule.rs",
+      "line": 399,
+      "cue": "02_5",
+      "marker": "kit.finish(stage)"
+    },
+    {
+      "file": "folded_decade.rs",
+      "line": 448,
+      "cue": "03_4",
+      "marker": "kit.finish(stage)"
+    },
+    {
+      "file": "undoing_growth.rs",
+      "line": 858,
+      "cue": "04_7",
+      "marker": "kit.finish(stage)"
+    },
+    {
+      "file": "complex_turns.rs",
+      "line": 736,
+      "cue": "05_7",
+      "marker": "kit.finish(stage)"
+    },
+    {
+      "file": "lifting_loops.rs",
+      "line": 692,
+      "cue": "06_7",
+      "marker": "kit.finish(stage)"
+    },
+    {
+      "file": "branch_cut.rs",
+      "line": 607,
+      "cue": "07_6",
+      "marker": "kit.finish(stage)"
+    },
+    {
+      "file": "product_rule.rs",
+      "line": 449,
+      "cue": "08_5",
+      "marker": "kit.finish(stage)"
+    },
+    {
+      "file": "matrix_logs.rs",
+      "line": 377,
+      "cue": "09_4",
+      "marker": "kit.finish(stage)"
+    },
+    {
+      "file": "doing_nothing.rs",
+      "line": 604,
+      "cue": "10_4",
+      "marker": "kit.finish(stage)"
+    },
+    {
+      "file": "unreachable.rs",
+      "line": 1676,
+      "cue": "11_8",
+      "marker": "kit.finish(stage)"
+    },
+    {
+      "file": "what_it_forgets.rs",
+      "line": 1309,
+      "cue": "12_21",
+      "marker": "kit.finish(stage)"
+    }
+  ],
+  "sentence_hooks": {
+    "literal": 285,
+    "non_literal": [
+      {
+        "file": "product_rule.rs",
+        "line": 339,
+        "cue": "08_4",
+        "code": "kit.until_sentence(stage, \"08_4\", k + 1)?;"
+      }
+    ],
+    "cue_differs_from_current": [
+      {
+        "file": "ratio_ruler.rs",
+        "line": 541,
+        "hook": "sentence_at",
+        "cue": "00_1",
+        "current": "00_6"
+      },
+      {
+        "file": "undoing_growth.rs",
+        "line": 112,
+        "hook": "sentence_at",
+        "cue": "04_2",
+        "current": null
+      },
+      {
+        "file": "undoing_growth.rs",
+        "line": 112,
+        "hook": "sentence_at",
+        "cue": "04_2",
+        "current": null
+      }
+    ]
+  },
+  "storyboard": {
+    "prediction_table_matches_source": true,
+    "reading_table_cues": [
+      "10_4",
+      "11_20"
+    ],
+    "source_reading_cues": [
+      "10_4",
+      "11_20"
+    ],
+    "reading_windows_missing_from_table": []
+  },
+  "helpers": [
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/draw.rs",
+      "sha256": "2a4e84504bab636433cd419b2c9990986d7c549bf05aa3432d33bd5a9b60fe28",
+      "line": 346,
+      "marker": "pub const THINK: f64 = 4.0;"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/draw.rs",
+      "sha256": "2a4e84504bab636433cd419b2c9990986d7c549bf05aa3432d33bd5a9b60fe28",
+      "line": 352,
+      "marker": "pub fn predict(kit: &Kit, stage: &mut Stage<'_>, at: Vec3, width: f64) -> fmn::Result<()> {"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/draw.rs",
+      "sha256": "2a4e84504bab636433cd419b2c9990986d7c549bf05aa3432d33bd5a9b60fe28",
+      "line": 354,
+      "marker": "kit.mark(stage, \"predict\");"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/draw.rs",
+      "sha256": "2a4e84504bab636433cd419b2c9990986d7c549bf05aa3432d33bd5a9b60fe28",
+      "line": 387,
+      "marker": "kit.music_breath(stage, THINK)?;"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/draw.rs",
+      "sha256": "2a4e84504bab636433cd419b2c9990986d7c549bf05aa3432d33bd5a9b60fe28",
+      "line": 389,
+      "marker": "fade_out_all(stage, &[bar, probe], 0.25)"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/main.rs",
+      "sha256": "b45e720b6ce9d63a933946d0b12fb978044512b9ff10309fa7ba3a9ef52f54e1",
+      "line": 21,
+      "marker": "line_gaps: explainer_kit::narration::LineGaps::Constant,"
+    },
+    {
+      "path": "crates/explainer_kit/src/kit.rs",
+      "sha256": "ef035faf236498e7485fb60a66d862b383e1a5040fa17962e1633596ed99e106",
+      "line": 304,
+      "marker": "pub fn hold(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {"
+    },
+    {
+      "path": "crates/explainer_kit/src/kit.rs",
+      "sha256": "ef035faf236498e7485fb60a66d862b383e1a5040fa17962e1633596ed99e106",
+      "line": 337,
+      "marker": "pub fn mark(&self, stage: &Stage<'_>, label: &str) {"
+    },
+    {
+      "path": "crates/explainer_kit/src/kit.rs",
+      "sha256": "ef035faf236498e7485fb60a66d862b383e1a5040fa17962e1633596ed99e106",
+      "line": 345,
+      "marker": "pub fn music_breath(&self, stage: &mut Stage<'_>, seconds: f64) -> fmn::Result<()> {"
+    },
+    {
+      "path": "crates/explainer_kit/src/narration.rs",
+      "sha256": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8",
+      "line": 41,
+      "marker": "pub const BREATH: f64 = 0.6;"
+    },
+    {
+      "path": "crates/explainer_kit/src/narration.rs",
+      "sha256": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8",
+      "line": 1164,
+      "marker": "pub fn hold(&self, stage: &mut Stage<'_>) -> fmn::Result<()> {"
+    },
+    {
+      "path": "crates/explainer_kit/src/narration.rs",
+      "sha256": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8",
+      "line": 1258,
+      "marker": "pub fn mark(&self, stage: &Stage<'_>, label: &str) {"
+    },
+    {
+      "path": "crates/explainer_kit/src/narration.rs",
+      "sha256": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8",
+      "line": 1268,
+      "marker": "pub fn music_breath(&self, stage: &mut Stage<'_>, seconds: f64) -> fmn::Result<()> {"
+    },
+    {
+      "path": "crates/explainer_kit/src/narration.rs",
+      "sha256": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8",
+      "line": 1302,
+      "marker": "fn window(&self, stage: &mut Stage<'_>, seconds: f64, label: Option<&str>) -> fmn::Result<()> {"
+    },
+    {
+      "path": "crates/explainer_kit/src/narration.rs",
+      "sha256": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8",
+      "line": 907,
+      "marker": "let timing_path = dir.join(\"phrase-timings.json\");"
+    }
+  ],
+  "consumers": [
+    {
+      "path": "tools/narration_delivery.py",
+      "sha256": "c91914b89bed9e7aca71a649d403fa591bf40ec135f9c3d30f9d5e45c88422ba",
+      "line": 242,
+      "marker": "def prediction_end(line, following, fps, predicts, outputs, declared, offset):"
+    },
+    {
+      "path": "tools/narration_delivery.py",
+      "sha256": "c91914b89bed9e7aca71a649d403fa591bf40ec135f9c3d30f9d5e45c88422ba",
+      "line": 318,
+      "marker": "if h.get('video') == topic.name and h.get('kind') == 'prediction')"
+    },
+    {
+      "path": "crates/explainer_kit/src/captions.rs",
+      "sha256": "28e1aa51370b8c3b2fa1f711a388d9233909503684dc4c1d77a2d5f1043b26bd",
+      "line": 524,
+      "marker": "fn prediction_end(chapter: &ChapterTimeline, line_index: usize, cue_duration: f64) -> Option<f64> {"
+    },
+    {
+      "path": "tools/final_check.py",
+      "sha256": "5996634981eef3c2e1dd6780c30f785fc33e1200beaf17afdb5a15cf42bba26a",
+      "line": 435,
+      "marker": "held = (i in hold_ends and abs(take[-1][\"end\"] - hold_ends[i]) < 1e-6"
+    },
+    {
+      "path": "crates/explainer_score/src/score.rs",
+      "sha256": "8ba3f501a487b981e65d10b92c332ca7d69c36c3326fb4443309d81068ef5592",
+      "line": 755,
+      "marker": "pub fn from_label(label: &str) -> Self {"
+    },
+    {
+      "path": "tools/coherent_narration.py",
+      "sha256": "e0aa81f352cb2c847f53dacf1d37b7d1b6a44526102df7f79329278c278c48d0",
+      "line": 74,
+      "marker": "def direction_contract(script_path, plan):"
+    },
+    {
+      "path": "tools/coherent_narration.py",
+      "sha256": "e0aa81f352cb2c847f53dacf1d37b7d1b6a44526102df7f79329278c278c48d0",
+      "line": 123,
+      "marker": "def check_dispositions(directions, lines):"
+    }
+  ],
+  "registered_chapters": [
+    {
+      "key": "00_ratio_ruler",
+      "file": "ratio_ruler.rs",
+      "sha256": "198d4a0586369258d845a21ee857eeb51e34357b61fe40398e5789379a6b5fd1"
+    },
+    {
+      "key": "01_building_ruler",
+      "file": "building_ruler.rs",
+      "sha256": "ae125e5ec9ec9bd6df073d90c9a9b77f80a9c202c04ad6803ea6ef3b8a3f903a"
+    },
+    {
+      "key": "02_slide_rule",
+      "file": "slide_rule.rs",
+      "sha256": "68d4b011fb4d90033ef1ae69aedef1639e12c11ce3624dbb5c378152d39b1ecd"
+    },
+    {
+      "key": "03_folded_decade",
+      "file": "folded_decade.rs",
+      "sha256": "c4f023ce5284dd768767b28c9d68a4da1e05c40385eb750dc9d4fbe583b6347e"
+    },
+    {
+      "key": "04_undoing_growth",
+      "file": "undoing_growth.rs",
+      "sha256": "4dc4c555122d9cd5423d7094336c1d5e6f7f9afb77d6850a38bc0148c20180ef"
+    },
+    {
+      "key": "05_complex_turns",
+      "file": "complex_turns.rs",
+      "sha256": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead"
+    },
+    {
+      "key": "06_lifting_loops",
+      "file": "lifting_loops.rs",
+      "sha256": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e"
+    },
+    {
+      "key": "07_branch_cut",
+      "file": "branch_cut.rs",
+      "sha256": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd"
+    },
+    {
+      "key": "08_product_rule",
+      "file": "product_rule.rs",
+      "sha256": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0"
+    },
+    {
+      "key": "09_matrix_logs",
+      "file": "matrix_logs.rs",
+      "sha256": "7df6f8681099c76dcd1f32494e2edcbb07b427c54178d5c557d5801052f481b0"
+    },
+    {
+      "key": "10_doing_nothing",
+      "file": "doing_nothing.rs",
+      "sha256": "7f445be212c586093d2092113b086d809dcc189619985baf1c8f0c407c709b47"
+    },
+    {
+      "key": "11_unreachable",
+      "file": "unreachable.rs",
+      "sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7"
+    },
+    {
+      "key": "12_what_it_forgets",
+      "file": "what_it_forgets.rs",
+      "sha256": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28"
+    }
+  ],
+  "unregistered_files_ignored": [
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/bookends.rs",
+      "sha256": "f5a5a48e6402b5f82022e1c2b302d526e7ff0491c9d73357811b0a09bb035555"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs.orig",
+      "sha256": "c526e62d34a42bc3d08e339a5fdbb1df51f8213ac2440207b58a829dcb5164de"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/matrix_log.rs",
+      "sha256": "d6ee8a2b63b4bb69b684fbefdec0633ac41fd02b20d758af1f24edf8b89d2e12"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/product_law.rs",
+      "sha256": "21134bccc57bcc5b324666bf1ffbfd31f294d9ad496cf6397ff52a11eeafada6"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/real_inverse.rs",
+      "sha256": "f3e18f94f7d692ae74ceedfda56dd4db10eb4fbd04dc2a3227d835af41d81e51"
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/winding.rs",
+      "sha256": "860291e51fdbc83095786e0528080cb9eba4ccc618fa00b963197c59019c444b"
+    }
+  ],
+  "cues": [
+    {
+      "cue": "00_1",
+      "unit": "oliver_00_1",
+      "words": 47,
+      "file": "ratio_ruler.rs",
+      "line": 136,
+      "next_cue": "00_2",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "00_2",
+      "unit": "oliver_00_2",
+      "words": 31,
+      "file": "ratio_ruler.rs",
+      "line": 206,
+      "next_cue": "00_3",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "00_3",
+      "unit": "oliver_00_3",
+      "words": 56,
+      "file": "ratio_ruler.rs",
+      "line": 258,
+      "next_cue": "00_4",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "00_4",
+      "unit": "oliver_00_4",
+      "words": 35,
+      "file": "ratio_ruler.rs",
+      "line": 330,
+      "next_cue": "00_5",
+      "next_cue_crosses_chapter": false,
+      "boundary": "prediction"
+    },
+    {
+      "cue": "00_5",
+      "unit": "oliver_00_5",
+      "words": 48,
+      "file": "ratio_ruler.rs",
+      "line": 374,
+      "next_cue": "00_6",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "00_6",
+      "unit": "oliver_00_6",
+      "words": 79,
+      "file": "ratio_ruler.rs",
+      "line": 441,
+      "next_cue": "01_1",
+      "next_cue_crosses_chapter": true,
+      "boundary": "chapter_end"
+    },
+    {
+      "cue": "01_1",
+      "unit": "oliver_01_1",
+      "words": 48,
+      "file": "building_ruler.rs",
+      "line": 98,
+      "next_cue": "01_2",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "01_2",
+      "unit": "oliver_01_2",
+      "words": 54,
+      "file": "building_ruler.rs",
+      "line": 132,
+      "next_cue": "01_3",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "01_3",
+      "unit": "oliver_01_3",
+      "words": 24,
+      "file": "building_ruler.rs",
+      "line": 162,
+      "next_cue": "01_4",
+      "next_cue_crosses_chapter": false,
+      "boundary": "prediction"
+    },
+    {
+      "cue": "01_4",
+      "unit": "oliver_01_4",
+      "words": 59,
+      "file": "building_ruler.rs",
+      "line": 190,
+      "next_cue": "01_5",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "01_5",
+      "unit": "oliver_01_5",
+      "words": 58,
+      "file": "building_ruler.rs",
+      "line": 268,
+      "next_cue": "01_6",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "01_6",
+      "unit": "oliver_01_6",
+      "words": 71,
+      "file": "building_ruler.rs",
+      "line": 308,
+      "next_cue": "02_1",
+      "next_cue_crosses_chapter": true,
+      "boundary": "chapter_end"
+    },
+    {
+      "cue": "02_1",
+      "unit": "oliver_02_1",
+      "words": 35,
+      "file": "slide_rule.rs",
+      "line": 120,
+      "next_cue": "02_2",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "02_2",
+      "unit": "oliver_02_2",
+      "words": 46,
+      "file": "slide_rule.rs",
+      "line": 147,
+      "next_cue": "02_3",
+      "next_cue_crosses_chapter": false,
+      "boundary": "prediction"
+    },
+    {
+      "cue": "02_3",
+      "unit": "oliver_02_3",
+      "words": 32,
+      "file": "slide_rule.rs",
+      "line": 207,
+      "next_cue": "02_4",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "02_4",
+      "unit": "oliver_02_4",
+      "words": 33,
+      "file": "slide_rule.rs",
+      "line": 255,
+      "next_cue": "02_5",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "02_5",
+      "unit": "oliver_02_5",
+      "words": 71,
+      "file": "slide_rule.rs",
+      "line": 312,
+      "next_cue": "03_1",
+      "next_cue_crosses_chapter": true,
+      "boundary": "chapter_end"
+    },
+    {
+      "cue": "03_1",
+      "unit": "oliver_03_1",
+      "words": 45,
+      "file": "folded_decade.rs",
+      "line": 144,
+      "next_cue": "03_2",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "03_2",
+      "unit": "oliver_03_2",
+      "words": 57,
+      "file": "folded_decade.rs",
+      "line": 230,
+      "next_cue": "03_3",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "03_3",
+      "unit": "oliver_03_3",
+      "words": 44,
+      "file": "folded_decade.rs",
+      "line": 329,
+      "next_cue": "03_4",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "03_4",
+      "unit": "oliver_03_4",
+      "words": 44,
+      "file": "folded_decade.rs",
+      "line": 414,
+      "next_cue": "04_1",
+      "next_cue_crosses_chapter": true,
+      "boundary": "chapter_end"
+    },
+    {
+      "cue": "04_1",
+      "unit": "oliver_04_1",
+      "words": 46,
+      "file": "undoing_growth.rs",
+      "line": 203,
+      "next_cue": "04_2",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "04_2",
+      "unit": "oliver_04_2",
+      "words": 86,
+      "file": "undoing_growth.rs",
+      "line": 290,
+      "next_cue": "04_3",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "04_3",
+      "unit": "oliver_04_3",
+      "words": 53,
+      "file": "undoing_growth.rs",
+      "line": 405,
+      "next_cue": "04_4",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "04_4",
+      "unit": "oliver_04_4",
+      "words": 71,
+      "file": "undoing_growth.rs",
+      "line": 458,
+      "next_cue": "04_5",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "04_5",
+      "unit": "oliver_04_5",
+      "words": 84,
+      "file": "undoing_growth.rs",
+      "line": 562,
+      "next_cue": "04_6",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "04_6",
+      "unit": "oliver_04_6",
+      "words": 32,
+      "file": "undoing_growth.rs",
+      "line": 674,
+      "next_cue": "04_7",
+      "next_cue_crosses_chapter": false,
+      "boundary": "prediction"
+    },
+    {
+      "cue": "04_7",
+      "unit": "oliver_04_7",
+      "words": 88,
+      "file": "undoing_growth.rs",
+      "line": 752,
+      "next_cue": "05_1",
+      "next_cue_crosses_chapter": true,
+      "boundary": "chapter_end"
+    },
+    {
+      "cue": "05_1",
+      "unit": "oliver_05_1",
+      "words": 56,
+      "file": "complex_turns.rs",
+      "line": 185,
+      "next_cue": "05_2",
+      "next_cue_crosses_chapter": false,
+      "boundary": "prediction"
+    },
+    {
+      "cue": "05_2",
+      "unit": "oliver_05_2",
+      "words": 49,
+      "file": "complex_turns.rs",
+      "line": 249,
+      "next_cue": "05_20",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "05_20",
+      "unit": "oliver_05_20",
+      "words": 63,
+      "file": "complex_turns.rs",
+      "line": 331,
+      "next_cue": "05_3",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "05_3",
+      "unit": "oliver_05_3",
+      "words": 65,
+      "file": "complex_turns.rs",
+      "line": 369,
+      "next_cue": "05_4",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "05_4",
+      "unit": "oliver_05_4",
+      "words": 45,
+      "file": "complex_turns.rs",
+      "line": 530,
+      "next_cue": "05_5",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "05_5",
+      "unit": "oliver_05_5",
+      "words": 10,
+      "file": "complex_turns.rs",
+      "line": 611,
+      "next_cue": "05_6",
+      "next_cue_crosses_chapter": false,
+      "boundary": "prediction"
+    },
+    {
+      "cue": "05_6",
+      "unit": "oliver_05_6",
+      "words": 73,
+      "file": "complex_turns.rs",
+      "line": 626,
+      "next_cue": "05_7",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "05_7",
+      "unit": "oliver_05_7",
+      "words": 67,
+      "file": "complex_turns.rs",
+      "line": 669,
+      "next_cue": "06_1",
+      "next_cue_crosses_chapter": true,
+      "boundary": "chapter_end"
+    },
+    {
+      "cue": "06_1",
+      "unit": "oliver_06_1",
+      "words": 46,
+      "file": "lifting_loops.rs",
+      "line": 235,
+      "next_cue": "06_2",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "06_2",
+      "unit": "oliver_06_2",
+      "words": 49,
+      "file": "lifting_loops.rs",
+      "line": 335,
+      "next_cue": "06_3",
+      "next_cue_crosses_chapter": false,
+      "boundary": "prediction"
+    },
+    {
+      "cue": "06_3",
+      "unit": "oliver_06_3",
+      "words": 40,
+      "file": "lifting_loops.rs",
+      "line": 377,
+      "next_cue": "06_4",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "06_4",
+      "unit": "oliver_06_4",
+      "words": 44,
+      "file": "lifting_loops.rs",
+      "line": 417,
+      "next_cue": "06_5",
+      "next_cue_crosses_chapter": false,
+      "boundary": "prediction"
+    },
+    {
+      "cue": "06_5",
+      "unit": "oliver_06_5",
+      "words": 38,
+      "file": "lifting_loops.rs",
+      "line": 478,
+      "next_cue": "06_6",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "06_6",
+      "unit": "oliver_06_6",
+      "words": 73,
+      "file": "lifting_loops.rs",
+      "line": 506,
+      "next_cue": "06_20",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "06_20",
+      "unit": "oliver_06_20",
+      "words": 64,
+      "file": "lifting_loops.rs",
+      "line": 598,
+      "next_cue": "06_7",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "06_7",
+      "unit": "oliver_06_7",
+      "words": 65,
+      "file": "lifting_loops.rs",
+      "line": 652,
+      "next_cue": "07_1",
+      "next_cue_crosses_chapter": true,
+      "boundary": "chapter_end"
+    },
+    {
+      "cue": "07_1",
+      "unit": "oliver_07_1",
+      "words": 43,
+      "file": "branch_cut.rs",
+      "line": 254,
+      "next_cue": "07_2",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "07_2",
+      "unit": "oliver_07_2",
+      "words": 88,
+      "file": "branch_cut.rs",
+      "line": 305,
+      "next_cue": "07_3",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "07_3",
+      "unit": "oliver_07_3",
+      "words": 58,
+      "file": "branch_cut.rs",
+      "line": 366,
+      "next_cue": "07_4",
+      "next_cue_crosses_chapter": false,
+      "boundary": "prediction"
+    },
+    {
+      "cue": "07_4",
+      "unit": "oliver_07_4",
+      "words": 50,
+      "file": "branch_cut.rs",
+      "line": 422,
+      "next_cue": "07_5",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "07_5",
+      "unit": "oliver_07_5",
+      "words": 80,
+      "file": "branch_cut.rs",
+      "line": 452,
+      "next_cue": "07_6",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "07_6",
+      "unit": "oliver_07_6",
+      "words": 95,
+      "file": "branch_cut.rs",
+      "line": 510,
+      "next_cue": "08_1",
+      "next_cue_crosses_chapter": true,
+      "boundary": "chapter_end"
+    },
+    {
+      "cue": "08_1",
+      "unit": "oliver_08_1",
+      "words": 76,
+      "file": "product_rule.rs",
+      "line": 108,
+      "next_cue": "08_2",
+      "next_cue_crosses_chapter": false,
+      "boundary": "prediction"
+    },
+    {
+      "cue": "08_2",
+      "unit": "oliver_08_2",
+      "words": 59,
+      "file": "product_rule.rs",
+      "line": 224,
+      "next_cue": "08_3",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "08_3",
+      "unit": "oliver_08_3",
+      "words": 80,
+      "file": "product_rule.rs",
+      "line": 272,
+      "next_cue": "08_4",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "08_4",
+      "unit": "oliver_08_4",
+      "words": 53,
+      "file": "product_rule.rs",
+      "line": 317,
+      "next_cue": "08_5",
+      "next_cue_crosses_chapter": false,
+      "boundary": "prediction"
+    },
+    {
+      "cue": "08_5",
+      "unit": "oliver_08_5",
+      "words": 81,
+      "file": "product_rule.rs",
+      "line": 349,
+      "next_cue": "09_1",
+      "next_cue_crosses_chapter": true,
+      "boundary": "chapter_end"
+    },
+    {
+      "cue": "09_1",
+      "unit": "oliver_09_1",
+      "words": 60,
+      "file": "matrix_logs.rs",
+      "line": 171,
+      "next_cue": "09_2",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "09_2",
+      "unit": "oliver_09_2",
+      "words": 60,
+      "file": "matrix_logs.rs",
+      "line": 219,
+      "next_cue": "09_3",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "09_3",
+      "unit": "oliver_09_3",
+      "words": 45,
+      "file": "matrix_logs.rs",
+      "line": 270,
+      "next_cue": "09_4",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "09_4",
+      "unit": "oliver_09_4",
+      "words": 69,
+      "file": "matrix_logs.rs",
+      "line": 300,
+      "next_cue": "10_1",
+      "next_cue_crosses_chapter": true,
+      "boundary": "chapter_end"
+    },
+    {
+      "cue": "10_1",
+      "unit": "oliver_10_1",
+      "words": 31,
+      "file": "doing_nothing.rs",
+      "line": 260,
+      "next_cue": "10_2",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "10_2",
+      "unit": "oliver_10_2",
+      "words": 56,
+      "file": "doing_nothing.rs",
+      "line": 316,
+      "next_cue": "10_3",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "10_3",
+      "unit": "oliver_10_3",
+      "words": 78,
+      "file": "doing_nothing.rs",
+      "line": 400,
+      "next_cue": "10_4",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "10_4",
+      "unit": "oliver_10_4",
+      "words": 80,
+      "file": "doing_nothing.rs",
+      "line": 537,
+      "next_cue": "11_1",
+      "next_cue_crosses_chapter": true,
+      "boundary": "reading"
+    },
+    {
+      "cue": "11_1",
+      "unit": "oliver_11_1",
+      "words": 70,
+      "file": "unreachable.rs",
+      "line": 761,
+      "next_cue": "11_2",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "11_2",
+      "unit": "oliver_11_2",
+      "words": 81,
+      "file": "unreachable.rs",
+      "line": 837,
+      "next_cue": "11_3",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "11_3",
+      "unit": "oliver_11_3",
+      "words": 73,
+      "file": "unreachable.rs",
+      "line": 963,
+      "next_cue": "11_4",
+      "next_cue_crosses_chapter": false,
+      "boundary": "prediction"
+    },
+    {
+      "cue": "11_4",
+      "unit": "oliver_11_4",
+      "words": 82,
+      "file": "unreachable.rs",
+      "line": 1074,
+      "next_cue": "11_5",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "11_5",
+      "unit": "oliver_11_5",
+      "words": 85,
+      "file": "unreachable.rs",
+      "line": 1159,
+      "next_cue": "11_6",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "11_6",
+      "unit": "oliver_11_6",
+      "words": 68,
+      "file": "unreachable.rs",
+      "line": 1249,
+      "next_cue": "11_7",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "11_7",
+      "unit": "oliver_11_7",
+      "words": 91,
+      "file": "unreachable.rs",
+      "line": 1343,
+      "next_cue": "11_20",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "11_20",
+      "unit": "oliver_11_20",
+      "words": 32,
+      "file": "unreachable.rs",
+      "line": 1501,
+      "next_cue": "11_8",
+      "next_cue_crosses_chapter": false,
+      "boundary": "reading"
+    },
+    {
+      "cue": "11_8",
+      "unit": "oliver_11_8",
+      "words": 48,
+      "file": "unreachable.rs",
+      "line": 1594,
+      "next_cue": "12_1",
+      "next_cue_crosses_chapter": true,
+      "boundary": "chapter_end"
+    },
+    {
+      "cue": "12_1",
+      "unit": "oliver_12_1",
+      "words": 34,
+      "file": "what_it_forgets.rs",
+      "line": 797,
+      "next_cue": "12_2",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "12_2",
+      "unit": "oliver_12_2",
+      "words": 42,
+      "file": "what_it_forgets.rs",
+      "line": 853,
+      "next_cue": "12_3",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "12_3",
+      "unit": "oliver_12_3",
+      "words": 45,
+      "file": "what_it_forgets.rs",
+      "line": 942,
+      "next_cue": "12_4",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "12_4",
+      "unit": "oliver_12_4",
+      "words": 94,
+      "file": "what_it_forgets.rs",
+      "line": 1016,
+      "next_cue": "12_5",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "12_5",
+      "unit": "oliver_12_5",
+      "words": 31,
+      "file": "what_it_forgets.rs",
+      "line": 1099,
+      "next_cue": "12_6",
+      "next_cue_crosses_chapter": false,
+      "boundary": "prediction"
+    },
+    {
+      "cue": "12_6",
+      "unit": "oliver_12_6",
+      "words": 39,
+      "file": "what_it_forgets.rs",
+      "line": 1126,
+      "next_cue": "12_20",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "12_20",
+      "unit": "oliver_12_20",
+      "words": 61,
+      "file": "what_it_forgets.rs",
+      "line": 1163,
+      "next_cue": "12_21",
+      "next_cue_crosses_chapter": false,
+      "boundary": "say_breath"
+    },
+    {
+      "cue": "12_21",
+      "unit": "oliver_12_21",
+      "words": 50,
+      "file": "what_it_forgets.rs",
+      "line": 1221,
+      "next_cue": null,
+      "next_cue_crosses_chapter": false,
+      "boundary": "chapter_end"
+    }
+  ]
+}

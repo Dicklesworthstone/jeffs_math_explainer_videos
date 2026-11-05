@@ -1,0 +1,38 @@
+# Part 1: numbers the unrun tests assert
+-- frame_table_limits.rs, 64x36 with 16/8 tiles
+fine tiles 8x5 = 40; macro tiles 4x3 = 12
+open curve: 2 pieces in the table, 3 in the frame
+bytes: table 104, frame 144
+rectangle on screen: x -4.0..68.0, y -4.5..40.5; 4 pieces
+-- fine references walked macro tile by macro tile, limit 39 and 12
+[4, 8, 12, 16, 20, 24, 28, 32, 34, 36, 38, 40]
+-- ignored monotone control, f32 records as the test writes them
+shape 0: 3073 pieces
+shape 682: 3073 pieces
+shape 1364: 3073 pieces
+1365 x 3073 = 4194645 pieces against 4194304
+1364 shapes would need 4191572
+table bytes 201353880 against 268435456
+curves 1397760: over the plan's 1<<20, under the test's 1<<21
+records 2796885 x 68 + segments 1397760 x 88 + pieces 4194645 x 48 = 0.51 GB, by arithmetic
+-- facade binning control, 1920x1080 with certified 16/128 tiles
+fine 120x68 = 8160; macro 15x9 = 135
+2057 x 8160 = 16785120 against 16777216; 2056 layers need 16776960
+working bytes 202782632 against 268435456
+
+# Part 2: which budget a real scene reaches first, 3840x2160 with 16/128 tiles
+fine tiles 32400, macro tiles 510
+-- full-frame instances: a hatch of diagonals references its whole bounding box
+517 fit max_tile_references, 518 refuse
+517 full-frame instances: 16750800 references, 193 MiB working bytes, 256 MiB while pruning
+518 full-frame instances: 16783200 references, 193 MiB working bytes, 256 MiB while pruning
+1024 full-frame instances: 33177600 references, 382 MiB working bytes, 506 MiB while pruning
+4096 full-frame instances: 132710400 references, 1527 MiB working bytes, 2025 MiB while pruning
+with only max_tile_references raised, working bytes bind near 22244687 references, about 686 instances
+-- rotating z^2 rows on the cells4 grid, by the validation02 demand
+pieces a generation 537285; two generations 1074570 against 4194304
+a row at 45 degrees spans about 1069 px, 68x68 tiles; about 3380144 references against 16777216
+the 4,292,432 in validation02 was a bound of 4 pieces a segment over two generations; a straight segment makes 1
+exception: rounding can make a nearly constant axis look curved at a turn near 0 or 90 degrees; the bound still holds
+-- where the two monotone budgets cross
+max_table_bytes alone admits 5592405 pieces; raising max_pieces past that needs max_table_bytes too

@@ -1,0 +1,151 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs
+@@ -61,7 +61,7 @@
+ use super::draw::{
+     answer_c, arc_points, arrow_parts, clipped_grid, dot, fact, fact_f64, fact_list, fact_matrix, fade_in_all,
+     fade_in_lagged, fade_out_all, faded_line, fail, flat, group, lap_c, letter_f, line_style, matrix_card, number_c,
+-    path, position_c, precisely, predict, ring, seg, shown, slide_c, swap, title, tween_all, value, warn_c,
++    path, position_c, predict, ring, seg, shown, slide_c, swap, title, tween_all, value, warn_c,
+ };
+ use crate::model::{self, I2, J, M2};
+ 
+@@ -901,9 +901,9 @@
+         let d1 = fact_f64("matrix.flow_det_t1")?;
+         let t1 = kit.text_left(
+             stage,
+-            &format!("t = 1: {}", fact("matrix.flow_det_t1")?),
+-            18.0,
+-            Palette::dim(),
++            &format!("t = 1: ≈ {}", fact("matrix.flow_det_t1")?),
++            22.0,
++            blue,
+             v(GAUGE_X + 0.3, gauge(d1)[1]),
+         )?;
+         fade_in_all(stage, &[t1], 0.3)?;
+@@ -911,9 +911,9 @@
+         let d3 = fact_f64("matrix.flow_det_t3")?;
+         let t3 = kit.text_left(
+             stage,
+-            &format!("t = 3: {}", fact("matrix.flow_det_t3")?),
+-            18.0,
+-            Palette::dim(),
++            &format!("t = 3: ≈ {}", fact("matrix.flow_det_t3")?),
++            22.0,
++            blue,
+             v(GAUGE_X + 0.3, gauge(d3)[1]),
+         )?;
+         fade_in_all(stage, &[t3], 0.3)?;
+@@ -952,7 +952,7 @@
+             red,
+             v(GAUGE_X + 0.3, gauge(mirror_det)[1]),
+         )?;
+-        let liouville = precisely(
++        let liouville = footer(
+             &kit,
+             stage,
+             "for any real linear flow, steady or not, det = exp(∫ trace dt) > 0 (Liouville)",
+@@ -1499,7 +1499,7 @@
+         play!(stage; tween(equal_c, STRETCH_C, run_by(by, now, 0.8, 1.6))?);
+         // 11_20: the rest of the line, split at the narration's cap of 100 words
+         kit.say(stage, "11_20")?;
+-        let cite = precisely(
++        let cite = footer(
+             &kit,
+             stage,
+             "Culver, Proc. AMS 17 (1966) 1146–1151, as stated by Higham (Handbook of Linear Algebra) and Gallier (Thm 3.4)",
+@@ -1650,7 +1650,7 @@
+             gold,
+             v(0.0, -0.9),
+         )?;
+-        let src = precisely(
++        let src = footer(
+             &kit,
+             stage,
+             "Gallier, arXiv 0805.0245, Theorem 3.3, proved via the Jordan form",
+@@ -1675,6 +1675,20 @@
+         fade_in_all(stage, &[singular, like_zero], 0.5)?;
+         kit.finish(stage)
+     }
++}
++
++/// The chapter's footers: `draw::precisely`'s words, in ink and lifted off the
++/// frame's edge. They stand here, after the film's code, so that no held line moves.
++const FOOTER_Y: f64 = -3.4;
++
++fn footer(kit: &Kit, stage: &mut Stage<'_>, words: &str) -> fmn::Result<Mob> {
++    kit.text(
++        stage,
++        &format!("precisely: {words}"),
++        22.0,
++        Palette::ink(),
++        v(0.0, FOOTER_Y),
++    )
+ }
+ 
+ #[cfg(test)]
+@@ -1888,6 +1902,56 @@
+             let e = model::C::new(l, PI).exp();
+             assert!((e.re - target).abs() < 1e-12 && e.im.abs() < 1e-12);
+         }
++    }
++
++    /// The notes are rounded and say so. Each is what the live readout prints while
++    /// the clock stands at its time. Once the clock runs on, the readout leaves it,
++    /// which is what a frame with 1.222 beside the note's 1.221 shows.
++    #[test]
++    fn the_gauge_notes_say_approximately_and_match_the_readout_at_their_moments() {
++        let film = include_str!("unreachable.rs").split("#[cfg(test)]").next().unwrap();
++        for (note, t, key) in [
++            ("t = 1: ≈ {}", 1.0, "matrix.flow_det_t1"),
++            ("t = 3: ≈ {}", FLOW_TIMES.1, "matrix.flow_det_t3"),
++        ] {
++            let styled = format!("{note}\", fact(\"{key}\")?),\n            22.0,\n            blue,");
++            assert_eq!(film.matches(styled.as_str()).count(), 1, "{note}");
++            let d = model::det(model::flow(FLOW, t));
++            let printed = fact(key).unwrap();
++            assert_eq!(format!("{d:.3}"), printed, "{key}");
++            let error = (printed.parse::<f64>().unwrap() - d).abs();
++            assert!(error > 1e-6 && error < 0.0005, "{key}: {error}");
++        }
++    }
++
++    /// All three footers in ink, 5% of the frame's height clear below and clear of
++    /// what stands lowest while each shows: the gauge, the block rows, the closing line.
++    #[test]
++    fn the_footers_are_in_ink_and_clear_of_the_edge_and_the_film() {
++        let film = include_str!("unreachable.rs").split("#[cfg(test)]").next().unwrap();
++        assert_eq!(film.matches(" = footer(").count(), 3);
++        assert!(!film.contains(" = precisely("));
++        assert!(film.contains("Palette::ink(),\n        v(0.0, FOOTER_Y),"));
++        super::super::draw::probe_scene(|stage| {
++            let kit = Kit::new()?;
++            for words in [
++                "for any real linear flow, steady or not, det = exp(∫ trace dt) > 0 (Liouville)",
++                "Culver, Proc. AMS 17 (1966) 1146–1151, as stated by Higham (Handbook of Linear Algebra) and Gallier (Thm 3.4)",
++                "Gallier, arXiv 0805.0245, Theorem 3.3, proved via the Jordan form",
++            ] {
++                let m = footer(&kit, stage, words)?;
++                let bottom = stage.get_bounding_box_point(m, DOWN)[1];
++                assert!(bottom > -3.6, "{words}: {bottom}");
++                let top = stage.get_bounding_box_point(m, UP)[1];
++                assert!(top < gauge(GAUGE_RANGE.0)[1] - 0.3, "{words}: {top}");
++                assert!(top < ROWS_TOP - 3.0 * ROWS_PITCH - BRACKET_FOOT - 0.3, "{words}: {top}");
++                // "flattening matrices, like zero, ...", 22 pt at y -2.5
++                assert!(top < -2.5 - 0.12 - 0.3, "{words}: {top}");
++                let reach = stage.get_bounding_box_point(m, RIGHT)[0];
++                assert!(reach < TEXT_RIGHT, "{words}: {reach}");
++            }
++            Ok(())
++        });
+     }
+ 
+     #[test]
+@@ -2292,7 +2356,7 @@
+         // and the last row stays above the fine print
+         const { assert!(BLOCKS_HEAD_Y + 0.12 < 3.2 && ROWS_TOP + TILE_HALF < BLOCKS_HEAD_Y - 0.12) };
+         const { assert!(TILE_HALF < BRACKET_TOP && BRACKET_FOOT < ROWS_PITCH - TILE_HALF) };
+-        const { assert!(ROWS_TOP - 3.0 * ROWS_PITCH - BRACKET_FOOT > -3.4) };
++        const { assert!(ROWS_TOP - 3.0 * ROWS_PITCH - BRACKET_FOOT > FOOTER_Y + 0.2) };
+     }
+ 
+     #[test]

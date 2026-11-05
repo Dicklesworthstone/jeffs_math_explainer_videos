@@ -1,0 +1,13 @@
+cue	call	hook	status
+15_1	wait_for	at i and minus i	kept
+15_1	wait_for	because of two points	kept
+15_1	wait_sentence	1	kept
+15_2	wait_for	and it turns a real integral	kept
+15_2	wait_sentence	1	kept
+15_2	wait_sentence	2	kept
+15_2	wait_sentence	3	kept
+15_2	wait_sentence	4	kept
+15_2	wait_sentence	5	kept
+15_3	wait_sentence	1	kept
+15_4	wait_for	the square root of ten	kept
+15_4	wait_sentence	1	kept

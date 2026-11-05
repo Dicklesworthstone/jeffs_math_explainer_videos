@@ -1,0 +1,187 @@
+== baseline and patch
+PASS canonical is the file this repair was written against: e938b750ce579faed820ae7ddd0d289819f7148bdfb991dc99f24d35d6f8491b
+PASS stage06 carries the same bytes
+  src/chapters/draw.rs: canonical 2a4e84504bab6364 stage06 2a4e84504bab6364 same
+  src/facts.rs: canonical 8901e74b0afdc6ea stage06 8901e74b0afdc6ea same
+  src/model.rs: canonical 8c9e3c6abfcc48d5 stage06 8c9e3c6abfcc48d5 same
+  script.tsv: canonical f201d2dc57fa9cca stage06 f201d2dc57fa9cca same
+  oracle.py: canonical 3bf99af6e88bdfc3 stage06 3bf99af6e88bdfc3 same
+PASS the patch applies to canonical by git apply and gives the staged bytes
+PASS and reverses
+staged what_it_forgets.rs 6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28
+patch b4662627c93ac4fe6d437568c33dfb274d4b5a6048aeba5b4572b07ad6ad2f19
+
+== what the patch changes in film code
+PASS the film's code up to its closing brace keeps its line count: 1311 lines
+PASS exactly the expected film lines change: [50, 104, 141, 1244, 1245, 1246, 1251, 1266, 1273, 1283, 1297, 1298, 1299]
+  50: - flat, group, lap_c, number_c, path, position_c, precisely, predict, ring, seg, slide_c, swap, title, value, wa
+  50: + flat, group, lap_c, number_c, path, position_c, predict, ring, seg, slide_c, swap, title, value, warn_c,
+  104: - const FAMILY_LABEL_Y: f64 = -3.1;
+  104: + const FAMILY_LABEL_Y: f64 = -2.9;
+  141: - const TURNING_Y: f64 = -1.6;
+  141: + const TURNING_Y: f64 = -1.4;
+  1244: - 16.0,
+  1244: + 20.0,
+  1245: - Palette::dim(),
+  1245: + Palette::ink(),
+  1246: - v(p[0], p[1] - 0.3),
+  1246: + v(p[0], p[1] - 0.32),
+  1251: - marks.push(kit.text(stage, "…", 20.0, Palette::dim(), turning_at(side * 3.75 * PI))?);
+  1251: + marks.push(kit.text(stage, "…", 20.0, Palette::ink(), turning_at(side * 3.75 * PI))?);
+  1266: - v(1.4, -1.1),
+  1266: + v(1.4, -0.9),
+  1273: - v(1.4, -2.3),
+  1273: + v(1.4, -2.1),
+  1283: - let source = precisely(
+  1283: + let source = footer(
+  1297: - 18.0,
+  1297: + 20.0,
+  1298: - Palette::dim(),
+  1298: + Palette::ink(),
+  1299: - v(1.4, -2.7),
+  1299: + v(1.4, -2.5),
+PASS what follows the film's code is only the footer helper: 16 lines
+PASS no timed call changes
+
+== what the viewer reads
+PASS every string in the film's code stays, byte for byte and in order
+PASS on screen still: how far each of these spins turns in one unit of time:
+PASS on screen still: the slowest two, ±π, tie on the window's open edge
+PASS on screen still: spins ending here: ±{}, ±{}, … laps per unit time about the rod; eigenvalue −1, so no principal log (Higham §4 Fact 1)
+PASS on screen still: for the number −1, Log(−1) = iπ by convention
+PASS on screen still: here: the whole family
+PASS the footer helper builds what draw::precisely built
+PASS the footer keeps its fact-derived laps
+PASS the line keeps every mark and the family's dots: for k in -3..=3_i64 {
+PASS the line keeps every mark and the family's dots: for k in [-3.0, -1.0, 1.0, 3.0] {
+PASS the line keeps every mark and the family's dots: marks.push(kit.text(stage, "…", 20.0,
+PASS script.tsv, facts.rs and oracle.py are outside the patch
+
+== room, from extents measured on frame 378 and the staged centres
+  staged centres {'how': -0.9, 'line': -1.4, 'off': 0.32, 'lh': 0.139, 'tie': -2.1, 'conv': -2.5, 'ch': 0.198, 'fam': -2.9, 'foot': -3.4}
+  so to how far: 0.689 -> 0.489
+  how far to rings on the line: 0.233 -> 0.233
+  rings on the line to labels: 0.077 -> 0.084
+  labels to tie: 0.244 -> 0.211
+  tie to convention: 0.211 -> 0.201
+  convention to family: 0.211 -> 0.201
+  family to footer: 0.300 -> 0.280
+  footer to the frame's edge: 0.267 -> 0.487
+  lowest of the rod and cube, y -2.556, to the footer: 0.944 -> 0.724
+PASS no two rows touch, and the smallest gap is the one under the rings, as it was
+PASS the rows' gaps stay at least 0.2
+PASS the footer clears 5% of the height
+PASS the how-far row stays clear of the so row, by more than the rows' own gap
+PASS the convention at 20 pt fits the table's limit: right edge by table 5.693; measured from 18 pt 5.560
+PASS the footer's width still fits
+  footer: measured 12.622 wide at 22 pt; at 23 pt 13.196, at 24 pt 13.769, against the lint's 13.72; 128 characters
+PASS the labels at 20 pt stay apart under marks 0.62 apart: least gap by table 0.214; widest measured at 16 pt 0.256, so 0.320 at 20 pt
+PASS the test's numeric half holds on the staged centres, mirrored
+PASS planted, caught by the numeric half: the footer back at -3.62
+PASS planted, caught by the numeric half: the family's row left at -3.1, under the raised footer
+PASS planted, caught by the numeric half: the line left at -1.6 with the rows raised
+PASS planted, caught by the numeric half: the labels pushed down onto the tie's row
+PASS planted, caught by the numeric half: the labels back up against the rings
+
+== the new test's source half, and plants
+PASS its source half passes on staged
+PASS control: it fails on canonical
+PASS no stale precisely import remains, or Clippy would refuse it
+PASS control: canonical does use it
+PASS draw::precisely keeps callers once chapters 10, 11 and 12's patches land, so it does not go dead: branch_cut.rs, product_rule.rs, ratio_ruler.rs, slide_rule.rs, undoing_growth.rs
+PASS and my sealed patch for doing_nothing.rs does drop it, so that list is right
+PASS and my sealed patch for unreachable.rs does drop it, so that list is right
+PASS planted, caught: the labels go back to 16 pt
+PASS planted, caught: the labels go back to dim
+PASS planted, caught: the dots go back to dim
+PASS planted, caught: the convention goes back to 18 pt
+PASS planted, caught: the convention goes back to dim
+PASS planted, caught: the footer goes back to the helper
+PASS planted, caught: the footer goes back to dim
+PASS planted, caught: a stale import returns
+PASS planted, caught: a word changes on the convention
+PASS planted, caught: the convention's phrase wait goes
+PASS no stale value remains in the new file: v(1.4, -1.1)
+PASS no stale value remains in the new file: v(1.4, -2.3)
+PASS no stale value remains in the new file: v(1.4, -2.7)
+PASS no stale value remains in the new file: -3.62
+
+== bindings
+PASS map13 has one visual hold on this file: ['12_5']
+PASS 12_5: the interval formula reproduces map13's value on canonical: b238a92968284627
+PASS 12_5: its line and marker survive: line 1123
+PASS 12_5: its interval is unchanged, since the block's edits start after it: b238a92968284627ce972479bb1c5a93ac5f5df33efee0b17ddea5d362c8387f
+PASS 12_5: the file's two evidence hashes are the ones to rebind
+  12_5 -> 12_6, lines 1099..1123: sha256 and evidence.sha256 e938b750ce579fae -> 6951d3b2f1573876; interval UNCHANGED b238a92968284627ce972479bb1c5a93ac5f5df33efee0b17ddea5d362c8387f
+PASS hold-audit: no reading hold names this file
+PASS all 12 other hold-audit rows on this file keep their line and marker: []
+PASS all 5 phrase anchors on this file keep their hook line, const and words: []
+PASS their source_sha256 names the old hash, so the binder must regenerate them
+PASS the 3 sentence-share hooks on this file keep their lines and consts: []
+  sentence-share rows on this file: [('12_20', 1199, 'AXIS_RESET'), ('12_20', 1202, 'AXIS_CHIP'), ('12_21', 1280, 'TIE_AT')]
+PASS draw.rs, a shared helper map13 names, is untouched by this patch: 2a4e84504bab6364
+PASS narration_units.json does not name the source hash
+PASS names the old hash, so it needs the new input: explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver13.json
+PASS names the old hash, so it needs the new input: explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json
+PASS names the old hash, so it needs the new input: bound-plan/hold-audit.json
+PASS names the old hash, so it needs the new input: bound-plan/inputs.sha256
+PASS names the old hash, so it needs the new input: bound-plan/phrase-anchors.json
+PASS names the old hash, so it needs the new input: bound-plan/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver13.json
+
+== docs/check_cues.py on a scratch copy
+  canonical copy exit 0; staged copy exit 0: 80 cues, 364 sentences, 80 said
+registered modules read, in registry order: ratio_ruler, building_ruler, slide_rule, fol
+PASS the cue checker passes both, with identical output
+PASS control: it refuses the file with a say removed: exit 1
+
+== rustfmt
+PASS rustfmt --check canonical
+PASS rustfmt --check staged
+
+== old frames
+frame 378, 1280 x 720, ground (12, 17, 20)
+nominal contrast: dim 6.13, ink 16.47
+
+as staged, frame 378
+  so row, gold 24 pt: x 0.600..5.111 (width 4.511), y -0.311..-0.089 (height 0.222); brightest tenth 12.89, median 7.33
+  how far, ink 20 pt: the convention's and labels' new spec: x 1.400..6.044 (width 4.644), y -1.200..-1.000 (height 0.200); brightest tenth 14.78, median 8.03
+  number-line labels, dim 16 pt: x 1.911..5.844 (width 3.933), y -1.956..-1.844 (height 0.111); brightest tenth 5.16, median 3.12
+  the tie, gold 20 pt: x 1.400..5.911 (width 4.511), y -2.400..-2.200 (height 0.200); brightest tenth 12.58, median 6.06
+  convention, dim 18 pt: x 1.400..5.144 (width 3.744), y -2.789..-2.611 (height 0.178); brightest tenth 5.56, median 2.96
+  the family, gold 20 pt: x 1.400..3.356 (width 1.956), y -3.200..-3.000 (height 0.200); brightest tenth 12.10, median 6.27
+  footer, dim 22 pt: x -6.311..6.311 (width 12.622), y -3.733..-3.500 (height 0.233); brightest tenth 5.90, median 3.74
+  left dots, dim 20 pt: x 1.500..1.644 (width 0.144), y -1.611..-1.589 (height 0.022); brightest tenth 5.54, median 3.57
+  lowest of the cube and rod: y -2.556
+  label k = -3: x 1.911..2.167 (width 0.256), y -1.956..-1.844 (height 0.111); brightest tenth 5.33, median 3.22
+  label k = -2: x 2.533..2.789 (width 0.256), y -1.956..-1.844 (height 0.111); brightest tenth 5.12, median 3.19
+  label k = -1: x 3.200..3.367 (width 0.167), y -1.944..-1.856 (height 0.089); brightest tenth 4.49, median 3.15
+  label k = +0: x 3.867..3.933 (width 0.067), y -1.956..-1.844 (height 0.111); brightest tenth 5.94, median 3.27
+  label k = +1: x 4.478..4.556 (width 0.078), y -1.944..-1.856 (height 0.089); brightest tenth 4.72, median 2.66
+  label k = +2: x 5.056..5.222 (width 0.167), y -1.956..-1.844 (height 0.111); brightest tenth 4.67, median 3.25
+  label k = +3: x 5.678..5.844 (width 0.167), y -1.956..-1.844 (height 0.111); brightest tenth 4.73, median 2.99
+
+control: the probe on old frame 378
+  fails on: labels: height 0.256, wanted (0.125, 0.165)
+  fails on: dots: no ink on the line's left end at y -1.4
+  fails on: convention: height 0.400, wanted (0.17, 0.23)
+  fails on: footer: 0.267 from the frame's edge, wanted 0.4
+  fails on: footer: brightest tenth 5.90, wanted 11.0
+  fails on: family: height 0.400, wanted (0.17, 0.23)
+
+mock-up of frame 378, NOT A RENDER
+  labels: x 1.878..5.867 (width 3.989), y -1.789..-1.656 (height 0.133); brightest tenth 11.79, median 5.25
+  dots: x 1.500..1.644 (width 0.144), y -1.411..-1.389 (height 0.022); brightest tenth 14.21, median 7.96
+  convention: x 1.400..5.556 (width 4.156), y -2.600..-2.400 (height 0.200); brightest tenth 13.29, median 4.58
+  family: x 1.400..3.356 (width 1.956), y -3.000..-2.800 (height 0.200); brightest tenth 12.10, median 6.27
+  footer: x -6.311..6.311 (width 12.622), y -3.522..-3.289 (height 0.233); brightest tenth 15.60, median 8.51
+  the probe: passes
+
+the room the repair uses, on every sampled frame from 145.0 s to the chapter's end
+  frames 332..378, 47 of them, 145.0 s to 165.016 s
+  above the block, for how far: x 1.2..6.9, y -0.42..-0.93: ink on 0 frames []
+  left of the block: x 0.6..1.3, y -0.42..-2.9: ink on 0 frames []
+  right of the rows: x 6.4..7.11, y -1.9..-3.3: ink on 0 frames []
+  under the cube, for the footer: x -7.11..0.9, y -2.95..-3.45: ink on 0 frames []
+
+wrote the sheet: (1280, 2948)
+PASS closing_probe.py exits 0 with its controls

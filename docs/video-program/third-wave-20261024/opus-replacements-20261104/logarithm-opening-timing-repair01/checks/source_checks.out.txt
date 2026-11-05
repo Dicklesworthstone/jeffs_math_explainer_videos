@@ -1,0 +1,79 @@
+== script and neighbours
+PASS script.tsv f201d2dc57fa9cca: not touched, every take's text stands
+PASS the candidate tree holds exactly these: ['folded_decade.rs', 'ratio_ruler.rs', 'slide_rule.rs']
+
+== each cue's say, and the order of all says
+PASS ratio_ruler.rs: says in the same order: ['00_1', '00_2', '00_3', '00_4', '00_5', '00_6']
+  say lines moved: {'00_2': (212, 206)}
+PASS folded_decade.rs: says in the same order: ['03_1', '03_2', '03_3', '03_4']
+  say lines moved: {'03_4': (407, 414)}
+PASS slide_rule.rs: says in the same order: ['02_1', '02_2', '02_3', '02_4', '02_5']
+  say lines moved: {}
+
+== ratio_ruler.rs: what stays on its line
+PASS lines 213 to 509 are byte-identical and keep their numbers
+PASS line 213 is still the first hook of 00_2
+PASS line 371: predict(&kit, stage, v(3.6, -2.75), 3.0)?;
+timing sites, baseline: [(181, 'stage.wait(0.18)?;', '00_1'), (371, 'predict(&kit, stage, v(3.6, -2.75), 3.0)?;', '00_4'), (443, 'kit.finish(stage)', '00_6'), (509, 'kit.hold(stage)', '00_6')]
+timing sites, candidate: [(210, 'stage.wait(0.18)?;', '00_2'), (371, 'predict(&kit, stage, v(3.6, -2.75), 3.0)?;', '00_4'), (443, 'kit.finish(stage)', '00_6'), (509, 'kit.hold(stage)', '00_6'), (555, 'super::draw::wait_until(stage, at)?;', '00_6')]
+binder SITES keys, baseline: [181, 509] candidate: [210, 509, 555]
+PASS control: the baseline's non-predict waits are the binder's two rows, 181 and 509
+PASS candidate's are 509 (unchanged), 210 (the dots) and 555 (new)
+PASS ratio_ruler.rs still has no phrase_marks use, as the binder pins
+
+== folded_decade.rs and slide_rule.rs
+PASS folded_decade.rs: no timing site added: [('kit.finish', 'kit.finish(stage)')]
+PASS folded_decade.rs: no phrase hook
+PASS slide_rule.rs: timing sites identical: [102, 204, 399]
+PASS slide_rule.rs: all says on the same lines
+PASS binder SITES row (slide_rule.rs, 102) still holds: wait_frames(stage, frames_covering(at - now, fps))?;
+slide_rule.rs scene lines changed: [158, 192, 223]
+PASS three scene lines, none moved
+PASS slide_rule.rs: phrase hooks on the same lines: [73, 80, 96, 97, 129, 165]
+
+== sentence hooks the binder counts
+ratio_ruler.rs: 15 to 16; new off the current cue: [(541, '00_1', 1, '00_6')]
+folded_decade.rs: 14 to 16; new off the current cue: []
+slide_rule.rs: 15 to 15; new off the current cue: []
+literal sentence hooks, net change: 3
+PASS three more literal sentence hooks: one in read_out, two in 03_3
+PASS 03_3's hooks sit on their own cue
+
+== hold rows in map13
+PASS no hold binds folded_decade.rs
+PASS one hold each binds ratio_ruler.rs (00_4) and slide_rule.rs (02_2)
+PASS none of the three is a shared helper
+PASS control: 00_4 row's source hash is the baseline
+PASS control: my interval hash reproduces map13's for 00_4
+00_4 -> 00_5 ratio_ruler.rs
+  sha256 and evidence.sha256: 92cf028b124f8a3732218cbe31505e5351f86fea5bad180c0d3c97240e077bfd -> 198d4a0586369258d845a21ee857eeb51e34357b61fe40398e5789379a6b5fd1
+  line: 371 -> 371
+  marker: predict(&kit, stage, v(3.6, -2.75), 3.0)?;
+  interval_sha256: 86bf44bb70227da9e2f416862ba78a056faaaa05b3b7955e8bc009d769001515 -> 86bf44bb70227da9e2f416862ba78a056faaaa05b3b7955e8bc009d769001515 (unchanged)
+PASS control: 02_2 row's source hash is the baseline
+PASS control: my interval hash reproduces map13's for 02_2
+02_2 -> 02_3 slide_rule.rs
+  sha256 and evidence.sha256: eea4d01d96fd4853ff541e0f55264178a09428079200dd9397b148a3976ab7e4 -> 68d4b011fb4d90033ef1ae69aedef1639e12c11ce3624dbb5c378152d39b1ecd
+  line: 204 -> 204
+  marker: predict(&kit, stage, v(4.7, -2.75), 3.0)?;
+  interval_sha256: e45bdd98eeb62a82c547c28c645a4416ef1cc35c19bcfaff38420281e2a38c07 -> 20094536ae2191f558b6ca76bc94b089e10f8fbe2bf78647b08036b306a75215 (CHANGED)
+PASS 00_4: line 371 and its interval hash survive
+PASS 02_2: line 204 survives, its interval hash changes because two edits lie inside it
+
+== other pins of the old hashes in canonical's crate docs (not changed here)
+ratio_ruler.rs explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json 2
+ratio_ruler.rs explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver13.json 2
+slide_rule.rs explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver12.json 2
+slide_rule.rs explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver13.json 2
+
+== patch round trip on a scratch copy
+PASS git apply --check on the baseline
+PASS applying it gives the three candidates' bytes
+PASS reversing it gives the baseline's bytes
+
+== format
+PASS rustfmt --check ratio_ruler.rs, edition 2024, width 120
+PASS rustfmt --check folded_decade.rs, edition 2024, width 120
+PASS rustfmt --check slide_rule.rs, edition 2024, width 120
+
+RESULT PASS

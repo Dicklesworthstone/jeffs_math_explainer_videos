@@ -1,0 +1,8 @@
+PASS rustfmt --check counting.rs, staged
+rustfmt --check main.rs parses every module, staged: exit 0
+PASS rustfmt --check counting.rs, staged+plate
+rustfmt --check main.rs parses every module, staged+plate: exit 0
+PASS rustfmt --check counting.rs, C2+C3
+rustfmt --check main.rs parses every module, C2+C3: exit 0
+PASS rustfmt --check counting.rs, C1+C2+C3+plate
+rustfmt --check main.rs parses every module, C1+C2+C3+plate: exit 0

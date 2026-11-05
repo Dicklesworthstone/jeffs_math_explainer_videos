@@ -1,0 +1,100 @@
+05_complex_turns	f50	said 22.538	is 22.538	ok
+05_complex_turns	f61	said 27.433	is 27.433	ok
+05_complex_turns	f134	said 60.000	is 60.000	ok
+05_complex_turns	f136	said 60.600	is 60.600	ok
+05_complex_turns	f185	said 80.500	is 80.500	ok
+05_complex_turns	f215	said 94.500	is 94.500	ok
+05_complex_turns	f227	said 98.500	is 98.533	ok
+05_complex_turns	f286	said 121.113	is 121.113	ok
+05_complex_turns	f297	said 126.000	is 126.000	ok
+05_complex_turns	f332	said 143.000	is 143.000	ok
+05_complex_turns	f348	said 151.000	is 151.000	ok
+05_complex_turns	f362	said 155.100	is 155.100	ok
+05_complex_turns	f172	said 74.000	is 74.000	ok
+05_complex_turns	f173	said 74.500	is 74.500	ok
+05_complex_turns	f374	said 159.000	is 159.000	ok
+05_complex_turns	f376	said 160.000	is 160.000	ok
+05_complex_turns	f405	said 173.500	is 173.500	ok
+05_complex_turns	f406	said 174.000	is 174.000	ok
+05_complex_turns	f67	said 29.000	is 29.000	ok
+05_complex_turns	f168	said 72.733	is 72.733	ok
+05_complex_turns	lint anchors 6
+05_complex_turns	anchor	{"anchor": 60.6, "report": "before 05_3 @60.6s\toverlap\t\"zw\" and \"2i\" overlap (35% of the smaller) (still there at 57 later looks)"}
+05_complex_turns	anchor	{"anchor": 92.0, "report": "05_3 +31.4s @92.0s\tbehind\ta stroke of an unlabeled shape (x 2.76..4.71, y -0.09..1.86), painted under \"laps:\", passes through it near (4.63, 1.78) (still there at 118 later looks)"}
+05_complex_turns	anchor	{"anchor": 92.0, "report": "05_3 +31.4s @92.0s\tbehind\ta stroke of an unlabeled shape (x 2.69..2.71, y -2.98..-0.26), painted under \"each lap drawn a little further \", passes through it near (2.70, -2.81) (still there at 118 later looks)"}
+05_complex_turns	anchor	{"anchor": 99.6, "report": "05_4 +3.9s @99.6s\tcrossed\ta stroke of an unlabeled shape (x -4.81..3.46, y -0.16..-0.14), painted over \"0\", passes through it near (-4.05, -0.15) (still there at 78 later looks)"}
+05_complex_turns	anchor	{"anchor": 154.8, "report": "05_7 +4.4s @154.8s\tbehind\ta stroke of an unlabeled shape (x 0.38..5.02, y -2.47..2.17), painted under \"length 2, angle 0.6π\", passes through it near (1.58, 1.87) (still there at 126 later looks)"}
+05_complex_turns	anchor	{"anchor": 166.0, "report": "05_7 +15.6s @166.0s\tbehind\ta stroke of an unlabeled shape (x 1.29..4.11, y -1.56..1.26), painted under \"0: no logarithm\", passes through it near (4.01, -0.65) (still there at 70 later looks)"}
+06_lifting_loops	f88	said 38.446	is 38.446	ok
+06_lifting_loops	f102	said 43.500	is 43.500	ok
+06_lifting_loops	f103	said 43.633	is 43.633	ok
+06_lifting_loops	f169	said 70.500	is 70.500	ok
+06_lifting_loops	f184	said 77.156	is 77.156	ok
+06_lifting_loops	f196	said 82.033	is 82.033	ok
+06_lifting_loops	f197	said 82.233	is 82.233	ok
+06_lifting_loops	f268	said 114.000	is 114.000	ok
+06_lifting_loops	f271	said 115.500	is 115.500	ok
+06_lifting_loops	f336	said 145.000	is 145.000	ok
+06_lifting_loops	f391	said 169.500	is 169.500	ok
+06_lifting_loops	f394	said 170.400	is 170.400	ok
+06_lifting_loops	lint anchors 4
+06_lifting_loops	anchor	{"anchor": 0.8, "report": "06_1 +0.8s @0.8s\tedge\tan unlabeled shape spans x -7.00..-1.20, y -3.00..2.40; frame ±7.11 × ±4.00, safe area ±6.96 × ±3.85 (still there at 893 later looks)"}
+06_lifting_loops	anchor	{"anchor": 0.8, "report": "06_1 +0.8s @0.8s\tedge\tan unlabeled shape spans x -7.00..-1.20, y -3.00..2.40; frame ±7.11 × ±4.00, safe area ±6.96 × ±3.85 (still there at 886 later looks)"}
+06_lifting_loops	anchor	{"anchor": 48.4, "report": "06_3 +5.0s @48.4s\tcrossed\ta stroke of an unlabeled shape (x 0.43..0.57, y -2.72..-0.30), painted over \"2πi\", passes through it near (0.45, -0.34) (still there at 53 later looks)"}
+06_lifting_loops	anchor	{"anchor": 170.4, "report": "hold @170.4s\toverlap\t\"3πi\" and \"no continuous logarithm on a loo\" overlap (79% of the smaller) (still there at 34 later looks)"}
+07_branch_cut	f96	said 41.500	is 41.500	ok
+07_branch_cut	f158	said 69.000	is 69.000	ok
+07_branch_cut	f174	said 75.741	is 75.741	ok
+07_branch_cut	f177	said 76.500	is 76.500	ok
+07_branch_cut	f185	said 80.500	is 80.500	ok
+07_branch_cut	f186	said 80.633	is 80.633	ok
+07_branch_cut	f187	said 80.833	is 80.833	ok
+07_branch_cut	f189	said 81.133	is 81.133	ok
+07_branch_cut	f196	said 84.500	is 84.500	ok
+07_branch_cut	f218	said 95.500	is 95.500	ok
+07_branch_cut	f242	said 104.500	is 104.500	ok
+07_branch_cut	f244	said 105.500	is 105.500	ok
+07_branch_cut	f262	said 114.500	is 114.500	ok
+07_branch_cut	f265	said 116.000	is 116.000	ok
+07_branch_cut	f285	said 126.000	is 126.000	ok
+07_branch_cut	f294	said 129.800	is 129.800	ok
+07_branch_cut	f309	said 133.167	is 133.167	ok
+07_branch_cut	f312	said 134.000	is 134.000	ok
+07_branch_cut	f330	said 142.500	is 142.500	ok
+07_branch_cut	f336	said 145.500	is 145.500	ok
+07_branch_cut	f360	said 157.500	is 157.500	ok
+07_branch_cut	f361	said 158.000	is 158.000	ok
+07_branch_cut	f362	said 158.500	is 158.500	ok
+07_branch_cut	lint anchors 4
+07_branch_cut	anchor	{"anchor": 12.8, "report": "07_1 +12.8s @12.8s\tbehind\ta stroke of an unlabeled shape (x -4.41..-2.39, y -1.31..0.71), painted under \"blocked\", passes through it near (-4.10, 0.41) (still there at 9 later looks)"}
+07_branch_cut	anchor	{"anchor": 69.0, "report": "07_3 +27.3s @69.0s\tbehind\ta stroke of an unlabeled shape (x -5.71..-1.09, y -2.61..2.01), painted under \"just below\", passes through it near (-5.66, -0.72) (still there at 56 later looks)"}
+07_branch_cut	anchor	{"anchor": 129.8, "report": "before 07_6 @129.8s\tbehind\ta stroke of an unlabeled shape (x -6.12..-1.81, y -1.51..1.81), painted under \"branch point\", passes through it near (-2.03, -0.80) (still there at 16 later looks)"}
+07_branch_cut	anchor	{"anchor": 134.0, "report": "07_6 +4.2s @134.0s\tcrossed\ta stroke of an unlabeled shape (x -4.41..-2.39, y -1.31..0.71), painted over \"branch point\", passes through it near (-2.50, -0.73) (still there at 177 later looks)"}
+08_product_rule	f31	said 14.000	is 14.000	ok
+08_product_rule	f44	said 20.500	is 20.500	ok
+08_product_rule	f64	said 30.131	is 30.131	ok
+08_product_rule	f77	said 35.100	is 35.100	ok
+08_product_rule	f78	said 35.300	is 35.300	ok
+08_product_rule	f96	said 43.500	is 43.500	ok
+08_product_rule	f97	said 44.000	is 44.000	ok
+08_product_rule	f117	said 54.000	is 54.000	ok
+08_product_rule	f118	said 54.500	is 54.500	ok
+08_product_rule	f139	said 62.500	is 62.500	ok
+08_product_rule	f140	said 63.000	is 63.000	ok
+08_product_rule	f160	said 73.000	is 73.000	ok
+08_product_rule	f161	said 73.500	is 73.500	ok
+08_product_rule	f162	said 74.000	is 74.000	ok
+08_product_rule	f188	said 87.000	is 87.000	ok
+08_product_rule	f203	said 91.500	is 91.500	ok
+08_product_rule	f213	said 96.500	is 96.500	ok
+08_product_rule	f244	said 111.385	is 111.385	ok
+08_product_rule	f255	said 116.000	is 116.000	ok
+08_product_rule	f256	said 116.267	is 116.267	ok
+08_product_rule	f257	said 116.467	is 116.467	ok
+08_product_rule	f271	said 122.500	is 122.500	ok
+08_product_rule	f276	said 125.000	is 125.000	ok
+08_product_rule	f277	said 125.500	is 125.500	ok
+08_product_rule	f298	said 136.000	is 136.000	ok
+08_product_rule	f325	said 148.183	is 148.183	ok
+08_product_rule	lint anchors 0
+differing pairs: 0

@@ -1,0 +1,9 @@
+engine-camera-limits.patch fb3be220c441dc17d4e370b6286d0966e6ab3dd84f0c68960b1ff0a15e91e614
+git apply on root's staged tree + the frame-table patch (8 of 8 frame-table hashes OK): hashes OK 8 of 8, same as the edit copy True
+patch -p1 -F0 on root's staged tree + the frame-table patch (8 of 8 frame-table hashes OK): hashes OK 8 of 8, same as the edit copy True
+pin a399d626c + budget01 + compiled-route + tests-repair + frame-table: applied
+this patch on that stack, without root's frame-clock repair: exit 0
+crates/fmn-render/src/plan.rs unchanged; holds max_input_curves: 1 << 20, max_retained_profile_knots: 1 << 20
+crates/fmn-render/src/fill.rs unchanged; holds max_pieces: 1 << 22
+crates/fmn-render/src/bin.rs unchanged; holds max_tile_references: 1 << 24
+three_d.rs defaults: six values as the test pins them

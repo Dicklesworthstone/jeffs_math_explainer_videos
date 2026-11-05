@@ -1,0 +1,29 @@
+run probe-selftest: 1280x720, 90.0 px a unit, residual window 9 px rows
+
+A. Row seams. Each cell: rms % of the row residual, lowest, highest (luma), and the share of pixel rows at least 1 luma dark. One dark row is the picture's own (the background cell at a zero). A share of them is a lattice.
+   vs tile: the row means' difference from the same subject's tile: rms, lowest, highest.
+  lacunary
+    now              1.99%   -5.69   +3.16  21.5%   vs tile  1.698   -6.77   +1.50
+    tile             1.17%   -4.01   +3.22  11.1%   vs tile  0.000   +0.00   +0.00
+  abs2
+    now              1.82%   -4.69   +1.99  18.8%   vs tile  1.757   -5.31   +0.00
+    tile             0.57%   -2.36   +1.29   3.8%   vs tile  0.000   +0.00   +0.00
+
+B. The mirror against the frame, row residuals. r on the same rows, r one row off, and rms of frame and mirror. Pixels: rms of 255 over the plate.
+  lacunary  now    r +1.000 off1 -0.144  rms 1.658 / 1.659  pixels 0.24
+  lacunary  tile   r +1.000 off1 +0.348  rms 0.986 / 0.986  pixels 0.24
+  abs2      now    r +1.000 off1 -0.275  rms 1.569 / 1.566  pixels 0.29
+  abs2      tile   r +0.999 off1 +0.399  rms 0.497 / 0.495  pixels 0.29
+
+C. Against truth, encoded 0..255 over the plate: rms at this size, rms after a 2x2 box, largest neighbour jump in luma. A reference, not a target, and not a judgement of the picture.
+
+D. Fades. Each frame against its ideal, the scene's hold frame at the frame's fitted opacity. opacity, pixel rms of 255 over the plate, then the row means' lowest and highest difference in luma.
+
+E. Vertex colours in pixels. Hold frame against the same candidate's still, then flat_control against now: rms of 255 over the plate, and the largest difference.
+
+F. Repaints. First frame against last, rms of 255, and the last frame's luma against the mirror's picture of the target, z^3-1 on the same plate.
+
+G. Cost, from this run's receipt and files. Not a promise of what a chapter costs.
+  kind, subject, candidate, frames, rows x cols, evaluate s, build s, s a frame, MB a frame, records
+
+SELF-TEST mirror rows on both new subjects: 4 scenes, below r 0.99: [], missing: []

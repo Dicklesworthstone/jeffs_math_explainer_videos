@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-04T23:02:25.154697+00:00",
+  "scope": "Source review only; not compiled or rendered",
+  "patch_sha256": "63c1afcab4960b7ab5ceafed7b05836ae672449b5832c073e913f3a413f268b3",
+  "default_knots": 1048576,
+  "candidate_knots": 4194304,
+  "estimated_still_knots": 1075301,
+  "estimated_repaint_knots": 2150602,
+  "moving_points_estimated_segments": 1073108,
+  "remaining": [
+    "Complete route cross-review and compiled-worker test",
+    "Wire explicit limits into actual film delivery options",
+    "Guarded isolated build and tests",
+    "Measure memory and render dense still plus repaint at 4K",
+    "Compare unchanged lower-density output identity"
+  ],
+  "canonical_engine_changed": false,
+  "reviewers": "Existing RubyRaven and LavenderPike tasks confirmed live; follow-up delivered"
+}

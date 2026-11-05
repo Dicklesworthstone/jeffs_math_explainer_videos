@@ -1,0 +1,2024 @@
+{
+  "schema_version": 1,
+  "claim": "Text comparison of two sets of bytes and two bound plans. Stage06's holds, intervals and hook count are recomputed from its bytes before they are compared. Nothing compiled, rendered, measured or heard.",
+  "from": {
+    "plan": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/bound-plan",
+    "script_sha256": "f201d2dc57fa9ccac30d475255690a90d6749449014b542d4dea62164f31bf84",
+    "map": "narration-direction-map-oliver13.json",
+    "map_sha256": "56f6ad64344514005a5ac385eb7826fa276346fb6c449acf54bf3de191da7e27"
+  },
+  "to": {
+    "crate": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries",
+    "script_sha256": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+    "map": "narration-direction-map-oliver14.json",
+    "map_sha256": "6a326cdee5ab9e8b2055bcb2aa77ffeb16c493df16f4d0e464e448175a97cf66"
+  },
+  "wording": {
+    "cue": "01_5",
+    "old": "its true position is one point five eight five steps",
+    "new": "its position is about one point five eight five steps",
+    "text_sha256": {
+      "stage06": "f920c76a7ff45f6070c64a0a7921d1c198ddced03b7104a90dbb33d1d8a9df49",
+      "stage07": "f0a6d133ce8d07e4fcb9242c0e7a70966611ce1baca1501d3b0242c58b9e9b92"
+    },
+    "words": {
+      "stage06": 58,
+      "stage07": 58
+    },
+    "sentences": {
+      "stage06": 4,
+      "stage07": 4
+    },
+    "is_a_held_cue": false,
+    "phrase_anchors_on_cue": 0,
+    "sentence_reads_on_cue": [
+      {
+        "file": "building_ruler.rs",
+        "line": 269,
+        "hook": "until_sentence",
+        "sentence": 1
+      },
+      {
+        "file": "building_ruler.rs",
+        "line": 283,
+        "hook": "until_sentence",
+        "sentence": 2
+      },
+      {
+        "file": "building_ruler.rs",
+        "line": 297,
+        "hook": "until_sentence",
+        "sentence": 3
+      }
+    ],
+    "take": "Root's review of this wording records the cue as NOT generated. A take of the old text cannot bind the new text hash."
+  },
+  "chapter_files": [
+    {
+      "file": "ratio_ruler.rs",
+      "stage06": "92cf028b124f8a3732218cbe31505e5351f86fea5bad180c0d3c97240e077bfd",
+      "stage07": "198d4a0586369258d845a21ee857eeb51e34357b61fe40398e5789379a6b5fd1",
+      "changed": true
+    },
+    {
+      "file": "building_ruler.rs",
+      "stage06": "ae125e5ec9ec9bd6df073d90c9a9b77f80a9c202c04ad6803ea6ef3b8a3f903a",
+      "stage07": "ae125e5ec9ec9bd6df073d90c9a9b77f80a9c202c04ad6803ea6ef3b8a3f903a",
+      "changed": false
+    },
+    {
+      "file": "slide_rule.rs",
+      "stage06": "eea4d01d96fd4853ff541e0f55264178a09428079200dd9397b148a3976ab7e4",
+      "stage07": "68d4b011fb4d90033ef1ae69aedef1639e12c11ce3624dbb5c378152d39b1ecd",
+      "changed": true
+    },
+    {
+      "file": "folded_decade.rs",
+      "stage06": "acfc7f9c198b3d3d0f99e1b160ec6c2d4e22a4ce28aeb4263deb29df9efa670d",
+      "stage07": "c4f023ce5284dd768767b28c9d68a4da1e05c40385eb750dc9d4fbe583b6347e",
+      "changed": true
+    },
+    {
+      "file": "undoing_growth.rs",
+      "stage06": "754ea3125c2f7e89440807772713fe57584c96937be3ec0ac8c52d86645cf323",
+      "stage07": "4dc4c555122d9cd5423d7094336c1d5e6f7f9afb77d6850a38bc0148c20180ef",
+      "changed": true
+    },
+    {
+      "file": "complex_turns.rs",
+      "stage06": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+      "stage07": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+      "changed": false
+    },
+    {
+      "file": "lifting_loops.rs",
+      "stage06": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+      "stage07": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+      "changed": false
+    },
+    {
+      "file": "branch_cut.rs",
+      "stage06": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+      "stage07": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+      "changed": false
+    },
+    {
+      "file": "product_rule.rs",
+      "stage06": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+      "stage07": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+      "changed": false
+    },
+    {
+      "file": "matrix_logs.rs",
+      "stage06": "c82b2a4d10f3c5fda758ad110b6297efc5512a643bfc26f4f05e4532c6ebf2cd",
+      "stage07": "7df6f8681099c76dcd1f32494e2edcbb07b427c54178d5c557d5801052f481b0",
+      "changed": true
+    },
+    {
+      "file": "doing_nothing.rs",
+      "stage06": "eeee764f0fe5fd3cd45263ada9a87f22b3e05a48b120ca2ba4f862cdf7a27143",
+      "stage07": "7f445be212c586093d2092113b086d809dcc189619985baf1c8f0c407c709b47",
+      "changed": true
+    },
+    {
+      "file": "unreachable.rs",
+      "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+      "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "changed": true
+    },
+    {
+      "file": "what_it_forgets.rs",
+      "stage06": "e938b750ce579faed820ae7ddd0d289819f7148bdfb991dc99f24d35d6f8491b",
+      "stage07": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+      "changed": true
+    }
+  ],
+  "holds": [
+    {
+      "cue": "00_4",
+      "next_cue": "00_5",
+      "kind": "prediction",
+      "file": "ratio_ruler.rs",
+      "file_sha256": {
+        "stage06": "92cf028b124f8a3732218cbe31505e5351f86fea5bad180c0d3c97240e077bfd",
+        "stage07": "198d4a0586369258d845a21ee857eeb51e34357b61fe40398e5789379a6b5fd1",
+        "changed": true
+      },
+      "say_line": {
+        "stage06": 330,
+        "stage07": 330,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 371,
+        "stage07": 371,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "predict(&kit, stage, v(3.6, -2.75), 3.0)?;",
+        "stage07": "predict(&kit, stage, v(3.6, -2.75), 3.0)?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": 374,
+        "stage07": 374
+      },
+      "interval_sha256": {
+        "stage06": "86bf44bb70227da9e2f416862ba78a056faaaa05b3b7955e8bc009d769001515",
+        "stage07": "86bf44bb70227da9e2f416862ba78a056faaaa05b3b7955e8bc009d769001515",
+        "changed": false
+      },
+      "interval_lines": {
+        "stage06": 42,
+        "stage07": 42
+      },
+      "interval_diff": [],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    },
+    {
+      "cue": "01_3",
+      "next_cue": "01_4",
+      "kind": "prediction",
+      "file": "building_ruler.rs",
+      "file_sha256": {
+        "stage06": "ae125e5ec9ec9bd6df073d90c9a9b77f80a9c202c04ad6803ea6ef3b8a3f903a",
+        "stage07": "ae125e5ec9ec9bd6df073d90c9a9b77f80a9c202c04ad6803ea6ef3b8a3f903a",
+        "changed": false
+      },
+      "say_line": {
+        "stage06": 162,
+        "stage07": 162,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 187,
+        "stage07": 187,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "predict(&kit, stage, v(3.8, -2.9), 3.0)?;",
+        "stage07": "predict(&kit, stage, v(3.8, -2.9), 3.0)?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": 190,
+        "stage07": 190
+      },
+      "interval_sha256": {
+        "stage06": "c91208d7f0b162d3967239d2dcccbe23cd679366a42cf833f7f35bd1fbd4c358",
+        "stage07": "c91208d7f0b162d3967239d2dcccbe23cd679366a42cf833f7f35bd1fbd4c358",
+        "changed": false
+      },
+      "interval_lines": {
+        "stage06": 26,
+        "stage07": 26
+      },
+      "interval_diff": [],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    },
+    {
+      "cue": "02_2",
+      "next_cue": "02_3",
+      "kind": "prediction",
+      "file": "slide_rule.rs",
+      "file_sha256": {
+        "stage06": "eea4d01d96fd4853ff541e0f55264178a09428079200dd9397b148a3976ab7e4",
+        "stage07": "68d4b011fb4d90033ef1ae69aedef1639e12c11ce3624dbb5c378152d39b1ecd",
+        "changed": true
+      },
+      "say_line": {
+        "stage06": 147,
+        "stage07": 147,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 204,
+        "stage07": 204,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "predict(&kit, stage, v(4.7, -2.75), 3.0)?;",
+        "stage07": "predict(&kit, stage, v(4.7, -2.75), 3.0)?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": 207,
+        "stage07": 207
+      },
+      "interval_sha256": {
+        "stage06": "e45bdd98eeb62a82c547c28c645a4416ef1cc35c19bcfaff38420281e2a38c07",
+        "stage07": "20094536ae2191f558b6ca76bc94b089e10f8fbe2bf78647b08036b306a75215",
+        "changed": true
+      },
+      "interval_lines": {
+        "stage06": 58,
+        "stage07": 58
+      },
+      "interval_diff": [
+        "@@ -12 +12 @@",
+        "-            &format!(\"{} of a full length\", fact(\"slide.pos_a\")?),",
+        "+            &format!(\"{}: {} of a full length\", fact(\"slide.a\")?, fact(\"slide.pos_a\")?),",
+        "@@ -46 +46 @@",
+        "-            fact(\"slide.pos_b\")?,",
+        "+            &format!(\"{}: {}\", fact(\"slide.b\")?, fact(\"slide.pos_b\")?),"
+      ],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    },
+    {
+      "cue": "04_6",
+      "next_cue": "04_7",
+      "kind": "prediction",
+      "file": "undoing_growth.rs",
+      "file_sha256": {
+        "stage06": "754ea3125c2f7e89440807772713fe57584c96937be3ec0ac8c52d86645cf323",
+        "stage07": "4dc4c555122d9cd5423d7094336c1d5e6f7f9afb77d6850a38bc0148c20180ef",
+        "changed": true
+      },
+      "say_line": {
+        "stage06": 674,
+        "stage07": 674,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 749,
+        "stage07": 749,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "predict(&kit, stage, v(4.6, THINK_BAR_Y), 3.0)?;",
+        "stage07": "predict(&kit, stage, v(4.6, THINK_BAR_Y), 3.0)?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": 752,
+        "stage07": 752
+      },
+      "interval_sha256": {
+        "stage06": "b2d1d76b8f9fbd9eaa730d0c96aba14999df1e10304ef8e99526d92ebdc91c17",
+        "stage07": "b2d1d76b8f9fbd9eaa730d0c96aba14999df1e10304ef8e99526d92ebdc91c17",
+        "changed": false
+      },
+      "interval_lines": {
+        "stage06": 76,
+        "stage07": 76
+      },
+      "interval_diff": [],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    },
+    {
+      "cue": "05_1",
+      "next_cue": "05_2",
+      "kind": "prediction",
+      "file": "complex_turns.rs",
+      "file_sha256": {
+        "stage06": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+        "stage07": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+        "changed": false
+      },
+      "say_line": {
+        "stage06": 185,
+        "stage07": 185,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 245,
+        "stage07": 245,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "predict(&kit, stage, v(2.5, -0.62), 3.0)?;",
+        "stage07": "predict(&kit, stage, v(2.5, -0.62), 3.0)?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": 249,
+        "stage07": 249
+      },
+      "interval_sha256": {
+        "stage06": "5256ae12dfc74fb4a9a30cb3394b4281c7736b52efdc0345e57b565b0fd27859",
+        "stage07": "5256ae12dfc74fb4a9a30cb3394b4281c7736b52efdc0345e57b565b0fd27859",
+        "changed": false
+      },
+      "interval_lines": {
+        "stage06": 61,
+        "stage07": 61
+      },
+      "interval_diff": [],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    },
+    {
+      "cue": "05_5",
+      "next_cue": "05_6",
+      "kind": "prediction",
+      "file": "complex_turns.rs",
+      "file_sha256": {
+        "stage06": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+        "stage07": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+        "changed": false
+      },
+      "say_line": {
+        "stage06": 611,
+        "stage07": 611,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 623,
+        "stage07": 623,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "predict(&kit, stage, v(OUT.centre[0], -2.75), 3.0)?;",
+        "stage07": "predict(&kit, stage, v(OUT.centre[0], -2.75), 3.0)?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": 626,
+        "stage07": 626
+      },
+      "interval_sha256": {
+        "stage06": "93a300682e33fcfeac462b8e81696af114f96e9739a3647ac1748c3d62189dc5",
+        "stage07": "93a300682e33fcfeac462b8e81696af114f96e9739a3647ac1748c3d62189dc5",
+        "changed": false
+      },
+      "interval_lines": {
+        "stage06": 13,
+        "stage07": 13
+      },
+      "interval_diff": [],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    },
+    {
+      "cue": "06_2",
+      "next_cue": "06_3",
+      "kind": "prediction",
+      "file": "lifting_loops.rs",
+      "file_sha256": {
+        "stage06": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+        "stage07": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+        "changed": false
+      },
+      "say_line": {
+        "stage06": 335,
+        "stage07": 335,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 374,
+        "stage07": 374,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "predict(&kit, stage, v(Z.centre[0], 2.55), 2.6)?;",
+        "stage07": "predict(&kit, stage, v(Z.centre[0], 2.55), 2.6)?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": 377,
+        "stage07": 377
+      },
+      "interval_sha256": {
+        "stage06": "9c1ce6b4868ea9b3fb693ba0290c40ac292aa2b9846d50c883c0cf432e7eb9a7",
+        "stage07": "9c1ce6b4868ea9b3fb693ba0290c40ac292aa2b9846d50c883c0cf432e7eb9a7",
+        "changed": false
+      },
+      "interval_lines": {
+        "stage06": 40,
+        "stage07": 40
+      },
+      "interval_diff": [],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    },
+    {
+      "cue": "06_4",
+      "next_cue": "06_5",
+      "kind": "prediction",
+      "file": "lifting_loops.rs",
+      "file_sha256": {
+        "stage06": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+        "stage07": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+        "changed": false
+      },
+      "say_line": {
+        "stage06": 417,
+        "stage07": 417,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 475,
+        "stage07": 475,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "predict(&kit, stage, v(2.4, 1.8), 2.6)?;",
+        "stage07": "predict(&kit, stage, v(2.4, 1.8), 2.6)?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": 478,
+        "stage07": 478
+      },
+      "interval_sha256": {
+        "stage06": "7651918d6c2ca7643ab83eae2e4942bdac5c324220c195fe8594389e80c8c78a",
+        "stage07": "7651918d6c2ca7643ab83eae2e4942bdac5c324220c195fe8594389e80c8c78a",
+        "changed": false
+      },
+      "interval_lines": {
+        "stage06": 59,
+        "stage07": 59
+      },
+      "interval_diff": [],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    },
+    {
+      "cue": "07_3",
+      "next_cue": "07_4",
+      "kind": "prediction",
+      "file": "branch_cut.rs",
+      "file_sha256": {
+        "stage06": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+        "stage07": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+        "changed": false
+      },
+      "say_line": {
+        "stage06": 366,
+        "stage07": 366,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 419,
+        "stage07": 419,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "predict(&kit, stage, v(right + 1.7, 1.95), 3.0)?;",
+        "stage07": "predict(&kit, stage, v(right + 1.7, 1.95), 3.0)?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": 422,
+        "stage07": 422
+      },
+      "interval_sha256": {
+        "stage06": "8b3000fdb4e3c1154faad8bc7de6e1b6652e0c8177bdbfb7328a893022bb08b6",
+        "stage07": "8b3000fdb4e3c1154faad8bc7de6e1b6652e0c8177bdbfb7328a893022bb08b6",
+        "changed": false
+      },
+      "interval_lines": {
+        "stage06": 54,
+        "stage07": 54
+      },
+      "interval_diff": [],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    },
+    {
+      "cue": "08_1",
+      "next_cue": "08_2",
+      "kind": "prediction",
+      "file": "product_rule.rs",
+      "file_sha256": {
+        "stage06": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+        "stage07": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+        "changed": false
+      },
+      "say_line": {
+        "stage06": 108,
+        "stage07": 108,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 221,
+        "stage07": 221,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "predict(&kit, stage, v(3.6, 0.6), 3.0)?;",
+        "stage07": "predict(&kit, stage, v(3.6, 0.6), 3.0)?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": 224,
+        "stage07": 224
+      },
+      "interval_sha256": {
+        "stage06": "1d498942e2bc12a7a6d206cbb4335719700682561c2357709722c252726d86b6",
+        "stage07": "1d498942e2bc12a7a6d206cbb4335719700682561c2357709722c252726d86b6",
+        "changed": false
+      },
+      "interval_lines": {
+        "stage06": 114,
+        "stage07": 114
+      },
+      "interval_diff": [],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    },
+    {
+      "cue": "08_4",
+      "next_cue": "08_5",
+      "kind": "prediction",
+      "file": "product_rule.rs",
+      "file_sha256": {
+        "stage06": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+        "stage07": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+        "changed": false
+      },
+      "say_line": {
+        "stage06": 317,
+        "stage07": 317,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 346,
+        "stage07": 346,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "predict(&kit, stage, v(right + 2.5, -2.75), 3.0)?;",
+        "stage07": "predict(&kit, stage, v(right + 2.5, -2.75), 3.0)?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": 349,
+        "stage07": 349
+      },
+      "interval_sha256": {
+        "stage06": "23b0206f29d4163576b78273cad64e3466d033d5bf8310f0821dacbe00769786",
+        "stage07": "23b0206f29d4163576b78273cad64e3466d033d5bf8310f0821dacbe00769786",
+        "changed": false
+      },
+      "interval_lines": {
+        "stage06": 30,
+        "stage07": 30
+      },
+      "interval_diff": [],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    },
+    {
+      "cue": "10_4",
+      "next_cue": "11_1",
+      "kind": "reading",
+      "file": "doing_nothing.rs",
+      "file_sha256": {
+        "stage06": "eeee764f0fe5fd3cd45263ada9a87f22b3e05a48b120ca2ba4f862cdf7a27143",
+        "stage07": "7f445be212c586093d2092113b086d809dcc189619985baf1c8f0c407c709b47",
+        "changed": true
+      },
+      "say_line": {
+        "stage06": 537,
+        "stage07": 537,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 602,
+        "stage07": 602,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "kit.music_breath(stage, FINE_PRINT_S - read_for)?;",
+        "stage07": "kit.music_breath(stage, FINE_PRINT_S - read_for)?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": null,
+        "stage07": null
+      },
+      "interval_sha256": {
+        "stage06": "eb79bd6b505c3dc00074e026184177378cbb3dd599501f35ea47b890a497bf6c",
+        "stage07": "9fe875942e620939da7839720e40e029c830cfe152247ae59de1db3c4c2d8927",
+        "changed": true
+      },
+      "interval_lines": {
+        "stage06": 66,
+        "stage07": 66
+      },
+      "interval_diff": [
+        "@@ -58,2 +58,2 @@",
+        "-        let textbook = kit.text(stage, TEXTBOOK, 18.0, Palette::dim(), v(0.0, -3.15))?;",
+        "-        let source = precisely(&kit, stage, SOURCE)?;",
+        "+        let textbook = kit.text(stage, TEXTBOOK, FINE_SIZE, Palette::ink(), v(0.0, FINE_ROWS[0]))?;",
+        "+        let source = kit.text(stage, SOURCE, FINE_SIZE, Palette::ink(), v(0.0, FINE_ROWS[1]))?;"
+      ],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    },
+    {
+      "cue": "11_3",
+      "next_cue": "11_4",
+      "kind": "prediction",
+      "file": "unreachable.rs",
+      "file_sha256": {
+        "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+        "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+        "changed": true
+      },
+      "say_line": {
+        "stage06": 963,
+        "stage07": 963,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 1070,
+        "stage07": 1070,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "predict(&kit, stage, v(right + 1.6, -1.4), 3.0)?;",
+        "stage07": "predict(&kit, stage, v(right + 1.6, -1.4), 3.0)?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": 1074,
+        "stage07": 1074
+      },
+      "interval_sha256": {
+        "stage06": "e34e65ad69a71865c956f2cf6e3d5270433370e8b6e79e5f8defc221555771db",
+        "stage07": "e34e65ad69a71865c956f2cf6e3d5270433370e8b6e79e5f8defc221555771db",
+        "changed": false
+      },
+      "interval_lines": {
+        "stage06": 108,
+        "stage07": 108
+      },
+      "interval_diff": [],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    },
+    {
+      "cue": "11_20",
+      "next_cue": "11_8",
+      "kind": "reading",
+      "file": "unreachable.rs",
+      "file_sha256": {
+        "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+        "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+        "changed": true
+      },
+      "say_line": {
+        "stage06": 1501,
+        "stage07": 1501,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 1590,
+        "stage07": 1590,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "kit.music_breath(stage, rule_read + row_reads.iter().sum::<f64>())?;",
+        "stage07": "kit.music_breath(stage, rule_read + row_reads.iter().sum::<f64>())?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": 1594,
+        "stage07": 1594
+      },
+      "interval_sha256": {
+        "stage06": "36386b6b24e173600d4e20b7f70e4285a825196f9000b114b109f834182d2953",
+        "stage07": "4a4e6c72d1f92e5e88e7430c03e0f0f062e3e7972184736bfc911a4313fae5e0",
+        "changed": true
+      },
+      "interval_lines": {
+        "stage06": 90,
+        "stage07": 90
+      },
+      "interval_diff": [
+        "@@ -2 +2 @@",
+        "-        let cite = precisely(",
+        "+        let cite = footer("
+      ],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    },
+    {
+      "cue": "12_5",
+      "next_cue": "12_6",
+      "kind": "prediction",
+      "file": "what_it_forgets.rs",
+      "file_sha256": {
+        "stage06": "e938b750ce579faed820ae7ddd0d289819f7148bdfb991dc99f24d35d6f8491b",
+        "stage07": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+        "changed": true
+      },
+      "say_line": {
+        "stage06": 1099,
+        "stage07": 1099,
+        "moved": false
+      },
+      "marker_line": {
+        "stage06": 1123,
+        "stage07": 1123,
+        "moved": false
+      },
+      "marker": {
+        "stage06": "predict(&kit, stage, v(2.6, -2.1), 3.4)?;",
+        "stage07": "predict(&kit, stage, v(2.6, -2.1), 3.4)?;",
+        "changed": false
+      },
+      "next_say_line": {
+        "stage06": 1126,
+        "stage07": 1126
+      },
+      "interval_sha256": {
+        "stage06": "b238a92968284627ce972479bb1c5a93ac5f5df33efee0b17ddea5d362c8387f",
+        "stage07": "b238a92968284627ce972479bb1c5a93ac5f5df33efee0b17ddea5d362c8387f",
+        "changed": false
+      },
+      "interval_lines": {
+        "stage06": 25,
+        "stage07": 25
+      },
+      "interval_diff": [],
+      "cue_text_changed": false,
+      "after_marker_code_changed": false
+    }
+  ],
+  "hold_summary": {
+    "rows": 15,
+    "file_hash_changed": [
+      "00_4",
+      "02_2",
+      "04_6",
+      "10_4",
+      "11_3",
+      "11_20",
+      "12_5"
+    ],
+    "marker_line_moved": [],
+    "say_line_moved": [],
+    "marker_text_changed": [],
+    "interval_changed": [
+      "02_2",
+      "10_4",
+      "11_20"
+    ],
+    "unchanged_entirely": [
+      "01_3",
+      "05_1",
+      "05_5",
+      "06_2",
+      "06_4",
+      "07_3",
+      "08_1",
+      "08_4"
+    ]
+  },
+  "other_waits": {
+    "paired": [
+      {
+        "file": "ratio_ruler.rs",
+        "marker": "stage.wait(0.18)?;",
+        "class": "picture_pacing",
+        "line": {
+          "stage06": 181,
+          "stage07": 210,
+          "moved": true
+        },
+        "census_cue": {
+          "stage06": "00_1",
+          "stage07": "00_2",
+          "changed": true
+        },
+        "class_changed": false
+      },
+      {
+        "file": "ratio_ruler.rs",
+        "marker": "kit.hold(stage)",
+        "class": "helper_tail",
+        "line": {
+          "stage06": 509,
+          "stage07": 509,
+          "moved": false
+        },
+        "census_cue": {
+          "stage06": "00_6",
+          "stage07": "00_6",
+          "changed": false
+        },
+        "class_changed": false
+      },
+      {
+        "file": "slide_rule.rs",
+        "marker": "wait_frames(stage, frames_covering(at - now, fps))?;",
+        "class": "word_sync_helper",
+        "line": {
+          "stage06": 102,
+          "stage07": 102,
+          "moved": false
+        },
+        "census_cue": {
+          "stage06": null,
+          "stage07": null,
+          "changed": false
+        },
+        "class_changed": false
+      },
+      {
+        "file": "undoing_growth.rs",
+        "marker": "super::draw::wait_until(stage, onset)?;",
+        "class": "word_sync",
+        "line": {
+          "stage06": 351,
+          "stage07": 351,
+          "moved": false
+        },
+        "census_cue": {
+          "stage06": "04_2",
+          "stage07": "04_2",
+          "changed": false
+        },
+        "class_changed": false
+      },
+      {
+        "file": "matrix_logs.rs",
+        "marker": "stage.wait(0.9)?;",
+        "class": "picture_pacing",
+        "line": {
+          "stage06": 206,
+          "stage07": 206,
+          "moved": false
+        },
+        "census_cue": {
+          "stage06": "09_1",
+          "stage07": "09_1",
+          "changed": false
+        },
+        "class_changed": false
+      },
+      {
+        "file": "doing_nothing.rs",
+        "marker": "wait_frames(stage, frames_covering(at - now, fps))?;",
+        "class": "word_sync_helper",
+        "line": {
+          "stage06": 215,
+          "stage07": 215,
+          "moved": false
+        },
+        "census_cue": {
+          "stage06": null,
+          "stage07": null,
+          "changed": false
+        },
+        "class_changed": false
+      },
+      {
+        "file": "doing_nothing.rs",
+        "marker": "kit.hold(stage)?;",
+        "class": "reading_voice_end",
+        "line": {
+          "stage06": 598,
+          "stage07": 598,
+          "moved": false
+        },
+        "census_cue": {
+          "stage06": "10_4",
+          "stage07": "10_4",
+          "changed": false
+        },
+        "class_changed": false
+      },
+      {
+        "file": "unreachable.rs",
+        "marker": "wait_frames(stage, frames_covering(at - now, fps))?;",
+        "class": "word_sync_helper",
+        "line": {
+          "stage06": 288,
+          "stage07": 288,
+          "moved": false
+        },
+        "census_cue": {
+          "stage06": null,
+          "stage07": null,
+          "changed": false
+        },
+        "class_changed": false
+      },
+      {
+        "file": "unreachable.rs",
+        "marker": "kit.hold(stage)?;",
+        "class": "reading_voice_end",
+        "line": {
+          "stage06": 1555,
+          "stage07": 1555,
+          "moved": false
+        },
+        "census_cue": {
+          "stage06": "11_20",
+          "stage07": "11_20",
+          "changed": false
+        },
+        "class_changed": false
+      },
+      {
+        "file": "what_it_forgets.rs",
+        "marker": "wait_frames(stage, frames_covering(at - now, fps))?;",
+        "class": "word_sync_helper",
+        "line": {
+          "stage06": 556,
+          "stage07": 556,
+          "moved": false
+        },
+        "census_cue": {
+          "stage06": null,
+          "stage07": null,
+          "changed": false
+        },
+        "class_changed": false
+      },
+      {
+        "file": "what_it_forgets.rs",
+        "marker": "wait_frames(stage, frames_covering(at - now, fps))?;",
+        "class": "word_sync_helper",
+        "line": {
+          "stage06": 634,
+          "stage07": 634,
+          "moved": false
+        },
+        "census_cue": {
+          "stage06": null,
+          "stage07": null,
+          "changed": false
+        },
+        "class_changed": false
+      },
+      {
+        "file": "what_it_forgets.rs",
+        "marker": "stage.wait(ARRIVAL_HOLD)?;",
+        "class": "picture_pacing",
+        "line": {
+          "stage06": 1145,
+          "stage07": 1145,
+          "moved": false
+        },
+        "census_cue": {
+          "stage06": "12_6",
+          "stage07": "12_6",
+          "changed": false
+        },
+        "class_changed": false
+      }
+    ],
+    "added": [
+      {
+        "file": "ratio_ruler.rs",
+        "line": 555,
+        "cue": "00_6",
+        "class": "word_sync_helper",
+        "marker": "super::draw::wait_until(stage, at)?;"
+      }
+    ],
+    "removed": [],
+    "moved_or_recued": [
+      {
+        "file": "ratio_ruler.rs",
+        "marker": "stage.wait(0.18)?;",
+        "class": "picture_pacing",
+        "line": {
+          "stage06": 181,
+          "stage07": 210,
+          "moved": true
+        },
+        "census_cue": {
+          "stage06": "00_1",
+          "stage07": "00_2",
+          "changed": true
+        },
+        "class_changed": false
+      }
+    ]
+  },
+  "chapter_finishes_moved": [
+    {
+      "file": "folded_decade.rs",
+      "cue": "03_4",
+      "line": {
+        "stage06": 441,
+        "stage07": 448
+      }
+    }
+  ],
+  "helper_and_consumer_rows": {
+    "count": 22,
+    "changed_since_stage06": []
+  },
+  "sentence_hooks": {
+    "literal": {
+      "stage06": 282,
+      "stage07": 285
+    },
+    "per_file": {
+      "ratio_ruler.rs": {
+        "stage06": 15,
+        "stage07": 16,
+        "lines_moved": true
+      },
+      "building_ruler.rs": {
+        "stage06": 20,
+        "stage07": 20,
+        "lines_moved": false
+      },
+      "slide_rule.rs": {
+        "stage06": 15,
+        "stage07": 15,
+        "lines_moved": false
+      },
+      "folded_decade.rs": {
+        "stage06": 14,
+        "stage07": 16,
+        "lines_moved": true
+      },
+      "undoing_growth.rs": {
+        "stage06": 30,
+        "stage07": 30,
+        "lines_moved": false
+      },
+      "complex_turns.rs": {
+        "stage06": 25,
+        "stage07": 25,
+        "lines_moved": false
+      },
+      "lifting_loops.rs": {
+        "stage06": 26,
+        "stage07": 26,
+        "lines_moved": false
+      },
+      "branch_cut.rs": {
+        "stage06": 24,
+        "stage07": 24,
+        "lines_moved": false
+      },
+      "product_rule.rs": {
+        "stage06": 20,
+        "stage07": 20,
+        "lines_moved": false
+      },
+      "matrix_logs.rs": {
+        "stage06": 15,
+        "stage07": 15,
+        "lines_moved": false
+      },
+      "doing_nothing.rs": {
+        "stage06": 16,
+        "stage07": 16,
+        "lines_moved": false
+      },
+      "unreachable.rs": {
+        "stage06": 39,
+        "stage07": 39,
+        "lines_moved": false
+      },
+      "what_it_forgets.rs": {
+        "stage06": 23,
+        "stage07": 23,
+        "lines_moved": false
+      }
+    },
+    "added": [
+      {
+        "file": "folded_decade.rs",
+        "hook": "sentence_at",
+        "cue": "03_3",
+        "sentence": 0,
+        "current": "03_3",
+        "times": 1,
+        "lines": [
+          344
+        ]
+      },
+      {
+        "file": "folded_decade.rs",
+        "hook": "sentence_at",
+        "cue": "03_3",
+        "sentence": 1,
+        "current": "03_3",
+        "times": 1,
+        "lines": [
+          344
+        ]
+      },
+      {
+        "file": "ratio_ruler.rs",
+        "hook": "sentence_at",
+        "cue": "00_1",
+        "sentence": 1,
+        "current": "00_6",
+        "times": 1,
+        "lines": [
+          541
+        ]
+      }
+    ],
+    "removed": [],
+    "other_sentence_reads": {
+      "stage06": [
+        {
+          "file": "slide_rule.rs",
+          "line": 79,
+          "code": "let said = narrator.sentence_at(cue, 0)? - narrator.sentence_starts(cue).first().copied()?;",
+          "current": null
+        },
+        {
+          "file": "slide_rule.rs",
+          "line": 84,
+          "code": "let start = narrator.sentence_at(cue, 0)?;",
+          "current": null
+        },
+        {
+          "file": "slide_rule.rs",
+          "line": 85,
+          "code": "let end = match narrator.sentence_at(cue, 1) {",
+          "current": null
+        },
+        {
+          "file": "undoing_growth.rs",
+          "line": 113,
+          "code": "let said = s3 - n.sentence_starts(\"04_2\").get(3).copied()?;",
+          "current": null
+        },
+        {
+          "file": "product_rule.rs",
+          "line": 339,
+          "code": "kit.until_sentence(stage, \"08_4\", k + 1)?;",
+          "current": "08_4"
+        },
+        {
+          "file": "doing_nothing.rs",
+          "line": 195,
+          "code": "let starts = narrator.sentence_starts(id);",
+          "current": null
+        },
+        {
+          "file": "doing_nothing.rs",
+          "line": 196,
+          "code": "let (Some(&first), Some(began)) = (starts.first(), narrator.sentence_at(id, 0)) else {",
+          "current": null
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 268,
+          "code": "let starts = n.sentence_starts(id);",
+          "current": null
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 269,
+          "code": "let (Some(&first), Some(said), Some(len)) = (starts.first(), n.sentence_at(id, 0), n.length(id)) else {",
+          "current": null
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 295,
+          "code": "kit.narrator.as_ref().and_then(|n| n.sentence_at(id, j))",
+          "current": null
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 301,
+          "code": "let first = *n.sentence_starts(id).first()?;",
+          "current": null
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 302,
+          "code": "Some(n.sentence_at(id, 0)? - first + n.length(id)?)",
+          "current": null
+        },
+        {
+          "file": "what_it_forgets.rs",
+          "line": 543,
+          "code": "sentence_len(starts, j).map_or(fallback, |len| (len - used - margin).max(MIN_RUN))",
+          "current": null
+        },
+        {
+          "file": "what_it_forgets.rs",
+          "line": 550,
+          "code": "let Some(len) = sentence_len(&kit.sentence_starts(id), j) else {",
+          "current": null
+        },
+        {
+          "file": "what_it_forgets.rs",
+          "line": 607,
+          "code": "let starts = n.sentence_starts(id);",
+          "current": null
+        },
+        {
+          "file": "what_it_forgets.rs",
+          "line": 608,
+          "code": "let (Some(&first), Some(said), Some(len)) = (starts.first(), n.sentence_at(id, 0), n.length(id)) else {",
+          "current": null
+        },
+        {
+          "file": "what_it_forgets.rs",
+          "line": 623,
+          "code": "let first = *n.sentence_starts(id).first()?;",
+          "current": null
+        },
+        {
+          "file": "what_it_forgets.rs",
+          "line": 624,
+          "code": "Some(n.sentence_at(id, 0)? - first + n.length(id)?)",
+          "current": null
+        }
+      ],
+      "stage07": [
+        {
+          "file": "ratio_ruler.rs",
+          "line": 542,
+          "code": "let end = s1 - n.sentence_starts(\"00_1\").get(1).copied()? + n.length(\"00_1\")?;",
+          "current": "00_6"
+        },
+        {
+          "file": "slide_rule.rs",
+          "line": 79,
+          "code": "let said = narrator.sentence_at(cue, 0)? - narrator.sentence_starts(cue).first().copied()?;",
+          "current": null
+        },
+        {
+          "file": "slide_rule.rs",
+          "line": 84,
+          "code": "let start = narrator.sentence_at(cue, 0)?;",
+          "current": null
+        },
+        {
+          "file": "slide_rule.rs",
+          "line": 85,
+          "code": "let end = match narrator.sentence_at(cue, 1) {",
+          "current": null
+        },
+        {
+          "file": "undoing_growth.rs",
+          "line": 113,
+          "code": "let said = s3 - n.sentence_starts(\"04_2\").get(3).copied()?;",
+          "current": null
+        },
+        {
+          "file": "product_rule.rs",
+          "line": 339,
+          "code": "kit.until_sentence(stage, \"08_4\", k + 1)?;",
+          "current": "08_4"
+        },
+        {
+          "file": "doing_nothing.rs",
+          "line": 195,
+          "code": "let starts = narrator.sentence_starts(id);",
+          "current": null
+        },
+        {
+          "file": "doing_nothing.rs",
+          "line": 196,
+          "code": "let (Some(&first), Some(began)) = (starts.first(), narrator.sentence_at(id, 0)) else {",
+          "current": null
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 268,
+          "code": "let starts = n.sentence_starts(id);",
+          "current": null
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 269,
+          "code": "let (Some(&first), Some(said), Some(len)) = (starts.first(), n.sentence_at(id, 0), n.length(id)) else {",
+          "current": null
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 295,
+          "code": "kit.narrator.as_ref().and_then(|n| n.sentence_at(id, j))",
+          "current": null
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 301,
+          "code": "let first = *n.sentence_starts(id).first()?;",
+          "current": null
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 302,
+          "code": "Some(n.sentence_at(id, 0)? - first + n.length(id)?)",
+          "current": null
+        },
+        {
+          "file": "what_it_forgets.rs",
+          "line": 543,
+          "code": "sentence_len(starts, j).map_or(fallback, |len| (len - used - margin).max(MIN_RUN))",
+          "current": null
+        },
+        {
+          "file": "what_it_forgets.rs",
+          "line": 550,
+          "code": "let Some(len) = sentence_len(&kit.sentence_starts(id), j) else {",
+          "current": null
+        },
+        {
+          "file": "what_it_forgets.rs",
+          "line": 607,
+          "code": "let starts = n.sentence_starts(id);",
+          "current": null
+        },
+        {
+          "file": "what_it_forgets.rs",
+          "line": 608,
+          "code": "let (Some(&first), Some(said), Some(len)) = (starts.first(), n.sentence_at(id, 0), n.length(id)) else {",
+          "current": null
+        },
+        {
+          "file": "what_it_forgets.rs",
+          "line": 623,
+          "code": "let first = *n.sentence_starts(id).first()?;",
+          "current": null
+        },
+        {
+          "file": "what_it_forgets.rs",
+          "line": 624,
+          "code": "Some(n.sentence_at(id, 0)? - first + n.length(id)?)",
+          "current": null
+        }
+      ]
+    },
+    "cue_differs_from_current": {
+      "stage06": [
+        {
+          "file": "undoing_growth.rs",
+          "line": 112,
+          "hook": "sentence_at",
+          "cue": "04_2",
+          "current": null
+        },
+        {
+          "file": "undoing_growth.rs",
+          "line": 112,
+          "hook": "sentence_at",
+          "cue": "04_2",
+          "current": null
+        }
+      ],
+      "stage07": [
+        {
+          "file": "ratio_ruler.rs",
+          "line": 541,
+          "hook": "sentence_at",
+          "cue": "00_1",
+          "current": "00_6"
+        },
+        {
+          "file": "undoing_growth.rs",
+          "line": 112,
+          "hook": "sentence_at",
+          "cue": "04_2",
+          "current": null
+        },
+        {
+          "file": "undoing_growth.rs",
+          "line": 112,
+          "hook": "sentence_at",
+          "cue": "04_2",
+          "current": null
+        }
+      ]
+    },
+    "non_literal": {
+      "stage06": [
+        {
+          "file": "product_rule.rs",
+          "line": 339,
+          "cue": "08_4",
+          "code": "kit.until_sentence(stage, \"08_4\", k + 1)?;"
+        }
+      ],
+      "stage07": [
+        {
+          "file": "product_rule.rs",
+          "line": 339,
+          "cue": "08_4",
+          "code": "kit.until_sentence(stage, \"08_4\", k + 1)?;"
+        }
+      ]
+    }
+  },
+  "phrase_anchors": {
+    "count": {
+      "stage06": 24,
+      "stage07": 24
+    },
+    "byte_or_text_position_changed": [],
+    "hook_lines_moved": [],
+    "source_hash_changed": 24,
+    "rows": [
+      {
+        "cue": "02_1",
+        "phrase": "one that slides",
+        "byte": 48,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs",
+        "source_sha256": {
+          "stage06": "eea4d01d96fd4853ff541e0f55264178a09428079200dd9397b148a3976ab7e4",
+          "stage07": "68d4b011fb4d90033ef1ae69aedef1639e12c11ce3624dbb5c378152d39b1ecd",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            129
+          ],
+          "stage07": [
+            129
+          ]
+        }
+      },
+      {
+        "cue": "02_2",
+        "phrase": "slide the moving",
+        "byte": 47,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs",
+        "source_sha256": {
+          "stage06": "eea4d01d96fd4853ff541e0f55264178a09428079200dd9397b148a3976ab7e4",
+          "stage07": "68d4b011fb4d90033ef1ae69aedef1639e12c11ce3624dbb5c378152d39b1ecd",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            165
+          ],
+          "stage07": [
+            165
+          ]
+        }
+      },
+      {
+        "cue": "04_2",
+        "phrase": "it only ever climbs",
+        "byte": 306,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs",
+        "source_sha256": {
+          "stage06": "754ea3125c2f7e89440807772713fe57584c96937be3ec0ac8c52d86645cf323",
+          "stage07": "4dc4c555122d9cd5423d7094336c1d5e6f7f9afb77d6850a38bc0148c20180ef",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            115,
+            351
+          ],
+          "stage07": [
+            115,
+            351
+          ]
+        }
+      },
+      {
+        "cue": "10_3",
+        "phrase": "turns round at a steady",
+        "byte": 208,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs",
+        "source_sha256": {
+          "stage06": "eeee764f0fe5fd3cd45263ada9a87f22b3e05a48b120ca2ba4f862cdf7a27143",
+          "stage07": "7f445be212c586093d2092113b086d809dcc189619985baf1c8f0c407c709b47",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            462,
+            486
+          ],
+          "stage07": [
+            462,
+            486
+          ]
+        }
+      },
+      {
+        "cue": "10_3",
+        "phrase": "or does not turn",
+        "byte": 302,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs",
+        "source_sha256": {
+          "stage06": "eeee764f0fe5fd3cd45263ada9a87f22b3e05a48b120ca2ba4f862cdf7a27143",
+          "stage07": "7f445be212c586093d2092113b086d809dcc189619985baf1c8f0c407c709b47",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            489,
+            500
+          ],
+          "stage07": [
+            489,
+            500
+          ]
+        }
+      },
+      {
+        "cue": "10_4",
+        "phrase": "strictly between",
+        "byte": 39,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs",
+        "source_sha256": {
+          "stage06": "eeee764f0fe5fd3cd45263ada9a87f22b3e05a48b120ca2ba4f862cdf7a27143",
+          "stage07": "7f445be212c586093d2092113b086d809dcc189619985baf1c8f0c407c709b47",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            558
+          ],
+          "stage07": [
+            558
+          ]
+        }
+      },
+      {
+        "cue": "11_1",
+        "phrase": "a halfway point",
+        "byte": 320,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "source_sha256": {
+          "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+          "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            809
+          ],
+          "stage07": [
+            809
+          ]
+        }
+      },
+      {
+        "cue": "11_1",
+        "phrase": "squashes the whole plane",
+        "byte": 337,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "source_sha256": {
+          "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+          "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            814
+          ],
+          "stage07": [
+            814
+          ]
+        }
+      },
+      {
+        "cue": "11_2",
+        "phrase": "run backwards",
+        "byte": 185,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "source_sha256": {
+          "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+          "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            922
+          ],
+          "stage07": [
+            922
+          ]
+        }
+      },
+      {
+        "cue": "11_5",
+        "phrase": "send it along both routes",
+        "byte": 72,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "source_sha256": {
+          "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+          "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            1189
+          ],
+          "stage07": [
+            1189
+          ]
+        }
+      },
+      {
+        "cue": "11_5",
+        "phrase": "the two routes end in different places",
+        "byte": 178,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "source_sha256": {
+          "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+          "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            1204
+          ],
+          "stage07": [
+            1204
+          ]
+        }
+      },
+      {
+        "cue": "11_6",
+        "phrase": "running one after the other",
+        "byte": 273,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "source_sha256": {
+          "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+          "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            1333
+          ],
+          "stage07": [
+            1333
+          ]
+        }
+      },
+      {
+        "cue": "11_7",
+        "phrase": "so nothing forces a logarithm to keep the axes",
+        "byte": 174,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "source_sha256": {
+          "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+          "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            1405
+          ],
+          "stage07": [
+            1405
+          ]
+        }
+      },
+      {
+        "cue": "11_7",
+        "phrase": "the spin, which turns every axis",
+        "byte": 226,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "source_sha256": {
+          "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+          "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            1413,
+            1415
+          ],
+          "stage07": [
+            1413,
+            1415
+          ]
+        }
+      },
+      {
+        "cue": "11_7",
+        "phrase": "a matrix that sends some direction",
+        "byte": 315,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "source_sha256": {
+          "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+          "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            1444
+          ],
+          "stage07": [
+            1444
+          ]
+        }
+      },
+      {
+        "cue": "11_7",
+        "phrase": "only when it does that to every direction alike",
+        "byte": 404,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "source_sha256": {
+          "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+          "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            1475,
+            1478
+          ],
+          "stage07": [
+            1475,
+            1478
+          ]
+        }
+      },
+      {
+        "cue": "11_7",
+        "phrase": "a half turn combined with an equal stretch",
+        "byte": 453,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "source_sha256": {
+          "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+          "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            1490,
+            1493
+          ],
+          "stage07": [
+            1490,
+            1493
+          ]
+        }
+      },
+      {
+        "cue": "11_20",
+        "phrase": "the matrix's blocks for each negative stretch",
+        "byte": 91,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "source_sha256": {
+          "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+          "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            1520,
+            1522
+          ],
+          "stage07": [
+            1520,
+            1522
+          ]
+        }
+      },
+      {
+        "cue": "11_20",
+        "phrase": "come in matching pairs",
+        "byte": 137,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+        "source_sha256": {
+          "stage06": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+          "stage07": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            1524,
+            1526
+          ],
+          "stage07": [
+            1524,
+            1526
+          ]
+        }
+      },
+      {
+        "cue": "12_1",
+        "phrase": "the keyboard and the slide rule",
+        "byte": 167,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs",
+        "source_sha256": {
+          "stage06": "e938b750ce579faed820ae7ddd0d289819f7148bdfb991dc99f24d35d6f8491b",
+          "stage07": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            848
+          ],
+          "stage07": [
+            848
+          ]
+        }
+      },
+      {
+        "cue": "12_6",
+        "phrase": "also ends here",
+        "byte": 89,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs",
+        "source_sha256": {
+          "stage06": "e938b750ce579faed820ae7ddd0d289819f7148bdfb991dc99f24d35d6f8491b",
+          "stage07": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            1136
+          ],
+          "stage07": [
+            1136
+          ]
+        }
+      },
+      {
+        "cue": "12_6",
+        "phrase": "and so does two and a half",
+        "byte": 105,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs",
+        "source_sha256": {
+          "stage06": "e938b750ce579faed820ae7ddd0d289819f7148bdfb991dc99f24d35d6f8491b",
+          "stage07": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            1146
+          ],
+          "stage07": [
+            1146
+          ]
+        }
+      },
+      {
+        "cue": "12_21",
+        "phrase": "a convention broke the same tie",
+        "byte": 192,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs",
+        "source_sha256": {
+          "stage06": "e938b750ce579faed820ae7ddd0d289819f7148bdfb991dc99f24d35d6f8491b",
+          "stage07": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            1293
+          ],
+          "stage07": [
+            1293
+          ]
+        }
+      },
+      {
+        "cue": "12_21",
+        "phrase": "the honest answer is the whole family",
+        "byte": 230,
+        "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs",
+        "source_sha256": {
+          "stage06": "e938b750ce579faed820ae7ddd0d289819f7148bdfb991dc99f24d35d6f8491b",
+          "stage07": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+          "changed": true
+        },
+        "cue_text_changed": false,
+        "hook_lines": {
+          "stage06": [
+            1303
+          ],
+          "stage07": [
+            1303
+          ]
+        }
+      }
+    ]
+  },
+  "sentence_share_hooks": {
+    "unchanged_in_cue_sentence_const_and_share": true,
+    "lines": [
+      {
+        "cue": "12_20",
+        "const": "AXIS_RESET",
+        "stage06": 1199,
+        "stage07": 1199
+      },
+      {
+        "cue": "12_20",
+        "const": "AXIS_CHIP",
+        "stage06": 1202,
+        "stage07": 1202
+      },
+      {
+        "cue": "12_21",
+        "const": "TIE_AT",
+        "stage06": 1280,
+        "stage07": 1280
+      }
+    ]
+  },
+  "stale_pairs": {
+    "note": "other_waits_in_final_interval uses the census's line-order cue. read_out's waits at ratio_ruler.rs:555 run during 00_1 but are inside the voice, so they do not make 00_1 -> 00_2 a hold.",
+    "stage06": [
+      {
+        "cue": "00_1",
+        "other_waits_in_final_interval": [
+          {
+            "file": "ratio_ruler.rs",
+            "line": 181,
+            "class": "picture_pacing"
+          }
+        ]
+      },
+      {
+        "cue": "01_1",
+        "other_waits_in_final_interval": []
+      },
+      {
+        "cue": "03_1",
+        "other_waits_in_final_interval": []
+      },
+      {
+        "cue": "04_1",
+        "other_waits_in_final_interval": []
+      }
+    ],
+    "stage07": [
+      {
+        "cue": "00_1",
+        "other_waits_in_final_interval": []
+      },
+      {
+        "cue": "01_1",
+        "other_waits_in_final_interval": []
+      },
+      {
+        "cue": "03_1",
+        "other_waits_in_final_interval": []
+      },
+      {
+        "cue": "04_1",
+        "other_waits_in_final_interval": []
+      }
+    ]
+  }
+}

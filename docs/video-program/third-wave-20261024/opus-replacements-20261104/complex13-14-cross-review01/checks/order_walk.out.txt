@@ -1,0 +1,48 @@
+== the pin says what this model assumes (rev a399d626)
+PASS add_to_scene removes, appends, sorts by z_index
+PASS a fade's begin roots only what is off stage
+PASS the first captured sample of a play is its second, after interpolation: nothing is captured at begin
+PASS fade_in starts its copy at opacity zero
+PASS fade_out finishes at alpha zero, its begin-time state
+PASS the z_index sort is a stable sort_by, as root read
+PASS no z_index in this crate's chapters or the kit, so the sort changes nothing
+PASS line.until only computes a run time: it captures nothing
+PASS an updater receives the mobject Stage, on which VStyle is implemented
+PASS and VStyle is in the prelude the chapter imports
+PASS a fade never sets the replace flag, so its clean-up re-adds nothing; only a fade-out's remover rule touches the scene
+PASS and being on stage means being in any rooted family
+PASS corpus precedent for rooting and then fading: eigen_engineering marks.rs, same workspace pin; its pixels were not inspected here
+PASS precedent at this same pin: bakery_algorithm's scoreboard calls s.set_opacity inside a dt updater
+== 13_3 with the patch
+PASS 37 frame-producing calls from 13_2 to 13_4: the spoke under arrow, ring, backing and name on all that show it; R over its backing
+PASS no mob rooted early is captured at full paint before its fade
+     draw list from the spoke up, during the walk: spoke < arrows[0] < i_back < inside[0] < inside[1] < pole_names[0] < zdot < zsq < u_axis < along < trace < r_back < r_name < anchor
+PASS and the walker over the spoke's end
+== 14_3 with the patch
+PASS 35 frame-producing calls with the mark up: no region, gold or green disk ever over it
+PASS no disk or region is captured at full paint before its fade
+     draw list at the chain's end, top five: d#8 < piece#8 < pole1[0] < pole1[1] < same
+PASS one mark only
+== controls: the model must see the faults in canonical
+PASS canonical 13_3 faults, 48: fade_in zdot,spoke,r_name,zsq,u_axis,along: spoke over arrows[0]
+PASS canonical 14_3 faults, 137: fade_in region,region_says: region over the mark
+== controls: planted defects, each must be seen
+PASS spoke rooted after the re-adds
+PASS the arrow left out of the re-adds
+PASS the ring left out of the re-adds
+PASS the backing over the letter
+PASS R's backing over R
+PASS a wait between the spoke's rooting and its fade
+PASS the region's fade before its rooting
+PASS the gold disk not routed under
+PASS the chain's disks not routed under
+PASS a wait between a disk's rooting and its fade
+PASS the mark re-added under the disk
+== updater lifetime in 13_3
+PASS the walk's updater is cleared and its anchor removed right after the walk, well before the fade, so it cannot write opacity 1 over the fade-out
+PASS nothing runs between the walk's end and the clear
+PASS the growth's updater names none of the removed mobs
+PASS i_back has no updater: it stays put, as its letter does until the growth, by when it is gone
+PASS R and its backing are rooted, then the updater registers with call = true and writes opacity 0, and only then can a frame be captured
+PASS no frame-producing call stands between R's rooting and that first write
+RESULT PASS

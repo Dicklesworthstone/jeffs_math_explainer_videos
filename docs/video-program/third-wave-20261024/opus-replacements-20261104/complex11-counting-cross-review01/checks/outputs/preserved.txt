@@ -1,0 +1,31 @@
+root's tests: 17; staged tests: 30; root's tests gone: []
+lines the patch takes out of root's file: 28
+  - use explainer_kit::{Kit, Palette, v};
+  - Painter, Plane, Spoken, Walker, carded, dot, fact, fact_f64, fact_list, fade_in_all, fade_out_all, faded_line,
+  - flat, hero, input, line_style, marks, names_now, output, pause, pole, precisely_now, predict, reading_window,
+  - restroke, say, squash, tween_linear, value, wait_until, walker, warn,
+  - pub const SQUASHED: &str = "size compressed; direction and turns around zero unchanged";
+  - 2.0,
+  - let mut gone = one.clone();
+  - gone.extend(roots);
+  - let claim = kit.text(stage, ROOTS_CLAIM, 30.0, hero(), v(-3.45, 0.7))?;
+  - let degree_n = kit.tex(stage, DEGREE_N_TEX, 36.0, Palette::ink(), &[], v(-3.45, -0.3))?;
+  - fade_out_all(stage, &[claim, degree_n], 0.3)?;
+  - frame.push(kit.text(stage, STEP_SKETCH[1], 20.0, Palette::ink(), out.p(C::new(-0.25, -0.3)))?);
+  - let covers = kit.text(stage, REACH_COVERS, 18.0, warn(), out.p(C::new(0.0, 2.2)))?;
+  - let a_name = kit.text(
+  - stage,
+  - STEP_SKETCH[0],
+  - 20.0,
+  - output(),
+  - out.p(f(ONE) + C::new(-0.28, 0.2)),
+  - )?;
+  - let reach_name = kit.text(
+  - stage,
+  - STEP_SKETCH[2],
+  - 18.0,
+  - derivative_teal(),
+  - out.p(C::new(0.95, -1.2)),
+  - )?;
+  - a.move_to(a_name, out.p(c + C::new(-0.28, 0.2)), ORIGIN);
+PASS no test of root's is removed

@@ -1,0 +1,25 @@
+ok   canonical without the repair: 0 binder problems []
+ok   canonical without the repair: rebuilt oliver10 is byte-equal to the map on disk (341356cda34a)
+ok   canonical + repair: 0 binder problems []
+ok   canonical + repair: binder's map equals the old map with the delta applied
+     canonical + repair: all 23 hold rows land on their markers and hashes
+     units' contract pins the map at b07ea49dee62, not the old 341356cda34a: the units file must change with the map
+ok   canonical + repair: units pin the rebuilt map
+ok   candidate without the repair: 0 binder problems []
+ok   candidate without the repair: rebuilt oliver10 is byte-equal to the map on disk (bcb6a31bf026)
+ok   candidate + repair: 0 binder problems []
+ok   candidate + repair: binder's map equals the old map with the delta applied
+     candidate + repair: all 23 hold rows land on their markers and hashes
+     units' contract pins the map at f6ae09fd9d76, not the old bcb6a31bf026: the units file must change with the map
+ok   candidate + repair: units pin the rebuilt map
+ok   control a changed post-voice beat: refused (unclassified post-voice hold)
+ok   control a stale NAMED phrase: refused (DYNAMIC's source line is gone)
+ok   control a changed walk phrase: refused (no longer a call's literal)
+ok   control a changed needs list: refused (nobody has resolved)
+ok   canonical: rebinding-tex-storyboard.patch applies at zero fuzz 
+ok   canonical + repair + TEX/storyboard patch: oliver11 builds with 0 problems
+     wrote docs/video-program/third-wave-20261024/opus-replacements-20261104/complex02-05-cross-review04/rebound/canonical
+ok   candidate: rebinding-tex-storyboard.patch applies at zero fuzz 
+ok   candidate + repair + TEX/storyboard patch: oliver11 builds with 0 problems
+     wrote docs/video-program/third-wave-20261024/opus-replacements-20261104/complex02-05-cross-review04/rebound/candidate
+0 failures

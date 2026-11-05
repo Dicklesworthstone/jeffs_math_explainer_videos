@@ -1,0 +1,46 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+@@ -551,7 +551,10 @@
+         let mut result = vec![after, zero_kept];
+         result.extend(same);
+         fade_in_all(stage, &result, 0.3)?;
++        // the row that states the division keeps its reading time, even if the voice has moved on
++        let read_by = stage.scene().time().to_f64() + RESULT_ROW_READ;
+         line.wait_sentence(stage, 2)?;
++        wait_until(stage, read_by)?;
+         fade_out_all(stage, &[after], 0.3)?;
+         let degree_n = kit.tex(stage, DEGREE_N_TEX, 36.0, Palette::ink(), &[], row)?;
+         fade_in_all(stage, &[degree_n], 0.4)?;
+@@ -618,6 +621,9 @@
+ /// 11_7's two rows over the colour field, where 11_6's inequality stood: the field stays uncovered.
+ const OVER_FIELD: [(f64, f64); 2] = [(-3.45, 3.5), (-3.45, 2.83)];
+ const ROW_PT: f64 = 32.0;
++/// The least the result row stays once it is in: `p(z) = f(z) ÷ 2i = z⁵ − 3z + 1` prints 30
++/// characters, at the film's rule of thumb of 15 a second. A floor, not a reading measurement.
++const RESULT_ROW_READ: f64 = 2.0;
+ /// Over the output plane, where 11_6's count stood and the dog's will.
+ const OVER_OUTPUT: (f64, f64) = (3.25, 3.15);
+ /// On the field, in input-plane units, under the lowest root and clear of the loop.
+@@ -1864,6 +1870,22 @@
+         assert_eq!(cue.matches("turning.turned").count(), 2);
+     }
+ 
++    /// The row that states the division keeps its reading time on any voice: sentence 2 still
++    /// opens the swap, and the floor can only delay it.
++    #[test]
++    fn the_division_row_keeps_its_reading_time() {
++        // as the row prints, not as its source reads
++        let printed = "p(z) = f(z) ÷ 2i = z⁵ − 3z + 1";
++        assert!(RESULT_ROW_READ * 15.0 >= printed.chars().count() as f64);
++        let source = include_str!("counting.rs");
++        let cue = &source[source.find("let line = say(&kit, stage, \"11_7\")?;").unwrap()..];
++        let find = |text: &str| cue.find(text).unwrap_or_else(|| panic!("{text}"));
++        assert!(find("fade_in_all(stage, &result, 0.3)?;") < find("let read_by ="));
++        assert!(find("let read_by =") < find("line.wait_sentence(stage, 2)?;"));
++        assert!(find("line.wait_sentence(stage, 2)?;") < find("wait_until(stage, read_by)?;"));
++        assert!(find("wait_until(stage, read_by)?;") < find("fade_out_all(stage, &[after], 0.3)?;"));
++    }
++
+     /// The rows stand over the field and the words on it miss the marks, so the picture that
+     /// proves the point is never covered.
+     #[test]

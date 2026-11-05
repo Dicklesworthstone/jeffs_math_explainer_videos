@@ -1,0 +1,14 @@
+git apply, pinned sources, budget01 + compiled-route + tests-repair: exits [0, 0, 0], equal to the edited tree: True
+git apply, kit at 589ab3d, Lavender's hook + route test: exits [0, 0], equal to the edited kit: True
+git apply, stage01 crate, budget01 lab + probes + fade/turn + film hook + select-cells4: exits [0, 0, 0, 0, 0], plate_lab.rs equal to the edited file: True
+patch -p1 -F0, pinned sources, budget01 + compiled-route + tests-repair: exits [0, 0, 0], equal to the edited tree: True
+patch -p1 -F0, kit at 589ab3d, Lavender's hook + route test: exits [0, 0], equal to the edited kit: True
+patch -p1 -F0, stage01 crate, budget01 lab + probes + fade/turn + film hook + select-cells4: exits [0, 0, 0, 0, 0], plate_lab.rs equal to the edited file: True
+control: lab-fade-turn-probes.patch without its predecessors: git apply --check exit 1 (must refuse)
+control: engine-tests-repair.patch without budget01: git apply --check exit 1 (must refuse)
+note: the route test needs no context, so a skipped hook patch shows in the sha256 list: git apply --check without it exit 0
+mutant-vector-worker.patch on the repaired tree: applies exit 0, changes the source True; reverse exit 0, restores the bytes True
+mutant-camera-worker.patch on the repaired tree: applies exit 0, changes the source True; reverse exit 0, restores the bytes True
+engine-tests-repair.patch: 2 file(s), +60 -2
+lab-fade-turn-probes.patch: 1 file(s), +133 -10
+kit-hook-routes-test.patch: 1 file(s), +146 -0

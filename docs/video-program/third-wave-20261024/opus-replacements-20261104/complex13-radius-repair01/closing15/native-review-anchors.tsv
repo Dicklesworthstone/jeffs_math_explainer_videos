@@ -1,0 +1,22 @@
+anchor	cue	exact_time_on_the_render	old_preview02_time_s	old_frames02_frame	must_show_on_the_native_picture
+C1	15_1	Q + 0.75	11.45	31 (11.5)	Radius 1 ring half in. No gold on either mark's ring or in its hole, even while faint
+C2	15_1	Q + 1.0 to 15_2 start	11.7 to 13.17	32 to 41 (12.0 to 13.167)	Ring full. It stops at each mark's backing; ring whole, hole dark (the old frames have a gold band through both)
+C3	15_2	15_2 start + 0.25	13.42	43 (13.367)	Everything fading. The marks fade with the ring, with nothing popping
+C4	15_2	S4 + 0.9	29.4	88 (29.5)	Third caption just in: "output turns count" over "zeros − poles". Centred under its panel, inside the panel's width
+C5	15_2	15_2 end	45.1	127 (45.105)	Whole strip. No caption touches a neighbour; both lines of the third sit on the same rows as its neighbours'. Judge the wording against the panel, which draws only the input loop, and against the voice's "a loop count"
+C6	15_3	L3 + 1.5	47.83	140 (47.7, just before)	Radius 1 ring half in, under the marks. Names i and −i now left of the axis, clear of it and of the ring
+C7	15_3	L3 + 1.7	48.03	141 (48.0)	Ring full, ends at each backing. Hole dark (old: 17 against a floor of about 3.5)
+C8	15_4	L4 + 0.55	61.48	181 (61.5)	Spokes half in. Dashes stop at the backing, none in a hole
+C9	15_4	L4 + 0.8	61.73	184 (62.5, later)	Spokes full and the same
+C10	15_4	G0 (step one frame each way)	64.665	188 (64.5, just before)	Label full, ring starting at x = 3. The two backings arrive here: no dark patch, flash or change in either label
+C11	15_4	t(0.49)	64.874	none	Ring passing behind "x = 3", text whole. A bite is taken from the small ring, up to about a quarter of it, for about 0.15 s. Judge whether this reads as behind. Old struck through the text
+C12	15_4	t(1.16)	65.173	189 (65.0, before)	Ring reaches the right end of "√10 ≈ 3.162" and stops at the backing. Text whole
+C13	15_4	t(1.7)	65.414	190 (65.5, after)	Ring behind the label's middle
+C14	15_4	t(1.87)	65.489	190 (65.5)	Your frame 190 pose. Text whole, the ring gapped by the backing's height, about 0.34 plane units. Judge this bite most closely
+C15	15_4	t(2.26)	65.663	191 (65.8, after)	Ring leaving the label's left end. Text whole, with no trace behind
+C16	15_4	t(2.8)	65.904	192 (66.0, after)	Rim near the axis. Nothing near the moved names, nothing left at the old name places
+C17	15_4	t(3.162)	66.065	192 (66.0)	Rim stops at both marks above and below, whole ring, dark hole. Names about 0.4 plane units past the rim (old: crossed and then just clear)
+C18	15_4	S1 of 15_4 + 0.5	67.5	196 (67.5)	Reach bar in. Settled picture, no dark patch at either label, x = 3 and the bar apart
+C19	15_4	15_4 end	70.56	203 (70.5)	Longest hold of the final picture. Marks whole and easy to find at full-frame size (old: 50 against the floor)
+C20	15_4	15_4 end + 1.9	72.46	211 (72.5)	All fading together. No dark or pale patch at either label's place, on the backings' way out
+C21	15_4	15_4 end + 2.4 to + 3.1	73.0 to 73.66	212 to 214 (73.0 to 74.0)	Title card fades in on bare ground; nothing left behind it

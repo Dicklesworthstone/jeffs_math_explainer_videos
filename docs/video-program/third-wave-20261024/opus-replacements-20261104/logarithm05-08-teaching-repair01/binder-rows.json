@@ -1,0 +1,74 @@
+{
+  "phrase_mark_uses": {
+    "complex_turns.rs": 1,
+    "lifting_loops.rs": 1,
+    "product_rule.rs": 1
+  },
+  "fallback": {
+    "complex_turns.rs": "Without a mark at this byte: the phrase's character share of its measured sentence (complex_turns.rs phrase_seconds). Provisional.",
+    "lifting_loops.rs": "Without a mark at this byte: the phrase's character share of its measured sentence (lifting_loops.rs phrase_seconds). Provisional.",
+    "product_rule.rs": "Without a mark at this byte: the phrase's character share of its measured sentence (product_rule.rs phrase_seconds). Provisional."
+  },
+  "sites": [
+    [
+      "complex_turns.rs",
+      845,
+      "word_sync_helper",
+      "Inside until_phrase: waits to a phrase's time, inside the voice."
+    ],
+    [
+      "lifting_loops.rs",
+      769,
+      "word_sync_helper",
+      "Inside until_phrase: waits to a phrase's time, inside the voice."
+    ],
+    [
+      "product_rule.rs",
+      606,
+      "word_sync_helper",
+      "Inside until_phrase: waits to a phrase's time, inside the voice."
+    ]
+  ],
+  "receipts": {
+    "integration-teaching-repair01.json": [
+      "src/chapters/complex_turns.rs",
+      "src/chapters/lifting_loops.rs",
+      "src/chapters/branch_cut.rs",
+      "src/chapters/product_rule.rs"
+    ]
+  },
+  "added_anchors": [
+    [
+      "05_20",
+      "the logarithm of two"
+    ],
+    [
+      "05_20",
+      "a half pi"
+    ],
+    [
+      "05_20",
+      "the length is two"
+    ],
+    [
+      "05_20",
+      "land on two i"
+    ],
+    [
+      "06_6",
+      "passes minus one"
+    ],
+    [
+      "06_6",
+      "leaps from pi to minus pi"
+    ],
+    [
+      "08_5",
+      "leaves a half turn"
+    ],
+    [
+      "08_5",
+      "a factor of minus one"
+    ]
+  ]
+}

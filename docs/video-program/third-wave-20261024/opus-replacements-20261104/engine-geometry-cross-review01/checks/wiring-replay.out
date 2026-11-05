@@ -1,0 +1,14 @@
+rustfmt --check through the film's main.rs: exit 0; files with a difference: none
+kit patch: patch -p1 -F0 exit 0
+kit patch: applies to the canonical kit's bytes and reverses back to them
+film-declare-plan-budget.patch: patch -p1 -F0 on the lab crate's bytes, exit 0
+select-cells4.patch: patch -p1 -F0 on the lab crate's bytes, exit 0
+film patch on the canonical film's main.rs, dry run only, exit 0
+rustfmt --check crates/explainer_kit/src/cli.rs: exit 0
+rustfmt --check crates/explainer_kit/src/glyphs.rs: exit 0
+rustfmt --check crates/explainer_kit/tests/cli_pipeline.rs: exit 0
+the kit patch never names plan_limits or RenderPlanLimits
+adjust is called at 4 sites: chapter, camera chapter, thumbnail, glyph capture
+kit-render-options-hook.patch: sha256 c838f47129dac745b24b6a5b6b6f2baa972416e2b9aff51d4d4c25ef686cd604, +92 -13
+film-declare-plan-budget.patch: sha256 ba322818cace378026473e3baaafb2ea678ccc6ce50313d82f3d89790bb78e1f, +12 -1
+select-cells4.patch: sha256 9f0f44fcc35cf807d0e3de983a035637a1750e224798d521cd7401982f3d47ed, +3 -4

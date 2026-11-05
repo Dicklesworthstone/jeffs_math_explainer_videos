@@ -1,0 +1,22 @@
+control: blended row knots = 2n + 9, positive curves n + 3, input curves n + 5, n up to 731
+control: stepped row knots = 3(n + 2), positive curves n + 2, input curves 2n + 3 (fewer if neighbours match)
+control: logged failure reproduced: row 713 of 731, requested 1048823 limit 1048576
+control: engine test a_hard_boundary_compacts_...: frame 1 admitted, frame 2 compacts
+control: patch test numbers: 4x4 refused at 135 asking 136; 136 compacts on frames 2, 4; 16x16 total 656, third row 123
+
+z2 cells4: 1075301 live knots. 1<<21 holds one set and not two; 1<<22 holds three and not four.
+
+frames  paints in twelfths     distinct  under 1<<22
+     3  [3, 9, 12]                    3  peak 3225903, compactions at capture index none
+     4  [1, 6, 11, 12]                4  peak 3225903, compactions at capture index [3]
+     5  [1, 4, 8, 11, 12]             5  peak 3225903, compactions at capture index [3]
+     6  [0, 3, 6, 9, 12, 12]          5  peak 3225903, compactions at capture index [3]
+
+The existing 3-frame length never compacts at 1<<22, so it cannot test the crossing.
+Control, 6 frames at 1<<21: refused on the second paint, capture index 1, requested 2097646, limit 2097152.
+  crossing row: (2097152 - 1075301) // 1471 + 1 = 695 of the second set
+  exact only if no two rows in those two paints share a style; a smaller number would fault this estimate, not the budget.
+Probe, 6 frames at 1<<22: admitted, first compaction at capture index 3 (AdmissionBoundary), peak 3225903 knots retained.
+  without that compaction the fourth paint would need 4301204, over 4194304: six frames written means relief ran, if all rows differ.
+  the last two paints are both 12/12 with no write between them, so frames 5 and 6 should be byte-identical.
+Control cost: one capture admitted, refused during the second, so about one frame of raster. Probe cost: six frames.

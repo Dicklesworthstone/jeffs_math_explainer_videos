@@ -1,0 +1,29 @@
+--- a/explainer_corpus/complex_analysis_visual/narration_units.json
++++ b/explainer_corpus/complex_analysis_visual/narration_units.json
+@@ -1,13 +1,13 @@
+ {
+   "schema_version": 1,
+-  "script_sha256": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e",
++  "script_sha256": "1e24aba8b520f2e61e8b2bc392a218b664cf5556ad788ceca17fbc45bb92efab",
+   "direction_contract": {
+     "schema_version": 1,
+     "topic": "complex_analysis_visual",
+-    "script_sha256": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e",
++    "script_sha256": "1e24aba8b520f2e61e8b2bc392a218b664cf5556ad788ceca17fbc45bb92efab",
+     "map": {
+-      "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver10.json",
+-      "sha256": "341356cda34ac129fbca1988699f9f20f1cb583d63a5463f780226a13ab3c5b4"
++      "path": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver11.json",
++      "sha256": "759e0eba1d40fbd2ff4f715719493dccc35eed27da0f730c6e8c8344a7f1bb91"
+     }
+   },
+   "scope": "Candidate full-cue source plan for ElevenLabs Oliver: 105 retained cues, one take per cue, exact script text. No take selection, listening, timing or independent acceptance.",
+@@ -549,7 +549,7 @@
+       "line_ids": [
+         "11_7"
+       ],
+-      "text": "The same trick proves that every polynomial has roots. Take one of degree n, starting with z to the n. On a huge circle, z to the n dwarfs the other terms. Picture z to the n as a walker going n times around zero, and the polynomial as a dog on a leash. The leash is shorter than the walker's distance from zero, so the dog circles zero n times too. So there are exactly n roots inside, counted by order."
++      "text": "The same trick proves that every nonconstant complex polynomial has roots. Divide by its leading coefficient, which leaves its roots unchanged. Now it starts with z to the n, for some positive integer n. On a huge circle, z to the n dwarfs the other terms. Picture z to the n as a walker going n times around zero, and the polynomial as a dog on a leash. The leash is shorter than the walker's distance from zero, so the dog circles zero n times too. So there are exactly n roots inside, counted by order."
+     },
+     {
+       "id": "oliver_11_8",

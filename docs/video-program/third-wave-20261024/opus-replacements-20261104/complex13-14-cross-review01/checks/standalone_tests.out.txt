@@ -1,0 +1,33 @@
+rustc 1.100.0-nightly (908501772 2026-08-30)
+PASS co::tests::the_poles_mark_stays_on_top_of_all_that_reaches_it: ok
+PASS ri::tests::the_poles_name_keeps_its_backing_off_the_axis_and_the_ring: ok
+PASS ri::tests::the_poles_names_stay_clear_as_they_close_in: ok
+PASS ri::tests::the_spoke_passes_behind_the_pole_and_both_stay_on_screen: ok
+PASS ri::tests::the_walks_r_and_its_backing_keep_off_everything_else: ok
+PASS ri::tests::the_walks_r_is_never_shown_across_the_segment: ok
+PASS stub::the_shape_compiles_and_the_ring_ends_on_top: ok
+clippy-driver exit 0; 0 rows, 0 outside model.rs
+clippy control fired: a needless range loop
+caught R shown from the walk's start -> the_walks_r_is_never_shown_across_the_segment
+caught R shown a little early -> the_walks_r_is_never_shown_across_the_segment
+caught R's ramp ending too late -> compile: error[E0080]: evaluation panicked: assertion failed: R_NAME_SHOWN[0] < R_NAME_SH
+caught R's backing too small for the letter -> the_walks_r_and_its_backing_keep_off_everything_else
+caught R's backing wide enough to touch the spoke -> the_walks_r_and_its_backing_keep_off_everything_else, the_walks_r_is_never_shown_across_the_segment
+caught i's backing too small for the letter -> the_poles_name_keeps_its_backing_off_the_axis_and_the_ring
+caught i's backing onto the ring and axis -> the_poles_name_keeps_its_backing_off_the_axis_and_the_ring, the_walks_r_and_its_backing_keep_off_everything_else
+caught i written over the ring -> the_poles_name_keeps_its_backing_off_the_axis_and_the_ring
+caught -i written over the arrow head -> compile: error[E0080]: evaluation panicked: assertion failed: MINUS_POLE_NAME_X + MINUS_I
+caught poles closing in too far -> the_poles_names_stay_clear_as_they_close_in
+caught R on the far side of the spoke -> the_walks_r_and_its_backing_keep_off_everything_else, the_walks_r_is_never_shown_across_the_segment
+caught the spoke rooted after the re-adds -> the_spoke_passes_behind_the_pole_and_both_stay_on_screen
+caught R's backing left out of the fade -> the_spoke_passes_behind_the_pole_and_both_stay_on_screen
+caught i's backing left out of the fade -> the_spoke_passes_behind_the_pole_and_both_stay_on_screen
+caught no opacity ramp on the backing -> the_spoke_passes_behind_the_pole_and_both_stay_on_screen
+caught the gold disk not routed under -> the_poles_mark_stays_on_top_of_all_that_reaches_it
+caught the region after its fade -> the_poles_mark_stays_on_top_of_all_that_reaches_it
+caught the second mark back -> the_poles_mark_stays_on_top_of_all_that_reaches_it
+caught a fourth disk in the scene -> the_poles_mark_stays_on_top_of_all_that_reaches_it
+caught root_under leaving the mark out -> the_poles_mark_stays_on_top_of_all_that_reaches_it, the_shape_compiles_and_the_ring_ends_on_top
+planted defects caught: 20 of 20
+clippy clean on the lifted code: True
+RESULT PASS

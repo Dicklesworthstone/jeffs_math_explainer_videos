@@ -1,0 +1,376 @@
+--- a/crates/explainer_kit/src/cli.rs
++++ b/crates/explainer_kit/src/cli.rs
+@@ -544,6 +544,7 @@
+     )?;
+     o.config = opts.config;
+     o.max_frames = opts.max_frames;
++    o.plan_limits = opts.plan_limits;
+     Ok(o)
+ }
+ 
+@@ -627,10 +628,12 @@
+                 kit.stem = Some(dir.join(format!("{}.music.f32.wav", c.key)));
+             }
+             let finished = Rc::clone(&kit.finished);
+-            // shares the kit's camera slot: `make` may ask for the camera route
++            // shares the kit's slots: `make` may ask for the camera route or
++            // declare a plan budget
+             let camera = kit.clone();
+             let mut scene = (c.make)(kit);
+             let mut opts = options(path.clone(), RenderFormat::Mp4, res, args.fps)?;
++            opts.plan_limits = camera.plan_limits();
+             if let Some(n) = args.threads {
+                 opts.config.render.threads = fmn::config::config::ThreadPolicy::Fixed(n);
+             }
+@@ -658,6 +661,7 @@
+                 )?;
+                 o.config = opts.config.clone();
+                 o.max_frames = opts.max_frames;
++                o.plan_limits = opts.plan_limits;
+                 opts = o;
+             }
+             let rendered = match camera.camera_shot() {
+@@ -1021,8 +1025,12 @@
+     std::fs::create_dir_all(&args.out)?;
+     let frames = args.out.join("thumbnail");
+     set_aside(&frames)?;
+-    let mut scene = make(Kit::new()?);
+-    let report = render(scene.as_mut(), options(frames, RenderFormat::PngSequence, args.res, 1)?)?;
++    let kit = Kit::new()?;
++    let declared = kit.clone();
++    let mut scene = make(kit);
++    let mut opts = options(frames, RenderFormat::PngSequence, args.res, 1)?;
++    opts.plan_limits = declared.plan_limits();
++    let report = render(scene.as_mut(), opts)?;
+     let mut pngs: Vec<PathBuf> = std::fs::read_dir(&report.artifact.path)?
+         .filter_map(|entry| entry.ok().map(|entry| entry.path()))
+         .filter(|p| p.extension().is_some_and(|x| x == "png"))
+--- a/crates/explainer_kit/src/glyphs.rs
++++ b/crates/explainer_kit/src/glyphs.rs
+@@ -82,7 +82,9 @@
+         let camera = kit.clone();
+         let mut scene = (chapter.make)(kit);
+         let path = out.join("capture").join(chapter.key);
+-        let opts = crate::cli::options(path, RenderFormat::PngSequence, (32, 18), 1)?;
++        let mut opts = crate::cli::options(path, RenderFormat::PngSequence, (32, 18), 1)?;
++        // the plan's counts are in scene units: this tiny render needs the budget too
++        opts.plan_limits = camera.plan_limits();
+         let report = match camera.camera_shot() {
+             Some(shot) => crate::cli::render_camera_chapter(&camera, shot, scene.as_mut(), opts)?,
+             None => render(scene.as_mut(), opts)?,
+--- a/crates/explainer_kit/src/kit.rs
++++ b/crates/explainer_kit/src/kit.rs
+@@ -23,7 +23,7 @@
+ //!   objects (dirty tiles) never draw long or closed strokes: cut them into
+ //!   short pieces, and give big filled shapes no outline (S-2).
+ 
+-use std::cell::RefCell;
++use std::cell::{Cell, RefCell};
+ use std::path::PathBuf;
+ use std::rc::Rc;
+ 
+@@ -31,7 +31,7 @@
+ 
+ use fmn::library::TextMobjectError;
+ use fmn::prelude::*;
+-use fmn::rendering::CameraConfig;
++use fmn::rendering::{CameraConfig, RenderPlanLimits};
+ use fmn::scene::CameraRig;
+ 
+ use crate::layout::Linter;
+@@ -129,6 +129,7 @@
+     /// Where [`Kit::finish`] leaves the chapter's timeline for the CLI.
+     pub finished: Rc<RefCell<Option<ChapterTimeline>>>,
+     camera: Rc<RefCell<CameraSlot>>,
++    plan_limits: Rc<Cell<RenderPlanLimits>>,
+ }
+ 
+ impl Kit {
+@@ -143,9 +144,27 @@
+             stem: None,
+             finished: Rc::new(RefCell::new(None)),
+             camera: Rc::new(RefCell::new(CameraSlot::default())),
++            plan_limits: Rc::new(Cell::new(RenderPlanLimits::default())),
+         })
+     }
+ 
++    /// Declare what this chapter may retain (call it in the chapter's `make`,
++    /// before the scene runs): the CLI renders the chapter under `limits` on
++    /// every route it has, and every other chapter keeps the engine's default.
++    /// Each field is its own ceiling, so raising the knots says nothing about
++    /// moving geometry, which needs `max_retained_segments` as well; the
++    /// monotone and binning tables have fixed limits of their own that no
++    /// declaration reaches. A budget moves when the plan compacts, so it can
++    /// raise peak memory, and it does not bound memory.
++    pub fn request_plan_limits(&self, limits: RenderPlanLimits) {
++        self.plan_limits.set(limits);
++    }
++
++    /// The chapter's declared budget, or the engine's default.
++    pub fn plan_limits(&self) -> RenderPlanLimits {
++        self.plan_limits.get()
++    }
++
+     /// Ask for the camera route (call it in the chapter's `make`, before the
+     /// scene runs): the CLI then renders this chapter through
+     /// [`crate::encode::render_camera`] with the same encoder as every other
+--- /dev/null
++++ b/crates/explainer_kit/tests/plan_limits.rs
+@@ -0,0 +1,257 @@
++//! A budget a chapter declares in its `make` reaches the renderer on every
++//! route the shared CLI has: a draft and a `--crf` delivery, each on the
++//! retained and the camera route, plus the thumbnail and the glyph probe.
++//! `--crf` and a camera draft both replace the options with the delivery
++//! ones, which is where a declaration would be lost.
++//!
++//! The observable is a budget too small for the scene. The chapters draw the
++//! same picture and differ only in what they declare, so on any one route a
++//! refusal can only be the declaration arriving, and a roomy declaration or
++//! none shows the route itself works. This does not exercise a budget above
++//! the default: that takes a scene of a million knots, which the engine's own
++//! test and the plate lab carry. Needs ffmpeg on PATH (the renders are MP4).
++
++use std::path::{Path, PathBuf};
++
++use explainer_kit::kit::CameraShot;
++use explainer_kit::{Chapter, Explainer, Facts, Kit, Palette, v};
++use explainer_score::score::Identity;
++use fmn::prelude::*;
++use fmn::rendering::RenderPlanLimits;
++
++const STRAIGHT_ON: CameraShot = CameraShot { theta: 0.0, phi: 0.0 };
++
++/// Far below what the word "flat" needs, so no route can admit the scene.
++fn tight() -> RenderPlanLimits {
++    RenderPlanLimits {
++        max_retained_segments: 1,
++        ..RenderPlanLimits::default()
++    }
++}
++
++/// What a film's dense plate declares.
++fn roomy() -> RenderPlanLimits {
++    RenderPlanLimits {
++        max_retained_profile_knots: 1 << 22,
++        ..RenderPlanLimits::default()
++    }
++}
++
++struct Flat {
++    kit: Kit,
++}
++
++impl SceneConstruct for Flat {
++    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
++        let kit = self.kit.clone();
++        let t = kit.text(stage, "flat", 20.0, Palette::ink(), v(0.0, 0.0))?;
++        stage.play(write(stage.arena(), t))?;
++        kit.finish(stage)
++    }
++}
++
++fn make_open(kit: Kit) -> Box<dyn SceneConstruct> {
++    Box::new(Flat { kit })
++}
++
++fn make_tight(kit: Kit) -> Box<dyn SceneConstruct> {
++    kit.request_plan_limits(tight());
++    Box::new(Flat { kit })
++}
++
++fn chapters() -> Vec<Chapter> {
++    vec![
++        Chapter {
++            key: "01_open",
++            make: make_open,
++            intensity: 0.4,
++        },
++        Chapter {
++            key: "02_roomy",
++            make: |kit| {
++                kit.request_plan_limits(roomy());
++                Box::new(Flat { kit })
++            },
++            intensity: 0.4,
++        },
++        Chapter {
++            key: "03_tight",
++            make: make_tight,
++            intensity: 0.4,
++        },
++        Chapter {
++            key: "04_camera_open",
++            make: |kit| {
++                kit.request_camera(STRAIGHT_ON);
++                Box::new(Flat { kit })
++            },
++            intensity: 0.4,
++        },
++        Chapter {
++            key: "05_camera_roomy",
++            make: |kit| {
++                kit.request_camera(STRAIGHT_ON);
++                kit.request_plan_limits(roomy());
++                Box::new(Flat { kit })
++            },
++            intensity: 0.4,
++        },
++        Chapter {
++            key: "06_camera_tight",
++            make: |kit| {
++                kit.request_camera(STRAIGHT_ON);
++                kit.request_plan_limits(tight());
++                Box::new(Flat { kit })
++            },
++            intensity: 0.4,
++        },
++    ]
++}
++
++fn only_open() -> Vec<Chapter> {
++    vec![Chapter {
++        key: "01_open",
++        make: make_open,
++        intensity: 0.4,
++    }]
++}
++
++fn only_tight() -> Vec<Chapter> {
++    vec![Chapter {
++        key: "03_tight",
++        make: make_tight,
++        intensity: 0.4,
++    }]
++}
++
++fn only_camera_tight() -> Vec<Chapter> {
++    vec![Chapter {
++        key: "06_camera_tight",
++        make: |kit| {
++            kit.request_camera(STRAIGHT_ON);
++            kit.request_plan_limits(tight());
++            Box::new(Flat { kit })
++        },
++        intensity: 0.4,
++    }]
++}
++
++fn facts() -> Result<Facts, String> {
++    let mut f = Facts::new();
++    f.pin("c_10_4", explainer_kit::choose(10, 4), "210", "math.comb")?;
++    Ok(f)
++}
++
++fn explainer(chapters: fn() -> Vec<Chapter>) -> Explainer {
++    Explainer {
++        crate_name: "toy",
++        script: "",
++        chapters,
++        facts,
++        glyph_text: &["flat"],
++        glyph_tex: &[],
++        glyph_mono: &[],
++        identity: Identity::hoeffding,
++        narration_gain_db: explainer_kit::narration::GAIN_DB,
++        line_gaps: explainer_kit::narration::LineGaps::Constant,
++        line_owner: None,
++        thumbnail: None,
++    }
++}
++
++fn fresh_dir(tag: &str) -> PathBuf {
++    let nanos = std::time::SystemTime::now()
++        .duration_since(std::time::UNIX_EPOCH)
++        .unwrap()
++        .as_nanos();
++    std::env::temp_dir().join(format!(
++        "explainer_kit_plan_limits_{tag}_{}_{nanos}",
++        std::process::id()
++    ))
++}
++
++fn run(e: &Explainer, line: &str, out: &Path) -> i32 {
++    let argv = format!("{line} --out {}", out.display());
++    explainer_kit::cli::run(e, argv.split_whitespace().map(str::to_owned))
++}
++
++fn render_one(chapter: &str, extra: &str, out: &Path) -> i32 {
++    let line = format!("render {chapter} --res 64x36 --fps 10 --silent{extra}");
++    run(&explainer(chapters), &line, out)
++}
++
++#[test]
++fn a_declared_budget_reaches_every_render_route() {
++    assert!(
++        std::process::Command::new("ffmpeg")
++            .arg("-version")
++            .output()
++            .is_ok_and(|o| o.status.success()),
++        "this test needs ffmpeg on PATH"
++    );
++    for (route, extra) in [("draft", ""), ("delivery", " --crf 23 --preset ultrafast")] {
++        let out = fresh_dir(route);
++        for chapter in ["01_open", "02_roomy", "04_camera_open", "05_camera_roomy"] {
++            assert_eq!(render_one(chapter, extra, &out), 0, "{route} {chapter} should render");
++            assert!(out.join(format!("{chapter}.mp4")).is_file(), "{route} {chapter}");
++        }
++        for chapter in ["03_tight", "06_camera_tight"] {
++            assert_ne!(
++                render_one(chapter, extra, &out),
++                0,
++                "{route} {chapter} ignored its budget"
++            );
++            assert!(
++                !out.join(format!("{chapter}.mp4")).exists(),
++                "{route} {chapter} published"
++            );
++        }
++    }
++}
++
++#[test]
++fn a_declared_budget_reaches_the_thumbnail() {
++    let out = fresh_dir("thumbnail");
++    let mut e = explainer(chapters);
++    e.thumbnail = Some(make_open);
++    assert_eq!(run(&e, "thumbnail --res 64x36", &out), 0);
++    assert!(out.join("toy_thumbnail.png").is_file());
++    let out = fresh_dir("thumbnail_tight");
++    e.thumbnail = Some(make_tight);
++    assert_ne!(
++        run(&e, "thumbnail --res 64x36", &out),
++        0,
++        "the thumbnail ignored its budget"
++    );
++    assert!(!out.join("toy_thumbnail.png").exists());
++}
++
++#[test]
++fn a_declared_budget_reaches_the_glyph_probe() {
++    let probe = |chapters: fn() -> Vec<Chapter>, tag: &str| {
++        let out = fresh_dir(tag);
++        let line = format!("glyphs {} --res 960x540", out.display());
++        explainer_kit::cli::run(&explainer(chapters), line.split_whitespace().map(str::to_owned))
++    };
++    assert_eq!(probe(only_open, "glyphs_open"), 0);
++    assert_ne!(
++        probe(only_tight, "glyphs_tight"),
++        0,
++        "the retained probe ignored its budget"
++    );
++    assert_ne!(
++        probe(only_camera_tight, "glyphs_camera"),
++        0,
++        "the camera probe ignored its budget"
++    );
++}
++
++#[test]
++fn every_clone_of_a_kit_shares_the_declaration_and_the_default_is_the_engines() {
++    let kit = Kit::new().unwrap();
++    assert_eq!(kit.plan_limits(), RenderPlanLimits::default());
++    let shared = kit.clone();
++    kit.request_plan_limits(roomy());
++    assert_eq!(shared.plan_limits(), roomy());
++    assert_eq!(Kit::new().unwrap().plan_limits(), RenderPlanLimits::default());
++}

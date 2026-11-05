@@ -1,0 +1,316 @@
+{
+  "schema_version": 1,
+  "claim": "Text comparison of two plans. Nothing compiled, rendered, measured or heard. No take is selected; selection for all 80 cues remains pending.",
+  "from": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan",
+  "added": [
+    "03_3 'forgets' anchor, direct reader in folded_decade.rs (White's source-markers.json)",
+    "root's narration-request-final80-02 list as each cue's current request"
+  ],
+  "not_included": "Chapters 05-08's pending source changes. They will be a separate update.",
+  "files": [
+    {
+      "file": "explainer_corpus/logarithm_mysteries/narration_units.json",
+      "binder01_sha256": "61a1f622d083a700e3749bb6a4b92c61625231033ab5aef6dcfacc16c71d7b8f",
+      "binder02_sha256": "61a1f622d083a700e3749bb6a4b92c61625231033ab5aef6dcfacc16c71d7b8f",
+      "identical": true
+    },
+    {
+      "file": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver14.json",
+      "binder01_sha256": "6a326cdee5ab9e8b2055bcb2aa77ffeb16c493df16f4d0e464e448175a97cf66",
+      "binder02_sha256": "6a326cdee5ab9e8b2055bcb2aa77ffeb16c493df16f4d0e464e448175a97cf66",
+      "identical": true
+    },
+    {
+      "file": "hold-audit.json",
+      "binder01_sha256": "151c4e6d81aad1a31bca8fdec30184b69d1d180546534bdfda51890a77628d1a",
+      "binder02_sha256": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+      "identical": false,
+      "changes": [
+        {
+          "path": "$.counts.phrase_anchors",
+          "old": 24,
+          "new": 25
+        },
+        {
+          "path": "$.open_for_root[1]",
+          "old": "01_5 synthesis and a take for every cue",
+          "new": "01_5 synthesis, and selecting a take for all 80 cues"
+        },
+        {
+          "path": "$.open_for_root[2]",
+          "old": "measured phrase-timings.json",
+          "new": "measured phrase-timings.json, including 03_3's mark"
+        },
+        {
+          "path": "$.registered_chapters[3].sha256",
+          "old": "c4f023ce5284dd768767b28c9d68a4da1e05c40385eb750dc9d4fbe583b6347e",
+          "new": "acfd77f46c2378c98ec77d1b5e7d0f2cb9c15f2bc3d209d80ba690c8fcc26e5e"
+        }
+      ]
+    },
+    {
+      "file": "phrase-anchors.json",
+      "binder01_sha256": "31a3af5097ad2a2a005058e11d1dedceb19f0089b7a0a6002011f9435f7da244",
+      "binder02_sha256": "603ba46d1b2893a8f4428ebb5f655d2785416d28cf4629b824e50e3dc82e1c15",
+      "identical": false,
+      "changes": [
+        {
+          "path": "$.anchors",
+          "added": [
+            {
+              "cue": "03_3",
+              "byte": 35,
+              "byte_end": 42,
+              "phrase": "forgets",
+              "const": "FORGETS_PHRASE",
+              "sentence_index": 0,
+              "word_index": 6,
+              "hook_sites": [
+                {
+                  "file": "folded_decade.rs",
+                  "line": 474,
+                  "call": "forgets_mark"
+                },
+                {
+                  "file": "folded_decade.rs",
+                  "line": 345,
+                  "call": "lay_beats"
+                }
+              ],
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs",
+              "source_sha256": "acfd77f46c2378c98ec77d1b5e7d0f2cb9c15f2bc3d209d80ba690c8fcc26e5e",
+              "cue_text_sha256": "4ce29b0933cf7eb5fc8fbe78de804c33749308e5245693fc4a128076568e81c0",
+              "baseline_cue": "03_3",
+              "baseline_byte": 35,
+              "affected_by_cue_split": false,
+              "byte_or_cue_moved": false,
+              "fallback_without_mark": "Without a mark at this byte: DIGITS_SHARE of the span from sentence 0 to sentence 1 (folded_decade.rs lay_beats). Provisional.",
+              "measured_seconds": null
+            }
+          ],
+          "removed": []
+        },
+        {
+          "path": "$.by_chapter_file.folded_decade.rs",
+          "added": 1
+        },
+        {
+          "path": "$.counts.anchors",
+          "old": 24,
+          "new": 25
+        },
+        {
+          "path": "$.counts.cues_with_anchors",
+          "old": 14,
+          "new": 15
+        },
+        {
+          "path": "$.direct_mark_readers",
+          "added": {
+            "note": "Source that names its cue in a literal phrase_marks call, not through until_phrase or a helper taking the cue as a variable. Each falls back to a character share without a mark. Every measured_seconds is null.",
+            "rows": [
+              {
+                "cue": "03_3",
+                "phrase": "forgets",
+                "byte": 35,
+                "const": "FORGETS_PHRASE",
+                "file": "folded_decade.rs",
+                "source_sha256": "acfd77f46c2378c98ec77d1b5e7d0f2cb9c15f2bc3d209d80ba690c8fcc26e5e",
+                "hook_sites": [
+                  {
+                    "file": "folded_decade.rs",
+                    "line": 474,
+                    "call": "forgets_mark"
+                  },
+                  {
+                    "file": "folded_decade.rs",
+                    "line": 345,
+                    "call": "lay_beats"
+                  }
+                ],
+                "fallback_without_mark": "Without a mark at this byte: DIGITS_SHARE of the span from sentence 0 to sentence 1 (folded_decade.rs lay_beats). Provisional.",
+                "evidence": {
+                  "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-opening-oliver-timing01/source-markers.json",
+                  "sha256": "4b523a5ec39ed7a636b4e3480ed60991091719e8628450c113887b1cfa9fdeb3"
+                },
+                "measured_seconds": null
+              },
+              {
+                "cue": "04_2",
+                "phrase": "it only ever climbs",
+                "byte": 306,
+                "const": "CLIMB_PHRASE",
+                "file": "undoing_growth.rs",
+                "source_sha256": "4dc4c555122d9cd5423d7094336c1d5e6f7f9afb77d6850a38bc0148c20180ef",
+                "hook_sites": [
+                  {
+                    "file": "undoing_growth.rs",
+                    "line": 115,
+                    "call": "climb_onset"
+                  },
+                  {
+                    "file": "undoing_growth.rs",
+                    "line": 351,
+                    "call": "wait_until"
+                  }
+                ],
+                "fallback_without_mark": "Without a mark at this byte: the phrase's character share between the onsets of sentences 3 and 4 (undoing_growth.rs climb_onset). Provisional.",
+                "evidence": null,
+                "measured_seconds": null
+              }
+            ]
+          }
+        },
+        {
+          "path": "$.opening_read_out_estimates.note",
+          "old": "ratio_ruler.rs read_shares and read_out, as integrated. Deliberately not until_phrase, so they read no entry of phrase-timings.json, and a mark for these words would change nothing until the source reads it. Another agent is investigating ASR anchors for the opening separately; this plan proposes no hook and no anchor for these words.",
+          "new": "ratio_ruler.rs read_shares and read_out, as integrated. Deliberately not until_phrase, so they read no entry of phrase-timings.json, and a mark for these words would change nothing until the source reads it. White's audit, logarithm-opening-oliver-timing01, compared these with two retained takes per cue and proposes no source change. Neither take is selected and nothing was heard. This plan proposes no hook and no anchor for these words."
+        }
+      ]
+    },
+    {
+      "file": "phrase-timings-unmeasured-template.json",
+      "binder01_sha256": "fd1e12d9e5ba1b8b4fc7dc296ffa388937c2b853edc81e7d2910b9f66d706760",
+      "binder02_sha256": "901392b45e57c559b9159ea19ed3abe240eab0bc9f088adf448ba2c2b7febb1b",
+      "identical": false,
+      "changes": [
+        {
+          "path": "$.cues.03_3.marks",
+          "added": [
+            {
+              "byte": 35,
+              "seconds": null,
+              "phrase": "forgets"
+            }
+          ],
+          "removed": []
+        }
+      ]
+    },
+    {
+      "file": "direction-dispositions-proposed.json",
+      "binder01_sha256": "986609984d8325809c516937dcf97acfe963d5f8bae0ad3f151246dcc7b3a299",
+      "binder02_sha256": "8b4fe095a7965ce6f834acecd350da62f114bb19be3f0900617b35f8a27b4baa",
+      "identical": false,
+      "evidence_rows_changed": 15,
+      "note": "Only each row's evidence path and hash, which name this plan's hold-audit.json."
+    },
+    {
+      "file": "cue-delta.json",
+      "binder01_sha256": "88da78a400ac8cef325de8db94483f70e263ddd8b2ba2923df6d905ceba00514",
+      "binder02_sha256": "2263bb51a62e41972cd12adca21660b67b515f2fda9781291e6761a4bb56cdac",
+      "identical": false,
+      "current_request_files_changed": [],
+      "current_request_rows_gained": [
+        "submitted",
+        "submission_state",
+        "retained_pair_receipt"
+      ],
+      "changes": [
+        {
+          "path": "$.current_request_list",
+          "added": {
+            "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-02/requests.json",
+            "sha256": "c533f4ade3929518a68ecdf7f7b7027c22cbf59480e599c4b5982fd25e1e33be",
+            "created_at": "2026-11-05T00:56:41.979855+00:00",
+            "script_sha256": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+            "supersedes": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/requests.json",
+            "by_submission_state": {
+              "full pair retained": 35,
+              "not established by this snapshot": 44,
+              "submitted once; generation/download pending": 1
+            },
+            "submitted_true": 36,
+            "provider_history_checked_false": 80,
+            "claim": "Copied from root's list. Retained or submitted is not selected: no take is selected here, and selection for all 80 cues remains pending. Nothing here authorizes synthesis."
+          }
+        },
+        {
+          "path": "$.final80_request_state",
+          "removed": {
+            "created_at": "2026-11-04T12:34:43.175497+00:00",
+            "submitted_false": 80,
+            "provider_history_checked_false": 80
+          }
+        },
+        {
+          "path": "$.request_id_note",
+          "old": "request_id_with_exact_bytes names narration-request-plan01's request, and is null for 01_5, whose new text is only in narration-request-rounding01. current_request is the file with the cue's exact current bytes.",
+          "new": "request_id_with_exact_bytes names narration-request-plan01's request, and is null for 01_5, whose new text is not in that plan. current_request is the row of root's current list: the file with the cue's exact current bytes and the submission state as that list records it."
+        }
+      ]
+    },
+    {
+      "file": "stage07-delta.json",
+      "binder01_sha256": "a1f0ea092079c0c0f48b6e366c415ac3a2fa532f0642b98e7c55cae44a996f33",
+      "binder02_sha256": "08f106ac727bbae2512d740d7cd4cda292a9d76e721dc422f73fc58c4c07535a",
+      "identical": false,
+      "changes": [
+        {
+          "path": "$.chapter_files[3].stage07",
+          "old": "c4f023ce5284dd768767b28c9d68a4da1e05c40385eb750dc9d4fbe583b6347e",
+          "new": "acfd77f46c2378c98ec77d1b5e7d0f2cb9c15f2bc3d209d80ba690c8fcc26e5e"
+        },
+        {
+          "path": "$.phrase_anchors.added",
+          "added": [
+            {
+              "cue": "03_3",
+              "phrase": "forgets",
+              "byte": 35,
+              "byte_end": 42,
+              "const": "FORGETS_PHRASE",
+              "sentence_index": 0,
+              "word_index": 6,
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs",
+              "source_sha256": "acfd77f46c2378c98ec77d1b5e7d0f2cb9c15f2bc3d209d80ba690c8fcc26e5e",
+              "cue_text_sha256": "4ce29b0933cf7eb5fc8fbe78de804c33749308e5245693fc4a128076568e81c0",
+              "hook_sites": [
+                {
+                  "file": "folded_decade.rs",
+                  "line": 474,
+                  "call": "forgets_mark"
+                },
+                {
+                  "file": "folded_decade.rs",
+                  "line": 345,
+                  "call": "lay_beats"
+                }
+              ],
+              "measured_seconds": null
+            }
+          ]
+        },
+        {
+          "path": "$.phrase_anchors.count.stage07",
+          "old": 24,
+          "new": 25
+        }
+      ]
+    },
+    {
+      "file": "inputs.sha256",
+      "binder01_sha256": "6ed20e477482a2703b2c73b27e00f2f10ec97eb87a7b13fb6738dac8f99aea67",
+      "binder02_sha256": "cafb258539f9c3d2ea4ad6a438c2afb662945b24bf4368837d5393b20e8eca3c",
+      "identical": false,
+      "lines_added": [
+        "52928856607173bd1e535a332ebc37a4a214457803e3479cc41e425d4c8408a5  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/integration-partial06.json",
+        "c533f4ade3929518a68ecdf7f7b7027c22cbf59480e599c4b5982fd25e1e33be  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-02/requests.json",
+        "4b523a5ec39ed7a636b4e3480ed60991091719e8628450c113887b1cfa9fdeb3  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-opening-oliver-timing01/source-markers.json",
+        "61a1f622d083a700e3749bb6a4b92c61625231033ab5aef6dcfacc16c71d7b8f  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/explainer_corpus/logarithm_mysteries/narration_units.json",
+        "6a326cdee5ab9e8b2055bcb2aa77ffeb16c493df16f4d0e464e448175a97cf66  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver14.json",
+        "151c4e6d81aad1a31bca8fdec30184b69d1d180546534bdfda51890a77628d1a  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/hold-audit.json",
+        "31a3af5097ad2a2a005058e11d1dedceb19f0089b7a0a6002011f9435f7da244  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/phrase-anchors.json",
+        "fd1e12d9e5ba1b8b4fc7dc296ffa388937c2b853edc81e7d2910b9f66d706760  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/phrase-timings-unmeasured-template.json",
+        "986609984d8325809c516937dcf97acfe963d5f8bae0ad3f151246dcc7b3a299  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/direction-dispositions-proposed.json",
+        "88da78a400ac8cef325de8db94483f70e263ddd8b2ba2923df6d905ceba00514  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/cue-delta.json",
+        "a1f0ea092079c0c0f48b6e366c415ac3a2fa532f0642b98e7c55cae44a996f33  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/stage07-delta.json",
+        "6ed20e477482a2703b2c73b27e00f2f10ec97eb87a7b13fb6738dac8f99aea67  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/inputs.sha256",
+        "acfd77f46c2378c98ec77d1b5e7d0f2cb9c15f2bc3d209d80ba690c8fcc26e5e  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs"
+      ],
+      "lines_removed": [
+        "c4f023ce5284dd768767b28c9d68a4da1e05c40385eb750dc9d4fbe583b6347e  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs"
+      ]
+    }
+  ]
+}

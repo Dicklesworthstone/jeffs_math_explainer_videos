@@ -1,0 +1,59 @@
+-- the sealed bundle is unchanged
+PASS sealed SHA256SUMS is 63a3fa29b3fbd7ae
+PASS all 12 sealed files match it []
+
+-- baseline
+PASS sealed folded_decade.rs is c4f023ce5284dd76
+PASS root's stage07 candidate ratio_ruler.rs is 198d4a0586369258
+PASS root's stage07 candidate folded_decade.rs is c4f023ce5284dd76
+PASS root's stage07 candidate slide_rule.rs is 68d4b011fb4d9003
+  canonical folded_decade.rs at this run: acfc7f9c198b3d3d0f99e1b160ec6c2d4e22a4ce28aeb4263deb29df9efa670d
+  candidate folded_decade.rs: acfd77f46c2378c98ec77d1b5e7d0f2cb9c15f2bc3d209d80ba690c8fcc26e5e
+  lines: baseline 658, candidate 699
+  script.tsv: stage07 b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e, canonical f201d2dc57fa9ccac30d475255690a90d6749449014b542d4dea62164f31bf84
+PASS canonical script.tsv is the one the takes' records cite
+PASS stage07's script.tsv is root's rounding wording
+PASS the two scripts differ only in ['01_5']; 00_1, 00_2 and 03_3 are the same text
+    00_1 text sha256 2986667cb17d47efc5b01a53a482cacb77df7f13d9750fe736547c800a2e769e
+    00_2 text sha256 9cff4b6074ce932b6916fa76fbef35e08e31592ca5e96c93482a256ee2c340a4
+    03_3 text sha256 4ce29b0933cf7eb5fc8fbe78de804c33749308e5245693fc4a128076568e81c0
+
+-- the edit is small and moves no scene line
+PASS the constants still start on line 457
+PASS above them, exactly one line differs: [345]
+    was: let (laps_run, lay) = lay_beats(stage.scene().time().to_f64(), spoken);
+    now: let (laps_run, lay) = lay_beats(stage.scene().time().to_f64(), spoken, forgets_mark(&kit));
+PASS that line is the call to lay_beats
+PASS one helper is new
+
+-- what the binder's rules see, from its regexes
+PASS timing sites unchanged, 1; no SITES row
+PASS sentence hooks unchanged, on the same lines
+PASS no until_phrase or phrase_time line for HOOKS to classify
+PASS phrase_marks uses go from 0 to 1, so PHRASE_MARK_USES needs a row
+PASS the binder's constant regex reads {'FORGETS_PHRASE': 'forgets'}
+PASS the phrase occurs once in 03_3, as the binder demands
+PASS it begins a word, at byte 35
+PASS it is in sentence 0
+  plain-word count before it, as a guide to the binder's word_index: 6
+PASS stage06's table has no folded_decade.rs row today, so the binder stops until it gets one
+PASS that stop is in the binder
+PASS 04_2's direct reader is the precedent for adding an anchor by hand
+PASS the preflight's direct reader set needs the new pair
+
+-- holds
+PASS none of the 15 holds in the stage06 audit binds folded_decade.rs
+PASS map13 does not name folded_decade.rs
+
+-- source-markers.json agrees with the bytes
+PASS hashes
+PASS line counts [658, 699]
+PASS anchor sites {'forgets_mark': 474, 'lay_beats': 345}
+PASS both sites follow say 03_3 on line 329, as the preflight's destination check needs
+PASS anchor byte and text hash
+PASS nothing measured is claimed
+PASS each site needle is on one line, as the binder's one_line demands
+
+-- format
+PASS rustfmt --check, max_width 120
+RESULT PASS

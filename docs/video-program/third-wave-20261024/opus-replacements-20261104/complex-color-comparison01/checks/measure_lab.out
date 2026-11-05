@@ -1,0 +1,380 @@
+run color-view01: 1280x720, 90.0 px a unit, residual window 9 px rows
+
+A. Row seams. Each cell: rms % of the row residual, lowest, highest (luma), and the share of pixel rows at least 1 luma dark. One dark row is the picture's own (the background cell at a zero). A share of them is a lattice.
+   vs tile: the row means' difference from the same subject's tile: rms, lowest, highest.
+  z
+    now              1.76%   -8.29   +2.04  21.1%   vs tile  3.126  -10.27   +0.00
+    overlap          0.08%   -1.18   +0.84   0.2%   vs tile  0.160   -2.18   +0.31
+    overlap06        0.28%   -1.67   +1.14   7.3%   vs tile  0.466   -1.98   +0.01
+    tile             0.08%   -1.57   +0.93   0.4%   vs tile  0.000   +0.00   +0.00
+    tile_raw         0.08%   -1.57   +0.93   0.4%   vs tile  0.019   -0.41   +0.13
+    tile_p3          0.06%   -0.80   +0.69   0.0%
+    blend            0.08%   -1.39   +0.83   0.2%
+    rows2            0.03%   -0.42   +0.34   0.0%
+    cells2           0.03%   -0.41   +0.34   0.0%
+    flat_control     1.76%   -8.25   +2.24  21.5%
+  z2
+    now              1.75%   -5.61   +2.67  21.3%   vs tile  2.245   -6.87   +0.45
+    overlap          0.56%   -2.89   +2.02   6.4%   vs tile  0.557   -4.68   +3.69
+    overlap06        0.61%   -3.15   +2.44   7.9%   vs tile  0.351   -1.74   +0.79
+    tile             0.60%   -3.28   +2.25   5.9%   vs tile  0.000   +0.00   +0.00
+    tile_p3          0.48%   -2.75   +1.94   3.6%
+    blend            0.59%   -3.30   +2.37   5.9%
+    rows2            0.53%   -2.98   +1.23   4.5%
+    cells2           0.51%   -2.76   +1.31   5.4%
+  tan
+    now              1.76%   -6.31   +2.70  20.6%   vs tile  2.346   -7.81   +0.00
+    overlap          0.36%   -1.78   +1.78   1.1%   vs tile  0.440   -3.03   +0.88
+    overlap06        0.42%   -1.73   +1.80   3.1%   vs tile  0.369   -2.19   +0.25
+    tile             0.37%   -1.59   +1.74   2.5%   vs tile  0.000   +0.00   +0.00
+    tile_p3          0.25%   -2.15   +1.88   0.8%
+    blend            0.37%   -1.61   +1.71   2.2%
+    rows2            0.38%   -1.46   +2.21   3.9%
+    cells2           0.19%   -1.86   +1.02   0.3%
+  zoom
+    now              1.74%   -5.89   +2.14  19.7%   vs tile  2.325   -7.41   +0.19
+    overlap          0.19%   -0.92   +0.90   0.0%   vs tile  0.199   -0.62   +1.89
+    overlap06        0.30%   -1.09   +1.13   1.6%   vs tile  0.327   -1.28   +0.21
+    tile             0.18%   -0.72   +1.14   0.0%   vs tile  0.000   +0.00   +0.00
+    tile_p3          0.12%   -0.71   +0.76   0.0%
+    blend            0.17%   -0.73   +1.01   0.0%
+    rows2            0.17%   -0.61   +0.43   0.0%
+    cells2           0.10%   -0.68   +0.42   0.0%
+  sinrecip
+    now              1.86%   -7.02   +3.78  22.6%   vs tile  2.122   -7.76   +0.03
+    overlap          0.95%   -4.41   +2.85  13.4%   vs tile  0.780   -4.04   +7.48
+    overlap06        0.91%   -3.94   +2.83  12.3%   vs tile  0.336   -1.87   +3.02
+    tile             0.94%   -4.26   +2.88  13.6%   vs tile  0.000   +0.00   +0.00
+    tile_p3          0.65%   -3.30   +2.93   6.2%
+    blend            0.91%   -3.98   +2.85  11.9%
+    rows2            0.82%   -3.94   +3.17   9.5%
+    cells2           0.72%   -3.68   +3.06   5.3%
+  sin
+    now              5.22%  -25.32  +25.76  26.8%   vs tile  2.441  -19.91   +2.06
+    overlap          5.27%  -24.81  +24.91  26.3%   vs tile  4.236  -54.57  +46.36
+    overlap06        4.98%  -24.70  +25.02  23.5%   vs tile  1.130  -19.41   +2.36
+    tile             5.14%  -25.15  +24.86  24.1%   vs tile  0.000   +0.00   +0.00
+    tile_p3          3.93%  -21.99  +23.43  23.0%
+    blend            5.14%  -25.15  +24.86  24.1%
+    rows2            4.39%  -24.39  +24.63  12.9%
+    cells2           4.39%  -24.39  +24.60  12.7%
+  recip
+    now              1.99%   -7.19   +4.91  20.1%   vs tile  2.146   -8.00   +0.15
+    tile             0.98%   -3.73   +4.08  12.4%   vs tile  0.000   +0.00   +0.00
+    blend            1.00%   -3.83   +4.03  12.4%
+    rows2            0.89%   -3.48   +4.24   9.4%
+    cells2           0.77%   -2.86   +3.94   6.0%
+  bump
+    now              1.82%   -5.68   +3.98  18.9%   vs tile  2.140   -7.02   +0.39
+    tile             0.51%   -1.91   +2.82   1.8%   vs tile  0.000   +0.00   +0.00
+    blend            0.50%   -1.78   +2.87   1.8%
+    rows2            0.50%   -1.50   +2.13   1.8%
+    cells2           0.43%   -1.25   +1.93   0.9%
+  openbump
+    now              1.84%   -5.39   +4.26  19.7%   vs tile  2.160   -6.94   +0.16
+    tile             0.53%   -2.24   +3.10   2.5%   vs tile  0.000   +0.00   +0.00
+    blend            0.52%   -2.13   +3.12   2.5%
+    rows2            0.48%   -1.68   +2.66   2.9%
+    cells2           0.40%   -1.14   +2.24   0.8%
+
+B. The mirror against the frame, row residuals. r on the same rows, r one row off, and rms of frame and mirror. Pixels: rms of 255 over the plate.
+  z         now    r +1.000 off1 -0.356  rms 2.671 / 2.670  pixels 0.33
+  z         tile   r +0.997 off1 +0.057  rms 0.127 / 0.129  pixels 0.31
+  z2        now    r +0.999 off1 -0.293  rms 1.904 / 1.915  pixels 1.44
+  z2        tile   r +0.997 off1 +0.378  rms 0.654 / 0.649  pixels 0.95
+  tan       now    r +1.000 off1 -0.341  rms 1.962 / 1.962  pixels 1.49
+  tan       tile   r +0.996 off1 +0.236  rms 0.420 / 0.416  pixels 1.24
+  zoom      now    r +1.000 off1 -0.348  rms 1.966 / 1.963  pixels 0.85
+  zoom      tile   r +0.990 off1 +0.293  rms 0.209 / 0.203  pixels 0.58
+  sinrecip  now    r +0.998 off1 -0.137  rms 1.994 / 2.022  pixels 2.56
+  sinrecip  tile   r +0.997 off1 +0.430  rms 1.015 / 1.002  pixels 2.17
+  sin       now    r +1.000 off1 +0.441  rms 5.596 / 5.600  pixels 1.22
+  sin       tile   r +1.000 off1 +0.473  rms 5.566 / 5.567  pixels 0.80
+  recip     now    r +0.998 off1 -0.120  rms 2.117 / 2.108  pixels 1.96
+  recip     tile   r +0.995 off1 +0.434  rms 1.055 / 1.057  pixels 1.75
+  bump      now    r +0.999 off1 -0.266  rms 1.913 / 1.926  pixels 1.51
+  bump      tile   r +0.996 off1 +0.432  rms 0.538 / 0.537  pixels 1.05
+  openbump  now    r +0.999 off1 -0.267  rms 1.950 / 1.963  pixels 1.91
+  openbump  tile   r +0.995 off1 +0.413  rms 0.563 / 0.561  pixels 1.73
+
+C. Against truth, encoded 0..255 over the plate: rms at this size, rms after a 2x2 box, largest neighbour jump in luma. A reference, not a target, and not a judgement of the picture.
+  z, truth's own largest jump 36
+    now          3.46   2.44    166
+    tile         1.07   0.86    171
+    tile_p3      0.65   0.46     37
+    blend        0.71   0.55    143
+    rows2        0.29   0.21     30
+    cells2       0.23   0.13     26
+  z2, truth's own largest jump 72
+    now          7.85   5.79    122
+    tile         7.70   5.69    124
+    tile_p3      6.23   4.38     79
+    blend        6.46   5.05     99
+    rows2        5.29   3.98     93
+    cells2       3.82   2.44     95
+  tan, truth's own largest jump 73
+    now          7.20   5.42     94
+    tile         7.04   5.36     94
+    tile_p3      5.53   4.04     73
+    blend        5.95   4.77     86
+    rows2        4.98   3.80     90
+    cells2       3.60   2.42     89
+  zoom, truth's own largest jump 70
+    now          5.08   3.69     83
+    tile         4.64   3.37     87
+    tile_p3      3.75   2.57     72
+    blend        3.85   2.89     86
+    rows2        2.86   2.01     77
+    cells2       2.25   1.36     80
+  sinrecip, truth's own largest jump 74
+    now         12.10   9.16    107
+    tile        12.20   9.22    107
+    tile_p3      9.31   6.54     81
+    blend       10.32   8.17     92
+    rows2        8.81   6.61     97
+    cells2       6.71   4.49     96
+  sin, truth's own largest jump 78
+    now          9.05   7.14     87
+    tile         8.81   6.63     87
+    tile_p3      7.41   5.70     73
+    blend        8.13   6.23     81
+    rows2        5.94   4.47     82
+    cells2       5.32   3.83     86
+  recip, truth's own largest jump 72
+    now          8.22   6.03     87
+    tile         8.02   5.86     87
+    blend        6.74   5.20     72
+    rows2        5.45   4.00     78
+    cells2       4.00   2.64     85
+  bump, truth's own largest jump 76
+    now          7.94   5.87     96
+    tile         7.76   5.74     96
+    blend        6.39   5.04     83
+    rows2        5.55   4.25     79
+    cells2       3.79   2.48     76
+  openbump, truth's own largest jump 73
+    now          7.67   5.64     94
+    tile         7.49   5.51     94
+    blend        6.23   4.92     74
+    rows2        5.33   4.12     74
+    cells2       3.72   2.49     84
+
+D. Fades. Each frame against its ideal, the scene's hold frame at the frame's fitted opacity. opacity, pixel rms of 255 over the plate, then the row means' lowest and highest difference in luma.
+  bump blend: 7 frames
+     0  0.210    0.33    -0.03   +0.03
+     1  0.790    0.39    -0.05   +0.03
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.790    0.39    -0.05   +0.03
+     5  0.210    0.33    -0.03   +0.03
+     6  0.000    0.00    -0.00   -0.00
+  bump now: 7 frames
+     0  0.213    0.91    -0.41   +2.27
+     1  0.793    0.58    -0.23   +1.14
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.793    0.58    -0.23   +1.14
+     5  0.213    0.91    -0.41   +2.27
+     6  0.000    0.00    -0.00   -0.00
+  bump tile: 7 frames
+     0  0.210    0.33    -0.04   +0.05
+     1  0.790    0.39    -0.05   +0.06
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.790    0.39    -0.05   +0.06
+     5  0.210    0.33    -0.04   +0.05
+     6  0.000    0.00    -0.00   -0.00
+  tan blend: 7 frames
+     0  0.210    0.33    -0.16   +0.15
+     1  0.790    0.39    -0.13   +0.10
+     2  1.000    0.00    -0.00   +0.00
+     3  1.000    0.00    -0.00   +0.00
+     4  0.790    0.39    -0.13   +0.10
+     5  0.210    0.33    -0.16   +0.15
+     6  0.000    0.00    -0.00   -0.00
+  tan now: 7 frames
+     0  0.213    0.91    -0.53   +2.72
+     1  0.793    0.57    -0.29   +1.35
+     2  1.000    0.00    -0.00   +0.00
+     3  1.000    0.00    -0.00   +0.00
+     4  0.793    0.57    -0.29   +1.35
+     5  0.213    0.91    -0.53   +2.72
+     6  0.000    0.00    -0.00   -0.00
+  tan tile: 7 frames
+     0  0.210    0.33    -0.15   +0.15
+     1  0.790    0.39    -0.14   +0.10
+     2  1.000    0.00    -0.00   +0.00
+     3  1.000    0.00    -0.00   +0.00
+     4  0.790    0.39    -0.14   +0.10
+     5  0.210    0.33    -0.15   +0.15
+     6  0.000    0.00    -0.00   -0.00
+  z blend: 7 frames
+     0  0.210    0.33    -0.13   +0.08
+     1  0.790    0.39    -0.06   +0.26
+     2  1.000    0.00    -0.00   +0.00
+     3  1.000    0.00    -0.00   +0.00
+     4  0.790    0.39    -0.06   +0.26
+     5  0.210    0.33    -0.13   +0.08
+     6  0.000    0.00    -0.00   -0.00
+  z now: 7 frames
+     0  0.213    1.22    -0.63   +3.57
+     1  0.793    0.70    -0.32   +1.75
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.793    0.70    -0.32   +1.75
+     5  0.213    1.22    -0.63   +3.57
+     6  0.000    0.00    -0.00   -0.00
+  z overlap: 7 frames
+     0  0.267   10.54   -10.25  +16.68
+     1  0.847    5.61    -5.09   +9.24
+     2  1.000    0.00    -0.00   +0.00
+     3  1.000    0.00    -0.00   +0.00
+     4  0.847    5.61    -5.09   +9.24
+     5  0.267   10.54   -10.25  +16.68
+     6  0.000    0.00    -0.00   -0.00
+  z overlap06: 7 frames
+     0  0.219    2.92    -1.81   +7.52
+     1  0.800    1.49    -0.88   +3.74
+     2  1.000    0.00    -0.00   +0.00
+     3  1.000    0.00    -0.00   +0.00
+     4  0.800    1.49    -0.88   +3.74
+     5  0.219    2.92    -1.81   +7.52
+     6  0.000    0.00    -0.00   -0.00
+  z tile: 7 frames
+     0  0.210    0.33    -0.13   +0.08
+     1  0.790    0.39    -0.06   +0.26
+     2  1.000    0.00    -0.00   -0.00
+     3  1.000    0.00    -0.00   -0.00
+     4  0.790    0.39    -0.06   +0.26
+     5  0.210    0.33    -0.13   +0.08
+     6  0.000    0.00    -0.00   -0.00
+
+E. Vertex colours in pixels. Hold frame against the same candidate's still, then flat_control against now: rms of 255 over the plate, and the largest difference.
+  bump blend: hold vs still rms 0.000, largest 0.0
+  bump now: hold vs still rms 0.000, largest 0.0
+  bump tile: hold vs still rms 0.000, largest 0.0
+  tan blend: hold vs still rms 0.000, largest 0.0
+  tan now: hold vs still rms 0.000, largest 0.0
+  tan tile: hold vs still rms 0.000, largest 0.0
+  z blend: hold vs still rms 0.000, largest 0.0
+  z now: hold vs still rms 0.000, largest 0.0
+  z overlap: hold vs still rms 0.000, largest 0.0
+  z overlap06: hold vs still rms 0.000, largest 0.0
+  z tile: hold vs still rms 0.000, largest 0.0
+  z flat_control vs now: rms 70.10
+
+F. Repaints. First frame against last, rms of 255, and the last frame's luma against the mirror's picture of the target, z^3-1 on the same plate.
+  z2 blend: moved 44.1, last frame r against the target +0.985
+  z2 now: moved 44.0, last frame r against the target +0.993
+  z2 rows2: moved 44.1, last frame r against the target +0.948
+
+G. Cost, from this run's receipt and files. Not a promise of what a chapter costs.
+  kind, subject, candidate, frames, rows x cols, evaluate s, build s, s a frame, MB a frame, records
+  stills   z         now            1  183 x 183    0.007   0.068     1.30    0.08  as built
+  stills   z         overlap        1  183 x 183    0.007   0.066     1.07    0.04  as built
+  stills   z         overlap06      1  183 x 183    0.008   0.069     1.27    0.08  as built
+  stills   z         tile           1  183 x 183    0.008   0.071     1.12    0.06  as built
+  stills   z         tile_p3        1  183 x 183    0.028   0.090     1.23    0.06  as built
+  stills   z         blend          1  183 x 183    0.007   0.041     0.96    0.06  as built
+  stills   z         rows2          1  366 x 183    0.014   0.077     1.58    0.10  as built
+  stills   z         cells2         1  366 x 366    0.025   0.148     2.42    0.10  as built
+  stills   z2        now            1  183 x 183    0.007   0.060     1.39    0.18  as built
+  stills   z2        overlap        1  183 x 183    0.007   0.068     1.15    0.09  as built
+  stills   z2        overlap06      1  183 x 183    0.009   0.074     1.32    0.16  as built
+  stills   z2        tile           1  183 x 183    0.007   0.071     1.18    0.13  as built
+  stills   z2        tile_p3        1  183 x 183    0.032   0.096     1.21    0.13  as built
+  stills   z2        blend          1  183 x 183    0.007   0.040     1.09    0.17  as built
+  stills   z2        rows2          1  366 x 183    0.015   0.078     1.83    0.29  as built
+  stills   z2        cells2         1  366 x 366    0.029   0.160     2.61    0.29  as built
+  stills   tan       now            1  120 x 240    0.007   0.053     1.15    0.11  as built
+  stills   tan       overlap        1  120 x 240    0.007   0.066     1.06    0.06  as built
+  stills   tan       overlap06      1  120 x 240    0.007   0.060     1.17    0.10  as built
+  stills   tan       tile           1  120 x 240    0.007   0.060     1.05    0.08  as built
+  stills   tan       tile_p3        1  120 x 240    0.029   0.079     1.03    0.08  as built
+  stills   tan       blend          1  120 x 240    0.007   0.036     0.91    0.09  as built
+  stills   tan       rows2          1  240 x 240    0.012   0.067     1.49    0.16  as built
+  stills   tan       cells2         1  240 x 480    0.026   0.132     2.21    0.16  as built
+  stills   zoom      now            1  143 x 143    0.005   0.046     0.90    0.07  as built
+  stills   zoom      overlap        1  143 x 143    0.005   0.042     0.77    0.04  as built
+  stills   zoom      overlap06      1  143 x 143    0.005   0.040     0.84    0.07  as built
+  stills   zoom      tile           1  143 x 143    0.005   0.043     0.79    0.05  as built
+  stills   zoom      tile_p3        1  143 x 143    0.021   0.056     0.87    0.06  as built
+  stills   zoom      blend          1  143 x 143    0.005   0.027     0.81    0.07  as built
+  stills   zoom      rows2          1  286 x 143    0.009   0.053     1.16    0.12  as built
+  stills   zoom      cells2         1  286 x 286    0.020   0.108     1.56    0.12  as built
+  stills   sinrecip  now            1  160 x 160    0.006   0.049     1.05    0.18  as built
+  stills   sinrecip  overlap        1  160 x 160    0.006   0.052     0.92    0.10  as built
+  stills   sinrecip  overlap06      1  160 x 160    0.006   0.055     1.03    0.17  as built
+  stills   sinrecip  tile           1  160 x 160    0.007   0.056     0.93    0.13  as built
+  stills   sinrecip  tile_p3        1  160 x 160    0.023   0.079     1.01    0.13  as built
+  stills   sinrecip  blend          1  160 x 160    0.007   0.037     0.85    0.19  as built
+  stills   sinrecip  rows2          1  320 x 160    0.014   0.070     1.41    0.33  as built
+  stills   sinrecip  cells2         1  320 x 320    0.023   0.120     1.91    0.34  as built
+  stills   sin       now            1  150 x 171    0.006   0.052     1.03    0.14  as built
+  stills   sin       overlap        1  150 x 171    0.006   0.050     0.90    0.08  as built
+  stills   sin       overlap06      1  150 x 171    0.007   0.050     1.01    0.12  as built
+  stills   sin       tile           1  150 x 171    0.007   0.051     0.92    0.10  as built
+  stills   sin       tile_p3        1  150 x 171    0.029   0.082     1.01    0.10  as built
+  stills   sin       blend          1  150 x 171    0.006   0.033     0.92    0.12  as built
+  stills   sin       rows2          1  300 x 171    0.013   0.061     1.46    0.22  as built
+  stills   sin       cells2         1  300 x 343    0.024   0.131     2.10    0.22  as built
+  stills   recip     now            1   80 x 80     0.001   0.014     0.49    0.05  as built
+  stills   recip     tile           1   80 x 80     0.002   0.018     0.51    0.03  as built
+  stills   recip     blend          1   80 x 80     0.001   0.011     0.46    0.04  as built
+  stills   recip     rows2          1  160 x 80     0.003   0.019     0.62    0.07  as built
+  stills   recip     cells2         1  160 x 160    0.005   0.034     0.75    0.07  as built
+  stills   bump      now            1  143 x 143    0.005   0.043     0.93    0.12  as built
+  stills   bump      tile           1  143 x 143    0.005   0.047     0.86    0.09  as built
+  stills   bump      blend          1  143 x 143    0.005   0.029     0.80    0.11  as built
+  stills   bump      rows2          1  286 x 143    0.010   0.057     1.27    0.18  as built
+  stills   bump      cells2         1  286 x 286    0.017   0.104     1.60    0.19  as built
+  stills   openbump  now            1  160 x 160    0.005   0.048     1.10    0.14  as built
+  stills   openbump  tile           1  160 x 160    0.005   0.052     0.92    0.10  as built
+  stills   openbump  blend          1  160 x 160    0.006   0.031     0.87    0.13  as built
+  stills   openbump  rows2          1  320 x 160    0.012   0.062     1.51    0.22  as built
+  stills   openbump  cells2         1  320 x 320    0.023   0.142     1.99    0.22  as built
+  fades    z         now            7  183 x 183    0.007   0.078     0.83    0.07  kept through fades
+  fades    z         overlap        7  183 x 183    0.009   0.080     0.66    0.06  kept through fades
+  fades    z         overlap06      7  183 x 183    0.008   0.098     0.80    0.06  kept through fades
+  fades    z         tile           7  183 x 183    0.007   0.086     0.64    0.05  kept through fades
+  fades    z         blend          7  183 x 183    0.007   0.054     0.57    0.05  kept through fades
+  fades    tan       now            7  120 x 240    0.006   0.067     0.86    0.09  kept through fades
+  fades    tan       tile           7  120 x 240    0.007   0.073     0.63    0.06  kept through fades
+  fades    tan       blend          7  120 x 240    0.007   0.049     0.58    0.07  kept through fades
+  fades    bump      now            7  143 x 143    0.005   0.048     0.49    0.10  kept through fades
+  fades    bump      tile           7  143 x 143    0.004   0.048     0.40    0.07  kept through fades
+  fades    bump      blend          7  143 x 143    0.004   0.038     0.38    0.09  kept through fades
+  repaints z2        now            3  183 x 183    0.007   0.077     0.90    0.20  repainted in place
+  repaints z2        blend          3  183 x 183    0.008   0.050     0.69    0.19  repainted in place
+  repaints z2        rows2          3  366 x 183    0.013   0.107     1.17    0.32  repainted in place
+  stills   z         tile_raw       1  183 x 183    0.007   0.064     1.13    0.06  as built
+  stills   z         flat_control   1  183 x 183    0.007   0.068     1.04    0.01  planted flat
+
+Controls
+  PASS  now shows seams on z: 21.1% of rows dark, lowest -8.29 luma
+  PASS  the mirror lands on now's rows on z: r +1.000
+  PASS  flat_control fails the colour test: rms 70.10
+  PASS  Mail 2167's overlap shows bright rows mid-fade: highest +16.68 luma
+  PASS  bump blend fade was caught mid-way: 4 of 7 frames
+  PASS  bump now fade was caught mid-way: 4 of 7 frames
+  PASS  bump tile fade was caught mid-way: 4 of 7 frames
+  PASS  tan blend fade was caught mid-way: 4 of 7 frames
+  PASS  tan now fade was caught mid-way: 4 of 7 frames
+  PASS  tan tile fade was caught mid-way: 4 of 7 frames
+  PASS  z blend fade was caught mid-way: 4 of 7 frames
+  PASS  z now fade was caught mid-way: 4 of 7 frames
+  PASS  z overlap fade was caught mid-way: 4 of 7 frames
+  PASS  z overlap06 fade was caught mid-way: 4 of 7 frames
+  PASS  z tile fade was caught mid-way: 4 of 7 frames
+  PASS  no receipt line reports moved or missing records: 0 lines
+sheet complex-color-comparison01/sheets/z.png: 8 cells, 151 px each at 100%
+sheet complex-color-comparison01/sheets/z2.png: 8 cells, 151 px each at 100%
+sheet complex-color-comparison01/sheets/tan.png: 8 cells, 151 px each at 100%
+sheet complex-color-comparison01/sheets/zoom.png: 8 cells, 151 px each at 100%
+sheet complex-color-comparison01/sheets/sinrecip.png: 8 cells, 151 px each at 100%
+sheet complex-color-comparison01/sheets/sin.png: 8 cells, 151 px each at 100%
+sheet complex-color-comparison01/sheets/recip.png: 6 cells, 151 px each at 100%
+sheet complex-color-comparison01/sheets/bump.png: 6 cells, 151 px each at 100%
+sheet complex-color-comparison01/sheets/openbump.png: 6 cells, 151 px each at 100%
+
+CONTROLS HOLD: these numbers can be read. They choose what to look at. They are not a verdict on 4K.

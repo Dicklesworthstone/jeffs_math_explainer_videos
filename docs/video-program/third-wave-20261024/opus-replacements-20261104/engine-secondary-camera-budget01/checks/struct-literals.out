@@ -1,0 +1,21 @@
+fmn-render/tests/camera_route_limits.rs:199 complete
+fmn-render/tests/camera_route_limits.rs:257 complete
+fmn-render/tests/camera_route_limits.rs:265 spread
+fmn-render/tests/camera_route_limits.rs:326 spread
+fmn-render/src/three_d.rs:4532 complete
+fmn-render/src/three_d.rs:4552 spread
+fmn-render/src/three_d.rs:4571 spread
+fmn-render/src/three_d.rs:4590 spread
+fmn-render/src/three_d.rs:4631 complete
+fmn-render/src/three_d.rs:4719 complete
+fmn-render/src/three_d.rs:4737 spread
+fmn-render/src/three_d.rs:4753 spread
+fmn-render/src/three_d.rs:4783 complete
+fmn-render/src/three_d.rs:4803 spread
+fmn-render/src/three_d.rs:4818 complete
+fmn-render/src/three_d.rs:5192 spread
+fmn-render/src/three_d.rs:5239 spread
+fmn-render/src/three_d.rs:5282 spread
+fmn-render/src/three_d.rs:5328 spread
+fmn-conformance/src/perf_pg6_peak.rs:719 spread
+literals that would not compile: 0

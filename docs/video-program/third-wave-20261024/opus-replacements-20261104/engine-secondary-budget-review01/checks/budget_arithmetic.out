@@ -1,0 +1,73 @@
+-- row sizes: rustc mirror against hand layouts
+  PASS 23 mirror rows read
+  PASS Segment: mirror 88, hand 88
+  PASS MonoPiece: mirror 48, hand 48
+  PASS JoinWedge: mirror 104, hand 104
+  PASS Placement: mirror 96, hand 96
+  PASS Mob: mirror 16, hand 16
+  PASS PreparedSegment: mirror 112, hand 112
+  PASS Instance: mirror 136, hand 136
+  PASS Style: mirror 264, hand 264
+  PASS Hint: mirror 56, hand 56
+  PASS FillKernel: mirror 48, hand 48
+  PASS Shape: mirror 240, hand 240
+  PASS Draw: mirror 512, hand 512
+  PASS ProjectedCurvePiece: mirror 160, hand 160
+  PASS Option<Draw> uses a niche: no extra tag
+  PASS Segment 88, MonoPiece 48 and ProjectedCurvePiece 160 equal the handoffs' SEGMENT, PIECE and CURVE_PIECE
+  PASS unpadded PreparedSegment (106) is rejected
+
+-- binning working bytes: bin.rs add_table_bytes, term by term
+  PASS 4K certified grid: 32400 fine, 510 macro
+  PASS full-frame working bytes = I x 390912 + 405188
+  PASS 517 full-frame instances: refs 16750800, working 193 MiB, prune 256 MiB, as the frame-table handoff
+  PASS 518 full-frame instances: refs 16783200, working 193 MiB, prune 256 MiB, as the frame-table handoff
+  PASS 1024 full-frame instances: refs 33177600, working 382 MiB, prune 506 MiB, as the frame-table handoff
+  PASS 4096 full-frame instances: refs 132710400, working 1527 MiB, prune 2025 MiB, as the frame-table handoff
+  PASS without flags the 4,096 row would read 1021 MiB, so the flags term is load-bearing
+  PASS 517: prune peak exceeds the build peak, so the binning peak is the prune copy, not their sum
+  PASS 518: prune peak exceeds the build peak, so the binning peak is the prune copy, not their sum
+  PASS 1024: prune peak exceeds the build peak, so the binning peak is the prune copy, not their sum
+  PASS 4096: prune peak exceeds the build peak, so the binning peak is the prune copy, not their sum
+
+-- the facade binning control at 1920x1080, frame_height 4
+  PASS the 8x6 polygon spans 2160x1620 px, the whole frame
+  PASS 2,057 x 8160 = 16785120 is the first layer count over 2^24
+  PASS working bytes 202782632, under the default 256 MiB, so the fine-reference refusal is the one named
+  PASS covers_tile runs once per reference: 16,785,120 convex tests, each building a Vec of 8 points, per admitted frame
+
+-- the frame-table hook example: refs 2^25, working 2^29, max_pieces 2^23, default table bytes 2^28
+  PASS one shape range leaves 5592405 pieces under max_table_bytes, so max_pieces 2^23 = 8388608 is inert above it
+  PASS 1035 full-frame instances reach 2^25 refs first; working 386.2 MiB < 512 MiB
+  PASS prune at 2^25 refs: 537130120 B = 512.25 MiB, just above the declared working budget and outside it
+  PASS tile cache, every tile held: 63.3 MiB
+  PASS budgeted ceiling per team: 2 x 256 MiB mono + 512 MiB binning + 63 MiB cache = 1.062 GiB
+  PASS two teams (frames_in_flight default 2): 2.124 GiB before arena rows, plan generations and raw frames
+
+-- unbudgeted affine arena rows, z^2 cells4 rows (731 rows x 734 segments a generation)
+  PASS 536554 segments a generation, as both handoffs
+  1 generation(s), rotating and stroked: transformed segments 88 + prepared stroke 112 a segment, draws 512 a row
+    rows 107685072 B = 102.7 MiB; push-grown capacity 210239488 B = 200.5 MiB, kept for the team's life
+  PASS one generation: 102.7 MiB of rows, 200.5 MiB held
+  2 generation(s), rotating and stroked: transformed segments 88 + prepared stroke 112 a segment, draws 512 a row
+    rows 215370144 B = 205.4 MiB; push-grown capacity 420478976 B = 401.0 MiB, kept for the team's life
+  PASS two generations: 401.0 MiB held (the draw pool rounds to 2,048 rows)
+  PASS still plate, one shared outline: plan segments 64592 B, yet stroke and draw rows 57.67 MiB, held 112.5 MiB a team
+  PASS the governed tables for two generations: mono 49.2 MiB + binning about 51.6 MiB
+
+-- plan generations (affine make_mut and camera clone), z^2 cells4 rows
+  PASS segments alone 45.03 MiB: the camera handoff's 45 MiB
+  PASS with arc-length tables, shape rows, one subpath start and instance rows: 56085244 B = 53.49 MiB, still before styles and maps
+  PASS live plan plus 2 frames in flight: 160.5 MiB; with two row generations in the plan: 320.9 MiB
+
+-- the ignored monotone control (1,365 shifted outlines of 1,024 quadratics)
+  PASS the handoff's sum: 514534020 B = 0.51 GB = 0.48 GiB, so BUILD.md's 0.51 GB is decimal and the #[ignore] text's 0.55 GiB matches neither
+  PASS arc-length tables add 22.4 MB, and each plan copy made while a frame is in flight about 145.7 MB
+
+-- camera projected curves: one try_reserve_exact(1) per curve on a fresh Vec
+  1 curve(s) a segment: 734 curves a row, 734 reallocation calls a row, 536554 a frame; if every one moves, 43.0 MB copied a row, 31.5 GB a frame
+  2 curve(s) a segment: 1468 curves a row, 1468 reallocation calls a row, 1073108 a frame; if every one moves, 172.3 MB copied a row, 125.9 GB a frame
+  4 curve(s) a segment: 2936 curves a row, 2936 reallocation calls a row, 2146216 a frame; if every one moves, 689.4 MB copied a row, 503.9 GB a frame
+  PASS one curve a segment: 536,554 calls and at most 43.0 MB copied a row
+
+RESULT PASS

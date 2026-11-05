@@ -1,0 +1,1089 @@
+diff --git a/crates/fmn-render/src/retained.rs b/crates/fmn-render/src/retained.rs
+--- a/crates/fmn-render/src/retained.rs
++++ b/crates/fmn-render/src/retained.rs
+@@ -16,7 +16,8 @@ use crate::{
+     Binning, BinningError, CachedRenderError, CachedRenderStats, Camera, EngineIdentity,
+     FrameArena, FrameConfig, FrameJob, FrameJobError, MonoTable, MonoTableError, PixelTileCache,
+     RenderPlan, RenderPlanLimits, SurfaceDraw, SurfaceMaterial, SurfaceMesh, SurfaceVertex,
+-    SyncError, ThreeDDraw, ThreeDError, ThreeDJob, Tiling, TrueDotDraw, VectorDraw,
++    SyncError, ThreeDDraw, ThreeDError, ThreeDJob, ThreeDPreparationLimits, Tiling, TrueDotDraw,
++    VectorDraw,
+ };
+ 
+ /// Immutable policy for one retained CPU renderer.
+@@ -171,6 +172,7 @@ impl From<CachedRenderError> for RetainedFrameRendererError {
+ pub struct RetainedFrameRenderer {
+     config: RetainedFrameRendererConfig,
+     plan_limits: RenderPlanLimits,
++    camera_limits: ThreeDPreparationLimits,
+     plan: RenderPlan,
+     arena: FrameArena,
+     cache: PixelTileCache,
+@@ -192,6 +194,7 @@ impl RetainedFrameRenderer {
+         Ok(Self {
+             config,
+             plan_limits: RenderPlanLimits::default(),
++            camera_limits: ThreeDPreparationLimits::default(),
+             plan: RenderPlan::new(),
+             arena: FrameArena::new(),
+             cache: PixelTileCache::new(),
+@@ -208,6 +211,17 @@ impl RetainedFrameRenderer {
+         self.plan_limits = limits;
+     }
+ 
++    /// Compile later camera frames under `limits` in place of
++    /// [`ThreeDPreparationLimits::default`].
++    ///
++    /// Reaches [`Self::render_with_camera`] and each frame
++    /// [`Self::prepare_with_camera`] freezes. A larger budget costs memory on
++    /// whichever thread rasterizes; frame bits do not depend on it. The planar
++    /// route ignores it.
++    pub fn set_camera_limits(&mut self, limits: ThreeDPreparationLimits) {
++        self.camera_limits = limits;
++    }
++
+     /// Replace the planar route's background. Cached tiles hold composited
+     /// background pixels, so a change discards them; an unchanged background
+     /// keeps every cache hit.
+@@ -280,6 +294,7 @@ impl RetainedFrameRenderer {
+             &scene,
+             camera,
+             self.config.tiling,
++            self.camera_limits,
+             self.config.threads,
+             &mut self.frame,
+         )?;
+@@ -312,6 +327,7 @@ impl RetainedFrameRenderer {
+             scene,
+             camera: camera.clone(),
+             tiling: self.config.tiling,
++            limits: self.camera_limits,
+         })
+     }
+ 
+@@ -348,6 +364,7 @@ pub struct PreparedCameraFrame {
+     scene: PreparedCameraScene,
+     camera: Camera,
+     tiling: Tiling,
++    limits: ThreeDPreparationLimits,
+ }
+ 
+ impl PreparedCameraFrame {
+@@ -378,6 +395,7 @@ impl PreparedCameraFrame {
+             &self.scene,
+             &self.camera,
+             self.tiling,
++            self.limits,
+             threads,
+             frame,
+         )
+@@ -552,6 +570,7 @@ fn render_camera_scene(
+     scene: &PreparedCameraScene,
+     camera: &Camera,
+     tiling: Tiling,
++    limits: ThreeDPreparationLimits,
+     threads: usize,
+     frame: &mut FrameBuffer,
+ ) -> Result<(), RetainedFrameRendererError> {
+@@ -629,7 +648,7 @@ fn render_camera_scene(
+             }
+         });
+     }
+-    ThreeDJob::new(camera, &draws, tiling)
++    ThreeDJob::new_with_limits(camera, &draws, tiling, limits)
+         .map_err(RetainedFrameRendererError::ThreeD)?
+         .render_into(threads, frame)
+         .map_err(RetainedFrameRendererError::ThreeDFrame)?;
+diff --git a/crates/fmn-render/src/three_d.rs b/crates/fmn-render/src/three_d.rs
+--- a/crates/fmn-render/src/three_d.rs
++++ b/crates/fmn-render/src/three_d.rs
+@@ -66,6 +66,15 @@ pub struct ThreeDPreparationLimits {
+     /// during the same compile, making this a conservative bound on peak
+     /// ownership rather than an allocator-capacity estimate.
+     pub max_working_bytes: u64,
++    /// Maximum (curve, bin) memberships in any one vector's stroke search.
++    ///
++    /// Unlike the bounds above, this one never refuses. A vector over it keeps
++    /// the same pixels by scanning every curve at every stroke sample, which a
++    /// dense vector can turn into hours per frame. The bins it admits are also
++    /// charged to [`Self::max_working_bytes`], and a vector whose bins do not
++    /// fit there scans the same way. Values above `u32::MAX`, the width of the
++    /// bin offsets, act as `u32::MAX`.
++    pub max_curve_bin_entries: u64,
+ }
+ 
+ impl Default for ThreeDPreparationLimits {
+@@ -76,6 +85,7 @@ impl Default for ThreeDPreparationLimits {
+             max_fill_pieces: 1 << 22,
+             max_raster_triangles: 1 << 22,
+             max_working_bytes: 512 * 1024 * 1024,
++            max_curve_bin_entries: 1 << 24,
+         }
+     }
+ }
+@@ -1142,9 +1152,13 @@ pub(crate) struct CompiledVector {
+ const CURVE_BIN_MIN_CURVES: usize = 32;
+ /// Upper bound on bins per vector. The cell edge doubles until it fits.
+ const CURVE_BIN_MAX_CELLS: f64 = (1u64 << 22) as f64;
+-/// Upper bound on (curve, bin) memberships per vector. A vector over it is
+-/// left unbinned, as when the preparation budget cannot hold the bins.
+-const CURVE_BIN_MAX_ENTRIES: u64 = 1 << 24;
++
++/// The memberships one vector may bin: its declared budget, held to the `u32`
++/// width of [`CurveBins::starts`]. A vector over it is left unbinned, as when
++/// the preparation budget cannot hold the bins.
++fn curve_bin_entry_limit(limits: ThreeDPreparationLimits) -> u64 {
++    limits.max_curve_bin_entries.min(u64::from(u32::MAX))
++}
+ 
+ /// Screen-space bins over a compiled vector's curves.
+ ///
+@@ -1292,7 +1306,9 @@ fn build_curve_bins(
+     let total: u64 = curves.iter().map(|curve| members(range_of(curve))).sum();
+     let cells = bins.columns as usize * bins.rows as usize;
+     let bytes = (cells as u64 + 1) * 4 + total * 4 + curves.len() as u64 * 16;
+-    if total > CURVE_BIN_MAX_ENTRIES || bytes > budget.remaining_buffer_rows::<u8>() as u64 {
++    if total > curve_bin_entry_limit(budget.limits)
++        || bytes > budget.remaining_buffer_rows::<u8>() as u64
++    {
+         return Ok(None);
+     }
+     let mut starts = Vec::new();
+@@ -1833,12 +1849,25 @@ fn compile_vector<'a>(
+                 .map_err(|error| match error {
+                     fill::RationalError::CrossesHorizon => ThreeDError::UnclippedHorizon,
+                     fill::RationalError::PieceLimitExceeded { requested, .. } => {
+-                        ThreeDError::PreparationLimitExceeded {
+-                            resource: PreparationRows::FillPieces.resource(),
+-                            limit: budget.limits.max_fill_pieces,
+-                            requested: budget
+-                                .fill_pieces
+-                                .saturating_add(u64::try_from(requested).unwrap_or(u64::MAX)),
++                        let additional = u64::try_from(requested).unwrap_or(u64::MAX);
++                        let pieces = budget.fill_pieces.saturating_add(additional);
++                        if pieces > budget.limits.max_fill_pieces {
++                            ThreeDError::PreparationLimitExceeded {
++                                resource: PreparationRows::FillPieces.resource(),
++                                limit: budget.limits.max_fill_pieces,
++                                requested: pieces,
++                            }
++                        } else {
++                            // The rows fit their limit, so the bytes for them did not.
++                            let row_bytes =
++                                u64::try_from(std::mem::size_of::<MonoPiece>()).unwrap_or(u64::MAX);
++                            ThreeDError::PreparationLimitExceeded {
++                                resource: "preparation working bytes",
++                                limit: budget.limits.max_working_bytes,
++                                requested: budget
++                                    .working_bytes
++                                    .saturating_add(additional.saturating_mul(row_bytes)),
++                            }
+                         }
+                     }
+                     fill::RationalError::AllocationFailed {
+@@ -4506,6 +4535,7 @@ mod tests {
+             max_fill_pieces: pieces,
+             max_raster_triangles: 0,
+             max_working_bytes: working_bytes,
++            max_curve_bin_entries: 0,
+         };
+         let bounded = ThreeDJob::new_with_limits(&camera, &draws, Tiling::default(), exact)
+             .expect("exact row limits");
+@@ -4604,6 +4634,7 @@ mod tests {
+                 max_fill_pieces: 0,
+                 max_raster_triangles: 0,
+                 max_working_bytes: u64::MAX,
++                max_curve_bin_entries: 0,
+             },
+         )
+         .expect("transient clip fragments do not consume retained-row limits");
+@@ -4691,6 +4722,7 @@ mod tests {
+             max_fill_pieces: 0,
+             max_raster_triangles: 0,
+             max_working_bytes: draw_bytes,
++            max_curve_bin_entries: 0,
+         };
+         let job = ThreeDJob::new_with_limits(&camera, &draws, Tiling::default(), exact)
+             .expect("one clipped-empty draw fits its exact row bytes");
+@@ -4754,6 +4786,7 @@ mod tests {
+             max_fill_pieces: 0,
+             max_raster_triangles: 2,
+             max_working_bytes: u64::MAX,
++            max_curve_bin_entries: 0,
+         };
+         let job = ThreeDJob::new_with_limits(&camera, &draws, Tiling::default(), exact)
+             .expect("the clipped quad expands to exactly two triangles");
+@@ -4788,6 +4821,7 @@ mod tests {
+             max_fill_pieces: u64::MAX,
+             max_raster_triangles: u64::MAX,
+             max_working_bytes: u64::MAX,
++            max_curve_bin_entries: u64::MAX,
+         };
+         let mut budget = PreparationBudget::new(limits);
+         let mut rows: Vec<u8> = Vec::new();
+@@ -5124,6 +5158,190 @@ mod tests {
+         assert!(coverage > 0.99);
+     }
+ 
++    /// Every step short of the demand has to name the budget that ran out. Inside a fill that
++    /// used to be named `fill pieces`, quoting a limit the frame was nowhere near.
++    #[test]
++    fn every_working_byte_shortage_names_working_bytes() {
++        let camera = camera();
++        let points = path_points(
++            &[
++                [-1.0, -1.0, 0.0],
++                [1.0, -1.0, 0.0],
++                [1.0, 1.0, 0.0],
++                [-1.0, 1.0, 0.0],
++            ],
++            true,
++        );
++        let plan = vector_plan(
++            &points,
++            [0.2, 0.4, 0.6, 1.0],
++            [0.9, 0.3, 0.1, 1.0],
++            2.0,
++            camera.revision(),
++            |_| {},
++        );
++        let draws = [ThreeDDraw::Vector(VectorDraw::new(&plan, 0))];
++        let demand = ThreeDJob::new(&camera, &draws, Tiling::default())
++            .expect("default job")
++            .preparation_bytes();
++        for max_working_bytes in 0..demand {
++            let error = ThreeDJob::new_with_limits(
++                &camera,
++                &draws,
++                Tiling::default(),
++                ThreeDPreparationLimits {
++                    max_working_bytes,
++                    ..ThreeDPreparationLimits::default()
++                },
++            )
++            .expect_err("below the demand");
++            assert!(
++                matches!(
++                    error,
++                    ThreeDError::PreparationLimitExceeded {
++                        resource: "preparation working bytes",
++                        limit,
++                        requested,
++                    } if limit == max_working_bytes && requested > limit
++                ),
++                "{max_working_bytes} of {demand}: {error:?}"
++            );
++        }
++    }
++
++    #[test]
++    fn the_curve_bin_budget_changes_the_search_and_moves_no_pixel() {
++        let camera = camera();
++        let corners: Vec<Vec3> = (0..60)
++            .map(|index| {
++                let angle = f64::from(index) * 0.37;
++                [
++                    2.5 * angle.cos(),
++                    1.8 * angle.sin(),
++                    -1.5 + f64::from(index) / 20.0,
++                ]
++            })
++            .collect();
++        let plan = vector_plan(
++            &path_points(&corners, false),
++            [0.0; 4],
++            [1.0; 4],
++            20.0,
++            camera.revision(),
++            |_| {},
++        );
++        let draws = [ThreeDDraw::Vector(VectorDraw::new(&plan, 0))];
++        let under = |max_curve_bin_entries: u64| {
++            ThreeDJob::new_with_limits(
++                &camera,
++                &draws,
++                Tiling::default(),
++                ThreeDPreparationLimits {
++                    max_curve_bin_entries,
++                    ..ThreeDPreparationLimits::default()
++                },
++            )
++            .expect("no budget here refuses")
++        };
++        let default = ThreeDJob::new(&camera, &draws, Tiling::default()).expect("default job");
++        let entries = compiled_vector(&default)
++            .bins
++            .as_ref()
++            .expect("a 59-curve stroke is binned under the default")
++            .entries
++            .len() as u64;
++        assert!(entries > 0);
++
++        let exact = under(entries);
++        assert!(compiled_vector(&exact).bins.is_some());
++        let scanned = under(entries - 1);
++        assert!(compiled_vector(&scanned).bins.is_none());
++
++        let pixels = default.render(1).expect("default frame");
++        assert_eq!(
++            pixels.plane(0),
++            exact.render(1).expect("exact frame").plane(0)
++        );
++        assert_eq!(
++            pixels.plane(0),
++            scanned.render(1).expect("scanned frame").plane(0)
++        );
++    }
++
++    #[test]
++    fn the_curve_bin_budget_is_held_to_the_width_of_the_bin_offsets() {
++        let widest = u64::from(u32::MAX);
++        for (declared, limit) in [
++            (0, 0),
++            (1 << 24, 1 << 24),
++            (widest - 1, widest - 1),
++            (widest, widest),
++            (widest + 1, widest),
++            (u64::MAX, widest),
++        ] {
++            let limits = ThreeDPreparationLimits {
++                max_curve_bin_entries: declared,
++                ..ThreeDPreparationLimits::default()
++            };
++            assert_eq!(curve_bin_entry_limit(limits), limit);
++        }
++    }
++
++    /// 3,200 diagonals across one vector at 640×360: about 6,500 bins, and every curve's control
++    /// box spans nearly all of them. By arithmetic that is about 20 million memberships against
++    /// the default's 16,777,216, about 80 MB of bins. It compiles and never rasterizes.
++    #[test]
++    fn a_bin_budget_above_the_default_bins_what_the_default_scans() {
++        let camera = Camera::new(crate::camera::CameraConfig {
++            resolution: (640, 360),
++            samples: 2,
++            background: color("#000000", 1.0),
++            ..crate::camera::CameraConfig::default()
++        })
++        .expect("camera");
++        let corners: Vec<Vec3> = (0..=3_200)
++            .map(|index| {
++                if index % 2 == 0 {
++                    [-7.0, -3.9, 0.0]
++                } else {
++                    [7.0, 3.9, 0.0]
++                }
++            })
++            .collect();
++        let plan = vector_plan(
++            &path_points(&corners, false),
++            [0.0; 4],
++            [1.0; 4],
++            1.0,
++            camera.revision(),
++            |_| {},
++        );
++        let draws = [ThreeDDraw::Vector(VectorDraw::new(&plan, 0))];
++
++        let default = ThreeDJob::new(&camera, &draws, Tiling::default()).expect("default job");
++        assert!(compiled_vector(&default).bins.is_none());
++
++        let raised = ThreeDJob::new_with_limits(
++            &camera,
++            &draws,
++            Tiling::default(),
++            ThreeDPreparationLimits {
++                max_curve_bin_entries: u64::MAX,
++                ..ThreeDPreparationLimits::default()
++            },
++        )
++        .expect("raised job");
++        let bins = compiled_vector(&raised)
++            .bins
++            .as_ref()
++            .expect("the raised budget admits these bins");
++        assert!(
++            bins.entries.len() as u64 > 1 << 24,
++            "{}",
++            bins.entries.len()
++        );
++    }
++
+     #[test]
+     fn binned_stroke_search_matches_the_full_scan_bit_for_bit() {
+         let camera = camera();
+diff --git a/crates/fmn-render/tests/camera_route_limits.rs b/crates/fmn-render/tests/camera_route_limits.rs
+new file mode 100644
+--- /dev/null
++++ b/crates/fmn-render/tests/camera_route_limits.rs
+@@ -0,0 +1,334 @@
++//! Camera budgets on the retained renderer: the defaults, one boundary per budget on both the
++//! synchronous and the worker route, no pixel moved by a budget, and a real scene over the default.
++use fmn_core::color::LinearRgba;
++use fmn_mobject::{Mobject, RecordBuffer, RecordSchema, RenderPrimitive, Stage};
++use fmn_render::{
++    Camera, CameraConfig, EngineIdentity, FrameConfig, RetainedFrameRenderer,
++    RetainedFrameRendererConfig, RetainedFrameRendererError, ScreenMap, ThreeDError,
++    ThreeDPreparationLimits, Tiling, Viewport,
++};
++
++fn config() -> RetainedFrameRendererConfig {
++    RetainedFrameRendererConfig {
++        frame: FrameConfig::new(
++            Viewport {
++                width: 64,
++                height: 36,
++            },
++            ScreenMap {
++                scale: 4.5,
++                origin: [32., 18.],
++                y_up: false,
++            },
++            background(),
++        ),
++        tiling: Tiling {
++            macro_tile: 16,
++            fine_tile: 8,
++        },
++        engine: EngineIdentity::certified(),
++        threads: 1,
++    }
++}
++
++fn background() -> LinearRgba {
++    LinearRgba {
++        r: 0.,
++        g: 0.,
++        b: 0.,
++        a: 1.,
++    }
++}
++
++fn head_on() -> Camera {
++    Camera::new(CameraConfig {
++        resolution: (64, 36),
++        background: background(),
++        ..Default::default()
++    })
++    .unwrap()
++}
++
++fn tilted() -> Camera {
++    let mut config = CameraConfig {
++        resolution: (64, 36),
++        background: background(),
++        ..Default::default()
++    };
++    config
++        .frame
++        .set_euler_angles(Some(0.4), Some(0.7), None)
++        .unwrap();
++    Camera::new(config).unwrap()
++}
++
++fn outlined(points: &[[f32; 3]], fill_alpha: f32) -> Mobject {
++    let mut records = RecordBuffer::new(RecordSchema::vmobject(), points.len()).unwrap();
++    for (i, point) in points.iter().enumerate() {
++        records.write(i, "point", point);
++        records.write(i, "fill_rgba", &[1.0, 0.0, 0.0, fill_alpha]);
++        records.write(i, "stroke_rgba", &[0.0, 0.0, 1.0, 1.0]);
++        records.write(i, "stroke_width", &[4.0]);
++    }
++    Mobject::from_buffer(records)
++}
++
++fn dots(points: &[[f32; 3]]) -> Mobject {
++    let schema = RecordSchema::new(
++        &[("point", 3), ("radius", 1), ("rgba", 4), ("glow_factor", 1)],
++        &["point"],
++        &["point"],
++    )
++    .unwrap();
++    let mut records = RecordBuffer::new(schema, points.len()).unwrap();
++    for (i, point) in points.iter().enumerate() {
++        records.write(i, "point", point);
++        records.write(i, "radius", &[0.4]);
++        records.write(i, "rgba", &[0.2, 1.0, 0.2, 1.0]);
++        records.write(i, "glow_factor", &[0.0]);
++    }
++    Mobject::from_buffer(records).with_render_primitive(RenderPrimitive::DotCloud)
++}
++
++/// One filled, outlined square of four straight curves, and three dots well inside the frame:
++/// four draws, four projected curves under a head-on camera, six raster triangles.
++fn square_and_dots() -> Stage {
++    let mut stage = Stage::new();
++    let square = stage.add(outlined(
++        &[
++            [-2., -2., 0.],
++            [0., -2., 0.],
++            [2., -2., 0.],
++            [2., 0., 0.],
++            [2., 2., 0.],
++            [0., 2., 0.],
++            [-2., 2., 0.],
++            [-2., 0., 0.],
++            [-2., -2., 0.],
++        ],
++        1.0,
++    ));
++    stage.add_to_scene(square).unwrap();
++    let cloud = stage.add(dots(&[[-1., 0., 0.], [0., 0., 0.], [1., 0., 0.]]));
++    stage.add_to_scene(cloud).unwrap();
++    stage
++}
++
++/// Forty curves in one stroked vector, enough to be binned under the default, beside the square.
++fn binned_zigzag() -> Stage {
++    let mut stage = square_and_dots();
++    let mut points = Vec::new();
++    for curve in 0..=40 {
++        let x = -6.0 + 0.3 * curve as f32;
++        let y = if curve % 2 == 0 { -1.5 } else { 1.5 };
++        points.push([x, y, 0.0]);
++        if curve < 40 {
++            points.push([x + 0.15, 0.0, 0.0]);
++        }
++    }
++    let zigzag = stage.add(outlined(&points, 0.0));
++    stage.add_to_scene(zigzag).unwrap();
++    stage
++}
++
++type Rendered = Result<Vec<u8>, RetainedFrameRendererError>;
++type Route = fn(&Stage, &Camera, ThreeDPreparationLimits) -> Rendered;
++
++fn on_the_caller(stage: &Stage, camera: &Camera, limits: ThreeDPreparationLimits) -> Rendered {
++    let mut renderer = RetainedFrameRenderer::new(config())?;
++    renderer.set_camera_limits(limits);
++    renderer.render_with_camera(stage, camera)?;
++    Ok(renderer.frame().plane(0).to_vec())
++}
++
++fn on_a_worker(stage: &Stage, camera: &Camera, limits: ThreeDPreparationLimits) -> Rendered {
++    let mut renderer = RetainedFrameRenderer::new(config())?;
++    renderer.set_camera_limits(limits);
++    let frame = renderer.prepare_with_camera(stage, camera)?;
++    Ok(frame.render(1)?.plane(0).to_vec())
++}
++
++const ROUTES: [(&str, Route); 2] = [("caller", on_the_caller), ("worker", on_a_worker)];
++
++/// The smallest value `set` can give this budget and still render, from the renderer's own
++/// answers. Every value tried below it must refuse under this resource's name.
++fn smallest_admitted(
++    route: Route,
++    stage: &Stage,
++    camera: &Camera,
++    set: fn(&mut ThreeDPreparationLimits, u64),
++    resource: &str,
++    ceiling: u64,
++) -> u64 {
++    let refused = |value: u64| {
++        let mut limits = ThreeDPreparationLimits::default();
++        set(&mut limits, value);
++        match route(stage, camera, limits) {
++            Ok(_) => false,
++            Err(RetainedFrameRendererError::ThreeD(ThreeDError::PreparationLimitExceeded {
++                resource: named,
++                limit,
++                requested,
++            })) => {
++                assert_eq!(named, resource);
++                assert_eq!(limit, value);
++                assert!(requested > limit, "{requested} against {limit}");
++                true
++            }
++            Err(other) => panic!("{resource} at {value}: {other:?}"),
++        }
++    };
++    let (mut low, mut high) = (0, ceiling);
++    assert!(refused(low), "{resource} admitted nothing at all");
++    assert!(!refused(high), "{resource} refused its ceiling");
++    while high - low > 1 {
++        let middle = low + (high - low) / 2;
++        if refused(middle) {
++            low = middle;
++        } else {
++            high = middle;
++        }
++    }
++    high
++}
++
++#[test]
++fn the_default_camera_budgets_are_the_limits_the_engine_always_had() {
++    assert_eq!(
++        ThreeDPreparationLimits::default(),
++        ThreeDPreparationLimits {
++            max_draws: 1 << 20,
++            max_projected_curves: 1 << 22,
++            max_fill_pieces: 1 << 22,
++            max_raster_triangles: 1 << 22,
++            max_working_bytes: 512 * 1024 * 1024,
++            max_curve_bin_entries: 1 << 24,
++        }
++    );
++}
++
++#[test]
++fn both_routes_refuse_each_camera_budget_by_name_at_the_same_boundary() {
++    let stage = square_and_dots();
++    let camera = head_on();
++    let budgets: [(&str, fn(&mut ThreeDPreparationLimits, u64), u64); 5] = [
++        ("draw rows", |limits, value| limits.max_draws = value, 16),
++        (
++            "projected curves",
++            |limits, value| limits.max_projected_curves = value,
++            256,
++        ),
++        (
++            "fill pieces",
++            |limits, value| limits.max_fill_pieces = value,
++            256,
++        ),
++        (
++            "raster triangles",
++            |limits, value| limits.max_raster_triangles = value,
++            64,
++        ),
++        (
++            "preparation working bytes",
++            |limits, value| limits.max_working_bytes = value,
++            ThreeDPreparationLimits::default().max_working_bytes,
++        ),
++    ];
++    for (resource, set, ceiling) in budgets {
++        let [caller, worker] = ROUTES
++            .map(|(_, route)| smallest_admitted(route, &stage, &camera, set, resource, ceiling));
++        assert_eq!(caller, worker, "{resource}");
++        let expected = match resource {
++            "draw rows" | "projected curves" => Some(4),
++            "raster triangles" => Some(6),
++            _ => None,
++        };
++        if let Some(expected) = expected {
++            assert_eq!(caller, expected, "{resource}");
++        }
++    }
++}
++
++#[test]
++fn a_camera_budget_moves_no_pixel_on_either_route() {
++    let stage = binned_zigzag();
++    let camera = tilted();
++    let default = ThreeDPreparationLimits::default();
++    let raised = ThreeDPreparationLimits {
++        max_draws: default.max_draws * 2,
++        max_projected_curves: default.max_projected_curves * 2,
++        max_fill_pieces: default.max_fill_pieces * 2,
++        max_raster_triangles: default.max_raster_triangles * 2,
++        max_working_bytes: default.max_working_bytes * 2,
++        max_curve_bin_entries: u64::MAX,
++    };
++    let scanned = ThreeDPreparationLimits {
++        max_curve_bin_entries: 0,
++        ..default
++    };
++    let expected = on_the_caller(&stage, &camera, default).unwrap();
++    let (first, rest) = expected.as_chunks::<8>().0.split_first().unwrap();
++    assert!(
++        rest.iter().any(|pixel| pixel != first),
++        "the scene drew nothing to compare"
++    );
++    for (name, route) in ROUTES {
++        for limits in [default, raised, scanned] {
++            assert_eq!(
++                route(&stage, &camera, limits).unwrap(),
++                expected,
++                "{name}: {limits:?}"
++            );
++        }
++    }
++}
++
++/// A stroke-only curve that nothing clips or subdivides is charged 88 + 2 × 184 + 160 + 88 = 704
++/// working bytes, so 800,000 of them ask 563,200,000 against the default's 536,870,912, whatever
++/// else the frame costs. They stay under the plan's own 1 << 20 curves, so nothing else needs
++/// declaring. Each shape is about 5 pixels across, which keeps the raster small.
++#[test]
++#[ignore = "about 0.4 GB by arithmetic, not measured: root runs it under guard"]
++fn a_working_byte_budget_above_the_default_is_admitted_and_the_default_still_refuses() {
++    const SHAPES: usize = 800;
++    const CURVES: usize = 1_000;
++    let step = 1.0 / CURVES as f32;
++    let mut stage = Stage::new();
++    for shape in 0..SHAPES {
++        let shift = shape as f32 * 0.001;
++        let mut points = Vec::with_capacity(2 * CURVES + 1);
++        for curve in 0..=CURVES {
++            let at = curve as f32 * step + shift;
++            points.push([at, 0.5 * at, 0.0]);
++            if curve < CURVES {
++                let middle = at + 0.5 * step;
++                points.push([middle, 0.5 * middle, 0.0]);
++            }
++        }
++        let mob = stage.add(outlined(&points, 0.0));
++        stage.add_to_scene(mob).unwrap();
++    }
++    let camera = head_on();
++    let default = ThreeDPreparationLimits::default();
++    for (name, route) in ROUTES {
++        match route(&stage, &camera, default) {
++            Err(RetainedFrameRendererError::ThreeD(ThreeDError::PreparationLimitExceeded {
++                resource: "preparation working bytes",
++                limit,
++                requested,
++            })) => {
++                assert_eq!(limit, default.max_working_bytes, "{name}");
++                assert!(requested > limit, "{name}: {requested}");
++            }
++            other => panic!("{name}: the default should refuse by name: {other:?}"),
++        }
++    }
++    let raised = ThreeDPreparationLimits {
++        max_working_bytes: 1 << 30,
++        ..default
++    };
++    assert_eq!(
++        on_the_caller(&stage, &camera, raised).unwrap(),
++        on_a_worker(&stage, &camera, raised).unwrap()
++    );
++}
+diff --git a/crates/fmn/src/rendering.rs b/crates/fmn/src/rendering.rs
+--- a/crates/fmn/src/rendering.rs
++++ b/crates/fmn/src/rendering.rs
+@@ -72,6 +72,7 @@ pub use fmn_output::negotiate::{EncoderPreset, EncoderTune, VideoQuality};
+ pub use fmn_output::{EmitterReport, JobLimits, NativeArtifactReport};
+ pub use fmn_render::{
+     BinningLimits, CameraConfig, CameraFrame, FrameTableLimits, MonoTableLimits, RenderPlanLimits,
++    ThreeDPreparationLimits,
+ };
+ pub use fmn_runtime::ExecutionPlan;
+ 
+@@ -315,14 +316,21 @@ pub struct RenderOptions {
+     /// here, and frame bits do not depend on it. [`Self::max_resident_bytes`] does
+     /// not cover scene geometry, so the caller answers for the memory admitted.
+     /// [`Self::frame_table_limits`] governs the monotone-table and binning budgets,
+-    /// which still refuse by name.
++    /// and [`Self::camera_limits`] the camera route's, which still refuse by name.
+     pub plan_limits: RenderPlanLimits,
+     /// Tables each affine frame derives from the retained plan, per frame and per
+     /// render team: monotone pieces and tile binning. These decide only what is
+     /// refused, so frame bits do not depend on them, and [`Self::max_resident_bytes`]
+-    /// does not cover the memory they admit. The camera route builds neither table
+-    /// and keeps its own fixed preparation limits.
++    /// does not cover the memory they admit. The camera route builds neither table;
++    /// [`Self::camera_limits`] governs what it builds instead.
+     pub frame_table_limits: FrameTableLimits,
++    /// Geometry each camera frame compiles from the retained plan, per frame and per
++    /// render team. Every field refuses by name except
++    /// [`ThreeDPreparationLimits::max_curve_bin_entries`], where a vector over budget
++    /// keeps its pixels and scans every curve instead, which can take far longer.
++    /// Frame bits do not depend on any of them, [`Self::max_resident_bytes`] does not
++    /// cover the memory they admit, and the affine route ignores them.
++    pub camera_limits: ThreeDPreparationLimits,
+     /// Upper bound on the output ring and frozen frame-job count; the scheduler
+     /// may lower it. Does not change frame sampling or pixels.
+     pub frames_in_flight: usize,
+@@ -373,6 +381,7 @@ impl RenderOptions {
+             max_resident_bytes: 512 * 1024 * 1024,
+             plan_limits: RenderPlanLimits::default(),
+             frame_table_limits: FrameTableLimits::default(),
++            camera_limits: ThreeDPreparationLimits::default(),
+             frames_in_flight: 2,
+             typeset_cache: true,
+             typeset_preflight_workers: crate::typesetting::DEFAULT_PREFLIGHT_WORKERS,
+@@ -1049,6 +1058,7 @@ impl RenderSink {
+             emitter.handle(),
+             options.plan_limits,
+             options.frame_table_limits,
++            options.camera_limits,
+         ) {
+             Ok(pipeline) => pipeline,
+             Err(error) => {
+diff --git a/crates/fmn/src/rendering/pipeline.rs b/crates/fmn/src/rendering/pipeline.rs
+--- a/crates/fmn/src/rendering/pipeline.rs
++++ b/crates/fmn/src/rendering/pipeline.rs
+@@ -12,7 +12,8 @@ use fmn_output::{EmitterError, EmitterHandle, FrameReservation};
+ use fmn_render::{
+     Camera, CameraConfig, EngineIdentity, FrameArena, FrameTableLimits, OwnedVectorFrame,
+     PixelTileCache, PreparedCameraFrame, RenderPlanLimits, RetainedFrameRenderer,
+-    RetainedFrameRendererConfig, RetainedFrameRendererError, VectorFrameCompiler, Viewport,
++    RetainedFrameRendererConfig, RetainedFrameRendererError, ThreeDPreparationLimits,
++    VectorFrameCompiler, Viewport,
+ };
+ use fmn_runtime::{
+     ExecutionEngine, ExecutionPlan, FrameStream, FrameStreamError, OutputPixelFormat,
+@@ -138,6 +139,7 @@ pub(super) struct NativeFrameStages {
+     workers: Vec<Mutex<VectorWorker>>,
+     plan_limits: RenderPlanLimits,
+     frame_tables: FrameTableLimits,
++    camera_limits: ThreeDPreparationLimits,
+ }
+ 
+ impl NativeFrameStages {
+@@ -145,6 +147,7 @@ impl NativeFrameStages {
+         render_teams: usize,
+         plan_limits: RenderPlanLimits,
+         frame_tables: FrameTableLimits,
++        camera_limits: ThreeDPreparationLimits,
+     ) -> Self {
+         Self {
+             workers: (0..render_teams)
+@@ -152,6 +155,7 @@ impl NativeFrameStages {
+                 .collect(),
+             plan_limits,
+             frame_tables,
++            camera_limits,
+         }
+     }
+ }
+@@ -219,6 +223,7 @@ impl PipelineStages for NativeFrameStages {
+                         let mut renderer = RetainedFrameRenderer::new(config)
+                             .map_err(NativeFrameError::Renderer)?;
+                         renderer.set_plan_limits(self.plan_limits);
++                        renderer.set_camera_limits(self.camera_limits);
+                         worker.compiled_camera = Some(renderer);
+                     }
+                     let raster = worker
+@@ -370,7 +375,7 @@ impl NativeFramePipeline {
+     }
+ 
+     /// The same pipeline, admitting scenes under `plan_limits`. Frame bits do not
+-    /// depend on them; the monotone-table and binning budgets stay at their defaults.
++    /// depend on them; the frame-table and camera budgets stay at their defaults.
+     ///
+     /// # Errors
+     /// As [`Self::new`].
+@@ -388,12 +393,14 @@ impl NativeFramePipeline {
+             output,
+             plan_limits,
+             FrameTableLimits::default(),
++            ThreeDPreparationLimits::default(),
+         )
+     }
+ 
+     /// [`Self::with_plan_limits`], building each affine frame's tables under
+-    /// `frame_tables`. Frame bits do not depend on them, and the camera route
+-    /// builds neither table.
++    /// `frame_tables` and compiling each camera frame under `camera_limits`.
++    /// Frame bits do not depend on either. The camera route builds neither table,
++    /// and the affine route compiles no camera frame.
+     ///
+     /// # Errors
+     /// As [`Self::new`].
+@@ -404,6 +411,7 @@ impl NativeFramePipeline {
+         output: EmitterHandle,
+         plan_limits: RenderPlanLimits,
+         frame_tables: FrameTableLimits,
++        camera_limits: ThreeDPreparationLimits,
+     ) -> Result<Self, RenderError> {
+         // Source demand is synchronous. A smaller output ring could block
+         // its producer while the coordinator awaits that same next source
+@@ -467,6 +475,7 @@ impl NativeFramePipeline {
+                 let mut renderer =
+                     Box::new(RetainedFrameRenderer::new(config).map_err(RenderError::Renderer)?);
+                 renderer.set_plan_limits(plan_limits);
++                renderer.set_camera_limits(camera_limits);
+                 NativeCompiler::Camera { renderer, camera }
+             }
+             None => {
+@@ -477,7 +486,12 @@ impl NativeFramePipeline {
+                 NativeCompiler::Vector(compiler)
+             }
+         };
+-        let stages = NativeFrameStages::new(plan.render_teams.len(), plan_limits, frame_tables);
++        let stages = NativeFrameStages::new(
++            plan.render_teams.len(),
++            plan_limits,
++            frame_tables,
++            camera_limits,
++        );
+         let stream = FrameStream::new(plan, stages, |_, output| {
+             output.publish().map_err(NativeFrameError::Emitter)
+         })
+diff --git a/crates/fmn/tests/native_bundle_pipeline.rs b/crates/fmn/tests/native_bundle_pipeline.rs
+--- a/crates/fmn/tests/native_bundle_pipeline.rs
++++ b/crates/fmn/tests/native_bundle_pipeline.rs
+@@ -415,6 +415,54 @@ fn declared_frame_tables_reach_the_compiled_affine_workers_and_not_the_camera_ro
+     assert!(fs.exists(Path::new("/camera/frame_000000.png")));
+ }
+ 
++#[test]
++fn declared_camera_budgets_reach_the_compiled_camera_workers_and_not_the_affine_route() {
++    let bytes = painted_bundle();
++    let png_options = |path: &str, camera: bool| {
++        let mut options = options(path, 4, camera);
++        options.format = RenderFormat::PngSequence;
++        options
++    };
++    let fs = Arc::new(VirtualFs::new());
++
++    let mut draws = png_options("/draws", true);
++    draws.camera_limits.max_draws = 0;
++    let mut bytes_budget = png_options("/bytes", true);
++    bytes_budget.camera_limits.max_working_bytes = 0;
++    for (path, tight, resource) in [
++        ("/draws", draws, "draw rows"),
++        ("/bytes", bytes_budget, "preparation working bytes"),
++    ] {
++        let Err(error) = render_bundle_with_fs(&bytes, tight, fs.clone()) else {
++            panic!("{path}: a worker admitted a frame over its declared budget");
++        };
++        assert!(matches!(error, RenderError::Pipeline(_)), "{error:?}");
++        let words = format!("{error:?}");
++        assert!(words.contains(resource), "{path}: {words}");
++        assert!(!fs.exists(Path::new(path)));
++    }
++
++    let mut raised = png_options("/raised", true);
++    raised.camera_limits.max_draws <<= 1;
++    raised.camera_limits.max_working_bytes <<= 1;
++    raised.camera_limits.max_curve_bin_entries = u64::MAX;
++    render_bundle_with_fs(&bytes, raised, fs.clone()).unwrap();
++    render_bundle_with_fs(&bytes, png_options("/default", true), fs.clone()).unwrap();
++    for index in 0..4 {
++        let frame = format!("frame_{index:06}.png");
++        assert_eq!(
++            fs.read(&Path::new("/raised").join(&frame)).unwrap(),
++            fs.read(&Path::new("/default").join(&frame)).unwrap()
++        );
++    }
++
++    let mut affine = png_options("/affine", false);
++    affine.camera_limits.max_draws = 0;
++    affine.camera_limits.max_working_bytes = 0;
++    render_bundle_with_fs(&bytes, affine, fs.clone()).unwrap();
++    assert!(fs.exists(Path::new("/affine/frame_000000.png")));
++}
++
+ #[test]
+ fn empty_bundle_and_existing_native_outputs_are_not_silently_replaced() {
+     let mut stage = Stage::new();
+diff --git a/crates/fmn/tests/native_camera_pipeline.rs b/crates/fmn/tests/native_camera_pipeline.rs
+--- a/crates/fmn/tests/native_camera_pipeline.rs
++++ b/crates/fmn/tests/native_camera_pipeline.rs
+@@ -401,6 +401,35 @@ fn bad_options_do_not_run_factory_and_scene_unwind_joins_workers() {
+     render_camera_with_fs(factory, options("/retry", 4), fs).unwrap();
+ }
+ 
++#[test]
++fn declared_camera_budgets_reach_the_camera_rig_route() {
++    let fs = Arc::new(VirtualFs::new());
++    let mut tight = options("/tight", 2);
++    tight.camera_limits.max_draws = 0;
++    let Err(error) = render_camera_with_fs(factory, tight, fs.clone()) else {
++        panic!("the rig route admitted a frame over its declared budget");
++    };
++    let words = format!("{error:?}");
++    assert!(words.contains("draw rows"), "{words}");
++    assert!(!fs.exists(Path::new("/tight")));
++
++    let mut raised = options("/raised", 2);
++    raised.camera_limits.max_draws <<= 1;
++    raised.camera_limits.max_working_bytes <<= 1;
++    raised.camera_limits.max_curve_bin_entries = u64::MAX;
++    let frames = render_camera_with_fs(factory, raised, fs.clone())
++        .unwrap()
++        .artifact
++        .frame_count;
++    let default = render_camera_with_fs(factory, options("/default", 2), fs.clone()).unwrap();
++    assert_eq!(default.artifact.frame_count, frames);
++    assert!(frames > 0);
++    assert_eq!(
++        images(&fs, "/raised", frames),
++        images(&fs, "/default", frames)
++    );
++}
++
+ #[test]
+ fn camera_animation_gif_and_y4m_are_window_independent() {
+     for format in [RenderFormat::Gif, RenderFormat::Y4m] {
+diff --git a/crates/fmn/tests/native_render.rs b/crates/fmn/tests/native_render.rs
+--- a/crates/fmn/tests/native_render.rs
++++ b/crates/fmn/tests/native_render.rs
+@@ -5,7 +5,7 @@ use std::sync::Arc;
+ 
+ use fmn::mobject::{Mobject, RecordBuffer, RecordSchema};
+ use fmn::prelude::*;
+-use fmn::rendering::{RenderError, RenderPlanLimits};
++use fmn::rendering::{RenderError, RenderPlanLimits, ThreeDPreparationLimits};
+ use fmn_codec::{PngLimits, decode_png, decode_y4m};
+ use fmn_config::config::{DeterminismMode, Engine, ThreadPolicy};
+ use fmn_platform::fs::{ATOMIC_DIRECTORY_COMPLETE_LEAF, FileSystem, VirtualFs};
+@@ -257,6 +257,73 @@ fn a_lowered_frame_table_budget_refuses_by_name_and_publishes_nothing() {
+     assert!(!fs.exists(Path::new("/references")));
+ }
+ 
++fn camera_options(path: &str) -> RenderOptions {
++    let mut options = options(path, RenderFormat::PngSequence, 1);
++    options.camera = Some(options.camera_config().unwrap());
++    options
++}
++
++#[test]
++fn a_lowered_camera_budget_refuses_by_name_and_publishes_nothing() {
++    let fs = Arc::new(VirtualFs::new());
++    let lowered: [(&str, &str, fn(&mut ThreeDPreparationLimits)); 4] = [
++        ("/draws", "draw rows", |limits| limits.max_draws = 0),
++        ("/curves", "projected curves", |limits| {
++            limits.max_projected_curves = 0;
++        }),
++        ("/pieces", "fill pieces", |limits| {
++            limits.max_fill_pieces = 0;
++        }),
++        ("/bytes", "preparation working bytes", |limits| {
++            limits.max_working_bytes = 0;
++        }),
++    ];
++    for (path, resource, lower) in lowered {
++        let mut tight = camera_options(path);
++        lower(&mut tight.camera_limits);
++        let Err(error) = render_with_fs(&mut MovingCircle, tight, fs.clone()) else {
++            panic!("{path}: a circle needs more than this camera budget");
++        };
++        let words = format!("{error:?}");
++        assert!(words.contains(resource), "{path}: {words}");
++        assert!(!fs.exists(Path::new(path)));
++    }
++}
++
++#[test]
++fn a_camera_budget_moves_no_pixel_on_the_serial_facade() {
++    let fs = Arc::new(VirtualFs::new());
++    let default = camera_options("/default");
++    assert_eq!(default.camera_limits, ThreeDPreparationLimits::default());
++    let frames = render_with_fs(&mut MovingCircle, default, fs.clone())
++        .unwrap()
++        .artifact
++        .frame_count;
++    assert!(frames > 0);
++
++    let mut raised = camera_options("/raised");
++    raised.camera_limits.max_draws <<= 1;
++    raised.camera_limits.max_projected_curves <<= 1;
++    raised.camera_limits.max_fill_pieces <<= 1;
++    raised.camera_limits.max_raster_triangles <<= 1;
++    raised.camera_limits.max_working_bytes <<= 1;
++    raised.camera_limits.max_curve_bin_entries = u64::MAX;
++    let mut scanned = camera_options("/scanned");
++    scanned.camera_limits.max_curve_bin_entries = 0;
++    for (path, options) in [("/raised", raised), ("/scanned", scanned)] {
++        let report = render_with_fs(&mut MovingCircle, options, fs.clone()).unwrap();
++        assert_eq!(report.artifact.frame_count, frames, "{path}");
++        for index in 0..frames {
++            let frame = format!("frame_{index:06}.png");
++            assert_eq!(
++                fs.read(&Path::new(path).join(&frame)).unwrap(),
++                fs.read(&Path::new("/default").join(&frame)).unwrap(),
++                "{path}: {frame}"
++            );
++        }
++    }
++}
++
+ const FULL_FRAME_LAYERS: usize = 2_057;
+ 
+ /// Binning counts an instance in every tile its bounds touch, before occlusion is pruned. At

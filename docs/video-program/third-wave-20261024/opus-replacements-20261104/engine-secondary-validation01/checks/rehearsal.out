@@ -1,0 +1,25 @@
+inputs.tsv git: 9 rows, 122802 files, 5873 MiB
+inputs.tsv registry: 296 rows, 19962 files, 411 MiB
+inputs.tsv repo: 11 rows, 11 files, 0 MiB
+inputs.tsv source: 5 rows, 4179 files, 46 MiB
+inputs.tsv tool: 1 rows, 1 files, 0 MiB
+inputs.tsv toolchain: 2 rows, 7622 files, 2660 MiB
+engine: 4057 files; differ from root's film-cells4-routes01 manifest: []
+repo-view: 68 files; differ from root's film-cells4-routes01 manifest: []
+crate: 52 files; differ from root's film-cells4-routes01 manifest: []
+a stage inside the repository: refused before any copy
+wrote STAGE/budget.toml with 19 path patches
+the lab copy now builds against the kit copy: explainer_kit, explainer_score
+stage ready; compiled nothing: STAGE
+stage took 91 s, most of it hashing the frozen inputs
+no file in the stage names root's staged folder
+crate/Cargo.toml and budget.toml name the stage copies: 19 engine packages
+every frozen dependency still matches inputs.tsv; `run` makes this check before and after, 43 s here
+manifest before the patches: 4190 rows; root's own check_inputs accepts it
+before the patches, files away from the combined hashes: 8 of 8
+after the patches, all 12 touched files differ from the unpatched record, so the base jobs refuse this stage
+apply_stack: both patches applied, 8 + 8 sealed hashes checked, a second call changes nothing
+manifest after the patches: 4192 rows; accepted
+rustfmt: the engine-lint and kit-build format steps exit 0 on the stage
+11 jobs, 25 steps; upper bounds 7.43 GiB in all, largest 2.22 GiB
+all 20 tests the patches add are required by name, the 2 ignored ones included

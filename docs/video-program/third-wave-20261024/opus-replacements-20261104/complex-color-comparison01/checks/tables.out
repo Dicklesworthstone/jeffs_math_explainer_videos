@@ -1,0 +1,92 @@
+1. Seconds a frame against the same scene on `now`. Median, lowest, highest, over the subjects that have both. One debug run each, 720p.
+   stills   overlap06   0.98   0.94   1.02   n=6
+   stills   tile        0.88   0.83   1.04   n=9
+   stills   tile_p3     0.95   0.87   0.98   n=6
+   stills   blend       0.82   0.74   0.94   n=9
+   stills   rows2       1.32   1.22   1.42   n=9
+   stills   cells2      1.82   1.53   2.04   n=9
+   fades    tile        0.78   0.74   0.82   n=3
+   fades    blend       0.69   0.68   0.78   n=3
+   repaints blend       0.77   0.77   0.77   n=1
+   repaints rows2       1.30   1.30   1.30   n=1
+
+2. Against truth, rms after a 2x2 box, from checks/measure_lab.out section C. Each candidate as a share of the same subject's tile.
+   subject          now     tile  tile_p3    blend    rows2   cells2
+   z               2.44     0.86     0.46     0.55     0.21     0.13
+   z2              5.79     5.69     4.38     5.05     3.98     2.44
+   tan             5.42     5.36     4.04     4.77     3.80     2.42
+   zoom            3.69     3.37     2.57     2.89     2.01     1.36
+   sinrecip        9.16     9.22     6.54     8.17     6.61     4.49
+   sin             7.14     6.63     5.70     6.23     4.47     3.83
+   recip           6.03     5.86        -     5.20     4.00     2.64
+   bump            5.87     5.74        -     5.04     4.25     2.48
+   openbump        5.64     5.51        -     4.92     4.12     2.49
+   median share of tile, leaving out z: now 1.02, tile 1.00, tile_p3 0.76, blend 0.89, rows2 0.70, cells2 0.45
+
+3. The centre cell of z and z2: darkest luma within 12 px of the plate's centre, and how many pixels wide the dark run is on that row (luma under half of the row's median there).
+   z   now      darkest   16.7 at (-1, -1), dark run 4 px
+   z   tile     darkest   16.7 at (-1, -1), dark run 4 px
+   z   tile_p3  darkest  124.8 at (+12, -1), dark run 0 px
+   z   blend    darkest   42.1 at (+1, -1), dark run 2 px
+   z   rows2    darkest  123.5 at (+11, +1), dark run 0 px
+   z   cells2   darkest  123.4 at (+12, +1), dark run 0 px
+   z2  now      darkest   16.7 at (-1, -1), dark run 4 px
+   z2  tile     darkest   16.7 at (-1, -1), dark run 4 px
+   z2  tile_p3  darkest   71.1 at (-7, -1), dark run 0 px
+   z2  blend    darkest   37.6 at (+0, -1), dark run 0 px
+   z2  rows2    darkest   65.2 at (-9, -1), dark run 0 px
+   z2  cells2   darkest   66.2 at (-6, -1), dark run 0 px
+
+4. Knots. A blended strip of n cells holds 2n + 9, and 713 rows of 2 x 731 + 9 is the failure's number:
+   713 x 1471 = 1048823, failure said 1048823, EQUAL
+   so cells4 on the 6.4 plate needs 1075301 of 1048576, 102.5%, and stopped at row 713 of 731.
+   A plate's live knots, % of the limit, by subject and rung (row and column counts from each candidate's receipt):
+   subject    blend  rows2  cells2
+   z           6.5   13.1    25.9
+   z2          6.5   13.1    25.9
+   tan         5.6   11.2    22.2
+   zoom        4.0    8.0    15.8
+   sinrecip    5.0   10.0    19.8
+   sin         5.0   10.0    19.9
+   recip       1.3    2.6     5.0
+   bump        4.0    8.0    15.8
+   openbump    5.0   10.0    19.8
+
+   Film scenes at cells2, from the planes in the source:
+   lacunary 5.4 x 5.4 (continuing.rs:675)              193743   18.5%
+   mosaic, 6 panels 4.2 x 2.6 (gallery.rs:857)         437166   41.7%
+   mosaic and the 5.0 zoom together (gallery.rs:895)   603332   57.5%, if both are live at once
+   the whole 16:9 frame in plate, no scene does this   747195   71.3%
+
+   How many frames of a fade between compactions, the plate's knots being new at each opacity, on the 6.4 plate:
+   now, about    137250 knots, every 7 frames
+   blend          68625 knots, every 15 frames
+   rows2         137250 knots, every 7 frames
+   cells2        271206 knots, every 3 frames
+
+5. Which painted plates put a cell's centre exactly on a zero or pole of what they paint? shade() has no colour there, so draw.rs paints the background: the black cell.
+   model::cell_input in f64, every cell tested for exact equality. Rows x cols, then the point hit and the function hit, by rung. The strip plane is left out: its only exact point, 1, is on its lower edge, where no cell centre can land.
+   plate                                                  now                         rows2                        cells2
+   reading_color plane         183x183 Identity@0 Square@0 Recip@0  366x183 Bump@1j Bump@(-0-1j)                     366x366 -
+   counting planes.0                                160x160 -                     320x160 -                     320x320 -
+   gallery square_plane                             160x160 -                     320x160 -                     320x320 -
+   gallery exp_plane                                 183x91 -                      366x91 -                     366x183 -
+   gallery trig_plane                               120x240 -                     240x240 -                     240x480 -
+   gallery gamma_plane                              133x240 -                     267x240 -                     267x480 -
+   gallery zeta_plane                               110x183 -               219x183 Zeta@-2                     219x366 -
+   gallery zoom_plane                               143x143 -                     286x143 -                     286x286 -
+   mosaic Cubic                                      74x120 -                     149x120 -                     149x240 -
+   mosaic ZeroDoublePole                             74x120 -                     149x120 -                     149x240 -
+   mosaic Exp                                        74x120 -                     149x120 -                     149x240 -
+   mosaic Sin                                        74x120 -                     149x120 -                     149x240 -
+   mosaic Gamma                                      74x120 -149x120 Gamma@0 Gamma@-1 Gamma@-2 Gamma@-3 Gamma@-4                     149x240 -
+   mosaic Zeta                                       74x120 -                     149x120 -                     149x240 -
+   continuing bump_plane                            160x160 -                     320x160 -                     320x320 -
+   continuing lacunary_plane                        154x154 -                     309x154 -            309x309 Lacunary@0
+   continuing gamma_plane                           110x214 -                     220x214 -                     220x429 -
+   boundary picture                                 160x160 -                     320x160 -                     320x320 -
+   residues small_planes                              80x80 -                      160x80 -                     160x160 -
+   residues bump_plane                              143x143 -  286x143 Bump@1j Bump@(-0-1j)                     286x286 -
+   rigidity sin_recip_plane                         160x160 -                     320x160 -                     320x320 -
+   rigidity sine_plane                              150x171 -                     300x171 -                     300x343 -
+   one_point painted                                154x154 -                     309x154 -           309x309 AbsSquare@0

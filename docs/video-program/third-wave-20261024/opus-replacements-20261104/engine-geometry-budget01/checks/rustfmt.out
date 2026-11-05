@@ -1,0 +1,8 @@
+rustfmt --check crates/fmn-render/src/plan.rs: pinned source exit 0, patched exit 0
+rustfmt --check crates/fmn-render/src/vector_frame.rs: pinned source exit 0, patched exit 0
+rustfmt --check crates/fmn-render/src/retained.rs: pinned source exit 0, patched exit 0
+rustfmt --check crates/fmn-render/tests/stroke_profiles.rs: pinned source exit 0, patched exit 0
+rustfmt --check crates/fmn/src/rendering.rs: pinned source exit 0, patched exit 0
+rustfmt --check crates/fmn/src/rendering/pipeline.rs: pinned source exit 0, patched exit 0
+rustfmt --check crates/fmn/tests/native_render.rs: pinned source exit 0, patched exit 0
+rustfmt --check examples/plate_lab.rs: staged lab exit 1 (already unformatted), patched exit 1

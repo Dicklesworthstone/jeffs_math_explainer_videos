@@ -1,0 +1,43 @@
+== script and neighbours
+PASS script.tsv f201d2dc57fa9cca: not touched, every take's text stands
+PASS the candidate tree holds one file: ['explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs']
+
+== the scene lines that change
+scene lines changed: [360, 402, 551]
+PASS of lines 1 to 860, exactly 360, 402 and 551 differ, and all of them keep their numbers
+PASS the impl still closes on the same two lines
+PASS all 7 says on the same lines
+PASS all 3 timing sites identical, line and text: [351, 749, 858]
+PASS the binder's SITES row (undoing_growth.rs, 351) still holds: super::draw::wait_until(stage, onset)?;
+PASS phrase_marks uses stay at the binder's expected 1
+PASS no cfg(test) item before the tests module
+PASS 04_2's phrase anchor sites stay on lines [115, 351]
+PASS name and flip code unchanged: const EXP_NAME_X: f64 = 1.68;
+PASS name and flip code unchanged: kit.tex(stage, r"y = e^{x}", 34.0, green, &[], p(EXP_NAME_X, 2.4))?
+PASS name and flip code unchanged: fade_out_all(stage, &[name, run0, rise0, floor, nowhere], 0.25)?;
+PASS name and flip code unchanged: play!(stage; tween(mirror, 1.0, 2.6)?);
+PASS the sweep's three legs keep 2.4, 1.4 and 1.6 s
+
+== hold rows of this file in map13
+PASS one hold binds this file: ['04_6']
+PASS control: the row's source hash is the baseline
+PASS control: my interval hash reproduces map13's on the baseline
+PASS 04_6's interval hash survives: b2d1d76b8f9fbd9eaa730d0c96aba14999df1e10304ef8e99526d92ebdc91c17
+PASS marker still on line 749: predict(&kit, stage, v(4.6, THINK_BAR_Y), 3.0)?;
+old sha256 754ea3125c2f7e89440807772713fe57584c96937be3ec0ac8c52d86645cf323
+new sha256 4dc4c555122d9cd5423d7094336c1d5e6f7f9afb77d6850a38bc0148c20180ef
+line 749 unchanged; interval b2d1d76b8f9fbd9eaa730d0c96aba14999df1e10304ef8e99526d92ebdc91c17 unchanged; evidence.sha256 follows sha256
+PASS this file is not one of map13's shared helpers
+
+== other pins of the old hash in canonical's crate docs (not changed here)
+explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver13.json 2
+
+== patch round trip on a scratch copy
+PASS git apply --check on the baseline
+PASS applying it gives the candidate's bytes
+PASS reversing it gives the baseline's bytes
+
+== format
+PASS rustfmt --check, edition 2024, width 120
+
+RESULT PASS

@@ -1,0 +1,11 @@
+plate_lab.rs after the whole stack, among its #[path] modules, repo rustfmt.toml: exit 0
+film src/main.rs after Lavender's hook, repo rustfmt.toml: exit 0
+crates/fmn-render/src/plan.rs: exit 0
+crates/fmn-render/src/retained.rs: exit 0
+crates/fmn-render/src/vector_frame.rs: exit 0
+crates/fmn-render/tests/stroke_profiles.rs: exit 0
+crates/fmn/src/rendering.rs: exit 0
+crates/fmn/src/rendering/pipeline.rs: exit 0
+crates/fmn/tests/native_bundle_pipeline.rs: exit 0
+crates/fmn/tests/native_render.rs: exit 0
+crates/explainer_kit/tests/options_hook_routes.rs, repo rustfmt.toml: exit 0

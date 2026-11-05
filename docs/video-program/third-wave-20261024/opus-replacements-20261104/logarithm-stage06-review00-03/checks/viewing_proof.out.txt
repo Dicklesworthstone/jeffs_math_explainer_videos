@@ -1,0 +1,7 @@
+PASS 00_ratio_ruler: 72 of 72 sheets returned as images, 72 byte-identical to disk; frames 0-285
+PASS 01_building_ruler: 76 of 76 sheets returned as images, 76 byte-identical to disk; frames 0-303
+PASS 02_slide_rule: 60 of 60 sheets returned as images, 60 byte-identical to disk; frames 0-237
+PASS 03_folded_decade: 47 of 47 sheets returned as images, 47 byte-identical to disk; frames 0-187
+sheets returned 255; full frames opened 13; enlarged crops opened 30
+PASS all 255 sheets
+RESULT PASS

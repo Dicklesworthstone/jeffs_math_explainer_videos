@@ -1,0 +1,96 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs
+@@ -342,7 +342,7 @@
+             .narrator
+             .as_ref()
+             .and_then(|n| n.sentence_at("03_3", 0).zip(n.sentence_at("03_3", 1)));
+-        let (laps_run, lay) = lay_beats(stage.scene().time().to_f64(), spoken);
++        let (laps_run, lay) = lay_beats(stage.scene().time().to_f64(), spoken, forgets_mark(&kit));
+         let lap_things = [pointer, trail, count, count_word, four, six, total, ten, lap_tag];
+         fade_out_all(stage, &lap_things, laps_run)?;
+         let mut digits = vec![land, land_word];
+@@ -455,21 +455,36 @@
+ }
+ 
+ /// How far through 03_3's first sentence the voice has said "the digits,": 30 of
+-/// its 52 characters. A rough estimate, never measured timing.
++/// its 52 characters. A rough estimate, never measured timing. The sentence's span
++/// includes the pause before sentence 1, so on a real voice it can run late.
+ const DIGITS_SHARE: f64 = 0.58;
+ const DIGITS_FADE: f64 = 0.3;
+ const LAPS_RUN_SHORTEST: f64 = 0.6;
+ const LAY_SHORTEST: f64 = 1.0;
+ const LAY_UNTIMED: f64 = 2.0;
++const SCRIPT: &str = include_str!("../../script.tsv");
++/// The word the digits must be gone by. A mark at its byte in 03_3 replaces the
++/// share; without one the share stands.
++const FORGETS_PHRASE: &str = "forgets";
++
++/// Seconds into 03_3 at which the voice reaches "forgets", if a mark says so.
++fn forgets_mark(kit: &Kit) -> Option<f64> {
++    let text = SCRIPT.lines().find_map(|row| row.strip_prefix("03_3\t"))?;
++    let byte = text.find(FORGETS_PHRASE)?;
++    kit.narrator.as_ref()?.phrase_marks("03_3").get(&byte).copied()
++}
+ 
+ /// How long the lap objects take to fade and how long the dial takes to lie flat,
+ /// from `now`: the digits leave when "the digits," has been said, and the lay ends
+-/// on sentence 1, or a little after it if the voice is very quick.
+-fn lay_beats(now: f64, spoken: Option<(f64, f64)>) -> (f64, f64) {
++/// on sentence 1, or a little after it if the voice is very quick. A mark on
++/// "forgets" inside the first sentence ends the digits' fade on that word.
++fn lay_beats(now: f64, spoken: Option<(f64, f64)>, forgets: Option<f64>) -> (f64, f64) {
+     let Some((s0, s1)) = spoken else {
+         return (LAPS_RUN_SHORTEST, LAY_UNTIMED);
+     };
+-    let laps = (s0 + (s1 - s0) * DIGITS_SHARE - now).max(LAPS_RUN_SHORTEST);
++    let mark = forgets.map(|m| s0 + m).filter(|at| (s0..s1).contains(at));
++    let named = mark.map_or(s0 + (s1 - s0) * DIGITS_SHARE, |at| at - DIGITS_FADE);
++    let laps = (named - now).max(LAPS_RUN_SHORTEST);
+     (laps, (s1 - now - laps - DIGITS_FADE).max(LAY_SHORTEST))
+ }
+ 
+@@ -602,14 +617,40 @@
+         let share = named.chars().count() as f64 / first.chars().count() as f64;
+         assert!((share - DIGITS_SHARE).abs() < 0.01, "{share}");
+         // the scratch voice's 4.0 s sentence, starting the beats 0.5 s in, after the title's swap
+-        let (laps, lay) = lay_beats(42.4, Some((41.9, 45.9)));
++        let (laps, lay) = lay_beats(42.4, Some((41.9, 45.9)), None);
+         assert!((42.4 + laps - (41.9 + 4.0 * DIGITS_SHARE)).abs() < 1e-9, "{laps}");
+         assert!((42.4 + laps + DIGITS_FADE + lay - 45.9).abs() < 1e-9, "{lay}");
+         // a quick voice keeps the shortest beats and runs a little over, never backwards
+-        let (laps, lay) = lay_beats(0.5, Some((0.0, 1.6)));
++        let (laps, lay) = lay_beats(0.5, Some((0.0, 1.6)), None);
+         assert!(laps == LAPS_RUN_SHORTEST && lay == LAY_SHORTEST, "{laps} {lay}");
+         // no narrator: the old 2.0 s lay
+-        assert_eq!(lay_beats(0.5, None), (LAPS_RUN_SHORTEST, LAY_UNTIMED));
++        assert_eq!(lay_beats(0.5, None, None), (LAPS_RUN_SHORTEST, LAY_UNTIMED));
++    }
++
++    #[test]
++    fn a_mark_on_forgets_ends_the_digits_fade_and_a_mark_outside_the_sentence_is_ignored() {
++        // the anchor is one word, once, in the first sentence, after "and"
++        let text = SCRIPT
++            .lines()
++            .find_map(|row| row.strip_prefix("03_3\t"))
++            .expect("03_3 is in the script");
++        let byte = text.find(FORGETS_PHRASE).expect("the word is in 03_3");
++        assert_eq!(text.matches(FORGETS_PHRASE).count(), 1);
++        assert!(text[..byte].ends_with(", and "), "{}", &text[..byte]);
++        assert!(byte < text.find(". ").expect("several sentences"));
++        // stand-in times, not a take's: the fade ends on the mark, the lay on sentence 1
++        let spoken = Some((10.0, 14.0));
++        let (laps, lay) = lay_beats(10.5, spoken, Some(2.2));
++        assert!((10.5 + laps + DIGITS_FADE - 12.2).abs() < 1e-9, "{laps}");
++        assert!((10.5 + laps + DIGITS_FADE + lay - 14.0).abs() < 1e-9, "{lay}");
++        // a mark outside the sentence changes nothing
++        let share = lay_beats(10.5, spoken, None);
++        assert_eq!(lay_beats(10.5, spoken, Some(4.0)), share);
++        assert_eq!(lay_beats(10.5, spoken, Some(-0.1)), share);
++        // a mark very early still keeps the shortest lap fade
++        assert_eq!(lay_beats(10.5, spoken, Some(0.6)).0, LAPS_RUN_SHORTEST);
++        // the scene passes the mark in, before anything fades
++        assert!(found("forgets_mark(&kit)") < found("fade_out_all(stage, &lap_things, laps_run)"));
+     }
+ 
+     #[test]

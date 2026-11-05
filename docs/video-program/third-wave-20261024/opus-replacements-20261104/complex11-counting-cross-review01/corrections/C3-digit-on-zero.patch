@@ -1,0 +1,97 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+@@ -735,8 +735,9 @@
+ /// a radius of 1.79, which leaves no room in the window for a label this long (tested).
+ const REACH_NAMES_AT: (f64, f64) = (0.0, 2.2);
+ /// The name of the output plane's 0, in window units, and the plate it sits on in scene units.
+-/// The plate stays between the axes and inside the unit circle.
+-const ZERO_NAME_AT: (f64, f64) = (-0.25, -0.3);
++/// On zero itself, the one place the reach can never hold: anywhere else in the disk's sweep
++/// the digit would be seen inside the disk the picture says misses zero.
++const ZERO_NAME_AT: (f64, f64) = (0.0, 0.0);
+ const ZERO_PLATE: f64 = 0.105;
+ /// 11_8's name `a`, as a multiple of the sample it names. Turned with the sample, it keeps to one
+ /// side of the line from 0, inside the disk and off the output circle. At 1, where the walk
+@@ -972,11 +973,13 @@
+             .style(line_style(Palette::ink(), 2.5))
+             .build(),
+     );
++    // the distance line starts at the fixed 0: it goes under the plate and the name before its
++    // first frame, or its end would show over them and then be cut. The rim never gets there.
++    stage.add_to_scene(gap)?;
++    stage.add_to_scene(zero_plate)?;
++    stage.add_to_scene(zero_name)?;
+     fade_in_all(stage, &[gap], 0.2)?;
+     left.push(gap);
+-    // the distance line and the disk's rim both pass the fixed 0: its name goes over them
+-    stage.add_to_scene(zero_plate)?;
+-    stage.add_to_scene(zero_name)?;
+     let carried = stage.add_value_tracker(0.0);
+     let anchor = stage.arena_mut().add(VMobject::new());
+     stage.add_to_scene(anchor)?;
+@@ -1598,7 +1601,7 @@
+     fn the_samples_name_keeps_off_the_distance_line() {
+         const HALF_DIAGONAL: f64 = 0.1;
+         let reach = f64::from(model::COARSE_POWER) * TAU / model::COARSE_STEPS[1] as f64;
+-        let zero_name = C::new(-0.25, -0.3);
++        let zero_name = C::new(ZERO_NAME_AT.0, ZERO_NAME_AT.1);
+         let sweep = circle(ZERO, 1.0, 1440);
+         for &c in &sweep {
+             let at = c * A_NAME_ON_SAMPLE;
+@@ -1892,31 +1895,25 @@
+         assert!(SAME_ROOTS_AT.0 - card_half_w > inp.frame.x.0 && SAME_ROOTS_AT.0 + card_half_w < inp.frame.x.1);
+     }
+ 
+-    /// 11_8's fixed 0: the distance line reaches it at some bearing and the reach's rim passes it,
+-    /// so its name goes over both on a plate that covers neither axis nor the unit circle, is on
+-    /// empty ground when it is promoted, and carries the digit's whole extent.
+-    #[test]
+-    fn the_zero_keeps_its_name_while_the_line_and_the_rim_go_by() {
++    /// 11_8's fixed 0 sits on zero. The picture's point is that the reach never holds zero, so at
++    /// every bearing the disk stays off the whole plate, rim and all. The plate carries the digit's
++    /// whole extent, and goes over the distance line's end before the sweep.
++    #[test]
++    fn the_zero_keeps_its_name_outside_the_reach_at_every_bearing() {
+         let (_, out) = coarse_planes();
+         let unit = out.unit();
+         let at = C::new(ZERO_NAME_AT.0, ZERO_NAME_AT.1);
++        assert!(at.abs() == 0.0);
+         let plate = ZERO_PLATE / unit;
+-        assert!(at.re.abs() > plate + 0.02 && at.im.abs() > plate + 0.02);
+-        assert!(at.abs() + plate < 1.0 - 0.05);
+         // half a 20 pt digit: 0.05 × 0.07 in scene units
+         assert!(C::new(0.05, 0.07).abs() < ZERO_PLATE);
+-        // what it protects against: the line and the rim do cross the plate during the sweep
+         let reach = f64::from(model::COARSE_POWER) * TAU / model::COARSE_STEPS[1] as f64;
+-        let sweep: Vec<C> = (0..720).map(|k| C::polar(1.0, TAU * f64::from(k) / 720.0)).collect();
+-        let line_crosses = |c: C| {
+-            let along = (at.re * c.re + at.im * c.im).clamp(0.0, 1.0);
+-            (at - c.scale(along)).abs() < plate
+-        };
+-        assert!(sweep.iter().any(|&c| line_crosses(c)));
+-        assert!(sweep.iter().any(|&c| ((at - c).abs() - reach).abs() < plate));
+-        // and at the start of the sweep, where it is promoted, neither is near it
+-        assert!(!line_crosses(ONE));
+-        assert!(((at - ONE).abs() - reach).abs() > plate);
++        // half the rim's stroke, in window units: 3.5 stroke units of 0.01 in the scene
++        let half_rim = 0.0175 / unit;
++        for k in 0..720 {
++            let c = C::polar(1.0, TAU * f64::from(k) / 720.0);
++            assert!((at - c).abs() - reach > plate + half_rim, "{k}");
++        }
+         // the film's code only: these lines are quoted here
+         let film = include_str!("counting.rs")
+             .split("#[cfg(test)]\nmod tests")
+@@ -1924,9 +1921,10 @@
+             .unwrap();
+         let body = &film[film.find("fn coarse_loop(").unwrap()..];
+         let find = |text: &str| body.find(text).unwrap_or_else(|| panic!("{text}"));
+-        assert!(find("fade_in_all(stage, &[gap], 0.2)?;") < find("stage.add_to_scene(zero_plate)?;"));
++        assert!(find("stage.add_to_scene(gap)?;") < find("stage.add_to_scene(zero_plate)?;"));
+         assert!(find("stage.add_to_scene(zero_plate)?;") < find("stage.add_to_scene(zero_name)?;"));
+-        assert!(find("stage.add_to_scene(zero_name)?;") < find("let carried = stage.add_value_tracker(0.0);"));
++        assert!(find("stage.add_to_scene(zero_name)?;") < find("fade_in_all(stage, &[gap], 0.2)?;"));
++        assert!(find("fade_in_all(stage, &[gap], 0.2)?;") < find("let carried = stage.add_value_tracker(0.0);"));
+         assert!(find("frame.extend([zero_plate, zero_name]);") < find("let mut left = frame;"));
+     }
+ 

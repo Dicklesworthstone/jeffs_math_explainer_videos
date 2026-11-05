@@ -1,0 +1,80 @@
+== A. the stage03 receipt still names these bytes
+   receipt sha256 3f652c2d8bc510fbbd62e027b9db57943d8d5a1c3e297c0fecdfb87de6dec5e2
+   receipt changed: ['explainer_corpus/complex_analysis_visual/src/main.rs', 'explainer_corpus/complex_analysis_visual/src/chapters/counting.rs', 'explainer_corpus/complex_analysis_visual/src/chapters/draw.rs']
+PASS every file the receipt hashes is still those bytes: 55 files, moved []
+   receipt native_build: ['false']
+   receipt hold_rebind: ['false']
+   receipt actual_picture_review: ['false']
+   receipt listening: ['false']
+
+== B. stray files in the candidate tree (F2)
+PASS counting.rs.orig is partial06's before-bytes of counting.rs: cdc154ec074aa446
+PASS partial06 applied counting.rs at an offset, which is when patch keeps a .orig
+PASS mod.rs.orig is partial06's before-bytes of mod.rs: a13535445ddaf475
+PASS partial06 applied mod.rs at an offset, which is when patch keeps a .orig
+PASS one_derivative.rs.orig is partial06's before-bytes of one_derivative.rs: 84ed107492e65b39
+PASS partial06 applied one_derivative.rs at an offset, which is when patch keeps a .orig
+PASS .ee/hook-state is in the crate: 8b04f43497358c44
+PASS the receipt hashes all four as candidate files: explainer_corpus/complex_analysis_visual/.ee/hook-state/session_start_orient.last.json, explainer_corpus/complex_analysis_visual/src/chapters/counting.rs.orig, explainer_corpus/complex_analysis_visual/src/chapters/mod.rs.orig, explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs.orig
+PASS no module is named after a .orig file
+
+== C. the 11_7 turning field and the plate's samples (F4)
+PASS PLATE is PLATE_CELLS4
+PASS PLATE_CELLS4 takes the rest of PLATE_BLEND and sets no samples
+PASS PLATE_BLEND takes the rest of PLATE_TILE and sets no samples
+PASS PLATE_TILE takes the rest of PLATE_NOW and sets no samples
+PASS PLATE_NOW has samples: 1
+PASS portrait builds through plate_colors with the style's samples
+PASS plate_colors is portrait_colors at one sample
+PASS Turning builds with portrait and repaints with portrait_colors
+PASS no counting test reads the plate's style or its samples (the gap F4 names)
+PASS turned_by(0) is exactly one, so the turn back repaints 11_6's colours
+
+== D. the widest pictures under PLATE_CELLS4 (F5)
+   gallery.rs trig_plane: width 8.4, 960 cols × 480 rows
+   gallery.rs gamma_plane: width 8.4, 960 cols × 533 rows
+   continuing.rs gamma_plane: width 7.5, 857 cols × 440 rows
+   reading_color.rs plane: width 6.4, 731 cols × 731 rows
+PASS gallery.rs paints those planes
+PASS continuing.rs paints those planes
+PASS draw.rs's budget test assumes a 6.4 × 6.4 widest picture with cols ≤ 800
+PASS the widest painted picture has more than 800 cols: 960
+PASS the geometry budget did count the 8.4 and 7.5 plates
+
+== E. the narration plan against the stage's script (F1)
+   narration_units.json sha256 3c4f53d797385729 script.tsv 1e24aba8b520f2e6
+PASS the plan pins a different script than the stage's (the gap): 2968b0fd76540cbc
+PASS only oliver_11_7 has other words than the script: oliver_11_7
+PASS its words are the six-sentence wording before root's wording repair
+PASS teaching02's narration-units.patch applies to the stage's plan
+PASS and gives the plan teaching02's handoff names: 3989e1855f617734
+PASS whose script hash is the stage's
+PASS and every unit is the script's words
+   its map pointer: narration-direction-map-oliver11.json 759e0eba1d40fbd2
+
+== F. the retained 11_7 pair
+PASS the retained request text is the stage's 11_7, word for word
+   downloads01 listening: ['false']
+   downloads01 fine_sync: ['false']
+   downloads01 selection: ['null']
+   sha256 11_7.txt a3d4e44c1b7cfdbb downloads01.json 111ed028e67794b9
+
+== G. 15_2's last sentence and what a narrow rewording would touch (F3)
+   15_2 sentence 5: It allows at most one extension to a given connected region, though not always everywhere, and along different paths a continuation can branch.
+PASS 15_2 has six sentences
+   15_2 hooks: ['wait_sentence(stage, 1)', 'wait_sentence(stage, 2)', 'wait_sentence(stage, 3)', 'wait_sentence(stage, 4)', 'wait_for(stage, "and it turns a real integral")', 'wait_sentence(stage, 5)']
+PASS no 15_2 hook reads sentence 5's words
+PASS the proposed wording changes only that clause: It allows at most one extension to a given connected region, though there may be none, and along different paths a continuation can branch.
+PASS 14_7 is the film's case with no continuation at all
+
+== H. storyboard picture cells that quote strings the film does not draw (F6)
+PASS 04_2: the row quotes 'band: size × 1.69', the film draws "next band: size × ";
+PASS 04_6: the row quotes 'bump: where are the poles? how many turns?', the film draws ["where are the bump's poles?", "how many turns at each?"];
+PASS 05_7: the row quotes 'series converges to the right', the film draws "series converges: Re s > 1";
+
+== I. the hook scan's one problem row is the scanner's, not the film's
+PASS approach_pole is called once, inside 11_4's code
+PASS its hook is in 11_4 once, where a sentence starts
+PASS the scanner reads the helper's `line` as the file's last cue, 11_8
+
+FAILURES: none

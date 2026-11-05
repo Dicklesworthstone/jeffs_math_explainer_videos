@@ -1,0 +1,11 @@
+=== arity_check: canonical exit 0; with repair exit 0; rows not on canonical: 2
+   calls checked: 4582; problems: 0
+   second pass, by name only: 4806 calls, 1 hits
+=== scope_check: canonical exit 0; with repair exit 0; rows not on canonical: 0
+=== shape_check: canonical exit 0; with repair exit 0; rows not on canonical: 3
+   format-family macros checked: 247
+   sized const arrays checked: 111
+   argument shapes compared: 9642
+=== unused_check: canonical exit 0; with repair exit 0; rows not on canonical: 1
+   bindings checked: 3093; problems: 1
+=== desk_check: canonical exit 0; with repair exit 0; rows not on canonical: 0

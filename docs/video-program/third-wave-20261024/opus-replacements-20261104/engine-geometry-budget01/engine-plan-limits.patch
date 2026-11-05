@@ -1,0 +1,687 @@
+--- a/crates/fmn/src/rendering/pipeline.rs
++++ b/crates/fmn/src/rendering/pipeline.rs
+@@ -11,7 +11,7 @@
+ use fmn_output::{EmitterError, EmitterHandle, FrameReservation};
+ use fmn_render::{
+     Camera, CameraConfig, EngineIdentity, FrameArena, OwnedVectorFrame, PixelTileCache,
+-    PreparedCameraFrame, RetainedFrameRenderer, RetainedFrameRendererConfig,
++    PreparedCameraFrame, RenderPlanLimits, RetainedFrameRenderer, RetainedFrameRendererConfig,
+     RetainedFrameRendererError, VectorFrameCompiler, Viewport,
+ };
+ use fmn_runtime::{
+@@ -136,14 +136,16 @@
+     // One independent arena/cache per real render team. No global raster lock:
+     // nonconsecutive frame contents and cache identities decide reuse.
+     workers: Vec<Mutex<VectorWorker>>,
++    plan_limits: RenderPlanLimits,
+ }
+ 
+ impl NativeFrameStages {
+-    pub fn new(render_teams: usize) -> Self {
++    pub fn new(render_teams: usize, plan_limits: RenderPlanLimits) -> Self {
+         Self {
+             workers: (0..render_teams)
+                 .map(|_| Mutex::new(VectorWorker::default()))
+                 .collect(),
++            plan_limits,
+         }
+     }
+ }
+@@ -208,10 +210,10 @@
+                     })?;
+                 if let Some(camera) = camera {
+                     if worker.compiled_camera.is_none() {
+-                        worker.compiled_camera = Some(
+-                            RetainedFrameRenderer::new(config)
+-                                .map_err(NativeFrameError::Renderer)?,
+-                        );
++                        let mut renderer = RetainedFrameRenderer::new(config)
++                            .map_err(NativeFrameError::Renderer)?;
++                        renderer.set_plan_limits(self.plan_limits);
++                        worker.compiled_camera = Some(renderer);
+                     }
+                     let raster = worker
+                         .compiled_camera
+@@ -226,9 +228,10 @@
+                     convert_into(&raster, output.frame_mut(), team.threads())?;
+                 } else {
+                     if worker.compiled_vector.is_none() {
+-                        worker.compiled_vector = Some(
+-                            VectorFrameCompiler::new(config).map_err(NativeFrameError::Renderer)?,
+-                        );
++                        let mut compiler =
++                            VectorFrameCompiler::new(config).map_err(NativeFrameError::Renderer)?;
++                        compiler.set_plan_limits(self.plan_limits);
++                        worker.compiled_vector = Some(compiler);
+                     }
+                     let frame = worker
+                         .compiled_vector
+@@ -356,6 +359,21 @@
+         camera: Option<Camera>,
+         output: EmitterHandle,
+     ) -> Result<Self, RenderError> {
++        Self::with_plan_limits(plan, config, camera, output, RenderPlanLimits::default())
++    }
++
++    /// The same pipeline, admitting scenes under `plan_limits`. Frame bits do not
++    /// depend on them; the monotone-table and binning budgets still apply.
++    ///
++    /// # Errors
++    /// As [`Self::new`].
++    pub fn with_plan_limits(
++        plan: ExecutionPlan,
++        config: RetainedFrameRendererConfig,
++        camera: Option<Camera>,
++        output: EmitterHandle,
++        plan_limits: RenderPlanLimits,
++    ) -> Result<Self, RenderError> {
+         // Source demand is synchronous. A smaller output ring could block
+         // its producer while the coordinator awaits that same next source
+         // value instead of processing the completion that frees the ring.
+@@ -414,17 +432,20 @@
+             ));
+         }
+         let compiler = match camera {
+-            Some(camera) => NativeCompiler::Camera {
+-                renderer: Box::new(
+-                    RetainedFrameRenderer::new(config).map_err(RenderError::Renderer)?,
+-                ),
+-                camera,
+-            },
+-            None => NativeCompiler::Vector(
+-                VectorFrameCompiler::new(config).map_err(RenderError::Renderer)?,
+-            ),
++            Some(camera) => {
++                let mut renderer =
++                    Box::new(RetainedFrameRenderer::new(config).map_err(RenderError::Renderer)?);
++                renderer.set_plan_limits(plan_limits);
++                NativeCompiler::Camera { renderer, camera }
++            }
++            None => {
++                let mut compiler =
++                    VectorFrameCompiler::new(config).map_err(RenderError::Renderer)?;
++                compiler.set_plan_limits(plan_limits);
++                NativeCompiler::Vector(compiler)
++            }
+         };
+-        let stages = NativeFrameStages::new(plan.render_teams.len());
++        let stages = NativeFrameStages::new(plan.render_teams.len(), plan_limits);
+         let stream = FrameStream::new(plan, stages, |_, output| {
+             output.publish().map_err(NativeFrameError::Emitter)
+         })
+--- a/crates/fmn/src/rendering.rs
++++ b/crates/fmn/src/rendering.rs
+@@ -70,7 +70,7 @@
+ 
+ pub use fmn_output::negotiate::{EncoderPreset, EncoderTune, VideoQuality};
+ pub use fmn_output::{EmitterReport, JobLimits, NativeArtifactReport};
+-pub use fmn_render::{CameraConfig, CameraFrame};
++pub use fmn_render::{CameraConfig, CameraFrame, RenderPlanLimits};
+ pub use fmn_runtime::ExecutionPlan;
+ 
+ /// Read optional `file_writer` video controls after configuration layering.
+@@ -308,6 +308,12 @@
+     /// Budget for planned frame storage and sink resident buffers, not for the
+     /// caller's scene graph or geometry. The sink also enforces its own bound.
+     pub max_resident_bytes: u64,
++    /// Retained geometry and paint the scene may hold, checked on every captured
++    /// frame. The default fits ordinary scenes; one that needs more declares it
++    /// here, and frame bits do not depend on it. [`Self::max_resident_bytes`] does
++    /// not cover scene geometry, so the caller answers for the memory admitted.
++    /// The monotone-table and binning budgets still apply and refuse by name.
++    pub plan_limits: RenderPlanLimits,
+     /// Upper bound on the output ring and frozen frame-job count; the scheduler
+     /// may lower it. Does not change frame sampling or pixels.
+     pub frames_in_flight: usize,
+@@ -356,6 +362,7 @@
+             max_frames: 1_000_000,
+             max_output_bytes: 64 * 1024 * 1024 * 1024,
+             max_resident_bytes: 512 * 1024 * 1024,
++            plan_limits: RenderPlanLimits::default(),
+             frames_in_flight: 2,
+             typeset_cache: true,
+             typeset_preflight_workers: crate::typesetting::DEFAULT_PREFLIGHT_WORKERS,
+@@ -1025,16 +1032,20 @@
+             vec![binding],
+         )
+         .map_err(RenderError::Emitter)?;
+-        let pipeline =
+-            match NativeFramePipeline::new(plan.clone(), renderer_config, camera, emitter.handle())
+-            {
+-                Ok(pipeline) => pipeline,
+-                Err(error) => {
+-                    emitter.cancel();
+-                    let _ = emitter.finish();
+-                    return Err(error);
+-                }
+-            };
++        let pipeline = match NativeFramePipeline::with_plan_limits(
++            plan.clone(),
++            renderer_config,
++            camera,
++            emitter.handle(),
++            options.plan_limits,
++        ) {
++            Ok(pipeline) => pipeline,
++            Err(error) => {
++                emitter.cancel();
++                let _ = emitter.finish();
++                return Err(error);
++            }
++        };
+         Ok(Self {
+             pipeline: Some(pipeline),
+             emitter: Some(emitter),
+--- a/crates/fmn/tests/native_render.rs
++++ b/crates/fmn/tests/native_render.rs
+@@ -4,7 +4,7 @@
+ use std::sync::Arc;
+ 
+ use fmn::prelude::*;
+-use fmn::rendering::RenderError;
++use fmn::rendering::{RenderError, RenderPlanLimits};
+ use fmn_codec::{PngLimits, decode_png, decode_y4m};
+ use fmn_config::config::{DeterminismMode, Engine, ThreadPolicy};
+ use fmn_platform::fs::{ATOMIC_DIRECTORY_COMPLETE_LEAF, FileSystem, VirtualFs};
+@@ -213,6 +213,24 @@
+ }
+ 
+ #[test]
++fn a_declared_plan_budget_reaches_the_renderer_and_refuses_by_name() {
++    let fs = Arc::new(VirtualFs::new());
++    let mut config = options("/limited", RenderFormat::PngSequence, 1);
++    config.plan_limits = RenderPlanLimits {
++        max_retained_segments: 1,
++        ..RenderPlanLimits::default()
++    };
++    let Err(error) = render_with_fs(&mut MovingCircle, config, fs.clone()) else {
++        panic!("a circle needs more than one retained segment");
++    };
++    assert!(
++        format!("{error:?}").contains("\"retained segments\""),
++        "{error:?}"
++    );
++    assert!(!fs.exists(Path::new("/limited")));
++}
++
++#[test]
+ fn frame_budget_failure_does_not_publish_a_truncated_animation() {
+     let fs = Arc::new(VirtualFs::new());
+     let mut config = options("/limited", RenderFormat::PngSequence, 1);
+--- a/crates/fmn-render/src/plan.rs
++++ b/crates/fmn-render/src/plan.rs
+@@ -72,8 +72,14 @@
+ /// geometry ceiling admits sixteen maximum-size Chisel paths, while the smaller
+ /// unreachable-row budgets reclaim mutation history at a named safe point long
+ /// before that ceiling. Callers with a deliberately larger, provisioned scene
+-/// can pass explicit limits through [`RenderPlan::sync_with_limits`]; the `u32`
+-/// table width remains absolute.
++/// can pass explicit limits through [`RenderPlan::sync_with_limits`], or declare
++/// them on a renderer or as `fmn::RenderOptions::plan_limits`; the `u32` table
++/// width remains absolute.
++///
++/// Compaction reclaims only rows already unreachable when a sync begins. A frame
++/// that repaints every row straight after a compaction therefore holds the old
++/// and new rows together: a scene that repaints needs twice its live knots, not
++/// once.
+ #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+ pub struct RenderPlanLimits {
+     /// Maximum painter-ordered instances produced by one sync.
+--- a/crates/fmn-render/src/retained.rs
++++ b/crates/fmn-render/src/retained.rs
+@@ -15,8 +15,8 @@
+ use crate::{
+     Binning, BinningError, CachedRenderError, CachedRenderStats, Camera, EngineIdentity,
+     FrameArena, FrameConfig, FrameJob, FrameJobError, MonoTable, MonoTableError, PixelTileCache,
+-    RenderPlan, SurfaceDraw, SurfaceMaterial, SurfaceMesh, SurfaceVertex, SyncError, ThreeDDraw,
+-    ThreeDError, ThreeDJob, Tiling, TrueDotDraw, VectorDraw,
++    RenderPlan, RenderPlanLimits, SurfaceDraw, SurfaceMaterial, SurfaceMesh, SurfaceVertex,
++    SyncError, ThreeDDraw, ThreeDError, ThreeDJob, Tiling, TrueDotDraw, VectorDraw,
+ };
+ 
+ /// Immutable policy for one retained CPU renderer.
+@@ -170,6 +170,7 @@
+ #[derive(Debug)]
+ pub struct RetainedFrameRenderer {
+     config: RetainedFrameRendererConfig,
++    plan_limits: RenderPlanLimits,
+     plan: RenderPlan,
+     arena: FrameArena,
+     cache: PixelTileCache,
+@@ -190,6 +191,7 @@
+         let frame = FrameBuffer::new(config.frame.layout()?);
+         Ok(Self {
+             config,
++            plan_limits: RenderPlanLimits::default(),
+             plan: RenderPlan::new(),
+             arena: FrameArena::new(),
+             cache: PixelTileCache::new(),
+@@ -197,6 +199,15 @@
+         })
+     }
+ 
++    /// Admit later captures under `limits` in place of [`RenderPlanLimits::default`].
++    ///
++    /// A larger budget costs retained memory and moves compaction later; frame
++    /// bits do not depend on it. Downstream monotone and binning budgets still
++    /// apply and refuse by name.
++    pub fn set_plan_limits(&mut self, limits: RenderPlanLimits) {
++        self.plan_limits = limits;
++    }
++
+     /// Replace the planar route's background. Cached tiles hold composited
+     /// background pixels, so a change discards them; an unchanged background
+     /// keeps every cache hit.
+@@ -226,7 +237,8 @@
+                 program: item.key.program,
+             });
+         }
+-        self.plan.sync(stage, camera_revision)?;
++        self.plan
++            .sync_with_limits(stage, camera_revision, self.plan_limits)?;
+         let mono = MonoTable::build(&self.plan, self.config.frame.map)?;
+         let mut binning = Binning::build(
+             &self.plan,
+@@ -262,7 +274,7 @@
+         stage: &Stage,
+         camera: &Camera,
+     ) -> Result<(), RetainedFrameRendererError> {
+-        let scene = prepare_camera_scene(&mut self.plan, stage, camera)?;
++        let scene = prepare_camera_scene(&mut self.plan, stage, camera, self.plan_limits)?;
+         render_camera_scene(
+             &self.plan,
+             &scene,
+@@ -293,7 +305,7 @@
+         stage: &Stage,
+         camera: &Camera,
+     ) -> Result<PreparedCameraFrame, RetainedFrameRendererError> {
+-        let scene = prepare_camera_scene(&mut self.plan, stage, camera)?;
++        let scene = prepare_camera_scene(&mut self.plan, stage, camera, self.plan_limits)?;
+         self.plan.commit_image_frame(scene.images.clone());
+         Ok(PreparedCameraFrame {
+             plan: self.plan.clone(),
+@@ -396,8 +408,9 @@
+     plan: &mut RenderPlan,
+     stage: &Stage,
+     camera: &Camera,
++    limits: RenderPlanLimits,
+ ) -> Result<PreparedCameraScene, RetainedFrameRendererError> {
+-    plan.sync(stage, camera.revision())?;
++    plan.sync_with_limits(stage, camera.revision(), limits)?;
+     let draw_plan = stage.draw_plan();
+     let mut image_frame = plan.prepare_image_frame()?;
+     let mut meshes = Vec::new();
+--- a/crates/fmn-render/src/vector_frame.rs
++++ b/crates/fmn-render/src/vector_frame.rs
+@@ -11,7 +11,7 @@
+ 
+ use crate::{
+     Binning, CachedRenderStats, FrameArena, FrameJob, MonoTable, PixelTileCache, RenderPlan,
+-    RetainedFrameRendererConfig, RetainedFrameRendererError, SyncStats,
++    RenderPlanLimits, RetainedFrameRendererConfig, RetainedFrameRendererError, SyncStats,
+ };
+ 
+ /// Serial retained compiler whose captured frames own immutable IR generations.
+@@ -23,6 +23,7 @@
+ pub struct VectorFrameCompiler {
+     plan: Arc<RenderPlan>,
+     config: RetainedFrameRendererConfig,
++    plan_limits: RenderPlanLimits,
+ }
+ 
+ impl VectorFrameCompiler {
+@@ -38,9 +39,19 @@
+         Ok(Self {
+             plan: Arc::new(RenderPlan::new()),
+             config,
++            plan_limits: RenderPlanLimits::default(),
+         })
+     }
+ 
++    /// Admit later captures under `limits` in place of [`RenderPlanLimits::default`].
++    ///
++    /// A larger budget costs retained memory and moves compaction later; frame
++    /// bits do not depend on it. Downstream monotone and binning budgets still
++    /// apply and refuse by name.
++    pub fn set_plan_limits(&mut self, limits: RenderPlanLimits) {
++        self.plan_limits = limits;
++    }
++
+     /// Freeze one affine frame after the caller has acquired pipeline capacity.
+     ///
+     /// Camera-only primitives are refused rather than flattened or omitted.
+@@ -63,7 +74,7 @@
+                 program: item.key.program,
+             });
+         }
+-        Arc::make_mut(&mut self.plan).sync(stage, camera_revision)?;
++        Arc::make_mut(&mut self.plan).sync_with_limits(stage, camera_revision, self.plan_limits)?;
+         Ok(OwnedVectorFrame {
+             plan: Arc::clone(&self.plan),
+             config: self.config,
+--- a/crates/fmn-render/tests/stroke_profiles.rs
++++ b/crates/fmn-render/tests/stroke_profiles.rs
+@@ -2,9 +2,10 @@
+ use fmn_core::color::LinearRgba;
+ use fmn_mobject::{Mob, Mobject, Placement, RecordBuffer, RecordSchema, Stage};
+ use fmn_render::{
+-    Camera, CameraConfig, EngineIdentity, FrameConfig, RenderPlan, RenderPlanLimits,
+-    RetainedFrameRenderer, RetainedFrameRendererConfig, ScreenMap, StrokeKnot, StrokeProfile,
+-    Style, StyleTable, Tiling, Viewport,
++    Binning, Camera, CameraConfig, EngineIdentity, FrameConfig, MonoTable, RenderPlan,
++    RenderPlanLimits, RetainedFrameRenderer, RetainedFrameRendererConfig,
++    RetainedFrameRendererError, ScreenMap, StrokeKnot, StrokeProfile, Style, StyleTable, SyncError,
++    Tiling, VectorFrameCompiler, Viewport,
+ };
+ 
+ fn object(points: &[[f32; 3]], widths: &[f32]) -> Mobject {
+@@ -332,3 +333,309 @@
+     assert_eq!(plan.shapes().instances()[0].style, row);
+     assert_eq!(plan.styles().profile_knots(), 0);
+ }
++
++// A scene's declared retained budget, on the shape that first crossed the default:
++// a picture of rows, each a stroke with paint on every record.
++
++const KNOTS: &str = "retained profile knots";
++
++/// Knots in a row of `n` cells: lead-in, half cell, `n - 1` runs and half cell, tail, sharing
++/// their anchors, and one more at each edge of the picture, where a null curve makes alpha jump.
++fn knots_in_row(n: u64) -> u64 {
++    2 * n + 9
++}
++
++fn knots(max_retained_profile_knots: u64) -> RenderPlanLimits {
++    RenderPlanLimits {
++        max_retained_profile_knots,
++        ..RenderPlanLimits::default()
++    }
++}
++
++/// The record's points along one row: a polyline through each cell's centre, with a null curve
++/// at each edge of the picture.
++fn row_points(left: f32, y: f32, cell: f32, n: usize) -> Vec<[f32; 3]> {
++    let at = |x: f32| [x, y, 0.0];
++    let q = cell / 4.0;
++    let right = left + cell * n as f32;
++    let centre = |k: usize| left + cell * (k as f32 + 0.5);
++    let mut p = vec![
++        at(left - 2.0 * q),
++        at(left - q),
++        at(left),
++        at(left),
++        at(left),
++    ];
++    p.extend([at((left + centre(0)) / 2.0), at(centre(0))]);
++    for k in 1..n {
++        p.extend([at((centre(k - 1) + centre(k)) / 2.0), at(centre(k))]);
++    }
++    p.extend([
++        at((centre(n - 1) + right) / 2.0),
++        at(right),
++        at(right),
++        at(right),
++    ]);
++    p.extend([at(right + q), at(right + 2.0 * q)]);
++    p
++}
++
++/// Clear caps, opaque inside, and no two rows or frames alike.
++fn row_rgba(row: usize, n: usize, frame: usize) -> Vec<[f32; 4]> {
++    let paint = |k: usize, a: f32| {
++        [
++            (row as f32 + 1.0) / 4096.0,
++            (k as f32 + 1.0) / 4096.0,
++            (frame as f32 + 1.0) / 64.0,
++            a,
++        ]
++    };
++    let mut c = vec![paint(0, 0.0); 3];
++    c.extend([paint(0, 1.0); 4]);
++    for k in 1..n {
++        c.extend([paint(2 * k - 1, 1.0), paint(2 * k, 1.0)]);
++    }
++    c.extend([paint(2 * n, 1.0); 2]);
++    c.extend([paint(2 * n, 0.0); 4]);
++    c
++}
++
++fn plate(rows: usize, n: usize, cell: f32) -> (Stage, Vec<Mob>) {
++    let mut stage = Stage::new();
++    let top = cell * rows as f32 / 2.0;
++    let left = -cell * n as f32 / 2.0;
++    let mut mobs = Vec::with_capacity(rows);
++    for row in 0..rows {
++        let points = row_points(left, top - cell * (row as f32 + 0.5), cell, n);
++        let rgba = row_rgba(row, n, 0);
++        assert_eq!(points.len(), rgba.len());
++        let mut buffer = RecordBuffer::new(RecordSchema::vmobject(), points.len()).unwrap();
++        for (i, point) in points.iter().enumerate() {
++            buffer.write(i, "point", point);
++            buffer.write(i, "stroke_width", &[cell * 100.0]);
++            buffer.write(i, "stroke_rgba", &rgba[i]);
++        }
++        let mob = stage.add(Mobject::from_buffer(buffer));
++        stage.add_to_scene(mob).unwrap();
++        mobs.push(mob);
++    }
++    (stage, mobs)
++}
++
++fn repaint(stage: &mut Stage, mobs: &[Mob], n: usize, frame: usize) {
++    for (row, &mob) in mobs.iter().enumerate() {
++        let buffer = &mut stage.get_mut(mob).unwrap().buffer;
++        for (i, rgba) in row_rgba(row, n, frame).iter().enumerate() {
++            buffer.write(i, "stroke_rgba", rgba);
++        }
++    }
++}
++
++fn config(threads: usize) -> RetainedFrameRendererConfig {
++    RetainedFrameRendererConfig {
++        frame: FrameConfig::new(
++            Viewport {
++                width: 64,
++                height: 36,
++            },
++            ScreenMap {
++                scale: 4.5,
++                origin: [32., 18.],
++                y_up: false,
++            },
++            LinearRgba {
++                r: 0.,
++                g: 0.,
++                b: 0.,
++                a: 1.,
++            },
++        ),
++        tiling: Tiling {
++            macro_tile: 16,
++            fine_tile: 8,
++        },
++        engine: EngineIdentity::certified(),
++        threads,
++    }
++}
++
++#[test]
++fn the_default_stays_where_every_existing_render_has_it() {
++    let limits = RenderPlanLimits::default();
++    assert_eq!(limits.max_retained_profile_knots, 1 << 20);
++    assert_eq!(limits.max_input_curves, 1 << 20);
++    assert_eq!(limits.max_retained_segments, 1 << 20);
++}
++
++#[test]
++fn the_knot_boundary_is_exact_and_a_refusal_changes_nothing() {
++    let (rows, n) = (16, 16);
++    let (stage, _) = plate(rows, n, 0.25);
++    let per_row = knots_in_row(n as u64);
++    let total = per_row * rows as u64;
++    let mut plan = RenderPlan::new();
++    let before = (plan.styles().len(), plan.segments().len(), plan.epoch());
++    for (limit, requested) in [(total - 1, total), (per_row * 3 - 1, per_row * 3)] {
++        assert_eq!(
++            plan.sync_with_limits(&stage, 0, knots(limit)).unwrap_err(),
++            SyncError::LimitExceeded {
++                resource: KNOTS,
++                requested,
++                limit,
++            }
++        );
++        assert_eq!(
++            (plan.styles().len(), plan.segments().len(), plan.epoch()),
++            before
++        );
++    }
++    plan.sync_with_limits(&stage, 0, knots(total)).unwrap();
++    assert_eq!(plan.styles().profile_knots() as u64, total);
++}
++
++/// The failure this budget exists for, at its real size: 731 rows of 731 cells, as the z² still
++/// of `PLATE_CELLS4` asked for at row 713, then what the whole picture asks of each later stage.
++#[test]
++fn the_picture_that_crossed_the_default_is_admitted_by_a_declared_budget() {
++    let (rows, n) = (731, 731);
++    let (stage, _) = plate(rows, n, 0.00875);
++    let mut plan = RenderPlan::new();
++    assert_eq!(
++        plan.sync(&stage, 0).unwrap_err(),
++        SyncError::LimitExceeded {
++            resource: KNOTS,
++            requested: 1_048_823,
++            limit: 1_048_576,
++        }
++    );
++
++    plan.sync_with_limits(&stage, 0, knots(1 << 22)).unwrap();
++    assert_eq!(plan.styles().profile_knots(), 1_075_301);
++    assert_eq!(plan.segments().len(), 731 * 734);
++    assert_eq!(plan.shapes().instances().len(), 731);
++
++    for (width, height) in [(1280_u32, 720_u32), (3840, 2160)] {
++        let map = ScreenMap {
++            scale: f64::from(height) / 8.0,
++            origin: [f64::from(width) / 2.0, f64::from(height) / 2.0],
++            y_up: true,
++        };
++        MonoTable::build(&plan, map).expect("monotone table holds the picture");
++        Binning::build(
++            &plan,
++            Viewport { width, height },
++            Tiling {
++                macro_tile: 128,
++                fine_tile: 16,
++            },
++            map,
++        )
++        .expect("binning holds the picture");
++    }
++}
++
++/// Nothing is unreachable as a repaint begins straight after a compaction, so old and new rows
++/// must fit together. One knot under twice the live demand is a named refusal, not a compaction.
++#[test]
++fn a_repaint_needs_twice_the_live_knots_and_says_so_when_it_has_less() {
++    let (rows, n) = (4, 4);
++    let live = knots_in_row(n as u64) * rows as u64;
++    let (mut stage, mobs) = plate(rows, n, 1.0);
++    let mut plan = RenderPlan::new();
++    let tight = knots(2 * live - 1);
++    plan.sync_with_limits(&stage, 0, tight).unwrap();
++    repaint(&mut stage, &mobs, n, 1);
++    assert_eq!(
++        plan.sync_with_limits(&stage, 0, tight).unwrap_err(),
++        SyncError::LimitExceeded {
++            resource: KNOTS,
++            requested: 2 * live,
++            limit: 2 * live - 1,
++        }
++    );
++    assert_eq!(plan.styles().profile_knots() as u64, live);
++
++    let enough = knots(2 * live);
++    assert!(
++        plan.sync_with_limits(&stage, 0, enough)
++            .unwrap()
++            .compaction
++            .is_none()
++    );
++    assert_eq!(plan.styles().profile_knots() as u64, 2 * live);
++    repaint(&mut stage, &mobs, n, 2);
++    assert!(
++        plan.sync_with_limits(&stage, 0, enough)
++            .unwrap()
++            .compaction
++            .is_some()
++    );
++    assert_eq!(plan.styles().profile_knots() as u64, live);
++}
++
++#[test]
++fn a_budget_moves_compaction_and_never_the_pixels() {
++    let (rows, n) = (4, 4);
++    let live = knots_in_row(n as u64) * rows as u64;
++    let (mut stage, mobs) = plate(rows, n, 1.0);
++    let mut tight = RetainedFrameRenderer::new(config(1)).unwrap();
++    tight.set_plan_limits(knots(2 * live));
++    let mut wide = RetainedFrameRenderer::new(config(1)).unwrap();
++    let mut epochs = Vec::new();
++    let mut last = Vec::new();
++    for frame in 0..6 {
++        repaint(&mut stage, &mobs, n, frame);
++        tight.render(&stage, 0).unwrap();
++        wide.render(&stage, 0).unwrap();
++        assert_eq!(tight.frame().as_bytes(), wide.frame().as_bytes(), "{frame}");
++        assert_ne!(
++            tight.frame().as_bytes(),
++            last.as_slice(),
++            "{frame} repaints"
++        );
++        last = tight.frame().as_bytes().to_vec();
++        epochs.push((tight.plan().epoch().get(), wide.plan().epoch().get()));
++    }
++    assert!(epochs.last().unwrap().0 > 0, "the tight budget compacted");
++    assert_eq!(epochs.last().unwrap().1, 0, "the default never had to");
++}
++
++#[test]
++fn every_capture_route_answers_to_the_declared_budget() {
++    let (stage, _) = plate(4, 4, 1.0);
++    let refused = |error: RetainedFrameRendererError| {
++        matches!(
++            error,
++            RetainedFrameRendererError::Sync(SyncError::LimitExceeded {
++                resource: KNOTS,
++                ..
++            })
++        )
++    };
++
++    let mut planar = RetainedFrameRenderer::new(config(1)).unwrap();
++    planar.render(&stage, 0).unwrap();
++    let mut planar = RetainedFrameRenderer::new(config(1)).unwrap();
++    planar.set_plan_limits(knots(1));
++    assert!(refused(planar.render(&stage, 0).unwrap_err()));
++
++    let camera = Camera::new(CameraConfig {
++        resolution: (64, 36),
++        background: config(1).frame.background,
++        ..Default::default()
++    })
++    .unwrap();
++    let mut projected = RetainedFrameRenderer::new(config(1)).unwrap();
++    projected.render_with_camera(&stage, &camera).unwrap();
++    let mut projected = RetainedFrameRenderer::new(config(1)).unwrap();
++    projected.set_plan_limits(knots(1));
++    assert!(refused(
++        projected.render_with_camera(&stage, &camera).unwrap_err()
++    ));
++
++    let mut compiler = VectorFrameCompiler::new(config(1)).unwrap();
++    assert!(compiler.capture(&stage, 0).is_ok());
++    let mut compiler = VectorFrameCompiler::new(config(1)).unwrap();
++    compiler.set_plan_limits(knots(1));
++    assert!(refused(compiler.capture(&stage, 0).err().unwrap()));
++}

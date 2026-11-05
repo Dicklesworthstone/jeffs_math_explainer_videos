@@ -1,0 +1,165 @@
+{
+  "anchors": [
+    {
+      "cue": "05_20",
+      "byte": 180,
+      "byte_end": 200,
+      "phrase": "the logarithm of two",
+      "const": "TAKE_X_PHRASE",
+      "sentence_index": 4,
+      "word_index": 37,
+      "hook_sites": [
+        {
+          "file": "complex_turns.rs",
+          "line": 369,
+          "call": "until_phrase"
+        }
+      ],
+      "source_sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+      "cue_text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (complex_turns.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "05_20",
+      "byte": 214,
+      "byte_end": 223,
+      "phrase": "a half pi",
+      "const": "TAKE_Y_PHRASE",
+      "sentence_index": 4,
+      "word_index": 45,
+      "hook_sites": [
+        {
+          "file": "complex_turns.rs",
+          "line": 371,
+          "call": "until_phrase"
+        }
+      ],
+      "source_sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+      "cue_text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (complex_turns.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "05_20",
+      "byte": 225,
+      "byte_end": 242,
+      "phrase": "the length is two",
+      "const": "LENGTH_PHRASE",
+      "sentence_index": 4,
+      "word_index": 48,
+      "hook_sites": [
+        {
+          "file": "complex_turns.rs",
+          "line": 373,
+          "call": "until_phrase"
+        }
+      ],
+      "source_sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+      "cue_text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (complex_turns.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "05_20",
+      "byte": 276,
+      "byte_end": 289,
+      "phrase": "land on two i",
+      "const": "LAND_PHRASE",
+      "sentence_index": 4,
+      "word_index": 59,
+      "hook_sites": [
+        {
+          "file": "complex_turns.rs",
+          "line": 375,
+          "call": "until_phrase"
+        }
+      ],
+      "source_sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+      "cue_text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (complex_turns.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "06_6",
+      "byte": 267,
+      "byte_end": 283,
+      "phrase": "passes minus one",
+      "const": "PASSES_PHRASE",
+      "sentence_index": 3,
+      "word_index": 48,
+      "hook_sites": [
+        {
+          "file": "lifting_loops.rs",
+          "line": 587,
+          "call": "until_phrase"
+        }
+      ],
+      "source_sha256": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346",
+      "cue_text_sha256": "4ca49ca95c948df0d25fa3732e00976bab13395ffff27dcb07bda094b73129e4",
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (lifting_loops.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "06_6",
+      "byte": 338,
+      "byte_end": 363,
+      "phrase": "leaps from pi to minus pi",
+      "const": "LEAPS_PHRASE",
+      "sentence_index": 3,
+      "word_index": 60,
+      "hook_sites": [
+        {
+          "file": "lifting_loops.rs",
+          "line": 593,
+          "call": "until_phrase"
+        }
+      ],
+      "source_sha256": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346",
+      "cue_text_sha256": "4ca49ca95c948df0d25fa3732e00976bab13395ffff27dcb07bda094b73129e4",
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (lifting_loops.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "08_5",
+      "byte": 260,
+      "byte_end": 278,
+      "phrase": "leaves a half turn",
+      "const": "HALF_TURN_PHRASE",
+      "sentence_index": 4,
+      "word_index": 51,
+      "hook_sites": [
+        {
+          "file": "product_rule.rs",
+          "line": 438,
+          "call": "until_phrase"
+        }
+      ],
+      "source_sha256": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+      "cue_text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (product_rule.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "08_5",
+      "byte": 299,
+      "byte_end": 320,
+      "phrase": "a factor of minus one",
+      "const": "FACTOR_PHRASE",
+      "sentence_index": 4,
+      "word_index": 60,
+      "hook_sites": [
+        {
+          "file": "product_rule.rs",
+          "line": 456,
+          "call": "until_phrase"
+        }
+      ],
+      "source_sha256": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+      "cue_text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (product_rule.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    }
+  ],
+  "note": "New hooks only. measured_seconds is null: no ASR mark was invented."
+}

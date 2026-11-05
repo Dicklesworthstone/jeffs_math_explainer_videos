@@ -1,0 +1,103 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs
+@@ -230,6 +230,15 @@
+         .arena_mut()
+         .add(polyline(closed).style(line_style(color, 3.0)).build());
+     group(stage, &[f, rim])
++}
++
++/// Root `mobs` under the pole's mark, so a fill or rim that reaches the pole stops at the mark. A fade
++/// roots only what is not on stage yet, and on top, so this has to come before the fade that brings them in.
++fn root_under(stage: &mut Stage<'_>, mobs: &[Mob], mark: &[Mob; 2]) -> fmn::Result<()> {
++    for &m in mobs.iter().chain(mark) {
++        stage.add_to_scene(m)?;
++    }
++    Ok(())
+ }
+ 
+ /// The closed outline covering Re z < `x` in `p` (Γ not yet continued
+@@ -450,6 +459,7 @@
+             .build(),
+         );
+         let region_says = kit.text(stage, REGION, 20.0, input(), v(right, 1.9))?;
++        root_under(stage, &[region], &pole1)?;
+         fade_in_all(stage, &[region, region_says], 0.5)?;
+         line.wait_sentence(stage, 3)?;
+         let step_says = kit.text(stage, STEP, 20.0, Palette::ink(), v(right, 1.1))?;
+@@ -463,6 +473,7 @@
+         )?;
+         let first_c = dot(stage, cp.p(C::real(-0.5)), 0.06, hero());
+         fade_in_all(stage, &[step_says, first_c], 0.3)?;
++        root_under(stage, &[first], &pole1)?;
+         fade_in_all(stage, &[first], 0.6)?;
+         line.wait_sentence(stage, 4)?;
+         fade_out_all(stage, &[first, first_c, region, small_name, pole_name], 0.3)?;
+@@ -480,6 +491,8 @@
+                     .style(line_style(Palette::ink(), 2.5))
+                     .build(),
+             );
++            // all eight rims meet at the pole, and its mark stays on top of each as it comes in
++            root_under(stage, &[d, piece], &pole1)?;
+             fade_in_all(stage, &[d, piece], 0.3)?;
+             chain.push(piece);
+             stage.play(
+@@ -499,9 +512,6 @@
+                 chain.push(forced);
+             }
+         }
+-        // the eight rims all meet at the pole: its mark goes back on top of them
+-        let pole_top = pole_mark(stage, cp.p(ONE));
+-        fade_in_all(stage, &pole_top, 0.2)?;
+         line.wait_sentence(stage, 6)?;
+         let same = kit.text(stage, NOT_ALWAYS, 20.0, hero(), v(right, -0.3))?;
+         fade_in_all(stage, &[same], 0.4)?;
+@@ -514,7 +524,6 @@
+         let mut gone = vec![unit, at_most, region_says, step_says, disk_stops, walker, same, exact];
+         gone.extend(cframe);
+         gone.extend(pole1);
+-        gone.extend(pole_top);
+         gone.extend(chain);
+         fade_out_all(stage, &gone, 0.4)?;
+         let doubling = kit.tex(stage, DOUBLING_TEX, 36.0, Palette::ink(), &[], v(-3.4, 3.0))?;
+@@ -918,6 +927,41 @@
+         assert!(cp.frame.bottom() > -2.78);
+     }
+ 
++    /// One mark, from the first fade to the last: everything that reaches the pole comes in under it,
++    /// and it is too small to hide the walk. 14_3's disks and region are all listed here, so a new
++    /// disk fails until it is routed under the mark too.
++    #[test]
++    fn the_poles_mark_stays_on_top_of_all_that_reaches_it() {
++        let source = include_str!("continuing.rs");
++        let from = source.find("say(&kit, stage, \"14_3\")").unwrap();
++        let to = source.find("let doubling = kit.tex(").unwrap();
++        let scene = &source[from..to];
++        for (mobs, fade) in [
++            ("&[region]", "fade_in_all(stage, &[region, region_says], 0.5)?;"),
++            ("&[first]", "fade_in_all(stage, &[first], 0.6)?;"),
++            ("&[d, piece]", "fade_in_all(stage, &[d, piece], 0.3)?;"),
++        ] {
++            let root = format!("root_under(stage, {mobs}, &pole1)?;");
++            let rooted = scene.find(&root).unwrap_or_else(|| panic!("{root}"));
++            assert!(rooted < scene.find(fade).unwrap(), "{root}");
++        }
++        // the unit disk is the one that goes on before the mark; these three are all there are
++        assert_eq!(scene.matches(" = disk(").count(), 3);
++        assert!(scene.find("let unit = disk(").unwrap() < scene.find("fade_in_all(stage, &pole1, 0.3)?;").unwrap());
++        // the mark goes back after what it covers (read above the tests, which name the same text),
++        // and one mark comes and goes
++        let helper = source.find("fn root_under").unwrap();
++        assert!(source[helper..from].contains("for &m in mobs.iter().chain(mark) {"));
++        assert_eq!(scene.matches("pole_mark(").count(), 1);
++        assert!(scene.contains("gone.extend(pole1);"));
++        // the backing's 0.13 and the walker's 0.08 are scene units, and here one plane unit is one
++        assert!((chain_plane().unit() - 1.0).abs() < 1e-12);
++        for w in model::chain_centres(8).windows(2) {
++            // the centres are all 1 from the pole, so each piece comes nearest it at its middle
++            assert!(((w[0] + w[1]).scale(0.5) - ONE).abs() > 0.13 + 0.08, "{w:?}");
++        }
++    }
++
+     #[test]
+     fn the_square_root_comes_back_as_minus_one() {
+         let w = model::sqrt_carried(TAU);

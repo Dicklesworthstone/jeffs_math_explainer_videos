@@ -1,0 +1,4 @@
+2ac62558a378c52ec0b3968f702791d43e8edda868dfd53b35da4bd0e139813a  crates/explainer_kit/src/cli.rs
+6f7c7ef08ddcb369e6e6e461eba8f5ab19b4c50eef9e341662643bfd20ab00e3  crates/explainer_kit/src/glyphs.rs
+dbbdf9da632f1c5f14d05abd942a5f5a8a13cad12719324075c8a8e1fc938edc  crates/explainer_kit/src/kit.rs
+33340aac2c9e3a6620a52f77fc461d647604c81ea251ed6955c31306b3565f66  crates/explainer_kit/tests/plan_limits.rs

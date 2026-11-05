@@ -1,0 +1,9 @@
+exit  file (rustfmt at engine defaults, edition 2024; parse and format only)
+0  crates/fmn-render/src/engine.rs
+0  crates/fmn-render/src/lib.rs
+0  crates/fmn-render/src/vector_frame.rs
+0  crates/fmn-render/tests/frame_table_limits.rs
+0  crates/fmn/src/rendering.rs
+0  crates/fmn/src/rendering/pipeline.rs
+0  crates/fmn/tests/native_bundle_pipeline.rs
+0  crates/fmn/tests/native_render.rs

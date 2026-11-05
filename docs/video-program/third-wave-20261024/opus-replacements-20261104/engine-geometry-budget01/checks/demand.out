@@ -1,0 +1,119 @@
+control: blended row knots = 2n + 9, positive curves n + 3, input curves n + 5, n up to 731
+control: stepped row knots = 3(n + 2), positive curves n + 2, input curves 2n + 3 (fewer if neighbours match)
+control: logged failure reproduced: row 713 of 731, requested 1048823 limit 1048576
+control: engine test a_hard_boundary_compacts_...: frame 1 admitted, frame 2 compacts
+control: patch test numbers: 4x4 refused at 135 asking 136; 136 compacts on frames 2, 4; 16x16 total 656, third row 123
+
+Lab stills, geometry only (a lab still adds nothing but the plate; plate_lab.rs still())
+plate                         cells  k/row      knots   2x knots  segments    curves
+z2 6.4 wide now             183x183    555     101565     203130     33855     67527
+z2 6.4 wide blend           183x183    375      68625     137250     34038     34404
+z2 6.4 wide rows2           183x366    375     137250     274500     68076     68808
+z2 6.4 wide cells2          366x366    741     271206     542412    135054    135786
+z2 6.4 wide cells4          731x731   1471    1075301    2150602    536554    538016
+sinrecip 5.6 wide now       160x160    486      77760     155520     25920     51680
+sinrecip 5.6 wide blend     160x160    329      52640     105280     26080     26400
+sinrecip 5.6 wide rows2     160x320    329     105280     210560     52160     52800
+sinrecip 5.6 wide cells2    320x320    649     207680     415360    103360    104000
+sinrecip 5.6 wide cells4    640x640   1289     824960    1649920    411520    412800
+
+The film's painted plates had PLATE been now: geometry only, overlays not counted
+scene                           knots   2x knots  segments    curves  under 1<<20 still/repaint, 1<<21 repaint, 1<<22 repaint
+04 reading plane               101565     203130     33855     67527  yes/yes, yes, yes
+05 square                       77760     155520     25920     51680  yes/yes, yes, yes
+05 exp                          51057     102114     17019     33855  yes/yes, yes, yes
+05 trig                         87120     174240     29040     57960  yes/yes, yes, yes
+05 gamma                        96558     193116     32186     64239  yes/yes, yes, yes
+05 zeta + strip                 90963     181926     30321     60363  yes/yes, yes, yes
+05_9 six panels                162504     325008     54168    107892  yes/yes, yes, yes
+05_9 cubic panel + zoom         89289     178578     29763     59309  yes/yes, yes, yes
+08 bump (one small)              5805      11610      1935      3827  yes/yes, yes, yes
+rigidity sin(1/z)               77760     155520     25920     51680  yes/yes, yes, yes
+rigidity sine                   77850     155700     25950     51750  yes/yes, yes, yes
+continuing bump                 77760     155520     25920     51680  yes/yes, yes, yes
+continuing lacunary             72072     144144     24024     47894  yes/yes, yes, yes
+continuing gamma                71280     142560     23760     47410  yes/yes, yes, yes
+residues three small            59040     118080     19680     39120  yes/yes, yes, yes
+residues bump                   62205     124410     20735     41327  yes/yes, yes, yes
+one point painted               72072     144144     24024     47894  yes/yes, yes, yes
+counting input                  77760     155520     25920     51680  yes/yes, yes, yes
+boundary picture                77760     155520     25920     51680  yes/yes, yes, yes
+worst: ('05_9 six panels', 162504, 54168, 107892)
+
+The film's painted plates had PLATE been cells2: geometry only, overlays not counted
+scene                           knots   2x knots  segments    curves  under 1<<20 still/repaint, 1<<21 repaint, 1<<22 repaint
+04 reading plane               271206     542412    135054    135786  yes/yes, yes, yes
+05 square                      207680     415360    103360    104000  yes/yes, yes, yes
+05 exp                         137250     274500     68076     68808  yes/yes, yes, yes
+05 trig                        232560     465120    115920    116400  yes/yes, yes, yes
+05 gamma                       258723     517446    128961    129495  yes/yes, yes, yes
+05 zeta + strip                242148     484296    120240    121352  yes/yes, yes, yes
+05_9 six panels                437166     874332    217242    219030  yes/yes, yes, yes
+05_9 cubic panel + zoom        239027     478054    118861    119731  yes/yes, yes, yes
+08 bump (one small)             15566      31132      7654      7826  yes/yes, yes, yes
+rigidity sin(1/z)              207680     415360    103360    104000  yes/yes, yes, yes
+rigidity sine                  208500     417000    103800    104400  yes/yes, yes, yes
+continuing bump                207680     415360    103360    104000  yes/yes, yes, yes
+continuing lacunary            193743     387486     96408     97026  yes/yes, yes, yes
+continuing gamma               190740     381480     95040     95480  yes/yes, yes, yes
+residues three small           157920     315840     78240     79200  yes/yes, yes, yes
+residues bump                  166166     332332     82654     83226  yes/yes, yes, yes
+one point painted              193743     387486     96408     97026  yes/yes, yes, yes
+counting input                 207680     415360    103360    104000  yes/yes, yes, yes
+boundary picture               207680     415360    103360    104000  yes/yes, yes, yes
+worst: ('05_9 six panels', 437166, 217242, 219030)
+
+The film's painted plates had PLATE been cells4: geometry only, overlays not counted
+scene                           knots   2x knots  segments    curves  under 1<<20 still/repaint, 1<<21 repaint, 1<<22 repaint
+04 reading plane              1075301    2150602    536554    538016  NO/NO, NO, yes
+05 square                      824960    1649920    411520    412800  yes/NO, yes, yes
+05 exp                         541671    1083342    269739    271201  yes/NO, yes, yes
+05 trig                        925920    1851840    462240    463200  yes/NO, yes, yes
+05 gamma                      1028157    2056314    513279    514345  yes/NO, yes, yes
+05 zeta + strip                960527    1921054    478594    480820  yes/NO, yes, yes
+05_9 six panels               1726758    3453516    860706    864270  NO/NO, NO, yes
+05_9 cubic panel + zoom        945014    1890028    471205    472941  yes/NO, yes, yes
+08 bump (one small)             60021     120042     29754     30096  yes/yes, yes, yes
+rigidity sin(1/z)              824960    1649920    411520    412800  yes/NO, yes, yes
+rigidity sine                  828600    1657200    413400    414600  yes/NO, yes, yes
+continuing bump                824960    1649920    411520    412800  yes/NO, yes, yes
+continuing lacunary            766931    1533862    382540    383774  yes/NO, yes, yes
+continuing gamma               758120    1516240    378400    379280  yes/NO, yes, yes
+residues three small           623040    1246080    310080    312000  yes/NO, yes, yes
+residues bump                  657221    1314442    327754    328896  yes/NO, yes, yes
+one point painted              766931    1533862    382540    383774  yes/NO, yes, yes
+counting input                 824960    1649920    411520    412800  yes/NO, yes, yes
+boundary picture               824960    1649920    411520    412800  yes/NO, yes, yes
+worst: ('05_9 six panels', 1726758, 860706, 864270)
+
+A repaint of every row, every frame (fade, recolour); shapes reused
+plate                  limit  outcome
+z2 cells4              1<<20  REFUSED at frame 0, requested 1048823
+z2 cells4              1<<21  REFUSED at frame 1, requested 2097646
+z2 cells4              1<<22  admitted; compacts every 3 frames (AdmissionBoundary), peak 3225903 knots, 246 MiB of knots and keys
+sinrecip cells4        1<<20  REFUSED at frame 1, requested 1049246
+sinrecip cells4        1<<21  admitted; compacts every 2 frames (AdmissionBoundary), peak 1649920 knots, 126 MiB of knots and keys
+sinrecip cells4        1<<22  admitted; compacts every 5 frames (AdmissionBoundary), peak 4124800 knots, 315 MiB of knots and keys
+six panels cells4      1<<20  REFUSED at frame 0, requested 1049427
+six panels cells4      1<<21  REFUSED at frame 1, requested 2097885
+six panels cells4      1<<22  admitted; compacts every 2 frames (AdmissionBoundary), peak 3453516 knots, 263 MiB of knots and keys
+z2 cells2              1<<20  admitted; compacts every 3 frames (AdmissionBoundary), peak 813618 knots, 62 MiB of knots and keys
+z2 cells2              1<<21  admitted; compacts every 7 frames (AdmissionBoundary), peak 1898442 knots, 145 MiB of knots and keys
+z2 cells2              1<<22  admitted; compacts every 13 frames (UnreachableBudget), peak 3525678 knots, 269 MiB of knots and keys
+
+z2 cells4, in memory, by reading (not measured)
+  stage records      1076763 x 68 B = 70 MiB
+  live knots + keys  1075301 x 80 B = 82 MiB
+  segments           536554 x 88 B = 45 MiB
+  repaint peak at 1<<22: 3225903 knots = 246 MiB; a rebuild holds the old plan plus one live set: 328 MiB
+  each frame still in flight can pin one more copy of the keys: up to 148 MiB each (Arc::make_mut, frames_in_flight 2)
+
+Binning, z2 cells4, one partition (Binning::build), stroke half height + 3 px margin; default fine 16, macro 128
+output       px/cell  fine refs      limit macro refs partition cells     limit  working MiB  limit
+1280x720        0.79      38517   16777216       4644            3600  16777216          0.5    256
+3840x2160       2.36     122430   16777216      11655           32400  16777216          1.8    256
+  monotone table: at most 4 pieces a segment, the bound fill.rs's own test uses:
+  536554 x 4 = 2146216 pieces against 4194304; 98 MiB against 256 MiB
+
+Raster, extrapolated from the 720p lab log, z2 blend 1.1 s and cells2 2.6 s, linear in cells: cells4 about 8.6 s a frame. A guess, not a measurement.
+Largest square blended plate under 1<<20: 721 x 721 = 1046171 knots; 722 x 722 = 1049066.

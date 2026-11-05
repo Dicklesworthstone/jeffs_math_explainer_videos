@@ -1,0 +1,15 @@
+quintic cells4: 640 rows of 1289 knots, 824960 knots a plate, 409600 cells
+default 1048576: holds 1 plate; 1<<21 holds 2; 1<<22 holds 5
+
+Under the default: refused at capture 1, the takeover, before any repaint; asks at most 2474880.
+Under 1<<21: refused at capture 1, the takeover, before any repaint; asks at most 2474880.
+
+Lab turn under 1<<22, 1 hold + 3 fade + 9 repaints = 13 frames:
+  plates kept by capture: [1, 3, 4, 5, 3, 4, 5, 2, 3, 4, 5, 2, 3]
+  compactions at captures [4, 7, 11]
+  peak 4124800 knots, 69504 under the budget (1.7%)
+
+The same rule run through 96 repaints never passes 5 plates: after the takeover it repeats
+2, 3, 4, 5 plates. That is this model's reasoning, not evidence about the film. Time and memory
+are not modelled. The real 11_7 render has to confirm it, once one tree holds the plate core,
+the teaching repair and picture_cells(&inp, &super::draw::PLATE).

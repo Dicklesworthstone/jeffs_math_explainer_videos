@@ -1,0 +1,46 @@
+# self-test on the lab's lock
+pass: the 19 lose their source and nothing else moves
+caught: a git copy beside the path copy: fmn-output: 2 copies after the patch
+caught: one package left on git: fmn-text: changed beyond losing its source: ['source']
+caught: one package dropped: fmn-hash: 0 copies after the patch
+caught: a pinned version moved: fmn-core: changed beyond losing its source: ['version']
+caught: an unrelated package added: added or changed: ('planted', '1.0.0', 'registry+https://github.com/rust-lang/crates.io-index')
+caught: an unrelated package's version changed: lost or changed: ('aead', '0.6.1', 'registry+https://github.com/rust-lang/crates.io-index')
+caught: an unrelated package's checksum changed: aead 0.6.1: same identity, different record: ['checksum']
+caught: an unrelated package gained a dependency: aead 0.6.1: same identity, different record: ['dependencies']
+caught: an unrelated package lost a dependency: aead 0.6.1: same identity, different record: ['dependencies']
+caught: a pinned package's dependencies changed: fmn-render: changed beyond losing its source: ['dependencies']
+--subset pass: an unrelated package drops out
+--subset caught: a git copy beside the path copy: fmn-output: 2 copies after the patch
+--subset caught: one package left on git: fmn-text: changed beyond losing its source: ['source']
+--subset caught: one package dropped: fmn-hash: 0 copies after the patch
+--subset caught: a pinned version moved: fmn-core: changed beyond losing its source: ['version']
+--subset caught: an unrelated package added: added or changed: ('planted', '1.0.0', 'registry+https://github.com/rust-lang/crates.io-index')
+--subset caught: an unrelated package's version changed: added or changed: ('aead', '90.6.1', 'registry+https://github.com/rust-lang/crates.io-index')
+--subset caught: an unrelated package's checksum changed: aead 0.6.1: same identity, different record: ['checksum']
+--subset caught: an unrelated package gained a dependency: aead 0.6.1: same identity, different record: ['dependencies']
+--subset caught: an unrelated package lost a dependency: aead 0.6.1: same identity, different record: ['dependencies']
+--subset caught: a pinned package's dependencies changed: fmn-render: changed beyond losing its source: ['dependencies']
+# self-test on the repo's lock
+pass: the 19 lose their source and nothing else moves
+caught: a git copy beside the path copy: fmn-output: 2 copies after the patch
+caught: one package left on git: fmn-text: changed beyond losing its source: ['source']
+caught: one package dropped: fmn-hash: 0 copies after the patch
+caught: a pinned version moved: fmn-core: changed beyond losing its source: ['version']
+caught: an unrelated package added: added or changed: ('planted', '1.0.0', 'registry+https://github.com/rust-lang/crates.io-index')
+caught: an unrelated package's version changed: lost or changed: ('aead', '0.6.1', 'registry+https://github.com/rust-lang/crates.io-index')
+caught: an unrelated package's checksum changed: aead 0.6.1: same identity, different record: ['checksum']
+caught: an unrelated package gained a dependency: aead 0.6.1: same identity, different record: ['dependencies']
+caught: an unrelated package lost a dependency: aead 0.6.1: same identity, different record: ['dependencies']
+caught: a pinned package's dependencies changed: fmn-render: changed beyond losing its source: ['dependencies']
+--subset pass: an unrelated package drops out
+--subset caught: a git copy beside the path copy: fmn-output: 2 copies after the patch
+--subset caught: one package left on git: fmn-text: changed beyond losing its source: ['source']
+--subset caught: one package dropped: fmn-hash: 0 copies after the patch
+--subset caught: a pinned version moved: fmn-core: changed beyond losing its source: ['version']
+--subset caught: an unrelated package added: added or changed: ('planted', '1.0.0', 'registry+https://github.com/rust-lang/crates.io-index')
+--subset caught: an unrelated package's version changed: added or changed: ('aead', '90.6.1', 'registry+https://github.com/rust-lang/crates.io-index')
+--subset caught: an unrelated package's checksum changed: aead 0.6.1: same identity, different record: ['checksum']
+--subset caught: an unrelated package gained a dependency: aead 0.6.1: same identity, different record: ['dependencies']
+--subset caught: an unrelated package lost a dependency: aead 0.6.1: same identity, different record: ['dependencies']
+--subset caught: a pinned package's dependencies changed: fmn-render: changed beyond losing its source: ['dependencies']

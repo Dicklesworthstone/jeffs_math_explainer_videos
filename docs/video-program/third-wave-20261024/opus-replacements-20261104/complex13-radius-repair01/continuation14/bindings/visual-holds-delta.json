@@ -1,0 +1,40 @@
+{
+ "map": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver10.json",
+ "map_sha256": "341356cda34ac129fbca1988699f9f20f1cb583d63a5463f780226a13ab3c5b4",
+ "script_sha256": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e",
+ "note": "Replace only these fields. Rows and sections not listed do not change. Derived by the frozen binder's build() on canonical + this patch, and each row re-read here. Valid only for this exact file hash; a later edit to continuing.rs moves them again.",
+ "rows": [
+  {
+   "cue": "14_3",
+   "next_cue": "14_4",
+   "kind": "reading",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+   "old": {
+    "sha256": "088034785bc2588f9517d15218889f061d0b2de10fd64b363af50f1c7480b2be",
+    "line": 512,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   },
+   "new": {
+    "sha256": "c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b",
+    "line": 522,
+    "marker": "reading_window(&kit, stage, &line)?;"
+   }
+  },
+  {
+   "cue": "14_4",
+   "next_cue": "14_5",
+   "kind": "prediction",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs",
+   "old": {
+    "sha256": "088034785bc2588f9517d15218889f061d0b2de10fd64b363af50f1c7480b2be",
+    "line": 522,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, v(0.0, 1.4))?;"
+   },
+   "new": {
+    "sha256": "c24f264b98377aa323a714588d3e1d8b46201693592886d62138ef2a0e4ec96b",
+    "line": 531,
+    "marker": "let asked = predict(&kit, stage, &line, &ASK, v(0.0, 1.4))?;"
+   }
+  }
+ ]
+}

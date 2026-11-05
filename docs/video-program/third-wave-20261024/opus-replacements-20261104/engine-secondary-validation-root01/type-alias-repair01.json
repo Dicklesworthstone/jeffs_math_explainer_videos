@@ -1,0 +1,10 @@
+{
+  "reason": "strict Clippy type_complexity",
+  "changed_bindings": [
+    "repo/docs/video-program/third-wave-20261024/opus-replacements-20261104/engine-secondary-validation-root01/expected-type-alias01.sha256",
+    "repo/docs/video-program/third-wave-20261024/opus-replacements-20261104/engine-secondary-validation-root01/test-type-alias01.patch"
+  ],
+  "behavior": "two named test tuple aliases; no assertions or budgets changed",
+  "failed_attempt": "engine-secondary-engine-lint01",
+  "source_snapshots": "/Users/jemanuel/scratch/jmev-engine-secondary-validation01/manifests"
+}

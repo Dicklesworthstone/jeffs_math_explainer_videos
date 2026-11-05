@@ -1,0 +1,9 @@
+engine-frame-table-limits.patch 5344309750b8bb9fbc91e1dcc8d4bf5d127769fb23bb31b499ffb14ae1c3943c
+git apply on root's staged tree: hashes OK 8 of 8, same as the edit copy True
+patch -p1 -F0 on root's staged tree: hashes OK 8 of 8, same as the edit copy True
+pin a399d626c + budget01 + compiled-route + tests-repair: applied
+this patch on that stack, without root's frame-clock repair: exit 0
+native_render.rs on that stack equals root's: False, as expected, because of the repair
+other files on that stack that differ from root's: []
+crates/fmn-render/src/fill.rs unchanged; holds max_pieces: 1 << 22, max_table_bytes: 1 << 28
+crates/fmn-render/src/bin.rs unchanged; holds max_tiles: 1 << 20, max_instances: 1 << 20, max_tile_references: 1 << 24, max_partition_cells: 1 << 24, max_working_bytes: 256 * 1024 * 1024

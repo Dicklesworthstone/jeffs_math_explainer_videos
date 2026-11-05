@@ -1,0 +1,5 @@
+no work tree, git apply: exit 0, file now 'two', stderr ''
+tracked-able subfolder, git apply: exit 0, file now 'two', stderr ''
+gitignored subfolder, git apply: exit 0, file now 'two', stderr ''
+gitignored subfolder, patch -p1 -F0: exit 0, file now 'two', stderr ''
+all applied

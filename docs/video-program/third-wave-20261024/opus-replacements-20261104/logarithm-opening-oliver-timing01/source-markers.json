@@ -1,0 +1,52 @@
+{
+ "claim": "A proposal for root. Nothing here is a measured mark: measured_seconds and seconds stay null until root's mark producer runs on bound takes.",
+ "baseline": {
+  "sealed_bundle": "logarithm-opening-timing-repair01",
+  "sealed_sums_sha256": "63a3fa29b3fbd7aedfbacee9d77a274f51ea5ed2f95d9b04fd2d5ffad61e0f5e",
+  "sealed_patch_sha256": "f2caa2c27c58cb7255bf00f07823d1455cbf0a900418d5ed2ffd5dfb536bcf23",
+  "stage07_script_sha256": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+  "canonical_script_sha256": "f201d2dc57fa9ccac30d475255690a90d6749449014b542d4dea62164f31bf84"
+ },
+ "sources": [
+  {
+   "path": "explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs",
+   "baseline_sha256": "c4f023ce5284dd768767b28c9d68a4da1e05c40385eb750dc9d4fbe583b6347e",
+   "candidate_sha256": "acfd77f46c2378c98ec77d1b5e7d0f2cb9c15f2bc3d209d80ba690c8fcc26e5e",
+   "lines": [658, 699]
+  }
+ ],
+ "unchanged_by_this_patch": {
+  "ratio_ruler.rs": "198d4a0586369258d845a21ee857eeb51e34357b61fe40398e5789379a6b5fd1",
+  "slide_rule.rs": "68d4b011fb4d90033ef1ae69aedef1639e12c11ce3624dbb5c378152d39b1ecd"
+ },
+ "cue_text_delta": [],
+ "map13_hold_delta": [],
+ "binder_sites_delta": [],
+ "sentence_hook_delta": [],
+ "phrase_mark_uses_delta": {"folded_decade.rs": 1},
+ "fallback_delta": {
+  "folded_decade.rs": "Without a mark at this byte: DIGITS_SHARE of the span from sentence 0 to sentence 1 (folded_decade.rs lay_beats). Provisional."
+ },
+ "phrase_anchor_delta": [
+  {
+   "cue": "03_3",
+   "byte": 35,
+   "byte_end": 42,
+   "phrase": "forgets",
+   "const": "FORGETS_PHRASE",
+   "sentence_index": 0,
+   "hook_sites": [
+    {"file": "folded_decade.rs", "line": 474, "call": "forgets_mark"},
+    {"file": "folded_decade.rs", "line": 345, "call": "lay_beats"}
+   ],
+   "cue_text_sha256": "4ce29b0933cf7eb5fc8fbe78de804c33749308e5245693fc4a128076568e81c0",
+   "measured_seconds": null
+  }
+ ],
+ "template_mark_delta": {
+  "03_3": [{"byte": 35, "seconds": null, "phrase": "forgets"}]
+ },
+ "preflight_delta": {
+  "PHR.direct_mark_readers": "the expected set gains (\"folded_decade.rs\", \"03_3\")"
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "map": "explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver10.json",
+ "map_sha256": "341356cda34ac129fbca1988699f9f20f1cb583d63a5463f780226a13ab3c5b4",
+ "script_sha256": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e",
+ "note": "Replace only these fields. Rows and sections not listed do not change. Derived by the frozen binder's build() on canonical + this patch, and each row re-read here. Valid only for this exact file hash; a later edit to closing.rs moves them again.",
+ "rows": [
+  {
+   "cue": "15_3",
+   "next_cue": "15_4",
+   "kind": "prediction",
+   "path": "explainer_corpus/complex_analysis_visual/src/chapters/closing.rs",
+   "old": {
+    "sha256": "65ba58acfb383e706bdeb7fb2d949335272ceb1f031b662ffdbab531cd36c19e",
+    "line": 369,
+    "marker": "let asked = predict(&kit, stage, &line, &[ask.as_str()], v(ASK_AT.0, ASK_AT.1))?;"
+   },
+   "new": {
+    "sha256": "5b6bff1ed8314fe23a24d1b7e3dd46dcd56e3f91a2f68d4cabc30b4c394f0996",
+    "line": 402,
+    "marker": "let asked = predict(&kit, stage, &line, &[ask.as_str()], v(ASK_AT.0, ASK_AT.1))?;"
+   }
+  }
+ ]
+}

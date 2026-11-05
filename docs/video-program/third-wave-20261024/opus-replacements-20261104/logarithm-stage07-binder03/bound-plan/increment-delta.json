@@ -1,0 +1,1354 @@
+{
+  "schema_version": 1,
+  "claim": "Text comparison of two plans. Nothing compiled, rendered, measured or heard. No take is selected; selection for all 80 cues remains pending.",
+  "from": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan",
+  "added": [
+    "LavenderPike's chapter 05-08 teaching repair, integrated by root with integration-partial07.json",
+    "eight phrase anchors (05_20, 06_6, 08_5), read through until_phrase; three word-sync waits",
+    "seven holds rebound to the repaired files' hashes; 05_5's say and marker lines move 13 lines",
+    "the map under a new name, oliver15"
+  ],
+  "map_name": {
+    "binder02": "narration-direction-map-oliver14.json",
+    "binder03": "narration-direction-map-oliver15.json"
+  },
+  "files": [
+    {
+      "file": "explainer_corpus/logarithm_mysteries/narration_units.json",
+      "binder02_file": "explainer_corpus/logarithm_mysteries/narration_units.json",
+      "binder02_sha256": "61a1f622d083a700e3749bb6a4b92c61625231033ab5aef6dcfacc16c71d7b8f",
+      "binder03_sha256": "0e27709b2db1dad6df0c0db49264ec9b69a021f7eae7323e62cd7f2ac853771c",
+      "identical": false,
+      "changes": [
+        {
+          "path": "$.direction_contract.map.path",
+          "old": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver14.json",
+          "new": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json"
+        },
+        {
+          "path": "$.direction_contract.map.sha256",
+          "old": "6a326cdee5ab9e8b2055bcb2aa77ffeb16c493df16f4d0e464e448175a97cf66",
+          "new": "c94f0077f37974a12bba098dcf65d6afa4ed6082686ef41d15608897ca0e9cd4"
+        }
+      ]
+    },
+    {
+      "file": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json",
+      "binder02_file": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver14.json",
+      "binder02_sha256": "6a326cdee5ab9e8b2055bcb2aa77ffeb16c493df16f4d0e464e448175a97cf66",
+      "binder03_sha256": "c94f0077f37974a12bba098dcf65d6afa4ed6082686ef41d15608897ca0e9cd4",
+      "identical": false,
+      "changes": [
+        {
+          "path": "$.scope",
+          "old_sha256": "821eda162326a7aa446f11622cb84f092fc542d630f5b0cc6f894f7218767336",
+          "new_sha256": "17e9b4c0580063f28211384c77c91f3091cf2bddb5e90c68d4fedd9974244195",
+          "text": "recorded by hash; each plan's map holds its scope note"
+        },
+        {
+          "path": "$.visual_holds[4].evidence.sha256",
+          "old": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+          "new": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a"
+        },
+        {
+          "path": "$.visual_holds[4].sha256",
+          "old": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+          "new": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a"
+        },
+        {
+          "path": "$.visual_holds[5].evidence.sha256",
+          "old": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+          "new": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a"
+        },
+        {
+          "path": "$.visual_holds[5].line",
+          "old": 623,
+          "new": 636
+        },
+        {
+          "path": "$.visual_holds[5].sha256",
+          "old": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+          "new": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a"
+        },
+        {
+          "path": "$.visual_holds[6].evidence.sha256",
+          "old": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+          "new": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346"
+        },
+        {
+          "path": "$.visual_holds[6].sha256",
+          "old": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+          "new": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346"
+        },
+        {
+          "path": "$.visual_holds[7].evidence.sha256",
+          "old": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+          "new": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346"
+        },
+        {
+          "path": "$.visual_holds[7].sha256",
+          "old": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+          "new": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346"
+        },
+        {
+          "path": "$.visual_holds[8].evidence.sha256",
+          "old": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+          "new": "c1159c3727a1f1d83351d2c837027c563455df6ebc2de32a2db5973d56cbc401"
+        },
+        {
+          "path": "$.visual_holds[8].sha256",
+          "old": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+          "new": "c1159c3727a1f1d83351d2c837027c563455df6ebc2de32a2db5973d56cbc401"
+        },
+        {
+          "path": "$.visual_holds[9].evidence.sha256",
+          "old": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+          "new": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db"
+        },
+        {
+          "path": "$.visual_holds[9].sha256",
+          "old": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+          "new": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db"
+        },
+        {
+          "path": "$.visual_holds[10].evidence.sha256",
+          "old": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+          "new": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db"
+        },
+        {
+          "path": "$.visual_holds[10].sha256",
+          "old": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+          "new": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db"
+        }
+      ]
+    },
+    {
+      "file": "hold-audit.json",
+      "binder02_file": "hold-audit.json",
+      "binder02_sha256": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+      "binder03_sha256": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+      "identical": false,
+      "changes": [
+        {
+          "path": "$.chapter_finishes[5].line",
+          "old": 736,
+          "new": 749
+        },
+        {
+          "path": "$.chapter_finishes[6].line",
+          "old": 692,
+          "new": 699
+        },
+        {
+          "path": "$.chapter_finishes[8].line",
+          "old": 449,
+          "new": 468
+        },
+        {
+          "path": "$.counts.other_waits",
+          "old": 13,
+          "new": 16
+        },
+        {
+          "path": "$.counts.phrase_anchors",
+          "old": 25,
+          "new": 33
+        },
+        {
+          "path": "$.cues[31].line",
+          "old": 369,
+          "new": 380
+        },
+        {
+          "path": "$.cues[32].line",
+          "old": 530,
+          "new": 544
+        },
+        {
+          "path": "$.cues[33].line",
+          "old": 611,
+          "new": 624
+        },
+        {
+          "path": "$.cues[34].line",
+          "old": 626,
+          "new": 639
+        },
+        {
+          "path": "$.cues[35].line",
+          "old": 669,
+          "new": 682
+        },
+        {
+          "path": "$.cues[42].line",
+          "old": 598,
+          "new": 605
+        },
+        {
+          "path": "$.cues[43].line",
+          "old": 652,
+          "new": 659
+        },
+        {
+          "path": "$.map",
+          "old": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver14.json",
+          "new": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json"
+        },
+        {
+          "path": "$.open_for_root[1]",
+          "old": "01_5 synthesis, and selecting a take for all 80 cues",
+          "new": "selecting a take for all 80 cues"
+        },
+        {
+          "path": "$.open_for_root[2]",
+          "old": "measured phrase-timings.json, including 03_3's mark",
+          "new": "measured phrase-timings.json, including 03_3's mark and the eight 05-08 marks"
+        },
+        {
+          "path": "$.other_waits",
+          "added": [
+            {
+              "file": "complex_turns.rs",
+              "line": 845,
+              "cue": "05_7",
+              "marker": "explainer_kit::narration::wait_frames(stage, explainer_kit::narration::frames_covering(at - now, fps))?;",
+              "class": "word_sync_helper",
+              "note": "Inside until_phrase: waits to a phrase's time, inside the voice."
+            },
+            {
+              "file": "lifting_loops.rs",
+              "line": 769,
+              "cue": "06_7",
+              "marker": "explainer_kit::narration::wait_frames(stage, explainer_kit::narration::frames_covering(at - now, fps))?;",
+              "class": "word_sync_helper",
+              "note": "Inside until_phrase: waits to a phrase's time, inside the voice."
+            },
+            {
+              "file": "product_rule.rs",
+              "line": 606,
+              "cue": "08_5",
+              "marker": "explainer_kit::narration::wait_frames(stage, explainer_kit::narration::frames_covering(at - now, fps))?;",
+              "class": "word_sync_helper",
+              "note": "Inside until_phrase: waits to a phrase's time, inside the voice."
+            }
+          ],
+          "removed": []
+        },
+        {
+          "path": "$.prediction_holds[4].source_sha256",
+          "old": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+          "new": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a"
+        },
+        {
+          "path": "$.prediction_holds[5].marker_line",
+          "old": 623,
+          "new": 636
+        },
+        {
+          "path": "$.prediction_holds[5].next_say_line",
+          "old": 626,
+          "new": 639
+        },
+        {
+          "path": "$.prediction_holds[5].say_line",
+          "old": 611,
+          "new": 624
+        },
+        {
+          "path": "$.prediction_holds[5].source_sha256",
+          "old": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+          "new": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a"
+        },
+        {
+          "path": "$.prediction_holds[6].source_sha256",
+          "old": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+          "new": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346"
+        },
+        {
+          "path": "$.prediction_holds[7].source_sha256",
+          "old": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+          "new": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346"
+        },
+        {
+          "path": "$.prediction_holds[8].source_sha256",
+          "old": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+          "new": "c1159c3727a1f1d83351d2c837027c563455df6ebc2de32a2db5973d56cbc401"
+        },
+        {
+          "path": "$.prediction_holds[9].source_sha256",
+          "old": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+          "new": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db"
+        },
+        {
+          "path": "$.prediction_holds[10].source_sha256",
+          "old": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+          "new": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db"
+        },
+        {
+          "path": "$.registered_chapters[5].sha256",
+          "old": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+          "new": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a"
+        },
+        {
+          "path": "$.registered_chapters[6].sha256",
+          "old": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+          "new": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346"
+        },
+        {
+          "path": "$.registered_chapters[7].sha256",
+          "old": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+          "new": "c1159c3727a1f1d83351d2c837027c563455df6ebc2de32a2db5973d56cbc401"
+        },
+        {
+          "path": "$.registered_chapters[8].sha256",
+          "old": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+          "new": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db"
+        },
+        {
+          "path": "$.teaching_repair_05_08",
+          "added": {
+            "note": "LavenderPike's chapter 05-08 teaching repair, integrated by root. Its seven holds, three word-sync waits and eight anchors above equal its sealed rows; the receipt names its patch and every before and after hash. Source binding only, not native, picture or listening acceptance.",
+            "receipt": {
+              "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/integration-partial07.json",
+              "sha256": "4b1751d5bc3170f6b3c779616b1dd4c8c8f190ec678b2ebd5337cc6a5c058db3"
+            },
+            "patch": {
+              "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm05-08-teaching-repair01/logarithm05-08-teaching.patch",
+              "sha256": "1aafaaa84671c95e5a49340882efbe32aaea2ab7b74ba4ab149a1636dd90db34"
+            },
+            "sealed_rows": {
+              "holds": {
+                "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm05-08-teaching-repair01/hold-table.json",
+                "sha256": "24c7ac0c693d43a91c6ff68e86eba63cdf1683d9908d36050781ecabeb4bddf0"
+              },
+              "rows": {
+                "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm05-08-teaching-repair01/binder-rows.json",
+                "sha256": "8492714dfcc8ad9c8e4a2dd2c704f546eb59ad324b0de0e250b8e6385543e574"
+              },
+              "anchors": {
+                "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm05-08-teaching-repair01/phrase-anchors-proposed.json",
+                "sha256": "4c180bcdee55d433d6bf5298d3cc6d2a71ac515d8fc07c22734e64ea2595726b"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "file": "phrase-anchors.json",
+      "binder02_file": "phrase-anchors.json",
+      "binder02_sha256": "603ba46d1b2893a8f4428ebb5f655d2785416d28cf4629b824e50e3dc82e1c15",
+      "binder03_sha256": "a5930e689359c846e215863b394334c186b1bb0994047b9dd75e879fb6ea6970",
+      "identical": false,
+      "changes": [
+        {
+          "path": "$.anchors",
+          "added": [
+            {
+              "cue": "05_20",
+              "byte": 180,
+              "byte_end": 200,
+              "phrase": "the logarithm of two",
+              "const": "TAKE_X_PHRASE",
+              "sentence_index": 4,
+              "word_index": 37,
+              "hook_sites": [
+                {
+                  "file": "complex_turns.rs",
+                  "line": 369,
+                  "call": "until_phrase"
+                }
+              ],
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+              "source_sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+              "cue_text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+              "baseline_cue": "05_2",
+              "baseline_byte": 442,
+              "affected_by_cue_split": true,
+              "byte_or_cue_moved": true,
+              "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (complex_turns.rs phrase_seconds). Provisional.",
+              "measured_seconds": null
+            },
+            {
+              "cue": "05_20",
+              "byte": 214,
+              "byte_end": 223,
+              "phrase": "a half pi",
+              "const": "TAKE_Y_PHRASE",
+              "sentence_index": 4,
+              "word_index": 45,
+              "hook_sites": [
+                {
+                  "file": "complex_turns.rs",
+                  "line": 371,
+                  "call": "until_phrase"
+                }
+              ],
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+              "source_sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+              "cue_text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+              "baseline_cue": "05_2",
+              "baseline_byte": 476,
+              "affected_by_cue_split": true,
+              "byte_or_cue_moved": true,
+              "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (complex_turns.rs phrase_seconds). Provisional.",
+              "measured_seconds": null
+            },
+            {
+              "cue": "05_20",
+              "byte": 225,
+              "byte_end": 242,
+              "phrase": "the length is two",
+              "const": "LENGTH_PHRASE",
+              "sentence_index": 4,
+              "word_index": 48,
+              "hook_sites": [
+                {
+                  "file": "complex_turns.rs",
+                  "line": 373,
+                  "call": "until_phrase"
+                }
+              ],
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+              "source_sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+              "cue_text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+              "baseline_cue": "05_2",
+              "baseline_byte": 487,
+              "affected_by_cue_split": true,
+              "byte_or_cue_moved": true,
+              "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (complex_turns.rs phrase_seconds). Provisional.",
+              "measured_seconds": null
+            },
+            {
+              "cue": "05_20",
+              "byte": 276,
+              "byte_end": 289,
+              "phrase": "land on two i",
+              "const": "LAND_PHRASE",
+              "sentence_index": 4,
+              "word_index": 59,
+              "hook_sites": [
+                {
+                  "file": "complex_turns.rs",
+                  "line": 375,
+                  "call": "until_phrase"
+                }
+              ],
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+              "source_sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+              "cue_text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+              "baseline_cue": "05_2",
+              "baseline_byte": 538,
+              "affected_by_cue_split": true,
+              "byte_or_cue_moved": true,
+              "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (complex_turns.rs phrase_seconds). Provisional.",
+              "measured_seconds": null
+            },
+            {
+              "cue": "06_6",
+              "byte": 267,
+              "byte_end": 283,
+              "phrase": "passes minus one",
+              "const": "PASSES_PHRASE",
+              "sentence_index": 3,
+              "word_index": 48,
+              "hook_sites": [
+                {
+                  "file": "lifting_loops.rs",
+                  "line": 587,
+                  "call": "until_phrase"
+                }
+              ],
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs",
+              "source_sha256": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346",
+              "cue_text_sha256": "4ca49ca95c948df0d25fa3732e00976bab13395ffff27dcb07bda094b73129e4",
+              "baseline_cue": "06_6",
+              "baseline_byte": 267,
+              "affected_by_cue_split": true,
+              "byte_or_cue_moved": false,
+              "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (lifting_loops.rs phrase_seconds). Provisional.",
+              "measured_seconds": null
+            },
+            {
+              "cue": "06_6",
+              "byte": 338,
+              "byte_end": 363,
+              "phrase": "leaps from pi to minus pi",
+              "const": "LEAPS_PHRASE",
+              "sentence_index": 3,
+              "word_index": 60,
+              "hook_sites": [
+                {
+                  "file": "lifting_loops.rs",
+                  "line": 593,
+                  "call": "until_phrase"
+                }
+              ],
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs",
+              "source_sha256": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346",
+              "cue_text_sha256": "4ca49ca95c948df0d25fa3732e00976bab13395ffff27dcb07bda094b73129e4",
+              "baseline_cue": "06_6",
+              "baseline_byte": 338,
+              "affected_by_cue_split": true,
+              "byte_or_cue_moved": false,
+              "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (lifting_loops.rs phrase_seconds). Provisional.",
+              "measured_seconds": null
+            },
+            {
+              "cue": "08_5",
+              "byte": 260,
+              "byte_end": 278,
+              "phrase": "leaves a half turn",
+              "const": "HALF_TURN_PHRASE",
+              "sentence_index": 4,
+              "word_index": 51,
+              "hook_sites": [
+                {
+                  "file": "product_rule.rs",
+                  "line": 438,
+                  "call": "until_phrase"
+                }
+              ],
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs",
+              "source_sha256": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+              "cue_text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+              "baseline_cue": "08_5",
+              "baseline_byte": 260,
+              "affected_by_cue_split": false,
+              "byte_or_cue_moved": false,
+              "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (product_rule.rs phrase_seconds). Provisional.",
+              "measured_seconds": null
+            },
+            {
+              "cue": "08_5",
+              "byte": 299,
+              "byte_end": 320,
+              "phrase": "a factor of minus one",
+              "const": "FACTOR_PHRASE",
+              "sentence_index": 4,
+              "word_index": 60,
+              "hook_sites": [
+                {
+                  "file": "product_rule.rs",
+                  "line": 456,
+                  "call": "until_phrase"
+                }
+              ],
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs",
+              "source_sha256": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+              "cue_text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+              "baseline_cue": "08_5",
+              "baseline_byte": 299,
+              "affected_by_cue_split": false,
+              "byte_or_cue_moved": false,
+              "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (product_rule.rs phrase_seconds). Provisional.",
+              "measured_seconds": null
+            }
+          ],
+          "removed": []
+        },
+        {
+          "path": "$.by_chapter_file.complex_turns.rs",
+          "added": 4
+        },
+        {
+          "path": "$.by_chapter_file.lifting_loops.rs",
+          "added": 2
+        },
+        {
+          "path": "$.by_chapter_file.product_rule.rs",
+          "added": 2
+        },
+        {
+          "path": "$.counts.affected_by_cue_split",
+          "old": 11,
+          "new": 17
+        },
+        {
+          "path": "$.counts.anchors",
+          "old": 25,
+          "new": 33
+        },
+        {
+          "path": "$.counts.byte_or_cue_moved",
+          "old": 4,
+          "new": 8
+        },
+        {
+          "path": "$.counts.cues_with_anchors",
+          "old": 15,
+          "new": 18
+        }
+      ]
+    },
+    {
+      "file": "phrase-timings-unmeasured-template.json",
+      "binder02_file": "phrase-timings-unmeasured-template.json",
+      "binder02_sha256": "901392b45e57c559b9159ea19ed3abe240eab0bc9f088adf448ba2c2b7febb1b",
+      "binder03_sha256": "9169b6004507f6a1a735aa457beb28a5a71b2f9a4d759dc5721ff778b6ef6d28",
+      "identical": false,
+      "changes": [
+        {
+          "path": "$.cues.05_20.marks",
+          "added": [
+            {
+              "byte": 180,
+              "seconds": null,
+              "phrase": "the logarithm of two"
+            },
+            {
+              "byte": 214,
+              "seconds": null,
+              "phrase": "a half pi"
+            },
+            {
+              "byte": 225,
+              "seconds": null,
+              "phrase": "the length is two"
+            },
+            {
+              "byte": 276,
+              "seconds": null,
+              "phrase": "land on two i"
+            }
+          ],
+          "removed": []
+        },
+        {
+          "path": "$.cues.06_6.marks",
+          "added": [
+            {
+              "byte": 267,
+              "seconds": null,
+              "phrase": "passes minus one"
+            },
+            {
+              "byte": 338,
+              "seconds": null,
+              "phrase": "leaps from pi to minus pi"
+            }
+          ],
+          "removed": []
+        },
+        {
+          "path": "$.cues.08_5.marks",
+          "added": [
+            {
+              "byte": 260,
+              "seconds": null,
+              "phrase": "leaves a half turn"
+            },
+            {
+              "byte": 299,
+              "seconds": null,
+              "phrase": "a factor of minus one"
+            }
+          ],
+          "removed": []
+        }
+      ]
+    },
+    {
+      "file": "direction-dispositions-proposed.json",
+      "binder02_file": "direction-dispositions-proposed.json",
+      "binder02_sha256": "8b4fe095a7965ce6f834acecd350da62f114bb19be3f0900617b35f8a27b4baa",
+      "binder03_sha256": "d55e8ddbcc399031b62ba17476ebabf755e9c85fc059719e126748675a7ea203",
+      "identical": false,
+      "changes": [
+        {
+          "path": "$.direction_dispositions[0].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[0].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.direction_dispositions[1].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[1].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.direction_dispositions[2].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[2].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.direction_dispositions[3].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[3].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.direction_dispositions[4].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[4].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.direction_dispositions[5].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[5].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.direction_dispositions[5].reason",
+          "old": "draw::predict at complex_turns.rs:623 holds after the complete cue, in the picture and music. The take's samples are not changed and no silence is inserted.",
+          "new": "draw::predict at complex_turns.rs:636 holds after the complete cue, in the picture and music. The take's samples are not changed and no silence is inserted."
+        },
+        {
+          "path": "$.direction_dispositions[6].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[6].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.direction_dispositions[7].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[7].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.direction_dispositions[8].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[8].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.direction_dispositions[9].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[9].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.direction_dispositions[10].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[10].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.direction_dispositions[11].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[11].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.direction_dispositions[12].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[12].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.direction_dispositions[13].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[13].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.direction_dispositions[14].evidence.path",
+          "old": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+          "new": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bound-plan/hold-audit.json"
+        },
+        {
+          "path": "$.direction_dispositions[14].evidence.sha256",
+          "old": "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560",
+          "new": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a"
+        },
+        {
+          "path": "$.map_sha256",
+          "old": "6a326cdee5ab9e8b2055bcb2aa77ffeb16c493df16f4d0e464e448175a97cf66",
+          "new": "c94f0077f37974a12bba098dcf65d6afa4ed6082686ef41d15608897ca0e9cd4"
+        }
+      ]
+    },
+    {
+      "file": "cue-delta.json",
+      "binder02_file": "cue-delta.json",
+      "binder02_sha256": "2263bb51a62e41972cd12adca21660b67b515f2fda9781291e6761a4bb56cdac",
+      "binder03_sha256": "2263bb51a62e41972cd12adca21660b67b515f2fda9781291e6761a4bb56cdac",
+      "identical": true
+    },
+    {
+      "file": "stage07-delta.json",
+      "binder02_file": "stage07-delta.json",
+      "binder02_sha256": "08f106ac727bbae2512d740d7cd4cda292a9d76e721dc422f73fc58c4c07535a",
+      "binder03_sha256": "9fe53557878d46065ca513ee14300b29c00b641b6f769ba7c6bdbb86dbb87110",
+      "identical": false,
+      "changes": [
+        {
+          "path": "$.chapter_files[5].changed",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.chapter_files[5].stage07",
+          "old": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+          "new": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a"
+        },
+        {
+          "path": "$.chapter_files[6].changed",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.chapter_files[6].stage07",
+          "old": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+          "new": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346"
+        },
+        {
+          "path": "$.chapter_files[7].changed",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.chapter_files[7].stage07",
+          "old": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+          "new": "c1159c3727a1f1d83351d2c837027c563455df6ebc2de32a2db5973d56cbc401"
+        },
+        {
+          "path": "$.chapter_files[8].changed",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.chapter_files[8].stage07",
+          "old": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+          "new": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db"
+        },
+        {
+          "path": "$.chapter_finishes_moved",
+          "added": [
+            {
+              "file": "complex_turns.rs",
+              "cue": "05_7",
+              "line": {
+                "stage06": 736,
+                "stage07": 749
+              }
+            },
+            {
+              "file": "lifting_loops.rs",
+              "cue": "06_7",
+              "line": {
+                "stage06": 692,
+                "stage07": 699
+              }
+            },
+            {
+              "file": "product_rule.rs",
+              "cue": "08_5",
+              "line": {
+                "stage06": 449,
+                "stage07": 468
+              }
+            }
+          ],
+          "removed": []
+        },
+        {
+          "path": "$.hold_summary.file_hash_changed",
+          "added": [
+            "05_1",
+            "05_5",
+            "06_2",
+            "06_4",
+            "07_3",
+            "08_1",
+            "08_4"
+          ],
+          "removed": []
+        },
+        {
+          "path": "$.hold_summary.marker_line_moved",
+          "added": [
+            "05_5"
+          ],
+          "removed": []
+        },
+        {
+          "path": "$.hold_summary.say_line_moved",
+          "added": [
+            "05_5"
+          ],
+          "removed": []
+        },
+        {
+          "path": "$.hold_summary.unchanged_entirely",
+          "added": [],
+          "removed": [
+            "05_1",
+            "05_5",
+            "06_2",
+            "06_4",
+            "07_3",
+            "08_1",
+            "08_4"
+          ]
+        },
+        {
+          "path": "$.holds[4].file_sha256.changed",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.holds[4].file_sha256.stage07",
+          "old": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+          "new": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a"
+        },
+        {
+          "path": "$.holds[5].file_sha256.changed",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.holds[5].file_sha256.stage07",
+          "old": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+          "new": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a"
+        },
+        {
+          "path": "$.holds[5].marker_line.moved",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.holds[5].marker_line.stage07",
+          "old": 623,
+          "new": 636
+        },
+        {
+          "path": "$.holds[5].next_say_line.stage07",
+          "old": 626,
+          "new": 639
+        },
+        {
+          "path": "$.holds[5].say_line.moved",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.holds[5].say_line.stage07",
+          "old": 611,
+          "new": 624
+        },
+        {
+          "path": "$.holds[6].file_sha256.changed",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.holds[6].file_sha256.stage07",
+          "old": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+          "new": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346"
+        },
+        {
+          "path": "$.holds[7].file_sha256.changed",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.holds[7].file_sha256.stage07",
+          "old": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+          "new": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346"
+        },
+        {
+          "path": "$.holds[8].file_sha256.changed",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.holds[8].file_sha256.stage07",
+          "old": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+          "new": "c1159c3727a1f1d83351d2c837027c563455df6ebc2de32a2db5973d56cbc401"
+        },
+        {
+          "path": "$.holds[9].file_sha256.changed",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.holds[9].file_sha256.stage07",
+          "old": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+          "new": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db"
+        },
+        {
+          "path": "$.holds[10].file_sha256.changed",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.holds[10].file_sha256.stage07",
+          "old": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+          "new": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db"
+        },
+        {
+          "path": "$.other_waits.added",
+          "added": [
+            {
+              "file": "complex_turns.rs",
+              "line": 845,
+              "cue": "05_7",
+              "class": "word_sync_helper",
+              "marker": "explainer_kit::narration::wait_frames(stage, explainer_kit::narration::frames_covering(at - now, fps))?;"
+            },
+            {
+              "file": "lifting_loops.rs",
+              "line": 769,
+              "cue": "06_7",
+              "class": "word_sync_helper",
+              "marker": "explainer_kit::narration::wait_frames(stage, explainer_kit::narration::frames_covering(at - now, fps))?;"
+            },
+            {
+              "file": "product_rule.rs",
+              "line": 606,
+              "cue": "08_5",
+              "class": "word_sync_helper",
+              "marker": "explainer_kit::narration::wait_frames(stage, explainer_kit::narration::frames_covering(at - now, fps))?;"
+            }
+          ],
+          "removed": []
+        },
+        {
+          "path": "$.phrase_anchors.added",
+          "added": [
+            {
+              "cue": "05_20",
+              "phrase": "a half pi",
+              "byte": 214,
+              "byte_end": 223,
+              "const": "TAKE_Y_PHRASE",
+              "sentence_index": 4,
+              "word_index": 45,
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+              "source_sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+              "cue_text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+              "hook_sites": [
+                {
+                  "file": "complex_turns.rs",
+                  "line": 371,
+                  "call": "until_phrase"
+                }
+              ],
+              "measured_seconds": null
+            },
+            {
+              "cue": "05_20",
+              "phrase": "land on two i",
+              "byte": 276,
+              "byte_end": 289,
+              "const": "LAND_PHRASE",
+              "sentence_index": 4,
+              "word_index": 59,
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+              "source_sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+              "cue_text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+              "hook_sites": [
+                {
+                  "file": "complex_turns.rs",
+                  "line": 375,
+                  "call": "until_phrase"
+                }
+              ],
+              "measured_seconds": null
+            },
+            {
+              "cue": "05_20",
+              "phrase": "the length is two",
+              "byte": 225,
+              "byte_end": 242,
+              "const": "LENGTH_PHRASE",
+              "sentence_index": 4,
+              "word_index": 48,
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+              "source_sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+              "cue_text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+              "hook_sites": [
+                {
+                  "file": "complex_turns.rs",
+                  "line": 373,
+                  "call": "until_phrase"
+                }
+              ],
+              "measured_seconds": null
+            },
+            {
+              "cue": "05_20",
+              "phrase": "the logarithm of two",
+              "byte": 180,
+              "byte_end": 200,
+              "const": "TAKE_X_PHRASE",
+              "sentence_index": 4,
+              "word_index": 37,
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+              "source_sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+              "cue_text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+              "hook_sites": [
+                {
+                  "file": "complex_turns.rs",
+                  "line": 369,
+                  "call": "until_phrase"
+                }
+              ],
+              "measured_seconds": null
+            },
+            {
+              "cue": "06_6",
+              "phrase": "leaps from pi to minus pi",
+              "byte": 338,
+              "byte_end": 363,
+              "const": "LEAPS_PHRASE",
+              "sentence_index": 3,
+              "word_index": 60,
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs",
+              "source_sha256": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346",
+              "cue_text_sha256": "4ca49ca95c948df0d25fa3732e00976bab13395ffff27dcb07bda094b73129e4",
+              "hook_sites": [
+                {
+                  "file": "lifting_loops.rs",
+                  "line": 593,
+                  "call": "until_phrase"
+                }
+              ],
+              "measured_seconds": null
+            },
+            {
+              "cue": "06_6",
+              "phrase": "passes minus one",
+              "byte": 267,
+              "byte_end": 283,
+              "const": "PASSES_PHRASE",
+              "sentence_index": 3,
+              "word_index": 48,
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs",
+              "source_sha256": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346",
+              "cue_text_sha256": "4ca49ca95c948df0d25fa3732e00976bab13395ffff27dcb07bda094b73129e4",
+              "hook_sites": [
+                {
+                  "file": "lifting_loops.rs",
+                  "line": 587,
+                  "call": "until_phrase"
+                }
+              ],
+              "measured_seconds": null
+            },
+            {
+              "cue": "08_5",
+              "phrase": "a factor of minus one",
+              "byte": 299,
+              "byte_end": 320,
+              "const": "FACTOR_PHRASE",
+              "sentence_index": 4,
+              "word_index": 60,
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs",
+              "source_sha256": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+              "cue_text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+              "hook_sites": [
+                {
+                  "file": "product_rule.rs",
+                  "line": 456,
+                  "call": "until_phrase"
+                }
+              ],
+              "measured_seconds": null
+            },
+            {
+              "cue": "08_5",
+              "phrase": "leaves a half turn",
+              "byte": 260,
+              "byte_end": 278,
+              "const": "HALF_TURN_PHRASE",
+              "sentence_index": 4,
+              "word_index": 51,
+              "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs",
+              "source_sha256": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+              "cue_text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+              "hook_sites": [
+                {
+                  "file": "product_rule.rs",
+                  "line": 438,
+                  "call": "until_phrase"
+                }
+              ],
+              "measured_seconds": null
+            }
+          ],
+          "removed": []
+        },
+        {
+          "path": "$.phrase_anchors.count.stage07",
+          "old": 25,
+          "new": 33
+        },
+        {
+          "path": "$.sentence_hooks.other_sentence_reads.stage07",
+          "added": [
+            {
+              "file": "complex_turns.rs",
+              "line": 826,
+              "code": "let starts = n.sentence_starts(id);",
+              "current": "05_7"
+            },
+            {
+              "file": "complex_turns.rs",
+              "line": 827,
+              "code": "let (Some(&first), Some(said), Some(len)) = (starts.first(), n.sentence_at(id, 0), n.length(id)) else {",
+              "current": "05_7"
+            },
+            {
+              "file": "lifting_loops.rs",
+              "line": 750,
+              "code": "let starts = n.sentence_starts(id);",
+              "current": "06_7"
+            },
+            {
+              "file": "lifting_loops.rs",
+              "line": 751,
+              "code": "let (Some(&first), Some(said), Some(len)) = (starts.first(), n.sentence_at(id, 0), n.length(id)) else {",
+              "current": "06_7"
+            },
+            {
+              "file": "product_rule.rs",
+              "line": 587,
+              "code": "let starts = n.sentence_starts(id);",
+              "current": "08_5"
+            },
+            {
+              "file": "product_rule.rs",
+              "line": 588,
+              "code": "let (Some(&first), Some(said), Some(len)) = (starts.first(), n.sentence_at(id, 0), n.length(id)) else {",
+              "current": "08_5"
+            }
+          ],
+          "removed": []
+        },
+        {
+          "path": "$.sentence_hooks.per_file.complex_turns.rs.lines_moved",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.sentence_hooks.per_file.lifting_loops.rs.lines_moved",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.sentence_hooks.per_file.product_rule.rs.lines_moved",
+          "old": false,
+          "new": true
+        },
+        {
+          "path": "$.to.map",
+          "old": "narration-direction-map-oliver14.json",
+          "new": "narration-direction-map-oliver15.json"
+        },
+        {
+          "path": "$.to.map_sha256",
+          "old": "6a326cdee5ab9e8b2055bcb2aa77ffeb16c493df16f4d0e464e448175a97cf66",
+          "new": "c94f0077f37974a12bba098dcf65d6afa4ed6082686ef41d15608897ca0e9cd4"
+        }
+      ]
+    },
+    {
+      "file": "inputs.sha256",
+      "binder02_file": "inputs.sha256",
+      "binder02_sha256": "cafb258539f9c3d2ea4ad6a438c2afb662945b24bf4368837d5393b20e8eca3c",
+      "binder03_sha256": "1443a00a64eea3e393d4d09b0e359d63e87e4247b26c7e8f7ba0b8adc0f42933",
+      "identical": false,
+      "lines_added": [
+        "4b1751d5bc3170f6b3c779616b1dd4c8c8f190ec678b2ebd5337cc6a5c058db3  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/integration-partial07.json",
+        "61a1f622d083a700e3749bb6a4b92c61625231033ab5aef6dcfacc16c71d7b8f  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/explainer_corpus/logarithm_mysteries/narration_units.json",
+        "6a326cdee5ab9e8b2055bcb2aa77ffeb16c493df16f4d0e464e448175a97cf66  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver14.json",
+        "15aa3a4b3b7931090e15467b92257af2dac10adc51373f79fd9b52a3fa572560  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/hold-audit.json",
+        "603ba46d1b2893a8f4428ebb5f655d2785416d28cf4629b824e50e3dc82e1c15  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/phrase-anchors.json",
+        "901392b45e57c559b9159ea19ed3abe240eab0bc9f088adf448ba2c2b7febb1b  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/phrase-timings-unmeasured-template.json",
+        "8b4fe095a7965ce6f834acecd350da62f114bb19be3f0900617b35f8a27b4baa  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/direction-dispositions-proposed.json",
+        "2263bb51a62e41972cd12adca21660b67b515f2fda9781291e6761a4bb56cdac  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/cue-delta.json",
+        "08f106ac727bbae2512d740d7cd4cda292a9d76e721dc422f73fc58c4c07535a  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/stage07-delta.json",
+        "cafb258539f9c3d2ea4ad6a438c2afb662945b24bf4368837d5393b20e8eca3c  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02/bound-plan/inputs.sha256",
+        "1aafaaa84671c95e5a49340882efbe32aaea2ab7b74ba4ab149a1636dd90db34  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm05-08-teaching-repair01/logarithm05-08-teaching.patch",
+        "24c7ac0c693d43a91c6ff68e86eba63cdf1683d9908d36050781ecabeb4bddf0  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm05-08-teaching-repair01/hold-table.json",
+        "8492714dfcc8ad9c8e4a2dd2c704f546eb59ad324b0de0e250b8e6385543e574  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm05-08-teaching-repair01/binder-rows.json",
+        "4c180bcdee55d433d6bf5298d3cc6d2a71ac515d8fc07c22734e64ea2595726b  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm05-08-teaching-repair01/phrase-anchors-proposed.json",
+        "f4e2589d4dfd0c57a014b1b2119f58b5915579a3ee126f071fdb5784cafcaf6f  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm05-08-teaching-repair01/SHA256SUMS",
+        "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/before-teaching05-08-01/complex_turns.rs",
+        "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/before-teaching05-08-01/lifting_loops.rs",
+        "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/before-teaching05-08-01/branch_cut.rs",
+        "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/before-teaching05-08-01/product_rule.rs",
+        "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+        "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs",
+        "c1159c3727a1f1d83351d2c837027c563455df6ebc2de32a2db5973d56cbc401  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs",
+        "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs"
+      ],
+      "lines_removed": [
+        "61a1f622d083a700e3749bb6a4b92c61625231033ab5aef6dcfacc16c71d7b8f  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/explainer_corpus/logarithm_mysteries/narration_units.json",
+        "6a326cdee5ab9e8b2055bcb2aa77ffeb16c493df16f4d0e464e448175a97cf66  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver14.json",
+        "151c4e6d81aad1a31bca8fdec30184b69d1d180546534bdfda51890a77628d1a  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/hold-audit.json",
+        "31a3af5097ad2a2a005058e11d1dedceb19f0089b7a0a6002011f9435f7da244  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/phrase-anchors.json",
+        "fd1e12d9e5ba1b8b4fc7dc296ffa388937c2b853edc81e7d2910b9f66d706760  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/phrase-timings-unmeasured-template.json",
+        "986609984d8325809c516937dcf97acfe963d5f8bae0ad3f151246dcc7b3a299  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/direction-dispositions-proposed.json",
+        "88da78a400ac8cef325de8db94483f70e263ddd8b2ba2923df6d905ceba00514  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/cue-delta.json",
+        "a1f0ea092079c0c0f48b6e366c415ac3a2fa532f0642b98e7c55cae44a996f33  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/stage07-delta.json",
+        "6ed20e477482a2703b2c73b27e00f2f10ec97eb87a7b13fb6738dac8f99aea67  docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/inputs.sha256",
+        "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs",
+        "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs",
+        "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs",
+        "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0  narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs"
+      ]
+    }
+  ]
+}

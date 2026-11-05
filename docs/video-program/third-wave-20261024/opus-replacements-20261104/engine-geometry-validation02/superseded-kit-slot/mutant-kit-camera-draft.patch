@@ -1,0 +1,10 @@
+--- a/crates/explainer_kit/src/cli.rs
++++ b/crates/explainer_kit/src/cli.rs
+@@ -544,7 +544,6 @@
+     )?;
+     o.config = opts.config;
+     o.max_frames = opts.max_frames;
+-    o.plan_limits = opts.plan_limits;
+     Ok(o)
+ }
+ 

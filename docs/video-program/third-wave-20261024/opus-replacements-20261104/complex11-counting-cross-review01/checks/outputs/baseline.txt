@@ -1,0 +1,18 @@
+PASS teaching02's seal holds: 33 files
+baseline paths moved since teaching02 pinned them: []
+PASS canonical and root's staging are as teaching02 pinned them
+teaching02 HANDOFF.md ee5192a94bff11173f8ab6d766546dea182588692b47e5d79a2ddc1d432ff953
+staged counting.rs dba35730d15b3c5e4ff7fb0fe7444265424b920d87861562b11d8468f9d290e4
+PASS counting-from-root.patch applies and gives dba35730d15b3c5e
+PASS counting-from-root.patch reverses to its source
+PASS mod-registry.patch applies and gives 2414a6bd8c1ae26a
+PASS mod-registry.patch reverses to its source
+PASS storyboard.patch applies and gives 6deb9f01cbcc505a
+PASS storyboard.patch reverses to its source
+PASS narration-units.patch applies and gives 3989e1855f617734
+PASS narration-units.patch reverses to its source
+PASS the staged counting.rs is the patch's result
+PASS only 11_7's words differ between canonical and root's script: ['11_7']
+PASS the units plan carries root's 11_7 word for word
+PASS 11_6 and 11_8 stay their own units
+PASS root's prepared requests carry no neighbour context (ElevenLabs, Oliver - Clean, British and Steady)

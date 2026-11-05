@@ -1,0 +1,12 @@
+--- a/crates/fmn/tests/native_render.rs
++++ b/crates/fmn/tests/native_render.rs
+@@ -266,7 +266,8 @@
+ #[test]
+ fn a_lowered_camera_budget_refuses_by_name_and_publishes_nothing() {
+     let fs = Arc::new(VirtualFs::new());
+-    let lowered: [(&str, &str, fn(&mut ThreeDPreparationLimits)); 4] = [
++    type LoweredBudget = (&'static str, &'static str, fn(&mut ThreeDPreparationLimits));
++    let lowered: [LoweredBudget; 4] = [
+         ("/draws", "draw rows", |limits| limits.max_draws = 0),
+         ("/curves", "projected curves", |limits| {
+             limits.max_projected_curves = 0;

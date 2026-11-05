@@ -1,0 +1,692 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+@@ -13,13 +13,14 @@
+ use std::f64::consts::{PI, TAU};
+ 
+ use explainer_kit::props::CodePanel;
+-use explainer_kit::{Kit, Palette, v};
++use explainer_kit::{Kit, Palette, tween, v};
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Painter, Plane, Spoken, Walker, carded, dot, fact, fact_f64, fact_list, fade_in_all, fade_out_all, faded_line,
+-    flat, hero, input, line_style, marks, names_now, output, pause, pole, precisely_now, predict, reading_window,
+-    restroke, say, squash, tween_linear, value, wait_until, walker, warn,
++    Painter, Plane, Spoken, WALK_SAMPLES, Walker, carded, dot, fact, fact_f64, fact_list, fade_in_all, fade_out_all,
++    faded_line, flat, ground, hero, input, line_style, marks, names_now, output, pause, picture_cells, pole, portrait,
++    portrait_colors, precisely_now, predict, reading_window, restroke, say, squash, tween_linear, value, wait_until,
++    walker, warn,
+ };
+ use super::loop_sums::STEPS_SAID;
+ use super::the_bump::RADIUS;
+@@ -51,10 +52,21 @@
+ /// 11_6's name for the reference circle the output follows.
+ pub const MINUS_THREE_Z_TEX: &str = "-3z";
+ pub const INSIDE: &str = "one root inside, at distance ";
+-pub const SQUASHED: &str = "size compressed; direction and turns around zero unchanged";
++pub const SQUASHED: &str = "output size compressed; direction and turns around zero unchanged";
+ pub const WALKER_DOG: [&str; 2] = ["walker: z⁵", "dog: z⁵ − 3z + 1"];
+ /// 11_7, before the circle: the claim, then the polynomial it is about.
+ pub const ROOTS_CLAIM: &str = "nonconstant polynomials have roots";
++/// 11_7's example, which is 2i times the film's quintic, before and after the division. Its
++/// leading coefficient takes the colour, and the colour's key is found by plain text in the
++/// source, so the constant term keeps braces that do not show: only the leading one matches.
++pub const LEADING_KEY: &str = "2i";
++pub const BEFORE_DIVIDING_TEX: &str = r"f(z) = 2iz^5 - 6iz + 2{i}";
++pub const AFTER_DIVIDING_TEX: &str = r"p(z) = f(z) \div 2i = z^5 - 3z + 1";
++/// What the division does to every output, then what that means for 0, over the output plane.
++pub const EVERY_OUTPUT: &str = "every output ÷ 2i  (2i ≠ 0)";
++pub const ZERO_KEPT: &str = "0 ÷ 2i = 0, and nothing else lands on 0";
++/// On the colour field, once it has turned back.
++pub const SAME_ROOTS: &str = "same five roots";
+ pub const DEGREE_N_TEX: &str = r"p(z) = z^n + \cdots";
+ /// 11_7 names the general n and huge circle; the picture is this one (tested against `DogWalk`).
+ pub const DOG_DRAWN: &str = "drawn: n = 5, on the circle |z| = 3";
+@@ -455,7 +467,7 @@
+             Func::Quintic,
+             ZERO,
+             1.0,
+-            2.0,
++            ROOT_WALK_SQUASH,
+             fact("argument.quintic.unit")?,
+             3.0,
+         )?;
+@@ -490,16 +502,58 @@
+         // 11_7: the dog on a leash: on |z| = 3 both circle 5 times
+         reading_window(&kit, stage, &line)?;
+         let line = say(&kit, stage, "11_7")?;
+-        let mut gone = one.clone();
++        // the loop, the roots and the output curve stay: the division is acted on them
++        let (walked_loop, walked_curve) = (one[0], one[2]);
++        let mut gone = vec![one[1]];
++        gone.extend(one[3..].iter().copied());
+         gone.extend([reference, follows, leash, squashed, unit]);
+         gone.extend(inside);
+-        gone.extend(roots);
+         fade_out_all(stage, &gone, 0.3)?;
++        // the painter gives way to a field that can turn, in the same colours, so nothing shows;
++        // the loop and the marks go back on top of it
++        let turning = Turning::build(stage, inp, out, walked_curve)?;
++        stage.add_to_scene(walked_loop)?;
++        for &mark in &roots {
++            stage.add_to_scene(mark)?;
++        }
+         painter.leave(stage, 0.4)?;
+-        let claim = kit.text(stage, ROOTS_CLAIM, 30.0, hero(), v(-3.45, 0.7))?;
++        let row = v(OVER_FIELD[1].0, OVER_FIELD[1].1);
++        let claim = kit.text(stage, ROOTS_CLAIM, 30.0, hero(), v(OVER_FIELD[0].0, OVER_FIELD[0].1))?;
+         fade_in_all(stage, &[claim], 0.4)?;
++        // "complex polynomial": one with a leading coefficient, which is the same quintic times
++        // that number; every colour turns and the marks do not move
++        line.wait_for(stage, "complex polynomial")?;
++        let colour = [(LEADING_KEY, hero())];
++        let before = kit.tex(stage, BEFORE_DIVIDING_TEX, ROW_PT, Palette::ink(), &colour, row)?;
++        fade_in_all(stage, &[before], 0.3)?;
++        let rt = (line.sentence(1)? - stage.scene().time().to_f64()).clamp(0.7, 1.4);
++        stage.play(tween(turning.turned, 1.0, rt)?)?;
++        // "Divide by its leading coefficient": every output, so the picture turns back
++        line.wait_sentence(stage, 1)?;
++        let over_output = v(OVER_OUTPUT.0, OVER_OUTPUT.1);
++        let every_output = kit.text(stage, EVERY_OUTPUT, 24.0, Palette::ink(), over_output)?;
++        fade_in_all(stage, &[every_output], 0.3)?;
++        let rt = line.until(stage, "which leaves", 1.2)?;
++        stage.play(tween(turning.turned, 0.0, rt)?)?;
++        // "which leaves its roots unchanged": what the turn left alone, and why
++        fade_out_all(stage, &[before, every_output], 0.2)?;
++        let after = kit.tex(stage, AFTER_DIVIDING_TEX, ROW_PT, Palette::ink(), &colour, row)?;
++        let zero_kept = kit.text(stage, ZERO_KEPT, 24.0, Palette::ink(), over_output)?;
++        let same = carded(
++            &kit,
++            stage,
++            SAME_ROOTS,
++            24.0,
++            Palette::ink(),
++            inp.p(C::new(SAME_ROOTS_AT.0, SAME_ROOTS_AT.1)),
++            Palette::faint(),
++        )?;
++        let mut result = vec![after, zero_kept];
++        result.extend(same);
++        fade_in_all(stage, &result, 0.3)?;
+         line.wait_sentence(stage, 2)?;
+-        let degree_n = kit.tex(stage, DEGREE_N_TEX, 36.0, Palette::ink(), &[], v(-3.45, -0.3))?;
++        fade_out_all(stage, &[after], 0.3)?;
++        let degree_n = kit.tex(stage, DEGREE_N_TEX, 36.0, Palette::ink(), &[], row)?;
+         fade_in_all(stage, &[degree_n], 0.4)?;
+         let wide = Plane::new(v(-3.45, -0.35), 5.6, (-3.6, 3.6), (-3.6, 3.6));
+         let wide_axes = wide.axes(stage)?;
+@@ -507,7 +561,11 @@
+         let mut wide_all = wide_axes.clone();
+         wide_all.push(big_loop);
+         line.wait_sentence(stage, 3)?;
+-        fade_out_all(stage, &[claim, degree_n], 0.3)?;
++        turning.stop(stage);
++        let mut acted = vec![claim, degree_n, zero_kept, walked_loop, walked_curve, turning.field];
++        acted.extend(same);
++        acted.extend(roots);
++        fade_out_all(stage, &acted, 0.3)?;
+         fade_in_all(stage, &wide_all, 0.5)?;
+         let dog = DogWalk::build(&kit, stage, wide, out)?;
+         line.wait_sentence(stage, 4)?;
+@@ -551,6 +609,82 @@
+     }
+ }
+ 
++/// 11_6's output squash on the unit circle, which 11_7's curve starts from.
++const ROOT_WALK_SQUASH: f64 = 2.0;
++/// The leading coefficient of 11_7's example.
++const LEADING: C = C::new(0.0, 2.0);
++/// Repaints over the whole turn, each a step of under 2 degrees of colour.
++const TURN_STEPS: f64 = 48.0;
++/// 11_7's two rows over the colour field, where 11_6's inequality stood: the field stays uncovered.
++const OVER_FIELD: [(f64, f64); 2] = [(-3.45, 3.5), (-3.45, 2.83)];
++const ROW_PT: f64 = 32.0;
++/// Over the output plane, where 11_6's count stood and the dog's will.
++const OVER_OUTPUT: (f64, f64) = (3.25, 3.15);
++/// On the field, in input-plane units, under the lowest root and clear of the loop.
++const SAME_ROOTS_AT: (f64, f64) = (0.0, -1.72);
++
++/// What every output of the quintic is multiplied by when the picture has gone the share `t` of
++/// the way to the example: 1 at `t` = 0, [`LEADING`] at `t` = 1, turning and growing steadily.
++/// Never 0, so the turn can always be undone by dividing.
++fn turned_by(t: f64) -> C {
++    C::polar(LEADING.abs().powf(t), LEADING.arg() * t)
++}
++
++/// 11_6's output curve with each output multiplied by `by`, squashed as 11_6 squashed it.
++fn turned_curve(by: C) -> Vec<C> {
++    (0..=WALK_SAMPLES)
++        .filter_map(|j| Func::Quintic.eval(C::polar(1.0, TAU * j as f64 / WALK_SAMPLES as f64)))
++        .map(|w| squash(by * w, ROOT_WALK_SQUASH, OUT_R))
++        .collect()
++}
++
++/// 11_7's picture of the division: the quintic's colour field and output curve with every output
++/// multiplied by [`turned_by`] of a tracker. The colours turn and the bands of equal size slide,
++/// while the points where all the colours meet stay exactly where the root marks are.
++struct Turning {
++    turned: Mob,
++    anchor: Mob,
++    field: Mob,
++}
++
++impl Turning {
++    /// On screen at once and in the colours of the quintic's picture, so it can take over from
++    /// the painter unseen. `curve` is the output curve 11_6's walk left behind.
++    fn build(stage: &mut Stage<'_>, inp: Plane, out: Plane, curve: Mob) -> fmn::Result<Self> {
++        let strips = portrait(stage, Func::Quintic, &inp, 1.0)?;
++        let field = strips.group;
++        let (cols, rows) = picture_cells(&inp);
++        let turned = stage.add_value_tracker(0.0);
++        let anchor = stage.arena_mut().add(VMobject::new());
++        let mut last = 0.0;
++        stage.add_updater(
++            anchor,
++            move |s, _| {
++                let t = (value(s, turned).clamp(0.0, 1.0) * TURN_STEPS).round() / TURN_STEPS;
++                if t == last {
++                    return;
++                }
++                let by = turned_by(t);
++                let colors = portrait_colors(|z| Func::Quintic.eval(z).map(|w| by * w), &inp, cols, rows, 1.0);
++                let _ = strips.recolor(s, &colors);
++                let pts: Vec<Vec3> = turned_curve(by).into_iter().map(|w| out.p(w)).collect();
++                let _ = s.set_points(curve, polyline(pts).build().points());
++                last = t;
++            },
++            true,
++        )?;
++        stage.add_to_scene(field)?;
++        stage.add_to_scene(anchor)?;
++        Ok(Self { turned, anchor, field })
++    }
++
++    /// Stop repainting; the field is faded with the rest of the picture.
++    fn stop(&self, stage: &mut Stage<'_>) {
++        stage.clear_updaters(self.anchor, true);
++        stage.remove_from_scene(self.anchor);
++    }
++}
++
+ /// How long each of 11_1's counts stays up once its walk has ended.
+ const COUNT_HOLD: f64 = 0.8;
+ /// The fade of a walk's loop, then of its walker.
+@@ -596,6 +730,18 @@
+ 
+ /// "f(z) = z⁸", over the two windows.
+ const COARSE_TITLE_AT: (f64, f64) = (-4.0, 2.4);
++/// Where 11_8 names the reach, one label after the other, in the output window's units: over
++/// its top edge. Carried round the unit circle, the reach disk passes over everything out to
++/// a radius of 1.79, which leaves no room in the window for a label this long (tested).
++const REACH_NAMES_AT: (f64, f64) = (0.0, 2.2);
++/// The name of the output plane's 0, in window units, and the plate it sits on in scene units.
++/// The plate stays between the axes and inside the unit circle.
++const ZERO_NAME_AT: (f64, f64) = (-0.25, -0.3);
++const ZERO_PLATE: f64 = 0.105;
++/// 11_8's name `a`, as a multiple of the sample it names. Turned with the sample, it keeps to one
++/// side of the line from 0, inside the disk and off the output circle. At 1, where the walk
++/// starts and ends, this is the place the name has always had.
++const A_NAME_ON_SAMPLE: C = C::new(0.72, 0.2);
+ /// The rows under the windows, left-aligned at `COARSE_ROW_X`: what the
+ /// samples say, what they missed, the bound, then the test.
+ const COARSE_ROW_X: f64 = -6.85;
+@@ -656,7 +802,10 @@
+         &[],
+         v(COARSE_TITLE_AT.0, COARSE_TITLE_AT.1),
+     )?);
+-    frame.push(kit.text(stage, STEP_SKETCH[1], 20.0, Palette::ink(), out.p(C::new(-0.25, -0.3)))?);
++    let zero_at = out.p(C::new(ZERO_NAME_AT.0, ZERO_NAME_AT.1));
++    let zero_plate = dot(stage, zero_at, ZERO_PLATE, ground());
++    let zero_name = kit.text(stage, STEP_SKETCH[1], 20.0, Palette::ink(), zero_at)?;
++    frame.extend([zero_plate, zero_name]);
+     let image = dot(stage, out.p(f(ONE)), 0.08, output());
+     frame.push(image);
+     fade_in_all(stage, &frame, 0.4)?;
+@@ -771,7 +920,8 @@
+         .build(),
+     );
+     // above the window: inside it, this would be red on the red the window has just turned
+-    let covers = kit.text(stage, REACH_COVERS, 18.0, warn(), out.p(C::new(0.0, 2.2)))?;
++    let names_at = out.p(C::new(REACH_NAMES_AT.0, REACH_NAMES_AT.1));
++    let covers = kit.text(stage, REACH_COVERS, 18.0, warn(), names_at)?;
+     let refused = kit.text_left(
+         stage,
+         &format!("{REACH_IS}{reach_few} ≥ {size}{REFUSE}"),
+@@ -799,20 +949,9 @@
+         .build()
+         .moved_to(out.p(f(ONE)));
+     let disk = stage.arena_mut().add(disk);
+-    let a_name = kit.text(
+-        stage,
+-        STEP_SKETCH[0],
+-        20.0,
+-        output(),
+-        out.p(f(ONE) + C::new(-0.28, 0.2)),
+-    )?;
+-    let reach_name = kit.text(
+-        stage,
+-        STEP_SKETCH[2],
+-        18.0,
+-        derivative_teal(),
+-        out.p(C::new(0.95, -1.2)),
+-    )?;
++    let a_name = kit.text(stage, STEP_SKETCH[0], 20.0, output(), out.p(f(ONE) * A_NAME_ON_SAMPLE))?;
++    // where `covers` has just left: the sweep below passes over the window's whole middle
++    let reach_name = kit.text(stage, STEP_SKETCH[2], 18.0, derivative_teal(), names_at)?;
+     let passes = kit.text_left(
+         stage,
+         &format!("{REACH_IS}{reach_enough} < {size}{PASSES}"),
+@@ -835,6 +974,9 @@
+     );
+     fade_in_all(stage, &[gap], 0.2)?;
+     left.push(gap);
++    // the distance line and the disk's rim both pass the fixed 0: its name goes over them
++    stage.add_to_scene(zero_plate)?;
++    stage.add_to_scene(zero_name)?;
+     let carried = stage.add_value_tracker(0.0);
+     let anchor = stage.arena_mut().add(VMobject::new());
+     stage.add_to_scene(anchor)?;
+@@ -843,7 +985,7 @@
+         move |a, _| {
+             let c = C::polar(1.0, TAU * value(a, carried));
+             a.move_to(disk, out.p(c), ORIGIN);
+-            a.move_to(a_name, out.p(c + C::new(-0.28, 0.2)), ORIGIN);
++            a.move_to(a_name, out.p(c * A_NAME_ON_SAMPLE), ORIGIN);
+             let _ = a.set_points(gap, polyline(vec![out.p(ZERO), out.p(c)]).build().points());
+         },
+         true,
+@@ -1399,6 +1541,395 @@
+         assert_eq!(winding_certified(f, ZERO, 1.0, enough, l), Some(i64::from(power)));
+     }
+ 
++    /// The reach's name is fixed and the disk is carried once round the unit circle, so the
++    /// label has to clear the disk at every step of the sweep, over the label's whole extent.
++    /// Half its size in scene units: 102 × 16 pixels at 90 a unit on preview02's frame 535,
++    /// rounded up. That is the drawn label, measured where it stood before this move.
++    #[test]
++    fn the_reach_disk_never_crosses_its_name() {
++        const HALF: (f64, f64) = (0.6, 0.09);
++        // half the title's width, from x = 231 to 328 on the same frame, rounded up
++        const TITLE_HALF: f64 = 0.55;
++        let (_, out) = coarse_planes();
++        let w = out.frame;
++        let unit = out.unit();
++        let reach = f64::from(model::COARSE_POWER) * TAU / model::COARSE_STEPS[1] as f64;
++        let (half_x, half_y) = (HALF.0 / unit, HALF.1 / unit);
++        let sweep = circle(ZERO, 1.0, 1440);
++        // the closest any disk of the sweep comes to a label centred at `at`, in window units;
++        // below zero, the disk is on the label
++        let clearance = |at: (f64, f64)| {
++            sweep
++                .iter()
++                .map(|c| {
++                    let dx = ((c.re - at.0).abs() - half_x).max(0.0);
++                    let dy = ((c.im - at.1).abs() - half_y).max(0.0);
++                    dx.hypot(dy) - reach
++                })
++                .fold(f64::INFINITY, f64::min)
++        };
++        // a clear gap in scene units, wider than the disk's line
++        assert!(clearance(REACH_NAMES_AT) * unit > 0.15);
++        // the place it had, where preview02's frames 548-551 show the disk on it
++        assert!(clearance((0.95, -1.2)) < 0.0);
++        // and no place inside the window would do: every label that fits in it is within the
++        // sweep, the emptiest corner included
++        for i in 0..=80 {
++            for j in 0..=80 {
++                let at = (
++                    w.x.0 + half_x + (w.x.1 - w.x.0 - 2.0 * half_x) * f64::from(i) / 80.0,
++                    w.y.0 + half_y + (w.y.1 - w.y.0 - 2.0 * half_y) * f64::from(j) / 80.0,
++                );
++                assert!(clearance(at) < 0.0, "{at:?}");
++            }
++        }
++        // whole, above the window's top edge, under its width, in the frame and clear of the title
++        let centre = out.p(C::new(REACH_NAMES_AT.0, REACH_NAMES_AT.1));
++        assert!(REACH_NAMES_AT.1 - half_y > w.y.1 + 0.05);
++        assert!(REACH_NAMES_AT.0 - half_x > w.x.0 && REACH_NAMES_AT.0 + half_x < w.x.1);
++        assert!(centre[1] + HALF.1 < 4.0);
++        assert!(centre[0] - HALF.0 > COARSE_TITLE_AT.0 + TITLE_HALF + 0.2, "{centre:?}");
++    }
++
++    /// The name `a` turns with its sample, so the line from 0 to the sample never runs over it,
++    /// as it did at a fixed offset on preview02's frame 551, and it never sits on the output
++    /// circle's dots, as on frame 541. The glyph is 9 pixels square at 63 a window unit.
++    #[test]
++    fn the_samples_name_keeps_off_the_distance_line() {
++        const HALF_DIAGONAL: f64 = 0.1;
++        let reach = f64::from(model::COARSE_POWER) * TAU / model::COARSE_STEPS[1] as f64;
++        let zero_name = C::new(-0.25, -0.3);
++        let sweep = circle(ZERO, 1.0, 1440);
++        for &c in &sweep {
++            let at = c * A_NAME_ON_SAMPLE;
++            assert!((at / c).im.abs() > 1.5 * HALF_DIAGONAL, "{c:?}");
++            assert!((at - c).abs() + HALF_DIAGONAL < reach, "{c:?}");
++            assert!(at.abs() + HALF_DIAGONAL < 0.93, "{c:?}");
++            assert!((at - zero_name).abs() > 2.0 * HALF_DIAGONAL, "{c:?}");
++        }
++        // where the walk starts, the place the name has always had
++        assert!((ONE * A_NAME_ON_SAMPLE - (ONE + C::new(-0.28, 0.2))).abs() < 1e-12);
++        // the fixed offset it had does cross the line
++        assert!(sweep.iter().any(|&c| (C::new(-0.28, 0.2) / c).im.abs() < HALF_DIAGONAL));
++    }
++
++    /// The two labels share one place, one after the other, and the sweep leaves it alone.
++    /// Read from this file, because no render can run here.
++    #[test]
++    fn the_reach_labels_take_turns_over_the_window() {
++        let source = include_str!("counting.rs");
++        let body = &source[source.find("fn coarse_loop(").unwrap()..];
++        let at = |text: &str| body.find(text).unwrap_or_else(|| panic!("{text}"));
++        let covers = at("let covers = kit.text(stage, REACH_COVERS, 18.0, warn(), names_at)?;");
++        let gone = at("fade_out_all(stage, &[covered, covers, refused, band], 0.3)?;");
++        let name = at("let reach_name = kit.text(stage, STEP_SKETCH[2], 18.0, derivative_teal(), names_at)?;");
++        let lit = at("fade_in_all(stage, &lit, 0.4)?;");
++        let sweep = at("let carried = stage.add_value_tracker(0.0);");
++        let played = at("stage.play(tween_linear(carried, 1.0, rt)?)?;");
++        assert!(covers < gone && gone < name && name < lit && lit < sweep && sweep < played);
++        assert!(!body[sweep..played].contains("reach_name"));
++        assert!(!body[..played].contains("C::new(0.95, -1.2)"));
++    }
++
++    /// 11_7's pictures wait on the sentences that name them. A sentence added to the cue moves
++    /// these indices, and nothing else would notice: a wrong one still runs, on the wrong words.
++    #[test]
++    fn the_roots_argument_waits_on_the_right_sentences() {
++        let said = crate::SCRIPT
++            .lines()
++            .find_map(|line| line.strip_prefix("11_7\t"))
++            .unwrap();
++        assert!(!said.contains("? ") && !said.contains("! "));
++        let sentences: Vec<&str> = said.split(". ").collect();
++        assert_eq!(sentences.len(), 7);
++        let source = include_str!("counting.rs");
++        let here = source.find("let line = say(&kit, stage, \"11_7\")?;").unwrap();
++        let end = here + source[here..].find("let line = say(&kit, stage, \"11_8\")?;").unwrap();
++        let cue = &source[here..end];
++        for (k, opens, then) in [
++            (
++                1,
++                "Divide by its leading coefficient",
++                "stage.play(tween(turning.turned, 0.0, rt)?)?;",
++            ),
++            (2, "Now it starts with z to the n", "let degree_n ="),
++            (3, "On a huge circle", "fade_in_all(stage, &wide_all, 0.5)?;"),
++            (4, "Picture z to the n as a walker", "dog.show(stage)?;"),
++        ] {
++            assert!(sentences[k].starts_with(opens), "{k}: {}", sentences[k]);
++            let waited = format!("line.wait_sentence(stage, {k})?;");
++            let wait = cue.find(&waited).unwrap() + waited.len();
++            let shown = wait + cue[wait..].find(then).unwrap();
++            assert!(!cue[wait..shown].contains("wait_sentence"), "{k}: {then}");
++        }
++        // the walk lands on the count
++        assert!(sentences[6].starts_with("So there are exactly n roots"));
++        assert!(cue.contains("let rt = (line.sentence(6)? - stage.scene().time().to_f64()).max(5.0);"));
++        // the claim needs "nonconstant", on screen and said, and the said argument needs the division
++        assert!(ROOTS_CLAIM.contains("nonconstant"));
++        assert!(sentences[0].contains("every nonconstant complex polynomial"));
++        assert!(sentences[1].starts_with("Divide by its leading coefficient"));
++        assert!(sentences[2].contains("for some positive integer n"));
++    }
++
++    /// 11_7 at its edges. Dividing by a leading coefficient that is not one changes neither the
++    /// roots nor the turns, and then the leash is shorter than the walker on a huge circle. A
++    /// constant makes no turns at all, which is why the claim says "nonconstant".
++    #[test]
++    fn the_division_keeps_the_count_and_a_constant_makes_no_turns() {
++        let a = C::new(2.0, -3.0);
++        let polynomial = move |z: C| Some(a * z.powi(3) + z - C::real(5.0));
++        let divided = move |z: C| Some(z.powi(3) + z / a - C::real(5.0) / a);
++        let huge = circle(ZERO, 50.0, 4000);
++        assert_eq!(winding_count(polynomial, &huge), Some(3));
++        assert_eq!(winding_count(divided, &huge), Some(3));
++        for &z in &huge {
++            let (walker, dog) = (z.powi(3), divided(z).unwrap());
++            assert!((dog - walker).abs() < walker.abs());
++            // the same polynomial, up to the factor: their zeros are the same points
++            assert!((polynomial(z).unwrap() / a - dog).abs() < 1e-9 * walker.abs());
++        }
++        assert_eq!(winding_count(move |_: C| Some(a), &huge), Some(0));
++    }
++
++    /// The example is the quintic the viewer has just watched, times its leading coefficient, so
++    /// the division ends on a polynomial the film has already drawn. Only the leading coefficient
++    /// and the divisor take the colour: the key is found by plain text in the source.
++    #[test]
++    fn the_example_is_the_quintic_times_its_leading_coefficient() {
++        assert_eq!(BEFORE_DIVIDING_TEX, r"f(z) = 2iz^5 - 6iz + 2{i}");
++        assert!(AFTER_DIVIDING_TEX.ends_with(r"\div 2i = z^5 - 3z + 1"));
++        assert_eq!(BEFORE_DIVIDING_TEX.matches(LEADING_KEY).count(), 1);
++        assert_eq!(AFTER_DIVIDING_TEX.matches(LEADING_KEY).count(), 1);
++        assert!(BEFORE_DIVIDING_TEX.contains(&format!("{LEADING_KEY}z^5")));
++        assert!(EVERY_OUTPUT.contains("÷ 2i") && EVERY_OUTPUT.contains("2i ≠ 0"));
++        assert!(ZERO_KEPT.starts_with("0 ÷ 2i = 0"));
++        // what the rows print is what `LEADING` computes
++        assert!((LEADING - C::new(0.0, 2.0)).abs() == 0.0);
++        let q = |z: C| Func::Quintic.eval(z).unwrap();
++        for z in circle(C::new(0.3, -0.2), 1.7, 97) {
++            let printed = C::new(0.0, 2.0) * z.powi(5) + C::new(0.0, -6.0) * z + C::new(0.0, 2.0);
++            assert!((printed - LEADING * q(z)).abs() < 1e-12 * (1.0 + printed.abs()));
++            assert!((printed / LEADING - (z.powi(5) - z.scale(3.0) + ONE)).abs() < 1e-12 * (1.0 + printed.abs()));
++        }
++    }
++
++    /// The tracker runs from the quintic (0) to the example (1), by a factor that is never 0, in
++    /// steps small enough to read as a turn.
++    #[test]
++    fn the_turn_runs_from_one_to_the_coefficient_and_never_reaches_zero() {
++        assert!((turned_by(0.0) - ONE).abs() == 0.0);
++        assert!((turned_by(1.0) - LEADING).abs() < 1e-15);
++        let steps = TURN_STEPS as usize;
++        for k in 0..=steps {
++            let t = k as f64 / TURN_STEPS;
++            let by = turned_by(t);
++            assert!(by.abs() >= 1.0 - 1e-12 && by.abs() <= LEADING.abs() + 1e-12, "{t}");
++            assert!((by.arg() - LEADING.arg() * t).abs() < 1e-12, "{t}");
++            if k < steps {
++                let step = (turned_by((k + 1) as f64 / TURN_STEPS) / by).arg();
++                assert!(step > 0.0 && step < 2f64.to_radians(), "{t}");
++            }
++        }
++    }
++
++    /// What the picture acts: at every step of the turn the five roots are still roots, no other
++    /// point has come nearer 0, the count of turns on each loop is what it was, and every output
++    /// has turned by the same angle.
++    #[test]
++    fn every_step_of_the_turn_keeps_the_roots_and_the_turns() {
++        let roots = model::quintic_roots();
++        let unit = circle(ZERO, 1.0, 720);
++        let big = circle(ZERO, 3.0, 2880);
++        for k in 0..=12 {
++            let t = f64::from(k) / 12.0;
++            let by = turned_by(t);
++            let turned = move |z: C| Func::Quintic.eval(z).map(|w| by * w);
++            for r in roots {
++                assert!(turned(r).unwrap().abs() < 1e-9, "{t}");
++            }
++            assert_eq!(winding_count(turned, &unit), Some(1), "{t}");
++            assert_eq!(winding_count(turned, &big), Some(5), "{t}");
++            for z in circle(C::new(0.4, 0.3), 0.61, 41) {
++                let (w, moved) = (Func::Quintic.eval(z).unwrap(), turned(z).unwrap());
++                assert!(moved.abs() >= w.abs() - 1e-12, "{t}");
++                assert!(((moved / w).arg() - LEADING.arg() * t).abs() < 1e-9, "{t}");
++            }
++        }
++    }
++
++    /// The turn starts from the curve 11_6's walk left, point for point, and at every step the
++    /// curve stays inside the output plane, clear of the name of its 0, and around it once.
++    #[test]
++    fn the_turning_curve_starts_from_the_walks_and_keeps_off_zero() {
++        let (_, out) = planes();
++        let start = turned_curve(turned_by(0.0));
++        assert_eq!(start.len(), WALK_SAMPLES + 1);
++        for (j, c) in start.iter().enumerate() {
++            let z = ZERO + C::polar(1.0, TAU * j as f64 / WALK_SAMPLES as f64);
++            let walked = squash(Func::Quintic.eval(z).unwrap(), ROOT_WALK_SQUASH, OUT_R);
++            assert!((*c - walked).abs() == 0.0, "{j}");
++        }
++        // the name's far corner: at (−0.12, −0.14), 22 pt, half 0.06 × 0.08 in scene units
++        let name_reach = C::new(0.12, 0.14).abs() + C::new(0.06, 0.08).abs() / out.unit();
++        for k in 0..=TURN_STEPS as usize {
++            let by = turned_by(k as f64 / TURN_STEPS);
++            let curve = turned_curve(by);
++            for &c in &curve {
++                assert!(out.contains(c));
++                assert!(c.abs() > name_reach + 0.1, "{k}");
++            }
++            assert_eq!(
++                winding_count(move |w: C| Some(w), &curve[..WALK_SAMPLES]),
++                Some(1),
++                "{k}"
++            );
++        }
++    }
++
++    /// The picture that turns takes over from the painter unseen, so it has to paint what the
++    /// painter was showing: the same window, the same full portrait, no repaint until it moves.
++    /// And `one` is the loop, the count, then the walker's pieces with its curve first.
++    #[test]
++    fn the_turning_field_takes_over_unseen_from_the_walks_own_pieces() {
++        // the film's code only: these lines are quoted again below
++        let film = include_str!("counting.rs")
++            .split("#[cfg(test)]\nmod tests")
++            .next()
++            .unwrap();
++        let draw = include_str!("draw.rs");
++        assert!(film.contains("Painter::build(stage, Some(Func::Identity), inp, 1.0)?"));
++        assert!(!film.contains("painter.enhance_to("));
++        assert!(film.contains("let strips = portrait(stage, Func::Quintic, &inp, 1.0)?;"));
++        assert!(film.contains("let mut last = 0.0;"));
++        assert!(film.contains("let (walked_loop, walked_curve) = (one[0], one[2]);"));
++        assert!(film.contains("let mut drawn = vec![ring, shown];"));
++        assert!(film.contains("drawn.extend(&w.mobs);"));
++        assert!(draw.contains("mobs: vec![trail, arrow, in_dot, out_dot],"));
++        assert!(draw.contains("let trail = stage.arena_mut().add("));
++        assert_eq!(ROOT_WALK_SQUASH, 2.0);
++        assert!(film.contains("            ROOT_WALK_SQUASH,\n            fact(\"argument.quintic.unit\")?,"));
++    }
++
++    /// 11_7's acted picture follows its words, and keeps its roots on screen and unmoved from the
++    /// moment they are the subject until the wide plane replaces them.
++    #[test]
++    fn the_division_keeps_to_its_words_and_leaves_the_marks_alone() {
++        let said = crate::SCRIPT
++            .lines()
++            .find_map(|line| line.strip_prefix("11_7\t"))
++            .unwrap();
++        let sentences: Vec<&str> = said.split(". ").collect();
++        for (k, phrase) in [(0, "complex polynomial"), (1, "which leaves")] {
++            assert_eq!(said.matches(phrase).count(), 1, "{phrase}");
++            assert!(sentences[k].contains(phrase), "{phrase}");
++        }
++        let source = include_str!("counting.rs");
++        let here = source.find("let line = say(&kit, stage, \"11_7\")?;").unwrap();
++        let end = here + source[here..].find("let line = say(&kit, stage, \"11_8\")?;").unwrap();
++        let cue = &source[here..end];
++        let mut at = 0;
++        for step in [
++            "fade_out_all(stage, &gone, 0.3)?;",
++            "let turning = Turning::build(stage, inp, out, walked_curve)?;",
++            "stage.add_to_scene(walked_loop)?;",
++            "stage.add_to_scene(mark)?;",
++            "painter.leave(stage, 0.4)?;",
++            "fade_in_all(stage, &[claim], 0.4)?;",
++            "line.wait_for(stage, \"complex polynomial\")?;",
++            "fade_in_all(stage, &[before], 0.3)?;",
++            "let rt = (line.sentence(1)? - stage.scene().time().to_f64()).clamp(0.7, 1.4);",
++            "stage.play(tween(turning.turned, 1.0, rt)?)?;",
++            "line.wait_sentence(stage, 1)?;",
++            "fade_in_all(stage, &[every_output], 0.3)?;",
++            "let rt = line.until(stage, \"which leaves\", 1.2)?;",
++            "stage.play(tween(turning.turned, 0.0, rt)?)?;",
++            "fade_out_all(stage, &[before, every_output], 0.2)?;",
++            "fade_in_all(stage, &result, 0.3)?;",
++            "line.wait_sentence(stage, 2)?;",
++            "fade_out_all(stage, &[after], 0.3)?;",
++            "fade_in_all(stage, &[degree_n], 0.4)?;",
++            "line.wait_sentence(stage, 3)?;",
++            "turning.stop(stage);",
++            "fade_out_all(stage, &acted, 0.3)?;",
++            "fade_in_all(stage, &wide_all, 0.5)?;",
++        ] {
++            let found = cue[at..].find(step).unwrap_or_else(|| panic!("out of order: {step}"));
++            at += found + step.len();
++        }
++        // the marks and the loop are not cleared with 11_6, and nothing in the cue moves a mark
++        assert!(!cue.contains("gone.extend(roots") && !cue.contains("one.clone()"));
++        assert_eq!(cue.matches("acted.extend(roots);").count(), 1);
++        assert!(!cue.contains("move_to(mark") && !cue.contains("shift(mark"));
++        assert_eq!(cue.matches("turning.turned").count(), 2);
++    }
++
++    /// The rows stand over the field and the words on it miss the marks, so the picture that
++    /// proves the point is never covered.
++    #[test]
++    fn the_division_labels_leave_the_field_and_the_marks_clear() {
++        // half the height of a 32 pt row with a superscript, and of the 30 pt claim, rounded up
++        const ROW_HALF: f64 = 0.24;
++        const CLAIM_HALF: f64 = 0.17;
++        let (inp, out) = planes();
++        let [claim, row] = OVER_FIELD;
++        assert!(row.1 - ROW_HALF > inp.frame.top() + 0.05);
++        assert!(claim.1 - CLAIM_HALF > row.1 + ROW_HALF + 0.05);
++        assert!(claim.1 + CLAIM_HALF < 4.0 - 0.1);
++        assert!(OVER_OUTPUT.1 - ROW_HALF > out.frame.top());
++        // the marks are the quintic's five, inside the window
++        let (x, y) = (inp.frame.x, inp.frame.y);
++        let zeros = Func::Quintic.zeros(x, y);
++        assert_eq!(zeros.len(), 5);
++        assert!(SAME_ROOTS.contains("five"));
++        // the card: half its height from preview02's frame 340, half its width by ems, in plane units
++        let unit = inp.unit();
++        let (card_half_h, card_half_w) = (0.27 / unit, 1.0 / unit);
++        let (lowest, mark) = (zeros.iter().map(|z| z.im).fold(f64::INFINITY, f64::min), 0.11 / unit);
++        assert!(SAME_ROOTS_AT.1 + card_half_h < lowest - mark - 0.05);
++        assert!(SAME_ROOTS_AT.1 + card_half_h < -1.0);
++        assert!(SAME_ROOTS_AT.1 - card_half_h > inp.frame.y.0);
++        assert!(SAME_ROOTS_AT.0 - card_half_w > inp.frame.x.0 && SAME_ROOTS_AT.0 + card_half_w < inp.frame.x.1);
++    }
++
++    /// 11_8's fixed 0: the distance line reaches it at some bearing and the reach's rim passes it,
++    /// so its name goes over both on a plate that covers neither axis nor the unit circle, is on
++    /// empty ground when it is promoted, and carries the digit's whole extent.
++    #[test]
++    fn the_zero_keeps_its_name_while_the_line_and_the_rim_go_by() {
++        let (_, out) = coarse_planes();
++        let unit = out.unit();
++        let at = C::new(ZERO_NAME_AT.0, ZERO_NAME_AT.1);
++        let plate = ZERO_PLATE / unit;
++        assert!(at.re.abs() > plate + 0.02 && at.im.abs() > plate + 0.02);
++        assert!(at.abs() + plate < 1.0 - 0.05);
++        // half a 20 pt digit: 0.05 × 0.07 in scene units
++        assert!(C::new(0.05, 0.07).abs() < ZERO_PLATE);
++        // what it protects against: the line and the rim do cross the plate during the sweep
++        let reach = f64::from(model::COARSE_POWER) * TAU / model::COARSE_STEPS[1] as f64;
++        let sweep: Vec<C> = (0..720).map(|k| C::polar(1.0, TAU * f64::from(k) / 720.0)).collect();
++        let line_crosses = |c: C| {
++            let along = (at.re * c.re + at.im * c.im).clamp(0.0, 1.0);
++            (at - c.scale(along)).abs() < plate
++        };
++        assert!(sweep.iter().any(|&c| line_crosses(c)));
++        assert!(sweep.iter().any(|&c| ((at - c).abs() - reach).abs() < plate));
++        // and at the start of the sweep, where it is promoted, neither is near it
++        assert!(!line_crosses(ONE));
++        assert!(((at - ONE).abs() - reach).abs() > plate);
++        // the film's code only: these lines are quoted here
++        let film = include_str!("counting.rs")
++            .split("#[cfg(test)]\nmod tests")
++            .next()
++            .unwrap();
++        let body = &film[film.find("fn coarse_loop(").unwrap()..];
++        let find = |text: &str| body.find(text).unwrap_or_else(|| panic!("{text}"));
++        assert!(find("fade_in_all(stage, &[gap], 0.2)?;") < find("stage.add_to_scene(zero_plate)?;"));
++        assert!(find("stage.add_to_scene(zero_plate)?;") < find("stage.add_to_scene(zero_name)?;"));
++        assert!(find("stage.add_to_scene(zero_name)?;") < find("let carried = stage.add_value_tracker(0.0);"));
++        assert!(find("frame.extend([zero_plate, zero_name]);") < find("let mut left = frame;"));
++    }
++
+     #[test]
+     fn the_coarse_formulas_name_the_loop() {
+         assert_eq!(fact("argument.coarse.power").ok(), Some("8"));

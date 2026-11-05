@@ -1,0 +1,266 @@
+{
+  "holds": [
+    {
+      "cue": "05_1",
+      "next_cue": "05_2",
+      "file": "complex_turns.rs",
+      "marker": "predict(&kit, stage, v(2.5, -0.62), 3.0)?;",
+      "old": {
+        "sha256": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+        "say_line": 185,
+        "marker_line": 245,
+        "next_say_line": 249,
+        "interval_sha256": "5256ae12dfc74fb4a9a30cb3394b4281c7736b52efdc0345e57b565b0fd27859"
+      },
+      "new": {
+        "sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+        "say_line": 185,
+        "marker_line": 245,
+        "next_say_line": 249,
+        "interval_sha256": "5256ae12dfc74fb4a9a30cb3394b4281c7736b52efdc0345e57b565b0fd27859"
+      },
+      "lines_moved": 0,
+      "interval_changed": false
+    },
+    {
+      "cue": "05_5",
+      "next_cue": "05_6",
+      "file": "complex_turns.rs",
+      "marker": "predict(&kit, stage, v(OUT.centre[0], -2.75), 3.0)?;",
+      "old": {
+        "sha256": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+        "say_line": 611,
+        "marker_line": 623,
+        "next_say_line": 626,
+        "interval_sha256": "93a300682e33fcfeac462b8e81696af114f96e9739a3647ac1748c3d62189dc5"
+      },
+      "new": {
+        "sha256": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a",
+        "say_line": 624,
+        "marker_line": 636,
+        "next_say_line": 639,
+        "interval_sha256": "93a300682e33fcfeac462b8e81696af114f96e9739a3647ac1748c3d62189dc5"
+      },
+      "lines_moved": 13,
+      "interval_changed": false
+    },
+    {
+      "cue": "06_2",
+      "next_cue": "06_3",
+      "file": "lifting_loops.rs",
+      "marker": "predict(&kit, stage, v(Z.centre[0], 2.55), 2.6)?;",
+      "old": {
+        "sha256": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+        "say_line": 335,
+        "marker_line": 374,
+        "next_say_line": 377,
+        "interval_sha256": "9c1ce6b4868ea9b3fb693ba0290c40ac292aa2b9846d50c883c0cf432e7eb9a7"
+      },
+      "new": {
+        "sha256": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346",
+        "say_line": 335,
+        "marker_line": 374,
+        "next_say_line": 377,
+        "interval_sha256": "9c1ce6b4868ea9b3fb693ba0290c40ac292aa2b9846d50c883c0cf432e7eb9a7"
+      },
+      "lines_moved": 0,
+      "interval_changed": false
+    },
+    {
+      "cue": "06_4",
+      "next_cue": "06_5",
+      "file": "lifting_loops.rs",
+      "marker": "predict(&kit, stage, v(2.4, 1.8), 2.6)?;",
+      "old": {
+        "sha256": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+        "say_line": 417,
+        "marker_line": 475,
+        "next_say_line": 478,
+        "interval_sha256": "7651918d6c2ca7643ab83eae2e4942bdac5c324220c195fe8594389e80c8c78a"
+      },
+      "new": {
+        "sha256": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346",
+        "say_line": 417,
+        "marker_line": 475,
+        "next_say_line": 478,
+        "interval_sha256": "7651918d6c2ca7643ab83eae2e4942bdac5c324220c195fe8594389e80c8c78a"
+      },
+      "lines_moved": 0,
+      "interval_changed": false
+    },
+    {
+      "cue": "07_3",
+      "next_cue": "07_4",
+      "file": "branch_cut.rs",
+      "marker": "predict(&kit, stage, v(right + 1.7, 1.95), 3.0)?;",
+      "old": {
+        "sha256": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+        "say_line": 366,
+        "marker_line": 419,
+        "next_say_line": 422,
+        "interval_sha256": "8b3000fdb4e3c1154faad8bc7de6e1b6652e0c8177bdbfb7328a893022bb08b6"
+      },
+      "new": {
+        "sha256": "c1159c3727a1f1d83351d2c837027c563455df6ebc2de32a2db5973d56cbc401",
+        "say_line": 366,
+        "marker_line": 419,
+        "next_say_line": 422,
+        "interval_sha256": "8b3000fdb4e3c1154faad8bc7de6e1b6652e0c8177bdbfb7328a893022bb08b6"
+      },
+      "lines_moved": 0,
+      "interval_changed": false
+    },
+    {
+      "cue": "08_1",
+      "next_cue": "08_2",
+      "file": "product_rule.rs",
+      "marker": "predict(&kit, stage, v(3.6, 0.6), 3.0)?;",
+      "old": {
+        "sha256": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+        "say_line": 108,
+        "marker_line": 221,
+        "next_say_line": 224,
+        "interval_sha256": "1d498942e2bc12a7a6d206cbb4335719700682561c2357709722c252726d86b6"
+      },
+      "new": {
+        "sha256": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+        "say_line": 108,
+        "marker_line": 221,
+        "next_say_line": 224,
+        "interval_sha256": "1d498942e2bc12a7a6d206cbb4335719700682561c2357709722c252726d86b6"
+      },
+      "lines_moved": 0,
+      "interval_changed": false
+    },
+    {
+      "cue": "08_4",
+      "next_cue": "08_5",
+      "file": "product_rule.rs",
+      "marker": "predict(&kit, stage, v(right + 2.5, -2.75), 3.0)?;",
+      "old": {
+        "sha256": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+        "say_line": 317,
+        "marker_line": 346,
+        "next_say_line": 349,
+        "interval_sha256": "23b0206f29d4163576b78273cad64e3466d033d5bf8310f0821dacbe00769786"
+      },
+      "new": {
+        "sha256": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+        "say_line": 317,
+        "marker_line": 346,
+        "next_say_line": 349,
+        "interval_sha256": "23b0206f29d4163576b78273cad64e3466d033d5bf8310f0821dacbe00769786"
+      },
+      "lines_moved": 0,
+      "interval_changed": false
+    }
+  ],
+  "finishes": {
+    "complex_turns.rs": {
+      "old_line": 736,
+      "new_line": 749
+    },
+    "lifting_loops.rs": {
+      "old_line": 692,
+      "new_line": 699
+    },
+    "branch_cut.rs": {
+      "old_line": 607,
+      "new_line": 607
+    },
+    "product_rule.rs": {
+      "old_line": 449,
+      "new_line": 468
+    }
+  },
+  "per_file": {
+    "complex_turns.rs": {
+      "old": {
+        "say": 8,
+        "until_sentence": 25,
+        "until_phrase_calls": 0,
+        "phrase_marks_uses": 0,
+        "wait_frames_calls": 0,
+        "lines": 1041
+      },
+      "new": {
+        "say": 8,
+        "until_sentence": 25,
+        "until_phrase_calls": 4,
+        "phrase_marks_uses": 1,
+        "wait_frames_calls": 1,
+        "lines": 1256
+      },
+      "sha256": {
+        "old": "2cc2ba7723e2733ef06c633650b135507d5d1726161fa2a277b90e00277b5ead",
+        "new": "93f663d372ab79a77139287dc38b94c148909f7ea4a6ba549884c91f342eb19a"
+      }
+    },
+    "lifting_loops.rs": {
+      "old": {
+        "say": 8,
+        "until_sentence": 26,
+        "until_phrase_calls": 0,
+        "phrase_marks_uses": 0,
+        "wait_frames_calls": 0,
+        "lines": 913
+      },
+      "new": {
+        "say": 8,
+        "until_sentence": 26,
+        "until_phrase_calls": 2,
+        "phrase_marks_uses": 1,
+        "wait_frames_calls": 1,
+        "lines": 1055
+      },
+      "sha256": {
+        "old": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+        "new": "01885b9f558c36bc8af425bfdf427e4b30d74d575819121e52988b5d06db7346"
+      }
+    },
+    "branch_cut.rs": {
+      "old": {
+        "say": 6,
+        "until_sentence": 24,
+        "until_phrase_calls": 0,
+        "phrase_marks_uses": 0,
+        "wait_frames_calls": 0,
+        "lines": 905
+      },
+      "new": {
+        "say": 6,
+        "until_sentence": 24,
+        "until_phrase_calls": 0,
+        "phrase_marks_uses": 0,
+        "wait_frames_calls": 0,
+        "lines": 924
+      },
+      "sha256": {
+        "old": "193c4733de9f9081f5671700a6710dd76e989b41ab268824bbb0756313fbdbbd",
+        "new": "c1159c3727a1f1d83351d2c837027c563455df6ebc2de32a2db5973d56cbc401"
+      }
+    },
+    "product_rule.rs": {
+      "old": {
+        "say": 5,
+        "until_sentence": 21,
+        "until_phrase_calls": 0,
+        "phrase_marks_uses": 0,
+        "wait_frames_calls": 0,
+        "lines": 534
+      },
+      "new": {
+        "say": 5,
+        "until_sentence": 21,
+        "until_phrase_calls": 2,
+        "phrase_marks_uses": 1,
+        "wait_frames_calls": 1,
+        "lines": 829
+      },
+      "sha256": {
+        "old": "e9019c828710207b806175a040aab936ee558b102d3cb55328078d42d897f7e0",
+        "new": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db"
+      }
+    }
+  }
+}

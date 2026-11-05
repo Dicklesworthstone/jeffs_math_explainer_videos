@@ -1,0 +1,397 @@
+--- logarithm-stage07-binder01/bind_final80-stage07.py
++++ logarithm-stage07-binder02/bind_final80-stage07-r2.py
+@@ -1,13 +1,17 @@
+ #!/usr/bin/env python3
+-"""Bind the final 80-cue logarithm narration plan to combined-repair-stage07/candidate.
++"""Bind the final 80-cue logarithm narration plan to combined-repair-stage07/candidate, revision 2.
+ 
+     python3 -I -B <this file> [--check] [--out DIR] [--final-out REPO_RELATIVE_DIR]
+     python3 -I -B <this file> --print-pins
+ 
+-Run from the repo root. Adapted from combined-repair-stage06/bind_final80-stage06.py.
++Run from the repo root. Revision of logarithm-stage07-binder01's binder, which stays sealed. It
++adds two bindings: White's phrase anchor on 03_3 "forgets", read directly by folded_decade.rs
++(logarithm-opening-oliver-timing01/source-markers.json), and root's request list for the current
++script (narration-request-final80-02/requests.json). Chapters 05-08's pending source changes are
++not here; they will be a separate update.
+ 
+ Reads stage07's candidate bytes (script b89eab60, with the 01_5 rounding wording), the kit, the
+-tools, root's frozen request files and stage06's bound plan (for the comparison only). Writes
+-only under --out, by default bound-plan next to this file, and refuses canonical and the
++tools, root's request files, stage06's bound plan and binder01's plan (both for comparison only).
++Writes only under --out, by default bound-plan next to this file, and refuses canonical and the
+ candidate as a target:
+ 
+@@ -20,4 +24,5 @@
+   cue-delta.json                           each final cue against root's request text
+   stage07-delta.json                       holds, waits, hooks and anchors against stage06
++  increment-delta.json                     every change in the plan against binder01's
+   inputs.sha256                            every input's bytes, for shasum -a 256 -c
+ 
+@@ -54,5 +59,5 @@
+ STAGE = STAGE07_ROOT / "candidate" / REL
+ CH = STAGE / "src/chapters"
+-OWN_FOLDER = "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01"
++OWN_FOLDER = "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder02"
+ FINAL_OUT = f"{OWN_FOLDER}/bound-plan"
+ # Canonical already holds a stage06 oliver13 bound to script f201d2dc, so this map needs a new name.
+@@ -71,4 +76,10 @@
+ }
+ FINAL80_REQUESTS = LANE / "narration-request-final80-01/requests.json"
++CURRENT_REQUESTS = LANE / "narration-request-final80-02/requests.json"
++OPUS = Path("docs/video-program/third-wave-20261024/opus-replacements-20261104")
++WHITE_MARKERS = OPUS / "logarithm-opening-oliver-timing01/source-markers.json"
++BINDER01_PLAN = OPUS / "logarithm-stage07-binder01/bound-plan"
++WHITE_ANCHORS = {("03_3", "forgets")}
++ADDED_ANCHORS = set(WHITE_ANCHORS)  # anchors stage06 lacks; a later update adds its own
+ # Which integration receipt names which stage07 file; the file's current hash must appear in it.
+ RECEIPTS = {
+@@ -76,6 +87,7 @@
+     "integration-partial02.json": ("script.tsv",),
+     "integration-partial03.json": ("src/chapters/undoing_growth.rs", "src/chapters/unreachable.rs"),
+-    "integration-partial04.json": ("src/chapters/ratio_ruler.rs", "src/chapters/folded_decade.rs", "src/chapters/slide_rule.rs"),
++    "integration-partial04.json": ("src/chapters/ratio_ruler.rs", "src/chapters/slide_rule.rs"),
+     "integration-partial05.json": ("src/chapters/what_it_forgets.rs",),
++    "integration-partial06.json": ("src/chapters/folded_decade.rs",),
+ }
+ # Every other crate file this reads, at the same path in stage06 and stage07. Stage06's bytes are
+@@ -92,4 +104,15 @@
+     "inputs.sha256",
+ )
++BINDER01_PLAN_FILES = (
++    f"{REL}/narration_units.json",
++    f"{REL}/docs/narration-direction-map-oliver14.json",
++    "hold-audit.json",
++    "phrase-anchors.json",
++    "phrase-timings-unmeasured-template.json",
++    "direction-dispositions-proposed.json",
++    "cue-delta.json",
++    "stage07-delta.json",
++    "inputs.sha256",
++)
+ SHARED_FILES = (
+     "crates/explainer_kit/src/kit.rs",
+@@ -117,5 +140,5 @@
+ ]
+ HOOK_HELPER_LINE = re.compile(r"\bfn (until_phrase|phrase_time)\(|phrase_time\(kit, (id|cue), phrase\)")
+-PHRASE_MARK_USES = {"slide_rule.rs": 1, "undoing_growth.rs": 1, "doing_nothing.rs": 1, "unreachable.rs": 1, "what_it_forgets.rs": 1}
++PHRASE_MARK_USES = {"folded_decade.rs": 1, "slide_rule.rs": 1, "undoing_growth.rs": 1, "doing_nothing.rs": 1, "unreachable.rs": 1, "what_it_forgets.rs": 1}
+ SENTENCE_HOOKS = [
+     (re.compile(r'kit\.until_sentence\(stage, "(\d\d_\d+)", (\d+)\)'), "until_sentence"),
+@@ -129,4 +152,5 @@
+ 
+ FALLBACK = {
++    "folded_decade.rs": "Without a mark at this byte: DIGITS_SHARE of the span from sentence 0 to sentence 1 (folded_decade.rs lay_beats). Provisional.",
+     "slide_rule.rs": "Without a mark at this byte: the phrase's character share of the cue's first sentence (slide_rule.rs phrase_time). Provisional.",
+     "undoing_growth.rs": "Without a mark at this byte: the phrase's character share between the onsets of sentences 3 and 4 (undoing_growth.rs climb_onset). Provisional.",
+@@ -191,5 +215,5 @@
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/draw.rs": "2a4e84504bab636433cd419b2c9990986d7c549bf05aa3432d33bd5a9b60fe28",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/explainer_corpus/logarithm_mysteries/src/chapters/draw.rs": "2a4e84504bab636433cd419b2c9990986d7c549bf05aa3432d33bd5a9b60fe28",
+-    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs": "c4f023ce5284dd768767b28c9d68a4da1e05c40385eb750dc9d4fbe583b6347e",
++    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs": "acfd77f46c2378c98ec77d1b5e7d0f2cb9c15f2bc3d209d80ba690c8fcc26e5e",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs": "acfc7f9c198b3d3d0f99e1b160ec6c2d4e22a4ce28aeb4263deb29df9efa670d",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate/explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs": "ca34aef0523ceadce22edccd7d384ac29c514653207fdf052fd5cb31cd3fa01e",
+@@ -226,4 +250,5 @@
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/integration-partial04.json": "13093614c086c2137aceebfaad9ed9cdf24603115c9a7411566d541ff93ca15f",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/integration-partial05.json": "6a437e6e52fd35bd9580ad2890c221a2b01a26c2c8954d8a16fc5dddcac3cfe0",
++    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/integration-partial06.json": "52928856607173bd1e535a332ebc37a4a214457803e3479cc41e425d4c8408a5",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/oracle04.tsv": "f5c028cea6ca71e3a3519a430af484079d0c7a445d0b771a9c3b00d754258540",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/before-rounding-wording01/script.tsv": "f201d2dc57fa9ccac30d475255690a90d6749449014b542d4dea62164f31bf84",
+@@ -233,4 +258,6 @@
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-inventory01.json": "d4f78c943703c04112ff2b96088d563a2f467c0defd984b31cc46e7e88243d9f",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-plan01.json": "71c5a5111b1a0eec44531403230ccce7acaa44fa29167ad138cd4602e2d5a5aa",
++    "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-02/requests.json": "c533f4ade3929518a68ecdf7f7b7027c22cbf59480e599c4b5982fd25e1e33be",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-opening-oliver-timing01/source-markers.json": "4b523a5ec39ed7a636b4e3480ed60991091719e8628450c113887b1cfa9fdeb3",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/bound-plan/explainer_corpus/logarithm_mysteries/narration_units.json": "d594089297ed09534bf4a291f1ddb33d10402da3d60a2aeee9f7175a4381aee2",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/bound-plan/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver13.json": "56f6ad64344514005a5ac385eb7826fa276346fb6c449acf54bf3de191da7e27",
+@@ -241,4 +268,13 @@
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/bound-plan/cue-delta.json": "125a049a035dc3f7db59e8fc1931591358e625b5231d64e3ba9ad19e3275d988",
+     "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/bound-plan/inputs.sha256": "b4926a8f35044f8ba7b686c266bd2a6695a7b7a17bf73c1cab34f31e98bb418d",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/explainer_corpus/logarithm_mysteries/narration_units.json": "61a1f622d083a700e3749bb6a4b92c61625231033ab5aef6dcfacc16c71d7b8f",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver14.json": "6a326cdee5ab9e8b2055bcb2aa77ffeb16c493df16f4d0e464e448175a97cf66",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/hold-audit.json": "151c4e6d81aad1a31bca8fdec30184b69d1d180546534bdfda51890a77628d1a",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/phrase-anchors.json": "31a3af5097ad2a2a005058e11d1dedceb19f0089b7a0a6002011f9435f7da244",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/phrase-timings-unmeasured-template.json": "fd1e12d9e5ba1b8b4fc7dc296ffa388937c2b853edc81e7d2910b9f66d706760",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/direction-dispositions-proposed.json": "986609984d8325809c516937dcf97acfe963d5f8bae0ad3f151246dcc7b3a299",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/cue-delta.json": "88da78a400ac8cef325de8db94483f70e263ddd8b2ba2923df6d905ceba00514",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/stage07-delta.json": "a1f0ea092079c0c0f48b6e366c415ac3a2fa532f0642b98e7c55cae44a996f33",
++    "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder01/bound-plan/inputs.sha256": "6ed20e477482a2703b2c73b27e00f2f10ec97eb87a7b13fb6738dac8f99aea67",
+     "crates/explainer_kit/src/kit.rs": "ef035faf236498e7485fb60a66d862b383e1a5040fa17962e1633596ed99e106",
+     "crates/explainer_kit/src/narration.rs": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8",
+@@ -285,5 +321,7 @@
+     rows += [STAGE06_ROOT / "oracle04.tsv", ROUNDING["before_script"], ROUNDING["request"], ROUNDING["review"], FINAL80_REQUESTS]
+     rows += [LANE / "narration-request-inventory01.json", LANE / "narration-request-plan01.json"]
++    rows += [CURRENT_REQUESTS, WHITE_MARKERS]
+     rows += [STAGE06_PLAN / p for p in STAGE06_PLAN_FILES]
++    rows += [BINDER01_PLAN / p for p in BINDER01_PLAN_FILES]
+     rows += [Path(p) for p in SHARED_FILES]
+     return [str(p) for p in rows]
+@@ -518,5 +556,5 @@
+     return {
+         "status": "CURRENT BASELINE. Character-share estimates from source; not measured, not marks, not phrase hooks.",
+-        "note": "ratio_ruler.rs read_shares and read_out, as integrated. Deliberately not until_phrase, so they read no entry of phrase-timings.json, and a mark for these words would change nothing until the source reads it. Another agent is investigating ASR anchors for the opening separately; this plan proposes no hook and no anchor for these words.",
++        "note": "ratio_ruler.rs read_shares and read_out, as integrated. Deliberately not until_phrase, so they read no entry of phrase-timings.json, and a mark for these words would change nothing until the source reads it. White's audit, logarithm-opening-oliver-timing01, compared these with two retained takes per cue and proposes no source change. Neither take is selected and nothing was heard. This plan proposes no hook and no anchor for these words.",
+         "cue": "00_1",
+         "sentence_index": 1,
+@@ -535,4 +573,101 @@
+         "fallback_without_narrator": "One every 0.9 s (read_out); a draft-only path, not a timing claim.",
+         "rows": rows,
++    }
++
++
++def white_markers(anchor_rows, script_sha, file_hash):
++    """The added anchor must be exactly what White's sealed source-markers.json proposed."""
++    doc = json.loads(WHITE_MARKERS.read_text(encoding="utf-8"))
++    rows = doc["phrase_anchor_delta"]
++    if len(rows) != 1 or {(r["cue"], r["phrase"]) for r in rows} != WHITE_ANCHORS:
++        stop("source-markers.json no longer proposes exactly the one anchor")
++    want = rows[0]
++    got = next((r for r in anchor_rows if (r["cue"], r["phrase"]) == (want["cue"], want["phrase"])), None)
++    if got is None:
++        stop(f"03_3: no anchor on the phrase source-markers.json says, {want['phrase']!r}")
++    for field in ("byte", "byte_end", "const", "sentence_index", "cue_text_sha256", "hook_sites", "measured_seconds"):
++        if got[field] != want[field]:
++            stop(f"03_3: {field} is {got[field]!r}, source-markers.json says {want[field]!r}")
++    if doc["baseline"]["stage07_script_sha256"] != script_sha:
++        stop("source-markers.json binds another script")
++    source_row = doc["sources"][0]
++    if len(doc["sources"]) != 1 or not source_row["path"].endswith("/folded_decade.rs") or source_row["candidate_sha256"] != file_hash["folded_decade.rs"]:
++        stop("source-markers.json names other source bytes")
++    for field in ("cue_text_delta", "map13_hold_delta", "binder_sites_delta", "sentence_hook_delta"):
++        if doc[field]:
++            stop(f"source-markers.json now proposes a change in {field}")
++    if doc["phrase_mark_uses_delta"] != {"folded_decade.rs": 1} or doc["fallback_delta"] != {"folded_decade.rs": FALLBACK["folded_decade.rs"]}:
++        stop("the binder's folded_decade.rs rows differ from source-markers.json")
++    if doc["template_mark_delta"] != {want["cue"]: [{"byte": want["byte"], "seconds": None, "phrase": want["phrase"]}]}:
++        stop("the template row differs from source-markers.json")
++    return {"path": str(WHITE_MARKERS), "sha256": file_sha(WHITE_MARKERS)}
++
++
++def json_changes(old, new, path="$"):
++    """Every difference between two JSON values, by path."""
++    if isinstance(old, dict) and isinstance(new, dict):
++        rows = []
++        for key in sorted(set(old) | set(new)):
++            if key not in old:
++                rows.append({"path": f"{path}.{key}", "added": new[key]})
++            elif key not in new:
++                rows.append({"path": f"{path}.{key}", "removed": old[key]})
++            else:
++                rows += json_changes(old[key], new[key], f"{path}.{key}")
++        return rows
++    if isinstance(old, list) and isinstance(new, list):
++        if len(old) == len(new):
++            return [row for i, (a, b) in enumerate(zip(old, new)) for row in json_changes(a, b, f"{path}[{i}]")]
++        return [{"path": path, "added": [x for x in new if x not in old], "removed": [x for x in old if x not in new]}]
++    return [] if old == new else [{"path": path, "old": old, "new": new}]
++
++
++def increment_compare(outputs):
++    """Every change in the plan against binder01's sealed plan."""
++    rows = []
++    for name in BINDER01_PLAN_FILES:
++        old_text = (BINDER01_PLAN / name).read_text(encoding="utf-8")
++        new_text = outputs[name.replace("narration-direction-map-oliver14.json", MAP_NAME)]
++        row = {"file": name, "binder01_sha256": sha(old_text.encode("utf-8")), "binder02_sha256": sha(new_text.encode("utf-8")), "identical": old_text == new_text}
++        if name == "inputs.sha256":
++            a, b = old_text.splitlines(), new_text.splitlines()
++            row["lines_added"] = [x for x in b if x not in a]
++            row["lines_removed"] = [x for x in a if x not in b]
++        elif name == "stage07-delta.json":
++            # Reported by path, without the rows that only repeat the anchor list.
++            row["changes"] = json_changes(json.loads(old_text), json.loads(new_text))
++        elif name == "cue-delta.json":
++            old_doc, new_doc = json.loads(old_text), json.loads(new_text)
++            moved = [o["cue"] for o, n in zip(old_doc["cues"], new_doc["cues"]) if (o["current_request"]["path"], o["current_request"]["sha256"]) != (n["current_request"]["path"], n["current_request"]["sha256"])]
++            if moved:
++                stop(f"the current request file changed for {moved}")
++            row["current_request_files_changed"] = moved
++            row["current_request_rows_gained"] = ["submitted", "submission_state", "retained_pair_receipt"]
++            for doc in (old_doc, new_doc):
++                for c in doc["cues"]:
++                    c["current_request"] = {k: c["current_request"][k] for k in ("path", "sha256")}
++            row["changes"] = json_changes(old_doc, new_doc)
++        elif name == "direction-dispositions-proposed.json":
++            # Every row's evidence names hold-audit's new bytes; anything else would be a real change.
++            changes = json_changes(json.loads(old_text), json.loads(new_text))
++            other = [c for c in changes if not re.fullmatch(r"\$\.direction_dispositions\[\d+\]\.evidence\.(path|sha256)", c["path"])]
++            if other:
++                stop(f"the dispositions changed beyond their evidence: {other[:2]}")
++            row["evidence_rows_changed"] = len(changes) // 2
++            row["note"] = "Only each row's evidence path and hash, which name this plan's hold-audit.json."
++        elif not row["identical"]:
++            row["changes"] = json_changes(json.loads(old_text), json.loads(new_text))
++        rows.append(row)
++    same = {r["file"] for r in rows if r["identical"]}
++    for must in (f"{REL}/narration_units.json", f"{REL}/docs/{MAP_NAME}"):
++        if must not in same:
++            stop(f"{must} changed, but a phrase mark and a request list should not change it")
++    return {
++        "schema_version": 1,
++        "claim": "Text comparison of two plans. Nothing compiled, rendered, measured or heard. No take is selected; selection for all 80 cues remains pending.",
++        "from": str(BINDER01_PLAN),
++        "added": ["03_3 'forgets' anchor, direct reader in folded_decade.rs (White's source-markers.json)", "root's narration-request-final80-02 list as each cue's current request"],
++        "not_included": "Chapters 05-08's pending source changes. They will be a separate update.",
++        "files": rows,
+     }
+ 
+@@ -627,8 +762,10 @@
+     old_a = {(r["cue"], r["phrase"]): r for r in old_phrase["anchors"]}
+     new_a = {(r["cue"], r["phrase"]): r for r in phrase_doc["anchors"]}
+-    if set(old_a) != set(new_a):
++    if set(old_a) - set(new_a) or set(new_a) - set(old_a) != ADDED_ANCHORS:
+         stop(f"the phrase anchors changed: {sorted(set(old_a) ^ set(new_a))}")
+     anchor_rows, bytes_changed = [], []
+     for k, b in new_a.items():
++        if k in ADDED_ANCHORS:
++            continue
+         a = old_a[k]
+         for f in ("byte", "byte_end", "sentence_index", "word_index", "const"):
+@@ -707,4 +844,5 @@
+         "phrase_anchors": {
+             "count": {"stage06": len(old_a), "stage07": len(new_a)},
++            "added": [{f: new_a[k][f] for f in ("cue", "phrase", "byte", "byte_end", "const", "sentence_index", "word_index", "source_path", "source_sha256", "cue_text_sha256", "hook_sites", "measured_seconds")} for k in sorted(ADDED_ANCHORS)],
+             "byte_or_text_position_changed": bytes_changed,
+             "hook_lines_moved": [r for r in anchor_rows if r["hook_lines"]["stage06"] != r["hook_lines"]["stage07"]],
+@@ -1096,4 +1234,9 @@
+     add_anchor(anchors, "04_2", climb, "CLIMB_PHRASE", "undoing_growth.rs", one_line(undoing, 'climb_onset(text, said, s3, s4, &n.phrase_marks("04_2"))', "undoing_growth.rs"), "climb_onset")
+     add_anchor(anchors, "04_2", climb, "CLIMB_PHRASE", "undoing_growth.rs", one_line(undoing, "super::draw::wait_until(stage, onset)?;", "undoing_growth.rs"), "wait_until")
++    # 03_3's digits read their mark the same way, with the character share as the fallback
++    folded, folded_scene = source(CH / "folded_decade.rs")
++    forgets = constant(r'^const FORGETS_PHRASE: &str = "([^"\\]*)";', folded_scene, "folded_decade.rs")
++    add_anchor(anchors, "03_3", forgets, "FORGETS_PHRASE", "folded_decade.rs", one_line(folded, 'phrase_marks("03_3")', "folded_decade.rs"), "forgets_mark")
++    add_anchor(anchors, "03_3", forgets, "FORGETS_PHRASE", "folded_decade.rs", one_line(folded, "spoken, forgets_mark(&kit));", "folded_decade.rs"), "lay_beats")
+ 
+     # ---------------------------------------------------------------- baseline: root's frozen 75-cue request text
+@@ -1127,11 +1270,33 @@
+     if final80["script_sha256"] != ROUNDING["before_sha256"] or len(final80["requests"]) != len(cues):
+         stop("the final-80 request list does not bind stage06's script")
+-    current_request = {}
+     for row in final80["requests"]:
+         data = Path(row["text_path"]).read_bytes()
+         if sha(data) != row["text_sha256"] or data != old_texts[row["cue"]].encode("utf-8") or row["parts"] != 1:
+             stop(f"{row['text_path']}: not the final-80 text of {row['cue']}")
+-        current_request[row["cue"]] = {"path": row["text_path"], "sha256": row["text_sha256"]}
+-    current_request[ROUNDING["cue"]] = {"path": str(ROUNDING["request"]), "sha256": ROUNDING["request_sha256"]}
++    # Root's list for the current script. Its submission state is copied as recorded, never judged.
++    requests_now = json.loads(CURRENT_REQUESTS.read_text(encoding="utf-8"))
++    if requests_now["script_sha256"] != script_sha or file_sha(requests_now["script_path"]) != script_sha:
++        stop("the current request list does not bind this script")
++    if requests_now["prior_manifest_sha256"] != file_sha(FINAL80_REQUESTS) or requests_now["supersedes"] != str(FINAL80_REQUESTS):
++        stop("the current request list does not name the list it supersedes")
++    if [r["cue"] for r in requests_now["requests"]] != cues:
++        stop("the current request list is not one row per cue, in order")
++    if "Oliver" not in requests_now["voice"]:
++        stop("the current request list is not for ElevenLabs Oliver")
++    current_request = {}
++    for row in requests_now["requests"]:
++        data = Path(row["text_path"]).read_bytes()
++        if row["id"] != row["cue"] or row["parts"] != 1 or sha(data) != row["text_sha256"] or row["file_sha256"] != row["text_sha256"] or data != texts[row["cue"]].encode("utf-8"):
++            stop(f"{row['text_path']}: not the current text of {row['cue']}")
++        expected_folder = ROUNDING["request"] if row["cue"] == ROUNDING["cue"] else FINAL80_REQUESTS.parent / f"{row['cue']}.txt"
++        if row["text_path"] != str(expected_folder):
++            stop(f"{row['cue']}: the current request list names {row['text_path']}, not {expected_folder}")
++        current_request[row["cue"]] = {
++            "path": row["text_path"],
++            "sha256": row["text_sha256"],
++            "submitted": row["submitted"],
++            "submission_state": row["submission_state"],
++            "retained_pair_receipt": row.get("retained_pair_receipt"),
++        }
+     requests = {}
+     for row in request_plan["requests"]:
+@@ -1195,4 +1360,6 @@
+         if name == "undoing_growth.rs" and j != 3:
+             stop(f"{cue}: the climb's fallback reads sentences 3 to 4")
++        if name == "folded_decade.rs" and j != 0:
++            stop(f"{cue}: lay_beats reads a mark inside the first sentence only")
+         base, base_at = offset_in[cue]
+         if texts[cue] != old_texts[cue]:
+@@ -1219,4 +1386,10 @@
+         })
+     anchor_rows.sort(key=lambda r: (cues.index(r["cue"]), r["byte"]))
++    white = white_markers(anchor_rows, script_sha, file_hash)
++    literal_readers = set()
++    for name in names:
++        literal_readers |= {(name, cue) for cue in re.findall(r'phrase_marks\("(\d\d_\d+)"\)', source(CH / name)[1])}
++    if literal_readers != {("folded_decade.rs", "03_3"), ("undoing_growth.rs", "04_2")}:
++        stop(f"literal phrase_marks readers changed: {sorted(literal_readers)}")
+     for cue in {r["cue"] for r in anchor_rows}:
+         order_check = [(min(s["line"] for s in r["hook_sites"]), r["byte"]) for r in anchor_rows if r["cue"] == cue]
+@@ -1244,4 +1417,22 @@
+         "by_chapter_file": {name: sum(1 for r in anchor_rows if r["source_path"].endswith("/" + name)) for name in sorted({r["source_path"].rsplit("/", 1)[1] for r in anchor_rows})},
+         "anchors": anchor_rows,
++        "direct_mark_readers": {
++            "note": "Source that names its cue in a literal phrase_marks call, not through until_phrase or a helper taking the cue as a variable. Each falls back to a character share without a mark. Every measured_seconds is null.",
++            "rows": [
++                {
++                    "cue": r["cue"],
++                    "phrase": r["phrase"],
++                    "byte": r["byte"],
++                    "const": r["const"],
++                    "file": r["source_path"].rsplit("/", 1)[1],
++                    "source_sha256": r["source_sha256"],
++                    "hook_sites": r["hook_sites"],
++                    "fallback_without_mark": r["fallback_without_mark"],
++                    "evidence": white if r["cue"] == "03_3" else None,
++                    "measured_seconds": None,
++                }
++                for r in anchor_rows if r["cue"] in ("04_2", "03_3")
++            ],
++        },
+         "opening_read_out_estimates": opening_read_out(texts, file_lines["ratio_ruler.rs"]),
+         "sentence_share_hooks": {
+@@ -1267,9 +1458,15 @@
+         "schema_version": 1,
+         "claim": "Text comparison with root's frozen request files. It says nothing about whether any recording exists. Root's inventory found no exact local record for the 75-cue text and requires a provider history check before new synthesis. The final-80 request list's own state is reported as that file records it.",
+-        "request_id_note": "request_id_with_exact_bytes names narration-request-plan01's request, and is null for 01_5, whose new text is only in narration-request-rounding01. current_request is the file with the cue's exact current bytes.",
+-        "final80_request_state": {
+-            "created_at": final80["created_at"],
+-            "submitted_false": sum(1 for r in final80["requests"] if r["submitted"] is False),
+-            "provider_history_checked_false": sum(1 for r in final80["requests"] if r["provider_history_checked"] is False),
++        "request_id_note": "request_id_with_exact_bytes names narration-request-plan01's request, and is null for 01_5, whose new text is not in that plan. current_request is the row of root's current list: the file with the cue's exact current bytes and the submission state as that list records it.",
++        "current_request_list": {
++            "path": str(CURRENT_REQUESTS),
++            "sha256": file_sha(CURRENT_REQUESTS),
++            "created_at": requests_now["created_at"],
++            "script_sha256": requests_now["script_sha256"],
++            "supersedes": requests_now["supersedes"],
++            "by_submission_state": dict(sorted(Counter(r["submission_state"] for r in requests_now["requests"]).items())),
++            "submitted_true": sum(1 for r in requests_now["requests"] if r["submitted"] is True),
++            "provider_history_checked_false": sum(1 for r in requests_now["requests"] if r["provider_history_checked"] is False),
++            "claim": "Copied from root's list. Retained or submitted is not selected: no take is selected here, and selection for all 80 cues remains pending. Nothing here authorizes synthesis.",
+         },
+         "baseline_script_sha256": inventory["script_sha256"],
+@@ -1317,5 +1514,5 @@
+         "topic": TOPIC,
+         "claim": "Text audit of Rust source at combined-repair-stage07/candidate. Uncompiled here, unrendered, unmeasured, unheard. Author/source binding, not independent AV or listening acceptance.",
+-        "open_for_root": ["native build and tests of these exact bytes", "01_5 synthesis and a take for every cue", "measured phrase-timings.json", "Oliver sync, the reading windows on real lengths, listening", "independent AV acceptance"],
++        "open_for_root": ["native build and tests of these exact bytes", "01_5 synthesis, and selecting a take for all 80 cues", "measured phrase-timings.json, including 03_3's mark", "Oliver sync, the reading windows on real lengths, listening", "independent AV acceptance"],
+         "no_invented_silence": "No row adds silence to a take. Every hold is a native visual hold after a complete cue; the proposed dispositions are all native_visual_hold. Floors below are the source's own constants, not measurements.",
+         "narration": "ElevenLabs Oliver. No Michael or FrankenTTS.",
+@@ -1397,7 +1594,8 @@
+     inputs = [script_path, STAGE / "src/main.rs", STAGE / "src/facts.rs", STAGE / "oracle.py", STAGE / "docs/storyboard.md", STAGE / "docs" / STALE_MAP, STAGE / "narration_units.json", STAGE06_ROOT / "oracle04.tsv"]
+     inputs += [STAGE07_ROOT / r for r in RECEIPTS]
+-    inputs += [ROUNDING["before_script"], ROUNDING["request"], ROUNDING["review"], FINAL80_REQUESTS]
++    inputs += [ROUNDING["before_script"], ROUNDING["request"], ROUNDING["review"], FINAL80_REQUESTS, CURRENT_REQUESTS, WHITE_MARKERS]
+     inputs += [Path(r["text_path"]) for r in final80["requests"]]
+     inputs += [STAGE06_PLAN / p for p in STAGE06_PLAN_FILES]
++    inputs += [BINDER01_PLAN / p for p in BINDER01_PLAN_FILES]
+     inputs += [STAGE06_CH / n for n in names]
+     inputs += [CH / "mod.rs", CH / "draw.rs"] + [CH / n for n in names]
+@@ -1406,5 +1604,5 @@
+     inputs += sorted({Path(r["text_path"]) for r in inventory["cues"]} | {Path(r["text_path"]) for r in request_plan["requests"]})
+     inputs_text = "".join(f"{file_sha(p)}  {p}\n" for p in inputs)
+-    return {
++    outputs = {
+         f"{REL}/narration_units.json": units_text,
+         f"{REL}/docs/{MAP_NAME}": map_text,
+@@ -1416,5 +1614,7 @@
+         "stage07-delta.json": compare_text,
+         "inputs.sha256": inputs_text,
+-    }, audit_doc, phrase_doc, delta_doc, compare_doc
++    }
++    outputs["increment-delta.json"] = json.dumps(increment_compare(outputs), indent=2, ensure_ascii=False) + "\n"
++    return outputs, audit_doc, phrase_doc, delta_doc, compare_doc
+ 
+ 

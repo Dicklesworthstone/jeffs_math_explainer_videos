@@ -1,0 +1,9 @@
+canonical: 8 problems
+staged: 8 problems; added 0, gone 0
+PASS staged adds nothing to the frozen binder's problems
+C2+C3: 8 problems; added 0, gone 0
+PASS C2+C3 adds nothing to the frozen binder's problems
+rows of teaching02's map the binder derives differently on staged: []
+PASS every hold row of teaching02's map is what the frozen binder derives on staged
+rows that differ from canonical's derivation: ['11_5', '11_6', '11_8']
+mod.rs helper rows take staged mod.rs: ['2414a6bd8c1a']

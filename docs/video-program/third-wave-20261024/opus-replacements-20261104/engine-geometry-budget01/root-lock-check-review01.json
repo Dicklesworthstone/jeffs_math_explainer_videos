@@ -1,0 +1,10 @@
+{
+  "timestamp": "2026-11-04T23:08:56.732299+00:00",
+  "checker_sha256": "26247ff9f51e21df5489253536d36289e8164ea55cc29927446bb12baa961324",
+  "mutation": "unrelated package checksum replaced with 64 zeros",
+  "package": "aead",
+  "reported_faults": [],
+  "finding": "Checker failed to detect checksum mutation",
+  "scope": "synthetic checker test only, no canonical lock mutation or build",
+  "assigned_fix_mail": 3028
+}

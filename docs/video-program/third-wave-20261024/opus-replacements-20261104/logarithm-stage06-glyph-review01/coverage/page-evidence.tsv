@@ -1,0 +1,52 @@
+page	file	sha256	first_registry_row	last_registry_row	ink_rows	note
+0	frame_000000.png	97ffb986a0dab30585d12f11b457c84430bea9467fd8c9297ea86eed34a80011	1	13	13	Numbers and short labels. r4 `→` is the heavier Noto arrow.
+1	frame_000001.png	7ce91ca4412f030dee80d082100e53899efb5a87c839d6874fec4b531af081c6	14	26	13	Numbers and short labels. Clean.
+2	frame_000002.png	ea876db60c9efd158846db719eeb663dcf7116aee8b676cd12d08079daac5d02	27	39	13	Numbers and short labels. Clean.
+3	frame_000003.png	e360862aa88a82a669be30a7f5dd3e2a854bebd7bb80f9fb988685d8b1db88ef	40	52	13	Numbers and short labels. Clean.
+4	frame_000004.png	09f9a306226ee6172e19feaf023368e630890fef85e9da6ff83493f40cd2ca5c	53	65	13	Numbers and short labels. Clean.
+5	frame_000005.png	22e4e2204acce0b68469aff96a0a3bfc40f1a655f20b6330ac0640749a29aee2	66	77	13	r66 is the supplement, the only row not captured from a chapter: `θ` in its open form, Noto `− × ≈ ≠ ≤ → ↔ ∞`, Plex `½ ₂`.
+6	frame_000006.png	ac70b4253bf89b3207e926feb14244d4c29d1b6611030c5aa6c5446df1941264	78	90	13	Short labels. Clean.
+7	frame_000007.png	dc9e950568bfc3c7f5bc45bd027fd38797acc7b04a7cc4744944a6e4f11dd3e1	91	103	13	Short labels. Clean.
+8	frame_000008.png	ce162b1b06960df07623ba06ad27362d102661896e77642ea6e73e3663641764	104	116	13	Short labels. `×` heavier than its digits (F5).
+9	frame_000009.png	5f7eb82529c4b10e8f2e2803faa77efc4897f2a0d28caddf2593af100fa36f1f	117	129	13	`2×2`, `2π`, `2πi`: tight, legible.
+10	frame_000010.png	e0536cb23dcf1d7ec1c58f24c1a48cd8fc45eeb09d7ad98a892574871715c2b3	130	142	13	Short labels. Clean.
+11	frame_000011.png	49dc8dccdff377f13d680b8041a4239011bec7830f09893fb25c90a4e557ed13	143	155	13	Short labels. Clean.
+12	frame_000012.png	000d20140c399936b3b5461151449a56fec425f14ee24917aec90bcf8ed65641	156	167	12	r160–r162 `(−I) × diag(2, ½)`, `diag(−2, −½)`: Noto `−`, Plex `½` (F5).
+13	frame_000013.png	17769435e30701f2c262501da9ef8adbb56edd98f7784d2f5cd05661d4f6e622	168	179	12	Short labels. Clean.
+14	frame_000014.png	d00f2acca33e993da6215240697e2570260461750994cc7abf2c6e17c546955e	180	191	12	`Log(−i) = −πi/2`. Clean.
+15	frame_000015.png	cfaafd5ac48ab65fc58cd2018b4b70f1be8fd63d66ee2f92100d0697a388857c	192	203	12	Short labels. Clean.
+16	frame_000016.png	29a6629cff8d5417f6e0bb761226f4497da48249447e60b1df20465d9a3f9bde	204	215	12	Short labels. Clean.
+17	frame_000017.png	9c7ad897b7331c78a10dd823c6fefc9e8a85f0696b7d6833232ac4e36955af23	216	227	12	`−cI`, `near π; … −π`. Clean.
+18	frame_000018.png	a716df66c180de38838c2ef53ce7a04ac1122a0425967a8d818836497c612c0f	228	238	12	r235 breaks mid-word: probe's 64-character chunking, not the film.
+19	frame_000019.png	a82591f2fa193dbaa24c7eed710c67a3a1936e14410b04248db0cb8f8fab5edf	239	250	12	`π i → −πi, gap 0 → −1`, `|z| = r`. Clean.
+20	frame_000020.png	cabfe5b2d5e8f1e525f366136c09ec3eb11f7303eadc7bde61c47801f6db52d2	251	262	12	r254, r258, r259 Plex `½` (F5); r261 `e ≈ 2.718`; `det = (−2) × (−½) = +1`.
+21	frame_000021.png	82b8d0b5acce928cb7a21a4e60a34fc010704e828b489a35d6a938c255ee993f	263	274	12	`(−1) − (−1) = 0`, `±1.5 ×`. Clean.
+22	frame_000022.png	6616b6c1b8af3b836519d5e8043f45fea9376c0d5242c7ef2b177b90f147bd04	275	286	12	`Log(−1) = iπ`. Clean.
+23	frame_000023.png	008d3b020d8486029a45154964239eb8678f70eb836b9bc2d13e4747520d4dce	287	298	12	r287 `for z²:` Plex `²` heavier than the serif beside it (F5); `height −π`.
+24	frame_000024.png	47f6509b8bb9bcad32d51b5935f4e841cf7cf56dbe30f01e67fb235badb914fc	299	310	12	r302 `i × i = −1: two quarter turns`; r307 `it breaks at −1`. Clean.
+25	frame_000025.png	e35c374ca35c7f57adb63715b2ebdc2a16228543f777e877b52bef7976834ce4	311	322	12	r313, r315 `→`; r317 `keep −π < turning < π`; r322 `½, 1½, 2½, …` (F5).
+26	frame_000026.png	797d738a5b4491835da59b03ad9a34804ff220ba785fccd70ddc0eb11781afdb	323	334	12	r323 `→`; r325 ends in `×`; r328 `ln 2 ≈ 0.693`; r329 `×e`. Clean.
+27	frame_000027.png	cf1a60c01fdf3e23bf136e0cb80029fcf2d23c57c071c2c88c379f3ae97c0027	335	346	12	r335 `mirror: −1`; r346 `×10`. Clean.
+28	frame_000028.png	fa5ff77678dc0ea7a0a32e5e52d015023bcf40802cbd08fe5c04c20760a9b584	347	358	12	r350, r353 `×10`; r357 `×4`; r355 `size-2`. Clean.
+29	frame_000029.png	d1cde5a6c337b8ef776f9c11292073af07ea76706e4749c51906f166728824e4	359	367	12	r359 `2πi`; r364–r367 are 64-character chunks; r365 en dash `1146–1151`; r367 `(−∞, 0]`.
+30	frame_000030.png	e8fb945997333a22a42b58f2185cc08354e3c503e981fe07911bb9024e8670b7	367	372	11	r370 `∫` is the Noto integral; r372 `⇒`, `(−∞, 0]`; r367 `≤`. Chunk breaks are the probe's.
+31	frame_000031.png	010dec75c5358ea1ad142e4ec00f6ef37c9ab5c27c4eb3e2bee00bdcd270f298	372	382	12	r372 tail `)`; r373 `±½, ±1½, …`, `§4`; r377 `θ` open form, twice (F5); r382 `≈`, `÷`.
+32	frame_000032.png	b8ed44ec5b608b76a00866f10ea3eba9d250fef0d89a7a7cc7f815ff4a86ef34	383	393	12	r393 `−I`; r389 chunk break is the probe's. Clean.
+33	frame_000033.png	37ad0e9d0c0ee11d3ab1aa977341240d4bab8c41f6b05e6ee808d1f8e9459118	394	405	12	r395–r399 `½`, `1½`, `2½` (F5); r400 `0.28π`.
+34	frame_000034.png	f1c34fb0b9bed071b73c114b7a6429c34864f55349a878be9470e187c18138fa	406	417	12	r410 `½(I + mirror)` (F5); r406, r407 live-style numbers. Clean.
+35	frame_000035.png	138fc6c8e7e15a26d0b354b65b94939e57299790697532d87785f4c5c612985d	418	429	12	**r420 `the line goes on`: new, correct.** r428 `±π`.
+36	frame_000036.png	6ae37e14f942949e97415c00c9e939221db9fa1ae35b83257a72e57fc63237ff	430	440	12	r436 `↔`; r438 chunk break is the probe's; r435 `1.380 laps`. Clean.
+37	frame_000037.png	dac44dfef993cbdd32e7054aef2b6d367b5781b59aec2b0b5bf91d5b5863f5f1	441	453	13	r443 `(−½) − (−2)`; r452 `→`. Clean.
+38	frame_000038.png	d33ab9898f6f195b4487bfded5cd438f7778a88ac4f5739b548f763c449c39d0	454	466	13	r455 `½` alone, in Plex; r456 `× ?`; r466 `×½` (F5).
+39	frame_000039.png	6f461f5b9644ea0254e8ebfef07a588d6b3b7e7073a39fd2d68327177f9d05c1	467	479	13	r472–r476 live values with thin en dash, against r479 heavy `−` (F3); r467 `√`; r478 `⇒`; r477 `…` low.
+40	frame_000040.png	afc64d8226e32d1af5d33def2c444cf89d6770e5c3bad02117c9c20e12dc5f94	480	492	13	r480–r492 fixed-label `−`; r491 `−b`, from `"-b"` through `shown()`; r492 `−½`.
+41	frame_000041.png	1e28632189755177bac62276bfa089e30ebfa7761b0f9042b78accb3e3b8ba98	493	504	12	**r497 `(ℓ)`: new, correct, Noto (F4).** r498 tight unary control; r503 floating colon (F2); r502 `P^{-1}` clears at every ink level.
+42	frame_000042.png	9d71e62b3a246892a8532c5d7fe057e60096048bad121330cad4afaec4eb6465	505	515	11	r507–r509 root bars clear by eye; r511 `e^X` clears at every ink level, r510 by eye; r512, r513 floating colon (F2); r514 `⟷`, `\left(`.
+43	frame_000043.png	51004e3a889c100d681fd67ba8624e801f3f780abc4c1871600e0da3912a41ee	516	525	10	r516 `⟺`; r517 `⇒`; r518, r519 `\frac`; r520 `↔`; r522–r524 `≈`. Clean.
+44	frame_000044.png	e1b3508b14535bc97ed1cf7fc5eab3388079e9ecb8f9eb554087c9ab8adcf9d1	526	534	9	r527 `e^{\ln y}`; r528 `diag`; r530, r531, r533 subscripts on `log`; r532 floating colon (F2).
+45	frame_000045.png	7300091e3e5f73ee4faca7e3fab3db14ae3eeca422bebfdf00ca7df514a56371	535	544	10	r535 `\tfrac`; r538 `Arg(−1)`; r542 `≠`; r543 `⟺`, `≤`; r540, r544 clean.
+46	frame_000046.png	41035b34d08f8a6e5881ec51110b09100f49ab94a510a675f4c2153586ec61da	545	555	11	r546–r549 root bars and exponents; r547, r549 `\frac` in an exponent; r550 `×`; r551, r555 `\tfrac`.
+47	frame_000047.png	f88a88557beae7452a10020b5e73291ebad56d4ce03796bab5251a950db8c0b3	556	565	10	**r559 singular S and r565 DIFFER: new, correct.** r560 `so − 1` spacing (F1); r557 floating colon (F2); r558, r563 clean.
+48	frame_000048.png	ad9cc0bdd560fcd697ab0a0fa58cce0e86eb217cd992d568ffe4a3dbc8f3582d	566	576	11	**r575 `e^{tp}` line: new, correct.** r569 `e^{-\ln 2+i\pi}`; r570 `≠`; r574 `e^{tX}`.
+49	frame_000049.png	a7487832497d33f529ba885d1c6e9ac82742f68568fe0e4667ec27d58237adb9	577	586	10	**r584 `y = x`: new, correct.** r578 `e^{-x}` clears; r579 `\frac`; r586 floating colon (F2).
+50	frame_000050.png	3e55c5881088ae7a2d7ab7392a6932fbff62f8987a3ac34793423c6b8d2edf3c	587	588	2	r587, r588. Last page; the rest of the sheet is empty, as expected.

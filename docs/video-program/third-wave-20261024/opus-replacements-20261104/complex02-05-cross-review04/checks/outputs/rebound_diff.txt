@@ -1,0 +1,18 @@
+canonical map sections differing: ['visual_holds', 'helpers'] new keys set()
+  hold rows moved: ['02_5', '03_3', '04_4', '04_6', '05_8'] same cue set True
+  fields changed: ['line', 'marker', 'sha256']
+  helper: {'sha256': ('57c46d67161490cbadc96e9ccad6ae6eb821c54d4bd257f3233735792a529b5e', 'ec6dcc6062498f4d8aaef79795320829c640dcb536b4b1d1f1b09b3c05b2633c')}
+  helper: {'sha256': ('57c46d67161490cbadc96e9ccad6ae6eb821c54d4bd257f3233735792a529b5e', 'ec6dcc6062498f4d8aaef79795320829c640dcb536b4b1d1f1b09b3c05b2633c')}
+  overrides equal True scope: True
+  units diff: [('.direction_contract.map.path', 'explainer_corpus/complex_analysis_visual/doc', 'explainer_corpus/complex_analysis_visual/doc'), ('.direction_contract.map.sha256', '341356cda34ac129fbca1988699f9f20f1cb583d63a5', 'fa517b311b9f346b972b028c99a6f8bc8149fa65091f')]
+  temp or home paths in outputs: 0
+  audit keys: ['schema_version', 'topic', 'claim', 'script_sha256', 'map_version', 'sources', 'kit_sources', 'kit_breath_s', 'crate_line_gaps', 'counts', 'meanings', 'draw_helpers', 'non_literal_wait_arguments', 'post_voice_beats'] problems: None
+candidate map sections differing: ['visual_holds', 'helpers'] new keys set()
+  hold rows moved: ['02_5', '03_3', '04_4', '04_6', '05_8'] same cue set True
+  fields changed: ['line', 'marker', 'sha256']
+  helper: {'sha256': ('57c46d67161490cbadc96e9ccad6ae6eb821c54d4bd257f3233735792a529b5e', 'ec6dcc6062498f4d8aaef79795320829c640dcb536b4b1d1f1b09b3c05b2633c')}
+  helper: {'sha256': ('57c46d67161490cbadc96e9ccad6ae6eb821c54d4bd257f3233735792a529b5e', 'ec6dcc6062498f4d8aaef79795320829c640dcb536b4b1d1f1b09b3c05b2633c')}
+  overrides equal True scope: True
+  units diff: [('.direction_contract.map.path', 'explainer_corpus/complex_analysis_visual/doc', 'explainer_corpus/complex_analysis_visual/doc'), ('.direction_contract.map.sha256', 'bcb6a31bf026edd3bf097e43a4a52d79c283a74c3a06', '7bdb24f44a0c4deac153746ab8853559ec3b848f1661')]
+  temp or home paths in outputs: 0
+  audit keys: ['schema_version', 'topic', 'claim', 'script_sha256', 'map_version', 'sources', 'kit_sources', 'kit_breath_s', 'crate_line_gaps', 'counts', 'meanings', 'draw_helpers', 'non_literal_wait_arguments', 'post_voice_beats'] problems: None

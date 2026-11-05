@@ -1,0 +1,8 @@
+control: field at t = 0 against frame 356, mean largest-channel difference 7.2, 95.1% of pixels within 24 levels
+PASS control: the desk field is the film's own picture
+marks at native (372, 392), (483, 392), (319, 224), (319, 559), (155, 392); frame 340 shows (372, 391), (482, 391), (154, 391), (319, 224), (319, 558)
+a-end-of-sentence-0-t1.png {'claim': 424, 'row': 270}
+b-mid-turn-sentence-1-t05.png {'claim': 424, 'row': 270, 'over output': 257}
+c-which-leaves-t0.png {'claim': 424, 'row': 384, 'over output': 371, 'card': 185}
+d-sentence-2-t0.png {'claim': 424, 'row': 202, 'over output': 371, 'card': 185}
+RESULT PASS

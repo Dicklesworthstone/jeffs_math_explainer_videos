@@ -1,0 +1,25 @@
+# rustc 1.100.0-nightly (908501772 2026-08-30)
+# rustc +nightly-2026-08-31 -O --edition 2024 struct_sizes_mirror.rs; a mirror of the field lists, not the crate
+Segment 88
+Style 264
+Mob 16
+Placement 96
+Instance 136
+Digest 32
+BoundingBox 72
+Hint 56
+ArcLengthTable 48
+Shape 240
+MonoPiece 48
+JoinWedge 104
+ChordStrip 40
+PreparedSegment 112
+PoolRange 8
+StrokeRef 40
+FieldRef 32
+FillKernel 48
+Draw 512
+OptionDraw 512
+JoinPair 16
+PieceCurve 48
+ProjectedCurvePiece 160

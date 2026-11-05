@@ -1,0 +1,101 @@
+=== arity_check: canonical exit 0
+--- staged: exit 0; rows not on canonical: 4
+   calls checked: 4630; problems: 0
+   second pass, by name only: 4862 calls, 1 hits
+   UNKNOWN filter_map x4 e.g. src/chapters/counting.rs:636
+   UNKNOWN find_map x2 e.g. src/chapters/counting.rs:1640
+--- staged+plate: exit 0; rows not on canonical: 15
+   ARITY src/chapters/counting.rs:656 picture_cells: 1 args, definitions take [2]
+   calls checked: 4717; problems: 1
+   second pass, by name only: 4936 calls, 1 hits
+   UNKNOWN allow x9 e.g. src/chapters/counting.rs:128
+   UNKNOWN as_chunks x2 e.g. src/chapters/draw.rs:1386
+   UNKNOWN as_flattened x4 e.g. src/chapters/draw.rs:700
+   UNKNOWN cfg x33 e.g. src/chapters/argument.rs:99
+   UNKNOWN div_ceil x2 e.g. src/chapters/draw.rs:727
+   UNKNOWN filter_map x4 e.g. src/chapters/counting.rs:636
+   UNKNOWN find_map x2 e.g. src/chapters/counting.rs:1640
+   UNKNOWN fract x4 e.g. src/chapters/draw.rs:1363
+   UNKNOWN map_or x2 e.g. src/chapters/draw.rs:719
+   UNKNOWN partition_point x1 e.g. src/plate_layout.rs:93
+   UNKNOWN rotate_right x1 e.g. src/plate_layout.rs:255
+   UNKNOWN with_capacity x20 e.g. src/chapters/continuing.rs:142
+--- C2+C3: exit 0; rows not on canonical: 4
+   calls checked: 4631; problems: 0
+   second pass, by name only: 4861 calls, 1 hits
+   UNKNOWN filter_map x4 e.g. src/chapters/counting.rs:636
+   UNKNOWN find_map x2 e.g. src/chapters/counting.rs:1643
+--- C1+C2+C3+plate: exit 0; rows not on canonical: 14
+   calls checked: 4718; problems: 0
+   second pass, by name only: 4935 calls, 1 hits
+   UNKNOWN allow x9 e.g. src/chapters/counting.rs:128
+   UNKNOWN as_chunks x2 e.g. src/chapters/draw.rs:1386
+   UNKNOWN as_flattened x4 e.g. src/chapters/draw.rs:700
+   UNKNOWN cfg x33 e.g. src/chapters/argument.rs:99
+   UNKNOWN div_ceil x2 e.g. src/chapters/draw.rs:727
+   UNKNOWN filter_map x4 e.g. src/chapters/counting.rs:636
+   UNKNOWN find_map x2 e.g. src/chapters/counting.rs:1643
+   UNKNOWN fract x4 e.g. src/chapters/draw.rs:1363
+   UNKNOWN map_or x2 e.g. src/chapters/draw.rs:719
+   UNKNOWN partition_point x1 e.g. src/plate_layout.rs:93
+   UNKNOWN rotate_right x1 e.g. src/plate_layout.rs:255
+   UNKNOWN with_capacity x20 e.g. src/chapters/continuing.rs:142
+=== scope_check: canonical exit 0
+--- staged: exit 0; rows not on canonical: 0
+--- staged+plate: exit 0; rows not on canonical: 3
+   NOT IN SCOPE (prod) src/chapters/draw.rs:650 Steps [unknown]
+   NOT IN SCOPE (prod) src/chapters/draw.rs:652 Blend [unknown]
+   scope problems: 30
+--- C2+C3: exit 0; rows not on canonical: 0
+--- C1+C2+C3+plate: exit 0; rows not on canonical: 3
+   NOT IN SCOPE (prod) src/chapters/draw.rs:650 Steps [unknown]
+   NOT IN SCOPE (prod) src/chapters/draw.rs:652 Blend [unknown]
+   scope problems: 30
+=== shape_check: canonical exit 0
+--- staged: exit 0; rows not on canonical: 3
+   format-family macros checked: 267
+   sized const arrays checked: 111
+   argument shapes compared: 9745
+--- staged+plate: exit 0; rows not on canonical: 3
+   format-family macros checked: 291
+   sized const arrays checked: 111
+   argument shapes compared: 9937
+--- C2+C3: exit 0; rows not on canonical: 3
+   format-family macros checked: 268
+   sized const arrays checked: 111
+   argument shapes compared: 9746
+--- C1+C2+C3+plate: exit 0; rows not on canonical: 3
+   format-family macros checked: 292
+   sized const arrays checked: 111
+   argument shapes compared: 9940
+=== unused_check: canonical exit 0
+--- staged: exit 0; rows not on canonical: 1
+   bindings checked: 3192; problems: 1
+--- staged+plate: exit 0; rows not on canonical: 3
+   NEEDLESS MUT src/chapters/draw.rs:735 m
+   NEEDLESS MUT src/chapters/draw.rs:770 mean
+   bindings checked: 3316; problems: 3
+--- C2+C3: exit 0; rows not on canonical: 1
+   bindings checked: 3191; problems: 1
+--- C1+C2+C3+plate: exit 0; rows not on canonical: 3
+   NEEDLESS MUT src/chapters/draw.rs:735 m
+   NEEDLESS MUT src/chapters/draw.rs:770 mean
+   bindings checked: 3315; problems: 3
+=== desk_check: canonical exit 0
+--- staged: exit 0; rows not on canonical: 0
+--- staged+plate: exit 0; rows not on canonical: 4
+   DEAD src/chapters/draw.rs PLATE_ROWS2
+   DEAD src/chapters/draw.rs PLATE_CELLS2
+   DEAD src/chapters/draw.rs PLATE_CELLS4
+   desk problems 12
+--- C2+C3: exit 0; rows not on canonical: 0
+--- C1+C2+C3+plate: exit 0; rows not on canonical: 4
+   DEAD src/chapters/draw.rs PLATE_ROWS2
+   DEAD src/chapters/draw.rs PLATE_CELLS2
+   DEAD src/chapters/draw.rs PLATE_CELLS4
+   desk problems 12
+=== supplements: canonical exit 1
+--- staged: exit 1; rows not on canonical: 0
+--- staged+plate: exit 1; rows not on canonical: 0
+--- C2+C3: exit 1; rows not on canonical: 0
+--- C1+C2+C3+plate: exit 1; rows not on canonical: 0

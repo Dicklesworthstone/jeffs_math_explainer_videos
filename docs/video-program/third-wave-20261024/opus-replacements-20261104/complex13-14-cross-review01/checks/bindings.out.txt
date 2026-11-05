@@ -1,0 +1,69 @@
+== hashes
+PASS staged files are the sealed bytes
+PASS canonical is still the bases the patches name
+PASS root's combined-repair-stage02 candidate holds the same two files
+== round trips on temporary copies
+PASS complex13-radius-repair01.patch applies and gives the staged bytes
+PASS and -R gives the base back
+PASS complex14-pole-order.patch applies and gives the staged bytes
+PASS and -R gives the base back
+== rustfmt, parse and format only
+PASS rustfmt --check real_integral.rs
+PASS rustfmt --check continuing.rs
+== the hold rows, under root's rule: marker on the line, last say before = cue, first say after = next cue
+PASS the map is oliver10 341356cda34a
+PASS the map has 4 rows on these two files, the four the handoffs move
+PASS 13_5: the map's line 593 holds its marker in canonical
+PASS 13_5: line 631 holds it in the staged file
+PASS 13_5: last say before is 13_5
+PASS 13_5: first say after is 13_6, the map's next cue
+PASS 13_11: the map's line 775 holds its marker in canonical
+PASS 13_11: line 813 holds it in the staged file
+PASS 13_11: last say before is 13_11
+PASS 13_11: chapter-final, its next cue 14_1 opens the next chapter's file
+PASS 14_3: the map's line 512 holds its marker in canonical
+PASS 14_3: line 522 holds it in the staged file
+PASS 14_3: last say before is 14_3
+PASS 14_3: first say after is 14_4, the map's next cue
+PASS 14_4: the map's line 522 holds its marker in canonical
+PASS 14_4: line 531 holds it in the staged file
+PASS 14_4: last say before is 14_4
+PASS 14_4: first say after is 14_5, the map's next cue
+PASS Bronze's delta: 13_5 593 -> 631, same marker, bound to the staged hash
+PASS Bronze's delta: 13_11 775 -> 813, same marker, bound to the staged hash
+PASS Bronze's delta: 14_3 512 -> 522, same marker, bound to the staged hash
+PASS Bronze's delta: 14_4 522 -> 531, same marker, bound to the staged hash
+PASS both deltas name this map
+== timed calls, film code only
+PASS 13_3: 20 timed calls, same kinds and durations in the same order: nothing shifts
+PASS 14_3: 23 -> 22 timed calls; the one gone is a 0.2 s fade, the second mark's
+PASS that fade is the second mark, which is the only thing removed
+PASS and the next timed call is the sentence hook: the card follows the voice, nothing later moves, and it can only arrive 0.2 s nearer if the chain was running late
+PASS no other timed call moves in continuing.rs
+PASS no other timed call moves in real_integral.rs
+== words
+PASS real_integral.rs: every string in the film code is unchanged (80)
+PASS real_integral.rs: the same phrase hooks, in order (8)
+PASS continuing.rs: every string in the film code is unchanged (78)
+PASS continuing.rs: the same phrase hooks, in order (2)
+PASS script.tsv is the frozen 2968b0fd7654
+== other tests that read these two files
+PASS 13_11: note comes before its reading window, as each_card_outlasts_its_reading_window needs
+PASS 13_11: nothing fades note before the window
+PASS 14_3: exact comes before its reading window, as each_card_outlasts_its_reading_window needs
+PASS 14_3: nothing fades exact before the window
+PASS gammas_colour_goes_on_behind_the_cover is unchanged in place
+PASS B-plate-lab.patch: its 1 continuing.rs plane literal(s) are still in the staged file
+PASS probe-plate-lab.patch: its 2 continuing.rs plane literal(s) are still in the staged file
+== other staged patches that touch either file (git apply --check on the staged bytes)
+     8 patches name them
+     canonical no   staged no   complex-picture-repair-11-15/patches/13-real-integral.patch
+     canonical no   staged no   complex-picture-repair-11-15/patches/14-continuing.patch
+     canonical no   staged no   complex-preview01-review-11-15/patches/13-real-integral.patch
+     canonical no   staged no   complex-preview01-review-11-15/patches/14-continuing.patch
+     canonical no   staged no   complex/clippy-repair05/clippy-repair05.patch
+     canonical no   staged no   complex/reading-repair01/reading-repair01.patch
+     canonical no   staged no   complex/reading-repair02/reading-repair02.patch
+     canonical no   staged no   complex/test-repair01/test-repair01.patch
+PASS no patch that still applies to canonical stops applying on the staged bytes; the 'no, no' rows no longer apply to canonical either
+RESULT PASS

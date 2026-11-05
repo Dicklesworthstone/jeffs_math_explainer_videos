@@ -1,0 +1,72 @@
+pin a399d626c43ecc852a5c795288979f52b446bc5c
+pin status: ?? .cargo-ok
+
+non-test `.sync(` in crates/*/src (before each file's first #[cfg(test)])
+crates/fmn-conformance/src/perf_pg2.rs:484: plan.sync(&stage, 0)
+crates/fmn-conformance/src/perf_pg5.rs:461: plan.sync(&built.stage, 0)
+crates/fmn-conformance/src/perf_pg5.rs:484: plan.sync(stage, 0).expect("scene-golden anchor plan syncs");
+crates/fmn-conformance/src/perf_pg6.rs:263: plan.sync(stage, 0).expect("scene-golden anchor plan syncs");
+crates/fmn-conformance/src/perf_pg6.rs:334: plan.sync(&built.stage, 0)
+crates/fmn-conformance/src/perf_pg6.rs:781: plan.sync(&built.stage, 0).map_err(|error| {
+crates/fmn-render/src/retained.rs:229: self.plan.sync(stage, camera_revision)?;
+crates/fmn-render/src/retained.rs:400: plan.sync(stage, camera.revision())?;
+crates/fmn-render/src/vector_frame.rs:66: Arc::make_mut(&mut self.plan).sync(stage, camera_revision)?;
+crates/fmn-wasm/src/lib.rs:482: plan.sync(stage, camera_revision)
+
+non-test renderer and compiler constructors
+crates/fmn/src/rendering/pipeline.rs:212: RetainedFrameRenderer::new(config)
+crates/fmn/src/rendering/pipeline.rs:230: VectorFrameCompiler::new(config).map_err(NativeFrameError::Renderer)?,
+crates/fmn/src/rendering/pipeline.rs:419: RetainedFrameRenderer::new(config).map_err(RenderError::Renderer)?,
+crates/fmn/src/rendering/pipeline.rs:424: VectorFrameCompiler::new(config).map_err(RenderError::Renderer)?,
+crates/fmn-python/src/portal_readback.rs:216: let mut renderer = RetainedFrameRenderer::new(RetainedFrameRendererConfi
+crates/fmn-python/src/portal_studio.rs:116: let renderer = RetainedFrameRenderer::new(RetainedFrameRendererConfig {
+crates/fmn-studio/src/camera_bundle.rs:208: renderer: RetainedFrameRenderer::new(view.renderer).map_err(failed)?,
+crates/fmn-studio/src/native/raster.rs:45: renderer: RetainedFrameRenderer::new(config).map_err(execution_error)?,
+crates/fmn-wasm/src/camera_player.rs:24: let mut renderer = RetainedFrameRenderer::new(RetainedFrameRendererConfi
+
+non-test RenderPlan::new() users outside fmn-render
+crates/fmn-conformance/src/perf_pg2.rs:483: let mut plan = RenderPlan::new();
+crates/fmn-conformance/src/perf_pg5.rs:460: let mut plan = RenderPlan::new();
+crates/fmn-conformance/src/perf_pg5.rs:483: let mut plan = RenderPlan::new();
+crates/fmn-conformance/src/perf_pg6.rs:262: let mut plan = RenderPlan::new();
+crates/fmn-conformance/src/perf_pg6.rs:333: let mut plan = RenderPlan::new();
+crates/fmn-conformance/src/perf_pg6.rs:780: let mut plan = RenderPlan::new();
+crates/fmn-wasm/src/lib.rs:481: let mut plan = RenderPlan::new();
+
+snapshot, journal or any second limit on the three patched paths
+  crates/fmn-render/src/retained.rs: ['311: /// Declared renderer policy, including the journaled engine identity.']
+  crates/fmn-render/src/vector_frame.rs: none
+  crates/fmn/src/rendering/pipeline.rs: none
+
+engine patch
+  sha256 63c1afcab4960b7ab5ceafed7b05836ae672449b5832c073e913f3a413f268b3
+  files 7
+  patch -p1 -F0 exit 0
+  crates/fmn-render/src/retained.rs: plain .sync( left 0, sync_with_limits 2
+  crates/fmn-render/src/vector_frame.rs: plain .sync( left 0, sync_with_limits 1
+  segment assertion in the patched test: ['let before = (plan.styles().len(), plan.segments().len(), plan.epoch());', '(plan.styles().len(), plan.segments().len(), plan.epoch()),', 'assert_eq!(plan.segments().len(), 731 * 734);']
+
+lab patches, on one copy of examples/plate_lab.rs
+  lab plate_lab.rs sha256 37d9d3386c24ae1d1ad19edef7735cd8c8af49453643bcb8ae674db1bf764f9e
+  Ruby's patch sha256 02bc170c2ced2dc98f095617aacca9eace7b20768bb9839be95279cedd9bdf82
+  Ruby's, patch -p1 -F0 exit 0
+  cells4 jobs in plan(): ['add(Kind::Still, &["z2", "sinrecip"], &["cells4"]);']
+  frozen probe patch sha256 3c28dd969c080289c77f151e249c49cb0c2c886de5b18bb974fe7900f44a2cc3
+  frozen probe patch paths: ['--- a/explainer_corpus/complex_analysis_visual/examples/plate_lab.rs', '+++ b/explainer_corpus/complex_analysis_visual/examples/plate_lab.rs']
+  frozen probe patch stacked on Ruby's, patch -p3 -F0 --dry-run exit 0
+  what that patch removes for cells4: ['-    add(Kind::Still, &["z2", "sinrecip"], &["cells4"]);']
+
+film's options and the kit's rebuilds
+  crates/explainer_kit/src/cli.rs:480: let mut o = RenderOptions::with_format(path, format)?;
+  crates/explainer_kit/src/cli.rs:536: let mut o = encode::delivery_options(
+  crates/explainer_kit/src/cli.rs:545: o.config = opts.config;
+  crates/explainer_kit/src/cli.rs:546: o.max_frames = opts.max_frames;
+  crates/explainer_kit/src/cli.rs:648: let mut o = encode::delivery_options(
+  crates/explainer_kit/src/cli.rs:659: o.config = opts.config.clone();
+  crates/explainer_kit/src/cli.rs:660: o.max_frames = opts.max_frames;
+  crates/explainer_kit/src/cli.rs:661: opts = o;
+  crates/explainer_kit/src/encode.rs:247: let mut o = RenderOptions::with_format(output, format)?;
+  crates/explainer_kit/src/encode.rs:552: let bare = RenderOptions::with_format("out.mp4", RenderFormat::Mp4).unwr
+  RenderOptions in the film crate's src/: 0 files
+  camera shots in the film crate's src/: 0 files
+  plan_limits in the kit: 0 files

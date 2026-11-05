@@ -1,0 +1,17 @@
+public items removed by the patch: []
+applied complex02-05-cross-review04/rebinding-tex-storyboard.patch 
+applied complex-glyph-spacing-repair01/complex-glyph-spacing.patch 
+applied complex11-counting-review-repair01/patches/01-reach-label.patch 
+applied complex11-counting-review-repair01/patches/02-storyboard-11_7.patch 
+applied complex13-radius-repair01/complex13-radius-repair01.patch 
+binder problems with all siblings: 1 ['storyboard:225 words of 11_7 differ from script.tsv']
+hold rows 23
+['repo', 'crate', 'out', '--map-version', '--check']
+['def main():', 'plan.problem(f"map version {args.map_version} already exists in canonical with other bytes; pick the next version")']
+complex11-counting-teaching02/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs names: ['NEEDS_SAID[i]', 'line.sentence(i + 3)', 'line.wait_sentence(stage, i + 2)']
+complex11-counting-teaching02/patches/counting-delta-on-01-03.patch names: []
+complex11-counting-teaching02/patches/counting-from-root.patch names: []
+complex11-counting-teaching02/patches/direction-map-from-oliver10.patch names: []
+complex11-counting-teaching02/patches/mod-registry.patch names: []
+complex11-counting-teaching02/patches/narration-units.patch names: []
+complex11-counting-teaching02/patches/storyboard.patch names: []

@@ -1,0 +1,957 @@
+diff --git a/crates/fmn-render/src/engine.rs b/crates/fmn-render/src/engine.rs
+--- a/crates/fmn-render/src/engine.rs
++++ b/crates/fmn-render/src/engine.rs
+@@ -1363,7 +1363,15 @@ impl<'a> FrameJob<'a> {
+         }
+         let mut arena = FrameArena::new();
+         arena.begin_frame();
+-        let (draws, cols) = Self::prepare(plan, mono, binning, config, identity, &mut arena)?;
++        let (draws, cols) = Self::prepare(
++            plan,
++            mono,
++            binning,
++            config,
++            identity,
++            &mut arena,
++            fill::MonoTableLimits::default(),
++        )?;
+         Ok(FrameJob {
+             plan,
+             mono,
+@@ -1418,6 +1426,36 @@ impl<'a> FrameJob<'a> {
+         binning: &'a Binning,
+         config: FrameConfig,
+         identity: EngineIdentity,
++    ) -> Result<FrameJob<'a>, FrameJobError> {
++        Self::with_identity_and_mono_limits_in(
++            arena,
++            plan,
++            mono,
++            binning,
++            config,
++            identity,
++            fill::MonoTableLimits::default(),
++        )
++    }
++
++    /// [`FrameJob::with_identity_in`] with an explicit budget for the monotone
++    /// pieces this frame derives for instances placed by more than a translation.
++    ///
++    /// `mono` was built under its own limits before this call. These pieces are
++    /// separate from it and accumulate across the frame's instances. Frame bits
++    /// do not depend on the budget, which only decides what is refused.
++    ///
++    /// # Errors
++    /// [`FrameJobError::MonoTable`] when those pieces exceed `mono_limits`;
++    /// otherwise see [`FrameJob::with_identity_in`].
++    pub fn with_identity_and_mono_limits_in(
++        arena: &'a mut FrameArena,
++        plan: &'a RenderPlan,
++        mono: &'a fill::MonoTable,
++        binning: &'a Binning,
++        config: FrameConfig,
++        identity: EngineIdentity,
++        mono_limits: fill::MonoTableLimits,
+     ) -> Result<FrameJob<'a>, FrameJobError> {
+         if matches!(identity.engine, EngineKind::Metal | EngineKind::Cuda) {
+             return Err(FrameJobError::UnsupportedEngine {
+@@ -1425,7 +1463,8 @@ impl<'a> FrameJob<'a> {
+             });
+         }
+         arena.begin_frame();
+-        let (draws, cols) = Self::prepare(plan, mono, binning, config, identity, arena)?;
++        let (draws, cols) =
++            Self::prepare(plan, mono, binning, config, identity, arena, mono_limits)?;
+         Ok(FrameJob {
+             plan,
+             mono,
+@@ -1453,7 +1492,15 @@ impl<'a> FrameJob<'a> {
+         let mut arena = FrameArena::new();
+         arena.begin_frame();
+         let identity = EngineIdentity::metal();
+-        let (draws, cols) = Self::prepare(plan, mono, binning, config, identity, &mut arena)?;
++        let (draws, cols) = Self::prepare(
++            plan,
++            mono,
++            binning,
++            config,
++            identity,
++            &mut arena,
++            fill::MonoTableLimits::default(),
++        )?;
+         Ok(FrameJob {
+             plan,
+             mono,
+@@ -1475,6 +1522,7 @@ impl<'a> FrameJob<'a> {
+         config: FrameConfig,
+         identity: EngineIdentity,
+         arena: &mut FrameArena,
++        mono_limits: fill::MonoTableLimits,
+     ) -> Result<(PoolRange, u32), FrameJobError> {
+         if identity.renderer_version != RENDERER_VERSION {
+             return Err(FrameJobError::RendererVersionMismatch {
+@@ -1592,7 +1640,7 @@ impl<'a> FrameJob<'a> {
+                     effective_segments,
+                     &shape.subpath_starts,
+                     map,
+-                    fill::MonoTableLimits::default(),
++                    mono_limits,
+                 )
+                 .map_err(FrameJobError::MonoTable)?;
+                 Some(arena.pieces.range_from("monotone piece rows", start)?)
+diff --git a/crates/fmn-render/src/lib.rs b/crates/fmn-render/src/lib.rs
+--- a/crates/fmn-render/src/lib.rs
++++ b/crates/fmn-render/src/lib.rs
+@@ -49,7 +49,7 @@ pub mod table;
+ pub mod texture;
+ pub mod three_d;
+ pub mod vector_frame;
+-pub use vector_frame::{OwnedVectorFrame, VectorFrameCompiler};
++pub use vector_frame::{FrameTableLimits, OwnedVectorFrame, VectorFrameCompiler};
+ 
+ pub use arena::{AllocStats, FrameArena};
+ pub use bin::{Binning, BinningError, BinningLimits, ScreenMap, Tiling, Viewport};
+diff --git a/crates/fmn-render/src/vector_frame.rs b/crates/fmn-render/src/vector_frame.rs
+--- a/crates/fmn-render/src/vector_frame.rs
++++ b/crates/fmn-render/src/vector_frame.rs
+@@ -10,10 +10,28 @@ use fmn_frame::{FrameBuffer, FrameError, FrameLayout};
+ use fmn_mobject::{ProgramKind, Stage};
+ 
+ use crate::{
+-    Binning, CachedRenderStats, FrameArena, FrameJob, MonoTable, PixelTileCache, RenderPlan,
+-    RenderPlanLimits, RetainedFrameRendererConfig, RetainedFrameRendererError, SyncStats,
++    Binning, BinningLimits, CachedRenderStats, FrameArena, FrameJob, MonoTable, MonoTableLimits,
++    PixelTileCache, RenderPlan, RenderPlanLimits, RetainedFrameRendererConfig,
++    RetainedFrameRendererError, SyncStats,
+ };
+ 
++/// Budgets for the tables each frame derives from its synchronized plan.
++///
++/// [`RenderPlanLimits`] governs what a scene may retain. These govern what one
++/// frame then builds on one render team, so several teams can each spend up to
++/// these amounts at once. They only decide what is refused: frame bits do not
++/// depend on them. A larger budget leaves the `u32` index widths, the checked
++/// size arithmetic and the fallible reservations in force, and it does not mean
++/// the memory exists.
++#[derive(Debug, Clone, Copy, Default, PartialEq, Eq)]
++pub struct FrameTableLimits {
++    /// Monotone pieces and table bytes, in the shared table and, separately, in
++    /// the frame-local pieces of instances placed by more than a translation.
++    pub monotone: MonoTableLimits,
++    /// Tile grids, instances, tile references, partition cells and working bytes.
++    pub binning: BinningLimits,
++}
++
+ /// Serial retained compiler whose captured frames own immutable IR generations.
+ ///
+ /// Compiled shapes/styles retain their normal revision-based reuse. An IR
+@@ -24,6 +42,7 @@ pub struct VectorFrameCompiler {
+     plan: Arc<RenderPlan>,
+     config: RetainedFrameRendererConfig,
+     plan_limits: RenderPlanLimits,
++    frame_tables: FrameTableLimits,
+ }
+ 
+ impl VectorFrameCompiler {
+@@ -40,18 +59,28 @@ impl VectorFrameCompiler {
+             plan: Arc::new(RenderPlan::new()),
+             config,
+             plan_limits: RenderPlanLimits::default(),
++            frame_tables: FrameTableLimits::default(),
+         })
+     }
+ 
+     /// Admit later captures under `limits` in place of [`RenderPlanLimits::default`].
+     ///
+     /// A larger budget costs retained memory and moves compaction later; frame
+-    /// bits do not depend on it. Downstream monotone and binning budgets still
+-    /// apply and refuse by name.
++    /// bits do not depend on it. [`Self::set_frame_table_limits`] governs the
++    /// downstream monotone and binning budgets, which still refuse by name.
+     pub fn set_plan_limits(&mut self, limits: RenderPlanLimits) {
+         self.plan_limits = limits;
+     }
+ 
++    /// Build the tables of later captures under `limits` in place of
++    /// [`FrameTableLimits::default`].
++    ///
++    /// A larger budget costs per-frame memory and work on every render team;
++    /// frame bits do not depend on it. Every budget still refuses by name.
++    pub fn set_frame_table_limits(&mut self, limits: FrameTableLimits) {
++        self.frame_tables = limits;
++    }
++
+     /// Freeze one affine frame after the caller has acquired pipeline capacity.
+     ///
+     /// Camera-only primitives are refused rather than flattened or omitted.
+@@ -78,6 +107,7 @@ impl VectorFrameCompiler {
+         Ok(OwnedVectorFrame {
+             plan: Arc::clone(&self.plan),
+             config: self.config,
++            frame_tables: self.frame_tables,
+             camera_revision,
+         })
+     }
+@@ -97,6 +127,7 @@ impl VectorFrameCompiler {
+ pub struct OwnedVectorFrame {
+     plan: Arc<RenderPlan>,
+     config: RetainedFrameRendererConfig,
++    frame_tables: FrameTableLimits,
+     camera_revision: u64,
+ }
+ 
+@@ -156,21 +187,27 @@ impl OwnedVectorFrame {
+         if threads == 0 {
+             return Err(RetainedFrameRendererError::InvalidThreads);
+         }
+-        let mono = MonoTable::build(&self.plan, self.config.frame.map)?;
+-        let mut binning = Binning::build(
++        let mono = MonoTable::build_with_limits(
++            &self.plan,
++            self.config.frame.map,
++            self.frame_tables.monotone,
++        )?;
++        let mut binning = Binning::build_with_limits(
+             &self.plan,
+             self.config.frame.viewport,
+             self.config.tiling,
+             self.config.frame.map,
++            self.frame_tables.binning,
+         )?;
+         binning.prune_occluded(&self.plan)?;
+-        let job = FrameJob::with_identity_in(
++        let job = FrameJob::with_identity_and_mono_limits_in(
+             arena,
+             &self.plan,
+             &mono,
+             &binning,
+             self.config.frame,
+             self.config.engine,
++            self.frame_tables.monotone,
+         )?;
+         Ok(job.render_into_cached_resuming(threads, frame, self.camera_revision, cache, resume)?)
+     }
+diff --git a/crates/fmn-render/tests/frame_table_limits.rs b/crates/fmn-render/tests/frame_table_limits.rs
+new file mode 100644
+--- /dev/null
++++ b/crates/fmn-render/tests/frame_table_limits.rs
+@@ -0,0 +1,411 @@
++//! Per-frame table budgets on a compiled affine frame: the defaults, the exact boundary of every
++//! budget, the frame-local pieces that bypass the shared table, and no pixel moved by a larger one.
++use fmn_core::color::LinearRgba;
++use fmn_frame::FrameBuffer;
++use fmn_mobject::{Mobject, Placement, RecordBuffer, RecordSchema, Stage};
++use fmn_render::{
++    BinningError, BinningLimits, EngineIdentity, FrameArena, FrameConfig, FrameJobError,
++    FrameTableLimits, MonoPiece, MonoTableError, MonoTableLimits, PixelTileCache, RenderPlanLimits,
++    RetainedFrameRendererConfig, RetainedFrameRendererError, ScreenMap, Tiling,
++    VectorFrameCompiler, Viewport,
++};
++
++const UPRIGHT: [[f64; 3]; 3] = [[1., 0., 0.], [0., 1., 0.], [0., 0., 1.]];
++/// A 45° turn, up to a scale that does not matter here.
++const TURNED: [[f64; 3]; 3] = [[0.7071, -0.7071, 0.], [0.7071, 0.7071, 0.], [0., 0., 1.]];
++
++fn config() -> RetainedFrameRendererConfig {
++    RetainedFrameRendererConfig {
++        frame: FrameConfig::new(
++            Viewport {
++                width: 64,
++                height: 36,
++            },
++            ScreenMap {
++                scale: 4.5,
++                origin: [32., 18.],
++                y_up: false,
++            },
++            LinearRgba {
++                r: 0.,
++                g: 0.,
++                b: 0.,
++                a: 1.,
++            },
++        ),
++        tiling: Tiling {
++            macro_tile: 16,
++            fine_tile: 8,
++        },
++        engine: EngineIdentity::certified(),
++        threads: 1,
++    }
++}
++
++fn filled(points: &[[f32; 3]]) -> Mobject {
++    let mut records = RecordBuffer::new(RecordSchema::vmobject(), points.len()).unwrap();
++    for (i, point) in points.iter().enumerate() {
++        records.write(i, "point", point);
++        records.write(i, "fill_rgba", &[1.0, 0.0, 0.0, 1.0]);
++    }
++    Mobject::from_buffer(records)
++}
++
++/// Past every edge of the frame, so it lands in all 12 macro tiles and all 40 fine tiles.
++fn over_the_whole_frame() -> Stage {
++    let mut stage = Stage::new();
++    let mob = stage.add(filled(&[
++        [-8., -5., 0.],
++        [0., -5., 0.],
++        [8., -5., 0.],
++        [8., 0., 0.],
++        [8., 5., 0.],
++        [0., 5., 0.],
++        [-8., 5., 0.],
++        [-8., 0., 0.],
++        [-8., -5., 0.],
++    ]));
++    stage.add_to_scene(mob).unwrap();
++    stage
++}
++
++/// One open quadratic. Upright it is monotone on both axes: one piece and a closing chord, in the
++/// shared table. Turned 45° its screen x rises and falls, so the frame derives two pieces and the
++/// chord. Three frame-local pieces against two in the table separate the two sites.
++fn turned_curve() -> Stage {
++    let mut stage = Stage::new();
++    let mob = stage.add(filled(&[[0., 0., 0.], [1., 0.5, 0.], [1.5, 1.5, 0.]]));
++    stage.add_to_scene(mob).unwrap();
++    stage
++        .set_placement(mob, Placement::new(TURNED, [0.; 3]))
++        .unwrap();
++    stage
++}
++
++fn render(
++    stage: &Stage,
++    limits: FrameTableLimits,
++) -> Result<FrameBuffer, RetainedFrameRendererError> {
++    let mut compiler = VectorFrameCompiler::new(config())?;
++    compiler.set_frame_table_limits(limits);
++    let frame = compiler.capture(stage, 0)?;
++    let (pixels, _) = frame.render_cached(1, &mut FrameArena::new(), &mut PixelTileCache::new())?;
++    Ok(pixels)
++}
++
++fn monotone(max_pieces: usize, max_table_bytes: usize) -> FrameTableLimits {
++    FrameTableLimits {
++        monotone: MonoTableLimits {
++            max_pieces,
++            max_table_bytes,
++        },
++        ..FrameTableLimits::default()
++    }
++}
++
++fn binning(limits: BinningLimits) -> FrameTableLimits {
++    FrameTableLimits {
++        binning: limits,
++        ..FrameTableLimits::default()
++    }
++}
++
++#[track_caller]
++fn refused_by_table(
++    result: Result<FrameBuffer, RetainedFrameRendererError>,
++    name: &str,
++    at: usize,
++    over: usize,
++) {
++    match result {
++        Err(RetainedFrameRendererError::Mono(MonoTableError::LimitExceeded {
++            resource,
++            limit,
++            requested,
++        })) if resource == name && limit == at && requested == over => {}
++        other => panic!("expected the table to refuse {over} {name} at {at}: {other:?}"),
++    }
++}
++
++#[track_caller]
++fn refused_in_frame(
++    result: Result<FrameBuffer, RetainedFrameRendererError>,
++    name: &str,
++    at: usize,
++    over: usize,
++) {
++    match result {
++        Err(RetainedFrameRendererError::Prepare(FrameJobError::MonoTable(
++            MonoTableError::LimitExceeded {
++                resource,
++                limit,
++                requested,
++            },
++        ))) if resource == name && limit == at && requested == over => {}
++        other => panic!("expected the frame to refuse {over} {name} at {at}: {other:?}"),
++    }
++}
++
++/// The resource named, the limit, and what was asked for, from a binning refusal.
++#[track_caller]
++fn refused_binning(result: Result<FrameBuffer, RetainedFrameRendererError>) -> (String, u64, u64) {
++    match result {
++        Err(RetainedFrameRendererError::Binning(BinningError::LimitExceeded {
++            resource,
++            requested,
++            limit,
++        })) => (resource.to_owned(), limit, requested),
++        other => panic!("expected a binning limit refusal: {other:?}"),
++    }
++}
++
++#[test]
++fn the_default_budgets_are_the_limits_the_engine_always_had() {
++    assert_eq!(
++        FrameTableLimits::default(),
++        FrameTableLimits {
++            monotone: MonoTableLimits {
++                max_pieces: 1 << 22,
++                max_table_bytes: 1 << 28,
++            },
++            binning: BinningLimits {
++                max_tiles: 1 << 20,
++                max_instances: 1 << 20,
++                max_tile_references: 1 << 24,
++                max_partition_cells: 1 << 24,
++                max_working_bytes: 256 * 1024 * 1024,
++            },
++        }
++    );
++}
++
++/// Each site has its own exact boundary. A frame-local site left at its default would pass the
++/// table checks here and then admit what these limits must refuse.
++#[test]
++fn monotone_budgets_govern_the_shared_table_and_the_frame_local_pieces() {
++    let stage = turned_curve();
++    let wide = MonoTableLimits::default();
++
++    refused_by_table(
++        render(&stage, monotone(1, wide.max_table_bytes)),
++        "monotone pieces",
++        1,
++        2,
++    );
++    refused_in_frame(
++        render(&stage, monotone(2, wide.max_table_bytes)),
++        "monotone pieces",
++        2,
++        3,
++    );
++    render(&stage, monotone(3, wide.max_table_bytes)).unwrap();
++
++    // The table also counts its one shape range. The frame-local pool has none.
++    let piece = std::mem::size_of::<MonoPiece>();
++    let table = 2 * piece + std::mem::size_of::<(u32, u32)>();
++    let frame = 3 * piece;
++    refused_by_table(
++        render(&stage, monotone(wide.max_pieces, table - 1)),
++        "monotone table bytes",
++        table - 1,
++        table,
++    );
++    refused_in_frame(
++        render(&stage, monotone(wide.max_pieces, frame - 1)),
++        "monotone table bytes",
++        frame - 1,
++        frame,
++    );
++    render(&stage, monotone(wide.max_pieces, frame)).unwrap();
++}
++
++#[test]
++fn binning_budgets_each_refuse_by_name_at_their_exact_boundary() {
++    let stage = over_the_whole_frame();
++    let wide = BinningLimits::default();
++
++    for (name, lowered, requested, exact) in [
++        (
++            "fine tiles",
++            BinningLimits {
++                max_tiles: 39,
++                ..wide
++            },
++            40,
++            BinningLimits {
++                max_tiles: 40,
++                ..wide
++            },
++        ),
++        (
++            "instances",
++            BinningLimits {
++                max_instances: 0,
++                ..wide
++            },
++            1,
++            BinningLimits {
++                max_instances: 1,
++                ..wide
++            },
++        ),
++        (
++            "partition cells",
++            BinningLimits {
++                max_partition_cells: 39,
++                ..wide
++            },
++            40,
++            BinningLimits {
++                max_partition_cells: 40,
++                ..wide
++            },
++        ),
++        (
++            "fine tile references",
++            BinningLimits {
++                max_tile_references: 39,
++                ..wide
++            },
++            40,
++            BinningLimits {
++                max_tile_references: 40,
++                ..wide
++            },
++        ),
++    ] {
++        let (resource, _, asked) = refused_binning(render(&stage, binning(lowered)));
++        assert_eq!((resource.as_str(), asked), (name, requested));
++        render(&stage, binning(exact)).unwrap();
++    }
++
++    // The macro pass holds 12 references and spends the same budget first.
++    let (resource, _, asked) = refused_binning(render(
++        &stage,
++        binning(BinningLimits {
++            max_tile_references: 11,
++            ..wide
++        }),
++    ));
++    assert_eq!((resource.as_str(), asked), ("macrotile references", 12));
++
++    // Working bytes are checked in stages, each report larger than the last. Walk up them.
++    let mut limit = 1;
++    let mut last_refused = 0;
++    while let Err(error) = render(
++        &stage,
++        binning(BinningLimits {
++            max_working_bytes: limit,
++            ..wide
++        }),
++    ) {
++        let (resource, _, asked) = refused_binning(Err(error));
++        assert_eq!(resource, "working bytes");
++        assert!(asked > limit, "{asked} at {limit}");
++        last_refused = limit;
++        limit = asked;
++    }
++    assert!(last_refused > 0, "one byte should have been refused");
++    assert_eq!(
++        refused_binning(render(
++            &stage,
++            binning(BinningLimits {
++                max_working_bytes: limit - 1,
++                ..wide
++            }),
++        ))
++        .0,
++        "working bytes"
++    );
++}
++
++#[test]
++fn a_larger_budget_moves_no_pixel() {
++    let raised = FrameTableLimits {
++        monotone: MonoTableLimits {
++            max_pieces: 1 << 23,
++            max_table_bytes: 1 << 29,
++        },
++        binning: BinningLimits {
++            max_tiles: 1 << 21,
++            max_instances: 1 << 21,
++            max_tile_references: 1 << 25,
++            max_partition_cells: 1 << 25,
++            max_working_bytes: 512 * 1024 * 1024,
++        },
++    };
++    for stage in [over_the_whole_frame(), turned_curve()] {
++        let default = render(&stage, FrameTableLimits::default()).unwrap();
++        let red = default
++            .plane(0)
++            .as_chunks::<8>()
++            .0
++            .iter()
++            .map(|pixel| fmn_frame::half::f16_to_f64(u16::from_le_bytes([pixel[0], pixel[1]])))
++            .sum::<f64>();
++        assert!(red > 1.0, "the fixture drew nothing: {red}");
++        let larger = render(&stage, raised).unwrap();
++        assert_eq!(default.plane(0), larger.plane(0));
++    }
++}
++
++/// Every lower limit above would also pass if a raise were clamped to the default. This one needs
++/// more than the default: 1,365 distinct outlines of 1,024 quadratics, each split at both extrema.
++/// That is 1,365 × (3 × 1,024 + 1) = 4,194,645 pieces against 4,194,304. Identical outlines would
++/// intern to one shape, so each is shifted. The translation takes them all out of the frame, so
++/// binning and raster stay trivial and the table is the whole cost.
++#[test]
++#[ignore = "about 0.55 GiB by arithmetic, not measured: root runs it under guard"]
++fn a_monotone_budget_above_the_default_is_admitted_and_the_default_still_refuses() {
++    const SHAPES: usize = 1_365;
++    const CURVES: usize = 1_024;
++    let step = 1.0 / CURVES as f32;
++    let mut stage = Stage::new();
++    for shape in 0..SHAPES {
++        let shift = shape as f32 * 0.001;
++        let mut points = Vec::with_capacity(2 * CURVES + 1);
++        for curve in 0..=CURVES {
++            let at = curve as f32 * step + shift;
++            points.push([at, at, 0.0]);
++            if curve < CURVES {
++                // From `at`, handle (2, 3) and end (1, 1) steps: extrema at t = 2/3 and 3/5.
++                points.push([at + 2.0 * step, at + 3.0 * step, 0.0]);
++            }
++        }
++        let mob = stage.add(filled(&points));
++        stage.add_to_scene(mob).unwrap();
++        stage
++            .set_placement(mob, Placement::new(UPRIGHT, [100.0, 0.0, 0.0]))
++            .unwrap();
++    }
++
++    let mut compiler = VectorFrameCompiler::new(config()).unwrap();
++    compiler.set_plan_limits(RenderPlanLimits {
++        max_input_curves: 1 << 21,
++        max_retained_segments: 1 << 21,
++        ..RenderPlanLimits::default()
++    });
++    let render_once = |compiler: &mut VectorFrameCompiler| {
++        compiler
++            .capture(&stage, 0)
++            .unwrap()
++            .render_cached(1, &mut FrameArena::new(), &mut PixelTileCache::new())
++            .map(|(pixels, _)| pixels)
++    };
++    match render_once(&mut compiler) {
++        Err(RetainedFrameRendererError::Mono(MonoTableError::LimitExceeded {
++            resource: "monotone pieces",
++            limit,
++            requested,
++        })) => {
++            assert_eq!(limit, 1 << 22);
++            assert!(requested > limit, "{requested}");
++        }
++        other => panic!("the default should refuse by name: {other:?}"),
++    }
++    compiler.set_frame_table_limits(monotone(
++        1 << 23,
++        MonoTableLimits::default().max_table_bytes,
++    ));
++    render_once(&mut compiler).unwrap();
++}
+diff --git a/crates/fmn/src/rendering.rs b/crates/fmn/src/rendering.rs
+--- a/crates/fmn/src/rendering.rs
++++ b/crates/fmn/src/rendering.rs
+@@ -70,7 +70,9 @@ pub use soundtrack::{PreparedSceneSoundtrack, SoundtrackInput, SoundtrackTimelin
+ 
+ pub use fmn_output::negotiate::{EncoderPreset, EncoderTune, VideoQuality};
+ pub use fmn_output::{EmitterReport, JobLimits, NativeArtifactReport};
+-pub use fmn_render::{CameraConfig, CameraFrame, RenderPlanLimits};
++pub use fmn_render::{
++    BinningLimits, CameraConfig, CameraFrame, FrameTableLimits, MonoTableLimits, RenderPlanLimits,
++};
+ pub use fmn_runtime::ExecutionPlan;
+ 
+ /// Read optional `file_writer` video controls after configuration layering.
+@@ -312,8 +314,15 @@ pub struct RenderOptions {
+     /// frame. The default fits ordinary scenes; one that needs more declares it
+     /// here, and frame bits do not depend on it. [`Self::max_resident_bytes`] does
+     /// not cover scene geometry, so the caller answers for the memory admitted.
+-    /// The monotone-table and binning budgets still apply and refuse by name.
++    /// [`Self::frame_table_limits`] governs the monotone-table and binning budgets,
++    /// which still refuse by name.
+     pub plan_limits: RenderPlanLimits,
++    /// Tables each affine frame derives from the retained plan, per frame and per
++    /// render team: monotone pieces and tile binning. These decide only what is
++    /// refused, so frame bits do not depend on them, and [`Self::max_resident_bytes`]
++    /// does not cover the memory they admit. The camera route builds neither table
++    /// and keeps its own fixed preparation limits.
++    pub frame_table_limits: FrameTableLimits,
+     /// Upper bound on the output ring and frozen frame-job count; the scheduler
+     /// may lower it. Does not change frame sampling or pixels.
+     pub frames_in_flight: usize,
+@@ -363,6 +372,7 @@ impl RenderOptions {
+             max_output_bytes: 64 * 1024 * 1024 * 1024,
+             max_resident_bytes: 512 * 1024 * 1024,
+             plan_limits: RenderPlanLimits::default(),
++            frame_table_limits: FrameTableLimits::default(),
+             frames_in_flight: 2,
+             typeset_cache: true,
+             typeset_preflight_workers: crate::typesetting::DEFAULT_PREFLIGHT_WORKERS,
+@@ -1032,12 +1042,13 @@ impl RenderSink {
+             vec![binding],
+         )
+         .map_err(RenderError::Emitter)?;
+-        let pipeline = match NativeFramePipeline::with_plan_limits(
++        let pipeline = match NativeFramePipeline::with_limits(
+             plan.clone(),
+             renderer_config,
+             camera,
+             emitter.handle(),
+             options.plan_limits,
++            options.frame_table_limits,
+         ) {
+             Ok(pipeline) => pipeline,
+             Err(error) => {
+diff --git a/crates/fmn/src/rendering/pipeline.rs b/crates/fmn/src/rendering/pipeline.rs
+--- a/crates/fmn/src/rendering/pipeline.rs
++++ b/crates/fmn/src/rendering/pipeline.rs
+@@ -10,9 +10,9 @@ use fmn_frame::convert::{
+ use fmn_frame::{ChromaSiting, ColorRange, FrameBuffer, FrameError, PixelFormat};
+ use fmn_output::{EmitterError, EmitterHandle, FrameReservation};
+ use fmn_render::{
+-    Camera, CameraConfig, EngineIdentity, FrameArena, OwnedVectorFrame, PixelTileCache,
+-    PreparedCameraFrame, RenderPlanLimits, RetainedFrameRenderer, RetainedFrameRendererConfig,
+-    RetainedFrameRendererError, VectorFrameCompiler, Viewport,
++    Camera, CameraConfig, EngineIdentity, FrameArena, FrameTableLimits, OwnedVectorFrame,
++    PixelTileCache, PreparedCameraFrame, RenderPlanLimits, RetainedFrameRenderer,
++    RetainedFrameRendererConfig, RetainedFrameRendererError, VectorFrameCompiler, Viewport,
+ };
+ use fmn_runtime::{
+     ExecutionEngine, ExecutionPlan, FrameStream, FrameStreamError, OutputPixelFormat,
+@@ -137,15 +137,21 @@ pub(super) struct NativeFrameStages {
+     // nonconsecutive frame contents and cache identities decide reuse.
+     workers: Vec<Mutex<VectorWorker>>,
+     plan_limits: RenderPlanLimits,
++    frame_tables: FrameTableLimits,
+ }
+ 
+ impl NativeFrameStages {
+-    pub fn new(render_teams: usize, plan_limits: RenderPlanLimits) -> Self {
++    pub fn new(
++        render_teams: usize,
++        plan_limits: RenderPlanLimits,
++        frame_tables: FrameTableLimits,
++    ) -> Self {
+         Self {
+             workers: (0..render_teams)
+                 .map(|_| Mutex::new(VectorWorker::default()))
+                 .collect(),
+             plan_limits,
++            frame_tables,
+         }
+     }
+ }
+@@ -231,6 +237,7 @@ impl PipelineStages for NativeFrameStages {
+                         let mut compiler =
+                             VectorFrameCompiler::new(config).map_err(NativeFrameError::Renderer)?;
+                         compiler.set_plan_limits(self.plan_limits);
++                        compiler.set_frame_table_limits(self.frame_tables);
+                         worker.compiled_vector = Some(compiler);
+                     }
+                     let frame = worker
+@@ -363,7 +370,7 @@ impl NativeFramePipeline {
+     }
+ 
+     /// The same pipeline, admitting scenes under `plan_limits`. Frame bits do not
+-    /// depend on them; the monotone-table and binning budgets still apply.
++    /// depend on them; the monotone-table and binning budgets stay at their defaults.
+     ///
+     /// # Errors
+     /// As [`Self::new`].
+@@ -373,6 +380,30 @@ impl NativeFramePipeline {
+         camera: Option<Camera>,
+         output: EmitterHandle,
+         plan_limits: RenderPlanLimits,
++    ) -> Result<Self, RenderError> {
++        Self::with_limits(
++            plan,
++            config,
++            camera,
++            output,
++            plan_limits,
++            FrameTableLimits::default(),
++        )
++    }
++
++    /// [`Self::with_plan_limits`], building each affine frame's tables under
++    /// `frame_tables`. Frame bits do not depend on them, and the camera route
++    /// builds neither table.
++    ///
++    /// # Errors
++    /// As [`Self::new`].
++    pub fn with_limits(
++        plan: ExecutionPlan,
++        config: RetainedFrameRendererConfig,
++        camera: Option<Camera>,
++        output: EmitterHandle,
++        plan_limits: RenderPlanLimits,
++        frame_tables: FrameTableLimits,
+     ) -> Result<Self, RenderError> {
+         // Source demand is synchronous. A smaller output ring could block
+         // its producer while the coordinator awaits that same next source
+@@ -442,10 +473,11 @@ impl NativeFramePipeline {
+                 let mut compiler =
+                     VectorFrameCompiler::new(config).map_err(RenderError::Renderer)?;
+                 compiler.set_plan_limits(plan_limits);
++                compiler.set_frame_table_limits(frame_tables);
+                 NativeCompiler::Vector(compiler)
+             }
+         };
+-        let stages = NativeFrameStages::new(plan.render_teams.len(), plan_limits);
++        let stages = NativeFrameStages::new(plan.render_teams.len(), plan_limits, frame_tables);
+         let stream = FrameStream::new(plan, stages, |_, output| {
+             output.publish().map_err(NativeFrameError::Emitter)
+         })
+diff --git a/crates/fmn/tests/native_bundle_pipeline.rs b/crates/fmn/tests/native_bundle_pipeline.rs
+--- a/crates/fmn/tests/native_bundle_pipeline.rs
++++ b/crates/fmn/tests/native_bundle_pipeline.rs
+@@ -363,6 +363,58 @@ fn a_declared_plan_budget_reaches_the_compiled_workers_on_both_routes() {
+     }
+ }
+ 
++/// Compiled frames compile only inside a render worker, so only that worker's own compiler can
++/// answer here. The camera route builds neither table, which a zero budget makes visible.
++#[test]
++fn declared_frame_tables_reach_the_compiled_affine_workers_and_not_the_camera_route() {
++    let bytes = painted_bundle();
++    let png_options = |path: &str, camera: bool| {
++        let mut options = options(path, 4, camera);
++        options.format = RenderFormat::PngSequence;
++        options
++    };
++    let fs = Arc::new(VirtualFs::new());
++
++    let mut pieces = png_options("/pieces", false);
++    pieces.frame_table_limits.monotone.max_pieces = 0;
++    let mut references = png_options("/references", false);
++    references.frame_table_limits.binning.max_tile_references = 0;
++    for (path, tight, resource) in [
++        ("/pieces", pieces, "monotone pieces"),
++        ("/references", references, "macrotile references"),
++    ] {
++        let Err(error) = render_bundle_with_fs(&bytes, tight, fs.clone()) else {
++            panic!("{path}: a worker admitted a frame over its declared budget");
++        };
++        assert!(matches!(error, RenderError::Pipeline(_)), "{error:?}");
++        let words = format!("{error:?}");
++        assert!(
++            words.contains(&format!("resource: \"{resource}\"")),
++            "{words}"
++        );
++        assert!(!fs.exists(Path::new(path)));
++    }
++
++    let mut raised = png_options("/raised", false);
++    raised.frame_table_limits.monotone.max_pieces = 1 << 23;
++    raised.frame_table_limits.binning.max_tile_references = 1 << 25;
++    render_bundle_with_fs(&bytes, raised, fs.clone()).unwrap();
++    render_bundle_with_fs(&bytes, png_options("/default", false), fs.clone()).unwrap();
++    for index in 0..4 {
++        let frame = format!("frame_{index:06}.png");
++        assert_eq!(
++            fs.read(&Path::new("/raised").join(&frame)).unwrap(),
++            fs.read(&Path::new("/default").join(&frame)).unwrap()
++        );
++    }
++
++    let mut camera = png_options("/camera", true);
++    camera.frame_table_limits.monotone.max_pieces = 0;
++    camera.frame_table_limits.binning.max_tile_references = 0;
++    render_bundle_with_fs(&bytes, camera, fs.clone()).unwrap();
++    assert!(fs.exists(Path::new("/camera/frame_000000.png")));
++}
++
+ #[test]
+ fn empty_bundle_and_existing_native_outputs_are_not_silently_replaced() {
+     let mut stage = Stage::new();
+diff --git a/crates/fmn/tests/native_render.rs b/crates/fmn/tests/native_render.rs
+--- a/crates/fmn/tests/native_render.rs
++++ b/crates/fmn/tests/native_render.rs
+@@ -231,6 +231,88 @@ fn a_declared_plan_budget_reaches_the_renderer_and_refuses_by_name() {
+     assert!(!fs.exists(Path::new("/limited")));
+ }
+ 
++#[test]
++fn a_lowered_frame_table_budget_refuses_by_name_and_publishes_nothing() {
++    let fs = Arc::new(VirtualFs::new());
++
++    let mut pieces = options("/pieces", RenderFormat::PngSequence, 1);
++    pieces.frame_table_limits.monotone.max_pieces = 0;
++    let Err(error) = render_with_fs(&mut MovingCircle, pieces, fs.clone()) else {
++        panic!("a circle needs more than no monotone pieces");
++    };
++    let words = format!("{error:?}");
++    assert!(words.contains("resource: \"monotone pieces\""), "{words}");
++    assert!(!fs.exists(Path::new("/pieces")));
++
++    let mut references = options("/references", RenderFormat::PngSequence, 1);
++    references.frame_table_limits.binning.max_tile_references = 0;
++    let Err(error) = render_with_fs(&mut MovingCircle, references, fs.clone()) else {
++        panic!("a circle on screen needs more than no tile references");
++    };
++    let words = format!("{error:?}");
++    assert!(
++        words.contains("resource: \"macrotile references\""),
++        "{words}"
++    );
++    assert!(!fs.exists(Path::new("/references")));
++}
++
++const FULL_FRAME_LAYERS: usize = 2_057;
++
++/// Binning counts an instance in every tile its bounds touch, before occlusion is pruned. At
++/// 1920×1080 with certified 16-pixel tiles a full-frame layer touches 120 × 68 = 8,160 tiles, so
++/// 2,057 of them need 16,785,120 references against the default of 16,777,216. Working bytes stay
++/// under their default, so one field is all this scene has to declare.
++struct FullFrameLayers;
++
++impl SceneConstruct for FullFrameLayers {
++    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
++        for _ in 0..FULL_FRAME_LAYERS {
++            let layer = stage.add(
++                Polygon::new([
++                    [-4.0, -3.0, 0.0],
++                    [4.0, -3.0, 0.0],
++                    [4.0, 3.0, 0.0],
++                    [-4.0, 3.0, 0.0],
++                ])
++                .color(WHITE),
++            )?;
++            stage.set_fill(layer, Some(WHITE), Some(1.0), None, true);
++            stage.set_stroke(layer, None, Some(0.0), None, None, true);
++        }
++        stage.wait(0.1)?;
++        Ok(())
++    }
++}
++
++/// A clamp to the default would pass every lowered budget. This one has to rise, on the route a
++/// film takes.
++#[test]
++fn a_declared_binning_budget_above_the_default_is_admitted_and_the_default_still_refuses() {
++    let layered = |path: &str| {
++        let mut options = options(path, RenderFormat::PngSequence, 1);
++        options.config.camera.resolution = (1920, 1080);
++        options
++    };
++    let fs = Arc::new(VirtualFs::new());
++    let Err(error) = render_with_fs(&mut FullFrameLayers, layered("/refused"), fs.clone()) else {
++        panic!("16,785,120 references should not fit the default budget");
++    };
++    let words = format!("{error:?}");
++    assert!(
++        words.contains("resource: \"fine tile references\"") && words.contains("limit: 16777216"),
++        "{words}"
++    );
++    assert!(!fs.exists(Path::new("/refused")));
++
++    let mut declared = layered("/admitted");
++    declared.frame_table_limits.binning.max_tile_references = 1 << 25;
++    let report = render_with_fs(&mut FullFrameLayers, declared, fs.clone()).unwrap();
++    // Binary f64 0.1 lies just above 1/10: the exact nominal clock emits two frames.
++    assert_eq!(report.artifact.frame_count, 2);
++    assert!(fs.exists(Path::new("/admitted/frame_000000.png")));
++}
++
+ const WIDE_ROWS: usize = 8;
+ const WIDE_RECORDS: usize = 131_209;
+ 

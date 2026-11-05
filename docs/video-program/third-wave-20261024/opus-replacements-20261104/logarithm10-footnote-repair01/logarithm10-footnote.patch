@@ -1,0 +1,77 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs
+@@ -38,7 +38,7 @@
+ 
+ use super::draw::{
+     answer_c, clipped_grid, dot, fact, fact_f64, fact_matrix, fade_in_all, fade_out_all, fail, flat, lap_c, line_style,
+-    matrix_card, number_c, pi_label, position_c, precisely, ring, seg, slide_c, swap, title, value, warn_c,
++    matrix_card, number_c, pi_label, position_c, ring, seg, slide_c, swap, title, value, warn_c,
+ };
+ use crate::model::{self, J, M2};
+ 
+@@ -63,10 +63,10 @@
+ const LAP_ASIDE: f64 = 0.15;
+ const RULE_WORD: &str = "keep −π < turning < π";
+ const LAP_WORD: &str = "ellipse flows: ±2π";
+-/// The chapter's fine print, with the prefix `draw::precisely` adds counted in
+-/// the test below.
++const FINE_SIZE: f64 = 22.0; // the fine print, in ink: the voice sends the viewer to it
++const FINE_ROWS: [f64; 2] = [-2.93, -3.4]; // its centres, clear of the grid and of the frame's edge
+ const TEXTBOOK: &str = "turning rate of the flow of X = imaginary part of an eigenvalue of X";
+-const SOURCE: &str = "no eigenvalue of A in (−∞, 0] ⇒ one logarithm has all eigenvalues −π < Im < π; real if A is (Higham; Gallier Thm 3.11)";
++const SOURCE: &str = "precisely: no eigenvalue of A in (−∞, 0] ⇒ one logarithm has all eigenvalues −π < Im < π; real if A is (Higham; Gallier Thm 3.11)";
+ /// How long the fine print stays before the chapter ends: its characters at
+ /// fifteen a second, a proposal to judge against the voice.
+ const FINE_PRINT_S: f64 = 13.2;
+@@ -591,8 +591,8 @@
+         let log_i = kit.tex(stage, r"\log I = 0", 40.0, gold, &[], v(right + 1.0, -1.5))?;
+         fade_in_all(stage, &[log_i], 0.5)?;
+         kit.until_sentence(stage, "10_4", 4)?;
+-        let textbook = kit.text(stage, TEXTBOOK, 18.0, Palette::dim(), v(0.0, -3.15))?;
+-        let source = precisely(&kit, stage, SOURCE)?;
++        let textbook = kit.text(stage, TEXTBOOK, FINE_SIZE, Palette::ink(), v(0.0, FINE_ROWS[0]))?;
++        let source = kit.text(stage, SOURCE, FINE_SIZE, Palette::ink(), v(0.0, FINE_ROWS[1]))?;
+         fade_in_all(stage, &[textbook, source], 0.5)?;
+         let shown_from = stage.scene().time().to_f64();
+         kit.hold(stage)?;
+@@ -755,8 +755,39 @@
+     #[test]
+     fn the_fine_print_has_no_caret_and_time_to_be_read() {
+         assert!(!TEXTBOOK.contains('^') && !SOURCE.contains('^'));
+-        let characters = TEXTBOOK.chars().count() + "precisely: ".chars().count() + SOURCE.chars().count();
++        assert!(SOURCE.starts_with("precisely: "));
++        let characters = TEXTBOOK.chars().count() + SOURCE.chars().count();
+         assert!(characters as f64 / FINE_PRINT_S <= 15.0, "{characters}");
++    }
++
++    /// Mail 3130: both rows at full contrast and readable size, and the lower
++    /// one lifted off the frame's edge, without printing on the grid above.
++    #[test]
++    fn the_fine_print_is_in_ink_and_clear_of_the_edge_and_the_grid() {
++        let film = include_str!("doing_nothing.rs").split("#[cfg(test)]").next().unwrap();
++        for row in [
++            "kit.text(stage, TEXTBOOK, FINE_SIZE, Palette::ink(), v(0.0, FINE_ROWS[0]))",
++            "kit.text(stage, SOURCE, FINE_SIZE, Palette::ink(), v(0.0, FINE_ROWS[1]))",
++        ] {
++            assert_eq!(film.matches(row).count(), 1, "{row}");
++        }
++        super::super::draw::probe_scene(|stage| {
++            let kit = Kit::new()?;
++            let textbook = kit.text(stage, TEXTBOOK, FINE_SIZE, Palette::ink(), v(0.0, FINE_ROWS[0]))?;
++            let source = kit.text(stage, SOURCE, FINE_SIZE, Palette::ink(), v(0.0, FINE_ROWS[1]))?;
++            let to_grid = screen([0.0, -3.0])[1] - stage.get_bounding_box_point(textbook, UP)[1];
++            let between = stage.get_bounding_box_point(textbook, DOWN)[1] - stage.get_bounding_box_point(source, UP)[1];
++            let source_bottom = stage.get_bounding_box_point(source, DOWN)[1];
++            assert!(to_grid > 0.15, "{to_grid}");
++            assert!(between > 0.15, "{between}");
++            // the frame's edge is at -4: keep 5% of its height clear below, 0.4
++            assert!(source_bottom > -3.6, "{source_bottom}");
++            for side in [LEFT, RIGHT] {
++                let x = stage.get_bounding_box_point(source, side)[0];
++                assert!(x.abs() < 6.86, "{x}");
++            }
++            Ok(())
++        });
+     }
+ 
+     #[test]

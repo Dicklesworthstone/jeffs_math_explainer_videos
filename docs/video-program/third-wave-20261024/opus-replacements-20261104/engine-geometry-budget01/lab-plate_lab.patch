@@ -1,0 +1,19 @@
+--- a/examples/plate_lab.rs
++++ b/examples/plate_lab.rs
+@@ -559,7 +559,15 @@
+     let samples = f64::from(job.candidate.style.samples);
+     seen.evaluate_s = per_sample * samples * samples;
+ 
+-    let opts = options(dir, res, job.kind.fps(), job.kind.frames())?;
++    let mut opts = options(dir, res, job.kind.fps(), job.kind.frames())?;
++    if job.candidate.style == draw::PLATE_CELLS4 {
++        // 731 rows of 1471 knots, and a repaint holds the old rows and the new together:
++        // 2,150,602 knots, more than 1 << 21. This declared budget is for this rung alone.
++        opts.plan_limits = fmn::rendering::RenderPlanLimits {
++            max_retained_profile_knots: 1 << 22,
++            ..fmn::rendering::RenderPlanLimits::default()
++        };
++    }
+     let t = Instant::now();
+     let report = {
+         let seen = &mut seen;

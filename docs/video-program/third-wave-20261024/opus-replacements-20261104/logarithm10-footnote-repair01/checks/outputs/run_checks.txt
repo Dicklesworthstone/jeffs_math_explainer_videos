@@ -1,0 +1,107 @@
+== baseline and patch
+PASS canonical is the file this repair was written against: eeee764f0fe5fd3cd45263ada9a87f22b3e05a48b120ca2ba4f862cdf7a27143
+PASS stage06 carries the same bytes
+  src/chapters/draw.rs: canonical 2a4e84504bab6364 stage06 2a4e84504bab6364 same
+  script.tsv: canonical f201d2dc57fa9cca stage06 f201d2dc57fa9cca same
+  docs/storyboard.md: canonical 7db2b8edeed482f5 stage06 7db2b8edeed482f5 same
+PASS the patch applies to canonical by git apply and gives the staged bytes
+PASS and reverses
+staged doing_nothing.rs 7f445be212c586093d2092113b086d809dcc189619985baf1c8f0c407c709b47
+patch 14a3dca5c561b13012c346bc448dc02f6a18069e89fa002ccece67196d6bec0d
+
+== what the patch changes in film code
+PASS film code keeps its line count: 608 lines
+PASS exactly the expected film lines change: [41, 66, 67, 69, 594, 595]
+  41: - matrix_card, number_c, pi_label, position_c, precisely, ring, seg, slide_c, swap, title, value, warn_c,
+  41: + matrix_card, number_c, pi_label, position_c, ring, seg, slide_c, swap, title, value, warn_c,
+  66: - /// The chapter's fine print, with the prefix `draw::precisely` adds counted in
+  66: + const FINE_SIZE: f64 = 22.0; // the fine print, in ink: the voice sends the viewer to it
+  67: - /// the test below.
+  67: + const FINE_ROWS: [f64; 2] = [-2.93, -3.4]; // its centres, clear of the grid and of the frame's edge
+  69: - const SOURCE: &str = "no eigenvalue of A in (−∞, 0] ⇒ one logarithm has all eigenvalues −π < Im < π; real if A is (Hig
+  69: + const SOURCE: &str = "precisely: no eigenvalue of A in (−∞, 0] ⇒ one logarithm has all eigenvalues −π < Im < π; real i
+  594: - let textbook = kit.text(stage, TEXTBOOK, 18.0, Palette::dim(), v(0.0, -3.15))?;
+  594: + let textbook = kit.text(stage, TEXTBOOK, FINE_SIZE, Palette::ink(), v(0.0, FINE_ROWS[0]))?;
+  595: - let source = precisely(&kit, stage, SOURCE)?;
+  595: + let source = kit.text(stage, SOURCE, FINE_SIZE, Palette::ink(), v(0.0, FINE_ROWS[1]))?;
+PASS no timed call and no reading window changes
+
+== what the viewer reads
+  upper row: turning rate of the flow of X = imaginary part of an eigenvalue of X
+  lower row: precisely: no eigenvalue of A in (−∞, 0] ⇒ one logarithm has all eigenvalues −π < Im < π; real if A is (Higham; Gallier Thm 3.11)
+PASS the turning-rate explanation is byte for byte the same
+PASS the lower row is the same string draw::precisely built, byte for byte: format!("precisely: {words}")
+PASS draw::precisely still formats it so
+PASS the qualification stays: −π < Im < π
+PASS the qualification stays: (−∞, 0]
+PASS the qualification stays: real if A is
+PASS the qualification stays: Higham; Gallier Thm 3.11
+PASS the qualification stays: no eigenvalue of A
+PASS 197 characters, as docs/storyboard.md:99 says: 197
+PASS the reading window is unchanged and still meets the crate's own test: 14.92 chars/s over 13.2 s
+
+== geometry, mirrored from widths and heights measured on frame 229
+  upper row y -3.032..-2.828, half-width 3.327; lower row y -3.516..-3.284, half-width 6.333
+  to the grid 0.268; between the rows 0.251; to the frame's edge 0.484 (was 0.267)
+  x-height by arithmetic, CM 0.43 em: 22 pt at 4K 25.5 px, 1080p 12.8 px; 18 pt at 4K 20.9 px
+PASS the new test's numeric half holds, mirrored
+PASS inside the film's safe area ±6.96 × ±3.85
+PASS the right column's lowest object, log I = 0, stays above the upper row
+
+== the new test's conditions on the staged source, and plants
+PASS source half passes on staged
+PASS the prefix check passes on staged
+PASS control: the source half fails on canonical
+PASS control: the prefix check fails on canonical
+PASS no stale precisely import remains, or Clippy would refuse it
+PASS control: canonical does use it
+PASS draw::precisely keeps other callers, so it does not go dead: branch_cut.rs, product_rule.rs, ratio_ruler.rs, slide_rule.rs, undoing_growth.rs, unreachable.rs, what_it_forgets.rs
+PASS planted, caught: the upper row goes back to dim
+PASS planted, caught: the lower row goes back to the helper
+PASS planted, caught: a stale import returns
+PASS planted, caught: the prefix is dropped
+PASS planted, caught: the condition loses its zero
+PASS planted, caught: the upper row's words change
+PASS planted, caught by the numeric half: the old rows, -3.15 and -3.62
+PASS planted, caught by the numeric half: rows onto the grid, -2.7 and -3.2
+PASS planted, caught by the numeric half: rows onto each other, -2.93 and -3.1
+PASS planted, caught by the numeric half: 25 pt runs too wide
+
+== bindings
+PASS map13 has one visual hold on this file: 1
+PASS hold-audit has the same one reading hold
+PASS the interval formula reproduces map13's value on canonical: eb79bd6b505c3dc00074e026184177378cbb3dd599501f35ea47b890a497bf6c
+PASS the hold's interval includes the two changed rows, so its hash must change: 9fe875942e620939da7839720e40e029c830cfe152247ae59de1db3c4c2d8927
+PASS the hold's line and marker survive: line 602
+PASS all 7 other hold-audit rows on this file keep their line and marker: []
+PASS draw.rs, a shared helper map13 names, is untouched by this patch: 2a4e84504bab6364
+PASS narration_units.json does not name the source hash
+PASS stage06's bound-plan/inputs.sha256 names the old hash, so root's binder must take the new input
+PASS script.tsv is outside the patch
+
+== docs/check_cues.py on a scratch copy
+  canonical copy exit 0; staged copy exit 0: 80 cues, 364 sentences, 80 said
+registered modules read, in registry order: ratio_ruler, building_ruler, slide_rule, folded_decade, undoing_growth, complex_turn
+PASS the cue checker passes both and differs only in its listing of the lower row's literal: 1 line against 1
+PASS control: it refuses the file with a say removed: exit 1
+
+== rustfmt
+PASS rustfmt --check canonical
+PASS rustfmt --check staged
+
+== old frames
+frame-0229.png, 1280 x 720, ground (12, 17, 20)
+nominal contrast: dim 6.13, ink 16.47; WCAG asks 4.5 for small text, 7 at its higher level
+textbook row as staged, dim at 18 pt: scene x -2.722..2.722 (width 5.444), y -3.233..-3.067; contrast on ground, peak 6.23, brightest tenth 5.29, median 3.30
+source row as staged, dim at 22 pt: scene x -6.333..6.333 (width 12.667), y -3.733..-3.500; contrast on ground, peak 6.37, brightest tenth 5.93, median 3.69
+sibling, ink at 22 pt: contrast on ground, peak 16.64, brightest tenth 15.81, median 8.19
+lower row to the frame's edge: 0.267 units, 24 px at this size
+upper row to the grid: 0.489 units
+textbook row, mock-up, not a render: scene x -3.333..3.322 (width 6.656), y -3.033..-2.833; contrast on ground, peak 16.47, brightest tenth 12.90, median 4.84
+source row, mock-up, not a render: scene x -6.333..6.333 (width 12.667), y -3.522..-3.289; contrast on ground, peak 16.47, brightest tenth 15.60, median 8.31
+lower row to the frame's edge in the mock-up: 0.478 units, 43 px at this size
+controls: the old frame should fail the probe, the mock-up should pass it
+  old frame fails on: lower row 0.267 from the frame's edge, wanted 0.4; upper row's brightest tenth 5.29, wanted 11.0; upper row 5.444 wide, wanted 6.4; lower row's brightest tenth 5.93, wanted 11.0
+  mock-up: passes
+wrote the sheet: (1280, 1492)
+PASS footnote_probe.py exits 0 with its controls

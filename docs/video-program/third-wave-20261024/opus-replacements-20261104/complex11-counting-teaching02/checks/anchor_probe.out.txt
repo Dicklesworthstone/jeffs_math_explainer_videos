@@ -1,0 +1,223 @@
+== preview02's real pixels, in 11_6 and 11_8: its marks hold still, and nothing else is done
+  FAIL the division acts
+       BAD the turn changes the field: 0% of its pixels differ by more than 24 levels from REF
+       BAD TURNED's field is 2i times the quintic's: 0.0% within 24 levels of the model's picture
+       ok  the division lands on the picture it left: 100.0% of LANDED's field within 24 levels of REF
+       BAD TURNED's curve lies on the model's: 9% of its 3797 green pixels within 5 px, and 100% on REF's
+       ok  LANDED's curve is REF's again: 100% of its 3797 green pixels within 5 px
+       BAD the row over the field has its gold leading coefficient: 0 gold pixels
+  PASS the marks stay
+       ok  mark near (372, 392): on all three frames, moved 0.0 px
+       ok  mark near (483, 392): on all three frames, moved 0.0 px
+       ok  mark near (319, 224): on all three frames, moved 0.0 px
+       ok  mark near (319, 559): on all three frames, moved 0.0 px
+       ok  mark near (155, 392): on all three frames, moved 0.0 px
+  FAIL the 0 stays whole
+       ok  the 0 is there before the sweep: 21 ink pixels in its box
+       ok  0 sweep 0: 0 of 180 pixels differ
+       BAD 0 sweep 1: 63 of 180 pixels differ
+       BAD 0 sweep 2: 29 of 180 pixels differ
+       BAD 0 sweep 3: 26 of 180 pixels differ
+       BAD 0 sweep 4: 3 of 180 pixels differ
+       ok  0 sweep 5: 0 of 180 pixels differ
+       ok  0 sweep 6: 0 of 180 pixels differ
+  FAIL the reach label
+       BAD label ink over the window, 0 teal pixels
+       BAD old place empty before the sweep
+       ok  no red label left in the slot
+       ok  sweep 0: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 1: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 2: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 3: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 4: slot unchanged, 0 of 2442 pixels differ
+       ok  the disk travels across these frames, by 123 px
+       ok  one of them is the crossing moment: 540 teal pixels pass through the old place
+ok   control: preview02 passes the marks and fails the turn, the 0 and the label: (True, False, False, False)
+== the metrics on real pixels: the film's own t = 0 against the model's two pictures
+     frame 356's field: 96.2% within 24 levels of the model at t = 0, 0.0% of the model at t = 1
+ok   control: the field metric takes the film's t = 0 for t = 0 and not for t = 1: (True, False)
+     frame 340's 3797 green pixels: 100% within 5 px of the model's curve at t = 0, 9% of the curve at t = 1
+ok   control: the curve metric does the same: (True, False)
+== the desk composites: every group must pass
+  PASS the division acts
+       ok  the turn changes the field: 100% of its pixels differ by more than 24 levels from REF
+       ok  TURNED's field is 2i times the quintic's: 100.0% within 24 levels of the model's picture
+       ok  the division lands on the picture it left: 100.0% of LANDED's field within 24 levels of REF
+       ok  TURNED's curve lies on the model's: 100% of its 4041 green pixels within 5 px, and 8% on REF's
+       ok  LANDED's curve is REF's again: 100% of its 3420 green pixels within 5 px
+       ok  the row over the field has its gold leading coefficient: 68 gold pixels
+  PASS the marks stay
+       ok  mark near (372, 392): on all three frames, moved 0.0 px
+       ok  mark near (483, 392): on all three frames, moved 0.0 px
+       ok  mark near (319, 224): on all three frames, moved 0.0 px
+       ok  mark near (319, 559): on all three frames, moved 0.0 px
+       ok  mark near (155, 392): on all three frames, moved 0.0 px
+  PASS the 0 stays whole
+       ok  the 0 is there before the sweep: 16 ink pixels in its box
+       ok  0 sweep 0: 0 of 180 pixels differ
+       ok  0 sweep 1: 0 of 180 pixels differ
+       ok  0 sweep 2: 0 of 180 pixels differ
+       ok  0 sweep 3: 0 of 180 pixels differ
+       ok  0 sweep 4: 0 of 180 pixels differ
+       ok  0 sweep 5: 0 of 180 pixels differ
+       ok  0 sweep 6: 0 of 180 pixels differ
+  PASS the reach label
+       ok  label ink over the window, 264 teal pixels
+       ok  label ink x 360 to 461, y 164 to 179: 95 to 112 wide, whole inside the slot
+       ok  label centred over the window at x 410.5, within 4
+       ok  old place empty before the sweep
+       ok  no red label left in the slot
+       ok  sweep 0: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 1: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 2: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 3: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 4: slot unchanged, 0 of 2442 pixels differ
+       ok  the disk travels across these frames, by 123 px
+       ok  one of them is the crossing moment: 257 teal pixels pass through the old place
+ok   control: the composites pass all four groups: (True, True, True, True)
+== planted defects, on the composites: each must fail its own group
+  FAIL the division acts
+       ok  the turn changes the field: 100% of its pixels differ by more than 24 levels from REF
+       ok  TURNED's field is 2i times the quintic's: 100.0% within 24 levels of the model's picture
+       BAD the division lands on the picture it left: 0.0% of LANDED's field within 24 levels of REF
+       ok  TURNED's curve lies on the model's: 100% of its 4041 green pixels within 5 px, and 8% on REF's
+       BAD LANDED's curve is REF's again: 8% of its 4041 green pixels within 5 px
+       ok  the row over the field has its gold leading coefficient: 68 gold pixels
+  PASS the marks stay
+       ok  mark near (372, 392): on all three frames, moved 0.0 px
+       ok  mark near (483, 392): on all three frames, moved 0.0 px
+       ok  mark near (319, 224): on all three frames, moved 0.0 px
+       ok  mark near (319, 559): on all three frames, moved 0.0 px
+       ok  mark near (155, 392): on all three frames, moved 0.0 px
+  PASS the 0 stays whole
+       ok  the 0 is there before the sweep: 16 ink pixels in its box
+       ok  0 sweep 0: 0 of 180 pixels differ
+       ok  0 sweep 1: 0 of 180 pixels differ
+       ok  0 sweep 2: 0 of 180 pixels differ
+       ok  0 sweep 3: 0 of 180 pixels differ
+       ok  0 sweep 4: 0 of 180 pixels differ
+       ok  0 sweep 5: 0 of 180 pixels differ
+       ok  0 sweep 6: 0 of 180 pixels differ
+  PASS the reach label
+       ok  label ink over the window, 264 teal pixels
+       ok  label ink x 360 to 461, y 164 to 179: 95 to 112 wide, whole inside the slot
+       ok  label centred over the window at x 410.5, within 4
+       ok  old place empty before the sweep
+       ok  no red label left in the slot
+       ok  sweep 0: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 1: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 2: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 3: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 4: slot unchanged, 0 of 2442 pixels differ
+       ok  the disk travels across these frames, by 123 px
+       ok  one of them is the crossing moment: 257 teal pixels pass through the old place
+ok   control: a division that never turns back fails the turn: False
+  PASS the division acts
+       ok  the turn changes the field: 100% of its pixels differ by more than 24 levels from REF
+       ok  TURNED's field is 2i times the quintic's: 100.0% within 24 levels of the model's picture
+       ok  the division lands on the picture it left: 98.9% of LANDED's field within 24 levels of REF
+       ok  TURNED's curve lies on the model's: 100% of its 4041 green pixels within 5 px, and 8% on REF's
+       ok  LANDED's curve is REF's again: 100% of its 3420 green pixels within 5 px
+       ok  the row over the field has its gold leading coefficient: 68 gold pixels
+  FAIL the marks stay
+       BAD mark near (372, 392): on all three frames, moved 0.0 px
+       BAD mark near (483, 392): on all three frames, moved 0.0 px
+       BAD mark near (319, 224): on all three frames, moved 0.0 px
+       BAD mark near (319, 559): on all three frames, moved 0.0 px
+       BAD mark near (155, 392): on all three frames, moved 0.0 px
+  PASS the 0 stays whole
+       ok  the 0 is there before the sweep: 16 ink pixels in its box
+       ok  0 sweep 0: 0 of 180 pixels differ
+       ok  0 sweep 1: 0 of 180 pixels differ
+       ok  0 sweep 2: 0 of 180 pixels differ
+       ok  0 sweep 3: 0 of 180 pixels differ
+       ok  0 sweep 4: 0 of 180 pixels differ
+       ok  0 sweep 5: 0 of 180 pixels differ
+       ok  0 sweep 6: 0 of 180 pixels differ
+  PASS the reach label
+       ok  label ink over the window, 264 teal pixels
+       ok  label ink x 360 to 461, y 164 to 179: 95 to 112 wide, whole inside the slot
+       ok  label centred over the window at x 410.5, within 4
+       ok  old place empty before the sweep
+       ok  no red label left in the slot
+       ok  sweep 0: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 1: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 2: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 3: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 4: slot unchanged, 0 of 2442 pixels differ
+       ok  the disk travels across these frames, by 123 px
+       ok  one of them is the crossing moment: 257 teal pixels pass through the old place
+ok   control: marks that move fail the marks: False
+  FAIL the division acts
+       BAD the turn changes the field: 0% of its pixels differ by more than 24 levels from REF
+       BAD TURNED's field is 2i times the quintic's: 0.0% within 24 levels of the model's picture
+       ok  the division lands on the picture it left: 100.0% of LANDED's field within 24 levels of REF
+       BAD TURNED's curve lies on the model's: 9% of its 3420 green pixels within 5 px, and 100% on REF's
+       ok  LANDED's curve is REF's again: 100% of its 3420 green pixels within 5 px
+       ok  the row over the field has its gold leading coefficient: 65 gold pixels
+  PASS the marks stay
+       ok  mark near (372, 392): on all three frames, moved 0.0 px
+       ok  mark near (483, 392): on all three frames, moved 0.0 px
+       ok  mark near (319, 224): on all three frames, moved 0.0 px
+       ok  mark near (319, 559): on all three frames, moved 0.0 px
+       ok  mark near (155, 392): on all three frames, moved 0.0 px
+  PASS the 0 stays whole
+       ok  the 0 is there before the sweep: 16 ink pixels in its box
+       ok  0 sweep 0: 0 of 180 pixels differ
+       ok  0 sweep 1: 0 of 180 pixels differ
+       ok  0 sweep 2: 0 of 180 pixels differ
+       ok  0 sweep 3: 0 of 180 pixels differ
+       ok  0 sweep 4: 0 of 180 pixels differ
+       ok  0 sweep 5: 0 of 180 pixels differ
+       ok  0 sweep 6: 0 of 180 pixels differ
+  PASS the reach label
+       ok  label ink over the window, 264 teal pixels
+       ok  label ink x 360 to 461, y 164 to 179: 95 to 112 wide, whole inside the slot
+       ok  label centred over the window at x 410.5, within 4
+       ok  old place empty before the sweep
+       ok  no red label left in the slot
+       ok  sweep 0: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 1: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 2: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 3: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 4: slot unchanged, 0 of 2442 pixels differ
+       ok  the disk travels across these frames, by 123 px
+       ok  one of them is the crossing moment: 257 teal pixels pass through the old place
+ok   control: a turn that never happens fails the turn: False
+  PASS the division acts
+       ok  the turn changes the field: 100% of its pixels differ by more than 24 levels from REF
+       ok  TURNED's field is 2i times the quintic's: 100.0% within 24 levels of the model's picture
+       ok  the division lands on the picture it left: 100.0% of LANDED's field within 24 levels of REF
+       ok  TURNED's curve lies on the model's: 100% of its 4041 green pixels within 5 px, and 8% on REF's
+       ok  LANDED's curve is REF's again: 100% of its 3420 green pixels within 5 px
+       ok  the row over the field has its gold leading coefficient: 68 gold pixels
+  PASS the marks stay
+       ok  mark near (372, 392): on all three frames, moved 0.0 px
+       ok  mark near (483, 392): on all three frames, moved 0.0 px
+       ok  mark near (319, 224): on all three frames, moved 0.0 px
+       ok  mark near (319, 559): on all three frames, moved 0.0 px
+       ok  mark near (155, 392): on all three frames, moved 0.0 px
+  FAIL the 0 stays whole
+       BAD the 0 is there before the sweep: 0 ink pixels in its box
+       ok  0 sweep 0: 0 of 180 pixels differ
+       ok  0 sweep 1: 0 of 180 pixels differ
+       ok  0 sweep 2: 0 of 180 pixels differ
+       ok  0 sweep 3: 0 of 180 pixels differ
+       ok  0 sweep 4: 0 of 180 pixels differ
+       ok  0 sweep 5: 0 of 180 pixels differ
+       ok  0 sweep 6: 0 of 180 pixels differ
+  PASS the reach label
+       ok  label ink over the window, 264 teal pixels
+       ok  label ink x 360 to 461, y 164 to 179: 95 to 112 wide, whole inside the slot
+       ok  label centred over the window at x 410.5, within 4
+       ok  old place empty before the sweep
+       ok  no red label left in the slot
+       ok  sweep 0: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 1: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 2: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 3: slot unchanged, 0 of 2442 pixels differ
+       ok  sweep 4: slot unchanged, 0 of 2442 pixels differ
+       ok  the disk travels across these frames, by 123 px
+       ok  one of them is the crossing moment: 257 teal pixels pass through the old place
+ok   control: the plate over the name fails the 0: False
+RESULT PASS

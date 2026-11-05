@@ -1,0 +1,62 @@
+--- a/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver11.json
++++ b/explainer_corpus/complex_analysis_visual/docs/narration-direction-map-oliver11.json
+@@ -1,7 +1,7 @@
+ {
+   "schema_version": 1,
+   "scripts": {
+-    "complex_analysis_visual": "2968b0fd76540cbcd4f50290925e8acfec1aa995bea76a04934dac12f959929e"
++    "complex_analysis_visual": "1e24aba8b520f2e61e8b2bc392a218b664cf5556ad788ceca17fbc45bb92efab"
+   },
+   "overrides": [
+     {
+@@ -338,8 +338,8 @@
+       "next_cue": "11_6",
+       "kind": "prediction",
+       "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+-      "sha256": "0ecda9cf1bfa26ed385b94b92b9316c786186f20ee01fcdda33524d6c81ae5b1",
+-      "line": 429,
++      "sha256": "dba35730d15b3c5e4ff7fb0fe7444265424b920d87861562b11d8468f9d290e4",
++      "line": 440,
+       "marker": "let asked = predict(&kit, stage, &line, &ASK, v(ASK_AT.0, ASK_AT.1))?;",
+       "basis": "draw::predict shows the card as the question's last sentence begins, lets the cue finish plus the kit breath, marks predict, then waits the 6 s listen window that chapters::PREDICTS authors, before the next cue. Picture timeline only: no silence is asked of the take; no listening claim."
+     },
+@@ -349,8 +349,8 @@
+       "next_cue": "11_7",
+       "kind": "reading",
+       "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+-      "sha256": "0ecda9cf1bfa26ed385b94b92b9316c786186f20ee01fcdda33524d6c81ae5b1",
+-      "line": 492,
++      "sha256": "dba35730d15b3c5e4ff7fb0fe7444265424b920d87861562b11d8468f9d290e4",
++      "line": 503,
+       "marker": "reading_window(&kit, stage, &line)?;",
+       "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 7 s that chapters::READING_WINDOWS authors, with squashed on screen and nothing drawn or cleared, before the next cue. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+     },
+@@ -360,8 +360,8 @@
+       "next_cue": "12_1",
+       "kind": "reading",
+       "path": "explainer_corpus/complex_analysis_visual/src/chapters/counting.rs",
+-      "sha256": "0ecda9cf1bfa26ed385b94b92b9316c786186f20ee01fcdda33524d6c81ae5b1",
+-      "line": 547,
++      "sha256": "dba35730d15b3c5e4ff7fb0fe7444265424b920d87861562b11d8468f9d290e4",
++      "line": 604,
+       "marker": "reading_window(&kit, stage, &line)?;",
+       "basis": "draw::reading_window lets the cue finish plus the kit breath, then waits the 7.5 s that chapters::READING_WINDOWS authors, with panel on screen and nothing drawn or cleared, before the chapter's closing music breath of 2 s and its closing fade. A proposed teaching pause chosen from what the card says, its length and what competes with it, not a measured reading time. Picture timeline only: no silence is asked of the take; no listening claim."
+     },
+@@ -440,7 +440,7 @@
+     },
+     {
+       "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+-      "sha256": "57c46d67161490cbadc96e9ccad6ae6eb821c54d4bd257f3233735792a529b5e",
++      "sha256": "2414a6bd8c1ae26af60385d6e5ee80bfc70a1d7dae1ae6aeccdcc97c75b60549",
+       "line": 31,
+       "marker": "pub const PREDICTS: &[(&str, f64)] = &["
+     },
+@@ -452,7 +452,7 @@
+     },
+     {
+       "path": "explainer_corpus/complex_analysis_visual/src/chapters/mod.rs",
+-      "sha256": "57c46d67161490cbadc96e9ccad6ae6eb821c54d4bd257f3233735792a529b5e",
++      "sha256": "2414a6bd8c1ae26af60385d6e5ee80bfc70a1d7dae1ae6aeccdcc97c75b60549",
+       "line": 58,
+       "marker": "pub const READING_WINDOWS: &[(&str, f64)] = &["
+     }

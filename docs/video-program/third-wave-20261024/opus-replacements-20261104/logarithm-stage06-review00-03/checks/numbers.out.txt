@@ -1,0 +1,131 @@
+== arithmetic: what the frame shows against a value computed here
+PASS 00 frame 18: '55, 110, 220' computed '55, 110, 220'
+PASS 00 frame 18: '440 880 1760 3520' computed '440 880 1760 3520'
+PASS 00 frame 18: '0 880 1760 2640 3520' computed '0 880 1760 2640 3520'
+PASS 00 frame 151: '660 by difference?' computed '660 by difference?'
+PASS 00 frame 197: '622' computed '622'
+PASS 00 frame 206: '622.25 Hz' computed '622.25 Hz'
+PASS 01 frame 200: '19/12 = 1.583' computed '19/12 = 1.583'
+PASS 01 frame 200: '1318.51' computed '1318.51'
+PASS 01 frame 200: '1320' computed '1320'
+PASS 01 frame 225: '1.585' computed '1.585'
+PASS 01 frame 180: '531,441' computed '531,441'
+PASS 01 frame 180: '524,288' computed '524,288'
+PASS 01 frame 180: '1.36% apart' computed '1.36% apart'
+PASS 02 frame 65: '0.505' computed '0.505'
+PASS 02 frame 40: '0.398' computed '0.398'
+PASS 02 frame 103: '0.903' computed '0.903'
+PASS 02 frame 103: '0.398 + 0.505 = 0.903' computed '0.398 + 0.505 = 0.903'
+PASS 02 frame 100: '2.5 x 3.2 = 8' computed '2.5 x 3.2 = 8'
+PASS 02 frame 225: '4 x 6 = 24' computed '4 x 6 = 24'
+PASS 03 frame 96: '0.602' computed '0.602'
+PASS 03 frame 96: '0.778' computed '0.778'
+PASS 03 frame 96: '1.380' computed '1.380'
+PASS 03 frame 96: '0.380' computed '0.380'
+PASS 03 frame 136: '0.24 2.4 24 240' computed '0.24 2.4 24 240'
+PASS 00: 1/2 of the ruler = 1760/3520, 1/8 = 440/3520
+PASS 01: log10 x = log2 x / log2 10 at x = 3
+note: 2^(19/12) = 2.9966; sum of the two log10 = 1.38021
+note: moving the marker from 19/12 to log2 3 is 0.29 px at 720p
+note: 12 threes against 19 twos differ by 0.0196 step, 1.01 px at 986/19 px a step, the rows on frame 180
+note: a closer match if a picture is wanted, new fact: 3^53 / 2^84 = 1.00209, 84/53 = 1.5849
+== geometry on the frames, each mark against its value
+PASS 00 frame 18: 55 and 110 dots touch, run (92, 125), expected 90.4..125.9
+PASS 00 frame 18: dots 220..3520: worst 0.75 px of 5 marks
+PASS 00 frame 197: gold 622.25: worst 0.28 px of 1 marks
+PASS 00 frame 197: red 660: worst 0.25 px of 1 marks
+note: red 660 stands 12.0 px right of gold 622.25 at 720p
+PASS 01 frame 200: ticks 1/2 1 r2 2 4 8: worst 0.50 px of 6 marks
+PASS 01 frame 287: adds 3 and 10: worst 0.50 px of 8 marks
+PASS 01 frame 200: marker at 19/12: worst 0.79 px of 1 marks
+PASS 02 frame 15: C at home: worst 0.55 px of 10 marks
+PASS 02 frame 15: D: worst 0.76 px of 10 marks
+PASS 02 frame 65: C slid to 2.5: worst 0.78 px of 10 marks
+PASS 02 frame 65: rings on C's 1 and C's 3.2: worst 0.27 px of 2 marks
+PASS 02 frame 65: C's 3.2 ring 750.0 over D's 8 750.2
+PASS 02 frame 138: C slid to 4: worst 0.75 px of 10 marks
+PASS 02 frame 182: C's 10 on D's 4: worst 0.75 px of 9 marks
+PASS 02: C's 6 at 373.8 is D's 2.4 at 373.8
+note: after the slide, C's hidden part is below 1.82; nothing spoken needs it
+PASS 03 frame 100: dial ticks 1..9, worst 0.17 degrees of 9
+note: frame 100 gold tick outside the ring at [136.8]; 2.4 is 136.9 degrees
+PASS 03 frame 100: gold tick on 2.4
+helix dots at y [188.5, 292.5, 396.5, 498.5]; column dots at y [184.0, 287.5, 391.0, 494.5]
+PASS 03 frame 187: four helix dots and four column dots found
+column dots run 5.5 px off the helix rows at 720p
+== clearances behind the lint rows, 720p px
+02 frame 138: C's 10 ends 18 px from the right edge, 0.200 units
+PASS 02 frame 138: C's 10 fully inside
+02 frame 172: C's 10 ends 18 px from the right edge, 0.200 units
+PASS 02 frame 172: C's 10 fully inside
+02 frame 190: leftmost C label ink at x 26; C's 2 centred at 30.2
+PASS 02 frame 190: C's 2 is whole
+02 frame 72: hairline y 265..371; printed 8 from y 378, gap 7 px
+PASS 02 frame 72: hairline stops above D's printed 8
+02 frame 143: red line from y 320; C's 6 ends y 257, gap 63 px
+PASS 02 frame 143: red line stops under C's 6
+02 frame 190: hairline from y 266; C's 6 ends y 257, gap 9 px
+PASS 02 frame 190: hairline stops under C's 6
+01 frame 200: '19 doublings' ends 69 px from the right edge, 0.767 units
+PASS 01 frame 200: old 0.16 unit row cleared
+00 frame 151: dim 880 ends y 243; red label from y 255, gap 12 px
+PASS 00 frame 151: red label clears the dim 880
+03 frame 144: dial ink ends y 645; caption from y 669, gap 24 px
+PASS 03 frame 144: 'a spiral, and its shadow' clears the dial
+== moments on the frames, seconds in the scratch preview
+00: axis at frame 6 (1.5 s), last dot at frame 16 (6.5 s), 3520 label at frame 17 (7.0 s); voice says 'Mark them on an ordinary ruler' at 19.700 s
+PASS 00: the ruler, dots and labels are all up more than 11 s before 'Mark them'
+03 frame 96 41.867 s: peak brightness at dial's 6 194, at the gold 2.4 254
+03 frame 97 42.0 s: peak brightness at dial's 6 194, at the gold 2.4 254
+03 frame 98 42.067 s: peak brightness at dial's 6 194, at the gold 2.4 254
+03 frame 99 42.367 s: peak brightness at dial's 6 193, at the gold 2.4 254
+03 frame 100 42.5 s: peak brightness at dial's 6 183, at the gold 2.4 240
+03 frame 101 43.0 s: peak brightness at dial's 6 22, at the gold 2.4 20
+03 frame 102 43.5 s: peak brightness at dial's 6 20, at the gold 2.4 59
+== sentence starts, the kit's character share (estimated_starts) at the scratch length; not Oliver
+00_1 start 0.600 length 18.477 sentences at 0.6 5.4
+00_2 start 19.700 length 12.323 sentences at 19.7 22.7 28.6
+00_3 start 32.633 length 21.938 sentences at 32.6 35.0 39.5 46.8
+00_4 start 55.200 length 13.862 sentences at 55.2 56.1 62.8 65.0
+00_5 start 73.933 length 18.862 sentences at 73.9 79.4 84.2 89.5
+00_6 start 93.400 length 30.785 sentences at 93.4 98.5 104.3 112.2 116.4 121.1
+01_1 start 0.600 length 18.862 sentences at 0.6 5.8 7.3 11.1 16.8
+01_2 start 20.067 length 21.169 sentences at 20.1 27.6 33.3
+01_3 start 41.867 length 9.631 sentences at 41.9 43.5 45.0 50.1
+01_4 start 56.367 length 23.092 sentences at 56.4 57.9 64.1 69.2 72.3
+01_5 start 80.067 length 22.708 sentences at 80.1 83.0 88.7 96.4
+01_6 start 103.400 length 27.708 sentences at 103.4 105.2 109.1 116.0 121.4 127.0
+02_1 start 0.600 length 13.862 sentences at 0.6 6.7 11.6
+02_2 start 15.067 length 18.092 sentences at 15.1 23.2 27.5 30.5
+02_3 start 38.033 length 12.708 sentences at 38.0 38.5 41.7 44.9
+02_4 start 51.367 length 13.092 sentences at 51.4 53.3 56.6 58.4
+02_5 start 65.067 length 27.708 sentences at 65.1 66.7 70.5 73.1 78.5 84.6
+03_1 start 0.600 length 17.708 sentences at 0.6 4.9 12.7 15.1
+03_2 start 18.933 length 22.323 sentences at 18.9 21.8 24.6 28.0 35.7
+03_3 start 41.867 length 17.323 sentences at 41.9 45.9 51.7 54.1 56.1
+03_4 start 59.800 length 17.323 sentences at 59.8 63.0 71.5 74.1
+== phrases, a share of letters over the whole cue; not a measured word time
+00_2 'Mark them' at about 19.7 s
+00_4 'go up six semitones' at about 59.7 s
+00_5 'the square root of two' at about 82.5 s
+00_6 'the complex numbers' at about 106.1 s
+01_5 'Closer matches' at about 88.8 s
+02_1 'one that slides' at about 4.6 s
+02_2 'slide the moving ruler' at about 18.5 s
+02_4 'twenty-four' at about 59.5 s
+03_2 'Six adds' at about 24.6 s
+03_3 'To read a number back' at about 45.9 s
+03_3 'Zero laps' at about 51.7 s
+== longest runs of selected frames with no visible change: fewer than 4 pixels moving more than 10 levels at quarter size
+Between samples nothing is proved. The widest gap between samples is 0.5 s.
+00 7.5-22.5 (15.0 s) 47.0-55.2 (8.2 s) 57.0-64.5 (7.5 s) 90.0-98.5 (8.5 s) 116.5-124.5 (8.0 s)
+01 20.6-27.0 (6.4 s) 28.0-33.0 (5.0 s) 35.0-41.9 (6.9 s) 58.5-63.5 (5.0 s) 77.6-83.0 (5.4 s) 84.0-89.5 (5.5 s) 90.5-96.0 (5.5 s) 96.5-103.4 (6.9 s) 109.5-115.5 (6.0 s)
+02 45.5-51.4 (5.9 s) 58.8-66.5 (7.7 s) 86.0-93.2 (7.2 s)
+03 6.0-12.5 (6.5 s) 36.0-41.5 (5.5 s) 64.5-71.0 (6.5 s)
+== controls: each planted fault must be noticed
+PASS a wrong number is refused
+PASS C shifted 4 px is refused
+PASS a marker 4 px off is refused
+PASS dots 3 px off are refused
+PASS dial ticks 2 degrees off are refused
+RESULT PASS

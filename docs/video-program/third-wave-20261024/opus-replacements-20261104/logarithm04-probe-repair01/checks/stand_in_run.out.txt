@@ -1,0 +1,104 @@
+-- rustc, the stand-in crates
+######## base ########
+-- rustc --test
+test result: ok. 81 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.04s
+-- rustc
+-- scene run at 2.68 words per second
+== 01_building_ruler at 2.68 words per second
+chapter ends at 123.0 s
+0 object-ledger problems
+== 02_slide_rule at 2.68 words per second
+chapter ends at 86.4 s
+0 object-ledger problems
+== 03_folded_decade at 2.68 words per second
+chapter ends at 72.1 s
+0 object-ledger problems
+== 04_undoing_growth at 2.68 words per second
+chapter ends at 180.0 s
+0 object-ledger problems
+-- scene run at 2.3 words per second
+== 01_building_ruler at 2.3 words per second
+chapter ends at 142.4 s
+0 object-ledger problems
+== 02_slide_rule at 2.3 words per second
+chapter ends at 99.8 s
+0 object-ledger problems
+== 03_folded_decade at 2.3 words per second
+chapter ends at 83.8 s
+0 object-ledger problems
+== 04_undoing_growth at 2.3 words per second
+chapter ends at 207.8 s
+0 object-ledger problems
+-- scene run at 3.1 words per second
+== 01_building_ruler at 3.1 words per second
+chapter ends at 107.1 s
+0 object-ledger problems
+== 02_slide_rule at 3.1 words per second
+chapter ends at 75.4 s
+0 object-ledger problems
+== 03_folded_decade at 3.1 words per second
+chapter ends at 62.5 s
+0 object-ledger problems
+== 04_undoing_growth at 3.1 words per second
+chapter ends at 157.3 s
+0 object-ledger problems
+######## candidate ########
+-- rustc --test
+test result: ok. 83 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+-- rustc
+-- clippy-driver -D warnings, with and without tests
+(clippy clean)
+-- scene run at 2.68 words per second
+== 01_building_ruler at 2.68 words per second
+chapter ends at 123.0 s
+0 object-ledger problems
+== 02_slide_rule at 2.68 words per second
+chapter ends at 86.4 s
+0 object-ledger problems
+== 03_folded_decade at 2.68 words per second
+chapter ends at 72.1 s
+0 object-ledger problems
+== 04_undoing_growth at 2.68 words per second
+chapter ends at 180.0 s
+0 object-ledger problems
+-- scene run at 2.3 words per second
+== 01_building_ruler at 2.3 words per second
+chapter ends at 142.4 s
+0 object-ledger problems
+== 02_slide_rule at 2.3 words per second
+chapter ends at 99.8 s
+0 object-ledger problems
+== 03_folded_decade at 2.3 words per second
+chapter ends at 83.8 s
+0 object-ledger problems
+== 04_undoing_growth at 2.3 words per second
+chapter ends at 207.8 s
+0 object-ledger problems
+-- scene run at 3.1 words per second
+== 01_building_ruler at 3.1 words per second
+chapter ends at 107.1 s
+0 object-ledger problems
+== 02_slide_rule at 3.1 words per second
+chapter ends at 75.4 s
+0 object-ledger problems
+== 03_folded_decade at 3.1 words per second
+chapter ends at 62.5 s
+0 object-ledger problems
+== 04_undoing_growth at 3.1 words per second
+chapter ends at 157.3 s
+0 object-ledger problems
+PASS stand-in run finished for both trees
+PASS tests passed ['81', '83']: base, then candidate with two more
+PASS clippy-driver -D warnings clean on the candidate, with and without tests
+PASS all 12 scene runs end at the same time in both trees
+
+-- mutation controls: each must fail to compile or fail a test
+PASS no mutation (positive control): compiles, and ['ok. 83 passed'] tests
+PASS start back at 2.6: compile refused, codes ['E0080'], first line: error[E0080]: evaluation panicked: assertion failed: PROBE_START + HALF_LINE + GAP < 2.4 - 0.17
+PASS start at the label 2: compile refused, codes ['E0080'], first line: error[E0080]: evaluation panicked: assertion failed: PROBE_START - HALF_LINE - GAP > 2.0 + 0.07
+PASS rest back at 2.0: compile refused, codes ['E0080'], first line: error[E0080]: evaluation panicked: assertion failed: PROBE_REST + HALF_LINE + GAP < 2.0 - 0.07
+PASS rest at the label 1: compile refused, codes ['E0080'], first line: error[E0080]: evaluation panicked: assertion failed: PROBE_REST - HALF_LINE - GAP > 1.0 + 0.07
+PASS caption back to bare +0.01: compiles, fails ['chapters::undoing_growth::tests::the_small_step_caption_says_it_is_approximate']
+PASS rest literal in the scene: compiles, fails ['chapters::undoing_growth::tests::the_whole_probe_path_stays_under_the_name_and_rests_clear_of_the_tick_labels']
+PASS start literal in the scene: compiles, fails ['chapters::undoing_growth::tests::the_whole_probe_path_stays_under_the_name_and_rests_clear_of_the_tick_labels']
+RESULT PASS

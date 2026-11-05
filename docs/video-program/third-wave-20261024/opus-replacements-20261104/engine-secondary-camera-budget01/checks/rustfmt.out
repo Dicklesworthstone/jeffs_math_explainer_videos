@@ -1,0 +1,9 @@
+exit  file (rustfmt at engine defaults, edition 2024; parse and format only)
+0  crates/fmn-render/src/retained.rs
+0  crates/fmn-render/src/three_d.rs
+0  crates/fmn-render/tests/camera_route_limits.rs
+0  crates/fmn/src/rendering.rs
+0  crates/fmn/src/rendering/pipeline.rs
+0  crates/fmn/tests/native_bundle_pipeline.rs
+0  crates/fmn/tests/native_camera_pipeline.rs
+0  crates/fmn/tests/native_render.rs

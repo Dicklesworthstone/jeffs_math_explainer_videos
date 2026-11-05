@@ -1,0 +1,904 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs
+@@ -347,7 +347,8 @@
+         let sets_ang = kit.tex_left(stage, SETS_ANG, 24.0, purple, &[], v(left_x, -2.85))?;
+         fade_in_all(stage, &[sets_ang], 0.4)?;
+         kit.until_sentence(stage, "05_20", 4)?;
+-        // worked: x = ln 2 gives length 2, y = π/2 a quarter turn: out comes 2i
++        // worked: x = ln 2 gives length 2, y = π/2 a quarter turn: out comes 2i.
++        // Each piece waits for its own words, and the answer comes last.
+         let worked = fact_list("complex.worked")?;
+         let two_i = C::polar(worked[0], deg(worked[1]));
+         let len = super::draw::shown(&format!("{}", worked[0]));
+@@ -359,10 +360,20 @@
+             &[],
+             v(3.9, 1.3),
+         )?;
++        let example_x = example_part(&kit, stage, &format!(r"e^{{\ln {len} + iy}}"), example)?;
++        let example_xy = example_part(&kit, stage, &format!(r"e^{{\ln {len} + i\pi/2}}"), example)?;
+         let example_word = kit.tex_left(stage, &example_words(&len), 22.0, Palette::ink(), &[], v(left_x, 0.55))?;
+         let two_i_arrow = arrow(stage, ARROWS.p(C::new(0.0, 0.0)), ARROWS.p(two_i), blue, 4.5)?;
+         let two_i_word = kit.text_left(stage, &format!("{len}i"), 26.0, blue, two_i_word_at(two_i))?;
+-        swap(stage, &[lengths, angles, times_i], &[example, example_word], 0.4)?;
++        fade_out_all(stage, &[lengths, angles, times_i], 0.4)?;
++        until_phrase(&kit, stage, "05_20", TAKE_X_PHRASE)?;
++        fade_in_all(stage, &[example_x], 0.4)?;
++        until_phrase(&kit, stage, "05_20", TAKE_Y_PHRASE)?;
++        swap(stage, &[example_x], &[example_xy], 0.3)?;
++        until_phrase(&kit, stage, "05_20", LENGTH_PHRASE)?;
++        fade_in_all(stage, &[example_word], 0.4)?;
++        until_phrase(&kit, stage, "05_20", LAND_PHRASE)?;
++        swap(stage, &[example_xy], &[example], 0.3)?;
+         fade_in_all(stage, &[two_i_arrow, two_i_word], 0.5)?;
+ 
+         // 05_3: the grid — the input strip, and where its lines go
+@@ -466,15 +477,6 @@
+         let climber = stage.always_redraw(move |s: &mut Arena| {
+             let y = value(s, climb);
+             let g = s.add(VMobject::new());
+-            let a = s.add(
+-                Dot::new()
+-                    // past the top of the strip the dot waits at its edge: the arrow
+-                    // above it says the climb goes on, and the output keeps winding
+-                    .point(IN.p(C::new(0.0, y.min(IN_Y))))
+-                    .radius(0.08)
+-                    .style(super::draw::flat(blue, 1.0))
+-                    .build(),
+-            );
+             let b = s.add(
+                 Dot::new()
+                     .point(image(C::new(0.0, y)))
+@@ -486,7 +488,19 @@
+                 let t = s.add(polyline(wound(0.0, 0.0, y)).style(line_style(green, 3.0)).build());
+                 let _ = s.attach(g, t);
+             }
+-            let _ = s.attach(g, a);
++            // past the top of the strip the dot runs up the arrow, fading, and is gone at
++            // its tip: no dot waits on the 3π tick while the output winds on
++            let (at, strength) = strip_dot(y);
++            if strength > 0.0 {
++                let a = s.add(
++                    Dot::new()
++                        .point(IN.p(C::new(0.0, at)))
++                        .radius(0.08)
++                        .style(super::draw::flat(blue, strength))
++                        .build(),
++                );
++                let _ = s.attach(g, a);
++            }
+             let _ = s.attach(g, b);
+             g
+         });
+@@ -512,7 +526,7 @@
+         let goes_on = super::draw::arrow(
+             stage,
+             v(strip_top[0], strip_top[1] + 0.12),
+-            v(strip_top[0], strip_top[1] + 0.48),
++            v(strip_top[0], strip_top[1] + GOES_ON_TIP),
+             blue,
+             3.0,
+         )?;
+@@ -528,8 +542,7 @@
+ 
+         // 05_4: 0, 2πi, 4πi and −2πi all land on 1
+         kit.say(stage, "05_4")?;
+-        // the climb is over: its dot would stand away from the 1 the voice now names,
+-        // and the input dot would sit under the arrow to 4πi
++        // the climb is over: its dot would stand away from the 1 the voice now names
+         fade_out_all(
+             stage,
+             &[
+@@ -737,6 +750,103 @@
+     }
+ }
+ 
++/// How far above the strip's top the arrow that carries the climb on reaches, in
++/// scene units, and the same reach in input units.
++const GOES_ON_TIP: f64 = 0.48;
++const PAST_STRIP: f64 = GOES_ON_TIP / IN.scale;
++
++/// Where the input dot of 05_3's climb stands at height `y`, and how strongly it
++/// shows. On the strip it stands where it says, whole. Past the top it has left the
++/// labelled ticks, so it runs on at the strip's own scale, up the arrow that says
++/// the line goes on, and has faded out by the arrow's tip.
++fn strip_dot(y: f64) -> (f64, f64) {
++    let past = (y - IN_Y).max(0.0);
++    (y.min(IN_Y + PAST_STRIP), (1.0 - past / PAST_STRIP).clamp(0.0, 1.0))
++}
++
++/// A first stage of 05_20's worked line, in the whole line's size and colour and on
++/// its lower left corner, so that what the two share stays put when the whole line
++/// replaces it.
++fn example_part(kit: &Kit, stage: &mut Stage<'_>, src: &str, whole: Mob) -> fmn::Result<Mob> {
++    let corner = stage.get_corner(whole, DL);
++    let m = kit.tex(stage, src, 34.0, position_c(), &[], corner)?;
++    stage.move_to(m, corner, DL);
++    Ok(m)
++}
++
++/// The words of 05_20 that bring each piece of the worked line, in spoken order: each
++/// names what its piece shows, so the voice says it before the picture holds it.
++const TAKE_X_PHRASE: &str = "the logarithm of two";
++const TAKE_Y_PHRASE: &str = "a half pi";
++const LENGTH_PHRASE: &str = "the length is two";
++const LAND_PHRASE: &str = "land on two i";
++const SCRIPT: &str = include_str!("../../script.tsv");
++
++/// When `phrase` starts, in seconds into its line. A measured word mark at its byte
++/// wins. Without one this is the phrase's character share of its measured sentence:
++/// provisional, and never a heard boundary.
++fn phrase_seconds(
++    text: &str,
++    phrase: &str,
++    marks: &std::collections::HashMap<usize, f64>,
++    starts: &[f64],
++    len: f64,
++) -> Result<f64, String> {
++    let byte = text
++        .find(phrase)
++        .ok_or_else(|| format!("the line has no phrase {phrase:?}"))?;
++    if let Some(&seconds) = marks.get(&byte) {
++        return Ok(seconds);
++    }
++    let mut opens = vec![0];
++    for (i, pair) in text.as_bytes().windows(2).enumerate() {
++        if matches!(pair[0], b'.' | b'?' | b'!') && pair[1] == b' ' {
++            opens.push(i + 2);
++        }
++    }
++    if opens.len() != starts.len() {
++        return Err(format!(
++            "the line has {} sentences, but the narrator timed {}",
++            opens.len(),
++            starts.len()
++        ));
++    }
++    let j = opens.iter().rposition(|&open| open <= byte).unwrap_or(0);
++    let close = opens.get(j + 1).copied().unwrap_or(text.len());
++    let (t0, t1) = (starts[j], starts.get(j + 1).copied().unwrap_or(len));
++    let before = text[opens[j]..byte].chars().count() as f64;
++    let whole = text[opens[j]..close].trim_end().chars().count().max(1) as f64;
++    Ok(t0 + (t1 - t0) * before / whole)
++}
++
++fn phrase_time(kit: &Kit, id: &str, phrase: &str) -> fmn::Result<Option<f64>> {
++    let Some(n) = kit.narrator.as_ref() else {
++        return Ok(None);
++    };
++    let starts = n.sentence_starts(id);
++    let (Some(&first), Some(said), Some(len)) = (starts.first(), n.sentence_at(id, 0), n.length(id)) else {
++        return Ok(None);
++    };
++    let script = explainer_kit::Script::parse(SCRIPT).map_err(super::draw::fail)?;
++    let text = script
++        .text(id)
++        .ok_or_else(|| super::draw::fail(format!("narration line {id} is not in script.tsv")))?;
++    let seconds = phrase_seconds(text, phrase, &n.phrase_marks(id), &starts, len)
++        .map_err(|e| super::draw::fail(format!("line {id}: {e}")))?;
++    Ok(Some(said - first + seconds))
++}
++
++fn until_phrase(kit: &Kit, stage: &mut Stage<'_>, id: &str, phrase: &str) -> fmn::Result<()> {
++    let Some(at) = phrase_time(kit, id, phrase)? else {
++        return Ok(());
++    };
++    let (now, fps) = (stage.scene().time().to_f64(), stage.scene().time().fps());
++    if at > now {
++        explainer_kit::narration::wait_frames(stage, explainer_kit::narration::frames_covering(at - now, fps))?;
++    }
++    Ok(())
++}
++
+ #[cfg(test)]
+ mod tests {
+     use fmn::scene::{NullSceneSink, RuntimeConfig};
+@@ -998,7 +1108,7 @@
+         // it stops between whole laps, where rounding cannot read it short
+         let past = (CLIMB_END / TAU).fract();
+         assert!(past > 0.2 && past < 0.8, "{past}");
+-        // the input runs off the strip, so its dot waits at the top edge
++        // the input runs off the strip, so its dot runs up the arrow and is gone
+         const { assert!(CLIMB_END > IN_Y) };
+         let t = wound(0.0, 0.0, CLIMB_END);
+         let furthest = t
+@@ -1038,4 +1148,109 @@
+         // both arrows' tips stay inside the panel
+         assert!(ARROWS.shows(drawn) && ARROWS.shows(C::new(-1.0, 0.0)));
+     }
+-}
++
++    /// The film's source, without its tests.
++    fn scene_source() -> &'static str {
++        include_str!("complex_turns.rs")
++            .split("#[cfg(test)]")
++            .next()
++            .unwrap_or("")
++    }
++
++    fn found(text: &str) -> usize {
++        scene_source()
++            .find(text)
++            .unwrap_or_else(|| panic!("not in the scene: {text}"))
++    }
++
++    #[test]
++    fn the_worked_answer_comes_last_and_each_piece_waits_for_its_own_words() {
++        let script = explainer_kit::Script::parse(SCRIPT).unwrap();
++        let text = script.text("05_20").expect("05_20 is in the script");
++        // once each, starting a word, in spoken order, inside the last sentence
++        let mut after = text.rfind(". ").expect("05_20 has several sentences");
++        for phrase in [TAKE_X_PHRASE, TAKE_Y_PHRASE, LENGTH_PHRASE, LAND_PHRASE] {
++            assert_eq!(text.matches(phrase).count(), 1, "{phrase}");
++            let byte = text.find(phrase).unwrap();
++            assert!(byte > after, "{phrase} is out of order");
++            assert_eq!(&text[byte - 1..byte], " ", "{phrase} does not start a word");
++            after = byte;
++        }
++        let order = [
++            found("kit.until_sentence(stage, \"05_20\", 4)"),
++            found("fade_out_all(stage, &[lengths, angles, times_i], 0.4)"),
++            found("until_phrase(&kit, stage, \"05_20\", TAKE_X_PHRASE)"),
++            found("fade_in_all(stage, &[example_x], 0.4)"),
++            found("until_phrase(&kit, stage, \"05_20\", TAKE_Y_PHRASE)"),
++            found("swap(stage, &[example_x], &[example_xy], 0.3)"),
++            found("until_phrase(&kit, stage, \"05_20\", LENGTH_PHRASE)"),
++            found("fade_in_all(stage, &[example_word], 0.4)"),
++            found("until_phrase(&kit, stage, \"05_20\", LAND_PHRASE)"),
++            found("swap(stage, &[example_xy], &[example], 0.3)"),
++            found("fade_in_all(stage, &[two_i_arrow, two_i_word], 0.5)"),
++            found("kit.say(stage, \"05_3\")"),
++        ];
++        assert!(order.windows(2).all(|w| w[0] < w[1]), "{order:?}");
++        // a swapped-out stage fades once: a second fade in 05_3 would root it again
++        let old = found("old.extend([i_dot, i_name, m1_dot, example, example_word, two_i_arrow, two_i_word]);");
++        assert!(old > 0);
++        assert!(!scene_source().contains("example_x,") && !scene_source().contains("example_xy,"));
++    }
++
++    #[test]
++    fn the_stages_of_the_worked_line_stand_on_its_corner_and_hold_no_answer() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let whole = kit.tex(stage, r"e^{\ln 2 + i\pi/2} = 2i", 34.0, position_c(), &[], v(3.9, 1.3))?;
++            let [left, right, bottom, _] = box_of(stage, whole);
++            for src in [r"e^{\ln 2 + iy}", r"e^{\ln 2 + i\pi/2}"] {
++                let part = example_part(&kit, stage, src, whole)?;
++                let [l, r, b, _] = box_of(stage, part);
++                assert!((l - left).abs() < 1e-6 && (b - bottom).abs() < 1e-6, "{src}: {l} {b}");
++                assert!(r < right - 0.3, "{src} reaches where the answer goes");
++                assert!(!src.contains('='), "{src} gives the answer away");
++            }
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_input_dot_leaves_the_labelled_ticks_along_the_arrow_and_is_gone_at_its_tip() {
++        // on the strip it stands where it says, whole
++        for y in [0.0, PI, TAU, IN_Y] {
++            assert_eq!(strip_dot(y), (y, 1.0));
++        }
++        // past the top it never stands still on the 3π tick: higher and fainter each step
++        let mut last = strip_dot(IN_Y);
++        for k in 1..=16 {
++            let now = strip_dot(IN_Y + PAST_STRIP * f64::from(k) / 16.0);
++            assert!(now.0 > last.0 && now.1 < last.1, "{k}: {now:?} after {last:?}");
++            last = now;
++        }
++        // it is gone at the arrow's tip, long before the climb ends
++        assert!(last.1 < 1e-9);
++        assert_eq!(strip_dot(CLIMB_END).1, 0.0);
++        const { assert!(IN_Y + PAST_STRIP < CLIMB_END) };
++        // the tip in input units is the arrow's tip on screen, and stays in the frame
++        let tip = IN.p(C::new(0.0, IN_Y + PAST_STRIP))[1];
++        assert!((tip - (IN.p(C::new(0.0, IN_Y))[1] + GOES_ON_TIP)).abs() < 1e-12);
++        assert!(tip < SAFE[1]);
++    }
++
++    #[test]
++    fn a_phrase_lands_on_its_mark_or_on_its_share_of_the_measured_sentence() {
++        let text = "One two. Three four five six. Seven.";
++        let starts = [0.2, 2.0, 6.0];
++        let none = std::collections::HashMap::new();
++        // eleven of the sentence's twenty characters come before "five"
++        let t = phrase_seconds(text, "five", &none, &starts, 8.0).unwrap();
++        assert!((t - (2.0 + 4.0 * 11.0 / 20.0)).abs() < 1e-12);
++        // a measured word mark wins
++        let marks = std::collections::HashMap::from([(text.find("five").unwrap(), 3.25)]);
++        let t = phrase_seconds(text, "five", &marks, &starts, 8.0).unwrap();
++        assert!((t - 3.25).abs() < 1e-12);
++        // never a guess
++        assert!(phrase_seconds(text, "nine", &none, &starts, 8.0).is_err());
++        assert!(phrase_seconds(text, "five", &none, &starts[..2], 8.0).is_err());
++    }
++}
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs
+@@ -583,15 +583,22 @@
+         stage.add_to_scene(cand_marker)?;
+         play!(stage; tween(turn, 0.45, 2.6)?);
+         kit.until_sentence(stage, "06_6", 3)?;
++        // "The gap sits at zero until the number": the walk stands short of −1
++        until_phrase(&kit, stage, "06_6", PASSES_PHRASE)?;
++        let minus_one = ring(stage, Z.p(C::new(-1.0, 0.0)), 0.2, red, 3.5);
++        fade_in_all(stage, &[minus_one], 0.3)?;
++        // the dot crosses and the gap drops, on "passes minus one"
+         play!(stage; tween(turn, 0.6, 1.6)?);
+-        let minus_one = ring(stage, Z.p(C::new(-1.0, 0.0)), 0.2, red, 3.5);
++        // the jump's picture waits for the words that name it
++        until_phrase(&kit, stage, "06_6", LEAPS_PHRASE)?;
+         let (jump, jump_word, jump_axis) = jump_inset(&kit, stage, &jump_words()?)?;
+         let mut drop = jump_axis;
+         drop.extend([jump, jump_word]);
+         let mut breaking = vec![minus_one];
+         breaking.extend(drop.iter().copied());
+-        fade_in_all(stage, &breaking, 0.4)?;
+-        play!(stage; tween(turn, 0.97, 1.8)?);
++        fade_in_all(stage, &drop, 0.4)?;
++        // quick enough to be done when "So that candidate breaks" starts
++        play!(stage; tween(turn, 0.97, 1.2)?);
+         kit.until_sentence(stage, "06_6", 4)?;
+         let breaks = kit.text_left(stage, "it breaks at −1", 22.0, red, v(read_x - 0.2, 1.45))?;
+         fade_in_all(stage, &[breaks], 0.4)?;
+@@ -693,6 +700,77 @@
+     }
+ }
+ 
++/// The words of 06_6's fourth sentence that move the picture, in spoken order: the
++/// walk crosses −1 on the first, and the candidate's jump appears on the second.
++const PASSES_PHRASE: &str = "passes minus one";
++const LEAPS_PHRASE: &str = "leaps from pi to minus pi";
++const SCRIPT: &str = include_str!("../../script.tsv");
++
++/// When `phrase` starts, in seconds into its line. A measured word mark at its byte
++/// wins. Without one this is the phrase's character share of its measured sentence:
++/// provisional, and never a heard boundary.
++fn phrase_seconds(
++    text: &str,
++    phrase: &str,
++    marks: &std::collections::HashMap<usize, f64>,
++    starts: &[f64],
++    len: f64,
++) -> Result<f64, String> {
++    let byte = text
++        .find(phrase)
++        .ok_or_else(|| format!("the line has no phrase {phrase:?}"))?;
++    if let Some(&seconds) = marks.get(&byte) {
++        return Ok(seconds);
++    }
++    let mut opens = vec![0];
++    for (i, pair) in text.as_bytes().windows(2).enumerate() {
++        if matches!(pair[0], b'.' | b'?' | b'!') && pair[1] == b' ' {
++            opens.push(i + 2);
++        }
++    }
++    if opens.len() != starts.len() {
++        return Err(format!(
++            "the line has {} sentences, but the narrator timed {}",
++            opens.len(),
++            starts.len()
++        ));
++    }
++    let j = opens.iter().rposition(|&open| open <= byte).unwrap_or(0);
++    let close = opens.get(j + 1).copied().unwrap_or(text.len());
++    let (t0, t1) = (starts[j], starts.get(j + 1).copied().unwrap_or(len));
++    let before = text[opens[j]..byte].chars().count() as f64;
++    let whole = text[opens[j]..close].trim_end().chars().count().max(1) as f64;
++    Ok(t0 + (t1 - t0) * before / whole)
++}
++
++fn phrase_time(kit: &Kit, id: &str, phrase: &str) -> fmn::Result<Option<f64>> {
++    let Some(n) = kit.narrator.as_ref() else {
++        return Ok(None);
++    };
++    let starts = n.sentence_starts(id);
++    let (Some(&first), Some(said), Some(len)) = (starts.first(), n.sentence_at(id, 0), n.length(id)) else {
++        return Ok(None);
++    };
++    let script = explainer_kit::Script::parse(SCRIPT).map_err(super::draw::fail)?;
++    let text = script
++        .text(id)
++        .ok_or_else(|| super::draw::fail(format!("narration line {id} is not in script.tsv")))?;
++    let seconds = phrase_seconds(text, phrase, &n.phrase_marks(id), &starts, len)
++        .map_err(|e| super::draw::fail(format!("line {id}: {e}")))?;
++    Ok(Some(said - first + seconds))
++}
++
++fn until_phrase(kit: &Kit, stage: &mut Stage<'_>, id: &str, phrase: &str) -> fmn::Result<()> {
++    let Some(at) = phrase_time(kit, id, phrase)? else {
++        return Ok(());
++    };
++    let (now, fps) = (stage.scene().time().to_f64(), stage.scene().time().fps());
++    if at > now {
++        explainer_kit::narration::wait_frames(stage, explainer_kit::narration::frames_covering(at - now, fps))?;
++    }
++    Ok(())
++}
++
+ #[cfg(test)]
+ mod tests {
+     use fmn::scene::{NullSceneSink, RuntimeConfig};
+@@ -910,4 +988,68 @@
+         // the side circle stays inside the number's panel
+         const { assert!(Z.centre[0] + Z.scale * (1.7 + 0.8) < W.centre[0] - 0.3) };
+     }
+-}
++
++    /// The film's source, without its tests.
++    fn scene_source() -> &'static str {
++        include_str!("lifting_loops.rs")
++            .split("#[cfg(test)]")
++            .next()
++            .unwrap_or("")
++    }
++
++    fn found(text: &str) -> usize {
++        scene_source()
++            .find(text)
++            .unwrap_or_else(|| panic!("not in the scene: {text}"))
++    }
++
++    #[test]
++    fn the_gap_drops_on_its_words_and_the_candidates_jump_waits_for_its_own() {
++        let script = explainer_kit::Script::parse(SCRIPT).unwrap();
++        let text = script.text("06_6").expect("06_6 is in the script");
++        // once each, starting a word, in spoken order, both inside "The gap ..."
++        let open = text.find("The gap sits").expect("06_6 has the gap's sentence");
++        let close = text.find("So that candidate").expect("06_6 has its last sentence");
++        let mut after = open;
++        for phrase in [PASSES_PHRASE, LEAPS_PHRASE] {
++            assert_eq!(text.matches(phrase).count(), 1, "{phrase}");
++            let byte = text.find(phrase).unwrap();
++            assert!(byte > after && byte < close, "{phrase} is out of place");
++            assert_eq!(&text[byte - 1..byte], " ", "{phrase} does not start a word");
++            after = byte;
++        }
++        let order = [
++            found("tween(turn, 0.45, 2.6)"),
++            found("kit.until_sentence(stage, \"06_6\", 3)"),
++            found("until_phrase(&kit, stage, \"06_6\", PASSES_PHRASE)"),
++            found("fade_in_all(stage, &[minus_one], 0.3)"),
++            found("tween(turn, 0.6, 1.6)"),
++            found("until_phrase(&kit, stage, \"06_6\", LEAPS_PHRASE)"),
++            found("jump_inset(&kit, stage, &jump_words()?)"),
++            found("fade_in_all(stage, &drop, 0.4)"),
++            found("tween(turn, 0.97, 1.2)"),
++            found("kit.until_sentence(stage, \"06_6\", 4)"),
++        ];
++        assert!(order.windows(2).all(|w| w[0] < w[1]), "{order:?}");
++        // the walk stands where the gap is still 0, and crosses inside the next tween
++        assert_eq!(principal_gap(0.45), 0.0);
++        assert_eq!(principal_gap(0.6), -1.0);
++    }
++
++    #[test]
++    fn a_phrase_lands_on_its_mark_or_on_its_share_of_the_measured_sentence() {
++        let text = "One two. Three four five six. Seven.";
++        let starts = [0.2, 2.0, 6.0];
++        let none = std::collections::HashMap::new();
++        // eleven of the sentence's twenty characters come before "five"
++        let t = phrase_seconds(text, "five", &none, &starts, 8.0).unwrap();
++        assert!((t - (2.0 + 4.0 * 11.0 / 20.0)).abs() < 1e-12);
++        // a measured word mark wins
++        let marks = std::collections::HashMap::from([(text.find("five").unwrap(), 3.25)]);
++        let t = phrase_seconds(text, "five", &marks, &starts, 8.0).unwrap();
++        assert!((t - 3.25).abs() < 1e-12);
++        // never a guess
++        assert!(phrase_seconds(text, "nine", &none, &starts, 8.0).is_err());
++        assert!(phrase_seconds(text, "five", &none, &starts[..2], 8.0).is_err());
++    }
++}
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs
+@@ -221,21 +221,21 @@
+     })
+ }
+ 
+-/// The spiral cut's growth per radian, and where its drawing starts. The
+-/// drawing stops at radius `Z.half_h`, inside the frame; only the card says
++/// The spiral cut's whole turns, the angle its drawing ends at, and its stroke.
++/// The drawing stops at radius `Z.half_h`, inside the frame; only the card says
+ /// that the cut goes on to infinity.
+-const SPIRAL_K: f64 = 0.18;
+-const SPIRAL_START: f64 = -5.0 * PI;
+-
+-/// A logarithmic spiral from (near) zero out to the panel's edge: a cut
+-/// whose radius only grows, so it never crosses itself, and which winds
+-/// ever more tightly toward zero.
++const SPIRAL_TURNS: f64 = 3.0;
++const SPIRAL_END: f64 = 3.0 * PI;
++const SPIRAL_W: f64 = 4.0;
++
++/// An even spiral from zero itself out to the panel's edge: its radius only grows,
++/// so it never crosses itself, and its turns stay equally far apart, so none merge.
+ fn spiral_cut() -> Vec<Vec3> {
+-    let end = (Z.half_h / 0.5).ln() / SPIRAL_K;
+     (0..=300)
+         .map(|k| {
+-            let th = SPIRAL_START + (end - SPIRAL_START) * f64::from(k) / 300.0;
+-            Z.p(C::polar(0.5 * (SPIRAL_K * th).exp(), th))
++            let share = f64::from(k) / 300.0;
++            let th = SPIRAL_END - TAU * SPIRAL_TURNS * (1.0 - share);
++            Z.p(C::polar(Z.half_h * share, th))
+         })
+         .collect()
+ }
+@@ -493,7 +493,7 @@
+         swap(stage, &[usual], &[upward], 0.6)?;
+         fade_in_all(stage, &[window], 0.5)?;
+         kit.until_sentence(stage, "07_5", 2)?;
+-        let spiral = super::draw::path(stage, spiral_cut(), red, 4.0);
++        let spiral = super::draw::path(stage, spiral_cut(), red, SPIRAL_W);
+         swap(stage, &[upward, window], &[spiral], 0.8)?;
+         kit.until_sentence(stage, "07_5", 3)?;
+         let any = kit.text_left(stage, ANY_CURVE, 22.0, Palette::ink(), v(right, -2.55))?;
+@@ -693,8 +693,27 @@
+         for w in pts.windows(2) {
+             assert!(r(&w[1]) > r(&w[0]));
+         }
+-        assert!(r(&pts[0]) < 0.05 && (r(&pts[pts.len() - 1]) - Z.half_h).abs() < 1e-9);
++        // it starts at zero itself, the one point every cut must touch
++        assert!(r(&pts[0]) < 1e-12 && (r(&pts[pts.len() - 1]) - Z.half_h).abs() < 1e-9);
+         assert!(pts.iter().all(|p| p[0] > -7.1 && p[1] < 3.0 && p[1] > -3.2));
++    }
++
++    #[test]
++    fn the_spirals_turns_stand_apart_and_one_strand_leaves_the_ring_round_zero() {
++        let pts = spiral_cut();
++        let r = |p: &Vec3| ((p[0] - Z.centre[0]).powi(2) + (p[1] - Z.centre[1]).powi(2)).sqrt();
++        let per_turn = ((pts.len() - 1) as f64 / SPIRAL_TURNS).round() as usize;
++        // on the drawn points: one turn on, the strand stands well clear of its own stroke
++        let stroke = SPIRAL_W * 0.01;
++        for k in 0..pts.len() - per_turn {
++            let apart = (pts[k + per_turn][0] - pts[k][0]).hypot(pts[k + per_turn][1] - pts[k][1]);
++            assert!(apart > 10.0 * stroke, "{k}: turns {apart} apart");
++        }
++        // under a quarter turn of it lies inside the zero ring, or the branch point's ring
++        for ring_radius in [ZERO_RING, 0.2] {
++            let inside = pts.iter().filter(|&p| r(p) < ring_radius).count();
++            assert!(inside * 4 < per_turn, "{ring_radius}: {inside} of {per_turn}");
++        }
+     }
+ 
+     #[test]
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs
+@@ -425,17 +425,36 @@
+             &[],
+             v(right + 3.0, -2.3),
+         )?;
+-        fade_in_all(stage, &[root1, not_two], 0.5)?;
++        // the product's root has its own place on the ring, opposite the two roots' product
++        let one_dot = dot(stage, Z.p(C::new(1.0, 0.0)), DOT_R, gold);
++        fade_in_all(stage, &[root1, not_two, one_dot], 0.5)?;
+         kit.until_sentence(stage, "08_5", 4)?;
+-        let halved = kit.tex(
+-            stage,
+-            r"\tfrac{1}{2}(2\pi i) = \pi i, \quad e^{\pi i} = -1",
+-            26.0,
+-            purple,
+-            &[],
+-            Z.p(C::new(0.0, -1.55)),
+-        )?;
+-        fade_in_all(stage, &[halved], 0.5)?;
++        // "Halving the lost lap": the lap, halved, and no sign yet
++        let halved = kit.tex(stage, HALVED, 26.0, purple, &[], Z.p(C::new(0.0, -1.55)))?;
++        let halving = halved_part(&kit, stage, halved)?;
++        fade_in_all(stage, &[halving], 0.5)?;
++        // "leaves a half turn": the turn itself, from the root of the product, +1, the
++        // way e^{πi} goes, round to the product of the roots, −1
++        until_phrase(&kit, stage, "08_5", HALF_TURN_PHRASE)?;
++        let half_turn = stage.add_value_tracker(0.0);
++        let half_arc = stage.always_redraw(move |s: &mut Arena| {
++            let t = value(s, half_turn);
++            let g = s.add(VMobject::new());
++            if t > 1e-3 {
++                for pts in [half_turn_arc(t), half_turn_head(t)] {
++                    let m = s.add(polyline(pts).style(line_style(purple, HALF_TURN_W)).build());
++                    let _ = s.attach(g, m);
++                }
++            }
++            g
++        });
++        stage.add_to_scene(half_arc)?;
++        play!(stage; tween(half_turn, 1.0, HALF_TURN_S)?);
++        let half_word = half_turn_word(&kit, stage)?;
++        fade_in_all(stage, &[half_word], 0.3)?;
++        // "a factor of minus one": now the sign
++        until_phrase(&kit, stage, "08_5", FACTOR_PHRASE)?;
++        swap(stage, &[halving], &[halved], 0.3)?;
+         kit.until_sentence(stage, "08_5", 5)?;
+         let only_sign = kit.tex(
+             stage,
+@@ -466,9 +485,173 @@
+     Ok(stage.arena_mut().add(r))
+ }
+ 
++/// 08_5's purple line whole, and its first stage: the lost lap halved, before the sign.
++const HALVED: &str = r"\tfrac{1}{2}(2\pi i) = \pi i, \quad e^{\pi i} = -1";
++const HALVED_LAP: &str = r"\tfrac{1}{2}(2\pi i) = \pi i";
++
++/// The first stage of 08_5's purple line, on the whole line's lower left corner, so
++/// that what the two share stays put when the whole line replaces it.
++fn halved_part(kit: &Kit, stage: &mut Stage<'_>, whole: Mob) -> fmn::Result<Mob> {
++    let corner = stage.get_corner(whole, DL);
++    let m = kit.tex(stage, HALVED_LAP, 26.0, lap_c(), &[], corner)?;
++    stage.move_to(m, corner, DL);
++    Ok(m)
++}
++
++/// The dots at +1 and −1 on 08_5's ring; the half turn runs between them.
++const DOT_R: f64 = 0.1;
++/// The half turn's stroke, how long it takes, how far short of each dot's centre
++/// it stops, in radians, and the length of its arrow head.
++const HALF_TURN_W: f64 = 5.0;
++const HALF_TURN_S: f64 = 1.6;
++const HALF_TURN_GAP: f64 = (DOT_R + 0.07) / Z.scale;
++const HALF_TURN_HEAD: f64 = 0.16;
++
++/// The angle the half turn has reached, a fraction `t` of the way from +1 to −1.
++fn half_turn_end(t: f64) -> f64 {
++    HALF_TURN_GAP + (PI - 2.0 * HALF_TURN_GAP) * t.clamp(0.0, 1.0)
++}
++
++/// The half turn so far, along the unit circle through the top of the ring.
++fn half_turn_arc(t: f64) -> Vec<Vec3> {
++    arc_points(Z.centre, Z.scale, HALF_TURN_GAP, half_turn_end(t), 60)
++}
++
++/// The arrow head at the half turn's moving end. It grows with the arc, so it never
++/// reaches back over the dot at +1.
++fn half_turn_head(t: f64) -> Vec<Vec3> {
++    let end = half_turn_end(t);
++    let reach = HALF_TURN_HEAD.min(Z.scale * (end - HALF_TURN_GAP));
++    let tip = Z.p(C::polar(1.0, end));
++    let (back, out) = ([end.sin(), -end.cos()], [end.cos(), end.sin()]);
++    let wing = |side: f64| {
++        v(
++            tip[0] + reach * (0.87 * back[0] + 0.5 * side * out[0]),
++            tip[1] + reach * (0.87 * back[1] + 0.5 * side * out[1]),
++        )
++    };
++    vec![wing(1.0), tip, wing(-1.0)]
++}
++
++/// The half turn's name, outside the ring at its upper right.
++fn half_turn_word(kit: &Kit, stage: &mut Stage<'_>) -> fmn::Result<Mob> {
++    kit.text_left(stage, "half turn", 20.0, lap_c(), v(-2.95, 1.45))
++}
++
++/// The words of 08_5's fifth sentence that bring the half turn and its sign.
++const HALF_TURN_PHRASE: &str = "leaves a half turn";
++const FACTOR_PHRASE: &str = "a factor of minus one";
++const SCRIPT: &str = include_str!("../../script.tsv");
++
++/// When `phrase` starts, in seconds into its line. A measured word mark at its byte
++/// wins. Without one this is the phrase's character share of its measured sentence:
++/// provisional, and never a heard boundary.
++fn phrase_seconds(
++    text: &str,
++    phrase: &str,
++    marks: &std::collections::HashMap<usize, f64>,
++    starts: &[f64],
++    len: f64,
++) -> Result<f64, String> {
++    let byte = text
++        .find(phrase)
++        .ok_or_else(|| format!("the line has no phrase {phrase:?}"))?;
++    if let Some(&seconds) = marks.get(&byte) {
++        return Ok(seconds);
++    }
++    let mut opens = vec![0];
++    for (i, pair) in text.as_bytes().windows(2).enumerate() {
++        if matches!(pair[0], b'.' | b'?' | b'!') && pair[1] == b' ' {
++            opens.push(i + 2);
++        }
++    }
++    if opens.len() != starts.len() {
++        return Err(format!(
++            "the line has {} sentences, but the narrator timed {}",
++            opens.len(),
++            starts.len()
++        ));
++    }
++    let j = opens.iter().rposition(|&open| open <= byte).unwrap_or(0);
++    let close = opens.get(j + 1).copied().unwrap_or(text.len());
++    let (t0, t1) = (starts[j], starts.get(j + 1).copied().unwrap_or(len));
++    let before = text[opens[j]..byte].chars().count() as f64;
++    let whole = text[opens[j]..close].trim_end().chars().count().max(1) as f64;
++    Ok(t0 + (t1 - t0) * before / whole)
++}
++
++fn phrase_time(kit: &Kit, id: &str, phrase: &str) -> fmn::Result<Option<f64>> {
++    let Some(n) = kit.narrator.as_ref() else {
++        return Ok(None);
++    };
++    let starts = n.sentence_starts(id);
++    let (Some(&first), Some(said), Some(len)) = (starts.first(), n.sentence_at(id, 0), n.length(id)) else {
++        return Ok(None);
++    };
++    let script = explainer_kit::Script::parse(SCRIPT).map_err(super::draw::fail)?;
++    let text = script
++        .text(id)
++        .ok_or_else(|| super::draw::fail(format!("narration line {id} is not in script.tsv")))?;
++    let seconds = phrase_seconds(text, phrase, &n.phrase_marks(id), &starts, len)
++        .map_err(|e| super::draw::fail(format!("line {id}: {e}")))?;
++    Ok(Some(said - first + seconds))
++}
++
++fn until_phrase(kit: &Kit, stage: &mut Stage<'_>, id: &str, phrase: &str) -> fmn::Result<()> {
++    let Some(at) = phrase_time(kit, id, phrase)? else {
++        return Ok(());
++    };
++    let (now, fps) = (stage.scene().time().to_f64(), stage.scene().time().fps());
++    if at > now {
++        explainer_kit::narration::wait_frames(stage, explainer_kit::narration::frames_covering(at - now, fps))?;
++    }
++    Ok(())
++}
++
+ #[cfg(test)]
+ mod tests {
++    use fmn::scene::{NullSceneSink, RuntimeConfig};
++
+     use super::*;
++
++    /// Run `f` as a scene's `construct`, headless, at 10 fps.
++    fn run(f: impl FnMut(&mut Stage<'_>) -> fmn::Result<()>) {
++        struct Probe<F>(F);
++        impl<F: FnMut(&mut Stage<'_>) -> fmn::Result<()>> SceneConstruct for Probe<F> {
++            fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
++                (self.0)(stage)
++            }
++        }
++        let config = RuntimeConfig {
++            fps: 10,
++            ..RuntimeConfig::default()
++        };
++        fmn::run_scene(&mut Probe(f), config, 7, &mut NullSceneSink).expect("the probe scene runs");
++    }
++
++    /// A mobject's typeset box: left, right, bottom, top.
++    fn box_of(stage: &Stage<'_>, m: Mob) -> [f64; 4] {
++        [
++            stage.get_bounding_box_point(m, LEFT)[0],
++            stage.get_bounding_box_point(m, RIGHT)[0],
++            stage.get_bounding_box_point(m, DOWN)[1],
++            stage.get_bounding_box_point(m, UP)[1],
++        ]
++    }
++
++    /// The film's source, without its tests.
++    fn scene_source() -> &'static str {
++        include_str!("product_rule.rs")
++            .split("#[cfg(test)]")
++            .next()
++            .unwrap_or("")
++    }
++
++    fn found(text: &str) -> usize {
++        scene_source()
++            .find(text)
++            .unwrap_or_else(|| panic!("not in the scene: {text}"))
++    }
+ 
+     #[test]
+     fn the_facts_read_as_the_angles_drawn() {
+@@ -531,4 +714,116 @@
+         let s = C::new(1.0, 0.0).sqrt();
+         assert!((s.re - 1.0).abs() < 1e-12);
+     }
+-}
++
++    #[test]
++    fn the_half_turn_and_its_sign_wait_for_their_words_and_the_whole_line_stays() {
++        let script = explainer_kit::Script::parse(SCRIPT).unwrap();
++        let text = script.text("08_5").expect("08_5 is in the script");
++        // once each, starting a word, in spoken order, both inside "Halving ..."
++        let open = text.find("Halving the lost lap").expect("08_5 has the halving");
++        let close = text.find("The root of a product").expect("08_5 has its last sentence");
++        let mut after = open;
++        for phrase in [HALF_TURN_PHRASE, FACTOR_PHRASE] {
++            assert_eq!(text.matches(phrase).count(), 1, "{phrase}");
++            let byte = text.find(phrase).unwrap();
++            assert!(byte > after && byte < close, "{phrase} is out of place");
++            assert_eq!(&text[byte - 1..byte], " ", "{phrase} does not start a word");
++            after = byte;
++        }
++        let order = [
++            found("kit.until_sentence(stage, \"08_5\", 3)"),
++            found("fade_in_all(stage, &[root1, not_two, one_dot], 0.5)"),
++            found("kit.until_sentence(stage, \"08_5\", 4)"),
++            found("fade_in_all(stage, &[halving], 0.5)"),
++            found("until_phrase(&kit, stage, \"08_5\", HALF_TURN_PHRASE)"),
++            found("tween(half_turn, 1.0, HALF_TURN_S)"),
++            found("fade_in_all(stage, &[half_word], 0.3)"),
++            found("until_phrase(&kit, stage, \"08_5\", FACTOR_PHRASE)"),
++            found("swap(stage, &[halving], &[halved], 0.3)"),
++            found("kit.until_sentence(stage, \"08_5\", 5)"),
++            found("kit.finish(stage)"),
++        ];
++        assert!(order.windows(2).all(|w| w[0] < w[1]), "{order:?}");
++        // nothing of the mathematics is lost: the first stage is the whole line's start
++        assert!(HALVED.starts_with(HALVED_LAP));
++        assert!(HALVED.contains(r"e^{\pi i} = -1") && !HALVED_LAP.contains('-'));
++    }
++
++    #[test]
++    fn the_halved_lap_stands_on_the_whole_lines_corner_and_holds_no_sign() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let whole = kit.tex(stage, HALVED, 26.0, lap_c(), &[], Z.p(C::new(0.0, -1.55)))?;
++            let part = halved_part(&kit, stage, whole)?;
++            let [left, right, bottom, _] = box_of(stage, whole);
++            let [l, r, b, _] = box_of(stage, part);
++            assert!((l - left).abs() < 1e-6 && (b - bottom).abs() < 1e-6, "{l} {b}");
++            assert!(r < right - 0.5, "the first stage reaches where the sign goes");
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn the_half_turn_runs_between_the_two_answers_and_touches_nothing_on_the_way() {
++        // its ends are the two answers, and e^{πi} carries one to the other
++        assert_eq!(fact("sqrt.root_of_product").unwrap(), "1");
++        assert_eq!(fact("sqrt.product_of_roots").unwrap(), "-1");
++        let turned = C::new(1.0, 0.0).mul(C::new(0.0, PI).exp());
++        assert!((turned.re + 1.0).abs() < 1e-12 && turned.im.abs() < 1e-12);
++        // it stops the same way short of each dot, having swept all that lies between
++        assert!((half_turn_end(0.0) - HALF_TURN_GAP).abs() < 1e-12);
++        assert!((half_turn_end(1.0) - (PI - HALF_TURN_GAP)).abs() < 1e-12);
++        let (plus, minus) = (Z.p(C::new(1.0, 0.0)), Z.p(C::new(-1.0, 0.0)));
++        let cap = HALF_TURN_W * 0.01 / 2.0;
++        for k in 0..=50 {
++            let t = f64::from(k) / 50.0;
++            for p in half_turn_arc(t).iter().chain(half_turn_head(t).iter()) {
++                for at in [plus, minus] {
++                    let far = (p[0] - at[0]).hypot(p[1] - at[1]);
++                    assert!(far - cap > DOT_R + 0.02, "{t}: {p:?} reaches a dot");
++                }
++                let from_centre = (p[0] - Z.centre[0]).hypot(p[1] - Z.centre[1]);
++                assert!(from_centre > 0.68 + 0.2, "{t}: {p:?} reaches the green arcs");
++                // through the top only: never on the cut, and under the axis's top end
++                assert!(p[1] > Z.centre[1] + 0.05 && p[1] < Z.centre[1] + Z.half_h, "{t}: {p:?}");
++            }
++        }
++    }
++
++    #[test]
++    fn the_half_turns_name_clears_the_ring_the_axis_the_definition_and_the_column() {
++        run(|stage| {
++            let kit = Kit::new()?;
++            let word = half_turn_word(&kit, stage)?;
++            let [left, right, bottom, top] = box_of(stage, word);
++            // the corner nearest the ring, outside the ring and the half turn's stroke
++            let near = (left - Z.centre[0]).hypot(bottom - Z.centre[1]);
++            assert!(near > Z.scale + 0.1, "the ring reaches the word: {near}");
++            assert!(left > Z.centre[0] + 0.1, "the upright axis reaches the word");
++            assert!(right < 0.5, "the word reaches the right-hand column");
++            assert!(bottom > Z.centre[1] + 0.1, "the level axis reaches the word");
++            assert!(
++                top < Z.centre[1] + Z.scale * DEF_HEIGHT - 0.3,
++                "the word reaches the definition"
++            );
++            Ok(())
++        });
++    }
++
++    #[test]
++    fn a_phrase_lands_on_its_mark_or_on_its_share_of_the_measured_sentence() {
++        let text = "One two. Three four five six. Seven.";
++        let starts = [0.2, 2.0, 6.0];
++        let none = std::collections::HashMap::new();
++        // eleven of the sentence's twenty characters come before "five"
++        let t = phrase_seconds(text, "five", &none, &starts, 8.0).unwrap();
++        assert!((t - (2.0 + 4.0 * 11.0 / 20.0)).abs() < 1e-12);
++        // a measured word mark wins
++        let marks = std::collections::HashMap::from([(text.find("five").unwrap(), 3.25)]);
++        let t = phrase_seconds(text, "five", &marks, &starts, 8.0).unwrap();
++        assert!((t - 3.25).abs() < 1e-12);
++        // never a guess
++        assert!(phrase_seconds(text, "nine", &none, &starts, 8.0).is_err());
++        assert!(phrase_seconds(text, "five", &none, &starts[..2], 8.0).is_err());
++    }
++}

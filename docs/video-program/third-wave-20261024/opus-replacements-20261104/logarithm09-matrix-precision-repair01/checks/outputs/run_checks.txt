@@ -1,0 +1,90 @@
+== baseline and patch
+PASS canonical is the file this repair was written against: c82b2a4d10f3c5fda758ad110b6297efc5512a643bfc26f4f05e4532c6ebf2cd
+PASS stage06 carries the same bytes
+  src/model.rs: canonical 8c9e3c6abfcc48d5 stage06 8c9e3c6abfcc48d5 same
+  src/facts.rs: canonical 8901e74b0afdc6ea stage06 8901e74b0afdc6ea same
+  src/chapters/draw.rs: canonical 2a4e84504bab6364 stage06 2a4e84504bab6364 same
+  script.tsv: canonical f201d2dc57fa9cca stage06 f201d2dc57fa9cca same
+  oracle.py: canonical 3bf99af6e88bdfc3 stage06 3bf99af6e88bdfc3 same
+PASS the patch applies to canonical by git apply and gives the staged bytes
+PASS and reverses
+staged matrix_logs.rs 7df6f8681099c76dcd1f32494e2edcbb07b427c54178d5c557d5801052f481b0
+patch feb5ce4b5ffad77a4a33fae126d1768aafa177a1ced57b345fe9ced0f0309663
+
+== what the patch changes in film code
+PASS film code keeps its line count: 381 lines
+PASS exactly three film lines change: [179, 213, 266]
+  179: - model::rotation(TAU / 6.0),
+  179: + [[0.6, -0.8], [0.8, 0.6]], // a true turn; a card's three places hold these exactly
+  213: - Palette::dim(),
+  213: + Palette::ink(),
+  266: - let e_word = kit.tex(stage, r"e^{X} =", 30.0, green, &[], v(2.8, -1.5))?;
+  266: + let e_word = kit.tex(stage, r"e^{X} \approx", 30.0, green, &[], v(2.8, -1.5))?;
+PASS no timed call changes
+PASS the series keeps its exact =
+PASS the definition keeps its exact =
+PASS no on-screen string changes except the e^X word: ['e^{X} ='] -> ['e^{X} \\approx']
+  (the card entries come from the matrix, so they are not strings here)
+
+== the numbers, independently of model.rs
+e^X, closed form e^s (cos w I + sin w / w Y), w = 0.871780: [[0.9052203883148355, -0.9704069082496933], [0.7763255265997547, 0.5170576250149581]]
+PASS closed form and series agree
+PASS the card prints what root read: [['0.905', '-0.97'], ['0.776', '0.517']]
+PASS so e^X = is false of the printed digits, and approximately is right: largest entry error 0.000407
+PASS turned is exact on its card: [['0.6', '-0.8'], ['0.8', '0.6']]
+PASS stretched is exact on its card: [['1.6', '0'], ['0', '0.6']]
+PASS sheared is exact on its card: [['1', '1'], ['0', '1']]
+PASS flipped is exact on its card: [['-1', '0'], ['0', '1']]
+PASS X is exact on its card
+PASS e^X is not
+PASS control: the old turned example was not exact: [['0.5', '-0.866'], ['0.866', '0.5']]
+PASS the new example is a true turn: orthonormal, det 1
+  it turns by 53.13 degrees; the old one by 60; no script, card or fact names the angle
+
+== geometry of the turned picture, mirrored
+  grid extents new (-6.476, 0.076, -3.676, 2.876), old (-6.396, -0.004, -3.596, 2.796)
+PASS the turned grid stays in the safe area ±6.96 × ±3.85
+PASS it stays clear of the right-hand column at x = 1.4
+PASS it stays under the title, whose ink starts near y = 3.27 on frame 48
+PASS the_marked_landings_of_every_example_stay_on_the_panel, mirrored on the new example
+PASS the_clip_holds_the_grid, mirrored: a turned n = 3 grid reaches sqrt 18 < 4.4
+  marked points land at [(0.6, 0.8), (-0.8, 0.6), (-0.2, 1.4), (-1.4, -0.2)]
+PASS no two landing dots merge: dot radius 0.07 scene: closest 0.780 scene
+
+== the new tests' conditions on the staged source, and plants
+PASS only_the_rounded_card_says_approximately, its source half, passes
+PASS the_before_and_after_caveat_is_in_ink passes
+PASS both fail on canonical (the control)
+PASS planted, caught: the word goes back to =
+PASS planted, caught: the definition goes approximate
+PASS planted, caught: the turned matrix is 60 degrees again
+PASS planted, caught: the caveat goes back to dim
+
+== bindings
+PASS map13 has no visual hold on this file
+PASS neither map13 nor narration_units.json names the source hash
+PASS all 6 hold-audit rows on this file keep their line and marker: []
+  the source hash appears in stage06's bound-plan/hold-audit.json and inputs.sha256: root's binder must take the new input
+
+== docs/check_cues.py on a scratch copy
+  canonical copy exit 0; staged copy exit 0: 80 cues, 364 sentences, 80 said
+registered modules read, in registry order: ratio_ruler, building_ruler, slide_rule, folded_decade, undoing_growth, complex_turn
+PASS the cue checker says the same of both
+PASS control: it refuses the file with a say removed: exit 1
+
+== rustfmt
+PASS rustfmt --check canonical
+PASS rustfmt --check staged
+
+== old frames, for the caveat
+frame-0048.png, 1280 x 720, ground (12, 17, 20)
+nominal contrast: dim 6.13, ink 16.47; WCAG asks 4.5 for small text, 7 at its higher level
+the caveat as staged, dim at 20 pt: inked 2287 px; contrast on ground, peak 6.32, brightest tenth 5.40, median 3.39
+the line above the card, ink at 22 pt: inked 2435 px; contrast on ground, peak 16.84, brightest tenth 15.42, median 7.72
+the caveat remapped to ink, same coverage, not a render: inked 2481 px; contrast on ground, peak 16.47, brightest tenth 13.68, median 7.21
+  20 pt at 720p: em 18.0 px, x-height about 7.7 px (CM's 0.43 em, arithmetic)
+  20 pt at 1080p: em 27.0 px, x-height about 11.6 px (CM's 0.43 em, arithmetic)
+  20 pt at 4K: em 54.0 px, x-height about 23.2 px (CM's 0.43 em, arithmetic)
+probe's pass mark 11.0 on the brightest tenth: old 5.40 fails, remapped 13.68 passes, sibling 15.42 passes
+wrote the sheet: (1270, 334)
+PASS caveat_contrast.py exits 0 with its controls

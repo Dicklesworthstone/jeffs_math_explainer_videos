@@ -1,0 +1,264 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/closing.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/closing.rs
+@@ -15,9 +15,9 @@
+ use fmn::prelude::*;
+ 
+ use super::draw::{
+-    Plane, dashed, dot, fact, fact_f64, fact_list, fade_in_all, fade_out_all, faded_line, hero, input, line_style,
+-    output, pause, pole, pole_mark, predict, restroke, say, shift_all, tween_linear, value, wait_until, warn,
+-    zero_mark,
++    Plane, dashed, dot, fact, fact_f64, fact_list, fade_in_all, fade_out_all, faded_line, flat, ground, hero, input,
++    line_style, output, pause, pole, pole_mark, predict, restroke, say, shift_all, tween_linear, value, wait_until,
++    warn, zero_mark,
+ };
+ // the bump's formula, pole names and recipe from 01
+ use super::the_bump::{AT_X, BUMP_TEX, POLE_I, POLE_MINUS_I, graph, recipe_points};
+@@ -29,7 +29,7 @@
+ pub const CAPTIONS: [[&str; 2]; 5] = [
+     ["on an open region:", "stretch and turn"],
+     ["the boundary", "decides the inside"],
+-    ["a loop counts", "zeros − poles"],
++    ["output turns count", "zeros − poles"],
+     ["real integrals", "from residues"],
+     ["at most one extension;", "paths can branch"],
+ ];
+@@ -76,6 +76,12 @@
+ /// How far out a pole's name sits, as a multiple of the pole's height: past the radius 1 ring
+ /// that runs through the pole, on the side away from the spokes.
+ pub const POLE_NAME_OUT: f64 = 1.28;
++/// The poles' names on the closing plane: left of the axis, beyond the reach of the circle that grows from 3.
++pub const PLANE_NAME_X: [f64; 2] = [-0.42, -0.5];
++/// "x = 3", below its dot.
++pub const CENTRE_NAME_Y: f64 = -0.45;
++/// How far a label's backing reaches past the label, in scene units.
++pub const BACK_PAD: f64 = 0.05;
+ /// The residue panel's half circle: clear of the poles on the unit circle, which are inside it.
+ pub const PANEL_ARC: f64 = 1.22;
+ 
+@@ -95,6 +101,28 @@
+     let mut zs = model::circle(centre, r.max(1e-3), 180);
+     zs.push(zs[0]);
+     zs.iter().map(|&z| p.p(z)).collect()
++}
++
++/// Root `mobs`, then put `on_top` back over them. A fade roots only what is not on stage yet, and on top,
++/// so this has to come before the fade that brings `mobs` in.
++fn root_under(stage: &mut Stage<'_>, mobs: &[Mob], on_top: &[Mob]) -> fmn::Result<()> {
++    for &m in mobs.iter().chain(on_top) {
++        stage.add_to_scene(m)?;
++    }
++    Ok(())
++}
++
++/// A patch of the ground under the label `t` at `at`, for the growing circle to pass behind. The label
++/// sits on bare ground, so the patch cannot be seen until the circle reaches it.
++fn label_back(stage: &mut Stage<'_>, t: Mob, at: Vec3) -> fmn::Result<Mob> {
++    let (w, h) = (stage.get_width(t), stage.get_height(t));
++    let back = Rectangle::new()
++        .width(w + 2.0 * BACK_PAD)
++        .height(h + 2.0 * BACK_PAD)
++        .style(flat(ground(), 1.0))
++        .build()?
++        .moved_to(at);
++    Ok(stage.arena_mut().add(back))
+ }
+ 
+ /// The small picture of panel `j`, detached.
+@@ -251,6 +279,7 @@
+         for &im in &poles {
+             pole_mobs.extend(pole_mark(stage, plane.p(C::new(0.0, im))));
+         }
++        let marks = pole_mobs.clone();
+         pole_mobs.push(kit.text(
+             stage,
+             POLE_I,
+@@ -272,6 +301,7 @@
+                 .style(line_style(hero(), 5.0))
+                 .build(),
+         );
++        root_under(stage, &[ring], &marks)?;
+         fade_in_all(stage, &[ring], 0.5)?;
+         wait_until(stage, line.end())?;
+         // the film's first picture, answered: it gets a moment before the wipe
+@@ -332,19 +362,20 @@
+         for &im in &poles {
+             poles_here.extend(pole_mark(stage, cp.p(C::new(0.0, im))));
+         }
++        let marks_here = poles_here.clone();
+         poles_here.push(kit.text(
+             stage,
+             POLE_I,
+             28.0,
+             pole(),
+-            cp.p(C::new(0.42, poles[0] * POLE_NAME_OUT)),
++            cp.p(C::new(PLANE_NAME_X[0], poles[0] * POLE_NAME_OUT)),
+         )?);
+         poles_here.push(kit.text(
+             stage,
+             POLE_MINUS_I,
+             28.0,
+             pole(),
+-            cp.p(C::new(0.5, poles[1] * POLE_NAME_OUT)),
++            cp.p(C::new(PLANE_NAME_X[1], poles[1] * POLE_NAME_OUT)),
+         )?);
+         let old = stage.arena_mut().add(
+             polyline(ring_points(&cp, ZERO, r0))
+@@ -353,16 +384,18 @@
+         );
+         fade_in_all(stage, &frame, 0.4)?;
+         fade_in_all(stage, &poles_here, 0.4)?;
++        root_under(stage, &[old], &marks_here)?;
+         fade_in_all(stage, &[old], 0.4)?;
+         line.wait_sentence(stage, 1)?;
+         let a = fact_f64("recentre3.centre")?;
+         let centre = dot(stage, cp.p(C::real(a)), 0.09, hero());
++        let centre_name_at = cp.p(C::new(a, CENTRE_NAME_Y));
+         let centre_name = kit.text(
+             stage,
+             &format!("{AT_X}{}", fact("recentre3.centre")?),
+             24.0,
+             hero(),
+-            cp.p(C::new(a, -0.45)),
++            centre_name_at,
+         )?;
+         fade_in_all(stage, &[centre, centre_name], 0.4)?;
+         let ask = format!("{ASK_PREFIX}{}?", fact("recentre3.centre")?);
+@@ -376,8 +409,10 @@
+             .iter()
+             .map(|&im| dashed(stage, cp.p(C::real(a)), cp.p(C::new(0.0, im)), hero()))
+             .collect::<fmn::Result<_>>()?;
++        root_under(stage, &spokes, &marks_here)?;
+         fade_in_all(stage, &spokes, 0.5)?;
+         line.wait_for(stage, "the square root of ten")?;
++        let says_at = cp.p(radius_label_at(a, poles[0]));
+         let says = kit.text(
+             stage,
+             &format!(
+@@ -387,7 +422,7 @@
+             ),
+             24.0,
+             hero(),
+-            cp.p(radius_label_at(a, poles[0])),
++            says_at,
+         )?;
+         fade_in_all(stage, &[says], 0.4)?;
+         let grown = stage.add_value_tracker(0.02);
+@@ -396,7 +431,14 @@
+                 .style(line_style(hero(), 5.0))
+                 .build(),
+         );
+-        stage.add_to_scene(ring)?;
++        // the ring grows behind the two labels in its way, and ends at the poles' marks
++        let backs = [
++            label_back(stage, says, says_at)?,
++            label_back(stage, centre_name, centre_name_at)?,
++        ];
++        let mut over_ring = vec![says, centre_name];
++        over_ring.extend(&marks_here);
++        root_under(stage, &[ring, backs[0], backs[1]], &over_ring)?;
+         let anchor = stage.arena_mut().add(VMobject::new());
+         stage.add_to_scene(anchor)?;
+         stage.add_updater(
+@@ -424,6 +466,7 @@
+         wait_until(stage, line.end())?;
+         kit.music_breath(stage, 1.5)?;
+         let mut all = vec![old, centre, centre_name, says, ring, reach];
++        all.extend(backs);
+         all.extend(frame);
+         all.extend(poles_here);
+         all.extend(spokes);
+@@ -500,9 +543,82 @@
+             assert!(at.re.abs() > 0.25, "{k}");
+         }
+         // the pole names are off the radius 1 ring
+-        for (x, im) in [(0.3, 1.0), (0.35, -1.0), (0.42, 1.0), (0.5, -1.0)] {
++        for (x, im) in [
++            (0.3, 1.0),
++            (0.35, -1.0),
++            (PLANE_NAME_X[0], 1.0),
++            (PLANE_NAME_X[1], -1.0),
++        ] {
+             assert!(C::new(x, im * POLE_NAME_OUT).abs() > 1.2);
+         }
++    }
++
++    /// 15_4's growing circle against what it sweeps past. A text's extents need the renderer, so the
++    /// half sizes here are measured on preview02's frames, in plane units, and rounded up.
++    #[test]
++    fn the_growing_circle_passes_behind_its_labels_and_never_reaches_the_names() {
++        let a = model::RECENTRE_AT;
++        let c = C::real(a);
++        let r = model::bump_radius(a);
++        // half the ring's stroke of 5, and how far a backing reaches past its label
++        let unit = closing_plane().unit();
++        let (rim, pad) = (0.025 / unit, BACK_PAD / unit);
++        let corners =
++            |at: C, w: f64, h: f64| [(-w, -h), (w, -h), (-w, h), (w, h)].map(|(x, y)| C::new(at.re + x, at.im + y));
++        // the names: past the finished circle, off the axis and off the radius 1 ring
++        for (x, im, w) in [(PLANE_NAME_X[0], 1.0, 0.05), (PLANE_NAME_X[1], -1.0, 0.13)] {
++            for z in corners(C::new(x, im * POLE_NAME_OUT), w, 0.12) {
++                assert!((z - c).abs() > r + rim + 0.2 && z.re < -0.2 && z.abs() > 1.1, "{z:?}");
++            }
++        }
++        // the labels: their backings stay inside the finished circle, on bare ground
++        for (at, w, h) in [
++            (radius_label_at(a, 1.0), 0.64, 0.12),
++            (C::new(a, CENTRE_NAME_Y), 0.32, 0.1),
++        ] {
++            for z in corners(at, w + pad, h + pad) {
++                assert!((z - c).abs() < r - rim - 0.2, "{z:?}");
++                assert!(z.im.abs() > 0.2 && (z.abs() - 1.0).abs() > 0.1, "{z:?}");
++                for im in [1.0, -1.0] {
++                    let (d, e) = (C::new(0.0, im) - c, z - c);
++                    let along = ((e.re * d.re + e.im * d.im) / (d.re * d.re + d.im * d.im)).clamp(0.0, 1.0);
++                    assert!((e - d.scale(along)).abs() > 0.1, "{z:?}");
++                }
++            }
++        }
++    }
++
++    /// The source's order: each thing that runs through a pole goes on under its mark, and the
++    /// growing ring goes under its labels too, all before the fade or the growth that shows them.
++    #[test]
++    fn the_poles_marks_stay_on_top_of_what_runs_through_them() {
++        let source = include_str!("closing.rs");
++        let from = source.find("say(&kit, stage, \"15_1\")").unwrap();
++        let to = source.find("let title = kit.text(").unwrap();
++        let scene = &source[from..to];
++        for (root, shown) in [
++            (
++                "root_under(stage, &[ring], &marks)?;",
++                "fade_in_all(stage, &[ring], 0.5)?;",
++            ),
++            (
++                "root_under(stage, &[old], &marks_here)?;",
++                "fade_in_all(stage, &[old], 0.4)?;",
++            ),
++            (
++                "root_under(stage, &spokes, &marks_here)?;",
++                "fade_in_all(stage, &spokes, 0.5)?;",
++            ),
++            (
++                "root_under(stage, &[ring, backs[0], backs[1]], &over_ring)?;",
++                "stage.play(tween_linear(grown, r3, 1.4)?)?;",
++            ),
++        ] {
++            let rooted = scene.find(root).unwrap_or_else(|| panic!("{root}"));
++            assert!(rooted < scene.find(shown).unwrap(), "{root}");
++        }
++        assert!(!scene.contains("stage.add_to_scene(ring)"));
++        assert!(scene.contains("over_ring.extend(&marks_here);") && scene.contains("all.extend(backs);"));
+     }
+ 
+     #[test]
+@@ -534,5 +650,8 @@
+             assert!(q.abs() + 0.2 < PANEL_ARC && panel(3).contains(q));
+         }
+         assert!(panel(3).contains(C::real(1.28)) && panel(3).contains(C::new(0.0, PANEL_ARC)));
+-    }
+-}
++        // the longest caption, drawn on preview02 well inside its panel, sets how long one may be
++        let longest = CAPTIONS[4][0].chars().count();
++        assert!(CAPTIONS.iter().flatten().all(|c| c.chars().count() <= longest));
++    }
++}

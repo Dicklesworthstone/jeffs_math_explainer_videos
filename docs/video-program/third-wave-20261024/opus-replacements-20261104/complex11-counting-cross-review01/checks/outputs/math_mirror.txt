@@ -1,0 +1,40 @@
+PASS the printed row is 2i times the quintic
+PASS the printed row divided by 2i is the quintic
+PASS the source's leading coefficient is the printed one: 2j
+PASS BEFORE_DIVIDING_TEX prints what this mirror computed
+PASS AFTER_DIVIDING_TEX prints what this mirror computed
+PASS the factor starts at exactly 1
+PASS the factor ends at the coefficient
+PASS the factor never nears 0: smallest size 1.000000
+each step turns 1.8750 degrees and grows 1.01455 times
+PASS each step is under 2 degrees
+PASS all 49 steps keep 5 roots at the marks, 5 zeros, 1 and 5 turns, curve inside and off the 0
+PASS the mirror found 5 roots: -1.3888+0.0000i, -0.0803+1.3284i, -0.0803-1.3284i, 0.3347+0.0000i, 1.2146+0.0000i
+curve at step 0: radius 0.4500 to 0.9534, window half 1.5
+curve at step 24: radius 0.5592 to 1.0432, window half 1.5
+curve at step 48: radius 0.6750 to 1.1176, window half 1.5
+PASS at every step all the colours meet at each mark, once: []
+PASS the field at t = 0 is the painter's quintic, cell for cell
+PASS no cell of the field is unpainted
+cells that differ between t = 0 and t = 1: 25600 of 25600
+PASS the whole picture changes at t = 1
+t = 1 against the picture of f itself: worst channel difference 1.39e-15
+PASS the field at t = 1 is the picture of f
+steps with a phase line lying along the real axis: [8, 24, 40] (of 48, each way)
+11_8 sweep, digit at (-0.25-0.3j), as staged: the plate breaks the line for 0.125 of the turn, the rim for 0.388; the digit is inside the disk for 0.259
+   at the sweep's floor of 1.6 s: line 0.20 s, rim 0.62 s, inside 0.42 s; at 2.4 s: inside 0.62 s
+11_8 sweep, digit at 0j, with the digit on zero (C3): the plate breaks the line for 0.000 of the turn, the rim for 0.000; the digit is inside the disk for 0.000
+   at the sweep's floor of 1.6 s: line 0.00 s, rim 0.00 s, inside 0.00 s; at 2.4 s: inside 0.00 s
+PASS with the digit on zero, the disk never holds it and its rim never touches the plate
+   clearance from the plate to the rim's edge at the closest bearing: 0.0396 plane units, 0.0277 scene units, 7.5 px at 4K
+   the file read here has the digit at (-0.25-0.3j)
+PASS as staged the digit does go inside the disk (what C3 answers): 0.259 of the turn
+PASS planted, caught: the factor reaches 0 at the end: step 26: the curve reaches the name of 0
+PASS planted, caught: the turn adds a constant, so the roots move: step 0: root 1.2146+0.0000j moved, value 0.3
+PASS planted, caught: the quintic has the wrong term: step 0: root 1.2146+0.0000j moved, value 2
+PASS planted, caught: a turn that is a reflection: step 0: zeros in the window are not 5
+PASS planted, caught: a squash radius that carries the curve off the window: step 0: the curve leaves the window
+PASS planted, caught: a printed row with the wrong sign
+24 of 24 passed
+
+exit 0

@@ -1,0 +1,225 @@
+Bundle 01's run_checks.py, unchanged, run on a snapshot of its exact inputs: the same files, with root's
+preserved before-oliver-digits-mark01-folded_decade.rs (c4f023ce...) in place of the chapter root replaced
+during the live run. The live run's transcript is run_checks.txt, kept as it was.
+
+
+== A. The binder writes the same bytes twice, and the delivered plan is those bytes
+ok   binder exits 0 twice
+ok   nine outputs  9
+ok   deterministic
+ok   delivered plan equals a fresh run
+ok   --check passes on the delivered plan
+ok   --print-pins reproduces the binder's literal table  86 pins
+
+== B. Inputs: the exact bytes, against root's receipts
+ok   script is b89eab60
+ok   before script is f201d2dc
+ok   matrix_logs.rs is the bytes integration-partial01.json records  7df6f8681099
+ok   doing_nothing.rs is the bytes integration-partial01.json records  7f445be212c5
+ok   undoing_growth.rs is the bytes integration-partial03.json records  4dc4c555122d
+ok   unreachable.rs is the bytes integration-partial03.json records  c822e8b46796
+ok   ratio_ruler.rs is the bytes integration-partial04.json records  198d4a058636
+ok   folded_decade.rs is the bytes integration-partial04.json records  c4f023ce5284
+ok   slide_rule.rs is the bytes integration-partial04.json records  68d4b011fb4d
+ok   what_it_forgets.rs is the bytes integration-partial05.json records  6951d3b2f157
+ok   integration-partial02 records the script and the 01_5 request
+ok   every line of inputs.sha256 still holds  227 files; moved: []
+ok   candidate differs from stage06's crate only in the nine integrated files  ['script.tsv', 'src/chapters/doing_nothing.rs', 'src/chapters/folded_decade.rs', 'src/chapters/matrix_logs.rs', 'src/chapters/ratio_ruler.rs', 'src/chapters/slide_rule.rs', 'src/chapters/undoing_growth.rs', 'src/chapters/unreachable.rs', 'src/chapters/what_it_forgets.rs']
+ok   oracle.py and facts.rs equal stage06's, so its oracle table serves
+ok   candidate's oracle.py reproduces stage06's oracle04.tsv  102 rows
+
+== C. All 80 cues
+ok   80 cues  80; 4592 words
+ok   exactly one cue changed since stage06, and it is 01_5
+ok   the change is exactly the reviewed phrase
+ok   01_5's request file is its exact text
+ok   each cue said exactly once, in script order
+ok   units: one per cue, in order, exact text
+ok   units bind the script
+ok   template: all 80 cues with their text hashes, all unmeasured
+ok   cue delta: all 80, each current request file holds the exact bytes  {'cues': 80, 'unchanged_from_baseline': 70, 'split_cues': 9, 'reworded_since_stage06': 1, 'with_exact_request_bytes': 79, 'with_current_request_file': 80}
+ok   cue delta: one rewording, nine splits
+
+== D. All 15 holds, recomputed from the candidate's bytes
+ok   the map binds the script
+ok   13 predictions and 2 readings
+ok   contract names the map's exact bytes
+ok   hash, marker, say, interval, next cue and override, on all 15  []
+ok   the same formula reproduces all 15 of stage06's intervals on stage06's bytes  []
+ok   00_4 agrees with the opening handoff  ratio_ruler.rs:371 86bf44bb7022
+ok   02_2 agrees with the opening handoff  slide_rule.rs:204 20094536ae21
+ok   10_4 agrees with the chapter 10 handoff  doing_nothing.rs:602 9fe875942e62
+ok   11_3 agrees with the chapter 11 handoff  unreachable.rs:1070 e34e65ad69a7
+ok   11_20 agrees with the chapter 11 handoff  unreachable.rs:1590 4a4e6c72d1f9
+ok   12_5 agrees with the chapter 12 handoff  what_it_forgets.rs:1123 b238a9296828
+ok   no hold's marker line, say line or marker text changed
+ok   three intervals changed: 02_2, 10_4, 11_20
+ok   seven file hashes changed, eight holds untouched
+ok   no held cue's text changed
+ok   01_5 is not a held cue
+ok   10_4's reading counts the prefix once: 197 characters, as stage06 did  68 + 129; double counting would say 208
+ok   10_4's floor rate is unchanged
+ok   10_4 stays conditional, with no window claimed
+ok   11_20's window is unchanged: 159 + 107 characters, 17.7333 s
+ok   doing_nothing.rs:598 is the reading's kit.hold
+ok   unreachable.rs:1555 is the reading's kit.hold
+
+== E. SITES: every wait, against the opening handoff's explicit list
+ok   ratio_ruler.rs:181 is gone and :210 is the dots, picture pacing, under 00_2
+ok   ratio_ruler.rs:555 is read_out's wait, word sync, census under 00_6
+ok   ratio_ruler.rs:509 is still the helper tail
+ok   13 other waits: 12 + 1 added, none removed
+ok   only the dots moved or changed cue
+ok   own scan: every wait in the registered scene code is classified  13; only in source []; only in plan []
+ok   own scan: 13 predict calls, 2 reading windows  13, 2
+ok   13 chapter finishes; only folded_decade's moved
+ok   stale pair 00_1 -> 00_2 lists no wait in its final interval
+ok   no stale pair became a hold
+ok   no helper or consumer row changed since stage06  22 rows
+
+== F. Phrase and sentence hooks
+ok   24 anchors, the same cue, phrase, byte, sentence and word as stage06
+ok   every anchor's bytes land on its phrase in the current text
+ok   no anchor's hook line moved
+ok   all measured seconds are null
+ok   no anchor on the opening's 00_1 or on 01_5
+ok   ratio_ruler.rs has no until_phrase, phrase_time or phrase_marks
+ok   folded_decade.rs has no until_phrase, phrase_time or phrase_marks
+ok   slide_rule.rs has as many phrase_marks uses as stage06
+ok   undoing_growth.rs has as many phrase_marks uses as stage06
+ok   doing_nothing.rs has as many phrase_marks uses as stage06
+ok   unreachable.rs has as many phrase_marks uses as stage06
+ok   what_it_forgets.rs has as many phrase_marks uses as stage06
+ok   literal sentence hooks 282 -> 285
+ok   the three added are the opening handoff's, and none removed
+ok   cue_differs_from_current gains ratio_ruler.rs:541
+ok   the one computed sentence hook is unchanged
+ok   01_5 keeps 4 sentences, and its three hooks stay in range
+ok   01_5 carries no anchor and building_ruler.rs is unchanged
+ok   the picture already says about: pos(3) \approx
+ok   00_1's six estimates reproduce read_shares from source and script  [0.0918, 0.4638, 0.5797, 0.7053, 0.8019, 0.8937]
+ok   they are marked current baseline, estimates, unmeasured
+ok   the 3 sentence-share hooks are unchanged
+
+== G. The rest of the plan's bindings, and the map's name
+ok   dispositions bind the map, all 15 native, evidence is hold-audit's bytes
+ok   --final-out changes only the dispositions file  ['direction-dispositions-proposed.json']
+ok   candidate holds no oliver14; canonical holds no oliver14 either
+ok   canonical's oliver13 binds the old script, so oliver13 cannot be reused
+ok   candidate's own narration_units.json is stale, and the plan's is not it
+ok   no absolute home path and no scratch path in the plan
+
+== H. Stale input: refused before anything is computed, in a mirror of the inputs
+ok   positive control: the unchanged mirror binds, with identical bytes
+ok   one byte more in the script: refused  exit 3
+ok   one byte more in a held chapter: refused  exit 3
+ok   one byte more in the opening: refused  exit 3
+ok   one byte more in an unchanged chapter: refused  exit 3
+ok   one byte more in an unregistered file: refused  exit 3
+ok   one byte more in draw.rs: refused  exit 3
+ok   one byte more in mod.rs: refused  exit 3
+ok   one byte more in main.rs: refused  exit 3
+ok   one byte more in facts.rs: refused  exit 3
+ok   one byte more in oracle.py: refused  exit 3
+ok   one byte more in the storyboard: refused  exit 3
+ok   one byte more in the stale map: refused  exit 3
+ok   one byte more in the candidate's units: refused  exit 3
+ok   one byte more in the kit: refused  exit 3
+ok   one byte more in the score: refused  exit 3
+ok   one byte more in a tool: refused  exit 3
+ok   one byte more in the inventory: refused  exit 3
+ok   one byte more in the request plan: refused  exit 3
+ok   one byte more in the final-80 list: refused  exit 3
+ok   one byte more in the rounding request: refused  exit 3
+ok   one byte more in the rounding review: refused  exit 3
+ok   one byte more in the before script: refused  exit 3
+ok   one byte more in an integration receipt: refused  exit 3
+ok   one byte more in stage06's oracle table: refused  exit 3
+ok   one byte more in stage06's plan: refused  exit 3
+ok   one byte more in stage06's chapter: refused  exit 3
+ok   stage06's script: refused  exit 3
+ok   the what_it_forgets.rs before chapter 12's repair: refused  exit 3
+ok   the ratio_ruler.rs before the opening repair: refused  exit 3
+ok   a missing chapter: refused
+ok   a stray file in the chapter folder: refused
+ok   --out into canonical: refused
+ok   --out into canonical's docs: refused
+ok   --out into the candidate: refused
+ok   --out into the candidate's crate: refused
+ok   those refusals wrote nothing
+ok   an absolute --final-out: refused
+ok   an existing output that differs is not overwritten
+ok   --check writes nothing, and fails on a missing plan
+ok   --print-pins with other arguments is refused
+
+== I. Semantic stops, with the pins bypassed in the mirror so a planted change reaches them
+ok   control: with nothing planted and pins bypassed, it builds  BUILT
+ok   plant an unclassified wait: stops  STOP: bind_final80: ('building_ruler.rs', 269): a wait this audit has not classified: stage.wait(1.0)?;
+ok   plant the dots' wait removed: stops  STOP: bind_final80: classified waits that are not in the source: [('ratio_ruler.rs', 210)]
+ok   plant a line moving the dots' wait: stops  STOP: bind_final80: ('ratio_ruler.rs', 211): a wait this audit has not classified: stage.wait(0.18)?;
+ok   plant a prediction removed: stops  STOP: bind_final80: 12 predict calls, not 13
+ok   plant a line above 10_4's kit.hold: stops  STOP: bind_final80: ('doing_nothing.rs', 599): a wait this audit has not classified: kit.hold(stage)?;
+ok   plant a third reading window: stops  STOP: bind_final80: the reading windows changed: [{'file': 'building_ruler.rs', 'line': 269, 'call': 'kit.music_breath', 'marker': 'kit.music_breath(s
+ok   plant a longer theorem: stops  STOP: bind_final80: 11_20's reading is not the 159 + 107 characters of Mail 1599: {'rule_lines': ['A real matrix has a real logarithm exactly', 'when 
+ok   plant SOURCE without its prefix: stops  STOP: bind_final80: doing_nothing.rs: SOURCE no longer opens with its prefix
+ok   plant a sentence hook out of range: stops  STOP: bind_final80: building_ruler.rs:297: until_sentence 01_5 sentence 9 does not exist
+ok   plant a phrase hook it cannot read: stops  STOP: bind_final80: building_ruler.rs:269: a phrase hook this audit cannot read: until_phrase(stage, kit, x, y)?;
+ok   plant a read phrase the cue does not say: stops  STOP: bind_final80: 00_1: 'seventeen seventy' occurs 0 times, and read_shares would fall back or mislead
+ok   plant a cue said out of order: stops  STOP: bind_final80: registered chapters do not say every script cue once, in order
+ok   plant another word in 01_5: stops  STOP: bind_final80: 01_5 is not the reviewed rounding wording
+ok   plant another cue reworded: stops  STOP: bind_final80: the script differs from stage06's in more than the 01_5 rounding wording
+ok   plant a chapter with no receipt: stops  STOP: bind_final80: the crate's differences from stage06 are not the integration receipts' files: ['src/chapters/building_ruler.rs']
+ok   plant a chapter no receipt names: stops  STOP: bind_final80: integration-partial04.json does not name the current hash of src/chapters/ratio_ruler.rs
+ok   plant facts.rs differing: stops  STOP: bind_final80: src/facts.rs differs from stage06's, so oracle04.tsv no longer serves
+
+== J. A second census: RubyRaven's preflight, unmodified, on this plan, in the mirror
+numpy available to the interpreter used: True
+FAIL TXT.requests_bind_script
+FAIL TXT.request_files_exact  the text that would go to Oliver; different: ['01_5']
+FAIL TXT.requests_script_bytes  the script file requests.json names holds the same bytes
+WARN TXT.requests_name_older_stage  requests.json's script_path is combined-repair-stage04; its hash matches, so this is a label, not a wrong binding
+FAIL TXT.delta_matches_requests  cue-delta and requests.json name the same older request
+FAIL TXT.older_request_bytes_same  each older request id's text is byte-equal to its final cue; different: ['01_5']
+FAIL CON.request_text  what unit_spans will demand of an Oliver receipt equals the request file, for 79 of 80; different: ['oliver_01_5']
+WARN CON.director_map_shape  narration_director.validate_map on map13 as written: KeyError('policy'). Oliver maps carry no policy or range_s (oliver12 is refused the same way), so this is not a regression. A director audit needs a derived map.
+FAIL STALE.canonical_still_binds_map12  canonical is self-consistent until integration
+FAIL STALE.canonical_map12_matches_canonical  different: ['04_6', '05_1', '05_5', '06_2', '06_4', '10_4', '11_3', '11_20']
+expected FAIL CON.request_text: narration-request-final80-01/requests.json still binds stage06's script f201d2dc; 01_5's new text is only in narration-request-rounding01.
+expected FAIL STALE.canonical_map12_matches_canonical: Same: canonical's chapters no longer match oliver12, by root's integration.
+expected FAIL STALE.canonical_still_binds_map12: Canonical has moved on: it was integrated from stage06 and now binds oliver13.
+expected FAIL TXT.delta_matches_requests: 01_5's request_id_with_exact_bytes is deliberately null: no older request holds its new text.
+expected FAIL TXT.older_request_bytes_same: 01_5's older request holds the old wording.
+expected FAIL TXT.request_files_exact: narration-request-final80-01/requests.json still binds stage06's script f201d2dc; 01_5's new text is only in narration-request-rounding01.
+expected FAIL TXT.requests_bind_script: narration-request-final80-01/requests.json still binds stage06's script f201d2dc; 01_5's new text is only in narration-request-rounding01.
+expected FAIL TXT.requests_script_bytes: narration-request-final80-01/requests.json still binds stage06's script f201d2dc; 01_5's new text is only in narration-request-rounding01.
+preflight view: 278 ok, 8 FAIL (8 expected), 2 WARN ['CON.director_map_shape', 'TXT.requests_name_older_stage']
+unexpected FAIL: []
+expected FAIL that did not happen: []
+ok   no FAIL beyond the listed expected ones  exit 0
+ok   narration_director's validate_map ran, not a WARN  needs numpy
+FAIL INPUT.plan_inputs_unmoved  227 binder inputs; moved: ['narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/requests.json', 'narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/01_5.txt']
+WARN TXT.requests_name_older_stage  requests.json's script_path is combined-repair-stage07; its hash matches, so this is a label, not a wrong binding
+WARN CON.director_map_shape  narration_director.validate_map on map13 as written: KeyError('policy'). Oliver maps carry no policy or range_s (oliver12 is refused the same way), so this is not a regression. A director audit needs a derived map.
+FAIL STALE.canonical_still_binds_map12  canonical is self-consistent until integration
+FAIL STALE.canonical_map12_matches_canonical  different: ['04_6', '05_1', '05_5', '06_2', '06_4', '10_4', '11_3', '11_20']
+expected FAIL INPUT.plan_inputs_unmoved: This control rewrites the mirror's request list and adds 01_5's file there, so those two inputs have moved by construction.
+expected FAIL STALE.canonical_map12_matches_canonical: Same: canonical's chapters no longer match oliver12, by root's integration.
+expected FAIL STALE.canonical_still_binds_map12: Canonical has moved on: it was integrated from stage06 and now binds oliver13.
+preflight view with derived requests: 283 ok, 3 FAIL (3 expected), 2 WARN ['CON.director_map_shape', 'TXT.requests_name_older_stage']
+unexpected FAIL: []
+expected FAIL that did not happen: []
+ok   control: with 01_5's request swapped in the mirror, all six request FAILs go away  exit 0
+
+== K. The crate's own cue checker, on a scratch copy
+ok   docs/check_cues.py passes
+ok   control: it refuses a removed say
+
+== Z. Nothing it read has changed
+ok   unchanged: explainer_corpus/logarithm_mysteries
+ok   unchanged: narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07
+ok   unchanged: narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage06/bound-plan
+ok   unchanged: narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-rounding01
+ok   unchanged: docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-opening-timing-repair01
+ok   unchanged: docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm12-readability-repair01
+
+162 of 162 passed. Source and plan text only: nothing compiled, rendered, synthesized, measured or heard.

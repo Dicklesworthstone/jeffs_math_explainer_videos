@@ -1,0 +1,27 @@
+C1-after-plate-core.patch sha256 e86add3502cfa833e2115c68db931d1d627f83774fdc6607647fe9cfbdb9baf1 (+1 -1)
+C2-row-swap-on-its-words.patch sha256 5900758bfff25c4c225a5760f0abf23a5b6ccf13571d583de8f60c2edd6373ca (+5 -4)
+C3-digit-on-zero.patch sha256 7d69c30600b2366c59a95964d15a77971436c7412999372a8bed3e14f91eec10 (+24 -26)
+PASS staged: every order gives dba35730d15b3c5e, and reverses
+PASS C1: every order gives d227e5e089ecbde0, and reverses
+PASS C2: every order gives 26a7431cb5e06004, and reverses
+PASS C3: every order gives cb996633b61066cb, and reverses
+PASS C1+C2: every order gives 92a919ea216bfd8f, and reverses
+PASS C1+C3: every order gives d5763e3f090f17b8, and reverses
+PASS C2+C3: every order gives cdc154ec074aa446, and reverses
+PASS C1+C2+C3: every order gives f3fc8e3535b916e0, and reverses
+state hashes of counting.rs:
+  S dba35730d15b3c5e4ff7fb0fe7444265424b920d87861562b11d8468f9d290e4
+  C1 d227e5e089ecbde0dc5bd0638a1f4d600f89b66c18abc07906f1f8a1bb0690ec
+  C2 26a7431cb5e06004771e7d4c0db32d71c6283c2914ec8505cdcb69c8c5fbd4ed
+  C3 cb996633b61066cb6861e638b8b3aa2657856b96044314fccfbd079f04bce2f0
+  C1+C2 92a919ea216bfd8fc0165a9b6148143772be581d18b7c40bd003efddbe33b183
+  C1+C3 d5763e3f090f17b81748fdcfa1753a7af8588e97a03d44e0557322a14cf75be7
+  C2+C3 cdc154ec074aa446b96cae783fa7e26b0fec3b9cf18e9c16ed19284aab22e32c
+  C1+C2+C3 f3fc8e3535b916e01782f0d627b53aed6c56d9a0261ace1306221bbf4a553bd5
+PASS the glyph patch applies on S: 138b5d84d0c9240d
+PASS the glyph patch applies on C3: 09dd1523d92dd05b
+PASS the glyph patch applies on C2+C3: 65466eb8678d8d7e
+PASS the glyph patch applies on C1+C2+C3: c1df16ea04d4283d
+PASS S + glyph equals teaching02's stated 138b5d84
+PASS the storyboard's sentence for the row is there once
+C2-storyboard.patch sha256 071e6eb19816c8153ce251faa1fb3d7820e4bfeb57b800b74508645808dc5d87: storyboard.md cb99b96278938aeda784eba179cc32665b12e6f21830d0bd8c1202d3d611b778

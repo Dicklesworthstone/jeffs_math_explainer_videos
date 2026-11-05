@@ -1,0 +1,71 @@
+== the ink the line must miss, measured on frame 121 (54.6 s) and frame 228 (100.0 s)
+name y = e^x: columns 464 543 rows 166 193 graph y 2.244 to 2.556
+y tick label 3: rows 120 to 131
+y tick label 2: rows 210 to 221
+y tick label 1: rows 300 to 311
+y tick label -1: rows 480 to 491
+y tick label -2: rows 570 to 581
+x tick labels: rows 417 to 428
+
+== the new start and rest against that ink
+start 2.16: row 201.6, clear above 6.5 px, clear below 7.3 px
+PASS start leaves at least 5 px on both sides
+rest 1.5: row 261.0, clear above 37.9 px, clear below 37.9 px
+PASS rest leaves at least 5 px on both sides
+PASS control: the old rest, row 216.0, is inside the label 2's rows
+PASS control: the old sweep, rows 162.0 to 382.5, passes through the name's rows
+PASS the new top of the path is below the name's lowest ink
+
+== what else lies on the two new rows, frame 124 (54.9 s; its line is at 2.0, away from both rows)
+start rows 198-204: ink columns [(352, 352), (418, 424)]
+PASS start: only two things cross the row, the axis at column 352 and the curve
+PASS start: one of them is the axis
+rest rows 258-264: ink columns [(352, 352), (383, 392)]
+PASS rest: only two things cross the row, the axis at column 352 and the curve
+PASS rest: one of them is the axis
+
+== the path model, tested on the old frames
+fitted end of the sweep 54.800 s, 0.067 s before 04_3's listed start; worst error 0.009 graph units over 10 frames
+frame 106 49.000 s: old line measured 2.606, modelled 2.600; new line 2.160
+frame 107 49.500 s: old line measured 2.606, modelled 2.598; new line 2.159
+frame 108 50.000 s: old line measured 2.35, modelled 2.346; new line 1.952
+frame 109 50.500 s: old line measured 1.572, modelled 1.566; new line 1.311
+frame 110 51.000 s: old line measured 0.672, modelled 0.664; new line 0.572
+frame 111 51.500 s: old line measured 0.194, modelled 0.189; new line 0.182
+frame 112 52.000 s: old line measured 0.128, modelled 0.119; new line 0.119
+frame 113 52.500 s: old line measured None, modelled -0.525; new line -0.525
+frame 114 52.677 s: old line measured None, modelled -0.832; new line -0.832
+frame 115 52.777 s: old line measured None, modelled -0.976; new line -0.976
+frame 116 52.977 s: old line measured None, modelled -1.158; new line -1.158
+frame 117 53.000 s: old line measured None, modelled -1.169; new line -1.169
+frame 118 53.500 s: old line measured None, modelled -1.044; new line -1.068
+frame 119 54.000 s: old line measured 0.406, modelled 0.400; new line 0.150
+frame 120 54.500 s: old line measured 1.85, modelled 1.844; new line 1.368
+frame 121 54.600 s: old line measured 1.95, modelled 1.949; new line 1.457
+frame 122 54.800 s: old line measured 2.006, modelled 2.000; new line 1.500
+frame 123 54.867 s: old line measured 2.006, modelled 2.000; new line 1.500
+frame 124 54.900 s: old line measured 2.006, modelled 2.000; new line 1.500
+PASS smootherstep legs of 2.4, 1.4, 1.6 s reproduce the old line within 0.009 graph units
+PASS highest new height over these frames 2.160
+
+== moving crossings the new path keeps, disclosed, on a 0.01 s grid
+label 2 ['49.82-50.03 s (0.21 s)']
+label 1 ['50.65-50.75 s (0.10 s)', '54.27-54.32 s (0.05 s)']
+label -1 ['52.74-52.86 s (0.12 s)', '53.50-53.59 s (0.09 s)']
+x labels ['52.33-52.41 s (0.08 s)', '53.83-53.88 s (0.05 s)']
+label -2 not crossed
+PASS at rest the line touches no tick label: []
+
+== the caption on frame 228, 100.0 s
+old caption ink: columns 730 993 rows 468 485
+'about ' adds 61 px at 24 points, so the caption ends near column 1054; CMR10 ems, not measured on a new frame
+PASS the longer caption stays well inside the safe edge
+caption up on frames 223 (97.5 s) to 242 (104.8 s), sheets 55 to 60
+frame 106: 49.0 s, sheet 26
+frame 107: 49.5 s, sheet 26
+frame 108: 50.0 s, sheet 27
+frame 122: 54.8 s, sheet 30
+frame 123: 54.867 s, sheet 30
+frame 124: 54.9 s, sheet 31
+frame 127: 55.1 s, sheet 31
+RESULT PASS

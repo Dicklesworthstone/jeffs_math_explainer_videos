@@ -1,0 +1,64 @@
+binary a3a6110347784247
+  face 0 CM Regular: 235654 B, sha256 c7cdebc16fc4, 698 code points
+  face 1 CM Italic: 289274 B, sha256 621fa80fe71c, 680 code points
+  face 2 CM Bold: 221902 B, sha256 be8a19a958f5, 683 code points
+  face 3 CM Bold Italic: 285094 B, sha256 0f5c5c65a6f0, 680 code points
+  face 4 CM Typewriter: 214526 B, sha256 5647bcfccd1a, 682 code points
+  face 5 IBM Plex Sans: 200500 B, sha256 975dcda37d80, 895 code points
+  face 6 Noto Sans Math: 72908 B, sha256 634b9964bd8a, 639 code points
+
+chain source, faces.rs: ok
+parse.rs maps - to U+2212: yes
+
+TeX rows: 92
+control sequences not in the sym table and not a known structural command: none
+
+# math-mode characters by the face fmd-math's chain resolves them to
+  CM Regular: ( ) + , . / 0 1 2 3 4 5 6 7 8 9 : < = > ? ] | ±
+  CM Italic: A I J L P S X a b d e g i k m o p q r s t w x y z π
+  Noto Sans Math: × ℓ ↔ ⇒ − ∞ ≈ ≠ ≤ ⋅ ⟷ ⟺
+
+# math-mode characters outside the CM faces: rows
+  × U+00D7 Noto Sans Math: [532, 536, 550, 555]
+  ℓ U+2113 Noto Sans Math: [497, 565]
+  ↔ U+2194 Noto Sans Math: [520]
+  ⇒ U+21D2 Noto Sans Math: [511, 517, 565, 578]
+  − U+2212 Noto Sans Math: [498, 502, 507, 508, 528, 538, 540, 543, 546, 551, 557, 558, 560, 562, 563, 565, 569, 571, 573, 578]
+  ∞ U+221E Noto Sans Math: [557]
+  ≈ U+2248 Noto Sans Math: [499, 501, 522, 523, 524, 530, 534, 535, 579, 580]
+  ≠ U+2260 Noto Sans Math: [542, 559, 570, 578]
+  ≤ U+2264 Noto Sans Math: [543]
+  ⋅ U+22C5 Noto Sans Math: [498]
+  ⟷ U+27F7 Noto Sans Math: [514]
+  ⟺ U+27FA Noto Sans Math: [516, 543]
+
+# U+2113 in each face
+  CM Regular: not mapped
+  CM Italic: not mapped
+  CM Bold: not mapped
+  CM Bold Italic: not mapped
+  CM Typewriter: not mapped
+  IBM Plex Sans: mapped gid 168
+  Noto Sans Math: mapped gid 189
+
+# page ink against each candidate face (correlation at the glyph's own box; aspect = width/height)
+  p47 row 565 ell in L(z) - ell: box (584, 874, 604, 913), aspect 0.51, median horizontal ink run 5.0 px over 62 runs
+      chain predicts Noto Sans Math; best on page Noto Sans Math [OK]; CM Regular unmapped; CM Italic unmapped; Noto Sans Math (aspect 0.52) 0.922; IBM Plex Sans (aspect 0.55) 0.469
+  p47 row 565 ell in e^ell: box (317, 865, 331, 893), aspect 0.50, median horizontal ink run 4 px over 45 runs
+      chain predicts Noto Sans Math; best on page Noto Sans Math [OK]; CM Regular unmapped; CM Italic unmapped; Noto Sans Math (aspect 0.52) 0.853; IBM Plex Sans (aspect 0.55) 0.331
+  p41 row 497 ell in (ell): box (72, 403, 92, 441), aspect 0.53, median horizontal ink run 5.0 px over 62 runs
+      chain predicts Noto Sans Math; best on page Noto Sans Math [OK]; CM Regular unmapped; CM Italic unmapped; Noto Sans Math (aspect 0.52) 0.934; IBM Plex Sans (aspect 0.55) 0.458
+  p47 row 565 L, control: box (443, 878, 471, 912), aspect 0.82, median horizontal ink run 4.0 px over 46 runs
+      chain predicts CM Italic; best on page CM Italic [OK]; CM Regular (aspect 0.80) 0.326; CM Italic (aspect 0.82) 0.937; Noto Sans Math unmapped; IBM Plex Sans (aspect 0.55) -0.061
+  p47 row 565 paren, control: box (476, 875, 487, 925), aspect 0.22, median horizontal ink run 3.0 px over 50 runs
+      chain predicts CM Regular; best on page CM Regular [OK]; CM Regular (aspect 0.23) 0.924; CM Italic (aspect 0.36) 0.340; Noto Sans Math unmapped; IBM Plex Sans (aspect 0.28) 0.827
+  p47 row 565 z, control: box (493, 890, 513, 913), aspect 0.87, median horizontal ink run 2 px over 39 runs
+      chain predicts CM Italic; best on page CM Italic [OK]; CM Regular (aspect 0.87) 0.173; CM Italic (aspect 0.88) 0.912; Noto Sans Math unmapped; IBM Plex Sans (aspect 0.77) 0.407
+
+# the sign on a live readout against the sign on a fixed label (drawn at 1000 px per em, thickness in ems)
+  en dash, DecimalNumber from CM Regular: thickness 0.034 em, length 0.499 em
+  minus, fixed labels from Noto Sans Math: thickness 0.071 em, length 0.470 em
+  size 26, chapter 07 angle, branch_cut.rs:543: en dash 1.19 px at 1080p, 2.39 px at 4K; a fixed minus would be 2.49 / 4.98 px
+  size 20, chapter 12 laps so far, what_it_forgets.rs:1073: en dash 0.92 px at 1080p, 1.84 px at 4K; a fixed minus would be 1.92 / 3.83 px
+
+wrote ell-faces.png: the page crop, then PIL draws straight from each bundled face. Not the engine's layout.

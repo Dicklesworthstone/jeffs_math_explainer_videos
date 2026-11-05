@@ -1,0 +1,123 @@
+-- script and takes
+PASS script.tsv is f201d2dc57fa9cca
+PASS root's stage07 script is b89eab600a6c99cd, with the same text in ('00_1', '00_2', '03_3')
+PASS logarithm-opening-recognition01: exit 0, inputs unchanged, whisper-cpp large-v3-turbo, one word per row
+PASS logarithm-middle-recognition01: exit 0, inputs unchanged, whisper-cpp large-v3-turbo, one word per row
+PASS the opening comparison binds the log read here
+  comparison limits, quoted: ASR differences are diagnostic only. Numeric formatting and punctuation can differ. No listening, speech correctness, take selection or fine sync acceptance.
+PASS 00_1-download01.wav: bytes, text and Oliver request record agree; 19.52 s; listening false, fine sync false
+    wav 919ee92f8d4e86a96eb6a4a033f05945eea3c326721c779e6db265b7f8f02ce4  pcm f12f719d49b804816349f51376e6a9e9d40320d66d912288b60bd4330bd694bf
+PASS 00_1-download02.wav: bytes, text and Oliver request record agree; 19.52 s; listening false, fine sync false
+    wav 781147c2d1764f2088d9fbecef87c4f1d4b1d2d644795a5fa4fcb35c2fdcee1f  pcm f4a2dcff47cb4e66b8166c6ead1cf65f95b465f8dfda8729817dd935f82e4117
+PASS 00_2-download01.wav: bytes, text and Oliver request record agree; 12.72 s; listening false, fine sync false
+    wav aa57c1b77dc6e0d6f8511cec7813e7800d9c7d8fcdf2abd7ee2d3e0162627ae3  pcm 180919ffeb3a04b1c64b55132db47f57a83ff252a530c68757deda839e537eec
+PASS 00_2-download02.wav: bytes, text and Oliver request record agree; 12.88 s; listening false, fine sync false
+    wav 91d66ba3024fddd3929e971214f8b59c6f220ef1e0abf001527d771796edf8c5  pcm e2b19acb9e04bc7bc88114907004ee06eb2237bdc10589387fc5b293d8057ccc
+PASS 03_3-download01.wav: bytes, text and Oliver request record agree; 17.84 s; listening false, fine sync false
+    wav c81294255928f11275ec3c9783f5d6078a4c53161a99b246dca7625910e05dae  pcm bc67eb8324fbc9c01690df2320bf18fdc18b99d1b3455a66fa0bb33c43a3da69
+PASS 03_3-download02.wav: bytes, text and Oliver request record agree; 18.16 s; listening false, fine sync false
+    wav d6c34bd1832f9d6f0af34965efe12832a40e53e1ed5ba102e1e5c6ebff659dc0  pcm f8478814d53953112e5b19b4ed1c2e599c5dae8b8a01bbe08279188ebfdfa143
+PASS 00_1: two takes with different audio; neither is selected
+PASS 00_2: two takes with different audio; neither is selected
+PASS 03_3: two takes with different audio; neither is selected
+PASS no report.json or phrase-timings.json under this rebuild's folder yet, so no take's sentence starts are bound
+
+-- what the recognizer's rows are
+  00_1-download01.wav: 33 rows, 32 of 32 touch the next row, under 0.1 s: ['a', 'and'], confidence 0.030–0.031
+  00_1-download02.wav: 33 rows, 32 of 32 touch the next row, under 0.1 s: ['a', 'and'], confidence 0.030–0.031
+  00_2-download01.wav: 29 rows, 28 of 28 touch the next row, under 0.1 s: [], confidence 0.033–0.036
+  00_2-download02.wav: 29 rows, 28 of 28 touch the next row, under 0.1 s: [], confidence 0.034–0.036
+  03_3-download01.wav: 39 rows, 38 of 38 touch the next row, under 0.1 s: ['a'], confidence 0.023–0.027
+  03_3-download02.wav: 39 rows, 38 of 38 touch the next row, under 0.1 s: [], confidence 0.023–0.026
+  Every row touches its neighbour, so a word's start also carries any silence before it. The confidence field is
+  shared across runs of words and stays near 0.03, so it says nothing about one word.
+
+-- controls for the fricative rule, on script words whose first sound is known
+PASS 00_1-download01.wav 'seven' at 0.46: expects fricative start within 0.25 s, got 0.47
+PASS 00_1-download02.wav 'seven' at 0.44: expects fricative start within 0.25 s, got 0.47
+PASS 00_1-download01.wav 'second.' at 18.80: expects fricative start within 0.25 s, got 18.83
+PASS 00_1-download02.wav 'second.' at 18.78: expects fricative start within 0.25 s, got 18.82
+PASS 03_3-download01.wav 'say' at 6.66: expects fricative start within 0.25 s, got 6.56
+PASS 03_3-download02.wav 'say' at 6.92: expects fricative start within 0.25 s, got 6.82
+PASS 00_1-download01.wav 'low' at 3.12: expects no fricative start within 0.25 s, got None
+PASS 00_1-download02.wav 'low' at 3.28: expects no fricative start within 0.25 s, got None
+PASS 03_3-download01.wav 'dial' at 0.18: expects no fricative start within 0.25 s, got None
+PASS 03_3-download02.wav 'dial' at 0.18: expects no fricative start within 0.25 s, got None
+PASS 03_3-download01.wav 'many' at 7.34: expects no fricative start within 0.25 s, got None
+PASS 03_3-download02.wav 'many' at 7.60: expects no fricative start within 0.25 s, got None
+
+-- positive control: this mirror of read_shares and read_out gives the sealed scratch times
+PASS scratch arrivals [6.63, 11.73, 13.32, 15.04, 16.36, 17.62]
+
+-- F1, 00_1 sentence 1: seconds from the cue's start. Late is positive.
+  00_1-download01.wav: recognizer sentence start 5.68, quiet run (5.15, 5.77), length 19.52
+    phrase                     token      recognizer  envelope (rule)   share    share-env  rec-env  share if s1 is the run's end
+    their frequencies          their         6.90       6.96 (q)      6.95    -0.01    -0.06     7.03
+    four hundred and forty     440,         11.90      12.15 (q)     12.10    -0.05    -0.25    12.15
+    eight hundred and eighty   880,         13.66      13.76 (q)     13.70    -0.06    -0.10    13.74
+    seventeen sixty            1760,        15.06      15.21 (q)     15.44    +0.23    -0.15    15.47
+    thirty-five twenty         3520         16.76      16.81 (f)     16.78    -0.03    -0.05    16.80
+    vibrations per second      vibrations   17.86      18.10 (v)     18.05    -0.05    -0.24    18.06
+  00_1-download02.wav: recognizer sentence start 5.88, quiet run (5.34, 5.85), length 19.52
+    phrase                     token      recognizer  envelope (rule)   share    share-env  rec-env  share if s1 is the run's end
+    their frequencies          their         7.08       7.13 (q)      7.13    +0.00    -0.05     7.10
+    four hundred and forty     440,         12.06      12.28 (q)     12.21    -0.07    -0.22    12.19
+    eight hundred and eighty   880,         13.54      13.77 (q)     13.79    +0.02    -0.23    13.77
+    seventeen sixty            1760,        15.00      15.17 (q)     15.50    +0.33    -0.17    15.49
+    thirty-five twenty         3520         16.76      16.80 (f)     16.82    +0.02    -0.04    16.81
+    vibrations per second      vibrations   17.82      18.05 (v)     18.07    +0.02    -0.23    18.07
+  largest |share - envelope| 0.33 s; largest |recognizer - envelope| 0.25 s; recognizer earliest -0.25 s
+PASS 10 of 12 shares are within 0.08 s of the envelope; the others are ['seventeen sixty', 'seventeen sixty']
+PASS the recognizer is earlier than the envelope on all 12
+  00_1-download01.wav: 'seventeen sixty' spans about 15.21-16.35, 1.14 s
+  00_1-download02.wav: 'seventeen sixty' spans about 15.17-16.36, 1.19 s
+  00_1-download01.wav: low label at 6.95; 'fifty-five' recognizer 7.98, envelope 8.07; label leads the spoken 55 by 1.12 s, by design
+    title alone from 1.20 s to 7.55 s on the scene clock if 00_1 still starts at 0.60: 6.35 s (scratch 5.43 s)
+  00_1-download02.wav: low label at 7.13; 'fifty-five' recognizer 8.16, envelope 8.47; label leads the spoken 55 by 1.34 s, by design
+    title alone from 1.20 s to 7.73 s on the scene clock if 00_1 still starts at 0.60: 6.53 s (scratch 5.43 s)
+
+-- F1, the existing aligner: golay's phrase_marks.py logic, reimplemented here, on these rows. Not root's run, not marks.
+PASS phrase_marks.py still has the logic mirrored here, and calls its output recognition estimates
+  00_1-download01.wav: 'their frequencies' 6.899999618530273; 'four hundred and forty' 11.899999618530273; 'eight hundred and eighty' 13.65999984741211; 'seventeen sixty' NO MARK; 'thirty-five twenty' NO MARK; 'vibrations per second' 17.85999870300293
+PASS 00_1-download01.wav: that logic gives no mark for the two spoken thousands, because 1760 and 3520 stay digits
+  00_1-download02.wav: 'their frequencies' 7.079999923706055; 'four hundred and forty' 12.059999465942383; 'eight hundred and eighty' 13.539999961853027; 'seventeen sixty' NO MARK; 'thirty-five twenty' NO MARK; 'vibrations per second' 17.81999969482422
+PASS 00_1-download02.wav: that logic gives no mark for the two spoken thousands, because 1760 and 3520 stay digits
+
+-- F1, the ruler in 00_2: axis 1.00 + dots 7 x 0.18 + lead 0.20 = 2.46 s after the cue starts
+  00_2-download01.wav: 'frequency.' voice ends near 2.76, sentence 1 recognizer 3.26, envelope 3.31; ruler whole at 2.46, 0.80 s before the recognizer's sentence start
+PASS 00_2-download01.wav: the ruler is whole before the first sentence's voice ends
+  00_2-download02.wav: 'frequency.' voice ends near 2.84, sentence 1 recognizer 3.34, envelope 3.39; ruler whole at 2.46, 0.88 s before the recognizer's sentence start
+PASS 00_2-download02.wav: the ruler is whole before the first sentence's voice ends
+
+-- F2, 03_3 sentence 0: 'The dial remembers the digits, and forgets the laps.'
+-- positive control: this mirror of lay_beats gives the sealed handoff's table and scratch beats
+PASS handoff table [(3.6, 1.59, 1.21), (3.2, 1.36, 1.04), (3.0, 1.24, 1.0), (2.6, 1.01, 1.0)]
+PASS scratch: digits go at 44.19, lay 1.38 s
+PASS source bytes: 'and' 31, 'forgets' 35
+PASS 30 of 52 characters is 0.577; DIGITS_SHARE rounds it to 0.58
+  03_3-download01.wav
+    recognizer: digits 1.18-1.58, and 1.58-2.14, forgets 2.14-2.68, 'To' 3.88
+    envelope: high-crossing run ends 1.86, comma quiet run (1.87, 1.95), next fricative start 2.22, voice before sentence 1 ends 3.35, sentence 1 run ends 3.93
+    the recognizer's 'digits' ends 0.29 s before the comma's quiet run; its 'and' starts inside the same word's last sound
+      share, today                                 laps 0.50-2.25 (1.75), digits 2.25-2.55, lay 1.33 to 3.88; fade start vs digits' end +0.39, fade end vs /f/ +0.33, overlap with 'forgets' 0.33
+      mark on 'forgets'                            laps 0.50-1.84 (1.34), digits 1.84-2.14, lay 1.74 to 3.88; fade start vs digits' end -0.02, fade end vs /f/ -0.08, overlap with 'forgets' 0.00
+      rejected: mark on 'and' as the fade's start  laps 0.50-1.58 (1.08), digits 1.58-1.88, lay 2.00 to 3.88; fade start vs digits' end -0.28, fade end vs /f/ -0.34, overlap with 'forgets' 0.00
+    30/52 of the speech alone, without the pause before sentence 1 (0.58 s of quiet): 1.93, inside or at the comma run: True
+PASS 03_3-download01.wav: the aligner logic gives byte 35 the recognizer's 'forgets', 2.14
+    the same logic gives byte 31 ('and') 1.5799999237060547
+  03_3-download02.wav
+    recognizer: digits 1.24-1.70, and 1.70-2.16, forgets 2.16-2.72, 'To' 4.04
+    envelope: high-crossing run ends 1.92, comma quiet run (1.92, 2.03), next fricative start 2.2, voice before sentence 1 ends 3.40, sentence 1 run ends 4.09
+    the recognizer's 'digits' ends 0.22 s before the comma's quiet run; its 'and' starts inside the same word's last sound
+      share, today                                 laps 0.50-2.34 (1.84), digits 2.34-2.64, lay 1.40 to 4.04; fade start vs digits' end +0.42, fade end vs /f/ +0.44, overlap with 'forgets' 0.44
+      mark on 'forgets'                            laps 0.50-1.86 (1.36), digits 1.86-2.16, lay 1.88 to 4.04; fade start vs digits' end -0.06, fade end vs /f/ -0.04, overlap with 'forgets' 0.00
+      rejected: mark on 'and' as the fade's start  laps 0.50-1.70 (1.20), digits 1.70-2.00, lay 2.04 to 4.04; fade start vs digits' end -0.22, fade end vs /f/ -0.20, overlap with 'forgets' 0.00
+    30/52 of the speech alone, without the pause before sentence 1 (0.69 s of quiet): 1.96, inside or at the comma run: True
+PASS 03_3-download02.wav: the aligner logic gives byte 35 the recognizer's 'forgets', 2.16
+    the same logic gives byte 31 ('and') 1.6999999284744263
+PASS on both takes the share-timed digits fade overlaps 'forgets' by more than 0.2 s
+PASS on both takes a recognizer mark on 'forgets' ends the digits fade before the /f/ start read here
+
+-- candidates file
+PASS recognition-candidates.json matches this run, 14 rows
+RESULT PASS

@@ -1,0 +1,46 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+@@ -551,7 +551,7 @@
+         let mut result = vec![after, zero_kept];
+         result.extend(same);
+         fade_in_all(stage, &result, 0.3)?;
+-        line.wait_sentence(stage, 2)?;
++        line.wait_for(stage, "with z")?;
+         fade_out_all(stage, &[after], 0.3)?;
+         let degree_n = kit.tex(stage, DEGREE_N_TEX, 36.0, Palette::ink(), &[], row)?;
+         fade_in_all(stage, &[degree_n], 0.4)?;
+@@ -1652,7 +1652,6 @@
+                 "Divide by its leading coefficient",
+                 "stage.play(tween(turning.turned, 0.0, rt)?)?;",
+             ),
+-            (2, "Now it starts with z to the n", "let degree_n ="),
+             (3, "On a huge circle", "fade_in_all(stage, &wide_all, 0.5)?;"),
+             (4, "Picture z to the n as a walker", "dog.show(stage)?;"),
+         ] {
+@@ -1662,6 +1661,8 @@
+             let shown = wait + cue[wait..].find(then).unwrap();
+             assert!(!cue[wait..shown].contains("wait_sentence"), "{k}: {then}");
+         }
++        // sentence 2 opens on the result row, which stays until the voice reaches what replaces it
++        assert!(sentences[2].starts_with("Now it starts with z to the n"));
+         // the walk lands on the count
+         assert!(sentences[6].starts_with("So there are exactly n roots"));
+         assert!(cue.contains("let rt = (line.sentence(6)? - stage.scene().time().to_f64()).max(5.0);"));
+@@ -1820,7 +1821,7 @@
+             .find_map(|line| line.strip_prefix("11_7\t"))
+             .unwrap();
+         let sentences: Vec<&str> = said.split(". ").collect();
+-        for (k, phrase) in [(0, "complex polynomial"), (1, "which leaves")] {
++        for (k, phrase) in [(0, "complex polynomial"), (1, "which leaves"), (2, "with z")] {
+             assert_eq!(said.matches(phrase).count(), 1, "{phrase}");
+             assert!(sentences[k].contains(phrase), "{phrase}");
+         }
+@@ -1846,7 +1847,7 @@
+             "stage.play(tween(turning.turned, 0.0, rt)?)?;",
+             "fade_out_all(stage, &[before, every_output], 0.2)?;",
+             "fade_in_all(stage, &result, 0.3)?;",
+-            "line.wait_sentence(stage, 2)?;",
++            "line.wait_for(stage, \"with z\")?;",
+             "fade_out_all(stage, &[after], 0.3)?;",
+             "fade_in_all(stage, &[degree_n], 0.4)?;",
+             "line.wait_sentence(stage, 3)?;",

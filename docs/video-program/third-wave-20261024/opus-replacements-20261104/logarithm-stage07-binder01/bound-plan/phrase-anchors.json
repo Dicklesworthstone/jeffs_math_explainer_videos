@@ -1,0 +1,756 @@
+{
+  "schema_version": 1,
+  "topic": "logarithm_mysteries",
+  "script_sha256": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+  "claim": "Exact-byte source inventory. Every measured_seconds is null: no take has been measured, and no word timing is invented or estimated here.",
+  "byte_rule": "UTF-8 bytes of the cue's text in script.tsv, where the source's text.find(phrase) lands. The kit's loader needs a mark at exactly this byte (narration.rs reads phrase-timings.json; the chapters look marks up by byte).",
+  "wording_since_stage06": "01_5 was reworded and carries no anchor, so no anchor's byte or phrase is affected by it.",
+  "affected_means": "affected_by_cue_split: the cue's text differs from root's 75-cue request text, because the cue was split. Its text_sha256 is new, and any timing bound to the old text cannot load. byte_or_cue_moved: the anchor also has a new cue id or byte, as it does in 11_20 and 12_21. The bytes in 11_7 and 12_6 are unchanged, because those cues keep the front of the old cue, though their hashes are new.",
+  "unaffected_note": "Every other anchor keeps its cue and byte. All of them still need measured marks, because a mark binds a WAV and no take is bound.",
+  "baseline": {
+    "inventory": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-inventory01.json",
+    "script_sha256": "3e4e34af7090e448d65a2731f0d0d78673679730c0f95fdc695e3e8f2e6f5243"
+  },
+  "counts": {
+    "anchors": 24,
+    "cues_with_anchors": 14,
+    "affected_by_cue_split": 11,
+    "byte_or_cue_moved": 4,
+    "measured": 0
+  },
+  "by_chapter_file": {
+    "doing_nothing.rs": 3,
+    "slide_rule.rs": 2,
+    "undoing_growth.rs": 1,
+    "unreachable.rs": 13,
+    "what_it_forgets.rs": 5
+  },
+  "anchors": [
+    {
+      "cue": "02_1",
+      "byte": 48,
+      "byte_end": 63,
+      "phrase": "one that slides",
+      "const": "NUDGE_PHRASE",
+      "sentence_index": 0,
+      "word_index": 10,
+      "hook_sites": [
+        {
+          "file": "slide_rule.rs",
+          "line": 129,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs",
+      "source_sha256": "68d4b011fb4d90033ef1ae69aedef1639e12c11ce3624dbb5c378152d39b1ecd",
+      "cue_text_sha256": "3110c66e2647d397a38e81a4c77370c9efd4237bd4d9d720ba4af25e454e60af",
+      "baseline_cue": "02_1",
+      "baseline_byte": 48,
+      "affected_by_cue_split": false,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of the cue's first sentence (slide_rule.rs phrase_time). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "02_2",
+      "byte": 47,
+      "byte_end": 63,
+      "phrase": "slide the moving",
+      "const": "SLIDE_PHRASE",
+      "sentence_index": 0,
+      "word_index": 9,
+      "hook_sites": [
+        {
+          "file": "slide_rule.rs",
+          "line": 165,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs",
+      "source_sha256": "68d4b011fb4d90033ef1ae69aedef1639e12c11ce3624dbb5c378152d39b1ecd",
+      "cue_text_sha256": "bd5822b91f2700d5f2ee189d831ccc47b9253c4e58b4775488af71e4849fc33e",
+      "baseline_cue": "02_2",
+      "baseline_byte": 47,
+      "affected_by_cue_split": false,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of the cue's first sentence (slide_rule.rs phrase_time). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "04_2",
+      "byte": 306,
+      "byte_end": 325,
+      "phrase": "it only ever climbs",
+      "const": "CLIMB_PHRASE",
+      "sentence_index": 3,
+      "word_index": 59,
+      "hook_sites": [
+        {
+          "file": "undoing_growth.rs",
+          "line": 115,
+          "call": "climb_onset"
+        },
+        {
+          "file": "undoing_growth.rs",
+          "line": 351,
+          "call": "wait_until"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs",
+      "source_sha256": "4dc4c555122d9cd5423d7094336c1d5e6f7f9afb77d6850a38bc0148c20180ef",
+      "cue_text_sha256": "9a338a180e93a78f67ad49208255c0aff009c897e0acdf254f8937ce0d11f2bc",
+      "baseline_cue": "04_2",
+      "baseline_byte": 306,
+      "affected_by_cue_split": false,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share between the onsets of sentences 3 and 4 (undoing_growth.rs climb_onset). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "10_3",
+      "byte": 208,
+      "byte_end": 231,
+      "phrase": "turns round at a steady",
+      "const": null,
+      "sentence_index": 3,
+      "word_index": 36,
+      "hook_sites": [
+        {
+          "file": "doing_nothing.rs",
+          "line": 462,
+          "call": "phrase_time"
+        },
+        {
+          "file": "doing_nothing.rs",
+          "line": 486,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs",
+      "source_sha256": "7f445be212c586093d2092113b086d809dcc189619985baf1c8f0c407c709b47",
+      "cue_text_sha256": "9645f0e4958247f106e8c2f80155996e2346302c6b34f78bd366dd1112de4baf",
+      "baseline_cue": "10_3",
+      "baseline_byte": 208,
+      "affected_by_cue_split": false,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's byte share of its measured sentence (doing_nothing.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "10_3",
+      "byte": 302,
+      "byte_end": 318,
+      "phrase": "or does not turn",
+      "const": null,
+      "sentence_index": 3,
+      "word_index": 51,
+      "hook_sites": [
+        {
+          "file": "doing_nothing.rs",
+          "line": 489,
+          "call": "phrase_time"
+        },
+        {
+          "file": "doing_nothing.rs",
+          "line": 500,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs",
+      "source_sha256": "7f445be212c586093d2092113b086d809dcc189619985baf1c8f0c407c709b47",
+      "cue_text_sha256": "9645f0e4958247f106e8c2f80155996e2346302c6b34f78bd366dd1112de4baf",
+      "baseline_cue": "10_3",
+      "baseline_byte": 302,
+      "affected_by_cue_split": false,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's byte share of its measured sentence (doing_nothing.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "10_4",
+      "byte": 39,
+      "byte_end": 55,
+      "phrase": "strictly between",
+      "const": null,
+      "sentence_index": 0,
+      "word_index": 8,
+      "hook_sites": [
+        {
+          "file": "doing_nothing.rs",
+          "line": 558,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs",
+      "source_sha256": "7f445be212c586093d2092113b086d809dcc189619985baf1c8f0c407c709b47",
+      "cue_text_sha256": "29473bc1659d0ff4d32211f6a5c8ef8abb4374e1b9fb892622eed2e13936bbe4",
+      "baseline_cue": "10_4",
+      "baseline_byte": 39,
+      "affected_by_cue_split": false,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's byte share of its measured sentence (doing_nothing.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "11_1",
+      "byte": 320,
+      "byte_end": 335,
+      "phrase": "a halfway point",
+      "const": "HALFWAY",
+      "sentence_index": 4,
+      "word_index": 59,
+      "hook_sites": [
+        {
+          "file": "unreachable.rs",
+          "line": 809,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "cue_text_sha256": "9aef00838aedeef5c81aa071586dca516ef9fd475e205c03105594838079ec5d",
+      "baseline_cue": "11_1",
+      "baseline_byte": 320,
+      "affected_by_cue_split": false,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (unreachable.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "11_1",
+      "byte": 337,
+      "byte_end": 361,
+      "phrase": "squashes the whole plane",
+      "const": "SQUASHES",
+      "sentence_index": 4,
+      "word_index": 62,
+      "hook_sites": [
+        {
+          "file": "unreachable.rs",
+          "line": 814,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "cue_text_sha256": "9aef00838aedeef5c81aa071586dca516ef9fd475e205c03105594838079ec5d",
+      "baseline_cue": "11_1",
+      "baseline_byte": 337,
+      "affected_by_cue_split": false,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (unreachable.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "11_2",
+      "byte": 185,
+      "byte_end": 198,
+      "phrase": "run backwards",
+      "const": "RUN_BACKWARDS",
+      "sentence_index": 3,
+      "word_index": 37,
+      "hook_sites": [
+        {
+          "file": "unreachable.rs",
+          "line": 922,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "cue_text_sha256": "bac00f42e30c5450cea48e0db3786af3a9384ddaeb583ea96e86504b7a21e8e7",
+      "baseline_cue": "11_2",
+      "baseline_byte": 185,
+      "affected_by_cue_split": false,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (unreachable.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "11_5",
+      "byte": 72,
+      "byte_end": 97,
+      "phrase": "send it along both routes",
+      "const": "BOTH_ROUTES",
+      "sentence_index": 1,
+      "word_index": 13,
+      "hook_sites": [
+        {
+          "file": "unreachable.rs",
+          "line": 1189,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "cue_text_sha256": "dd0d230909c00dfe74523c3976ad06a759e2afb459e9e8cb252003b1b7615db8",
+      "baseline_cue": "11_5",
+      "baseline_byte": 72,
+      "affected_by_cue_split": false,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (unreachable.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "11_5",
+      "byte": 178,
+      "byte_end": 216,
+      "phrase": "the two routes end in different places",
+      "const": "ENDS_DIFFER",
+      "sentence_index": 2,
+      "word_index": 37,
+      "hook_sites": [
+        {
+          "file": "unreachable.rs",
+          "line": 1204,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "cue_text_sha256": "dd0d230909c00dfe74523c3976ad06a759e2afb459e9e8cb252003b1b7615db8",
+      "baseline_cue": "11_5",
+      "baseline_byte": 178,
+      "affected_by_cue_split": false,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (unreachable.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "11_6",
+      "byte": 273,
+      "byte_end": 300,
+      "phrase": "running one after the other",
+      "const": "ONE_AFTER_THE_OTHER",
+      "sentence_index": 3,
+      "word_index": 54,
+      "hook_sites": [
+        {
+          "file": "unreachable.rs",
+          "line": 1333,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "cue_text_sha256": "ad421c6d611bf9a635d80375ebff4dc413eacbcf8a9906b80cbddab97c73c68d",
+      "baseline_cue": "11_6",
+      "baseline_byte": 273,
+      "affected_by_cue_split": false,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (unreachable.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "11_7",
+      "byte": 174,
+      "byte_end": 220,
+      "phrase": "so nothing forces a logarithm to keep the axes",
+      "const": "KEEP_AXES",
+      "sentence_index": 3,
+      "word_index": 32,
+      "hook_sites": [
+        {
+          "file": "unreachable.rs",
+          "line": 1405,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "cue_text_sha256": "aae9225a2dbb2a4dcb828e9ffa870f0d24bf4f04a9e7608021366f3622a01fcc",
+      "baseline_cue": "11_7",
+      "baseline_byte": 174,
+      "affected_by_cue_split": true,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (unreachable.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "11_7",
+      "byte": 226,
+      "byte_end": 258,
+      "phrase": "the spin, which turns every axis",
+      "const": "TURNS_EVERY",
+      "sentence_index": 3,
+      "word_index": 42,
+      "hook_sites": [
+        {
+          "file": "unreachable.rs",
+          "line": 1413,
+          "call": "phrase_time"
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 1415,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "cue_text_sha256": "aae9225a2dbb2a4dcb828e9ffa870f0d24bf4f04a9e7608021366f3622a01fcc",
+      "baseline_cue": "11_7",
+      "baseline_byte": 226,
+      "affected_by_cue_split": true,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (unreachable.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "11_7",
+      "byte": 315,
+      "byte_end": 349,
+      "phrase": "a matrix that sends some direction",
+      "const": "SOME_DIRECTION",
+      "sentence_index": 4,
+      "word_index": 58,
+      "hook_sites": [
+        {
+          "file": "unreachable.rs",
+          "line": 1444,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "cue_text_sha256": "aae9225a2dbb2a4dcb828e9ffa870f0d24bf4f04a9e7608021366f3622a01fcc",
+      "baseline_cue": "11_7",
+      "baseline_byte": 315,
+      "affected_by_cue_split": true,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (unreachable.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "11_7",
+      "byte": 404,
+      "byte_end": 451,
+      "phrase": "only when it does that to every direction alike",
+      "const": "EVERY_DIRECTION",
+      "sentence_index": 4,
+      "word_index": 74,
+      "hook_sites": [
+        {
+          "file": "unreachable.rs",
+          "line": 1475,
+          "call": "phrase_time"
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 1478,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "cue_text_sha256": "aae9225a2dbb2a4dcb828e9ffa870f0d24bf4f04a9e7608021366f3622a01fcc",
+      "baseline_cue": "11_7",
+      "baseline_byte": 404,
+      "affected_by_cue_split": true,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (unreachable.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "11_7",
+      "byte": 453,
+      "byte_end": 495,
+      "phrase": "a half turn combined with an equal stretch",
+      "const": "HALF_TURN_STRETCH",
+      "sentence_index": 4,
+      "word_index": 83,
+      "hook_sites": [
+        {
+          "file": "unreachable.rs",
+          "line": 1490,
+          "call": "phrase_time"
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 1493,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "cue_text_sha256": "aae9225a2dbb2a4dcb828e9ffa870f0d24bf4f04a9e7608021366f3622a01fcc",
+      "baseline_cue": "11_7",
+      "baseline_byte": 453,
+      "affected_by_cue_split": true,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (unreachable.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "11_20",
+      "byte": 91,
+      "byte_end": 136,
+      "phrase": "the matrix's blocks for each negative stretch",
+      "const": "BLOCKS",
+      "sentence_index": 0,
+      "word_index": 16,
+      "hook_sites": [
+        {
+          "file": "unreachable.rs",
+          "line": 1520,
+          "call": "phrase_time"
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 1522,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "cue_text_sha256": "ec2b4681dc12338d1dd19df6e5866524d0811c18d3f5732a9a8235f96b4f5f02",
+      "baseline_cue": "11_7",
+      "baseline_byte": 588,
+      "affected_by_cue_split": true,
+      "byte_or_cue_moved": true,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (unreachable.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "11_20",
+      "byte": 137,
+      "byte_end": 159,
+      "phrase": "come in matching pairs",
+      "const": "MATCHING",
+      "sentence_index": 0,
+      "word_index": 23,
+      "hook_sites": [
+        {
+          "file": "unreachable.rs",
+          "line": 1524,
+          "call": "phrase_time"
+        },
+        {
+          "file": "unreachable.rs",
+          "line": 1526,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+      "source_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+      "cue_text_sha256": "ec2b4681dc12338d1dd19df6e5866524d0811c18d3f5732a9a8235f96b4f5f02",
+      "baseline_cue": "11_7",
+      "baseline_byte": 634,
+      "affected_by_cue_split": true,
+      "byte_or_cue_moved": true,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (unreachable.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "12_1",
+      "byte": 167,
+      "byte_end": 198,
+      "phrase": "the keyboard and the slide rule",
+      "const": "THE_KEYBOARD",
+      "sentence_index": 2,
+      "word_index": 28,
+      "hook_sites": [
+        {
+          "file": "what_it_forgets.rs",
+          "line": 848,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs",
+      "source_sha256": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+      "cue_text_sha256": "8ac919312c336ca94988b10063a842dbaeaa2932594199ac44a55a19fae3d8d9",
+      "baseline_cue": "12_1",
+      "baseline_byte": 167,
+      "affected_by_cue_split": false,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (what_it_forgets.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "12_6",
+      "byte": 89,
+      "byte_end": 103,
+      "phrase": "also ends here",
+      "const": "ALSO_ENDS_HERE",
+      "sentence_index": 1,
+      "word_index": 20,
+      "hook_sites": [
+        {
+          "file": "what_it_forgets.rs",
+          "line": 1136,
+          "call": "phrase_time"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs",
+      "source_sha256": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+      "cue_text_sha256": "c85377e98085cd3000ec836f675c05662c9be4bcff432de7620c669d208e1962",
+      "baseline_cue": "12_6",
+      "baseline_byte": 89,
+      "affected_by_cue_split": true,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (what_it_forgets.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "12_6",
+      "byte": 105,
+      "byte_end": 131,
+      "phrase": "and so does two and a half",
+      "const": "AND_TWO_AND_A_HALF",
+      "sentence_index": 1,
+      "word_index": 23,
+      "hook_sites": [
+        {
+          "file": "what_it_forgets.rs",
+          "line": 1146,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs",
+      "source_sha256": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+      "cue_text_sha256": "c85377e98085cd3000ec836f675c05662c9be4bcff432de7620c669d208e1962",
+      "baseline_cue": "12_6",
+      "baseline_byte": 105,
+      "affected_by_cue_split": true,
+      "byte_or_cue_moved": false,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (what_it_forgets.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "12_21",
+      "byte": 192,
+      "byte_end": 223,
+      "phrase": "a convention broke the same tie",
+      "const": "CONVENTION",
+      "sentence_index": 1,
+      "word_index": 36,
+      "hook_sites": [
+        {
+          "file": "what_it_forgets.rs",
+          "line": 1293,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs",
+      "source_sha256": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+      "cue_text_sha256": "0fe204023b8a52a75088216367d1e84e5aa423baa89f7ec2e583c5c1ff558762",
+      "baseline_cue": "12_6",
+      "baseline_byte": 681,
+      "affected_by_cue_split": true,
+      "byte_or_cue_moved": true,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (what_it_forgets.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    },
+    {
+      "cue": "12_21",
+      "byte": 230,
+      "byte_end": 267,
+      "phrase": "the honest answer is the whole family",
+      "const": "WHOLE_FAMILY",
+      "sentence_index": 1,
+      "word_index": 43,
+      "hook_sites": [
+        {
+          "file": "what_it_forgets.rs",
+          "line": 1303,
+          "call": "until_phrase"
+        }
+      ],
+      "source_path": "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs",
+      "source_sha256": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+      "cue_text_sha256": "0fe204023b8a52a75088216367d1e84e5aa423baa89f7ec2e583c5c1ff558762",
+      "baseline_cue": "12_6",
+      "baseline_byte": 719,
+      "affected_by_cue_split": true,
+      "byte_or_cue_moved": true,
+      "fallback_without_mark": "Without a mark at this byte: the phrase's character share of its measured sentence (what_it_forgets.rs phrase_seconds). Provisional.",
+      "measured_seconds": null
+    }
+  ],
+  "opening_read_out_estimates": {
+    "status": "CURRENT BASELINE. Character-share estimates from source; not measured, not marks, not phrase hooks.",
+    "note": "ratio_ruler.rs read_shares and read_out, as integrated. Deliberately not until_phrase, so they read no entry of phrase-timings.json, and a mark for these words would change nothing until the source reads it. Another agent is investigating ASR anchors for the opening separately; this plan proposes no hook and no anchor for these words.",
+    "cue": "00_1",
+    "sentence_index": 1,
+    "text_measured": "In standard tuning their frequencies are fifty-five, a hundred and ten, two hundred and twenty, four hundred and forty, eight hundred and eighty, seventeen sixty and thirty-five twenty vibrations per second.",
+    "characters": 207,
+    "source_lines": {
+      "call": 203,
+      "script_const": 512,
+      "read_phrases": 516,
+      "read_fade": 524,
+      "read_shares": 528,
+      "read_out": 538,
+      "sentence_at": 541,
+      "wait": 555
+    },
+    "fallback_without_narrator": "One every 0.9 s (read_out); a draft-only path, not a timing claim.",
+    "rows": [
+      {
+        "phrase": "their frequencies",
+        "char_offset": 19,
+        "share_of_rest_of_cue": 0.0918,
+        "measured_seconds": null
+      },
+      {
+        "phrase": "four hundred and forty",
+        "char_offset": 96,
+        "share_of_rest_of_cue": 0.4638,
+        "measured_seconds": null
+      },
+      {
+        "phrase": "eight hundred and eighty",
+        "char_offset": 120,
+        "share_of_rest_of_cue": 0.5797,
+        "measured_seconds": null
+      },
+      {
+        "phrase": "seventeen sixty",
+        "char_offset": 146,
+        "share_of_rest_of_cue": 0.7053,
+        "measured_seconds": null
+      },
+      {
+        "phrase": "thirty-five twenty",
+        "char_offset": 166,
+        "share_of_rest_of_cue": 0.8019,
+        "measured_seconds": null
+      },
+      {
+        "phrase": "vibrations per second",
+        "char_offset": 185,
+        "share_of_rest_of_cue": 0.8937,
+        "measured_seconds": null
+      }
+    ]
+  },
+  "sentence_share_hooks": {
+    "note": "Not byte anchors, and they read no word mark: each waits for a share of a measured sentence. Listed because they sit in split cues; each names its sentence in the new cue.",
+    "rows": [
+      {
+        "cue": "12_20",
+        "sentence_index": 1,
+        "const": "AXIS_RESET",
+        "share_of_sentence": 0.6,
+        "file": "what_it_forgets.rs",
+        "line": 1199
+      },
+      {
+        "cue": "12_20",
+        "sentence_index": 1,
+        "const": "AXIS_CHIP",
+        "share_of_sentence": 0.79,
+        "file": "what_it_forgets.rs",
+        "line": 1202
+      },
+      {
+        "cue": "12_21",
+        "sentence_index": 0,
+        "const": "TIE_AT",
+        "share_of_sentence": 0.45,
+        "file": "what_it_forgets.rs",
+        "line": 1280
+      }
+    ]
+  }
+}

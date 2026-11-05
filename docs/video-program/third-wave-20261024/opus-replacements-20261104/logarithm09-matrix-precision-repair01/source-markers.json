@@ -1,0 +1,55 @@
+{
+  "schema": "logarithm09-matrix-precision-anchors-v1",
+  "file": "explainer_corpus/logarithm_mysteries/src/chapters/matrix_logs.rs",
+  "baseline_sha256": "c82b2a4d10f3c5fda758ad110b6297efc5512a643bfc26f4f05e4532c6ebf2cd",
+  "patched_sha256": "7df6f8681099c76dcd1f32494e2edcbb07b427c54178d5c557d5801052f481b0",
+  "film_lines_changed": [179, 213, 266],
+  "film_lines_moved": 0,
+  "timing_rule": "Anchor on the cue and sentence. Old times are stage06's scratch voice, not Oliver. Old frame numbers are labels in logarithm-stage06-frames01/09_matrix_logs, counted from 0.",
+  "anchors": [
+    {
+      "id": "A1-turned-card",
+      "cue": "09_1",
+      "from": "sentence 3 (line 193), after the first swap's 0.35 s (line 204)",
+      "for_seconds": 0.9,
+      "hold_line": 206,
+      "old_frame": 29,
+      "old_time_s": 12.4,
+      "old_picture": "[0.5 -0.866; 0.866 0.5], turned",
+      "expect": "[0.6 -0.8; 0.8 0.6], turned. The teal arrow's tip at (-0.8, 0.6) and the green arrow's at (0.6, 0.8), read against the ghost grid.",
+      "fail_if": "0.866 anywhere; a rotated grid or dot crossing the title or the right-hand column"
+    },
+    {
+      "id": "A2-caveat",
+      "cue": "09_1",
+      "from": "sentence 4 (line 208), after its 0.4 s fade (line 216)",
+      "until": "09_2's fade (line 230)",
+      "old_frames": [46, 48],
+      "old_time_s": 18.0,
+      "box_at_720p": [90, 636, 615, 660],
+      "expect": "The whole line in ink, same place and size. checks/caveat_contrast.py probe on a frame in this hold: brightest tenth of inked pixels at or above 11.0.",
+      "fail_if": "grey as before; probe below 11.0"
+    },
+    {
+      "id": "A3-approximate-word",
+      "cue": "09_2",
+      "from": "sentence 4 (line 264), after its 0.5 s fade (line 267)",
+      "until": "09_4's fade (line 301), through all of 09_3",
+      "old_frames": [110, 111, 113, 128],
+      "old_time_s": 44.4,
+      "box_at_720p": [860, 478, 925, 518],
+      "expect": "e^X with the approximately sign, green, left of the unchanged card [0.905 -0.97; 0.776 0.517], clear of its left bracket",
+      "fail_if": "an equals sign; the sign touching the bracket; a fallback glyph",
+      "precedent": "real rendered sign, 04_undoing_growth frame 162: ln 2 and e rows"
+    },
+    {
+      "id": "A4-exact-definition",
+      "cue": "09_3",
+      "from": "its start (line 271) until 09_4's start",
+      "old_frame": 128,
+      "expect": "X is a logarithm of A, if and only if e^X = A, still with an equals sign, directly under the approximate card. The series at line 222 also keeps its equals sign.",
+      "fail_if": "either exact row shows an approximately sign"
+    }
+  ],
+  "layout_note": "The turned grid's extents become x -6.476..0.076, y -3.676..2.876 by mirror (old -6.396..-0.004, -3.596..2.796). Inside the safe area; the crate's clip is unchanged."
+}

@@ -1,0 +1,333 @@
+# 1. lexer controls
+PASS  lexer keeps only the real strings: ['q"r', 't"u', '−']
+PASS  test modules drop out
+
+# 2. the source read here is the source the job froze
+PASS  226 frozen inputs; job receipt inputs_sha256 is on file
+  compiled chapter modules: 15: branch_cut building_ruler complex_turns doing_nothing draw folded_decade lifting_loops matrix_logs product_rule ratio_ruler slide_rule thumbnail undoing_growth unreachable what_it_forgets
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs 193c4733de9f9081 matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/building_ruler.rs ae125e5ec9ec9bd6 matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/complex_turns.rs 2cc2ba7723e2733e matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs eeee764f0fe5fd3c matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/draw.rs 2a4e84504bab6364 matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs acfc7f9c198b3d3d matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/lifting_loops.rs ca34aef0523ceadc matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/matrix_logs.rs c82b2a4d10f3c5fd matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs e9019c828710207b matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/ratio_ruler.rs 92cf028b124f8a37 matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs eea4d01d96fd4853 matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/thumbnail.rs 5f6072695559af35 matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs 754ea3125c2f7e89 matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs a676dac78580ef73 matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs e938b750ce579fae matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/script.tsv f201d2dc57fa9cca matches the frozen input
+PASS  explainer_corpus/logarithm_mysteries/src/main.rs b45e720b6ce9d63a matches the frozen input
+PASS  crates/explainer_kit/src/kit.rs ef035faf236498e7 matches the frozen input
+PASS  crates/explainer_kit/src/glyphs.rs 8652dd294c7416e5 matches the frozen input
+PASS  target/debug/logarithm_mysteries a3a6110347784247 matches the frozen input
+  chapter files not compiled, ignored: ['bookends.rs', 'matrix_log.rs', 'product_law.rs', 'real_inverse.rs', 'winding.rs']
+
+# 3. registry: 588 rows, Counter({'Text': 496, 'Tex': 92})
+
+# 4. every literal outside test code
+  file                          exact   template   fragment   not text  UNMATCHED
+  branch_cut                       35          2          2         32          1
+  building_ruler                   19         11          4         46          0
+  complex_turns                    33         11          2         44          0
+  doing_nothing                    24          4          1         38          2
+  draw                              3          2          1          4          6
+  folded_decade                    16          8          2         37          0
+  lifting_loops                    39          5          2         40          0
+  matrix_logs                      26          5          1         22          1
+  product_rule                     25         13          5         34          1
+  ratio_ruler                      15          9          2         35          0
+  slide_rule                       10         11          2         59          0
+  thumbnail                         1          0          0          0          5
+  undoing_growth                   43         14          4         72          1
+  unreachable                      80         20          7        105          4
+  what_it_forgets                  33          9          4         50          5
+  all                             402        124         39        618         26
+
+  UNMATCHED, each to read in place: 26
+    branch_cut.rs:215 in format: 'branch.log_i_pi: {x} is not ±½'
+    doing_nothing.rs:202 in format: 'line {id} is not in the script'
+    doing_nothing.rs:206 in format: 'line {id}: cannot time {phrase:?}'
+    draw.rs:44 in format: 'facts: {e}'
+    draw.rs:49 in format: 'no fact {key}'
+    draw.rs:56 in format: 'fact {key} is not a number'
+    draw.rs:65 in format: 'fact {key} has a non-number {x:?}'
+    draw.rs:80 in format: 'fact {key} is not a matrix'
+    draw.rs:83 in format: 'fact {key} is not 2×2'
+    matrix_logs.rs:374 in matrix_card: '-b'
+    product_rule.rs:74 in format: 'product: lap count {k} is not whole'
+    thumbnail.rs:31 in ?: 'thumbnail'
+    thumbnail.rs:36 in text_styled: 'WHERE DO'
+    thumbnail.rs:37 in text_styled: 'THE LAPS GO?'
+    thumbnail.rs:38 in tex: '\\log z'
+    thumbnail.rs:41 in text_styled: 'RULERS, TURNS, FLOWS'
+    undoing_growth.rs:114 in strip_prefix: '04_2\t'
+    unreachable.rs:237 in format: 'the line has no phrase {phrase:?}'
+    unreachable.rs:249 in format: 'the line has {} sentences, but the narrator timed {}'
+    unreachable.rs:275 in format: 'narration line {id} is not in script.tsv'
+    unreachable.rs:277 in format: 'line {id}: {e}'
+    what_it_forgets.rs:505 in format: 'matrix.ellipses: bad entry {e}'
+    what_it_forgets.rs:576 in format: 'the line has no phrase {phrase:?}'
+    what_it_forgets.rs:588 in format: 'the line has {} sentences, but the narrator timed {}'
+    what_it_forgets.rs:614 in format: 'narration line {id} is not in script.tsv'
+    what_it_forgets.rs:616 in format: 'line {id}: {e}'
+
+  exact in a chapter's own file but not attributed to that chapter by the probe: 6
+    branch_cut.rs:220 'πi/2'; registry says 06_lifting_loops
+    product_rule.rs:64 '1'; registry says 01_building_ruler,02_slide_rule,03_folded_decade,04_undoing_growth,05_complex_turns,06_lifting_loops,09_matrix_logs,10_doing_nothing,11_unreachable,12_what_it_forgets
+    product_rule.rs:82 'one lap'; registry says 06_lifting_loops
+    ratio_ruler.rs:188 '?'; registry says 02_slide_rule,12_what_it_forgets
+    unreachable.rs:183 '½'; registry says 01_building_ruler
+    what_it_forgets.rs:363 '½'; registry says 01_building_ruler
+
+# 5. control: a literal the probe never reaches must come out UNMATCHED
+PASS  planted literal classed UNMATCHED
+PASS  a retired label, singular A, is not on this registry
+
+# 6. RubyRaven's glyph-delta.tsv, row by row
+PASS  7 delta literals
+PASS  undoing_growth.rs:479 'y = x': registry row 584, 04_undoing_growth
+PASS  complex_turns.rs:67 'the line goes on': registry row 420, 05_complex_turns
+PASS  lifting_loops.rs:79 'e^{L(z)} = z = e^{\\ell} \\;\\Rightarrow\\; L(z) - \\ell = 2\\pi i\\,k,\\ \\ k \\text{ whole}': registry row 565, 06_lifting_loops
+PASS  lifting_loops.rs:219 '\\ell': no row of its own; inside TeX rows [497, 565]
+PASS  lifting_loops.rs:634 '(\\ell)': registry row 497, 06_lifting_loops
+PASS  unreachable.rs:1309 'e^{tp} > 0 \\text{ for real } t \\text{ and } p\\text{: } e^{tX} \\text{ reverses no axis}': registry row 575, 11_unreachable
+PASS  unreachable.rs:1662 '\\text{singular } S\\text{: } \\operatorname{det} S = 0 \\quad\\text{but}\\quad \\operatorname{det} e^{X} = e^{\\operatorname{tr} X} \\neq 0': registry row 559, 11_unreachable
+
+# 7. strings outside the chapter list
+    thumbnail.rs:31 in ?: 'thumbnail' NOT on the registry
+    thumbnail.rs:36 in text_styled: 'WHERE DO' NOT on the registry
+    thumbnail.rs:37 in text_styled: 'THE LAPS GO?' NOT on the registry
+    thumbnail.rs:38 in tex: '\\log z' NOT on the registry
+    thumbnail.rs:41 in text_styled: 'RULERS, TURNS, FLOWS' NOT on the registry
+    thumbnail.rs:71 in text: '−1' on the registry
+
+# 8. strings the film draws in a style the probe page does not
+  The probe sets every Text row in the regular face. text_styled draws bold or italic, from other faces.
+    thumbnail.rs:36 ['WHERE DO'] bold,italic=['true', 'false']
+    thumbnail.rs:37 ['THE LAPS GO?'] bold,italic=['true', 'false']
+    thumbnail.rs:39 ['RULERS, TURNS, FLOWS'] bold,italic=['true', 'false']
+
+# 9. registry rows not spelled as one literal: computed, read on the pages
+  215 of 588
+       2 Text 07_branch_cut                  '+0.850'
+       3 Text 07_branch_cut                  '+0.913'
+       8 Text 03_folded_decade               '0 laps'
+       9 Text 06_lifting_loops,09_matrix_log '0.00'
+      10 Text 12_what_it_forgets             '0.06'
+      11 Text 12_what_it_forgets             '0.09'
+      12 Text 11_unreachable                 '0.10'
+      13 Text 12_what_it_forgets             '0.13'
+      14 Text 09_matrix_logs                 '0.16'
+      15 Text 06_lifting_loops,12_what_it_fo '0.19'
+      16 Text 06_lifting_loops               '0.20'
+      17 Text 04_undoing_growth              '0.202'
+      18 Text 03_folded_decade               '0.24'
+      19 Text 12_what_it_forgets             '0.24, 2.4, 24, 240'
+      20 Text 09_matrix_logs                 '0.25 turn per unit time'
+      21 Text 12_what_it_forgets             '0.26'
+      22 Text 06_lifting_loops               '0.27'
+      23 Text 12_what_it_forgets             '0.28'
+      25 Text 12_what_it_forgets             '0.32'
+      26 Text 04_undoing_growth              '0.320'
+      27 Text 12_what_it_forgets             '0.34'
+      28 Text 12_what_it_forgets             '0.38'
+      29 Text 06_lifting_loops,12_what_it_fo '0.39'
+      30 Text 02_slide_rule                  '0.398 of a full length'
+      31 Text 06_lifting_loops               '0.40'
+      32 Text 12_what_it_forgets             '0.45'
+      33 Text 12_what_it_forgets             '0.47'
+      34 Text 06_lifting_loops               '0.49'
+      36 Text 06_lifting_loops,12_what_it_fo '0.50'
+      37 Text 02_slide_rule                  '0.505'
+      39 Text 12_what_it_forgets             '0.52'
+      40 Text 12_what_it_forgets             '0.55'
+      41 Text 12_what_it_forgets             '0.56'
+      42 Text 09_matrix_logs                 '0.6'
+      43 Text 04_undoing_growth              '0.607'
+      44 Text 12_what_it_forgets             '0.65'
+      45 Text 09_matrix_logs                 '0.66'
+      46 Text 11_unreachable                 '0.670'
+      47 Text 12_what_it_forgets             '0.69'
+      48 Text 11_unreachable                 '0.703'
+      49 Text 04_undoing_growth              '0.748'
+      50 Text 12_what_it_forgets             '0.75'
+      51 Text 09_matrix_logs                 '0.75 turn the other way'
+      52 Text 12_what_it_forgets             '0.77'
+      54 Text 12_what_it_forgets             '0.78'
+      55 Text 09_matrix_logs                 '0.8'
+      56 Text 12_what_it_forgets             '0.82'
+      57 Text 11_unreachable                 '0.83'
+      58 Text 12_what_it_forgets             '0.86'
+      61 Text 12_what_it_forgets             '0.91'
+      62 Text 06_lifting_loops               '0.93'
+      63 Text 12_what_it_forgets             '0.94'
+      64 Text 11_unreachable                 '0.986'
+      65 Text 09_matrix_logs                 '0.99'
+      66 Text supplement                     '0123456789 . , : ; ( ) [ ] = + − × ÷ ± ½ ≈ ≠ ≤ < > ∞ ∫ √ π θ ° ₂ → ↔ – … ? ! Hz % a b c d e i k t x y z A I J X'
+      70 Text 03_folded_decade               '1 lap'
+      73 Text 06_lifting_loops,09_matrix_log '1.00'
+      74 Text 11_unreachable                 '1.000'
+      75 Text 11_unreachable                 '1.156'
+      76 Text 11_unreachable                 '1.17'
+      77 Text 11_unreachable                 '1.221'
+      78 Text 09_matrix_logs                 '1.25 turns per unit time'
+      79 Text 04_undoing_growth              '1.282'
+      80 Text 11_unreachable                 '1.309'
+      81 Text 01_building_ruler              '1.36% apart'
+      82 Text 11_unreachable                 '1.492'
+      83 Text 12_what_it_forgets             '1.50'
+      84 Text 09_matrix_logs                 '1.6'
+      85 Text 06_lifting_loops               '1.62'
+      86 Text 12_what_it_forgets             '1.72'
+      87 Text 11_unreachable                 '1.822'
+      88 Text 06_lifting_loops               '1.86'
+      89 Text 00_ratio_ruler                 '1/2 of the ruler'
+      90 Text 00_ratio_ruler                 '1/8 of the ruler'
+      94 Text 04_undoing_growth              '1024'
+      95 Text 00_ratio_ruler                 '12 semitones'
+      96 Text 01_building_ruler              '12 threes'
+      97 Text 04_undoing_growth              '128'
+      98 Text 04_undoing_growth              '13.9'
+      99 Text 04_undoing_growth              '150'
+     100 Text 04_undoing_growth              '16'
+     101 Text 00_ratio_ruler                 '1760'
+     102 Text 01_building_ruler              '19 doublings'
+     104 Text 03_folded_decade               '2 laps'
+     105 Text 04_undoing_growth              '2 × 4 = 8'
+     106 Text 06_lifting_loops               '2.00'
+     107 Text 06_lifting_loops               '2.01'
+     108 Text 02_slide_rule,03_folded_decade '2.4'
+     109 Text 06_lifting_loops               '2.42'
+     110 Text 02_slide_rule                  '2.5 × 3.2 = 8'
+     111 Text 02_slide_rule                  '2.5 × 3.2 = ?'
+     112 Text 12_what_it_forgets             '2.50'
+     113 Text 04_undoing_growth              '2.571'
+     114 Text 04_undoing_growth              '2.586'
+     115 Text 02_slide_rule,03_folded_decade '24'
+     116 Text 02_slide_rule                  '24 would sit here'
+     117 Text 02_slide_rule,03_folded_decade '240'
+     118 Text 04_undoing_growth              '256'
+     119 Text 00_ratio_ruler                 '2640'
+     122 Text 05_complex_turns,08_product_ru '2π'
+     128 Text 06_lifting_loops               '3.17'
+     129 Text 06_lifting_loops               '3.58'
+     130 Text 04_undoing_growth              '32'
+     131 Text 00_ratio_ruler                 '3520'
+     132 Text 05_complex_turns,12_what_it_fo '3π'
+     133 Text 05_complex_turns,06_lifting_lo '3πi'
+     135 Text 03_folded_decade               '4 × 6 = 10 × 2.4 = 24'
+     136 Text 02_slide_rule                  '4 × 6 = 24'
+     137 Text 02_slide_rule                  '4 × 6 = ?'
+     138 Text 02_slide_rule                  '4 × 6 lies between 10 and 100'
+     139 Text 06_lifting_loops               '4.00'
+     140 Text 00_ratio_ruler                 '440'
+     141 Text 06_lifting_loops               '4πi'
+     142 Text 05_complex_turns               '4πi above'
+     143 Text 02_slide_rule,03_folded_decade '5'
+     144 Text 04_undoing_growth              '50'
+     145 Text 04_undoing_growth              '512'
+     146 Text 00_ratio_ruler                 '55, 110, 220'
+     147 Text 02_slide_rule,03_folded_decade '6'
+     148 Text 00_ratio_ruler                 '6 semitones'
+     149 Text 00_ratio_ruler                 '622'
+     150 Text 00_ratio_ruler                 '622.25 Hz'
+     151 Text 04_undoing_growth              '64'
+     152 Text 00_ratio_ruler                 '660 by difference?'
+     153 Text 02_slide_rule,03_folded_decade '7'
+     155 Text 00_ratio_ruler                 '880'
+     156 Text 02_slide_rule,03_folded_decade '9'
+     160 Text 11_unreachable                 'A = (−I) × diag(2, ½)'
+     165 Text 01_building_ruler              'A at 440 Hz, 19 semitones up: 1318.51 Hz    3 × 440 = 1320 Hz'
+     186 Text 07_branch_cut                  'Log i = πi/2'
+     189 Text 07_branch_cut                  'Log(−i) = −πi/2'
+     219 Text 11_unreachable                 'a steady spin, 0.5 lap'
+     228 Text 05_complex_turns               'angles add:  30° + 50° = 80°'
+     254 Text 11_unreachable                 'det = (−2) × (−½) = +1'
+     259 Text 12_what_it_forgets             'direction: ½ lap the other way too'
+     261 Text 04_undoing_growth              'e ≈ 2.718'
+     267 Text 10_doing_nothing               'ellipse 1.6 by 0.7, tilted 30°'
+     268 Text 10_doing_nothing               'ellipse 2 by 1'
+     278 Text 02_slide_rule                  "every mark moved by 2.5's length"
+     279 Text 10_doing_nothing               'everything home at t = 1: yes'
+     302 Text 05_complex_turns               'i × i = −1: two quarter turns, a half turn'
+     322 Text 12_what_it_forgets             'laps: ½, 1½, 2½, … all end here'
+     324 Text 05_complex_turns               'length 2, angle 0.6π'
+     327 Text 05_complex_turns               'lengths multiply:  1.2 × 1.5 = 1.8'
+     328 Text 11_unreachable                 'ln 2 ≈ 0.693'
+     335 Text 11_unreachable                 'mirror: −1'
+     346 Text 01_building_ruler              'now one step = ×10'
+     357 Text 01_building_ruler              'one step = ×4'
+     364 Text 04_undoing_growth              'precisely: 100 × ln 2 ≈ 69.3; seventy is the round number near it'
+     365 Text 11_unreachable                 'precisely: Culver, Proc. AMS 17 (1966) 1146–1151, as stated by Higham (Handbook of Linear Algebra) and Gallier (Thm 3.4)'
+     366 Text 11_unreachable                 'precisely: Gallier, arXiv 0805.0245, Theorem 3.3, proved via the Jordan form'
+     367 Text 07_branch_cut                  'precisely: Log is holomorphic off (−∞, 0] with −π < Im < π; with Arg(−x) = π for x > 0, Im Log fills −π < Im ≤ π (DLMF 4.2)'
+     368 Text 02_slide_rule                  'precisely: a working slide rule reads about three significant figures; the user places the decimal point'
+     369 Text 00_ratio_ruler                 'precisely: equal temperament with A4 = 440 Hz (ISO 16); real pianos are often tuned slightly stretched'
+     370 Text 11_unreachable                 'precisely: for any real linear flow, steady or not, det = exp(∫ trace dt) > 0 (Liouville)'
+     371 Text 08_product_rule                'precisely: for nonzero z, w on the principal branch, k is −1, 0 or 1'
+     372 Text 10_doing_nothing               'precisely: no eigenvalue of A in (−∞, 0] ⇒ one logarithm has all eigenvalues −π < Im < π; real if A is (Higham; Gallier Thm 3.11)'
+     379 Text 05_complex_turns               'real part ln 2 = 0.693'
+     395 Text 12_what_it_forgets             'spin: 1½ laps per unit of time'
+     396 Text 12_what_it_forgets             'spin: 2½ laps per unit of time'
+     397 Text 12_what_it_forgets             'spin: ½ lap about another axis'
+     398 Text 12_what_it_forgets             'spin: ½ lap per unit of time'
+     400 Text 10_doing_nothing               'spiral flow: turns 0.872 radians per unit time, about 0.28π'
+     406 Text 11_unreachable                 't = 1: 1.221'
+     407 Text 11_unreachable                 't = 3: 1.822'
+     409 Text 03_folded_decade               'the 2.4 mark: one place on the dial'
+     426 Text 02_slide_rule                  'the rule gives the digits: 2 4'
+     432 Text 06_lifting_loops               'times round 0:  unit circle 1,  side circle 0'
+     435 Text 03_folded_decade               'total 1.380 laps = 1 lap + 0.380'
+     458 Text 04_undoing_growth              '×1000'
+     462 Text 11_unreachable                 '×2, flipped'
+     463 Text 03_folded_decade               '×4: turn 0.602 lap'
+     464 Text 03_folded_decade               '×6: turn 0.778 lap more'
+     466 Text 11_unreachable                 '×½, flipped'
+     472 Text 12_what_it_forgets             '–0.19'
+     473 Text 12_what_it_forgets             '–0.38'
+     474 Text 12_what_it_forgets             '–0.50'
+     475 Text 07_branch_cut                  '–0.850'
+     476 Text 07_branch_cut                  '–0.913'
+     479 Text 09_matrix_logs                 '−0.1'
+     480 Text 09_matrix_logs                 '−0.866'
+     481 Text 09_matrix_logs                 '−0.97'
+     483 Text 03_folded_decade               '−1 lap'
+     486 Text 05_complex_turns,08_product_ru '−2π'
+     487 Text 05_complex_turns               '−2πi'
+     488 Text 05_complex_turns,12_what_it_fo '−3π'
+     489 Text 05_complex_turns,12_what_it_fo '−3πi'
+     491 Text 09_matrix_logs                 '−b'
+     499 Tex  04_undoing_growth              '0.05\\,t = \\ln 2 \\approx 0.693'
+     500 Tex  02_slide_rule                  '0.398 + 0.505 = 0.903 = \\mathrm{pos}(8)'
+     501 Tex  04_undoing_growth              '10 \\text{ doublings} \\approx 138.6\\ \\text{years}'
+     503 Tex  08_product_rule                '2\\pi\\,i: \\text{one lap}'
+     504 Tex  04_undoing_growth              '2^{10} = 1024'
+     505 Tex  01_building_ruler              '2^{19} = 524{,}288'
+     506 Tex  01_building_ruler              '3^{12} = 531{,}441'
+     522 Tex  04_undoing_growth              '\\ln 1.01 \\approx 0.00995 \\approx 0.01'
+     523 Tex  04_undoing_growth              '\\ln 2 \\approx 0.693'
+     524 Tex  04_undoing_growth              '\\ln e = 1 \\quad (e \\approx 2.718)'
+     528 Tex  11_unreachable                 '\\log A = \\operatorname{diag}(\\ln 2 + i\\pi,\\ -\\ln 2 + i\\pi)'
+     530 Tex  01_building_ruler              '\\log_2 8 = 3 \\qquad \\log_2 3 \\approx 1.585'
+     534 Tex  01_building_ruler              '\\mathrm{pos}(3) \\approx 1.585'
+     535 Tex  01_building_ruler              '\\mathrm{pos}(3) \\approx \\tfrac{19}{12} \\approx 1.583'
+     540 Tex  08_product_rule                '\\operatorname{Log} z + \\operatorname{Log} z = \\tfrac{3}{2}\\pi\\,i, \\qquad \\operatorname{Log}(z^{2}) = -\\tfrac{1}{2}\\pi\\,i'
+     546 Tex  08_product_rule                '\\sqrt{-1}\\,\\sqrt{-1} = e^{i\\pi/2} e^{i\\pi/2} = e^{i\\pi} = -1'
+     547 Tex  08_product_rule                '\\sqrt{1} = e^{\\frac{1}{2} \\operatorname{Log} 1} = e^{0} = 1'
+     552 Tex  04_undoing_growth              '\\text{factor} = e^{0.05\\,t}'
+     555 Tex  08_product_rule                '\\text{length } 1 \\times 1 = 1, \\quad \\text{angle } \\tfrac{3}{4}\\pi + \\tfrac{3}{4}\\pi = \\tfrac{3}{2}\\pi'
+     556 Tex  05_complex_turns               '\\text{length } e^{\\ln 2} = 2,\\ \\text{angle a quarter turn}'
+     558 Tex  08_product_rule                '\\text{same direction as } -\\tfrac{1}{2}\\pi'
+     564 Tex  04_undoing_growth              'e^{0.05\\,t} = 2'
+     568 Tex  05_complex_turns               'e^{\\ln 2 + i\\pi/2} = 2i'
+     569 Tex  11_unreachable                 'e^{\\ln 2 + i\\pi} = -2, \\qquad e^{-\\ln 2 + i\\pi} = -\\tfrac{1}{2}'
+     579 Tex  04_undoing_growth              't = \\frac{\\ln 1000}{0.05} \\approx \\frac{6.91}{0.05} \\approx 138'
+     580 Tex  04_undoing_growth              't \\approx 13.9\\ \\text{years}'
+     586 Tex  08_product_rule                'z: \\ \\tfrac{3}{4}\\pi'
+
+RESULT OK: controls and bindings hold; read the UNMATCHED list by hand

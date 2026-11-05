@@ -1,0 +1,61 @@
+# Sizes, added by hand from the fields; no size_of was run
+Segment: 88
+ClippedQuadratic: 184
+ClippedFillQuadratic: 168
+ProjectedCurvePiece: 160
+MonoPiece: 48
+RasterTriangle: 440
+SurfaceVertex: 104
+TrueDotDraw: 248
+CompiledDraw, at least: 256
+a stroked curve nothing clips or splits: 88 + 2 x 184 + 160 + 88 = 704 bytes
+
+# Part 1: numbers the unrun tests assert
+-- a_bin_budget_above_the_default_bins_what_the_default_scans: 3,200 diagonals at 640x360
+control box 5.00..635.00 by 4.50..355.50 px
+radius 0.5: cell 6.013, 107x61 = 6527 bins, 20352000 entries, 78 MiB
+radius 1.0: cell 6.026, 107x61 = 6527 bins, 20352000 entries, 78 MiB
+radius 2.0: cell 6.052, 107x61 = 6527 bins, 19824000 entries, 76 MiB
+radius 4.0: cell 6.104, 107x61 = 6527 bins, 19302400 entries, 74 MiB
+-- a_working_byte_budget_above_the_default...: 800 shapes of 1,000 straight stroked curves
+800000 curves x 704 = 563200000 against 536870912; the plan admits 1048576 curves
+held: records 1600800 x 68, two plans at 88 a segment, curves 800000 x 160: 0.38 GB before bins
+-- both_routes_refuse_each_camera_budget...: square and three dots
+draw rows 1 + 3 = 4; projected curves 4; raster triangles 3 x 2 = 6
+
+# Part 2: which camera budget a scene reaches first, 3840x2160
+-- z^2 cells4 as stroked rows: 731 vectors, 536554 segments, by the budget01 demand
+1 curve(s) a segment: 704 bytes x 536554 = 360 MiB, about 16 MiB of bins, 536554 curves against 4194304
+2 curve(s) a segment: 952 bytes x 536554 = 487 MiB, about 33 MiB of bins, 1073108 curves against 4194304
+4 curve(s) a segment: 1448 bytes x 536554 = 741 MiB, about 66 MiB of bins, 2146216 curves against 4194304
+which row is real depends on perspective: a segment splits until it is within 1/256 px; that count is unmeasured
+fill, if any, adds at least 72 + 2 x 168 + 48 = 456 bytes a segment
+-- plan clone, once per camera frame in flight, outside every budget
+1 generation(s) of segments: 45 MiB a frame before styles and shapes
+2 generation(s) of segments: 90 MiB a frame before styles and shapes
+-- surface grids, G x G cells
+working bytes bind near G = 781 (1219922 triangles); raster triangles alone would bind at G = 1448
+G = 500: 500000 triangles, 210 MiB in the job, 31 MiB of mesh a frame in flight
+G = 750: 1125000 triangles, 472 MiB in the job, 69 MiB of mesh a frame in flight
+G = 1000: 2000000 triangles, 839 MiB in the job, 122 MiB of mesh a frame in flight
+G = 1448: 4193408 triangles, 1760 MiB in the job, 256 MiB of mesh a frame in flight
+-- dot clouds
+a visible dot charges at least 1136 bytes: working bytes bind by 472597 dots, not at 1048576 draws
+1048576 visible dots need at least 1136 MiB in the job and 248 MiB of commands a frame in flight
+-- stroke search: where one vector leaves its bins, with a default budget
+memberships are about 2 N^2 x (control box area / frame area), N curves in the one vector
+boxes covering 1 of the frame: scans above about 2896 curves
+boxes covering 0.1 of the frame: scans above about 9159 curves
+boxes covering 0.01 of the frame: scans above about 28963 curves
+boxes covering 0.0001 of the frame: scans above about 289631 curves
+16777216 memberships is 64 MiB of entries
+-- operations a frame, not seconds
+32400 fine tiles; every tile tests every draw's bounds
+731 rows: 2.368e+07 bounds tests
+472597 dots: 1.531e+10 bounds tests
+1048576 dots: 3.397e+10 bounds tests
+-- memory a camera frame can hold, by formula
+raw frame 63 MiB
+2 teams at 512 MiB each: up to 1151 MiB, before plan clones and the scene
+2 teams at 2048 MiB each: up to 4223 MiB, before plan clones and the scene
+4 teams at 2048 MiB each: up to 8445 MiB, before plan clones and the scene

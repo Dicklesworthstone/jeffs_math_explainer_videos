@@ -1,0 +1,53 @@
+free 58.60 GiB; admission 10, stop 8
+work 44.07 of 56 GiB
+target growth 9.98 of 20 GiB, over the baseline of 2026-10-27T21:36:03.995469+00:00
+growth per native job 4 GiB
+upper bounds, estimates from root's receipts: 7.43 GiB in all
+
+[deps] bound 0.0 GiB
+   rustc -vV
+   cargo -V
+   cargo metadata --locked --offline --format-version 1
+   cargo metadata --locked --offline --config STAGE/budget.toml --format-version 1
+   python3 -I -B REPO/docs/video-program/third-wave-20261024/opus-replacements-20261104/engine-geometry-validation02/verify_patched_lock.py --subset STAGE/Cargo.lock.view-pinned STAGE/repo-view/Cargo.lock
+   cargo metadata --locked --offline --config STAGE/budget.toml --manifest-path STAGE/crate/Cargo.toml --format-version 1
+   python3 -I -B REPO/docs/video-program/third-wave-20261024/opus-replacements-20261104/engine-geometry-validation02/verify_patched_lock.py STAGE/Cargo.lock.pinned STAGE/crate/Cargo.lock
+
+[base-build] bound 1.68 GiB
+   cargo test --locked --offline -p fmn --test secondary_default_pixels --test native_camera_pipeline --no-run
+
+[base-run] bound 0.0 GiB
+   cargo test --locked --offline -p fmn --test secondary_default_pixels --test native_camera_pipeline --no-fail-fast
+
+[engine-lint] bound 0.35 GiB
+  before this job: git apply both patches and check their sealed hashes
+   rustfmt --check --edition 2024 --config skip_children=true crates/fmn-render/src/engine.rs crates/fmn-render/src/lib.rs crates/fmn-render/src/retained.rs crates/fmn-render/src/three_d.rs crates/fmn-render/src/vector_frame.rs crates/fmn-render/tests/camera_route_limits.rs crates/fmn-render/tests/frame_table_limits.rs crates/fmn/src/rendering.rs crates/fmn/src/rendering/pipeline.rs crates/fmn/tests/native_bundle_pipeline.rs crates/fmn/tests/native_camera_pipeline.rs crates/fmn/tests/native_render.rs crates/fmn/tests/secondary_default_pixels.rs
+   cargo clippy --locked --offline -p fmn-render -p fmn --all-targets -- -D warnings
+
+[engine-build] bound 1.68 GiB
+   cargo test --locked --offline -p fmn-render --no-run
+   cargo test --locked --offline -p fmn --test native_render --test native_bundle_pipeline --test native_camera_pipeline --test secondary_default_pixels --no-run
+
+[engine-test] bound 0.0 GiB
+   cargo test --locked --offline -p fmn-render --no-fail-fast
+   cargo test --locked --offline -p fmn --test native_render --test native_bundle_pipeline --test native_camera_pipeline --test secondary_default_pixels --no-fail-fast
+   compare pixels/base with pixels/combined
+
+[engine-ignored] bound 0.0 GiB
+   cargo test --locked --offline -p fmn-render --test frame_table_limits -- --ignored --exact a_monotone_budget_above_the_default_is_admitted_and_the_default_still_refuses
+   cargo test --locked --offline -p fmn-render --test camera_route_limits -- --ignored --exact a_working_byte_budget_above_the_default_is_admitted_and_the_default_still_refuses
+
+[engine-fronts] bound 0.5 GiB
+   cargo check --locked --offline -p fmn-cli --all-targets
+   cargo check --locked --offline -p fmn-conformance --lib
+
+[kit-build] bound 2.22 GiB
+   rustfmt --check --edition 2024 --config-path rustfmt.toml crates/explainer_kit/tests/options_hook_routes.rs
+   cargo clippy --locked --offline --config STAGE/budget.toml -p explainer_kit --all-targets --no-deps -- -D warnings
+   cargo test --locked --offline --config STAGE/budget.toml -p explainer_kit --lib --test options_hook_routes --test camera_chapter --test glyph_probe --test cli_pipeline --no-run
+
+[kit-test] bound 0.0 GiB
+   cargo test --locked --offline --config STAGE/budget.toml -p explainer_kit --lib --test options_hook_routes --test camera_chapter --test glyph_probe --test cli_pipeline --no-fail-fast
+
+[film-check] bound 1.0 GiB
+   cargo clippy --locked --offline --config STAGE/budget.toml --manifest-path STAGE/crate/Cargo.toml --bin complex_analysis_visual --example plate_lab --no-deps -- -D warnings

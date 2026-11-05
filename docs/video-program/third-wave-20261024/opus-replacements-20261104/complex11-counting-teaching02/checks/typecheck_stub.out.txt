@@ -1,0 +1,8 @@
+PASS the lifted film code type-checks against the stubs
+caught control: a mark list used after it has moved -> error[E0382]: use of moved value: `roots`
+caught control: a tracker given a string -> error[E0308]: mismatched types
+caught control: one mob where a list is due -> error[E0308]: mismatched types
+caught control: the strips used after the updater took them -> error[E0382]: use of moved value: `strips`
+caught control: a closure that outlives what it borrows -> error[E0373]: closure may outlive the current function, but it borrows `last`, which is owned by the current function
+caught control: the plate missing from the frame's type -> error[E0277]: the trait bound `Vec<Mob>: Extend<&str>` is not satisfied
+RESULT PASS

@@ -1,0 +1,12 @@
+overlay-03_2-rule.png
+overlay-03_3-card.png
+overlay-03_5-flips.png
+overlay-04_3-walk.png
+existing-04_4-card.png
+overlay-05_3-tile.png
+zoom-05_3-tile.png
+tile pixels (388, 360, 473, 445) pixel side 25.13156311306517 25.13117043239157
+existing-02_6-end.png
+existing-05_8-card.png
+existing-05_9-tile.png
+existing-05_2-pole.png

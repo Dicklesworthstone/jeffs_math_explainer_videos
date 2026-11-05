@@ -1,0 +1,19 @@
+PASS control 6.4 plate at cells4: 1,075,301, published 1,075,301 (Mail 2921 / comparison REVIEW)
+PASS control 6.4 plate at cells2: 271,206, published 271,206 (comparison REVIEW)
+PASS control 5.6 plate at cells4: 824,960, published 824,960 (Mail 2916, sin(1/z))
+PASS control 6.4 plate at blend: 6.5% of the limit, published about 6.5%
+PASS control 6.4 plate at now: 12.9% of the limit, published about 13.0%
+
+the turn's plate is 5.6 wide. Knots as a share of 1<<20, then of 1<<22:
+rung	rows x cols	cells a repaint	model evals for 96 repaints	one plate	takeover (painter + field)	repaint (x2)	worst (x3)	worst of 1<<22
+now	160 x 160	25,600	2,457,600	103,840 (9.9%)	207,680 (19.8%)	207,680 (19.8%)	311,520 (29.7%)	7.4%
+tile	160 x 160	25,600	2,457,600	103,840 (9.9%)	207,680 (19.8%)	207,680 (19.8%)	311,520 (29.7%)	7.4%
+blend	160 x 160	25,600	2,457,600	52,640 (5.0%)	105,280 (10.0%)	105,280 (10.0%)	157,920 (15.1%)	3.8%
+rows2	320 x 160	51,200	4,915,200	105,280 (10.0%)	210,560 (20.1%)	210,560 (20.1%)	315,840 (30.1%)	7.5%
+cells2	320 x 320	102,400	9,830,400	207,680 (19.8%)	415,360 (39.6%)	415,360 (39.6%)	623,040 (59.4%)	14.9%
+cells4	640 x 640	409,600	39,321,600	824,960 (78.7%)	1,649,920 (157.3%)	1,649,920 (157.3%)	2,474,880 (236.0%)	59.0%
+
+The repaint count is an upper bound: 48 steps out and 48 back, each repainted at most once.
+Against the painter's crossfade: 12 steps, each of which paints two functions.
+
+exit 0

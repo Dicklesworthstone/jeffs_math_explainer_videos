@@ -1,0 +1,88 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/matrix_logs.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/matrix_logs.rs
+@@ -176,7 +176,7 @@
+         let identity = picture(stage.arena_mut(), I2, CENTRE, UNIT, 3);
+         fade_in_all(stage, &[before, identity], 0.5)?;
+         let examples: [M2; 4] = [
+-            model::rotation(TAU / 6.0),
++            [[0.6, -0.8], [0.8, 0.6]], // a true turn; a card's three places hold these exactly
+             [[1.6, 0.0], [0.0, 0.6]],
+             [[1.0, 1.0], [0.0, 1.0]],
+             [[-1.0, 0.0], [0.0, 1.0]],
+@@ -210,7 +210,7 @@
+             stage,
+             "before and after only: where each point lands, not how it travels",
+             20.0,
+-            Palette::dim(),
++            Palette::ink(),
+             v(CENTRE[0], -3.2),
+         )?;
+         fade_in_all(stage, &[ends_note], 0.4)?;
+@@ -263,7 +263,7 @@
+         play!(stage; tween(time, 1.0, 3.4)?);
+         kit.until_sentence(stage, "09_2", 4)?;
+         let e_card = card(&kit, stage, model::flow(x, 1.0), v(4.6, -1.5), 30.0, green)?;
+-        let e_word = kit.tex(stage, r"e^{X} =", 30.0, green, &[], v(2.8, -1.5))?;
++        let e_word = kit.tex(stage, r"e^{X} \approx", 30.0, green, &[], v(2.8, -1.5))?;
+         fade_in_all(stage, &[e_card, e_word], 0.5)?;
+ 
+         // 09_3: a logarithm of A: a velocity that lands on A at t = 1
+@@ -414,7 +414,7 @@
+     #[test]
+     fn the_marked_landings_of_every_example_stay_on_the_panel() {
+         let examples: [M2; 4] = [
+-            model::rotation(TAU / 6.0),
++            [[0.6, -0.8], [0.8, 0.6]],
+             [[1.6, 0.0], [0.0, 0.6]],
+             [[1.0, 1.0], [0.0, 1.0]],
+             [[-1.0, 0.0], [0.0, 1.0]],
+@@ -465,4 +465,48 @@
+         assert_eq!(entry(0.30000000000000004), "0.3");
+         assert_eq!(card_of(J)[0][1], "-1");
+     }
+-}
++
++    /// A card prints three places. Every 09_1 example and X keep all their digits there; only e^X
++    /// loses any, its word says so, and the definition in 09_3 stays exact. Read from this file,
++    /// because no render can run here.
++    #[test]
++    fn only_the_rounded_card_says_approximately() {
++        const TURNED: M2 = [[0.6, -0.8], [0.8, 0.6]];
++        let exact_on_card = |m: M2| {
++            m.iter()
++                .flatten()
++                .all(|&x| (entry(x).parse::<f64>().unwrap() - x).abs() < 1e-12)
++        };
++        // a true turn, not a near one
++        assert!(model::mdist(TURNED, model::rotation(0.8f64.atan2(0.6))) < 1e-12);
++        for m in [
++            TURNED,
++            [[1.6, 0.0], [0.0, 0.6]],
++            [[1.0, 1.0], [0.0, 1.0]],
++            [[-1.0, 0.0], [0.0, 1.0]],
++        ] {
++            assert!(exact_on_card(m), "{m:?}");
++        }
++        let x = fact_matrix("matrix.flow").unwrap();
++        assert!(exact_on_card(x));
++        assert!(!exact_on_card(model::flow(x, 1.0)));
++        let film = include_str!("matrix_logs.rs")
++            .split("#[cfg(test)]\nmod tests")
++            .next()
++            .unwrap();
++        assert!(film.contains("[[0.6, -0.8], [0.8, 0.6]],"));
++        assert!(film.contains(r#"let e_word = kit.tex(stage, r"e^{X} \approx", 30.0, green, &[], v(2.8, -1.5))?;"#));
++        assert!(!film.contains(r#"r"e^{X} =""#));
++        assert!(film.contains(r"\iff e^{X} = A"));
++    }
++
++    /// 09_1's closing caveat is the chapter's guard on "not how it travels": it is drawn in ink.
++    #[test]
++    fn the_before_and_after_caveat_is_in_ink() {
++        let film = include_str!("matrix_logs.rs");
++        let at = film
++            .find(r#""before and after only: where each point lands, not how it travels","#)
++            .unwrap();
++        assert_eq!(film[at..].lines().nth(2).unwrap().trim(), "Palette::ink(),");
++    }
++}

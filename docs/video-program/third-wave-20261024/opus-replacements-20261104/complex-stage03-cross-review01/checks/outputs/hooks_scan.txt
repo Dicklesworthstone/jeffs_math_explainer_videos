@@ -1,0 +1,404 @@
+cues said 105 script cues 105 same order True
+said twice: []
+== problems
+counting.rs:1148 11_8 until('There the count') byte -1 count 0: NOT IN THE CUE
+== phrase hooks
+COMPUTED-SENTENCE the_bump.rs:137 01_1 line.wait_sentence(stage, 1)
+the_bump.rs:138 01_1 until('It has no corners') byte 127 count 1
+COMPUTED-PHRASE the_bump.rs:138 01_1 line.until(stage,
+COMPUTED-SENTENCE the_bump.rs:176 01_2 line.wait_sentence(stage, 1)
+COMPUTED-PHRASE the_bump.rs:179 01_2 line.wait_for(stage, phrase)
+the_bump.rs:210 01_3 wait_for('At one point one') byte 119 count 1
+COMPUTED-PHRASE the_bump.rs:210 01_3 line.wait_for(stage,
+COMPUTED-SENTENCE the_bump.rs:235 01_3 line.wait_sentence(stage, 3)
+the_bump.rs:271 01_5 wait_for('Let x be a complex number') byte 39 count 1
+COMPUTED-PHRASE the_bump.rs:271 01_5 line.wait_for(stage,
+the_bump.rs:278 01_5 wait_for('They sit at i') byte 113 count 1
+COMPUTED-PHRASE the_bump.rs:278 01_5 line.wait_for(stage,
+the_bump.rs:288 01_5 wait_for('A recipe built at zero') byte 171 count 1
+COMPUTED-PHRASE the_bump.rs:288 01_5 line.wait_for(stage,
+the_bump.rs:309 01_5 wait_for('That circle has radius one') byte 261 count 1
+COMPUTED-PHRASE the_bump.rs:309 01_5 line.wait_for(stage,
+COMPUTED-SENTENCE the_bump.rs:327 01_6 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE the_bump.rs:333 01_6 line.wait_sentence(stage, 3)
+turning.rs:241 02_1 wait_for('how far right') byte 60 count 1
+COMPUTED-PHRASE turning.rs:241 02_1 line.wait_for(stage,
+turning.rs:252 02_1 wait_for('how far up') byte 91 count 1
+COMPUTED-PHRASE turning.rs:252 02_1 line.wait_for(stage,
+COMPUTED-SENTENCE turning.rs:263 02_1 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE turning.rs:313 02_2 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE turning.rs:321 02_2 line.wait_sentence(stage, 2)
+turning.rs:338 02_2 wait_for('and the whole plane turns') byte 143 count 1
+COMPUTED-PHRASE turning.rs:338 02_2 line.wait_for(stage,
+COMPUTED-SENTENCE turning.rs:378 02_3 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE turning.rs:397 02_4 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE turning.rs:419 02_4 line.wait_sentence(stage, 2)
+turning.rs:432 02_5 wait_for('an eighth of a turn') byte 37 count 1
+COMPUTED-PHRASE turning.rs:432 02_5 line.wait_for(stage,
+turning.rs:443 02_6 until('So one plus i') byte 88 count 1
+COMPUTED-PHRASE turning.rs:443 02_6 line.until(stage,
+COMPUTED-SENTENCE turning.rs:460 02_6 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE turning.rs:473 02_6 line.wait_sentence(stage, 2)
+turning.rs:478 02_6 wait_for('and angles add') byte 139 count 1
+COMPUTED-PHRASE turning.rs:478 02_6 line.wait_for(stage,
+turning.rs:481 02_6 wait_for('Every complex derivative') byte 172 count 1
+COMPUTED-PHRASE turning.rs:481 02_6 line.wait_for(stage,
+COMPUTED-SENTENCE two_planes.rs:405 03_1 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE two_planes.rs:408 03_1 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE two_planes.rs:419 03_1 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE two_planes.rs:433 03_2 line.wait_sentence(stage, 1)
+two_planes.rs:438 03_2 wait_for('squares each length') byte 66 count 1
+COMPUTED-PHRASE two_planes.rs:438 03_2 line.wait_for(stage,
+two_planes.rs:468 03_2 wait_for('doubles each angle') byte 90 count 1
+COMPUTED-PHRASE two_planes.rs:468 03_2 line.wait_for(stage,
+COMPUTED-SENTENCE two_planes.rs:483 03_2 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE two_planes.rs:618 03_4 line.wait_sentence(stage, 1)
+two_planes.rs:619 03_4 until('The two axes fold') byte 94 count 1
+COMPUTED-PHRASE two_planes.rs:619 03_4 line.until(stage,
+two_planes.rs:623 03_4 until('The horizontal axis lands') byte 129 count 1
+COMPUTED-PHRASE two_planes.rs:623 03_4 line.until(stage,
+COMPUTED-SENTENCE two_planes.rs:630 03_4 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE two_planes.rs:636 03_4 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE two_planes.rs:644 03_4 line.wait_sentence(stage, 5)
+two_planes.rs:662 03_4 wait_for('except at zero') byte 301 count 1
+COMPUTED-PHRASE two_planes.rs:662 03_4 line.wait_for(stage,
+COMPUTED-SENTENCE two_planes.rs:664 03_4 line.wait_sentence(stage, 7)
+COMPUTED-SENTENCE two_planes.rs:683 03_5 line.wait_sentence(stage, 1)
+two_planes.rs:704 03_5 until('The unit circle') byte 89 count 1
+COMPUTED-PHRASE two_planes.rs:704 03_5 line.until(stage,
+two_planes.rs:725 03_5 wait_for('each point flips') byte 140 count 1
+COMPUTED-PHRASE two_planes.rs:725 03_5 line.wait_for(stage,
+COMPUTED-SENTENCE two_planes.rs:739 03_5 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE two_planes.rs:742 03_5 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE two_planes.rs:789 03_6 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE two_planes.rs:804 03_6 line.wait_sentence(stage, 2)
+two_planes.rs:825 03_6 until('So vertical lines') byte 181 count 1
+COMPUTED-PHRASE two_planes.rs:825 03_6 line.until(stage,
+COMPUTED-SENTENCE two_planes.rs:827 03_6 line.wait_sentence(stage, 3)
+two_planes.rs:874 03_7 until('The exponential repeats') byte 55 count 1
+COMPUTED-PHRASE two_planes.rs:874 03_7 line.until(stage,
+two_planes.rs:888 03_7 wait_for('and it never reaches zero') byte 93 count 1
+COMPUTED-PHRASE two_planes.rs:888 03_7 line.wait_for(stage,
+COMPUTED-SENTENCE reading_color.rs:218 04_1 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE reading_color.rs:226 04_1 line.wait_sentence(stage, 2)
+COMPUTED-PHRASE reading_color.rs:259 04_1 line.wait_for(stage, phrase)
+COMPUTED-SENTENCE reading_color.rs:270 04_2 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE reading_color.rs:272 04_2 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE reading_color.rs:281 04_2 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE reading_color.rs:297 04_3 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE reading_color.rs:308 04_3 line.wait_sentence(stage, 2)
+reading_color.rs:328 04_4 until('Once for a simple zero') byte 81 count 1
+COMPUTED-PHRASE reading_color.rs:328 04_4 line.until(stage,
+reading_color.rs:330 04_4 wait_for('twice for a zero of order two') byte 105 count 1
+COMPUTED-PHRASE reading_color.rs:330 04_4 line.wait_for(stage,
+COMPUTED-SENTENCE reading_color.rs:332 04_4 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE reading_color.rs:359 04_5 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE reading_color.rs:411 04_7 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE reading_color.rs:428 04_7 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE gallery.rs:400 05_1 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE gallery.rs:405 05_1 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE gallery.rs:434 05_2 line.wait_sentence(stage, 2)
+gallery.rs:450 05_2 wait_for('and at minus one') byte 118 count 1
+COMPUTED-PHRASE gallery.rs:450 05_2 line.wait_for(stage,
+COMPUTED-SENTENCE gallery.rs:492 05_3 line.wait_sentence(stage, 1)
+gallery.rs:500 05_3 wait_for('and its size') byte 90 count 1
+COMPUTED-PHRASE gallery.rs:500 05_3 line.wait_for(stage,
+gallery.rs:509 05_3 wait_for('exact squares') byte 151 count 1
+COMPUTED-PHRASE gallery.rs:509 05_3 line.wait_for(stage,
+gallery.rs:512 05_3 wait_for('repeating every two pi') byte 166 count 1
+COMPUTED-PHRASE gallery.rs:512 05_3 line.wait_for(stage,
+COMPUTED-SENTENCE gallery.rs:565 05_4 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE gallery.rs:573 05_4 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE gallery.rs:581 05_4 line.wait_sentence(stage, 3)
+gallery.rs:608 05_4 wait_for('and sine of three i') byte 187 count 1
+COMPUTED-PHRASE gallery.rs:608 05_4 line.wait_for(stage,
+COMPUTED-SENTENCE gallery.rs:623 05_5 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE gallery.rs:628 05_5 line.wait_sentence(stage, 2)
+gallery.rs:646 05_5 wait_for('and far below') byte 126 count 1
+COMPUTED-PHRASE gallery.rs:646 05_5 line.wait_for(stage,
+COMPUTED-SENTENCE gallery.rs:679 05_6 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE gallery.rs:699 05_6 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE gallery.rs:713 05_6 line.wait_sentence(stage, 3)
+COMPUTED-PHRASE gallery.rs:719 05_6 line.wait_for(stage, phrase)
+gallery.rs:725 05_6 wait_for('and no zeros anywhere') byte 259 count 1
+COMPUTED-PHRASE gallery.rs:725 05_6 line.wait_for(stage,
+COMPUTED-SENTENCE gallery.rs:728 05_6 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE gallery.rs:749 05_7 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE gallery.rs:756 05_7 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE gallery.rs:758 05_7 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE gallery.rs:763 05_7 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE gallery.rs:780 05_7 line.wait_sentence(stage, 5)
+gallery.rs:856 05_8 wait_for('is the Riemann hypothesis') byte 71 count 1
+COMPUTED-PHRASE gallery.rs:856 05_8 line.wait_for(stage,
+COMPUTED-SENTENCE gallery.rs:859 05_8 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE gallery.rs:913 05_9 line.wait_sentence(stage, 1)
+gallery.rs:917 05_9 wait_for('in little tiles') byte 109 count 1
+COMPUTED-PHRASE gallery.rs:917 05_9 line.wait_for(stage,
+gallery.rs:955 05_9 wait_for('nearly square') byte 134 count 1
+COMPUTED-PHRASE gallery.rs:955 05_9 line.wait_for(stage,
+COMPUTED-SENTENCE gallery.rs:959 05_9 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE one_derivative.rs:235 06_1 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE one_derivative.rs:259 06_1 line.wait_sentence(stage, 3)
+one_derivative.rs:278 06_1 until('that ratio should settle') byte 229 count 1
+COMPUTED-PHRASE one_derivative.rs:278 06_1 line.until(stage,
+COMPUTED-SENTENCE one_derivative.rs:311 06_2 line.wait_sentence(stage, 1)
+one_derivative.rs:400 06_3 wait_for('the function moves') byte 80 count 1
+COMPUTED-PHRASE one_derivative.rs:400 06_3 line.wait_for(stage,
+COMPUTED-SENTENCE one_derivative.rs:422 06_3 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE one_derivative.rs:425 06_3 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE one_derivative.rs:450 06_3 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE one_derivative.rs:474 06_4 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE one_derivative.rs:540 06_5 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE one_derivative.rs:543 06_5 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE one_derivative.rs:554 06_5 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE one_derivative.rs:561 06_5 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE one_derivative.rs:576 06_6 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE one_derivative.rs:579 06_6 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE one_derivative.rs:582 06_6 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE one_derivative.rs:594 06_7 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE one_derivative.rs:601 06_7 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE one_derivative.rs:633 06_8 line.wait_sentence(stage, 1)
+one_derivative.rs:656 06_8 until('It sends') byte 68 count 1
+COMPUTED-PHRASE one_derivative.rs:656 06_8 line.until(stage,
+COMPUTED-SENTENCE one_derivative.rs:660 06_8 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE one_derivative.rs:669 06_9 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE one_derivative.rs:678 06_9 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE one_derivative.rs:687 06_9 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE one_derivative.rs:692 06_9 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE one_derivative.rs:711 06_9 line.wait_sentence(stage, 5)
+COMPUTED-SENTENCE one_point.rs:251 07_1 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE one_point.rs:254 07_1 line.wait_sentence(stage, 2)
+one_point.rs:315 07_1 until('The angle has doubled') byte 185 count 1
+COMPUTED-PHRASE one_point.rs:315 07_1 line.until(stage,
+COMPUTED-SENTENCE one_point.rs:390 07_2 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE one_point.rs:392 07_2 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE one_point.rs:413 07_3 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE one_point.rs:440 07_4 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE one_point.rs:456 07_4 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE one_point.rs:499 07_4 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE one_point.rs:530 07_5 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE one_point.rs:546 07_5 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE one_point.rs:564 07_5 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE one_point.rs:570 07_5 line.wait_sentence(stage, 4)
+one_point.rs:637 07_5 wait_for('and the product') byte 266 count 1
+COMPUTED-PHRASE one_point.rs:637 07_5 line.wait_for(stage,
+COMPUTED-SENTENCE one_point.rs:676 07_6 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE one_point.rs:745 07_6 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE one_point.rs:749 07_6 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE loop_sums.rs:313 08_1 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE loop_sums.rs:316 08_1 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE loop_sums.rs:330 08_1 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE loop_sums.rs:333 08_1 line.wait_sentence(stage, 4)
+loop_sums.rs:413 08_2 until('The total is zero') byte 145 count 1
+COMPUTED-PHRASE loop_sums.rs:413 08_2 line.until(stage,
+COMPUTED-SENTENCE loop_sums.rs:428 08_2 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE loop_sums.rs:455 08_3 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE loop_sums.rs:465 08_3 line.wait_sentence(stage, 2)
+loop_sums.rs:486 08_3 until('As the steps shrink') byte 153 count 1
+COMPUTED-PHRASE loop_sums.rs:486 08_3 line.until(stage,
+COMPUTED-SENTENCE loop_sums.rs:488 08_3 line.wait_sentence(stage, 3)
+loop_sums.rs:507 08_3 wait_for('whatever the size') byte 202 count 1
+COMPUTED-PHRASE loop_sums.rs:507 08_3 line.wait_for(stage,
+COMPUTED-SENTENCE loop_sums.rs:576 08_4 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE loop_sums.rs:582 08_4 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE loop_sums.rs:611 08_5 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE loop_sums.rs:636 08_5 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE loop_sums.rs:646 08_5 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE loop_sums.rs:659 08_5 line.wait_sentence(stage, 5)
+loop_sums.rs:667 08_5 wait_for('so the inner edges cancel') byte 345 count 1
+COMPUTED-PHRASE loop_sums.rs:667 08_5 line.wait_for(stage,
+loop_sums.rs:672 08_5 wait_for('only the outer loop is left') byte 376 count 1
+COMPUTED-PHRASE loop_sums.rs:672 08_5 line.wait_for(stage,
+COMPUTED-SENTENCE boundary.rs:183 09_1 line.wait_sentence(stage, 1)
+boundary.rs:204 09_1 wait_for('divide it by') byte 92 count 1
+COMPUTED-PHRASE boundary.rs:204 09_1 line.wait_for(stage,
+COMPUTED-SENTENCE boundary.rs:207 09_1 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE boundary.rs:218 09_1 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE boundary.rs:230 09_1 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE boundary.rs:241 09_2 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE boundary.rs:245 09_2 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE boundary.rs:293 09_3 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE boundary.rs:308 09_3 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE boundary.rs:329 09_4 line.wait_sentence(stage, 0)
+COMPUTED-SENTENCE boundary.rs:364 09_5 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE boundary.rs:373 09_5 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE boundary.rs:402 09_5 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE boundary.rs:482 09_6 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE boundary.rs:487 09_6 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE boundary.rs:498 09_6 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE boundary.rs:514 09_6 line.wait_sentence(stage, 4)
+boundary.rs:598 09_7 wait_for('the largest disk') byte 84 count 1
+COMPUTED-PHRASE boundary.rs:598 09_7 line.wait_for(stage,
+boundary.rs:615 09_7 until('That answers') byte 157 count 1
+COMPUTED-PHRASE boundary.rs:615 09_7 line.until(stage,
+COMPUTED-SENTENCE boundary.rs:619 09_7 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE boundary.rs:633 09_7 line.wait_sentence(stage, 3)
+boundary.rs:651 09_7 wait_for('no further') byte 357 count 1
+COMPUTED-PHRASE boundary.rs:651 09_7 line.wait_for(stage,
+boundary.rs:719 09_9 until('So the new recipe') byte 55 count 1
+COMPUTED-PHRASE boundary.rs:719 09_9 line.until(stage,
+COMPUTED-SENTENCE boundary.rs:752 09_9 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE rigidity.rs:191 10_1 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE rigidity.rs:214 10_1 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE rigidity.rs:245 10_2 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE rigidity.rs:262 10_2 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE rigidity.rs:282 10_2 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE rigidity.rs:358 10_3 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE rigidity.rs:360 10_3 line.wait_sentence(stage, 2)
+rigidity.rs:370 10_3 wait_for('yet it is not zero') byte 157 count 1
+COMPUTED-PHRASE rigidity.rs:370 10_3 line.wait_for(stage,
+COMPUTED-SENTENCE rigidity.rs:372 10_3 line.wait_sentence(stage, 3)
+rigidity.rs:461 10_4 wait_for('one over pi') byte 30 count 1
+COMPUTED-PHRASE rigidity.rs:461 10_4 line.wait_for(stage,
+rigidity.rs:465 10_4 wait_for('one over two pi') byte 43 count 1
+COMPUTED-PHRASE rigidity.rs:465 10_4 line.wait_for(stage,
+rigidity.rs:467 10_4 wait_for('one over three pi') byte 60 count 1
+COMPUTED-PHRASE rigidity.rs:467 10_4 line.wait_for(stage,
+rigidity.rs:469 10_4 wait_for('and so on') byte 79 count 1
+COMPUTED-PHRASE rigidity.rs:469 10_4 line.wait_for(stage,
+COMPUTED-SENTENCE rigidity.rs:471 10_4 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE rigidity.rs:478 10_5 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE rigidity.rs:492 10_5 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE rigidity.rs:535 10_6 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE rigidity.rs:541 10_6 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE rigidity.rs:543 10_6 line.wait_sentence(stage, 3)
+rigidity.rs:552 10_6 wait_for('must grow huge') byte 215 count 1
+COMPUTED-PHRASE rigidity.rs:552 10_6 line.wait_for(stage,
+COMPUTED-SENTENCE counting.rs:207 11_1 line.wait_sentence(stage, i + 2)
+COMPUTED-SENTENCE counting.rs:226 11_1 line.sentence(i + 3)
+COMPUTED-SENTENCE counting.rs:255 11_2 line.wait_sentence(stage, 1)
+counting.rs:259 11_2 wait_for('each counted') byte 121 count 1
+COMPUTED-PHRASE counting.rs:259 11_2 line.wait_for(stage,
+COMPUTED-SENTENCE counting.rs:281 11_2 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE counting.rs:284 11_2 line.wait_sentence(stage, 3)
+COMPUTED-PHRASE counting.rs:288 11_2 line.wait_for(stage,
+COMPUTED-SENTENCE counting.rs:332 11_3 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE counting.rs:353 11_3 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE counting.rs:378 11_3 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE counting.rs:420 11_4 line.wait_sentence(stage, 0)
+COMPUTED-SENTENCE counting.rs:423 11_4 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE counting.rs:474 11_6 line.wait_sentence(stage, 2)
+counting.rs:525 11_7 wait_for('complex polynomial') byte 45 count 1
+COMPUTED-PHRASE counting.rs:525 11_7 line.wait_for(stage,
+COMPUTED-SENTENCE counting.rs:532 11_7 line.wait_sentence(stage, 1)
+counting.rs:536 11_7 until('which leaves') byte 110 count 1
+COMPUTED-PHRASE counting.rs:536 11_7 line.until(stage,
+counting.rs:554 11_7 wait_for('with z') byte 158 count 1
+COMPUTED-PHRASE counting.rs:554 11_7 line.wait_for(stage,
+COMPUTED-SENTENCE counting.rs:563 11_7 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE counting.rs:571 11_7 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE counting.rs:792 11_8 line.wait_sentence(stage, 2)
+counting.rs:814 11_8 until('But samples') byte 182 count 1
+COMPUTED-PHRASE counting.rs:814 11_8 line.until(stage,
+COMPUTED-SENTENCE counting.rs:838 11_8 line.wait_sentence(stage, 3)
+counting.rs:880 11_8 until('So bound') byte 243 count 1
+COMPUTED-PHRASE counting.rs:880 11_8 line.until(stage,
+COMPUTED-SENTENCE counting.rs:898 11_8 line.wait_sentence(stage, 4)
+counting.rs:937 11_8 wait_for('take steps') byte 291 count 1
+COMPUTED-PHRASE counting.rs:937 11_8 line.wait_for(stage,
+counting.rs:970 11_8 wait_for('cannot move') byte 327 count 1
+COMPUTED-PHRASE counting.rs:970 11_8 line.wait_for(stage,
+COMPUTED-SENTENCE counting.rs:1002 11_8 line.wait_sentence(stage, 5)
+counting.rs:1148 11_8 until('There the count') byte -1 count 0
+COMPUTED-PHRASE counting.rs:1148 11_8 line.until(stage,
+COMPUTED-SENTENCE residues.rs:133 12_1 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE residues.rs:144 12_1 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE residues.rs:172 12_1 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE residues.rs:237 12_2 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE residues.rs:239 12_2 line.wait_sentence(stage, 2)
+residues.rs:244 12_2 wait_for('the residue is') byte 172 count 1
+COMPUTED-PHRASE residues.rs:244 12_2 line.wait_for(stage,
+COMPUTED-SENTENCE residues.rs:265 12_3 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE residues.rs:275 12_3 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE residues.rs:338 12_4 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE residues.rs:343 12_4 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE real_integral.rs:301 13_1 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE real_integral.rs:304 13_1 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE real_integral.rs:308 13_1 line.wait_sentence(stage, 4)
+real_integral.rs:339 13_2 until('then come back') byte 44 count 1
+COMPUTED-PHRASE real_integral.rs:339 13_2 line.until(stage,
+real_integral.rs:342 13_2 until('Inside this loop') byte 93 count 1
+COMPUTED-PHRASE real_integral.rs:342 13_2 line.until(stage,
+COMPUTED-SENTENCE real_integral.rs:348 13_2 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE real_integral.rs:361 13_2 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE real_integral.rs:364 13_2 line.wait_sentence(stage, 3)
+real_integral.rs:436 13_3 until('so the bump') byte 52 count 1
+COMPUTED-PHRASE real_integral.rs:436 13_3 line.until(stage,
+real_integral.rs:440 13_3 wait_for('so the bump') byte 52 count 1
+COMPUTED-PHRASE real_integral.rs:440 13_3 line.wait_for(stage,
+COMPUTED-SENTENCE real_integral.rs:446 13_3 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE real_integral.rs:453 13_3 line.wait_sentence(stage, 2)
+real_integral.rs:488 13_3 wait_for('which shrinks') byte 205 count 1
+COMPUTED-PHRASE real_integral.rs:488 13_3 line.wait_for(stage,
+real_integral.rs:498 13_3 until('All of pi') byte 239 count 1
+COMPUTED-PHRASE real_integral.rs:498 13_3 line.until(stage,
+COMPUTED-SENTENCE real_integral.rs:554 13_3 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE real_integral.rs:590 13_4 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE real_integral.rs:593 13_4 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE real_integral.rs:599 13_4 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE real_integral.rs:621 13_5 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE real_integral.rs:648 13_6 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE real_integral.rs:658 13_7 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE real_integral.rs:661 13_7 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE real_integral.rs:683 13_8 line.wait_sentence(stage, 1)
+real_integral.rs:694 13_8 wait_for('each has imaginary part') byte 59 count 1
+COMPUTED-PHRASE real_integral.rs:694 13_8 line.wait_for(stage,
+COMPUTED-SENTENCE real_integral.rs:697 13_8 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE real_integral.rs:724 13_9 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE real_integral.rs:727 13_9 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE real_integral.rs:748 13_10 line.wait_sentence(stage, 1)
+real_integral.rs:751 13_10 wait_for('so that part') byte 88 count 1
+COMPUTED-PHRASE real_integral.rs:751 13_10 line.wait_for(stage,
+COMPUTED-SENTENCE real_integral.rs:778 13_10 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE real_integral.rs:787 13_10 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE real_integral.rs:806 13_11 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE continuing.rs:280 14_1 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE continuing.rs:285 14_1 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE continuing.rs:287 14_1 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE continuing.rs:310 14_1 line.wait_sentence(stage, 5)
+COMPUTED-SENTENCE continuing.rs:327 14_2 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE continuing.rs:332 14_2 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE continuing.rs:363 14_2 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE continuing.rs:393 14_2 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE continuing.rs:397 14_2 line.wait_sentence(stage, 5)
+COMPUTED-SENTENCE continuing.rs:449 14_3 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE continuing.rs:464 14_3 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE continuing.rs:478 14_3 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE continuing.rs:509 14_3 line.wait_sentence(stage, 5)
+COMPUTED-SENTENCE continuing.rs:515 14_3 line.wait_sentence(stage, 6)
+COMPUTED-SENTENCE continuing.rs:539 14_5 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE continuing.rs:551 14_5 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE continuing.rs:566 14_5 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE continuing.rs:569 14_5 line.wait_sentence(stage, 5)
+COMPUTED-SENTENCE continuing.rs:572 14_5 line.wait_sentence(stage, 6)
+COMPUTED-SENTENCE continuing.rs:582 14_5 line.wait_sentence(stage, 7)
+COMPUTED-SENTENCE continuing.rs:621 14_6 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE continuing.rs:659 14_6 line.wait_sentence(stage, 3)
+continuing.rs:660 14_6 until('When you come back') byte 147 count 1
+COMPUTED-PHRASE continuing.rs:660 14_6 line.until(stage,
+COMPUTED-SENTENCE continuing.rs:672 14_6 line.wait_sentence(stage, 5)
+COMPUTED-SENTENCE continuing.rs:688 14_7 line.wait_sentence(stage, 2)
+continuing.rs:705 14_7 wait_for('near a dense set') byte 200 count 1
+COMPUTED-PHRASE continuing.rs:705 14_7 line.wait_for(stage,
+COMPUTED-SENTENCE continuing.rs:725 14_7 line.wait_sentence(stage, 4)
+COMPUTED-SENTENCE continuing.rs:751 14_8 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE continuing.rs:762 14_8 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE continuing.rs:765 14_8 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE closing.rs:253 15_1 line.wait_sentence(stage, 1)
+closing.rs:257 15_1 wait_for('because of two points') byte 61 count 1
+COMPUTED-PHRASE closing.rs:257 15_1 line.wait_for(stage,
+closing.rs:276 15_1 wait_for('at i and minus i') byte 115 count 1
+COMPUTED-PHRASE closing.rs:276 15_1 line.wait_for(stage,
+COMPUTED-SENTENCE closing.rs:321 15_2 line.wait_sentence(stage, 1)
+COMPUTED-SENTENCE closing.rs:329 15_2 line.wait_sentence(stage, 2)
+COMPUTED-SENTENCE closing.rs:330 15_2 line.wait_sentence(stage, 3)
+COMPUTED-SENTENCE closing.rs:331 15_2 line.wait_sentence(stage, 4)
+closing.rs:332 15_2 wait_for('and it turns a real integral') byte 263 count 1
+COMPUTED-PHRASE closing.rs:332 15_2 line.wait_for(stage,
+COMPUTED-SENTENCE closing.rs:333 15_2 line.wait_sentence(stage, 5)
+COMPUTED-SENTENCE closing.rs:389 15_3 line.wait_sentence(stage, 1)
+closing.rs:414 15_4 wait_for('the square root of ten') byte 41 count 1
+COMPUTED-PHRASE closing.rs:414 15_4 line.wait_for(stage,
+COMPUTED-SENTENCE closing.rs:455 15_4 line.wait_sentence(stage, 1)
+
+== cues changed since script-as-reviewed-mail622.tsv ['03_4', '05_8', '11_3', '11_6', '11_7', '11_8', '14_3', '15_2']

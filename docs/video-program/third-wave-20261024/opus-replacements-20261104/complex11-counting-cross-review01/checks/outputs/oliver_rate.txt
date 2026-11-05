@@ -1,0 +1,2 @@
+169 cues of 169; median 13.91 characters a second
+13.96 10.62 16.48

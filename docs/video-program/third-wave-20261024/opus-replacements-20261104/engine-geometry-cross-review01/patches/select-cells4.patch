@@ -1,0 +1,36 @@
+--- a/src/chapters/draw.rs
++++ b/src/chapters/draw.rs
+@@ -614,14 +614,13 @@
+ };
+ /// Cells a quarter the size: sixteen times the evaluations, about four times the raster work per
+ /// pixel. A bracket for what finer cells cost, not a proposal.
+-#[allow(dead_code)] // for examples/plate_lab.rs, until root chooses
+ pub const PLATE_CELLS4: PlateStyle = PlateStyle {
+     row: CELL / 4.0,
+     col: CELL / 4.0,
+     ..PLATE_BLEND
+ };
+ /// The style the film's pictures use.
+-pub const PLATE: PlateStyle = PLATE_NOW;
++pub const PLATE: PlateStyle = PLATE_CELLS4;
+ 
+ /// Rows that meet as `style` says. At the engine's default band of 1.5 px the background shows
+ /// through at each boundary between rows, which reads as fine stripes across the picture; a
+@@ -1538,7 +1537,7 @@
+     /// Choosing a picture for the film is a decision: this changes with it.
+     #[test]
+     fn the_film_draws_what_it_drew() {
+-        assert_eq!(PLATE, PLATE_NOW);
++        assert_eq!(PLATE, PLATE_CELLS4);
+     }
+ 
+     #[test]
+@@ -1609,7 +1608,7 @@
+         // the widest picture the chapters draw: 6.4 × 6.4 scene units
+         let p = Plane::new(v(0.0, 0.0), 6.4, (-2.0, 2.0), (-2.0, 2.0));
+         let (cols, rows) = picture_cells(&p, &PLATE);
+-        assert!(rows <= 200 && cols <= 200, "{cols} × {rows}");
++        assert!(rows <= 800 && cols <= 800, "{cols} × {rows}");
+         assert!(rows < explainer_kit::GROUP_TRANSFORM_LIMIT);
+     }
+ 

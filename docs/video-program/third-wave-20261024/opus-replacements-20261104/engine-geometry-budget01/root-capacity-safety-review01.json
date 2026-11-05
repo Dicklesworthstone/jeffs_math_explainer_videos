@@ -1,0 +1,12 @@
+{
+  "timestamp": "2026-11-04T23:29:31.966760+00:00",
+  "source": "/Users/jemanuel/.cargo/git/checkouts/franken_manim-6641d0e09642f63e/a399d62/crates/fmn-render/src/plan.rs",
+  "source_sha256": "da87db3e478cadf96f555445b8f0ed19c31b4ad41fb61867add638eff61e0e40",
+  "observations": [
+    "Configured knot admission is separate from checked addition and index-capacity checks (plan.rs 285-316,1027-1039).",
+    "Proposed film budget is 4194304 retained profile knots; estimated full repaint requires 2150602.",
+    "Raising admission does not remove u32 indexing constraints or guarantee allocation/render success."
+  ],
+  "status": "Source inspection only. Corrected agent implementation, native tests, dense fade/repaint, actual 4K pictures and measured memory remain pending.",
+  "coordination_mail": 3117
+}

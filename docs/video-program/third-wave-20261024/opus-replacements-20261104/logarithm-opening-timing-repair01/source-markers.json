@@ -1,0 +1,121 @@
+{
+  "topic": "logarithm_mysteries",
+  "sources": [
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/ratio_ruler.rs",
+      "baseline_sha256": "92cf028b124f8a3732218cbe31505e5351f86fea5bad180c0d3c97240e077bfd",
+      "patched_sha256": "198d4a0586369258d845a21ee857eeb51e34357b61fe40398e5789379a6b5fd1",
+      "line_count": {
+        "baseline": 550,
+        "patched": 650
+      }
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs",
+      "baseline_sha256": "acfc7f9c198b3d3d0f99e1b160ec6c2d4e22a4ce28aeb4263deb29df9efa670d",
+      "patched_sha256": "c4f023ce5284dd768767b28c9d68a4da1e05c40385eb750dc9d4fbe583b6347e",
+      "line_count": {
+        "baseline": 595,
+        "patched": 658
+      }
+    },
+    {
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs",
+      "baseline_sha256": "eea4d01d96fd4853ff541e0f55264178a09428079200dd9397b148a3976ab7e4",
+      "patched_sha256": "68d4b011fb4d90033ef1ae69aedef1639e12c11ce3624dbb5c378152d39b1ecd",
+      "line_count": {
+        "baseline": 518,
+        "patched": 525
+      }
+    }
+  ],
+  "map13_hold_delta": [
+    {
+      "cue": "00_4",
+      "next_cue": "00_5",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/ratio_ruler.rs",
+      "sha256": {
+        "old": "92cf028b124f8a3732218cbe31505e5351f86fea5bad180c0d3c97240e077bfd",
+        "new": "198d4a0586369258d845a21ee857eeb51e34357b61fe40398e5789379a6b5fd1"
+      },
+      "evidence_sha256": {
+        "old": "92cf028b124f8a3732218cbe31505e5351f86fea5bad180c0d3c97240e077bfd",
+        "new": "198d4a0586369258d845a21ee857eeb51e34357b61fe40398e5789379a6b5fd1"
+      },
+      "line": {
+        "old": 371,
+        "new": 371
+      },
+      "marker": {
+        "old": "predict(&kit, stage, v(3.6, -2.75), 3.0)?;",
+        "new": "predict(&kit, stage, v(3.6, -2.75), 3.0)?;"
+      },
+      "interval_sha256": {
+        "old": "86bf44bb70227da9e2f416862ba78a056faaaa05b3b7955e8bc009d769001515",
+        "new": "86bf44bb70227da9e2f416862ba78a056faaaa05b3b7955e8bc009d769001515"
+      }
+    },
+    {
+      "cue": "02_2",
+      "next_cue": "02_3",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs",
+      "sha256": {
+        "old": "eea4d01d96fd4853ff541e0f55264178a09428079200dd9397b148a3976ab7e4",
+        "new": "68d4b011fb4d90033ef1ae69aedef1639e12c11ce3624dbb5c378152d39b1ecd"
+      },
+      "evidence_sha256": {
+        "old": "eea4d01d96fd4853ff541e0f55264178a09428079200dd9397b148a3976ab7e4",
+        "new": "68d4b011fb4d90033ef1ae69aedef1639e12c11ce3624dbb5c378152d39b1ecd"
+      },
+      "line": {
+        "old": 204,
+        "new": 204
+      },
+      "marker": {
+        "old": "predict(&kit, stage, v(4.7, -2.75), 3.0)?;",
+        "new": "predict(&kit, stage, v(4.7, -2.75), 3.0)?;"
+      },
+      "interval_sha256": {
+        "old": "e45bdd98eeb62a82c547c28c645a4416ef1cc35c19bcfaff38420281e2a38c07",
+        "new": "20094536ae2191f558b6ca76bc94b089e10f8fbe2bf78647b08036b306a75215"
+      }
+    }
+  ],
+  "binder_sites_delta": [
+    {
+      "key": [
+        "ratio_ruler.rs",
+        181
+      ],
+      "becomes": [
+        "ratio_ruler.rs",
+        210
+      ],
+      "class": "picture_pacing",
+      "note": "unchanged: paces the note dots, 0.18 s each; now inside 00_2"
+    },
+    {
+      "key": null,
+      "becomes": [
+        "ratio_ruler.rs",
+        555
+      ],
+      "class": "word_sync_helper",
+      "note": "new: inside read_out, waits to a share of a sentence of 00_1, inside the voice. The census lists it under 00_6 because the helper follows preview()."
+    },
+    {
+      "key": [
+        "ratio_ruler.rs",
+        509
+      ],
+      "becomes": [
+        "ratio_ruler.rs",
+        509
+      ],
+      "class": "helper_tail",
+      "note": "unchanged"
+    }
+  ],
+  "phrase_anchor_delta": [],
+  "cue_text_delta": []
+}

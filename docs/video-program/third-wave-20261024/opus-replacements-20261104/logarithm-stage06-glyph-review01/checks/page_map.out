@@ -1,0 +1,6 @@
+registry sources 588; ink rows the probe should lay out 603
+pages 51: frame_000000.png to frame_000050.png
+bands found 603; expected 603; MATCH
+rows reaching within 60 px of the right edge: []
+rows reaching within 40 px of the bottom edge: []
+rows starting within 40 px of the left edge: []

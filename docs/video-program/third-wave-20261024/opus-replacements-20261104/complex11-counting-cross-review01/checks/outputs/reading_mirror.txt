@@ -1,0 +1,55 @@
+11_7 has 7 sentences, 505 characters, 96 words
+PASS the cue stays under the request limit of 100 words: 96
+PASS sentence 1 opens with 'Divide'
+PASS sentence 2 opens with 'Now it starts'
+PASS sentence 3 opens with 'On a huge circle'
+PASS sentence 4 opens with 'Picture'
+PASS sentence 6 opens with 'So there are'
+PASS 'complex polynomial' is in sentence 0 and nowhere else
+PASS 'which leaves' is in sentence 1 and nowhere else
+phrase keys in the cue: ['complex polynomial', 'which leaves']
+PASS the cue uses only those two phrase keys
+
+the control: WhiteSwan's table gives these sentence starts and turn times
+PASS old scratch rate: turn out 1.40 / back 2.49, theirs 1.4 / 2.47
+PASS 15% faster: turn out 1.40 / back 2.08, theirs 1.4 / 2.05
+PASS 30% faster: turn out 1.38 / back 1.63, theirs 1.36 / 1.64
+
+at rates, staged order, then with C2. Seconds; rates are characters a second:
+rate	variant	out	hold on f	back	f row clean	every clean	result row clean	z^n in, against 'z to the n'	results + card until the wide plane
+scratch 12.7	staged	1.40	0.66	2.46	4.82	2.46	2.18	-0.80	6.90
+scratch 12.7	C2	1.40	0.66	2.46	4.82	2.46	3.28	0.31	6.90
+Oliver slowest cue 10.62	staged	1.40	1.12	3.00	5.82	3.00	2.70	-1.09	8.35
+Oliver slowest cue 10.62	C2	1.40	1.12	3.00	5.82	3.00	4.02	0.23	8.35
+Oliver overall 13.96	staged	1.40	0.45	2.21	4.36	2.21	1.94	-0.66	6.23
+Oliver overall 13.96	C2	1.40	0.45	2.21	4.36	2.21	2.94	0.34	6.23
+15 flat	staged	1.40	0.30	2.03	4.03	2.03	1.77	-0.57	5.77
+15 flat	C2	1.40	0.30	2.03	4.03	2.03	2.70	0.37	5.77
+Oliver fastest cue 16.48	staged	1.40	0.12	1.82	3.64	1.82	1.56	-0.45	5.20
+Oliver fastest cue 16.48	C2	1.40	0.12	1.82	3.64	1.82	2.41	0.40	5.20
+16.5 (30% over scratch)	staged	1.40	0.12	1.82	3.64	1.82	1.56	-0.45	5.20
+16.5 (30% over scratch)	C2	1.40	0.12	1.82	3.64	1.82	2.41	0.40	5.20
+
+the result row prints 30 characters: 2.00 s at the program's 15 a second, as a lower bound
+staged: 1.94 s at Oliver's overall rate on another film, 1.56 s at that film's fastest cue
+PASS with C2 the row reaches its bound at every rate above
+PASS 'with z' is in sentence 2 and nowhere else
+PASS the first 'z to the n' is sentence 2's
+PASS C2 waits on the words and no longer on sentence 2's start
+
+11_6's card: 65 characters, 7.2 s clean, floor 4.33, ceiling 8.67
+PASS reading_windows_leave_time_for_what_the_voice_leaves_out, mirrored, 11_6
+PASS each_card_outlasts_its_reading_window, mirrored, 11_6, staged
+PASS each_card_outlasts_its_reading_window, mirrored, 11_6, corrected
+PASS planted, caught: something between the window and the next cue
+PASS planted, caught: the card is never cleared
+PASS counting::EVERY_OUTPUT is registered once
+PASS counting::ZERO_KEPT is registered once
+PASS counting::SAME_ROOTS is registered once
+PASS counting::BEFORE_DIVIDING_TEX is registered once
+PASS counting::AFTER_DIVIDING_TEX is registered once
+PASS no_supplement_is_empty_or_duplicated, mirrored on the rows' names: 64 rows
+
+all passed
+
+exit 0

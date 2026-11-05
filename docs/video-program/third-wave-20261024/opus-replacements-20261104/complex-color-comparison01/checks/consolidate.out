@@ -1,0 +1,27 @@
+plates.tsv byte-equal across 3 labs: True, sha256 853de9f73659c87c18ec885da4b8c7615f8f373820b88c8552bb8791feb156af
+lab720-01: 128 files, 7906521 bytes
+lab720-fades02: 102 files, 7386886 bytes
+lab720-controls02: 15 files, 6623380 bytes
+scenes joined: 79; stills 65, fades 11, repaints 3
+truth bump.ppm from lab720-controls02 79376eaf9c979b60
+truth openbump.ppm from lab720-controls02 b92f2cf322350658
+truth recip.ppm from lab720-controls02 c9619e462e7ee798
+truth sin.ppm from lab720-controls02 abb182b00cc0d509
+truth sinrecip.ppm from lab720-controls02 40dab7ab65565b8b
+truth tan.ppm from lab720-controls02 f12c384f412783c0
+truth z.ppm from lab720-controls02 7b5efb0080235ed8
+truth z2.ppm from lab720-controls02 03dcbd2ee1a81291
+truth zoom.ppm from lab720-controls02 3d115217d6b98464
+truth portraits: 9
+lab crate src/plate_layout.rs equals my frozen candidate: True
+lab crate examples/plate_lab.rs equals my frozen candidate: True
+lab crate src/chapters/draw.rs equals my frozen candidate: True
+preview-inputs01.json: A-plate-core.patch bound to my frozen bytes: True
+preview-inputs01.json: B-plate-lab.patch bound to my frozen bytes: True
+remaining720-inputs02.json: A-plate-core.patch bound to my frozen bytes: True
+remaining720-inputs02.json: B-plate-lab.patch bound to my frozen bytes: True
+same plate_lab binary in both jobs: True, sha256 c2832822d015bbd1cc066a584e30f9a88c68bca56da67e035f54a85512385d63
+job complex-color-plates720-01: exit 1, 2026-11-04T21:50:43.162044+00:00 to 2026-11-04T21:52:38.446037+00:00, inputs held True
+job complex-color-remaining720-02: exit 0, 2026-11-04T21:54:06.880871+00:00 to 2026-11-04T21:55:45.727801+00:00, inputs held True
+plates720-01 last log line: Error: Renderer(Sync(LimitExceeded { resource: "retained profile knots", requested: 1048823, limit: 1048576 }))
+CONSOLIDATED

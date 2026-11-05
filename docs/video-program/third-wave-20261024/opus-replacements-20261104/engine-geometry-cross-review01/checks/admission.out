@@ -1,0 +1,27 @@
+Part 1. Every row repainted every frame, 24 frames
+z2 cells4                           1<<20  REFUSED, frame 0: requested 1048823, limit 1048576
+z2 cells4                           1<<21  REFUSED, frame 1: requested 2097646, limit 2097152
+z2 cells4                           1<<22  admitted, 24 frames, peak 3225903, 7 compactions, every 3 frames ['AdmissionBoundary']
+sin(1/z) cells4                     1<<20  REFUSED, frame 1: requested 1049246, limit 1048576
+sin(1/z) cells4                     1<<21  admitted, 24 frames, peak 1649920, 11 compactions, every 2 frames ['AdmissionBoundary']
+sin(1/z) cells4                     1<<22  admitted, 24 frames, peak 4124800, 4 compactions, every 5 frames ['AdmissionBoundary']
+six panels, all together (bound)    1<<20  REFUSED, frame 0: requested 1049427, limit 1048576
+six panels, all together (bound)    1<<21  REFUSED, frame 1: requested 2097885, limit 2097152
+six panels, all together (bound)    1<<22  admitted, 24 frames, peak 3453516, 11 compactions, every 2 frames ['AdmissionBoundary']
+z2 cells2                           1<<20  admitted, 24 frames, peak 813618, 7 compactions, every 3 frames ['AdmissionBoundary']
+z2 cells2                           1<<21  admitted, 24 frames, peak 1898442, 3 compactions, every 7 frames ['AdmissionBoundary']
+z2 cells2                           1<<22  admitted, 24 frames, peak 3525678, 1 compactions, none ['UnreachableBudget']
+
+Part 2. 05_9 as the film plays it, cells4, sequential fades
+05_9 six, then cubic + zoom         1<<20  REFUSED, frame 31: requested 1049427, limit 1048576
+05_9 six, then cubic + zoom         1<<21  admitted, 383 frames, peak 2096186, 81 compactions, gaps [2, 3, 4, 5, 6, 7, 62, 65] ['AdmissionBoundary']
+05_9 six, then cubic + zoom         1<<22  admitted, 383 frames, peak 4149484, 30 compactions, gaps [5, 6, 7, 9, 10, 11, 12, 13, 14, 67, 69] ['AdmissionBoundary']
+live six plus the one fading: 7 x 297 x 969 = 2014551; 1<<22 is 2.08 times that
+
+Part 3. The lab's seven-frame fade at z2 cells4
+z2 cells4, Kind::Fade               1<<20  REFUSED, frame 0: requested 1048823, limit 1048576
+z2 cells4, Kind::Fade               1<<21  REFUSED, frame 1: requested 2097646, limit 2097152
+z2 cells4, Kind::Fade               1<<22  admitted, 7 frames, peak 3225903, 1 compactions, none ['AdmissionBoundary']
+
+Plate lab frame total if a z2 cells4 fade is added: 67 + (77 + 7) + 9 = 160 against FRAME_LIMIT 160
+Plate lab frame total if a fade and a repaint are both added: 67 + 84 + 12 = 163 (over)

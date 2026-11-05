@@ -1,0 +1,24 @@
+{
+  "utc": "2026-11-05T01:36:31.417155+00:00",
+  "scope": "Native facade secondary frame-table and camera budgets; not production pin or completed film acceptance",
+  "helper_sha256": "378a2b817af8a20ccb1cdad3b1189dd43b1833a5dd39e4af8efd3cd935096a04",
+  "self_test": {
+    "exit": 0,
+    "test_inventory": 20,
+    "ignored_native_controls": 2,
+    "guard_cases_passed": 8,
+    "pixel_negative_controls_passed": true,
+    "fixtures_preserved": "/var/folders/vt/n2xyn_s51b97_j3yh2qbqcnc0000gn/T/geometry-secondary-root-selftest-6w98m28d"
+  },
+  "stage": "/Users/jemanuel/scratch/jmev-engine-secondary-validation01",
+  "stage_exit": 0,
+  "frozen_source_check": "original inputs.tsv passed before staging; this copies prior geometry lab crate, not merged stage03 film",
+  "controller": "oliver-engine-secondary-validation01",
+  "native_validation": "started; terminal receipts required",
+  "pending": [
+    "Native tests and unchanged-default pixel comparison",
+    "Above-default camera/frame-table controls",
+    "Independent source review",
+    "Merged production film integration and final visual/audio qualification"
+  ]
+}

@@ -1,0 +1,61 @@
+
+-- the AFTER copy is the stacked result both bundles expect
+  PASS 12 of 12 expected files match in AFTER
+
+-- defaults the patches must preserve
+  PASS impl Default for MonoTableLimits: identical text before and after
+  PASS impl Default for BinningLimits: identical text before and after
+  PASS impl Default for RenderPlanLimits: identical text before and after
+  PASS ThreeDPreparationLimits default: the five old values unchanged, one new line max_curve_bin_entries: 1 << 24
+  PASS before: bins left unbuilt when total > 1 << 24
+  PASS after: the same strict comparison against min(declared, u32::MAX), so the default boundary is unchanged
+  PASS before: fewer than 32 curves returns before any entry limit is read
+  PASS after: fewer than 32 curves returns before any entry limit is read
+  PASS 4 test literals set max_curve_bin_entries to 0
+  PASS RenderOptions defaults both new fields to the engine defaults
+
+-- propagation on the facade (AFTER)
+  PASS pipeline.rs: {'set_plan_limits': 4, 'set_frame_table_limits': 2, 'set_camera_limits': 2} (serial and compiled-worker sites for each route)
+  PASS rendering.rs: one with_limits construction, inside RenderSink
+  PASS retained.rs: the camera scene builds its job with the renderer's limits
+  PASS kit cli.rs: the film hook runs after camera_options rebuilds the options, so declared budgets survive
+
+-- refusal name on a worker failure (pre-existing path, both patches)
+  PASS pipeline.rs:181: rasterize owns the reservation, so an Err via ? drops it
+  PASS capture: stream permit first, then the emitter slot, whose error maps to RenderError::Emitter
+  PASS capture_compiled: stream permit first, then the emitter slot, whose error maps to RenderError::Emitter
+  PASS rendering.rs:1097: the original error is recovered only for RenderError::Pipeline
+  PASS compiled.rs: the same Pipeline-only recovery
+  PASS the emitter has frames_in_flight slots, as many as the stream has permits
+  PASS emitter reserve: a recorded failure is returned before and after every wait
+  PASS a dropped reservation records ReservationAbandoned and wakes waiters
+  PASS the module note: a slow sink blocks the next dispatch
+  PASS runtime: cancellation is raised only after rasterize has returned, so the reservation is already dropped
+  PASS no facade code maps ReservationAbandoned back to the worker's error
+
+-- plan copies (pre-existing, both routes)
+  PASS before vector_frame.rs: past the camera refusal, make_mut runs on every capture, before sync, with no change test
+  PASS before: the doc comment promises a copy only on mutation
+  PASS before retained.rs: every camera capture deep-clones RenderPlan into the frame
+  PASS after vector_frame.rs: past the camera refusal, make_mut runs on every capture, before sync, with no change test
+  PASS after: the doc comment promises a copy only on mutation
+  PASS after retained.rs: every camera capture deep-clones RenderPlan into the frame
+  PASS RenderPlan's Clone is derived: every Vec and HashMap is copied with infallible allocation
+
+-- affine arena rows (AFTER)
+  PASS Pool::put pushes: infallible, doubling growth
+  PASS Pool::extend calls put per row, with no reservation
+  PASS begin_frame clears length and keeps capacity
+  PASS no fallible reservation for arena.segments
+  PASS no fallible reservation for arena.stroke_segments
+  PASS no fallible reservation for arena.draws
+  PASS no fallible reservation for arena.joins
+  PASS a Draw row per instance and prepared stroke rows per stroked draw
+  PASS engine.rs reads only the monotone limits; no working-byte budget is consulted where draw and stroke rows are pushed
+
+-- camera projected curves (pre-existing, both)
+  PASS before three_d.rs: a fresh Vec per vector, reserved one curve at a time
+  PASS after three_d.rs: a fresh Vec per vector, reserved one curve at a time
+  PASS reserve_rows reserves exactly, so a full Vec grows by one row each time
+
+RESULT PASS

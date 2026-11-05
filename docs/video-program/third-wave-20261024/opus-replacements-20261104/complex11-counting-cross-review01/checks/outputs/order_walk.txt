@@ -1,0 +1,21 @@
+on screen, bottom first, as the wide plane comes in: ['out_axes', 'out_border', 'zero_label', 'walker_anchor', 'wide_all']
+faults on the staged file: 0
+  plant caught: the loop is not put back over the field -> ['UNDER ring is under the field at painter.leave(stage, 0.4)?']
+  plant caught: the marks are not put back over the field -> ['UNDER root0 is under the field at painter.leave(stage, 0.4)?']
+  plant caught: the painter leaves before the field is up -> ['BARE the painter leaves before the field is on screen']
+  plant caught: the marks fade with 11_6 -> ['POP root0 has faded out and comes straight back']
+  plant caught: the loop fades with 11_6 -> ['POP ring has faded out and comes straight back']
+  plant caught: the updater is never stopped -> ['LEAK the updater is still running when the wide plane comes']
+  plant caught: the card stays for the wide plane -> ["LEFT on screen for the wide plane: ['same_back', 'same_text']"]
+  plant caught: the field stays for the wide plane -> ["LEFT on screen for the wide plane: ['field']"]
+  plant caught: the curve stays for the wide plane -> ["LEFT on screen for the wide plane: ['trail']"]
+  plant caught: the old row is left under the new one -> ["LEFT on screen for the wide plane: ['after']"]
+  plant caught: the card goes on before the field -> ['UNDER same_back is under the field at painter.leave(stage, 0.4)?']
+  plant caught: the back turn is dropped -> ['TURNS 1 tweens of the tracker, not 2']
+  plant caught: the results land before the turn back -> ['SEQUENCE out of order at stage.play(tween(turning.turned, 0.0, rt)?)?;']
+  plant caught: 11_8's plate is not promoted -> ["PLATE gap is rooted after the plate's promotion"]
+  plant caught: 11_8's name goes under its plate -> ['PLATE the promotion is not plate, name, sweep']
+  plant caught: the digit goes on zero and the line fades in over it -> ["PLATE the line's end shows over the digit on zero, then the plate cuts it"]
+planted: 16; missed: 0
+
+exit 0

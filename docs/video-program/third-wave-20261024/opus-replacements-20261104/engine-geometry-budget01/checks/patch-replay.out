@@ -1,0 +1,17 @@
+git apply on the pinned sources: exit 0, result equals the edited tree: True
+patch -p1 -F0 on the pinned sources: exit 0, result equals the edited tree: True
+control, one changed source line: git apply --check exit 1 (must refuse)
+lab patch on the staged plate_lab.rs: git apply exit 0
+staged plate_lab.rs equals root's stage01 copy: True
+patch: 7 files, +431 -44
+  crates/fmn/src/rendering/pipeline.rs
+  crates/fmn/src/rendering.rs
+  crates/fmn/tests/native_render.rs
+  crates/fmn-render/src/plan.rs
+  crates/fmn-render/src/retained.rs
+  crates/fmn-render/src/vector_frame.rs
+  crates/fmn-render/tests/stroke_profiles.rs
+crates/fmn-render/src/vector_frame.rs: default-limit sync calls left in non-test source: 0
+crates/fmn-render/src/retained.rs: default-limit sync calls left in non-test source: 0
+tests: stroke_profiles 8 -> 14, native_render 13 -> 14
+duplicate top-level names in stroke_profiles.rs: []

@@ -1,0 +1,11 @@
+--- a/src/chapters/draw.rs
++++ b/src/chapters/draw.rs
+@@ -621,7 +621,7 @@
+     ..PLATE_BLEND
+ };
+ /// The style the film's pictures use.
+-pub const PLATE: PlateStyle = PLATE_NOW;
++pub const PLATE: PlateStyle = PLATE_CELLS4;
+ 
+ /// Rows that meet as `style` says. At the engine's default band of 1.5 px the background shows
+ /// through at each boundary between rows, which reads as fine stripes across the picture; a

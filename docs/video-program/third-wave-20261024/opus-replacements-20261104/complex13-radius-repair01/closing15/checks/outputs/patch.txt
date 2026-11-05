@@ -1,0 +1,6 @@
+patch sha256 361c3c825e0a5a7fa726e83c525c2b696a9f6046722eb943cf72275cf45a671a
+git apply --check: exit 0 
+git apply apply: exit 0 
+applied equals staged: True
+git apply -R: exit 0 ; reversed equals canonical: True
++131 -12 lines

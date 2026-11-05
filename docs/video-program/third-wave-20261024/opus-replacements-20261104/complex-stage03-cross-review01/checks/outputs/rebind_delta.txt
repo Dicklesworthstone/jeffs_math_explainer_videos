@@ -1,0 +1,27 @@
+base narration-direction-map-oliver11.json 759e0eba1d40fbd2: 25 rows to rebind, 0 need a person
+  visual_holds[1] 02_5->02_6 turning.rs: 2b4dd9a1:384 -> 24bffa50:435
+  visual_holds[2] 03_3->03_4 two_planes.rs: d8f547c9:494 -> 98cd46c5:607  MARKER CHANGES
+  visual_holds[3] 04_4->04_5 reading_color.rs: dc98bcee:239 -> 8c79f5a1:341
+  visual_holds[4] 04_6->04_7 reading_color.rs: dc98bcee:279 -> 8c79f5a1:389
+  visual_holds[5] 05_8->05_9 gallery.rs: 6f310eb7:827 -> bff74a15:866
+  visual_holds[6] 06_8->06_9 one_derivative.rs: b67231d9:650 -> 4f0154ec:663
+  visual_holds[7] 07_2->07_3 one_point.rs: 43b6f1c3:396 -> 76a8bf1d:400
+  visual_holds[8] 07_3->07_4 one_point.rs: 43b6f1c3:430 -> 76a8bf1d:434
+  visual_holds[9] 08_5->09_1 loop_sums.rs: cf383504:669 -> f7a46143:686
+  visual_holds[10] 09_4->09_5 boundary.rs: 328d2acb:337 -> 69e41733:342
+  visual_holds[11] 09_5->09_6 boundary.rs: 328d2acb:402 -> 69e41733:407
+  visual_holds[12] 09_8->09_9 boundary.rs: 328d2acb:681 -> 69e41733:686
+  visual_holds[15] 11_5->11_6 counting.rs: dba35730:440 -> c1df16ea:440
+  visual_holds[16] 11_6->11_7 counting.rs: dba35730:503 -> c1df16ea:503
+  visual_holds[17] 11_8->12_1 counting.rs: dba35730:604 -> c1df16ea:604
+  visual_holds[18] 13_5->13_6 real_integral.rs: 906d4bd8:593 -> a5ef573d:631
+  visual_holds[19] 13_11->14_1 real_integral.rs: 906d4bd8:775 -> a5ef573d:813
+  visual_holds[20] 14_3->14_4 continuing.rs: 08803478:512 -> c24f264b:522
+  visual_holds[21] 14_4->14_5 continuing.rs: 08803478:522 -> c24f264b:531
+  visual_holds[22] 15_3->15_4 closing.rs: 65ba58ac:369 -> 373a0340:402
+  helpers[0] None->None draw.rs: 4eba4bb1:871 -> 865599e9:1112
+  helpers[1] None->None draw.rs: 4eba4bb1:925 -> 865599e9:1166
+  helpers[2] None->None mod.rs: 2414a6bd:31 -> 9ddf5283:31
+  helpers[3] None->None draw.rs: 4eba4bb1:957 -> 865599e9:1198
+  helpers[4] None->None mod.rs: 2414a6bd:58 -> 9ddf5283:58
+after the delta, rows not binding: none

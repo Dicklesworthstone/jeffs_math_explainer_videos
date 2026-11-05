@@ -1,0 +1,22 @@
+Against logarithm-stage06-preflight01/preflight.py, sha256 056d58d5acd118d71415b83fa7f0e3dd351d3589173b72de28713da8a2a42307, which stays frozen.
+Result sha256 10b23ddd5b14f0016b163737a3a2d49f34f4b6032be179dac6e9f0b285eaef7e. Five lines change and none move.
+Apply to a copy: patch -o <copy> preflight.py preflight-stage07.patch
+STAGE, MAP_NAME, the pins and the assembly group stay stage06's: see HANDOFF.md.
+
+--- logarithm-stage06-preflight01/preflight.py
++++ logarithm-stage07-binder02/preflight.py
+@@ -383 +383 @@
+-        self.requests = json.loads((self.repo / LANE / "narration-request-final80-01/requests.json").read_bytes())
++        self.requests = json.loads((self.repo / LANE / "narration-request-final80-02/requests.json").read_bytes())
+@@ -576 +576 @@
+-        self.check("TXT.delta_matches_requests", all(prior[d["cue"]] == d["request_id_with_exact_bytes"] for d in delta["cues"]), "cue-delta and requests.json name the same older request")
++        self.check("TXT.delta_matches_requests", all(d["request_id_with_exact_bytes"] is None if d["cue"] == "01_5" else prior[d["cue"]] == d["request_id_with_exact_bytes"] for d in delta["cues"]), "cue-delta and requests.json name the same older request; no older request holds 01_5's new wording")
+@@ -579 +579 @@
+-        self.check("TXT.older_request_bytes_same", not wrong, f"each older request id's text is byte-equal to its final cue; different: {wrong[:5]}")
++        self.check("TXT.older_request_bytes_same", wrong == ["01_5"], f"each older request id's text is byte-equal to its final cue, except reworded 01_5; different: {wrong[:5]}")
+@@ -734 +734 @@
+-        self.check("PHR.direct_mark_readers", direct == {("undoing_growth.rs", "04_2")}, f"{sorted(direct)}")
++        self.check("PHR.direct_mark_readers", direct == {("undoing_growth.rs", "04_2"), ("folded_decade.rs", "03_3")}, f"{sorted(direct)}")
+@@ -824 +824 @@
+-            data = (self.repo / LANE / "narration-request-final80-01" / f"{u['line_ids'][0]}.txt").read_bytes()
++            data = (self.repo / next(r["text_path"] for r in self.requests["requests"] if r["cue"] == u["line_ids"][0])).read_bytes()

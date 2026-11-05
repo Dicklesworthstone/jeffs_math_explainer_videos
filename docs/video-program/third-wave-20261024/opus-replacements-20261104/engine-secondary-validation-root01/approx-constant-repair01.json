@@ -1,0 +1,24 @@
+{
+  "reason": "strict Clippy approx_constant: four 0.7071 literals in TURNED at crates/fmn-render/tests/frame_table_limits.rs:15",
+  "failed_attempt": "engine-secondary-engine-lint02",
+  "repaired_by": "RubyRaven, owner-assigned after root verified the failure",
+  "change": "TURNED uses std::f64::consts::FRAC_1_SQRT_2 (the exact 45 degree rotation); its doc comment no longer mentions a scale; no lint is allowed or suppressed",
+  "behavior": "no assertion, budget or test name changed; the turned curve still turns in x at t = 1/2, so the table holds 2 pieces and the frame 3, as before",
+  "extended_bindings": {
+    "test-type-alias01.patch": "root's two alias hunks byte for byte, then the frame_table_limits.rs hunk; sha256 a3661f76f089a5ab332250d44952603dfd349c4f65a3f2b8b051d63b9e1d941a",
+    "expected-type-alias01.sha256": "root's two lines, then frame_table_limits.rs 136dfc5f1398845ace7451abf6b6d79b90bd17608d9a76525ee5d9101327efca; sha256 3181e2c36ebec230266a5ccc6472a1b6fc9d489dd9a5becbc52ab257f78f3a6f"
+  },
+  "preserved": {
+    "before-approx-constant01.patch": "the supplemental patch as root left it, sha256 54f9b9a9d314b4643fdb77bdd24f352a093f6923f0f03ba1ef8e101912def144",
+    "before-approx-constant01.sha256": "its expected hashes as root left them, sha256 0e2b22c0926c782314f34307826a8e3ae2362a0667ce758745ca65257d803944",
+    "stage manifests/before-approx-constant01-frame_table_limits.rs": "the failing test, sha256 e7df786d74e7d8597b14b1089b4ef119189eac6e52c086566b3d04a128d8c06a, the frame-table patch's sealed result"
+  },
+  "inputs": "inputs04.tsv is inputs03.tsv with only the two rows above rehashed; every non-source input matched it before launch",
+  "checks_before_launch": [
+    "rustfmt --check --edition 2024 --config skip_children=true on the repaired file: exit 0",
+    "replay of the extended stack on a fresh copy of root's unpatched fmn and fmn-render: all three entries apply and match; a second apply_stack changes nothing",
+    "the stage's 12 stack files equal that fresh replay; the stage was changed only by git apply --include of the frame_table_limits.rs hunk",
+    "tests the stack adds: still 20, 2 ignored"
+  ],
+  "not_checked": "Clippy and the tests themselves: they run in engine-lint03 and later jobs"
+}

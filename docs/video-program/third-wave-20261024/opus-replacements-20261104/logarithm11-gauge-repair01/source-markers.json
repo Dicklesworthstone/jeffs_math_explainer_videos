@@ -1,0 +1,142 @@
+{
+  "schema": "logarithm11-gauge-footer-anchors-v1",
+  "file": "explainer_corpus/logarithm_mysteries/src/chapters/unreachable.rs",
+  "baseline_sha256": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+  "patched_sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+  "film_lines_changed": [
+    64,
+    904,
+    905,
+    906,
+    914,
+    915,
+    916,
+    955,
+    1502,
+    1653
+  ],
+  "film_lines_moved": 0,
+  "timing_rule": "Anchor on the cue and sentence. Old times are stage06's scratch voice, not Oliver. Old frame numbers are labels in logarithm-stage06-frames01/11_unreachable, counted from 0.",
+  "map13_rebind": [
+    {
+      "cue": "11_3",
+      "next_cue": "11_4",
+      "kind": "prediction",
+      "line": 1070,
+      "marker": "predict(&kit, stage, v(right + 1.6, -1.4), 3.0)?;",
+      "say_line": 963,
+      "old": {
+        "sha256": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+        "interval_sha256": "e34e65ad69a71865c956f2cf6e3d5270433370e8b6e79e5f8defc221555771db"
+      },
+      "new": {
+        "sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+        "interval_sha256": "e34e65ad69a71865c956f2cf6e3d5270433370e8b6e79e5f8defc221555771db"
+      }
+    },
+    {
+      "cue": "11_20",
+      "next_cue": "11_8",
+      "kind": "reading",
+      "line": 1590,
+      "marker": "kit.music_breath(stage, rule_read + row_reads.iter().sum::<f64>())?;",
+      "say_line": 1501,
+      "old": {
+        "sha256": "a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee",
+        "interval_sha256": "36386b6b24e173600d4e20b7f70e4285a825196f9000b114b109f834182d2953"
+      },
+      "new": {
+        "sha256": "c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7",
+        "interval_sha256": "4a4e6c72d1f92e5e88e7430c03e0f0f062e3e7972184736bfc911a4313fae5e0"
+      }
+    }
+  ],
+  "rebind_note": "Values only; map13 is not patched here. They are good only while unreachable.rs is exactly the staged file.",
+  "footers": {
+    "Liouville": "precisely: for any real linear flow, steady or not, det = exp(∫ trace dt) > 0 (Liouville)",
+    "Culver": "precisely: Culver, Proc. AMS 17 (1966) 1146–1151, as stated by Higham (Handbook of Linear Algebra) and Gallier (Thm 3.4)",
+    "Gallier": "precisely: Gallier, arXiv 0805.0245, Theorem 3.3, proved via the Jordan form"
+  },
+  "anchors": [
+    {
+      "id": "G1-t1-note",
+      "cue": "11_2",
+      "from": "sentence 3, after the fade at line 909",
+      "until": "11_3's fade (line 993)",
+      "old_frames": [
+        81,
+        115,
+        150
+      ],
+      "expect": "t = 1: ≈ 1.221, blue, 22 pt, level with where the dot stood at t = 1, clear of the ring at 1.",
+      "not_a_failure": "The live readout leaving 1.221 just after the note has faded in: the clock has started its run to t = 3.",
+      "fail_if": "no sign; grey; the readout printing anything but 1.221 while the clock stands at t = 1"
+    },
+    {
+      "id": "G2-t3-note",
+      "cue": "11_2",
+      "from": "after the fade at line 919",
+      "until": "11_3's fade (line 993)",
+      "old_frames": [
+        90,
+        115,
+        150
+      ],
+      "expect": "t = 3: ≈ 1.822, blue, 22 pt, under the tick at 2; the readout holds 1.822 beside it until the backward run at line 925; checks/gauge_footer_probe.py notes passes on a frame in the hold.",
+      "fail_if": "no sign; grey; touching the tick at 2 or det < 0's row"
+    },
+    {
+      "id": "F1-liouville",
+      "cue": "11_2 into 11_3",
+      "from": "sentence 5, after the fade at line 960",
+      "until": "line 993's fade",
+      "old_frames": [
+        112,
+        115,
+        150
+      ],
+      "old_time_s": [
+        51.5,
+        69.5
+      ],
+      "expect": "The line in ink at y -3.4, with the words in footers.Liouville. The ring at 1 and starts at 1, never touches 0 stay above it. checks/gauge_footer_probe.py footer passes.",
+      "fail_if": "grey; under 0.40 from the frame's edge; the integral's foot clipped; any change of words"
+    },
+    {
+      "id": "F2-culver",
+      "cue": "11_20",
+      "from": "after the swap at line 1517",
+      "until": "line 1600's fade",
+      "old_frames": [
+        491,
+        550
+      ],
+      "old_time_s": 223.7,
+      "expect": "The line in ink at y -3.4, with the words in footers.Culver; the probe passes.",
+      "fail_if": "grey; under 0.40 from the edge; touching the rows; any change of words"
+    },
+    {
+      "id": "F3-gallier",
+      "cue": "11_8",
+      "from": "sentence 2, after the fade at line 1658",
+      "until": "the chapter's end (line 1676)",
+      "old_frames": [
+        573,
+        598
+      ],
+      "old_time_s": [
+        263.0,
+        273.783
+      ],
+      "expect": "The line in ink at y -3.4, with the words in footers.Gallier; the probe passes.",
+      "fail_if": "grey; under 0.40 from the edge; touching flattening matrices' row; any change of words"
+    },
+    {
+      "id": "N-glyphs",
+      "cue": "all of the above",
+      "from": "a final-size frame in each hold",
+      "expect": "Read by eye: the sign on both notes is a real ≈, as at line 1639, and ∫ – ½ in the footers are not fallback glyphs.",
+      "fail_if": "a clipped or fallback glyph"
+    }
+  ]
+}

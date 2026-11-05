@@ -1,0 +1,162 @@
+{
+  "schema": "logarithm12-closing-anchors-v1",
+  "file": "explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs",
+  "baseline_sha256": "e938b750ce579faed820ae7ddd0d289819f7148bdfb991dc99f24d35d6f8491b",
+  "patched_sha256": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+  "film_lines_changed": [
+    50,
+    104,
+    141,
+    1244,
+    1245,
+    1246,
+    1251,
+    1266,
+    1273,
+    1283,
+    1297,
+    1298,
+    1299
+  ],
+  "film_lines_moved": 0,
+  "timing_rule": "Anchor on the cue and phrase. Old times are stage06's scratch voice, not Oliver. Old frame numbers are labels in logarithm-stage06-frames01/12_what_it_forgets, counted from 0.",
+  "map13_rebind": [
+    {
+      "cue": "12_5",
+      "next_cue": "12_6",
+      "kind": "prediction",
+      "line": 1123,
+      "marker": "predict(&kit, stage, v(2.6, -2.1), 3.4)?;",
+      "say_line": 1099,
+      "old": {
+        "sha256": "e938b750ce579faed820ae7ddd0d289819f7148bdfb991dc99f24d35d6f8491b",
+        "evidence_sha256": "e938b750ce579faed820ae7ddd0d289819f7148bdfb991dc99f24d35d6f8491b",
+        "interval_sha256": "b238a92968284627ce972479bb1c5a93ac5f5df33efee0b17ddea5d362c8387f"
+      },
+      "new": {
+        "sha256": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+        "evidence_sha256": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28",
+        "interval_sha256": "b238a92968284627ce972479bb1c5a93ac5f5df33efee0b17ddea5d362c8387f"
+      }
+    }
+  ],
+  "phrase_anchor_rebind": {
+    "source_sha256": {
+      "old": "e938b750ce579faed820ae7ddd0d289819f7148bdfb991dc99f24d35d6f8491b",
+      "new": "6951d3b2f157387683efaa3ec7c9d9d12a23c8448df247531cd5f0081bab1e28"
+    },
+    "rows": [
+      {
+        "cue": "12_1",
+        "phrase": "the keyboard and the slide rule",
+        "lines": [
+          848
+        ]
+      },
+      {
+        "cue": "12_6",
+        "phrase": "also ends here",
+        "lines": [
+          1136
+        ]
+      },
+      {
+        "cue": "12_6",
+        "phrase": "and so does two and a half",
+        "lines": [
+          1146
+        ]
+      },
+      {
+        "cue": "12_21",
+        "phrase": "a convention broke the same tie",
+        "lines": [
+          1293
+        ]
+      },
+      {
+        "cue": "12_21",
+        "phrase": "the honest answer is the whole family",
+        "lines": [
+          1303
+        ]
+      }
+    ],
+    "bytes_and_lines": "unchanged"
+  },
+  "rebind_note": "Values only; map13 and the bound plan are not patched here. They are good only while what_it_forgets.rs is exactly the staged file.",
+  "staged_centres": {
+    "how": -0.9,
+    "line": -1.4,
+    "off": 0.32,
+    "lh": 0.139,
+    "tie": -2.1,
+    "conv": -2.5,
+    "ch": 0.198,
+    "fam": -2.9,
+    "foot": -3.4
+  },
+  "footer": "precisely: spins ending here: ±½, ±1½, … laps per unit time about the rod; eigenvalue −1, so no principal log (Higham §4 Fact 1)",
+  "anchors": [
+    {
+      "id": "L1-labels-and-dots",
+      "cue": "12_21",
+      "from": "after the fades at lines 1275-1277",
+      "until": "the chapter's end (line 1309)",
+      "old_frames": [
+        337,
+        340,
+        378
+      ],
+      "expect": "−3π … 3π in ink at 20 pt, under the marks at y -1.72; both runs of dots in ink; the rings clear of −π and π.",
+      "fail_if": "grey; a label touching a ring, a neighbour or the tie row; a missing mark"
+    },
+    {
+      "id": "F1-footer",
+      "cue": "12_21",
+      "from": "sentence 2, after the fade at line 1292",
+      "until": "the chapter's end (line 1309)",
+      "old_frames": [
+        360,
+        378
+      ],
+      "old_time_s": [
+        157.5,
+        165.016
+      ],
+      "expect": "The line in ink at y -3.4, with the exact words in footer; ±6.31 wide, inside the safe area.",
+      "fail_if": "grey; under 0.40 from the frame's edge; touching the family's row; any change of words"
+    },
+    {
+      "id": "C1-convention",
+      "cue": "12_21",
+      "from": "a convention broke the same tie, after the fade at line 1301",
+      "until": "the chapter's end (line 1309)",
+      "old_frames": [
+        364,
+        378
+      ],
+      "expect": "for the number −1, Log(−1) = iπ by convention, in ink at 20 pt, at y -2.5, left edge x 1.4.",
+      "fail_if": "grey; touching the tie or family rows; any change of words"
+    },
+    {
+      "id": "S1-the-whole-stack",
+      "cue": "12_21",
+      "from": "the honest answer is the whole family, after the fade at line 1308",
+      "until": "the chapter's end (line 1309)",
+      "old_frames": [
+        370,
+        378
+      ],
+      "expect": "From the top: so, how far, the line, labels, the tie, the convention, the family, the footer; no two touching; checks/closing_probe.py closing passes.",
+      "fail_if": "any two rows touching; the how-far row reading as part of the so row; the family's row on the footer"
+    },
+    {
+      "id": "N-glyphs",
+      "cue": "12_21",
+      "from": "a final-size frame after line 1308",
+      "expect": "Read by eye: π, −, ½, ±, §, … and the exact words. No new glyph is asked for; these are the same characters at new sizes.",
+      "fail_if": "a clipped or fallback glyph; any change of words"
+    }
+  ]
+}

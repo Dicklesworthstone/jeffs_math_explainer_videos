@@ -1,0 +1,29 @@
+PASS preview01: exit 0, finished 2026-11-04T22:54:33.306900+00:00, inputs unchanged 23aaf2130ea9776a
+PASS preview01: admitted, not preflight only
+PASS frames01: exit 0, finished 2026-11-04T23:03:47.793315+00:00, inputs unchanged 773778f91bf2b4a8
+PASS frames01: admitted, not preflight only
+PASS script.tsv f201d2dc57fa9cca is what preview01 read
+PASS src/chapters/ratio_ruler.rs 92cf028b124f8a37 is what preview01 read
+PASS src/chapters/building_ruler.rs ae125e5ec9ec9bd6 is what preview01 read
+PASS src/chapters/slide_rule.rs eea4d01d96fd4853 is what preview01 read
+PASS src/chapters/folded_decade.rs acfc7f9c198b3d3d is what preview01 read
+PASS src/chapters/draw.rs 2a4e84504bab6364 is what preview01 read
+chapter	duration_s	selected	frames	sheets	findings	mp4_sha256	cues_sha256	layout_sha256	sheets_digest
+00_ratio_ruler	124.8	286	286	72	0	b35e579648bf25f1	e5d2355168395606	e3b0c44298fc1c14	e09577e66abbd02a
+PASS 00_ratio_ruler: 286 frames on 72 sheets, all in sampling.json
+PASS 00_ratio_ruler: the frames were cut from this video
+PASS 00_ratio_ruler: widest gap between selected pictures 0.500 s; end sample 124.55 of 124.8
+01_building_ruler	131.733008	304	304	76	1	0c2f6c7c596701c0	393825db216eacf8	e3b0c44298fc1c14	33ef6b9e6f81b425
+PASS 01_building_ruler: 304 frames on 76 sheets, all in sampling.json
+PASS 01_building_ruler: the frames were cut from this video
+PASS 01_building_ruler: widest gap between selected pictures 0.500 s; end sample 131.483 of 131.733008
+02_slide_rule	93.4	238	238	60	9	4d32bdd7354fa3d6	70d52470b5d631f0	e34f83fb611e442b	3f56dfc4aba5bc11
+PASS 02_slide_rule: 238 frames on 60 sheets, all in sampling.json
+PASS 02_slide_rule: the frames were cut from this video
+PASS 02_slide_rule: widest gap between selected pictures 0.500 s; end sample 93.15 of 93.4
+03_folded_decade	77.733008	188	188	47	2	e3d88a1459627187	3fab3e5be70f4f5d	e3b0c44298fc1c14	c84e65fda8c2cd0f
+PASS 03_folded_decade: 188 frames on 47 sheets, all in sampling.json
+PASS 03_folded_decade: the frames were cut from this video
+PASS 03_folded_decade: widest gap between selected pictures 0.500 s; end sample 77.483 of 77.733008
+PASS in scope: 255 sheets, 1016 selected pictures
+RESULT PASS

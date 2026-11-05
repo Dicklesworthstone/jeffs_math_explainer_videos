@@ -1,0 +1,105 @@
+--- a/bind_oliver_plan.py
++++ b/bind_oliver_plan.py
+@@ -59,16 +59,37 @@
+         "from": 'let named = ["a pole at zero", "at minus one", "at minus two"];',
+         "phrases": ["a pole at zero", "at minus one", "at minus two"],
+     },
+-    ("gallery.rs", "Some(p) => line.until(stage, p, 2.5)?,"): {
+-        "from": 'Some("Three zeros inside"),',
+-        "phrases": ["Three zeros inside"],
+-        "owners": ["05_1"],
+-        "note": "walk_and_count's phrase: Some at the 05_1 call; the 05_2 call passes None and walks to line.end().",
++    ("gallery.rs", "let rt = line.until(stage, phrase, 2.5)?;"): {
++        "from": "fn walk_and_count(",
++        "by_owner": {"05_1": ["Three zeros inside"], "05_2": ["backwards twice"]},
++        "note": "walk_and_count's phrase: a literal at each of its two calls in construct, one per cue.",
+     },
+     ("counting.rs", "line.wait_sentence(stage, i + 2)?;"): {
+         "from": "for (i, (f, name)) in [Func::Identity, Func::Square, Func::Recip]",
+         "sentences": [2, 3, 4],
+     },
++    ("counting.rs", "let until = if i < 2 { line.sentence(i + 3)? } else { line.end() };"): {
++        "from": "for (i, (f, name)) in [Func::Identity, Func::Square, Func::Recip]",
++        "sentences": [3, 4],
++        "note": "i runs over the three functions; the third walk lands on line.end().",
++    },
++    ("counting.rs", "line.wait_for(stage, NEEDS_SAID[i])?;"): {
++        "from": 'const NEEDS_SAID: [&str; 3] = ["It needs", "passes through", "and a function"];',
++        "phrases": ["It needs", "passes through", "and a function"],
++    },
++    ("reading_color.rs", "line.wait_for(stage, phrase)?;"): {
++        "from": '("pointing down is violet", 3.0 * FRAC_PI_2),',
++        "phrases": ["Pointing right is red", "Pointing up is yellow green", "Pointing left is teal", "pointing down is violet"],
++        "note": "NAMED's four phrases, zipped with the four direction names.",
++    },
++}
++
++# Short picture beats after a voice-end wait, each read in the source. Nothing arrives during
++# them and no card depends on them, so they are neither reading windows nor map rows. The key
++# is the exact call on that cue, so a new, moved or changed one is refused instead of passing.
++POST_VOICE_BEATS = {
++    ("closing.rs", "15_1", "pause(stage, 1.0)?;"): "The film's first picture, answered: a moment before the wipe.",
++    ("closing.rs", "15_2", "pause(stage, 1.2)?;"): "The finished recap strip: a moment before it goes.",
+ }
+ 
+ # What draw.rs's timing helpers may call. Anything else there is unread.
+@@ -387,6 +408,16 @@
+             return None
+         phrases, sentences = entry.get("phrases", []), entry.get("sentences", [])
+         owners = entry.get("owners", owners)
++        by_owner = entry.get("by_owner")
++        if by_owner is not None:
++            if sorted(by_owner) != sorted(owners):
++                plan.problem(f"{where} by_owner names {sorted(by_owner)} but the calls are in {sorted(owners)}")
++            for owner, said in by_owner.items():
++                for phrase in said:
++                    if owner in script and phrase not in script[owner]:
++                        plan.problem(f"{where} phrase {phrase!r} is not in cue {owner}")
++            owners = []
++            phrases = [p for said in by_owner.values() for p in said]
+         resolved = {"from": entry["from"], "values": phrases or sentences}
+         if "note" in entry:
+             resolved["note"] = entry["note"]
+@@ -514,7 +545,8 @@
+             waits = call["name"] in ("pause", "wait", "wait_frames") or (
+                 call["name"].startswith("helper:") and any(i["call"] == "pause" for i in call["inner"])
+             )
+-            if waits and voice_end is not None and at > voice_end:
++            beat = (src.name, row["cue"], call["source"]) in POST_VOICE_BEATS
++            if waits and voice_end is not None and at > voice_end and not beat:
+                 plan.problem(
+                     f"{src.name}:{call['line']} {call['name']} after the voice-end wait of {row['cue']}: "
+                     "an unclassified post-voice hold; read it and classify it as reading or not"
+@@ -1168,16 +1200,23 @@
+         hits = [c for c in sources[name].calls if c["source"] == source]
+         if not hits:
+             plan.problem(f"{name}: DYNAMIC's call is gone: {source}")
++        for said in entry.get("by_owner", {}).values():
++            for phrase in said:
++                if f'"{phrase}",' not in sources[name].raw:
++                    plan.problem(f"{name}: DYNAMIC's phrase is no longer a call's literal: {phrase}")
+         non_literal.append(
+             {
+                 "file": name,
+                 "lines": [c["line"] for c in hits],
+                 "call": source,
+                 "resolved_from": entry["from"],
+-                "values": entry.get("phrases") or entry.get("sentences"),
++                "values": entry.get("phrases") or entry.get("sentences") or entry.get("by_owner"),
+                 "note": entry.get("note"),
+             }
+         )
++    for (name, cue, source), why in sorted(POST_VOICE_BEATS.items()):
++        if source not in sources[name].raw:
++            plan.problem(f"{name}: POST_VOICE_BEATS's call on {cue} is gone: {source}")
+     words = [len(t.split()) for t in script.values()]
+     pairs = [len(script[a].split()) + len(script[b].split()) for a, b in zip(cues, cues[1:])]
+     all_sources = [source_row(f"{TOPIC_REL}/script.tsv", script_bytes)]
+@@ -1228,6 +1267,7 @@
+         "meanings": HOLD_MEANINGS,
+         "draw_helpers": draw_evidence,
+         "non_literal_wait_arguments": non_literal,
++        "post_voice_beats": [{"file": k[0], "cue": k[1], "call": k[2], "why": why} for k, why in sorted(POST_VOICE_BEATS.items())],
+         "prediction_holds": prediction_rows,
+         "reading_windows": reading_rows,
+         "unregistered_files_ignored": ignored,

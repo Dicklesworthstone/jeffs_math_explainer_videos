@@ -1,0 +1,90 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs
+@@ -357,7 +357,7 @@
+         kit.until_sentence(stage, "04_2", 4)?;
+         fade_out_all(stage, &[climb_line, climb_dot], 0.3)?;
+         // a horizontal probe at height c meets the curve once for c > 0
+-        let c = stage.add_value_tracker(2.6);
++        let c = stage.add_value_tracker(PROBE_START);
+         let probe = stage.always_redraw(move |s: &mut Arena| {
+             let h = value(s, c);
+             let col = if h > 0.0 { gold } else { red };
+@@ -399,7 +399,7 @@
+         fade_in_all(stage, &[hits_word], 0.4)?;
+         play!(stage; tween(c, 0.15, 2.4)?);
+         play!(stage; tween(c, -1.2, 1.4)?);
+-        play!(stage; tween(c, 2.0, 1.6)?);
++        play!(stage; tween(c, PROBE_REST, 1.6)?);
+ 
+         // 04_3: reversing it — ln, ln 1 = 0, ln e = 1, nothing for c ≤ 0
+         kit.say(stage, "04_3")?;
+@@ -548,7 +548,7 @@
+         )?;
+         fade_in_all(stage, &[small], 0.5)?;
+         kit.until_sentence(stage, "04_4", 5)?;
+-        let natural = kit.text_left(stage, "+1% in x  →  +0.01 in ln x", 24.0, gold, v(1.0, -1.3))?;
++        let natural = kit.text_left(stage, "+1% in x  →  about +0.01 in ln x", 24.0, gold, v(1.0, -1.3))?;
+         let why = kit.text_left(
+             stage,
+             "that is why base e is called natural",
+@@ -859,6 +859,14 @@
+     }
+ }
+ 
++/// The height the full-width probe of 04_2 starts from, and the top of its whole
++/// path: it goes down from here and comes back only to PROBE_REST. The line stays
++/// under the green y = e^x (lowest ink near 2.24) and over the tick label 2.
++const PROBE_START: f64 = 2.16;
++/// Where the probe rests until it fades: half way between the tick labels 1 and 2,
++/// so the still line never lies across a number.
++const PROBE_REST: f64 = 1.5;
++
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+@@ -897,7 +905,7 @@
+ 
+     #[test]
+     fn the_probe_meets_the_curve_inside_the_window_for_the_heights_shown() {
+-        for h in [0.15, 1.0, 2.0, 2.6] {
++        for h in [0.15, 1.0, PROBE_REST, PROBE_START] {
+             assert!(inside(f64::ln(h), h), "{h}");
+         }
+         // ln 2 and the slope-1 tangent at (1, 0) both sit on screen
+@@ -1058,6 +1066,36 @@
+     }
+ 
+     #[test]
++    fn the_whole_probe_path_stays_under_the_name_and_rests_clear_of_the_tick_labels() {
++        // half the 2.5 stroke, and the least clearance kept from any ink
++        const HALF_LINE: f64 = 0.0125;
++        const GAP: f64 = 0.03;
++        // start, down to 0.15, below zero, up to the rest: the start is the top of the path
++        let path = [
++            found("stage.add_value_tracker(PROBE_START)"),
++            found("tween(c, 0.15, 2.4)"),
++            found("tween(c, -1.2, 1.4)"),
++            found("tween(c, PROBE_REST, 1.6)"),
++        ];
++        assert!(path.windows(2).all(|w| w[0] < w[1]));
++        const { assert!(PROBE_REST < PROBE_START) };
++        // the name's lowest possible ink and the top of the tick label 2
++        const { assert!(PROBE_START + HALF_LINE + GAP < 2.4 - 0.17) };
++        const { assert!(PROBE_START - HALF_LINE - GAP > 2.0 + 0.07) };
++        // at rest, between the tick labels 1 and 2
++        const { assert!(PROBE_REST - HALF_LINE - GAP > 1.0 + 0.07) };
++        const { assert!(PROBE_REST + HALF_LINE + GAP < 2.0 - 0.07) };
++        // the moving dot, radius 0.09, stays left of the name
++        assert!(f64::ln(PROBE_START) + 0.09 < EXP_NAME_X - 0.47);
++    }
++
++    #[test]
++    fn the_small_step_caption_says_it_is_approximate() {
++        // ln 1.01 is 0.00995, as the row above it says; the caption stands alone
++        assert!(found("\"+1% in x  →  about +0.01 in ln x\"") > 0);
++    }
++
++    #[test]
+     fn the_flip_labels_keep_clear_of_each_other_the_names_and_the_mirror() {
+         let h = TRI_A.exp();
+         // "rise" before the flip, and y = e^x beside it (about 0.94 wide, 0.34 tall)

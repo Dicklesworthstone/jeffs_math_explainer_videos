@@ -1,0 +1,2 @@
+NEW 'output turns count'
+GONE 'a loop counts'

@@ -1,0 +1,184 @@
+--- a/crates/explainer_kit/src/cli.rs
++++ b/crates/explainer_kit/src/cli.rs
+@@ -312,17 +312,37 @@
+ 
+ /// Run the CLI; returns the process exit code (0 ok, 1 a failed check, 2 usage).
+ pub fn run(e: &Explainer, argv: impl IntoIterator<Item = String>) -> i32 {
+-    run_impl(e, argv, None)
++    run_impl(e, argv, None, keep_options)
+ }
+ 
+ /// Third-wave consumers bind real speech to the topic's canonical script,
+ /// unit plan and direction map before creating output. This is a technical
+ /// integrity check, not listening acceptance or permission to promote a take.
+ pub fn run_with_contract(e: &Explainer, argv: impl IntoIterator<Item = String>, topic: &Path) -> i32 {
+-    run_impl(e, argv, Some(topic))
++    run_impl(e, argv, Some(topic), keep_options)
+ }
+ 
+-fn run_impl(e: &Explainer, argv: impl IntoIterator<Item = String>, topic: Option<&Path>) -> i32 {
++/// [`run_with_contract`] for a film that must change its own render options. `adjust` is the last
++/// word on the options of each chapter, glyph capture and thumbnail: it runs after a delivery or
++/// camera render has rebuilt them, so nothing it sets is lost. The kit never names what is set,
++/// so it still builds for every other film on the workspace's pinned engine.
++pub fn run_with_contract_and_options(
++    e: &Explainer,
++    argv: impl IntoIterator<Item = String>,
++    topic: &Path,
++    adjust: fn(&mut RenderOptions),
++) -> i32 {
++    run_impl(e, argv, Some(topic), adjust)
++}
++
++fn keep_options(_: &mut RenderOptions) {}
++
++fn run_impl(
++    e: &Explainer,
++    argv: impl IntoIterator<Item = String>,
++    topic: Option<&Path>,
++    adjust: fn(&mut RenderOptions),
++) -> i32 {
+     // a wrong number must never render, or even print
+     let facts = match (e.facts)().and_then(|f| f.self_check().map(|()| f)) {
+         Ok(f) => f,
+@@ -368,12 +388,12 @@
+                     println!("{}", c.key);
+                 }
+             }
+-            "glyphs" => return crate::glyphs::probe(e, &args),
+-            "render" => render_chapters(e, &args, &script)?,
++            "glyphs" => return crate::glyphs::probe(e, &args, adjust),
++            "render" => render_chapters(e, &args, &script, adjust)?,
+             "score" => return score_video(e, &args),
+             "master" => return master_video(e, &args),
+             "captions" => return captions_video(e, &args),
+-            "thumbnail" => return thumbnail(e, &args),
++            "thumbnail" => return thumbnail(e, &args, adjust),
+             other => return Err(format!("unknown command {other}").into()),
+         }
+         Ok(0)
+@@ -547,7 +567,12 @@
+     Ok(o)
+ }
+ 
+-fn render_chapters(e: &Explainer, args: &Args, script: &Script) -> Result<(), Box<dyn Error>> {
++fn render_chapters(
++    e: &Explainer,
++    args: &Args,
++    script: &Script,
++    adjust: fn(&mut RenderOptions),
++) -> Result<(), Box<dyn Error>> {
+     let all = (e.chapters)();
+     let keys: Vec<&str> = all.iter().map(|c| c.key).collect();
+     check_script_owners(script, &keys, e.line_owner)?;
+@@ -661,9 +686,13 @@
+                 opts = o;
+             }
+             let rendered = match camera.camera_shot() {
+-                None => render(scene.as_mut(), opts),
++                None => {
++                    adjust(&mut opts);
++                    render(scene.as_mut(), opts)
++                }
+                 Some(shot) => {
+-                    let opts = camera_options(&path, opts)?;
++                    let mut opts = camera_options(&path, opts)?;
++                    adjust(&mut opts);
+                     render_camera_chapter(&camera, shot, scene.as_mut(), opts)
+                 }
+             };
+@@ -1016,13 +1045,15 @@
+ /// `OUT/<crate>_thumbnail.png` at `--res`. The scene ends on a one-second
+ /// hold, which at 1 fps is exactly one frame; an earlier thumbnail is moved
+ /// aside, never overwritten.
+-fn thumbnail(e: &Explainer, args: &Args) -> Result<i32, Box<dyn Error>> {
++fn thumbnail(e: &Explainer, args: &Args, adjust: fn(&mut RenderOptions)) -> Result<i32, Box<dyn Error>> {
+     let make = e.thumbnail.ok_or("this video has no thumbnail scene yet")?;
+     std::fs::create_dir_all(&args.out)?;
+     let frames = args.out.join("thumbnail");
+     set_aside(&frames)?;
+     let mut scene = make(Kit::new()?);
+-    let report = render(scene.as_mut(), options(frames, RenderFormat::PngSequence, args.res, 1)?)?;
++    let mut opts = options(frames, RenderFormat::PngSequence, args.res, 1)?;
++    adjust(&mut opts);
++    let report = render(scene.as_mut(), opts)?;
+     let mut pngs: Vec<PathBuf> = std::fs::read_dir(&report.artifact.path)?
+         .filter_map(|entry| entry.ok().map(|entry| entry.path()))
+         .filter(|p| p.extension().is_some_and(|x| x == "png"))
+--- a/crates/explainer_kit/src/glyphs.rs
++++ b/crates/explainer_kit/src/glyphs.rs
+@@ -66,7 +66,11 @@
+ /// Build every chapter with scratch timing, capture its actual strings,
+ /// and probe them in their proper font. The tiny collection renders never
+ /// read narration or score stems and are not visual or timing acceptance.
+-pub(crate) fn probe(e: &crate::Explainer, args: &crate::cli::Args) -> Result<i32, Box<dyn Error>> {
++pub(crate) fn probe(
++    e: &crate::Explainer,
++    args: &crate::cli::Args,
++    adjust: fn(&mut RenderOptions),
++) -> Result<i32, Box<dyn Error>> {
+     let out = PathBuf::from(args.targets.first().map(String::as_str).unwrap_or("glyphs"));
+     crate::cli::set_aside(&out)?;
+     std::fs::create_dir_all(&out)?;
+@@ -82,7 +86,9 @@
+         let camera = kit.clone();
+         let mut scene = (chapter.make)(kit);
+         let path = out.join("capture").join(chapter.key);
+-        let opts = crate::cli::options(path, RenderFormat::PngSequence, (32, 18), 1)?;
++        let mut opts = crate::cli::options(path, RenderFormat::PngSequence, (32, 18), 1)?;
++        // a capture builds the chapter's real geometry, whatever the size of its frames
++        adjust(&mut opts);
+         let report = match camera.camera_shot() {
+             Some(shot) => crate::cli::render_camera_chapter(&camera, shot, scene.as_mut(), opts)?,
+             None => render(scene.as_mut(), opts)?,
+--- a/crates/explainer_kit/tests/cli_pipeline.rs
++++ b/crates/explainer_kit/tests/cli_pipeline.rs
+@@ -197,6 +197,48 @@
+     );
+ }
+ 
++/// A film's options hook reaches every render, and a delivery render has already rebuilt its
++/// options when the hook runs: a field set earlier would be lost there.
++#[test]
++fn the_options_hook_has_the_last_word_on_every_render() {
++    use std::sync::atomic::{AtomicUsize, Ordering::SeqCst};
++    static CALLS: AtomicUsize = AtomicUsize::new(0);
++    static DELIVERY: AtomicUsize = AtomicUsize::new(0);
++    fn note(opts: &mut RenderOptions) {
++        CALLS.fetch_add(1, SeqCst);
++        if opts.ffmpeg.is_some() {
++            DELIVERY.fetch_add(1, SeqCst);
++        }
++    }
++    let out = std::env::temp_dir().join(format!("explainer_kit_hook_{}", std::process::id()));
++    let mut e = explainer(good_facts);
++    e.thumbnail = Some(|kit| Box::new(ToyThumbnail { kit }));
++    let run = |s: &str| {
++        let argv = args(&format!("{s} --out {}", out.display()));
++        explainer_kit::cli::run_with_contract_and_options(&e, argv, &out, note)
++    };
++
++    assert_eq!(run("render 01_first --res 64x36 --fps 10 --silent --crf 28"), 0);
++    // more than one call only if the kit retried a transient ffmpeg failure
++    let renders = CALLS.load(SeqCst);
++    assert!(renders >= 1);
++    assert_eq!(DELIVERY.load(SeqCst), renders);
++
++    assert_eq!(run("thumbnail --res 64x36"), 0);
++    assert_eq!(CALLS.load(SeqCst), renders + 1);
++    assert_eq!(DELIVERY.load(SeqCst), renders);
++
++    // one capture a chapter, and none for the sheet of glyphs, which draws no chapter
++    let _ = explainer_kit::cli::run_with_contract_and_options(
++        &e,
++        [String::from("glyphs"), out.join("glyphs").display().to_string()],
++        &out,
++        note,
++    );
++    assert_eq!(CALLS.load(SeqCst), renders + 3);
++    assert_eq!(DELIVERY.load(SeqCst), renders);
++}
++
+ fn args(s: &str) -> Vec<String> {
+     s.split_whitespace().map(str::to_owned).collect()
+ }

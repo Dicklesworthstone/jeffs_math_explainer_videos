@@ -1,0 +1,22 @@
+previous job logarithm-combined-repair-glyphs01: 583 rows; this job: 588 rows
+
+# added
+  row 22 Text 06_lifting_loops: "0.27"
+  row 31 Text 06_lifting_loops: "0.40"
+  row 34 Text 06_lifting_loops: "0.49"
+  row 420 Text 05_complex_turns: "the line goes on"
+  row 497 Tex 06_lifting_loops: "(\\ell)"
+  row 559 Tex 11_unreachable: "\\text{singular } S\\text{: } \\operatorname{det} S = 0 \\quad\\text{but}\\quad \\operatorname{det} e^{X} = e
+  row 565 Tex 06_lifting_loops: "e^{L(z)} = z = e^{\\ell} \\;\\Rightarrow\\; L(z) - \\ell = 2\\pi i\\,k,\\ \\ k \\text{ whole}"
+  row 575 Tex 11_unreachable: "e^{tp} > 0 \\text{ for real } t \\text{ and } p\\text{: } e^{tX} \\text{ reverses no axis}"
+  row 584 Tex 04_undoing_growth: "y = x"
+
+# removed
+  old row 31 Text 06_lifting_loops: "0.46"
+  old row 542 Tex 11_unreachable: "\\operatorname{det} A = 0 \\quad\\text{but}\\quad \\operatorname{det} e^{X} = e^{\\operatorname{tr} X} \\neq 
+  old row 561 Tex 06_lifting_loops: "e^{L(z)} = z = e^{\\ell(z)} \\;\\Rightarrow\\; L(z) - \\ell(z) = 2\\pi i\\,k,\\ \\ k \\text{ whole}"
+  old row 571 Tex 11_unreachable: "e^{tp} > 0 \\text{ for all real } t \\text{ and } p\\text{: no axis reverses}"
+
+# rows holding U+03B8
+  row 66 Text supplement: "0123456789 . , : ; ( ) [ ] = + − × ÷ ± ½ ≈ ≠ ≤ < > ∞ ∫ √ π θ ° ₂ → ↔ – … ? ! Hz % a b c d e i k t x y z A I J
+  row 377 Text 07_branch_cut: "rays at angle θ  →  horizontal lines at height θ"

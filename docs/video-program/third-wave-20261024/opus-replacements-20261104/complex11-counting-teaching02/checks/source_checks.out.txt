@@ -1,0 +1,162 @@
+== baselines still match
+PASS counting-wording-repair01/counting.rs 7c5a41c6fd37ad5d
+PASS counting-wording-repair01/script.tsv 1e24aba8b520f2e6
+PASS counting-wording-repair01/before-script.tsv 2968b0fd76540cbc
+PASS chapters/counting.rs 0ecda9cf1bfa26ed
+PASS chapters/draw.rs 4eba4bb18b989ac7
+PASS chapters/mod.rs 57c46d67161490cb
+PASS src/model.rs aa4bdcd9afcf19b7
+PASS src/main.rs dcc3e6281e42f7bb
+PASS docs/storyboard.md be30f73484bd69cb
+PASS complex_analysis_visual/script.tsv 2968b0fd76540cbc
+PASS complex_analysis_visual/narration_units.json 3c4f53d797385729
+PASS docs/narration-direction-map-oliver10.json 341356cda34ac129
+PASS tools/coherent_narration.py e0aa81f352cb2c84
+PASS src/storyboard.rs fe835a0980d6e2a8
+PASS src/plot.rs 15e8c470ece7844d
+PASS src/narration.rs 8072720d8ff86b91
+PASS complex-glyph-spacing-repair01/complex-glyph-spacing.patch b925d8b636eb42ac
+PASS complex11-counting-review-repair01/HANDOFF.md 6d0eab5a35b3e021
+PASS complex11-counting-review-repair01/SHA256SUMS 94a9803ce2c413ea
+PASS patches/01-reach-label.patch 77737e5f92885789
+PASS patches/02-storyboard-11_7.patch 310b1284d3d36a4e
+PASS patches/03-optional-a-name.patch 23ab1e91b9665246
+== scope: one staged source file; everything else is a patch or the candidate map
+PASS ['counting.rs']
+== patches apply clean, equal what they claim, and reverse
+PASS counting-from-root.patch on root's candidate
+PASS gives the staged file dba35730d15b3c5e4ff7fb0fe7444265424b920d87861562b11d8468f9d290e4
+PASS reverses to root's candidate
+PASS the frozen 01 on root's candidate
+PASS the frozen 03 on top
+PASS 01 + 03 is the file the frozen handoff named, 20ad375d
+PASS counting-delta-on-01-03.patch on that file
+PASS and gives the same staged file
+PASS mod-registry.patch on canonical mod.rs
+     mod.rs after 2414a6bd8c1ae26af60385d6e5ee80bfc70a1d7dae1ae6aeccdcc97c75b60549
+PASS it adds exactly 5 rows and removes none
+PASS three in TEXT and two in TEX
+PASS reverses
+PASS storyboard.patch on the canonical storyboard
+     storyboard.md after 6deb9f01cbcc505a2a08e5d8bc673bfe3f035c499824091058e86e903acee1c4
+PASS root's exact 11_7 in the row, the old one out
+PASS reverses
+PASS narration-units.patch on the canonical plan
+     narration_units.json after 3989e1855f617734c38caae8d0113d4915b5c44fbde600f674e5779ed4977f28
+PASS direction-map-from-oliver10.patch on a copy of oliver10
+PASS gives holds/narration-direction-map-oliver11.json 759e0eba1d40fbd2ff4f715719493dccc35eed27da0f730c6e8c8344a7f1bb91
+== the timeline: what is new, and that nothing else moved
+     112 timed calls -> 123; inserted, in film order:
+       + line.wait_for(stage,"complexpolynomial")
+       + fade_in_all(0.3)
+       + line.sentence(1)
+       + stage.play(tween(turning.turned,1.0,rt)?)
+       + line.wait_sentence(stage,1)
+       + fade_in_all(0.3)
+       + line.until(stage,"whichleaves",1.2)
+       + stage.play(tween(turning.turned,0.0,rt)?)
+       + fade_out_all(0.2)
+       + fade_in_all(0.3)
+       + fade_out_all(0.3)
+PASS exactly these 11 calls are new
+PASS no timed call of root's is gone or changed
+PASS every new call falls between 11_7's say and the wait for sentence 3, so nothing after that anchor moves on its account
+PASS the order of the anchors holds
+PASS no new cue and no new fixed wait: every new call is a fade, a tween or an anchor
+PASS control: a changed fade time is detected
+PASS control: an added wait is detected
+== the strings and the tests
+     + "0 ÷ 2i = 0, and nothing else lands on 0"
+     + "2i"
+     + "complex polynomial"
+     + "every output ÷ 2i  (2i ≠ 0)"
+     + "f(z) = 2iz^5 - 6iz + 2{i}"
+     + "output size compressed; direction and turns around zero unchanged"
+     + "p(z) = f(z) \div 2i = z^5 - 3z + 1"
+     + "same five roots"
+     + "which leaves"
+     - "size compressed; direction and turns around zero unchanged"
+PASS the only string gone is the old card
+PASS the card now says output
+PASS 17 of root's tests kept, new: ['every_step_of_the_turn_keeps_the_roots_and_the_turns', 'the_division_keeps_the_count_and_a_constant_makes_no_turns', 'the_division_keeps_to_its_words_and_leaves_the_marks_alone', 'the_division_labels_leave_the_field_and_the_marks_clear', 'the_example_is_the_quintic_times_its_leading_coefficient', 'the_reach_disk_never_crosses_its_name', 'the_reach_labels_take_turns_over_the_window', 'the_roots_argument_waits_on_the_right_sentences', 'the_samples_name_keeps_off_the_distance_line', 'the_turn_runs_from_one_to_the_coefficient_and_never_reaches_zero', 'the_turning_curve_starts_from_the_walks_and_keeps_off_zero', 'the_turning_field_takes_over_unseen_from_the_walks_own_pieces', 'the_zero_keeps_its_name_while_the_line_and_the_rim_go_by']
+PASS the think-time test's count of Some(Func::Quintic) is still 3
+PASS the frozen sentence test is this folder's, not root's
+== root's script is the script: no word moves
+PASS 11_7 has seven sentences by draw.rs's rule
+PASS the two phrase anchors are each in the script once
+PASS 'complex polynomial' is in sentence 0, 'which leaves' in sentence 1
+PASS no spoken sentence pasted into the code
+== phrase marks: none is needed
+PASS without a mark, line.at interpolates inside the measured sentence, so both phrase times are estimates until a word-aligned take; with one, it is used
+== the overrun budget, on character-share sentence times (estimates, not Oliver)
+     scratch rate: sentence starts 0.0 5.9 11.4 16.1; turn out 1.40 s, turn back 2.47 s
+PASS scratch rate: no act runs past its sentence (-0.67, +0.00, -2.19, -4.04 s)
+     15% faster: sentence starts 0.0 5.0 9.7 13.7; turn out 1.40 s, turn back 2.05 s
+PASS 15% faster: no act runs past its sentence (-0.32, +0.00, -1.78, -3.33 s)
+     30% faster: sentence starts 0.0 4.2 8.0 11.3; turn out 1.36 s, turn back 1.64 s
+PASS 30% faster: no act runs past its sentence (+0.00, +0.00, -1.38, -2.62 s)
+== storyboard: the real check_video and Script::parse, built with rustc alone
+PASS check_video builds
+PASS control: canonical storyboard and canonical script agree
+PASS control: root's script against the canonical storyboard fails
+PASS root's script against this storyboard agrees
+PASS 11_6's picture quotes the card as drawn, and its hold column is untouched
+PASS 11_7's picture names: complex polynomial
+PASS 11_7's picture names: Divide
+PASS 11_7's picture names: which leaves
+PASS 11_7's picture names: Now it starts
+PASS 11_7's picture names: On a huge circle
+PASS 11_7's picture names: every output ÷ 2i  (2i ≠ 0)
+PASS 11_7's picture names: 0 ÷ 2i = 0, and nothing else lands on 0
+PASS 11_7's picture names: same five roots
+PASS 11_7's picture names: argument.quintic.big
+== narration units: tools/coherent_narration.py allows 100 words
+PASS 11_7 alone 96 words, unchanged by this folder
+PASS the rebound plan holds root's exact 11_7
+PASS its other 104 units are untouched, so only one cue is new to synthesize
+== the holds: root's validate_oliver_plan rules, on the staged file and the candidate map
+PASS the map binds root's script
+PASS hold_kinds unchanged {'prediction': 13, 'reading': 10}
+PASS the 23 overrides unchanged
+PASS the three counting holds
+PASS 11_5 -> 11_6: counting.rs:440 is the marker, owned by 11_5, followed by 11_6
+PASS 11_6 -> 11_7: counting.rs:503 is the marker, owned by 11_6, followed by 11_7
+PASS 11_8 -> 12_1: counting.rs:604 is the marker, owned by 11_8, followed by the chapter end
+PASS the other 20 holds still bind their files
+PASS helper draw.rs:871 pub fn predict(kit: &Kit, stage: &mut Stage<'_>, l
+PASS helper draw.rs:925 pub fn reading_window(kit: &Kit, stage: &mut Stage
+PASS helper mod.rs:31 pub const PREDICTS: &[(&str, f64)] = &[
+PASS helper draw.rs:957 pub fn precisely_over(stage: &mut Stage<'_>, said:
+PASS helper mod.rs:58 pub const READING_WINDOWS: &[(&str, f64)] = &[
+PASS nothing stands between 11_6's reading window and 11_7's say
+PASS the basis still describes it
+PASS the plan binds the candidate map and root's script
+PASS tools/coherent_narration.py direction_contract accepts the rebound plan, with the map path pointed here: 23 directions resolved
+PASS control: the real function refuses a wrong script hash
+     visual_holds relocated: 11_5 line 440, 11_6 line 503, 11_8 line 604
+== the card's reading window, as mod.rs's reading_windows_leave_time_for_what_the_voice_leaves_out computes it
+PASS 65 characters: floor 4.33 s <= 7.2 s clean <= ceiling 8.67 s
+PASS one line on the lower third, 65 of 92 characters
+== widths, in the film's own faces, in native pixels at 1280 x 720
+PASS claim: 424 px wide, x 118 to 541, inside 40 to 667
+PASS every output: 258 px wide, x 803 to 1062, inside 707 to 1157
+PASS zero kept: 373 px wide, x 746 to 1119, inside 707 to 1157
+PASS same roots card: 186 px wide, x 236 to 423, inside 78 to 582
+     the rows' widths are from the desk composites' hand setting: 270 and 384 px against the field's 504; fmn's TeX did not run
+PASS the card's text ends near x 860, its band ends at 1244
+== glyphs: every new text character is already drawn by a string in the registry's lists
+PASS EVERY_OUTPUT: none missing
+PASS ZERO_KEPT: none missing
+PASS SAME_ROOTS: none missing
+PASS SQUASHED: none missing
+PASS ≠ is in one_point::KEPT, and ÷ in TEXT[0] and one_derivative::GAP, both drawn by kit.text
+PASS \div is typeset by another crate on this pin (eigen_engineering), though not yet by this film; the probe page will show it
+PASS fmd_math::find_occurrences is plain text matching, so the key finds only the leading 2i
+== beside the glyph patch, in either order
+PASS glyph-first: every hunk applies
+PASS repair-first: every hunk applies
+PASS both orders give the same counting.rs and mod.rs
+     with the glyph patch too: counting.rs 138b5d84d0c9240dbd3a66f786481132d59ab3bc7f22e2b11c1e0adc9195e770, mod.rs eb10b3157919cbc0dc215e0eaf565bd0546094667b742060a61f0cee1238d363
+PASS the glyph patch moves no counting hold: only the map's sha256 fields would change
+PASS and no mod.rs helper row
+RESULT PASS

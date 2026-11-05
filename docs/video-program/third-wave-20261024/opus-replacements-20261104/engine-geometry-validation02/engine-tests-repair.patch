@@ -1,0 +1,88 @@
+--- a/crates/fmn-render/tests/stroke_profiles.rs
++++ b/crates/fmn-render/tests/stroke_profiles.rs
+@@ -509,9 +509,13 @@
+         }
+     );
+ 
+-    plan.sync_with_limits(&stage, 0, knots(1 << 22)).unwrap();
++    let stats = plan.sync_with_limits(&stage, 0, knots(1 << 22)).unwrap();
+     assert_eq!(plan.styles().profile_knots(), 1_075_301);
+-    assert_eq!(plan.segments().len(), 731 * 734);
++    // the rows differ only in where they sit, and a shape's digest leaves position out: one
++    // outline, placed 731 times
++    assert_eq!(plan.segments().len(), 734);
++    assert_eq!(plan.shapes().shapes().len(), 1);
++    assert_eq!(stats.shapes_shared, 730);
+     assert_eq!(plan.shapes().instances().len(), 731);
+ 
+     for (width, height) in [(1280_u32, 720_u32), (3840, 2160)] {
+--- a/crates/fmn/tests/native_render.rs
++++ b/crates/fmn/tests/native_render.rs
+@@ -3,6 +3,7 @@
+ use std::path::Path;
+ use std::sync::Arc;
+ 
++use fmn::mobject::{Mobject, RecordBuffer, RecordSchema};
+ use fmn::prelude::*;
+ use fmn::rendering::{RenderError, RenderPlanLimits};
+ use fmn_codec::{PngLimits, decode_png, decode_y4m};
+@@ -230,6 +231,59 @@
+     assert!(!fs.exists(Path::new("/limited")));
+ }
+ 
++const WIDE_ROWS: usize = 8;
++const WIDE_RECORDS: usize = 131_209;
++
++/// One frame of per-record paint: 8 × 131,209 = 1,049,672 knots, just past the default of
++/// 1,048,576, with every other part of the plan far under its limit.
++struct WideRows;
++
++impl SceneConstruct for WideRows {
++    fn construct(&mut self, stage: &mut Stage<'_>) -> fmn::Result<()> {
++        for row in 0..WIDE_ROWS {
++            let y = 1.4 - 0.4 * row as f32;
++            let mut buffer = RecordBuffer::new(RecordSchema::vmobject(), WIDE_RECORDS).unwrap();
++            for i in 0..WIDE_RECORDS {
++                let x = -1.5 + 3.0 * i as f32 / (WIDE_RECORDS - 1) as f32;
++                let (red, green) = ((row + 1) as f32 / 16.0, (i % 4096) as f32 / 4096.0);
++                buffer.write(i, "point", &[x, y, 0.0]);
++                buffer.write(i, "stroke_width", &[20.0]);
++                buffer.write(i, "stroke_rgba", &[red, green, 0.5, 1.0]);
++            }
++            let mob = stage.arena_mut().add(Mobject::from_buffer(buffer));
++            stage.add_to_scene(mob)?;
++        }
++        stage.wait(0.1)?;
++        Ok(())
++    }
++}
++
++/// The other budget tests lower a limit, which a clamp to the default would also pass. This one
++/// raises it, through the same public route a film takes.
++#[test]
++fn a_declared_plan_budget_above_the_default_is_admitted_and_the_default_still_refuses() {
++    let fs = Arc::new(VirtualFs::new());
++    let default = options("/refused", RenderFormat::PngSequence, 4);
++    let Err(error) = render_with_fs(&mut WideRows, default, fs.clone()) else {
++        panic!("1,049,672 knots should not fit the default budget");
++    };
++    let words = format!("{error:?}");
++    assert!(
++        words.contains("resource: \"retained profile knots\"") && words.contains("limit: 1048576"),
++        "{words}"
++    );
++    assert!(!fs.exists(Path::new("/refused")));
++
++    let mut declared = options("/admitted", RenderFormat::PngSequence, 4);
++    declared.plan_limits = RenderPlanLimits {
++        max_retained_profile_knots: 1 << 21,
++        ..RenderPlanLimits::default()
++    };
++    let report = render_with_fs(&mut WideRows, declared, fs.clone()).unwrap();
++    assert_eq!(report.artifact.frame_count, 1);
++    assert!(fs.exists(Path::new("/admitted/frame_000000.png")));
++}
++
+ #[test]
+ fn frame_budget_failure_does_not_publish_a_truncated_animation() {
+     let fs = Arc::new(VirtualFs::new());

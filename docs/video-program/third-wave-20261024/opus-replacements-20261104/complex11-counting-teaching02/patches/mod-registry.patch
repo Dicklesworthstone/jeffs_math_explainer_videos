@@ -1,0 +1,21 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/mod.rs
+@@ -180,6 +180,9 @@
+     counting::WALKER_DOG[0],
+     counting::WALKER_DOG[1],
+     counting::ROOTS_CLAIM,
++    counting::EVERY_OUTPUT,
++    counting::ZERO_KEPT,
++    counting::SAME_ROOTS,
+     counting::DOG_DRAWN,
+     counting::DOG_ROWS[0],
+     counting::DOG_ROWS[1],
+@@ -416,6 +419,8 @@
+     counting::MINUS_THREE_Z_TEX,
+     counting::COARSE_TEX,
+     counting::LIP_TEX,
++    counting::BEFORE_DIVIDING_TEX,
++    counting::AFTER_DIVIDING_TEX,
+     counting::DEGREE_N_TEX,
+     real_integral::BUMP_AREA_TEX,
+     real_integral::LOOP_TEX,

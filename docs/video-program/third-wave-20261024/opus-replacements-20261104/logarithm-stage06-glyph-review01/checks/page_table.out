@@ -1,0 +1,56 @@
+| Page | sha256 | Rows | Ink rows | What I read |
+|---|---|---|---|---|
+| 0 | `97ffb986a0da` | 1–13 | 13 | Numbers and short labels. r4 `→` is the heavier Noto arrow. |
+| 1 | `7ce91ca4412f` | 14–26 | 13 | Numbers and short labels. Clean. |
+| 2 | `ea876db60c9e` | 27–39 | 13 | Numbers and short labels. Clean. |
+| 3 | `e360862aa88a` | 40–52 | 13 | Numbers and short labels. Clean. |
+| 4 | `09f9a306226e` | 53–65 | 13 | Numbers and short labels. Clean. |
+| 5 | `22e4e2204acc` | 66–77 | 13 | r66 is the supplement, the only row not captured from a chapter: `θ` in its open form, Noto `− × ≈ ≠ ≤ → ↔ ∞`, Plex `½ ₂`. |
+| 6 | `ac70b4253bf8` | 78–90 | 13 | Short labels. Clean. |
+| 7 | `dc9e950568bf` | 91–103 | 13 | Short labels. Clean. |
+| 8 | `ce162b1b0696` | 104–116 | 13 | Short labels. `×` heavier than its digits (F5). |
+| 9 | `5f7eb82529c4` | 117–129 | 13 | `2×2`, `2π`, `2πi`: tight, legible. |
+| 10 | `e0536cb23dcf` | 130–142 | 13 | Short labels. Clean. |
+| 11 | `49dc8dccdff3` | 143–155 | 13 | Short labels. Clean. |
+| 12 | `000d20140c39` | 156–167 | 12 | r160–r162 `(−I) × diag(2, ½)`, `diag(−2, −½)`: Noto `−`, Plex `½` (F5). |
+| 13 | `17769435e307` | 168–179 | 12 | Short labels. Clean. |
+| 14 | `d00f2acca33e` | 180–191 | 12 | `Log(−i) = −πi/2`. Clean. |
+| 15 | `cfaafd5ac48a` | 192–203 | 12 | Short labels. Clean. |
+| 16 | `29a6629cff8d` | 204–215 | 12 | Short labels. Clean. |
+| 17 | `9c7ad897b733` | 216–227 | 12 | `−cI`, `near π; … −π`. Clean. |
+| 18 | `a716df66c180` | 228–238 | 12 | r235 breaks mid-word: probe's 64-character chunking, not the film. |
+| 19 | `a82591f2fa19` | 239–250 | 12 | `π i → −πi, gap 0 → −1`, `|z| = r`. Clean. |
+| 20 | `cabfe5b2d5e8` | 251–262 | 12 | r254, r258, r259 Plex `½` (F5); r261 `e ≈ 2.718`; `det = (−2) × (−½) = +1`. |
+| 21 | `82b8d0b5acce` | 263–274 | 12 | `(−1) − (−1) = 0`, `±1.5 ×`. Clean. |
+| 22 | `6616b6c1b8af` | 275–286 | 12 | `Log(−1) = iπ`. Clean. |
+| 23 | `008d3b020d84` | 287–298 | 12 | r287 `for z²:` Plex `²` heavier than the serif beside it (F5); `height −π`. |
+| 24 | `47f6509b8bb9` | 299–310 | 12 | r302 `i × i = −1: two quarter turns`; r307 `it breaks at −1`. Clean. |
+| 25 | `e35c374ca35c` | 311–322 | 12 | r313, r315 `→`; r317 `keep −π < turning < π`; r322 `½, 1½, 2½, …` (F5). |
+| 26 | `797d738a5b44` | 323–334 | 12 | r323 `→`; r325 ends in `×`; r328 `ln 2 ≈ 0.693`; r329 `×e`. Clean. |
+| 27 | `cf1a60c01fdf` | 335–346 | 12 | r335 `mirror: −1`; r346 `×10`. Clean. |
+| 28 | `fa5ff77678dc` | 347–358 | 12 | r350, r353 `×10`; r357 `×4`; r355 `size-2`. Clean. |
+| 29 | `d1cde5a6c337` | 359–367 | 12 | r359 `2πi`; r364–r367 are 64-character chunks; r365 en dash `1146–1151`; r367 `(−∞, 0]`. |
+| 30 | `e8fb94599733` | 367–372 | 11 | r370 `∫` is the Noto integral; r372 `⇒`, `(−∞, 0]`; r367 `≤`. Chunk breaks are the probe's. |
+| 31 | `010dec75c535` | 372–382 | 12 | r372 tail `)`; r373 `±½, ±1½, …`, `§4`; r377 `θ` open form, twice (F5); r382 `≈`, `÷`. |
+| 32 | `b8ed44ec5b60` | 383–393 | 12 | r393 `−I`; r389 chunk break is the probe's. Clean. |
+| 33 | `37ad0e9d0c0e` | 394–405 | 12 | r395–r399 `½`, `1½`, `2½` (F5); r400 `0.28π`. |
+| 34 | `f1c34fb0b9be` | 406–417 | 12 | r410 `½(I + mirror)` (F5); r406, r407 live-style numbers. Clean. |
+| 35 | `138fc6c8e7e1` | 418–429 | 12 | **r420 `the line goes on`: new, correct.** r428 `±π`. |
+| 36 | `6ae37e14f942` | 430–440 | 12 | r436 `↔`; r438 chunk break is the probe's; r435 `1.380 laps`. Clean. |
+| 37 | `dac44dfef993` | 441–453 | 13 | r443 `(−½) − (−2)`; r452 `→`. Clean. |
+| 38 | `d33ab9898f6f` | 454–466 | 13 | r455 `½` alone, in Plex; r456 `× ?`; r466 `×½` (F5). |
+| 39 | `6f461f5b9644` | 467–479 | 13 | r472–r476 live values with thin en dash, against r479 heavy `−` (F3); r467 `√`; r478 `⇒`; r477 `…` low. |
+| 40 | `afc64d8226e3` | 480–492 | 13 | r480–r492 fixed-label `−`; r491 `−b`, from `"-b"` through `shown()`; r492 `−½`. |
+| 41 | `1e2863218975` | 493–504 | 12 | **r497 `(ℓ)`: new, correct, Noto (F4).** r498 tight unary control; r503 floating colon (F2); r502 `P^{-1}` clears at every ink level. |
+| 42 | `9d71e62b3a24` | 505–515 | 11 | r507–r509 root bars clear by eye; r511 `e^X` clears at every ink level, r510 by eye; r512, r513 floating colon (F2); r514 `⟷`, `\left(`. |
+| 43 | `51004e3a889c` | 516–525 | 10 | r516 `⟺`; r517 `⇒`; r518, r519 `\frac`; r520 `↔`; r522–r524 `≈`. Clean. |
+| 44 | `e1b3508b1453` | 526–534 | 9 | r527 `e^{\ln y}`; r528 `diag`; r530, r531, r533 subscripts on `log`; r532 floating colon (F2). |
+| 45 | `7300091e3e5f` | 535–544 | 10 | r535 `\tfrac`; r538 `Arg(−1)`; r542 `≠`; r543 `⟺`, `≤`; r540, r544 clean. |
+| 46 | `41035b34d08f` | 545–555 | 11 | r546–r549 root bars and exponents; r547, r549 `\frac` in an exponent; r550 `×`; r551, r555 `\tfrac`. |
+| 47 | `f88a88557bea` | 556–565 | 10 | **r559 singular S and r565 DIFFER: new, correct.** r560 `so − 1` spacing (F1); r557 floating colon (F2); r558, r563 clean. |
+| 48 | `ad9cc0bdd560` | 566–576 | 11 | **r575 `e^{tp}` line: new, correct.** r569 `e^{-\ln 2+i\pi}`; r570 `≠`; r574 `e^{tX}`. |
+| 49 | `a7487832497d` | 577–586 | 10 | **r584 `y = x`: new, correct.** r578 `e^{-x}` clears; r579 `\frac`; r586 floating colon (F2). |
+| 50 | `3e55c5881088` | 587–588 | 2 | r587, r588. Last page; the rest of the sheet is empty, as expected. |
+
+all 51 page hashes, sha256 of the sorted list: ea2c1a0f4d724011ffd62afb371ce7bd5c626b6c34de3b1a82bfe967923392a9
+ink rows 603

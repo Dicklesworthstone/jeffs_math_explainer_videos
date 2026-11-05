@@ -1,0 +1,1480 @@
+{
+  "schema_version": 1,
+  "claim": "Text comparison with root's frozen request files. It says nothing about whether any recording exists. Root's inventory found no exact local record for the 75-cue text and requires a provider history check before new synthesis. The final-80 request list's own state is reported as that file records it.",
+  "request_id_note": "request_id_with_exact_bytes names narration-request-plan01's request, and is null for 01_5, whose new text is not in that plan. current_request is the row of root's current list: the file with the cue's exact current bytes and the submission state as that list records it.",
+  "current_request_list": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-02/requests.json",
+    "sha256": "c533f4ade3929518a68ecdf7f7b7027c22cbf59480e599c4b5982fd25e1e33be",
+    "created_at": "2026-11-05T00:56:41.979855+00:00",
+    "script_sha256": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+    "supersedes": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/requests.json",
+    "by_submission_state": {
+      "full pair retained": 35,
+      "not established by this snapshot": 44,
+      "submitted once; generation/download pending": 1
+    },
+    "submitted_true": 36,
+    "provider_history_checked_false": 80,
+    "claim": "Copied from root's list. Retained or submitted is not selected: no take is selected here, and selection for all 80 cues remains pending. Nothing here authorizes synthesis."
+  },
+  "baseline_script_sha256": "3e4e34af7090e448d65a2731f0d0d78673679730c0f95fdc695e3e8f2e6f5243",
+  "request_plan": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-plan01.json",
+  "request_plan_binds": "3e4e34af7090e448d65a2731f0d0d78673679730c0f95fdc695e3e8f2e6f5243",
+  "root_inventory_counts": {
+    "cues": 75,
+    "words": 4592,
+    "receipt_files_scanned": 168,
+    "cues_with_exact_local_record": 0,
+    "cues_over_100_words": 4
+  },
+  "counts": {
+    "cues": 80,
+    "unchanged_from_baseline": 70,
+    "split_cues": 9,
+    "reworded_since_stage06": 1,
+    "with_exact_request_bytes": 79,
+    "with_current_request_file": 80
+  },
+  "cues": [
+    {
+      "cue": "00_1",
+      "words": 47,
+      "text_sha256": "2986667cb17d47efc5b01a53a482cacb77df7f13d9750fe736547c800a2e769e",
+      "baseline_cue": "00_1",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "00_1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/00_1.txt",
+        "sha256": "2986667cb17d47efc5b01a53a482cacb77df7f13d9750fe736547c800a2e769e",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_1-downloads01.json"
+      }
+    },
+    {
+      "cue": "00_2",
+      "words": 31,
+      "text_sha256": "9cff4b6074ce932b6916fa76fbef35e08e31592ca5e96c93482a256ee2c340a4",
+      "baseline_cue": "00_2",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "00_2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/00_2.txt",
+        "sha256": "9cff4b6074ce932b6916fa76fbef35e08e31592ca5e96c93482a256ee2c340a4",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_2-downloads01.json"
+      }
+    },
+    {
+      "cue": "00_3",
+      "words": 56,
+      "text_sha256": "dc1be524334bc27463ec71666c38080f737eb3ced12b12c92a840123bd8c30bc",
+      "baseline_cue": "00_3",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "00_3",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/00_3.txt",
+        "sha256": "dc1be524334bc27463ec71666c38080f737eb3ced12b12c92a840123bd8c30bc",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_3-downloads01.json"
+      }
+    },
+    {
+      "cue": "00_4",
+      "words": 35,
+      "text_sha256": "28aa0759d8ed2062f3854570f9cbc06427f2b43a5604e98ac9526161e564f320",
+      "baseline_cue": "00_4",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "00_4",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/00_4.txt",
+        "sha256": "28aa0759d8ed2062f3854570f9cbc06427f2b43a5604e98ac9526161e564f320",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_4-downloads01.json"
+      }
+    },
+    {
+      "cue": "00_5",
+      "words": 48,
+      "text_sha256": "8b3d94121540f03dfa1199ed97718bf27762b175db4167368fefd3eb5a2d4aa5",
+      "baseline_cue": "00_5",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "00_5",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/00_5.txt",
+        "sha256": "8b3d94121540f03dfa1199ed97718bf27762b175db4167368fefd3eb5a2d4aa5",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_5-downloads01.json"
+      }
+    },
+    {
+      "cue": "00_6",
+      "words": 79,
+      "text_sha256": "be8fe805a35e2a4a9b270702dfbb9c71a34fd2278ea287b80269d6acc411fb63",
+      "baseline_cue": "00_6",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "00_6",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/00_6.txt",
+        "sha256": "be8fe805a35e2a4a9b270702dfbb9c71a34fd2278ea287b80269d6acc411fb63",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_6-downloads01.json"
+      }
+    },
+    {
+      "cue": "01_1",
+      "words": 48,
+      "text_sha256": "d71a0bd05870ac964963abd4780102349f6794df6dd4f16ea24e7aa67347f7ba",
+      "baseline_cue": "01_1",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "01_1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/01_1.txt",
+        "sha256": "d71a0bd05870ac964963abd4780102349f6794df6dd4f16ea24e7aa67347f7ba",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_1-downloads01.json"
+      }
+    },
+    {
+      "cue": "01_2",
+      "words": 54,
+      "text_sha256": "5df547825cd019fbc45286199a55a4a03309eab34eb4c79fb90637c659e1625e",
+      "baseline_cue": "01_2",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "01_2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/01_2.txt",
+        "sha256": "5df547825cd019fbc45286199a55a4a03309eab34eb4c79fb90637c659e1625e",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_2-downloads01.json"
+      }
+    },
+    {
+      "cue": "01_3",
+      "words": 24,
+      "text_sha256": "23f240c35831923a7b47c4dd276719054eb553fa5678c5178e0c9a5260191db3",
+      "baseline_cue": "01_3",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "01_3",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/01_3.txt",
+        "sha256": "23f240c35831923a7b47c4dd276719054eb553fa5678c5178e0c9a5260191db3",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_3-downloads01.json"
+      }
+    },
+    {
+      "cue": "01_4",
+      "words": 59,
+      "text_sha256": "e1b96d8cf4625bf2b933ff51eda76d2514fe12635e7b7c61442e410754614937",
+      "baseline_cue": "01_4",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "01_4",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/01_4.txt",
+        "sha256": "e1b96d8cf4625bf2b933ff51eda76d2514fe12635e7b7c61442e410754614937",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_4-downloads01.json"
+      }
+    },
+    {
+      "cue": "01_5",
+      "words": 58,
+      "text_sha256": "f0a6d133ce8d07e4fcb9242c0e7a70966611ce1baca1501d3b0242c58b9e9b92",
+      "baseline_cue": "01_5",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": true,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": true,
+      "request_id_with_exact_bytes": null,
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-rounding01/01_5.txt",
+        "sha256": "f0a6d133ce8d07e4fcb9242c0e7a70966611ce1baca1501d3b0242c58b9e9b92",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "01_6",
+      "words": 71,
+      "text_sha256": "342fd8f544892c434e4d2d9dcf4bb0fc142ac85ecb36a3cbd9879f6840ead31a",
+      "baseline_cue": "01_6",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "01_6",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/01_6.txt",
+        "sha256": "342fd8f544892c434e4d2d9dcf4bb0fc142ac85ecb36a3cbd9879f6840ead31a",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_6-downloads01.json"
+      }
+    },
+    {
+      "cue": "02_1",
+      "words": 35,
+      "text_sha256": "3110c66e2647d397a38e81a4c77370c9efd4237bd4d9d720ba4af25e454e60af",
+      "baseline_cue": "02_1",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "02_1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/02_1.txt",
+        "sha256": "3110c66e2647d397a38e81a4c77370c9efd4237bd4d9d720ba4af25e454e60af",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_1-downloads01.json"
+      }
+    },
+    {
+      "cue": "02_2",
+      "words": 46,
+      "text_sha256": "bd5822b91f2700d5f2ee189d831ccc47b9253c4e58b4775488af71e4849fc33e",
+      "baseline_cue": "02_2",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "02_2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/02_2.txt",
+        "sha256": "bd5822b91f2700d5f2ee189d831ccc47b9253c4e58b4775488af71e4849fc33e",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_2-downloads01.json"
+      }
+    },
+    {
+      "cue": "02_3",
+      "words": 32,
+      "text_sha256": "4ee6f9d52f173dd7b438f74cd7415fc60bf2f0382ff1febb9533d4647ab3cefd",
+      "baseline_cue": "02_3",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "02_3",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/02_3.txt",
+        "sha256": "4ee6f9d52f173dd7b438f74cd7415fc60bf2f0382ff1febb9533d4647ab3cefd",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_3-downloads01.json"
+      }
+    },
+    {
+      "cue": "02_4",
+      "words": 33,
+      "text_sha256": "be1cfbe625776b45a9b80fc54f8db6cb074612edcc82b075f4213609d08cde0f",
+      "baseline_cue": "02_4",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "02_4",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/02_4.txt",
+        "sha256": "be1cfbe625776b45a9b80fc54f8db6cb074612edcc82b075f4213609d08cde0f",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_4-downloads01.json"
+      }
+    },
+    {
+      "cue": "02_5",
+      "words": 71,
+      "text_sha256": "3dc26bb4527bc899fa42b3fbc41ee2e1eef0482d535192db49ddd83d3174bb73",
+      "baseline_cue": "02_5",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "02_5",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/02_5.txt",
+        "sha256": "3dc26bb4527bc899fa42b3fbc41ee2e1eef0482d535192db49ddd83d3174bb73",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_5-downloads01.json"
+      }
+    },
+    {
+      "cue": "03_1",
+      "words": 45,
+      "text_sha256": "620d844f25db5f2fdb93d5b803a017906d3727213f5ad4e037d6b258bf9bd0f1",
+      "baseline_cue": "03_1",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "03_1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/03_1.txt",
+        "sha256": "620d844f25db5f2fdb93d5b803a017906d3727213f5ad4e037d6b258bf9bd0f1",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_1-downloads01.json"
+      }
+    },
+    {
+      "cue": "03_2",
+      "words": 57,
+      "text_sha256": "d304b7e87991505e3506d506110c2f1f8ded34313abb5c97575120510f0b6ded",
+      "baseline_cue": "03_2",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "03_2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/03_2.txt",
+        "sha256": "d304b7e87991505e3506d506110c2f1f8ded34313abb5c97575120510f0b6ded",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_2-downloads01.json"
+      }
+    },
+    {
+      "cue": "03_3",
+      "words": 44,
+      "text_sha256": "4ce29b0933cf7eb5fc8fbe78de804c33749308e5245693fc4a128076568e81c0",
+      "baseline_cue": "03_3",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "03_3",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/03_3.txt",
+        "sha256": "4ce29b0933cf7eb5fc8fbe78de804c33749308e5245693fc4a128076568e81c0",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_3-downloads01.json"
+      }
+    },
+    {
+      "cue": "03_4",
+      "words": 44,
+      "text_sha256": "90eba9a70789356e6faa42e6e0451c0ddd2a6285dbc87bf19b8910588b6ed57d",
+      "baseline_cue": "03_4",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "03_4",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/03_4.txt",
+        "sha256": "90eba9a70789356e6faa42e6e0451c0ddd2a6285dbc87bf19b8910588b6ed57d",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_4-downloads01.json"
+      }
+    },
+    {
+      "cue": "04_1",
+      "words": 46,
+      "text_sha256": "997e38ce5b39b255bbc6bbc8d29ae0a81128337ce65602a1f23f4802aa4d0aba",
+      "baseline_cue": "04_1",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "04_1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/04_1.txt",
+        "sha256": "997e38ce5b39b255bbc6bbc8d29ae0a81128337ce65602a1f23f4802aa4d0aba",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_1-downloads01.json"
+      }
+    },
+    {
+      "cue": "04_2",
+      "words": 86,
+      "text_sha256": "9a338a180e93a78f67ad49208255c0aff009c897e0acdf254f8937ce0d11f2bc",
+      "baseline_cue": "04_2",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "04_2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/04_2.txt",
+        "sha256": "9a338a180e93a78f67ad49208255c0aff009c897e0acdf254f8937ce0d11f2bc",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_2-downloads01.json"
+      }
+    },
+    {
+      "cue": "04_3",
+      "words": 53,
+      "text_sha256": "e9e79bdcb58af233281c77b77c62a032a6117222f5cd0aa34b41f2018d19bdd8",
+      "baseline_cue": "04_3",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "04_3",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/04_3.txt",
+        "sha256": "e9e79bdcb58af233281c77b77c62a032a6117222f5cd0aa34b41f2018d19bdd8",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_3-downloads01.json"
+      }
+    },
+    {
+      "cue": "04_4",
+      "words": 71,
+      "text_sha256": "6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6",
+      "baseline_cue": "04_4",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "04_4",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/04_4.txt",
+        "sha256": "6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_4-downloads01.json"
+      }
+    },
+    {
+      "cue": "04_5",
+      "words": 84,
+      "text_sha256": "226e67d7c75fc45c65227f9822543bc92d79d1dcd1a26a15e833d6405ce2e30b",
+      "baseline_cue": "04_5",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "04_5",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/04_5.txt",
+        "sha256": "226e67d7c75fc45c65227f9822543bc92d79d1dcd1a26a15e833d6405ce2e30b",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_5-downloads01.json"
+      }
+    },
+    {
+      "cue": "04_6",
+      "words": 32,
+      "text_sha256": "000edc3ec870fa4557e707caf46603afc19b7763b217de7486ceda3587da509e",
+      "baseline_cue": "04_6",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "04_6",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/04_6.txt",
+        "sha256": "000edc3ec870fa4557e707caf46603afc19b7763b217de7486ceda3587da509e",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_6-downloads01.json"
+      }
+    },
+    {
+      "cue": "04_7",
+      "words": 88,
+      "text_sha256": "cafb538e311e358ac817af1d9e9ef817822b4e9c427de8ca4625ba0713f5e5d5",
+      "baseline_cue": "04_7",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "04_7",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/04_7.txt",
+        "sha256": "cafb538e311e358ac817af1d9e9ef817822b4e9c427de8ca4625ba0713f5e5d5",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_7-downloads01.json"
+      }
+    },
+    {
+      "cue": "05_1",
+      "words": 56,
+      "text_sha256": "5f6674fe362915c5d650bb70dd3d9605991bb2dbf2498419edd312881652c583",
+      "baseline_cue": "05_1",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "05_1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/05_1.txt",
+        "sha256": "5f6674fe362915c5d650bb70dd3d9605991bb2dbf2498419edd312881652c583",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_1-downloads01.json"
+      }
+    },
+    {
+      "cue": "05_2",
+      "words": 49,
+      "text_sha256": "dd0ff44d3de36b7d6cc519f538d1fbae67b1ae904e1d65eb2debff35071327a8",
+      "baseline_cue": "05_2",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": true,
+      "cue_split_from_baseline": true,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "05_2-part1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/05_2.txt",
+        "sha256": "dd0ff44d3de36b7d6cc519f538d1fbae67b1ae904e1d65eb2debff35071327a8",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_2-downloads01.json"
+      }
+    },
+    {
+      "cue": "05_20",
+      "words": 63,
+      "text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+      "baseline_cue": "05_2",
+      "baseline_byte": 262,
+      "text_changed_from_baseline": true,
+      "cue_split_from_baseline": true,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "05_2-part2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/05_20.txt",
+        "sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_20-downloads01.json"
+      }
+    },
+    {
+      "cue": "05_3",
+      "words": 65,
+      "text_sha256": "3f267c4eb390bcfa1d3de96c16a5b9a5f6ab8ee1133752f5774bab63b1cd6868",
+      "baseline_cue": "05_3",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "05_3",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/05_3.txt",
+        "sha256": "3f267c4eb390bcfa1d3de96c16a5b9a5f6ab8ee1133752f5774bab63b1cd6868",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_3-downloads01.json"
+      }
+    },
+    {
+      "cue": "05_4",
+      "words": 45,
+      "text_sha256": "bb0c9ce590095004ece1dc001770a2f1c8042a733e3cb9cb1bfdcd3a2a9ea339",
+      "baseline_cue": "05_4",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "05_4",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/05_4.txt",
+        "sha256": "bb0c9ce590095004ece1dc001770a2f1c8042a733e3cb9cb1bfdcd3a2a9ea339",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_4-downloads01.json"
+      }
+    },
+    {
+      "cue": "05_5",
+      "words": 10,
+      "text_sha256": "4577d97df6052667c611277cd7a4c43425b6f7a7c98b8e290d042448b0ae0cef",
+      "baseline_cue": "05_5",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "05_5",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/05_5.txt",
+        "sha256": "4577d97df6052667c611277cd7a4c43425b6f7a7c98b8e290d042448b0ae0cef",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_5-downloads01.json"
+      }
+    },
+    {
+      "cue": "05_6",
+      "words": 73,
+      "text_sha256": "0efab2f833ca962cd86edf6f77cdb5f32154eafb24784b95f05d91a249102862",
+      "baseline_cue": "05_6",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "05_6",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/05_6.txt",
+        "sha256": "0efab2f833ca962cd86edf6f77cdb5f32154eafb24784b95f05d91a249102862",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_6-downloads01.json"
+      }
+    },
+    {
+      "cue": "05_7",
+      "words": 67,
+      "text_sha256": "7a6573c709b24613761472e08ab82557ac55afba998347efff5c02050d2b31e6",
+      "baseline_cue": "05_7",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "05_7",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/05_7.txt",
+        "sha256": "7a6573c709b24613761472e08ab82557ac55afba998347efff5c02050d2b31e6",
+        "submitted": true,
+        "submission_state": "full pair retained",
+        "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_7-downloads01.json"
+      }
+    },
+    {
+      "cue": "06_1",
+      "words": 46,
+      "text_sha256": "b260807f31f65927962909683d5af815e2128a0ad7500d0749e6511c19680aca",
+      "baseline_cue": "06_1",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "06_1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/06_1.txt",
+        "sha256": "b260807f31f65927962909683d5af815e2128a0ad7500d0749e6511c19680aca",
+        "submitted": true,
+        "submission_state": "submitted once; generation/download pending",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "06_2",
+      "words": 49,
+      "text_sha256": "90fece638d89ab1eadbff4cf4913267724cbae1356011dc343b1290f12584f77",
+      "baseline_cue": "06_2",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "06_2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/06_2.txt",
+        "sha256": "90fece638d89ab1eadbff4cf4913267724cbae1356011dc343b1290f12584f77",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "06_3",
+      "words": 40,
+      "text_sha256": "a909ab31e6173129dcafbbf8a38bf663d6d3a140ce01c2c0e68253ebe77b2db0",
+      "baseline_cue": "06_3",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "06_3",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/06_3.txt",
+        "sha256": "a909ab31e6173129dcafbbf8a38bf663d6d3a140ce01c2c0e68253ebe77b2db0",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "06_4",
+      "words": 44,
+      "text_sha256": "435f54c3f9eca4b39e3dd6806b59768e4331e73a57651040c7c24092d149d6ec",
+      "baseline_cue": "06_4",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "06_4",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/06_4.txt",
+        "sha256": "435f54c3f9eca4b39e3dd6806b59768e4331e73a57651040c7c24092d149d6ec",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "06_5",
+      "words": 38,
+      "text_sha256": "219bc78c759868e8fb229188e8f757704428cf81e9cae40655a75b14506cc8c3",
+      "baseline_cue": "06_5",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "06_5",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/06_5.txt",
+        "sha256": "219bc78c759868e8fb229188e8f757704428cf81e9cae40655a75b14506cc8c3",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "06_6",
+      "words": 73,
+      "text_sha256": "4ca49ca95c948df0d25fa3732e00976bab13395ffff27dcb07bda094b73129e4",
+      "baseline_cue": "06_6",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": true,
+      "cue_split_from_baseline": true,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "06_6-part1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/06_6.txt",
+        "sha256": "4ca49ca95c948df0d25fa3732e00976bab13395ffff27dcb07bda094b73129e4",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "06_20",
+      "words": 64,
+      "text_sha256": "a82f172588e91e1dc63da895fd4a760ec655fd41ff1b6c9faad669ae434a3e80",
+      "baseline_cue": "06_6",
+      "baseline_byte": 404,
+      "text_changed_from_baseline": true,
+      "cue_split_from_baseline": true,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "06_6-part2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/06_20.txt",
+        "sha256": "a82f172588e91e1dc63da895fd4a760ec655fd41ff1b6c9faad669ae434a3e80",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "06_7",
+      "words": 65,
+      "text_sha256": "0f56c61839a683a4aa7ef25eb221e6912ca2c4c1fec023c68c5fe6d3ae995c7f",
+      "baseline_cue": "06_7",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "06_7",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/06_7.txt",
+        "sha256": "0f56c61839a683a4aa7ef25eb221e6912ca2c4c1fec023c68c5fe6d3ae995c7f",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "07_1",
+      "words": 43,
+      "text_sha256": "3ea7fd2865464049d0e9b916cdee0ac38a457d8eff28b4889ece8d9f8d70cf07",
+      "baseline_cue": "07_1",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "07_1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/07_1.txt",
+        "sha256": "3ea7fd2865464049d0e9b916cdee0ac38a457d8eff28b4889ece8d9f8d70cf07",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "07_2",
+      "words": 88,
+      "text_sha256": "c3936a28ed7e1a198aff633ab96603bdbd141f3c618713c5d82ab4d0b32c54e9",
+      "baseline_cue": "07_2",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "07_2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/07_2.txt",
+        "sha256": "c3936a28ed7e1a198aff633ab96603bdbd141f3c618713c5d82ab4d0b32c54e9",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "07_3",
+      "words": 58,
+      "text_sha256": "4ae58d37d06c67306feecf8d1053a54b39ea6a1079e435396a01b037b24d4ea9",
+      "baseline_cue": "07_3",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "07_3",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/07_3.txt",
+        "sha256": "4ae58d37d06c67306feecf8d1053a54b39ea6a1079e435396a01b037b24d4ea9",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "07_4",
+      "words": 50,
+      "text_sha256": "09556df40a49b999dd4344dc7ca0f643250191844c40937d050d8d7faafef77c",
+      "baseline_cue": "07_4",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "07_4",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/07_4.txt",
+        "sha256": "09556df40a49b999dd4344dc7ca0f643250191844c40937d050d8d7faafef77c",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "07_5",
+      "words": 80,
+      "text_sha256": "7de9ef93c93969396f634dc19d6e8134b5d0280509bdbd8827ac63a85b1f4bd6",
+      "baseline_cue": "07_5",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "07_5",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/07_5.txt",
+        "sha256": "7de9ef93c93969396f634dc19d6e8134b5d0280509bdbd8827ac63a85b1f4bd6",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "07_6",
+      "words": 95,
+      "text_sha256": "7f99cba22a033160d648cf21f48d99f6d7ee5bb373932960cd081d8918acb2f5",
+      "baseline_cue": "07_6",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "07_6",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/07_6.txt",
+        "sha256": "7f99cba22a033160d648cf21f48d99f6d7ee5bb373932960cd081d8918acb2f5",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "08_1",
+      "words": 76,
+      "text_sha256": "75556c6aef00b2c0f2bab3027e52d1baf9f1b42642e73678834d431a5cf145e3",
+      "baseline_cue": "08_1",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "08_1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/08_1.txt",
+        "sha256": "75556c6aef00b2c0f2bab3027e52d1baf9f1b42642e73678834d431a5cf145e3",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "08_2",
+      "words": 59,
+      "text_sha256": "3d6d4f49585844a2ed7029ecbd5e858c586bea74f2bd30c75f6184a872ccb98f",
+      "baseline_cue": "08_2",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "08_2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/08_2.txt",
+        "sha256": "3d6d4f49585844a2ed7029ecbd5e858c586bea74f2bd30c75f6184a872ccb98f",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "08_3",
+      "words": 80,
+      "text_sha256": "ce2bc329699435775aa76055e5e654dac19a240a7da6e7c8da245a4fc19b7232",
+      "baseline_cue": "08_3",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "08_3",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/08_3.txt",
+        "sha256": "ce2bc329699435775aa76055e5e654dac19a240a7da6e7c8da245a4fc19b7232",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "08_4",
+      "words": 53,
+      "text_sha256": "f449fbee18eb2cce67e3306905853d7bc3c9eee26b041aa2d064baa8b3e537b7",
+      "baseline_cue": "08_4",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "08_4",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/08_4.txt",
+        "sha256": "f449fbee18eb2cce67e3306905853d7bc3c9eee26b041aa2d064baa8b3e537b7",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "08_5",
+      "words": 81,
+      "text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+      "baseline_cue": "08_5",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "08_5",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/08_5.txt",
+        "sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "09_1",
+      "words": 60,
+      "text_sha256": "37a3a14b437e8357bc2a6953184629a044f80f1fcb1280f9a21de23143acfc6d",
+      "baseline_cue": "09_1",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "09_1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/09_1.txt",
+        "sha256": "37a3a14b437e8357bc2a6953184629a044f80f1fcb1280f9a21de23143acfc6d",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "09_2",
+      "words": 60,
+      "text_sha256": "bce7e8e43ac65a8ba7a5ed18138685910855233783a6f80f1d085f3a3f42c430",
+      "baseline_cue": "09_2",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "09_2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/09_2.txt",
+        "sha256": "bce7e8e43ac65a8ba7a5ed18138685910855233783a6f80f1d085f3a3f42c430",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "09_3",
+      "words": 45,
+      "text_sha256": "f3de2e233a6f198038ac654b013d128c4d0a65d30ffc238fe1f18e175811e5a8",
+      "baseline_cue": "09_3",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "09_3",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/09_3.txt",
+        "sha256": "f3de2e233a6f198038ac654b013d128c4d0a65d30ffc238fe1f18e175811e5a8",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "09_4",
+      "words": 69,
+      "text_sha256": "e2c776e31453e1db043fb7b1da039189f57ff5220278957bce1b8aa49adc6095",
+      "baseline_cue": "09_4",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "09_4",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/09_4.txt",
+        "sha256": "e2c776e31453e1db043fb7b1da039189f57ff5220278957bce1b8aa49adc6095",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "10_1",
+      "words": 31,
+      "text_sha256": "6fcaeb2f87ad17f8fd6a7eb67b088c7f0b0af6145df048b992777669a1ca1c1b",
+      "baseline_cue": "10_1",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "10_1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/10_1.txt",
+        "sha256": "6fcaeb2f87ad17f8fd6a7eb67b088c7f0b0af6145df048b992777669a1ca1c1b",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "10_2",
+      "words": 56,
+      "text_sha256": "e77f6de70aafae27bb15ba7d62011beb6bf2d22402b4174274b5f985409c95c8",
+      "baseline_cue": "10_2",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "10_2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/10_2.txt",
+        "sha256": "e77f6de70aafae27bb15ba7d62011beb6bf2d22402b4174274b5f985409c95c8",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "10_3",
+      "words": 78,
+      "text_sha256": "9645f0e4958247f106e8c2f80155996e2346302c6b34f78bd366dd1112de4baf",
+      "baseline_cue": "10_3",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "10_3",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/10_3.txt",
+        "sha256": "9645f0e4958247f106e8c2f80155996e2346302c6b34f78bd366dd1112de4baf",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "10_4",
+      "words": 80,
+      "text_sha256": "29473bc1659d0ff4d32211f6a5c8ef8abb4374e1b9fb892622eed2e13936bbe4",
+      "baseline_cue": "10_4",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "10_4",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/10_4.txt",
+        "sha256": "29473bc1659d0ff4d32211f6a5c8ef8abb4374e1b9fb892622eed2e13936bbe4",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "11_1",
+      "words": 70,
+      "text_sha256": "9aef00838aedeef5c81aa071586dca516ef9fd475e205c03105594838079ec5d",
+      "baseline_cue": "11_1",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "11_1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/11_1.txt",
+        "sha256": "9aef00838aedeef5c81aa071586dca516ef9fd475e205c03105594838079ec5d",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "11_2",
+      "words": 81,
+      "text_sha256": "bac00f42e30c5450cea48e0db3786af3a9384ddaeb583ea96e86504b7a21e8e7",
+      "baseline_cue": "11_2",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "11_2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/11_2.txt",
+        "sha256": "bac00f42e30c5450cea48e0db3786af3a9384ddaeb583ea96e86504b7a21e8e7",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "11_3",
+      "words": 73,
+      "text_sha256": "70e19e8aa243ef1ff9adcefcf18c96379c5103d26114a8c2a8c3e067383f59db",
+      "baseline_cue": "11_3",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "11_3",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/11_3.txt",
+        "sha256": "70e19e8aa243ef1ff9adcefcf18c96379c5103d26114a8c2a8c3e067383f59db",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "11_4",
+      "words": 82,
+      "text_sha256": "e94e48675f20ac0ffc624decd4531399dc8a3589f9d9a315cdf0f63885909bdc",
+      "baseline_cue": "11_4",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "11_4",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/11_4.txt",
+        "sha256": "e94e48675f20ac0ffc624decd4531399dc8a3589f9d9a315cdf0f63885909bdc",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "11_5",
+      "words": 85,
+      "text_sha256": "dd0d230909c00dfe74523c3976ad06a759e2afb459e9e8cb252003b1b7615db8",
+      "baseline_cue": "11_5",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "11_5",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/11_5.txt",
+        "sha256": "dd0d230909c00dfe74523c3976ad06a759e2afb459e9e8cb252003b1b7615db8",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "11_6",
+      "words": 68,
+      "text_sha256": "ad421c6d611bf9a635d80375ebff4dc413eacbcf8a9906b80cbddab97c73c68d",
+      "baseline_cue": "11_6",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "11_6",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/11_6.txt",
+        "sha256": "ad421c6d611bf9a635d80375ebff4dc413eacbcf8a9906b80cbddab97c73c68d",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "11_7",
+      "words": 91,
+      "text_sha256": "aae9225a2dbb2a4dcb828e9ffa870f0d24bf4f04a9e7608021366f3622a01fcc",
+      "baseline_cue": "11_7",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": true,
+      "cue_split_from_baseline": true,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "11_7-part1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/11_7.txt",
+        "sha256": "aae9225a2dbb2a4dcb828e9ffa870f0d24bf4f04a9e7608021366f3622a01fcc",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "11_20",
+      "words": 32,
+      "text_sha256": "ec2b4681dc12338d1dd19df6e5866524d0811c18d3f5732a9a8235f96b4f5f02",
+      "baseline_cue": "11_7",
+      "baseline_byte": 497,
+      "text_changed_from_baseline": true,
+      "cue_split_from_baseline": true,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "11_7-part2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/11_20.txt",
+        "sha256": "ec2b4681dc12338d1dd19df6e5866524d0811c18d3f5732a9a8235f96b4f5f02",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "11_8",
+      "words": 48,
+      "text_sha256": "b35df432f6f28808909eeb0dec8c25e7e5189993487489e3169a0e089eabd297",
+      "baseline_cue": "11_8",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "11_8",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/11_8.txt",
+        "sha256": "b35df432f6f28808909eeb0dec8c25e7e5189993487489e3169a0e089eabd297",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "12_1",
+      "words": 34,
+      "text_sha256": "8ac919312c336ca94988b10063a842dbaeaa2932594199ac44a55a19fae3d8d9",
+      "baseline_cue": "12_1",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "12_1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/12_1.txt",
+        "sha256": "8ac919312c336ca94988b10063a842dbaeaa2932594199ac44a55a19fae3d8d9",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "12_2",
+      "words": 42,
+      "text_sha256": "b412f190e36981bd7ad4336f007bc2987490c4098304ef4ff56a0d49a36d860d",
+      "baseline_cue": "12_2",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "12_2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/12_2.txt",
+        "sha256": "b412f190e36981bd7ad4336f007bc2987490c4098304ef4ff56a0d49a36d860d",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "12_3",
+      "words": 45,
+      "text_sha256": "e50368a2cdc197d77542a976d02e3207da2384b9d7840a1645bb2d3cc64d7169",
+      "baseline_cue": "12_3",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "12_3",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/12_3.txt",
+        "sha256": "e50368a2cdc197d77542a976d02e3207da2384b9d7840a1645bb2d3cc64d7169",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "12_4",
+      "words": 94,
+      "text_sha256": "94ed881c39edcc7cd15235e3691ae6d3d91203ef54ab3c451f82ec27c400aa93",
+      "baseline_cue": "12_4",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "12_4",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/12_4.txt",
+        "sha256": "94ed881c39edcc7cd15235e3691ae6d3d91203ef54ab3c451f82ec27c400aa93",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "12_5",
+      "words": 31,
+      "text_sha256": "e8dd93058126905677716cedcfba6b70413abbf62d2f2bb3a028bcd03b6bb9a7",
+      "baseline_cue": "12_5",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": false,
+      "cue_split_from_baseline": false,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "12_5",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/12_5.txt",
+        "sha256": "e8dd93058126905677716cedcfba6b70413abbf62d2f2bb3a028bcd03b6bb9a7",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "12_6",
+      "words": 39,
+      "text_sha256": "c85377e98085cd3000ec836f675c05662c9be4bcff432de7620c669d208e1962",
+      "baseline_cue": "12_6",
+      "baseline_byte": 0,
+      "text_changed_from_baseline": true,
+      "cue_split_from_baseline": true,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "12_6-part1",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/12_6.txt",
+        "sha256": "c85377e98085cd3000ec836f675c05662c9be4bcff432de7620c669d208e1962",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "12_20",
+      "words": 61,
+      "text_sha256": "246388046e76374e4bf7519b3fb92168e46f98211860f262af30225cfda517db",
+      "baseline_cue": "12_6",
+      "baseline_byte": 174,
+      "text_changed_from_baseline": true,
+      "cue_split_from_baseline": true,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "12_6-part2",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/12_20.txt",
+        "sha256": "246388046e76374e4bf7519b3fb92168e46f98211860f262af30225cfda517db",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    },
+    {
+      "cue": "12_21",
+      "words": 50,
+      "text_sha256": "0fe204023b8a52a75088216367d1e84e5aa423baa89f7ec2e583c5c1ff558762",
+      "baseline_cue": "12_6",
+      "baseline_byte": 489,
+      "text_changed_from_baseline": true,
+      "cue_split_from_baseline": true,
+      "reworded_since_stage06": false,
+      "request_id_with_exact_bytes": "12_6-part3",
+      "current_request": {
+        "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/12_21.txt",
+        "sha256": "0fe204023b8a52a75088216367d1e84e5aa423baa89f7ec2e583c5c1ff558762",
+        "submitted": false,
+        "submission_state": "not established by this snapshot",
+        "retained_pair_receipt": null
+      }
+    }
+  ]
+}

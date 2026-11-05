@@ -1,0 +1,57 @@
+image	sha256	note
+sheets/z.png	df3a6d396576a6ace44e8096317ff78d25e9f2410486b9f17f7163f8c25f85d2	100%, upper-left quarter. `now` has the dark lattice. Nothing else here shows one at this size.
+sheets/z2.png	713179dff31e87023836229afa1baf8ed290b2947b1c63d23eaf0b380bf4bcf6	`tile` drops the lattice and keeps the stairs. `blend` softens column steps. `rows2`, then `cells2`, shrink the stairs.
+sheets/tan.png	843e947e59ee696b7e49a68b4b8180724644564cd58bd2de25c5e903b8e29d91	`now` lattice shows most in the flat olive field. Rings only look round under `cells2`.
+sheets/sinrecip.png	402f10f3545bbe01554ab83907c87ee490583f79d47f3f2382f9c9d36a025608	Only `cells2` approaches the truth's rings. `tile_p3` goes grey at the core, like truth, in hard blocks.
+sheets/sin.png	d4d1c880d94ec67e0b263cf0ef3711a90bc43ec2ac59ed6c30195666e0c64513	Under `tile` and `blend` the near-level band edges step by a whole row. `rows2` and `cells2` smooth them.
+sheets/zoom.png	62cadc0c286d29dbce2c1060808a7f168532627fb212428db447e16bc7f789d0	Long diagonal edges: stepped in `now`, `tile`, `blend`; much less in `rows2`; `cells2` nearly clean.
+sheets/recip.png	7110201a26ad6c7a6cee00586a0e39da32d8b1bd3c8c40a72dbb3df99b75f751	**Truth cell blank: a crop bug in my sheet, not the lab** (negative slice on a small plate). Corrected in `evidence/stairs-recip-2x.png`.
+sheets/bump.png	0f046c05eb3de4a864e90067159238add3aa57e0d93f3d7c13edb9d74fb10ca5	Same ladder. `cells2` is the first rung whose rings read round.
+sheets/openbump.png	c0e5e0067a1365af126f1924ac5ba1cde812e2accf1d07648acc80bf7961672b	Same ladder as `bump`.
+evidence/stripes-z-whole.png	b4a3d16bd84db6edd44b204af0e65ecb19383f1fa766559a493268f65e211db9	`now` lattice over the whole plate. `overlap`, `overlap06`, `tile`, `tile_raw` clear at 100%. `flat_control` lost its hue along each row, as planted. Black cell at z = 0 in all but the control.
+evidence/stripes-z-3x.png	68c9088513a2b9607a22176e0e35913e64eaf8fd96c04617d2299eb8cc657003	`overlap06` keeps faint rows at 3x. `overlap`, `tile`, `tile_raw`, `blend` have none. Faint column banding in `tile`, less in `blend`.
+evidence/edge-z-corner-8x.png	748326a2a44badc62ce69e47abf3a66a92a74fefee2949ae2e88634575df1b08	`now` and `overlap06` have a dim first row at the plate's top. `tile` and up meet the background cleanly. I find no fault in the harder edge.
+evidence/stairs-z2-whole.png	86b22061344f0922f87a8dfcdc360637e24e35f6d68b25d959803adeb20345b1	`cells2` is plainly nearest truth. Under `rows2` near-vertical edges stay soft and centre rings are slightly squashed.
+evidence/dense-z2-centre-3x.png	d7fa5ab66ec225daaea824614f7706af0f5f78789e8c75d0b384d6ab7b409cf3	`now`, `tile`: blocks and a black cell. `blend`: black streak. `tile_p3`: grey cell, stairs stay. `rows2`: rings smear sideways. `cells2`: round to near the centre.
+evidence/zero-z-centre-12x.png	10d5de90cbe3928cc24a7df6148ed941d7e356231b5aed503b3043ad8dbce3e5	Black cell in `now`, `tile`. `blend` carries it about 6 px along the row in partial shades. `tile_p3`: one grey cell. `rows2`, `cells2`: a small pale run, no black.
+evidence/stairs-sinrecip-whole.png	39fd2ef38ac068c7296c40bc268062ba3f590a385adf6307a190d992d59ba840	`cells2` nearest truth outside the core. Core differs from truth under every rung.
+evidence/dense-sinrecip-centre-3x.png	053ef026d9c61baa4540ce62e60688108ee367a7c34a5887867adc7614e4c557	Truth's core is grey. `now`, `tile`, `blend`: false block patterns. `rows2`: horizontal ribbons. `cells2`: false loops, finer. `tile_p3`: grey, in blocks. No rung has it right.
+evidence/stairs-sin-whole.png	b6cb22ef4617ea8defc9d166bd5bcbb729cac35a1cf99e45a0a5669c58571277	`blend`'s long steps on level edges read as directional, as REPAIR.md warned. `rows2` fixes those. `cells2` also rounds the three spirals.
+evidence/bands-sin-3x.png	2d573687bc7c1b5de01d06023cefe3fca597d5235c7d844a16d4b618fa5fcb6e	`tile`, `blend`: whole-row steps on level edges. `tile_p3`: softer colour, same steps. `rows2`, `cells2`: much smaller steps.
+evidence/stairs-tan-whole.png	d2d43b391e98c690038c3d7e043caf8256019d1923834c33049e168b67806a58	`now` lattice in flat fields. Rings closest to truth only under `cells2`.
+evidence/dense-tan-3x.png	5e4784f110d942f51e08829569da47ba8504d346df1e9cb2b551f7072911b9d4	`rows2` squashes the central rings sideways. `cells2` keeps them round.
+evidence/stairs-zoom-whole.png	d0866a16210f1488699c7894887b19631a33bfbf86cdbde4af1b07913fafc8a5	Long edges, the plainest stair test: clear gain at `rows2`, again at `cells2`.
+evidence/stairs-bump-whole.png	53160aca8ef6a8d4f6d9c41fcaf8d1e55df5b02362b8c47e0e9f4c9fbd2f1701	`cells2` nearest truth. `rows2` good but its waist edges stay softer.
+evidence/stairs-openbump-whole.png	d9bdd93244829ae43c60c12f00b509fa923f8e0d6709b0951243509bd631a7f8	Same as `bump`, film's chapter 14 opening plate.
+evidence/stairs-recip-2x.png	717eca4983e70a3ee0d67e9fe952059a6cc858f164c9b727ccaf28abd3f667af	Smallest plate, with truth restored. Same ladder at 2x. Muddiness under `blend` not seen here.
+evidence/frame-z-tile.png	a701df0064308c4075c1373ac501c166f8a530b5f9a30977443e1b4e77516980	Whole frame: plate only, nothing else on stage. Black cell visible at 100%.
+evidence/frame-tan-blend.png	d2679f2078dfb192dd0b0fadceefd8c4a242e04b2270146451290bf532e8938a	Whole frame: plate only. Stairs visible at 100% on the ring ends.
+evidence/frame-sinrecip-cells2.png	6b3be246e0b0bb780b6da3c1bc2d2b28f6e4d25a0f6e004a51bc966faadebf65	Whole frame: plate only. Reads well at 100%. Core moire small but present.
+evidence/fade-z-2x.png	22bb75ab56ab96fd4b116b749404c091f07d40e37891fad6f223b87582e30a71	`overlap`: bright lines at frames 0, 1, gone at the hold. `overlap06`: fainter lines. `now`: dark rows. `tile`, `blend`: clean at all three.
+evidence/fade-tan-2x.png	abd22a99c0a862eaadefbc602f538e0ce616279d27097209dbfcd0f822c3da07	`now` lines in the flat field. `tile`, `blend` clean. Stairs are unchanged by fading.
+evidence/fade-bump-2x.png	17995a7036faeb260168d4d0e02d9a646b78e41490e30f3f25d5015daea8e0cb	Same as `tan`, on a busier picture.
+evidence/repaint-z2.png	4145f67dc6cd7e801376d05140414861673b1bc54e99ff50e5a9d04cd9bd437f	All three cross cleanly from z^2 to z^3 - 1. `now` keeps its lattice throughout. **My eye read `rows2` as stretched; `checks/repaint_geometry.out` shows it is not.**
+evidence/lossless/repaint-z2-1.png	d6271ae1ca5f4b0b683b5735483c032ae64cb4460623bfd449f35c959131f93b	Exact panels of evidence/repaint-z2.png; that sheet's note was read here.
+evidence/lossless/repaint-z2-2.png	d82caece46ca4e3abdcaf5b2bc92d04ea566cf2b82de8fbdbfce259c422c070e	Exact panels of evidence/repaint-z2.png; that sheet's note was read here.
+evidence/lossless/repaint-z2-3.png	6320273187b113ea1e87e7661e226f88c76ba576329dbc7c5616fdc66daf9fef	Exact panels of evidence/repaint-z2.png; that sheet's note was read here.
+evidence/lossless/repaint-z2-4.png	b2f70c937a719e390fe1191693c0b4dfe9f05e66502933111e7e65853b046936	Exact panels of evidence/repaint-z2.png; that sheet's note was read here.
+evidence/lossless/repaint-z2-5.png	c76298e0a8e67110be80ef4a8a230d8282ab4784fff9014b9e89f24d62efedfe	Exact panels of evidence/repaint-z2.png; that sheet's note was read here.
+evidence/lossless/repaint-z2-6.png	8d4c9b01be9192e256b1b24116eab9d10d37510b8b5c3bfe8300a11a468cd8db	Exact panels of evidence/repaint-z2.png; that sheet's note was read here.
+evidence/lossless/stairs-bump-whole-1.png	2979a630348b64e1c064166db89fa0a1640e3c90b87709b4542484405e01196c	Exact panels of evidence/stairs-bump-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-bump-whole-2.png	a3bafedb2415a1fc8a9d185147f8f34b9776521f87b1b943759efdd1e21494df	Exact panels of evidence/stairs-bump-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-openbump-whole-1.png	3b1e77c12641d72c838182ad0eba64719d32aed6d40d7f078ec53095da627cef	Exact panels of evidence/stairs-openbump-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-openbump-whole-2.png	eda46784e36df8689c1e8c39a0b97e6e89cb05fc7c69717dc06fc00fd460fc81	Exact panels of evidence/stairs-openbump-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-sin-whole-1.png	d577ccd3e7f3eb1049fd374b99f4023a8279141deaf21314f2518dd30074d4a8	Exact panels of evidence/stairs-sin-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-sin-whole-2.png	18f300c62f39b2d9a60eef6655fe4aff09ce1c23489c34d6db6a79ccd503101a	Exact panels of evidence/stairs-sin-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-sinrecip-whole-1.png	bd903522ac997cd42f4f779c2e7221a92b0b00630bce1f39dce82cc16bfc1ddd	Exact panels of evidence/stairs-sinrecip-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-sinrecip-whole-2.png	f7adb8e6b348f0492299f56f94e3d492f0d4745762983469610186d4b0f6594b	Exact panels of evidence/stairs-sinrecip-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-sinrecip-whole-3.png	b95b63e2fea4b68b08518e07d0c614930b05854623c0a321d3aa8280d49b8f3f	Exact panels of evidence/stairs-sinrecip-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-sinrecip-whole-4.png	499228db13d6f4c2ee8e7f17ffd8dafb2b6539315953eaee47e48da3bfbf693a	Exact panels of evidence/stairs-sinrecip-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-sinrecip-whole-5.png	653afd189994a5c94119692768f4e6144d2608d96795aed198e29f87f3e06af7	Exact panels of evidence/stairs-sinrecip-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-tan-whole-1.png	d65c77ba99dfeeaf531ab4fd2122de038216fe5487760758d386cb963b27c7f0	Exact panels of evidence/stairs-tan-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-tan-whole-2.png	c069dcf6c5f0d1bd9d598fb30cc488a43158fae19ac1da961870db9a8fca0a37	Exact panels of evidence/stairs-tan-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-tan-whole-3.png	1ae7541bacb41b227e37367c54cd79166e906752181bf6ff553aacdf00b895df	Exact panels of evidence/stairs-tan-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-z2-whole-1.png	ef2ea241721a5ba81b55bed77b0c94661565b7a8c3b73b6ad0e9fa948fade060	Exact panels of evidence/stairs-z2-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-z2-whole-2.png	4e5ed711d8498176671bcae96c5e6abc04c83938134284a2e7d3bf12882b3947	Exact panels of evidence/stairs-z2-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-z2-whole-3.png	d3c5a2d40805e8c6eb86293abcc25898e8ae163b57d9616d0fc9d3df89330bca	Exact panels of evidence/stairs-z2-whole.png; that sheet's note was read here.
+evidence/lossless/stairs-z2-whole-4.png	10f754371eb39b7311d842047eefaab482fe614fce37f163eca0589f57b15e0a	Exact panels of evidence/stairs-z2-whole.png; that sheet's note was read here.

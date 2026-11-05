@@ -1,0 +1,18 @@
+ok   canonical: this patch applies with zero fuzz
+ok   canonical: this patch, then glyph spacing
+ok   canonical: glyph spacing, then this patch
+ok   canonical: this patch, then the 11_7 storyboard patch
+ok   canonical: the 11_7 storyboard patch, then this patch
+ok   candidate: this patch applies with zero fuzz
+ok   candidate: this patch, then glyph spacing
+ok   candidate: glyph spacing, then this patch
+ok   candidate: this patch, then the 11_7 storyboard patch
+ok   candidate: the 11_7 storyboard patch, then this patch
+ok   control: a changed line refuses this patch
+ok   storyboard: same 105 rows in the same order
+     picture cells changed: 02_5 02_6 03_2 03_4 03_5 04_3 04_4 04_5 05_2 05_3 05_7 05_8 05_9
+ok   storyboard: exactly the 13 planned picture cells changed; words, features and holds did not
+ok   TEX names RULE_LENGTH_TEX, which the staged two_planes.rs defines
+ok   TEX names RULE_ANGLE_TEX, which the staged two_planes.rs defines
+     test literals matched in canonical's four files but gone from the staged ones: 0
+0 failures

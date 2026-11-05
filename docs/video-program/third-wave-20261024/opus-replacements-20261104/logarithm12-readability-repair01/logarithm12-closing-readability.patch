@@ -1,0 +1,174 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/what_it_forgets.rs
+@@ -47,7 +47,7 @@
+ 
+ use super::draw::{
+     answer_c, arc_points, dot, fact, fact_f64, fact_list, fade_in_all, fade_in_lagged, fade_out_all, faded_line, fail,
+-    flat, group, lap_c, number_c, path, position_c, precisely, predict, ring, seg, slide_c, swap, title, value, warn_c,
++    flat, group, lap_c, number_c, path, position_c, predict, ring, seg, slide_c, swap, title, value, warn_c,
+ };
+ use crate::model;
+ 
+@@ -101,7 +101,7 @@
+ /// Panel C: the left edge of the two lines beside its column of logarithms.
+ const PLANE_WORDS_X: f64 = -3.1;
+ /// Baseline of the final family label, shared with its clearance check.
+-const FAMILY_LABEL_Y: f64 = -3.1;
++const FAMILY_LABEL_Y: f64 = -2.9;
+ /// The take-away: the cube's centre and half edge in scene units. The
+ /// marked axis, the rod, is vertical through the centres of the top and
+ /// bottom faces, drawn `ROD_REACH` half edges each way from the centre.
+@@ -138,7 +138,7 @@
+ const PITCH_DEG: f64 = 20.0;
+ /// 12_21's turning line: the centre's x and y, and scene units per π.
+ const TURNING_X: f64 = 3.9;
+-const TURNING_Y: f64 = -1.6;
++const TURNING_Y: f64 = -1.4;
+ const TURNING_PER_PI: f64 = 0.62;
+ /// 12_20's second sentence as shares of its length, from even word spacing
+ /// over its 34 words (a proposal until fine sync): the red spin ends with "where
+@@ -1241,14 +1241,14 @@
+             marks.push(kit.text(
+                 stage,
+                 &super::draw::pi_label(k),
+-                16.0,
+-                Palette::dim(),
+-                v(p[0], p[1] - 0.3),
++                20.0,
++                Palette::ink(),
++                v(p[0], p[1] - 0.32),
+             )?);
+         }
+         // the family goes on past the last mark, both ways
+         for side in [-1.0, 1.0] {
+-            marks.push(kit.text(stage, "…", 20.0, Palette::dim(), turning_at(side * 3.75 * PI))?);
++            marks.push(kit.text(stage, "…", 20.0, Palette::ink(), turning_at(side * 3.75 * PI))?);
+         }
+         let window = seg(stage, turning_at(-PI), turning_at(PI), green, 6.0);
+         let mut ends = Vec::new();
+@@ -1263,14 +1263,14 @@
+             "how far each of these spins turns in one unit of time:",
+             20.0,
+             Palette::ink(),
+-            v(1.4, -1.1),
++            v(1.4, -0.9),
+         )?;
+         let tie = kit.text_left(
+             stage,
+             "the slowest two, ±π, tie on the window's open edge",
+             20.0,
+             gold,
+-            v(1.4, -2.3),
++            v(1.4, -2.1),
+         )?;
+         fade_in_all(stage, &marks, 0.4)?;
+         fade_in_all(stage, &[window, line_word], 0.4)?;
+@@ -1280,7 +1280,7 @@
+         until_share(&kit, stage, "12_21", 0, tie_began, TIE_AT)?;
+         fade_in_all(stage, &[tie], 0.4)?;
+         kit.until_sentence(stage, "12_21", 1)?;
+-        let source = precisely(
++        let source = footer(
+             &kit,
+             stage,
+             &format!(
+@@ -1294,9 +1294,9 @@
+         let convention = kit.text_left(
+             stage,
+             "for the number −1, Log(−1) = iπ by convention",
+-            18.0,
+-            Palette::dim(),
+-            v(1.4, -2.7),
++            20.0,
++            Palette::ink(),
++            v(1.4, -2.5),
+         )?;
+         fade_in_all(stage, &[convention], 0.4)?;
+         // here no convention picks one: every spin on the line lights up
+@@ -1308,6 +1308,20 @@
+         fade_in_all(stage, &family, 0.4)?;
+         kit.finish(stage)
+     }
++}
++
++/// The closing footer: `draw::precisely`'s words, in ink and clear of the frame's edge. It stands after the film's
++/// code so that no held line moves.
++const FOOTER_Y: f64 = -3.4;
++
++fn footer(kit: &Kit, stage: &mut Stage<'_>, words: &str) -> fmn::Result<Mob> {
++    kit.text(
++        stage,
++        &format!("precisely: {words}"),
++        22.0,
++        Palette::ink(),
++        v(0.0, FOOTER_Y),
++    )
+ }
+ 
+ #[cfg(test)]
+@@ -1723,8 +1737,8 @@
+         assert!(turning_at(-3.75 * PI)[0] - dots > 1.4 && turning_at(3.75 * PI)[0] + dots < TEXT_RIGHT);
+         assert!(turning_at(-3.75 * PI)[0] + dots < turning_at(-3.4 * PI)[0]);
+         // and the words stack clear of it and of the fine print
+-        const { assert!(-1.1 - 0.11 > TURNING_Y + 0.15 && TURNING_Y - 0.3 - 0.09 > -2.3 + 0.11) };
+-        const { assert!(FAMILY_LABEL_Y - 0.11 > -3.62 + 0.13) };
++        const { assert!(-0.9 - 0.11 > TURNING_Y + 0.15 && TURNING_Y - 0.32 - 0.09 > -2.1 + 0.11) };
++        const { assert!(FAMILY_LABEL_Y - 0.11 > FOOTER_Y + 0.13 + 0.15) };
+         // panel A: the ruler's hops under the frame, its keys inside it under the caption
+         let tallest = (ruler_x(2.0) - ruler_x(1.0)) / 2.0;
+         assert!(HOP_Y + tallest < PANELS[0][1] + HALF_H);
+@@ -1749,7 +1763,7 @@
+             ("so: infinitely many spins, all about the rod", 24.0, 0.6),
+             ("how far each of these spins turns in one unit of time:", 20.0, 1.4),
+             ("the slowest two, ±π, tie on the window's open edge", 20.0, 1.4),
+-            ("for the number −1, Log(−1) = iπ by convention", 18.0, 1.4),
++            ("for the number −1, Log(−1) = iπ by convention", 20.0, 1.4),
+             ("here: the whole family", 20.0, 1.4),
+         ] {
+             assert!(x + width(s, size) * WIDTH_ROOM < TEXT_RIGHT, "{s}");
+@@ -1759,6 +1773,45 @@
+         // the panels clear the title and the frame edge
+         assert!(PANELS[0][1] + HALF_H < 3.0 && PANELS[2][1] - HALF_H > -3.4);
+         assert!(PANELS[1][0] + HALF_W < 7.0);
++    }
++
++    #[test]
++    fn the_closing_words_are_in_ink_and_clear_of_the_edge_and_each_other() {
++        let film = include_str!("what_it_forgets.rs").split("#[cfg(test)]").next().unwrap();
++        assert!(film.contains("pi_label(k),\n                20.0,\n                Palette::ink(),"));
++        assert!(film.contains("\"…\", 20.0, Palette::ink(), turning_at"));
++        assert!(film.contains("by convention\",\n            20.0,\n            Palette::ink(),"));
++        assert_eq!(film.matches(" = footer(").count(), 1);
++        assert!(!film.contains(" = precisely("));
++        assert!(film.contains("Palette::ink(),\n        v(0.0, FOOTER_Y),"));
++        super::super::draw::probe_scene(|stage| {
++            let kit = Kit::new()?;
++            let m = footer(
++                &kit,
++                stage,
++                "spins ending here: ±½, ±1½, … laps per unit time about the rod; eigenvalue −1, so no principal log (Higham §4 Fact 1)",
++            )?;
++            // off the frame's edge, inside the text limit, and clear of the family's row
++            assert!(stage.get_bounding_box_point(m, DOWN)[1] > -3.6);
++            assert!(stage.get_bounding_box_point(m, UP)[1] < FAMILY_LABEL_Y - 0.1 - 0.2);
++            assert!(stage.get_bounding_box_point(m, RIGHT)[0] < TEXT_RIGHT);
++            // the rows take the room above: the red rings and the tie row bracket the labels
++            let mut reach = f64::NEG_INFINITY;
++            for k in -3..=3_i64 {
++                let at = turning_at(PI * k as f64);
++                let label = super::super::draw::pi_label(k);
++                let m = kit.text(stage, &label, 20.0, Palette::ink(), v(at[0], at[1] - 0.32))?;
++                assert!(
++                    stage.get_bounding_box_point(m, UP)[1] < TURNING_Y - 0.15 - 0.05,
++                    "{label}"
++                );
++                assert!(stage.get_bounding_box_point(m, DOWN)[1] > -2.1 + 0.1 + 0.15, "{label}");
++                // and side by side, under marks 0.62 apart, they do not touch
++                assert!(stage.get_bounding_box_point(m, LEFT)[0] > reach + 0.15, "{label}");
++                reach = stage.get_bounding_box_point(m, RIGHT)[0];
++            }
++            Ok(())
++        });
+     }
+ 
+     #[test]

@@ -1,0 +1,305 @@
+-- rustc, the stand-in crates
+######## base ########
+-- rustc --test
+test result: ok. 91 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+-- rustc
+-- scene run at 2.68 words per second
+== 00_ratio_ruler at 2.68 words per second
+chapter ends at 116.3 s
+0 object-ledger problems
+1 estimated overlaps at rest (seconds on screen)
+   13.0  "660 by difference?" meets a red stroke
+1 estimated overlaps seen only while a tracker runs
+  (in motion) "3520" meets a green stroke
+== 01_building_ruler at 2.68 words per second
+chapter ends at 123.0 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 02_slide_rule at 2.68 words per second
+chapter ends at 86.4 s
+0 object-ledger problems
+2 estimated overlaps at rest (seconds on screen)
+   22.7  "1" outside the safe frame (x -9.18 ± 0.06, y 1.20)
+   12.9  "10" outside the safe frame (x 6.82 ± 0.11, y 1.20)
+0 estimated overlaps seen only while a tracker runs
+== 03_folded_decade at 2.68 words per second
+chapter ends at 72.1 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 04_undoing_growth at 2.68 words per second
+chapter ends at 180.0 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+9 estimated overlaps seen only while a tracker runs
+  (in motion) "1" meets a red stroke
+  (in motion) "2" meets a red stroke
+  (in motion) "3" meets a red stroke
+  (in motion) "−1" meets a blue stroke
+  (in motion) "−1" meets a green stroke
+  (in motion) "−1" meets a red stroke
+  (in motion) "−2" meets a blue stroke
+  (in motion) "−2" meets a green stroke
+  (in motion) "−2" meets a red stroke
+-- scene run at 2.3 words per second
+== 00_ratio_ruler at 2.3 words per second
+chapter ends at 134.5 s
+0 object-ledger problems
+1 estimated overlaps at rest (seconds on screen)
+   15.1  "660 by difference?" meets a red stroke
+1 estimated overlaps seen only while a tracker runs
+  (in motion) "3520" meets a green stroke
+== 01_building_ruler at 2.3 words per second
+chapter ends at 142.4 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 02_slide_rule at 2.3 words per second
+chapter ends at 99.8 s
+0 object-ledger problems
+2 estimated overlaps at rest (seconds on screen)
+   26.8  "1" outside the safe frame (x -9.18 ± 0.06, y 1.20)
+   15.1  "10" outside the safe frame (x 6.82 ± 0.11, y 1.20)
+0 estimated overlaps seen only while a tracker runs
+== 03_folded_decade at 2.3 words per second
+chapter ends at 83.8 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 04_undoing_growth at 2.3 words per second
+chapter ends at 207.8 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+9 estimated overlaps seen only while a tracker runs
+  (in motion) "1" meets a red stroke
+  (in motion) "2" meets a red stroke
+  (in motion) "3" meets a red stroke
+  (in motion) "−1" meets a blue stroke
+  (in motion) "−1" meets a green stroke
+  (in motion) "−1" meets a red stroke
+  (in motion) "−2" meets a blue stroke
+  (in motion) "−2" meets a green stroke
+  (in motion) "−2" meets a red stroke
+-- scene run at 3.1 words per second
+== 00_ratio_ruler at 3.1 words per second
+chapter ends at 101.3 s
+0 object-ledger problems
+1 estimated overlaps at rest (seconds on screen)
+   11.2  "660 by difference?" meets a red stroke
+1 estimated overlaps seen only while a tracker runs
+  (in motion) "3520" meets a green stroke
+== 01_building_ruler at 3.1 words per second
+chapter ends at 107.1 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 02_slide_rule at 3.1 words per second
+chapter ends at 75.4 s
+0 object-ledger problems
+2 estimated overlaps at rest (seconds on screen)
+   19.3  "1" outside the safe frame (x -9.18 ± 0.06, y 1.20)
+   11.0  "10" outside the safe frame (x 6.82 ± 0.11, y 1.20)
+0 estimated overlaps seen only while a tracker runs
+== 03_folded_decade at 3.1 words per second
+chapter ends at 62.5 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 04_undoing_growth at 3.1 words per second
+chapter ends at 157.3 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+9 estimated overlaps seen only while a tracker runs
+  (in motion) "1" meets a red stroke
+  (in motion) "2" meets a red stroke
+  (in motion) "3" meets a red stroke
+  (in motion) "−1" meets a blue stroke
+  (in motion) "−1" meets a green stroke
+  (in motion) "−1" meets a red stroke
+  (in motion) "−2" meets a blue stroke
+  (in motion) "−2" meets a green stroke
+  (in motion) "−2" meets a red stroke
+######## candidate ########
+-- rustc --test
+test result: ok. 92 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.03s
+-- rustc
+-- clippy-driver -D warnings, with and without tests
+(clippy clean)
+-- scene run at 2.68 words per second
+== 00_ratio_ruler at 2.68 words per second
+chapter ends at 116.3 s
+0 object-ledger problems
+1 estimated overlaps at rest (seconds on screen)
+   13.0  "660 by difference?" meets a red stroke
+1 estimated overlaps seen only while a tracker runs
+  (in motion) "3520" meets a green stroke
+== 01_building_ruler at 2.68 words per second
+chapter ends at 123.0 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 02_slide_rule at 2.68 words per second
+chapter ends at 86.4 s
+0 object-ledger problems
+2 estimated overlaps at rest (seconds on screen)
+   22.7  "1" outside the safe frame (x -9.18 ± 0.06, y 1.20)
+   12.9  "10" outside the safe frame (x 6.82 ± 0.11, y 1.20)
+0 estimated overlaps seen only while a tracker runs
+== 03_folded_decade at 2.68 words per second
+chapter ends at 72.1 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 04_undoing_growth at 2.68 words per second
+chapter ends at 180.0 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+9 estimated overlaps seen only while a tracker runs
+  (in motion) "1" meets a red stroke
+  (in motion) "2" meets a red stroke
+  (in motion) "3" meets a red stroke
+  (in motion) "−1" meets a blue stroke
+  (in motion) "−1" meets a green stroke
+  (in motion) "−1" meets a red stroke
+  (in motion) "−2" meets a blue stroke
+  (in motion) "−2" meets a green stroke
+  (in motion) "−2" meets a red stroke
+-- scene run at 2.3 words per second
+== 00_ratio_ruler at 2.3 words per second
+chapter ends at 134.5 s
+0 object-ledger problems
+1 estimated overlaps at rest (seconds on screen)
+   15.1  "660 by difference?" meets a red stroke
+1 estimated overlaps seen only while a tracker runs
+  (in motion) "3520" meets a green stroke
+== 01_building_ruler at 2.3 words per second
+chapter ends at 142.4 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 02_slide_rule at 2.3 words per second
+chapter ends at 99.8 s
+0 object-ledger problems
+2 estimated overlaps at rest (seconds on screen)
+   26.8  "1" outside the safe frame (x -9.18 ± 0.06, y 1.20)
+   15.1  "10" outside the safe frame (x 6.82 ± 0.11, y 1.20)
+0 estimated overlaps seen only while a tracker runs
+== 03_folded_decade at 2.3 words per second
+chapter ends at 83.8 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 04_undoing_growth at 2.3 words per second
+chapter ends at 207.8 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+9 estimated overlaps seen only while a tracker runs
+  (in motion) "1" meets a red stroke
+  (in motion) "2" meets a red stroke
+  (in motion) "3" meets a red stroke
+  (in motion) "−1" meets a blue stroke
+  (in motion) "−1" meets a green stroke
+  (in motion) "−1" meets a red stroke
+  (in motion) "−2" meets a blue stroke
+  (in motion) "−2" meets a green stroke
+  (in motion) "−2" meets a red stroke
+-- scene run at 3.1 words per second
+== 00_ratio_ruler at 3.1 words per second
+chapter ends at 101.3 s
+0 object-ledger problems
+1 estimated overlaps at rest (seconds on screen)
+   11.2  "660 by difference?" meets a red stroke
+1 estimated overlaps seen only while a tracker runs
+  (in motion) "3520" meets a green stroke
+== 01_building_ruler at 3.1 words per second
+chapter ends at 107.1 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 02_slide_rule at 3.1 words per second
+chapter ends at 75.4 s
+0 object-ledger problems
+2 estimated overlaps at rest (seconds on screen)
+   19.3  "1" outside the safe frame (x -9.18 ± 0.06, y 1.20)
+   11.0  "10" outside the safe frame (x 6.82 ± 0.11, y 1.20)
+0 estimated overlaps seen only while a tracker runs
+== 03_folded_decade at 3.1 words per second
+chapter ends at 62.5 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+0 estimated overlaps seen only while a tracker runs
+== 04_undoing_growth at 3.1 words per second
+chapter ends at 157.3 s
+0 object-ledger problems
+0 estimated overlaps at rest (seconds on screen)
+9 estimated overlaps seen only while a tracker runs
+  (in motion) "1" meets a red stroke
+  (in motion) "2" meets a red stroke
+  (in motion) "3" meets a red stroke
+  (in motion) "−1" meets a blue stroke
+  (in motion) "−1" meets a green stroke
+  (in motion) "−1" meets a red stroke
+  (in motion) "−2" meets a blue stroke
+  (in motion) "−2" meets a green stroke
+  (in motion) "−2" meets a red stroke
+PASS stand-in run finished for both trees
+PASS tests passed ['91', '92']: base, then candidate with one more
+PASS clippy-driver -D warnings clean on the candidate, with and without tests
+
+-- the voice and the picture, cue by cue: id, start, voice, picture over the voice, latest beat, in sentence
+at 2.68 words per second, 28 cues, rows that differ: []
+PASS at 2.68: every cue starts at the same time in both trees
+at 2.3 words per second, 28 cues, rows that differ: []
+PASS at 2.3: every cue starts at the same time in both trees
+at 3.1 words per second, 28 cues, rows that differ: []
+PASS at 3.1: every cue starts at the same time in both trees
+PASS all 15 scene runs end at the same time in both trees
+PASS no fade or removal of an object that is not on screen, in any candidate run
+estimated overlaps at rest, new in the candidate: []
+estimated overlaps at rest, gone from the candidate: []
+
+-- the candidate's scene again, with a stand-in mark of 2.2 s on byte 35 of 03_3
+PASS at 2.68: both runs finish
+  at 2.68: 7607 snapshot rows, 0 differ
+PASS at 2.68: the same picture at every sentence start, because the lay still ends on sentence 1
+PASS at 2.68: chapter ends unchanged ['116.3', '123.0', '86.4', '72.1', '180.0']
+PASS at 2.68: object-ledger counts unchanged
+PASS at 2.3: both runs finish
+  at 2.3: 7607 snapshot rows, 0 differ
+PASS at 2.3: the same picture at every sentence start, because the lay still ends on sentence 1
+PASS at 2.3: chapter ends unchanged ['134.5', '142.4', '99.8', '83.8', '207.8']
+PASS at 2.3: object-ledger counts unchanged
+PASS at 3.1: both runs finish
+  at 3.1: 7607 snapshot rows, 0 differ
+PASS at 3.1: the same picture at every sentence start, because the lay still ends on sentence 1
+PASS at 3.1: chapter ends unchanged ['101.3', '107.1', '75.4', '62.5', '157.3']
+PASS at 3.1: object-ledger counts unchanged
+
+-- patch round trip, on a scratch copy
+PASS patch checks against the sealed baseline 
+PASS applied, it gives the candidate byte for byte
+PASS reversed, it gives the baseline byte for byte
+
+-- mutation controls: each must fail as named
+PASS no mutation (positive control): compiles, and ['ok. 92 passed'] tests
+PASS the scene ignores the mark: compiles, fails ['folded_decade::tests::a_mark_on_forgets_ends_the_digits_fade_and_a_mark_outside_the_sentence_is_ignored']
+PASS a mark outside the sentence is trusted: compiles, fails ['folded_decade::tests::a_mark_on_forgets_ends_the_digits_fade_and_a_mark_outside_the_sentence_is_ignored']
+PASS the fade starts on the mark: compiles, fails ['folded_decade::tests::a_mark_on_forgets_ends_the_digits_fade_and_a_mark_outside_the_sentence_is_ignored']
+PASS the mark is read as scene time: compiles, fails ['folded_decade::tests::a_mark_on_forgets_ends_the_digits_fade_and_a_mark_outside_the_sentence_is_ignored']
+PASS the phrase is not in the script: compiles, fails ['folded_decade::tests::a_mark_on_forgets_ends_the_digits_fade_and_a_mark_outside_the_sentence_is_ignored']
+PASS the phrase occurs more than once: compiles, fails ['folded_decade::tests::a_mark_on_forgets_ends_the_digits_fade_and_a_mark_outside_the_sentence_is_ignored']
+PASS the share is dropped when there is no mark: compiles, fails ['folded_decade::tests::the_digits_stay_until_they_are_named_and_the_lay_ends_on_the_next_sentence']
+
+-- probe: a scratch copy of the candidate prints the two beats it passes on, without and with the stand-in mark
+PASS the probe compiles
+  at 2.68: share laps, lay [('1.704', '1.296')]; with the mark [('1.400', '1.600')]
+PASS at 2.68: the mark changes the beats the scene uses
+PASS at 2.68: laps run 2.2 - 0.3 - 0.5 = 1.4 s with the mark, within a frame or so
+  at 2.3: share laps, lay [('2.068', '1.560')]; with the mark [('1.400', '2.228')]
+PASS at 2.3: the mark changes the beats the scene uses
+PASS at 2.3: laps run 2.2 - 0.3 - 0.5 = 1.4 s with the mark, within a frame or so
+  at 3.1: share laps, lay [('1.405', '1.080')]; with the mark [('1.400', '1.085')]
+PASS at 3.1: the mark changes the beats the scene uses
+PASS at 3.1: laps run 2.2 - 0.3 - 0.5 = 1.4 s with the mark, within a frame or so
+RESULT PASS

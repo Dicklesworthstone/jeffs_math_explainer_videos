@@ -1,0 +1,59 @@
+1. SHAPE SHARING
+(the mirror keeps the real digest's equality classes, not its bytes)
+patch fixture plate(731, 731, 0.00875): 731 rows, 1473 records a row
+  distinct outlines 1; positive curves a row 734; input curves a row 736
+  so plan.segments().len() should be 734, and the patch asserts 731 * 734 = 536554
+  distinct row paints 731 of 731, so the knot total holds: 731 x 1471 = 1075301
+  control, one x moved 2^-20 in row 1: distinct outlines 2
+film z2 cells4 (reading plane): 731 x 731, distinct outlines 1, segments 734
+film sin(1/z) cells4 (square plane): 640 x 640, distinct outlines 1, segments 643
+film 05_9, six panels at cells4:
+  panel 0: 297 x 480, distinct outlines in the panel 1, positive curves a row 483
+  panel 1: 297 x 480, distinct outlines in the panel 1, positive curves a row 483
+  panel 2: 297 x 480, distinct outlines in the panel 1, positive curves a row 483
+  panel 3: 297 x 480, distinct outlines in the panel 1, positive curves a row 483
+  panel 4: 297 x 480, distinct outlines in the panel 1, positive curves a row 483
+  panel 5: 297 x 480, distinct outlines in the panel 1, positive curves a row 483
+  distinct outlines over the six 3, segments 1449
+
+2. CORRECTED TABLE (Ruby's knots and input curves stand)
+plate                    knots  2x knots   curves  segments, handoff  segments  room, handoff      room
+z2 cells4              1075301   2150602   538016             536554       734         512022   1047842
+sin(1/z) cells4         824960   1649920   412800             411520       643         637056   1047933
+six panels cells4      1726758   3453516   864270             860706      1449         187870   1047127
+
+Moving a plate. A translation is a placement and reuses the shape (plan.rs test at 2296-2312).
+A rewrite to a new outline adds that outline once: z2 cells4 goes from 734 to 1468 segments, not 1,073,108.
+Only if every row had its own outline would a plate reach the handoff's figure: 731 x 734 = 536554.
+
+Point motion on z2 cells4, baked into f32 records as a point write would be (a mirror, on one frame)
+  translation by (0.37, -0.11): 1 distinct outlines of 731; about 734 new segments a frame
+  uniform scale by 0.93 about the origin: 1 distinct outlines of 731; about 734 new segments a frame
+  rotation by 0.1 rad: 731 distinct outlines of 731; about 536554 new segments a frame
+  a warp, y + 0.01 sin(3x + 2y): 731 distinct outlines of 731; about 536554 new segments a frame
+  all rows distinct: first motion frame 536554 + 536554 = 1073108 against 1<<20 = 1048576: refused by name, nothing unreachable yet
+  with max_retained_segments raised: 536554 unreachable > max_unreachable_segments 65536, so a rebuild on every later frame
+  and at the 4-a-segment bound 4292432 pieces against MonoTable's fixed 1<<22 = 4194304, which RenderOptions cannot change
+
+Monotone table. fill.rs build_with_limits walks plan.shapes().shapes(), once an outline (fill.rs:594-603).
+z2 cells4: at most 4 x 734 = 2936 pieces, not 2,146,216; about 137 KiB at the handoff's 48 B a piece, not 98 MiB
+Sharing shrinks the table only. Raster still walks each instance, so it does not lower the raster estimate.
+
+z2 cells4 memory, arithmetic only
+  stage records      1076763 x 68 B = 70 MiB
+  live knots + keys  1075301 x 80 B = 82 MiB (of which keys 49 MiB)
+  segments           734 x 88 B = 63 KiB (handoff 45 MiB)
+  still, geometry    152 MiB (handoff about 200)
+  a fade adds two family copies (fade_in: target + start): 140 MiB more, 209 MiB of records (handoff has none of it)
+  repaint peak, 3L knots + keys 246 MiB; during a rebuild 377 MiB (handoff 328, without the pending index's 49 MiB)
+  two in-flight frames at 3L keys: up to 295 MiB
+  upper bound in a fade, before frame buffers and caches: 882 MiB
+
+Serial work on the scene thread, bytes only (no timing was measured)
+  z2 cells2: identity hash each capture 271206 x 28 B = 7.6 MB; key copy per in-flight frame 12 MiB at L, 37 MiB at 3L
+  z2 cells4: identity hash each capture 1075301 x 28 B = 30.1 MB; key copy per in-flight frame 49 MiB at L, 148 MiB at 3L
+
+z2 at cells8 (handoff: 'the monotone limit would then need its own setting')
+  1463 x 1463: knots 4293905, 2x 8587810, segments 1466 (one outline), pieces at most 5864
+  the unmentioned bind: input curves 2147684 against 1048576; crosses at row 715, requested 1049620
+  so cells8 needs max_input_curves raised as well as knots, and not the monotone limit

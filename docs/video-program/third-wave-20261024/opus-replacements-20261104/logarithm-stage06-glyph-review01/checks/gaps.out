@@ -1,0 +1,24 @@
+# gap between minus and the character after it, px on the sheet at size 36
+  row 560 so -1 = 1 (product_rule.rs:343): 17 px  <- minus follows \text
+  row 498 -1 = i dot i (control, leading minus): 6 px
+  row 565 L(z) - ell (control, a real subtraction): 16 px
+
+# gap between the previous glyph and a colon, px on the sheet at size 36
+  row 512 X = 0:: 19 px
+  row 513 X = 2 pi J:: 17 px
+  row 557 (-inf, 0]:: 23 px
+  row 586 z:: 18 px
+  row 559 S\text{: } (control, the delta string): 4 px
+
+# new labels at film size
+  row 565 DIFFER size 28, centred at 1.2 (lifting_loops.rs:220): width 5.41, x -1.50 to 3.90
+  row 559 singular S size 28, centred at 0 (unreachable.rs:1662): width 5.69, x -2.84 to 2.84
+  row 575 e^tp size 22, left at 2.2 (unreachable.rs:749,1309): width 4.21, x 2.20 to 6.41
+  row 360 'ours: carried along' size 22, left at 1.40 (lifting_loops.rs:316,537): width 1.80, right 3.20
+  row 497 (ell) size 22, left at ours_right + 0.12 (lifting_loops.rs:634): width 0.25, x 3.32 to 3.57
+  frame half width 7.11; the film's stated safe area is 6.90 (lifting_loops.rs:38)
+
+# DIFFER against the tall axis's foot: an estimate from the sheet, not a picture
+  axis foot at y -2.852, x 0.9; that x falls at sheet x 472, between L (443-470) and its paren (476-486)
+  paren of L(z), sheet y 875: top of ink at y -2.885, 0.033 units below the foot, 4.4 px at 1080p
+  L, sheet y 878: top of ink at y -2.902, 0.050 units below the foot, 6.8 px at 1080p

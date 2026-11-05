@@ -1,0 +1,540 @@
+{
+  "claim": "NOT a phrase-timings.json. Every wav_sha256 and seconds is null, so the kit's loader refuses it (narration.rs: \"phrase timing WAV differs\", \"bad time\"). Root's aligner fills it from measured takes; nothing here is a timing.",
+  "script_sha256": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+  "cues": {
+    "00_1": {
+      "text_sha256": "2986667cb17d47efc5b01a53a482cacb77df7f13d9750fe736547c800a2e769e",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "00_2": {
+      "text_sha256": "9cff4b6074ce932b6916fa76fbef35e08e31592ca5e96c93482a256ee2c340a4",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "00_3": {
+      "text_sha256": "dc1be524334bc27463ec71666c38080f737eb3ced12b12c92a840123bd8c30bc",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "00_4": {
+      "text_sha256": "28aa0759d8ed2062f3854570f9cbc06427f2b43a5604e98ac9526161e564f320",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "00_5": {
+      "text_sha256": "8b3d94121540f03dfa1199ed97718bf27762b175db4167368fefd3eb5a2d4aa5",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "00_6": {
+      "text_sha256": "be8fe805a35e2a4a9b270702dfbb9c71a34fd2278ea287b80269d6acc411fb63",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "01_1": {
+      "text_sha256": "d71a0bd05870ac964963abd4780102349f6794df6dd4f16ea24e7aa67347f7ba",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "01_2": {
+      "text_sha256": "5df547825cd019fbc45286199a55a4a03309eab34eb4c79fb90637c659e1625e",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "01_3": {
+      "text_sha256": "23f240c35831923a7b47c4dd276719054eb553fa5678c5178e0c9a5260191db3",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "01_4": {
+      "text_sha256": "e1b96d8cf4625bf2b933ff51eda76d2514fe12635e7b7c61442e410754614937",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "01_5": {
+      "text_sha256": "f0a6d133ce8d07e4fcb9242c0e7a70966611ce1baca1501d3b0242c58b9e9b92",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "01_6": {
+      "text_sha256": "342fd8f544892c434e4d2d9dcf4bb0fc142ac85ecb36a3cbd9879f6840ead31a",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "02_1": {
+      "text_sha256": "3110c66e2647d397a38e81a4c77370c9efd4237bd4d9d720ba4af25e454e60af",
+      "wav_sha256": null,
+      "marks": [
+        {
+          "byte": 48,
+          "seconds": null,
+          "phrase": "one that slides"
+        }
+      ]
+    },
+    "02_2": {
+      "text_sha256": "bd5822b91f2700d5f2ee189d831ccc47b9253c4e58b4775488af71e4849fc33e",
+      "wav_sha256": null,
+      "marks": [
+        {
+          "byte": 47,
+          "seconds": null,
+          "phrase": "slide the moving"
+        }
+      ]
+    },
+    "02_3": {
+      "text_sha256": "4ee6f9d52f173dd7b438f74cd7415fc60bf2f0382ff1febb9533d4647ab3cefd",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "02_4": {
+      "text_sha256": "be1cfbe625776b45a9b80fc54f8db6cb074612edcc82b075f4213609d08cde0f",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "02_5": {
+      "text_sha256": "3dc26bb4527bc899fa42b3fbc41ee2e1eef0482d535192db49ddd83d3174bb73",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "03_1": {
+      "text_sha256": "620d844f25db5f2fdb93d5b803a017906d3727213f5ad4e037d6b258bf9bd0f1",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "03_2": {
+      "text_sha256": "d304b7e87991505e3506d506110c2f1f8ded34313abb5c97575120510f0b6ded",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "03_3": {
+      "text_sha256": "4ce29b0933cf7eb5fc8fbe78de804c33749308e5245693fc4a128076568e81c0",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "03_4": {
+      "text_sha256": "90eba9a70789356e6faa42e6e0451c0ddd2a6285dbc87bf19b8910588b6ed57d",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "04_1": {
+      "text_sha256": "997e38ce5b39b255bbc6bbc8d29ae0a81128337ce65602a1f23f4802aa4d0aba",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "04_2": {
+      "text_sha256": "9a338a180e93a78f67ad49208255c0aff009c897e0acdf254f8937ce0d11f2bc",
+      "wav_sha256": null,
+      "marks": [
+        {
+          "byte": 306,
+          "seconds": null,
+          "phrase": "it only ever climbs"
+        }
+      ]
+    },
+    "04_3": {
+      "text_sha256": "e9e79bdcb58af233281c77b77c62a032a6117222f5cd0aa34b41f2018d19bdd8",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "04_4": {
+      "text_sha256": "6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "04_5": {
+      "text_sha256": "226e67d7c75fc45c65227f9822543bc92d79d1dcd1a26a15e833d6405ce2e30b",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "04_6": {
+      "text_sha256": "000edc3ec870fa4557e707caf46603afc19b7763b217de7486ceda3587da509e",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "04_7": {
+      "text_sha256": "cafb538e311e358ac817af1d9e9ef817822b4e9c427de8ca4625ba0713f5e5d5",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "05_1": {
+      "text_sha256": "5f6674fe362915c5d650bb70dd3d9605991bb2dbf2498419edd312881652c583",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "05_2": {
+      "text_sha256": "dd0ff44d3de36b7d6cc519f538d1fbae67b1ae904e1d65eb2debff35071327a8",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "05_20": {
+      "text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "05_3": {
+      "text_sha256": "3f267c4eb390bcfa1d3de96c16a5b9a5f6ab8ee1133752f5774bab63b1cd6868",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "05_4": {
+      "text_sha256": "bb0c9ce590095004ece1dc001770a2f1c8042a733e3cb9cb1bfdcd3a2a9ea339",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "05_5": {
+      "text_sha256": "4577d97df6052667c611277cd7a4c43425b6f7a7c98b8e290d042448b0ae0cef",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "05_6": {
+      "text_sha256": "0efab2f833ca962cd86edf6f77cdb5f32154eafb24784b95f05d91a249102862",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "05_7": {
+      "text_sha256": "7a6573c709b24613761472e08ab82557ac55afba998347efff5c02050d2b31e6",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "06_1": {
+      "text_sha256": "b260807f31f65927962909683d5af815e2128a0ad7500d0749e6511c19680aca",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "06_2": {
+      "text_sha256": "90fece638d89ab1eadbff4cf4913267724cbae1356011dc343b1290f12584f77",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "06_3": {
+      "text_sha256": "a909ab31e6173129dcafbbf8a38bf663d6d3a140ce01c2c0e68253ebe77b2db0",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "06_4": {
+      "text_sha256": "435f54c3f9eca4b39e3dd6806b59768e4331e73a57651040c7c24092d149d6ec",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "06_5": {
+      "text_sha256": "219bc78c759868e8fb229188e8f757704428cf81e9cae40655a75b14506cc8c3",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "06_6": {
+      "text_sha256": "4ca49ca95c948df0d25fa3732e00976bab13395ffff27dcb07bda094b73129e4",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "06_20": {
+      "text_sha256": "a82f172588e91e1dc63da895fd4a760ec655fd41ff1b6c9faad669ae434a3e80",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "06_7": {
+      "text_sha256": "0f56c61839a683a4aa7ef25eb221e6912ca2c4c1fec023c68c5fe6d3ae995c7f",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "07_1": {
+      "text_sha256": "3ea7fd2865464049d0e9b916cdee0ac38a457d8eff28b4889ece8d9f8d70cf07",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "07_2": {
+      "text_sha256": "c3936a28ed7e1a198aff633ab96603bdbd141f3c618713c5d82ab4d0b32c54e9",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "07_3": {
+      "text_sha256": "4ae58d37d06c67306feecf8d1053a54b39ea6a1079e435396a01b037b24d4ea9",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "07_4": {
+      "text_sha256": "09556df40a49b999dd4344dc7ca0f643250191844c40937d050d8d7faafef77c",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "07_5": {
+      "text_sha256": "7de9ef93c93969396f634dc19d6e8134b5d0280509bdbd8827ac63a85b1f4bd6",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "07_6": {
+      "text_sha256": "7f99cba22a033160d648cf21f48d99f6d7ee5bb373932960cd081d8918acb2f5",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "08_1": {
+      "text_sha256": "75556c6aef00b2c0f2bab3027e52d1baf9f1b42642e73678834d431a5cf145e3",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "08_2": {
+      "text_sha256": "3d6d4f49585844a2ed7029ecbd5e858c586bea74f2bd30c75f6184a872ccb98f",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "08_3": {
+      "text_sha256": "ce2bc329699435775aa76055e5e654dac19a240a7da6e7c8da245a4fc19b7232",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "08_4": {
+      "text_sha256": "f449fbee18eb2cce67e3306905853d7bc3c9eee26b041aa2d064baa8b3e537b7",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "08_5": {
+      "text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "09_1": {
+      "text_sha256": "37a3a14b437e8357bc2a6953184629a044f80f1fcb1280f9a21de23143acfc6d",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "09_2": {
+      "text_sha256": "bce7e8e43ac65a8ba7a5ed18138685910855233783a6f80f1d085f3a3f42c430",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "09_3": {
+      "text_sha256": "f3de2e233a6f198038ac654b013d128c4d0a65d30ffc238fe1f18e175811e5a8",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "09_4": {
+      "text_sha256": "e2c776e31453e1db043fb7b1da039189f57ff5220278957bce1b8aa49adc6095",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "10_1": {
+      "text_sha256": "6fcaeb2f87ad17f8fd6a7eb67b088c7f0b0af6145df048b992777669a1ca1c1b",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "10_2": {
+      "text_sha256": "e77f6de70aafae27bb15ba7d62011beb6bf2d22402b4174274b5f985409c95c8",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "10_3": {
+      "text_sha256": "9645f0e4958247f106e8c2f80155996e2346302c6b34f78bd366dd1112de4baf",
+      "wav_sha256": null,
+      "marks": [
+        {
+          "byte": 208,
+          "seconds": null,
+          "phrase": "turns round at a steady"
+        },
+        {
+          "byte": 302,
+          "seconds": null,
+          "phrase": "or does not turn"
+        }
+      ]
+    },
+    "10_4": {
+      "text_sha256": "29473bc1659d0ff4d32211f6a5c8ef8abb4374e1b9fb892622eed2e13936bbe4",
+      "wav_sha256": null,
+      "marks": [
+        {
+          "byte": 39,
+          "seconds": null,
+          "phrase": "strictly between"
+        }
+      ]
+    },
+    "11_1": {
+      "text_sha256": "9aef00838aedeef5c81aa071586dca516ef9fd475e205c03105594838079ec5d",
+      "wav_sha256": null,
+      "marks": [
+        {
+          "byte": 320,
+          "seconds": null,
+          "phrase": "a halfway point"
+        },
+        {
+          "byte": 337,
+          "seconds": null,
+          "phrase": "squashes the whole plane"
+        }
+      ]
+    },
+    "11_2": {
+      "text_sha256": "bac00f42e30c5450cea48e0db3786af3a9384ddaeb583ea96e86504b7a21e8e7",
+      "wav_sha256": null,
+      "marks": [
+        {
+          "byte": 185,
+          "seconds": null,
+          "phrase": "run backwards"
+        }
+      ]
+    },
+    "11_3": {
+      "text_sha256": "70e19e8aa243ef1ff9adcefcf18c96379c5103d26114a8c2a8c3e067383f59db",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "11_4": {
+      "text_sha256": "e94e48675f20ac0ffc624decd4531399dc8a3589f9d9a315cdf0f63885909bdc",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "11_5": {
+      "text_sha256": "dd0d230909c00dfe74523c3976ad06a759e2afb459e9e8cb252003b1b7615db8",
+      "wav_sha256": null,
+      "marks": [
+        {
+          "byte": 72,
+          "seconds": null,
+          "phrase": "send it along both routes"
+        },
+        {
+          "byte": 178,
+          "seconds": null,
+          "phrase": "the two routes end in different places"
+        }
+      ]
+    },
+    "11_6": {
+      "text_sha256": "ad421c6d611bf9a635d80375ebff4dc413eacbcf8a9906b80cbddab97c73c68d",
+      "wav_sha256": null,
+      "marks": [
+        {
+          "byte": 273,
+          "seconds": null,
+          "phrase": "running one after the other"
+        }
+      ]
+    },
+    "11_7": {
+      "text_sha256": "aae9225a2dbb2a4dcb828e9ffa870f0d24bf4f04a9e7608021366f3622a01fcc",
+      "wav_sha256": null,
+      "marks": [
+        {
+          "byte": 174,
+          "seconds": null,
+          "phrase": "so nothing forces a logarithm to keep the axes"
+        },
+        {
+          "byte": 226,
+          "seconds": null,
+          "phrase": "the spin, which turns every axis"
+        },
+        {
+          "byte": 315,
+          "seconds": null,
+          "phrase": "a matrix that sends some direction"
+        },
+        {
+          "byte": 404,
+          "seconds": null,
+          "phrase": "only when it does that to every direction alike"
+        },
+        {
+          "byte": 453,
+          "seconds": null,
+          "phrase": "a half turn combined with an equal stretch"
+        }
+      ]
+    },
+    "11_20": {
+      "text_sha256": "ec2b4681dc12338d1dd19df6e5866524d0811c18d3f5732a9a8235f96b4f5f02",
+      "wav_sha256": null,
+      "marks": [
+        {
+          "byte": 91,
+          "seconds": null,
+          "phrase": "the matrix's blocks for each negative stretch"
+        },
+        {
+          "byte": 137,
+          "seconds": null,
+          "phrase": "come in matching pairs"
+        }
+      ]
+    },
+    "11_8": {
+      "text_sha256": "b35df432f6f28808909eeb0dec8c25e7e5189993487489e3169a0e089eabd297",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "12_1": {
+      "text_sha256": "8ac919312c336ca94988b10063a842dbaeaa2932594199ac44a55a19fae3d8d9",
+      "wav_sha256": null,
+      "marks": [
+        {
+          "byte": 167,
+          "seconds": null,
+          "phrase": "the keyboard and the slide rule"
+        }
+      ]
+    },
+    "12_2": {
+      "text_sha256": "b412f190e36981bd7ad4336f007bc2987490c4098304ef4ff56a0d49a36d860d",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "12_3": {
+      "text_sha256": "e50368a2cdc197d77542a976d02e3207da2384b9d7840a1645bb2d3cc64d7169",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "12_4": {
+      "text_sha256": "94ed881c39edcc7cd15235e3691ae6d3d91203ef54ab3c451f82ec27c400aa93",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "12_5": {
+      "text_sha256": "e8dd93058126905677716cedcfba6b70413abbf62d2f2bb3a028bcd03b6bb9a7",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "12_6": {
+      "text_sha256": "c85377e98085cd3000ec836f675c05662c9be4bcff432de7620c669d208e1962",
+      "wav_sha256": null,
+      "marks": [
+        {
+          "byte": 89,
+          "seconds": null,
+          "phrase": "also ends here"
+        },
+        {
+          "byte": 105,
+          "seconds": null,
+          "phrase": "and so does two and a half"
+        }
+      ]
+    },
+    "12_20": {
+      "text_sha256": "246388046e76374e4bf7519b3fb92168e46f98211860f262af30225cfda517db",
+      "wav_sha256": null,
+      "marks": []
+    },
+    "12_21": {
+      "text_sha256": "0fe204023b8a52a75088216367d1e84e5aa423baa89f7ec2e583c5c1ff558762",
+      "wav_sha256": null,
+      "marks": [
+        {
+          "byte": 192,
+          "seconds": null,
+          "phrase": "a convention broke the same tie"
+        },
+        {
+          "byte": 230,
+          "seconds": null,
+          "phrase": "the honest answer is the whole family"
+        }
+      ]
+    }
+  }
+}

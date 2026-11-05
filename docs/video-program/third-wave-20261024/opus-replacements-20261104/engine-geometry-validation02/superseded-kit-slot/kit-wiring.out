@@ -1,0 +1,39 @@
+canonical cli.rs, glyphs.rs, kit.rs equal revision 589ab3dfbfb6 and the working tree
+stage01's chapters/mod.rs and draw.rs equal the copies the film patch was made from
+no canonical tests/plan_limits.rs exists
+git apply, kit at the revision, kit-plan-limits.patch: exit 0, equals the edited tree: True
+git apply, stage01 src, film-plate-budget.patch: exit 0, equals the edited tree: True
+patch -p1 -F0, kit at the revision, kit-plan-limits.patch: exit 0, equals the edited tree: True
+patch -p1 -F0, stage01 src, film-plate-budget.patch: exit 0, equals the edited tree: True
+mutant-kit-delivery.patch (the --crf copy): applies exit 0, changes the source True; reverse exit 0, restores the bytes True
+mutant-kit-camera-draft.patch (the camera_options copy): applies exit 0, changes the source True; reverse exit 0, restores the bytes True
+film-plate-cells4.patch (PLATE): applies exit 0, changes the source True; reverse exit 0, restores the bytes True
+kit-plan-limits.patch: 4 files, +292 -6, sha256 2f5d8a80f3390054f4619c9bc2b22b0f652764157f198f3bbcc264a59d5ef6c0
+film-plate-budget.patch: 1 files, +52 -10, sha256 915b65e8bda55f092c3f440d23e2660fa8ce6ccdc6d2c4a5169a12cb9cbfeedf
+rustfmt src/cli.rs, repo rustfmt.toml: exit 0
+rustfmt src/glyphs.rs, repo rustfmt.toml: exit 0
+rustfmt src/kit.rs, repo rustfmt.toml: exit 0
+rustfmt tests/plan_limits.rs, repo rustfmt.toml: exit 0
+rustfmt src/encode.rs, repo rustfmt.toml: exit 0
+rustfmt the film from src/main.rs, which reaches chapters/mod.rs, repo rustfmt.toml: exit 0
+canonical kit from lib.rs, untouched by this work: exit 1, flagged ['explainer_kit/src/narration.rs'], so `cargo fmt --check -p explainer_kit` fails before and after this patch
+sites that build options, make a scene, or carry the budget, after the patch:
+  src/glyphs.rs:83:        let mut scene = (chapter.make)(kit);
+  src/glyphs.rs:85:        let mut opts = crate::cli::options(path, RenderFormat::PngSequence, (32, 18), 1)?;
+  src/glyphs.rs:87:        opts.plan_limits = camera.plan_limits();
+  src/glyphs.rs:144:        crate::cli::options(pages.clone(), RenderFormat::PngSequence, args.res, 1)?,
+  src/cli.rs:474:pub(crate) fn options(
+  src/cli.rs:532:fn camera_options(path: &Path, opts: RenderOptions) -> Result<RenderOptions, Box<dyn Error>> {
+  src/cli.rs:536:    let mut o = encode::delivery_options(
+  src/cli.rs:547:    o.plan_limits = opts.plan_limits;
+  src/cli.rs:634:            let mut scene = (c.make)(kit);
+  src/cli.rs:635:            let mut opts = options(path.clone(), RenderFormat::Mp4, res, args.fps)?;
+  src/cli.rs:636:            opts.plan_limits = camera.plan_limits();
+  src/cli.rs:651:                let mut o = encode::delivery_options(
+  src/cli.rs:664:                o.plan_limits = opts.plan_limits;
+  src/cli.rs:670:                    let opts = camera_options(&path, opts)?;
+  src/cli.rs:1030:    let mut scene = make(kit);
+  src/cli.rs:1031:    let mut opts = options(frames, RenderFormat::PngSequence, args.res, 1)?;
+  src/cli.rs:1032:    opts.plan_limits = declared.plan_limits();
+  src/encode.rs:242:pub fn delivery_options(
+  src/encode.rs:547:        let o = delivery_options("out.mp4", RenderFormat::Mp4, Quality::delivery()).unwrap()

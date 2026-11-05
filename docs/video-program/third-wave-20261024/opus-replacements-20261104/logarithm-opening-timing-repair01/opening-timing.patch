@@ -1,0 +1,330 @@
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/ratio_ruler.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/ratio_ruler.rs
+@@ -1,6 +1,6 @@
+-//! Chapter 00, a ruler for ratios: seven A's on an ordinary frequency ruler
+-//! (00_1), the low notes crowded into an eighth while one step fills half
+-//! (00_2), the same seven dots carried down onto a keyboard where each
++//! Chapter 00, a ruler for ratios: seven A's, printed as they are read (00_1),
++//! then the ordinary ruler, the low notes crowded into an eighth while one step
++//! fills half (00_2), the same seven dots carried down onto a keyboard where each
+ //! twelve-semitone climb doubles (00_3), the half-octave prediction (00_4), the
+ //! square-root-of-two answer against the 660 guess (00_5), and the preview
+ //! of where the ruler will lose information (00_6).
+@@ -132,7 +132,7 @@
+         let keys_per = fact_f64("music.keys_per_octave")? as i32;
+         let half_keys = fact_f64("music.half_up_keys")? as i32;
+ 
+-        // 00_1: the ordinary ruler and seven green notes on it
++        // 00_1: the title alone, then seven green numbers as the voice reads them
+         kit.say(stage, "00_1")?;
+         let heading = title(&kit, stage, "A ruler for ratios")?;
+         let spine = seg(stage, v(LIN_LEFT, LIN_Y), v(LIN_RIGHT, LIN_Y), Palette::dim(), 3.0);
+@@ -156,9 +156,7 @@
+             Palette::dim(),
+             v(4.6, LIN_Y + 0.95),
+         )?;
+-        ticks.push(unit);
+         fade_in_all(stage, &[heading], 0.6)?;
+-        fade_in_lagged(stage, &ticks, 1.2, 0.15)?;
+         kit.until_sentence(stage, "00_1", 1)?;
+         // the seven dots, each driven by one tracker so the same dot later
+         // walks down onto its key (identity kept through the change)
+@@ -176,10 +174,6 @@
+             });
+             dots.push(d);
+         }
+-        for &d in &dots {
+-            stage.add_to_scene(d)?;
+-            stage.wait(0.18)?;
+-        }
+         // labels: the high four have room, the low three share one label
+         let mut labels = Vec::new();
+         for (k, &x) in lin_xs.iter().enumerate().take(7).skip(3) {
+@@ -204,12 +198,18 @@
+             green,
+             1.8,
+         );
+-        labels.push(low);
+-        labels.push(low_lead);
+-        fade_in_all(stage, &labels, 0.6)?;
++        labels.insert(0, low);
++        labels.push(unit);
++        read_out(stage, &kit, &labels)?;
+ 
+-        // 00_2: half the ruler for one step, an eighth for the first four
++        // 00_2: the ruler it asks for, then half of it for one step, an eighth for the first four
+         kit.say(stage, "00_2")?;
++        fade_in_lagged(stage, &ticks, 1.0, 0.15)?;
++        for &d in &dots {
++            stage.add_to_scene(d)?;
++            stage.wait(0.18)?;
++        }
++        fade_in_all(stage, &[low_lead], 0.2)?;
+         kit.until_sentence(stage, "00_2", 1)?;
+         let half_a = lin_x(freqs[5], top);
+         let brace_y = LIN_Y - 0.75;
+@@ -509,10 +509,110 @@
+     kit.hold(stage)
+ }
+ 
++const SCRIPT: &str = include_str!("../../script.tsv");
++/// The words each printed number waits for in 00_1's second sentence, in reading
++/// order: the low three share a label and come with "their frequencies are", then
++/// 440 to 3520, then the unit.
++const READ_PHRASES: [&str; 6] = [
++    "their frequencies",
++    "four hundred and forty",
++    "eight hundred and eighty",
++    "seventeen sixty",
++    "thirty-five twenty",
++    "vibrations per second",
++];
++const READ_FADE: f64 = 0.35;
++
++/// Where each phrase opens, as a share of the sentence's characters: a rough
++/// estimate of when it is read, never measured timing.
++fn read_shares(sentence: &str) -> Option<Vec<f64>> {
++    let total = sentence.chars().count() as f64;
++    READ_PHRASES
++        .iter()
++        .map(|p| Some(sentence[..sentence.find(p)?].chars().count() as f64 / total))
++        .collect()
++}
++
++/// Bring `words` in one at a time, as 00_1's second sentence reaches them. Without
++/// a narrator, one every 0.9 s.
++fn read_out(stage: &mut Stage<'_>, kit: &Kit, words: &[Mob]) -> fmn::Result<()> {
++    let now = stage.scene().time().to_f64();
++    let times = kit.narrator.as_ref().and_then(|n| {
++        let s1 = n.sentence_at("00_1", 1)?;
++        let end = s1 - n.sentence_starts("00_1").get(1).copied()? + n.length("00_1")?;
++        let text = SCRIPT.lines().find_map(|row| row.strip_prefix("00_1\t"))?;
++        let sentence = &text[text.find(". ")? + 2..];
++        Some(
++            read_shares(sentence)?
++                .iter()
++                .map(|s| s1 + (end - s1) * s)
++                .collect::<Vec<f64>>(),
++        )
++    });
++    for (j, &word) in words.iter().enumerate() {
++        let untimed = now + 0.9 * j as f64;
++        let at = times.as_ref().and_then(|t| t.get(j)).copied().unwrap_or(untimed);
++        super::draw::wait_until(stage, at)?;
++        fade_in_all(stage, &[word], READ_FADE)?;
++    }
++    Ok(())
++}
++
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+ 
++    /// The scene code without these tests, for checks on the order of its beats.
++    fn scene_source() -> &'static str {
++        include_str!("ratio_ruler.rs")
++            .split("#[cfg(test)]")
++            .next()
++            .unwrap_or("")
++    }
++
++    fn found(text: &str) -> usize {
++        scene_source()
++            .find(text)
++            .unwrap_or_else(|| panic!("not in the scene: {text}"))
++    }
++
++    #[test]
++    fn the_ruler_waits_for_the_words_that_ask_for_it() {
++        // the title alone, the numbers through sentence 1, and only then the axis and the dots
++        let order = [
++            found("fade_in_all(stage, &[heading], 0.6)"),
++            found(r#"kit.until_sentence(stage, "00_1", 1)"#),
++            found("read_out(stage, &kit, &labels)"),
++            found(r#"kit.say(stage, "00_2")"#),
++            found("fade_in_lagged(stage, &ticks, 1.0, 0.15)"),
++            found("stage.add_to_scene(d)"),
++            found("fade_in_all(stage, &[low_lead], 0.2)"),
++            found(r#"kit.until_sentence(stage, "00_2", 1)"#),
++        ];
++        assert!(order.windows(2).all(|w| w[0] < w[1]), "{order:?}");
++        // the ruler, seven dots at 0.18 s and the lead fit the 3.0 s of "Mark them on an ordinary ruler
++        // of frequency" that the scratch voice gives, with room for a quicker reading
++        found("stage.wait(0.18)");
++        let ruler_seconds: f64 = 1.0 + 7.0 * 0.18 + 0.2;
++        assert!(ruler_seconds < 2.6, "{ruler_seconds}");
++    }
++
++    #[test]
++    fn the_numbers_arrive_in_the_order_the_voice_reads_them() {
++        let text = SCRIPT
++            .lines()
++            .find_map(|row| row.strip_prefix("00_1\t"))
++            .expect("00_1 is in the script");
++        let sentence = &text[text.find(". ").expect("two sentences") + 2..];
++        let shares = read_shares(sentence).expect("every phrase is in the sentence");
++        assert!(shares.windows(2).all(|w| w[0] < w[1]), "{shares:?}");
++        assert!(shares[0] > 0.0 && shares[shares.len() - 1] < 1.0, "{shares:?}");
++        // the labels vector matches the phrases: low three first, four high ones, the unit last
++        assert_eq!(READ_PHRASES.len(), 1 + 4 + 1);
++        assert!(found(".take(7).skip(3)") < found("labels.insert(0, low)"));
++        assert!(found("labels.insert(0, low)") < found("labels.push(unit)"));
++    }
++
+     #[test]
+     fn the_a_keys_are_twelve_semitones_apart_and_on_screen() {
+         let xs: Vec<f64> = (0..7).map(|k| key_x(12 * k)).collect();
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/folded_decade.rs
+@@ -336,12 +336,19 @@
+             v(1.4, -2.3),
+         )?;
+         swap(stage, &[heading2], &[heading3, forgets], 0.5)?;
+-        let mut clear = vec![
+-            pointer, trail, count, count_word, four, six, total, ten, land, land_word, lap_tag,
+-        ];
+-        clear.extend(labels.iter().copied());
+-        fade_out_all(stage, &clear, 0.6)?;
+-        play!(stage; tween(p_lay, 1.0, 2.0)?);
++        // the laps go first and slowly; the digits stay until the voice has named them;
++        // then the dial lies flat, in time for sentence 1
++        let spoken = kit
++            .narrator
++            .as_ref()
++            .and_then(|n| n.sentence_at("03_3", 0).zip(n.sentence_at("03_3", 1)));
++        let (laps_run, lay) = lay_beats(stage.scene().time().to_f64(), spoken);
++        let lap_things = [pointer, trail, count, count_word, four, six, total, ten, lap_tag];
++        fade_out_all(stage, &lap_things, laps_run)?;
++        let mut digits = vec![land, land_word];
++        digits.extend(labels.iter().copied());
++        fade_out_all(stage, &digits, DIGITS_FADE)?;
++        play!(stage; tween(p_lay, 1.0, lay)?);
+         kit.until_sentence(stage, "03_3", 1)?;
+         fade_out_all(stage, &[forgets], 0.4)?;
+         let climb = stage.add_value_tracker(laps[0] - 0.1);
+@@ -447,6 +454,25 @@
+     -1.0
+ }
+ 
++/// How far through 03_3's first sentence the voice has said "the digits,": 30 of
++/// its 52 characters. A rough estimate, never measured timing.
++const DIGITS_SHARE: f64 = 0.58;
++const DIGITS_FADE: f64 = 0.3;
++const LAPS_RUN_SHORTEST: f64 = 0.6;
++const LAY_SHORTEST: f64 = 1.0;
++const LAY_UNTIMED: f64 = 2.0;
++
++/// How long the lap objects take to fade and how long the dial takes to lie flat,
++/// from `now`: the digits leave when "the digits," has been said, and the lay ends
++/// on sentence 1, or a little after it if the voice is very quick.
++fn lay_beats(now: f64, spoken: Option<(f64, f64)>) -> (f64, f64) {
++    let Some((s0, s1)) = spoken else {
++        return (LAPS_RUN_SHORTEST, LAY_UNTIMED);
++    };
++    let laps = (s0 + (s1 - s0) * DIGITS_SHARE - now).max(LAPS_RUN_SHORTEST);
++    (laps, (s1 - now - laps - DIGITS_FADE).max(LAY_SHORTEST))
++}
++
+ #[cfg(test)]
+ mod tests {
+     use super::*;
+@@ -543,10 +569,47 @@
+     #[test]
+     fn the_new_title_and_the_caption_arrive_on_the_first_sentence_of_03_3() {
+         let swap_at = found("swap(stage, &[heading2], &[heading3, forgets], 0.5)");
+-        assert!(swap_at < found("tween(p_lay, 1.0, 2.0)"));
++        assert!(swap_at < found("tween(p_lay, 1.0, lay)"));
+         // "the dial shows only the mark" holds through the lay, until sentence 1
+         let hold = found(r#"kit.until_sentence(stage, "03_3", 1)"#);
+-        assert!(found("tween(p_lay, 1.0, 2.0)") < hold && hold < found("fade_out_all(stage, &[forgets], 0.4)"));
++        assert!(found("tween(p_lay, 1.0, lay)") < hold && hold < found("fade_out_all(stage, &[forgets], 0.4)"));
++    }
++
++    #[test]
++    fn the_digits_outlast_the_laps_and_leave_before_the_dial_lies_flat() {
++        let laps = found("fade_out_all(stage, &lap_things, laps_run)");
++        let digits = found("fade_out_all(stage, &digits, DIGITS_FADE)");
++        let lay = found("tween(p_lay, 1.0, lay)");
++        assert!(found("swap(stage, &[heading2], &[heading3, forgets], 0.5)") < laps);
++        assert!(laps < digits && digits < lay);
++        // the two lists together hold everything the one old list did, and each object once
++        found("[pointer, trail, count, count_word, four, six, total, ten, lap_tag]");
++        found("vec![land, land_word]");
++        found("digits.extend(labels.iter().copied())");
++        assert!(!scene_source().contains("let mut clear"));
++    }
++
++    #[test]
++    fn the_digits_stay_until_they_are_named_and_the_lay_ends_on_the_next_sentence() {
++        // the share is the script's
++        let text = include_str!("../../script.tsv")
++            .lines()
++            .find_map(|row| row.strip_prefix("03_3\t"))
++            .expect("03_3 is in the script");
++        let first = &text[..=text.find(". ").expect("several sentences")];
++        let named = "The dial remembers the digits,";
++        assert!(first.starts_with(named), "{first}");
++        let share = named.chars().count() as f64 / first.chars().count() as f64;
++        assert!((share - DIGITS_SHARE).abs() < 0.01, "{share}");
++        // the scratch voice's 4.0 s sentence, starting the beats 0.5 s in, after the title's swap
++        let (laps, lay) = lay_beats(42.4, Some((41.9, 45.9)));
++        assert!((42.4 + laps - (41.9 + 4.0 * DIGITS_SHARE)).abs() < 1e-9, "{laps}");
++        assert!((42.4 + laps + DIGITS_FADE + lay - 45.9).abs() < 1e-9, "{lay}");
++        // a quick voice keeps the shortest beats and runs a little over, never backwards
++        let (laps, lay) = lay_beats(0.5, Some((0.0, 1.6)));
++        assert!(laps == LAPS_RUN_SHORTEST && lay == LAY_SHORTEST, "{laps} {lay}");
++        // no narrator: the old 2.0 s lay
++        assert_eq!(lay_beats(0.5, None), (LAPS_RUN_SHORTEST, LAY_UNTIMED));
+     }
+ 
+     #[test]
+--- a/explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs
++++ b/explainer_corpus/logarithm_mysteries/src/chapters/slide_rule.rs
+@@ -155,7 +155,7 @@
+         let d_len = seg(stage, v(d.x(1.0), D_BAR_Y), v(d.x(a), D_BAR_Y), blue, 6.0);
+         let d_len_word = kit.text(
+             stage,
+-            &format!("{} of a full length", fact("slide.pos_a")?),
++            &format!("{}: {} of a full length", fact("slide.a")?, fact("slide.pos_a")?),
+             22.0,
+             blue,
+             v((d.x(1.0) + d.x(a)) / 2.0, D_BAR_Y - 0.32),
+@@ -189,7 +189,7 @@
+         let c_len = seg(stage, v(c.x(1.0), C_BAR_Y), v(c.x(b), C_BAR_Y), blue, 6.0);
+         let c_len_word = kit.text(
+             stage,
+-            fact("slide.pos_b")?,
++            &format!("{}: {}", fact("slide.b")?, fact("slide.pos_b")?),
+             22.0,
+             blue,
+             v((c.x(1.0) + c.x(b)) / 2.0, C_BAR_Y + 0.32),
+@@ -220,7 +220,7 @@
+         shift_all(stage, &[c_len], v(0.0, D_BAR_Y - C_BAR_Y), 1.2)?;
+         let c_word_fix = kit.text(
+             stage,
+-            fact("slide.pos_b")?,
++            &format!("{}: {}", fact("slide.b")?, fact("slide.pos_b")?),
+             22.0,
+             blue,
+             v((c.x(1.0) + c.x(b)) / 2.0, D_BAR_Y - 0.32),
+@@ -510,9 +510,16 @@
+             assert!(((d.x(x) - d.x(1.0)) / LEN - printed).abs() < 0.001, "{x}");
+         }
+         assert!(found("one full length = 1") > 0);
+-        // the first length carries its unit: "0.398 of a full length" is 9.06 ems at
+-        // 22 points, narrower than its own bar
+-        assert!(found("\"{} of a full length\"") > 0);
+-        assert!(9.06 * 22.0 * 0.01 < d.x(2.5) - d.x(1.0));
++        // the first length names its mark and carries its unit: "2.5: 0.398 of a full
++        // length" is 10.95 ems at 22 points, narrower than its own bar
++        assert!(found("\"{}: {} of a full length\", fact(\"slide.a\")?, fact(\"slide.pos_a\")?") > 0);
++        assert!(10.95 * 22.0 * 0.01 < d.x(2.5) - d.x(1.0));
++    }
++
++    #[test]
++    fn the_second_length_names_its_mark_each_time_it_is_printed() {
++        let named = "&format!(\"{}: {}\", fact(\"slide.b\")?, fact(\"slide.pos_b\")?)";
++        // above its bar on C, and again after it drops onto D
++        assert_eq!(scene_source().matches(named).count(), 2);
+     }
+ }

@@ -1,0 +1,10 @@
+--- a/crates/explainer_kit/src/cli.rs
++++ b/crates/explainer_kit/src/cli.rs
+@@ -661,7 +661,6 @@
+                 )?;
+                 o.config = opts.config.clone();
+                 o.max_frames = opts.max_frames;
+-                o.plan_limits = opts.plan_limits;
+                 opts = o;
+             }
+             let rendered = match camera.camera_shot() {

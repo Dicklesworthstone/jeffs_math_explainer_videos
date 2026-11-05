@@ -1,0 +1,21 @@
+# Every package of the lab's lock from franken_manim, as path copies of one patched export.
+[patch."https://github.com/Dicklesworthstone/franken_manim"]
+fmn = { path = "@EXPORT@/crates/fmn" }
+fmn-anim = { path = "@EXPORT@/crates/fmn-anim" }
+fmn-cache = { path = "@EXPORT@/crates/fmn-cache" }
+fmn-codec = { path = "@EXPORT@/crates/fmn-codec" }
+fmn-config = { path = "@EXPORT@/crates/fmn-config" }
+fmn-core = { path = "@EXPORT@/crates/fmn-core" }
+fmn-dmath = { path = "@EXPORT@/crates/fmn-dmath" }
+fmn-frame = { path = "@EXPORT@/crates/fmn-frame" }
+fmn-geom = { path = "@EXPORT@/crates/fmn-geom" }
+fmn-hash = { path = "@EXPORT@/crates/fmn-hash" }
+fmn-library = { path = "@EXPORT@/crates/fmn-library" }
+fmn-mobject = { path = "@EXPORT@/crates/fmn-mobject" }
+fmn-output = { path = "@EXPORT@/crates/fmn-output" }
+fmn-platform = { path = "@EXPORT@/crates/fmn-platform" }
+fmn-render = { path = "@EXPORT@/crates/fmn-render" }
+fmn-runtime = { path = "@EXPORT@/crates/fmn-runtime" }
+fmn-scene = { path = "@EXPORT@/crates/fmn-scene" }
+fmn-tex = { path = "@EXPORT@/crates/fmn-tex" }
+fmn-text = { path = "@EXPORT@/crates/fmn-text" }

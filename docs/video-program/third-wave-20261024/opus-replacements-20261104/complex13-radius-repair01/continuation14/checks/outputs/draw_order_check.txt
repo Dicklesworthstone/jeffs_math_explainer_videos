@@ -1,0 +1,29 @@
+canonical: 13 faults
+   fade in [region, region_says]: above the mark: region
+   fade in [step_says, first_c]: above the mark: region
+   fade in [first]: above the mark: region, first
+   fade in [d1, piece1]: above the mark: d1
+   fade in [d2, piece2]: above the mark: d1, d2
+   fade in [d3, piece3]: above the mark: d1, d2, d3
+   fade in [d4, piece4]: above the mark: d1, d2, d3, d4
+   fade in [forced]: above the mark: d1, d2, d3, d4
+   fade in [d5, piece5]: above the mark: d1, d2, d3, d4, d5
+   fade in [d6, piece6]: above the mark: d1, d2, d3, d4, d5, d6
+   fade in [d7, piece7]: above the mark: d1, d2, d3, d4, d5, d6, d7
+   fade in [d8, piece8]: above the mark: d1, d2, d3, d4, d5, d6, d7, d8
+   2 marks in the scene: a second one doubles the ring and pops in
+repair: 0 faults; 18 fades checked with the mark on stage; 11 things reach the pole
+plant: no re-add at the region: CAUGHT by the walk (2); Rust-test mirror fails
+plant: no re-add at the first disk: CAUGHT by the walk (1); Rust-test mirror fails
+plant: no re-add in the chain: CAUGHT by the walk (10); Rust-test mirror fails
+plant: chain's re-add after its fade: CAUGHT by the walk (8); Rust-test mirror fails
+plant: first disk's re-add after its fade: CAUGHT by the walk (1); Rust-test mirror fails
+plant: helper puts the mark first: CAUGHT by the walk (13); Rust-test mirror fails
+plant: a second mark back at the chain's end: CAUGHT by the walk (2); Rust-test mirror fails
+plant: the mark never fades out: CAUGHT by the walk (1); Rust-test mirror fails
+plant: a new disk over the mark: CAUGHT by the walk (3); Rust-test mirror fails
+plants caught by the walk: 9/9
+Rust-test mirror on the repair: all hold
+Rust-test mirror on canonical (must fail): ['root_under &[region] before its fade', 'root_under &[first] before its fade', 'root_under &[d, piece] before its fade', 'helper puts the mark last', 'one mark']
+anchor formula's constants in the staged scene: all there
+RESULT pass

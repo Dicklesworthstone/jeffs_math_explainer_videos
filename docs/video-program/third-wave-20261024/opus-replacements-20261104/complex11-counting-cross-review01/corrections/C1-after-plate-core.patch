@@ -1,0 +1,11 @@
+--- a/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
++++ b/explainer_corpus/complex_analysis_visual/src/chapters/counting.rs
+@@ -653,7 +653,7 @@
+     fn build(stage: &mut Stage<'_>, inp: Plane, out: Plane, curve: Mob) -> fmn::Result<Self> {
+         let strips = portrait(stage, Func::Quintic, &inp, 1.0)?;
+         let field = strips.group;
+-        let (cols, rows) = picture_cells(&inp);
++        let (cols, rows) = picture_cells(&inp, &super::draw::PLATE);
+         let turned = stage.add_value_tracker(0.0);
+         let anchor = stage.arena_mut().add(VMobject::new());
+         let mut last = 0.0;

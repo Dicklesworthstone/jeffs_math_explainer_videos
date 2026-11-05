@@ -1,0 +1,254 @@
+--- a/examples/plate_lab.rs
++++ b/examples/plate_lab.rs
+@@ -3,7 +3,7 @@
+ //!
+ //! ```text
+ //! cargo run --release --example plate_lab -- OUT --res 3840x2160 [--dry-run]
+-//!     [--stage stills|fades|repaints,...] [--subjects z,tan,...] [--candidates now,tile,...] [--no-truth]
++//!     [--stage stills|fades|repaints|refusals|probes,...] [--subjects z,tan,...] [--candidates now,tile,...] [--no-truth]
+ //! ```
+ //!
+ //! No narration, no score, no ffmpeg, and the film's binary is not touched: this is its own
+@@ -13,7 +13,8 @@
+ //! adaptive antialiasing.
+ //!
+ //! Writes, under `OUT`:
+-//!   `stills/SUBJECT__CANDIDATE/`, `fades/...`, `repaints/...`: `frame_000000.png` and on
++//!   `stills/SUBJECT__CANDIDATE/`, `fades/...`, `repaints/...`, `probes/...`: `frame_000000.png` and on
++//!   `refusals/SUBJECT__CANDIDATE.txt`: the engine's words when a control is refused, as it must be
+ //!   `truth/SUBJECT.ppm`: the plate's box, 16 samples a pixel from `model::portrait`
+ //!   `plates.tsv`: each subject's box in pixels
+ //!   `receipt.tsv`: per scene, wall time, cells, evaluation time, and what the records held
+@@ -57,6 +58,13 @@
+ const FADE_FPS: u32 = 3;
+ const FADE_FRAMES: u64 = 7;
+ const REPAINT_FRAMES: u64 = 3;
++/// Two seconds at [`FADE_FPS`]: paints at 0, 3, 6, 9, 12 and 12 twelfths of the way. Three frames
++/// never reach the fourth paint, the first that [`CELLS4_KNOTS`] cannot hold without compacting.
++const PROBE_FRAMES: u64 = 6;
++/// The budget the cells4 rung declares.
++const CELLS4_KNOTS: u64 = 1 << 22;
++/// The control's budget: z² at cells4 fits it once and not twice, so its first repaint is refused.
++const REFUSED_KNOTS: u64 = 1 << 21;
+ /// Samples per axis in a pixel of the truth.
+ const TRUTH_SAMPLES: usize = 4;
+ 
+@@ -225,6 +233,10 @@
+     Still,
+     Fade,
+     Repaint,
++    /// The probe's scene under [`REFUSED_KNOTS`], which has to refuse it by name.
++    Refusal,
++    /// A repaint long enough to cross the first compaction under [`CELLS4_KNOTS`].
++    Probe,
+ }
+ 
+ impl Kind {
+@@ -233,6 +245,8 @@
+             Self::Still => "stills",
+             Self::Fade => "fades",
+             Self::Repaint => "repaints",
++            Self::Refusal => "refusals",
++            Self::Probe => "probes",
+         }
+     }
+ 
+@@ -241,13 +255,14 @@
+             Self::Still => 1,
+             Self::Fade => FADE_FRAMES,
+             Self::Repaint => REPAINT_FRAMES,
++            Self::Refusal | Self::Probe => PROBE_FRAMES,
+         }
+     }
+ 
+     const fn fps(self) -> u32 {
+         match self {
+             Self::Still => 1,
+-            Self::Fade | Self::Repaint => FADE_FPS,
++            Self::Fade | Self::Repaint | Self::Refusal | Self::Probe => FADE_FPS,
+         }
+     }
+ }
+@@ -301,6 +316,24 @@
+     out
+ }
+ 
++/// A repaint of z² at cells4, which the full plan leaves out, under the budget that should hold it
++/// and one that should not. Neither is in [`plan`]: they run only when `--stage` names them, and no
++/// still is repeated. The control goes first, so if it is admitted the long render never starts.
++fn probes() -> Vec<Job> {
++    let subject = *SUBJECTS.iter().find(|x| x.key == "z2").expect("a known subject");
++    let candidate = *CANDIDATES
++        .iter()
++        .find(|x| x.key == "cells4")
++        .expect("a known candidate");
++    [Kind::Refusal, Kind::Probe]
++        .map(|kind| Job {
++            kind,
++            subject,
++            candidate,
++        })
++        .to_vec()
++}
++
+ struct Args {
+     out: PathBuf,
+     res: (u32, u32),
+@@ -370,7 +403,11 @@
+             CANDIDATES.iter().map(|c| c.key).collect::<Vec<_>>(),
+             "candidate",
+         ),
+-        (&args.stages, vec!["stills", "fades", "repaints"], "stage"),
++        (
++            &args.stages,
++            vec!["stills", "fades", "repaints", "refusals", "probes"],
++            "stage",
++        ),
+     ] {
+         for key in filter.iter().flatten() {
+             if !known.contains(&key.as_str()) {
+@@ -380,6 +417,7 @@
+     }
+     Ok(plan()
+         .into_iter()
++        .chain(probes().into_iter().filter(|_| args.stages.is_some()))
+         .filter(|j| {
+             chosen(j.kind.dir(), args.stages.as_ref())
+                 && chosen(j.subject.key, args.subjects.as_ref())
+@@ -501,7 +539,8 @@
+ }
+ 
+ /// A crossfade in place, the film's repaint: the updater writes the colour lane every twelfth of
+-/// the way, which is where a blended strip's own `recolor` runs on a real render.
++/// the way, which is where a blended strip's own `recolor` runs on a real render. It lasts as long
++/// as the job's frames do.
+ fn repaint(stage: &mut Stage<'_>, job: Job, seen: &mut Seen) -> fmn::Result<()> {
+     let plane = (job.subject.plane)();
+     let t = Instant::now();
+@@ -517,7 +556,8 @@
+     let before = sample_lanes(stage, &rows);
+     stage.add_to_scene(painter.group)?;
+     stage.add_to_scene(painter.anchor)?;
+-    painter.to(stage, Some(Func::Cubic), 1.0)?;
++    let seconds = job.kind.frames() as f64 / f64::from(job.kind.fps());
++    painter.to(stage, Some(Func::Cubic), seconds)?;
+     seen.records = if same_colours(&before, &sample_lanes(stage, &rows), None) {
+         "REPAINT WROTE NOTHING"
+     } else {
+@@ -536,6 +576,30 @@
+     Ok(o)
+ }
+ 
++/// The control's verdict. Being admitted, or refused for any other reason, stops the run. Being
++/// refused by name leaves the engine's own words beside where the frames would have gone.
++fn refused_by_name<E: std::fmt::Debug>(outcome: Result<u64, E>, dir: &Path) -> Result<&'static str, Box<dyn Error>> {
++    let error = match outcome {
++        Ok(frames) => {
++            return Err(format!("the control was admitted at {REFUSED_KNOTS} knots and wrote {frames} frames").into());
++        }
++        Err(error) => error,
++    };
++    let words = format!("{error:?}");
++    let named =
++        words.contains("resource: \"retained profile knots\"") && words.contains(&format!("limit: {REFUSED_KNOTS}"));
++    if !named {
++        return Err(format!("the control failed for another reason: {words}").into());
++    }
++    if dir.exists() {
++        return Err(format!("the refused control published {}", dir.display()).into());
++    }
++    let mut file = fs::File::create_new(dir.with_extension("txt"))?;
++    writeln!(file, "{words}")?;
++    println!("refused as it must be: {words}");
++    Ok("refused by name")
++}
++
+ fn render_job(job: Job, out: &Path, res: (u32, u32)) -> Result<(Seen, u64, f64), Box<dyn Error>> {
+     let dir = out
+         .join(job.kind.dir())
+@@ -559,26 +623,34 @@
+     let samples = f64::from(job.candidate.style.samples);
+     seen.evaluate_s = per_sample * samples * samples;
+ 
+-    let mut opts = options(dir, res, job.kind.fps(), job.kind.frames())?;
++    let mut opts = options(dir.clone(), res, job.kind.fps(), job.kind.frames())?;
+     if job.candidate.style == draw::PLATE_CELLS4 {
+         // 731 rows of 1471 knots, and a repaint holds the old rows and the new together:
+         // 2,150,602 knots, more than 1 << 21. This declared budget is for this rung alone.
+         opts.plan_limits = fmn::rendering::RenderPlanLimits {
+-            max_retained_profile_knots: 1 << 22,
++            max_retained_profile_knots: CELLS4_KNOTS,
+             ..fmn::rendering::RenderPlanLimits::default()
+         };
+     }
++    if job.kind == Kind::Refusal {
++        opts.plan_limits.max_retained_profile_knots = REFUSED_KNOTS;
++    }
+     let t = Instant::now();
+-    let report = {
++    let outcome = {
+         let seen = &mut seen;
+         let mut scene = Scene(move |stage: &mut Stage<'_>| match job.kind {
+             Kind::Still => still(stage, job, seen),
+             Kind::Fade => fade(stage, job, seen),
+-            Kind::Repaint => repaint(stage, job, seen),
++            Kind::Repaint | Kind::Refusal | Kind::Probe => repaint(stage, job, seen),
+         });
+-        fmn::render(&mut scene, opts)?
++        fmn::render(&mut scene, opts)
+     };
+-    Ok((seen, report.artifact.frame_count, t.elapsed().as_secs_f64()))
++    let wall = t.elapsed().as_secs_f64();
++    if job.kind == Kind::Refusal {
++        seen.records = refused_by_name(outcome.map(|report| report.artifact.frame_count), &dir)?;
++        return Ok((seen, 0, wall));
++    }
++    Ok((seen, outcome?.artifact.frame_count, wall))
+ }
+ 
+ /// The plate's box in pixels: x0, y0, x1, y1, half-open, covering every pixel it touches.
+@@ -677,7 +749,7 @@
+     }
+     // refuses an existing folder: every run gets its own, and nothing is overwritten
+     fs::create_dir(&args.out)?;
+-    for dir in ["stills", "fades", "repaints", "truth"] {
++    for dir in ["stills", "fades", "repaints", "refusals", "probes", "truth"] {
+         fs::create_dir(args.out.join(dir))?;
+     }
+     let mut plates = fs::File::create_new(args.out.join("plates.tsv"))?;
+@@ -780,6 +852,35 @@
+         assert!(jobs.iter().any(|j| j.candidate.key == "now" && j.kind == Kind::Fade));
+     }
+ 
++    /// Named, the probes run alone and the control first. Unnamed, the plan is what it was.
++    #[test]
++    fn the_probes_run_only_when_named_and_repeat_no_still() {
++        let args = |extra: &[&str]| {
++            let raw = ["out", "--res", "1280x720"].iter().chain(extra);
++            parse_args(raw.map(|s| (*s).to_owned())).unwrap()
++        };
++        let named = selected(&args(&["--stage", "refusals,probes"])).unwrap();
++        let dirs: Vec<_> = named.iter().map(|j| j.kind.dir()).collect();
++        assert_eq!(dirs, ["refusals", "probes"]);
++        assert!(
++            named
++                .iter()
++                .all(|j| j.subject.key == "z2" && j.candidate.key == "cells4")
++        );
++        assert_eq!(selected(&args(&[])).unwrap().len(), plan().len());
++        let cells4 = selected(&args(&["--subjects", "z2", "--candidates", "cells4"])).unwrap();
++        assert!(cells4.len() == 1 && cells4[0].kind == Kind::Still);
++    }
++
++    /// If the plate's size moves, these budgets stop being the controls they claim to be.
++    #[test]
++    fn the_budgets_bracket_the_repaints_they_control() {
++        let (cols, rows) = draw::picture_cells(&reading_plane(), &PLATE_CELLS4);
++        let live = (rows * (2 * cols + 9)) as u64;
++        assert!(live <= REFUSED_KNOTS && REFUSED_KNOTS < 2 * live, "{live}");
++        assert!(3 * live <= CELLS4_KNOTS && CELLS4_KNOTS < 4 * live, "{live}");
++    }
++
+     #[test]
+     fn same_colours_fails_on_what_it_is_for() {
+         let a = vec![vec![0.1, 0.2, 0.3, 0.0, 0.4, 0.5, 0.6, 1.0]];

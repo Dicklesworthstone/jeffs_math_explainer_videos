@@ -1,0 +1,43 @@
+lab lock: 276 packages, exactly 19 from https://github.com/Dicklesworthstone/franken_manim at a399d626, none duplicated by name
+lab lock has no `block`, so the engine's own [patch.crates-io] entry has nothing to do here
+pinned checkout: every package is crates/<name>, a workspace member, at the lock's version 0.5.0
+the lab crate names directly: ['fmn']
+explainer_kit names directly: ['fmn', 'fmn-codec', 'fmn-output']
+explainer_score names directly: []
+the repo workspace pins fmn, fmn-codec and fmn-output to the same URL and rev
+so patching only fmn or fmn-render would leave git fmn-output and fmn-codec beside their path copies: two of each type
+required path dependencies from those three roots: 19 packages, none outside the 19
+of the 19, reached only through features or targets this walk does not follow: none
+optional sibling crates outside the 19, unactivated in the lock: none
+none of the 19 uses an `artifact =` dependency, so the lab does not need bindeps; fmn-conformance alone does, in the export
+engine and repo .cargo/config.toml agree on rustflags, fingerprint, checksum-freshness; only the engine sets bindeps
+both pin nightly-2026-08-31
+~/.cargo/config.toml sets rustflags: False
+engine lock, everything reachable from fmn and fmn-render by lock edges (an upper bound: it counts every member's dev-dependencies and every target): 286 packages, 242 from the registry
+  missing from the local registry cache: 8
+    cc 1.4.0: unpacked source present False; lab lock has ['1.7.0']; narrowed walk reaches it: True
+      via cc <- blake3 <- fsci-runtime <- fsci-linalg <- fmn-geom <- fmn-render
+    futures-core 0.3.33: unpacked source present False; lab lock has ['0.3.34']; narrowed walk reaches it: True
+      via futures-core <- futures-util <- js-sys <- getrandom <- crypto-common <- digest <- sha2 <- fsci-sparse <- fsci-integrate <- fmn-library <- fmn
+    futures-io 0.3.33: unpacked source present False; lab lock has ['0.3.34']; narrowed walk reaches it: False
+    futures-task 0.3.33: unpacked source present False; lab lock has ['0.3.34']; narrowed walk reaches it: True
+      via futures-task <- futures-util <- js-sys <- getrandom <- crypto-common <- digest <- sha2 <- fsci-sparse <- fsci-integrate <- fmn-library <- fmn
+    futures-util 0.3.33: unpacked source present False; lab lock has ['0.3.34']; narrowed walk reaches it: True
+      via futures-util <- js-sys <- getrandom <- crypto-common <- digest <- sha2 <- fsci-sparse <- fsci-integrate <- fmn-library <- fmn
+    glam 0.33.11: unpacked source present False; lab lock has ['0.30.10', '0.31.1', '0.32.1', '0.33.12']; narrowed walk reaches it: True
+      via glam <- nalgebra <- fsci-linalg <- fmn-geom <- fmn-render
+    zerocopy 0.8.55: unpacked source present False; lab lock has ['0.8.62']; narrowed walk reaches it: True
+      via zerocopy <- half <- fnp-dtype <- fmn-mobject <- fmn-render
+    zerocopy-derive 0.8.55: unpacked source present False; lab lock has ['0.8.62']; narrowed walk reaches it: True
+      via zerocopy-derive <- zerocopy <- half <- fnp-dtype <- fmn-mobject <- fmn-render
+  in the narrowed walk and on disk in neither form: ['cc 1.4.0', 'futures-core 0.3.33', 'futures-task 0.3.33', 'futures-util 0.3.33', 'glam 0.33.11', 'zerocopy 0.8.55', 'zerocopy-derive 0.8.55']
+  git sources reachable: ['git+https://github.com/Dicklesworthstone/asupersync?rev=c48399f20a9780ef420de64fe504ff922e5afe5e', 'git+https://github.com/Dicklesworthstone/franken_markdown?rev=126a5304e8d94eaea62b1b8e13bbe9c40918ac72', 'git+https://github.com/Dicklesworthstone/franken_networkx?rev=9d710b1c33e99412c94de7fa4de2f7ce4954110f', 'git+https://github.com/Dicklesworthstone/franken_numpy?rev=a15d5c32e9330b555b0a653058bcfcff22fcb4ec', 'git+https://github.com/Dicklesworthstone/frankenpandas?rev=da85cf65df48965e027b2f5aa21b7d0ce6a7e29c', 'git+https://github.com/Dicklesworthstone/frankenscipy?rev=85edd7a99f2a6487ef35135e135b9959cc0010c1', 'git+https://github.com/Dicklesworthstone/frankentorch?rev=523aaf827faf538aa541126ee222fcd7af348410', 'git+https://github.com/Dicklesworthstone/rust-block?rev=b39ae859d1ee8e8cb5eef6a516471f1578d26b96']
+    asupersync: local git db present: True
+    franken_markdown: local git db present: True
+    franken_networkx: local git db present: True
+    franken_numpy: local git db present: True
+    frankenpandas: local git db present: True
+    frankenscipy: local git db present: True
+    frankentorch: local git db present: True
+    rust-block: local git db present: True
+wrote packages.tsv (19 rows) and engine-budget.config.toml.in

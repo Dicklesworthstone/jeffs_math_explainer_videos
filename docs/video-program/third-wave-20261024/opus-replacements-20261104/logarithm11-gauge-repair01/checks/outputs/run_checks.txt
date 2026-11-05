@@ -1,0 +1,163 @@
+== baseline and patch
+PASS canonical is the file this repair was written against: a676dac78580ef73f0e658a21c0395cfe0505fe631bd6aa0d71b1f3ec05a86ee
+PASS stage06 carries the same bytes
+  src/chapters/draw.rs: canonical 2a4e84504bab6364 stage06 2a4e84504bab6364 same
+  src/facts.rs: canonical 8901e74b0afdc6ea stage06 8901e74b0afdc6ea same
+  src/model.rs: canonical 8c9e3c6abfcc48d5 stage06 8c9e3c6abfcc48d5 same
+  script.tsv: canonical f201d2dc57fa9cca stage06 f201d2dc57fa9cca same
+  oracle.py: canonical 3bf99af6e88bdfc3 stage06 3bf99af6e88bdfc3 same
+PASS the patch applies to canonical by git apply and gives the staged bytes
+PASS and reverses
+staged unreachable.rs c822e8b46796e79e2f8461872fe538de711a4fde755913ec57696710d0cc28a7
+patch a2764e5167d8b5d171aa79153da16009ca07f83537812e6613fcb708942a5084
+
+== what the patch changes in film code
+PASS the film's code up to its closing brace keeps its line count: 1678 lines
+PASS exactly the expected film lines change: [64, 904, 905, 906, 914, 915, 916, 955, 1502, 1653]
+  64: - path, position_c, precisely, predict, ring, seg, shown, slide_c, swap, title, tween_all, value, warn_c,
+  64: + path, position_c, predict, ring, seg, shown, slide_c, swap, title, tween_all, value, warn_c,
+  904: - &format!("t = 1: {}", fact("matrix.flow_det_t1")?),
+  904: + &format!("t = 1: ≈ {}", fact("matrix.flow_det_t1")?),
+  905: - 18.0,
+  905: + 22.0,
+  906: - Palette::dim(),
+  906: + blue,
+  914: - &format!("t = 3: {}", fact("matrix.flow_det_t3")?),
+  914: + &format!("t = 3: ≈ {}", fact("matrix.flow_det_t3")?),
+  915: - 18.0,
+  915: + 22.0,
+  916: - Palette::dim(),
+  916: + blue,
+  955: - let liouville = precisely(
+  955: + let liouville = footer(
+  1502: - let cite = precisely(
+  1502: + let cite = footer(
+  1653: - let src = precisely(
+  1653: + let src = footer(
+PASS what follows the film's code is only the footer helper: 16 lines
+PASS no timed call changes
+
+== what the viewer reads
+PASS the only film strings that change are the two notes: ['t = 1: {}', 't = 3: {}'] -> ['t = 1: ≈ {}', 't = 3: ≈ {}']
+PASS Liouville: its words stay, byte for byte, with real linear flow, steady or not, > 0, (Liouville)
+PASS Culver: its words stay, byte for byte, with Culver, as stated by Higham, Gallier (Thm 3.4)
+PASS Gallier: its words stay, byte for byte, with Gallier, Theorem 3.3, Jordan form
+PASS the footer helper builds what draw::precisely built
+PASS the identity start stays on screen: starts at 1, never touches 0: stays positive
+PASS the identity start stays on screen: let one = ring(stage, gauge(1.0), 0.16, blue, 2.5);
+PASS and in the voice
+
+== root's question: 1.222 beside the note's 1.221 on sheet 020, frame 81
+PASS the flow's matrix here is the one in the test module
+  det = e^(t tr X), tr X = 0.2: at t = 1 1.221403, at t = 3 1.822119; largest printing error 0.000403
+PASS both notes print the correct rounding
+  the readout first prints 1.222 at t = 1.00040, just after the clock leaves 1
+PASS the run to t = 3, starting at 35.9 s with the engine's smooth easing, reproduces all 17 readings: []
+PASS smooth is an easing the engine has at the pinned commit
+  verdict: a transient. The clock left t = 1 at about 35.9 s and the readout left 1.221 at 35.967 s. The note is right; there is no endpoint mismatch.
+  at t = 3 the readout reaches 1.822 at 37.833 s, before the note's fade, and holds it through the sampled window
+
+== geometry, mirrored from widths and heights measured on frames 115, 550, 598
+  Liouville: y -3.536..-3.269, half-width 4.189; to the frame's edge 0.464, was 0.244; to what stands lowest 0.614
+  Culver: y -3.513..-3.280, half-width 6.133; to the frame's edge 0.487, was 0.267; to what stands lowest 1.170
+  Gallier: y -3.502..-3.291, half-width 3.733; to the frame's edge 0.498, was 0.278; to what stands lowest 0.671
+PASS the new test's numeric half holds, mirrored
+PASS inside the film's safe area ±6.96 × ±3.85
+PASS the rows' old bracket test is updated: its bound moves with the footer
+PASS the gauge test's -3.2 stays true of the gauge and clears the footers' tops
+  t = 1: ≈ 1.221: about 1.393 wide at 22 pt, so its right edge is near x = 2.593; the sampled frames below show that room empty
+PASS t = 1: ≈ 1.221 stays clear of the mirror card at x = 4.7
+  t = 3: ≈ 1.822: about 1.393 wide at 22 pt, so its right edge is near x = 2.593; the sampled frames below show that room empty
+PASS t = 3: ≈ 1.822 stays clear of the mirror card at x = 4.7
+  x-height by arithmetic, CM 0.43 em: 22 pt at 4K 25.5 px, 18 pt at 4K 20.9 px
+
+== the new tests' conditions on the staged source, and plants
+PASS the notes' condition passes on staged
+PASS the footers' condition passes on staged
+PASS control: both fail on canonical
+PASS no stale precisely import remains, or Clippy would refuse it
+PASS control: canonical does use it
+PASS draw::precisely keeps other callers, so it does not go dead: branch_cut.rs, doing_nothing.rs, product_rule.rs, ratio_ruler.rs, slide_rule.rs, undoing_growth.rs, what_it_forgets.rs
+PASS planted, caught: the t = 1 note loses its sign
+PASS planted, caught: the t = 3 note goes back to 18 pt
+PASS planted, caught: the t = 1 note goes back to dim
+PASS planted, caught: one footer goes back to the helper
+PASS planted, caught: the footers go back to dim
+PASS planted, caught: a stale import returns
+PASS planted, caught by the numeric half: the footer back at -3.62
+PASS planted, caught by the numeric half: the footer up onto the film, at -2.8
+PASS the notes' numeric condition passes on the printed values
+PASS planted, caught: the t = 1 note prints frame 81's 1.222 instead
+PASS planted, caught: the t = 3 note is truncated differently
+
+== bindings
+PASS map13 has two visual holds on this file: ['11_3', '11_20']
+PASS 11_3: the interval formula reproduces map13's value on canonical: e34e65ad69a71865
+PASS 11_3: its line and marker survive: line 1070
+  11_3 -> 11_4, lines 963..1070: interval UNCHANGED: e34e65ad69a71865c956f2cf6e3d5270433370e8b6e79e5f8defc221555771db
+PASS 11_20: the interval formula reproduces map13's value on canonical: 36386b6b24e17360
+PASS 11_20: its line and marker survive: line 1590
+  11_20 -> 11_8, lines 1501..1590: interval CHANGES: 4a4e6c72d1f92e5e88e7430c03e0f0f062e3e7972184736bfc911a4313fae5e0
+PASS 11_3's interval survives, since it starts after the edits at :955
+PASS 11_20's interval changes, since it holds the Culver call at :1502
+PASS all 12 other hold-audit rows on this file keep their line and marker: []
+PASS draw.rs, a shared helper map13 names, is untouched by this patch: 2a4e84504bab6364
+PASS narration_units.json does not name the source hash
+PASS stage06's bound-plan/inputs.sha256 names the old hash, so root's binder must take the new input
+PASS script.tsv, facts.rs and oracle.py are outside the patch
+
+== docs/check_cues.py on a scratch copy
+  canonical copy exit 0; staged copy exit 0: 80 cues, 364 sentences, 80 said
+registered modules read, in registry order: ratio_ruler, building_ruler, slide_rule, fol
+  only on canonical ['unreachable.rs:904: "t = 1: {}"', 'unreachable.rs:914: "t = 3: {}"']
+  only on staged ['unreachable.rs:904: "t = 1: ≈ {}"', 'unreachable.rs:914: "t = 3: ≈ {}"']
+PASS the cue checker passes both and differs only in listing the two notes
+PASS control: it refuses the file with a say removed: exit 1
+
+== rustfmt
+PASS rustfmt --check canonical
+PASS rustfmt --check staged
+
+== dense crops from root's preview
+readout-around-t1 30 (1440, 1040)
+readout-around-t3 30 (1440, 1040)
+PASS dense_readout.py exits 0
+
+== old frames
+frames 115, 550 and 598, 1280 x 720, ground (12, 17, 20)
+nominal contrast: dim 6.13, blue 9.36, ink 16.47
+
+as staged
+Liouville, frame 115: scene x -4.189..4.189 (width 8.378), y -3.756..-3.489; contrast on ground, peak 6.50, brightest tenth 5.84, median 3.14 ; 0.244 from the frame's edge
+  the probe fails it on: 0.244 from the frame's edge, wanted 0.4; brightest tenth 5.84, wanted 11.0
+Culver, frame 550: scene x -6.133..6.133 (width 12.267), y -3.733..-3.500; contrast on ground, peak 6.37, brightest tenth 5.97, median 3.68 ; 0.267 from the frame's edge
+  the probe fails it on: 0.267 from the frame's edge, wanted 0.4; brightest tenth 5.97, wanted 11.0
+Gallier, frame 598: scene x -3.733..3.733 (width 7.467), y -3.722..-3.511; contrast on ground, peak 6.34, brightest tenth 5.94, median 3.67 ; 0.278 from the frame's edge
+  the probe fails it on: 0.278 from the frame's edge, wanted 0.4; brightest tenth 5.94, wanted 11.0
+t = 1 note, frame 115: scene x 1.200..2.133 (width 0.933), y 0.678..0.811; contrast on ground, peak 6.22, brightest tenth 5.18, median 3.58
+  the probe fails it on: t = 1: brightest tenth 5.18, wanted 7.0; t = 1: width 0.933, wanted 1.25
+t = 3 note, frame 115: scene x 1.200..2.144 (width 0.944), y 1.489..1.622; contrast on ground, peak 6.20, brightest tenth 5.43, median 3.45
+  the probe fails it on: t = 3: brightest tenth 5.43, wanted 7.0; t = 3: width 0.944, wanted 1.25
+for comparison, 'signed area of the square:', blue at 22 pt: scene x -0.333..2.133 (width 2.467), y 2.611..2.822; contrast on ground, peak 9.38, brightest tenth 8.60, median 4.50
+for comparison, the live readout, blue at 24 pt: scene x 0.611..1.133 (width 0.522), y 2.267..2.444; contrast on ground, peak 9.48, brightest tenth 8.98, median 5.23
+  the note's mark 7.0 against that blue word's brightest tenth 8.60
+
+the borrowed row has 4 runs of ink: [(0, 15), (22, 30), (37, 46), (53, 94)]
+
+mock-ups, NOT RENDERS
+Liouville: scene x -4.189..4.189 (width 8.378), y -3.533..-3.267; contrast on ground, peak 16.47, brightest tenth 15.04, median 6.79 ; 0.467 from the frame's edge
+  the probe: passes
+Culver: scene x -6.133..6.133 (width 12.267), y -3.522..-3.289; contrast on ground, peak 16.47, brightest tenth 15.75, median 8.15 ; 0.478 from the frame's edge
+  the probe: passes
+Gallier: scene x -3.733..3.733 (width 7.467), y -3.500..-3.289; contrast on ground, peak 16.47, brightest tenth 15.75, median 8.15 ; 0.500 from the frame's edge
+  the probe: passes
+t = 1 note: scene x 1.200..2.489 (width 1.289), y 0.678..0.844; contrast on ground, peak 9.36, brightest tenth 8.18, median 3.65
+  the probe: passes
+t = 3 note: scene x 1.200..2.500 (width 1.300), y 1.478..1.644; contrast on ground, peak 9.36, brightest tenth 8.16, median 3.60
+  the probe: passes
+
+the wider notes' new room, x 2.16 to 2.70, on every 0.5 s frame from 38.5 s to 69 s
+  68 frames, ink in that room on: none
+
+wrote the sheet: (1280, 2984)
+PASS gauge_footer_probe.py exits 0 with its controls

@@ -1,0 +1,122 @@
+--- a/src/chapters/mod.rs
++++ b/src/chapters/mod.rs
+@@ -22,7 +22,22 @@
+ mod turning;
+ mod two_planes;
+ 
+-use explainer_kit::Chapter;
++use explainer_kit::{Chapter, Kit};
++use fmn::rendering::RenderPlanLimits;
++
++/// What a chapter that paints a colour picture declares in its `make`.
++///
++/// Knots only. A repaint holds twice a plate's live knots: at `PLATE_CELLS4`
++/// that is 2,150,602 for z² and 3,453,516 for the six panels of 05_9. Moving a
++/// plate's points is not covered: z² would need 1,073,108 retained segments, so
++/// `max_retained_segments` would have to rise as well, and the monotone table's
++/// own fixed limit would then apply.
++fn declare_plate_budget(kit: &Kit) {
++    kit.request_plan_limits(RenderPlanLimits {
++        max_retained_profile_knots: 1 << 22,
++        ..RenderPlanLimits::default()
++    });
++}
+ 
+ /// Every ⟨predict⟩ beat in the storyboard with its listen window, seconds.
+ /// The native scenes count down exactly this long (`draw::predict`); the
+@@ -564,7 +579,10 @@
+     vec![
+         Chapter {
+             key: "01_the_bump",
+-            make: |kit| Box::new(the_bump::TheBump { kit }),
++            make: |kit| {
++                declare_plate_budget(&kit);
++                Box::new(the_bump::TheBump { kit })
++            },
+             intensity: 0.4,
+         },
+         Chapter {
+@@ -579,12 +597,18 @@
+         },
+         Chapter {
+             key: "04_reading_color",
+-            make: |kit| Box::new(reading_color::ReadingColor { kit }),
++            make: |kit| {
++                declare_plate_budget(&kit);
++                Box::new(reading_color::ReadingColor { kit })
++            },
+             intensity: 0.4,
+         },
+         Chapter {
+             key: "05_gallery",
+-            make: |kit| Box::new(gallery::Gallery { kit }),
++            make: |kit| {
++                declare_plate_budget(&kit);
++                Box::new(gallery::Gallery { kit })
++            },
+             intensity: 0.4,
+         },
+         Chapter {
+@@ -594,7 +618,10 @@
+         },
+         Chapter {
+             key: "07_one_point",
+-            make: |kit| Box::new(one_point::OnePoint { kit }),
++            make: |kit| {
++                declare_plate_budget(&kit);
++                Box::new(one_point::OnePoint { kit })
++            },
+             intensity: 0.4,
+         },
+         Chapter {
+@@ -604,22 +631,34 @@
+         },
+         Chapter {
+             key: "09_boundary",
+-            make: |kit| Box::new(boundary::Boundary { kit }),
++            make: |kit| {
++                declare_plate_budget(&kit);
++                Box::new(boundary::Boundary { kit })
++            },
+             intensity: 0.4,
+         },
+         Chapter {
+             key: "10_rigidity",
+-            make: |kit| Box::new(rigidity::Rigidity { kit }),
++            make: |kit| {
++                declare_plate_budget(&kit);
++                Box::new(rigidity::Rigidity { kit })
++            },
+             intensity: 0.4,
+         },
+         Chapter {
+             key: "11_counting",
+-            make: |kit| Box::new(counting::Counting { kit }),
++            make: |kit| {
++                declare_plate_budget(&kit);
++                Box::new(counting::Counting { kit })
++            },
+             intensity: 0.4,
+         },
+         Chapter {
+             key: "12_residues",
+-            make: |kit| Box::new(residues::Residues { kit }),
++            make: |kit| {
++                declare_plate_budget(&kit);
++                Box::new(residues::Residues { kit })
++            },
+             intensity: 0.4,
+         },
+         Chapter {
+@@ -629,7 +668,10 @@
+         },
+         Chapter {
+             key: "14_continuation",
+-            make: |kit| Box::new(continuing::Continuing { kit }),
++            make: |kit| {
++                declare_plate_budget(&kit);
++                Box::new(continuing::Continuing { kit })
++            },
+             intensity: 0.4,
+         },
+         Chapter {

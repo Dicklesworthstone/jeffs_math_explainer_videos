@@ -1,0 +1,28 @@
+--- a/src/main.rs
++++ b/src/main.rs
+@@ -42,13 +42,24 @@
+ };
+ 
+ fn main() {
+-    std::process::exit(explainer_kit::cli::run_with_contract(
++    std::process::exit(explainer_kit::cli::run_with_contract_and_options(
+         &EXPLAINER,
+         std::env::args().skip(1),
+         std::path::Path::new(env!("CARGO_MANIFEST_DIR")),
++        declare_plan_budget,
+     ));
+ }
+ 
++/// A plate's rows carry their colours as stroke knots, and every fade or recolour of a plate holds
++/// the old knots and the new ones together, so the widest picture at this density needs
++/// 2,150,602 where the engine's default admits 1,048,576. Nothing else in the plan is raised.
++fn declare_plan_budget(opts: &mut fmn::rendering::RenderOptions) {
++    opts.plan_limits = fmn::rendering::RenderPlanLimits {
++        max_retained_profile_knots: 1 << 22,
++        ..fmn::rendering::RenderPlanLimits::default()
++    };
++}
++
+ #[cfg(test)]
+ mod tests {
+     use explainer_kit::Script;

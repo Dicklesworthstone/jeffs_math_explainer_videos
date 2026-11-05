@@ -1,0 +1,255 @@
+--- a/examples/plate_lab.rs
++++ b/examples/plate_lab.rs
+@@ -39,7 +39,7 @@
+ use draw::{PLATE_BLEND, PLATE_CELLS2, PLATE_CELLS4, PLATE_NOW, PLATE_ROWS2, PLATE_TILE, Painter, Plane, PlateStyle};
+ use explainer_kit::narration::wait_frames;
+ use explainer_kit::plot::children;
+-use explainer_kit::{BACKGROUND, v};
++use explainer_kit::{BACKGROUND, tween, v};
+ use fmn::prelude::*;
+ use model::{C, Func};
+ 
+@@ -65,6 +65,14 @@
+ const CELLS4_KNOTS: u64 = 1 << 22;
+ /// The control's budget: z² at cells4 fits it once and not twice, so its first repaint is refused.
+ const REFUSED_KNOTS: u64 = 1 << 21;
++/// 11_7's scene in small: a frame of the painter alone, its fade as the field takes over, and these
++/// repaints. Each compaction resets the same cycle, so nine repaints cross several of them; this is
++/// a sample of the turn, and the film's `TURN_STEPS` stays as it is.
++const TURN_REPAINTS: u64 = 9;
++const TURN_FRAMES: u64 = 1 + FADE_FPS as u64 + TURN_REPAINTS;
++/// `TURN_STEPS` and `LEADING` in 11_7's `counting.rs`.
++const TURN_STEPS: f64 = 48.0;
++const TURN_LEADING: C = C::new(0.0, 2.0);
+ /// Samples per axis in a pixel of the truth.
+ const TRUTH_SAMPLES: usize = 4;
+ 
+@@ -166,6 +174,18 @@
+     },
+ ];
+ 
++/// 11_6 and 11_7's input plane, the film's heaviest repaint. Not in [`SUBJECTS`], so the plates and
++/// truths of every other run stay as they are.
++fn counting_plane() -> Plane {
++    Plane::new(v(-3.45, -0.35), 5.6, (-2.0, 2.0), (-2.0, 2.0))
++}
++const TURN_SUBJECT: Subject = Subject {
++    key: "quintic",
++    func: Func::Quintic,
++    plane: counting_plane,
++    enhance: 1.0,
++};
++
+ #[derive(Clone, Copy)]
+ struct Candidate {
+     key: &'static str,
+@@ -237,6 +257,11 @@
+     Refusal,
+     /// A repaint long enough to cross the first compaction under [`CELLS4_KNOTS`].
+     Probe,
++    /// The film's fade at cells4: every plate enters and leaves this way, by way of `Transform`
++    /// rather than the painter's own updater.
++    FadeProbe,
++    /// 11_7's takeover and turn at cells4, as `Turning` does them.
++    Turn,
+ }
+ 
+ impl Kind {
+@@ -247,22 +272,25 @@
+             Self::Repaint => "repaints",
+             Self::Refusal => "refusals",
+             Self::Probe => "probes",
++            Self::FadeProbe => "fade-probes",
++            Self::Turn => "turns",
+         }
+     }
+ 
+     const fn frames(self) -> u64 {
+         match self {
+             Self::Still => 1,
+-            Self::Fade => FADE_FRAMES,
++            Self::Fade | Self::FadeProbe => FADE_FRAMES,
+             Self::Repaint => REPAINT_FRAMES,
+             Self::Refusal | Self::Probe => PROBE_FRAMES,
++            Self::Turn => TURN_FRAMES,
+         }
+     }
+ 
+     const fn fps(self) -> u32 {
+         match self {
+             Self::Still => 1,
+-            Self::Fade | Self::Repaint | Self::Refusal | Self::Probe => FADE_FPS,
++            Self::Fade | Self::Repaint | Self::Refusal | Self::Probe | Self::FadeProbe | Self::Turn => FADE_FPS,
+         }
+     }
+ }
+@@ -317,21 +345,28 @@
+ }
+ 
+ /// A repaint of z² at cells4, which the full plan leaves out, under the budget that should hold it
+-/// and one that should not. Neither is in [`plan`]: they run only when `--stage` names them, and no
+-/// still is repeated. The control goes first, so if it is admitted the long render never starts.
++/// and one that should not; its fade; and 11_7's turn. None is in [`plan`]: they run only when
++/// `--stage` names them, and no still is repeated. The control goes first, so if it is admitted the
++/// long renders never start.
+ fn probes() -> Vec<Job> {
+     let subject = *SUBJECTS.iter().find(|x| x.key == "z2").expect("a known subject");
+     let candidate = *CANDIDATES
+         .iter()
+         .find(|x| x.key == "cells4")
+         .expect("a known candidate");
+-    [Kind::Refusal, Kind::Probe]
++    let mut jobs = [Kind::Refusal, Kind::Probe, Kind::FadeProbe]
+         .map(|kind| Job {
+             kind,
+             subject,
+             candidate,
+         })
+-        .to_vec()
++        .to_vec();
++    jobs.push(Job {
++        kind: Kind::Turn,
++        subject: TURN_SUBJECT,
++        candidate,
++    });
++    jobs
+ }
+ 
+ struct Args {
+@@ -405,7 +440,15 @@
+         ),
+         (
+             &args.stages,
+-            vec!["stills", "fades", "repaints", "refusals", "probes"],
++            vec![
++                "stills",
++                "fades",
++                "repaints",
++                "refusals",
++                "probes",
++                "fade-probes",
++                "turns",
++            ],
+             "stage",
+         ),
+     ] {
+@@ -566,6 +609,56 @@
+     Ok(())
+ }
+ 
++/// 11_7's picture of the division, the way `Turning` builds and turns it: a second full plate on
++/// top of the painter's, the painter fading out over it, then every cell recoloured in place at each
++/// step of the tracker. The output curve the film also moves is left out, since it holds no knots.
++fn turn(stage: &mut Stage<'_>, job: Job, seen: &mut Seen) -> fmn::Result<()> {
++    let plane = (job.subject.plane)();
++    let style = job.candidate.style;
++    let t = Instant::now();
++    let painter = Painter::build_styled(stage, Some(job.subject.func), plane, job.subject.enhance, style)?;
++    seen.build_s = t.elapsed().as_secs_f64();
++    stage.add_to_scene(painter.group)?;
++    stage.add_to_scene(painter.anchor)?;
++    wait_frames(stage, 1)?;
++
++    let func = job.subject.func;
++    let field = draw::portrait_styled(stage, func, &plane, job.subject.enhance, &style)?;
++    let rows = children(stage, field.group);
++    let before = sample_lanes(stage, &rows);
++    let group = field.group;
++    // the picture's own size: colours sized for any other plate would be refused, without a word
++    let (cols, cells_down) = draw::picture_cells(&plane, &style);
++    let turned = stage.add_value_tracker(0.0);
++    let anchor = stage.arena_mut().add(VMobject::new());
++    let mut last = 0.0;
++    stage.add_updater(
++        anchor,
++        move |s, _| {
++            let t = (draw::value(s, turned).clamp(0.0, 1.0) * TURN_STEPS).round() / TURN_STEPS;
++            if t == last {
++                return;
++            }
++            let by = C::polar(TURN_LEADING.abs().powf(t), TURN_LEADING.arg() * t);
++            let colors = draw::portrait_colors(|z| func.eval(z).map(|w| by * w), &plane, cols, cells_down, 1.0);
++            let _ = field.recolor(s, &colors);
++            last = t;
++        },
++        true,
++    )?;
++    stage.add_to_scene(group)?;
++    stage.add_to_scene(anchor)?;
++    painter.leave(stage, 1.0)?;
++    let seconds = TURN_REPAINTS as f64 / f64::from(job.kind.fps());
++    stage.play(tween(turned, 1.0, seconds)?)?;
++    seen.records = if same_colours(&before, &sample_lanes(stage, &rows), None) {
++        "TURN WROTE NOTHING"
++    } else {
++        "turned after the takeover"
++    };
++    Ok(())
++}
++
+ fn options(path: PathBuf, res: (u32, u32), fps: u32, frames: u64) -> Result<RenderOptions, Box<dyn Error>> {
+     let mut o = RenderOptions::with_format(path, RenderFormat::PngSequence)?;
+     o.config.camera.resolution = res;
+@@ -640,8 +733,9 @@
+         let seen = &mut seen;
+         let mut scene = Scene(move |stage: &mut Stage<'_>| match job.kind {
+             Kind::Still => still(stage, job, seen),
+-            Kind::Fade => fade(stage, job, seen),
++            Kind::Fade | Kind::FadeProbe => fade(stage, job, seen),
+             Kind::Repaint | Kind::Refusal | Kind::Probe => repaint(stage, job, seen),
++            Kind::Turn => turn(stage, job, seen),
+         });
+         fmn::render(&mut scene, opts)
+     };
+@@ -749,7 +843,16 @@
+     }
+     // refuses an existing folder: every run gets its own, and nothing is overwritten
+     fs::create_dir(&args.out)?;
+-    for dir in ["stills", "fades", "repaints", "refusals", "probes", "truth"] {
++    for dir in [
++        "stills",
++        "fades",
++        "repaints",
++        "refusals",
++        "probes",
++        "fade-probes",
++        "turns",
++        "truth",
++    ] {
+         fs::create_dir(args.out.join(dir))?;
+     }
+     let mut plates = fs::File::create_new(args.out.join("plates.tsv"))?;
+@@ -840,6 +943,8 @@
+         assert!(residues.contains("Plane::new(v(-3.4, -0.3), 5.0, (-2.0, 2.0), (-2.0, 2.0))"));
+         let continuing = include_str!("../src/chapters/continuing.rs");
+         assert!(continuing.contains("Plane::new(v(-3.3, -0.35), 5.6, (-2.5, 2.5), (-2.5, 2.5))"));
++        let counting = include_str!("../src/chapters/counting.rs");
++        assert!(counting.contains("Plane::new(v(-3.45, -0.35), 5.6, (-2.0, 2.0), (-2.0, 2.0))"));
+     }
+ 
+     #[test]
+@@ -870,6 +975,24 @@
+         assert_eq!(selected(&args(&[])).unwrap().len(), plan().len());
+         let cells4 = selected(&args(&["--subjects", "z2", "--candidates", "cells4"])).unwrap();
+         assert!(cells4.len() == 1 && cells4[0].kind == Kind::Still);
++        let all = selected(&args(&["--stage", "refusals,probes,fade-probes,turns"])).unwrap();
++        let dirs: Vec<_> = all.iter().map(|j| j.kind.dir()).collect();
++        assert_eq!(dirs, ["refusals", "probes", "fade-probes", "turns"]);
++        let total: u64 = all.iter().map(|j| j.kind.frames()).sum();
++        assert_eq!(total, 6 + 6 + 7 + 13);
++        assert!(total <= FRAME_LIMIT);
++    }
++
++    /// The field and the painter's plate are both live as the takeover starts, so the default has
++    /// to refuse this before any repaint, and the fading plate takes five plates' worth of knots.
++    #[test]
++    fn the_turn_needs_the_budget_and_fits_it() {
++        let (cols, rows) = draw::picture_cells(&counting_plane(), &PLATE_CELLS4);
++        assert_eq!((rows, cols), (640, 640));
++        let live = (rows * (2 * cols + 9)) as u64;
++        assert_eq!(live, 824_960);
++        assert!(2 * live > 1 << 20, "{live}");
++        assert!(5 * live <= CELLS4_KNOTS && CELLS4_KNOTS < 6 * live, "{live}");
+     }
+ 
+     /// If the plate's size moves, these budgets stop being the controls they claim to be.

@@ -1,0 +1,8 @@
+API_SCHEMA.tsv: 0 mentions of the facade's render types; 6920 rows; the first column is manim's own API: True
+API_OVERLAY.tsv: 0 mentions of the facade's render types; 2851 rows; the first column is manim's own API: True
+struct literals of RenderOptions, which a new field would break: 0
+NativeFrameStages::new: ['crates/fmn/src/rendering/pipeline.rs']
+NativeFramePipeline::new: ['crates/fmn-cli/src/offline_cpu.rs', 'crates/fmn/src/rendering.rs', 'crates/fmn/tests/native_bundle_pipeline.rs', 'crates/fmn/tests/native_camera_pipeline.rs', 'crates/fmn/tests/native_cpu_pipeline.rs']
+fmn CLI route builds its own pipeline with the default budget: True; it has no way to declare one
+e2e_scenarios.rs mentions plan_limits: False; budget01 and this patch register no scenario
+compiled.rs reaches workers through RenderSink::new, which the budget patch changed: True

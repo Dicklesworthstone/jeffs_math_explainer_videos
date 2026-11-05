@@ -1,0 +1,33 @@
+Control: z2 stills against z^2, per pixel. rms of 255, r on luma.
+  now     rms   8.72  r +0.9431
+  tile    rms   8.60  r +0.9442
+  blend   rms   7.52  r +0.9562
+  rows2   rms   6.50  r +0.9680
+  cells2  rms   5.21  r +0.9792
+
+Repaints: each frame against z^3-1, per pixel. Frames before the last still hold some of z^2.
+  now     frame 0  rms  44.64  r +0.2773
+  now     frame 1  rms  16.88  r +0.8728
+  now     frame 2  rms   8.78  r +0.9303
+  blend   frame 0  rms  44.59  r +0.2800
+  blend   frame 1  rms  16.42  r +0.8893
+  blend   frame 2  rms   7.61  r +0.9464
+  rows2   frame 0  rms  44.54  r +0.2844
+  rows2   frame 1  rms  16.04  r +0.9035
+  rows2   frame 2  rms   6.48  r +0.9613
+
+The last frame against z^3-1 stretched vertically about the centre, then moved. A correct picture is best at 1.000 and 0.
+  now     best rms   8.78 at stretch 1.000, shift +0.00
+  blend   best rms   7.61 at stretch 1.000, shift +0.00
+  rows2   best rms   6.48 at stretch 1.000, shift +0.00
+
+How far the crossfade had got at each frame, fitted per pixel: frame = (1-b) z^2 + b z^3-1 in encoded values, as Painter::to mixes.
+  now     frame 0  b 0.258
+  now     frame 1  b 0.741
+  now     frame 2  b 0.982
+  blend   frame 0  b 0.256
+  blend   frame 1  b 0.742
+  blend   frame 2  b 0.984
+  rows2   frame 0  b 0.256
+  rows2   frame 1  b 0.743
+  rows2   frame 2  b 0.987

@@ -1,0 +1,75 @@
+== complex13-radius-repair01.patch sha256 39eae1d3b7dcd1cf
+   explainer_corpus/complex_analysis_visual/src/chapters/real_integral.rs: 9/9 hunks verbatim
+== complex14-pole-order.patch sha256 65457b27ecfaee02
+   explainer_corpus/complex_analysis_visual/src/chapters/continuing.rs: 7/7 hunks verbatim
+== complex02-05-repair03.patch sha256 49205a2a577c03b2
+   explainer_corpus/complex_analysis_visual/src/chapters/turning.rs: 7/7 hunks verbatim
+   explainer_corpus/complex_analysis_visual/src/chapters/two_planes.rs: 16/16 hunks verbatim
+   explainer_corpus/complex_analysis_visual/src/chapters/reading_color.rs: 16/16 hunks verbatim; removed lines still present: 1
+      still - line.wait_sentence(stage, 1)?;
+   explainer_corpus/complex_analysis_visual/src/chapters/gallery.rs: 15/15 hunks verbatim; removed lines still present: 4
+      still - fade_in_all(stage, &out_frame, 0.3)?;
+      still - line.wait_sentence(stage, 2)?;
+      still - line.wait_sentence(stage, 1)?;
+      still - fade_in_all(stage, &links, 0.3)?;
+== rebinding-tex-storyboard.patch sha256 1d19940124b1c1b5
+   explainer_corpus/complex_analysis_visual/src/chapters/mod.rs: 2/2 hunks verbatim
+   explainer_corpus/complex_analysis_visual/docs/storyboard.md: 3/3 hunks verbatim
+== complex15-closing-sweep.patch sha256 361c3c825e0a5a7f
+   explainer_corpus/complex_analysis_visual/src/chapters/closing.rs: 14/14 hunks verbatim
+== counting-from-root.patch sha256 40cbb8f9d5d0ae61
+   explainer_corpus/complex_analysis_visual/src/chapters/counting.rs @@ -490,16 +502,58 @@: new side NOT verbatim; breaks at '        line.wait_sentence(stage, 2)?;'; added lines missing 0/46
+   explainer_corpus/complex_analysis_visual/src/chapters/counting.rs @@ -551,6 +609,82 @@: new side NOT verbatim; breaks at '        let (cols, rows) = picture_cells(&inp);'; added lines missing 1/70
+      missing + let (cols, rows) = picture_cells(&inp);
+   explainer_corpus/complex_analysis_visual/src/chapters/counting.rs @@ -596,6 +730,18 @@: new side NOT verbatim; breaks at '/// The plate stays between the axes and inside the unit circle.'; added lines missing 2/12
+      missing + /// The plate stays between the axes and inside the unit circle.
+      missing + const ZERO_NAME_AT: (f64, f64) = (-0.25, -0.3);
+   explainer_corpus/complex_analysis_visual/src/chapters/counting.rs @@ -835,6 +974,9 @@: new side NOT verbatim; breaks at '    fade_in_all(stage, &[gap], 0.2)?;'; added lines missing 1/3
+      missing + // the distance line and the disk's rim both pass the fixed 0: its name goes over them
+   explainer_corpus/complex_analysis_visual/src/chapters/counting.rs @@ -1399,6 +1541,395 @@: new side NOT verbatim; breaks at '        let zero_name = C::new(-0.25, -0.3);'; added lines missing 22/376
+      missing + let zero_name = C::new(-0.25, -0.3);
+      missing + (2, "Now it starts with z to the n", "let degree_n ="),
+      missing + for (k, phrase) in [(0, "complex polynomial"), (1, "which leaves")] {
+      missing + "line.wait_sentence(stage, 2)?;",
+   explainer_corpus/complex_analysis_visual/src/chapters/counting.rs: 8/13 hunks verbatim
+== mod-registry.patch sha256 3918dbafa2efca8b
+   explainer_corpus/complex_analysis_visual/src/chapters/mod.rs: 2/2 hunks verbatim
+== storyboard.patch sha256 089ca7d9ba443fe2
+   explainer_corpus/complex_analysis_visual/docs/storyboard.md @@ -221,8 +221,8 @@: new side NOT verbatim; breaks at '| 11_7 | The same trick proves that every nonconstant complex polynomial has roots. Divide by its leading coefficient, which leaves its roots unchanged. Now it starts with z to the n, for some positive integer n. On a huge circle, z to the n dwarfs the other terms. Picture z to the n as a walker going n times around zero, and the polynomial as a dog on a leash. The leash is shorter than the walker\'s distance from zero, so the dog circles zero n times too. So there are exactly n roots inside, counted by order. | The unit-circle loop, the five white root marks, the colour field and the output curve stay from 11_6; the rest clears. Over the field "nonconstant polynomials have roots". On "complex polynomial" the row f(z) = 2iz⁵ − 6iz + 2i, its leading 2i in gold, and the whole picture turns: every output times 2i, so every colour goes a quarter of the wheel and the bands of equal size slide while the curve turns and grows about a fixed 0, and the marks do not move. On "Divide" "every output ÷ 2i  (2i ≠ 0)" over the output plane, and the picture turns back, landing on "which leaves" on exactly 11_6\'s colours and curve. Then the row p(z) = f(z) ÷ 2i = z⁵ − 3z + 1, "0 ÷ 2i = 0, and nothing else lands on 0" over the output plane, and the card "same five roots" under the lowest mark. On "Now it starts" the row gives way to p(z) = zⁿ + ⋯. On "On a huge circle" all of it clears for the wide plane. The quintic on \\|z\\| = 3: z⁵ (blue walker) and the polynomial (green dog) with a leash; both circle 5 times (`argument.quintic.big`). Names to search: "fundamental theorem of algebra, Rouché\'s theorem". | walker; phase portrait (RowStrips); formula | |'; added lines missing 1/2
+      missing + | 11_7 | The same trick proves that every nonconstant complex polynomial has roots. Divide by its leading coef
+   explainer_corpus/complex_analysis_visual/docs/storyboard.md: 0/1 hunks verbatim
+== C1-after-plate-core.patch sha256 e86add3502cfa833
+   explainer_corpus/complex_analysis_visual/src/chapters/counting.rs: 1/1 hunks verbatim
+== C2-row-swap-on-its-words.patch sha256 5900758bfff25c4c
+   explainer_corpus/complex_analysis_visual/src/chapters/counting.rs: 5/5 hunks verbatim; removed lines still present: 1
+      still - line.wait_sentence(stage, 2)?;
+== C2-storyboard.patch sha256 071e6eb19816c815
+   explainer_corpus/complex_analysis_visual/docs/storyboard.md: 1/1 hunks verbatim
+== C3-digit-on-zero.patch sha256 7d69c30600b2366c
+   explainer_corpus/complex_analysis_visual/src/chapters/counting.rs: 5/5 hunks verbatim
+== counting-sentence-shift.rs.patch sha256 4fe068bdc7adf056
+   explainer_corpus/complex_analysis_visual/src/chapters/counting.rs @@ -51,11 +51,10 @@: new side NOT verbatim; breaks at 'pub const SQUASHED: &str = "size compressed; direction and turns around zero unchanged";'; added lines missing 1/2
+      missing + pub const SQUASHED: &str = "size compressed; direction and turns around zero unchanged";
+   explainer_corpus/complex_analysis_visual/src/chapters/counting.rs @@ -499,7 +498,7 @@: new side NOT verbatim; breaks at '        let claim = kit.text(stage, ROOTS_CLAIM, 30.0, hero(), v(-3.45, 0.7))?;'; added lines missing 0/1
+   explainer_corpus/complex_analysis_visual/src/chapters/counting.rs @@ -507,13 +506,13 @@: new side NOT verbatim; breaks at '        fade_out_all(stage, &[claim, degree_n], 0.3)?;'; added lines missing 0/3
+   explainer_corpus/complex_analysis_visual/src/chapters/counting.rs: 0/3 hunks verbatim; removed lines still present: 2
+      still - line.wait_sentence(stage, 1)?;
+      still - line.wait_sentence(stage, 2)?;
+== script.tsv.patch sha256 73eb6f89088870ff
+   explainer_corpus/complex_analysis_visual/script.tsv: 1/1 hunks verbatim
+== complex-glyph-spacing.patch sha256 b925d8b636eb42ac
+   explainer_corpus/complex_analysis_visual/src/chapters/closing.rs: 1/1 hunks verbatim
+   explainer_corpus/complex_analysis_visual/src/chapters/counting.rs: 1/1 hunks verbatim
+   explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs: 1/1 hunks verbatim
+   explainer_corpus/complex_analysis_visual/src/chapters/mod.rs: 1/1 hunks verbatim
+   explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs: 3/3 hunks verbatim
+   explainer_corpus/complex_analysis_visual/src/chapters/residues.rs: 1/1 hunks verbatim
+== 06-one-derivative.patch sha256 aa3bdf95753793b7
+   explainer_corpus/complex_analysis_visual/src/chapters/one_derivative.rs: 6/6 hunks verbatim
+== 07-one-point.patch sha256 5f26db201643c60a
+   explainer_corpus/complex_analysis_visual/src/chapters/one_point.rs: 3/3 hunks verbatim
+== 08-loop-sums.patch sha256 fcf2b239ff876a5e
+   explainer_corpus/complex_analysis_visual/src/chapters/loop_sums.rs: 3/3 hunks verbatim
+== 09-boundary.patch sha256 30b82a476d058f8c
+   explainer_corpus/complex_analysis_visual/src/chapters/boundary.rs: 4/4 hunks verbatim
+hunks not verbatim: 9

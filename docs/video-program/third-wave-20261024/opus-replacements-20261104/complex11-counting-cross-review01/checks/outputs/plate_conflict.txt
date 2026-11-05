@@ -1,0 +1,9 @@
+PASS the arity tool flags picture_cells on staged + plate core
+PASS the arity tool does not flag it on staged alone
+PASS the arity tool does not flag it with C1 on the plate core
+PASS plate core's signature takes the style
+PASS plate core keeps what Turning uses
+PASS root's colour stage carries the same signature
+callers outside draw.rs on the overlay: ['src/chapters/counting.rs']
+PASS counting.rs is the only caller outside draw.rs
+PASS canonical has none, so the plate lane's own checks could not see this

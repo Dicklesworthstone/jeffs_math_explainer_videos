@@ -1,0 +1,59 @@
+== F1: 00_1 and 00_2 on the scratch timeline
+00_1 sentences at 0.600 5.368, voice ends 19.077
+  55, 110, 220: on 'their frequencies', share 0.092, 6.63 s, whole at 6.98 s; frame 17 (7.0 s), sheet 4 on the old preview
+  440: on 'four hundred and forty', share 0.464, 11.73 s, whole at 12.08 s; frame 27 (12.0 s), sheet 6 on the old preview
+  880: on 'eight hundred and eighty', share 0.580, 13.32 s, whole at 13.67 s; frame 30 (13.5 s), sheet 7 on the old preview
+  1760: on 'seventeen sixty', share 0.705, 15.04 s, whole at 15.39 s; frame 34 (15.5 s), sheet 8 on the old preview
+  3520: on 'thirty-five twenty', share 0.802, 16.36 s, whole at 16.71 s; frame 36 (16.5 s), sheet 9 on the old preview
+  vibrations per second: on 'vibrations per second', share 0.894, 17.62 s, whole at 17.97 s; frame 39 (18.0 s), sheet 9 on the old preview
+PASS each number's fade ends before the next one starts
+PASS the unit is whole 1.11 s before the voice ends, so the picture does not push 00_2
+00_2 sentences at 19.700 22.729 28.650
+  axis and ticks 19.70 to 20.70; dots to 21.96; lead to 22.16; next hook 22.73
+PASS the ruler is whole 0.57 s before sentence 1 of 00_2
+  longest stretch with no change in 00_1 and sentence 0 of 00_2: 5.43 s, 1.20 to 6.63. Old: 15.0 s, 7.5 to 22.5, from the frames
+  title alone until 6.63 s
+PASS the longest still stretch here is under 7 s
+
+== F2: 03_3 sentence 0 on the scratch timeline
+03_3 sentences at 41.867 45.871
+'The dial remembers the digits,' is 30 of 52 characters, share 0.577; the word ends near 44.18 s
+PASS DIGITS_SHARE 0.58 is the script's
+title swap 41.87 to 42.37; laps fade 42.37 to 44.19 (1.82 s); digits fade 44.19 to 44.49; lay 44.49 to 45.87 (1.38 s)
+PASS the lay ends on sentence 1, so nothing after that hook moves
+digits stay until 44.19 s; on the old preview they are gone by frame 101 (43.0 s)
+PASS the digits start to leave only after the word is said, by share
+control on the old frames: the dial's 6 peak brightness 183 on frame 100, 22 on frame 101; the gold 2.4 240 and 20
+PASS control: the old digits are up on frame 100 and gone on frame 101
+  anchor 43.28 s, laps half faded, digits whole: frame 102 (43.5 s), sheet 25 on the old preview
+  anchor 44.19 s, digits start to leave: frame 103 (44.0 s), sheet 25 on the old preview
+  anchor 45.18 s, lay half way: frame 105 (45.0 s), sheet 26 on the old preview
+  anchor 45.87 s, sentence 1, flat dial: frame 107 (46.0 s), sheet 26 on the old preview
+  a first sentence of 2.6 s: laps 1.01 s, lay 1.00 s, lay ends +0.21 s from sentence 1
+  a first sentence of 3.0 s: laps 1.24 s, lay 1.00 s, lay ends +0.04 s from sentence 1
+  a first sentence of 3.2 s: laps 1.36 s, lay 1.04 s, lay ends +0.00 s from sentence 1
+  a first sentence of 3.6 s: laps 1.59 s, lay 1.21 s, lay ends -0.00 s from sentence 1
+
+== F3: the two labels
+frame 40: bar columns 98-388, old label columns 154-332, rows 445-461
+'0.398 of a full length' 9.06 ems, 179.3 px by ems, 179 px measured
+PASS control: the ems estimate is within 4 px of the old label's measured ink
+PASS '2.5: 0.398 of a full length' is 10.95 ems, the figure in the test
+new label about columns 135-351: 37 px inside the bar's left end, 37 px inside its right end
+PASS the longer label stays inside its bar, by estimate
+PASS frame 40: nothing left of it on those rows: None
+PASS frame 40: nothing right of it on those rows: None
+frame 65: C's bar columns 384-752, old label columns 546-589, rows 179-191
+'0.505' 2.28 ems, 45.1 px by ems, 44 px measured
+PASS control: the ems estimate is within 4 px of the second label's measured ink
+'3.2: 0.505' 4.17 ems, about columns 526-609
+PASS frame 65: the extra width above C's bar lands on empty rows
+frame 103: second label on the D row, columns 546-589, rows 447-459
+new second label about columns 526-609; the first label's new right end is near 351
+PASS frame 103: the extra width on the D row lands on empty rows
+PASS frame 103: the two labels stay more than 40 px apart
+PASS frame 103: the sum row starts at row 495, below the label's 459
+  anchor 15.567 s: frame 40 (15.567 s), sheet 10
+  anchor 28.0 s: frame 65 (28.0 s), sheet 16
+  anchor 41.5 s: frame 103 (41.5 s), sheet 25
+RESULT PASS

@@ -1,0 +1,11 @@
+--- a/crates/fmn/src/rendering/pipeline.rs
++++ b/crates/fmn/src/rendering/pipeline.rs
+@@ -212,7 +212,7 @@
+                     if worker.compiled_camera.is_none() {
+                         let mut renderer = RetainedFrameRenderer::new(config)
+                             .map_err(NativeFrameError::Renderer)?;
+-                        renderer.set_plan_limits(self.plan_limits);
++                        renderer.set_plan_limits(RenderPlanLimits::default());
+                         worker.compiled_camera = Some(renderer);
+                     }
+                     let raster = worker
