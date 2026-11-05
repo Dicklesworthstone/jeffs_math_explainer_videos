@@ -26,6 +26,73 @@ _spec = importlib.util.spec_from_file_location("narration_cache", Path(__file__)
 cache = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(cache)
 
+# Exact ElevenLabs UI receipt labels and the one provider voice each denotes.
+# Labels and voices are compared whole, never by substring. The unversioned
+# Oliver receipt predates voice metadata and keeps its original contract; a
+# receipt with EXTERNAL_UI_SCHEMA must also state the provider and exact voice,
+# on every record, and bind the request file that names the same cue and text.
+EXTERNAL_UI_VOICES = {
+    'ElevenLabs UI, Oliver': 'Oliver - Clean, British and Steady',
+    'ElevenLabs UI, Frederick Surrey': 'Frederick Surrey - Smooth and Velvety',
+}
+EXTERNAL_UI_SCHEMA = 'elevenlabs-ui-receipt-v2'
+LEGACY_EXTERNAL_UI_SOURCE = 'ElevenLabs UI, Oliver'
+# Voice names a legacy Oliver receipt may state (prepare_audio writes 'Oliver').
+LEGACY_OLIVER_VOICES = ('Oliver', 'Oliver - Clean, British and Steady')
+EXTERNAL_RECORD_KEYS = ('cue', 'text', 'wav', 'wav_sha256', 'samples', 'rate', 'source', 'source_sha256')
+EXTERNAL_V2_RECORD_KEYS = ('voice', 'request', 'request_sha256')
+NATIVE_RECEIPT_KEYS = ('wav', 'returncode', 'request', 'generation', 'completion')
+NATIVE_VOICE = 'native FrankenTTS receipt'
+
+
+def external_ui_voice(receipt):
+    """Return an external UI receipt's exact provider voice, or None if native.
+
+    This checks identity metadata only; unit_spans checks every record. A
+    receipt that claims ElevenLabs, or an external schema, without an exact
+    label and matching metadata is refused instead of being read as native.
+    """
+    if not isinstance(receipt, dict):
+        raise ValueError('generation receipt must be a JSON object')
+    source, schema = receipt.get('source'), receipt.get('schema')
+    known = isinstance(source, str) and source in EXTERNAL_UI_VOICES
+    if schema == EXTERNAL_UI_SCHEMA:
+        if not known:
+            raise ValueError('external UI receipt names no exact known source label')
+        voice = EXTERNAL_UI_VOICES[source]
+        if receipt.get('provider') != 'ElevenLabs' or receipt.get('voice') != voice:
+            raise ValueError('external UI receipt provider or voice differs from its exact source label')
+        records = receipt.get('records')
+        if (not isinstance(records, list) or not records
+                or any(not isinstance(row, dict) or row.get('voice') != voice for row in records)):
+            raise ValueError('every external UI record must state the receipt voice exactly')
+        return voice
+    if source == LEGACY_EXTERNAL_UI_SOURCE and 'schema' not in receipt:
+        # A legacy receipt binds no voice, but it must not contradict its label.
+        records = receipt.get('records')
+        rows = [row for row in records if isinstance(row, dict)] if isinstance(records, list) else []
+        if (any(v is not None and v not in LEGACY_OLIVER_VOICES
+                for v in [receipt.get('voice')] + [row.get('voice') for row in rows])
+                or any('request' in row or 'request_sha256' in row for row in rows)):
+            raise ValueError(f'legacy Oliver receipt states another voice or a request; use schema {EXTERNAL_UI_SCHEMA}')
+        return EXTERNAL_UI_VOICES[source]
+    if ((isinstance(source, str) and source.startswith('ElevenLabs'))
+            or (isinstance(schema, str) and schema.startswith('elevenlabs'))):
+        raise ValueError(f'unrecognised external UI receipt; a non-legacy label needs schema {EXTERNAL_UI_SCHEMA}')
+    return None
+
+
+def assembly_voice(records):
+    """Refuse an assembly whose units' receipts name more than one narrator voice."""
+    voices = set()
+    for record in records:
+        receipt = json.loads(Path(record['generation_receipt']).resolve(strict=True).read_text())
+        voice = external_ui_voice(receipt)
+        voices.add(NATIVE_VOICE if voice is None else voice)
+    if len(voices) > 1:
+        raise ValueError('one assembly must use one narrator voice, not: ' + '; '.join(sorted(voices)))
+    return next(iter(voices), None)
+
 
 def read_script(path):
     result = {}
@@ -272,22 +339,41 @@ def unit_spans(unit, script, record):
     receipt = json.loads(receipt_path.read_text())
     info, pcm = wav_pcm(wav_path)
     context_after = record.get("context_after")
-    if receipt.get('source') == 'ElevenLabs UI, Oliver':
+    voice = external_ui_voice(receipt)
+    if voice is not None:
         # UI exports are not native FrankenTTS receipts. Keep that distinction:
         # the record binds the downloaded MP3, decoded WAV and submitted cue,
         # but does not claim an independently signed provider receipt or hearing.
         if context_after is not None or len(unit['line_ids']) != 1:
             raise ValueError('external UI takes require one complete cue without context crop')
-        matches = [row for row in receipt['records'] if row['cue'] == unit['line_ids'][0]]
+        records = receipt.get('records')
+        if not isinstance(records, list) or any(not isinstance(row, dict) or 'cue' not in row for row in records):
+            raise ValueError('external receipt records must each name a cue')
+        matches = [row for row in records if row['cue'] == unit['line_ids'][0]]
         if len(matches) != 1:
             raise ValueError('external receipt must identify exactly one source per cue')
         row = matches[0]
+        v2 = receipt.get('schema') == EXTERNAL_UI_SCHEMA
+        missing = [key for key in EXTERNAL_RECORD_KEYS + (EXTERNAL_V2_RECORD_KEYS if v2 else ()) if key not in row]
+        if missing:
+            raise ValueError('external receipt record lacks ' + ', '.join(missing))
         if (row['text'] != request_text(unit, script) or Path(row['wav']).resolve(strict=True) != wav_path
                 or row['wav_sha256'] != info['sha256'] or record['sha256'] != info['sha256']
                 or row['samples'] != info['frames'] or row['rate'] != info['sample_rate']
                 or cache.digest(row['source']) != row['source_sha256']):
             raise ValueError('external source, text or decoded audio changed')
+        if v2:
+            # The request is the retained UI-side statement of what was
+            # submitted; it identifies the voice setting, not the audio heard.
+            if cache.digest(row['request']) != row['request_sha256']:
+                raise ValueError('external request file changed')
+            request = json.loads(Path(row['request']).read_text())
+            if (not isinstance(request, dict) or request.get('cue') != row['cue']
+                    or request.get('text') != row['text'] or request.get('voice') != voice):
+                raise ValueError('external request does not name this cue, text and voice exactly')
     else:
+        if any(key not in receipt for key in NATIVE_RECEIPT_KEYS):
+            raise ValueError('generation receipt is neither native FrankenTTS nor an identified external UI receipt')
         if info != receipt["wav"] or info["sha256"] != record["sha256"]:
             raise ValueError("source audio no longer matches generation receipt")
         if receipt["returncode"] != 0 or receipt["request"]["submitted_text"] != request_text(unit, script, context_after):
@@ -357,6 +443,7 @@ def assemble(args):
     records = manifest["units"]
     if not selected or [r["id"] for r in records] != [u["id"] for u in selected]:
         raise ValueError("span manifest omits, repeats or reorders selected units")
+    assembly_voice(records)
     directions=review_directions(direction_contract(args.script,json.loads(args.units.read_text())),selected,manifest)
     lines, audio = {}, {}
     for unit, record in zip(selected, records):
@@ -429,6 +516,7 @@ def verify(out, script_path=None, units_path=None, *, require_directions=False, 
         if (manifest.get('schema_version') != 1 or manifest.get('units_sha256') != cache.digest(units_path)
                 or [r['id'] for r in records] != [u['id'] for u in selected]):
             raise ValueError('assembly manifest differs from the requested unit plan/scope')
+        assembly_voice(records)
         contract = direction_contract(script_path, json.loads(Path(units_path).read_text()))
         expected_directions = review_directions(contract, selected, manifest)
         if directions != expected_directions:

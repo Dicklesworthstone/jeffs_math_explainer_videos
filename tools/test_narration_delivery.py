@@ -313,6 +313,36 @@ class DeliveryTests(unittest.TestCase):
         # Missing explicit output is not a default production-directory escape.
         self.run_cli('render', False, ['--review-units', str(plan)])
 
+    def external(self, kinds):
+        """A one-cue ElevenLabs UI assembly; external-units.json is the plan it was assembled from."""
+        self.args = self.fixture.external_assembly(kinds, '-'.join(kinds))
+        fixtures.m.assemble(self.args)
+        shutil.copy2(self.fixture.units, self.args.out/'external-units.json')
+        return json.loads(self.args.spans.read_text())['units']
+
+    def test_frederick_and_legacy_oliver_ui_assemblies_reach_render(self):
+        for kinds in (('frederick', 'frederick'), ('legacy', 'legacy'), ('oliver', 'legacy')):
+            with self.subTest(kinds=kinds):
+                self.external(kinds)
+                result = self.run_cli('render')
+                self.assertIn('"plan_mode": "external-ui"', result.stdout)
+                self.assertIn('"listening_acceptance": false', result.stdout)
+
+    def test_render_refuses_swapped_voice_and_legacy_contradiction_cleanly(self):
+        records = self.external(('frederick', 'frederick'))
+        receipt = Path(records[1]['generation_receipt'])
+        original = receipt.read_text()
+        self.fixture.swap_voice(records[1], 'oliver')
+        result = self.run_cli('render', False)
+        self.assertIn('narration delivery refused: one assembly must use one narrator voice', result.stderr)
+        receipt.write_text(original)
+        self.run_cli('render')
+        records = self.external(('legacy', 'legacy'))
+        receipt = Path(records[0]['generation_receipt'])
+        receipt.write_text(json.dumps(dict(json.loads(receipt.read_text()), voice='Frederick Surrey')))
+        result = self.run_cli('render', False)
+        self.assertIn('narration delivery refused: legacy Oliver receipt states another voice', result.stderr)
+
 
 if __name__ == '__main__':
     unittest.main()

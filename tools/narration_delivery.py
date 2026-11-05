@@ -265,7 +265,9 @@ def external_plan(topic, narration, canonical):
     assembly = json.loads((narration / 'assembly.json').read_text())
     for record in assembly['manifest']['units']:
         receipt = json.loads(Path(record['generation_receipt']).read_text())
-        require(receipt.get('source') == 'ElevenLabs UI, Oliver',
+        # Exact labels only (coherent.EXTERNAL_UI_VOICES); coherent.verify
+        # then refuses an assembly that mixes narrator voices.
+        require(coherent.external_ui_voice(receipt) is not None,
                 'external plan requires an explicitly identified UI source')
     return path
 
