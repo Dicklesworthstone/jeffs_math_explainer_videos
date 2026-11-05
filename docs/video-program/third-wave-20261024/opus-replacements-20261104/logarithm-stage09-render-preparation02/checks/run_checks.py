@@ -245,6 +245,12 @@ def main():
            f"prepare receipt {a['audio']['prepare_receipt_sha256'][:12]}, selection by {a['audio']['selection']['by']}")
     code, out = run(HELPER, "build-verify", "--attempt", "01", ws=REAL_WS, scratch=False)
     record("A2 build-verify refuses ws-build01", code == 1 and refused(out, "reused build01's units"), out.strip())
+    code, out = run(HELPER, "build-verify", "--attempt", "02", ws=REAL_WS, scratch=False)
+    v = result(out)
+    record("A3 build-verify passes root's real ws-build02 (read-only): recovery checks, 4 units from the workspace",
+           code == 0 and v.get("binary_sha256") == v.get("artifacts", {}).get("binary_sha256") != V1.BUILD01_BINARY
+           and v.get("artifacts", {}).get("units") == 4 and v.get("tests") == "241 passed",
+           out.strip()[-300:] if code else f"binary {v['binary_sha256']}, units {v['artifacts']['units']}, {v['verified_by']}")
 
     # ---------------------------------------------------------------- planted audio faults on a scratch copy
     shutil.copytree(REAL_O, COPY)
@@ -265,7 +271,7 @@ def main():
          [(tr, json_change(lambda d: d.update(tool=d["tool"].replace("logarithm-stage09-audio-preparation02", "logarithm-stage09-plan-binding-fix01/staged"))))],
          "the timings receipt was written by"),
         ("P5 the installed phrase-timings.json differs from the timings output",
-         [(installed, json_change(lambda d: d["cues"]["00_1"]["marks"].append({"id": "planted"})))], "is not installed in the narration"),
+         [(installed, json_change(lambda d: d.update(planted=True)))], "is not installed in the narration"),
         ("P6 a Frederick prepare receipt", [(pr, json_change(lambda d: d["binding"]["voice"].update(name="Frederick")))],
          "prepare receipt binding"),
     ]
@@ -273,7 +279,8 @@ def main():
         with edited(*changes):
             code, out = run(HELPER, "check-audio", "--audio", COPY, ws=REAL_WS, scratch=False)
         record(label, code == 1 and refused(out, fragment), out.strip()[:200])
-    wav = COPY / "narration/05_1.wav"
+    cue = V2.script_cues(REAL_WS / CRATE / "script.tsv")[40]
+    wav = COPY / f"narration/{cue}.wav"
 
     def flip(path):
         data = bytearray(path.read_bytes())
@@ -282,14 +289,15 @@ def main():
 
     def reforge(path):
         d = json.loads(pt.read_text())
-        d["cues"]["05_1"]["wav_sha256"] = sha(wav)
+        d["cues"][cue]["wav_sha256"] = sha(wav)
         text = json.dumps(d, indent=2) + "\n"
         pt.write_text(text)
         installed.write_text(text)
     with edited((wav, flip), (pt, lambda p: None), (installed, reforge)):
         code, out = run(HELPER, "check-audio", "--audio", COPY, ws=REAL_WS, scratch=False)
-    record("P7 one sample of 05_1.wav changed, phrase timings re-forged to match: the real coherent verify refuses",
-           code == 1 and refused(out, "coherent_narration verify refused") and "05_1" in out, out.strip()[:200])
+    record(f"P7 one sample of {cue}.wav changed, phrase timings re-forged to match: the real coherent verify refuses",
+           code == 1 and refused(out, "coherent_narration verify refused") and f"cue {cue} does not reconstruct" in out,
+           out.strip()[-160:])
     integration = SCR / "integration-receipt01.json"
     shutil.copy2(REPO / V2.INTEGRATION_REL, integration)
     for label, change, fragment in (
@@ -303,10 +311,9 @@ def main():
                 record(label, fragment in str(refusal), str(refusal))
 
     # ---------------------------------------------------------------- bind and the timeline step on an emulated build02
-    cues = {}
+    cues = {ch: [] for ch in V2.CHAPTERS}
     for cue in V2.script_cues(REAL_WS / CRATE / "script.tsv"):
-        chapter = next(ch for ch in V2.CHAPTERS if ch.split("_", 1)[0] == cue.split("_", 1)[0])
-        cues.setdefault(chapter, []).append(cue)
+        cues[next(ch for ch in V2.CHAPTERS if ch.split("_", 1)[0] == cue.split("_", 1)[0])].append(cue)
     (STUB / "stand-in.py").write_text(STAND_IN.replace("@@CUES@@", repr(json.dumps(cues))))
     V1.install(V1.Ctx(argparse.Namespace(w=str(W), ws=str(WS), receipts=str(LANE), target_root=str(TARGET))))
     code, out = run(X.HERE, "build-script", "--attempt", "02")
@@ -320,7 +327,7 @@ def main():
     code, out = run(V1.HERE, "bind", "--build", "02", "--audio", REAL_O, "--attempt", "09")
     v1 = json.loads((WS / "narration-binding09.json").read_text()) if code == 0 else {}
     record("B2 the sealed version 1 bind would accept these receipts but records Bronze's c6c854ce and no plan hash",
-           code == 0 and v1["audio"]["helper_sha256"] == V2.AUDIO_SUMS_SHA[:0] + "c6c854ce62f86ecb4025a9999e883ff04e28a29492788fec05c9060238cdb1e3"
+           code == 0 and v1["audio"]["helper_sha256"] == V1.AUDIO_HELPER_SHA != V2.INSTALLED_SHA
            and "phrase_marks_plan_sha256" not in v1["audio"], out.strip()[:200] if code else "version 1 binding09 in scratch")
     code, out = run(HELPER, "bind", "--build", "02", "--audio", REAL_O, "--attempt", "01")
     b = result(out)

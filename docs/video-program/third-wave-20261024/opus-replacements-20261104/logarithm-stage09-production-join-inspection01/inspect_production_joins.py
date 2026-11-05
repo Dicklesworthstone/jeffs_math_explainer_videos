@@ -47,7 +47,7 @@ RATE, HOP = 24000, 240
 QUIET_DB, BODY_DB, MIN_RUN, PAUSE = -60.0, -40.0, 5, 15
 EARLY, TIGHT, NEAR = 10, 20, 30  # frames
 JOIN_FLAGS = ("before_pause", "early", "late", "short_pause", "tight", "blip", "pause_not_within_0.3s", "no_pause")
-MARK_FLAGS = ("before_pause", "early", "late", "blip", "pause_not_within_0.3s", "no_pause")
+MARK_FLAGS = ("before_pause", "early", "blip", "pause_not_within_0.3s", "no_pause")
 BLIP_ANSWERS = [("00_6", 1), ("04_5", 1), ("05_4", 1), ("06_6", 2), ("06_6", 4), ("08_2", 1), ("08_2", 3)]
 PRIORITY = ["00_5", "04_4", "08_5"]
 READ = {}
@@ -121,6 +121,10 @@ def place(db, runs, k, window, join):
         main = None
     row = {"frame": k, "seconds": s2(k), "level_db": db[k] if k < len(db) else None,
            "in_quiet_run": containing is not None}
+    if not join:  # the lowest frame within 0.10 s: a dip marks a junction between words in continuous speech
+        lo, hi = max(0, k - 10), min(len(db), k + 11)
+        j = min(range(lo, hi), key=lambda x: (db[x], abs(x - k)))
+        row["dip_db"], row["dip_offset_s"] = db[j], s2(j - k)
     flags = []
     if main is None:
         row.update(pause=None)
@@ -129,9 +133,10 @@ def place(db, runs, k, window, join):
         row["speech_since_s"] = s2(k - last) if last is not None else None
         row["flags"] = flags
         return row
-    if not close:
-        flags.append("pause_not_within_0.3s")
     a, b = main
+    if not close:  # the nearest pause is farther than 0.30 s: report it, conclude nothing from it
+        row.update(pause={"start_s": s2(a), "leave_s": s2(b), "pause_s": s2(b - a), "distance_s": s2(distance(k, main))}, flags=["pause_not_within_0.3s"])
+        return row
     body = next((j for j in range(b, len(db)) if db[j] >= BODY_DB), None)
     between = [r for r in runs if b < r[0] and body is not None and r[1] <= body]
     row.update(pause={"start_s": s2(a), "leave_s": s2(b), "leave_24k": b * HOP, "pause_s": s2(b - a),
@@ -150,7 +155,8 @@ def place(db, runs, k, window, join):
         row["after_leave_s"] = s2(k - b)
         if body is not None and k > body:
             row["after_body_s"] = s2(k - body)
-            flags.append("late")
+            if join:  # for a mark, speech after the pause may be the previous word: energy cannot tell
+                flags.append("late")
     if join and b - a < PAUSE:
         flags.append("short_pause")
     elif join and b - a < TIGHT:
@@ -311,7 +317,7 @@ def main():
                              "pause", "quiet_runs_between_leave_and_body", "flags"])
     tsv("marks.tsv", marks, ["cue", "byte", "seconds", "words", "sentence", "from_sentence_onset_s", "to_next_boundary_s", "recognizer_word",
                              "recognizer_start_s", "previous_word_end_s", "level_db", "position", "before_pause_s", "into_pause_s",
-                             "before_leave_s", "after_leave_s", "after_body_s", "speech_since_s", "pause", "flags"])
+                             "before_leave_s", "after_leave_s", "after_body_s", "speech_since_s", "dip_db", "dip_offset_s", "pause", "flags"])
     tsv("cue-edges.tsv", edges, ["cue", "recording", "seconds", "samples", "sentences", "lead_s", "body_lead_s", "tail_s", "body_tail_s",
                                  "first_frame_db", "last_frame_db", "peak_dbfs", "full_scale_samples", "hold", "hold_floor_after_voice_s"])
     tsv("discrepancies.tsv", diffs, ["cue", "sentence", "op", "script", "heard", "start_s", "end_s", "start_24k", "end_24k", "near"])
