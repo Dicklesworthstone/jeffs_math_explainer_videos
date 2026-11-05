@@ -1,0 +1,4 @@
+#!/bin/sh
+# The binary finds python3 through PATH. This hands its narration call to the alias adapter, which
+# refuses everything except the two sealed narration tools.
+exec "${NARRATION_ALIAS_PYTHON:?}" -I -B "${NARRATION_ALIAS_ADAPTER:?}" "$@"

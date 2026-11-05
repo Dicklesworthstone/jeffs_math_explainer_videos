@@ -1,0 +1,260 @@
+"""Transcribe the verified encoded export, preserving discrepancies for review.
+
+Root's asr01.py with the sealed review's F1, F2, F3 and F6 corrected. Engine, model, settings, timeouts and the guard
+phase are root's, unchanged. There is no waiter: anything not ready is refused at once.
+
+Launch through start_asr02.sh, which runs the verifier's post-check and a guard preflight first.
+Usage: asr02.py VERIFY_JOB MASTER_JOB NN. The guard runs: asr02.py --run VERIFY_JOB MASTER_JOB NN.
+"""
+import difflib
+import hashlib
+import json
+import math
+from pathlib import Path
+import re
+import subprocess
+import sys
+
+HERE = Path(__file__).resolve().parent
+R = HERE.parents[4]
+P = R / 'narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01'
+B = P / 'jobs'
+GUARD = P / 'guard01.py'
+SOURCES = P / 'asr-source-bindings01.json'
+TOOLS = P / 'tools01.json'
+TIMELINE = B / 'logarithm-remote-timeline01/timeline-summary.json'
+VERIFIER = HERE.parent / 'logarithm-remote-final-verifier02/verify_remote_final.py'
+VERIFY_SCRIPTS = P / 'job-scripts'
+MASTER_SCRIPTS = P / 'render-jobs01'
+VERIFY_NAME = r'logarithm-remote-verify\d\d'
+MASTER_NAME = r'logarithm-remote-master01(-r[2-9])?'
+HOST = 'mac-mini-max'
+TOOLS_SCHEMA = 'logarithm-remote-tools-v1'
+RETIRED_MASTER = '00236d1a6915ff968235a30ab59769b02125ece0fee482e4fa3154c265ac7c24'
+VERIFY_SUCCESS = ("FINAL VERIFY PASS: strict video check, frame count, A/V length and exact captions passed; "
+                  "every sheet still needs root's viewing.")
+MASTER_SUCCESS = ('MASTER WRITTEN: candidate master and captions; strict verify, pictures, ASR, caption screen, '
+                  'loudness and listening remain.')
+
+
+def select(verify_job, master_job, attempt):
+    """The explicit selection, set once: root names the jobs, so a retry needs no new script."""
+    global VERIFY_JOB, MASTER_JOB, ATTEMPT, VERIFY, MASTER, JOB, OUT, MANIFEST, POSTCHECK
+    assert re.fullmatch(VERIFY_NAME, verify_job), f'bad verify job {verify_job}'
+    assert re.fullmatch(MASTER_NAME, master_job), f'bad master job {master_job}'
+    assert re.fullmatch(r'\d\d', attempt) and int(attempt) >= 2, f'bad attempt {attempt}: asr01 stays root\'s'
+    VERIFY_JOB, MASTER_JOB, ATTEMPT = verify_job, master_job, attempt
+    VERIFY, MASTER = B / verify_job, B / master_job
+    JOB = f'logarithm-remote-asr{attempt}'
+    OUT = B / JOB
+    MANIFEST = P / f'asr-inputs{attempt}.json'
+    POSTCHECK = P / f'asr-postcheck{attempt}.json'
+
+
+def newest(job, pattern):
+    """An explicit selection can't be a stale one: no later attempt may sit beside it."""
+    names = sorted(x.name for x in B.iterdir() if re.fullmatch(pattern, x.name))
+    assert names and names[-1] == job, f'{job} is not the newest of {names}'
+
+
+def passed(job, python, scripts, success):
+    """One finished job, exactly: receipt, frozen inputs, command and last log line."""
+    folder = B / job
+    script, inputs = scripts / f'{job}.py', scripts / f'{job}-inputs.json'
+    d = read(folder / 'resource-receipt.json')
+    assert d.get('finished') and d.get('admitted') is True and d.get('exit') == 0, f'{job} did not pass'
+    assert not d.get('stopped_for_resource_limit') and 'error' not in d, f'{job} stopped or raised'
+    assert d.get('phase') == 'native', f'{job} ran in phase {d.get("phase")}'
+    assert d.get('command') == [python, '-I', '-B', str(script)], f'{job} ran another command'
+    assert d['inputs_sha256'] == d['final_inputs_sha256'] == sha(inputs), f'{job}: its frozen inputs moved'
+    assert {'path': str(script), 'sha256': sha(script)} in read(inputs)['files'], f'{job}: its script moved'
+    lines = [x for x in (folder / 'command.log').read_text(errors='replace').splitlines() if x.strip()]
+    assert lines and lines[-1] == success, f'{job}: the log does not end with its success line'
+
+
+def bound_tools():
+    """F6: ASR's ffmpeg and interpreter are the pinned tools the verifier and master ran."""
+    tools = read(TOOLS)
+    assert tools.get('schema') == TOOLS_SCHEMA and tools.get('host') == HOST, 'not the worker tools file'
+    assert read(SOURCES)['files'][3]['sha256'] == tools['ffmpeg']['sha256'], 'ASR ffmpeg is not the pinned tool'
+    python = tools['python3']
+    assert Path(sys.executable).resolve() == Path(python['path']).resolve(), 'this is not the pinned interpreter'
+    assert sha(sys.executable) == python['sha256'], 'the pinned interpreter changed'
+    return tools
+
+
+def bound_proof():
+    tools = bound_tools()
+    newest(VERIFY_JOB, VERIFY_NAME)
+    newest(MASTER_JOB, MASTER_NAME)
+    passed(VERIFY_JOB, tools['python3']['path'], VERIFY_SCRIPTS, VERIFY_SUCCESS)
+    passed(MASTER_JOB, tools['python3']['path'], MASTER_SCRIPTS, MASTER_SUCCESS)
+    proof = read(VERIFY / 'verification.json')
+    timeline = read(TIMELINE)
+    assert proof['master_job'] == MASTER_JOB, f"the proof is for {proof['master_job']}"
+    assert proof['sha256'] != RETIRED_MASTER, 'this is the retired stage09 master'
+    assert proof['strict_video_check'] == 'passed', 'the strict video check did not pass'
+    assert proof['pictures_viewed'] is False, 'the proof claims a picture viewing'
+    assert proof['tools_sha256'] == sha(TOOLS), 'the proof names another tools file'
+    assert proof['worker'] == {'host': HOST, **{k: tools[k] for k in ('python3', 'ffmpeg', 'ffprobe')}}, 'the proof names other tools'
+    assert Path(proof['video']) == B / 'logarithm-remote-render-work01/logarithm_mysteries_master.mp4'
+    assert isinstance(proof['frames'], int) and proof['frames'] > 0
+    assert proof['frames'] == timeline['total_frames'] and proof['fps'] == timeline['fps'] == 60
+    fields = ('chapter', 'frames', 'timeline_sha256')
+    assert [tuple(x[k] for k in fields) for x in proof['chapters']] == [tuple(x[k] for k in fields) for x in timeline['chapters']]
+    assert len(proof['chapters']) == 13 and len(proof['placements']) == 80
+    for chapter in timeline['chapters']:
+        path = TIMELINE.parent / 'timeline-output' / (chapter['chapter'] + '.timeline.tsv')
+        assert sha(path) == chapter['timeline_sha256'], path
+    assert sha(proof['video']) == proof['sha256'], 'the master changed after verification'
+    summary = read(MASTER / 'master-summary.json')
+    assert Path(summary['master']['path']) == Path(proof['video']), 'the summary names another master file'
+    assert summary['master']['sha256'] == proof['sha256'], 'the summary is for another master'
+    assert summary['srt']['sha256'] == proof['srt_sha256'], 'the summary names other captions'
+    assert summary['vtt']['sha256'] == proof['vtt_sha256'], 'the summary names other captions'
+    assert summary['tools_sha256'] == proof['tools_sha256'], 'the master ran under another tools file'
+    assert summary['binding_sha256'] == proof['binding_sha256'], 'the master ran under another binding'
+    assert POSTCHECK.is_file(), 'no verifier post-check record: launch through start_asr02.sh'
+    record = read(POSTCHECK)
+    assert record.get('verify_job') == 'PASS' and record.get('job') == VERIFY_JOB, 'the post-check is for another job'
+    assert record.get('verification_sha256') == sha(VERIFY / 'verification.json'), 'the post-check read another proof'
+    assert record.get('master_sha256') == proof['sha256'] and record.get('frames') == proof['frames'], 'the post-check read another master'
+    return proof
+
+
+def read(p):
+    return json.loads(p.read_text())
+
+
+def sha(p):
+    with Path(p).open('rb') as handle:
+        return hashlib.file_digest(handle, 'sha256').hexdigest()
+
+
+def check_files(rows):
+    for row in rows:
+        assert sha(row['path']) == row['sha256'], row['path']
+
+
+def script_rows(path):
+    rows = [line.split('\t', 1) for line in path.read_text().splitlines()
+            if line.strip() and not line.startswith('#')]
+    assert len(rows) == 80 and len({x[0] for x in rows}) == 80
+    assert all(re.fullmatch(r'\d\d_\d+', x[0]) and x[1].strip() for x in rows)
+    return rows
+
+
+def tokens(text):
+    # Preserve mathematical signs; no automatic acceptance via normalization.
+    return re.findall(r"[a-z]+(?:'[a-z]+)?|\d+(?:\.\d+)?|[-+/%^π]",
+                      text.lower().replace('’', "'").replace('−', '-'))
+
+
+def boundary_review(proof, rows, segments):
+    """Time-window leads at every authored cue edge, not a forced alignment."""
+    placements = proof['placements']
+    assert [p['cue'] for p in placements] == [cue for cue, text in rows]
+    total = proof['frames'] / proof['fps']
+    for segment in segments:
+        a, b = segment['start_sec'], segment['end_sec']
+        assert math.isfinite(a) and math.isfinite(b) and 0 <= a <= b <= total + 1
+    result = []
+    for i, (placement, (cue, text)) in enumerate(zip(placements, rows)):
+        start = placement['start_frame'] / proof['fps']
+        end = start + placement['duration_s']
+        assert 0 <= start < end <= total
+        windows = []
+        for edge, left, right in [('opening', max(0, start-.5), min(end, start+5)),
+                                  ('closing', max(start, end-5), min(total, end+.5))]:
+            matches = [s for s in segments if s['end_sec'] >= left and s['start_sec'] <= right]
+            windows.append({'edge': edge, 'window_s': [left, right],
+                            'recognized_segments': matches, 'no_recognition_in_window': not matches})
+        words = tokens(text)
+        result.append({'cue': cue, 'chapter': placement['chapter'], 'start_s': start, 'end_s': end,
+                       'expected_first_words': words[:12], 'expected_last_words': words[-12:],
+                       'previous_cue': placements[i-1]['cue'] if i else None,
+                       'next_cue': placements[i+1]['cue'] if i+1 < len(placements) else None,
+                       'windows': windows})
+    return result
+
+
+def run():
+    receipt = read(OUT / 'resource-receipt.json')
+    assert receipt.get('admitted') is True and 'exit' not in receipt
+    assert receipt.get('phase') == 'asr' and receipt.get('inputs_sha256') == sha(MANIFEST), 'not this guarded ASR job'
+    assert receipt['command'] == [sys.executable, '-I', '-B', str(Path(__file__).resolve()), '--run', VERIFY_JOB, MASTER_JOB, ATTEMPT]
+    check_files(read(MANIFEST)['files'])
+    sources = read(SOURCES)['files']
+    script, fw, model, ffmpeg = [row['path'] for row in sources]
+    rows = script_rows(Path(script))
+    proof = bound_proof()
+    movie = Path(proof['video'])
+    assert movie == B / 'logarithm-remote-render-work01/logarithm_mysteries_master.mp4'
+    assert sha(movie) == proof['sha256']
+    assert isinstance(proof['frames'], int) and proof['frames'] > 0 and proof['fps'] == 60
+    assert len(proof['placements']) == 80
+    wav = OUT / 'encoded-master-16k-mono.wav'
+    subprocess.run([ffmpeg, '-nostdin', '-n', '-v', 'error', '-xerror', '-i', str(movie),
+                    '-map', '0:a:0', '-ac', '1', '-ar', '16000', '-c:a', 'pcm_s16le', str(wav)],
+                   check=True, timeout=1800)
+    command = [fw, 'transcribe', '--input', str(wav), '--backend', 'whisper-cpp',
+               '--model', model, '--language', 'en', '--no-diarize', '--no-persist',
+               '--split-on-word', '--max-segment-length', '1', '--threads', '4',
+               '--timeout', '7200', '--json']
+    with (OUT / 'full-large.json').open('x') as stdout, (OUT / 'full-large.stderr.log').open('x') as stderr:
+        subprocess.run(command, stdout=stdout, stderr=stderr, check=True, timeout=7260)
+    result = read(OUT / 'full-large.json')
+    result = result.get('result', result)
+    assert result['segments'], 'No recognized speech'
+    boundaries = boundary_review(proof, rows, result['segments'])
+    with (OUT / 'cue-boundaries.json').open('x') as handle:
+        json.dump({'master_sha256': proof['sha256'], 'cue_count': len(boundaries),
+                   'cues': boundaries, 'scope': 'All cue edge windows, including chapter joins; provisional ASR timestamps, not listening or forced alignment. Every window requires triage.'}, handle, indent=2)
+    expected = [{'word': t, 'cue': cue} for cue, text in rows for t in tokens(text)]
+    recognized = [{'word': t, 'start_s': s['start_sec'], 'end_s': s['end_sec']}
+                  for s in result['segments'] for t in tokens(s['text'])]
+    changes = []
+    for op, i, k, j, l in difflib.SequenceMatcher(None, [x['word'] for x in expected],
+                                                [x['word'] for x in recognized], autojunk=False).get_opcodes():
+        if op != 'equal':
+            changes.append({'operation': op, 'expected': expected[i:k], 'recognized': recognized[j:l],
+                            'expected_context': expected[max(0, i-3):min(len(expected), k+3)],
+                            'recognized_context': recognized[max(0, j-3):min(len(recognized), l+3)]})
+    with (OUT / 'comparison.json').open('x') as handle:
+        json.dump({'master_sha256': proof['sha256'], 'script_sha256': sha(script),
+                   'wav_sha256': sha(wav), 'cue_count': len(rows), 'expected_words': len(expected),
+                   'recognized_words': len(recognized), 'differences': changes,
+                   'scope': 'ASR leads awaiting triage, including numeric formatting. No speech correctness, listening, fine sync or independent AV acceptance.'}, handle, indent=2)
+    print(f'Encoded-master ASR complete; {len(changes)} differences await triage.', flush=True)
+
+
+def launch():
+    sources = read(SOURCES)['files']
+    check_files(sources)
+    script_rows(Path(sources[0]['path']))
+    assert not OUT.exists() and not MANIFEST.exists(), 'Duplicate ASR refused'
+    proof = bound_proof()
+    scripts = [VERIFY_SCRIPTS / f'{VERIFY_JOB}{x}' for x in ('.py', '-inputs.json')]
+    scripts += [MASTER_SCRIPTS / f'{MASTER_JOB}{x}' for x in ('.py', '-inputs.json')]
+    paths = [Path(x['path']) for x in sources] + [Path(__file__).resolve(),
+             SOURCES, GUARD, P / 'guard-pins01.json', TOOLS, VERIFIER, POSTCHECK, *scripts,
+             VERIFY / 'resource-receipt.json', VERIFY / 'command.log', VERIFY / 'verification.json',
+             MASTER / 'resource-receipt.json', MASTER / 'command.log', MASTER / 'master-summary.json',
+             TIMELINE, Path(proof['video'])]
+    paths += [Path(x['path']) for x in read(P / 'guard-pins01.json')['files']]
+    paths += [TIMELINE.parent / 'timeline-output' / (x['chapter'] + '.timeline.tsv') for x in proof['chapters']]
+    with MANIFEST.open('x') as handle:
+        json.dump({'files': [{'path': str(p), 'sha256': sha(p)} for p in paths]}, handle, indent=2)
+    subprocess.run([sys.executable, '-I', '-B', str(GUARD), '--phase', 'asr', '--job', JOB,
+                    '--inputs', str(MANIFEST), '--', sys.executable, '-I', '-B', str(Path(__file__).resolve()),
+                    '--run', VERIFY_JOB, MASTER_JOB, ATTEMPT],
+                   cwd=R, check=True)
+
+
+if __name__ == '__main__':
+    if not __debug__:
+        raise SystemExit('asr02.py checks with assertions: launch without -O')
+    args = sys.argv[1:]
+    running = args[:1] == ['--run']
+    select(*(args[1:] if running else args))
+    run() if running else launch()

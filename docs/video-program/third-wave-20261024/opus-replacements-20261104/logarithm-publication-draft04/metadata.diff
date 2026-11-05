@@ -1,0 +1,30 @@
+--- draft03/title.txt
++++ draft04/title.txt
+@@ -1 +1 @@
+-The Logarithm: From Slide Rules to Infinite Answers
++Logarithms Made Visual: From Slide Rules to Matrices
+--- draft03/description.txt
++++ draft04/description.txt
+@@ -3 +3 @@
+-Then we bend the ruler into a circle. Its forgotten laps become the key to complex logarithms: infinitely many answers, winding numbers, branch cuts, and a product rule that must keep track of whole turns.
++Then we bend the ruler into a circle and meet the natural logarithm, which undoes exponential growth. The circle's forgotten laps become the key to complex logarithms: infinitely many answers, winding numbers, branch cuts, and a product rule that must keep track of whole turns.
+@@ -7 +7 @@
+-We build the pictures step by step, with questions to pause and work through along the way.
++We build the pictures step by step, with questions to pause and work through along the way. The film starts from doubling and ratios, uses the idea of a slope, and introduces complex numbers and matrices as it reaches them. The later chapters include full arguments, while a few general theorems are stated with their sources rather than proved.
+@@ -24,3 +24,3 @@
+-Further reading:
+-Nicholas J. Higham, Functions of Matrices: Theory and Computation, sections 1.5–1.7 and chapter 11:
+-https://eprints.maths.manchester.ac.uk/1067/
++Sources and further reading:
++Nicholas J. Higham, Functions of Matrices, chapter 11 of Handbook of Linear Algebra (section 4 is the one cited on screen):
++https://eprints.maths.manchester.ac.uk/310/
+@@ -28,0 +29,2 @@
++W. J. Culver, On the existence and uniqueness of the real logarithm of a matrix, Proceedings of the American Mathematical Society 17 (1966), 1146–1151. The film gives Culver's result as Higham and Gallier state it:
++https://doi.org/10.1090/S0002-9939-1966-0202740-6
+@@ -30,0 +33,2 @@
++For more depth, Nicholas J. Higham, Functions of Matrices: Theory and Computation, sections 1.5–1.7 and chapter 11:
++https://eprints.maths.manchester.ac.uk/1067/
+@@ -33 +37,2 @@
+-Narration: ElevenLabs Oliver.
++Narration: ElevenLabs Oliver, a synthetic voice.
++Music: procedural score generated in code.

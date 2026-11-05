@@ -1,0 +1,227 @@
+--- O/asr01.py
++++ asr02.py
+@@ -1,4 +1,11 @@
+-"""Transcribe the verified encoded export, preserving discrepancies for review."""
++"""Transcribe the verified encoded export, preserving discrepancies for review.
++
++Root's asr01.py with the sealed review's F1, F2, F3 and F6 corrected. Engine, model, settings, timeouts and the guard
++phase are root's, unchanged. There is no waiter: anything not ready is refused at once.
++
++Launch through start_asr02.sh, which runs the verifier's post-check and a guard preflight first.
++Usage: asr02.py VERIFY_JOB MASTER_JOB NN. The guard runs: asr02.py --run VERIFY_JOB MASTER_JOB NN.
++"""
+ import difflib
+ import hashlib
+ import json
+@@ -7,24 +14,89 @@
+ import re
+ import subprocess
+ import sys
+-import time
+-
+-P = Path(__file__).resolve().parent
+-R = P.parents[4]
++
++HERE = Path(__file__).resolve().parent
++R = HERE.parents[4]
++P = R / 'narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01'
+ B = P / 'jobs'
+-VERIFY = B / 'logarithm-remote-verify01'
+-JOB = 'logarithm-remote-asr01'
+-OUT = B / JOB
+-MANIFEST = P / 'asr-inputs01.json'
+ GUARD = P / 'guard01.py'
+ SOURCES = P / 'asr-source-bindings01.json'
++TOOLS = P / 'tools01.json'
+ TIMELINE = B / 'logarithm-remote-timeline01/timeline-summary.json'
++VERIFIER = HERE.parent / 'logarithm-remote-final-verifier02/verify_remote_final.py'
++VERIFY_SCRIPTS = P / 'job-scripts'
++MASTER_SCRIPTS = P / 'render-jobs01'
++VERIFY_NAME = r'logarithm-remote-verify\d\d'
++MASTER_NAME = r'logarithm-remote-master01(-r[2-9])?'
++HOST = 'mac-mini-max'
++TOOLS_SCHEMA = 'logarithm-remote-tools-v1'
++RETIRED_MASTER = '00236d1a6915ff968235a30ab59769b02125ece0fee482e4fa3154c265ac7c24'
++VERIFY_SUCCESS = ("FINAL VERIFY PASS: strict video check, frame count, A/V length and exact captions passed; "
++                  "every sheet still needs root's viewing.")
++MASTER_SUCCESS = ('MASTER WRITTEN: candidate master and captions; strict verify, pictures, ASR, caption screen, '
++                  'loudness and listening remain.')
++
++
++def select(verify_job, master_job, attempt):
++    """The explicit selection, set once: root names the jobs, so a retry needs no new script."""
++    global VERIFY_JOB, MASTER_JOB, ATTEMPT, VERIFY, MASTER, JOB, OUT, MANIFEST, POSTCHECK
++    assert re.fullmatch(VERIFY_NAME, verify_job), f'bad verify job {verify_job}'
++    assert re.fullmatch(MASTER_NAME, master_job), f'bad master job {master_job}'
++    assert re.fullmatch(r'\d\d', attempt) and int(attempt) >= 2, f'bad attempt {attempt}: asr01 stays root\'s'
++    VERIFY_JOB, MASTER_JOB, ATTEMPT = verify_job, master_job, attempt
++    VERIFY, MASTER = B / verify_job, B / master_job
++    JOB = f'logarithm-remote-asr{attempt}'
++    OUT = B / JOB
++    MANIFEST = P / f'asr-inputs{attempt}.json'
++    POSTCHECK = P / f'asr-postcheck{attempt}.json'
++
++
++def newest(job, pattern):
++    """An explicit selection can't be a stale one: no later attempt may sit beside it."""
++    names = sorted(x.name for x in B.iterdir() if re.fullmatch(pattern, x.name))
++    assert names and names[-1] == job, f'{job} is not the newest of {names}'
++
++
++def passed(job, python, scripts, success):
++    """One finished job, exactly: receipt, frozen inputs, command and last log line."""
++    folder = B / job
++    script, inputs = scripts / f'{job}.py', scripts / f'{job}-inputs.json'
++    d = read(folder / 'resource-receipt.json')
++    assert d.get('finished') and d.get('admitted') is True and d.get('exit') == 0, f'{job} did not pass'
++    assert not d.get('stopped_for_resource_limit') and 'error' not in d, f'{job} stopped or raised'
++    assert d.get('phase') == 'native', f'{job} ran in phase {d.get("phase")}'
++    assert d.get('command') == [python, '-I', '-B', str(script)], f'{job} ran another command'
++    assert d['inputs_sha256'] == d['final_inputs_sha256'] == sha(inputs), f'{job}: its frozen inputs moved'
++    assert {'path': str(script), 'sha256': sha(script)} in read(inputs)['files'], f'{job}: its script moved'
++    lines = [x for x in (folder / 'command.log').read_text(errors='replace').splitlines() if x.strip()]
++    assert lines and lines[-1] == success, f'{job}: the log does not end with its success line'
++
++
++def bound_tools():
++    """F6: ASR's ffmpeg and interpreter are the pinned tools the verifier and master ran."""
++    tools = read(TOOLS)
++    assert tools.get('schema') == TOOLS_SCHEMA and tools.get('host') == HOST, 'not the worker tools file'
++    assert read(SOURCES)['files'][3]['sha256'] == tools['ffmpeg']['sha256'], 'ASR ffmpeg is not the pinned tool'
++    python = tools['python3']
++    assert Path(sys.executable).resolve() == Path(python['path']).resolve(), 'this is not the pinned interpreter'
++    assert sha(sys.executable) == python['sha256'], 'the pinned interpreter changed'
++    return tools
+ 
+ 
+ def bound_proof():
++    tools = bound_tools()
++    newest(VERIFY_JOB, VERIFY_NAME)
++    newest(MASTER_JOB, MASTER_NAME)
++    passed(VERIFY_JOB, tools['python3']['path'], VERIFY_SCRIPTS, VERIFY_SUCCESS)
++    passed(MASTER_JOB, tools['python3']['path'], MASTER_SCRIPTS, MASTER_SUCCESS)
+     proof = read(VERIFY / 'verification.json')
+     timeline = read(TIMELINE)
+-    assert proof['master_job'] == 'logarithm-remote-master01'
++    assert proof['master_job'] == MASTER_JOB, f"the proof is for {proof['master_job']}"
++    assert proof['sha256'] != RETIRED_MASTER, 'this is the retired stage09 master'
++    assert proof['strict_video_check'] == 'passed', 'the strict video check did not pass'
++    assert proof['pictures_viewed'] is False, 'the proof claims a picture viewing'
++    assert proof['tools_sha256'] == sha(TOOLS), 'the proof names another tools file'
++    assert proof['worker'] == {'host': HOST, **{k: tools[k] for k in ('python3', 'ffmpeg', 'ffprobe')}}, 'the proof names other tools'
+     assert Path(proof['video']) == B / 'logarithm-remote-render-work01/logarithm_mysteries_master.mp4'
+     assert isinstance(proof['frames'], int) and proof['frames'] > 0
+     assert proof['frames'] == timeline['total_frames'] and proof['fps'] == timeline['fps'] == 60
+@@ -34,7 +106,19 @@
+     for chapter in timeline['chapters']:
+         path = TIMELINE.parent / 'timeline-output' / (chapter['chapter'] + '.timeline.tsv')
+         assert sha(path) == chapter['timeline_sha256'], path
+-    assert sha(proof['video']) == proof['sha256']
++    assert sha(proof['video']) == proof['sha256'], 'the master changed after verification'
++    summary = read(MASTER / 'master-summary.json')
++    assert Path(summary['master']['path']) == Path(proof['video']), 'the summary names another master file'
++    assert summary['master']['sha256'] == proof['sha256'], 'the summary is for another master'
++    assert summary['srt']['sha256'] == proof['srt_sha256'], 'the summary names other captions'
++    assert summary['vtt']['sha256'] == proof['vtt_sha256'], 'the summary names other captions'
++    assert summary['tools_sha256'] == proof['tools_sha256'], 'the master ran under another tools file'
++    assert summary['binding_sha256'] == proof['binding_sha256'], 'the master ran under another binding'
++    assert POSTCHECK.is_file(), 'no verifier post-check record: launch through start_asr02.sh'
++    record = read(POSTCHECK)
++    assert record.get('verify_job') == 'PASS' and record.get('job') == VERIFY_JOB, 'the post-check is for another job'
++    assert record.get('verification_sha256') == sha(VERIFY / 'verification.json'), 'the post-check read another proof'
++    assert record.get('master_sha256') == proof['sha256'] and record.get('frames') == proof['frames'], 'the post-check read another master'
+     return proof
+ 
+ 
+@@ -45,19 +129,6 @@
+ def sha(p):
+     with Path(p).open('rb') as handle:
+         return hashlib.file_digest(handle, 'sha256').hexdigest()
+-
+-
+-def ready():
+-    try:
+-        d = read(VERIFY / 'resource-receipt.json')
+-    except (FileNotFoundError, json.JSONDecodeError):
+-        return False
+-    if not d.get('finished'):
+-        return False
+-    assert d.get('admitted') is True and d.get('exit') == 0
+-    assert d['inputs_sha256'] == d['final_inputs_sha256']
+-    assert not d.get('stopped_for_resource_limit') and 'error' not in d
+-    return True
+ 
+ 
+ def check_files(rows):
+@@ -110,8 +181,8 @@
+ def run():
+     receipt = read(OUT / 'resource-receipt.json')
+     assert receipt.get('admitted') is True and 'exit' not in receipt
+-    assert receipt['command'] == [sys.executable, '-I', '-B', str(Path(__file__).resolve()), '--run']
+-    assert ready()
++    assert receipt.get('phase') == 'asr' and receipt.get('inputs_sha256') == sha(MANIFEST), 'not this guarded ASR job'
++    assert receipt['command'] == [sys.executable, '-I', '-B', str(Path(__file__).resolve()), '--run', VERIFY_JOB, MASTER_JOB, ATTEMPT]
+     check_files(read(MANIFEST)['files'])
+     sources = read(SOURCES)['files']
+     script, fw, model, ffmpeg = [row['path'] for row in sources]
+@@ -157,43 +228,33 @@
+     print(f'Encoded-master ASR complete; {len(changes)} differences await triage.', flush=True)
+ 
+ 
+-def wait_and_launch():
+-    check_files(read(SOURCES)['files'])
+-    script_rows(Path(read(SOURCES)['files'][0]['path']))
+-    for _ in range(8640):
+-        if ready():
+-            break
+-        for name in ('build-controller01.exit', 'audio-controller01.exit'):
+-            path = P / name
+-            if path.exists():
+-                assert path.read_text().strip() == '0', path
+-        master_receipt = B / 'logarithm-remote-master01/resource-receipt.json'
+-        try:
+-            master = read(master_receipt)
+-        except (FileNotFoundError, json.JSONDecodeError):
+-            master = {}
+-        if master.get('finished'):
+-            assert master.get('exit') == 0 and not master.get('error'), 'Repaired master failed'
+-            assert not master.get('stopped_for_resource_limit'), 'Repaired master resource stop'
+-        time.sleep(20)
+-    else:
+-        raise RuntimeError('Verification wait expired; no ASR launched')
+-    assert not OUT.exists() and not MANIFEST.exists(), 'Duplicate ASR refused'
++def launch():
+     sources = read(SOURCES)['files']
+     check_files(sources)
++    script_rows(Path(sources[0]['path']))
++    assert not OUT.exists() and not MANIFEST.exists(), 'Duplicate ASR refused'
+     proof = bound_proof()
++    scripts = [VERIFY_SCRIPTS / f'{VERIFY_JOB}{x}' for x in ('.py', '-inputs.json')]
++    scripts += [MASTER_SCRIPTS / f'{MASTER_JOB}{x}' for x in ('.py', '-inputs.json')]
+     paths = [Path(x['path']) for x in sources] + [Path(__file__).resolve(),
+-             SOURCES, GUARD, P / 'guard-pins01.json', VERIFY / 'resource-receipt.json',
+-             VERIFY / 'verification.json', TIMELINE, Path(proof['video'])]
++             SOURCES, GUARD, P / 'guard-pins01.json', TOOLS, VERIFIER, POSTCHECK, *scripts,
++             VERIFY / 'resource-receipt.json', VERIFY / 'command.log', VERIFY / 'verification.json',
++             MASTER / 'resource-receipt.json', MASTER / 'command.log', MASTER / 'master-summary.json',
++             TIMELINE, Path(proof['video'])]
+     paths += [Path(x['path']) for x in read(P / 'guard-pins01.json')['files']]
+     paths += [TIMELINE.parent / 'timeline-output' / (x['chapter'] + '.timeline.tsv') for x in proof['chapters']]
+     with MANIFEST.open('x') as handle:
+         json.dump({'files': [{'path': str(p), 'sha256': sha(p)} for p in paths]}, handle, indent=2)
+     subprocess.run([sys.executable, '-I', '-B', str(GUARD), '--phase', 'asr', '--job', JOB,
+-                    '--inputs', str(MANIFEST), '--', sys.executable, '-I', '-B', str(Path(__file__).resolve()), '--run'],
++                    '--inputs', str(MANIFEST), '--', sys.executable, '-I', '-B', str(Path(__file__).resolve()),
++                    '--run', VERIFY_JOB, MASTER_JOB, ATTEMPT],
+                    cwd=R, check=True)
+ 
+ 
+ if __name__ == '__main__':
+-    assert sys.argv[1:] in ([], ['--run'])
+-    run() if sys.argv[1:] else wait_and_launch()
++    if not __debug__:
++        raise SystemExit('asr02.py checks with assertions: launch without -O')
++    args = sys.argv[1:]
++    running = args[:1] == ['--run']
++    select(*(args[1:] if running else args))
++    run() if running else launch()

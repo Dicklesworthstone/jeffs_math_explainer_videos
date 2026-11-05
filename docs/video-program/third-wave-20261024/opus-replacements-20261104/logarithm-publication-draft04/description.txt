@@ -1,0 +1,38 @@
+Why do equal steps on a piano keyboard multiply frequency instead of adding it? That question gives us a logarithmic ruler, a working slide rule, and a way to understand what logarithms really measure.
+
+Then we bend the ruler into a circle and meet the natural logarithm, which undoes exponential growth. The circle's forgotten laps become the key to complex logarithms: infinitely many answers, winding numbers, branch cuts, and a product rule that must keep track of whole turns.
+
+Finally, we move from numbers to matrices. A matrix logarithm describes a steady flow that reaches a given transformation. We build examples with many possible flows, prove why some transformations have no real logarithm, and finish with a three-dimensional spinning-cube puzzle.
+
+We build the pictures step by step, with questions to pause and work through along the way. The film starts from doubling and ratios, uses the idea of a slope, and introduces complex numbers and matrices as it reaches them. The later chapters include full arguments, while a few general theorems are stated with their sources rather than proved.
+
+Chapters:
+0:00 A keyboard measures ratios
+2:05 Building a logarithmic ruler
+4:20 Multiplication on a slide rule
+5:52 The dial that forgets decades
+7:10 Undoing exponential growth
+10:26 Complex numbers and forgotten turns
+13:26 Why a continuous logarithm cannot close the loop
+16:22 Choosing a branch cut
+19:12 When the product rule loses a turn
+21:38 Matrix logarithms as steady flows
+23:09 Many ways to do nothing
+24:57 Transformations no real logarithm can reach
+29:33 The spinning-cube puzzle
+
+Sources and further reading:
+Nicholas J. Higham, Functions of Matrices, chapter 11 of Handbook of Linear Algebra (section 4 is the one cited on screen):
+https://eprints.maths.manchester.ac.uk/310/
+Jean Gallier, Logarithms and Square Roots of Real Matrices:
+https://arxiv.org/abs/0805.0245
+W. J. Culver, On the existence and uniqueness of the real logarithm of a matrix, Proceedings of the American Mathematical Society 17 (1966), 1146–1151. The film gives Culver's result as Higham and Gallier state it:
+https://doi.org/10.1090/S0002-9939-1966-0202740-6
+NIST Digital Library of Mathematical Functions, logarithms:
+https://dlmf.nist.gov/4.2
+For more depth, Nicholas J. Higham, Functions of Matrices: Theory and Computation, sections 1.5–1.7 and chapter 11:
+https://eprints.maths.manchester.ac.uk/1067/
+
+Visuals: FrankenManim.
+Narration: ElevenLabs Oliver, a synthetic voice.
+Music: procedural score generated in code.
