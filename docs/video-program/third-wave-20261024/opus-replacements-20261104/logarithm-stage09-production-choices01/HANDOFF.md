@@ -91,7 +91,7 @@ Each answer is `sample` at the timing inspection's `leave_24k` (`8c18a243…`). 
 2. **Recognizer differences shared by both takes, in 17 cues.** These are spelled numbers, a dropped "and" or "thousand" in numbers, "a"→"one", "quarters"→"over four", "laps"→"lapse", "nonzero" and British spellings. They are probably recognizer formatting; only listening can rule out a misread. The cues are 00_1, 00_2, 00_4, 00_5, 01_4, 02_2, 02_5, 03_2, 04_7, 05_7, 07_6, 08_1, 10_3, 11_5, 11_20, 12_2, 12_4.
 3. **04_3:** the advisory voice question is open for download01. Both takes carry it.
 4. **04_4 and 08_5:** the clarity takes have one recognizer (large-v3-turbo) only.
-5. **Answers that may land on a blip:** in 7 applied answers, leave is more than 0.1 s before the body: 00_6 s1, 04_5 s1, 05_4 s1, 06_6 s2 and s4, 08_2 s1 and s3. The answers use leave. `evidence` in the inspection rows gives `body_24k` if root prefers the body.
+5. **Answers that may land on a blip:** in 7 applied answers, leave is more than 0.1 s before the body: 00_6 s1, 04_5 s1, 05_4 s1, 06_6 s2 and s4, 08_2 s1 and s3. The answers use leave. The inspection's `outputs/timing-rows.tsv` gives `body_24k` if root prefers the body.
 6. **Answers after a raised floor:** 13 applied answers follow a −63 to −73 dBFS floor rather than digital silence, perhaps a breath. Leave is after that floor.
 7. **00_5:** its tightest join is 0.18 s (s2) in both takes.
 8. **The 33 marks keep recognizer times.** They fall mid-sentence, where energy cannot place a word. The L1 check places each at least 1.58 s inside its sentence.
