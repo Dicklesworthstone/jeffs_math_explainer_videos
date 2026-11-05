@@ -1,0 +1,43 @@
+{
+  "utc": "2026-11-05T13:54:25.802822+00:00",
+  "session": "jeffs_math_explainer_videos--opus-replacements-20261104",
+  "panes": [
+    {
+      "pane": "%167",
+      "confirmation": [
+        "\u23bf  Claude Code will continue automatically at Nov 11 at 1pm. Keep this session open; it may still pause for permission prompts. Press esc to cancel the wait.",
+        "Continuing automatically at Nov 11 at 1pm \u00b7 Esc to cancel \u00b7 /usage-credits to continue now"
+      ],
+      "fresh_provider_refusal_observed": true
+    },
+    {
+      "pane": "%168",
+      "confirmation": [
+        "\u23bf  Claude Code will continue automatically at Nov 11 at 1pm. Keep this session open; it may still pause for permission prompts. Press esc to cancel the wait.",
+        "Continuing automatically at Nov 11 at 1pm \u00b7 Esc to cancel \u00b7 /usage-credits to continue now"
+      ],
+      "fresh_provider_refusal_observed": true
+    },
+    {
+      "pane": "%169",
+      "confirmation": [
+        "\u23bf  Claude Code will continue automatically at Nov 11 at 1pm. Keep this session open; it may still pause for permission prompts. Press esc to cancel the wait.",
+        "Continuing automatically at Nov 11 at 1pm \u00b7 Esc to cancel \u00b7 /usage-credits to continue now"
+      ],
+      "fresh_provider_refusal_observed": true
+    },
+    {
+      "pane": "%170",
+      "confirmation": [
+        "\u23bf  Claude Code will continue automatically at Nov 11 at 1pm. Keep this session open; it may still pause for permission prompts. Press esc to cancel the wait.",
+        "Continuing automatically at Nov 11 at 1pm \u00b7 Esc to cancel \u00b7 /usage-credits to continue now"
+      ],
+      "fresh_provider_refusal_observed": true
+    }
+  ],
+  "reset_timezone": "America/New_York",
+  "usage_credits_enabled_by_this_action": false,
+  "accounts_changed": false,
+  "restarts": 0,
+  "scope": "All four fresh requests received weekly limit refusals. Local menu option2 selected and actual UI confirmation read on each pane. Waiting automatically is not active review or acceptance. NTM quota summary reported0/ok but actual requests remained blocked; rely on provider refusal. NTM slash send did not establish local menu transition; fresh composer plus exact tmux literal command used instead."
+}

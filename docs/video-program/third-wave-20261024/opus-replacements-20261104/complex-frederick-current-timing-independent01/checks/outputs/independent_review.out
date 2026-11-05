@@ -1,0 +1,318 @@
+PIN WhiteSwan's bundle: SHA256SUMS 42f34a75, 4 files, 4 verify
+PIN live lane: the 36 files WhiteSwan pinned are unchanged; live ingests ingest-01..ingest-11 (11); plans 11
+PASS R1 the bridge's report on the copy, lane path mapped back, equals the 5 outputs WhiteSwan bound; source side 7188f725b110; 94 takes
+
+1. WhiteSwan's 62 late points, measured independently (times in s; d = my leave - his pause end, ms)
+  01_1:s4:01_1-download02.wav        'we'        mine inside_word leave 14.521 d +6ms  spread 4ms  runs 1  sound->start gaps 0  answer 348360 (-84.3 | -39.2, -27.4)
+  01_2:s1:01_2-download01.wav        'one'       mine inside_word leave 3.095 d +5ms  spread 10ms  runs 1  sound->start gaps 0  answer 74160 (-63.1 | -44.7, -29.8)
+  01_2:s1:01_2-download02.wav        'one'       mine inside_word leave 3.181 d +6ms  spread 3ms  runs 1  sound->start gaps 0  answer 76200 (-78.3 | -41.6, -28.8)
+  01_5:s4:01_5-download01.wav        'that'      mine inside_word leave 19.096 d +6ms  spread 18ms  runs 1  sound->start gaps 0  answer 458160 (-78.3 | -56.8, -54.1)
+  01_5:s4:01_5-download02.wav        'that'      mine inside_word leave 19.189 d +9ms  spread 15ms  runs 1  sound->start gaps 0  answer 460320 (-66.8 | -57.6, -48.3)
+  01_6:s1:01_6-download01.wav        'complex'   mine inside_word leave 4.709 d +4ms  spread 6ms  runs 1  sound->start gaps 0  answer 112920 (-78.3 | -46.0, -20.3)
+  01_6:s1:01_6-download02.wav        'complex'   mine inside_word leave 4.855 d +5ms  spread 12ms  runs 1  sound->start gaps 0  answer 116400 (-71.2 | -54.9, -21.4)
+  01_6:s2:01_6-download02.wav        'by'        mine inside_word leave 7.368 d +3ms  spread 12ms  runs 1  sound->start gaps 0  answer 176760 (-63.9 | -55.2, -27.5)
+  02_1:s1:02_1-download01.wav        'its'       mine inside_word leave 3.104 d +9ms  spread 11ms  runs 1  sound->start gaps 0  answer 74280 (-64.3 | -56.9, -31.7)
+  02_3:s1:02_3-download01.wav        'it'        mine inside_word leave 3.149 d +4ms  spread 9ms  runs 1  sound->start gaps 0  answer 75480 (-61.4 | -45.9, -42.0)
+  02_3:s2:02_3-download01.wav        'that'      mine inside_word leave 5.41 d +5ms  spread 7ms  runs 1  sound->start gaps 0  answer 129720 (-70.3 | -50.5, -42.5)
+  02_4:s2:02_4-download02.wav        'multiply'  mine inside_word leave 8.458 d +8ms  spread 8ms  runs 1  sound->start gaps 0  answer 202800 (-76.3 | -54.4, -30.1)
+  02_5:s1:02_5-download01.wav        'what'      mine inside_word leave 4.512 d +7ms  spread 12ms  runs 1  sound->start gaps 0  no answer  HELD
+  02_5:s2:02_5-download01.wav        'which'     mine inside_word leave 7.361 d +6ms  spread 4ms  runs 2  sound->start gaps 0  no answer  HELD
+  02_6:s1:02_6-download01.wav        'so'        mine inside_word leave 5.723 d +8ms  spread 13ms  runs 1  sound->start gaps 0  answer 137160 (-68.7 | -56.0, -40.2)
+  02_6:s2:02_6-download01.wav        'lengths'   mine inside_word leave 9.382 d +12ms  spread 14ms  runs 1  sound->start gaps 0  answer 224880 (-71.2 | -60.6, -41.6)
+  02_6:s3:02_6-download01.wav        'hold'      mine inside_word leave 12.336 d +16ms  spread 25ms  runs 1  sound->start gaps 0  answer 295680 (-71.2 | -64.2, -57.7)
+  02_6:s4:02_6-download01.wav        'every'     mine inside_word leave 13.608 d +8ms  spread 17ms  runs 1  sound->start gaps 0  answer 326400 (-73.4 | -54.7, -51.0)
+  02_6:s1:02_6-download02.wav        'so'        mine inside_word leave 5.645 d +10ms  spread 13ms  runs 1  sound->start gaps 0  answer 135240 (-74.7 | -60.0, -43.9)
+  02_6:s2:02_6-download02.wav        'lengths'   mine inside_word leave 9.147 d +22ms  spread 23ms  runs 1  sound->start gaps 0  answer 219000 (-74.7 | -70.3, -63.5)
+  02_6:s3:02_6-download02.wav        'hold'      mine inside_word leave 11.949 d +9ms  spread 20ms  runs 1  sound->start gaps 0  answer 286560 (-68.0 | -59.1, -51.1)
+  02_6:s4:02_6-download02.wav        'every'     mine inside_word leave 13.236 d +6ms  spread 13ms  runs 1  sound->start gaps 0  answer 317520 (-61.4 | -53.1, -21.9)
+  03_1:s1:03_1-download01.wav        'its'       mine inside_word leave 3.93 d +5ms  spread 8ms  runs 1  sound->start gaps 0  answer 94200 (-59.9 | -39.5, -23.3)
+  03_1:s1:03_1-download02.wav        'its'       mine inside_word leave 3.92 d +10ms  spread 11ms  runs 1  sound->start gaps 0  answer 93840 (-65.2 | -62.2, -33.7)
+  03_2:s3:03_2-download02.wav        'its'       mine inside_word leave 12.408 d +3ms  spread 9ms  runs 1  sound->start gaps 0  answer 297720 (-58.9 | -39.5, -25.3)
+  03_5:s1:03_5-download01.wav        'points'    mine inside_word leave 2.853 d +18ms  spread 16ms  runs 1  sound->start gaps 0  answer 68040 (-80.8 | -62.7, -43.4)
+  03_5:s3:03_5-download01.wav        'inside'    mine inside_word leave 13.582 d +12ms  spread 17ms  runs 1  sound->start gaps 0  answer 325680 (-84.3 | -61.0, -55.3)
+  03_5:s4:03_5-download01.wav        'at'        mine inside_word leave 16.557 d +12ms  spread 10ms  runs 1  sound->start gaps 0  answer 397080 (-78.3 | -63.5, -40.4)
+  04_1:s2:04_1-download01.wav        'at'        mine inside_word leave 7.311 d +6ms  spread 14ms  runs 1  sound->start gaps 0  answer 175320 (-62.4 | -52.2, -39.2)
+  04_1:s3:04_1-download01.wav        'pointing'  mine inside_word leave 12.654 d +9ms  spread 15ms  runs 1  sound->start gaps 0  answer 303480 (-63.9 | -59.2, -29.9)
+  04_1:s2:04_1-download02.wav        'at'        mine inside_word leave 7.311 d +11ms  spread 10ms  runs 1  sound->start gaps 0  answer 175200 (-78.3 | -63.4, -34.0)
+  04_1:s3:04_1-download02.wav        'pointing'  mine inside_word leave 12.648 d +8ms  spread 13ms  runs 1  sound->start gaps 0  answer 303360 (-65.2 | -53.0, -25.6)
+  04_1:s5:04_1-download02.wav        'pointing'  mine at_onset    leave 16.885 d +15ms  spread 18ms  runs 1  sound->start gaps 0  answer 404880 (-65.7 | -64.0, -31.6)
+  04_3:s1:04_3-download02.wav        'every'     mine inside_word leave 1.588 d +13ms  spread 19ms  runs 1  sound->start gaps 0  answer 37800 (-58.9 | -62.4, -41.3)
+  04_4:s2:04_4-download01.wav        'that'      mine inside_word leave 10.581 d +11ms  spread 13ms  runs 1  sound->start gaps 0  answer 253680 (-64.7 | -65.3, -37.0)
+  04_4:s2:04_4-download02.wav        'that'      mine inside_word leave 10.505 d +10ms  spread 9ms  runs 1  sound->start gaps 0  answer 251880 (-70.3 | -60.7, -39.3)
+  04_7:s2:04_7-download01.wav        'that'      mine inside_word leave 9.559 d +4ms  spread 5ms  runs 1  sound->start gaps 0  answer 229320 (-70.3 | -41.9, -37.4)
+  05_4:s3:05_4-download01.wav        'sine'      mine inside_word leave 10.622 d +7ms  spread 19ms  runs 1  sound->start gaps 0  answer 254760 (-63.1 | -59.7, -47.7)
+  05_7:s1:05_7-download01.wav        'that'      mine inside_word leave 7.432 d +7ms  spread 7ms  runs 1  sound->start gaps 0  answer 178200 (-80.8 | -50.2, -47.7)
+  05_7:s1:05_7-download02.wav        'that'      mine inside_word leave 7.263 d +3ms  spread 6ms  runs 1  sound->start gaps 0  answer 174240 (-63.1 | -42.7, -35.2)
+  06_1:s1:06_1-download01.wav        'do'        mine inside_word leave 6.117 d +12ms  spread 13ms  runs 2  sound->start gaps 0  answer 146520 (-63.1 | -66.6, -40.0)
+  06_1:s2:06_1-download01.wav        'step'      mine inside_word leave 8.318 d +8ms  spread 18ms  runs 1  sound->start gaps 0  answer 199440 (-65.2 | -58.8, -49.9)
+  06_1:s3:06_1-download01.wav        'as'        mine inside_word leave 14.646 d +6ms  spread 13ms  runs 1  sound->start gaps 0  answer 351360 (-73.4 | -54.1, -28.9)
+  06_1:s1:06_1-download02.wav        'do'        mine inside_word leave 6.07 d +5ms  spread 6ms  runs 2  sound->start gaps 0  answer 145560 (-84.3 | -46.2, -47.2)
+  06_1:s2:06_1-download02.wav        'step'      mine inside_word leave 8.401 d +6ms  spread 15ms  runs 1  sound->start gaps 0  answer 201480 (-61.4 | -54.8, -44.9)
+  06_1:s3:06_1-download02.wav        'as'        mine inside_word leave 14.63 d +5ms  spread 15ms  runs 1  sound->start gaps 0  answer 351000 (-84.3 | -51.4, -26.3)
+  06_2:s3:06_2-download01.wav        'that'      mine inside_word leave 12.032 d +2ms  spread 5ms  runs 1  sound->start gaps 0  answer 288720 (-65.7 | -42.8, -37.9)
+  06_2:s3:06_2-download02.wav        'that'      mine inside_word leave 12.261 d +16ms  spread 35ms  runs 1  sound->start gaps 0  answer 293880 (-62.4 | -67.9, -57.8)
+  06_4:s1:06_4-download01.wav        'it'        mine inside_word leave 6.583 d +3ms  spread 16ms  runs 1  sound->start gaps 0  answer 157920 (-64.3 | -37.4, -25.5)
+  06_4:s1:06_4-download02.wav        'it'        mine inside_word leave 6.83 d +5ms  spread 4ms  runs 1  sound->start gaps 0  answer 163800 (-70.3 | -45.3, -41.4)
+  06_5:s1:06_5-download01.wav        'call'      mine inside_word leave 2.44 d +15ms  spread 15ms  runs 1  sound->start gaps 0  answer 58200 (-63.9 | -69.7, -27.7)
+  06_5:s1:06_5-download02.wav        'call'      mine inside_word leave 2.333 d +8ms  spread 11ms  runs 1  sound->start gaps 0  answer 55800 (-60.5 | -54.4, -24.5)
+  06_6:s2:06_6-download02.wav        'the'       mine inside_word leave 6.441 d +6ms  spread 11ms  runs 1  sound->start gaps 0  answer 154440 (-76.3 | -58.0, -43.1)
+  06_6:s3:06_6-download02.wav        'these'     mine inside_word leave 10.821 d +6ms  spread 19ms  runs 1  sound->start gaps 0  answer 259560 (-61.1 | -53.9, -36.2)
+  06_7:s2:06_7-download01.wav        'that'      mine inside_word leave 13.389 d +4ms  spread 5ms  runs 1  sound->start gaps 0  answer 321240 (-73.4 | -46.3, -32.6)
+  07_3:s1:07_3-download01.wav        'take'      mine inside_word leave 1.928 d +3ms  spread 17ms  runs 1  sound->start gaps 0  answer 46200 (-61.4 | -54.9, -43.6)
+  07_3:s2:07_3-download01.wav        'at'        mine inside_word leave 5.784 d +4ms  spread 10ms  runs 1  sound->start gaps 0  answer 138720 (-64.7 | -54.6, -27.7)
+  07_4:s2:07_4-download01.wav        'its'       mine inside_word leave 5.697 d +12ms  spread 12ms  runs 1  sound->start gaps 0  answer 136440 (-71.2 | -64.9, -38.6)
+  07_4:s3:07_4-download01.wav        'so'        mine inside_word leave 10.579 d +9ms  spread 15ms  runs 1  sound->start gaps 0  answer 253680 (-63.1 | -57.9, -44.0)
+  07_5:s3:07_5-download01.wav        'this'      mine inside_word leave 7.435 d +5ms  spread 10ms  runs 1  sound->start gaps 0  answer 178320 (-80.8 | -51.9, -46.4)
+  07_6:s3:07_6-download01.wav        'from'      mine inside_word leave 15.16 d +5ms  spread 25ms  runs 1  sound->start gaps 0  answer 363720 (-69.5 | -56.3, -55.0)
+  07_6:s3:07_6-download02.wav        'from'      mine inside_word leave 14.819 d +14ms  spread 39ms  runs 1  sound->start gaps 0  answer 355320 (-74.7 | -71.8, -58.8)
+
+  60 sample answers; 45 where my envelope also finds the start inside the word, my leave is within 10 ms of his pause end, and the sample is round(pause end x 24000)
+  my class for the 62: {'inside_word': 61, 'at_onset': 1, 'in_pause': 0, 'no_pause': 0}
+  largest |d|: 22 ms; largest threshold spread: 39 ms; longest != last: []
+  his rule re-run on my 1 ms envelope moves his pause end by at most 11 ms
+  pause lengths: min 0.36 s, median 0.508 s; rise from leave to body: max 0.043 s
+  sound from leave to the recognizer start, longest five: [(0.353, '02_6:s2:02_6-download02.wav'), (0.371, '01_6:s1:01_6-download01.wav'), (0.385, '01_6:s1:01_6-download02.wav'), (0.402, '02_4:s2:02_4-download02.wav'), (0.498, '03_5:s3:03_5-download01.wav')]
+
+2. Every sentence onset and recognized mark of the 94 takes (completeness)
+  measured 322 points: at_onset 24, in_pause 208, inside_word 66, no_pause 24
+  inside_word by my rule but not in WhiteSwan's late list: 5
+    onset:01_1:s1:01_1-download01.wav: 'one' window [2.92, 3.16] pause [2.474, 2.87] body 2.887; his class at_onset {'class': 'at_onset', 'pause_s': [2.53, 2.865], 'body_s': 2.905}
+    anchor:03_2:b90:03_2-download02.wav: 'doubles' window [6.78, 7.2] pause [6.624, 6.697] body 6.7; his class not_assessed {'class': 'not_assessed', 'pause_s': None, 'body_s': None}
+    onset:03_5:s2:03_5-download01.wav: 'the' window [7.56, 7.6] pause [6.986, 7.511] body 7.527; his class at_onset {'class': 'at_onset', 'pause_s': [7.015, 7.505], 'body_s': 7.535}
+    onset:04_3:s2:04_3-download01.wav: 'and' window [6.88, 6.9] pause [6.29, 6.831] body 6.835; his class at_onset {'class': 'at_onset', 'pause_s': [6.315, 6.825], 'body_s': 6.855}
+    onset:08_2:s1:08_2-download02.wav: 'for' window [4.7, 4.76] pause [3.991, 4.62] body 4.662; his class at_onset {'class': 'at_onset', 'pause_s': [4.055, 4.6], 'body_s': 4.69}
+  in WhiteSwan's late list but not inside_word by my rule: ['onset:04_1:s5:04_1-download02.wav']
+
+  lag of his 60 answered points: min 0.045 s, median 0.12 s, max 0.51 s; 18 under 0.1 s, 40 under 0.2 s
+
+  lag from the first sound (his pause end) to the recognizer start: his 60 answered points start at 0.045 s; onsets outside his late list with at least that lag:
+    onset:01_1:s1:01_1-download01.wav: 'one' start 2.92, his pause end 2.865 (mine 2.87), lag 0.055 s, his class at_onset; round(pause end x 24000) = 68760
+    onset:03_5:s2:03_5-download01.wav: 'the' start 7.56, his pause end 7.505 (mine 7.511), lag 0.055 s, his class at_onset; round(pause end x 24000) = 180120
+    onset:03_7:s1:03_7-download02.wav: 'the' start 3.88, his pause end 3.835 (mine 3.853), lag 0.045 s, his class at_onset; round(pause end x 24000) = 92040
+    onset:04_1:s1:04_1-download02.wav: 'to' start 3.38, his pause end 3.33 (mine 3.336), lag 0.050 s, his class at_onset; round(pause end x 24000) = 79920
+    onset:04_3:s2:04_3-download01.wav: 'and' start 6.88, his pause end 6.825 (mine 6.831), lag 0.055 s, his class at_onset; round(pause end x 24000) = 163800
+    onset:05_6:s2:05_6-download01.wav: 'it' start 6.4, his pause end 6.355 (mine 6.366), lag 0.045 s, his class at_onset; round(pause end x 24000) = 152520
+    onset:08_2:s1:08_2-download01.wav: 'for' start 4.6, his pause end 4.545 (mine 4.557), lag 0.055 s, his class at_onset; round(pause end x 24000) = 109080  HELD
+    onset:08_2:s1:08_2-download02.wav: 'for' start 4.7, his pause end 4.6 (mine 4.62), lag 0.100 s, his class at_onset; round(pause end x 24000) = 110400  HELD
+  class disagreements over all points: 47
+    anchor:01_2:b65:01_2-download01.wav: mine in_pause, his not_assessed
+    anchor:01_2:b65:01_2-download02.wav: mine in_pause, his not_assessed
+    anchor:01_2:b87:01_2-download01.wav: mine no_pause, his not_assessed
+    anchor:01_2:b87:01_2-download02.wav: mine no_pause, his not_assessed
+    anchor:02_1:b60:02_1-download01.wav: mine no_pause, his not_assessed
+    anchor:02_1:b60:02_1-download02.wav: mine no_pause, his not_assessed
+    anchor:02_1:b91:02_1-download01.wav: mine no_pause, his not_assessed
+    anchor:02_1:b91:02_1-download02.wav: mine no_pause, his not_assessed
+    anchor:02_5:b37:02_5-download01.wav: mine no_pause, his not_assessed
+    anchor:02_5:b37:02_5-download02.wav: mine no_pause, his not_assessed
+    anchor:02_6:b139:02_6-download01.wav: mine no_pause, his not_assessed
+    anchor:02_6:b139:02_6-download02.wav: mine no_pause, his not_assessed
+    anchor:03_2:b66:03_2-download01.wav: mine no_pause, his not_assessed
+    anchor:03_2:b66:03_2-download02.wav: mine no_pause, his not_assessed
+    anchor:03_2:b90:03_2-download01.wav: mine in_pause, his not_assessed
+    anchor:03_2:b90:03_2-download02.wav: mine inside_word, his not_assessed
+    anchor:03_5:b140:03_5-download01.wav: mine no_pause, his not_assessed
+    anchor:03_5:b140:03_5-download02.wav: mine no_pause, his not_assessed
+    anchor:03_7:b93:03_7-download01.wav: mine in_pause, his not_assessed
+    anchor:04_1:b266:04_1-download01.wav: mine no_pause, his not_assessed
+    anchor:04_1:b266:04_1-download02.wav: mine no_pause, his not_assessed
+    anchor:05_2:b178:05_2-download01.wav: mine no_pause, his not_assessed
+    anchor:05_2:b178:05_2-download02.wav: mine no_pause, his not_assessed
+    anchor:05_3:b151:05_3-download01.wav: mine no_pause, his not_assessed
+    anchor:05_3:b151:05_3-download02.wav: mine no_pause, his not_assessed
+    anchor:05_3:b166:05_3-download02.wav: mine in_pause, his not_assessed
+    anchor:05_6:b199:05_6-download01.wav: mine no_pause, his not_assessed
+    anchor:05_6:b199:05_6-download02.wav: mine no_pause, his not_assessed
+    anchor:05_6:b215:05_6-download01.wav: mine in_pause, his not_assessed
+    anchor:06_1:b229:06_1-download02.wav: mine in_pause, his not_assessed
+    anchor:06_3:b80:06_3-download01.wav: mine no_pause, his not_assessed
+    anchor:06_3:b80:06_3-download02.wav: mine no_pause, his not_assessed
+    onset:01_1:s1:01_1-download01.wav: mine inside_word, his at_onset
+    onset:01_5:s2:01_5-download01.wav: mine in_pause, his at_onset
+    onset:02_2:s2:02_2-download02.wav: mine in_pause, his at_onset
+    onset:02_3:s2:02_3-download02.wav: mine in_pause, his at_onset
+    onset:03_4:s1:03_4-download01.wav: mine in_pause, his not_assessed
+    onset:03_4:s1:03_4-download02.wav: mine in_pause, his before_pause
+    onset:03_5:s2:03_5-download01.wav: mine inside_word, his at_onset
+    onset:04_1:s5:04_1-download02.wav: mine at_onset, his inside_word
+    onset:04_3:s2:04_3-download01.wav: mine inside_word, his at_onset
+    onset:05_6:s1:05_6-download02.wav: mine in_pause, his at_onset
+    onset:05_7:s2:05_7-download02.wav: mine in_pause, his at_onset
+    onset:06_2:s2:06_2-download02.wav: mine in_pause, his at_onset
+    onset:07_4:s1:07_4-download01.wav: mine in_pause, his at_onset
+    onset:08_2:s1:08_2-download02.wav: mine inside_word, his at_onset
+    onset:08_2:s2:08_2-download01.wav: mine in_pause, his at_onset
+
+3. Questions and single points
+  onset:05_4:s3:05_4-download02.wav: word 'sine', status no_agreeing_word, window [10.44, 10.78], previous {'w': 'fast', 'start_s': 9.32}, my pause [10.107, 10.469] body 10.484 class in_pause; his {'class': 'in_pause', 'pause_s': [10.125, 10.455], 'body_s': 10.495}; answer {'decision': 'use_candidate', 'by': None, 'basis': "the recognizer's 'sign' in this slot starts at 10.44 s, inside the take's pause [10.125, 10.455] s just before the word sounds (body 10.495 s); envelope reading, no listening"}
+    20 ms trace: 9.84:-35 9.86:-29 9.88:-29 9.90:-30 9.92:-31 9.94:-30 9.96:-44 9.98:-53 10.00:-36 10.02:-44 10.04:-48 10.06:-56 10.08:-50 10.10:-57 10.12:-67 10.14:-83 10.16:-87 10.18:-87 10.20:-85 10.22:-85 10.24:-87 10.26:-87 10.28:-86 10.30:-86 10.32:-86 10.34:-85 10.36:-89 10.38:-90 10.40:-89 10.42:-90 10.44:-86 10.46:-59 10.48:-36 10.50:-23 10.52:-18 10.54:-17 10.56:-15 10.58:-19 10.60:-22 10.62:-14 10.64:-14 10.66:-14 10.68:-14 10.70:-14 10.72:-15
+  onset:05_4:s3:05_4-download01.wav: word 'sine', status no_agreeing_word, window [10.86, 10.92], previous {'w': 'fast', 'start_s': 9.46}, my pause [10.262, 10.622] body 10.644 class inside_word; his {'class': 'inside_word', 'pause_s': [10.29, 10.615], 'body_s': 10.655}; answer {'decision': 'sample', 'sample_24k': 254760, 'by': None, 'basis': "the recognizer's 'sign' starts at 10.86 s, 0.205 s after the word sounds (body 10.655 s); this is the end of the take's pause [10.29, 10.615] s; envelope reading, no listening"}
+    20 ms trace: 10.26:-59 10.28:-71 10.30:-83 10.32:-84 10.34:-84 10.36:-86 10.38:-86 10.40:-86 10.42:-87 10.44:-86 10.46:-86 10.48:-86 10.50:-86 10.52:-89 10.54:-90 10.56:-89 10.58:-86 10.60:-84 10.62:-54 10.64:-36 10.66:-24 10.68:-19 10.70:-16 10.72:-17 10.74:-16 10.76:-25 10.78:-14 10.80:-14 10.82:-14 10.84:-16 10.86:-14 10.88:-13 10.90:-13 10.92:-13 10.94:-15 10.96:-15 10.98:-22 11.00:-30 11.02:-34 11.04:-27 11.06:-30 11.08:-45 11.10:-54 11.12:-29 11.14:-21
+  onset:03_4:s1:03_4-download02.wav: word 'every', status supported, window [0.64, 1.18], previous {'w': 'no', 'start_s': 0.0}, my pause [0.635, 0.917] body 0.923 class in_pause; his {'class': 'before_pause', 'pause_s': [0.79, 0.89], 'body_s': 0.925}; answer None
+    20 ms trace: 0.04:-20 0.06:-16 0.08:-11 0.10:-11 0.12:-9 0.14:-9 0.16:-11 0.18:-11 0.20:-14 0.22:-16 0.24:-21 0.26:-22 0.28:-27 0.30:-26 0.32:-29 0.34:-36 0.36:-37 0.38:-42 0.40:-42 0.42:-40 0.44:-47 0.46:-52 0.48:-57 0.50:-54 0.52:-59 0.54:-57 0.56:-59 0.58:-60 0.60:-60 0.62:-64 0.64:-61 0.66:-63 0.68:-63 0.70:-63 0.72:-67 0.74:-69 0.76:-71 0.78:-67 0.80:-74 0.82:-70 0.84:-76 0.86:-83 0.88:-79 0.90:-70 0.92:-21
+  anchor:03_2:b90:03_2-download02.wav: word 'doubles', status supported, window [6.78, 7.2], previous {'w': 'and', 'start_s': 6.44}, my pause [6.624, 6.697] body 6.7 class inside_word; his {'class': 'not_assessed', 'pause_s': None, 'body_s': None}; answer None
+    20 ms trace: 6.18:-20 6.20:-20 6.22:-20 6.24:-18 6.26:-22 6.28:-24 6.30:-26 6.32:-29 6.34:-26 6.36:-28 6.38:-30 6.40:-33 6.42:-45 6.44:-37 6.46:-47 6.48:-44 6.50:-43 6.52:-42 6.54:-44 6.56:-47 6.58:-51 6.60:-60 6.62:-52 6.64:-74 6.66:-83 6.68:-79 6.70:-27 6.72:-25 6.74:-21 6.76:-20 6.78:-25 6.80:-34 6.82:-37 6.84:-47 6.86:-63 6.88:-64 6.90:-72 6.92:-32 6.94:-17 6.96:-13 6.98:-12 7.00:-13 7.02:-18 7.04:-28 7.06:-37
+  anchor:03_2:b90:03_2-download01.wav: word 'doubles', status supported, window [7.0, 7.34], previous {'w': 'and', 'start_s': 6.56}, my pause [6.994, 7.045] body 7.062 class in_pause; his {'class': 'not_assessed', 'pause_s': None, 'body_s': None}; answer None
+    20 ms trace: 6.40:-24 6.42:-27 6.44:-27 6.46:-30 6.48:-28 6.50:-26 6.52:-28 6.54:-41 6.56:-36 6.58:-44 6.60:-45 6.62:-43 6.64:-42 6.66:-45 6.68:-46 6.70:-51 6.72:-60 6.74:-48 6.76:-59 6.78:-58 6.80:-75 6.82:-40 6.84:-24 6.86:-20 6.88:-19 6.90:-23 6.92:-29 6.94:-33 6.96:-40 6.98:-53 7.00:-65 7.02:-65 7.04:-46 7.06:-21 7.08:-15 7.10:-11 7.12:-12 7.14:-11 7.16:-21 7.18:-29 7.20:-44 7.22:-26 7.24:-22 7.26:-24 7.28:-28
+  the same-lag onsets, 10 ms trace from 0.05 s before his pause end to 0.03 s after the recognizer start:
+    01_1:s1:01_1-download01.wav: 2.815:-87 2.825:-86 2.835:-84 2.845:-87 2.855:-77 2.865:-49 2.875:-43 2.885:-36 2.895:-31 2.905:-29 2.915:-28 2.925:-28 2.935:-27 2.945:-27
+    03_5:s2:03_5-download01.wav: 7.455:-88 7.465:-88 7.475:-87 7.485:-85 7.495:-74 7.505:-52 7.515:-45 7.525:-35 7.535:-21 7.545:-16 7.555:-16 7.565:-17 7.575:-19 7.585:-22
+    03_7:s1:03_7-download02.wav: 3.785:-89 3.795:-88 3.805:-89 3.815:-87 3.825:-77 3.835:-62 3.845:-45 3.855:-36 3.865:-21 3.875:-17 3.885:-14 3.895:-13 3.905:-13
+    04_1:s1:04_1-download02.wav: 3.280:-89 3.290:-90 3.300:-89 3.310:-89 3.320:-86 3.330:-54 3.340:-38 3.350:-30 3.360:-28 3.370:-29 3.380:-24 3.390:-17 3.400:-17
+    04_3:s2:04_3-download01.wav: 6.775:-90 6.785:-90 6.795:-87 6.805:-91 6.815:-74 6.825:-38 6.835:-37 6.845:-36 6.855:-22 6.865:-18 6.875:-16 6.885:-14 6.895:-13 6.905:-14
+    05_6:s2:05_6-download01.wav: 6.305:-87 6.315:-86 6.325:-88 6.335:-90 6.345:-90 6.355:-67 6.365:-42 6.375:-38 6.385:-22 6.395:-18 6.405:-20 6.415:-24 6.425:-36
+    08_2:s1:08_2-download01.wav: 4.495:-88 4.505:-89 4.515:-87 4.525:-86 4.535:-83 4.545:-62 4.555:-58 4.565:-53 4.575:-47 4.585:-42 4.595:-37 4.605:-36 4.615:-32 4.625:-33
+    08_2:s1:08_2-download02.wav: 4.550:-89 4.560:-87 4.570:-88 4.580:-88 4.590:-74 4.600:-66 4.610:-60 4.620:-53 4.630:-48 4.640:-43 4.650:-40 4.660:-38 4.670:-33 4.680:-34 4.690:-21 4.700:-16 4.710:-16 4.720:-17 4.730:-19
+  the same-lag onsets, voicing r at 10, 20 and 30 ms after his pause end (75-300 Hz, 30 ms windows):
+    01_1:s1:01_1-download01.wav 'one': 0.91 0.93 0.94
+    03_5:s2:03_5-download01.wav 'the': 0.65 0.84 0.90
+    03_7:s1:03_7-download02.wav 'the': 0.74 0.88 0.92
+    04_1:s1:04_1-download02.wav 'to': 0.18 0.15 0.50
+    04_3:s2:04_3-download01.wav 'and': 0.82 0.77 0.83
+    05_6:s2:05_6-download01.wav 'it': 0.88 0.81 0.81
+    08_2:s1:08_2-download01.wav 'for': 0.17 0.15 0.16
+    08_2:s1:08_2-download02.wav 'for': 0.17 0.14 0.12
+  mark 03_2 b90 'doubles' and the words before it: voicing r / 10 ms dB every 20 ms (my own rule flagged download02)
+    03_2-download02.wav words: [5.24-5.72]squares [5.72-6.08]each [6.08-6.44]length [6.44-6.78]and [6.78-7.20]doubles [7.20-7.54]each
+      6.30:0.54/-26 6.32:0.48/-29 6.34:0.31/-26 6.36:0.09/-28 6.38:0.18/-30 6.40:0.30/-33 6.42:0.22/-45 6.44:0.20/-37 6.46:0.14/-47 6.48:0.13/-44 6.50:0.14/-43 6.52:0.14/-42 6.54:0.13/-44 6.56:0.11/-47 6.58:0.16/-51 6.60:0.20/-60 6.62:0.40/-52 6.64:0.45/-74 6.66:0.11/-83 6.68:0.56/-79 6.70:0.82/-27 6.72:0.96/-25 6.74:0.92/-21 6.76:0.85/-20 6.78:0.94/-25 6.80:0.80/-34 6.82:0.78/-37 6.84:0.59/-47 6.86:0.28/-63 6.88:0.36/-64 6.90:0.23/-72 6.92:0.69/-32 6.94:0.82/-17 6.96:0.84/-13 6.98:0.73/-12 7.00:0.73/-13 7.02:0.48/-18 7.04:0.56/-28 7.06:0.65/-37 7.08:0.70/-26
+    03_2-download01.wav words: [5.32-5.86]squares [5.86-6.20]each [6.20-6.56]length [6.56-7.00]and [7.00-7.34]doubles [7.34-7.68]each
+      6.40:0.95/-24 6.42:0.81/-27 6.44:0.81/-27 6.46:0.66/-30 6.48:0.47/-28 6.50:0.46/-26 6.52:0.59/-28 6.54:0.20/-41 6.56:0.17/-36 6.58:0.12/-44 6.60:0.13/-45 6.62:0.11/-43 6.64:0.12/-42 6.66:0.10/-45 6.68:0.12/-46 6.70:0.15/-51 6.72:0.35/-60 6.74:0.08/-48 6.76:0.26/-59 6.78:0.31/-58 6.80:0.46/-75 6.82:0.74/-40 6.84:0.92/-24 6.86:0.96/-20 6.88:0.83/-19 6.90:0.76/-23 6.92:0.80/-29 6.94:0.81/-33 6.96:0.77/-40 6.98:0.57/-53 7.00:0.14/-65 7.02:0.32/-65 7.04:0.23/-46 7.06:0.72/-21 7.08:0.90/-15 7.10:0.89/-11 7.12:0.85/-12 7.14:0.79/-11 7.16:0.38/-21 7.18:0.29/-29 7.20:0.51/-44 7.22:0.78/-26 7.24:0.81/-22 7.26:0.92/-24 7.28:0.94/-28
+  anchor marks at sentence starts that inherit a late onset: 9
+
+4. The 18 content questions: script, the bridge's differences, the raw recognizer segments
+  content:01_3:01_3-download01.wav [notation] proposed proceed
+    script: 'Between minus one and one, it works, though near the ends it needs more and more terms. Just past one, it falls apart. At one point one, the recipe up to x to the fortieth gives about twenty five. The bump itself is less than one half there.'
+    bridge difference: replace 'to the fortieth' -> 'forty'
+    raw segments 28-29 +-3: [10.52-10.84]'recipe' [10.84-11.12]'up' [11.12-11.28]'to' [11.28-12.22]'x^40' [12.22-12.78]'gives' [12.78-13.06]'about' [13.06-14.48]'25.' [14.48-14.68]'The'
+  content:01_3:01_3-download02.wav [notation] proposed proceed
+    script: 'Between minus one and one, it works, though near the ends it needs more and more terms. Just past one, it falls apart. At one point one, the recipe up to x to the fortieth gives about twenty five. The bump itself is less than one half there.'
+    bridge difference: replace 'to the fortieth' -> 'forty'
+    raw segments 29-30 +-3: [10.48-10.88]'recipe' [10.88-11.16]'up' [11.16-11.30]'to' [11.30-12.24]'x^40' [12.24-12.74]'gives' [12.74-13.00]'about' [13.00-14.00]'25.' [14.12-14.62]'The'
+  content:01_6:01_6-download01.wav [same_sound] proposed proceed
+    script: 'So points we could not see from the real line were deciding what happens on it. Complex functions are that rigid. By the end, the same idea will count roots we never find and compute a real area from points off the line. First, we need a way to see complex functions at all.'
+    bridge difference: replace 'roots' -> 'routes'
+    raw segments 28-30 +-3: [8.10-8.36]'same' [8.36-8.70]'idea' [8.70-8.96]'will' [8.96-9.26]'count' [9.26-9.56]'routes' [9.56-9.78]'we' [9.78-10.12]'never' [10.12-10.78]'find,' [10.78-10.98]'and'
+  content:01_6:01_6-download02.wav [same_sound] proposed proceed
+    script: 'So points we could not see from the real line were deciding what happens on it. Complex functions are that rigid. By the end, the same idea will count roots we never find and compute a real area from points off the line. First, we need a way to see complex functions at all.'
+    bridge difference: replace 'roots' -> 'routes'
+    raw segments 28-30 +-3: [8.28-8.52]'same' [8.52-8.88]'idea' [8.88-9.10]'will' [9.10-9.42]'count' [9.42-9.68]'routes' [9.68-9.92]'we' [9.92-10.22]'never' [10.22-10.90]'find,' [10.90-11.14]'and'
+  content:02_4:02_4-download02.wav [open] proposed None
+    script: "Multiplying by any complex number does two things at once. It stretches by that number's length and turns by its angle. Multiply by one plus i, and the plane grows by the square root of two and turns an eighth of a turn."
+    bridge difference: replace 'turn' -> 'term'
+    raw segments 41-42 +-3: [13.76-14.00]'an' [14.00-14.34]'eighth' [14.34-14.48]'of' [14.48-14.60]'a' [14.60-15.19]'term.'
+  content:02_5:02_5-download01.wav [held] proposed None
+    script: 'Multiplying by one plus i once makes an eighth of a turn. What happens if you multiply by it twice? Which number is one plus i, squared?'
+    bridge difference: delete 'one plus i' -> ''
+    bridge difference: replace 'turn' -> 'term'
+    bridge difference: delete 'one plus i' -> ''
+    ggml-small.en.bin difference: replace 'turn' -> 'term'
+    raw segments 1-2 +-3: [0.00-0.64]'Multiplying' [0.64-0.88]'by' [0.88-1.18]'once' [1.18-2.76]'makes' [2.76-2.92]'an' [2.92-3.22]'eighth'
+    raw segments 7-9 +-3: [2.76-2.92]'an' [2.92-3.22]'eighth' [3.22-3.40]'of' [3.40-3.52]'a' [3.52-4.60]'term.' [4.60-4.64]'What' [4.64-4.96]'happens' [4.96-5.12]'if' [5.12-5.24]'you'
+    raw segments 19-20 +-3: [6.08-7.46]'twice?' [7.46-7.56]'Which' [7.56-7.92]'number' [7.92-8.22]'is' [8.22-10.31]'squared?'
+  content:02_5:02_5-download02.wav [held] proposed None
+    script: 'Multiplying by one plus i once makes an eighth of a turn. What happens if you multiply by it twice? Which number is one plus i, squared?'
+    bridge difference: delete 'one plus i' -> ''
+    bridge difference: replace 'turn' -> 'term'
+    bridge difference: delete 'one plus i' -> ''
+    ggml-small.en.bin difference: replace 'turn' -> 'term'
+    raw segments 1-2 +-3: [0.00-0.62]'Multiplying' [0.62-0.82]'by' [0.82-1.20]'once' [1.20-2.68]'makes' [2.68-2.84]'an' [2.84-3.14]'eighth'
+    raw segments 7-9 +-3: [2.68-2.84]'an' [2.84-3.14]'eighth' [3.14-3.32]'of' [3.32-3.40]'a' [3.40-4.40]'term.' [4.40-4.62]'What' [4.62-4.92]'happens' [4.92-5.08]'if' [5.08-5.18]'you'
+    raw segments 19-20 +-3: [6.00-7.20]'twice?' [7.20-7.46]'Which' [7.46-7.82]'number' [7.82-8.16]'is' [8.16-10.15]'squared?'
+  content:03_2:03_2-download01.wav [notation] proposed proceed
+    script: 'Start with squaring. Lengths multiply and angles add, so squaring squares each length and doubles each angle. Walk a point once around a circle of radius one half. Its image goes around a circle of radius one quarter, twice.'
+    bridge difference: replace 'half' -> 'over two'
+    bridge difference: replace 'quarter' -> 'over four'
+    raw segments 26-27 +-3: [10.24-10.60]'circle' [10.60-10.78]'of' [10.78-11.12]'radius' [11.12-12.16]'1/2.' [12.16-12.66]'Its' [12.66-13.06]'image' [13.06-13.34]'goes' [13.34-13.62]'around'
+    raw segments 35-36 +-3: [13.74-14.04]'circle' [14.04-14.22]'of' [14.22-14.52]'radius' [14.52-15.50]'1/4,' [15.50-16.46]'twice.'
+  content:04_7:04_7-download01.wav [notation] proposed proceed
+    script: 'Two poles, at i and minus i, each with one backwards cycle. And the circle of radius one around zero just touches them. That is the opening puzzle, seen in colour.'
+    bridge difference: delete 'minus' -> ''
+    raw segments 4-5 +-3: [0.24-0.80]'poles' [0.80-1.26]'at' [1.26-1.60]'i' [1.60-1.96]'and' [1.96-2.88]'-i,' [2.88-3.36]'each' [3.36-3.56]'with' [3.56-3.88]'one'
+  content:04_7:04_7-download02.wav [notation] proposed proceed
+    script: 'Two poles, at i and minus i, each with one backwards cycle. And the circle of radius one around zero just touches them. That is the opening puzzle, seen in colour.'
+    bridge difference: delete 'minus' -> ''
+    raw segments 4-5 +-3: [0.22-0.82]'poles' [0.82-1.28]'at' [1.28-1.62]'i' [1.62-1.96]'and' [1.96-2.98]'-i,' [2.98-3.36]'each' [3.36-3.56]'with' [3.56-3.86]'one'
+  content:05_4:05_4-download01.wav [same_sound] proposed proceed
+    script: 'Sine has zeros at every multiple of pi on the real line, and nowhere else. On the real line it never passes one. But off the line it grows fast. Sine of i is about one point one eight i, and sine of three i is about ten i.'
+    bridge difference: replace 'sine' -> 'sign'
+    bridge difference: replace 'sine' -> 'sign'
+    bridge difference: replace 'sine' -> 'sign'
+    raw segments 0-1 +-3: [0.00-0.42]'Sign' [0.42-0.66]'has' [0.66-1.10]'zeros' [1.10-1.36]'at' [1.36-1.76]'every'
+    raw segments 29-31 +-3: [8.74-8.98]'line' [8.98-9.20]'it' [9.20-9.46]'grows' [9.46-10.86]'fast.' [10.86-10.92]'Sign' [10.92-11.04]'of' [11.04-11.32]'i' [11.32-11.60]'is' [11.60-11.84]'about'
+    raw segments 36-38 +-3: [11.32-11.60]'is' [11.60-11.84]'about' [11.84-13.58]'1.18i,' [13.58-13.90]'and' [13.90-14.18]'sign' [14.18-14.30]'of' [14.30-14.86]'3i' [14.86-15.18]'is' [15.18-15.38]'about'
+  content:05_4:05_4-download02.wav [same_sound] proposed proceed
+    script: 'Sine has zeros at every multiple of pi on the real line, and nowhere else. On the real line it never passes one. But off the line it grows fast. Sine of i is about one point one eight i, and sine of three i is about ten i.'
+    bridge difference: replace 'sine' -> 'sign'
+    bridge difference: replace 'sine' -> 'sign'
+    bridge difference: replace 'sine' -> 'sign'
+    raw segments 0-1 +-3: [0.00-0.40]'Sign' [0.40-0.64]'has' [0.64-1.02]'zeros' [1.02-1.28]'at' [1.28-1.66]'every'
+    raw segments 29-31 +-3: [8.56-8.98]'line,' [8.98-9.08]'it' [9.08-9.32]'grows' [9.32-10.42]'fast.' [10.44-10.78]'Sign' [10.78-10.90]'of' [10.90-11.14]'i' [11.14-11.44]'is' [11.44-11.68]'about'
+    raw segments 36-38 +-3: [11.14-11.44]'is' [11.44-11.68]'about' [11.68-13.22]'1.18i,' [13.22-13.58]'and' [13.58-13.86]'sign' [13.86-14.00]'of' [14.00-14.54]'3i' [14.54-14.90]'is' [14.90-15.12]'about'
+  content:06_4:06_4-download01.wav [notation] proposed proceed
+    script: 'Squaring at one plus i has derivative two times one plus i, which is two plus two i. It stretches by about two point eight and turns an eighth of a turn. Shrink the square, and its image gets ever closer to exactly that.'
+    bridge difference: delete 'plus' -> ''
+    bridge difference: delete 'plus' -> ''
+    bridge difference: delete 'plus' -> ''
+    raw segments 2-2 +-3: [0.00-0.50]'Squaring' [0.50-0.66]'at' [0.66-1.54]'1+i' [1.54-1.92]'has' [1.92-2.40]'derivative' [2.40-2.90]'2'
+    raw segments 7-7 +-3: [1.92-2.40]'derivative' [2.40-2.90]'2' [2.90-3.26]'times' [3.26-4.18]'1+i,' [4.18-4.48]'which' [4.48-4.64]'is' [4.64-6.64]'2+2i.'
+    raw segments 10-10 +-3: [3.26-4.18]'1+i,' [4.18-4.48]'which' [4.48-4.64]'is' [4.64-6.64]'2+2i.' [6.64-6.68]'It' [6.68-7.06]'stretches' [7.06-7.32]'by'
+  content:06_4:06_4-download02.wav [notation] proposed proceed
+    script: 'Squaring at one plus i has derivative two times one plus i, which is two plus two i. It stretches by about two point eight and turns an eighth of a turn. Shrink the square, and its image gets ever closer to exactly that.'
+    bridge difference: delete 'plus' -> ''
+    bridge difference: delete 'plus' -> ''
+    bridge difference: delete 'plus' -> ''
+    raw segments 2-2 +-3: [0.00-0.48]'Squaring' [0.48-0.64]'at' [0.64-1.52]'1+i' [1.52-1.92]'has' [1.92-2.40]'derivative' [2.40-2.90]'2'
+    raw segments 7-7 +-3: [1.92-2.40]'derivative' [2.40-2.90]'2' [2.90-3.34]'times' [3.34-4.38]'1+i,' [4.38-4.66]'which' [4.66-4.82]'is' [4.82-5.16]'2'
+    raw segments 10-12 +-3: [3.34-4.38]'1+i,' [4.38-4.66]'which' [4.66-4.82]'is' [4.82-5.16]'2' [5.16-5.62]'+' [5.62-6.90]'2i.' [6.90-6.94]'It' [6.94-7.30]'stretches' [7.30-7.58]'by'
+  content:07_2:07_2-download01.wav [notation] proposed proceed
+    script: 'So a nonzero derivative keeps angles. A map like that is called conformal. A point where the derivative is zero is a critical point, and there angles get multiplied.'
+    bridge difference: replace 'nonzero' -> 'non zero'
+    raw segments 1-3 +-3: [0.00-0.20]'So' [0.20-0.50]'a' [0.50-1.06]'non-zero' [1.06-1.58]'derivative' [1.58-2.22]'keeps' [2.22-3.38]'angles.' [3.38-3.48]'A'
+  content:07_2:07_2-download02.wav [notation] proposed proceed
+    script: 'So a nonzero derivative keeps angles. A map like that is called conformal. A point where the derivative is zero is a critical point, and there angles get multiplied.'
+    bridge difference: replace 'nonzero' -> 'non zero'
+    raw segments 1-3 +-3: [0.00-0.24]'So' [0.24-0.52]'a' [0.52-1.14]'non-zero' [1.14-1.68]'derivative' [1.68-2.26]'keeps' [2.26-3.46]'angles.' [3.46-3.56]'A'
+  content:08_2:08_2-download01.wav [held] proposed None
+    script: 'Draw each product as an arrow, and lay the arrows tip to tail. For f of z equals z, around the unit circle, the arrows curl around and close up. The total is zero.'
+    bridge difference: delete 'of z equals' -> ''
+    raw segments 14-16 +-3: [3.34-3.54]'to' [3.54-4.60]'tail.' [4.60-4.70]'For' [4.70-4.98]'f' [4.98-5.60]'=' [5.60-6.38]'z,' [6.38-6.78]'around' [6.78-6.94]'the' [6.94-7.24]'unit'
+  content:08_2:08_2-download02.wav [held] proposed None
+    script: 'Draw each product as an arrow, and lay the arrows tip to tail. For f of z equals z, around the unit circle, the arrows curl around and close up. The total is zero.'
+    bridge difference: delete 'of z equals' -> ''
+    raw segments 14-16 +-3: [3.32-3.48]'to' [3.48-4.70]'tail.' [4.70-4.76]'For' [4.76-5.04]'f' [5.04-5.68]'=' [5.68-6.40]'z,' [6.40-6.90]'around' [6.90-7.06]'the' [7.06-7.34]'unit'
+
+4b. The bridge's resolve() on all 94 takes (answers signed 'independent-check' in memory only)
+  no answers: 92/94 takes resolve; refused: ['05_4 05_4-download01.wav: onset:05_4:s3:05_4-download01.wav: no onset', '05_4 05_4-download02.wav: onset:05_4:s3:05_4-download02.wav: no onset']
+  WhiteSwan's 61 timing answers: 94/94 takes resolve
+  his 61 plus the 6 same-lag onsets: 94/94 takes resolve
+
+5. Held cues 02_5 and 08_2: sound stretches (split at >= 0.15 s at or below -60 dBFS) and the recognizers' words
+  02_5 02_5-download01.wav: [0.06-3.92]3.86s [4.50-6.86]2.35s [7.35-10.12]2.76s
+    [0.06-3.92] 'Multiplying by one plus i once makes an eighth of a turn.': script 15 syl, 3.9 syl/s; turbo's words 12 syl, 3.1 syl/s
+    [4.50-6.86] 'What happens if you multiply by it twice?': script 11 syl, 4.7 syl/s
+    [7.35-10.12] 'Which number is one plus i, squared?': script 8 syl, 2.9 syl/s; turbo's words 5 syl, 1.8 syl/s
+    large-v3-turbo: [0.00-0.64]Multiplying [0.64-0.88]by [0.88-1.18]once [1.18-2.76]makes [2.76-2.92]an [2.92-3.22]eighth [3.22-3.40]of [3.40-3.52]a [3.52-4.60]term. [4.60-4.64]What [4.64-4.96]happens [4.96-5.12]if [5.12-5.24]you [5.24-5.70]multiply [5.70-5.92]by [5.92-6.08]it [6.08-7.46]twice? [7.46-7.56]Which [7.56-7.92]number [7.92-8.22]is [8.22-10.31]squared?
+    small.en:       [0.00-0.62]Multiplying [0.62-0.84]by [0.84-1.14]1 [1.14-1.36]plus [1.36-1.74]i [1.74-2.18]once [2.18-2.70]makes [2.70-2.94]an [2.94-3.20]eighth [3.20-3.38]of [3.38-3.52]a [3.52-4.40]term. [4.50-4.62]What [4.62-4.90]happens [4.90-5.12]if [5.12-5.26]you [5.26-5.68]multiply [5.68-5.98]by [5.98-6.18]it [6.18-7.20]twice? [7.32-7.54]Which [7.54-7.86]number [7.86-8.22]is [8.22-8.54]1 [8.54-8.78]plus [8.78-9.26]i [9.26-10.31]squared?
+  02_5 02_5-download02.wav: [0.04-3.85]3.81s [4.44-6.75]2.31s [7.24-9.98]2.74s
+    [0.04-3.85] 'Multiplying by one plus i once makes an eighth of a turn.': script 15 syl, 3.9 syl/s; turbo's words 12 syl, 3.1 syl/s
+    [4.44-6.75] 'What happens if you multiply by it twice?': script 11 syl, 4.8 syl/s
+    [7.24-9.98] 'Which number is one plus i, squared?': script 8 syl, 2.9 syl/s; turbo's words 5 syl, 1.8 syl/s
+    large-v3-turbo: [0.00-0.62]Multiplying [0.62-0.82]by [0.82-1.20]once [1.20-2.68]makes [2.68-2.84]an [2.84-3.14]eighth [3.14-3.32]of [3.32-3.40]a [3.40-4.40]term. [4.40-4.62]What [4.62-4.92]happens [4.92-5.08]if [5.08-5.18]you [5.18-5.62]multiply [5.62-5.84]by [5.84-6.00]it [6.00-7.20]twice? [7.20-7.46]Which [7.46-7.82]number [7.82-8.16]is [8.16-10.15]squared?
+    small.en:       [0.00-0.60]Multiplying [0.60-0.84]by [0.84-1.16]1 [1.16-1.40]plus [1.40-1.72]i [1.72-2.18]once [2.18-2.64]makes [2.64-2.90]an [2.90-3.14]eighth [3.14-3.32]of [3.32-3.44]a [3.44-4.40]term. [4.44-4.60]What [4.60-4.88]happens [4.88-5.08]if [5.08-5.22]you [5.22-5.64]multiply [5.64-5.90]by [5.90-6.12]it [6.12-7.20]twice? [7.20-7.44]Which [7.44-7.74]number [7.74-8.10]is [8.10-8.40]1 [8.40-8.66]plus [8.66-9.16]i [9.16-9.96]squared?
+  08_2 08_2-download01.wav: [0.03-1.97]1.94s [2.12-4.04]1.92s [4.55-6.30]1.75s [6.54-7.87]1.33s [8.02-10.29]2.27s [10.70-12.09]1.38s
+    [0.03-1.97] 'Draw each product as an arrow,': script 8 syl, 4.1 syl/s
+    [2.12-4.04] 'and lay the arrows tip to tail.': script 8 syl, 4.2 syl/s
+    [4.55-6.30] 'For f of z equals z,': script 7 syl, 4.0 syl/s; turbo's words 5 syl, 2.9 syl/s
+    [6.54-7.87] 'around the unit circle,': script 7 syl, 5.3 syl/s
+    [8.02-10.29] 'the arrows curl around and close up.': script 9 syl, 4.0 syl/s
+    [10.70-12.09] 'The total is zero.': script 6 syl, 4.3 syl/s
+    large-v3-turbo: [0.00-0.26]Draw [0.26-0.58]each [0.58-0.98]product [0.98-1.24]as [1.24-1.38]an [1.38-1.76]arrow [1.76-2.26]and [2.26-2.50]lay [2.50-2.62]the [2.62-3.02]arrows [3.02-3.34]tip [3.34-3.54]to [3.54-4.60]tail. [4.60-4.70]For [4.70-4.98]f [4.98-5.60]= [5.60-6.38]z, [6.38-6.78]around [6.78-6.94]the [6.94-7.24]unit [7.24-7.92]circle, [7.92-8.12]the [8.12-8.48]arrows [8.48-8.84]curl [8.84-9.22]around [9.22-9.50]and [9.50-9.88]close [9.88-10.72]up. [10.72-10.80]The [10.80-11.14]total [11.14-11.54]is [11.54-12.04]zero.
+  08_2 08_2-download02.wav: [0.03-1.93]1.90s [2.13-4.00]1.87s [4.61-6.34]1.73s [6.64-10.34]3.70s [10.74-12.15]1.41s
+    [0.03-1.93] 'Draw each product as an arrow,': script 8 syl, 4.2 syl/s
+    [2.13-4.00] 'and lay the arrows tip to tail.': script 8 syl, 4.3 syl/s
+    [4.61-6.34] 'For f of z equals z,': script 7 syl, 4.0 syl/s; turbo's words 5 syl, 2.9 syl/s
+    [6.64-10.34] 'around the unit circle, the arrows curl around and close up.': script 16 syl, 4.3 syl/s
+    [10.74-12.15] 'The total is zero.': script 6 syl, 4.2 syl/s
+    large-v3-turbo: [0.00-0.26]Draw [0.26-0.58]each [0.58-0.98]product [0.98-1.22]as [1.22-1.36]an [1.36-1.74]arrow [1.74-2.22]and [2.22-2.46]lay [2.46-2.58]the [2.58-2.98]arrows [2.98-3.32]tip [3.32-3.48]to [3.48-4.70]tail. [4.70-4.76]For [4.76-5.04]f [5.04-5.68]= [5.68-6.40]z, [6.40-6.90]around [6.90-7.06]the [7.06-7.34]unit [7.34-7.78]circle [7.78-8.16]the [8.16-8.54]arrows [8.54-8.88]curl [8.88-9.28]around [9.28-9.56]and [9.56-9.92]close [9.92-10.78]up. [10.78-10.84]The [10.84-11.18]total [11.18-11.58]is [11.58-12.10]zero.
+
+wrote SCRATCH/review.json (322 points)

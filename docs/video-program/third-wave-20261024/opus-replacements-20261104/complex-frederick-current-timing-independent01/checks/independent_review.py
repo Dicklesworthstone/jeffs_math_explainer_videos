@@ -98,6 +98,19 @@ def level_db(x, a, b, peak=False):
     return round(20 * math.log10(v / 32768), 1) if v > 0 else -120.0
 
 
+def voicing(x, t, win=0.03):
+    """Peak normalized autocorrelation over 75-300 Hz pitch lags in the 30 ms from t: near 1 periodic, near 0 not."""
+    a, n = int(round(t * 48000)), int(win * 48000)
+    seg = x[a:a + n + 640]
+    e0 = sum(v * v for v in seg[:n])
+    best = 0.0
+    for lag in range(160, 641, 2):
+        e1 = sum(v * v for v in seg[lag:lag + n])
+        if e0 > 0 and e1 > 0:
+            best = max(best, sum(seg[i] * seg[i + lag] for i in range(n)) / math.sqrt(e0 * e1))
+    return round(best, 2)
+
+
 def clean(text):
     return str(text).replace(str(SCR.resolve()), "SCRATCH").replace(str(SCR), "SCRATCH").replace(str(REPO), "REPO")
 
@@ -281,6 +294,9 @@ print(f"  in WhiteSwan's late list but not inside_word by my rule: {missed}")
 # lag = recognizer start minus the first sound after the pause: no body threshold, so soft onsets count fully
 answered = [pid for pid in late_ids if points[pid].get("answer")]
 floor_lag = min(points[i]["window_s"][0] - white[i]["pause_s"][1] for i in answered)
+lags = sorted(round(points[i]["window_s"][0] - white[i]["pause_s"][1], 3) for i in answered)
+print(f"\n  lag of his 60 answered points: min {lags[0]} s, median {lags[len(lags) // 2]} s, max {lags[-1]} s; "
+      f"{sum(v < 0.1 for v in lags)} under 0.1 s, {sum(v < 0.2 for v in lags)} under 0.2 s")
 print(f"\n  lag from the first sound (his pause end) to the recognizer start: his {len(answered)} answered points "
       f"start at {floor_lag:.3f} s; onsets outside his late list with at least that lag:")
 same_lag = []
@@ -315,6 +331,28 @@ for pid in ("onset:05_4:s3:05_4-download02.wav", "onset:05_4:s3:05_4-download01.
     a = int((p["window_s"][0] - 0.6) * 1000)
     trace = " ".join(f"{k / 1000:.2f}:{round(take['db'][k])}" for k in range(max(0, a), min(len(take["db"]), a + 900), 20))
     print(f"    20 ms trace: {trace}")
+
+print("  the same-lag onsets, 10 ms trace from 0.05 s before his pause end to 0.03 s after the recognizer start:")
+for pid in same_lag:
+    p = points[pid]
+    db = takes_meta[(p["cue"], p["file"])]["db"]
+    a, b = int((p["white"]["pause_s"][1] - 0.05) * 1000), int((p["window_s"][0] + 0.03) * 1000)
+    print(f"    {pid[len('onset:'):]}: " + " ".join(f"{k / 1000:.3f}:{round(db[k])}" for k in range(a, b + 1, 10)))
+
+print("  the same-lag onsets, voicing r at 10, 20 and 30 ms after his pause end (75-300 Hz, 30 ms windows):")
+for pid in same_lag:
+    p = points[pid]
+    x = takes_meta[(p["cue"], p["file"])]["x"]
+    t0 = p["white"]["pause_s"][1]
+    print(f"    {pid[len('onset:'):]} {p['word']!r}: " + " ".join(f"{voicing(x, t0 + d):.2f}" for d in (0.01, 0.02, 0.03)))
+
+print("  mark 03_2 b90 'doubles' and the words before it: voicing r / 10 ms dB every 20 ms (my own rule flagged download02)")
+for name, a, b in (("03_2-download02.wav", 6.30, 7.10), ("03_2-download01.wav", 6.40, 7.30)):
+    take = takes_meta[("03_2", name)]
+    near = [s for s in take["segments"] if s["end_sec"] > a - 0.8 and s["start_sec"] < b + 0.2]
+    print(f"    {name} words: " + " ".join(f"[{s['start_sec']:.2f}-{s['end_sec']:.2f}]{s['text']}" for s in near))
+    print("      " + " ".join(f"{k / 1000:.2f}:{voicing(take['x'], k / 1000):.2f}/{round(take['db'][k])}"
+                             for k in range(int(round(a * 1000)), int(round(b * 1000)), 20)))
 
 anchors_inherit = sorted(m["id"] for t in report["takes"].values() for m in t["anchors"]
                          if m["status"] == "sentence_onset" and m["same_as"] in late_ids)
@@ -362,6 +400,17 @@ for label, chosen_answers in (("no answers", {}), ("WhiteSwan's 61 timing answer
 # ----------------------------------------------------------------------------- 5. held cues: durations only
 
 print("\n5. Held cues 02_5 and 08_2: sound stretches (split at >= 0.15 s at or below -60 dBFS) and the recognizers' words")
+# Hand counts (British reading: f = "eff", z = "zed", i = "eye"): the script's syllables per phrase, and the syllables of
+# large-v3-turbo's words over the same phrase ("=" read as "equals"). Durations only: they say how much was spoken, not what.
+PHRASES = {
+    "02_5": [("Multiplying by one plus i once makes an eighth of a turn.", 15, 12),
+             ("What happens if you multiply by it twice?", 11, 11),
+             ("Which number is one plus i, squared?", 8, 5)],
+    "08_2": [("Draw each product as an arrow,", 8, 8), ("and lay the arrows tip to tail.", 8, 8),
+             ("For f of z equals z,", 7, 5), ("around the unit circle,", 7, 7),
+             ("the arrows curl around and close up.", 9, 9), ("The total is zero.", 6, 6)],
+}
+MERGE = {"08_2-download02.wav": [[0], [1], [2], [3, 4], [5]]}  # this take runs "circle, the arrows" without a pause
 sup_log = REPO / sup["job"] / "command.log"
 if sha(sup_log) != sup["command_log_sha256"]:
     fail("targeted-small01 command.log moved")
@@ -382,6 +431,14 @@ for (cue, name), take in sorted(report["takes"].items()):
     if a is not None:
         stretches.append((a / 1000, (last + 10) / 1000))
     print(f"  {cue} {name}: " + " ".join(f"[{s:.2f}-{e:.2f}]{e - s:.2f}s" for s, e in stretches))
+    groups = MERGE.get(name, [[i] for i in range(len(PHRASES[cue]))])
+    if len(groups) != len(stretches):
+        print(f"    {len(stretches)} stretches for {len(groups)} phrase groups: no rates")
+    for (s, e), group in zip(stretches if len(groups) == len(stretches) else [], groups):
+        text = " ".join(PHRASES[cue][i][0] for i in group)
+        n_script, n_turbo = (sum(PHRASES[cue][i][k] for i in group) for k in (1, 2))
+        note = "" if n_script == n_turbo else f"; turbo's words {n_turbo} syl, {n_turbo / (e - s):.1f} syl/s"
+        print(f"    [{s:.2f}-{e:.2f}] {text!r}: script {n_script} syl, {n_script / (e - s):.1f} syl/s{note}")
     words = takes_meta[(cue, name)]["segments"]
     print("    large-v3-turbo: " + " ".join(f"[{s['start_sec']:.2f}-{s['end_sec']:.2f}]{s['text']}" for s in words))
     for r in sup_records:

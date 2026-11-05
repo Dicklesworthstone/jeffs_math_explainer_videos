@@ -1,0 +1,54 @@
+PASS D0 v3 SHA256SUMS is aa645803
+PASS D0 v3 helper is 6e5a602d
+PASS D0 v4 SHA256SUMS is 34b04c88
+PASS D0 v4 helper is debd6f75
+PASS D0 logarithm-stage09-render-preparation03: every SHA256SUMS row verifies
+     5 rows
+PASS D0 logarithm-stage09-render-preparation04: every SHA256SUMS row verifies
+     5 rows
+PASS D1 my v3->v4 diff has the same changed lines as Lavender's docs/v3-to-v4.diff
+     9 changed regions at v3 lines 2, 349, 420, 611, 614, 647, 698, 715, 774; -5/+57 lines
+PASS D2 template functions: version 4 adds frame_to_sample and incomplete; only timeline and render change
+     18 functions; changed: ['render', 'timeline']
+PASS D3 the only timeout that changes is the timeline's kit run, 2400 -> 7200 s
+     timeline verify_argv 900, argv 7200; preview argv 14400; score argv 7200; render argv 43200; master argv 14400, captions_argv 1200
+PASS F1 frame_to_sample equals exact round-half-away of frames*48000/fps (units.rs:41) on 960,008 cases
+PASS C1 every real capture (7 Nov 2, 11 series 02) is PCM tag 1, 48 kHz s16 stereo, with exactly frame_to_sample frames declared and present, and passes version 4's render-job test; each series 02 render-summary names it at today's hash
+     Nov 2 00_opening 2790 frames -> 2232000 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     Nov 2 01_real_inverse 3340 frames -> 2672000 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     Nov 2 02_winding 2803 frames -> 2242400 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     Nov 2 03_branch_cut 2767 frames -> 2213600 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     Nov 2 04_principal_product 1993 frames -> 1594400 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     Nov 2 05_matrix_log 2779 frames -> 2223200 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     Nov 2 06_closing 1311 frames -> 1048800 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     series 02 00_ratio_ruler 7547 frames -> 6037600 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     series 02 01_building_ruler 8055 frames -> 6444000 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     series 02 02_slide_rule 5575 frames -> 4460000 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     series 02 03_folded_decade 4679 frames -> 3743200 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     series 02 04_undoing_growth 11725 frames -> 9380000 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     series 02 05_complex_turns 10811 frames -> 8648800 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     series 02 06_lifting_loops 10571 frames -> 8456800 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     series 02 07_branch_cut 10182 frames -> 8145600 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     series 02 08_product_rule 8738 frames -> 6990400 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     series 02 09_matrix_logs 5509 frames -> 4407200 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+     series 02 10_doing_nothing 6466 frames -> 5172800 samples, soundtrack_0.wav, tag 1, chunks fmt /data
+PASS C2 planted captures from series 02's 02_slide_rule (5575 frames) under Python 3.15
+     exact copy: accepted
+     same PCM, WAVE_FORMAT_EXTENSIBLE header: accepted
+     a LIST chunk after the data: accepted
+     one frame cut from the end: refused: 48000 Hz, 2 channels, 16 bits, 4460000 frames in the header and 4459999 present; the chapt
+     half-written copy (header for the whole file): refused: 48000 Hz, 2 channels, 16 bits, 4460000 frames in the header and 2229994 present; the chapt
+     header only: refused: 48000 Hz, 2 channels, 16 bits, 4460000 frames in the header and 0 present; the chapter nee
+     one frame more: refused: 48000 Hz, 2 channels, 16 bits, 4460001 frames in the header and 4460000 present; the chapt
+     mono, same length: refused: 48000 Hz, 1 channels, 16 bits, 4460000 frames in the header and 4460000 present; the chapt
+     not a WAV: refused: not a readable WAV (Error: file does not start with RIFF id)
+PASS J1 every series 02 job script names and binds helper debd6f75 and carries version 4's capture test
+     13/13: timeline02, score02, render-00_ratio_ruler-02, render-01_building_ruler-02, render-02_slide_rule-02, render-03_folded_decade-02, render-04_undoing_growth-02, render-05_complex_turns-02, render-06_lifting_loops-02, render-07_branch_cut-02, render-08_product_rule-02, render-09_matrix_logs-02, render-10_doing_nothing-02
+PASS J2 no job script in the workspace was written by version 3 (6e5a602d), so version 4 accepting only its own and version 2's jobs leaves nothing unverifiable
+     b867aaa2: 1; debd6f75: 14
+NOTE E1 timeline02: job 3844 s, kit 3811.8 s for 116245 frames (margin 1.89x under 7200); slowest chapter 12_what_it_forgets at 12.2 fps, which over the whole film would be 9528 s
+NOTE E1 score02 job 1079 s (timeout 7200); renders 00-10 jobs 735-1629 s (timeout 43200 each)
+PASS S1 every real file read is unchanged (size, mtime, sha256)
+     115 files
+
+15/15 PASS

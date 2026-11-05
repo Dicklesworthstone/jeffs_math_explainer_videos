@@ -1,0 +1,1838 @@
+{
+ "claim": "Comparison of complete retained takes on recognizer, helper, energy and rule evidence. Nothing was heard, selected, answered, decoded or changed; root selects and prepares.",
+ "pins": {
+  "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-production-join-inspection01/SHA256SUMS": "e05ea847fe1439d9108ff6c42f4b2f6225bd253a4d604d1d6e97715d6f962bc9",
+  "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-timing-inspection01/SHA256SUMS": "8c18a24363d745e65be1a3ffec89b1d1bfc8d4c2a77185c85b0a2fcd805490bf",
+  "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-production-choices01/SHA256SUMS": "357613e5a21a23ce525a99d46da33d74cc8578eb23003d2c9dcfe2f79092f8cf",
+  "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-timing-corrections01/SHA256SUMS": "26279b53a90d46988422b7d5f0b489b8d3481b9bdabc104281284c9062a2336d",
+  "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-audio-preparation02/prepare_audio.py": "54df274a468be6122251efa7e4ccd7e11477fc8a93522e66de484ffb9be4eb0d",
+  "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-audio-preparation01/bindings/logarithm-stage09-oliver.json": "2d7f4731d373b5089686f5d345834faeb1a7238dc15007abfc7b4fab420d6803",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/production-audio-stage09-01/selection01.json": "a5c4dfa119806d8ad46a1539c40ffd4de372dcd3541b5b62d6b673eead53a4bc",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/production-audio-stage09-01/decoded01/decode-receipt.json": "4e442a6c27f192a995cdb6e7e2b5a8fb46ac676b6fadc2e09ca32cce06a51cc2",
+  "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-production-choices01/inputs/answers.json": "8f9a0cd0fe196a0a0586b79b9f1bd68b4f1c9593d32f20ef03e4d13b372c269d",
+  "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-timing-corrections01/inputs/answers02.json": "075c83bd99081ef2e7b749f17c71dda50ade228f35d647e80ecdc99ae67abdca",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/opening-recognition01/recognition-comparison01.json": "6e894b9aacad3e2ea26ae17f219bbcb6b505709197126586177a329a5be45d78",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remaining-recognition01/transcript-review01.json": "bf3727e27c28967c6442d3143470c21779f8951506f32e363ce902f85275c8ef",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_2-request01.json": "185088fd2df8609774d2b7c26fba897fa2f2804ad2a28a4569b68fa7d084a392",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_6-request01.json": "7170d9474bc211204fe00955e71931f1f3e057e6983e3e5f64ee40d1d9143047",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_5-request01.json": "b0904ec91b8bec0f46ea5b32e26505b2df506cb4dabfd7b36726e48df6d8737e",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_2-request01.json": "7f4c81b4bbfbec83284ecd8b0af602bcbe58540f2e0217062a72b7ff8551d0be",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_2-downloads01.json": "71b34501ca49d31928be6696c2b99dd261b8c4f8c0b2593f322108212dcd028b",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_6-downloads01.json": "4472b45b1d08fbb02eb9385ead440fa094f94020201d767887303608072f2549",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_5-downloads01.json": "a7a64cf2b6c94127122c2c140b3f045111b9344d9f92b3e6b347c20d30597c85",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_2-downloads01.json": "970461ad05ed3ec5c20d4e34803ad60de811fc1cd395f8b1406060995fe20fe8",
+  "fmn sound.rs": "7bb983c03c3759b73c5963cb539dfcc78e5ba059eb2ecc90e22c6d9dbccd608c"
+ },
+ "check_selection_sha256": "b8e952bbc0f3cdf4f99535d712a2cdc1271be26b5024c8ddaa40fa2fee384515",
+ "check_answers_refusals": {},
+ "answers_applied": {
+  "answers01/selection01": 92,
+  "answers01/swap4": 91,
+  "answers02/selection01": 97,
+  "answers02/swap4": 95
+ },
+ "lavender_control": [
+  {
+   "cue": "01_2",
+   "point": "s1",
+   "lavender_24k": {
+    "sample": 166560,
+    "flags": [],
+    "leave_s": 6.99
+   },
+   "replay_48k": {
+    "sample": 166560,
+    "flags": [],
+    "leave_s": 6.99
+   },
+   "equal": true
+  },
+  {
+   "cue": "01_2",
+   "point": "s2",
+   "lavender_24k": {
+    "sample": 317760,
+    "flags": [],
+    "leave_s": 13.28
+   },
+   "replay_48k": {
+    "sample": 317760,
+    "flags": [],
+    "leave_s": 13.28
+   },
+   "equal": true
+  },
+  {
+   "cue": "07_6",
+   "point": "s1",
+   "lavender_24k": {
+    "sample": 39840,
+    "flags": [],
+    "leave_s": 1.66
+   },
+   "replay_48k": {
+    "sample": 39840,
+    "flags": [],
+    "leave_s": 1.66
+   },
+   "equal": true
+  },
+  {
+   "cue": "07_6",
+   "point": "s2",
+   "lavender_24k": {
+    "sample": 242880,
+    "flags": [
+     "late"
+    ],
+    "leave_s": 9.92
+   },
+   "replay_48k": {
+    "sample": 242880,
+    "flags": [
+     "late"
+    ],
+    "leave_s": 9.92
+   },
+   "equal": true
+  },
+  {
+   "cue": "07_6",
+   "point": "s3",
+   "lavender_24k": {
+    "sample": 384000,
+    "flags": [
+     "late"
+    ],
+    "leave_s": 15.92
+   },
+   "replay_48k": {
+    "sample": 384000,
+    "flags": [
+     "late"
+    ],
+    "leave_s": 15.92
+   },
+   "equal": true
+  },
+  {
+   "cue": "07_6",
+   "point": "s4",
+   "lavender_24k": {
+    "sample": 503040,
+    "flags": [
+     "late"
+    ],
+    "leave_s": 20.82
+   },
+   "replay_48k": {
+    "sample": 503040,
+    "flags": [
+     "late"
+    ],
+    "leave_s": 20.82
+   },
+   "equal": true
+  },
+  {
+   "cue": "07_6",
+   "point": "s5",
+   "lavender_24k": {
+    "sample": 636000,
+    "flags": [
+     "late"
+    ],
+    "leave_s": 26.45
+   },
+   "replay_48k": {
+    "sample": 636000,
+    "flags": [
+     "late"
+    ],
+    "leave_s": 26.45
+   },
+   "equal": true
+  },
+  {
+   "cue": "07_6",
+   "point": "s6",
+   "lavender_24k": {
+    "sample": 840720,
+    "flags": [],
+    "leave_s": 35.03
+   },
+   "replay_48k": {
+    "sample": 840720,
+    "flags": [],
+    "leave_s": 35.03
+   },
+   "equal": true
+  },
+  {
+   "cue": "11_5",
+   "point": "s1",
+   "lavender_24k": {
+    "sample": 60000,
+    "flags": [],
+    "leave_s": 2.54
+   },
+   "replay_48k": {
+    "sample": 60000,
+    "flags": [],
+    "leave_s": 2.54
+   },
+   "equal": true
+  },
+  {
+   "cue": "11_5",
+   "point": "s2",
+   "lavender_24k": {
+    "sample": 302400,
+    "flags": [],
+    "leave_s": 12.67
+   },
+   "replay_48k": {
+    "sample": 302400,
+    "flags": [],
+    "leave_s": 12.67
+   },
+   "equal": true
+  },
+  {
+   "cue": "11_5",
+   "point": "s3",
+   "lavender_24k": {
+    "sample": 437760,
+    "flags": [],
+    "leave_s": 18.29
+   },
+   "replay_48k": {
+    "sample": 437760,
+    "flags": [],
+    "leave_s": 18.29
+   },
+   "equal": true
+  },
+  {
+   "cue": "11_5",
+   "point": "s4",
+   "lavender_24k": {
+    "sample": 648000,
+    "flags": [],
+    "leave_s": 27.05
+   },
+   "replay_48k": {
+    "sample": 648000,
+    "flags": [],
+    "leave_s": 27.05
+   },
+   "equal": true
+  },
+  {
+   "cue": "11_5",
+   "point": "b72",
+   "lavender_24k": {
+    "sample": 131040,
+    "flags": [
+     "no_pause"
+    ],
+    "leave_s": null
+   },
+   "replay_48k": {
+    "sample": 131040,
+    "flags": [
+     "no_pause"
+    ],
+    "leave_s": null
+   },
+   "equal": true
+  },
+  {
+   "cue": "11_5",
+   "point": "b178",
+   "lavender_24k": {
+    "sample": 367680,
+    "flags": [],
+    "leave_s": 15.37
+   },
+   "replay_48k": {
+    "sample": 367680,
+    "flags": [],
+    "leave_s": 15.37
+   },
+   "equal": true
+  },
+  {
+   "cue": "12_2",
+   "point": "s1",
+   "lavender_24k": {
+    "sample": 96000,
+    "flags": [],
+    "leave_s": 4.01
+   },
+   "replay_48k": {
+    "sample": 96000,
+    "flags": [],
+    "leave_s": 4.01
+   },
+   "equal": true
+  },
+  {
+   "cue": "12_2",
+   "point": "s2",
+   "lavender_24k": {
+    "sample": 243840,
+    "flags": [],
+    "leave_s": 10.16
+   },
+   "replay_48k": {
+    "sample": 243840,
+    "flags": [],
+    "leave_s": 10.16
+   },
+   "equal": true
+  }
+ ],
+ "end_step_estimate": {
+  "fmn_last_frame_gain": 2.807443,
+  "decode_ratio": 1.0,
+  "decode_ratio_cue": "00_1",
+  "tail_source": 256,
+  "tail_decoded": 64
+ },
+ "rules": [
+  {
+   "cue": "01_2",
+   "sealed_choice": "01_2-download01.wav",
+   "sealed_rule": "R5 lower download number (shortest boundary pauses 0.50 / 0.51 s)",
+   "edge60_choice": "01_2-download02.wav",
+   "edge60_rule": "R2 integrity: 0 flag(s) against 1",
+   "flags60": {
+    "01_2-download01.wav": [
+     "edge60: sound above -60 dBFS in the first or last 10 ms frame"
+    ],
+    "01_2-download02.wav": []
+   },
+   "shortest_pause_s": {
+    "01_2-download01.wav": 0.5,
+    "01_2-download02.wav": 0.51
+   }
+  },
+  {
+   "cue": "07_6",
+   "sealed_choice": "07_6-download01.wav",
+   "sealed_rule": "R4 room: shortest boundary pause 0.47 s against 0.40 s",
+   "edge60_choice": "07_6-download02.wav",
+   "edge60_rule": "R2 integrity: 0 flag(s) against 1",
+   "flags60": {
+    "07_6-download01.wav": [
+     "edge60: sound above -60 dBFS in the first or last 10 ms frame"
+    ],
+    "07_6-download02.wav": []
+   },
+   "shortest_pause_s": {
+    "07_6-download01.wav": 0.47,
+    "07_6-download02.wav": 0.4
+   }
+  },
+  {
+   "cue": "11_5",
+   "sealed_choice": "11_5-download02.wav",
+   "sealed_rule": "R4 room: shortest boundary pause 0.49 s against 0.43 s",
+   "edge60_choice": "11_5-download01.wav",
+   "edge60_rule": "R2 integrity: 0 flag(s) against 1",
+   "flags60": {
+    "11_5-download01.wav": [],
+    "11_5-download02.wav": [
+     "edge60: sound above -60 dBFS in the first or last 10 ms frame"
+    ]
+   },
+   "shortest_pause_s": {
+    "11_5-download01.wav": 0.43,
+    "11_5-download02.wav": 0.49
+   }
+  },
+  {
+   "cue": "12_2",
+   "sealed_choice": "12_2-download01.wav",
+   "sealed_rule": "R4 room: shortest boundary pause 0.58 s against 0.49 s",
+   "edge60_choice": "12_2-download02.wav",
+   "edge60_rule": "R2 integrity: 0 flag(s) against 1",
+   "flags60": {
+    "12_2-download01.wav": [
+     "edge60: sound above -60 dBFS in the first or last 10 ms frame"
+    ],
+    "12_2-download02.wav": []
+   },
+   "shortest_pause_s": {
+    "12_2-download01.wav": 0.58,
+    "12_2-download02.wav": 0.49
+   }
+  }
+ ],
+ "pointer_not_audited": [
+  {
+   "cue": "04_3",
+   "selected": "04_3-download01.wav",
+   "where": "start",
+   "sealed_rule": "R5"
+  },
+  {
+   "cue": "09_4",
+   "selected": "09_4-download02.wav",
+   "where": "start",
+   "sealed_rule": "R4"
+  }
+ ],
+ "takes": {
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_2-download01.wav": {
+   "cue": "01_2",
+   "file": "01_2-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_2-download01.wav",
+   "selected": true,
+   "sha256": "60df1f63ed54293b4555cec658f511f6815f1139afb530be690758dfefce325d",
+   "frames_48k": 956160,
+   "seconds": 19.92,
+   "request": {
+    "utc_downloads": "2026-11-04T22:19:36.125007+00:00",
+    "voice": "Oliver - Clean, British and Steady",
+    "model": "Eleven v4",
+    "stability": 0.5,
+    "similarity": 0.75,
+    "format": "WAV 48 kHz (Lossless)",
+    "listening": false
+   },
+   "recognizer": {
+    "run": "opening",
+    "model": "ggml-large-v3-turbo.bin",
+    "log_sha256": "4113e65f9c4e91a3aa5fbdacc6de6d7311fc9acdd9318ed5cda9d44eda46a8e8",
+    "words": 54,
+    "differences": [],
+    "last_script_word": "along",
+    "last_word_recognized": true,
+    "last_word_end_s": 19.91,
+    "unshared": [],
+    "unshared_not_notation": [],
+    "shared": []
+   },
+   "root_review": {
+    "file": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/opening-recognition01/recognition-comparison01.json",
+    "words_equal_record": true,
+    "differences": [],
+    "listened": null,
+    "transcript": "The rule behind it fits in one sentence. The position of a product is the sum of the positions. Halving must undo a doubling. So one half sits one step before the start. And since the square root of two times itself is two, the square root of two sits half a step along.",
+    "punctuation_vs_other": [
+     {
+      "word_after": "so",
+      "this": "",
+      "other": ","
+     }
+    ]
+   },
+   "frames_24k": 478080,
+   "answers_used_answers01": [],
+   "answers_used_answers02": [],
+   "sentence_ends_24k_answers02": [
+    166560,
+    317760,
+    478080
+   ],
+   "marks_answers02": [],
+   "join_flags_answers02": {},
+   "pause_compare": [
+    {
+     "script_between": "sentence:",
+     "char": 31,
+     "selected_s": 0.53,
+     "alternative_s": 0.49,
+     "delta_s": -0.04
+    },
+    {
+     "script_between": "positions.",
+     "char": 85,
+     "selected_s": 0.5,
+     "alternative_s": 0.51,
+     "delta_s": 0.01
+    },
+    {
+     "script_between": "doubling,",
+     "char": 116,
+     "selected_s": 0.19,
+     "alternative_s": 0.24,
+     "delta_s": 0.05
+    },
+    {
+     "script_between": "start.",
+     "char": 163,
+     "selected_s": 0.61,
+     "alternative_s": 0.56,
+     "delta_s": -0.05
+    },
+    {
+     "script_between": "two,",
+     "char": 219,
+     "selected_s": 0.27,
+     "alternative_s": 0.0,
+     "delta_s": -0.27
+    }
+   ],
+   "pause_total_s": 2.1,
+   "edges": {
+    "lead_40_s": 0.08,
+    "tail_40_s": 0.23,
+    "lead_60_s": 0.07,
+    "tail_60_s": 0.0,
+    "first_10ms_db": -84.6,
+    "last_10ms_db": -54.8,
+    "first_1ms_db": -87.4,
+    "last_1ms_db": -49.3,
+    "first_samples": [
+     2,
+     1,
+     1
+    ],
+    "last_samples": [
+     185,
+     217,
+     134
+    ],
+    "first_10ms_db_raw": -84.61721104986128,
+    "last_10ms_db_raw": -54.787718164116306,
+    "speech_level_ends_s": 19.69,
+    "floor_after_speech_db": -89.04,
+    "quiet_frames_before_last_frame": 15,
+    "last_two_frames_db": [
+     -82.97,
+     -54.79
+    ],
+    "rise_in_last_10ms": true,
+    "last_10ms_1ms_db": [
+     -71.3,
+     -66.1,
+     -68.9,
+     -68.0,
+     -59.9,
+     -55.3,
+     -53.9,
+     -52.6,
+     -51.4,
+     -49.3
+    ],
+    "source_last_256_max_abs": 252,
+    "bus_end_estimate_dbfs": -33.3,
+    "bus_end_estimate_abs": 707.5,
+    "bus_last_48k": [
+     181.3,
+     179.0,
+     174.7
+    ],
+    "bus_end_dbfs": -45.5,
+    "estimate_covers_actual": true
+   }
+  },
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_2-download02.wav": {
+   "cue": "01_2",
+   "file": "01_2-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_2-download02.wav",
+   "selected": false,
+   "sha256": "057db2a16a523a87c7ac581c76c6e1292d12024e8fafa3463a17cd7f1b0b3b8a",
+   "frames_48k": 952320,
+   "seconds": 19.84,
+   "request": {
+    "utc_downloads": "2026-11-04T22:19:36.125007+00:00",
+    "voice": "Oliver - Clean, British and Steady",
+    "model": "Eleven v4",
+    "stability": 0.5,
+    "similarity": 0.75,
+    "format": "WAV 48 kHz (Lossless)",
+    "listening": false
+   },
+   "recognizer": {
+    "run": "opening",
+    "model": "ggml-large-v3-turbo.bin",
+    "log_sha256": "4113e65f9c4e91a3aa5fbdacc6de6d7311fc9acdd9318ed5cda9d44eda46a8e8",
+    "words": 54,
+    "differences": [],
+    "last_script_word": "along",
+    "last_word_recognized": true,
+    "last_word_end_s": 19.83,
+    "unshared": [],
+    "unshared_not_notation": [],
+    "shared": []
+   },
+   "root_review": {
+    "file": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/opening-recognition01/recognition-comparison01.json",
+    "words_equal_record": true,
+    "differences": [],
+    "listened": null,
+    "transcript": "The rule behind it fits in one sentence. The position of a product is the sum of the positions. Halving must undo a doubling. So, one half sits one step before the start. And since the square root of two times itself is two, the square root of two sits half a step along.",
+    "punctuation_vs_other": [
+     {
+      "word_after": "so",
+      "this": ",",
+      "other": ""
+     }
+    ]
+   },
+   "frames_24k": 476160,
+   "answers_used_answers01": [],
+   "answers_used_answers02": [],
+   "sentence_ends_24k_answers02": [
+    167040,
+    316800,
+    476160
+   ],
+   "marks_answers02": [],
+   "join_flags_answers02": {},
+   "pause_total_s": 1.8,
+   "cadence_items": [
+    {
+     "script_between": "two,",
+     "char": 219,
+     "selected_s": 0.27,
+     "alternative_s": 0.0,
+     "delta_s": -0.27
+    }
+   ],
+   "edges": {
+    "lead_40_s": 0.08,
+    "tail_40_s": 0.26,
+    "lead_60_s": 0.07,
+    "tail_60_s": 0.14,
+    "first_10ms_db": -84.8,
+    "last_10ms_db": -85.5,
+    "first_1ms_db": -85.9,
+    "last_1ms_db": -91.9,
+    "first_samples": [
+     2,
+     1,
+     1
+    ],
+    "last_samples": [
+     0,
+     2,
+     2
+    ],
+    "first_10ms_db_raw": -84.77370812134106,
+    "last_10ms_db_raw": -85.5197281433651,
+    "speech_level_ends_s": 19.58,
+    "floor_after_speech_db": -86.54,
+    "quiet_frames_before_last_frame": 13,
+    "last_two_frames_db": [
+     -84.95,
+     -85.52
+    ],
+    "rise_in_last_10ms": false,
+    "last_10ms_1ms_db": [
+     -84.7,
+     -84.3,
+     -84.5,
+     -84.4,
+     -85.7,
+     -84.4,
+     -85.0,
+     -85.8,
+     -89.6,
+     -91.9
+    ],
+    "source_last_256_max_abs": 2,
+    "bus_end_estimate_dbfs": -75.3,
+    "bus_end_estimate_abs": 5.6
+   }
+  },
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_6-download01.wav": {
+   "cue": "07_6",
+   "file": "07_6-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_6-download01.wav",
+   "selected": true,
+   "sha256": "52c8b873af0db460c13be854510cb013f95eaca12532217a965a23552de63cee",
+   "frames_48k": 1866240,
+   "seconds": 38.88,
+   "request": {
+    "utc_downloads": "2026-11-05T01:23:52.078465+00:00",
+    "voice": "Oliver",
+    "model": "Eleven v4",
+    "stability": 0.5,
+    "similarity": 0.75,
+    "format": "WAV 48 kHz",
+    "listening": false
+   },
+   "recognizer": {
+    "run": "remaining",
+    "model": "ggml-large-v3-turbo.bin",
+    "log_sha256": "3e479160bebb7daf0759caab2f7a538df6527cd53d34b3cf218c5a0295a442b7",
+    "words": 96,
+    "differences": [
+     {
+      "op": "replace",
+      "script": "nonzero",
+      "heard": "non zero"
+     }
+    ],
+    "last_script_word": "convention",
+    "last_word_recognized": true,
+    "last_word_end_s": 38.87,
+    "unshared": [],
+    "unshared_not_notation": [],
+    "shared": [
+     "nonzero->non zero"
+    ]
+   },
+   "root_review": {
+    "file": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remaining-recognition01/transcript-review01.json",
+    "words_equal_record": true,
+    "differences": [
+     {
+      "script": "nonzero",
+      "recognized": "non zero"
+     }
+    ],
+    "listened": false,
+    "transcript": "Two cautions: on the negative numbers themselves, the usual convention assigns the angle pi, so the principal value exists there too. But it jumps. Just below the cut, the angles are close to minus pi. And the principal logarithm undoes the exponential from one side only. Exponentiating the logarithm of z gives back z for every non-zero z. But the logarithm of e to the w gives back w only when the height of w is above minus pi and at most pi. That is the strip, with its top edge added by the convention.",
+    "punctuation_vs_other": []
+   },
+   "frames_24k": 933120,
+   "answers_used_answers01": [
+    "onset:07_6:s1:07_6-download01.wav",
+    "onset:07_6:s6:07_6-download01.wav"
+   ],
+   "answers_used_answers02": [
+    "onset:07_6:s1:07_6-download01.wav",
+    "onset:07_6:s2:07_6-download01.wav",
+    "onset:07_6:s3:07_6-download01.wav",
+    "onset:07_6:s4:07_6-download01.wav",
+    "onset:07_6:s5:07_6-download01.wav",
+    "onset:07_6:s6:07_6-download01.wav"
+   ],
+   "sentence_ends_24k_answers02": [
+    39840,
+    238080,
+    382080,
+    499680,
+    634800,
+    840720,
+    933120
+   ],
+   "marks_answers02": [],
+   "join_flags_answers02": {},
+   "pause_compare": [
+    {
+     "script_between": "cautions.",
+     "char": 4,
+     "selected_s": 0.52,
+     "alternative_s": 0.67,
+     "delta_s": 0.15
+    },
+    {
+     "script_between": "pi,",
+     "char": 89,
+     "selected_s": 0.26,
+     "alternative_s": 0.0,
+     "delta_s": -0.26
+    },
+    {
+     "script_between": "too.",
+     "char": 129,
+     "selected_s": 0.54,
+     "alternative_s": 0.52,
+     "delta_s": -0.02
+    },
+    {
+     "script_between": "jumps:",
+     "char": 141,
+     "selected_s": 0.38,
+     "alternative_s": 0.35,
+     "delta_s": -0.03
+    },
+    {
+     "script_between": "pi.",
+     "char": 198,
+     "selected_s": 0.62,
+     "alternative_s": 0.61,
+     "delta_s": -0.01
+    },
+    {
+     "script_between": "only.",
+     "char": 267,
+     "selected_s": 0.51,
+     "alternative_s": 0.4,
+     "delta_s": -0.11
+    },
+    {
+     "script_between": "z.",
+     "char": 338,
+     "selected_s": 0.47,
+     "alternative_s": 0.41,
+     "delta_s": -0.06
+    },
+    {
+     "script_between": "only",
+     "char": 386,
+     "selected_s": 0.0,
+     "alternative_s": 0.11,
+     "delta_s": 0.11
+    },
+    {
+     "script_between": "pi.",
+     "char": 442,
+     "selected_s": 0.59,
+     "alternative_s": 0.41,
+     "delta_s": -0.18
+    }
+   ],
+   "pause_total_s": 3.89,
+   "edges": {
+    "lead_40_s": 0.05,
+    "tail_40_s": 0.18,
+    "lead_60_s": 0.05,
+    "tail_60_s": 0.0,
+    "first_10ms_db": -84.0,
+    "last_10ms_db": -45.3,
+    "first_1ms_db": -86.2,
+    "last_1ms_db": -37.4,
+    "first_samples": [
+     2,
+     1,
+     1
+    ],
+    "last_samples": [
+     -441,
+     -505,
+     -311
+    ],
+    "first_10ms_db_raw": -83.9975215792443,
+    "last_10ms_db_raw": -45.263435502135096,
+    "speech_level_ends_s": 38.7,
+    "floor_after_speech_db": -82.56,
+    "quiet_frames_before_last_frame": 7,
+    "last_two_frames_db": [
+     -82.56,
+     -45.26
+    ],
+    "rise_in_last_10ms": true,
+    "last_10ms_1ms_db": [
+     -77.2,
+     -80.6,
+     -72.2,
+     -67.6,
+     -71.2,
+     -64.8,
+     -59.5,
+     -43.6,
+     -41.5,
+     -37.4
+    ],
+    "source_last_256_max_abs": 584,
+    "bus_end_estimate_dbfs": -26.0,
+    "bus_end_estimate_abs": 1639.5,
+    "bus_last_48k": [
+     -432.4,
+     -420.0,
+     -406.2
+    ],
+    "bus_end_dbfs": -38.1,
+    "estimate_covers_actual": true
+   }
+  },
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_6-download02.wav": {
+   "cue": "07_6",
+   "file": "07_6-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_6-download02.wav",
+   "selected": false,
+   "sha256": "e39412b5c10a9180ae80635d483293360a87860449498baa3e4cf32da355a3e5",
+   "frames_48k": 1858560,
+   "seconds": 38.72,
+   "request": {
+    "utc_downloads": "2026-11-05T01:23:52.078465+00:00",
+    "voice": "Oliver",
+    "model": "Eleven v4",
+    "stability": 0.5,
+    "similarity": 0.75,
+    "format": "WAV 48 kHz",
+    "listening": false
+   },
+   "recognizer": {
+    "run": "remaining",
+    "model": "ggml-large-v3-turbo.bin",
+    "log_sha256": "3e479160bebb7daf0759caab2f7a538df6527cd53d34b3cf218c5a0295a442b7",
+    "words": 96,
+    "differences": [
+     {
+      "op": "replace",
+      "script": "nonzero",
+      "heard": "non zero"
+     }
+    ],
+    "last_script_word": "convention",
+    "last_word_recognized": true,
+    "last_word_end_s": 38.42,
+    "unshared": [],
+    "unshared_not_notation": [],
+    "shared": [
+     "nonzero->non zero"
+    ]
+   },
+   "root_review": {
+    "file": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remaining-recognition01/transcript-review01.json",
+    "words_equal_record": true,
+    "differences": [
+     {
+      "script": "nonzero",
+      "recognized": "non zero"
+     }
+    ],
+    "listened": false,
+    "transcript": "Two cautions: on the negative numbers themselves, the usual convention assigns the angle pi, so the principal value exists there too. But it jumps. Just below the cut, the angles are close to minus pi. And the principal logarithm undoes the exponential from one side only. Exponentiating the logarithm of z gives back z for every non-zero z. But the logarithm of e to the w gives back w only when the height of w is above minus pi and at most pi. That is the strip, with its top edge added by the convention.",
+    "punctuation_vs_other": []
+   },
+   "frames_24k": 929280,
+   "answers_used_answers01": [
+    "onset:07_6:s1:07_6-download02.wav"
+   ],
+   "answers_used_answers02": [
+    "onset:07_6:s1:07_6-download02.wav",
+    "onset:07_6:s2:07_6-download02.wav",
+    "onset:07_6:s3:07_6-download02.wav",
+    "onset:07_6:s4:07_6-download02.wav"
+   ],
+   "sentence_ends_24k_answers02": [
+    44160,
+    240720,
+    376560,
+    492240,
+    626880,
+    833760,
+    929280
+   ],
+   "marks_answers02": [],
+   "join_flags_answers02": {
+    "s5": [
+     "late"
+    ]
+   },
+   "pause_total_s": 3.48,
+   "cadence_items": [
+    {
+     "script_between": "cautions.",
+     "char": 4,
+     "selected_s": 0.52,
+     "alternative_s": 0.67,
+     "delta_s": 0.15
+    },
+    {
+     "script_between": "pi,",
+     "char": 89,
+     "selected_s": 0.26,
+     "alternative_s": 0.0,
+     "delta_s": -0.26
+    },
+    {
+     "script_between": "only.",
+     "char": 267,
+     "selected_s": 0.51,
+     "alternative_s": 0.4,
+     "delta_s": -0.11
+    },
+    {
+     "script_between": "only",
+     "char": 386,
+     "selected_s": 0.0,
+     "alternative_s": 0.11,
+     "delta_s": 0.11
+    },
+    {
+     "script_between": "pi.",
+     "char": 442,
+     "selected_s": 0.59,
+     "alternative_s": 0.41,
+     "delta_s": -0.18
+    }
+   ],
+   "edges": {
+    "lead_40_s": 0.05,
+    "tail_40_s": 0.23,
+    "lead_60_s": 0.05,
+    "tail_60_s": 0.11,
+    "first_10ms_db": -84.3,
+    "last_10ms_db": -87.7,
+    "first_1ms_db": -85.8,
+    "last_1ms_db": -92.2,
+    "first_samples": [
+     4,
+     3,
+     1
+    ],
+    "last_samples": [
+     1,
+     2,
+     1
+    ],
+    "first_10ms_db_raw": -84.31335178901357,
+    "last_10ms_db_raw": -87.7013305427271,
+    "speech_level_ends_s": 38.49,
+    "floor_after_speech_db": -92.1,
+    "quiet_frames_before_last_frame": 10,
+    "last_two_frames_db": [
+     -92.1,
+     -87.7
+    ],
+    "rise_in_last_10ms": false,
+    "last_10ms_1ms_db": [
+     -88.2,
+     -88.2,
+     -86.3,
+     -85.4,
+     -85.5,
+     -84.3,
+     -88.2,
+     -101.1,
+     -102.4,
+     -92.2
+    ],
+    "source_last_256_max_abs": 2,
+    "bus_end_estimate_dbfs": -75.3,
+    "bus_end_estimate_abs": 5.6
+   }
+  },
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_5-download02.wav": {
+   "cue": "11_5",
+   "file": "11_5-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_5-download02.wav",
+   "selected": true,
+   "sha256": "1ed11e8e995adfe6bdae8f6091659cab7b927288909779a36fd238d769011816",
+   "frames_48k": 1601280,
+   "seconds": 33.36,
+   "request": {
+    "utc_downloads": "2026-11-05T02:12:14.079414+00:00",
+    "voice": "Oliver",
+    "model": "Eleven v4",
+    "stability": 0.5,
+    "similarity": 0.75,
+    "format": "WAV 48 kHz",
+    "listening": false
+   },
+   "recognizer": {
+    "run": "remaining",
+    "model": "ggml-large-v3-turbo.bin",
+    "log_sha256": "3e479160bebb7daf0759caab2f7a538df6527cd53d34b3cf218c5a0295a442b7",
+    "words": 87,
+    "differences": [
+     {
+      "op": "replace",
+      "script": "nonzero",
+      "heard": "non zero"
+     }
+    ],
+    "last_script_word": "zero",
+    "last_word_recognized": true,
+    "last_word_end_s": 33.35,
+    "unshared": [],
+    "unshared_not_notation": [],
+    "shared": [
+     "nonzero->non zero"
+    ]
+   },
+   "root_review": {
+    "file": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remaining-recognition01/transcript-review01.json",
+    "words_equal_record": true,
+    "differences": [
+     {
+      "script": "nonzero",
+      "recognized": "non zero"
+     }
+    ],
+    "listened": false,
+    "transcript": "Now see what commuting costs. Take a vector with two non-zero parts and send it along both routes: first A and then X, or first X and then A. If X has an entry off its diagonal, the two routes end in different places. Each part of the gap is an off-diagonal entry of X, times the difference between A's two stretches, times one part of the vector. Those stretches differ, so the routes can only agree when every entry off the diagonal is zero.",
+    "punctuation_vs_other": [
+     {
+      "word_after": "routes",
+      "this": ":",
+      "other": ","
+     },
+     {
+      "word_after": "stretches",
+      "this": ",",
+      "other": ""
+     }
+    ]
+   },
+   "frames_24k": 800640,
+   "answers_used_answers01": [],
+   "answers_used_answers02": [],
+   "sentence_ends_24k_answers02": [
+    60000,
+    302400,
+    437760,
+    648000,
+    800640
+   ],
+   "marks_answers02": [
+    {
+     "byte": 72,
+     "seconds": 5.46,
+     "basis": "recognizer onset"
+    },
+    {
+     "byte": 178,
+     "seconds": 15.32,
+     "basis": "recognizer onset"
+    }
+   ],
+   "join_flags_answers02": {
+    "b72": [
+     "no_pause"
+    ]
+   },
+   "pause_compare": [
+    {
+     "script_between": "costs.",
+     "char": 23,
+     "selected_s": 0.52,
+     "alternative_s": 0.43,
+     "delta_s": -0.09
+    },
+    {
+     "script_between": "routes:",
+     "char": 91,
+     "selected_s": 0.34,
+     "alternative_s": 0.31,
+     "delta_s": -0.03
+    },
+    {
+     "script_between": "X,",
+     "char": 116,
+     "selected_s": 0.18,
+     "alternative_s": 0.15,
+     "delta_s": -0.03
+    },
+    {
+     "script_between": "A.",
+     "char": 139,
+     "selected_s": 0.63,
+     "alternative_s": 0.49,
+     "delta_s": -0.14
+    },
+    {
+     "script_between": "diagonal,",
+     "char": 168,
+     "selected_s": 0.11,
+     "alternative_s": 0.0,
+     "delta_s": -0.11
+    },
+    {
+     "script_between": "places.",
+     "char": 210,
+     "selected_s": 0.49,
+     "alternative_s": 0.51,
+     "delta_s": 0.02
+    },
+    {
+     "script_between": "X,",
+     "char": 267,
+     "selected_s": 0.17,
+     "alternative_s": 0.22,
+     "delta_s": 0.05
+    },
+    {
+     "script_between": "stretches,",
+     "char": 307,
+     "selected_s": 0.16,
+     "alternative_s": 0.22,
+     "delta_s": 0.06
+    },
+    {
+     "script_between": "vector.",
+     "char": 340,
+     "selected_s": 0.53,
+     "alternative_s": 0.62,
+     "delta_s": 0.09
+    }
+   ],
+   "pause_total_s": 3.13,
+   "edges": {
+    "lead_40_s": 0.05,
+    "tail_40_s": 0.18,
+    "lead_60_s": 0.04,
+    "tail_60_s": 0.0,
+    "first_10ms_db": -76.5,
+    "last_10ms_db": -54.4,
+    "first_1ms_db": -86.6,
+    "last_1ms_db": -47.0,
+    "first_samples": [
+     3,
+     -1,
+     -3
+    ],
+    "last_samples": [
+     373,
+     433,
+     267
+    ],
+    "first_10ms_db_raw": -76.53108102331242,
+    "last_10ms_db_raw": -54.382813602545276,
+    "speech_level_ends_s": 33.18,
+    "floor_after_speech_db": -85.49,
+    "quiet_frames_before_last_frame": 9,
+    "last_two_frames_db": [
+     -79.79,
+     -54.38
+    ],
+    "rise_in_last_10ms": true,
+    "last_10ms_1ms_db": [
+     -77.2,
+     -76.8,
+     -74.3,
+     -79.3,
+     -74.4,
+     -64.5,
+     -64.6,
+     -51.5,
+     -50.6,
+     -47.0
+    ],
+    "source_last_256_max_abs": 433,
+    "bus_end_estimate_dbfs": -28.6,
+    "bus_end_estimate_abs": 1215.6,
+    "bus_last_48k": [
+     366.3,
+     360.0,
+     348.5
+    ],
+    "bus_end_dbfs": -39.5,
+    "estimate_covers_actual": true
+   }
+  },
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_5-download01.wav": {
+   "cue": "11_5",
+   "file": "11_5-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_5-download01.wav",
+   "selected": false,
+   "sha256": "f43c3b9811d922357ff0774bb04d68891f9d8ff88916f0bfe965d1965de9a4ba",
+   "frames_48k": 1570560,
+   "seconds": 32.72,
+   "request": {
+    "utc_downloads": "2026-11-05T02:12:14.079414+00:00",
+    "voice": "Oliver",
+    "model": "Eleven v4",
+    "stability": 0.5,
+    "similarity": 0.75,
+    "format": "WAV 48 kHz",
+    "listening": false
+   },
+   "recognizer": {
+    "run": "remaining",
+    "model": "ggml-large-v3-turbo.bin",
+    "log_sha256": "3e479160bebb7daf0759caab2f7a538df6527cd53d34b3cf218c5a0295a442b7",
+    "words": 87,
+    "differences": [
+     {
+      "op": "replace",
+      "script": "nonzero",
+      "heard": "non zero"
+     }
+    ],
+    "last_script_word": "zero",
+    "last_word_recognized": true,
+    "last_word_end_s": 32.71,
+    "unshared": [],
+    "unshared_not_notation": [],
+    "shared": [
+     "nonzero->non zero"
+    ]
+   },
+   "root_review": {
+    "file": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remaining-recognition01/transcript-review01.json",
+    "words_equal_record": true,
+    "differences": [
+     {
+      "script": "nonzero",
+      "recognized": "non zero"
+     }
+    ],
+    "listened": false,
+    "transcript": "Now see what commuting costs. Take a vector with two non-zero parts and send it along both routes, first A and then X, or first X and then A. If X has an entry off its diagonal, the two routes end in different places. Each part of the gap is an off-diagonal entry of X, times the difference between A's two stretches times one part of the vector. Those stretches differ, so the routes can only agree when every entry off the diagonal is zero.",
+    "punctuation_vs_other": [
+     {
+      "word_after": "routes",
+      "this": ",",
+      "other": ":"
+     },
+     {
+      "word_after": "stretches",
+      "this": "",
+      "other": ","
+     }
+    ]
+   },
+   "frames_24k": 785280,
+   "answers_used_answers01": [],
+   "answers_used_answers02": [],
+   "sentence_ends_24k_answers02": [
+    60960,
+    292800,
+    422880,
+    635520,
+    785280
+   ],
+   "marks_answers02": [
+    {
+     "byte": 72,
+     "seconds": 5.46,
+     "basis": "recognizer onset"
+    },
+    {
+     "byte": 178,
+     "seconds": 14.9,
+     "basis": "recognizer onset"
+    }
+   ],
+   "join_flags_answers02": {
+    "s2": [
+     "blip"
+    ],
+    "b72": [
+     "no_pause"
+    ],
+    "b178": [
+     "no_pause"
+    ]
+   },
+   "pause_total_s": 2.95,
+   "cadence_items": [
+    {
+     "script_between": "A.",
+     "char": 139,
+     "selected_s": 0.63,
+     "alternative_s": 0.49,
+     "delta_s": -0.14
+    },
+    {
+     "script_between": "diagonal,",
+     "char": 168,
+     "selected_s": 0.11,
+     "alternative_s": 0.0,
+     "delta_s": -0.11
+    }
+   ],
+   "edges": {
+    "lead_40_s": 0.03,
+    "tail_40_s": 0.19,
+    "lead_60_s": 0.02,
+    "tail_60_s": 0.1,
+    "first_10ms_db": -83.6,
+    "last_10ms_db": -87.0,
+    "first_1ms_db": -77.5,
+    "last_1ms_db": -94.1,
+    "first_samples": [
+     7,
+     5,
+     1
+    ],
+    "last_samples": [
+     1,
+     2,
+     1
+    ],
+    "first_10ms_db_raw": -83.57840544949664,
+    "last_10ms_db_raw": -86.9846141000383,
+    "speech_level_ends_s": 32.53,
+    "floor_after_speech_db": -87.14,
+    "quiet_frames_before_last_frame": 9,
+    "last_two_frames_db": [
+     -86.53,
+     -86.98
+    ],
+    "rise_in_last_10ms": false,
+    "last_10ms_1ms_db": [
+     -86.8,
+     -86.2,
+     -85.4,
+     -85.4,
+     -84.7,
+     -84.9,
+     -90.0,
+     -90.3,
+     -91.1,
+     -94.1
+    ],
+    "source_last_256_max_abs": 2,
+    "bus_end_estimate_dbfs": -75.3,
+    "bus_end_estimate_abs": 5.6
+   }
+  },
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_2-download01.wav": {
+   "cue": "12_2",
+   "file": "12_2-download01.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_2-download01.wav",
+   "selected": true,
+   "sha256": "7f8f0870c0b680cebec49f6c6ebb8bd260d0fcb7466242be374878c6a2c3f85f",
+   "frames_48k": 733440,
+   "seconds": 15.28,
+   "request": {
+    "utc_downloads": "2026-11-05T02:19:07.659794+00:00",
+    "voice": "Oliver",
+    "model": "Eleven v4",
+    "stability": 0.5,
+    "similarity": 0.75,
+    "format": "WAV 48 kHz",
+    "listening": false
+   },
+   "recognizer": {
+    "run": "remaining",
+    "model": "ggml-large-v3-turbo.bin",
+    "log_sha256": "3e479160bebb7daf0759caab2f7a538df6527cd53d34b3cf218c5a0295a442b7",
+    "words": 42,
+    "differences": [
+     {
+      "op": "replace",
+      "script": "laps",
+      "heard": "lapse"
+     },
+     {
+      "op": "replace",
+      "script": "laps",
+      "heard": "lapse"
+     }
+    ],
+    "last_script_word": "count",
+    "last_word_recognized": true,
+    "last_word_end_s": 15.27,
+    "unshared": [],
+    "unshared_not_notation": [],
+    "shared": [
+     "laps->lapse",
+     "laps->lapse"
+    ]
+   },
+   "root_review": {
+    "file": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remaining-recognition01/transcript-review01.json",
+    "words_equal_record": true,
+    "differences": [
+     {
+      "script": "laps",
+      "recognized": "lapse"
+     },
+     {
+      "script": "laps",
+      "recognized": "lapse"
+     }
+    ],
+    "listened": false,
+    "transcript": "Fold the ruler into a dial and it forgets the decade. In the complex plane, the exponential does that folding by itself and forgets the lapse. A branch cut is a decision about lapse, and the product rule keeps a lap count.",
+    "punctuation_vs_other": []
+   },
+   "frames_24k": 366720,
+   "answers_used_answers01": [],
+   "answers_used_answers02": [],
+   "sentence_ends_24k_answers02": [
+    96000,
+    243840,
+    366720
+   ],
+   "marks_answers02": [],
+   "join_flags_answers02": {},
+   "pause_compare": [
+    {
+     "script_between": "decade.",
+     "char": 47,
+     "selected_s": 0.58,
+     "alternative_s": 0.49,
+     "delta_s": -0.09
+    },
+    {
+     "script_between": "laps.",
+     "char": 137,
+     "selected_s": 0.63,
+     "alternative_s": 0.54,
+     "delta_s": -0.09
+    },
+    {
+     "script_between": "and",
+     "char": 182,
+     "selected_s": 0.11,
+     "alternative_s": 0.16,
+     "delta_s": 0.05
+    }
+   ],
+   "pause_total_s": 1.32,
+   "edges": {
+    "lead_40_s": 0.06,
+    "tail_40_s": 0.24,
+    "lead_60_s": 0.03,
+    "tail_60_s": -0.0,
+    "first_10ms_db": -84.5,
+    "last_10ms_db": -58.3,
+    "first_1ms_db": -85.6,
+    "last_1ms_db": -51.5,
+    "first_samples": [
+     2,
+     1,
+     1
+    ],
+    "last_samples": [
+     83,
+     85,
+     51
+    ],
+    "first_10ms_db_raw": -84.54702540435208,
+    "last_10ms_db_raw": -58.31115562463197,
+    "speech_level_ends_s": 15.04,
+    "floor_after_speech_db": -88.83,
+    "quiet_frames_before_last_frame": 14,
+    "last_two_frames_db": [
+     -84.78,
+     -58.31
+    ],
+    "rise_in_last_10ms": true,
+    "last_10ms_1ms_db": [
+     -74.8,
+     -74.6,
+     -75.1,
+     -72.7,
+     -70.6,
+     -70.4,
+     -59.0,
+     -55.0,
+     -55.4,
+     -51.5
+    ],
+    "source_last_256_max_abs": 163,
+    "bus_end_estimate_dbfs": -37.1,
+    "bus_end_estimate_abs": 457.6,
+    "bus_last_48k": [
+     80.4,
+     70.0,
+     66.1
+    ],
+    "bus_end_dbfs": -53.9,
+    "estimate_covers_actual": true
+   }
+  },
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_2-download02.wav": {
+   "cue": "12_2",
+   "file": "12_2-download02.wav",
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_2-download02.wav",
+   "selected": false,
+   "sha256": "dd11d34dc9c47a2d1936cc0bb76f4b7e72c8399a0f89f76b93e22c875b0b8e06",
+   "frames_48k": 729600,
+   "seconds": 15.2,
+   "request": {
+    "utc_downloads": "2026-11-05T02:19:07.659794+00:00",
+    "voice": "Oliver",
+    "model": "Eleven v4",
+    "stability": 0.5,
+    "similarity": 0.75,
+    "format": "WAV 48 kHz",
+    "listening": false
+   },
+   "recognizer": {
+    "run": "remaining",
+    "model": "ggml-large-v3-turbo.bin",
+    "log_sha256": "3e479160bebb7daf0759caab2f7a538df6527cd53d34b3cf218c5a0295a442b7",
+    "words": 42,
+    "differences": [
+     {
+      "op": "replace",
+      "script": "laps",
+      "heard": "lapse"
+     },
+     {
+      "op": "replace",
+      "script": "laps",
+      "heard": "lapse"
+     }
+    ],
+    "last_script_word": "count",
+    "last_word_recognized": true,
+    "last_word_end_s": 15.19,
+    "unshared": [],
+    "unshared_not_notation": [],
+    "shared": [
+     "laps->lapse",
+     "laps->lapse"
+    ]
+   },
+   "root_review": {
+    "file": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remaining-recognition01/transcript-review01.json",
+    "words_equal_record": true,
+    "differences": [
+     {
+      "script": "laps",
+      "recognized": "lapse"
+     },
+     {
+      "script": "laps",
+      "recognized": "lapse"
+     }
+    ],
+    "listened": false,
+    "transcript": "Fold the ruler into a dial and it forgets the decade. In the complex plane, the exponential does that folding by itself and forgets the lapse. A branch cut is a decision about lapse, and the product rule keeps a lap count.",
+    "punctuation_vs_other": []
+   },
+   "frames_24k": 364800,
+   "answers_used_answers01": [],
+   "answers_used_answers02": [],
+   "sentence_ends_24k_answers02": [
+    95040,
+    243840,
+    364800
+   ],
+   "marks_answers02": [],
+   "join_flags_answers02": {},
+   "pause_total_s": 1.19,
+   "cadence_items": [],
+   "edges": {
+    "lead_40_s": 0.05,
+    "tail_40_s": 0.24,
+    "lead_60_s": 0.02,
+    "tail_60_s": 0.16,
+    "first_10ms_db": -81.6,
+    "last_10ms_db": -85.0,
+    "first_1ms_db": -83.8,
+    "last_1ms_db": -91.4,
+    "first_samples": [
+     2,
+     1,
+     1
+    ],
+    "last_samples": [
+     1,
+     2,
+     1
+    ],
+    "first_10ms_db_raw": -81.59594559339362,
+    "last_10ms_db_raw": -85.03968580627901,
+    "speech_level_ends_s": 14.96,
+    "floor_after_speech_db": -87.13,
+    "quiet_frames_before_last_frame": 15,
+    "last_two_frames_db": [
+     -84.43,
+     -85.04
+    ],
+    "rise_in_last_10ms": false,
+    "last_10ms_1ms_db": [
+     -84.3,
+     -84.3,
+     -84.3,
+     -84.3,
+     -84.4,
+     -84.4,
+     -84.4,
+     -85.4,
+     -87.3,
+     -91.4
+    ],
+    "source_last_256_max_abs": 2,
+    "bus_end_estimate_dbfs": -75.3,
+    "bus_end_estimate_abs": 5.6
+   }
+  }
+ },
+ "verdicts": {
+  "01_2": {
+   "selected": "01_2-download01.wav",
+   "alternative": "01_2-download02.wav",
+   "conditions": {
+    "selected_take_has_the_final_10ms_rise": true,
+    "alternative_has_no_final_rise": true,
+    "alternative_ends_in_quiet": true,
+    "alternative_starts_in_quiet": true,
+    "same_request_and_script_text": true,
+    "no_unshared_recognizer_difference": true,
+    "last_word_recognized": true,
+    "helper_resolves_every_point_answers02": true,
+    "shortest_boundary_pause_not_tight": true,
+    "edge60_rule_picks_alternative": true,
+    "no_join_flag_beyond_the_selected_take_unclassified": true
+   },
+   "recommendation": "switch to the alternative",
+   "failed": [],
+   "new_join_flags": {},
+   "optional_answers": [],
+   "seconds_delta": -0.08,
+   "hearing_items": {
+    "pauses": [
+     {
+      "script_between": "two,",
+      "char": 219,
+      "selected_s": 0.27,
+      "alternative_s": 0.0,
+      "delta_s": -0.27
+     }
+    ],
+    "flags": [],
+    "punctuation_in_root_review": [
+     {
+      "word_after": "so",
+      "this": ",",
+      "other": ""
+     }
+    ]
+   }
+  },
+  "07_6": {
+   "selected": "07_6-download01.wav",
+   "alternative": "07_6-download02.wav",
+   "conditions": {
+    "selected_take_has_the_final_10ms_rise": true,
+    "alternative_has_no_final_rise": true,
+    "alternative_ends_in_quiet": true,
+    "alternative_starts_in_quiet": true,
+    "same_request_and_script_text": true,
+    "no_unshared_recognizer_difference": true,
+    "last_word_recognized": true,
+    "helper_resolves_every_point_answers02": true,
+    "shortest_boundary_pause_not_tight": true,
+    "edge60_rule_picks_alternative": true,
+    "no_join_flag_beyond_the_selected_take_unclassified": true
+   },
+   "recommendation": "switch to the alternative (1 optional answer listed)",
+   "failed": [],
+   "new_join_flags": {
+    "s5": [
+     "late"
+    ]
+   },
+   "optional_answers": [
+    {
+     "id": "onset:07_6:s5:07_6-download02.wav",
+     "decision": "sample",
+     "sample_24k": 625920,
+     "why": "the recognizer's onset 26.12 s is 0.03 s after speech level (26.09 s); leave 26.08 s after a 0.41 s pause; optional, not heard"
+    }
+   ],
+   "seconds_delta": -0.16,
+   "hearing_items": {
+    "pauses": [
+     {
+      "script_between": "cautions.",
+      "char": 4,
+      "selected_s": 0.52,
+      "alternative_s": 0.67,
+      "delta_s": 0.15
+     },
+     {
+      "script_between": "pi,",
+      "char": 89,
+      "selected_s": 0.26,
+      "alternative_s": 0.0,
+      "delta_s": -0.26
+     },
+     {
+      "script_between": "only.",
+      "char": 267,
+      "selected_s": 0.51,
+      "alternative_s": 0.4,
+      "delta_s": -0.11
+     },
+     {
+      "script_between": "only",
+      "char": 386,
+      "selected_s": 0.0,
+      "alternative_s": 0.11,
+      "delta_s": 0.11
+     },
+     {
+      "script_between": "pi.",
+      "char": 442,
+      "selected_s": 0.59,
+      "alternative_s": 0.41,
+      "delta_s": -0.18
+     }
+    ],
+    "flags": [],
+    "punctuation_in_root_review": []
+   }
+  },
+  "11_5": {
+   "selected": "11_5-download02.wav",
+   "alternative": "11_5-download01.wav",
+   "conditions": {
+    "selected_take_has_the_final_10ms_rise": true,
+    "alternative_has_no_final_rise": true,
+    "alternative_ends_in_quiet": true,
+    "alternative_starts_in_quiet": true,
+    "same_request_and_script_text": true,
+    "no_unshared_recognizer_difference": true,
+    "last_word_recognized": true,
+    "helper_resolves_every_point_answers02": true,
+    "shortest_boundary_pause_not_tight": true,
+    "edge60_rule_picks_alternative": true,
+    "no_join_flag_beyond_the_selected_take_unclassified": true
+   },
+   "recommendation": "switch to the alternative",
+   "failed": [],
+   "new_join_flags": {
+    "s2": [
+     "blip"
+    ],
+    "b178": [
+     "no_pause"
+    ]
+   },
+   "optional_answers": [],
+   "seconds_delta": -0.64,
+   "hearing_items": {
+    "pauses": [
+     {
+      "script_between": "A.",
+      "char": 139,
+      "selected_s": 0.63,
+      "alternative_s": 0.49,
+      "delta_s": -0.14
+     },
+     {
+      "script_between": "diagonal,",
+      "char": 168,
+      "selected_s": 0.11,
+      "alternative_s": 0.0,
+      "delta_s": -0.11
+     }
+    ],
+    "flags": [
+     "onset:11_5:s2:11_5-download01.wav: a sound inside the pause, from leave 12.15 s, before speech level at 12.27 s; the boundary 12.2 s lies after it at -66.08 dB",
+     "anchor:11_5:b178:11_5-download01.wav: the mark 14.9 s has no pause of 50 ms or more around it; the lowest 10 ms frame within 0.10 s is -66.77 dB at -0.02 s (a word junction)"
+    ],
+    "punctuation_in_root_review": [
+     {
+      "word_after": "routes",
+      "this": ",",
+      "other": ":"
+     },
+     {
+      "word_after": "stretches",
+      "this": "",
+      "other": ","
+     }
+    ]
+   }
+  },
+  "12_2": {
+   "selected": "12_2-download01.wav",
+   "alternative": "12_2-download02.wav",
+   "conditions": {
+    "selected_take_has_the_final_10ms_rise": true,
+    "alternative_has_no_final_rise": true,
+    "alternative_ends_in_quiet": true,
+    "alternative_starts_in_quiet": true,
+    "same_request_and_script_text": true,
+    "no_unshared_recognizer_difference": true,
+    "last_word_recognized": true,
+    "helper_resolves_every_point_answers02": true,
+    "shortest_boundary_pause_not_tight": true,
+    "edge60_rule_picks_alternative": true,
+    "no_join_flag_beyond_the_selected_take_unclassified": true
+   },
+   "recommendation": "switch to the alternative",
+   "failed": [],
+   "new_join_flags": {},
+   "optional_answers": [],
+   "seconds_delta": -0.08,
+   "hearing_items": {
+    "pauses": [],
+    "flags": [],
+    "punctuation_in_root_review": []
+   }
+  }
+ }
+}

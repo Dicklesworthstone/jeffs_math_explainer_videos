@@ -1,0 +1,106 @@
+== 1. Pins
+PASS p1-pins: the repaired bridge 47069583 and its seal (7 files), the sealed timing review 42f34a75, root's oracle, facts.rs and model.rs, the 50 requests and 09_5's two receipts are at their pins; the bridge binds the stage05 script 12442480, units e776c860, map 70888624 and the chapter sources a8e92ca2
+== 2. Registry: the remaining cues and their scene blocks
+PASS q1-registry: 105 script cues in 15 registered chapters; the 50 without Frederick downloads at review time are 05 (2), 06 (2), 09 (5), 10 (6), 11 (8), 12 (4), 13 (11), 14 (8), 15 (4); each has exactly one say() block, in its chapter's registered module
+== 3. Requests: exact text and Frederick's settings
+PASS q2-requests: all 50 request01 files carry the stage05 script's exact text (= units text), its text and script hashes, submitted false, and Frederick's settings (Eleven v4, 0.5/0.75/0, WAV 48 kHz); all 105 requests in the folder name Frederick and none Oliver; 14 of the 50 have a map override whose 'after' text equals the script; stage05 differs from the frozen canonical script in 11_7, 15_2 only []
+   09_5: submission01 (06:43:10Z) says 'Exact text/Frederick Surrey/Eleven v4/.5/.75/0/WAV48k checke'...; observation01 (06:43:23Z) supersedes it: 'not dispatched; no completed generation claimed'
+   provenance text, not a voice: the script header names 'ElevenLabs Oliver', the units scope names it, and the map file is narration-direction-map-oliver12.json
+== 4. Hooks and holds: the bridge's source side against this check's own scan
+PASS k1-hooks-holds: 40 anchor phrases in 22 of the 50 cues; this check's scan of each scene block finds the same 40 (cue, phrase) pairs; each phrase occurs once in its cue; no anchor or hold problems; 14 holds (7 prediction, 7 reading) where the block ends in predict() or reading_window(), matching the map and mod.rs; none of the bridge's 93 anchors (whole film) has a hook in the 7 chapter files mod.rs does not declare (argument, bookends, cauchy, continuation, derivative, domain_color, integral)
+   helper sites, below one cue's say() and owned by another cue's words: 'There the count' below 11_8, owned by 11_4
+   holds (p prediction, r reading; seconds from mod.rs): 05_8 r3.5, 06_8 p5.0, 09_5 r3.0, 09_8 p6.0, 10_4 p5.0, 10_5 r8.5, 11_5 p6.0, 11_6 r7.0, 11_8 r7.5, 13_5 p5.0, 13_11 r5.0, 14_3 r5.5, 14_4 p5.0, 15_3 p6.0
+== 5. Mathematics: every spoken number and claim, recomputed (standard library only)
+   ok  06_9 "the ratio is one": conj: step right = 1.0000000000000009; oracle deriv.conj = 1,-1
+   ok  06_9 "the ratio is minus one": conj: step up = -1.0000000000000009
+   ok  06_9 "squares become tall rectangles": x + 2iy: step up / step right = 2.0000000000000018; oracle deriv.squash = 1,2
+   ok  09_5 "It is zero.": average of the bump on |z| = 2 = 3.4626425285947318e-18; oracle cauchy.r_two.limit = 0
+   ok  09_5 "Each pole pulls the average down by one half.": residue of bump(z)/z at i and -i = [-0.5, -0.5]; oracle cauchy.pole_share = -0.5
+   ok  09_6 "That gives the slope at the centre.": c1 against the bump's slope at 0 = -0.0; oracle cauchy.coef = 1.000,0.000,-1.000,0.000,1.000
+   ok  09_6 "you get the next coefficient of the recipe": c2 against f''(0)/2 = -1.0
+   ok  09_7 "so the recipe works out to radius one": distance 0 to +-i; root test on c_40 = 1.0; oracle bump.radius0 = 1
+   ok  09_7 "since the bump blows up at i, no further": |bump| at 0.999i = 500.250125062538
+   ok  09_9 "the square root of two away": |1 - i| = 1.4142135623730951; oracle recentre1.radius = 1.414
+   ok  09_9 "from about minus point four one to about two point four one": 1 -+ sqrt 2, to 2 places = (-0.41, 2.41); oracle recentre1.left,right = -0.41,2.41
+   ok  09_9 "A computer check of sixty terms agrees.": 60 terms at x = 2 against bump(2); at 2.6 = (0.2, 212); oracle recentre1.check.at2,at2_6 = 0.200000,212
+   ok  10_2 "sine squared is about minus one hundred, cosine squared is about one hundred and one": sin(3i)^2, cos(3i)^2 = (-100.36, 101.36); oracle rigid.trig = -100.36,101.36
+   ok  10_2 "they still add to one": sum = 0.9999999999999716; oracle rigid.trig.sum = 1.000000
+   ok  10_3 "exactly zero for every negative x": f on x <= 0 = 0.0
+   ok  10_3 "every one is zero": f(x)/x^n at x = 0.005 for n = 1, 5, 10, 20 (flatter than any power) = 1.5e-41
+   ok  10_4 "one over pi, one over two pi, one over three pi": 1/(k pi) and |sin(1/z)| there = [0.318, 0.159, 0.106]; oracle rigid.sin_recip.zeros = 0.318,0.159,0.106
+   ok  10_6 "must grow huge somewhere else": max |sin x| on the line; sin(3i) = (1.0, 10.0); oracle gallery.sin.at_3i = 0.0,10.0
+   ok  11_1 "one full turn ... makes two ... one turn the other way": turns of z, z^2, 1/z = [1, 2, -1]; oracle argument.local = 1,2,-1
+   ok  11_2 "the zeros inside minus the poles inside, each counted by its order": turns of (z-1)/(z+1)^2 on |z| = 1.6 = -1; oracle argument.several.turns = -1
+   ok  11_3 "encloses only the zero, and the output turns once": turns on |z| = 0.8 = 1; oracle argument.rational.r0_8 = 1
+   ok  11_3 "so the count is zero": turns on |z| = 1.7 = 0; oracle argument.rational.r1_7 = 0
+   ok  11_4 "the loop runs through the pole": |f| at 1.35 - 1e-9 on |z| = 1.35 = 899999924.5336725
+   ok  11_5 "has five roots": |p| at five roots = 8.881784197001252e-16
+   ok  11_6 "One.": roots inside |z| < 1; smallest |root| = (1, 0.335); oracle argument.quintic.unit,smallest = 1,0.335
+   ok  11_6 "always bigger than the other two terms combined": max |z^5 + 1| on |z| = 1 against 3 = 2.0
+   ok  11_7 "so the dog circles zero n times too": turns on |z| = 3; walker 3^5 against longest leash = (5, 243, 10.0); oracle argument.quintic.big,walker,leash = 5,243,10
+   ok  11_7 "Divide by its leading coefficient, which leaves its roots unchanged": |2i p(z)| at the roots = 1.7763568394002505e-15
+   ok  11_8 "samples alone can miss a turn made quickly between them": 8 steps: turns read, reach, passes = (0, 6.28, False); oracle argument.coarse.naive,reach = 0,6.28,0.79
+   ok  11_8 "the count is certain": 64 steps: turns read, reach, passes = (8, 0.79, True); oracle argument.coarse.certified = 8
+   ok  12_1 "all of those terms integrate to zero, except one over z minus p": loops of (z-p)^-2, (z-p)^-1, h = [0.0, 6.283185307, 0.0]
+   ok  12_2 "two pi i times the sum of the residues inside": loop of the bump around i only, against 2 pi i/(2i) = 3.141592654
+   ok  12_2 "the residue is g over the derivative of h": g/h' at i against the limit (z - i) bump(z) = (0.0, -0.5)
+   ok  12_3 "f prime over f has residue m ... its residue is minus n": residues of f'/f for z, z^2, 1/z = [1, 2, -1]
+   ok  12_4 "So the residue of the bump at i is one over two i": limit (z - i) bump(z) = (0.0, -0.5); oracle residue.bump.at_i = 0.0,-0.5
+   ok  13_1 "the area is pi": integral over the line (Simpson on [0, 1000] plus tails) = 3.141592654
+   ok  13_2 "That is exactly pi.": 2 pi i * 1/(2i) = 3.141592653589793; oracle integral.bump.loop = 3.14159
+   ok  13_3 "the bump is at most one over R squared minus one": min |1 + z^2| on each half circle against R^2 - 1 = [0.0, 0.0, 0.0]
+   ok  13_3 "which shrinks to zero as R grows": pi R/(R^2 - 1) at R = 2, 5, 10; the arc's integral is below it = [2.094, 0.654, 0.317]; oracle integral.bump.arc = 2.094,0.654,0.317
+   ok  13_4 "Its antiderivative exists, but it looks like this.": the card's formula differentiated, worst error = 3.0e-11
+   ok  13_5 "forty five, one hundred thirty five, two hundred twenty five and three hundred fifteen degrees": angles of the roots of z^4 = -1 = [45, 135, 225, 315]; oracle integral.quartic.roots_deg = 45,135,225,315
+   ok  13_6 "The two above the real line.": roots with Im > 0 = 2; oracle integral.quartic.inside = 2
+   ok  13_7 "one over four p cubed ... minus p over four": limit residues against 1/(4p^3) and -p/4 = 2.533174800759581e-11
+   ok  13_8 "The real parts of p one and p two cancel, and each has imaginary part the square root of two over two": p1 + p2; Im p = (0.0, 0.707107)
+   ok  13_8 "minus i times the square root of two, over four": sum of the residues = (-0.0, -0.35355); oracle integral.quartic.sum = 0.00000,-0.35355
+   ok  13_9 "the area is pi over the square root of two. About two point two two": 2 pi i * (-i sqrt2/4) = 2.2214; oracle integral.quartic.value,value2 = 2.2214,2.22
+   ok  13_10 "At R equals ten, that is already less than one three hundredth": pi R/(R^4 - 1) at 2 and 10 = [0.4189, 0.0031]; oracle integral.quartic.arc = 0.4189,0.0031
+   ok  13_10 "A numerical sum along the real line agrees with pi over the square root of two": Simpson on [-200, 200] = 2.2214; oracle integral.quartic.numeric = 2.2214
+   ok  13_11 "The real integral converges on its own": integral of |f| over [-200, 200] plus both tails = 2.221441
+   ok  14_2 "At one half, the sums settle on two.": 11 terms at 1/2; the limit = 1.9990234375; oracle series.half.n10 = 1.999023
+   ok  14_2 "At one point two, they grow without limit.": 11 terms at 1.2; 41 terms = (32.15, 8814); oracle series.one_two.n10 = 32.15
+   ok  14_2 "It equals minus five.": 1/(1 - 1.2) = -5; oracle series.one_two.function = -5
+   ok  14_3 "its new disk pokes outside the old one": re-centred at -0.5: radius to the pole at 1; farthest |z| = (1.5, 2.0); oracle continuation.first_disk.radius = 1.5
+   ok  14_5 "The partial sums grow without limit.": 11 terms of 1 + 2 + 4 + ... = 2047; oracle series.doubling.n10 = 2047
+   ok  14_5 "The continued function equals minus one at two": 1/(1 - 2) = -1.0; oracle continuation.two = -1
+   ok  14_5 "Minus one twelfth is the value of the continued zeta function at minus one": zeta(-1) = -B_2/2 (Bernoulli) = -1/12; oracle continuation.zeta_minus1 = -0.083333
+   ok  14_6 "When you come back, it has become minus one.": sqrt carried once round counterclockwise = (-1.0, -0.0); oracle continuation.sqrt.end = -1,0
+   ok  14_6 "gaining two pi i each time around": log carried once round counterclockwise = 6.283185307
+   ok  14_7 "near a dense set of points on the edge it blows up": |sum| toward the 8th root of 1 at r = 0.9, 0.99, 0.999, 0.99999 = [1.58, 3.55, 6.58, 13.1]
+   ok  14_8 "gamma of z equals gamma of z plus one, divided by z": relative error at 0.5, -0.5, -1.5, -2.5 = 1.3e-16
+   ok  14_8 "each step adds a new pole, at zero, minus one, minus two": math.gamma refuses = [0.0, -1.0, -2.0, -3.0, -4.0]; oracle gallery.gamma.poles = 0,-1,-2,-3,-4
+   ok  15_4 "the square root of ten away. About three point one six in each direction": |3 - i|; 3 -+ |3 - i| = (3.162, -0.16, 6.16); oracle recentre3.radius,ends = 3.162,-0.16,6.16
+PASS m1-mathematics: 62 spoken numbers and claims in 39 of the 50 cues recomputed with cmath, math and fractions; each one's words are in its cue and each value matches what is said; 40 of them carry facts keys (48 keys), root's oracle prints the same value for every one (131 facts, exit 0), and these chapters' scenes read 47 of the 48 keys (not integral.quartic.value) []
+   cues with no number or checkable claim beyond the picture's: 05_8, 05_9, 06_8, 09_8, 10_1, 10_5, 14_1, 14_4, 15_1, 15_2, 15_3
+== 6. Spoken notation, and the words that drew content questions in the completed takes
+PASS n1-notation: no digit or symbol in the 50 texts; the only character beyond letters and . , ? ' is the hyphen of ['Re-centre']; 9 script phrases that drew content questions in the 47 processed cues recur here 59 times
+   'half' as /\b(?:one|a) half\b/ (notation before; raw ['1/2. Its']): 2x in 09_5, 14_2
+   'minus' as /\bminus (?:i|p|n|R|z)\b/ (notation before; raw ['and -i,']): 16x in 06_8, 09_5, 09_7, 12_1x2, 12_3, 13_2, 13_7x2, 13_8, 13_11, 14_2x2, 14_3, 15_1, 15_4
+   'nonzero' as /\bnon\w{4,}/ (notation before; raw ['a non-zero derivative']): 1x in 11_7
+   'of z equals' as /\bof z equals\b/ (held before; raw ['f = z,']): 1x in 14_8
+   'plus' as /\bplus (?:\w+ )?(?:i|z|one)\b/ (notation before; raw ['1+i', '1+i,', '2 + 2i.', '2+2i.']): 6x in 06_8, 11_5, 12_4, 14_2x2, 14_8
+   'roots' as /the word/ (same_sound before; raw ['count routes we']): 6x in 11_5, 11_7x3, 11_8, 13_5
+   'sine' as /the word/ (same_sound before; raw ['Sign has', 'and sign of', 'fast. Sign of']): 6x in 10_2x3, 10_4, 10_5, 10_6
+   'to the fortieth' as /\bto the (?:\w+th|n)\b/ (notation before; raw ['x^40 gives']): 10x in 11_5, 11_7x3, 13_4, 13_7, 13_10x2, 14_7x2
+   'turn' as /the word/ (held/open before; raw ['a term.', 'a term. What']): 11x in 06_9, 09_6x2, 11_1x2, 11_3x2, 11_8x3, 15_2
+   name 'Riemann': 05_8; in a processed cue before: yes
+   name 'Cauchy's': 09_7; in a processed cue before: yes
+   name 'Liouville's': 10_6; in a processed cue before: no
+   name 'Gamma's': 14_8; in a processed cue before: yes
+   name 'gamma': 14_8; in a processed cue before: yes
+   name 'zeta': 14_5; in a processed cue before: yes
+== 7. Findings: the evidence, and what each proposed wording keeps
+PASS f1-evidence: the 13 quoted phrases are in their cues and the 10 quoted source lines in their chapter files; zeta(-2) = zeta(-4) = 0 off the line Re s = 1/2 (Bernoulli); squaring at 0 turns a right angle into a straight one (90 -> 180 degrees) [] []
+   05_8: 1 hook(s) ['is the Riemann hypothesis'] kept: True; sentences 3 -> 3; words +10; map override text to change too: yes
+      proposed: Apart from those at minus two, minus four, and on, no zero found so far sits off that line. Whether all the rest lie on it is the Riemann hypothesis, still unsolved. A picture cannot settle it.
+   15_2: 1 hook(s) ['and it turns a real integral'] kept: True; sentences 6 -> 6; words +4; map override text to change too: no
+      proposed: Everything since came from one demand. The complex derivative must be the same from every direction. On an open region, away from critical points, that makes every small piece of the map a stretch and a turn. It lets boundary values decide the inside. It lets a loop count zeros and poles, and it turns a real integral into a sum of residues. It allows at most one extension to a given connected region, though there may be none, and along different paths a continuation can branch.
+   10_3: 1 hook(s) ['yet it is not zero'] kept: True; sentences 4 -> 4; words +0; map override text to change too: no
+      proposed: Real smooth functions have no such rigidity. This curve is exactly zero for every negative x, then rises smoothly. It agrees with zero on a whole half line, yet it is not zero. Every derivative exists at zero, and every one is zero, so its power series misses the whole rise.
+PASS f2-proposals: each proposal replaces one exact span, keeps every anchor phrase once and keeps the sentence count, so no hook moves to another sentence
+== 8. Hygiene
+PASS h1-hygiene: exactly the 3 bundle files (and SHA256SUMS once sealed); no machine path, user name, address or gendered pronoun []
+RESULT PASS, 0 failed

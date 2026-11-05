@@ -1,0 +1,65 @@
+cue	file	selected	answers	point	sample_24k	seconds	basis	timing_inspection_class	recognizer_onset_s	leave_s	body_s	pause_s	level_db	position	after_body_s	into_pause_s	before_leave_s	dip_db	dip_offset_s	flags
+01_2	01_2-download01.wav	true	answers01	s1	166560	6.94	recognizer onset	within	6.94	6.99	7.02	0.5	-88.87	in_pause	null	0.45	0.05	null	null	[]
+01_2	01_2-download01.wav	true	answers01	s2	317760	13.24	recognizer onset	within	13.24	13.28	13.3	0.61	-88.25	in_pause	null	0.57	0.04	null	null	[]
+01_2	01_2-download01.wav	true	answers02	s1	166560	6.94	recognizer onset	within	6.94	6.99	7.02	0.5	-88.87	in_pause	null	0.45	0.05	null	null	[]
+01_2	01_2-download01.wav	true	answers02	s2	317760	13.24	recognizer onset	within	13.24	13.28	13.3	0.61	-88.25	in_pause	null	0.57	0.04	null	null	[]
+01_2	01_2-download02.wav	false	answers01	s1	167040	6.96	recognizer onset	within	6.96	7.02	7.04	0.51	-88.34	in_pause	null	0.45	0.06	null	null	[]
+01_2	01_2-download02.wav	false	answers01	s2	316800	13.2	recognizer onset	within	13.2	13.25	13.27	0.56	-90.12	in_pause	null	0.51	0.05	null	null	[]
+01_2	01_2-download02.wav	false	answers02	s1	167040	6.96	recognizer onset	within	6.96	7.02	7.04	0.51	-88.34	in_pause	null	0.45	0.06	null	null	[]
+01_2	01_2-download02.wav	false	answers02	s2	316800	13.2	recognizer onset	within	13.2	13.25	13.27	0.56	-90.12	in_pause	null	0.51	0.05	null	null	[]
+07_6	07_6-download01.wav	true	answers01	s1	39840	1.66	answer	recognizer_early	1.22	1.66	1.7	0.52	-59.12	after_leave	null	null	null	null	null	[]
+07_6	07_6-download01.wav	true	answers01	s2	242880	10.12	recognizer onset	within	10.12	9.92	9.96	0.54	-21.96	after_leave	0.16	null	null	null	null	"[""late""]"
+07_6	07_6-download01.wav	true	answers01	s3	384000	16.0	recognizer onset	within	16.0	15.92	15.95	0.62	-18.46	after_leave	0.05	null	null	null	null	"[""late""]"
+07_6	07_6-download01.wav	true	answers01	s4	503040	20.96	recognizer onset	within	20.96	20.82	20.83	0.51	-20.95	after_leave	0.13	null	null	null	null	"[""late""]"
+07_6	07_6-download01.wav	true	answers01	s5	636000	26.5	recognizer onset	within	26.5	26.45	26.46	0.47	-22.36	after_leave	0.04	null	null	null	null	"[""late""]"
+07_6	07_6-download01.wav	true	answers01	s6	840720	35.03	answer	recognizer_early	34.639999	35.03	35.07	0.59	-58.11	after_leave	null	null	null	null	null	[]
+07_6	07_6-download01.wav	true	answers02	s1	39840	1.66	answer	recognizer_early	1.22	1.66	1.7	0.52	-59.12	after_leave	null	null	null	null	null	[]
+07_6	07_6-download01.wav	true	answers02	s2	238080	9.92	answer	within	10.12	9.92	9.96	0.54	-57.12	after_leave	null	null	null	null	null	[]
+07_6	07_6-download01.wav	true	answers02	s3	382080	15.92	answer	within	16.0	15.92	15.95	0.62	-53.43	after_leave	null	null	null	null	null	[]
+07_6	07_6-download01.wav	true	answers02	s4	499680	20.82	answer	within	20.96	20.82	20.83	0.51	-42.19	after_leave	null	null	null	null	null	[]
+07_6	07_6-download01.wav	true	answers02	s5	634800	26.45	answer	within	26.5	26.45	26.46	0.47	-51.28	after_leave	null	null	null	null	null	[]
+07_6	07_6-download01.wav	true	answers02	s6	840720	35.03	answer	recognizer_early	34.639999	35.03	35.07	0.59	-58.11	after_leave	null	null	null	null	null	[]
+07_6	07_6-download02.wav	false	answers01	s1	44160	1.84	answer	recognizer_early	1.3	1.84	1.87	0.67	-43.2	after_leave	null	null	null	null	null	[]
+07_6	07_6-download02.wav	false	answers01	s2	244800	10.2	recognizer onset	within	10.2	10.03	10.06	0.52	-23.84	after_leave	0.14	null	null	null	null	"[""late""]"
+07_6	07_6-download02.wav	false	answers01	s3	378720	15.78	recognizer onset	within	15.78	15.69	15.71	0.61	-19.56	after_leave	0.07	null	null	null	null	"[""late""]"
+07_6	07_6-download02.wav	false	answers01	s4	495840	20.66	recognizer onset	within	20.66	20.51	20.55	0.4	-20.13	after_leave	0.11	null	null	null	null	"[""late""]"
+07_6	07_6-download02.wav	false	answers01	s5	626880	26.12	recognizer onset	within	26.120001	26.08	26.09	0.41	-18.41	after_leave	0.03	null	null	null	null	"[""late""]"
+07_6	07_6-download02.wav	false	answers01	s6	833760	34.74	recognizer onset	within	34.74	34.74	34.77	0.41	-59.28	after_leave	null	null	null	null	null	[]
+07_6	07_6-download02.wav	false	answers02	s1	44160	1.84	answer	recognizer_early	1.3	1.84	1.87	0.67	-43.2	after_leave	null	null	null	null	null	[]
+07_6	07_6-download02.wav	false	answers02	s2	240720	10.03	answer	within	10.2	10.03	10.06	0.52	-51.6	after_leave	null	null	null	null	null	[]
+07_6	07_6-download02.wav	false	answers02	s3	376560	15.69	answer	within	15.78	15.69	15.71	0.61	-55.54	after_leave	null	null	null	null	null	[]
+07_6	07_6-download02.wav	false	answers02	s4	492240	20.51	answer	within	20.66	20.51	20.55	0.4	-58.12	after_leave	null	null	null	null	null	[]
+07_6	07_6-download02.wav	false	answers02	s5	626880	26.12	recognizer onset	within	26.120001	26.08	26.09	0.41	-18.41	after_leave	0.03	null	null	null	null	"[""late""]"
+07_6	07_6-download02.wav	false	answers02	s6	833760	34.74	recognizer onset	within	34.74	34.74	34.77	0.41	-59.28	after_leave	null	null	null	null	null	[]
+11_5	11_5-download02.wav	true	answers01	s1	60000	2.5	recognizer onset	within	2.5	2.54	2.56	0.52	-89.19	in_pause	null	0.48	0.04	null	null	[]
+11_5	11_5-download02.wav	true	answers01	s2	302400	12.6	recognizer onset	within	12.6	12.67	12.68	0.63	-88.34	in_pause	null	0.56	0.07	null	null	[]
+11_5	11_5-download02.wav	true	answers01	s3	437760	18.24	recognizer onset	within	18.24	18.29	18.31	0.49	-87.73	in_pause	null	0.44	0.05	null	null	[]
+11_5	11_5-download02.wav	true	answers01	s4	648000	27.0	recognizer onset	within	27.0	27.05	27.08	0.53	-86.73	in_pause	null	0.48	0.05	null	null	[]
+11_5	11_5-download02.wav	true	answers01	b72	131040	5.46	recognizer onset	no_quiet_run_ends_in_window	5.46				-21.67	null	null	null	null	-24.44	-0.09	"[""no_pause""]"
+11_5	11_5-download02.wav	true	answers01	b178	367680	15.32	recognizer onset	short_quiet_run	15.32	15.37	15.44	0.11	-60.32	in_pause	null	0.06	0.05	-64.33	-0.02	[]
+11_5	11_5-download02.wav	true	answers02	s1	60000	2.5	recognizer onset	within	2.5	2.54	2.56	0.52	-89.19	in_pause	null	0.48	0.04	null	null	[]
+11_5	11_5-download02.wav	true	answers02	s2	302400	12.6	recognizer onset	within	12.6	12.67	12.68	0.63	-88.34	in_pause	null	0.56	0.07	null	null	[]
+11_5	11_5-download02.wav	true	answers02	s3	437760	18.24	recognizer onset	within	18.24	18.29	18.31	0.49	-87.73	in_pause	null	0.44	0.05	null	null	[]
+11_5	11_5-download02.wav	true	answers02	s4	648000	27.0	recognizer onset	within	27.0	27.05	27.08	0.53	-86.73	in_pause	null	0.48	0.05	null	null	[]
+11_5	11_5-download02.wav	true	answers02	b72	131040	5.46	recognizer onset	no_quiet_run_ends_in_window	5.46				-21.67	null	null	null	null	-24.44	-0.09	"[""no_pause""]"
+11_5	11_5-download02.wav	true	answers02	b178	367680	15.32	recognizer onset	short_quiet_run	15.32	15.37	15.44	0.11	-60.32	in_pause	null	0.06	0.05	-64.33	-0.02	[]
+11_5	11_5-download01.wav	false	answers01	s1	60960	2.54	recognizer onset	within	2.54	2.52	2.58	0.43	-56.36	after_leave	null	null	null	null	null	[]
+11_5	11_5-download01.wav	false	answers01	s2	292800	12.2	recognizer onset	within	12.2	12.15	12.27	0.49	-66.08	after_leave	null	null	null	null	null	"[""blip""]"
+11_5	11_5-download01.wav	false	answers01	s3	422880	17.62	recognizer onset	within	17.62	17.63	17.66	0.51	-69.67	in_pause	null	0.5	0.01	null	null	[]
+11_5	11_5-download01.wav	false	answers01	s4	635520	26.48	recognizer onset	within	26.48	26.48	26.51	0.62	-59.92	after_leave	null	null	null	null	null	[]
+11_5	11_5-download01.wav	false	answers01	b72	131040	5.46	recognizer onset	no_quiet_run_ends_in_window	5.46				-25.24	null	null	null	null	-32.23	-0.1	"[""no_pause""]"
+11_5	11_5-download01.wav	false	answers01	b178	357600	14.9	recognizer onset	no_quiet_run_ends_in_window	14.9				-56.4	null	null	null	null	-66.77	-0.02	"[""no_pause""]"
+11_5	11_5-download01.wav	false	answers02	s1	60960	2.54	recognizer onset	within	2.54	2.52	2.58	0.43	-56.36	after_leave	null	null	null	null	null	[]
+11_5	11_5-download01.wav	false	answers02	s2	292800	12.2	recognizer onset	within	12.2	12.15	12.27	0.49	-66.08	after_leave	null	null	null	null	null	"[""blip""]"
+11_5	11_5-download01.wav	false	answers02	s3	422880	17.62	recognizer onset	within	17.62	17.63	17.66	0.51	-69.67	in_pause	null	0.5	0.01	null	null	[]
+11_5	11_5-download01.wav	false	answers02	s4	635520	26.48	recognizer onset	within	26.48	26.48	26.51	0.62	-59.92	after_leave	null	null	null	null	null	[]
+11_5	11_5-download01.wav	false	answers02	b72	131040	5.46	recognizer onset	no_quiet_run_ends_in_window	5.46				-25.24	null	null	null	null	-32.23	-0.1	"[""no_pause""]"
+11_5	11_5-download01.wav	false	answers02	b178	357600	14.9	recognizer onset	no_quiet_run_ends_in_window	14.9				-56.4	null	null	null	null	-66.77	-0.02	"[""no_pause""]"
+12_2	12_2-download01.wav	true	answers01	s1	96000	4.0	recognizer onset	within	4.0	4.01	4.03	0.58	-70.94	in_pause	null	0.57	0.01	null	null	[]
+12_2	12_2-download01.wav	true	answers01	s2	243840	10.16	recognizer onset	within	10.16	10.16	10.19	0.63	-57.77	after_leave	null	null	null	null	null	[]
+12_2	12_2-download01.wav	true	answers02	s1	96000	4.0	recognizer onset	within	4.0	4.01	4.03	0.58	-70.94	in_pause	null	0.57	0.01	null	null	[]
+12_2	12_2-download01.wav	true	answers02	s2	243840	10.16	recognizer onset	within	10.16	10.16	10.19	0.63	-57.77	after_leave	null	null	null	null	null	[]
+12_2	12_2-download02.wav	false	answers01	s1	95040	3.96	recognizer onset	within	3.96	3.97	4.01	0.49	-74.49	in_pause	null	0.48	0.01	null	null	[]
+12_2	12_2-download02.wav	false	answers01	s2	243840	10.16	recognizer onset	within	10.16	10.17	10.19	0.54	-64.43	in_pause	null	0.53	0.01	null	null	[]
+12_2	12_2-download02.wav	false	answers02	s1	95040	3.96	recognizer onset	within	3.96	3.97	4.01	0.49	-74.49	in_pause	null	0.48	0.01	null	null	[]
+12_2	12_2-download02.wav	false	answers02	s2	243840	10.16	recognizer onset	within	10.16	10.17	10.19	0.54	-64.43	in_pause	null	0.53	0.01	null	null	[]

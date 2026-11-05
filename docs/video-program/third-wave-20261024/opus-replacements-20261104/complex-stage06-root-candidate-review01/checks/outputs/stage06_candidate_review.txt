@@ -1,0 +1,37 @@
+== 1. Pins
+PASS p1-pins: root's stage06 seal 44cb2a3f verifies (58 files); the stage05 files it changed, stage05 and root03 model.rs and oracle.py, root's three records, the bridge 47069583 and tools/storyboard.py are at their pins
+== 2. File scope
+PASS s1-scope: candidate against stage05: 4 files changed (docs/storyboard.md, narration_units.json, script.tsv, src/chapters/closing.rs), 1 added (docs/narration-direction-map-frederick-stage06.json), none removed, the other 52 byte-equal, and the seal lists exactly the 57 crate files; the root03 build workspace equals the candidate except Cargo.lock, Cargo.toml, oracle.py, src/model.rs, and its Cargo files are native-stage05's reviewed copies
+   inside the sealed crate since stage05 (byte-equal there): ['.ee/hook-state/session_start_orient.last.json'], a session-start hook file, unused by the build
+== 3. Script and storyboard
+PASS t1-script: 105 ids in the same order; exactly 5 texts changed (05_8, 10_3, 14_1, 14_3, 15_2), each by the one span below and nothing else; the other 100 byte-equal; kit sentence counts kept {'05_8': (3, 3), '10_3': (4, 4), '14_1': (6, 6), '14_3': (7, 7), '15_2': (6, 6)}; no digit or symbol added; on both stage05 and the candidate, tools/storyboard.py's parser gives exactly the script's 105 lines, and its gate check reports the same 3 problems on both
+   05_8 (F1): 'No zero found so far sits off that line. Whether all of them' -> 'Apart from those at minus two, minus four, and on, no zero found so far sits off that line. Whether all the rest' (+10 words)
+   10_3 (F3): 'curve completely' -> 'whole rise' (+0 words)
+   14_1 (F5): '' -> ' except at i and minus i' (+6 words)
+   14_3 (F4): '-' -> '' (+0 words)
+   15_2 (F2): '' -> 'away from critical points, ' (+4 words)
+   script header line (a comment, not a cue) changed: '# complex_analysis_visual Opus replacement candidate: genera'... -> '# complex_analysis_visual stage06 root candidate; ElevenLabs'...
+   storyboard gate problems present in stage05 too, unchanged: ['complex_analysis_visual 05_gallery: no prediction pause', 'complex_analysis_visual 08_loop_sums: no prediction pause', 'complex_analysis_visual 12_residues: no prediction pause']
+== 4. Units and map
+PASS u1-units-map: units differ from stage05 only in the 5 texts, the script hash (twice), the map path and hash and the scope; the new map differs from oliver12 only in 2 override texts (05_8, 14_3), the script hash, hold 15_3's closing.rs hash and the scope; all 105 unit ids, line ids and texts equal the script; all 23 overrides quote their cue exactly; all 23 holds and 5 helpers match their file's hash and carry their marker on their line in the candidate
+   new hashes: script 0bae7acb15f2, units e8d2d91dcb0e, map fa2b976b6e91; oliver12 stays in the crate, bound to stage05, and no source file names a map
+== 5. Hooks and holds: the bridge's source side, stage05 against the candidate
+PASS k1-hooks-holds: with the candidate's own hashes swapped in memory, the bridge's full source side (chapter listing and indirect hooks included) finds the same 93 anchors at 85 hook sites: same phrase, sentence, start flag, file, line and call, and the same byte except inside the corrected cues ['05_8', '10_3', '15_2']; no anchor or disposition problem; the same 23 end-of-cue holds
+   05_8 keeps 'is the Riemann hypothesis' once, in sentence 1
+   10_3 keeps 'yet it is not zero' once, in sentence 2
+   15_2 keeps 'and it turns a real integral' once, in sentence 4
+== 6. The corrections against the film and the mathematics
+PASS f1-05_8: zeta(-n) = (-1)^n B(n+1)/(n+1) is 0 exactly for n = 2, 4, ..., 12 and not for odd n (zeta(-1) = -1/12): the zeros 05_7 names ('Zeros at minus two, minus four, and on.', on screen [-2, -4, -6] ...) are real zeros with Re s = -2, -4, ... off the line; the four ringed zeros have |zeta(1/2 + it)| down to 6e-15 at t = 14.134725, 21.022040, 25.010858, 30.424876 (Borwein, n = 60; control zeta(2) error 0e+00), matching the printed heights; so 'Apart from those ..., no zero found so far sits off that line' is true of everything the chapter shows
+PASS f2-15_2: at the critical point 0, z^2 takes a right angle to 180 degrees and z^3 to 270; at 0.6 + 0.8i, where the derivative is not 0, z^2 keeps it (90.0004 degrees) and stretches by |2z| = 2: 'away from critical points' is the condition 07_2 states ('So a nonzero derivative keeps angles.'), and the caption 'nonzero derivative:' / 'stretch and turn' says it in 07_2's words (19 characters, under the 22 of the longest caption; about 1.49 of the 2.3 panel by the CMR10 estimate)
+PASS f3-10_3: e^(-1/x) on the graph's window: the series 0 equals the curve at all 301 grid points of [-3, 0] and differs at all 400 of (0, 4], where the curve strictly rises: the series misses 'the whole rise' and nothing else, as the cue's own 'It agrees with zero on a whole half line' says
+PASS f5-14_1: exactly, 1 + z^2 = 0 at only 2 of the 40401 points of the 1/50 grid on [-2, 2]^2, z = -i and i (the roots of z^2 + 1); the cue now says what the same cue's card says, 'the bump: defined everywhere but ±i'
+PASS f4-14_3: the script now spells it one way, 'Recentre', in 09_8, 14_3; the card 14_3 shows on screen (continuing.rs STEP) still reads 'step by step: re-centre inside the disk' (finding R1)
+   closing.rs:7-8 still reads 'named; the first says "on an open region", because one point\'s derivative buys nothing.' (finding R2)
+== 7. Root03 deltas: zeta near 0, and the oracle's exterior Cauchy average
+PASS z1-zeta-near-0: model.rs now uses Euler-Maclaurin (N = 30, 10 Bernoulli terms, its table equal to exact B2..B24) for |s| < 0.25; against this check's own Euler-Maclaurin (N = 40, 25 exact terms) at 81 points of the disk it is within 3e-14, and within 3e-13 at 37 points with |s| up to 1 and Re s < 1/2, so the branch is sound well past its edge; the oracle's Borwein sum, now also used there although its docstring says Re s > 0, is within 3e-14; zeta(0) = -1/2 and zeta'(0) = -log(2 pi)/2 along both axes
+PASS z2-cauchy-exterior: the sampled 16-point average is -1.5259021897e-05, equal to -1/65535 to 3e-17; stage05's closed form -2^-16/(1 + 2^-16) was off by 4.7e-10, below the printed -0.000015; the stage05 and root03 oracles both exit 0 and print the same 131 facts, and root03's two new cross-checks pass
+== 8. Requests and takes, by text only
+PASS r1-takes: 56 cues have stage05 Frederick downloads, none of them corrected, and their texts are byte-equal in stage06; 51 stage06 requests all carry the stage06 text, its hash, script 0bae7acb and Frederick's settings, and 51 have downloads, the five corrected cues among them; together the folders cover all 105 cues (text and receipts only; nothing heard)
+== 9. Hygiene
+PASS h1-hygiene: exactly the 3 bundle files (and SHA256SUMS once sealed); no machine path, user name, address or gendered pronoun []
+RESULT PASS, 0 failed

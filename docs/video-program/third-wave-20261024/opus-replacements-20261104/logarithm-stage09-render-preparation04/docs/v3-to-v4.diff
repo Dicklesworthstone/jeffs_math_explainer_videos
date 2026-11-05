@@ -1,0 +1,121 @@
+--- docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-render-preparation03/prepare_stage09_render.py
++++ docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-render-preparation04/prepare_stage09_render.py
+@@ -1,5 +1,26 @@
+ #!/usr/bin/env python3
+-"""Logarithm stage09 narrated render preparation, version 3 (BlueSalmon Mail 4410, bead 87do.63).
++"""Logarithm stage09 narrated render preparation, version 4 (BlueSalmon Mails 4524, 4539 and 4552, bead 87do.63).
++
++Version 4 is the sealed version 3 (render-preparation03, 6e5a602d) with three narrow repairs; docs/v3-to-v4.diff
++lists every changed line.
++- timeline job: the kit's whole-film timeline run may take 7200 s, not 2400 s. Root's timeline01 (version 2) hit
++  2400 s after 9 of the 13 chapters (2352 s of kit time for 77,897 frames).
++- render job: before it writes render-summary.json, the capture the kit's master will null-test must be the whole
++  soundtrack, a 48 kHz, 16-bit, stereo WAV whose header and data both hold frame_to_sample(frames, fps) frames of
++  the chapter's own timeline. A header-only, half-written or other-format capture now fails the chapter's own job
++  instead of the master after all 13 renders (render03-review01, L1).
++- master verify-step: a master CONFIG or render summary without its soundtrack captures is refused with a REFUSED
++  line, not a KeyError (render03-review01, N1).
++The binding schema is now ...-binding-v4, naming version 4's hash. Everything else is version 3's: bind's checks,
++every other timeout and resource guard, the job names, argv and success lines, and the acceptance of jobs written
++by version 2 (b867aaa2).
++
++    python3 -I -B prepare_stage09_render.py check-audio  --w W --ws WS --audio O
++    python3 -I -B prepare_stage09_render.py bind         --w W --ws WS --build 02 --audio O --attempt 03
++    python3 -I -B prepare_stage09_render.py step         --w W --ws WS --binding 03 --series 02 --step timeline
++        then verify-step, score, render --chapter CH (x13, --retry N) and master, each verified before the next
++
++Version 3's description follows.
+ 
+ Version 3 is the sealed version 2 (render-preparation02, b867aaa2) with one repair; docs/v2-to-v3.diff lists every
+ changed line. The kit's master null-tests each chapter's captured soundtrack, the last of
+@@ -346,7 +367,7 @@
+     need(not out.exists(), f"{out} exists: use a new attempt number")
+     facts = audio_facts(c, audio)
+     binding = {
+-        "schema": "logarithm-stage09-render-narration-binding-v3", "helper_sha256": sha(HERE), "ws": str(c.ws),
++        "schema": "logarithm-stage09-render-narration-binding-v4", "helper_sha256": sha(HERE), "ws": str(c.ws),
+         "workspace_binding_sha256": sha(c.ws_binding),
+         "build": {"attempt": build_nn, "job": build["job"], "binary": build["binary"], "binary_sha256": build["binary_sha256"],
+                   "verified_by": build["verified_by"]},
+@@ -417,7 +438,7 @@
+     if digest == sha(HERE):
+         path = HERE
+     else:
+-        need(digest == RENDER_V2_SHA, f"{Path(script).name} was written by helper {digest[:12]}, not version 2 or 3")
++        need(digest == RENDER_V2_SHA, f"{Path(script).name} was written by helper {digest[:12]}, not version 2 or 4")
+         path = REPO / RENDER_V2_REL
+         pinned(path, RENDER_V2_SHA, "render preparation version 2")
+     need({"path": str(path), "sha256": digest} in rows, f"{Path(script).name}: the guard did not bind the helper that wrote it")
+@@ -608,10 +629,13 @@
+     s = json.loads((folder / "master-summary.json").read_text())
+     for key in ("master", "srt", "vtt"):
+         need(sha(s[key]["path"]) == s[key]["sha256"], f"{job}: {key} moved")
++    need(isinstance(cfg.get("soundtracks"), dict) and list(cfg["soundtracks"]) == list(cfg["render_jobs"]),
++         f"{job}: its CONFIG names no soundtrack capture for each chapter (written before version 3)")
+     need(s.get("soundtracks") == cfg["soundtracks"], f"{job}: the master consumed other captures than its CONFIG names")
+     for chapter, render_job in cfg["render_jobs"].items():
+         rs = json.loads((c.lane / render_job / "render-summary.json").read_text())
+-        need({k: rs["soundtrack"][k] for k in ("path", "sha256")} == cfg["soundtracks"][chapter],
++        track = rs.get("soundtrack")
++        need(isinstance(track, dict) and {k: track.get(k) for k in ("path", "sha256")} == cfg["soundtracks"][chapter],
+              f"{job}: {chapter}'s capture is not the one {render_job} recorded")
+         check_capture(job, cfg["render_work"], chapter, cfg["soundtracks"][chapter])
+     return {**{k: s[k]["sha256"] for k in ("master", "srt", "vtt")}, "soundtracks": len(s["soundtracks"])}
+@@ -644,6 +668,7 @@
+ import pathlib
+ import subprocess
+ import sys
++import wave
+ 
+ CONFIG = json.loads(@@CONFIG@@)
+ LANE = pathlib.Path(CONFIG["lane"])
+@@ -695,6 +720,28 @@
+     return folder / ("soundtrack_%d.wav" % (n - 1)) if n else None
+ 
+ 
++def frame_to_sample(frames, fps):
++    """explainer_score::units::frame_to_sample at 48 kHz: frames * 48000 / fps, rounded half away from zero."""
++    return (2 * frames * 48000 + fps) // (2 * fps)
++
++
++def incomplete(track, frames, fps):
++    """Why the capture is not the whole soundtrack the master's null test needs (48 kHz, 16-bit, stereo, as long as
++    the chapter in its header and in its data), or None when it is. The kit only warns when its copy fails, so a
++    partial capture would otherwise surface at the master, after every render."""
++    want = frame_to_sample(frames, fps)
++    try:
++        with wave.open(str(track)) as w:
++            found = (w.getframerate(), w.getnchannels(), 8 * w.getsampwidth(), w.getnframes())
++            present = len(w.readframes(want)) // (w.getnchannels() * w.getsampwidth())
++    except Exception as error:  # an unreadable file is refused, never trusted
++        return "not a readable WAV (%s: %s)" % (type(error).__name__, error)
++    if found != (48000, 2, 16, want) or present != want:
++        return ("%d Hz, %d channels, %d bits, %d frames in the header and %d present; the chapter needs 48000 Hz, "
++                "2 channels, 16 bits and %d frames" % (found + (present, want)))
++    return None
++
++
+ def run(argv, timeout):
+     print("RUN " + " ".join(argv), flush=True)
+     subprocess.run(argv, check=True, timeout=timeout)
+@@ -712,7 +759,7 @@
+     listed = subprocess.check_output([CONFIG["binary"], "chapters"], text=True).splitlines()
+     if listed != CONFIG["chapters"]:
+         refuse("the binary's chapter registry differs: " + " ".join(listed))
+-    run(CONFIG["argv"], 2400)
++    run(CONFIG["argv"], 7200)  # 2400 s stopped timeline01 after 9 of the 13 chapters (root Mail 4524)
+     seen, details = [], []
+     for chapter in CONFIG["chapters"]:
+         path = out / (chapter + ".timeline.tsv")
+@@ -771,6 +818,11 @@
+     track = capture(work, chapter)
+     if track is None or not track.is_file():
+         refuse(chapter + ": the render left no soundtrack capture for the master's null test")
++    table = rows(work / (chapter + ".timeline.tsv"))
++    problem = incomplete(track, int(first(table, "frames")), int(first(table, "fps")))
++    if problem:
++        refuse(chapter + ": the soundtrack capture " + track.name + " is not the whole soundtrack the master's null "
++               "test needs: " + problem)
+     summary("render-summary.json", {"chapter": chapter, "mp4_sha256": sha(work / (chapter + ".mp4")),
+                                     "timeline_sha256": sha(work / (chapter + ".timeline.tsv")),
+                                     "layout_findings": findings(work / (chapter + ".layout.tsv")),

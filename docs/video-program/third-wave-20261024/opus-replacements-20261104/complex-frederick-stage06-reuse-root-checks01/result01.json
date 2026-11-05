@@ -1,0 +1,18 @@
+{
+  "at": "2026-11-05T08:13:55.003421+00:00",
+  "exit": 0,
+  "checks": 37,
+  "passed": 37,
+  "log": "/Users/jemanuel/scratch/complex-stage06-reuse-root-checks02.log",
+  "log_sha256": "d840a5349875bb251dfacf7f6d48bf4da94bb815e3b9af3543be05d183261649",
+  "test_script_sha256": "6da7f02ba78add962e5fd303df0f0b60c4dd1cfcce842eda7a0b10c2bb71af3b",
+  "first_attempt": {
+    "exit": 1,
+    "passed": 36,
+    "checks": 37,
+    "log": "/Users/jemanuel/scratch/complex-stage06-reuse-root-checks01.log",
+    "finding": "Fixture appended sentences but did not rebind complete-cue hold after texts for05_8 and14_3, so two legitimate extra disposition questions appeared. Corrected fixture hold texts; no production assertion or helper gate relaxed."
+  },
+  "preservation": "455 real stage05 files unchanged by size,mtime and SHA256",
+  "scope": "Root regression replay of worker checks using synthetic changed-text/WAV fixtures and real retained stage05 evidence; actual stage06 report comparison recorded separately. Not independent review, audio listening, synthesis, decode or final AV acceptance."
+}

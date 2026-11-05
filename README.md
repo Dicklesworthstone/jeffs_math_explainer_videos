@@ -9,13 +9,20 @@
 [![License: MIT + Rider](https://img.shields.io/badge/License-MIT_+_OpenAI/Anthropic_Rider-blue.svg)](./LICENSE)
 [![Rust Edition](https://img.shields.io/badge/Rust-2024_Edition-orange.svg)](https://doc.rust-lang.org/edition-guide/rust-2024/)
 [![engine: franken_manim](https://img.shields.io/badge/engine-franken__manim-black.svg)](https://github.com/Dicklesworthstone/franken_manim)
-[![voice: FrankenTTS](https://img.shields.io/badge/voice-FrankenTTS-purple.svg)](https://github.com/Dicklesworthstone/franken_tts)
+[![voice: ElevenLabs](https://img.shields.io/badge/voice-ElevenLabs-purple.svg)](https://elevenlabs.io/)
 [![LaTeX: none, anywhere](https://img.shields.io/badge/LaTeX-none,_anywhere-teal.svg)](https://github.com/Dicklesworthstone/franken_manim)
 [![every number: oracle-checked](https://img.shields.io/badge/every_number-oracle--checked-success.svg)](./docs/planning/COMPREHENSIVE_PLAN_FOR_JEFFS_MATH_EXPLAINER_VIDEOS.md)
 
-**A monorepo of narrated, 3Blue1Brown-style 4K math explainer videos, each one written in Rust against [franken_manim](https://github.com/Dicklesworthstone/franken_manim) (native TeX, no LaTeX, no Python) and voiced by [FrankenTTS](https://github.com/Dicklesworthstone/franken_tts). Every number on screen or in the narration is computed by the scene and pinned against an independent oracle, every narration line is checked by speech recognition and never time-stretched, publication requires continuous audiovisual review, including listening to the finished narration, and a warm, procedurally synthesized score sits under the voice without competing with it.**
+**A monorepo of narrated, 3Blue1Brown-style 4K math explainer videos, each one written in Rust against [franken_manim](https://github.com/Dicklesworthstone/franken_manim) (native TeX, no LaTeX, no Python), with current narration produced through [ElevenLabs](https://elevenlabs.io/). Every number on screen or in the narration is computed by the scene and pinned against an independent oracle, every narration line is checked by speech recognition and never time-stretched, publication requires continuous audiovisual review, including listening to the finished narration, and a warm, procedurally synthesized score sits under the voice without competing with it.**
 
 </div>
+
+> **Current voice selection, 2026-11-05.** New films use ElevenLabs
+> **Frederick Surrey – Smooth and Velvety**. The logarithm rebuild retains
+> **Oliver**. Preserve prior recordings and identify the actual voice and takes
+> in each cut's receipts. Older FrankenTTS/Michael instructions below are
+> historical; they do not authorize new synthesis through that route.
+> Speech recognition is evidence for word checks, not listening acceptance.
 
 > **A note on tense.** Like franken_manim's README, this one describes the
 > *method* in the present tense, because the method is fixed and every video
@@ -59,7 +66,7 @@ differently on every machine.
 |---|---|
 | Picture | Scenes written against franken_manim's native `fmn` facade: native TeX typesetting, an analytic Bézier rasterizer with the 3b1b look, 3D surfaces with a moving camera, flowing streamlines, live readouts recomputed from moving objects every frame. One binary; ffmpeg is the only external tool. |
 | Numbers | Computed by the scene from the same data it draws, then pinned at startup against an independent oracle (`oracle.py`). A typed number is a defect. Every "always" or "never" in the script is tested at its edges before it is voiced. |
-| Voice | FrankenTTS, one call per sentence, several takes, each transcribed by FrankenWhisper and scored; the best take wins. Every name is looked up and its pronunciation verified against a control and a decoy. Only cuts and gain touch the audio: never time-stretch, pitch-shift or loudnorm. |
+| Voice | ElevenLabs, using the voice selected above and preserving complete takes with source and audio receipts. FrankenWhisper supports word and timing checks; recognition discrepancies remain explicit and do not establish listening acceptance. Never time-stretch or pitch-shift narration. |
 | Timing | The picture waits for the voice: scenes are written as beats keyed to script lines, so re-recording a line re-times the animation. |
 | Sound | A std-only Rust synthesizer (band-limited drifting oscillators, ladder filters, chorus, tape colour, modal mallets, FM electric piano, plucked strings, an FDN reverb), ducked under the voice with perfect look-ahead and a spectral pocket, with harmony that moves and melody only in the gaps. Automated checks enforce level, masking and monotony budgets. |
 | Review | Every frame is looked at (layout lint, contact sheets, cue sheets). Each video is reviewed three times through three named viewers and a mathematician's audit, and the findings and their dispositions are committed. |

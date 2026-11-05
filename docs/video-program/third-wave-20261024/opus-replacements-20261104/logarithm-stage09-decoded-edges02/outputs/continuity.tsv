@@ -1,0 +1,5 @@
+cue	windows_scored	best_lags	min_r_lag0	frames_compared	speech_frames	max_abs_level_diff_speech_db	max_diff_at_s	max_diff_source_db	max_diff_decoded_db	max_diff_source_zero_crossing_rate	max_diff_source_first_difference_ratio	median_level_diff_quiet_db	longest_zero_run_decoded	longest_zero_run_source	peak_decoded_dbfs	peak_source_dbfs	first_sample_vs_source	last_sample_vs_source_last_two	prepared02_narration_pcm_equals_decoded
+01_2	38	"{""0"": 38}"	0.99892	1984	1566	0.75	18.75	-36.46	-37.21	0.324	0.992	0.0	24	49	-0.4	-0.4	[1, 2]	[2, [2, 2]]	true
+07_6	75	"{""0"": 75}"	0.99715	3872	3049	0.51	36.57	-27.59	-28.1	0.161	0.166	0.0	36	72	-0.8	-0.7	[4, 4]	[1, [2, 1]]	true
+11_5	63	"{""0"": 63}"	0.99801	3272	2570	0.66	21.63	-24.67	-25.33	0.397	1.267	0.0	17	31	-0.4	-0.4	[6, 7]	[1, [2, 1]]	true
+12_2	29	"{""0"": 29}"	0.99843	1520	1215	1.13	2.31	-34.34	-35.47	0.37	1.136	0.0	7	13	-1.3	-1.3	[1, 2]	[1, [2, 1]]	true
