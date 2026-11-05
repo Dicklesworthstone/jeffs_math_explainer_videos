@@ -106,7 +106,7 @@ def distance(k, run):
     return a - k if k < a else (k - b if k >= b else 0)
 
 
-def place(db, runs, k, window):
+def place(db, runs, k, window, join):
     """Where frame k sits against its pause: the longest quiet run within 0.30 s of k, else the nearest one in the window."""
     containing = next(((a, b) for a, b in runs if a <= k < b), None)
     close = [r for r in runs if distance(k, r) <= NEAR]
@@ -247,7 +247,7 @@ def main():
         bounds = [0] + [s // HOP for s in starts] + [len(db)]
         for n, x in enumerate(rec["sentence_starts_24k"], 1):
             k = x["sample"] // HOP
-            row = place(db, runs, k, 100)
+            row = place(db, runs, k, 100, True)
             first = next(i for i, (_, off) in enumerate(canon) if off >= offsets[n])
             o = obs[match[first]] if first in match else None
             row = {"cue": cue, "sentence": n, "sample_24k": x["sample"], "basis": "answer" if x["basis"].startswith("sample given") else "recognizer",
@@ -256,7 +256,7 @@ def main():
             joins.append(row)
         for m in timings["cues"][cue]["marks"]:
             k = round(m["seconds"] * 100)
-            row = place(db, runs, k, 50)
+            row = place(db, runs, k, 50, False)
             char = len(text.encode()[: m["byte"]].decode())
             i = next(ix for ix, (_, off) in enumerate(canon) if off == char)
             o = obs[match[i]] if i in match else None
@@ -313,8 +313,7 @@ def main():
     tsv("cue-edges.tsv", edges, ["cue", "recording", "seconds", "samples", "sentences", "lead_s", "body_lead_s", "tail_s", "body_tail_s",
                                  "first_frame_db", "last_frame_db", "peak_dbfs", "full_scale_samples", "hold", "hold_floor_after_voice_s"])
     tsv("discrepancies.tsv", diffs, ["cue", "sentence", "op", "script", "heard", "start_s", "end_s", "start_24k", "end_24k", "near"])
-    flagged = {f: sorted((r for r in joins if f in r["flags"]), key=lambda r: (r["cue"], r["sentence"])) for f in
-               ("before_pause", "early", "late", "tight", "no_pause", "blip")}
+    flagged = {f: sorted((r for r in joins if f in r["flags"]), key=lambda r: (r["cue"], r["sentence"])) for f in JOIN_FLAGS}
     summary = {"chain": chain, "inputs": dict(sorted(READ.items())),
                "parameters": {"frame_s": 0.01, "quiet_db": QUIET_DB, "body_db": BODY_DB, "min_run_s": 0.05, "pause_s": 0.15,
                               "early_s": 0.10, "tight_s": 0.20, "boundary_window_s": 1.0, "mark_window_s": 0.5},
