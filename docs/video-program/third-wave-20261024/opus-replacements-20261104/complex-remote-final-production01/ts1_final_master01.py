@@ -27,6 +27,7 @@ R, JOBS, BIN, read, sha = F.R, F.JOBS, F.BIN, F.read, F.sha
 ME = R / Path(__file__).resolve().relative_to(Q.PHYSICAL)
 START = ME.parent / 'start-final-master01.sh'
 JOB = 'complex-remote-master01'
+SUCCESS = 'MASTER WRITTEN: candidate master and captions; strict verify, pictures, ASR, loudness and listening remain.'
 OUTPUTS = {key: F.OUT / ('complex_analysis_visual' + suffix)
            for key, suffix in [('master', '_master.mp4'), ('srt', '.en.srt'), ('vtt', '.en.vtt')]}
 
@@ -116,6 +117,7 @@ def run(name):
                    'soundtracks': captures, 'native_bit_identical_replays': replay_lines,
                    'outputs': {k: {'path': str(p), 'sha256': sha(p)} for k, p in OUTPUTS.items()},
                    'scope': 'Candidate master and captions only. Full decode, encoded loudness, exact caption comparison, final pictures, ASR, listening, fine sync and independent AV review remain open. No publication.'}, handle, indent=2)
+    print(SUCCESS, flush=True)
 
 
 def launch(retries):
@@ -142,7 +144,6 @@ def launch(retries):
         files[str(path)] = sha(path)
     F.write_once(manifest(name), files)
     F.guard_run(name, manifest(name), [sys.executable, *child_tail(name)])
-    print('MASTER WRITTEN: candidate master and captions; strict verify, pictures, ASR, loudness and listening remain.', flush=True)
 
 
 if __name__ == '__main__':

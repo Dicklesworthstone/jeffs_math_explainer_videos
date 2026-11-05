@@ -7,7 +7,8 @@ verification.json says so.
 
     --pins                      read-only: pins and tools, before any master exists
     --check                     read-only: the full plan; needs the finished master
-    --launch [--retry verify=rN]    one guarded job
+    --launch [--retry verify=rN]    one guarded job, then its postcheck
+    --postcheck JOB             after the guard's final receipt: every recorded result still holds
     --run JOB                   the guard's child; never call it by hand
 """
 import hashlib
@@ -46,6 +47,7 @@ START = ME.parent / 'start-final-verify01.sh'
 STRICT = R / V.STRICT_REL
 SCREEN = R / V.SCREEN_REL
 JOB = 'complex-remote-final-verify01'
+SUCCESS = 'FINAL VERIFY PASS: strict video check, frame count, A/V length and exact captions passed; every sheet still needs actual viewing.'
 
 
 def job():
@@ -63,6 +65,7 @@ def child_command(name):
 def plan():
     name = K.job()
     assert Q.success(name), 'Stable complex master required'
+    assert F.last_line(JOBS / name / 'command.log') == K.SUCCESS, 'No success line: ' + name
     summary = read(JOBS / name / 'master-summary.json')
     captures, total = K.check_chapters()
     assert captures == summary['soundtracks'] and total == summary['frames']
@@ -164,7 +167,8 @@ def run(name):
                    'preview_review': {'path': str(F.REVIEW), 'sha256': sha(F.REVIEW), 'review_scope': review['review_scope'],
                                       'covers': 'Preview sheets only. Not these final pictures, not listening.'},
                    'scope': 'Encoded technical verification and selected final pictures only. The preview review does not carry over to these pictures. Caption reading flags require triage. Actual picture viewing, continuous listening, fine sync, final ASR and independent AV acceptance remain open. No upload.'}, handle, indent=2)
-    print(f'FINAL VERIFY PASS: {len(pictures)} pictures in {len(sheets)} sheets await actual viewing.', flush=True)
+    print(f'{len(pictures)} pictures in {len(sheets)} sheets.', flush=True)
+    print(SUCCESS, flush=True)
 
 
 def launch(retries):
@@ -184,6 +188,41 @@ def launch(retries):
         files[str(path)] = sha(path)
     F.write_once(manifest(name), files)
     F.guard_run(name, manifest(name), child_command(name))
+    print(json.dumps(postcheck(name)), flush=True)
+
+
+def postcheck(name):
+    """After the guard's final receipt: this job and everything it recorded still hold. Writes one record."""
+    assert Q.success(name), name
+    out = JOBS / name
+    d = read(out / 'resource-receipt.json')
+    assert d['command'] == child_command(name) and d['phase'] == 'native', 'Another command: ' + name
+    assert d['inputs_sha256'] == sha(manifest(name)), 'Manifest changed: ' + name
+    for row in read(manifest(name))['files']:
+        assert sha(row['path']) == row['sha256'], row['path']
+    assert F.last_line(out / 'command.log') == SUCCESS, 'No success line: ' + name
+    v = read(out / 'verification.json')
+    master = v['master_job']
+    assert master == K.job() and Q.success(master), f'Another master: {master}'
+    s = read(JOBS / master / 'master-summary.json')
+    outputs = {key: value['sha256'] for key, value in s['outputs'].items()}
+    assert {key: sha(path) for key, path in K.OUTPUTS.items()} == outputs, 'Master or captions changed'
+    assert v['video'] == str(K.OUTPUTS['master']) and v['sha256'] == outputs['master'], 'Verified another master'
+    assert (v['frames'], v['fps']) == (s['frames'], 60) and [row['chapter'] for row in v['chapters']] == list(M.CHAPTERS)
+    assert v['binary_sha256'] == s['binary_sha256'] == Q.BIN_SHA256, 'Another binary'
+    assert all(sha(p['path']) == p['sha256'] for p in v['pictures']), 'A picture changed'
+    assert v['sheets'] and len(v['sheets']) == (len(v['pictures']) + 3) // 4, 'Sheets differ from the pictures'
+    assert v['sheet_sha256'] == {p: sha(Path(p)) for p in v['sheets']}, 'A sheet changed'
+    strict = (out / 'strict-video-verification.log').read_text()
+    assert strict.splitlines()[-1] == 'VERIFY PASS' and v['full_decode'] == V.decode_lines(strict), 'Strict log differs'
+    assert V.software_decode_clean(v['full_decode']), 'No clean software decode'
+    assert read(out / 'caption-screen.json')['srt_sha256'] == outputs['srt'], 'Caption screen read another SRT'
+    assert v['pictures_viewed'] is False and v['full_baseline_equivalence_established'] is False, 'A claim changed'
+    record = {'job': name, 'master_job': master, 'master_sha256': outputs['master'], 'srt_sha256': outputs['srt'], 'vtt_sha256': outputs['vtt'],
+              'verification_sha256': sha(out / 'verification.json'), 'frames': v['frames'], 'pictures': len(v['pictures']), 'sheets': len(v['sheets']),
+              'pictures_viewed': False, 'scope': 'Technical records only. Actual picture viewing, listening, fine sync, final ASR and independent AV acceptance remain open.'}
+    F.write_new(F.STAGE / (name + '-postcheck.json'), (json.dumps(record, indent=2) + '\n').encode())
+    return record
 
 
 def preflight():
@@ -201,7 +240,9 @@ if __name__ == '__main__':
         plan()
     elif sys.argv[1:2] == ['--launch']:
         launch(F.parse_retries(sys.argv[2:], ['verify']))
+    elif len(sys.argv) == 3 and sys.argv[1] == '--postcheck':
+        print(json.dumps(postcheck(sys.argv[2])))
     elif len(sys.argv) == 3 and sys.argv[1] == '--run':
         run(sys.argv[2])
     else:
-        raise SystemExit('Use --pins, --check, --launch, or --run JOB. No implicit launch.')
+        raise SystemExit('Use --pins, --check, --launch, --postcheck JOB, or --run JOB. No implicit launch.')

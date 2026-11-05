@@ -31,7 +31,7 @@ import wave
 
 HERE = Path(__file__).resolve().parent
 CHAIN = HERE.parent / 'complex-remote-ts1-pipeline01/chain02-n2/ts1_chain02_n2.py'
-CHAIN_SHA256 = 'pending-whiteswan-seal'
+CHAIN_SHA256 = '64502efaea1bffb1a7e852f43d2679ea9baca29d0d9b622041d7205dd6b68a45'  # seal 625d162d
 with CHAIN.open('rb') as handle:
     assert hashlib.file_digest(handle, 'sha256').hexdigest() == CHAIN_SHA256, 'Sealed chain02-n2 changed'
 SPEC = importlib.util.spec_from_file_location('ts1_chain02_n2', CHAIN)
@@ -48,6 +48,7 @@ ASIDE = JOBS / 'complex-remote-render-aside01'
 REVIEW = STAGE / 'preview-pictures-viewed01.json'
 LANE_LOCK = O / 'expanded-native-lane.lock'
 VOICE = 'ElevenLabs Frederick Surrey'
+SUCCESS = 'RENDER PASS: 4K60 chapter; frame and cue schedule equal the timeline; final AV, pictures and listening remain.'
 HEAD_BYTES = 16 << 20  # x264 writes its settings into the stream, near the front
 
 
@@ -99,6 +100,11 @@ def parse_retries(args, labels):
         assert label in labels and label not in retries and re.fullmatch(r'r[2-9]', attempt), '--retry ' + value
         retries[label] = attempt
     return retries
+
+
+def last_line(path):
+    lines = [line for line in path.read_text(errors='replace').splitlines() if line.strip()]
+    return lines[-1] if lines else None
 
 
 def job_base(chapter):
@@ -249,6 +255,7 @@ def render(chapter, name):
                    'binary_sha256': Q.BIN_SHA256, 'narration': str(M.N), 'host': 'ts1',
                    'files': [{'path': str(p), 'sha256': sha(p)} for p in paths],
                    'scope': '4K chapter render with exact schedule and complete capture. Final AV, picture review, listening and fine sync remain open.'}, handle, indent=2)
+    print(SUCCESS, flush=True)
 
 
 def verify_chapter(chapter, name):
@@ -257,6 +264,7 @@ def verify_chapter(chapter, name):
     assert read(JOBS / name / 'resource-receipt.json')['command'][1:] == child_tail(chapter, name), name
     for row in read(manifest(name))['files']:
         assert sha(row['path']) == row['sha256'], row['path']
+    assert last_line(JOBS / name / 'command.log') == SUCCESS, 'No success line: ' + name
     summary = read(JOBS / name / 'render-summary.json')
     assert summary['chapter'] == chapter and summary['binary_sha256'] == Q.BIN_SHA256
     for row in summary['files']:
@@ -290,14 +298,17 @@ def admission():
     assert disk.f_bavail * disk.f_frsize >= need * 1024 ** 3, f'Under {need} GiB free; the guard would refuse'
 
 
-def write_once(path, files):
-    """A new manifest, or the identical one an interrupted launch left. Anything else refuses."""
-    data = json.dumps({'files': [{'path': p, 'sha256': h} for p, h in sorted(files.items())]}, indent=2).encode()
+def write_new(path, data):
+    """A new file, or the identical one an interrupted launch left. Anything else refuses."""
     if path.exists():
         assert path.read_bytes() == data, f'{path} exists with other bytes: inspect before resuming'
         return
     with path.open('xb') as handle:
         handle.write(data)
+
+
+def write_once(path, files):
+    write_new(path, json.dumps({'files': [{'path': p, 'sha256': h} for p, h in sorted(files.items())]}, indent=2).encode())
 
 
 def guard_run(name, inputs, command):
