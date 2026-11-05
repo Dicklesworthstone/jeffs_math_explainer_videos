@@ -184,10 +184,13 @@ check("R2 the bridge pins the root01 intake at its bytes, the 25 stage06 chapter
 script5 = i6.read_script(CRATE5 / "script.tsv")
 changed = [c for c in script5 if script5[c] != script6.get(c)]
 voiced = sorted({p.name.split("-")[0] for p in TAKES5.glob("*-download[0-9][0-9].wav")})
-check("R3 105 cue ids in the same order; exactly 05_8, 10_3, 14_1, 14_3 and 15_2 changed; none of them was ever "
-      "downloaded; all 55 downloaded cues keep their text",
-      list(script5) == list(script6) and changed == CHANGED and not set(changed) & set(voiced) and len(voiced) == 55
-      and all(script5[c] == script6[c] for c in voiced), f"changed {changed}; downloaded cues {len(voiced)}")
+transferred = sorted(c["cue"] for c in json.loads(TRANSFER.read_text())["cues"])
+check("R3 105 cue ids in the same order; exactly 05_8, 10_3, 14_1, 14_3 and 15_2 changed, none of them ever downloaded; "
+      "the stage05 take folder now holds WAVs for the 55 transferred cues plus 09_5, all with unchanged text",
+      list(script5) == list(script6) and changed == CHANGED and not set(changed) & set(voiced)
+      and voiced == sorted(transferred + ["09_5"]) and all(script5[c] == script6[c] for c in voiced),
+      f"changed {changed}; cues with WAVs in the stage05 folder {len(voiced)}: the transfer's 55 + "
+      f"{sorted(set(voiced) - set(transferred))}")
 
 # ----------------------------------------------------------------------------- R4: the transfer
 
@@ -195,13 +198,23 @@ moved = i6.check_transfer(TRANSFER, script6)
 data = moved["data"]
 s5 = i6.stage05_intake()
 body = i6.derive_transfer(script6, s5, CRATE5, TAKES5, LANE5, [REPO / f for f in s5.OTHER_VOICE])  # in memory only
-keys = ("stage05", "stage06", "same_cue_ids_and_order", "cues", "not_transferred")
-check("R4 check_transfer accepts root's transfer today, and re-deriving it in memory from the sealed stage05 side "
-      "gives the same body field for field",
+keys = ("stage05", "stage06", "same_cue_ids_and_order", "cues")
+rest = {k: v for k, v in body["not_transferred"].items() if k != "stage05_scan"}
+check("R4 check_transfer accepts root's transfer today; re-deriving it in memory from the sealed stage05 side gives "
+      "the same stage05/stage06 pins, lane files, 55 cues with their receipts and takes, and not-transferred lists",
       len(moved["cues"]) == 55 and len(moved["audio"]) == 220 and all(body[k] == data[k] for k in keys)
+      and rest == {k: v for k, v in data["not_transferred"].items() if k != "stage05_scan"}
       and data["tool"]["sha256"] == sha(ROOT01 / "frederick_intake_stage06.py"),
       f"{len(data['cues'])} cues, {sum(len(c['takes']) for c in data['cues'])} takes; written by "
       f"{data['tool']['sha256'][:8]}; by {data['by']}; listening {data['listening']}")
+scan_then, scan_now = data["not_transferred"]["stage05_scan"], body["not_transferred"]["stage05_scan"]
+check("R4 only the transfer's informational stage05 scan is now historical: 09_5 was awaiting download; today its "
+      "stage06-bound request02 downloads in the stage05 folder are refused there under stage05 rules",
+      scan_then == {"refused": [], "awaiting_download": ["09_5"], "unreceipted_wavs": []}
+      and scan_now == {"refused": [{"cue": "09_5", "receipt": "09_5-downloads01.json", "reasons": [
+          f"script drift: request binds script {i6.PINS['script'][:12]}, not stage05 {SCRIPT5_SHA[:12]}"]}],
+          "awaiting_download": [], "unreceipted_wavs": []},
+      f"then {json.dumps(scan_then)}; now {json.dumps(scan_now)[:170]}")
 walk = []
 for c in data["cues"]:
     cue = c["cue"]
@@ -246,7 +259,7 @@ code, out, err = run(b6, ["report", "--out", str(SCR / "cli-report"), "--transfe
 files_equal = all((SCR / "cli-report" / n).read_bytes() == (RUNTIME / "report02" / n).read_bytes() for n in r6["out"])
 code2, out2, err2 = run(b6, ["report", "--out", str(SCR / "cli-report-no-lane")])
 check("R6 the fixed print: the report CLI exits 0 with the transfer (both lane states) and without any lane",
-      code == 0 and "recognition stage06=no recognition lane, stage05=read:" in out and files_equal
+      code == 0 and "recognition stage05=read, stage06=no recognition lane: 110 takes" in out and files_equal
       and code2 == 0 and "recognition stage06=no recognition lane: 0 takes" in out2,
       clean(out.strip())[:150] + "\n     " + clean(out2.strip())[:110] + (clean(err + err2)[:200]))
 
@@ -286,6 +299,18 @@ check("R7 the 02_5 replacement pair reuses the transferred pair's file names wit
       names_new == sorted(t["name"] for t in old25["takes"])
       and not {t["sha256"] for t in new25["takes"]} & {t["sha256"] for t in old25["takes"]},
       f"stage06 {names_new}; the bridge keys takes by (cue, file) and refuses a cue with takes in both lanes")
+code, out, err = run(i6, ["status", "--lane", str(SCR / "status-lane-stage05-folder"), "--takes", str(TAKES5),
+                          "--transfer", str(TRANSFER)])
+s05 = json.loads(out) if code == 0 else {}
+twins = [n for n in ("09_5-request02.json", "09_5-submission02.json", "09_5-download01.wav", "09_5-download02.wav")
+         if sha(TAKES5 / n) == sha(TAKES6 / n)]
+check("R7 the stage05 take folder now also holds 09_5's stage06 generation (request02, submission02, both WAVs, a "
+      "downloads receipt); pointed at that folder, the pinned intake would offer those two WAVs as eligible",
+      code == 0 and s05["eligible_wavs"] == ["09_5 09_5-download01.wav", "09_5 09_5-download02.wav"]
+      and len(s05["excluded_wavs"]) == 110 and not s05["refused"] and len(twins) == 4
+      and sha(TAKES5 / "09_5-downloads01.json") != sha(TAKES6 / "09_5-downloads01.json"),
+      f"byte-equal to the stage06 folder's copies: {', '.join(twins)}; the downloads receipts differ (their paths)"
+      + clean(err)[:200])
 
 # ----------------------------------------------------------------------------- R8: root's retained-take evidence
 
@@ -304,10 +329,26 @@ check("R8 retained-takes.json names the same 55 cues, texts, request and downloa
 
 replay = subprocess.run([sys.executable, "-I", "-B", str(CHECKS01 / "reuse_checks.py"), str(SCR / "root-regression")],
                         capture_output=True, timeout=1800)
-log = replay.stdout + replay.stderr
-check("R9 root's 37-check regression replays 37/37, and its output hashes to the log root recorded",
-      replay.returncode == 0 and b"37/37 PASS" in log and hashlib.sha256(log).hexdigest() == result["log_sha256"],
-      f"exit {replay.returncode}; output {hashlib.sha256(log).hexdigest()[:8]}, root's log {result['log_sha256'][:8]}")
+log = (replay.stdout + replay.stderr).decode()
+root_log = Path(result["log"])  # root's own log, named by result01.json; read only
+then = root_log.read_text().splitlines() if root_log.is_file() and sha(root_log) == result["log_sha256"] else []
+now = log.splitlines()
+
+
+def label(line):
+    words = line.split()
+    return words[1] if words[:1] in (["PASS"], ["FAIL"]) and len(words) > 1 else (words[0] if words else "")
+
+
+moved_lines = sorted({label(a) for a, b in zip(then, now) if a != b})
+check("R9 root's regression replays 35/37 today: T8 and I7 now fail, and every other output line equals root's "
+      "recorded log except S1's file count and the total, so the failures are the 09_5 files added to the stage05 "
+      "folder, not a tool change",
+      replay.returncode == 1 and now[-1] == "35/37 PASS" and len(then) == len(now)
+      and moved_lines == ["37/37", "I7", "S1", "T8"]
+      and [line[:7] for line in now if line.startswith("FAIL")] == ["FAIL T8", "FAIL I7"],
+      f"exit {replay.returncode}; lines differing from root's log: {moved_lines}; S1 now counts "
+      f"{next((x.rsplit(':', 1)[1].strip() for x in now if x.startswith('PASS S1')), '?')}")
 
 after = snapshot()
 check("S1 every real file read is unchanged (size, mtime, sha256)", before == after, f"{len(after)} files")

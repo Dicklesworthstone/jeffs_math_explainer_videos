@@ -1,0 +1,48 @@
+PASS R0 candidate SHA256SUMS (Mail 4620) is 44cb2a3f
+PASS R0 stage06 script (Mail 4620) is 0bae7acb
+PASS R0 transfer.json (HANDOFF) is 60880cbe
+PASS R0 retained-takes.json (Mail 4622) is c1a93026
+PASS R0 remaining-request-drafts.json (Mail 4622) is a967aece
+PASS R0 root regression script (result01.json) is 6da7f02b
+PASS R0 sealed stage05 bridge is 47069583
+PASS R0 complex-frederick-stage06-reuse-root01: all 4 SHA256SUMS rows verify
+     SHA256SUMS 48ae1dff; files present but not listed: ['__pycache__/frederick_intake_stage06.cpython-315.pyc', '__pycache__/frederick_timing_bridge_stage06.cpython-315.pyc']
+PASS R0 combined-repair-stage06-root01: all 58 SHA256SUMS rows verify
+     SHA256SUMS 44cb2a3f; files present but not listed: none
+PASS R0 root-checks01 result01.json binds the regression script it ran and preserves the failed first copy
+PASS R1 against my unsealed staging, root changed only the stage06 pins, the map name and the report print
+     intake: CRATE, MAP_REL, PINS, cmd_plan; bridge (pins): CHAPTER_SOURCES_SHA256, DEPENDENCIES; bridge (print fix): cmd_report
+PASS R2 the stage06 intake's pins are the candidate's script, units and map; check_binding accepts the crate
+     script 0bae7acb, units e8d2d91d, map fa2b976b (docs/narration-direction-map-frederick-stage06.json)
+PASS R2 the bridge pins the root01 intake at its bytes, the 25 stage06 chapter sources, and the sealed stage05 bridge's other dependencies unchanged
+     intake a28166cb, chapters f710eaae, other dependencies log_preparation, assembler, assembler_cache, kit; source side 5593992f
+PASS R3 105 cue ids in the same order; exactly 05_8, 10_3, 14_1, 14_3 and 15_2 changed, none of them ever downloaded; the stage05 take folder now holds WAVs for the 55 transferred cues plus 09_5, all with unchanged text
+     changed ['05_8', '10_3', '14_1', '14_3', '15_2']; cues with WAVs in the stage05 folder 56: the transfer's 55 + ['09_5']
+PASS R4 check_transfer accepts root's transfer today; re-deriving it in memory from the sealed stage05 side gives the same stage05/stage06 pins, lane files, 55 cues with their receipts and takes, and not-transferred lists
+     55 cues, 110 takes; written by a28166cb; by BlueSalmon; listening False
+PASS R4 only the transfer's informational stage05 scan is now historical: 09_5 was awaiting download; today its stage06-bound request02 downloads in the stage05 folder are refused there under stage05 rules
+     then {"refused": [], "awaiting_download": ["09_5"], "unreceipted_wavs": []}; now {"refused": [{"cue": "09_5", "receipt": "09_5-downloads01.json", "reasons": ["script drift: request binds script 0bae7acb15f2, not stage05 12442480d7e7"]}], "awaiting_dow
+PASS R4 walked without the tools: each transferred request still binds the stage05 script (12442480) and names the cue, the unchanged text and Frederick; each WAV is the receipt's, its plan's and its ingest's
+     mismatches: none
+PASS R5 my in-process report on the real inputs is byte-equal to root's report02 (and report01 equals report02)
+     answers-template.json, coverage.json, questions.json, source.json, takes.json
+PASS R5 against the sealed stage05 bridge: 110 take entries equal except the transfer field; the same 29 question ids
+     110/110 entries; 29 ids, 29 question objects identical
+PASS R6 the fixed print: the report CLI exits 0 with the transfer (both lane states) and without any lane
+     source: 85 hook sites, 93 anchors in 51 cues, 0 anchor problems, 23 dispositions; recognition stage05=read, stage06=no recognition lane: 110 takes, se
+     source: 85 hook sites, 93 anchors in 51 cues, 0 anchor problems, 23 dispositions; recognition stage06=no recog
+PASS R7 the pinned intake on the real stage06 take folder (status only): all 50 remaining cues have two eligible takes each; the one refusal is 02_5, a transferred cue
+     51 downloads receipts, 100 eligible WAVs; refused: [('02_5', '02_5-downloads01.json')]
+PASS R7 root's 50 request drafts are the remaining cues in script order, and each real stage06 request the intake accepted equals its draft in every provider field
+     50 drafts; differing: none
+PASS R7 the 02_5 replacement pair reuses the transferred pair's file names with other audio
+     stage06 ['02_5-download01.wav', '02_5-download02.wav']; the bridge keys takes by (cue, file) and refuses a cue with takes in both lanes
+PASS R7 the stage05 take folder now also holds 09_5's stage06 generation (request02, submission02, both WAVs, a downloads receipt); pointed at that folder, the pinned intake would offer those two WAVs as eligible
+     byte-equal to the stage06 folder's copies: 09_5-request02.json, 09_5-submission02.json, 09_5-download01.wav, 09_5-download02.wav; the downloads receipts differ (their paths)
+PASS R8 retained-takes.json names the same 55 cues, texts, request and downloads receipts and 110 WAVs as the transfer
+PASS R9 root's regression replays 35/37 today: T8 and I7 now fail, and every other output line equals root's recorded log except S1's file count and the total, so the failures are the 09_5 files added to the stage05 folder, not a tool change
+     exit 1; lines differing from root's log: ['37/37', 'I7', 'S1', 'T8']; S1 now counts 460 files
+PASS S1 every real file read is unchanged (size, mtime, sha256)
+     868 files
+
+27/27 PASS
