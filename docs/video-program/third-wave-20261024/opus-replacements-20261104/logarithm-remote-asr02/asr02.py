@@ -1,10 +1,10 @@
 """Transcribe the verified encoded export, preserving discrepancies for review.
 
-Root's asr01.py with the sealed review's F1, F2, F3 and F6 corrected. Engine, model, settings, timeouts and the guard
-phase are root's, unchanged. There is no waiter: anything not ready is refused at once.
+Root's asr01.py with the sealed review's F1, F2, F3 and F6 corrected, and the guard's live-receipt race closed. Engine,
+model, settings, timeouts and the guard phase are root's, unchanged.
 
-Launch through start_asr02.sh, which runs the verifier's post-check and a guard preflight first.
-Usage: asr02.py VERIFY_JOB MASTER_JOB NN. The guard runs: asr02.py --run VERIFY_JOB MASTER_JOB NN.
+Start through start_asr02.sh. Usage: asr02.py [--wait] VERIFY_JOB MASTER_JOB NN. The guard runs asr02.py --run with the
+same three. --wait reads only the selected jobs' own records. Without it, anything not ready is refused at once.
 """
 import difflib
 import hashlib
@@ -14,6 +14,7 @@ from pathlib import Path
 import re
 import subprocess
 import sys
+import time
 
 HERE = Path(__file__).resolve().parent
 R = HERE.parents[4]
@@ -23,7 +24,6 @@ GUARD = P / 'guard01.py'
 SOURCES = P / 'asr-source-bindings01.json'
 TOOLS = P / 'tools01.json'
 TIMELINE = B / 'logarithm-remote-timeline01/timeline-summary.json'
-VERIFIER = HERE.parent / 'logarithm-remote-final-verifier02/verify_remote_final.py'
 VERIFY_SCRIPTS = P / 'job-scripts'
 MASTER_SCRIPTS = P / 'render-jobs01'
 VERIFY_NAME = r'logarithm-remote-verify\d\d'
@@ -35,6 +35,9 @@ VERIFY_SUCCESS = ("FINAL VERIFY PASS: strict video check, frame count, A/V lengt
                   "every sheet still needs root's viewing.")
 MASTER_SUCCESS = ('MASTER WRITTEN: candidate master and captions; strict verify, pictures, ASR, caption screen, '
                   'loudness and listening remain.')
+POLL_SECONDS = 20
+WAIT_ROUNDS = 8640  # asr01's own 48-hour bound
+POSTCHECK_ROUNDS = 90  # 30 minutes after the verify job finishes
 
 
 def select(verify_job, master_job, attempt):
@@ -48,13 +51,13 @@ def select(verify_job, master_job, attempt):
     JOB = f'logarithm-remote-asr{attempt}'
     OUT = B / JOB
     MANIFEST = P / f'asr-inputs{attempt}.json'
-    POSTCHECK = P / f'asr-postcheck{attempt}.json'
+    POSTCHECK = P / f'verify-postcheck{verify_job[-2:]}.json'  # root's controller saves verify-job's stdout here
 
 
 def newest(job, pattern):
     """An explicit selection can't be a stale one: no later attempt may sit beside it."""
-    names = sorted(x.name for x in B.iterdir() if re.fullmatch(pattern, x.name))
-    assert names and names[-1] == job, f'{job} is not the newest of {names}'
+    later = [x.name for x in B.iterdir() if re.fullmatch(pattern, x.name) and x.name > job]
+    assert not later, f'{job} is not the newest: {sorted(later)}'
 
 
 def passed(job, python, scripts, success):
@@ -114,7 +117,7 @@ def bound_proof():
     assert summary['vtt']['sha256'] == proof['vtt_sha256'], 'the summary names other captions'
     assert summary['tools_sha256'] == proof['tools_sha256'], 'the master ran under another tools file'
     assert summary['binding_sha256'] == proof['binding_sha256'], 'the master ran under another binding'
-    assert POSTCHECK.is_file(), 'no verifier post-check record: launch through start_asr02.sh'
+    assert POSTCHECK.is_file(), f'no verifier post-check record: {POSTCHECK.name}'
     record = read(POSTCHECK)
     assert record.get('verify_job') == 'PASS' and record.get('job') == VERIFY_JOB, 'the post-check is for another job'
     assert record.get('verification_sha256') == sha(VERIFY / 'verification.json'), 'the post-check read another proof'
@@ -129,6 +132,17 @@ def read(p):
 def sha(p):
     with Path(p).open('rb') as handle:
         return hashlib.file_digest(handle, 'sha256').hexdigest()
+
+
+def live_receipt():
+    """This job's receipt while the guard owns it. The guard rewrites it in place just after starting the job, so a
+    read can land inside that write. A receipt that never parses refuses."""
+    for _ in range(100):
+        try:
+            return read(OUT / 'resource-receipt.json')
+        except json.JSONDecodeError:
+            time.sleep(0.1)
+    raise RuntimeError('The guard receipt never settled')
 
 
 def check_files(rows):
@@ -179,10 +193,10 @@ def boundary_review(proof, rows, segments):
 
 
 def run():
-    receipt = read(OUT / 'resource-receipt.json')
+    receipt = live_receipt()
     assert receipt.get('admitted') is True and 'exit' not in receipt
     assert receipt.get('phase') == 'asr' and receipt.get('inputs_sha256') == sha(MANIFEST), 'not this guarded ASR job'
-    assert receipt['command'] == [sys.executable, '-I', '-B', str(Path(__file__).resolve()), '--run', VERIFY_JOB, MASTER_JOB, ATTEMPT]
+    assert receipt['command'] == [sys.executable, '-I', '-B', str(Path(__file__).resolve()), '--run', VERIFY_JOB, MASTER_JOB, ATTEMPT], 'the guard ran another command'
     check_files(read(MANIFEST)['files'])
     sources = read(SOURCES)['files']
     script, fw, model, ffmpeg = [row['path'] for row in sources]
@@ -228,6 +242,41 @@ def run():
     print(f'Encoded-master ASR complete; {len(changes)} differences await triage.', flush=True)
 
 
+def finished(job):
+    """Not started, or the guard mid-write, is not an answer yet."""
+    try:
+        return bool(read(B / job / 'resource-receipt.json').get('finished'))
+    except (FileNotFoundError, json.JSONDecodeError):
+        return False
+
+
+def postchecked():
+    """A plain shell redirect leaves this file empty while verify-job runs."""
+    try:
+        return read(POSTCHECK).get('verify_job') == 'PASS'
+    except (FileNotFoundError, json.JSONDecodeError):
+        return False
+
+
+def wait():
+    """Wait on the selected jobs' own records only. A failed job or a later attempt stops this at once."""
+    python = bound_tools()['python3']['path']
+    late = 0
+    for _ in range(WAIT_ROUNDS):
+        newest(VERIFY_JOB, VERIFY_NAME)
+        newest(MASTER_JOB, MASTER_NAME)
+        if finished(MASTER_JOB):
+            passed(MASTER_JOB, python, MASTER_SCRIPTS, MASTER_SUCCESS)
+        if finished(VERIFY_JOB):
+            passed(VERIFY_JOB, python, VERIFY_SCRIPTS, VERIFY_SUCCESS)
+            if postchecked():
+                return
+            late += 1
+            assert late <= POSTCHECK_ROUNDS, f'{VERIFY_JOB} finished but {POSTCHECK.name} never passed'
+        time.sleep(POLL_SECONDS)
+    raise RuntimeError('Verification wait expired; no ASR launched')
+
+
 def launch():
     sources = read(SOURCES)['files']
     check_files(sources)
@@ -237,7 +286,7 @@ def launch():
     scripts = [VERIFY_SCRIPTS / f'{VERIFY_JOB}{x}' for x in ('.py', '-inputs.json')]
     scripts += [MASTER_SCRIPTS / f'{MASTER_JOB}{x}' for x in ('.py', '-inputs.json')]
     paths = [Path(x['path']) for x in sources] + [Path(__file__).resolve(),
-             SOURCES, GUARD, P / 'guard-pins01.json', TOOLS, VERIFIER, POSTCHECK, *scripts,
+             SOURCES, GUARD, P / 'guard-pins01.json', TOOLS, POSTCHECK, *scripts,
              VERIFY / 'resource-receipt.json', VERIFY / 'command.log', VERIFY / 'verification.json',
              MASTER / 'resource-receipt.json', MASTER / 'command.log', MASTER / 'master-summary.json',
              TIMELINE, Path(proof['video'])]
@@ -255,6 +304,6 @@ if __name__ == '__main__':
     if not __debug__:
         raise SystemExit('asr02.py checks with assertions: launch without -O')
     args = sys.argv[1:]
-    running = args[:1] == ['--run']
-    select(*(args[1:] if running else args))
-    run() if running else launch()
+    mode = args.pop(0) if args[:1] in (['--run'], ['--wait']) else None
+    select(*args)
+    {None: launch, '--wait': wait, '--run': run}[mode]()
