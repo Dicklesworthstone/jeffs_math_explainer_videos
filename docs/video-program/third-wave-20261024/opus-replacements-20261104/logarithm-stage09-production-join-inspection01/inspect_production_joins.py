@@ -45,7 +45,7 @@ NARR = f"{PROD}/prepared01/narration"
 HOLD_AUDIT = f"{EL}/combined-repair-stage09/bound-plan/hold-audit.json"
 RATE, HOP = 24000, 240
 QUIET_DB, BODY_DB, MIN_RUN, PAUSE = -60.0, -40.0, 5, 15
-EARLY, TIGHT = 10, 20  # frames
+EARLY, TIGHT, NEAR = 10, 20, 30  # frames
 BLIP_ANSWERS = [("00_6", 1), ("04_5", 1), ("05_4", 1), ("06_6", 2), ("06_6", 4), ("08_2", 1), ("08_2", 3)]
 PRIORITY = ["00_5", "04_4", "08_5"]
 READ = {}
@@ -101,15 +101,22 @@ def s2(frames):
     return round(frames / 100, 2)
 
 
+def distance(k, run):
+    a, b = run
+    return a - k if k < a else (k - b if k >= b else 0)
+
+
 def place(db, runs, k, window):
-    """Where frame k sits against the nearest pause."""
+    """Where frame k sits against its pause: the longest quiet run within 0.30 s of k, else the nearest one in the window."""
     containing = next(((a, b) for a, b in runs if a <= k < b), None)
-    near = [(a, b) for a, b in runs if b > k - window and a < k + window]
-    if containing and containing[1] - containing[0] >= PAUSE:
-        main = containing
+    close = [r for r in runs if distance(k, r) <= NEAR]
+    near = [r for r in runs if distance(k, r) <= window]
+    if close:
+        main = max(close, key=lambda r: (r[1] - r[0], -distance(k, r)))
+    elif near:
+        main = min(near, key=lambda r: (distance(k, r), -(r[1] - r[0])))
     else:
-        long = [r for r in near if r[1] - r[0] >= PAUSE]
-        main = max(long, key=lambda r: (r[1] - r[0], -abs((r[0] + r[1]) / 2 - k))) if long else None
+        main = None
     row = {"frame": k, "seconds": s2(k), "level_db": db[k] if k < len(db) else None,
            "in_quiet_run": containing is not None}
     flags = []
@@ -120,6 +127,8 @@ def place(db, runs, k, window):
         row["speech_since_s"] = s2(k - last) if last is not None else None
         row["flags"] = flags
         return row
+    if not close:
+        flags.append("pause_not_within_0.3s")
     a, b = main
     body = next((j for j in range(b, len(db)) if db[j] >= BODY_DB), None)
     between = [r for r in runs if b < r[0] and body is not None and r[1] <= body]
@@ -140,7 +149,9 @@ def place(db, runs, k, window):
         if body is not None and k > body:
             row["after_body_s"] = s2(k - body)
             flags.append("late")
-    if b - a < TIGHT:
+    if join and b - a < PAUSE:
+        flags.append("short_pause")
+    elif join and b - a < TIGHT:
         flags.append("tight")
     if between:
         row["quiet_runs_between_leave_and_body"] = [[s2(x), s2(y)] for x, y in between]
