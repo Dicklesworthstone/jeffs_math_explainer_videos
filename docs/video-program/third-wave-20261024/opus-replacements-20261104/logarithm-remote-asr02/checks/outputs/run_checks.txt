@@ -1,0 +1,56 @@
+PASS keep O/asr01.py and its bindings unchanged; read, sha, check_files, script_rows, tokens, boundary_review and all of run() from the decode on equal root's by AST
+PASS F5  no exit-file watching: the wait reads only the selected jobs' records and the post-check
+PASS diff docs/asr01-to-asr02.diff is the whole change to asr01.py
+PASS peer  sealed verifier02 361fe7334b1a: 4 constants and 11 keys agree (source text, not run)
+PASS peer  Lavender's seal a70782171854: success line, paths and command form agree (source text, not run)
+PASS sh   bash -n
+PASS good preflight then launch; PATH, physical cwd, selection and every ASR argument exact; 37 rows bound
+PASS good verify02 of master01-r2 reaches ASR as attempt 03 beside failed verify01 and master01, reading verify-postcheck02.json
+PASS good started early, it waits through a missing receipt, a half-written receipt and an empty post-check, then runs
+PASS good the live receipt reads as partial JSON for a second, then settles: ASR runs
+PASS F1  retired master: AssertionError: this is the retired stage09 master
+PASS F1  summary of another master: AssertionError: the summary is for another master
+PASS F1  summary names another file: AssertionError: the summary names another master file
+PASS F1  summary names other captions: AssertionError: the summary names other captions
+PASS F1  summary names other web captions: AssertionError: the summary names other captions
+PASS F1  proof of another master job: AssertionError: the proof is for logarithm-stage09-master02
+PASS F2  verify job failed: AssertionError: logarithm-remote-verify01 did not pass
+PASS F2  verify ran in another phase: AssertionError: logarithm-remote-verify01 ran in phase asr
+PASS F2  verify ran another command: AssertionError: logarithm-remote-verify01 ran another command
+PASS F2  verify inputs moved: AssertionError: logarithm-remote-verify01: its frozen inputs moved
+PASS F2  verify stopped for resources: AssertionError: logarithm-remote-verify01 stopped or raised
+PASS F2  verify script moved: AssertionError: logarithm-remote-verify01: its script moved
+PASS F2  verify log ends on a near-match: AssertionError: logarithm-remote-verify01: the log does not end with its success line
+PASS F2  strict check not passed: AssertionError: the strict video check did not pass
+PASS F2  proof claims a viewing: AssertionError: the proof claims a picture viewing
+PASS F2  post-check of another verify job: AssertionError: the post-check is for another job
+PASS F2  post-check of another master: AssertionError: the post-check read another master
+PASS F2  post-check of another length: AssertionError: the post-check read another master
+PASS F2  proof changed after the post-check: AssertionError: the post-check read another proof
+PASS F2  verifier refused: record never passes: AssertionError: logarithm-remote-verify01 finished but verify-postcheck01.json never passed
+PASS M   master job failed: AssertionError: logarithm-remote-master01 did not pass
+PASS M   master ran another command: AssertionError: logarithm-remote-master01 ran another command
+PASS M   master log lacks its success line: AssertionError: logarithm-remote-master01: the log does not end with its success line
+PASS M   master replaced after verify: AssertionError: the master changed after verification
+PASS M   master ran under another tools file: AssertionError: the master ran under another tools file
+PASS M   master ran under another binding: AssertionError: the master ran under another binding
+PASS F3  newer master attempt ignored: AssertionError: logarithm-remote-master01 is not the newest: ['logarithm-remote-master01-r2']
+PASS F3  newer verify attempt ignored: AssertionError: logarithm-remote-verify01 is not the newest: ['logarithm-remote-verify02']
+PASS F3  wait reaches its bound: RuntimeError: Verification wait expired; no ASR launched
+PASS F6  bindings ffmpeg is not the pinned tool: AssertionError: ASR ffmpeg is not the pinned tool
+PASS F6  tools file replaced after verify: AssertionError: the proof names another tools file
+PASS F6  tools file of another host: AssertionError: not the worker tools file
+PASS F6  proof names another worker ffmpeg: AssertionError: the proof names other tools
+PASS F4  preflight not admitted: guard exit 75
+PASS F4  sbh off PATH: REFUSED: sbh is not on PATH: the guard would fail after making its job folder
+PASS F2  no post-check record: AssertionError: no verifier post-check record: verify-postcheck01.json
+PASS F2  post-check that did not pass: AssertionError: the post-check is for another job
+PASS F6  interpreter bytes changed: AssertionError: the pinned interpreter changed
+PASS F6  interpreter is not the pinned one: AssertionError: this is not the pinned interpreter
+PASS F3  master fails while verify is unfinished: the wait stops at once, under 5 s
+PASS F4  attempt already used: refused before any step
+PASS F4  a failed verify reaches no guard; a refused preflight reaches no launch; both leave their exit codes
+PASS F3  bad master name, bad verify name and attempt 01: wrapper and helper both refuse
+PASS run  --run outside the guard, under a foreign receipt or under another selection refuses before any decode
+PASS race a live receipt that never parses refuses after the bounded reread, before any decode
+ALL PASS. Stand-ins only: nothing ran on mac-mini-max, and fw transcribe, the real guard and the real verifier did not run.

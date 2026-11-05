@@ -7,11 +7,12 @@ and the real verifier were not run. All checks use stand-ins on this host, so th
 `O/asr01.py` and `O/asr-source-bindings01.json` are unchanged. **ASR isn't hearing proof: listening and fine sync remain
 separate and open.**
 
-O = `narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01`
+- P = `docs/video-program/third-wave-20261024/opus-replacements-20261104`
+- O = `narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remote-mac-mini-max01`
 
 ## Start it
 
-Transfer this folder to the same path. Then, from any directory:
+Transfer this folder to the same path. Then, from the repository root:
 
 ```sh
 bash P/logarithm-remote-asr02/start_asr02.sh logarithm-remote-verify01 logarithm-remote-master01 02
@@ -69,6 +70,10 @@ post-check keys stay the same. The ASR manifest binds the verify job's script, w
 
 ## Traps
 
+- **`passed()` is stricter than the verifier's `ran()`** (RubyRaven, Mail 5492). It needs exactly `[tools python, -I, -B, script]`,
+  so a verify job started by a plain `python3` passes the verifier and refuses here. Root's controller uses the tools path.
+- **`wait()` doesn't recheck the bound sources** (RubyRaven, Low). A moved script, model or `fw` refuses in step 3, after the wait.
+  No job name is used. Left as is, so root's and Ruby's read of these bytes still holds.
 - **The timeline is fixed at `logarithm-remote-timeline01`,** as in asr01. A timeline retry refuses here.
 - **Scripts folders are fixed:** `O/job-scripts` for verify and `O/render-jobs01` for master. A verify job written with
   `--job-dir` elsewhere refuses.
@@ -87,9 +92,19 @@ timing literals, and one PATH line, each in its own case.
 
 - **Four good runs:** normal film started through a symlink, both retries beside failed attempts, a start before the records
   exist, and a live receipt that is partial for a second.
-- **Refusals:** every gate in the table above, each by its own message, each proving no job name or manifest was used.
+- **Refusals:** every new assert fires in at least one case, by its own message, and each case proves no job name or manifest
+  was used. A compound assert is exercised through one of its conditions, not all of them.
 - **Source agreement, not run:** constants and keys against verifier02, success line and paths against Lavender's seal
-  `a7078217`.
+  `a7078217`. Verifier03 keeps those constants and keys, as its diff shows.
+
+**Mutation sweep, scratch only, not delivered.** 14 removals across the wrapper lines, the reread, the wait's bound and the
+name gates: 10 were caught and 4 survived.
+
+- **The two `pwd -P` lines:** each covers for the other. Removing both together was caught.
+- **The two `newest` calls inside `wait()`: a real, narrow test gap.** Nothing tests "a later attempt appearing stops the wait
+  at once". `bound_proof` runs the same check before any manifest or job, and that is tested, so a stale selection still can't
+  reach ASR. Without those two calls the only cost would be a longer wait. Left untested as instructed.
+- **Asserts with their own message weren't mutated,** since the transcript shows each one firing.
 
 ## Limits
 
@@ -97,6 +112,7 @@ timing literals, and one PATH line, each in its own case.
   3.15. The guard stand-in copies its arguments and receipt keys from source reading.
 - **No real verify or master job exists yet.** Their forms come from the sealed source, not real records.
 - **`fw transcribe` has never run on the worker,** only `--version` (root's Mail 5290). `O/fw-0.11.0`'s hash comes from that mail.
-- **Not independent.** I wrote the review, verifier02 and this. An independent reader should check it.
+- **Not independent.** I wrote the review, verifier02 and this. RubyRaven read these exact bytes and found no launch or identity
+  bug (Mail 5492). That was source reading, not acceptance.
 - **A passing ASR run gives transcript leads for triage only.** It doesn't show natural delivery, pronunciation or sync, and this
   bundle accepts nothing.

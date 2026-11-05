@@ -1,0 +1,13 @@
+PASS keep verifier02 unchanged, 10 sealed files; the diff to it is exactly 3 lines out and 15 code lines in, listed in EXPECTED
+PASS anchors load from verifier02's sealed file, and any other bytes there refuse
+PASS control verifier02 dies on the partial receipt with an uncaught JSONDecodeError: the defect is real here
+PASS whole receipt: no delay, and it passes this gate; the next gate then refuses this host, as it must here
+PASS malformed then valid: rereads, then passes this gate after about 0.3 s
+PASS empty then valid: the same
+PASS malformed then wrong, another script: the semantic gate still refuses
+PASS malformed then wrong, not admitted: the semantic gate still refuses
+PASS malformed then wrong, already exited: the semantic gate still refuses
+PASS malformed then wrong, another interpreter form: the semantic gate still refuses
+PASS permanently malformed: REFUSED after 10 s, the bound, with exit 1
+PASS missing receipt: refused at once, not reread
+ALL PASS on this host, with tiny receipt files. No job, guard or worker tool ran.

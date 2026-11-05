@@ -1,0 +1,36 @@
+PASS sealed-chain01-reproduces-the-refusal: real tool, real 105 cues, real guard, symlinked root
+PASS check-derive-dry-run: 105 cues, 414 rows, 414 source fields, 0 others
+PASS dry-run-both-tools: N refused; N2 passed by both unmodified tools
+PASS check-spends-no-name
+PASS refuse-other-take: AssertionError: Not the same file: 01_1
+PASS refuse-boundary-moved: AssertionError: More than source differs: 01_1
+PASS refuse-row-missing: AssertionError: Row count differs: 03_4
+PASS refuse-row-key-added: AssertionError: Row keys differ: 01_1
+PASS refuse-take-bytes-changed: ValueError: external source, text or decoded audio changed
+PASS refuse-stale-assembly: AssertionError: Assembly does not bind this report
+PASS stage-derive: the real guard admitted and closed the job
+PASS stage-timeline: the real guard admitted and closed the job
+PASS stage-score: the real guard admitted and closed the job
+PASS stage-preview: the real guard admitted and closed the job
+PASS stage-pictures: the real guard admitted and closed the job
+PASS N-untouched: 110 files
+PASS 108-of-110-identical
+PASS report-only-source-bytes: 414 real-root spellings; respelling them restores N byte for byte
+PASS assembly-only-report-hash
+PASS derive-summary
+PASS prior-tables-exact-mapping: 12 tables, 52 path cells mapped, every other cell equal
+PASS tables-spell-N2
+PASS compare-one-chapter: 12 path cells in chapter 01
+PASS last-manifest-carries-both-folders: N, N2, the failed job, chain01 and every stage, all by logical paths
+PASS timeline-manifest-freezes-N2: all 110 N2 rows, the summary and all 110 N rows, by hash
+PASS receipt-reread-bounded: a half-written read is retried; a failed gate is not
+PASS second-start-refused
+PASS unknown-stage-refused
+PASS refuse-n2-wav-edited: AssertionError: N2 differs: 01_1.wav
+PASS refuse-n2-timing-edited: AssertionError: N2 differs: report.json
+PASS refuse-n2-extra-file: AssertionError: N2 file set differs
+PASS refuse-timeline01-relabelled: AssertionError: timeline01 receipt changed
+PASS refuse-timeline01-other-failure: AssertionError: timeline01 log lacks the exact refusal
+PASS refuse-chain01-edited: AssertionError: Sealed chain01 changed
+PASS stop-table-physical-path: AssertionError: ts1 tables differ from the macOS run: ['01_the_bump.timeline.tsv', '01_the
+PASS stop-table-hash-cell: AssertionError: ts1 tables differ from the macOS run: ['01_the_bump.cuelog.tsv', '02_turni

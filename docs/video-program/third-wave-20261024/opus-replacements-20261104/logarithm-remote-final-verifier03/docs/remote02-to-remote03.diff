@@ -1,0 +1,70 @@
+--- verifier02/verify_remote_final.py
++++ verify_remote_final.py
+@@ -11,6 +11,10 @@
+             inherited: the strict check runs with the pinned folders first, and refuses if another ffmpeg would answer
+   sheets    Pillow is proved at check time, because a contact sheet is the job's last step
+   record    verification.json gains `worker` and `tools_sha256`; every earlier key stays
++
++Revision 03 changes only two things from sealed verifier02, whose folder holds the older docs: the job's first read of
++the guard's live receipt now rereads a partial file for about 10 s, and anchors.json is read from verifier02's folder,
++pinned by hash. docs/remote02-to-remote03.diff is the whole change.
+ 
+ The gates, from the earlier helper:
+ 
+@@ -56,11 +60,13 @@
+ import socket
+ import subprocess
+ import sys
++import time
+ import wave
+ 
+ HERE = Path(__file__).resolve()
+ REPO = HERE.parents[5]
+-ANCHORS = HERE.parent / "anchors.json"
++ANCHORS = HERE.parent.parent / "logarithm-remote-final-verifier02/anchors.json"  # sealed there; never copied
++ANCHORS_SHA256 = "15dd516477629a8addb1282b4ab5880cb89d32019d0d1e0df889f01a43940c71"
+ STAGE = "logarithm-remote"
+ HOST = "mac-mini-max"  # root's guard01.py refuses any other host, and so does this helper
+ TOOLS_SCHEMA = "logarithm-remote-tools-v1"
+@@ -241,6 +247,23 @@
+     return lines[-1] if lines else None
+ 
+ 
++def live_receipt(path):
++    """This job's receipt while the guard owns it. The guard rewrites it in place just after starting the job, so a read
++    can land inside that write. Only a parse failure rereads, and a receipt that never parses refuses."""
++    for _ in range(100):
++        try:
++            return json.loads(Path(path).read_text())
++        except json.JSONDecodeError:
++            time.sleep(0.1)
++    raise Refused(f"the guard's receipt never settled: {path}")
++
++
++def load_anchors():
++    """Outside this folder's seal, so pinned here: the seal over this file then covers the anchors too."""
++    need(sha(ANCHORS) == ANCHORS_SHA256, f"{ANCHORS} is not the sealed anchors.json")
++    return load(ANCHORS)
++
++
+ def norm(text):
+     return " ".join(text.split())
+ 
+@@ -925,7 +948,7 @@
+     sites, stray = hold_windows(chapters, placements, timelines, holds)
+     closing = closing_window(chapters, placements, timelines, integration.get("editorial_closing_hold", {}), stray)
+     place = anchor_places(chapters, placements, script, onsets, marks, sites, closing)
+-    anchors = resolve_anchors(load(ANCHORS)["rows"], place, total)
++    anchors = resolve_anchors(load_anchors()["rows"], place, total)
+     samples = plan_samples(chapters, placements, timelines, script, onsets, holds, marks, layouts, anchors)
+     return {"script": script, "master": m, "chapters": chapters, "placements": placements, "total_frames": total,
+             "captions": captions, "holds": len(holds), "phrase_marks": sum(len(v) for v in marks.values()),
+@@ -1074,7 +1097,7 @@
+     try:
+         receipt = job / "resource-receipt.json"
+         need(receipt.is_file(), f"launch only through the guard: {receipt} is missing")
+-        started = json.loads(receipt.read_text())
++        started = live_receipt(receipt)
+         need(ran(started, cfg["script"]) and "exit" not in started and started.get("admitted") is True,
+              "the guard's receipt for this job does not show this script running")
+         on_host()
