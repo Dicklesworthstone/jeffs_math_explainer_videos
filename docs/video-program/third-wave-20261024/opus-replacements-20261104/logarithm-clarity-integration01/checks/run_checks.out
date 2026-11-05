@@ -1,0 +1,128 @@
+== pins
+PASS pins.sha256: 158 inputs, every one present with its pinned hash (none stale)
+PASS PINS_SHA256 in the helper is pins.sha256's hash 534016fd42c6
+PASS --print-pins: every current input equals its pin, and no input is unlisted
+PASS bound-plan/inputs.sha256 is the pin table
+== replay
+PASS --check: the delivered stage09/ equals a fresh build
+PASS two fresh --out runs: 58 files, byte-identical to each other and to stage09/
+PASS --out refuses a folder that exists
+== mirror
+PASS in a copy of its 158 pinned inputs alone, the helper writes stage09/'s bytes
+PASS --out refuses candidate/
+PASS --out refuses logarithm_mysteries/
+PASS --out refuses ui-takes01/
+PASS --out refuses logarithm-narration-clarity-repair01/
+PASS stale stage08 product_rule.rs: exit 3, nothing written
+PASS stale bound-plan03 template: exit 3, nothing written
+PASS stale clarity patch: exit 3, nothing written
+PASS stale pins.sha256: exit 3, nothing written
+PASS stale original 08_5 take removed: exit 3, nothing written
+PASS stale file added to the stage08 candidate: exit 3, nothing written
+PASS the mirror's stage08 is restored to root's bytes after the plants
+== patch
+PASS git apply of the sealed patch 2463334a on a scratch copy of stage08
+PASS git apply and the helper's applier give the same script.tsv and product_rule.rs
+PASS script 559afa36, product_rule.rs bc9fbe1d
+PASS the other 44 stage08 files are byte-identical in the candidate
+PASS the candidate is stage08's 47 files plus docs/narration-direction-map-oliver16.json
+PASS oliver15 is kept as it was
+PASS the patched script changes 04_4 and 08_5 only; 78 rows are stage08's bytes
+== recompute
+PASS the same 33 anchors as bound-plan03, keyed by cue and phrase (10_3's consts are null)
+PASS every anchor's byte, byte_end, word_index and sentence_index recomputed from the stage09 text (all equal)
+PASS moved anchors: [('08_5', 260, 267), ('08_5', 299, 306)]
+PASS the other 31 anchors keep bound-plan03's values
+PASS 11_20's anchors count 'sixty-six' as two words, binder03's rule (whitespace would give one less)
+PASS template: script 559afa36; each cue's marks are its anchors' bytes and phrases, in byte order (all)
+PASS template: 08_5 marks at 267 and 306; 04_4 has none
+PASS template: every text_sha256 is the stage09 text's
+PASS template: the 78 other entries are bound-plan03's
+PASS template: every WAV and every second is null, so the kit cannot load it
+PASS map: 15 holds; each file hash is the candidate's and each interval recomputes (all)
+PASS hold audit: 15 holds' source hashes current, intervals and markers re-read (all)
+PASS hold audit: 4594 words, at most 95, each cue's count from the stage09 text (08_5: 83)
+PASS hold audit: script 559afa36, map oliver16, every registered chapter's hash current
+PASS units: every text is its stage09 script rows
+PASS units: the 78 other texts are stage08's
+PASS units: both script hashes 559afa36; the contract names oliver16 by path and hash
+PASS bound-plan's units and map are the candidate's bytes
+PASS map: overrides, hold kinds, shared helpers and every hold's other fields are oliver15's
+PASS map: scripts.logarithm_mysteries is 559afa36
+PASS dispositions: oliver16's hash; each evidence is the stage09 hold audit at root's install path
+PASS cue delta: the 78 other rows are bound-plan03's
+PASS cue delta: 04_4 and 08_5 carry their stage09 hashes, no current request, and their stage08 request as superseded
+PASS all 162 retained WAVs re-hashed here equal root's inventory (hashed, not decoded)
+PASS take binding: each of the 78 cues has at least two retained Oliver takes of its exact stage09 text
+PASS take binding: 04_4 and 08_5 have no bindable take; their four original takes are listed as preserved
+PASS the four original 04_4 and 08_5 takes are in ui-takes01 with their hashes
+PASS no old script, source, units, map, hold-audit or 04_4/08_5 text hash left in the rebound plan, outside the superseded rows (none)
+PASS 44 crate (path, sha256) pairs in the hold audit, anchors and map: each is the candidate's file (all current)
+== consumers
+PASS coherent_narration read_units + direction_contract + review_directions accept stage09 as installed: ACCEPTED 80 15
+PASS the same consumers refuse stage08's units on the stage09 script: REFUSED ValueError unit plan does not bind current script bytes
+PASS ... and units naming oliver15's hash for oliver16: REFUSED ValueError direction map changed
+PASS ... and bound-plan03's dispositions, whose evidence is bound-plan03's hold audit: REFUSED FileNotFoundError [Errno 2] No such file or directory: 'narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json'
+PASS docs/check_cues.py on stage09: exit 0, OK
+PASS docs/check_cues.py on stage08: exit 0, OK
+PASS rustfmt +nightly-2026-08-31 --check (edition 2024, width 120): stage09 and stage08 product_rule.rs
+PASS the_half_turn_and_its_sign_wait... mirrored: new text + new test and old + old pass; crossed fail
+PASS phrase_seconds mirrored on 08_5 with illustrative times: marks at 267/306 are read (['mark', 'mark']); at 260/299 both fall back (['share', 'share'])
+== rejections
+PASS template control: the delivered template: exit 0
+PASS template 08_5 marks left at 260/299: exit 1 (08_5: marks at bytes [260, 299]; the stage09 anchors are [267, 306])
+PASS template 08_5 one mark at 260: exit 1 (08_5: marks at bytes [260, 306]; the stage09 anchors are [267, 306])
+PASS template 08_5 text hash left at stage08's: exit 1 (08_5: text_sha256 f91292cc74fa is its stage08 text)
+PASS template 04_4 text hash left at stage08's: exit 1 (04_4: text_sha256 6a85a6bdd44b is its stage08 text)
+PASS template 08_5 missing a mark: exit 1 (08_5: marks at bytes [267]; the stage09 anchors are [267, 306])
+PASS template 08_5 extra mark: exit 1 (08_5: marks at bytes [267, 306, 340]; the stage09 anchors are [267, 306])
+PASS template 08_5 marks renamed: exit 1 (08_5: the mark at 267 names 'a half turn', not 'leaves a half turn')
+PASS template 08_5 marks swapped: exit 1 (08_5: marks at bytes [306, 267]; the stage09 anchors are [267, 306])
+PASS template neighbour 08_4 text hash changed: exit 1 (08_4: text_sha256 3f8d2a5d302c is not its stage09 text)
+PASS template neighbour 04_5 given a mark: exit 1 (04_5: marks at bytes [0]; the stage09 anchors are [])
+PASS template cue 12_21 missing: exit 1 (cues: missing ['12_21'], extra [])
+PASS template script hash left at b89eab60: exit 1 (script_sha256 b89eab600a6c is not stage09's 559afa36)
+PASS measured control: filled with retained takes and two fixture hashes: exit 0
+PASS measured 08_5 bound to an original take: exit 1 (08_5: wav_sha256 9b5d2b73ec64 is a retained take (a take of the stage08 wording), not)
+PASS measured 04_4 bound to an original take: exit 1 (04_4: wav_sha256 573d2360f72d is a retained take (a take of the stage08 wording), not)
+PASS measured 04_4 bound to another cue's retained take: exit 1 (04_4: wav_sha256 919ee92f8d4e is a retained take, not a new take of the reviewed word)
+PASS measured neighbour 04_5 bound to a non-retained hash: exit 1 (04_5: wav_sha256 b9fde12b271c is not a retained Oliver take of this exact text)
+PASS measured marks at 260/299 with a new take: exit 1 (08_5: marks at bytes [260, 299]; the stage09 anchors are [267, 306])
+PASS measured 08_5 seconds going backwards: exit 1 (08_5: seconds [5.0, 4.0] are not finite, non-negative and non-decreasing)
+PASS measured 08_5 seconds not finite: exit 1 (08_5: seconds [nan, 2.0] are not finite, non-negative and non-decreasing)
+PASS measured 08_5 seconds null in a measured file: exit 1 (08_5: seconds [None, 2.0] are not finite, non-negative and non-decreasing)
+PASS receipt control 08_5, Oliver: exit 0
+PASS    Lavender's receipt check agrees: PASS
+PASS receipt control 04_4, the long Oliver label: exit 0
+PASS receipt 08_5 voiced by Frederick Surrey: exit 1 (voice 'Frederick Surrey' is not ElevenLabs Oliver)
+PASS    Lavender's receipt check agrees: FAIL
+PASS receipt 08_5 with the stage08 wording: exit 1 (text is not the stage09 text (it is the stage08 wording))
+PASS receipt neighbour 04_5: exit 1 (cue '04_5' is not 04_4 or 08_5, the only cues re-recorded)
+PASS receipt 08_5 at stability 0.6: exit 1 (stability 0.6, not 0.5 as the 80 retained takes)
+PASS receipt 08_5 on model Eleven v3: exit 1 (model 'Eleven v3', not 'Eleven v4' as the 80 retained takes)
+PASS receipt 08_5 as MP3: exit 1 (format 'MP3 44.1 kHz' is not one of the retained takes' WAV 48 kHz labels)
+PASS receipt 08_5 with previous_text context: exit 1 (context fields ['previous_text']; the retained takes carry none)
+PASS receipt 08_5 bound to script b89eab60: exit 1 (script_sha256 b89eab600a6c is not 559afa36)
+PASS receipt 08_5 noting a Frederick history: exit 1 (names another voice or engine)
+PASS --verify control: a copy of stage09/: exit 0
+PASS --verify units keeping script b89eab60: exit 1 (DIFFERS  candidate/explainer_corpus/logarithm_mysteries/narration_units.json)
+PASS --verify units keeping 08_5's stage08 text: exit 1 (DIFFERS  candidate/explainer_corpus/logarithm_mysteries/narration_units.json)
+PASS --verify map keeping product_rule.rs f2c8684a: exit 1 (DIFFERS  candidate/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver16.json)
+PASS --verify template keeping 260/299: exit 1 (DIFFERS  bound-plan/phrase-timings-unmeasured-template.json)
+PASS --verify anchors keeping 260: exit 1 (DIFFERS  bound-plan/phrase-anchors.json)
+PASS --verify hold audit keeping f2c8684a: exit 1 (DIFFERS  bound-plan/hold-audit.json)
+PASS --verify dispositions keeping bound-plan03's evidence: exit 1 (DIFFERS  bound-plan/direction-dispositions-proposed.json)
+PASS --verify neighbour 04_5 reworded in the script: exit 1 (DIFFERS  candidate/explainer_corpus/logarithm_mysteries/script.tsv)
+PASS --verify a stray .orig file: exit 1 (EXTRA    candidate/explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs.orig)
+PASS --verify oliver16 missing: exit 1 (MISSING  candidate/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver16.json)
+== lavender
+PASS LavenderPike's review bundle is as sealed (SHA256SUMS e78a99b4, 8 files)
+PASS rebind_acceptance.py on the delivered candidate: 44 PASS, and its one FAIL is the units' other fields: ["FAIL the units' other fields are stage08's"]
+PASS the only such field that differs is scope: ['scope']
+PASS with stage08's scope sentence put back (a scratch copy), rebind_acceptance.py passes: 45 PASS
+== hygiene
+PASS HANDOFF.md is present
+PASS no machine path, user name or address in 16 authored files (none)
+PASS no gendered pronoun in them (none)
+PASS no hidden, .rej or .orig file of mine; the candidate's only .orig is stage08's own ['explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs.orig']
+RESULT PASS, 118 checks

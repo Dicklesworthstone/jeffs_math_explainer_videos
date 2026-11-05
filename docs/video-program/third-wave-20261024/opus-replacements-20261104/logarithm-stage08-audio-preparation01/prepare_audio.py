@@ -319,8 +319,7 @@ def load_inputs(b):
                     problems.append(f"{rel}: its downloads receipt does not list it exactly once")
                 elif want not in os.path.basename(rows[0].get("source", "")):
                     said = [f"{k}: {v}" for k, v in sorted(receipts[receipt].items()) if isinstance(v, str) and b["voice"]["name"] in v]
-                    voice_gap = (f"The downloaded file name {os.path.basename(rows[0].get('source', ''))!r} does not contain {want!r}. "
-                                 + (f"The downloads receipt's own text says: {' | '.join(said)}" if said else "The downloads receipt does not name the voice."))
+                    voice_gap = {"file_name": os.path.basename(rows[0].get("source", "")), "receipt_says": said}
             t = dict(t, rel=rel, receipt=receipt, inventory=spec["path"], voice_gap=voice_gap)
             if t["cue"] in script and t["text_sha256"] == sha_bytes(script[t["cue"]].encode()):
                 takes[rel] = t
@@ -562,10 +561,17 @@ def build_report(b):
                     "detail": f"Anchor '{m['phrase']}' at byte {m['byte']} has no supported onset ({m['status']}); without a mark the kit falls back to its estimate.",
                     "candidate": m.get("candidate"), "decisions": (["use_candidate"] if m.get("candidate") else []) + ["sample", "omit_mark"]})
         if t["voice_gap"]:
+            gap, voice = t["voice_gap"], f"{b['voice']['provider']} {b['voice']['name']}"
+            observed = bool(gap["receipt_says"])
             questions.append({
-                "id": f"voice:{cue}:{name}", "kind": "voice", "cue": cue, "files": [name],
-                "detail": f"One binding holds one voice ({b['voice']['provider']} {b['voice']['name']}). {t['voice_gap']} "
-                          "Root confirms the provider voice of this recording or rejects it.",
+                "id": f"voice:{cue}:{name}", "kind": "voice", "cue": cue, "files": [name], "blocking": not observed,
+                "detail": f"One binding holds one voice ({voice}). The downloaded file name {gap['file_name']!r} does not contain "
+                          f"{b['voice']['download_source_contains']!r}. "
+                          + (f"The downloads receipt records a contemporaneous provider observation naming the voice ({' | '.join(gap['receipt_says'])}). "
+                             "That observation is bound as provider provenance; it is not a listening confirmation. Advisory: a missing "
+                             "name is not evidence of another voice. Root may record a provider-history recheck here."
+                             if observed else "The downloads receipt does not name the voice either. Root confirms the provider voice or rejects the recording."),
+                "provenance": {"receipt": t["receipt"], "receipt_sha256": sha_file(t["receipt"]), "observation": gap["receipt_says"]},
                 "candidate": None, "decisions": ["confirmed_voice", "reject_take"]})
         if r["via"]:
             questions.append({
@@ -589,6 +595,8 @@ def build_report(b):
                           f"{', '.join(heard) or 'none'}. A transcript is not listening.",
                 "candidate": None, "decisions": ["heard_as_script", "reject_take"]})
     questions.sort(key=lambda q: (order[q["cue"]], q["id"]))
+    for q in questions:
+        q.setdefault("blocking", True)
     counts = collections.Counter()
     gaps, long_words = [], []
     for e in recordings:
@@ -599,7 +607,7 @@ def build_report(b):
                 if s.get("abuts_previous_word"):
                     counts["supported_onsets_abutting_previous_word"] += 1
                     gaps.append(s["asr_end_s"] - s["asr_start_s"])
-                    if gaps[-1] >= 0.6:
+                    if round(gaps[-1], 3) >= 0.6:
                         long_words.append({"id": s["id"], "word": s["word"], "word_segment_s": round(gaps[-1], 3)})
         for m in e["phrase_anchors"]:
             counts["phrase_anchor_marks"] += 1
@@ -624,12 +632,14 @@ def build_report(b):
                                         "max": round(gaps[-1], 3) if gaps else None,
                                         "meaning": "an abutting onset's word segment begins where the previous word ended, so the onset may lie up to about this long before the word"},
         "abutting_onsets_with_word_segment_at_least_0_6_s": long_words,
-        "questions": len(questions), "files_with_questions": len({f for q in questions for f in q["files"]}),
+        "questions": len(questions), "blocking_questions": sum(q["blocking"] for q in questions),
+        "files_with_blocking_questions": sorted({f for q in questions if q["blocking"] for f in q["files"]}),
         "claim": claim}
     files = {
         "anchors.json": dumps({"binding": bind, "claim": claim, "min_agreeing_run": MIN_RUN, "recordings": recordings}),
-        "questions.json": dumps({"binding": bind, "claim": "Each question blocks the files it names until root answers it. "
-                                 "Answers are root's statements; this tool checks only their form.", "questions": questions}),
+        "questions.json": dumps({"binding": bind, "claim": "A blocking question stops the files it names from being prepared until root "
+                                 "answers it; an advisory one stays visible and may be answered. Answers are root's statements; this "
+                                 "tool checks only their form.", "questions": questions}),
         "answers-template.json": dumps({"schema": "audio-preparation-answers-v1", "binding_sha256": b["sha256"],
                                         "answers": {q["id"]: {"decision": None, "by": None, "basis": None} for q in questions}}),
         "coverage.json": dumps(coverage),
@@ -704,7 +714,7 @@ def check_answers(b, path, questions, recordings, chosen):
             applied[qid] = {"decision": a["decision"], "by": a["by"], "basis": a["basis"],
                             **({"sample_24k": a["sample_24k"]} if a["decision"] == "sample" else {})}
     for q in questions:
-        if set(q["files"]) & names and q["id"] not in applied and not any(q["id"] in p for p in problems):
+        if q["blocking"] and set(q["files"]) & names and q["id"] not in applied and not any(q["id"] in p for p in problems):
             problems.append(f"open question blocks the selection: {q['id']}: {q['detail']}")
     if problems:
         raise Refused("\n".join(problems))
@@ -858,6 +868,10 @@ def cmd_prepare(b, args):
                       "sentence_ends": ends, "gap_after_samples": [0] * len(ends)})
         plan_cues[cue] = {"recording": entry["file"], "recognition": entry["recognition"],
                           "sentence_starts_24k": [{"sample": s, "basis": why} for s, why in starts]}
+        voice_q = next((q for q in questions if q["kind"] == "voice" and q["files"] == [entry["file"]]), None)
+        if voice_q:
+            plan_cues[cue]["voice_provenance"] = {"question": voice_q["id"], "blocking": voice_q["blocking"],
+                                                  "receipt": voice_q["provenance"], "root_answer": applied.get(voice_q["id"])}
         marks_plan[cue] = marks
     if problems:
         raise Refused("\n".join(problems))

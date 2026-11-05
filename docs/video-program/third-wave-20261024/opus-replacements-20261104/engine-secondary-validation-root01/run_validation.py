@@ -62,6 +62,8 @@ STACK = (
 )
 # fmn's library tests from F1 and R1, which no other step runs; each runs alone, by name.
 FMN_LIB = "crates/fmn/src/"
+# Every #[test] in fmn's library on the stacked stage; none is ignored, so all must pass.
+FMN_LIB_TESTS = 17
 # R1 changed the runtime's coordinator, so the whole fmn-runtime crate is tested.
 RUNTIME = "crates/fmn-runtime/"
 TOOLS = ("verify_patched_lock.py", "instantiate_config.py", "repoint_lab.py", "engine-budget.config.toml.in")
@@ -381,6 +383,12 @@ def jobs(stage):
         "film-check": Job(1.0, [
             f(*cargo("clippy", *budget, "--manifest-path", str(lab), "--bin", "complex_analysis_visual",
                      "--example", "plate_lab", "--no-deps"), "--", "-D", "warnings"),
+        ]),
+        # Root's Mail 3858: fmn's whole library, not only the F1/R1 tests engine-test runs by name.
+        # Last, so `--from engine-lib` runs it alone. engine-build built this binary; nothing grows.
+        "engine-lib": Job(0.0, [
+            e(*cargo("test", "-p", "fmn", "--lib", "--no-fail-fast"), must=names(FMN_LIB),
+              min_passed=FMN_LIB_TESTS, limit=HOUR),
         ]),
     }
 

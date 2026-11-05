@@ -1,0 +1,55 @@
+PASS mirror-coherent-narration: read_script, direction_words, sentences equal on 105 cues
+PASS p00-status-writes-nothing
+PASS p00-good-plan: 6 WAVs planned; frozen roles {'crate_map': 1, 'crate_script': 1, 'crate_units': 1, 'fw': 1, 'guard': 1, 'guard_source': 1, 'inputs': 1, 'intake_tool': 1, 'model': 1, 'plan': 1, 'receipt': 9, 'run': 1, 'wav': 6}
+PASS p00-guard-check-inputs: root's pinned guard re-hashes all frozen inputs and accepts the manifest
+PASS p00-sample-info: 12000 frames, 0.25 s, chunks fmt/data/C2PA
+PASS p00-run-asr-command: fw arguments equal root's run01.py except the inputs list; root's guard; new job per attempt
+PASS n01-stale-cue-text: exit 0; 01_3 refused: stale cue text: the request text is not the stage05 script row; planned ['01_1', '01_2']
+PASS n02-text-hash-wrong: exit 0; 01_3 refused: request text_sha256 does not hash its text; planned ['01_1', '01_2']
+PASS n03-missing-wav: exit 0; 01_3 refused: missing WAV: '01_3-download02.wav'; planned ['01_1', '01_2']
+PASS n04-partial-wav: exit 0; 01_3 refused: 01_3-download02.wav bytes do not hash to the receipt sha256 (partial, replaced or still copying); planned ['01_1', '01_2']
+PASS n05-partial-wav-consistent-receipt: exit 0; 01_3 refused: partial or malformed WAV 01_3-download02.wav: RIFF declares 24060 bytes but the file has 19060; planned ['01_1', '01_2']
+PASS n06-silent-wav: exit 0; 01_3 refused: partial or malformed WAV 01_3-download02.wav: every sample is zero; planned ['01_1', '01_2']
+PASS n07-not-mono-48k: exit 0; 01_3 refused: partial or malformed WAV 01_3-download02.wav: format (1, 2, 48000, 192000, 4, 16) is not 16-bit mono 48 kHz PCM; planned ['01_1', '01_2']
+PASS n08-mixed-voice-request: exit 0; 01_3 refused: mixed voice: request voice 'Oliver - Clean, British and Steady'; planned ['01_1', '01_2']
+PASS n09-mixed-voice-source: exit 0; 01_3 refused: mixed voice: 01_3-download02.wav source 'ElevenLabs_2026-11-05T00_00_00_Oliver - Clean, British and Steady_pvc_s50_sim75_v4.wav' is not a Frederick v4 download; planned ['01_1', '01_2']
+PASS n10-mixed-voice-oliver-audio-under-frederick-labels: exit 0; 01_3 refused: mixed voice: 01_3-download01.wav audio matches a retained Oliver recording; planned ['01_1', '01_2']
+PASS n10b-mixed-voice-oliver-pcm-new-container: exit 0; 01_3 refused: mixed voice: 01_3-download01.wav audio matches a retained Oliver recording; planned ['01_1', '01_2']
+PASS n11-duplicate-within-cue: exit 0; 01_3 refused: duplicate input: 01_3-download02.wav has the same audio as 01_3-download01.wav; planned ['01_1', '01_2']
+PASS n12-duplicate-across-cues: exit 0; 01_3 refused: duplicate input: 01_3-download01.wav has the same audio as 01_1-download01.wav; planned ['01_2']
+PASS n13-duplicate-pcm-other-container: exit 0; 01_3 refused: duplicate input: 01_3-download02.wav has the same audio as 01_3-download01.wav; planned ['01_1', '01_2']
+PASS n14-wav-named-by-two-receipts: exit 0; 01_3 refused: duplicate input: 01_3-download01.wav is named by 01_3-downloads01.json, 01_3-downloads02.json; planned ['01_1', '01_2']
+PASS n15-script-drift-request: exit 0; 01_3 refused: script drift: request binds script 2968b0fd7654, not stage05 12442480d7e7; planned ['01_1', '01_2']
+PASS n16-incomplete-take-set: exit 0; 01_3 refused: incomplete take set: 1 takes for 1 generation request(s); expected 2; planned ['01_1', '01_2']
+PASS n17-no-submission: exit 0; 01_3 refused: 0 submission receipts bind '01_3-request01.json'; expected one; planned ['01_1', '01_2']
+PASS n18-submission-binds-another-request: exit 0; 01_3 refused: 0 submission receipts bind '01_3-request01.json'; expected one (01_3-submission02.json bind another request or are unreadable); planned ['01_1', '01_2']
+PASS n19-oliver-style-receipt: exit 0; 01_3 refused: not a Frederick take receipt: no takes list (an Oliver-style downloads list); planned ['01_1', '01_2']
+PASS n20-take-outside-folder: exit 0; 01_3 refused: take 01_3-download01.wav is not in the take folder; planned ['01_1', '01_2']
+PASS n21-receipt-frames-wrong: exit 0; 01_3 refused: 01_3-download01.wav has 12000 frames, the receipt says 1; planned ['01_1', '01_2']
+PASS n22-unreceipted-wavs
+PASS n23-script-drift-crate: PIN MOVED: script drift: script script.tsv is a112e33de7a5, not the pinned 12442480d7e7
+PASS n24-crate-copy-unchanged: control for n23: an exact copy of the crate is accepted
+PASS n25-fw-pin-moved
+PASS n26-lane-inside-take-folder
+PASS n27-nothing-eligible
+PASS i01-plan-01
+PASS i02-in-flight-not-replanned
+PASS i03-new-cue-only
+PASS i04-ingest-job-of-another-plan: REFUSED: job 'complex-lane-plan-02-a1' is not an attempt of plan-01
+PASS i05-ingest-inputs-sha-mismatch: REFUSED: the job's inputs_sha256 is not this plan's frozen-inputs.json
+PASS i06-ingest-other-command: REFUSED: the job did not run this plan's fw command
+PASS i07-ingest-not-admitted: REFUSED: the job was never launched; run a new attempt or release the plan
+PASS i08-ingest-input-outside-plan: REFUSED: command.log line 1 names an input outside plan-01
+PASS i09-ingest-duplicate-record: REFUSED: command.log names 01_1-download01.wav twice
+PASS i10-ingest-index-mismatch: REFUSED: command.log line 1 index does not match its inputs.txt line
+PASS i11-ingest-partial-failures: 2 processed; status error and model mismatch failed
+PASS i12-provisional-alignment: 44/45 words aligned; sentence 1 onset unaligned at 'one', first aligned onset 1.75 s
+PASS i13-failed-wavs-eligible-again
+PASS i14-ingest-closed-plan-refused
+PASS i15-run-asr-refuses-closed-plan: the generated runner sees the ingest that closed its plan (checked without launching)
+PASS i16-release-reopens-wavs
+PASS i17-resource-stop-closes-all-failed
+PASS i18-wav-changed-after-plan
+PASS i19-duplicate-of-processed
+PASS i20-status: plan-05 open; 3 WAVs processed; plans 01-04 closed
+SELFTEST: PASS (54/54)

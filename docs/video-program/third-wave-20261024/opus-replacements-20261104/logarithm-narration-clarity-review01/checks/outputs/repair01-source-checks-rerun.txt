@@ -1,0 +1,97 @@
+-- baseline
+  PASS candidate explainer_corpus/logarithm_mysteries/script.tsv is the baseline b89eab600a6c
+  PASS candidate explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs is the baseline f2c8684acd83
+  PASS candidate explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs is the baseline 4dc4c555122d
+  PASS candidate explainer_corpus/logarithm_mysteries/narration_units.json is the baseline 0e27709b2db1
+  PASS candidate explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json is the baseline c94f0077f379
+  PASS candidate explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json is stage08's c94f0077f379
+  PASS candidate explainer_corpus/logarithm_mysteries/narration_units.json is stage08's 0e27709b2db1
+  PASS units, contract and map bind the script b89eab600a6c
+  PASS the units' contract binds this map by path and hash
+-- evidence (machine recognition, not listening)
+  PASS 04_4: both small.en transcripts have 'this space is called' where the script has 'this base is called'
+  PASS 04_4: the current script says 'this base is called'
+  PASS 04_4: its takes were requested with the current text 6a85a6bdd44b
+  PASS 04_4: 04_4-download01.wav is the take the review read
+  PASS 04_4: 04_4-download02.wav is the take the review read
+  PASS 08_5: both small.en transcripts have 'Having the lost lap' where the script has 'Halving the lost lap'
+  PASS 08_5: the current script says 'Halving the lost lap'
+  PASS 08_5: its takes were requested with the current text f91292cc74fa
+  PASS 08_5: 08_5-download01.wav is the take the review read
+  PASS 08_5: 08_5-download02.wav is the take the review read
+  review note, verbatim: Both small.en04_4takes say space for script base; both08_5 say having for halving. These corroborate uncertainties rather than establish actual spoken error. Small.en additionally loses roots near end of08_5take01 and spells routes in take02. Do not silently mark script content heard. No listening/selection/fine-sync verdict.
+-- replay
+  PASS git apply --check exit 0 
+  PASS patch -p1 exit 0: patching file explainer_corpus/logarithm_mysteries/script.tsv / patching file explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs
+  PASS patched explainer_corpus/logarithm_mysteries/script.tsv is 559afa369822
+  PASS patched explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs is bc9fbe1dfad2
+  PASS patched explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs is 4dc4c555122d
+  PASS patched explainer_corpus/logarithm_mysteries/narration_units.json is 0e27709b2db1
+  PASS patched explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json is c94f0077f379
+  PASS no new .rej or .orig files (the candidate already had ['explainer_corpus/logarithm_mysteries/src/chapters/doing_nothing.rs.orig'])
+  PASS exactly two files change: ['explainer_corpus/logarithm_mysteries/script.tsv', 'explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs']
+-- wording
+  PASS same 80 cues in the same order
+  PASS only 04_4 and 08_5 change
+  PASS 04_4: one replacement, 'this base' -> 'base e', and nothing else
+  PASS 04_4: 6 sentences before and after, one of them reworded
+  PASS 04_4: no digits, 71 words (at most 100)
+  PASS 04_4: all 6 statements of the mathematics are still said
+  PASS 08_5: one replacement, 'Halving' -> 'Taking half of', and nothing else
+  PASS 08_5: 6 sentences before and after, one of them reworded
+  PASS 08_5: no digits, 83 words (at most 100)
+  PASS 08_5: all 7 statements of the mathematics are still said
+  PASS the two misheard words are gone
+  PASS 04_4 now ends on its card's words: 'that is why base e is called natural'
+  PASS 04_5 still follows with other bases
+-- hooks
+  PASS check_cues.py on the control copy: exit 0, last line 'OK'
+  PASS check_cues.py on the patched copy: exit 0, last line 'OK'
+  PASS check_cues.py prints the same report for both copies
+  PASS Rust test mirror passes: old text with old opener, new with new
+  PASS Rust test mirror fails crossed: the test edit is needed
+  PASS product_rule.rs: same length, lines [432, 722, 723] change
+  PASS the changed lines are a scene comment and the test (tests start at line 611)
+  PASS the test now opens on the new words
+  PASS HALF_TURN_PHRASE is still 'leaves a half turn'
+  PASS FACTOR_PHRASE is still 'a factor of minus one'
+  PASS repository rustfmt.toml: edition 2024, width 120
+  rustfmt 1.10.0-nightly (9085017724 2026-08-30)
+  PASS rustfmt --check product_rule.rs, control copy: exit 0
+  PASS rustfmt --check product_rule.rs, patched copy: exit 0
+-- bindings
+  PASS root's bound plan binds the same script
+  PASS word counts reproduce the hold audit (4592 words)
+  PASS 08_1 hold: the interval formula reproduces root's 1d498942e2bc (lines 108-221)
+  PASS 08_1 hold: interval and marker unchanged
+  PASS 08_4 hold: the interval formula reproduces root's 23b0206f29d4 (lines 317-346)
+  PASS 08_4 hold: interval and marker unchanged
+  PASS map 00_4 hold: ratio_ruler.rs unchanged
+  PASS map 01_3 hold: building_ruler.rs unchanged
+  PASS map 02_2 hold: slide_rule.rs unchanged
+  PASS map 04_6 hold: undoing_growth.rs unchanged
+  PASS map 05_1 hold: complex_turns.rs unchanged
+  PASS map 05_5 hold: complex_turns.rs unchanged
+  PASS map 06_2 hold: lifting_loops.rs unchanged
+  PASS map 06_4 hold: lifting_loops.rs unchanged
+  PASS map 07_3 hold: branch_cut.rs unchanged
+  PASS map 08_1 hold binds product_rule.rs f2c8684acd83
+  PASS map 08_4 hold binds product_rule.rs f2c8684acd83
+  PASS map 10_4 hold: doing_nothing.rs unchanged
+  PASS map 11_3 hold: unreachable.rs unchanged
+  PASS map 11_20 hold: unreachable.rs unchanged
+  PASS map 12_5 hold: what_it_forgets.rs unchanged
+  PASS the map names product_rule.rs's hash 4 times, all listed
+  PASS anchor HALF_TURN_PHRASE: the formula reproduces root's {'byte': 260, 'byte_end': 278, 'word_index': 51, 'sentence_index': 4}
+  PASS anchor HALF_TURN_PHRASE: hook still at line(s) [438]
+  PASS anchor FACTOR_PHRASE: the formula reproduces root's {'byte': 299, 'byte_end': 320, 'word_index': 60, 'sentence_index': 4}
+  PASS anchor FACTOR_PHRASE: hook still at line(s) [456]
+  PASS the two product_rule.rs anchors are 08_5's, both listed
+  PASS 04_4 has no phrase anchor
+  PASS Oliver request receipts matching the text: 80 before, 78 after; only 04_4 and 08_5 drop
+  PASS final80-02 request 04_4 binds the old text
+  PASS final80-02 request 08_5 binds the old text
+-- inventory
+  PASS binding-inventory.json equals what this run computed
+
+RESULT PASS

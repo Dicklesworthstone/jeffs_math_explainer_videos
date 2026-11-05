@@ -1,0 +1,42 @@
+PASS status: 18 downloads receipts; 36 WAVs eligible in 18 cues (01_1, 01_2, 01_3, 01_4, 01_5, 01_6, 02_1, 02_2, 02_3, 02_4, 02_5, 02_6, 03_1, 03_2, 03_3, 03_4, 03_5, 03_6); refused 0; awaiting download []; not submitted 87 of 105; unreceipted []; Oliver inventory {'folders': 3, 'wavs': 182, 'receipts': 194, 'hashes': 363}
+PASS plan-01: 36 WAVs in inputs.txt, in plan order
+PASS guard-check-inputs: root's pinned guard re-hashed 101 frozen inputs: {'crate_map': 1, 'crate_script': 1, 'crate_units': 1, 'fw': 1, 'guard': 1, 'guard_source': 1, 'inputs': 1, 'intake_tool': 1, 'model': 1, 'plan': 1, 'receipt': 54, 'run': 1, 'wav': 36}
+PASS 01_1-download01.wav: 794880 frames, 16.56 s, chunks fmt/data/C2PA, peak 28749, sha 13b3ca49a8dc, pcm 510cad6e49f4, submission 01_1-submission01.json
+PASS 01_1-download02.wav: 779520 frames, 16.24 s, chunks fmt/data/C2PA, peak 26927, sha 0b4d423ab2c8, pcm 949f2476cd07, submission 01_1-submission01.json
+PASS 01_2-download01.wav: 576000 frames, 12.00 s, chunks fmt/data/C2PA, peak 24140, sha 4c70db02ed0f, pcm b241c67e4934, submission 01_2-submission01.json
+PASS 01_2-download02.wav: 587520 frames, 12.24 s, chunks fmt/data/C2PA, peak 26295, sha 9402105c58a3, pcm 821d0a887977, submission 01_2-submission01.json
+PASS 01_3-download01.wav: 833280 frames, 17.36 s, chunks fmt/data/C2PA, peak 28613, sha b29261f6d00f, pcm 055c294e5713, submission 01_3-submission01.json
+PASS 01_3-download02.wav: 829440 frames, 17.28 s, chunks fmt/data/C2PA, peak 25847, sha 9f9e1f8ea2d1, pcm b452aeb32641, submission 01_3-submission01.json
+PASS 01_4-download01.wav: 403200 frames, 8.40 s, chunks fmt/data/C2PA, peak 20303, sha 3483363422c2, pcm 275997e67195, submission 01_4-submission01.json
+PASS 01_4-download02.wav: 407040 frames, 8.48 s, chunks fmt/data/C2PA, peak 17642, sha c16f4443f055, pcm 99fdbbaee598, submission 01_4-submission01.json
+PASS 01_5-download01.wav: 1017600 frames, 21.20 s, chunks fmt/data/C2PA, peak 23218, sha 71599db532f4, pcm 6a622cfcab82, submission 01_5-submission01.json
+PASS 01_5-download02.wav: 1021440 frames, 21.28 s, chunks fmt/data/C2PA, peak 26538, sha fc4a7b79399e, pcm 1aed6e837f7c, submission 01_5-submission01.json
+PASS 01_6-download01.wav: 844800 frames, 17.60 s, chunks fmt/data/C2PA, peak 27021, sha be20a9b3b26b, pcm 205cad7fb9c8, submission 01_6-submission01.json
+PASS 01_6-download02.wav: 856320 frames, 17.84 s, chunks fmt/data/C2PA, peak 27751, sha 0d5463cbf841, pcm f1532fcea577, submission 01_6-submission01.json
+PASS 02_1-download01.wav: 614400 frames, 12.80 s, chunks fmt/data/C2PA, peak 29843, sha 77f627c6d58d, pcm 6a4e20591489, submission 02_1-submission01.json
+PASS 02_1-download02.wav: 614400 frames, 12.80 s, chunks fmt/data/C2PA, peak 22161, sha 8634c62b89c5, pcm 0d150fea649a, submission 02_1-submission01.json
+PASS 02_2-download01.wav: 602880 frames, 12.56 s, chunks fmt/data/C2PA, peak 21256, sha 418951abd647, pcm a69bdf3d8c56, submission 02_2-submission01.json
+PASS 02_2-download02.wav: 599040 frames, 12.48 s, chunks fmt/data/C2PA, peak 21739, sha bdac481af4e5, pcm ade904928b13, submission 02_2-submission01.json
+PASS 02_3-download01.wav: 418560 frames, 8.72 s, chunks fmt/data/C2PA, peak 20014, sha 9bc007fafcde, pcm e47a7e97ba84, submission 02_3-submission01.json
+PASS 02_3-download02.wav: 418560 frames, 8.72 s, chunks fmt/data/C2PA, peak 20786, sha 1443be6705e6, pcm c28e3ef92f5e, submission 02_3-submission01.json
+PASS 02_4-download01.wav: 725760 frames, 15.12 s, chunks fmt/data/C2PA, peak 25383, sha 893d1c88f2c4, pcm 9579bd22c84e, submission 02_4-submission01.json
+PASS 02_4-download02.wav: 729600 frames, 15.20 s, chunks fmt/data/C2PA, peak 28175, sha 7a53ec2efad9, pcm 781d55a57ff5, submission 02_4-submission01.json
+PASS 02_5-download01.wav: 495360 frames, 10.32 s, chunks fmt/data/C2PA, peak 22719, sha 72d04b4b2f39, pcm 22b9cc85f90b, submission 02_5-submission01.json
+PASS 02_5-download02.wav: 487680 frames, 10.16 s, chunks fmt/data/C2PA, peak 23262, sha 0d21f5e41df0, pcm 12ea6c799229, submission 02_5-submission01.json
+PASS 02_6-download01.wav: 867840 frames, 18.08 s, chunks fmt/data/C2PA, peak 28850, sha 446187d04406, pcm 53c826c41c1e, submission 02_6-submission01.json
+PASS 02_6-download02.wav: 856320 frames, 17.84 s, chunks fmt/data/C2PA, peak 28639, sha 482033b9292c, pcm d13ce15157d9, submission 02_6-submission01.json
+PASS 03_1-download01.wav: 641280 frames, 13.36 s, chunks fmt/data/C2PA, peak 25558, sha 06870fc9947b, pcm 0311a65b68df, submission 03_1-submission01.json
+PASS 03_1-download02.wav: 637440 frames, 13.28 s, chunks fmt/data/C2PA, peak 29417, sha 6870213deb06, pcm 27ba0d2c285c, submission 03_1-submission01.json
+PASS 03_2-download01.wav: 791040 frames, 16.48 s, chunks fmt/data/C2PA, peak 25477, sha e3a2203422a9, pcm d59abdce36ec, submission 03_2-submission01.json
+PASS 03_2-download02.wav: 783360 frames, 16.32 s, chunks fmt/data/C2PA, peak 26872, sha e71b9e2a948c, pcm 301cdb583ea5, submission 03_2-submission01.json
+PASS 03_3-download01.wav: 272640 frames, 5.68 s, chunks fmt/data/C2PA, peak 23802, sha ba4493b8548e, pcm 992538966057, submission 03_3-submission01.json
+PASS 03_3-download02.wav: 280320 frames, 5.84 s, chunks fmt/data/C2PA, peak 20243, sha 759fe42ef9f3, pcm 2e8a5577eb81, submission 03_3-submission01.json
+PASS 03_4-download01.wav: 1240320 frames, 25.84 s, chunks fmt/data/C2PA, peak 28537, sha 12c09505a51d, pcm 1e12dc91904d, submission 03_4-submission01.json
+PASS 03_4-download02.wav: 1221120 frames, 25.44 s, chunks fmt/data/C2PA, peak 26435, sha 5745b7818ea0, pcm 3e29b94250c9, submission 03_4-submission01.json
+PASS 03_5-download01.wav: 933120 frames, 19.44 s, chunks fmt/data/C2PA, peak 21610, sha b29aeb6c2a70, pcm b978b0ba6146, submission 03_5-submission01.json
+PASS 03_5-download02.wav: 925440 frames, 19.28 s, chunks fmt/data/C2PA, peak 23959, sha 76f4d6e160c5, pcm 3ef902dd43b3, submission 03_5-submission01.json
+PASS 03_6-download01.wav: 887040 frames, 18.48 s, chunks fmt/data/C2PA, peak 29600, sha 119801244a56, pcm a387efaa723f, submission 03_6-submission01.json
+PASS 03_6-download02.wav: 871680 frames, 18.16 s, chunks fmt/data/C2PA, peak 26202, sha ce6e95051f9a, pcm bf9b016fd393, submission 03_6-submission01.json
+PASS run-asr-command: root's guard and fw arguments; only the inputs list and job name are new
+PASS replan-holds-in-flight: a second plan before any ingest writes nothing
+SNAPSHOT: PASS (41/41)

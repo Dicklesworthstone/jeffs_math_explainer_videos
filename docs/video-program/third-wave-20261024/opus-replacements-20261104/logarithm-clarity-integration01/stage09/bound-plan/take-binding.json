@@ -1,0 +1,1476 @@
+{
+  "schema_version": 1,
+  "topic": "logarithm_mysteries",
+  "script_sha256": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a",
+  "claim": "Which retained Oliver takes carry each stage09 text, from root's full80-retained-inventory01.json. A match means the take's recorded text hash equals the cue's stage09 text hash. No take is selected, heard, timed or accepted here. This helper re-hashes only the four 04_4 and 08_5 takes; the other hashes are as root's inventory records them.",
+  "voice": "ElevenLabs Oliver for logarithm, owner direction 2026-11-05T03:22:06Z. No mixed-voice final.",
+  "source": {
+    "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/full80-retained-inventory01.json",
+    "sha256": "d4ee2762f067ca7e1a78ec3d950dae5fce9ba7b8d39be6425a61127ae8eaf44c",
+    "script_sha256": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e"
+  },
+  "counts": {
+    "cues": 80,
+    "text_matches_retained_takes": 78,
+    "needs_new_oliver_take": 2,
+    "retained_takes": 162,
+    "takes_matching_stage09_text": 158,
+    "takes_of_old_text_preserved": 4
+  },
+  "cues": [
+    {
+      "cue": "00_1",
+      "text_sha256": "2986667cb17d47efc5b01a53a482cacb77df7f13d9750fe736547c800a2e769e",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_1-download01.wav",
+          "sha256": "919ee92f8d4e86a96eb6a4a033f05945eea3c326721c779e6db265b7f8f02ce4",
+          "frames": 936960
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_1-download02.wav",
+          "sha256": "781147c2d1764f2088d9fbecef87c4f1d4b1d2d644795a5fa4fcb35c2fdcee1f",
+          "frames": 936960
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_1-download03.wav",
+          "sha256": "4f150e90bd860ef873e6843b1c91e502cdcb087fed6fd8bc9291d1109af68702",
+          "frames": 936960
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_1-download04.wav",
+          "sha256": "b3cc09a7819043b379c001b3395054ebf699efcaffcc04f6410c64685057163e",
+          "frames": 936960
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "00_2",
+      "text_sha256": "9cff4b6074ce932b6916fa76fbef35e08e31592ca5e96c93482a256ee2c340a4",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_2-download01.wav",
+          "sha256": "aa57c1b77dc6e0d6f8511cec7813e7800d9c7d8fcdf2abd7ee2d3e0162627ae3",
+          "frames": 610560
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_2-download02.wav",
+          "sha256": "91d66ba3024fddd3929e971214f8b59c6f220ef1e0abf001527d771796edf8c5",
+          "frames": 618240
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "00_3",
+      "text_sha256": "dc1be524334bc27463ec71666c38080f737eb3ced12b12c92a840123bd8c30bc",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_3-download01.wav",
+          "sha256": "2a9048fa625a12acede81cfb6384ff7cea1fe82526aa76dd25be438f83456936",
+          "frames": 1109760
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_3-download02.wav",
+          "sha256": "54c99135f35f065e34db163cd298d00541a1d55bf89b251336633709dd154b86",
+          "frames": 1121280
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "00_4",
+      "text_sha256": "28aa0759d8ed2062f3854570f9cbc06427f2b43a5604e98ac9526161e564f320",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_4-download01.wav",
+          "sha256": "e8ae1299e75850894da2fdf00623d0f3bfe881d0866d83df82e7bf3ee7c493aa",
+          "frames": 656640
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_4-download02.wav",
+          "sha256": "f9c72e306e276ac153dda8f9777a20e9088a6ad1ad80165facab7c827c70011e",
+          "frames": 660480
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "00_5",
+      "text_sha256": "8b3d94121540f03dfa1199ed97718bf27762b175db4167368fefd3eb5a2d4aa5",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_5-download01.wav",
+          "sha256": "f2c4f1dfafb3c81d0d8733ae9dad09e58decd053e468ff3d073bdd19c728e2a7",
+          "frames": 875520
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_5-download02.wav",
+          "sha256": "1baf2d62d78c720814e6b183f99ee558d77f74c334b54b12094c8f97c2ad428a",
+          "frames": 887040
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "00_6",
+      "text_sha256": "be8fe805a35e2a4a9b270702dfbb9c71a34fd2278ea287b80269d6acc411fb63",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_6-download01.wav",
+          "sha256": "188ec738b4591f25b5eeb2bdaaa3297d4404543222e62d2227415bc41717c991",
+          "frames": 1428480
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/00_6-download02.wav",
+          "sha256": "6f830c0f127df73673f70abbe6ce4629c220fba6e84cfb100f400232184e8905",
+          "frames": 1420800
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "01_1",
+      "text_sha256": "d71a0bd05870ac964963abd4780102349f6794df6dd4f16ea24e7aa67347f7ba",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_1-download01.wav",
+          "sha256": "75f91730e6bcc06a723455f578a13d73242206074fdf6b2f356c54253778f258",
+          "frames": 948480
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_1-download02.wav",
+          "sha256": "44398b04f3a67839b6dee6afdc57c82180384e881982002d677593e581215d1f",
+          "frames": 948480
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "01_2",
+      "text_sha256": "5df547825cd019fbc45286199a55a4a03309eab34eb4c79fb90637c659e1625e",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_2-download01.wav",
+          "sha256": "60df1f63ed54293b4555cec658f511f6815f1139afb530be690758dfefce325d",
+          "frames": 956160
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_2-download02.wav",
+          "sha256": "057db2a16a523a87c7ac581c76c6e1292d12024e8fafa3463a17cd7f1b0b3b8a",
+          "frames": 952320
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "01_3",
+      "text_sha256": "23f240c35831923a7b47c4dd276719054eb553fa5678c5178e0c9a5260191db3",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_3-download01.wav",
+          "sha256": "815eb47b1d3b93b59211d1dd5095d097b36f3bcf605f1047cfdfcf7f4b424849",
+          "frames": 545280
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_3-download02.wav",
+          "sha256": "d6a5d357ff94420378aedd6049db35fabcbcbfdc3c74192ec9be0780e2a959ba",
+          "frames": 549120
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "01_4",
+      "text_sha256": "e1b96d8cf4625bf2b933ff51eda76d2514fe12635e7b7c61442e410754614937",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_4-download01.wav",
+          "sha256": "38152e6eaa1ddb66a05f1ac6899fd74a1ec859c63a8664d847ce8bab8cc28c4c",
+          "frames": 1186560
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_4-download02.wav",
+          "sha256": "803ebdca1441ded3e973aa938c51501e602e717acb941fd14fa77b778125089a",
+          "frames": 1209600
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "01_5",
+      "text_sha256": "f0a6d133ce8d07e4fcb9242c0e7a70966611ce1baca1501d3b0242c58b9e9b92",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_5-download01.wav",
+          "sha256": "2c822649fa79c40586f63e7434f49260786a9ef7b2e5e98519c4781d71f8492a",
+          "frames": 1102080
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_5-download02.wav",
+          "sha256": "524dc3222ab73c203a7613c0205467d0d6d46d67b9ec9b894798b25898074370",
+          "frames": 1113600
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "01_6",
+      "text_sha256": "342fd8f544892c434e4d2d9dcf4bb0fc142ac85ecb36a3cbd9879f6840ead31a",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_6-download01.wav",
+          "sha256": "3da411dcec914abb50ff5ee42fb3b01376865e4722ced22a9ead8d8dbfb0a066",
+          "frames": 1290240
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/01_6-download02.wav",
+          "sha256": "b20c2619a82feba2d6022b3d3cc419b8d95dea615fc114827aed0355c35d5379",
+          "frames": 1274880
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "02_1",
+      "text_sha256": "3110c66e2647d397a38e81a4c77370c9efd4237bd4d9d720ba4af25e454e60af",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_1-download01.wav",
+          "sha256": "36e4b7d89718f246c5cd291bad26894d05151daee2ec2cd1350068da64e9e1cf",
+          "frames": 622080
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_1-download02.wav",
+          "sha256": "95400f4b9f584dffa0e287844cda68c68b1d895574e35c29735d01d87ccc5b87",
+          "frames": 618240
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "02_2",
+      "text_sha256": "bd5822b91f2700d5f2ee189d831ccc47b9253c4e58b4775488af71e4849fc33e",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_2-download01.wav",
+          "sha256": "f265b98c040e734e6b29733f0cb1f446f6f280f1f7a36fe485b6b3df026bf550",
+          "frames": 856320
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_2-download02.wav",
+          "sha256": "7a9c34d0b1464d0e2a2f7792e7e344974d87f632ac74d979ab6f33f1a938a03b",
+          "frames": 852480
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "02_3",
+      "text_sha256": "4ee6f9d52f173dd7b438f74cd7415fc60bf2f0382ff1febb9533d4647ab3cefd",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_3-download01.wav",
+          "sha256": "2b5c7d343a21970ff98fd8b700e605fff00038e88f474d70a9046de73b103266",
+          "frames": 641280
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_3-download02.wav",
+          "sha256": "5fc2abc13b91298b2007c8b95b7dd3e9df4a04db66a20ccc4250e78ef2fbb5d5",
+          "frames": 648960
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "02_4",
+      "text_sha256": "be1cfbe625776b45a9b80fc54f8db6cb074612edcc82b075f4213609d08cde0f",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_4-download01.wav",
+          "sha256": "a8c4740b220cf6b8ef1fcd6962cfd594333bc1f8334a5b4e207a52a62209e5e6",
+          "frames": 637440
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_4-download02.wav",
+          "sha256": "f9728923217ee2ca2cb42a8c50a9376866bf287ee5f1e9908400a2efb50e034b",
+          "frames": 637440
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "02_5",
+      "text_sha256": "3dc26bb4527bc899fa42b3fbc41ee2e1eef0482d535192db49ddd83d3174bb73",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_5-download01.wav",
+          "sha256": "b2f1952f05f515848b52c89c9da7d2f6fec821275ccda3de0311e911e35df2c8",
+          "frames": 1324800
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/02_5-download02.wav",
+          "sha256": "107334a85d2882ab27953cd13f22cd684af5567c66e969881d45f360cc3d8fb7",
+          "frames": 1328640
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "03_1",
+      "text_sha256": "620d844f25db5f2fdb93d5b803a017906d3727213f5ad4e037d6b258bf9bd0f1",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_1-download01.wav",
+          "sha256": "d80f30eead217527a1479604739c93aa017facc5a5ef37b9e688f9e22e592013",
+          "frames": 906240
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_1-download02.wav",
+          "sha256": "299964f529d1ddfba9b9146028a6c92ff4ab98170227285571d268307efac196",
+          "frames": 917760
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "03_2",
+      "text_sha256": "d304b7e87991505e3506d506110c2f1f8ded34313abb5c97575120510f0b6ded",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_2-download01.wav",
+          "sha256": "6a1912d21595e236b9e0f74c144c8027e2f2e8221d546ac8e06f2b3152a1a20c",
+          "frames": 1006080
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_2-download02.wav",
+          "sha256": "d476cdd6c42b943a6bf2b02b99730d4a4f20fe854a5721c620a99521f29e7bad",
+          "frames": 1021440
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "03_3",
+      "text_sha256": "4ce29b0933cf7eb5fc8fbe78de804c33749308e5245693fc4a128076568e81c0",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_3-download01.wav",
+          "sha256": "c81294255928f11275ec3c9783f5d6078a4c53161a99b246dca7625910e05dae",
+          "frames": 856320
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_3-download02.wav",
+          "sha256": "d6c34bd1832f9d6f0af34965efe12832a40e53e1ed5ba102e1e5c6ebff659dc0",
+          "frames": 871680
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "03_4",
+      "text_sha256": "90eba9a70789356e6faa42e6e0451c0ddd2a6285dbc87bf19b8910588b6ed57d",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_4-download01.wav",
+          "sha256": "fb7a2df3e77333fcc6d662d333d12e8e513d855ed1b90d3dbf042bd29053014e",
+          "frames": 806400
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/03_4-download02.wav",
+          "sha256": "c0e46bec3fef764fad34c7eed38cf9641a543cc73be659e2fe7e06a9f3c77cc5",
+          "frames": 814080
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "04_1",
+      "text_sha256": "997e38ce5b39b255bbc6bbc8d29ae0a81128337ce65602a1f23f4802aa4d0aba",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_1-download01.wav",
+          "sha256": "9fb74190e35fda66c0287c69141cb63efd57cbbdb3feab128c50eeee6c3b2fed",
+          "frames": 990720
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_1-download02.wav",
+          "sha256": "446afe5b24e41f78dc0dbaa1f4c4d14c81763375ce1eb7c0120de058ed0a15f9",
+          "frames": 979200
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "04_2",
+      "text_sha256": "9a338a180e93a78f67ad49208255c0aff009c897e0acdf254f8937ce0d11f2bc",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_2-download01.wav",
+          "sha256": "c4833971cc4cc8253e54ffe70b397e824c72c0a3d0cb507c1506ffa99f8ef4ba",
+          "frames": 1524480
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_2-download02.wav",
+          "sha256": "4584037f1e3fbc5eb9cdd6f737db0d7159a824814ff5bdd5b0de87b76e0d3ef8",
+          "frames": 1524480
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "04_3",
+      "text_sha256": "e9e79bdcb58af233281c77b77c62a032a6117222f5cd0aa34b41f2018d19bdd8",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_3-download01.wav",
+          "sha256": "a6ad11629d8482b75b0193e4593c2034cf03a9246a66aeeeb02240f272d018bd",
+          "frames": 1002240
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_3-download02.wav",
+          "sha256": "50bf081e136cfb5a7e980ceba4f05ef8f188ccf9e50a3ed3a346fa95b647c5a3",
+          "frames": 1013760
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "04_4",
+      "text_sha256": "7e4e96121ff25f997a75bc882f70884bd61b3b039203e8df9c9d46fe545d2e83",
+      "status": "needs_new_oliver_take",
+      "takes": [],
+      "old_text_takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_4-download01.wav",
+          "sha256": "de3abb952c675c2112c949813b2d70f962b95a3adf90d8f3289c6a4e29dce9ab",
+          "text_sha256": "6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6",
+          "preserved": true
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_4-download02.wav",
+          "sha256": "573d2360f72d4c8d451cd684ff8b3febf68168b24add6b070886433080185164",
+          "text_sha256": "6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6",
+          "preserved": true
+        }
+      ]
+    },
+    {
+      "cue": "04_5",
+      "text_sha256": "226e67d7c75fc45c65227f9822543bc92d79d1dcd1a26a15e833d6405ce2e30b",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_5-download01.wav",
+          "sha256": "d1bf2e9145599aeadf2ba9feb52e6d9e2cb07da703951c0206a1315ebdfbdc8d",
+          "frames": 1539840
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_5-download02.wav",
+          "sha256": "bf1cdb6c5fbd196bfa5ed45ff7ea1f58383eea56e8343163a240eb1b8f5da1e7",
+          "frames": 1516800
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "04_6",
+      "text_sha256": "000edc3ec870fa4557e707caf46603afc19b7763b217de7486ceda3587da509e",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_6-download01.wav",
+          "sha256": "a71b6e64dcc11e7597b0b6277871b4d86d1296cf3999ce338344dfdafff44021",
+          "frames": 606720
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_6-download02.wav",
+          "sha256": "e0b7b862f0d3384651c23ffca90ab2a447204a2a206d9b1d50dace91a13ad4b1",
+          "frames": 599040
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "04_7",
+      "text_sha256": "cafb538e311e358ac817af1d9e9ef817822b4e9c427de8ca4625ba0713f5e5d5",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_7-download01.wav",
+          "sha256": "93e178c1ebf735f58b1546cfc09410cc2e6fc013e50c01a21175f2951c3834a4",
+          "frames": 1739520
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_7-download02.wav",
+          "sha256": "bec56314a01b580d14add365f12846b87685713588d8c9598f5a75440db06372",
+          "frames": 1731840
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "05_1",
+      "text_sha256": "5f6674fe362915c5d650bb70dd3d9605991bb2dbf2498419edd312881652c583",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_1-download01.wav",
+          "sha256": "ddc59190ebf1d1694644b1bff9a9ccc9a07031b6312ba204416284dd48f93d7a",
+          "frames": 1056000
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_1-download02.wav",
+          "sha256": "0a7ad5d2b64a58d82c53e196440ddd6717833b637d462d7ad5249829c963355f",
+          "frames": 1059840
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "05_2",
+      "text_sha256": "dd0ff44d3de36b7d6cc519f538d1fbae67b1ae904e1d65eb2debff35071327a8",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_2-download01.wav",
+          "sha256": "7840f17c5305161d5344a15f7f98efb611c2d5aa2c5d0e4ecf1b17d7291dd946",
+          "frames": 971520
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_2-download02.wav",
+          "sha256": "c21a7512f94fd79f91134c965d89a9ed4c4009eef652b3955bf9db87323f24cb",
+          "frames": 983040
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "05_20",
+      "text_sha256": "9a9ace4018a37039cf87b136d3dedaafa86c40f098add04d004dc63b4f0860bc",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_20-download01.wav",
+          "sha256": "e287703d218fca3b648af486a63de2101199b0b6a9f57e0150eac339d4c17921",
+          "frames": 1213440
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_20-download02.wav",
+          "sha256": "1e95cbff1eed7b5c5d20c3b900e1c417c115f87ac0d588ad2b0b480440fca654",
+          "frames": 1205760
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "05_3",
+      "text_sha256": "3f267c4eb390bcfa1d3de96c16a5b9a5f6ab8ee1133752f5774bab63b1cd6868",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_3-download01.wav",
+          "sha256": "314d060a0fc7a67fc8ef5dfd5c6b89e3edca4ee5d1629259948feda746d93e66",
+          "frames": 1148160
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_3-download02.wav",
+          "sha256": "55f9d1137e2f4c98ea61afd3dd704ff8a865beeaf6040c1c95b1cf4e2996a42e",
+          "frames": 1186560
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "05_4",
+      "text_sha256": "bb0c9ce590095004ece1dc001770a2f1c8042a733e3cb9cb1bfdcd3a2a9ea339",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_4-download01.wav",
+          "sha256": "b929cf642915b6575a6c15d4b701a1665207dabddd26f6efbeb169d536220c97",
+          "frames": 821760
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_4-download02.wav",
+          "sha256": "8419702fdd1ea6b94a2eaefd74ee759727cb7260dc23b05e8f6341bd009ac8c4",
+          "frames": 794880
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "05_5",
+      "text_sha256": "4577d97df6052667c611277cd7a4c43425b6f7a7c98b8e290d042448b0ae0cef",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_5-download01.wav",
+          "sha256": "1c25248044acdeb42111ae071020ebbe190c3157472a6cbf220cad2c2a127bf9",
+          "frames": 211200
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_5-download02.wav",
+          "sha256": "c259f71b116f668f32576143b2fb6f12eaa3790e57cc2e47e55d9d5a87d80291",
+          "frames": 207360
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "05_6",
+      "text_sha256": "0efab2f833ca962cd86edf6f77cdb5f32154eafb24784b95f05d91a249102862",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_6-download01.wav",
+          "sha256": "be349c64fbcbfde2f5d9e6c0ecd532621cb6a8a07ddc11d1a9ca8e17c6d5fbb2",
+          "frames": 1328640
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_6-download02.wav",
+          "sha256": "7a3db9607e8170ca77df403dccbcc6e465a58d5b534a3087e1b22f6405a29182",
+          "frames": 1317120
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "05_7",
+      "text_sha256": "7a6573c709b24613761472e08ab82557ac55afba998347efff5c02050d2b31e6",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_7-download01.wav",
+          "sha256": "1a29ce0e9a960711da80cd6c3d548928ed1cdc9c5190ea70106b07d6f370fab4",
+          "frames": 1244160
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/05_7-download02.wav",
+          "sha256": "d4504cbe395d95599da23bbf0c9a1803a295f34c91148114ec6681e63e5cd273",
+          "frames": 1236480
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "06_1",
+      "text_sha256": "b260807f31f65927962909683d5af815e2128a0ad7500d0749e6511c19680aca",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_1-download01.wav",
+          "sha256": "ba6cdbcd7b2bbba6d1ed70d6656b53172583a3e543e954bf9dfa8a521032eed3",
+          "frames": 825600
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_1-download02.wav",
+          "sha256": "780eadead906ea4709f93492a91a9bc26f18413942e9437ee18f888c59da7dd4",
+          "frames": 837120
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "06_2",
+      "text_sha256": "90fece638d89ab1eadbff4cf4913267724cbae1356011dc343b1290f12584f77",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_2-download01.wav",
+          "sha256": "e20bc4d5837bf0986876bfe4a2e6ea36960347879632576282042655a4f7402a",
+          "frames": 960000
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_2-download02.wav",
+          "sha256": "e6c459663d0b073eb62f8fc5e10a2da3f0801cec24184f364160de7075902155",
+          "frames": 971520
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "06_3",
+      "text_sha256": "a909ab31e6173129dcafbbf8a38bf663d6d3a140ce01c2c0e68253ebe77b2db0",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_3-download01.wav",
+          "sha256": "890cb0ba0537224bbfce7b835b15f241c4b03194e1d2fdc8ddfdb5c48aa769c0",
+          "frames": 760320
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_3-download02.wav",
+          "sha256": "eb9f98632a17fa47070a856a86fb948e47de5948a70b5dd10f1ec8778ee5424f",
+          "frames": 729600
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "06_4",
+      "text_sha256": "435f54c3f9eca4b39e3dd6806b59768e4331e73a57651040c7c24092d149d6ec",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_4-download01.wav",
+          "sha256": "1c933ec854cd0de01859645c03a4ba4ef985fe09f62ed2e7f79badf108e701ad",
+          "frames": 787200
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_4-download02.wav",
+          "sha256": "1bb25fb14fcfd9408067ec3a05026f5e3f550632edbe18f1e6557b971b6c8f80",
+          "frames": 791040
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "06_5",
+      "text_sha256": "219bc78c759868e8fb229188e8f757704428cf81e9cae40655a75b14506cc8c3",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_5-download01.wav",
+          "sha256": "eb0e8eb7688d304f151dd1e021f8d037809716cf09d3e0852097876df05fb1f2",
+          "frames": 741120
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_5-download02.wav",
+          "sha256": "84b3e547271b8426fac69663f4896d3cea6a12972420cd3033cb113a3e6d5978",
+          "frames": 737280
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "06_6",
+      "text_sha256": "4ca49ca95c948df0d25fa3732e00976bab13395ffff27dcb07bda094b73129e4",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_6-download01.wav",
+          "sha256": "7c78ec46bb284bc598598726fffbfe1bef926222b23a058bcb446dc37202e8ac",
+          "frames": 1370880
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_6-download02.wav",
+          "sha256": "5cf8db66c5a70bd582a296ac53711ee46f28c095e8cb0f677632ef697c2d6df4",
+          "frames": 1378560
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "06_20",
+      "text_sha256": "a82f172588e91e1dc63da895fd4a760ec655fd41ff1b6c9faad669ae434a3e80",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_20-download01.wav",
+          "sha256": "b390a9030a7d6f7069b69e3f1cfcaef8fc1e49e9244e98f9e65cdc841deaa5ae",
+          "frames": 1098240
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_20-download02.wav",
+          "sha256": "87829c43f484f463dcaa4204db88f6db544d586fccaa5cb4c78afeffd9fa134b",
+          "frames": 1094400
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "06_7",
+      "text_sha256": "0f56c61839a683a4aa7ef25eb221e6912ca2c4c1fec023c68c5fe6d3ae995c7f",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_7-download01.wav",
+          "sha256": "873f19f414145779248854c138317098d796d7f11f1601595d00de2134351270",
+          "frames": 1228800
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/06_7-download02.wav",
+          "sha256": "c81d41c2e89f8c4ce91e948ea97cc2aaad1a0883099d652e9124dcea2f17029b",
+          "frames": 1213440
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "07_1",
+      "text_sha256": "3ea7fd2865464049d0e9b916cdee0ac38a457d8eff28b4889ece8d9f8d70cf07",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_1-download01.wav",
+          "sha256": "420251e9a5e35f6c11b6b340af24794f12bd36de87cccc05480c192ea85c8fb2",
+          "frames": 802560
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_1-download02.wav",
+          "sha256": "b700958e4f66e2ec101182423da40b46b179ce7e7c3a0d6eb00bf012e61258a7",
+          "frames": 794880
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "07_2",
+      "text_sha256": "c3936a28ed7e1a198aff633ab96603bdbd141f3c618713c5d82ab4d0b32c54e9",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_2-download01.wav",
+          "sha256": "c7ab1b8991aef021e03c6c973d4956488c5828e35b9ff2d9a7bacd38ba069b8d",
+          "frames": 1628160
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_2-download02.wav",
+          "sha256": "cdcb4594c402022b83991a2af560034263d5f9ad73d24ddd3fe42266954f907f",
+          "frames": 1601280
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "07_3",
+      "text_sha256": "4ae58d37d06c67306feecf8d1053a54b39ea6a1079e435396a01b037b24d4ea9",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_3-download01.wav",
+          "sha256": "3e56faa948e90d3c621f65a5b6be042893b40f1d12f9ad3c212fc5a34d63ff45",
+          "frames": 1175040
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_3-download02.wav",
+          "sha256": "783504b0a224bad2fac35384b505b8e493d35f8bd8400524e6ec9c5e25071c9e",
+          "frames": 1128960
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "07_4",
+      "text_sha256": "09556df40a49b999dd4344dc7ca0f643250191844c40937d050d8d7faafef77c",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_4-download01.wav",
+          "sha256": "de16c4126d4ee7ebbd2197582bc5ce1fb59e97259c3203dcd41585d5c59c74c3",
+          "frames": 825600
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_4-download02.wav",
+          "sha256": "daec26864a292625f631a734e5207256f08841f0dd3e6e7ed55f81c373a034e0",
+          "frames": 802560
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "07_5",
+      "text_sha256": "7de9ef93c93969396f634dc19d6e8134b5d0280509bdbd8827ac63a85b1f4bd6",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_5-download01.wav",
+          "sha256": "ebc8f625e2350083e143d6592a46d26ae5014e61b8cf1bbe37bdc170c78e10e5",
+          "frames": 1447680
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_5-download02.wav",
+          "sha256": "69573e55cdd1d65bcd3ee4d3b68758f497b728971e804bdf61558cca56ee7b68",
+          "frames": 1420800
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "07_6",
+      "text_sha256": "7f99cba22a033160d648cf21f48d99f6d7ee5bb373932960cd081d8918acb2f5",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_6-download01.wav",
+          "sha256": "52c8b873af0db460c13be854510cb013f95eaca12532217a965a23552de63cee",
+          "frames": 1866240
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/07_6-download02.wav",
+          "sha256": "e39412b5c10a9180ae80635d483293360a87860449498baa3e4cf32da355a3e5",
+          "frames": 1858560
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "08_1",
+      "text_sha256": "75556c6aef00b2c0f2bab3027e52d1baf9f1b42642e73678834d431a5cf145e3",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_1-download01.wav",
+          "sha256": "270b09474e8fdaa19d917a5d078eeb4fecaf489572f92b1f770e9d9f2e9d6b44",
+          "frames": 1340160
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_1-download02.wav",
+          "sha256": "ed9deda27a64137ac3576bab1d432c5db122ab5ea8e739dfe922949628c0ac2f",
+          "frames": 1332480
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "08_2",
+      "text_sha256": "3d6d4f49585844a2ed7029ecbd5e858c586bea74f2bd30c75f6184a872ccb98f",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_2-download01.wav",
+          "sha256": "6598864c225d9a5a7f02974441b2d1297f0444b55778c9955ccd7e88f283efcc",
+          "frames": 1056000
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_2-download02.wav",
+          "sha256": "5d918620be8109e0c9c473e96d30e602eea793943e05bdd6647d0d4bf31447e6",
+          "frames": 1056000
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "08_3",
+      "text_sha256": "ce2bc329699435775aa76055e5e654dac19a240a7da6e7c8da245a4fc19b7232",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_3-download01.wav",
+          "sha256": "0d4b0faf4bcae8f8267519256d6bcbc0b76385cf9b07578560733d1ba22da435",
+          "frames": 1401600
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_3-download02.wav",
+          "sha256": "97dd90a4dc792110f3d1df80236aa644a45c376a2ed5f16cc7fb3184a12a1ee0",
+          "frames": 1397760
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "08_4",
+      "text_sha256": "f449fbee18eb2cce67e3306905853d7bc3c9eee26b041aa2d064baa8b3e537b7",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_4-download01.wav",
+          "sha256": "525cf3db733b81bf31ea43141b934622c60c0640147d0bed96635a93c80aab9c",
+          "frames": 1056000
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_4-download02.wav",
+          "sha256": "31ae35d7abdc1f83a15c0ac869741301ad3d2abf978d98029609fbdded9e8565",
+          "frames": 1067520
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "08_5",
+      "text_sha256": "8e26bcb04dba0673057649b76a1fce2ce0375bcc1ff1a8fffb7d8379c13f4d82",
+      "status": "needs_new_oliver_take",
+      "takes": [],
+      "old_text_takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_5-download01.wav",
+          "sha256": "9b5d2b73ec6400569a32e03fe2c0d2b91c19308565ea6ee433b9ca99ca0d1ae5",
+          "text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+          "preserved": true
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/08_5-download02.wav",
+          "sha256": "5ec634e9c591e1768d69ea5195e6b07b91a3da1c6c7cecefa07799b3a269c493",
+          "text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+          "preserved": true
+        }
+      ]
+    },
+    {
+      "cue": "09_1",
+      "text_sha256": "37a3a14b437e8357bc2a6953184629a044f80f1fcb1280f9a21de23143acfc6d",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_1-download01.wav",
+          "sha256": "59de651bb2fe91612a9176b5a3459946ffd4929f452a511aadbe7d5c27863104",
+          "frames": 1148160
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_1-download02.wav",
+          "sha256": "3bd6506a9bb3025c85ccc2986f7b188ff01d81b27ead589be17ff6c03a3e785d",
+          "frames": 1144320
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "09_2",
+      "text_sha256": "bce7e8e43ac65a8ba7a5ed18138685910855233783a6f80f1d085f3a3f42c430",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_2-download01.wav",
+          "sha256": "634955520f87667a6351c1e79b24738213f6628d5f3b96a2b6918937893ac39a",
+          "frames": 1094400
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_2-download02.wav",
+          "sha256": "568acd63dcc54b78669e2fc1f17e71bcab7af76e80e778345c0339cd2d86226f",
+          "frames": 1063680
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "09_3",
+      "text_sha256": "f3de2e233a6f198038ac654b013d128c4d0a65d30ffc238fe1f18e175811e5a8",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_3-download01.wav",
+          "sha256": "caecf5c43ed536136f6f9c3bbb614f933fc1be50a7c32a79afa805d31ea09954",
+          "frames": 825600
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_3-download02.wav",
+          "sha256": "03c0f3d23618482e31a9aafd6454468db16ac0ece20e7fabaa3f75df0963c0ec",
+          "frames": 814080
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "09_4",
+      "text_sha256": "e2c776e31453e1db043fb7b1da039189f57ff5220278957bce1b8aa49adc6095",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_4-download01.wav",
+          "sha256": "156dcf1e6d2a142df11a4ea1a446dc107247d65cf98488342cc162e4cac8f19d",
+          "frames": 1198080
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/09_4-download02.wav",
+          "sha256": "27d12e5b84ecb8591ab33cc739ab106bd178fe86e78cc8fe1f6bd4d844b9ee24",
+          "frames": 1198080
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "10_1",
+      "text_sha256": "6fcaeb2f87ad17f8fd6a7eb67b088c7f0b0af6145df048b992777669a1ca1c1b",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_1-download01.wav",
+          "sha256": "90665d120a8c02073abf4d76881ccafe620ac8d40041d8b47e8029e7e993d97a",
+          "frames": 645120
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_1-download02.wav",
+          "sha256": "b9aacf98582f7ad912ae8780ba8f312293d7f1d32718b417707e49b519c564bc",
+          "frames": 648960
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "10_2",
+      "text_sha256": "e77f6de70aafae27bb15ba7d62011beb6bf2d22402b4174274b5f985409c95c8",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_2-download01.wav",
+          "sha256": "5b8bdf60f89991a3cc855751d25a5bf5d6443498853d01fa8354099049a7ba28",
+          "frames": 1071360
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_2-download02.wav",
+          "sha256": "7eb7f0dc71324fd6e7527c221a0f477fdb14c67f4e12902e16e7387d62f6d688",
+          "frames": 1086720
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "10_3",
+      "text_sha256": "9645f0e4958247f106e8c2f80155996e2346302c6b34f78bd366dd1112de4baf",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_3-download01.wav",
+          "sha256": "ccdcd4db284ee2754844846e2cba3381e85f0d0ca61edc2bee5adaf9ae0f4589",
+          "frames": 1512960
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_3-download02.wav",
+          "sha256": "3678211d0a2c1369db8843bb0eeb134a577b7f33f8dcb0e07f0ce23f5698bbe7",
+          "frames": 1501440
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "10_4",
+      "text_sha256": "29473bc1659d0ff4d32211f6a5c8ef8abb4374e1b9fb892622eed2e13936bbe4",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_4-download01.wav",
+          "sha256": "f39f770e5065123eb5896cd1b72d03e6bb715e9a472b87a0caf6ba09b5e634cb",
+          "frames": 1497600
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/10_4-download02.wav",
+          "sha256": "61da5bf339d7666d56c6faeb749c2bac036401d8141b922cc97320b83e0b75fb",
+          "frames": 1493760
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "11_1",
+      "text_sha256": "9aef00838aedeef5c81aa071586dca516ef9fd475e205c03105594838079ec5d",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_1-download01.wav",
+          "sha256": "5da255041c434b5a7199609dbb4f9b107238f9521e05c465dcbccd5f4ae4311a",
+          "frames": 1255680
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_1-download02.wav",
+          "sha256": "d82a84200399fe1c55c2fc7e92cdc402ccdf35cae3308153309295fbdd51eb7a",
+          "frames": 1248000
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "11_2",
+      "text_sha256": "bac00f42e30c5450cea48e0db3786af3a9384ddaeb583ea96e86504b7a21e8e7",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_2-download01.wav",
+          "sha256": "c2a3003107a13ce0b74f0716754651f72af537712b6a0ee2a82b51fda15537e7",
+          "frames": 1474560
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_2-download02.wav",
+          "sha256": "8e5029768f998c3dfab6617973672c36fc4da6b559807838428176c416336f92",
+          "frames": 1482240
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "11_3",
+      "text_sha256": "70e19e8aa243ef1ff9adcefcf18c96379c5103d26114a8c2a8c3e067383f59db",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_3-download01.wav",
+          "sha256": "87485e91d7f9dd8260d362ef9de9a1d4827b538fb7c8a61f3c8caf7831d68b13",
+          "frames": 1393920
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_3-download02.wav",
+          "sha256": "91dc82fc3c81745565337fba12eb741a015bbb4e3544b451bbb32ba3b5ed6c28",
+          "frames": 1390080
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "11_4",
+      "text_sha256": "e94e48675f20ac0ffc624decd4531399dc8a3589f9d9a315cdf0f63885909bdc",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_4-download01.wav",
+          "sha256": "d8d5867870623d5a1ccbc2e3ccfd6fecd81448340285edab1aaf83fbcbf9c7f0",
+          "frames": 1543680
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_4-download02.wav",
+          "sha256": "3ea6884ddde7591fb97f3bc57d9a7a26d45118cbab1bda83fbed0d97ecc7fd6d",
+          "frames": 1551360
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "11_5",
+      "text_sha256": "dd0d230909c00dfe74523c3976ad06a759e2afb459e9e8cb252003b1b7615db8",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_5-download01.wav",
+          "sha256": "f43c3b9811d922357ff0774bb04d68891f9d8ff88916f0bfe965d1965de9a4ba",
+          "frames": 1570560
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_5-download02.wav",
+          "sha256": "1ed11e8e995adfe6bdae8f6091659cab7b927288909779a36fd238d769011816",
+          "frames": 1601280
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "11_6",
+      "text_sha256": "ad421c6d611bf9a635d80375ebff4dc413eacbcf8a9906b80cbddab97c73c68d",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_6-download01.wav",
+          "sha256": "534d55051f64d94667ff5cdfaa38748fb632134efb23931064a3d5d0cde156e4",
+          "frames": 1313280
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_6-download02.wav",
+          "sha256": "538b4b53c525f289b73367e2c56150d4ea4d91335bb676a56107c09749677073",
+          "frames": 1286400
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "11_7",
+      "text_sha256": "aae9225a2dbb2a4dcb828e9ffa870f0d24bf4f04a9e7608021366f3622a01fcc",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_7-download01.wav",
+          "sha256": "10cafc1e85f1e48ea708e328e8418da4098f4cd509ab7010159b4b0f9363cb79",
+          "frames": 1666560
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_7-download02.wav",
+          "sha256": "6e5385e445b0dbf9c10e2c46ae34811bb7bc94c4798a7d9ecaf83944cd80b63d",
+          "frames": 1658880
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "11_20",
+      "text_sha256": "ec2b4681dc12338d1dd19df6e5866524d0811c18d3f5732a9a8235f96b4f5f02",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_20-download01.wav",
+          "sha256": "a062a8a56361a822230cf8a6d65a8144f7b914ef9cde24f02e8d238fc966635d",
+          "frames": 648960
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_20-download02.wav",
+          "sha256": "2c574565f44c76f6ff8be13223adf41f5df254d9ec35703242c3ac2f227e5d7b",
+          "frames": 660480
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "11_8",
+      "text_sha256": "b35df432f6f28808909eeb0dec8c25e7e5189993487489e3169a0e089eabd297",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_8-download01.wav",
+          "sha256": "b39c2c2b6bb04c31afcdb3fa1cb9ab6fa4c057ccf4d03a95b2a549587786b546",
+          "frames": 1029120
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/11_8-download02.wav",
+          "sha256": "f7368970849e1b1dd17a34318586e6ac2e7b3fd82c719b35e6e7cb1cecf3dad6",
+          "frames": 1017600
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "12_1",
+      "text_sha256": "8ac919312c336ca94988b10063a842dbaeaa2932594199ac44a55a19fae3d8d9",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_1-download01.wav",
+          "sha256": "69f5a2968bda137c1dd400684b19391b31b1f707a4f71f44844a429119362e13",
+          "frames": 698880
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_1-download02.wav",
+          "sha256": "ca4edc68e3e6fe3dc5d51fb99fc823fa8a06b9fc0edf03dd0ee222f672a344de",
+          "frames": 710400
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "12_2",
+      "text_sha256": "b412f190e36981bd7ad4336f007bc2987490c4098304ef4ff56a0d49a36d860d",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_2-download01.wav",
+          "sha256": "7f8f0870c0b680cebec49f6c6ebb8bd260d0fcb7466242be374878c6a2c3f85f",
+          "frames": 733440
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_2-download02.wav",
+          "sha256": "dd11d34dc9c47a2d1936cc0bb76f4b7e72c8399a0f89f76b93e22c875b0b8e06",
+          "frames": 729600
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "12_3",
+      "text_sha256": "e50368a2cdc197d77542a976d02e3207da2384b9d7840a1645bb2d3cc64d7169",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_3-download01.wav",
+          "sha256": "57ce58e133e2d0f1c07ff18b124f6b24701476d84b036e16d61a811be960c9a9",
+          "frames": 940800
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_3-download02.wav",
+          "sha256": "7ffd1b1967e6702e3a208619bbdcd4cac3b2a412e2d5a4fd9a71e00f0540c18f",
+          "frames": 936960
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "12_4",
+      "text_sha256": "94ed881c39edcc7cd15235e3691ae6d3d91203ef54ab3c451f82ec27c400aa93",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_4-download01.wav",
+          "sha256": "52a5bcc942fa9d21c6bdb75cfa70a8860e3364450576137ec43d0eae1aa31b56",
+          "frames": 1658880
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_4-download02.wav",
+          "sha256": "c585b62435609791d47f56c6e0636c4d971be80af9e12dbdfb88ce723d34fc8e",
+          "frames": 1701120
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "12_5",
+      "text_sha256": "e8dd93058126905677716cedcfba6b70413abbf62d2f2bb3a028bcd03b6bb9a7",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_5-download01.wav",
+          "sha256": "6e9bcb6c4c7a57ffeec82660d77f3ac7fc87e231c2b30f456fdd6f6dd925fa51",
+          "frames": 591360
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_5-download02.wav",
+          "sha256": "4060118f3401b7c3ab37211684285beec514016f9738d01c30a114fffaad63ac",
+          "frames": 591360
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "12_6",
+      "text_sha256": "c85377e98085cd3000ec836f675c05662c9be4bcff432de7620c669d208e1962",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_6-download01.wav",
+          "sha256": "300023f3a40c6f1d4b4d43712246783af4fc11b21bdad8dc15ddf505a943159e",
+          "frames": 660480
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_6-download02.wav",
+          "sha256": "526175e731e7c19ee9ccd104c308b813ca6434ba903bc49aa0d19daa90ad06f9",
+          "frames": 637440
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "12_20",
+      "text_sha256": "246388046e76374e4bf7519b3fb92168e46f98211860f262af30225cfda517db",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_20-download01.wav",
+          "sha256": "c9eb8ca9ef29ddc15d4a2e276b7c09b7a91a3b26f0ff9a4bed8395b5c166546e",
+          "frames": 1148160
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_20-download02.wav",
+          "sha256": "37c699988c090fbbe48f77592863288e65297afd678fa78095ca17f2fd4c7e15",
+          "frames": 1175040
+        }
+      ],
+      "old_text_takes": []
+    },
+    {
+      "cue": "12_21",
+      "text_sha256": "0fe204023b8a52a75088216367d1e84e5aa423baa89f7ec2e583c5c1ff558762",
+      "status": "text_matches_retained_takes",
+      "takes": [
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_21-download01.wav",
+          "sha256": "13b6e7940b99b7b292774aa3f265d52fdd152a9379d8b4bb75f19c7fe3e94e18",
+          "frames": 979200
+        },
+        {
+          "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/12_21-download02.wav",
+          "sha256": "b6eca7ddfb1b344b5497d7bfcf3ceebcfaf4d775fd590b1627fe70c1c3f98a95",
+          "frames": 979200
+        }
+      ],
+      "old_text_takes": []
+    }
+  ]
+}

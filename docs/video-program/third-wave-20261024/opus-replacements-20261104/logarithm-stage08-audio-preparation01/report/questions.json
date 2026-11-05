@@ -8,7 +8,7 @@
    "name": "Oliver"
   }
  },
- "claim": "Each question blocks the files it names until root answers it. Answers are root's statements; this tool checks only their form.",
+ "claim": "A blocking question stops the files it names from being prepared until root answers it; an advisory one stays visible and may be answered. Answers are root's statements; this tool checks only their form.",
  "questions": [
   {
    "id": "provenance:00_1:00_1-download03.wav",
@@ -21,7 +21,8 @@
    "candidate": null,
    "decisions": [
     "use_pcm_identity"
-   ]
+   ],
+   "blocking": true
   },
   {
    "id": "provenance:00_1:00_1-download04.wav",
@@ -34,7 +35,8 @@
    "candidate": null,
    "decisions": [
     "use_pcm_identity"
-   ]
+   ],
+   "blocking": true
   },
   {
    "id": "voice:04_3:04_3-download01.wav",
@@ -43,7 +45,15 @@
    "files": [
     "04_3-download01.wav"
    ],
-   "detail": "One binding holds one voice (ElevenLabs Oliver). The downloaded file name 'ElevenLabs_2026-11-04T22_56_43__s50_sim75_v4.wav' does not contain 'Oliver - Clean, British and Steady'. The downloads receipt's own text says: submission_resolution: Two matching Oliver provider history entries directly observed and downloaded sequentially; distinct provider creation timestamps. No regeneration. Old unconfirmed request preserved. Root confirms the provider voice of this recording or rejects it.",
+   "blocking": false,
+   "detail": "One binding holds one voice (ElevenLabs Oliver). The downloaded file name 'ElevenLabs_2026-11-04T22_56_43__s50_sim75_v4.wav' does not contain 'Oliver - Clean, British and Steady'. The downloads receipt records a contemporaneous provider observation naming the voice (submission_resolution: Two matching Oliver provider history entries directly observed and downloaded sequentially; distinct provider creation timestamps. No regeneration. Old unconfirmed request preserved.). That observation is bound as provider provenance; it is not a listening confirmation. Advisory: a missing name is not evidence of another voice. Root may record a provider-history recheck here.",
+   "provenance": {
+    "receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_3-downloads01.json",
+    "receipt_sha256": "360e4ec1f15f9b1e0978c41307eaad6335019614cf06850a1c90914fad696a25",
+    "observation": [
+     "submission_resolution: Two matching Oliver provider history entries directly observed and downloaded sequentially; distinct provider creation timestamps. No regeneration. Old unconfirmed request preserved."
+    ]
+   },
    "candidate": null,
    "decisions": [
     "confirmed_voice",
@@ -57,7 +67,15 @@
    "files": [
     "04_3-download02.wav"
    ],
-   "detail": "One binding holds one voice (ElevenLabs Oliver). The downloaded file name 'ElevenLabs_2026-11-04T22_56_38__s50_sim75_v4.wav' does not contain 'Oliver - Clean, British and Steady'. The downloads receipt's own text says: submission_resolution: Two matching Oliver provider history entries directly observed and downloaded sequentially; distinct provider creation timestamps. No regeneration. Old unconfirmed request preserved. Root confirms the provider voice of this recording or rejects it.",
+   "blocking": false,
+   "detail": "One binding holds one voice (ElevenLabs Oliver). The downloaded file name 'ElevenLabs_2026-11-04T22_56_38__s50_sim75_v4.wav' does not contain 'Oliver - Clean, British and Steady'. The downloads receipt records a contemporaneous provider observation naming the voice (submission_resolution: Two matching Oliver provider history entries directly observed and downloaded sequentially; distinct provider creation timestamps. No regeneration. Old unconfirmed request preserved.). That observation is bound as provider provenance; it is not a listening confirmation. Advisory: a missing name is not evidence of another voice. Root may record a provider-history recheck here.",
+   "provenance": {
+    "receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_3-downloads01.json",
+    "receipt_sha256": "360e4ec1f15f9b1e0978c41307eaad6335019614cf06850a1c90914fad696a25",
+    "observation": [
+     "submission_resolution: Two matching Oliver provider history entries directly observed and downloaded sequentially; distinct provider creation timestamps. No regeneration. Old unconfirmed request preserved."
+    ]
+   },
    "candidate": null,
    "decisions": [
     "confirmed_voice",
@@ -76,7 +94,8 @@
    "decisions": [
     "heard_as_script",
     "reject_take"
-   ]
+   ],
+   "blocking": true
   },
   {
    "id": "content:04_4:base:04_4-download02.wav",
@@ -90,7 +109,8 @@
    "decisions": [
     "heard_as_script",
     "reject_take"
-   ]
+   ],
+   "blocking": true
   },
   {
    "id": "content:08_5:halving:08_5-download01.wav",
@@ -104,7 +124,8 @@
    "decisions": [
     "heard_as_script",
     "reject_take"
-   ]
+   ],
+   "blocking": true
   },
   {
    "id": "content:08_5:halving:08_5-download02.wav",
@@ -118,7 +139,8 @@
    "decisions": [
     "heard_as_script",
     "reject_take"
-   ]
+   ],
+   "blocking": true
   },
   {
    "id": "onset:08_5:s4:08_5-download01.wav",
@@ -137,7 +159,8 @@
    "decisions": [
     "use_candidate",
     "sample"
-   ]
+   ],
+   "blocking": true
   },
   {
    "id": "onset:08_5:s4:08_5-download02.wav",
@@ -156,7 +179,8 @@
    "decisions": [
     "use_candidate",
     "sample"
-   ]
+   ],
+   "blocking": true
   }
  ]
 }

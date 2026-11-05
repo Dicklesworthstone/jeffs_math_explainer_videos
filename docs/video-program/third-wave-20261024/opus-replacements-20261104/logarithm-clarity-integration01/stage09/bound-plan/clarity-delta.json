@@ -1,0 +1,696 @@
+{
+  "schema_version": 1,
+  "topic": "logarithm_mysteries",
+  "claim": "Every difference between this stage09 plan and root's stage08 candidate and bound-plan03, by JSON path, computed by integrate_clarity.py. Source text and hashes only: nothing compiled, rendered, synthesized, measured or heard.",
+  "patch": {
+    "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-narration-clarity-repair01/logarithm-narration-clarity.patch",
+    "sha256": "2463334a21069f8d725ef722b362bc8b29aebe22a1b4f98bee0e77e4d515f736",
+    "against": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage08/candidate"
+  },
+  "script": {
+    "old": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+    "new": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a"
+  },
+  "cues_changed": [
+    {
+      "cue": "04_4",
+      "old_text_sha256": "6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6",
+      "new_text_sha256": "7e4e96121ff25f997a75bc882f70884bd61b3b039203e8df9c9d46fe545d2e83",
+      "words": [
+        71,
+        71
+      ]
+    },
+    {
+      "cue": "08_5",
+      "old_text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+      "new_text_sha256": "8e26bcb04dba0673057649b76a1fce2ce0375bcc1ff1a8fffb7d8379c13f4d82",
+      "words": [
+        81,
+        83
+      ]
+    }
+  ],
+  "cues_unchanged": 78,
+  "anchors_moved": [
+    {
+      "cue": "08_5",
+      "const": "FACTOR_PHRASE",
+      "old_byte": 299,
+      "new_byte": 306
+    },
+    {
+      "cue": "08_5",
+      "const": "HALF_TURN_PHRASE",
+      "old_byte": 260,
+      "new_byte": 267
+    }
+  ],
+  "candidate": {
+    "from": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage08/candidate",
+    "to": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/candidate",
+    "files_changed": [
+      {
+        "path": "explainer_corpus/logarithm_mysteries/script.tsv",
+        "old_sha256": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+        "new_sha256": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a",
+        "lines_changed": [
+          28,
+          58
+        ]
+      },
+      {
+        "path": "explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs",
+        "old_sha256": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+        "new_sha256": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635",
+        "lines_changed": [
+          432,
+          722,
+          723
+        ]
+      },
+      {
+        "path": "explainer_corpus/logarithm_mysteries/narration_units.json",
+        "old_sha256": "0e27709b2db1dad6df0c0db49264ec9b69a021f7eae7323e62cd7f2ac853771c",
+        "new_sha256": "1132a5a452b339dd4d6fb340668c525b2e10dfe892d27035ce11957e80cafce9",
+        "lines_changed": null
+      }
+    ],
+    "files_added": [
+      {
+        "path": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver16.json",
+        "sha256": "14e87893ea389ef2cdf827f0a7e59a8e2b65ac537b726d796ffceff5117e4787"
+      }
+    ],
+    "files_unchanged": 44
+  },
+  "plan": {
+    "from": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03",
+    "to": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan",
+    "files": [
+      {
+        "file": "explainer_corpus/logarithm_mysteries/narration_units.json",
+        "against": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage08/candidate/explainer_corpus/logarithm_mysteries/narration_units.json",
+        "old_sha256": "0e27709b2db1dad6df0c0db49264ec9b69a021f7eae7323e62cd7f2ac853771c",
+        "new_sha256": "1132a5a452b339dd4d6fb340668c525b2e10dfe892d27035ce11957e80cafce9",
+        "changes": [
+          {
+            "path": "$.direction_contract.map.path",
+            "old": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json",
+            "new": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver16.json"
+          },
+          {
+            "path": "$.direction_contract.map.sha256",
+            "old": "c94f0077f37974a12bba098dcf65d6afa4ed6082686ef41d15608897ca0e9cd4",
+            "new": "14e87893ea389ef2cdf827f0a7e59a8e2b65ac537b726d796ffceff5117e4787"
+          },
+          {
+            "path": "$.direction_contract.script_sha256",
+            "old": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+            "new": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a"
+          },
+          {
+            "path": "$.scope",
+            "old": "Candidate full-cue source plan for ElevenLabs Oliver, combined-repair-stage07/candidate, script b89eab60: 80 units, one per cue, at most 100 words. 01_5's wording changed, so no take of its old text can bind. It says nothing about whether a recording of any other cue exists; unchanged wording is not evidence of a usable take. No synthesis, take selection, listening, timing or independent acceptance. No Michael or FrankenTTS.",
+            "new": "Candidate full-cue source plan for ElevenLabs Oliver, combined-repair-stage09/candidate, script 559afa36: 80 units, one per cue, at most 100 words. 04_4 and 08_5 carry the reviewed clarity wording (patch 2463334a), so no take of their stage08 text can bind; the other 78 texts are stage08's bytes. 01_5's wording changed in stage07, so no take of its stage06 text can bind. It says nothing about whether a recording of any other cue exists; unchanged wording is not evidence of a usable take. No synthesis, take selection, listening, timing or independent acceptance. No Michael or FrankenTTS."
+          },
+          {
+            "path": "$.script_sha256",
+            "old": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+            "new": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a"
+          },
+          {
+            "path": "$.units[24].text",
+            "old": "The mirror image shows something else. Reflecting the graph swaps rise and run. Where the exponential has slope equal to its height, the logarithm at x has slope one over x. At one, that slope is exactly one. So the natural logarithm of one point zero one is almost exactly zero point zero one. A small percentage change becomes the same small step, which is why this base is called natural.",
+            "new": "The mirror image shows something else. Reflecting the graph swaps rise and run. Where the exponential has slope equal to its height, the logarithm at x has slope one over x. At one, that slope is exactly one. So the natural logarithm of one point zero one is almost exactly zero point zero one. A small percentage change becomes the same small step, which is why base e is called natural."
+          },
+          {
+            "path": "$.units[54].text",
+            "old": "Combining the roots. Here a square root is e to the power of half a logarithm. Each minus one has principal angle pi, so the two roots together turn by pi and point at minus one. But the product, one, has principal angle zero, not two pi. Halving the lost lap leaves a half turn, and a half turn is a factor of minus one. The root of a product equals the product of the roots only up to that sign.",
+            "new": "Combining the roots. Here a square root is e to the power of half a logarithm. Each minus one has principal angle pi, so the two roots together turn by pi and point at minus one. But the product, one, has principal angle zero, not two pi. Taking half of the lost lap leaves a half turn, and a half turn is a factor of minus one. The root of a product equals the product of the roots only up to that sign."
+          }
+        ]
+      },
+      {
+        "file": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver16.json",
+        "against": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage08/candidate/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json",
+        "old_sha256": "c94f0077f37974a12bba098dcf65d6afa4ed6082686ef41d15608897ca0e9cd4",
+        "new_sha256": "14e87893ea389ef2cdf827f0a7e59a8e2b65ac537b726d796ffceff5117e4787",
+        "changes": [
+          {
+            "path": "$.scope",
+            "old": "Candidate final 80-cue map, combined-repair-stage07/candidate: 13 prediction holds and 2 reading holds, each bound to staged source, after the chapter 05-08 teaching repair. Proposed successor to oliver14, which binds the same script and holds with the chapter 05-08 bytes from before that repair, and to stage06's oliver13, which binds script f201d2dc; like them, replaces oliver11's four stale pairs, which name the retired seven-chapter draft. Hashes are the proposed staged bytes, not installed canonical files. Authored coverage only: no silence is added to any take, and no take, measured timing, listening or independent acceptance is claimed. ElevenLabs Oliver; no Michael or FrankenTTS.",
+            "new": "Candidate final 80-cue map, combined-repair-stage09/candidate: 13 prediction holds and 2 reading holds, each bound to staged source. Successor to oliver15, which stage07 and stage08 carry with script b89eab60: the same overrides, holds, lines and intervals, rebound to script 559afa36 and to product_rule.rs bc9fbe1d after the reviewed clarity wording of 04_4 and 08_5 (patch 2463334a). Neither reworded cue carries an override or a hold. Hashes are the proposed staged bytes, not installed canonical files. Authored coverage only: no silence is added to any take, and no take, measured timing, listening or independent acceptance is claimed. ElevenLabs Oliver; no Michael or FrankenTTS."
+          },
+          {
+            "path": "$.scripts.logarithm_mysteries",
+            "old": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+            "new": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a"
+          },
+          {
+            "path": "$.visual_holds[9].evidence.sha256",
+            "old": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+            "new": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635"
+          },
+          {
+            "path": "$.visual_holds[9].sha256",
+            "old": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+            "new": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635"
+          },
+          {
+            "path": "$.visual_holds[10].evidence.sha256",
+            "old": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+            "new": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635"
+          },
+          {
+            "path": "$.visual_holds[10].sha256",
+            "old": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+            "new": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635"
+          }
+        ]
+      },
+      {
+        "file": "hold-audit.json",
+        "against": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+        "old_sha256": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+        "new_sha256": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac",
+        "changes": [
+          {
+            "path": "$.claim",
+            "old": "Text audit of Rust source at combined-repair-stage07/candidate. Uncompiled here, unrendered, unmeasured, unheard. Author/source binding, not independent AV or listening acceptance.",
+            "new": "Text audit of Rust source at combined-repair-stage07/candidate (binder03), rebound by logarithm-clarity-integration01 to combined-repair-stage09/candidate: script 559afa36 and product_rule.rs bc9fbe1d, whose changed lines are a comment inside 08_5's span and a test. Every hold interval, marker and say line was re-read and is unchanged. Uncompiled here, unrendered, unmeasured, unheard. Author/source binding, not independent AV or listening acceptance."
+          },
+          {
+            "path": "$.counts.words_total",
+            "old": 4592,
+            "new": 4594
+          },
+          {
+            "path": "$.cues[54].words",
+            "old": 81,
+            "new": 83
+          },
+          {
+            "path": "$.map",
+            "old": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json",
+            "new": "explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver16.json"
+          },
+          {
+            "path": "$.open_for_root",
+            "added": [
+              "targeted Oliver takes of the reviewed 04_4 and 08_5 wording, then measured marks for them (08_5 at bytes 267 and 306); the four takes of the stage08 wording are preserved and cannot bind"
+            ],
+            "removed": []
+          },
+          {
+            "path": "$.prediction_holds[9].source_sha256",
+            "old": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+            "new": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635"
+          },
+          {
+            "path": "$.prediction_holds[10].source_sha256",
+            "old": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+            "new": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635"
+          },
+          {
+            "path": "$.registered_chapters[8].sha256",
+            "old": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+            "new": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635"
+          },
+          {
+            "path": "$.script_sha256",
+            "old": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+            "new": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a"
+          }
+        ]
+      },
+      {
+        "file": "phrase-anchors.json",
+        "against": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/phrase-anchors.json",
+        "old_sha256": "a5930e689359c846e215863b394334c186b1bb0994047b9dd75e879fb6ea6970",
+        "new_sha256": "557d74a065260303689df29fedefafa54b084a691e912844b3f8e9171b1b7c84",
+        "changes": [
+          {
+            "path": "$.affected_means",
+            "old": "affected_by_cue_split: the cue's text differs from root's 75-cue request text, because the cue was split. Its text_sha256 is new, and any timing bound to the old text cannot load. byte_or_cue_moved: the anchor also has a new cue id or byte, as it does in 11_20 and 12_21. The bytes in 11_7 and 12_6 are unchanged, because those cues keep the front of the old cue, though their hashes are new.",
+            "new": "affected_by_cue_split: the cue's text differs from root's 75-cue request text, because the cue was split. Its text_sha256 is new, and any timing bound to the old text cannot load. byte_or_cue_moved: the anchor also has a new cue id or byte, as it does in 11_20 and 12_21, and in 08_5 after the clarity rewording (same cue, new bytes). The bytes in 11_7 and 12_6 are unchanged, because those cues keep the front of the old cue, though their hashes are new."
+          },
+          {
+            "path": "$.anchors[10].byte",
+            "old": 260,
+            "new": 267
+          },
+          {
+            "path": "$.anchors[10].byte_end",
+            "old": 278,
+            "new": 285
+          },
+          {
+            "path": "$.anchors[10].byte_or_cue_moved",
+            "old": false,
+            "new": true
+          },
+          {
+            "path": "$.anchors[10].cue_text_sha256",
+            "old": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+            "new": "8e26bcb04dba0673057649b76a1fce2ce0375bcc1ff1a8fffb7d8379c13f4d82"
+          },
+          {
+            "path": "$.anchors[10].source_sha256",
+            "old": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+            "new": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635"
+          },
+          {
+            "path": "$.anchors[10].word_index",
+            "old": 51,
+            "new": 53
+          },
+          {
+            "path": "$.anchors[11].byte",
+            "old": 299,
+            "new": 306
+          },
+          {
+            "path": "$.anchors[11].byte_end",
+            "old": 320,
+            "new": 327
+          },
+          {
+            "path": "$.anchors[11].byte_or_cue_moved",
+            "old": false,
+            "new": true
+          },
+          {
+            "path": "$.anchors[11].cue_text_sha256",
+            "old": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+            "new": "8e26bcb04dba0673057649b76a1fce2ce0375bcc1ff1a8fffb7d8379c13f4d82"
+          },
+          {
+            "path": "$.anchors[11].source_sha256",
+            "old": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+            "new": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635"
+          },
+          {
+            "path": "$.anchors[11].word_index",
+            "old": 60,
+            "new": 62
+          },
+          {
+            "path": "$.counts.byte_or_cue_moved",
+            "old": 8,
+            "new": 10
+          },
+          {
+            "path": "$.script_sha256",
+            "old": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+            "new": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a"
+          },
+          {
+            "path": "$.wording_since_stage06",
+            "old": "01_5 was reworded and carries no anchor, so no anchor's byte or phrase is affected by it.",
+            "new": "01_5 was reworded in stage07 and carries no anchor. The reviewed clarity patch (2463334a) rewords 04_4, which carries no anchor, and 08_5, whose sentence 4 now opens \"Taking half of\" where it said \"Halving\": 7 bytes and 2 words longer, so both 08_5 anchors move within that sentence, FACTOR_PHRASE from byte 299 to 306, HALF_TURN_PHRASE from byte 260 to 267. A mark at an old byte cannot serve; integrate_clarity.py --validate-timings refuses one."
+          }
+        ]
+      },
+      {
+        "file": "phrase-timings-unmeasured-template.json",
+        "against": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/phrase-timings-unmeasured-template.json",
+        "old_sha256": "9169b6004507f6a1a735aa457beb28a5a71b2f9a4d759dc5721ff778b6ef6d28",
+        "new_sha256": "94f6e564e2178188c3f6867edef7fb26f7ce5dec110348e67b0fefee48fccd2a",
+        "changes": [
+          {
+            "path": "$.cues.04_4.text_sha256",
+            "old": "6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6",
+            "new": "7e4e96121ff25f997a75bc882f70884bd61b3b039203e8df9c9d46fe545d2e83"
+          },
+          {
+            "path": "$.cues.08_5.marks[0].byte",
+            "old": 260,
+            "new": 267
+          },
+          {
+            "path": "$.cues.08_5.marks[1].byte",
+            "old": 299,
+            "new": 306
+          },
+          {
+            "path": "$.cues.08_5.text_sha256",
+            "old": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+            "new": "8e26bcb04dba0673057649b76a1fce2ce0375bcc1ff1a8fffb7d8379c13f4d82"
+          },
+          {
+            "path": "$.script_sha256",
+            "old": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+            "new": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a"
+          }
+        ]
+      },
+      {
+        "file": "direction-dispositions-proposed.json",
+        "against": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/direction-dispositions-proposed.json",
+        "old_sha256": "5372e362098144a3f701fbf032fd098e3b3dab53482ee843e4d577c86eafc2f0",
+        "new_sha256": "8f95fb565b9a11c53889d1bb3701cc62a1221609deca74c7ebf7e7390f21cd94",
+        "changes": [
+          {
+            "path": "$.direction_dispositions[0].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[0].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.direction_dispositions[1].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[1].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.direction_dispositions[2].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[2].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.direction_dispositions[3].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[3].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.direction_dispositions[4].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[4].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.direction_dispositions[5].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[5].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.direction_dispositions[6].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[6].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.direction_dispositions[7].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[7].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.direction_dispositions[8].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[8].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.direction_dispositions[9].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[9].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.direction_dispositions[10].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[10].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.direction_dispositions[11].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[11].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.direction_dispositions[12].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[12].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.direction_dispositions[13].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[13].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.direction_dispositions[14].evidence.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/hold-audit.json",
+            "new": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json"
+          },
+          {
+            "path": "$.direction_dispositions[14].evidence.sha256",
+            "old": "4040d484c48e930348726fca61a6ee531cdd58f08211e6c6a237c2ad138f1c9a",
+            "new": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac"
+          },
+          {
+            "path": "$.map_sha256",
+            "old": "c94f0077f37974a12bba098dcf65d6afa4ed6082686ef41d15608897ca0e9cd4",
+            "new": "14e87893ea389ef2cdf827f0a7e59a8e2b65ac537b726d796ffceff5117e4787"
+          }
+        ]
+      },
+      {
+        "file": "cue-delta.json",
+        "against": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/bound-plan03/cue-delta.json",
+        "old_sha256": "2263bb51a62e41972cd12adca21660b67b515f2fda9781291e6761a4bb56cdac",
+        "new_sha256": "db037aeda49fd056d2ec6ec71e35f5067a328cfa1c9c2b71b0602374ead10728",
+        "changes": [
+          {
+            "path": "$.counts.reworded_since_stage06",
+            "old": 1,
+            "new": 3
+          },
+          {
+            "path": "$.counts.unchanged_from_baseline",
+            "old": 70,
+            "new": 68
+          },
+          {
+            "path": "$.counts.with_current_request_file",
+            "old": 80,
+            "new": 78
+          },
+          {
+            "path": "$.counts.with_exact_request_bytes",
+            "old": 79,
+            "new": 77
+          },
+          {
+            "path": "$.cues[24].current_request.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/04_4.txt",
+            "new": null
+          },
+          {
+            "path": "$.cues[24].current_request.retained_pair_receipt",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_4-downloads01.json",
+            "new": null
+          },
+          {
+            "path": "$.cues[24].current_request.sha256",
+            "old": "6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6",
+            "new": null
+          },
+          {
+            "path": "$.cues[24].current_request.submission_state",
+            "old": "full pair retained",
+            "new": "no request file: root prepares the targeted Oliver take of the reviewed wording"
+          },
+          {
+            "path": "$.cues[24].current_request.submitted",
+            "old": true,
+            "new": false
+          },
+          {
+            "path": "$.cues[24].request_id_with_exact_bytes",
+            "old": "04_4",
+            "new": null
+          },
+          {
+            "path": "$.cues[24].reworded_since_stage06",
+            "old": false,
+            "new": true
+          },
+          {
+            "path": "$.cues[24].superseded_request",
+            "added": {
+              "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/04_4.txt",
+              "sha256": "6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6",
+              "submitted": true,
+              "submission_state": "full pair retained",
+              "retained_pair_receipt": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01/04_4-downloads01.json"
+            }
+          },
+          {
+            "path": "$.cues[24].text_changed_from_baseline",
+            "old": false,
+            "new": true
+          },
+          {
+            "path": "$.cues[24].text_sha256",
+            "old": "6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6",
+            "new": "7e4e96121ff25f997a75bc882f70884bd61b3b039203e8df9c9d46fe545d2e83"
+          },
+          {
+            "path": "$.cues[54].current_request.path",
+            "old": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/08_5.txt",
+            "new": null
+          },
+          {
+            "path": "$.cues[54].current_request.sha256",
+            "old": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+            "new": null
+          },
+          {
+            "path": "$.cues[54].current_request.submission_state",
+            "old": "not established by this snapshot",
+            "new": "no request file: root prepares the targeted Oliver take of the reviewed wording"
+          },
+          {
+            "path": "$.cues[54].request_id_with_exact_bytes",
+            "old": "08_5",
+            "new": null
+          },
+          {
+            "path": "$.cues[54].reworded_since_stage06",
+            "old": false,
+            "new": true
+          },
+          {
+            "path": "$.cues[54].superseded_request",
+            "added": {
+              "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/narration-request-final80-01/08_5.txt",
+              "sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+              "submitted": false,
+              "submission_state": "not established by this snapshot",
+              "retained_pair_receipt": null
+            }
+          },
+          {
+            "path": "$.cues[54].text_changed_from_baseline",
+            "old": false,
+            "new": true
+          },
+          {
+            "path": "$.cues[54].text_sha256",
+            "old": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+            "new": "8e26bcb04dba0673057649b76a1fce2ce0375bcc1ff1a8fffb7d8379c13f4d82"
+          },
+          {
+            "path": "$.cues[54].words",
+            "old": 81,
+            "new": 83
+          },
+          {
+            "path": "$.request_id_note",
+            "old": "request_id_with_exact_bytes names narration-request-plan01's request, and is null for 01_5, whose new text is not in that plan. current_request is the row of root's current list: the file with the cue's exact current bytes and the submission state as that list records it.",
+            "new": "request_id_with_exact_bytes names narration-request-plan01's request, and is null for 01_5, 04_4 and 08_5, whose current texts are not in that plan. No request file has 04_4's or 08_5's current bytes yet; superseded_request keeps each one's bound-plan03 row. current_request is the row of root's current list: the file with the cue's exact current bytes and the submission state as that list records it."
+          }
+        ]
+      }
+    ],
+    "not_rebound": {
+      "stage07-delta.json": "History: stage07 against stage06. Not rebound; clarity-delta.json records this increment.",
+      "increment-delta.json": "History: binder03 against binder02. Not rebound; clarity-delta.json records this increment."
+    },
+    "added": {
+      "take-binding.json": "Which retained Oliver takes carry each stage09 text, from root's full80-retained-inventory01.json. A match means the take's recorded text hash equals the cue's stage09 text hash. No take is selected, heard, timed or accepted here. This helper re-hashes only the four 04_4 and 08_5 takes; the other hashes are as root's inventory records them.",
+      "clarity-delta.json": "This file."
+    }
+  },
+  "binder03": {
+    "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage07-binder03/bind_final80-stage07-r3.py",
+    "sha256": "91d5c1a883f540c44e98552d70d3dd8749a81d18bcb232737add0f02b7e0e470",
+    "not_rerun": [
+      "line 967: refuses any script but b89eab60",
+      "line 1348: refuses a script that differs from stage06's in more than 01_5",
+      "line 1454: refuses a reworded cue that carries a phrase anchor, as 08_5 now is"
+    ],
+    "pins_revised_here": [
+      {
+        "input": "explainer_corpus/logarithm_mysteries/script.tsv",
+        "binder03": "b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e",
+        "stage09": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a"
+      },
+      {
+        "input": "explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs",
+        "binder03": "f2c8684acd8319b5f518c59a6ae68da5488377ad9758f9c539f57867312210db",
+        "stage09": "bc9fbe1dfad255ff2e93e59fa205ebd95435216ed98bbd7b81946f0e039c1635"
+      },
+      {
+        "input": "explainer_corpus/logarithm_mysteries/narration_units.json",
+        "binder03": "0e27709b2db1dad6df0c0db49264ec9b69a021f7eae7323e62cd7f2ac853771c",
+        "stage09": "1132a5a452b339dd4d6fb340668c525b2e10dfe892d27035ce11957e80cafce9"
+      },
+      {
+        "input": "MAP_NAME",
+        "binder03": "narration-direction-map-oliver15.json",
+        "stage09": "narration-direction-map-oliver16.json"
+      },
+      {
+        "input": "candidate",
+        "binder03": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage07/candidate",
+        "stage09": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/candidate"
+      }
+    ],
+    "note": "binder03 stays sealed and unedited. This helper pins stage08 and bound-plan03 instead and rebinds only what the patch moves."
+  }
+}

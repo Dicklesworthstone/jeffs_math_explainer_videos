@@ -1,0 +1,52 @@
+prepare_audio.py 3083d5cdfc98f18c404278155b9d432a0530e7b0eae0b0c09afca02e27c2d540
+binding 9e569c0e66ec995ae514c3d7e8489299cb3f159a8c0375efcf655d2b1973910b
+PASS A1 the bundled report is in step with the real inputs (all pins current) — in step: docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage08-audio-preparation01/report (5 files, 10 questions)
+     mirror: 274 read-only links
+     report (production, Oliver): 162 recordings of 80 cues; sentence onsets 568/570 supported; phrase anchor marks 66/66 supported; 10 questions
+PASS B1 two fresh reports are byte-equal to each other and to the bundled report
+PASS C1 inventory: 162 recordings of 80 cues, every requested text is the script's
+PASS C2 coverage: every recording has a large-v3-turbo recognition except two with a recognized sample twin — unrecognized: ['00_1-download03.wav', '00_1-download04.wav']
+PASS C3 download names: 160 name the voice; the two 04_3 downloads do not — named 160, unnamed ['04_3-download01.wav', '04_3-download02.wav']
+PASS C4 trigram onsets and marks agree with every supported helper value they can check — agree 569, no unique trigram 63, not three plain words 2, disagree []
+PASS C5 08_5 sentence 4 ('Halving the lost lap') has no supported onset in either take
+PASS C6 every 04_4 transcript (2 takes x 2 models) says 'space is called natural' — [('04_4-download01.wav', 'middle'), ('04_4-download01.wav', 'targeted-small'), ('04_4-download02.wav', 'middle'), ('04_4-download02.wav', 'targeted-small')]
+PASS C7 every 08_5 transcript (2 takes x 2 models) says 'having the lost lap' — [('08_5-download01.wav', 'remaining'), ('08_5-download01.wav', 'targeted-small'), ('08_5-download02.wav', 'remaining'), ('08_5-download02.wav', 'targeted-small')]
+PASS C8 the question set is exactly the ten expected questions — extra [], missing []
+PASS C9 only the two 04_3 voice questions are advisory, each binding root's receipt observation (Mail 3725) — ['voice:04_3:04_3-download01.wav', 'voice:04_3:04_3-download02.wav']
+PASS D0 08_5 s4 has a recognizer candidate between agreeing runs — {"heard": "having", "asr_start_s": 20.379999, "sample_24k": 489120, "why": "the recognizer's one different word in this slot, between agreeing runs on both sides"}
+PASS D1 a historical-test binding refuses decode without --test-only (exit 2) — refused: docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage08-audio-preparation01/bindings/test-historical.json binds historical Oliver recordings as test input, not production audio. Pass --test-only to run a test, or use a production binding.
+PASS D2 a production binding refuses --test-only (exit 2) — refused: --test-only is for historical-test bindings
+PASS D3 decode (stand-in) of 80 selected recordings — decoded 80 complete recordings into runs/full-decoded; receipt runs/full-decoded/decode-receipt.json
+PASS D4 prepare: answers applied, spans dry-run through the workspace assembler — prepared 80 units into runs/full-prepared; dry run accepted 80 cues
+PASS D5 the real assembler copy assembles all 80 cues from the prepared command — {"assembled_cues": 80, "chapter": null, "out": "runs/full-prepared/narration"}
+PASS D6 timings: verify, sample-for-sample, kit mirror, phrase-timings.json — phrase-timings.json for 80 cues (32 marks) in runs/full-prepared-timings
+PASS D7 spans: 80 units, zero inserted silence, last end = 24 kHz frames, root's sample and candidate applied
+PASS D8 phrase-timings: 80 cues, 32 marks (33 less one omitted), test-only label — 80 cues, 32 marks
+PASS D8b 04_3 prepared without a voice answer; the receipt observation is carried as provenance
+PASS D9 chapter 01 with the production binding (no --test-only) assembles and writes a labelled fragment — 4/combined-repair-stage08/candidate/explainer_corpus/logarithm_mysteries/narration_units.json --require-directions --chapter 01 --spans runs/ch01-prepared/spans.json --out runs/ch01-prepared/narration
+PASS D10 a replacement take is timed from its own recognition run (fixture times = its twin's + 0.01 s); older wording is listed as superseded — report (historical-test, Oliver): 164 recordings of 80 cues; sentence onsets 578/580 supported; phrase anchor marks 66/66 supported; 14 questions
+PASS D11 the 04_4 content question applies to the replacement too (its transcript still says 'space')
+PASS D12 chapter 04 assembles with the replacement, timed from its own run — 4/combined-repair-stage08/candidate/explainer_corpus/logarithm_mysteries/narration_units.json --require-directions --chapter 04 --spans runs/ch04-prepared/spans.json --out runs/ch04-prepared/narration
+PASS D13 plant: selection for another binding → exit 1 — the selection is not audio-preparation-selection-v1 for this binding and script
+PASS D13 plant: selection missing a cue → exit 1 — the selection must name exactly these 80 cues in script order: 00_1 … 12_21
+PASS D13 plant: 08_5 onset left unanswered → exit 1 — open question blocks the selection: onset:08_5:s4:08_5-download01.wav: Sentence 4 of 08_5 starts with 'halving'; the recognizer gives no supported onset (no_agreeing_word).
+PASS D13 plant: a selected take rejected by root's answer → exit 1 — content:04_4:base:04_4-download01.wav: root rejected 04_4-download01.wav; select another recording
+PASS D13 plant: an answer naming an unknown question → exit 1 — answer to an unknown question or point onset:99_9:s1:x.wav
+PASS D13 plant: decoded audio one sample short → exit 1 — 02_1: decoded (1, 2, 24000) with 311039 frames; expected mono PCM16 24 kHz with 311040 (kept, not usable)
+PASS D13 plant: an existing OUT → exit 2 — refused: OUT runs/full-prepared exists; name a new folder
+PASS D13 plant: OUT inside the bundle → exit 2 — refused: OUT docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage08-audio-preparation01/x lies inside the input folder docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage08-audio-preparation01
+PASS D13 plant: a stale pin → exit 3 — narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage08/candidate/explainer_corpus/logarithm_mysteries/script.tsv is b89eab600a6c99cdb737025d3cdb6d317597b42f20b4339479407c84ad2ea00e, pinned 0000000000000000000000000000000000000000000000000000000000000000
+PASS D13 plant: 00_1-download03 selected without the provenance answer → exit 1 — open question blocks the selection: provenance:00_1:00_1-download03.wav: 00_1-download03.wav was not recognized itself. Its samples equal 00_1-download02.wav's, whose recognition is used. Equal samples do not say how many generations produced the files.
+PASS D13 plant: a take whose download and receipt never name the voice, unanswered → exit 1 — open question blocks the selection: voice:04_4:04_4-unnamed-fixture01.wav: One binding holds one voice (ElevenLabs Oliver). The downloaded file name 'ElevenLabs_fixture__s50.wav' does not contain 'Oliver - Clean, British and Steady'. The downloads receipt does not name the voice either. Root confirms the provider voice or rejects the recording.
+PASS D13 plant: a recording of superseded wording selected → exit 1 — 04_4: 04_4-oldtext-fixture01.wav cannot be selected; it records superseded wording
+PASS D13 plant: a receipt source the pinned assembler does not name → exit 1 — See runs/p12/REFUSED.txt
+     REFUSED.txt: The assembler's own checks refused these spans: KeyError: 'wav' | The pinned assembler's external-take branch does not name the receipt source 'ElevenLabs UI, Test Label', so it read the decode receipt as a native FrankenTTS receipt. Root decides whether to extend that branch. | Nothing was assembled. Keep this folder as evidence and prepare again into a new one.
+     ffmpeg: ffmpeg version 8.1.2
+PASS E1 root's arguments, 48000 Hz × 96000 frames → 48000 frames at 24 kHz (rule: 48000 ± 0)
+PASS E1 root's arguments, 48000 Hz × 1002240 frames → 501120 frames at 24 kHz (rule: 501120 ± 0)
+PASS E1 root's arguments, 48000 Hz × 936961 frames → 468481 frames at 24 kHz (rule: 468481 ± 0)
+PASS E1 root's arguments, 44100 Hz × 88200 frames → 48000 frames at 24 kHz (rule: 48000 ± 1)
+PASS E1 root's arguments, 44100 Hz × 920123 frames → 500747 frames at 24 kHz (rule: 500747 ± 1)
+PASS F1 the helper names no voice
+PASS F2 no absolute home or scratch path in any bundle file — []
+45 PASS, 0 FAIL

@@ -1,0 +1,13 @@
+PASS t0-good-rebind: exit 0, expected 0
+PASS t1-template-keeps-08_5-marks-at-260-299: exit 1, expected 1; first failure: FAIL every cue's marks sit exactly at its anchors' bytes in the new text (['08_5'])
+PASS t2-map-keeps-old-product_rule-hash: exit 1, expected 1; first failure: FAIL hold 08_1 product_rule.rs:221: file f2c8684a is current; interval 1d498942 recomputed = recorded; other fields oliver15's
+PASS t3-neighbour-04_5-reworded: exit 1, expected 1; first failure: FAIL script.tsv 33d97606 (want 559afa36), product_rule.rs bc9fbe1d (want bc9fbe1d)
+PASS t4-units-keep-old-08_5-text: exit 1, expected 1; first failure: FAIL every unit text is its new script row (['oliver_08_5'])
+PASS t5-anchors-keep-08_5-byte-260: exit 1, expected 1; first failure: FAIL anchor 08_5 HALF_TURN_PHRASE: byte 260, word 53, sentence 4; text and source hashes current
+PASS t11-anchors-11_20-whitespace-word-index: exit 1, expected 1; first failure: FAIL the other 31 anchors equal their recomputed values (['11_20 "the matrix\'s blocks for each negative stretch"', "11_20 'come in matching pairs'"])
+PASS t6-stage08-unpatched: exit 1, expected 1; first failure: FAIL changed: [] (allowed: script, product_rule.rs, units, the units' map)
+PASS t7-patched-not-rebound: exit 1, expected 1; first failure: FAIL changed: ['script.tsv', 'src/chapters/product_rule.rs'] (allowed: script, product_rule.rs, units, the units' map)
+PASS t8-extra-orig-file: exit 1, expected 1; first failure: FAIL new files: ['docs/narration-direction-map-oliver16.json', 'src/chapters/product_rule.rs.orig'] (allowed: only the units' map)
+PASS t9-receipt-wrong-voice: exit 1, expected 1; first failure: FAIL receipt receipt-08_5.json: cue 08_5, voice 'Frederick Surrey', model 'Eleven v4', text 8e26bcb0
+PASS t10-hold-audit-keeps-old-source-hash: exit 1, expected 1; first failure: FAIL hold 08_1 product_rule.rs: source f2c8684a current, interval unchanged
+SELFTEST: PASS (12/12)

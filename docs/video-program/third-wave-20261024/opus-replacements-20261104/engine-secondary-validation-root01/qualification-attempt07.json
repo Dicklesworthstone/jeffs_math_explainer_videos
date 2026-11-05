@@ -1,0 +1,38 @@
+{
+  "result": "every job of the guarded secondary validation has now passed natively on the six-entry stack (runner 3ac6dd48269a3eb8e75e6ba41936c3a784aec7e85fcdaff66c530657710b3fce, inputs07.tsv): lint, build and test in attempt06; ignored, fronts, kit-build, kit-test and film-check in attempt07. The canonical production pin is unchanged; promoting it is root's decision",
+  "receipts_folder": "narration_lab/third-wave-20261024/root/five-film-release-20261027",
+  "attempt05": {
+    "engine-lint05": "exit 0", "engine-build05": "exit 0", "engine-test05": "exit 0",
+    "engine-ignored05": "exit 101: the monotone control's default half admitted the frame; root cause in monotone-control-integration01.json (fixture outlines interned together), repaired by test-monotone-control01.patch"
+  },
+  "attempt06": {
+    "engine-lint06": {"time": "03:30:19-03:32:27Z", "exit": 0, "note": "rustfmt and Clippy -D warnings (fmn-render, fmn, fmn-runtime, all targets) over the repaired frame_table_limits.rs"},
+    "engine-build06": {"time": "03:32:27-03:36:12Z", "exit": 0},
+    "engine-test06": {
+      "time": "03:36:12-03:39:00Z", "exit": 0,
+      "fmn-render": "406 passed, the two controls ignored",
+      "fmn-runtime": "41 passed (39 + 2), R1's three tests ok by name",
+      "fmn integration": "36 passed (7 + 7 + 19 + 1 + 2), including the held-sink refusal over 8 rounds and the genuine sink failure",
+      "fmn library": "the four F1/R1 tests, each run alone by name, ok",
+      "default pixels": "identical to base (20 frames, five routes)"
+    },
+    "engine-ignored06": "refused by the guard before any command ran: reviewed input changed, target/geometry-kit01/debug/complex_analysis_visual. Root's complex-stage05-build01 took the lane between test06 and ignored06 (03:39:00-03:39:50Z) and relinked that binary at 03:39:30Z; root confirmed and owns it (Mails 3776, 3777, 3786). No test failed"
+  },
+  "attempt07": {
+    "from": "engine-ignored; the passed attempt06 jobs were not repeated",
+    "film_binaries": "the per-job manifests pin root's shared film binaries only as evidence that this run never relinks them; nothing in the run executes them. attempt07 pinned complex_analysis_visual fa4ad691661836cc76c9078c4f61c26305a0ac3aaea567a3ba7106234a13fd35 (stage05) and plate_lab e12141190c5bea1bb3d9c1141aa30c87752c44fb9d6ccd41e6422732f422ad08; both were byte-identical after film-check07. Root held geometry-kit01 links through the run. Private copies, including the pre-stage05 binary e7e44eb9ae10c7cf458cdaad11623873777ce0559ed51e0e5048a573d8b8c0c0 that attempts 01-06 pinned, are kept in the stage's manifests/film-binaries01",
+    "guard_inputs": "4cc743644de18a7e302fc449a1cdfab302ca301ad6d8976f5f3ee3fc62dab275, unchanged at the start and finish of every job",
+    "engine-ignored07": {
+      "time": "04:02:15-04:04:16Z", "exit": 0,
+      "a_monotone_budget_above_the_default_is_admitted_and_the_default_still_refuses": "ok in 12.27 s; the default refused 'monotone pieces' with requested exactly 4,194,645 against 4,194,304 and 1 << 23 admitted; 14.53 s real, maximum resident set size 699,596,800 B, peak memory footprint 63,013,608 B",
+      "a_working_byte_budget_above_the_default_is_admitted_and_the_default_still_refuses": "ok in 81.75 s; 82.45 s real, maximum resident set size 500,826,112 B, peak memory footprint 62,489,344 B"
+    },
+    "engine-fronts07": {"time": "04:04:45-04:05:13Z", "exit": 0, "note": "cargo check fmn-cli --all-targets and fmn-conformance --lib"},
+    "kit-build07": {"time": "04:05:13-04:06:48Z", "exit": 0, "note": "rustfmt of options_hook_routes.rs, Clippy -D warnings on explainer_kit (all targets, no deps), test binaries built"},
+    "kit-test07": {"time": "04:06:49-04:07:15Z", "exit": 0, "note": "111 passed (100 + 1 + 6 + 3 + 1), the_hook_governs_every_render_route ok"},
+    "film-check07": {"time": "04:07:16-04:07:40Z", "exit": 0, "note": "Clippy -D warnings on complex_analysis_visual and the plate_lab example, which links nothing"},
+    "controller": "ALL JOBS PASSED; dependencies unchanged; target growth 10.60 of 20 GiB; free 147.86 GiB at the end"
+  },
+  "not_run": "fmn's library tests other than the four F1/R1 tests run by name (the library has 17); root may add the whole library, which is cheap",
+  "not_claimed": "no render review, no listening, no final film or AV acceptance; the canonical pin is not promoted"
+}

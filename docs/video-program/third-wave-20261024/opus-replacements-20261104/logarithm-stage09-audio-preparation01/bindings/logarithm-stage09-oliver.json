@@ -1,0 +1,139 @@
+{
+ "schema": "audio-preparation-binding-v1",
+ "use": "production",
+ "voice": {
+  "provider": "ElevenLabs",
+  "name": "Oliver",
+  "receipt_source": "ElevenLabs UI, Oliver",
+  "download_source_contains": "Oliver - Clean, British and Steady",
+  "identity_note": "Owner refinement 2026-11-05T03:22:06Z (canonical NARRATION-CONSISTENCY.md): logarithm keeps Oliver; every other new video uses Frederick Surrey. The four clarity replacements (04_4, 08_5; requested 03:59:37Z) have downloads named for this voice and submission receipts recording 'Oliver - Clean, British and Steady visibly selected'. This binding checks the download names and that each request names its cue and exact text. Root verifies provider identity and settings."
+ },
+ "why": "Combined-repair-stage09 candidate (script 559afa36, units 1132a5a4, map oliver16), all 80 cues. Inventories: the 162 retained Oliver recordings (full80-retained-inventory01) and the four clarity replacements (clarity-retained-inventory01). The four original 04_4/08_5 recordings are of the stage08 wording; they stay listed as superseded and cannot be selected. 78 unchanged cues keep their recordings and recognition. The new 04_4/08_5 recordings are timed only from their own run (logarithm-clarity-recognition01). Anchors, template and dispositions are stage09's bound-plan (WhiteSwan's rebind, installed by root). The stage08 content questions are bound to the old texts and are reported as not applying.",
+ "tree": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/candidate",
+ "topic": "logarithm_mysteries",
+ "inventories": [
+  {
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/full80-retained-inventory01.json",
+   "takes_dir": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/ui-takes01",
+   "take_receipt": "{takes_dir}/{cue}-downloads01.json",
+   "request": "{takes_dir}/{cue}-request01.json"
+  },
+  {
+   "path": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/clarity-retained-inventory01.json",
+   "takes_dir": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01",
+   "take_receipt": "{takes_dir}/{cue}-downloads01.json",
+   "receipt_hash_of": "{takes_dir}/{cue}-request01.json",
+   "request": "{takes_dir}/{cue}-request01.json"
+  }
+ ],
+ "recognition": [
+  {
+   "name": "opening",
+   "role": "anchors",
+   "model": "ggml-large-v3-turbo.bin",
+   "job": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-opening-recognition01",
+   "frozen": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/opening-recognition01/frozen-inputs.json",
+   "review": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/opening-recognition01/recognition-comparison01.json"
+  },
+  {
+   "name": "middle",
+   "role": "anchors",
+   "model": "ggml-large-v3-turbo.bin",
+   "job": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-middle-recognition01",
+   "frozen": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/middle-recognition01/frozen-inputs02.json",
+   "review": null
+  },
+  {
+   "name": "turns",
+   "role": "anchors",
+   "model": "ggml-large-v3-turbo.bin",
+   "job": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-turns-recognition01",
+   "frozen": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/turns-recognition01/frozen-inputs.json",
+   "review": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/turns-recognition01/transcript-review01.json"
+  },
+  {
+   "name": "remaining",
+   "role": "anchors",
+   "model": "ggml-large-v3-turbo.bin",
+   "job": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-remaining-recognition01",
+   "frozen": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remaining-recognition01/frozen-inputs.json",
+   "review": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remaining-recognition01/transcript-review01.json"
+  },
+  {
+   "name": "targeted-small",
+   "role": "corroborates",
+   "model": "ggml-small.en.bin",
+   "job": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-targeted-small01",
+   "frozen": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/targeted-recognition-small01/inputs.json",
+   "review": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/targeted-recognition-small01/review01.json"
+  },
+  {
+   "name": "clarity",
+   "role": "anchors",
+   "model": "ggml-large-v3-turbo.bin",
+   "job": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-clarity-recognition01",
+   "frozen": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/clarity-recognition01/frozen-inputs.json",
+   "review": null
+  }
+ ],
+ "phrase_anchors": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/phrase-anchors.json",
+ "anchor_template": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/phrase-timings-unmeasured-template.json",
+ "dispositions": "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/direction-dispositions-proposed.json",
+ "assembler": "tools/coherent_narration.py",
+ "assembler_cache": "tools/narration_cache.py",
+ "kit": "crates/explainer_kit/src/narration.rs",
+ "content_questions": [
+  {
+   "cue": "04_4",
+   "text_sha256": "6a85a6bdd44b5c9942fa03e43b58ddf00f19acd0e69622ed0f45be218b8591a6",
+   "script_word": "base",
+   "heard": "space",
+   "note": "Root (Mail 3651): 04_4 base/space unresolved. The script says 'this base is called natural'."
+  },
+  {
+   "cue": "08_5",
+   "text_sha256": "f91292cc74fa243f405db101c25532df45d16465a66208ac33819baba40f7216",
+   "script_word": "halving",
+   "heard": "having",
+   "note": "Root (Mail 3651): 08_5 halving/having unresolved. The script says 'Halving the lost lap leaves a half turn'."
+  }
+ ],
+ "pins": {
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/candidate/explainer_corpus/logarithm_mysteries/script.tsv": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/candidate/explainer_corpus/logarithm_mysteries/narration_units.json": "1132a5a452b339dd4d6fb340668c525b2e10dfe892d27035ce11957e80cafce9",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/candidate/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver16.json": "14e87893ea389ef2cdf827f0a7e59a8e2b65ac537b726d796ffceff5117e4787",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/full80-retained-inventory01.json": "d4ee2762f067ca7e1a78ec3d950dae5fce9ba7b8d39be6425a61127ae8eaf44c",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/clarity-retained-inventory01.json": "0f409e93c34ce41d3c70437f05231cde0f27a65075c50738f1e2847d02b7517c",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/phrase-anchors.json": "557d74a065260303689df29fedefafa54b084a691e912844b3f8e9171b1b7c84",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/phrase-timings-unmeasured-template.json": "94f6e564e2178188c3f6867edef7fb26f7ce5dec110348e67b0fefee48fccd2a",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/direction-dispositions-proposed.json": "8f95fb565b9a11c53889d1bb3701cc62a1221609deca74c7ebf7e7390f21cd94",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/bound-plan/hold-audit.json": "f6f315d628d4f862ae9b372c0c44aea67dd4ff2e71f5c26c6b2513c9193cb1ac",
+  "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-opening-recognition01/command.log": "4113e65f9c4e91a3aa5fbdacc6de6d7311fc9acdd9318ed5cda9d44eda46a8e8",
+  "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-opening-recognition01/resource-receipt.json": "ead195c3635ccfa3514f4c401b52e32f2d7fe0a91faf158b6604d6625262cbbf",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/opening-recognition01/frozen-inputs.json": "4cf1425c517e9eb88a58c044eadf9ff0e88d4efb7a8af12b29eb1b13eda6e2f2",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/opening-recognition01/recognition-comparison01.json": "6e894b9aacad3e2ea26ae17f219bbcb6b505709197126586177a329a5be45d78",
+  "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-middle-recognition01/command.log": "1c7fb420b88a6557d49e6ad395926b28c0199620679a80521180fb0e428957a8",
+  "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-middle-recognition01/resource-receipt.json": "391fbcb37b7cecd24f162ed1b9a73e9a0c9e631da15cbd4696aca0e7795b9f88",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/middle-recognition01/frozen-inputs02.json": "0b7df805517c6abd810292f65a9d9c636c633a226312c26a2e165ce2e19334b5",
+  "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-turns-recognition01/command.log": "8d20c0079989fd2d652a9e39c49301d6eb9092d9c959669f7696c1aa60557333",
+  "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-turns-recognition01/resource-receipt.json": "d65dcf76ad9e639ecb3e355368017dd71873d5b90264f65e4c1276d73cd7bada",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/turns-recognition01/frozen-inputs.json": "a5ac5862f7a2ef505ec2ed576c4c47d2a33fc7d4a13e26c91d809dfff1714f10",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/turns-recognition01/transcript-review01.json": "edd60bdcd002f584690845921368cfa5da876718f5d7274b435040cce48ed07f",
+  "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-remaining-recognition01/command.log": "3e479160bebb7daf0759caab2f7a538df6527cd53d34b3cf218c5a0295a442b7",
+  "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-remaining-recognition01/resource-receipt.json": "ebcfe80f7d4eca6b5794ec30efe597f08d817b28deeac1fccb191a690ce34dbe",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remaining-recognition01/frozen-inputs.json": "ec997c899b5ad46204329efb7a1826dbc2926eb5edee9aef3f7b3d3808e99881",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/remaining-recognition01/transcript-review01.json": "bf3727e27c28967c6442d3143470c21779f8951506f32e363ce902f85275c8ef",
+  "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-targeted-small01/command.log": "3e9d2d265480ea7dc7ca83eb0efc102a8192c6a93508de9f89fc93e90985455d",
+  "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-targeted-small01/resource-receipt.json": "ebfb8c0a98ef45479429e3b1e02468ca246fa9bd111559b0c7fd608407133426",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/targeted-recognition-small01/inputs.json": "9483d891ae12d5e3d5b0c49413c20598a0d9fc338ebda501694f62865a1d6d04",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/targeted-recognition-small01/review01.json": "2c3779042bf55d728cc0c0c1ee42973ca38c1716e15c90e6175c38529ba2b35a",
+  "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-clarity-recognition01/command.log": "5145e630ed8be7f0aec89b2f5afe1262f15c8f598ed3fa3f735c129c66a24d75",
+  "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-clarity-recognition01/resource-receipt.json": "84b9e37242d2ae9b480fc2e9b85ca2a99953f6805767ee01051377dc81b2e895",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/clarity-recognition01/frozen-inputs.json": "52f0441d737547a7763b176e2883e74567fc6bf4fb938282b4e40f2f3176f115",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/04_4-downloads01.json": "20707786124aa21d4b32b613105120063bbafcbb525b0b7f83224587fac83751",
+  "narration_lab/third-wave-20261024/root/elevenlabs-logarithm-rebuild-20261104/combined-repair-stage09/oliver-clarity-takes01/08_5-downloads01.json": "35c951df31735b310073db33f46054908e2e5e41b7f61213bcee0b01cdea715c",
+  "tools/coherent_narration.py": "e0aa81f352cb2c847f53dacf1d37b7d1b6a44526102df7f79329278c278c48d0",
+  "tools/narration_cache.py": "47331efd3952af6d0e66971a1c8fddd08929f881d1f9b470bde223db7a01b0c0",
+  "crates/explainer_kit/src/narration.rs": "8072720d8ff86b91ad35d6904e148d330fdcf736b931f393f12b8bc9e4f823b8"
+ }
+}

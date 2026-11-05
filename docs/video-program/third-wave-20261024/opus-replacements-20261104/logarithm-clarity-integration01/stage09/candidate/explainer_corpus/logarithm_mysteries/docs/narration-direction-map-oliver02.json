@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "logarithm_mysteries": "95be5f188f3e9d463ae63d7d4b0388bb4c3ff533507aa38e276dd0b3582a5fc0"
+  },
+  "overrides": [
+    {
+      "video": "logarithm_mysteries",
+      "cue": "00_1",
+      "after": "Suppose a balance grows continuously at a rate equal to its current amount per year. How long until it doubles?",
+      "role": "visual",
+      "reason": "Native visual hold after this cue; timing and pedagogical placement require review."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "01_1",
+      "after": "The real exponential rises continuously from values near zero to arbitrarily large values. It never reaches zero, and it never visits a negative output. So every positive real number has exactly one real input: its natural logarithm. The logarithm of one is zero. The logarithm of e is one. The logarithm of zero is not a real number, nor is the real logarithm of a negative number.",
+      "role": "visual",
+      "reason": "Native visual hold after this cue; timing and pedagogical placement require review."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "03_1",
+      "after": "To make one continuous choice, we restrict where we allow ourselves to travel. A common choice removes the nonpositive real axis and uses angles strictly between minus pi and pi. On that slit plane, the principal logarithm is a single analytic function. The cut marks where our chosen angle would jump; it is a choice of domain, not a crack in space.",
+      "role": "visual",
+      "reason": "Native visual hold after this cue; timing and pedagogical placement require review."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "04_1",
+      "after": "Even after choosing a branch, log of a product need not equal the sum of the chosen logs. If two angles are each three quarters of pi, their sum is one and a half pi.",
+      "role": "visual",
+      "reason": "Native visual hold after this cue; timing and pedagogical placement require review."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "logarithm_mysteries",
+      "cue": "00_1",
+      "next_cue": "00_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/bookends.rs",
+      "sha256": "98bcb57493a42b348ed821f6d402b6b4b7ebedfcf1fcabbce8add34fc1f552a2",
+      "line": 33,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native hold after cue begins; no proof of audible or meaningful pause. Opening and real-inverse cues contain answer information before this hold; split or revise before final."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "01_1",
+      "next_cue": "01_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/real_inverse.rs",
+      "sha256": "a46e70a8f958846fb204bde6951123824fb3fcf0e169b3db5266f18f02d50572",
+      "line": 36,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native hold after cue begins; no proof of audible or meaningful pause. Opening and real-inverse cues contain answer information before this hold; split or revise before final."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "03_1",
+      "next_cue": "03_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs",
+      "sha256": "e1b321708575213c1c5defe76cfc21ed8b9b790015a196115652a7c1642c504b",
+      "line": 36,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native hold after cue begins; no proof of audible or meaningful pause. Opening and real-inverse cues contain answer information before this hold; split or revise before final."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "04_1",
+      "next_cue": "04_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/product_law.rs",
+      "sha256": "cdaff1095b602bd845d7e49b53064b3c2eab0dcc009fbb239aa4ad158a2e2eb3",
+      "line": 84,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native hold after cue begins; no proof of audible or meaningful pause. Opening and real-inverse cues contain answer information before this hold; split or revise before final."
+    }
+  ],
+  "scope": "Source-bound hold observations only; opening now has separate question/answer cues, unlistened; real inverse answer-before-hold remains to repair."
+}

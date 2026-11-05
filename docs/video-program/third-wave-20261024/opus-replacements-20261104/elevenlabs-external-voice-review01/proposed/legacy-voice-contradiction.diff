@@ -1,0 +1,25 @@
+--- a/tools/coherent_narration.py
++++ b/tools/coherent_narration.py
+@@ -37,6 +37,8 @@
+ }
+ EXTERNAL_UI_SCHEMA = 'elevenlabs-ui-receipt-v2'
+ LEGACY_EXTERNAL_UI_SOURCE = 'ElevenLabs UI, Oliver'
++# Voice names a legacy Oliver receipt may state (prepare_audio writes 'Oliver').
++LEGACY_OLIVER_VOICES = ('Oliver', 'Oliver - Clean, British and Steady')
+ EXTERNAL_RECORD_KEYS = ('cue', 'text', 'wav', 'wav_sha256', 'samples', 'rate', 'source', 'source_sha256')
+ EXTERNAL_V2_RECORD_KEYS = ('voice', 'request', 'request_sha256')
+ NATIVE_RECEIPT_KEYS = ('wav', 'returncode', 'request', 'generation', 'completion')
+@@ -66,6 +68,13 @@
+             raise ValueError('every external UI record must state the receipt voice exactly')
+         return voice
+     if source == LEGACY_EXTERNAL_UI_SOURCE and 'schema' not in receipt:
++        # A legacy receipt binds no voice, but it must not contradict its label.
++        records = receipt.get('records')
++        rows = [row for row in records if isinstance(row, dict)] if isinstance(records, list) else []
++        if (any(v is not None and v not in LEGACY_OLIVER_VOICES
++                for v in [receipt.get('voice')] + [row.get('voice') for row in rows])
++                or any('request' in row or 'request_sha256' in row for row in rows)):
++            raise ValueError(f'legacy Oliver receipt states another voice or a request; use schema {EXTERNAL_UI_SCHEMA}')
+         return EXTERNAL_UI_VOICES[source]
+     if ((isinstance(source, str) and source.startswith('ElevenLabs'))
+             or (isinstance(schema, str) and schema.startswith('elevenlabs'))):

@@ -1,0 +1,30 @@
+PASS patch/coherent_narration.diff applies to the pinned base  [patching file tools/coherent_narration.py]
+PASS patch/narration_delivery.diff applies to the pinned base  [patching file tools/narration_delivery.py]
+PASS base + diff == patched/tools/coherent_narration.py  [18c4e75e7409]
+PASS base + diff == patched/tools/narration_delivery.py  [961f17cc85dd]
+PASS narration_cache.py unchanged by the patch
+PASS test_coherent_narration.py unchanged by the patch
+PASS test_narration_delivery.py unchanged by the patch
+PASS canonical tools/test_*.py suites pass on base  [44 tests]
+PASS canonical tools/test_*.py suites pass on applied  [44 tests]
+PASS same canonical test count before and after
+PASS synthetic external-voice regression suite  [17 tests]
+    test_external_plan_accepts_exact_labels_only (__main__.DeliveryTests.test_external_plan_accepts_exact_labels_only) ... ok
+    test_frederick_render_consumer_accepts_external_plan (__main__.DeliveryTests.test_frederick_render_consumer_accepts_external_plan) ... ok
+    test_render_consumer_refuses_voice_swapped_receipt (__main__.DeliveryTests.test_render_consumer_refuses_voice_swapped_receipt) ... ok
+    test_cue_scope_unchanged (__main__.NegativeTests.test_cue_scope_unchanged) ... ok
+    test_hash_sample_and_rate_changes (__main__.NegativeTests.test_hash_sample_and_rate_changes) ... ok
+    test_incorrect_text (__main__.NegativeTests.test_incorrect_text) ... ok
+    test_malformed (__main__.NegativeTests.test_malformed) ... ok
+    test_mixed_voice_assembly_refused (__main__.NegativeTests.test_mixed_voice_assembly_refused) ... ok
+    test_voice_swapped_after_assembly_refused_by_verify (__main__.NegativeTests.test_voice_swapped_after_assembly_refused_by_verify) ... ok
+    test_wrong_source_label (__main__.NegativeTests.test_wrong_source_label) ... ok
+    test_wrong_voice_no_substring_acceptance (__main__.NegativeTests.test_wrong_voice_no_substring_acceptance) ... ok
+    test_canonical_base_fails_on_frederick_v2 (__main__.PositiveTests.test_canonical_base_fails_on_frederick_v2) ... ok
+    test_frederick_v2_assembles_and_reconstructs_sample_for_sample (__main__.PositiveTests.test_frederick_v2_assembles_and_reconstructs_sample_for_sample) ... ok
+    test_frederick_v2_per_cue_receipts_also_accepted (__main__.PositiveTests.test_frederick_v2_per_cue_receipts_also_accepted) ... ok
+    test_legacy_oliver_receipt_is_byte_identical_to_canonical (__main__.PositiveTests.test_legacy_oliver_receipt_is_byte_identical_to_canonical) ... ok
+    test_legacy_oliver_receipt_with_extra_helper_fields_still_accepted (__main__.PositiveTests.test_legacy_oliver_receipt_with_extra_helper_fields_still_accepted) ... ok
+    test_oliver_v2_and_legacy_oliver_share_one_voice (__main__.PositiveTests.test_oliver_v2_and_legacy_oliver_share_one_voice) ... ok
+logs: WORK/logs/ (canonical-tests-base.txt, canonical-tests-applied.txt, external-voice-tests.txt)
+ALL PASS

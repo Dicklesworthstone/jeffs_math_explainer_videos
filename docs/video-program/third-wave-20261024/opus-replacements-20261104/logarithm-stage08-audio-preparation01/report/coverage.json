@@ -275,8 +275,38 @@
    "word_segment_s": 0.62
   },
   {
+   "id": "onset:00_4:s2:00_4-download02.wav",
+   "word": "what",
+   "word_segment_s": 0.6
+  },
+  {
+   "id": "onset:03_1:s1:03_1-download01.wav",
+   "word": "multiplying",
+   "word_segment_s": 0.6
+  },
+  {
    "id": "onset:03_1:s1:03_1-download02.wav",
    "word": "multiplying",
+   "word_segment_s": 0.6
+  },
+  {
+   "id": "onset:05_1:s2:05_1-download02.wav",
+   "word": "multiplying",
+   "word_segment_s": 0.6
+  },
+  {
+   "id": "onset:05_20:s1:05_20-download02.wav",
+   "word": "feed",
+   "word_segment_s": 0.6
+  },
+  {
+   "id": "onset:05_5:s1:05_5-download02.wav",
+   "word": "which",
+   "word_segment_s": 0.6
+  },
+  {
+   "id": "onset:06_2:s2:06_2-download01.wav",
+   "word": "halfway",
    "word_segment_s": 0.6
   },
   {
@@ -286,6 +316,14 @@
   }
  ],
  "questions": 10,
- "files_with_questions": 8,
+ "blocking_questions": 8,
+ "files_with_blocking_questions": [
+  "00_1-download03.wav",
+  "00_1-download04.wav",
+  "04_4-download01.wav",
+  "04_4-download02.wav",
+  "08_5-download01.wav",
+  "08_5-download02.wav"
+ ],
  "claim": "Recognizer estimates only (whisper-cpp word segments). No take selected, heard, measured, cut or accepted. A 'supported' onset is a word the recognizer agrees on inside a run of at least 3 agreeing words, first in its segment, in range and in order."
 }

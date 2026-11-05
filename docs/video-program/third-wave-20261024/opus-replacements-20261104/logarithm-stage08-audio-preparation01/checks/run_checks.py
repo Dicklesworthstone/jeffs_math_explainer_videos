@@ -200,6 +200,11 @@ def section_c(b, anchors_doc, questions_doc):
             "provenance:00_1:00_1-download03.wav", "provenance:00_1:00_1-download04.wav"}
     got = {q["id"] for q in questions_doc["questions"]}
     check("C8 the question set is exactly the ten expected questions", got == want, f"extra {sorted(got - want)}, missing {sorted(want - got)}")
+    advisory = sorted(q["id"] for q in questions_doc["questions"] if not q["blocking"])
+    observed = all("Two matching Oliver provider history entries" in " ".join(q["provenance"]["observation"])
+                   for q in questions_doc["questions"] if q["kind"] == "voice")
+    check("C9 only the two 04_3 voice questions are advisory, each binding root's receipt observation (Mail 3725)",
+          advisory == ["voice:04_3:04_3-download01.wav", "voice:04_3:04_3-download02.wav"] and observed, str(advisory))
 
 
 # ----------------------------------------------------------------------------- stand-in decoder and fixtures
@@ -248,14 +253,17 @@ def fixture_replacement(mroot, b, test_b):
     os.makedirs(os.path.join(mroot, takes_dir))
     os.symlink(os.path.join(REPO, real, "04_4-download01.wav"), os.path.join(mroot, takes_dir, "04_4-oldtext-fixture01.wav"))
     os.symlink(os.path.join(REPO, real, "04_4-download02.wav"), os.path.join(mroot, takes_dir, "04_4-replacement-fixture01.wav"))
+    os.symlink(os.path.join(REPO, real, "04_4-download01.wav"), os.path.join(mroot, takes_dir, "04_4-unnamed-fixture01.wav"))
     script = script_rows(f"{b['tree']}/explainer_corpus/{b['topic']}/script.tsv")
-    names = ["04_4-oldtext-fixture01.wav", "04_4-replacement-fixture01.wav"]
+    names = ["04_4-oldtext-fixture01.wav", "04_4-replacement-fixture01.wav", "04_4-unnamed-fixture01.wav"]
     write_json(os.path.join(mroot, takes_dir, "04_4-downloads01.json"), {
-        "note": "TEST FIXTURE, scratch only", "downloads": [{"source": f"ElevenLabs_fixture_{VOICE_MARK}_pvc.wav", "retained": f"{takes_dir}/{n}"} for n in names]})
+        "note": "TEST FIXTURE, scratch only", "downloads": [{"source": f"ElevenLabs_fixture_{VOICE_MARK if n != names[2] else ''}_s50.wav",
+                                                              "retained": f"{takes_dir}/{n}"} for n in names]})
     shas = [sha_file(os.path.join(mroot, takes_dir, n)) for n in names]
     write_json(os.path.join(mroot, "fixture/inventory.json"), {"note": "TEST FIXTURE", "script_sha256": "fixture", "selection": None, "takes": [
         {"cue": "04_4", "wav": f"{takes_dir}/{names[0]}", "sha256": shas[0], "text_sha256": sha_bytes(b"An older wording of 04_4 (fixture).")},
-        {"cue": "04_4", "wav": f"{takes_dir}/{names[1]}", "sha256": shas[1], "text_sha256": sha_bytes(script["04_4"].encode())}]})
+        {"cue": "04_4", "wav": f"{takes_dir}/{names[1]}", "sha256": shas[1], "text_sha256": sha_bytes(script["04_4"].encode())},
+        {"cue": "04_4", "wav": f"{takes_dir}/{names[2]}", "sha256": shas[2], "text_sha256": sha_bytes(script["04_4"].encode())}]})
     source_run = next(r for r in b["recognition"] if r["role"] == "anchors" and any(
         "04_4-download02.wav" in line for line in open(f"{r['job']}/command.log", encoding="utf8")))
     rec = next(json.loads(line) for line in open(f"{source_run['job']}/command.log", encoding="utf8")
@@ -315,7 +323,6 @@ def section_d(b, mroot, test_b, anchors_doc):
         "onset:08_5:s4:08_5-download01.wav": {"decision": "use_candidate"} if s4.get("candidate") else {"decision": "sample", "sample_24k": 1},
         "content:04_4:base:04_4-download01.wav": {"decision": "heard_as_script"},
         "content:08_5:halving:08_5-download01.wav": {"decision": "heard_as_script"},
-        "voice:04_3:04_3-download01.wav": {"decision": "confirmed_voice"},
         s1["id"]: {"decision": "sample", "sample_24k": s1["sample_24k"] + 240},
         omit["id"]: {"decision": "omit_mark"},
     }
@@ -351,6 +358,9 @@ def section_d(b, mroot, test_b, anchors_doc):
     marks = sum(len(e["marks"]) for e in pt["cues"].values())
     check("D8 phrase-timings: 80 cues, 32 marks (33 less one omitted), test-only label", len(pt["cues"]) == 80 and marks == 32 and pt["production"] is False,
           f"{len(pt['cues'])} cues, {marks} marks")
+    vp = json.load(open(os.path.join(mroot, "runs/full-prepared/prepare-receipt.json")))["cues"]["04_3"].get("voice_provenance", {})
+    check("D8b 04_3 prepared without a voice answer; the receipt observation is carried as provenance",
+          vp.get("blocking") is False and vp.get("root_answer") is None and vp.get("receipt", {}).get("receipt_sha256"))
     # chapter 01 with the production binding
     write_json(os.path.join(sel_dir, "selection-ch01.json"), selection(BINDING, mroot, first_takes(anchors_doc, "01")))
     code, out = M("--binding", BINDING, "decode", "--selection", "fixtures/selection-ch01.json", "--chapter", "01", "--out", "runs/ch01-decoded", "--ffmpeg", "ffmpeg-standin")
@@ -381,8 +391,7 @@ def section_d(b, mroot, test_b, anchors_doc):
           any(q["id"] == "content:04_4:base:04_4-replacement-fixture01.wav" for q in fq))
     write_json(os.path.join(sel_dir, "selection-ch04-fixture.json"), selection(fx, mroot, first_takes(anchors_doc, "04", {"04_4": "04_4-replacement-fixture01.wav"})))
     write_json(os.path.join(sel_dir, "answers-ch04-fixture.json"), answers(fx, mroot, {
-        "content:04_4:base:04_4-replacement-fixture01.wav": {"decision": "heard_as_script"},
-        "voice:04_3:04_3-download01.wav": {"decision": "confirmed_voice"}}))
+        "content:04_4:base:04_4-replacement-fixture01.wav": {"decision": "heard_as_script"}}))
     code, out = M("--binding", fx, "decode", "--selection", "fixtures/selection-ch04-fixture.json", "--chapter", "04", "--out", "runs/ch04-decoded", "--ffmpeg", "ffmpeg-standin", "--test-only")
     code2, out2 = M("--binding", fx, "prepare", "--selection", "fixtures/selection-ch04-fixture.json", "--answers", "fixtures/answers-ch04-fixture.json", "--chapter", "04",
                     "--decoded", "runs/ch04-decoded", "--reviewer", "run_checks TEST", "--out", "runs/ch04-prepared", "--test-only")
@@ -442,8 +451,10 @@ def section_d(b, mroot, test_b, anchors_doc):
     plant("a stale pin", 3, "STALE", ["--binding", stale_b, "report", "--out", "runs/p8"])
     plant("00_1-download03 selected without the provenance answer", 1, "provenance:00_1:00_1-download03.wav",
           prep(sel_variant("p-twin.json", dict(first_takes(anchors_doc), **{"00_1": "00_1-download03.wav"})), "fixtures/answers-full.json", "runs/p9"))
-    plant("04_3 selected without the voice answer", 1, "voice:04_3:04_3-download01.wav",
-          prep("fixtures/selection-full.json", ans_variant("p-novoice.json", drop="voice:04_3:04_3-download01.wav"), "runs/p10"))
+    write_json(os.path.join(sel_dir, "p-unnamed.json"), selection(fx, mroot, first_takes(anchors_doc, "04", {"04_4": "04_4-unnamed-fixture01.wav"})))
+    plant("a take whose download and receipt never name the voice, unanswered", 1, "open question blocks the selection: voice:04_4:04_4-unnamed-fixture01.wav",
+          ["--binding", fx, "prepare", "--selection", "fixtures/p-unnamed.json", "--answers", "fixtures/answers-ch04-fixture.json", "--chapter", "04",
+           "--decoded", "runs/ch04-decoded", "--reviewer", "t", "--out", "runs/p10", "--test-only"])
     fx_sel = selection(fx, mroot, first_takes(anchors_doc, "04", {"04_4": "04_4-oldtext-fixture01.wav"}))
     write_json(os.path.join(sel_dir, "p-oldtext.json"), fx_sel)
     plant("a recording of superseded wording selected", 1, "records superseded wording",

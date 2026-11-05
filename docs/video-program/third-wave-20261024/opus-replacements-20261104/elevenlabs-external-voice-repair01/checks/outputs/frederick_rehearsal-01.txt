@@ -1,0 +1,15 @@
+PASS stage05 plan is one cue per unit and covers the script  [105 units]
+PASS every script cue has request01.json  [105 requests]
+PASS every request names its cue and the exact voice string  [Frederick Surrey - Smooth and Velvety]
+PASS every request text equals the stage05 script and unit text  [exact]
+PASS retained Frederick takes match their downloads receipts  [36 takes in 18 receipts]
+PASS ffmpeg decode of one take (root arguments)
+PASS decoded frames = ceil(source frames / 2)  [794880 -> 397440]
+PASS patched unit_spans accepts the real v2 record  [5 sentences]
+PASS spans cover every decoded sample in order  [397440 frames]
+PASS assembly_voice names Frederick exactly
+PASS canonical base refuses the same record (the repaired defect)  [KeyError 'wav']
+PASS refuses Oliver label on Frederick metadata  [external UI receipt provider or voice differs from its exact source label]
+PASS refuses short voice name  [external UI receipt provider or voice differs from its exact source label]
+PASS refuses unversioned Frederick label  [unrecognised external UI receipt; a non-legacy label needs schema elevenlabs-ui-]
+ALL PASS

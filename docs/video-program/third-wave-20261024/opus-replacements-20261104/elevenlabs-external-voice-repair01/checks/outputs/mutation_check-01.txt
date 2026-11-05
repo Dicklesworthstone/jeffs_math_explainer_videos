@@ -1,0 +1,8 @@
+M1 no mixed-voice guard: killed by 4 tests: test_frederick_v2_assembles_and_reconstructs_sample_for_sample, test_mixed_voice_assembly_refused, test_render_consumer_refuses_voice_swapped_receipt, test_voice_swapped_after_assembly_refused_by_verify
+M2 no v2 request check: killed by 4 tests: test_hash_sample_and_rate_changes, test_incorrect_text, test_malformed, test_wrong_voice_no_substring_acceptance
+M3 prefix label acceptance: killed by 1 tests: test_wrong_source_label
+M4 no per-record voice check: killed by 2 tests: test_malformed, test_wrong_voice_no_substring_acceptance
+M5 receipt voice substring: killed by 2 tests: test_external_plan_accepts_exact_labels_only, test_wrong_voice_no_substring_acceptance
+M6 legacy accepts any schema: killed by 1 tests: test_wrong_source_label
+M0 canonical base as patched: killed by 13 tests: test_cue_scope_unchanged, test_external_plan_accepts_exact_labels_only, test_frederick_render_consumer_accepts_external_plan, test_frederick_v2_assembles_and_reconstructs_sample_for_sample, test_frederick_v2_per_cue_receipts_also_accepted, test_hash_sample_and_rate_changes, test_incorrect_text, test_malformed, test_mixed_voice_assembly_refused, test_render_consumer_refuses_voice_swapped_receipt, test_voice_swapped_after_assembly_refused_by_verify, test_wrong_source_label, test_wrong_voice_no_substring_acceptance
+ALL MUTANTS KILLED

@@ -1,0 +1,101 @@
+== pins
+28/28 inputs are the reviewed bytes
+PASS the repair bundle verifies against its SHA256SUMS (7 files)
+== baseline (stage08, read only)
+PASS 04_4: text 6a85a6bd, 6 kit sentences, 71 words
+  04_4 s0: The mirror image shows something else.
+  04_4 s1: Reflecting the graph swaps rise and run.
+  04_4 s2: Where the exponential has slope equal to its height, the logarithm at x has slope one over x.
+  04_4 s3: At one, that slope is exactly one.
+  04_4 s4: So the natural logarithm of one point zero one is almost exactly zero point zero one.
+  04_4 s5: A small percentage change becomes the same small step, which is why this base is called natural.
+PASS 08_5: text f91292cc, 6 kit sentences, 81 words
+  08_5 s0: Combining the roots.
+  08_5 s1: Here a square root is e to the power of half a logarithm.
+  08_5 s2: Each minus one has principal angle pi, so the two roots together turn by pi and point at minus one.
+  08_5 s3: But the product, one, has principal angle zero, not two pi.
+  08_5 s4: Halving the lost lap leaves a half turn, and a half turn is a factor of minus one.
+  08_5 s5: The root of a product equals the product of the roots only up to that sign.
+PASS 04_4: undoing_growth.rs:458-562 hooks are sentence [1, 2, 3, 4, 5] at [522, 531, 534, 540, 550], phrases []
+PASS 04_4: no other sentence or phrase wait in the span (none)
+PASS 08_5: product_rule.rs:349-468 hooks are sentence [1, 2, 3, 4, 5] at [352, 362, 408, 431, 458], phrases [(438, 'HALF_TURN_PHRASE'), (456, 'FACTOR_PHRASE')]
+PASS 08_5: no other sentence or phrase wait in the span (none)
+PASS 04_4: the card shown at sentence 5 reads 'that is why base e is called natural'
+PASS bound-plan03: 08_5 has 2 anchors, 04_4 none
+PASS anchor HALF_TURN_PHRASE: root's [260, 278, 51, 4] = phrase_seconds' rule on stage08 text
+PASS anchor FACTOR_PHRASE: root's [299, 320, 60, 4] = phrase_seconds' rule on stage08 text
+PASS all 33 bound-plan03 anchors reproduce with coherent_narration.direction_words (binder03's word rule)
+PASS a whitespace split gives a different word_index for ['11_20 BLOCKS (15 vs 16)', '11_20 MATCHING (22 vs 23)'] ('sixty-six' is two direction words)
+PASS hold audit: 04_4 say_breath, 08_4 prediction, 08_5 chapter_end
+PASS template: 04_4 and 08_5 bound to the old texts; 08_5 marks at bytes [260, 299]
+PASS units: all 80 unit texts are the stage08 script rows, 04_4 and 08_5 included
+PASS product_rule.rs: the test finds "Halving the lost lap" (and its comment says "Halving ..."); line 432 quotes it
+PASS binder03 reads stage07 and pins script b89eab60 and product_rule.rs f2c8684a: it cannot bind the patched bytes
+== replay (scratch copies)
+PASS git apply --check exit 0
+PASS git apply exit 0
+PASS patched script.tsv 559afa36, product_rule.rs bc9fbe1d
+PASS only script.tsv and product_rule.rs differ; nothing added (2 changed)
+PASS docs/check_cues.py: exit 0 and the same report on both copies (last line 'OK')
+== meaning
+PASS only rows 04_4 and 08_5 change
+PASS 04_4: 6 kit sentences = 6 phrase_seconds opens; only s5 changes; text 7e4e9612
+  04_4 s5 old: A small percentage change becomes the same small step, which is why this base is called natural.
+  04_4 s5 new: A small percentage change becomes the same small step, which is why base e is called natural.
+PASS 04_4: ASCII, no digits, 71 words
+PASS 08_5: 6 kit sentences = 6 phrase_seconds opens; only s4 changes; text 8e26bcb0
+  08_5 s4 old: Halving the lost lap leaves a half turn, and a half turn is a factor of minus one.
+  08_5 s4 new: Taking half of the lost lap leaves a half turn, and a half turn is a factor of minus one.
+PASS 08_5: ASCII, no digits, 83 words
+PASS classify_gap inputs (previous line's end mark, next line's first word) unchanged at all four boundaries
+PASS 04_4: the voice now says the card's words 'base e is called natural'
+PASS 04_4: the word before 'base' is 'why' (ends in a vowel, no /s/ run into /b/)
+PASS a spoken lone 'e' already occurs in 13 cues: ['04_1', '04_2', '04_3', '04_4', '04_5', '04_6', '05_20', '05_7', '07_6', '08_5', '09_2', '11_4', '11_6']
+PASS 08_5: no 'halving' or 'having' left
+PASS Rust test mirror (opener read from each copy's test): {('old', 'old'): 'passes', ('old', 'new'): 'panics: no opener', ('new', 'old'): 'panics: no opener', ('new', 'new'): 'passes'}
+PASS control: the test's 11 found(...) calls, read from its source, are present and in order in the scene source
+PASS patched: the test's 11 found(...) calls, read from its source, are present and in order in the scene source
+PASS HALF_TURN_PHRASE: still once, in sentence 4; byte 260 -> 267, word 51 -> 53; char share 0.256 -> 0.315
+PASS FACTOR_PHRASE: still once, in sentence 4; byte 299 -> 306, word 60 -> 62; char share 0.732 -> 0.753
+PASS old mark bytes in the new text land at {260: 'st lap leaves ', 299: 'urn is a facto'}: in range, so the kit would load them, and neither is a phrase (phrase bytes now [267, 306]); phrase_seconds would fall back to the char share
+PASS product_rule.rs: lines [432, 722, 723] change, no line moves; 432 is a comment inside 08_5's span, 722-723 are in tests (from line 611); longest 91 chars
+PASS hold 04_6 (undoing_growth.rs:674-749): binder interval b2d1d76b reproduced, unchanged
+PASS hold 08_1 (product_rule.rs:108-221): binder interval 1d498942 reproduced, unchanged
+PASS hold 08_4 (product_rule.rs:317-346): binder interval 23b0206f reproduced, unchanged
+  mathematics, in floats:
+  ln 1.01 = 0.00995033; Log(-1) = 1*pi*i; sqrt(-1)*sqrt(-1) = -1; sqrt(1) = 1; lost = 2*pi*i; half of it = 1*pi*i; e^(half) = -1
+PASS slope 1/x is 1 at 1; ln 1.01 within 0.6% of 0.01; half the lost lap is pi*i, a factor -1 = (product of roots)/(root of product)
+== oliver retained for logarithm
+PASS 80 Oliver request receipts, one per cue; context fields: none
+PASS no other cue's receipt carries 04_4's or 08_5's changed words (none)
+  01_2 says ['Halving']; large-v3-turbo wrote ['Halving', 'Halving']
+  07_5 says ['halves']; large-v3-turbo wrote ['halves', 'halves']
+  08_5 says ['Halving']; large-v3-turbo wrote ['Having', 'Having']
+  08_5 says ['Halving']; small.en wrote ['Having', 'Having']
+  11_3 says ['Halve']; large-v3-turbo wrote ['Halve', 'Halve']
+PASS 08_5 'Halving' written 'Having' 4/4 by two models; 01_2's sentence-initial 'Halving' (retained take) written 'Halving' 2/2
+PASS one setting for all 80: [('Eleven v4', 0.5, 0.75, 0)]; voice names ['Oliver', 'Oliver - Clean, British and Steady']
+PASS 78 of 80 receipts match the patched text; unbound: ['04_4', '08_5']
+PASS the 04_4 and 08_5 receipts bind the old texts; their four takes are present with their recorded hashes (pins)
+PASS repair bundle, as sealed: voice premise is Frederick for the whole film (superseded for logarithm at 03:22:06Z)
+== inventory: files holding an old hash or the old words
+  named   combined-repair-stage08/candidate/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json: product_rule.rs, script
+  named   combined-repair-stage08/candidate/explainer_corpus/logarithm_mysteries/narration_units.json: script, words 04_4, words 08_5
+  named   combined-repair-stage08/candidate/explainer_corpus/logarithm_mysteries/script.tsv: words 04_4, words 08_5
+  named   combined-repair-stage08/candidate/explainer_corpus/logarithm_mysteries/src/chapters/product_rule.rs: words 08_5
+  UNNAMED combined-repair-stage07/bound-plan03/cue-delta.json: 04_4 text, 08_5 text, script
+  named   combined-repair-stage07/bound-plan03/explainer_corpus/logarithm_mysteries/docs/narration-direction-map-oliver15.json: product_rule.rs, script
+  named   combined-repair-stage07/bound-plan03/explainer_corpus/logarithm_mysteries/narration_units.json: script, words 04_4, words 08_5
+  named   combined-repair-stage07/bound-plan03/hold-audit.json: product_rule.rs, script
+  UNNAMED combined-repair-stage07/bound-plan03/increment-delta.json: 08_5 text, product_rule.rs
+  UNNAMED combined-repair-stage07/bound-plan03/inputs.sha256: 04_4 text, 08_5 text, product_rule.rs, script
+  named   combined-repair-stage07/bound-plan03/phrase-anchors.json: 08_5 text, product_rule.rs, script
+  UNNAMED combined-repair-stage07/bound-plan03/phrase-timings-unmeasured-template.json: 04_4 text, 08_5 text, script
+  UNNAMED combined-repair-stage07/bound-plan03/stage07-delta.json: 08_5 text, product_rule.rs, script
+  named   narration-request-final80-01/04_4.txt: words 04_4
+  named   narration-request-final80-01/08_5.txt: words 08_5
+  named   narration-request-final80-01/requests.json: 04_4 text, 08_5 text
+  named   narration-request-final80-02/requests.json: 04_4 text, 08_5 text, script
+PASS the repair bundle leaves 5 binding files unnamed (template and cue-delta matter; the two deltas and inputs.sha256 record the past bind)
+
+RESULT PASS

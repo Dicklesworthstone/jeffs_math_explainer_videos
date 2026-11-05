@@ -1,0 +1,39 @@
+oliver: 90 retained assemblies with resolvable script and plan; sampling 24 smallest
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/complex-native-opening-assemble01/narration (chapter 00, 873 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-native-closing-cue-rebind-assemble02/narration (chapter 06, 967 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/five-paradox-native-closing-assemble01/narration (chapter 06, 1027 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/five-paradox-native-closing-phrase-prepare01/narration (chapter 06, 1027 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/exponential-native-closing-rebind-assemble01/narration (chapter 06, 1117 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/exponential-native-rotation-cue-assemble01/narration (chapter 05, 1181 KiB): canonical ValueError: direction disposition evidence changed
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/exponential-native-rotation-cue-assemble02/narration (chapter 05, 1181 KiB): canonical ValueError: direction disposition evidence changed
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/exponential-native-rotation-cue-assemble03/narration (chapter 05, 1181 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-native-product-cue-assemble01/narration (chapter 04, 1331 KiB): canonical ValueError: direction disposition evidence changed
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-native-product-cue-assemble02/narration (chapter 04, 1331 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/five-paradox-native-opening-assemble01/narration (chapter 00, 1372 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/exponential-native-opening-corrected-assemble01/narration (chapter 00, 1410 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-native-branch-cue-assemble01/narration (chapter 03, 1912 KiB): canonical ValueError: direction disposition evidence changed
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-native-branch-cue-assemble02/narration (chapter 03, 1912 KiB): canonical ValueError: direction disposition evidence changed
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-native-matrix-cue-assemble01/narration (chapter 05, 1950 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-native-opening-cue-rebind-assemble03/narration (chapter 00, 1953 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-native-winding-cue-assemble01/narration (chapter 02, 1968 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/exponential-native-property-cue-assemble01/narration (chapter 01, 2280 KiB): canonical ValueError: direction disposition evidence changed
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/exponential-native-property-cue-assemble02/narration (chapter 01, 2280 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/exponential-native-derivative-cue-assemble01/narration (chapter 02, 2336 KiB): canonical ValueError: direction disposition evidence changed
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/exponential-native-derivative-cue-assemble02/narration (chapter 02, 2336 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-native-real-inverse-cue-assemble01/narration (chapter 01, 2355 KiB): canonical ValueError: direction disposition evidence changed
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-native-real-inverse-cue-assemble02/narration (chapter 01, 2355 KiB): canonical pass
+  SAME narration_lab/third-wave-20261024/root/five-film-release-20261027/paradox-native-monty-cue-assemble01/narration (chapter 01, 2370 KiB): canonical ValueError: direction disposition evidence changed
+native: 86 retained assemblies with resolvable script and plan; sampling 12 smallest
+  SAME narration_lab/third-wave-20261024/root/tend-2140/assembly03/out (chapter all, 464 KiB): canonical ValueError: direction map path must be repository-relative
+  SAME narration_lab/production-20261020/second-wave-central/discrete-tomography-01/narration-ch05 (chapter 05, 2246 KiB): canonical pass
+  SAME narration_lab/production-20261020/second-wave-central/discrete-tomography-01/narration-ch04 (chapter 04, 2434 KiB): canonical pass
+  SAME narration_lab/production-20261020/second-wave-central/discrete-tomography-01/narration-ch01 (chapter 01, 2462 KiB): canonical pass
+  SAME narration_lab/production-20261020/second-wave-central/randomized-response-01/narration-ch05 (chapter 05, 2506 KiB): canonical pass
+  SAME narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/narration-ch02 (chapter 02, 2516 KiB): canonical pass
+  SAME narration_lab/production-20261020/second-wave-central/resistor-random-walk-01/narration-ch04 (chapter 04, 2567 KiB): canonical pass
+  SAME narration_lab/production-20261020/second-wave-central/randomized-response-01/narration-cut02 (chapter 01, 2576 KiB): canonical pass
+  SAME narration_lab/production-20261020/second-wave-central/resistor-random-walk-01/narration-ch02 (chapter 02, 2596 KiB): canonical pass
+  SAME narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/narration-ch07 (chapter 07, 2629 KiB): canonical pass
+  SAME narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/narration-ch10 (chapter 10, 2632 KiB): canonical pass
+  SAME narration_lab/production-20261020/second-wave-central/epsilon-narrated-01/narration-ch10-v2 (chapter 10, 2632 KiB): canonical pass
+36 agree, 0 differ

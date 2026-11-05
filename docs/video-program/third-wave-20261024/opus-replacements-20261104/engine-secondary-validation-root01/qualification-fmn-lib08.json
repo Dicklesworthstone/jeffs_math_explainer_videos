@@ -1,0 +1,59 @@
+{
+  "assignment": "root's Mail 3858: run fmn's whole 17-test library under the same frozen six-entry stack, original baseline and every resource and exclusive-lane guard, as a new job with its own receipt; no canonical pin promotion, no shared film relink",
+  "result": "engine-lib08 exit 0: 17 passed, 0 failed, 0 ignored, 0 filtered out. With attempt06 (lint, build, test) and attempt07 (ignored, fronts, kit-build, kit-test, film-check), every job of the secondary validation, including fmn's whole library, has now passed natively. The canonical production pin is unchanged; promoting it is root's decision",
+  "runner_change": {
+    "preserved": "before-fmn-lib01-run_validation.py, sha256 3ac6dd48269a3eb8e75e6ba41936c3a784aec7e85fcdaff66c530657710b3fce (the attempt06/07 runner)",
+    "now": "run_validation.py, sha256 6592ef54c15be035b401d5d727fc0677f991fa47ebb4a66f39e3dd4a36f1cc00",
+    "edits": [
+      "FMN_LIB_TESTS = 17: every #[test] in fmn's library on the stacked stage (counted in crates/fmn/src; none carries #[ignore]; attempt06's filtered runs reported 1 passed, 16 filtered out)",
+      "a last job, engine-lib: cargo test -p fmn --lib --no-fail-fast, with must = the four F1/R1 library tests by name and min_passed = 17; bound 0.0 GiB, as engine-build06 had built this binary"
+    ],
+    "unchanged": "STACK (six entries), guard, caps, lane, every other job, command and assertion; self-test passed; plan lists engine-lib last"
+  },
+  "inputs": "inputs07.tsv unchanged (sha256 c4b1fe415494a1008f355ead0f8f131c6a13460f0ea7676711a4d9cf69979d75); the runner itself is not a row of it, and every non-source input matched it at the start and the end of the run",
+  "launch": "attempt08, --from engine-lib, so only the new job ran; no earlier job repeated; tmux session oliver-engine-secondary-validation08, launched 04:14:28Z",
+  "receipt": {
+    "folder": "narration_lab/third-wave-20261024/root/five-film-release-20261027/engine-secondary-engine-lib08",
+    "started": "2026-11-05T04:16:24Z",
+    "finished": "2026-11-05T04:17:14Z",
+    "exit": 0,
+    "guard_inputs": "183dc2887805a46f4847021b0d252f54b3b2025a9e0a82c8ef045a128e5e7bda at start and finish",
+    "command": "cargo test --locked --offline -p fmn --lib --no-fail-fast",
+    "compile": "none: Finished test profile in 3.12 s on engine-build06's binary",
+    "test_result": "ok. 17 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s",
+    "runner_result": {"exit": 0, "seconds": 3.5, "passed": 17, "missing": [], "short": false},
+    "tests_ok": [
+      "builtins::tests::native_builtin_animation_prepares_from_the_current_edited_geometry",
+      "builtins::tests::native_builtin_population_has_no_playback_side_effects",
+      "builtins::tests::native_builtin_span_records_bind_actual_roots_and_child_order",
+      "rendering::ffmpeg_limits::tests::manifest_policy_preserves_subseconds_and_both_independent_byte_caps",
+      "rendering::ffmpeg_limits::tests::offline_default_keeps_a_watchdog_without_the_ten_minute_ceiling",
+      "rendering::ffmpeg_limits::tests::resource_intersection_never_raises_either_artifact_ceiling",
+      "rendering::ffmpeg_limits::tests::shared_admission_and_facade_refuse_every_invalid_resource_bound",
+      "rendering::pipeline::tests::a_refusal_that_abandons_its_slot_while_frame_0_publishes_keeps_its_name",
+      "rendering::pipeline::tests::a_sink_failure_published_before_a_later_refusal_stays_the_sinks",
+      "rendering::pipeline::tests::only_an_abandoned_output_slot_names_the_frame_behind_an_emit_failure",
+      "rendering::soundtrack::tests::native_sources_are_snapshotted_and_rebased_before_offset_application",
+      "rendering::soundtrack::tests::negative_offsets_clip_source_phase_and_windows_never_extend_to_a_tail",
+      "rendering::soundtrack::tests::rational_windows_preserve_resampling_ducking_and_whole_mix_samples",
+      "rendering::soundtrack::tests::repeated_cues_share_one_snapshot_without_losing_their_placements_or_gains",
+      "rendering::soundtrack::tests::resource_and_asset_failures_keep_their_native_error_types",
+      "rendering::soundtrack::tests::skipped_intervals_rebase_call_sites_without_restarting_time",
+      "rendering::tests::only_a_closed_stream_or_an_abandoned_slot_is_traded_for_the_stage_failure"
+    ]
+  },
+  "controller": "ALL JOBS PASSED; dependencies unchanged; controller exit 0; free 137.36 GiB, work 44.10 of 56 GiB, target growth 10.81 of 20 GiB",
+  "no_relink": "the shared target/geometry-kit01 complex_analysis_visual (fa4ad691661836cc76c9078c4f61c26305a0ac3aaea567a3ba7106234a13fd35) and plate_lab (e12141190c5bea1bb3d9c1141aa30c87752c44fb9d6ccd41e6422732f422ad08) were pinned by the job's manifest and are byte-identical after it",
+  "preserved": "every earlier receipt (attempts 01-07, including the failed engine-ignored05 and the refused engine-ignored06), every pixels folder and every before-copy are untouched",
+  "sealed_files": {
+    "run_validation.py": "6592ef54c15be035b401d5d727fc0677f991fa47ebb4a66f39e3dd4a36f1cc00",
+    "before-fmn-lib01-run_validation.py": "3ac6dd48269a3eb8e75e6ba41936c3a784aec7e85fcdaff66c530657710b3fce",
+    "before-monotone-control01-run_validation.py": "14617a224701637bda77c2e6b44a025efaa7f5f3e89e2b30d8e799b5b57ec2dd",
+    "inputs07.tsv": "c4b1fe415494a1008f355ead0f8f131c6a13460f0ea7676711a4d9cf69979d75",
+    "test-monotone-control01.patch": "55b40bb9f5543d14d00a1ed9ca66dc04a0810848d719a006f67f93298ea27888",
+    "expected-monotone-control01.sha256": "43b1be2c78c121b5f0b8bfaa23b09817ab565b3e982cb666e9f0c7ba66800e42",
+    "monotone-control-integration01.json": "a04d1a06beba6072d262f6558bdc4ad21efc94da0e9fbf21c8935a617b24f71b",
+    "qualification-attempt07.json": "4f7a5476964edc6982dc7acafcc76f4260afbe5a169ba2ffd21d56372e8b0454"
+  },
+  "not_claimed": "no render review, no listening, no fine sync, no film or AV acceptance; the canonical pin is not promoted"
+}

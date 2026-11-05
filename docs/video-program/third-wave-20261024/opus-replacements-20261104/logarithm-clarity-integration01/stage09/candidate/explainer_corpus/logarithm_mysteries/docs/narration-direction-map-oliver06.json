@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "scripts": {
+    "logarithm_mysteries": "15eb9ae95f70979792771e4eda35af03fb4b0d5a517aaadda4dbb5471649e6e7"
+  },
+  "overrides": [
+    {
+      "video": "logarithm_mysteries",
+      "cue": "00_1",
+      "after": "Suppose a balance grows continuously at a rate equal to its current amount per year. How long until it doubles?",
+      "role": "visual",
+      "reason": "Native visual hold after this cue; timing and pedagogical placement require review."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "01_1",
+      "after": "The real exponential rises continuously from values near zero to arbitrarily large values. It never reaches zero, and it never visits a negative output. So every positive real number has exactly one real input: its natural logarithm. What input gives e?",
+      "role": "visual",
+      "reason": "Native visual hold after this cue; timing and pedagogical placement require review."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "03_1",
+      "after": "To make one continuous choice, we restrict where we allow ourselves to travel. A common choice removes the nonpositive real axis and uses angles strictly between minus pi and pi. On that slit plane, the principal logarithm is a single analytic function. The cut marks where our chosen angle would jump; it is a choice of domain, not a crack in space.",
+      "role": "visual",
+      "reason": "Native visual hold after this cue; timing and pedagogical placement require review."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "04_1",
+      "after": "Even after choosing a branch, log of a product need not equal the sum of the chosen logs. If two angles are each three quarters of pi, their sum is one and a half pi.",
+      "role": "visual",
+      "reason": "Native visual hold after this cue; timing and pedagogical placement require review."
+    }
+  ],
+  "visual_holds": [
+    {
+      "video": "logarithm_mysteries",
+      "cue": "00_1",
+      "next_cue": "00_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/bookends.rs",
+      "sha256": "f5a5a48e6402b5f82022e1c2b302d526e7ff0491c9d73357811b0a09bb035555",
+      "line": 33,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native hold after the current cue and before the next; source evidence only, no listening or pedagogical acceptance."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "01_1",
+      "next_cue": "01_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/real_inverse.rs",
+      "sha256": "f3e18f94f7d692ae74ceedfda56dd4db10eb4fbd04dc2a3227d835af41d81e51",
+      "line": 55,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native hold after the current cue and before the next; source evidence only, no listening or pedagogical acceptance."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "03_1",
+      "next_cue": "03_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/branch_cut.rs",
+      "sha256": "82f312c6410102f3e80a75e030a1da67f6a2851ee5220a8f44503126d921be47",
+      "line": 52,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native hold after the current cue and before the next; source evidence only, no listening or pedagogical acceptance."
+    },
+    {
+      "video": "logarithm_mysteries",
+      "cue": "04_1",
+      "next_cue": "04_2",
+      "kind": "prediction",
+      "path": "explainer_corpus/logarithm_mysteries/src/chapters/product_law.rs",
+      "sha256": "cdaff1095b602bd845d7e49b53064b3c2eab0dcc009fbb239aa4ad158a2e2eb3",
+      "line": 84,
+      "marker": "kit.hold(stage)?;",
+      "basis": "Native hold after the current cue and before the next; source evidence only, no listening or pedagogical acceptance."
+    }
+  ],
+  "scope": "Source-bound hold observations; opening and real-inverse questions separated from answers; no listening or pedagogy acceptance."
+}
