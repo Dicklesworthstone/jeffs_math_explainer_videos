@@ -34,3 +34,5 @@ PASS refuse-timeline01-other-failure: AssertionError: timeline01 log lacks the e
 PASS refuse-chain01-edited: AssertionError: Sealed chain01 changed
 PASS stop-table-physical-path: AssertionError: ts1 tables differ from the macOS run: ['01_the_bump.timeline.tsv', '01_the
 PASS stop-table-hash-cell: AssertionError: ts1 tables differ from the macOS run: ['01_the_bump.cuelog.tsv', '02_turni
+PASS stop-table-n1-spelling: AssertionError: Mapped path cells differ
+RESULT PASS, 0 failed

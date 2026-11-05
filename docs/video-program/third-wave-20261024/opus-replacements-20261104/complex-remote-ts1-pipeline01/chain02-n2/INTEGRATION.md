@@ -95,7 +95,7 @@ All stage code is sealed chain01, loaded by hash. This file replaces only:
 
 ## What was tested
 
-`checks/rehearse_n2.py` passes all 38 checks in a tree whose repository path is a symlink, with a byte-identical replay. Real parts:
+`checks/rehearse_n2.py` passes all 37 checks in a tree whose repository path is a symlink, with a byte-identical replay. Real parts:
 - all 105 cues, their takes and receipts;
 - both unmodified tools;
 - the sealed qualifier and chain01;
