@@ -1,0 +1,49 @@
+A. sources, and root's real build script and manifests
+PASS  every Python file parses  [Python 3.14.6]
+PASS  the controller parses under macOS /bin/bash
+PASS  the sealed helpers load at their pins
+PASS  the sealed gates() is the one in use, with its single byte search
+PASS  on this path nothing else searches the binary: sealed gates() is replaced, V4 check() is never called
+PASS  root's build01.sh is at the pin and in its frozen manifest
+PASS  its variables resolve to this crate and this lane
+PASS  it has every proof line  [7 lines]
+PASS  its manifest binds the crate's Cargo files and the engine budget
+PASS  its manifest binds every crate source the sealed gate requires  [29 files]
+PASS  main.rs still takes the topic from CARGO_MANIFEST_DIR
+B. the topic probe on a real local Rust binary, stage09's
+PASS  in it the env! literal abuts the next literal, with no terminator
+PASS  likely cause: the sealed search refuses that same literal when the next byte is ASCII
+PASS  accepted for its own crate: script.tsv matched and the call is exact  [37 arguments]
+PASS  refused for the repaired crate: this binary was not compiled for it
+PASS  refused for another crate too
+PASS  refused: a binary that stops before the call
+PASS  refused: a wrong call, even one that exits 0
+C. build_proof and seal on tiny files; root's build script and manifest are the real ones
+PASS  the exact binary, target, receipt, script and rows pass  [None]
+PASS  the sealed gate's `> 0` still holds on its return
+PASS  the proof names the build, the manifest and the first narrated call
+PASS  refuses: another binary  [binary is not the binary the build proved]
+PASS  refuses: a different target  [the build's target output is not this binary]
+PASS  refuses: no target  [the build's target output is not this binary]
+PASS  refuses: a failed build  [logarithm-remote-build01 is not a successful stable run: admitted True, exit 1, finished T]
+PASS  refuses: inputs that moved during the build  [logarithm-remote-build01 is not a successful stable run: admitted True, exit 0, finished T]
+PASS  refuses: a resource stop  [logarithm-remote-build01 is not a successful stable run: admitted True, exit 0, finished T]
+PASS  refuses: another command  [the build ran ['/bin/sh', 'REPO/narration_]
+PASS  refuses: another build script  [build01.sh is not the frozen build script]
+PASS  refuses: a missing proof line  [build01.sh lacks ['--manifest-path "$C/Other.toml"']]
+PASS  refuses: a binary the assembly did not freeze  [the assembly did not freeze this binary]
+PASS  refuses: a proof asked about another crate
+PASS  the seal passes, and it checks sealed01 at its pin
+PASS  the seal refuses another hash
+PASS  the seal refuses if rebind02 has not passed, and never starts it
+PASS  the seal refuses a changed file
+PASS  the binding keeps its schema, gains the proof, this helper and two file rows
+D. the real controller with a logging stand-in for python3
+PASS  the controller makes exactly these calls, in order  [10 calls]
+PASS  it starts at bind: no rebind, assembly, build or audio call
+PASS  its last line says render was not launched
+PASS  a refused seal stops everything after it  [1 calls]
+PASS  a refused binding stops everything after it  [2 calls]
+PASS  a refused timeline guard stops everything after it  [4 calls]
+PASS  a missing approval launches nothing
+ALL 44/44 PASS. The remote binary, bind, timeline and score did not run here.

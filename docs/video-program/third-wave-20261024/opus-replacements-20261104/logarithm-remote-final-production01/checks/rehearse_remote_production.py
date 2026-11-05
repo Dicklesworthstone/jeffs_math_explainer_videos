@@ -467,10 +467,14 @@ def contract_tests(base):
         a = types.SimpleNamespace(lane=str(c.jobs), jobs=str(c.scripts), crate=str(c.crate), narration=str(c.n), integration=str(c.s / "integration.json"),
                                   binding=str(c.binding_path), tools=str(c.tools_path), series="01", master_job=MASTER, verify=None, job_dir=None)
         try:
-            found = B.bind_master(B.Ctx(a), CUES)
+            ctx = B.Ctx(a)
+            found = B.bind_master(ctx, CUES)
             record("Bronze's own bind_master accepts this master job", found["cfg"]["job"] == MASTER and len(found["renders"]) == 13, sha(BRONZE)[:12])
+            binding, _ = B.check_binding(ctx, found)
+            rebind = B.check_rebind(ctx, found, binding)
+            record("Bronze's own check_binding and check_rebind take the rebind this master froze", rebind["job"] == REBIND, rebind["job"])
         except (B.Refused, KeyError) as error:
-            record("Bronze's own bind_master accepts this master job", False, str(error).replace(str(base), "CASE")[:150])
+            record("Bronze's own bind_master, check_binding and check_rebind accept this master job", False, str(error).replace(str(base), "CASE")[:150])
     snapshot = {j: (c.jobs / j / "resource-receipt.json").stat().st_mtime_ns for j in jobs}
     folders = c.job_folders()
     done = c.run("run")

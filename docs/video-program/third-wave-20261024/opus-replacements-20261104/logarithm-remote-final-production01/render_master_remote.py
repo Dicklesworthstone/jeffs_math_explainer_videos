@@ -425,10 +425,10 @@ def named_files(value):
 
 
 def narration_reads():
-    """The retained takes and receipts that coherent verify reopens at every render."""
-    units = read(N / "assembly.json")["manifest"]["units"]
-    found = set(named_files(units))
-    for receipt in sorted({R / unit["generation_receipt"] for unit in units}):
+    """The retained takes, receipts and hold evidence that coherent verify reopens at every render."""
+    assembly = read(N / "assembly.json")
+    found = {*named_files(assembly), *named_files(read(N / "report.json"))}
+    for receipt in sorted({R / unit["generation_receipt"] for unit in assembly["manifest"]["units"]}):
         need(receipt.is_file(), f"the assembly names a receipt that is not here: {receipt}")
         found.update(named_files(read(receipt)))
     return sorted(found)

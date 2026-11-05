@@ -18,7 +18,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-GAIN_DB = "-1.28"  # the master gain stage09's own log records
+GAIN_DB = "0"  # the kit's narration_gain_db: explainer_kit::narration::GAIN_DB = 0.0, as Rust's f64 Display prints it
 
 if sys.argv[1:2] == ["--trace"]:
     out, script, *arguments = sys.argv[2:]
