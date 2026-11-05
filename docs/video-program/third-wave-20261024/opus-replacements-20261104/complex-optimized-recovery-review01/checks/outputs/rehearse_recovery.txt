@@ -1,0 +1,13 @@
+PASS c1-real-check: the helper's read-only --check passes on the real tree: 5085 frozen files, 12 prior tables, nothing launched; 
+PASS c2-guard-command: --launch would run the pinned guard (not run here) as: guard --phase native --job complex-stage06-optimized-timeline01, with the new manifest, 56/20/10/8/4 asserted, in the same lane lock
+PASS r-pass: all checks pass and the summary keeps the old keys; 12 tables equal; 11 chapters listed without a prior table; full baseline equivalence stays false
+PASS r-table: refused with no success summary (differ from the failed run)
+PASS r-missing: refused with no success summary (15_closing.timeline.tsv)
+PASS r-order: refused with no success summary (Cue placements differ)
+PASS r-facts: refused with no success summary (Native facts differ from oracle)
+PASS r-input: refused with no success summary (/fake)
+PASS r-render-exit: refused with no success summary (CalledProcessError)
+PASS r-existing-output: refused with no success summary (Existing timeline output retained)
+PASS r-policy: refused with no success summary (Guard policy changed)
+PASS p1-failed-run-preserved: all 22 files of the failed job are byte-identical after every case
+RESULT PASS, 0 failed

@@ -1,0 +1,23 @@
+master_frame	item	box_960x540	wcag_contrast_peak_vs_median_2160p
+43469	aid footnote, 18 dim	480,498,792,514	6.37
+43469	laps word, purple	818,145,856,165	5.03
+43469	tick 3π, 18 dim	70,82,92,97	6.39
+44781	tick π, 18 dim	72,208,90,224	6.37
+69025	07_6 precisely footnote, 22 dim	60,505,900,523	6.38
+69025	bottom edge: left out	360,451,490,468	6.37
+73764	08_3 precisely footnote, 22 dim	264,505,697,522	6.41
+73764	Log: keeps the direction, purple	518,129,802,146	5.02
+73764	tick labels −2π to 2π	224,449,665,463	6.24
+74244	the rule keeps a lap count, purple	518,275,708,291	5.03
+74244	for z²: k = −1, purple	518,303,708,320	5.01
+77456	Log 1 = 0, not 2πi, purple	654,415,792,434	5.01
+77456	½(2πi) = πi, purple	105,414,292,436	4.98
+77456	half turn, purple	279,165,335,180	5.02
+67417	principal angle, in π, purple	539,204,680,220	5.04
+67417	+0.851, purple	687,203,742,222	5.11
+64363	z → 0: off to the left, dim	25,283,140,298	6.37
+64363	height π, dim	360,112,412,128	6.42
+64363	just below → bottom edge, purple	360,424,523,441	5.03
+64363	on the cut plane, dim	693,346,795,362	6.43
+65563	cut upward, red	610,430,876,452	6.45
+77456	control: title ink	380,22,580,50	16.99

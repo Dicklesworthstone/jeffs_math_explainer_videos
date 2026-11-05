@@ -1,0 +1,43 @@
+{
+  "utc": "2026-11-05T20:35:41.904159+00:00",
+  "reviews": [
+    {
+      "bundle": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-edge-take-independent01",
+      "seal_sha256": "98a00f2587215d49c36fa4fe4a8374d9ce2b4ec1086590801970075f6d86b290",
+      "files_verified": 3
+    },
+    {
+      "bundle": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-decoded-edges02",
+      "seal_sha256": "27fcd8022f569157e01b0ae265d368c9f9e7b3190604a2e50b4199c7ccb188cf",
+      "files_verified": 7
+    },
+    {
+      "bundle": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-stage09-render-preparation04-review01",
+      "seal_sha256": "bffc4c92613d8fe8a4e73c3420c85c3ea0cf01299759821bd953b014c917485c",
+      "files_verified": 3
+    },
+    {
+      "bundle": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-stage06-root-candidate-review01",
+      "seal_sha256": "c67a01bda6c937d5830221b1de42dd231cc9aa16db77ca1b2ee4604e2a34d809",
+      "files_verified": 3
+    },
+    {
+      "bundle": "/Users/jemanuel/projects/jeffs_math_explainer_videos/docs/video-program/third-wave-20261024/opus-replacements-20261104/complex-frederick-stage06-reuse-root-review01",
+      "seal_sha256": "e707141e1d0b5492605fd6e9e63c2e61465a8fb68b0a7798498047910c50ce67",
+      "files_verified": 3
+    }
+  ],
+  "dispositions": {
+    "logarithm": "Three delivered source/take/decode reviews report no blocker; their seals checked, tests not rerun in this audit. Actual final picture review separately assigned, ASR leads separate.",
+    "complex_F1": "Review was against original transfer01; actual decode argv consumes transfer02, which excludes02_5 from active old reuse. Proposed separate transfer route already implemented before review arrived; no new helper necessary.",
+    "complex_F2": "Actual decode explicitly uses stage06 take folder; historical stage05 duplicate retained unchanged. Do not point current generation at stage05.",
+    "complex_R1_R4": "Low wording/comment/hook-state findings deferred until related source edit; no reason to invalidate frozen production for cosmetic changes."
+  },
+  "actual_route": {
+    "transfer": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/stage06-runtime-transfer02/transfer.json",
+    "transfer_sha256": "d28701efddb62730a3c447e3c7eb3a77579007667632f09a587af80b405e9a54",
+    "takes": "/Users/jemanuel/projects/jeffs_math_explainer_videos/narration_lab/third-wave-20261024/root/elevenlabs-complex-rebuild-20261104/frederick-stage06-01",
+    "decode_argv_sha256": "81c6c054f7c15a883989fbc73aa38f5f2be8d7972699fce987a3f273823d3e47"
+  },
+  "limits": "Reviewers disclose prior authorship where applicable. Seal verification and disposition do not prove hearing, motion review, fine sync or independent final audiovisual acceptance."
+}

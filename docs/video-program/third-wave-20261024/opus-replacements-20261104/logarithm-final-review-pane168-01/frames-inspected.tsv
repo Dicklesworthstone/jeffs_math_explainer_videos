@@ -1,0 +1,39 @@
+kind	frame_or_picture	seconds	sha256	how_inspected
+recorded 960x540 frame (hash equals verification.json)	frame-0517.png master frame 43469	724.48	3db0f5782915d8661782e40e458f462bb9181b280337f61a79af8030af939d36	opened as an image
+recorded 960x540 frame (hash equals verification.json)	frame-0518.png master frame 43518	725.30	a243464ecb6e3cd5fec7b822b70ca00f9f6a0fa3868fdf36abbda1f9261a132f	measured or hashed, not opened
+recorded 960x540 frame (hash equals verification.json)	frame-0533.png master frame 44781	746.35	190ebbd4cdca27cfaf6cc964d08f479405beece231744eaee7741b5b5782006f	opened as an image
+recorded 960x540 frame (hash equals verification.json)	frame-0535.png master frame 44824	747.07	190ebbd4cdca27cfaf6cc964d08f479405beece231744eaee7741b5b5782006f	opened as an image
+recorded 960x540 frame (hash equals verification.json)	frame-0538.png master frame 44878	747.97	4e2fd630856e487a8148f12bef54e015c69a54a4fecc5d8a9d6fedb490b3963b	opened as an image
+recorded 960x540 frame (hash equals verification.json)	frame-0556.png master frame 46800	780.00	0643e836e39eb63733b9cee0d6f5d55f28b504158ca6bd5d45634b143d148656	opened as an image
+recorded 960x540 frame (hash equals verification.json)	frame-0559.png master frame 47005	783.42	bed47f87aae4a71379c4b13b08d502b47adb7410343e7275ecfb5c26d43d8237	opened as an image
+recorded 960x540 frame (hash equals verification.json)	frame-0571.png master frame 48381	806.35	2c3294d1881f6968e20232ff911389e2efa5a412da2fa79142e7cc0b13a66c01	measured or hashed, not opened
+recorded 960x540 frame (hash equals verification.json)	frame-0572.png master frame 48392	806.53	553951d763e48756936c7d51f58b689bdf2bb262d862a5aae0fff838715c8506	measured or hashed, not opened
+recorded 960x540 frame (hash equals verification.json)	frame-0578.png master frame 48944	815.73	3c9b4fb53b86d5a26dd0e464f12a0e12be934c39e46a6d0dc5e22d613eac42c5	opened as an image
+recorded 960x540 frame (hash equals verification.json)	frame-0598.png master frame 50777	846.28	0de65eb3c1d16f7d7f0bee402f9bb02e33341ab8e9e1f6ebd347a4e7040c8e0d	opened as an image
+recorded 960x540 frame (hash equals verification.json)	frame-0623.png master frame 52525	875.42	9bc59a812e64633a91a35129f0a95fc2fdf532b7382baa6dbb812866925a609c	opened as an image
+recorded 960x540 frame (hash equals verification.json)	frame-0634.png master frame 53192	886.53	e1d1728c8e6acb0ac4642942e7e88048134fbd3b81522d7c0f7f0b276ac9d25d	opened as an image
+recorded 960x540 frame (hash equals verification.json)	frame-0698.png master frame 58915	981.92	2b6bf2ebbc9d7f78165d4fa6b1ad5c1efca6193d0ca972ac5504416ffa3a59b3	measured or hashed, not opened
+recorded 960x540 frame (hash equals verification.json)	frame-0699.png master frame 58963	982.72	553951d763e48756936c7d51f58b689bdf2bb262d862a5aae0fff838715c8506	measured or hashed, not opened
+recorded 960x540 frame (hash equals verification.json)	frame-0796.png master frame 69096	1151.60	328c754c59d3d333415cdde7d6bf1a2bc84fe0778c482fc35bf498f150c4ee6f	measured or hashed, not opened
+recorded 960x540 frame (hash equals verification.json)	frame-0797.png master frame 69145	1152.42	553951d763e48756936c7d51f58b689bdf2bb262d862a5aae0fff838715c8506	measured or hashed, not opened
+single 3840x2160 frame pulled from the master into scratch	master frame 43469	724.48	6319efb905ccbcf73b47ad2c91d3f7efabc53516b768801db331b660d8fd0f19	viewed as crops
+single 3840x2160 frame pulled from the master into scratch	master frame 44781	746.35	50a85800075af617020e8232add3371ac6746cadf0dbe9b017a9e13522062149	viewed as crop
+single 3840x2160 frame pulled from the master into scratch	master frame 46800	780.00	ac6b527d97ef7dcbee1569dd5fd2a67af19858511d402d34f1206f347e9a930a	viewed as crop
+single 3840x2160 frame pulled from the master into scratch	master frame 48380	806.33	24f1b8d2b0f76b54055695f9a8d7b6495b4b768649f4a2854870737f416068ac	brightness measured, not viewed
+single 3840x2160 frame pulled from the master into scratch	master frame 48391	806.52	24f1b8d2b0f76b54055695f9a8d7b6495b4b768649f4a2854870737f416068ac	brightness measured, not viewed
+single 3840x2160 frame pulled from the master into scratch	master frame 48392	806.53	99b67f023f2480a8f74a66815d8738566aa140d4326d90433b70bcf79d7c9f55	brightness measured, not viewed
+single 3840x2160 frame pulled from the master into scratch	master frame 56012	933.53	55bc33a624ac1e8e940e11945c0f034b3e0a8687e0358af30eeb79228f0923d5	opened whole
+single 3840x2160 frame pulled from the master into scratch	master frame 57585	959.75	a84c8d827856340437e2329a19bef4bf7fe5d09c2a733fdef2088496c8a84c55	viewed as crop
+single 3840x2160 frame pulled from the master into scratch	master frame 58962	982.70	ba2234dbcb076e21bf7b423b56b86a646ec8e18408f30c463e253959b9cdc63b	brightness measured, not viewed
+single 3840x2160 frame pulled from the master into scratch	master frame 58963	982.72	99b67f023f2480a8f74a66815d8738566aa140d4326d90433b70bcf79d7c9f55	brightness measured, not viewed
+single 3840x2160 frame pulled from the master into scratch	master frame 64363	1072.72	ffccc7faee12ce08db68258d2750e61c31e7803f7c34269d331574e97615728b	viewed as crop
+single 3840x2160 frame pulled from the master into scratch	master frame 65563	1092.72	05ba717395d9e23cb0796f0ed0494ca03447dfd10ae54b448a2452960f123e49	viewed as crop
+single 3840x2160 frame pulled from the master into scratch	master frame 66445	1107.42	0605b917ef36c28908811e8329926adb5b0cb4297113d790d319e74e7ed47b79	viewed as crop
+single 3840x2160 frame pulled from the master into scratch	master frame 67417	1123.62	9da5c677e34fd3b7839a95d505b65533ac0f854fa988f70049812c8bd0b7be45	contrast measured, not viewed
+single 3840x2160 frame pulled from the master into scratch	master frame 69025	1150.42	a265843b8a6a6f0311f77d758f485f9d9a5c5c817e1f43521c7fdc47d7c2eaf2	contrast measured, not viewed
+single 3840x2160 frame pulled from the master into scratch	master frame 69144	1152.40	8cc1d44d41cc37f76536caf0eae852ebd95ed708294f3c6cf1ef2208da1dd233	brightness measured, not viewed
+single 3840x2160 frame pulled from the master into scratch	master frame 69145	1152.42	99b67f023f2480a8f74a66815d8738566aa140d4326d90433b70bcf79d7c9f55	brightness measured, not viewed
+single 3840x2160 frame pulled from the master into scratch	master frame 73764	1229.40	7b4f530b8ddebcb0a11307e922b81d503d3be5da9fa1b3d7e0dd1f7671accfce	contrast measured, not viewed
+single 3840x2160 frame pulled from the master into scratch	master frame 74244	1237.40	e75b8a364a8e8528fb3c1e6ff260920d39aa9c9dc0f888cb7d0b2d2e16e5ea2a	viewed as crop
+single 3840x2160 frame pulled from the master into scratch	master frame 77178	1286.30	bee67ca068ba8d3258f1eba91b8ef48e30455e2fcab75c14090487d6404c9f7c	viewed as crops
+single 3840x2160 frame pulled from the master into scratch	master frame 77456	1290.93	db436478ae53dff4bbce86378f67a514daa37782d4a9fdd1694c7e561b5a55e9	contrast measured, not viewed

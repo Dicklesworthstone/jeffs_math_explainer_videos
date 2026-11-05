@@ -1,0 +1,8 @@
+265	Red midpoints, white dots leave, red outline of the F begins narrowing toward the y axis on "squashes the whole plane". On its phrase.
+266	Grid compresses onto the axis, f91452 only the red line remains, "it squashes the plane flat onto a line". Correct projection. Both F's stay as references. See "det" order finding F1.
+267	Unit square, gauge fades in, signed area 1.000, red bar at 0. Ring on 1 at "It starts at one". Correct.
+268	Gauge value moves with the flow. Dot positions match values: 1.511 at y≈193, 1.760 at y≈170 on the 91-per-unit scale. "t = 1: ≈ 1.221" is e^0.2=1.2214. Same X as ch09: trace 0.2 confirmed.
+269	"t = 3: ≈ 1.822" is e^0.6=1.8221; both labels sit level with their values. Run backwards starts on "run backwards": 1.822, 1.759, 1.477.
+270	Backward flow to 0.670=e^-0.4 (t=-2). "run backwards: never flat, never zero" arrives as the dot stops. Green bar from 0 up, "starts at 1, never touches 0: stays positive" on sentence 5. Green line at x≈1501 passes through ring and dot: clean.
+271	Grid home, value 1.000. Ring "mirror: -1" on "The mirror has signed area minus one". Liouville footer: det=exp(∫trace dt)>0 correct for real linear flows. Uses "det" and "trace", see F1.
+272	Label swaps to "det = signed area factor:" with "called the determinant". Mirror matrix leaves. Determinant named here at 26:00 of film sequence; first on-screen det is sheet 264.

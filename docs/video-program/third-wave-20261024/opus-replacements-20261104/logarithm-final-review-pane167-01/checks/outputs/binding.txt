@@ -1,0 +1,7 @@
+verification.json	22fb77188d6e9d86a0c9499e7a81db782d4b29830d1ddb4be40fe4dd3003fd62	read as the binding
+master	00236d1a6915ff968235a30ab59769b02125ece0fee482e4fa3154c265ac7c24	matches verification.json
+srt	c9321cd7a2912d4457f2dc617735fd06f0b2fc7d684442815fa46b989bc31b7c	matches verification.json
+vtt	45833988985413f3cfd8c44d5e18959be47ff5003d0dcbc570ce0b74ddfc0b45	matches verification.json
+sheets	339	all hashes match
+pictures	1356	all hashes match
+ledger rows	112	sheet-001.jpg to sheet-112.jpg

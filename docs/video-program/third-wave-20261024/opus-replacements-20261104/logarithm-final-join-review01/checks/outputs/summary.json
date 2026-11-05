@@ -1,0 +1,337 @@
+{
+ "bindings": {
+  "comparison": "1310f96768d6547b5760373cea779be5bfc3cf90ab9cbcdad8fb69f57d2a90c1",
+  "cue_boundaries": "6062f351f04a2314516b742f085a9ebab00454000e0cf93e46f9c86a14a8255c",
+  "full_large": "d105431c5e236466c981de5b26b28b18cd42945b2480825fc4181e0717c8a215",
+  "master": "00236d1a6915ff968235a30ab59769b02125ece0fee482e4fa3154c265ac7c24",
+  "script": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a",
+  "targeted_results": "33dff706f87d8b8f950453f0b45d1a23334370a2403dce3714e601b78edb1a08",
+  "targeted_triage": "d9361ee46c8fd918252f916e2a660a2f861c0c32ffc791f1e7f07f6fd983bf3f",
+  "triage": "2bac08432912bd8b3fee958d3a7adf4c12c9d9811032c39960d590b9ae5fe114",
+  "verification": "22fb77188d6e9d86a0c9499e7a81db782d4b29830d1ddb4be40fe4dd3003fd62",
+  "wav": "21e8eaa28f587d0274abe0c3fde2d2ae51216444158c2c9302ec69e5f1197fea"
+ },
+ "confidence_field_sums": {
+  "04_4_large_unsplit": 1.0,
+  "full_large": 1.0
+ },
+ "cues": 80,
+ "difference_operations": {
+  "insert": 7,
+  "replace": 150
+ },
+ "difference_rows_touching_windows": {
+  "by_class": {
+   "homophone": 2,
+   "hyphenation": 5,
+   "numeric": 62,
+   "open": 2,
+   "spelling": 0
+  },
+  "rows": 71
+ },
+ "edge_tokens_first_and_last_12_by_status": {
+  "exact": 1808,
+  "homophone": 1,
+  "hyphenation": 2,
+  "numeric": 104,
+  "open": 1
+ },
+ "envelope_match": {
+  "lag_ms_values": {
+   "0": 160
+  },
+  "median_r": 0.996,
+  "min_r": 0.989,
+  "negative_control_neighbour_take": {
+   "max_r": 0.626,
+   "median_r": 0.239,
+   "windows": 158
+  },
+  "windows": 160
+ },
+ "file_length_equals_placement": 80,
+ "first_word_lead_s": {
+  "earlier_than_0.2s": 69,
+  "earlier_than_1s": [
+   [
+    -17.577,
+    "11_8",
+    "allow"
+   ],
+   [
+    -6.833,
+    "11_1",
+    "can"
+   ],
+   [
+    -4.82,
+    "05_2",
+    "two"
+   ],
+   [
+    -4.437,
+    "01_4",
+    "use"
+   ],
+   [
+    -4.273,
+    "06_3",
+    "two"
+   ],
+   [
+    -1.63,
+    "04_3",
+    "that"
+   ],
+   [
+    -1.253,
+    "02_1",
+    "now"
+   ],
+   [
+    -1.237,
+    "08_1",
+    "on"
+   ],
+   [
+    -1.113,
+    "04_4",
+    "the"
+   ]
+  ],
+  "median": -0.445
+ },
+ "gap_classes": {
+  "near_0.6": 52,
+  "near_1.2": 11,
+  "near_4.85": 13,
+  "other": [
+   [
+    "04_2",
+    2.607
+   ],
+   [
+    "10_4",
+    7.45
+   ],
+   [
+    "11_20",
+    18.347
+   ]
+  ]
+ },
+ "gap_peak_dbfs_max": -37.8,
+ "gaps_above_speech_threshold": [],
+ "head_peak_first5ms_top3": [
+  [
+   -35.5,
+   "04_3"
+  ],
+  [
+   -51.7,
+   "11_3"
+  ],
+  [
+   -51.7,
+   "08_4"
+  ]
+ ],
+ "inserted_non_hyphen_tokens_in_windows": [
+  [
+   "04_4",
+   "closing",
+   "a",
+   537.48
+  ],
+  [
+   "04_4",
+   "closing",
+   "small",
+   537.481
+  ],
+  [
+   "04_4",
+   "closing",
+   "step",
+   537.482
+  ]
+ ],
+ "last_word_starts_after_cue_end": [],
+ "neighbour_tokens_in_windows": 64,
+ "numeric_rows_digits_equal": {
+  "mismatch": [],
+  "rows": 141
+ },
+ "passes": {
+  "02_3": {
+   "large-unsplit": "turned",
+   "small-unsplit": "turn"
+  },
+  "04_4_a_small_step": {
+   "large-unsplit": false,
+   "small-unsplit": false
+  },
+  "04_4_wow": {
+   "large-unsplit": true,
+   "small-unsplit": false
+  },
+  "full_large_02_3": "turn",
+  "full_large_a_small_step_s": [
+   [
+    537.48,
+    537.481,
+    "a"
+   ],
+   [
+    537.481,
+    537.482,
+    "small"
+   ],
+   [
+    537.482,
+    537.5,
+    "step."
+   ]
+  ],
+  "full_large_wow": false,
+  "targeted_triage_decision": "Preserve all takes/master; do not resynthesize based on disagreeing recognition alone. These are listening/ASR uncertainty leads, not confirmed audio defects or acceptance."
+ },
+ "pcm_equal_to_complete_recording": 80,
+ "quiet_tail_s_min": 0.11,
+ "replicated_difference_rows": 157,
+ "shared_three_plus_word_runs_across_joins": [
+  {
+   "cue": "04_6",
+   "next": "04_7",
+   "shared": "zero point zero five t"
+  },
+  {
+   "cue": "05_1",
+   "next": "05_2",
+   "shared": "i times i"
+  }
+ ],
+ "tail_peak_last5ms_dbfs_max": -78.3,
+ "thinking_holds": {
+  "count": 13,
+  "cues": [
+   "00_4",
+   "01_3",
+   "02_2",
+   "04_6",
+   "05_1",
+   "05_5",
+   "06_2",
+   "06_4",
+   "07_3",
+   "08_1",
+   "08_4",
+   "11_3",
+   "12_5"
+  ],
+  "ending_in_a_question_mark": 11,
+  "max_gap_peak_dbfs": -38.4,
+  "next_word_stamped_0.5s_or_more_early": [
+   "01_4",
+   "05_2",
+   "05_6",
+   "06_3"
+  ]
+ },
+ "tokens_from_a_non_adjacent_cue_in_windows": 0,
+ "triage_classes": {
+  "homophone": 3,
+  "hyphenation": 9,
+  "numeric": 141,
+  "open": 2,
+  "spelling": 2
+ },
+ "unpunctuated_words_over_1.2s_in_windows": [
+  [
+   "Use",
+   178.98,
+   183.7
+  ],
+  [
+   "Now",
+   259.38,
+   260.86
+  ],
+  [
+   "That",
+   485.52,
+   487.4
+  ],
+  [
+   "The",
+   507.52,
+   508.8
+  ],
+  [
+   "0.05t",
+   579.44,
+   581.16
+  ],
+  [
+   "0.05t",
+   592.32,
+   594.34
+  ],
+  [
+   "Two",
+   648.98,
+   654.02
+  ],
+  [
+   "Two",
+   845.76,
+   850.24
+  ],
+  [
+   "On",
+   1151.78,
+   1153.2
+  ],
+  [
+   "Can",
+   1491.4,
+   1498.46
+  ],
+  [
+   "Allow",
+   1733.84,
+   1751.72
+  ]
+ ],
+ "verdicts": {
+  "clear": 78,
+  "open": 2
+ },
+ "windows_bound_to_full_large": 160,
+ "windows_with_open_rows": [
+  "02_3 closing",
+  "04_4 closing"
+ ],
+ "word_outside_own_placement_excluding_first_words": [],
+ "wow_span": {
+  "master_bed_rms_dbfs_next_gap": -44.3,
+  "master_rms_dbfs_by_span": {
+   "29.90-30.00": -31.1,
+   "30.00-30.05": -38.9,
+   "30.05-30.10": -44.4,
+   "30.10-30.15": -44.6,
+   "30.15-30.24": -44.2,
+   "30.24-30.60": -44.2
+  },
+  "narration_peak_at_s": 30.0082,
+  "narration_peak_dbfs": -26.29,
+  "narration_rms_dbfs_by_span": {
+   "29.90-30.00": -30.1,
+   "30.00-30.05": -39.4,
+   "30.05-30.10": -56.6,
+   "30.10-30.15": -70.4,
+   "30.15-30.24": -85.0
+  }
+ }
+}

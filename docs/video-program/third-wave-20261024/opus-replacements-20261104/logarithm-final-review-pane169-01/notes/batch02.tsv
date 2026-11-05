@@ -1,0 +1,14 @@
+243	X=0: e^0=I correct. X=2πJ one full turn correct. f83946 outer edge of the grid breaks into a pinwheel: dots still home, so a clip of a grid rotated by a tiny angle, see P4.
+244	f83992 mid-flow, arcs growing; f84114 complete circles, pinwheel again near the end; f84144 grid whole, dots home; "home at t = 1". Dots agree with their f83946 home positions. "with matrices, more" on its words.
+245	Clears to grey circles, then grey ellipses and "ellipse 2 by 1" with "Squash the circle into an ellipse". Measured outer ellipse about 218 by 107 of tile: ratio about 2.04. Pinwheel again at f84444 (P4).
+246	Mid-flow grid strongly sheared as the ellipse flow requires. f84941 grid home and trails on the ellipses; "everything home at t = 1: yes" on its words. Next family starts with green dots at f84985.
+247	Tilted family: measured tilt about 31.7°, label says 30°: agrees within reading. Stub dashes at f85187 near corners, last frames of the flow (P4). f85598 gold family with 2πPJP⁻¹ and "infinitely many real logarithms of I": correct.
+248	Stage clears 0.5 s into "Which one should a calculation return?"; question runs over an empty stage; new title by f85792. Clean.
+249	Number line with (-π,π]: open red at -π, filled green at π, matching the number convention. Spiral grid enters with "Matrix flows turn too".
+250	Blue dot on the line agrees with 0.28π: 0.872/π=0.2776; position about 772 between 756 and 814 of tile. Dots trace outward arcs: radius grows from 97 to about 116 in tile units, so it is a spiral.
+251	Second run of the same flow under "turns round at a steady rate": dots growing trails. Grid stays inside its clip. Sentence and label agree.
+252	Identity reset then stretch flow; teal ring at 0 and "stretch flow: does not turn round at all" on the words. Correct.
+253	Stretch: x grows, y shrinks, axis dots move straight along axes, others on hyperbola-like paths. Yellow zero-flow dot at 0 and "zero flow: turns 0" before sentence 6: slight lead, harmless.
+254	Purple rings at ±2π and "ellipse flows: ±2π" on "two pi". Correct. Right text ends about x=933 of 960 (P3).
+255	On "strictly between": ±2π crossed, π changes from filled green to open red, "keep -π < turning < π" appears. Open both ends as said. Correct and well timed.
+256	Theorem card fades in: "A sends no direction to 0 or to a negative multiple of itself ⇒ exactly one logarithm turns by less than a half turn". For a real matrix this is the closed-negative-axis condition: correct. Ends at x≈933 of 960 (P3). Old three lines cleanly replaced.

@@ -1,0 +1,10 @@
+PASS master: 00236d1a6915ff968235a30ab59769b02125ece0fee482e4fa3154c265ac7c24
+PASS srt: c9321cd7a2912d4457f2dc617735fd06f0b2fc7d684442815fa46b989bc31b7c
+PASS vtt: 45833988985413f3cfd8c44d5e18959be47ff5003d0dcbc570ce0b74ddfc0b45
+     verification.json sha256 22fb77188d6e9d86a0c9499e7a81db782d4b29830d1ddb4be40fe4dd3003fd62
+     strict check passed; h264 3840x2160 60/1; frames 116245; pictures_viewed False
+PASS counts: 339 sheets, 1356 pictures, 4 per sheet
+PASS sheets 226-339: 114 hashed against verification.json; bad []
+PASS frames of those sheets: 456 PNG hashed against verification.json; bad []
+     first 21:32.567 08_product_rule; last 32:16.617 12_what_it_forgets; sheet map rows 456
+BIND PASS

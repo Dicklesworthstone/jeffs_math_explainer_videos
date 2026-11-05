@@ -1,0 +1,60 @@
+PASS e^X 11: 0.9052
+PASS e^X 12: -0.9704
+PASS e^X 21: 0.7763
+PASS e^X 22: 0.5171
+PASS Xu x: -0.7000
+PASS e^X u y: 1.2934
+PASS X e^X u = e^X X u, x: -1.3129
+PASS X e^X u = e^X X u, y: -0.1815
+PASS det e^(tX) t=1: 1.2214
+PASS det e^(tX) t=3: 1.8221
+PASS det e^(tX) t=-2: 0.6703
+PASS turning rate: 0.8718
+PASS turning rate / pi: 0.2775
+PASS det A: 1.0000
+PASS Au x: -2.0000
+PASS Au y: -0.5000
+PASS Xu x (pixels about 1.0): 1.0000
+PASS Xu y (pixels about -0.8): -0.8000
+PASS gap: 1.1715
+PASS XA-AX 12 = 1.5 b: 0.9000
+PASS XA-AX 21 = -1.5 c: 0.7500
+PASS XA-AX 11 = 0: 0.0000
+PASS 1.5 = (-1/2) - (-2): 1.5000
+PASS meeting point x (pixels about -0.81): -0.8000
+PASS meeting point y (pixels about 0.15): 0.1500
+PASS e^(pi J) 11: -1.0000
+PASS e^(pi J) 21: 0.0000
+PASS e^(ln 2 + i pi): -2.0000
+PASS e^(-ln 2 + i pi): -0.5000
+PASS ln 2: 0.6931
+PASS ruler tick 2: 297.0000
+PASS ruler tick 3: 332.6827
+PASS ruler tick 4: 358.0000
+PASS ruler tick 8: 419.0000
+PASS dial angle 2: 108.3708
+PASS dial angle 3: 171.7637
+PASS dial angle 4: 216.7416
+PASS dial angle 2.4: 136.8760
+PASS laps at rate 0.5 time 0.97: 0.4850
+PASS laps at rate 1.5 time 0.61: 0.9150
+PASS laps at rate 1.5 time 0.92: 1.3800
+PASS laps at rate 2.5 time 0.17: 0.4250
+PASS laps at rate 2.5 time 0.47: 1.1750
+PASS laps at rate -0.5 time 0.45: -0.2250
+PASS cos at 0.5 laps: -1.0000
+PASS sin at 0.5 laps: 0.0000
+PASS cos at 1.5 laps: -1.0000
+PASS sin at 1.5 laps: 0.0000
+PASS cos at 2.5 laps: -1.0000
+PASS sin at 2.5 laps: 0.0000
+PASS cos at -0.5 laps: -1.0000
+PASS sin at -0.5 laps: -0.0000
+PASS cos at -1.5 laps: -1.0000
+PASS sin at -1.5 laps: -0.0000
+PASS top image x: 1.0000
+PASS top image z: -0.0000
+HOLD 11_3: silent 5.05 s; bar seen 4.05 s; bar starts 0.80 s after the cue
+HOLD 12_5: silent 5.07 s; bar seen 4.05 s; bar starts 0.82 s after the cue
+HOLD 11_20: 18.55 s; FINAL after last word: 0.78 s
+ALL PASS: 56 checks

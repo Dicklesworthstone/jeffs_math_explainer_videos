@@ -1,0 +1,81 @@
+cue	chapter	start_s	end_s	gap_after_s	first_words	last_words	opening_own	opening_neighbour	closing_own	closing_neighbour	opening_rows	closing_rows	rec_first_word_lead_s	rec_last_word_end_past_cue_s	opening_lag_ms	opening_r	closing_lag_ms	closing_r	first5ms_peak_dbfs	last5ms_peak_dbfs	gap_peak_dbfs	verdict	note
+00_1	00_ratio_ruler	0.600	20.120	0.613	Here are seven notes,	twenty vibrations per second.	16	0	7	0	-	0,1	0.040	0.860	0	0.997	0	0.996	-80.8	-84.3	-39.1	clear	-
+00_2	00_ratio_ruler	20.733	33.453	0.613	Mark them on an	into the first eighth.	14	1	13	1	2	-	0.247	-0.293	0	0.997	0	0.989	-74.7	-84.3	-41.8	clear	-
+00_3	00_ratio_ruler	34.067	57.427	0.607	A keyboard spaces them	not by their difference.	11	0	14	1	-	-	-0.347	-0.287	0	0.996	0	0.994	-80.8	-84.3	-38.5	clear	-
+00_4	00_ratio_ruler	58.033	71.713	4.853	So try this. Start	six hundred and sixty.	12	0	10	0	5	7	-0.413	-0.373	0	0.995	0	0.996	-66.2	-84.3	-39.1	clear	-
+00_5	00_ratio_ruler	76.567	94.807	0.610	Six semitones is half	keyboard are equal ratios.	14	0	9	1	-	10	-0.367	-0.387	0	0.995	0	0.997	-54.5	-78.3	-40.8	clear	-
+00_6	00_ratio_ruler	95.417	125.177	1.207	A ruler whose equal	all the way there.	13	0	12	0	-	-	-0.757	0.023	0	0.995	0	0.997	-80.8	-84.3	-38.8	clear	-
+01_1	01_building_ruler	126.383	146.143	0.607	First, build that ruler	adds the same length.	13	0	11	1	-	-	-0.183	-0.303	0	0.997	0	0.996	-80.8	-84.3	-42.5	clear	-
+01_2	01_building_ruler	146.750	166.590	0.610	The rule behind it	half a step along.	16	0	14	1	-	-	-0.550	-0.310	0	0.995	0	0.995	-80.8	-84.3	-41.5	clear	-
+01_3	01_building_ruler	167.200	178.560	4.857	Now a harder question.	two. But where, exactly?	12	0	11	1	-	-	-0.320	-0.380	0	0.997	0	0.996	-74.7	-84.3	-40.5	clear	-
+01_4	01_building_ruler	183.417	208.137	0.613	Use the rule in	twelfths of a step.	12	0	12	1	11	13,14	-4.437	-0.237	0	0.997	0	0.995	-78.3	-84.3	-41.7	clear	Hold: recognizer stamps Use 4.44 s before placement, inside the question hold; the take is at placement.
+01_5	01_building_ruler	208.750	231.950	0.600	You have seen this	position on the ruler.	13	0	13	1	-	-	-0.370	-0.130	0	0.996	0	0.996	-78.3	-90.3	-39.3	clear	-
+01_6	01_building_ruler	232.550	259.430	1.203	This position has a	the same ruler, stretched.	13	0	11	1	-	-	-0.590	-0.350	0	0.997	0	0.995	-84.3	-84.3	-38.6	clear	-
+02_1	02_slide_rule	260.633	273.593	0.607	Now make two copies	of a slide rule.	15	0	13	0	-	20	-1.253	-0.293	0	0.996	0	0.995	-80.8	-84.3	-42.0	clear	-
+02_2	02_slide_rule	274.200	292.040	4.860	To multiply two point	sits directly below it?	10	0	11	0	21,22	25	-0.020	-0.220	0	0.996	0	0.997	-80.8	-84.3	-38.4	clear	-
+02_3	02_slide_rule	296.900	310.260	0.607	Eight. The two lengths	back into a product.	10	0	14	1	26,27	30	-0.360	0.220	0	0.997	0	0.995	-80.8	-84.3	-41.7	open	OPEN closing: turn or turned at 307.72-308.10; passes disagree 2 to 1.
+02_4	02_slide_rule	310.867	324.147	0.603	Now try four times	ruler stops at ten.	14	1	12	1	31,32,33,34,35	36,37,38	-0.387	-0.307	0	0.996	0	0.996	-65.7	-84.3	-43.1	clear	-
+02_5	02_slide_rule	324.750	352.350	1.200	So use the other	so it is twenty-four.	14	0	12	0	39,40	47,48,49,50,51	-0.410	-0.510	0	0.995	0	0.995	-65.7	-84.3	-40.8	clear	-
+03_1	03_folded_decade	353.550	372.430	0.603	Why can one mark	dial multiplies by ten.	10	0	13	1	52,53	55	-0.490	0.290	0	0.997	0	0.996	-74.7	-84.3	-39.1	clear	-
+03_2	03_folded_decade	373.033	394.313	0.603	On the dial, multiplying	had no room for.	12	1	16	1	55,56	61	-0.313	0.207	0	0.993	0	0.997	-84.3	-84.3	-43.2	clear	-
+03_3	03_folded_decade	394.917	412.757	0.610	The dial remembers the	zero point two four.	15	1	7	1	-	64,65,66	-0.397	0.003	0	0.996	0	0.997	-84.3	-84.3	-41.4	clear	-
+03_4	03_folded_decade	413.367	430.327	1.207	Keep this picture of	the folding by itself.	17	0	11	0	-	-	-0.607	-0.387	0	0.997	0	0.995	-78.3	-84.3	-38.7	clear	-
+04_1	04_undoing_growth	431.533	452.173	0.610	But first, the logarithm	builds it from scratch.	11	0	12	1	-	-	-0.513	-0.373	0	0.997	0	0.998	-80.8	-84.3	-42.4	clear	-
+04_2	04_undoing_growth	452.783	484.543	2.607	Three facts about it	is reached exactly once.	11	0	12	0	69	-	-0.363	-0.303	0	0.996	0	0.997	-80.8	-84.3	-39.0	clear	Followed by a 2.61 s gap while the picture's probe sweep finishes; source runs the sweep before 04_3 is said.
+04_3	04_undoing_growth	487.150	508.030	0.603	That makes it reversible.	never lands on them.	13	0	14	1	-	-	-1.630	-0.510	0	0.997	0	0.996	-35.5	-80.8	-38.2	clear	Loudest file start of 80 (first 5 ms peak -35.5 dBFS); voicing starts at 25 ms; recognized That. Complete recording, no trim. Listening lead only.
+04_4	04_undoing_growth	508.633	538.873	0.610	The mirror image shows	e is called natural.	11	0	16	1	-	83	-1.113	-0.013	0	0.997	0	0.996	-80.8	-84.3	-43.5	open	OPEN closing: a small step 537.48-537.50, three tokens in 0.02 s, absent from both unsplit passes; Wow 538.63-538.86 in one of three passes.
+04_5	04_undoing_growth	539.483	571.563	0.603	And this is the	natural logarithm of two.	14	0	13	1	-	86	-0.623	-0.343	0	0.996	0	0.996	-84.3	-84.3	-39.4	clear	-
+04_6	04_undoing_growth	572.167	584.647	4.853	Here is the inverse	When has it doubled?	14	0	9	0	87	88	-0.567	-0.387	0	0.997	0	0.997	-80.8	-84.3	-41.0	clear	-
+04_7	04_undoing_growth	589.500	625.740	1.210	Take the natural logarithm	just over a thousand.	10	0	15	0	89	98,99	-0.440	-0.420	0	0.998	0	0.996	-80.8	-84.3	-42.0	clear	-
+05_1	05_complex_turns	626.950	648.950	4.850	Now let the numbers	is i times i?	15	0	13	1	-	-	-0.550	-0.030	0	0.998	0	0.997	-71.2	-84.3	-40.3	clear	Closing window ends with Two, the next cue's first word, stamped 4.82 s before its placement.
+05_2	05_complex_turns	653.800	674.280	0.603	Two quarter turns make	angle, which simply adds.	14	0	13	1	100	-	-4.820	-0.080	0	0.996	0	0.997	-80.8	-84.3	-38.4	clear	Hold: recognizer stamps Two 4.82 s before placement, inside the question hold; the take is at placement.
+05_20	05_complex_turns	674.883	700.163	0.603	The complex exponential packs	land on two i.	12	0	13	1	-	102,103	-0.683	0.337	0	0.995	0	0.998	-80.8	-84.3	-37.8	clear	-
+05_3	05_complex_turns	700.767	724.687	0.613	Watch what that does	circle again and again.	15	2	12	1	103	-	-0.267	-0.367	0	0.994	0	0.996	-76.3	-80.8	-43.5	clear	-
+05_4	05_complex_turns	725.300	741.860	0.607	Zero and two pi	to where it started.	14	0	15	0	104	-	-0.220	0.580	0	0.997	0	0.995	-62.0	-84.3	-39.1	clear	-
+05_5	05_complex_turns	742.467	746.867	4.850	Here is a question.	land on minus one?	10	1	10	0	-	-	-0.027	0.213	0	0.997	0	0.997	-57.2	-84.3	-39.6	clear	Cue is 4.40 s, so its two windows overlap and show the same words.
+05_6	05_complex_turns	751.717	779.397	0.603	Minus one has length	logarithm of minus one.	16	0	12	0	-	109	-0.637	-0.317	0	0.995	0	0.997	-74.7	-84.3	-41.8	clear	-
+05_7	05_complex_turns	780.000	805.920	1.213	The same goes for	the folded slide rule.	15	0	13	0	110	-	0.080	-0.280	0	0.996	0	0.995	-84.3	-84.3	-39.0	clear	-
+06_1	06_lifting_loops	807.133	824.333	0.600	If a number has	smoothly along with it.	18	0	13	1	-	-	-0.433	0.087	0	0.996	0	0.995	-84.3	-80.8	-39.5	clear	-
+06_2	06_lifting_loops	824.933	845.173	4.860	As the number turns,	what is the logarithm?	13	0	12	0	-	-	-0.513	-0.273	0	0.996	0	0.997	-80.8	-84.3	-40.3	clear	-
+06_3	06_lifting_loops	850.033	865.873	0.610	Two pi times i.	it comes back down.	11	0	15	1	-	-	-4.273	-0.293	0	0.999	0	0.999	-80.8	-80.8	-43.9	clear	Hold: recognizer stamps Two 4.27 s before placement, inside the question hold; the take is at placement.
+06_4	06_lifting_loops	866.483	882.963	4.853	A loop that does	to where it began?	15	0	13	0	-	-	-0.143	0.377	0	0.997	0	0.998	-80.8	-84.3	-40.1	clear	-
+06_5	06_lifting_loops	887.817	903.257	0.610	It does: it drifts	two pi times i.	11	0	13	1	-	111	-0.477	0.083	0	0.998	0	0.997	-80.8	-84.3	-43.3	clear	-
+06_6	06_lifting_loops	903.867	932.427	0.607	Could some other choice	breaks at minus one.	15	0	13	1	-	113	-0.527	-0.087	0	0.997	0	0.996	-80.8	-80.8	-39.4	clear	-
+06_20	06_lifting_loops	933.033	955.913	0.603	Now suppose someone hands	all the way round.	14	0	16	1	-	-	-0.693	0.427	0	0.995	0	0.995	-76.3	-84.3	-41.5	clear	-
+06_7	06_lifting_loops	956.517	982.117	1.200	Now follow both back	Something has to give.	14	1	12	0	-	-	-0.177	-0.277	0	0.996	0	0.995	-80.8	-84.3	-39.1	clear	-
+07_1	07_branch_cut	983.317	1000.037	0.613	What gives is the	called a branch cut.	16	0	11	1	-	-	-0.377	0.103	0	0.995	0	0.997	-78.3	-84.3	-38.2	clear	-
+07_2	07_branch_cut	1000.650	1034.570	0.613	The usual choice removes	over two times i.	14	0	13	1	-	119	-0.510	0.290	0	0.995	0	0.996	-80.8	-84.3	-41.6	clear	-
+07_3	07_branch_cut	1035.183	1059.663	4.853	Here is where the	up on the strip?	14	1	15	0	-	-	-0.283	-0.163	0	0.996	0	0.998	-80.8	-84.3	-40.3	clear	-
+07_4	07_branch_cut	1064.517	1081.717	0.600	They land on opposite	jump by two pi.	16	0	15	1	-	-	-0.017	-0.077	0	0.997	0	0.996	-80.8	-84.3	-42.1	clear	-
+07_5	07_branch_cut	1082.317	1112.477	0.607	The cut is a	called the branch point.	14	0	14	1	-	-	-0.677	-0.237	0	0.998	0	0.997	-65.2	-84.3	-42.2	clear	-
+07_6	07_branch_cut	1113.083	1151.803	1.213	Two cautions. On the	added by the convention.	11	0	13	1	-	-	-0.463	-0.423	0	0.997	0	0.997	-78.3	-84.3	-38.1	clear	-
+08_1	08_product_rule	1153.017	1180.937	4.863	On the positive numbers,	report for the square?	15	0	14	0	-	-	-1.237	-0.377	0	0.994	0	0.996	-80.8	-84.3	-38.6	clear	-
+08_2	08_product_rule	1185.800	1207.800	0.600	Not one and a	i, exactly one lap.	14	0	11	1	125	127	-0.440	-0.200	0	0.996	0	0.998	-66.2	-84.3	-43.7	clear	-
+08_3	08_product_rule	1208.400	1237.600	0.600	This is the slide	one: one lap down.	17	0	12	1	-	129	-0.400	-0.320	0	0.994	0	0.998	-54.9	-84.3	-39.8	clear	-
+08_4	08_product_rule	1238.200	1260.200	4.850	That lap count hides	one. Which step broke?	12	0	9	0	130	135,136,137	-0.440	-0.260	0	0.995	0	0.997	-51.7	-84.3	-39.1	clear	-
+08_5	08_product_rule	1265.050	1297.450	1.200	Combining the roots. Here	up to that sign.	13	0	16	0	-	-	-0.070	-0.330	0	0.998	0	0.996	-84.3	-84.3	-39.3	clear	-
+09_1	09_matrix_logs	1298.650	1322.490	0.610	One more step up.	the travel comes next.	15	0	13	1	144	-	-0.530	-0.270	0	0.998	0	0.995	-84.3	-84.3	-41.3	clear	-
+09_2	09_matrix_logs	1323.100	1345.900	0.600	Matrices have an exponential	e to the X.	12	0	14	1	145	-	-0.200	-0.100	0	0.996	0	0.996	-73.4	-84.3	-39.8	clear	-
+09_3	09_matrix_logs	1346.500	1363.700	0.600	A logarithm of a	ends at this transformation?	15	0	12	1	-	-	-0.700	-0.040	0	0.995	0	0.996	-84.3	-84.3	-40.3	clear	-
+09_4	09_matrix_logs	1364.300	1389.260	1.207	Start with a quarter	so do their exponentials.	16	0	11	0	-	-	-0.640	-0.160	0	0.997	0	0.994	-56.0	-84.3	-41.8	clear	-
+10_1	10_doing_nothing	1390.467	1403.907	0.610	Now the identity, the	matrices, there are more.	12	0	13	1	-	-	-0.427	-0.027	0	0.996	0	0.995	-80.8	-84.3	-41.8	clear	-
+10_2	10_doing_nothing	1404.517	1426.837	0.613	Squash the circle into	a whole continuous family.	13	0	12	1	-	-	-0.637	-0.377	0	0.995	0	0.996	-71.2	-84.3	-39.9	clear	-
+10_3	10_doing_nothing	1427.450	1458.970	0.613	Which one should a	full lap, two pi.	12	0	13	1	-	-	-0.650	-0.050	0	0.997	0	0.997	-78.3	-84.3	-41.1	clear	-
+10_4	10_doing_nothing	1459.583	1490.783	7.450	So use the same	what are called eigenvalues.	14	0	14	0	-	-	-0.663	-0.263	0	0.995	0	0.995	-80.8	-84.3	-37.9	clear	Followed by an authored fine-print hold of 7.45 s across the chapter join.
+11_1	11_unreachable	1498.233	1524.393	0.607	Can every matrix be	flat onto a line.	16	0	14	1	-	-	-6.833	0.267	0	0.996	0	0.994	-80.8	-84.3	-38.7	clear	Recognizer stamps Can 6.83 s before placement, inside the authored hold; the take is at placement.
+11_2	11_unreachable	1525.000	1555.720	0.613	Track the signed area	velocity as it runs.	16	1	14	1	-	-	-0.340	-0.420	0	0.996	0	0.997	-80.8	-84.3	-41.7	clear	-
+11_3	11_unreachable	1556.333	1585.293	4.857	That factor on signed	steady flow end here?	13	0	13	0	-	-	-0.693	-0.293	0	0.997	0	0.997	-51.7	-84.3	-39.8	clear	-
+11_4	11_unreachable	1590.150	1622.310	0.607	No. Suppose some steady	term of the sum.	12	0	13	1	-	-	-0.350	-0.310	0	0.995	0	0.996	-80.8	-84.3	-40.3	clear	-
+11_5	11_unreachable	1622.917	1655.637	0.613	Now see what commuting	the diagonal is zero.	14	0	15	1	148	-	-0.417	-0.377	0	0.997	0	0.997	-74.7	-84.3	-43.0	clear	-
+11_6	11_unreachable	1656.250	1683.610	0.607	So X is diagonal.	steady flow does both.	11	0	12	1	-	-	-0.450	-0.250	0	0.995	0	0.996	-67.4	-84.3	-42.5	clear	-
+11_7	11_unreachable	1684.217	1718.937	0.613	Compare flipping both axes	with an equal stretch.	15	0	14	1	150	151	-0.377	-0.297	0	0.997	0	0.996	-80.8	-84.3	-43.3	clear	-
+11_20	11_unreachable	1719.550	1733.070	18.347	In higher dimensions, the	is the precise version.	12	0	12	0	152	153	-0.370	-0.350	0	0.996	0	0.997	-80.8	-80.8	-39.1	clear	Followed by an authored reading hold of 18.35 s, the longest in the film.
+11_8	11_unreachable	1751.417	1772.857	1.210	Allow complex matrices, and	reason zero had none.	9	0	15	0	-	-	-17.577	-0.277	0	0.995	0	0.997	-80.8	-84.3	-39.1	clear	Recognizer stamps Allow 17.58 s before placement, inside the authored hold; the take is at placement.
+12_1	12_what_it_forgets	1774.067	1788.627	0.607	Look back along the	and the slide rule.	13	0	13	1	-	-	-0.647	-0.047	0	0.997	0	0.997	-66.8	-84.3	-38.4	clear	-
+12_2	12_what_it_forgets	1789.233	1804.433	0.600	Fold the ruler into	keeps a lap count.	15	0	16	1	-	-	-0.653	0.147	0	0.994	0	0.996	-80.8	-84.3	-43.3	clear	-
+12_3	12_what_it_forgets	1805.033	1824.553	0.613	With matrices the exponential	motion got us here?	10	1	11	1	-	-	-0.453	0.227	0	0.996	0	0.996	-80.8	-84.3	-41.1	clear	-
+12_4	12_what_it_forgets	1825.167	1859.727	0.607	One more motion, now	turn about the rod.	12	1	17	1	-	156	-0.387	0.033	0	0.997	0	0.997	-74.7	-84.3	-40.3	clear	-
+12_5	12_what_it_forgets	1860.333	1872.653	4.863	Here is the puzzle.	spin, and the axis.	13	0	13	0	-	-	-0.573	-0.213	0	0.996	0	0.996	-80.8	-84.3	-41.0	clear	-
+12_6	12_what_it_forgets	1877.517	1891.277	0.607	Here is the answer,	number of half laps.	11	0	17	1	-	-	-0.197	0.043	0	0.997	0	0.997	-84.3	-84.3	-43.9	clear	-
+12_20	12_what_it_forgets	1891.883	1915.803	0.613	Direction next: half a	about this one rod.	15	0	11	1	-	-	-0.283	-0.343	0	0.997	0	0.994	-80.8	-84.3	-39.8	clear	-
+12_21	12_what_it_forgets	1916.417	1936.817		The two slowest, half	is the whole family.	12	0	13	0	-	-	-0.677	-0.497	0	0.996	0	0.997	-84.3	-78.3		clear	Film edge: last word family. ends 1936.32; cue ends 1936.82; video ends 1937.42.

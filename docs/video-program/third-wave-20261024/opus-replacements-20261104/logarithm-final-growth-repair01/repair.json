@@ -1,0 +1,13 @@
+{
+  "recorded_utc": "2026-11-05T20:53:37.405568+00:00",
+  "finding": "LavenderPike O1:04_7 numeric result about8s before its sentence",
+  "original_path": "/Users/jemanuel/scratch/jmev-geometry-native-20261104-01/logarithm-stage09-workspace01/explainer_corpus/logarithm_mysteries/src/chapters/undoing_growth.rs",
+  "original_sha256": "4dc4c555122d9cd5423d7094336c1d5e6f7f9afb77d6850a38bc0148c20180ef",
+  "candidate_sha256": "2282ee6a3c600035826fe11031e0fca972136517905ee39f03492a9b9671086a",
+  "change": "Show division at sentence5; replace with complete numeric result and far point at sentence6 mark. Existing facts and full narration unchanged. Added0.4s reveal requires new native timeline/picture review.",
+  "production_source_unchanged": true,
+  "compiled": false,
+  "rendered": false,
+  "listened": false,
+  "fine_sync_accepted": false
+}

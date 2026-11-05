@@ -1,0 +1,17 @@
+226	Ch08 end. Puzzle chain -1=i·i=√-1√-1=√((-1)(-1))=√1=1 with the red box on the false step; green and yellow side lines and Log 1=0, not 2πi all correct. √(zw)=±√z√w arrives with "only up to that sign". No overlap. Dim purple rows legible at 960.
+227	Ch08/09 join: two black tiles, then title alone; title-only stage under "One more step up". Clean.
+228	Identity grid and F appear with "a two by two matrix". Right half empty for about 9 s; no matrix yet (see 229). Columns note arrives with its sentence.
+229	f78615 faint ghosts only; f78634 fully turned: state change is a sub-0.3 s fade, not motion, which matches the "before and after only" note. [0.6 -0.8; 0.8 0.6] agrees with the drawn grid: e1 up-right, e2 up-left, det 1. Stretched and sheared states fall between sampled tiles: not seen.
+230	Flipped [-1 0; 0 1]: F mirrored about y axis, arrows right. "before and after only" note arrives with the sentence. No overlap.
+231	Cross-fade clears to empty stage; series e^X=I+X+X²/2+X³/6+… correct. Grid fades back by f79683.
+232	"X, a velocity" [0.3 -1; 0.8 -0.1] with arrows. Spot checks: (-2,-2) gives (1.4,-1.4), (2,2) gives (-1.4,1.4), both match drawn directions.
+233	Counter shows bare 0.00 at f80304 then "time t = 0.00" by f80334: label lags the value briefly. t=1.00 at f80539. Flowed grid corners clipped on vertical lines at about x=35 and x=495 of the tile, see P1.
+234	e^X≈[0.905 -0.97; 0.776 0.517] arrives with "the matrix e to the X". Series recomputation gives 0.9052, -0.9704, 0.7763, 0.5171: correct. -0.97 is -0.970 with a dropped trailing zero, see P2. Grid clipped as in 233.
+235	X is a logarithm of A ⟺ e^X=A is correct. Tile 4 catches the cross-fade from series to "existence becomes a question about motion": single transient.
+236	"is there a steady flow that ends at A?" arrives with its sentence. Right column stack clear of the grid.
+237	Stage clears, gold relation kept; title swaps to "Three ways to reach a quarter turn" over about 1.7 s of empty stage while "Start with a quarter turn" is said. Clean.
+238	First grid and J=[0 -1; 1 0], labels 0.25 and 1.25 turns; second grid fades in on its sentence. Grids still static during "reaches it"; flow is run at sheet 239.
+239	Third grid fades on its sentence, then all three flow. Tile 4 consistent with rates 1:5:-3: about 45°, 225°, -135°. Third turns clockwise as labelled.
+240	All three end at the same F pose: stem horizontal, arms up, e1 up, e2 left: exact quarter turn CCW. X=(π/2+2πk)J ↔ log i=(π/2+2πk)i correct; k=0,1,-1 give the three labels. Teal note and matrix run to x≈940 of 960: tight right margin, see P3.
+241	Closing hold of ch09 complete and legible; f83392 black at the join.
+242	Ch10 grid back without F at f83428, title and identity matrix by f83458. Correct.

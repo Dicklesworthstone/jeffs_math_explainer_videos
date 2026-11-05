@@ -1,0 +1,8 @@
+281	Tile 1 fade of the previous stage. u=(1,1) square diagram: purple dot at about (-0.70,0.70) is Xu for the sample X; teal dot about (-0.06,1.30) is e^X u; yellow about (-1.32,-0.17). Recomputed with the ch09 X: Xu=(-0.7,0.7), e^X u=(-0.065,1.293), X e^X u=e^X X u=(-1.313,-0.181). Picture matches. "same end point" clear of the arrows.
+282	Series A=e^X=I+X+½X²+⅙X³+… correct. Long hold, line ends about x=901 of 960. Dark gap left of the series none. Clean.
+283	XX^k=X^{k+1}=X^kX and ⇒ XA=AX correct, gold line on its sentence. Dense column but no overlap.
+284	Rows leave, lemma line moves to the top, X=[p b; c q] appears. X matrix ends about x=938 of 960 (P3). Arrows and dots of the old sample clear.
+285	f97733 "first A, then X" and "first X, then A" with arrows on "send it along both". Au=(-2,-0.5) drawn right. Teal Xu is about (1,-0.8), not the (-0.7,0.7) of the ch09 sample, so this X is a different concrete matrix from the one the card just called the sample flow, and the card shows only letters. Inferred X=[0.4 0.6; -0.5 -0.3] reproduces every arrow end and the 1.17 gap: see M1.
+286	Same state held under the sentence. Labels clear. Arrow crossing near (-1.8,0.4): crowded but separable.
+287	Red gap segment and 1.17 on "the two routes end". f98269 value shows before its label "gap between the ends:" by under 0.5 s: transient. Gap 1.5·sqrt(b²+c²)=1.17 with b=0.6, c=-0.5: consistent.
+288	"each gap part=±1.5×an off-diagonal entry of X×a part of u, where 1.5=(-½)-(-2)": correct from XA-AX=[0 1.5b; -1.5c 0]. Note enters on sentence 4. Three text rows, nothing overlaps.

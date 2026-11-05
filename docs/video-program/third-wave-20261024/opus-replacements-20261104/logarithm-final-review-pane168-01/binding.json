@@ -1,0 +1,31 @@
+{
+ "scope": "sheets 113 through 225 inclusive, pictures 0449 through 0900",
+ "master": {
+  "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-stage09-render-work02/logarithm_mysteries_master.mp4",
+  "sha256_recomputed": "00236d1a6915ff968235a30ab59769b02125ece0fee482e4fa3154c265ac7c24",
+  "sha256_verification_json": "00236d1a6915ff968235a30ab59769b02125ece0fee482e4fa3154c265ac7c24",
+  "equal": true,
+  "bytes": 200701388,
+  "frames": 116245,
+  "fps": 60,
+  "master_job": "logarithm-stage09-master02"
+ },
+ "verification_json": {
+  "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-stage09-final-verify02/verification.json",
+  "sha256": "22fb77188d6e9d86a0c9499e7a81db782d4b29830d1ddb4be40fe4dd3003fd62",
+  "pictures_viewed_field": false
+ },
+ "command_log": {
+  "path": "narration_lab/third-wave-20261024/root/five-film-release-20261027/logarithm-stage09-final-verify02/command.log",
+  "sha256": "a236e77e25993b51d9e2beccd8a85bf115aae6156aeb6c5361611df618cf622f"
+ },
+ "script": {
+  "path": "docs/video-program/third-wave-20261024/opus-replacements-20261104/logarithm-clarity-integration01/stage09/candidate/explainer_corpus/logarithm_mysteries/script.tsv",
+  "sha256": "559afa3698222952036ece90a25eab926d45e201fc916bf32412e9485a52170a"
+ },
+ "sheets": {
+  "expected": 113,
+  "hash_equal_to_verification_json": 113,
+  "with_a_read_call_that_returned_an_image": 113
+ }
+}

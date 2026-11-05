@@ -1,0 +1,8 @@
+cue	chapter	cue_end_s	predict_mark_s	last_hold_picture_s	next_cue	next_cue_start_s	silent_by_cue_data_s	no_answer_frames_viewed_through_s
+05_1	05_complex_turns	648.95	649.55	653.60	05_2	653.80	4.85	653.80
+05_5	05_complex_turns	746.87	747.47	751.52	05_6	751.72	4.85	751.72
+06_2	06_lifting_loops	845.17	845.78	849.83	06_3	850.03	4.86	850.03
+06_4	06_lifting_loops	882.96	883.57	887.62	06_5	887.82	4.85	887.82
+07_3	07_branch_cut	1059.66	1060.27	1064.32	07_4	1064.52	4.85	1064.52
+08_1	08_product_rule	1180.94	1181.55	1185.60	08_2	1185.80	4.86	1185.80
+08_4	08_product_rule	1260.20	1260.80	1264.85	08_5	1265.05	4.85	1265.05

@@ -1,0 +1,16 @@
+305	All four rows labelled in order: "matching pair: real log", "no partners: no real log", "-2 paired, 3 positive: real log", "one size-2 block: no real log". All four verdicts agree with the even-count rule. Gold brackets arrive on "come in matching pairs".
+306	Brackets on rows 1 and 3 only. Old right column fades at f103870 and the theorem begins to fade in on "On screen is the precise version".
+307	Theorem card complete: "A real matrix has a real logarithm exactly when it is invertible and, for every negative eigenvalue, its Jordan blocks of each size occur an even number of times." Correct. Clear of row labels and footer.
+308	Silent hold f103972 to f105085, 18.55 s, the longest in my range. Source marks it as an authored hold with a gold reading mark per row. Mark sampled at row 3 f104858 and row 4 f105073-f105085; none at f104258; rows 1-2 not caught by a tile. Dot is not explained on screen but harmless. See H1 for what the hold cannot show from stills.
+309	f105115 stage cleared, old title still up on "Allow complex matrices": title changes by f105368. e^{iπ}=-1, e^{ln 2+iπ}=-2, e^{-ln 2+iπ}=-½, ln 2≈0.693 all correct. Blue row labels this "log A", see F2: A has eigenvalues on the negative axis, so by the film's own ch10 card and closing line it has no principal log.
+310	Gold "every invertible complex matrix has a complex logarithm" on sentence 3, correct. Footer "precisely: Gallier, arXiv 0805.0245, Theorem 3.3, proved via the Jordan form" matches the quote in the crate's sources file; paper not reopened by me.
+311	Red "singular S: det S=0 but det e^X=e^{tr X}≠0" and "flattening matrices, like zero, have no logarithm" on sentence 4. Correct. Seven rows plus footer, nothing touches. Closing hold reaches cue end f106359.
+312	ch11/12 join: f106408 and f106444 black, title by f106474, panels by f106564. Clean. Four outlined panels empty on "Look back along the way."
+313	Curve panel: "one input for every output" on sentence 3. Ruler ticks fit log spacing: 2 at 297, 3 at 333, 4 at 358, 8 at 419 from 1 at 236, 61 px a doubling.
+314	Equal arcs 1→2→4→8 and "×2 is always the same step" correct. Keyboard row with dots on octaves arrives on "the keyboard". Small but clear.
+315	Hold through 12_1 cue end, then 12_2 start. No change. Clean.
+316	Ruler bends at f107384, dial by f107592. Dial angles fit log: 2 at 108°, 3 at 171°, 4 at 216°, pointer 2.4 at 136° (expected 136.9°). 0.24, 2.4, 24, 240 share a mantissa: correct. Third panel starts with circle and green dot at -1.
+317	Fan to 3πi, πi, -πi, -3πi: all exp to -1. Red cut on the negative real axis ending at the origin. "a cut chooses the laps" and Log zw=Log z+Log w+2πik on sentence 3. Correct. Text ends x≈447 of 480 inside its panel.
+318	Fourth panel: tilted ellipses, ring on the common point, "many flows, one place: all home at t=1" on sentence 2. Agrees with ch10 sheets 245-247.
+319	"diag(-2,-½): no single steady real flow ends here" at sentence 2 plus half a second, f108790, correct. All four panels full: densest overview, all text inside its frame, smallest text legible at 960 on the sheet.
+320	Gold ? per panel, then panels fade by f109366 and "Which steady motion got us here?" alone by f109408. Clean recap close.

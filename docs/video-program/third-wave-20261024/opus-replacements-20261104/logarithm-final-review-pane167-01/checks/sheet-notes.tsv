@@ -1,0 +1,112 @@
+001	clear	Black open, title by 1.10 s; title alone while the first sentence speaks.
+002	clear	Title alone to 6.78 s; "55, 110, 220" by 10.00 s as the frequencies are spoken.
+003	clear	All labels by 19.92 s, no ruler yet; ruler drawing at 21.23 s on "ordinary ruler".
+004	clear	Dots at computed positions (55..3520 of 838 px); "1/2 of the ruler" at 24.50 s.
+005	clear	"1/8 of the ruler" at 30.85 s; first four notes 55-440 fall inside it.
+006	clear	Keyboard fades in, dots move to equal spacing; "1 semitone" by 40.00 s.
+007	clear	Six x2 arcs drawing; "12 semitones" by 45.75 s. Full-size f2745: green dots sit on the A keys; 13 blue dots mark 12 semitones.
+008	clear	"note interval depends on frequency ratio" at 50.93 s on sentence 4.
+009	clear	440 ringed, 6-semitone arc and "? Hz" on sentence 2.
+010	clear	Question held; arc lands on D sharp position, 6/12 of the octave spacing.
+011	clear	"660 by difference?" and red tick at 68.90 s, tick at computed 660.
+012	clear	Hold: countdown bar from 72.32 s; "? Hz" stays.
+013	clear	Bar ends 76.37 s; 00_5 starts 76.57 s; no answer in the hold; "x ? then x ? = x2" follows.
+014	clear	sqrt 2 fills in at 82.35 s, after the hold, on sentence 2.
+015	clear	622.25 Hz at 87.23 s; 660 struck, 622 tick left of it; 440 x sqrt2 = 622.25.
+016	clear	"equal steps = equal ratios" plus ISO 16 footnote; struck text and 880 label tight but legible. Full-size f5755: struck text and the 880 label do not touch.
+017	clear	Fade to "Where the ruler goes" between 101.38 and 106.85 s; only the new layout's strips at 106.85 s. Pulled f6180 and f6330 inside the gap: two strips and "multiply by sliding".
+018	clear	Grid rotates; "motions of the plane".
+019	clear	Dial "laps forgotten" on sentence 4; red line on sentence 5.
+020	clear	Hold to chapter end.
+021	clear	Black chapter open, title and bare line by 126.88 s.
+022	clear	"1" on "put one at the start"; "one step" bar.
+023	clear	"2" at 137.62 s.
+024	clear	1,2,4,8 equal 135 px spacing; "every doubling adds the same length".
+025	clear	pos rule at 147.25 s; 1/2 and its step at 154.22 s.
+026	clear	sqrt 2 drawn at the midpoint of 1 and 2 at 160.45 s.
+027	clear	"two half steps make one"; cleared on 01_3.
+028	clear	Title "Where does three go?"; "3 ?" triangle sweeps.
+029	clear	Triangle rests at 1.50 steps, the midpoint of 2 and 4: not the answer.
+030	clear	Hold starts; bar at 179.17 s.
+031	clear	Bar ends 183.22 s; triangle still at 1.50, no answer shown.
+032	clear	3^12 = 531,441 at 186.28 s.
+033	clear	2^19 = 524,288 at 192.22 s.
+034	clear	1.36% apart, correct; 19 and 12 dashes; pos(3) approx 19/12 approx 1.583 correct.
+035	clear	Holds; triangle moved to 1.58.
+036	clear	Cross-fade to 1318.51 / 1320, both correct; ghost overlap at 212.28 s only.
+037	clear	Tick 3 at 1.59 steps, pos(3) approx 1.585; grey rule line added.
+038	clear	Cleared for 01_6 by 233.05 s.
+039	clear	Title and formula cross-fade at 235.25 s; log2 8 = 3, log2 3 approx 1.585.
+040	clear	Lower items clear at 246.45 s for the base change.
+041	clear	One step = x4 (bar 1 to 4), then x10; tick 10 at 3.32 steps, computed; "every base" fades in at 255.78 s.
+042	clear	log10 x = log2 x / log2 10 correct; black at chapter 02 start f15602.
+043	clear	D by 261.13 s, C and D by 263.03 s; all ticks 1-10 at computed log10 positions.
+044	clear	C slides out and back on "one that slides along" (264.15-266.15 s).
+045	clear	"one full length = 1: from 1 to 10, x10".
+046	clear	"2.5 x 3.2 = ?"; 2.5 = 0.398 correct; bar length computed.
+047	clear	C slides from 278.20 s; 1 nearing 2.5 by 279.70 s.
+048	clear	C's 1 ringed above D's 2.5; "every mark moved by 2.5's length".
+049	clear	3.2: 0.505 correct; ring at C 3.2; yellow line and "?" at 290.03 s.
+050	clear	Hold begins; bar 292.65 s.
+051	clear	Bar ends 296.70 s; no stated answer.
+052	clear	"= 8" and ring on D's 8 at 297.40 s; 3.2 bar moves down.
+053	clear	0.398 + 0.505 = 0.903 = pos(8) correct.
+054	clear	"sliding adds the lengths; the marks turn the sum back into a product" at 305.60 s.
+055	clear	Cleared; "4 x 6 = ?" and C home by 313.50 s.
+056	note	C's 1 moves to D's 4; C "10" ends about 13 px from the right edge of the 960 panel (lint "tight": 0.20 vs 0.25, 57 later looks); not clipped. Full-size f18914: the 10 ends 52 px from the 3840 edge, unclipped.
+057	clear	Rings on C 1 and C 6; red ticks; dashed D extension; "off the end" at 317.35 s.
+058	clear	"D stops at 10", "24 would sit here"; log10 24 position computed at x about 821, matches.
+059	clear	Holds into 02_5.
+060	note	Labels clear 327.28 s; C slides left; left end leaving the frame by 328.43 s.
+061	note	C's 10 above D's 4 ringed by 329.43 s, correct; C's "1" end and its label are outside the frame (lint "outside", x -7.65, 118 later looks); consequence of the setup, "2" still inside the frame. Full-size f19766: C's line leaves the frame left of its 2; D's 1 and the used marks are inside.
+062	clear	D's 2.4 ringed under C's 6, position computed; "the rule gives the digits: 2 4" at 334.33 s.
+063	clear	2.4 and 24 fading in at 339.55 s.
+064	clear	2.4, 24, 240 bracket "one mark"; "4 x 6 lies between 10 and 100" at 345.42 s.
+065	note	02_5 closes on "4 x 6 = 24" and the "one mark" bracket; black at chapter 03 start f21177 (slot 3). C's left end still off-frame, see 061.
+066	clear	Black at 353.55 s, title by 354.05 s; 1..1000 ruler, rings at computed log10 positions of 2.4, 24, 240 (270 px a decade).
+067	clear	Two equal "x10 = one decade along" arrows, 2.4 to 24 to 240.
+068	clear	Later decades fade at 366.52 s; dial ticks 2..9 at computed lap fractions; "one lap = x10" at 372.23 s.
+069	note	Title "Multiplying is turning" by 373.53 s; pointer at top; the "0" is visible at 373.53 s while its "laps past the top:" label is not; both by 376.43 s. Pulled f22430 (373.83 s): label and 0 both visible, so the gap is under 0.31 s. Transient only.
+070	clear	"x4: turn 0.602 lap" at 376.93 s; pointer lands on 4 (0.601 lap measured); "x6: turn 0.778 lap more" at 379.85 s; log10 4 and log10 6 correct.
+071	clear	Pointer sweeps past the top from 382.95 s; 0.602 + 0.778 = 1.380 = 1 lap + 0.380 correct; ring at computed 0.380 lap; counter 1 at 389.63 s.
+072	clear	"4 x 6 = 10 x 2.4 = 24" and "one lap = x10" by 390.13 s, correct.
+073	clear	Title "Laps the dial forgets"; "the dial shows only the mark"; labels gone by 397.05 s; dial starts to tilt.
+074	clear	Dial flattened by 399.30 s; side text gone.
+075	clear	Spiral with four dots above one mark; "the 2.4 mark: one place on the dial"; "2.4 / 0 laps" at 404.60 s.
+076	clear	24 / 1 lap; 0.24 / -1 lap; 240 / 2 laps fading in at 409.85 s; order correct.
+077	clear	All four levels; "a spiral, and its shadow" at 413.87 s.
+078	clear	Vertical line and circle, "inputs a lap apart, one output" by 417.37 s.
+079	clear	Four lines reach one yellow output by 427.50 s; e^(x+iy) at 428.00 s on the last sentence.
+080	clear	Holds to cue end; black at chapter 04 start f25856 and at 431.53 s.
+081	clear	Title by 432.03 s, alone to 435.13 s; axes at 435.63 s on sentence 2.
+082	clear	y = e^x through (0,1) and (1,e), computed; e^(a+b) = e^a e^b fades in at 441.85 s.
+083	clear	"1 at 0"; height = slope 0.202, 0.748, 0.607, each e^x at the dot's measured x.
+084	clear	"built from scratch in the companion film" by 450.93 s; "three facts" at 453.28 s.
+085	clear	e^x e^-x = e^0 = 1 implies e^x not 0; dots at x = -1 and 1 at computed heights.
+086	clear	Red dashed zero line; "starts at 1; to go negative it would cross 0".
+087	clear	"slope = height > 0: always climbing"; tangent travels from the left.
+088	clear	Tangent near x = 1 at 481.00 s; level line meets the curve once; crossing at x = ln 2.16 computed; "times the curve reaches this height: 1". Full-size f28920: line at 2.13 sits below the y = e^x label, crossing at x = ln 2.13.
+089	clear	Level line low at 484.35 s, 1.5 at 487.15 s (x = ln 1.5 computed); cleared by 487.65 s. Pulled f28980: line at 1.03, count 1. Pulled f29100 (485.00 s): red line near -0.84, count 0, correct; no sheet shows this.
+090	clear	"ln: the natural logarithm"; both inverse identities with domains; arrow from y = 2 lands at 0.68-0.69; ln 1 = 0 ringed at 496.35 s.
+091	clear	ln e = 1 (e about 2.718); dot at (1, e), dashed to 1.
+092	clear	"0 and below: no real logarithm" and thick red on y <= 0 at 502.33 s.
+093	clear	y = x fades in at 509.13 s; tangent triangle starts at x = 0.5, rise and run labelled, sizes computed.
+094	clear	y = ln x mirror through (1,0); triangle swapped with run on top, sizes computed; "no real logarithm" on x <= 0; d/dx ln x = 1/x by 515.67 s.
+095	clear	Tangent slope 1 at (1,0), parallel to y = x; ln 1.01 about 0.00995 about 0.01 correct.
+096	clear	"+1% in x -> about +0.01 in ln x"; "that is why base e is called natural".
+097	clear	Cross-fade to the ratio ruler with ghost overlap at 539.98 s only; 1, 2, e, 4, 8 at computed positions.
+098	clear	ln ruler 0, 1, 2 at e powers, computed; "ln: step 1 = xe"; ln(ab) = ln a + ln b (a, b > 0) at 550.07 s.
+099	clear	Bars ln 2 and ln 4 add to ln 8; "2 x 4 = 8", ring on 8.
+100	clear	log2 ruler 0..3 under 1, 2, 4, 8; log2 x = ln x / ln 2.
+101	clear	Cleared at 572.67 s; title "How long to double?" by 574.55 s.
+102	clear	Ratio axis 1..1024, years to 150; straight line at computed slope; factor = e^(0.05 t) by 578.40 s.
+103	clear	"x2 when?" and level 2 at 583.93 s; cue ends 584.45 s; countdown bar from 585.25 s; no stated answer.
+104	clear	Bar drains in proportion (585.65, 586.65 s), sliver at 589.30 s; no stated answer.
+105	clear	04_7 start 589.50 s still the question; e^(0.05 t) = 2 at 590.00 s after the hold.
+106	clear	0.05 t = ln 2 about 0.693 at 593.20 s; t about 13.9 years at 600.73 s; dot at computed t; 0.693 / 0.05 = 13.86.
+107	clear	Rule of seventy at 604.58 s; "100 x ln 2 about 69.3" correct.
+108	note	x1000 dot at computed t = 138.2; arithmetic correct; "about 138" is on screen from 610.73 s, about 8 s before sentence 6 says it at 618.70 s. Full-size text legible.
+109	clear	Ten doubling dots at computed spacing; 2^10 = 1024; 10 doublings about 138.6 years correct; black at chapter 05 start f37581. Full-size f37256: right column legible, rows do not touch.
+110	clear	Black at 626.95 s; title by 627.45 s, alone through 629.92 s.
+111	clear	Axes and unit circle at 630.42 s; z (30 deg, 1.2) and w (50 deg, 1.5) tips computed, by 636.35 s.
+112	clear	zw at 80 deg, 1.8, by 637.95 s; 1.2 x 1.5 = 1.8 and 30 + 50 = 80 correct; iz at 120 deg, same length, at 641.33 s.

@@ -1,0 +1,16 @@
+frame	seconds	near_sheet	full_png_sha256	sealed_picture	how_read	settled
+2745	45.750	007	dca21c1d935dfbbbd467d9cb13d0541dd8fac8c7621898c8cfafe6ceaea79385	same-as-sealed	whole frame, shown at 2000 wide	Green dots sit on the A keys; 13 blue dots mark 12 semitones.
+5755	95.917	016	0641919c00da566f07bb4e824fcc9eea117bce67abd2c183075cf9c4dffda3ae	same-as-sealed	whole frame, shown at 2000 wide	Struck "660 by difference?" and the 880 label do not touch; footnote legible.
+6180	103.000	017 gap	e3b8575ddcf0bae7eb82f1731c657c150ac95352697161d449fb4176848e72e2	unsealed	whole frame, shown at 2000 wide	Inside the 00_6 gap: two strips and "multiply by sliding".
+6330	105.500	017 gap	82c268664f229547ee6b3372fee79ff7c312b577307449796a93e82af75662c7	unsealed	whole frame, shown at 2000 wide	Same layout as 103.00 s.
+18914	315.233	056	be4dae5d23cfb660635c02ee35986c7d790cb71aed572f8927eb15d8bee01cd0	same-as-sealed	native crop 1400x800 at 2440,500	C's 10 ends 52 px from the 3840 edge; not clipped (O2).
+19766	329.433	061	00acac523e7e72d710582920da3973e8be4113ac434f693a65b337e8e58342c1	same-as-sealed	native crop 1400x800 at 0,500	C runs off the left edge past its 2; D's 1 stays in frame (O3).
+22412	373.533	069	8101225f86883f82d925dd2a2f89d3c3f140eb16a60b960e7e0d077f0891e17c	same-as-sealed	native crop 1900x900 at 1900,600	The 0 is bright while its label is almost invisible (C3).
+22430	373.833	069 gap	6200602abcd17a2818bcf6e317fe5b59c6a734df604d83cf258cef1336c16405	unsealed	native crop 1900x900 at 1900,600	Label and 0 both visible 0.30 s later.
+22460	374.333	069 gap	344217bad6fa79915333db242a81930b19ffbf91e29369d0ae2105a1f83a864d	unsealed	whole frame, shown at 2000 wide	Settled layout; dial ticks and pointer clean.
+22500	375.000	069 gap	344217bad6fa79915333db242a81930b19ffbf91e29369d0ae2105a1f83a864d	unsealed	not opened; same bytes as f22460	Picture still between 374.33 and 375.00 s.
+28875	481.250	088 gap	c5bcad0fac0972543d447fe9a597418c68a3516980f49a223c603140d728de22	unsealed	native crop 1900x1000 at 0,200	Tangent fading out; level line not yet present.
+28920	482.000	088 gap	19cf51d199415c7c1fedab2017bb850e01de7eac00161a79202d80102d78a529	unsealed	native crop 1900x1000 at 0,200	Level line at 2.13 sits below the y = e^x label; crossing at x = ln 2.13.
+28980	483.000	089 gap	99e9104c83688499ef57a43454cc4d58b39dc62e24da123711ffd9d3559c6446	unsealed	whole frame, shown at 2000 wide	Line near 1.03, count 1; the line passes over the axis label 1 in this frame.
+29100	485.000	089 gap	f907cf2c52fb81c8fb1ff1f438fc22097e40b5708fbeaa8e64334965ae0e8e8b	unsealed	whole frame, shown at 2000 wide	Red line near -0.84, count 0: correct, and shown on no sheet.
+37256	620.933	109	2431fb3076ebcd63fe80b5aa3d4a5e8c4c6efe7c64559051e5a1395de2922183	same-as-sealed	native crop 1500x1500 at 2340,660	Right column legible; rows do not touch.

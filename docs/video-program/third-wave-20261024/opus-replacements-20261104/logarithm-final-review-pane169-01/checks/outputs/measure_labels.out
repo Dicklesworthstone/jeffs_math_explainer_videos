@@ -1,0 +1,13 @@
+frame	ratio	ink	back	label
+frame-1168.png	4.35	(134, 112, 150)	(10, 16, 18)	purple: a half turn, then a stretch
+frame-1199.png	3.98	(124, 108, 137)	(10, 16, 18)	purple: only the two axes go straight back
+frame-1295.png	4.32	(131, 113, 144)	(10, 16, 18)	purple: spin: 1/2 lap per unit of time
+frame-1295.png	4.30	(141, 107, 157)	(19, 12, 28)	purple: laps value 0.50
+frame-1356.png	4.42	(143, 109, 157)	(10, 16, 18)	purple: laps: 1/2, 1 1/2, ...
+frame-1125.png	4.88	(123, 129, 137)	(10, 16, 18)	grey: (here X is the sample flow)
+frame-1199.png	4.77	(122, 127, 138)	(10, 16, 18)	grey: dashes: straight back
+frame-1221.png	5.01	(125, 131, 139)	(10, 16, 18)	grey: each row is one matrix
+frame-1289.png	5.26	(129, 134, 147)	(10, 16, 18)	grey: each corner keeps to a circle
+frame-1295.png	5.02	(125, 131, 141)	(10, 16, 18)	grey: time
+frame-1356.png	13.43	(235, 215, 153)	(10, 16, 18)	control gold: so: infinitely many
+frame-1356.png	15.20	(224, 230, 232)	(10, 16, 18)	control white: precisely footer

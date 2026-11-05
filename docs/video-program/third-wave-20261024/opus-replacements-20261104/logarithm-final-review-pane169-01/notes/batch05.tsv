@@ -1,0 +1,8 @@
+273	"det < 0: no real logarithm" on its sentence; correct. Stage clears within 0.5 s at "Is a positive determinant enough?"; "det > 0: enough?" follows. Clean.
+274	Grid, grey F and A=[-2 0; 0 -½] on "Try this one". "×2, flipped" arrow to -2 on the x axis on its sentence.
+275	"×½, flipped" arrow to -½. Yellow image computed from the drawn F under x→-2x, y→-y/2: block 197-224, bottom bar to 151, middle bar to 167: matches pixels. Middle arm of the image lies on the x axis under the green arrow, so arrow and arm merge, see P5.
+276	det=(-2)×(-½)=+1 and A=(-I)×diag(2,½): both correct; arrive on their sentences. Purple "a half turn, then a stretch" dim, see P6.
+277	Question sentence 9 at f94966 over the full card. Nothing on the card answers it; "det > 0: enough?" still open. f95106 cue end, f95130 silent.
+278	Prediction hold. Gold bar appears at f95154, the predict mark at chapter frame 5296. Bar shrinks steadily: 203, 183, 177, 132 tile pixels at 1585.90, 1586.30, 1586.40, 1587.30.
+279	f95258 115 pixels; f95397 a single tick. Linear fit gives about 4.05 s of bar. f95409 still "enough?" at the start of "No.". f95439 "det > 0: not enough" in red. Answer after the bar, after the word. Passes the hidden-answer rule. No "pause for more time" text anywhere on the card, see P7.
+280	"suppose A=e^X, X real" replaces the det row, det lines leave. F and image start fading at f95858 as the argument moves on. Clean.
